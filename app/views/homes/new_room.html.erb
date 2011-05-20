@@ -17,12 +17,12 @@
         <%= f.label :moderator_password %>:
         <!-- provisory modification on tabulation style : field1 and field2 -->
         <span class="field1">
-          <%= f.text_field :moderator_password, :id => "moderatorPW", :disabled => true %>
+          <%= f.password_field :moderator_password, :id => "moderatorPW", :disabled => true %>
         </span>
         <br/>
         <%= f.label :attendee_password %>:
         <span class="field2">
-          <%= f.text_field :attendee_password, :id => "attendeePW", :disabled => true %>
+          <%= f.password_field :attendee_password, :id => "attendeePW", :disabled => true %>
         </span>
       </div>
     </p>

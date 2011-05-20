@@ -145,7 +145,7 @@ function cropImage (c){
   });
 	
 	$('#space_new_form img[tooltip]').each(function()
-   {
+  {
       $(this).qtip({
          content: $(this).attr('tooltip'), // Use the tooltip attribute of the element for the content
 			   position: {adjust: { screen: true }},
@@ -153,9 +153,22 @@ function cropImage (c){
 			   hide: { when: 'mouseout', fixed: true },
          style: 'mystyle' // Give it a crea mstyle to make it stand out
       });
-   });
+    });
+  
+  $("#create_space #public").livequery('click', function(event) {
+    $("#private_check").toggle('slow');$('.input_control').attr('checked', true);
+    
+      if($('#moderatorPW').attr('disabled') == false && $('#attendeePW').attr('disabled') == false){
+        $('#moderatorPW').attr('disabled', true);
+        $('#attendeePW').attr('disabled', true);
+      }
+      else{
+        $('#moderatorPW').attr('disabled', false);
+        $('#attendeePW').attr('disabled', false);
+      }
+  });
 
-	<% end %>
+<% end %>
 	
 
 	
@@ -199,10 +212,23 @@ function cropImage (c){
 			</div>
 		
 			<div>
-		   	<%= f.check_box(:public) %><label for="public"><%= t('space.public.one') %></label>
+		   	<%= f.check_box :public, :id => "public" %><label for="public"><%= t('space.public.one') %></label>
 		    <%=image_tag("icons/help.png",:title=>"", :size=>"16x16",:class=>"icon",:style=>"cursor:pointer",:tooltip=> t("tooltip.public_space"))%>
 			</div>
 			
+      <div class="show_fields" id="private_check">
+        <%= f.label :moderator_password %>:
+        <!-- provisory modification on tabulation style : field1 and field2 -->
+        <span class="field1">
+          <%= f.password_field :moderator_password, :id => "moderatorPW", :disabled => false %>
+        </span>
+        <br/>
+        <%= f.label :attendee_password %>:
+        <span class="field2">
+          <%= f.password_field :attendee_password, :id => "attendeePW", :disabled => false %>
+        </span>
+      </div>
+      
       <!--
       <div id='check_mail' class="check_mail_blinking">
 		   	<%= check_box_tag(:mail) %><label for="mailing_list"><%= t('mailing_list.associate') %></label>
