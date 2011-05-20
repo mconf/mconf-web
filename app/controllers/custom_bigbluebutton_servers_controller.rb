@@ -1,3 +1,3 @@
 class CustomBigbluebuttonServersController < Bigbluebutton::ServersController
-  before_filter :authentication_required
+  authorization_filter :manage, :current_site
 end
