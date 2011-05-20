@@ -203,6 +203,7 @@ en:
       other: " files selected"
     updated: Attachment updated successfully
     upload_with_post: Notify the upload with a message in the wall
+  attendeePW: Attendee Password
   author: Uploaded by
   avatar:
     created: Picture uploaded successfully
@@ -1281,6 +1282,7 @@ en:
       other: Sent messages
     special1: The GlobalPlaza platform will be down from Friday 17-Dec at 16:00 UTC until Saturday 18-Dec 16:00 UTC. Sorry for the inconveniences.
     special2: The GlobalPlaza Team
+  moderatorPW: Moderator Password
   more: more...
   more>>: more >>
   my_friends: My friends
@@ -1738,6 +1740,7 @@ en:
     add_user_other: ""
     all: All Spaces
     allow_public_access: Allow public access?
+    attendeePW: edit attendee password
     be_fan: Be Fan
     clic: Click to edit...
     clic_logo: Click to change your logo
@@ -1795,6 +1798,7 @@ en:
       use_date: Use event date
     main: Main space
     member_of: Member of the spaces
+    moderatorPW: edit moderator password
     my_spaces: My Spaces
     name_none: A space name must be given to create a new space
     one: Space

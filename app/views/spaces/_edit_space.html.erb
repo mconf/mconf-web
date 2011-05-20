@@ -2,32 +2,117 @@
   <%= javascript_include_tag 'jquery.jeditable', 'jquery.filestyle','jquery.jcrop' %>
 <%end%>
 
-<%= content_for :javascript do%>
-  $("#nonjavascript_form").remove();
-        $("#jedit_form").show();
-        $('#space_name').editable(function(value, settings){
-         $.post("<%=space_path(@space, :format => 'js')%>",{
-           _method: "put", authenticity_token: "<%=form_authenticity_token()%>", 'space[name]': value          
-         }, function(data){
-                                   eval(data);
-                                         return(data);
-                                 });
-                         },{
-                         cancel    : '<%= t('cancel')%>',
-                         onblur : 'ignore',
-         submit    : '<%= t('ok')%>',
-                         tooltip   : '<%= t('space.clic')%>',
-                         width : 185
-   });
-         
-         $('#space_name form input').livequery("blur",function(){
-     $('#edit_name_icon').show();
-   });
-   
-   $('#space_name').livequery("click",function(){
-     $('#edit_name_icon').hide();
-   });
+<%= content_for :javascript do %>
+  
+  $("#jedit_form #public_checkbox").livequery('click', function(event) {
+    $("#private_check").toggle('slow');$('.input_control').attr('checked', true);
+    
+      if($('#moderatorPW').attr('disabled') == false && $('#attendeePW').attr('disabled') == false){
+        $('#moderatorPW').attr('disabled', true);
+        $('#attendeePW').attr('disabled', true);
+      }
+      else{
+        $('#moderatorPW').attr('disabled', false);
+        $('#attendeePW').attr('disabled', false);
+      }
+  });
 
+
+  $("#nonjavascript_form").remove();
+  $("#jedit_form").show();
+  
+  edit_name = function(){
+    $('#space_name').click();
+    $('#edit_name_icon').hide();
+  };
+  
+  $('#space_name').editable(function(value, settings){
+    $.post("<%=space_path(@space, :format => 'js')%>",{
+      _method: "put", authenticity_token: "<%=form_authenticity_token()%>", 'space[name]': value          
+    }, function(data){
+        eval(data);
+        return(data);
+      });
+  },
+  {
+    cancel    : '<%= t('cancel')%>',
+    onblur : 'ignore',
+    submit    : '<%= t('ok')%>',
+    tooltip   : '<%= t('space.clic')%>',
+    width : 185
+  });
+
+  $('#space_name form input').livequery("blur",function(){
+    $('#edit_name_icon').show();
+  });
+   
+  $('#space_name').livequery("click",function(){
+    $('#edit_name_icon').hide();
+  });
+  
+  edit_moderatorPW = function(){
+    $('#space_moderatorPW').click();
+    $('#edit_moderatorPW_icon').hide();
+  };
+  
+  $('#space_moderatorPW').editable(function(value, settings){
+    $.post("<%=space_path(@space, :format => 'js')%>",{
+      _method: "put", authenticity_token: "<%=form_authenticity_token()%>", 'space[moderator_password]': value          
+    }, function(data){
+         eval(data);
+         return(data);
+       });
+  },
+  {
+    cancel    : '<%= t('cancel')%>',
+    onblur : 'ignore',
+    submit    : '<%= t('ok')%>',
+    tooltip   : '<%= t('space.clic')%>',
+    width : 185
+  });
+
+  $('#space_moderatorPW form input').livequery("blur",function(){
+    $('#edit_moderatorPW_icon').show();
+  });
+   
+  $('#space_moderatorPW').livequery("click",function(){
+    $('#edit_moderatorPW_icon').hide();
+  });
+  
+  edit_attendeePW = function(){
+    $('#space_attendeePW').click();
+    $('#edit_attendeePW_icon').hide();
+  };
+  
+  $('#space_attendeePW').editable(function(value, settings){
+    $.post("<%=space_path(@space.bigbluebutton_room, :format => 'js')%>",{
+      _method: "put", authenticity_token: "<%=form_authenticity_token()%>", 'space.bigbluebutton_room[attendee_password]': value          
+    }, function(data){
+         eval(data);
+         return(data);
+       });
+  },
+  {
+    cancel    : '<%= t('cancel')%>',
+    onblur : 'ignore',
+    submit    : '<%= t('ok')%>',
+    tooltip   : '<%= t('space.clic')%>',
+    width : 185
+  });
+
+  $('#space_attendeePW form input').livequery("blur",function(){
+    $('#edit_attendeePW_icon').show();
+  });
+   
+  $('#space_attendeePW').livequery("click",function(){
+    $('#edit_attendeePW_icon').hide();
+  });
+  
+  edit_description = function(){
+    $('#space_description').click();
+    $('#edit_description_icon').hide();
+  };
+  
   $('#space_description').editable('<%=space_path(@space, :format => 'js')%>', {
          method : 'PUT',
          type : 'textarea',
@@ -44,66 +129,51 @@
         }
    });
          
-         $('#space_description form textarea').livequery("blur",function(){
-           $('#edit_description_icon').show();
-         });
+  $('#space_description form textarea').livequery("blur",function(){
+    $('#edit_description_icon').show();
+  });
          
-         $('#space_description').livequery("click",function(){
-     $('#edit_description_icon').hide();
-   });
+  $('#space_description').livequery("click",function(){
+    $('#edit_description_icon').hide();
+  });
          
-         edit_name = function(){
-           $('#space_name').click();
-                 $('#edit_name_icon').hide();
-         };
-         
-         edit_description = function(){
-     $('#space_description').click();
-     $('#edit_description_icon').hide();
-   };
-         
-         $("#public_checkbox").click(function () { 
-            var val = $(this).is(":checked");
-      $.post("<%=space_path(@space)%>",{
-        _method: "put", authenticity_token: "<%=form_authenticity_token()%>", 'space[public]': val          
-      });
+  $("#public_checkbox").click(function () { 
+    var val = $(this).is(":checked");
+    $.post("<%=space_path(@space)%>",{
+      _method: "put", authenticity_token: "<%=form_authenticity_token()%>", 'space[public]': val          
     });
+  });
         
-        $("#repository_checkbox").click(function () { 
-            var val = $(this).is(":checked");
-      $.post("<%=space_path(@space)%>",{
-        _method: "put", authenticity_token: "<%=form_authenticity_token()%>", 'space[repository]': val          
-        },function(data){
-                                  eval(data);
-        },
-                                "script"
-                        );
-
-    });
+  $("#repository_checkbox").click(function () { 
+    var val = $(this).is(":checked");
+    $.post("<%=space_path(@space)%>",{
+      _method: "put", authenticity_token: "<%=form_authenticity_token()%>", 'space[repository]': val          
+    },function(data){
+      eval(data);
+    },
+    "script"
+    );
+  });
         
-        $("#edit_space_button").click(function(){
-                $("form#edit_logo_form").submit();
-         });
-                
+  $("#edit_space_button").click(function(){
+    $("form#edit_logo_form").submit();
+  });
 
   <% render :partial => 'logos/crop_logo.js.erb',
              :locals => { :url_form   => edit_space_url(@space),
                           :aspect_ratio => Logo::ASPECT_RATIO_S
                         } %>
-                
-                edit_logo_fun = function(){
-                  $('div#update_logo').show();
-                        $('#logo_preview').hide();
-                        //
-                        //$("#selected_logo_image").hide();
-                        $(".user").fadeOut("slow",function(){$("#edit_logo_menu").fadeIn("slow");$("#default_space_images").fadeIn("slow");});
-                        closeTextLogo();
-                        closeUploadLogo();
-                };
-                
 
+  edit_logo_fun = function(){
+    $('div#update_logo').show();
+    $('#logo_preview').hide();
+    //
+    //$("#selected_logo_image").hide();
+    $(".user").fadeOut("slow",function(){$("#edit_logo_menu").fadeIn("slow");$("#default_space_images").fadeIn("slow");});
+    closeTextLogo();
+    closeUploadLogo();
+  };
 
-         
 <%end%>
 
 <div id="space-conf">
@@ -123,7 +193,7 @@
                 <p>
                   <label for="public"><%=t('space.allow_public_access')%>:</label> 
                   <%= check_box("space", "public")%>
-                </p>            
+                </p>      
                 <p>
                   <label for="repository"><%=t('event.repository.enabled')%>:</label> 
                   <%= check_box("space", "repository")%>
@@ -146,20 +216,30 @@
     <li>
       <div>
         <label for="name" class="bold"><%=t('name.one')%>:</label>
-            <span id="space_name"><%=@space.name%></span> <%= link_to_function image_tag("icons/pencil.png", :alt => t('edit'),:title=>t('space.edit_name'), :class=>"icon" ), "edit_name()", :id => "edit_name_icon"%>
+        <span id="space_name"><%=@space.name%></span> <%= link_to_function image_tag("icons/pencil.png", :alt => t('edit'),:title=>t('space.edit_name'), :class=>"icon" ), "edit_name()", :id => "edit_name_icon"%>
       </div>
     </li>
     <li>
       <div>
-            <label for="description" class="bold"><%=t('description')%>:</label><br/>
-            <span id="space_description"><%=@space.description%></span> <%= link_to_function image_tag("icons/pencil.png", :alt => t('edit'), :title=>t('space.edit_description'),:class=>"icon" ), "edit_description()", :id => "edit_description_icon"%>
+        <label for="description" class="bold"><%=t('description')%>:</label><br/>
+        <span id="space_description"><%=@space.description%></span> <%= link_to_function image_tag("icons/pencil.png", :alt => t('edit'), :title=>t('space.edit_description'),:class=>"icon" ), "edit_description()", :id => "edit_description_icon"%>
       </div>
     </li>
     <li>
       <div>
-        <label for="public"class="bold"><%=t('space.allow_public_access')%>:</label> 
+        <label for="public"class="bold"><%=t('space.allow_public_access')%></label> 
         <%= check_box_tag "space[public]", true, @space.public?, :id => "public_checkbox"%>
       </div>
+      
+      <!-- Criar aqui senhas -->
+      <div id="private_check">
+        <label for="moderatorPW" class="bold"><%=t('moderatorPW')%>:</label><br/>
+        <span id="space_moderatorPW"><%=@space.bigbluebutton_room.moderator_password%></span> <%= link_to_function image_tag("icons/pencil.png", :alt => t('edit'),:title=>t('space.moderatorPW'), :class=>"icon" ), "edit_moderatorPW()", :id => "edit_moderatorPW_icon"%>
+        <br/>
+        <label for="attendeePW" class="bold"><%=t('attendeePW')%>:</label><br/>
+        <span id="space_attendeePW"><%=@space.bigbluebutton_room.attendee_password%></span> <%= link_to_function image_tag("icons/pencil.png", :alt => t('edit'),:title=>t('space.attendeePW'), :class=>"icon" ), "edit_attendeePW()", :id => "edit_attendeePW_icon"%>
+      </div>
+      
     </li>
         <li>
       <div>
