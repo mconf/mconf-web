@@ -125,9 +125,9 @@ class Notifier < ActionMailer::Base
 
     action = invitation.accepted? ? I18n.t("invitation.yes_accepted") : I18n.t("invitation.not_accepted").html_safe
     if invitation.candidate != nil
-      @subject += I18n.t("e-mail.invitation_result.admin_side",:name=>invitation.candidate.name, :action => action, :spacename =>invitation.group.name).html_safe
+      @subject += I18n.t("email.invitation_result.admin_side",:name=>invitation.candidate.name, :action => action, :spacename =>invitation.group.name).html_safe
     else
-      @subject += I18n.t("e-mail.invitation_result.admin_side",:name=>invitation.email, :action => action, :spacename =>invitation.group.name).html_safe
+      @subject += I18n.t("email.invitation_result.admin_side",:name=>invitation.email, :action => action, :spacename =>invitation.group.name).html_safe
     end
     @invitation = invitation
     @space = invitation.group
@@ -152,7 +152,7 @@ class Notifier < ActionMailer::Base
     setup_email(jr.candidate.email)
 
     action = jr.accepted? ? I18n.t("invitation.yes_accepted") : I18n.t("invitation.not_accepted").html_safe
-    @subject += I18n.t("e-mail.invitation_result.user_side", :action => action, :spacename =>jr.group.name).html_safe
+    @subject += I18n.t("email.invitation_result.user_side", :action => action, :spacename =>jr.group.name).html_safe
     @jr = jr
     @space = jr.group
     @action = action
@@ -163,7 +163,7 @@ class Notifier < ActionMailer::Base
   def confirmation_email(user)
     setup_email(user.email)
 
-    @subject += I18n.t("e-mail.welcome",:sitename=>Site.current.name).html_safe
+    @subject += I18n.t("email.welcome",:sitename=>Site.current.name).html_safe
     @name = user.full_name
     @hash = user.activation_code
     @contact_email = Site.current.email

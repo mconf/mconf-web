@@ -19,7 +19,7 @@
         var ending = "<%= escape_javascript(t('event.group_invitation.message_private_without_start_date.' + (Event::VC_MODE[@event.vc_mode]).to_s ,:space=>@space.name,:register_url=>signup_url,:username=>current_user.full_name,:useremail=>current_user.email,:userorg=>current_user.organization).gsub('\'event_name\'',@event.name).gsub('event_url',space_event_url(@event.space,@event)))%>"
       <%end%>
     <%end%>
-    var complete_msg = personal_msg + '<br/><br/>' + ending + "<%= escape_javascript(t('e-mail.spam_invitation', :contact => Site.current.email, :feedback => "http://" + Site.current.domain.to_s + new_feedback_path())) %><br/><br/>";
+    var complete_msg = personal_msg + '<br/><br/>' + ending + "<%= escape_javascript(t('email.spam_invitation', :contact => Site.current.email, :feedback => "http://" + Site.current.domain.to_s + new_feedback_path())) %><br/><br/>";
     
     $('#group_invitation_msg').text(complete_msg);
 
@@ -34,7 +34,7 @@
       <div class="event_invitations_message margin-up">
         <label for="e-mails" class="bold"><%= t('user.group_invite_email') %></label>
         <%= f.text_field :group_invitation_mails %>
-		    <div id="event_invitations_note">*<%= t('e-mail.commas') %></div>
+		    <div id="event_invitations_note">*<%= t('email.commas') %></div>
       </div>  
 
       <%= f.text_field :group_inv_sender_id, :style => 'display:none', :value => current_user.id %>

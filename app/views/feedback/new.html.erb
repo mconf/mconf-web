@@ -23,7 +23,7 @@
 		<%= hidden_field_tag 'from',current_user.email%>	
 	<%else%>		
 		<p>
-    	<label for="from"><%= t('e-mail.one') %>:</label>
+    	<label for="from"><%= t('email.one') %>:</label>
 			<%= text_field_tag 'from', params[:from].present? ? params[:from] : nil, :size =>25 %>    
   	</p>
 	<%end%>

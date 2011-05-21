@@ -35,12 +35,12 @@
             <%else%>
         <div id="collapsed_news_<%=news.id%>" class="grey">
           <%=sanitize(first_words(auto_link(news.text),500))%>
-          <span> <%=link_to t('more>>'), "javascript:expand_news_#{news.id}()"%></span>
+          <span> <%=link_to t('more_arrows'), "javascript:expand_news_#{news.id}()"%></span>
             </div>
         <div id="expanded_news_<%=news.id%>" style="display:none">
           <div class="news_text grey">
             <%=sanitize(auto_link(news.text))%>
-            <span> <%=link_to t("collapse>>"), "javascript:collapse_news_#{news.id}()"%></span>
+            <span> <%=link_to t("collapse_arrows"), "javascript:collapse_news_#{news.id}()"%></span>
                   </div>
         </div>
         <%end%>

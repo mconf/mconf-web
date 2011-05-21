@@ -253,7 +253,7 @@ de:
   click_to_see_all: Alle
   close: "Schlie\xC3\x9Fen"
   collapse: Zusammenbruch
-  collapse>>: Zusammenbruch&gt;&gt;
+  collapse_arrows: Zusammenbruch&gt;&gt;
   comment:
     add: "Kommentar hinzuf\xC3\xBCgen"
     add_new: "F\xC3\xBCgen Sie einen neuen Kommentar"
@@ -1132,7 +1132,7 @@ de:
     send: Nachricht senden
     sent:
       other: Gesendete Nachrichten
-  more>>: mehr&gt;&gt;
+  more_arrows: mehr&gt;&gt;
   my_friends: Meine Freunde
   name:
     full: "Vollst\xC3\xA4ndiger Name"
@@ -1160,7 +1160,7 @@ de:
   no_messages_in_wall: "Es sind keine Eintr\xC3\xA4ge in der Wand"
   no_tags_found: Keine Tags gefunden
   not_going: Ich plane nicht zur Teilnahme an
-  now!: Now!
+  now_exclamation: Now!
   number:
     currency:
       format:
@@ -1288,7 +1288,7 @@ de:
     plural: Schnurlose Telefone
   phone_optional: Telefon (optional)
   photos: Bilder
-  photos_view>>: Bilder ansehen&gt;&gt;
+  photos_view_arrows: Bilder ansehen&gt;&gt;
   place: Ort
   please: Bitte
   please_activate_account: Bitte aktivieren Sie Ihr neues Konto
@@ -1350,7 +1350,7 @@ de:
   public: "\xC3\x96ffentlichkeit"
   read: Lesen
   read_more: Lesen Sie mehr
-  read_more>>: Lesen Sie mehr&gt;&gt;
+  read_more_arrows: Lesen Sie mehr&gt;&gt;
   received_message_more_machines: Sie haben eine Nachricht von %{user} Bitte um mehr Maschinen erhalten
   recent:
     activity: "Aktuelle T\xC3\xA4tigkeit"
@@ -1479,7 +1479,7 @@ de:
   should_check_email_to_activate_account: "Sie sollten Ihre E-Mail zu \xC3\xBCberpr\xC3\xBCfen, Ihr Konto zu aktivieren."
   show: Show
   show_advanced_editor: Show erweiterten Editor
-  show_list_version>>: Liste anzeigen Version&gt;&gt;
+  show_list_version_arrows: Liste anzeigen Version&gt;&gt;
   singular_agent:
     anonymous:
       name: Anonym

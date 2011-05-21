@@ -126,8 +126,8 @@
                               <%=link_to logo(participant.user, {:size=>32, :title=> participant.user.name }).html_safe, user_path(participant.user)%>
                                 <%end%>
                                 <div class="links">
-                                  <%=link_to t('show_list_version>>'), space_event_path(@space,@event, :list_assistants => true),:class => "list_assistants"%>
-                                  <%=link_to t('more>>'), space_event_path(@space,@event, :all_assistants => true),:class => "more_assistants" if @assistants.size > 6%>
+                                  <%=link_to t('show_list_version_arrows'), space_event_path(@space,@event, :list_assistants => true),:class => "list_assistants"%>
+                                  <%=link_to t('more_arrows'), space_event_path(@space,@event, :all_assistants => true),:class => "more_assistants" if @assistants.size > 6%>
                                 </div>
                         </div>
 
@@ -137,8 +137,8 @@
                                 <%=link_to logo(participant.user, {:size=>32, :title=> participant.user.name }).html_safe, user_path(participant.user)%>
                             <%end%>
                                         <div class="links">
-                                         <%=link_to t('show_list_version>>'), space_event_path(@space,@event, :list_assistants => true),:class => "list_assistants"%>
-                                         <%=link_to t('collapse>>'), space_event_path(@space,@event), :class => "less_assistants"%>
+                                         <%=link_to t('show_list_version_arrows'), space_event_path(@space,@event, :list_assistants => true),:class => "list_assistants"%>
+                                         <%=link_to t('collapse_arrows'), space_event_path(@space,@event), :class => "less_assistants"%>
                                         </div>
                         </div>
 
@@ -150,7 +150,7 @@
                     <%end%>
                         </ul>
                         <div class="links">
-                          <%=link_to t('photos_view>>'), space_event_path(@space,@event), :class => "less_assistants"%>
+                          <%=link_to t('photos_view_arrows'), space_event_path(@space,@event), :class => "less_assistants"%>
                         </div>
                   </div>
           <%end%>
@@ -167,8 +167,8 @@
                             <%end%>
                           <%end%>
                           <div class="links">
-                                  <%=link_to t('show_list_version>>'), space_event_path(@space,@event, :list_no_assistants => true), :class => "list_no_assistants"%>
-                                  <%=link_to t('more>>'), space_event_path(@space,@event, :all_no_assistants => true), :class => "more_no_assistants" if @no_assistants.size > 6%>
+                                  <%=link_to t('show_list_version_arrows'), space_event_path(@space,@event, :list_no_assistants => true), :class => "list_no_assistants"%>
+                                  <%=link_to t('more_arrows'), space_event_path(@space,@event, :all_no_assistants => true), :class => "more_no_assistants" if @no_assistants.size > 6%>
                           </div>
                         </div>
 
@@ -178,8 +178,8 @@
                           <%=link_to logo(participant.user, {:size=>32, :title=> participant.user.name }).html_safe, user_path(participant.user)%>
                       <%end%>
                                         <div class="links">
-                                         <%=link_to t('show_list_version>>'), space_event_path(@space,@event, :list_no_assistants => true), :class => "list_no_assistants"%>
-                                         <%=link_to t('collapse>>'), space_event_path(@space,@event), :class => "less_no_assistants"%>
+                                         <%=link_to t('show_list_version_arrows'), space_event_path(@space,@event, :list_no_assistants => true), :class => "list_no_assistants"%>
+                                         <%=link_to t('collapse_arrows'), space_event_path(@space,@event), :class => "less_no_assistants"%>
                                         </div>
                   </div>
 
@@ -191,7 +191,7 @@
                     <%end%>
                         </ul>
                                 <div class="links">
-                                  <%=link_to t('photos_view>>'), space_event_path(@space,@event), :class => "less_no_assistants"%>
+                                  <%=link_to t('photos_view_arrows'), space_event_path(@space,@event), :class => "less_no_assistants"%>
                                 </div>
                   </div>
                 <%end%>
@@ -215,8 +215,8 @@
                           <%end%>
                                 <%if !@not_responding_candidates.empty? or !@not_responding_emails.empty? %>
                 <div class="links">
-                  <%=link_to t('show_list_version>>'), space_event_path(@space,@event, :list_no_responding => true), :class => "list_no_responding"%>
-                  <%=link_to t('more>>'), space_event_path(@space,@event, :all_no_responding => true), :class => "more_no_responding" if (@not_responding_candidates.size + @not_responding_emails.size)  > 6%>
+                  <%=link_to t('show_list_version_arrows'), space_event_path(@space,@event, :list_no_responding => true), :class => "list_no_responding"%>
+                  <%=link_to t('more_arrows'), space_event_path(@space,@event, :all_no_responding => true), :class => "more_no_responding" if (@not_responding_candidates.size + @not_responding_emails.size)  > 6%>
                 </div>
               <%end%>
                         </div>
@@ -238,8 +238,8 @@
                             <%end%>
                                         <%if !@not_responding_candidates.empty? or !@not_responding_emails.empty? %>
                    <div class="links">
-                      <%=link_to t('show_list_version>>'), space_event_path(@space,@event, :list_no_responding => true), :class => "list_no_responding"%>
-                      <%=link_to t('more>>'), space_event_path(@space,@event), :class => "less_no_responding"%><br/>
+                      <%=link_to t('show_list_version_arrows'), space_event_path(@space,@event, :list_no_responding => true), :class => "list_no_responding"%>
+                      <%=link_to t('more_arrows'), space_event_path(@space,@event), :class => "less_no_responding"%><br/>
                    </div>
               <%end%>
                   </div>
@@ -264,7 +264,7 @@
                         <%end%>
                         <%if !@not_responding_candidates.empty? or !@not_responding_emails.empty? %>
                           <div class="links">
-                    <%=link_to t('photos_view>>'), space_event_path(@space,@event) , :class => "less_no_responding"%>
+                    <%=link_to t('photos_view_arrows'), space_event_path(@space,@event) , :class => "less_no_responding"%>
                   </div>
                         <%end%>
                   </div>

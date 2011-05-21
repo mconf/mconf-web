@@ -14,7 +14,7 @@
 		<%end%>
     <ul><li><h4><%= t('internet.ppal') %></h4></li></ul>
 		<ul>
-			<li><span class="category"><%= t('e-mail.one') %>: </span><span class="email data"><a class="value" href="mailto:<%= @user.email %>"><%= @user.email %></a></span></li>
+			<li><span class="category"><%= t('email.one') %>: </span><span class="email data"><a class="value" href="mailto:<%= @user.email %>"><%= @user.email %></a></span></li>
       <li><span class="category"><%=(t("skype") + ":") if (@profile.skype.present?)%></span><span class="data"><%=( link_to @profile.skype, "callto://"+@profile.skype )if (@profile.skype.present?)%></span></li>
       <li><span class="category"><%=(t("im") + ":") if (@profile.im.present?)%></span><span class="data"><%= @profile.im%></span></li>
     </ul>

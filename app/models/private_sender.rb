@@ -65,15 +65,15 @@ class PrivateSender
     action = invitation.accepted? ? I18n.t("invitation.yes_accepted") : I18n.t("invitation.not_accepted")
     
     if invitation.candidate != nil
-      m = PrivateMessage.new :title => I18n.t("e-mail.invitation_result.admin_side",:name=>invitation.candidate.name, :action => action, :spacename =>invitation.group.name),
+      m = PrivateMessage.new :title => I18n.t("email.invitation_result.admin_side",:name=>invitation.candidate.name, :action => action, :spacename =>invitation.group.name),
         :body => "<p>" + invitation.introducer.full_name + ",</p>" +
-          "<p>" + I18n.t('e-mail.invitation_result.admin_side',:name=>invitation.candidate.full_name, :action => action, :spacename =>invitation.group.name) + ".</p>" +
+          "<p>" + I18n.t('email.invitation_result.admin_side',:name=>invitation.candidate.full_name, :action => action, :spacename =>invitation.group.name) + ".</p>" +
           "<p>" + I18n.t('invitation.info_users', :users_url => "http://" + Site.current.domain + "/spaces/" + invitation.group.permalink + "/users") + "</p>" +
           "<p>" + Site.current.signature_in_html + "</p>"
     else
-      m = PrivateMessage.new :title => I18n.t("e-mail.invitation_result.admin_side",:name=>invitation.email, :action => action, :spacename =>invitation.group.name),
+      m = PrivateMessage.new :title => I18n.t("email.invitation_result.admin_side",:name=>invitation.email, :action => action, :spacename =>invitation.group.name),
         :body => "<p>" + invitation.introducer.full_name + ",</p>" +
-          "<p>" + I18n.t('e-mail.invitation_result.admin_side',:name=>invitation.email[0,invitation.email.index('@')], :action => action, :spacename =>invitation.group.name) + ".</p>" +
+          "<p>" + I18n.t('email.invitation_result.admin_side',:name=>invitation.email[0,invitation.email.index('@')], :action => action, :spacename =>invitation.group.name) + ".</p>" +
           "<p>" + I18n.t('invitation.info_users', :users_url => "http://" + Site.current.domain + "/spaces/" + invitation.group.permalink + "/users") + "</p>" +
           "<p>" + Site.current.signature_in_html + "</p>" 
     end
@@ -87,13 +87,13 @@ class PrivateSender
     action = jr.accepted? ? I18n.t("invitation.yes_accepted") : I18n.t("invitation.not_accepted")
     
     if jr.accepted?
-      m = PrivateMessage.new :title => I18n.t("e-mail.invitation_result.user_side", :action => action, :spacename =>jr.group.name),
-      :body => I18n.t('e-mail.invitation_result.user_side', :action => action, :spacename =>jr.group.name) + "<br/><br/>" +
+      m = PrivateMessage.new :title => I18n.t("email.invitation_result.user_side", :action => action, :spacename =>jr.group.name),
+      :body => I18n.t('email.invitation_result.user_side', :action => action, :spacename =>jr.group.name) + "<br/><br/>" +
         I18n.t('invitation.access_space', :spacename => jr.group.name, :space_url => "http://" + Site.current.domain + "/spaces/" + jr.group.permalink) + "<br/><br/>" +
         I18n.t('admin.space', :spacename => jr.group.name)
     else
-      m = PrivateMessage.new :title => I18n.t("e-mail.invitation_result.user_side", :action => action, :spacename =>jr.group.name),
-      :body => I18n.t('e-mail.invitation_result.user_side', :action => action, :spacename =>jr.group.name) + "<br/><br/>" +
+      m = PrivateMessage.new :title => I18n.t("email.invitation_result.user_side", :action => action, :spacename =>jr.group.name),
+      :body => I18n.t('email.invitation_result.user_side', :action => action, :spacename =>jr.group.name) + "<br/><br/>" +
         I18n.t('invitation.rejoin_space', :space_url => "http://" + Site.current.domain + "/spaces/" + jr.group.permalink + "/join_requests/new") + "<br/><br/>" +
         I18n.t('admin.space', :spacename => jr.group.name)
     end

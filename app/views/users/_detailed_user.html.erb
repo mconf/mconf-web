@@ -18,7 +18,7 @@
       <%if @space.present?%>
         <li><%= "#{link_to t('user.private_message'), new_user_message_path(:user_id => current_user.to_param, :receiver => detailed_user.id), :id => 'new_private_message_link'}".html_safe %></li>
       <%end%>
-        <li><%=mail_to(detailed_user.email,t('user.e-mail'))%></li>
+        <li><%=mail_to(detailed_user.email,t('user.email'))%></li>
     </ul>
   <%end%>
   

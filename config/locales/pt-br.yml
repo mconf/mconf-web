@@ -12,46 +12,46 @@ pt-br:
   about_vcc: Sobre o VCC
   account: Conta
   account_activated: Sua conta foi ativada!
-  account_activated_with_agent: "%{agent}, a sua conta foi ativada"
+  account_activated_with_agent: ! '%{agent}, a sua conta foi ativada'
   account_created: Sua conta foi criada
   action:
-    one: "Ação"
-    other: "Ações"
-  actions: "Ações"
+    one: Ação
+    other: Ações
+  actions: Ações
   activerecord:
     attributes:
       user:
         login: Login
     errors:
       full_messages:
-        format: "%{attribute} %{message}"
+        format: ! '%{attribute} %{message}'
       messages:
         accepted: deve ser aceito
-        blank: "não pode estar em branco"
-        confirmation: "não coincide com a confirmação"
-        empty: "não pode estar vazio"
-        equal_to: "deve ser igual a %{count}"
-        even: "deve ser par"
-        exclusion: "está reservado"
-        greater_than: "deve ser maior que %{count}"
-        greater_than_or_equal_to: "deve ser maior ou igual a %{count}"
-        inclusion: "não está incluído na lista"
-        invalid: "é inválido"
+        blank: não pode estar em branco
+        confirmation: não coincide com a confirmação
+        empty: não pode estar vazio
+        equal_to: deve ser igual a %{count}
+        even: deve ser par
+        exclusion: está reservado
+        greater_than: deve ser maior que %{count}
+        greater_than_or_equal_to: deve ser maior ou igual a %{count}
+        inclusion: não está incluído na lista
+        invalid: é inválido
         less_than: deve ser inferior a %{count}
         less_than_or_equal_to: deve ser menor ou igual a %{count}
         missing: não encontrado
         not_a_number: não é um número
         odd: deve ser ímpar
-        record_invalid: "Validação falhou: %{errors}"
+        record_invalid: ! 'Validação falhou: %{errors}'
         taken: já está em uso
         too_long: é muito longo (máximo de %{count} caracteres)
         too_short: é muito curto (mínimo de %{count} caracteres)
         wrong_length: é o tamanho errado (deveria ser %{count} caracteres)
       template:
-        body: "Houve problemas com os seguintes campos:"
+        body: ! 'Houve problemas com os seguintes campos:'
         header:
           one: Um erro impediu este %{model} de ser salvo
-          other: "%{count} erros impediram este %{model} de ser salvo"
+          other: ! '%{count} erros impediram este %{model} de ser salvo'
   add: Adicionar
   add_more_details: Adicionar mais detalhes
   address: Endereço
@@ -79,7 +79,8 @@ pt-br:
       error:
         coinciding_times: Há um conflito entre o horário do novo divisor e entradas
           ou divisores existentes
-        date_out_of_event: "A data do divisor excede a duração máxima do evento: %{max_days} dias"
+        date_out_of_event: ! 'A data do divisor excede a duração máxima do evento:
+          %{max_days} dias'
         past_times: Este tipo de evento não pode ter períodos no passado
       failed: Houve um problema com o divisor da agenda
       new: Novo divisor de agenda
@@ -102,10 +103,13 @@ pt-br:
       embedded_video: Embutir vídeo na entrada
       end_time: Horário final
       error:
-        attribute_unchangeable: Você tentou modificar um atributo não modificável para esta sessão
-        coinciding_times: Há um conflito entre o horário da nova entrada da agenda e entradas ou divisores existentes
+        attribute_unchangeable: Você tentou modificar um atributo não modificável
+          para esta sessão
+        coinciding_times: Há um conflito entre o horário da nova entrada da agenda
+          e entradas ou divisores existentes
         create: Erro criando sessão no sistema remoto de videoconferência
-        date_out_of_event: "A data da entrada da agenda excede a duração máxima do evento: %{max_days} dias"
+        date_out_of_event: ! 'A data da entrada da agenda excede a duração máxima
+          do evento: %{max_days} dias'
         delete: Erro removendo sessão no sistema remoto de videoconferência
         disordered_times: O horário inicial deve ser menor que o horário final
         out_of_event: Parte do horário da sessão está fora dos limites do evento
@@ -143,14 +147,13 @@ pt-br:
       yes_record: Sim
     error:
       dates: O horário inicial deve ser anterior ao horário final
-      end_time_overlaps: O horário final se sobrepõe a uma entrada existente na
-        agenda
+      end_time_overlaps: O horário final se sobrepõe a uma entrada existente na agenda
       omit_date: A entrada da agenda necessita uma data inicial e uma data final
       omit_title: Um título deve ser dado para a entrada da agenda
       omit_title_divider: Título do divisor não pode ficar em branco
       overlaps: A entrada da agenda se sobrepõe a uma entrada existente na agenda
-      start_time_overlaps: O horário inicial se sobrepõe a uma entrada existente
-        na agenda
+      start_time_overlaps: O horário inicial se sobrepõe a uma entrada existente na
+        agenda
     expand_help: Clique no título de uma agenda para expandí-la ou contraí-la
     slot: Selecione o período de tempo para a visualização
     title: Programa
@@ -185,13 +188,13 @@ pt-br:
     delete: Remover anexo
     deleted: Anexo removido com sucesso
     error:
-      not_deleted: "%{file} não removido corretamente."
-      not_permission: "%{user} não pode remover o arquivo %{file}"
-    file: "Arquivo:"
+      not_deleted: ! '%{file} não removido corretamente.'
+      not_permission: ! '%{user} não pode remover o arquivo %{file}'
+    file: ! 'Arquivo:'
     found:
       none: Nenhum anexo encontrado
       one: 1 anexo encontrado
-      other: "%{size} anexos encontrados"
+      other: ! '%{size} anexos encontrados'
     home:
       one: Arquivo no espaço %{space}
     info: Informações do documento
@@ -234,24 +237,23 @@ pt-br:
     creating_agenda: Criando agenda...
     edit: Editar
     editing: Editando...
-    enter: "Entrar"
+    enter: Entrar
     finish: Finalizar
-    go: "Ir!"
-    insert: "Inserir"
-    invite: Convidar!
-    invite: "Convidar"
-    join: "Entrar"
-    join_webconference: "Entrar na conferência"
+    go: Ir!
+    insert: Inserir
+    invite: Convidar
+    join: Entrar
+    join_webconference: Entrar na conferência
     next: Próximo Passo
-    next_edit_program: "Próximo: Editar o programa"
-    next_invite: "Próximo: Convidar pessoas"
-    next_program: "Próximo: Definir programa"
-    new_room: "Nova sala"
-    ok: "OK"
-    other_spaces: "Encontrar outros espaços"
+    next_edit_program: ! 'Próximo: Editar o programa'
+    next_invite: ! 'Próximo: Convidar pessoas'
+    next_program: ! 'Próximo: Definir programa'
+    new_room: Nova sala
+    ok: OK
+    other_spaces: Encontrar outros espaços
     post: Postar
     publish: Publicar
-    remove: "Remover"
+    remove: Remover
     search: Procurar
     send: Enviar
     sending: Enviando...
@@ -260,7 +262,7 @@ pt-br:
   calendar:
     my: Meu Calendário
     one: Calendário
-  can_also: "Ou você também pode:"
+  can_also: ! 'Ou você também pode:'
   cancel: Cancelar
   caption:
     add: Adicionar legenda
@@ -281,7 +283,7 @@ pt-br:
   click_to_see_all: Ver todos
   close: Fechar
   collapse: Contrair
-  collapse>>: Contrair >>
+  collapse_arrows: Contrair >>
   comment:
     add: Adicionar um comentário
     add_new: Adicionar um novo comentário
@@ -324,7 +326,7 @@ pt-br:
   create_room:
     name: Name
   created_at: Criado em
-  created_at_date: "Criado em: %{date}"
+  created_at_date: ! 'Criado em: %{date}'
   created_time_ago: Criado %{time} atrás
   date:
     abbr_day_names:
@@ -336,7 +338,6 @@ pt-br:
     - Sex
     - Sáb
     abbr_month_names:
-
     - Jan
     - Fev
     - Mar
@@ -360,11 +361,11 @@ pt-br:
     - Sábado
     end: Data final
     formats:
-      default: "%d/%m/%y"
-      long: "%B %d, %Y"
-      short: "%b %d"
+      default: ! '%d/%m/%y'
+      long: ! '%B %d, %Y'
+      short: ! '%b %d'
     month_names:
-    -
+    - !!null 
     - Janeiro
     - Fevereiro
     - Março
@@ -387,35 +388,35 @@ pt-br:
     distance_in_words:
       about_x_hours:
         one: 1 hora
-        other: "%{count} horas"
+        other: ! '%{count} horas'
       about_x_months:
         one: 1 mês
-        other: "%{count} meses"
+        other: ! '%{count} meses'
       about_x_years:
         one: 1 ano
-        other: "%{count} anos"
+        other: ! '%{count} anos'
       half_a_minute: meio minuto
       less_than_x_minutes:
         one: 1 minuto
-        other: "%{count} minutos"
+        other: ! '%{count} minutos'
       less_than_x_seconds:
         one: 1 segundo
-        other: "%{count} segundos"
+        other: ! '%{count} segundos'
       over_x_years:
         one: 1 ano
-        other: "%{count} anos"
+        other: ! '%{count} anos'
       x_days:
         one: 1 dia
-        other: "%{count} dias"
+        other: ! '%{count} dias'
       x_minutes:
         one: 1 minuto
-        other: "%{count} minutos"
+        other: ! '%{count} minutos'
       x_months:
         one: 1 mês
-        other: "%{count} meses"
+        other: ! '%{count} meses'
       x_seconds:
         one: 1 segundo
-        other: "%{count} segundos"
+        other: ! '%{count} segundos'
     prompts:
       day: Dia
       hour: Hora
@@ -445,23 +446,28 @@ pt-br:
   download_file: Baixar arquivo
   e-mail:
     account_activated: Sua conta em %{sitename} foi ativada com sucesso.
-    commas: "Separado por vírgulas"
-    confirm: "Você agora precisa confirmar seu registro clicando em <a href=\"%{url}\"> %{url} </a>"
-    copy_link: "Se você não pode clicar no link acima, por favor copie e cole a seguinte linha em seu navegador:<br/> %{ur}"
+    commas: Separado por vírgulas
+    confirm: Você agora precisa confirmar seu registro clicando em <a href="%{url}">
+      %{url} </a>
+    copy_link: Se você não pode clicar no link acima, por favor copie e cole a seguinte
+      linha em seu navegador:<br/> %{ur}
     dear: Prezado(a), %{name}
     invitation_result:
-      admin_side: "%{name} %{action} o convite para o espaço %{spacename}"
+      admin_side: ! '%{name} %{action} o convite para o espaço %{spacename}'
       user_side: O administrador do espaço %{spacename} %{action} seu pedido de participação
     join_request: Pedido de Participação
     kind_regards: Atenciosamente,
     notifications: notificações por e-mail
     one: e-mail
     other: e-mails
-    spam_activation: "Se você não se registrou neste site, por favor <a href=\"mailto:%{contact}\"> entre em contato </a> ou nos <a href=\"%{feedback}\"> envie uma mensagem.</a>"
-    spam_invitation: "Se você acredita que esta mensagem é um spam, por favor <a href=\"mailto:%{contact}\"> entre em contato </a> ou nos <a href=\"%{feedback}\"> envie uma mensagem.</a>"
+    spam_activation: Se você não se registrou neste site, por favor <a href="mailto:%{contact}">
+      entre em contato </a> ou nos <a href="%{feedback}"> envie uma mensagem.</a>
+    spam_invitation: Se você acredita que esta mensagem é um spam, por favor <a href="mailto:%{contact}">
+      entre em contato </a> ou nos <a href="%{feedback}"> envie uma mensagem.</a>
     thanks: Obrigado por visitar %{sitename}
-    url_activated: "Você agora pode entrar na sua conta com seu email \"%{name}\" e sua senha em <a href=\"%{url}\"> %{url}</a>"
-    used_from: "e-mail usado no formulário de contato: %{dir}"
+    url_activated: Você agora pode entrar na sua conta com seu email "%{name}" e sua
+      senha em <a href="%{url}"> %{url}</a>
+    used_from: ! 'e-mail usado no formulário de contato: %{dir}'
     vcc_team: Equipe Global Conference
     welcome: Bem-vindo(a) a %{sitename}
   edit: Editar
@@ -479,11 +485,12 @@ pt-br:
     e403: Você não tem permissão para ver esta página.
     e404: A página que você está procurando não existe.
     e500: A página que você está procurando não existe.
-    mistyped_or_moved: Você pode ter digitado o endereço incorretamente ou a página pode ter sido movida
+    mistyped_or_moved: Você pode ter digitado o endereço incorretamente ou a página
+      pode ter sido movida
     not_allowed: Você não tem permissão para executar esta ação
     one: Erro
     other: Erros
-    vcc_warning: "Aviso geral:"
+    vcc_warning: ! 'Aviso geral:'
   eu_commision: Comissão Européia
   event:
     Isabel: Evento Isabel
@@ -511,7 +518,7 @@ pt-br:
       lose: Todos os dados serão perdidos. Você tem certeza?
       stop: Você tem certeza que deseja parar a edição?
     choose_location: Escolher localização
-    colon: "Evento:"
+    colon: ! 'Evento:'
     connection:
       info: Informação de conexão para este evento
       isabel: Servidor Isabel
@@ -526,15 +533,16 @@ pt-br:
         class:
           name: Classe Virtual
         conference:
-          message: Avançado. Grandes reuniões. Produção estilo televisão, que
-            precisa ser gerenciada por um operador.
+          message: Avançado. Grandes reuniões. Produção estilo televisão, que precisa
+            ser gerenciada por um operador.
           name: Congresso Virtual
         meeting:
-          message: Fácil. Participação em videoconferência com compartilhamento
-            de documentos e streaming e gravação automáticos.
+          message: Fácil. Participação em videoconferência com compartilhamento de
+            documentos e streaming e gravação automáticos.
           name: Reunião Virtual
         presential:
-          message: "Ótimo para reuniões simples e rápidas. Notifique seus parceiros, envie documentos de trabalho. Não há streaming nem gravação automáticos."
+          message: Ótimo para reuniões simples e rápidas. Notifique seus parceiros,
+            envie documentos de trabalho. Não há streaming nem gravação automáticos.
           name: Em pessoa
       manual_conf: Configuração manual
       title: Criar novo evento
@@ -563,7 +571,8 @@ pt-br:
       dates1: A data inicial do evento deve ser antes da data final do evento
       delete: O evento não pode ser excluido
       marte: Não foi possível criar a conferência virtual
-      max_size_excedeed: A duração máxima do evento é %{max_days} dias e não pode ser excedida
+      max_size_excedeed: A duração máxima do evento é %{max_days} dias e não pode
+        ser excedida
       omit_date: O evento precisa uma data inicial e uma data final
       too_short: O evento é muito curto, ele deve ter pelo menos 15 minutos
       videoconference: Não foi possível criar o evento de videoconferência
@@ -572,87 +581,123 @@ pt-br:
     found:
       none: Não foram encontrados eventos
       one: 1 evento foi encontrado
-      other: "%{size} eventos foram encontrados"
+      other: ! '%{size} eventos foram encontrados'
     future: Evento Futuro
     generate_pdf: Gerar PDF
     group_invitation:
       button: Convidar usuários não registrados
       message_private_with_start_date:
-        in_person: "<p>Gostaria de convidá-lo para <b>o evento 'event_name' no  espaço %{space}</b> em 'event_date'. </p><p>Você pode encontrar mais
-          informações sobre este evento em <a href=\"event_url\">event_url</a></p><p>Por favor, note que o evento faz parte de um espaço privado, então você precisa
-          ser um usuário cadastrado no Virtual Conference Center para ser capaz de enviar um pedido de adesão ao espaço e ter acesso ao evento. Você pode
-          se registrar aqui: <a href=\"%{register_url}\">%{register_url}</a></p><p>Atenciosamente,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>"
-        teleclass: "<p> Gostaria de convidá-lo para <b>o evento 'event_name' no espaço %{space}</b> em 'event_date'. O evento será uma classe virtual
-          com participação simples através do sistema Isabel. </p><p> Você pode encontrar mais informações sobre este evento em <a href=\"event_url\">event_url</a>
-          </p><p> Por favor, note que o evento faz parte de um espaço privado, então você precisa ser um usuário cadastrado no Virtual Conference Center para
-          ser capaz de enviar um pedido de adesão ao espaço e ter acesso ao evento. Você pode se registrar aqui: <a href=\"%{register_url}\">%{register_url}</a></p>
-          <p>Atenciosamente,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>"
-        teleconference: "<p> Gostaria de convidá-lo para <b>o evento 'event_name' no espaço %{space}</b> em 'event_date'. O evento será uma conferência
-          virtual com participação simples através do sistema Isabel. </p><p> Você pode encontrar mais informações sobre este evento em <a href=\"event_url\">event_url</a>
-          </p><p> Por favor, note que o evento faz parte de um espaço privado, então você precisa ser um usuário cadastrado no Virtual Conference Center para
-          ser capaz de enviar um pedido de adesão ao espaço e ter acesso ao evento. Você pode se registrar aqui: <a href=\"%{register_url}\">%{register_url}</a></p>
-          <p>Atenciosamente,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>"
-        telemeeting: "<p> Gostaria de convidá-lo para <b>o evento 'event_name' no espaço %{space}</b> em 'event_date'. O evento será uma reunião virtual
-          com participação simples através do sistema Isabel. </p><p> Você pode encontrar mais informações sobre este evento em <a href=\"event_url\">event_url</a>
-          </p><p> Por favor, note que o evento faz parte de um espaço privado, então você precisa ser um usuário cadastrado no Virtual Conference Center para
-          ser capaz de enviar um pedido de adesão ao espaço e ter acesso ao evento. Você pode se registrar aqui: <a href=\"%{register_url}\">%{register_url}</a></p>
-          <p>Atenciosamente,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>"
+        in_person: ! '<p>Gostaria de convidá-lo para <b>o evento ''event_name'' no  espaço
+          %{space}</b> em ''event_date''. </p><p>Você pode encontrar mais informações
+          sobre este evento em <a href="event_url">event_url</a></p><p>Por favor,
+          note que o evento faz parte de um espaço privado, então você precisa ser
+          um usuário cadastrado no Virtual Conference Center para ser capaz de enviar
+          um pedido de adesão ao espaço e ter acesso ao evento. Você pode se registrar
+          aqui: <a href="%{register_url}">%{register_url}</a></p><p>Atenciosamente,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>'
+        teleclass: ! '<p> Gostaria de convidá-lo para <b>o evento ''event_name'' no
+          espaço %{space}</b> em ''event_date''. O evento será uma classe virtual
+          com participação simples através do sistema Isabel. </p><p> Você pode encontrar
+          mais informações sobre este evento em <a href="event_url">event_url</a>
+          </p><p> Por favor, note que o evento faz parte de um espaço privado, então
+          você precisa ser um usuário cadastrado no Virtual Conference Center para
+          ser capaz de enviar um pedido de adesão ao espaço e ter acesso ao evento.
+          Você pode se registrar aqui: <a href="%{register_url}">%{register_url}</a></p>
+          <p>Atenciosamente,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>'
+        teleconference: ! '<p> Gostaria de convidá-lo para <b>o evento ''event_name''
+          no espaço %{space}</b> em ''event_date''. O evento será uma conferência
+          virtual com participação simples através do sistema Isabel. </p><p> Você
+          pode encontrar mais informações sobre este evento em <a href="event_url">event_url</a>
+          </p><p> Por favor, note que o evento faz parte de um espaço privado, então
+          você precisa ser um usuário cadastrado no Virtual Conference Center para
+          ser capaz de enviar um pedido de adesão ao espaço e ter acesso ao evento.
+          Você pode se registrar aqui: <a href="%{register_url}">%{register_url}</a></p>
+          <p>Atenciosamente,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>'
+        telemeeting: ! '<p> Gostaria de convidá-lo para <b>o evento ''event_name''
+          no espaço %{space}</b> em ''event_date''. O evento será uma reunião virtual
+          com participação simples através do sistema Isabel. </p><p> Você pode encontrar
+          mais informações sobre este evento em <a href="event_url">event_url</a>
+          </p><p> Por favor, note que o evento faz parte de um espaço privado, então
+          você precisa ser um usuário cadastrado no Virtual Conference Center para
+          ser capaz de enviar um pedido de adesão ao espaço e ter acesso ao evento.
+          Você pode se registrar aqui: <a href="%{register_url}">%{register_url}</a></p>
+          <p>Atenciosamente,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>'
       message_private_without_start_date:
-        in_person: "<p> Gostaria de convidá-lo para <b>o evento 'event_name' no espaço %{space}</b>.</p><p> Você pode encontrar mais informações
-          sobre este evento em <a href=\"event_url\">event_url</a> </p><p> Por favor, note que o evento faz parte de um espaço privado, então você precisa
-          ser um usuário cadastrado no Virtual Conference Center para ser capaz de enviar um pedido de adesão ao espaço e ter acesso ao evento. Você pode
-          se registrar aqui: <a href=\"%{register_url}\">%{register_url}</a></p><p>Atenciosamente,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>"
-        teleclass: "<p> Gostaria de convidá-lo para <b>o evento 'event_name' no espaço %{space}</b>. O evento será uma classe virtual com participação
-          simples através do sistema Isabel. </p><p> Você pode encontrar mais informações sobre este evento em <a href=\"event_url\">event_url</a> </p><p> Por favor,
-          note que o evento faz parte de um espaço privado, então você precisa ser um usuário cadastrado no Virtual Conference Center para ser capaz de
-          enviar um pedido de adesão ao espaço e ter acesso ao evento. Você pode se registrar aqui: <a href=\"%{register_url}\">%{register_url}</a></p>
-          <p>Atenciosamente,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>"
-        teleconference: "<p> Gostaria de convidá-lo para <b>o evento 'event_name' no espaço %{space}</b>. O evento será uma conferência virtual com participação
-          simples através do sistema Isabel. </p><p> Você pode encontrar mais informações sobre este evento em <a href=\"event_url\">event_url</a> </p><p> Por favor,
-          note que o evento faz parte de um espaço privado, então você precisa ser um usuário cadastrado no Virtual Conference Center para ser capaz de
-          enviar um pedido de adesão ao espaço e ter acesso ao evento. Você pode se registrar aqui: <a href=\"%{register_url}\">%{register_url}</a></p>
-          <p>Atenciosamente,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>"
-        telemeeting: "<p> Gostaria de convidá-lo para <b>o evento 'event_name' no espaço %{space}</b>. O evento será uma reunião virtual com participação
-          simples através do sistema Isabel. </p><p> Você pode encontrar mais informações sobre este evento em <a href=\"event_url\">event_url</a> </p><p> Por favor,
-          note que o evento faz parte de um espaço privado, então você precisa ser um usuário cadastrado no Virtual Conference Center para ser capaz de
-          enviar um pedido de adesão ao espaço e ter acesso ao evento. Você pode se registrar aqui: <a href=\"%{register_url}\">%{register_url}</a></p>
-          <p>Atenciosamente,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>"
+        in_person: ! '<p> Gostaria de convidá-lo para <b>o evento ''event_name'' no
+          espaço %{space}</b>.</p><p> Você pode encontrar mais informações sobre este
+          evento em <a href="event_url">event_url</a> </p><p> Por favor, note que
+          o evento faz parte de um espaço privado, então você precisa ser um usuário
+          cadastrado no Virtual Conference Center para ser capaz de enviar um pedido
+          de adesão ao espaço e ter acesso ao evento. Você pode se registrar aqui:
+          <a href="%{register_url}">%{register_url}</a></p><p>Atenciosamente,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>'
+        teleclass: ! '<p> Gostaria de convidá-lo para <b>o evento ''event_name'' no
+          espaço %{space}</b>. O evento será uma classe virtual com participação simples
+          através do sistema Isabel. </p><p> Você pode encontrar mais informações
+          sobre este evento em <a href="event_url">event_url</a> </p><p> Por favor,
+          note que o evento faz parte de um espaço privado, então você precisa ser
+          um usuário cadastrado no Virtual Conference Center para ser capaz de enviar
+          um pedido de adesão ao espaço e ter acesso ao evento. Você pode se registrar
+          aqui: <a href="%{register_url}">%{register_url}</a></p> <p>Atenciosamente,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>'
+        teleconference: ! '<p> Gostaria de convidá-lo para <b>o evento ''event_name''
+          no espaço %{space}</b>. O evento será uma conferência virtual com participação
+          simples através do sistema Isabel. </p><p> Você pode encontrar mais informações
+          sobre este evento em <a href="event_url">event_url</a> </p><p> Por favor,
+          note que o evento faz parte de um espaço privado, então você precisa ser
+          um usuário cadastrado no Virtual Conference Center para ser capaz de enviar
+          um pedido de adesão ao espaço e ter acesso ao evento. Você pode se registrar
+          aqui: <a href="%{register_url}">%{register_url}</a></p> <p>Atenciosamente,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>'
+        telemeeting: ! '<p> Gostaria de convidá-lo para <b>o evento ''event_name''
+          no espaço %{space}</b>. O evento será uma reunião virtual com participação
+          simples através do sistema Isabel. </p><p> Você pode encontrar mais informações
+          sobre este evento em <a href="event_url">event_url</a> </p><p> Por favor,
+          note que o evento faz parte de um espaço privado, então você precisa ser
+          um usuário cadastrado no Virtual Conference Center para ser capaz de enviar
+          um pedido de adesão ao espaço e ter acesso ao evento. Você pode se registrar
+          aqui: <a href="%{register_url}">%{register_url}</a></p> <p>Atenciosamente,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>'
       message_public_with_start_date:
-        in_person: "<p> Gostaria de convidá-lo para <b>o evento 'event_name' no espaço %{space}</b> em 'event_date'. </p><p> Você pode encontrar
-          mais informações sobre este evento em <a href=\"event_url\">event_url</a> </p><p> Atenciosamente, <br/><br/> %{username} <br/> %{usermail} <br/> %{userorg} </p>"
-        teleclass: "<p> Gostaria de convidá-lo para <b>o evento 'event_name' no espaço %{space}</b> em 'event_date'. O evento será uma classe virtual com participação
-          simples através do sistema Isabel. </p><p> Você pode encontrar mais informações sobre este evento em <a href=\"event_url\">event_url</a> </p>
-          <p>Atenciosamente,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>"
-        teleconference: "<p> Gostaria de convidá-lo para <b>o evento 'event_name' no espaço %{space}</b> em 'event_date'. O evento será uma conferência
-          virtual com participação simples através do sistema Isabel. </p><p> Você pode encontrar mais informações sobre este evento em <a href=\"event_url\">event_url</a>
-          </p><p>Atenciosamente,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>"
-        telemeeting: "<p> Gostaria de convidá-lo para <b>o evento 'event_name' no espaço %{space}</b> em 'event_date'. O evento será uma reunião virtual
-          com participação simples através do sistema Isabel. </p><p> Você pode encontrar mais informações sobre este evento em <a href=\"event_url\">event_url</a>
-          </p><p>Atenciosamente,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>"
+        in_person: <p> Gostaria de convidá-lo para <b>o evento 'event_name' no espaço
+          %{space}</b> em 'event_date'. </p><p> Você pode encontrar mais informações
+          sobre este evento em <a href="event_url">event_url</a> </p><p> Atenciosamente,
+          <br/><br/> %{username} <br/> %{usermail} <br/> %{userorg} </p>
+        teleclass: <p> Gostaria de convidá-lo para <b>o evento 'event_name' no espaço
+          %{space}</b> em 'event_date'. O evento será uma classe virtual com participação
+          simples através do sistema Isabel. </p><p> Você pode encontrar mais informações
+          sobre este evento em <a href="event_url">event_url</a> </p> <p>Atenciosamente,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>
+        teleconference: <p> Gostaria de convidá-lo para <b>o evento 'event_name' no
+          espaço %{space}</b> em 'event_date'. O evento será uma conferência virtual
+          com participação simples através do sistema Isabel. </p><p> Você pode encontrar
+          mais informações sobre este evento em <a href="event_url">event_url</a>
+          </p><p>Atenciosamente,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>
+        telemeeting: <p> Gostaria de convidá-lo para <b>o evento 'event_name' no espaço
+          %{space}</b> em 'event_date'. O evento será uma reunião virtual com participação
+          simples através do sistema Isabel. </p><p> Você pode encontrar mais informações
+          sobre este evento em <a href="event_url">event_url</a> </p><p>Atenciosamente,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>
       message_public_without_start_date:
-        in_person: "<p> Gostaria de convidá-lo para <b>o evento 'event_name' no espaço %{space}</b>.</p><p> Você pode encontrar mais informações sobre este
-          evento em <a href=\"event_url\">event_url</a> </p><p>Atenciosamente,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>"
-        teleclass: "<p> Gostaria de convidá-lo para <b>o evento 'event_name' no espaço %{space}</b>. O evento será uma classe virtual com participação simples
-          através do sistema Isabel. </p><p> Você pode encontrar mais informações sobre este evento em <a href=\"event_url\">event_url</a> </p>
-          <p>Atenciosamente,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>"
-        teleconference: "<p> Gostaria de convidá-lo para <b>o evento 'event_name' no espaço %{space}</b>. O evento será uma conferência virtual com participação
-          simples através do sistema Isabel. </p><p> Você pode encontrar mais informações sobre este evento em <a href=\"event_url\">event_url</a> </p>
-          <p>Atenciosamente,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>"
-        telemeeting: "<p> Gostaria de convidá-lo para <b>o evento 'event_name' no espaço %{space}</b>. O evento será uma reunião virtual com participação
-          simples através do sistema Isabel. </p><p> Você pode encontrar mais informações sobre este evento em <a href=\"event_url\">event_url</a> </p>
-          <p>Atenciosamente,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>"
-      message_title: "Convidar usuários não registrados"
-      subject: "%{username} convida você para o evento %{eventname} no espaço
-        %{space}"
+        in_person: <p> Gostaria de convidá-lo para <b>o evento 'event_name' no espaço
+          %{space}</b>.</p><p> Você pode encontrar mais informações sobre este evento
+          em <a href="event_url">event_url</a> </p><p>Atenciosamente,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>
+        teleclass: <p> Gostaria de convidá-lo para <b>o evento 'event_name' no espaço
+          %{space}</b>. O evento será uma classe virtual com participação simples
+          através do sistema Isabel. </p><p> Você pode encontrar mais informações
+          sobre este evento em <a href="event_url">event_url</a> </p> <p>Atenciosamente,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>
+        teleconference: <p> Gostaria de convidá-lo para <b>o evento 'event_name' no
+          espaço %{space}</b>. O evento será uma conferência virtual com participação
+          simples através do sistema Isabel. </p><p> Você pode encontrar mais informações
+          sobre este evento em <a href="event_url">event_url</a> </p> <p>Atenciosamente,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>
+        telemeeting: <p> Gostaria de convidá-lo para <b>o evento 'event_name' no espaço
+          %{space}</b>. O evento será uma reunião virtual com participação simples
+          através do sistema Isabel. </p><p> Você pode encontrar mais informações
+          sobre este evento em <a href="event_url">event_url</a> </p> <p>Atenciosamente,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>
+      message_title: Convidar usuários não registrados
+      subject: ! '%{username} convida você para o evento %{eventname} no espaço %{space}'
     has: Este evento tem
     held_with: Este evento será realizado com
     help:
-      book: "É necessário reservar recursos para fazer uma videoconferência.
-        Por favor, defina o seu cronograma na agenda."
-      create: "Crie o seu evento simples em três etapas:"
+      book: É necessário reservar recursos para fazer uma videoconferência. Por favor,
+        defina o seu cronograma na agenda.
+      create: ! 'Crie o seu evento simples em três etapas:'
       creating_entries: criando entradas
       define: Definir o cronograma de sua reunião
-      define3: ""
+      define3: ''
       description: Escreva uma descrição completa
       edit: Editar seu evento
       in_agenda: na agenda
@@ -663,7 +708,7 @@ pt-br:
       one: Evento no espaço %{space}
     invite: Convidar pessoas
     join: Junte-se a este evento
-    last_7_days: "Últimos 7 dias (%{size})"
+    last_7_days: Últimos 7 dias (%{size})
     last_month: Mês passado (%{size})
     location: Localização
     logo:
@@ -676,24 +721,24 @@ pt-br:
       change_end_date: Alterar a data final do evento
       change_event_end_date_div: <b>Alterar a data final do evento:</b> Esta opção
         permite expandir o horário do evento movendo o horário final. Esta mudança
-        afetará somente para o horário final do evento e nada mais (as sessões
-        permanecerão com mesmo horário). Use esta opção se você precisar de mais
-        tempo após o horário final do seu evento.
+        afetará somente para o horário final do evento e nada mais (as sessões permanecerão
+        com mesmo horário). Use esta opção se você precisar de mais tempo após o horário
+        final do seu evento.
       change_event_start_date_div: <b>Alterar a data final do evento:</b> Esta opção
         permite expandir o horário do evento movendo o horário inicial. Esta mudança
-        afetará somente para o horário inicial do evento e nada mais (as sessões
-        permanecerão com mesmo horário). Use esta opção se você precisar de mais
-        tempo antes do horário inicial do seu evento.
+        afetará somente para o horário inicial do evento e nada mais (as sessões permanecerão
+        com mesmo horário). Use esta opção se você precisar de mais tempo antes do
+        horário inicial do seu evento.
       change_start_date: Alterar data de início do evento
       move_event: Mover evento
-      move_event_div: <b>Mover evento:</b> Esta opção permite mover seu evento.
-        Você pode escolher um novo horário inicial e isso vai afetar tudo em seu
-        evento. <b>Todas as sessões do evento vão mudar</b> seu horário de início
-        para manter a relação de tempo com o início do evento.
+      move_event_div: <b>Mover evento:</b> Esta opção permite mover seu evento. Você
+        pode escolher um novo horário inicial e isso vai afetar tudo em seu evento.
+        <b>Todas as sessões do evento vão mudar</b> seu horário de início para manter
+        a relação de tempo com o início do evento.
       no_change: Nenhuma mudança
-      out_date: A entrada de agenda com título "%{agenda_entry}" estará fora do
-        evento e isso não é permitido. Mova ou edite as suas sessões para permitir
-        que essa alteração seja feita.
+      out_date: A entrada de agenda com título "%{agenda_entry}" estará fora do evento
+        e isso não é permitido. Mova ou edite as suas sessões para permitir que essa
+        alteração seja feita.
     new:
       basic: Informações básicas
       conference: Congresso Virtual
@@ -708,8 +753,7 @@ pt-br:
     none_coming: Não há eventos próximos
     not_attend: Não participarão
     note:
-      both: Participação na Web e streaming estarão disponíveis no momento do
-        evento
+      both: Participação na Web e streaming estarão disponíveis no momento do evento
       none: Não há transmissão definida na agenda.
       not_organizer_after: Este evento aconteceu em %{date}, agora você pode desfrutar
         do programa do evento e das gravações
@@ -717,8 +761,8 @@ pt-br:
         a sua participação e ler o programa
       not_organizer_during: Este evento está acontecendo agora, você pode segui-lo
         com o streaming ou participar com o cliente de bate-papo e o cliente flash
-      not_organizer_no_date: Este evento ainda não tem data. Você pode confirmar
-        sua assintance agora e voltar mais tarde para ler o programa
+      not_organizer_no_date: Este evento ainda não tem data. Você pode confirmar sua
+        assintance agora e voltar mais tarde para ler o programa
       nothing: Nenhuma participação Web ou streaming reservados neste momento
       participation: A participação Web estará disponível no momento do evento
       streaming: O streaming de vídeo estará disponível no momento do evento
@@ -730,20 +774,23 @@ pt-br:
       hide_all_attendants: Ocultar todos os participantes
       label: Personalize a sua mensagem de notificação
       legend:
-        name: "'Name' será substituído na mensagem pelo nome do receptor."
-      message_beginning_with_start_date: "<p> 'Name', </p><p> Quanto o <b>'event_name' no espaço %{space}</b> em 'event_date': </p>"
-      message_beginning_without_start_date: "<p> 'Name', </p><p> Relacionado ao <b>evento 'event_name' no espaço %{space}</b>:</p>"
-      message_ending: "<p>Você pode encontrar mais informações sobre o evento em <a href=\"event_url\">event_url</a> </p><p> Atenciosamente, <br/><br/> %{username}
-                       <br/> %{usermail} <br/> %{userorg} </p>"
+        name: ! '''Name'' será substituído na mensagem pelo nome do receptor.'
+      message_beginning_with_start_date: ! '<p> ''Name'', </p><p> Quanto o <b>''event_name''
+        no espaço %{space}</b> em ''event_date'': </p>'
+      message_beginning_without_start_date: <p> 'Name', </p><p> Relacionado ao <b>evento
+        'event_name' no espaço %{space}</b>:</p>
+      message_ending: <p>Você pode encontrar mais informações sobre o evento em <a
+        href="event_url">event_url</a> </p><p> Atenciosamente, <br/><br/> %{username}
+        <br/> %{usermail} <br/> %{userorg} </p>
       message_title: Enviar uma notificação aos participantes confirmados
       personal: Escreva o seu texto pessoal aqui.
       select_all_attendants: Selecionar todos os participantes
-      selected_attendants: "Participantes que você deseja notificar:"
+      selected_attendants: ! 'Participantes que você deseja notificar:'
       show_all_attendants: Mostrar todos os participantes
-      subject: "%{username} enviou uma notificação para informá-lo sobre o evento
-        %{eventname} no espaço %{space}"
+      subject: ! '%{username} enviou uma notificação para informá-lo sobre o evento
+        %{eventname} no espaço %{space}'
       title: Informe os participantes do evento
-    now: "Eventos neste momento:"
+    now: ! 'Eventos neste momento:'
     one: Evento
     online: Webconferência
     other: Eventos
@@ -793,11 +840,11 @@ pt-br:
     start: Reinicie o evento
     started: pedido Iniciar enviar com êxito
     stats:
-      map: "Ver mapa"
-      message1: "Esta página mostra as estatísticas das conexões Web para o evento."
-      message2: "Esta página mostra o mapa das conexões Web para o evento."
-      title1: "Estatísticas do evento \"%{event}\""
-      title2: "Mapa de conexões do evento \"%{event}\""
+      map: Ver mapa
+      message1: Esta página mostra as estatísticas das conexões Web para o evento.
+      message2: Esta página mostra o mapa das conexões Web para o evento.
+      title1: Estatísticas do evento "%{event}"
+      title2: Mapa de conexões do evento "%{event}"
       view: Ver estatísticas
     streaming:
       add: Acrescentar um.
@@ -862,8 +909,8 @@ pt-br:
     hide_all_users: Esconder todos usuários
     instructions: Clique Enviar para cada convite que você deseja enviar, e clique
       Finalizar quando você concluir.
-    logout_and_reload: Você não é o usuário que recebeu este convite, por favor
-      saia do sistema e tente novamente
+    logout_and_reload: Você não é o usuário que recebeu este convite, por favor saia
+      do sistema e tente novamente
     message_title: Convidar usuários registrados
     new:
       other: Convidar pessoas
@@ -890,8 +937,8 @@ pt-br:
       question: Eu tenho um iPad, que não possui o plugin Flash... posso assistir
         os vídeos nele?
     faq11:
-      answer: Até o momento, <i>apenas</i> Inglês, Espanhol, Francês, Alemão e
-        Português (Brasil) são suportados. Para selecionar um deles use o link <b>Linguagem</b>
+      answer: Até o momento, <i>apenas</i> Inglês, Espanhol, Francês, Alemão e Português
+        (Brasil) são suportados. Para selecionar um deles use o link <b>Linguagem</b>
         localizado na parte inferior de qualquer página do Global Plaza. <br>Estamos
         constantemente aprimorando a internacionalização, e se você acha que pode
         nos ajudar, por favor <a href="feedback/new">entre em contato conoso</a>.
@@ -905,7 +952,7 @@ pt-br:
       question: Tenho diversas sugestões para o seu site. Vocês aceitam sugestões?
         Como posso contribuir para o desenvolvimento?
     faq2:
-      answer:  "<b>Global</b> é o nome do <a href=\"http://www.global-project.eu/\">projeto
+      answer: ! "<b>Global</b> é o nome do <a href=\"http://www.global-project.eu/\">projeto
         Europeu</a> no qual este site foi desenvolvido, reusando resultados e desenvolvimentos
         de outros projetos, e provendo uma orientação <i>em nuvem</i>. <b>Plaza</b>,
         do latin <i>plattÄ\x95a</i>, refere-se a um espaço urbano público, o tradicional
@@ -913,37 +960,36 @@ pt-br:
         e <b>interações</b> definem muito bem a filosofia deste local."
       question: Por que Global? Por que Plaza?
     faq3:
-      answer:  "Para participar na comunidade Global Plaza você precisa um navegador
+      answer: Para participar na comunidade Global Plaza você precisa um navegador
         web (a maioria deles funciona muito bem). Algumas funcionalidades avançadas,
-        como videoconferência, necessitam que você possua instalado o <a href=\"http://get.adobe.com/es/flashplayer/\">plugin
-        Flash</a> (além de uma webcam e um microfone). É muito provável que
-        você já possua estes requisitos."
+        como videoconferência, necessitam que você possua instalado o <a href="http://get.adobe.com/es/flashplayer/">plugin
+        Flash</a> (além de uma webcam e um microfone). É muito provável que você já
+        possua estes requisitos.
       question: O que preciso para entrar no Global Plaza?
     faq4:
-      answer:  "Para começar a colaborar no Global Plaza você precisa <a href=\"/signup\">registrar-se</a>.
+      answer: Para começar a colaborar no Global Plaza você precisa <a href="/signup">registrar-se</a>.
         Desta forma você poderá criar espaços, adicionar documentos, e participar
-        de reuniões. Uma boa forma de iniciar é verificando as <a href=\"/help\">páginas
+        de reuniões. Uma boa forma de iniciar é verificando as <a href="/help">páginas
         de ajuda</a> do Global Plaza. <b>Livre?</b> SIM, tudo no Global Plaza é livre,
-        e continuará sendo. Nós acreditamos que VOCÊ é que provê valor para
-        nossa rede social, portanto não seria justo cobrar de você, seria?"
-      question:  "Como posso entrar e participar da comunidade? É livre?"
+        e continuará sendo. Nós acreditamos que VOCÊ é que provê valor para nossa
+        rede social, portanto não seria justo cobrar de você, seria?
+      question: Como posso entrar e participar da comunidade? É livre?
     faq5:
-      answer: Não, claro que não. Como dito antes, acreditamos que há mais valor
-        quando mais pessoas criam/acessam conteúdos, mas isso não significa que
-        você não pode ter seus <b>espaços privados</b>. Estes estarão acessiveis
-        somente para os membros que você selecionar, e seu conteúdo contiunará
-        privado e escondido dos outros membros.
+      answer: Não, claro que não. Como dito antes, acreditamos que há mais valor quando
+        mais pessoas criam/acessam conteúdos, mas isso não significa que você não
+        pode ter seus <b>espaços privados</b>. Estes estarão acessiveis somente para
+        os membros que você selecionar, e seu conteúdo contiunará privado e escondido
+        dos outros membros.
       question: Mas... tudo é acessível por qualquer um? QUALQUER UM pode interagir
         com QUALQUER COISA?
     faq6:
-      answer: "Um <b>espaço</b> é a unidade básica de colaboração no Global
-        Plaza. Como você pode imaginar, não é nada mais (nem menos) que um local
-        onde pessoas com um interesse comum podem interagir. A interação pode ocorrer
-        de diversas formas: usando o repositório de documentos, organizando eventos,
-        participando em videoconferências ou chats...<br>Uma vez que você cria um
-        espaço, o Global Plaza lhe permite fazer isso tudo, e muito mais. Você só
-        precisa decidir que convidar para seu espaço, e se ele será público ou
-        privado."
+      answer: ! 'Um <b>espaço</b> é a unidade básica de colaboração no Global Plaza.
+        Como você pode imaginar, não é nada mais (nem menos) que um local onde pessoas
+        com um interesse comum podem interagir. A interação pode ocorrer de diversas
+        formas: usando o repositório de documentos, organizando eventos, participando
+        em videoconferências ou chats...<br>Uma vez que você cria um espaço, o Global
+        Plaza lhe permite fazer isso tudo, e muito mais. Você só precisa decidir que
+        convidar para seu espaço, e se ele será público ou privado.'
       question: Espaços? Que espaços? O que diabos são espaços?
     faq7:
       answer: Global Plaza é um site que gira em torno de videoconferências e, como
@@ -954,14 +1000,14 @@ pt-br:
     faq8:
       answer: Como em qualquer sistema, os recursos não são ilimitados. Nós tentamos
         garantir recursos suficientes para todos os eventos, mas se um evento não
-        pode ser realizado em uma data / hora específica, você será notificado
-        no momento da criação.
+        pode ser realizado em uma data / hora específica, você será notificado no
+        momento da criação.
       question: Espere um momento! Eu posso organizar CINCO videoconferências simultâneas
         para amanhã?
     faq9:
-      answer: Sim. No momento da criação do evento, você pode selecionar se quer
-        ativar a <b>gravação</b>. Se for esse o caso, as sessões serão automaticamente
-        gravadas e estarão posteriormente acessíveis na página principal do evento.  Estamos
+      answer: Sim. No momento da criação do evento, você pode selecionar se quer ativar
+        a <b>gravação</b>. Se for esse o caso, as sessões serão automaticamente gravadas
+        e estarão posteriormente acessíveis na página principal do evento.  Estamos
         trabalhando para permitir que vocês façam o download dos vídeos para assisti-los
         localmente em seus computadores ou para distribuí-los.
       question: As reuniões são gravadas?
@@ -969,7 +1015,7 @@ pt-br:
     title: Perguntas Frequentes
   fax: Fax
   feedback:
-    email: "%{email} enviou o seguinte feedback:"
+    email: ! '%{email} enviou o seguinte feedback:'
     note: Ajude-nos a melhorar o Global. Envie seus comentários, problemas e sugestões.
       Tentaremos responder o mais rapidamente possível.
     one: Feedback
@@ -980,10 +1026,10 @@ pt-br:
   fill_fields: Você deve preencher todos os campos
   find:
     browse: Navegar
-  find_in: "Pesquisar em:"
-  find_in_day: "Pesquisar no dia:"
-  find_in_name_speakers: "Pesquisar em nome/palestrantes:"
-  follow_reset_password: "%{agent}, por favor siga o link para redefinir a sua senha"
+  find_in: ! 'Pesquisar em:'
+  find_in_day: ! 'Pesquisar no dia:'
+  find_in_name_speakers: ! 'Pesquisar em nome/palestrantes:'
+  follow_reset_password: ! '%{agent}, por favor siga o link para redefinir a sua senha'
   form:
     loading: O formulário está carregando...
   from: De
@@ -998,8 +1044,8 @@ pt-br:
     no_rooms: Nenhuma reunião em progresso.
     participants: participantes
     participants_in:
-      one: "%{count} participante na conferência deste espaço"
-      other: "%{count} participantes na conferência deste espaço"
+      one: ! '%{count} participante na conferência deste espaço'
+      other: ! '%{count} participantes na conferência deste espaço'
     popular_spaces: Espaços públicos
     project_description: <p>Este website é parte do projeto <a href="http://www.inf.ufrgs.br/prav/gtmconf">Mconf</a>,
       sistema em desenvolvimento no grupo de pesquisa <a href="http://www.inf.ufrgs.br/prav">PRAV</a>
@@ -1008,7 +1054,8 @@ pt-br:
       Plaza</a> e integrado ao sistema de webconferência <a href="http://bigbluebutton.org/">BigBlueButton</a>.</p>
       <p>Para mais informações, acesse o website do projeto <a href="http://www.inf.ufrgs.br/prav/gtmconf">clicando
       aqui</a>.</p>
-    register_sentence: "Crie uma conta para acessar espaços privados e criar suas próprias webconferências"
+    register_sentence: Crie uma conta para acessar espaços privados e criar suas próprias
+      webconferências
     room_name: Nome da sala
     upcoming_events: Próximos eventos
     webconferences: Webconferências
@@ -1039,68 +1086,65 @@ pt-br:
   hello: Olá
   help: Ajuda
   help_createVC:
-    part1: "Para criar um congresso virtual no Global: <br><br>1. Clique na guia
+    part1: ! 'Para criar um congresso virtual no Global: <br><br>1. Clique na guia
       <b>Eventos</b>.<br>2. Clique em <b>Congresso Virtual</b> no lado direito da
-      página."
-    part2: 3. Digite um título e uma descrição para seu evento.<br> 4. Digite ou
-      selecione o usuários que fazem parte da organização do evento.<br> 5. Digite
-      o local do evento.<br> 6. Escolha os modos de participação, que lhe permitem
-      decidir como as pessoas podem conectar na reunião virtual. <br>&nbsp; &nbsp;
-      a. <b> Isabel </b> é o sistema de código aberto utilizado como base para vídeoconferência.<br>
+      página.'
+    part2: 3. Digite um título e uma descrição para seu evento.<br> 4. Digite ou selecione
+      o usuários que fazem parte da organização do evento.<br> 5. Digite o local do
+      evento.<br> 6. Escolha os modos de participação, que lhe permitem decidir como
+      as pessoas podem conectar na reunião virtual. <br>&nbsp; &nbsp; a. <b> Isabel
+      </b> é o sistema de código aberto utilizado como base para vídeoconferência.<br>
       &nbsp;&nbsp; &nbsp;b.<b> Web </b> é a possibilidade de participar via navegador
       web. <br> 7. Clique no botão <b>Criar</b>.
-    part3: "8. Depois de ter criado o evento você pode: <br><li><a href=%{agenda}>
-      Definir a agenda para o evento</a><il>Reservar recursos é necessário para
-      fazer uma videoconferência<li>Convidar pessoas<li>Escrever uma descrição
-      completa<li>Editar seu evento<li>Importar a agenda para o seu iCalendar<li>Notificar
-      os participantes"
+    part3: ! '8. Depois de ter criado o evento você pode: <br><li><a href=%{agenda}>
+      Definir a agenda para o evento</a><il>Reservar recursos é necessário para fazer
+      uma videoconferência<li>Convidar pessoas<li>Escrever uma descrição completa<li>Editar
+      seu evento<li>Importar a agenda para o seu iCalendar<li>Notificar os participantes'
   help_createVM:
     part1: Para criar uma reunião virtual no Global Plaza:<br><br> 1. Clique na guia
       <b>Eventos</b>.<br>2. Clique em <b>Reunião Virtual</b> no lado direito da página.
-    part2: 3. Digite um título e uma descrição para seu evento. <br> 4. Digite
-      ou selecione os organizadores do evento. <br> 5. Digite o local do evento. <br>6.
-      Escolha os modos de participação, que lhe permitem decidir como as pessoas
-      podem ligar para a reunião virtual.<br>&nbsp; &nbsp; a. <b> Isabel </b> é
-      o sistema de código aberto utilizado como base para vídeoconferência.<br>
-      &nbsp;&nbsp; &nbsp;b.<b> Web </b> é a possibilidade de participar via navegador
-      web. <br> 7. Clique no botão <b>Criar</b>.
-    part3: "8. Depois de ter criado o evento você pode: <br><li><a href=%{agenda}>
-      Definir a agenda para o evento</a><il>Reservar recursos é necessário para
-      fazer uma videoconferência<li>Convidar pessoas<li>Escrever uma descrição
-      completa<li>Editar seu evento<li>Importar a agenda para o seu iCalendar<li>Notificar
-      os participantes"
+    part2: 3. Digite um título e uma descrição para seu evento. <br> 4. Digite ou
+      selecione os organizadores do evento. <br> 5. Digite o local do evento. <br>6.
+      Escolha os modos de participação, que lhe permitem decidir como as pessoas podem
+      ligar para a reunião virtual.<br>&nbsp; &nbsp; a. <b> Isabel </b> é o sistema
+      de código aberto utilizado como base para vídeoconferência.<br> &nbsp;&nbsp;
+      &nbsp;b.<b> Web </b> é a possibilidade de participar via navegador web. <br>
+      7. Clique no botão <b>Criar</b>.
+    part3: ! '8. Depois de ter criado o evento você pode: <br><li><a href=%{agenda}>
+      Definir a agenda para o evento</a><il>Reservar recursos é necessário para fazer
+      uma videoconferência<li>Convidar pessoas<li>Escrever uma descrição completa<li>Editar
+      seu evento<li>Importar a agenda para o seu iCalendar<li>Notificar os participantes'
   help_createevent:
     part1: <a href=%{url} class="big_button red_button" target="_blank"><span>Assistir
       ao screencast</span></a><br><br><br>Para criar um evento no Global Plaza:<br><br>1.
       Clique na guia <b>Eventos</br>.
-    part2: "2. Você pode criar um evento diretamente do campo <b>Criar evento</b>
-      na coluna do lado direito da página. O Global Plaza oferece suporte a três
-      tipos de eventos, de acordo com suas necessidades:  <br><li>O tipo <b><a href=%{url_meeting}>
-      Reunião </a></b> é basicamente projetado de acordo com reuniões físicas
-      ou reuniões offline para as quais você não precisa de gravação de vídeo
-      ou streaming, mas precisa preferencialmente de características que tornam simples
-      lidar com reuniões - como criar e modificar uma agenda que as pessoas possam
-      consultar ou importar em seu calendário. Além disso, você pode querer fornecer
-      os documentos necessários para a reunião ou compartilhar fotos tiradas na
-      reunião. <li>O tipo <b><a href=%{url_vm}>Reunião Virtual </a> é adequado
-      para reuniões on-line ou encontros presenciais com um forte aspecto virtual,
-      o que significa que ambos os participantes locais e remotos terão a oportunidade
-      de se comunicar de forma interativa. .<li>O tipo <b> <a href=%{url_vc}>Congresso
-      Virtual</a> </b> é muito semelhante ao tipo <i>Reunião Virtual</i>, mas voltado
-      para eventos maiores, tanto em tamanho quanto em complexidade. Normalmente,
-      este tipo requer o apoio de um operador local."
+    part2: ! '2. Você pode criar um evento diretamente do campo <b>Criar evento</b>
+      na coluna do lado direito da página. O Global Plaza oferece suporte a três tipos
+      de eventos, de acordo com suas necessidades:  <br><li>O tipo <b><a href=%{url_meeting}>
+      Reunião </a></b> é basicamente projetado de acordo com reuniões físicas ou reuniões
+      offline para as quais você não precisa de gravação de vídeo ou streaming, mas
+      precisa preferencialmente de características que tornam simples lidar com reuniões
+      - como criar e modificar uma agenda que as pessoas possam consultar ou importar
+      em seu calendário. Além disso, você pode querer fornecer os documentos necessários
+      para a reunião ou compartilhar fotos tiradas na reunião. <li>O tipo <b><a href=%{url_vm}>Reunião
+      Virtual </a> é adequado para reuniões on-line ou encontros presenciais com um
+      forte aspecto virtual, o que significa que ambos os participantes locais e remotos
+      terão a oportunidade de se comunicar de forma interativa. .<li>O tipo <b> <a
+      href=%{url_vc}>Congresso Virtual</a> </b> é muito semelhante ao tipo <i>Reunião
+      Virtual</i>, mas voltado para eventos maiores, tanto em tamanho quanto em complexidade.
+      Normalmente, este tipo requer o apoio de um operador local.'
   help_createmeeting:
-    part1: "Para criar uma reunião no Global Plaza: <br><br>1. Clique na guia <b>Eventos</b>.<br>
-      2. Clique em <b>Reunião</b> do lado direito da página."
-    part2: 3. Digite um título e uma descrição para seu evento.<br>4. Digite ou
-      selecione o espaço usuários organização do evento.<br>5. Digite o local
-      do evento.<br> 6. Clique no botão <b>Criar</b>.
-    part3: "7. Depois de ter criado o evento você pode: <br><li><a href=%{agenda}>
+    part1: ! 'Para criar uma reunião no Global Plaza: <br><br>1. Clique na guia <b>Eventos</b>.<br>
+      2. Clique em <b>Reunião</b> do lado direito da página.'
+    part2: 3. Digite um título e uma descrição para seu evento.<br>4. Digite ou selecione
+      o espaço usuários organização do evento.<br>5. Digite o local do evento.<br>
+      6. Clique no botão <b>Criar</b>.
+    part3: ! '7. Depois de ter criado o evento você pode: <br><li><a href=%{agenda}>
       Definir a agenda para o evento</a><li>Convidar pessoas<li>Escrever uma descrição
       completa<li>Editar seu evento<li>Importar a agenda para o seu iCalendar<li>Notificar
-      os participantes"
+      os participantes'
   help_createpost:
-    part1: "Para criar uma mensagem no mural no Global Plaza:"
+    part1: ! 'Para criar uma mensagem no mural no Global Plaza:'
     part10: a. Ver código html
     part11: b. Mudar o estilo da fonte (negrito, itálico e sublinhado), tamanho da
       fonte e cor e alinhamento do texto.
@@ -1118,16 +1162,16 @@ pt-br:
     part7: 6. Você pode adicionar tags no seu arquivo. Tags permitem que você encontre
       arquivos facilmente. Pressione enter para confirmar cada tag.
     part8: 7. Repita os passos 4, 5 e 6 para cada arquivo que você deseja adicionar.
-    part9: "8. Você pode usar o editor avançado para incluir conteúdo. Este editor
-      permite que você:"
+    part9: ! '8. Você pode usar o editor avançado para incluir conteúdo. Este editor
+      permite que você:'
   help_createspace:
-    part1: "Para criar um espaço no Global Plaza:"
+    part1: ! 'Para criar um espaço no Global Plaza:'
     part2: 1. Clique no item <a href=%{url}> Minha Home </a> da barra superior.
     part3: 2. Clique no botão <a href=%{url}>Criar Novo Espaço</a>.
     part4: 3. Digite um nome e uma descrição para o seu espaço.
-    part5: 4. Decida se o espaço deve ser público. Espaços colaborativos podem
-      ser públicos, para que qualquer pessoa veja o que acontece neles, ou privados,
-      onde apenas os membros terão acesso Ã s atividades do espaço.
+    part5: 4. Decida se o espaço deve ser público. Espaços colaborativos podem ser
+      públicos, para que qualquer pessoa veja o que acontece neles, ou privados, onde
+      apenas os membros terão acesso Ã s atividades do espaço.
     part6: 5. Se você deseja habilitar um repositório de documentos, escolha esta
       opção.<br> 6. Você pode associar uma lista de e-mails no seu grupo. Ela permitirá
       que você envie mensagens de e-mail para todo o grupo em vez de ter de escolher
@@ -1135,157 +1179,169 @@ pt-br:
       criar um logotipo de texto ou selecionar uma imagem da galeria.
     part7: ''
   help_createuser:
-    part1: "Para criar um usuário no Global Plaza:"
-    part2: "1. Clique no item <a href=%{url}>registrar</a> na barra de menu superior."
-    part3: "2. Digite e-mail, senha e nome completo."
-    part4: "3. Digite o código da imagem exibida."
-    part5: "4. Depois de ter concluído sua inscrição, clique no botão <b>Pronto</b>."
-    part6: "5. Depois de registrar uma conta, você receberá uma confirmação por e-mail com o link para ativar sua conta."
+    part1: ! 'Para criar um usuário no Global Plaza:'
+    part2: 1. Clique no item <a href=%{url}>registrar</a> na barra de menu superior.
+    part3: 2. Digite e-mail, senha e nome completo.
+    part4: 3. Digite o código da imagem exibida.
+    part5: 4. Depois de ter concluído sua inscrição, clique no botão <b>Pronto</b>.
+    part6: 5. Depois de registrar uma conta, você receberá uma confirmação por e-mail
+      com o link para ativar sua conta.
   help_define_agenda:
-    part1: "<a href=%{url} class=\"big_button red_button\" target=\"_blank\"><span>Assistir ao screencast</a></span><br><br><br> Para criar uma agenda para o seu evento
-            no VCC: <br><br> 1. Clique no na guia <b>Eventos</b>.<br> 2. Clique no evento que você já criou. <br> 3. Clique no link \"Definir a agenda\" no botão \"Agenda\"
-            ou no link \"Agenda para o evento\" (ver setas azuis na figura)"
-    part2: "4. Na seção da agenda, clique no botão \"Adicionar sessão\" para criar um item da agenda. <br> 5. Preencha o título da entrada da agenda, o horário
-            de início e a duração e clique em no botão \"Próximo passo\"<br> 6. Agora você pode editar os detalhes, tais como palestrantes, que podem ser usuários
-            do site ou usuários externos, ou a descrição<br> 7. Se quiser anexar um arquivo, clique no link \"Novo anexo\". <br> 8. Se o tipo do seu evento é \"Reunião\",
-            você pode inserir vídeos neste item da agenda"
-    part3: "9. Se o tipo do evento é \"Reunião Virtual\" ou \"Congresso Virtual\", você pode reservar os recursos de hardware e software para este item da agenda, selecione
-            tanto streaming quanto gravação"
-    part4: "10. Clique no botão \"Finalizar\" para enviar suas alterações.  <br> 11. Se quiser acrescentar um divisor para indicar intervalos, como pausas para café
-            ou almoço, clique no botão \"Adicionar divisor\". Você pode definir o horário de início e os motivos para a pausa. Clique no botão \"Criar\" para adicionar
-            o divisor. <br> 12. Se o evento leva mais tempo do que um dia, você pode adicionar uma nova sessão para o segundo dia. Cada dia tem sua própria aba com os items
-            da agenda especificada."
+    part1: ! '<a href=%{url} class="big_button red_button" target="_blank"><span>Assistir
+      ao screencast</a></span><br><br><br> Para criar uma agenda para o seu evento
+      no VCC: <br><br> 1. Clique no na guia <b>Eventos</b>.<br> 2. Clique no evento
+      que você já criou. <br> 3. Clique no link "Definir a agenda" no botão "Agenda"
+      ou no link "Agenda para o evento" (ver setas azuis na figura)'
+    part2: 4. Na seção da agenda, clique no botão "Adicionar sessão" para criar um
+      item da agenda. <br> 5. Preencha o título da entrada da agenda, o horário de
+      início e a duração e clique em no botão "Próximo passo"<br> 6. Agora você pode
+      editar os detalhes, tais como palestrantes, que podem ser usuários do site ou
+      usuários externos, ou a descrição<br> 7. Se quiser anexar um arquivo, clique
+      no link "Novo anexo". <br> 8. Se o tipo do seu evento é "Reunião", você pode
+      inserir vídeos neste item da agenda
+    part3: 9. Se o tipo do evento é "Reunião Virtual" ou "Congresso Virtual", você
+      pode reservar os recursos de hardware e software para este item da agenda, selecione
+      tanto streaming quanto gravação
+    part4: 10. Clique no botão "Finalizar" para enviar suas alterações.  <br> 11.
+      Se quiser acrescentar um divisor para indicar intervalos, como pausas para café
+      ou almoço, clique no botão "Adicionar divisor". Você pode definir o horário
+      de início e os motivos para a pausa. Clique no botão "Criar" para adicionar
+      o divisor. <br> 12. Se o evento leva mais tempo do que um dia, você pode adicionar
+      uma nova sessão para o segundo dia. Cada dia tem sua própria aba com os items
+      da agenda especificada.
   help_export:
-    part1: "Os eventos podem ser exportados como segue:"
-    part2: "1. Ir para a página do <b>Evento</b> que pretende exportar"
-    part3: "2. Clique em <b>Exportar</b> na barra de programas"
-    part4: "3. Você pode exportar um evento em quatro formatos: <ul><li><b> PDF
+    part1: ! 'Os eventos podem ser exportados como segue:'
+    part2: 1. Ir para a página do <b>Evento</b> que pretende exportar
+    part3: 2. Clique em <b>Exportar</b> na barra de programas
+    part4: ! '3. Você pode exportar um evento em quatro formatos: <ul><li><b> PDF
       </b>: exporta o programa completo como um arquivo PDF. </li><li><b> PDF pequeno</b>:
       exporta uma versão reduzida do programa em um arquivo PDF.</li><li><b> iCalendar</b>:
       exporta os dados do evento no formato iCalendar para incluí-lo em aplicações
       de calendário e e-mails.</li><li><b> SCORM</b>: exporta o conteúdo dos eventos
       em um arquivo compatível com SCORM, que pode ser importado por um LMS (Learning
       Management System). Somente os eventos gravados podem ser exportados em SCORM.
-      </li></ul>"
-    part5: "Um exemplo de exportação em SCORM no Moodle é exibido na figura abaixo:"
+      </li></ul>'
+    part5: ! 'Um exemplo de exportação em SCORM no Moodle é exibido na figura abaixo:'
   help_index:
-    part1: "Global Plaza oferece um serviço de eventos virtuais para a Internet, que
-      lhe permite realizar videoconferências, transmissão, gravação e publicação
-      eletrÃ´nica de suas reuniões, palestras, sessões de treinamento, conferências,
-      congressos ou workshops."
-    part2: "A rede social do Global Plaza vai divulgar os anúncios dos seus eventos
+    part1: Global Plaza oferece um serviço de eventos virtuais para a Internet, que
+      lhe permite realizar videoconferências, transmissão, gravação e publicação eletrÃ´nica
+      de suas reuniões, palestras, sessões de treinamento, conferências, congressos
+      ou workshops.
+    part2: ! 'A rede social do Global Plaza vai divulgar os anúncios dos seus eventos
       para outras pessoas, bem como permitir que você descubra eventos realizados
-      por outras pessoas para participar deles ou acompanhá-los. Os usos típicos
-      do Global Plaza são: <ul><li> Broadcast através da Internet via streaming
-      de eventos ou palestras que acontecem em uma sala de aula, sala de reuniões,
-      auditório ou de seu desktop.</li><li> Gravação e publicação de eventos
-      ou palestras que ocorrem em uma sala de aula, sala de reuniões, auditório
-      ou de seu desktop.</li><li> Trazer  palestrantes remotos para seus eventos através
-      da Internet, a partir de computadores ou salas. </li><li> Possibilitar a participação
-      remota a partir de auditórios ou salas em um congresso ou evento. </li><li>
-      Realizar eventos totalmente distribuídos com auditórios e desktops remotos
-      interligados.</li><li> Etc. </li></ul>"
-    part3: "As gravações de eventos a seguir lhe dão uma idéia do que você
-      pode obter a partir do Global Plaza: <ul><li><a href=%{egee08}>EGEE''08</a>,
-      <a href=%{egee05}>5th EGEE User''s Forum</a>.<li><a href=%{morfeo}>Asamblea
-      Morfeo</a>"
-    part4: "<li><a href=%{tnc08}>TNC'08</a>, <a href=%{tnc09}>TNC'09</a>, <a href=%{tnc10}>TNC'10</a>."
-    part5: "<li>Belief symposiums na <a href=%{india}>Índia</a>, <a href=%{brazil}>Brazil</a>
-      e <a href=%{southafrica}>África do Sul</a></ul>"
-    part6: "O Global Plaza está estruturado como um site sócio-colaborativo que suporta
+      por outras pessoas para participar deles ou acompanhá-los. Os usos típicos do
+      Global Plaza são: <ul><li> Broadcast através da Internet via streaming de eventos
+      ou palestras que acontecem em uma sala de aula, sala de reuniões, auditório
+      ou de seu desktop.</li><li> Gravação e publicação de eventos ou palestras que
+      ocorrem em uma sala de aula, sala de reuniões, auditório ou de seu desktop.</li><li>
+      Trazer  palestrantes remotos para seus eventos através da Internet, a partir
+      de computadores ou salas. </li><li> Possibilitar a participação remota a partir
+      de auditórios ou salas em um congresso ou evento. </li><li> Realizar eventos
+      totalmente distribuídos com auditórios e desktops remotos interligados.</li><li>
+      Etc. </li></ul>'
+    part3: ! 'As gravações de eventos a seguir lhe dão uma idéia do que você pode
+      obter a partir do Global Plaza: <ul><li><a href=%{egee08}>EGEE''''08</a>, <a
+      href=%{egee05}>5th EGEE User''''s Forum</a>.<li><a href=%{morfeo}>Asamblea Morfeo</a>'
+    part4: <li><a href=%{tnc08}>TNC'08</a>, <a href=%{tnc09}>TNC'09</a>, <a href=%{tnc10}>TNC'10</a>.
+    part5: <li>Belief symposiums na <a href=%{india}>Índia</a>, <a href=%{brazil}>Brazil</a>
+      e <a href=%{southafrica}>África do Sul</a></ul>
+    part6: O Global Plaza está estruturado como um site sócio-colaborativo que suporta
       comunicação social juntamente com suporte colaborativo para projetos e atividades
       em grupo. Qualquer pessoa pode se <a href=%{url}>registrar</a> gratuitamente
       no Global Plaza para formar parte da sua rede social e utilizar os seus serviços
       e recursos, tais como gravações, descrições de eventos, etc. Todos os recursos
       têm um link permanente, que pode ser utilizado e incorporado em outras páginas
-      da web."
-    part7: "Depois de registrar você será capaz de <a href=%{create}>criar</a> espaços
-      públicos pu privados para colaboração com grupos restritos de pessoas, que
-      serão administrados por você e pelas pessoas que você indicar como administradores.
-      Uma vez que você é um membro regular ou administrador de um espaço, você
-      será capaz de criar, anunciar, executar, registrar e publicar os seus eventos
-      no Global Plaza. Eventos virtuais podem ser automaticamente gravado e publicados
-      pelo Global Plaza para acesso público ou privado, bem como para incorporar
-      em blogs, páginas da Web, etc <br><br> Você pode participar de um evento virtual
+      da web.
+    part7: Depois de registrar você será capaz de <a href=%{create}>criar</a> espaços
+      públicos pu privados para colaboração com grupos restritos de pessoas, que serão
+      administrados por você e pelas pessoas que você indicar como administradores.
+      Uma vez que você é um membro regular ou administrador de um espaço, você será
+      capaz de criar, anunciar, executar, registrar e publicar os seus eventos no
+      Global Plaza. Eventos virtuais podem ser automaticamente gravado e publicados
+      pelo Global Plaza para acesso público ou privado, bem como para incorporar em
+      blogs, páginas da Web, etc <br><br> Você pode participar de um evento virtual
       do Global Plaza diretamente a partir de seu navegador Web, apenas acessando
       a página do evento. Seu navegador precisa ter o Flash instalado. Você também
       pode participar com um cilente <a href=%{isabel}> Isabel </a> nativo, que proporciona
-      uma melhor qualidade audiovisual e é recomendado para palestrantes ou para
-      conectar salas e auditórios. Um gateway SIP também é fornecido para permitir
-      a participação a partir de um equipamento de videoconferência. <br><br> As
-      atividades em grupo hospedadas no Plaza Global podem ser públicas ou privadas.
-      Espaços públicos possuem atuvidades que podem ser vistas e seguidas por qualquer
-      pessoa, enquanto espaços privados possuem projetos e atividades onde um grupo
-      podem colaborar compartilhando informações e reunindo-se de maneira privada."
-    part8: "O Global Plaza foi desenvolvido pelo <a href=%{web_global}>projeto European
-      Global</a>, reutilizando os resultados e a evolução de outros projetos que
-      transformaram a aplicação <a href=%{isabel}> Isabel </a> em um serviço de
-      computação em nuvem, como o ITECBAN, Ecospace, Collaboration@Rura, CEPOS,
-      etc <br><br> Para <a href=%{create}>criar</a> ou editar espaços, você deve
-      estar logado com sua sua conta do Plaza Global. Se você não tiver uma conta,
-      <a href=%{url}>crie uma agora</a>"
+      uma melhor qualidade audiovisual e é recomendado para palestrantes ou para conectar
+      salas e auditórios. Um gateway SIP também é fornecido para permitir a participação
+      a partir de um equipamento de videoconferência. <br><br> As atividades em grupo
+      hospedadas no Plaza Global podem ser públicas ou privadas. Espaços públicos
+      possuem atuvidades que podem ser vistas e seguidas por qualquer pessoa, enquanto
+      espaços privados possuem projetos e atividades onde um grupo podem colaborar
+      compartilhando informações e reunindo-se de maneira privada.
+    part8: O Global Plaza foi desenvolvido pelo <a href=%{web_global}>projeto European
+      Global</a>, reutilizando os resultados e a evolução de outros projetos que transformaram
+      a aplicação <a href=%{isabel}> Isabel </a> em um serviço de computação em nuvem,
+      como o ITECBAN, Ecospace, Collaboration@Rura, CEPOS, etc <br><br> Para <a href=%{create}>criar</a>
+      ou editar espaços, você deve estar logado com sua sua conta do Plaza Global.
+      Se você não tiver uma conta, <a href=%{url}>crie uma agora</a>
   help_invitation:
-    part1: "Em construção"
+    part1: Em construção
   help_join_space:
-    part1: "Para aderir a um espaço no Global Plaza:"
-    part2: "1. <a href=%{url}>Procurar</a> o espaço que você deseja ingressar."
-    part3: "2. Clique no botão <b>Entrar neste espaço</b> no lado direito da página."
-    part4: "3. Digite uma mensagem pessoal para os administradores do espaço (opcional)."
-    part5: "4. Por fim, clique no botão <b>enviar</b> para enviar a solicitação para participar dos administradores."
+    part1: ! 'Para aderir a um espaço no Global Plaza:'
+    part2: 1. <a href=%{url}>Procurar</a> o espaço que você deseja ingressar.
+    part3: 2. Clique no botão <b>Entrar neste espaço</b> no lado direito da página.
+    part4: 3. Digite uma mensagem pessoal para os administradores do espaço (opcional).
+    part5: 4. Por fim, clique no botão <b>enviar</b> para enviar a solicitação para
+      participar dos administradores.
   help_logging:
-    part1: "Se você já tiver uma conta global Plaza, você pode <a href=%{url}>logar aqui</a> ou inserir seu e-mail e senha na barra superior."
-    part2: "Se você tiver uma conta com um provedor OpenID, você pode fazer login automaticamente. Clique em <b>Entrar com OpenID</b> na barra de menu superior."
-    part3: "Se você esqueceu sua senha, você pode <a href=%{url}>recuperá-la aqui</a>
+    part1: Se você já tiver uma conta global Plaza, você pode <a href=%{url}>logar
+      aqui</a> ou inserir seu e-mail e senha na barra superior.
+    part2: Se você tiver uma conta com um provedor OpenID, você pode fazer login automaticamente.
+      Clique em <b>Entrar com OpenID</b> na barra de menu superior.
+    part3: Se você esqueceu sua senha, você pode <a href=%{url}>recuperá-la aqui</a>
       ou clique em <b>Você perdeu a sua senha</b> na barra de menu superior. Um e-mail
-      será enviado para você recuperar sua senha."
+      será enviado para você recuperar sua senha.
   help_newdoc:
-    part1: "Para adicionar um novo documento no Global Plaza:"
-    part2: "1. Clique na guia <b>Docs</b>."
-    part3: "2. Clique no botão <b>Adicionar novo documento</b>."
-    part4: "3. Clique em <b>Escolher arquivo</b> no lado direito da página."
-    part5: "4. Depois que o arquivo estiver selecionado, clique no botão <b>Abrir</b>."
-    part6: "5. Você pode <b>adicionar tags</b> que você e outros podem usar para localizar e filtrar o conteúdo. Pressione enter para confirmar cada tag."
-    part7: "6. Se você deseja <b>notificar</b> o documento com uma mensagem no mural, escolha esta opção."
-    part8: "7. Por fim, clique no botão <b>Upload</b> para adicionar o arquivo no repositório de documentos."
+    part1: ! 'Para adicionar um novo documento no Global Plaza:'
+    part2: 1. Clique na guia <b>Docs</b>.
+    part3: 2. Clique no botão <b>Adicionar novo documento</b>.
+    part4: 3. Clique em <b>Escolher arquivo</b> no lado direito da página.
+    part5: 4. Depois que o arquivo estiver selecionado, clique no botão <b>Abrir</b>.
+    part6: 5. Você pode <b>adicionar tags</b> que você e outros podem usar para localizar
+      e filtrar o conteúdo. Pressione enter para confirmar cada tag.
+    part7: 6. Se você deseja <b>notificar</b> o documento com uma mensagem no mural,
+      escolha esta opção.
+    part8: 7. Por fim, clique no botão <b>Upload</b> para adicionar o arquivo no repositório
+      de documentos.
   help_participation:
-    part1: "Existem quatro maneiras de participar de um evento: <ul> 1) Siga o <b>Streaming
-      de Vídeo</b>. A maneira mais simples de seguir eventos virtuais através da
-      Internet é com o seu navegador Web, apenas entrando na página do evento no
-      Global Plaza. A página do evento irá mostrar o streaming de vídeo enquanto
-      o evento está ocorrendo, permitindo que você siga-o. Se você estiver logado
-      no Global Plaza, você será capaz de enviar mensagens de chat para o resto
-      dos participantes do evento. <br> Requisitos: Seu navegador deve possuir a última
-      versão do Flash instalado."
-    part2: "<br> 2) <b>Participação interativa pela Web</b>. Você também pode
-      participar de forma interativa com o seu navegador web. Uma vez que você está
-      na página do evento, basta clicar no botão \"Participar\", digitar o seu apelido
-      quando solicitado e clicar em participar da reunião. Você entrará na reunião
-      como um participante interativo, que pode interagir com áudio, vídeo ou chat,
-      bem como compartilhar aplicações. Você precisa estar logado no Global Plaza
-      para participar de forma interativa. <br> Requisitos: Seu navegador deve ter
-      a última versão do Flash instalado. A porta TCP 1935 usada pelo cliente Flash
-      precisa estar aberta para conectar ao evento virtual com um navegador. No caso
-      de você acessar a página do evento e não ver o vídeo, você deve solicitar
-      que os administradores de rede da sua instituição abram esta porta."
-    part3: "3) <b>Participação pelo Isabel</b>. Você também pode participar com
-      um cliente nativo Isabel que roda em Linux. <a href='http://isabel.dit.upm.es/mediawiki/index.php/Isabel_v5_Quick_Guide'>Instruções
-      de instalação podem ser encontradas aqui</a>. O cliente nativo proporciona
-      uma melhor qualidade audiovisual e é recomendado para palestrantes ou para
-      conectar salas e auditórios. Contate os organizadores para testes preliminares."
-    part4: "4) <b>Um gateway SIP</b> também é fornecido para permitir a participação
+    part1: ! 'Existem quatro maneiras de participar de um evento: <ul> 1) Siga o <b>Streaming
+      de Vídeo</b>. A maneira mais simples de seguir eventos virtuais através da Internet
+      é com o seu navegador Web, apenas entrando na página do evento no Global Plaza.
+      A página do evento irá mostrar o streaming de vídeo enquanto o evento está ocorrendo,
+      permitindo que você siga-o. Se você estiver logado no Global Plaza, você será
+      capaz de enviar mensagens de chat para o resto dos participantes do evento.
+      <br> Requisitos: Seu navegador deve possuir a última versão do Flash instalado.'
+    part2: ! '<br> 2) <b>Participação interativa pela Web</b>. Você também pode participar
+      de forma interativa com o seu navegador web. Uma vez que você está na página
+      do evento, basta clicar no botão "Participar", digitar o seu apelido quando
+      solicitado e clicar em participar da reunião. Você entrará na reunião como um
+      participante interativo, que pode interagir com áudio, vídeo ou chat, bem como
+      compartilhar aplicações. Você precisa estar logado no Global Plaza para participar
+      de forma interativa. <br> Requisitos: Seu navegador deve ter a última versão
+      do Flash instalado. A porta TCP 1935 usada pelo cliente Flash precisa estar
+      aberta para conectar ao evento virtual com um navegador. No caso de você acessar
+      a página do evento e não ver o vídeo, você deve solicitar que os administradores
+      de rede da sua instituição abram esta porta.'
+    part3: 3) <b>Participação pelo Isabel</b>. Você também pode participar com um
+      cliente nativo Isabel que roda em Linux. <a href='http://isabel.dit.upm.es/mediawiki/index.php/Isabel_v5_Quick_Guide'>Instruções
+      de instalação podem ser encontradas aqui</a>. O cliente nativo proporciona uma
+      melhor qualidade audiovisual e é recomendado para palestrantes ou para conectar
+      salas e auditórios. Contate os organizadores para testes preliminares.
+    part4: 4) <b>Um gateway SIP</b> também é fornecido para permitir a participação
       através de um equipamento de videoconferência compatível com SIP, como, por
       exemplo, um Polycom. Os organizadores do evento devem ter habilitado participação
-      SIP para este modo estar disponível."
-    part5: "Durante um evento o Global Plaza define os elementos necessários como
-      recursos virtuais na nuvem, de tal forma que seu evento possa ocorrer. Esses
-      recursos incluem um servidor de videoconferência com MCU, um servidor de streaming,
-      um gravador digital, um servidor de streaming de vídeo, bem como os gateways
-      necessários para o acesso Web baseado em Flash ou o acesso SIP. O organizador
-      do evento seleciona os modos de acesso disponíveis ao criar o evento."
+      SIP para este modo estar disponível.
+    part5: Durante um evento o Global Plaza define os elementos necessários como recursos
+      virtuais na nuvem, de tal forma que seu evento possa ocorrer. Esses recursos
+      incluem um servidor de videoconferência com MCU, um servidor de streaming, um
+      gravador digital, um servidor de streaming de vídeo, bem como os gateways necessários
+      para o acesso Web baseado em Flash ou o acesso SIP. O organizador do evento
+      seleciona os modos de acesso disponíveis ao criar o evento.
   help_search_global:
-    part1: "Você pode procurar espaços, mensagens, eventos, vídeos, usuários
-      e anexos no Global Plaza. Existem duas opções para pesquisa: pesquisa simples
-      e avançada."
+    part1: ! 'Você pode procurar espaços, mensagens, eventos, vídeos, usuários e anexos
+      no Global Plaza. Existem duas opções para pesquisa: pesquisa simples e avançada.'
     part10: 4. Digite o nome do evento na caixa <b> a palavra </b>
     part11: 5. Se você escolher os eventos, você pode especificar a data de um evento
       realizado entre duas datas
@@ -1345,10 +1401,10 @@ pt-br:
     view_invite_url: View Invite URL
   icalendar:
     add: Atualizar e adicionar novas entradas
-    conflictive1: "Uma entrada de seu iCalendar estava na aplicação Global e foi
-      modificada. É necessário atualizá-la manualmente para evitar problemas."
-    conflictiven: "entradas de seu iCalendar estavam na aplicação Global e foram
-      modificadas. É necessário atualizá-las manualmente para evitar problemas."
+    conflictive1: Uma entrada de seu iCalendar estava na aplicação Global e foi modificada.
+      É necessário atualizá-la manualmente para evitar problemas.
+    conflictiven: entradas de seu iCalendar estavam na aplicação Global e foram modificadas.
+      É necessário atualizá-las manualmente para evitar problemas.
     error_import: Ocorreu um erro ao importar o iCalendar.
     export: iCalendar
     import: Importar iCalendar
@@ -1356,11 +1412,11 @@ pt-br:
     importMessage2: foram lidos a partir do seu iCalendar.
     importMessage3: deles foram salvos ou atualizados corretamente.
     instruction: Use para adicionar novas entradas à agenda atual com o iCalendar.
-    outbounds1: Uma entrada de seu iCalendar não coincide com as datas do evento
-      e não foi importada.
-    outboundsn: entradas de seu iCalendar não coincidem com as datas do evento e
-      não foram importadas.
-    report: "Relatório:"
+    outbounds1: Uma entrada de seu iCalendar não coincide com as datas do evento e
+      não foi importada.
+    outboundsn: entradas de seu iCalendar não coincidem com as datas do evento e não
+      foram importadas.
+    report: ! 'Relatório:'
     succes_import: iCalendar foi importado com sucesso.
     updated1: Uma entrada de seu iCalendar já estava em sua agenda de eventos e foi
       atualizada.
@@ -1372,10 +1428,10 @@ pt-br:
   inbox:
     my: Minha caixa de entrada (%{checked})
     one: Caixa de Entrada (%{checked})
-  index: "Índice"
+  index: Índice
   information:
-    info_timezone: Ao selecionar o seu fuso horário não haverá equívoco ao criar
-      eventos com pessoas de outros países.
+    info_timezone: Ao selecionar o seu fuso horário não haverá equívoco ao criar eventos
+      com pessoas de outros países.
     information1: Estes são os espaços dos quais você faz parte
     information2: Aqui você pode encontrar as mensagens recentes, eventos e notícias
       dos espaços dos quais você faz parte
@@ -1386,12 +1442,12 @@ pt-br:
     on_the: Na Internet
     ppal: Internet
   invalid_credentials: Credenciais inválidas
-  invalid_password_reset_code: "Código inválido. Por favor, verifique o link e
-    tente novamente. (Dica: o seu cliente de e-mail não quebrou o link?)"
+  invalid_password_reset_code: ! 'Código inválido. Por favor, verifique o link e tente
+    novamente. (Dica: o seu cliente de e-mail não quebrou o link?)'
   invitation:
     accept: Aceitar o convite
     accepted: Você aceitou o convite
-    accepted_by: "%{candidate} aceitou o convite"
+    accepted_by: ! '%{candidate} aceitou o convite'
     access_space: Você agora é um membro de espaço %{spacename} e agora pode acessá-lo
       em <a href="%{space_url}"> %{space_url} </a>
     add_more: Convidar mais pessoas
@@ -1401,7 +1457,7 @@ pt-br:
     deselect_all_users: Desmarcar todos os usuários
     discard: Descartar convite
     discarded: O convite foi descartado
-    discarded_by: "%{candidate} descartou o convite"
+    discarded_by: ! '%{candidate} descartou o convite'
     email: E-mail
     hide_all_users: Ocultar todos os usuários
     info_event: Você pode encontrar mais informações sobre este evento em 'event_url'
@@ -1412,10 +1468,10 @@ pt-br:
     introducer: Introdutor
     label: Personalize a sua mensagem de convite
     legend:
-      URL: "''URL'' será substituído na mensagem pela URL do convite."
-      name: "''Name'' será substituído na mensagem pelo nome do receptor."
-    logout_and_reload: Você não é o usuário que recebeu esse convite, por favor
-      saia e tente novamente
+      URL: ! '''''URL'''' será substituído na mensagem pela URL do convite.'
+      name: ! '''''Name'''' será substituído na mensagem pelo nome do receptor.'
+    logout_and_reload: Você não é o usuário que recebeu esse convite, por favor saia
+      e tente novamente
     message_title: Convide as pessoas individualmente para participar do seu espaço
     message_with_start_date:
       in_person: <p>Gostaria de convidá-lo para <b>o evento 'event_name' no espaço
@@ -1423,44 +1479,42 @@ pt-br:
         visite %{url} </p><p> Você pode encontrar mais informações sobre este evento
         em <a href="event_url">event_url</a></p><p> Atenciosamente, <br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>
       teleclass: <p>Gostaria de convidá-lo para <b>o evento 'event_name' no espaço
-        %{space} </b> na data 'event_date'. O evento será uma classe virtual com
-        participação simples através do sistema Isabel. </p><p> Para aceitar meu
+        %{space} </b> na data 'event_date'. O evento será uma classe virtual com participação
+        simples através do sistema Isabel. </p><p> Para aceitar meu convite, por favor
+        visite %{url} </p><p> Você pode encontrar mais informações sobre este evento
+        em <a href="event_url">event_url</a></p><p> Atenciosamente, <br/><br/> %{username}<br/>%{useremail}<br/>%{userorg}</p>
+      teleconference: <p>Gostaria de convidá-lo para <b>o evento 'event_name' no espaço
+        %{space} </b> na data 'event_date'. O evento será uma conferência virtual
+        com participação simples através do sistema Isabel. </p><p> Para aceitar meu
         convite, por favor visite %{url} </p><p> Você pode encontrar mais informações
         sobre este evento em <a href="event_url">event_url</a></p><p> Atenciosamente,
         <br/><br/> %{username}<br/>%{useremail}<br/>%{userorg}</p>
-      teleconference: <p>Gostaria de convidá-lo para <b>o evento 'event_name' no
-        espaço %{space} </b> na data 'event_date'. O evento será uma conferência
-        virtual com participação simples através do sistema Isabel. </p><p> Para
-        aceitar meu convite, por favor visite %{url} </p><p> Você pode encontrar
-        mais informações sobre este evento em <a href="event_url">event_url</a></p><p>
-        Atenciosamente, <br/><br/> %{username}<br/>%{useremail}<br/>%{userorg}</p>
       telemeeting: <p>Gostaria de convidá-lo para <b>o evento 'event_name' no espaço
         %{space} </b> na data 'event_date'. O evento será uma reunião virtual com
-        participação simples através do sistema Isabel. </p><p> Para aceitar meu
-        convite, por favor visite %{url} </p><p> Você pode encontrar mais informações
-        sobre este evento em <a href="event_url">event_url</a></p><p> Atenciosamente,
-        <br/><br/> %{username}<br/>%{useremail}<br/>%{userorg}</p>
+        participação simples através do sistema Isabel. </p><p> Para aceitar meu convite,
+        por favor visite %{url} </p><p> Você pode encontrar mais informações sobre
+        este evento em <a href="event_url">event_url</a></p><p> Atenciosamente, <br/><br/>
+        %{username}<br/>%{useremail}<br/>%{userorg}</p>
     message_without_start_date:
       in_person: <p>Gostaria de convidá-lo para <b>o evento 'event_name' no espaço
         %{space} </b>.</p><p> Para aceitar meu convite, por favor visite %{url} </p><p>
         Você pode encontrar mais informações sobre este evento em <a href="event_url">event_url</a></p><p>
         Atenciosamente, <br/><br/> %{username}<br/>%{useremail}<br/>%{userorg}</p>
       teleclass: <p>Gostaria de convidá-lo para <b>o evento 'event_name' no espaço
-        %{space} </b>. O evento será uma classe virtual com participação simples
+        %{space} </b>. O evento será uma classe virtual com participação simples através
+        do sistema Isabel. </p><p> Para aceitar meu convite, por favor visite %{url}
+        </p><p> Você pode encontrar mais informações sobre este evento em <a href="event_url">event_url</a></p><p>
+        Atenciosamente, <br/><br/> %{username}<br/>%{useremail}<br/>%{userorg}</p>
+      teleconference: <p>Gostaria de convidá-lo para <b>o evento 'event_name' no espaço
+        %{space} </b>. O evento será uma conferência virtual com participação simples
         através do sistema Isabel. </p><p> Para aceitar meu convite, por favor visite
-        %{url} </p><p> Você pode encontrar mais informações sobre este evento em
-        <a href="event_url">event_url</a></p><p> Atenciosamente, <br/><br/> %{username}<br/>%{useremail}<br/>%{userorg}</p>
-      teleconference: <p>Gostaria de convidá-lo para <b>o evento 'event_name' no
-        espaço %{space} </b>. O evento será uma conferência virtual com participação
-        simples através do sistema Isabel. </p><p> Para aceitar meu convite, por
-        favor visite %{url} </p><p> Você pode encontrar mais informações sobre
-        este evento em <a href="event_url">event_url</a></p><p> Atenciosamente, <br/><br/>
-        %{username}<br/>%{useremail}<br/>%{userorg}</p>
+        %{url} </p><p> Você pode encontrar mais informações sobre este evento em <a
+        href="event_url">event_url</a></p><p> Atenciosamente, <br/><br/> %{username}<br/>%{useremail}<br/>%{userorg}</p>
       telemeeting: <p>Gostaria de convidá-lo para <b>o evento 'event_name' no espaço
         %{space} </b>. O evento será uma reunião virtual com participação simples
         através do sistema Isabel. </p><p> Para aceitar meu convite, por favor visite
-        %{url} </p><p> Você pode encontrar mais informações sobre este evento em
-        <a href="event_url">event_url</a></p><p> Atenciosamente, <br/><br/> %{username}<br/>%{useremail}<br/>%{userorg}</p>
+        %{url} </p><p> Você pode encontrar mais informações sobre este evento em <a
+        href="event_url">event_url</a></p><p> Atenciosamente, <br/><br/> %{username}<br/>%{useremail}<br/>%{userorg}</p>
     new:
       other: Novos convites
     not_accepted: não aceito
@@ -1486,7 +1540,7 @@ pt-br:
     show_all_users: Mostrar todos usuários
     sign: Atenciosamente, %{username}
     space: Gostaria de convidá-lo para o espaço %{space} no Virtual Conference Centre.
-    subject: "%{username} convidou-o para um evento no espaço %{space}"
+    subject: ! '%{username} convidou-o para um evento no espaço %{space}'
     tab:
       title1: Usuários não registrados
       title2: Usuários registrados
@@ -1494,8 +1548,8 @@ pt-br:
     title2: Convite do espaço
     to_accept: Para aceitar o convite por favor visite <a href=%{url}> %{url} </a>
     to_accept_space: Para aceitar o convite por favor visite %{url}t;
-    to_event: "%{username} convida você para o evento %{eventname} no espaço %{space}"
-    to_space: "%{username} convida você para o espaço %{space}"
+    to_event: ! '%{username} convida você para o evento %{eventname} no espaço %{space}'
+    to_space: ! '%{username} convida você para o espaço %{space}'
     was_processed:
       accepted: Convite já foi aceito
       discarded: O convite já foi descartado
@@ -1532,11 +1586,11 @@ pt-br:
   join_request:
     accepted: Pedido de adesão aceito
     already_sent: Você já pediu para participar deste espaço
-    ask_subject: "%{candidate} quer participar de %{space}"
-    asked: "<b>%{candidate}</b> quer participar do espaço %{space} que é administrado
-      por você:"
-    asked_anonymous: "Alguém quer participar do espaço %{space} administrado por
-      você:"
+    ask_subject: ! '%{candidate} quer participar de %{space}'
+    asked: ! '<b>%{candidate}</b> quer participar do espaço %{space} que é administrado
+      por você:'
+    asked_anonymous: ! 'Alguém quer participar do espaço %{space} administrado por
+      você:'
     created: Seu pedido de adesão foi enviado para os administradores do espaço
     discarded: Pedido de adesão descartado
     joined: Você já é um membro do espaço
@@ -1558,12 +1612,12 @@ pt-br:
   keywords: Palavras-chave (*)
   language: Idioma
   last_week: Semana passada
-  latest_events: "Últimos eventos"
-  latest_news:  "Últimas notícias"
-  layout_footnote: "%{site} é baseado em %{plugin}. Design de %{designer}."
+  latest_events: Últimos eventos
+  latest_news: Últimas notícias
+  layout_footnote: ! '%{site} é baseado em %{plugin}. Design de %{designer}.'
   list_by: Listar por
   locale:
-    changed: Idioma da aplicação alterado para
+    changed: ! 'Idioma da aplicação alterado para '
     error: Não foi possível alterar o idioma do aplicativo para
   logged_in_successfully: Logado com sucesso
   logged_out: Você foi desconectado
@@ -1591,6 +1645,7 @@ pt-br:
   management: gerenciamento
   mandatory_field: Campo obrigatório
   mark_checkbox: Marque a caixa de seleção apropriada
+  mconf: Mconf
   message:
     created: Mensagem enviada com sucesso
     error:
@@ -1614,7 +1669,7 @@ pt-br:
       17 dezembro Ã s 16:00 UTC, até sábado, 18-Dez 16:00 UTC. Desculpem o incómodo.
     special2: A Equipe do Global Plaza
   more: more...
-  more>>: mais >>
+  more_arrows: mais >>
   my_friends: Meus amigos
   name:
     full: Nome completo
@@ -1643,17 +1698,17 @@ pt-br:
   no_messages_in_wall: Não há mensagens no mural
   no_tags_found: Nenhuma tag encontrada
   not_going: Eu não pretendo participar
-  now!: Agora!
+  now_exclamation: Agora!
   number:
     currency:
       format:
-        delimiter: ","
-        format: "%u%n"
+        delimiter: ! ','
+        format: ! '%u%n'
         precision: '2'
         separator: .
         unit: $
     format:
-      delimiter: ","
+      delimiter: ! ','
       precision: '3'
       separator: .
     human:
@@ -1661,7 +1716,7 @@ pt-br:
         delimiter: ''
         precision: '1'
       storage_units:
-        format: "%n %u"
+        format: ! '%n %u'
         units:
           byte:
             one: Byte
@@ -1681,25 +1736,25 @@ pt-br:
   online: online
   openid:
     client:
-      associating_to_id:   "Associado ao OpenID: %{id}"
-      discovery_failed:   "Descoberta falhou para %{id}: %{error}"
-      id_attached_to_account:   "OpenID: %{id} associado Ã  sua conta"
+      associating_to_id: ! 'Associado ao OpenID: %{id}'
+      discovery_failed: ! 'Descoberta falhou para %{id}: %{error}'
+      id_attached_to_account: ! 'OpenID: %{id} associado Ã  sua conta'
       immediate_request_failed: Pedido imediato falhou - Configuração Necessária
       transaction_cancelled: Transação OpenID cancelada
-      verification_failed:   "Verificação falhou: %{message}"
-      verification_failed_with_id:   "Verificação de %{id} falhou: %{mensagem}"
+      verification_failed: ! 'Verificação falhou: %{message}'
+      verification_failed_with_id: ! 'Verificação de %{id} falhou: %{mensagem}'
       verification_succeeded_with_id: Verificação de %{id} teve sucesso
     enter: Insira o seu OpenID
     have: Você tem um OpenID? Clique no logo!
     login: Login com OpenID
     server:
       about_login_to: Você está prestes a logar no servidor %{server}
-      anti_phishing: Esta página não tem links para evitar <i>phishing</i>. Você
-        deve inserir você mesmo o endereço no seu navegador.
+      anti_phishing: Esta página não tem links para evitar <i>phishing</i>. Você deve
+        inserir você mesmo o endereço no seu navegador.
       cancel: Não, cancelar
-      decision:   "Você deve tomar uma decisão:"
+      decision: ! 'Você deve tomar uma decisão:'
       endpoint: Este é um terminal do servidor OpenID
-      invalid_uri:   "Essa identidade não pertence a você: %{uri}"
+      invalid_uri: ! 'Essa identidade não pertence a você: %{uri}'
       login_to: Logar em %{server}
       must_login: Você deve logar em %{server}
       once: Sim, só desta vez
@@ -1727,10 +1782,10 @@ pt-br:
     reset_email: Sua senha foi redefinida em %{sitename}
     to_reset: Para redefinir sua senha, visite <a href=%{url}> %{url} </a>
   password_has_been_reset: Sua senha foi redefinida
-  password_has_been_reset_with_agent:   "%{agent}, sua senha foi redefinida"
+  password_has_been_reset_with_agent: ! '%{agent}, sua senha foi redefinida'
   password_reset: Redefinição de Senha
-  password_reset_link_sent_to_email_address: Um link de redefinição de senha foi
-    enviado para o endereço de email
+  password_reset_link_sent_to_email_address: Um link de redefinição de senha foi enviado
+    para o endereço de email
   past: Passado
   people: pessoas
   per_page: por página
@@ -1750,13 +1805,13 @@ pt-br:
         a um tipo de estágio diferente.
     new: Novo membro
     notification:
-      estandar:   "%{username} mudou sua função em %{stage} para %{role}."
-      event:   "%{username} mudou sua função no evento %{event} para %{role}."
-      space:   "%{username} mudou sua função no espaço %{space} para %{role}."
+      estandar: ! '%{username} mudou sua função em %{stage} para %{role}.'
+      event: ! '%{username} mudou sua função no evento %{event} para %{role}.'
+      space: ! '%{username} mudou sua função no espaço %{space} para %{role}.'
       subject:
-        estandar:   "%{username} mudou sua função em %{stage}"
-        event:   "%{username} mudou sua função no evento %{event}"
-        space:   "%{username} mudou sua função no espaço %{space}"
+        estandar: ! '%{username} mudou sua função em %{stage}'
+        event: ! '%{username} mudou sua função no evento %{event}'
+        space: ! '%{username} mudou sua função no espaço %{space}'
     one: Membro
     other: Membros
     other_in: Membros de %{stage}
@@ -1767,8 +1822,8 @@ pt-br:
       one: Atualizar Desempenho
       other: Atualizar Desempenhos
     updated: Desempenho do usuário foi atualizado com sucesso
-    without_roles_available: Não existem Funções disponíveis. Desempenhos não
-      podem ser definidos.
+    without_roles_available: Não existem Funções disponíveis. Desempenhos não podem
+      ser definidos.
   permission:
     other: Direitos de acesso
   personal_information: Informações pessoais
@@ -1779,7 +1834,7 @@ pt-br:
     plural: Telefones
   phone_optional: Telefone (opcional)
   photos: Fotos
-  photos_view>>: ver fotos >>
+  photos_view_arrows: ver fotos >>
   place: Local
   please: Por favor
   please_activate_account: Por favor ative sua nova conta
@@ -1793,11 +1848,11 @@ pt-br:
     found:
       none: Nenhuma mensagem encontrada
       one: 1 mensagem encontrada
-      other:   "%{size} mensagens encontradas"
+      other: ! '%{size} mensagens encontradas'
       show_all: Mostrar todos os resultados
     home:
       one: Mensagem no espaço %{space}
-    latest: "Últimas mensagens"
+    latest: Últimas mensagens
     none_created: Nenhuma mensagem criada
     none_recent: Não há mensagens recentes
     one: Mensagem
@@ -1824,11 +1879,11 @@ pt-br:
     must_create: Por favor, crie o seu perfil primeiro
     one: Perfil
     private: Perfil privado
-    private_description: Esta informação só é visível para as pessoas que você
-      escolher quando você editar seu perfil
+    private_description: Esta informação só é visível para as pessoas que você escolher
+      quando você editar seu perfil
     public: Perfil público
     public_description: Qualquer pessoa pode acessar esta informação
-    should_create: "Você deve <a href=%{path}> criar</a> seu perfil. É muito útil."
+    should_create: Você deve <a href=%{path}> criar</a> seu perfil. É muito útil.
     updated: Perfil atualizado com sucesso
     visibility: Visibilidade
     visibility_description: Escolha quem será capaz de ver o seu perfil privado
@@ -1836,13 +1891,15 @@ pt-br:
     visibility_everybody: Todos podem ver o seu perfil privado.
     visibility_members: Somente usuários registrados podem ver o seu perfil privado.
     visibility_nobody: Ninguém pode ver o seu perfil privado.
-    visibility_private_fellows: "Apenas os seus parceiros em um espaço privado podem ver o seu perfil privado."
-    visibility_public_fellows: "Apenas os seus parceiros em espaços públicos ou privados podem ver o seu perfil privado."
-  province: "Província"
-  public: "Público"
-  read: "Ler"
-  read_more: "Ler mais"
-  read_more>>: "ler mais >>"
+    visibility_private_fellows: Apenas os seus parceiros em um espaço privado podem
+      ver o seu perfil privado.
+    visibility_public_fellows: Apenas os seus parceiros em espaços públicos ou privados
+      podem ver o seu perfil privado.
+  province: Província
+  public: Público
+  read: Ler
+  read_more: Ler mais
+  read_more_arrows: ler mais >>
   received_message_more_machines: Você recebeu uma mensagem de %{user} pedindo mais
     máquinas
   recent:
@@ -1854,37 +1911,37 @@ pt-br:
     button_pause: Pausar gravação
     button_publish: Publicar gravação
     button_start: Iniciar gravação
-    help_automatic: "A gravação está definida como <b>automática</b> para este
-      evento. A gravação vai começar e parar no momento exato em que você indicou
-      quando criou as sessões. <br/> Nota: Esta opção só está visível para os
-      administradores do evento"
-    help_manual: "A gravação está definida como <b>manual</b> para este evento
-      Aqui você tem um botão <b>iniciar</b> para iniciar a gravação, e, depois
-      de pressioná-lo, você terá um botão <b>parar</b> para finalizar a gravação.
-      <br/> Nota: Esta opção só está visível para os administradores do event"
-    help_none: "A gravação está <b>desabilitada</b> para este evento. Se você
-      quiser gravação, edite o evento e selecione a opção que você deseja. <br/>
-      Nota: Esta opção só está visível para os administradores do even"
+    help_automatic: ! 'A gravação está definida como <b>automática</b> para este evento.
+      A gravação vai começar e parar no momento exato em que você indicou quando criou
+      as sessões. <br/> Nota: Esta opção só está visível para os administradores do
+      evento'
+    help_manual: ! 'A gravação está definida como <b>manual</b> para este evento Aqui
+      você tem um botão <b>iniciar</b> para iniciar a gravação, e, depois de pressioná-lo,
+      você terá um botão <b>parar</b> para finalizar a gravação. <br/> Nota: Esta
+      opção só está visível para os administradores do event'
+    help_none: ! 'A gravação está <b>desabilitada</b> para este evento. Se você quiser
+      gravação, edite o evento e selecione a opção que você deseja. <br/> Nota: Esta
+      opção só está visível para os administradores do even'
     manual: Manual
     message_now_recording: Gravando ...
     none: Nenhum
-    warning_continue_recording: "Atenção: esta ação irá interromper outras
-      gravações deste evento em andamento. <br/> Você quer continuar?"
-    warning_pause_recording: "Atenção: esta ação irá pausar a gravação. Você
-      será capaz de continuar ela no futuro ou publicá-la. <br/> Você quer continuar?"
-    warning_publish_recording: "Atenção: esta ação irá publicar a gravação.
-      No futuro, você será capaz de editá-la para cortar o início e o fim do vídeo,
-      mas você não será capaz de gravar a sessão novamente. <br/> Você quer continuar?"
-    warning_start_recording: "Atenção: esta ação irá interromper outras gravações
-      deste evento em andamento. <br/> Você quer continuar?"
+    warning_continue_recording: ! 'Atenção: esta ação irá interromper outras gravações
+      deste evento em andamento. <br/> Você quer continuar?'
+    warning_pause_recording: ! 'Atenção: esta ação irá pausar a gravação. Você será
+      capaz de continuar ela no futuro ou publicá-la. <br/> Você quer continuar?'
+    warning_publish_recording: ! 'Atenção: esta ação irá publicar a gravação. No futuro,
+      você será capaz de editá-la para cortar o início e o fim do vídeo, mas você
+      não será capaz de gravar a sessão novamente. <br/> Você quer continuar?'
+    warning_start_recording: ! 'Atenção: esta ação irá interromper outras gravações
+      deste evento em andamento. <br/> Você quer continuar?'
   register:
     and_participate: Registre-se Para Participar
     and_participate_description: Para participar do evento você deve registar-se
     and_participate_description_with_login: Para participar do evento você deve efetuar
       o registro ou o <a href=%{url}>login</a
     back_to_streaming: voltar para streaming
-    confirmation: Após o registro você receberá uma confirmação por email com
-      o link para ativar a sua conta
+    confirmation: Após o registro você receberá uma confirmação por email com o link
+      para ativar a sua conta
     one: Registre-se
     or_choose: ou você pode ir
     thank_you: Bem-vindo e obrigado por registrar-se no %{sitename}
@@ -1896,7 +1953,7 @@ pt-br:
   remember_me: Lembrar de mim
   remove: Remover
   reply: Responder
-  reply_to:   "Responder para:"
+  reply_to: ! 'Responder para:'
   reply_to_words: Responder para %{words}
   report_spam: Denunciar spam
   repository:
@@ -1909,7 +1966,7 @@ pt-br:
     one: Documentos
     rem_tags: Remover Tags
     remove: Remover
-    search:   "Pesquisa do Documentos:"
+    search: ! 'Pesquisa do Documentos:'
   request:
     default: solicitar
     info: Seu pedido para entrar no espaço foi enviado com sucesso para os administradores
@@ -1932,7 +1989,7 @@ pt-br:
     invalid: Runção é inválida
     listing: Listando funções
     name: Nome
-    name_permissions:   "%{name} permissões"
+    name_permissions: ! '%{name} permissões'
     new: Nova função
     none: Nenhuma função atribuída
     one: Função
@@ -1950,22 +2007,24 @@ pt-br:
     other: Salas
   rooms:
     form:
-      msg1:   " prohibited this bigbluebutton_room from being saved:"
+      msg1: ! ' prohibited this bigbluebutton_room from being saved:'
     invite:
-      msg1:   "Convite para a reunião "
-      name:   "Nome:"
-      name_enter: "Insira seu nome"
-      password:   "Senha:"
-      password_filled: "Está sala é pública. A senha foi preenchida com a senha do atendente"
+      msg1: ! 'Convite para a reunião '
+      name: ! 'Nome:'
+      name_enter: Insira seu nome
+      password: ! 'Senha:'
+      password_filled: Está sala é pública. A senha foi preenchida com a senha do
+        atendente
       password_role: Enter the attendee or moderator password.
-      status:   "Status da reunião: "
+      status: ! 'Status da reunião: '
     join:
-      msg1: "Esta reunião ainda não começou, espere pelo moderador."
-      msg2: "Seu navegador irá recarregar automaticamente and entrará na reunião assim que ela começar."
-      title:   "Sala: %{name}"
+      msg1: Esta reunião ainda não começou, espere pelo moderador.
+      msg2: Seu navegador irá recarregar automaticamente and entrará na reunião assim
+        que ela começar.
+      title: ! 'Sala: %{name}'
     not_running: not running.
-    refresh: "forçar recarregamento"
-    running: "rodando!"
+    refresh: forçar recarregamento
+    running: rodando!
   save: Salvar
   save_ch: Salvar alterações
   screencast:
@@ -1973,7 +2032,7 @@ pt-br:
     help: Precisa de ajuda? Tente ver o
     link1: Ajudar a criar eventos
     link2: Ajuda criando a agenda
-    link3:   "Ajuda: Três tipos de eventos"
+    link3: ! 'Ajuda: Três tipos de eventos'
     link4: Ajuda convidando pessoas
     link5: Ajuda sobre informações do evento
     sidebar:
@@ -2018,31 +2077,28 @@ pt-br:
   searching_in: Você está procurando em
   select_image: Selecione uma imagem, por favor
   send: Enviar
-  send_debug_emails: Enviar e-mails de depuração
-  send_reset_password_request: Enviar Pedido de Redefinição de Senha
+  send_debug_emails: Enviar emails de debug
+  send_reset_password_request: Enviar requisição de reset de senha
   sendemail:
     created: Email sent successfully
     error:
       created: Error sending email
-  send_debug_emails: Enviar emails de debug
-  send_reset_password_request: Enviar requisição de reset de senha
   server:
     other: Servers
   servers:
     form:
-      msg1:   " prohibited this bigbluebutton_server from being saved:"
+      msg1: ! ' prohibited this bigbluebutton_server from being saved:'
   session:
     one: Sessão
     error:
       exist: Você já está logado
       fill: Por favor preencha estes dados
-    one: Sessão
   share_participate_discuss: Compartilhe, participe, discuta
   should_check_email_to_activate_account: Você deve verificar o seu e-mail para ativar
     sua conta.
   show: Exibir
   show_advanced_editor: Exibir editor avançado
-  show_list_version>>: exibir versão em lista >>
+  show_list_version_arrows: exibir versão em lista >>
   singular_agent:
     anonymous:
       name: Anônimo
@@ -2084,7 +2140,7 @@ pt-br:
     created: Fonte criada com sucesso
     errors:
       content_type:
-        invalid:   "é inválido: %{content_type}"
+        invalid: ! 'é inválido: %{content_type}'
       dereference: Não foi possível conectar-se a fonte %{uri}
       multiple_feeds: Fonte tem vários feeds
       parse: Não foi possível analisar feed %{uri}
@@ -2109,8 +2165,8 @@ pt-br:
     created: Espaço criado com sucesso
     delete: Excluir Espaço
     deleted: Espaço removido com sucesso
-    description_none: Uma descrição do espaço deve ser fornecida para criar um
-      novo espaço
+    description_none: Uma descrição do espaço deve ser fornecida para criar um novo
+      espaço
     disable: Desativar o espaço
     disabled: Espaço desativado com sucesso
     does_not_belong: não pertence a qualquer espaço
@@ -2123,23 +2179,22 @@ pt-br:
     found:
       none: Nenhum espaço encontrado
       one: 1 espaço foi encontrado
-      other: "%{size} espaços foram encontrados"
+      other: ! '%{size} espaços foram encontrados'
     group_invitation:
       button: Convide listas de e-mail
       message_title: Convide listas de e-mail para participar do seu espaço
-      private: "<p>Por favor, note que o espaço é privado, então você precisa
-        ser um usuário cadastrado no Virtual Conference Centre para ser capaz de
-        enviar um pedido de adesão e acesso ao espaço. Você pode se registrar aqui:
-        <a href=\"%{register_url}\">%{register_url}</a></p>"
-      subject: "%{username} convida você para o espaço %{space}"
+      private: ! '<p>Por favor, note que o espaço é privado, então você precisa ser
+        um usuário cadastrado no Virtual Conference Centre para ser capaz de enviar
+        um pedido de adesão e acesso ao espaço. Você pode se registrar aqui: <a href="%{register_url}">%{register_url}</a></p>'
+      subject: ! '%{username} convida você para o espaço %{space}'
     group_not_belong: não pertence ao mesmo espaço que o grupo
     invitation:
       body: Corpo
       one: Convidar pessoas
       other: Convidar pessoas
-      to:   "To:"
-    is_private: é um espaço privado. Envie um pedido de adesão ao administrador
-      deste espaço para deixá-lo entrar
+      to: ! 'To:'
+    is_private: é um espaço privado. Envie um pedido de adesão ao administrador deste
+      espaço para deixá-lo entrar
     join: Entrar no espaço
     join_invitation:
       clarify_registered: Por favor, digite a senha para participar deste espaço.
@@ -2153,12 +2208,12 @@ pt-br:
       close: Fechar
       close_gallery: Feche a galeria
       default_message: Logo do espaço
-      enter_text:   "Digite um texto para gerar logos:"
+      enter_text: ! 'Digite um texto para gerar logos:'
       generate_logo: Gerar
       open_gallery: Abrir a galeria
       text_logo: Criar um logotipo como texto
       upload_logo: Carregue o seu próprio logotipo
-      upload_logo_text:   "Selecione um logotipo para enviar:"
+      upload_logo_text: ! 'Selecione um logotipo para enviar:'
       upload_text: Enviar
       use_date: Use data do evento
     main: Espaço principal
@@ -2168,8 +2223,8 @@ pt-br:
     one: Espaço
     other: Espaços
     people_in_conference:
-      one:   "%{count} participant in the room."
-      other:   "%{count} participant in the room."
+      one: ! '%{count} participant in the room.'
+      other: ! '%{count} participant in the room.'
     popular:
       other: Espaços populares
     possesion: Meus Espaços
@@ -2199,7 +2254,7 @@ pt-br:
     item: Este artigo foi denunciado como spam
     no_spam: Parabéns! Nenhum spam aqui
     report: Denunciar spam
-    reported: "%{name} denunciou spam em %{sitename}"
+    reported: ! '%{name} denunciou spam em %{sitename}'
     valid: Este conteúdo é válido
   sponsors:
     prav: Projetos em<br/>Áudio e Vídeo
@@ -2217,36 +2272,36 @@ pt-br:
   summary: Informações do vídeo
   support:
     array:
-      last_word_connector: " e"
+      last_word_connector: ! ' e'
       two_words_connector: e
-      words_connector: ","
+      words_connector: ! ','
     one: Suporte
     select:
       prompt: Por favor, selecione
-    words_connector:   ","
+    words_connector: ! ','
   tag:
     add: Adicionar tags
     attachment: Tags para o anexo
     edit: Editar tags
-    filter: "Filtrar por tag:"
+    filter: ! 'Filtrar por tag:'
     new: Nova tag
     one: tag
     other: tags
     other_capital: Tags
-    other_in: "Tags em %{container}"
+    other_in: Tags em %{container}
     selected:
-      one: "Selecione uma tag:"
-      other: "Tags selecionadas:"
-    show_title: "Marcados com %{tag}"
-    start: "Comece a escrever..."
+      one: ! 'Selecione uma tag:'
+      other: ! 'Tags selecionadas:'
+    show_title: Marcados com %{tag}
+    start: Comece a escrever...
   tags: Tags
-  tags_by:   "Tags por:"
+  tags_by: ! 'Tags por:'
   text: Texto
   thank_you: Obrigado
   the_string: a string
   thread:
     add: Postar mensagem no mural
-    comments:   "%{children} comentários"
+    comments: ! '%{children} comentários'
     compact_view: Alternar para o modo compacto
     deleted: A mensagem (com os seus comentários) foi excluída
     edit: Editar mensagem
@@ -2263,16 +2318,16 @@ pt-br:
     am: am
     end: Hora de término
     formats:
-      default:   "%a, %d %b %Y %H:%M:%S %z"
-      long:   "%B %d, %Y %H:%M"
-      short:   "%d %b %H:%M"
+      default: ! '%a, %d %b %Y %H:%M:%S %z'
+      long: ! '%B %d, %Y %H:%M'
+      short: ! '%d %b %H:%M'
     from: a partir de
     pm: pm
     start: Horário de início
     to: para
   timezone:
     one: Fuso horário
-    set_up: "Você não configurou seu fuso horário. <a href=\"%{path}\">Configure agora</a>"
+    set_up: Você não configurou seu fuso horário. <a href="%{path}">Configure agora</a>
   tips: Dicas
   title: Título
   title_formal:
@@ -2286,47 +2341,45 @@ pt-br:
     not_available: Token não disponível
   tomorrow: Amanhã
   tooltip:
-    admin: Esta seção mostra as pessoas que têm direitos de administrador neste
-      espaço
-    advanced_editor: "Este editor permite que você: veja o código html; modifique
+    admin: Esta seção mostra as pessoas que têm direitos de administrador neste espaço
+    advanced_editor: ! 'Este editor permite que você: veja o código html; modifique
       o estilo e tamanho da fonte, cor de texto e alinhamento do texto; insira/edite
-      links; adicione anexos e tags"
+      links; adicione anexos e tags'
     bigbluebutton_space: This is a public BigBlueButton webconference room for this
       space. Only members of this space can access the room.
     divider: Use um divisor para indicar pausas, como pausas para café ou almoço.
       Você também pode usá-lo para separar sessões com tópicos diferentes.
     doc_search: Use os campos deste lado para filtrar e atualizar a tabela de documentos
       com seus resultados da pesquisa
-    document_repository: Um repositório de documentos permite que você organize
-      todos os arquivos que foram enviados para o espaço
+    document_repository: Um repositório de documentos permite que você organize todos
+      os arquivos que foram enviados para o espaço
     embed_help: Pode ser preenchido com código HTML para inserir um vídeo
     ev_type: Coloque o mouse sobre os títulos para saber mais sobre os tipos de eventos
     event: Selecione os documentos do evento que você quer ver
     event_logo: Você pode enviar o seu próprio logotipo, criar um logotipo de texto
       ou selecionar uma imagem da galeria
     help: Verificar streaming e/ou serviços de gravação conforme necessário
-    help2: Esta sessão já aconteceu, você não pode editar as opções de streaming
-      ou gravação
-    help3: Esta sessão está acontecendo agora, você só pode mudar se você quer
-      ou não streaming
+    help2: Esta sessão já aconteceu, você não pode editar as opções de streaming ou
+      gravação
+    help3: Esta sessão está acontecendo agora, você só pode mudar se você quer ou
+      não streaming
     help4: Você não pode alterar essa opção porque a sessão já passou
-    help5: Você não pode alterar essa opção porque a sessão está acontecendo
-      agora
-    inperson: O tipo Em-pessoa é basicamente projetado para atender às reuniões
-      físicas ou offline para as quais você não precisa gravação ou streaming
-      de vídeo, mas, apesar disso, gostaria de ter funcionalidades que tornam o tratamento
-      de uma reunião mais simples - como criar e modificar uma agenda que as pessoas
-      possam consultar ou importar em seu calendário. Além disso, você pode querer
-      fornecer os documentos necessários para a reunião ou posteriormente compartilhar
-      fotos tiradas durante a reunião.
+    help5: Você não pode alterar essa opção porque a sessão está acontecendo agora
+    inperson: O tipo Em-pessoa é basicamente projetado para atender às reuniões físicas
+      ou offline para as quais você não precisa gravação ou streaming de vídeo, mas,
+      apesar disso, gostaria de ter funcionalidades que tornam o tratamento de uma
+      reunião mais simples - como criar e modificar uma agenda que as pessoas possam
+      consultar ou importar em seu calendário. Além disso, você pode querer fornecer
+      os documentos necessários para a reunião ou posteriormente compartilhar fotos
+      tiradas durante a reunião.
     insert: Use este código para inserir este vídeo em seu blog ou página web.
     invite_people: Invite people to this Webconference.
     label_automatic: O vídeo para esta sessão será o vídeo que o sistema gravou.
-    label_embedded: Com esta opção você vai descartar o vídeo automático e será
-      capaz de escrever um código para inserir este vídeo.
+    label_embedded: Com esta opção você vai descartar o vídeo automático e será capaz
+      de escrever um código para inserir este vídeo.
     label_none: Esta sessão não terá um vídeo relacionado.
-    label_uploaded: Com esta opção você vai descartar o vídeo automático e você
-      será capaz de carregar um novo vídeo em FLV.
+    label_uploaded: Com esta opção você vai descartar o vídeo automático e você será
+      capaz de carregar um novo vídeo em FLV.
     latest_news: Esta seção mostra a notícia de que os administradores enviam para
       todas as pessoas neste espaço
     leave_space: Este link permitirá que você a abandone este espaço definitivamente
@@ -2334,8 +2387,8 @@ pt-br:
       para o seu grupo em vez de ter de escolher os endereços individualmente
     manual_configuration: Selecione este item se você possui toda sua infraestrutura
       de videoconferência. O aplicativo não irá iniciar qualquer Isabel, streaming,
-      nem a gravação, mas sim vai oferecer-lhe duas áreas de texto para escrever
-      seu código para embutir streaming e para participação.
+      nem a gravação, mas sim vai oferecer-lhe duas áreas de texto para escrever seu
+      código para embutir streaming e para participação.
     news_item: Você pode publicar uma notícia curta em casa
     num_views: Este número representa as vistas únicas para essa página
     organisers: Selecione os usuários do espaço que vão organizar este evento
@@ -2354,11 +2407,11 @@ pt-br:
     search_video: Comece a escrever o que você deseja procurar e a lista de vídeos
       será atualizada automaticamente com os resultados
     share: Esta é a url para compartilhar este vídeo com os seus colegas
-    space_video: Este filtro permitirá que você selecione apenas os vídeos de um
-      evento específico
-    streaming: Selecione esta opção se você quer streaming automático para seu
-      evento. Se você tiver qualquer sessão sem streaming (como uma sessão de testes),
-      você pode desmarcar o recurso de streaming por sessão individualmente ao criá-las.
+    space_video: Este filtro permitirá que você selecione apenas os vídeos de um evento
+      específico
+    streaming: Selecione esta opção se você quer streaming automático para seu evento.
+      Se você tiver qualquer sessão sem streaming (como uma sessão de testes), você
+      pode desmarcar o recurso de streaming por sessão individualmente ao criá-las.
     tag: Tags são palavras-chave ou termos associados com o conteúdo que são utilizadas
       para localizar e filtrar as informações. Pressione enter para confirmar cada
       tag.
@@ -2378,16 +2431,15 @@ pt-br:
     vclass: O tipo Classe Virtual é a maneira perfeita para organizar aulas, conferências
       e seminários, onde o professor assume um papel de destaque.
     vconfoptions: Selecione streaming de vídeo se você quiser transmitir o seu evento.
-      Selecione a opção de gravação de vídeo se você quer gravar o seu evento
-      para visualizações futuras. Você também pode configurar os parâmetros de
-      largura de banda e qualidade da videoconferência clicando no link de configurações
-      avançadas.
+      Selecione a opção de gravação de vídeo se você quer gravar o seu evento para
+      visualizações futuras. Você também pode configurar os parâmetros de largura
+      de banda e qualidade da videoconferência clicando no link de configurações avançadas.
     vcongress: O tipo Congresso Virtual é muito parecido com o tipo Reunião Virtual,
       mas voltado para eventos maiores, tanto em tamanho quanto em complexidade. Normalmente,
       este tipo requer o apoio de um operador local.
     video_upload_explanation: Utilize esta opção para excluir o arquivo já carregado.
-      Ou, se você quiser enviar um novo, basta selecioná-lo no campo de busca e
-      editar a sessão que o novo vídeo irá substituir o antigo.
+      Ou, se você quiser enviar um novo, basta selecioná-lo no campo de busca e editar
+      a sessão que o novo vídeo irá substituir o antigo.
     vmeeting: O tipo Reunião Virtual é adequado para reuniões online ou encontros
       presenciais com fortes características virtuais, ou seja, onde os participantes
       locais e remoto terão a oportunidade de se comunicar de forma interativa.
@@ -2398,7 +2450,7 @@ pt-br:
     one: Traduzir
     request: Para traduzir para uma linguagem diferente, por favor peça ao administrador
       para acrescentar a nova língua e sua respectiva bandeira
-    translated:   "Global é agora traduzido, ou está em processo de tradução"
+    translated: Global é agora traduzido, ou está em processo de tradução
   type: Tipo
   undated: Sem data
   unknown_content: Conteúdo desconhecido %{content}
@@ -2406,8 +2458,8 @@ pt-br:
   update: Atualizar
   updated: Atualizados
   updated_at: Atualizado
-  updated_at_date:   "Atualizado: %{date}"
-  updated_time_ago:   "%{time} atrás"
+  updated_at_date: ! 'Atualizado: %{date}'
+  updated_time_ago: ! '%{time} atrás'
   url: Website
   url_add: Adicione seu site
   url_plain: URL
@@ -2416,13 +2468,13 @@ pt-br:
     active:
       other: Usuários ativos
     add:
-      instruction: "Para adicionar novos usuários insera um ou vários endereços
-        de e-mail separados por \" \", \",\" ou \";\" e registre-os"
-      note: "Por exemplo: \"João Silva\" <\"jsilva@example.com.br\">\", jct@dit.es,
-        Aaron aaron@example.net e clicando em \"Registrar como Usuário\" irá registrar
-        esses três endereços de e-mail como membros do espaço e enviará um e-mail
-        de validação para eles."
-    add_more: "Adicionar usuários >>"
+      instruction: Para adicionar novos usuários insera um ou vários endereços de
+        e-mail separados por " ", "," ou ";" e registre-os
+      note: ! 'Por exemplo: "João Silva" <"jsilva@example.com.br">", jct@dit.es, Aaron
+        aaron@example.net e clicando em "Registrar como Usuário" irá registrar esses
+        três endereços de e-mail como membros do espaço e enviará um e-mail de validação
+        para eles.'
+    add_more: Adicionar usuários >>
     admin: Admin
     administrators: Administradores
     assist: Participantes
@@ -2436,8 +2488,8 @@ pt-br:
     edit_account: Editar sua conta
     email: e-mail
     enable: Habilitar usuário
-    enabled: Usuário habilitado com sucesso. O usuário atualmente não pertence
-      a nenhum espaço, e terá que aderir aos espaços novamente.
+    enabled: Usuário habilitado com sucesso. O usuário atualmente não pertence a nenhum
+      espaço, e terá que aderir aos espaços novamente.
     error:
       enabled: Usuário %{name} já está habilitado
     feed:
@@ -2448,7 +2500,7 @@ pt-br:
     found:
       none: Nenhum usuário encontrado
       one: 1 usuário encontrado
-      other:   "%{size} usuários encontrados"
+      other: ! '%{size} usuários encontrados'
     full_name: Nome completo
     group_invite_email: Convidar por e-mail
     id: ID do Usuário
@@ -2463,7 +2515,7 @@ pt-br:
     list_by: Listar por
     login: Login
     lost_password: Esqueceu sua senha?
-    noactivity:   "%{user} não tem atividade recente"
+    noactivity: ! '%{user} não tem atividade recente'
     not_activated: Sua conta não está ativada. Por favor, verifique seu e-mail para
       ativá-la
     not_assist: Não participarão
@@ -2507,7 +2559,7 @@ pt-br:
     use: Use seu vCard
   vcard: vCard
   vcc: Conferências Global Plaza
-  vcc_mail_label:   "[Global]"
+  vcc_mail_label: ! '[Global]'
   vcc_registration: Registro Global Plaza
   version:
     new: Nova versão
@@ -2518,7 +2570,7 @@ pt-br:
     found:
       none: Nenhum vídeo encontrado
       one: 1 vídeo encontrado
-      other:   "%{size} vídeos encontrados"
+      other: ! '%{size} vídeos encontrados'
     one: Vídeo
     other: Vídeos
   video_attachment:
@@ -2526,8 +2578,8 @@ pt-br:
     video_name: Vídeo Enviado
   visit_link_to_activate_account: Visite este link para ativar a sua conta
   webconference:
-    one: "Vídeo Conferência"
-    other: "Vídeo Conferências"
+    one: Vídeo Conferência
+    other: Vídeo Conferências
     currently_running:
       one: The webconference is currently in progress with %{count} participant
       other: The webconference is currently in progress with %{count} participants
@@ -2537,14 +2589,12 @@ pt-br:
     nobody:
       one_line: There is nobody currently in the room.
     not_running: not running
-    one: "Vídeo Conferência"
-    other: "Vídeo Conferências"
     running: rodando
     space:
-      description: "The webconference room associated with this space is currently:
+      description: ! 'The webconference room associated with this space is currently:
         <b>%{status}</b> <br/> Click in the button at the top of the sidebar to join
-        the webconference. <br/> You can also share the link below (or click \"invite\")
-        to invite other people to this conference."
+        the webconference. <br/> You can also share the link below (or click "invite")
+        to invite other people to this conference.'
       join_now: participar agora
       see_more: saiba mais
       share: compartilhar

@@ -17,7 +17,7 @@
     var personal_msg = ($('#join_request_personal').val()).replace(/\n/g,'<br/>');
     
     var ending = "<p><%= escape_javascript(t('join_request.to_accept', :url => space_admissions_url(@space, :host => Site.current.domain))) %></p>" +
-      "<p><%= escape_javascript(t('e-mail.spam_invitation', :contact => Site.current.email, :feedback => "http://" + Site.current.domain.to_s + new_feedback_path())) %></p>" +
+      "<p><%= escape_javascript(t('email.spam_invitation', :contact => Site.current.email, :feedback => "http://" + Site.current.domain.to_s + new_feedback_path())) %></p>" +
       "<p><%= Site.current.signature_in_html %></p>"
 
     var complete_msg = header + personal_msg + '<br/><br/>' + ending; 

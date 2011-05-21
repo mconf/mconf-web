@@ -16,6 +16,13 @@ GIT
   specs:
     teambox-permalink_fu (1.0.1)
 
+GIT
+  remote: git://github.com/mconf/translate.git
+  revision: e719650a27e26610882f65274c4f7678d082a073
+  specs:
+    translate-rails3 (0.1.1)
+      ya2yaml (~> 0.30)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -185,6 +192,7 @@ GEM
       rack (>= 1.0)
       rack-test (>= 0.5.3)
     will_paginate (3.0.pre2)
+    ya2yaml (0.30)
 
 PLATFORMS
   ruby
@@ -226,6 +234,7 @@ DEPENDENCIES
   sqlite3-ruby
   table_helper!
   teambox-permalink_fu!
+  translate-rails3!
   vpim
   webrat
   will_paginate (~> 3.0.pre2)

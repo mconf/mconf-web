@@ -48,6 +48,7 @@ group :development, :test do
   gem 'rspec-instafail'
   gem 'fuubar'
   gem 'shoulda-matchers'
+  gem 'translate-rails3', :require => 'translate', :git => 'git://github.com/mconf/translate.git'
 end
 
 group :production do

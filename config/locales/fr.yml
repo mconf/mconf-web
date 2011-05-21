@@ -253,7 +253,7 @@ fr:
   click_to_see_all: Voir l&#39;ensemble des
   close: Fermer
   collapse: effondrement
-  collapse>>: "R\xC3\xA9duire&gt;&gt;"
+  collapse_arrows: "R\xC3\xA9duire&gt;&gt;"
   comment:
     add: Ajouter un commentaire
     add_new: Ajouter un commentaire
@@ -1137,7 +1137,7 @@ fr:
     send: Envoyer un message
     sent:
       other: "Les messages envoy\xC3\xA9s"
-  more>>: "&gt; En savoir plus&gt;"
+  more_arrows: "&gt; En savoir plus&gt;"
   my_friends: Mes amis
   name:
     full: Nom complet
@@ -1165,7 +1165,7 @@ fr:
   no_messages_in_wall: Il n&#39;ya pas de messages dans le mur
   no_tags_found: "Pas de tags trouv\xC3\xA9s"
   not_going: Je n&#39;ai pas l&#39;intention d&#39;assister
-  now!: Maintenant!
+  now_exclamation: Maintenant!
   number:
     currency:
       format:
@@ -1293,7 +1293,7 @@ fr:
     plural: Telephones
   phone_optional: "T\xC3\xA9l\xC3\xA9phone (facultatif)"
   photos: Photos
-  photos_view>>: Voir les photos&gt;&gt;
+  photos_view_arrows: Voir les photos&gt;&gt;
   place: Lieu
   please: "S&#39;il vous pla\xC3\xAEt"
   please_activate_account: "S&#39;il vous pla\xC3\xAEt activer votre nouveau compte"
@@ -1355,7 +1355,7 @@ fr:
   public: Public
   read: Lire
   read_more: Lire la suite
-  read_more>>: lire la suite&gt;&gt;
+  read_more_arrows: lire la suite&gt;&gt;
   received_message_more_machines: "Vous avez re\xC3\xA7u un message de %{user} demandent plus de machines"
   recent:
     activity: "L&#39;activit\xC3\xA9 r\xC3\xA9cente"
@@ -1485,7 +1485,7 @@ fr:
   should_check_email_to_activate_account: "Vous devriez v\xC3\xA9rifier votre e-mail pour activer votre compte."
   show: Montrer
   show_advanced_editor: "Afficher l&#39;\xC3\xA9diteur avanc\xC3\xA9"
-  show_list_version>>: Voir la version la liste&gt;&gt;
+  show_list_version_arrows: Voir la version la liste&gt;&gt;
   singular_agent:
     anonymous:
       name: Anonyme
