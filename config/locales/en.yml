@@ -1630,6 +1630,7 @@ en:
     title: Invitation to participate in a webconference.
     user_private_email: <li>user email</li>
     user_private_msg: <li>user private message</li>
+    wrong_formatted: ! ' (wrong formatted email)'
   invite_people:
     email:
       one: E-mail
@@ -1645,20 +1646,9 @@ en:
     room_name: Room name
     send_invitations: Send invitations
     users:
-      hint: "Type to start searching"
-      no_results: "No results found"
-      searching: "Searching..."
-  invite:
-    title: "Invitation to participate in a webconference."
-    message: "You have been invited by <b>%{sender}</b> to join the webconference <b>%{name}</b>.
-              You can join it by accessing <i><a href=\"%{invite_url}\">%{invite_url}</a></i>. Invitation
-              message written by %{sender}:<br/><br/>"
-    invitation_successfully: "Invitation succesfully by:<br>"
-    invitation_unsuccessfully: "Invitation unsuccessfully by:<br>"
-    user_private_msg: "<li>user private message</li>"
-    user_private_email: "user email: "
-    email: "email: "
-    wrong_formatted: " (wrong formatted email)"
+      hint: Type to start searching
+      no_results: No results found
+      searching: Searching...
   invited: Invited
   is_member_of: is member of
   join: Join

@@ -1654,6 +1654,7 @@ pt-br:
     title: Invitation to participate in a webconference.
     user_private_email: <li> e-mail do usuário </li>
     user_private_msg: <li> mensagem privada para usuário </li>
+    wrong_formatted: ! '(e-mail mal formatado)'
   invite_people:
     email:
       one: E-mail
