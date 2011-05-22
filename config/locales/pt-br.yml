@@ -22,6 +22,24 @@ pt-br:
     attributes:
       user:
         login: Login
+      bigbluebutton_room:
+        attendee_password: Senha de Participante
+        dial_number: Número para Ligação
+        logout_url: URL após Logout
+        max_participants: Número máximo de participantes
+        meetingid: ID da sala
+        moderator_password: Senha de Moderador
+        name: Nome
+        private: Privada
+        randomize_meetingid: Aleatorizar ID da sala
+        server_id: ID do servidor
+        voice_bridge: Número para ligação VoIP
+        welcome_msg: Mensagem de Boas Vindas
+      bigbluebutton_server:
+        name: Nome
+        salt: Senha de Segurança
+        url: URL
+        version: Versão
     errors:
       full_messages:
         format: ! '%{attribute} %{message}'
@@ -52,6 +70,9 @@ pt-br:
         header:
           one: Um erro impediu este %{model} de ser salvo
           other: ! '%{count} erros impediram este %{model} de ser salvo'
+    models:
+      bigbluebutton_room: Sala BigBlueButton
+      bigbluebutton_server: Servidor BigBlueButton
   add: Adicionar
   add_more_details: Adicionar mais detalhes
   address: Endereço
@@ -365,7 +386,7 @@ pt-br:
       long: ! '%B %d, %Y'
       short: ! '%b %d'
     month_names:
-    - !!null 
+    - 
     - Janeiro
     - Fevereiro
     - Março
@@ -417,6 +438,9 @@ pt-br:
       x_seconds:
         one: 1 segundo
         other: ! '%{count} segundos'
+      almost_x_years:
+        one: quase um ano
+        other: quase %{count} anos
     prompts:
       day: Dia
       hour: Hora
@@ -895,6 +919,7 @@ pt-br:
     will_attend: Você pretende participar deste evento?
     within_7_days: Dentro de 7 dias (%{size})
     within_a_month: Dentro de um mês (%{size})
+    not_available: Disponível em breve
   event_invitation:
     accepted: Você aceitou o convite para este evento
     clarify_registered: Favor introduzir sua senha para confirmar sua participação
@@ -1013,6 +1038,7 @@ pt-br:
       question: As reuniões são gravadas?
     tag: FAQ
     title: Perguntas Frequentes
+    header_title: FAQ
   fax: Fax
   feedback:
     email: ! '%{email} enviou o seguinte feedback:'
@@ -1561,6 +1587,11 @@ pt-br:
       You can join it by accessing <i><a href="%{invite_url}">%{invite_url}</a></i>.
       Invitation message written by %{sender}:<br/><br/>
     title: Invitation to participate in a webconference.
+    email: <li>e-mail</li>
+    invitation_successfully: ! 'Convite enviado com sucesso por: <br>'
+    invitation_unsuccessfully: ! 'Convite enviado sem sucesso por: <br>'
+    user_private_email: <li> e-mail do usuário </li>
+    user_private_msg: <li> mensagem privada para usuário </li>
   invite_people:
     email:
       one: E-mail
@@ -1707,14 +1738,20 @@ pt-br:
         precision: '2'
         separator: .
         unit: $
+        significant: false
+        strip_insignificant_zeros: false
     format:
       delimiter: ! ','
       precision: '3'
       separator: .
+      significant: false
+      strip_insignificant_zeros: false
     human:
       format:
         delimiter: ''
         precision: '1'
+        significant: true
+        strip_insignificant_zeros: true
       storage_units:
         format: ! '%n %u'
         units:
@@ -1725,6 +1762,15 @@ pt-br:
           kb: KB
           mb: MB
           tb: TB
+      decimal_units:
+        format: ! '%n %u'
+        units:
+          billion: Bilhões
+          million: Milhões
+          quadrillion: Quatrilhões
+          thousand: Mil
+          trillion: Trilhão
+          unit: ''
     percentage:
       format:
         delimiter: ''
@@ -1895,6 +1941,7 @@ pt-br:
       ver o seu perfil privado.
     visibility_public_fellows: Apenas os seus parceiros em espaços públicos ou privados
       podem ver o seu perfil privado.
+    header_title: Perfil de usuário
   province: Província
   public: Público
   read: Ler
@@ -2610,3 +2657,71 @@ pt-br:
   your_interests_tags: Seus interesses (tags)
   your_vcard: seu vCard
   zipcode: CEP
+  bigbluebutton_rails:
+    bigbluebutton: BigBlueButton
+    rooms:
+      error:
+        auth:
+          failure: Falha de autenticação.
+          not_running: A reunião ainda não começou. Você deve esperar por um moderador
+            para participar.
+      notice:
+        create:
+          failure: Sua sala não pode ser criada.
+          success: Sua sala foi criada com sucesso.
+        end:
+          not_running: A reunião não pôde ser finalizada porque ele não está em andamento.
+          success: A reunião foi encerrada com sucesso.
+        update:
+          failure: Sua sala não pode ser actualizada.
+          success: Sua sala foi atualizada com sucesso.
+    servers:
+      notice:
+        create:
+          success: O servidor foi criado com sucesso.
+        update:
+          success: O servidor foi atualizado com sucesso.
+  errors:
+    dynamic_format: ! '%{message}'
+    format: ! '%{attribute} %{message}'
+    messages:
+      accepted: deve ser aceito
+      blank: não pode estar em branco
+      confirmation: não coincide com a confirmação
+      empty: não pode estar vazio
+      equal_to: deve ser igual a %{count}
+      even: deve ser par
+      exclusion: está reservado
+      greater_than: deve ser maior que %{count}
+      greater_than_or_equal_to: deve ser maior ou igual a %{count}
+      inclusion: não está incluído na lista
+      invalid: é inválido
+      less_than: deve ser inferior a %{count}
+      less_than_or_equal_to: deve ser menor ou igual a %{count}
+      not_a_number: não é um número
+      not_an_integer: deve ser um inteiro
+      odd: deve ser ímpar
+      too_long: é muito longo (o máximo é %{count} caracteres)
+      too_short: é muito curto (o mínimo é %{count} caracteres)
+      wrong_length: tem comprimento errado (deveria ter %{count} caracteres)
+  footer:
+    built_on_top_of: Este site é baseado no <a href="https://github.com/ging/vcc">VCC</a>
+      (Global Plaza)
+    find_us: Você pode encontrar-nos em
+    gcode: Google Code
+    github: GitHub
+    website: Site do Projeto
+  help_page:
+    header_title: Ajuda
+  helpers:
+    select:
+      prompt: Por favor, selecione
+    submit:
+      create: Criar %{model}
+      submit: Salvar %{model}
+      update: Atualizar %{model}
+  simple_captcha:
+    label: Digite o texto da imagem
+    message:
+      default: O código inserido não é o mesmo da imagem
+      user: O código inserido não é o mesmo da imagem
