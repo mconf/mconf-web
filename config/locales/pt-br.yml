@@ -20,8 +20,6 @@ pt-br:
   actions: Ações
   activerecord:
     attributes:
-      user:
-        login: Login
       bigbluebutton_room:
         attendee_password: Senha de Participante
         dial_number: Número para Ligação
@@ -40,6 +38,8 @@ pt-br:
         salt: Senha de Segurança
         url: URL
         version: Versão
+      user:
+        login: Login
     errors:
       full_messages:
         format: ! '%{attribute} %{message}'
@@ -83,7 +83,7 @@ pt-br:
     errors:
       candidate_equals_introducer: Candidato e introdutor não podem ser a mesma pessoa.
         (Você provavelmente deve sair do sistema)
-      candidate_has_role: já tem uma fundaileon
+      candidate_has_role: já tem uma função
     one: Admissão
     other: Admissões
   advanced: Avançado
@@ -244,6 +244,30 @@ pt-br:
   back_to_inbox: Voltar para caixa de entrada
   bad_request: Bad Request
   beta: beta
+  bigbluebutton_rails:
+    bigbluebutton: BigBlueButton
+    rooms:
+      error:
+        auth:
+          failure: Falha de autenticação.
+          not_running: A reunião ainda não começou. Você deve esperar por um moderador
+            para participar.
+      notice:
+        create:
+          failure: Sua sala não pode ser criada.
+          success: Sua sala foi criada com sucesso.
+        end:
+          not_running: A reunião não pôde ser finalizada porque ele não está em andamento.
+          success: A reunião foi encerrada com sucesso.
+        update:
+          failure: Sua sala não pode ser actualizada.
+          success: Sua sala foi atualizada com sucesso.
+    servers:
+      notice:
+        create:
+          success: O servidor foi criado com sucesso.
+        update:
+          success: O servidor foi atualizado com sucesso.
   bigbluebutton_space: BigBlueButton Room
   body: Corpo
   button:
@@ -265,11 +289,11 @@ pt-br:
     invite: Convidar
     join: Entrar
     join_webconference: Entrar na conferência
+    new_room: Nova sala
     next: Próximo Passo
     next_edit_program: ! 'Próximo: Editar o programa'
     next_invite: ! 'Próximo: Convidar pessoas'
     next_program: ! 'Próximo: Definir programa'
-    new_room: Nova sala
     ok: OK
     other_spaces: Encontrar outros espaços
     post: Postar
@@ -386,7 +410,7 @@ pt-br:
       long: ! '%B %d, %Y'
       short: ! '%b %d'
     month_names:
-    - 
+    -
     - Janeiro
     - Fevereiro
     - Março
@@ -416,6 +440,9 @@ pt-br:
       about_x_years:
         one: 1 ano
         other: ! '%{count} anos'
+      almost_x_years:
+        one: quase um ano
+        other: quase %{count} anos
       half_a_minute: meio minuto
       less_than_x_minutes:
         one: 1 minuto
@@ -438,9 +465,6 @@ pt-br:
       x_seconds:
         one: 1 segundo
         other: ! '%{count} segundos'
-      almost_x_years:
-        one: quase um ano
-        other: quase %{count} anos
     prompts:
       day: Dia
       hour: Hora
@@ -515,6 +539,29 @@ pt-br:
     one: Erro
     other: Erros
     vcc_warning: ! 'Aviso geral:'
+  errors:
+    dynamic_format: ! '%{message}'
+    format: ! '%{attribute} %{message}'
+    messages:
+      accepted: deve ser aceito
+      blank: não pode estar em branco
+      confirmation: não coincide com a confirmação
+      empty: não pode estar vazio
+      equal_to: deve ser igual a %{count}
+      even: deve ser par
+      exclusion: está reservado
+      greater_than: deve ser maior que %{count}
+      greater_than_or_equal_to: deve ser maior ou igual a %{count}
+      inclusion: não está incluído na lista
+      invalid: é inválido
+      less_than: deve ser inferior a %{count}
+      less_than_or_equal_to: deve ser menor ou igual a %{count}
+      not_a_number: não é um número
+      not_an_integer: deve ser um inteiro
+      odd: deve ser ímpar
+      too_long: é muito longo (o máximo é %{count} caracteres)
+      too_short: é muito curto (o mínimo é %{count} caracteres)
+      wrong_length: tem comprimento errado (deveria ter %{count} caracteres)
   eu_commision: Comissão Européia
   event:
     Isabel: Evento Isabel
@@ -776,6 +823,7 @@ pt-br:
     no_param: Nenhum parâmetro selecionado
     none_coming: Não há eventos próximos
     not_attend: Não participarão
+    not_available: Disponível em breve
     note:
       both: Participação na Web e streaming estarão disponíveis no momento do evento
       none: Não há transmissão definida na agenda.
@@ -919,7 +967,6 @@ pt-br:
     will_attend: Você pretende participar deste evento?
     within_7_days: Dentro de 7 dias (%{size})
     within_a_month: Dentro de um mês (%{size})
-    not_available: Disponível em breve
   event_invitation:
     accepted: Você aceitou o convite para este evento
     clarify_registered: Favor introduzir sua senha para confirmar sua participação
@@ -1036,9 +1083,9 @@ pt-br:
         trabalhando para permitir que vocês façam o download dos vídeos para assisti-los
         localmente em seus computadores ou para distribuí-los.
       question: As reuniões são gravadas?
+    header_title: FAQ
     tag: FAQ
     title: Perguntas Frequentes
-    header_title: FAQ
   fax: Fax
   feedback:
     email: ! '%{email} enviou o seguinte feedback:'
@@ -1056,6 +1103,13 @@ pt-br:
   find_in_day: ! 'Pesquisar no dia:'
   find_in_name_speakers: ! 'Pesquisar em nome/palestrantes:'
   follow_reset_password: ! '%{agent}, por favor siga o link para redefinir a sua senha'
+  footer:
+    built_on_top_of: Este site é baseado no <a href="https://github.com/ging/vcc">VCC</a>
+      (Global Plaza)
+    find_us: Você pode encontrar-nos em
+    gcode: Google Code
+    github: GitHub
+    website: Site do Projeto
   form:
     loading: O formulário está carregando...
   from: De
@@ -1331,6 +1385,8 @@ pt-br:
       escolha esta opção.
     part8: 7. Por fim, clique no botão <b>Upload</b> para adicionar o arquivo no repositório
       de documentos.
+  help_page:
+    header_title: Ajuda
   help_participation:
     part1: ! 'Existem quatro maneiras de participar de um evento: <ul> 1) Siga o <b>Streaming
       de Vídeo</b>. A maneira mais simples de seguir eventos virtuais através da Internet
@@ -1410,6 +1466,13 @@ pt-br:
   help_vcc:
     info: Aqui você pode encontrar informações sobre o Global
     topics: Tópicos
+  helpers:
+    select:
+      prompt: Por favor, selecione
+    submit:
+      create: Criar %{model}
+      submit: Salvar %{model}
+      update: Atualizar %{model}
   hide: Esconder
   his_message_reads_thus: Sua mensagem diz assim
   home:
@@ -1583,13 +1646,13 @@ pt-br:
     will_invite: Pessoas que você vai convidar
     yes_accepted: aceito
   invite:
+    email: <li>e-mail</li>
+    invitation_successfully: ! 'Convite enviado com sucesso por: <br>'
+    invitation_unsuccessfully: ! 'Convite enviado sem sucesso por: <br>'
     message: You have been invited by <b>%{sender}</b> to join the webconference <b>%{name}</b>.
       You can join it by accessing <i><a href="%{invite_url}">%{invite_url}</a></i>.
       Invitation message written by %{sender}:<br/><br/>
     title: Invitation to participate in a webconference.
-    email: <li>e-mail</li>
-    invitation_successfully: ! 'Convite enviado com sucesso por: <br>'
-    invitation_unsuccessfully: ! 'Convite enviado sem sucesso por: <br>'
     user_private_email: <li> e-mail do usuário </li>
     user_private_msg: <li> mensagem privada para usuário </li>
   invite_people:
@@ -1737,9 +1800,9 @@ pt-br:
         format: ! '%u%n'
         precision: '2'
         separator: .
-        unit: $
         significant: false
         strip_insignificant_zeros: false
+        unit: $
     format:
       delimiter: ! ','
       precision: '3'
@@ -1747,6 +1810,15 @@ pt-br:
       significant: false
       strip_insignificant_zeros: false
     human:
+      decimal_units:
+        format: ! '%n %u'
+        units:
+          billion: Bilhões
+          million: Milhões
+          quadrillion: Quatrilhões
+          thousand: Mil
+          trillion: Trilhão
+          unit: ''
       format:
         delimiter: ''
         precision: '1'
@@ -1762,15 +1834,6 @@ pt-br:
           kb: KB
           mb: MB
           tb: TB
-      decimal_units:
-        format: ! '%n %u'
-        units:
-          billion: Bilhões
-          million: Milhões
-          quadrillion: Quatrilhões
-          thousand: Mil
-          trillion: Trilhão
-          unit: ''
     percentage:
       format:
         delimiter: ''
@@ -1922,6 +1985,7 @@ pt-br:
       exist: Seu perfil já existe
     hcard:
       fill_with: Preencha seu perfil com o seu hCard
+    header_title: Perfil de usuário
     must_create: Por favor, crie o seu perfil primeiro
     one: Perfil
     private: Perfil privado
@@ -1941,7 +2005,6 @@ pt-br:
       ver o seu perfil privado.
     visibility_public_fellows: Apenas os seus parceiros em espaços públicos ou privados
       podem ver o seu perfil privado.
-    header_title: Perfil de usuário
   province: Província
   public: Público
   read: Ler
@@ -2136,16 +2199,21 @@ pt-br:
     form:
       msg1: ! ' prohibited this bigbluebutton_server from being saved:'
   session:
-    one: Sessão
     error:
       exist: Você já está logado
       fill: Por favor preencha estes dados
+    one: Sessão
   share_participate_discuss: Compartilhe, participe, discuta
   should_check_email_to_activate_account: Você deve verificar o seu e-mail para ativar
     sua conta.
   show: Exibir
   show_advanced_editor: Exibir editor avançado
   show_list_version_arrows: exibir versão em lista >>
+  simple_captcha:
+    label: Digite o texto da imagem
+    message:
+      default: O código inserido não é o mesmo da imagem
+      user: O código inserido não é o mesmo da imagem
   singular_agent:
     anonymous:
       name: Anônimo
@@ -2625,8 +2693,6 @@ pt-br:
     video_name: Vídeo Enviado
   visit_link_to_activate_account: Visite este link para ativar a sua conta
   webconference:
-    one: Vídeo Conferência
-    other: Vídeo Conferências
     currently_running:
       one: The webconference is currently in progress with %{count} participant
       other: The webconference is currently in progress with %{count} participants
@@ -2636,6 +2702,8 @@ pt-br:
     nobody:
       one_line: There is nobody currently in the room.
     not_running: not running
+    one: Vídeo Conferência
+    other: Vídeo Conferências
     running: rodando
     space:
       description: ! 'The webconference room associated with this space is currently:
@@ -2657,71 +2725,3 @@ pt-br:
   your_interests_tags: Seus interesses (tags)
   your_vcard: seu vCard
   zipcode: CEP
-  bigbluebutton_rails:
-    bigbluebutton: BigBlueButton
-    rooms:
-      error:
-        auth:
-          failure: Falha de autenticação.
-          not_running: A reunião ainda não começou. Você deve esperar por um moderador
-            para participar.
-      notice:
-        create:
-          failure: Sua sala não pode ser criada.
-          success: Sua sala foi criada com sucesso.
-        end:
-          not_running: A reunião não pôde ser finalizada porque ele não está em andamento.
-          success: A reunião foi encerrada com sucesso.
-        update:
-          failure: Sua sala não pode ser actualizada.
-          success: Sua sala foi atualizada com sucesso.
-    servers:
-      notice:
-        create:
-          success: O servidor foi criado com sucesso.
-        update:
-          success: O servidor foi atualizado com sucesso.
-  errors:
-    dynamic_format: ! '%{message}'
-    format: ! '%{attribute} %{message}'
-    messages:
-      accepted: deve ser aceito
-      blank: não pode estar em branco
-      confirmation: não coincide com a confirmação
-      empty: não pode estar vazio
-      equal_to: deve ser igual a %{count}
-      even: deve ser par
-      exclusion: está reservado
-      greater_than: deve ser maior que %{count}
-      greater_than_or_equal_to: deve ser maior ou igual a %{count}
-      inclusion: não está incluído na lista
-      invalid: é inválido
-      less_than: deve ser inferior a %{count}
-      less_than_or_equal_to: deve ser menor ou igual a %{count}
-      not_a_number: não é um número
-      not_an_integer: deve ser um inteiro
-      odd: deve ser ímpar
-      too_long: é muito longo (o máximo é %{count} caracteres)
-      too_short: é muito curto (o mínimo é %{count} caracteres)
-      wrong_length: tem comprimento errado (deveria ter %{count} caracteres)
-  footer:
-    built_on_top_of: Este site é baseado no <a href="https://github.com/ging/vcc">VCC</a>
-      (Global Plaza)
-    find_us: Você pode encontrar-nos em
-    gcode: Google Code
-    github: GitHub
-    website: Site do Projeto
-  help_page:
-    header_title: Ajuda
-  helpers:
-    select:
-      prompt: Por favor, selecione
-    submit:
-      create: Criar %{model}
-      submit: Salvar %{model}
-      update: Atualizar %{model}
-  simple_captcha:
-    label: Digite o texto da imagem
-    message:
-      default: O código inserido não é o mesmo da imagem
-      user: O código inserido não é o mesmo da imagem
