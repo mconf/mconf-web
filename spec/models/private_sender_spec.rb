@@ -29,7 +29,7 @@ describe PrivateSender do
       invitation_comment = "<p>\'" + I18n.t('name.one') + "\',</p>" + "<b>" + I18n.t('invitation.to_space', :username => @admin.full_name, :space => @space.name) + ".</b><br/><br/>" +
         I18n.t('invitation.to_accept_space', :url=>'\'' + I18n.t('url_plain') + '\'') + "<br/>" +
         I18n.t('invitation.info_space', :space_url => ("http://" + Site.current.domain + "/spaces/" + @space.permalink)) + "<br/><br/>" +
-        I18n.t('e-mail.kind_regards') + "<br/><br/>" +
+        I18n.t('email.kind_regards') + "<br/><br/>" +
         @admin.full_name + "<br/>" + @admin.email + "<br/>" + @admin.organization + "<br/>"
       invitation.update_attributes(:comment => invitation_comment, :introducer => @admin)
       
@@ -119,7 +119,7 @@ describe PrivateSender do
       invitation_comment = "<p>\'" + I18n.t('name.one') + "\',</p>" + "<b>" + I18n.t('invitation.to_space', :username => @admin.full_name, :space => @space.name) + ".</b><br/><br/>" +
         I18n.t('invitation.to_accept_space', :url=>'\'' + I18n.t('url_plain') + '\'') + "<br/>" +
         I18n.t('invitation.info_space', :space_url => ("http://" + Site.current.domain + "/spaces/" + @space.permalink)) + "<br/><br/>" +
-        I18n.t('e-mail.kind_regards') + "<br/><br/>" +
+        I18n.t('email.kind_regards') + "<br/><br/>" +
         @admin.full_name + "<br/>" + @admin.email + "<br/>" + @admin.organization + "<br/>"
       invitation.update_attributes(:comment => invitation_comment, :introducer => @admin)
       invitation.update_attributes(:processed => true, :accepted => true)

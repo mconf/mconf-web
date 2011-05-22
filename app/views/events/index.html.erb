@@ -80,7 +80,7 @@ $(".event_navigation,.date_link,div.pagination a").livequery("click",function(){
                 
           <%if !@current_events.empty?%>
             <div id="current_events">
-              <h3><%= t('now!') %></h3>
+              <h3><%= t('now_exclamation') %></h3>
               <%for event in @current_events%>
                 <%= render :partial => event %>
               <%end%>

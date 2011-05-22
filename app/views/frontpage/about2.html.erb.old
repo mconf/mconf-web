@@ -106,7 +106,7 @@
                                 <li>Zentrum für Soziale Innovation</li>
                                 <li>Linke Wienzeile 246</li>
                                 <li>1150 Wien</li>
-                                <li><%= t('e-mail.one') %>: hofer@zsi.at</li>
+                                <li><%= t('email.one') %>: hofer@zsi.at</li>
                                 <li><%= t('phone') %>: +43/ 1 495 04 42 -  63</li>
                           </ul>
                         </div>

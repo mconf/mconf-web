@@ -38,7 +38,7 @@
   <%end%>
     <li id="collapsed_post_<%=post.id%>" style="display:none">
      <%=sanitize(highlight(first_words(post.text,200),params[:query]))%>
-     <%=link_to t('more>>'), "javascript:expand_post_#{post.id}()"%>
+     <%=link_to t('more_arrows'), "javascript:expand_post_#{post.id}()"%>
     </li>
 
     <li id="expanded_post_<%=post.id%>">

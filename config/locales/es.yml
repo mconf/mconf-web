@@ -284,7 +284,7 @@ es:
   click_to_see_all: "haga clic aqu\xC3\xAD para ver todas"
   close: Cerrar
   collapse: contraer
-  collapse>>: contraer>>
+  collapse_arrows: contraer>>
   comment:
     add: "A\xC3\xB1adir un comentario"
     add_new: "A\xC3\xB1adir un nuevo comentario"
@@ -1185,7 +1185,7 @@ es:
     sent:
       other: Mensajes enviados
   mobile: Mobile
-  more>>: "m\xC3\xA1s >>"
+  more_arrows: "m\xC3\xA1s >>"
   my_friends: Mis amigos
   name:
     full: Nombre completo
@@ -1218,7 +1218,7 @@ es:
   no_tags_found: No se encontraron etiquetas
   none: Ninguno
   not_going: No puedo asistir
-  now!: Ahora!
+  now_exclamation: Ahora!
   number:
     currency:
       format:
@@ -1349,7 +1349,7 @@ es:
     plural: "Tel\xC3\xA9fonos"
   phone_optional: "Tel\xC3\xA9fono (opcional)"
   photos: Fotos
-  photos_view>>: ver fotos >>
+  photos_view_arrows: ver fotos >>
   place: Lugar
   please: Por favor,
   please_activate_account: Por favor, active su cuenta
@@ -1412,7 +1412,7 @@ es:
   public: "P\xC3\xBAblicos"
   read: Leer
   read_more: "Leer m\xC3\xA1s"
-  read_more>>: "Leer m\xC3\xA1s >>"
+  read_more_arrows: "Leer m\xC3\xA1s >>"
   received_message_more_machines: "Ha recibido un mensaje de %{user} solicitando m\xC3\xA1s m\xC3\xA1quinas"
   recent:
     activity: Actividad reciente
@@ -1543,7 +1543,7 @@ es:
   should_check_email_to_activate_account: "Debe comprobar su correo electr\xC3\xB3nico para activar su cuenta."
   show: Mostrar
   show_advanced_editor: Mostrar editor avanzado
-  show_list_version>>: "Mostrar versi\xC3\xB3n en forma de lista >>"
+  show_list_version_arrows: "Mostrar versi\xC3\xB3n en forma de lista >>"
   singular_agent:
     anonymous:
       name: "An\xC3\xB3nimo"
@@ -1690,7 +1690,7 @@ es:
     all: Todos
     one: Escenario
   stage_type: Tipo de escenario
-  start_now!: Inicie ahora!
+  start_now_exclamation: Inicie ahora!
   street: Calle
   subject: Tema
   summary: Video Info

@@ -42,7 +42,7 @@
                         <li>
                                 <div class="grey extend_thread <%= 'offscreen' if extended %>">
                                         <%=truncate(strip_tags(thread.text),:length=>100)%> 
-                                        <%=link_to_function t('more>>'), "extend_thread(#{thread.id})", :class => "extend_thread", :style => "#{'display:none' if extended}"%>
+                                        <%=link_to_function t('more_arrows'), "extend_thread(#{thread.id})", :class => "extend_thread", :style => "#{'display:none' if extended}"%>
                                 </div>
                                 <div id="grey" class="extended_thread grey <%= 'offscreen' unless extended %>">
                          <%=render :partial => "posts/parent_post",:locals => { :post =>  thread, :selected_post => false}%>    

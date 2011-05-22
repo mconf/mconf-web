@@ -477,7 +477,7 @@ Please do not hesitate to join the <a href="http://globalplaza.org">Global Plaza
                                                   <%if post.text.size < 70%>
                                                         <%=sanitize(post.text)%>
                                                   <%else%>
-                                                        <%=sanitize(first_words(post.text,70))%> <%=link_to("more>>", space_post_url(@global, post, :host => current_site.domain))%>
+                                                        <%=sanitize(first_words(post.text,70))%> <%=link_to("more_arrows", space_post_url(@global, post, :host => current_site.domain))%>
                                                   <%end%>
                                                 </li>
                                         </ul>
@@ -493,7 +493,7 @@ Please do not hesitate to join the <a href="http://globalplaza.org">Global Plaza
                                 <li>Zentrum für Soziale Innovation</li>
                                 <li>Linke Wienzeile 246</li>
                                 <li>1150 Wien</li>
-                                <li><%= t('e-mail.one') %>: <script type="text/javascript">eval(unescape("%64%6f%63%75%6d%65%6e%74%2e%77%72%69%74%65%28%27%3c%61%20%68%72%65%66%3d%22%6d%61%69%6c%74%6f%3a%73%69%6c%6c%65%72%40%7a%73%69%2e%61%74%22%3e%73%69%6c%6c%65%72%40%7a%73%69%2e%61%74%3c%2f%61%3e%27%29%3b"));</script></li>
+                                <li><%= t('email.one') %>: <script type="text/javascript">eval(unescape("%64%6f%63%75%6d%65%6e%74%2e%77%72%69%74%65%28%27%3c%61%20%68%72%65%66%3d%22%6d%61%69%6c%74%6f%3a%73%69%6c%6c%65%72%40%7a%73%69%2e%61%74%22%3e%73%69%6c%6c%65%72%40%7a%73%69%2e%61%74%3c%2f%61%3e%27%29%3b"));</script></li>
                                 <li><%= t('phone.one') %>: +43 1 495 04 42 - 38</li>
                           </ul>
                         </div>

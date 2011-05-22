@@ -28,7 +28,7 @@
                                         <%else%>
                                           <li id="collapsed_post_<%=post.id%>" style="display:none">
                                                         <%=sanitize(first_words(auto_link(post.text),100))%>
-                                                        <%=link_to "more>>", "javascript:expand_post_#{post.id}()"%>
+                                                        <%=link_to "more_arrows", "javascript:expand_post_#{post.id}()"%>
                                           </li>
                                           <li id="expanded_post_<%=post.id%>">
                                                         <%=sanitize(auto_link(simple_format(post.text)))%><br />

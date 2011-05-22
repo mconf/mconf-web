@@ -14,15 +14,15 @@
     
     <%if @space.public%>
       var ending = "<%= escape_javascript(t('invitation.info_space', :space_url => space_url(@space))) %><br/><br/>" +
-          "<%= escape_javascript(t('e-mail.kind_regards')) %><br/><br/>" +
+          "<%= escape_javascript(t('email.kind_regards')) %><br/><br/>" +
           "<%= current_user.full_name%><br/><%= current_user.email %><br/><%= current_user.organization%><br/>" +
-          "<%= escape_javascript(t('e-mail.spam_invitation', :contact => Site.current.email, :feedback => "http://" + Site.current.domain.to_s + new_feedback_path())) %><br/><br/>";
+          "<%= escape_javascript(t('email.spam_invitation', :contact => Site.current.email, :feedback => "http://" + Site.current.domain.to_s + new_feedback_path())) %><br/><br/>";
     <%else%>
       var ending = "<%= escape_javascript(t('invitation.info_space', :space_url => space_url(@space))) %><br/><br/>" +
           "<%= escape_javascript(t('space.group_invitation.private', :register_url=>signup_url)) %><br/>" +
-          "<%= escape_javascript(t('e-mail.kind_regards')) %><br/><br/>" +
+          "<%= escape_javascript(t('email.kind_regards')) %><br/><br/>" +
           "<%= current_user.full_name%><br/><%= current_user.email %><br/><%= current_user.organization%><br/>" +
-          "<%= escape_javascript(t('e-mail.spam_invitation', :contact => Site.current.email, :feedback => "http://" + Site.current.domain.to_s + new_feedback_path())) %><br/><br/>";
+          "<%= escape_javascript(t('email.spam_invitation', :contact => Site.current.email, :feedback => "http://" + Site.current.domain.to_s + new_feedback_path())) %><br/><br/>";
     <%end%>
           
     
@@ -44,7 +44,7 @@
     <%= form_for([@space], :html => { :multipart => true, :name => "space_group_invitation_edit_form"}) do |f| -%>
       
       <div class="margin-up">
-        <label for="e-mails" class="label_izquierda bold"><%= t('user.group_invite_email') %> <%= t('e-mail.commas') %>:</label>
+        <label for="e-mails" class="label_izquierda bold"><%= t('user.group_invite_email') %> <%= t('email.commas') %>:</label>
         <%= f.text_field :group_invitation_mails %>
       </div>
       
@@ -61,7 +61,7 @@
           <%if !(@space.public)%>
             <%= t('space.group_invitation.private', :register_url=>signup_url) %><br/>
           <%end%>
-          <%= t('e-mail.kind_regards') %><br/><br/>
+          <%= t('email.kind_regards') %><br/><br/>
           <%= current_user.full_name%><br/>
           <%= current_user.email %><br/>
           <%= current_user.organization%><br/>
