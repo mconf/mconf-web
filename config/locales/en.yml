@@ -1,6 +1,5 @@
 ---
 en:
-  BBB: Big Blue Button
   GMT: GMT
   Isabel: Isabel
   RSS: RSS
@@ -243,6 +242,7 @@ en:
   back_to_inbox: Back to inbox
   bad_request: Bad Request
   beta: beta
+  bigbluebutton: BigBlueButton
   bigbluebutton_rails:
     bigbluebutton: BigBlueButton
     rooms:
@@ -382,7 +382,7 @@ en:
     - Fri
     - Sat
     abbr_month_names:
-    -  
+    -
     - Jan
     - Feb
     - Mar
@@ -410,7 +410,7 @@ en:
       long: ! '%B %d, %Y'
       short: ! '%b %d'
     month_names:
-    -  
+    -
     - January
     - February
     - March
@@ -492,6 +492,10 @@ en:
   done: Done!
   download: Download
   download_file: Download file
+  edit: Edit
+  edit_hours: Edit hours
+  edit_profile: Edit profile
+  edit_your_profile: Edit your profile
   email:
     account_activated: Your account at %{sitename} has been activated successfully.
     commas: Separated by commas
@@ -518,11 +522,6 @@ en:
     used_from: ! 'email used in contact form: %{dir}'
     vcc_team: The Global Conference Team
     welcome: Welcome to %{sitename}
-  edit: Edit
-  edit_hours: Edit hours
-  edit_profile: Edit profile
-  edit_your_profile: Edit your profile
-  email: Email
   email_or_full_name: email or full name
   enable: Enable
   enabled: Enabled
@@ -2562,7 +2561,6 @@ en:
     delete_from_space: Delete user from space
     disable: Disable user
     disabled: User %{username} disabled
-    email: email
     edit_account: Edit your account
     email: email
     enable: Enable user

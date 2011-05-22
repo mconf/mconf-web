@@ -18,7 +18,7 @@ GIT
 
 GIT
   remote: git://github.com/mconf/translate.git
-  revision: e719650a27e26610882f65274c4f7678d082a073
+  revision: 62f311b046def07a15b17bb99b1be603307e6d86
   specs:
     translate-rails3 (0.1.1)
       ya2yaml (~> 0.30)

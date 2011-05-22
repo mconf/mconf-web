@@ -2248,7 +2248,7 @@ h3.dialog_title {
 
 #webconference_invite_dialog .header .label {
   text-align: right;
-  width: 90px;
+  width: 110px;
   color:#244974;
   font-weight: bold;
   float: left;
@@ -2257,7 +2257,7 @@ h3.dialog_title {
 }
 
 #webconference_invite_dialog .header .value {
-  margin-left: 100px;
+  margin-left: 120px;
   margin-bottom: 5px;
 }
 

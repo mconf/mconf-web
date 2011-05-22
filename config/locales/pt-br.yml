@@ -1,6 +1,5 @@
 ---
 pt-br:
-  BBB: Big Blue Button
   GMT: GMT
   Isabel: Isabel
   RSS: RSS
@@ -244,6 +243,7 @@ pt-br:
   back_to_inbox: Voltar para caixa de entrada
   bad_request: Bad Request
   beta: beta
+  bigbluebutton: BigBlueButton
   bigbluebutton_rails:
     bigbluebutton: BigBlueButton
     rooms:
@@ -492,7 +492,11 @@ pt-br:
   done: Pronto!
   download: Baixar
   download_file: Baixar arquivo
-  e-mail:
+  edit: Editar
+  edit_hours: Editar horas
+  edit_profile: Editar perfil
+  edit_your_profile: Editar seu perfil
+  email:
     account_activated: Sua conta em %{sitename} foi ativada com sucesso.
     commas: Separado por vírgulas
     confirm: Você agora precisa confirmar seu registro clicando em <a href="%{url}">
@@ -518,11 +522,6 @@ pt-br:
     used_from: ! 'e-mail usado no formulário de contato: %{dir}'
     vcc_team: Equipe Global Conference
     welcome: Bem-vindo(a) a %{sitename}
-  edit: Editar
-  edit_hours: Editar horas
-  edit_profile: Editar perfil
-  edit_your_profile: Editar seu perfil
-  email: E-mail
   email_or_full_name: e-mail ou nome completo
   enable: Habilitar
   enabled: Habilitar
@@ -1477,17 +1476,17 @@ pt-br:
   his_message_reads_thus: Sua mensagem diz assim
   home:
     activity: Atividade Recente...
-    invite_url: Invite URL
+    invite_url: URL para convites
     my: Minha Home
-    no_rooms: You have no webconference rooms.
-    not_running: not running
+    no_rooms: Você não tem salas de webconferência.
+    not_running: inativa
     one: home
     running_with:
-      no_participants: running with no participants
+      no_participants: ativa sem participantes
       participants:
-        one: running with %{count} participant
-        other: running with %{count} participants
-    view_invite_url: View Invite URL
+        one: ativa com %{count} participante
+        other: ativa com %{count} participantes
+    view_invite_url: Ver URL para convites
   icalendar:
     add: Atualizar e adicionar novas entradas
     conflictive1: Uma entrada de seu iCalendar estava na aplicação Global e foi modificada.
@@ -1659,20 +1658,20 @@ pt-br:
     email:
       one: E-mail
       other: E-mails
-    emails_tip: type a list of emails separated by commas
-    internal_message: Internal message
-    mconf_users: Mconf users
-    message: Message
-    names: Names
-    names_tip: type to search users
-    notify_by: Notify by
-    other_people: Other people
-    room_name: Room name
-    send_invitations: Send invitations
+    emails_tip: digite uma lista de e-mails separados por vírgulas
+    internal_message: Mensagem interna
+    mconf_users: Usuários do Mconf
+    message: Mensagem
+    names: Nomes
+    names_tip: digite para procurar usuários
+    notify_by: Notificar usando
+    other_people: Outras pessoas
+    room_name: Nome da sala
+    send_invitations: Enviar convites
     users:
-      hint: Type to start searching
-      no_results: No results found
-      searching: Searching...
+      hint: Digite para começar a buscar
+      no_results: Nenhum resultado encontrado
+      searching: Procurando...
   invited: Convidados
   is_member_of: é membro de
   join: Entrar
@@ -1762,7 +1761,7 @@ pt-br:
     special1: A plataforma Global Plaza estará indisponÄ©vel a partir de sexta-feira,
       17 dezembro Ã s 16:00 UTC, até sábado, 18-Dez 16:00 UTC. Desculpem o incómodo.
     special2: A Equipe do Global Plaza
-  more: more...
+  more: mais...
   more_arrows: mais >>
   my_friends: Meus amigos
   name:
@@ -1770,7 +1769,7 @@ pt-br:
     one: Nome
     other: Nomes
     prefix: Título
-  new_server: New Server
+  new_server: Novo Servidor
   new_source: Importar RSS/Atom
   new_spam_detected: Novo spam detectado
   news:
@@ -2190,14 +2189,14 @@ pt-br:
   send_debug_emails: Enviar emails de debug
   send_reset_password_request: Enviar requisição de reset de senha
   sendemail:
-    created: Email sent successfully
+    created: E-mail enviado com sucesso
     error:
-      created: Error sending email
+      created: Erro ao enviar e-mail
   server:
-    other: Servers
+    other: Servidores
   servers:
     form:
-      msg1: ! ' prohibited this bigbluebutton_server from being saved:'
+      msg1: ! ' impossibilitaram este servidor BigBlueButton de ser salvo:'
   session:
     error:
       exist: Você já está logado
@@ -2307,7 +2306,7 @@ pt-br:
       body: Corpo
       one: Convidar pessoas
       other: Convidar pessoas
-      to: ! 'To:'
+      to: ! 'Para:'
     is_private: é um espaço privado. Envie um pedido de adesão ao administrador deste
       espaço para deixá-lo entrar
     join: Entrar no espaço
@@ -2460,8 +2459,8 @@ pt-br:
     advanced_editor: ! 'Este editor permite que você: veja o código html; modifique
       o estilo e tamanho da fonte, cor de texto e alinhamento do texto; insira/edite
       links; adicione anexos e tags'
-    bigbluebutton_space: This is a public BigBlueButton webconference room for this
-      space. Only members of this space can access the room.
+    bigbluebutton_space: Esta é uma sala de webconferência pública para este espaço.
+      Apenas membros deste espaço podem acessar a sala.
     divider: Use um divisor para indicar pausas, como pausas para café ou almoço.
       Você também pode usá-lo para separar sessões com tópicos diferentes.
     doc_search: Use os campos deste lado para filtrar e atualizar a tabela de documentos
@@ -2599,7 +2598,6 @@ pt-br:
     delete_from_space: Excluir usuário do espaço
     disable: Desabilitar usuário
     disabled: Usuário %{username} desabilitado
-    e-mail: e-mail
     edit_account: Editar sua conta
     email: e-mail
     enable: Habilitar usuário
@@ -2694,25 +2692,25 @@ pt-br:
   visit_link_to_activate_account: Visite este link para ativar a sua conta
   webconference:
     currently_running:
-      one: The webconference is currently in progress with %{count} participant
-      other: The webconference is currently in progress with %{count} participants
-    invite_webconference: Invite people to the webconference
-    my_webconference: My webconference rooms
-    new_webconference: New webconference room
+      one: A conferência está ativa com %{count} participante
+      other: A conferência está ativa com %{count} participantes
+    invite_webconference: Convidar pessoas para a conferência
+    my_webconference: Minhas salas de webconferência
+    new_webconference: Nova sala de webconferência
     nobody:
-      one_line: There is nobody currently in the room.
-    not_running: not running
-    one: Vídeo Conferência
-    other: Vídeo Conferências
-    running: rodando
+      one_line: Não há ninguém na sala.
+    not_running: inativa
+    one: Webconferência
+    other: Webconferências
+    running: ativa
     space:
-      description: ! 'The webconference room associated with this space is currently:
-        <b>%{status}</b> <br/> Click in the button at the top of the sidebar to join
-        the webconference. <br/> You can also share the link below (or click "invite")
-        to invite other people to this conference.'
+      description: ! 'A sala de webconferência associada a este espaço está atualmente:
+        <b>%{status}</b> <br/> Clique no botão no topo da barra lateral para ingressar
+        na webconferência. <br/> Você também pode compartilhar o link abaixo (ou clicar
+        em "convidar") para convidar outras pessoas.'
       join_now: participar agora
       see_more: saiba mais
-      share: compartilhar
+      share: Compartilhar
     title_people_conf: Pessoas na sala
   week:
     next: Na semana que vem
