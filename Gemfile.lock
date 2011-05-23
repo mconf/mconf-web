@@ -11,6 +11,14 @@ GIT
     simple_captcha (0.1.1)
 
 GIT
+  remote: git://github.com/mconf/bigbluebutton_rails.git
+  revision: 8d64e8a013d2d986b320497b0210a75a76467327
+  specs:
+    bigbluebutton_rails (0.0.4)
+      bigbluebutton-api-ruby (~> 0.0.10)
+      rails (~> 3.0.3)
+
+GIT
   remote: git://github.com/mconf/permalink_fu.git
   revision: a42f16a13ab1f7bf14256e57a8e0fe6c6f902bf9
   specs:
@@ -22,13 +30,6 @@ GIT
   specs:
     translate-rails3 (0.1.1)
       ya2yaml (~> 0.30)
-
-PATH
-  remote: ../bigbluebutton_rails
-  specs:
-    bigbluebutton_rails (0.0.4)
-      bigbluebutton-api-ruby (~> 0.0.10)
-      rails (~> 3.0.3)
 
 GEM
   remote: http://rubygems.org/

@@ -289,6 +289,7 @@ pt-br:
     invite: Convidar
     join: Entrar
     join_webconference: Entrar na conferência
+    join_webconference_mobile: Entrar utilizando um dispositivo móvel
     new_room: Nova sala
     next: Próximo Passo
     next_edit_program: ! 'Próximo: Editar o programa'
@@ -1654,7 +1655,7 @@ pt-br:
     title: Invitation to participate in a webconference.
     user_private_email: <li> e-mail do usuário </li>
     user_private_msg: <li> mensagem privada para usuário </li>
-    wrong_formatted: ! '(e-mail mal formatado)'
+    wrong_formatted: ! ' (e-mail mal formatado)'
   invite_people:
     email:
       one: E-mail
@@ -2699,6 +2700,10 @@ pt-br:
       one: A conferência está ativa com %{count} participante
       other: A conferência está ativa com %{count} participantes
     invite_webconference: Convidar pessoas para a conferência
+    join_mobile:
+      direct_link: <b>Clique aqui</b> <br/> para entrar utilizando um dispositivo móvel
+      scan_code: ! 'Ou faça a leitura do código abaixo:'
+      title: Acesso móvel à sala %{room}
     my_webconference: Minhas salas de webconferência
     new_webconference: Nova sala de webconferência
     nobody:

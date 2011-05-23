@@ -263,7 +263,7 @@ h3.selector_title{color:#244974;margin-top:15px;}
 #menu{background:#fff;}
 #menu ul{list-style-type:none;margin:0;font-size:1em;line-height:1.5;font-weight:bold;background:#e1eef5;}
 #menu li{display:inline;margin-right:-3px;}
-#menu li a{display:inline-block;padding:0.5em 1.5em;border-right:1px solid #d3e8f6;text-decoration:none;background:#244974; color:white}
+#menu li a{display:inline-block;padding:5px 10px;border-right:1px solid #d3e8f6;text-decoration:none;background:#244974; color:white}
 #menu li .selected{background:white; color:#244974}
 #menu li .admin{background:#ffa903;color:#FFF;}
 #menu li a:hover{background:white;color:#244974;border-right-color:#d3e8f6;}
@@ -2103,7 +2103,7 @@ div.my-webconference-rooms div.room_list ul {
 
 div.my-webconference-rooms div.room_list li {
   border-bottom:1px #ddd solid;
-  padding: 7px 5px 7px 5px;
+  padding: 7px 5px 3px 5px;
   clear: both;
 }
 

@@ -2666,6 +2666,7 @@ en:
     join_mobile:
       direct_link: <b>Click here</b><br/>to join from a mobile device
       scan_code: ! 'Or scan the code below:'
+      title: Mobile access to %{room}
     my_webconference: My webconference rooms
     new_webconference: New webconference room
     nobody:
