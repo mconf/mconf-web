@@ -121,4 +121,8 @@ module ApplicationHelper
 
   end
 
+  def mobile_icon_link(url)
+    link_to image_tag("icons/cellphone.png", :mouseover => "icons/cellphone_over.png"), url, :id => 'mobile_join', :class => 'mobile_icon'
+  end
+
 end

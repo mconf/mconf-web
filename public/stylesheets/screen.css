@@ -2018,6 +2018,8 @@ div.webconference-space-sidebar .big_button span { width: auto; }
 
 div.webconference-space-sidebar .more_info { font-size: 11px; color: #A8C0D1; }
 
+div.webconference-space-sidebar .content { text-align: left; }
+
 div.webconf-rooms {
   margin-bottom: 10px;
   background: #FFFFFF;
@@ -2344,3 +2346,25 @@ h3.dialog_title {
   margin-bottom: 5px;
 }
 
+.mobile_icon {
+  border: 0;
+  margin: 0;
+  float: left;
+  margin: 2px 5px 0 0;
+}
+
+#webconference_join_mobile_dialog {
+  text-align: center;
+  width: 250px;
+}
+
+#webconference_join_mobile_dialog img {
+  border:1px solid #ccc;
+}
+
+.webconference_join_mobile_ico {
+  width: 16px;
+  height: 16px;
+  float: left;
+  background: url('../images/icons/cellphone.png') center left no-repeat;
+}

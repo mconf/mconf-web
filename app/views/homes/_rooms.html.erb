@@ -6,6 +6,12 @@
     'frameHeight' : 430
   });
 
+  $("a#mobile_join").fancybox({
+    'hideOnContentClick' : false,
+    'frameWidth' : 250,
+    'frameHeight' : 500
+  });
+
   $("a#invite_bbb_link").fancybox({
     'hideOnContentClick' : false,
     'frameWidth' : 450,
@@ -16,7 +22,7 @@
     id = $(this).attr('id').replace("invite_url_button-", "");
     $("#invite_url-" + id).toggle('fast');
   });
-  
+
   $("#new-webconf-room #private").livequery('click', function(event) {
     $('#new_room_private_area').toggle(0);
     if ($(this).is(':checked')) {
@@ -47,7 +53,8 @@
         <% @bbb_rooms.each do |room| %>
           <li>
 
-            <%= link_to t('button.join'), join_bigbluebutton_server_room_path(@server, room), :class => 'basic_button small_button orange_pale_button'%>
+            <%= link_to t('button.join'), join_bigbluebutton_server_room_path(@server, room), :class => 'basic_button small_button orange_pale_button' %>
+            <%= mobile_icon_link(join_mobile_bigbluebutton_server_room_path(@server, room)) %>
             <span class="room_name">
               <%= room.name %>
             </span>

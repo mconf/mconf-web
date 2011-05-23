@@ -9,11 +9,17 @@
     hide: { when: 'mouseout', fixed: true },
     style: 'mystyle'
   });
-  
+
   $("a#invite_bbb_link").fancybox({
     'hideOnContentClick' : false,
     'frameWidth' : 450,
     'frameHeight' : 430
+  });
+
+  $("a#join_mobile_button").fancybox({
+    'hideOnContentClick' : false,
+    'frameWidth' : 250,
+    'frameHeight' : 500
   });
 
 <% end %>
@@ -37,7 +43,7 @@
     </div>
     <span class="only_url"><%= t('url_plain') %>: </span><span class="blue"><%= space_invite_room_url(space, @bbb_room) %></span>
     <div class="invite_button">
-      <%= link_to t('button.invite'), inviteroom_invite_path(:roomName => space.name, 
+      <%= link_to t('button.invite'), inviteroom_invite_path(:roomName => space.name,
             :roomUrl => space_invite_room_url(space, @bbb_room)), :id => 'invite_bbb_link', :class => 'basic_button' %>
     </div>
   </div>

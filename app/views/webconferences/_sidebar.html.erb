@@ -1,13 +1,10 @@
-<script type="text/javascript">
-  $(document).ready(function () {
-    $("#home_members_tokens").tokenInput("/home/invite_room.json", { 
-      crossDomain: false,
-      theme: 'facebook',
-      preventDuplicates: true
-    });
-  });
-</script>
-
 <%= link_to ("<span>" + t('button.join_webconference') + "</span>").html_safe, space_join_room_path(space, @bbb_room),
       :class => 'big_button orange_button bigbluebutton_button' %>
+
+<div class="clearer"></div>
+<br/>
+
+<% ico = "<div class=\"webconference_join_mobile_ico\"></div>" %>
+<%= link_to ("<span>" + ico + t('button.join_webconference_mobile') + "</span>").html_safe, space_join_mobile_room_path(space, @bbb_room),
+      :class => 'big_button orange_button bigbluebutton_button', :id => "join_mobile_button" %>
 

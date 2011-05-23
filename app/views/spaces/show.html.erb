@@ -77,6 +77,12 @@
    style: 'mystyle'
   });
 
+  $("a#mobile_join").fancybox({
+    'hideOnContentClick' : false,
+    'frameWidth': 250,
+    'frameHeight': 500
+  });
+
 <% end %>
 
 <%= content_for :search do  %>
@@ -93,14 +99,19 @@
             <div class="float_right more_info"><%= link_to t('more'), space_webconference_path(space) %></div>
           </h3>
           <div class="float_right">
-            <%= link_to ("<span>" + t('button.join') + "</span>").html_safe, space_join_room_path(space, @bbb_room), :class => 'basic_button blue_button' %>
+            <%= link_to ("<span>" + t('button.join') + "</span>").html_safe, space_join_room_path(space, @bbb_room), :class => 'basic_button small_button orange_pale_button' %>
           </div>
-          <% if @bbb_room.is_running? %>
-            <span class="red"><%= t('space.people_in_conference', :count => @bbb_room.participant_count) %></span>
-          <% else %>
-            <span class="red"><%= t('webconference.nobody.one_line') %></span>
-          <% end %>
-          <div class="clearer"></div>
+          <div class="float_right">
+            <%= mobile_icon_link(space_join_mobile_room_path(space, @bbb_room)) %>
+          </div>
+          <div class="content">
+            <% if @bbb_room.is_running? %>
+              <span class="red"><%= t('space.people_in_conference', :count => @bbb_room.participant_count) %></span>
+            <% else %>
+              <span class="red"><%= t('webconference.nobody.one_line') %></span>
+            <% end %>
+            <div class="clearer"></div>
+          </div>
         </div>
 
         <div id="inc-events">
