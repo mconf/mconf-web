@@ -37,6 +37,9 @@ en:
         salt: Security Salt
         url: URL
         version: Version
+      spaces:
+        attendee_password: Attendee Password
+        moderator_password: Moderator Password
       user:
         login: Login
     errors:
@@ -2249,6 +2252,8 @@ en:
     configuration: Space configuration
     confirm: Are you sure you want to leave this space?
     create_own: Create new space
+    create:
+      webconf_options: Webconference room options
     created: Space created successfully
     delete: Delete Space
     deleted: Space removed successfully

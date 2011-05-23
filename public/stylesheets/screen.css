@@ -2062,7 +2062,6 @@ div.webconf-rooms #new_room_private_area {
 }
 
 div.webconf-rooms #new_room_private_area label {
-  margin-top: 5px;
   width: 130px;
 }
 
@@ -2124,8 +2123,24 @@ div.my-webconference-rooms div.room_list .invite_url .title {
   font-size: 12px;
 }
 
-.float_right { float: right; }
-.float_left { float: left; }
+#new_space_webconf_area {
+  padding: 5px;
+  border-top: 1px solid #eee;
+  margin-bottom: 5px;
+}
+
+#new_space_webconf_area label {
+  float: left;
+  text-align: right;
+  margin-right: 5px;
+  clear: left;
+  margin-top: 5px;
+  width: 130px;
+}
+
+#new_space_webconf_area input[type=password] {
+  width: 240px;
+}
 
 #space_webconference_alert, #space_webconference_description {
   border-bottom:1px #CCC solid;
@@ -2340,10 +2355,6 @@ h3.dialog_title {
   font-weight: bold;
   float: left;
   font-family: Helvetica,sans-serif;
-}
-
-.field {
-  margin-bottom: 5px;
 }
 
 .mobile_icon {

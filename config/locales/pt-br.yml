@@ -37,6 +37,9 @@ pt-br:
         salt: Senha de Segurança
         url: URL
         version: Versão
+      spaces:
+        attendee_password: Senha de Participante
+        moderator_password: Senha de Moderador
       user:
         login: Login
     errors:
@@ -289,7 +292,7 @@ pt-br:
     invite: Convidar
     join: Entrar
     join_webconference: Entrar na conferência
-    join_webconference_mobile: Entrar utilizando um dispositivo móvel
+    join_webconference_mobile: Entrar usando um celular
     new_room: Nova sala
     next: Próximo Passo
     next_edit_program: ! 'Próximo: Editar o programa'
@@ -2129,14 +2132,14 @@ pt-br:
       password: ! 'Senha:'
       password_filled: Está sala é pública. A senha foi preenchida com a senha do
         atendente
-      password_role: Enter the attendee or moderator password.
+      password_role: Digite a senha de moderador ou participante.
       status: ! 'Status da reunião: '
     join:
       msg1: Esta reunião ainda não começou, espere pelo moderador.
       msg2: Seu navegador irá recarregar automaticamente and entrará na reunião assim
         que ela começar.
       title: ! 'Sala: %{name}'
-    not_running: not running.
+    not_running: inativa.
     refresh: forçar recarregamento
     running: rodando!
   save: Salvar
@@ -2281,6 +2284,8 @@ pt-br:
     configuration: Configurações do espaço
     confirm: Tem certeza que quer deixar este espaço?
     create_own: Criar um novo espaço
+    create:
+      webconf_options: Opções para a sala de webconferência
     created: Espaço criado com sucesso
     delete: Excluir Espaço
     deleted: Espaço removido com sucesso
