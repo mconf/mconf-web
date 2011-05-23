@@ -27,7 +27,7 @@ pt-br:
         meetingid: ID da sala
         moderator_password: Senha de Moderador
         name: Nome
-        private: Privada
+        private: Sala privada
         randomize_meetingid: Aleatorizar ID da sala
         server_id: ID do servidor
         voice_bridge: Número para ligação VoIP

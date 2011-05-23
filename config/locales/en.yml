@@ -27,7 +27,7 @@ en:
         meetingid: Meeting ID
         moderator_password: Moderator Password
         name: Name
-        private: Private
+        private: Private room
         randomize_meetingid: Randomize Meeting ID
         server_id: Server ID
         voice_bridge: Voice Bridge

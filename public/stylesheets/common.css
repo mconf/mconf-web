@@ -11,6 +11,10 @@ input[type=password]:focus, input[type=text]:focus, textarea:focus, ul.token-inp
   border: 1px solid #275b8a;
 }
 
+input[type=checkbox] {
+  margin: 5px 0 0 0;
+}
+
 
 /************************************************** BUTTONS ********************************************/
 /*

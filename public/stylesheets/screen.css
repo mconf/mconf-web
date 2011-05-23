@@ -2039,18 +2039,33 @@ div.webconf-rooms span.text {
   margin-left: 0.2cm;
 }
 
-/* Provisoty: field1 and field2 created to inser tabulation on new room create */
-div.webconf-rooms span.field1 {
-  margin-left: 0.1cm;
+div.webconf-rooms label {
+  width: 80px;
+  float: left;
+  text-align: right;
+  margin-right: 5px;
+  margin-top: 5px;
+  clear: left;
 }
 
-div.webconf-rooms span.field2 {
-  margin-left: 0.24cm;
+div.webconf-rooms #room_name {
+  width: 300px;
 }
 
-
-div.webconf-rooms .hide_fields {
+div.webconf-rooms #new_room_private_area {
   display: none;
+  padding: 5px;
+  border-top: 1px solid #eee;
+  margin-bottom: 5px;
+}
+
+div.webconf-rooms #new_room_private_area label {
+  margin-top: 5px;
+  width: 130px;
+}
+
+div.webconf-rooms #new_room_private_area input[type=password] {
+  width: 240px;
 }
 
 div.my-webconference-rooms {
@@ -2325,4 +2340,7 @@ h3.dialog_title {
   font-family: Helvetica,sans-serif;
 }
 
+.field {
+  margin-bottom: 5px;
+}
 

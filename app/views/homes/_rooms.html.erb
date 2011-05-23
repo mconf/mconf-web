@@ -14,21 +14,18 @@
 
   $("#webconference-rooms .invite_url_button").livequery('click', function(event) {
     id = $(this).attr('id').replace("invite_url_button-", "");
-    $("#invite_url-" + id).toggle('slow');
+    $("#invite_url-" + id).toggle('fast');
   });
   
   $("#new-webconf-room #private").livequery('click', function(event) {
-    $("#private_check").toggle('slow');$('.input_control').attr('checked', true);
-    
-      if($('#moderatorPW').attr('disabled') == false && $('#attendeePW').attr('disabled') == false){
-        $('#moderatorPW').attr('disabled', true);
-        $('#attendeePW').attr('disabled', true);
-      }
-      else{
-        $('#moderatorPW').attr('disabled', false);
-        $('#attendeePW').attr('disabled', false);
-      }
-      
+    $('#new_room_private_area').toggle(0);
+    if ($(this).is(':checked')) {
+      $('#moderatorPW').removeAttr('disabled');
+      $('#attendeePW').removeAttr('disabled');
+    } else {
+      $('#moderatorPW').attr('disabled', true);
+      $('#attendeePW').attr('disabled', true);
+    }
   });
 
 <% end %>
