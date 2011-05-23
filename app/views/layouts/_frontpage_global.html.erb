@@ -22,16 +22,16 @@
          <div class="div_login">
              <%= form_tag session_url(:protocol => current_site.protocol), :class => "login_form" do -%>
                 <span>
-                 <label for="login"><%= t('email') %></label>
+                 <label for="login"><%= t('login.email') %></label>
                                                                 </span>
                  <%= text_field_tag 'login', params[:login], :class=>"input_username" %>
 
                 <span>
-                  <label for="password"><%= t('password.one') %></label>
+                  <label for="password"><%= t('login.password') %></label>
                 </span>
                   <%= password_field_tag 'password', nil, :class=>"input_username" %>
 
-                <button type="submit" class="medium_button blue_button"><%=t("login")%></button>
+                <button type="submit" class="medium_button blue_button"><%=t("login.one")%></button>
              <% end -%>
 
              <div id="subtexto">
@@ -48,7 +48,7 @@
                              <div id="openid_label">
                                      <span><%= t('openid.enter') %></span>
                                <%= text_field_tag 'openid_identifier', params[:openid_identifier] %>
-                                                 <button type="submit" class="medium_button blue_button"><%=t("login")%></button>
+                                                 <button type="submit" class="medium_button blue_button"><%=t("login.one")%></button>
                        </div>
                            <% end -%>
                  </div>

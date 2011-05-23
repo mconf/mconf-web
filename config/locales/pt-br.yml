@@ -1715,7 +1715,10 @@ pt-br:
     error: Não foi possível alterar o idioma do aplicativo para
   logged_in_successfully: Logado com sucesso
   logged_out: Você foi desconectado
-  login: Login
+  login:
+    email: E-mail
+    one: Login
+    password: Senha
   login_or_register: Login / Registre-se
   login_request: Você precisa estar logado para
   login_to: Logar em %{site}
@@ -2600,7 +2603,7 @@ pt-br:
     disable: Desabilitar usuário
     disabled: Usuário %{username} desabilitado
     edit_account: Editar sua conta
-    email: e-mail
+    email: E-mail
     enable: Habilitar usuário
     enabled: Usuário habilitado com sucesso. O usuário atualmente não pertence a nenhum
       espaço, e terá que aderir aos espaços novamente.

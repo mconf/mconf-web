@@ -1691,7 +1691,10 @@ en:
     error: ! 'Unable to change application language to '
   logged_in_successfully: Logged in successfully
   logged_out: You have been logged out
-  login: Login
+  login:
+    email: Email
+    one: Login
+    password: Password
   login_or_register: Login / Register
   login_request: ! 'You need to be logged in to '
   login_to: Log in %{site}
@@ -2563,7 +2566,7 @@ en:
     disable: Disable user
     disabled: User %{username} disabled
     edit_account: Edit your account
-    email: email
+    email: Email
     enable: Enable user
     enabled: User successfully enabled. The user currently belongs to no space, and
       will have to join spaces again.

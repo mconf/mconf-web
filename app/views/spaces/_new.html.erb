@@ -182,7 +182,7 @@ function cropImage (c){
           <div class="options">
 				    <ul>
 				      <li class="title"><%= t('login_or_register') %>:</li>
-			  	    <li><%=link_to t('login'), new_space_path(), :id => "create_and_login_link", :class=>"#{'selected' unless params[:register]}"%></li>
+			  	    <li><%=link_to t("login.one"), new_space_path(), :id => "create_and_login_link", :class=>"#{'selected' unless params[:register]}"%></li>
 				      <li> | </li>
               <li><%=link_to t('register.one'), new_space_path(:register => true), :id => "create_and_register_link", :class=>"#{'selected' if params[:register]}"%></li>
 				    </ul>
