@@ -9,8 +9,8 @@ Vcc::Application.routes.draw do
     match '/translate_reload', :to => 'translate#reload', :as => 'translate_reload'
   end
 
-  # Route for text logos creation
-  match '/p', :to => 'p#index', :as => 'p'
+  # Experimental chat
+  #match '/p', :to => 'p#index', :as => 'p'
 
   match '/ui/:action', :to => 'ui'
 

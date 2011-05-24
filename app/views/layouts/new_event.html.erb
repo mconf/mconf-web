@@ -7,13 +7,17 @@
     <title><%= content_for?(:title) ? yield(:title) : current_site.name %></title>
     <link href="/favicon.ico" rel="shortcut icon" />
 
-    <% if current_user.chat_activation %>
+    <% #Experimental chat feature
+=begin
+    <% if current_user.chat_activation % >
       <script type="text/javascript" charset="utf-8">
         if (window == window.top) {
-          window.location.replace("<%= url_for :controller => 'p', :action => 'index', :only_path => true %>");
+          window.location.replace("<%= url_for :controller => 'p', :action => 'index', :only_path => true % >");
         }
       </script>
-    <% end %>
+    <% end % >
+=end
+%>
 
     <%= stylesheet_link_tag "common", :media => "screen, projection" %>
     <%= stylesheet_link_tag "screen", :media => "screen, projection" %>
