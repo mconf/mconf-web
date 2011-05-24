@@ -7,6 +7,7 @@
     <title><%= content_for?(:title) ? yield(:title) : current_site.name %></title>
     <link href="/favicon.ico" rel="shortcut icon" />
 
+    <!-- Experimental chat feature
     <% if current_user.chat_activation %>
       <script type="text/javascript" charset="utf-8">
         if (window == window.top) {
@@ -14,6 +15,7 @@
         }
       </script>
     <% end %>
+    -->
 
     <%= stylesheet_link_tag "common", :media => "screen, projection" %>
     <%= stylesheet_link_tag "screen", :media => "screen, projection" %>

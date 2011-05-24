@@ -2,10 +2,10 @@
   <%= render :partial => 'search/form' %>
 <%end%>
 
-<%= content_for :javascript do%>	  
+<%= content_for :javascript do%>
    $('#timezone img.tooltip_timezone').qtip({
    content: '<%=t("tooltip.timezone")%>',
-	 position: {adjust: { screen: true }},
+         position: {adjust: { screen: true }},
    show:  'mouseover',
    hide: { when: 'mouseout', fixed: true },
    style: 'mystyle'
@@ -22,7 +22,7 @@
 <div class="margin-up"><button type="submit" class="blue_button basic_button"><%=t('save')%></button></div>
 
 <% end -%><br/>
- 
+
 <div id="edit_openids" class="blue_title"><h3><%= t('user.openid.add_to_access')%></h3></div>
 
 <div>
@@ -67,11 +67,13 @@
 <%= f.radio_button  :notification, "2"%> <%=t('user.by_private_message')%>
 </div><br/>
 
+<!-- Experimental chat feature
 <div>
   <h5><%=t("chat.edit_question")%></h5>
   <%= f.check_box :chat_activation, {}, true,false %>
   <label for="chat_activation"><%= t('chat.edit_enabled')%></label>
 </div><br/>
+-->
 
 <% if logged_in? && current_user.superuser==true && @user.id != current_user.id %>
 <p><label for="superuser"><%=t('user.admin')%></label><br/>
@@ -81,7 +83,7 @@
 <%= f.check_box("disabled", {}, "true", "false") %></p>
 <% end -%>
 
-<button type="submit" class="blue_button basic_button"><%=t('save') %></button>		  
+<button type="submit" class="blue_button basic_button"><%=t('save') %></button>
 <% end -%>
 
 
