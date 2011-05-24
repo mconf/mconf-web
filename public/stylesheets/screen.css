@@ -2105,11 +2105,11 @@ div.my-webconference-rooms div.room_list .invite_url .title {
 .float_left { float: left; }
 
 /* Hide fields */
-div.hide_fields {
+.hide_fields {
   display: none;
 }
 
-/* Provisoty: field1 and field2 created to inser tabulation on new room create */
+/* Provisory: field1 and field2 created to inser tabulation on new room create */
 div.hide_fields span.field1 {
   margin-left: 0.1cm;
 }

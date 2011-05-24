@@ -48,6 +48,8 @@ class Space < ActiveRecord::Base
   attr_accessor :text_logo
   attr_accessor :rand_value
   attr_accessor :logo_rand
+  attr_accessor :moderator_password
+  attr_accessor :attendee_password
 
   has_logo
 
@@ -72,7 +74,10 @@ class Space < ActiveRecord::Base
   # TODO BBB Always using the first server
   after_create { |space|
     room = BigbluebuttonRoom.new(:name => space.name, :meetingid => space.emailize_name,
-                                 :owner => space, :server => BigbluebuttonServer.first)
+                                 :owner => space, :server => BigbluebuttonServer.first,
+                                 :moderator_password => self.moderator_password,
+                                 :attendee_password => self.attendee_password,
+                                 :private => !self.public)
     room.save
   }
 

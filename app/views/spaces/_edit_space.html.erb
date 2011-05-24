@@ -5,16 +5,16 @@
 <%= content_for :javascript do %>
   
   $("#jedit_form #public_checkbox").livequery('click', function(event) {
-    $("#private_check").toggle('slow');$('.input_control').attr('checked', true);
-    
-      if($('#moderatorPW').attr('disabled') == false && $('#attendeePW').attr('disabled') == false){
-        $('#moderatorPW').attr('disabled', true);
-        $('#attendeePW').attr('disabled', true);
-      }
-      else{
-        $('#moderatorPW').attr('disabled', false);
-        $('#attendeePW').attr('disabled', false);
-      }
+    if ($(this).is(':checked')) {
+      $("#private_check").hide();
+      $('#moderatorPW').attr('disabled', true);
+      $('#attendeePW').attr('disabled', true);
+    }
+    else{
+      $("#private_check").show();
+      $('#moderatorPW').removeAttr('disabled');
+      $('#attendeePW').removeAttr('disabled');
+    }
   });
 
 
@@ -36,18 +36,47 @@
   },
   {
     cancel    : '<%= t('cancel')%>',
-    onblur : 'ignore',
+    onblur    : 'ignore',
     submit    : '<%= t('ok')%>',
     tooltip   : '<%= t('space.clic')%>',
     width : 185
   });
 
   $('#space_name form input').livequery("blur",function(){
-    $('#edit_name_icon').show();
+    $('#edit_name_icon').hide();
   });
    
   $('#space_name').livequery("click",function(){
     $('#edit_name_icon').hide();
+  });
+  
+  edit_description = function(){
+    $('#space_description').click();
+    $('#edit_description_icon').hide();
+  };
+  
+  $('#space_description').editable('<%=space_path(@space, :format => 'js')%>', {
+    method : 'PUT',
+    type : 'textarea',
+    cancel    : '<%= t('cancel')%>',
+    submit    : '<%= t('ok')%>',
+    tooltip   : '<%= t('space.clic')%>',
+    name : 'space[description]',
+    onblur : 'ignore',
+    width : 185,
+    height : 90,
+    submitdata : {authenticity_token: "<%=form_authenticity_token()%>"},
+    callback : function(value, settings) {
+      $('#edit_description_icon').show();
+    }
+  });
+         
+  $('#space_description form textarea').livequery("blur",function(){
+    $('#edit_description_icon').show();
+  });
+         
+  $('#space_description').livequery("click",function(){
+    $('#edit_description_icon').hide();
   });
   
   edit_moderatorPW = function(){
@@ -55,20 +84,18 @@
     $('#edit_moderatorPW_icon').hide();
   };
   
-  $('#space_moderatorPW').editable(function(value, settings){
-    $.post("<%=space_path(@space, :format => 'js')%>",{
-      _method: "put", authenticity_token: "<%=form_authenticity_token()%>", 'space[moderator_password]': value          
-    }, function(data){
-         eval(data);
-         return(data);
-       });
-  },
-  {
+  $('#space_moderatorPW').editable('<%=space_path(@space, :format => 'js')%>', {
+    method : 'PUT',
     cancel    : '<%= t('cancel')%>',
-    onblur : 'ignore',
     submit    : '<%= t('ok')%>',
     tooltip   : '<%= t('space.clic')%>',
-    width : 185
+    name : 'space[moderator_password]',
+    onblur : 'ignore',
+    width : 185,
+    submitdata : {authenticity_token: "<%=form_authenticity_token()%>"},
+    callback : function(value, settings) {
+      $('#edit_moderatorPW_icon').show();
+    }
   });
 
   $('#space_moderatorPW form input').livequery("blur",function(){
@@ -84,20 +111,18 @@
     $('#edit_attendeePW_icon').hide();
   };
   
-  $('#space_attendeePW').editable(function(value, settings){
-    $.post("<%=space_path(@space.bigbluebutton_room, :format => 'js')%>",{
-      _method: "put", authenticity_token: "<%=form_authenticity_token()%>", 'space.bigbluebutton_room[attendee_password]': value          
-    }, function(data){
-         eval(data);
-         return(data);
-       });
-  },
-  {
+  $('#space_attendeePW').editable('<%=space_path(@space, :format => 'js')%>', {
+    method : 'PUT',
     cancel    : '<%= t('cancel')%>',
-    onblur : 'ignore',
     submit    : '<%= t('ok')%>',
     tooltip   : '<%= t('space.clic')%>',
-    width : 185
+    name : 'space[attendee_password]',
+    onblur : 'ignore',
+    width : 185,
+    submitdata : {authenticity_token: "<%=form_authenticity_token()%>"},
+    callback : function(value, settings) {
+      $('#edit_attendeePW_icon').show();
+    }
   });
 
   $('#space_attendeePW form input').livequery("blur",function(){
@@ -106,35 +131,6 @@
    
   $('#space_attendeePW').livequery("click",function(){
     $('#edit_attendeePW_icon').hide();
-  });
-  
-  edit_description = function(){
-    $('#space_description').click();
-    $('#edit_description_icon').hide();
-  };
-  
-  $('#space_description').editable('<%=space_path(@space, :format => 'js')%>', {
-         method : 'PUT',
-         type : 'textarea',
-         cancel    : '<%= t('cancel')%>',
-         submit    : '<%= t('ok')%>',
-         tooltip   : '<%= t('space.clic')%>',
-         name : 'space[description]',
-                 onblur : 'ignore',
-         width : 185,
-         height : 90,
-         submitdata : {authenticity_token: "<%=form_authenticity_token()%>"},
-         callback : function(value, settings) {
-           $('#edit_description_icon').show();
-        }
-   });
-         
-  $('#space_description form textarea').livequery("blur",function(){
-    $('#edit_description_icon').show();
-  });
-         
-  $('#space_description').livequery("click",function(){
-    $('#edit_description_icon').hide();
   });
          
   $("#public_checkbox").click(function () { 
@@ -232,7 +228,7 @@
       </div>
       
       <!-- Criar aqui senhas -->
-      <div id="private_check">
+      <div id="private_check" class="<%= "hide_fields" if @space.public? %>">
         <label for="moderatorPW" class="bold"><%=t('moderatorPW')%>:</label><br/>
         <span id="space_moderatorPW"><%=@space.bigbluebutton_room.moderator_password%></span> <%= link_to_function image_tag("icons/pencil.png", :alt => t('edit'),:title=>t('space.moderatorPW'), :class=>"icon" ), "edit_moderatorPW()", :id => "edit_moderatorPW_icon"%>
         <br/>

@@ -1,1 +1,5 @@
+<%unless @result %>
+<%= "window.location='#{escape_javascript(edit_space_url(@space))}';" %>
+<%else%>
 <%=@result%>
+<%end%>

@@ -59,7 +59,6 @@ class SpacesController < ApplicationController
   # GET /spaces/1.xml
   # GET /spaces/1.atom
   def show
-
     @bbb_room = BigbluebuttonRoom.where("owner_id = ? AND owner_type = ?", @space.id, @space.class.name).first
     begin
       @bbb_room.fetch_meeting_info
@@ -175,7 +174,7 @@ class SpacesController < ApplicationController
   # PUT /spaces/1
   # PUT /spaces/1.xml
   # PUT /spaces/1.atom
-  def update
+  def update    
     if @space.update_attributes(params[:space])
       respond_to do |format|
         format.html {
@@ -184,11 +183,18 @@ class SpacesController < ApplicationController
         }
         format.atom { head :ok }
         format.js{
-          if params[:space][:name]
-            @result = "window.location=\"#{edit_space_path(@space)}\";"
+          if params[:space][:name] or params[:space][:description]
+            @result = params[:space][:name] ? nil : params[:space][:description]
             render "result.js"
-          elsif params[:space][:description]
-            @result=params[:space][:description]
+          elsif params[:space][:moderator_password] or params[:space][:attendee_password]
+            @result = params[:space][:moderator_password] ? params[:space][:moderator_password] : params[:space][:attendee_password]
+            
+            if params[:space][:moderator_password]
+              @space.bigbluebutton_room.moderator_password = params[:space][:moderator_password]
+            else
+              @space.bigbluebutton_room.attendee_password = params[:space][:attendee_password]
+            end
+            @space.bigbluebutton_room.save
             render "result.js"
           else
             render "update.js"
@@ -209,6 +215,8 @@ class SpacesController < ApplicationController
     end
   end
 
+  def updatepw
+  end
 
   # DELETE /spaces/1
   # DELETE /spaces/1.xml
@@ -231,17 +239,16 @@ class SpacesController < ApplicationController
     end
   end
 
-  def create_group
-    if params[:mail].blank?
-      @space.mailing_list_for_group = ""
-    end
-      @group = Group.new(:name => @space.emailize_name, :mailing_list => @space.mailing_list_for_group)
-      @group.users << @space.users(:role => "admin")
-      @group.users << @space.users(:role => "user")
-  end
+#  def create_group
+#    if params[:mail].blank?
+#      @space.mailing_list_for_group = ""
+#    end
+#      @group = Group.new(:name => @space.emailize_name, :mailing_list => @space.mailing_list_for_group)
+#      @group.users << @space.users(:role => "admin")
+#      @group.users << @space.users(:role => "user")
+#  end
 
   def enable
-
     unless @space.disabled?
       flash[:notice] = t('space.error.enabled', :name => @space.name)
       redirect_to request.referer
