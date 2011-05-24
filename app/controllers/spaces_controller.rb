@@ -133,7 +133,8 @@ class SpacesController < ApplicationController
     params[:space][:repository] = 1;
 
     @space = Space.new(params[:space])
-    create_group
+=begin
+    create_group 
     unless @group.valid?
       message = ""
       @group.errors.full_messages.each {|msg| message += msg + "  <br/>"}
@@ -142,9 +143,12 @@ class SpacesController < ApplicationController
       return
 
     end
+    
+
     @group.space = @space
+=end
     respond_to do |format|
-      if @space.save && @group.save
+      if @space.save# && @group.save
         flash[:success] = t('space.created')
         @space.stage_performances.create(:agent => current_user, :role => Space.role('Admin'))
         format.html { redirect_to :action => "show", :id => @space  }
