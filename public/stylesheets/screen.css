@@ -1711,6 +1711,14 @@ input#space_name {
   width:99%;
 }
 
+input#space_moderatorPW {
+  width:99%;
+}
+
+input#space_attendeePW {
+  width:99%;
+}
+
 #logo_UE {
   margin-left:0px;
   margin-top:0px;
@@ -2140,6 +2148,11 @@ div.my-webconference-rooms div.room_list .invite_url .title {
 
 #new_space_webconf_area input[type=password] {
   width: 240px;
+}
+
+/* Hide fields */
+.hide_fields {
+  display: none;
 }
 
 #space_webconference_alert, #space_webconference_description {
