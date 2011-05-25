@@ -233,6 +233,7 @@ pt-br:
       other: arquivos selecionados
     updated: Anexo atualizado com sucesso
     upload_with_post: Notificar o envio com uma mensagem no mural
+  attendeePW: Senha de Participante
   author: Enviado por
   avatar:
     created: Imagem enviada com sucesso
@@ -1769,6 +1770,7 @@ pt-br:
     special1: A plataforma Global Plaza estará indisponÄ©vel a partir de sexta-feira,
       17 dezembro Ã s 16:00 UTC, até sábado, 18-Dez 16:00 UTC. Desculpem o incómodo.
     special2: A Equipe do Global Plaza
+  moderatorPW: Senha de Moderador
   more: mais...
   more_arrows: mais >>
   my_friends: Meus amigos
@@ -2278,14 +2280,15 @@ pt-br:
     add_user_other: ''
     all: Todos Espaços
     allow_public_access: Permitir espaços públicos?
+    attendeePW: Editar senha de participante
     be_fan: Seja Fan
     clic: Clique para editar...
     clic_logo: Clique para mudar o seu logotipo
     configuration: Configurações do espaço
     confirm: Tem certeza que quer deixar este espaço?
-    create_own: Criar um novo espaço
     create:
       webconf_options: Opções para a sala de webconferência
+    create_own: Criar um novo espaço
     created: Espaço criado com sucesso
     delete: Excluir Espaço
     deleted: Espaço removido com sucesso
@@ -2342,6 +2345,7 @@ pt-br:
       use_date: Use data do evento
     main: Espaço principal
     member_of: Membro dos espaços
+    moderatorPW: Editar senha de moderador
     my_spaces: Meus espaços
     name_none: Um nome deve ser dado para criar um novo espaço
     one: Espaço
@@ -2706,7 +2710,8 @@ pt-br:
       other: A conferência está ativa com %{count} participantes
     invite_webconference: Convidar pessoas para a conferência
     join_mobile:
-      direct_link: <b>Clique aqui</b> <br/> para entrar utilizando um dispositivo móvel
+      direct_link: <b>Clique aqui</b> <br/> para entrar utilizando um dispositivo
+        móvel
       scan_code: ! 'Ou faça a leitura do código abaixo:'
       title: Acesso móvel à sala %{room}
     my_webconference: Minhas salas de webconferência

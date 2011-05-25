@@ -2254,9 +2254,9 @@ en:
     clic_logo: Click to change your logo
     configuration: Space configuration
     confirm: Are you sure you want to leave this space?
-    create_own: Create new space
     create:
       webconf_options: Webconference room options
+    create_own: Create new space
     created: Space created successfully
     delete: Delete Space
     deleted: Space removed successfully
