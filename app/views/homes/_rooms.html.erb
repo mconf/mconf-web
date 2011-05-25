@@ -74,7 +74,7 @@
             <span class="float_right">
               <%= link_to t('button.invite'), inviteroom_invite_path(:roomName => room.name, :roomUrl => invite_bigbluebutton_server_room_url(@server, room)), :id => 'invite_bbb_link', :class => 'basic_button small_button pale_button'%>
               <%= link_to t('home.view_invite_url'), '#', :id => "invite_url_button-#{button_id}", :class => 'basic_button small_button invite_url_button pale_button'%>
-              <%= link_to t('button.remove'), bigbluebutton_server_room_path(@server, room), :confirm => 'Are you sure?', :method => :delete, :class => 'basic_button small_button pale_button' %>
+              <%= link_to t('button.remove'), bigbluebutton_server_room_path(@server, room, :redir_url => home_path), :confirm => 'Are you sure?', :method => :delete, :class => 'basic_button small_button pale_button' %>
             </span>
             <div class="invite_url url_share" id="invite_url-<%= button_id %>">
               <span class="only_url"><%= t('home.invite_url') + ":" %> </span>
