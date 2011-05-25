@@ -8,7 +8,7 @@ pt-br:
   about_global: Sobre a GLOBAL
   about_me: Sobre mim
   about_sxsw: Sobre o SXSW
-  about_vcc: Sobre o VCC
+  about_vcc: Sobre o Mconf
   account: Conta
   account_activated: Sua conta foi ativada!
   account_activated_with_agent: ! '%{agent}, a sua conta foi ativada'
@@ -525,7 +525,7 @@ pt-br:
     url_activated: Você agora pode entrar na sua conta com seu email "%{name}" e sua
       senha em <a href="%{url}"> %{url}</a>
     used_from: ! 'e-mail usado no formulário de contato: %{dir}'
-    vcc_team: Equipe Global Conference
+    vcc_team: Equipe do Mconf
     welcome: Bem-vindo(a) a %{sitename}
   email_or_full_name: e-mail ou nome completo
   enable: Habilitar
@@ -1093,7 +1093,7 @@ pt-br:
   fax: Fax
   feedback:
     email: ! '%{email} enviou o seguinte feedback:'
-    note: Ajude-nos a melhorar o Global. Envie seus comentários, problemas e sugestões.
+    note: Ajude-nos a melhorar o Mconf. Envie seus comentários, problemas e sugestões.
       Tentaremos responder o mais rapidamente possível.
     one: Feedback
     send: Enviar feedback
@@ -1443,7 +1443,7 @@ pt-br:
     part9: 3. Escolha o tipo de elemento da lista <b> Pesquisar em </b>
   help_support: Ajuda e suporte
   help_title:
-    about_vcc: Sobre o Global Plaza
+    about_vcc: Sobre o Mconf
     configure_isabel: Como configurar o seu próprio servidor Isabel
     connect_isabel: Como se conectar ao Isabel
     create_VC: Criando um congresso virtual
@@ -1494,9 +1494,9 @@ pt-br:
     view_invite_url: Ver URL para convites
   icalendar:
     add: Atualizar e adicionar novas entradas
-    conflictive1: Uma entrada de seu iCalendar estava na aplicação Global e foi modificada.
+    conflictive1: Uma entrada de seu iCalendar estava na aplicação Mconf e foi modificada.
       É necessário atualizá-la manualmente para evitar problemas.
-    conflictiven: entradas de seu iCalendar estavam na aplicação Global e foram modificadas.
+    conflictiven: entradas de seu iCalendar estavam na aplicação Mconf e foram modificadas.
       É necessário atualizá-las manualmente para evitar problemas.
     error_import: Ocorreu um erro ao importar o iCalendar.
     export: iCalendar
@@ -1767,9 +1767,9 @@ pt-br:
     send: Enviar mensagem
     sent:
       other: Mensagens enviadas
-    special1: A plataforma Global Plaza estará indisponÄ©vel a partir de sexta-feira,
-      17 dezembro Ã s 16:00 UTC, até sábado, 18-Dez 16:00 UTC. Desculpem o incómodo.
-    special2: A Equipe do Global Plaza
+    special1: A plataforma Mconf estará indisponÄ©vel a partir de sexta-feira, 17
+      dezembro às 16:00 UTC, até sábado, 18-Dez 16:00 UTC. Desculpem o incómodo.
+    special2: A Equipe do Mconf
   moderatorPW: Senha de Moderador
   more: mais...
   more_arrows: mais >>
@@ -1996,6 +1996,7 @@ pt-br:
       fill_with: Preencha seu perfil com o seu hCard
     header_title: Perfil de usuário
     must_create: Por favor, crie o seu perfil primeiro
+    no_spaces: ! '%{user} não pertence a nenhum espaço.'
     one: Perfil
     private: Perfil privado
     private_description: Esta informação só é visível para as pessoas que você escolher
@@ -2279,7 +2280,7 @@ pt-br:
       other: Adicionar usuários ao espaço
     add_user_other: ''
     all: Todos Espaços
-    allow_public_access: Permitir espaços públicos?
+    allow_public_access: Permitir acesso público?
     attendeePW: Editar senha de participante
     be_fan: Seja Fan
     clic: Clique para editar...
@@ -2326,7 +2327,7 @@ pt-br:
     join_invitation:
       clarify_registered: Por favor, digite a senha para participar deste espaço.
       clarify_unregistered: Por favor, digite o seu nome completo e uma senha para
-        se registrar no Global Plaza e participar deste espaço.
+        se registrar no Mconf e participar deste espaço.
       title: Junte-se ao espaço >
     join_pending: Pedido de adesão sendo processado
     leave: Deixar esse espaço
@@ -2578,7 +2579,7 @@ pt-br:
     one: Traduzir
     request: Para traduzir para uma linguagem diferente, por favor peça ao administrador
       para acrescentar a nova língua e sua respectiva bandeira
-    translated: Global é agora traduzido, ou está em processo de tradução
+    translated: O Mconf é agora traduzido, ou está em processo de tradução
   type: Tipo
   undated: Sem data
   unknown_content: Conteúdo desconhecido %{content}
@@ -2650,7 +2651,7 @@ pt-br:
     notifications: Como você deseja receber as notificações?
     one: Usuário
     openid:
-      add_to_access: Adicione sua OpenID para acessar o Global Plaza
+      add_to_access: Adicione sua OpenID para acessar o Mconf
       edit: Edite suas OpenIDs
       one: OpenID
       other: OpenIDs
@@ -2672,7 +2673,7 @@ pt-br:
     search: Procurar Usuários...
     timezone: Fuso horário
     updated: Usuário atualizado com sucesso
-    vcc_email: E-mail do usuário Global %{dir}
+    vcc_email: E-mail do usuário Mconf %{dir}
     view_expanded_posts: Mostrar mensagens no mural com a visão expandida por padrão
     without_group: Pessoas sem lista de e-mail
   username: Nome de usuário
@@ -2685,9 +2686,9 @@ pt-br:
     upload: Envie o seu vCard
     use: Use seu vCard
   vcard: vCard
-  vcc: Conferências Global Plaza
-  vcc_mail_label: ! '[Global]'
-  vcc_registration: Registro Global Plaza
+  vcc: Conferências Mconf
+  vcc_mail_label: ! '[Mconf]'
+  vcc_registration: Registro Mconf
   version:
     new: Nova versão
     one: Versão

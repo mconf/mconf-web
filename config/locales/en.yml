@@ -8,7 +8,7 @@ en:
   about_global: About GLOBAL
   about_me: About me
   about_sxsw: About SXSW
-  about_vcc: About VCC
+  about_vcc: About Mconf
   account: Account
   account_activated: Your account has been activated!
   account_activated_with_agent: ! '%{agent}, your account has been activated'
@@ -525,7 +525,7 @@ en:
     url_activated: You can now login to your account with your email "%{name}" and
       your password in <a href="%{url}"> %{url}</a>
     used_from: ! 'email used in contact form: %{dir}'
-    vcc_team: The Global Conference Team
+    vcc_team: The Mconf Team
     welcome: Welcome to %{sitename}
   email_or_full_name: email or full name
   enable: Enable
@@ -1419,7 +1419,7 @@ en:
     part9: 3. Choose the type of element from the drop down list <b> Find in </b>
   help_support: Help & Support
   help_title:
-    about_vcc: About Global Plaza
+    about_vcc: About Mconf
     configure_isabel: How to configure your own Isabel server
     connect_isabel: How to connect to Isabel
     create_VC: Creating a virtual congress
@@ -1470,9 +1470,9 @@ en:
     view_invite_url: View Invite URL
   icalendar:
     add: Update and Add new entries
-    conflictive1: ! 'One entry of your iCalendar was on the Global application and
+    conflictive1: ! 'One entry of your iCalendar was on the Mconf application and
       has been modified. You must update it manually to avoid problems. '
-    conflictiven: ! ' entries of your iCalendar were on the Global application and
+    conflictiven: ! ' entries of your iCalendar were on the Mconf application and
       have been modified. You must update them manually to avoid problems. '
     error_import: An error ocurred while importing the iCalendar.
     export: iCalendar
@@ -1739,9 +1739,9 @@ en:
     send: Send Message
     sent:
       other: Sent messages
-    special1: The GlobalPlaza platform will be down from Friday 17-Dec at 16:00 UTC
-      until Saturday 18-Dec 16:00 UTC. Sorry for the inconveniences.
-    special2: The GlobalPlaza Team
+    special1: The Mconf platform will be down from Friday 17-Dec at 16:00 UTC until
+      Saturday 18-Dec 16:00 UTC. Sorry for the inconveniences.
+    special2: The Mconf Team
   moderatorPW: Moderator Password
   more: more...
   more_arrows: more >>
@@ -1968,6 +1968,7 @@ en:
       fill_with: Fill your profile with your hCard
     header_title: User profile
     must_create: Please create your profile first
+    no_spaces: ! '%{user} does not belong to any spaces.'
     one: Profile
     private: Private profile
     private_description: This information is visible only to the people you choose
@@ -2293,7 +2294,7 @@ en:
     join_invitation:
       clarify_registered: Please introduce password in order to join this space.
       clarify_unregistered: Please introduce your full name and a password in order
-        to register onto the Global Plaza and join this space.
+        to register onto the Mconf and join this space.
       title: Join space >
     join_pending: Join request being processed
     leave: Leave this space
@@ -2541,7 +2542,7 @@ en:
     one: Translate
     request: To translate to a different language, please request the administrator
       to add the new language and flag
-    translated: ! 'Global is now translated, or in translation process, to '
+    translated: ! 'Mconf is now translated, or in translation process, to '
   type: Type
   undated: Undated
   unknown_content: Unknown content %{content}
@@ -2613,7 +2614,7 @@ en:
     notifications: How do you want to receive your notifications?
     one: User
     openid:
-      add_to_access: Add your OpenIDs to access Global Plaza
+      add_to_access: Add your OpenIDs to access Mconf
       edit: Edit your OpenIDs
       one: OpenID
       other: OpenIDs
@@ -2635,7 +2636,7 @@ en:
     search: Search Users...
     timezone: Timezone
     updated: User updated successfully
-    vcc_email: Global user e-mail %{dir}
+    vcc_email: Mconf user e-mail %{dir}
     view_expanded_posts: Show messages in wall with the expanded view by default
     without_group: People without mailing list
   username: Username
@@ -2648,9 +2649,9 @@ en:
     upload: Upload your vCard
     use: Use your vCard
   vcard: vCard
-  vcc: Global Plaza Conferences
-  vcc_mail_label: ! '[Global]'
-  vcc_registration: Global Plaza Registration
+  vcc: Mconf Conferences
+  vcc_mail_label: ! '[Mconf]'
+  vcc_registration: Mconf Registration
   version:
     new: New version
     one: Version
