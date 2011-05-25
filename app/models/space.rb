@@ -61,7 +61,7 @@ class Space < ActiveRecord::Base
   #is_indexed :fields => ['name','description'],
   #           :conditions => "disabled = 0"
 
-  validates_presence_of :name, :description
+  validates_presence_of :name, :description, :moderator_password, :attendee_password
   validates_uniqueness_of :name
 
   #after_create { |space|
