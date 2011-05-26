@@ -56,7 +56,6 @@ body .icon{margin-bottom:-3px;}
 #global,#home,#footer,#sponsor{width:960px;margin:0 auto;}
 #home{background-color:#f8f9f9;}
 
-#global-wrapper{background:#244974;border-bottom:2px solid #0e3d74;}
 #global{padding:0.5em 0; height:55px;}
 #global a{color:#eee;text-decoration:none;}
 #global-logo {font-family:Trebuchet;font-weight:bold;text-shadow:#000 1px 1px 1px;}
@@ -161,7 +160,15 @@ div.rel-users,div.rcnt-posts,div.contact{margin-top:1.5em;}
 .help-title h3{margin-top:0;padding-top:0.5em;color:#244974;}
 .topics-section{padding:0 10px;padding-top:0.5em;margin:0 0 0.75em;}
 
-#footer{background-color:#e1eef5;clear:left;font-size:0.9166em;line-height:1.6363;color:#666;padding:10px 10px;width:940px;}
+#footer{
+  clear:left;font-size:0.9166em;line-height:1.6363;color:#666;padding:10px 10px;width:940px;
+  -moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
+  -webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;
+  box-shadow:inset 0px 1px 0px 0px #ffffff;
+  background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #e1eef5), color-stop(1, #cfe1ea) );
+  background:-moz-linear-gradient( center top, #e1eef5 5%, #cfe1ea 100% );
+  filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#e1eef5', endColorstr='#cfe1ea');
+}
 #footer ul, #sponsor ul{list-style-type:none;margin:0 0.5em; }
 #footer ul li,#sponsor ul li{display:inline-block;margin-right:0.25em;position:relative;}
 #footer ul li#trade_mark{font-weight:bold;color:#111;}
@@ -169,7 +176,9 @@ div.rel-users,div.rcnt-posts,div.contact{margin-top:1.5em;}
 #footer a, #sponsor a{color:#444;}
 #footer a:hover, #sponsor a:hover{color:#888; text-decoration: none;}
 #footer .icon, #global .icon{margin-bottom:-4px;}
-#footer-wrapper{background-color:#e1eef5;}
+#footer-wrapper{
+  background-color:#e1eef5;
+}
 #footer_right, #sponsor{font-weight:normal; font-size: 10px; line-height: 1.1em;}
 
 #sponsor{
@@ -296,9 +305,15 @@ a.login{
 /*******************CABECERA***********************/
 
 #global-wrapper {
-        width:100%;
-        padding:0;
-        background:#1F4A75;
+  width:100%;
+  padding:0;
+  -moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
+  -webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;
+  box-shadow:inset 0px 1px 0px 0px #ffffff;
+  background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #34618e), color-stop(1, #1F4A75) );
+  background:-moz-linear-gradient( center top, #34618e 5%, #1F4A75 100% );
+  filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#34618e', endColorstr='#1F4A75');
+  background-color:#1F4A75;
 }
 
 .banner{

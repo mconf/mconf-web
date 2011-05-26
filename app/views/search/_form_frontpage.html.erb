@@ -5,19 +5,19 @@
       this.value="";
     }
   });
-  
+
     $("#search_text_field").blur(function(){
     if(this.value == ""){
       this.value= title;
     }
-  });  
+  });
 
 <%end%>
 
 <div id="subtexto_busqueda">
   <ul class="menu1">
         <li>
-      <%=link_to t('help'), help_path, { :id => "header_help", :class=> "orange_button" } %>
+      <%=link_to t('help'), help_path, { :id => "header_help" } %>
     </li>
         <li> | </li>
     <li>
@@ -41,14 +41,14 @@
         </ul>
       </div>
     </li>
-  </ul>   
+  </ul>
 </div>
 
 <%= form_tag(@space.nil? ? search_all_path : space_search_all_path(@space), :method => 'get') do %>
 
   <span class="find">Find</span><input type="image" src="/images/find.png"/>
   <%= text_field_tag 'query',(params[:query] ? params[:query] :  t('search.dots') ), :id => 'search_text_field' %>
-  
+
   <div id="advanced">
     <%= link_to t('advanced'), search_all_path(:advanced => true)%>
   </div>

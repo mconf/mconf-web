@@ -12,7 +12,7 @@ input[type=password]:focus, input[type=text]:focus, textarea:focus, ul.token-inp
 }
 
 input[type=checkbox] {
-  margin: 5px 0 0 0;
+  margin: 5px 2px 0 2px;
 }
 
 
