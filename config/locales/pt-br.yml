@@ -2068,7 +2068,7 @@ pt-br:
   register_as_admin: Registe-se como administrador
   register_as_invited: Registe-se como convidado
   register_as_user: Registe-se como usuário
-  register_now: Registe-se AGORA!
+  register_now: Registe-se agora!
   remarks: Observações
   remember_me: Lembrar de mim
   remove: Remover
@@ -2609,7 +2609,7 @@ pt-br:
     assist: Participantes
     by_email: Por e-mail
     by_private_message: Por mensagem privada
-    confirm_password: Confirmar Senha
+    confirm_password: Confirmar senha
     delete_from_space: Excluir usuário do espaço
     disable: Desabilitar usuário
     disabled: Usuário %{username} desabilitado

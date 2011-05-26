@@ -2042,7 +2042,7 @@ en:
   register_as_admin: Register as admin
   register_as_invited: Register as invited
   register_as_user: Register as user
-  register_now: Register NOW!
+  register_now: Register now!
   remarks: Remarks
   remember_me: Remember me
   remove: Remove
@@ -2572,7 +2572,7 @@ en:
     assist: Attending
     by_email: By email
     by_private_message: By private message
-    confirm_password: Confirm Password
+    confirm_password: Confirm password
     delete_from_space: Delete user from space
     disable: Disable user
     disabled: User %{username} disabled

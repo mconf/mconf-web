@@ -57,7 +57,7 @@ body .icon{margin-bottom:-3px;}
 #home{background-color:#f8f9f9;}
 
 #global-wrapper{background:#244974;border-bottom:2px solid #0e3d74;}
-#global{padding:0.5em 0;}
+#global{padding:0.5em 0; height:55px;}
 #global a{color:#eee;text-decoration:none;}
 #global-logo {font-family:Trebuchet;font-weight:bold;text-shadow:#000 1px 1px 1px;}
 #global-logo img{margin:0 4px -4px 0;}
@@ -319,26 +319,19 @@ a.login{
         text-indent:99999px;
 }
 
-#espacio_header {
-        margin:0px;
-        margin-left:166px;
-        margin-top:50px;
-        height:61px;
-        display:inline;
-}
-
 /*DENTRO DE LA CABECERA: LOGIN*/
 
 .div_login, .div_login_openid {
-        color:#FFF;
-        width:580px;
-        display:inline-block;
-        text-align: right;
-        vertical-align: top;
-        padding-top: 5px;
-        font-family:Helvetica;
-        font-weight:normal;
-        margin-top:3px;
+  float: right;
+  color:#FFF;
+  width:580px;
+  display:inline-block;
+  text-align: right;
+  vertical-align: top;
+  padding-top: 5px;
+  font-family:Helvetica;
+  font-weight:normal;
+  margin-top:3px;
 }
 
 .div_login #username, .div_login_openid #username{
