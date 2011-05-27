@@ -156,9 +156,11 @@
   });
 
   <% render :partial => 'logos/crop_logo.js.erb',
-             :locals => { :url_form   => edit_space_url(@space),
-                          :aspect_ratio => Logo::ASPECT_RATIO_S
-                        } %>
+             :locals => { :url_form => edit_space_url(@space),
+                          :form_id => 'form_update_avatar',
+                          :container_id => 'for_lightbox',
+                          :aspect_ratio => Logo::ASPECT_RATIO_S } %>
+
 
   edit_logo_fun = function(){
     $('div#update_logo').show();
