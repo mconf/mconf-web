@@ -87,6 +87,8 @@ class SpacesController < ApplicationController
 
   # GET /spaces/new
   def new
+    @space = Space.new
+    @space.build_bigbluebutton_room
     respond_to do |format|
       format.html{
           if request.xhr?
@@ -132,6 +134,9 @@ class SpacesController < ApplicationController
 
     params[:space][:repository] = 1;
 
+    params[:space][:bigbluebutton_room_attributes][:name] = params[:space][:name]
+    params[:space][:bigbluebutton_room_attributes][:private] = params[:space][:name]
+    params[:space][:bigbluebutton_room_attributes][:server] = BigbluebuttonServer.first
     @space = Space.new(params[:space])
 =begin
     create_group 
@@ -148,6 +153,7 @@ class SpacesController < ApplicationController
     @group.space = @space
 =end
     respond_to do |format|
+      
       if @space.save# && @group.save
         flash[:success] = t('space.created')
         @space.stage_performances.create(:agent => current_user, :role => Space.role('Admin'))
@@ -178,7 +184,10 @@ class SpacesController < ApplicationController
   # PUT /spaces/1
   # PUT /spaces/1.xml
   # PUT /spaces/1.atom
-  def update    
+  def update
+    unless params[:space][:bigbluebutton_room_attributes].blank?
+      params[:space][:bigbluebutton_room_attributes][:id] = @space.bigbluebutton_room.id
+    end
     if @space.update_attributes(params[:space])
       respond_to do |format|
         format.html {
@@ -190,22 +199,18 @@ class SpacesController < ApplicationController
           if params[:space][:name] or params[:space][:description]
             @result = params[:space][:name] ? nil : params[:space][:description]
             render "result.js"
-          elsif params[:space][:moderator_password] or params[:space][:attendee_password]
-            @result = params[:space][:moderator_password] ? params[:space][:moderator_password] : params[:space][:attendee_password]
-            
-            if params[:space][:moderator_password]
-              @space.bigbluebutton_room.moderator_password = params[:space][:moderator_password]
-            else
-              @space.bigbluebutton_room.attendee_password = params[:space][:attendee_password]
+          elsif !params[:space][:bigbluebutton_room_attributes].blank?
+            if params[:space][:bigbluebutton_room_attributes][:moderator_password] or params[:space][:bigbluebutton_room_attributes][:attendee_password]
+              @result = params[:space][:bigbluebutton_room_attributes][:moderator_password] ? params[:space][:bigbluebutton_room_attributes][:moderator_password] : params[:space][:bigbluebutton_room_attributes][:attendee_password]
+              render "result.js"
             end
-            @space.bigbluebutton_room.save
-            render "result.js"
           else
             render "update.js"
           end
         }
       end
     else
+      puts @space.errors
       respond_to do |format|
         flash[:error] = t('error.change')
         format.js {
@@ -217,9 +222,6 @@ class SpacesController < ApplicationController
         format.atom { render :xml => @space.errors.to_xml, :status => :not_acceptable }
       end
     end
-  end
-
-  def updatepw
   end
 
   # DELETE /spaces/1
