@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Copyright 2008-2010 Universidad Politécnica de Madrid and Agora Systems S.A.
 #
 # This file is part of VCC (Virtual Conference Center).
@@ -16,28 +17,31 @@
 # along with VCC.  If not, see <http://www.gnu.org/licenses/>.
 
 class AvatarsController < ApplicationController
-  
+
   def precrop
-    if params['avatar']['media'].blank?
-      redirect_to request.referer
+    if params['avatar'].blank? || params['avatar']['media'].blank?
+      render "logos/precrop_no_image", :layout => false
       return
     end
-    
+
     @user = User.find_by_login(params[:user_id])
-    @avatar = @user.profile!.logo || Avatar.new 
+    @avatar = @user.profile!.logo || Avatar.new
 
     temp_logo = TempLogo.new(Avatar, @user, params[:avatar])
     TempLogo.to_session(session, temp_logo)
+    size = temp_logo.size
+    size = "#{size[0]}x#{size[1]}"
 
     render :template => "logos/precrop",
            :layout => false,
            :locals => {:logo_crop_text => t('avatar.crop'),
-                       :form_for => @avatar,
-                       :form_url => [@user, :avatar],
-                       :image => temp_logo.image 
+                       :p_form_for => @avatar,
+                       :p_form_url => [@user, :avatar],
+                       :image => temp_logo.image,
+                       :image_size => size
                       }
   end
-  
+
   def create
     user = User.find_by_login(params[:user_id])
     if params[:crop_size].present?
@@ -52,9 +56,9 @@ class AvatarsController < ApplicationController
       flash[:error] = t('error', :count => @avatar.errors.size) + @avatar.errors.to_xml
       redirect_to user_path(user)
     end
-    
+
   end
-  
+
   def update
     user = User.find_by_login(params[:user_id])
     if params[:crop_size].present?
@@ -68,18 +72,18 @@ class AvatarsController < ApplicationController
     else
       flash[:error] = t('error', :count => @avatar.logo.errors.size) + @avatar.logo.errors.to_xml
       redirect_to user_path(user)
-    end   
+    end
   end
-  
+
   def show
     user = User.find_by_login(params[:user_id])
-    
+
     if user.logo.present?
       logo = user.logo
     else
       raise ActiveRecord::RecordNotFound
     end
-    
+
     params[:size] ||= "64"
     logo =  (logo.thumbnails.map(&:thumbnail).include?(params[:size]) ? logo.thumbnails.find_by_thumbnail(params[:size]) : logo.thumbnails.find_by_thumbnail("64"))
     send_data logo.__send__(:current_data),

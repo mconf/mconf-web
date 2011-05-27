@@ -2401,3 +2401,7 @@ h3.dialog_title {
   float: left;
   background: url('../images/icons/cellphone.png') center left no-repeat;
 }
+
+.jcrop-holder {
+  margin: auto;
+}

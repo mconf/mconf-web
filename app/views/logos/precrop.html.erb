@@ -6,20 +6,21 @@
 
 <div id="crop-logo-lightbox-content">
 
-  <%=image_tag image, :id => "croplogo"%>
-  
-  <%= form_for, :url => form_url do |f| %>
-    <%= fields_for :crop_size do |fc|%>
+  <%= image_tag image, :id => "croplogo", :size => image_size %>
+
+  <%= form_for p_form_for, :url => p_form_url do |f| %>
+    <%= fields_for :crop_size do |fc| %>
       <%= fc.hidden_field :x %>
       <%= fc.hidden_field :y %>
       <%= fc.hidden_field :width %>
       <%= fc.hidden_field :height %>
-    <%end%>
-  
+    <% end %>
+
     <div class="margin-up">
-      <button type="submit" class="blue_button basic_button"><%=t("button.accept")%></button>    
+      <button type="submit" class="blue_button basic_button"><%=t("button.accept")%></button>
     </div>
-  
-  <%end%>
-</div> 
+
+  <% end %>
+
+</div>
 

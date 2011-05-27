@@ -1713,6 +1713,7 @@ en:
     error:
       not_valid: Logo is not valid
     one: Logo
+    no_image: No image selected
   logout: Logout %{user}
   mailing_list:
     associate: Associate mailing list to your group

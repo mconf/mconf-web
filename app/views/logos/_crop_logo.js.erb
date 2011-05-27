@@ -1,62 +1,57 @@
-  style_file_input()
-  
-	$("div#update_logo form").attr("action","<%= url_form %>");
-	$("div#update_logo form input[type=hidden][name=_method][value=put]").remove();
-	
-	$("div#update_logo form input[type=image]").click(function(){
-      if($("#logo_media").val()==""){
-        alert('<%= t('select_image')%>');
-        return false;
+//style_file_input();
+
+$("div#update_logo form").attr("action","<%= url_form %>");
+$("div#update_logo form input[type=hidden][name=_method][value=put]").remove();
+
+$("div#update_logo form input[type=image]").click(function(){
+  if($("#logo_media").val() == ""){
+    alert("<%= t('select_image')%>");
+    return false;
+  }
+});
+
+$("#form_update_avatar").ajaxForm(function(data) {
+
+  $("#for_lightbox").append("<a id=\"logo_crop_submit_anchor\" href=#for_lightbox_content></a>");
+  $("#for_lightbox").append("<div id=for_lightbox_content>" + data + "</div>");
+  $("#for_lightbox_content").width($("#croplogo").attr('width') + 20);
+
+  $("#logo_crop_submit_anchor").fancybox({
+    'hideOnContentClick' : false,
+    'frameWidth' : 200,
+    'frameHeight' : 200,
+    'onComplete' : function(){
+      //$("#for_lightbox").children().remove();
+      var size;
+      if ($("#croplogo").attr("width")<$("#croplogo").attr("height")){
+        size = $("#croplogo").attr("width");
+      }else{
+        size = $("#croplogo").attr("height");
       }
-  });
-	
-	$("div#update_logo form").ajaxForm(function(data) {
-	  
-		$("#for_lightbox").append(data);
-		
-		$("<a href=#for_lightbox></a>").fancybox({
-		  'hideOnContentClick' : false,
-			'frameWidth' : 200,
-			'frameHeight' : 200,
-			'callbackOnShow' : function(){
-		      $("#for_lightbox").children().remove();
-					var size;
-					if ($("#croplogo").attr("width")<$("#croplogo").attr("height")){
-					  size = $("#croplogo").attr("width");
-					}else{
-					  size = $("#croplogo").attr("height");
-					}	    
-			    $("#croplogo").Jcrop({
-			      onSelect: cropImage,
-			      onChange: cropImage,
-						bgColor : 'white',
-			      aspectRatio: <%=aspect_ratio%>,
-						setSelect: [size/4,size/4,3*size/4,3*size/4]
-          });
-					if ($("#croplogo").height() +105 >200){
-					  $("#fancy_outer").height($("#croplogo").height() + 105);
-					}
-					if ($("#croplogo").width()+30 > 200){
-					  $("#lightbox-logo").width($("#croplogo").width()-18);
-						$("#fancy_outer").width($("#croplogo").width()+30);
-					}
-					$(window).resize();
-			  }
-		}).click(); 
-  });
-	
-	 $("#logo_submit").click(function(){
-      if($("#logo_media").val()==""){
+      $("#croplogo").Jcrop({
+        onSelect: cropImage,
+        onChange: cropImage,
+        bgColor : 'white',
+        aspectRatio: <%=aspect_ratio%>,
+        setSelect: [size/4,size/4,3*size/4,3*size/4]
+      });
+    }
+  }).click(); 
+});
+
+/*
+$("#logo_submit").click(function(){
+    if($("#logo_media").val()==""){
         alert("<%=escape_javascript(t('logo.empty'))%>");
         return false;
-      }
-  });
-	
-	 function cropImage (c){
+    }
+});
+*/
+
+function cropImage (c){
     $("#crop_size_x").val(c.x);
     $("#crop_size_y").val(c.y);
     $("#crop_size_height").val(c.h);
     $("#crop_size_width").val(c.w);
     // c.x, c.y, c.x2, c.y2, c.w, c.h
-
-  };
+};

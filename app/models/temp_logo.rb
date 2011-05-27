@@ -34,7 +34,7 @@ class TempLogo
     @logo_class, @owner = logo_class, owner
 
     if object.present?
-      temp_file = File.open(File.join(ABS_TMP_PATH,temp_filename), "w+")
+      temp_file = File.open(File.join(ABS_TMP_PATH,temp_filename), "wb")
       temp_file.write(object['media'].read)
       temp_file.close
 
@@ -59,6 +59,11 @@ class TempLogo
     "#{@owner.permalink}.#{FORMAT.to_sym.to_s}"
   end
 
+  def size
+    img = Magick::Image.read(File.open(File.join(ABS_TMP_PATH,temp_filename))).first
+    [img.rows, img.columns]
+  end
+
   # Crop and resize the temp file and returns the image as the :media value in a hash
   def crop_and_resize crop_params
 
@@ -67,12 +72,11 @@ class TempLogo
     crop_args = %w( x y width height ).map{ |k| crop_params[k] }.map(&:to_i)
     crop_img = img.crop(*crop_args)
 
-    # TODO check, was using UploadedTempfile. filename might be wrong
-    #f = ActionDispatch::Http::UploadedFile.open("croplogo")
     f = Tempfile.new("croplogo", "#{ Rails.root.to_s}/tmp/")
     crop_img.write("#{FORMAT.to_sym.to_s}:" + f.path)
     f_io = open(f)
     filename = File.join(ABS_TMP_PATH, server_filename)
+    FileUtils.move(File.join(ABS_TMP_PATH, temp_filename), File.join(ABS_TMP_PATH, server_filename))
     (class << f_io; self; end;).class_eval do
       define_method(:original_filename) { filename.split('/').last }
       define_method(:content_type) { FORMAT }

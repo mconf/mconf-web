@@ -511,7 +511,7 @@ pt-br:
     dear: Prezado(a), %{name}
     invitation_result:
       admin_side: ! '%{name} %{action} o convite para o espaço %{spacename}'
-      user_side: O administrador do espaço %{spacename} %{action} seu pedido de participação
+      user_side: ! 'Seu pedido de autorização no espaço %{spacename} foi: %{action}'
     join_request: Pedido de Participação
     kind_regards: Atenciosamente,
     notifications: notificações por e-mail
@@ -1737,6 +1737,7 @@ pt-br:
     error:
       not_valid: Logo não é válido
     one: Logotipo
+    no_image: Nenhuma imagem foi selecionada
   logout: Sair
   mailing_list:
     associate: Associar lista de e-mails ao seu grupo
