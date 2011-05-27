@@ -22,7 +22,12 @@ Vcc::Application.routes.draw do
   match '/spaces/:space_id/search', :to => 'search#index', :as => 'space_search_all' #=> /search, SearchController
   match '/spaces/:space_id/tags/:tag', :to => 'search#tag', :as => 'space_search_by_tag' #=> /tags/:id/events, TagsController (actualmente es parte del searchcontroller)
 
-  resources :logos
+  resources :logos do
+    collection do
+      post :new
+    end
+  end
+
   resources :screencasts
 
   resources :machines do

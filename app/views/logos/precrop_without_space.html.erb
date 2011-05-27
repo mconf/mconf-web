@@ -1,22 +1,26 @@
-<br><br>
+<div id="lightbox-logo" style="z-index:1">
+  <span>
+    <%= image_tag("bola_global_peque.png",:class=>"icon")%><%= logo_crop_text %>
+  </span>
+</div>
+
 <div id="crop-logo-lightbox-content">
 
-  <center><%=image_tag "/images/tmp/" + params[:logo][:rand] + "/uploaded_logo.png", :id => "croplogo"%></center>
-  
-<%= form_for :logo, :html => {:method => :post,:id =>"crop_logo_form", :multipart => true, :name => "space_new_form"}, :url => {:controller => :logos, :action => :new, :upload_crop => :yes} do |f|%>
-    <%= fields_for :crop_size do |fc|%>
+  <%= image_tag "/images/tmp/" + params[:logo][:rand] + "/uploaded_logo.png", :id => "croplogo", :size => image_size %>
+
+  <%= form_for :logo, :html => {:method => :post, :id =>"crop_logo_form", :multipart => true, :name => "space_new_form"}, :url => {:controller => :logos, :action => :new, :upload_crop => :yes} do |f|%>
+    <%= fields_for :crop_size do |fc| %>
       <%= fc.hidden_field :x %>
       <%= fc.hidden_field :y %>
       <%= fc.hidden_field :width %>
       <%= fc.hidden_field :height %>
-	  <%= fc.hidden_field :rand, :value => params[:logo][:rand] %>
-	  
-    <%end%>
-  
-    <div class="margin-up">
-      <button type="submit" class="blue_button basic_button"><%=t("button.accept")%></button>    
-    </div>
-  
-  <%end%>
-</div> 
+      <%= fc.hidden_field :rand, :value => params[:logo][:rand] %>
+    <% end %>
 
+    <div class="margin-up">
+      <button type="submit" class="blue_button basic_button"><%=t("button.accept")%></button>
+    </div>
+
+  <% end %>
+
+</div>
