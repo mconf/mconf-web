@@ -40,40 +40,40 @@ selectGeneratedImage = function(image){
 
 $("#selected_logo_image").attr('src', "/images/" + ($("#space_image").val()));
 
-closeUploadLogo = function(){
-        $("#default_upload_logo").hide("slow");
-        $("#open_upload_logo_link").show();
-        $("#close_upload_logo_link").hide();
-}
-
 closeTextLogo = function(){
-        $("#default_text_logo").hide("slow");
+        $("#default_text_logo").hide(0);
         $("#open_text_logo_link").show();
         $("#close_text_logo_link").hide();
 }
 
+openTextLogo = function(){
+        $("#default_text_logo").show(0);
+        $("#open_text_logo_link").hide();
+        $("#close_text_logo_link").show();
+}
+
 closeGallery  = function (){
-        $("#default_space_images").hide("slow");
+        $("#default_space_images").hide(0);
         $("#open_gallery_link").show();
         $("#close_gallery_link").hide();
 }
 
 openGallery  = function (){
-         $("#default_space_images").show("slow");
+         $("#default_space_images").show(0);
          $("#close_gallery_link").show();
          $("#open_gallery_link").hide();
 }
 
-openUploadLogo  = function (){
-        $("#default_upload_logo").show("slow");
-        $("#open_upload_logo_link").hide();
-        $("#close_upload_logo_link").show();
+closeUploadLogo = function(){
+        $("#default_upload_logo").hide(0);
+        $("#open_upload_logo_link").show();
+        $("#close_upload_logo_link").hide();
 }
 
-openTextLogo = function(){
-        $("#default_text_logo").show("slow");
-        $("#open_text_logo_link").hide();
-        $("#close_text_logo_link").show();
+openUploadLogo  = function (){
+        $("#default_upload_logo").show(0);
+        $("#open_upload_logo_link").hide();
+        $("#close_upload_logo_link").show();
 }
 
 var dateTime = new Date();
@@ -199,7 +199,7 @@ function cropImage (c){
 <div id="create_space" class="create_space_blinking">
   <a id="new_space_anchor" name="new_space_anchor" ></a>
   <div class="form">
-    <%= form_for :space, :html => {:method => :post, :multipart => true, :name => "space_new_form", :id => "space_new_form"}, :url => spaces_url(:protocol => current_site.protocol) do |f|%>
+    <%= form_for @space, :html => {:method => :post, :multipart => true, :name => "space_new_form", :id => "space_new_form"}, :url => spaces_url(:protocol => current_site.protocol) do |f|%>
     <%= f.hidden_field "rand_value" %>
     <%unless logged_in?%>
     <div id="left">
@@ -242,14 +242,16 @@ function cropImage (c){
 
       <div id="new_space_webconf_area">
         <h3><%= t('space.create.webconf_options') %></h3>
+        <%= f.fields_for :bigbluebutton_room do |r| %>
         <div class="field">
-          <%= f.label :moderator_password, t('activerecord.attributes.spaces.moderator_password') %>
-          <%= f.password_field :moderator_password, :id => "moderatorPW" %>
+          <%= r.label :moderator_password, t('activerecord.attributes.spaces.moderator_password') %>
+          <%= r.password_field :moderator_password, :id => "moderatorPW" %>
         </div>
         <div class="field">
-          <%= f.label :attendee_password, t('activerecord.attributes.spaces.attendee_password') %>
-          <%= f.password_field :attendee_password, :id => "attendeePW" %>
+          <%= r.label :attendee_password, t('activerecord.attributes.spaces.attendee_password') %>
+          <%= r.password_field :attendee_password, :id => "attendeePW" %>
         </div>
+        <% end %>
       </div>
 
       <!--
@@ -270,7 +272,7 @@ function cropImage (c){
          @files.delete(".")
          @files.delete("..")
          selected = rand(@files.length)
-         %>
+      %>
 
       <%= hidden_field "space","image",:value => "default_space_logos/" + @files[selected].to_s, :name => "space[default_logo]" %>
 

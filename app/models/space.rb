@@ -48,8 +48,10 @@ class Space < ActiveRecord::Base
   attr_accessor :text_logo
   attr_accessor :rand_value
   attr_accessor :logo_rand
-  attr_accessor :moderator_password
-  attr_accessor :attendee_password
+  #attr_accessor :moderator_password
+  #attr_accessor :attendee_password
+  
+  accepts_nested_attributes_for :bigbluebutton_room
 
   has_logo
 
@@ -61,7 +63,8 @@ class Space < ActiveRecord::Base
   #is_indexed :fields => ['name','description'],
   #           :conditions => "disabled = 0"
 
-  validates_presence_of :name, :description, :moderator_password, :attendee_password
+  validates_presence_of :name, :description
+  #validates_presence_of :moderator_password, :attendee_password, :unless => :public
   validates_uniqueness_of :name
 
   #after_create { |space|
@@ -71,15 +74,6 @@ class Space < ActiveRecord::Base
       #group.save
   #}
 
-  # TODO BBB Always using the first server
-  after_create { |space|
-    room = BigbluebuttonRoom.new(:name => space.name, :meetingid => space.emailize_name,
-                                 :owner => space, :server => BigbluebuttonServer.first,
-                                 :moderator_password => self.moderator_password,
-                                 :attendee_password => self.attendee_password,
-                                 :private => !self.public)
-    room.save
-  }
 
 #  before_create {
 #  }
