@@ -26,7 +26,7 @@ class LogosController
     ABS_TMP_PATH = File.join(Rails.root.to_s, "public", "images", REL_TMP_PATH)
     FORMAT = Mime::Type.lookup "image/png"
   
-  def new 
+  def new
     if params[:text]
       #debugger
       if params[:text].eql?""
@@ -44,42 +44,40 @@ class LogosController
      end
    end
   
-   if params[:upload]
-     
-     images_path = File.join(Rails.root.to_s, "public", "images")
-     tmp_path = File.join(images_path, "tmp")
-     final_path = FileUtils.mkdir_p(tmp_path + "/#{params[:logo][:rand]}")
-     uploaded_image = File.join(final_path, "uploaded_logo.png")
-     
-     temp_file = File.open(uploaded_image, "w+")
-     temp_file.write(params[:logo][:media].read)
-     temp_file.close
-     TempLogo.reshape_image uploaded_image, Logo::ASPECT_RATIO_F
-     img_orig = Magick::Image.read(uploaded_image).first
-     img_orig = img_orig.resize_to_fit(600, 600)
-     img_orig.write(uploaded_image)
-#      debugger
-     
-     render :template => "logos/precrop_without_space", :layout => false
-   end
-   if params[:upload_crop]
-     images_path = File.join(Rails.root.to_s, "public", "images")
-     tmp_path = File.join(images_path, "tmp")
-     final_path = FileUtils.mkdir_p(tmp_path + "/#{params[:crop_size][:rand]}")
-     uploaded_image = File.join(final_path, "uploaded_logo.png")
-              
-     img = Magick::Image.read(uploaded_image).first
-
-     crop_args = [Integer(params[:crop_size][:x]),Integer(params[:crop_size][:y]),Integer(params[:crop_size][:width]),Integer(params[:crop_size][:height])]
-     crop_img = img.crop(*crop_args)
-
-     temp_file = File.open(uploaded_image, "w+")
-     crop_img.write(temp_file.path)
-     temp_file.close
+  if params[:upload]    
+    images_path = File.join(Rails.root.to_s, "public", "images")
+    tmp_path = File.join(images_path, "tmp")
+    final_path = FileUtils.mkdir_p(tmp_path + "/#{params[:logo][:rand]}")
+    uploaded_image = File.join(final_path, "uploaded_logo.png")
     
-      render :text => ""
-     #render :text => "" + params[:crop_size][:x].to_s + "," + params[:crop_size][:y].to_s + "," + params[:crop_size][:height].to_s + "," + params[:crop_size][:width].to_s + "," + "<img src= '" +uploaded_image.to_s + "'>" 
-   end
+    temp_file = File.open(uploaded_image, "wb")
+    temp_file.write(params[:logo][:media].read)
+    TempLogo.reshape_image uploaded_image, Logo::ASPECT_RATIO_F
+    img_orig = Magick::Image.read(uploaded_image).first
+    img_orig = img_orig.resize_to_fit(600, 600)
+    img_orig.write(uploaded_image)
+     
+    render :template => "logos/precrop_without_space", :layout => false
+  end
+  if params[:upload_crop]
+
+    images_path = File.join(Rails.root.to_s, "public", "images")
+    tmp_path = File.join(images_path, "tmp")
+    final_path = FileUtils.mkdir_p(tmp_path + "/#{params[:crop_size][:rand]}")
+    uploaded_image = File.join(final_path, "uploaded_logo.png")
+          
+    img = Magick::Image.read(uploaded_image).first
+
+    crop_args = [Integer(params[:crop_size][:x]),Integer(params[:crop_size][:y]),Integer(params[:crop_size][:width]),Integer(params[:crop_size][:height])]
+    crop_img = img.crop(*crop_args)
+
+    temp_file = File.open(uploaded_image, "w+")
+    crop_img.write(temp_file.path)
+    temp_file.close
+
+    render :text => ""
+    render :text => "" + params[:crop_size][:x].to_s + "," + params[:crop_size][:y].to_s + "," + params[:crop_size][:height].to_s + "," + params[:crop_size][:width].to_s + "," + "<img src= '" +uploaded_image.to_s + "'>" 
+  end
    
   end
   
