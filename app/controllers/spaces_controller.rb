@@ -134,12 +134,11 @@ class SpacesController < ApplicationController
 
     params[:space][:repository] = 1;
 
-    # TODO refector the loop below
-    unless params[:space][:bigbluebutton_room_attributes].blank?
-      params[:space][:bigbluebutton_room_attributes][:name] = params[:space][:name]
-      params[:space][:bigbluebutton_room_attributes][:private] = params[:space][:public] == "1" ? "0" : "1"
-      params[:space][:bigbluebutton_room_attributes][:server] = BigbluebuttonServer.first
-    end
+    params[:space][:bigbluebutton_room_attributes] ||= Hash.new
+    params[:space][:bigbluebutton_room_attributes][:name] = params[:space][:name]
+    params[:space][:bigbluebutton_room_attributes][:private] = params[:space][:public] == "1" ? "0" : "1"
+    params[:space][:bigbluebutton_room_attributes][:server] = BigbluebuttonServer.first
+    params[:space][:bigbluebutton_room_attributes][:logout_url] = home_url # should be space/show
 
     @space = Space.new(params[:space])
 

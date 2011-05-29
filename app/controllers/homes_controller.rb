@@ -48,7 +48,7 @@ class HomesController < ApplicationController
 
   def new_room
     @server = BigbluebuttonServer.first
-    @room = BigbluebuttonRoom.new(:owner => current_user, :server => BigbluebuttonServer.first)
+    @room = BigbluebuttonRoom.new(:owner => current_user, :server => BigbluebuttonServer.first, :logout_url => home_url)
     respond_to do |format|
       format.html{
         if request.xhr?
