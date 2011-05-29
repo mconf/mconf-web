@@ -23,11 +23,11 @@
     var complete_msg = header + personal_msg + '<br/><br/>' + ending; 
     
     $('#join_request_comment').text(complete_msg);
-	
-	$("#send_join_request_button").hide();
-	$("#wait_join_request_button").show();
-	
-	document.forms["join_request_edit_form"].submit();
+        
+        $("#send_join_request_button").hide();
+        $("#wait_join_request_button").show();
+        
+        document.forms["join_request_edit_form"].submit();
     
     
   });
@@ -36,7 +36,7 @@
 
 <%if logged_in?%>
 
-  <div id="lightbox-logo"><span><%= image_tag("bola_global_peque.png",:class=>"icon")%>Virtual Conference Centre > Join</span></div>
+  <div id="lightbox-logo"><span><%= image_tag("bola_global_peque.png",:class=>"icon")%><%= t('join_request.new.title', :space => space.name) %></span></div>
 
   <%if !space.public?%>
     <p class="note"><%= space.name %> <%= t('space.is_private') %></p>
@@ -70,7 +70,7 @@
         
         <div class="margin-up">
           <input type="button" class="basic_button blue_button" id="send_join_request_button" value="<%=t("button.send")%>" />
-		  <input type="button" class="basic_button blue_button" id="wait_join_request_button" value="<%=t("button.sending")%>" />
+                  <input type="button" class="basic_button blue_button" id="wait_join_request_button" value="<%=t("button.sending")%>" />
         </div>
       <% end %>
     </div>
