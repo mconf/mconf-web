@@ -25,7 +25,7 @@ class Notifier < ActionMailer::Base
     setup_email(invitation.email)
 
 
-    @subject += I18n.t("invitation.to_space",:space=>invitation.group.name,:username=>invitation.introducer.full_name).html_safe.html_safe
+    @subject += I18n.t("invitation.to_space",:space=>invitation.group.name,:username=>invitation.introducer.full_name).html_safe
 
     @invitation = invitation
     @space = invitation.group

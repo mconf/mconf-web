@@ -134,10 +134,15 @@ class SpacesController < ApplicationController
 
     params[:space][:repository] = 1;
 
-    params[:space][:bigbluebutton_room_attributes][:name] = params[:space][:name]
-    params[:space][:bigbluebutton_room_attributes][:private] = params[:space][:name]
-    params[:space][:bigbluebutton_room_attributes][:server] = BigbluebuttonServer.first
+    # TODO refector the loop below
+    unless params[:space][:bigbluebutton_room_attributes].blank?
+      params[:space][:bigbluebutton_room_attributes][:name] = params[:space][:name]
+      params[:space][:bigbluebutton_room_attributes][:private] = params[:space][:public] == "1" ? "0" : "1"
+      params[:space][:bigbluebutton_room_attributes][:server] = BigbluebuttonServer.first
+    end
+
     @space = Space.new(params[:space])
+
 =begin
     create_group 
     unless @group.valid?
@@ -188,6 +193,12 @@ class SpacesController < ApplicationController
     unless params[:space][:bigbluebutton_room_attributes].blank?
       params[:space][:bigbluebutton_room_attributes][:id] = @space.bigbluebutton_room.id
     end
+    # TODO update bigbluebutton_room.private when room.public is updated
+    #unless params[:space][:public].blank?
+    #  params[:space][:bigbluebutton_room_attributes] = Hash.new if params[:space][:bigbluebutton_room_attributes].blank?
+    #  params[:space][:bigbluebutton_room_attributes][:private] = params[:space][:public] == "true" ? "false" : "true"
+    #end
+
     if @space.update_attributes(params[:space])
       respond_to do |format|
         format.html {

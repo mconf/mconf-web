@@ -258,7 +258,10 @@ class Event < ActiveRecord::Base
       }
     end
     if event.group_invitation_mails
-      event.group_invitation_mails.each { |mail|
+      if event.group_invitation_msg # TODO: not the best way to do it, see events/_group_invitation
+        event.group_invitation_msg = event.group_invitation_msg.html_safe
+      end
+      event.group_invitation_mails.split(',').each { |mail|
         Informer.deliver_event_group_invitation(event,mail)
       }
     end
