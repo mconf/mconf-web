@@ -1155,6 +1155,8 @@ en:
   groups_and_results: Mailing lists, %{size} results
   hcard:
     not_found: hCard not found
+  header_global:
+    welcome: Welcome, %{user}
   hello: Hello
   help: Help
   help_createVC:
@@ -1716,7 +1718,7 @@ en:
       not_valid: Logo is not valid
     one: Logo
     no_image: No image selected
-  logout: Logout %{user}
+  logout: Logout
   mailing_list:
     associate: Associate mailing list to your group
     invalid: The mailing list has invalid characters. Only letters, numbers, underscores

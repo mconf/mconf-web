@@ -178,10 +178,11 @@ body .icon{margin-bottom:-2px;}
   background:-moz-linear-gradient( center top, #34618e 5%, #1F4A75 100% );
   filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#34618e', endColorstr='#1F4A75');
   background-color:#1F4A75;
+  height: 35px;
 }
 #global{padding: 0.5em 0 0 0;}
 #global a{color:#eee;text-decoration:none;}
-#global-logo {}
+#global-logo {float:left;}
 #global-logo img{margin:0 4px -4px 0;}
 #global-logo .title {
   margin: 0;
@@ -208,7 +209,14 @@ body .icon{margin-bottom:-2px;}
 #global-logo .small:hover {
   text-shadow: #909ec9 1px 1px 3px;
 }
-
+#global-welcome {
+  text-align: center;
+  padding: 5px 2px 2px 2px;
+  margin-right: 5px;
+  color:#f0f0f0;
+  font-weight:bold;
+  font-size: 11px;
+}
 
 #feedback{margin-left:50px;}
 #feedback a{font-weight:normal;}
@@ -243,9 +251,9 @@ body .icon{margin-bottom:-2px;}
   background:url("../images/logos/prav_header.png") no-repeat left top;
 }
 
-#prefs{font-size:0.9166em;line-height:1.6363;font-weight:bold;position:relative;float:right;}
+#prefs{font-size:0.9166em;line-height:1.6363;font-weight:bold;position:relative;float:right;padding-top: 3px;}
 ul#prefs {list-style-type:none;margin:0;}
-#prefs li{margin-left:12px;display:inline;}
+#prefs li{margin-left:8px;display:inline;}
 #prefs a{color:#f0f0f0;}
 #prefs .new{font-weight:bold;color:#A52A2A;}
 #prefs a:hover{text-decoration:underline;}
@@ -1626,7 +1634,7 @@ color:#244974;background:#BDD8EB;padding:5px 10px;
 .only_url{color: #666666; font-weight: bold;}
 .preview_selected {background-color: #FFF6BF;}
 
-#spaces_select {float: right;}
+#spaces_select {float: right; margin-top: 1px;}
 #form_space_select {width: 150px;}
 
 #event_help {margin-bottom:0;list-style-type:decimal;}

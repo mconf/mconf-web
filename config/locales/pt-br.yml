@@ -1167,6 +1167,8 @@ pt-br:
   groups_and_results: Listas de e-mails, %{size} resultados
   hcard:
     not_found: hCard não encontrado
+  header_global:
+    welcome: Olá, %{user}
   hello: Olá
   help: Ajuda
   help_createVC:
