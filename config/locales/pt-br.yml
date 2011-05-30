@@ -2138,8 +2138,7 @@ pt-br:
       name: ! 'Nome:'
       name_enter: Insira seu nome
       password: ! 'Senha:'
-      password_filled: Está sala é pública. A senha foi preenchida com a senha do
-        atendente
+      password_filled: Esta sala é pública. A senha foi preenchida automaticamente.
       password_role: Digite a senha de moderador ou participante.
       status: ! 'Status da reunião: '
     join:
@@ -2148,7 +2147,7 @@ pt-br:
         que ela começar.
       title: ! 'Sala: %{name}'
     not_running: inativa.
-    refresh: forçar recarregamento
+    refresh: atualizar status
     running: rodando!
   save: Salvar
   save_ch: Salvar alterações
@@ -2733,7 +2732,7 @@ pt-br:
         <b>%{status}</b> <br/> Clique no botão no topo da barra lateral para ingressar
         na webconferência. <br/> Você também pode compartilhar o link abaixo (ou clicar
         em "convidar") para convidar outras pessoas.'
-      join_now: participar agora
+      join_now: participe agora
       see_more: saiba mais
       share: Compartilhar
     title_people_conf: Pessoas na sala
