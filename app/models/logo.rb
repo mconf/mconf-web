@@ -50,7 +50,7 @@ class Logo
                     'front' => '188x143!'
                  }
                  
-  #validate :aspect_ratio
+  validate :aspect_ratio
 
   def aspect_ratio
     img = Magick::Image.read(temp_path).first
