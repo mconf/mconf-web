@@ -85,6 +85,12 @@
 
 <% end %>
 
+<% if logged_in? %>
+  <% webconf_join_link = space_join_room_path(space, @bbb_room) %>
+<% else %>
+  <% webconf_join_link = space_invite_room_path(space, @bbb_room) %>
+<% end %>
+
 <%= content_for :search do  %>
   <%= render :partial => 'search/form' %>
 <%end%>
@@ -99,10 +105,12 @@
             <div class="float_right more_info"><%= link_to t('more'), space_webconference_path(space) %></div>
           </h3>
           <div class="float_right">
-            <%= link_to ("<span>" + t('button.join') + "</span>").html_safe, space_join_room_path(space, @bbb_room), :class => 'basic_button small_button orange_pale_button' %>
+            <%= link_to ("<span>" + t('button.join') + "</span>").html_safe, webconf_join_link, :class => 'basic_button small_button orange_button' %>
           </div>
           <div class="float_right">
-            <%= mobile_icon_link(space_join_mobile_room_path(space, @bbb_room)) %>
+            <% if logged_in? %>
+              <%= mobile_icon_link(space_join_mobile_room_path(space, @bbb_room)) %>
+            <% end %>
           </div>
           <div class="content">
             <% if @bbb_room.is_running? %>
@@ -165,9 +173,9 @@
 
 <% if @bbb_room.is_running? %>
   <div id="space_webconference_alert">
-    <%= t('webconference.currently_running', :count => @bbb_room.participant_count) %>.
-    <a href="<%= space_join_room_path(space, @bbb_room) %>"><%= t('webconference.space.join_now') %></a> or
-      <a href="<%= space_webconference_path(space) %>"><%= t('webconference.space.see_more') %></a>.
+    <%= t('webconference.currently_running', :count => @bbb_room.participant_count) %>,
+    <%= link_to t('webconference.space.join_now'), webconf_join_link %> <%= t('or') %>
+    <%= link_to t('webconference.space.see_more'), space_webconference_path(space) %>.
   </div>
 <% end %>
 

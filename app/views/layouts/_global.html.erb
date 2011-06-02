@@ -52,6 +52,13 @@
           <% end %>
         <% end %>
   </span>
+
+  <% if logged_in? %>
+    <div id="global-welcome">
+      <span><%= t('header_global.welcome', :user => current_user.name) %></span>
+    </div>
+  <% end %>
+
   </div>
 
 </div>

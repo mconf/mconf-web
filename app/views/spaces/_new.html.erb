@@ -1,5 +1,32 @@
 <%= javascript_include_tag 'jquery.jcrop' %>
-        <%= content_for :javascript do %>
+
+<%= content_for :javascript do %>
+
+// fancy box to crop the image
+<%= render :partial => 'logos/crop_logo.js.erb',
+           :locals => { :form_id => 'select_logo_form',
+                        :url_form => logos_path({ :upload => :yes}),
+                        :container_id => 'resultado',
+                        :aspect_ratio => Logo::ASPECT_RATIO_S,
+                        :crop_size => 188,
+                        :on_success => 'onCropLogoFormSuccess' } %>
+
+// function executed after the crop fancy box is shown
+onCropLogoFormSuccess = function() {
+  $('#crop_logo_form').ajaxForm({
+    beforeSubmit:function() {
+      $("#selected_logo_image").attr('src', "");
+    },
+    target: '#resultado',
+    success: function() {
+      $('#resultado').fadeIn('slow');
+      $("#space_image").attr('value', "tmp/" + rand + "/uploaded_logo.png");
+      $("#selected_logo_image").attr('src', "/images/" + "tmp/" + rand + "/uploaded_logo.png?" + (new Date()).getTime());
+      $.fancybox.close();
+      closeUploadLogo();
+    }
+  });
+}
 
 selectDefaultImage = function(image){
         $("#space_image").attr('value', "default_space_logos/" + image);
@@ -93,37 +120,38 @@ $("#create_space_button").livequery('click',function(){
   }
 });
 
-  $('#select_logo_form').ajaxForm({
-    // target identifies the element(s) to update with the server response
-    target: '#resultado',
+/*
+        $('#select_logo_form').ajaxForm({
 
-    // success identifies the function to invoke when the server response
-    // has been received; here we apply a fade-in effect to the new content
-    success: function() {
-      $('#resultado').fadeIn('slow');
-      size = 188;
-      $("#croplogo").Jcrop({
-        onSelect: cropImage,
-        onChange: cropImage,
-        bgColor : 'white',
-        aspectRatio: <%=Logo::ASPECT_RATIO_S%>,
-        setSelect: [188/4,188/4,3*188/4,3*188/4]
-      });
-
-      $('#crop_logo_form').ajaxForm({
-        beforeSubmit:function() {
-          $("#selected_logo_image").attr('src', "");
-        },
+        // target identifies the element(s) to update with the server response
         target: '#resultado',
+
+        // success identifies the function to invoke when the server response
+        // has been received; here we apply a fade-in effect to the new content
         success: function() {
-          $('#resultado').fadeIn('slow');
-          $("#space_image").attr('value', "tmp/" + rand + "/uploaded_logo.png");
-          $("#selected_logo_image").attr('src', "/images/" + "tmp/" + rand + "/uploaded_logo.png?" + (new Date()).getTime());
-          closeUploadLogo();
-        }
-      });
-    }
-  });
+            $('#resultado').fadeIn('slow');
+                        size = 188;
+                        $("#croplogo").Jcrop({
+                              onSelect: cropImage,
+                              onChange: cropImage,
+                                                bgColor : 'white',
+                });
+
+                        $('#crop_logo_form').ajaxForm({
+                                beforeSubmit:function() {
+                                        $("#selected_logo_image").attr('src', "");
+                                },
+                        target: '#resultado',
+                        success: function() {
+                        $('#resultado').fadeIn('slow');
+                                        $("#space_image").attr('value', "tmp/" + rand + "/uploaded_logo.png");
+                                        $("#selected_logo_image").attr('src', "/images/" + "tmp/" + rand + "/uploaded_logo.png?" + (new Date()).getTime());
+                                        closeUploadLogo();
+                        }
+                });
+       }
+
+    });
 
 
 function cropImage (c){
@@ -132,6 +160,7 @@ function cropImage (c){
         $("#crop_size_height").val(c.h);
         $("#crop_size_width").val(c.w);
 };
+*/
 
  $('#space_logo img.tooltip_update_logo').qtip({
    content: '<%=t("tooltip.update_logo")%>',
@@ -286,14 +315,13 @@ function cropImage (c){
     <%end%>
     <%if logged_in?%>
     <div id="default_upload_logo" style="display:none">
-      <%= form_for :logo,  :html => {:method => :post,:id =>"select_logo_form", :multipart => true, :name => "space_new_form"}, :url => {:controller => :logos, :action => :new, :upload => :yes} do |f| %>
+      <%= form_for :logo, :html => {:method => :post, :id =>"select_logo_form", :multipart => true, :name => "space_new_form"}, :url => {:controller => :logos, :action => :new, :upload => :yes} do |f| %>
       <%= t("space.logo_selected.upload_logo_text")%><br>
       <%= f.file_field :media, :class=>"file file1 basic_button blue_button" %>
 
       <%= f.hidden_field  "rand" %>
-      <input id ="upload_logo_button" type="submit" class = "basic_button blue_button" value="<%=t("space.logo_selected.upload_text")%>" />
-    <% end %>
-      <div id = "resultado">
+      <input id="upload_logo_button" type="submit" class = "basic_button blue_button" value="<%=t("space.logo_selected.upload_text")%>" /><% end %>
+      <div id="resultado">
       </div>
     </div>
 

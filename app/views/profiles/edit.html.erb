@@ -1,24 +1,28 @@
 <%= content_for :javascript do%>
-  <%= render :partial => 'logos/crop_logo.js.erb',:locals => { :url_form => precrop_user_avatar_path(@profile.user),:aspect_ratio => Avatar::ASPECT_RATIO_S } %>
+  <%= render :partial => 'logos/crop_logo.js.erb',
+             :locals => { :form_id => 'form_update_avatar',
+                          :url_form => precrop_user_avatar_path(@profile.user),
+                          :container_id => 'for_lightbox',
+                          :aspect_ratio => Avatar::ASPECT_RATIO_S } %>
 
   $("#change_pic").click(function(){
-         $("#update_logo").show()
-        });
+    $("#update_logo").show()
+  });
 
   $("#vcard_use").click(function(){
-   $("#upload_vcard").show()
+    $("#upload_vcard").show()
   });
 
   $("#update_logo .close_pic").click(function(){
-   $("#update_logo").hide()
+    $("#update_logo").hide()
   });
 
   $("#upload_vcard .close_vcard").click(function(){
-   $("#upload_vcard").hide()
+    $("#upload_vcard").hide()
   });
 
   $("#vcard_export").click(function(){
-        window.location.href = "<%= user_profile_path(@user,:format => "vcf") %>";
+    window.location.href = "<%= user_profile_path(@user,:format => "vcf") %>";
   });
 
  $('#upload_vcard img.tooltip_vcard').qtip({

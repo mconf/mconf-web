@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Copyright 2008-2010 Universidad Politécnica de Madrid and Agora Systems S.A.
 #
 # This file is part of VCC (Virtual Conference Center).
@@ -22,72 +23,76 @@ require 'RMagick'
 class LogosController
   include Magick
 
-    REL_TMP_PATH = File.join("tmp")
-    ABS_TMP_PATH = File.join(Rails.root.to_s, "public", "images", REL_TMP_PATH)
-    FORMAT = Mime::Type.lookup "image/png"
-  
+  REL_TMP_PATH = File.join("tmp")
+  ABS_TMP_PATH = File.join(Rails.root.to_s, "public", "images", REL_TMP_PATH)
+  FORMAT = Mime::Type.lookup "image/png"
+
   def new
     if params[:text]
-      #debugger
-      if params[:text].eql?""
+      if params[:text].eql? ""
         params[:text] = " "
       end
-      
-      
-     for i in 1..5
+
+      for i in 1..5
         create_auto_logo params[:text], i, params[:event_logo].present?
-     end    
-     if params[:event_logo].present?
-     render :template => "events/_generate_text_logos", :layout => false
-     else
-     render :template => "spaces/_generate_text_logos", :layout => false       
-     end
+      end
+      if params[:event_logo].present?
+        render :template => "events/_generate_text_logos", :layout => false
+      else
+        render :template => "spaces/_generate_text_logos", :layout => false
+      end
    end
-  
-  if params[:upload]    
-    images_path = File.join(Rails.root.to_s, "public", "images")
-    tmp_path = File.join(images_path, "tmp")
-    final_path = FileUtils.mkdir_p(tmp_path + "/#{params[:logo][:rand]}")
-    uploaded_image = File.join(final_path, "uploaded_logo.png")
-    
-    temp_file = File.open(uploaded_image, "wb")
-    temp_file.write(params[:logo][:media].read)
-    TempLogo.reshape_image uploaded_image, Logo::ASPECT_RATIO_F
-    img_orig = Magick::Image.read(uploaded_image).first
-    img_orig = img_orig.resize_to_fit(600, 600)
-    img_orig.write(uploaded_image)
-     
-    render :template => "logos/precrop_without_space", :layout => false
+
+   if params[:upload]
+
+     images_path = File.join(Rails.root.to_s, "public", "images")
+     tmp_path = File.join(images_path, "tmp")
+     final_path = FileUtils.mkdir_p(tmp_path + "/#{params[:logo][:rand]}")
+     uploaded_image = File.join(final_path, "uploaded_logo.png")
+
+     temp_file = File.open(uploaded_image, "wb")
+     temp_file.write(params[:logo][:media].read)
+     temp_file.close
+     TempLogo.reshape_image uploaded_image, Logo::ASPECT_RATIO_F
+     img_orig = Magick::Image.read(uploaded_image).first
+     img_orig = img_orig.resize_to_fit(600, 600)
+     img_orig.write(uploaded_image)
+     size = "#{img_orig.columns}x#{img_orig.rows}"
+
+     render :template => "logos/precrop_without_space",
+            :layout => false,
+            :locals => { :logo_crop_text => t('avatar.crop'),
+                         :image_size => size }
+   end
+
+   if params[:upload_crop]
+     images_path = File.join(Rails.root.to_s, "public", "images")
+     tmp_path = File.join(images_path, "tmp")
+     final_path = FileUtils.mkdir_p(tmp_path + "/#{params[:crop_size][:rand]}")
+     uploaded_image = File.join(final_path, "uploaded_logo.png")
+
+     img = Magick::Image.read(uploaded_image).first
+
+     crop_args = [Integer(params[:crop_size][:x]),Integer(params[:crop_size][:y]),Integer(params[:crop_size][:width]),Integer(params[:crop_size][:height])]
+     crop_img = img.crop(*crop_args)
+
+     temp_file = File.open(uploaded_image, "w+")
+     crop_img.write(temp_file.path)
+     temp_file.close
+
+     render :text => ""
+     #render :text => "" + params[:crop_size][:x].to_s + "," + params[:crop_size][:y].to_s + "," + params[:crop_size][:height].to_s + "," + params[:crop_size][:width].to_s + "," + "<img src= '" +uploaded_image.to_s + "'>"
+   end
+
   end
-  if params[:upload_crop]
 
-    images_path = File.join(Rails.root.to_s, "public", "images")
-    tmp_path = File.join(images_path, "tmp")
-    final_path = FileUtils.mkdir_p(tmp_path + "/#{params[:crop_size][:rand]}")
-    uploaded_image = File.join(final_path, "uploaded_logo.png")
-          
-    img = Magick::Image.read(uploaded_image).first
-
-    crop_args = [Integer(params[:crop_size][:x]),Integer(params[:crop_size][:y]),Integer(params[:crop_size][:width]),Integer(params[:crop_size][:height])]
-    crop_img = img.crop(*crop_args)
-
-    temp_file = File.open(uploaded_image, "w+")
-    crop_img.write(temp_file.path)
-    temp_file.close
-
-    render :text => ""
-    render :text => "" + params[:crop_size][:x].to_s + "," + params[:crop_size][:y].to_s + "," + params[:crop_size][:height].to_s + "," + params[:crop_size][:width].to_s + "," + "<img src= '" +uploaded_image.to_s + "'>" 
-  end
-   
-  end
-  
   def precrop
-    
+
     if params['logo']['media'].blank?
       redirect_to request.referer
       return
     end
-    @logo = space.logo || Logo.new 
+    @logo = space.logo || Logo.new
 
     temp_logo = TempLogo.new(Logo, space, params[:logo])
     TempLogo.to_session(session, temp_logo)
@@ -97,11 +102,11 @@ class LogosController
            :locals => {:logo_crop_text => t('logo.crop'),
                        :form_for => [space,@logo],
                        :form_url => space_logo_path(space),
-                       :image => temp_logo.image 
+                       :image => temp_logo.image
                       }
   end
-  
- 
+
+
   def create
     if params[:crop_size].present?
       temp_logo = TempLogo.from_session(session)
@@ -115,9 +120,9 @@ class LogosController
       flash[:error] = t('error', :count => @logo.errors.size) + @logo.errors.to_xml
       redirect_to edit_space_path(space)
     end
-    
+
   end
-  
+
   def update
     if params[:crop_size].present?
       temp_logo = TempLogo.from_session(session)
@@ -130,11 +135,11 @@ class LogosController
     else
       flash[:error] = t('error', :count => @logo.errors.size) + @logo.errors.to_xml
       redirect_to edit_space_path(space)
-    end   
+    end
   end
-  
+
   private
-  
+
   def max_word_length text
     first_pos = 0
     max_length = 0
@@ -146,11 +151,11 @@ class LogosController
     end
     return max_length
   end
-  
+
   def count_potential_lines text
     return text.count(" ")
   end
-  
+
   def multiline_point_size text, width, height
     size_based_on_width = 1.7 * width / max_word_length(text)
     size_based_on_lines = 0.6 * height / count_potential_lines(text)
@@ -160,17 +165,17 @@ class LogosController
       return size_based_on_width
     end
   end
-  
+
   def singleline_point_size text, width
     return 1.7 * width / text.length
   end
-  
-=begin  
+
+=begin
       def reshape_image path, aspect_ratio
-      
+
       f = File.open(path)
       img = Magick::Image.read(f).first
-      aspect_ratio_orig = (img.columns / 1.0) / (img.rows / 1.0) 
+      aspect_ratio_orig = (img.columns / 1.0) / (img.rows / 1.0)
       if aspect_ratio_orig < aspect_ratio
         # target image is more 'horizontal' than original image
         target_size_y = img.rows
@@ -183,16 +188,16 @@ class LogosController
       # We center the image inside the white canvas
       decenter_x = -(target_size_x - img.columns) / 2;
       decenter_y = -(target_size_y - img.rows) / 2;
-      
+
       reshaped = img.extent(target_size_x, target_size_y, decenter_x, decenter_y)
       f.close
       reshaped.write("#{FORMAT.to_sym.to_s}:" + path)
-      
+
     end
-=end 
-  
+=end
+
   def create_auto_logo text, logo_style, event_logo
-    
+
     # We establish the paths for the pre-defined images, and the temporal dir for the generated logo
     images_path = File.join(Rails.root.to_s, "public", "images")
     tmp_path = File.join(images_path, "tmp")
@@ -201,14 +206,14 @@ class LogosController
       background_generic = File.join(images_path, "vcc-event-logo-bg.png")
     else
       background_generic = File.join(images_path, "vcc-logo-bg.png")
-    end    
+    end
     #background_generated = File.join(tmp_path, "vcc-logo-#{params[:rand_name]}-#{logo_style}.png")
     background_generated = File.join(final_path, "vcc-logo-#{params[:rand_name]}-#{logo_style}.png")
-    
+
     # We open, read-only, the generic background image
     f = File.open(background_generic, "r")
     img = Magick::Image.read(f).first
-    
+
     # This will be the blank image which will contain the text
     logo_text = Magick::Image.new(img.columns, img.rows)
     # To create the text, we use a new "Draw" object, and set some basic styles
@@ -224,7 +229,7 @@ class LogosController
     gc.stroke_linecap("round")
     gc.fill = "darkblue"
 
-    # Depending on the desired logo_style, we create a text or another 
+    # Depending on the desired logo_style, we create a text or another
     case logo_style
       when 1
         gc.pointsize = 0.7 * (multiline_point_size text+"\\n", img.columns, img.rows)
@@ -237,7 +242,7 @@ class LogosController
         logo_text = logo_text.shade(true, 300, 30)
         auto_logo = img.composite!(logo_text, Magick::CenterGravity, Magick::HardLightCompositeOp)
       when 3
-        gc.pointsize = multiline_point_size text, img.columns, img.rows 
+        gc.pointsize = multiline_point_size text, img.columns, img.rows
         text = text.gsub(" ", "\\n")
         gc.annotate(logo_text,0,0,0,0,text)
         auto_logo = img.composite!(logo_text, Magick::CenterGravity, Magick::ColorBurnCompositeOp)
@@ -257,7 +262,7 @@ class LogosController
         auto_logo = img.composite!(logo_text, Magick::CenterGravity, Magick::HardLightCompositeOp)
     end
     f.close
-    
+
     # Finally, we store the new image in the temp path
     auto_logo.write("png:" + background_generated)
   end

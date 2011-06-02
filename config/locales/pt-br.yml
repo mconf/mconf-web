@@ -219,7 +219,7 @@ pt-br:
       one: 1 anexo encontrado
       other: ! '%{size} anexos encontrados'
     home:
-      one: Arquivo no espaço %{space}
+      one: Arquivo na comunidade %{space}
     info: Informações do documento
     loading: Carregando informações do documento...
     new: Novo anexo
@@ -300,7 +300,7 @@ pt-br:
     next_invite: ! 'Próximo: Convidar pessoas'
     next_program: ! 'Próximo: Definir programa'
     ok: OK
-    other_spaces: Encontrar outros espaços
+    other_spaces: Encontrar outras comunidades
     post: Postar
     publish: Publicar
     remove: Remover
@@ -510,8 +510,8 @@ pt-br:
       linha em seu navegador:<br/> %{ur}
     dear: Prezado(a), %{name}
     invitation_result:
-      admin_side: ! '%{name} %{action} o convite para o espaço %{spacename}'
-      user_side: ! 'Seu pedido de autorização no espaço %{spacename} foi: %{action}'
+      admin_side: ! '%{name} %{action} o convite para a comunidade %{spacename}'
+      user_side: ! 'Seu pedido de autorização na comunidade %{spacename} foi: %{action}'
     join_request: Pedido de Participação
     kind_regards: Atenciosamente,
     notifications: notificações por e-mail
@@ -662,108 +662,108 @@ pt-br:
     group_invitation:
       button: Convidar usuários não registrados
       message_private_with_start_date:
-        in_person: ! '<p>Gostaria de convidá-lo para <b>o evento ''event_name'' no  espaço
+        in_person: ! '<p>Gostaria de convidá-lo para <b>o evento ''event_name'' na comunidade
           %{space}</b> em ''event_date''. </p><p>Você pode encontrar mais informações
           sobre este evento em <a href="event_url">event_url</a></p><p>Por favor,
-          note que o evento faz parte de um espaço privado, então você precisa ser
+          note que o evento faz parte de uma comunidade privada, então você precisa ser
           um usuário cadastrado no Virtual Conference Center para ser capaz de enviar
-          um pedido de adesão ao espaço e ter acesso ao evento. Você pode se registrar
+          um pedido de adesão à comunidade e ter acesso ao evento. Você pode se registrar
           aqui: <a href="%{register_url}">%{register_url}</a></p><p>Atenciosamente,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>'
-        teleclass: ! '<p> Gostaria de convidá-lo para <b>o evento ''event_name'' no
-          espaço %{space}</b> em ''event_date''. O evento será uma classe virtual
+        teleclass: ! '<p> Gostaria de convidá-lo para <b>o evento ''event_name'' na
+          comunidade %{space}</b> em ''event_date''. O evento será uma classe virtual
           com participação simples através do sistema Isabel. </p><p> Você pode encontrar
           mais informações sobre este evento em <a href="event_url">event_url</a>
-          </p><p> Por favor, note que o evento faz parte de um espaço privado, então
+          </p><p> Por favor, note que o evento faz parte de uma comunidade privada, então
           você precisa ser um usuário cadastrado no Virtual Conference Center para
-          ser capaz de enviar um pedido de adesão ao espaço e ter acesso ao evento.
+          ser capaz de enviar um pedido de adesão à comunidade e ter acesso ao evento.
           Você pode se registrar aqui: <a href="%{register_url}">%{register_url}</a></p>
           <p>Atenciosamente,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>'
         teleconference: ! '<p> Gostaria de convidá-lo para <b>o evento ''event_name''
-          no espaço %{space}</b> em ''event_date''. O evento será uma conferência
+          na comunidade %{space}</b> em ''event_date''. O evento será uma conferência
           virtual com participação simples através do sistema Isabel. </p><p> Você
           pode encontrar mais informações sobre este evento em <a href="event_url">event_url</a>
-          </p><p> Por favor, note que o evento faz parte de um espaço privado, então
+          </p><p> Por favor, note que o evento faz parte de uma comunidade privada, então
           você precisa ser um usuário cadastrado no Virtual Conference Center para
-          ser capaz de enviar um pedido de adesão ao espaço e ter acesso ao evento.
+          ser capaz de enviar um pedido de adesão à comunidade e ter acesso ao evento.
           Você pode se registrar aqui: <a href="%{register_url}">%{register_url}</a></p>
           <p>Atenciosamente,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>'
         telemeeting: ! '<p> Gostaria de convidá-lo para <b>o evento ''event_name''
-          no espaço %{space}</b> em ''event_date''. O evento será uma reunião virtual
+          na comunidade %{space}</b> em ''event_date''. O evento será uma reunião virtual
           com participação simples através do sistema Isabel. </p><p> Você pode encontrar
           mais informações sobre este evento em <a href="event_url">event_url</a>
-          </p><p> Por favor, note que o evento faz parte de um espaço privado, então
+          </p><p> Por favor, note que o evento faz parte de uma comunidade privada, então
           você precisa ser um usuário cadastrado no Virtual Conference Center para
-          ser capaz de enviar um pedido de adesão ao espaço e ter acesso ao evento.
+          ser capaz de enviar um pedido de adesão à comunidade e ter acesso ao evento.
           Você pode se registrar aqui: <a href="%{register_url}">%{register_url}</a></p>
           <p>Atenciosamente,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>'
       message_private_without_start_date:
-        in_person: ! '<p> Gostaria de convidá-lo para <b>o evento ''event_name'' no
-          espaço %{space}</b>.</p><p> Você pode encontrar mais informações sobre este
+        in_person: ! '<p> Gostaria de convidá-lo para <b>o evento ''event_name'' na
+          comunidade %{space}</b>.</p><p> Você pode encontrar mais informações sobre este
           evento em <a href="event_url">event_url</a> </p><p> Por favor, note que
-          o evento faz parte de um espaço privado, então você precisa ser um usuário
+          o evento faz parte de uma comunidade privada, então você precisa ser um usuário
           cadastrado no Virtual Conference Center para ser capaz de enviar um pedido
-          de adesão ao espaço e ter acesso ao evento. Você pode se registrar aqui:
+          de adesão à comunidade e ter acesso ao evento. Você pode se registrar aqui:
           <a href="%{register_url}">%{register_url}</a></p><p>Atenciosamente,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>'
-        teleclass: ! '<p> Gostaria de convidá-lo para <b>o evento ''event_name'' no
-          espaço %{space}</b>. O evento será uma classe virtual com participação simples
+        teleclass: ! '<p> Gostaria de convidá-lo para <b>o evento ''event_name'' na
+          comunidade %{space}</b>. O evento será uma classe virtual com participação simples
           através do sistema Isabel. </p><p> Você pode encontrar mais informações
           sobre este evento em <a href="event_url">event_url</a> </p><p> Por favor,
-          note que o evento faz parte de um espaço privado, então você precisa ser
+          note que o evento faz parte de uma comunidade privada, então você precisa ser
           um usuário cadastrado no Virtual Conference Center para ser capaz de enviar
-          um pedido de adesão ao espaço e ter acesso ao evento. Você pode se registrar
+          um pedido de adesão à comunidade e ter acesso ao evento. Você pode se registrar
           aqui: <a href="%{register_url}">%{register_url}</a></p> <p>Atenciosamente,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>'
         teleconference: ! '<p> Gostaria de convidá-lo para <b>o evento ''event_name''
-          no espaço %{space}</b>. O evento será uma conferência virtual com participação
+          na comunidade %{space}</b>. O evento será uma conferência virtual com participação
           simples através do sistema Isabel. </p><p> Você pode encontrar mais informações
           sobre este evento em <a href="event_url">event_url</a> </p><p> Por favor,
-          note que o evento faz parte de um espaço privado, então você precisa ser
+          note que o evento faz parte de uma comunidade privada, então você precisa ser
           um usuário cadastrado no Virtual Conference Center para ser capaz de enviar
-          um pedido de adesão ao espaço e ter acesso ao evento. Você pode se registrar
+          um pedido de adesão à comunidade e ter acesso ao evento. Você pode se registrar
           aqui: <a href="%{register_url}">%{register_url}</a></p> <p>Atenciosamente,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>'
         telemeeting: ! '<p> Gostaria de convidá-lo para <b>o evento ''event_name''
-          no espaço %{space}</b>. O evento será uma reunião virtual com participação
+          na comunidade %{space}</b>. O evento será uma reunião virtual com participação
           simples através do sistema Isabel. </p><p> Você pode encontrar mais informações
           sobre este evento em <a href="event_url">event_url</a> </p><p> Por favor,
-          note que o evento faz parte de um espaço privado, então você precisa ser
+          note que o evento faz parte de uma comunidade privada, então você precisa ser
           um usuário cadastrado no Virtual Conference Center para ser capaz de enviar
-          um pedido de adesão ao espaço e ter acesso ao evento. Você pode se registrar
+          um pedido de adesão à comunidade e ter acesso ao evento. Você pode se registrar
           aqui: <a href="%{register_url}">%{register_url}</a></p> <p>Atenciosamente,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>'
       message_public_with_start_date:
-        in_person: <p> Gostaria de convidá-lo para <b>o evento 'event_name' no espaço
+        in_person: <p> Gostaria de convidá-lo para <b>o evento 'event_name' na comunidade
           %{space}</b> em 'event_date'. </p><p> Você pode encontrar mais informações
           sobre este evento em <a href="event_url">event_url</a> </p><p> Atenciosamente,
           <br/><br/> %{username} <br/> %{usermail} <br/> %{userorg} </p>
-        teleclass: <p> Gostaria de convidá-lo para <b>o evento 'event_name' no espaço
+        teleclass: <p> Gostaria de convidá-lo para <b>o evento 'event_name' na comunidade
           %{space}</b> em 'event_date'. O evento será uma classe virtual com participação
           simples através do sistema Isabel. </p><p> Você pode encontrar mais informações
           sobre este evento em <a href="event_url">event_url</a> </p> <p>Atenciosamente,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>
-        teleconference: <p> Gostaria de convidá-lo para <b>o evento 'event_name' no
-          espaço %{space}</b> em 'event_date'. O evento será uma conferência virtual
+        teleconference: <p> Gostaria de convidá-lo para <b>o evento 'event_name' na
+          comunidade %{space}</b> em 'event_date'. O evento será uma conferência virtual
           com participação simples através do sistema Isabel. </p><p> Você pode encontrar
           mais informações sobre este evento em <a href="event_url">event_url</a>
           </p><p>Atenciosamente,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>
-        telemeeting: <p> Gostaria de convidá-lo para <b>o evento 'event_name' no espaço
+        telemeeting: <p> Gostaria de convidá-lo para <b>o evento 'event_name' na comunidade
           %{space}</b> em 'event_date'. O evento será uma reunião virtual com participação
           simples através do sistema Isabel. </p><p> Você pode encontrar mais informações
           sobre este evento em <a href="event_url">event_url</a> </p><p>Atenciosamente,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>
       message_public_without_start_date:
-        in_person: <p> Gostaria de convidá-lo para <b>o evento 'event_name' no espaço
+        in_person: <p> Gostaria de convidá-lo para <b>o evento 'event_name' na comunidade
           %{space}</b>.</p><p> Você pode encontrar mais informações sobre este evento
           em <a href="event_url">event_url</a> </p><p>Atenciosamente,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>
-        teleclass: <p> Gostaria de convidá-lo para <b>o evento 'event_name' no espaço
+        teleclass: <p> Gostaria de convidá-lo para <b>o evento 'event_name' na comunidade
           %{space}</b>. O evento será uma classe virtual com participação simples
           através do sistema Isabel. </p><p> Você pode encontrar mais informações
           sobre este evento em <a href="event_url">event_url</a> </p> <p>Atenciosamente,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>
-        teleconference: <p> Gostaria de convidá-lo para <b>o evento 'event_name' no
-          espaço %{space}</b>. O evento será uma conferência virtual com participação
+        teleconference: <p> Gostaria de convidá-lo para <b>o evento 'event_name' na
+          comunidade %{space}</b>. O evento será uma conferência virtual com participação
           simples através do sistema Isabel. </p><p> Você pode encontrar mais informações
           sobre este evento em <a href="event_url">event_url</a> </p> <p>Atenciosamente,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>
-        telemeeting: <p> Gostaria de convidá-lo para <b>o evento 'event_name' no espaço
+        telemeeting: <p> Gostaria de convidá-lo para <b>o evento 'event_name' na comunidade
           %{space}</b>. O evento será uma reunião virtual com participação simples
           através do sistema Isabel. </p><p> Você pode encontrar mais informações
           sobre este evento em <a href="event_url">event_url</a> </p> <p>Atenciosamente,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>
       message_title: Convidar usuários não registrados
-      subject: ! '%{username} convida você para o evento %{eventname} no espaço %{space}'
+      subject: ! '%{username} convida você para o evento %{eventname} na comunidade %{space}'
     has: Este evento tem
     held_with: Este evento será realizado com
     help:
@@ -780,7 +780,7 @@ pt-br:
       without_str: Para obter streaming e/ou gravação, por favor indique-o na sua
         agenda
     home:
-      one: Evento no espaço %{space}
+      one: Evento na comunidade %{space}
     invite: Convidar pessoas
     join: Junte-se a este evento
     last_7_days: Últimos 7 dias (%{size})
@@ -852,9 +852,9 @@ pt-br:
       legend:
         name: ! '''Name'' será substituído na mensagem pelo nome do receptor.'
       message_beginning_with_start_date: ! '<p> ''Name'', </p><p> Quanto o <b>''event_name''
-        no espaço %{space}</b> em ''event_date'': </p>'
+        na comunidade %{space}</b> em ''event_date'': </p>'
       message_beginning_without_start_date: <p> 'Name', </p><p> Relacionado ao <b>evento
-        'event_name' no espaço %{space}</b>:</p>
+        'event_name' na comunidade %{space}</b>:</p>
       message_ending: <p>Você pode encontrar mais informações sobre o evento em <a
         href="event_url">event_url</a> </p><p> Atenciosamente, <br/><br/> %{username}
         <br/> %{usermail} <br/> %{userorg} </p>
@@ -864,7 +864,7 @@ pt-br:
       selected_attendants: ! 'Participantes que você deseja notificar:'
       show_all_attendants: Mostrar todos os participantes
       subject: ! '%{username} enviou uma notificação para informá-lo sobre o evento
-        %{eventname} no espaço %{space}'
+        %{eventname} na comunidade %{space}'
       title: Informe os participantes do evento
     now: ! 'Eventos neste momento:'
     one: Evento
@@ -892,7 +892,7 @@ pt-br:
       cloud: Vídeos!
       cloud_back: Voltar ao programa
       insert: Inserir
-      notice: As pessoas vão precisar de direitos de acesso a este espaço para ver
+      notice: As pessoas vão precisar de direitos de acesso a esta comunidade para ver
         estes vídeos
       one: Vídeo
       other: Lista de vídeos
@@ -928,7 +928,7 @@ pt-br:
       edit: Editar código do streaming
       no_at_events: Sem streaming nas reuniões
       none: Ninguém postou uma URL para streaming
-      notice: As pessoas vão precisar de direitos de acesso a este espaço para ver
+      notice: As pessoas vão precisar de direitos de acesso a esta comunidade para ver
         este conteúdo
       now: Streaming do evento
       ready: O streaming foi agendado. Ele estará disponível durante o evento
@@ -976,7 +976,7 @@ pt-br:
     clarify_registered: Favor introduzir sua senha para confirmar sua participação
       no evento
     clarify_unregistered: Favor introduzir seu nome completo e uma senha para se registrar
-      no Virtual Conference Centre e confirmar sua participação no evento
+      no Mconf e confirmar sua participação no evento
     confirm_password: Confirmar senha
     deselect_all_users: Desselecionar todos usuários
     discarded: Você descartou o convite para este evento
@@ -1000,7 +1000,7 @@ pt-br:
   export_widget: Exportar widget
   faq:
     faq1:
-      answer: Global Plaza é um espaço aberto para colaboração, um ponto de encontro
+      answer: Mconf é uma comunidade aberta para colaboração, um ponto de encontro
         para profissionais, onde eles podem compartilhar documentos e vídeos, além
         de organizar e participar de videoconferências, em um ambiente web moderno.
       question: O que é o Global Plaza?
@@ -1044,7 +1044,7 @@ pt-br:
       question: O que preciso para entrar no Global Plaza?
     faq4:
       answer: Para começar a colaborar no Global Plaza você precisa <a href="/signup">registrar-se</a>.
-        Desta forma você poderá criar espaços, adicionar documentos, e participar
+        Desta forma você poderá criar comunidades, adicionar documentos, e participar
         de reuniões. Uma boa forma de iniciar é verificando as <a href="/help">páginas
         de ajuda</a> do Global Plaza. <b>Livre?</b> SIM, tudo no Global Plaza é livre,
         e continuará sendo. Nós acreditamos que VOCÊ é que provê valor para nossa
@@ -1053,20 +1053,20 @@ pt-br:
     faq5:
       answer: Não, claro que não. Como dito antes, acreditamos que há mais valor quando
         mais pessoas criam/acessam conteúdos, mas isso não significa que você não
-        pode ter seus <b>espaços privados</b>. Estes estarão acessiveis somente para
+        pode ter seus <b>comunidades privadas</b>. Estes estarão acessiveis somente para
         os membros que você selecionar, e seu conteúdo contiunará privado e escondido
         dos outros membros.
       question: Mas... tudo é acessível por qualquer um? QUALQUER UM pode interagir
         com QUALQUER COISA?
     faq6:
-      answer: ! 'Um <b>espaço</b> é a unidade básica de colaboração no Global Plaza.
+      answer: ! 'Uma <b>comunidade</b> é a unidade básica de colaboração no Global Plaza.
         Como você pode imaginar, não é nada mais (nem menos) que um local onde pessoas
         com um interesse comum podem interagir. A interação pode ocorrer de diversas
         formas: usando o repositório de documentos, organizando eventos, participando
-        em videoconferências ou chats...<br>Uma vez que você cria um espaço, o Global
+        em videoconferências ou chats...<br>Uma vez que você cria uma comunidade, o Global
         Plaza lhe permite fazer isso tudo, e muito mais. Você só precisa decidir que
-        convidar para seu espaço, e se ele será público ou privado.'
-      question: Espaços? Que espaços? O que diabos são espaços?
+        convidar para sua comunidade, e se ele será público ou privado.'
+      question: Comunidades? Que comunidades? O que diabos são comunidades?
     faq7:
       answer: Global Plaza é um site que gira em torno de videoconferências e, como
         tal, a nossa mente está em simplificar o esforço de organizá-las. Sugerimos
@@ -1110,7 +1110,7 @@ pt-br:
   footer:
     built_on_top_of: Este site é baseado no <a href="https://github.com/ging/vcc">VCC</a>
       (Global Plaza)
-    find_us: Você pode encontrar-nos em
+    find_us: Você pode nos encontrar em
     gcode: Google Code
     github: GitHub
     website: Site do Projeto
@@ -1128,9 +1128,9 @@ pt-br:
     no_rooms: Nenhuma reunião em progresso.
     participants: participantes
     participants_in:
-      one: ! '%{count} participante na conferência deste espaço'
-      other: ! '%{count} participantes na conferência deste espaço'
-    popular_spaces: Espaços públicos
+      one: ! '%{count} participante na conferência desta comunidade'
+      other: ! '%{count} participantes na conferência desta comunidade'
+    popular_spaces: Comunidades públicas
     project_description: <p>Este website é parte do projeto <a href="http://www.inf.ufrgs.br/prav/gtmconf">Mconf</a>,
       sistema em desenvolvimento no grupo de pesquisa <a href="http://www.inf.ufrgs.br/prav">PRAV</a>
       da <a href="http://www.ufrgs.br">UFRGS</a> em parceria com a <a href="http://www.rnp.br">RNP</a>.
@@ -1138,7 +1138,7 @@ pt-br:
       Plaza</a> e integrado ao sistema de webconferência <a href="http://bigbluebutton.org/">BigBlueButton</a>.</p>
       <p>Para mais informações, acesse o website do projeto <a href="http://www.inf.ufrgs.br/prav/gtmconf">clicando
       aqui</a>.</p>
-    register_sentence: Crie uma conta para acessar espaços privados e criar suas próprias
+    register_sentence: Crie uma conta para acessar comunidades privadas e criar suas próprias
       webconferências
     room_name: Nome da sala
     upcoming_events: Próximos eventos
@@ -1167,6 +1167,8 @@ pt-br:
   groups_and_results: Listas de e-mails, %{size} resultados
   hcard:
     not_found: hCard não encontrado
+  header_global:
+    welcome: Olá, %{user}
   hello: Olá
   help: Ajuda
   help_createVC:
@@ -1221,7 +1223,7 @@ pt-br:
     part1: ! 'Para criar uma reunião no Global Plaza: <br><br>1. Clique na guia <b>Eventos</b>.<br>
       2. Clique em <b>Reunião</b> do lado direito da página.'
     part2: 3. Digite um título e uma descrição para seu evento.<br>4. Digite ou selecione
-      o espaço usuários organização do evento.<br>5. Digite o local do evento.<br>
+      a comunidade usuários organização do evento.<br>5. Digite o local do evento.<br>
       6. Clique no botão <b>Criar</b>.
     part3: ! '7. Depois de ter criado o evento você pode: <br><li><a href=%{agenda}>
       Definir a agenda para o evento</a><li>Convidar pessoas<li>Escrever uma descrição
@@ -1249,13 +1251,13 @@ pt-br:
     part9: ! '8. Você pode usar o editor avançado para incluir conteúdo. Este editor
       permite que você:'
   help_createspace:
-    part1: ! 'Para criar um espaço no Global Plaza:'
+    part1: ! 'Para criar uma comunidade no Mconf:'
     part2: 1. Clique no item <a href=%{url}> Página inicial </a> da barra superior.
-    part3: 2. Clique no botão <a href=%{url}>Criar Novo Espaço</a>.
-    part4: 3. Digite um nome e uma descrição para o seu espaço.
-    part5: 4. Decida se o espaço deve ser público. Espaços colaborativos podem ser
-      públicos, para que qualquer pessoa veja o que acontece neles, ou privados, onde
-      apenas os membros terão acesso Ã s atividades do espaço.
+    part3: 2. Clique no botão <a href=%{url}>Criar Nova Comunidade</a>.
+    part4: 3. Digite um nome e uma descrição para sua própria comunidade.
+    part5: 4. Decida se a comunidade deve ser pública. Comunidades colaborativas podem ser
+      públicas, para que qualquer pessoa veja o que acontece nelas, ou privadas, onde
+      apenas os membros terão acesso às atividades da comunidade.
     part6: 5. Se você deseja habilitar um repositório de documentos, escolha esta
       opção.<br> 6. Você pode associar uma lista de e-mails no seu grupo. Ela permitirá
       que você envie mensagens de e-mail para todo o grupo em vez de ter de escolher
@@ -1336,10 +1338,10 @@ pt-br:
       e recursos, tais como gravações, descrições de eventos, etc. Todos os recursos
       têm um link permanente, que pode ser utilizado e incorporado em outras páginas
       da web.
-    part7: Depois de registrar você será capaz de <a href=%{create}>criar</a> espaços
+    part7: Depois de registrar você será capaz de <a href=%{create}>criar</a> comunidades
       públicos pu privados para colaboração com grupos restritos de pessoas, que serão
       administrados por você e pelas pessoas que você indicar como administradores.
-      Uma vez que você é um membro regular ou administrador de um espaço, você será
+      Uma vez que você é um membro regular ou administrador de uma comunidade, você será
       capaz de criar, anunciar, executar, registrar e publicar os seus eventos no
       Global Plaza. Eventos virtuais podem ser automaticamente gravado e publicados
       pelo Global Plaza para acesso público ou privado, bem como para incorporar em
@@ -1350,23 +1352,23 @@ pt-br:
       uma melhor qualidade audiovisual e é recomendado para palestrantes ou para conectar
       salas e auditórios. Um gateway SIP também é fornecido para permitir a participação
       a partir de um equipamento de videoconferência. <br><br> As atividades em grupo
-      hospedadas no Plaza Global podem ser públicas ou privadas. Espaços públicos
+      hospedadas no Plaza Global podem ser públicas ou privadas. Comunidades públicas
       possuem atuvidades que podem ser vistas e seguidas por qualquer pessoa, enquanto
-      espaços privados possuem projetos e atividades onde um grupo podem colaborar
+      comunidades privadas possuem projetos e atividades onde um grupo podem colaborar
       compartilhando informações e reunindo-se de maneira privada.
     part8: O Global Plaza foi desenvolvido pelo <a href=%{web_global}>projeto European
       Global</a>, reutilizando os resultados e a evolução de outros projetos que transformaram
       a aplicação <a href=%{isabel}> Isabel </a> em um serviço de computação em nuvem,
       como o ITECBAN, Ecospace, Collaboration@Rura, CEPOS, etc <br><br> Para <a href=%{create}>criar</a>
-      ou editar espaços, você deve estar logado com sua sua conta do Plaza Global.
+      ou editar comunidades, você deve estar logado com sua sua conta do Plaza Global.
       Se você não tiver uma conta, <a href=%{url}>crie uma agora</a>
   help_invitation:
     part1: Em construção
   help_join_space:
-    part1: ! 'Para aderir a um espaço no Global Plaza:'
-    part2: 1. <a href=%{url}>Procurar</a> o espaço que você deseja ingressar.
-    part3: 2. Clique no botão <b>Entrar neste espaço</b> no lado direito da página.
-    part4: 3. Digite uma mensagem pessoal para os administradores do espaço (opcional).
+    part1: ! 'Para aderir a uma comunidade no Global Plaza:'
+    part2: 1. <a href=%{url}>Procurar</a> a comunidade que você deseja ingressar.
+    part3: 2. Clique no botão <b>Entrar nesta comunidade</b> no lado direito da página.
+    part4: 3. Digite uma mensagem pessoal para os administradores da comunidade (opcional).
     part5: 4. Por fim, clique no botão <b>enviar</b> para enviar a solicitação para
       participar dos administradores.
   help_logging:
@@ -1426,7 +1428,7 @@ pt-br:
       para o acesso Web baseado em Flash ou o acesso SIP. O organizador do evento
       seleciona os modos de acesso disponíveis ao criar o evento.
   help_search_global:
-    part1: ! 'Você pode procurar espaços, mensagens, eventos, vídeos, usuários e anexos
+    part1: ! 'Você pode procurar comunidades, mensagens, eventos, vídeos, usuários e anexos
       no Global Plaza. Existem duas opções para pesquisa: pesquisa simples e avançada.'
     part10: 4. Digite o nome do evento na caixa <b> a palavra </b>
     part11: 5. Se você escolher os eventos, você pode especificar a data de um evento
@@ -1438,7 +1440,7 @@ pt-br:
     part5: 3. Pressione enter ou clique no botão <b>Ir</b>
     part6: <b>Pesquisa avançada</b>
     part7: 1. Clique na caixa <b>Pesquisa avançada</b> no menu superior
-    part8: 2. Especifique se você deseja pesquisar em qualquer espaço ou em um espaço
+    part8: 2. Especifique se você deseja pesquisar em qualquer comunidade ou em uma comunidade
       em particular na lista em <b> Pesquisar em </b>
     part9: 3. Escolha o tipo de elemento da lista <b> Pesquisar em </b>
   help_support: Ajuda e suporte
@@ -1451,7 +1453,7 @@ pt-br:
     create_event: Criando um evento
     create_meeting: Criando uma reunião
     create_post: Postando uma mensagem no mural
-    create_space: Criando um espaço
+    create_space: Criando uma comunidade
     create_user: Criando um usuário
     define_agenda: Definindo a agenda para o evento
     export_program: Exportando um evento
@@ -1461,7 +1463,7 @@ pt-br:
     install_isabel: Como instalar o Isabel
     invitation: Convidando usuários para eventos
     isabel: Isabel (ferramenta de videoconferência)
-    join_space: Participando de um espaço
+    join_space: Participando de uma comunidade
     logging: Logando na sua conta
     new_doc: Adicionando um novo documento
     participation: Participando em um evento
@@ -1480,7 +1482,7 @@ pt-br:
   hide: Esconder
   his_message_reads_thus: Sua mensagem diz assim
   home:
-    activity: Atividade Recente...
+    activity: Atividade recente...
     invite_url: URL para convites
     my: Página inicial
     no_rooms: Você não tem salas de webconferência.
@@ -1525,12 +1527,12 @@ pt-br:
   information:
     info_timezone: Ao selecionar o seu fuso horário não haverá equívoco ao criar eventos
       com pessoas de outros países.
-    information1: Estes são os espaços dos quais você faz parte
+    information1: Estas são as comunidades dos quais você faz parte
     information2: Aqui você pode encontrar as mensagens recentes, eventos e notícias
-      dos espaços dos quais você faz parte
+      das comunidades das quais você faz parte
     information3: Estas são as últimas mensagens ou eventos que você criou
-    information4: Estes são os espaços dos quais você faz parte
-    information5: Estes são os eventos futuros de outros espaços.
+    information4: Estas são as comunidades dos quais você faz parte
+    information5: Estes são os eventos futuros de outras comunidades.
   internet:
     on_the: Na Internet
     ppal: Internet
@@ -1541,7 +1543,7 @@ pt-br:
     accept: Aceitar o convite
     accepted: Você aceitou o convite
     accepted_by: ! '%{candidate} aceitou o convite'
-    access_space: Você agora é um membro de espaço %{spacename} e agora pode acessá-lo
+    access_space: Você agora é um membro da comunidade %{spacename} e pode acessá-la
       em <a href="%{space_url}"> %{space_url} </a>
     add_more: Convidar mais pessoas
     comment: Comentário
@@ -1554,9 +1556,9 @@ pt-br:
     email: E-mail
     hide_all_users: Ocultar todos os usuários
     info_event: Você pode encontrar mais informações sobre este evento em 'event_url'
-    info_space: Você pode encontrar mais informações sobre este espaço em <a href="%{space_url}">
+    info_space: Você pode encontrar mais informações sobre esta comunidade em <a href="%{space_url}">
       %{space_url} </a>
-    info_users: Você pode ver a lista atual de usuários do espaço em <a href="%{users_url}">
+    info_users: Você pode ver a lista atual de usuários da comunidade em <a href="%{users_url}">
       %{users_url} </a>
     introducer: Introdutor
     label: Personalize a sua mensagem de convite
@@ -1565,45 +1567,45 @@ pt-br:
       name: ! '''''Name'''' será substituído na mensagem pelo nome do receptor.'
     logout_and_reload: Você não é o usuário que recebeu esse convite, por favor saia
       e tente novamente
-    message_title: Convide as pessoas individualmente para participar do seu espaço
+    message_title: Convide as pessoas individualmente para participar da sua comunidade
     message_with_start_date:
-      in_person: <p>Gostaria de convidá-lo para <b>o evento 'event_name' no espaço
+      in_person: <p>Gostaria de convidá-lo para <b>o evento 'event_name' na comunidade
         %{space} </b> na data 'event_date'.</p><p> Para aceitar meu convite, por favor
         visite %{url} </p><p> Você pode encontrar mais informações sobre este evento
         em <a href="event_url">event_url</a></p><p> Atenciosamente, <br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>
-      teleclass: <p>Gostaria de convidá-lo para <b>o evento 'event_name' no espaço
+      teleclass: <p>Gostaria de convidá-lo para <b>o evento 'event_name' na comunidade
         %{space} </b> na data 'event_date'. O evento será uma classe virtual com participação
         simples através do sistema Isabel. </p><p> Para aceitar meu convite, por favor
         visite %{url} </p><p> Você pode encontrar mais informações sobre este evento
         em <a href="event_url">event_url</a></p><p> Atenciosamente, <br/><br/> %{username}<br/>%{useremail}<br/>%{userorg}</p>
-      teleconference: <p>Gostaria de convidá-lo para <b>o evento 'event_name' no espaço
+      teleconference: <p>Gostaria de convidá-lo para <b>o evento 'event_name' na comunidade
         %{space} </b> na data 'event_date'. O evento será uma conferência virtual
         com participação simples através do sistema Isabel. </p><p> Para aceitar meu
         convite, por favor visite %{url} </p><p> Você pode encontrar mais informações
         sobre este evento em <a href="event_url">event_url</a></p><p> Atenciosamente,
         <br/><br/> %{username}<br/>%{useremail}<br/>%{userorg}</p>
-      telemeeting: <p>Gostaria de convidá-lo para <b>o evento 'event_name' no espaço
+      telemeeting: <p>Gostaria de convidá-lo para <b>o evento 'event_name' na comunidade
         %{space} </b> na data 'event_date'. O evento será uma reunião virtual com
         participação simples através do sistema Isabel. </p><p> Para aceitar meu convite,
         por favor visite %{url} </p><p> Você pode encontrar mais informações sobre
         este evento em <a href="event_url">event_url</a></p><p> Atenciosamente, <br/><br/>
         %{username}<br/>%{useremail}<br/>%{userorg}</p>
     message_without_start_date:
-      in_person: <p>Gostaria de convidá-lo para <b>o evento 'event_name' no espaço
+      in_person: <p>Gostaria de convidá-lo para <b>o evento 'event_name' na comunidade
         %{space} </b>.</p><p> Para aceitar meu convite, por favor visite %{url} </p><p>
         Você pode encontrar mais informações sobre este evento em <a href="event_url">event_url</a></p><p>
         Atenciosamente, <br/><br/> %{username}<br/>%{useremail}<br/>%{userorg}</p>
-      teleclass: <p>Gostaria de convidá-lo para <b>o evento 'event_name' no espaço
+      teleclass: <p>Gostaria de convidá-lo para <b>o evento 'event_name' na comunidade
         %{space} </b>. O evento será uma classe virtual com participação simples através
         do sistema Isabel. </p><p> Para aceitar meu convite, por favor visite %{url}
         </p><p> Você pode encontrar mais informações sobre este evento em <a href="event_url">event_url</a></p><p>
         Atenciosamente, <br/><br/> %{username}<br/>%{useremail}<br/>%{userorg}</p>
-      teleconference: <p>Gostaria de convidá-lo para <b>o evento 'event_name' no espaço
+      teleconference: <p>Gostaria de convidá-lo para <b>o evento 'event_name' na comunidade
         %{space} </b>. O evento será uma conferência virtual com participação simples
         através do sistema Isabel. </p><p> Para aceitar meu convite, por favor visite
         %{url} </p><p> Você pode encontrar mais informações sobre este evento em <a
         href="event_url">event_url</a></p><p> Atenciosamente, <br/><br/> %{username}<br/>%{useremail}<br/>%{userorg}</p>
-      telemeeting: <p>Gostaria de convidá-lo para <b>o evento 'event_name' no espaço
+      telemeeting: <p>Gostaria de convidá-lo para <b>o evento 'event_name' na comunidade
         %{space} </b>. O evento será uma reunião virtual com participação simples
         através do sistema Isabel. </p><p> Para aceitar meu convite, por favor visite
         %{url} </p><p> Você pode encontrar mais informações sobre este evento em <a
@@ -1611,8 +1613,8 @@ pt-br:
     new:
       other: Novos convites
     not_accepted: não aceito
-    not_created: não pode ser convidado(a) para este espaço pois já é um membro
-    not_created_2: não pode ser convidado(a) para este espaço pois já foi convidado(a)
+    not_created: não pode ser convidado(a) para esta comunidade pois já é um membro
+    not_created_2: não pode ser convidado(a) para esta comunidade pois já foi convidado(a)
     not_found: Convite não encontrado
     not_pending:
       other: Não há convites pendentes
@@ -1632,17 +1634,17 @@ pt-br:
     show: Entrar em %{group}
     show_all_users: Mostrar todos usuários
     sign: Atenciosamente, %{username}
-    space: Gostaria de convidá-lo para o espaço %{space} no Virtual Conference Centre.
-    subject: ! '%{username} convidou-o para um evento no espaço %{space}'
+    space: Gostaria de convidá-lo para a comunidade %{space} no Mconf.
+    subject: ! '%{username} convidou-o para um evento na comunidade %{space}'
     tab:
       title1: Usuários não registrados
       title2: Usuários registrados
     title: Convidar pessoas
-    title2: Convite do espaço
+    title2: Convite da comunidade
     to_accept: Para aceitar o convite por favor visite <a href=%{url}> %{url} </a>
     to_accept_space: Para aceitar o convite por favor visite %{url}t;
-    to_event: ! '%{username} convida você para o evento %{eventname} no espaço %{space}'
-    to_space: ! '%{username} convida você para o espaço %{space}'
+    to_event: ! '%{username} convida você para o evento %{eventname} na comunidade %{space}'
+    to_space: ! '%{username} convida você para a comunidade %{space}'
     was_processed:
       accepted: Convite já foi aceito
       discarded: O convite já foi descartado
@@ -1684,17 +1686,19 @@ pt-br:
   join_cam: Participar
   join_request:
     accepted: Pedido de adesão aceito
-    already_sent: Você já pediu para participar deste espaço
+    already_sent: Você já pediu para participar desta comunidade
     ask_subject: ! '%{candidate} quer participar de %{space}'
-    asked: ! '<b>%{candidate}</b> quer participar do espaço %{space} que é administrado
+    asked: ! '<b>%{candidate}</b> quer participar da comunidade %{space} que é administrado
       por você:'
-    asked_anonymous: ! 'Alguém quer participar do espaço %{space} administrado por
+    asked_anonymous: ! 'Alguém quer participar da comunidade %{space} administrado por
       você:'
-    created: Seu pedido de adesão foi enviado para os administradores do espaço
+    created: Seu pedido de adesão foi enviado para os administradores da comunidade
     discarded: Pedido de adesão descartado
-    joined: Você já é um membro do espaço
+    joined: Você já é um membro da comunidade
     label: Personalize a sua mensagem de solicitação de adesão
-    message_title: Enviar um pedido de adesão aos administradores do espaço
+    message_title: Enviar um pedido de adesão aos administradores da comunidade
+    new:
+      title: ! 'Pedido de adesão na comunidade: %{space}'
     not_logged_in: Você precisa estar logado para enviar um pedido de adesão
     not_pending:
       other: Não existem solicitações de adesão pendentes
@@ -1731,7 +1735,7 @@ pt-br:
   logo:
     click_to_change: Clique para mudar o logotipo
     created: Logotipo enviado com sucesso
-    crop: Cortar logotipo do espaço
+    crop: Cortar logotipo da comunidade
     current: Logotipo atual
     empty: O logotipo está vazio
     error:
@@ -1759,7 +1763,7 @@ pt-br:
     other: Mensagens
     private:
       cant: Você não pode enviar mensagens privadas porque você não tem parceiros
-        em nenhum espaço
+        em nenhuma comunidade
       editing: Editando mensagem privada
       new: Nova mensagem privada
       none: Não há mensagens
@@ -1791,7 +1795,7 @@ pt-br:
       create: Houve um problema ao publicar a notícia
       delete: Erro ao excluir notícia
       update: Notícia não pÃ´de ser atualizada
-    item_in_home: Notícia no espaço
+    item_in_home: Notícia na comunidade
     none: Nenhum
     none_to_show: Nenhuma notícia para mostrar
     other: Notícias
@@ -1926,11 +1930,11 @@ pt-br:
     notification:
       estandar: ! '%{username} mudou sua função em %{stage} para %{role}.'
       event: ! '%{username} mudou sua função no evento %{event} para %{role}.'
-      space: ! '%{username} mudou sua função no espaço %{space} para %{role}.'
+      space: ! '%{username} mudou sua função na comunidade %{space} para %{role}.'
       subject:
         estandar: ! '%{username} mudou sua função em %{stage}'
         event: ! '%{username} mudou sua função no evento %{event}'
-        space: ! '%{username} mudou sua função no espaço %{space}'
+        space: ! '%{username} mudou sua função na comunidade %{space}'
     one: Membro
     other: Membros
     other_in: Membros de %{stage}
@@ -1970,13 +1974,13 @@ pt-br:
       other: ! '%{size} mensagens encontradas'
       show_all: Mostrar todos os resultados
     home:
-      one: Mensagem no espaço %{space}
+      one: Mensagem na comunidade %{space}
     latest: Últimas mensagens
     none_created: Nenhuma mensagem criada
     none_recent: Não há mensagens recentes
     one: Mensagem
     other: Mensagens
-    other_in_space: Mensagens no espaço %{space}
+    other_in_space: Mensagens na comunidade %{space}
     show_expanded_pref: Como você gostaria de ver suas mensagens?
     updated: Mensagem atualizada
     wall: Mural
@@ -1997,7 +2001,7 @@ pt-br:
       fill_with: Preencha seu perfil com o seu hCard
     header_title: Perfil de usuário
     must_create: Por favor, crie o seu perfil primeiro
-    no_spaces: ! '%{user} não pertence a nenhum espaço.'
+    no_spaces: ! '%{user} não pertence a nenhuma comunidade.'
     one: Perfil
     private: Perfil privado
     private_description: Esta informação só é visível para as pessoas que você escolher
@@ -2012,9 +2016,9 @@ pt-br:
     visibility_everybody: Todos podem ver o seu perfil privado.
     visibility_members: Somente usuários registrados podem ver o seu perfil privado.
     visibility_nobody: Ninguém pode ver o seu perfil privado.
-    visibility_private_fellows: Apenas os seus parceiros em um espaço privado podem
+    visibility_private_fellows: Apenas os seus parceiros em uma comunidade privada podem
       ver o seu perfil privado.
-    visibility_public_fellows: Apenas os seus parceiros em espaços públicos ou privados
+    visibility_public_fellows: Apenas os seus parceiros em comunidades públicas ou privadas
       podem ver o seu perfil privado.
   province: Província
   public: Público
@@ -2090,8 +2094,8 @@ pt-br:
     search: ! 'Pesquisa do Documentos:'
   request:
     default: solicitar
-    info: Seu pedido para entrar no espaço foi enviado com sucesso para os administradores
-      do espaço. Um administrador cuidará dele o mais rapidamente possível
+    info: Seu pedido para entrar na comunidade foi enviado com sucesso para os administradores
+      da comunidade. Um administrador cuidará dele o mais rapidamente possível
     sent: Solicitação enviada!
   request_change_password: Solicitação para alterar a sua senha
   reset_password: Redefinir Senha
@@ -2134,8 +2138,7 @@ pt-br:
       name: ! 'Nome:'
       name_enter: Insira seu nome
       password: ! 'Senha:'
-      password_filled: Está sala é pública. A senha foi preenchida com a senha do
-        atendente
+      password_filled: Esta sala é pública. A senha foi preenchida automaticamente.
       password_role: Digite a senha de moderador ou participante.
       status: ! 'Status da reunião: '
     join:
@@ -2144,7 +2147,7 @@ pt-br:
         que ela começar.
       title: ! 'Sala: %{name}'
     not_running: inativa.
-    refresh: forçar recarregamento
+    refresh: atualizar status
     running: rodando!
   save: Salvar
   save_ch: Salvar alterações
@@ -2192,7 +2195,7 @@ pt-br:
       no_dots: Procurar mensagens
     results: Resultados da pesquisa
     space:
-      dots: Filtrar espaço...
+      dots: Filtrar comunidade...
     switch: Mudar para pesquisa global
     users: Procurar usuários
   searching_in: Você está procurando em
@@ -2278,65 +2281,65 @@ pt-br:
   space:
     about: Sobre
     add_user:
-      other: Adicionar usuários ao espaço
+      other: Adicionar usuários à comunidade
     add_user_other: ''
-    all: Todos Espaços
+    all: Todas comunidades
     allow_public_access: Permitir acesso público?
     attendeePW: Editar senha de participante
     be_fan: Seja Fan
     clic: Clique para editar...
     clic_logo: Clique para mudar o seu logotipo
-    configuration: Configurações do espaço
-    confirm: Tem certeza que quer deixar este espaço?
+    configuration: Configurações da comunidade
+    confirm: Tem certeza que quer deixar esta comunidade?
     create:
       webconf_options: Opções para a sala de webconferência
-    create_own: Criar um novo espaço
-    created: Espaço criado com sucesso
-    delete: Excluir Espaço
-    deleted: Espaço removido com sucesso
-    description_none: Uma descrição do espaço deve ser fornecida para criar um novo
-      espaço
-    disable: Desativar o espaço
-    disabled: Espaço desativado com sucesso
-    does_not_belong: não pertence a qualquer espaço
+    create_own: Criar uma nova comunidade
+    created: Comunidade criada com sucesso
+    delete: Excluir Comunidade
+    deleted: Comunidade removida com sucesso
+    description_none: Uma descrição da comunidade deve ser fornecida para criar uma nova
+      comunidade
+    disable: Desativar a comunidade
+    disabled: Comunidade desativada com sucesso
+    does_not_belong: não pertence a qualquer comunidade
     edit_description: editar descrição
     edit_name: editar nome
-    enable: Habilitar espaço
-    enabled: Espaço habilitado com sucesso
+    enable: Habilitar comunidade
+    enabled: Comunidade habilitada com sucesso
     error:
-      enabled: Espaço %{name} já está habilitado
+      enabled: Comunidade %{name} já está habilitada
     found:
-      none: Nenhum espaço encontrado
-      one: 1 espaço foi encontrado
-      other: ! '%{size} espaços foram encontrados'
+      none: Nenhuma comunidade encontrada
+      one: 1 comunidade foi encontrada
+      other: ! '%{size} comunidades foram encontradas'
     group_invitation:
       button: Convide listas de e-mail
-      message_title: Convide listas de e-mail para participar do seu espaço
-      private: ! '<p>Por favor, note que o espaço é privado, então você precisa ser
-        um usuário cadastrado no Virtual Conference Centre para ser capaz de enviar
-        um pedido de adesão e acesso ao espaço. Você pode se registrar aqui: <a href="%{register_url}">%{register_url}</a></p>'
-      subject: ! '%{username} convida você para o espaço %{space}'
-    group_not_belong: não pertence ao mesmo espaço que o grupo
+      message_title: Convide listas de e-mail para participar da sua comunidade
+      private: ! '<p>Por favor, note que a comunidade é privada, então você precisa ser
+        um usuário cadastrado no Mconf para ser capaz de enviar
+        um pedido de adesão e acesso à comunidade. Você pode se registrar aqui: <a href="%{register_url}">%{register_url}</a></p>'
+      subject: ! '%{username} convida você para a comunidade %{space}'
+    group_not_belong: não pertence à mesma comunidade que o grupo
     invitation:
       body: Corpo
       one: Convidar pessoas
       other: Convidar pessoas
       to: ! 'Para:'
-    is_private: é um espaço privado. Envie um pedido de adesão ao administrador deste
-      espaço para deixá-lo entrar
-    join: Entrar no espaço
+    is_private: é uma comunidade privado. Envie um pedido de adesão ao administrador desta
+      comunidade para deixá-lo entrar
+    join: Entrar na comunidade
     join_invitation:
-      clarify_registered: Por favor, digite a senha para participar deste espaço.
+      clarify_registered: Por favor, digite a senha para participar desta comunidade.
       clarify_unregistered: Por favor, digite o seu nome completo e uma senha para
-        se registrar no Mconf e participar deste espaço.
-      title: Junte-se ao espaço >
+        se registrar no Mconf e participar desta comunidade.
+      title: Aderir à comunidade >
     join_pending: Pedido de adesão sendo processado
-    leave: Deixar esse espaço
-    logo: Logo do Espaço
+    leave: Sair desta comunidade
+    logo: Logo da comunidade
     logo_selected:
       close: Fechar
       close_gallery: Feche a galeria
-      default_message: Logo do espaço
+      default_message: Logo da comunidade
       enter_text: ! 'Digite um texto para gerar logos:'
       generate_logo: Gerar
       open_gallery: Abrir a galeria
@@ -2345,34 +2348,34 @@ pt-br:
       upload_logo_text: ! 'Selecione um logotipo para enviar:'
       upload_text: Enviar
       use_date: Use data do evento
-    main: Espaço principal
-    member_of: Membro dos espaços
+    main: Comunidade principal
+    member_of: Membro das comunidades
     moderatorPW: Editar senha de moderador
-    my_spaces: Meus espaços
-    name_none: Um nome deve ser dado para criar um novo espaço
-    one: Espaço
-    other: Espaços
+    my_spaces: Minhas comunidades
+    name_none: Um nome deve ser dado para criar uma nova comunidade
+    one: Comunidade
+    other: Comunidades
     people_in_conference:
       one: ! '%{count} participant in the room.'
       other: ! '%{count} participant in the room.'
     popular:
-      other: Espaços populares
-    possesion: Meus Espaços
-    private: Espaços privados
+      other: Comunidades populares
+    possesion: Minhas Comunidades
+    private: Comunidades privadas
     public:
-      one: Espaço público
-      other: Espaços públicos
+      one: Comunidade pública
+      other: Comunidades públicas
     recent:
-      other: Espaços recentes
+      other: Comunidades recentes
     recording:
-      one: Vídeo do espaço
-      other: Vídeos do espaço
-    search: Procurar no espaço...
-    select: Espaços
-    show_all: Mostrar todos os espaços
-    subscribed_to_none: Você não está inscrito em nenhum espaço
+      one: Vídeo da comunidade
+      other: Vídeos da comunidade
+    search: Procurar na comunidade...
+    select: Comunidades
+    show_all: Mostrar todas as comunidades
+    subscribed_to_none: Você não está inscrito em nenhuma comunidade
     update_logo: Atualizar logo
-    updated: Espaço atualizado com sucesso
+    updated: Comunidade atualizada com sucesso
     upload_none: Você tem que selecionar um logotipo para enviar.
   spam:
     created: Um e-mail de notificação de spam foi enviado com sucesso para o administrador.
@@ -2471,18 +2474,18 @@ pt-br:
     not_available: Token não disponível
   tomorrow: Amanhã
   tooltip:
-    admin: Esta seção mostra as pessoas que têm direitos de administrador neste espaço
+    admin: Esta seção mostra as pessoas que têm direitos de administrador nesta comunidade
     advanced_editor: ! 'Este editor permite que você: veja o código html; modifique
       o estilo e tamanho da fonte, cor de texto e alinhamento do texto; insira/edite
       links; adicione anexos e tags'
-    bigbluebutton_space: Esta é uma sala de webconferência pública para este espaço.
-      Apenas membros deste espaço podem acessar a sala.
+    bigbluebutton_space: Esta é uma sala de webconferência pública para esta comunidade.
+      Apenas membros desta comunidade podem acessar a sala.
     divider: Use um divisor para indicar pausas, como pausas para café ou almoço.
       Você também pode usá-lo para separar sessões com tópicos diferentes.
     doc_search: Use os campos deste lado para filtrar e atualizar a tabela de documentos
       com seus resultados da pesquisa
     document_repository: Um repositório de documentos permite que você organize todos
-      os arquivos que foram enviados para o espaço
+      os arquivos que foram enviados para a comunidade
     embed_help: Pode ser preenchido com código HTML para inserir um vídeo
     ev_type: Coloque o mouse sobre os títulos para saber mais sobre os tipos de eventos
     event: Selecione os documentos do evento que você quer ver
@@ -2511,8 +2514,8 @@ pt-br:
     label_uploaded: Com esta opção você vai descartar o vídeo automático e você será
       capaz de carregar um novo vídeo em FLV.
     latest_news: Esta seção mostra a notícia de que os administradores enviam para
-      todas as pessoas neste espaço
-    leave_space: Este link permitirá que você a abandone este espaço definitivamente
+      todas as pessoas nesta comunidade
+    leave_space: Este link permitirá que você a abandone esta comunidade definitivamente
     mailing_list: Uma lista de e-mails permitirá que você envie mensagens de e-mail
       para o seu grupo em vez de ter de escolher os endereços individualmente
     manual_configuration: Selecione este item se você possui toda sua infraestrutura
@@ -2521,13 +2524,13 @@ pt-br:
       código para embutir streaming e para participação.
     news_item: Você pode publicar uma notícia curta em casa
     num_views: Este número representa as vistas únicas para essa página
-    organisers: Selecione os usuários do espaço que vão organizar este evento
+    organisers: Selecione os usuários da comunidade que vão organizar este evento
     private_profile: Esta informação só é visível para as pessoas que você escolher
       quando você editar seu perfil
     public_profile: Qualquer pessoa pode acessar esta informação
-    public_space: Espaços colaborativos podem ser públicos, para que qualquer pessoa
-      possa ver o que acontece neles, ou privados, onde apenas os membros têm acesso
-      Ã s atividades do espaço
+    public_space: Comunidades colaborativas podem ser públicas, para que qualquer pessoa
+      possa ver o que acontece nelas, ou privadas, onde apenas os membros têm acesso
+      às atividades da comunidade
     recording_automatic: Com este modo a aplicação irá gravar as sessões automaticamente,
       iniciando no momento exato que você indicar
     recording_manual: Com este modo a página web do evento irá oferecer-lhe um botão
@@ -2550,7 +2553,7 @@ pt-br:
       os documentos relacionados.
     timezone: Ao selecionar o seu fuso horário não haverá equívoco ao criar eventos
       com pessoas de outros países
-    upcoming: Esta seção mostra os próximos eventos neste espaço
+    upcoming: Esta seção mostra os próximos eventos nesta comunidade
     update_logo: Você pode enviar o seu próprio logotipo, criar um logotipo de texto
       ou selecionar uma imagem da galeria
     user_filter: Você pode filtrar os usuários por seus nomes ou sobrenomes. Comece
@@ -2602,7 +2605,7 @@ pt-br:
         e-mail separados por " ", "," ou ";" e registre-os
       note: ! 'Por exemplo: "João Silva" <"jsilva@example.com.br">", jct@dit.es, Aaron
         aaron@example.net e clicando em "Registrar como Usuário" irá registrar esses
-        três endereços de e-mail como membros do espaço e enviará um e-mail de validação
+        três endereços de e-mail como membros da comunidade e enviará um e-mail de validação
         para eles.'
     add_more: Adicionar usuários >>
     admin: Admin
@@ -2611,14 +2614,14 @@ pt-br:
     by_email: Por e-mail
     by_private_message: Por mensagem privada
     confirm_password: Confirmar senha
-    delete_from_space: Excluir usuário do espaço
+    delete_from_space: Excluir usuário da comunidade
     disable: Desabilitar usuário
     disabled: Usuário %{username} desabilitado
     edit_account: Editar sua conta
     email: E-mail
     enable: Habilitar usuário
-    enabled: Usuário habilitado com sucesso. O usuário atualmente não pertence a nenhum
-      espaço, e terá que aderir aos espaços novamente.
+    enabled: Usuário habilitado com sucesso. O usuário atualmente não pertence a nenhuma
+      comunidade, e terá que aderir às comunidades novamente.
     error:
       enabled: Usuário %{name} já está habilitado
     feed:
@@ -2638,7 +2641,7 @@ pt-br:
       other: Membros da lista
     invite: Convidar pessoas
     invite_email: Convide pessoas por e-mail
-    invite_from_space_by_email: Convidar pessoas de seu espaço
+    invite_from_space_by_email: Convidar pessoas de sua comunidade
     invited: Usuários já convidados
     last_name: Sobrenome
     list_by: Listar por
@@ -2725,11 +2728,11 @@ pt-br:
     other: Webconferências
     running: ativa
     space:
-      description: ! 'A sala de webconferência associada a este espaço está atualmente:
+      description: ! 'A sala de webconferência associada a esta comunidade está atualmente:
         <b>%{status}</b> <br/> Clique no botão no topo da barra lateral para ingressar
         na webconferência. <br/> Você também pode compartilhar o link abaixo (ou clicar
         em "convidar") para convidar outras pessoas.'
-      join_now: participar agora
+      join_now: participe agora
       see_more: saiba mais
       share: Compartilhar
     title_people_conf: Pessoas na sala

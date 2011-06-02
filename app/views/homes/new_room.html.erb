@@ -3,9 +3,10 @@
 <%= form_for [@server, @room], :url => bigbluebutton_server_rooms_path(@server) do |f| %>
 <div id="new-webconf-room">
   <div class="webconf-rooms">
+    <%= hidden_field_tag :redir_url, home_path %>
     <%= f.hidden_field :owner_id %>
     <%= f.hidden_field :owner_type %>
-    <%= hidden_field_tag :redir_url, home_path %>
+    <%= f.hidden_field :logout_url %>
     <div class="field">
       <%= f.label :name %><%= f.text_field :name, :id => "room_name", :size => 20 %>
     </div>

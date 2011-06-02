@@ -6,6 +6,25 @@
 
 <div id="crop-logo-lightbox-content">
 
+<<<<<<< HEAD
+  <center><%=image_tag "/images/tmp/" + params[:logo][:rand] + "/uploaded_logo.png", :id => "croplogo"%></center>
+  
+<%= form_for :logo, :html => {:method => :post,:id =>"crop_logo_form", :multipart => true, :name => "space_new_form"}, :url => {:controller => :logos, :action => :new, :upload_crop => :yes} do |f|%>
+  <%= fields_for :crop_size do |fc|%>
+    <%= fc.hidden_field :x %>
+    <%= fc.hidden_field :y %>
+    <%= fc.hidden_field :width %>
+    <%= fc.hidden_field :height %>
+	  <%= fc.hidden_field :rand, :value => params[:logo][:rand] %>
+  <%end%>
+  
+  <div class="margin-up">
+    <button type="submit" class="blue_button basic_button"><%=t("button.accept")%></button>    
+  </div>
+  
+<%end%>
+</div> 
+=======
   <%= image_tag "/images/tmp/" + params[:logo][:rand] + "/uploaded_logo.png", :id => "croplogo", :size => image_size %>
 
   <%= form_for :logo, :html => {:method => :post, :id =>"crop_logo_form", :multipart => true, :name => "space_new_form"}, :url => {:controller => :logos, :action => :new, :upload_crop => :yes} do |f|%>
@@ -20,6 +39,7 @@
     <div class="margin-up">
       <button type="submit" class="blue_button basic_button"><%=t("button.accept")%></button>
     </div>
+>>>>>>> dee6bc12cd91326dbcc6f6622a536a80d7c865c7
 
   <% end %>
 

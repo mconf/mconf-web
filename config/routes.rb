@@ -27,6 +27,7 @@ Vcc::Application.routes.draw do
       post :new
     end
   end
+
   resources :screencasts
 
   resources :machines do

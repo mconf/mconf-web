@@ -1155,6 +1155,8 @@ en:
   groups_and_results: Mailing lists, %{size} results
   hcard:
     not_found: hCard not found
+  header_global:
+    welcome: Welcome, %{user}
   hello: Hello
   help: Help
   help_createVC:
@@ -1456,7 +1458,7 @@ en:
   hide: Hide
   his_message_reads_thus: His message reads thus
   home:
-    activity: Recent Activity...
+    activity: Recent activity...
     invite_url: Invite URL
     my: My Home
     no_rooms: You have no webconference rooms.
@@ -1671,6 +1673,8 @@ en:
     joined: You are already a member of the space
     label: Customise your join request message
     message_title: Send a join request to the administrators of the space
+    new:
+      title: ! 'Request to join the space: %{space}'
     not_logged_in: You need to be logged in to send a join request
     not_pending:
       other: There are no pending join requests
@@ -1714,7 +1718,7 @@ en:
       not_valid: Logo is not valid
     one: Logo
     no_image: No image selected
-  logout: Logout %{user}
+  logout: Logout
   mailing_list:
     associate: Associate mailing list to your group
     invalid: The mailing list has invalid characters. Only letters, numbers, underscores
@@ -2248,7 +2252,7 @@ en:
     add_user:
       other: Add users to the space
     add_user_other: ''
-    all: All Spaces
+    all: All spaces
     allow_public_access: Allow public access?
     attendeePW: edit attendee password
     be_fan: Be Fan

@@ -1,20 +1,21 @@
 //style_file_input();
 
-$("div#update_logo form").attr("action","<%= url_form %>");
-$("div#update_logo form input[type=hidden][name=_method][value=put]").remove();
+logo_crop_form = $("#<%= form_id %>");
 
-$("div#update_logo form input[type=image]").click(function(){
-  if($("#logo_media").val() == ""){
+logo_crop_form.attr("action","<%= url_form %>");
+$("#<%= form_id %> input[type=hidden][name=_method][value=put]").remove();
+$("#<%= form_id %> input[type=image]").click(function(){
+  if ($("#logo_media").val() == "") {
     alert("<%= t('select_image')%>");
     return false;
   }
 });
 
-$("#form_update_avatar").ajaxForm(function(data) {
+logo_crop_form.ajaxForm(function(data) {
 
-  $("#for_lightbox").append("<a id=\"logo_crop_submit_anchor\" href=#for_lightbox_content></a>");
-  $("#for_lightbox").append("<div id=for_lightbox_content>" + data + "</div>");
-  $("#for_lightbox_content").width($("#croplogo").attr('width') + 20);
+  $("#<%= container_id %>").append("<a id=\"logo_crop_submit_anchor\" href=\"#<%= container_id %>_content\"></a>");
+  $("#<%= container_id %>").append("<div id=\"<%= container_id %>_content\">" + data + "</div>");
+  $("#<%= container_id %>_content").width($("#croplogo").attr('width') + 20);
 
   $("#logo_crop_submit_anchor").fancybox({
     'hideOnContentClick' : false,
@@ -23,20 +24,27 @@ $("#form_update_avatar").ajaxForm(function(data) {
     'onComplete' : function(){
       //$("#for_lightbox").children().remove();
       var size;
-      if ($("#croplogo").attr("width")<$("#croplogo").attr("height")){
-        size = $("#croplogo").attr("width");
-      }else{
-        size = $("#croplogo").attr("height");
-      }
+      <% if defined? crop_size %>
+        size = <%= crop_size %>;
+      <% else %>
+        if ($("#croplogo").attr("width") < $("#croplogo").attr("height")) {
+          size = $("#croplogo").attr("width");
+        } else {
+          size = $("#croplogo").attr("height");
+        }
+      <% end %>
       $("#croplogo").Jcrop({
         onSelect: cropImage,
         onChange: cropImage,
         bgColor : 'white',
-        aspectRatio: <%=aspect_ratio%>,
+        aspectRatio: <%= aspect_ratio %>,
         setSelect: [size/4,size/4,3*size/4,3*size/4]
       });
     }
-  }).click(); 
+  }).click();
+  <% if defined? on_success %>
+    <%= on_success %>();
+  <% end %>
 });
 
 /*
@@ -48,7 +56,7 @@ $("#logo_submit").click(function(){
 });
 */
 
-function cropImage (c){
+function cropImage(c) {
     $("#crop_size_x").val(c.x);
     $("#crop_size_y").val(c.y);
     $("#crop_size_height").val(c.h);
