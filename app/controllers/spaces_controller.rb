@@ -189,9 +189,6 @@ class SpacesController < ApplicationController
   # PUT /spaces/1.xml
   # PUT /spaces/1.atom
   def update
-    unless params[:space][:bigbluebutton_room_attributes].blank?
-      params[:space][:bigbluebutton_room_attributes][:id] = @space.bigbluebutton_room.id
-    end
     # TODO update bigbluebutton_room.private when room.public is updated
     #unless params[:space][:public].blank?
     #  params[:space][:bigbluebutton_room_attributes] = Hash.new if params[:space][:bigbluebutton_room_attributes].blank?
@@ -199,6 +196,9 @@ class SpacesController < ApplicationController
     #end
 
     if @space.update_attributes(params[:space])
+      unless params[:space][:bigbluebutton_room_attributes].blank?
+        params[:space][:bigbluebutton_room_attributes][:id] = @space.bigbluebutton_room.id
+      end
       respond_to do |format|
         format.html {
           flash[:success] = t('space.updated')

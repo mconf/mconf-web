@@ -19,12 +19,12 @@
 require 'bigbluebutton-api'
 
 class HomesController < ApplicationController
-  
+
   before_filter :authentication_required
 
   def index
   end
-  
+
   def show
     @server = BigbluebuttonServer.first
     @bbb_rooms = BigbluebuttonRoom.where("owner_id = ? AND owner_type = ?", current_user.id, current_user.class.name)
@@ -34,7 +34,7 @@ class HomesController < ApplicationController
       rescue Exception      
       end
     end
-    
+
     unless current_user.spaces.empty?
       @events_of_user = Event.in(current_user.spaces).all(:order => "start_date ASC")
     end
