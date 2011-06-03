@@ -28,9 +28,29 @@
     if ($(this).is(':checked')) {
       $('#moderatorPW').removeAttr('disabled');
       $('#attendeePW').removeAttr('disabled');
-    } else {
+    }
+    else {
       $('#moderatorPW').attr('disabled', true);
       $('#attendeePW').attr('disabled', true);
+    }
+  });
+
+  $("#new-webconf-room #hidePW").livequery('click', function(event) {
+    if ($(this).is(':checked')) {
+      marker = $('<span />').insertBefore('#moderatorPW');
+      $('#moderatorPW').detach().attr('type', 'text').insertAfter(marker);
+      marker.remove();
+      marker = $('<span />').insertBefore('#attendeePW');
+      $('#attendeePW').detach().attr('type', 'text').insertAfter(marker);
+      marker.remove();
+    }
+    else {
+      marker = $('<span />').insertBefore('#moderatorPW');
+      $('#moderatorPW').detach().attr('type', 'password').insertAfter(marker);
+      marker.remove();
+      marker = $('<span />').insertBefore('#attendeePW');
+      $('#attendeePW').detach().attr('type', 'password').insertAfter(marker);
+      marker.remove();
     }
   });
 

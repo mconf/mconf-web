@@ -2223,6 +2223,7 @@ pt-br:
   show: Exibir
   show_advanced_editor: Exibir editor avançado
   show_list_version_arrows: exibir versão em lista >>
+  showPW: Mostrar senha?
   simple_captcha:
     label: Digite o texto da imagem
     message:

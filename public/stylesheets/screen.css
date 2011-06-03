@@ -2094,6 +2094,10 @@ div.webconf-rooms #new_room_private_area input[type=password] {
   width: 240px;
 }
 
+div.webconf-rooms #new_room_private_area input[type=text] {
+  width: 240px;
+}
+
 div.my-webconference-rooms {
   background: #FFFFFF;
 }
@@ -2164,6 +2168,10 @@ div.my-webconference-rooms div.room_list .invite_url .title {
 }
 
 #new_space_webconf_area input[type=password] {
+  width: 240px;
+}
+
+#new_space_webconf_area input[type=text] {
   width: 240px;
 }
 

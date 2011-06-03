@@ -16,12 +16,13 @@
     <div id="new_room_private_area">
       <div class="field">
         <%= f.label :moderator_password %>
-        <%= f.password_field :moderator_password, :id => "moderatorPW", :disabled => true %>
+        <%= f.text_field :moderator_password, :id => "moderatorPW", :disabled => true, :type => 'password' %>
       </div>
       <div class="field">
         <%= f.label :attendee_password %>
-        <%= f.password_field :attendee_password, :id => "attendeePW", :disabled => true %>
+        <%= f.text_field :attendee_password, :id => "attendeePW", :disabled => true, :type => 'password' %>
       </div>
+      <%= label_tag t('showPW') %><%= check_box_tag 'hidePW' %>
     </div>
     <div class="float_right">
       <button type="submit" class="basic_button blue_button"><%=t('button.create')%></button>

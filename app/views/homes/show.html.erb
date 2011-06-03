@@ -21,11 +21,10 @@
     $("#message-body-" + id).show();
   }
 
-
   $("input.home_menu_checkbox").click(function(){
-          var contents;
-                var value = this.value
-                if ($.deparam.querystring().contents == null){
+    var contents;
+    var value = this.value
+    if ($.deparam.querystring().contents == null){
       contents = "<%=Space.contents.map(&:to_s).join(",")%>".split(",");
     }else{
       contents = $.deparam.querystring().contents.split(",");
@@ -33,12 +32,13 @@
 
     if ($(this).attr("checked")){
       contents.push(value);
-                }else{
-                        contents = jQuery.grep(contents, function (a) {
-                          return a != value;
-                        });
-                }
-                window.location=$.param.querystring("<%=home_path%>" + "?" + $.param.querystring(), "contents=" + contents.join(","));
+    }
+    else{
+      contents = jQuery.grep(contents, function (a) {
+        return a != value;
+      });
+    }
+    window.location=$.param.querystring("<%=home_path%>" + "?" + $.param.querystring(), "contents=" + contents.join(","));
   });
 
 

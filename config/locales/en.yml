@@ -2192,6 +2192,7 @@ en:
   show: Show
   show_advanced_editor: Show advanced editor
   show_list_version_arrows: show list version >>
+  showPW: Show password?
   simple_captcha:
     label: Type the text from the image
     message:
