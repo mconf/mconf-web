@@ -105,7 +105,6 @@ describe SpacesController do
     it "should NOT be able to delete anyone's space " do
       delete :destroy, :id => @private_space.to_param, :user_id => @user.id
       assert_response 403
-      
     end
   end
   
@@ -151,6 +150,28 @@ describe SpacesController do
       assert_response 302
       response.should redirect_to(new_session_path)
     end
+  end
+
+  describe "a space#bigbluebutton_room is" do
+    before(:each) do
+      login_as(@superuser)
+    end
+
+    it "created when the space is created" do
+      expect {
+        post :create, :space => Factory.attributes_for(:public_space)
+      }.to change{ BigbluebuttonRoom.count }.by(1)
+      space = Space.last
+      room = space.bigbluebutton_room
+
+      room.should_not be_nil
+      room.name.should == space.name
+      room.owner_id.should == space.id
+      room.owner_type.should == space.class.name
+    end
+
+    # ps: the room is destroyed when the space (the model) is destroyed
+    
   end
 
 =begin

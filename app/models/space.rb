@@ -48,8 +48,6 @@ class Space < ActiveRecord::Base
   attr_accessor :text_logo
   attr_accessor :rand_value
   attr_accessor :logo_rand
-  #attr_accessor :moderator_password
-  #attr_accessor :attendee_password
   
   accepts_nested_attributes_for :bigbluebutton_room
 
@@ -64,7 +62,6 @@ class Space < ActiveRecord::Base
   #           :conditions => "disabled = 0"
 
   validates_presence_of :name, :description
-  #validates_presence_of :moderator_password, :attendee_password, :unless => :public
   validates_uniqueness_of :name
 
   #after_create { |space|
@@ -75,11 +72,7 @@ class Space < ActiveRecord::Base
   #}
 
 
-#  before_create {
-#  }
-
   after_save do |space|
-
     if space.invitation_mails
       mails_to_invite = space.invitation_mails.split(/[\r,]/).map(&:strip)
       mails_to_invite.map { |email|
@@ -131,10 +124,10 @@ class Space < ActiveRecord::Base
     final_path = FileUtils.mkdir_p(File.join(images_path, "tmp/#{@rand_value}"))
     img_orig.write(File.join(images_path, "tmp/#{@rand_value}/temp.jpg"))
     original = File.open(File.join(images_path, "tmp/#{@rand_value}/temp.jpg"))
-    # TODO check, was using UploadedTempfile
-    original_tmp = Tempfile.new("default_logo", "#{ Rails.root.to_s}/tmp/")
-    original_tmp.write(original.read)
+
+    original_tmp = Tempfile.new("default_logo", "#{Rails.root.to_s}/tmp/")
     original_tmp_io = open(original_tmp)
+    original_tmp_io.write(original.read)
     filename = File.join(images_path, @default_logo)
     (class << original_tmp_io; self; end;).class_eval do
       define_method(:original_filename) { filename.split('/').last }
@@ -142,8 +135,7 @@ class Space < ActiveRecord::Base
       define_method(:size) { File.size(filename) }
     end
 
-    logo = {}
-    logo[:media] = original_tmp_io
+    logo = { :media => original_tmp_io }
     logo = self.build_logo(logo)
 
     images_path = File.join(Rails.root.to_s, "public", "images")
@@ -152,7 +144,6 @@ class Space < ActiveRecord::Base
     if @rand_value != nil
       final_path = FileUtils.rm_rf(tmp_path + "/#{@rand_value}")
     end
-
 
   end
 

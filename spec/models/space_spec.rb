@@ -3,37 +3,18 @@ require "spec_helper"
 describe Space do
   extend ActiveRecord::AuthorizationTestHelper
 
-  before(:each) do
-    @valid_attributes = {:name => 'title', :description => 'text',:default_logo => "models/front/space.png" }
-  end
-
-  it "should create a new instance given valid attributes" do
-    Space.create(@valid_attributes).should be_valid
+  it "creates a new instance given valid attributes" do
+    Factory.build(:space).should be_valid
   end
   
-  it "should not create a new instance given no name" do
-    Space.create(:name => 'title').should_not be_valid
-  end
-  
-  it "should not create a new instance given no description" do
-    Space.create(:description => 'text').should_not be_valid
-  end
-  
-  it "should not create two instances with the same name" do
-    expect {
-      Space.create(@valid_attributes)
-      Space.create(@valid_attributes)
-    }.to change{ Space.count }.by(1)
-    assert_raise ActiveRecord::RecordInvalid do
-      Space.create!(@valid_attributes).should be_false
-    end
-  end
-
+  it { should validate_presence_of(:name) }
+  it { should validate_presence_of(:description) }
+  it { should validate_uniqueness_of(:name) }
+ 
   describe ", regarding invitations," do
 
     before(:each) do
-  
-      @space = Factory(:space)
+      @space = Factory(:private_space)
       @admin = Factory(:admin_performance, :stage => @space).agent
       @unregistered_user_email_1 = "unregistered_1@example.com"
       @unregistered_user_email_2 = "unregistered_2@example.com"
@@ -41,15 +22,15 @@ describe Space do
       @registered_user_2 = Factory(:user_performance).agent
       @msg = "This is the message of the invitation."
       @inv_role_id = Space.role("User").id
-      
     end
 
     it "should create Invitations to itself if it has mail addresses for that after saving" +
       " and those Invitations should have the proper content in their fields" do
 
       expect {
-        @space.update_attributes(:invitation_mails => @unregistered_user_email_1 + " , " + @unregistered_user_email_2, :invitations_role_id => @inv_role_id,
-          :invite_msg => @msg, :inviter_id => @admin.id)
+        @space.update_attributes(:invitation_mails => @unregistered_user_email_1 + " , " + @unregistered_user_email_2,
+                                 :invitations_role_id => @inv_role_id,
+                                 :invite_msg => @msg, :inviter_id => @admin.id)
       }.to change{ Admission.count }.by(2)
 
       invitation_1 = Admission.find_by_email(@unregistered_user_email_1)
@@ -71,6 +52,7 @@ describe Space do
       invitation_2.destroy
       invitation_1.destroy
     end
+
 
     it "should create Invitations to itself if it has user ids for that after saving" +
       " and those Invitations should have the proper content in their fields" do
@@ -123,29 +105,9 @@ describe Space do
     it_should_not_authorize(Anonymous.current, :update, :space)
   end
 
-  context "has an associated bigbluebutton room" do
-
-    it { should have_one(:bigbluebutton_room) }
-
-    it "created when the space is created" do
-      expect {
-        space = Factory.create(:space)
-        room = BigbluebuttonRoom.last
-        room.name.should == space.name
-        room.owner_id.should == space.id
-        room.owner_type.should == space.class.name
-      }.to change{ BigbluebuttonRoom.count }.by(1)
-    end
-    
-    it "destroyed when the space is destroyed" do
-      space = Factory.create(:space)
-      expect {
-        space.destroy
-      }.to change{ BigbluebuttonRoom.count }.by(-1)
-      room = BigbluebuttonRoom.find_by_name(space.name)
-      room.should be_nil
-    end
-
+  describe "#bigbluebutton room" do
+    it { should have_one(:bigbluebutton_room).dependent(:destroy) }
+    it { should accept_nested_attributes_for(:bigbluebutton_room) }
   end
 
 end

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Copyright 2008-2010 Universidad Politécnica de Madrid and Agora Systems S.A.
 #
 # This file is part of VCC (Virtual Conference Center).
@@ -53,8 +54,14 @@ class Logo
   validate :aspect_ratio
 
   def aspect_ratio
-    img = Magick::Image.read(temp_path).first
-    errors.add(:base, "Aspect ratio invalid. Enable javascript to crop the image easily." ) unless (img.columns.to_f/img.rows.to_f*10).round ==  (ASPECT_RATIO_F*10).round
+    unless temp_path.blank?
+      img = Magick::Image.read(temp_path).first
+      unless (img.columns.to_f/img.rows.to_f*10).round == (ASPECT_RATIO_F*10).round
+        errors.add(:base, "Aspect ratio invalid. Enable javascript to crop the image easily." ) 
+      end
+    else
+      errors.add(:base, "Temp path is blank." ) 
+    end
   end
   
 end

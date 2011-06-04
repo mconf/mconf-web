@@ -3,6 +3,8 @@ Factory.define :space do |s|
   s.description "Space description"
   s.mailing_list_for_group "list@vcc-test.dit.upm.es"
   s.default_logo "/models/front/space.png"
+  s.public true
+  s.association :bigbluebutton_room
 end
 
 Factory.define :public_space, :parent => :space do |s|
@@ -37,9 +39,9 @@ def populated_space(s)
 end
 
 def populated_public_space
-  populated_space Factory(:public_space)
+  populated_space(Factory(:public_space))
 end
 
 def populated_private_space
-  populated_space = Factory(:private_space)
+  populated_space(Factory(:private_space))
 end
