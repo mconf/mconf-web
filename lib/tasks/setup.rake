@@ -17,11 +17,11 @@ namespace :setup do
   ###############################################################
 
   BASIC_TASKS = %w( setup:git_submodules setup:config )
-  COMMON_TASKS = %w( db:drop db:create db:migrate ) # :config_mailing_list_dir
+  COMMON_TASKS = %w( db:drop db:create db:migrate db:seed ) # :config_mailing_list_dir
   TASKS = {
-    :development => COMMON_TASKS + %w( setup:basic_data:all setup:populate ),
-    :production => COMMON_TASKS + %w( setup:basic_data:all ), # :config_cron, :config_logrotate, :config_awstats, :config_sphinx
-    :test => COMMON_TASKS + %w( db:test:prepare setup:basic_data:all )
+    :development => COMMON_TASKS + %w( setup:populate ),
+    :production => COMMON_TASKS, # :config_cron, :config_logrotate, :config_awstats, :config_sphinx
+    :test => %w( db:test:prepare db:seed )
   }
 
   desc "Full setup, from basic configurations to default DB data creation"
@@ -43,6 +43,9 @@ namespace :setup do
   end
 
   def run_tasks(tasks)
+    puts
+    puts "Running setup for the environment: " + ::Rails.env
+    puts
     tasks.each do |t|
       puts "* Running the task: #{t.to_s}"
       Rake::Task[t.to_s].invoke

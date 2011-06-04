@@ -10,6 +10,6 @@ require 'rake'
 desc 'Default: run tests.'
 task :default => :spec
 
-RSpec::Core::RakeTask.new(:spec)
+RSpec::Core::RakeTask.new(:spec => ["db:test:prepare", "db:seed"])
 
 Vcc::Application.load_tasks

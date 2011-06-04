@@ -2,6 +2,7 @@ source 'http://rubygems.org'
 
 gem 'rails', '3.0.3'
 
+gem "rake", "0.8.7"
 gem "will_paginate", "~> 3.0.pre2"
 gem 'exception_notification_rails3'
 gem 'teambox-permalink_fu', :git => 'git://github.com/mconf/permalink_fu.git'
