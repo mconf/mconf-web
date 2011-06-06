@@ -192,22 +192,21 @@ function cropImage (c){
     }
   });
 
-  $("#create_space #hidePW").livequery('click', function(event) {
+  $("#create_space #hideMPW").livequery('click', function(event) {
     if ($(this).is(':checked')) {
-      marker = $('<span />').insertBefore('#moderatorPW');
-      $('#moderatorPW').detach().attr('type', 'text').insertAfter(marker);
-      marker.remove();
-      marker = $('<span />').insertBefore('#attendeePW');
-      $('#attendeePW').detach().attr('type', 'text').insertAfter(marker);
-      marker.remove();
+      changeInputTextType("#moderatorPW", 'text');
     }
     else {
-      marker = $('<span />').insertBefore('#moderatorPW');
-      $('#moderatorPW').detach().attr('type', 'password').insertAfter(marker);
-      marker.remove();
-      marker = $('<span />').insertBefore('#attendeePW');
-      $('#attendeePW').detach().attr('type', 'password').insertAfter(marker);
-      marker.remove();
+      changeInputTextType("#moderatorPW", 'password');
+    }
+  });
+
+  $("#create_space #hideAPW").livequery('click', function(event) {
+    if ($(this).is(':checked')) {
+      changeInputTextType("#attendeePW", 'text');
+    }
+    else {
+      changeInputTextType("#attendeePW", 'password');
     }
   });
 
@@ -265,12 +264,13 @@ function cropImage (c){
         <div class="field">
           <%= r.label :moderator_password, t('activerecord.attributes.spaces.moderator_password') %>
           <%= r.password_field :moderator_password, :id => "moderatorPW" %>
+          <%= check_box_tag 'hideMPW' %><%= t('show?') %>
         </div>
         <div class="field">
           <%= r.label :attendee_password, t('activerecord.attributes.spaces.attendee_password') %>
           <%= r.password_field :attendee_password, :id => "attendeePW" %>
+          <%= check_box_tag 'hideAPW' %><%= t('show?') %>
         </div>
-        <%= label_tag t('showPW') %><%= check_box_tag 'hidePW' %>
         <% end %>
       </div>
 

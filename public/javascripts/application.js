@@ -3,6 +3,12 @@
 })
 */
 
+function changeInputTextType (id, type) {
+  marker = $('<span />').insertBefore(id);
+  $(id).detach().attr('type', type).insertAfter(marker);
+  marker.remove();
+}
+
 jQuery.fn.submitWithAjax = function() {
   this.submit(function() {
     $.post(this.action, $(this).serialize(), null, "script");

@@ -2221,9 +2221,9 @@ pt-br:
   should_check_email_to_activate_account: Você deve verificar o seu e-mail para ativar
     sua conta.
   show: Exibir
+  show?: Exibir?
   show_advanced_editor: Exibir editor avançado
   show_list_version_arrows: exibir versão em lista >>
-  showPW: Mostrar senha?
   simple_captcha:
     label: Digite o texto da imagem
     message:

@@ -195,10 +195,10 @@ class SpacesController < ApplicationController
     #  params[:space][:bigbluebutton_room_attributes][:private] = params[:space][:public] == "true" ? "false" : "true"
     #end
 
+    unless params[:space][:bigbluebutton_room_attributes].blank?
+      params[:space][:bigbluebutton_room_attributes][:id] = @space.bigbluebutton_room.id
+    end
     if @space.update_attributes(params[:space])
-      unless params[:space][:bigbluebutton_room_attributes].blank?
-        params[:space][:bigbluebutton_room_attributes][:id] = @space.bigbluebutton_room.id
-      end
       respond_to do |format|
         format.html {
           flash[:success] = t('space.updated')
@@ -208,10 +208,12 @@ class SpacesController < ApplicationController
         format.js{
           if params[:space][:name] or params[:space][:description]
             @result = params[:space][:name] ? nil : params[:space][:description]
+            flash[:success] = t('space.updated')
             render "result.js"
           elsif !params[:space][:bigbluebutton_room_attributes].blank?
             if params[:space][:bigbluebutton_room_attributes][:moderator_password] or params[:space][:bigbluebutton_room_attributes][:attendee_password]
               @result = params[:space][:bigbluebutton_room_attributes][:moderator_password] ? params[:space][:bigbluebutton_room_attributes][:moderator_password] : params[:space][:bigbluebutton_room_attributes][:attendee_password]
+              flash[:success] = t('space.updated')
               render "result.js"
             end
           else

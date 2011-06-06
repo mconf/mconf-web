@@ -2190,9 +2190,9 @@ en:
   should_check_email_to_activate_account: You should check your email to activate
     your account.
   show: Show
+  show?: Show?
   show_advanced_editor: Show advanced editor
   show_list_version_arrows: show list version >>
-  showPW: Show password?
   simple_captcha:
     label: Type the text from the image
     message:

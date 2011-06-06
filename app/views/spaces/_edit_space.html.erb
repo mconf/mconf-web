@@ -179,34 +179,34 @@
 <h3 class="center"><%=t('space.configuration')%></h3>
 
 <div id="nonjavascript_form">
-        <%= form_for @space, :html => { :multipart => true} do |f| %>           
-                <p>
-                  <label for="name"><%=t('name.one')%>:</label>
-                  <%= f.text_field :name %>
-                </p>            
-                <p>
-                  <label for="description"><%=t('description')%>:</label><br/>
-                  <%= f.text_area :description%>
-                </p>    
-                <p>
-                  <label for="public"><%=t('space.allow_public_access')%>:</label> 
-                  <%= check_box("space", "public")%>
-                </p>      
-                <p>
-                  <label for="repository"><%=t('event.repository.enabled')%>:</label> 
-                  <%= check_box("space", "repository")%>
-                </p>    
-          <div class="margin-up">
-            <button type="submit" class="basic_button blue_button"><%=t("button.update")%></button>
-          </div>        
-        <% end %>
-        <h3><%=t('space.logo')%></h3>
-        <%= form_for :logo, :url => space_logo_path(@space.id),:html => { :multipart => true } do |f| %>          
-      <div><%= f.file_field :media %></div>
-      <div class="margin-up">
-        <button type="submit" class="basic_button blue_button"><%=t("button.update")%></button>
-          </div>
-    <%end%>
+  <%= form_for @space, :html => { :multipart => true} do |f| %>           
+  <p>
+    <label for="name"><%=t('name.one')%>:</label>
+    <%= f.text_field :name %>
+  </p>            
+  <p>
+    <label for="description"><%=t('description')%>:</label><br/>
+    <%= f.text_area :description%>
+  </p>    
+  <p>
+    <label for="public"><%=t('space.allow_public_access')%>:</label> 
+    <%= check_box("space", "public")%>
+  </p>      
+  <p>
+    <label for="repository"><%=t('event.repository.enabled')%>:</label> 
+    <%= check_box("space", "repository")%>
+  </p>    
+  <div class="margin-up">
+    <button type="submit" class="basic_button blue_button"><%=t("button.update")%></button>
+  </div>        
+  <% end %>
+  <h3><%=t('space.logo')%></h3>
+  <%= form_for :logo, :url => space_logo_path(@space.id),:html => { :multipart => true } do |f| %>          
+  <div><%= f.file_field :media %></div>
+  <div class="margin-up">
+    <button type="submit" class="basic_button blue_button"><%=t("button.update")%></button>
+  </div>
+  <%end%>
 </div>
 
 <div id="jedit_form" style="display:none">
@@ -214,13 +214,15 @@
     <li>
       <div>
         <label for="name" class="bold"><%=t('name.one')%>:</label>
-        <span id="space_name"><%=@space.name%></span> <%= link_to_function image_tag("icons/pencil.png", :alt => t('edit'),:title=>t('space.edit_name'), :class=>"icon" ), "edit_name()", :id => "edit_name_icon"%>
+        <span id="space_name"><%=@space.name%></span>
+        <%= link_to_function image_tag("icons/pencil.png", :alt => t('edit'),:title=>t('space.edit_name'), :class=>"icon" ), "edit_name()", :id => "edit_name_icon"%>
       </div>
     </li>
     <li>
       <div>
         <label for="description" class="bold"><%=t('description')%>:</label><br/>
-        <span id="space_description"><%=@space.description%></span> <%= link_to_function image_tag("icons/pencil.png", :alt => t('edit'), :title=>t('space.edit_description'),:class=>"icon" ), "edit_description()", :id => "edit_description_icon"%>
+        <span id="space_description"><%=@space.description%></span>
+        <%= link_to_function image_tag("icons/pencil.png", :alt => t('edit'), :title=>t('space.edit_description'),:class=>"icon" ), "edit_description()", :id => "edit_description_icon"%>
       </div>
     </li>
     <li>
@@ -232,10 +234,12 @@
       <!-- Criar aqui senhas -->
       <div id="private_check" class="<%= "hide_fields" if @space.public? %>">
         <label for="moderatorPW" class="bold"><%=t('moderatorPW')%>:</label><br/>
-        <span id="space_moderatorPW"><%=@space.bigbluebutton_room.moderator_password%></span> <%= link_to_function image_tag("icons/pencil.png", :alt => t('edit'),:title=>t('space.moderatorPW'), :class=>"icon" ), "edit_moderatorPW()", :id => "edit_moderatorPW_icon"%>
+        <span id="space_moderatorPW"><%= @space.bigbluebutton_room.moderator_password %></span>
+        <%= link_to_function image_tag("icons/pencil.png", :alt => t('edit'),:title=>t('space.moderatorPW'), :class=>"icon" ), "edit_moderatorPW()", :id => "edit_moderatorPW_icon"%>
         <br/>
         <label for="attendeePW" class="bold"><%=t('attendeePW')%>:</label><br/>
-        <span id="space_attendeePW"><%=@space.bigbluebutton_room.attendee_password%></span> <%= link_to_function image_tag("icons/pencil.png", :alt => t('edit'),:title=>t('space.attendeePW'), :class=>"icon" ), "edit_attendeePW()", :id => "edit_attendeePW_icon"%>
+        <span id="space_attendeePW"><%= @space.bigbluebutton_room.attendee_password %></span>
+        <%= link_to_function image_tag("icons/pencil.png", :alt => t('edit'),:title=>t('space.attendeePW'), :class=>"icon" ), "edit_attendeePW()", :id => "edit_attendeePW_icon"%>
       </div>
       
     </li>
@@ -246,26 +250,23 @@
       </div>
     </li>
         
-    <li> 
-                        <div id="logo_preview">
-                                <label for="public" class="bold"><%=t('space.clic_logo')%>:</label> 
-                                <%= link_to_function logo(@space, :size => 'h128').html_safe, "edit_logo_fun()", :id => "edit_logo"%>
-                        </div>
+    <li>
+      <div id="logo_preview">
+        <label for="public" class="bold"><%=t('space.clic_logo')%>:</label> 
+        <%= link_to_function logo(@space, :size => 'h128').html_safe, "edit_logo_fun()", :id => "edit_logo"%>
+      </div>
  
- 
-            <div id="update_logo" style="display:none">
-                <%= form_for @space,  :html => {:method => :put,:id =>"edit_logo_form", :multipart => true, :name => "space_edit_form"} do |f| %>
-                                <label for="public" class="bold">
-                    <%=t('space.logo_selected.default_message') %>
-                </label>
-                                <%= hidden_field "space","image",:value => "", :name => "space[default_logo]" %>
-                                <%= hidden_field "space","rand_value",:value => "", :name => "space[rand_value]" %>
-                <%=image_tag logo_image_path(@space, :size => 'h128').to_s, {:id=> "selected_logo_image",:class => "default_space_logo",:title => "Click to choose a default image",:size => "160x122"} %>
-                        <input type="button" id="edit_space_button" value="<%=t("space.update_logo") %>" class="basic_button blue_button"/>
-                                <% end %>
-            </div>
-
-
+      <div id="update_logo" style="display:none">
+        <%= form_for @space,  :html => {:method => :put,:id =>"edit_logo_form", :multipart => true, :name => "space_edit_form"} do |f| %>
+        <label for="public" class="bold">
+          <%=t('space.logo_selected.default_message') %>
+        </label>
+        <%= hidden_field "space","image",:value => "", :name => "space[default_logo]" %>
+        <%= hidden_field "space","rand_value",:value => "", :name => "space[rand_value]" %>
+        <%=image_tag logo_image_path(@space, :size => 'h128').to_s, {:id=> "selected_logo_image",:class => "default_space_logo",:title => "Click to choose a default image",:size => "160x122"} %>
+        <input type="button" id="edit_space_button" value="<%=t("space.update_logo") %>" class="basic_button blue_button"/>
+        <% end %>
+      </div>
     </li>
 
     <li><%= link_to t('space.delete'), space_path(@space), :confirm => t('are_you_sure'), :method => :delete,:title => t('space.delete'), :class=>"bold" %></li>
