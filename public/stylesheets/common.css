@@ -249,6 +249,8 @@ input[type=submit].medium_button, button.medium_button, a.medium_button {
 
 /* GENERAL STYLES */
 
+.hide { display: none; }
+
 .float_right { float: right; }
 
 .float_left { float: left; }

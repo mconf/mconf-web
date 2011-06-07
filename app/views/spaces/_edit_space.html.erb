@@ -39,15 +39,10 @@
     onblur    : 'ignore',
     submit    : '<%= t('ok')%>',
     tooltip   : '<%= t('space.clic')%>',
-    width : 185
-  });
-
-  $('#space_name form input').livequery("blur",function(){
-    $('#edit_name_icon').hide();
-  });
-   
-  $('#space_name').livequery("click",function(){
-    $('#edit_name_icon').hide();
+    width : 185,
+    onreset : function() {
+      $('#edit_name_icon').show();
+    }
   });
   
   edit_description = function(){
@@ -68,18 +63,14 @@
     submitdata : {authenticity_token: "<%=form_authenticity_token()%>"},
     callback : function(value, settings) {
       $('#edit_description_icon').show();
+    },
+    onreset : function() {
+      $('#edit_description_icon').show();
     }
-  });
-         
-  $('#space_description form textarea').livequery("blur",function(){
-    $('#edit_description_icon').show();
-  });
-         
-  $('#space_description').livequery("click",function(){
-    $('#edit_description_icon').hide();
   });
   
   edit_moderatorPW = function(){
+    $('#space_moderatorPW').show();
     $('#space_moderatorPW').click();
     $('#edit_moderatorPW_icon').hide();
   };
@@ -90,23 +81,21 @@
     submit    : '<%= t('ok')%>',
     tooltip   : '<%= t('space.clic')%>',
     name : 'space[bigbluebutton_room_attributes][moderator_password]',
-    onblur : 'ignore',
+    onblur: 'ignore',
     width : 185,
     submitdata : {authenticity_token: "<%=form_authenticity_token()%>"},
     callback : function(value, settings) {
+      $('#space_moderatorPW').hide();
+      $('#edit_moderatorPW_icon').show();
+    },
+    onreset : function() {
+      $('#space_moderatorPW').hide();
       $('#edit_moderatorPW_icon').show();
     }
   });
-
-  $('#space_moderatorPW form input').livequery("blur",function(){
-    $('#edit_moderatorPW_icon').show();
-  });
-   
-  $('#space_moderatorPW').livequery("click",function(){
-    $('#edit_moderatorPW_icon').hide();
-  });
   
   edit_attendeePW = function(){
+    $('#space_attendeePW').show();
     $('#space_attendeePW').click();
     $('#edit_attendeePW_icon').hide();
   };
@@ -121,16 +110,13 @@
     width : 185,
     submitdata : {authenticity_token: "<%=form_authenticity_token()%>"},
     callback : function(value, settings) {
+      $('#space_attendeePW').hide();
+      $('#edit_attendeePW_icon').show();
+    },
+    onreset : function() {
+      $('#space_attendeePW').hide();
       $('#edit_attendeePW_icon').show();
     }
-  });
-
-  $('#space_attendeePW form input').livequery("blur",function(){
-    $('#edit_attendeePW_icon').show();
-  });
-   
-  $('#space_attendeePW').livequery("click",function(){
-    $('#edit_attendeePW_icon').hide();
   });
          
   $("#public_checkbox").click(function () { 
@@ -233,13 +219,13 @@
       
       <!-- Criar aqui senhas -->
       <div id="private_check" class="<%= "hide_fields" if @space.public? %>">
-        <label for="moderatorPW" class="bold"><%=t('moderatorPW')%>:</label><br/>
-        <span id="space_moderatorPW"><%= @space.bigbluebutton_room.moderator_password %></span>
+        <label for="moderatorPW" class="bold"><%=t('moderatorPW')%></label>
         <%= link_to_function image_tag("icons/pencil.png", :alt => t('edit'),:title=>t('space.moderatorPW'), :class=>"icon" ), "edit_moderatorPW()", :id => "edit_moderatorPW_icon"%>
+        <span id="space_moderatorPW" class="hide"><%= @space.bigbluebutton_room.moderator_password %></span>
         <br/>
-        <label for="attendeePW" class="bold"><%=t('attendeePW')%>:</label><br/>
-        <span id="space_attendeePW"><%= @space.bigbluebutton_room.attendee_password %></span>
+        <label for="attendeePW" class="bold"><%=t('attendeePW')%></label>
         <%= link_to_function image_tag("icons/pencil.png", :alt => t('edit'),:title=>t('space.attendeePW'), :class=>"icon" ), "edit_attendeePW()", :id => "edit_attendeePW_icon"%>
+        <span id="space_attendeePW" class="hide"><%= @space.bigbluebutton_room.attendee_password %></span>
       </div>
       
     </li>
