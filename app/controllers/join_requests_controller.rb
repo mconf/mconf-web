@@ -22,6 +22,8 @@ class JoinRequestsController
   before_filter :space!
 
   def new
+    @member = false
+    
     respond_to do |format|
       format.html{
         if request.xhr?

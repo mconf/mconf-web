@@ -59,6 +59,7 @@ class SpacesController < ApplicationController
   # GET /spaces/1.xml
   # GET /spaces/1.atom
   def show
+    @member = true
     @bbb_room = BigbluebuttonRoom.where("owner_id = ? AND owner_type = ?", @space.id, @space.class.name).first
     begin
       @bbb_room.fetch_meeting_info
