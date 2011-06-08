@@ -59,11 +59,10 @@ class SpacesController < ApplicationController
   # GET /spaces/1.xml
   # GET /spaces/1.atom
   def show
-    @member = true
     @bbb_room = BigbluebuttonRoom.where("owner_id = ? AND owner_type = ?", @space.id, @space.class.name).first
     begin
       @bbb_room.fetch_meeting_info
-    rescue Exception      
+    rescue Exception
     end
 
     @news_position = (params[:news_position] ? params[:news_position].to_i : 0)
@@ -144,7 +143,7 @@ class SpacesController < ApplicationController
     @space = Space.new(params[:space])
 
 =begin
-    create_group 
+    create_group
     unless @group.valid?
       message = ""
       @group.errors.full_messages.each {|msg| message += msg + "  <br/>"}
@@ -153,12 +152,12 @@ class SpacesController < ApplicationController
       return
 
     end
-    
+
 
     @group.space = @space
 =end
     respond_to do |format|
-      
+
       if @space.save# && @group.save
         flash[:success] = t('space.created')
         @space.stage_performances.create(:agent => current_user, :role => Space.role('Admin'))
@@ -199,7 +198,7 @@ class SpacesController < ApplicationController
     unless params[:space][:bigbluebutton_room_attributes].blank?
       params[:space][:bigbluebutton_room_attributes][:id] = @space.bigbluebutton_room.id
     end
-    
+
     if @space.update_attributes(params[:space])
       respond_to do |format|
         format.html {

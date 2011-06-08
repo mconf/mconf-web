@@ -1,15 +1,17 @@
 <%space = @space%>
-<% if space && space.id!=nil && @member %>
-<div id="menu">
-  <ul>
-    <li><%= link_to t('home.one').upcase, space_path(space), menu_options(:home) %></li>
-    <li><%= link_to t('webconference.one').upcase, space_webconference_path(space), menu_options(:webconference) %></li>
-    <li><%= link_to t('post.wall').upcase, space_posts_path(space), menu_options(:posts) %></li>
-    <li><%= link_to t('event.other').upcase, space_events_path(space), menu_options(:events) %></li>
-    <li><%= link_to t('people').upcase, space_users_path(space), menu_options(:people) if space.authorize?([:read, :performance], :to => current_user) %></li>
-    <!-- <li><%= link_to t('video.other').upcase, space_videos_path(space), menu_options(:videos) %> </li> -->
-    <li><%= link_to t('repository.one').upcase, space_attachments_path(space), menu_options(:repository) if space.repository?%></li>
-    <li><%= link_to t('admin.one').upcase, edit_space_path(space), menu_options(:admin, :class => "admin") if space.role_for?(current_user, :name => 'Admin') || current_user.superuser? %></li>
-  </ul>
-</div>
+<% if space && space.id!=nil %>
+  <% if space.public? || (current_user && space.actors.include?(current_user)) %>
+    <div id="menu">
+      <ul>
+        <li><%= link_to t('home.one').upcase, space_path(space), menu_options(:home) %></li>
+        <li><%= link_to t('webconference.one').upcase, space_webconference_path(space), menu_options(:webconference) %></li>
+        <li><%= link_to t('post.wall').upcase, space_posts_path(space), menu_options(:posts) %></li>
+        <li><%= link_to t('event.other').upcase, space_events_path(space), menu_options(:events) %></li>
+        <li><%= link_to t('people').upcase, space_users_path(space), menu_options(:people) if space.authorize?([:read, :performance], :to => current_user) %></li>
+        <!-- <li><%= link_to t('video.other').upcase, space_videos_path(space), menu_options(:videos) %> </li> -->
+        <li><%= link_to t('repository.one').upcase, space_attachments_path(space), menu_options(:repository) if space.repository?%></li>
+        <li><%= link_to t('admin.one').upcase, edit_space_path(space), menu_options(:admin, :class => "admin") if space.role_for?(current_user, :name => 'Admin') || current_user.superuser? %></li>
+      </ul>
+    </div>
+  <% end %>
 <% end %>
