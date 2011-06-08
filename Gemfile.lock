@@ -12,7 +12,7 @@ GIT
 
 GIT
   remote: git://github.com/mconf/bigbluebutton_rails.git
-  revision: a4546db1976b8a135f05ba8361c94030b0fad575
+  revision: 7757ada8a44f822e1b9fefb0bce438323b5d7e38
   specs:
     bigbluebutton_rails (0.0.4)
       bigbluebutton-api-ruby (~> 0.0.10)
@@ -150,7 +150,7 @@ GEM
       activesupport (= 3.0.3)
       rake (>= 0.8.7)
       thor (~> 0.14.4)
-    rake (0.9.1)
+    rake (0.9.2)
     rcov (0.9.9)
     rmagick (2.13.1)
     rspec (2.6.0)
