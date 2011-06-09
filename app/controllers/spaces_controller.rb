@@ -16,8 +16,6 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with VCC.  If not, see <http://www.gnu.org/licenses/>.
 
-require 'bigbluebutton-api'
-
 class SpacesController < ApplicationController
   include ActionController::StationResources
 
@@ -134,33 +132,23 @@ class SpacesController < ApplicationController
 
     params[:space][:repository] = 1;
 
-    params[:space][:bigbluebutton_room_attributes] ||= Hash.new
+    params[:space][:bigbluebutton_room_attributes] ||= {}
     params[:space][:bigbluebutton_room_attributes][:name] = params[:space][:name]
     params[:space][:bigbluebutton_room_attributes][:private] = params[:space][:public] == "1" ? "0" : "1"
-    params[:space][:bigbluebutton_room_attributes][:server] = BigbluebuttonServer.first
-    params[:space][:bigbluebutton_room_attributes][:logout_url] = home_url # should be space/show
+    params[:space][:bigbluebutton_room_attributes][:server] = BigbluebuttonServer.first # TODO temporary
 
     @space = Space.new(params[:space])
 
-=begin
-    create_group
-    unless @group.valid?
-      message = ""
-      @group.errors.full_messages.each {|msg| message += msg + "  <br/>"}
-      flash[:error] = message
-      render :action => :new, :layout => "application"
-      return
-
-    end
-
-
-    @group.space = @space
-=end
     respond_to do |format|
 
-      if @space.save# && @group.save
+      if @space.save
         flash[:success] = t('space.created')
         @space.stage_performances.create(:agent => current_user, :role => Space.role('Admin'))
+
+        # to set the correct logout_url in the webconference room
+        update_url = { :logout_url => space_url(@space) }
+        @space.bigbluebutton_room.update_attributes(update_url)
+
         format.html { redirect_to :action => "show", :id => @space  }
         format.xml  { render :xml => @space, :status => :created, :location => @space }
         format.atom {
