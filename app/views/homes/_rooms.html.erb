@@ -3,9 +3,27 @@
   $("a#newroom_bbb_link").fancybox({
     'hideOnContentClick' : false,
     'frameWidth' : 450,
-    'frameHeight' : 430
+    'frameHeight' : 430,
+    'onComplete' : function(){
+      $('#new_bigbluebutton_room').ajaxForm({
+        dataType: 'json',
+        success: function(data, status) {
+          $('#success').show().text(data.message);
+          $("#webconference-rooms").load('/home?update_rooms=true');
+          $.fancybox.close();
+        },
+        error: function(data, status) {
+          var json = jQuery.parseJSON(data.responseText);
+          var errorMessage = "";
+          for(att in json){
+            errorMessage += json[att] + "<br/>";
+          }
+          $('#error').show().html(errorMessage);
+        }
+      });
+    }
   });
-
+  
   $("a#mobile_join").fancybox({
     'hideOnContentClick' : false,
     'frameWidth' : 250,
@@ -54,6 +72,10 @@
   });
 
 <% end %>
+
+
+<div id="success" class="hide">
+</div>
 
 <div id="webconference-rooms">
   <div class="my-webconference-rooms">

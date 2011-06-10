@@ -2,11 +2,10 @@
   <%= javascript_include_tag 'jquery.filestyle', 'fckeditor/fckeditor', 'jquery.ba-bbq.min' %>
 <% end -%>
 
-<%= content_for :javascript do %>
-
-/*
- *  Expand and collapse thread
- */
+<%= content_for :javascript do %> 
+  /*
+   * Expand and collapse thread
+  */
   extend_thread = function(id){
     $("#parent_" + id + " .extended_thread").show();
     $("#parent_" + id + " .extend_thread").hide();
@@ -137,10 +136,9 @@
 
 <%end%>
 
-
 <%= content_for :menu_rooms do  %>
-        <%= render :partial => "rooms" %>
-<% end %>
+  <%= render :partial => "rooms" %>  
+<% end %>  
 
 <%= content_for :menu do  %>
         <%= render :partial => "menu" %>
