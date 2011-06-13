@@ -50,6 +50,7 @@ group :development, :test do
   gem 'fuubar'
   gem 'shoulda-matchers'
   gem 'translate-rails3', :require => 'translate', :git => 'git://github.com/mconf/translate.git'
+  gem 'htmlentities'
 end
 
 group :production do

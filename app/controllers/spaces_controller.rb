@@ -134,7 +134,7 @@ class SpacesController < ApplicationController
 
     params[:space][:bigbluebutton_room_attributes] ||= {}
     params[:space][:bigbluebutton_room_attributes][:name] = params[:space][:name]
-    params[:space][:bigbluebutton_room_attributes][:private] = params[:space][:public] == "1" ? "0" : "1"
+    params[:space][:bigbluebutton_room_attributes][:private] = !ActiveRecord::ConnectionAdapters::Column.value_to_boolean(params[:space][:public])
     params[:space][:bigbluebutton_room_attributes][:server] = BigbluebuttonServer.first # TODO temporary
 
     @space = Space.new(params[:space])

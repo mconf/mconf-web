@@ -7,7 +7,9 @@ namespace :setup do
     require 'ffaker'
 
     # DESTROY #
-    [ Space ].each(&:destroy_all)
+    spaces = Space.all
+    spaces.delete(Space.find(1))
+    spaces.each(&:destroy)
     # Delete all users except Admin
     users_without_admin = User.find_with_disabled(:all)
     users_without_admin.delete(User.find_by_login("mconf"))
@@ -195,14 +197,18 @@ namespace :setup do
         end
       end
 
-      BigbluebuttonRoom.populate 1 do |room|
-        room.owner_id = space.id
-        room.owner_type = 'Space'
-        room.server_id = BigbluebuttonServer.first
-        room.name = space.name
-        room.meetingid = space.permalink
-        room.attendee_password = "ap"
-        room.moderator_password = "mp"
+      if space.bigbluebutton_room.nil?
+        BigbluebuttonRoom.populate 1 do |room|
+          room.server_id = BigbluebuttonServer.first
+          room.owner_id = space.id
+          room.owner_type = 'Space'
+          room.name = space.name
+          room.meetingid = space.permalink
+          room.attendee_password = "ap"
+          room.moderator_password = "mp"
+          room.private = !space.public
+          room.logout_url = "/spaces/#{space.permalink}"
+        end
       end
 
     end

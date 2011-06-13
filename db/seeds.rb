@@ -15,12 +15,6 @@ u.update_attribute(:superuser,true)
 u.activate
 u.profile!.update_attribute(:full_name, "Mconf")
 
-puts "* Create Space \"MConf Start Page\""
-Space.create :name => "MConf Start Page",
-             :description => "MConf Centre",
-             :public => true,
-             :default_logo => "models/front/space.png"
-
 puts "* Create Permissions"
 
 # Permissions without objective
@@ -91,12 +85,24 @@ invited_role.permissions << Permission.find_by_action_and_objective('read', nil)
 invited_role.permissions << Permission.find_by_action_and_objective('read', 'content')
 invited_role.permissions << Permission.find_by_action_and_objective('read', 'performance')
 
+puts "* Create Space \"Mconf-Web Space\""
+default_space = Space.create :name => "Mconf-Web Space",
+                             :description => "Mconf-Web Space",
+                             :public => true,
+                             :default_logo => "models/front/space.png"
 
 puts "* Create the default BigBlueButton server (defined in bigbluebutton_conf.yml)"
-
 BBB_CONFIG = YAML.load_file(File.join(::Rails.root, "config", "bigbluebutton_conf.yml"))[::Rails.env]
-BigbluebuttonServer.create :name => "Default server",
-                           :url => BBB_CONFIG["server"],
-                           :salt => BBB_CONFIG["salt"],
-                           :version => BBB_CONFIG["version"]
+bbb_server = BigbluebuttonServer.create :name => "Default server",
+                                        :url => BBB_CONFIG["server"],
+                                        :salt => BBB_CONFIG["salt"],
+                                        :version => BBB_CONFIG["version"]
+
+puts "* Create the BigBlueButton room for the default space"
+BigbluebuttonRoom.create :name => default_space.name,
+                         :meetingid => default_space.permalink,
+                         :server => bbb_server,
+                         :owner => default_space,
+                         :private => false,
+                         :logout_url => "/spaces/#{default_space.permalink}"
 
