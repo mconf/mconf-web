@@ -7,6 +7,8 @@
     <%= f.hidden_field :owner_id %>
     <%= f.hidden_field :owner_type %>
     <%= f.hidden_field :logout_url %>
+    <div id="error" class="hide">
+    </div>
     <div class="field">
       <%= f.label :name %><%= f.text_field :name, :id => "room_name", :size => 20 %>
     </div>
@@ -17,12 +19,13 @@
       <div class="field">
         <%= f.label :moderator_password %>
         <%= f.text_field :moderator_password, :id => "moderatorPW", :disabled => true, :type => 'password' %>
+        <%= check_box_tag 'hideMPW' %><%= t('show?') %>
       </div>
       <div class="field">
         <%= f.label :attendee_password %>
         <%= f.text_field :attendee_password, :id => "attendeePW", :disabled => true, :type => 'password' %>
+        <%= check_box_tag 'hideAPW' %><%= t('show?') %>
       </div>
-      <%= label_tag t('showPW') %><%= check_box_tag 'hidePW' %>
     </div>
     <div class="float_right">
       <button type="submit" class="basic_button blue_button"><%=t('button.create')%></button>

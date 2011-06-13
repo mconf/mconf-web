@@ -48,7 +48,7 @@ class ApplicationController < ActionController::Base
       nil
     end
   end
-  
+
   def bigbluebutton_role(room)
     user = nil
     unless bigbluebutton_user.nil? # user belongs to mconf
@@ -57,7 +57,7 @@ class ApplicationController < ActionController::Base
           :moderator # join as moderator if current_user is the room owner
         else
           if room.private
-            nil # ask for a password if room is private
+            :password # ask for a password if room is private
           else
             :attendee # join as attendee if current_user isn't the room owner
           end
@@ -74,14 +74,14 @@ class ApplicationController < ActionController::Base
           :moderator # join as moderator if current_user belongs to this space
         else
           if room.private
-            nil # ask for password if current_user don't belongs to this space and room is private          
+            :password # ask for password if current_user don't belongs to this space and room is private
           else
             :attendee # join as attendee if current_user don't belongs to this space and room isn't private
           end
         end
       end
     else
-      nil #ask for a password
+      :password #ask for a password
     end
   end
 

@@ -34,6 +34,11 @@ class HomesController < ApplicationController
       rescue Exception      
       end
     end
+    
+    if params[:update_rooms]
+      render :partial => 'homes/rooms'
+      return
+    end
 
     unless current_user.spaces.empty?
       @events_of_user = Event.in(current_user.spaces).all(:order => "start_date ASC")
