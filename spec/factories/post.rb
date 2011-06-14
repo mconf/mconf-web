@@ -1,4 +1,4 @@
-Factory.define :post do |p| 
+Factory.define :post do |p|
   p.sequence(:title) { |n| "Post #{ n }" }
   p.text "test"
   p.created_at { Time.now }

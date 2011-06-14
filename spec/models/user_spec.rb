@@ -14,7 +14,7 @@ describe User do
     it "should create a new instance" do
       User.create(@valid_attributes).should be_valid
     end
-    
+
     it "should not create a new instance given no title" do
       User.create(:email => nil).should_not be_valid
     end

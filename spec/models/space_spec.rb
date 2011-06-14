@@ -6,11 +6,11 @@ describe Space do
   it "creates a new instance given valid attributes" do
     Factory.build(:space).should be_valid
   end
-  
+
   it { should validate_presence_of(:name) }
   it { should validate_presence_of(:description) }
   it { should validate_uniqueness_of(:name) }
- 
+
   describe ", regarding invitations," do
 
     before(:each) do
@@ -40,7 +40,7 @@ describe Space do
       assert_equal(@inv_role_id,invitation_1.role.id)
       assert_equal(@admin,invitation_1.introducer)
       assert_equal(@msg,invitation_1.comment)
-      
+
       invitation_2 = Admission.find_by_email(@unregistered_user_email_2)
       assert_equal("Invitation",invitation_2.type)
       assert_equal(@unregistered_user_email_2,invitation_2.email)
@@ -70,7 +70,7 @@ describe Space do
       assert_equal(@inv_role_id,invitation_1.role.id)
       assert_equal(@admin,invitation_1.introducer)
       assert_equal(@msg,invitation_1.comment)
-      
+
       invitation_2 = Admission.find_by_email(@registered_user_2.email)
       assert_equal("Invitation",invitation_2.type)
       assert_equal(@registered_user_2,invitation_2.candidate)
@@ -84,7 +84,7 @@ describe Space do
       invitation_1.destroy
     end
 
-    after(:each) do 
+    after(:each) do
       #remove all the stuff created
       @space.destroy
       @admin.destroy

@@ -10,7 +10,7 @@ describe Notifier do
     @admin = Factory(:admin_performance, :stage => @space).agent
     @registered_user = Factory(:user_performance).agent
     @unregistered_user_email = "unregistered@example.com"
-    
+
     @admin.profile.update_attributes Factory.attributes_for(:profile)
     @admin.update_attribute(:notification,User::NOTIFICATION_VIA_EMAIL)
     @registered_user.profile.update_attributes Factory.attributes_for(:profile)
@@ -22,7 +22,7 @@ describe Notifier do
     ActionMailer::Base.perform_deliveries = true
     ActionMailer::Base.deliveries = []
   end
-  
+
   describe "in the space invitation email, when the receiver is" do
     it "an unregistered user it should include the receiver's email, the introducer's name, email and organization, the name and URL of the space and the URL of the invitation" do
 
@@ -35,11 +35,11 @@ describe Notifier do
         I18n.t('email.kind_regards') + "<br/><br/>" +
         @admin.full_name + "<br/>" + @admin.email + "<br/>" + @admin.organization + "<br/>"
       invitation.update_attributes(:comment => invitation_comment, :introducer => @admin)
-      
+
       # Check the subject content
       ActionMailer::Base.deliveries.first.subject.should include(@space.name)
       ActionMailer::Base.deliveries.first.subject.should include(@admin.name)
-      
+
       # Check the body content
       ActionMailer::Base.deliveries.first.body.should include(@unregistered_user_email[0,@unregistered_user_email.index('@')])
       ActionMailer::Base.deliveries.first.body.should include(@admin.name)
@@ -48,7 +48,7 @@ describe Notifier do
       ActionMailer::Base.deliveries.first.body.should include(@space.name)
       ActionMailer::Base.deliveries.first.body.should include("http://" + Site.current.domain + "/spaces/" + @space.permalink)
       ActionMailer::Base.deliveries.first.body.should include("http://" + Site.current.domain + "/invitations/" + invitation.code)
-      
+
     end
 
     it "a registered user it should include the receiver's name, the introducer's name, email and organization, the name and URL of the space and the URL of the invitation" do
@@ -62,11 +62,11 @@ describe Notifier do
         I18n.t('email.kind_regards') + "<br/><br/>" +
         @admin.full_name + "<br/>" + @admin.email + "<br/>" + @admin.organization + "<br/>"
       invitation.update_attributes(:comment => invitation_comment, :introducer => @admin)
-      
+
       # Check the subject content
       ActionMailer::Base.deliveries.first.subject.should include(@space.name)
       ActionMailer::Base.deliveries.first.subject.should include(@admin.name)
-      
+
       # Check the body content
       ActionMailer::Base.deliveries.first.body.should include(@registered_user.full_name)
       ActionMailer::Base.deliveries.first.body.should include(@admin.name)
@@ -79,7 +79,7 @@ describe Notifier do
     end
 
   end
-    
+
   describe "in the event invitation email, when the receiver is" do
     it "an unregistered user it should include the receiver's email, the introducer's name, email and organization, the name of the space, the name and URL of the event and the URL of the invitation" do
 
@@ -89,12 +89,12 @@ describe Notifier do
       invitation_comment = "<p>\'" + I18n.t('name.one') + "\',</p>" +
         I18n.t('invitation.message_with_start_date.' + (Event::VC_MODE[@event.vc_mode]).to_s ,:space=>@space.name,:url=>'\'' + I18n.t('url_plain') + '\'',:contact => Site.current.email, :feedback => "http://" + Site.current.domain.to_s + "feedback/new",:username=>@admin.full_name,:useremail=>@admin.email,:userorg=>@admin.organization).gsub('\'event_name\'',@event.name).gsub('\'event_date\'', @event.start_date.strftime("%A %B %d at %H:%M:%S")).gsub('event_url', "http://" + Site.current.domain + "/spaces/" + @space.permalink + "/events/" + @event.permalink)
       invitation.update_attributes(:comment => invitation_comment, :introducer => @event.author)
-      
+
       # Check the subject content
       ActionMailer::Base.deliveries.first.subject.should include(@event.name)
       ActionMailer::Base.deliveries.first.subject.should include(@space.name)
       ActionMailer::Base.deliveries.first.subject.should include(@admin.name)
-      
+
       # Check the body content
       ActionMailer::Base.deliveries.first.body.should include(@unregistered_user_email[0,@unregistered_user_email.index('@')])
       ActionMailer::Base.deliveries.first.body.should include(@admin.name)
@@ -115,12 +115,12 @@ describe Notifier do
       invitation_comment = "<p>\'" + I18n.t('name.one') + "\',</p>" +
         I18n.t('invitation.message_with_start_date.' + (Event::VC_MODE[@event.vc_mode]).to_s ,:space=>@space.name,:url=>'\'' + I18n.t('url_plain') + '\'',:contact => Site.current.email, :feedback => "http://" + Site.current.domain.to_s + "feedback/new",:username=>@admin.full_name,:useremail=>@admin.email,:userorg=>@admin.organization).gsub('\'event_name\'',@event.name).gsub('\'event_date\'', @event.start_date.strftime("%A %B %d at %H:%M:%S")).gsub('event_url', "http://" + Site.current.domain + "/spaces/" + @space.permalink + "/events/" + @event.permalink)
       invitation.update_attributes(:comment => invitation_comment, :introducer => @event.author)
-      
+
       # Check the subject content
       ActionMailer::Base.deliveries.first.subject.should include(@event.name)
       ActionMailer::Base.deliveries.first.subject.should include(@space.name)
       ActionMailer::Base.deliveries.first.subject.should include(@admin.name)
-      
+
       # Check the body content
       ActionMailer::Base.deliveries.first.body.should include(@registered_user.full_name)
       ActionMailer::Base.deliveries.first.body.should include(@admin.name)
@@ -134,7 +134,7 @@ describe Notifier do
     end
 
   end
-  
+
   describe "in the event notification email" do
     it "should include the receiver's name, the sender's name, email and organization, the name of the space and the name and URL of the event" do
 
@@ -143,12 +143,12 @@ describe Notifier do
         I18n.t('event.notification.message_ending' ,:username=>@admin.full_name,:useremail=>@admin.email,:userorg=>@admin.organization).gsub('event_url',"http://" + Site.current.domain + "/spaces/" + @space.permalink + "/events/" + @event.permalink)
       @event.update_attributes(:notify_msg => msg, :notif_sender_id => @admin.id)
       Informer.deliver_event_notification(@event,@registered_user)
-      
+
       # Check the subject content
       ActionMailer::Base.deliveries.first.subject.should include(@event.name)
       ActionMailer::Base.deliveries.first.subject.should include(@space.name)
       ActionMailer::Base.deliveries.first.subject.should include(@admin.name)
-      
+
       # Check the body content
       ActionMailer::Base.deliveries.first.body.should include(@registered_user.full_name)
       ActionMailer::Base.deliveries.first.body.should include(@admin.name)
@@ -160,7 +160,7 @@ describe Notifier do
 
     end
   end
-  
+
   describe "in the processed invitation email, when the invited user is" do
     it "unregistered it should include the receiver's name, the invited user's email and response, the name of the space, the URL of the space users and the signature of the site" do
 
@@ -180,7 +180,7 @@ describe Notifier do
       ActionMailer::Base.deliveries[1].subject.should include(@unregistered_user_email)
       ActionMailer::Base.deliveries[1].subject.should include(action)
       ActionMailer::Base.deliveries[1].subject.should include(@space.name)
-      
+
       # Check the body content
       ActionMailer::Base.deliveries[1].body.should include(@admin.name)
       ActionMailer::Base.deliveries[1].body.should include(@unregistered_user_email[0,@unregistered_user_email.index('@')])
@@ -188,9 +188,9 @@ describe Notifier do
       ActionMailer::Base.deliveries[1].body.should include(@space.name)
       ActionMailer::Base.deliveries[1].body.should include("http://" + Site.current.domain + "/spaces/" + @space.permalink + "/users")
       ActionMailer::Base.deliveries[1].body.should include(Site.current.signature_in_html)
-      
+
     end
-    
+
     it "registered it should include the receiver's name, the invited user's name and response, the name of the space, the URL of the space users and the signature of the site" do
 
       # Build the invitation
@@ -209,7 +209,7 @@ describe Notifier do
       ActionMailer::Base.deliveries[1].subject.should include(@registered_user.full_name)
       ActionMailer::Base.deliveries[1].subject.should include(action)
       ActionMailer::Base.deliveries[1].subject.should include(@space.name)
-      
+
       # Check the body content
       ActionMailer::Base.deliveries[1].body.should include(@admin.name)
       ActionMailer::Base.deliveries[1].body.should include(@registered_user.full_name)
@@ -233,11 +233,11 @@ describe Notifier do
       params = {:candidate => @registered_user, :email => @registered_user.email, :group => @space, :comment => jr_comment}
       jr = @space.join_requests.build params
       jr.save!
-      
+
       # Check the content of the subject
       ActionMailer::Base.deliveries.first.subject.should include(@registered_user.full_name)
       ActionMailer::Base.deliveries.first.subject.should include(@space.name)
-      
+
       # Check the content of the body
       ActionMailer::Base.deliveries.first.body.should include(@registered_user.full_name)
       ActionMailer::Base.deliveries.first.body.should include(@space.name)
@@ -249,7 +249,7 @@ describe Notifier do
   end
 
   describe "in the processed join request email" do
-    
+
     it "should include whether the request has been accepted or not and the name and URL of the space" do
 
       # Build the join request
@@ -261,11 +261,11 @@ describe Notifier do
       jr.save!
       jr.update_attributes(:processed => true, :accepted => true, :role_id => Role.find_by_name("User").id.to_s, :introducer => @admin)
       action = jr.accepted? ? I18n.t("invitation.yes_accepted") : I18n.t("invitation.not_accepted")
-      
+
       # Check the content of the subject
       ActionMailer::Base.deliveries[1].subject.should include(action)
       ActionMailer::Base.deliveries[1].subject.should include(@space.name)
-      
+
       # Check the content of the body
       ActionMailer::Base.deliveries[1].body.should include(action)
       ActionMailer::Base.deliveries[1].body.should include(@space.name)
@@ -274,8 +274,8 @@ describe Notifier do
     end
 
   end
-  
-  after(:each) do 
+
+  after(:each) do
     #remove all the stuff created
     @space.destroy
     @event.destroy
