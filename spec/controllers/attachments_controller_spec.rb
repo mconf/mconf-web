@@ -19,29 +19,13 @@ describe AttachmentsController do
     @invited = Factory(:invited_performance, :stage => @private_space).agent
     #a public space
     @public_space = Factory(:public_space)
-
-  end
-
-  describe "A Superadmin" do
-    before(:each) do
-      login_as(@superuser)
-    end
-
-   it "should be able to see space repository" do
-       get :index, :space_id => @private_space.to_param
-       assert_response 200
-       response.should render_template("attachments/index")
-   end
-
-
   end
 
   describe "The admin of a space" do
-
     it "should be able to delete attachments in his space repository" do
       login_as(@admin2)
-      @attachment = Factory(:attachment,:space => @private_space2,:author => @user_space2)
-      delete :destroy ,:id => @attachment, :space_id => @private_space2.to_param
+      @attachment = Factory.create(:attachment,:space => @private_space2,:author => @user_space2)
+      delete :destroy, :id => @attachment.to_param, :space_id => @private_space2.to_param
       assert_nil Attachment.find_by_id(@attachment.id)
     end
     it "should not be able to see space repository if it is not enabled" do
@@ -57,21 +41,19 @@ describe AttachmentsController do
     end
     it"should be able to show attachments in his space repository"do
       login_as(@admin2)
-      @attachment = Factory(:attachment,:space => @private_space2,:author => @user_space2)
+      @attachment = Factory.create(:attachment,:space => @private_space2,:author => @user_space2)
       get :show, :space_id => @private_space2.to_param, :id => @attachment.to_param
       assert_response 200
     end
     it"should be able to create a new version of an attachment"do
       login_as(@admin2)
-       @attachment = Factory(:attachment,:space => @private_space2,:author => @user_space2)
-      put :update, :space_id => @private_space2.to_param, :id=>@attachment.id ,:attachment => Factory.attributes_for(:attachment)
+      @attachment = Factory.create(:attachment,:space => @private_space2,:author => @user_space2)
+      put :update, :space_id => @private_space2.to_param, :id => @attachment.to_param ,:attachment => Factory.attributes_for(:attachment)
     end
   end
-#
-#
-  describe "A logged user" do
 
-   it "should be able to delete his own attachment" do
+  describe "A logged user" do
+    it "should be able to delete his own attachment" do
       login_as(@user_space2)
       @attachment = Factory(:attachment,:space => @private_space2,:author => @user_space2)
       delete :destroy ,:id => @attachment, :space_id => @private_space2.to_param
@@ -91,6 +73,7 @@ describe AttachmentsController do
       put :update, :space_id => @private_space_with_repository.to_param, :id=>@attachment.id ,:attachment => Factory.attributes_for(:attachment)
     end
   end
+
   describe "A not logged user" do
     it "should be able to see space repository in a public space if it is enabled"do
       @public_space_with_repository=Factory(:public_space_with_repository)
@@ -104,7 +87,18 @@ describe AttachmentsController do
       assert_response 302
       response.should redirect_to(new_session_path)
     end
-
   end
 
- end
+  describe "A Superadmin" do
+    before(:each) do
+      login_as(@superuser)
+    end
+
+    it "should be able to see space repository" do
+      get :index, :space_id => @private_space.to_param
+      assert_response 200
+      response.should render_template("attachments/index")
+    end
+  end
+
+end
