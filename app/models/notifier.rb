@@ -104,7 +104,7 @@ class Notifier < ActionMailer::Base
     setup_email(mail)
 
     user_sender = User.find(space.group_inv_sender_id)
-    @subject += I18n.t("space.group_invitation.subject",:space=>space.name,:username=>user_sender.full_name).html_safe.html_safe
+    @subject += I18n.t("space.group_invitation.subject",:space=>space.name,:username=>user_sender.full_name).html_safe
     @space = space
     #@headers.store("Reply-To",user_sender.email)
     upgmail(user_sender.mail)
@@ -140,9 +140,8 @@ class Notifier < ActionMailer::Base
   def join_request_email(jr,receiver)
     setup_email(receiver.email)
 
-    @subject += I18n.t("join_request.ask_subject", :candidate => jr.candidate.name, :space => jr.group.name).html_safe.html_safe
+    @subject += I18n.t("join_request.ask_subject", :candidate => jr.candidate.name, :space => jr.group.name)
     @join_request = jr
-    @contact_email = Site.current.email
     @signature  = Site.current.signature_in_html
     #@headers.store("Reply-To",jr.candidate.email)
     upgmail(jr.candidate.email)

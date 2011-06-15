@@ -35,7 +35,7 @@ describe Notifier do
         I18n.t('email.kind_regards') + "<br/><br/>" +
         @admin.full_name + "<br/>" + @admin.email + "<br/>" + @admin.organization + "<br/>"
       invitation.update_attributes(:comment => invitation_comment, :introducer => @admin)
-
+      
       # Check the subject content
       ActionMailer::Base.deliveries.first.subject.should include(@space.name)
       ActionMailer::Base.deliveries.first.subject.should include(@admin.name)
@@ -62,7 +62,7 @@ describe Notifier do
         I18n.t('email.kind_regards') + "<br/><br/>" +
         @admin.full_name + "<br/>" + @admin.email + "<br/>" + @admin.organization + "<br/>"
       invitation.update_attributes(:comment => invitation_comment, :introducer => @admin)
-
+      
       # Check the subject content
       ActionMailer::Base.deliveries.first.subject.should include(@space.name)
       ActionMailer::Base.deliveries.first.subject.should include(@admin.name)
@@ -227,9 +227,7 @@ describe Notifier do
     it "should include the candidate's name, the name of the space, the URL of the admissions of the space and the signature of the site" do
 
       # Build the join request
-      jr_comment = "<p>" + I18n.t('join_request.asked', :candidate => @registered_user.full_name, :space => @space.name) + "</p>" +
-        "<p>" + I18n.t('join_request.to_accept', :url => ("http://" + Site.current.domain + "/spaces/" + @space.permalink + "admissions")) + "</p>" +
-        "<p>" + Site.current.signature_in_html + "</p>"
+      jr_comment = "Accept my solicitation"
       params = {:candidate => @registered_user, :email => @registered_user.email, :group => @space, :comment => jr_comment}
       jr = @space.join_requests.build params
       jr.save!
@@ -241,8 +239,21 @@ describe Notifier do
       # Check the content of the body
       ActionMailer::Base.deliveries.first.body.should include(@registered_user.full_name)
       ActionMailer::Base.deliveries.first.body.should include(@space.name)
-      ActionMailer::Base.deliveries.first.body.should include("http://" + Site.current.domain + "/spaces/" + @space.permalink + "admissions")
+      ActionMailer::Base.deliveries.first.body.should include("http://" + Site.current.domain + "/spaces/" + @space.permalink + "/admissions")
       ActionMailer::Base.deliveries.first.body.should include(Site.current.signature_in_html)
+        
+      email_body = I18n.t('join_request.asked_full', 
+        :candidate => @registered_user.full_name, 
+        :space => @space.name, 
+        :comment => "Accept my solicitation", 
+        :url =>  ("http://" + Site.current.domain + "/spaces/" + @space.permalink + "/admissions"), 
+        :contact => Site.current.email, 
+        :feedback => "http://" + Site.current.domain.to_s + "/feedback/new", 
+        :signature => Site.current.signature_in_html
+        ).html_safe
+
+      # Check the content of the body
+      ActionMailer::Base.deliveries.first.body.should match(email_body)
 
     end
 

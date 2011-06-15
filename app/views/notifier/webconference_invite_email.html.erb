@@ -1,7 +1,7 @@
 <html>
   <body>
     <%= t('invite.message', :sender => @sender, :name => @room_name, :invite_url => @room_url).html_safe %>
-    <%= @message %>
+    <%= (@message).html_safe %>
   </body>
 </html>
 

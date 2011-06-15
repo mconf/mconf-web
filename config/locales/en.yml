@@ -1668,6 +1668,12 @@ en:
       by you:'
     asked_anonymous: ! 'Someone wants to participate in %{space} space administered
       by you:'
+    asked_full: ! '<b>%{candidate}</b> wants to participate in %{space} space administered
+      by you: %{comment} <br/><br/><p>To answer the request please visit <a href="%{url}">%{url}</a></p><p>If you believe this message is a spam, please <a href="mailto:%{contact}">
+      contact us </a> or send us <a href="%{feedback}"> feedback.</a></p><p>%{signature}</p>'
+    asked_anonymous_full: ! 'Someone wants to participate in %{space} space administered
+      by you: %{comment} <br/><br/><p>To answer the request please visit <a href="%{url}">%{url}</a></p><p>If you believe this message is a spam, please <a href="mailto:%{contact}">
+      contact us </a> or send us <a href="%{feedback}"> feedback.</a></p><p>%{signature}</p>'
     created: Your join request has been sent to the space administrators
     discarded: Join Request discarded
     joined: You are already a member of the space

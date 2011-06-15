@@ -3,33 +3,9 @@
   $("#wait_join_request_button").hide();
   $("#wait_join_request_button").attr('disabled', true);
 
-  $("#send_join_request_button").livequery('click',function(){ 
-
-    // Build join request message by putting its parts together
-
-    <%if current_user != Anonymous.current%>
-      var header = "<p><%= escape_javascript(t('join_request.asked', :candidate => current_user.full_name, :space => @space.name)) %></p>";
-    <%else%>
-      var header = "<p><%= escape_javascript(t('join_request.asked_anonymous', :space => @space.name)) %></p>";
-    <%end%>
-
-    // Changing the new line characters to <br/>
-    var personal_msg = ($('#join_request_personal').val()).replace(/\n/g,'<br/>');
-    
-    var ending = "<p><%= escape_javascript(t('join_request.to_accept', :url => space_admissions_url(@space, :host => Site.current.domain))) %></p>" +
-      "<p><%= escape_javascript(t('email.spam_invitation', :contact => Site.current.email, :feedback => "http://" + Site.current.domain.to_s + new_feedback_path())) %></p>" +
-      "<p><%= Site.current.signature_in_html %></p>"
-
-    var complete_msg = header + personal_msg + '<br/><br/>' + ending; 
-    
-    $('#join_request_comment').text(complete_msg);
-        
+  $("#send_join_request_button").livequery('click',function(){
         $("#send_join_request_button").hide();
         $("#wait_join_request_button").show();
-        
-        document.forms["join_request_edit_form"].submit();
-    
-    
   });
 
 <%end%>
@@ -55,22 +31,21 @@
 
           <div class="grey_bar">
 
-            <%if current_user != Anonymous.current%>
-              <p><%= t('join_request.asked', :candidate => current_user.full_name, :space => @space.name).html_safe %></p>
+            <%if current_user != Anonymous.current %>
+              <p><%= t('join_request.ask_subject', :candidate => current_user.full_name, :space => @space.name).html_safe %></p>
             <%else%>
               <p><%= t('join_request.asked_anonymous', :space => @space.name) %></p>
             <%end%>
 
-            <textarea id="join_request_personal"><%= t('join_request.personal') %></textarea><br/>
-            <%= f.text_area :comment, :style => "display:none" %>
+            <%= f.text_area :comment, :placeholder => t('join_request.personal') %>
 
           </div>
 
         </div>
         
         <div class="margin-up">
-          <input type="button" class="basic_button blue_button" id="send_join_request_button" value="<%=t("button.send")%>" />
-                  <input type="button" class="basic_button blue_button" id="wait_join_request_button" value="<%=t("button.sending")%>" />
+          <input type="submit" class="basic_button blue_button" id="send_join_request_button" value="<%=t("button.send")%>" />
+          <input type="submit" class="basic_button blue_button" id="wait_join_request_button" value="<%=t("button.sending")%>" />
         </div>
       <% end %>
     </div>

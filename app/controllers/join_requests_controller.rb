@@ -33,6 +33,7 @@ class JoinRequestsController
   end
 
   def create
+  
     unless authenticated?
       unless params[:user]
         respond_to do |format|
@@ -83,7 +84,7 @@ class JoinRequestsController
       end
       return
     end
-
+    
     @join_request = space.join_requests.new(params[:join_request])
     @join_request.candidate = current_user
 

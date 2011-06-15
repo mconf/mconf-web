@@ -1692,6 +1692,12 @@ pt-br:
       por você:'
     asked_anonymous: ! 'Alguém quer participar da comunidade %{space} administrado por
       você:'
+    asked_full: ! '<b>%{candidate}</b> quer participar da comunidade %{space} administrado
+      por você: %{comment} <br/><br/><p>Para atender o pedido visite <a href="%{url}">%{url}</a></p><p>Se você acredita que esta mensagem é um spam, por favor <a href="mailto:%{contact}">
+      entre em contato</a> ou nos <a href="%{feedback}"> envie uma mensagem.</a></p><p>%{signature}</p>'
+    asked_anonymous_full: ! 'Alguém quer participar da comunidade %{space} administrado
+      por você: %{comment} <br/><br/><p>Para atender o pedido visite <a href="%{url}">%{url}</a></p><p>Se você acredita que esta mensagem é um spam, por favor <a href="mailto:%{contact}">
+      entre em contato </a> ou nos <a href="%{feedback}"> envie uma mensagem.</a></p><p>%{signature}</p>'
     created: Seu pedido de adesão foi enviado para os administradores da comunidade
     discarded: Pedido de adesão descartado
     joined: Você já é um membro da comunidade
