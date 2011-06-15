@@ -1,3 +1,4 @@
+=begin
 isabel_dir = "/usr/local/isabel/"
 
 if File.exist?(isabel_dir)
@@ -6,8 +7,8 @@ if File.exist?(isabel_dir)
   ENV['ISABEL_SESSIONS_DIR'] = ENV['ISABEL_USER_DIR']+"/sessions/4.11"
   ENV['ISABEL_CONFIG_DIR'] = ENV['ISABEL_USER_DIR']+"/config"
   ENV['ISABEL_PROFILES_DIR'] = ENV['ISABEL_CONFIG_DIR'] +"/profiles/4.11"
- 
- 
+
+
  #First of all we check if IsabelGuard is executing with the command fp (equivalent to ps -ef)
   fp_isabelGuard = "/usr/local/bin/fp IsabelGuard"
   fp_IO = IO.popen(fp_isabelGuard)
@@ -29,4 +30,5 @@ if File.exist?(isabel_dir)
       object_IO = IO.popen(command_isabelguard)
    end
 end
+=end
 
