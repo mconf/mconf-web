@@ -69,9 +69,8 @@ namespace :setup do
 
   desc "Setup the configuration files"
   task :config do
-    setup_file("config/mail_conf.yml")
+    setup_file("config/setup_conf.yml")
     setup_file("config/database.yml")
-    setup_file("config/bigbluebutton_conf.yml")
   end
 
   def setup_file(file)
@@ -82,7 +81,7 @@ namespace :setup do
     else
       `cp #{expanded}.example #{expanded}`
       puts
-      puts "*** Created a default configuration, please configure it at: #{file}"
+      puts "*** Created the default configuration file, please edit it: #{file}"
       puts
     end
   end
