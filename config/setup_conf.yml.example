@@ -1,65 +1,86 @@
-#
-# EXAMPLE FILE
-# You MUST edit this file before setting up the application
-#
-
-# Development setup configurations
-development: &development
+# Default configurations
+# The values defined here will be used as default for all environments (development, test,
+# production). You can also define specific configurations for each environment to override
+# the defaults. To do that, copy the parameters you want to override and paste them inside
+# the environment you want. These environments are commented in the end of this file.
+default:
 
   # Admin account
   # You can change the password after the initial setup from within the application.
-  admin_login: "mconf"
-  admin_fullname: "Mconf Admin"
-  admin_email: "admin@mconf.com"
-  admin_password: "admin"
+  admin:
+    login: "mconf"
+    fullname: "Mconf Admin"
+    email: "my-email@server.com"
+    password: "admin"
 
   # BigBlueButton default server configuration
   # This server will be your first and default server
-  bbb_server_name: 'Default Server'
-  bbb_server_url: 'http://my-development-server/bigbluebutton/api'
-  bbb_server_salt: 'mysalt'
-  bbb_server_version: '0.7'
+  bbb_server:
+    name: 'Default Server'
+    url: 'http://my-development-server/bigbluebutton/api'
+    salt: 'my-secret-salt'
+    version: '0.7'
 
   # Email account used to send all emails from within the application (invitations,
   # registrations confirmations, etc). For now you have to use a Gmail account.
   # See config/initializers/mail_conf.rb
-  sendmail_username: "myusername@gmail.com"
-  sendmail_password: "mypassword"
+  sendmail:
+    username: "my-username@gmail.com"
+    password: "my-password"
 
   # Website default configuration
-  # The information will be used to create the Site model. They can be altered
-  # after the initial setup using the management are in the application.
-  site_name: "Mconf Development"
-  site_domain: "localhost"
-  site_presence_domain: "localhost"
-  site_events_chat_service: "events.localhost"
-  site_email: "contact@mconf.com"
+  # The information will be used to create the Site object, that defines your website.
+  # They can be altered after the initial setup using the management area in the application.
+  site:
+    name: "Mconf Dev"
+    description: "Mconf Development Website"
+    email: "my-email@server.com"
+    locale: "en"
+    domain: "localhost"
 
   # Default space: it will be created as a default public space, something like
   # "a space for all members of this website"
-  space_name: "Mconf-Web Space"
-  space_description: "Mconf-Web users space"
+  default_space:
+    name: "Mconf-Web Space"
+    description: "Mconf-Web users space"
 
-# Production setup configurations
-production:
-  admin_login: "mconf"
-  admin_fullname: "Mconf Admin"
-  admin_email: "admin@mconf.com"
-  admin_password: "admin"
-  bbb_server_name: 'Default Server'
-  bbb_server_url: 'http://my-production-server/bigbluebutton/api'
-  bbb_server_salt: 'mysalt'
-  bbb_server_version: '0.7'
-  sendmail_username: "myusername@gmail.com"
-  sendmail_password: "mypassword"
-  site_name: "Mconf"
-  site_domain: "localhost"
-  site_presence_domain: "localhost"
-  site_events_chat_service: "events.localhost"
-  site_email: "contact@mconf.com"
-  space_name: "Mconf-Web Space"
-  space_description: "Mconf-Web users space"
+# Configurations for each environment
+# You can find below the sections for each environment available.
+# Uncomment the lines from one of them to define specific configurations for that environment.
+# You can copy any of the parameters from the default section and override them here.
+# Remember to copy the entire sections: if you want to override the "email" from "site" and
+# "name" from "default_space", you must do something like:
+#
+# development:
+#   site:
+#     email: "override the email"
+#   default_space:
+#     name: "new name"
+#
+# Also remember to maintain the file indented with 2 spaces. The YML file must use this
+# formatting to be valid.
 
-test:
-  <<: *development
+
+# Development configurations
+#development:
+#  bbb_server:
+#    url: 'http://dev-server/bigbluebutton/api'
+#    salt: 'dev-server-salt'
+#    version: '0.7'
+
+
+# Production configurations
+#production:
+#  bbb_server:
+#    url: 'http://production-server/bigbluebutton/api'
+#    salt: 'production-server-salt'
+#    version: '0.7'
+
+
+# Test configurations
+#test:
+#  bbb_server:
+#    url: 'http://test-server/bigbluebutton/api'
+#    salt: 'test-server-salt'
+#    version: '0.7'
 

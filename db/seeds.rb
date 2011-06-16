@@ -1,32 +1,30 @@
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
 
-# Make sure the config file exists and load it
-CONFIG_FILE = File.join(::Rails.root, "config", "setup_conf.yml")
-unless File.exists? CONFIG_FILE
-  puts
-  puts "ERROR"
-  puts "The configuration file does not exists!"
-  puts "Path: #{CONFIG_FILE}"
-  puts
-  puts "Did you run \"rake setup:basic\"? Run it and then edit the file generated."
-  puts
-  exit
-end
-SETUP_CONFIG = YAML.load_file(CONFIG_FILE)[::Rails.env]
+puts "* Create the default site"
+puts "  name: #{configatron.site.name}"
+puts "  description: #{configatron.site.description}"
+puts "  email: #{configatron.site.email}"
+puts "  locale: #{configatron.site.locale}"
+puts "  domain: #{configatron.site.domain}"
+u = Site.create :name => configatron.site.name,
+                :description => configatron.site.description,
+                :email => configatron.site.email,
+                :locale => configatron.site.locale,
+                :domain => configatron.site.domain
 
 puts "* Create the administrator account"
-puts "** login: #{SETUP_CONFIG["admin_login"]}"
-puts "** email: #{SETUP_CONFIG["admin_email"]}"
-puts "** password: #{SETUP_CONFIG["admin_password"]}"
-puts "** fullname: #{SETUP_CONFIG["admin_fullname"]}"
-u = User.create :login => SETUP_CONFIG["admin_login"],
-                :email => SETUP_CONFIG["admin_email"],
-                :password => SETUP_CONFIG["admin_password"],
-                :password_confirmation => SETUP_CONFIG["admin_password"]
+puts "  login: #{configatron.admin.login}"
+puts "  email: #{configatron.admin.email}"
+puts "  password: #{configatron.admin.password}"
+puts "  fullname: #{configatron.admin.fullname}"
+u = User.create :login => configatron.admin.login,
+                :email => configatron.admin.email,
+                :password => configatron.admin.password,
+                :password_confirmation => configatron.admin.password
 u.update_attribute(:superuser,true)
 u.activate
-u.profile!.update_attribute(:full_name, SETUP_CONFIG["admin_fullname"])
+u.profile!.update_attribute(:full_name, configatron.admin.fullname)
 
 puts "* Create Permissions"
 
@@ -99,22 +97,22 @@ invited_role.permissions << Permission.find_by_action_and_objective('read', 'con
 invited_role.permissions << Permission.find_by_action_and_objective('read', 'performance')
 
 puts "* Create the default space:"
-puts "** name: #{SETUP_CONFIG["space_name"]}"
-ptus "** description: #{SETUP_CONFIG["space_description"]}"
-default_space = Space.create :name => SETUP_CONFIG["space_name"],
-                             :description => SETUP_CONFIG["space_description"],
+puts "  name: #{configatron.default_space.name}"
+puts "  description: #{configatron.default_space.description}"
+default_space = Space.create :name => configatron.default_space.name,
+                             :description => configatron.default_space.description,
                              :public => true,
                              :default_logo => "models/front/space.png"
 
 puts "* Create the default BigBlueButton server"
-puts "** name: #{SETUP_CONFIG["bbb_server_name"]}"
-puts "** url: #{SETUP_CONFIG["bbb_server_url"]}"
-puts "** salt: #{SETUP_CONFIG["bbb_server_salt"]}"
-puts "** version: #{SETUP_CONFIG["bbb_server_version"]}"
-bbb_server = BigbluebuttonServer.create :name => SETUP_CONFIG["bbb_server_name"],
-                                        :url => SETUP_CONFIG["bbb_server_url"],
-                                        :salt => SETUP_CONFIG["bbb_server_salt"],
-                                        :version => SETUP_CONFIG["bbb_server_version"]
+puts "  name: #{configatron.bbb_server.name}"
+puts "  url: #{configatron.bbb_server.url}"
+puts "  salt: #{configatron.bbb_server.salt}"
+puts "  version: #{configatron.bbb_server.version}"
+bbb_server = BigbluebuttonServer.create :name => configatron.bbb_server.name,
+                                        :url => configatron.bbb_server.url,
+                                        :salt => configatron.bbb_server.salt,
+                                        :version => configatron.bbb_server.version
 
 puts "* Create the BigBlueButton room for the default space"
 BigbluebuttonRoom.create :name => default_space.name,
