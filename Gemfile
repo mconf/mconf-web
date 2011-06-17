@@ -30,6 +30,7 @@ gem 'dynamic_form'
 gem 'bigbluebutton_rails', :git => 'git://github.com/mconf/bigbluebutton_rails.git'
 gem 'rspec-rails', '~> 2.5'
 gem 'action_mailer_tls'
+gem 'configatron'
 
 # WARNING: This version of mysql2 (0.3.2) doesn't ship with the ActiveRecord adapter bundled anymore as it's now part of Rails 3.1
 # WARNING: Please use the 0.2.x releases if you plan on using it in Rails <= 3.0.x

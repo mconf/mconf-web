@@ -24,30 +24,21 @@ require 'bundler/capistrano'
 
 default_run_options[:pty] = true # anti-tty error
 
-set :servers,  {
-  :production => 'mconfweb.inf.ufrgs.br',
-  :test => 'mconfweb.inf.ufrgs.br' # TODO create a test server
-}
+set :server, configatron.deploy.server
+set :branch, configatron.deploy.branch
 
-set :branches, {
-  :production => :stable,
-  :test => :stable # TODO :master
-}
-
-set :environment, :production
-
-set :application, "mconf-web"
-set :repository, "git://github.com/mconf/mconf-web.git"
-set :scm, "git"
+set :application, configatron.deploy.app_name
+set :repository, configatron.deploy.repository
+set :scm, configatron.deploy.repository_scm
 set :git_enable_submodules, 1
 set :user, "mconf"
 set :files_grp, "mconf"
 set :use_sudo, false
 
-role(:app) { ENV['SERVER'] || fetch(:servers)[fetch(:environment)] }
-role(:web) { ENV['SERVER'] || fetch(:servers)[fetch(:environment)] }
-role(:db, :primary => true) { ENV['SERVER'] || fetch(:servers)[fetch(:environment)] }
-set(:branch) { ENV['BRANCH'] || fetch(:branches)[fetch(:environment)]}
+role(:app) { ENV['SERVER'] || fetch(:server) }
+role(:web) { ENV['SERVER'] || fetch(:server) }
+role(:db, :primary => true) { ENV['SERVER'] || fetch(:server) }
+set(:branch) { ENV['BRANCH'] || fetch(:branch) }
 
 set :deploy_to, "/home/mconf/#{application}"
 set :deploy_via, :remote_cache
@@ -55,7 +46,6 @@ set :deploy_via, :remote_cache
 on :start, 'deploy:info'
 
 after 'deploy:setup', 'setup:create_shared'
-after 'deploy:update_code', 'deploy:upload_config_files'
 after 'deploy:update_code', 'deploy:link_files'
 after 'deploy:update_code', 'deploy:fix_file_permissions'
 
@@ -70,8 +60,8 @@ namespace(:deploy) do
 
   task :info do
     puts
-    puts "Deploying SERVER = #{ ENV['SERVER'] || fetch(:servers)[fetch(:environment)]}"
-    puts "Deploying BRANCH = #{ ENV['BRANCH'] || fetch(:branches)[fetch(:environment)]}"
+    puts "Deploying SERVER = #{ ENV['SERVER'] || fetch(:server) }"
+    puts "Deploying BRANCH = #{ ENV['BRANCH'] || fetch(:branch) }"
     puts
   end
 
@@ -95,7 +85,6 @@ namespace(:deploy) do
 
   task :upload_config_files do
     top.upload "config/database.yml", "#{release_path}/config/", :via => :scp
-    top.upload "config/bigbluebutton_conf.yml", "#{release_path}/config/", :via => :scp
     top.upload "config/mail_conf.yml", "#{release_path}/config/", :via => :scp
     #top.upload "config/crossdomain.yml", "#{release_path}/config/", :via => :scp
   end

@@ -1,0 +1,96 @@
+# Default configurations
+# The values defined here will be used as default for all environments (development, test,
+# production). You can also define specific configurations for each environment to override
+# the defaults. To do that, copy the parameters you want to override and paste them inside
+# the environment you want. These environments are commented in the end of this file.
+default:
+
+  # Admin account
+  # You can change the password after the initial setup from within the application.
+  admin:
+    login: "mconf"
+    fullname: "Mconf Admin"
+    email: "my-email@server.com"
+    password: "admin"
+
+  # BigBlueButton default server configuration
+  # This server will be your first and default server
+  bbb_server:
+    name: 'Default Server'
+    url: 'http://my-development-server/bigbluebutton/api'
+    salt: 'my-secret-salt'
+    version: '0.7'
+
+  # Email account used to send all emails from within the application (invitations,
+  # registrations confirmations, etc). For now you have to use a Gmail account.
+  # See config/initializers/mail_conf.rb
+  sendmail:
+    username: "my-username@gmail.com"
+    password: "my-password"
+
+  # Website default configuration
+  # The information will be used to create the Site object, that defines your website.
+  # They can be altered after the initial setup using the management area in the application.
+  site:
+    name: "Mconf Dev"
+    description: "Mconf Development Website"
+    email: "my-email@server.com"
+    locale: "en"                               # this will be the default locale for the application
+    domain: "localhost"                        # your server address
+    signature: "Mconf"                         # to sign emails
+
+  # Default space: it will be created as a default public space, something like
+  # "a space for all members of this website"
+  default_space:
+    name: "Mconf-Web Space"
+    description: "Mconf-Web users space"
+
+  # Deploy configurations
+  # These configurations are all used by config/deploy.rb
+  deploy:
+    server: "my-server.com"
+    branch: "v0.1"                                        # it can be a branch or a tag
+    app_name: "mconf-web"                                 # used only internally (folders/files names), don't use spaces
+    repository: "git://github.com/mconf/mconf-web.git"    # repository url
+    repository_scm: "git"                                 # see capistrano docs for available options
+
+# Configurations for each environment
+# You can find below the sections for each environment available.
+# Uncomment the lines from one of them to define specific configurations for that environment.
+# You can copy any of the parameters from the default section and override them here.
+# Remember to copy the entire sections: if you want to override the "email" from "site" and
+# "name" from "default_space", you must do something like:
+#
+# development:
+#   site:
+#     email: "override the email"
+#   default_space:
+#     name: "new name"
+#
+# Also remember to maintain the file indented with 2 spaces. The YML file must use this
+# formatting to be valid.
+
+
+# Development configurations
+#development:
+#  bbb_server:
+#    url: 'http://dev-server/bigbluebutton/api'
+#    salt: 'dev-server-salt'
+#    version: '0.7'
+
+
+# Production configurations
+#production:
+#  bbb_server:
+#    url: 'http://production-server/bigbluebutton/api'
+#    salt: 'production-server-salt'
+#    version: '0.7'
+
+
+# Test configurations
+#test:
+#  bbb_server:
+#    url: 'http://test-server/bigbluebutton/api'
+#    salt: 'test-server-salt'
+#    version: '0.7'
+

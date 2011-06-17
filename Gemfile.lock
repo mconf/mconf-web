@@ -79,6 +79,8 @@ GEM
       builder (>= 2.1.2)
     color (1.4.1)
     columnize (0.3.2)
+    configatron (2.8.0)
+      yamler (>= 0.1.0)
     crack (0.1.8)
     diff-lcs (1.1.2)
     dynamic_form (1.1.4)
@@ -199,6 +201,7 @@ GEM
       rack-test (>= 0.5.3)
     will_paginate (3.0.pre2)
     ya2yaml (0.30)
+    yamler (0.1.0)
 
 PLATFORMS
   ruby
@@ -210,6 +213,7 @@ DEPENDENCIES
   capistrano (~> 2.5)
   chronic
   ci_reporter
+  configatron
   dynamic_form
   exception_notification_rails3
   factory_girl

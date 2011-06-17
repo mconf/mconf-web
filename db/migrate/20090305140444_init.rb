@@ -1,5 +1,3 @@
-SITE_CONFIG = YAML.load_file(File.join(Rails.root, "config", "site_conf.yml"))
-
 class Init < ActiveRecord::Migration
   def self.up
     create_table "attachments", :force => true do |t|
@@ -219,10 +217,10 @@ class Init < ActiveRecord::Migration
     end
 
     create_table "sites", :force => true do |t|
-      t.string   "name",        :default => SITE_CONFIG["name"]
+      t.string   "name"
       t.text     "description"
-      t.string   "domain",      :default => SITE_CONFIG["domain"]
-      t.string   "email",       :default => SITE_CONFIG["email"]
+      t.string   "domain"
+      t.string   "email"
       t.string   "locale"
       t.datetime "created_at"
       t.datetime "updated_at"

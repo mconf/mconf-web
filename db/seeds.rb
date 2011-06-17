@@ -1,19 +1,30 @@
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ :name => 'Chicago' }, { :name => 'Copenhagen' }])
-#   Mayor.create(:name => 'Daley', :city => cities.first)
 
-puts "* Create Administrator \"mconf\""
-u = User.create :login => "mconf",
-                :email => 'mconf.prav@gmail.com',
-                :password => "admin",
-                :password_confirmation => "admin"
+puts "* Create the default site"
+puts "  name: #{configatron.site.name}"
+puts "  description: #{configatron.site.description}"
+puts "  email: #{configatron.site.email}"
+puts "  locale: #{configatron.site.locale}"
+puts "  domain: #{configatron.site.domain}"
+u = Site.create :name => configatron.site.name,
+                :description => configatron.site.description,
+                :email => configatron.site.email,
+                :locale => configatron.site.locale,
+                :domain => configatron.site.domain
+
+puts "* Create the administrator account"
+puts "  login: #{configatron.admin.login}"
+puts "  email: #{configatron.admin.email}"
+puts "  password: #{configatron.admin.password}"
+puts "  fullname: #{configatron.admin.fullname}"
+u = User.create :login => configatron.admin.login,
+                :email => configatron.admin.email,
+                :password => configatron.admin.password,
+                :password_confirmation => configatron.admin.password
 u.update_attribute(:superuser,true)
 u.activate
-u.profile!.update_attribute(:full_name, "Mconf")
+u.profile!.update_attribute(:full_name, configatron.admin.fullname)
 
 puts "* Create Permissions"
 
@@ -85,18 +96,23 @@ invited_role.permissions << Permission.find_by_action_and_objective('read', nil)
 invited_role.permissions << Permission.find_by_action_and_objective('read', 'content')
 invited_role.permissions << Permission.find_by_action_and_objective('read', 'performance')
 
-puts "* Create Space \"Mconf-Web Space\""
-default_space = Space.create :name => "Mconf-Web Space",
-                             :description => "Mconf-Web Space",
+puts "* Create the default space:"
+puts "  name: #{configatron.default_space.name}"
+puts "  description: #{configatron.default_space.description}"
+default_space = Space.create :name => configatron.default_space.name,
+                             :description => configatron.default_space.description,
                              :public => true,
                              :default_logo => "models/front/space.png"
 
-puts "* Create the default BigBlueButton server (defined in bigbluebutton_conf.yml)"
-BBB_CONFIG = YAML.load_file(File.join(::Rails.root, "config", "bigbluebutton_conf.yml"))[::Rails.env]
-bbb_server = BigbluebuttonServer.create :name => "Default server",
-                                        :url => BBB_CONFIG["server"],
-                                        :salt => BBB_CONFIG["salt"],
-                                        :version => BBB_CONFIG["version"]
+puts "* Create the default BigBlueButton server"
+puts "  name: #{configatron.bbb_server.name}"
+puts "  url: #{configatron.bbb_server.url}"
+puts "  salt: #{configatron.bbb_server.salt}"
+puts "  version: #{configatron.bbb_server.version}"
+bbb_server = BigbluebuttonServer.create :name => configatron.bbb_server.name,
+                                        :url => configatron.bbb_server.url,
+                                        :salt => configatron.bbb_server.salt,
+                                        :version => configatron.bbb_server.version
 
 puts "* Create the BigBlueButton room for the default space"
 BigbluebuttonRoom.create :name => default_space.name,
