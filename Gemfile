@@ -31,6 +31,7 @@ gem 'bigbluebutton_rails', :git => 'git://github.com/mconf/bigbluebutton_rails.g
 gem 'rspec-rails', '~> 2.5'
 gem 'action_mailer_tls'
 gem 'configatron'
+gem 'attachment_fu', :git => 'git://github.com/mconf/attachment_fu.git'
 
 # WARNING: This version of mysql2 (0.3.2) doesn't ship with the ActiveRecord adapter bundled anymore as it's now part of Rails 3.1
 # WARNING: Please use the 0.2.x releases if you plan on using it in Rails <= 3.0.x

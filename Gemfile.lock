@@ -11,6 +11,13 @@ GIT
     simple_captcha (0.1.1)
 
 GIT
+  remote: git://github.com/mconf/attachment_fu.git
+  revision: d060063fe3705184b43361075387b5c74ecbb260
+  specs:
+    attachment_fu (1.0.0)
+      aws-s3
+
+GIT
   remote: git://github.com/mconf/bigbluebutton_rails.git
   revision: e58fe335c5c4e7d1c0dfd8cfa15f64536bf3b733
   specs:
@@ -65,6 +72,10 @@ GEM
     archive-tar-minitar (0.5.2)
     arel (2.0.10)
     atom-tools (2.0.5)
+    aws-s3 (0.6.2)
+      builder
+      mime-types
+      xml-simple
     bigbluebutton-api-ruby (0.0.10)
       nokogiri (~> 1.4.0)
     builder (2.1.2)
@@ -200,6 +211,7 @@ GEM
       rack (>= 1.0)
       rack-test (>= 0.5.3)
     will_paginate (3.0.pre2)
+    xml-simple (1.0.16)
     ya2yaml (0.30)
     yamler (0.1.0)
 
@@ -209,6 +221,7 @@ PLATFORMS
 DEPENDENCIES
   action_mailer_tls
   atom-tools
+  attachment_fu!
   bigbluebutton_rails!
   capistrano (~> 2.5)
   chronic

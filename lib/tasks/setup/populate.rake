@@ -63,7 +63,7 @@ namespace :setup do
         #        post.tag_with Populator.words(1..4).gsub(" ", ",")
       end
 
-      puts "* Creating spaces: events for \"#{space.name}\""
+      puts "* Create spaces: events for \"#{space.name}\""
       Event.populate 5..10 do |event|
         event.space_id = space.id
         event.name = Populator.words(1..3).titleize
@@ -146,7 +146,7 @@ namespace :setup do
     users = User.all
     role_ids = Role.find_all_by_stage_type('Space').map(&:id)
 
-    puts "* Creating spaces: logos"
+    puts "* Create spaces: logos"
     logos = Dir.entries("public/images/default_space_logos/")
     logos.delete(".")
     logos.delete("..")
@@ -155,7 +155,7 @@ namespace :setup do
       space.save
     end
 
-    puts "* Creating spaces: more data..."
+    puts "* Create spaces: more data..."
     Space.all.each do |space|
       available_users = users.dup
 
