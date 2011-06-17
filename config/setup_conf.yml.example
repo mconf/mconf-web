@@ -35,14 +35,24 @@ default:
     name: "Mconf Dev"
     description: "Mconf Development Website"
     email: "my-email@server.com"
-    locale: "en"
-    domain: "localhost"
+    locale: "en"                               # this will be the default locale for the application
+    domain: "localhost"                        # your server address
+    signature: "Mconf"                         # to sign emails
 
   # Default space: it will be created as a default public space, something like
   # "a space for all members of this website"
   default_space:
     name: "Mconf-Web Space"
     description: "Mconf-Web users space"
+
+  # Deploy configurations
+  # These configurations are all used by config/deploy.rb
+  deploy:
+    server: "my-server.com"
+    branch: "v0.1"                                        # it can be a branch or a tag
+    app_name: "mconf-web"                                 # used only internally (folders/files names), don't use spaces
+    repository: "git://github.com/mconf/mconf-web.git"    # repository url
+    repository_scm: "git"                                 # see capistrano docs for available options
 
 # Configurations for each environment
 # You can find below the sections for each environment available.

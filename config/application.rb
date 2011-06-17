@@ -37,9 +37,8 @@ module Vcc
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
 
-    # TODO test if it really falls back to en
     config.i18n.fallbacks = true
-    config.i18n.default_locale = :"pt-br"
+    config.i18n.default_locale = :en
 
     config.generators do |g|
       g.fixture_replacement :factory_girl
