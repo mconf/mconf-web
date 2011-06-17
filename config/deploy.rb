@@ -8,6 +8,7 @@
 #  cap deploy:web:disable  # start maintenance mode (the site will be offline)
 #  cap deploy:web:enable   # stop maintenance mode (the site will be online)
 #  cap setup:db            # drops, creates and populates the db with the basic data
+#  cap setup:secret        # creates a new secret token (requires restart)
 #
 #  SERVER=127.0.0.1 cap deploy   # deploy to a server at 127.0.0.1
 #  BRANCH=mybranch cap deploy    # deploy a branch named "mybranch"
@@ -91,9 +92,10 @@ namespace(:deploy) do
 
   desc "Setup a server for the first time"
   task :all do
-    deploy.setup    # basic setup of directories
-    deploy.update   # clone git repo and make it the current release
-    top.setup.db    # destroys and recreates the DB
+    deploy.setup      # basic setup of directories
+    deploy.update     # clone git repo and make it the current release
+    top.setup.db      # destroys and recreates the DB
+    top.setup.secret  # new secret
   end
 
 end
@@ -120,6 +122,11 @@ namespace :setup do
     run "/bin/chmod -R g+w #{shared_path}/log"
   end
 
+  # Creates a new secret in config/initializers/secret_token.rb
+  task :secret do
+    run "rake setup:secret"
+    puts "You must restart the server to enable the new secret"
+  end
 end
 
 ### from vcc
