@@ -23,10 +23,15 @@ set :rvm_type, :user
 # bundler bootstrap
 require 'bundler/capistrano'
 
+# configuration file
+require 'configatron'
+require File.join(File.dirname(__FILE__), '..', 'lib', 'configuration_loader')
+CONFIG_FILE = File.join("config", "setup_conf.yml")
+ConfigurationLoader.load(CONFIG_FILE, "production")
+
 default_run_options[:pty] = true # anti-tty error
 
 set :server, configatron.deploy.server
-set :branch, configatron.deploy.branch
 
 set :application, configatron.deploy.app_name
 set :repository, configatron.deploy.repository
@@ -39,7 +44,7 @@ set :use_sudo, false
 role(:app) { ENV['SERVER'] || fetch(:server) }
 role(:web) { ENV['SERVER'] || fetch(:server) }
 role(:db, :primary => true) { ENV['SERVER'] || fetch(:server) }
-set(:branch) { ENV['BRANCH'] || fetch(:branch) }
+set(:branch) { ENV['BRANCH'] || configatron.deploy.branch }
 
 set :deploy_to, "/home/mconf/#{application}"
 set :deploy_via, :remote_cache
@@ -48,6 +53,7 @@ on :start, 'deploy:info'
 
 after 'deploy:setup', 'setup:create_shared'
 after 'deploy:update_code', 'deploy:link_files'
+after 'deploy:update_code', 'deploy:upload_config_files'
 after 'deploy:update_code', 'deploy:fix_file_permissions'
 
 namespace(:deploy) do
@@ -86,7 +92,7 @@ namespace(:deploy) do
 
   task :upload_config_files do
     top.upload "config/database.yml", "#{release_path}/config/", :via => :scp
-    top.upload "config/mail_conf.yml", "#{release_path}/config/", :via => :scp
+    top.upload "config/setup_conf.yml", "#{release_path}/config/", :via => :scp
     #top.upload "config/crossdomain.yml", "#{release_path}/config/", :via => :scp
   end
 

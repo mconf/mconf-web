@@ -11,11 +11,11 @@ unless File.exists? CONFIG_FILE
   exit
 end
 
-full_config = YAML.load_file(CONFIG_FILE)
-config = full_config["default"]
-env = full_config[Rails.env]
-config.merge!(env) unless env.nil?
-
-configatron.configure_from_hash(config)
+ConfigurationLoader.load(CONFIG_FILE, Rails.env)
+#full_config = YAML.load_file(CONFIG_FILE)
+#config = full_config["default"]
+#env = full_config[Rails.env]
+#config.merge!(env) unless env.nil?
+#configatron.configure_from_hash(config)
 
 
