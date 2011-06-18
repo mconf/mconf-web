@@ -1,0 +1,38 @@
+# This file contains configurations used in the deployment.
+#
+# deploy.rb loads this file and deploy/production.rb or deploy/staging.rb will
+# load the configurations. "staging" and "production" are the two stages defined
+# by default in deploy.rb. We use "staging" as a test server before deploying to
+# "production"
+# To add another stage simply copy staging.rb, rename it and add the new stage to
+# deploy.rb (search for "set :stages")
+#
+# You can redefine here pretty much any variable available to Capistrano and it will
+# override the default values set in deploy.rb.
+# The variables we left here (commented or not) were already tested and you can use
+# them in this file.
+#
+# For more about Capistrano see: https://github.com/capistrano/capistrano
+# Available variables: https://github.com/capistrano/capistrano/wiki/2.x-Significant-Configuration-Variables
+# For more about multistage see: https://github.com/capistrano/capistrano/wiki/2.x-Multistage-Extension
+
+staging:
+  server: "staging.server.com"                        # server url/ip
+  branch: "master"                                    # branch or tag
+  application: "mconf-web"                            # application name, do not use spaces
+  repository: "git://github.com/mconf/mconf-web.git"  # repository to get the app from
+  scm: "git"                                          # repository scm
+#  scm_username: "scm-username"                        # username to access the scm
+#  scm_password: "scm-pass"                            # password to access the scm
+#  deploy_to: "/home/myuser/deploy_folder/"            # folder where the app will be in the server
+#  user: "myuser"                                      # user (in the server) used to deploy
+#  files_grp: "app_group"                              # group (in the server) used
+#  use_sudo: true                                      # use sudo when running commands in the server?
+#  rvm_ruby_string: '1.9.2@my_gemset'                  # ruby version and gemset used in rvm
+
+production:
+  server: "production.server.com"
+  branch: "v0.1"
+  application: "mconf-web"
+  repository: "git://github.com/mconf/mconf-web.git"
+  scm: "git"

@@ -1,17 +1,16 @@
-# Tips:
+# Quick refs:
+# (note: you can replace "staging" by "production" to set the target stage, see deploy/conf.yml)
 #
-#  cap deploy:all          # first time setup of a server
-#  cap deploy:setup        # first setup, create directories
-#  cap deploy:udpate       # update a new release
-#  cap deploy:migrate      # run migrations
-#  cap deploy:restart      # restart Nginx
-#  cap deploy:web:disable  # start maintenance mode (the site will be offline)
-#  cap deploy:web:enable   # stop maintenance mode (the site will be online)
-#  cap setup:db            # drops, creates and populates the db with the basic data
-#  cap setup:secret        # creates a new secret token (requires restart)
-#
-#  SERVER=127.0.0.1 cap deploy   # deploy to a server at 127.0.0.1
-#  BRANCH=mybranch cap deploy    # deploy a branch named "mybranch"
+#  cap staging deploy:all          # first time setup of a server
+#  cap staging deploy:setup        # first setup, create directories
+#  cap staging deploy:udpate       # update a new release
+#  cap staging deploy:rollback     # go back to the previous version
+#  cap staging deploy:migrate      # run migrations
+#  cap staging deploy:restart      # restart Nginx
+#  cap staging deploy:web:disable  # start maintenance mode (the site will be offline)
+#  cap staging deploy:web:enable   # stop maintenance mode (the site will be online)
+#  cap staging setup:db            # drops, creates and populates the db with the basic data
+#  cap staging setup:secret        # creates a new secret token (requires restart)
 #
 
 # RVM bootstrap
@@ -23,40 +22,35 @@ set :rvm_type, :user
 # bundler bootstrap
 require 'bundler/capistrano'
 
-# configuration file
-require 'configatron'
-require File.join(File.dirname(__FILE__), '..', 'lib', 'configuration_loader')
-CONFIG_FILE = File.join("config", "setup_conf.yml")
-ConfigurationLoader.load(CONFIG_FILE, "production")
+# read the configuration file
+CONFIG_FILE = File.join(File.dirname(__FILE__), 'deploy', 'conf.yml')
+set :configs, YAML.load_file(CONFIG_FILE)
 
-default_run_options[:pty] = true # anti-tty error
+# multistage setup
+set :stages, %w(production staging)
+require 'capistrano/ext/multistage'
 
-set :server, configatron.deploy.server
+# anti-tty error
+default_run_options[:pty] = true
 
-set :application, configatron.deploy.app_name
-set :repository, configatron.deploy.repository
-set :scm, configatron.deploy.repository_scm
+# standard configuration for all stages
+set :application, "mconf-web"
+set :deploy_to, "/home/mconf/#{application}"
+set :deploy_via, :remote_cache
 set :git_enable_submodules, 1
 set :user, "mconf"
 set :files_grp, "mconf"
 set :use_sudo, false
 
-role(:app) { ENV['SERVER'] || fetch(:server) }
-role(:web) { ENV['SERVER'] || fetch(:server) }
-role(:db, :primary => true) { ENV['SERVER'] || fetch(:server) }
-set(:branch) { ENV['BRANCH'] || configatron.deploy.branch }
-
-set :deploy_to, "/home/mconf/#{application}"
-set :deploy_via, :remote_cache
-
-on :start, 'deploy:info'
-
+after 'multistage:ensure', 'deploy:info'
 after 'deploy:setup', 'setup:create_shared'
 after 'deploy:update_code', 'deploy:link_files'
 after 'deploy:update_code', 'deploy:upload_config_files'
 after 'deploy:update_code', 'deploy:fix_file_permissions'
 
-namespace(:deploy) do
+# Deployment tasks
+# Used for each deploy
+namespace :deploy do
 
   # Nginx tasks
   task(:start) {}
@@ -65,10 +59,16 @@ namespace(:deploy) do
     run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
   end
 
+  desc "Prints information about the selected stage"
   task :info do
     puts
-    puts "Deploying SERVER = #{ ENV['SERVER'] || fetch(:server) }"
-    puts "Deploying BRANCH = #{ ENV['BRANCH'] || fetch(:branch) }"
+    puts "*******************************************************"
+    puts "        stage: #{ stage.upcase }"
+    puts "       server: #{ fetch(:server) }"
+    puts "       branch: #{ fetch(:branch) }"
+    puts "   repository: #{ fetch(:repository) }"
+    puts "  application: #{ fetch(:application) }"
+    puts "*******************************************************"
     puts
   end
 
@@ -90,23 +90,26 @@ namespace(:deploy) do
     run "ln -sf #{shared_path}/public/pdf #{release_path}/public"
   end
 
+  desc "Send to the server the local configuration files"
   task :upload_config_files do
     top.upload "config/database.yml", "#{release_path}/config/", :via => :scp
     top.upload "config/setup_conf.yml", "#{release_path}/config/", :via => :scp
     #top.upload "config/crossdomain.yml", "#{release_path}/config/", :via => :scp
   end
 
-  desc "Setup a server for the first time"
-  task :all do
-    deploy.setup      # basic setup of directories
-    deploy.update     # clone git repo and make it the current release
-    top.setup.db      # destroys and recreates the DB
-    top.setup.secret  # new secret
-  end
-
 end
 
+# Setup tasks
+# They are usually used once in a while and affect the database or important setup files
 namespace :setup do
+
+  desc "Setup a server for the first time"
+  task :all do
+    top.deploy.setup      # basic setup of directories
+    top.deploy.update     # clone git repo and make it the current release
+    setup.db              # destroys and recreates the DB
+    setup.secret          # new secret
+  end
 
   desc "recreates the DB and populates it with the basic data"
   task :db do
@@ -128,92 +131,9 @@ namespace :setup do
     run "/bin/chmod -R g+w #{shared_path}/log"
   end
 
-  # Creates a new secret in config/initializers/secret_token.rb
+  desc "Creates a new secret in config/initializers/secret_token.rb"
   task :secret do
     run "rake setup:secret"
     puts "You must restart the server to enable the new secret"
   end
 end
-
-### from vcc
-
-#after 'deploy:update_code', 'deploy:copy_openfire_code'
-#after 'deploy:restart', 'deploy:reload_ultrasphinx'
-#after 'deploy:restart', 'deploy:reload_openfire'
-
-=begin
-  task :production do
-    set :environment, :production
-    #if ENV['MERGE_LOCALES'] != 'false'
-    #  commit_remote_translations
-    #end
-    deploy.migrations
-  end
-
-  task :testing do
-    set :environment, :test
-    deploy.migrations
-  end
-=end
-
-=begin
-  #TODO rails 3: ultrasphinx
-  task :reload_ultrasphinx do
-    run "cd #{ current_path } && rake ultrasphinx:configure RAILS_ENV=production"
-    run "cd #{ current_path } && sudo /usr/bin/rake ultrasphinx:index RAILS_ENV=production"
-    run "sudo /etc/init.d/sphinxsearch restart"
-  end
-=end
-
-=begin
-  task :copy_openfire_code do
-    run "sudo cp #{release_path}/extras/chat/openfire/installation/vccCustomAuthentication.jar /usr/share/openfire/lib/"
-    run "sudo cp #{release_path}/extras/chat/openfire/installation/vccRooms.jar /usr/share/openfire/plugins/"
-  end
-
-  task :reload_openfire do
-    run "sudo /etc/init.d/openfire restart"
-  end
-=end
-
-
-=begin
-  task :commit_remote_translations do
-    run("cat #{ File.join(current_path, 'REVISION') }") do |channel, stream, data|
-      exit unless system("git checkout #{ data }")
-      system("git submodule update")
-    end
-
-    # Get remote translations in production server
-    get File.join(current_path, "config", "locales"),
-        "config/locales", :recursive => true
-    # Remove log
-    system "rm -r config/locales/log"
-
-    # Commit translations
-    system "git commit config/locales -m \"Merge translations in production server\""
-
-    translations_commit = `cat .git/HEAD`.chomp
-
-    # Go to deployment branch
-    system "git checkout #{ ENV['BRANCH'] || fetch(:branches)[fetch(:environment)] }"
-    system "git submodule update"
-
-    # Add translations commit
-    commit = `git cherry-pick #{ translations_commit } 2>&1`
-
-    unless commit =~ /Finished one cherry\-pick/
-      puts "There were problems when merging translations"
-      puts "Resolve the conflicts, commit and push"
-      puts "Then, deploy with MERGE_LOCALES=false"
-      puts commit
-
-      exit
-    end
-
-    unless system("git push origin #{ ENV['BRANCH'] || fetch(:branches)[fetch(:environment)] }")
-      puts "Unable to push to origin"
-      exit
-    end
-  end
-=end

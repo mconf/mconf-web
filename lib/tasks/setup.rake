@@ -71,6 +71,7 @@ namespace :setup do
   task :config do
     setup_file("config/setup_conf.yml")
     setup_file("config/database.yml")
+    setup_file("config/deploy/conf.yml")
   end
 
   def setup_file(file)

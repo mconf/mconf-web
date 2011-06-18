@@ -43,6 +43,7 @@ gem 'table_helper', :git => 'git://github.com/echen/table_helper.git'
 group :development, :test do
   gem 'ruby-debug19', :require => 'ruby-debug'
   gem 'capistrano', '~> 2.5'
+  gem 'capistrano-ext'
   gem 'populator'
   gem 'ffaker'
   gem 'factory_girl'

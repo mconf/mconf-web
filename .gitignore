@@ -15,6 +15,7 @@ spec/reports
 config/locales/log
 .svn
 config/setup_conf.yml
+config/deploy/conf.yml
 public/pdf/
 db/*.sqlite3*
 tmp/*
