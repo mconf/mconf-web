@@ -68,33 +68,33 @@ namespace :deploy do
     puts "       branch: #{ fetch(:branch) }"
     puts "   repository: #{ fetch(:repository) }"
     puts "  application: #{ fetch(:application) }"
+    puts " release path: #{ release_path }"
     puts "*******************************************************"
     puts
   end
 
   task :fix_file_permissions do
-    run  "/bin/mkdir -p #{release_path}/tmp/attachment_fu" # AttachmentFu dir is deleted in deployment
-    run "/bin/chmod -R g+w #{release_path}/tmp"
-    sudo "/bin/chgrp -R #{files_grp} #{release_path}/tmp"
-    sudo "/bin/chgrp -R #{files_grp} #{release_path}/public/images/tmp"
-    sudo "/bin/chgrp -R #{files_grp} #{release_path}/config/locales" # Allow Translators modify locale files
+    run  "/bin/mkdir -p #{current_path}/tmp/attachment_fu" # AttachmentFu dir is deleted in deployment
+    run "/bin/chmod -R g+w #{current_path}/tmp"
+    sudo "/bin/chgrp -R #{files_grp} #{current_path}/tmp"
+    sudo "/bin/chgrp -R #{files_grp} #{current_path}/public/images/tmp"
+    sudo "/bin/chgrp -R #{files_grp} #{current_path}/config/locales" # Allow Translators modify locale files
     sudo "/bin/mkdir -p /var/local/mconf-web"
     sudo "/bin/chown #{files_grp} /var/local/mconf-web"
   end
 
   # REVIEW really need to do this?
   task :link_files do
-    run "ln -sf #{shared_path}/public/logos #{release_path}/public"
-    run "ln -sf #{shared_path}/attachments #{release_path}/attachments"
-    run "ln -sf #{shared_path}/public/scorm #{release_path}/public"
-    run "ln -sf #{shared_path}/public/pdf #{release_path}/public"
+    run "ln -sf #{shared_path}/public/logos #{current_path}/public"
+    run "ln -sf #{shared_path}/attachments #{current_path}/attachments"
+    run "ln -sf #{shared_path}/public/scorm #{current_path}/public"
+    run "ln -sf #{shared_path}/public/pdf #{current_path}/public"
   end
 
   desc "Send to the server the local configuration files"
   task :upload_config_files do
-    top.upload "config/database.yml", "#{release_path}/config/", :via => :scp
-    top.upload "config/setup_conf.yml", "#{release_path}/config/", :via => :scp
-    #top.upload "config/crossdomain.yml", "#{release_path}/config/", :via => :scp
+    top.upload "config/database.yml", "#{current_path}/config/", :via => :scp
+    top.upload "config/setup_conf.yml", "#{current_path}/config/", :via => :scp
   end
 
 end
