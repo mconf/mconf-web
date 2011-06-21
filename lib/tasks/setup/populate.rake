@@ -211,6 +211,8 @@ namespace :setup do
           room.moderator_password = "mp"
           room.private = !space.public
           room.logout_url = "/spaces/#{space.permalink}"
+          room.external = false
+          room.param = space.name.parameterize.downcase
         end
       end
 

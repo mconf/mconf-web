@@ -1,0 +1,138 @@
+.bbbrails_meeting_description {
+  padding: 5px;
+  margin-top: 20px;
+}
+
+.bbbrails_meeting_description span.running {
+  color: green;
+}
+
+.bbbrails_meeting_description span.not_running {
+  color: #a00000;
+}
+
+.bbbrails_meeting_description .button_bar {
+  float: right;
+  margin-right: 10px;
+  border-left: 1px solid #aaa;
+}
+
+.bbbrails_meeting_description .button_bar a {
+  margin-left: 5px;
+}
+
+.bbbrails_meeting_description .title_bar {
+  padding: 5px;
+  background: #f0f0f0;
+}
+
+.bbbrails_meeting_description_changed {
+  border: 1px solid #d00000;
+}
+
+.bbbrails_countdown {
+  float: right;
+  padding: 5px;
+  margin: 10px;
+}
+
+.bbbrails_meeting_attendees {
+  margin-top: 10px;
+}
+
+.bbbrails_meeting_attendees .header, .bbbrails_meeting_attendees .row {
+  clear: both;
+  border-top: 1px solid #ddd;
+}
+
+.bbbrails_meeting_attendees .header .field {
+  float: left;
+  margin: 0 5px 0 0;
+  width: 180px;
+  font-weight: bold;
+  padding: 3px;
+}
+
+.bbbrails_meeting_attendees .row .field {
+  float: left;
+  margin: 0 5px 0 0;
+  width: 180px;
+  padding: 3px;
+}
+
+
+/*
+ * Used in bigbluebutton_servers/index
+ */
+
+#bbbrails_servers_list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+#bbbrails_servers_links {
+  margin-bottom: 5px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #ddd;
+}
+
+#bbbrails_servers_list li {
+  margin-bottom: 5px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #ddd;
+  clear: both;
+}
+
+#bbbrails_servers_list div.field {
+  margin: 0;
+  padding: 0;
+  clear: both;
+}
+
+#bbbrails_servers_list label {
+  font-weight: bold;
+  width: 150px;
+  float: left;
+  text-align: right;
+  margin-right: 10px;
+  clear: both;
+}
+
+/*
+ * Used in bigbluebutton_rooms/index
+ */
+
+#bbbrails_rooms_list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+#bbbrails_rooms_links {
+  margin-bottom: 5px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #ddd;
+}
+
+#bbbrails_rooms_list li {
+  margin-bottom: 5px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #ddd;
+  clear: both;
+}
+
+#bbbrails_rooms_list div.field {
+  margin: 0;
+  padding: 0;
+  clear: both;
+}
+
+#bbbrails_rooms_list label {
+  font-weight: bold;
+  width: 300px;
+  float: left;
+  text-align: right;
+  margin-right: 10px;
+  clear: both;
+}
