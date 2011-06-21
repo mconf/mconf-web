@@ -61,6 +61,14 @@
     <color><b><%= f.label :max_participants %></b></color><br />
     <%= f.text_field :max_participants %>
   </div><br />
+  <div class="field">
+    <color><b><%= f.label :external %></b></color><br />
+    <%= f.check_box :external %>
+  </div>
+  <div class="field">
+    <color><b><%= f.label :param %></b></color><br />
+    <%= f.text_field :param %>
+  </div><br />
   <div class="actions">
     <button type="submit" class="basic_button medium_button pale_button"><%=t('button.confirm')%></button>
   </div>

@@ -56,6 +56,14 @@
             <color><b><%= BigbluebuttonRoom.human_attribute_name(:max_participants) %>:</b></color>
             <%= @room.max_participants %>
           </li>
+          <li>
+            <color><b><%= BigbluebuttonRoom.human_attribute_name(:external) %>:</b></color>
+            <%= @room.external %>
+          </li>
+          <li>
+            <color><b><%= BigbluebuttonRoom.human_attribute_name(:param) %>:</b></color>
+            <%= @room.param %>
+          </li>
         </ul>
         <%= link_to t('back'), bigbluebutton_server_rooms_path, :class => 'basic_button small_button pale_button' %>
         <%= link_to t('edit'), edit_bigbluebutton_server_room_path(@server, @room), :class => 'basic_button small_button pale_button' %>
@@ -64,10 +72,3 @@
   </div>
   <%= link_to t('join'), join_bigbluebutton_server_room_path(@room.server, @room), :class => 'basic_button small_button orange_pale_button' %>
 </div>
-
-<%= link_to 'Edit', edit_bigbluebutton_server_room_path(@room.server, @room) %> |
-<%= link_to 'Back', bigbluebutton_server_rooms_path(@room.server) %>
-
-<br/>
-
-<%= link_to 'Join', join_bigbluebutton_server_room_path(@room.server, @room) %>

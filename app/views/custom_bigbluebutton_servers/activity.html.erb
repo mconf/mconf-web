@@ -1,0 +1,57 @@
+<%= content_for :javascript do %>
+  var serverActivityCountdown = 0
+  var serverActivityCountdownInterval = 30 // in seconds
+
+  function serverActivityUpdateMeetingsLoad() {
+    $("#bbbrails_server_activity_meetings").load("<%= activity_bigbluebutton_server_path(@server, :update_list => true) %>", serverActivityUpdateMeetingsEnd());
+  }
+
+  function serverActivityUpdateMeetingsStart() {
+    clearInterval(serverActivityCountdown);
+    $(".bbbrails_countdown_value").html("Now...");
+    serverActivityUpdateMeetingsLoad();
+  }
+
+  function serverActivityUpdateMeetingsEnd() {
+    $(".bbbrails_countdown_value").html("Done!");
+    serverActivitySetCountdown();
+  }
+
+  function serverActivitySetCountdown() {
+    var count = serverActivityCountdownInterval;
+    serverActivityCountdown = setInterval(function(){
+      $(".bbbrails_countdown_value").html(count + " seconds");
+      if (count == 0) {
+        serverActivityUpdateMeetingsStart();
+      }
+      count--;
+    }, 1000);
+  }
+
+  $(document).ready(function(){
+    serverActivitySetCountdown();
+
+    $('.bbbrails_countdown a.bbbrails_refresh_now').click(function() {
+      serverActivityUpdateMeetingsStart();
+      return false;
+    });
+  });
+
+<% end %>
+
+<%= content_for :search do  %>
+  <%= render :partial => 'search/form' %>
+<% end %>
+
+<%= render :partial => 'manage/menu' %>
+
+<div class="bbbrails_countdown">
+  Refreshing in: <span class="bbbrails_countdown_value"></span>
+  (<a class="bbbrails_refresh_now" href="<%= activity_bigbluebutton_server_path(@server) %>">refresh now</a>)
+</div>
+
+<h1>Server activity monitor:</h1>
+
+<div id="bbbrails_server_activity_meetings">
+  <%= render :partial => 'activity_list' %>
+</div>

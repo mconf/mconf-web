@@ -9,7 +9,7 @@
       </ul>
     </div>
   <% end %>
-  
+
   <br/>
   <div class="field">
     <b><%= f.label :name %></b><br/>
@@ -19,7 +19,7 @@
     <b><%= f.label :url %></b><br/>
     <%= f.text_field :url %>
   </div><br/>
-  
+
   <div class="field">
     <b><%= f.label :salt %></b><br/>
     <%= f.text_field :salt %>
@@ -27,8 +27,11 @@
   <div class="field">
     <b><%= f.label :version %></b><br/>
     <%= f.text_field :version %>
-  </div>
-  <br/>
+  </div><br/>
+  <div class="field">
+    <b><%= f.label :param %></b><br/>
+    <%= f.text_field :param %>
+  </div><br/>
   <div class="actions">
     <button type="submit" class="basic_button medium_button pale_button"><%=t('button.confirm')%></button>
   </div>

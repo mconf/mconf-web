@@ -1,0 +1,48 @@
+<% @server.meetings.each do |room| %>
+  <div class="bbbrails_meeting_description">
+    <div class="title_bar">
+      <% unless room.new_record? %>
+        <div class="button_bar">
+          <%= link_to 'Show', bigbluebutton_server_room_path(@server, room) %>
+          <%= link_to 'Edit', edit_bigbluebutton_server_room_path(@server, room) %>
+          <%= link_to 'Destroy', bigbluebutton_server_room_path(@server, room), :confirm => 'Are you sure?', :method => :delete %>
+        </div>
+        <div class="button_bar">
+          <%= link_to 'Join', join_bigbluebutton_server_room_path(@server, room) %>
+          <%= link_to 'Mobile Join', join_mobile_bigbluebutton_server_room_path(@server, room) %>
+          <%= link_to 'End', end_bigbluebutton_server_room_path(@server, room), :confirm => 'Are you sure?' %>
+        </div>
+      <% end %>
+      <b><%= room.name %></b> (ID: <%= room.meetingid %>) -
+      <% if room.is_running? %>
+        <span class="running">Running!</span>
+      <% else %>
+        <span class="not_running">Not running</span>
+      <% end %>
+    </div>
+    <% unless room.start_time.nil? %>
+      Started at: <%= room.start_time.strftime("%F, %R UTC%z") %><br/>
+    <% end %>
+    <% unless room.end_time.nil? %>
+      Ended at: <%= room.end_time.strftime("%F, %R UTC%z") %> (forcibly ended: <%= room.has_been_forcibly_ended %>)
+    <% end %>
+    <% unless room.attendees.count == 0 %>
+      Participants (<%= room.participant_count %> total, <%= room.moderator_count %> moderators):
+      <div class="bbbrails_meeting_attendees">
+        <div class="header">
+          <div class="field">Role</div>
+          <div class="field">ID</div>
+          <div class="field">Name</div>
+        </div>
+        <% room.attendees.each do |attendee| %>
+          <div class="row">
+            <div class="field"><%= attendee.role %></div>
+            <div class="field"><%= attendee.user_id %></div>
+            <div class="field"><%= attendee.full_name %></div>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+    <div style="clear:both;"></div>
+  </div>
+<% end %>
