@@ -22,11 +22,13 @@ pt-br:
       bigbluebutton_room: 
         attendee_password: "Senha de Participante"
         dial_number: "Número para Ligação"
+        external: "Criada externamente"
         logout_url: "URL após sair da sessão"
         max_participants: "Número máximo de participantes"
         meetingid: "ID da sala"
         moderator_password: "Senha de Moderador"
         name: Nome
+        param: "Identificador"
         private: "Sala privada"
         randomize_meetingid: "Aleatorizar ID da sala"
         server_id: "ID do servidor"
@@ -34,6 +36,7 @@ pt-br:
         welcome_msg: "Mensagem de Boas Vindas"
       bigbluebutton_server: 
         name: Nome
+        param: "Identificador"
         salt: "Senha de Segurança"
         url: URL
         version: Versão
@@ -248,10 +251,17 @@ pt-br:
         auth: 
           failure: "Falha de autenticação."
           not_running: "A reunião ainda não começou. Você deve esperar por um moderador para participar."
+      errors: 
+        auth: 
+          failure: "Falha de autenticação."
+          not_running: "A reunião ainda não começou. Você deve esperar por um moderador para participar."
+        param_format: "você pode usar apenas letras, dígitos e os símbolos \"-\" ou \"_\" (mas não no início ou fim)"
       notice: 
         create: 
           failure: "Sua sala não pode ser criada."
           success: "Sua sala foi criada com sucesso."
+        destroy: 
+          success: "A sala foi destruída com sucesso."
         end: 
           not_running: "A reunião não pôde ser finalizada porque ele não está em andamento."
           success: "A reunião foi encerrada com sucesso."
@@ -259,6 +269,9 @@ pt-br:
           failure: "Sua sala não pode ser actualizada."
           success: "Sua sala foi atualizada com sucesso."
     servers: 
+      errors: 
+        param_format: "você pode usar apenas letras, dígitos e os símbolos \"-\" ou \"_\" (mas não no início ou fim)"
+        url_format: "você deve utilizar o padrão http://<server>/bigbluebutton/api"
       notice: 
         create: 
           success: "O servidor foi criado com sucesso."
