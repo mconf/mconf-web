@@ -1201,6 +1201,12 @@ pt-br:
     discarded: "O convite foi descartado"
     discarded_by: "%{candidate} descartou o convite"
     email: E-mail
+    full_message: ! ' <b>%{username} convida você para a comunidade %{space}.</b><br/><br/>%{comment}<br/><br/>
+      Para aceitar o convite por favor visite <a href="%{url}">%{url}</a><br/>
+      Você pode encontrar mais informações sobre esta comunidade em <a href="%{space_url}">%{space_url}</a><br/><br/>
+      Atenciosamente,<br/><br/>%{user_name}<br/>%{user_email}<br/>%{user_organization}<br/><br/>
+      Se você acredita que esta mensagem é um spam, por favor <a href="mailto:%{contact}">
+      entre em contato </a> ou nos <a href=\"%{feedback}\"> envie uma mensagem.</a>'
     hide_all_users: "Ocultar todos os usuários"
     info_event: "Você pode encontrar mais informações sobre este evento em 'event_url'"
     info_space: "Você pode encontrar mais informações sobre esta comunidade em <a href=\"%{space_url}\"> %{space_url} </a>"
@@ -1208,8 +1214,8 @@ pt-br:
     introducer: Introdutor
     label: "Personalize a sua mensagem de convite"
     legend: 
-      URL: "''URL'' será substituído na mensagem pela URL do convite."
-      name: "''Name'' será substituído na mensagem pelo nome do receptor."
+      URL: "'URL' será substituído na mensagem pela URL do convite."
+      name: "'Nome' será substituído na mensagem pelo nome do receptor."
     logout_and_reload: "Você não é o usuário que recebeu esse convite, por favor saia e tente novamente"
     message_title: "Convide as pessoas individualmente para participar da sua comunidade"
     message_with_start_date: 
@@ -1253,7 +1259,7 @@ pt-br:
     title: "Convidar pessoas"
     title2: "Convite da comunidade"
     to_accept: "Para aceitar o convite por favor visite <a href=%{url}> %{url} </a>"
-    to_accept_space: "Para aceitar o convite por favor visite %{url}t;"
+    to_accept_space: "Para aceitar o convite por favor visite 'URL'"
     to_event: "%{username} convida você para o evento %{eventname} na comunidade %{space}"
     to_space: "%{username} convida você para a comunidade %{space}"
     was_processed: 
