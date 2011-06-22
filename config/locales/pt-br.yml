@@ -1642,7 +1642,7 @@ pt-br:
     title: Convidar pessoas
     title2: Convite da comunidade
     to_accept: Para aceitar o convite por favor visite <a href=%{url}> %{url} </a>
-    to_accept_space: Para aceitar o convite por favor visite %{url}t;
+    to_accept_space: Para aceitar o convite por favor visite 'URL'
     to_event: ! '%{username} convida você para o evento %{eventname} na comunidade %{space}'
     to_space: ! '%{username} convida você para a comunidade %{space}'
     was_processed:
