@@ -17,10 +17,10 @@
 <div id="webconference_invite_dialog">
   <div class="header">
     <div class="label"><%= t('invite_people.room_name') %></div>
-    <div class="value"><span><%= @room_name %></span></div>
+    <div class="value"><span><%= @room.name %></span></div>
     <div class="label"><%= t('home.invite_url') %></div>
     <div class="value">
-      <%= text_field_tag "room_invite_url", @room_url, :disabled => true %>
+      <%= text_field_tag "room_invite_url", join_webconf_url(@room), :disabled => true %>
       <%= clippy(:id => "room_invite_url", :bg_color => "#FFFFFF").html_safe %>
     </div>
   </div>
@@ -53,8 +53,8 @@
       <h3><%= t('invite_people.message') %> </h3>
 
       <%= f.text_area :message, :id=> "text_message", :size=> "64x5" %>
-      <%= f.hidden_field :room_name, :value => @room_name %>
-      <%= f.hidden_field :room_url, :value => @room_url %>
+      <%= f.hidden_field :room_name, :value => @room.name %>
+      <%= f.hidden_field :room_url, :value => join_webconf_url(@room) %>
 
       <div class="submit">
         <button type="submit" class="basic_button blue_button"><%=t('invite_people.send_invitations')%></button>
