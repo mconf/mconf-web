@@ -2,6 +2,11 @@ Vcc::Application.routes.draw do
 
   bigbluebutton_routes :default, :controllers => { :servers => 'custom_bigbluebutton_servers', :rooms => 'custom_bigbluebutton_rooms' }
 
+  # FIXME: temporary matcher to simplify the join urls
+  match '/webconf/:id', :to => 'custom_bigbluebutton_rooms#invite',
+                        :defaults => { :server_id => BigbluebuttonServer.first.to_param },
+                        :as => "join_webconf"
+
   #Translate::Routes.translation_ui(map) if RAILS_ENV != "production"
   scope '/translate' do
     match '/translate_list', :to => 'translate#index'

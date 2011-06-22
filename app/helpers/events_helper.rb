@@ -156,7 +156,7 @@ module EventsHelper
       result += link_to(event.title,space_event_url(event.space, event))
       result +='</strong><div style="padding:3px 3px 0px 3px;background:#244974">'
       result += event.streaming(640, 480, 'flash')
-      result += '<div style="padding:0 6px 0px 6px;text-align:right;"><a style="text-decoration:none;outline:none;font-weight:bold;color:#fff" href="http://mconfweb.inf.ufrgs.br">Mconf</a></div>'
+      result += '<div style="padding:0 6px 0px 6px;text-align:right;"><a style="text-decoration:none;outline:none;font-weight:bold;color:#fff" href="http://mconf.inf.ufrgs.br">Mconf</a></div>'
       result += '</div></div>'
 
       return result

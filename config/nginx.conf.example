@@ -32,7 +32,7 @@ http {
 
     server {
         listen 80;
-        server_name mconfweb.inf.ufrgs.br;
+        server_name mconf.inf.ufrgs.br;
         root /home/mconf/mconf-web/current/public;   # <--- be sure to point to 'public'!
         passenger_enabled on;
         if (-f $document_root/system/maintenance.html) {

@@ -5,8 +5,7 @@ class InvitesController < ApplicationController
   end
 
   def invite_room
-    @room_name = params[:roomName]
-    @room_url = params[:roomUrl]
+    @room = BigbluebuttonRoom.find_by_param(params[:room])
     tags = []
     members = Profile.where("full_name like ?", "%#{params[:q]}%").select(['full_name', 'id']).limit(10)
     members.each do |f|
@@ -28,7 +27,7 @@ class InvitesController < ApplicationController
     @fail_messages = Array.new
     @fail_user_email = Array.new
     @fail_email = Array.new
-    
+
     success = ""
     error = ""
 
@@ -88,7 +87,7 @@ class InvitesController < ApplicationController
         end
       end
     end
-    
+
     if params[:invite][:email_tokens].size != 0
       for receiver in params[:invite][:email_tokens].split(/;|,/)
         priv_email[:email_receiver] = receiver
@@ -117,7 +116,7 @@ class InvitesController < ApplicationController
         end
       end
     end
-    
+
     respond_to do |format|
       if @fail_messages.empty?
         if success.size != 0
