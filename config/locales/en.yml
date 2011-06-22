@@ -1202,6 +1202,12 @@ en:
     discarded: "The invitation has been discarded"
     discarded_by: "%{candidate} discarded the invitation"
     email: E-mail
+    full_message: ! ' <b>%{username} invites you to space %{space}.</b><br/><br/>%{comment}<br/><br/>
+      To accept my invitation please visit <a href="%{url}">%{url}</a><br/>
+      You can find more information about this space in <a href="%{space_url}">%{space_url}</a><br/><br/>
+      Kind regards,<br/><br/>%{user_name}<br/>%{user_email}<br/>%{user_organization}<br/><br/>
+      If you believe this message is a spam, please <a href="mailto:%{contact}">
+      contact us </a> or send us <a href="%{feedback}"> feedback.</a>'
     hide_all_users: "Hide all users"
     info_event: "You can find more information about this event in 'event_url'"
     info_space: "You can find more information about this space in <a href=\"%{space_url}\"> %{space_url} </a>"
@@ -1254,7 +1260,7 @@ en:
     title: "Invite people"
     title2: "Space Invitation"
     to_accept: "To accept my invitation please visit <a href=%{url}> %{url} </a>"
-    to_accept_space: "To accept my invitation please visit %{url}"
+    to_accept_space: "To accept my invitation please visit 'URL'"
     to_event: "%{username} invites you to event %{eventname} in space %{space}"
     to_space: "%{username} invites you to space %{space}"
     was_processed: 

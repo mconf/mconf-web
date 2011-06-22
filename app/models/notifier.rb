@@ -19,18 +19,15 @@
 #This class will compose all the mails that the application should send
 class Notifier < ActionMailer::Base
 
-  def invitation_email(invitation)
-
-
+  def invitation_email(invitation)    
     setup_email(invitation.email)
-
 
     @subject += I18n.t("invitation.to_space",:space=>invitation.group.name,:username=>invitation.introducer.full_name).html_safe
 
     @invitation = invitation
     @space = invitation.group
     @user = invitation.introducer
-
+    
     if invitation.candidate
       @name = invitation.candidate.full_name
     else
