@@ -207,6 +207,7 @@ namespace :setup do
           room.owner_type = 'Space'
           room.name = space.name
           room.meetingid = space.permalink
+          room.randomize_meetingid = false
           room.attendee_password = "ap"
           room.moderator_password = "mp"
           room.private = !space.public
