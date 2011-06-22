@@ -207,10 +207,13 @@ namespace :setup do
           room.owner_type = 'Space'
           room.name = space.name
           room.meetingid = space.permalink
+          room.randomize_meetingid = false
           room.attendee_password = "ap"
           room.moderator_password = "mp"
           room.private = !space.public
           room.logout_url = "/spaces/#{space.permalink}"
+          room.external = false
+          room.param = space.name.parameterize.downcase
         end
       end
 

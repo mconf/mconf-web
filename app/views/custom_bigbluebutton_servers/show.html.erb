@@ -21,17 +21,21 @@
         <b><color><%= BigbluebuttonServer.human_attribute_name(:salt) %>:</color></b>
         <%= @server.salt %>
       </li>
-      
+
       <li>
         <b><color><%= BigbluebuttonServer.human_attribute_name(:version) %>:</color></b>
         <%= @server.version %>
       </li>
+      <li>
+        <b><color><%= BigbluebuttonServer.human_attribute_name(:param) %>:</color></b>
+        <%= @server.param %>
+      </li>
     </ul>
-    
-    <br/>      
+
+    <br/>
 
     <%= link_to t('edit'), edit_bigbluebutton_server_path(@server), :class => 'basic_button small_button pale_button' %>
-    <%= link_to t('room.other'), bigbluebutton_server_rooms_path(@server.id), :class => 'basic_button small_button pale_button' %>
+    <%= link_to t('room.other'), bigbluebutton_server_rooms_path(@server), :class => 'basic_button small_button pale_button' %>
     <br/><br/>
     <%= link_to t('back'), bigbluebutton_servers_path, :class => 'basic_button small_button pale_button' %>
 </div>

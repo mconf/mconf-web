@@ -68,6 +68,7 @@ namespace :deploy do
     puts "       branch: #{ fetch(:branch) }"
     puts "   repository: #{ fetch(:repository) }"
     puts "  application: #{ fetch(:application) }"
+    puts " release path: #{ release_path }"
     puts "*******************************************************"
     puts
   end
@@ -94,7 +95,6 @@ namespace :deploy do
   task :upload_config_files do
     top.upload "config/database.yml", "#{release_path}/config/", :via => :scp
     top.upload "config/setup_conf.yml", "#{release_path}/config/", :via => :scp
-    #top.upload "config/crossdomain.yml", "#{release_path}/config/", :via => :scp
   end
 
 end
