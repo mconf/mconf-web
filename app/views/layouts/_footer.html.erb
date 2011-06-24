@@ -21,9 +21,8 @@
         <div id="language_select">
           <%=link_to t('language'), 'dropup', {:id=>"language_select", :class=>"language_select",:title => t('translate.change')} %>
           <ul id="language_menu" style="display:none">
-            <% # for locale in (I18n.available_locales) -%>
-            <% for locale in [:en, :"pt-br"] -%>
-            <li><%= link_to image_tag("flags/" + locale.to_s + ".png", :title=>locale.to_s) + " " + locale.to_s, session_locale_path(:new_locale => locale.to_s), :method => :post %> </li>
+            <% for locale in (I18n.available_locales) -%>
+              <li><%= link_to image_tag("flags/" + locale.to_s + ".png", :title=>locale.to_s) + " " + locale.to_s, session_locale_path(:new_locale => locale.to_s), :method => :post %> </li>
             <% end -%>
           </ul>
         </div>

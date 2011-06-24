@@ -137,9 +137,7 @@ es:
       updating: "La agenda se está actualizando..."
       upload_video: "El video debe tener la extensión FLV."
       video: Grabación
-      yes_record: !binary |
-          U8Ot
-
+      yes_record: Sí
     error: 
       dates: "La hora de inicio debe ser anterior a la hora de finalización"
       end_time_overlaps: "La hora de finalización se solapa con una entrada ya existente en la agenda"
@@ -166,9 +164,7 @@ es:
     other: Usuarios
     select: 
       one: "Seleccionar usuario"
-  agree: !binary |
-      U8Ot
-
+  agree: Sí
   all: Todo
   all_days: "Todos los dias"
   all_events: "Todos los eventos"
@@ -215,9 +211,7 @@ es:
     select: "Seleccionar imagen"
     select_new: "Seleccionar nueva imagen"
     upload: "Cargar imagen"
-  back: !binary |
-      QXRyw6Fz
-
+  back: Vuelta
   back_to_inbox: "Volver a la bandeja de entrada"
   bad_request: "Petición inválida"
   beta: beta
@@ -321,9 +315,7 @@ es:
   conversation: 
     compress: "Contraer conversación"
   could_not_find_anybody_with_that_email_address: "No se ha encontrado a nadie con esa dirección de correo"
-  country: !binary |
-      UGHDrXM=
-
+  country: País
   create: Crear
   create_: Crear...
   create_event: "Crear Evento"
@@ -409,9 +401,7 @@ es:
         one: "más de 1 año"
         other: "más de %{count} años"
       x_days: 
-        one: !binary |
-            MSBkw61h
-
+        one: "1 día"
         other: "%{count} días"
       x_minutes: 
         one: "1 minuto"
@@ -423,19 +413,13 @@ es:
         one: "1 segundo"
         other: "%{count} segundos"
     prompts: 
-      day: !binary |
-          RMOtYQ==
-
+      day: Día
       hour: Hora
       minute: Minuto
       month: Mes
       second: Segundos
-      year: !binary |
-          QcOxbw==
-
-  days: !binary |
-      RMOtYXM=
-
+      year: Año
+  days: Días
   dblclick: "Haga doble click para editar..."
   delete: 
     confirm: "¿Está seguro de eliminar %{element}?"
@@ -894,11 +878,11 @@ es:
   help: Ayuda
   help_createVC: 
     part1: "Para crear una reunión virtual en Global Plaza:<br><br>  1. Haga click en la pestaña <b>Eventos</b>.<br> 2. Haga click en <b>Congreso virtual</b> en la parte derecha de la página."
-    part2: "3. Escriba un título y una descripción para su evento.<br>  4.  Escriba o seleccione los miembros del espacio que organizarán el evento.<br>  5. Escriba la localización del evento<br> 6. Seleccione los modos de participación, los cuales le permiten decidir la manera como las personas se pueden conectar a una reunión virtual. <br>&nbsp; &nbsp; a. <b> Isabel</b>, la herramienta de código abierto que gestiona videoconferencias.<br> &nbsp;&nbsp; &nbsp;b.<b> Web</b>, la oportunidad de participar en una videconferencia a través del navegador. <br>7. Click on <b>Create</b> button."
+    part2: "3. Escriba un título y una descripción para su evento.<br>  4.  Escriba o seleccione los miembros del espacio que organizarán el evento.<br>  5. Escriba la localización del evento<br> 6. Seleccione los modos de participación, los cuales le permiten decidir la manera como las personas se pueden conectar a una reunión virtual. <br>    a. <b> Isabel</b>, la herramienta de código abierto que gestiona videoconferencias.<br>     b.<b> Web</b>, la oportunidad de participar en una videconferencia a través del navegador. <br>7. Click on <b>Create</b> button."
     part3: "8. Una vez que haya creado el evento, usted puede:<br><li><a href=%{agenda}>Definir la agenda del evento</a> <li>Reservar los recursos necesarios para realizar la videoconferencia <li> Invitar a gente<li> Escribir una descripción completa de su evento<li> Editar su evento<li> Importar a icalendar<li>  Notificar a los asistentes"
   help_createVM: 
     part1: "Para crear una reunión virtual en Global Plaza:<br><br>  1. Haga click en la pestaña <b>Eventos</b>.<br> 2. Haga click en <b>Reunión virtual</b> en la parte derecha de la página."
-    part2: "3. Escriba un título y una descripción para su evento.<br>  4.  Escriba o seleccione los miembros del espacio que organizarán el evento.<br>  5. Escriba la localización del evento<br> 6. Seleccione los modos de participación, los cuales le permiten decidir la manera como las personas se pueden conectar a una reunión virtual. <br>&nbsp; &nbsp; a. <b> Isabel</b>, la herramienta de código abierto que gestiona videoconferencias.<br> &nbsp;&nbsp; &nbsp;b.<b> Web</b>, la oportunidad de participar en una videconferencia a través del navegador. <br>7. Click on <b>Create</b> button."
+    part2: "3. Escriba un título y una descripción para su evento.<br>  4.  Escriba o seleccione los miembros del espacio que organizarán el evento.<br>  5. Escriba la localización del evento<br> 6. Seleccione los modos de participación, los cuales le permiten decidir la manera como las personas se pueden conectar a una reunión virtual. <br>    a. <b> Isabel</b>, la herramienta de código abierto que gestiona videoconferencias.<br>     b.<b> Web</b>, la oportunidad de participar en una videconferencia a través del navegador. <br>7. Click on <b>Create</b> button."
     part3: "8. Una vez que haya creado el evento, usted puede:<br><li><a href=%{agenda}>Definir la agenda del evento</a><li>Reservar los recursos necesarios para realizar la videoconferencia <li> Invitar a gente<li> Escribir una descripción completa de su evento<li> Editar su evento<li> Importar a icalendar<li>  Notificar a los asistentes"
   help_createevent: 
     part1: "<a href=%{url} class=\"big_button red_button\" target=\"_blank\"><span>Ver screencast </a></span><br><br><br>Para crear un evento en Global Plaza: <br><br>1. Haga click en la pestaña <b>Eventos</b>."
@@ -939,15 +923,15 @@ es:
     part5: "4. Una vez que haya completado su registro, haga click en el botón <b>Hecho!</b>."
     part6: "5. Después de completar el registro, usted recibirá un correo electrónico de confirmación con el enlace para activar su cuenta."
   help_define_agenda: 
-    part1: "<a href=%{url} class=\"big_button red_button\" target=\"_blank\"><span>Ver screencast </a></span><br><br><br> Para crear un entrada en la agenda para su evento en VCC: <br><br> 1. Haga clic en el tab de &quot;Eventos&quot;<br> 2. Haga clic en el evento que ha creado<br>3. Haga clic en el enlae&quot;Definir el calendario&quot;, &quot;el botón de \"Agenda\" o el enlace &quot;Agenda para el evento&quot; (ver las flechas azules en la figura)"
-    part2: "4. En la sección de la agenda, haga clic en el botón &quot;Añadir sesión&quot; para crear una entrada en la agenda. <br> 5. Indique el título de la entrada en la agenda, la hora de inicio y la duración y haga clic en el botón &quot;Siguiente paso&quot;<br> 6. Ahora puede editar los detalles como el nombre de los ponentes, los cuales pueden ser usuarios locales o externos, o la descripción <br> 7. Si desea adjuntar un archivo, haga clic en el enlace &quot;Nuevo archivo adjunto&quot; .  8. Si el tipo de su evento es &quot;Reunión&quot;, puede incrustar un vídeo"
-    part3: "9. Si el tipo de su evento es &quot;Reunión Virtual&quot; o &quot;Congreso Virtual&quot;, se pueden reservar los recursos tanto de hardware  como de  software, para ello seleccione streaming y grabación"
-    part4: "10. Haga clic en el botón &quot;Finalizar&quot; para confirmar sus cambios. <br> 11. Si desea añadir un divisor para indicar las pausas, como el café o la hora de las comidas, haga clic en el botoón &quot;Añadir divisor&quot;. Puede establecer la hora de inicio y el motivo del break. Haga clic en el botón &quot;Crear&quot; para añadir el divisor.<br>12. Si el evento tiene más de un día, puede agregar una nueva sesión para el segundo día. Cada día tiene su propia pestaña con las entradas de la agenda."
+    part1: "<a href=%{url} class=\"big_button red_button\" target=\"_blank\"><span>Ver screencast </a></span><br><br><br> Para crear un entrada en la agenda para su evento en VCC: <br><br> 1. Haga clic en el tab de \"Eventos\"<br> 2. Haga clic en el evento que ha creado<br>3. Haga clic en el enlae\"Definir el calendario\", \"el botón de \"Agenda\" o el enlace \"Agenda para el evento\" (ver las flechas azules en la figura)"
+    part2: "4. En la sección de la agenda, haga clic en el botón \"Añadir sesión\" para crear una entrada en la agenda. <br> 5. Indique el título de la entrada en la agenda, la hora de inicio y la duración y haga clic en el botón \"Siguiente paso\"<br> 6. Ahora puede editar los detalles como el nombre de los ponentes, los cuales pueden ser usuarios locales o externos, o la descripción <br> 7. Si desea adjuntar un archivo, haga clic en el enlace \"Nuevo archivo adjunto\" .  8. Si el tipo de su evento es \"Reunión\", puede incrustar un vídeo"
+    part3: "9. Si el tipo de su evento es \"Reunión Virtual\" o \"Congreso Virtual\", se pueden reservar los recursos tanto de hardware  como de  software, para ello seleccione streaming y grabación"
+    part4: "10. Haga clic en el botón \"Finalizar\" para confirmar sus cambios. <br> 11. Si desea añadir un divisor para indicar las pausas, como el café o la hora de las comidas, haga clic en el botoón \"Añadir divisor\". Puede establecer la hora de inicio y el motivo del break. Haga clic en el botón \"Crear\" para añadir el divisor.<br>12. Si el evento tiene más de un día, puede agregar una nueva sesión para el segundo día. Cada día tiene su propia pestaña con las entradas de la agenda."
   help_index: 
     part1: "Global Plaza, también llamado Virtual Conference Center (VCC), ofrece un servicio que combina un sistema de conferencia vía web con salas de conferencia, sesiones de streaming, grabación y publicación. El servicio de reuniones virtuales del Global Plaza puede ser usado por ejemplo para:"
-    part2: "<li>Grabar y publicar sus eventos en Internet. <br> &nbsp; &nbsp;Por ejemplo: <a href=%{egee08}>EGEE'08</a>,<a href=%{belief}> 3rd Belief Symposium India</a>.<li>Facilitar la participación remota a sus eventos desde un navegador Web browser. "
-    part3: "<li>Transmitir reuniones, congresos o conferencias a través de Internet. <br> &nbsp; &nbsp;Por ejemplo: <a href=%{belief}>5th Belief Symposium South Africa</a>,<a href=%{morfeo}> Asamblea Morfeo</a>. <li>Permitir la participación remota de ponentes dentro de reuniones o congresos.<br> &nbsp; &nbsp;Por ejemplo: <a href=%{belief_kostas}>5th Belief Symposium (Kostas Glinos, EU)</a>,<a href=%{egee}> 5th EGEE Users Forum</a>."
-    part4: "<li>Conectar un auditorio o sitios remotos a un congreso o evento.<br> &nbsp; &nbsp;Por ejemplo: <a href=%{tnc}>TNC'09</a>,<a href=%{belief}> 4th Belief Symposium Brazil</a>."
+    part2: "<li>Grabar y publicar sus eventos en Internet. <br>    Por ejemplo: <a href=%{egee08}>EGEE'08</a>,<a href=%{belief}> 3rd Belief Symposium India</a>.<li>Facilitar la participación remota a sus eventos desde un navegador Web browser. "
+    part3: "<li>Transmitir reuniones, congresos o conferencias a través de Internet. <br>    Por ejemplo: <a href=%{belief}>5th Belief Symposium South Africa</a>,<a href=%{morfeo}> Asamblea Morfeo</a>. <li>Permitir la participación remota de ponentes dentro de reuniones o congresos.<br>    Por ejemplo: <a href=%{belief_kostas}>5th Belief Symposium (Kostas Glinos, EU)</a>,<a href=%{egee}> 5th EGEE Users Forum</a>."
+    part4: "<li>Conectar un auditorio o sitios remotos a un congreso o evento.<br>    Por ejemplo: <a href=%{tnc}>TNC'09</a>,<a href=%{belief}> 4th Belief Symposium Brazil</a>."
     part5: "Global Plaza está estructurado como un sitio socio-colaborativo, el cual ofrece soporte a redes sociales junto con el soporte colaborativo a proyectos y actividades de grupos, donde cualquier usuario puede <a href=%{url}>registrarse</a>."
     part6: "Las redes sociales son soportadas por una red social global que conecta a cualquier persona registrada en el Global Plaza con otros miembros del portal. El soporte colaborativo a actividades de grupos o proyectos es proporcionado por espacios (públicos o privados), los cuales <a href=%{create}>pueden ser creados </a> por cualquier miembro registrado, que permiten llevar a cabo colaboraciones más estrechas y eventos virtuales dentro de un grupo dado. <br><br>Los eventos virtuales pueden ser automáticamente grabados y publicados (<a href=%{space}>ver ejemplo</a>) por el Global Plaza con acceso privado o público, asi como embeber eventos en blogs, páginas web, etc.<br><br>Global Plaza ha sido desarrollado por el <a href=%{web_global}>Proyecto Europeo Global</a> mediante la reutilización de los resultados y desarrollos de otros proyectos los cuales han transformado la aplicación ISABEL dentro de un servicio de cloud-computing, tales como ITECBAN, Ecospace, Collaboration@Rural, CEPOS, etc.<br><br>Para crear o editar espacios, debe estar registrado con su cuenta de Global Plaza. Si no tienes una cuenta, puede <a href=%{url}>crear una ahora </a>."
   help_logging: 
@@ -1344,9 +1328,7 @@ es:
   personal_information: "Información personal"
   phone: 
     landline: Teléfono
-    mobile: !binary |
-        TcOzdmls
-
+    mobile: Móvil
     one: Teléfono
     plural: Teléfonos
   phone_optional: "Teléfono (opcional)"
@@ -1904,18 +1886,14 @@ es:
       none: "No se han encontrado vídeos"
       one: "Se ha encontrado 1 vídeo"
       other: "Se han encontrado %{size} vídeos"
-    one: !binary |
-        VsOtZGVv
-
+    one: Vídeo
     other: Vídeos
   visit_link_to_activate_account: "Visite este enlace para activar su cuenta"
   week: 
     next: "La próxima semana"
     this: "Esta semana"
   when: Cuándo
-  where: !binary |
-      RMOzbmRl
-
+  where: Donde
   xmpp_server: 
     password_invalid: "la contraseña no es válida"
   yesterday: Ayer

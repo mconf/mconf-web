@@ -253,7 +253,7 @@ de:
   click_to_see_all: Alle
   close: Schließen
   collapse: Zusammenbruch
-  collapse_arrows: Zusammenbruch&gt;&gt;
+  collapse_arrows: Zusammenbruch>>;
   comment: 
     add: "Kommentar hinzufügen"
     add_new: "Fügen Sie einen neuen Kommentar"
@@ -308,9 +308,7 @@ de:
       - ~
       - Jan
       - Feb
-      - !binary |
-          TcOkcg==
-
+      - Mar
       - Apr
       - Mai
       - Jun
@@ -338,9 +336,7 @@ de:
       - ~
       - Januar
       - Februar
-      - !binary |
-          TcOkcno=
-
+      - März
       - April
       - Mai
       - Juni
@@ -433,7 +429,7 @@ de:
     spam_activation: "Wenn Sie keine Website registrieren zu diesem, bitte <a href=\"mailto:%{contact}\">Kontakt mit uns auf</a> oder senden Sie uns <a href=\"%{feedback}\">Feedback.</a>"
     spam_invitation: "Wenn Sie glauben, diese Meldung ist ein Spam, bitte <a href=\"mailto:%{contact}\">Kontakt mit uns auf</a> oder senden Sie uns <a href=\"%{feedback}\">Feedback.</a>"
     thanks: "Danke für Ihren Besuch %{sitename}"
-    url_activated: "Sie können nun Ihren Account einloggen mit Ihrer E-Mail &quot;%{name}&quot; und Ihr Passwort in <a href=\"%{url}\">%{url}</a>"
+    url_activated: "Sie können nun Ihren Account einloggen mit Ihrer E-Mail '%{name}' und Ihr Passwort in <a href=\"%{url}\">%{url}</a>"
     used_from: "E-Mail in Kontakt-Formular verwendet werden: %{dir}"
     vcc_team: "Die VCC-Team"
     welcome: "Willkommen bei %{sitename}"
@@ -617,7 +613,7 @@ de:
       hide_all_attendants: "Verstecken alle Teilnehmer"
       label: "Passen Sie Ihre Benachrichtigung"
       legend: 
-        name: "&#39;Name&#39; wird in der Nachricht durch den Namen des Empfängers ersetzt werden."
+        name: "'Name' wird in der Nachricht durch den Namen des Empfängers ersetzt werden."
       message_beginning_with_start_date: "<p>'Name',</p><p>Regarding the <b>event 'event_name' in space %{space}</b> on 'event_date':</p>"
       message_beginning_without_start_date: "<p>'Name',</p><p>Regarding the <b>event 'event_name' in space %{space}</b>:</p>"
       message_ending: "<p>You can find more information about the event in <a href=\"event_url\">event_url</a> </p><p>Kind regards,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>"
@@ -864,7 +860,7 @@ de:
     part12: "c. Insert / Edit Links."
     part13: "d. Hinzufügen von Anlagen"
     part14: "e. Tags Dateien"
-    part15: "9. Schließlich, am Schaltfläche <b>&quot;Senden&quot;</b> zu klicken Wand stellen Sie Ihre Nachricht im."
+    part15: "9. Schließlich, am Schaltfläche <b>'Senden'</b> zu klicken Wand stellen Sie Ihre Nachricht im."
     part2: "1. Klicken Sie auf <b>WALL</b> Registerkarte."
     part3: "2. Sie können Seite <b>Erstellen einer neuen Nachricht</b> auf der rechten Seite des."
     part4: "3. Geben Sie einen Titel und Kommentar für Ihre Nachricht."
@@ -889,10 +885,10 @@ de:
     part5: "4. Sobald Sie sich registriert haben, klicken Sie auf die Schaltfläche Fertig abgeschlossen."
     part6: "5. Nach der Registrierung für ein Konto, werden Sie eine Bestätigung per Email mit dem Link, um zu erhalten, um Ihr Konto zu aktivieren."
   help_define_agenda: 
-    part1: "<a href=%{url} class=\"big_button red_button\" target=\"_blank\"><span>Screencast </a></span><br><br><br>So erstellen Sie eine Agenda für Ihre Veranstaltung in VCC: <br><br> 1. Klicken Sie auf &quot;Events&quot;. <br> 2. Klicken Sie auf den Fall, dass Sie bereits erstellt haben.<br>  3. Klicken Sie auf &quot;Definieren Sie den Zeitplan&quot; Link, &quot;Agenda&quot;-Button oder &quot;Agenda für die Veranstaltung&quot;-Link (siehe blaue Pfeile in der Abbildung)"
-    part2: "4. In der Tagesordnung Abschnitt, klicken Sie auf &quot;Add&quot; Button zu erstellen ein Tagesordnungspunkt.  <br>5. Füllen Sie den Agenda-Eintrag Titel, die Startzeit und die Dauer und klicken Sie auf &quot;Next Step&quot;-Button <br> 6. Sie können nun Details wie die Redner, die Site-Benutzer oder externen Benutzern, oder die Beschreibung werden können <br> 7. Wenn Sie eine Datei schließen, klicken Sie auf &quot;New attachment&quot;-Link. <br> 8. Wenn die Art der Veranstaltung &quot;Meeting ist&quot;, können Sie einbetten Video zu diesem Tagesordnungspunkt"
-    part3: "9. Wenn die Art Ihrer Veranstaltung lautet &quot;Virtual Meeting&quot; oder &quot;Virtual Congress&quot;, können Sie Hard-und Software-Ressourcen für diesen Tagesordnungspunkt behalten, wählen Sie sowohl Streaming und Aufnahme"
-    part4: "10. Klicken Sie auf die Schaltfläche &quot;Finish&quot; um die Änderungen zu.  <br>11. Wenn Sie einen Teiler, Brüche zeigen, wie Kaffee-oder Mittagspausen, klicken Sie auf &quot;Add Teiler&quot;-Button hinzufügen. Sie können die Startzeit und der Grund für die Pause. Klicken Sie auf &quot;Create&quot;-Taste, um die Trennlinie hinzuzufügen.  <br>12. Wenn Ihre Veranstaltung dauert länger als einen Tag, können Sie eine neue Sitzung für den zweiten Tag. Jeder Tag hat seine eigene Registerkarte mit dem angegebenen Tagesordnungspunkten."
+    part1: "<a href=%{url} class=\"big_button red_button\" target=\"_blank\"><span>Screencast </a></span><br><br><br>So erstellen Sie eine Agenda für Ihre Veranstaltung in VCC: <br><br> 1. Klicken Sie auf 'Events'. <br> 2. Klicken Sie auf den Fall, dass Sie bereits erstellt haben.<br>  3. Klicken Sie auf 'Definieren Sie den Zeitplan' Link, 'Agenda'-Button oder 'Agenda für die Veranstaltung'-Link (siehe blaue Pfeile in der Abbildung)"
+    part2: "4. In der Tagesordnung Abschnitt, klicken Sie auf 'Add' Button zu erstellen ein Tagesordnungspunkt.  <br>5. Füllen Sie den Agenda-Eintrag Titel, die Startzeit und die Dauer und klicken Sie auf 'Next Step'-Button <br> 6. Sie können nun Details wie die Redner, die Site-Benutzer oder externen Benutzern, oder die Beschreibung werden können <br> 7. Wenn Sie eine Datei schließen, klicken Sie auf 'New attachment'-Link. <br> 8. Wenn die Art der Veranstaltung 'Meeting ist', können Sie einbetten Video zu diesem Tagesordnungspunkt"
+    part3: "9. Wenn die Art Ihrer Veranstaltung lautet 'Virtual Meeting' oder 'Virtual Congress', können Sie Hard-und Software-Ressourcen für diesen Tagesordnungspunkt behalten, wählen Sie sowohl Streaming und Aufnahme"
+    part4: "10. Klicken Sie auf die Schaltfläche 'Finish' um die Änderungen zu.  <br>11. Wenn Sie einen Teiler, Brüche zeigen, wie Kaffee-oder Mittagspausen, klicken Sie auf 'Add Teiler'-Button hinzufügen. Sie können die Startzeit und der Grund für die Pause. Klicken Sie auf 'Create'-Taste, um die Trennlinie hinzuzufügen.  <br>12. Wenn Ihre Veranstaltung dauert länger als einen Tag, können Sie eine neue Sitzung für den zweiten Tag. Jeder Tag hat seine eigene Registerkarte mit dem angegebenen Tagesordnungspunkten."
   help_index: 
     part1: "Global Plaza bietet einen virtuellen Event-Service, die es Ihnen ermöglichen Videokonferenzen durchführen, Streaming, Aufnahme und das elektronische Publizieren Ihrer Meetings, Vorträge, Schulungen, Konferenzen, Kongressen oder Workshops."
     part2: "GlobalPlaza des sozialen Netzwerks wird die Ankündigungen von Veranstaltungen, um andere zu verbreiten, ebenso wie wir entdecken Sie Veranstaltungen, die von anderen durchgeführt, um teilzunehmen oder folgen them.Typical Use-Cases von GlobalPlaza sind: <li>Broadcasting über das Internet per Streaming Veranstaltungen oder Vorträge statt in einem Klassenzimmer, Konferenzräume und Auditorien. <li>Aufnahme und Veröffentlichung von Veranstaltungen oder Vorträge statt in einem Klassenzimmer, Konferenzräume und Auditorien.<li>Bringing in entfernten Lautsprecher über das Internet in Ihre Veranstaltungen, von Desktops oder Zimmer.  <li>Aktivieren Fernteilnahme von Auditorien oder Zimmer in einem bestimmten Kongress oder Event. <li>Performing voll Veranstaltungen mit Remote-Desktops verteilt und Auditorien miteinander verbunden.  <li>Usw.<br><br> "
@@ -915,7 +911,7 @@ de:
     part6: "5. Sie können <b>Tags hinzufügen,</b> dass Sie und andere Inhalte verwenden können, um zu finden und zu filtern. Drücken Sie die Eingabetaste, um jeden Tag zu bestätigen."
     part7: "6. Wenn Sie möchten, Wand <b>teilt</b> das Dokument mit einer Meldung in der, die diese Option wählen."
     part8: "7. Schließlich, am <b>Upload-Button</b> zu klicken Docs fügen Sie die Datei auf die."
-  help_support: "Hilfe &amp; Support"
+  help_support: "Hilfe > Support"
   help_title: 
     about_vcc: "Über Global Plaza"
     configure_isabel: "So konfigurieren Sie Ihren eigenen Server Isabel"
@@ -996,14 +992,14 @@ de:
     discarded_by: "%{candidate} verworfen Einladung"
     email: E-Mail
     hide_all_users: "Verstecken allen Benutzern"
-    info_event: "Hier finden Sie weitere Informationen zu dieser Veranstaltung in &quot;event_url&quot;"
+    info_event: "Hier finden Sie weitere Informationen zu dieser Veranstaltung in 'event_url'"
     info_space: "You can find more information about this space in <a href=\"%{space_url}\"> %{space_url} </a>"
     info_users: "You can see the current list of users of the space in <a href=\"%{users_url}\"> %{users_url} </a>"
     introducer: Introducer
     label: "Passen Sie Ihre Einladung Nachricht"
     legend: 
-      URL: "&quot;URL&quot; wird in der Nachricht durch die URL der Ausschreibung ersetzt werden."
-      name: "&#39;Name&#39; wird in der Nachricht durch den Namen des Empfängers ersetzt werden."
+      URL: "'URL' wird in der Nachricht durch die URL der Ausschreibung ersetzt werden."
+      name: "'Name' wird in der Nachricht durch den Namen des Empfängers ersetzt werden."
     logout_and_reload: "Du bist nicht der Benutzer, der diese Einladung erhalten haben, bitte abmelden und versuchen Sie es erneut"
     message_title: "Leute einladen Ihren Raum"
     message_with_start_date: 
@@ -1087,7 +1083,7 @@ de:
   layout_footnote: "%{site} is based on %{plugin}. Design by %{designer}."
   list_by: "Auflistung nach"
   locale: 
-    changed: "Application Sprache geändert"
+    changed: "Application Sprache geändert "
     error: "Kann Veränderung der Sprache der Anwendung zu"
   logged_in_successfully: "Angemeldet erfolgreich"
   logged_out: "Sie wurden abgemeldet"
@@ -1132,7 +1128,7 @@ de:
     send: "Nachricht senden"
     sent: 
       other: "Gesendete Nachrichten"
-  more_arrows: mehr&gt;&gt;
+  more_arrows: mehr>>;
   my_friends: "Meine Freunde"
   name: 
     full: "Vollständiger Name"
@@ -1288,7 +1284,7 @@ de:
     plural: "Schnurlose Telefone"
   phone_optional: "Telefon (optional)"
   photos: Bilder
-  photos_view_arrows: "Bilder ansehen&gt;&gt;"
+  photos_view_arrows: "Bilder ansehen>>"
   place: Ort
   please: Bitte
   please_activate_account: "Bitte aktivieren Sie Ihr neues Konto"
@@ -1350,7 +1346,7 @@ de:
   public: Öffentlichkeit
   read: Lesen
   read_more: "Lesen Sie mehr"
-  read_more_arrows: "Lesen Sie mehr&gt;&gt;"
+  read_more_arrows: "Lesen Sie mehr>>"
   received_message_more_machines: "Sie haben eine Nachricht von %{user} Bitte um mehr Maschinen erhalten"
   recent: 
     activity: "Aktuelle Tätigkeit"
@@ -1479,7 +1475,7 @@ de:
   should_check_email_to_activate_account: "Sie sollten Ihre E-Mail zu überprüfen, Ihr Konto zu aktivieren."
   show: Show
   show_advanced_editor: "Show erweiterten Editor"
-  show_list_version_arrows: "Liste anzeigen Version&gt;&gt;"
+  show_list_version_arrows: "Liste anzeigen Version>>"
   singular_agent: 
     anonymous: 
       name: Anonym
@@ -1565,7 +1561,7 @@ de:
     join_invitation: 
       clarify_registered: "Bitte Passwort ein, um diesen Raum beitreten einzuführen."
       clarify_unregistered: "Bitte geben Sie Ihren vollständigen Namen und ein Passwort, um auf die Virtual Conference Center anzumelden und diesen Raum beitreten."
-      title: "Join Raum&gt;"
+      title: "Join Raum >"
     join_pending: "Join Anfrage wird bearbeitet"
     leave: "Verlassen Sie diesen Raum"
     logo: "Space Logo"

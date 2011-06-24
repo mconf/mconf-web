@@ -43,13 +43,15 @@ set :files_grp, "mconf"
 set :use_sudo, false
 
 after 'multistage:ensure', 'deploy:info'
-after 'deploy:setup', 'setup:create_shared'
+
+
+# DEPLOY tasks
+# They are used for each time the app is deployed
+
 after 'deploy:update_code', 'deploy:link_files'
 after 'deploy:update_code', 'deploy:upload_config_files'
 after 'deploy:update_code', 'deploy:fix_file_permissions'
 
-# Deployment tasks
-# Used for each deploy
 namespace :deploy do
 
   # Nginx tasks
@@ -99,8 +101,13 @@ namespace :deploy do
 
 end
 
-# Setup tasks
-# They are usually used once in a while and affect the database or important setup files
+
+# SETUP tasks
+# They are usually used only once when the application is being set up for the
+# first time and affect the database or important setup files
+
+after 'deploy:setup', 'setup:create_shared'
+
 namespace :setup do
 
   desc "Setup a server for the first time"
@@ -109,6 +116,7 @@ namespace :setup do
     top.deploy.update     # clone git repo and make it the current release
     setup.db              # destroys and recreates the DB
     setup.secret          # new secret
+    top.deploy.restart    # restart the server
   end
 
   desc "recreates the DB and populates it with the basic data"
@@ -133,7 +141,7 @@ namespace :setup do
 
   desc "Creates a new secret in config/initializers/secret_token.rb"
   task :secret do
-    run "rake setup:secret"
+    run "cd #{current_path} && rake setup:secret RAILS_ENV=production"
     puts "You must restart the server to enable the new secret"
   end
 end

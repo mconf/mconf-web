@@ -253,7 +253,7 @@ fr:
   click_to_see_all: "Voir l'ensemble des"
   close: Fermer
   collapse: effondrement
-  collapse_arrows: Réduire&gt;&gt;
+  collapse_arrows: "Réduire >>"
   comment: 
     add: "Ajouter un commentaire"
     add_new: "Ajouter un commentaire"
@@ -307,17 +307,13 @@ fr:
     abbr_month_names: 
       - ~
       - jan
-      - !binary |
-          ZsOpdg==
-
+      - fev
       - mar
       - avr
       - mai
       - jun
       - jui
-      - !binary |
-          YW/Duw==
-
+      - aoû
       - sep
       - oct
       - nov
@@ -345,9 +341,7 @@ fr:
       - mai
       - juin
       - juillet
-      - !binary |
-          YW/Du3Q=
-
+      - août
       - septembre
       - octobre
       - novembre
@@ -435,7 +429,7 @@ fr:
     spam_activation: "Si vous n'avez pas s'inscrire à ce site, s'il vous plaît <a href=\"mailto:%{contact}\">contactez-nous</a> ou envoyez-nous <a href=\"%{feedback}\">les informations.</a>"
     spam_invitation: "Si vous pensez que ce message est un spam, s'il vous plaît <a href=\"mailto:%{contact}\">contactez-nous</a> ou envoyez-nous <a href=\"%{feedback}\">les informations.</a>"
     thanks: "Merci de votre visite %{sitename}"
-    url_activated: "Vous pouvez maintenant vous connecter à votre compte avec votre email &quot;%{name}» et votre mot de passe dans <a href=\"%{url}\">%{url}</a>"
+    url_activated: "Vous pouvez maintenant vous connecter à votre compte avec votre email \"%{name}\" et votre mot de passe dans <a href=\"%{url}\">%{url}</a>"
     used_from: "e-mail utilisée dans le formulaire de contact: %{dir}"
     vcc_team: "L'équipe Global Plaza"
     welcome: "Bienvenue à %{sitename}"
@@ -891,10 +885,10 @@ fr:
     part5: "4. Une fois que vous avez terminé votre inscription, cliquez sur le bouton Terminé."
     part6: "5. Après l'inscription à un compte, vous recevrez une confirmation par email avec le lien pour activer votre compte."
   help_define_agenda: 
-    part1: "<a href=%{url} class=\"big_button red_button\" target=\"_blank\"><span>Screencast watch </a></span><br><br><br>Pour créer un agenda pour votre événement en VCC: <br><br> 1. Cliquez sur «Événements» onglet.<br> 2. Cliquez sur l'événement que vous avez déjà créé.<br>3. Cliquez sur &quot;Définir le calendrier&quot; lien &quot;Agenda&quot; bouton ou &quot;l'ordre du jour de l'événement« le lien (voir flèche bleue sur la figure)"
-    part2: "4. Dans la section l'ordre du jour, cliquez sur &quot;Ajouter session&quot; pour créer un ordre du jour.<br>  5. Remplissez le titre de l'entrée du jour, l'heure de début et de la durée et cliquez sur &quot;étape suivante&quot; bouton <br> 6. Vous pouvez maintenant modifier des détails tels que les haut-parleurs, qui peuvent être les utilisateurs du site ou des utilisateurs externes, ou la description<br>  7. Si vous souhaitez joindre un fichier, cliquez sur &quot;Nouvelle saisie&quot; lien. <br> 8. Si le type de votre événement est &quot;Meeting&quot;, vous pouvez intégrer la vidéo de ce point"
-    part3: "9. Si le type de votre événement est «réunion virtuelle» ou «congrès virtuel&quot;, vous pouvez réserver ressources matérielles et logicielles pour ce point de l'ordre, sélectionnez la fois le streaming et l'enregistrement"
-    part4: "10. Cliquez sur le bouton &quot;Terminer&quot; pour valider vos modifications. <br> 11. Si vous souhaitez ajouter un diviseur pour indiquer les pauses, comme le café ou la pause de midi, cliquez sur &quot;Ajouter diviseur» bouton. Vous pouvez régler l'heure de début et la raison de la rupture. Cliquez sur &quot;Créer&quot; pour ajouter le diviseur. <br> 12. Si votre événement dure plus longtemps que un jour, vous pouvez ajouter une nouvelle session pour la deuxième journée. Chaque jour a son propre onglet avec l'ordre du jour déterminé."
+    part1: "<a href=%{url} class=\"big_button red_button\" target=\"_blank\"><span>Screencast watch </a></span><br><br><br>Pour créer un agenda pour votre événement en VCC: <br><br> 1. Cliquez sur «Événements» onglet.<br> 2. Cliquez sur l'événement que vous avez déjà créé.<br>3. Cliquez sur \"Définir le calendrier\" lien \"Agenda\" bouton ou \"l'ordre du jour de l'événement« le lien (voir flèche bleue sur la figure)"
+    part2: "4. Dans la section l'ordre du jour, cliquez sur \"Ajouter session\" pour créer un ordre du jour.<br>  5. Remplissez le titre de l'entrée du jour, l'heure de début et de la durée et cliquez sur \"étape suivante\" bouton <br> 6. Vous pouvez maintenant modifier des détails tels que les haut-parleurs, qui peuvent être les utilisateurs du site ou des utilisateurs externes, ou la description<br>  7. Si vous souhaitez joindre un fichier, cliquez sur \"Nouvelle saisie\" lien. <br> 8. Si le type de votre événement est \"Meeting\", vous pouvez intégrer la vidéo de ce point"
+    part3: "9. Si le type de votre événement est «réunion virtuelle» ou «congrès virtuel\", vous pouvez réserver ressources matérielles et logicielles pour ce point de l'ordre, sélectionnez la fois le streaming et l'enregistrement"
+    part4: "10. Cliquez sur le bouton \"Terminer\" pour valider vos modifications. <br> 11. Si vous souhaitez ajouter un diviseur pour indiquer les pauses, comme le café ou la pause de midi, cliquez sur \"Ajouter diviseur» bouton. Vous pouvez régler l'heure de début et la raison de la rupture. Cliquez sur \"Créer\" pour ajouter le diviseur. <br> 12. Si votre événement dure plus longtemps que un jour, vous pouvez ajouter une nouvelle session pour la deuxième journée. Chaque jour a son propre onglet avec l'ordre du jour déterminé."
   help_index: 
     part1: "Global Plaza offre un service virtuel de l'événement, qui vous permettra d'effectuer la vidéoconférence, la diffusion, l'enregistrement et l'édition électronique de vos réunions, conférences, formations, conférences, congrès ou d'ateliers."
     part2: "réseau social GlobalPlaza va diffuser les annonces de vos événements à d'autres, ainsi que de vous faire découvrir les événements effectués par d'autres de participer ou de suivre them.Typical cas d'utilisation de GlobalPlaza sont les suivants:  <li>Diffusion sur l'Internet via des événements de diffusion ou de conférences se déroulent dans une salle de classe, une salle de réunion ou un auditorium.  <li>Enregistrement et édition d'événements ou de conférences se déroulent dans une salle de classe, une salle de réunion ou un auditorium.  <li>Rentrer haut-parleurs distants via Internet en vos événements, des ordinateurs de bureau ou des chambres.  <li>Permettre la participation à distance à partir de salles ou chambres dans un congrès ou un événement donné.  <li>Exercer l'intégralité des événements distribués aux auditoriums à distance et postes de travail interconnectés. <li>Etc.<br><br>"
@@ -1004,7 +998,7 @@ fr:
     introducer: Introducteur
     label: "Personnalisez votre invitation message"
     legend: 
-      URL: "&quot;URL&quot; seront remplacés dans le message de l'URL de l'invitation."
+      URL: "\"URL\" seront remplacés dans le message de l'URL de l'invitation."
       name: "«Nom» sera remplacé dans le message par le nom du destinataire."
     logout_and_reload: "Vous n'êtes pas l'utilisateur qui a reçu cette invitation, s'il vous plaît logout et essayez à nouveau"
     message_title: "Invitez les gens à se joindre à votre espace"
@@ -1089,7 +1083,7 @@ fr:
   layout_footnote: "%{site} is based on %{plugin}. Design by %{designer}."
   list_by: "Liste par"
   locale: 
-    changed: "Langue de la candidature changé"
+    changed: "Langue de la candidature changé "
     error: "Impossible de changer la langue de la demande"
   logged_in_successfully: "Connecté avec succès"
   logged_out: "Vous avez été déconnecté"
@@ -1134,7 +1128,7 @@ fr:
     send: "Envoyer un message"
     sent: 
       other: "Les messages envoyés"
-  more_arrows: "&gt; En savoir plus&gt;"
+  more_arrows: "En savoir plus >>"
   my_friends: "Mes amis"
   name: 
     full: "Nom complet"
@@ -1290,7 +1284,7 @@ fr:
     plural: Telephones
   phone_optional: "Téléphone (facultatif)"
   photos: Photos
-  photos_view_arrows: "Voir les photos&gt;&gt;"
+  photos_view_arrows: "Voir les photos >>"
   place: Lieu
   please: "S'il vous plaît"
   please_activate_account: "S'il vous plaît activer votre nouveau compte"
@@ -1352,7 +1346,7 @@ fr:
   public: Public
   read: Lire
   read_more: "Lire la suite"
-  read_more_arrows: "lire la suite&gt;&gt;"
+  read_more_arrows: "lire la suite >>"
   received_message_more_machines: "Vous avez reçu un message de %{user} demandent plus de machines"
   recent: 
     activity: "L'activité récente"
@@ -1482,7 +1476,7 @@ fr:
   should_check_email_to_activate_account: "Vous devriez vérifier votre e-mail pour activer votre compte."
   show: Montrer
   show_advanced_editor: "Afficher l'éditeur avancé"
-  show_list_version_arrows: "Voir la version la liste&gt;&gt;"
+  show_list_version_arrows: "Voir la version la liste >>"
   singular_agent: 
     anonymous: 
       name: Anonyme
@@ -1568,7 +1562,7 @@ fr:
     join_invitation: 
       clarify_registered: "S'il vous plaît introduire mot de passe pour rejoindre cet espace."
       clarify_unregistered: "S'il vous plaît introduire votre nom et un mot de passe afin de vous inscrire sur le Centre Virtuel de conférence et de rejoindre cet espace."
-      title: "&gt; Joignez-vous à l'espace"
+      title: "> Joignez-vous à l'espace"
     join_pending: "Joignez-vous à la demande en cours de traitement"
     leave: "Laissez cet espace"
     logo: "Space Logo"
@@ -1679,9 +1673,7 @@ fr:
     from: "à partir de"
     pm: pm
     start: "Start time"
-    to: !binary |
-        w6A=
-
+    to: pour
   timezone: 
     one: Timezone
     set_up: "You have not set up your time zone. <a href=\"%{path}\">Set it up now</a>"
@@ -1690,9 +1682,7 @@ fr:
     mr: M.
     mrs: Mme
     ms: Mlle
-  to: !binary |
-      w6A=
-
+  to: pour
   to_configure_your: "pour configurer votre"
   today: Aujourd'hui
   toke: 
@@ -1828,22 +1818,16 @@ fr:
   video: 
     found: 
       none: "Pas de vidéos trouvées"
-      one: !binary |
-          MSB2aWTDqW8gYSDDqXTDqSB0cm91dsOp
-
+      one: "1 vidéo à été trouvé"
       other: "%{size} vidéos ont été trouvés"
-    one: !binary |
-        Vmlkw6lv
-
+    one: Vidéo
     other: Vidéos
   visit_link_to_activate_account: "Visitez ce lien pour activer votre compte"
   week: 
     next: "La semaine prochaine"
     this: "Cette semaine"
   when: Quand
-  where: !binary |
-      T8O5
-
+  where: Où
   xmpp_server: 
     password_invalid: "mot de passe invalide"
   yesterday: Hier

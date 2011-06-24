@@ -236,7 +236,7 @@ body .icon{margin-bottom:-2px;}
 #name-space{width:500px;margin-left:20px;float:left;}
 #name-space span a, #name-home span a{font-size:3em;line-height:2;color:#244974;font-weight:normal;text-decoration:none;}
 #name-space #small-title a,#name-home #small-title a{font-size:2em;line-height:3;}
-#name-home{width:200px;margin-left:20px;float:left;}
+#name-home{margin-left:20px;float:left;}
 
 #search input[type="text"]{font-size:1em;width:150px;}
 /*#search a img,#search input[type="image"]{margin-bottom:-7px;}*/
