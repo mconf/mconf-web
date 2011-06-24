@@ -33,7 +33,7 @@
           <% @server.meetings.select{ |m| m.is_running? }.each do |room| %>
             <li <%= "class=even" if (i%2 != 0) %>>
               <% unless room.new_record? %>
-                <a href="<%= invite_bigbluebutton_server_room_path(@server.id, room) %>" class="basic_button small_button blue_button"><span><%=t('frontpage.join_button')%></span></a>
+                <a href="<%= invite_bigbluebutton_server_room_path(@server, room) %>" class="basic_button small_button blue_button"><span><%=t('frontpage.join_button')%></span></a>
                 <% name = room.name %>
               <% end %>
               <span class="red"><%= name %>: </span><span class="updated"><%= room.participant_count %> <%=t('frontpage.participants')%></span>
