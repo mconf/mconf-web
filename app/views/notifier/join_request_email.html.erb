@@ -7,7 +7,7 @@
         :candidate => @join_request.candidate.full_name, 
         :space => @join_request.group.name, 
         :comment => @join_request.comment, 
-        :url => space_admissions_url(@join_request.group, :host => Site.current.domain), 
+        :url => space_admissions_url(@join_request.group.name), 
         :contact => Site.current.email, 
         :feedback => new_feedback_url(), 
         :signature => Site.current.signature_in_html
@@ -18,8 +18,7 @@
         t('join_request.asked_anonymous_full', 
         :space => @join_request.group.name, 
         :comment => @join_request.comment, 
-        :url => space_admissions_url(@join_request.group.name, 
-        :host => Site.current.domain), 
+        :url => space_admissions_url(@join_request.group.name), 
         :contact => Site.current.email, 
         :feedback => new_feedback_url(), 
         :signature => Site.current.signature_in_html
