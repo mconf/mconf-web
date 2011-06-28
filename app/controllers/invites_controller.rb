@@ -74,13 +74,13 @@ class InvitesController < ApplicationController
           if success.size == 0
             success = t('invite.invitation_successfully') << "<li>" << t('invite.user_private_email') << user.email << "</li>"
           else
-            success << "<li>" << t('invite.user_private_email') << user.email
+            success << "<li>" << t('invite.user_private_email') << user.email << "</li>"
           end
         else
           if error.size == 0
             error = t('invite.invitation_unsuccessfully') << "<li>" << t('invite.user_private_email') << user.email << "</li>"
           else
-            error << "<li>" << t('invite.user_private_email') << user.email
+            error << "<li>" << t('invite.user_private_email') << user.email << "</li>"
           end
           @fail_email << email_message
         end

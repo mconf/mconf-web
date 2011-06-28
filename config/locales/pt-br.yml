@@ -1269,13 +1269,13 @@ pt-br:
     will_invite: "Pessoas que você vai convidar"
     yes_accepted: aceito
   invite: 
-    email: <li>e-mail</li>
+    email: "e-mail: "
     invitation_successfully: "Convite enviado com sucesso por: <br>"
     invitation_unsuccessfully: "Convite enviado sem sucesso por: <br>"
     message: "Você foi convidado por <b>%{sender}</b> para participar da webconferência <b>%{name}</b>.<br/><br/> Você pode participar acessando o endereço <i><a href=\"%{invite_url}\">%{invite_url}</a></i>.<br/><br/> Mensagem de convite escrita por <b>%{sender}</b>:<br/><br/>%{message} <br/><br/>"
     title: "Invitation to participate in a webconference."
-    user_private_email: "<li> e-mail do usuário </li>"
-    user_private_msg: "<li> mensagem privada para usuário </li>"
+    user_private_email: "e-mail do usuário: "
+    user_private_msg: "<li>mensagem privada para usuário</li>"
     wrong_formatted: " (e-mail mal formatado)"
   invite_people: 
     email: 
