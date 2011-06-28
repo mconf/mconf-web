@@ -1273,7 +1273,7 @@ en:
     email: <li>email</li>
     invitation_successfully: "Invitation succesfully by:<br>"
     invitation_unsuccessfully: "Invitation unsuccessfully by:<br>"
-    message: "You have been invited by <b>%{sender}</b> to join the webconference <b>%{name}</b>. You can join it by accessing <i><a href=\"%{invite_url}\">%{invite_url}</a></i>. Invitation message written by %{sender}:<br/><br/>"
+    message: "You have been invited by <b>%{sender}</b> to join the webconference <b>%{name}</b>.<br/><br/> You can join it by accessing <i><a href=\"%{invite_url}\">%{invite_url}</a></i>.<br/><br/> Invitation message written by <b>%{sender}</b>: <br/> %{message} <br/><br/>"
     title: "Invitation to participate in a webconference."
     user_private_email: "<li>user email</li>"
     user_private_msg: "<li>user private message</li>"

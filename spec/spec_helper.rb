@@ -24,6 +24,10 @@ RSpec.configure do |config|
   # examples within a transaction, remove the following line or assign false
   # instead of true.
   config.use_transactional_fixtures = true
+  
+  # Make the rails routes avaiable in all specs
+  config.include Rails.application.routes.url_helpers
+  
 end
 
 Factory.find_definitions

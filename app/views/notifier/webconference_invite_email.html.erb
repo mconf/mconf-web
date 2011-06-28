@@ -1,7 +1,12 @@
 <html>
   <body>
-    <%= t('invite.message', :sender => @sender, :name => @room_name, :invite_url => @room_url).html_safe %>
-    <%= (@message).html_safe %>
+    <%= t('invite.message', 
+    :sender => @sender, 
+    :name => @room_name, 
+    :invite_url => @room_url, 
+    :message => @message
+    ).html_safe %>
+    <%= @signature %>
   </body>
 </html>
 
