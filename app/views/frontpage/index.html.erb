@@ -24,11 +24,21 @@
   <div id="public_spaces">
     <div class="spaces_left">
       <h2><%=t('frontpage.popular_spaces')%></h2>
-      <%= render :partial => 'space_list', :locals => { :spaces => @popular_spaces } %>
+      <% if @running_spaces.empty? %>
+        <br/>
+        <%= t('frontpage.no_spaces') %>
+      <% else %>
+        <%= render :partial => 'space_list', :locals => { :spaces => @popular_spaces } %>
+      <% end %>
     </div>
     <div class="spaces_right">
       <h2><%=t('frontpage.running_spaces')%></h2>
-      <%= render :partial => 'space_list', :locals => { :spaces => @running_spaces } %>
+      <% if @running_spaces.empty? %>
+        <br/>
+        <%= t('frontpage.no_rooms') %>
+      <% else %>
+        <%= render :partial => 'space_list', :locals => { :spaces => @running_spaces } %>
+      <% end %>
     </div>
   </div>
   <div class="clearer"><span>&nbsp;</span></div>

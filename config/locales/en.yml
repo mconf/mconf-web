@@ -955,6 +955,7 @@ en:
     members: Members
     more_info: "More information..."
     no_rooms: "No meetings in progress right now."
+    no_spaces: "No public spaces found."
     not_running: "Not running"
     participants: participants
     participants_in: 
@@ -967,7 +968,7 @@ en:
     running: 
       one: "Running with %{count} participant"
       other: "Running with %{count} participants"
-    running_spaces: "Active spaces"
+    running_spaces: "Last active spaces"
     stats: 
       text: "%{users} users, %{spaces} spaces, %{meetings} active meetings"
       title: "Current statistics:"

@@ -829,7 +829,7 @@ form {
   padding: 3px 10px;
   margin: 0 20px 7px 0;
 
-  background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #fff), color-stop(1, #eee) );
+  background:-webkit-gradient( linear, right top, left bottom, color-stop(0.05, #fff), color-stop(1, #eee) );
   background:-moz-linear-gradient( right top, #fff 5%, #eee 100% );
   filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#fff', endColorstr='#eee');
   background-color:#f0f0f0;
