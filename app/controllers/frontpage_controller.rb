@@ -39,10 +39,20 @@ class FrontpageController < ApplicationController
     @server = BigbluebuttonServer.first
     begin
       @server.fetch_meetings
-      @server.meetings.select{ |m| m.is_running? }.each do |meeting|
-        meeting.fetch_meeting_info
+
+      # statistics
+      @stats = {}
+      @stats[:meetings] = @server.meetings.select { |m| m.is_running? }.count
+      @stats[:users] = User.count
+      @stats[:spaces] = Space.count
+
+      # spaces with webconferences running
+      spaces_ids = @server.meetings.select{ |m| m.owner_type == "Space" }.map{ |m| m.owner_id }
+      @running_spaces = Space.find(spaces_ids).select{ |s| s.public? }
+      @running_spaces.each do |space|
+        space.bigbluebutton_room.fetch_meeting_info
       end
-      @server.meetings.sort! { |x,y| y.participant_count <=> x.participant_count }
+      @running_spaces.sort! { |x,y| y.bigbluebutton_room.participant_count <=> x.bigbluebutton_room.participant_count }
     rescue Exception
     end
 

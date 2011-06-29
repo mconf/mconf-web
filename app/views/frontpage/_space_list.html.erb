@@ -1,0 +1,33 @@
+<ul>
+  <% spaces.each do |space| %>
+    <% room = space.bigbluebutton_room %>
+    <li>
+      <div class="space_container">
+        <h3><a href="<%=space_path(space)%>"> <%= space.name %> </a></h3>
+        <a href="<%=space_path(space)%>"><%= logo(space, :size=> 'h64', :title => sanitize(space.name)).html_safe %></a>
+        <div class="space_info">
+          <h4><%= t('frontpage.about') %></h4>
+          <ul>
+            <li>
+              <%=space.users.count%> <%=t('frontpage.members')%>
+            </li>
+            <li>
+              <a href="<%=space_path(space)%>"><%=t('frontpage.more_info')%></a>
+            </li>
+          </ul>
+        </div>
+        <div class="space_webconference">
+          <% count = (room.participant_count.nil?) ? 0 : room.participant_count %>
+          <% if room.is_running? %>
+            <div class="join_button">
+              <a href="<%= space_invite_room_path(space, room) %>"><span><%=t('frontpage.join_button')%></span></a>
+            </div>
+          <% end %>
+          <h4><%= t('webconference.one') %></h4>
+          <span <%= 'class="active"'.html_safe if room.is_running? %>><%= room.is_running? ? t('frontpage.running', :count => count) : t('frontpage.not_running') %></span>
+        </div>
+        <div class="clearer">&nbsp;</div>
+      </div>
+    </li>
+  <% end %>
+</ul>

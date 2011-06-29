@@ -1,90 +1,36 @@
-  <div id="content_top">
+<div id="content_top">
 
-    <div id="content_top_container">
-      <div class="registration">
-        <span><%= t('frontpage.register_sentence') %></span><br/>
-        <div class="join_button">
-          <a href="<%= signup_path %>" class="basic_button medium_button orange_button"><span><%= t('register.one') %></span></a>
-        </div>
+  <div id="content_top_container">
+    <div class="registration">
+      <span><%= t('frontpage.register_sentence') %></span><br/>
+      <div class="join_button">
+        <a href="<%= signup_path %>" class="basic_button medium_button orange_button"><span><%= t('register.one') %></span></a>
       </div>
-      <div class="description">
-        <%= t('frontpage.project_description').html_safe %>
-      </div>
-      <div class="clearer"><span>&nbsp;</span></div>
     </div>
-
+    <div class="description">
+      <%= t('frontpage.project_description').html_safe %>
+    </div>
+    <div class="clearer"><span>&nbsp;</span></div>
   </div>
+
+</div>
+
+<div id="content_stats">
+  <b><%= t('frontpage.stats.title') %></b>: <%= t('frontpage.stats.text', :users => @stats[:users], :spaces => @stats[:spaces], :meetings => @stats[:meetings]) %>
+</div>
 
 <div id="content_container">
 
-  <div id="bigbluebutton_rooms">
-    <h2><%=t('frontpage.webconferences')%></h2>
-
-    <h4><%=t('frontpage.meetings_in_progress')%></h4>
-
-    <% if !@server.meetings.nil? && @server.meetings.select{ |m| m.is_running? }.count > 0 %>
-      <div class="join_room">
-        <!--<div class="input">
-          <label>Your name:</label>
-          <input type="text" name="username1" size="27"/>
-        </div>-->
-        <ul class="meeting_list">
-          <% i = 0 %>
-          <% @server.meetings.select{ |m| m.is_running? }.each do |room| %>
-            <li <%= "class=even" if (i%2 != 0) %>>
-              <% unless room.new_record? %>
-                <a href="<%= invite_bigbluebutton_server_room_path(@server.id, room) %>" class="basic_button small_button blue_button"><span><%=t('frontpage.join_button')%></span></a>
-                <% name = room.name %>
-              <% end %>
-              <span class="red"><%= name %>: </span><span class="updated"><%= room.participant_count %> <%=t('frontpage.participants')%></span>
-            </li>
-            <% i += 1 %>
-          <% end %>
-        </ul>
-
-      </div>
-    <% else %>
-      <p><%=t('frontpage.no_rooms')%></p>
-    <% end %>
-
-  </div>
-
   <div id="public_spaces">
-    <h2><%=t('frontpage.popular_spaces')%></h2>
-    <ul>
-      <% @popular_spaces.each do |space| %>
-      <li>
-        <div class="space_container">
-          <h3><a href="<%=space_path(space)%>"> <%= space.name %> </a></h3>
-          <a href="<%=space_path(space)%>"><%= logo(space, :size=> 'h64', :title => sanitize(space.name)).html_safe %></a>
-          <div class="space_info">
-            <ul>
-              <li>
-                <%=space.events.find(:all, :order => "start_date ASC").select{|e| e.start_date && e.start_date.future?}.count%> <%=t('frontpage.upcoming_events')%>
-              </li>
-              <li>
-                <%=space.users.count%> <%=t('frontpage.members')%>
-              </li>
-              <li>
-                <a href="<%=space_path(space)%>"><%=t('frontpage.more_info')%></a>
-              </li>
-            </ul>
-          </div>
-          <div class="space_webconference">
-            <% room = space.bigbluebutton_room %>
-            <div class="join_button">
-              <a href="<%= space_invite_room_path(space, room) %>" class="basic_button medium_button blue_button"><span><%=t('frontpage.join_button')%></span></a>
-            </div>
-            <% count = (room.participant_count.nil?) ? 0 : room.participant_count %>
-            <span><%= t('frontpage.participants_in', :count => count) %></span>
-          </div>
-          <div class="clearer">&nbsp;</div>
-        </div>
-      </li>
-      <%end%>
-    </ul>
+    <div class="spaces_left">
+      <h2><%=t('frontpage.popular_spaces')%></h2>
+      <%= render :partial => 'space_list', :locals => { :spaces => @popular_spaces } %>
+    </div>
+    <div class="spaces_right">
+      <h2><%=t('frontpage.running_spaces')%></h2>
+      <%= render :partial => 'space_list', :locals => { :spaces => @running_spaces } %>
+    </div>
   </div>
-
   <div class="clearer"><span>&nbsp;</span></div>
 
 </div>
