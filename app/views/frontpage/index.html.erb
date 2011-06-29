@@ -24,7 +24,7 @@
   <div id="public_spaces">
     <div class="spaces_left">
       <h2><%=t('frontpage.popular_spaces')%></h2>
-      <% if @running_spaces.empty? %>
+      <% if @popular_spaces.empty? %>
         <br/>
         <%= t('frontpage.no_spaces') %>
       <% else %>
