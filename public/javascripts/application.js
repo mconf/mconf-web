@@ -3,6 +3,11 @@
 })
 */
 
+$('a[popup]').live('click', function(e) {
+  window.open($(this)[0].href, "_blank", "resizable=yes");
+  e.preventDefault();
+});
+
 function changeInputTextType (id, type) {
   marker = $('<span />').insertBefore(id);
   $(id).detach().attr('type', type).insertAfter(marker);
