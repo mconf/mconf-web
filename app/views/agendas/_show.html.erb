@@ -24,7 +24,7 @@
           <li class="main_text"><%=@event.get_formatted_timezone%></li>
                         <li>
                                 <div id="browse_select2">
-                <%=link_to (("<span>" + t('event.agenda.export') + "</span>").html_safe),'dropdown',{:id=>"browse_select2",:class => "browse_select2"} %>
+                <%=link_to ("<span>" + t('event.agenda.export') + "</span>").html_safe,'dropdown',{:id=>"browse_select2",:class => "browse_select2"} %>
                 <ul id="browse_menu2" style="display:none">
                   <li><%= link_to image_tag("icons/page_white_acrobat.png",:class=>"icon",:size=>"16x16") + "  " + t('event.agenda.download'), space_event_path(@space, @event, :format => :pdf, :small_version => :false) %></li>
                           <li><%= link_to image_tag("icons/page_white_acrobat.png",:class=>"icon",:size=>"16x16") + "  " + t('event.agenda.download_small'), space_event_path(@space, @event, :format => :pdf, :small_version => :true) %></li>

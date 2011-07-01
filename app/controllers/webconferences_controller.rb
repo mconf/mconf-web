@@ -1,30 +1,30 @@
 class WebconferencesController < ApplicationController
-  before_filter :space!
-  
+  before_filter :space!, :except => :join
+
   authorization_filter [:create, :content ], :space, :only => [ :new, :create ]
   authorization_filter [:read, :content ],   :space, :only => [ :show, :index ]
   authorization_filter [:update, :content ], :space, :only => [ :edit, :update ]
   authorization_filter [:delete, :content ], :space, :only => [ :destroy ]
-  
+
   def index
       if space.webconferences[0]
         @display_entry = space.webconferences[0];
       else
         @display_entry = nil
-      end 
-   
+      end
+
     respond_to do |format|
       format.html
     end
-  end  
-  
-  
+  end
+
+
   def show
 
     @bbb_room = BigbluebuttonRoom.where("owner_id = ? AND owner_type = ?", @space.id, @space.class.name).first
     begin
       @bbb_room.fetch_meeting_info
-    rescue Exception      
+    rescue Exception
     end
 
     # FIXME Temporarily matching users by name, should use the userID
@@ -39,5 +39,12 @@ class WebconferencesController < ApplicationController
     end
 
   end
-   
+
+  # FIXME: Temporary, this should probably be done by bigbluebutton_rails
+  def join
+    @room = BigbluebuttonRoom.find_by_param(params[:id])
+    @server = BigbluebuttonServer.first
+    redirect_to invite_bigbluebutton_server_room_path(@server, @room)
+  end
+
 end
