@@ -1,16 +1,18 @@
 # Quick refs:
 # (note: you can replace "staging" by "production" to set the target stage, see deploy/conf.yml)
 #
-#  cap staging deploy:all          # first time setup of a server
-#  cap staging deploy:setup        # first setup, create directories
-#  cap staging deploy:udpate       # update a new release
-#  cap staging deploy:rollback     # go back to the previous version
-#  cap staging deploy:migrate      # run migrations
-#  cap staging deploy:restart      # restart Nginx
+#  cap staging setup:all           # first time setup of a server
+#  cap staging deploy:migrations   # update to a new release, run the migrations (i.e. updates the DB) and restart the web server
+#  cap staging deploy:udpate       # update to a new release
+#  cap staging deploy:migrate      # run the migrations
+#  cap staging deploy:restart      # restart the web server
+#
+#  Other:
 #  cap staging deploy:web:disable  # start maintenance mode (the site will be offline)
 #  cap staging deploy:web:enable   # stop maintenance mode (the site will be online)
-#  cap staging setup:db            # drops, creates and populates the db with the basic data
+#  cap staging deploy:rollback     # go back to the previous version
 #  cap staging setup:secret        # creates a new secret token (requires restart)
+#  cap staging setup:db            # drops, creates and populates the db with the basic data
 #
 
 # RVM bootstrap
@@ -39,7 +41,6 @@ set :deploy_to, "/home/mconf/#{application}"
 set :deploy_via, :remote_cache
 set :git_enable_submodules, 1
 set :user, "mconf"
-set :files_grp, "mconf"
 set :use_sudo, false
 
 after 'multistage:ensure', 'deploy:info'
@@ -78,11 +79,11 @@ namespace :deploy do
   task :fix_file_permissions do
     run  "/bin/mkdir -p #{release_path}/tmp/attachment_fu" # AttachmentFu dir is deleted in deployment
     run "/bin/chmod -R g+w #{release_path}/tmp"
-    sudo "/bin/chgrp -R #{files_grp} #{release_path}/tmp"
-    sudo "/bin/chgrp -R #{files_grp} #{release_path}/public/images/tmp"
-    sudo "/bin/chgrp -R #{files_grp} #{release_path}/config/locales" # Allow Translators modify locale files
+    sudo "/bin/chgrp -R #{fetch(:user)} #{release_path}/tmp"
+    sudo "/bin/chgrp -R #{fetch(:user)} #{release_path}/public/images/tmp"
+    sudo "/bin/chgrp -R #{fetch(:user)} #{release_path}/config/locales" # Allow Translators modify locale files
     sudo "/bin/mkdir -p /var/local/mconf-web"
-    sudo "/bin/chown #{files_grp} /var/local/mconf-web"
+    sudo "/bin/chown #{fetch(:user)} /var/local/mconf-web"
   end
 
   # REVIEW really need to do this?
@@ -126,16 +127,16 @@ namespace :setup do
 
   task :create_shared do
     run "/bin/mkdir -p #{shared_path}/attachments"
-    sudo "/bin/chgrp -R #{files_grp} #{shared_path}/attachments"
+    sudo "/bin/chgrp -R #{fetch(:user)} #{shared_path}/attachments"
     run "/bin/chmod -R g+w #{shared_path}/attachments"
     run "/bin/mkdir -p #{shared_path}/config"
-    sudo "/bin/chgrp -R #{files_grp} #{shared_path}/config"
+    sudo "/bin/chgrp -R #{fetch(:user)} #{shared_path}/config"
     run "/bin/chmod -R g+w #{shared_path}/config"
     run "/bin/mkdir -p #{shared_path}/public/logos"
-    sudo "/bin/chgrp -R #{files_grp} #{shared_path}/public"
+    sudo "/bin/chgrp -R #{fetch(:user)} #{shared_path}/public"
     run "/bin/chmod -R g+w #{shared_path}/public"
     run "/usr/bin/touch #{shared_path}/log/production.log"
-    sudo "/bin/chgrp -R #{files_grp} #{shared_path}/log"
+    sudo "/bin/chgrp -R #{fetch(:user)} #{shared_path}/log"
     run "/bin/chmod -R g+w #{shared_path}/log"
   end
 
