@@ -13,11 +13,11 @@
           {:method => :delete, :title => t('delete.one'), :confirm => t('delete.confirm', :element => attachment.filename)}) if attachment.authorize?(:delete, :to => current_user) %></li>
       </ul>
       <!--<div class="logo_home" style="float:right; padding-right:100px;"><%=logo(attachment,:size => '32')%></div>-->
-      <p><%=image_tag("icons/attach.png",:class=>"icon", :title => t('attachment.home.one', :space=>attachment.space.name))%> <%=link_to sanitize(attachment.filename), space_attachment_path(attachment.space, attachment, :format => attachment.format!),:class=>"unified_news"%><span class="updated"> <%= t('created_time_ago', :time => sanitize(time_ago_in_words(attachment.created_at))) %></span></p>
+      <p><%=image_tag("icons/attach.png",:class=>"icon", :title => t('attachment.home.one', :space=>attachment.space.name))%> <%= link_to(sanitize(attachment.filename), space_attachment_path(attachment.space, attachment, :format => attachment.format!),:class=>"unified_news") %><span class="updated"> <%= t('created_time_ago', :time => sanitize(time_ago_in_words(attachment.created_at))) %></span></p>
       <ul>
         <li class="main_date small-font">
           <% if show_author -%>
-          <%=t('author')%>:<span class="unified_user"><%=link_to (attachment.author.name,user_path(attachment.author),:class=>"unified_user")%></span>
+          <%=t('author')%>:<span class="unified_user"><%=link_to(attachment.author.name,user_path(attachment.author),:class=>"unified_user")%></span>
           <% end -%>
         </li>
       </ul>
