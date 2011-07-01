@@ -1,96 +1,96 @@
 <div class="agenda_entry margin-up"> <!--class="profile-box"-->
     <%@agenda_entry=agenda_entry%>
-	<%if agenda_entry.divider.present?%>
-		<div class="divider_full_line">
-			<span class="divider_title"><%=sanitize(agenda_entry.divider) %></span>
-		</div>
-	<%end%>
-	
-	<div class="session_wrapper1">
-	  <!--<div class="title_name_and_hour">
+  <%if agenda_entry.divider.present?%>
+    <div class="divider_full_line">
+      <span class="divider_title"><%=sanitize(agenda_entry.divider) %></span>
+    </div>
+  <%end%>
+
+  <div class="session_wrapper1">
+    <!--<div class="title_name_and_hour">
       Time:
     </div>-->
     <div class="event_hour">
       <%=t('time.from').capitalize%>
-		</div>
-	  <div class="event_month">
+    </div>
+    <div class="event_month">
       <%=h agenda_entry.start_time.strftime("%H:%M") %>
     </div>
-		<div class="event_hour">
-			<%=t('time.to')%>
-		</div>
-		<div class="event_month">
-			<%=h agenda_entry.end_time.strftime("%H:%M") %>
-		</div>
-	</div>
-	
-	<div class="session_wrapper2">
-		<div class="entry_title">
-	    <ul class="group_links group_agenda_links">
-	    <li><%=link_to_function(image_tag("icons/upload.png"), :class=>"upload_attachment", :id=>agenda_entry.id) if @event.authorize?(:update, :to => current_user) || agenda_entry.authorize?(:update, :to => current_user)%></li>		      
-		<li><%=link_to(image_tag("icons/clock.png", :alt=>t('edit_hours'), :title => t('edit_hours')), edit_space_event_agenda_path(@space, @event, :day => agenda_entry.event_day), :class=>"edit_hours_entry", :name=>agenda_entry.id.to_s) if (@event.authorize?(:update, :to => current_user) || agenda_entry.authorize?(:update, :to => current_user)) && agenda_entry.can_edit_hours? %></li>
+    <div class="event_hour">
+      <%=t('time.to')%>
+    </div>
+    <div class="event_month">
+      <%=h agenda_entry.end_time.strftime("%H:%M") %>
+    </div>
+  </div>
+
+  <div class="session_wrapper2">
+    <div class="entry_title">
+      <ul class="group_links group_agenda_links">
+      <li><%=link_to_function(image_tag("icons/upload.png"), :class=>"upload_attachment", :id=>agenda_entry.id) if @event.authorize?(:update, :to => current_user) || agenda_entry.authorize?(:update, :to => current_user)%></li>
+    <li><%=link_to(image_tag("icons/clock.png", :alt=>t('edit_hours'), :title => t('edit_hours')), edit_space_event_agenda_path(@space, @event, :day => agenda_entry.event_day), :class=>"edit_hours_entry", :name=>agenda_entry.id.to_s) if (@event.authorize?(:update, :to => current_user) || agenda_entry.authorize?(:update, :to => current_user)) && agenda_entry.can_edit_hours? %></li>
         <li><%=link_to(image_tag("icons/pencil.png", :alt => t('edit'), :title => t('edit')) , edit_space_event_agenda_agenda_entry_path(@space, @event, agenda_entry, :one_step => true), :class=>"edit_entry", :name=>agenda_entry.id.to_s) if @event.authorize?(:update, :to => current_user) || agenda_entry.authorize?(:update, :to => current_user) %></li>
         <li><%=link_to(image_tag("icons/cancel.png", :alt => t('delete.one')) , space_event_agenda_agenda_entry_path(@space, @event, agenda_entry), :method => :delete, :title => t('agenda.del_entry'), :confirm => t('delete.confirm', :element=>agenda_entry.title)) if (@event.authorize?(:update, :to => current_user) || agenda_entry.authorize?(:delete, :to => current_user)) && !agenda_entry.is_happening_now? %></li>
-				          
-        <input type="hidden" class="entry_day" value="<%=day%>">
-		  </ul>
-	
-	    <div class="title_name_and_hour">
-	      <!--<span class="entry_hour">
-	        <%=h agenda_entry.start_time.strftime("%H:%M") %> <%=t('to')%> <%=h agenda_entry.end_time.strftime("%H:%M") %>
-	      </span>-->
-	      <span class="entry_name">
-	        <%=sanitize(agenda_entry.title) %>
-	      </span>
-	    </div>
-	
-	  </div>
 
-	  <div class="agenda_entry_description"> 
-	    <%if agenda_entry.recording?%>
-				  
-	      <div class="video_preview" id="video_preview<%=agenda_entry.id.to_s%>">
-	        <%if !agenda_entry.video_thumbnail.present?%>
-	          <%=link_to_function image_tag("default_background.jpg", :alt => t('agenda.entry.video')),'request_video('+agenda_entry.id.to_s+')', :class=>"entry_video_link" %>
-	        <%else%>
-	          <%=link_to_function image_tag(agenda_entry.video_thumbnail, :alt => t('agenda.entry.video')),'request_video('+agenda_entry.id.to_s+')', :class=>"entry_video_link" %>
-	        <%end%>
-	        <span class="play_icon"></span>
-	      </div>
-		  
-	   <%elsif @event.authorize?(:update, :to => current_user) && @event.show_recording_box? && (@event.uses_conference_manager? && agenda_entry.session_status!=AgendaEntry::SESSION_STATUS[:published]) && agenda_entry.video_type!=AgendaEntry::VIDEO_TYPE.index(:none)%>
-	     <%=render :partial=>"agenda_entries/recording_box"%>
+        <input type="hidden" class="entry_day" value="<%=day%>">
+      </ul>
+
+      <div class="title_name_and_hour">
+        <!--<span class="entry_hour">
+          <%=h agenda_entry.start_time.strftime("%H:%M") %> <%=t('to')%> <%=h agenda_entry.end_time.strftime("%H:%M") %>
+        </span>-->
+        <span class="entry_name">
+          <%=sanitize(agenda_entry.title) %>
+        </span>
+      </div>
+
+    </div>
+
+    <div class="agenda_entry_description">
+      <%if agenda_entry.recording?%>
+
+        <div class="video_preview" id="video_preview<%=agenda_entry.id.to_s%>">
+          <%if !agenda_entry.video_thumbnail.present?%>
+            <%=link_to_function image_tag("default_background.jpg", :alt => t('agenda.entry.video')),'request_video('+agenda_entry.id.to_s+')', :class=>"entry_video_link" %>
+          <%else%>
+            <%=link_to_function image_tag(agenda_entry.video_thumbnail, :alt => t('agenda.entry.video')),'request_video('+agenda_entry.id.to_s+')', :class=>"entry_video_link" %>
+          <%end%>
+          <span class="play_icon"></span>
+        </div>
+
+     <%elsif @event.authorize?(:update, :to => current_user) && @event.show_recording_box? && (@event.uses_conference_manager? && agenda_entry.session_status!=AgendaEntry::SESSION_STATUS[:published]) && agenda_entry.video_type!=AgendaEntry::VIDEO_TYPE.index(:none)%>
+       <%=render :partial=>"agenda_entries/recording_box"%>
        <%end%>
 
-	    <ul class="agenda_list_content">
-	      <li class="unified_user">  
-	        <%=entry_speakers(agenda_entry)%>        
-	      </li>
-		  
-	      <li><%=sanitize(simple_format(agenda_entry.description)) %></li>
-	      <% agenda_entry.attachments.each  do |a| %>
-	        <%=image_tag(logo_image_path(a, :size => a.thumbnail_size)) %>
-			<%= attachment_link(a) %>
-	      <%end %>
-		</ul>
+      <ul class="agenda_list_content">
+        <li class="unified_user">
+          <%=entry_speakers(agenda_entry)%>
+        </li>
+
+        <li><%=sanitize(simple_format(agenda_entry.description)) %></li>
+        <% agenda_entry.attachments.each  do |a| %>
+          <%=image_tag(logo_image_path(a, :size => a.thumbnail_size)) %>
+      <%= attachment_link(a) %>
+        <%end %>
+    </ul>
       <div class="agenda_entry_video">
-	      <div class="button_wrapper video_hide video_preview_right" id="video_hide<%=agenda_entry.id.to_s%>" style="display:none">
-	        <%=link_to ("<span class='video_list'>Video List</span>"), space_event_path(@space, @event, :show_video => agenda_entry.id), {:id=>"view_recordings",:class=>"grey_button basic_button",:title => t('event.view_related_rec')} %>
-			<%if agenda_entry.video_type==AgendaEntry::VIDEO_TYPE.index(:automatic)%>
-			  <%=link_to ("<span>Edit video</span>"), space_event_path(@space, @event, :edit_video => agenda_entry.id), {:id=>"view_recordings",:class=>"grey_button basic_button",:title => t('video.edit')} if Time.now > Time.parse("2010-12-21") %>
-	        <%end%>
-			<%=link_to_function '<span>Hide video</span>','hide_video('+agenda_entry.id.to_s+')', :class=>"hide_video_link grey_button basic_button" %>
-	      </div>
-		    <div id="agenda_entry_video<%=agenda_entry.id%>" class="agenda_entry_video"></div>
-	  </div>
-	</div>
+        <div class="button_wrapper video_hide video_preview_right" id="video_hide<%=agenda_entry.id.to_s%>" style="display:none">
+          <%=link_to(("<span class='video_list'>Video List</span>"), space_event_path(@space, @event, :show_video => agenda_entry.id), {:id=>"view_recordings",:class=>"grey_button basic_button",:title => t('event.view_related_rec')}) %>
+      <%if agenda_entry.video_type==AgendaEntry::VIDEO_TYPE.index(:automatic)%>
+        <%=link_to(("<span>Edit video</span>"), space_event_path(@space, @event, :edit_video => agenda_entry.id), {:id=>"view_recordings",:class=>"grey_button basic_button",:title => t('video.edit')}) if Time.now > Time.parse("2010-12-21") %>
+          <%end%>
+      <%=link_to_function '<span>Hide video</span>','hide_video('+agenda_entry.id.to_s+')', :class=>"hide_video_link grey_button basic_button" %>
+        </div>
+        <div id="agenda_entry_video<%=agenda_entry.id%>" class="agenda_entry_video"></div>
+    </div>
+  </div>
 
   </div>
-	  
+
   <%if params[:edit_entry].to_i== agenda_entry.id%>
-	<%=render :partial=> "agenda_entries/edit"%>
+  <%=render :partial=> "agenda_entries/edit"%>
   <%end%>
-  
+
 </div>
 
 <div id="attachment<%=agenda_entry.id%>" class="attachment_show"></div>
