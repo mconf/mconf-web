@@ -14,8 +14,7 @@ end
 full_config = YAML.load_file(CONFIG_FILE)
 config = full_config["default"]
 config_env = full_config[Rails.env]
-config.merge!(config_env) unless config_env.nil?
+config.deep_merge!(config_env) unless config_env.nil?
 
 configatron.configure_from_hash(config)
-
 
