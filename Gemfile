@@ -54,9 +54,8 @@ group :development, :test do
   gem 'shoulda-matchers'
   gem 'translate-rails3', :require => 'translate', :git => 'git://github.com/mconf/translate.git'
   gem 'htmlentities'
-
-  gem 'exception_notification'
 end
 
 group :production do
+  gem 'exception_notification'
 end

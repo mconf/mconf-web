@@ -45,10 +45,9 @@ default:
     name: "Mconf-Web Space"                    # space's name
     description: "Mconf-Web users space"       # space's description
 
-  # Notifies when an exception occurs.
-  # The feature is disabled by default. To enable, change the property "enable".
-  # This is usually used in the PRODUCTION environment. Just copy the lines below
-  # lines to the production section to enable it in that environment.
+  # Notifies when an exception occurs. The feature is disabled by default.
+  # This will only work in the PRODUCTION environment. To enable it, go to the
+  # production section below and change the property "enabled" to true.
   exception_notification:
     enabled: false                                            # change to true to enable, don't use quotation marks
     prefix: "[mconf-web error] "                              # prefix added in the email subject
