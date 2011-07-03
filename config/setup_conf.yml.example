@@ -8,33 +8,33 @@ default:
   # Admin account
   # You can change the password after the initial setup from within the application.
   admin:
-    login: "mconf"
-    fullname: "Mconf Admin"
-    email: "my-email@server.com"
-    password: "admin"
+    login: "mconf"                             # admin's login
+    fullname: "Mconf Admin"                    # admin's full name
+    email: "my-email@server.com"               # admin's email
+    password: "admin"                          # admin's password
 
   # BigBlueButton default server configuration
   # This server will be your first and default server
   bbb_server:
-    name: 'Default Server'
-    url: 'http://my-development-server/bigbluebutton/api'
-    salt: 'my-secret-salt'
-    version: '0.7'
+    name: 'Default Server'                                 # server name
+    url: 'http://my-development-server/bigbluebutton/api'  # server url in the format http://<server>/bigbluebutton/api
+    salt: 'my-secret-salt'                                 # server salt
+    version: '0.7'                                         # bbb version
 
   # Email account used to send all emails from within the application (invitations,
   # registrations confirmations, etc). For now you have to use a Gmail account.
   # See config/initializers/mail_conf.rb
   sendmail:
-    username: "my-username@gmail.com"
-    password: "my-password"
+    username: "my-username@gmail.com"          # gmail username
+    password: "my-password"                    # gmail password
 
   # Website default configuration
   # The information will be used to create the Site object, that defines your website.
   # They can be altered after the initial setup using the management area in the application.
   site:
-    name: "Mconf Dev"
-    description: "Mconf Development Website"
-    email: "my-email@server.com"
+    name: "Mconf Dev"                          # website name
+    description: "Mconf Development Website"   # website description
+    email: "my-email@server.com"               # website contact email
     locale: "en"                               # this will be the default locale for the application
     domain: "localhost"                        # your server address
     signature: "Mconf"                         # to sign emails
@@ -42,8 +42,16 @@ default:
   # Default space: it will be created as a default public space, something like
   # "a space for all members of this website"
   default_space:
-    name: "Mconf-Web Space"
-    description: "Mconf-Web users space"
+    name: "Mconf-Web Space"                    # space's name
+    description: "Mconf-Web users space"       # space's description
+
+  # Notifies when an exception occurs. The feature is disabled by default.
+  # This will only work in the PRODUCTION environment. To enable it, go to the
+  # production section below and change the property "enabled" to true.
+  exception_notification:
+    enabled: false                                            # change to true to enable, don't use quotation marks
+    prefix: "[mconf-web error] "                              # prefix added in the email subject
+    recipients: "my-email@server.com my-email2@server.com"    # space-separated list of emails
 
 # Configurations for each environment
 # You can find below the sections for each environment available.
@@ -76,6 +84,8 @@ default:
 #    url: 'http://production-server/bigbluebutton/api'
 #    salt: 'production-server-salt'
 #    version: '0.7'
+#  exception_notification: # uncomment these lines to allow exception notification
+#    enabled: true
 
 
 # Test configurations
