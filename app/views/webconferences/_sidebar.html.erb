@@ -3,8 +3,8 @@
 <% else %>
   <% join_link = space_invite_room_path(space, @bbb_room) %>
 <% end %>
-<%= link_to ("<span>" + t('button.join_webconference') + "</span>").html_safe, join_link,
-      :class => 'big_button orange_button bigbluebutton_button', 'popup' => true %>
+
+<%= link_to ("<span>" + t('button.join_webconference') + "</span>").html_safe, join_link, :class => 'big_button orange_button bigbluebutton_button clean_popup' %>
 
 <div class="clearer"></div>
 <br/>
@@ -14,4 +14,3 @@
   <%= link_to ("<span>" + ico + t('button.join_webconference_mobile') + "</span>").html_safe, space_join_mobile_room_path(space, @bbb_room),
         :class => 'big_button orange_button bigbluebutton_button', :id => "join_mobile_button" %>
 <% end %>
-

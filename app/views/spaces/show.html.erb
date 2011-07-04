@@ -105,7 +105,7 @@
             <div class="float_right more_info"><%= link_to t('more'), space_webconference_path(space) %></div>
           </h3>
           <div class="float_right">
-            <%= link_to ("<span>" + t('button.join') + "</span>").html_safe, webconf_join_link, :class => 'basic_button small_button orange_button', 'popup' => true %>
+            <%= link_to ("<span>" + t('button.join') + "</span>").html_safe, webconf_join_link, :class => 'basic_button small_button orange_button clean_popup' %>
           </div>
           <div class="float_right">
             <% if logged_in? %>

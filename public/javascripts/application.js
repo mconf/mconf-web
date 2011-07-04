@@ -3,7 +3,7 @@
 })
 */
 
-$('a[popup]').live('click', function(e) {
+$('a.clean_popup').live('click', function(e) {
   window.open($(this)[0].href, "_blank", "resizable=yes");
   e.preventDefault();
 });

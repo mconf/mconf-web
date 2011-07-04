@@ -73,7 +73,6 @@
 
 <% end %>
 
-
 <div id="success" class="hide">
 </div>
 
@@ -93,7 +92,7 @@
         <% button_id = 0 %>
         <% @bbb_rooms.each do |room| %>
           <li>
-            <%= link_to t('button.join'), join_bigbluebutton_server_room_path(@server, room), :class => 'basic_button small_button orange_pale_button', 'popup' => true %>
+            <%= link_to t('button.join'), join_bigbluebutton_server_room_path(@server, room), :class => 'basic_button small_button orange_pale_button clean_popup' %>
             <%= mobile_icon_link(join_mobile_bigbluebutton_server_room_path(@server, room)) %>
             <span class="room_name">
               <%= room.name %>
