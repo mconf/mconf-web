@@ -1,0 +1,194 @@
+#!/bin/bash
+#
+# Mconf-Web configuration script.
+#
+# This file is part of Mconf - http://code.google.com/p/mconf
+# This file was based on "bbb-conf" from BigBlueButton (http://www.bigbluebutton.org)
+#
+# Author(s):
+#       Leonardo Crauss Daronco <leonardodaronco@gmail.com>
+#
+# Changelog:
+#   2011-07-05 LCD  Inital Version
+
+
+#
+# Environment variables
+#
+
+MCONF_WEB_VERSION="0.2"
+IP=$(ifconfig | grep -v '127.0.0.1' | grep -E "[0-9]*\.[0-9]*\.[0-9]*\.[0-9]*" | head -1 | cut -d: -f2 | awk '{print $1}')
+RVM_VERSION="1.5.2"
+
+
+#
+# Usage and first check for parameters
+#
+
+usage() {
+    echo "Mconf-Web Configuration Utility - Version $MCONF_WEB_VERSION"
+    echo "http://code.google.com/p/mconf"
+    echo
+    echo "   mconf-web-conf [options]"
+    echo
+    echo "Setup and configuration:"
+    echo "   --install-ruby                    Install ruby (using RVM)"
+#    echo "Administration:"
+#    echo "   --restart                        Restart the web server"
+#    echo "   --stop                           Stop the web server"
+#    echo "   --start                          Start the web server"
+#    if [ "$(is_vm)" ]; then
+#        echo "Development:"
+#        echo "   --setup-samba                    Setup samba share for development (VM only)"
+#        echo "   --checkout  <repo>               Checkout from github or passed in repository"
+#        echo "   --setup-dev [client|web|apps]    Setup development environment "
+#        echo "   --reset-dev                      Reset environment back to using packages"
+#    fi
+    echo
+}
+
+if [ $# -eq 0 ]; then
+    usage
+    exit 1
+fi
+
+
+#
+# Figure out our environment
+#
+
+# Check the current platform
+# We only support Ubuntu for now
+# About linux distros: http://linuxmafia.com/faq/Admin/release-files.html
+PLATFORM=""
+if [ -f /etc/lsb-release ]; then
+    if grep -q Ubuntu /etc/lsb-release; then
+        PLATFORM=ubuntu
+    fi
+fi
+
+if [ $PLATFORM != ubuntu ]; then
+    echo "* Error: This script cannot be run in your platform"
+    echo `ls /etc/*-release | xargs grep DISTRIB_ID`
+    exit 1
+fi
+
+
+#
+# Helper functions
+#
+
+check_root() {
+    if [ $EUID == 0 ]; then
+        echo "This operation should not be run as root."
+        echo
+        echo "If this operation needs to execute an operation as root, you'll be asked for"
+        echo "your password to execute the operation using sudo."
+        exit 1
+    fi
+}
+
+# need_root() {
+#     if [ $EUID != 0 ]; then
+#         echo "Need to be root to run this option"
+#         exit 1
+#     fi
+# }
+
+# Install a package in the system
+# $1 package and binary name
+install_dependency() {
+    which $1
+    if [ $? != 0 ]; then
+        echo "** Installing dependency: $1"
+        sudo apt-get install $1 -y --force-yes
+    fi
+}
+
+#
+# Parse the parameters
+#
+
+while [ $# -gt 0 ]; do
+
+    if [ "$1" = "--install-ruby" -o "$1" = "-install-ruby" ]; then
+        RUBY=1
+        shift
+        continue
+    fi
+
+#    if [ "$1" = "-stop" -o "$1" = "--stop" ]; then
+#        stop_bigbluebutton
+#        exit 0
+#    fi
+
+    # all other parameters requires at least 1 argument
+
+#    if [ "$1" = "-setip" -o "$1" = "--setip" ]; then
+#        HOST="${2}"
+#        if [ -z "$HOST" ]; then
+#            echo "HOST IP=$IP"
+#        fi
+#
+#        if echo $HOST|grep -q ":"; then
+#            HOST=`echo ${2}|cut -d: -f1`
+#            PORT=`echo ${2}|cut -d: -f2`
+#        fi
+#        shift; shift
+#        continue
+#    fi
+
+    usage
+    exit 1
+done
+
+
+# Version
+# TODO
+if [ $VERSION ]; then
+    echo
+#    dpkg -l | grep bbb
+    exit 0
+fi
+
+# Check if rvm is installed
+# Returns true or false in $RVM_INSTALLED
+rvm_check() {
+    RVMTYPE=`type rvm | head -1`
+    if [ "$RVM_TYPE" != "rvm is a function" ]; then
+	RVM_INSTALLED=true
+    else
+	RVM_INSTALLED=false
+    fi
+}
+
+# Installs RVM
+rvm_install() {
+    install_dependency curl
+    install_dependency git
+    curl -s https://rvm.beginrescueend.com/install/rvm -o rvm-installer ; chmod +x rvm-installer ; ./rvm-installer --version $RVM_VERSION
+    touch ~/.bash_profile
+    if ! cat ~/.bash_profile | grep -q ".rvm/scripts/rvm"; then
+      echo '[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm" # Load RVM function' >> ~/.bash_profile
+    fi
+    source "$HOME/.rvm/scripts/rvm"
+    # bash < <(curl -s https://rvm.beginrescueend.com/install/rvm) # to install the latest version only
+}
+
+
+if [ $RUBY ]; then
+    check_root
+
+    # installs RVM if not present (https://rvm.beginrescueend.com/rvm/install/)
+    rvm_check
+    if [ $RVM_INSTALLED ]; then
+        echo "* RVM already installed at $(which rvm)"
+    else
+        echo "* Installing RVM..."
+	rvm_install
+    fi
+
+    # TODO: install packages from "rvm notes"
+    # TODO: install ruby 1.9.2 and gemset
+
+fi
