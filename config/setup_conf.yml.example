@@ -7,91 +7,78 @@ default:
 
   # Admin account
   # You can change the password after the initial setup from within the application.
-  admin:
-    login: "mconf"                             # admin's login
-    fullname: "Mconf Admin"                    # admin's full name
-    email: "my-email@server.com"               # admin's email
-    password: "admin"                          # admin's password
+  admin_login: "mconf"                             # admin's login
+  admin_fullname: "Mconf Admin"                    # admin's full name
+  admin_email: "my-email@server.com"               # admin's email
+  admin_password: "admin"                          # admin's password
 
   # BigBlueButton default server configuration
   # This server will be your first and default server
-  bbb_server:
-    name: 'Default Server'                                 # server name
-    url: 'http://my-development-server/bigbluebutton/api'  # server url in the format http://<server>/bigbluebutton/api
-    salt: 'my-secret-salt'                                 # server salt
-    version: '0.7'                                         # bbb version
+  bbb_server_name: "Default Server"                                 # server name
+  bbb_server_url: "http://my-development-server/bigbluebutton/api"  # server url in the format http://<server>/bigbluebutton/api
+  bbb_server_salt: "my-secret-salt"                                 # server salt
+  bbb_server_version: "0.7"                                         # bbb version
 
   # Email account used to send all emails from within the application (invitations,
   # registrations confirmations, etc). For now you have to use a Gmail account.
   # See config/initializers/mail_conf.rb
-  sendmail:
-    username: "my-username@gmail.com"          # gmail username
-    password: "my-password"                    # gmail password
+  sendmail_username: "my-username@gmail.com"      # gmail username
+  sendmail_password: "my-password"                # gmail password
 
   # Website default configuration
   # The information will be used to create the Site object, that defines your website.
   # They can be altered after the initial setup using the management area in the application.
-  site:
-    name: "Mconf Dev"                          # website name
-    description: "Mconf Development Website"   # website description
-    email: "my-email@server.com"               # website contact email
-    locale: "en"                               # this will be the default locale for the application
-    domain: "localhost"                        # your server address
-    signature: "Mconf"                         # to sign emails
+  site_name: "Mconf Dev"                          # website name
+  site_description: "Mconf Development Website"   # website description
+  site_email: "my-email@server.com"               # website contact email
+  site_locale: "en"                               # this will be the default locale for the application
+  site_domain: "localhost"                        # your server address
+  site_signature: "Mconf"                         # to sign emails
 
   # Default space: it will be created as a default public space, something like
   # "a space for all members of this website"
-  default_space:
-    name: "Mconf-Web Space"                    # space's name
-    description: "Mconf-Web users space"       # space's description
+  default_space_name: "Mconf-Web Space"                    # space's name
+  default_space_description: "Mconf-Web users space"       # space's description
 
   # Notifies when an exception occurs. The feature is disabled by default.
   # This will only work in the PRODUCTION environment. To enable it, go to the
-  # production section below and change the property "enabled" to true.
-  exception_notification:
-    enabled: false                                            # change to true to enable, don't use quotation marks
-    prefix: "[mconf-web error] "                              # prefix added in the email subject
-    recipients: "my-email@server.com my-email2@server.com"    # space-separated list of emails
+  # production section below and change the property "enabled" to "true".
+  exception_notification_enabled: "false"                                          # change to true to enable, don't use quotation marks
+  exception_notification_prefix: "[mconf-web error] "                              # prefix added in the email subject
+  exception_notification_recipients: "my-email@server.com my-email2@server.com"    # space-separated list of emails
+
 
 # Configurations for each environment
 # You can find below the sections for each environment available.
 # Uncomment the lines from one of them to define specific configurations for that environment.
 # You can copy any of the parameters from the default section and override them here.
-# Remember to copy the entire sections: if you want to override the "email" from "site" and
-# "name" from "default_space", you must do something like:
+# Remember to copy the entire sections: if you want to override "site_email" and
+# "default_space_name", you must do something like:
 #
 # development:
-#   site:
-#     email: "override the email"
-#   default_space:
-#     name: "new name"
+#   site_email: "override the email"
+#   default_space_name: "new name"
 #
-# Also remember to maintain the file indented with 2 spaces. The YML file must use this
-# formatting to be valid.
+# Also remember to maintain the file indented with 2 spaces. The YML file must be well
+# formatted to be valid.
 
 
 # Development configurations
 #development:
-#  bbb_server:
-#    url: 'http://dev-server/bigbluebutton/api'
-#    salt: 'dev-server-salt'
-#    version: '0.7'
-
+#  bbb_server_url: "http://dev-server/bigbluebutton/api"
+#  bbb_server_salt: "dev-server-salt"
+#  bbb_server_version: "0.7"
 
 # Production configurations
 #production:
-#  bbb_server:
-#    url: 'http://production-server/bigbluebutton/api'
-#    salt: 'production-server-salt'
-#    version: '0.7'
-#  exception_notification: # uncomment these lines to allow exception notification
-#    enabled: true
-
+#  bbb_server_url: "http://production-server/bigbluebutton/api"
+#  bbb_server_salt: "production-server-salt"
+#  bbb_server_version: "0.7"
+#  exception_notification_enabled: true
 
 # Test configurations
 #test:
-#  bbb_server:
-#    url: 'http://test-server/bigbluebutton/api'
-#    salt: 'test-server-salt'
-#    version: '0.7'
+#  bbb_server_url: "http://test-server/bigbluebutton/api"
+#  bbb_server_salt: "test-server-salt"
+#  bbb_server_version: "0.7"
 
