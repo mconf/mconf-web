@@ -1,0 +1,6 @@
+#!/bin/bash
+if [ -e '.rvmrc_custom' ]; then
+  source .rvmrc_custom;
+else
+  rvm --create use 1.9.2@mconf;
+fi
