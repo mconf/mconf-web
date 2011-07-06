@@ -26,7 +26,7 @@ RVM_GEMSET=mconf
 
 CHECKOUT_REPO=git://github.com/mconf/mconf-web.git
 CHECKOUT_SRC_DIR=~/dev/source/mconf-web
-CHECKOUT_BRANCH=master
+CHECKOUT_BRANCH=script_conf
 
 
 #
@@ -39,22 +39,23 @@ usage() {
     echo
     echo "   mconf-web-conf [options]"
     echo
+    echo "General:"
+    echo "   --version                        Display version"
     echo "Setup and configuration:"
     echo "   --install-ruby                   Install ruby (using RVM)"
+    echo "   --install-packages [prod|dev]    Install dependencies to run Mconf-Web (default: installs for both envs)"
     echo "Development:"
-    echo "   --checkout <repo>                Checkout from github or <repo> (default: $CHECKOUT_REPO)"
+    echo "   --checkout <repo>                Checkout the repository from github or <repo> (default: $CHECKOUT_REPO)"
+    echo "   --setup-dev                      Setup the development environment"
+#    echo "Development:"
+#    echo "   --setup-prod                     Setup the production environment"
+
+# TODO: allow the user to specify the local repository dir (CHECKOUT_SRC_DIR)
 
 #    echo "Administration:"
 #    echo "   --restart                        Restart the web server"
 #    echo "   --stop                           Stop the web server"
 #    echo "   --start                          Start the web server"
-#    if [ "$(is_vm)" ]; then
-#        echo "Development:"
-#        echo "   --setup-samba                    Setup samba share for development (VM only)"
-#        echo "   --checkout  <repo>               Checkout from github or passed in repository"
-#        echo "   --setup-dev [client|web|apps]    Setup development environment "
-#        echo "   --reset-dev                      Reset environment back to using packages"
-#    fi
     echo
 }
 
@@ -63,26 +64,6 @@ if [ $# -eq 0 ]; then
     exit 1
 fi
 
-
-#
-# Figure out our environment
-#
-
-# Check the current platform
-# We only support Ubuntu for now
-# About linux distros: http://linuxmafia.com/faq/Admin/release-files.html
-PLATFORM=""
-if [ -f /etc/lsb-release ]; then
-    if grep -q Ubuntu /etc/lsb-release; then
-        PLATFORM=ubuntu
-    fi
-fi
-
-if [ $PLATFORM != ubuntu ]; then
-    echo "* Error: This script cannot be run in your platform"
-    echo `ls /etc/*-release | xargs grep DISTRIB_ID`
-    exit 1
-fi
 
 
 #
@@ -128,19 +109,63 @@ install_dependencies() {
 # Prints a nice "banner" in the console with the text in
 # $1 in the center
 print_banner() {
-    echo "-----------------------------"
-    echo "$1"
-    echo "-----------------------------"
+    echo
+    echo "-- $1"
+    echo
 }
 
 # Prints a nice error "banner" in the console with the text in
 # $1 in the center
 print_error_banner() {
-    echo "*****************************"
-    echo "ERROR: $1"
-    echo "*****************************"
+    echo
+    echo "### ERROR: $1"
+    echo
 }
 
+# Utility function to make a copy of the conf file
+# $1 is the file to be written to
+check_and_backup () {
+    # can we write to the configuration file?
+    if [ ! -w $1 ]; then
+        echo "Cannot write to $1!"
+        exit 1
+    fi
+
+    # let's see if we need a copy
+    if [ ! $TO_BACKUP ]; then
+        echo cp $1 $1.bak
+        TO_BACKUP="done"
+    fi
+}
+
+
+
+
+#
+# Figure out our environment
+#
+
+# Check the current platform
+# We only support Ubuntu for now
+# About linux distros: http://linuxmafia.com/faq/Admin/release-files.html
+
+PLATFORM=""
+if [ "`uname`" = "Linux" ]; then
+    if [ -f /etc/lsb-release ]; then
+        if grep -q Ubuntu /etc/lsb-release; then
+            PLATFORM=ubuntu
+        fi
+    fi
+
+    if [ $PLATFORM != ubuntu ]; then
+        CUR_PLATFORM=`ls /etc/*-release | xargs grep DISTRIB_ID | sed 's/DISTRIB_ID=//g'`
+        print_error_banner "Sorry, but this script cannot be run in your platform: $CUR_PLATFORM"
+        exit 1
+    fi
+else
+    print_error_banner "Are you not on linux? Sorry, but this script cannot be run in your platform."
+    exit 1
+fi
 
 
 
@@ -149,6 +174,12 @@ print_error_banner() {
 #
 
 while [ $# -gt 0 ]; do
+
+    if [ "$1" = "--version" -o "$1" = "-version" -o "$1" = "-v" ]; then
+        VERSION=1
+        shift
+        continue
+    fi
 
     if [ "$1" = "--install-ruby" -o "$1" = "-install-ruby" ]; then
         echo "* Request to install RVM/Ruby"
@@ -169,40 +200,59 @@ while [ $# -gt 0 ]; do
         continue
     fi
 
+    if [ "$1" = "--install-packages" -o "$1" = "-install-packages" ]; then
+        echo "* Request to install system packages dependencies for Mconf-Web"
+        DEPENDENCIES=1
+        DEPENDENCIES_ENV="" # to install both dev and production
+        shift
+        if [ $# -ge 1 ]; then
+            DEPENDENCIES_ENV="${1}"
+            echo "** Dependencies for the environment: $DEPENDENCIES_ENV"
+            shift
+        else
+            echo "** Dependencies for the environments: development and production"
+        fi
+        continue
+    fi
 
-#    if [ "$1" = "-stop" -o "$1" = "--stop" ]; then
-#        stop_bigbluebutton
-#        exit 0
-#    fi
-
-    # all other parameters requires at least 1 argument
-
-#    if [ "$1" = "-setip" -o "$1" = "--setip" ]; then
-#        HOST="${2}"
-#        if [ -z "$HOST" ]; then
-#            echo "HOST IP=$IP"
-#        fi
-#
-#        if echo $HOST|grep -q ":"; then
-#            HOST=`echo ${2}|cut -d: -f1`
-#            PORT=`echo ${2}|cut -d: -f2`
-#        fi
-#        shift; shift
-#        continue
-#    fi
+    if [ "$1" = "--setup-dev" -o "$1" = "-setup-dev" ]; then
+        echo "* Request to setup development environment"
+        SETUP_DEV=1
+        shift
+        continue
+    fi
 
     usage
     exit 1
 done
 
 
+
 #
 # Version
-# TODO
+#
+
+# Check if the checkout destination dir exists and if it has a copy of mconf-web already there
+# Sets $CHECKOUT_REPO_VERSION with the version got from the repo if the above is true
+checkout_get_version_from_repo() {
+    if [ -d $CHECKOUT_SRC_DIR ]; then
+        CHECKOUT_REPO_VERSION=""
+        if [ -f $CHECKOUT_SRC_DIR/config/version.rb ]; then
+            if cat $CHECKOUT_SRC_DIR/config/version.rb | grep -q "module Vcc"; then
+                CHECKOUT_REPO_VERSION=`cat $CHECKOUT_SRC_DIR/config/version.rb | grep "VERSION" | sed 's/[^"]*"\([^"]*\)".*/\1/g'`
+            fi
+        fi
+    fi
+}
 
 if [ $VERSION ]; then
     echo
-#    dpkg -l | grep bbb
+    echo "Script version: $MCONF_WEB_VERSION"
+    checkout_get_version_from_repo
+    if [ $CHECKOUT_REPO_VERSION ]; then
+        echo "Found a repository set with the version: $CHECKOUT_REPO_VERSION"
+    fi
+    echo
     exit 0
 fi
 
@@ -267,7 +317,7 @@ if [ $RUBY ]; then
         rvm_install
     fi
 
-    rvm_check
+    rvm_check # double check to ensure the installation was successful
     if [ $RVM_INSTALLED ]; then
         rvm_notes_install_packages
         rvm_ruby_and_gemset
@@ -287,16 +337,12 @@ fi
 # Sets $CHECKOUT_UPDATE if the above is true
 # Exists if the dir exists and has something else than mconf-web
 checkout_check_update() {
-    if [ -d $CHECKOUT_SRC_DIR ]; then
-        # checks a signature file to see if it's mconf-web at the destination dir or not
-        cd  $CHECKOUT_SRC_DIR
-        CHECKOUT_UPDATE=""
-        if [ -f ./config/version.rb ]; then
-            if cat ./config/version.rb | grep -q "module Vcc"; then
-                CHECKOUT_UPDATE=true
-            fi
+    if [ -d $CHECKOUT_SRC_DIR ]; then # if the target dir exists...
+        checkout_get_version_from_repo
+        if [ $CHECKOUT_REPO_VERSION ]; then
+            CHECKOUT_UPDATE=true
         fi
-        if [ ! $CHECKOUT_UPDATE ]; then
+        if [ ! $CHECKOUT_UPDATE ]; then # ... and it's not mconf-web = error
             print_error_banner "$CHECKOUT_SRC_DIR already exists. Please delete it to be able to checkout Mconf-Web."
             exit 1
         fi
@@ -331,4 +377,128 @@ if [ $CHECKOUT ]; then
     fi
 
     print_banner "Checked out Mconf-Web"
+fi
+
+
+
+#
+# Mconf-Web system packages
+#
+
+# Includes a file with the list of dependencies for mconf-web
+# This file is in the source code dir, at script/packages.<platformname>
+# TODO: get the package list from github if there's no local repo?
+dependencies_include_package_list_from_source() {
+    if [ -d $CHECKOUT_SRC_DIR ]; then
+        if [ -f $CHECKOUT_SRC_DIR/script/packages.$PLATFORM ]; then
+            source $CHECKOUT_SRC_DIR/script/packages.$PLATFORM
+        else
+            print_error_banner "Package list not found! $CHECKOUT_SRC_DIR/script/packages.$PLATFORM"
+            exit 1
+        fi
+    else
+        print_error_banner "You need the source code to run this command. Please, run this script with the option --checkout to get the code."
+        exit 1
+    fi
+}
+
+
+if [ $DEPENDENCIES ]; then
+    dependencies_include_package_list_from_source
+
+    DEPENDENCIES_ENV="`echo $DEPENDENCIES_ENV|tr '[:lower:]' '[:upper:]'`" # var to upper case
+
+    # if not set, installs both environments
+    if [ ! $DEPENDENCIES_ENV ]; then
+        echo "** Installing dependencies for DEVELOPMENT and PRODUCTION"
+        install_dependencies "${PACKAGES_DEVELOPMENT[*]}"
+        install_dependencies "${PACKAGES_PRODUCTION[*]}"
+    elif [ "$DEPENDENCIES_ENV" = "PRODUCTION" -o "$DEPENDENCIES_ENV" = "PROD" ]; then
+        echo "** Installing dependencies for PRODUCTION only"
+        install_dependencies "${PACKAGES_PRODUCTION[*]}"
+    elif [ "$DEPENDENCIES_ENV" = "DEVELOPMENT" -o "$DEPENDENCIES_ENV" = "DEV" ]; then
+        echo "** Installing dependencies for DEVELOPMENT only"
+        install_dependencies "${PACKAGES_DEVELOPMENT[*]}"
+
+    # wrong parameter, show error
+    else
+        print_error_banner "Invalid environment: \"$DEPENDENCIES_ENV\". See the help for more information."
+        exit 1
+    fi
+
+    print_banner "Dependencies installed successfully."
+fi
+
+
+
+#
+# Setup the development environment
+# Install gems, run rake tasks, setup config files
+#
+
+# 3 parameters: the file, the variable name, the new value
+config_yml_get_value_from_user() {
+
+    # TODO: to be complete...
+
+    check_and_backup $1
+    # finds: the parameter name, it's actual value and the comment
+    # grep "^[[:blank:]]*\(${2}\):.*" $1 | sed "s/^[[:blank:]]*\(${2}\):[[:blank:]]*\(.*\)([[:blank:]]*#[[:blank:]]*\(.*\))?$/\1: \3 \[actual: \"\2\"\]/g"
+    # grep "^[[:blank:]]*\(${2}\):.*" $1 | sed "s/^[[:blank:]]*\(${2}\):.*\"\(.*\)\"[^#]*#[[:blank:]]*\(.*\)$/\1: \3 \[actual: \"\2\"\]/g"
+    grep "^[[:blank:]]*\(${2}\):.*" $1 | sed "s/^[[:blank:]]*\(${2}\):[[:blank:]]*\([^#$]*\)\(.*\)$/\1: \3 \[actual: \"\2\"\]/g"
+    echo -n "    New value [leave blank to ignore]: "
+    # get the new value from the user
+    read -r USER_INPUT
+#    if [ $USER_INPUT ]; then
+#        sed -i "s/\(^[[:blank:]]*${2}:.*\)\"\(.*\)\"\(.*\)$/\1\"${USER_INPUT}\"\3/g" $1
+#    fi
+}
+
+
+config_file() {
+    if [ ! -f $1 ]; then
+        print_error_banner "The configuration file $1 doesn't exists. Please, run this script with the option --setup-dev."
+        exit 1
+    fi
+    FILENAME=$1
+
+    while [ $2 ]; do
+        config_yml_get_value_from_user $FILENAME $2
+        shift
+    done
+}
+
+if [ $SETUP_DEV ]; then
+
+    checkout_get_version_from_repo
+    if [ ! $CHECKOUT_REPO_VERSION ]; then
+        print_error_banner "You need the source code to run this command. Please, run this script with the option --checkout to get the code."
+        exit 1
+    fi
+
+    # TODO: install system packages?
+
+    cd ~/dev/source/mconf-web
+
+    rvm use $RVM_RUBY_VERSION@$RVM_GEMSET
+
+    echo "** Installing gems"
+    gem install bundler && bundle install
+
+    echo "** Creating the configuration files"
+    bundle exec rake setup:basic
+
+    echo "** Editing configuration files"
+    # only require values for the most important parameters
+    PARAMS=( admin_login admin_fullname admin_email admin_password \
+             bbb_server_name bbb_server_url bbb_server_salt bbb_server_version \
+             sendmail_username sendmail_password )
+    config_file "$CHECKOUT_SRC_DIR/config/setup_conf.yml" ${PARAMS[*]}
+
+
+    # only require values for the most important parameters
+    PARAMS=( username password )
+    config_file "$CHECKOUT_SRC_DIR/config/database.yml" ${PARAMS[*]}
+
+    # TODO: to be completed...
 fi

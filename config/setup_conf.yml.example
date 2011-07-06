@@ -7,23 +7,23 @@ default:
 
   # Admin account
   # You can change the password after the initial setup from within the application.
-  admin_login: "mconf"                             # admin's login
-  admin_fullname: "Mconf Admin"                    # admin's full name
-  admin_email: "my-email@server.com"               # admin's email
-  admin_password: "admin"                          # admin's password
+  admin_login: "mconf"                             # admin user login (e.g. mconf)
+  admin_fullname: "Mconf Admin"                    # admin user full name
+  admin_email: "my-email@server.com"               # admin user email
+  admin_password: "admin"                          # admin user password
 
   # BigBlueButton default server configuration
   # This server will be your first and default server
-  bbb_server_name: "Default Server"                                 # server name
-  bbb_server_url: "http://my-development-server/bigbluebutton/api"  # server url in the format http://<server>/bigbluebutton/api
-  bbb_server_salt: "my-secret-salt"                                 # server salt
-  bbb_server_version: "0.7"                                         # bbb version
+  bbb_server_name: "Default Server"                                 # BBB server name
+  bbb_server_url: "http://my-development-server/bigbluebutton/api"  # BBB server url in the format http://<server>/bigbluebutton/api
+  bbb_server_salt: "my-secret-salt"                                 # BBB server salt
+  bbb_server_version: "0.7"                                         # BBB version
 
   # Email account used to send all emails from within the application (invitations,
   # registrations confirmations, etc). For now you have to use a Gmail account.
   # See config/initializers/mail_conf.rb
-  sendmail_username: "my-username@gmail.com"      # gmail username
-  sendmail_password: "my-password"                # gmail password
+  sendmail_username: "my-username@gmail.com"      # Gmail account username
+  sendmail_password: "my-password"                # Gmail account password
 
   # Website default configuration
   # The information will be used to create the Site object, that defines your website.
