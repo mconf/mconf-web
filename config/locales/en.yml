@@ -946,6 +946,7 @@ en:
     loading: "The form is loading..."
   from: From
   frontpage: 
+    about: About
     create_button: Create
     create_room: "Create a new room"
     join_button: Join
@@ -954,15 +955,23 @@ en:
     members: Members
     more_info: "More information..."
     no_rooms: "No meetings in progress right now."
+    no_spaces: "No public spaces found."
+    not_running: "Not running"
     participants: participants
     participants_in: 
-      one: "%{count} participant in this space's conference"
-      other: "%{count} participants in this space's conference"
-    popular_spaces: "Public spaces"
+      one: "%{count} participant"
+      other: "%{count} participants"
+    popular_spaces: "Popular public spaces"
     project_description: "<p>This website is part of the project <a href=\"http://www.inf.ufrgs.br/prav/gtmconf\">Mconf</a>, currently being developed in the research group <a href=\"http://www.inf.ufrgs.br/prav\">PRAV</a> from <a href=\"http://www.ufrgs.br\">UFRGS</a> in partnership with <a href=\"http://www.rnp.br\">RNP</a>. It was developed based on <a href=\"http://www.globalplaza.org/\">Global Plaza</a> and is being integrated with the webconference system <a href=\"http://bigbluebutton.org/\">BigBlueButton</a>.</p> <p>For more information, access the project website <a href=\"http://www.inf.ufrgs.br/prav/gtmconf\">clicking here</a>.</p>"
     register_sentence: "Create an account to access private spaces and create your own webconferences"
     room_name: "Room's name"
-    upcoming_events: "Upcoming events"
+    running: 
+      one: "Running with %{count} participant"
+      other: "Running with %{count} participants"
+    running_spaces: "Last active spaces"
+    stats: 
+      text: "%{users} users, %{spaces} spaces, %{meetings} active meetings"
+      title: "Current statistics:"
     webconferences: Webconferences
     your_name: "Your name"
   getting_started: "Getting started!"
@@ -994,11 +1003,11 @@ en:
   help: Help
   help_createVC: 
     part1: "To create a virtual congress in Global:<br><br>1. Click on <b>Events</b> tab.<br>2. Click on <b>Virtual Congress</b> on the right side of the page."
-    part2: "3. Type a title and description for your event. <br>4. Type or select the space users organising the event. <br>5. Type the even's location.<br>6.	 	Choose the participation modes, which let you decide how people can connect to the virtual meeting. <br>&nbsp; &nbsp; a. <b> Isabel </b> means the underlying open source video-conferencing software.<br> &nbsp;&nbsp; &nbsp;b.<b> Web </b> the opportunity to participate via web browser.  <br>7. Click on <b>Create</b> button."
+    part2: "3. Type a title and description for your event. <br>4. Type or select the space users organising the event. <br>5. Type the even's location.<br>6.    Choose the participation modes, which let you decide how people can connect to the virtual meeting. <br>&nbsp; &nbsp; a. <b> Isabel </b> means the underlying open source video-conferencing software.<br> &nbsp;&nbsp; &nbsp;b.<b> Web </b> the opportunity to participate via web browser.  <br>7. Click on <b>Create</b> button."
     part3: "8. Once you have created the event, you can: <br><li><a href=%{agenda}>Define the agenda for the event</a><li>Booking resources is needed in order to make a videoconference<li>Invite people<li>Write a complete description<li>Edit your event<li>Import the agenda to your iCalendar<li>Notify attendants "
   help_createVM: 
     part1: "To create a virtual meeting in Global Plaza:<br><br>1. Click on <b>Events</b> tab.<br>2. Click on <b>Virtual Meeting</b> on the right side of the page."
-    part2: "3. Type a title and description for your event. <br>4. Type or select the space users organising the event. <br>5. Type the event's location.<br>6.	 	Choose the participation modes, which let you decide how people can connect to the virtual meeting. <br>&nbsp; &nbsp; a. <b> Isabel </b> means the underlying open source video-conferencing software.<br> &nbsp;&nbsp; &nbsp;b.<b> Web </b> the opportunity to participate via web browser.  <br>7. Click on <b>Create</b> button."
+    part2: "3. Type a title and description for your event. <br>4. Type or select the space users organising the event. <br>5. Type the event's location.<br>6.   Choose the participation modes, which let you decide how people can connect to the virtual meeting. <br>&nbsp; &nbsp; a. <b> Isabel </b> means the underlying open source video-conferencing software.<br> &nbsp;&nbsp; &nbsp;b.<b> Web </b> the opportunity to participate via web browser.  <br>7. Click on <b>Create</b> button."
     part3: "8. Once you have created the event, you can: <br><li><a href=%{agenda}>Define the agenda for the event</a><li>Booking resources is needed in order to make a videoconference<li>Invite people<li>Write a complete description<li>Edit your event<li>Import the agenda to your iCalendar<li>Notify attendants "
   help_createevent: 
     part1: "<a href=%{url} class=\"big_button red_button\" target=\"_blank\"><span>Watch screencast</span></a><br><br><br>To create an event in Global Plaza: <br><br>1. Click on <b>Events</b> tab. "
@@ -1202,12 +1211,7 @@ en:
     discarded: "The invitation has been discarded"
     discarded_by: "%{candidate} discarded the invitation"
     email: E-mail
-    full_message: ! ' <b>%{username} invites you to space %{space}.</b><br/><br/>%{comment}<br/><br/>
-      To accept my invitation please visit <a href="%{url}">%{url}</a><br/>
-      You can find more information about this space in <a href="%{space_url}">%{space_url}</a><br/><br/>
-      Kind regards,<br/><br/>%{user_name}<br/>%{user_email}<br/>%{user_organization}<br/><br/>
-      If you believe this message is a spam, please <a href="mailto:%{contact}">
-      contact us </a> or send us <a href="%{feedback}"> feedback.</a>'
+    full_message: " <b>%{username} invites you to space %{space}.</b><br/><br/>%{comment}<br/><br/> To accept my invitation please visit <a href=\"%{url}\">%{url}</a><br/> You can find more information about this space in <a href=\"%{space_url}\">%{space_url}</a><br/><br/> Kind regards,<br/><br/>%{user_name}<br/>%{user_email}<br/>%{user_organization}<br/><br/> If you believe this message is a spam, please <a href=\"mailto:%{contact}\"> contact us </a> or send us <a href=\"%{feedback}\"> feedback.</a>"
     hide_all_users: "Hide all users"
     info_event: "You can find more information about this event in 'event_url'"
     info_space: "You can find more information about this space in <a href=\"%{space_url}\"> %{space_url} </a>"

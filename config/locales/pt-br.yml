@@ -1,4 +1,4 @@
-
+--- 
 pt-br: 
   GMT: GMT
   Isabel: Isabel
@@ -28,7 +28,7 @@ pt-br:
         meetingid: "ID da sala"
         moderator_password: "Senha de Moderador"
         name: Nome
-        param: "Identificador"
+        param: Identificador
         private: "Sala privada"
         randomize_meetingid: "Aleatorizar ID da sala"
         server_id: "ID do servidor"
@@ -36,7 +36,7 @@ pt-br:
         welcome_msg: "Mensagem de Boas Vindas"
       bigbluebutton_server: 
         name: Nome
-        param: "Identificador"
+        param: Identificador
         salt: "Senha de Segurança"
         url: URL
         version: Versão
@@ -946,6 +946,7 @@ pt-br:
     loading: "O formulário está carregando..."
   from: De
   frontpage: 
+    about: Sobre
     create_button: Criar
     create_room: "Criar uma nova sala"
     join_button: Entrar
@@ -954,15 +955,22 @@ pt-br:
     members: Membros
     more_info: "Mais informações..."
     no_rooms: "Nenhuma reunião em progresso."
+    no_spaces: "Nenhum espaço público encontrado."
     participants: participantes
     participants_in: 
-      one: "%{count} participante na conferência desta comunidade"
-      other: "%{count} participantes na conferência desta comunidade"
-    popular_spaces: "Comunidades públicas"
+      one: "%{count} participante"
+      other: "%{count} participantes"
+    popular_spaces: "Comunidades públicas populares"
     project_description: "<p>Este website é parte do projeto <a href=\"http://www.inf.ufrgs.br/prav/gtmconf\">Mconf</a>, sistema em desenvolvimento no grupo de pesquisa <a href=\"http://www.inf.ufrgs.br/prav\">PRAV</a> da <a href=\"http://www.ufrgs.br\">UFRGS</a> em parceria com a <a href=\"http://www.rnp.br\">RNP</a>. Ele foi desenvolvido com base no sistema <a href=\"http://www.globalplaza.org/\">Global Plaza</a> e integrado ao sistema de webconferência <a href=\"http://bigbluebutton.org/\">BigBlueButton</a>.</p> <p>Para mais informações, acesse o website do projeto <a href=\"http://www.inf.ufrgs.br/prav/gtmconf\">clicando aqui</a>.</p>"
     register_sentence: "Crie uma conta para acessar comunidades privadas e criar suas próprias webconferências"
     room_name: "Nome da sala"
-    upcoming_events: "Próximos eventos"
+    running: 
+      one: "Ativa com %{count} participante"
+      other: "Ativa com %{count} participantes"
+    running_spaces: "Últimas comunidades ativas"
+    stats: 
+      text: "%{users} usuários, %{spaces} espaços, %{meetings} webconferências ativas"
+      title: "Estatísticas atuais:"
     webconferences: Webconferências
     your_name: "Seu nome"
   getting_started: Começando!
@@ -1201,12 +1209,7 @@ pt-br:
     discarded: "O convite foi descartado"
     discarded_by: "%{candidate} descartou o convite"
     email: E-mail
-    full_message: ! ' <b>%{username} convida você para a comunidade %{space}.</b><br/><br/>%{comment}<br/><br/>
-      Para aceitar o convite por favor visite <a href="%{url}">%{url}</a><br/>
-      Você pode encontrar mais informações sobre esta comunidade em <a href="%{space_url}">%{space_url}</a><br/><br/>
-      Atenciosamente,<br/><br/>%{user_name}<br/>%{user_email}<br/>%{user_organization}<br/><br/>
-      Se você acredita que esta mensagem é um spam, por favor <a href="mailto:%{contact}">
-      entre em contato </a> ou nos <a href=\"%{feedback}\"> envie uma mensagem.</a>'
+    full_message: " <b>%{username} convida você para a comunidade %{space}.</b><br/><br/>%{comment}<br/><br/> Para aceitar o convite por favor visite <a href=\"%{url}\">%{url}</a><br/> Você pode encontrar mais informações sobre esta comunidade em <a href=\"%{space_url}\">%{space_url}</a><br/><br/> Atenciosamente,<br/><br/>%{user_name}<br/>%{user_email}<br/>%{user_organization}<br/><br/> Se você acredita que esta mensagem é um spam, por favor <a href=\"mailto:%{contact}\"> entre em contato </a> ou nos <a href=\\\"%{feedback}\\\"> envie uma mensagem.</a>"
     hide_all_users: "Ocultar todos os usuários"
     info_event: "Você pode encontrar mais informações sobre este evento em 'event_url'"
     info_space: "Você pode encontrar mais informações sobre esta comunidade em <a href=\"%{space_url}\"> %{space_url} </a>"
