@@ -17,7 +17,7 @@
 # For more about multistage see: https://github.com/capistrano/capistrano/wiki/2.x-Multistage-Extension
 
 staging:
-  server: "staging.server.com"                        # server url/ip
+  server: "staging.server.com"                        # deployment server url/ip
   application: "mconf-web"                            # application name, do not use spaces
   user: "mconf"                                       # user (in the server) used to deploy
   repository: "git://github.com/mconf/mconf-web.git"  # repository to get the app from

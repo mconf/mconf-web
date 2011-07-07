@@ -92,17 +92,17 @@ check_root() {
 install_dependency() {
     which $1
     if [ $? != 0 ]; then
-        echo "** Installing dependency: $1"
+        echo "-- Installing dependency: $1"
         sudo apt-get install $1 -y --force-yes
     else
-        echo "** Dependency '$1' already installed"
+        echo "-- Dependency '$1' already installed"
     fi
 }
 
 # Install a list of packages in the system
 # $1 is the list of packages
 install_dependencies() {
-    echo "** Installing dependencies: $1"
+    echo "-- Installing dependencies: $1"
     sudo apt-get install $1 -y --force-yes
 }
 
@@ -132,10 +132,8 @@ check_and_backup () {
     fi
 
     # let's see if we need a copy
-    if [ ! $TO_BACKUP ]; then
-        echo cp $1 $1.bak
-        TO_BACKUP="done"
-    fi
+    cp $1 $1.bak
+    echo "-- Created the backup file at $1.bak"
 }
 
 
@@ -182,41 +180,41 @@ while [ $# -gt 0 ]; do
     fi
 
     if [ "$1" = "--install-ruby" -o "$1" = "-install-ruby" ]; then
-        echo "* Request to install RVM/Ruby"
+        echo "- Request to install RVM/Ruby"
         RUBY=1
         shift
         continue
     fi
 
     if [ "$1" = "--checkout" -o "$1" = "-checkout" ]; then
-        echo "* Request to checkout Mconf-Web"
+        echo "- Request to checkout Mconf-Web"
         CHECKOUT=1
         shift
         if [ $# -ge 1 ]; then
             CHECKOUT_REPO="${1}"
             shift
         fi
-        echo "** Checkout from: $CHECKOUT_REPO"
+        echo "-- Checkout from: $CHECKOUT_REPO"
         continue
     fi
 
     if [ "$1" = "--install-packages" -o "$1" = "-install-packages" ]; then
-        echo "* Request to install system packages dependencies for Mconf-Web"
+        echo "- Request to install system packages dependencies for Mconf-Web"
         DEPENDENCIES=1
         DEPENDENCIES_ENV="" # to install both dev and production
         shift
         if [ $# -ge 1 ]; then
             DEPENDENCIES_ENV="${1}"
-            echo "** Dependencies for the environment: $DEPENDENCIES_ENV"
+            echo "-- Dependencies for the environment: $DEPENDENCIES_ENV"
             shift
         else
-            echo "** Dependencies for the environments: development and production"
+            echo "-- Dependencies for the environments: development and production"
         fi
         continue
     fi
 
     if [ "$1" = "--setup-dev" -o "$1" = "-setup-dev" ]; then
-        echo "* Request to setup development environment"
+        echo "- Request to setup development environment"
         SETUP_DEV=1
         shift
         continue
@@ -311,9 +309,9 @@ if [ $RUBY ]; then
     # installs RVM if not present (https://rvm.beginrescueend.com/rvm/install/)
     rvm_check
     if [ $RVM_INSTALLED ]; then
-        echo "** RVM already installed at $(which rvm)"
+        echo "-- RVM already installed at $(which rvm)"
     else
-        echo "** Installing RVM..."
+        echo "-- Installing RVM..."
         rvm_install
     fi
 
@@ -355,24 +353,24 @@ if [ $CHECKOUT ]; then
     install_dependency "git"
     checkout_check_update
 
-    echo "** Creating the src directory: $CHECKOUT_SRC_DIR"
+    echo "-- Creating the src directory: $CHECKOUT_SRC_DIR"
     mkdir -p $CHECKOUT_SRC_DIR
 
     if [ $CHECKOUT_UPDATE ]; then
         cd $CHECKOUT_SRC_DIR
 
-        echo "** Checking out branch $CHECKOUT_BRANCH"
+        echo "-- Checking out branch $CHECKOUT_BRANCH"
         git checkout $CHECKOUT_BRANCH
 
-        echo "** Pulling $CHECKOUT_BRANCH from origin."
+        echo "-- Pulling $CHECKOUT_BRANCH from origin."
         git pull origin $CHECKOUT_BRANCH
     else
-        echo "** Cloning Mconf-Web."
+        echo "-- Cloning Mconf-Web."
         cd  $CHECKOUT_SRC_DIR/../
         git clone $CHECKOUT_REPO $CHECKOUT_SRC_DIR
 
         cd $CHECKOUT_SRC_DIR
-        echo "** Checking out branch $CHECKOUT_BRANCH"
+        echo "-- Checking out branch $CHECKOUT_BRANCH"
         git checkout $CHECKOUT_BRANCH
     fi
 
@@ -410,14 +408,14 @@ if [ $DEPENDENCIES ]; then
 
     # if not set, installs both environments
     if [ ! $DEPENDENCIES_ENV ]; then
-        echo "** Installing dependencies for DEVELOPMENT and PRODUCTION"
+        echo "-- Installing dependencies for DEVELOPMENT and PRODUCTION"
         install_dependencies "${PACKAGES_DEVELOPMENT[*]}"
         install_dependencies "${PACKAGES_PRODUCTION[*]}"
     elif [ "$DEPENDENCIES_ENV" = "PRODUCTION" -o "$DEPENDENCIES_ENV" = "PROD" ]; then
-        echo "** Installing dependencies for PRODUCTION only"
+        echo "-- Installing dependencies for PRODUCTION only"
         install_dependencies "${PACKAGES_PRODUCTION[*]}"
     elif [ "$DEPENDENCIES_ENV" = "DEVELOPMENT" -o "$DEPENDENCIES_ENV" = "DEV" ]; then
-        echo "** Installing dependencies for DEVELOPMENT only"
+        echo "-- Installing dependencies for DEVELOPMENT only"
         install_dependencies "${PACKAGES_DEVELOPMENT[*]}"
 
     # wrong parameter, show error
@@ -438,24 +436,24 @@ fi
 
 # 3 parameters: the file, the variable name, the new value
 config_yml_get_value_from_user() {
+    echo -n "- "
+    grep "^[[:blank:]]*\(${2}\):.*" $1 -m 1 | sed "s/[[:space:]]*\(.*\)/\1/"
+    echo -n "  Enter a new value [leave blank to skip]: "
 
-    # TODO: to be complete...
-
-    check_and_backup $1
-    # finds: the parameter name, it's actual value and the comment
-    # grep "^[[:blank:]]*\(${2}\):.*" $1 | sed "s/^[[:blank:]]*\(${2}\):[[:blank:]]*\(.*\)([[:blank:]]*#[[:blank:]]*\(.*\))?$/\1: \3 \[actual: \"\2\"\]/g"
-    # grep "^[[:blank:]]*\(${2}\):.*" $1 | sed "s/^[[:blank:]]*\(${2}\):.*\"\(.*\)\"[^#]*#[[:blank:]]*\(.*\)$/\1: \3 \[actual: \"\2\"\]/g"
-    grep "^[[:blank:]]*\(${2}\):.*" $1 | sed "s/^[[:blank:]]*\(${2}\):[[:blank:]]*\([^#$]*\)\(.*\)$/\1: \3 \[actual: \"\2\"\]/g"
-    echo -n "    New value [leave blank to ignore]: "
     # get the new value from the user
     read -r USER_INPUT
-#    if [ $USER_INPUT ]; then
-#        sed -i "s/\(^[[:blank:]]*${2}:.*\)\"\(.*\)\"\(.*\)$/\1\"${USER_INPUT}\"\3/g" $1
-#    fi
+    if [ $USER_INPUT ]; then
+        # anything between "parameter:" and end-of-line or '#' will be replaced by the user input
+        sed -i "s/\(^[[:space:]]*${2}:\)[^#$]*\(.*\)$/\1 \"${USER_INPUT}\" \2/g" $1
+        echo "  New value: \"${USER_INPUT}\""
+    fi
 }
 
 
 config_file() {
+    check_and_backup $1
+    echo
+
     if [ ! -f $1 ]; then
         print_error_banner "The configuration file $1 doesn't exists. Please, run this script with the option --setup-dev."
         exit 1
@@ -464,8 +462,48 @@ config_file() {
 
     while [ $2 ]; do
         config_yml_get_value_from_user $FILENAME $2
+        echo
         shift
     done
+}
+
+# Opens the configurations files and prompts the user for values to edit
+# the most important attributes
+setup_dev_files_setup() {
+    echo
+    echo "#####################################################################"
+    echo "#         Setup configuration files. Do it carefully                #"
+    echo "#####################################################################"
+    echo
+
+    # only require values for the most important parameters
+
+    echo "GENERAL configurations:"
+    echo " - Here you will configure the admin account, a default BBB server and a gmail"
+    echo "   account used to send emails."
+    echo "-----------------------------------------------------------------------------------"
+    echo
+    PARAMS=( admin_login admin_fullname admin_email admin_password \
+             bbb_server_name bbb_server_url bbb_server_salt bbb_server_version \
+             sendmail_username sendmail_password )
+    config_file "$CHECKOUT_SRC_DIR/config/setup_conf.yml" ${PARAMS[*]}
+
+
+    echo
+    echo "DATABASE configurations:"
+    echo " - The default database is MySQL. You need to provide an username and a password."
+    echo "-----------------------------------------------------------------------------------"
+    echo
+    PARAMS=( username password )
+    config_file "$CHECKOUT_SRC_DIR/config/database.yml" ${PARAMS[*]}
+
+    echo
+    echo "DEPLOYMENT configurations:"
+    echo " - To deploy in this machine, set the IP to 127.0.0.1 and the user to \"`whoami`\"."
+    echo "-----------------------------------------------------------------------------------"
+    echo
+    PARAMS=( server user repository branch )
+    config_file "$CHECKOUT_SRC_DIR/config/deploy/conf.yml" ${PARAMS[*]}
 }
 
 if [ $SETUP_DEV ]; then
@@ -476,29 +514,19 @@ if [ $SETUP_DEV ]; then
         exit 1
     fi
 
-    # TODO: install system packages?
-
     cd ~/dev/source/mconf-web
 
     rvm use $RVM_RUBY_VERSION@$RVM_GEMSET
 
-    echo "** Installing gems"
+    echo "-- Installing gems"
     gem install bundler && bundle install
 
-    echo "** Creating the configuration files"
+    echo "-- Creating the configuration files"
     bundle exec rake setup:basic
 
-    echo "** Editing configuration files"
-    # only require values for the most important parameters
-    PARAMS=( admin_login admin_fullname admin_email admin_password \
-             bbb_server_name bbb_server_url bbb_server_salt bbb_server_version \
-             sendmail_username sendmail_password )
-    config_file "$CHECKOUT_SRC_DIR/config/setup_conf.yml" ${PARAMS[*]}
+    echo "-- Editing configuration files"
+    setup_dev_files_setup
 
-
-    # only require values for the most important parameters
-    PARAMS=( username password )
-    config_file "$CHECKOUT_SRC_DIR/config/database.yml" ${PARAMS[*]}
-
-    # TODO: to be completed...
+    echo "-- Setting up the database"
+    bundle exec rake setup:db
 fi
