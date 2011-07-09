@@ -13,6 +13,13 @@
 
 
 #
+# TODO: questions at the beginning:
+#       - dev, prod, dev + prod
+#       - BBB in the same machine?
+#
+
+
+#
 # Environment variables
 #
 
@@ -28,6 +35,10 @@ CHECKOUT_REPO=git://github.com/mconf/mconf-web.git
 CHECKOUT_SRC_DIR=~/dev/source/mconf-web
 CHECKOUT_BRANCH=script_conf
 
+NGINX_DAEMON=/opt/nginx/sbin/nginx
+
+GEM_VERSION_PASSENGER=3.0.7
+GEM_BUNDLER_VERSION=1.0.15
 
 #
 # Usage and first check for parameters
@@ -195,6 +206,10 @@ rvm_check() {
     fi
 }
 
+rvm_require() {
+    source "$HOME/.rvm/scripts/rvm"
+}
+
 # Installs the base of RVM
 # TODO: install RVM as root?
 rvm_install() {
@@ -228,10 +243,6 @@ rvm_ruby_and_gemset() {
     rvm gemset clear
     rvm gemset create $RVM_GEMSET
     rvm use $RVM_RUBY_VERSION@$RVM_GEMSET # TODO: --default
-}
-
-rvm_require() {
-    source "$HOME/.rvm/scripts/rvm"
 }
 
 # Check if the checkout destination dir exists and if it has a copy of mconf-web already there
@@ -284,7 +295,17 @@ dependencies_include_package_list_from_source() {
 gem_install()
 {
     rvm_require
-    gem install $1 --no-ri --no-rdoc
+    if [[ $# -ge 2 ]]; then
+        GEM_VERSION="-v ${2}"
+    fi
+    gem install $1 --no-ri --no-rdoc $GEM_VERSION
+}
+
+# sets $NGINX_INSTALLED if nginx is found in the system
+nginx_check() {
+    if test -x $NGINX_DAEMON; then
+        NGINX_INSTALLED=true
+    fi
 }
 
 
@@ -560,7 +581,7 @@ if [ $SETUP_DEV ]; then
     rvm use $RVM_RUBY_VERSION@$RVM_GEMSET
 
     echo "-- Installing gems"
-    gem_install bundler
+    gem_install bundler $GEM_VERSION_BUNDLER
     bundle install
 
     echo "-- Creating the configuration files"
@@ -573,9 +594,36 @@ if [ $SETUP_DEV ]; then
     bundle exec rake setup:db
 fi
 
+
+
 #
 # Setup the production environment
 #
+
+nginx_install() {
+    # FIXME: There's something with .rvmrc that requires us to call these 2 lines again
+    # or rvmsudo won't be found
+    rvm_require
+    rvm use $RVM_RUBY_VERSION@$RVM_GEMSET
+    rvmsudo passenger-install-nginx-module --auto --auto-download --prefix=/opt/nginx
+    # --nginx-source-dir=DIR
+    # --extra-configure-flags=STRING
+
+    # installs the init.d/nginx file
+    sudo curl https://raw.github.com/mconf/mconf-web/master/config/nginx.init.example -o /etc/init.d/nginx
+
+    # configures /opt/nginx/conf/nginx.conf
+    TEMP=`mktemp`
+    curl https://raw.github.com/mconf/mconf-web/master/config/nginx.1.0.conf.example -o $TEMP
+    sudo sed -i "/http.*{/ r $TEMP" /opt/nginx/conf/nginx.conf
+    sudo sed -i "s/127\.0\.0\.1/$IP/g" /opt/nginx/conf/nginx.conf
+    #TODO: test
+}
+
+nginx_check_version() {
+    $NGINX_DAEMON -v
+    echo "at: $NGINX_DAEMON"
+}
 
 if [ $SETUP_PROD ]; then
 
@@ -591,24 +639,31 @@ if [ $SETUP_PROD ]; then
     # TODO: new gemset for production?
 
     echo "-- Installing passenger"
-    gem_install passenger
+    gem_install passenger $GEM_VERSION_PASSENGER
 
-    # TODO: detect nginx
-    # TODO: warn the user that he will enter the "passenger install process"
-    echo "-- Installing nginx"
-    rvmsudo passenger-install-nginx-module
+    # installs nginx only if it's not installed yet
+    nginx_check
+    if [ $NGINX_INSTALLED ]; then
 
-#    rvm use $RVM_RUBY_VERSION@$RVM_GEMSET
+        echo
+        echo "----------------------------------------------------------------------------------------"
+        echo "You appear to have nginx already installed at $NGINX_DAEMON"
+        echo "Do you want to install it anyway?"
+        read -p "Choose no to keep the current version (you will have to configure it manually) (y/n)?"
+        echo "----------------------------------------------------------------------------------------"
+        if [[ $REPLY == [yY] ]]; then
+            echo "-- Installing nginx"
+            nginx_install
+        else
+            echo "-- Using the nginx already installed!"
+            nginx_check_version
+        fi
 
-#    echo "-- Installing gems"
-#    gem install bundler && bundle install
+    else
+        echo "-- Installing nginx"
+        nginx_install
+    fi
 
-#    echo "-- Creating the configuration files"
-#    bundle exec rake setup:basic
+    # TODO: cap tasks
 
-#    echo "-- Editing configuration files"
-#    setup_dev_files_setup
-
-#    echo "-- Setting up the database"
-#    bundle exec rake setup:db
 fi
