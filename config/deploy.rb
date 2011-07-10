@@ -18,7 +18,7 @@
 # RVM bootstrap
 $:.unshift(File.expand_path('./lib', ENV['rvm_path'])) # Add RVM's lib directory to the load path.
 require "rvm/capistrano"
-set :rvm_ruby_string, '1.9.2@mconf'
+set :rvm_ruby_string, '1.9.2@mconf_production'
 set :rvm_type, :user
 
 # bundler bootstrap
@@ -37,14 +37,14 @@ default_run_options[:pty] = true
 
 # standard configuration for all stages
 set :application, "mconf-web"
-set :deploy_to, "/home/mconf/#{application}"
+set :user, "mconf"
+set :deploy_to, "/home/#{fetch(:user)}/#{fetch(:application)}"
 set :deploy_via, :remote_cache
 set :git_enable_submodules, 1
-set :user, "mconf"
 set :use_sudo, false
+set :auto_accept, 0
 
 after 'multistage:ensure', 'deploy:info'
-
 
 # DEPLOY tasks
 # They are used for each time the app is deployed
@@ -74,6 +74,25 @@ namespace :deploy do
     puts " release path: #{ release_path }"
     puts "*******************************************************"
     puts
+  end
+
+  # Prompt to make really sure we want to deploy into production
+  # By http://www.pastbedti.me/2009/01/handling-a-staging-environment-with-capistrano-rails/
+  desc "Confirm if the deployment should proceed"
+  task :confirm do
+    puts "\n\e[0;31m"
+    puts "   ######################################################################"
+    puts "          Are you REALLY sure you want to deploy to #{stage.upcase} ?"
+    puts "           Enter [y/Y] to continue or anything else to cancel"
+    puts "   ######################################################################"
+    puts "\e[0m\n"
+    if fetch(:auto_accept) == 0
+      proceed = STDIN.gets[0..0] rescue nil
+      unless proceed == 'y' || proceed == 'Y'
+        puts "Aborting..."
+        exit
+      end
+    end
   end
 
   task :fix_file_permissions do

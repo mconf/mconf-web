@@ -12,33 +12,38 @@
 #   2011-07-05 LCD  Inital Version
 
 
-#
 # TODO: questions at the beginning:
 #       - dev, prod, dev + prod
 #       - BBB in the same machine?
-#
+# TODO: --check
 
 
 #
 # Environment variables
 #
 
-MCONF_WEB_VERSION="0.2"
+MCONF_WEB_VERSION="0.2"                              # The version of this script
 
+RVM_VERSION=1.6.21                                   # to fix the RVM version to be installed
+RVM_RUBY_VERSION=1.9.2                               # Ruby version
+RVM_GEMSET=mconf                                     # gemset for development (also defined in mconf-web/.rvmrc)
+RVM_PRODUCTION_GEMSET=mconf_production               # gemset for production (also defined in mconf-web/config/deploy.rb)
+
+CHECKOUT_SRC_DIR=~/dev/source/mconf-web              # local directory where the dev environment will be placed
+CHECKOUT_REPO=git://github.com/mconf/mconf-web.git   # used to checkout the dev environment (not for production)
+CHECKOUT_BRANCH=script_conf                          # branch to be checked out
+
+NGINX_DAEMON=/opt/nginx/sbin/nginx                   # default path for nginx 1.0
+
+PRODUCTION_PATH=~/mconf-web/                         # local directory for production
+                                                     # (this is defined in mconf-web/config/deploy.rb, see the vars "application" and "deploy_to")
+
+GEM_BUNDLER_VERSION=1.0.15                           # bundler version
+GEM_VERSION_PASSENGER=3.0.7                          # passenger version
+
+# local IP got from ifconfig
 IP=$(ifconfig | grep -v '127.0.0.1' | grep -E "[0-9]*\.[0-9]*\.[0-9]*\.[0-9]*" | head -1 | cut -d: -f2 | awk '{print $1}')
 
-RVM_VERSION=1.6.21
-RVM_RUBY_VERSION=1.9.2
-RVM_GEMSET=mconf
-
-CHECKOUT_REPO=git://github.com/mconf/mconf-web.git
-CHECKOUT_SRC_DIR=~/dev/source/mconf-web
-CHECKOUT_BRANCH=script_conf
-
-NGINX_DAEMON=/opt/nginx/sbin/nginx
-
-GEM_VERSION_PASSENGER=3.0.7
-GEM_BUNDLER_VERSION=1.0.15
 
 #
 # Usage and first check for parameters
@@ -603,26 +608,38 @@ fi
 nginx_install() {
     # FIXME: There's something with .rvmrc that requires us to call these 2 lines again
     # or rvmsudo won't be found
+    # install passenger in the dev environment
     rvm_require
     rvm use $RVM_RUBY_VERSION@$RVM_GEMSET
     rvmsudo passenger-install-nginx-module --auto --auto-download --prefix=/opt/nginx
-    # --nginx-source-dir=DIR
-    # --extra-configure-flags=STRING
+    # TODO: to uninstall nginx, we'll have to install it from source? (--nginx-source-dir=DIR --extra-configure-flags=STRING)
 
     # installs the init.d/nginx file
     sudo curl https://raw.github.com/mconf/mconf-web/master/config/nginx.init.example -o /etc/init.d/nginx
 
     # configures /opt/nginx/conf/nginx.conf
     TEMP=`mktemp`
-    curl https://raw.github.com/mconf/mconf-web/master/config/nginx.1.0.conf.example -o $TEMP
+    # TODO: fix link below
+    curl https://raw.github.com/mconf/mconf-web/script_conf/config/nginx.1.0.conf.example -o $TEMP
+    sudo sed -i "s/server_name .*;/server_name $IP;/g" $TEMP
+    sudo sed -i "s>root .*;>root $PRODUCTION_PATH/public;>g" $TEMP
     sudo sed -i "/http.*{/ r $TEMP" /opt/nginx/conf/nginx.conf
-    sudo sed -i "s/127\.0\.0\.1/$IP/g" /opt/nginx/conf/nginx.conf
-    #TODO: test
 }
 
 nginx_check_version() {
     $NGINX_DAEMON -v
     echo "at: $NGINX_DAEMON"
+}
+
+setup_prod_setup_gemenv() {
+    cd $CHECKOUT_SRC_DIR
+    rvm_require
+
+    # Ruby is already installed for the dev environment, so we just need the gemset and gems
+    rvm gemset create $RVM_PRODUCTION_GEMSET
+    rvm use $RVM_RUBY_VERSION@$RVM_PRODUCTION_GEMSET
+    gem_install bundler $GEM_VERSION_BUNDLER
+    gem_install passenger $GEM_VERSION_PASSENGER
 }
 
 if [ $SETUP_PROD ]; then
@@ -633,13 +650,8 @@ if [ $SETUP_PROD ]; then
         exit 1
     fi
 
-    cd $CHECKOUT_SRC_DIR
-    rvm_require
-    rvm use $RVM_RUBY_VERSION@$RVM_GEMSET
-    # TODO: new gemset for production?
-
-    echo "-- Installing passenger"
-    gem_install passenger $GEM_VERSION_PASSENGER
+    echo "-- Setting up gemset and gems for production"
+    setup_prod_setup_gemenv
 
     # installs nginx only if it's not installed yet
     nginx_check
@@ -664,6 +676,10 @@ if [ $SETUP_PROD ]; then
         nginx_install
     fi
 
-    # TODO: cap tasks
-
+    # go back to development and create first release with capistrano
+    echo "-- Starting the first deploy (with capistrano)"
+    cd $CHECKOUT_SRC_DIR
+    rvm_require
+    rvm use $RVM_RUBY_VERSION@$RVM_GEMSET
+    cap production setup:all -s auto_accept=1
 fi

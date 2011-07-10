@@ -22,7 +22,7 @@ staging:
   user: "mconf"                                       # user (in the server) used to deploy
   repository: "git://github.com/mconf/mconf-web.git"  # repository to get the app from
   scm: "git"                                          # repository scm
-  branch: "master"                                    # branch or tag
+  branch: "stable"                                    # branch or tag
 #  scm_username: "scm-username"                        # username to access the scm
 #  scm_password: "scm-pass"                            # password to access the scm
 #  deploy_to: "/home/myuser/deploy_folder/"            # folder where the app will be in the server
@@ -35,4 +35,4 @@ production:
   user: "mconf"
   repository: "git://github.com/mconf/mconf-web.git"
   scm: "git"
-  branch: "v0.1"
+  branch: "stable"
