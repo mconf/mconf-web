@@ -54,7 +54,7 @@ Vcc::Application.routes.draw do
     end
 
     resource :webconference
-    resources :videos
+    #resources :videos
     resources :readers
 
     resources :events do
