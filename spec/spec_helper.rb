@@ -26,7 +26,7 @@ RSpec.configure do |config|
   config.use_transactional_fixtures = true
   
   # Make the rails routes avaiable in all specs
-  config.include Rails.application.routes.url_helpers
+  #config.include Rails.application.routes.url_helpers
   
 end
 

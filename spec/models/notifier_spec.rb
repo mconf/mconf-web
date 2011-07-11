@@ -1,9 +1,9 @@
 require "spec_helper"
 
-
 describe Notifier do
-
+  
   before(:each) do
+    #default_url_options[:host] = 'localhost:3000'
 
     @space = Factory(:space)
     @event = Factory(:event)
@@ -29,26 +29,32 @@ describe Notifier do
       # Build the invitation
       params = {:role_id => Role.find_by_name("User").id.to_s, :email => @unregistered_user_email}
       invitation = @space.invitations.build params
-      invitation_comment = "<p>\'" + I18n.t('name.one') + "\',</p>" + "<b>" + I18n.t('invitation.to_space', :username => @admin.full_name, :space => @space.name) + ".</b><br/><br/>" +
-        I18n.t('invitation.to_accept_space', :url=>'\'' + I18n.t('url_plain') + '\'') + "<br/>" +
-        I18n.t('invitation.info_space', :space_url => ("http://" + Site.current.domain + "/spaces/" + @space.permalink)) + "<br/><br/>" +
-        I18n.t('email.kind_regards') + "<br/><br/>" +
-        @admin.full_name + "<br/>" + @admin.email + "<br/>" + @admin.organization + "<br/>"
+      invitation_comment = "Join this space"
       invitation.update_attributes(:comment => invitation_comment, :introducer => @admin)
       
       # Check the subject content
       ActionMailer::Base.deliveries.first.subject.should include(@space.name)
       ActionMailer::Base.deliveries.first.subject.should include(@admin.name)
-
+      
       # Check the body content
       ActionMailer::Base.deliveries.first.body.should include(@unregistered_user_email[0,@unregistered_user_email.index('@')])
-      ActionMailer::Base.deliveries.first.body.should include(@admin.name)
-      ActionMailer::Base.deliveries.first.body.should include(@admin.email)
-      ActionMailer::Base.deliveries.first.body.should include(@admin.organization)
-      ActionMailer::Base.deliveries.first.body.should include(@space.name)
-      ActionMailer::Base.deliveries.first.body.should include("http://" + Site.current.domain + "/spaces/" + @space.permalink)
-      ActionMailer::Base.deliveries.first.body.should include("http://" + Site.current.domain + "/invitations/" + invitation.code)
 
+      email_body = I18n.t('invitation.full_message', 
+        :username => @admin.full_name, 
+        :space => @space.name, 
+        :comment => "Join this space.", 
+        :url => invitation_url(@invitation), 
+        :space_url => space_url(@space), 
+        :user_name => @admin.full_name, 
+        :user_email => @admin.email, 
+        :user_organization => @admin.organization, 
+        :contact => Site.current.email, 
+        :feedback => new_feedback_url()
+      ).html_safe
+        
+        
+      # Check the content of the body
+      ActionMailer::Base.deliveries.first.body.should match(email_body)
     end
 
     it "a registered user it should include the receiver's name, the introducer's name, email and organization, the name and URL of the space and the URL of the invitation" do
@@ -56,11 +62,7 @@ describe Notifier do
       # Build the invitation
       params = {:role_id => Role.find_by_name("User").id.to_s, :email => @registered_user.email}
       invitation = @space.invitations.build params
-      invitation_comment = "<p>\'" + I18n.t('name.one') + "\',</p>" + "<b>" + I18n.t('invitation.to_space', :username => @admin.full_name, :space => @space.name) + ".</b><br/><br/>" +
-        I18n.t('invitation.to_accept_space', :url=>'\'' + I18n.t('url_plain') + '\'') + "<br/>" +
-        I18n.t('invitation.info_space', :space_url => ("http://" + Site.current.domain + "/spaces/" + @space.permalink)) + "<br/><br/>" +
-        I18n.t('email.kind_regards') + "<br/><br/>" +
-        @admin.full_name + "<br/>" + @admin.email + "<br/>" + @admin.organization + "<br/>"
+      invitation_comment = "Join this space."
       invitation.update_attributes(:comment => invitation_comment, :introducer => @admin)
       
       # Check the subject content
@@ -69,13 +71,23 @@ describe Notifier do
 
       # Check the body content
       ActionMailer::Base.deliveries.first.body.should include(@registered_user.full_name)
-      ActionMailer::Base.deliveries.first.body.should include(@admin.name)
-      ActionMailer::Base.deliveries.first.body.should include(@admin.email)
-      ActionMailer::Base.deliveries.first.body.should include(@admin.organization)
-      ActionMailer::Base.deliveries.first.body.should include(@space.name)
-      ActionMailer::Base.deliveries.first.body.should include("http://" + Site.current.domain + "/spaces/" + @space.permalink)
-      ActionMailer::Base.deliveries.first.body.should include("http://" + Site.current.domain + "/invitations/" + invitation.code)
-
+        
+      email_body = I18n.t('invitation.full_message', 
+        :username => @admin.full_name, 
+        :space => @space.name, 
+        :comment => "Join this space.", 
+        :url => invitation_url(@invitation), 
+        :space_url => space_url(@space), 
+        :user_name => @admin.full_name, 
+        :user_email => @admin.email, 
+        :user_organization => @admin.organization, 
+        :contact => Site.current.email, 
+        :feedback => new_feedback_url()
+      ).html_safe
+        
+        
+      # Check the content of the body
+      ActionMailer::Base.deliveries.first.body.should match(email_body)
     end
 
   end
@@ -236,19 +248,14 @@ describe Notifier do
       ActionMailer::Base.deliveries.first.subject.should include(@registered_user.full_name)
       ActionMailer::Base.deliveries.first.subject.should include(@space.name)
 
-      # Check the content of the body
-      ActionMailer::Base.deliveries.first.body.should include(@registered_user.full_name)
-      ActionMailer::Base.deliveries.first.body.should include(@space.name)
-      ActionMailer::Base.deliveries.first.body.should include("http://" + Site.current.domain + "/spaces/" + @space.permalink + "/admissions")
-      ActionMailer::Base.deliveries.first.body.should include(Site.current.signature_in_html)
-        
+      # Check the content of the body        
       email_body = I18n.t('join_request.asked_full', 
         :candidate => @registered_user.full_name, 
         :space => @space.name, 
         :comment => "Accept my solicitation", 
-        :url =>  ("http://" + Site.current.domain + "/spaces/" + @space.permalink + "/admissions"), 
+        :url =>  space_admissions_url(@space.name), 
         :contact => Site.current.email, 
-        :feedback => "http://" + Site.current.domain.to_s + "/feedback/new", 
+        :feedback => new_feedback_url(), 
         :signature => Site.current.signature_in_html
         ).html_safe
 
