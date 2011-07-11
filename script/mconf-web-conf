@@ -197,12 +197,12 @@ config_yml_file() {
 rvm_check() {
     echo "-- Checking if RVM is installed"
 
-    RVM_INSTALLED="false"
+    REPLY=
     which rvm
     if [ $? = 0 ]; then
         RVM_TYPE=`type rvm | head -1`
         if [ "$RVM_TYPE" = "rvm is a function" ]; then
-            RVM_INSTALLED="true"
+            REPLY=1
         else
             echo "-- RVM not loaded!"
         fi
@@ -211,6 +211,7 @@ rvm_check() {
     fi
 }
 
+# Makes rvm visible to this script
 rvm_require() {
     source "$HOME/.rvm/scripts/rvm"
 }
@@ -251,41 +252,50 @@ rvm_ruby_and_gemset() {
 }
 
 # Check if the checkout destination dir exists and if it has a copy of mconf-web already there
-# Sets $CHECKOUT_REPO_VERSION with the version got from the repo if the above is true
+# Sets $REPLY with the version got from the repo if the above is true
 checkout_get_version_from_repo() {
     if [ -d $CHECKOUT_SRC_DIR ]; then
-        CHECKOUT_REPO_VERSION=""
+        REPLY=
         if [ -f $CHECKOUT_SRC_DIR/config/version.rb ]; then
             if cat $CHECKOUT_SRC_DIR/config/version.rb | grep -q "module Vcc"; then
-                CHECKOUT_REPO_VERSION=`cat $CHECKOUT_SRC_DIR/config/version.rb | grep "VERSION" | sed 's/[^"]*"\([^"]*\)".*/\1/g'`
+                REPLY=`cat $CHECKOUT_SRC_DIR/config/version.rb | grep "VERSION" | sed 's/[^"]*"\([^"]*\)".*/\1/g'`
             fi
         fi
     fi
 }
 
 # Check if the destination dir exists and if it has a copy of mconf-web already there
-# Sets $CHECKOUT_UPDATE if the above is true
+# Sets $REPLY if the above is true
 # Exists if the dir exists and has something else than mconf-web
 checkout_check_update() {
+    REPLY=
     if [ -d $CHECKOUT_SRC_DIR ]; then # if the target dir exists...
         checkout_get_version_from_repo
-        if [ $CHECKOUT_REPO_VERSION ]; then
-            CHECKOUT_UPDATE=true
-        fi
-        if [ ! $CHECKOUT_UPDATE ]; then # ... and it's not mconf-web = error
+        if [ ! $REPLY ]; then # ... and it's not mconf-web = error
             print_error_banner "$CHECKOUT_SRC_DIR already exists. Please delete it to be able to checkout Mconf-Web."
             exit 1
+        else
+            REPLY=1
         fi
     fi
 }
 
+# Exits if the development environment doesn't exists
+require_dev_environment() {
+    checkout_get_version_from_repo
+    if [ ! $REPLY ]; then
+        print_error_banner "You need the source code to run this command. Please, run this script with the option --checkout to get the code."
+        exit 1
+    fi
+}
+
 # Includes a file with the list of dependencies for mconf-web
-# This file is in the source code dir, at script/packages.<platformname>
+# This file is in the source code dir, at config/packages.<platformname>
 # TODO: get the package list from github if there's no local repo?
 dependencies_include_package_list_from_source() {
     if [ -d $CHECKOUT_SRC_DIR ]; then
-        if [ -f $CHECKOUT_SRC_DIR/script/packages.$PLATFORM ]; then
-            source $CHECKOUT_SRC_DIR/script/packages.$PLATFORM
+        if [ -f $CHECKOUT_SRC_DIR/config/packages.$PLATFORM ]; then
+            source $CHECKOUT_SRC_DIR/config/packages.$PLATFORM
         else
             print_error_banner "Package list not found! $CHECKOUT_SRC_DIR/script/packages.$PLATFORM"
             exit 1
@@ -304,13 +314,74 @@ gem_install()
         GEM_VERSION="-v ${2}"
     fi
     gem install $1 --no-ri --no-rdoc $GEM_VERSION
+    GEM_VERSION=
 }
 
-# sets $NGINX_INSTALLED if nginx is found in the system
+# sets $REPLY if nginx is found in the system
 nginx_check() {
+    REPLY=
     if test -x $NGINX_DAEMON; then
-        NGINX_INSTALLED=true
+        REPLY=1
     fi
+}
+
+# Installs nginx using passenger
+nginx_install() {
+    # FIXME: There's something with .rvmrc that requires us to call these 2 lines again
+    # or rvmsudo won't be found
+    # install passenger in the dev environment
+    rvm_require
+    rvm use $RVM_RUBY_VERSION@$RVM_GEMSET
+    rvmsudo passenger-install-nginx-module --auto --auto-download --prefix=/opt/nginx
+    # TODO: to uninstall nginx, we'll have to install it from source? (--nginx-source-dir=DIR --extra-configure-flags=STRING)
+
+    # installs the init.d/nginx file
+    sudo curl https://raw.github.com/mconf/mconf-web/master/config/nginx.init.example -o /etc/init.d/nginx
+
+    # configures /opt/nginx/conf/nginx.conf
+    TEMP=`mktemp`
+    # TODO: fix link below (change branch)
+    curl https://raw.github.com/mconf/mconf-web/script_conf/config/nginx.1.0.conf.example -o $TEMP
+    sudo sed -i "s/server_name .*;/server_name $IP;/g" $TEMP
+    sudo sed -i "s>root .*;>root $PRODUCTION_PATH/public;>g" $TEMP
+    sudo sed -i "/http.*{/ r $TEMP" /opt/nginx/conf/nginx.conf
+}
+
+# Echoes the nginx version
+nginx_check_version() {
+    $NGINX_DAEMON -v
+    echo "at: $NGINX_DAEMON"
+}
+
+# Setup the gem environment for production
+# Basically creates a gemset and installs some gems
+setup_prod_setup_gemenv() {
+    cd $CHECKOUT_SRC_DIR
+    rvm_require
+
+    # Ruby is already installed for the dev environment, so we just need the gemset and gems
+    rvm gemset create $RVM_PRODUCTION_GEMSET
+    rvm use $RVM_RUBY_VERSION@$RVM_PRODUCTION_GEMSET
+    gem_install bundler $GEM_VERSION_BUNDLER
+    gem_install passenger $GEM_VERSION_PASSENGER
+}
+
+# Checks if there's already a production environment
+# Sets $REPLY if true
+prod_environment_check() {
+    REPLY=
+    if [ -d $PRODUCTION_PATH ]; then
+        REPLY=1
+    fi
+}
+
+# Runs the capistrano task: setup:all
+# First setup of a production environment
+capistrano_setup_all() {
+    cd $CHECKOUT_SRC_DIR
+    rvm_require
+    rvm use $RVM_RUBY_VERSION@$RVM_GEMSET
+    cap production setup:all -s auto_accept=1
 }
 
 
@@ -428,8 +499,8 @@ if [ $VERSION ]; then
     echo
     echo "Script version: $MCONF_WEB_VERSION"
     checkout_get_version_from_repo
-    if [ $CHECKOUT_REPO_VERSION ]; then
-        echo "Found a repository set with the version: $CHECKOUT_REPO_VERSION"
+    if [ $REPLY ]; then
+        echo "Found a repository set with the version: $REPLY"
     fi
     echo
     exit 0
@@ -445,7 +516,7 @@ if [ $RUBY ]; then
 
     # installs RVM if not present (https://rvm.beginrescueend.com/rvm/install/)
     rvm_check
-    if [ $RVM_INSTALLED = "true" ]; then
+    if [ $REPLY ]; then
         echo "-- RVM already installed at $(which rvm)"
     else
         echo "-- Installing RVM..."
@@ -453,7 +524,7 @@ if [ $RUBY ]; then
     fi
 
     rvm_check # double check to ensure the installation was successful
-    if [ $RVM_INSTALLED = "true" ]; then
+    if [ $REPLY ]; then
         rvm_notes_install_packages
         rvm_ruby_and_gemset
         print_banner "RVM/Ruby installed successfully."
@@ -476,7 +547,7 @@ if [ $CHECKOUT ]; then
     echo "-- Creating the src directory: $CHECKOUT_SRC_DIR"
     mkdir -p $CHECKOUT_SRC_DIR
 
-    if [ $CHECKOUT_UPDATE ]; then
+    if [ $REPLY ]; then
         cd $CHECKOUT_SRC_DIR
 
         echo "-- Checking out branch $CHECKOUT_BRANCH"
@@ -503,6 +574,8 @@ fi
 #
 
 if [ $DEPENDENCIES ]; then
+    check_root
+
     dependencies_include_package_list_from_source
 
     DEPENDENCIES_ENV="`echo $DEPENDENCIES_ENV|tr '[:lower:]' '[:upper:]'`" # var to upper case
@@ -574,12 +647,9 @@ setup_dev_files_setup() {
 }
 
 if [ $SETUP_DEV ]; then
+    check_root
 
-    checkout_get_version_from_repo
-    if [ ! $CHECKOUT_REPO_VERSION ]; then
-        print_error_banner "You need the source code to run this command. Please, run this script with the option --checkout to get the code."
-        exit 1
-    fi
+    require_dev_environment
 
     cd $CHECKOUT_SRC_DIR
     rvm_require
@@ -594,6 +664,7 @@ if [ $SETUP_DEV ]; then
 
     echo "-- Editing configuration files"
     setup_dev_files_setup
+    # TODO: print configs and ask if everything is ok, else go edit again
 
     echo "-- Setting up the database"
     bundle exec rake setup:db
@@ -605,57 +676,18 @@ fi
 # Setup the production environment
 #
 
-nginx_install() {
-    # FIXME: There's something with .rvmrc that requires us to call these 2 lines again
-    # or rvmsudo won't be found
-    # install passenger in the dev environment
-    rvm_require
-    rvm use $RVM_RUBY_VERSION@$RVM_GEMSET
-    rvmsudo passenger-install-nginx-module --auto --auto-download --prefix=/opt/nginx
-    # TODO: to uninstall nginx, we'll have to install it from source? (--nginx-source-dir=DIR --extra-configure-flags=STRING)
-
-    # installs the init.d/nginx file
-    sudo curl https://raw.github.com/mconf/mconf-web/master/config/nginx.init.example -o /etc/init.d/nginx
-
-    # configures /opt/nginx/conf/nginx.conf
-    TEMP=`mktemp`
-    # TODO: fix link below
-    curl https://raw.github.com/mconf/mconf-web/script_conf/config/nginx.1.0.conf.example -o $TEMP
-    sudo sed -i "s/server_name .*;/server_name $IP;/g" $TEMP
-    sudo sed -i "s>root .*;>root $PRODUCTION_PATH/public;>g" $TEMP
-    sudo sed -i "/http.*{/ r $TEMP" /opt/nginx/conf/nginx.conf
-}
-
-nginx_check_version() {
-    $NGINX_DAEMON -v
-    echo "at: $NGINX_DAEMON"
-}
-
-setup_prod_setup_gemenv() {
-    cd $CHECKOUT_SRC_DIR
-    rvm_require
-
-    # Ruby is already installed for the dev environment, so we just need the gemset and gems
-    rvm gemset create $RVM_PRODUCTION_GEMSET
-    rvm use $RVM_RUBY_VERSION@$RVM_PRODUCTION_GEMSET
-    gem_install bundler $GEM_VERSION_BUNDLER
-    gem_install passenger $GEM_VERSION_PASSENGER
-}
-
 if [ $SETUP_PROD ]; then
+    check_root
 
-    checkout_get_version_from_repo
-    if [ ! $CHECKOUT_REPO_VERSION ]; then
-        print_error_banner "You need the source code to run this command. Please, run this script with --checkout and then --setup-dev."
-        exit 1
-    fi
+    require_dev_environment
+    # TODO: also check if the env is configured (check config/setup_conf.yml possibly)
 
     echo "-- Setting up gemset and gems for production"
     setup_prod_setup_gemenv
 
     # installs nginx only if it's not installed yet
     nginx_check
-    if [ $NGINX_INSTALLED ]; then
+    if [ $REPLY ]; then
 
         echo
         echo "----------------------------------------------------------------------------------------"
@@ -667,7 +699,7 @@ if [ $SETUP_PROD ]; then
             echo "-- Installing nginx"
             nginx_install
         else
-            echo "-- Using the nginx already installed!"
+            echo "-- Using the nginx already installed:"
             nginx_check_version
         fi
 
@@ -676,10 +708,24 @@ if [ $SETUP_PROD ]; then
         nginx_install
     fi
 
-    # go back to development and create first release with capistrano
-    echo "-- Starting the first deploy (with capistrano)"
-    cd $CHECKOUT_SRC_DIR
-    rvm_require
-    rvm use $RVM_RUBY_VERSION@$RVM_GEMSET
-    cap production setup:all -s auto_accept=1
+    prod_environment_check
+    if [ $REPLY ]; then
+
+        echo
+        echo "----------------------------------------------------------------------------------------"
+        echo "You appear to already have a production environment at $PRODUCTION_PATH"
+        echo "Do you want to setup over it anyways? If you say yes your DB will be erased!"
+        read -p "Proceed? (y/n)?"
+        echo "----------------------------------------------------------------------------------------"
+        if [[ $REPLY == [yY] ]]; then
+            echo "-- Starting the first deploy (with capistrano)"
+            capistrano_setup_all
+        else
+            echo "-- Finishing setup."
+        fi
+
+    else
+        echo "-- Starting the first deploy (with capistrano)"
+        capistrano_setup_all
+    fi
 fi
