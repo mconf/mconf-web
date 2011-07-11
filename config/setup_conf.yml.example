@@ -7,10 +7,10 @@ default:
 
   # Admin account
   # You can change the password after the initial setup from within the application.
-  admin_login: "mconf"                             # admin user login (e.g. mconf)
-  admin_fullname: "Mconf Admin"                    # admin user full name
-  admin_email: "my-email@server.com"               # admin user email
-  admin_password: "admin"                          # admin user password
+  admin_login: "mconf"                             # Admin user login (e.g. mconf)
+  admin_fullname: "Mconf Admin"                    # Admin user full name
+  admin_email: "my-email@server.com"               # Admin user email
+  admin_password: "admin"                          # Admin user password
 
   # BigBlueButton default server configuration
   # This server will be your first and default server
@@ -28,24 +28,24 @@ default:
   # Website default configuration
   # The information will be used to create the Site object, that defines your website.
   # They can be altered after the initial setup using the management area in the application.
-  site_name: "Mconf Dev"                          # website name
-  site_description: "Mconf Development Website"   # website description
-  site_email: "my-email@server.com"               # website contact email
-  site_locale: "en"                               # this will be the default locale for the application
-  site_domain: "localhost"                        # your server address
-  site_signature: "Mconf"                         # to sign emails
+  site_name: "Mconf Dev"                          # Website name
+  site_description: "Mconf Development Website"   # Website description
+  site_email: "my-email@server.com"               # Website contact email
+  site_locale: "en"                               # This will be the default locale for the application
+  site_domain: "localhost"                        # Your server's IP or name address
+  site_signature: "Mconf"                         # To sign emails
 
   # Default space: it will be created as a default public space, something like
   # "a space for all members of this website"
-  default_space_name: "Mconf-Web Space"                    # space's name
-  default_space_description: "Mconf-Web users space"       # space's description
+  default_space_name: "Mconf-Web Space"                    # Space's name
+  default_space_description: "Mconf-Web users space"       # Space's description
 
   # Notifies when an exception occurs. The feature is disabled by default.
   # This will only work in the PRODUCTION environment. To enable it, go to the
   # production section below and change the property "enabled" to "true".
-  exception_notification_enabled: "false"                                          # change to true to enable, don't use quotation marks
-  exception_notification_prefix: "[mconf-web error] "                              # prefix added in the email subject
-  exception_notification_recipients: "my-email@server.com my-email2@server.com"    # space-separated list of emails
+  exception_notification_enabled: "false"                                          # Change to true to enable, don't use quotation marks
+  exception_notification_prefix: "[mconf-web error] "                              # Prefix added in the email subject
+  exception_notification_recipients: "my-email@server.com my-email2@server.com"    # Space-separated list of emails
 
 
 # Configurations for each environment
