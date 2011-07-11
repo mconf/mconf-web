@@ -51,12 +51,6 @@
   <% flash.each do |name, msg| %>
     <div class="<%= name %>"><%= msg %></div>
   <% end %>
-<!--            <div class="button_wrapper grey_bar">
-                  <%=link_to ("<span>" + t('edit_profile') + "</span>"),edit_user_profile_path(@user), {:class=>"grey_button basic_button",:title => t('event.view_agenda')} if @profile.authorize? :update, :to => current_user %>
-                  <%=link_to ("<span>" + "Send a message" + "</span>"), "#", {:id=>"view_repo", :class=>"grey_button basic_button",:title => t('event.view_repo')} if @user != current_user %>
-      <%=link_to ("<span>" + "Add contact" + "</span>"), "#", {:id=>"view_repo", :class=>"grey_button basic_button",:title => t('event.view_repo')} if @user != current_user %>
-                </div>
--->
   <div class="title">
         <h3 class="item_title">
                 <div id="help2" title="<%= h(t('information.information3'))%>"></div>

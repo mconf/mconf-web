@@ -4,7 +4,7 @@
 <%end%>
 
 <%= content_for :javascript do%>
-        
+
         $("#speakers_name").fcbkcomplete({
     cache: true,
     filter_case: false,
@@ -14,12 +14,12 @@
     maxshownitems: 4,
     newel: true
   });
-  
-        $(".newAttachEvent").click(function () { 
-          var new_id = new Date().getTime(); 
+
+        $(".newAttachEvent").click(function () {
+          var new_id = new Date().getTime();
           $(this).before( eventAttachment.replace(/NEW_RECORD/g, new_id) );
           $(".newAttach2").show();
-        
+
           // Applies tags to the attachment
           $("#agenda_entry_attachments_attributes_" + new_id + "__tags").fcbkcomplete({
               cache: true,
@@ -30,11 +30,11 @@
               maxshownitems: 4,
               newel: true,
               complete_opts: true
-          }); 
-          
+          });
+
         });
-        
-        
+
+
   $('.agenda_edit_entry img[tooltip]').each(function()
    {
       $(this).qtip({
@@ -45,12 +45,12 @@
          style: 'mystyle' // Give it a crea mstyle to make it stand out
       });
    });
-  
-  
+
+
   $('.vid_type_radio').change(function(){
         update_video_type_status();
   });
-  
+
   update_video_type_status = function(){
   if($("#agenda_entry_video_type_0").is(':checked'))  {
           $('#video_upload_div').hide();
@@ -60,7 +60,7 @@
       $('#video_upload_div').hide();
       $('#video_embed_div').show();
         }
-        else if($("#agenda_entry_video_type_2").is(':checked'))  {      
+        else if($("#agenda_entry_video_type_2").is(':checked'))  {
       $('#video_embed_div').hide();
           $('#video_upload_div').show();
         }
@@ -69,7 +69,7 @@
       $('#video_embed_div').hide();
         }
   };
-  
+
   //call update_video_type_status when loading
   update_video_type_status();
 <%end%>
@@ -79,9 +79,9 @@
   <div id="agenda_blue_title" class="margin-up">
     <h3 class="blue"><%=t('agenda.entry.edit')%></h3>
   </div>
-  
+
   <div id="new_entry_content">
-    <%= form_for (prepare_for_form(@agenda_entry), :url=>space_event_agenda_agenda_entry_path(@space, @event, @agenda_entry), :html => {:method => :put, :multipart => true, :name => "agenda_entry_edit_form", :autocomplete=>"off"}) do |f| %>
+    <%= form_for(prepare_for_form(@agenda_entry), :url=>space_event_agenda_agenda_entry_path(@space, @event, @agenda_entry), :html => {:method => :put, :multipart => true, :name => "agenda_entry_edit_form", :autocomplete=>"off"}) do |f| %>
 
       <%= content_for :agenda_attachments do%>
         <%= "eventAttachment='#{ generate_template(f,:attachments) }'" %>
@@ -106,7 +106,7 @@
           <%=options_for_select_with_class_selected(@space.users.map{|u| [u.full_name, u.login]}, @agenda_entry.actors.map{|u| u.login})%>
         </select>
       </div>
-  
+
       <div class="margin-up"><label for="description"><%= t('description') %></label><br/>
         <%= f.text_area :description, :size => "85x7" %>
       </div>
@@ -123,7 +123,7 @@
           <%end %>
           </br>
         </div>
-      </div>    
+      </div>
       <span class="newAttachEvent"><%=t('attachment.add') %></span>
 
     <%if !@event.is_in_person?%>
@@ -139,9 +139,9 @@
                 <%end%>
       </div>
    <%end%>
-   
+
    <%unless @event.recording_type == Event::RECORDING_TYPE.index(:none)%>
-      <div id="video_type_radio_buttons" class="margin-up">     
+      <div id="video_type_radio_buttons" class="margin-up">
         <label for="video_type"><%= t('agenda.entry.label_title_video_type') %></label><br/>
                 <% for vid_type in AgendaEntry::VIDEO_TYPE do %>
               <%if @event.is_in_person? && vid_type == :automatic %>
@@ -154,20 +154,20 @@
         <% end%>
      </div>
    <%end%>
-        
-    
+
+
       <div class="margin-up" id="video_embed_div" style="display:none">
         <div id="help" title="<%= h(t('tooltip.embed_help')) %>"></div>
         <label for="embedded_video"><%= t('agenda.entry.embedded_video') %></label><br/>
         <%= f.text_area :embedded_video, :size => "25x5" %>
-      </div>  
+      </div>
 
 
-          
+
           <div class="margin-up" id="video_upload_div" style="display:none">
                 <p> <%=t("agenda.entry.upload_video")%>  </p>
                          <%= f.fields_for(:attachment_video) do |at_form| %>
-                                                 
+
                          <%= at_form.file_field :uploaded_data %>
                         <div id="break"></div>
                         <% unless at_form.object.new_record? %>
@@ -179,25 +179,25 @@
                                                   <%=image_tag('icons/help.png',:class=>'icon',:tooltip=>t('tooltip.video_upload_explanation')) %>
 
                         <% end %>
-         
+
                          <% end %>
           </div>
-          
-          
+
+
       <ul class="margin-up event_form_buttons">
         <li><button type="submit" id="edit_entry_button" class="basic_button blue_button" style="float:left"><%=t("button.accept")%></button></li>
                         <%if params[:one_step]%>
                             <input type="hidden" id="one_step" name="one_step" value="true">
                                 <li><%=link_to "<span>" + t('button.cancel') + "</span>" , space_event_path(@space, @event), :class=>"blue_button basic_button"%></li>
-                        <%else%>        
+                        <%else%>
                                 <li><%=link_to "<span>" + t('button.cancel') + "</span>" , edit_space_event_agenda_path(@space, @event), :class=>"blue_button basic_button"%></li>
                         <%end%>
       </ul>
-    
+
     <% end %>
-        
-        
-        
+
+
+
   </div>
   <br/>
 </div>

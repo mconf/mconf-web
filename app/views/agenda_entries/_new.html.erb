@@ -1,12 +1,12 @@
- 
+
 <div class="agenda_new_entry" >
   <a id="new_entry_anchor" name="new_entry_anchor"></a>
   <div id="agenda_blue_title" class="margin-up">
-  	<h3 class="blue"><%=t('agenda.entry.new')%></h3>
+        <h3 class="blue"><%=t('agenda.entry.new')%></h3>
   </div>
 
   <div id="new_entry_content">
-    <%= form_for (prepare_for_form(@agenda_entry), :url=>space_event_agenda_agenda_entries_path(@space, @event), :html => {:method => :post, :multipart => true, :name => "agenda_entry_new_form"}) do |f| %>
+    <%= form_for(prepare_for_form(@agenda_entry), :url=>space_event_agenda_agenda_entries_path(@space, @event), :html => {:method => :post, :multipart => true, :name => "agenda_entry_new_form"}) do |f| %>
 
     <input type="hidden" id="entry_day" name="entry_day" value="<%=@day%>">
 
@@ -14,24 +14,24 @@
       <div class='error' id = "error_title" style = "display:none"><%= escape_javascript(t('agenda.error.omit_title')) %></div>
       <%= f.text_field :title %>
     </div>
-  
+
     <div class="without_javascript">
       <div class="margin-up"><label for="start_time" class="main_text"><%= t('agenda.entry.start_time') %></label><br/>
         <%= f.datetime_select :start_time, :default => @event.agenda.last_hour_for_day(@day.to_i) %>
       </div>
-			<div class="margin-up"><label for="duration" class="main_text"><%= t('agenda.entry.duration') %></label><br/>
-			  <select name="agenda_entry[duration]">
+                        <div class="margin-up"><label for="duration" class="main_text"><%= t('agenda.entry.duration') %></label><br/>
+                          <select name="agenda_entry[duration]">
           <%= duration_options_for_select 180, 5, 60 %>
-			  </select>
+                          </select>
       </div>
 
     </div>
 
     <div class="margin-up">
-    	<input type="button" id="add_entry_button" value="<%=t("button.next")%>" class="basic_button blue_button"/>
+        <input type="button" id="add_entry_button" value="<%=t("button.next")%>" class="basic_button blue_button"/>
       <input type="button" id="<%=@day%>" value="<%=t('close')%>" class="agenda_new_close basic_button blue_button"/>
     </div>
-		
+
   <% end %>
   </div>
 </div>

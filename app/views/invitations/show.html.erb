@@ -1,8 +1,8 @@
 <%= content_for :javascript do%>
 
-  $("#discard_invitation_button").livequery('click',function(){ 
+  $("#discard_invitation_button").livequery('click',function(){
     $('#invitation_accepted').attr('value', 'false');
-    document.forms["invitation_process_form"].submit();   
+    document.forms["invitation_process_form"].submit();
   });
 
 <%end%>
@@ -13,7 +13,7 @@
     </p>
 
 <%else%>
-  
+
   <div class="invitation-box">
     <div id="title">
       <h3><%=t("invitation.title2")%></h3>
@@ -27,20 +27,20 @@
         <p><span class="bold blue"><%= t('invitation.introducer') %>:</span> <%=sanitize(@invitation.introducer.name)%></p>
         <p><span class="bold blue"><%=t("description")%>:</span> <%=@invitation.group.description%></p>
       </div>
-  
-      <%= form_for (:invitation, :url => "/invitations/" + @invitation.code, :html => {:method => :put, :name => "invitation_process_form"}) do |f| %>
+
+      <%= form_for(:invitation, :url => "/invitations/" + @invitation.code, :html => {:method => :put, :name => "invitation_process_form"}) do |f| %>
         <%= f.hidden_field :processed, :value => true %>
         <%= f.hidden_field :accepted, :value => true %>
-      
-      
+
+
         <!--This is shown only in case the user is not authenticated or not registered -->
         <% unless authenticated? && current_user == @invitation.candidate %>
           <%= fields_for(@candidate || @invitation.candidate || User.new) do |cf| %>
-         
+
             <%= cf.error_messages %>
-          
+
             <%if User.find_by_email(@invitation.email)%>
-              <!--The user exist in the db, authenticate him-->        
+              <!--The user exist in the db, authenticate him-->
               <p class="note">
                 <%=t("space.join_invitation.clarify_registered")%>
               </p>
@@ -49,7 +49,7 @@
                   <%= cf.label t('invitation.email') %><br />
                   <%= cf.text_field :login,:value=>@invitation.email %>
                 </div>
-        
+
                 <div class="margin-up">
                   <%= cf.label t('agent.authentication.password') %><br />
                   <%= cf.password_field :password %>
@@ -64,17 +64,17 @@
                   <%= cf.label t('user.full_name') %><br />
                   <%= cf.text_field :_full_name %>
                 </div>
-                
+
                 <div class="margin-up">
                   <%= cf.label t('invitation.email') %><br />
                   <%= cf.text_field :email,:value=>@invitation.email,:disabled=>true %>
                 </div>
-            
+
                 <div class="margin-up">
                   <%= cf.label t('agent.authentication.password') %><br />
                   <%= cf.password_field :password %>
                 </div>
-            
+
                 <div class="margin-up">
                   <%= cf.label t('agent.authentication.confirm_password') %><br />
                   <%= cf.password_field :password_confirmation %>
@@ -83,7 +83,7 @@
             <%end%>
           <% end %>
         <% end %>
-      
+
         <div id="accept_invitation">
           <button type="submit"><%=t('invitation.accept')%></button>
         </div>
@@ -91,7 +91,7 @@
           <input type="button" id="discard_invitation_button" value="<%=t("invitation.discard")%>" />
         </div>
       <%end%>
-      
+
     </div>
   </div>
 <%end%>

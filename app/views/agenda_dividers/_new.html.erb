@@ -1,27 +1,27 @@
- 
+
 <div class="agenda_new_entry" >
   <a id="new_entry_anchor" name="new_entry_anchor"></a>
   <div id="agenda_blue_title" class="margin-up">
-  	<h3 class="blue"><%=t('agenda.divider.new')%></h3>
+        <h3 class="blue"><%=t('agenda.divider.new')%></h3>
   </div>
 
   <div id="new_entry_content">
-    <%= form_for (@agenda_divider, :url=>space_event_agenda_agenda_dividers_path(@space, @event), :html => {:method => :post, :multipart => true, :name => "agenda_divider_new_form"}) do |f| %>
+    <%= form_for(@agenda_divider, :url=>space_event_agenda_agenda_dividers_path(@space, @event), :html => {:method => :post, :multipart => true, :name => "agenda_divider_new_form"}) do |f| %>
 
     <input type="hidden" id="entry_day" name="entry_day" value="<%=@day%>">
-  
+
 
       <div class="margin-up"><label for="start_time" class="main_text"><%= t('agenda.divider.start_time') %></label><br/>
       <%= f.datetime_select :start_time, :default => @event.agenda.last_hour_for_day(@day.to_i) %></div>
-      
-	  <div class="margin-up"><label for="title" id="agenda_title_label"><%= t('agenda.divider.title') %></label><br/>
+
+          <div class="margin-up"><label for="title" id="agenda_title_label"><%= t('agenda.divider.title') %></label><br/>
       <%= f.text_field :title %></div>
-      
+
     <div class="margin-up">
-    	<input type="button" id="add_divider_button" value="<%=t("button.create")%>" class="basic_button blue_button"/>
+        <input type="button" id="add_divider_button" value="<%=t("button.create")%>" class="basic_button blue_button"/>
       <input type="button" id="<%=@day%>" value="<%=t('close')%>" class="agenda_new_close basic_button blue_button"/>
     </div>
-		
+
   <% end %>
   </div>
 </div>

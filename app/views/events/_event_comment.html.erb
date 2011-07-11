@@ -2,13 +2,13 @@
         <%= render :partial => 'posts/collapse_expand', :locals => { :selected_post => false, :post => post } %>
 <%end%>
 
-<div class="event-comment-wrapper">               
-        <%= div_for (post, :class=>"post_moved") do%>
-                
-                        <div class="post-logo">                         
+<div class="event-comment-wrapper">
+        <%= div_for(post, :class=>"post_moved") do%>
+
+                        <div class="post-logo">
                                         <%= raw(link_logo(post.author, :size => 22, :url => user_path(post.author), :title=>post.author.name)) %>
                         </div>
-                        
+
                   <div class="post-content">
                     <div id="edit" class="group_links">
                         <%=link_to(image_tag("icons/exclamation.png", :alt => t('spam.report'),:class=>"icon"), spam_lightbox_space_post_path(@space,post),{:name => post.id, :class => 'spam_link', :title => t('spam.report')}) if logged_in? && post.spam == false%>
@@ -18,9 +18,9 @@
 
                                 <ul>
                                 <li class="person_title">
-                                        <%= link_to(post.author.name, :url => user_path(post.author)) %>                                          
+                                        <%= link_to(post.author.name, :url => user_path(post.author)) %>
                                 </li>
-                                        
+
                 <%if post.text.size < 100%>
                                           <li>
                                             <%=sanitize(auto_link(post.text))%>
@@ -34,7 +34,7 @@
                                                         <%=sanitize(auto_link(simple_format(post.text)))%><br />
                                           </li>
                                         <%end%>
-                                        
+
                                         <li class="attach">
                               <%for attachment in post.attachments%>
                                 <div><%=image_tag(logo_image_path(attachment, :size => '64'))%>
@@ -42,10 +42,10 @@
                                   <li><%=attachment.filename%></li>
                                   <li><%=attachment.get_size()%> <%= link_to( t('download_file') , space_attachment_path(@space,attachment, :format => attachment.format))%></li>
                                 </ul>
-                                                        </div> 
+                                                        </div>
                               <%end%>
                                         </li>
-                                </ul> 
+                                </ul>
                         </div>
         <%end%>
 </div>
