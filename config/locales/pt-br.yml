@@ -747,7 +747,7 @@ pt-br:
         name: "'Name' será substituído na mensagem pelo nome do receptor."
       message_beginning_with_start_date: "<p> 'Name', </p><p> Quanto o <b>'event_name' na comunidade %{space}</b> em 'event_date': </p>"
       message_beginning_without_start_date: "<p> 'Name', </p><p> Relacionado ao <b>evento 'event_name' na comunidade %{space}</b>:</p>"
-      message_ending: "<p>Você pode encontrar mais informações sobre o evento em <a href=\"event_url\">event_url</a> </p><p> Atenciosamente, <br/><br/> %{username} <br/> %{usermail} <br/> %{userorg} </p>"
+      message_ending: "<p>Você pode encontrar mais informações sobre o evento em <a href=\"event_url\">event_url</a> </p><p> Atenciosamente, <br/><br/> %{username} <br/> %{useremail} <br/> %{userorg} </p>"
       message_title: "Enviar uma notificação aos participantes confirmados"
       personal: "Escreva o seu texto pessoal aqui."
       select_all_attendants: "Selecionar todos os participantes"
@@ -1209,7 +1209,7 @@ pt-br:
     discarded: "O convite foi descartado"
     discarded_by: "%{candidate} descartou o convite"
     email: E-mail
-    full_message: " <b>%{username} convida você para a comunidade %{space}.</b><br/><br/>%{comment}<br/><br/> Para aceitar o convite por favor visite <a href=\"%{url}\">%{url}</a><br/> Você pode encontrar mais informações sobre esta comunidade em <a href=\"%{space_url}\">%{space_url}</a><br/><br/> Atenciosamente,<br/><br/>%{user_name}<br/>%{user_email}<br/>%{user_organization}<br/><br/> Se você acredita que esta mensagem é um spam, por favor <a href=\"mailto:%{contact}\"> entre em contato </a> ou nos <a href=\\\"%{feedback}\\\"> envie uma mensagem.</a>"
+    full_message: "<b>%{username} convida você para a comunidade %{space}.</b><br/><br/>%{comment}<br/><br/> Para aceitar o convite por favor visite <a href=\"%{url}\">%{url}</a><br/> Você pode encontrar mais informações sobre esta comunidade em <a href=\"%{space_url}\">%{space_url}</a><br/><br/> Atenciosamente,<br/><br/>%{user_name}<br/>%{user_email}<br/>%{user_organization}<br/><br/> Se você acredita que esta mensagem é um spam, por favor <a href=\"mailto:%{contact}\"> entre em contato </a> ou nos <a href=\"%{feedback}\"> envie uma mensagem.</a>"
     hide_all_users: "Ocultar todos os usuários"
     info_event: "Você pode encontrar mais informações sobre este evento em 'event_url'"
     info_space: "Você pode encontrar mais informações sobre esta comunidade em <a href=\"%{space_url}\"> %{space_url} </a>"

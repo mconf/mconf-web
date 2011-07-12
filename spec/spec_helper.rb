@@ -7,6 +7,10 @@ require 'rspec/rails'
 # in spec/support/ and its subdirectories.
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
+ActionMailer::Base.delivery_method = :test
+ActionMailer::Base.perform_deliveries = true
+ActionMailer::Base.deliveries = []
+
 RSpec.configure do |config|
   # == Mock Framework
   #
@@ -24,10 +28,10 @@ RSpec.configure do |config|
   # examples within a transaction, remove the following line or assign false
   # instead of true.
   config.use_transactional_fixtures = true
-  
+
   # Make the rails routes avaiable in all specs
   #config.include Rails.application.routes.url_helpers
-  
+
 end
 
 Factory.find_definitions

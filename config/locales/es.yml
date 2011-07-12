@@ -648,8 +648,8 @@ es:
       label: "Personalice su mensaje de notificación"
       legend: 
         name: "'Nombre' será reemplazado en el mensaje por el nombre del receptor."
-      message_beginning_with_start_date: "<p> 'Nombre', </p><p> Acerca del <b>evento 'event_name' en el espacio %{space}</b> el 'event_date': </p>"
-      message_beginning_without_start_date: "<p> 'Nombre', </p><p> Acerca del <b>evento 'event_name' en el espacio %{space}:</b> </p>"
+      message_beginning_with_start_date: "<p> 'Name', </p><p> Acerca del <b>evento 'event_name' en el espacio %{space}</b> el 'event_date': </p>"
+      message_beginning_without_start_date: "<p> 'Name', </p><p> Acerca del <b>evento 'event_name' en el espacio %{space}:</b> </p>"
       message_ending: "<p>Puede encontrar más información sobre el evento en <a href=\"event_url\">event_url</a> </p><p>Un cordial saludo,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>"
       message_title: "Enviar una notificación a los asistentes"
       personal: "Escriba su mensaje personal aquí."

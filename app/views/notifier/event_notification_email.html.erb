@@ -1,5 +1,5 @@
 <html>
   <body>
-      <%=@event.notify_msg.gsub('\'' + t('name.one') + '\'',@receiver.full_name)%><br/><br/>
+      <%= @event.notify_msg.gsub("\'Name\'", @receiver.full_name) %><br/><br/>
   </body>
 </html>
