@@ -23,24 +23,25 @@
 # Environment variables
 #
 
-MCONF_WEB_VERSION="0.2"                              # The version of this script
+MCONF_WEB_VERSION="0.2"                                 # The version of this script
 
-RVM_VERSION=1.6.21                                   # to fix the RVM version to be installed
-RVM_RUBY_VERSION=1.9.2                               # Ruby version
-RVM_GEMSET=mconf                                     # gemset for development (also defined in mconf-web/.rvmrc)
-RVM_PRODUCTION_GEMSET=mconf_production               # gemset for production (also defined in mconf-web/config/deploy.rb)
+RVM_VERSION=1.6.21                                      # to fix the RVM version to be installed
+RVM_RUBY_VERSION=1.9.2                                  # Ruby version
+RVM_GEMSET=mconf                                        # gemset for development (also defined in mconf-web/.rvmrc)
+RVM_PRODUCTION_GEMSET=mconf_production                  # gemset for production (also defined in mconf-web/config/deploy.rb)
 
 DEVELOPMENT_SRC_PATH=~/dev/source/mconf-web             # local directory where the dev environment will be placed
 DEVELOPMENT_REPO=git://github.com/mconf/mconf-web.git   # used to checkout the dev environment (not for production)
 DEVELOPMENT_BRANCH=script_conf                          # branch to be checked out
 
-NGINX_DAEMON=/opt/nginx/sbin/nginx                   # default path for nginx 1.0
+NGINX_VERSION=1.0.0                                     # default version for nginx installed by passenger
+NGINX_DAEMON=/opt/nginx/sbin/nginx                      # default path for nginx installed by passenger
 
-PRODUCTION_PATH=~/mconf-web/                         # local directory for production
-                                                     # (this is defined in mconf-web/config/deploy.rb, see the vars "application" and "deploy_to")
+PRODUCTION_PATH=~/mconf-web/                            # local directory for production
+                                                        # (this is defined in mconf-web/config/deploy.rb, see the vars "application" and "deploy_to")
 
-GEM_BUNDLER_VERSION=1.0.15                           # bundler version
-GEM_VERSION_PASSENGER=3.0.7                          # passenger version
+GEM_BUNDLER_VERSION=1.0.15                              # bundler version
+GEM_VERSION_PASSENGER=3.0.7                             # passenger version
 
 # local IP got from ifconfig
 IP=$(ifconfig | grep -v '127.0.0.1' | grep -E "[0-9]*\.[0-9]*\.[0-9]*\.[0-9]*" | head -1 | cut -d: -f2 | awk '{print $1}')
@@ -257,9 +258,9 @@ rvm_install() {
     curl -s https://rvm.beginrescueend.com/install/rvm -o rvm-installer ; chmod +x rvm-installer ; ./rvm-installer --version $RVM_VERSION
 
     echo "-- Loading RVM in the current bash"
-    touch ~/.bash_profile
-    if ! cat ~/.bash_profile | grep -q ".rvm/scripts/rvm"; then
-      echo '[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm" # Load RVM function' >> ~/.bash_profile
+    touch ~/.profile
+    if ! cat ~/.profile | grep -q ".rvm/scripts/rvm"; then
+      echo '[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm" # Load RVM function' >> ~/.profile
     fi
     rvm_require
     # bash < <(curl -s https://rvm.beginrescueend.com/install/rvm) # to install the latest version only
@@ -274,9 +275,11 @@ rvm_notes_install_packages() {
 
 # Installs ruby using rvm and creates the default gemset
 rvm_ruby_and_gemset() {
-    if ! rvm list | grep -q $RVM_RUBY_VERSION; then
-        rvm install $RVM_RUBY_VERSION
+    rvm package install openssl
+    if rvm list | grep -q $RVM_RUBY_VERSION; then
+        rvm remove $RVM_RUBY_VERSION
     fi
+    rvm install $RVM_RUBY_VERSION -C --with-openssl-dir=$HOME/.rvm/usr
     rvm use $RVM_RUBY_VERSION
     rvm gemset clear
     rvm gemset create $RVM_GEMSET
@@ -337,11 +340,13 @@ require_checkout() {
 require_dev_environment() {
     require_checkout
     # TODO: also check if the env is configured (check config/setup_conf.yml possibly)
+    # TODO: check rvm
 }
 
 # Exits if the production environment doesn't exists
 # Ensures --setup-prod was called
 require_prod_environment() {
+    # TODO: check rvm
     # TODO:
     echo "Pending..."
 }
@@ -387,8 +392,19 @@ gem_install()
 # sets $REPLY if nginx is found in the system
 nginx_check() {
     REPLY=
-    if test -x $NGINX_DAEMON; then
+
+    # if nginx is installed with dpkg (BigBlueButton uses it)
+    if dpkg-query -s nginx 1>/dev/null; then
         REPLY=1
+	NGINX_DAEMON=`which nginx`
+	NGINX_VERSION=`dpkg-query -W -f='${Version}\n' nginx | sed 's/\(^[[:digit:]\.]*\).*/\1/'`
+
+    # tests for the default nginx installed by passenger
+    else
+	if test -x $NGINX_DAEMON; then
+            REPLY=1
+	    NGINX_VERSION=`$NGINX_DAEMON -v 2>&1 | sed 's/^.*\/\(.*\)$/\1/'`
+	fi
     fi
 }
 
@@ -398,26 +414,31 @@ nginx_install() {
     # or rvmsudo won't be found
     # install passenger in the dev environment
     rvm_require
-    rvm use $RVM_RUBY_VERSION@$RVM_GEMSET
-    rvmsudo passenger-install-nginx-module --auto --auto-download --prefix=/opt/nginx
+    rvm use $RVM_RUBY_VERSION@$RVM_PRODUCTION_GEMSET
+    rvmsudo passenger-install-nginx-module --auto --auto-download --prefix=/etc/nginx
     # TODO: to uninstall nginx, we'll have to install it from source? (--nginx-source-dir=DIR --extra-configure-flags=STRING)
+
+#--prefix=/opt/nginx
 
     # installs the init.d/nginx file
     sudo curl https://raw.github.com/mconf/mconf-web/master/config/nginx.init.example -o /etc/init.d/nginx
 
     # configures /opt/nginx/conf/nginx.conf
+    # TODO: only do it if the file is not already configured
     TEMP=`mktemp`
     # TODO: fix link below (change branch)
     curl https://raw.github.com/mconf/mconf-web/script_conf/config/nginx.1.0.conf.example -o $TEMP
     sudo sed -i "s/server_name .*;/server_name $IP;/g" $TEMP
-    sudo sed -i "s>root .*;>root $PRODUCTION_PATH/public;>g" $TEMP
+    sudo sed -i "s>root .*;>root $PRODUCTION_PATH/current/public;>g" $TEMP
     sudo sed -i "/http.*{/ r $TEMP" /opt/nginx/conf/nginx.conf
 }
 
 # Echoes the nginx version
 nginx_check_version() {
-    $NGINX_DAEMON -v
-    echo "at: $NGINX_DAEMON"
+    nginx_check
+    echo "Nginx:"
+    echo "  version: $NGINX_VERSION"
+    echo "  at: $NGINX_DAEMON"
 }
 
 # Setup the gem environment for production
@@ -427,6 +448,7 @@ setup_prod_setup_gemenv() {
     rvm_require
 
     # Ruby is already installed for the dev environment, so we just need the gemset and gems
+    rvm use $RVM_RUBY_VERSION
     rvm gemset create $RVM_PRODUCTION_GEMSET
     rvm use $RVM_RUBY_VERSION@$RVM_PRODUCTION_GEMSET
     gem_install bundler $GEM_VERSION_BUNDLER
@@ -790,12 +812,32 @@ if [ $SETUP_PROD ]; then
     nginx_check
     if [ $REPLY ]; then
 
+#	case $NGINX_VERSION in
+#	    1.0.0)
+                # warn the user and ask
+		    # install nginx anyway
+                    # just configure it
+#		;;
+#	    *)
+		# if is_bigbluebutton_machine; then
+		    # warning that nginx should be removed and a new version will be installed
+		    # install new version
+		    # configure nginx with mconf-web and bbb
+		# else
+                    # warn the user and ask
+                        # install nginx anyway
+                        # just configure it
+		# fi
+#		;;
+#	esac
+
         echo
         echo "----------------------------------------------------------------------------------------"
         echo "You appear to have nginx already installed at $NGINX_DAEMON"
         echo "Do you want to install it anyway?"
-        read -p "Choose no to keep the current version (you will have to configure it manually) (y/n)?"
+	echo "Choose no to keep the current version (you will have to configure it manually)"
         echo "----------------------------------------------------------------------------------------"
+        read -p "(y/n)?"
         if [[ $REPLY == [yY] ]]; then
             echo "-- Installing nginx"
             nginx_install
@@ -832,8 +874,8 @@ if [ $DEPLOY_FIRST_TIME ]; then
         echo "----------------------------------------------------------------------------------------"
         echo "You appear to already have a production environment at $PRODUCTION_PATH"
         echo "Do you want to setup over it anyways? If you say yes your DB will be erased!"
-        read -p "Proceed? (y/n)?"
         echo "----------------------------------------------------------------------------------------"
+        read -p "Proceed? (y/n)?"
         if [[ $REPLY == [yY] ]]; then
             echo "-- Starting the first deploy (with capistrano)"
             capistrano_setup_all
