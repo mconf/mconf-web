@@ -8,7 +8,7 @@ require 'iconv'
 module EventToPdf
 
   #Method to generate the agenda of the event in PDF.
-  def to_pdf(small_version)
+  #def to_pdf(small_version)
 
 =begin
     unless needsGenerate(small_version)

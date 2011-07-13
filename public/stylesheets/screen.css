@@ -1811,7 +1811,7 @@ div#browse_select2{display:inline-block;}
   min-width:90px;
   position:absolute;
   right:51px;
-  bottom:-59px;
+  bottom:0px;
   z-index:1;
   list-style-type:none;
 }

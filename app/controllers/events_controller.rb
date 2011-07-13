@@ -86,20 +86,20 @@ class EventsController < ApplicationController
         format.js 
         format.ics {name = "agenda_" + @event.name + ".ics"
           send_data @event.to_ics, :filename => "#{name}"}
-        format.pdf { 
-          
-          @event.to_pdf(params[:small_version])
-          
-          if params[:small_version] == "true"
-            name = "agenda_" + @event.permalink + "_small.pdf"
-          else
-            name = "agenda_" + @event.permalink + ".pdf"
-          end
-          
-          pdf_path = "#{Rails.root.to_s}/public/pdf/#{@event.permalink}/#{nombre}"
-          send_file pdf_path
+        #format.pdf { 
+        #  
+        #  @event.to_pdf(params[:small_version])
+        #  
+        #  if params[:small_version] == "true"
+        #    name = "agenda_" + @event.permalink + "_small.pdf"
+        #  else
+        #    name = "agenda_" + @event.permalink + ".pdf"
+        #  end
+        # 
+        #  pdf_path = "#{Rails.root.to_s}/public/pdf/#{@event.permalink}/#{nombre}"
+        #  send_file pdf_path
 
-        }
+        #}
       end
     else
       
@@ -157,19 +157,19 @@ class EventsController < ApplicationController
           name = "agenda_" + @event.name + ".ics"
           send_data @event.to_ics, :filename => "#{name}"
         }
-        format.pdf {
-          @event.to_pdf(params[:small_version])
-          
-          if params[:small_version] == "true"
-            name = "agenda_" + @event.permalink + "_small.pdf"
-          else
-            name = "agenda_" + @event.permalink + ".pdf"
-          end
-          
-          pdf_path = "#{Rails.root.to_s}/public/pdf/#{@event.permalink}/#{name}"
-          send_file pdf_path
+        #format.pdf {
+        #  @event.to_pdf(params[:small_version])
+        #  
+        #  if params[:small_version] == "true"
+        #    name = "agenda_" + @event.permalink + "_small.pdf"
+        #  else
+        #    name = "agenda_" + @event.permalink + ".pdf"
+        #  end
+        #  
+        #  pdf_path = "#{Rails.root.to_s}/public/pdf/#{@event.permalink}/#{name}"
+        #  send_file pdf_path
 
-        }             
+        #}             
         format.zip{  
           create_and_send_zip_file_for_scorm             
         }
