@@ -19,7 +19,7 @@
 #This class will compose all the mails that the application should send
 class Notifier < ActionMailer::Base
 
-  def invitation_email(invitation)    
+  def invitation_email(invitation) #OK
     setup_email(invitation.email)
 
     @subject += I18n.t("invitation.to_space",:space=>invitation.group.name,:username=>invitation.introducer.full_name).html_safe
@@ -134,7 +134,7 @@ class Notifier < ActionMailer::Base
     upgmail(invitation.email)
   end
 
-  def join_request_email(jr,receiver)
+  def join_request_email(jr,receiver) #OK
     setup_email(receiver.email)
 
     @subject += I18n.t("join_request.ask_subject", :candidate => jr.candidate.name, :space => jr.group.name)
@@ -156,7 +156,7 @@ class Notifier < ActionMailer::Base
   end
 
   #This is used when an user registers in the application, in order to confirm his registration
-  def confirmation_email(user)
+  def confirmation_email(user)  #OK
     setup_email(user.email)
 
     @subject += I18n.t("email.welcome",:sitename=>Site.current.name).html_safe
@@ -166,7 +166,7 @@ class Notifier < ActionMailer::Base
     @signature  = Site.current.signature_in_html
   end
 
-  def activation(user)
+  def activation(user)  #OK
     setup_email(user.email)
 
     @subject += I18n.t("account_activated", :sitename=>Site.current.name).html_safe
@@ -178,7 +178,7 @@ class Notifier < ActionMailer::Base
   end
 
   #This is used when a user asks for his password.
-  def lost_password(user)
+  def lost_password(user)  #OK
     setup_email(user.email)
 
     @subject += I18n.t("password.request", :sitename=>Site.current.name).html_safe
@@ -189,7 +189,7 @@ class Notifier < ActionMailer::Base
   end
 
   #this method is used when a user has asked for his old password, and then he resets it.
-  def reset_password(user)
+  def reset_password(user)  #OK
     setup_email(user.email)
 
     @subject += I18n.t("password.reset_email", :sitename=>Site.current.name).html_safe
@@ -198,7 +198,7 @@ class Notifier < ActionMailer::Base
   end
 
   #this method is used when a user has sent feedback to the admin.
-  def feedback_email(email, subject, body)
+  def feedback_email(email, subject, body) #OK
     setup_email(Site.current.email)
 
     @from = email
@@ -220,7 +220,7 @@ class Notifier < ActionMailer::Base
     @signature  = Site.current.signature_in_html
   end
 
-  def webconference_invite_email(params)
+  def webconference_invite_email(params) #OK
     setup_email(params[:email_receiver])
 
     @sender = params[:user_name]
@@ -228,6 +228,7 @@ class Notifier < ActionMailer::Base
     @room_url = params[:room_url]
     @subject = params[:title]
     @message = params[:body]
+    @signature  = Site.current.signature_in_html
 
     upgmail(nil)
   end
