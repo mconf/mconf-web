@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Settings specified here will take precedence over those in config/environment.rb
 
 Vcc::Application.configure do
@@ -34,4 +35,6 @@ Vcc::Application.configure do
 
   # Print deprecation notices to the stderr
   config.active_support.deprecation = :stderr
+
+  config.action_mailer.default_url_options = { :host => "example.com" }
 end
