@@ -37,7 +37,7 @@ class PrivateSender
   
   def self.event_notification_message(event,receiver)
     m = PrivateMessage.new :title => I18n.t("event.notification.subject",:eventname=>event.name,:space=>event.space.name,:username=>(User.find(event.notif_sender_id)).full_name),
-      :body => ( event.notify_msg.gsub('\'' + I18n.t('name.one') + '\'',receiver.full_name) + "<br/><br/>" )
+      :body => ( event.notify_msg.gsub("'Name'", receiver.full_name) + "<br/><br/>" )
     m.receiver = receiver
     m.save!
   end
