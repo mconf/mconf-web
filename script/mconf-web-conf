@@ -172,8 +172,9 @@ config_yml_get_value_from_user() {
     read -r USER_INPUT
     if [ $USER_INPUT ]; then
         # anything between "parameter:" and end-of-line or '#' will be replaced by the user input
-        sed -i "s/\(^[[:space:]]*${2}:\)[^#$]*\(.*\)$/\1 \"${USER_INPUT}\" \2/g" $1
         echo "  New value: \"${USER_INPUT}\""
+	USER_INPUT=${USER_INPUT//\//\\/} # escape all slashes
+        sed -i "s/\(^[[:space:]]*${2}:\)[^#$]*\(.*\)$/\1 \"${USER_INPUT}\" \2/g" $1
     fi
 }
 
@@ -575,6 +576,13 @@ while [ $# -gt 0 ]; do
         continue
     fi
 
+    if [ "$1" = "--config" -o "$1" = "-config" ]; then
+        echo "- Request to edit the configuration files"
+        CONFIG=1
+        shift
+        continue
+    fi
+
     if [ "$1" = "--deploy-first-time" -o "$1" = "-deploy-first-time" ]; then
         echo "- Request to deploy for the first time"
         DEPLOY_FIRST_TIME=1
@@ -851,9 +859,25 @@ if [ $SETUP_PROD ]; then
         nginx_install
     fi
 
-    print_banner "Production environment set up succesfully."
+    print_banner "Production environment setup finished."
 
     echo "You can now deploy your application with the option --deploy-first-time"
+fi
+
+
+#
+# Edit the configuration files
+#
+
+if [ $CONFIG ]; then
+    check_root
+
+    require_dev_environment
+
+    echo "-- Editing configuration files"
+    setup_dev_files_setup
+
+    print_banner "Configuration files edition finished."
 fi
 
 
