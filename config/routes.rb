@@ -19,12 +19,12 @@ Vcc::Application.routes.draw do
   match '/ui/:action', :to => 'ui'
 
   # Global search
-  match '/search(.:format)', :to => 'search#index', :as => 'search_all' #=> /search, SearchController
-  match '/tags/:tag', :to => 'search#tag', :as => 'search_by_tag' #=> /tags/:id/events, TagsController (actualmente es parte del searchcontroller)
+  #match '/search(.:format)', :to => 'search#index', :as => 'search_all' #=> /search, SearchController
+  #match '/tags/:tag', :to => 'search#tag', :as => 'search_by_tag' #=> /tags/:id/events, TagsController (actualmente es parte del searchcontroller)
 
   # Search in the space
-  match '/spaces/:space_id/search', :to => 'search#index', :as => 'space_search_all' #=> /search, SearchController
-  match '/spaces/:space_id/tags/:tag', :to => 'search#tag', :as => 'space_search_by_tag' #=> /tags/:id/events, TagsController (actualmente es parte del searchcontroller)
+  #match '/spaces/:space_id/search', :to => 'search#index', :as => 'space_search_all' #=> /search, SearchController
+  #match '/spaces/:space_id/tags/:tag', :to => 'search#tag', :as => 'space_search_by_tag' #=> /tags/:id/events, TagsController (actualmente es parte del searchcontroller)
 
   resources :logos do
     collection do

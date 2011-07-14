@@ -2,7 +2,11 @@
 	<h2 class="title_sidebar">Tag Cloud</h2>
  <% if Tag.cloud.length > 0 %>
 <% build_tag_cloud(Tag.cloud, %w(nube1 nube2 nube3 nube4 nube5 nube6 )) do |tag, cloud_class| %>
-<%= link_to(name_format(h("#{tag}"),17,""), search_by_tag_path(@space, tag), { :class => "#{cloud_class}", :style => "margin: .10em", :rel=> "tag" } ) %>
+<!--
+  <%= 
+    #link_to(name_format(h("#{tag}"),17,""), search_by_tag_path(@space, tag), { :class => "#{cloud_class}", :style => "margin: .10em", :rel=> "tag" } ) 
+  %>
+-->
 <% end %>
 <% else %>
 <%= t('no_tags_found') %>

@@ -17,6 +17,8 @@
 # along with VCC.  If not, see <http://www.gnu.org/licenses/>.
 
 class SearchController < ApplicationController
+=begin
+  
   before_filter :space
   authorization_filter [ :read, :content ], :space, :if => :space
   
@@ -91,13 +93,11 @@ class SearchController < ApplicationController
   end
   
   def search_spaces (params)
-=begin
     #TODO rails 3: ultrasphinx
     @search = Ultrasphinx::Search.new(:query => @query,  :per_page => 1000000, :class_names => 'Space')
     @search.run
     
     @spaces = authorize_read?(@search.results)
-=end
   end
   
   def search_events(params)
@@ -107,7 +107,7 @@ class SearchController < ApplicationController
     filter_date(params, filters, [:start_time])
     
     sort_mode = params[:sort_mode] || 'descending'
-=begin
+
     #TODO rails 3: ultrasphinx
     @search = Ultrasphinx::Search.new(:query => @query, :per_page => 1000000, :class_names => ['Event', 'AgendaEntry'],:filters => filters, :sort_mode => sort_mode, :sort_by => 'start_time')
     @search.run
@@ -123,7 +123,7 @@ class SearchController < ApplicationController
     }.uniq.compact
 
     @events = @space.nil? ? authorize_read?(filter_from_disabled_spaces(results)) : results
-=end
+
   end
   
   def search_agenda_entries(params)
@@ -132,13 +132,13 @@ class SearchController < ApplicationController
     filter_date(params, filters, [:start_time, :end_time])
 
     sort_mode = params[:sort_mode] || 'descending'
-=begin
+
     #TODO rails 3: ultrasphinx
     @search = Ultrasphinx::Search.new(:query => @query,:per_page => 1000000, :class_names => 'AgendaEntry',:filters => filters, :sort_mode => sort_mode, :sort_by => 'start_time')
     @search.run
 
     @agenda_entries = @space.nil? ? authorize_read?(filter_from_disabled_spaces(@search.results)) : @search.results 
-=end
+
   end
   
   def search_videos(params)
@@ -150,25 +150,25 @@ class SearchController < ApplicationController
     
     filter_date(params, filters, [:updated_at])
     
-=begin
+
     @search = Ultrasphinx::Search.new(:query => @query, :per_page => 1000000, :class_names => 'Post', :filters => filters)
     @search.run
     @posts = @space.nil? ? authorize_read?(filter_from_disabled_spaces(@search.results)) : @search.results
     @posts = @posts.sort{
             |x,y| ((y.parent_id != nil) ? y.parent.updated_at : y.updated_at) <=> ((x.parent_id != nil) ? x.parent.updated_at : x.updated_at)
           }                
-=end
+
   end
   
   def search_users (params)
-=begin
+
     #TODO rails 3: ultrasphinx
     @search = Ultrasphinx::Search.new(:query => @query, :class_names => 'User')
     @search.run
     @users = @space.nil? ?
               authorize_read?(@search.results) :
               @search.results.select {|user| @space.actors.include?(user)}
-=end
+
   end
   
   def search_attachments (params)
@@ -176,12 +176,12 @@ class SearchController < ApplicationController
     
     filter_date(params, filters, [:updated_at])
     
-=begin
+
     #TODO rails 3: ultrasphinx
     @search = Ultrasphinx::Search.new(:query => @query, :class_names => 'Attachment', :filters => filters, :sort_mode => 'descending', :sort_by => 'updated_at')
     @search.run
     @attachments = @space.nil? ? authorize_read?(filter_from_disabled_spaces(@search.results)) : @search.results
-=end
+
   end
   
   def filter_date(params, filters, values)
@@ -201,5 +201,6 @@ class SearchController < ApplicationController
   def filter_from_disabled_spaces elements
     elements.select{|e| e.present? && e.space.present? && !e.space.disabled?}
   end
+=end
 end
 
