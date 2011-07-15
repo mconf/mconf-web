@@ -1,8 +1,6 @@
 #require 'pdf/writer'
-require 'pdf/simpletable' #To manage tables.
-require 'iconv'
-
-# TODO PDF creation must be reimplemented. See README.
+#require 'pdf/simpletable' #To manage tables.
+#require 'iconv'
 
 #GLOBAL2RAMA
 module EventToPdf
@@ -181,13 +179,11 @@ module EventToPdf
 
     pdf.render
 
-=end
   end
 
 
   private
 
-=begin
   #Calculate if one entry fits in one page.
   def isLongEntry(entry,heading)
 
