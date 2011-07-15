@@ -17,7 +17,7 @@
 # For more about multistage see: https://github.com/capistrano/capistrano/wiki/2.x-Multistage-Extension
 
 staging:
-  server: "staging.server.com"                        # Deployment server IP or domain
+  server: "127.0.0.1"                                 # Deployment server IP or domain
   application: "mconf-web"                            # Application name, do not use spaces
   user: "mconf"                                       # User (in the server) used to deploy
   repository: "git://github.com/mconf/mconf-web.git"  # Repository to get the app from
@@ -30,7 +30,7 @@ staging:
 #  rvm_ruby_string: '1.9.2@my_gemset'                  # Ruby version and gemset used in rvm
 
 production:
-  server: "production.server.com"
+  server: "127.0.0.1"
   application: "mconf-web"
   user: "mconf"
   repository: "git://github.com/mconf/mconf-web.git"

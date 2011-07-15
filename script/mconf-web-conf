@@ -351,7 +351,6 @@ require_dev_environment() {
 # Ensures --setup-prod was called
 require_prod_environment() {
     # TODO: check rvm
-    # TODO:
     echo "Pending..."
 }
 
@@ -422,16 +421,13 @@ nginx_install() {
     rvmsudo passenger-install-nginx-module --auto --auto-download --prefix=/etc/nginx
     # TODO: to uninstall nginx, we'll have to install it from source? (--nginx-source-dir=DIR --extra-configure-flags=STRING)
 
-#--prefix=/opt/nginx
-
     # installs the init.d/nginx file
     sudo curl https://raw.github.com/mconf/mconf-web/master/config/nginx.init.example -o /etc/init.d/nginx
 
     # configures /opt/nginx/conf/nginx.conf
     # TODO: only do it if the file is not already configured
     TEMP=`mktemp`
-    # TODO: fix link below (change branch)
-    curl https://raw.github.com/mconf/mconf-web/script_conf/config/nginx.1.0.conf.example -o $TEMP
+    curl https://raw.github.com/mconf/mconf-web/master/config/nginx.1.0.conf.example -o $TEMP
     sudo sed -i "s/server_name .*;/server_name $IP;/g" $TEMP
     sudo sed -i "s>root .*;>root $PRODUCTION_PATH/current/public;>g" $TEMP
     sudo sed -i "/http.*{/ r $TEMP" /opt/nginx/conf/nginx.conf
@@ -912,7 +908,7 @@ config_files_setup_vm() {
     echo "-----------------------------------------------------------------------------------"
     echo
     PARAMS=( admin_email admin_password \
-             sendmail_username sendmail_password site_domain )
+             sendmail_username sendmail_password)
     config_yml_file_with_review "$DEVELOPMENT_SRC_PATH/config/setup_conf.yml"
 
     echo
