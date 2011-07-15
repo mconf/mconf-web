@@ -277,7 +277,7 @@ pt-br:
           success: "O servidor foi criado com sucesso."
         update: 
           success: "O servidor foi atualizado com sucesso."
-  bigbluebutton_space: "BigBlueButton Room"
+  bigbluebutton_space: "Sala BigBlueButton"
   body: Corpo
   button: 
     accept: Aceitar
@@ -286,7 +286,7 @@ pt-br:
     cancel: Cancelar
     confirm: Confirm
     create: Criar
-    create_bbb_server: "Create BigBlueButton Server"
+    create_bbb_server: "Criar servidor BigBlueButton"
     creating: "Criando evento..."
     creating_agenda: "Criando agenda..."
     edit: Editar
@@ -820,7 +820,7 @@ pt-br:
       ready: "O streaming foi agendado. Ele estará disponível durante o evento"
       title: "Sessão de streaming"
       will_be_available: "O streaming estará disponível durante o evento"
-    temporarily_disabled: "Temporarily disabled"
+    temporarily_disabled: "Temporariamente desabilitado"
     time: 
       end: Fim
       start: Início
@@ -956,6 +956,7 @@ pt-br:
     more_info: "Mais informações..."
     no_rooms: "Nenhuma reunião em progresso."
     no_spaces: "Nenhum espaço público encontrado."
+    not_running: "Não está em progresso"
     participants: participantes
     participants_in: 
       one: "%{count} participante"
@@ -1276,7 +1277,7 @@ pt-br:
     invitation_successfully: "Convite enviado com sucesso por: <br>"
     invitation_unsuccessfully: "Convite enviado sem sucesso por: <br>"
     message: "Você foi convidado por <b>%{sender}</b> para participar da webconferência <b>%{name}</b>.<br/><br/> Você pode participar acessando o endereço <i><a href=\"%{invite_url}\">%{invite_url}</a></i>.<br/><br/> Mensagem de convite escrita por <b>%{sender}</b>:<br/><br/>%{message} <br/><br/>"
-    title: "Invitation to participate in a webconference."
+    title: "Convite para participar de uma webconferência."
     user_private_email: "e-mail do usuário: "
     user_private_msg: "<li>mensagem privada para usuário</li>"
     wrong_formatted: " (e-mail mal formatado)"
@@ -1388,7 +1389,7 @@ pt-br:
     send: "Enviar mensagem"
     sent: 
       other: "Mensagens enviadas"
-    special1: "A plataforma Mconf estará indisponÄ©vel a partir de sexta-feira, 17 dezembro às 16:00 UTC, até sábado, 18-Dez 16:00 UTC. Desculpem o incómodo."
+    special1: "A plataforma Mconf estará indisponível a partir de sexta-feira, 17 dezembro às 16:00 UTC, até sábado, 18-Dez 16:00 UTC. Desculpem o incómodo."
     special2: "A Equipe do Mconf"
   moderatorPW: "Senha de Moderador"
   more: mais...
@@ -1409,7 +1410,7 @@ pt-br:
     error: 
       create: "Houve um problema ao publicar a notícia"
       delete: "Erro ao excluir notícia"
-      update: "Notícia não pÃ´de ser atualizada"
+      update: "Notícia não pôde ser atualizada"
     item_in_home: "Notícia na comunidade"
     none: Nenhum
     none_to_show: "Nenhuma notícia para mostrar"
