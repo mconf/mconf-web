@@ -210,7 +210,7 @@ class EventsController < ApplicationController
         #@event.tag_with(params[:tags]) if params[:tags] #pone las tags a la entrada asociada al evento
         format.html {
           flash[:success] = t('event.created')
-          redirect_to edit_space_event_agenda_path(space, @event, :in_steps=>true)
+          redirect_to space_events_path(@space)
         }
         format.xml  { render :xml => @event, :status => :created, :location => @event }
       else

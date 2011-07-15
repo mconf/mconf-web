@@ -39,11 +39,11 @@
       }
     </script>
     <div id="sure_form">
-        <div id="lightbox_advise"><%= t('event.cancel.lose') %></div>
-                                <div id="event_step_cancel_buttons">
-          <%= link_to "<span>" + t('button.accept') + "</span>", space_events_path,:class => "basic_button blue_button", :id=>"button_yes" %>
-          <%= link_to "<span>" + t('button.cancel') + "</span>", "javascript:our_close();" ,:class => "basic_button blue_button", :id=>"button_no" %>
-                          </div>
+      <div id="lightbox_advise"><%= t('event.cancel.lose') %></div>
+      <div id="event_step_cancel_buttons">
+        <%= link_to "<span>" + t('button.accept') + "</span>", space_events_path,:class => "basic_button blue_button", :id=>"button_yes" %>
+        <%= link_to "<span>" + t('button.cancel') + "</span>", "javascript:our_close();" ,:class => "basic_button blue_button", :id=>"button_no" %>
+      </div>
     </div>
   </div>
         
@@ -61,33 +61,32 @@
     <%= render :partial => "edit_new_form", :locals => {:f => f} %>
 
     <ul class="margin-up event_form_buttons">
-      <li>
-        <button type="submit" id="create_event_button" class="basic_button blue_button">
-          <%=t("button.next_program") %>
-        </button>
-                        </li>
-      <li>
-        <button id="wait_create_event_button" class="basic_button blue_button">
-          <%=t("button.creating") %>
-        </button>
-                        </li>
-      <li><%= link_to ("<span>" + t('cancel') + "</span>").html_safe, "#sure_form",:class => "basic_button blue_button", :id=>"cancel_event" %></li>
+      <button type="submit" id="create_event_button" class="basic_button blue_button">
+        <%=t("button.create") %>
+      </button>
+  
+      <button id="wait_create_event_button" class="basic_button blue_button">
+        <%=t("button.creating") %>
+      </button>
+  
+      <%= link_to ("<span>" + t('cancel') + "</span>").html_safe, "#sure_form",:class => "basic_button blue_button", :id=>"cancel_event" %>        
     </ul>
   <% end %>
-    <!--<div id="new_logo_hidden_form" style="display:solid">
-    <label>
-    upload your own logo
-    </label>
-    <br>
-    <%= form_for :logo,  :html => {:method => :post,:id =>"select_logo_form", :multipart => true, :name => "space_new_form"}, :url => {:controller => :logos, :action => :new, :upload => :yes} do |f| %>
-    <%= t("space.logo_selected.upload_logo_text") %>
-    <br>
-    <%= f.file_field :media, :class=>"file file1 basic_button blue_button" %>
-    <%= f.hidden_field  "rand" %>
-    <br>
-    <input id ="upload_logo_button" type="submit" class = "basic_button blue_button" value="<%=t("space.logo_selected.upload_text")%>" /><% end %>
-    <div id = "resultado">
+    <!--
+    <div id="new_logo_hidden_form" style="display:solid">
+      <label>
+        upload your own logo
+      </label>
+      <br>
+      <%= form_for :logo,  :html => {:method => :post,:id =>"select_logo_form", :multipart => true, :name => "space_new_form"}, :url => {:controller => :logos, :action => :new, :upload => :yes} do |f| %>
+      <%= t("space.logo_selected.upload_logo_text") %>
+      <br>
+      <%= f.file_field :media, :class=>"file file1 basic_button blue_button" %>
+      <%= f.hidden_field  "rand" %>
+      <br>
+      <input id ="upload_logo_button" type="submit" class = "basic_button blue_button" value="<%=t("space.logo_selected.upload_text")%>" /><% end %>
+      <div id = "resultado">
+      </div>
     </div>
-    </div>-->
-
+    -->
 </div>

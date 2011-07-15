@@ -62,37 +62,37 @@ $(".event_image").click(function(){
 <%end%>
 
 request_video = function(agenda_entry_id){
-   var route = "<%= space_event_agenda_agenda_entries_path(@space, @event) %>" + "/" + agenda_entry_id + "?embedded_video=true";
-   $.get(route,{
-      authenticity_token: "<%=form_authenticity_token()%>"
-      }, function(data){ 		         
-	      $("#video_preview" + agenda_entry_id).hide();
-		  $("#video_hide" + agenda_entry_id).show();
-	      $("#agenda_entry_video" + agenda_entry_id).html(data);
-      });
- };
+  var route = "<%= space_event_agenda_agenda_entries_path(@space, @event) %>" + "/" + agenda_entry_id + "?embedded_video=true";
+  $.get(route,{
+    authenticity_token: "<%=form_authenticity_token()%>"
+  }, function(data){ 		         
+  	$("#video_preview" + agenda_entry_id).hide();
+    $("#video_hide" + agenda_entry_id).show();
+	  $("#agenda_entry_video" + agenda_entry_id).html(data);
+  });
+};
  
- hide_video = function(agenda_entry_id){
-   $("#video_hide" + agenda_entry_id).hide();
-   $("#agenda_entry_video" + agenda_entry_id).html("");
-   $("#video_preview" + agenda_entry_id).show();	   
- };
+hide_video = function(agenda_entry_id){
+  $("#video_hide" + agenda_entry_id).hide();
+  $("#agenda_entry_video" + agenda_entry_id).html("");
+  $("#video_preview" + agenda_entry_id).show();	   
+};
  
  $(".play_icon").livequery('click',function(){
    $(this).siblings("a").click();
 
  });
  
- request_video_in_recordings = function(agenda_entry_id){
-   var route = "<%=space_event_path(@space, @event)%>"+ "?show_video=" + agenda_entry_id;
-   document.location = route;
-   //var route = "<%= space_event_agenda_agenda_entries_path(@space, @event) %>" + "/" + agenda_entry_id;
-   //$.get(route,{
-   //   authenticity_token: "<%=form_authenticity_token()%>"
-   //   }, function(data){ 		         
-   //	      $("#videos").html(data);
-   //   });
- };	 
+request_video_in_recordings = function(agenda_entry_id){
+  var route = "<%=space_event_path(@space, @event)%>"+ "?show_video=" + agenda_entry_id;
+  document.location = route;
+  var route = "<%= space_event_agenda_agenda_entries_path(@space, @event) %>" + "/" + agenda_entry_id;
+  $.get(route,{
+    authenticity_token: "<%=form_authenticity_token()%>"
+  }, function(data){ 		         
+	  $("#videos").html(data);
+  });
+};
  
  show_share_url = function(){
    $('.url_share').show();

@@ -1,181 +1,188 @@
 <div class="blue_border_down">
-    <h3><%=t('event.new.type') %><%=image_tag('icons/help.png',:class=>'icon',:tooltip=>t('tooltip.ev_type')) %></h3>
+  <h3><%=t('event.new.type') %><%=image_tag('icons/help.png',:class=>'icon',:tooltip=>t('tooltip.ev_type')) %></h3>
 </div>
 <div id="event_type_selector">
-    <div class="event_type" tooltip="<%=t('tooltip.vmeeting')%>">
-        <span id="event_type_meeting"><%=t('event.create.info.meeting.name') %><span id="check_meeting" style="display:none" class="check_check"><%= image_tag("icons/accept.png",:class=>"icon") %></span></span>
-        <span class="event_type_disabled"><%= t('event.not_available') %></span>
-    </div>
-    <!--
-    <div class="event_type" tooltip="<%=t('tooltip.vclass')%>">
-        <span id="event_type_class"><%=t('event.create.info.class.name') %><span id="check_class" style="display:none" class="check_check"><%= image_tag("icons/accept.png",:class=>"icon") %></span></span>
-        <span class="event_type_disabled"><%= t('event.not_available') %></span>
-    </div>
-    <div class="event_type" tooltip="<%=t('tooltip.vcongress')%>">
-        <span id="event_type_conference"><%=t('event.create.info.conference.name') %><span id="check_conference" style="display:none" class="check_check"><%= image_tag("icons/accept.png",:class=>"icon") %></span></span>
-        <span class="event_type_disabled"><%= t('event.not_available') %></span>
-    </div>
-    -->
-    <div class="event_type" tooltip="<%=t('tooltip.inperson')%>">
-        <span id="event_type_presential"><%=t('event.create.info.presential.name') %><span id="check_presential" style="display:none" class="check_check"><%= image_tag("icons/accept.png",:class=>"icon") %></span></span>
-    </div>
-    <%= f.hidden_field :vc_mode, :value => Event::VC_MODE.index(@event.id ? @event.vc_mode : :telemeeting) %>
+<!--
+  <div class="event_type" tooltip="<%=t('tooltip.vmeeting')%>">
+    <span id="event_type_meeting"><%=t('event.create.info.meeting.name') %><span id="check_meeting" style="display:none" class="check_check"><%= image_tag("icons/accept.png",:class=>"icon") %></span></span>
+    <span class="event_type_disabled"><%= t('event.not_available') %></span>
+  </div>
+  <div class="event_type" tooltip="<%=t('tooltip.vclass')%>">
+    <span id="event_type_class"><%=t('event.create.info.class.name') %><span id="check_class" style="display:none" class="check_check"><%= image_tag("icons/accept.png",:class=>"icon") %></span></span>
+    <span class="event_type_disabled"><%= t('event.not_available') %></span>
+  </div>
+  <div class="event_type" tooltip="<%=t('tooltip.vcongress')%>">
+    <span id="event_type_conference"><%=t('event.create.info.conference.name') %><span id="check_conference" style="display:none" class="check_check"><%= image_tag("icons/accept.png",:class=>"icon") %></span></span>
+    <span class="event_type_disabled"><%= t('event.not_available') %></span>
+  </div>
+-->
+  <div class="event_type" tooltip="<%=t('tooltip.inperson')%>">
+    <span id="event_type_presential"><%=t('event.create.info.presential.name') %><span id="check_presential" style="display:none" class="check_check"><%= image_tag("icons/accept.png",:class=>"icon") %></span></span>
+  </div>
+  <%= f.hidden_field :vc_mode, :value => Event::VC_MODE.index(@event.id ? @event.vc_mode : :telemeeting) %>
 </div>
+
 <% selected = rand(@files.length) %>
 <%= hidden_field "event","image",:value => "", :name => "event[default_logo]" %>
 <div class="blue_border_down">
-    <h3><%=t('event.new.basic') %></h3>
+  <h3><%=t('event.new.basic') %></h3>
 </div>
 <div class="event_info">
-    <div class="margin-up">
-        <label for="Name">
-            <%= t('name.one') %>:
-        </label>
-        <%= f.text_field :name, :size =>25 %>
+  <div class="margin-up">
+    <label for="Name">
+      <%= t('name.one') %>:
+    </label>
+    <%= f.text_field :name, :size =>25 %>
+  </div>
+  <div class="margin-up">
+    <label for="Description">
+      <%= t('description') %>:
+    </label>
+    <%=f.text_area :description %>
+  </div>
+  <!--
+  <div class="margin-up">
+    <label for="Organizer">
+      <%= 
+        #t('organizer') %>: <%=image_tag('icons/help.png',:class=>'icon',:tooltip=>t('tooltip.organisers')) 
+      %>
+    </label>
+    <div id="holder">
+      <select id="organizers_name" multiple="multiple" name="event[new_organizers][]">
+        <%=
+          #options_for_select_with_class_selected(@space.users.map{|u| [u.full_name, u.login]}, event.organizers.map{|u| u.login}) 
+        %>
+      </select>
     </div>
-    <div class="margin-up">
-        <label for="Description">
-            <%= t('description') %>:
-        </label>
-        <%=f.text_area :description %>
-    </div>
-    <div class="margin-up">
-        <label for="Organizer">
-            <%= t('organizer') %>: <%=image_tag('icons/help.png',:class=>'icon',:tooltip=>t('tooltip.organisers')) %>
-        </label>
-        <div id="holder">
-            <select id="organizers_name" multiple="multiple" name="event[new_organizers][]">
-                <%=options_for_select_with_class_selected(@space.users.map{|u| [u.full_name, u.login]}, event.organizers.map{|u| u.login}) %>
-            </select>
-        </div>
-    </div>
-    <div class="margin-up">
-        <label for="Location">
-            <%= t('event.location') %>:
-        </label>
-        <%= f.text_field :location, :size =>25 %>
-    </div>
+  </div>
+  -->
+  <div class="margin-up">
+    <label for="Location">
+      <%= t('event.location') %>:
+    </label>
+    <%= f.text_field :location, :size =>25 %>
+  </div>
 </div>
 <div class="blue_border_down">
-    <h3><%=t('event.new.date') %></h3>
+  <h3><%=t('event.new.date') %></h3>
 </div>
 <%if params[:action].eql?("edit") %>
-<div class="margin-up">
-<a href="javascript:;" class="change_event_date_link" id="no_event_date_change" style="border:2px #BDD8EB solid;"><%= I18n.t('event.move.no_change')%></a>
-<a href="javascript:;" class="change_event_date_link" id="move_event"><%= I18n.t('event.move.move_event')%></a>
-<a href="javascript:;" class="change_event_date_link" id="change_event_start_date"><%= I18n.t('event.move.change_start_date')%></a>
-<a href="javascript:;" class="change_event_date_link" id="change_event_end_date"><%= I18n.t('event.move.change_end_date')%></a>
-<%= f.hidden_field :edit_date_action, :value => "none" %>
-</div>
-<div class="margin-up">
+  <div class="margin-up">
+    <a href="javascript:;" class="change_event_date_link" id="no_event_date_change" style="border:2px #BDD8EB solid;"><%= I18n.t('event.move.no_change')%></a>
+    <a href="javascript:;" class="change_event_date_link" id="move_event"><%= I18n.t('event.move.move_event')%></a>
+    <a href="javascript:;" class="change_event_date_link" id="change_event_start_date"><%= I18n.t('event.move.change_start_date')%></a>
+    <a href="javascript:;" class="change_event_date_link" id="change_event_end_date"><%= I18n.t('event.move.change_end_date')%></a>
+    <%= f.hidden_field :edit_date_action, :value => "none" %>
+  </div>
+  <div class="margin-up">
     <div class="without_javascript event_info" id="change_start_date_div" style="display:none">
-        <div class="change_event_date_info" id="move_event_div" style="display:none">
-                        <%= I18n.t('event.move.move_event_div').html_safe%>
-        </div>
-        <div class="change_event_date_info" id="change_event_start_date_div" style="display:none">
-                        <%= I18n.t('event.move.change_event_start_date_div').html_safe%>
-        </div>
-        <div class="margin-up">
-            <label for="start_time">
-                <%= t('event.time.start') %>
-            </label>
-            <%= f.datetime_select :start_date, {:start_year => Time.zone.now.year, :disabled => true, :minute_step => Agenda::SLOT_VALUES[1], :default => Agenda.next_time_slot_for_drop_down} %>
-        </div>
-        <div class="margin-up">
-            <label for="end_time">
-                <%= t('event.time.end') %>
-            </label>
-            <%= I18n.localize(@event.end_date) %>
-        </div>
-    </div>
-</div>
-<div class="margin-up">
-    <div class="without_javascript event_info" id="change_event_end_date_div" style="display:none">
-        <div class="change_event_date_info">
-                        <%= I18n.t('event.move.change_event_end_date_div').html_safe%>
-        </div>
-        <div class="margin-up">
-            <label for="start_time">
-                <%= t('event.time.start') %>
-            </label>
-            <%= I18n.localize(@event.start_date) %>
-        </div>
-        <div class="margin-up">
-            <label for="end_time">
-                <%= t('event.time.end') %>
-            </label>
-            <%= f.datetime_select :end_date, {:start_year => Time.zone.now.year, :disabled => true, :minute_step => Agenda::SLOT_VALUES[1], :default => Agenda.next_time_slot_for_drop_down + 2.hours} %>
-        </div>
-    </div>
-</div>
-<% else %>
-<div class="without_javascript event_info">
-    <div class="margin-up">
+      <div class="change_event_date_info" id="move_event_div" style="display:none">
+        <%= I18n.t('event.move.move_event_div').html_safe%>
+      </div>
+      <div class="change_event_date_info" id="change_event_start_date_div" style="display:none">
+        <%= I18n.t('event.move.change_event_start_date_div').html_safe%>
+      </div>
+      <div class="margin-up">
         <label for="start_time">
-            <%= t('event.time.start') %>
+          <%= t('event.time.start') %>
         </label>
-        <%= f.datetime_select :start_date, {:start_year => Time.zone.now.year, :minute_step => Agenda::SLOT_VALUES[1], :default => Agenda.next_time_slot_for_drop_down} %>
+        <%= f.datetime_select :start_date, {:start_year => Time.zone.now.year, :disabled => true, :minute_step => Agenda::SLOT_VALUES[1], :default => Agenda.next_time_slot_for_drop_down} %>
+      </div>
+      <div class="margin-up">
+        <label for="end_time">
+          <%= t('event.time.end') %>
+        </label>
+        <%= I18n.localize(@event.end_date) %>
+      </div>
+    </div>
+  </div>
+  <div class="margin-up">
+    <div class="without_javascript event_info" id="change_event_end_date_div" style="display:none">
+      <div class="change_event_date_info">
+        <%= I18n.t('event.move.change_event_end_date_div').html_safe%>
+      </div>
+      <div class="margin-up">
+        <label for="start_time">
+          <%= t('event.time.start') %>
+        </label>
+        <%= I18n.localize(@event.start_date) %>
+      </div>
+      <div class="margin-up">
+        <label for="end_time">
+          <%= t('event.time.end') %>
+        </label>
+        <%= f.datetime_select :end_date, {:start_year => Time.zone.now.year, :disabled => true, :minute_step => Agenda::SLOT_VALUES[1], :default => Agenda.next_time_slot_for_drop_down + 2.hours} %>
+      </div>
+    </div>
+  </div>
+<% else %>
+  <div class="without_javascript event_info">
+    <div class="margin-up">
+      <label for="start_time">
+        <%= t('event.time.start') %>
+      </label>
+      <%= f.datetime_select :start_date, {:start_year => Time.zone.now.year, :minute_step => Agenda::SLOT_VALUES[1], :default => Agenda.next_time_slot_for_drop_down} %>
     </div>
     <div class="margin-up">
-        <label for="end_time">
-            <%= t('event.time.end') %>
-        </label>
-        <%= f.datetime_select :end_date, {:start_year => Time.zone.now.year, :minute_step => Agenda::SLOT_VALUES[1], :default => Agenda.next_time_slot_for_drop_down + 2.hours} %>
+      <label for="end_time">
+        <%= t('event.time.end') %>
+      </label>
+      <%= f.datetime_select :end_date, {:start_year => Time.zone.now.year, :minute_step => Agenda::SLOT_VALUES[1], :default => Agenda.next_time_slot_for_drop_down + 2.hours} %>
     </div>
-</div>
+  </div>
 <% end %>
 <div id="videoconference_options">
-        <div class="blue_border_down">
-            <h3><%=t('event.new.vcoptions') %></h3>
-        </div>
-        <div id="initial-info" class="margin-up">
-          <% for rec_symbol in Event::RECORDING_TYPE do %>
-                 <div><%= f.radio_button :recording_type, Event::RECORDING_TYPE.index(rec_symbol), :disabled => (!@event.new_record? && !@event.future?) %>
-                 <label for="<%=('recording_' + rec_symbol.to_s)%>"><%= t( 'event.recording_' + rec_symbol.to_s ) %></label>
-                 <%=image_tag('icons/help.png',:class=>'icon',:tooltip=>t('tooltip.recording_' + rec_symbol.to_s)) %>
-                 </div>
-          <% end%>
-           <div id="advanced_config"><%=t('event.create.advanced_conf') %></div>
-        </div>
-        <div id="extra-info" style="display:none" class="margin-up">
-            <div id="extra-info-part1">
-                        <%= t('event.enable.isabelbw') %>: <%= f.select "isabel_bw", options_for_select_with_class_selected([["2M", "2M"], ["1M", "1M"], ["512K", "512K"]] , @event.cm_event? ? [@event.cm_event.isabel_bw, @event.cm_event.isabel_bw] : ["1M", "1M"]) %>
-                <br/>
-                <%= t('event.enable.webbw') %>: <%= f.select "web_bw", options_for_select_with_class_selected([["High (450K Sorenson)", "2"], ["Medium (250K H.264)", "1"], ["Low (150K H.264)", "0"]] , @event.cm_event? ?Event::WEB_BW_HASH_FOR_DROP_DOWN[@event.cm_event.web_bw] : ["High (450K Sorenson)", "2"]) %>
-                <br/>
-                <%= t('event.enable.recbw') %>: <%= f.select "recording_bw", options_for_select_with_class_selected([["High (550K H.264)", "2"],["Medium (250K H.264)", "1"]] , @event.cm_event? ? Event::RECORDING_HASH_FOR_DROP_DOWN[@event.cm_event.recording_bw] : ["High (550K H.264)", "2"]) %>
-                <br/>
-                        <div class="checkbox_event">
-                              <%=f.check_box :streaming_by_default,:class=>"icon", :checked =>@event ? @event.streaming_by_default : true %>
-                                  <span><%=t('event.create.video_streaming') %></span>
-                                  <%=image_tag('icons/help.png',:class=>'icon',:tooltip=>t('tooltip.streaming')) %>
-                        </div>
-                <div class="checkbox_event">
-                    <%=f.check_box :sip_interface,:class=>"icon", :checked => @event.cm_event? ? @event.cm_event.enable_sip? : false %>
-                    <label for="enable_isabel" class="label_izquierda">
-                        <%= t('event.enable.sip') %>
-                    </label>
-                </div>
-            </div>
-            <div class="checkbox_event">
-                <%=f.check_box :manual_configuration,:class=>"icon", :checked => @event ? @event.manual_configuration : false %>
-                <label for="enable_isabel" class="label_izquierda">
-                    <%= t('event.create.manual_conf') %>
-                </label>
-                        <%=image_tag('icons/help.png',:class=>'icon',:tooltip=>t('tooltip.manual_configuration')) %>
-            </div>
-            <div id="manual_str_and_rec" style="display:none">
-                <label for="enable_isabel" class="label_izquierda">
-                    <%= t('event.streaming.title') %>
-                </label>
-                <%= f.text_area :other_streaming_url, :cols => 80, :rows => 8, :value=>@event ? @event.other_streaming_url : "" %>
-                <label for="enable_isabel" class="label_izquierda">
-                    <%= t('event.video_part') %>
-                </label>
-                <%= f.text_area :other_participation_url, :cols => 80, :rows => 8, :value=>@event ? @event.other_participation_url : "" %>
-            </div>
-            <%= f.hidden_field :web_interface, :value => true %>
-            <%= f.hidden_field :isabel_interface, :value => true %>
-        </div>
+  <div class="blue_border_down">
+    <h3><%=t('event.new.vcoptions') %></h3>
+  </div>
+  <div id="initial-info" class="margin-up">
+    <% for rec_symbol in Event::RECORDING_TYPE do %>
+      <div><%= f.radio_button :recording_type, Event::RECORDING_TYPE.index(rec_symbol), :disabled => (!@event.new_record? && !@event.future?) %>
+        <label for="<%=('recording_' + rec_symbol.to_s)%>"><%= t( 'event.recording_' + rec_symbol.to_s ) %></label>
+        <%=image_tag('icons/help.png',:class=>'icon',:tooltip=>t('tooltip.recording_' + rec_symbol.to_s)) %>
+      </div>
+    <% end%>
+    <div id="advanced_config"><%=t('event.create.advanced_conf') %></div>
+  </div>
+  <div id="extra-info" style="display:none" class="margin-up">
+    <div id="extra-info-part1">
+      <%= t('event.enable.isabelbw') %>: <%= f.select "isabel_bw", options_for_select_with_class_selected([["2M", "2M"], ["1M", "1M"], ["512K", "512K"]] , @event.cm_event? ? [@event.cm_event.isabel_bw, @event.cm_event.isabel_bw] : ["1M", "1M"]) %>
+      <br/>
+      <%= t('event.enable.webbw') %>: <%= f.select "web_bw", options_for_select_with_class_selected([["High (450K Sorenson)", "2"], ["Medium (250K H.264)", "1"], ["Low (150K H.264)", "0"]] , @event.cm_event? ?Event::WEB_BW_HASH_FOR_DROP_DOWN[@event.cm_event.web_bw] : ["High (450K Sorenson)", "2"]) %>
+      <br/>
+      <%= t('event.enable.recbw') %>: <%= f.select "recording_bw", options_for_select_with_class_selected([["High (550K H.264)", "2"],["Medium (250K H.264)", "1"]] , @event.cm_event? ? Event::RECORDING_HASH_FOR_DROP_DOWN[@event.cm_event.recording_bw] : ["High (550K H.264)", "2"]) %>
+      <br/>
+      <div class="checkbox_event">
+        <%=f.check_box :streaming_by_default,:class=>"icon", :checked =>@event ? @event.streaming_by_default : true %>
+        <span><%=t('event.create.video_streaming') %></span>
+        <%=image_tag('icons/help.png',:class=>'icon',:tooltip=>t('tooltip.streaming')) %>
+      </div>
+      <div class="checkbox_event">
+        <%=f.check_box :sip_interface,:class=>"icon", :checked => @event.cm_event? ? @event.cm_event.enable_sip? : false %>
+        <label for="enable_isabel" class="label_izquierda">
+          <%= t('event.enable.sip') %>
+        </label>
+      </div>
+    </div>
+    <div class="checkbox_event">
+      <%=f.check_box :manual_configuration,:class=>"icon", :checked => @event ? @event.manual_configuration : false %>
+      <label for="enable_isabel" class="label_izquierda">
+        <%= t('event.create.manual_conf') %>
+      </label>
+      <%=image_tag('icons/help.png',:class=>'icon',:tooltip=>t('tooltip.manual_configuration')) %>
+    </div>
+    <div id="manual_str_and_rec" style="display:none">
+      <label for="enable_isabel" class="label_izquierda">
+        <%= t('event.streaming.title') %>
+      </label>
+      <%= f.text_area :other_streaming_url, :cols => 80, :rows => 8, :value=>@event ? @event.other_streaming_url : "" %>
+      <label for="enable_isabel" class="label_izquierda">
+        <%= t('event.video_part') %>
+      </label>
+      <%= f.text_area :other_participation_url, :cols => 80, :rows => 8, :value=>@event ? @event.other_participation_url : "" %>
+    </div>
+    <%= f.hidden_field :web_interface, :value => true %>
+    <%= f.hidden_field :isabel_interface, :value => true %>
+  </div>
 </div>
 <div id="extra_space" style="display:none"></div>

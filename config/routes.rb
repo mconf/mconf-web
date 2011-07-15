@@ -78,11 +78,11 @@ Vcc::Application.routes.draw do
       resources :invitations
       resources :participants
 
-      resource :agenda do
-        member do
-          get :generate_pdf
-        end
-      end
+#      resource :agenda do
+#        member do
+#          get :generate_pdf
+#        end
+#      end
 
       resource :agenda do
         resources :agenda_dividers
