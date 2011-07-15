@@ -66,6 +66,7 @@ usage() {
     echo "    --install-ruby                   Install ruby (using RVM)"
     echo "    --install-packages [ENV]         Install dependencies to run Mconf-Web (default: installs for both envs)"
     echo "                                     ENV can be 'dev' or 'prod' (without quotes)"
+    echo "    --config                         Edits the configuration files"
     echo "  Development:"
     echo "    --checkout [REPO]                Checkout the repository from the default repo or from REPO"
     echo "                                     REPO can be any git url (default: $DEVELOPMENT_REPO)"
@@ -75,6 +76,8 @@ usage() {
     echo "    --deploy-first-time              First deploy (executes cap deploy:all)"
     echo "    --deploy-restart                 Restarts the deployed app (executes cap deploy:restart)"
     echo "    --deploy-update                  Updates the deployed app code and runs the migrations (executes cap deploy:migrations)"
+    echo "  Mconf VM:"
+    echo "    --setup-vm                       Setup Mconf-Web in the Mconf VM"
     echo
     echo "Options:"
     echo
@@ -483,6 +486,49 @@ capistrano_deploy_update() {
     cap production deploy:migrations -s auto_accept=1
 }
 
+# Opens the configurations files and prompts the user for values to edit
+# the most important attributes
+config_files_setup() {
+    echo
+    echo "###################################################################################"
+    echo "#                Setup configuration files. Do it carefully.                      #"
+    echo "###################################################################################"
+    echo
+
+    # require values for the most important parameters only
+
+    echo "-----------------------------------------------------------------------------------"
+    echo "GENERAL configurations:"
+    echo " - Here you will configure the admin account, a default BBB server and a gmail"
+    echo "   account used to send emails."
+    echo "-----------------------------------------------------------------------------------"
+    echo
+    PARAMS=( admin_login admin_fullname admin_email admin_password \
+             bbb_server_name bbb_server_url bbb_server_salt bbb_server_version \
+             sendmail_username sendmail_password site_domain )
+    config_yml_file_with_review "$DEVELOPMENT_SRC_PATH/config/setup_conf.yml"
+
+    echo
+    echo "-----------------------------------------------------------------------------------"
+    echo "DATABASE configurations:"
+    echo " - The default database is MySQL. You need to provide an username and a password."
+    echo "-----------------------------------------------------------------------------------"
+    echo
+    PARAMS=( username password )
+    config_yml_file_with_review "$DEVELOPMENT_SRC_PATH/config/database.yml" ${PARAMS[*]}
+
+    echo
+    echo "-----------------------------------------------------------------------------------"
+    echo "DEPLOYMENT configurations:"
+    echo " - To deploy in this machine, set the IP to 127.0.0.1 and the user to \"`whoami`\"."
+    echo "-----------------------------------------------------------------------------------"
+    echo
+    PARAMS=( server user repository branch )
+    config_yml_file_with_review "$DEVELOPMENT_SRC_PATH/config/deploy/conf.yml" ${PARAMS[*]}
+
+    echo
+}
+
 
 #
 # Figure out our environment
@@ -579,6 +625,13 @@ while [ $# -gt 0 ]; do
     if [ "$1" = "--config" -o "$1" = "-config" ]; then
         echo "- Request to edit the configuration files"
         CONFIG=1
+        shift
+        continue
+    fi
+
+    if [ "$1" = "--setup-vm" -o "$1" = "-config-vm" ]; then
+        echo "- Setup Mconf-Web in the Mconf VM"
+        SETUP_VM=1
         shift
         continue
     fi
@@ -734,49 +787,6 @@ fi
 # Install gems, run rake tasks, setup config files
 #
 
-# Opens the configurations files and prompts the user for values to edit
-# the most important attributes
-setup_dev_files_setup() {
-    echo
-    echo "###################################################################################"
-    echo "#                Setup configuration files. Do it carefully.                      #"
-    echo "###################################################################################"
-    echo
-
-    # require values for the most important parameters only
-
-    echo "-----------------------------------------------------------------------------------"
-    echo "GENERAL configurations:"
-    echo " - Here you will configure the admin account, a default BBB server and a gmail"
-    echo "   account used to send emails."
-    echo "-----------------------------------------------------------------------------------"
-    echo
-    PARAMS=( admin_login admin_fullname admin_email admin_password \
-             bbb_server_name bbb_server_url bbb_server_salt bbb_server_version \
-             sendmail_username sendmail_password site_domain )
-    config_yml_file_with_review "$DEVELOPMENT_SRC_PATH/config/setup_conf.yml"
-
-    echo
-    echo "-----------------------------------------------------------------------------------"
-    echo "DATABASE configurations:"
-    echo " - The default database is MySQL. You need to provide an username and a password."
-    echo "-----------------------------------------------------------------------------------"
-    echo
-    PARAMS=( username password )
-    config_yml_file_with_review "$DEVELOPMENT_SRC_PATH/config/database.yml" ${PARAMS[*]}
-
-    echo
-    echo "-----------------------------------------------------------------------------------"
-    echo "DEPLOYMENT configurations:"
-    echo " - To deploy in this machine, set the IP to 127.0.0.1 and the user to \"`whoami`\"."
-    echo "-----------------------------------------------------------------------------------"
-    echo
-    PARAMS=( server user repository branch )
-    config_yml_file_with_review "$DEVELOPMENT_SRC_PATH/config/deploy/conf.yml" ${PARAMS[*]}
-
-    echo
-}
-
 if [ $SETUP_DEV ]; then
     check_root
 
@@ -794,7 +804,7 @@ if [ $SETUP_DEV ]; then
     bundle exec rake setup:basic
 
     echo "-- Editing configuration files"
-    setup_dev_files_setup
+    config_files_setup
 
     echo "-- Setting up the database"
     bundle exec rake setup:db
@@ -875,7 +885,50 @@ if [ $CONFIG ]; then
     require_dev_environment
 
     echo "-- Editing configuration files"
-    setup_dev_files_setup
+    config_files_setup
+
+    print_banner "Configuration files edition finished."
+fi
+
+
+#
+# Setup Mconf-Web in the Mconf VM
+#
+
+config_files_setup_vm() {
+    echo
+    echo "###################################################################################"
+    echo "#                Setup configuration files. Do it carefully.                      #"
+    echo "###################################################################################"
+    echo
+
+    # most of the parameters are already configured for the Mconf VM
+    # so we just need to ask a few of them here
+
+    echo "-----------------------------------------------------------------------------------"
+    echo "GENERAL configurations:"
+    echo " - Here you will configure the admin account, a default BBB server and a gmail"
+    echo "   account used to send emails."
+    echo "-----------------------------------------------------------------------------------"
+    echo
+    PARAMS=( admin_email admin_password \
+             sendmail_username sendmail_password site_domain )
+    config_yml_file_with_review "$DEVELOPMENT_SRC_PATH/config/setup_conf.yml"
+
+    echo
+}
+
+if [ $SETUP_VM ]; then
+    check_root
+
+    require_dev_environment
+
+    echo "-- Editing configuration files"
+    config_files_setup_vm
+
+    # TODO: setup-dev?
+
+    DEPLOY_FIRST_TIME=1
 
     print_banner "Configuration files edition finished."
 fi
