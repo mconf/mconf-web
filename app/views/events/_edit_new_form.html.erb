@@ -1,8 +1,8 @@
+<!--
 <div class="blue_border_down">
   <h3><%=t('event.new.type') %><%=image_tag('icons/help.png',:class=>'icon',:tooltip=>t('tooltip.ev_type')) %></h3>
 </div>
 <div id="event_type_selector">
-<!--
   <div class="event_type" tooltip="<%=t('tooltip.vmeeting')%>">
     <span id="event_type_meeting"><%=t('event.create.info.meeting.name') %><span id="check_meeting" style="display:none" class="check_check"><%= image_tag("icons/accept.png",:class=>"icon") %></span></span>
     <span class="event_type_disabled"><%= t('event.not_available') %></span>
@@ -15,12 +15,12 @@
     <span id="event_type_conference"><%=t('event.create.info.conference.name') %><span id="check_conference" style="display:none" class="check_check"><%= image_tag("icons/accept.png",:class=>"icon") %></span></span>
     <span class="event_type_disabled"><%= t('event.not_available') %></span>
   </div>
--->
   <div class="event_type" tooltip="<%=t('tooltip.inperson')%>">
     <span id="event_type_presential"><%=t('event.create.info.presential.name') %><span id="check_presential" style="display:none" class="check_check"><%= image_tag("icons/accept.png",:class=>"icon") %></span></span>
   </div>
   <%= f.hidden_field :vc_mode, :value => Event::VC_MODE.index(@event.id ? @event.vc_mode : :telemeeting) %>
 </div>
+-->
 
 <% selected = rand(@files.length) %>
 <%= hidden_field "event","image",:value => "", :name => "event[default_logo]" %>
@@ -131,6 +131,7 @@
     </div>
   </div>
 <% end %>
+<!--
 <div id="videoconference_options">
   <div class="blue_border_down">
     <h3><%=t('event.new.vcoptions') %></h3>
@@ -185,4 +186,5 @@
     <%= f.hidden_field :isabel_interface, :value => true %>
   </div>
 </div>
+-->
 <div id="extra_space" style="display:none"></div>
