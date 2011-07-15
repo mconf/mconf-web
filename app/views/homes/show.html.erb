@@ -2,7 +2,7 @@
   <%= javascript_include_tag 'jquery.filestyle', 'fckeditor/fckeditor', 'jquery.ba-bbq.min' %>
 <% end -%>
 
-<%= content_for :javascript do %> 
+<%= content_for :javascript do %>
   /*
    * Expand and collapse thread
   */
@@ -137,8 +137,8 @@
 <%end%>
 
 <%= content_for :menu_rooms do  %>
-  <%= render :partial => "rooms" %>  
-<% end %>  
+  <%= render :partial => "rooms" %>
+<% end %>
 
 <%= content_for :menu do  %>
         <%= render :partial => "menu" %>
@@ -146,32 +146,32 @@
 
 <div id="recent-activity">
 
-        <%for interval in intervals(@all_contents) do -%>
-                <%unless interval[:contents].empty? -%>
-                        <div id="line">
-        <span class="bold"><%= t('updated') + " " + interval[:name]%></span>
+  <% for interval in intervals(@all_contents) do -%>
+    <% unless interval[:contents].empty? -%>
+      <div id="line">
+        <span class="bold"><%= t('updated') + " " + interval[:name] %></span>
+      </div>
+    <% end -%>
+
+    <% interval[:contents].each do |content| -%>
+      <% case content -%>
+      <% when Post -%>
+        <%= render :partial => "posts/unified_post" , :locals => {:thread => content.reload, :extended => false, :last => (interval[:contents].last == content), :show_author => true} %>
+      <% when Event -%>
+        <%= render :partial => "events/unified_event", :locals => {:event => content.reload, :last => (interval[:contents].last == content)} %>
+      <% when News -%>
+        <%= render :partial => "news/unified_news", :locals =>{:news => content.reload, :last => (interval[:contents].last == content)}%>
+      <% when Attachment -%>
+        <% content = content.reload -%>
+        <%= render :partial => "attachments/unified_attachment", :locals =>{:attachment => content, :last => (interval[:contents].last == content), :show_author => true} if content.post.blank?%>
+      <% else -%>
+        <div>
+          <%= t('unknown_content', :content => content.class) %>
         </div>
-        <%end -%>
+      <% end -%>
+    <% end -%>
+  <% end -%>
 
-        <% interval[:contents].each do |content| -%>
-        <% case content
-        when Post -%>
-                <%= render :partial => "posts/unified_post" , :locals => {:thread => content.reload, :extended => false, :last => (interval[:contents].last == content), :show_author => true} %>
-                                <% when Event -%>
-                        <%= render :partial => "events/unified_event", :locals => {:event => content.reload, :last => (interval[:contents].last == content)} %>
-                        <% when News -%>
-                        <%= render :partial => "news/unified_news", :locals =>{:news => content.reload, :last => (interval[:contents].last == content)}%>
-                                <% when Attachment -%>
-                                <%content = content.reload -%>
-                <%= render :partial => "attachments/unified_attachment", :locals =>{:attachment => content, :last => (interval[:contents].last == content), :show_author => true} if content.post.blank?%>
-                                <% else -%>
-                        <div>
-                                <%=t('unknown_content', :content => content.class)%>
-                                        </div>
-                <% end -%>
-                <% end -%>
-        <% end -%>
-
-        <%= will_paginate @all_contents %>
-        <br/>
+  <%= will_paginate @all_contents %>
+  <br/>
 </div>

@@ -1,26 +1,20 @@
-
-<%= content_for :javascript do  %>
-        var title1 = "<%=escape_javascript(t('search.dots'))%>"
-        $("#search_text_field").click(function(){
-          if(this.value == title1){
-            this.value="";
-          }
-        });
-
-          $("#search_text_field").blur(function(){
-          if(this.value == ""){
-            this.value= title1;
-          }
-        });
-
-<%end%>
-
 <div id="subtexto_busqueda">
   <ul class="menu1">
     <li>
       <%=link_to t('help'), help_path, { :id => "header_help" } %>
     </li>
-        <li> | </li>
+    <li> | </li>
+    <li>
+      <div id="language_select">
+        <%= link_to t('language'), '#', {:id=>"language_select", :class=>"language_select", :title => t('translate.change')} %>
+        <ul id="language_menu" style="display:none">
+          <% for locale in (I18n.available_locales) -%>
+            <li><%= link_to image_tag("flags/" + locale.to_s + ".png", :title=>locale.to_s) + " " + locale.to_s, session_locale_path(:new_locale => locale.to_s), :method => :post %> </li>
+          <% end -%>
+        </ul>
+      </div>
+    </li>
+    <!--
     <li>
       <div id="browse_select">
         <%=link_to t("find.browse"), '#', {:id=>"browse_select",:class => "browse_select"} %>
@@ -29,6 +23,6 @@
         </ul>
       </div>
     </li>
-
+    -->
   </ul>
 </div>
