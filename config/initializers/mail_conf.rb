@@ -8,6 +8,6 @@ ActionMailer::Base.smtp_settings = {
     :tls                  => true,
     :domain               => 'gmail.com',
     :authentication       => :plain,
-    :user_name            => configatron.sendmail.username,
-    :password             => configatron.sendmail.password
+    :user_name            => configatron.sendmail_username,
+    :password             => configatron.sendmail_password
 }

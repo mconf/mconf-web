@@ -19,7 +19,7 @@ namespace :setup do
   BASIC_TASKS = %w( setup:git_submodules setup:config )
   COMMON_TASKS = %w( db:drop db:create db:migrate db:seed ) # :config_mailing_list_dir
   TASKS = {
-    :development => COMMON_TASKS + %w( setup:populate ),
+    :development => COMMON_TASKS, # setup:populate
     :production => COMMON_TASKS, # :config_cron, :config_logrotate, :config_awstats, :config_sphinx
     :test => %w( db:test:prepare db:seed )
   }

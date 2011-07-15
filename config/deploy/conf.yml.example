@@ -17,17 +17,17 @@
 # For more about multistage see: https://github.com/capistrano/capistrano/wiki/2.x-Multistage-Extension
 
 staging:
-  server: "staging.server.com"                        # server url/ip
-  application: "mconf-web"                            # application name, do not use spaces
-  user: "mconf"                                       # user (in the server) used to deploy
-  repository: "git://github.com/mconf/mconf-web.git"  # repository to get the app from
-  scm: "git"                                          # repository scm
-  branch: "master"                                    # branch or tag
-#  scm_username: "scm-username"                        # username to access the scm
-#  scm_password: "scm-pass"                            # password to access the scm
-#  deploy_to: "/home/myuser/deploy_folder/"            # folder where the app will be in the server
-#  use_sudo: true                                      # use sudo when running commands in the server?
-#  rvm_ruby_string: '1.9.2@my_gemset'                  # ruby version and gemset used in rvm
+  server: "staging.server.com"                        # Deployment server IP or domain
+  application: "mconf-web"                            # Application name, do not use spaces
+  user: "mconf"                                       # User (in the server) used to deploy
+  repository: "git://github.com/mconf/mconf-web.git"  # Repository to get the app from
+  scm: "git"                                          # Repository scm
+  branch: "stable"                                    # Branch or tag to be deployed
+#  scm_username: "scm-username"                        # Username to access the scm
+#  scm_password: "scm-pass"                            # Password to access the scm
+#  deploy_to: "/home/myuser/deploy_folder/"            # Folder where the app will be in the server
+#  use_sudo: true                                      # Use sudo when running commands in the server?
+#  rvm_ruby_string: '1.9.2@my_gemset'                  # Ruby version and gemset used in rvm
 
 production:
   server: "production.server.com"
@@ -35,4 +35,4 @@ production:
   user: "mconf"
   repository: "git://github.com/mconf/mconf-web.git"
   scm: "git"
-  branch: "v0.1"
+  branch: "stable"
