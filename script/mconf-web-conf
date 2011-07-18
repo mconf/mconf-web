@@ -9,15 +9,15 @@
 #       Leonardo Crauss Daronco <leonardodaronco@gmail.com>
 #
 # Changelog:
-#   2011-07-05 LCD  Inital Version
-
-
-# TODO: questions at the beginning:
-#       - dev, prod, dev + prod
-#       - BBB in the same machine?
-# TODO: --check
-# TODO: ssh keys for production?
-
+#   2011-07-17 - LCD - First functional version. Can install Mconf-Web in a standalone machine and setup the Mconf VM.
+#   2011-07-05 - LCD - Inital Version
+#
+# TODO:
+#   * Install nginx in a machine already with nginx installed (BBB VM)
+#   * --check
+#   * ssh keys for production?
+#   * Improve the require_* functions
+#   * See other TODO: markers in the code
 
 #
 # Environment variables
@@ -32,7 +32,7 @@ RVM_PRODUCTION_GEMSET=mconf_production                  # gemset for production 
 
 DEVELOPMENT_SRC_PATH=~/dev/source/mconf-web             # local directory where the dev environment will be placed
 DEVELOPMENT_REPO=git://github.com/mconf/mconf-web.git   # used to checkout the dev environment (not for production)
-DEVELOPMENT_BRANCH=script_conf                          # branch to be checked out
+DEVELOPMENT_BRANCH=master                               # branch to be checked out
 
 NGINX_VERSION=1.0.0                                     # default version for nginx installed by passenger
 NGINX_DAEMON=/opt/nginx/sbin/nginx                      # default path for nginx installed by passenger
@@ -176,7 +176,7 @@ config_yml_get_value_from_user() {
     if [ $USER_INPUT ]; then
         # anything between "parameter:" and end-of-line or '#' will be replaced by the user input
         echo "  New value: \"${USER_INPUT}\""
-	USER_INPUT=${USER_INPUT//\//\\/} # escape all slashes
+        USER_INPUT=${USER_INPUT//\//\\/} # escape all slashes
         sed -i "s/\(^[[:space:]]*${2}:\)[^#$]*\(.*\)$/\1 \"${USER_INPUT}\" \2/g" $1
     fi
 }
@@ -399,15 +399,15 @@ nginx_check() {
     # if nginx is installed with dpkg (BigBlueButton uses it)
     if dpkg-query -s nginx 1>/dev/null; then
         REPLY=1
-	NGINX_DAEMON=`which nginx`
-	NGINX_VERSION=`dpkg-query -W -f='${Version}\n' nginx | sed 's/\(^[[:digit:]\.]*\).*/\1/'`
+        NGINX_DAEMON=`which nginx`
+        NGINX_VERSION=`dpkg-query -W -f='${Version}\n' nginx | sed 's/\(^[[:digit:]\.]*\).*/\1/'`
 
     # tests for the default nginx installed by passenger
     else
-	if test -x $NGINX_DAEMON; then
+        if test -x $NGINX_DAEMON; then
             REPLY=1
-	    NGINX_VERSION=`$NGINX_DAEMON -v 2>&1 | sed 's/^.*\/\(.*\)$/\1/'`
-	fi
+            NGINX_VERSION=`$NGINX_DAEMON -v 2>&1 | sed 's/^.*\/\(.*\)$/\1/'`
+        fi
     fi
 }
 
@@ -826,30 +826,30 @@ if [ $SETUP_PROD ]; then
     nginx_check
     if [ $REPLY ]; then
 
-#	case $NGINX_VERSION in
-#	    1.0.0)
+        case $NGINX_VERSION in
+            1.0.0)
                 # warn the user and ask
-		    # install nginx anyway
-                    # just configure it
-#		;;
-#	    *)
-		# if is_bigbluebutton_machine; then
-		    # warning that nginx should be removed and a new version will be installed
-		    # install new version
-		    # configure nginx with mconf-web and bbb
-		# else
+                # install nginx anyway
+                # just configure it
+                ;;
+            *)
+                # if is_bigbluebutton_machine; then
+                    # warning that nginx should be removed and a new version will be installed
+                    # install new version
+                    # configure nginx with mconf-web and bbb
+                # else
                     # warn the user and ask
-                        # install nginx anyway
-                        # just configure it
-		# fi
-#		;;
-#	esac
+                    # install nginx anyway
+                    # just configure it
+                # fi
+                ;;
+        esac
 
         echo
         echo "----------------------------------------------------------------------------------------"
         echo "You appear to have nginx already installed at $NGINX_DAEMON"
         echo "Do you want to install it anyway?"
-	echo "Choose no to keep the current version (you will have to configure it manually)"
+        echo "Choose no to keep the current version (you will have to configure it manually)"
         echo "----------------------------------------------------------------------------------------"
         read -p "(y/n)?"
         if [[ $REPLY == [yY] ]]; then
