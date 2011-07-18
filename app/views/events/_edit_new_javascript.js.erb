@@ -21,8 +21,13 @@
   <% # TODO Rails 3: check the effects of this if block in the page %>
   <% unless @event.new_record? %>
   <%= render :partial => 'logos/crop_logo.js.erb',
-    :locals => { :url_form => precrop_space_event_logo_path(@event.space, @event),
-    :aspect_ratio => EventLogo::ASPECT_RATIO_S
+    :locals => { 
+      :url_form => precrop_space_event_logo_path(@event.space, @event),
+      :aspect_ratio => EventLogo::ASPECT_RATIO_S,
+      :form_id => 'select_logo_form',
+      :container_id => 'resultado',
+      :crop_size => 188,
+      :on_success => 'onCropLogoFormSuccess'
     } %>
   <% end %>
                 
@@ -221,28 +226,6 @@
           $('#change_event_end_date').css('border','none');
   });
   
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
 closeLogoFormDiv = function(){
          $("#change_logo_form_div").hide("slow");
         $("#default_upload_logo").hide("slow"); 
@@ -326,10 +309,24 @@ dateSelected = function(){
         
 }
 
-
-
-
-        $('#select_logo_form').ajaxForm({ 
+// function executed after the crop fancy box is shown
+onCropLogoFormSuccess = function() {
+  $('#crop_logo_form').ajaxForm({
+    beforeSubmit:function() {
+      $("#selected_logo_image").attr('src', "");
+    },
+    target: '#resultado',
+    success: function() {
+      closeLogoFormDiv();
+      $('#resultado').fadeIn('slow');
+      $("#event_image").attr('value', "tmp/" + rand + "/uploaded_logo.png");
+      $("#selected_logo_image").attr('src', "/images/" + "tmp/" + rand + "/uploaded_logo.png?" + (new Date()).getTime());
+      logoSelected();
+      closeUploadLogo();
+    }
+  });
+}
+       /*$('#select_logo_form').ajaxForm({ 
 
         // target identifies the element(s) to update with the server response 
         target: '#resultado', 
@@ -366,7 +363,7 @@ dateSelected = function(){
                 });
        }
                  
-    });
+                });*/
 
 
 function cropImage (c){

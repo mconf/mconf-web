@@ -10,7 +10,7 @@
       <div class="event_image">
         <%if event.logo%>
           <div class="event_logo">
-            <%=logo(event.logo, :size => 64)%>
+            <%=logo(event.logo, :size => 64).html_safe%>
           </div>
         <%elsif event.has_date?%>
           <div class="event_date_image">
