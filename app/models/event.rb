@@ -90,17 +90,24 @@ class Event < ActiveRecord::Base
       end
     end
   end
+  
+  #  def update_date
+  #  if self.edit_date_action.eql?("move_event") || self.edit_date_action.eql?("start_date")
+  #    self.start_date(1i) = self.start_date
+  #  end
+  #end
 
   def event_validation
     if(self.end_date.to_date - self.start_date.to_date > MAX_DAYS)
       self.errors.add(:base, I18n.t('event.error.max_size_excedeed', :max_days => Event::MAX_DAYS))
       return false
     end
-    if(self.end_date - self.start_date < 15.minutes)
+    if((self.end_date - self.start_date) < 15.minutes)
       self.errors.add(:base, I18n.t('event.error.too_short'))
       return false
     end
   end
+  
   def edit_date_actions
     if !self.edit_date_action.nil?
       if !self.edit_date_action.eql?("move_event")
@@ -112,8 +119,9 @@ class Event < ActiveRecord::Base
         end
       end
       if self.edit_date_action.eql?("move_event") and self.start_date_changed?
-        @relative_time = self.start_date - self.start_date_was
-        self.end_date = self.end_date + @relative_time
+        #@relative_time = self.start_date - self.start_date_was
+        #self.end_date = self.end_date + @relative_time
+        @relative_time = 0
       elsif self.edit_date_action.eql?("start_date") and self.start_date_changed?
         @relative_time = 0
       elsif self.edit_date_action.eql?("end_date")

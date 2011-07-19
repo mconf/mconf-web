@@ -235,7 +235,8 @@ class EventsController < ApplicationController
     end
     
     respond_to do |format|
-      if @event.update_attributes(params[:event])   
+      if @event.update_attributes(params[:event])        
+        
       #if the event is not marte, we have to remove the room in case it had it already assigned
         if params[:event][:marte_event]==0 &&  @event.marte_room?
           @event.update_attribute(:marte_room, false)
@@ -274,9 +275,9 @@ class EventsController < ApplicationController
         }
         format.xml  { head :ok }
         format.js{
-          if params[:event][:other_streaming_url]
-            @result = params[:event][:other_streaming_url]
-          end
+          #if params[:event][:other_streaming_url]
+          #  @result = params[:event][:other_streaming_url]
+          #end
           if params[:event][:other_participation_url]
             @result = params[:event][:other_participation_url]
           end
