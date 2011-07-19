@@ -149,10 +149,10 @@ Vcc::Application.routes.draw do
   resources :admissions
 
   resources :memberships
-  resources :groups
-  resources :groups do
-    resources :memberships
-  end
+  #resources :groups
+  #resources :groups do
+  #  resources :memberships
+  #end
 
   #resources :posts
   #resources :attachments

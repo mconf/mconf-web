@@ -14,7 +14,6 @@
 <div class="user">
   <%if detailed_user.profile!.authorize?(:read, :to=> current_user) && current_user != detailed_user %>
     <ul class="user-actions">
-
       <%if @space.present?%>
         <li><%= "#{link_to t('user.private_message'), new_user_message_path(:user_id => current_user.to_param, :receiver => detailed_user.id), :id => 'new_private_message_link'}".html_safe %></li>
       <%end%>
@@ -32,5 +31,4 @@
       <li class="small-font"><%=sanitize(detailed_user.city) %><%= "," unless detailed_user.city.blank? or detailed_user.country.blank? %> <%=sanitize(detailed_user.country) %></li>
     </ul>
   </div>
-
 </div>
