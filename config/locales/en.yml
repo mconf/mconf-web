@@ -626,6 +626,7 @@ en:
       edit: "Edit description"
       none: "No one has written a description yet."
     edit: "Edit event basic info"
+    edit_data: "Change event date"
     embed: Embed
     enable: 
       isabel: Isabel
@@ -711,6 +712,7 @@ en:
       change_start_date: "Change event start date"
       move_event: "Move event"
       move_event_div: "<b>Move Event:</b> This option lets you move you entire event. You can choose a new start time and this will affect everything on your event. <b>All the sessions in the event will change</b> their start time to mantain their relative time with the event beginning."
+      change_date: "<b>Change Event Date:</b> This option lets you change your event date. You can choose a new start or end time."
       no_change: "No change"
       out_date: "The agenda entry which title is \"%{agenda_entry}\" will be out of the event and it's not allowed. Move or edit your sessions to allow this change to be done."
     new: 

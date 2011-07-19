@@ -88,17 +88,17 @@
   <%= javascript_include_tag 'user_filter'%>
 <% end -%>
 
-  <div id="create_event">
-    <ul>
-      <li class="event_b_title">
-      	<h3 class="blue"> <%=t('create_event')%></h3>
-				<span class="pico_azul"></span>
-	  </li>
-      <li class="event_b_item blue"><%=link_to("<span>"+ t('event.new.presential') +"</span>","#",:id=>"presential_event",:class=>"l_one")%></li>
-      <li class="event_b_item blue"><%=link_to("<span>"+ t('event.new.meeting') +"</span>","#",:id=>"meeting_event",:class=>"l_two")%></li>
-      <li class="event_b_item blue"><%=link_to("<span>"+ t('event.new.conference') +"</span>","#",:id=>"conference_event",:class=>"l_three")%></li>
-    </ul>
-  </div>
+<div id="create_event">
+  <ul>
+    <li class="event_b_title">
+    	<h3 class="blue"> <%=t('create_event')%></h3>
+			<span class="pico_azul"></span>
+  </li>
+    <li class="event_b_item blue"><%=link_to("<span>"+ t('event.new.presential') +"</span>","#",:id=>"presential_event",:class=>"l_one")%></li>
+    <li class="event_b_item blue"><%=link_to("<span>"+ t('event.new.meeting') +"</span>","#",:id=>"meeting_event",:class=>"l_two")%></li>
+    <li class="event_b_item blue"><%=link_to("<span>"+ t('event.new.conference') +"</span>","#",:id=>"conference_event",:class=>"l_three")%></li>
+  </ul>
+</div>
 
 <!--
 <div id="event_creation">

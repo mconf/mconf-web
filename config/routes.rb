@@ -78,20 +78,20 @@ Vcc::Application.routes.draw do
       resources :invitations
       resources :participants
 
-      resource :agenda do
-        member do
-          get :generate_pdf
-        end
-      end
+#      resource :agenda do
+#        member do
+#          get :generate_pdf
+#        end
+#      end
 
-      resource :agenda do
-        resources :agenda_dividers
-        resources :agenda_entries
-        resources :agenda_entries do
-          resource :attachment
-        end
-        resources :agenda_record_entries
-      end
+#      resource :agenda do
+#       resources :agenda_dividers
+#       resources :agenda_entries
+#       resources :agenda_entries do
+#         resource :attachment
+#       end
+#       resources :agenda_record_entries
+#      end
 
 ## TODO check
       #event.resource :logo, :controller => 'event_logos', :member => {:precrop => :post}

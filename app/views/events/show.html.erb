@@ -44,8 +44,6 @@
 	
 	<%if params[:edit_comment]%>
 	    <%= render(:partial => "posts/edit_post", :locals => { :post => Post.find(params[:edit_comment]) }) if @space.authorize?([:create, :content],:to => current_user) %>
-    <%elsif params[:show_video] || params[:edit_video]%>
-	   <%= render :partial => "agendas/show_recordings_sidebar" %>
     <%elsif params[:show_streaming] || params[:show_participation]%>
       <%=render :partial => "video_online"%>
 	  <%= render :partial => 'participants' %>
@@ -73,42 +71,65 @@
   <%= render :partial => 'search/form' %>
 <%end%>
 
-  <%= error_messages_for :agenda_entry %>
-
   <div id="event_card_show">
     <%= render :partial => "event_card_show" %>
   </div>
 
   <div id="for_lightbox" style="display:none"></div>
 
+<!--
   <%if params[:new_invitations]%>
-	 <%=render :partial => 'new_invitations', :locals => {:checked_users => Array.new} %>
+	  <%=
+      #render :partial => 'new_invitations', :locals => {:checked_users => Array.new} 
+    %>
   <%elsif params[:notification]%>
-   <%=render :partial => 'notification', :locals => {:checked_attendants => Array.new} %>
+    <%=
+      #render :partial => 'notification', :locals => {:checked_attendants => Array.new} 
+    %>
   <%elsif params[:group_invitation]%>
-   <%=render :partial => 'group_invitation' %>  
+    <%=
+      #render :partial => 'group_invitation' 
+    %>  
   <%elsif params[:show_repository]%>
-     <%=render :partial => "show_repository"%>
+    <%=
+      #render :partial => "show_repository"
+    %>
   <%elsif params[:show_agenda] || params[:show_streaming] || params[:show_participation]%>
-	    <%if params[:show_streaming] && @event.is_in_person? %>
-	      <%=render :partial => "external_streaming"%>
-		  <%= render :partial => "connection_info"%>
-	    <%elsif params[:show_participation] && @event.is_in_person? %>
-	      <%=render :partial => "external_participation"%>
-		  <%= render :partial => "connection_info"%>
-	    <%elsif params[:show_streaming]%>
-	      <%=render :partial => "cm_streaming"%>
-		  <%= render :partial => "connection_info"%>
-	    <%elsif params[:show_participation]%>
-	      <%=render :partial => "cm_participation"%>
-		  <%= render :partial => "connection_info"%>
-		<%end%>
-	    <%=render :partial => "agendas/show"%>
-  <%elsif params[:show_video] || params[:edit_video]%>     
-    <%= render :partial => "agendas/show_recordings" %>	   
-  <%else%><!-- if there is no param-->
-    <%= t('event.no_param') %>		
+	  <%if params[:show_streaming] && @event.is_in_person? %>
+	    <%=
+        #render :partial => "external_streaming"
+      %>
+		  <%= 
+        #render :partial => "connection_info"
+      %>
+	  <%elsif params[:show_participation] && @event.is_in_person? %>
+	    <%=
+        #render :partial => "external_participation"
+      %>
+		  <%= 
+        #render :partial => "connection_info"
+      %>
+	  <%elsif params[:show_streaming]%>
+	    <%=
+        #render :partial => "cm_streaming"
+        %>
+		  <%= 
+        #render :partial => "connection_info"
+      %>
+	  <%elsif params[:show_participation]%>
+	    <%=
+        #render :partial => "cm_participation"
+      %>
+		  <%= 
+        #render :partial => "connection_info"
+      %>
+		<%end%>  
+  <%else%>
+    <%= 
+      #t('event.no_param') 
+    %>
   <%end%>
+-->
  
   
 <%= content_for :javascript do%>

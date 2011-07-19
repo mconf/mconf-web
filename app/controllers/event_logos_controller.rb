@@ -18,7 +18,7 @@
 class EventLogosController < ApplicationController
   
   def precrop
-    if params['event_logo']['media'].blank?
+    if params['logo']['media'].blank?
       redirect_to request.referer
       return
     end
@@ -26,15 +26,18 @@ class EventLogosController < ApplicationController
     @event = Event.find_by_permalink(params[:event_id])
     @event_logo = @event.logo || EventLogo.new 
 
-    temp_logo = TempLogo.new(EventLogo, @event, params[:event_logo])
+    temp_logo = TempLogo.new(EventLogo, @event, params[:logo])
     TempLogo.to_session(session, temp_logo)
-
+    size = temp_logo.size
+    size = "#{size[0]}x#{size[1]}"
+                      
     render :template => "logos/precrop",
            :layout => false,
            :locals => {:logo_crop_text => t('event.logo.crop'),
-                       :form_for => [@event,@event_logo],
-                       :form_url => space_event_logo_path(@event.space, @event),
-                       :image => temp_logo.image 
+                       :p_form_for => [@event,@event_logo],
+                       :p_form_url => space_event_logo_path(@event.space, @event),
+                       :image => temp_logo.image,
+                       :image_size => size
                       }
   end
 

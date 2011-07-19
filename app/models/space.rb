@@ -25,8 +25,8 @@ class Space < ActiveRecord::Base
   has_many :groups, :dependent => :destroy
   has_many :news, :dependent => :destroy
   has_many :attachments, :dependent => :destroy
+#  has_many :agendas, :through => :events
   has_many :tags, :dependent => :destroy, :as => :container
-  has_many :agendas, :through => :events
   has_one :bigbluebutton_room, :as => :owner, :dependent => :destroy
 
   has_permalink :name, :update => true
@@ -231,19 +231,19 @@ class Space < ActiveRecord::Base
     return false
   end
 
-  def videos
-
-    @space_videos = []
-
-    agendas.each do |agenda|
-      agenda.agenda_entries.select{|ae| ae.past? & ae.recording?}.each do |video|
-        @space_videos << video
-      end
-    end
-
-    @space_videos
-
-  end
+#  def videos
+#
+#    @space_videos = []
+#
+#    agendas.each do |agenda|
+#      agenda.agenda_entries.select{|ae| ae.past? & ae.recording?}.each do |video|
+#        @space_videos << video
+#      end
+#    end
+#
+#    @space_videos
+#
+#  end
 
   def unique_pageviews
     # Use only the canonical aggregated url of the space (all views have been previously added here in the rake task)

@@ -5,9 +5,11 @@
 	<div class="actions_sidebar">
 	  <ul>
 			<li><%=link_to t('event.edit'), edit_space_event_path(@space, @event) %></li>
-			<li><%=link_to t('agenda.edit'), edit_space_event_agenda_path(@space, @event)%></li>
+			<!--<li><%=
+      #link_to t('agenda.edit'), edit_space_event_agenda_path(@space, @event)
+      %></li>-->
 	      <%if @event.future? || @event.is_happening_now?%>
-          <li><%=link_to t('icalendar.import'),"javascript:submit_icalendar();" %></li>
+        <li><%=link_to t('icalendar.import'),"javascript:submit_icalendar();" %></li>
           <li><%=link_to t('invitation.title'), space_event_path(@space, @event, :in_steps=>false, :step=>"3")%></li>
 	      <%end%>
 			<li><%=link_to t('event.notification.button'),space_event_path(@space, @event, :notification => @event)%></li>		

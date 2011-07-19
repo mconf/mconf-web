@@ -625,6 +625,7 @@ pt-br:
       edit: "Editar descrição"
       none: "Ninguém escrever uma descrição ainda."
     edit: "Editar informações básicas do evento"
+    edit_data: "Alterar a data do evento"
     embed: Embarcar
     enable: 
       isabel: Isabel
@@ -710,6 +711,7 @@ pt-br:
       change_start_date: "Alterar data de início do evento"
       move_event: "Mover evento"
       move_event_div: "<b>Mover evento:</b> Esta opção permite mover seu evento. Você pode escolher um novo horário inicial e isso vai afetar tudo em seu evento. <b>Todas as sessões do evento vão mudar</b> seu horário de início para manter a relação de tempo com o início do evento."
+      change_date: "<b>Alterar a Data do Evento:</b> Essa opção permite que você altere a data do seu evento. Você pode alterar a data inicial, data final ou as duas."
       no_change: "Nenhuma mudança"
       out_date: "A entrada de agenda com título \"%{agenda_entry}\" estará fora do evento e isso não é permitido. Mova ou edite as suas sessões para permitir que essa alteração seja feita."
     new: 

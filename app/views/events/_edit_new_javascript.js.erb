@@ -21,8 +21,13 @@
   <% # TODO Rails 3: check the effects of this if block in the page %>
   <% unless @event.new_record? %>
   <%= render :partial => 'logos/crop_logo.js.erb',
-    :locals => { :url_form => precrop_space_event_logo_path(@event.space, @event),
-    :aspect_ratio => EventLogo::ASPECT_RATIO_S
+    :locals => { 
+      :url_form => precrop_space_event_logo_path(@event.space, @event),
+      :aspect_ratio => EventLogo::ASPECT_RATIO_S,
+      :form_id => 'select_logo_form',
+      :container_id => 'resultado',
+      :crop_size => 188,
+      :on_success => 'onCropLogoFormSuccess'
     } %>
   <% end %>
                 
@@ -130,10 +135,10 @@
   
   $('#move_event').click(function(){
           $('#move_event_div').show();
-          $('#change_event_start_date_div').hide();
-          $('#change_start_date_div').show();
-          $('#change_event_start_date_div').hide();
-          $('#change_event_end_date_div').hide();
+          //$('#change_event_start_date_div').hide();
+          $('#change_date_div').show();
+          //$('#change_event_start_date_div').hide();
+          //$('#change_event_end_date_div').hide();
           
           $('#event_edit_date_action').attr('value','move_event');
           $('#event_start_date_1i').attr('disabled',false);
@@ -141,11 +146,11 @@
           $('#event_start_date_3i').attr('disabled',false);
           $('#event_start_date_4i').attr('disabled',false);
           $('#event_start_date_5i').attr('disabled',false);
-          $('#event_end_date_1i').attr('disabled',true);
-          $('#event_end_date_2i').attr('disabled',true);
-          $('#event_end_date_3i').attr('disabled',true);
-          $('#event_end_date_4i').attr('disabled',true);
-          $('#event_end_date_5i').attr('disabled',true);
+          $('#event_end_date_1i').attr('disabled',false);
+          $('#event_end_date_2i').attr('disabled',false);
+          $('#event_end_date_3i').attr('disabled',false);
+          $('#event_end_date_4i').attr('disabled',false);
+          $('#event_end_date_5i').attr('disabled',false);
           
           $('#no_event_date_change').css('border','none');
           $('#move_event').css('border','2px #BDD8EB solid');
@@ -153,11 +158,11 @@
           $('#change_event_end_date').css('border','none');
   });
   
-  $('#change_event_start_date').click(function(){
+/*  $('#change_event_start_date').click(function(){
           $('#move_event_div').hide();
           $('#change_event_start_date_div').show();
           $('#change_start_date_div').show();
-          $('#change_event_end_date_div').hide();
+          $('#change_event_end_date_div').show();
           
           $('#event_edit_date_action').attr('value','start_date');
           $('#event_start_date_1i').attr('disabled',false);
@@ -198,10 +203,10 @@
           $('#change_event_start_date').css('border','none');
           $('#change_event_end_date').css('border','2px #BDD8EB solid');
   });
-  
+*/
   $('#no_event_date_change').click(function(){
-          $('#change_start_date_div').hide('slow');
-          $('#change_event_end_date_div').hide('slow');
+          $('#change_date_div').hide();
+          //$('#change_event_end_date_div').hide();
           $('#event_start_date_1i').attr('disabled',true);
           $('#event_start_date_2i').attr('disabled',true);
           $('#event_start_date_3i').attr('disabled',true);
@@ -220,28 +225,6 @@
           $('#change_event_start_date').css('border','none');
           $('#change_event_end_date').css('border','none');
   });
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
   
 closeLogoFormDiv = function(){
          $("#change_logo_form_div").hide("slow");
@@ -326,10 +309,24 @@ dateSelected = function(){
         
 }
 
-
-
-
-        $('#select_logo_form').ajaxForm({ 
+// function executed after the crop fancy box is shown
+onCropLogoFormSuccess = function() {
+  $('#crop_logo_form').ajaxForm({
+    beforeSubmit:function() {
+      $("#selected_logo_image").attr('src', "");
+    },
+    target: '#resultado',
+    success: function() {
+      closeLogoFormDiv();
+      $('#resultado').fadeIn('slow');
+      $("#event_image").attr('value', "tmp/" + rand + "/uploaded_logo.png");
+      $("#selected_logo_image").attr('src', "/images/" + "tmp/" + rand + "/uploaded_logo.png?" + (new Date()).getTime());
+      logoSelected();
+      closeUploadLogo();
+    }
+  });
+}
+       /*$('#select_logo_form').ajaxForm({ 
 
         // target identifies the element(s) to update with the server response 
         target: '#resultado', 
@@ -366,7 +363,7 @@ dateSelected = function(){
                 });
        }
                  
-    });
+                });*/
 
 
 function cropImage (c){

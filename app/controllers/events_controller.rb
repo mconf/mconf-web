@@ -106,35 +106,35 @@ class EventsController < ApplicationController
       @comments = @event.posts.paginate(:page => params[:page],:per_page => 5)
 
       # Clear bad params 
-      params[:show_video]=nil if event.future?
+      #params[:show_video]=nil if event.future?
       
       #if there is no param we show the agenda
-      if !params[:show_agenda] && !params[:show_video] && !params[:edit_video] && !params[:show_repository] && !params[:show_streaming] && !params[:show_participation]      
-        params[:show_agenda]=true
-      end
+      #if !params[:show_agenda] && !params[:show_video] && !params[:edit_video] && !params[:show_repository] && !params[:show_streaming] && !params[:show_participation]      
+      #  params[:show_agenda]=true
+      #end
 
       #if the event is now we also show the streaming or participation
-      if params[:show_agenda] && event.is_happening_now? && event.has_streaming?
-        params[:show_streaming]=true
-      elsif params[:show_agenda] && event.is_happening_now? && event.has_participation?
-        params[:show_participation]=true
-      end
+      #if params[:show_agenda] && event.is_happening_now? && event.has_streaming?
+      #  params[:show_streaming]=true
+      #elsif params[:show_agenda] && event.is_happening_now? && event.has_participation?
+      #  params[:show_participation]=true
+      #end
       
       
-      if params[:show_video] || params[:format]=="zip" || params[:edit_video]
-        if @event.agenda.present?
-          @video_entries = @event.videos
-        else
-          @video_entries = []
-        end
-        #this is because googlebot asks for Arrays of videos and params[:show_video].to_i failed
-        if params[:show_video].class == String
-          @display_entry = AgendaEntry.find(params[:show_video].to_i)
-        elsif params[:edit_video].class == String
-          @display_entry = AgendaEntry.find(params[:edit_video].to_i)
-        else
-          @display_entry = nil
-        end
+      #if params[:show_video] || params[:format]=="zip" || params[:edit_video]
+      #  if @event.agenda.present?
+      #    @video_entries = @event.videos
+      #  else
+      #    @video_entries = []
+      #  end
+      #  #this is because googlebot asks for Arrays of videos and params[:show_video].to_i failed
+      #  if params[:show_video].class == String
+      #    @display_entry = AgendaEntry.find(params[:show_video].to_i)
+      #  elsif params[:edit_video].class == String
+      #    @display_entry = AgendaEntry.find(params[:edit_video].to_i)
+      #  else
+      #    @display_entry = nil
+      #  end
         #      #@show_day=0
         #      for day in 1..@event.days
         #        if @video_entries[day][params[:show_video].to_i]
@@ -143,7 +143,7 @@ class EventsController < ApplicationController
         #          break
         #        end
         #      end
-      end
+      #end
 
       respond_to do |format|
 
@@ -210,7 +210,7 @@ class EventsController < ApplicationController
         #@event.tag_with(params[:tags]) if params[:tags] #pone las tags a la entrada asociada al evento
         format.html {
           flash[:success] = t('event.created')
-          redirect_to edit_space_event_agenda_path(space, @event, :in_steps=>true)
+          redirect_to space_events_path(@space)
         }
         format.xml  { render :xml => @event, :status => :created, :location => @event }
       else
@@ -236,46 +236,48 @@ class EventsController < ApplicationController
     
     respond_to do |format|
       if @event.update_attributes(params[:event])        
-                    #if the event is not marte, we have to remove the room in case it had it already assigned
-                    if params[:event][:marte_event]==0 &&  @event.marte_room?
-                            @event.update_attribute(:marte_room, false)
-                          end    
+        
+      #if the event is not marte, we have to remove the room in case it had it already assigned
+        if params[:event][:marte_event]==0 &&  @event.marte_room?
+          @event.update_attribute(:marte_room, false)
+        end    
         
         @event.tag_with(params[:tags]) if params[:tags] #pone las tags a la entrada asociada al evento
         flash[:success] = t('event.updated')
         format.html {
-          if (params[:event][:invited_unregistered]).blank? && (params[:event][:invited_registered]).blank? 
-            if params[:in_steps]
-              redirect_to edit_space_event_agenda_path(space, @event, :in_steps=>params[:in_steps])
-            else
-              redirect_to edit_space_event_agenda_path(space, @event)
-            end
-          else
-            flash[:success] = t('event_invitation.sent')
-            if params[:in_steps]
-              if params[:event][:invited_registered]
-                redirect_to space_event_path(@space, @event, :in_steps=>params[:in_steps], :step=>"3", :invited_registered=>true)
-              elsif params[:event][:invited_unregistered]
-                redirect_to space_event_path(@space, @event, :in_steps=>params[:in_steps], :step=>"3", :invited_unregistered=>true)
-              else
-                redirect_to space_event_path(@space, @event, :in_steps=>params[:in_steps], :step=>"3")
-              end
-            else
-              if params[:event][:invited_registered]
-                redirect_to space_event_path(@space, @event, :in_steps=>false, :step=>"3", :invited_registered=>true)
-              elsif params[:event][:invited_unregistered]
-                redirect_to space_event_path(@space, @event, :in_steps=>false, :step=>"3", :invited_unregistered=>true)
-              else
-                redirect_to space_event_path(@space, @event, :in_steps=>false, :step=>"3")
-              end
-            end
-          end
+          #if (params[:event][:invited_unregistered]).blank? && (params[:event][:invited_registered]).blank?
+          #  if params[:in_steps]
+          #    redirect_to edit_space_event_agenda_path(space, @event, :in_steps=>params[:in_steps])
+          #  else
+          #    redirect_to edit_space_event_agenda_path(space, @event)
+          #  end
+          #else
+          #  flash[:success] = t('event_invitation.sent')
+          #  if params[:in_steps]
+          #    if params[:event][:invited_registered]
+          #      redirect_to space_event_path(@space, @event, :in_steps=>params[:in_steps], :step=>"3", :invited_registered=>true)
+          #    elsif params[:event][:invited_unregistered]
+          #      redirect_to space_event_path(@space, @event, :in_steps=>params[:in_steps], :step=>"3", :invited_unregistered=>true)
+          #    else
+          #      redirect_to space_event_path(@space, @event, :in_steps=>params[:in_steps], :step=>"3")
+          #    end
+          #  else
+          #    if params[:event][:invited_registered]
+          #      redirect_to space_event_path(@space, @event, :in_steps=>false, :step=>"3", :invited_registered=>true)
+          #    elsif params[:event][:invited_unregistered]
+          #      redirect_to space_event_path(@space, @event, :in_steps=>false, :step=>"3", :invited_unregistered=>true)
+          #    else
+          #      redirect_to space_event_path(@space, @event, :in_steps=>false, :step=>"3")
+          #    end
+          #  end
+          #end
+          redirect_to space_event_path(@space, @event)
         }
         format.xml  { head :ok }
         format.js{
-          if params[:event][:other_streaming_url]
-            @result = params[:event][:other_streaming_url]
-          end
+          #if params[:event][:other_streaming_url]
+          #  @result = params[:event][:other_streaming_url]
+          #end
           if params[:event][:other_participation_url]
             @result = params[:event][:other_participation_url]
           end
