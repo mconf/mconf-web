@@ -900,13 +900,6 @@ fi
 #
 
 config_files_setup_vm() {
-    echo
-    echo "################################################################################"
-    echo "#                   Setting up Mconf-Web in the Mconf VM                       #"
-    echo "################################################################################"
-    echo "BigblueButton server at: http://${SETUP_VM_IP}:${SETUP_VM_PORT}/"
-    echo
-
     # automatically configure some files in mconf-web
     SALT=`bbb-conf --salt | grep "Salt" | sed 's/[[:blank:]]*Salt: //'`
     MCONF_WEB_SETUP_CONF="$DEVELOPMENT_SRC_PATH/config/setup_conf.yml"
@@ -942,9 +935,21 @@ if [ $SETUP_VM ]; then
 
     require_dev_environment
 
+    echo
+    echo "################################################################################"
+    echo "#                   Setting up Mconf-Web in the Mconf VM                       #"
+    echo "################################################################################"
+    echo "BigblueButton server at: http://${SETUP_VM_IP}:${SETUP_VM_PORT}/"
+    echo
+
     echo "-- Editing configuration files"
     config_files_setup_vm
 
+    echo "-- Updating the development environment at master branch"
+    cd $DEVELOPMENT_SRC_PATH
+    git checkout master
+    git pull origin master
+    cd ~
     # TODO: setup-dev?
 
     DEPLOY_FIRST_TIME=1
