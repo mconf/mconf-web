@@ -23,6 +23,8 @@
 # Environment variables
 #
 
+IP=$(ifconfig | grep -v '127.0.0.1' | grep -E "[0-9]*\.[0-9]*\.[0-9]*\.[0-9]*" | head -1 | cut -d: -f2 | awk '{print $1}') # local IP got from ifconfig
+
 MCONF_WEB_VERSION="0.2"                                 # The version of this script
 
 RVM_VERSION=1.6.21                                      # to fix the RVM version to be installed
@@ -43,10 +45,8 @@ PRODUCTION_PATH=~/mconf-web/                            # local directory for pr
 GEM_BUNDLER_VERSION=1.0.15                              # bundler version
 GEM_VERSION_PASSENGER=3.0.7                             # passenger version
 
+SETUP_VM_IP=$IP                                         # default IP/domain for BigBlueButton if not informed in --setup-vm
 SETUP_VM_PORT=8888                                      # default port for BigBlueButton if not informed in --setup-vm
-
-# local IP got from ifconfig
-IP=$(ifconfig | grep -v '127.0.0.1' | grep -E "[0-9]*\.[0-9]*\.[0-9]*\.[0-9]*" | head -1 | cut -d: -f2 | awk '{print $1}')
 
 
 #
@@ -630,6 +630,10 @@ while [ $# -gt 0 ]; do
         SETUP_VM=1
         shift
         if [[ $# -ge 1 && ! "$1" =~ -.* ]]; then
+            SETUP_VM_IP="${1}"
+            shift
+        fi
+        if [[ $# -ge 1 && ! "$1" =~ -.* ]]; then
             SETUP_VM_PORT="${1}"
             shift
         fi
@@ -900,16 +904,16 @@ config_files_setup_vm() {
     echo "################################################################################"
     echo "#                   Setting up Mconf-Web in the Mconf VM                       #"
     echo "################################################################################"
-    echo "BigblueButton server at: http://${IP}:${SETUP_VM_PORT}/"
+    echo "BigblueButton server at: http://${SETUP_VM_IP}:${SETUP_VM_PORT}/"
     echo
 
     # automatically configure some files in mconf-web
     SALT=`bbb-conf --salt | grep "Salt" | sed 's/[[:blank:]]*Salt: //'`
     MCONF_WEB_SETUP_CONF="$DEVELOPMENT_SRC_PATH/config/setup_conf.yml"
-    sed -i "s/\(^[[:space:]]*bbb_server_url:\)[^#$]*\(.*\)$/\1 \"http:\/\/${IP}:${SETUP_VM_PORT}\/bigbluebutton\/api\" \2/g" $MCONF_WEB_SETUP_CONF
+    sed -i "s/\(^[[:space:]]*bbb_server_url:\)[^#$]*\(.*\)$/\1 \"http:\/\/${SETUP_VM_IP}:${SETUP_VM_PORT}\/bigbluebutton\/api\" \2/g" $MCONF_WEB_SETUP_CONF
     sed -i "s/\(^[[:space:]]*bbb_server_salt:\)[^#$]*\(.*\)$/\1 \"${SALT}\" \2/g" $MCONF_WEB_SETUP_CONF
-    sed -i "s/\(^[[:space:]]*site_domain:\)[^#$]*\(.*\)$/\1 \"${IP}\" \2/g" $MCONF_WEB_SETUP_CONF
-    sudo sed -i "s/server_name .*/server_name ${IP}/" /etc/nginx/sites-available/mconf-web
+    sed -i "s/\(^[[:space:]]*site_domain:\)[^#$]*\(.*\)$/\1 \"${SETUP_VM_IP}\" \2/g" $MCONF_WEB_SETUP_CONF
+    sudo sed -i "s/server_name .*/server_name ${SETUP_VM_IP};/" /etc/nginx/sites-available/mconf-web
 
     echo
     echo "################################################################################"
