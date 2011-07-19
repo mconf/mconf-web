@@ -15,8 +15,10 @@
 
 <div id="list_by_names_selected" class="group_links" >
 	<span><%= t('user.list_by')%>: </span>
-	<span class="selected"><%= t('name.other')%></span>
-	<!--<%= link_to t('group.other'), space_groups_path(@space), { :id => 'groups_link' } %>-->
+	<span class="selected"><%= t('name.other')%></span>  
+  <%= 
+    #link_to t('group.other'), space_groups_path(@space), { :id => 'groups_link' } 
+  %>
 </div>
 
 <div id="list_by_name" >

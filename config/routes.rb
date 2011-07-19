@@ -130,7 +130,7 @@ Vcc::Application.routes.draw do
       end
     end
 
-    resources :groups
+    #resources :groups
     resources :admissions
     resources :invitations
     resources :join_requests
