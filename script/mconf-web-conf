@@ -43,6 +43,8 @@ PRODUCTION_PATH=~/mconf-web/                            # local directory for pr
 GEM_BUNDLER_VERSION=1.0.15                              # bundler version
 GEM_VERSION_PASSENGER=3.0.7                             # passenger version
 
+SETUP_VM_PORT=8888                                      # default port for BigBlueButton if not informed in --setup-vm
+
 # local IP got from ifconfig
 IP=$(ifconfig | grep -v '127.0.0.1' | grep -E "[0-9]*\.[0-9]*\.[0-9]*\.[0-9]*" | head -1 | cut -d: -f2 | awk '{print $1}')
 
@@ -77,7 +79,7 @@ usage() {
     echo "    --deploy-restart                 Restarts the deployed app (executes cap deploy:restart)"
     echo "    --deploy-update                  Updates the deployed app code and runs the migrations (executes cap deploy:migrations)"
     echo "  Mconf VM:"
-    echo "    --setup-vm                       Setup Mconf-Web in the Mconf VM"
+    echo "    --setup-vm [PORT]                Setup Mconf-Web in the Mconf VM. [PORT] is the port being used for BigBlueButton."
     echo
     echo "Options:"
     echo
@@ -222,9 +224,9 @@ config_yml_file_with_review() {
     while [[ $REPLY == [yY] ]]; do
         config_yml_file $1 ${PARAMS[*]}
         read -p "Press enter to review the configurations..."
-        echo "-----------------------------------------------------------------------------------"
+        echo "--------------------------------------------------------------------------------"
         echo_yml_file $1 ${PARAMS[*]}
-        echo "-----------------------------------------------------------------------------------"
+        echo "--------------------------------------------------------------------------------"
         read -p "Do you need to edit these configurations again? (y/n)"
     done
 }
@@ -485,19 +487,17 @@ capistrano_deploy_update() {
 # Opens the configurations files and prompts the user for values to edit
 # the most important attributes
 config_files_setup() {
-    echo
-    echo "###################################################################################"
-    echo "#                Setup configuration files. Do it carefully.                      #"
-    echo "###################################################################################"
-    echo
+    echo "################################################################################"
+    echo "#              ATTENTION: Setting up configuration files.                      #"
+    echo "################################################################################"
 
     # require values for the most important parameters only
 
-    echo "-----------------------------------------------------------------------------------"
+    echo "--------------------------------------------------------------------------------"
     echo "GENERAL configurations:"
     echo " - Here you will configure the admin account, a default BBB server and a gmail"
     echo "   account used to send emails."
-    echo "-----------------------------------------------------------------------------------"
+    echo "--------------------------------------------------------------------------------"
     echo
     PARAMS=( admin_login admin_fullname admin_email admin_password \
              bbb_server_name bbb_server_url bbb_server_salt bbb_server_version \
@@ -505,19 +505,19 @@ config_files_setup() {
     config_yml_file_with_review "$DEVELOPMENT_SRC_PATH/config/setup_conf.yml"
 
     echo
-    echo "-----------------------------------------------------------------------------------"
+    echo "--------------------------------------------------------------------------------"
     echo "DATABASE configurations:"
-    echo " - The default database is MySQL. You need to provide an username and a password."
-    echo "-----------------------------------------------------------------------------------"
+    echo " - The default database is MySQL. You need to provide the username and password."
+    echo "--------------------------------------------------------------------------------"
     echo
     PARAMS=( username password )
     config_yml_file_with_review "$DEVELOPMENT_SRC_PATH/config/database.yml" ${PARAMS[*]}
 
     echo
-    echo "-----------------------------------------------------------------------------------"
+    echo "--------------------------------------------------------------------------------"
     echo "DEPLOYMENT configurations:"
-    echo " - To deploy in this machine, set the IP to 127.0.0.1 and the user to \"`whoami`\"."
-    echo "-----------------------------------------------------------------------------------"
+    echo " - To deploy in this machine, use the IP 127.0.0.1 and user \"`whoami`\"."
+    echo "--------------------------------------------------------------------------------"
     echo
     PARAMS=( server user repository branch )
     config_yml_file_with_review "$DEVELOPMENT_SRC_PATH/config/deploy/conf.yml" ${PARAMS[*]}
@@ -629,6 +629,10 @@ while [ $# -gt 0 ]; do
         echo "- Setup Mconf-Web in the Mconf VM"
         SETUP_VM=1
         shift
+        if [[ $# -ge 1 && ! "$1" =~ -.* ]]; then
+            SETUP_VM_PORT="${1}"
+            shift
+        fi
         continue
     fi
 
@@ -826,13 +830,13 @@ if [ $SETUP_PROD ]; then
     nginx_check
     if [ $REPLY ]; then
 
-        case $NGINX_VERSION in
-            1.0.0)
+        #case $NGINX_VERSION in
+            #1.0.0)
                 # warn the user and ask
                 # install nginx anyway
                 # just configure it
-                ;;
-            *)
+                #;;
+            #*)
                 # if is_bigbluebutton_machine; then
                     # warning that nginx should be removed and a new version will be installed
                     # install new version
@@ -842,15 +846,15 @@ if [ $SETUP_PROD ]; then
                     # install nginx anyway
                     # just configure it
                 # fi
-                ;;
-        esac
+                #;;
+        #esac
 
         echo
-        echo "----------------------------------------------------------------------------------------"
+        echo "--------------------------------------------------------------------------------"
         echo "You appear to have nginx already installed at $NGINX_DAEMON"
         echo "Do you want to install it anyway?"
         echo "Choose no to keep the current version (you will have to configure it manually)"
-        echo "----------------------------------------------------------------------------------------"
+        echo "--------------------------------------------------------------------------------"
         read -p "(y/n)?"
         if [[ $REPLY == [yY] ]]; then
             echo "-- Installing nginx"
@@ -893,19 +897,34 @@ fi
 
 config_files_setup_vm() {
     echo
-    echo "###################################################################################"
-    echo "#                Setup configuration files. Do it carefully.                      #"
-    echo "###################################################################################"
+    echo "################################################################################"
+    echo "#                   Setting up Mconf-Web in the Mconf VM                       #"
+    echo "################################################################################"
+    echo "BigblueButton server at: http://${IP}:${SETUP_VM_PORT}/"
+    echo
+
+    # automatically configure some files in mconf-web
+    SALT=`bbb-conf --salt | grep "Salt" | sed 's/[[:blank:]]*Salt: //'`
+    MCONF_WEB_SETUP_CONF="$DEVELOPMENT_SRC_PATH/config/setup_conf.yml"
+    sed -i "s/\(^[[:space:]]*bbb_server_url:\)[^#$]*\(.*\)$/\1 \"http:\/\/${IP}:${SETUP_VM_PORT}\/bigbluebutton\/api\" \2/g" $MCONF_WEB_SETUP_CONF
+    sed -i "s/\(^[[:space:]]*bbb_server_salt:\)[^#$]*\(.*\)$/\1 \"${SALT}\" \2/g" $MCONF_WEB_SETUP_CONF
+    sed -i "s/\(^[[:space:]]*site_domain:\)[^#$]*\(.*\)$/\1 \"${IP}\" \2/g" $MCONF_WEB_SETUP_CONF
+    sudo sed -i "s/server_name .*/server_name ${IP}/" /etc/nginx/sites-available/mconf-web
+
+    echo
+    echo "################################################################################"
+    echo "#              ATTENTION: Setting up configuration files.                      #"
+    echo "################################################################################"
     echo
 
     # most of the parameters are already configured for the Mconf VM
     # so we just need to ask a few of them here
 
-    echo "-----------------------------------------------------------------------------------"
+    echo "--------------------------------------------------------------------------------"
     echo "GENERAL configurations:"
     echo " - Here you will configure the admin account, a default BBB server and a gmail"
     echo "   account used to send emails."
-    echo "-----------------------------------------------------------------------------------"
+    echo "--------------------------------------------------------------------------------"
     echo
     PARAMS=( admin_email admin_password \
              sendmail_username sendmail_password)
@@ -944,10 +963,10 @@ if [ $DEPLOY_FIRST_TIME ]; then
     if [ $REPLY ]; then
 
         echo
-        echo "----------------------------------------------------------------------------------------"
+        echo "--------------------------------------------------------------------------------"
         echo "You appear to already have a production environment at $PRODUCTION_PATH"
         echo "Do you want to setup over it anyways? If you say yes your DB will be erased!"
-        echo "----------------------------------------------------------------------------------------"
+        echo "--------------------------------------------------------------------------------"
         read -p "Proceed? (y/n)?"
         if [[ $REPLY == [yY] ]]; then
             echo "-- Starting the first deploy (with capistrano)"
