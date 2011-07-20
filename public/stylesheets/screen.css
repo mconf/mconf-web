@@ -240,13 +240,28 @@ body .icon{margin-bottom:-2px;}
 
 #search input[type="text"]{font-size:1em;width:150px;}
 /*#search a img,#search input[type="image"]{margin-bottom:-7px;}*/
-#eu {
+#header_logo1 {
   float:right;
-  margin-top:10px;
-  width: 90px;
-  height: 60px;
-  background:url("../images/logos/prav_header.png") no-repeat left top;
+  margin-top:17px;
+  margin-right: 10px;
+  width: 69px;
+  height: 45px;
 }
+#header_logo2 {
+  float:right;
+  margin-top:20px;
+  width: 85px;
+  height: 45px;
+}
+#header_logo1 img, #header_logo2 img {
+  opacity:0.8;
+  filter:alpha(opacity=80);
+}
+#header_logo1 img:hover, #header_logo2 img:hover {
+  opacity:1.0;
+  filter:alpha(opacity=100);
+}
+
 
 #prefs{font-size:0.9166em;line-height:1.6363;font-weight:bold;position:relative;float:right;padding-top: 3px;}
 ul#prefs {list-style-type:none;margin:0;}

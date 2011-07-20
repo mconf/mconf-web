@@ -255,6 +255,9 @@ en:
         auth: 
           failure: "Authentication failure."
           not_running: "The meeting is not running. You must wait for a moderator to join."
+          wrong_params: "Wrong params in your request."
+        external: 
+          blank_meetingid: "You must specify the meetingid of the meeting you want to join"
         param_format: "you can only use letters, numbers and the symbols \"-\" or \"_\" (not at the begin or end)"
       notice: 
         create: 
@@ -706,13 +709,13 @@ en:
       new: "Add a picture for your event"
       select: "Change your logo"
     move: 
+      change_date: "<b>Change Event Date:</b> This option lets you change your event date. You can choose a new start or end time."
       change_end_date: "Change event end date"
       change_event_end_date_div: "<b>Change event end date:</b> This option lets you expand you event time by moving the end time. This change will only affect to the event end time and won't change anything more (the sessions will remain in the same time). Use this option if you need more time after you current event end time."
       change_event_start_date_div: "<b>Change event start date:</b> This option lets you expand you event time by moving the start time. This change will only affect to the event start time and won't change anything more (the sessions will remain in the same time). Use this option if you need more time before you current event star time."
       change_start_date: "Change event start date"
       move_event: "Move event"
       move_event_div: "<b>Move Event:</b> This option lets you move you entire event. You can choose a new start time and this will affect everything on your event. <b>All the sessions in the event will change</b> their start time to mantain their relative time with the event beginning."
-      change_date: "<b>Change Event Date:</b> This option lets you change your event date. You can choose a new start or end time."
       no_change: "No change"
       out_date: "The agenda entry which title is \"%{agenda_entry}\" will be out of the event and it's not allowed. Move or edit your sessions to allow this change to be done."
     new: 
@@ -1595,6 +1598,7 @@ en:
     show_expanded_pref: "How would you like to see your messages?"
     updated: "Message updated"
     wall: Wall
+  prav: PRAV
   preferences: Preferences
   previous: Previous
   privacy: Privacy
@@ -1692,6 +1696,7 @@ en:
   resource: 
     one: Resource
     other: Resources
+  rnp: RNP
   role: 
     add: "Add role..."
     added: "%{role} role successfully added to %{agent}"

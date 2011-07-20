@@ -255,6 +255,9 @@ pt-br:
         auth: 
           failure: "Falha de autenticação."
           not_running: "A reunião ainda não começou. Você deve esperar por um moderador para participar."
+          wrong_params: "Parâmetros errados na sua requisição."
+        external: 
+          blank_meetingid: "Você deve especificar o \"meetingid\" da reunião que você deseja ingressar"
         param_format: "você pode usar apenas letras, dígitos e os símbolos \"-\" ou \"_\" (mas não no início ou fim)"
       notice: 
         create: 
@@ -705,13 +708,13 @@ pt-br:
       new: "Adicionar uma imagem para o seu evento"
       select: "Mudar seu logotipo"
     move: 
+      change_date: "<b>Alterar a Data do Evento:</b> Essa opção permite que você altere a data do seu evento. Você pode alterar a data inicial, data final ou as duas."
       change_end_date: "Alterar a data final do evento"
       change_event_end_date_div: "<b>Alterar a data final do evento:</b> Esta opção permite expandir o horário do evento movendo o horário final. Esta mudança afetará somente para o horário final do evento e nada mais (as sessões permanecerão com mesmo horário). Use esta opção se você precisar de mais tempo após o horário final do seu evento."
       change_event_start_date_div: "<b>Alterar a data final do evento:</b> Esta opção permite expandir o horário do evento movendo o horário inicial. Esta mudança afetará somente para o horário inicial do evento e nada mais (as sessões permanecerão com mesmo horário). Use esta opção se você precisar de mais tempo antes do horário inicial do seu evento."
       change_start_date: "Alterar data de início do evento"
       move_event: "Mover evento"
       move_event_div: "<b>Mover evento:</b> Esta opção permite mover seu evento. Você pode escolher um novo horário inicial e isso vai afetar tudo em seu evento. <b>Todas as sessões do evento vão mudar</b> seu horário de início para manter a relação de tempo com o início do evento."
-      change_date: "<b>Alterar a Data do Evento:</b> Essa opção permite que você altere a data do seu evento. Você pode alterar a data inicial, data final ou as duas."
       no_change: "Nenhuma mudança"
       out_date: "A entrada de agenda com título \"%{agenda_entry}\" estará fora do evento e isso não é permitido. Mova ou edite as suas sessões para permitir que essa alteração seja feita."
     new: 
@@ -1597,6 +1600,7 @@ pt-br:
     show_expanded_pref: "Como você gostaria de ver suas mensagens?"
     updated: "Mensagem atualizada"
     wall: Mural
+  prav: PRAV
   preferences: Preferências
   previous: Anterior
   privacy: Privacidade
@@ -1694,6 +1698,7 @@ pt-br:
   resource: 
     one: Recurso
     other: Recursos
+  rnp: RNP
   role: 
     add: "Adicionar função ..."
     added: "Função %{role} adicionado com sucesso a %{agent}"
