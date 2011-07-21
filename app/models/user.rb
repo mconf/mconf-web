@@ -37,7 +37,7 @@ class User < ActiveRecord::Base
   has_many :participants
   has_many :posts, :as => :author
   has_many :memberships, :dependent => :destroy
-  has_many :groups, :through => :memberships
+  #has_many :groups, :through => :memberships
 
   attr_accessible :captcha, :captcha_key, :authenticate_with_captcha
   attr_accessible :email2, :email3 , :machine_ids
@@ -142,21 +142,21 @@ class User < ActiveRecord::Base
     u && u.password_authenticated?(password) ? u : nil
   end
 
+=begin
   after_update { |user|
       if user.email_changed?
         user.groups.each do |group|
           if group.mailing_list.present?
-=begin
             delete_list(group,group.mailing_list)
             group.mail_list_archive
             copy_list(group,group.mailing_list)
-=end
             group.regenerate_lists
           end
         end
         Group.request_list_update
       end
   }
+=end
 
   def self.atom_parser(data)
     e = Atom::Entry.parse(data)

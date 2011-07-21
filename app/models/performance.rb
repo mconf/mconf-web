@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Copyright 2008-2010 Universidad Politécnica de Madrid and Agora Systems S.A.
 #
 # This file is part of VCC (Virtual Conference Center).
@@ -21,6 +22,8 @@ require_dependency "#{ Rails.root.to_s }/vendor/plugins/station/app/models/perfo
 class Performance
   after_create { |perfor|
     user = perfor.agent
+
+=begin # groups commented
     if perfor.stage.is_a?(Space) && user.is_a?(User)
       space = perfor.stage
       role = perfor.role
@@ -32,27 +35,29 @@ class Performance
             user_ids << "#{u.id}"
           end
           user_ids << "#{user.id}"
-          
+
           group.update_attributes(:user_ids => user_ids)
         end
-      end   
-      
-      #After creating the new perfomance, we regenerate the mailing lists of the groups           
+      end
+
+      #After creating the new perfomance, we regenerate the mailing lists of the groups
       perfor.stage.groups.each do |group|
         if group.mailing_list.present?
           group.regenerate_lists
         end
       end
-      
+
     end
-    
+=end
+
     if perfor.stage.is_a?(Event) && perfor.agent.is_a?(User) && !(perfor.stage.space.role_for? perfor.agent)
       Performance.create! :agent => perfor.agent,
                           :stage => perfor.stage.space,
                           :role  => Role.find_by_name("Invited")
-    end  
+    end
   }
-  
+
+=begin # groups commented
   # Regenerate groups mailing lists after update
   after_update {|p|
     if p.stage.is_a?(Space) && p.agent.is_a?(User)
@@ -63,44 +68,47 @@ class Performance
       end
     end
   }
-  
+
   # Destroy Space group memberships before leaving the Space
   before_destroy { |p|
     if p.stage.is_a?(Space) && p.agent.is_a?(User)
       p.agent.memberships.select{ |m| m.group && m.group.space == p.stage }.map(&:destroy)
     end
   }
-  
+=end
+
   # Destroy Space admission after leaving the Space
   after_destroy { |p|
-    if p.stage.is_a?(Space) && p.agent.is_a?(User)      
+    if p.stage.is_a?(Space) && p.agent.is_a?(User)
       space = p.stage
       p.stage.admissions.find_by_candidate_id_and_candidate_type(p.agent.id, p.agent.class.base_class.to_s).try(:destroy)
+=begin # groups commented
       space.groups.each do |group|
         if group.mailing_list.present?
           group.regenerate_lists
         end
       end
+=end
     end
   }
-  
-  
+
+
   # Authorize the XMPP Server reading Performances
   authorizing do |agent, permission|
     if permission == :read && agent.is_a?(XmppServer)
       true
     end
   end
-  
+
   # FIXME: provide support in Station to insert Authorization Blocks before
   authorizing do |agent, permission|
-    if agent == self.agent 
+    if agent == self.agent
       if permission == :delete
         true
       end
     end
   end
-  
+
   def to_xml(options = {})
     options[:indent] ||= 2
     xml = options[:builder] ||= Builder::XmlMarkup.new(:indent => options[:indent])

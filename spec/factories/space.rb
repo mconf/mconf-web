@@ -1,7 +1,6 @@
 Factory.define :space do |s|
   s.sequence(:name) { |n| "Space #{ n }" }
   s.description "Space description"
-  s.mailing_list_for_group "list@vcc-test.dit.upm.es"
   s.default_logo "/models/front/space.png"
   s.public true
   s.association :bigbluebutton_room

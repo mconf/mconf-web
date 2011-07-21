@@ -22,7 +22,7 @@ class Space < ActiveRecord::Base
 
   has_many :posts,  :dependent => :destroy
   has_many :events, :dependent => :destroy
-  has_many :groups, :dependent => :destroy
+  #has_many :groups, :dependent => :destroy
   has_many :news, :dependent => :destroy
   has_many :attachments, :dependent => :destroy
 #  has_many :agendas, :through => :events
@@ -35,20 +35,20 @@ class Space < ActiveRecord::Base
   acts_as_container :contents => [ :news, :posts, :attachments, :events ],
                     :sources => true
   acts_as_stage
-  attr_accessor :mailing_list_for_group
+  #attr_accessor :mailing_list_for_group
   attr_accessor :invitation_ids
   attr_accessor :invitation_mails
-  attr_accessor :group_invitation_mails
+  #attr_accessor :group_invitation_mails
   attr_accessor :invite_msg
   attr_accessor :inviter_id
-  attr_accessor :group_inv_sender_id
-  attr_accessor :group_invitation_msg
+  #attr_accessor :group_inv_sender_id
+  #attr_accessor :group_invitation_msg
   attr_accessor :invitations_role_id
   attr_accessor :default_logo
   attr_accessor :text_logo
   attr_accessor :rand_value
   attr_accessor :logo_rand
-  
+
   accepts_nested_attributes_for :bigbluebutton_room
 
   has_logo
@@ -91,11 +91,13 @@ class Space < ActiveRecord::Base
         i
       }.each(&:save)
     end
+=begin
     if space.group_invitation_mails
       space.group_invitation_mails.each { |mail|
         Informer.deliver_space_group_invitation(space,mail)
       }
     end
+=end
   end
 
 
@@ -196,16 +198,20 @@ class Space < ActiveRecord::Base
 
   def disable
     self.update_attributes(:disabled => true, :name => "#{name.split(" RESTORED").first} DISABLED #{Time.now.to_i}")
+=begin
     for group in self.groups
       Group.disable_list(group)
     end
+=end
   end
 
   def enable
     self.update_attributes(:disabled => false, :name => "#{name.split(" DISABLED").first} RESTORED")
+=begin
     for group in self.groups
       Group.enable_list(group)
     end
+=end
   end
 
   def is_last_admin?(user)
