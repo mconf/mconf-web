@@ -1,5 +1,5 @@
         <%= content_for :javascript do%>
-        
+
 selectDefaultImage = function(image){
         //$("#selected_logo_image").fadeIn();
         $("#space_image").attr('value', "default_space_logos/" + image);
@@ -15,13 +15,13 @@ selectGeneratedImage = function(image){
 //$("#selected_logo_image").attr('src', "/images/" + ($("#space_image").val()));
 
 closeUploadLogo = function(){
-        $("#default_upload_logo").hide("slow"); 
+        $("#default_upload_logo").hide("slow");
         $("#open_upload_logo_link").show();
         $("#close_upload_logo_link").hide();
 }
 
 closeTextLogo = function(){
-        $("#default_text_logo").hide("slow");   
+        $("#default_text_logo").hide("slow");
         $("#open_text_logo_link").show();
         $("#close_text_logo_link").hide();
 }
@@ -41,11 +41,11 @@ openGallery  = function (){
 openUploadLogo  = function (){
         $("#default_upload_logo").show("slow");
         $("#open_upload_logo_link").hide();
-        $("#close_upload_logo_link").show();    
+        $("#close_upload_logo_link").show();
 }
 
 openTextLogo = function(){
-        $("#default_text_logo").show("slow");   
+        $("#default_text_logo").show("slow");
         $("#open_text_logo_link").hide();
         $("#close_text_logo_link").show();
 }
@@ -63,13 +63,13 @@ $("#generate_text_logo_button").livequery('click',function(){
         });
 });
 
-        $('#select_logo_form').ajaxForm({ 
-        // target identifies the element(s) to update with the server response 
-        target: '#resultado', 
- 
-        // success identifies the function to invoke when the server response 
-        // has been received; here we apply a fade-in effect to the new content 
-        success: function() { 
+        $('#select_logo_form').ajaxForm({
+        // target identifies the element(s) to update with the server response
+        target: '#resultado',
+
+        // success identifies the function to invoke when the server response
+        // has been received; here we apply a fade-in effect to the new content
+        success: function() {
             $('#resultado').fadeIn('slow');
                         size = 188;
                         $("#croplogo").Jcrop({
@@ -79,9 +79,9 @@ $("#generate_text_logo_button").livequery('click',function(){
                                  aspectRatio: <%=Logo::ASPECT_RATIO_S%>,
                                                 setSelect: [188/4,188/4,3*188/4,3*188/4]
                 });
-                        
-                        $('#crop_logo_form').ajaxForm({ 
-                                beforeSubmit:function() {  
+
+                        $('#crop_logo_form').ajaxForm({
+                                beforeSubmit:function() {
                                         $("#selected_logo_image").attr('src', "");
                                 },
                         target: '#resultado',
@@ -91,10 +91,10 @@ $("#generate_text_logo_button").livequery('click',function(){
                                         $("#space_image").attr('value', "tmp/" + rand + "/uploaded_logo.png");
                                         $("#selected_logo_image").attr('src', "/images/" + "tmp/" + rand + "/uploaded_logo.png?" + (new Date()).getTime());
                                         closeUploadLogo();
-                        } 
+                        }
                 });
        }
-                 
+
     });
 
 
@@ -120,10 +120,10 @@ function cropImage (c){
 <% end %>
 
                 <div id="edit_logo_menu" class="button_wrapper grey_bar" style="display:none">
-                        <%=link_to ("<span>" + t('space.logo_selected.open_gallery') + "</span>").html_safe, 'javascript:closeTextLogo();closeUploadLogo();openGallery();', { :class=>"grey_button basic_button show_inv",:title => t('space.logo_selected.open_gallery')} %>
-                        <%=link_to ("<span>" + t('space.logo_selected.text_logo') + "</span>").html_safe, 'javascript:closeUploadLogo();closeGallery();openTextLogo();', { :class=>"grey_button basic_button show_inv",:title => t('space.logo_selected.text_logo')} %>
-                        <%=link_to ("<span>" + t('space.logo_selected.upload_logo') + "</span>").html_safe, 'javascript:closeTextLogo();closeGallery();openUploadLogo();', { :class=>"grey_button basic_button show_inv",:title => t('space.logo_selected.upload_logo')} %>
-                                                
+                        <%=link_to ("<span>" + t('space.logo_selected.open_gallery') + "</span>").html_safe, 'javascript:closeTextLogo();closeUploadLogo();openGallery();', { :class=>"grey_button basic_button small_button show_inv",:title => t('space.logo_selected.open_gallery')} %>
+                        <%=link_to ("<span>" + t('space.logo_selected.text_logo') + "</span>").html_safe, 'javascript:closeUploadLogo();closeGallery();openTextLogo();', { :class=>"grey_button basic_button small_button show_inv",:title => t('space.logo_selected.text_logo')} %>
+                        <%=link_to ("<span>" + t('space.logo_selected.upload_logo') + "</span>").html_safe, 'javascript:closeTextLogo();closeGallery();openUploadLogo();', { :class=>"grey_button basic_button small_button show_inv",:title => t('space.logo_selected.upload_logo')} %>
+                        &nbsp;
                 </div>
 
         <div id='default_text_logo' style="display:none">
@@ -158,7 +158,7 @@ function cropImage (c){
         <%= form_for :logo,  :html => {:method => :post,:id =>"select_logo_form", :multipart => true, :name => "space_new_form"}, :url => {:controller => :logos, :action => :new, :upload => :yes} do |f| %>
                 <%= t("space.logo_selected.upload_logo_text")%><br>
         <%= f.file_field :media, :class=>"file file1 basic_button blue_button" %>
-                
+
         <%= f.hidden_field  "rand" %><br>
         <input id ="upload_logo_button" type="submit" class = "basic_button blue_button" value="<%=t("space.logo_selected.upload_text")%>" /><% end %>
         <div id = "resultado">

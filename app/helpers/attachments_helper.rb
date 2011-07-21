@@ -6,7 +6,7 @@ module AttachmentsHelper
     #html << link_to(image_tag("icons/comment.png", :alt => t('post.one'),:class=>"icon"), space_post_path(@space,attachment.post)) if attachment.post.present?
     #html << link_to(image_tag("icons/date.png", :alt => t('date.one'),:class=>"icon"), space_event_path(@space,attachment.event)) if attachment.event.present?
     #html
-    
+
     html=""
 
     html << if attachment.authorize?(:read,:to => current_user)
@@ -24,31 +24,31 @@ module AttachmentsHelper
             else
               image_tag("icons/pencil.png", :title=>t('login_request' + 'tag.edit'),:class=>"icon fade")
             end
-    
+
     if attachment.authorize?(:delete, :to => current_user)
       html << link_to(image_tag("icons/cancel.png", :title => t('delete.one'), :class =>"icon can_delete"), space_attachment_path(attachment.space,attachment), {:method => :delete, :confirm => t('delete.confirm', :element => t('attachment.one'))}, :class=>"no-dot")
       row[:class] += " can_delete"
     else
       html <<  image_tag("icons/cancel.png", :title => t('delete.one'), :class =>"icon fade")
     end
-       
-    html
-   
+
+    html.html_safe
+
   end
-  
+
   def sortable_header(title,column)
     html = title
     html << " "
     html << link_to(((params[:direction] == 'desc' and column == params[:order]) ? image_tag("down_or.png") : image_tag("down.png")), path_for_attachments({:order => column, :direction => 'desc'}), :class => "sortable table_params desc#{"_active" if (params[:direction] == 'desc' and column == params[:order]) }" )
     html << " "
     html << link_to(((params[:direction] == 'asc' and column == params[:order]) ? image_tag("up_or.png") : image_tag("up.png")), path_for_attachments({:order => column, :direction => 'asc'}), :class => "sortable table_params desc#{"_active" if (params[:direction] == 'asc' and column == params[:order]) }" )
-    html  
+    html.html_safe
   end
-  
+
   def version_attachment(attachments)
-    
+
     versioned_attachment_ids = expand_versions_to_array
-    
+
     att_version_array = attachments.clone
 
     if versioned_attachment_ids.present?
@@ -63,9 +63,9 @@ module AttachmentsHelper
       end
     end
 
-    att_version_array 
+    att_version_array
   end
-  
+
   def path_for_attachments(p={})
     direction = p[:direction].present? ? p[:direction] : params[:direction]
     order = p[:order].present? ? p[:order] : params[:order]
@@ -77,9 +77,9 @@ module AttachmentsHelper
     else
       url_for(:space_id => @space,:direction => direction, :order => order, :query => query, :expand_versions => expand_versions.uniq.join(","), :tags => tags.uniq.join(","))
     end
-      
+
   end
-  
+
   def options_for_fcbkcomplete(collection,value,text,selected=nil)
     html=""
     collection.each do |t|
@@ -87,22 +87,22 @@ module AttachmentsHelper
     end
     html
   end
-  
+
   def attachment_link(attachment, show_filename = true)
     text = show_filename ? truncate(attachment.filename, :length => 28) : t('download_file')
     link_to text, space_attachment_path(attachment.space,attachment, :format => :all), :title => "#{attachment.filename} (#{attachment.size/1024} kb)"
   end
-  
+
   private
-  
+
   def expand_versions_to_array
     params[:expand_versions].present? ? params[:expand_versions].split(",").map(&:to_i) : Array.new
   end
-  
+
   def tags_to_array
     params[:tags].present? ? params[:tags].split(",").map(&:to_i) : Array.new
   end
-  
+
   def tags_list tag_array
     html = "<ul class=\"holder\">"
     tag_array.each do |tag|
@@ -110,12 +110,12 @@ module AttachmentsHelper
     end
     html << "</ul>"
   end
-  
+
   def tag_count(elements, less=[], p={})
     order = p[:order] || "popularity"
-    
+
     tags_with_duplicates = elements.map(&:tags).flatten.compact - less
-    
+
     #Count elements
     count = Hash.new(0)
     tags_with_duplicates.each do |tag|
@@ -128,6 +128,6 @@ module AttachmentsHelper
     else
       count.keys.sort{|x,y| count[y] <=> count[x]}.map{|t| {:tag=> t, :count => count[t]}}
     end
-    
+
   end
 end

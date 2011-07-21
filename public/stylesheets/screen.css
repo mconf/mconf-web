@@ -1497,13 +1497,19 @@ input#agenda_entry_title,#agenda_entry_description,#agenda_entry_embedded_video{
 .profile_center .grey_bar{margin-bottom:0;background:#E1EEF5;border:none;}
 #jar{position:relative;margin-top:0.75em;}
 
+.grey_bar #first_button_group{
+  margin-right: 5px;
+  padding-right: 5px;
+  border-right: 1px solid #ccc;
+}
 .grey_bar span#selected_info{
   float:left;
   display:block;
   font-size:93%;
   color:#717171;
   line-height:18px;
-  padding:5px 7px 3px 6px;}
+  padding: 2px 10px;
+}
 
 #orange_bar{background: transparent url("../images/linea_naranja.png") repeat-x;overflow:visible;}
 #orange_bar ul{list-style-type:none;margin:0 0 0.75em 0;position:relative;clear:both;overflow:hidden;border:1px solid #FFA903;}

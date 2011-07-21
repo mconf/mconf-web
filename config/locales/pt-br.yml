@@ -1896,6 +1896,8 @@ pt-br:
     disable: "Desativar a comunidade"
     disabled: "Comunidade desativada com sucesso"
     does_not_belong: "não pertence a qualquer comunidade"
+    edit: 
+      webconference_passwords: "Senhas da sala de webconferência"
     edit_description: "editar descrição"
     edit_name: "editar nome"
     enable: "Habilitar comunidade"

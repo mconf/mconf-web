@@ -1890,6 +1890,8 @@ en:
     disable: "Disable space"
     disabled: "Space disabled successfully"
     does_not_belong: "does not belong to any space"
+    edit: 
+      webconference_passwords: "Webconference room passwords"
     edit_description: "edit description"
     edit_name: "edit name"
     enable: "Enable space"

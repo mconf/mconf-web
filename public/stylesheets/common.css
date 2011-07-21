@@ -123,8 +123,8 @@ button#change_logo{float:left;}
 .grey_button span:hover{background:url("../images/buttons/grey-button.png") repeat-x scroll 0% 100%;}
 .grey_button span{border:1px solid #999;}*/
 .separator{color:#ccc;padding:4px 1px;float:left;margin-right:4px;}
-/*-------------disabled grey buttons-----------*/
-.grey_bar .disabled_button{opacity:0.6;font-size:95%;line-height:18px;float:left;display:block;margin-right:4px;cursor:default;font-weight:bold;}
+/*-------------disabled grey buttons-----------
+.grey_bar .disabled_button{opacity:0.6;font-size:95%;line-height:18px;float:left;display:block;margin-right:4px;cursor:default;font-weight:bold;}*/
 .grey_bar #feeds_link{margin-right:6px;}
 
 /*BUTTON COLOURS*/
@@ -230,6 +230,10 @@ input[type=submit].red_button, button.red_button, a.red_button {
 input[type=submit].red_button:hover, button.red_button:hover, a.red_button:hover {
   background:url("../images/buttons/leave-space-notext4.png");
   color: white;
+}
+
+input[type=submit].disabled_button, button.disabled_button, a.disabled_button {
+  opacity:0.6;
 }
 
 /* SMALL */
