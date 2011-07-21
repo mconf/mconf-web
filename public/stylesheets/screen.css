@@ -728,8 +728,8 @@ input#user_selector,input#event_group_invitation_mails,textarea#invite_personal,
 a.invitation_tab{padding:7px 10px;display:inline-block;outline:none;}
 a.selected_invitation_tab{background:#fff;}
 .invite_tab{position:relative;overflow:hidden;display:block;clear:both;}
-#event_step_cancel_buttons{width:110px;margin-left:auto;margin-right:auto;margin-top:8px;}
-.event_step_cancel_buttons{width:110px;margin-left:auto;margin-right:auto;margin-top:8px;}
+#event_step_cancel_buttons{float:right;margin-left:auto;margin-right:auto;margin-top:8px;}
+.event_step_cancel_buttons{float:right;margin-left:auto;margin-right:auto;margin-top:8px;}
 
 .update_logo .logo_content{padding-top:10px;}
 #more_invitations, #more_notifications #more_join_requests, {width:645px;margin-bottom:1.5em;}

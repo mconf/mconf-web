@@ -34,17 +34,17 @@
             <%if params[:in_steps] %>
               <div id="lightbox_advise"><%= t('event.cancel.lose') %></div>
               <div id="event_step_cancel_buttons">
-                <%= link_to "<span>" + t('button.accept') + "</span>" , space_event_path(@space, @event),{:method => :delete, :class => "basic_button blue_button", :id=>"button_yes"} %>
+                <%= link_to ("<span>" + t('button.accept') + "</span>").html_safe , space_event_path(@space, @event),{:method => :delete, :class => "basic_button blue_button", :id=>"button_yes"} %>
             <%else %>
               <div id="lightbox_advise"><%= t('event.cancel.stop') %></div>
               <div id="event_step_cancel_buttons">
-                <%= link_to "<span>" + t('button.accept') + "</span>" , space_event_path(@space, @event),{:class => "basic_button blue_button", :id=>"button_yes"} %>
+                <%= link_to ("<span>" + t('button.accept') + "</span>").html_safe , space_event_path(@space, @event),{:class => "basic_button blue_button", :id=>"button_yes"} %>
             <%end %>
-          <%= link_to "<span>" + t('button.cancel') + "</span>", "javascript:our_close();" ,:class => "basic_button blue_button", :id=>"button_no" %>
+                <%= link_to ("<span>" + t('button.cancel') + "</span>").html_safe, "javascript:our_close();" ,:class => "basic_button blue_button", :id=>"button_no" %>
               </div>
           </div>
         </div>
-        
+
         <div id="for_lightbox" style="display:none">
         </div>
 
@@ -52,22 +52,22 @@
         @files.delete(".")
         @files.delete("..")
         %>
-        
+
         <%= render :partial => "edit_new_logo"  %>
-        
+
         <%= form_for(:event, :url => space_event_path(@space, @event), :html => {:method => :put, :multiple => "multiple", :autocomplete=>"off" }) do |f| -%>
           <%= f.hidden_field "rand_value" %>
           <%= render :partial => "edit_new_form", :locals => {:f => f} %>
-          
+
           <ul class="margin-up event_form_buttons">
             <button type="submit" id="create_event_button" class="basic_button blue_button">
               <%= t("button.edit") %>
             </button>
-              
+
             <button id="wait_create_event_button" class="basic_button blue_button">
               <%=t("button.editing") %>
             </button>
-              
+
             <%= link_to ("<span>" + t('cancel') + "</span>").html_safe, "#sure_form",:class => "basic_button blue_button", :id=>"cancel_event" %>
           </ul>
 

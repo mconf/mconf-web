@@ -38,19 +38,19 @@
     <label for="Description">
       <%= t('description') %>:
     </label>
-    <%=f.text_area :description %>
+    <%=f.text_area :description, :rows => 14 %>
   </div>
   <!--
   <div class="margin-up">
     <label for="Organizer">
-      <%= 
-        #t('organizer') %>: <%=image_tag('icons/help.png',:class=>'icon',:tooltip=>t('tooltip.organisers')) 
+      <%=
+        #t('organizer') %>: <%=image_tag('icons/help.png',:class=>'icon',:tooltip=>t('tooltip.organisers'))
       %>
     </label>
     <div id="holder">
       <select id="organizers_name" multiple="multiple" name="event[new_organizers][]">
         <%=
-          #options_for_select_with_class_selected(@space.users.map{|u| [u.full_name, u.login]}, event.organizers.map{|u| u.login}) 
+          #options_for_select_with_class_selected(@space.users.map{|u| [u.full_name, u.login]}, event.organizers.map{|u| u.login})
         %>
       </select>
     </div>
@@ -94,7 +94,7 @@
         <label for="end_time">
           <%= t('event.time.end') %>
         </label>
-        <%= 
+        <%=
           #I18n.localize(@event.end_date)
         %>
         <%= f.datetime_select :end_date, {:start_year => Time.zone.now.year, :disabled => true, :minute_step => Agenda::SLOT_VALUES[1], :default => Agenda.next_time_slot_for_drop_down + 2.hours} %>
@@ -104,28 +104,28 @@
   <!--  <div class="margin-up">
     <div class="without_javascript event_info" id="change_event_end_date_div" style="display:none">
       <div class="change_event_date_info">
-        <%= 
+        <%=
           #I18n.t('event.move.change_event_end_date_div').html_safe
         %>
       </div>
       <div class="margin-up">
         <label for="start_time">
-          <%= 
-            #t('event.time.start') 
+          <%=
+            #t('event.time.start')
           %>
         </label>
-        <%= 
-          #I18n.localize(@event.start_date) 
+        <%=
+          #I18n.localize(@event.start_date)
         %>
       </div>
       <div class="margin-up">
         <label for="end_time">
-          <%= 
-            #t('event.time.end') 
+          <%=
+            #t('event.time.end')
           %>
         </label>
-        <%= 
-          #f.datetime_select :end_date, {:start_year => Time.zone.now.year, :disabled => true, :minute_step => Agenda::SLOT_VALUES[1], :default => Agenda.next_time_slot_for_drop_down + 2.hours} 
+        <%=
+          #f.datetime_select :end_date, {:start_year => Time.zone.now.year, :disabled => true, :minute_step => Agenda::SLOT_VALUES[1], :default => Agenda.next_time_slot_for_drop_down + 2.hours}
         %>
       </div>
     </div>

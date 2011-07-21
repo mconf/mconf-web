@@ -100,7 +100,7 @@ describe Event do
       end_date = @event.end_date
       @event.update_attributes(:edit_date_action => "move_event", :start_date => start_date + relative_time)
       assert_equal(@event.start_date,start_date + relative_time)
-      assert_equal(@event.end_date,end_date + relative_time)
+      assert_equal(@event.end_date,end_date)
     end
 
     it "should change the start date" do
@@ -138,11 +138,7 @@ describe Event do
         @event.should be_valid
         assert_equal(@event.edit_date_action,"move_event")
         assert_equal(@event.start_date,start_date + relative_time)
-        assert_equal(@event.end_date,end_date + relative_time)
-        @agenda_entry = AgendaEntry.find(@agenda_entry.id)
-        @agenda_entry.should be_valid
-        assert((@agenda_entry.start_time - (start_time + relative_time)).abs < 1.second)
-        assert((@agenda_entry.end_time - (end_time + relative_time)).abs < 1.second)
+        assert_equal(@event.end_date,end_date)
       end
 
       it "should not move the agenda entries in an event when changing its start date" do
