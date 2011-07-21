@@ -266,9 +266,13 @@ body .icon{margin-bottom:-2px;}
 #prefs{font-size:0.9166em;line-height:1.6363;font-weight:bold;position:relative;float:right;padding-top: 3px;}
 ul#prefs {list-style-type:none;margin:0;}
 #prefs li{margin-left:8px;display:inline;}
-#prefs a{color:#f0f0f0;}
+#prefs a, #prefs span{color:#f0f0f0;}
 #prefs .new{font-weight:bold;color:#A52A2A;}
 #prefs a:hover{text-decoration:underline;}
+#prefs li.divider {
+  color: #ccc;
+  opacity: 0.8;
+}
 
 #main{margin-right:15px;margin-left:15px;margin-bottom:1.5em;}
 #sidebar{float:left;width:240px;padding-right:10px;margin-bottom:1.5em;}
