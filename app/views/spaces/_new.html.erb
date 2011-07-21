@@ -286,18 +286,6 @@ function cropImage (c){
         </div>
         <% end %>
       </div>
-
-      <!--
-          <div id='check_mail' class="check_mail_blinking">
-            <%= check_box_tag(:mail) %><label for="mailing_list"><%= t('mailing_list.associate') %></label>
-            <%=image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"icon",:style=>"cursor:pointer",:tooltip=> t("tooltip.mailing_list"))%>
-            </div>
-
-    <div id='mail_group' class="mail_group_blinking" style="display:none">
-      <label for="e-mail_group">vcc-<%=f.text_field(:mailing_list_for_group, :size =>10, :maxlength=>25 )%>@<%= current_site.domain %></label>
-    </div>
-    -->
-
       <%
          @files = Dir.entries("public/images/default_space_logos/")
          images_for_row = 5 # number of images per row

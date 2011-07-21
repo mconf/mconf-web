@@ -1,4 +1,4 @@
-	
+
 /*
  * Create new space
  */
@@ -10,9 +10,9 @@ $("#create_and_login_link").livequery("click", function(){
         {authenticity_token: "<%=form_authenticity_token()%>"},
         function(data){
           $("#create_space").replaceWith(data);
-					$("#fancy_outer").height($("#create_space").height() + 50);
+                                        $("#fancy_outer").height($("#create_space").height() + 50);
           $("#mail_group").hide();
-					$(window).resize();
+                                        $(window).resize();
         }
       );
 });
@@ -24,9 +24,9 @@ $("#create_and_register_link").livequery("click", function(){
         {authenticity_token: "<%=form_authenticity_token()%>"},
         function(data){
           $("#create_space").replaceWith(data);
-					$("#fancy_outer").height($("#create_space").height() + 50);
+                                        $("#fancy_outer").height($("#create_space").height() + 50);
           $("#mail_group").hide();
-					$(window).resize(); 
+                                        $(window).resize();
         }
       );
 });
@@ -34,18 +34,17 @@ $("#create_and_register_link").livequery("click", function(){
 $("#mail_group").hide();
 
   $("#show_icons").livequery("click", function(){
-	  $("#show_default_icons").show();
-	  $("#show_icons").hide();
-	  $(window).resize();
-	});
+          $("#show_default_icons").show();
+          $("#show_icons").hide();
+          $(window).resize();
+        });
 
 $("#mail").livequery("click", function(){
   if($("#mail").attr("checked")){
-	  $("#mail_group").show("slow");
-	}else{
-	  $("#mail_group").hide("slow");
-	  $("#space_mailing_list_for_group").attr('value', "");  
-	}
+          $("#mail_group").show("slow");
+        }else{
+          $("#mail_group").hide("slow");
+        }
 });
 
 
@@ -56,26 +55,26 @@ $("#mail").livequery("click", function(){
  */
 
 $("a.join_and_login_link").livequery("click", function(){
-  var route = "/spaces/" + $(this).attr("name") +"/join_requests/new" 
+  var route = "/spaces/" + $(this).attr("name") +"/join_requests/new"
   $.get(route,
         {authenticity_token: "<%=form_authenticity_token()%>"},
         function(data){
           $("#join_div").replaceWith(data);
-					$("#fancy_outer").height($("#join_div").height() + 50);
-					$(window).resize(); 
+                                        $("#fancy_outer").height($("#join_div").height() + 50);
+                                        $(window).resize();
         }
       );
   return false;
 });
 
 $("a.join_and_register_link").livequery("click", function(){
-	var route = "/spaces/" + $(this).attr("name") +"/join_requests/new?register=true"
+        var route = "/spaces/" + $(this).attr("name") +"/join_requests/new?register=true"
   $.get(route,
         {authenticity_token: "<%=form_authenticity_token()%>"},
         function(data){
           $("#join_div").replaceWith(data);
-					$("#fancy_outer").height($("#join_div").height() + 50);
-					$(window).resize(); 
+                                        $("#fancy_outer").height($("#join_div").height() + 50);
+                                        $(window).resize();
         }
       );
   return false;
@@ -99,8 +98,8 @@ $("a.join_and_register_link").livequery("click", function(){
 openid = function(){
   $(".openid_form").show();
   $("#openid_link").hide();
-	$("#fancy_outer").height($("#login_div").height() + 50);
-	$(window).resize(); 
+        $("#fancy_outer").height($("#login_div").height() + 50);
+        $(window).resize();
 };
 
 $("a.login_lightbox_link").livequery("click", function(){
@@ -110,8 +109,8 @@ $("a.login_lightbox_link").livequery("click", function(){
         {authenticity_token: "<%=form_authenticity_token()%>"},
         function(data){
           $("#login_div").replaceWith(data);
-					$("#fancy_outer").height($("#login_div").height() + 50);
-					$(window).resize(); 
+                                        $("#fancy_outer").height($("#login_div").height() + 50);
+                                        $(window).resize();
         }
       );
 });
@@ -122,7 +121,7 @@ $("a.login_lightbox_link").livequery("click", function(){
  /*
   * $("a#feedback_link").fancybox({
   *  'hideOnContentClick' : false,
-  *	 'frameWidth' : 450,
+  *      'frameWidth' : 450,
   *    'frameHeight' : <%=logged_in? ? '430' : '470'%>
   *  });
   */
@@ -135,7 +134,7 @@ $("a.login_lightbox_link").livequery("click", function(){
         e.preventDefault();
         $("#language_select ul#language_menu").toggle();
         $("#language_select .language_select").toggleClass("menu-open");
-        
+
         $(document).mouseup(function(e) {
           if($(e.target).parent("#language_select a.language_select").length==0) {
             $("#language_select .language_select").removeClass("menu-open");
@@ -156,7 +155,7 @@ $("a.login_lightbox_link").livequery("click", function(){
         e.preventDefault();
         $("#support_select ul#support_menu").toggle();
         $("#support_select .support_select").toggleClass("menu-open");
-        
+
         $(document).mouseup(function(e) {
           if($(e.target).parent("#support_select a.support_select").length==0) {
             $("#support_select .support_select").removeClass("menu-open");
@@ -177,7 +176,7 @@ $("a.login_lightbox_link").livequery("click", function(){
         e.preventDefault();
         $("#browse_select ul#browse_menu").toggle();
         $("#browse_select .browse_select").toggleClass("menu-open");
-        
+
         $(document).mouseup(function(e) {
           if($(e.target).parent("#browse_select a.browse_select").length==0) {
             $("#browse_select .browse_select").removeClass("menu-open");
@@ -194,7 +193,7 @@ $("a.login_lightbox_link").livequery("click", function(){
  /*
  * Report Spam
  */
-/* 
+/*
 *$("a.spam_link").fancybox({
 *  'hideOnContentClick' : false
 *});
@@ -215,10 +214,10 @@ $("a.login_lightbox_link").livequery("click", function(){
     $(".div_login").show();
   };
 
-	 /*
+         /*
   Qtip style for the tooltips
   */
-  
+
   $.fn.qtip.styles.mystyle = { // Last part is the name of the style
       width: 350,
       padding: 5,
@@ -231,36 +230,36 @@ $("a.login_lightbox_link").livequery("click", function(){
          color: '#244974'
    },
    position: { adjust: { resize: true } },
-	 tip: true,
+         tip: true,
    name: 'dark' // Inherit the rest of the attributes from the preset dark style
     }
-    
-    
+
+
    $('.whyte_wrapper img[tooltip]').each(function()
    {
       $(this).qtip({
          content: $(this).attr('tooltip'), // Use the tooltip attribute of the element for the content
-			   position: {adjust: { screen: true }},
-			   show:  'mouseover',
-			   hide: { when: 'mouseout', fixed: true },
+                           position: {adjust: { screen: true }},
+                           show:  'mouseover',
+                           hide: { when: 'mouseout', fixed: true },
          style: 'mystyle' // Give it a crea mstyle to make it stand out
       });
    });
-   
+
    $('.whyte_wrapper div[tooltip]').each(function()
    {
       $(this).qtip({
          content: $(this).attr('tooltip'), // Use the tooltip attribute of the element for the content
-			   position: {adjust: { screen: true }},
-			   show:  'mouseover',
-			   hide: { when: 'mouseout', fixed: true },
+                           position: {adjust: { screen: true }},
+                           show:  'mouseover',
+                           hide: { when: 'mouseout', fixed: true },
          style: 'mystyle' // Give it a crea mstyle to make it stand out
       });
    });
-   
+
   $('#space_logo img.tooltip_update_logo').qtip({
    content: '<%=t("tooltip.event_logo")%>',
-	 position: {adjust: { screen: true }},
+         position: {adjust: { screen: true }},
    show:  'mouseover',
    hide: { when: 'mouseout', fixed: true },
    style: 'mystyle'
