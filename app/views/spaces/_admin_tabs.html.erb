@@ -12,5 +12,7 @@
     #link_to image_tag("icons/feed.png",:id=>"feeds_link",:class=>"icon left-align",:alt=> t('RSS'),:title=> t('RSS')), space_news_index_path(@space, :format => :atom) 
   %>
   <%= link_to ("<span>" + t('news.other').upcase + "</span>").html_safe, space_news_index_path(@space), :class => "basic_button small_button" %>
-  <%= link_to ("<span>" + t('source.other') + "</span>").html_safe, space_sources_path(@space), :class => "basic_button small_button" %>
+  <%=
+    #link_to ("<span>" + t('source.other') + "</span>").html_safe, space_sources_path(@space), :class => "basic_button small_button" 
+  %>
 </div>
