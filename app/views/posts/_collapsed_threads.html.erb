@@ -14,38 +14,38 @@
   
   <%unless today.empty?%>
     <div id="line">
-		<span class="bold">Today</span>
+		  <span class="bold">Today</span>
     </div>
   <%end%>
   <% today.each do |thread| -%>
-  <%= render :partial => "thread" , :locals => {:thread => thread, :extended => false,:last => thread == today_last} %>
+    <%= render :partial => "thread" , :locals => {:thread => thread, :extended => false,:last => thread == today_last} %>
   <% end -%>
   
   <%unless yesterday.empty?%>
     <div id="line">
-		<span class="bold">Yesterday</span>
+		  <span class="bold">Yesterday</span>
     </div>
   <%end%>
   <% yesterday.each do |thread| -%>
-  <%= render :partial => "thread" , :locals => {:thread => thread, :extended => false,:last => thread == yesterday_last} %>
+    <%= render :partial => "thread" , :locals => {:thread => thread, :extended => false,:last => thread == yesterday_last} %>
   <% end -%>
   
   <%unless last_week.empty?%>
     <div id="line">
-		<span class="bold">Last Week</span>
+		  <span class="bold">Last Week</span>
     </div>
   <%end%>
   <% last_week.each do |thread| -%>
-  <%= render :partial => "thread" , :locals => {:thread => thread, :extended => false,:last => thread == last_week_last} %>
+    <%= render :partial => "thread" , :locals => {:thread => thread, :extended => false,:last => thread == last_week_last} %>
   <% end -%>
   
   <%unless older.empty?%>
     <div id="line">
-		<span class="bold">Old Items</span>
+		  <span class="bold">Old Items</span>
     </div>
   <%end%>
   <% older.each do |thread| -%>
-  <%= render :partial => "thread" , :locals => {:thread => thread, :extended => false,:last => thread == older_last} %>
+    <%= render :partial => "thread" , :locals => {:thread => thread, :extended => false,:last => thread == older_last} %>
   <% end -%>
   
 </div>

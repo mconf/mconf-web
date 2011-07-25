@@ -25,42 +25,52 @@
   <div id="full_sidebar">
   	<%if !logged_in?%>
       <div id="event_register" class="button_wrapper margin-up">
-        <%= link_to "<span>" + t('register.and_participate') + "</span>",signup_path("user[special_event_id]" => (@event.id).to_s) ,:class => "register_link big_button orange_button"%>
+        <%= link_to ("<span>" + t('register.and_participate') + "</span>").html_safe,signup_path("user[special_event_id]" => (@event.id).to_s) ,:class => "register_link big_button orange_button"%>
       </div>
-	  <p class="big_margin_down_40 note"><%= t('register.and_participate_description_with_login', :url => login_path ) %></p>
-	<%elsif event.authorize?(:update, :to => current_user) %>
+	    <p class="big_margin_down_40 note">
+        <%= t('register.and_participate_description_with_login', :url => login_path ).html_safe %>
+      </p>
+	  <%elsif event.authorize?(:update, :to => current_user) %>
 	    <%=render :partial => "actions"%>
-	<%elsif event.is_happening_now? %>
-	    <p class="big_margin_down_40 note"><%= t('event.note.not_organizer_during') %></p>
-	<%elsif event.past?%>
-	    <p class="big_margin_down_60 note"><%= t('event.note.not_organizer_after', :date => @event.start_date.strftime("%d %b %Y")) %></p>
-	<%elsif  @event.start_date%>
-	    <p class="note"><%= t('event.note.not_organizer_before', :date => @event.start_date.strftime("%d %b %Y")) %></p>
-	<%else%>
-	    <p class="note"><%= t('event.note.not_organizer_no_date') %></p>
-	<%end%>
+	  <%elsif event.is_happening_now? %>
+	    <p class="big_margin_down_40 note">
+        <%= t('event.note.not_organizer_during').html_safe %>
+      </p>
+	  <%elsif event.past?%>
+	    <p class="big_margin_down_60 note">
+        <%= t('event.note.not_organizer_after', :date => @event.start_date.strftime("%d %b %Y")).html_safe %>
+      </p>
+	  <%elsif  @event.start_date%>
+	    <p class="note">
+        <%= t('event.note.not_organizer_before', :date => @event.start_date.strftime("%d %b %Y")).html_safe %>
+      </p>
+	  <%else%>
+	    <p class="note">
+        <%= t('event.note.not_organizer_no_date').html_safe %>
+      </p>
+	  <%end%>	
 	
-	
-	
-	<%if params[:edit_comment]%>
+    <%if params[:edit_comment]%>
 	    <%= render(:partial => "posts/edit_post", :locals => { :post => Post.find(params[:edit_comment]) }) if @space.authorize?([:create, :content],:to => current_user) %>
     <%elsif params[:show_streaming] || params[:show_participation]%>
       <%=render :partial => "video_online"%>
-	  <%= render :partial => 'participants' %>
+	    <%= render :partial => 'participants' %>
     <%else%>	  
       <%= render :partial => 'participants' %>	  
-  <%end%>  
+    <%end%>  
            
-  <%if event.authorize?(:update, :to => current_user) %>
-    <!-- <%= render :partial => "change_logo" %> -->
-    <%= render :partial => "import_icalendar" %>      
-  <%end%>
+    <%if event.authorize?(:update, :to => current_user) %>
+      <%= 
+        #render :partial => "change_logo" 
+      %>
+      <%= render :partial => "import_icalendar" %>      
+    <%end%>
 
 
-  <div id="event_views" class="share_insert">
-    <span class="separated_5"><%=@event.unique_pageviews%></span><%=t('statistics.event_views')%>
-    <%=image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_num_views icon",:style=>"cursor:pointer")%>
-  </div>
+    <div id="event_views" class="share_insert">
+      <span class="separated_5"><%=@event.unique_pageviews%></span><%=t('statistics.event_views')%>
+      <%=image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_num_views icon",:style=>"cursor:pointer")%>
+    </div>
 	
   </div> 
     

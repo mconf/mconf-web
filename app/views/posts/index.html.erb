@@ -157,8 +157,6 @@ $("a.big_new_thread_link").fancybox({
 
 /*Reply*/
 
-
-
 $("#new_attachment_big_link").livequery('click',function () {
   $(".big_options").removeClass("selected");
   $(this).addClass("selected");
@@ -167,8 +165,6 @@ $("#new_attachment_big_link").livequery('click',function () {
   $(window).resize();
   return false;
 });
-
-
 
 <%= render :partial => 'fckeditor_functions' %>
 
@@ -182,16 +178,15 @@ $("#new_attachment_big_link").livequery('click',function () {
 
   <%= render :partial => 'spaces/sidebar' %>
         
-  <%if @space.authorize?([:create, :content],:to => current_user)%>
-        
-        <% if params[:reply_to]%>
-                <%= render :partial => "new_post", :locals => {:p_id=> Post.find(params[:reply_to]).id, :id => "reply-form"} %>
-        <% elsif params[:edit] %>
-                <%= render :partial => "edit_post", :locals => { :post => Post.find(params[:edit]) } %>
-        <%else%>
-        <%= render :partial => "new_post", :locals => {:id => "thread-form" }%>
-        <%end%>  
-        <% end %>
+  <%if @space.authorize?([:create, :content],:to => current_user)%>      
+    <% if params[:reply_to]%>
+      <%= render :partial => "new_post", :locals => {:p_id=> Post.find(params[:reply_to]).id, :id => "reply-form"} %>
+    <% elsif params[:edit] %>
+      <%= render :partial => "edit_post", :locals => { :post => Post.find(params[:edit]) } %>
+    <%else%>
+      <%= render :partial => "new_post", :locals => {:id => "thread-form" }%>
+    <%end%>  
+  <% end %>
 <% end %>
 
 <!-- Content -->
