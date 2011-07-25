@@ -84,8 +84,8 @@ class EventsController < ApplicationController
         format.html {render :partial=> "online_event", :layout => "conference_layout"} # show.html.erb
         format.xml  { render :xml => @event }
         format.js 
-        format.ics {name = "agenda_" + @event.name + ".ics"
-          send_data @event.to_ics, :filename => "#{name}"}
+        #format.ics {name = "agenda_" + @event.name + ".ics"
+          #send_data @event.to_ics, :filename => "#{name}"}
         #format.pdf { 
         #  
         #  @event.to_pdf(params[:small_version])
@@ -153,10 +153,12 @@ class EventsController < ApplicationController
         
         format.html # show.html.erb
         format.xml  {render :xml => @event }
-        format.ics {
-          name = "agenda_" + @event.name + ".ics"
-          send_data @event.to_ics, :filename => "#{name}"
-        }
+
+                
+        #format.ics {
+        #  name = "agenda_" + @event.name + ".ics"
+        #  send_data @event.to_ics, :filename => "#{name}"
+        #}
         #format.pdf {
         #  @event.to_pdf(params[:small_version])
         #  
@@ -378,8 +380,7 @@ class EventsController < ApplicationController
     @future_events = @events.select{|e| e.start_date.future?}
     @past_events = @events.select{|e| e.start_date.past?}.sort!{|x,y| y.start_date <=> x.start_date} #Los eventos pasados van en otro inversos
   end
-  
-  
+=begin
   def export_ical
       calen = Vpim::Icalendar.create2
       calen.add_event do |e|
@@ -393,7 +394,7 @@ class EventsController < ApplicationController
       send_data icsfile, :filename => "#{@event.name}.ics"      
       
   end
-
+=end
   def events
       @events = (Event.in(@space).all :order => "start_date ASC")
     
