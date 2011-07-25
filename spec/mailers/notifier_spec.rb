@@ -247,7 +247,7 @@ describe Notifier do
         :candidate => @registered_user.full_name,
         :space => @space.name,
         :comment => "Accept my solicitation",
-        :url =>  space_admissions_url(@space.name),
+        :url =>  space_admissions_url(@space),
         :contact => Site.current.email,
         :feedback => new_feedback_url(),
         :signature => Site.current.signature_in_html

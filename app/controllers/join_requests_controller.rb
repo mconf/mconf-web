@@ -61,7 +61,6 @@ class JoinRequestsController
           return
         end
       end
-
       self.current_agent = User.authenticate_with_login_and_password(params[:user][:email], params[:user][:password])
       unless logged_in?
         flash[:error] = t('error.credentials')
@@ -76,6 +75,7 @@ class JoinRequestsController
     end
 
     if space.users.include?(current_agent)
+      
       flash[:notice] = t('join_request.joined')
       if request.xhr?
         render :partial=> "redirect.js.erb", :locals => {:url => space_path(space)}
