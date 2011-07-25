@@ -14,16 +14,16 @@
 <div class="user">
   <%if detailed_user.profile!.authorize?(:read, :to=> current_user) && current_user != detailed_user %>
     <ul class="user-actions">
-      <%if @space.present?%>
+      <% if @space.present? && logged_in? %>
         <li><%= "#{link_to t('user.private_message'), new_user_message_path(:user_id => current_user.to_param, :receiver => detailed_user.id), :id => 'new_private_message_link'}".html_safe %></li>
-      <%end%>
-        <li><%=mail_to(detailed_user.email,t('user.email'))%></li>
+      <% end %>
+      <li><%=mail_to(detailed_user.email,t('user.email'))%></li>
     </ul>
   <%end%>
-  
+
 
   <div><%= raw(link_logo(detailed_user, :size => 32, :url => user_path(detailed_user), :title=>detailed_user.name)) %></div>
-  
+
   <div class="user_data">
     <ul>
       <li class="person_title"><%=link_to(highlight(detailed_user.full_name.blank? ? "" : detailed_user.full_name, params[:query]), user_path(detailed_user)) %></li>

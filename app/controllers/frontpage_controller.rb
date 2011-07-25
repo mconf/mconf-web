@@ -48,7 +48,7 @@ class FrontpageController < ApplicationController
 
       # spaces with webconferences running
       spaces_ids = @server.meetings.select{ |m| m.owner_type == "Space" }.map{ |m| m.owner_id }
-      @running_spaces = Space.find(spaces_ids).select{ |s| s.public? }
+      @running_spaces = Space.find_all_by_id(spaces_ids).select{ |s| s.public? }
       @running_spaces.each do |space|
         space.bigbluebutton_room.fetch_meeting_info
       end
