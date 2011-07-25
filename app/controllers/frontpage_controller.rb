@@ -36,12 +36,15 @@ class FrontpageController < ApplicationController
 
     # Fetch the meetings running in the server and order by participant_count
     # TODO Temporarily using the first server
+    @stats = {}
+    @running_spaces = []
+    @popular_spaces = []
+
     @server = BigbluebuttonServer.first
     begin
       @server.fetch_meetings
 
       # statistics
-      @stats = {}
       @stats[:meetings] = @server.meetings.select { |m| m.is_running? }.count
       @stats[:users] = User.count
       @stats[:spaces] = Space.count
