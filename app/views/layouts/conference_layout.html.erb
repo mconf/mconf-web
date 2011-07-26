@@ -7,13 +7,12 @@
     <title><%= content_for?(:title) ? yield(:title) : current_site.name %></title>
     <link href="/favicon.ico" rel="shortcut icon" />
 
-
     <%= stylesheet_link_tag "screen", :media => "screen, projection" %>
     <%= stylesheet_link_tag "conference", :media => "screen, projection" %>
     <%= stylesheet_link_tag "calendar", :media => "screen, projection" %>
     <%= stylesheet_link_tag "jquery.fancybox", :media => "screen, projection" %>
-          <%= stylesheet_link_tag "timeentry", :media => "screen, projection" %>
-          <%= stylesheet_link_tag "print", :media => "print" %>
+    <%= stylesheet_link_tag "timeentry", :media => "screen, projection" %>
+    <%= stylesheet_link_tag "print", :media => "print" %>
     <%= stylesheet_link_tag "token-input-facebook", :media => "screen, projection" %>
 
     <!--[if IE]>
@@ -29,40 +28,41 @@
       })
     </script>
 
-                <%= yield :headers %>
+    <%= yield :headers %>
   </head>
 
-        <body>
-          <div id="site">
-                  <%= render :partial => "layouts/global" %>
+  <body>
+    <div id="site">
+      <%= render :partial => "layouts/global" %>
 
-                  <div id="space">
-                    <div id="header">
-                      <%= render :partial => "layouts/header" %>
-                    </div>
+      <div id="space">
+        <div id="header">
+          <%= render :partial => "layouts/header" %>
+        </div>
 
-                    <div id="content">
-                      <div id="selector">
-                      <%= render :partial => "layouts/selector" %>
-                      </div>
-
-                      <div id="main">
-                        <div id="menu">
-                          <%= render :partial => "layouts/menu" %>
-                        </div>
-                        <div id="embed">
-                        <% flash.each do |name, msg| %>
-                          <div class="<%= name %>"><%= msg.html_safe %></div>
-            <% end %>
-
-                    <%= yield %>
-                      </div>
-                          </div>
-                </div>
-      <%= render :partial => "layouts/footer" %>
+        <div id="content">
+          <div id="selector">
+            <%= render :partial => "layouts/selector" %>
           </div>
 
-          </div>
+          <div id="main">
+            <div id="menu">
+              <%= render :partial => "layouts/menu" %>
+            </div>
+            <div id="embed">
+              <% flash.each do |name, msg| %>
+              <div class="<%= name %>"><%= msg.html_safe %></div>
+              <% end %>
 
-        </body>
+              <%= yield %>
+            </div>
+          </div>
+        </div>
+        <%= render :partial => "layouts/footer" %>
+      </div>
+
+    </div>
+
+    <%= render :partial => "layouts/analytics" %>
+  </body>
 </html>
