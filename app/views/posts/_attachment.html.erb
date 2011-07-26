@@ -12,6 +12,13 @@
 
 <div class="newAttachment">
   <%= f.file_field :uploaded_data, :class => "file file_1", :size => 14 %>
-           <div id="newTag"><span><%=t('tag.new')%>: <%=image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_new_tag icon",:style=>"cursor:pointer")%></span></div>
-     <div><%= f.select(:_tags, @space.tags.map{|u| u.name}, {}, {:multiple=>"multiple"})%></div>
+  <div id="newTag">
+    <span>
+      <%=t('tag.new')%>: 
+      <%=image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_new_tag icon",:style=>"cursor:pointer")%>
+    </span>
+  </div>
+  <div>
+    <%= f.select(:_tags, @space.tags.map{|u| u.name}, {}, {:multiple=>"multiple"})%>
+  </div>
 </div>

@@ -39,9 +39,20 @@ class AttachmentsController < ApplicationController
   def edit_tags
     @attachment = Attachment.find(params[:id])
   end
+  
+  def destroy
+    attachment
+    
+    if attachment.delete
+      flash[:success] = I18n.t("attachment.deleted")
+    else
+      flash[:error] = I18n.t("attachment.error.not_deleted")
+    end
+    
+    redirect_to space_attachments_path(@space)
+  end
 
   def delete_collection
-    
     if params[:attachment_ids].blank?
       flash[:error] = "Malformed request"  
       redirect_to space_attachments_path(@space)
