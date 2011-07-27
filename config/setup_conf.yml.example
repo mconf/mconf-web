@@ -47,8 +47,8 @@ default:
   exception_notification_prefix: "[mconf-web error] "                              # Prefix added in the email subject
   exception_notification_recipients: "my-email@server.com my-email2@server.com"    # Space-separated list of emails
 
-  # Google Analytics identifier. Use the format: "UA-12345678-9". Leave it empty to disable.
-  analytics_code: ""                       # Google Analytics tracking code. Leave it empty to disable.
+  # Google Analytics identifier.
+  analytics_code: ""                       # Google Analytics tracking code. Leave it empty to disable. Use the format: "UA-12345678-9".
 
 # Configurations for each environment
 # You can find below the sections for each environment available.

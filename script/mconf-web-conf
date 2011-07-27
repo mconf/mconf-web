@@ -13,8 +13,8 @@
 #   2011-07-05 - LCD - Inital Version
 #
 # TODO:
-#   * Install nginx in a machine already with nginx installed (BBB VM)
 #   * --check
+#   * --setip (?)
 #   * ssh keys for production?
 #   * Improve the require_* functions
 #   * See other TODO: markers in the code
@@ -36,10 +36,13 @@ DEVELOPMENT_SRC_PATH=~/dev/source/mconf-web             # local directory where 
 DEVELOPMENT_REPO=git://github.com/mconf/mconf-web.git   # used to checkout the dev environment (not for production)
 DEVELOPMENT_BRANCH=master                               # branch to be checked out
 
-NGINX_VERSION=1.0.0                                     # default version for nginx installed by passenger
-NGINX_DAEMON=/opt/nginx/sbin/nginx                      # default path for nginx installed by passenger
+NGINX_VERSION=1.0.0                                     # default version for Nginx (used by Passenger)
+NGINX_DAEMON=/opt/nginx/sbin/nginx                      # default path for the nginx daemon (used by Passenger)
+APACHE_VERSION=2.2.14                                   # default version for Apache
+APACHE_DAEMON=/usr/sbin/apache2                         # default path for the apache2 daemon
+APACHE_PATH=/etc/apache2                                # default path for Apache
 
-PRODUCTION_PATH=~/mconf-web/                            # local directory for production
+PRODUCTION_PATH=~/mconf-web                             # local directory for production
                                                         # (this is defined in mconf-web/config/deploy.rb, see the vars "application" and "deploy_to")
 
 GEM_BUNDLER_VERSION=1.0.15                              # bundler version
@@ -436,7 +439,6 @@ nginx_install() {
     sudo curl https://raw.github.com/mconf/mconf-web/master/config/nginx.init.example -o /etc/init.d/nginx
 
     # configures /opt/nginx/conf/nginx.conf
-    # TODO: only do it if the file is not already configured
     TEMP=`mktemp`
     curl https://raw.github.com/mconf/mconf-web/master/config/nginx.1.0.conf.example -o $TEMP
     sudo sed -i "s/server_name .*;/server_name $IP;/g" $TEMP
@@ -450,6 +452,52 @@ nginx_check_version() {
     echo "Nginx:"
     echo "  version: $NGINX_VERSION"
     echo "  at: $NGINX_DAEMON"
+}
+
+apache_check() {
+    REPLY=
+    APACHE_VERSION=
+    APACHE_DAEMON=`which apache2`
+    if [ $APACHE_DAEMON ]; then
+	APACHE_VERSION=`$APACHE_DAEMON -v 2>&1 | head -1 | sed 's/^.*\/\(.*\) .*$/\1/'`
+	REPLY=1
+    fi
+}
+
+# Installs apache using passenger
+apache_install() {
+    echo "-- Installing Apache2 and other dependencies"
+    # system package dependencies
+    dependencies_include_package_list
+    install_dependencies "${PACKAGES_APACHE[*]}"
+
+    # echo "-- Installing the Passenger module for Apache"
+    rvm_source_it
+    rvm use $RVM_RUBY_VERSION@$RVM_PRODUCTION_GEMSET
+    rvmsudo passenger-install-apache2-module -a
+
+    echo "-- Configuring Apache to enable Passenger and Mconf-Web"
+
+    # enable the rewrite module and passenger
+    sudo ln -f -s $APACHE_PATH/mods-available/rewrite.load $APACHE_PATH/mods-enabled/rewrite.load &>/dev/null
+    rvmsudo passenger-install-apache2-module --snippet | sudo tee /etc/apache2/conf.d/mconf-passenger &>/dev/null
+
+    # configures and creates the mconf-web virtual host
+    TEMP=`mktemp`
+    curl https://raw.github.com/mconf/mconf-web/master/config/apache2.conf.example -o $TEMP
+    sudo sed -i "s#ServerName .*#ServerName $IP#g" $TEMP
+    sudo sed -i "s#DocumentRoot .*#DocumentRoot $PRODUCTION_PATH/current/public#g" $TEMP
+    sudo sed -i "s#<Directory .*>#<Directory $PRODUCTION_PATH/current/public>#g" $TEMP
+    sudo mv $TEMP $APACHE_PATH/sites-available/mconf-web
+    sudo ln -f -s $APACHE_PATH/sites-available/mconf-web $APACHE_PATH/sites-enabled/mconf-web &>/dev/null
+}
+
+# Echoes the apache version
+apache_check_version() {
+    apache_check
+    echo "Apache:"
+    echo "  version: $APACHE_VERSION"
+    echo "  at: $APACHE_DAEMON"
 }
 
 # Setup the gem environment for production
@@ -839,27 +887,85 @@ if [ $SETUP_PROD ]; then
     echo "-- Setting up gemset and gems for production"
     setup_prod_setup_gemenv
 
-    # installs nginx only if it's not installed yet
-    nginx_check
-    if [ $REPLY ]; then
-        echo
-        echo "--------------------------------------------------------------------------------"
-        echo "You appear to have nginx already installed at $NGINX_DAEMON"
-        echo "Do you want to install it anyway?"
-        echo "Choose no to keep the current version (you will have to configure it manually)"
-        echo "--------------------------------------------------------------------------------"
-        read -p "(y/N)?"
-        if [[ $REPLY == [yY] ]]; then
+    # TODO:
+    # check for BBB
+    # if BBB
+      # warn that apache should be used
+        # bbb-conf --setip <IP>:8888                  # change bbb port
+        # sudo rm /etc/nginx/sites-enabled/default    # disable anything using the port 80 in nginx
+        # sudo rm /etc/apache2/sites-enabled/*        # and in apache
+        # point the user to a wiki page to show how to configure mconf-web to use the local bbb server
+
+      # if the user wants nginx, point to the wiki page
+    # else ...
+      
+    echo
+    echo "--------------------------------------------------------------------------------"
+    echo "You can run Mconf-Web either on Apache or Nginx (default: Apache)."
+    echo "Select one option below:"
+    echo "--------------------------------------------------------------------------------"
+    REPLY=
+    while [ ! $REPLY ]; do
+	read -p "(1) APACHE or (2) Nginx? "
+	if [[ $REPLY != [12] ]]; then
+	    REPLY=
+	fi
+    done
+
+    # Nginx
+    if [[ $REPLY == [2] ]]; then
+	nginx_check
+	if [ $REPLY ]; then
+            echo
+            echo "--------------------------------------------------------------------------------"
+            echo "You appear to have nginx already installed at $NGINX_DAEMON"
+            echo "Do you want to install it anyway?"
+            echo "Choose no to keep the current version (you will have to configure it manually)"
+            echo "--------------------------------------------------------------------------------"
+            read -p "(y/N)? "
+	    echo
+            if [[ $REPLY == [yY] ]]; then
+		echo "-- Installing nginx"
+		nginx_install
+            else
+		echo "-- Using the nginx already installed:"
+		nginx_check_version
+		exit 0
+		# TODO: Point to the wiki page showing how to configure nginx
+            fi
+	else
+            echo
             echo "-- Installing nginx"
             nginx_install
-        else
-            echo "-- Using the nginx already installed:"
-            nginx_check_version
-        fi
+	fi
 
+    # Apache
     else
-        echo "-- Installing nginx"
-        nginx_install
+	apache_check
+	if [ $REPLY ]; then
+            echo
+            echo "--------------------------------------------------------------------------------"
+            echo "You appear to have Apache already installed at $APACHE_DAEMON"
+            echo "Do you want to install it anyway?"
+            echo "Choose no to keep the current version (you will have to configure it manually)"
+            echo "--------------------------------------------------------------------------------"
+            read -p "(y/N)? "
+	    echo
+            if [[ $REPLY == [yY] ]]; then
+		echo "-- Installing Apache"
+		apache_install
+            else
+		echo "-- Using the Apache already installed:"
+		apache_check_version
+		exit 0
+		# TODO: Point to the wiki page showing how to configure Apache
+            fi
+	else
+            echo
+            echo "-- Installing Apache"
+            apache_install
+	fi
+
     fi
 
     print_banner "Production environment setup finished."
@@ -965,7 +1071,7 @@ if [ $DEPLOY_FIRST_TIME ]; then
         echo "You appear to already have a production environment at $PRODUCTION_PATH"
         echo "Do you want to setup over it anyways? If you say yes your DB will be erased!"
         echo "--------------------------------------------------------------------------------"
-        read -p "Proceed? (y/N)?"
+        read -p "Proceed? (y/N)? "
         if [[ $REPLY == [yY] ]]; then
             echo "-- Starting the first deploy (with capistrano)"
             capistrano_setup_all
