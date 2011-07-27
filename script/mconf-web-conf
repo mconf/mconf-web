@@ -227,8 +227,13 @@ config_yml_file_with_review() {
         echo "--------------------------------------------------------------------------------"
         echo_yml_file $1 ${PARAMS[*]}
         echo "--------------------------------------------------------------------------------"
-        read -p "Do you need to edit these configurations again? (y/n)"
+        read -p "Do you need to edit these configurations again? (y/N)"
     done
+}
+
+# Makes rvm visible to this script
+rvm_source_it() {
+    source "$HOME/.rvm/scripts/rvm"
 }
 
 # Check if rvm is installed
@@ -237,10 +242,10 @@ rvm_check() {
     echo "-- Checking if RVM is installed"
 
     REPLY=
-    which rvm
+    which rvm >/dev/null
     if [ $? = 0 ]; then
-        RVM_TYPE=`type rvm | head -1`
-        if [ "$RVM_TYPE" = "rvm is a function" ]; then
+        rvm_source_it
+        if [ "`type rvm | head -1`" = "rvm is a function" ]; then
             REPLY=1
         else
             echo "-- RVM not loaded!"
@@ -250,15 +255,11 @@ rvm_check() {
     fi
 }
 
-# Makes rvm visible to this script
-rvm_require() {
-    source "$HOME/.rvm/scripts/rvm"
-}
-
 # Installs the base of RVM
 # TODO: install RVM as root?
 rvm_install() {
-    install_dependencies "curl git"
+    install_dependency curl
+    install_dependency git
 
     echo "-- Downloading and installing RVM version $RVM_VERSION"
     curl -s https://rvm.beginrescueend.com/install/rvm -o rvm-installer ; chmod +x rvm-installer ; ./rvm-installer --version $RVM_VERSION
@@ -268,7 +269,7 @@ rvm_install() {
     if ! cat ~/.profile | grep -q ".rvm/scripts/rvm"; then
       echo '[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm" # Load RVM function' >> ~/.profile
     fi
-    rvm_require
+    rvm_source_it
     # bash < <(curl -s https://rvm.beginrescueend.com/install/rvm) # to install the latest version only
 }
 
@@ -331,12 +332,22 @@ deployed_application_check() {
     # TODO: also check if the app is configured (check config/setup_conf.yml possibly)
 }
 
+# Exits if RVM is not installed
+# Ensures --install-ruby was called
+require_rvm() {
+    rvm_check
+    if [ ! $REPLY ]; then
+        print_error_banner "You need RVM installed to run this command. Please run this script with the option --install-ruby."
+        exit 1
+    fi
+}
+
 # Exits if the source code was checked out
 # Ensures --checkout was called
 require_checkout() {
     checkout_get_version_from_repo
     if [ ! $REPLY ]; then
-        print_error_banner "You need the source code to run this command. Please, run this script with the option --checkout to get the code."
+        print_error_banner "You need the source code to run this command. Please run this script with the option --checkout to get the code."
         exit 1
     fi
 }
@@ -368,25 +379,23 @@ require_deployed_application() {
 
 # Includes a file with the list of dependencies for mconf-web
 # This file is in the source code dir, at config/packages.<platformname>
-# TODO: get the package list from github if there's no local repo?
-dependencies_include_package_list_from_source() {
-    if [ -d $DEVELOPMENT_SRC_PATH ]; then
-        if [ -f $DEVELOPMENT_SRC_PATH/config/packages.$PLATFORM ]; then
-            source $DEVELOPMENT_SRC_PATH/config/packages.$PLATFORM
-        else
-            print_error_banner "Package list not found! $DEVELOPMENT_SRC_PATH/script/packages.$PLATFORM"
-            exit 1
-        fi
+dependencies_include_package_list() {
+    # first search in the local repository
+    if [ -d $DEVELOPMENT_SRC_PATH -a -f $DEVELOPMENT_SRC_PATH/config/packages.$PLATFORM ]; then
+        source $DEVELOPMENT_SRC_PATH/config/packages.$PLATFORM
+
+    # if there's no local repo, get the dependencies from github
     else
-        print_error_banner "You need the source code to run this command. Please, run this script with the option --checkout to get the code."
-        exit 1
+        TEMP=`mktemp`
+        sudo curl https://raw.github.com/mconf/mconf-web/master/config/packages.ubuntu -o $TEMP
+        source $TEMP
     fi
 }
 
 # Install the gem $1
 gem_install()
 {
-    rvm_require
+    rvm_source_it
     if [[ $# -ge 2 ]]; then
         GEM_VERSION="-v ${2}"
     fi
@@ -418,7 +427,7 @@ nginx_install() {
     # FIXME: There's something with .rvmrc that requires us to call these 2 lines again
     # or rvmsudo won't be found
     # install passenger in the dev environment
-    rvm_require
+    rvm_source_it
     rvm use $RVM_RUBY_VERSION@$RVM_PRODUCTION_GEMSET
     rvmsudo passenger-install-nginx-module --auto --auto-download --prefix=/etc/nginx
     # TODO: to uninstall nginx, we'll have to install it from source? (--nginx-source-dir=DIR --extra-configure-flags=STRING)
@@ -446,8 +455,7 @@ nginx_check_version() {
 # Setup the gem environment for production
 # Basically creates a gemset and installs some gems
 setup_prod_setup_gemenv() {
-    cd $DEVELOPMENT_SRC_PATH
-    rvm_require
+    rvm_source_it
 
     # Ruby is already installed for the dev environment, so we just need the gemset and gems
     rvm use $RVM_RUBY_VERSION
@@ -461,7 +469,7 @@ setup_prod_setup_gemenv() {
 # First setup of a production environment
 capistrano_setup_all() {
     cd $DEVELOPMENT_SRC_PATH
-    rvm_require
+    rvm_source_it
     rvm use $RVM_RUBY_VERSION@$RVM_GEMSET
     cap production setup:all -s auto_accept=1
 }
@@ -470,7 +478,7 @@ capistrano_setup_all() {
 # Restarts the deployed application
 capistrano_deploy_restart() {
     cd $DEVELOPMENT_SRC_PATH
-    rvm_require
+    rvm_source_it
     rvm use $RVM_RUBY_VERSION@$RVM_GEMSET
     cap production deploy:restart -s auto_accept=1
 }
@@ -479,7 +487,7 @@ capistrano_deploy_restart() {
 # Updates the deployed application code and runs the migrations
 capistrano_deploy_update() {
     cd $DEVELOPMENT_SRC_PATH
-    rvm_require
+    rvm_source_it
     rvm use $RVM_RUBY_VERSION@$RVM_GEMSET
     cap production deploy:migrations -s auto_accept=1
 }
@@ -714,12 +722,46 @@ if [ $RUBY ]; then
         print_banner "RVM/Ruby installed successfully."
     else
         print_error_banner "Something went wrong installing ruby. Check the messages above and try again."
+        exit 1
     fi
 fi
 
 
 #
-# Setup the development environemnt.
+# Mconf-Web system packages
+#
+
+if [ $DEPENDENCIES ]; then
+    check_root
+
+    dependencies_include_package_list
+
+    DEPENDENCIES_ENV="`echo $DEPENDENCIES_ENV|tr '[:lower:]' '[:upper:]'`" # var to upper case
+
+    # if not set, installs both environments
+    if [ ! $DEPENDENCIES_ENV ]; then
+        echo "-- Installing dependencies for DEVELOPMENT and PRODUCTION"
+        install_dependencies "${PACKAGES_DEVELOPMENT[*]}"
+        install_dependencies "${PACKAGES_PRODUCTION[*]}"
+    elif [ "$DEPENDENCIES_ENV" = "PRODUCTION" -o "$DEPENDENCIES_ENV" = "PROD" ]; then
+        echo "-- Installing dependencies for PRODUCTION only"
+        install_dependencies "${PACKAGES_PRODUCTION[*]}"
+    elif [ "$DEPENDENCIES_ENV" = "DEVELOPMENT" -o "$DEPENDENCIES_ENV" = "DEV" ]; then
+        echo "-- Installing dependencies for DEVELOPMENT only"
+        install_dependencies "${PACKAGES_DEVELOPMENT[*]}"
+
+    # wrong parameter, show error
+    else
+        print_error_banner "Invalid environment: \"$DEPENDENCIES_ENV\". See the help for more information."
+        exit 1
+    fi
+
+    print_banner "Dependencies installed successfully."
+fi
+
+
+#
+# Checkout the source code.
 #
 
 if [ $CHECKOUT ]; then
@@ -754,39 +796,6 @@ fi
 
 
 #
-# Mconf-Web system packages
-#
-
-if [ $DEPENDENCIES ]; then
-    check_root
-
-    dependencies_include_package_list_from_source
-
-    DEPENDENCIES_ENV="`echo $DEPENDENCIES_ENV|tr '[:lower:]' '[:upper:]'`" # var to upper case
-
-    # if not set, installs both environments
-    if [ ! $DEPENDENCIES_ENV ]; then
-        echo "-- Installing dependencies for DEVELOPMENT and PRODUCTION"
-        install_dependencies "${PACKAGES_DEVELOPMENT[*]}"
-        install_dependencies "${PACKAGES_PRODUCTION[*]}"
-    elif [ "$DEPENDENCIES_ENV" = "PRODUCTION" -o "$DEPENDENCIES_ENV" = "PROD" ]; then
-        echo "-- Installing dependencies for PRODUCTION only"
-        install_dependencies "${PACKAGES_PRODUCTION[*]}"
-    elif [ "$DEPENDENCIES_ENV" = "DEVELOPMENT" -o "$DEPENDENCIES_ENV" = "DEV" ]; then
-        echo "-- Installing dependencies for DEVELOPMENT only"
-        install_dependencies "${PACKAGES_DEVELOPMENT[*]}"
-
-    # wrong parameter, show error
-    else
-        print_error_banner "Invalid environment: \"$DEPENDENCIES_ENV\". See the help for more information."
-        exit 1
-    fi
-
-    print_banner "Dependencies installed successfully."
-fi
-
-
-#
 # Setup the development environment
 # Install gems, run rake tasks, setup config files
 #
@@ -797,7 +806,7 @@ if [ $SETUP_DEV ]; then
     require_checkout
 
     cd $DEVELOPMENT_SRC_PATH
-    rvm_require
+    rvm_source_it
     rvm use $RVM_RUBY_VERSION@$RVM_GEMSET
 
     echo "-- Installing gems"
@@ -825,7 +834,7 @@ fi
 if [ $SETUP_PROD ]; then
     check_root
 
-    require_dev_environment
+    require_rvm
 
     echo "-- Setting up gemset and gems for production"
     setup_prod_setup_gemenv
@@ -833,33 +842,13 @@ if [ $SETUP_PROD ]; then
     # installs nginx only if it's not installed yet
     nginx_check
     if [ $REPLY ]; then
-
-        #case $NGINX_VERSION in
-            #1.0.0)
-                # warn the user and ask
-                # install nginx anyway
-                # just configure it
-                #;;
-            #*)
-                # if is_bigbluebutton_machine; then
-                    # warning that nginx should be removed and a new version will be installed
-                    # install new version
-                    # configure nginx with mconf-web and bbb
-                # else
-                    # warn the user and ask
-                    # install nginx anyway
-                    # just configure it
-                # fi
-                #;;
-        #esac
-
         echo
         echo "--------------------------------------------------------------------------------"
         echo "You appear to have nginx already installed at $NGINX_DAEMON"
         echo "Do you want to install it anyway?"
         echo "Choose no to keep the current version (you will have to configure it manually)"
         echo "--------------------------------------------------------------------------------"
-        read -p "(y/n)?"
+        read -p "(y/N)?"
         if [[ $REPLY == [yY] ]]; then
             echo "-- Installing nginx"
             nginx_install
@@ -976,7 +965,7 @@ if [ $DEPLOY_FIRST_TIME ]; then
         echo "You appear to already have a production environment at $PRODUCTION_PATH"
         echo "Do you want to setup over it anyways? If you say yes your DB will be erased!"
         echo "--------------------------------------------------------------------------------"
-        read -p "Proceed? (y/n)?"
+        read -p "Proceed? (y/N)?"
         if [[ $REPLY == [yY] ]]; then
             echo "-- Starting the first deploy (with capistrano)"
             capistrano_setup_all
@@ -989,7 +978,7 @@ if [ $DEPLOY_FIRST_TIME ]; then
         capistrano_setup_all
     fi
 
-    print_banner "Application deployed."
+    print_banner "Application deployment finished."
 fi
 
 
