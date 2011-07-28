@@ -25,7 +25,7 @@
 
 IP=$(ifconfig | grep -v '127.0.0.1' | grep -E "[0-9]*\.[0-9]*\.[0-9]*\.[0-9]*" | head -1 | cut -d: -f2 | awk '{print $1}') # local IP got from ifconfig
 
-MCONF_WEB_VERSION="0.2"                                 # The version of this script
+MCONF_WEB_CONF_VERSION="0.2"                            # The version of this script
 
 RVM_VERSION=1.6.21                                      # to fix the RVM version to be installed
 RVM_RUBY_VERSION=1.9.2                                  # Ruby version
@@ -42,6 +42,8 @@ APACHE_VERSION=2.2.14                                   # default version for Ap
 APACHE_DAEMON=/usr/sbin/apache2                         # default path for the apache2 daemon
 APACHE_PATH=/etc/apache2                                # default path for Apache
 
+BIGBLUEBUTTON_ALT_PORT=8888                             # alternative port for BigBlueButton if necessary
+
 PRODUCTION_PATH=~/mconf-web                             # local directory for production
                                                         # (this is defined in mconf-web/config/deploy.rb, see the vars "application" and "deploy_to")
 
@@ -57,7 +59,7 @@ SETUP_VM_PORT=8888                                      # default port for BigBl
 #
 
 usage() {
-    echo "Mconf-Web Configuration Utility - Version $MCONF_WEB_VERSION"
+    echo "Mconf-Web Configuration Utility - Version $MCONF_WEB_CONF_VERSION"
     echo "http://code.google.com/p/mconf"
     echo
     echo "   mconf-web-conf [commands] [options]"
@@ -108,6 +110,22 @@ check_root() {
         echo "If this operation needs to execute an operation as root, you'll be asked for"
         echo "your password to execute the operation using sudo."
         exit 1
+    fi
+}
+
+# Is this the BigBlueButton VM?
+is_bigbluebutton_vm() {
+    if [ -f /home/firstuser/.profile ]; then
+        echo $(cat /home/firstuser/.profile | grep BigBlueButton)
+    fi
+}
+
+is_bigbluebutton_installed() {
+    REPLY=
+    # This is how bbb-conf checks for BigBlueButton. But we also check for the package "bigbluebutton".
+    BBB_CONFIG=/usr/share/red5/webapps/bigbluebutton/WEB-INF/red5-web.xml
+    if dpkg-query -s bigbluebuttons > /dev/null 2>&1 || [ -f $BBB_CONFIG ]; then
+        REPLY=1
     fi
 }
 
@@ -444,6 +462,8 @@ nginx_install() {
     sudo sed -i "s/server_name .*;/server_name $IP;/g" $TEMP
     sudo sed -i "s>root .*;>root $PRODUCTION_PATH/current/public;>g" $TEMP
     sudo sed -i "/http.*{/ r $TEMP" /opt/nginx/conf/nginx.conf
+
+    sudo /etc/init.d/nginx restart
 }
 
 # Echoes the nginx version
@@ -459,8 +479,8 @@ apache_check() {
     APACHE_VERSION=
     APACHE_DAEMON=`which apache2`
     if [ $APACHE_DAEMON ]; then
-	APACHE_VERSION=`$APACHE_DAEMON -v 2>&1 | head -1 | sed 's/^.*\/\(.*\) .*$/\1/'`
-	REPLY=1
+        APACHE_VERSION=`$APACHE_DAEMON -v 2>&1 | head -1 | sed 's/^.*\/\(.*\) .*$/\1/'`
+        REPLY=1
     fi
 }
 
@@ -481,6 +501,7 @@ apache_install() {
     # enable the rewrite module and passenger
     sudo ln -f -s $APACHE_PATH/mods-available/rewrite.load $APACHE_PATH/mods-enabled/rewrite.load &>/dev/null
     rvmsudo passenger-install-apache2-module --snippet | sudo tee /etc/apache2/conf.d/mconf-passenger &>/dev/null
+    sudo rm $APACHE_PATH/sites-enabled/*
 
     # configures and creates the mconf-web virtual host
     TEMP=`mktemp`
@@ -490,6 +511,8 @@ apache_install() {
     sudo sed -i "s#<Directory .*>#<Directory $PRODUCTION_PATH/current/public>#g" $TEMP
     sudo mv $TEMP $APACHE_PATH/sites-available/mconf-web
     sudo ln -f -s $APACHE_PATH/sites-available/mconf-web $APACHE_PATH/sites-enabled/mconf-web &>/dev/null
+
+    sudo /etc/init.d/apache2 restart
 }
 
 # Echoes the apache version
@@ -737,7 +760,7 @@ done
 
 if [ $VERSION ]; then
     echo
-    echo "Script version: $MCONF_WEB_VERSION"
+    echo "Script version: $MCONF_WEB_CONF_VERSION"
     checkout_get_version_from_repo
     if [ $REPLY ]; then
         echo "Found a repository set with the version: $REPLY"
@@ -879,6 +902,77 @@ fi
 # Setup the production environment
 #
 
+setup_prod_install_server_choosen() {
+    # Nginx
+    if [[ $REPLY == [2] ]]; then
+        nginx_check
+        if [ $REPLY ]; then
+            echo
+            echo "--------------------------------------------------------------------------------"
+            echo "You appear to have nginx already installed at $NGINX_DAEMON"
+            echo "Do you want to install it anyway?"
+            echo "Choose no to keep the current version (you will have to configure it manually)"
+            echo "--------------------------------------------------------------------------------"
+            read -p "(y/N)? "
+            echo
+            if [[ $REPLY == [yY] ]]; then
+                echo "-- Installing nginx"
+                nginx_install
+            else
+                echo "-- Using the nginx already installed:"
+                nginx_check_version
+                echo
+                echo "For help on how to configure it, see:"
+                echo "   http://code.google.com/p/mconf/wiki/MconfWebDeploymentManual"
+                echo
+                exit 0
+            fi
+        else
+            echo
+            echo "-- Installing nginx"
+            nginx_install
+        fi
+
+    # Apache
+    elif [[ $REPLY == [1] ]]; then
+        apache_check
+        if [ $REPLY ]; then
+            echo
+            echo "--------------------------------------------------------------------------------"
+            echo "You appear to have Apache already installed at $APACHE_DAEMON"
+            echo "Do you want to install it anyway?"
+            echo "Choose no to keep the current version (you will have to configure it manually)"
+            echo "--------------------------------------------------------------------------------"
+            read -p "(y/N)? "
+            echo
+            if [[ $REPLY == [yY] ]]; then
+                echo "-- Installing Apache"
+                apache_install
+            else
+                echo "-- Using the Apache already installed:"
+                apache_check_version
+                echo
+                echo "For help on how to configure it, see:"
+                echo "   http://code.google.com/p/mconf/wiki/MconfWebDeploymentManual"
+                echo
+                exit 0
+            fi
+        else
+            echo
+            echo "-- Installing Apache"
+            apache_install
+        fi
+
+    else
+        echo
+        echo "-- No web server will be installed."
+        echo
+        echo "For help on how to setup a web server, see:"
+        echo "   http://code.google.com/p/mconf/wiki/MconfWebDeploymentManual"
+        echo
+    fi
+}
+
 if [ $SETUP_PROD ]; then
     check_root
 
@@ -887,86 +981,60 @@ if [ $SETUP_PROD ]; then
     echo "-- Setting up gemset and gems for production"
     setup_prod_setup_gemenv
 
-    # TODO:
-    # check for BBB
-    # if BBB
-      # warn that apache should be used
-        # bbb-conf --setip <IP>:8888                  # change bbb port
-        # sudo rm /etc/nginx/sites-enabled/default    # disable anything using the port 80 in nginx
-        # sudo rm /etc/apache2/sites-enabled/*        # and in apache
-        # point the user to a wiki page to show how to configure mconf-web to use the local bbb server
-
-      # if the user wants nginx, point to the wiki page
-    # else ...
-      
-    echo
-    echo "--------------------------------------------------------------------------------"
-    echo "You can run Mconf-Web either on Apache or Nginx (default: Apache)."
-    echo "Select one option below:"
-    echo "--------------------------------------------------------------------------------"
-    REPLY=
-    while [ ! $REPLY ]; do
-	read -p "(1) APACHE or (2) Nginx? "
-	if [[ $REPLY != [12] ]]; then
-	    REPLY=
-	fi
-    done
-
-    # Nginx
-    if [[ $REPLY == [2] ]]; then
-	nginx_check
-	if [ $REPLY ]; then
-            echo
-            echo "--------------------------------------------------------------------------------"
-            echo "You appear to have nginx already installed at $NGINX_DAEMON"
-            echo "Do you want to install it anyway?"
-            echo "Choose no to keep the current version (you will have to configure it manually)"
-            echo "--------------------------------------------------------------------------------"
-            read -p "(y/N)? "
-	    echo
-            if [[ $REPLY == [yY] ]]; then
-		echo "-- Installing nginx"
-		nginx_install
-            else
-		echo "-- Using the nginx already installed:"
-		nginx_check_version
-		exit 0
-		# TODO: Point to the wiki page showing how to configure nginx
+    is_bigbluebutton_installed
+    if [ $REPLY ]; then
+        echo
+        echo "--------------------------------------------------------------------------------"
+        echo "You appear to have BigBlueButton installed on this machine and it already"
+        echo "comes with Nginx installed. Please choose one of the options below:"
+        echo "  (1) Automatically install Apache for Mconf-Web. BigBlueButton will use the"
+        echo "      already existent and configured Nginx. (recommended)"
+        echo "  (2) Manually configure Nginx to run Mconf-Web and BigBlueButton. We will"
+        echo "      point you to a wiki page showing how to do that."
+        echo "--------------------------------------------------------------------------------"
+        REPLY=
+        while [ ! $REPLY ]; do
+            read -p "(1) APACHE, (2) Manual Nginx, (3) Don't install a web server ? "
+            if [[ $REPLY != [123] ]]; then
+                REPLY=
             fi
-	else
+        done
+        if [[ $REPLY == [1] ]]; then
             echo
-            echo "-- Installing nginx"
-            nginx_install
-	fi
+            echo "--------------------------------------------------------------------------------"
+            echo "  Setting BigBlueButton port to $BIGBLUEBUTTON_ALT_PORT."
+            echo "  You can change it later using \"bbb-conf --setip\""
+            echo "--------------------------------------------------------------------------------"
+            echo
+            sudo rm /etc/nginx/sites-enabled/default           # Disable the default server using the port 80 in nginx
+            sudo bbb-conf --setip $IP:$BIGBLUEBUTTON_ALT_PORT  # Changing the BBB port
+            # TODO: point the user to a wiki page to show how to configure mconf-web to use the local bbb server
+        elif [[ $REPLY == [2] ]]; then
+            echo
+            echo "You have choosen to use Mconf-Web with Nginx."
+            echo
+            echo "For help on how to setup the web server, see:"
+            echo "   http://code.google.com/p/mconf/wiki/MconfWebDeploymentWithBigBlueButtonAndNginx"
+            echo
+            exit 1
+        fi
 
-    # Apache
     else
-	apache_check
-	if [ $REPLY ]; then
-            echo
-            echo "--------------------------------------------------------------------------------"
-            echo "You appear to have Apache already installed at $APACHE_DAEMON"
-            echo "Do you want to install it anyway?"
-            echo "Choose no to keep the current version (you will have to configure it manually)"
-            echo "--------------------------------------------------------------------------------"
-            read -p "(y/N)? "
-	    echo
-            if [[ $REPLY == [yY] ]]; then
-		echo "-- Installing Apache"
-		apache_install
-            else
-		echo "-- Using the Apache already installed:"
-		apache_check_version
-		exit 0
-		# TODO: Point to the wiki page showing how to configure Apache
+        echo
+        echo "--------------------------------------------------------------------------------"
+        echo "You can run Mconf-Web either on Apache or Nginx (default: Apache)."
+        echo "Select one option below:"
+        echo "--------------------------------------------------------------------------------"
+        REPLY=
+        while [ ! $REPLY ]; do
+            read -p "(1) APACHE, (2) Nginx, (3) Don't install a web server ? "
+            if [[ $REPLY != [123] ]]; then
+                REPLY=
             fi
-	else
-            echo
-            echo "-- Installing Apache"
-            apache_install
-	fi
-
+        done
     fi
+
+    setup_prod_install_server_choosen
 
     print_banner "Production environment setup finished."
 
