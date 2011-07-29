@@ -40,16 +40,17 @@ $(document).ready(function(){
       <% if bigbluebutton_user.nil? %>
         <%= text_field_tag "user[name]", "", :size => 30 %> <span class="obs"><%= t('rooms.invite.name_enter') %></span>
       <% else %>
-        <%= text_field_tag "user[name]", bigbluebutton_user.name, :size => 30 %> <span class="obs"><%= t('rooms.invite.name_enter') %></span>
+        <% text_field_tag "user[name]", bigbluebutton_user.name, :size => 30 %> <span class="obs"><%= bigbluebutton_user.name %></span>
       <% end %>
     </div>
     <div class="field">
-      <%= t('rooms.invite.password') %><br />
+      
       <% if @room.private %>
+        <%= t('rooms.invite.password') %><br />
         <%= password_field_tag "user[password]", "", :size => 30 %> <span class="obs"><%= t('rooms.invite.password_role') %></span>
       <% else %>
-        <%= password_field_tag "user[password]", @room.attendee_password, :size => 30 %> <span class="obs"><%= t('rooms.invite.password_role') %></span><br/>
-        <span class="obs2"><%= t('rooms.invite.password_filled') %></span>
+        <% password_field_tag "user[password]", @room.attendee_password, :size => 30 %> <span class="obs"><% t('rooms.invite.password_role') %></span><br/>
+        <span class="obs2"><% t('rooms.invite.password_filled') %></span>
       <% end %>
     </div>
     <div class="submit_area">
