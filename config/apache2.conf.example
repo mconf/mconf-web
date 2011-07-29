@@ -1,0 +1,8 @@
+<VirtualHost *:80>
+  ServerName www.yourhost.com
+  DocumentRoot /somewhere/public
+  <Directory /somewhere/public>
+    AllowOverride all
+    Options -MultiViews
+  </Directory>
+</VirtualHost>
