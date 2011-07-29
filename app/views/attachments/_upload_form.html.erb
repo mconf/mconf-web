@@ -25,7 +25,7 @@
                 <div class="new_doc_content">
                   <span class="bold"><%=t('tag.new')%> <%=image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_upload_doc icon",:style=>"cursor:pointer")%></h3></span>                 
                   <div id=tags>
-                        <%= select(:attachment, :_tags, @space.tags.map{|u| u.name}, {}, {:multiple=>"multiple"})%>
+                    <%= select(:attachment, :_tags, @space.tags.map{|u| u.name}, {}, {:multiple=>"multiple"})%>
                   </div>
                 </div>
                 <div class="new_doc_content">
