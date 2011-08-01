@@ -500,7 +500,7 @@ apache_install() {
 
     # enable the rewrite module and passenger
     sudo ln -f -s $APACHE_PATH/mods-available/rewrite.load $APACHE_PATH/mods-enabled/rewrite.load &>/dev/null
-    rvmsudo passenger-install-apache2-module --snippet | sudo tee /etc/apache2/conf.d/mconf-passenger &>/dev/null
+    rvmsudo passenger-install-apache2-module --snippet | sudo tee $APACHE_PATH/conf.d/mconf-passenger &>/dev/null
     sudo rm $APACHE_PATH/sites-enabled/*
 
     # configures and creates the mconf-web virtual host

@@ -1,5 +1,7 @@
 #!/bin/bash
 
-PACKAGES_COMMON=( wget make curl libruby aspell-es aspell-en libxml2-dev libxslt1-dev libmagickcore-dev libmagickwand-dev imagemagick libmysqlclient-dev mysql-server )
-PACKAGES_PRODUCTION=( ${PACKAGES_COMMON[@]} awstats logrotate nfs-common libcurl4-openssl-dev build-essential zlib1g-dev )
+PACKAGES_COMMON=( wget make curl git libruby aspell-es aspell-en libxml2-dev libxslt1-dev libmagickcore-dev libmagickwand-dev imagemagick libmysqlclient-dev mysql-server zlib1g-dev build-essential )
+PACKAGES_PRODUCTION=( ${PACKAGES_COMMON[@]} awstats logrotate nfs-common libcurl4-openssl-dev )
 PACKAGES_DEVELOPMENT=( ${PACKAGES_COMMON[@]} libsqlite3-dev )
+
+PACKAGES_APACHE=( apache2-mpm-prefork apache2-prefork-dev libapr1-dev libaprutil1-dev libcurl4-openssl-dev libssl-dev zlib1g-dev )
