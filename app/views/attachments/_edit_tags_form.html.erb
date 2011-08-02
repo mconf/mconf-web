@@ -6,8 +6,8 @@
 	  <span class="bold"><%=t('attachment.file')%></span> <span><%=@attachment.filename%></span>
 		<div class="margin-up"><span class="bold"><%=t('tags')%>:</span></div>
 		<input id="attachment_tags" type="hidden" value="" name="attachment[_tags][]"/>
-		<select id="attachment_edit_tags" multiple="multiple" name="attachment[_tags][]">
-		  <%=options_for_select_with_class_selected(@space.tags.map{|t| t.name }, attachment.tags.map{|t| t.name})%>
+    <select id="attachment_edit_tags" multiple="multiple" name="attachment[_tags][]">
+      <%=options_for_select_with_class_selected(@space.tags.map{|t| t.name }, attachment.tags.map{|t| t.name}).html_safe%>
 		</select>
 	  <div class="margin-up"><button class="basic_button blue_button" type="submit"><%=t("button.update")%></button></div>
 	<%end%>

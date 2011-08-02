@@ -39,18 +39,6 @@ class AttachmentsController < ApplicationController
   def edit_tags
     @attachment = Attachment.find(params[:id])
   end
-  
-  def destroy
-    attachment
-    
-    if attachment.delete
-      flash[:success] = I18n.t("attachment.deleted")
-    else
-      flash[:error] = I18n.t("attachment.error.not_deleted")
-    end
-    
-    redirect_to space_attachments_path(@space)
-  end
 
   def delete_collection
     if params[:attachment_ids].blank?
@@ -61,6 +49,9 @@ class AttachmentsController < ApplicationController
       errors = ""
       @attachments.each do |attachment|
         if attachment.authorize?(:delete, :to => current_user)
+          attachment.tags.each do |tag|
+            tag.delete
+          end
           unless attachment.delete
             errors += I18n.t("attachment.error.not_deleted", :file => attachment.filename)
           end
