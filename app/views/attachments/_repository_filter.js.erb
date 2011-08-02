@@ -20,9 +20,11 @@
 				(filtered_any==null    || $(this).children("td.attachment-name").children("a").text().toLowerCase().search(filtered_any.toLowerCase())>=0
                                || $(this).children("td.attachment-author").children("a").text().toLowerCase().search(filtered_any.toLowerCase())>=0)&&
 				(filtered_event==null  || $(this).attr("rel")==filtered_event)
-			  ){
-        $(this).css("display",""); hola
-      }else{
+        )
+      {
+        $(this).css("display","");
+      }
+      else{
         $(this).hide();
       }
 		});
@@ -67,7 +69,9 @@
 	
 	//Event filter event listener
 	
-	$("#event_select").livequery('change', function() {
+  
+  $("#event_select").livequery('change', function() {
     filtered_event = $(this).val()=="" ? null : "event_" + $(this).val();
     filter_attachments();
   });
+  

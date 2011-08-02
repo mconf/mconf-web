@@ -1,46 +1,54 @@
 <script type="text/javascript">
- $('#doc_action img.tooltip_upload_doc').livequery(function(){
-   $(this).qtip({
-    content: '<%=t("tooltip.tag")%>',
-                position: {adjust: { screen: true }},
-    show:  'mouseover',
-    hide: { when: 'mouseout', fixed: true },
-    style: 'mystyle'
+  $('#doc_action img.tooltip_upload_doc').livequery(function(){
+    $(this).qtip({
+      content: '<%=t("tooltip.tag")%>',
+      position: {adjust: { screen: true }},
+      show:  'mouseover',
+      hide: { when: 'mouseout', fixed: true },
+      style: 'mystyle'
     });
+  });
+
+  $(document).ready(function(){
+    if($("#upload_field").value != null){
+      $("#button_submit").show();
+    }
+  });
+  
+  $("#upload_field").livequery("change", function(){
+      $("#button_submit").show();
   });
 </script>
 
 <%if attachment.authorize?(:create,:to => current_user)%>
-<div id="doc_action">   
-        
-        <div id="add_new_doc">  
-        
-        <h3 class="blue"><%=t("document.upload")%></h3>
-                <%= form_for(prepare_for_form(@attachment || Attachment.new), :html => { :multipart => true}) do |f|%>
-                <div class="new_doc_content">
-                  <div id="cabinet">
-                    <%= f.file_field :uploaded_data, :class=>"file_1", :size=>"15"%>
-                  </div>
-                </div>
-                <div class="new_doc_content">
-                  <span class="bold"><%=t('tag.new')%> <%=image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_upload_doc icon",:style=>"cursor:pointer")%></h3></span>                 
-                  <div id=tags>
-                    <%= select(:attachment, :_tags, @space.tags.map{|u| u.name}, {}, {:multiple=>"multiple"})%>
-                  </div>
-                </div>
-                <div class="new_doc_content">
-                        <span><%= check_box_tag "add_post", "with_post", attachment.post_title.present? || attachment.post_text.present?%> <%=t('attachment.upload_with_post')%></span>
-                    <div id="with_post" <%="style=\"display:none\"".html_safe if !(attachment.post_title.present? || attachment.post_text.present?)%>>
-                      <%= f.label :post_title, t('title') %><br/>
-                      <%= f.text_field :post_title%>
-                      <%= f.label :post_text, t('text') %><br/>
-                      <%= f.text_area :post_text, :rows => 5, :cols=>25%>
-                    </div>
-                        <div class="margin-up">
-                      <button type="submit" class="basic_button blue_button"><%=t("button.upload")%></button>
-                        </div>
-                        <%end%> 
-                </div>
-        </div>  
-</div>
+  <div id="doc_action">
+    <div id="add_new_doc">
+      <h3 class="blue"><%=t("document.upload")%></h3>
+      <%= form_for(prepare_for_form(@attachment || Attachment.new), :html => { :multipart => true}) do |f|%>
+        <div class="new_doc_content">
+          <div id="cabinet">
+            <%= f.file_field :uploaded_data, :id=>"upload_field", :class=>"file_1", :size=>"15"%>
+          </div>
+        </div>
+        <div class="new_doc_content">
+          <span class="bold"><%=t('tag.new')%> <%=image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_upload_doc icon",:style=>"cursor:pointer")%></h3></span>                 
+          <div id=tags>
+            <%= select(:attachment, :_tags, @space.tags.map{|u| u.name}, {}, {:multiple=>"multiple"})%>
+          </div>
+        </div>
+        <div class="new_doc_content">
+          <span><%= check_box_tag "add_post", "with_post", attachment.post_title.present? || attachment.post_text.present?%> <%=t('attachment.upload_with_post')%></span>
+          <div id="with_post" <%="style=\"display:none\"".html_safe if !(attachment.post_title.present? || attachment.post_text.present?)%>>
+            <%= f.label :post_title, t('title') %><br/>
+            <%= f.text_field :post_title%>
+            <%= f.label :post_text, t('text') %><br/>
+            <%= f.text_area :post_text, :rows => 5, :cols=>25%>
+          </div>
+          <div class="margin-up" id="button_submit" style="display:none">
+            <button type="submit" class="basic_button blue_button"><%=t("button.upload")%></button>
+          </div>
+        </div>
+      <%end%>
+    </div>  
+  </div>
 <%end%>

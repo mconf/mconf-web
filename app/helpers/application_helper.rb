@@ -20,7 +20,6 @@ module ApplicationHelper
       disabled_attribute = ' disabled="disabled"' if disabled && option_value_selected?(value, disabled)
       options << %(<option value="#{html_escape(value.to_s)}"#{selected_attribute}#{disabled_attribute}>#{html_escape(text.to_s)}</option>)
     end
-
     options_for_select.join("\n")
   end
 
