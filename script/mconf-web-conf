@@ -113,6 +113,13 @@ check_root() {
     fi
 }
 
+is_package_installed() {
+    REPLY=
+    if [[ "`dpkg-query -W -f='${Status}\n' $1 | cut -d" " -f3`" == "installed" ]]; then
+        REPLY=1
+    fi
+}
+
 # Is this the BigBlueButton VM?
 is_bigbluebutton_vm() {
     if [ -f /home/firstuser/.profile ]; then
@@ -121,11 +128,13 @@ is_bigbluebutton_vm() {
 }
 
 is_bigbluebutton_installed() {
-    REPLY=
     # This is how bbb-conf checks for BigBlueButton. But we also check for the package "bigbluebutton".
     BBB_CONFIG=/usr/share/red5/webapps/bigbluebutton/WEB-INF/red5-web.xml
-    if dpkg-query -s bigbluebuttons > /dev/null 2>&1 || [ -f $BBB_CONFIG ]; then
+    is_package_installed bigbluebutton
+    if [ $REPLY ] && [ -f $BBB_CONFIG ]; then
         REPLY=1
+    else
+        REPLY=
     fi
 }
 
@@ -139,12 +148,12 @@ is_bigbluebutton_installed() {
 # Install a package in the system
 # $1 is the package and binary name
 install_dependency() {
-    which $1
-    if [ $? != 0 ]; then
+    is_package_installed $1
+    if [ $REPLY ]; then
+        echo "-- Dependency '$1' already installed"
+    else
         echo "-- Installing dependency: $1"
         sudo apt-get install $1 -y --force-yes
-    else
-        echo "-- Dependency '$1' already installed"
     fi
 }
 
@@ -280,7 +289,7 @@ rvm_check() {
 # TODO: install RVM as root?
 rvm_install() {
     install_dependency curl
-    install_dependency git
+    install_dependency git-core
 
     echo "-- Downloading and installing RVM version $RVM_VERSION"
     curl -s https://rvm.beginrescueend.com/install/rvm -o rvm-installer ; chmod +x rvm-installer ; ./rvm-installer --version $RVM_VERSION
@@ -407,6 +416,7 @@ dependencies_include_package_list() {
 
     # if there's no local repo, get the dependencies from github
     else
+        install_dependency curl
         TEMP=`mktemp`
         sudo curl https://raw.github.com/mconf/mconf-web/master/config/packages.ubuntu -o $TEMP
         source $TEMP
@@ -454,6 +464,7 @@ nginx_install() {
     # TODO: to uninstall nginx, we'll have to install it from source? (--nginx-source-dir=DIR --extra-configure-flags=STRING)
 
     # installs the init.d/nginx file
+    install_dependency curl
     sudo curl https://raw.github.com/mconf/mconf-web/master/config/nginx.init.example -o /etc/init.d/nginx
 
     # configures /opt/nginx/conf/nginx.conf
@@ -838,7 +849,7 @@ fi
 if [ $CHECKOUT ]; then
     check_root
 
-    install_dependency "git"
+    install_dependency git-core
     checkout_check_update
 
     echo "-- Creating the src directory: $DEVELOPMENT_SRC_PATH"
