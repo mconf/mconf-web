@@ -1,4 +1,5 @@
 = Welcome to Mconf-web
+http://travis-ci.org/mconf/mconf-web.png {(more...)}[http://travis-ci.org/#!/mconf/mconf-web]
 
 Mconf-web is a web application that controls the access to the Mconf webconferencing system.
 
