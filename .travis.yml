@@ -2,8 +2,6 @@ bundler_args: "--without production"
 before_script:
   - "cp config/database.yml.example config/database.yml"
   - "cp config/setup_conf.yml.example config/setup_conf.yml"
+script: bundle exec rake travis
 rvm:
   - 1.9.2
-notifications:
-  recipients:
-    - mconf-issues@googlegroups.com

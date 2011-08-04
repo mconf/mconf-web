@@ -3,13 +3,10 @@
 require 'rubygems'
 require 'bundler/setup'
 require 'rspec/core/rake_task'
-
-require File.expand_path('../config/application', __FILE__)
 require 'rake'
+require File.expand_path('../config/application', __FILE__)
 
-desc 'Default: run tests.'
-task :default => :spec
-
-RSpec::Core::RakeTask.new(:spec => ["db:test:prepare", "db:seed"])
+desc 'Default: run specs.'
+task :default => ["db:test:prepare", "db:seed", :spec]
 
 Vcc::Application.load_tasks
