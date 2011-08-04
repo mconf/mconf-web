@@ -697,6 +697,12 @@ pt-br:
     home: 
       one: "Evento na comunidade %{space}"
     invite: "Convidar pessoas"
+    invite_event: "Convide pessoas para o evento %{event_name}"
+    invite_message: "Gostaria de convidá-lo para <b>o evento %{event_name} na comunidade %{space}</b> em %{event_date}. </p><p> Você pode encontrar mais informações sobre este evento em <a href=\"%{event_url}\">%{event_url}</a> </p><p> Atenciosamente,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>"
+    invite_title: "%{username} convida você para o evento %{eventname} na comunidade %{space}"
+    notification_message: "<p> %{name}, </p><p> Quanto o <b> %{event_name} na comunidade %{space}</b> em %{event_date}. </p><p> Você pode encontrar mais informações sobre este evento em <a href=\"%{event_url}\">%{event_url}</a> </p><p> Atenciosamente,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>"
+    notification_title: "%{username} enviou uma notificação para informá-lo sobre o evento %{eventname} na comunidade %{space}"
+    notification_successfully: "Notificação enviada a todos com sucesso."
     join: "Junte-se a este evento"
     last_7_days: "Últimos 7 dias (%{size})"
     last_month: "Mês passado (%{size})"

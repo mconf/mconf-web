@@ -1,5 +1,11 @@
 <%= content_for :javascript do%>
 
+  $("a#invite_event").fancybox({
+    'hideOnContentClick' : false,
+    'frameWidth' : 450,
+    'frameHeight' : 430
+  });
+  
   <% if params[:invited_registered] %>
     $("#email_invitations").hide();
     $("#user_invitations").show();
@@ -7,7 +13,7 @@
     $("#tab2").addClass("selected_invitation_tab");
   <% end %>
         
-        <% if params[:invited_unregistered] %>
+  <% if params[:invited_unregistered] %>
     $("#user_invitations").hide();
     $("#email_invitations").show();
     $("#tab2").removeClass("selected_invitation_tab");
@@ -18,63 +24,70 @@
     $("#email_invitations").hide();
     $("#user_invitations").show();
     $("#tab1").removeClass("selected_invitation_tab");
-                $("#tab2").addClass("selected_invitation_tab");
+    $("#tab2").addClass("selected_invitation_tab");
   });
+  
   $("#tab1").click(function(){
     $("#user_invitations").hide();
     $("#email_invitations").show();
-                $("#tab2").removeClass("selected_invitation_tab");
+    $("#tab2").removeClass("selected_invitation_tab");
     $("#tab1").addClass("selected_invitation_tab");
   });
   
   $("#cancel_event").fancybox({
-                'scrolling'                  : 'no',
-                'titleShow'                  : false,
-                'hideOnContentClick' : false,
-                'autoDimensions'         : false,
-                'width'              : 250,
-                'height'             : 80
+    'scrolling'          : 'no',
+    'titleShow'          : false,
+    'hideOnContentClick' : false,
+    'autoDimensions'     : false,
+    'width'              : 250,
+    'height'             : 80
   });
+  
 <%end%>
 
-<div class="notice"><%= t('event_invitation.instructions') %></div>
+<div class="notice">
+  <%= t('event_invitation.instructions') %>
+</div>
 <div class="margin-up invite_tab">
   <%= link_to ("<span>" + t('invitation.tab.title1') + "</span>").html_safe, "#", :class => "selected_invitation_tab invitation_tab bold", :id=>"tab1"%>
   <%= link_to ("<span>" + t('invitation.tab.title2') + "</span>").html_safe, "#",:class => "invitation_tab bold", :id=>"tab2"%>
 </div>
 <div class="whyte_wrapper">
-        <div style="display:none">
-          <div id="sure_form">
-            <script type="text/javascript">
-              function our_close(){
-                $.fancybox.close();   
-              }
-            </script>
-            
-            <%if params[:in_steps]%>
-              <div id="lightbox_advise"><%= t('event.cancel.lose') %></div>
-              <div id="event_step_cancel_buttons">
-                                  <%= link_to ("<span>" + t('button.accept') + "</span>").html_safe, space_event_path(@space, @event),{:method => :delete, :class => "basic_button blue_button", :id=>"button_yes"}%>
-            <%else%>
-              <div id="lightbox_advise"><%= t('event.cancel.stop') %></div>
-              <div id="event_step_cancel_buttons">
-                                  <%= link_to ("<span>" + t('button.accept') + "</span>").html_safe, space_event_path(@space, @event),{:class => "basic_button blue_button", :id=>"button_yes"}%>
-            <%end%>
-          <%= link_to ("<span>" + t('button.cancel') + "</span>").html_safe, "javascript:our_close();" ,:class => "basic_button blue_button", :id=>"button_no"%>
+  <div style="display:none">
+    <div id="sure_form">
+      <script type="text/javascript">
+        function our_close(){
+          $.fancybox.close();   
+        }
+      </script>
+          
+      <%if params[:in_steps]%>
+        <div id="lightbox_advise">
+          <%= t('event.cancel.lose') %>
         </div>
-          </div>
+        <div id="event_step_cancel_buttons">
+          <%= link_to ("<span>" + t('button.accept') + "</span>").html_safe, space_event_path(@space, @event),{:method => :delete, :class => "basic_button blue_button", :id=>"button_yes"}%>
+        </div>
+      <%else%>
+        <div id="lightbox_advise">
+          <%= t('event.cancel.stop') %>
+        </div>
+        <div id="event_step_cancel_buttons">
+          <%= link_to ("<span>" + t('button.accept') + "</span>").html_safe, space_event_path(@space, @event),{:class => "basic_button blue_button", :id=>"button_yes"}%>
+        </div>
+      <%end%>
+        <%= link_to ("<span>" + t('button.cancel') + "</span>").html_safe, "javascript:our_close();" ,:class => "basic_button blue_button", :id=>"button_no"%>
+    </div>
   </div>
-        
 
-        <div id="event_invitations_external">
-                
-                <%= render :partial=>"group_invitation" , :locals => {:checked_users => Array.new}%>
-                <%= render :partial=>"new_invitations", :locals => {:checked_users => Array.new}%>
-        </div>
-        
-        <div id="event_step_buttons">
-                <%= link_to ("<span>" + t('button.back') + "</span>").html_safe, edit_space_event_agenda_path(space, @event, :in_steps=>params[:in_steps]),:class => "basic_button blue_button", :id=>"back_event"%>
-                <%= link_to ("<span>" + t('button.finish') + "</span>").html_safe, space_event_path(@space, @event),:class => "basic_button blue_button", :id=>"finish_event"%>
-                <%= link_to ("<span>" + t('cancel') + "</span>").html_safe, "#sure_form",:class => "basic_button blue_button", :id=>"cancel_event"%>
-        </div>
+  <div id="event_invitations_external">
+    <%= render :partial=>"group_invitation" , :locals => {:checked_users => Array.new}%>
+    <%= render :partial=>"new_invitations", :locals => {:checked_users => Array.new}%>
+  </div>
+          
+  <div id="event_step_buttons">
+    <%= link_to ("<span>" + t('button.finish') + "</span>").html_safe, space_event_path(@space, @event),:class => "basic_button blue_button", :id=>"finish_event"%>
+    <%= link_to ("<span>" + t('cancel') + "</span>").html_safe, "#sure_form",:class => "basic_button blue_button", :id=>"cancel_event"%>
+  </div>
 </div>
+

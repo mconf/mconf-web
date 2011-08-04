@@ -12,20 +12,30 @@
   });
 </script>
 
-<h3 class="dialog_title"> <%= t('webconference.invite_webconference') %> </h3>
+<h3 class="dialog_title">
+  <% if @type == "webconference" %>
+    <%= t('webconference.invite_webconference') %>
+  <% elsif @type == "event" %>
+    <%= t('event.invite_event', :event_name => @event.name) %>
+  <% end %>
+</h3>
 
 <div id="webconference_invite_dialog">
-  <div class="header">
-    <div class="label"><%= t('invite_people.room_name') %></div>
-    <div class="value"><span><%= @room.name %></span></div>
-    <div class="label"><%= t('home.invite_url') %></div>
-    <div class="value">
-      <%= text_field_tag "room_invite_url", join_webconf_url(@room), :disabled => true %>
-      <%= clippy(:id => "room_invite_url", :bg_color => "#FFFFFF").html_safe %>
+  
+  <% if @type == "webconference" %>
+    <div class="header">
+      <div class="label"><%= t('invite_people.room_name') %></div>
+      <div class="value"><span><%= @room.name %></span></div>
+      <div class="label"><%= t('home.invite_url') %></div>
+      <div class="value">
+        <%= text_field_tag "room_invite_url", join_webconf_url(@room), :disabled => true %>
+        <%= clippy(:id => "room_invite_url", :bg_color => "#FFFFFF").html_safe %>
+      </div>
     </div>
-  </div>
+  <% end %>
 
   <%= form_for(:invite, :url => sendinvite_invite_path) do |f| %>
+    <%= f.hidden_field :type, :value => @type %>
 
     <div class="block">
       <h3><%= t('invite_people.mconf_users') %></h3>
@@ -50,14 +60,22 @@
     </div>
 
     <div class="block">
-      <h3><%= t('invite_people.message') %> </h3>
+      <% if @type != "event" %>
+        <h3><%= t('invite_people.message') %> </h3>
 
-      <%= f.text_area :message, :id=> "text_message", :size=> "64x5" %>
-      <%= f.hidden_field :room_name, :value => @room.name %>
-      <%= f.hidden_field :room_url, :value => join_webconf_url(@room) %>
+        <%= f.text_area :message, :id=> "text_message", :size=> "64x5" %>
+      <% end %>
+      <% if @type == "webconference" %>
+        <%= f.hidden_field :room_name, :value => @room.name %>
+        <%= f.hidden_field :room_url, :value => join_webconf_url(@room) %>
+      <% elsif @type == "event" %>
+        <%= f.hidden_field :event_id, :value => @event.id %>
+      <% end %>
 
       <div class="submit">
-        <button type="submit" class="basic_button blue_button"><%=t('invite_people.send_invitations')%></button>
+        <button type="submit" class="basic_button blue_button">
+          <%=t('invite_people.send_invitations')%>
+        </button>
       </div>
     </div>
 

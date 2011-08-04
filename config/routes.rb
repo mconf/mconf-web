@@ -189,6 +189,7 @@ Vcc::Application.routes.draw do
     member do
       get :invite_room, :as => 'inviteroom'
       post :send_invite, :as => 'sendinvite'
+      get :send_notification, :as => 'sendnotification'
     end
   end
 

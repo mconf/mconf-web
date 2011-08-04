@@ -31,7 +31,7 @@
         <%= t('register.and_participate_description_with_login', :url => login_path ).html_safe %>
       </p>
 	  <%elsif event.authorize?(:update, :to => current_user) %>
-	    <%=render :partial => "actions"%>
+	    <%= render :partial => "actions" %>
 	  <%elsif event.is_happening_now? %>
 	    <p class="big_margin_down_40 note">
         <%= t('event.note.not_organizer_during').html_safe %>
@@ -63,7 +63,9 @@
       <%= 
         #render :partial => "change_logo" 
       %>
-      <%= render :partial => "import_icalendar" %>      
+      <%= 
+        #render :partial => "import_icalendar" 
+       %>
     <%end%>
 
 
@@ -86,7 +88,6 @@
   </div>
 
   <div id="for_lightbox" style="display:none"></div>
-
 <!--
   <%if params[:new_invitations]%>
 	  <%=

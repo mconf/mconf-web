@@ -83,89 +83,52 @@ describe Notifier do
     end
 
   end
+  
+  #describe para event invitation
+  #describe "in the event invitation email" do
+  #  it "shoul include the sender's name, email, the name of the space and the name and url of the event" do
+  #     
+  #    msg = I18n.t('event.invite_message', 
+  #      :event_name => @event.name, 
+  #      :space => @space.name, 
+  #      :event_date => @event.start_date.strftime("%A %B %d at %H:%M:%S"), 
+  #      :event_url => space_event_url(@space,@event), 
+  #      :username => @admin.full_name, 
+  #      :useremail => @admin.email, 
+  #      :userorg => @admin.organization
+  #    ).html_safe
+  #    
+  #    
+  #  end
+  #end
 
-  describe "in the event invitation email, when the receiver is" do
-    it "an unregistered user it should include the receiver's email, the introducer's name, email and organization, the name of the space, the name and URL of the event and the URL of the invitation" do
-
-      # Build the invitation
-      params = {:role_id => Role.find_by_name("Invitedevent").id.to_s, :email => @unregistered_user_email}
-      invitation = @event.invitations.build params
-      invitation_comment = "<p>\'" + I18n.t('name.one') + "\',</p>" +
-        I18n.t('invitation.message_with_start_date.' + (Event::VC_MODE[@event.vc_mode]).to_s ,:space=>@space.name,:url=>'\'' + I18n.t('url_plain') + '\'',:contact => Site.current.email, :feedback => "http://" + Site.current.domain.to_s + "feedback/new",:username=>@admin.full_name,:useremail=>@admin.email,:userorg=>@admin.organization).gsub('\'event_name\'',@event.name).gsub('\'event_date\'', @event.start_date.strftime("%A %B %d at %H:%M:%S")).gsub('event_url', "http://" + Site.current.domain + "/spaces/" + @space.permalink + "/events/" + @event.permalink)
-      invitation.update_attributes(:comment => invitation_comment, :introducer => @event.author)
-
-      # Check the subject content
-      ActionMailer::Base.deliveries.first.subject.should include(@event.name)
-      ActionMailer::Base.deliveries.first.subject.should include(@space.name)
-      ActionMailer::Base.deliveries.first.subject.should include(@admin.name)
-
-      # Check the body content
-      ActionMailer::Base.deliveries.first.body.should include(@unregistered_user_email[0,@unregistered_user_email.index('@')])
-      ActionMailer::Base.deliveries.first.body.should include(@admin.name)
-      ActionMailer::Base.deliveries.first.body.should include(@admin.email)
-      ActionMailer::Base.deliveries.first.body.should include(@admin.organization)
-      ActionMailer::Base.deliveries.first.body.should include(@space.name)
-      ActionMailer::Base.deliveries.first.body.should include(@event.name)
-      ActionMailer::Base.deliveries.first.body.should include("http://" + Site.current.domain + "/spaces/" + @space.permalink + "/events/" + @event.permalink)
-      ActionMailer::Base.deliveries.first.body.should include("http://" + Site.current.domain + "/invitations/" + invitation.code)
-
-    end
-
-    it "a registered user it should include the receiver's name, the introducer's name, email and organization, the name of the space, the name and URL of the event and the URL of the invitation" do
-
-      # Build the invitation
-      params = {:role_id => Role.find_by_name("Invitedevent").id.to_s, :email => @registered_user.email}
-      invitation = @event.invitations.build params
-      invitation_comment = "<p>\'" + I18n.t('name.one') + "\',</p>" +
-        I18n.t('invitation.message_with_start_date.' + (Event::VC_MODE[@event.vc_mode]).to_s ,:space=>@space.name,:url=>'\'' + I18n.t('url_plain') + '\'',:contact => Site.current.email, :feedback => "http://" + Site.current.domain.to_s + "feedback/new",:username=>@admin.full_name,:useremail=>@admin.email,:userorg=>@admin.organization).gsub('\'event_name\'',@event.name).gsub('\'event_date\'', @event.start_date.strftime("%A %B %d at %H:%M:%S")).gsub('event_url', "http://" + Site.current.domain + "/spaces/" + @space.permalink + "/events/" + @event.permalink)
-      invitation.update_attributes(:comment => invitation_comment, :introducer => @event.author)
-
-      # Check the subject content
-      ActionMailer::Base.deliveries.first.subject.should include(@event.name)
-      ActionMailer::Base.deliveries.first.subject.should include(@space.name)
-      ActionMailer::Base.deliveries.first.subject.should include(@admin.name)
-
-      # Check the body content
-      ActionMailer::Base.deliveries.first.body.should include(@registered_user.full_name)
-      ActionMailer::Base.deliveries.first.body.should include(@admin.name)
-      ActionMailer::Base.deliveries.first.body.should include(@admin.email)
-      ActionMailer::Base.deliveries.first.body.should include(@admin.organization)
-      ActionMailer::Base.deliveries.first.body.should include(@space.name)
-      ActionMailer::Base.deliveries.first.body.should include(@event.name)
-      ActionMailer::Base.deliveries.first.body.should include("http://" + Site.current.domain + "/spaces/" + @space.permalink + "/events/" + @event.permalink)
-      ActionMailer::Base.deliveries.first.body.should include("http://" + Site.current.domain + "/invitations/" + invitation.code)
-
-    end
-
-  end
-
-  describe "in the event notification email" do
-    it "should include the receiver's name, the sender's name, email and organization, the name of the space and the name and URL of the event" do
+  #describe "in the event notification email" do
+  #  it "should include the receiver's name, the sender's name, email and organization, the name of the space and the name and URL of the event" do
 
       # Build the notification
-      msg = I18n.t('event.notification.message_beginning_with_start_date', :space => @space.name).
-        gsub('\'event_name\'', @event.name).gsub('\'event_date\'', @event.start_date.strftime("%A %B %d at %H:%M:%S"))
-      msg += I18n.t('event.notification.message_ending', :username => @admin.full_name, :useremail => @admin.email, :userorg => @admin.organization).
-        gsub('event_url',"http://" + Site.current.domain + "/spaces/" + @space.permalink + "/events/" + @event.permalink)
-      @event.update_attributes(:notify_msg => msg, :notif_sender_id => @admin.id)
-      Informer.deliver_event_notification(@event, @registered_user)
+#      msg = I18n.t('event.notification.message_beginning_with_start_date', :space => @space.name).
+#        gsub('\'event_name\'', @event.name).gsub('\'event_date\'', @event.start_date.strftime("%A %B %d at %H:%M:%S"))
+#      msg += I18n.t('event.notification.message_ending', :username => @admin.full_name, :useremail => @admin.email, :userorg => @admin.organization).
+#        gsub('event_url',"http://" + Site.current.domain + "/spaces/" + @space.permalink + "/events/" + @event.permalink)
+#      @event.update_attributes(:notify_msg => msg, :notif_sender_id => @admin.id)
+#      Informer.deliver_event_notification(@event, @registered_user)
 
       # Check the subject content
-      ActionMailer::Base.deliveries.first.subject.should include(@event.name)
-      ActionMailer::Base.deliveries.first.subject.should include(@space.name)
-      ActionMailer::Base.deliveries.first.subject.should include(@admin.name)
+#      ActionMailer::Base.deliveries.first.subject.should include(@event.name)
+#      ActionMailer::Base.deliveries.first.subject.should include(@space.name)
+#      ActionMailer::Base.deliveries.first.subject.should include(@admin.name)
 
       # Check the body content
-      ActionMailer::Base.deliveries.first.body.should include(@registered_user.full_name)
-      ActionMailer::Base.deliveries.first.body.should include(@admin.name)
-      ActionMailer::Base.deliveries.first.body.should include(@admin.email)
-      ActionMailer::Base.deliveries.first.body.should include(@admin.organization)
-      ActionMailer::Base.deliveries.first.body.should include(@space.name)
-      ActionMailer::Base.deliveries.first.body.should include(@event.name)
-      ActionMailer::Base.deliveries.first.body.should include("http://" + Site.current.domain + "/spaces/" + @space.permalink + "/events/" + @event.permalink)
+#      ActionMailer::Base.deliveries.first.body.should include(@registered_user.full_name)
+#      ActionMailer::Base.deliveries.first.body.should include(@admin.name)
+#      ActionMailer::Base.deliveries.first.body.should include(@admin.email)
+#      ActionMailer::Base.deliveries.first.body.should include(@admin.organization)
+#      ActionMailer::Base.deliveries.first.body.should include(@space.name)
+#      ActionMailer::Base.deliveries.first.body.should include(@event.name)
+#      ActionMailer::Base.deliveries.first.body.should include("http://" + Site.current.domain + "/spaces/" + @space.permalink + "/events/" + @event.permalink)
 
-    end
-  end
+#    end
+#  end
 
   describe "in the processed invitation email, when the invited user is" do
     it "unregistered it should include the receiver's name, the invited user's email and response, the name of the space, the URL of the space users and the signature of the site" do
