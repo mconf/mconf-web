@@ -29,7 +29,7 @@ class Space < ActiveRecord::Base
   has_many :tags, :dependent => :destroy, :as => :container
   has_one :bigbluebutton_room, :as => :owner, :dependent => :destroy
 
-  has_permalink :name, :update => true
+  has_permalink :name, :permalink, :update => true
 
   acts_as_resource :param => :permalink
   acts_as_container :contents => [ :news, :posts, :attachments, :events ],
@@ -48,6 +48,36 @@ class Space < ActiveRecord::Base
   attr_accessor :text_logo
   attr_accessor :rand_value
   attr_accessor :logo_rand
+
+  # user.login and space.permalink should be unique
+  validate :validate_unique_permalink_against_spaces
+
+  def validate_unique_permalink_against_spaces
+    # there's some user with a login == self.permalink
+    if User.where(:login => self.permalink).count > 0
+      if self.new_record?
+        create_unique_permalink
+      else
+        self.errors.add :permalink, I18n.t('activerecord.errors.messages.taken')
+      end
+    end
+  end
+
+  # method adapted from PermalinkFu.create_unique_permalink
+  def create_unique_permalink
+    counter = 1
+    limit, base = create_common_permalink
+
+    # check for duplication either on spaces permalinks or users logins
+    while Space.where(:permalink => self.permalink).count > 0 or
+          User.where(:login => self.permalink).count > 0
+
+      # try a new value
+      suffix = "-#{counter += 1}"
+      new_value = "#{base[0..limit-suffix.size-1]}#{suffix}"
+      send("#{self.class.permalink_field}=", new_value)
+    end
+  end
 
   accepts_nested_attributes_for :bigbluebutton_room
 

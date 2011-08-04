@@ -31,6 +31,7 @@ class User < ActiveRecord::Base
   acts_as_stage
   acts_as_taggable :container => false
   acts_as_resource :param => :login
+  validates :login, :uniqueness => true
 
   has_one :profile, :dependent => :destroy
   has_many :events, :as => :author
@@ -109,6 +110,36 @@ class User < ActiveRecord::Base
       part_aux.save!
     end
 
+  end
+
+  # user.login and space.permalink should be unique
+  validate :validate_unique_login_against_spaces
+
+  def validate_unique_login_against_spaces
+    # there's some space with a permalink == self.login
+    if Space.where(:permalink => self.login).count > 0
+      if self.new_record?
+        create_unique_login
+      else
+        self.errors.add :login, I18n.t('activerecord.errors.messages.taken')
+      end
+    end
+  end
+
+  # method adapted from PermalinkFu.create_unique_permalink
+  def create_unique_login
+    counter = 1
+    limit, base = create_common_permalink
+
+    # check for duplication either on spaces permalinks or users logins
+    while Space.where(:permalink => self.login).count > 0 or
+        User.where(:login => self.login).count > 0
+
+      # try a new value
+      suffix = "-#{counter += 1}"
+      new_value = "#{base[0..limit-suffix.size-1]}#{suffix}"
+      send("#{self.class.permalink_field}=", new_value)
+    end
   end
 
   def self.find_with_disabled *args
