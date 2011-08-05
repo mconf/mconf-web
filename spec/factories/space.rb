@@ -1,7 +1,8 @@
 Factory.define :space do |s|
   s.sequence(:name) { |n| "Space #{ n }" }
   s.description "Space description"
-  s.default_logo "/models/front/space.png"
+  #TODO: this was possibly causing the error "Too many open files" in rake spec
+  # s.default_logo "/models/front/space.png"
   s.public true
   s.association :bigbluebutton_room
 end

@@ -32,6 +32,8 @@ RSpec.configure do |config|
   # Make the rails routes avaiable in all specs
   #config.include Rails.application.routes.url_helpers
 
+  # we don't run migration specs all the time
+  config.filter_run_excluding :migration => true
 end
 
 Factory.find_definitions

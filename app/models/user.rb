@@ -121,22 +121,26 @@ class User < ActiveRecord::Base
     # there's some space with a permalink == self.login
     if Space.where(:permalink => self.login).count > 0
       if self.new_record?
-        counter = 1
-        limit, base = create_common_permalink
-
-        # check for duplication either on spaces permalinks or users logins
-        while Space.where(:permalink => self.login).count > 0 or
-            User.where(:login => self.login).count > 0
-
-          # try a new value
-          suffix = "-#{counter += 1}"
-          new_value = "#{base[0..limit-suffix.size-1]}#{suffix}"
-          send("#{self.class.permalink_field}=", new_value)
-        end
-
+        update_unique_permalink
       else
         self.errors.add :login, I18n.t('activerecord.errors.messages.taken')
       end
+    end
+  end
+
+  def update_unique_permalink
+    counter = 1
+    limit, base = create_common_permalink
+    return if limit.nil? # nil if the permalink has not changed or :if/:unless fail
+
+    # check for duplication either on spaces permalinks or users logins
+    while Space.where(:permalink => self.login).count > 0 or
+        User.where(:login => self.login).count > 0
+
+      # try a new value
+      suffix = "-#{counter += 1}"
+      new_value = "#{base[0..limit-suffix.size-1]}#{suffix}"
+      send("#{self.class.permalink_field}=", new_value)
     end
   end
 
