@@ -52,30 +52,28 @@ class Space < ActiveRecord::Base
   # user.login and space.permalink should be unique
   validate :validate_unique_permalink_against_spaces
 
+  # method adapted from PermalinkFu.create_unique_permalink
   def validate_unique_permalink_against_spaces
+
     # there's some user with a login == self.permalink
     if User.where(:login => self.permalink).count > 0
       if self.new_record?
-        create_unique_permalink
+        counter = 1
+        limit, base = create_common_permalink
+
+        # check for duplication either on spaces permalinks or users logins
+        while Space.where(:permalink => self.permalink).count > 0 or
+            User.where(:login => self.permalink).count > 0
+
+          # try a new value
+          suffix = "-#{counter += 1}"
+          new_value = "#{base[0..limit-suffix.size-1]}#{suffix}"
+          send("#{self.class.permalink_field}=", new_value)
+        end
+
       else
         self.errors.add :permalink, I18n.t('activerecord.errors.messages.taken')
       end
-    end
-  end
-
-  # method adapted from PermalinkFu.create_unique_permalink
-  def create_unique_permalink
-    counter = 1
-    limit, base = create_common_permalink
-
-    # check for duplication either on spaces permalinks or users logins
-    while Space.where(:permalink => self.permalink).count > 0 or
-          User.where(:login => self.permalink).count > 0
-
-      # try a new value
-      suffix = "-#{counter += 1}"
-      new_value = "#{base[0..limit-suffix.size-1]}#{suffix}"
-      send("#{self.class.permalink_field}=", new_value)
     end
   end
 

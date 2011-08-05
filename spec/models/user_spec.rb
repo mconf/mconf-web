@@ -7,15 +7,11 @@ describe User do
   end
 
   describe "with valid attributes" do
-    before(:each) do
-      @valid_attributes = {:login => 'pepe',:password => '1234', :password_confirmation => '1234',:email => 'pepe@gmail.com'}
-    end
-
     it "should create a new instance" do
-      User.create(@valid_attributes).should be_valid
+      Factory.build(:user).should be_valid
     end
 
-    it "should not create a new instance given no title" do
+    it "should not create a new instance given no email" do
       User.create(:email => nil).should_not be_valid
     end
   end
@@ -23,6 +19,7 @@ describe User do
   describe "login uses a unique permalink" do
     let(:user) { Factory.create(:user, :_full_name => "User Name", :login => nil) }
     let(:user2) { Factory.create(:user, :_full_name => user.full_name, :login => nil) }
+
     it { user.login.should eq("user-name") }
     it { user2.login.should eq("user-name-2") }
 
@@ -32,9 +29,9 @@ describe User do
       describe "when a user is created" do
         it { space.permalink.should eq("user-name") }
         it {
-          space  # to create the obj
-          user   # to create the obj
-          user2  # to create the obj
+          space
+          user
+          user2
           user.login.should eq("user-name-2")
           user2.login.should eq("user-name-3")
         }

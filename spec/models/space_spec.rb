@@ -110,7 +110,6 @@ describe Space do
     it { should accept_nested_attributes_for(:bigbluebutton_room) }
   end
 
-
   describe "#permalink is unique" do
     let(:space) { Factory.create(:space, :name => "Space Name") }
     it { space.permalink.should eq("space-name") }
@@ -129,14 +128,12 @@ describe Space do
 
       describe "when a space is updated" do
         let(:user2) { Factory.create(:user, :login => "space-name-for-user") }
-        let(:space2) { Factory.create(:space, :name => "Space Name New") }
         it { user2.permalink.should eq("space-name-for-user") }
-        it { space2.permalink.should eq("space-name-new") }
         it {
           user2
-          space2
-          space2.update_attributes(:name => user2.login)
-          space2.errors[:permalink].should include(I18n.t('activerecord.errors.messages.taken'))
+          space
+          space.update_attributes(:name => user2.login)
+          space.errors[:permalink].should include(I18n.t('activerecord.errors.messages.taken'))
         }
       end
     end
