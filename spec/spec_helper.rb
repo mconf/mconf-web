@@ -33,7 +33,9 @@ RSpec.configure do |config|
   #config.include Rails.application.routes.url_helpers
 
   # we don't run migration specs all the time
+  # TODO: how to filter migration specs here but override it in command line
   config.filter_run_excluding :migration => true
+  config.run_all_when_everything_filtered = true
 end
 
 Factory.find_definitions
