@@ -218,6 +218,7 @@ GEM
     will_paginate (3.0.pre2)
     xml-simple (1.1.0)
     ya2yaml (0.30)
+    yaml_db (0.2.1)
     yamler (0.1.0)
 
 PLATFORMS
@@ -270,3 +271,4 @@ DEPENDENCIES
   vpim
   webrat
   will_paginate (~> 3.0.pre2)
+  yaml_db

@@ -50,10 +50,10 @@ class Notifier < ActionMailer::Base
     @space = invitation.group.space
     @event = invitation.group
     @user = invitation.introducer
-#    @headers.store("Reply-To",invitation.introducer.email)
+    #@headers.store("Reply-To",invitation.introducer.email)
 
-  @invitation = invitation
-  upgmail(invitation.introducer.email)
+    @invitation = invitation
+    upgmail(invitation.introducer.email)
   end
 
   def event_notification_email(event,receiver)
@@ -228,6 +228,17 @@ class Notifier < ActionMailer::Base
     @room_url = params[:room_url]
     @subject = params[:title]
     @message = params[:body]
+    @signature  = Site.current.signature_in_html
+
+    upgmail(nil)
+  end
+  
+  def event_email(params)
+    setup_email(params[:email_receiver])
+    
+    @subject = params[:title]
+    @body_text = params[:body]
+    
     @signature  = Site.current.signature_in_html
 
     upgmail(nil)

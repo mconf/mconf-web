@@ -165,3 +165,11 @@ namespace :setup do
     puts "You must restart the server to enable the new secret"
   end
 end
+
+namespace :db do
+  task :pull do
+    run "cd #{current_release} && RAILS_ENV=production rake db:data:dump"
+    download "#{current_release}/db/data.yml", "db/data.yml"
+    `rake db:reset db:data:load`
+  end
+end

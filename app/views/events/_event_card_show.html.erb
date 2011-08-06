@@ -74,49 +74,65 @@
           <%=link_to(highlight(org.name,@query),user_path(org),:class=>"unified_user")%>
         <%end %>
       </li>
-          <li class="main_text logo_padding">
-        <%= t('event.features') %>: 
-                <%isfirst=true %>
-                <%if @event.has_streaming? || @event.is_in_person? %>           
-                  <%unless @event.is_happening_now? || (@event.is_in_person? && !@event.past?) %>
-                    <%=t('event.view_streaming')%>
-                  <%else%>
-                    <%=link_to t('event.view_streaming'),space_event_path(@space, @event, :show_streaming => true)%>
-                  <%end%>
-                  <%isfirst=false %>
-                <%end%>
-                <%if @event.web_interface? %>
-                  <%if isfirst %>
+      <li class="main_text logo_padding">
+        <!--
+        <%= 
+          #t('event.features') 
+        %>: 
+        <%isfirst=true %>
+        <%if @event.has_streaming? || @event.is_in_person? %>           
+          <%
+            #unless @event.is_happening_now? || (@event.is_in_person? && !@event.past?) 
+          %>
+            <%=
+              #t('event.view_streaming')
+            %>
+          <%
+            #else
+          %>
+            <%=
+              #link_to t('event.view_streaming'),space_event_path(@space, @event, :show_streaming => true)
+            %>
+          <%
+            #end
+          %>
+          <%isfirst=false %>
+        <%end%>
+        -->
+        <%if @event.web_interface? %>
+          <%if isfirst %>
             <%isfirst=false %>
           <%else %>
-          ,<%end %>
-                  <%unless @event.is_happening_now? || (@event.is_in_person? && !@event.past?) %>
-                    <%=t('event.view_participation')%>
-                  <%else%>
-                    <%=link_to t('event.view_participation'), space_event_path(@space, @event, :show_participation => true)%>
-                  <%end%>                    
-                <%end%>
-                <%if @event.agenda.has_past_session_with_video?%>
-                  <%if isfirst %>
+            ,
+          <%end %>
+          <%unless @event.is_happening_now? || (@event.is_in_person? && !@event.past?) %>
+            <%=t('event.view_participation')%>
+          <%else%>
+            <%=link_to t('event.view_participation'), space_event_path(@space, @event, :show_participation => true)%>
+          <%end%>                    
+        <%end%>
+        <%if @event.agenda.has_past_session_with_video?%>
+          <%if isfirst %>
             <%isfirst=false %>
           <%else %>
-          ,<%end %>
-                  <%=link_to ("<span>" + t('event.view_recordings') + "</span>"), space_event_path(@space, @event, :show_video => @event.agenda.first_video_entry_id)%>
-            <%elsif @event.agenda.has_entries_with_video? %>
-                  ,<%=t('event.view_recordings')%>  
-                <%end%>           
+            ,
+          <%end %>
+          <%=link_to ("<span>" + t('event.view_recordings') + "</span>"), space_event_path(@space, @event, :show_video => @event.agenda.first_video_entry_id)%>
+        <%elsif @event.agenda.has_entries_with_video? %>
+          ,<%=t('event.view_recordings')%>  
+        <%end%>           
       </li>
   </ul>
 
   <%if event.uses_conference_manager? && !event.future? && (event.start_date > Date.parse("12/21/2010")) %>
-          <div id="view_stats_buttons">
-                <div class="button_wrapper" id="div_stats_button">
-                        <%= link_to "<span>" + t('event.stats.view') + "</span>", webstats_space_event_path(@space, @event),:class => "new_space_link basic_button pale_button"%>
-                </div>
-                <div class="button_wrapper">
-                        <%= link_to "<span>" + t('event.stats.map') + "</span>", webmap_space_event_path(@space, @event),:class => "new_space_link basic_button pale_button"%>
-                </div>
-          </div>
+    <div id="view_stats_buttons">
+      <div class="button_wrapper" id="div_stats_button">
+        <%= link_to "<span>" + t('event.stats.view') + "</span>", webstats_space_event_path(@space, @event),:class => "new_space_link basic_button pale_button"%>
+      </div>
+      <div class="button_wrapper">
+        <%= link_to "<span>" + t('event.stats.map') + "</span>", webmap_space_event_path(@space, @event),:class => "new_space_link basic_button pale_button"%>
+      </div>
+    </div>
   <%end%>
 </div>
 

@@ -20,3 +20,4 @@ public/pdf/
 db/*.sqlite3*
 tmp/*
 .redcar
+db/data.yml
