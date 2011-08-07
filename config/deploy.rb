@@ -52,6 +52,7 @@ after 'multistage:ensure', 'deploy:info'
 after 'deploy:update_code', 'deploy:link_files'
 after 'deploy:update_code', 'deploy:upload_config_files'
 after 'deploy:update_code', 'deploy:fix_file_permissions'
+after 'deploy:restart', 'deploy:jobs:restart'
 
 namespace :deploy do
 
@@ -105,7 +106,7 @@ namespace :deploy do
     sudo "/bin/chown #{fetch(:user)} /var/local/mconf-web"
   end
 
-  # REVIEW really need to do this?
+  # REVIEW do we really need this?
   task :link_files do
     run "ln -sf #{shared_path}/public/logos #{release_path}/public"
     run "ln -sf #{shared_path}/attachments #{release_path}/attachments"
@@ -117,6 +118,30 @@ namespace :deploy do
   task :upload_config_files do
     top.upload "config/database.yml", "#{release_path}/config/", :via => :scp
     top.upload "config/setup_conf.yml", "#{release_path}/config/", :via => :scp
+  end
+
+  # delayed_job tasks
+  namespace :jobs do
+    desc "Start delayed_job"
+    task :start do
+      run "cd #{current_path}; RAILS_ENV=production bundle exec script/delayed_job -n 2 start"
+    end
+
+    desc "Stop delayed_job"
+    task :stop do
+      run "cd #{current_path}; RAILS_ENV=production bundle exec script/delayed_job stop"
+    end
+
+    desc "Restart delayed_job"
+    task :restart do
+      jobs.stop
+      jobs.start
+    end
+
+    desc "Clear the jobs table"
+    task :clear do
+      run "cd #{current_path}; RAILS_ENV=production rake jobs:clear"
+    end
   end
 
 end

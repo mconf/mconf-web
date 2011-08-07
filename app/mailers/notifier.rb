@@ -19,25 +19,21 @@
 #This class will compose all the mails that the application should send
 class Notifier < ActionMailer::Base
 
-  def invitation_email(invitation) #OK
+  def invitation_email(invitation)
     setup_email(invitation.email)
 
     @subject += I18n.t("invitation.to_space",:space=>invitation.group.name,:username=>invitation.introducer.full_name).html_safe
-
     @invitation = invitation
     @space = invitation.group
     @user = invitation.introducer
-    
     if invitation.candidate
       @name = invitation.candidate.full_name
     else
       @name = invitation.email[0,invitation.email.index('@')]
     end
-  #@headers.store("Reply-To",invitation.introducer.email)
+    @replyto = invitation.introducer.email
 
-  #@invitation = invitation
-  upgmail(invitation.introducer.email)
-  #mail(:to => @recipients, :subject => @subjecsalmonelat, :from => "eifion@asciicasts.com", :headers => @headers, "Reply-To" => invitation.introducer.email)
+    create_default_mail
   end
 
 
@@ -45,35 +41,29 @@ class Notifier < ActionMailer::Base
     setup_email(invitation.email)
 
     @subject += I18n.t("invitation.to_event",:eventname=>invitation.group.name,:space=>invitation.group.space.name,:username=>invitation.introducer.full_name).html_safe
-
     @invitation = invitation
     @space = invitation.group.space
     @event = invitation.group
     @user = invitation.introducer
-    #@headers.store("Reply-To",invitation.introducer.email)
-
+    @replyto = invitation.introducer.email
     @invitation = invitation
-    upgmail(invitation.introducer.email)
+
+    create_default_mail
   end
 
   def event_notification_email(event,receiver)
     setup_email(receiver.email)
 
     user_sender = User.find(event.notif_sender_id)
-
-
     @subject += I18n.t("event.notification.subject",:eventname=>event.name,:space=>event.space.name,:username=>user_sender.full_name).html_safe
-
     @event = event
     @receiver = receiver
-#    @headers.store("Reply-To",user_sender.email)
-
-#    @invitation = receiver
     @event = event
     @receiver = receiver
-    upgmail(user_sender.email)
+    @replyto = user_sender.email
+
+    create_default_mail
   end
-
 
   def performance_update_notification_email(sender,receiver,stage,rol)
     setup_email(receiver.email)
@@ -88,13 +78,11 @@ class Notifier < ActionMailer::Base
       @subject += I18n.t("performance.notification.subject.estandar", :username=>sender.full_name , :stage=>stage.name).html_safe
       @text = I18n.t("performance.notification.estandar").html_safe;
     end
-
     @sender = sender
     @receiver = receiver
-#    @headers.store("Reply-To",sender.email)
+    @replyto = sender.email
 
-    upgmail(sender.email)
-
+    create_default_mail
   end
 
   def space_group_invitation_email(space,mail)
@@ -103,8 +91,9 @@ class Notifier < ActionMailer::Base
     user_sender = User.find(space.group_inv_sender_id)
     @subject += I18n.t("space.group_invitation.subject",:space=>space.name,:username=>user_sender.full_name).html_safe
     @space = space
-    #@headers.store("Reply-To",user_sender.email)
-    upgmail(user_sender.mail)
+    @replyto = user_sender.mail
+
+    create_default_mail
   end
 
   def event_group_invitation_email(event,mail)
@@ -113,8 +102,9 @@ class Notifier < ActionMailer::Base
     user_sender = User.find(event.group_inv_sender_id)
     @subject += I18n.t("event.group_invitation.subject",:eventname=>event.name,:space=>event.space.name,:username=>user_sender.full_name).html_safe
     @event = event
-    #@headers.store("Reply-To",user_sender.email)
-    upgmail(user_sender.email)
+    @replyto = user_sender.email
+
+    create_default_mail
   end
 
   def processed_invitation_email(invitation, receiver)
@@ -130,18 +120,20 @@ class Notifier < ActionMailer::Base
     @space = invitation.group
     @signature  = Site.current.signature_in_html
     @action = action
-    #@headers.store("Reply-To",invitation.email)
-    upgmail(invitation.email)
+    @replyto = invitation.email
+
+    create_default_mail
   end
 
-  def join_request_email(jr,receiver) #OK
+  def join_request_email(jr,receiver)
     setup_email(receiver.email)
 
     @subject += I18n.t("join_request.ask_subject", :candidate => jr.candidate.name, :space => jr.group.name)
     @join_request = jr
     @signature  = Site.current.signature_in_html
-    #@headers.store("Reply-To",jr.candidate.email)
-    upgmail(jr.candidate.email)
+    @replyto = jr.candidate.email
+
+    create_default_mail
   end
 
   def processed_join_request_email(jr)
@@ -152,11 +144,10 @@ class Notifier < ActionMailer::Base
     @jr = jr
     @space = jr.group
     @action = action
-
   end
 
   #This is used when an user registers in the application, in order to confirm his registration
-  def confirmation_email(user)  #OK
+  def confirmation_email(user)
     setup_email(user.email)
 
     @subject += I18n.t("email.welcome",:sitename=>Site.current.name).html_safe
@@ -166,7 +157,7 @@ class Notifier < ActionMailer::Base
     @signature  = Site.current.signature_in_html
   end
 
-  def activation(user)  #OK
+  def activation(user)
     setup_email(user.email)
 
     @subject += I18n.t("account_activated", :sitename=>Site.current.name).html_safe
@@ -178,7 +169,7 @@ class Notifier < ActionMailer::Base
   end
 
   #This is used when a user asks for his password.
-  def lost_password(user)  #OK
+  def lost_password(user)
     setup_email(user.email)
 
     @subject += I18n.t("password.request", :sitename=>Site.current.name).html_safe
@@ -189,7 +180,7 @@ class Notifier < ActionMailer::Base
   end
 
   #this method is used when a user has asked for his old password, and then he resets it.
-  def reset_password(user)  #OK
+  def reset_password(user)
     setup_email(user.email)
 
     @subject += I18n.t("password.reset_email", :sitename=>Site.current.name).html_safe
@@ -198,7 +189,7 @@ class Notifier < ActionMailer::Base
   end
 
   #this method is used when a user has sent feedback to the admin.
-  def feedback_email(email, subject, body) #OK
+  def feedback_email(email, subject, body)
     setup_email(Site.current.email)
 
     @from = email
@@ -220,7 +211,7 @@ class Notifier < ActionMailer::Base
     @signature  = Site.current.signature_in_html
   end
 
-  def webconference_invite_email(params) #OK
+  def webconference_invite_email(params)
     setup_email(params[:email_receiver])
 
     @sender = params[:user_name]
@@ -230,18 +221,17 @@ class Notifier < ActionMailer::Base
     @message = params[:body]
     @signature  = Site.current.signature_in_html
 
-    upgmail(nil)
+    create_default_mail
   end
-  
+
   def event_email(params)
     setup_email(params[:email_receiver])
-    
+
     @subject = params[:title]
     @body_text = params[:body]
-    
     @signature  = Site.current.signature_in_html
 
-    upgmail(nil)
+    create_default_mail
   end
 
   private
@@ -254,8 +244,8 @@ class Notifier < ActionMailer::Base
     @content_type ="text/html"
   end
 
-  def upgmail(repto)
-    mail(:to => @recipients, :subject => @subject, :from => @from, :headers => @headers, "Reply-To" => repto)
+  def create_default_mail
+    mail(:to => @recipients, :subject => @subject, :from => @from, :headers => @headers, "Reply-To" => @replyto)
   end
 
 end

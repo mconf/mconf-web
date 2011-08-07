@@ -17,13 +17,13 @@
 # along with VCC.  If not, see <http://www.gnu.org/licenses/>.
 
 
-module SpamControllerModule 
-   
+module SpamControllerModule
+
   def spam
     @spam = resource
     @spam.update_attribute(:spam, true)
       if @spam.save
-        Notifier.spam_email(current_user,t('spam.detected'), params[:body], polymorphic_url(@spam)).deliver
+        Notifier.delay.spam_email(current_user,t('spam.detected'), params[:body], polymorphic_url(@spam))
         respond_to do |format|
           format.html {
             flash[:success] = t('spam.created')
@@ -34,17 +34,17 @@ module SpamControllerModule
         respond_to do |format|
           format.html {
             flash[:error] = t('spam.error.check')
-            render :action => "new" 
+            render :action => "new"
           }
         end
       end
   end
-  
+
   def spam_lightbox
     resource
     if request.xhr?
       render :layout => false
     end
   end
- 
+
 end

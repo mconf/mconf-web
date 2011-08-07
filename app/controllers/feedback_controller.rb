@@ -17,18 +17,18 @@
 # along with VCC.  If not, see <http://www.gnu.org/licenses/>.
 
 class FeedbackController < ApplicationController
-  
- 
+
+
   def new
     if request.xhr?
       render :layout => false
     end
   end
-  
+
   def create
     if (params[:subject].present? and params[:from].present? and params[:body].present?)
       if (params[:from]).match(/\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i)
-        Notifier.feedback_email(params[:from],params[:subject], params[:body] ).deliver
+        Notifier.delay.feedback_email(params[:from],params[:subject], params[:body] )
         respond_to do |format|
           format.html {
             flash[:success] = t('feedback.sent')
@@ -39,7 +39,7 @@ class FeedbackController < ApplicationController
         respond_to do |format|
           format.html {
             flash[:error] = t('check_mail')
-            render :action => "new" 
+            render :action => "new"
           }
         end
       end
@@ -47,7 +47,7 @@ class FeedbackController < ApplicationController
       respond_to do |format|
         format.html {
           flash[:error] = t('fill_fields')
-          render :action => "new" 
+          render :action => "new"
         }
       end
     end
