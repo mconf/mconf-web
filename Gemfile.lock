@@ -95,6 +95,10 @@ GEM
     configatron (2.8.0)
       yamler (>= 0.1.0)
     crack (0.1.8)
+    daemons (1.1.4)
+    delayed_job (2.1.4)
+      activesupport (~> 3.0)
+      daemons
     diff-lcs (1.1.2)
     dynamic_form (1.1.4)
     erubis (2.6.6)
@@ -234,6 +238,7 @@ DEPENDENCIES
   chronic
   ci_reporter
   configatron
+  delayed_job
   dynamic_form
   exception_notification
   exception_notification_rails3

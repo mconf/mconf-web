@@ -18,14 +18,14 @@
 
 class UserObserver < ActiveRecord::Observer
   def after_create(user)
-    Notifier.confirmation_email(user).deliver unless user.activated_at
+    Notifier.delay.confirmation_email(user) unless user.activated_at
   end
 
   def after_save(user)
     if user.class.password_recovery?
-      Notifier.activation(user).deliver if user.recently_activated?
-      Notifier.lost_password(user).deliver if user.recently_lost_password?
-      Notifier.reset_password(user).deliver if user.recently_reset_password?
+      Notifier.delay.activation(user) if user.recently_activated?
+      Notifier.delay.lost_password(user) if user.recently_lost_password?
+      Notifier.delay.reset_password(user) if user.recently_reset_password?
     end
   end
 end
