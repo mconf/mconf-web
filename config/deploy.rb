@@ -124,12 +124,12 @@ namespace :deploy do
   namespace :jobs do
     desc "Start delayed_job"
     task :start do
-      run "script/delayed_job -n 2 start RAILS_ENV=production"
+      run "cd #{current_path}; RAILS_ENV=production bundle exec script/delayed_job -n 2 start"
     end
 
     desc "Stop delayed_job"
     task :stop do
-      run "script/delayed_job stop RAILS_ENV=production"
+      run "cd #{current_path}; RAILS_ENV=production bundle exec script/delayed_job stop"
     end
 
     desc "Restart delayed_job"
@@ -140,7 +140,7 @@ namespace :deploy do
 
     desc "Clear the jobs table"
     task :clear do
-      run "rake jobs:clear RAILS_ENV=production"
+      run "cd #{current_path}; RAILS_ENV=production rake jobs:clear"
     end
   end
 
