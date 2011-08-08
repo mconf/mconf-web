@@ -40,6 +40,10 @@ class User < ActiveRecord::Base
   has_many :memberships, :dependent => :destroy
   #has_many :groups, :through => :memberships
 
+  after_create :create_bbb_room
+  has_one :bigbluebutton_room, :as => :owner, :dependent => :destroy
+  accepts_nested_attributes_for :bigbluebutton_room
+
   attr_accessible :captcha, :captcha_key, :authenticate_with_captcha
   attr_accessible :email2, :email3 , :machine_ids
   attr_accessible :timezone
@@ -76,6 +80,13 @@ class User < ActiveRecord::Base
     else
       profile
     end
+  end
+  
+  def create_bbb_room
+    create_bigbluebutton_room :owner => self,
+                              :server => BigbluebuttonServer.first,
+                              :param => self.login,
+                              :name => self._full_name
   end
 
   delegate :full_name, :logo, :organization, :city, :country, :to => :profile!

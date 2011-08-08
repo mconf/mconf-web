@@ -2257,7 +2257,7 @@ pt-br:
       direct_link: "<b>Clique aqui</b> <br/> para entrar utilizando um dispositivo móvel"
       scan_code: "Ou faça a leitura do código abaixo:"
       title: "Acesso móvel à sala %{room}"
-    my_webconference: "Minhas salas de webconferência"
+    my_webconference: "Minha sala de webconferência"
     new_webconference: "Nova sala de webconferência"
     nobody: 
       one_line: "Não há ninguém na sala."

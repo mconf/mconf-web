@@ -1,5 +1,6 @@
 <%= content_for :javascript do  %>
 
+  /*
   $("a#newroom_bbb_link").fancybox({
     'hideOnContentClick' : false,
     'frameWidth' : 450,
@@ -23,6 +24,25 @@
       });
     }
   });
+
+  $("#new-webconf-room #hideMPW").livequery('click', function(event) {
+    if ($(this).is(':checked')) {
+      changeInputTextType("#moderatorPW", 'text');
+    }
+    else {
+      changeInputTextType("#moderatorPW", 'password');
+    }
+  });
+
+  $("#new-webconf-room #hideAPW").livequery('click', function(event) {
+    if ($(this).is(':checked')) {
+      changeInputTextType("#attendeePW", 'text');
+    }
+    else {
+      changeInputTextType("#attendeePW", 'password');
+    }
+  });
+  */
 
   $("a#mobile_join").fancybox({
     'hideOnContentClick' : false,
@@ -53,35 +73,17 @@
     }
   });
 
-  $("#new-webconf-room #hideMPW").livequery('click', function(event) {
-    if ($(this).is(':checked')) {
-      changeInputTextType("#moderatorPW", 'text');
-    }
-    else {
-      changeInputTextType("#moderatorPW", 'password');
-    }
-  });
-
-  $("#new-webconf-room #hideAPW").livequery('click', function(event) {
-    if ($(this).is(':checked')) {
-      changeInputTextType("#attendeePW", 'text');
-    }
-    else {
-      changeInputTextType("#attendeePW", 'password');
-    }
-  });
-
 <% end %>
 
-<div id="success" class="hide">
-</div>
 
 <div id="webconference-rooms">
   <div class="my-webconference-rooms">
     <h3>
       <%= image_tag("icons/bbb_logo.png") %> <%= t('webconference.my_webconference') %>
       <span class="float_right">
-        <%= link_to t('button.new_room'), newroom_home_path, :id => 'newroom_bbb_link', :class => 'basic_button small_button' %>
+        <%= 
+          #link_to t('button.new_room'), newroom_home_path, :id => 'newroom_bbb_link', :class => 'basic_button small_button' 
+         %>
       </span>
     </h3>
     <div class="room_list">
@@ -113,7 +115,9 @@
             <span class="float_right">
               <%= link_to t('button.invite'), inviteroom_invite_path(:type => "webconference", :room => room.to_param), :id => 'invite_bbb_link', :class => 'basic_button small_button pale_button'%>
               <%= link_to t('home.view_invite_url'), '#', :id => "invite_url_button-#{button_id}", :class => 'basic_button small_button invite_url_button pale_button'%>
-              <%= link_to t('button.remove'), bigbluebutton_server_room_path(@server, room, :redir_url => home_path), :confirm => 'Are you sure?', :method => :delete, :class => 'basic_button small_button pale_button' %>
+              <%= 
+                #link_to t('button.remove'), bigbluebutton_server_room_path(@server, room, :redir_url => home_path), :confirm => 'Are you sure?', :method => :delete, :class => 'basic_button small_button pale_button' 
+               %>
             </span>
             <div class="invite_url url_share" id="invite_url-<%= button_id %>">
               <span class="only_url"><%= t('home.invite_url') + ":" %> </span>
@@ -132,3 +136,5 @@
   </div>
 </div>
 
+<div id="success" class="hide">
+</div>

@@ -101,10 +101,11 @@ class UsersController < ApplicationController
     user.openid_identifier = session[:openid_identifier]
     
     respond_to do |format|
-      if user.save_with_captcha 
+      if user.save_with_captcha
         user.tag_with(params[:tags]) if params[:tags]
         self.current_agent = user
         flash[:notice] = t('user.registered')
+        
         format.html { 
 
           if (user.special_event.nil?)
