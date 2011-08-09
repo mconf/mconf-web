@@ -40,6 +40,7 @@ class User < ActiveRecord::Base
   has_many :memberships, :dependent => :destroy
   #has_many :groups, :through => :memberships
 
+  # exclusive and unique BBB Room for each user
   after_create :create_bbb_room
   after_update :update_bbb_room
   has_one :bigbluebutton_room, :as => :owner, :dependent => :destroy
