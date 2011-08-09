@@ -13,19 +13,6 @@ u = Site.create :name => configatron.site_name,
                 :locale => configatron.site_locale,
                 :domain => configatron.site_domain
 
-puts "* Create the administrator account"
-puts "  login: #{configatron.admin_login}"
-puts "  email: #{configatron.admin_email}"
-puts "  password: #{configatron.admin_password}"
-puts "  fullname: #{configatron.admin_fullname}"
-u = User.create :login => configatron.admin_login,
-                :email => configatron.admin_email,
-                :password => configatron.admin_password,
-                :password_confirmation => configatron.admin_password
-u.update_attribute(:superuser,true)
-u.activate
-u.profile!.update_attribute(:full_name, configatron.admin_fullname)
-
 puts "* Create Permissions"
 
 # Permissions without objective
@@ -121,4 +108,18 @@ BigbluebuttonRoom.create :name => default_space.name,
                          :owner => default_space,
                          :private => false,
                          :logout_url => "/spaces/#{default_space.permalink}"
+
+puts "* Create the administrator account"
+puts "  login: #{configatron.admin_login}"
+puts "  email: #{configatron.admin_email}"
+puts "  password: #{configatron.admin_password}"
+puts "  fullname: #{configatron.admin_fullname}"
+u = User.create :login => configatron.admin_login,
+                :email => configatron.admin_email,
+                :password => configatron.admin_password,
+                :password_confirmation => configatron.admin_password,
+                :_full_name => configatron.admin_fullname
+u.update_attribute(:superuser,true)
+u.activate
+u.profile!.update_attribute(:full_name, configatron.admin_fullname)
 
