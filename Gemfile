@@ -35,17 +35,19 @@ gem 'attachment_fu', :git => 'git://github.com/mconf/attachment_fu.git'
 gem 'yaml_db'
 gem 'delayed_job'
 
-# WARNING: This version of mysql2 (0.3.2) doesn't ship with the ActiveRecord adapter bundled anymore as it's now part of Rails 3.1
-# WARNING: Please use the 0.2.x releases if you plan on using it in Rails <= 3.0.x
-gem 'mysql2', '~> 0.2.0'
+gem 'mysql2', '~> 0.2.0' # must use 0.2.x releases in Rails <= 3.0.x
 
 # not the official repo, but has fixes to use it with rails 3
 gem 'table_helper', :git => 'git://github.com/echen/table_helper.git'
 
-group :development, :test do
+group :development do
   gem 'ruby-debug19', :require => 'ruby-debug'
   gem 'capistrano', '~> 2.5'
   gem 'capistrano-ext'
+  gem 'translate-rails3', :require => 'translate', :git => 'git://github.com/mconf/translate.git'
+end
+
+group :development, :test do
   gem 'populator'
   gem 'ffaker'
   gem 'factory_girl'
@@ -54,7 +56,6 @@ group :development, :test do
   gem 'rspec-instafail'
   gem 'fuubar'
   gem 'shoulda-matchers'
-  gem 'translate-rails3', :require => 'translate', :git => 'git://github.com/mconf/translate.git'
   gem 'htmlentities'
 end
 

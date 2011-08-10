@@ -1,4 +1,4 @@
-bundler_args: "--without production"
+bundler_args: "--without production development"
 before_script:
   - "cp config/database.yml.example config/database.yml"
   - "cp config/setup_conf.yml.example config/setup_conf.yml"

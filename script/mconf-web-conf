@@ -5,12 +5,8 @@
 # This file is part of Mconf - http://code.google.com/p/mconf
 # This file was based on "bbb-conf" from BigBlueButton (http://www.bigbluebutton.org)
 #
-# Author(s):
-#       Leonardo Crauss Daronco <leonardodaronco@gmail.com>
-#
-# Changelog:
-#   2011-07-17 - LCD - First functional version. Can install Mconf-Web in a standalone machine and setup the Mconf VM.
-#   2011-07-05 - LCD - Inital Version
+# See the change history for this file in our git at:
+#  https://github.com/mconf/mconf-web/blob/master/script/mconf-web-conf
 #
 # TODO:
 #   * --check
@@ -271,10 +267,10 @@ rvm_source_it() {
 rvm_check() {
     echo "-- Checking if RVM is installed"
 
+    rvm_source_it
     REPLY=
     which rvm >/dev/null
     if [ $? = 0 ]; then
-        rvm_source_it
         if [ "`type rvm | head -1`" = "rvm is a function" ]; then
             REPLY=1
         else
@@ -386,15 +382,32 @@ require_checkout() {
 # Ensures --setup-dev was called
 require_dev_environment() {
     require_checkout
-    # TODO: also check if the env is configured (check config/setup_conf.yml possibly)
-    # TODO: check rvm
+    require_rvm
+
+    if [ ! -f $DEVELOPMENT_SRC_PATH/config/setup_conf.yml -o ! -f $DEVELOPMENT_SRC_PATH/config/database.yml ]; then
+        print_error_banner "You need to setup the development environment to run this command. Please run this script with the option --setup-dev."
+        exit 1
+    fi
 }
 
 # Exits if the production environment doesn't exists
 # Ensures --setup-prod was called
 require_prod_environment() {
-    # TODO: check rvm
-    echo "Pending..."
+    require_rvm
+
+    rvm use $RVM_RUBY_VERSION
+    rvm gemset list | grep -q mconf_production
+    if [ $? == 0 ]; then
+        rvm use $RVM_RUBY_VERSION@$RVM_PRODUCTION_GEMSET
+        gem list | grep -q passenger
+        if [ $? != 0 ]; then
+            print_error_banner "You need to setup the production environment to run this command. Please run this script with the option --setup-prod."
+            exit 1
+        fi
+    else
+        print_error_banner "You need to setup the production environment to run this command. Please run this script with the option --setup-prod."
+        exit 1
+    fi
 }
 
 # Exits if the application was not deployed yet
@@ -913,7 +926,7 @@ fi
 # Setup the production environment
 #
 
-setup_prod_install_server_choosen() {
+setup_prod_install_server_chosen() {
     # Nginx
     if [[ $REPLY == [2] ]]; then
         nginx_check
@@ -923,6 +936,8 @@ setup_prod_install_server_choosen() {
             echo "You appear to have nginx already installed at $NGINX_DAEMON"
             echo "Do you want to install it anyway?"
             echo "Choose no to keep the current version (you will have to configure it manually)"
+            echo "If you need more information see:"
+            echo "  http://code.google.com/p/mconf/wiki/MconfWebDeployInBBBMachine"
             echo "--------------------------------------------------------------------------------"
             read -p "(y/N)? "
             echo
@@ -1003,6 +1018,9 @@ if [ $SETUP_PROD ]; then
         echo "  (2) Manually configure Nginx to run Mconf-Web and BigBlueButton. We will"
         echo "      point you to a wiki page showing how to do that."
         echo "--------------------------------------------------------------------------------"
+        echo "For more about Mconf-Web and BigBlueButton in the same machine see:"
+        echo "   http://code.google.com/p/mconf/wiki/MconfWebDeployInBBBMachine"
+        echo "--------------------------------------------------------------------------------"
         REPLY=
         while [ ! $REPLY ]; do
             read -p "(1) APACHE, (2) Manual Nginx, (3) Don't install a web server ? "
@@ -1019,10 +1037,9 @@ if [ $SETUP_PROD ]; then
             echo
             sudo rm /etc/nginx/sites-enabled/default           # Disable the default server using the port 80 in nginx
             sudo bbb-conf --setip $IP:$BIGBLUEBUTTON_ALT_PORT  # Changing the BBB port
-            # TODO: point the user to a wiki page to show how to configure mconf-web to use the local bbb server
         elif [[ $REPLY == [2] ]]; then
             echo
-            echo "You have choosen to use Mconf-Web with Nginx."
+            echo "You have chosen to use Mconf-Web with Nginx."
             echo
             echo "For help on how to setup the web server, see:"
             echo "   http://code.google.com/p/mconf/wiki/MconfWebDeploymentWithBigBlueButtonAndNginx"
@@ -1045,7 +1062,7 @@ if [ $SETUP_PROD ]; then
         done
     fi
 
-    setup_prod_install_server_choosen
+    setup_prod_install_server_chosen
 
     print_banner "Production environment setup finished."
 
