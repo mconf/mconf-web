@@ -51,4 +51,28 @@ describe User do
 
   end
 
+  describe "#accessible_rooms" do
+    let(:user) { Factory.create(:user) }
+    let(:user_room) { Factory.create(:bigbluebutton_room, :owner => user) }
+    let(:private_space_member) { Factory.create(:private_space) }
+    let(:private_space_not_member) { Factory.create(:private_space) }
+    let(:public_space_member) { Factory.create(:public_space) }
+    let(:public_space_not_member) { Factory.create(:public_space) }
+    before do
+      user_room
+      public_space_not_member
+      Factory.create(:user_performance, :agent => user, :stage => private_space_member)
+      Factory.create(:user_performance, :agent => user, :stage => public_space_member)
+    end
+
+    subject { user.accessible_rooms }
+    # it { subject.count.should == 4 }
+    it { subject.should == subject.uniq }
+    it { should include(user_room) }
+    it { should include(private_space_member.bigbluebutton_room) }
+    it { should include(public_space_member.bigbluebutton_room) }
+    it { should include(public_space_not_member.bigbluebutton_room) }
+    it { should_not include(private_space_not_member.bigbluebutton_room) }
+  end
+
 end

@@ -21,6 +21,8 @@ require 'bigbluebutton-api'
 class HomesController < ApplicationController
 
   before_filter :authentication_required
+  respond_to :json, :only => [:user_rooms]
+  respond_to :html, :except => [:user_rooms]
 
   def index
   end
@@ -62,6 +64,12 @@ class HomesController < ApplicationController
         end
       }
     end
+  end
+
+  def user_rooms
+    # TODO: filter only the attributes we need to return
+    array = current_user.accessible_rooms
+    render :json => array
   end
 
 end

@@ -182,6 +182,7 @@ Vcc::Application.routes.draw do
   resource :home do
     member do
       get :new_room, :as => 'newroom'
+      get :user_rooms
     end
   end
 

@@ -268,4 +268,14 @@ class User < ActiveRecord::Base
     end
   end
 
+  # Returns an array with all the webconference rooms accessible to this user
+  # Includes his own room, the rooms for the spaces he belogs to and the room
+  # for all public spaces
+  def accessible_rooms
+    rooms = BigbluebuttonRoom.where(:owner_type => "User", :owner_id => self.id)
+    rooms += self.spaces.map(&:bigbluebutton_room)
+    rooms += Space.public.map(&:bigbluebutton_room)
+    rooms.uniq!
+  end
+
 end
