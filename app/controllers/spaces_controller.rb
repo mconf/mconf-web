@@ -187,7 +187,7 @@ class SpacesController < ApplicationController
       params[:space][:bigbluebutton_room_attributes][:id] = @space.bigbluebutton_room.id
     end
 
-    if @space.update_attributes(params[:space])
+    if @space.update_attributes(params[:space])      
       respond_to do |format|
         format.html {
           flash[:success] = t('space.updated')
@@ -196,6 +196,11 @@ class SpacesController < ApplicationController
         format.atom { head :ok }
         format.js{
           if params[:space][:name] or params[:space][:description]
+      
+            # to set the correct logout_url in the webconference room
+            update_url = { :logout_url => space_url(@space) }
+            @space.bigbluebutton_room.update_attributes(update_url)
+            
             @result = params[:space][:name] ? nil : params[:space][:description]
             flash[:success] = t('space.updated')
             render "result.js"

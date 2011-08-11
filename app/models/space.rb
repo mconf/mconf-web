@@ -27,7 +27,9 @@ class Space < ActiveRecord::Base
   has_many :attachments, :dependent => :destroy
 #  has_many :agendas, :through => :events
   has_many :tags, :dependent => :destroy, :as => :container
+  
   has_one :bigbluebutton_room, :as => :owner, :dependent => :destroy
+  after_update :update_bbb_room
 
   has_permalink :name, :permalink, :update => true
 
@@ -64,6 +66,12 @@ class Space < ActiveRecord::Base
       end
     end
 
+  end
+  
+  def update_bbb_room
+    bigbluebutton_room[:param] = self.permalink
+    bigbluebutton_room[:name] = self.name
+    #bigbluebutton_room[:logout_url] = 
   end
 
   def update_unique_permalink

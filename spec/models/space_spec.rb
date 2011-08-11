@@ -110,6 +110,16 @@ describe Space do
     it { should accept_nested_attributes_for(:bigbluebutton_room) }
   end
 
+  describe "when a space is updated" do
+    let(:space) { Factory.create(:space, :name => "Space Name") }
+    it {
+      space.update_attributes(:name => "New Name")
+      space.permalink.should eq("new-name")
+      space.bigbluebutton_room.param.should == space.permalink
+      space.bigbluebutton_room.name.should == space.name
+    }
+  end
+
   describe "#permalink is unique" do
     let(:space) { Factory.create(:space, :name => "Space Name") }
     it { space.permalink.should eq("space-name") }
@@ -134,6 +144,11 @@ describe Space do
           space
           space.update_attributes(:name => user2.login)
           space.errors[:permalink].should include(I18n.t('activerecord.errors.messages.taken'))
+        }
+        it {
+          space.update_attributes(:name => "New Name")
+          space.permalink.should eq("new-name")
+          space.bigbluebutton_room.param.should == space.permalink
         }
       end
     end
