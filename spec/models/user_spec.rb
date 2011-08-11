@@ -5,6 +5,11 @@ describe User do
     @user = Factory(:user)
     @user.profile.should_not be_nil
   end
+  
+  it "should automatically create the bbb room of a user after creating the user" do
+    @user = Factory(:user)
+    @user.bigbluebutton_room.should_not be_nil
+  end
 
   describe "with valid attributes" do
     it "should create a new instance" do
@@ -46,6 +51,15 @@ describe User do
           user3.update_attributes(:login => "user-name")
           user3.errors[:login].should include(I18n.t('activerecord.errors.messages.taken'))
         }
+        it { 
+          user3.update_attributes(:login => "user-name-bbb")
+          user3.bigbluebutton_room.param.should eq("user-name-bbb")
+        }
+      end
+
+      describe "#bigbluebutton room" do
+        it { should have_one(:bigbluebutton_room).dependent(:destroy) }
+        it { should accept_nested_attributes_for(:bigbluebutton_room) }
       end
     end
 

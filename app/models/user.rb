@@ -40,6 +40,12 @@ class User < ActiveRecord::Base
   has_many :memberships, :dependent => :destroy
   #has_many :groups, :through => :memberships
 
+  # exclusive and unique BBB Room for each user
+  after_create :create_bbb_room
+  after_update :update_bbb_room
+  has_one :bigbluebutton_room, :as => :owner, :dependent => :destroy
+  accepts_nested_attributes_for :bigbluebutton_room
+
   attr_accessible :captcha, :captcha_key, :authenticate_with_captcha
   attr_accessible :email2, :email3 , :machine_ids
   attr_accessible :timezone
@@ -76,6 +82,19 @@ class User < ActiveRecord::Base
     else
       profile
     end
+  end
+  
+  def create_bbb_room
+    create_bigbluebutton_room :owner => self,
+                              :server => BigbluebuttonServer.first,
+                              :param => self.login,
+                              :name => self._full_name
+  end
+  
+  def update_bbb_room
+    if self.login_changed?
+      bigbluebutton_room[:param] = self.login
+    end 
   end
 
   delegate :full_name, :logo, :organization, :city, :country, :to => :profile!
@@ -174,22 +193,6 @@ class User < ActiveRecord::Base
 
     u && u.password_authenticated?(password) ? u : nil
   end
-
-=begin
-  after_update { |user|
-      if user.email_changed?
-        user.groups.each do |group|
-          if group.mailing_list.present?
-            delete_list(group,group.mailing_list)
-            group.mail_list_archive
-            copy_list(group,group.mailing_list)
-            group.regenerate_lists
-          end
-        end
-        Group.request_list_update
-      end
-  }
-=end
 
   def self.atom_parser(data)
     e = Atom::Entry.parse(data)

@@ -2251,7 +2251,7 @@ en:
       direct_link: "<b>Click here</b><br/>to join from a mobile device"
       scan_code: "Or scan the code below:"
       title: "Mobile access to %{room}"
-    my_webconference: "My webconference rooms"
+    my_webconference: "My webconference room"
     new_webconference: "New webconference room"
     nobody: 
       one_line: "There is nobody currently in the room."
