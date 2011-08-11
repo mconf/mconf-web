@@ -5,17 +5,18 @@ describe HomesController do
 
   render_views
 
-  # TODO
-  # superuser
-  # normal user
-  # anonymous user
-
   describe "#user_rooms" do
     let(:user) { Factory.create(:user) }
     let(:rooms) {
       [ Factory.create(:bigbluebutton_room),
         Factory.create(:bigbluebutton_room),
         Factory.create(:bigbluebutton_room) ]
+    }
+    let(:expected_json_response) {
+      rooms.map{ |r|
+        link = "/bigbluebutton/servers/#{r.server.to_param}/rooms/#{r.to_param}/join.mobile"
+        { :bigbluebutton_room => { :name => r.name, :join_path => link } }
+      }.to_json
     }
     before do
       login_as(user)
@@ -25,7 +26,7 @@ describe HomesController do
     before(:each) { get :user_rooms, :format => :json }
 
     it { should respond_with_content_type(:json) }
-    it { should respond_with_json(rooms.to_json) }
+    it { should respond_with_json(expected_json_response) }
   end
 
 end

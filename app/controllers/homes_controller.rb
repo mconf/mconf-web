@@ -67,9 +67,12 @@ class HomesController < ApplicationController
   end
 
   def user_rooms
-    # TODO: filter only the attributes we need to return
     array = current_user.accessible_rooms
-    render :json => array
+    mapped_array = array.map{ |r|
+      link = join_bigbluebutton_server_room_path(r.server, r, :format => "mobile")
+      { :bigbluebutton_room => { :name => r.name, :join_path => link } }
+    }
+    render :json => mapped_array
   end
 
 end
