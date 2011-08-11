@@ -4,27 +4,28 @@
 
 <%= render :partial => 'manage/menu' %>
 
-<br/>
-<div id="bbbrails_servers_links">
-  <%= link_to 'New server', new_bigbluebutton_server_path, :class => 'basic_button small_button pale_button' %>
+<div id="manage">
+  <br/>
+  <div id="bbbrails_servers_links">
+    <%= link_to 'New server', new_bigbluebutton_server_path, :class => 'basic_button small_button pale_button' %>
+  </div>
+
+  <ul id="bbbrails_servers_list">
+    <% @servers.each do |server| %>
+      <li>
+        <div><label><%= BigbluebuttonServer.human_attribute_name(:name) %></label> <%= server.name %></div>
+        <div><label><%= BigbluebuttonServer.human_attribute_name(:url) %></label> <%= server.url %></div>
+        <div><label><%= BigbluebuttonServer.human_attribute_name(:salt) %></label> <%= server.salt %></div>
+        <div><label><%= BigbluebuttonServer.human_attribute_name(:version) %></label> <%= server.version %></div>
+        <div><label><%= BigbluebuttonServer.human_attribute_name(:param) %></label> <%= server.param %></div>
+        <div><label>Access</label>
+          <%= link_to 'Show', server, :class => 'basic_button small_button pale_button' %>
+          <%= link_to 'View rooms', bigbluebutton_server_rooms_path(server), :class => 'basic_button small_button pale_button' %>
+          <%= link_to 'Activity monitor', activity_bigbluebutton_server_path(server), :class => 'basic_button small_button pale_button' %>
+          <%= link_to 'Edit', edit_bigbluebutton_server_path(server), :class => 'basic_button small_button pale_button' %>
+          <%= link_to 'Destroy', server, :confirm => 'Are you sure?', :method => :delete, :class => 'basic_button small_button pale_button' %>
+        </div>
+      </li>
+    <% end %>
+  </ul>
 </div>
-
-<ul id="bbbrails_servers_list">
-  <% @servers.each do |server| %>
-    <li>
-      <div><label><%= BigbluebuttonServer.human_attribute_name(:name) %></label> <%= server.name %></div>
-      <div><label><%= BigbluebuttonServer.human_attribute_name(:url) %></label> <%= server.url %></div>
-      <div><label><%= BigbluebuttonServer.human_attribute_name(:salt) %></label> <%= server.salt %></div>
-      <div><label><%= BigbluebuttonServer.human_attribute_name(:version) %></label> <%= server.version %></div>
-      <div><label><%= BigbluebuttonServer.human_attribute_name(:param) %></label> <%= server.param %></div>
-      <div><label>Access</label>
-        <%= link_to 'Show', server, :class => 'basic_button small_button pale_button' %>
-        <%= link_to 'View rooms', bigbluebutton_server_rooms_path(server), :class => 'basic_button small_button pale_button' %>
-        <%= link_to 'Activity monitor', activity_bigbluebutton_server_path(server), :class => 'basic_button small_button pale_button' %>
-        <%= link_to 'Edit', edit_bigbluebutton_server_path(server), :class => 'basic_button small_button pale_button' %>
-        <%= link_to 'Destroy', server, :confirm => 'Are you sure?', :method => :delete, :class => 'basic_button small_button pale_button' %>
-      </div>
-    </li>
-  <% end %>
-</ul>
-

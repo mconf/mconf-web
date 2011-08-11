@@ -45,13 +45,15 @@
 
 <%= render :partial => 'manage/menu' %>
 
-<div class="bbbrails_countdown">
-  Refreshing in: <span class="bbbrails_countdown_value"></span>
-  (<a class="bbbrails_refresh_now" href="<%= activity_bigbluebutton_server_path(@server) %>">refresh now</a>)
-</div>
+<div id="manage">
+  <div class="bbbrails_countdown">
+    Refreshing in: <span class="bbbrails_countdown_value"></span>
+    (<a class="bbbrails_refresh_now" href="<%= activity_bigbluebutton_server_path(@server) %>">refresh now</a>)
+  </div>
 
-<h1>Server activity monitor:</h1>
+  <h1>Server activity monitor:</h1>
 
-<div id="bbbrails_server_activity_meetings">
-  <%= render :partial => 'activity_list' %>
+  <div id="bbbrails_server_activity_meetings">
+    <%= render :partial => 'activity_list' %>
+  </div>
 </div>
