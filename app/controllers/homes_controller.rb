@@ -69,7 +69,7 @@ class HomesController < ApplicationController
   def user_rooms
     array = current_user.accessible_rooms
     mapped_array = array.map{ |r|
-      link = join_bigbluebutton_server_room_path(r.server, r, :format => "mobile")
+      link = join_bigbluebutton_server_room_path(r.server, r, :mobile => '1')
       { :bigbluebutton_room => { :name => r.name, :join_path => link } }
     }
     render :json => mapped_array

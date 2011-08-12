@@ -19,7 +19,7 @@ GIT
 
 GIT
   remote: git://github.com/mconf/bigbluebutton_rails.git
-  revision: dfa26bb3135f265a341c0386863a29df313d47da
+  revision: 955ea889fc347be0f6d840a7aeccd292bb40eede
   specs:
     bigbluebutton_rails (0.0.5)
       bigbluebutton-api-ruby (~> 0.0.10)
@@ -149,7 +149,7 @@ GEM
     pdf-writer (1.1.8)
       color (>= 1.4.0)
       transaction-simple (~> 1.3)
-    polyglot (0.3.1)
+    polyglot (0.3.2)
     populator (1.0.0)
     prism (0.1.0)
       nokogiri
@@ -174,7 +174,7 @@ GEM
       thor (~> 0.14.4)
     rake (0.8.7)
     rcov (0.9.9)
-    rdoc (3.8)
+    rdoc (3.9.2)
     rmagick (2.13.1)
     rspec (2.6.0)
       rspec-core (~> 2.6.0)
@@ -211,7 +211,8 @@ GEM
     thor (0.14.6)
     transaction-simple (1.4.0)
       hoe (>= 1.1.7)
-    treetop (1.4.9)
+    treetop (1.4.10)
+      polyglot
       polyglot (>= 0.3.1)
     tzinfo (0.3.29)
     vpim (0.695)
