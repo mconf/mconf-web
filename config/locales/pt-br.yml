@@ -923,7 +923,7 @@ pt-br:
       answer: "Estamos atualmente fazendo o possível para converter todos nossos vídeos para HTML5. Isso incluí a transmissão de eventos em tempo real, usando <a href=\"http://tools.ietf.org/html/draft-pantos-http-live-streaming-04\">HTTP Live Streaming</a>. Em breve você poderá usufruir dos vídeos em seus dispositivos móveis."
       question: "Eu tenho um iPad, que não possui o plugin Flash... posso assistir os vídeos nele?"
     faq11: 
-      answer: "Até o momento, <i>apenas</i> Inglês, Espanhol, Francês, Alemão e Português (Brasil) são suportados. Para selecionar um deles use o link <b>Linguagem</b> localizado na parte inferior de qualquer página do Mconf. <br>Estamos constantemente aprimorando a internacionalização, e se você acha que pode nos ajudar, por favor <a href=\"feedback/new\">entre em contato conoso</a>."
+      answer: "Até o momento, <i>apenas</i> Inglês, Espanhol, Francês, Alemão e Português (Brasil) são suportados. Para selecionar um deles use o link <b>Linguagem</b> localizado na parte superior de qualquer página do Mconf. <br>Estamos constantemente aprimorando a internacionalização, e se você acha que pode nos ajudar, por favor <a href=\"feedback/new\">entre em contato conoso</a>."
       question: "Eu sou espanhol/francês/alemão/brasileiro... o Mconf é traduzido para a minha linguagem?"
     faq12: 
       answer: "Apesar de já acharmos o Mconf bastante legal, acreditamos que tudo pode ser melhorado. A melhor maneira de nos ajudar é enviando feedback usando o <a href=\"feedback/new\">link</a> na parte inferior de cada página. Nós apreciaremos qualquer comentários e trataremos dele assim que possível."
