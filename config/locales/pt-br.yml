@@ -1898,6 +1898,7 @@ pt-br:
     created: "Comunidade criada com sucesso"
     delete: "Excluir Comunidade"
     deleted: "Comunidade removida com sucesso"
+    description: "Descrição da comunidade"
     description_none: "Uma descrição da comunidade deve ser fornecida para criar uma nova comunidade"
     disable: "Desativar a comunidade"
     disabled: "Comunidade desativada com sucesso"

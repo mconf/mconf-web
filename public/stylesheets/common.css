@@ -249,7 +249,33 @@ input[type=submit].medium_button, button.medium_button, a.medium_button {
   line-height: 1.4em;
 }
 
-
+/* Styles for Space Description in space page*/
+#space_description {
+  border-right:1px solid #b0cadb;
+  border-left:1px solid #b0cadb;
+  border-top:1px solid #b0cadb;
+  margin-bottom:1.5em;
+}
+#space_description h3 {
+  margin:0;
+  padding:5px 6px 3px;
+  background:#bdd8eb;
+  color:#244974;
+}
+#space_description .botton_margin {
+  padding:5px 0.75em;
+  background:#bdd8eb;
+}
+#space_description .main_text {
+  border-bottom:1px #ccc solid;
+  font-size:1em;line-height:1.5;
+  padding:0.75em 0;margin-left:0.5em;
+  margin-right:0.5em;
+  border-bottom:none;
+  color:#555;
+  font-weight:normal;
+}
+/*End*/
 
 /* GENERAL STYLES */
 

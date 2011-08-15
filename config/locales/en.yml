@@ -1892,6 +1892,7 @@ en:
     created: "Space created successfully"
     delete: "Delete Space"
     deleted: "Space removed successfully"
+    description: "Space Description"
     description_none: "A space description must be given to create a new space"
     disable: "Disable space"
     disabled: "Space disabled successfully"
