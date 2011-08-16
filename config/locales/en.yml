@@ -891,42 +891,31 @@ en:
     title: "Event Invitation"
     will_invite: "People you will invite:"
   export_widget: "Export Widget"
-  faq: 
+  faq:
+    faq0:
+      answer: "This FAQ, as this entire website, is based on Global Plaza. If you don’t find here the answer you’re looking for, maybe you can find it in the <a href=\"http://globalplaza.org/faq\">Global Plaza FAQ</a>."
+      question: "About this FAQ"
     faq1: 
-      answer: "Mconf is an open space for collaboration, a meeting point for professionals, where they can share documents and videos and organize and participate in videoconferences, in a modern web environment. Mconf is based on the <a href=\"http://globalplaza.org//\">Global Plaza</a>"
+      answer: "Mconf is an open source project that aims to provide a webconference system with the capability to interoperate transparently between desktop computers and mobile devices.<br><br>This website you're on is called Mconf-Web, the web application that manages the webconferences in Mconf. Mconf-Web is built on top of <a href=\"http://globalplaza.org\">Global Plaza</a> that is (as stated in it's own website): \"a space for collaboration, a meeting point for professionals, where they can share documents and videos and organize and participate in videoconferences, in a modern web environment\".<br><br>You can find more about Mconf and Mconf-Web in the following websites:<ul><li>Our project's page: <a href=\"http://www.inf.ufrgs.br/prav/gtmconf\">http://www.inf.ufrgs.br/prav/gtmconf</a></li><li>Our Google Code page, with issue tracking and documentation (wiki): <a href=\"http://code.google.com/p/mconf\">http://code.google.com/p/mconf</a></li><li>Our GitHub user, where all our code is hosted: <a href=\"https://github.com/mconf\">https://github.com/mconf</a></li></ul>"
       question: "What is Mconf?"
     faq2: 
-      answer: "<b>Global</b> is the name of the <a href=\"http://www.global-project.eu/\">European project</a> where this site has been developed, reusing results and developments from other projects, and providing a <i>cloud</i> orientation.<br><b>Plaza</b>, from latin <i>plattĕa</i> refers to an open urban public space, the traditional center of all economic and social interactions in a city. <b>Social</b> and <b>interactions</b> quite define the philosophy of this place."
-      question: "Why Global? Why Plaza?"
-    faq3: 
-      answer: "To participate in Mconf community you only need a web browser (mostly all of them work quite nicely). Some advanced features, such as videoconferencing, request you to have installed the <a href=\"http://get.adobe.com/es/flashplayer/\">Flash plugin</a> (as well as a webcam and microphone). It is quite probable that you already meet all the requirements."
-      question: "What do I need to enter Mconf?"
-    faq4: 
-      answer: "To start collaborating in Mconf you only need to <a href=\"/signup\">register</a>. That way you will be able to create spaces, add documents, and attend meetings. Checking Mconf <a href=\"/help\">help pages</a> is a nice starting point to find your way.<br><b>Free?</b> YES, everything in Mconf is free, and will continue to be so. We believe that YOU are the ones providing the value to our social network, and it would not be fair to charge you, would it?"
+      answer: "To start collaborating in Mconf you only need to <a href=\"http://mconf.inf.ufrgs.br/signup\">register</a>. That way you will be able to create spaces, add documents, and attend meetings. Checking Mconf help pages is a nice starting point to find your way.<br><br>Free? Yes, you can use this server for free, but be aware that this is a test server and we do not guarantee that it will be running 100% of the time (though it will probably be close to that)."
       question: "How do I join and participate in the community? Is it free?"
-    faq5: 
-      answer: "No, of course not. As said before, we are of the idea that there is more value in more people creating/accesing contents, but that does not mean that you cannot have your <b>private spaces</b>. Those will be accesible only by those members that you select, and their content will remain private and hidden for the rest."
-      question: "But... everything is accesible by anyone? ANYONE can interact with ANYTHING?"
-    faq6: 
-      answer: "An <b>space</b> is the basic unit of collaboration in Mconf. As you might guess, it is no more (and no less) than a place where people with a common interest can interact. That interaction can take place in a number of ways: using the document repository, organizing events, participating in videoconferences or chats...<br>Once you create an space, Mconf provides you with the facilities to do that, and much more. You only have to decide who to invite to your space, and if it will be public or private."
+    faq3: 
+      answer: "A <b>space</b> is the basic unit of collaboration in Mconf. As you might guess, it is a place where people with a common interest can interact. That interaction can take place in a number of ways: using the document repository, organizing events, participating in webconferences, and others. And Mconf provides you with the facilities to do that, and much more. You only have to decide who to invite to your space, and if it will be public or private.<br><br><b>Public spaces</b> are viewable by anyone, even by visitors that do not have an account in Mconf. But, even though everyone can view it, only authorized people can alter it (create events and post messages, for example).<br><br><b>Private spaces</b> are only viewable by authorized people. You can create a private space and only give access to your friends or to people from your workplace, for example. Nobody else will be able to see the activity inside this space (but they will know that the space exists)."
       question: "Spaces? What spaces? What the heck are spaces?"
-    faq7: 
-      answer: "Mconf is a site that revolves around videoconferencing and, as such, our mind is in simplifying the effort to organize them. We suggest that you take a look at the help pages to create a <a href=\"help/newvirtualmeeting\">virtual meeting</a>, and start experimenting yourself."
-      question: "You mentioned videoconferences... can I organize one for tomorrow?"
-    faq8: 
-      answer: "As with any system, resources are not unlimited. We try to guarantee enough resources for all the events, but if an event cannot be held on an specific date/time, you will be notified at creation time."
-      question: "Wait a moment! And can I organize FIVE simultaneous videoconferences for tomorrow?"
-    faq9: 
-      answer: "Yes. At an event creation time, you can check if you want <b>recording</b> enabled. If that is the case, the sessions will be automatically recorded, and accessible afterwards in the event main page.<br>We are working to allow you download those same videos to watch them locally on your machines or distribute them."
-      question: "Are meetings recorded?"
-    faq10: 
-      answer: "We are currently doing our best to convert all our videos to HTML5. That includes real-time streaming of events, using <a href=\"http://tools.ietf.org/html/draft-pantos-http-live-streaming-04\">HTTP Live Streaming</a>. Soon you will be able to enjoy it in your mobile terminals."
-      question: "I have an iPad, which has no Flash plugin... can I still watch the videos?"
-    faq11: 
-      answer: "As of now, <i>only</i> English, Spanish, French, German and Brazilian Portuguese are supported. To select among them just use the link <b>Language</b> at the top of any Mconf page.<br>We are constantly improving internationalization, and if you think you can lend us a hand, please <a href=\"feedback/new\">contact</a> us."
+    faq4: 
+      answer: "Mconf is a site that revolves around webconferencing and, as such, our mind is in simplifying the effort to organize them. Underneath, Mconf uses a customized version of <a href=\"http://bigbluebutton.org\">BigBlueButton</a> as the webconference system, and Mconf-Web allows you to create and manage your own webconferences."
+      question: "Did you mention… webconferences?"
+    faq5: 
+      answer: "There are basically two types of webconferences in Mconf.<br><br>When a user registers in this website, he/she automatically receives a webconference room (<b>user’s room</b>). This room can be shared with anyone the user would like to hold a conference with, even with people that do not have a Mconf account. The room’s owner is always the conference moderator, while the other participants have limited attendee privileges.<br><br>The user rooms are by default public, so anyone with the link to it will be able to access it. But it can be made private and you can even define a password to it (note: this is still a work in progress).<br><br>The other type of webconference happens inside a space. Every space created in Mconf has a webconference room associated (<b>space’s room</b>). If the space is public, the room is public. Otherwise, the room is private and there will be a password associated to it.<br><br>As public spaces, public space’s rooms can be accessed by anybody, but only the space’s members will have moderator privileges. Likewise, private space’s rooms will only be accessible by members of the space."
+      question: "Ok, but how can I create a webconference?"
+    faq6: 
+      answer: "As of now, we give support to the following languages: <b>English</b> and <b>Portuguese (Brazil)</b>. However, we also have Mconf-Web partially available in the languages <b>Spanish</b>, <b>French</b> and <b>German</b>. To select among them just use the link “Language” at the top of any page.
+We are constantly improving internationalization, and if you think you can lend us a hand, please <a href=\"http://mconf.inf.ufrgs.br/feedback/new\">contact us</a> or <a href=\"http://code.google.com/p/mconf/wiki/MconfWebLocalization\">take a look at our wiki</a>, that contains some instructions on how to translate this website."
       question: "I am Spanish/French/German/Brazilian... Is Mconf translated to my language?"
-    faq12: 
-      answer: "Although we think Mconf is already quite nice, we agree that everything can be improved. The best way to help us is by sending feedback using the <a href=\"feedback/new\">link</a> at the bottom of every page. We will appreciate any comment, and take care of it as soon as its possible."
+    faq7: 
+      answer: "You’re great! We are very glad you’re interested in giving your contribution to Mconf. So, how can you contribute?<br><br>First, take a look at our <a href=\"http://code.google.com/p/mconf\">Google Code page</a>, where you can find the issue tracking system with all tasks currently in development and also all our documentation (wiki). After that, if you want to contact us, register yourself in <a href=\"http://groups.google.com/group/mconf-dev\">our mailing list</a> and send us a message.<br><br>There are plenty of things you can do. You can help by solving a bug, maybe? Or, if you’re not a developer, maybe you can install Mconf and provide some feedback? You can also help with translations if you speak many languages. We will appreciate any comments and suggestions, feel free to interact with us."
       question: "I have plenty of nice ideas for your site. Do you accept suggestions? How can I contribute to the development?"
     header_title: FAQ
     tag: FAQ
