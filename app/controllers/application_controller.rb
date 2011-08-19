@@ -81,7 +81,11 @@ class ApplicationController < ActionController::Base
         end
       end
     else
-      :password #ask for a password
+      unless room.attendee_password.blank?
+        :password #ask for a password
+      else
+        :attendee
+      end
     end
   end
 
