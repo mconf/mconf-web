@@ -194,13 +194,6 @@
   </div>
 <% end %>
 
-<% if @news_to_show %>
-  <div id="latest_news">
-    <h3><%=image_tag("icons/newspaper.png")%> <%= t('latest_news') %> <%=image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_latest_news icon",:style=>"cursor:pointer")%></h3>
-    <%= render :partial => 'last_news' %>
-  </div>
-<% end %>
-
 <div id="space_description">
   <h3><%= t('space.description') %></h3>
   <div class="main_text">
@@ -209,6 +202,13 @@
   <div class="botton_margin">
   </div>
 </div>
+
+<% if @news_to_show %>
+  <div id="latest_news">
+    <h3><%=image_tag("icons/newspaper.png")%> <%= t('latest_news') %> <%=image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_latest_news icon",:style=>"cursor:pointer")%></h3>
+    <%= render :partial => 'last_news' %>
+  </div>
+<% end %>
 
 <div id="latest_posts">
   <h3><span><%=link_to(image_tag("icons/feed.png",:class=>"icon",:alt=>t('RSS'),:title=>t('RSS')),space_posts_path(@space,:format=> :atom))%></span><%=image_tag("icons/comment.png")%><%=link_to t('post.latest'),space_posts_path(@space)%></h3>
