@@ -45,6 +45,16 @@ namespace :setup do
       end
     end
 
+    puts "* Create Users: webconference rooms"
+    User.all.each do |user|
+      if user.bigbluebutton_room.nil?
+        user.create_bigbluebutton_room :owner => user,
+                                       :server => BigbluebuttonServer.first,
+                                       :param => user.login,
+                                       :name => user.profile.full_name
+      end
+    end
+
     puts "* Create spaces"
     Space.populate 10 do |space|
       space.name = Populator.words(1..3).capitalize
@@ -60,7 +70,6 @@ namespace :setup do
         post.spam = false
         post.created_at = 2.years.ago..Time.now
         post.updated_at = post.created_at..Time.now
-        #        post.tag_with Populator.words(1..4).gsub(" ", ",")
       end
 
       puts "* Create spaces: events for \"#{space.name}\""
@@ -124,11 +133,6 @@ namespace :setup do
         end
       end
 
-      Group.populate 2..4 do |group|
-        group.space_id = space.id
-        group.name = Populator.words(1..3).titleize
-      end
-
       News.populate 2..10 do |news|
         news.space_id = space.id
         news.title = Populator.words(3..8).titleize
@@ -145,6 +149,26 @@ namespace :setup do
 
     users = User.all
     role_ids = Role.find_all_by_stage_type('Space').map(&:id)
+
+    puts "* Create spaces: webconference rooms"
+    Space.all.each do |space|
+      if space.bigbluebutton_room.nil?
+        BigbluebuttonRoom.populate 1 do |room|
+          room.server_id = BigbluebuttonServer.first
+          room.owner_id = space.id
+          room.owner_type = 'Space'
+          room.name = space.name
+          room.meetingid = space.permalink
+          room.randomize_meetingid = false
+          room.attendee_password = "ap"
+          room.moderator_password = "mp"
+          room.private = !space.public
+          room.logout_url = "/spaces/#{space.permalink}"
+          room.external = false
+          room.param = space.name.parameterize.downcase
+        end
+      end
+    end
 
     puts "* Create spaces: logos"
     logos = Dir.entries("public/images/default_space_logos/")
@@ -166,13 +190,6 @@ namespace :setup do
         performance.role_id = role_ids
         performance.agent_id = user.id
         performance.agent_type = 'User'
-      end
-
-      space.groups.each do |group|
-        space.users.each do |user|
-          next if user.is_a?(SingularAgent)
-          group.users << user if rand > 0.7
-        end
       end
 
       event_role_ids = Role.find_all_by_stage_type('Event').map(&:id)
@@ -197,23 +214,6 @@ namespace :setup do
             performance.created_at = participant.created_at
             performance.updated_at = performance.created_at
           end
-        end
-      end
-
-      if space.bigbluebutton_room.nil?
-        BigbluebuttonRoom.populate 1 do |room|
-          room.server_id = BigbluebuttonServer.first
-          room.owner_id = space.id
-          room.owner_type = 'Space'
-          room.name = space.name
-          room.meetingid = space.permalink
-          room.randomize_meetingid = false
-          room.attendee_password = "ap"
-          room.moderator_password = "mp"
-          room.private = !space.public
-          room.logout_url = "/spaces/#{space.permalink}"
-          room.external = false
-          room.param = space.name.parameterize.downcase
         end
       end
 
