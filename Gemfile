@@ -41,7 +41,7 @@ gem 'mysql2', '~> 0.2.0' # must use 0.2.x releases in Rails <= 3.0.x
 gem 'table_helper', :git => 'git://github.com/echen/table_helper.git'
 
 group :development do
-  gem 'ruby-debug19', :require => 'ruby-debug'
+  #gem 'ruby-debug19', :require => 'ruby-debug'
   gem 'capistrano', '~> 2.5'
   gem 'capistrano-ext'
   gem 'translate-rails3', :require => 'translate', :git => 'git://github.com/mconf/translate.git'
