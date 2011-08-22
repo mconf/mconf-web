@@ -97,7 +97,12 @@ class HomesController < ApplicationController
       nil
     else
       hash = { :type => owner.class.name, :id => owner.id }
-      hash.merge!( { :name => owner.name, :public => owner.public? } ) if owner.instance_of?(Space)
+
+      if owner.instance_of?(Space)
+        space_hash = { :name => owner.name, :public => owner.public?, :member => owner.actors.include?(current_user) }
+        hash.merge!(space_hash)
+      end
+
       hash
     end
   end
