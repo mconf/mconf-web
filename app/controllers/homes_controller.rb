@@ -21,6 +21,8 @@ require 'bigbluebutton-api'
 class HomesController < ApplicationController
 
   before_filter :authentication_required
+  respond_to :json, :only => [:user_rooms]
+  respond_to :html, :except => [:user_rooms]
 
   def index
   end
@@ -61,6 +63,47 @@ class HomesController < ApplicationController
           render :layout => false
         end
       }
+    end
+  end
+
+  # renders a json with the webconference rooms accessible to the current user
+  # response example:
+  #
+  # [
+  #   { "bigbluebutton_room":
+  #     { "name":"Admins Room", "join_path":"/bigbluebutton/servers/default-server/rooms/admins-room/join?mobile=1",
+  #       "owner":{ "type":"User", "id":"1" } }
+  #   }
+  # ]
+  #
+  # The attribute "owner" will follow one of the examples below:
+  # "owner":null
+  # "owner":{ "type":"User", "id":1 }
+  # "owner":{ "type":"Space", "id":1, "name":"Space's name", "public":true }
+  #
+  def user_rooms
+    array = current_user.accessible_rooms
+    mapped_array = array.map{ |r|
+      link = join_bigbluebutton_server_room_path(r.server, r, :mobile => '1')
+      { :bigbluebutton_room => { :name => r.name, :join_path => link, :owner => owner_hash(r.owner) } }
+    }
+    render :json => mapped_array
+  end
+
+  private
+
+  def owner_hash(owner)
+    if owner.nil?
+      nil
+    else
+      hash = { :type => owner.class.name, :id => owner.id }
+
+      if owner.instance_of?(Space)
+        space_hash = { :name => owner.name, :public => owner.public?, :member => owner.actors.include?(current_user) }
+        hash.merge!(space_hash)
+      end
+
+      hash
     end
   end
 
