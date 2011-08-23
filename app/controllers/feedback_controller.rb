@@ -18,6 +18,9 @@
 
 class FeedbackController < ApplicationController
 
+  def webconf
+    redirect_to Site.current.feedback_url
+  end
 
   def new
     if request.xhr?
