@@ -1,6 +1,5 @@
 class CustomBigbluebuttonRoomsController < Bigbluebutton::RoomsController
-  before_filter :authentication_required, :except => [:invite, :auth, :running]
-  # TODO review it, see Issue #107
-  authorization_filter :manage, :current_site, :except => [:invite, :auth, :running, :join]
+  before_filter :authentication_required, :except => [:invite, :auth, :running, :external]
+  authorization_filter :manage, :current_site, :except => [:invite, :auth, :running, :join, :end, :external, :join_mobile]
   layout 'application', :except => [:join_mobile]
 end

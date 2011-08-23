@@ -193,8 +193,8 @@ end
 
 namespace :db do
   task :pull do
-    run "cd #{current_release} && RAILS_ENV=production rake db:data:dump"
+    run "cd #{current_release} && RAILS_ENV=production bundle exec rake db:data:dump"
     download "#{current_release}/db/data.yml", "db/data.yml"
-    `rake db:reset db:data:load`
+    `bundle exec rake db:reset db:data:load`
   end
 end

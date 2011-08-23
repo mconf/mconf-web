@@ -732,45 +732,6 @@ de:
     title: "Event Einladung"
     will_invite: "Personen, die Sie einladen:"
   export_widget: "Export Widget"
-  faq: 
-    faq1: 
-      answer: "Global Plaza is an open space for collaboration, a meeting point for professionals, where they can share documents and videos and organize and participate in videoconferences, in a modern web environment."
-      question: "What is Global Plaza?"
-    faq10: 
-      answer: "We are currently doing our best to convert all our videos to HTML5. That includes real-time streaming of events, using <a href=\"http://tools.ietf.org/html/draft-pantos-http-live-streaming-04\">HTTP Live Streaming</a>. Soon you will be able to enjoy it in your mobile terminals."
-      question: "I have an iPad, which has no Flash plugin... can I still watch the videos?"
-    faq11: 
-      answer: "As of now, <i>only</i> English, Spanish, French and German are supported. To select among them just use the link <b>Language</b> at the bottom of any Global Plaza page.<br>We are constantly improving internationalization, and if you think you can lend us a hand, please <a href=\"feedback/new\">contact</a> us."
-      question: "I am Spanish/French/German/... Is Global Plaza translated to my language?"
-    faq12: 
-      answer: "Although we think Global Plaza is already quite nice, we agree that everything can be improved. The best way to help us is by sending feedback using the <a href=\"feedback/new\">link</a> at the bottom of every page. We will appreciate any comment, and take care of it as soon as its possible."
-      question: "I have plenty of nice ideas for your site. Do you accept suggestions? How can I contribute to the development?"
-    faq2: 
-      answer: "<b>Global</b> is the name of the <a href=\"http://www.global-project.eu/\">European project</a> where this site has been developed, reusing results and developments from other projects, and providing a <i>cloud</i> orientation.<br><b>Plaza</b>, from latin <i>plattĕa</i> refers to an open urban public space, the traditional center of all economic and social interactions in a city. <b>Social</b> and <b>interactions</b> quite define the philosophy of this place."
-      question: "Why Global? Why Plaza?"
-    faq3: 
-      answer: "To participate in Global Plaza community you only need a web browser (mostly all of them work quite nicely). Some advanced features, such as videoconferencing, request you to have installed the <a href=\"http://get.adobe.com/es/flashplayer/\">Flash plugin</a> (as well as a webcam and microphone). It is quite probable that you already meet all the requirements."
-      question: "What do I need to enter Global Plaza?"
-    faq4: 
-      answer: "To start collaborating in Global Plaza you only need to <a href=\"/signup\">register</a>. That way you will be able to create spaces, add documents, and attend meetings. Checking Global Plaza <a href=\"/help\">help pages</a> is a nice stating point to find your way.<br><b>Free?</b> YES, everything in Global Plaza is free, and will continue to be so. We believe that YOU are the ones providing the value to our social network, and it would not be fair to charge you, would it?"
-      question: "How do I join and participate in the community? Is it free?"
-    faq5: 
-      answer: "No, of course not. As said before, we are of the idea that there is more value in more people creating/accesing contents, but that does not mean that you cannot have your <b>private spaces</b>. Those will be accesible only by those members that you select, and their content will remain private and hidden for the rest."
-      question: "But... everything is accesible by anyone? ANYONE can interact with ANYTHING?"
-    faq6: 
-      answer: "An <b>space</b> is the basic unit of collaboration in Global Plaza. As you might guess, it is no more (and no less) than a place where people with a common interest can interact. That interaction can take place in a number of ways: using the document repository, organizing events, participating in videoconferences or chats...<br>Once you create an space, Global Plaza provides you with the facilities to do that, and much more. You only have to decide who to invite to your space, and if it will be public or private."
-      question: "Spaces? What spaces? What the heck are spaces?"
-    faq7: 
-      answer: "Global Plaza is a site that revolves around videoconferencing and, as such, our mind is in simplifying the effort to organize them. We suggest that you take a look at the help pages to create a <a href=\"help/newvirtualmeeting\">virtual meeting</a>, and start experimenting yourself."
-      question: "You mentioned videoconferences... can I organize one for tomorrow?"
-    faq8: 
-      answer: "As with any system, resources are not unlimited. We try to guarantee enough resources for all the events, but if an event cannot be held on an specific date/time, you will be notified at creation time."
-      question: "Wait a moment! And can I organize FIVE simultaneous videoconferences for tomorrow?"
-    faq9: 
-      answer: "Yes. At an event creation time, you can check if you want <b>recording</b> enabled. If that is the case, the sessions will be automatically recorded, and accessible afterwards in the event main page.<br>We are working to allow you download those same videos to watch them locally on your machines or distribute them."
-      question: "Are meetings recorded?"
-    tag: FAQ
-    title: "Frequently Asked Questions"
   fax: Fax
   feedback: 
     email: "%{email} sent the following feedback:"
