@@ -7,11 +7,13 @@ puts "  description: #{configatron.site_description}"
 puts "  email: #{configatron.site_email}"
 puts "  locale: #{configatron.site_locale}"
 puts "  domain: #{configatron.site_domain}"
+puts "  feedback_url: #{configatron.site_feedback_url}"
 u = Site.create :name => configatron.site_name,
                 :description => configatron.site_description,
                 :email => configatron.site_email,
                 :locale => configatron.site_locale,
-                :domain => configatron.site_domain
+                :domain => configatron.site_domain,
+                :feedback_url=> configatron.site_feedback_url
 
 puts "* Create Permissions"
 

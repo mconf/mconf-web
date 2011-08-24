@@ -194,7 +194,11 @@ Vcc::Application.routes.draw do
     end
   end
 
-  resources :feedback
+  resources :feedback do
+    collection do
+      get :webconf
+    end
+  end
   resource :session_locale
 
   match '/manage/users', :to => 'manage#users', :as => 'manage_users'
