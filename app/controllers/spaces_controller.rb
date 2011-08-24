@@ -136,7 +136,8 @@ class SpacesController < ApplicationController
     params[:space][:bigbluebutton_room_attributes][:name] = params[:space][:name]
     params[:space][:bigbluebutton_room_attributes][:private] = !ActiveRecord::ConnectionAdapters::Column.value_to_boolean(params[:space][:public])
     params[:space][:bigbluebutton_room_attributes][:server] = BigbluebuttonServer.first # TODO temporary
-
+    params[:space][:bigbluebutton_room_attributes][:logout_url] = "/feedback/webconf/"
+        
     @space = Space.new(params[:space])
 
     respond_to do |format|
@@ -146,8 +147,8 @@ class SpacesController < ApplicationController
         @space.stage_performances.create(:agent => current_user, :role => Space.role('Admin'))
 
         # to set the correct logout_url in the webconference room
-        update_url = { :logout_url => space_url(@space) }
-        @space.bigbluebutton_room.update_attributes(update_url)
+        # update_url = { :logout_url => space_url(@space) }
+        # @space.bigbluebutton_room.update_attributes(update_url)
 
         format.html { redirect_to :action => "show", :id => @space  }
         format.xml  { render :xml => @space, :status => :created, :location => @space }
@@ -198,8 +199,8 @@ class SpacesController < ApplicationController
           if params[:space][:name] or params[:space][:description]
       
             # to set the correct logout_url in the webconference room
-            update_url = { :logout_url => space_url(@space) }
-            @space.bigbluebutton_room.update_attributes(update_url)
+            # update_url = { :logout_url => space_url(@space) }
+            # @space.bigbluebutton_room.update_attributes(update_url)
             
             @result = params[:space][:name] ? nil : params[:space][:description]
             flash[:success] = t('space.updated')

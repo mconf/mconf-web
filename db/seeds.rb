@@ -109,7 +109,7 @@ BigbluebuttonRoom.create :name => default_space.name,
                          :server => bbb_server,
                          :owner => default_space,
                          :private => false,
-                         :logout_url => "/spaces/#{default_space.permalink}"
+                         :logout_url => "/feedback/webconf/"
 
 puts "* Create the administrator account"
 puts "  login: #{configatron.admin_login}"
