@@ -34,7 +34,7 @@ default:
   site_locale: "en"                               # This will be the default locale for the application
   site_domain: "localhost"                        # Your server's IP or name address
   site_signature: "Mconf"                         # To sign emails
-  site_feedback_url: "Feedback URL"               # URL to feedback form after conferences  
+  site_feedback_url: ""                           # URL to be opened when a user logs out of a conference
 
   # Default space: it will be created as a default public space, something like
   # "a space for all members of this website"

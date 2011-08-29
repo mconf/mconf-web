@@ -18,6 +18,13 @@ GIT
       aws-s3
 
 GIT
+  remote: git://github.com/mconf/bigbluebutton-api-ruby.git
+  revision: a4e7ae33e9b1d500a67e3bb1e87c3642c93e35e5
+  specs:
+    bigbluebutton-api-ruby (0.0.10)
+      nokogiri (~> 1.4.0)
+
+GIT
   remote: git://github.com/mconf/bigbluebutton_rails.git
   revision: 5930b515c40e0fb7a6636485ed11148769d2d3b2
   specs:
@@ -75,8 +82,6 @@ GEM
       builder
       mime-types
       xml-simple
-    bigbluebutton-api-ruby (0.0.10)
-      nokogiri (~> 1.4.0)
     builder (2.1.2)
     capistrano (2.6.0)
       highline
@@ -219,6 +224,7 @@ DEPENDENCIES
   action_mailer_tls
   atom-tools
   attachment_fu!
+  bigbluebutton-api-ruby!
   bigbluebutton_rails!
   capistrano (~> 2.5)
   capistrano-ext

@@ -1,6 +1,6 @@
 class AddFeedbackUrlToSites < ActiveRecord::Migration
   def self.up
-    add_column :sites, :feedback_url, :text
+    add_column :sites, :feedback_url, :string
   end
 
   def self.down

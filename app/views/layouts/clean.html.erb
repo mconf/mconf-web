@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+  "http://www.w3.org/TR/html4/strict.dtd">
+
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <title><%= content_for?(:title) ? yield(:title) : current_site.name %></title>
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+
+    <%= stylesheet_link_tag "common", :media => "screen, projection" %>
+    <%= stylesheet_link_tag "screen", :media => "screen, projection" %>
+    <%= stylesheet_link_tag "lightbox", :media => "screen, projection" %>
+    <%= stylesheet_link_tag "calendar", :media => "screen, projection" %>
+    <%= stylesheet_link_tag "jquery.fancybox", :media => "screen, projection" %>
+    <%= stylesheet_link_tag "jquery.jcrop", :media => "screen, projection" %>
+    <%= stylesheet_link_tag "timeentry", :media => "screen, projection" %>
+    <%= stylesheet_link_tag "print", :media => "print" %>
+    <%= stylesheet_link_tag "token-input-facebook", :media => "screen, projection" %>
+
+    <!--[if IE]>
+    <%= stylesheet_link_tag "ie", :media => "screen, projection" %>
+    <![endif]-->
+    <script type="text/javascript">
+      if (navigator.userAgent.indexOf('Mac') != -1) {
+         document.write("<link href='/stylesheets/mac.css' media='screen, projection' rel='stylesheet' type='text/css' />");
+      }
+    </script>
+
+    <%= javascript_include_tag 'jquery', 'rails.js', 'jquery.livequery', 'jquery.fancybox', 'jquery.easing', 'jquery-ui', 'jquery.form', 'application','jquery.qtip-1.0.0-rc3', 'jquery.tokeninput' %>
+    <%= csrf_meta_tag %>
+    <%= yield :headers %>
+
+    <script type="text/javascript" charset="utf-8">
+      $(document).ready(function() {
+        <%= render :partial => 'layouts/ready.js.erb' %>
+        <%= yield :javascript %>
+      })
+    </script>
+
+  </head>
+
+  <body>
+    <div id="site">
+      <%= yield %>
+      <%= render :partial => "layouts/footer" %>
+    </div>
+
+    <%= render :partial => "layouts/analytics" %>
+  </body>
+
+</html>

@@ -700,9 +700,6 @@ pt-br:
     invite_event: "Convide pessoas para o evento %{event_name}"
     invite_message: "Gostaria de convidá-lo para <b>o evento %{event_name} na comunidade %{space}</b> em %{event_date}. </p><p> Você pode encontrar mais informações sobre este evento em <a href=\"%{event_url}\">%{event_url}</a> </p><p> Atenciosamente,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>"
     invite_title: "%{username} convida você para o evento %{eventname} na comunidade %{space}"
-    notification_message: "<p> %{name}, </p><p> Quanto o <b> %{event_name} na comunidade %{space}</b> em %{event_date}. </p><p> Você pode encontrar mais informações sobre este evento em <a href=\"%{event_url}\">%{event_url}</a> </p><p> Atenciosamente,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>"
-    notification_title: "%{username} enviou uma notificação para informá-lo sobre o evento %{eventname} na comunidade %{space}"
-    notification_successfully: "Notificação enviada a todos com sucesso."
     join: "Junte-se a este evento"
     last_7_days: "Últimos 7 dias (%{size})"
     last_month: "Mês passado (%{size})"
@@ -766,6 +763,9 @@ pt-br:
       show_all_attendants: "Mostrar todos os participantes"
       subject: "%{username} enviou uma notificação para informá-lo sobre o evento %{eventname} na comunidade %{space}"
       title: "Informe os participantes do evento"
+    notification_message: "<p> %{name}, </p><p> Quanto o <b> %{event_name} na comunidade %{space}</b> em %{event_date}. </p><p> Você pode encontrar mais informações sobre este evento em <a href=\"%{event_url}\">%{event_url}</a> </p><p> Atenciosamente,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>"
+    notification_successfully: "Notificação enviada a todos com sucesso."
+    notification_title: "%{username} enviou uma notificação para informá-lo sobre o evento %{eventname} na comunidade %{space}"
     now: "Eventos neste momento:"
     one: Evento
     online: Webconferência
@@ -891,19 +891,19 @@ pt-br:
     title: "Convite para o evento"
     will_invite: "Pessoas que você irá convidar?"
   export_widget: "Exportar widget"
-  faq:
-    faq0:
+  faq: 
+    faq0: 
       answer: "Este FAQ, como todo este website, é baseado no Global Plaza. Se você não achou a resposta que você estava procurando, talvez você possa achar no <a href=\"http://globalplaza.org/faq\">Global Plaza FAQ</a>."
-      question: "Sobre esse FAQ"      
+      question: "Sobre esse FAQ"
     faq1: 
       answer: "Mconf é um projeto em código aberto que tem como objetivo fornecer um sistema de webconferência com a capacidade de interagir de forma transparente entre computadores e dispositivos móveis.<br><br>Este site que você se encontra é chamado Mconf-Web, uma aplicação web que gerencia as webconferências do Mconf. O Mconf-Web é construido com base no <a href=\"http://globalplaza.org\">Global Plaza</a> que é (como falado em seu próprio site): \"um espaço para colaboração, um ponto de encontro para profissionais, onde eles podem compartilhar documentos e vídeos, organizar e participar de videoconferências, em um moderno ambiente web\".<br><br>Você pode achar mais sobre o Mconf e o Mconf-Web nos seguintes sites:<ul><li>Página do nosso projeto: <a href=\"http://www.inf.ufrgs.br/prav/gtmconf\">http://www.inf.ufrgs.br/prav/gtmconf</a></li><li>Nossa página do Google Code, com acompanhamento de problemas e documentação (wiki): <a href=\"http://code.google.com/p/mconf\">http://code.google.com/p/mconf</a></li><li>Nosso usuário do GitHub, onde todo nosso código está hospedado: <a href=\"https://github.com/mconf\">https://github.com/mconf</a></li></ul>"
       question: "O que é Mconf?"
     faq2: 
       answer: "Para começar a colaborar no Mconf você só precisa se <a href=\"http://mconf.inf.ufrgs.br/signup\">registrar</a>. Deste modo você será capaz de criar comunidades, adicionar documentos e participar de reuniões. Verificando as páginas de ajuda do Mconf é um bom ponto de partida para encontrar seu caminho.<br><br>De graça? Sim, você pode usar este servidor de graça, mas esteja ciente que este é um servidor de teste e nós não garantimos que ele estará rodando 100% do tempo (embora ele provavelmente estará próximo a isso)."
-      question: "Como eu posso entrar e participar da comunidade? É de graça?"   
+      question: "Como eu posso entrar e participar da comunidade? É de graça?"
     faq3: 
       answer: "Uma <b>comunidade</b> é a unidade básica de colaboração no Mconf. Como você pode imaginar, é um ambiente onde as pessoas com algum interesse em comum podem interagir. Essa interação pode ocorrer de várias maneiras: usando o repositório de documentos, organizando eventos, participando de webconferências entre outros. O Mconf fornece as facilidades para se fazer isso e muito mais. Você só precisa decidir quem convidar para sua comunidade e se esta comunidade será pública ou privada.<br><br><b>Comunidade Pública</b> é visível para todo mundo, até para visitantes que não possuem cadastro no Mconf. Mas, mesmo que todos possam vê-la, somente pessoas autorizadas podem fazer alterações na comunidade (criar eventos e postar mensagens, por exemplo).<br><br><b>Comunidade Privada</b> só é visível para pessoas autorizadas. Você pode criar uma comunidade privada e somente dar acesso para seus amigos ou pessoas do seu ambiente de trabalho, por exemplo. Ninguém de fora da comunidade podera ver as atividades de dentro da comunidade (mas eles iram saber que a comunidade existe)."
-      question: "Comunidades? Quais comunidades? O que são comunidades?"   
+      question: "Comunidades? Quais comunidades? O que são comunidades?"
     faq4: 
       answer: "Mconf é um site gira em torno de webconferência e, como tal, nossa meta está em simplificar o esforço apra organizá-las. Por baixo, o Mconf utiliza uma versão costumizada do <a href=\"http://bigbluebutton.org\">BigBlueButton</a> como sistema de webconferência, e o Mconf-Web permite que você crie e gerencie suas próprias webconferências."
       question: "Você mencionou... webconferência?"
@@ -915,7 +915,7 @@ pt-br:
       question: "Eu sou Espanhol/Francês/Alemão/Brasileiro ... Mconf é traduzido para a minha língua?"
     faq7: 
       answer: "Wow! Estamos muito contentes que você está interessado em dar a sua contribuição para o Mconf. Então, como você pode contribuir?<br><br>Primeiramente, de uma olhada em nossa <a href=\"http://code.google.com/p/mconf\">página do Google Code</a>, onde você pode encontrar o sistema de acompanhamento de tarefas com todas as tarefas atualmente em desenvolvimento e também toda nossa documentação (wiki). Após isso, se você quiser entrar em contato conosco, registre-se em <a href=\"http://groups.google.com/group/mconf-dev\">nossa lista de emails</a> e mande para nós uma mensagem.<br><br>Há muitas coisas que você pode fazer. Você pode ajudar a resolver um bug, talvez? Ou, se você não for um desenvolvedor, talvez você pode instalar Mconf e fornecer algum feedback? Você também pode ajudar com a tradução se você falar outras línguas. Vamos apreciar todos os comentários e sugestões, fique à vontade para interagir conosco."
-      question: "Eu tenho boas ideias para o seu site. Você aceita sugestões? Como posso contribuir para o desenvolvimento?" 
+      question: "Eu tenho boas ideias para o seu site. Você aceita sugestões? Como posso contribuir para o desenvolvimento?"
     header_title: FAQ
     tag: FAQ
     title: "Perguntas Frequentes"
@@ -927,6 +927,8 @@ pt-br:
     send: "Enviar feedback"
     send_us: "Envie-nos feedback!"
     sent: "Seu e-mail de feedback foi enviado com sucesso. Obrigado"
+    webconf: 
+      text: "Você saiu da conferência. <br/> Agora você pode fechar esta janela."
   file: Arquivo
   fill_fields: "Você deve preencher todos os campos"
   find: 

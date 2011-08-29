@@ -419,7 +419,7 @@ ActiveRecord::Schema.define(:version => 20110823181209) do
     t.string   "cm_domain"
     t.string   "vcc_user_for_chat_server"
     t.string   "vcc_pass_for_chat_server"
-    t.text     "feedback_url"
+    t.string   "feedback_url"
   end
 
   create_table "source_importations", :force => true do |t|

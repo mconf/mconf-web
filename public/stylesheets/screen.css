@@ -2465,3 +2465,14 @@ h3.dialog_title {
  color:#264409;
  border-color:#C6D880;
 }
+
+#feedback_webconf_area {
+  margin: 50px;
+  padding: 20px;
+  background:#f0f6f9
+}
+
+#feedback_webconf_text {
+  text-align: center;
+  font-size: 14px;
+}

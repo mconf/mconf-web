@@ -27,6 +27,7 @@ gem 'simple_captcha', :git => 'git://github.com/galetahub/simple-captcha.git'
 gem 'rmagick', :require => false
 gem 'fckeditor'
 gem 'dynamic_form'
+gem 'bigbluebutton-api-ruby', :git => 'git://github.com/mconf/bigbluebutton-api-ruby.git'
 gem 'bigbluebutton_rails', :git => 'git://github.com/mconf/bigbluebutton_rails.git'
 gem 'rspec-rails', '~> 2.5'
 gem 'action_mailer_tls'

@@ -701,9 +701,6 @@ en:
     invite_event: "Invite people to the event %{event_name}"
     invite_message: "<p>I would like to invite you to <b>event %{event_name} in space %{space}</b> on %{event_date}.</p><p>You can find more information about this event in <a href=\"%{event_url}\">%{event_url}</a></p><p>Kind regards,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>"
     invite_title: "%{username} invites you to event %{eventname} in space %{space}"
-    notification_message: "<p>%{name},</p><p>Regarding the <b>event %{event_name} in space %{space}</b> on %{event_date}.</p><p>You can find more information about this event in <a href=\"%{event_url}\">%{event_url}</a></p><p>Kind regards,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>"
-    notification_title: "%{username} has sent a notification to you about event %{eventname} in space %{space}"
-    notification_successfully: "Notification sent to all successfully."
     join: "Join this event"
     last_7_days: "Last 7 days (%{size})"
     last_month: "Last month (%{size})"
@@ -759,7 +756,7 @@ en:
         name: "'Name' will be replaced in the message by the receiver's name."
       message_beginning_with_start_date: "<p>'Name',</p><p>Regarding the <b>event 'event_name' in space %{space}</b> on 'event_date':</p>"
       message_beginning_without_start_date: "<p>'Name',</p><p>Regarding the <b>event 'event_name' in space %{space}</b>:</p>"
-      message_ending: "<p>You can find more information about the event in <a href=\"event_url\">event_url</a> </p><p>Kind regards,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>"     
+      message_ending: "<p>You can find more information about the event in <a href=\"event_url\">event_url</a> </p><p>Kind regards,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>"
       message_title: "Send a notification to the confirmed attendants"
       personal: "Write your personal text here."
       select_all_attendants: "Select all attendants"
@@ -767,6 +764,9 @@ en:
       show_all_attendants: "Show all attendants"
       subject: "%{username} has sent a notification to you about event %{eventname} in space %{space}"
       title: "Notify the attendants of the event"
+    notification_message: "<p>%{name},</p><p>Regarding the <b>event %{event_name} in space %{space}</b> on %{event_date}.</p><p>You can find more information about this event in <a href=\"%{event_url}\">%{event_url}</a></p><p>Kind regards,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>"
+    notification_successfully: "Notification sent to all successfully."
+    notification_title: "%{username} has sent a notification to you about event %{eventname} in space %{space}"
     now: "Events at this moment: "
     one: Event
     online: WebConference
@@ -891,8 +891,8 @@ en:
     title: "Event Invitation"
     will_invite: "People you will invite:"
   export_widget: "Export Widget"
-  faq:
-    faq0:
+  faq: 
+    faq0: 
       answer: "This FAQ, as this entire website, is based on Global Plaza. If you don’t find here the answer you’re looking for, maybe you can find it in the <a href=\"http://globalplaza.org/faq\">Global Plaza FAQ</a>."
       question: "About this FAQ"
     faq1: 
@@ -911,8 +911,7 @@ en:
       answer: "There are basically two types of webconferences in Mconf.<br><br>When a user registers in this website, he/she automatically receives a webconference room (<b>user’s room</b>). This room can be shared with anyone the user would like to hold a conference with, even with people that do not have a Mconf account. The room’s owner is always the conference moderator, while the other participants have limited attendee privileges.<br><br>The user rooms are by default public, so anyone with the link to it will be able to access it. But it can be made private and you can even define a password to it (note: this is still a work in progress).<br><br>The other type of webconference happens inside a space. Every space created in Mconf has a webconference room associated (<b>space’s room</b>). If the space is public, the room is public. Otherwise, the room is private and there will be a password associated to it.<br><br>As public spaces, public space’s rooms can be accessed by anybody, but only the space’s members will have moderator privileges. Likewise, private space’s rooms will only be accessible by members of the space."
       question: "Ok, but how can I create a webconference?"
     faq6: 
-      answer: "As of now, we give support to the following languages: <b>English</b> and <b>Portuguese (Brazil)</b>. However, we also have Mconf-Web partially available in the languages <b>Spanish</b>, <b>French</b> and <b>German</b>. To select among them just use the link “Language” at the top of any page.
-We are constantly improving internationalization, and if you think you can lend us a hand, please <a href=\"http://mconf.inf.ufrgs.br/feedback/new\">contact us</a> or <a href=\"http://code.google.com/p/mconf/wiki/MconfWebLocalization\">take a look at our wiki</a>, that contains some instructions on how to translate this website."
+      answer: "As of now, we give support to the following languages: <b>English</b> and <b>Portuguese (Brazil)</b>. However, we also have Mconf-Web partially available in the languages <b>Spanish</b>, <b>French</b> and <b>German</b>. To select among them just use the link “Language” at the top of any page. We are constantly improving internationalization, and if you think you can lend us a hand, please <a href=\"http://mconf.inf.ufrgs.br/feedback/new\">contact us</a> or <a href=\"http://code.google.com/p/mconf/wiki/MconfWebLocalization\">take a look at our wiki</a>, that contains some instructions on how to translate this website."
       question: "I am Spanish/French/German/Brazilian... Is Mconf translated to my language?"
     faq7: 
       answer: "You’re great! We are very glad you’re interested in giving your contribution to Mconf. So, how can you contribute?<br><br>First, take a look at our <a href=\"http://code.google.com/p/mconf\">Google Code page</a>, where you can find the issue tracking system with all tasks currently in development and also all our documentation (wiki). After that, if you want to contact us, register yourself in <a href=\"http://groups.google.com/group/mconf-dev\">our mailing list</a> and send us a message.<br><br>There are plenty of things you can do. You can help by solving a bug, maybe? Or, if you’re not a developer, maybe you can install Mconf and provide some feedback? You can also help with translations if you speak many languages. We will appreciate any comments and suggestions, feel free to interact with us."
@@ -928,6 +927,8 @@ We are constantly improving internationalization, and if you think you can lend 
     send: "Send feedback"
     send_us: "Send us feedback!"
     sent: "Your feedback information e-mail has been successfully sent. Thank you"
+    webconf: 
+      text: "You have logged out of the conference.<br/>You may now close this windows."
   file: File
   fill_fields: "You should fill in all the fields"
   find: 
