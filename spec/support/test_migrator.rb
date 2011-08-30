@@ -29,8 +29,11 @@ class TestMigrator
     previous = TestMigrator.previous_version(target_version)
 
     # rollback, load data then migrate
+    puts "* Migrating to #{previous}"
     TestMigrator.migrate(previous)
+    puts "* Loading db/data.yml"
     TestMigrator.load_data
+    puts "* Migrating to #{target_version}"
     TestMigrator.migrate(target_version)
 
     if ActiveRecord::Migrator.current_version != target_version
