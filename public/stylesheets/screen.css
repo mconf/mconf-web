@@ -2476,3 +2476,8 @@ h3.dialog_title {
   text-align: center;
   font-size: 14px;
 }
+
+#application_revision {
+  font-size: 9px;
+  color: #666;
+}

@@ -11,16 +11,16 @@
       </li>
       <li>-</li>
       <li><%=link_to(t('feedback.send_us'), new_feedback_path(), :id => "feedback_link" )%></li>
-      <% # if current_site.authorize?(:translate, :to => current_user)%>
-      <!--
-         <li>-</li>
-         <li><%=link_to t('translate.one'), translate_list_path %></li>
-      -->
-      <% # end%>
     </ul>
   </div>
 
-  <div class="float_right">
+  <div class="float_right" style="clear:right;">
+    <ul>
+      <li><%= t('footer.built_on_top_of').html_safe %></li>
+    </ul>
+  </div>
+
+  <div class="float_left" style="clear:left;">
     <ul>
       <li><%= t('footer.find_us') %>:</li>
       <li><a href="http://www.inf.ufrgs.br/prav/gtmconf"><%= t('footer.website') %></a></li>
@@ -31,10 +31,13 @@
     </ul>
   </div>
 
-  <div class="float_right" style="clear:both;">
-    <ul>
-      <li><%= t('footer.built_on_top_of').html_safe %></li>
-    </ul>
+  <div class="float_right" style="clear:right;">
+    <div id="application_revision">
+      <%= t('version.one') + ": " %>
+      <a href="<%= github_link_to_revision(application_revision) %>">
+        <%= application_version + "/" + application_branch + "/" + application_revision %>
+      </a>
+    </div>
   </div>
 
   <div class="clearer"></div>

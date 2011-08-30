@@ -1,3 +1,5 @@
+require 'version'
+
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
   def menu(tab)
@@ -122,6 +124,22 @@ module ApplicationHelper
 
   def mobile_icon_link(url)
     link_to image_tag("icons/cellphone.png", :mouseover => "icons/cellphone_over.png"), url, :id => 'mobile_join', :class => 'mobile_icon'
+  end
+
+  def application_version
+    Vcc::VERSION
+  end
+
+  def application_revision
+    Vcc::REVISION
+  end
+
+  def application_branch
+    Vcc::BRANCH
+  end
+
+  def github_link_to_revision(revision)
+    "https://github.com/mconf/mconf-web/commit/#{revision}"
   end
 
 end
