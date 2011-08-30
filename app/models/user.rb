@@ -83,18 +83,18 @@ class User < ActiveRecord::Base
       profile
     end
   end
-  
+
   def create_bbb_room
     create_bigbluebutton_room :owner => self,
                               :server => BigbluebuttonServer.first,
                               :param => self.login,
                               :name => self._full_name
   end
-  
+
   def update_bbb_room
     if self.login_changed?
       bigbluebutton_room[:param] = self.login
-    end 
+    end
   end
 
   delegate :full_name, :logo, :organization, :city, :country, :to => :profile!
@@ -279,6 +279,7 @@ class User < ActiveRecord::Base
     rooms += self.spaces.map(&:bigbluebutton_room)
     rooms += Space.public.map(&:bigbluebutton_room)
     rooms.uniq!
+    rooms
   end
 
 end
