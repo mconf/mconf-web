@@ -17,7 +17,7 @@ module Vcc
   @@revision_full = false
   def self.application_revision(full=false)
     unless @@revision or @@revision_full != full
-      @@revision = %x[git rev-list HEAD | head -1]
+      @@revision = %x[git rev-list HEAD --max-count=1]
       @@revision.strip!
       @@revision.slice!(6..-1) unless full
       @@revision_full = full
