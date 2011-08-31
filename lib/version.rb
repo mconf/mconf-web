@@ -1,7 +1,28 @@
-# Note: Some of these values are automatically updated when the application
-# is deployed.
 module Vcc
   VERSION = "0.2".freeze
-  REVISION = "0000000000000000000000000000000000000000".freeze
-  BRANCH = "master".freeze
+
+  # get the current git branch
+  @@branch = nil
+  def self.application_branch
+    unless @@branch
+      branch = %x[git symbolic-ref HEAD]
+      branch =~ /([^\/]*)$/
+      @@branch = $1.strip!
+    end
+    @@branch
+  end
+
+  # get the current revision from git
+  @@revision = nil
+  @@revision_full = false
+  def self.application_revision(full=false)
+    unless @@revision or @@revision_full != full
+      @@revision = %x[git rev-list HEAD | head -1]
+      @@revision.strip!
+      @@revision.slice!(6..-1) unless full
+      @@revision_full = full
+    end
+    @@revision
+  end
+
 end

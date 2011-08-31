@@ -371,7 +371,7 @@ ul.thread-title{margin:0;list-style-type:none;}
         overflow:hidden;
         position:relative;
         }
-.thread_content .thread-title-wrapper{width:600px;/*580px*/}
+.thread_content .thread-title-wrapper{}
 .thread_content .thread-title-wrapper div{float:none;}
 .thread_content .post-logo,.user .post-logo,.admin .post-logo{width:36px;height:36px;}
 .post .post-logo img{width:22px;padding:1px;border:1px #ccc solid;}

@@ -131,11 +131,11 @@ module ApplicationHelper
   end
 
   def application_revision
-    Vcc::REVISION
+    Vcc.application_revision
   end
 
   def application_branch
-    Vcc::BRANCH
+    Vcc.application_branch
   end
 
   def github_link_to_revision(revision)
