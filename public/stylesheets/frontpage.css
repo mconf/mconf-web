@@ -860,6 +860,10 @@ form {
 .float_right { float: right; }
 .float_left { float: left; }
 
+#application_revision {
+  font-size: 9px;
+  color: #666;
+}
 
 
 
