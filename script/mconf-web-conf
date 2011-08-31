@@ -324,9 +324,9 @@ rvm_ruby_and_gemset() {
 checkout_get_version_from_repo() {
     if [ -d $DEVELOPMENT_SRC_PATH ]; then
         REPLY=
-        if [ -f $DEVELOPMENT_SRC_PATH/config/version.rb ]; then
-            if cat $DEVELOPMENT_SRC_PATH/config/version.rb | grep -q "module Vcc"; then
-                REPLY=`cat $DEVELOPMENT_SRC_PATH/config/version.rb | grep "VERSION" | sed 's/[^"]*"\([^"]*\)".*/\1/g'`
+        if [ -f $DEVELOPMENT_SRC_PATH/lib/version.rb ]; then
+            if cat $DEVELOPMENT_SRC_PATH/lib/version.rb | grep -q "module Vcc"; then
+                REPLY=`cat $DEVELOPMENT_SRC_PATH/lib/version.rb | grep "VERSION" | sed 's/[^"]*"\([^"]*\)".*/\1/g'`
             fi
         fi
     fi
