@@ -92,10 +92,10 @@ class User < ActiveRecord::Base
                               :logout_url => "/feedback/webconf/"
   end
   
-  def update_bbb_room
+  def update_bbb_room    
     if self.login_changed?
       bigbluebutton_room[:param] = self.login
-    end 
+    end
   end
 
   delegate :full_name, :logo, :organization, :city, :country, :to => :profile!

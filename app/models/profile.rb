@@ -24,6 +24,7 @@ class Profile < ActiveRecord::Base
   
   belongs_to :user
   accepts_nested_attributes_for :user
+  after_update :update_bbb_room
 
   acts_as_taggable :container => false
   has_logo :class_name => "Avatar"
@@ -36,6 +37,12 @@ class Profile < ActiveRecord::Base
       if (profile.url.index('http') != 0)
         profile.url = "http://" << profile.url 
       end
+    end
+  end
+  
+  def update_bbb_room
+    if self.full_name_changed?
+      self.user.bigbluebutton_room.update_attribute(:name,self.full_name)
     end
   end
 
