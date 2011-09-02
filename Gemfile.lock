@@ -19,17 +19,17 @@ GIT
 
 GIT
   remote: git://github.com/mconf/bigbluebutton-api-ruby.git
-  revision: a4e7ae33e9b1d500a67e3bb1e87c3642c93e35e5
+  revision: f35b0c1a6e933420c61da079182494a16630c74d
   specs:
-    bigbluebutton-api-ruby (0.0.10)
+    bigbluebutton-api-ruby (0.0.11)
       nokogiri (~> 1.4.0)
 
 GIT
   remote: git://github.com/mconf/bigbluebutton_rails.git
-  revision: 0f9e317004cb5e91c22f82aa4bd463f50348ce70
+  revision: 8bf630b29f35df6eee7320a6ed60c440f676ed86
   specs:
-    bigbluebutton_rails (0.0.5)
-      bigbluebutton-api-ruby (~> 0.0.10)
+    bigbluebutton_rails (0.0.6)
+      bigbluebutton-api-ruby (~> 0.0.11)
       rails (>= 3.0.3)
 
 GIT
@@ -175,7 +175,7 @@ GEM
       thor (~> 0.14.4)
     rake (0.8.7)
     rcov (0.9.9)
-    rdoc (3.9.3)
+    rdoc (3.9.4)
     rmagick (2.13.1)
     rspec (2.6.0)
       rspec-core (~> 2.6.0)
