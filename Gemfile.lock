@@ -19,14 +19,14 @@ GIT
 
 GIT
   remote: git://github.com/mconf/bigbluebutton-api-ruby.git
-  revision: f35b0c1a6e933420c61da079182494a16630c74d
+  revision: cb31bdbcb1faeb80574f41a5c0fe3bf3ff14a0af
   specs:
     bigbluebutton-api-ruby (0.0.11)
       nokogiri (~> 1.4.0)
 
 GIT
   remote: git://github.com/mconf/bigbluebutton_rails.git
-  revision: 8bf630b29f35df6eee7320a6ed60c440f676ed86
+  revision: 06cd222e965d37ab76b55cea8c76a69fa61ec952
   specs:
     bigbluebutton_rails (0.0.6)
       bigbluebutton-api-ruby (~> 0.0.11)

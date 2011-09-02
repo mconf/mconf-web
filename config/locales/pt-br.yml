@@ -928,7 +928,7 @@ pt-br:
     send_us: "Envie-nos feedback!"
     sent: "Seu e-mail de feedback foi enviado com sucesso. Obrigado"
     webconf: 
-      text: "Você saiu da conferência. <br/> Agora você pode fechar esta janela."
+      text: "Você saiu da conferência.<br/>Você já pode fechar esta janela."
   file: Arquivo
   fill_fields: "Você deve preencher todos os campos"
   find: 

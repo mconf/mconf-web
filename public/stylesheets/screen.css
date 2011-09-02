@@ -255,11 +255,9 @@ body .icon{margin-bottom:-2px;}
 }
 #header_logo1 img, #header_logo2 img {
   opacity:0.8;
-  filter:alpha(opacity=80);
 }
 #header_logo1 img:hover, #header_logo2 img:hover {
   opacity:1.0;
-  filter:alpha(opacity=100);
 }
 
 
@@ -640,12 +638,16 @@ div#language_select,div#support_select,div#browse_select{display:inline-block;}
 }
 #support_select ul#support_menu,#browse_select ul#browse_menu, #language_select ul#language_menu{min-width:130px;text-align:left;}
 #browse_select ul#browse_menu{bottom:-28px;right:5px;}
-#language_select ul#language_menu{bottom: -129px;right:5px;}
+#language_select ul#language_menu{
+  bottom: -129px;
+  right: 5px;
+  top: 20px;
+}
 #language_select ul#language_menu li,#footer ul#support_menu li{cursor:pointer;display:block;margin-right:0;border-top:1px solid #ccc;}
 .div_busqueda #subtexto_busqueda ul#browse_menu li,#subtexto_busqueda ul#browse_menu li{text-align:left;cursor:pointer;display:block;margin-right:0;border-bottom:1px solid #ccc;}
 ul#language_menu li:hover,ul#support_menu li:hover,ul#browse_menu li:hover{background:#244974;}
-ul#language_menu li a,ul#support_menu li a,ul#browse_menu li a{text-decoration:none;color:#222;display:block;padding:3px 3px 3px 10px;outline:none;}
-ul#language_menu li a:hover,ul#support_menu li a:hover,ul#browse_menu li a:hover{text-decoration:none;color:#fff;}
+ul#language_menu li a,ul#support_menu li a,ul#browse_menu li a{text-decoration:none;color:#222;display:block;padding:3px 3px 3px 10px;outline:none;background:#fff;}
+ul#language_menu li a:hover,ul#support_menu li a:hover,ul#browse_menu li a:hover{text-decoration:none;color:#fff;background:#244974;}
 ul.menu1{list-style-type:none;margin:0 5px 3px 0;}
 ul.menu1 li{display:inline;}
 /**/

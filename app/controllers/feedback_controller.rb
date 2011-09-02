@@ -18,14 +18,12 @@
 
 class FeedbackController < ApplicationController
 
-  layout 'clean', :only => [:webconf]
-
   def webconf
     feedback_url = Site.current.feedback_url
     unless feedback_url.blank?
       redirect_to feedback_url
     else
-      render :webconf
+      render :webconf, :layout => "clean"
     end
   end
 
