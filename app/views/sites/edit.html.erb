@@ -38,9 +38,14 @@
     <%= f.text_field :presence_domain %>
   </p>
         
-        <p>
+  <p>
     <%= f.label :cm_domain, t('site.cm_domain') %>
     <%= f.text_field :cm_domain %>
+  </p>
+        
+  <p>
+    <%= f.label :locale, t('site.locale') %>
+    <%= f.text_field :locale %>
   </p>
         
   <p>
@@ -70,7 +75,7 @@
 
   <p>
     <!--<%= f.label :ssl, t('site.ssl') %>-->
-        <strong class="blue">SSL </strong>
+    <strong class="blue">SSL </strong>
     <%= f.check_box :ssl %>
   </p>
 
@@ -80,8 +85,13 @@
   </p>
 
   <p>
+    <%= f.label :feedback_url, t('site.feedback_url') %>
+    <%= f.text_field :feedback_url %>
+  </p>
+
+  <p>
     <!--<%= f.label :exception_notifications, t('site.exception_notifications') %>-->
-        <strong class="blue"><%= t('send_debug_emails') %> </strong>
+    <strong class="blue"><%= t('send_debug_emails') %> </strong>
     <%= f.check_box :exception_notifications %>
   </p>
 

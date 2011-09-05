@@ -1840,6 +1840,8 @@ pt-br:
     email: E-mail
     exception_notifications: "Enviar e-mails de depuração"
     exception_notifications_email: "Destinatário dos e-mails de depuração"
+    feedback_url: "Feedback URL"
+    locale: "Idioma"
     logo: Logo
     name: Nome
     one: Site

@@ -1834,6 +1834,8 @@ en:
     email: Email
     exception_notifications: "Send debug emails"
     exception_notifications_email: "Debug emails recipient"
+    feedback_url: "Feedback URL"
+    locale: "Language"
     logo: Logo
     name: Name
     one: Site
