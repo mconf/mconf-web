@@ -5,33 +5,45 @@
   <div>
     <%= raw(link_logo(user, :size => 32, :url => user_path(user), :title=>user.name)) %>
   </div>
-        <div class="user_data">
-          <% if performance.nil? -%>
-                  <%= form_for :performance, :url => site_performances_path do |f| -%>
-              <ul>
-                <li class="main_text"><%=t('name.one')%>: <span class="unified_user"><%=sanitize(user.full_name) %></span></li>
-                <li class="main_text">
-                        <%=t('role.one')%>: <%=t('role.none')%>
-                                <%=select "performance", "role_id", [[t('role.add'),""]] + @site_roles.collect {|p| [ p.name, p.id ]},{},:id=> "role_select_#{user.id}",:class=>"small-font main_text" %>
-                          <%= hidden_field_tag 'performance[agent]', "user-#{user.id}"%>
-                          <%= submit_tag t('add'), :id=> "role_submit_button_#{user.id}",:class=>"main_text small-font"%>                               
-                        </li>
-              </ul>
- 
-            <% end -%>
+  <div class="user_data">
+    <% if performance.nil? -%>
+      <%= form_for :performance, :url => site_performances_path do |f| -%>
+        <ul>
+          <li class="main_text"><%=t('name.one')%>: <span class="unified_user"><%=sanitize(user.full_name) %></span></li>
+          <!--
+          <li class="main_text">
+            <%=
+              #t('role.one')
+             %>: 
+            <%=
+              #t('role.none')
+             %>
+            <%=
+              #select "performance", "role_id", [[t('role.add'),""]] + @site_roles.collect {|p| [ p.name, p.id ]},{},:id=> "role_select_#{user.id}",:class=>"small-font main_text" 
+             %>
+            <%= 
+              #hidden_field_tag 'performance[agent]', "user-#{user.id}"
+             %>
+            <%= 
+              #submit_tag t('add'), :id=> "role_submit_button_#{user.id}",:class=>"main_text small-font"]
+             %>
+          </li>
+          -->
+        </ul>
+      <% end -%>
     <% else -%>
       <%= form_for :performance, :url => site_performance_path(performance.id), :html => { :method => :put} do |f| -%>
         <ul>
           <li class="main_text"><%=t('name.one')%>: <span class="unified_user"><%=sanitize(user.full_name) %></span></li>
+          <!--
           <li class="main_text">
-                <%=t('role.one')%>: <%=performance.role.name %>
-                        <%=select "performance", "role_id", [[t('role.change'),""]] + @site_roles.collect {|p| [ p.name, p.id ]}, {}, :id => "role_select_#{user.id}",:class=>"small-font main_text" %></li>
-                        <%= submit_tag t('change'), :id=> "role_submit_button_#{user.id}",:class=>"main_text small-font"%>
-                         <%=t('or')%> <%= link_to t('delete.one'), site_performance_path(performance.id), :method => :delete %>
-        </ul>
-        
-                                 
-                  <% end -%>
-                <% end -%>
+            <%=t('role.one')%>: <%=performance.role.name %>
+            <%=select "performance", "role_id", [[t('role.change'),""]] + @site_roles.collect {|p| [ p.name, p.id ]}, {}, :id => "role_select_#{user.id}",:class=>"small-font main_text" %></li>
+            <%= submit_tag t('change'), :id=> "role_submit_button_#{user.id}",:class=>"main_text small-font"%>
+            <%=t('or')%> <%= link_to t('delete.one'), site_performance_path(performance.id), :method => :delete %>
+          -->
+        </ul>     
+      <% end -%>
+    <% end -%>
   </div>
 </div>
