@@ -242,6 +242,11 @@ en:
   back: Back
   back_to_inbox: "Back to inbox"
   bad_request: "Bad Request"
+  bbb_room:
+    edit: "Configure your BigBlueButton Room"
+    private: "Private Room"
+    moderatorPW: "Moderator Password"
+    attendeePW: "Attendee Password"
   beta: beta
   bigbluebutton: BigBlueButton
   bigbluebutton_rails: 

@@ -242,6 +242,11 @@ pt-br:
   back: Voltar
   back_to_inbox: "Voltar para caixa de entrada"
   bad_request: "Bad Request"
+  bbb_room:
+    edit: "Configure sua sala do BigBlueButton"
+    private: "Sala Privada"
+    moderatorPW: "Senha do Moderador"
+    attendeePW: "Senha do Participante"
   beta: beta
   bigbluebutton: BigBlueButton
   bigbluebutton_rails: 

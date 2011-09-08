@@ -146,30 +146,53 @@ class UsersController < ApplicationController
   # PUT /users/1.atom
   #this method updates a user
   def update
-    respond_to do |format|
-      if user.update_attributes(params[:user])
-        user.tag_with(params[:tags]) if params[:tags]
-        
-        flash[:success] = t('user.updated')     
-        format.html { #the superuser will be redirected to list_users
-          redirect_to(user_path(@user))
-        } 
-        format.xml  { render :xml => @user }
-        format.atom { head :ok }
-      else
-        format.html { #the superuser will be redirected to list_users
-          if current_user.superuser == true
-             render :action => "edit" 
-            #redirect_to(space_users_path(@space))
-          else
-             render :action => "edit" 
-            #redirect_to(space_user_path(@space, @user)) 
-          end }
-        format.xml  { render :xml => @user.errors, :status => :unprocessable_entity }
-        format.atom { render :xml => @user.errors.to_xml, :status => :not_acceptable }
+    if params[:bbb_room]
+      user.bigbluebutton_room.update_attributes(params[:bigbluebutton_room])
+      respond_to do |format|
+        format.html {
+          redirect_to(home_path(user))
+        }
       end
-    end 
+    else
+      respond_to do |format|
+        if user.update_attributes(params[:user])
+          user.tag_with(params[:tags]) if params[:tags]
+          
+          flash[:success] = t('user.updated')     
+          format.html { #the superuser will be redirected to list_users
+            redirect_to(user_path(@user))
+          } 
+          format.xml  { render :xml => @user }
+          format.atom { head :ok }
+        else
+          format.html { #the superuser will be redirected to list_users
+            if current_user.superuser == true
+               render :action => "edit" 
+              #redirect_to(space_users_path(@space))
+            else
+               render :action => "edit" 
+              #redirect_to(space_user_path(@space, @user)) 
+            end }
+          format.xml  { render :xml => @user.errors, :status => :unprocessable_entity }
+          format.atom { render :xml => @user.errors.to_xml, :status => :not_acceptable }
+        end
+      end 
+    end
     
+  end
+  
+  def edit_bbb_room
+    @server = BigbluebuttonServer.first
+    @room = BigbluebuttonRoom.find_by_param(params[:room])
+    @priv = @room.private
+    
+    respond_to do |format|
+      format.html{
+        if request.xhr?
+          render :layout => false
+        end
+      }
+    end
   end
   
   
