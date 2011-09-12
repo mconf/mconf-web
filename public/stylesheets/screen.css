@@ -2503,4 +2503,15 @@ h3.dialog_title {
   font-weight: bold;
   color:#244974;
 }
+.my_spaces_home .all_my_spaces .space_box {
+  width:190px;
+}
+.my_spaces_home .all_my_spaces .space_box .logo {
+  float: left;
+}
+.my_spaces_home .all_my_spaces .space_box .description {
+  float: left;
+  margin-left: 5px;
+  width: 100px;
+}
 

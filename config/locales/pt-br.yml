@@ -1372,6 +1372,9 @@ pt-br:
   mandatory_field: "Campo obrigatório"
   mark_checkbox: "Marque a caixa de seleção apropriada"
   mconf: Mconf
+  members: 
+    one: "%{count} membro"
+    other: "%{count} membros"
   message: 
     created: "Mensagem enviada com sucesso"
     error: 
@@ -1841,7 +1844,7 @@ pt-br:
     exception_notifications: "Enviar e-mails de depuração"
     exception_notifications_email: "Destinatário dos e-mails de depuração"
     feedback_url: "Feedback URL"
-    locale: "Idioma"
+    locale: Idioma
     logo: Logo
     name: Nome
     one: Site
