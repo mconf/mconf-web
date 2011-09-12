@@ -2509,9 +2509,12 @@ h3.dialog_title {
 .my_spaces_home .all_my_spaces .space_box .logo {
   float: left;
 }
+.my_spaces_home .all_my_spaces .space_box .logo img {
+  border: 1px solid #ccc;
+}
 .my_spaces_home .all_my_spaces .space_box .description {
   float: left;
   margin-left: 5px;
-  width: 100px;
+  width: 95px;
 }
 
