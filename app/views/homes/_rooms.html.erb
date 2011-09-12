@@ -47,18 +47,6 @@
     $('#passwords').hide();
   });
   */
-  
-  $("#edit-bbb-room #private").livequery('click', function(event) {
-    $('#passwords').toggle(0);
-    if ($("#private").is(':checked')) {
-      $('#moderatorPW').removeAttr('disabled');
-      $('#attendeePW').removeAttr('disabled');
-    }
-    else{
-      $('#moderatorPW').attr('disabled', true);
-      $('#attendeePW').attr('disabled', true);
-    }
-  });
 
   $("a#mobile_join").fancybox({
     'hideOnContentClick' : false,
@@ -77,7 +65,18 @@
     'frameWidth' : 450,
     'frameHeight' : 430
   });
-
+  
+  $("#edit-bbb-room #private").livequery('click', function(event) {
+    $('#passwords').toggle(0);
+    if ($("#private").is(':checked')) {
+      $('#moderatorPW').removeAttr('disabled');
+      $('#attendeePW').removeAttr('disabled');
+    }
+    else{
+      $('#moderatorPW').attr('disabled', true);
+      $('#attendeePW').attr('disabled', true);
+    }
+  });
 
   $("#webconference-rooms .invite_url_button").livequery('click', function(event) {
     id = $(this).attr('id').replace("invite_url_button-", "");

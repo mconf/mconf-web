@@ -12,16 +12,22 @@
       </p>
     </div>
     <div id="passwords" class="<%= "hide_fields" unless @priv %>">
-      <p>
-        <%= f.label :moderator_password, t('bbb_room.moderatorPW') %>:
-        <%= f.text_field :moderator_password, :id=> "moderatorPW" %>
-      </p>
-      <p>
-        <%= f.label :attendee_password, t('bbb_room.attendeePW') %>:
-        <%= f.text_field :attendee_password, :id=> "attendeePW" %>
-      </p>
+      <dl>
+        <dt>
+          <%= f.label :moderator_password, t('bbb_room.moderatorPW') %>:
+        </dt>
+        <dd>
+          <%= f.text_field :moderator_password, :id=> "moderatorPW" %>
+        </dd>
+        <dt>
+          <%= f.label :attendee_password, t('bbb_room.attendeePW') %>:
+        </dt>
+        <dd>
+          <%= f.text_field :attendee_password, :id=> "attendeePW" %>
+        </dd>
+      </dl>
     </div>
-    <div id="site_button" class="margin-up">  
+    <div id="site_button" class="margin-up float_right">  
       <button type="submit" class="basic_button blue_button"><%=t("button.update")%></button>
     </div>
   <%end%>
