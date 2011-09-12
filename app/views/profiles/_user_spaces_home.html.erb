@@ -1,0 +1,68 @@
+<%= content_for :javascript do %>
+
+  /*jquery for assistants div*/
+  $(".list_my_spaces").livequery('click',function () {
+    $("#my_spaces_lite").hide();
+    $("#all_my_spaces").hide();
+    $("#my_spaces_list").show();
+    return false;
+  });
+
+  $(".more_spaces").livequery('click',function () {
+    $("#my_spaces_lite").hide();
+    $("#my_spaces_list").hide();
+    $("#all_my_spaces").show();
+    return false;
+  });
+
+  $(".less_spaces").livequery('click',function () {
+    $("#all_my_spaces").hide();
+    $("#my_spaces_list").hide();
+    $("#my_spaces_lite").show();
+    return false;
+  });
+
+<%end%>
+
+
+
+<div class="my_spaces_home margin-up">
+  <div id="my_spaces_title">
+    <h3>
+      <%= image_tag("icons/information.png", :class=>"icon",:title=> t('information.information4')) %> <%= title %>
+    </h3>
+  </div>
+
+  <% if show_user.spaces.empty? %>
+    <ul>
+      <li><span><%= t('profile.no_spaces', :user => show_user.name) %></span></li>
+    </ul>
+  <% else %>
+
+    <div id="all_my_spaces">
+      <ul>
+        <% show_user.spaces.each do |s| %>
+          <% if s.authorize? :read, :to => current_user %>
+            <li>
+              <div style="width:190px;">
+                <div style="float:left;">
+                  <%= link_to raw(logo(s,{:size=>"h64", :title=> s.name })), space_path(s) %>
+                </div>
+                <div style="float:left;margin-left:5px;width:100px;">
+                  <%= link_to s.name, space_path(s), :class => "title" %></br>
+                  <%= s.actors.count %> members
+                </div>
+                <div class="clearer"></div>
+              </div>
+            </li>
+          <% else %>
+            <li><%= raw(logo(s,{:size=>"h64", :title=> s.name })) %></li>
+          <% end %>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="clearer"></div>
+
+</div>

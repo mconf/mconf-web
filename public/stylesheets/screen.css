@@ -2155,8 +2155,7 @@ div.my-webconference-rooms div.room_list ul {
 }
 
 div.my-webconference-rooms div.room_list li {
-  border-bottom:1px #ddd solid;
-  padding: 7px 5px 3px 5px;
+  padding: 7px 0 0 0;
   clear: both;
 }
 
@@ -2483,3 +2482,25 @@ h3.dialog_title {
   font-size: 9px;
   color: #666;
 }
+
+
+.my_spaces_home{
+  border:1px #bdd8eb solid;
+  background:white;
+  clear:both;
+  margin-bottom:0.75em;
+}
+.my_spaces_home ul {
+  margin: 2px;
+}
+.my_spaces_home ul li {
+  float: left;
+  margin: 10px;
+  list-style-type: none;
+}
+.my_spaces_home .title {
+  font-size: 12px;
+  font-weight: bold;
+  color:#244974;
+}
+

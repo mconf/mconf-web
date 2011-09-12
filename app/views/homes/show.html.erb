@@ -132,16 +132,12 @@
     <%end%>
         </div>
 
-        <%= render :partial => 'profiles/user_spaces', :locals => {:show_user =>current_user, :title=>t('space.my_spaces')} %>
-
 <%end%>
 
-<%= content_for :menu_rooms do  %>
-  <%= render :partial => "rooms" %>
-<% end %>
-
 <%= content_for :menu do  %>
-        <%= render :partial => "menu" %>
+  <%= render :partial => "rooms" %>
+  <%= render :partial => 'profiles/user_spaces_home', :locals => {:show_user =>current_user, :title=>t('space.my_spaces')} %>
+  <%= render :partial => "menu" %>
 <% end %>
 
 <div id="recent-activity">
