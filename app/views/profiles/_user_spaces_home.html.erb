@@ -1,0 +1,51 @@
+<div class="my_spaces_home margin-up">
+  <div id="my_spaces_title">
+    <h3>
+      <%= image_tag("icons/information.png", :class=>"icon",:title=> t('information.information4')) %> <%= title %>
+    </h3>
+  </div>
+
+  <% if show_user.spaces.empty? %>
+    <ul>
+      <li><span><%= t('profile.no_spaces', :user => show_user.name) %></span></li>
+    </ul>
+  <% else %>
+
+  <div class="all_my_spaces">
+    <ul>
+      <% show_user.spaces.each do |s| %>
+        <% if s.authorize? :read, :to => current_user %>
+          <li>
+            <div class="space_box">
+              <div class="logo">
+                <%= link_to raw(logo(s,{:size=>"h64", :title=> s.name })), space_path(s) %>
+              </div>
+              <div class="description">
+                <%= link_to s.name, space_path(s), :class => "title" %></br>
+                <%= t('members', :count => s.actors.count) %>
+              </div>
+              <div class="clearer"></div>
+            </div>
+          </li>
+        <% else %>
+          <li>
+            <div class="space_box">
+              <div class="logo">
+                <%= logo(s,{:size=>"h64", :title=> s.name }).html_safe %>
+              </div>
+              <div class="description">
+                <span class="title"><%= s.name %></span></br>
+                <%= t('members', :count => s.actors.count) %>
+              </div>
+              <div class="clearer"></div>
+            </div>
+          </li>
+        <% end %>
+      <% end %>
+    </ul>
+  </div>
+  <% end %>
+
+  <div class="clearer"></div>
+
+</div>

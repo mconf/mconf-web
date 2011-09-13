@@ -1378,6 +1378,9 @@ en:
   mandatory_field: "Mandatory field"
   mark_checkbox: "Mark the suitable checkbox"
   mconf: Mconf
+  members: 
+    one: "%{count} member"
+    other: "%{count} members"
   message: 
     incoming: 
       other: "Incoming messages"
@@ -1840,7 +1843,7 @@ en:
     exception_notifications: "Send debug emails"
     exception_notifications_email: "Debug emails recipient"
     feedback_url: "Feedback URL"
-    locale: "Language"
+    locale: Language
     logo: Logo
     name: Name
     one: Site
