@@ -298,6 +298,8 @@ input[type=submit].medium_button, button.medium_button, a.medium_button {
 
 /* GENERAL STYLES */
 
+textarea { overflow: auto; }
+
 .hide { display: none; }
 
 .float_right { float: right; }

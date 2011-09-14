@@ -2036,7 +2036,8 @@ a.first_day_link{border:none;}
 .rounded_button {
   -moz-border-radius: 10px; /* Para Firefox */
   -webkit-border-radius: 10px; /*Para Safari e Chrome */
-  -border-radius: 10px; /* Para Opera 10.5+*/
+  -border-radius: 10px; /* Para Opera 10.5+ and any CSS3*/
+  -khtml-border-radius: 10px; /* Linux Browsers*/
 }
 
 .border_button {
