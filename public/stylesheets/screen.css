@@ -2293,6 +2293,10 @@ h3.dialog_title {
   overflow: hidden;
 }
 
+#webconference_invite_dialog textarea { 
+  overflow: hidden;
+}
+
 #webconference_invite_dialog .block {
   margin-bottom: 5px;
 }
@@ -2353,7 +2357,16 @@ h3.dialog_title {
 
 #webconference_invite_dialog .header .value {
   margin-left: 120px;
+  margin-right: 20px;
   margin-bottom: 5px;
+}
+
+#webconference_invite_dialog .header .clippy {
+  width: 15px;
+  float: right;
+  clear: right;
+  margin-bottom: 5px;
+  margin-top: -25px;
 }
 
 #webconference_invite_dialog .header #room_invite_url {
