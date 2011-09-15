@@ -39,11 +39,20 @@
     }
     window.location=$.param.querystring("<%=home_path%>" + "?" + $.param.querystring(), "contents=" + contents.join(","));
   });
+  
+  $("#home_menu").livequery('click', function(event) {
+    $('.whyte_wrapper').toggle(0);
+    $('#show').toggle(0);
+  });
+  
+  $(".my_spaces_home #my_spaces_title").livequery('click', function(event) {
+    $('.all_my_spaces').toggle(0);
+  });
 
 <% end %>
 
 <%= content_for :search do  %>
-        <%= render :partial => 'search/form' %>
+  <%= render :partial => 'search/form' %>
 <%end%>
 
 <%= content_for :sidebar do  %>

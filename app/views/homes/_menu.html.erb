@@ -1,6 +1,6 @@
 <% per_page_values = [15, 30, 50]%>
 <div id="home_menu">  
-  <div id="show">
+  <div id="show" class="hide">
     <%=t('show')%>:
     <%=home_menu_checkbox "posts"%><%= label_tag t('post.other')%>  <%=home_menu_checkbox "events" %><%= label_tag t('event.other') %><%=home_menu_checkbox "news" %><%= label_tag t('news.other')%><%=home_menu_checkbox "attachments" %><%= label_tag t('attachment.other')%>
 		<% per_page_values.each do |per_page| %>
