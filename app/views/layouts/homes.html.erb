@@ -55,7 +55,7 @@
             <% end %>
 
             <%= yield :menu %>
-            <div class="whyte_wrapper hide">
+            <div class="whyte_wrapper <%= "hide" unless @update_act %>">
               <%= yield %>
             </div>
           </div>

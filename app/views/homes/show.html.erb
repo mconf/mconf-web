@@ -40,13 +40,28 @@
     window.location=$.param.querystring("<%=home_path%>" + "?" + $.param.querystring(), "contents=" + contents.join(","));
   });
   
-  $("#home_menu").livequery('click', function(event) {
+  $("#home_menu h3").livequery('click', function(event) {
+    $('#arrow_drop_activity').toggle(0);
+    $('.whyte_wrapper').toggle(0);
+    $('#show').toggle(0);
+  });
+  
+  $("#home_menu h3 .icon").livequery('click', function(event) {
+    $('#arrow_drop_activity').toggle(0);
+    $('.whyte_wrapper').toggle(0);
+    $('#show').toggle(0);
+  });
+  
+  $("#home_menu .icon").livequery('click', function(event) {
+    $('#arrow_drop_activity').toggle(0);
     $('.whyte_wrapper').toggle(0);
     $('#show').toggle(0);
   });
   
   $(".my_spaces_home #my_spaces_title").livequery('click', function(event) {
     $('.all_my_spaces').toggle(0);
+    $('#arrow_take_space').toggle(0);
+    $('#arrow_drop_space').toggle(0);
   });
 
 <% end %>

@@ -296,6 +296,13 @@ input[type=submit].medium_button, button.medium_button, a.medium_button {
 }
 /*end*/
 
+/* Styles for home images*/
+.float_right_icon { 
+  float: right;
+  margin-right: 5px;
+}
+/* end */
+
 /* GENERAL STYLES */
 
 .hide { display: none; }
