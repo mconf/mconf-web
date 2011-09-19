@@ -2,6 +2,8 @@ Vcc::Application.routes.draw do
 
   bigbluebutton_routes :default, :controllers => { :servers => 'custom_bigbluebutton_servers', :rooms => 'custom_bigbluebutton_rooms' }
 
+  match '/secure', :to => 'shibboleth#create'
+
   # FIXME: Temporary, this should probably be done by bigbluebutton_rails
   match '/webconf/:id', :to => 'webconferences#join',
                         :as => "join_webconf"
