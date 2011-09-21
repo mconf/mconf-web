@@ -4,14 +4,11 @@ module Vcc
   # get the current git branch
   @@branch = nil
   def self.application_branch
-    begin
-      unless @@branch
-        branch = %x[git symbolic-ref HEAD]
-        branch =~ /([^\/]*)$/
-        @@branch = $1.strip!
-      end
-    rescue Exception
-      @@branch = "<no-ref>"
+    unless @@branch
+      branch = %x[git symbolic-ref HEAD]
+      branch =~ /([^\/]*)$/
+      branch = $1.strip!
+      @@branch = branch || "<no-ref>"
     end
     @@branch
   end
@@ -20,15 +17,13 @@ module Vcc
   @@revision = nil
   @@revision_full = false
   def self.application_revision(full=false)
-    begin
-      unless @@revision or @@revision_full != full
-        @@revision = %x[git rev-list HEAD --max-count=1]
-        @@revision.strip!
-        @@revision.slice!(6..-1) unless full
-        @@revision_full = full
-      end
-    rescue Exception
-      @@revision = "<no-ref>"
+    unless @@revision or @@revision_full != full
+      revision = %x[git rev-list HEAD --max-count=1]
+      revision.strip!
+      @@revision = revision.blank? ? "<no-ref>" : revision
+
+      revision.slice!(6..-1) unless full
+      @@revision = revision.blank? ? "<no-ref>" : revision
     end
     @@revision
   end
