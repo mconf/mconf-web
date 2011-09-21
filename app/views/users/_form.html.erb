@@ -1,32 +1,43 @@
-<%= content_for :javascript do%>	
+<%= content_for :javascript do%>
  $('#userid img.tooltip_user_id').qtip({
    content: '<%=t("tooltip.user_id")%>',
-	 position: {adjust: { screen: true }},
+   position: {adjust: { screen: true }},
    show:  'mouseover',
    hide: { when: 'mouseout', fixed: true },
    style: 'mystyle'
   });
-<% end %>  
+<% end %>
+
+<% if @shib_user %>
+  <div id="edit_account_user_federated">
+    <span class="title"><%= t('user.edit.federated.title') %></span><br/>
+    <span><%= t('user.edit.federated.your_idp', :idp => @shib_provider) %></span><br/>
+    <span><%= t('user.edit.federated.restrictions') %></span><br/>
+  </div>
+<% end %>
 
 <div><label for="email"><%=t('user.email')%>*</label><br/>
-<%= f.text_field :email %></div>
+<% if @shib_user %>
+  <%= f.text_field :email, :disabled => true %>
+<% else %>
+  <%= f.text_field :email %>
+<% end %>
+</div>
+
+<% if f.object.new_record? # User is not registered yet, generate login from full_name %>
+  <div><label for="full_name"><%=t('user.full_name')%>*</label><br/>
+  <%= f.text_field :_full_name %></div>
+<% else -%>
+  <div id="userid"><label for="login"><%=t('user.id')%> <%=image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_user_id icon",:style=>"cursor:pointer")%></label><br/>
+  <%= f.text_field :login %></div>
+<% end -%>
 
 <% if f.object.needs_password? -%>
+  <div>
+    <label for="password"><%=t('user.password')%>*</label><br/>
+    <%= f.password_field :password %> <%= t('user.edit.password_email', :url => lost_password_path).html_safe %>
+  </div>
 
-<div><label for="password"><%=t('user.password')%>*</label><br/>
-<%= f.password_field :password %></div>
-
-<div><label for="password_confirmation"><%=t('user.confirm_password')%>*</label><br/>
-	<%= f.password_field :password_confirmation%></div>
- 
+  <div><label for="password_confirmation"><%=t('user.confirm_password')%>*</label><br/>
+  <%= f.password_field :password_confirmation%></div>
 <% end -%>
-
-<% if f.object.new_record? # User is not registered yet, generate login from full_name
-%>
-<div><label for="full_name"><%=t('user.full_name')%>*</label><br/>
-<%= f.text_field :_full_name %></div>
-<% else -%>
-<div id="userid"><label for="login"><%=t('user.id')%> <%=image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_user_id icon",:style=>"cursor:pointer")%></label><br/>
-<%= f.text_field :login %></div>
-<% end -%>
-

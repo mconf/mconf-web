@@ -242,11 +242,11 @@ en:
   back: Back
   back_to_inbox: "Back to inbox"
   bad_request: "Bad Request"
-  bbb_room:
-    edit: "Configure your BigBlueButton Room"
-    private: "Private Room"
-    moderatorPW: "Moderator Password"
+  bbb_room: 
     attendeePW: "Attendee Password"
+    edit: "Configure your BigBlueButton Room"
+    moderatorPW: "Moderator Password"
+    private: "Private Room"
   beta: beta
   bigbluebutton: BigBlueButton
   bigbluebutton_rails: 
@@ -1191,15 +1191,15 @@ en:
     my: "My Inbox (%{checked})"
     one: "Inbox (%{checked})"
   index: Index
-  information:
+  information: 
     expand: "Expand List.."
-    reduce: "Reduce List.."
     info_timezone: "By selecting your time-zone there will be no misunderstanding when creating events with people from other countries."
     information1: "These are the spaces you belong to"
     information2: "Here you can find the newest messages, events and news of the spaces you belong to"
     information3: "These are the latest messages or events that you have created"
     information4: "These are the spaces you belong to"
     information5: "These are the upcoming events of other spaces."
+    reduce: "Reduce List.."
   internet: 
     on_the: "On the Internet"
     ppal: Internet
@@ -1814,6 +1814,12 @@ en:
       fill: "Please fill in this data"
     one: Session
   share_participate_discuss: "Share, participate, discuss"
+  shibboleth: 
+    need_activation: 
+      activation_email: "If you didn't receive the activation email, <a href=\"%{url}\">click here</a> and we will send you another one."
+      message: "It appears that you already have an account in this website but you haven't activated it yet.<br/> Your federated account will be linked to this account, but first you need to activate it."
+      password_email: "If you forgot your password, <a href=\"%{url}\">click here</a>."
+      title: "Hi, %{name}"
   should_check_email_to_activate_account: "You should check your email to activate your account."
   show: Show
   show?: Show?
@@ -2113,7 +2119,7 @@ en:
     upcoming: "This section shows the next events in this space"
     update_logo: "You can update your own logo, create a text logo or select an image from the gallery"
     user_filter: "You can filter users by their names or surnames. Start typing !"
-    user_id: "You can use your user ID as openID, user chat and/or user Marte"
+    user_id: "This ID will be used to identify your user and your webconference room. Use only letters, numbers and dashes."
     vcard: "vCard is a file format standard for electronic business cards"
     vclass: "The virtual class type is the perfect way to organise classes, conferences and seminars, where the teacher assumes a prominent role."
     vconfoptions: "Select video streaming if you want to broadcast your event. Select the video recording option if you want to record your event for future consumption. You can also configure the bandwidth and quality parameters of the videoconference by clicking on the advanced configuration link."
@@ -2156,6 +2162,12 @@ en:
     delete_from_space: "Delete user from space"
     disable: "Disable user"
     disabled: "User %{username} disabled"
+    edit: 
+      federated: 
+        restrictions: "You will not be able to edit some data such as your e-mail and password."
+        title: "You are logged using a federation!"
+        your_idp: "Your identity provider is: %{idp}"
+      password_email: "If you forgot your password, <a href=\"%{url}\">click here</a>."
     edit_account: "Edit your account"
     email: Email
     enable: "Enable user"
@@ -2197,7 +2209,7 @@ en:
       one: OpenID
       other: OpenIDs
     other: Users
-    password: Password
+    password: "Current password"
     password_info: "Enter the email address you used to create your account"
     private_message: "Send Message"
     recent_join: "Recent users joined"

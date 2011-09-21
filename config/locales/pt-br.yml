@@ -242,11 +242,11 @@ pt-br:
   back: Voltar
   back_to_inbox: "Voltar para caixa de entrada"
   bad_request: "Bad Request"
-  bbb_room:
-    edit: "Configure sua sala do BigBlueButton"
-    private: "Sala Privada"
-    moderatorPW: "Senha do Moderador"
+  bbb_room: 
     attendeePW: "Senha do Participante"
+    edit: "Configure sua sala do BigBlueButton"
+    moderatorPW: "Senha do Moderador"
+    private: "Sala Privada"
   beta: beta
   bigbluebutton: BigBlueButton
   bigbluebutton_rails: 
@@ -1190,15 +1190,15 @@ pt-br:
     my: "Minha caixa de entrada (%{checked})"
     one: "Caixa de Entrada (%{checked})"
   index: Índice
-  information:
+  information: 
     expand: "Expandir Lista.."
-    reduce: "Recolher Lista.."
     info_timezone: "Ao selecionar o seu fuso horário não haverá equívoco ao criar eventos com pessoas de outros países."
     information1: "Estas são as comunidades dos quais você faz parte"
     information2: "Aqui você pode encontrar as mensagens recentes, eventos e notícias das comunidades das quais você faz parte"
     information3: "Estas são as últimas mensagens ou eventos que você criou"
     information4: "Estas são as comunidades dos quais você faz parte"
     information5: "Estes são os eventos futuros de outras comunidades."
+    reduce: "Recolher Lista.."
   internet: 
     on_the: "Na Internet"
     ppal: Internet
@@ -1820,6 +1820,12 @@ pt-br:
       fill: "Por favor preencha estes dados"
     one: Sessão
   share_participate_discuss: "Compartilhe, participe, discuta"
+  shibboleth: 
+    need_activation: 
+      activation_email: "Se você não recebeu o e-mail de ativação, <a href=\"%{url}\">clique aqui</a> e nós lhe mandaremos outro."
+      message: "Aparentemente você já possui uma conta neste site mas ela ainda não esta ativada.<br/> Sua conta federada será ligada a esta conta, mas antes você precisa ativá-la."
+      password_email: "Se você esqueceu sua senha, <a href=\"%{url}\">clique aqui</a>."
+      title: "Olá, %{name}"
   should_check_email_to_activate_account: "Você deve verificar o seu e-mail para ativar sua conta."
   show: Exibir
   show?: Exibir?
@@ -2119,7 +2125,7 @@ pt-br:
     upcoming: "Esta seção mostra os próximos eventos nesta comunidade"
     update_logo: "Você pode enviar o seu próprio logotipo, criar um logotipo de texto ou selecionar uma imagem da galeria"
     user_filter: "Você pode filtrar os usuários por seus nomes ou sobrenomes. Comece a digitar!"
-    user_id: "Você pode usar o seu ID de usuário como o OpenID, usuário de bate-papo e/ou usuário Marte"
+    user_id: "Este nome será utilizado para identificar o seu usuário e a sua sala de webconferência. Use apenas letras, números e hifens."
     vcard: "vCard é um formato de arquivo padrão para cartões eletrÃ´nicos"
     vclass: "O tipo Classe Virtual é a maneira perfeita para organizar aulas, conferências e seminários, onde o professor assume um papel de destaque."
     vconfoptions: "Selecione streaming de vídeo se você quiser transmitir o seu evento. Selecione a opção de gravação de vídeo se você quer gravar o seu evento para visualizações futuras. Você também pode configurar os parâmetros de largura de banda e qualidade da videoconferência clicando no link de configurações avançadas."
@@ -2162,6 +2168,12 @@ pt-br:
     delete_from_space: "Excluir usuário da comunidade"
     disable: "Desabilitar usuário"
     disabled: "Usuário %{username} desabilitado"
+    edit: 
+      federated: 
+        restrictions: "Você não poderá editar alguns dados como seu e-mail e senha."
+        title: "Você está logado utilizando uma federação!"
+        your_idp: "O seu provedor de identidade é: %{idp}"
+      password_email: "Se você esqueceu sua senha, <a href=\"%{url}\">clique aqui</a>."
     edit_account: "Editar sua conta"
     email: E-mail
     enable: "Habilitar usuário"
@@ -2203,7 +2215,7 @@ pt-br:
       one: OpenID
       other: OpenIDs
     other: Usuários
-    password: Senha
+    password: "Senha atual"
     password_info: "Digite o endereço de e-mail que você usou para criar a sua conta"
     private_message: "Enviar Mensagem"
     recent_join: "Usuários recentemente inscritos"

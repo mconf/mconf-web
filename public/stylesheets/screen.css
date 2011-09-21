@@ -2292,7 +2292,7 @@ h3.dialog_title {
   overflow: hidden;
 }
 
-#webconference_invite_dialog textarea { 
+#webconference_invite_dialog textarea {
   overflow: hidden;
 }
 
@@ -2529,5 +2529,26 @@ h3.dialog_title {
   float: left;
   margin-left: 5px;
   width: 95px;
+}
+
+#shibboleth_need_activation_area {
+  width: 960px;
+  margin: 50px auto;
+  padding: 20px;
+  background:#f0f6f9
+}
+#shibboleth_need_activation_text {
+  font-size: 14px;
+}
+
+#edit_account_user_federated {
+  margin: 10px;
+  padding: 10px;
+  background:#f0f6f9
+}
+
+#edit_account_user_federated span.title {
+  font-size: 12px;
+  font-weight: bold;
 }
 
