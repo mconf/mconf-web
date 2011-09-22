@@ -9,7 +9,15 @@
     <% if performance.nil? -%>
       <%= form_for :performance, :url => site_performances_path do |f| -%>
         <ul>
-          <li class="main_text"><%=t('name.one')%>: <span class="unified_user"><%=sanitize(user.full_name) %></span></li>
+          <li class="main_text">
+            <%=t('name.one')%>: 
+            <span class="unified_user">
+              <%= sanitize(link_to(user.name, user_path(user))) %>
+            </span>
+          </li>
+          <li>
+            <%= link_to(t('edit'), edit_user_path(user)) %>
+          </li>
           <!--
           <li class="main_text">
             <%=
@@ -34,7 +42,15 @@
     <% else -%>
       <%= form_for :performance, :url => site_performance_path(performance.id), :html => { :method => :put} do |f| -%>
         <ul>
-          <li class="main_text"><%=t('name.one')%>: <span class="unified_user"><%=sanitize(user.full_name) %></span></li>
+          <li class="main_text">
+            <%=t('name.one')%>: 
+            <span class="unified_user">
+              <%= sanitize(link_to(user.name, user_path(user))) %>
+            </span>
+          </li>
+          <li>
+            <%= link_to(t('edit'), edit_user_path(user)) %>
+          </li>
           <!--
           <li class="main_text">
             <%=t('role.one')%>: <%=performance.role.name %>
