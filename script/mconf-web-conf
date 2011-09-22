@@ -14,6 +14,11 @@
 #   * ssh keys for production?
 #   * Improve the require_* functions
 #   * See other TODO: markers in the code
+#
+# Changelog:
+#   2011-09-12 LCD  RVM is now installed as multi-user.
+#   2011-09-07 LCD  Started a cleanup in the script. It will be used for production only.
+#   2011-07-05 LCD  Inital Version
 
 #
 # Environment variables
@@ -25,8 +30,7 @@ MCONF_WEB_CONF_VERSION="0.2"                            # The version of this sc
 
 RVM_VERSION=1.8.0                                       # to fix the RVM version to be installed
 RVM_RUBY_VERSION=1.9.2                                  # Ruby version
-RVM_GEMSET=mconf                                        # gemset for development (also defined in mconf-web/.rvmrc)
-RVM_PRODUCTION_GEMSET=mconf_production                  # gemset for production (also defined in mconf-web/config/deploy.rb)
+RVM_GEMSET=mconf                                        # gemset for production (also defined in mconf-web/config/deploy.rb)
 
 DEVELOPMENT_SRC_PATH=~/dev/source/mconf-web             # local directory where the dev environment will be placed
 DEVELOPMENT_REPO=git://github.com/mconf/mconf-web.git   # used to checkout the dev environment (not for production)
@@ -66,7 +70,7 @@ usage() {
     echo "    --help, -h                       Shows this help"
     echo "    --version, -v                    Display version"
     echo
-    echo "    --install-packages [ENV]         Install dependencies to run Mconf-Web (default: installs for both envs)"
+    echo "    --install-packages               Install dependencies to run Mconf-Web (default: installs for both envs)"
     echo "                                     ENV can be 'dev' or 'prod' (without quotes)"
     echo "    --install-ruby                   Install ruby (using RVM)"
     echo "    --deploy"
@@ -287,23 +291,27 @@ rvm_install() {
     chmod +x rvm-installer
     sudo ./rvm-installer --version $RVM_VERSION
     rm ./rvm-installer
-}
+    sudo adduser `whoami` rvm
 
-# Install system packages suggested by "rvm notes"
-# Uses the section "For Ruby (MRI & ree)  you should install the following OS dependencies"
-rvm_notes_install_packages() {
+    # Install system packages suggested by "rvm notes"
+    # Uses the section "For Ruby (MRI & ree)  you should install the following OS dependencies"
+    echo "-- Installing Ruby dependencies given by rvm notes"
     RVM_PACKAGES=`sudo /usr/local/rvm/bin/rvm notes | grep "^\s*ruby:.*aptitude install" | head -1 | sed 's/.*aptitude install //g'`
     install_dependencies "$RVM_PACKAGES"
 }
 
-run_rvm() {
-    sudo /usr/local/rvm/bin/rvm $1
-}
-
 # Installs ruby using rvm and creates the default gemset
 rvm_ruby_and_gemset() {
-    run_rvm "pkg install openssl"
-    if run_GEMSET" # TODO: --default
+    PATH="$PATH:/usr/local/rvm/bin/"
+    rvm_path="/usr/local/rvm"
+    export rvm_path
+
+    rvm pkg install openssl
+    if rvm list | grep -q $RVM_RUBY_VERSION; then
+        rvm remove $RVM_RUBY_VERSION
+    fi
+    rvm install $RVM_RUBY_VERSION -C --with-openssl-dir=$HOME/.rvm/usr
+    rvm use $RVM_RUBY_VERSION@$RVM_GEMSET --create --default
 }
 
 # Check if the checkout destination dir exists and if it has a copy of mconf-web already there
@@ -385,7 +393,7 @@ require_prod_environment() {
     rvm use $RVM_RUBY_VERSION
     rvm gemset list | grep -q mconf_production
     if [ $? == 0 ]; then
-        rvm use $RVM_RUBY_VERSION@$RVM_PRODUCTION_GEMSET
+        rvm use $RVM_RUBY_VERSION@$RVM_GEMSET
         gem list | grep -q passenger
         if [ $? != 0 ]; then
             print_error_banner "You need to setup the production environment to run this command. Please run this script with the option --setup-prod."
@@ -410,17 +418,11 @@ require_deployed_application() {
 # Includes a file with the list of dependencies for mconf-web
 # This file is in the source code dir, at config/packages.<platformname>
 dependencies_include_package_list() {
-    # first search in the local repository
-    if [ -d $DEVELOPMENT_SRC_PATH -a -f $DEVELOPMENT_SRC_PATH/config/packages.$PLATFORM ]; then
-        source $DEVELOPMENT_SRC_PATH/config/packages.$PLATFORM
-
-    # if there's no local repo, get the dependencies from github
-    else
-        install_dependency curl
-        TEMP=`mktemp`
-        sudo curl https://raw.github.com/mconf/mconf-web/master/config/packages.ubuntu -o $TEMP
-        source $TEMP
-    fi
+    # get the dependencies from github
+    install_dependency curl
+    TEMP=`mktemp`
+    sudo curl https://raw.github.com/mconf/mconf-web/master/config/packages.ubuntu -o $TEMP
+    source $TEMP
 }
 
 # Install the gem $1
@@ -454,7 +456,7 @@ nginx_check() {
 
 # Installs nginx using passenger
 nginx_install() {
-    rvm use $RVM_RUBY_VERSION@$RVM_PRODUCTION_GEMSET
+    rvm use $RVM_RUBY_VERSION@$RVM_GEMSET
     rvmsudo passenger-install-apache2-module -a
 
     echo "-- Configuring Apache to enable Passenger and Mconf-Web"
@@ -490,8 +492,8 @@ setup_prod_setup_gemenv() {
 
     # Ruby is already installed for the dev environment, so we just need the gemset and gems
     rvm use $RVM_RUBY_VERSION
-    rvm gemset create $RVM_PRODUCTION_GEMSET
-    rvm use $RVM_RUBY_VERSION@$RVM_PRODUCTION_GEMSET
+    rvm gemset create $RVM_GEMSET
+    rvm use $RVM_RUBY_VERSION@$RVM_GEMSET
     gem_install bundler $GEM_VERSION_BUNDLER
     gem_install passenger $GEM_VERSION_PASSENGER
 }
@@ -752,7 +754,6 @@ if [ $RUBY ]; then
 
     rvm_check # double check to ensure the installation was successful
     if [ $REPLY ]; then
-        rvm_notes_install_packages
         rvm_ruby_and_gemset
         print_banner "RVM/Ruby installed successfully."
     else
