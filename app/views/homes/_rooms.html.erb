@@ -42,6 +42,10 @@
       changeInputTextType("#attendeePW", 'password');
     }
   });
+
+  $("#edit-bbb-room #passwords").livequery('click', function(event) {
+    $('#passwords').hide();
+  });
   */
 
   $("a#mobile_join").fancybox({
@@ -54,6 +58,24 @@
     'hideOnContentClick' : false,
     'frameWidth' : 450,
     'frameHeight' : 430
+  });
+
+  $("a#edit_bbb_room").fancybox({
+    'hideOnContentClick' : false,
+    'frameWidth' : 450,
+    'frameHeight' : 430
+  });
+  
+  $("#edit-bbb-room #private").livequery('click', function(event) {
+    $('#passwords').toggle(0);
+    if ($("#private").is(':checked')) {
+      $('#moderatorPW').removeAttr('disabled');
+      $('#attendeePW').removeAttr('disabled');
+    }
+    else{
+      $('#moderatorPW').attr('disabled', true);
+      $('#attendeePW').attr('disabled', true);
+    }
   });
 
   $("#webconference-rooms .invite_url_button").livequery('click', function(event) {
@@ -115,6 +137,7 @@
             <span class="float_right">
               <%= link_to t('button.invite'), inviteroom_invite_path(:type => "webconference", :room => room.to_param), :id => 'invite_bbb_link', :class => 'basic_button small_button pale_button'%>
               <%= link_to t('home.view_invite_url'), '#', :id => "invite_url_button-#{button_id}", :class => 'basic_button small_button invite_url_button pale_button'%>
+              <%= link_to t('button.edit'), edit_bbb_room_user_path(current_user, :room => room.to_param), :id => "edit_bbb_room", :class => 'basic_button small_button pale_button' %>
               <%= 
                 #link_to t('button.remove'), bigbluebutton_server_room_path(@server, room, :redir_url => home_path), :confirm => 'Are you sure?', :method => :delete, :class => 'basic_button small_button pale_button' 
                %>

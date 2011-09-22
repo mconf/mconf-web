@@ -1082,7 +1082,6 @@ a.extract_form{margin-right:0.5em;}
 .whyte_wrapper{
                 background:#FFFFFF none repeat scroll 0 0;
                 clear:both;
-                display:block;
                 overflow:hidden;
                 padding:10px;
                 position:relative;}
@@ -2036,7 +2035,8 @@ a.first_day_link{border:none;}
 .rounded_button {
   -moz-border-radius: 10px; /* Para Firefox */
   -webkit-border-radius: 10px; /*Para Safari e Chrome */
-  -border-radius: 10px; /* Para Opera 10.5+*/
+  -border-radius: 10px; /* Para Opera 10.5+ and any CSS3*/
+  -khtml-border-radius: 10px; /* Linux Browsers*/
 }
 
 .border_button {
@@ -2155,8 +2155,7 @@ div.my-webconference-rooms div.room_list ul {
 }
 
 div.my-webconference-rooms div.room_list li {
-  border-bottom:1px #ddd solid;
-  padding: 7px 5px 3px 5px;
+  padding: 7px 0 0 0;
   clear: both;
 }
 
@@ -2293,6 +2292,10 @@ h3.dialog_title {
   overflow: hidden;
 }
 
+#webconference_invite_dialog textarea { 
+  overflow: hidden;
+}
+
 #webconference_invite_dialog .block {
   margin-bottom: 5px;
 }
@@ -2353,7 +2356,16 @@ h3.dialog_title {
 
 #webconference_invite_dialog .header .value {
   margin-left: 120px;
+  margin-right: 20px;
   margin-bottom: 5px;
+}
+
+#webconference_invite_dialog .header .clippy {
+  width: 15px;
+  float: right;
+  clear: right;
+  margin-bottom: 5px;
+  margin-top: -25px;
 }
 
 #webconference_invite_dialog .header #room_invite_url {
@@ -2483,3 +2495,39 @@ h3.dialog_title {
   font-size: 9px;
   color: #666;
 }
+
+
+.my_spaces_home{
+  border:1px #bdd8eb solid;
+  background:white;
+  clear:both;
+  margin-bottom:0.75em;
+}
+.my_spaces_home ul {
+  margin: 2px;
+}
+.my_spaces_home ul li {
+  float: left;
+  margin: 10px;
+  list-style-type: none;
+}
+.my_spaces_home .title {
+  font-size: 12px;
+  font-weight: bold;
+  color:#244974;
+}
+.my_spaces_home .all_my_spaces .space_box {
+  width:190px;
+}
+.my_spaces_home .all_my_spaces .space_box .logo {
+  float: left;
+}
+.my_spaces_home .all_my_spaces .space_box .logo img {
+  border: 1px solid #ccc;
+}
+.my_spaces_home .all_my_spaces .space_box .description {
+  float: left;
+  margin-left: 5px;
+  width: 95px;
+}
+

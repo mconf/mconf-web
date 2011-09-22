@@ -43,6 +43,9 @@ class HomesController < ApplicationController
     unless current_user.spaces.empty?
       @events_of_user = Event.in(current_user.spaces).all(:order => "start_date ASC")
     end
+    
+    @update_act = params[:contents] ? true : false
+    
     @contents_per_page = params[:per_page] || 5
     @contents = params[:contents].present? ? params[:contents].split(",").map(&:to_sym) : Space.contents
     @all_contents = ActiveRecord::Content.paginate({ :page => params[:page], :per_page => @contents_per_page.to_i, :order => 'updated_at DESC' },

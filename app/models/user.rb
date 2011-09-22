@@ -83,7 +83,7 @@ class User < ActiveRecord::Base
       profile
     end
   end
-  
+
   def create_bbb_room
     create_bigbluebutton_room :owner => self,
                               :server => BigbluebuttonServer.first,
@@ -91,8 +91,8 @@ class User < ActiveRecord::Base
                               :name => self._full_name,
                               :logout_url => "/feedback/webconf/"
   end
-  
-  def update_bbb_room    
+
+  def update_bbb_room
     if self.login_changed?
       bigbluebutton_room[:param] = self.login
     end
@@ -280,6 +280,7 @@ class User < ActiveRecord::Base
     rooms += self.spaces.map(&:bigbluebutton_room)
     rooms += Space.public.map(&:bigbluebutton_room)
     rooms.uniq!
+    rooms
   end
 
 end

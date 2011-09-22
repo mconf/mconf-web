@@ -242,6 +242,11 @@ pt-br:
   back: Voltar
   back_to_inbox: "Voltar para caixa de entrada"
   bad_request: "Bad Request"
+  bbb_room:
+    edit: "Configure sua sala do BigBlueButton"
+    private: "Sala Privada"
+    moderatorPW: "Senha do Moderador"
+    attendeePW: "Senha do Participante"
   beta: beta
   bigbluebutton: BigBlueButton
   bigbluebutton_rails: 
@@ -1185,7 +1190,9 @@ pt-br:
     my: "Minha caixa de entrada (%{checked})"
     one: "Caixa de Entrada (%{checked})"
   index: Índice
-  information: 
+  information:
+    expand: "Expandir Lista.."
+    reduce: "Recolher Lista.."
     info_timezone: "Ao selecionar o seu fuso horário não haverá equívoco ao criar eventos com pessoas de outros países."
     information1: "Estas são as comunidades dos quais você faz parte"
     information2: "Aqui você pode encontrar as mensagens recentes, eventos e notícias das comunidades das quais você faz parte"
@@ -1372,6 +1379,9 @@ pt-br:
   mandatory_field: "Campo obrigatório"
   mark_checkbox: "Marque a caixa de seleção apropriada"
   mconf: Mconf
+  members: 
+    one: "%{count} membro"
+    other: "%{count} membros"
   message: 
     created: "Mensagem enviada com sucesso"
     error: 
@@ -1841,7 +1851,7 @@ pt-br:
     exception_notifications: "Enviar e-mails de depuração"
     exception_notifications_email: "Destinatário dos e-mails de depuração"
     feedback_url: "Feedback URL"
-    locale: "Idioma"
+    locale: Idioma
     logo: Logo
     name: Nome
     one: Site

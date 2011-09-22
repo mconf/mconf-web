@@ -242,6 +242,11 @@ en:
   back: Back
   back_to_inbox: "Back to inbox"
   bad_request: "Bad Request"
+  bbb_room:
+    edit: "Configure your BigBlueButton Room"
+    private: "Private Room"
+    moderatorPW: "Moderator Password"
+    attendeePW: "Attendee Password"
   beta: beta
   bigbluebutton: BigBlueButton
   bigbluebutton_rails: 
@@ -1186,7 +1191,9 @@ en:
     my: "My Inbox (%{checked})"
     one: "Inbox (%{checked})"
   index: Index
-  information: 
+  information:
+    expand: "Expand List.."
+    reduce: "Reduce List.."
     info_timezone: "By selecting your time-zone there will be no misunderstanding when creating events with people from other countries."
     information1: "These are the spaces you belong to"
     information2: "Here you can find the newest messages, events and news of the spaces you belong to"
@@ -1373,6 +1380,9 @@ en:
   mandatory_field: "Mandatory field"
   mark_checkbox: "Mark the suitable checkbox"
   mconf: Mconf
+  members: 
+    one: "%{count} member"
+    other: "%{count} members"
   message: 
     incoming: 
       other: "Incoming messages"
@@ -1835,7 +1845,7 @@ en:
     exception_notifications: "Send debug emails"
     exception_notifications_email: "Debug emails recipient"
     feedback_url: "Feedback URL"
-    locale: "Language"
+    locale: Language
     logo: Logo
     name: Name
     one: Site

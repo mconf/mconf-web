@@ -277,6 +277,32 @@ input[type=submit].medium_button, button.medium_button, a.medium_button {
 }
 /*End*/
 
+/* Styles for Edit BBB Room in Home page*/
+#passwords dl {
+  position: relative;
+  width: 350px;
+}
+#passwords dt {
+  clear: both;
+  float:left;
+  width: 130px;
+  padding: 4px 0 2px 0;
+  text-align: left;
+}
+#passwords dd {
+  float: left;
+  margin: 0 0 8px 0;
+  padding-left: 6px;
+}
+/*end*/
+
+/* Styles for home images*/
+.float_right_icon { 
+  float: right;
+  margin-right: 5px;
+}
+/* end */
+
 /* GENERAL STYLES */
 
 .hide { display: none; }
@@ -285,6 +311,4 @@ input[type=submit].medium_button, button.medium_button, a.medium_button {
 
 .float_left { float: left; }
 
-.field {
-  margin-bottom: 5px;
-}
+.field { margin-bottom: 5px; }

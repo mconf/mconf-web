@@ -29,6 +29,8 @@
       <div class="label"><%= t('home.invite_url') %></div>
       <div class="value">
         <%= text_field_tag "room_invite_url", join_webconf_url(@room), :disabled => true %>
+      </div>
+      <div class="clippy">
         <%= clippy(:id => "room_invite_url", :bg_color => "#FFFFFF").html_safe %>
       </div>
     </div>
@@ -71,12 +73,12 @@
       <% elsif @type == "event" %>
         <%= f.hidden_field :event_id, :value => @event.id %>
       <% end %>
+    </div>
 
-      <div class="submit">
-        <button type="submit" class="basic_button blue_button">
-          <%=t('invite_people.send_invitations')%>
-        </button>
-      </div>
+    <div class="submit">
+      <button type="submit" class="basic_button blue_button">
+        <%=t('invite_people.send_invitations')%>
+      </button>
     </div>
 
   <% end %>

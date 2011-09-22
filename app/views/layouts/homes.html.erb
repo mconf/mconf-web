@@ -54,10 +54,8 @@
             <div class="<%= name %>"><%= msg.html_safe %></div>
             <% end %>
 
-            <%= yield :menu_rooms %>
-
             <%= yield :menu %>
-            <div class="whyte_wrapper">
+            <div class="whyte_wrapper <%= "hide" unless @update_act %>">
               <%= yield %>
             </div>
           </div>

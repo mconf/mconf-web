@@ -617,7 +617,7 @@ while [ $# -gt 0 ]; do
         echo "- Request to checkout Mconf-Web"
         CHECKOUT=1
         shift
-        if [[ $# -ge 1 && ! "$1" =~ -.* ]]; then
+        if [[ $# -ge 1 && ! "$1" =~ ^-.* ]]; then
             DEVELOPMENT_REPO="${1}"
             shift
         fi
@@ -630,7 +630,7 @@ while [ $# -gt 0 ]; do
         DEPENDENCIES=1
         DEPENDENCIES_ENV="" # to install both dev and production
         shift
-        if [[ $# -ge 1 && ! "$1" =~ -.* ]]; then
+        if [[ $# -ge 1 && ! "$1" =~ ^-.* ]]; then
             DEPENDENCIES_ENV="${1}"
             echo "-- Dependencies for the environment: $DEPENDENCIES_ENV"
             shift
@@ -665,11 +665,11 @@ while [ $# -gt 0 ]; do
         echo "- Setup Mconf-Web in the Mconf VM"
         SETUP_VM=1
         shift
-        if [[ $# -ge 1 && ! "$1" =~ -.* ]]; then
+        if [[ $# -ge 1 && ! "$1" =~ ^-.* ]]; then
             SETUP_VM_IP="${1}"
             shift
         fi
-        if [[ $# -ge 1 && ! "$1" =~ -.* ]]; then
+        if [[ $# -ge 1 && ! "$1" =~ ^-.* ]]; then
             SETUP_VM_PORT="${1}"
             shift
         fi
@@ -705,6 +705,13 @@ while [ $# -gt 0 ]; do
         shift; shift
         continue
     fi
+
+    echo
+    echo "--------------------------------------------------------------------------------"
+    echo "  Unknown command ${1}"
+    echo "  Aborting."
+    echo "--------------------------------------------------------------------------------"
+    echo
 
     usage
     exit 1
@@ -784,7 +791,7 @@ if [ $DEPENDENCIES ]; then
         exit 1
     fi
 
-    print_banner "Dependencies installed successfully."
+    print_banner "Dependencies installation finished."
 fi
 
 

@@ -163,6 +163,7 @@ Vcc::Application.routes.draw do
   resources :users do
     member do
       post :enable
+      get :edit_bbb_room
     end
 
     resources :private_messages, :as => 'messages'
