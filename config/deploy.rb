@@ -52,7 +52,7 @@ after 'multistage:ensure', 'deploy:info'
 after 'deploy:update_code', 'deploy:link_files'
 after 'deploy:update_code', 'deploy:upload_config_files'
 after 'deploy:update_code', 'deploy:fix_file_permissions'
-after 'deploy:restart', 'deploy:jobs:restart'
+after 'deploy:restart', 'jobs:restart'
 
 namespace :deploy do
 
@@ -120,30 +120,36 @@ namespace :deploy do
     top.upload "config/setup_conf.yml", "#{release_path}/config/", :via => :scp
   end
 
-  # delayed_job tasks
-  namespace :jobs do
-    desc "Start delayed_job"
-    task :start do
-      run "cd #{current_path}; RAILS_ENV=production bundle exec script/delayed_job -n 2 start"
-    end
+end
 
-    desc "Stop delayed_job"
-    task :stop do
-      run "cd #{current_path}; RAILS_ENV=production bundle exec script/delayed_job stop"
-    end
 
-    desc "Restart delayed_job"
-    task :restart do
-      jobs.stop
-      jobs.start
-    end
-
-    desc "Clear the jobs table"
-    task :clear do
-      run "cd #{current_path}; RAILS_ENV=production rake jobs:clear"
-    end
+# delayed_job tasks
+namespace :jobs do
+  desc "Start delayed_job"
+  task :start do
+    run "cd #{current_path}; RAILS_ENV=production bundle exec script/delayed_job -n 2 start"
   end
 
+  desc "Stop delayed_job"
+  task :stop do
+    run "cd #{current_path}; RAILS_ENV=production bundle exec script/delayed_job stop"
+  end
+
+  desc "Restart delayed_job"
+  task :restart do
+    jobs.stop
+    jobs.start
+  end
+
+  desc "Clear the jobs table"
+  task :clear do
+    run "cd #{current_path}; RAILS_ENV=production bundle exec rake jobs:clear"
+  end
+
+  desc "Prints the number of queued jobs"
+  task :queued do
+    run "cd #{current_path}; RAILS_ENV=production bundle exec rake jobs:queued"
+  end
 end
 
 
