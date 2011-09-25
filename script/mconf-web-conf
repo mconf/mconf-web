@@ -10,9 +10,6 @@
 #
 # TODO:
 #   * --check
-#   * --setip (?)
-#   * ssh keys for production?
-#   * Improve the require_* functions
 #   * See other TODO: markers in the code
 #
 # Changelog:
@@ -24,13 +21,14 @@
 #   2011-09-07 LCD  Started a cleanup in the script. It will be used for production only.
 #   2011-07-05 LCD  Inital Version
 
+
 #
 # Environment variables
 #
 
-IP=$(ifconfig | grep -v '127.0.0.1' | grep -E "[0-9]*\.[0-9]*\.[0-9]*\.[0-9]*" | head -1 | cut -d: -f2 | awk '{print $1}') # local IP got from ifconfig
+IP=$(ifconfig | grep -v '127.0.0.1' | grep -E "[0-9]*\.[0-9]*\.[0-9]*\.[0-9]*" | head -1 | cut -d: -f2 | awk '{print $1}') # local IP from ifconfig
 
-MCONF_WEB_CONF_VERSION="0.2"                            # The version of this script
+SCRIPT_VERSION="0.2"                                    # The version of this script
 
 RVM_VERSION=1.8.0                                       # to fix the RVM version to be installed
 RVM_RUBY_VERSION=1.9.2                                  # Ruby version
@@ -38,7 +36,7 @@ RVM_GEMSET=mconf                                        # gemset for production 
 
 DEPLOY_PATH=~/mconf-web                                 # directory for the deployed application
 DEPLOY_REPO=git://github.com/mconf/mconf-web.git        # used to checkout the production environment
-DEPLOY_BRANCH=stable                                    # branch to be be deployed # TODO: change to v0.4
+DEPLOY_VERSION=                                         # set this variable to define an specific version to be installed
 
 NGINX_VERSION=1.0.0                                     # default version for Nginx (used by Passenger)
 NGINX_DAEMON=/opt/nginx/sbin/nginx                      # default path for the nginx daemon (used by Passenger)
@@ -46,14 +44,10 @@ APACHE_VERSION=2.2.14                                   # default version for Ap
 APACHE_DAEMON=/usr/sbin/apache2                         # default path for the apache2 daemon
 APACHE_PATH=/etc/apache2                                # default path for Apache
 
-GEM_BUNDLER_VERSION=1.0.15                              # bundler version
+GEM_VERSION_BUNDLER=1.0.15                              # bundler version
 GEM_VERSION_PASSENGER=3.0.7                             # passenger version
 
-SETUP_VM_SRC_PATH=~/dev/source/mconf-web                # local directory where the dev environment will be placed
-SETUP_VM_IP=$IP                                         # default IP/domain for BigBlueButton if not informed in --setup-vm
-SETUP_VM_PORT=8888                                      # default port for BigBlueButton if not informed in --setup-vm
-
-BIGBLUEBUTTON_ALT_PORT=8888                             # alternative port for BigBlueButton if necessary
+BIGBLUEBUTTON_ALT_PORT=8888                             # alternative port for BigBlueButton if necessary (when Apache is installed)
 
 
 #
@@ -61,13 +55,12 @@ BIGBLUEBUTTON_ALT_PORT=8888                             # alternative port for B
 #
 
 usage() {
-    echo "Mconf-Web Configuration Utility - Version $MCONF_WEB_CONF_VERSION"
+    echo "Mconf-Web Configuration Utility - Version $SCRIPT_VERSION"
     echo "http://code.google.com/p/mconf"
     echo
-    echo "   mconf-web-conf [commands] [options]"
+    echo "   mconf-web-conf [commands]"
     echo
     echo "Commands:"
-
     echo "  General:"
     echo "    --help, -h                       Shows this help"
     echo "    --version, -v                    Display version"
@@ -77,10 +70,8 @@ usage() {
     echo "    --deploy-setup                   Basic tasks before the application can be deployed"
     echo "    --deploy-configure               Configures the application using the data on setup_conf.yml"
     echo "                                     IMPORTANT: this will erase you database!"
-    echo "    --deploy-restart                 Restarts the deployed app (executes cap deploy:restart)"
-    echo "    --deploy-update                  Updates the deployed app code and runs the migrations (executes cap deploy:migrations)"
-    echo "  Mconf VM:"
-    echo "    --setup-vm [PORT]                Setup Mconf-Web in the Mconf VM. [PORT] is the port being used for BigBlueButton."
+    echo "    --restart                        Restarts the deployed app (executes cap deploy:restart)"
+    echo "    --update                         Updates the deployed app code and runs the migrations (executes cap deploy:migrations)"
 }
 
 if [ $# -eq 0 ]; then
@@ -96,7 +87,7 @@ fi
 
 check_root() {
     if [ $EUID == 0 ]; then
-        echo "This operation should not be run as root."
+        echo "This operation should NOT be run as root."
         echo
         echo "If this operation needs to execute an operation as root, you'll be asked for"
         echo "your password to execute the operation using sudo."
@@ -108,13 +99,6 @@ is_package_installed() {
     REPLY=
     if [[ "`dpkg-query -W -f='${Status}\n' $1 | cut -d" " -f3`" == "installed" ]]; then
         REPLY=1
-    fi
-}
-
-# Is this the BigBlueButton VM?
-is_bigbluebutton_vm() {
-    if [ -f /home/firstuser/.profile ]; then
-        echo $(cat /home/firstuser/.profile | grep BigBlueButton)
     fi
 }
 
@@ -164,94 +148,11 @@ print_error_banner() {
     echo
 }
 
-# Utility function to make a copy of the conf file
-# $1 is the file
-config_check_and_backup () {
-    # can we write to the configuration file?
-    if [ ! -w $1 ]; then
-        echo "Cannot write to $1!"
-        exit 1
-    fi
-
-    # let's see if we need a copy
-    cp $1 $1.bak
-    echo "-- Created the backup file at $1.bak"
-}
-
-# 3 parameters: the file, the variable name, the new value
-config_yml_get_value_from_user() {
-    echo -n "- "
-    grep "^[[:blank:]]*\(${2}\):.*" $1 -m 1 | sed "s/[[:space:]]*\(.*\)\(#.*\)$/Parameter \"${2}\": \2/" | sed "s/#[[:space:]]*//"
-    echo -n "  Current value: "
-    grep "^[[:blank:]]*\(${2}\):.*" $1 -m 1 | sed "s/[[:space:]]*${2}:[[:space:]]*\(.*\)\(#.*\)$/\1/"
-
-    echo -n "  Enter a new value [leave blank to skip]: "
-
-    # get the new value from the user
-    read -r USER_INPUT
-    if [ $USER_INPUT ]; then
-        # anything between "parameter:" and end-of-line or '#' will be replaced by the user input
-        echo "  New value: \"${USER_INPUT}\""
-        USER_INPUT=${USER_INPUT//\//\\/} # escape all slashes
-        sed -i "s/\(^[[:space:]]*${2}:\)[^#$]*\(.*\)$/\1 \"${USER_INPUT}\" \2/g" $1
-    fi
-}
-
-# Configures the file $1 (a yml file)
-# Ask the user for values to the parameters in the array $2
-config_yml_file() {
-    config_check_and_backup $1
-    echo
-
-    if [ ! -f $1 ]; then
-        print_error_banner "The configuration file $1 doesn't exists. Please, run this script with the option --setup-dev."
-        exit 1
-    fi
-    FILENAME=$1
-
-    while [ $2 ]; do
-        config_yml_get_value_from_user $FILENAME $2
-        echo
-        shift
-    done
-}
-
-# Echoes the parameters $2 from the file $1
-echo_yml_file() {
-    if [ ! -f $1 ]; then
-        print_error_banner "The configuration file $1 doesn't exists. Please, run this script with the option --setup-dev."
-        exit 1
-    fi
-    FILENAME=$1
-
-    echo "File ${FILENAME}"
-    while [ $2 ]; do
-        grep "^[[:blank:]]*\(${2}\):.*" $FILENAME -m 1 | sed "s/[[:space:]]*\(.*\)\(#.*\)$/\1/"
-        shift
-    done
-}
-
-# Calls config_yml_file until the user is satisfied
-# The list of parameters should be at PARAMS
-config_yml_file_with_review() {
-    REPLY=y
-    while [[ $REPLY == [yY] ]]; do
-        config_yml_file $1 ${PARAMS[*]}
-        read -p "Press enter to review the configurations..."
-        echo "--------------------------------------------------------------------------------"
-        echo_yml_file $1 ${PARAMS[*]}
-        echo "--------------------------------------------------------------------------------"
-        read -p "Do you need to edit these configurations again? (y/N)"
-    done
-}
-
 # Check if rvm is installed
 rvm_check() {
     echo "-- Checking if RVM is installed"
 
     REPLY=
-    #which rvm >/dev/null
-    #if [ $? = 0 ]; then
     if [ -f /usr/local/rvm/bin/rvm ]; then
         REPLY=1
     else
@@ -269,7 +170,8 @@ require_rvm() {
     fi
 }
 
-# Installs the base of RVM
+# Installs RVM and Ruby
+# Details at https://rvm.beginrescueend.com/rvm/install/
 rvm_install() {
     install_dependency curl
     install_dependency git-core
@@ -286,7 +188,7 @@ rvm_install() {
     RVM_PACKAGES=`sudo /usr/local/rvm/bin/rvm notes | grep "^\s*ruby:.*install" | head -1 | sed 's/.* install //g'`
     install_dependencies "$RVM_PACKAGES"
 
-    echo "-- Installing Ruby #{RVM_RUBY_VERSION} and configuring"
+    echo "-- Installing Ruby ${RVM_RUBY_VERSION} and configuring"
     RVM=/usr/local/rvm/bin/rvm
     sudo $RVM pkg install openssl
     if sudo $RVM list | grep -q $RVM_RUBY_VERSION; then
@@ -296,54 +198,18 @@ rvm_install() {
     sudo $RVM use $RVM_RUBY_VERSION@$RVM_GEMSET --create --default
 }
 
-# Checks if there's already an application deployed
-# Sets $REPLY if true
-deployed_application_check() {
-    REPLY=
-    if [ -d $PRODUCTION_PATH ]; then
-        REPLY=1
-    fi
-    # TODO: also check if the app is configured (check config/setup_conf.yml possibly)
-}
-
-# Exits if the production environment doesn't exists
-# Ensures --setup-prod was called
-require_prod_environment() {
-    require_rvm
-
-    rvm use $RVM_RUBY_VERSION
-    rvm gemset list | grep -q mconf_production
-    if [ $? == 0 ]; then
-        rvm use $RVM_RUBY_VERSION@$RVM_GEMSET
-        gem list | grep -q passenger
-        if [ $? != 0 ]; then
-            print_error_banner "You need to setup the production environment to run this command. Please run this script with the option --setup-prod."
-            exit 1
-        fi
-    else
-        print_error_banner "You need to setup the production environment to run this command. Please run this script with the option --setup-prod."
-        exit 1
-    fi
-}
-
-# Exits if the application was not deployed yet
-# Ensures --deploy-first-time was called
+# Ensures --deploy-setup was called
 require_deployed_application() {
-    deployed_application_check
+    REPLY=
+    if [ -d $DEPLOY_PATH ]; then
+        if [ -f $DEPLOY_PATH/config/setup_conf.yml -a -f $DEPLOY_PATH/config/database.yml  ]; then
+            REPLY=1
+        fi
+    fi
     if [ ! $REPLY ]; then
-        print_error_banner "You need to deploy the application first. Please, run this script with the option --deploy-first-time."
+        print_error_banner "You need to deploy the application first."
         exit 1
     fi
-}
-
-# Install the gem $1
-gem_install()
-{
-    if [[ $# -ge 2 ]]; then
-        GEM_VERSION="-v ${2}"
-    fi
-    gem install $1 --no-ri --no-rdoc $GEM_VERSION
-    GEM_VERSION=
 }
 
 # sets $REPLY if nginx is found in the system
@@ -424,7 +290,7 @@ apache_install() {
 
     # echo "-- Installing the Passenger module for Apache"
     rvm_source_it
-    rvm use $RVM_RUBY_VERSION@$RVM_PRODUCTION_GEMSET
+    rvm use $RVM_RUBY_VERSION@$RVM_GEMSET
     rvmsudo passenger-install-apache2-module -a
 
     echo "-- Configuring Apache to enable Passenger and Mconf-Web"
@@ -445,6 +311,40 @@ apache_install() {
 
     sudo /etc/init.d/apache2 restart
 }
+
+# restart the web server
+restart_web_server() {
+    apache_check
+    if [ $REPLY ]; then
+        echo "-- Restarting Apache"
+        sudo /etc/init.d/apache2 restart
+    else
+        echo "-- Restarting Nginx"
+        sudo /etc/init.d/nginx restart
+    fi
+}
+
+# Update the dependencies: gems and git submodules
+deploy_update_dependencies() {
+    cd $DEPLOY_PATH
+    bundle install --without=development test
+    git submodule init
+    git submodule update
+}
+
+# Returns in $REPLY the latest tag created = the latest version
+get_version_to_be_installed() {
+    if [ $DEPLOY_VERSION ]; then
+        REPLY=$DEPLOY_VERSION
+    else
+        # ls-remote anwsers with lines such as:
+        # 901dfadd9951371e40f7696a7ddc7fd1395e8741       refs/tags/v0.3^{}
+        REPLY=`git ls-remote --tags ${DEPLOY_REPO} v\*^{} | tail -1 | sed 's:.*refs/tags/\(.*\)^{}:\1:'`
+    fi
+}
+
+
+
 
 #
 # Figure out our environment
@@ -505,45 +405,30 @@ while [ $# -gt 0 ]; do
     fi
 
     if [ "$1" = "--deploy-setup" -o "$1" = "-deploy-setup" ]; then
-        echo "- Deploying the application"
+        echo "- Preparing the production environment and downloading the app"
         DEPLOY_SETUP=1
         shift
         continue
     fi
 
     if [ "$1" = "--deploy-configure" -o "$1" = "-deploy-configure" ]; then
-        echo "- Deploying the application"
+        echo "- Configuring the application's database"
         DEPLOY_CONFIGURE=1
         shift
         continue
     fi
 
-    if [ "$1" = "--deploy-restart" -o "$1" = "-deploy-restart" ]; then
+    if [ "$1" = "--restart" -o "$1" = "-restart" ]; then
         echo "- Request to restart the deployed application"
         DEPLOY_RESTART=1
         shift
         continue
     fi
 
-    if [ "$1" = "--deploy-update" -o "$1" = "-deploy-update" ]; then
+    if [ "$1" = "--update" -o "$1" = "-update" ]; then
         echo "- Request to update the deployed application"
         DEPLOY_UPDATE=1
         shift
-        continue
-    fi
-
-    if [ "$1" = "--setup-vm" -o "$1" = "-config-vm" ]; then
-        echo "- Setup Mconf-Web in the Mconf VM"
-        SETUP_VM=1
-        shift
-        if [[ $# -ge 1 && ! "$1" =~ ^-.* ]]; then
-            SETUP_VM_IP="${1}"
-            shift
-        fi
-        if [[ $# -ge 1 && ! "$1" =~ ^-.* ]]; then
-            SETUP_VM_PORT="${1}"
-            shift
-        fi
         continue
     fi
 
@@ -578,7 +463,7 @@ get_application_version() {
 
 if [ $VERSION ]; then
     echo
-    echo "Script version: $MCONF_WEB_CONF_VERSION"
+    echo "Script version: $SCRIPT_VERSION"
     get_application_version
     if [ $REPLY ]; then
         echo "Found an application at ${DEPLOY_PATH} with version: $REPLY"
@@ -595,21 +480,29 @@ fi
 if [ $RUBY ]; then
     check_root
 
-    # installs RVM if not present (https://rvm.beginrescueend.com/rvm/install/)
+    # installs RVM if not present
     rvm_check
     if [ $REPLY ]; then
-        echo "-- RVM already installed at $(which rvm)"
+        REPLY=n
+        echo
+        echo "RVM found at $(which rvm)"
+        echo "Do you want to proceed anyway?"
+        read -p "(y/N)? "
+
+        if [[ $REPLY == [yY] ]]; then
+            echo "-- Installing RVM..."
+            rvm_install
+        fi
+
+        print_banner "RVM/Ruby installation finished."
     else
         echo "-- Installing RVM..."
         rvm_install
-    fi
+        rvm_check
 
-    rvm_check
-    if [ $REPLY ]; then
-        print_banner "RVM/Ruby installation finished."
-    else
-        print_error_banner "Something went wrong installing ruby. Check the messages above and try again."
-        exit 1
+        if [ $REPLY ]; then
+            print_banner "RVM/Ruby installation finished."
+        fi
     fi
 fi
 
@@ -634,6 +527,7 @@ if [ $DEPENDENCIES ]; then
     dependencies_include_package_list
 
     echo "-- Installing dependencies for a production environment"
+    sudo apt-get update
     install_dependencies "${PACKAGES_PRODUCTION[*]}"
 
     print_banner "Dependencies installation finished."
@@ -645,6 +539,7 @@ fi
 # Setup the production environment
 #
 
+# Installs the webserver choosen by the user
 deploy_install_web_server() {
     # Nginx
     if [[ $REPLY == [2] ]]; then
@@ -718,6 +613,7 @@ deploy_install_web_server() {
     fi
 }
 
+# Prompts the user to select a webserver to be installed
 deploy_select_web_server() {
     is_bigbluebutton_installed
     if [ $REPLY ]; then
@@ -775,13 +671,13 @@ deploy_select_web_server() {
     fi
 }
 
-# Setup the gem environment for production
-# Basically creates a gemset and installs some gems
-deploy_setup_gems() {
-    gem_install bundler $GEM_VERSION_BUNDLER
-    gem_install passenger $GEM_VERSION_PASSENGER
+# Basic gems installed before the application is checked out
+deploy_basic_gems() {
+    gem install bundler --no-ri --no-rdoc $GEM_VERSION_BUNDLER
+    gem install passenger --no-ri --no-rdoc $GEM_VERSION_PASSENGER
 }
 
+# Checkout the application using git
 deploy_checkout() {
     install_dependency git-core
 
@@ -792,25 +688,19 @@ deploy_checkout() {
     git clone $DEPLOY_REPO $DEPLOY_PATH
 
     cd $DEPLOY_PATH
-    echo "-- Checking out branch $DEPLOY_BRANCH"
-    git checkout $DEPLOY_BRANCH
-}
-
-deploy_install_gems() {
-    cd $DEPLOY_PATH
-    bundle install --without=development test
-    git submodule init
-    git submodule update
+    get_version_to_be_installed
+    echo "-- Checking out branch $REPLY"
+    git checkout $REPLY
+    git pull origin $REPLY &>/dev/null # just in case a branch needs to be updated
 }
 
 if [ $DEPLOY_SETUP ]; then
     check_root
 
     require_rvm
-    # TODO: stop if deploy already done before
 
     echo "-- Setting up gemset and gems for production"
-    deploy_setup_gems
+    deploy_basic_gems
 
     echo "-- Installing a web server"
     deploy_select_web_server
@@ -820,10 +710,11 @@ if [ $DEPLOY_SETUP ]; then
     deploy_checkout
 
     echo "-- Installing the required gems"
-    deploy_install_gems
+    deploy_update_dependencies
 
     print_banner "Basic setup finished. You should now edit the configuration files."
 fi
+
 
 
 #
@@ -832,32 +723,32 @@ fi
 # recreate it.
 #
 
+# Setup the database and secret key
 deploy_first_time() {
     cd $DEPLOY_PATH
     bundle exec rake setup:db RAILS_ENV=production
     bundle exec rake secret RAILS_ENV=production
 }
 
-restart_web_server() {
-    apache_check
-    if [ $REPLY ]; then
-        echo "-- Restart Apache"
-        sudo /etc/init.d/apache2 restart
-    else
-        echo "-- Restart Nginx"
-        sudo /etc/init.d/nginx restart
-    fi
-}
-
 if [ $DEPLOY_CONFIGURE ]; then
     check_root
 
-    # TODO: require the --deploy-setup
-    # TODO: warn the user that the DB will be cleaned up
+    require_deployed_application
 
-    deploy_first_time
-    restart_web_server
-    print_banner "Deployment finished."
+    echo
+    echo "WARNING: This operation will erase your entire database!"
+    echo "Do you want to proceed anyway?"
+    read -p "(y/N)? "
+
+    if [[ $REPLY == [yY] ]]; then
+        deploy_first_time
+        restart_web_server
+    fi
+
+    echo
+    echo "-- Deployment configuration finished."
+    echo "-- You can browse http://${IP} to access the application."
+    echo
 fi
 
 
@@ -887,78 +778,22 @@ if [ $DEPLOY_UPDATE ]; then
     require_deployed_application
 
     echo "-- Updating the deployed application"
-    # TODO: update git
-    # TODO: migrate db
+
+    cd $DEPLOY_PATH
+    get_version_to_be_installed
+
+    VERSION=$REPLY
+    echo "-- Updating the source code to the version ${VERSION}"
+    git checkout $VERSION
+    git pull origin $VERSION &>/dev/null # just in case a branch needs to be updated
+
+    echo "-- Installing the required gems"
+    deploy_update_dependencies
+
+    echo "-- Updating the database"
+    bundle exec rake db:migrate RAILS_ENV=production
+
     restart_web_server
 
-    print_banner "Application udpated."
-fi
-
-
-
-#
-# Setup Mconf-Web in the Mconf VM
-#
-
-config_files_setup_vm() {
-    # automatically configure some files in mconf-web
-    SALT=`bbb-conf --salt | grep "Salt" | sed 's/[[:blank:]]*Salt: //'`
-    MCONF_WEB_SETUP_CONF="$SETUP_VM_SRC_PATH/config/setup_conf.yml"
-    sed -i "s/\(^[[:space:]]*bbb_server_url:\)[^#$]*\(.*\)$/\1 \"http:\/\/${SETUP_VM_IP}:${SETUP_VM_PORT}\/bigbluebutton\/api\" \2/g" $MCONF_WEB_SETUP_CONF
-    sed -i "s/\(^[[:space:]]*bbb_server_salt:\)[^#$]*\(.*\)$/\1 \"${SALT}\" \2/g" $MCONF_WEB_SETUP_CONF
-    sed -i "s/\(^[[:space:]]*site_domain:\)[^#$]*\(.*\)$/\1 \"${SETUP_VM_IP}\" \2/g" $MCONF_WEB_SETUP_CONF
-    sudo sed -i "s/server_name .*/server_name ${SETUP_VM_IP};/" /etc/nginx/sites-available/mconf-web
-
-    echo
-    echo "################################################################################"
-    echo "#              ATTENTION: Setting up configuration files.                      #"
-    echo "################################################################################"
-    echo
-
-    # most of the parameters are already configured for the Mconf VM
-    # so we just need to ask a few of them here
-
-    echo "--------------------------------------------------------------------------------"
-    echo "GENERAL configurations:"
-    echo " - Here you will configure the admin account, a default BBB server and a gmail"
-    echo "   account used to send emails."
-    echo "--------------------------------------------------------------------------------"
-    echo
-    PARAMS=( admin_email admin_password \
-             sendmail_username sendmail_password)
-    config_yml_file_with_review "$SETUP_VM_SRC_PATH/config/setup_conf.yml"
-
-    echo
-}
-
-if [ $SETUP_VM ]; then
-    check_root
-
-    # TODO
-    if [ ! -f $SETUP_VM_SRC_PATH/config/setup_conf.yml -o ! -f $SETUP_VM_SRC_PATH/config/database.yml ]; then
-        print_error_banner "You need to setup the development environment to run this command. Please run this script with the option --setup-dev."
-        exit 1
-    fi
-
-    echo
-    echo "################################################################################"
-    echo "#                   Setting up Mconf-Web in the Mconf VM                       #"
-    echo "################################################################################"
-    echo "BigblueButton server at: http://${SETUP_VM_IP}:${SETUP_VM_PORT}/"
-    echo
-
-    echo "-- Editing configuration files"
-    config_files_setup_vm
-
-    echo "-- Updating the development environment at master branch"
-    cd $SETUP_VM_SRC_PATH
-    git checkout master
-    git pull origin master
-    cd ~
-    # TODO: setup-dev?
-
-    DEPLOY_FIRST_TIME=1
-    # TODO: this is not working anymore... update the VM
-
-    print_banner "Configuration files edition finished."
+    print_banner "Application now at version/branch: ${VERSION}."
 fi
