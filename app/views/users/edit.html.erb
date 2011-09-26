@@ -23,33 +23,6 @@
 
 <% end -%><br/>
 
-<!--
-<div id="edit_openids" class="blue_title"><h3><%= t('user.openid.add_to_access')%></h3></div>
-  <div>
-    <% if current_user.openid_uris.any? %>
-    <ul>
-      <% current_user.openid_ownings.each do |owning| %>
-        <li>
-          <%= link_to owning.uri, owning.uri.to_s %>
-          <% unless owning.local? %>
-            <% if owning.uri.hcard? %>
-              <%= link_to t('profile.hcard.fill_with'), edit_user_profile_path(current_user, :hcard_uri => owning.uri.to_s ) %>
-            <% end %>
-            <%= link_to t('delete.one'), owning, :method => :delete %>
-          <% end %>
-        </li>
-      <% end %>
-    </ul>
-  <% end %>
-  <%= form_tag OpenIdOwning.new do -%>
-  <div id="openid_label">
-    <%= text_field_tag 'openid_identifier', params[:openid_identifier] %><button type="submit" class="blue_button basic_button"><%=t('add')%></button>
-  </div>
-  <% end -%>
-  <br/>
-</div>
--->
-
 <div id="edit_account" class="blue_title"><h3><%= t('preferences')%></h3></div>
 
 <%= form_for user, :url => user_path(@user), :html => { :method => :put } do |f| -%>
@@ -69,17 +42,8 @@
 <%= f.radio_button  :notification, "2"%> <%=t('user.by_private_message')%>
 </div><br/>
 
-<!-- Experimental chat feature
-<div>
-  <h5><%=t("chat.edit_question")%></h5>
-  <%= f.check_box :chat_activation, {}, true,false %>
-  <label for="chat_activation"><%= t('chat.edit_enabled')%></label>
-</div><br/>
--->
-
 <% if logged_in? && current_user.superuser==true && @user.id != current_user.id %>
-<p><label for="superuser"><%=t('user.admin')%></label><br/>
-<%= f.check_box :superuser %></p>
+<p><%= f.check_box :superuser %><label for="superuser"> <%=t('user.admin')%></label></p>
 <% end -%>
 
 <button type="submit" class="blue_button basic_button"><%=t('save') %></button>
