@@ -2,10 +2,10 @@
   <div id="my_spaces_title">
     <h3>
       <%= image_tag("icons/information.png", :class=>"icon",:title=> t('information.information4')) %> <%= title %>
-      <div id="arrow_take_space" class="float_right">
+      <div class="arrow_take_box float_right">
         <%= image_tag("icons/takeico.png", :class=>"icon",:title=> t('information.reduce')) %>
       </div>
-      <div id="arrow_drop_space" class="float_right hide">
+      <div class="arrow_drop_box float_right hide">
         <%= image_tag("icons/dropico.png", :class=>"icon",:title=> t('information.expand')) %>
       </div>
     </h3>
@@ -16,7 +16,7 @@
       <li><span><%= t('profile.no_spaces', :user => show_user.name) %></span></li>
     </ul>
   <% else %>
-  
+
     <div class="all_my_spaces">
       <ul>
         <% show_user.spaces.each do |s| %>
