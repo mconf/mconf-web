@@ -7,7 +7,6 @@ gem "will_paginate", "~> 3.0.pre2"
 gem 'exception_notification_rails3'
 gem 'teambox-permalink_fu', :git => 'git://github.com/mconf/permalink_fu.git'
 gem 'jquery-rails', '>= 0.2.6'
-gem 'rmagick', :git => 'git://github.com/rmagick/rmagick.git'
 gem 'vpim'
 gem 'ruby-openid'
 gem 'atom-tools'
