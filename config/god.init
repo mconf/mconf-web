@@ -1,0 +1,65 @@
+#!/bin/sh
+
+### BEGIN INIT INFO
+# Provides:             god
+# Required-Start:       $all
+# Required-Stop:        $all
+# Default-Start:        2 3 4 5
+# Default-Stop:         0 1 6
+# Short-Description:    God
+### END INIT INFO
+
+NAME=god
+DESC=god
+GOD_BIN=/usr/local/rvm/bin/bootup_god
+GOD_CONFIG=/home/firstuser/mconf-web/config/god.rb
+GOD_LOG=/home/firstuser/mconf-web/log/god.log
+
+set -e
+
+# Make sure the binary and the config file are present before proceeding
+if ! test -x $GOD_BIN; then
+  echo "Config file not found at ${GOD_BIN}"
+  exit 0
+fi
+
+# Create this file and put in a variable called GOD_CONFIG, pointing to
+# your God configuration file
+if ! test -f $GOD_CONFIG; then
+  echo "Config file not found at ${GOD_CONFIG}"
+  exit 0
+fi
+
+RETVAL=0
+
+case "$1" in
+  start)
+    echo -n "Starting $DESC: "
+    $GOD_BIN -c $GOD_CONFIG -l $GOD_LOG
+    RETVAL=$?
+    echo "$NAME."
+    ;;
+  stop)
+    echo -n "Stopping $DESC: "
+    $GOD_BIN quit
+    RETVAL=$?
+    echo "$NAME."
+    ;;
+  restart)
+    echo -n "Restarting $DESC: "
+    $GOD_BIN quit
+    $GOD_BIN -c $GOD_CONFIG -l $GOD_LOG
+    RETVAL=$?
+    echo "$NAME."
+    ;;
+  status)
+    $GOD_BIN status
+    RETVAL=$?
+    ;;
+  *)
+    echo "Usage: god {start|stop|restart|status}"
+    exit 1
+    ;;
+esac
+
+exit $RETVAL

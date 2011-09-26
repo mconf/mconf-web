@@ -34,7 +34,7 @@ RVM_VERSION=1.8.0                                       # to fix the RVM version
 RVM_RUBY_VERSION=1.9.2                                  # Ruby version
 RVM_GEMSET=mconf                                        # gemset for production (also defined in mconf-web/config/deploy.rb)
 
-DEPLOY_PATH=~/mconf-web                                 # directory for the deployed application
+DEPLOY_PATH=~/mconf-web/current                         # directory for the deployed application
 DEPLOY_REPO=git://github.com/mconf/mconf-web.git        # used to checkout the production environment
 DEPLOY_VERSION=                                         # set this variable to define an specific version to be installed
 
@@ -694,6 +694,25 @@ deploy_checkout() {
     git pull origin $REPLY &>/dev/null # just in case a branch needs to be updated
 }
 
+deploy_install_god() {
+    # install and edit the init.d/god file
+    # reference: http://openmonkey.com/2008/05/27/god-init-script-for-debian-ubuntu-systems
+    TEMP=`mktemp`
+    curl https://raw.github.com/mconf/mconf-web/master/config/god.init -o $TEMP
+    sudo mv $TEMP /etc/init.d/god
+    sudo sed -i "s:^GOD_CONFIG=.*:GOD_CONFIG=${DEPLOY_PATH}/config/god.rb:g" /etc/init.d/god
+    sudo sed -i "s:^GOD_LOG=.*:GOD_CONFIG=${DEPLOY_PATH}/log/god.log:g" /etc/init.d/god
+    sudo chmod a+x /etc/init.d/god
+    sudo update-rc.d god defaults
+
+    # we need a rvm wrapper to run god in the correct environment
+    # see: http://beginrescueend.com/integration/god/
+    rvmsudo wrapper $RVM_RUBY_VERSION@$RVM_GEMSET bootup god
+
+    # start it
+    sudo /etc/init.d/god start
+}
+
 if [ $DEPLOY_SETUP ]; then
     check_root
 
@@ -705,6 +724,9 @@ if [ $DEPLOY_SETUP ]; then
     echo "-- Installing a web server"
     deploy_select_web_server
     deploy_install_web_server
+
+    echo "-- Installing god - process monitoring framework"
+    deploy_install_god
 
     echo "-- Downloading the application"
     deploy_checkout

@@ -52,7 +52,7 @@ after 'multistage:ensure', 'deploy:info'
 after 'deploy:update_code', 'deploy:link_files'
 after 'deploy:update_code', 'deploy:upload_config_files'
 after 'deploy:update_code', 'deploy:fix_file_permissions'
-after 'deploy:restart', 'jobs:restart'
+# after 'deploy:restart', 'jobs:restart'
 
 namespace :deploy do
 

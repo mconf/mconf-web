@@ -21,7 +21,7 @@ VM_ADDRESS=$(ifconfig | grep -v '127.0.0.1' | grep -E "[0-9]*\.[0-9]*\.[0-9]*\.[
 VM_PORT=8888
 
 SCRIPT_VERSION="0.3"                                    # The version of this script
-DEPLOY_PATH=~/dev/source/mconf-web                      # local directory where the dev environment will be placed
+DEPLOY_PATH=~/mconf-web/current                         # local directory where the dev environment will be placed
 SETUP_VM_IP=$IP                                         # default IP/domain for BigBlueButton if not informed in --setup-vm
 SETUP_VM_PORT=8888                                      # default port for BigBlueButton if not informed in --setup-vm
 DEPLOY_BRANCH=stable                                    # branch to be be deployed # TODO: change to v0.4
