@@ -45,6 +45,12 @@ GIT
     translate-rails3 (0.1.1)
       ya2yaml (~> 0.30)
 
+GIT
+  remote: git://github.com/rmagick/rmagick.git
+  revision: 4c3d6450483c3e761a1d3f9967b43c0a46d4763f
+  specs:
+    rmagick (0.0.0)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -176,7 +182,6 @@ GEM
     rake (0.8.7)
     rcov (0.9.9)
     rdoc (3.9.4)
-    rmagick (2.13.1)
     rspec (2.6.0)
       rspec-core (~> 2.6.0)
       rspec-expectations (~> 2.6.0)
@@ -254,7 +259,7 @@ DEPENDENCIES
   rails (~> 3.0.3)
   rake (= 0.8.7)
   rcov
-  rmagick
+  rmagick!
   rspec-instafail
   rspec-rails (~> 2.5)
   ruby-openid
