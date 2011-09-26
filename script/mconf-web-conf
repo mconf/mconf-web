@@ -46,6 +46,7 @@ APACHE_PATH=/etc/apache2                                # default path for Apach
 
 GEM_VERSION_BUNDLER=1.0.15                              # bundler version
 GEM_VERSION_PASSENGER=3.0.7                             # passenger version
+GEM_VERSION_GOD=0.11.0                                  # god version
 
 BIGBLUEBUTTON_ALT_PORT=8888                             # alternative port for BigBlueButton if necessary (when Apache is installed)
 
@@ -673,8 +674,8 @@ deploy_select_web_server() {
 
 # Basic gems installed before the application is checked out
 deploy_basic_gems() {
-    gem install bundler --no-ri --no-rdoc $GEM_VERSION_BUNDLER
-    gem install passenger --no-ri --no-rdoc $GEM_VERSION_PASSENGER
+    gem install bundler --no-ri --no-rdoc -v $GEM_VERSION_BUNDLER
+    gem install passenger --no-ri --no-rdoc -v $GEM_VERSION_PASSENGER
 }
 
 # Checkout the application using git
@@ -695,19 +696,28 @@ deploy_checkout() {
 }
 
 deploy_install_god() {
+    sudo touch /var/log/god.log
+    sudo mkdir -p /etc/god/conf.d/
+
+    # global config file = loads all files in /etc/god/conf.d/
+    sudo curl https://raw.github.com/mconf/mconf-web/master/config/god/config -o /etc/god/config
+
+    # delayed_job config
+    sudo curl https://raw.github.com/mconf/mconf-web/master/config/god/delayed_job.god -o /etc/god/config.d/delayed_job.god
+    sudo sed -i "s:^RAILS_ROOT =.*:RAILS_ROOT = ${DEPLOY_PATH}:g" /etc/god/config.d/delayed_job.god
+
     # install and edit the init.d/god file
     # reference: http://openmonkey.com/2008/05/27/god-init-script-for-debian-ubuntu-systems
-    TEMP=`mktemp`
-    curl https://raw.github.com/mconf/mconf-web/master/config/god.init -o $TEMP
-    sudo mv $TEMP /etc/init.d/god
-    sudo sed -i "s:^GOD_CONFIG=.*:GOD_CONFIG=${DEPLOY_PATH}/config/god.rb:g" /etc/init.d/god
-    sudo sed -i "s:^GOD_LOG=.*:GOD_CONFIG=${DEPLOY_PATH}/log/god.log:g" /etc/init.d/god
+    sudo curl https://raw.github.com/mconf/mconf-web/master/config/god/init_script -o /etc/init.d/god
     sudo chmod a+x /etc/init.d/god
     sudo update-rc.d god defaults
 
+    # install god
+    gem install god --no-ri --no-rdoc -v $GEM_VERSION_GOD
+
     # we need a rvm wrapper to run god in the correct environment
     # see: http://beginrescueend.com/integration/god/
-    rvmsudo wrapper $RVM_RUBY_VERSION@$RVM_GEMSET bootup god
+    rvm wrapper $RVM_RUBY_VERSION@$RVM_GEMSET bootup god
 
     # start it
     sudo /etc/init.d/god start

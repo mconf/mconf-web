@@ -12,8 +12,8 @@
 NAME=god
 DESC=god
 GOD_BIN=/usr/local/rvm/bin/bootup_god
-GOD_CONFIG=/home/firstuser/mconf-web/config/god.rb
-GOD_LOG=/home/firstuser/mconf-web/log/god.log
+GOD_CONFIG=/etc/god/config
+GOD_LOG=/var/log/god.log
 
 set -e
 

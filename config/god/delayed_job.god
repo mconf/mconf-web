@@ -1,4 +1,4 @@
-RAILS_ROOT = File.join(File.dirname(File.dirname(__FILE__)), "..")
+RAILS_ROOT = File.join(File.dirname(File.dirname(__FILE__)), "..", "..")
 RAILS_ENV = "production"
 
 2.times do |num|
