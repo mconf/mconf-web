@@ -5,7 +5,7 @@ module Vcc
   @@branch = nil
   def self.application_branch
     unless @@branch
-      branch = %x[git symbolic-ref HEAD]
+      branch = %x[git symbolic-ref HEAD 2> /dev/null ]
       branch =~ /([^\/]*)$/
       branch = $1.strip!
       @@branch = branch || "<no-ref>"
