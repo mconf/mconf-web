@@ -30,8 +30,8 @@ IP=$(ifconfig | grep -v '127.0.0.1' | grep -E "[0-9]*\.[0-9]*\.[0-9]*\.[0-9]*" |
 
 SCRIPT_VERSION="0.2"                                    # The version of this script
 
-RVM_VERSION=1.8.0                                       # to fix the RVM version to be installed
-RVM_RUBY_VERSION=1.9.2                                  # Ruby version
+RVM_VERSION=1.8.5                                       # fixed RVM version to be installed
+RVM_RUBY_VERSION=1.9.2-p290                             # Ruby version
 RVM_GEMSET=mconf                                        # gemset for production (also defined in mconf-web/config/deploy.rb)
 
 DEPLOY_PATH=~/mconf-web/current                         # directory for the deployed application
@@ -44,9 +44,7 @@ APACHE_VERSION=2.2.14                                   # default version for Ap
 APACHE_DAEMON=/usr/sbin/apache2                         # default path for the apache2 daemon
 APACHE_PATH=/etc/apache2                                # default path for Apache
 
-GEM_VERSION_BUNDLER=1.0.15                              # bundler version
-GEM_VERSION_PASSENGER=3.0.7                             # passenger version
-GEM_VERSION_GOD=0.11.0                                  # god version
+GEM_VERSION_BUNDLER=1.0.18                              # bundler version
 
 BIGBLUEBUTTON_ALT_PORT=8888                             # alternative port for BigBlueButton if necessary (when Apache is installed)
 
@@ -325,9 +323,19 @@ restart_web_server() {
     fi
 }
 
+# restart all services needed by mconf-web
+restart_mconf_web() {
+    restart_web_server
+
+    echo "-- Restarting God"
+    sudo /etc/init.d/god stop
+    sudo /etc/init.d/god start
+}
+
 # Update the dependencies: gems and git submodules
 deploy_update_dependencies() {
     cd $DEPLOY_PATH
+    gem install bundler --no-ri --no-rdoc -v $GEM_VERSION_BUNDLER
     bundle install --without=development test
     git submodule init
     git submodule update
@@ -405,16 +413,16 @@ while [ $# -gt 0 ]; do
         continue
     fi
 
-    if [ "$1" = "--deploy-setup" -o "$1" = "-deploy-setup" ]; then
-        echo "- Preparing the production environment and downloading the app"
-        DEPLOY_SETUP=1
+    if [ "$1" = "--checkout" -o "$1" = "-checkout" ]; then
+        echo "- Getting the application code"
+        CHECKOUT=1
         shift
         continue
     fi
 
-    if [ "$1" = "--deploy-configure" -o "$1" = "-deploy-configure" ]; then
-        echo "- Configuring the application's database"
-        DEPLOY_CONFIGURE=1
+    if [ "$1" = "--deploy-setup" -o "$1" = "-deploy-setup" ]; then
+        echo "- Preparing the production environment and deploying"
+        DEPLOY_SETUP=1
         shift
         continue
     fi
@@ -475,6 +483,33 @@ fi
 
 
 #
+# Install system packages
+#
+
+# Includes a file with the list of dependencies for mconf-web
+# This file is in the source code dir, at config/packages.<platformname>
+dependencies_include_package_list() {
+    # get the dependencies from github
+    install_dependency curl
+    TEMP=`mktemp`
+    sudo curl https://raw.github.com/mconf/mconf-web/master/config/packages.ubuntu -o $TEMP
+    source $TEMP
+}
+
+if [ $DEPENDENCIES ]; then
+    check_root
+
+    dependencies_include_package_list
+
+    echo "-- Installing dependencies for a production environment"
+    sudo apt-get update
+    install_dependencies "${PACKAGES_PRODUCTION[*]}"
+
+    print_banner "Dependencies installation finished."
+fi
+
+
+#
 # Install Ruby
 #
 
@@ -509,35 +544,46 @@ fi
 
 
 #
-# Mconf-Web system packages
+# Get the application and install its dependencies (gems)
 #
 
-# Includes a file with the list of dependencies for mconf-web
-# This file is in the source code dir, at config/packages.<platformname>
-dependencies_include_package_list() {
-    # get the dependencies from github
-    install_dependency curl
-    TEMP=`mktemp`
-    sudo curl https://raw.github.com/mconf/mconf-web/master/config/packages.ubuntu -o $TEMP
-    source $TEMP
+# Checkout the application using git
+deploy_checkout() {
+    install_dependency git-core
+
+    echo "-- Creating the deploy directory: $DEPLOY_PATH"
+    mkdir -p $DEPLOY_PATH
+
+    echo "-- Cloning Mconf-Web"
+    git clone $DEPLOY_REPO $DEPLOY_PATH
+
+    cd $DEPLOY_PATH
+    get_version_to_be_installed
+    echo "-- Checking out branch $REPLY"
+    git checkout $REPLY
+    git pull origin $REPLY &>/dev/null # just in case a branch needs to be updated
 }
 
-if [ $DEPENDENCIES ]; then
+if [ $CHECKOUT ]; then
     check_root
 
-    dependencies_include_package_list
+    require_rvm
 
-    echo "-- Installing dependencies for a production environment"
-    sudo apt-get update
-    install_dependencies "${PACKAGES_PRODUCTION[*]}"
+    echo "-- Downloading the application"
+    deploy_checkout
 
-    print_banner "Dependencies installation finished."
+    echo "-- Installing the required gems"
+    deploy_update_dependencies
+
+    print_banner "Checked out the application at ${DEPLOY_PATH}."
 fi
 
 
 
 #
-# Setup the production environment
+# Web server, setup god, and deploy for the first time
+# This will erase the entire database and use data from setup_conf.yml to
+# recreate it.
 #
 
 # Installs the webserver choosen by the user
@@ -672,48 +718,22 @@ deploy_select_web_server() {
     fi
 }
 
-# Basic gems installed before the application is checked out
-deploy_basic_gems() {
-    gem install bundler --no-ri --no-rdoc -v $GEM_VERSION_BUNDLER
-    gem install passenger --no-ri --no-rdoc -v $GEM_VERSION_PASSENGER
-}
-
-# Checkout the application using git
-deploy_checkout() {
-    install_dependency git-core
-
-    echo "-- Creating the deploy directory: $DEPLOY_PATH"
-    mkdir -p $DEPLOY_PATH
-
-    echo "-- Cloning Mconf-Web"
-    git clone $DEPLOY_REPO $DEPLOY_PATH
-
-    cd $DEPLOY_PATH
-    get_version_to_be_installed
-    echo "-- Checking out branch $REPLY"
-    git checkout $REPLY
-    git pull origin $REPLY &>/dev/null # just in case a branch needs to be updated
-}
-
-deploy_install_god() {
-    sudo touch /var/log/god.log
+deploy_configure_god() {
     sudo mkdir -p /etc/god/conf.d/
 
     # global config file = loads all files in /etc/god/conf.d/
     sudo curl https://raw.github.com/mconf/mconf-web/master/config/god/config -o /etc/god/config
 
     # delayed_job config
-    sudo curl https://raw.github.com/mconf/mconf-web/master/config/god/delayed_job.god -o /etc/god/config.d/delayed_job.god
-    sudo sed -i "s:^RAILS_ROOT =.*:RAILS_ROOT = ${DEPLOY_PATH}:g" /etc/god/config.d/delayed_job.god
+    sudo curl https://raw.github.com/mconf/mconf-web/master/config/god/delayed_job.god -o /etc/god/conf.d/delayed_job.god
+    sudo sed -i "s:^RAILS_ROOT =.*:RAILS_ROOT = \"${DEPLOY_PATH}\":g" /etc/god/conf.d/delayed_job.god
 
     # install and edit the init.d/god file
     # reference: http://openmonkey.com/2008/05/27/god-init-script-for-debian-ubuntu-systems
     sudo curl https://raw.github.com/mconf/mconf-web/master/config/god/init_script -o /etc/init.d/god
+    sudo sed -i "s:^GOD_LOG=.*:GOD_LOG=${DEPLOY_PATH}:g" /etc/init.d/god
     sudo chmod a+x /etc/init.d/god
     sudo update-rc.d god defaults
-
-    # install god
-    gem install god --no-ri --no-rdoc -v $GEM_VERSION_GOD
 
     # we need a rvm wrapper to run god in the correct environment
     # see: http://beginrescueend.com/integration/god/
@@ -728,42 +748,12 @@ if [ $DEPLOY_SETUP ]; then
 
     require_rvm
 
-    echo "-- Setting up gemset and gems for production"
-    deploy_basic_gems
-
     echo "-- Installing a web server"
     deploy_select_web_server
     deploy_install_web_server
 
     echo "-- Installing god - process monitoring framework"
-    deploy_install_god
-
-    echo "-- Downloading the application"
-    deploy_checkout
-
-    echo "-- Installing the required gems"
-    deploy_update_dependencies
-
-    print_banner "Basic setup finished. You should now edit the configuration files."
-fi
-
-
-
-#
-# Configures the deployed application.
-# This will erase the entire database and use data from setup_conf.yml to
-# recreate it.
-#
-
-# Setup the database and secret key
-deploy_first_time() {
-    cd $DEPLOY_PATH
-    bundle exec rake setup:db RAILS_ENV=production
-    bundle exec rake secret RAILS_ENV=production
-}
-
-if [ $DEPLOY_CONFIGURE ]; then
-    check_root
+    deploy_configure_god
 
     require_deployed_application
 
@@ -773,14 +763,28 @@ if [ $DEPLOY_CONFIGURE ]; then
     read -p "(y/N)? "
 
     if [[ $REPLY == [yY] ]]; then
-        deploy_first_time
-        restart_web_server
+        cd $DEPLOY_PATH
+        bundle exec rake setup:db RAILS_ENV=production
+        bundle exec rake secret RAILS_ENV=production
+    else
+        echo
+        echo "Aborted. If needed you can run it later with:"
+        echo "--------------------------------------------------------------------------------"
+        echo " cd $DEPLOY_PATH "
+        echo " bundle exec rake setup:db RAILS_ENV=production "
+        echo " bundle exec rake secret RAILS_ENV=production "
+        echo "--------------------------------------------------------------------------------"
     fi
+
+    restart_mconf_web
 
     echo
     echo "-- Deployment configuration finished."
-    echo "-- You can browse http://${IP} to access the application."
-    echo
+    echo "--------------------------------------------------------------------------------"
+    echo " You can browse http://${IP} to access the application."
+    echo "--------------------------------------------------------------------------------"
+
+    print_banner "Basic setup finished. You should now edit the configuration files."
 fi
 
 
@@ -794,7 +798,7 @@ if [ $DEPLOY_RESTART ]; then
     require_deployed_application
 
     echo "-- Restarting the deployed application"
-    restart_web_server
+    restart_mconf_web
 
     print_banner "Application restarted."
 fi
@@ -816,8 +820,8 @@ if [ $DEPLOY_UPDATE ]; then
 
     VERSION=$REPLY
     echo "-- Updating the source code to the version ${VERSION}"
-    git checkout $VERSION
-    git pull origin $VERSION &>/dev/null # just in case a branch needs to be updated
+    git checkout $REPLY
+    git pull origin $REPLY &>/dev/null # just in case a branch needs to be updated
 
     echo "-- Installing the required gems"
     deploy_update_dependencies
@@ -825,7 +829,7 @@ if [ $DEPLOY_UPDATE ]; then
     echo "-- Updating the database"
     bundle exec rake db:migrate RAILS_ENV=production
 
-    restart_web_server
+    restart_mconf_web
 
     print_banner "Application now at version/branch: ${VERSION}."
 fi

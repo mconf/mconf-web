@@ -10,7 +10,7 @@ RAILS_ENV = "production"
     w.log = "#{RAILS_ROOT}/log/god_delayed_job.log"
     w.start_grace = 30.seconds
     w.restart_grace = 30.seconds
-    # w.pid_file = "#{RAILS_ROOT}/shared/pids/delayed_job.pid"
+    w.pid_file = "#{RAILS_ROOT}/pids/delayed_job.pid"
 
     w.behavior(:clean_pid_file)
 
