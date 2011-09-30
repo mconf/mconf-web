@@ -345,8 +345,8 @@ en:
   click_here: "Click here"
   click_to_see_all: "See all"
   close: Close
-  collapse: collapse
-  collapse_arrows: "collapse >>"
+  collapse: less
+  collapse_arrows: "<< less"
   comment: 
     add: "Add a comment"
     add_new: "Add a new comment"
@@ -1917,6 +1917,8 @@ en:
       private: "<p>Please note that the space is private, so you need to be a registered user of the Virtual Conference Center to be able to send a join request and access the space. You can register here: <a href=\"%{register_url}\">%{register_url}</a></p>"
       subject: "%{username} invites you to space %{space}"
     group_not_belong: " do not belong to the same space as the group"
+    index: 
+      select_at_left: "Select a space in the left to see it's description here"
     invitation: 
       body: Body
       one: "Invite People"

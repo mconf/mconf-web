@@ -27,7 +27,7 @@
                   <%= link_to raw(logo(s,{:size=>"h64", :title=> s.name })), space_path(s) %>
                 </div>
                 <div class="description">
-                  <%= link_to s.name, space_path(s), :class => "title" %></br>
+                  <%= link_to first_words(s.name,20), space_path(s), :class => "title" %></br>
                   <%= t('members', :count => s.actors.count) %>
                 </div>
                 <div class="clearer"></div>
@@ -40,7 +40,7 @@
                   <%= logo(s,{:size=>"h64", :title=> s.name }).html_safe %>
                 </div>
                 <div class="description">
-                  <span class="title"><%= s.name %></span></br>
+                  <span class="title"><%= first_words(s.name,20) %></span></br>
                   <%= t('members', :count => s.actors.count) %>
                 </div>
                 <div class="clearer"></div>

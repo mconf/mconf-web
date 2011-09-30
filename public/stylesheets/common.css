@@ -2,9 +2,6 @@ input[type=password], input[type=text], textarea, ul.token-input-list-facebook {
   border: 1px solid #ccc;
   font-size: 12px;
   padding: 3px;
-/*  -webkit-border-radius: 1px;
-  -moz-border-radius: 1px;
-  border-radius: 1px;*/
 }
 
 input[type=password]:focus, input[type=text]:focus, textarea:focus, ul.token-input-list-facebook:focus {
@@ -16,24 +13,9 @@ input[type=checkbox] {
 }
 
 
-/************************************************** BUTTONS ********************************************/
-/*
- * TYPES OF BUTTONS
- * 1- BASIC_BUTTON: blue, small-padding
- * 2- MEDIUM_BUTTON: blue or yellow,
- * 3- BIG_BUTTON: red or yellow
-*/
+/*** Styles that should be reviewed  ***/
 
-/*COMMON PROPERTIES*/
 button,input[type=button]{padding:3px 7px 3px 6px;overflow:visible;width:auto;margin-right:5px;}
-
-/*.button_wrapper{
-        overflow:hidden;
-        }
-
-.join .button_wrapper {
-        padding:0 25px;
-}*/
 
 .cloud_button{background: url("../images/orange-cloud.png") no-repeat center 9%;}
 .cloud_button:hover{background: url("../images/orange-cloud.png") no-repeat center 93%;}
@@ -71,14 +53,12 @@ button,input[type=button]{padding:3px 7px 3px 6px;overflow:visible;width:auto;ma
 .big_button span:hover{
     outline: none; /* hide dotted outline in Firefox */}
 
-/*********BIG BUTTONS***************/
 .big_button,button.big_button{
         -webkit-border-radius:5px;-moz-border-radius:5px;
     font-size:120%;
     line-height:150%;
     margin-right: 6px;
         cursor:pointer;
-    /*padding-right: 18px; /* sliding doors padding */
 }
 .big_button span{
         -webkit-border-radius:5px;-moz-border-radius:5px;
@@ -87,48 +67,12 @@ button,input[type=button]{padding:3px 7px 3px 6px;overflow:visible;width:auto;ma
     padding: 5px 18px 5px 18px;
 }
 
-/*.join .big_button span{width:120px;}*/
-
 button.big_button{padding:3px 18px 3px 18px;width:230px;}
-
-/********MEDIUM BUTTONS*************/
-
-
-
-/*BASIC BUTTONS..........*/
-/*.basic_button,button.basic_button,input[type=button].basic_button,input[type=submit].basic_button{
-        -webkit-border-radius:4px;-moz-border-radius:4px;
-        font-size:95%;
-        line-height:135%;
-        margin-right:4px;
-        margin-bottom:4px;
-        cursor:pointer;
-}
-.basic_button span{
-        -webkit-border-radius:4px;-moz-border-radius:4px;
-    line-height: 16px;
-    padding:4px;
-}*/
-
 button#change_logo{float:left;}
-
-/*GREY BAR BUTTONS*/
-/*.grey_bar .grey_button,.grey_bar .grey_button span{-webkit-border-radius:2px;-moz-border-radius:2px;}
-.grey_bar button{line-height:16px;}
-.grey_bar .grey_button span{
-        line-height:18px;
-        color:#222;
-        background:url("../images/buttons/grey-button.png") repeat-x scroll 0 4%;
-        padding:3px 7px 3px 6px;}
-.grey_button span:hover{background:url("../images/buttons/grey-button.png") repeat-x scroll 0% 100%;}
-.grey_button span{border:1px solid #999;}*/
 .separator{color:#ccc;padding:4px 1px;float:left;margin-right:4px;}
-/*-------------disabled grey buttons-----------
-.grey_bar .disabled_button{opacity:0.6;font-size:95%;line-height:18px;float:left;display:block;margin-right:4px;cursor:default;font-weight:bold;}*/
 .grey_bar #feeds_link{margin-right:6px;}
 
-/*BUTTON COLOURS*/
-
+/*** Styles that should be reviewed  ***/
 
 
 
@@ -249,35 +193,6 @@ input[type=submit].medium_button, button.medium_button, a.medium_button {
   line-height: 1.4em;
 }
 
-/* Styles for Space Description in space page*/
-#space_description {
-  border-right:1px solid #b0cadb;
-  border-left:1px solid #b0cadb;
-  border-top:1px solid #b0cadb;
-  margin-bottom:1.5em;
-}
-#space_description h3 {
-  margin:0;
-  padding:5px 6px 3px;
-  background:#bdd8eb;
-  color:#244974;
-}
-#space_description .botton_margin {
-  padding:5px 0.75em;
-  background:#bdd8eb;
-}
-#space_description .main_text {
-  border-bottom:1px #ccc solid;
-  font-size:1em;line-height:1.5;
-  padding:0.75em 0;margin-left:0.5em;
-  margin-right:0.5em;
-  border-bottom:none;
-  color:#555;
-  font-weight:normal;
-}
-/*End*/
-
-/* Styles for Edit BBB Room in Home page*/
 #passwords dl {
   position: relative;
   width: 350px;
@@ -294,14 +209,11 @@ input[type=submit].medium_button, button.medium_button, a.medium_button {
   margin: 0 0 8px 0;
   padding-left: 6px;
 }
-/*end*/
 
-/* Styles for home images*/
-.float_right_icon { 
+.float_right_icon {
   float: right;
   margin-right: 5px;
 }
-/* end */
 
 /* GENERAL STYLES */
 
