@@ -242,11 +242,11 @@ en:
   back: Back
   back_to_inbox: "Back to inbox"
   bad_request: "Bad Request"
-  bbb_room:
-    edit: "Configure your BigBlueButton Room"
-    private: "Private Room"
-    moderatorPW: "Moderator Password"
+  bbb_room: 
     attendeePW: "Attendee Password"
+    edit: "Configure your BigBlueButton Room"
+    moderatorPW: "Moderator Password"
+    private: "Private Room"
   beta: beta
   bigbluebutton: BigBlueButton
   bigbluebutton_rails: 
@@ -345,8 +345,8 @@ en:
   click_here: "Click here"
   click_to_see_all: "See all"
   close: Close
-  collapse: collapse
-  collapse_arrows: "collapse >>"
+  collapse: less
+  collapse_arrows: "<< less"
   comment: 
     add: "Add a comment"
     add_new: "Add a new comment"
@@ -1191,15 +1191,15 @@ en:
     my: "My Inbox (%{checked})"
     one: "Inbox (%{checked})"
   index: Index
-  information:
+  information: 
     expand: "Expand List.."
-    reduce: "Reduce List.."
     info_timezone: "By selecting your time-zone there will be no misunderstanding when creating events with people from other countries."
     information1: "These are the spaces you belong to"
     information2: "Here you can find the newest messages, events and news of the spaces you belong to"
     information3: "These are the latest messages or events that you have created"
     information4: "These are the spaces you belong to"
     information5: "These are the upcoming events of other spaces."
+    reduce: "Reduce List.."
   internet: 
     on_the: "On the Internet"
     ppal: Internet
@@ -1917,6 +1917,8 @@ en:
       private: "<p>Please note that the space is private, so you need to be a registered user of the Virtual Conference Center to be able to send a join request and access the space. You can register here: <a href=\"%{register_url}\">%{register_url}</a></p>"
       subject: "%{username} invites you to space %{space}"
     group_not_belong: " do not belong to the same space as the group"
+    index: 
+      select_at_left: "Select a space in the left to see it's description here"
     invitation: 
       body: Body
       one: "Invite People"
@@ -2152,6 +2154,7 @@ en:
     assist: Attending
     by_email: "By email"
     by_private_message: "By private message"
+    category: Category
     confirm_password: "Confirm password"
     delete_from_space: "Delete user from space"
     disable: "Disable user"
@@ -2186,6 +2189,7 @@ en:
     login: Login
     lost_password: "Lost your password?"
     noactivity: "%{user} has no recent activity"
+    normal_user: "Normal user"
     not_activated: "Your account is not activated. Please, check your email to activate it"
     not_assist: "Not attending"
     not_confirmed: "Not confirmed"

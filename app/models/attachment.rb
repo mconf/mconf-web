@@ -57,7 +57,10 @@ class Attachment < ActiveRecord::Base
   acts_as_taggable
   acts_as_content :reflection => :space
 
-  validates_as_attachment
+  validate :validates_as_attachment_wrapper
+  def validates_as_attachment_wrapper
+    Attachment.validates_as_attachment
+  end
 
   def version_family
     Attachment.version_family(version_family_id)
@@ -136,8 +139,8 @@ class Attachment < ActiveRecord::Base
       attachment.errors.clear
       attachment.errors.add("upload_data",I18n.t('activerecord.errors.messages.missing'))
       errors.each do |att, msg|
-        unless missing_file_errors[att].include?(msg)
-          attachment.errors.add(att, msg)
+        if missing_file_errors.has_key?(att.to_s)
+          attachment.errors.add(att, msg) unless missing_file_errors[att.to_s].include?(msg)
         end
       end
     end

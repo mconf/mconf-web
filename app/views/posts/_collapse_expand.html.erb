@@ -1,19 +1,18 @@
-  
+
   <%if !selected_post%>
     $("#collapsed_post_<%=post.id%>").show();
     $("#expanded_post_<%=post.id%>").hide();
   <%end%>
-    $("#expanded_post_<%=post.id%>").append("<%=escape_javascript(link_to "<< collapse" , "javascript:collapse_post_#{post.id}()", :class=>"collapse")%>");
-    
+    $("#expanded_post_<%=post.id%>").append("<%=escape_javascript(link_to t('collapse_arrows') , "javascript:collapse_post_#{post.id}()", :class=>"collapse")%>");
+
     expand_post_<%=post.id%> = function(){
        $("#collapsed_post_<%=post.id%>").hide();
        $("#expanded_post_<%=post.id%>").show();
-       //$("#expanded_post_<%=post.id%>").css("style", "display: inline");
-       $("#collapsed_post_<%=post.id%>").parents(".post").nextAll().hide().show();    
+       $("#collapsed_post_<%=post.id%>").parents(".post").nextAll().hide().show();
     }
-	
+
     collapse_post_<%=post.id%> = function(){
        $("#expanded_post_<%=post.id%>").hide();
        $("#collapsed_post_<%=post.id%>").show();
-       $("#collapsed_post_<%=post.id%>").parents(".post").nextAll().hide().show();     
+       $("#collapsed_post_<%=post.id%>").parents(".post").nextAll().hide().show();
   }

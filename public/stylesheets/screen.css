@@ -974,11 +974,72 @@ h2.search-results{margin:0;font-size:1.5em;line-height:1.5;margin-bottom:8px;bor
 #advanced_search .javascript{float:left;}
 #advanced_search .javascript input.datepicker{width:85px;margin-right:3px;text-align:center;}
 
-/*index de spaces*/
 #space_filter{padding:0.5em;margin-bottom:0.75em;/*background:#bdd8eb;*/}
 #space_filter input[type="text"]{color:#777;background:#f0f6f9;}
+#space_description { margin-top: 10px; }
 #space_description h3{padding-bottom:8px;border-bottom:1px #ccc solid;color:#244974;}
-/*Edit space*/
+#space_description .botton_margin {
+  padding:5px 0.75em;
+  background:#bdd8eb;
+}
+#space_description .main_text {
+  border-bottom:1px #ccc solid;
+  font-size:1em;line-height:1.5;
+  padding:0.75em 0;margin-left:0.5em;
+  margin-right:0.5em;
+  border-bottom:none;
+  color:#555;
+  font-weight:normal;
+}
+#space_description {
+  border-right:1px solid #b0cadb;
+  border-left:1px solid #b0cadb;
+  border-top:1px solid #b0cadb;
+  margin-bottom:1.5em;
+}
+#space_description h3 {
+  margin:0;
+  padding:5px 6px 3px;
+  background:#bdd8eb;
+  color:#244974;
+}
+#space_description .botton_margin {
+  padding:5px 0.75em;
+  background:#bdd8eb;
+}
+#space_description .main_text {
+  border-bottom:1px #ccc solid;
+  font-size:1em;line-height:1.5;
+  padding:0.75em 0;margin-left:0.5em;
+  margin-right:0.5em;
+  border-bottom:none;
+  color:#555;
+  font-weight:normal;
+}
+
+#space_description_at_index {
+  border:1px solid #b0cadb;
+  margin-bottom:1.5em;
+  background: #F0F6F9;
+  text-align: center;
+  margin-top: 10px;
+}
+#space_description_at_index h3 {
+  margin:0;
+  padding:5px 6px 3px;
+  background:#bdd8eb;
+  color:#244974;
+  text-align: left;
+}
+#space_description_at_index p {
+  margin: 5px;
+  text-align: left;
+}
+#space_description_at_index img {
+  margin-top: 7px;
+}
+
+
 div#jedit_form img.logo{display:block;}
 .default_space_logo {
         padding: 4px;
@@ -1072,7 +1133,7 @@ a.extract_form{margin-right:0.5em;}
 .event .group_links,.news-wrapper .group_links,.user .group_links{opacity: 0.6;}
 .group_links:hover{opacity: 1;}
 
-#show {padding:4px 6px 4px 6px;/*border-bottom: 1px solid #DDDDDD;*/float:right;}
+#show {margin:2px 6px 0 0;float:right;}
 #home_menu{background:#bdd8eb;border-bottom:1px #A8C0D1 solid;margin:0;padding:0 6px;}
 #home_menu h3{margin:0;color:#244974;font-size:1.1666em;line-height:1.2857;font-weight:bold;padding:6px 0;}
 #home_menu ul{list-style-type:none;margin:0;font-size:1.1666em;line-height:1.2857;font-weight:bold;}
@@ -2292,7 +2353,7 @@ h3.dialog_title {
   overflow: hidden;
 }
 
-#webconference_invite_dialog textarea { 
+#webconference_invite_dialog textarea {
   overflow: hidden;
 }
 
@@ -2524,6 +2585,10 @@ h3.dialog_title {
 }
 .my_spaces_home .all_my_spaces .space_box .logo img {
   border: 1px solid #ccc;
+  padding: 1px;
+}
+.my_spaces_home .all_my_spaces .space_box .logo img:hover {
+  border: 1px solid #444;
 }
 .my_spaces_home .all_my_spaces .space_box .description {
   float: left;
@@ -2531,3 +2596,9 @@ h3.dialog_title {
   width: 95px;
 }
 
+.arrow_drop_box {
+  cursor:pointer;
+}
+.arrow_take_box {
+  cursor:pointer;
+}
