@@ -1,53 +1,5 @@
 <%= content_for :javascript do  %>
 
-  /*
-  $("a#newroom_bbb_link").fancybox({
-    'hideOnContentClick' : false,
-    'frameWidth' : 450,
-    'frameHeight' : 430,
-    'onComplete' : function(){
-      $('#new_bigbluebutton_room').ajaxForm({
-        dataType: 'json',
-        success: function(data, status) {
-          $('#success').show().text(data.message);
-          $("#webconference-rooms").load('/home?update_rooms=true');
-          $.fancybox.close();
-        },
-        error: function(data, status) {
-          var json = jQuery.parseJSON(data.responseText);
-          var errorMessage = "";
-          for(att in json){
-            errorMessage += json[att] + "<br/>";
-          }
-          $('#error').show().html(errorMessage);
-        }
-      });
-    }
-  });
-
-  $("#new-webconf-room #hideMPW").livequery('click', function(event) {
-    if ($(this).is(':checked')) {
-      changeInputTextType("#moderatorPW", 'text');
-    }
-    else {
-      changeInputTextType("#moderatorPW", 'password');
-    }
-  });
-
-  $("#new-webconf-room #hideAPW").livequery('click', function(event) {
-    if ($(this).is(':checked')) {
-      changeInputTextType("#attendeePW", 'text');
-    }
-    else {
-      changeInputTextType("#attendeePW", 'password');
-    }
-  });
-
-  $("#edit-bbb-room #passwords").livequery('click', function(event) {
-    $('#passwords').hide();
-  });
-  */
-
   $("a#mobile_join").fancybox({
     'hideOnContentClick' : false,
     'frameWidth' : 250,
@@ -65,9 +17,9 @@
     'frameWidth' : 450,
     'frameHeight' : 430
   });
-  
+
   $("#edit-bbb-room #private").livequery('click', function(event) {
-    $('#passwords').toggle(0);
+    $('#edit-bbb-room .passwords').toggle(0);
     if ($("#private").is(':checked')) {
       $('#moderatorPW').removeAttr('disabled');
       $('#attendeePW').removeAttr('disabled');
@@ -103,8 +55,8 @@
     <h3>
       <%= image_tag("icons/bbb_logo.png") %> <%= t('webconference.my_webconference') %>
       <span class="float_right">
-        <%= 
-          #link_to t('button.new_room'), newroom_home_path, :id => 'newroom_bbb_link', :class => 'basic_button small_button' 
+        <%=
+          #link_to t('button.new_room'), newroom_home_path, :id => 'newroom_bbb_link', :class => 'basic_button small_button'
          %>
       </span>
     </h3>
@@ -138,8 +90,8 @@
               <%= link_to t('button.invite'), inviteroom_invite_path(:type => "webconference", :room => room.to_param), :id => 'invite_bbb_link', :class => 'basic_button small_button pale_button'%>
               <%= link_to t('home.view_invite_url'), '#', :id => "invite_url_button-#{button_id}", :class => 'basic_button small_button invite_url_button pale_button'%>
               <%= link_to t('button.edit'), edit_bbb_room_user_path(current_user, :room => room.to_param), :id => "edit_bbb_room", :class => 'basic_button small_button pale_button' %>
-              <%= 
-                #link_to t('button.remove'), bigbluebutton_server_room_path(@server, room, :redir_url => home_path), :confirm => 'Are you sure?', :method => :delete, :class => 'basic_button small_button pale_button' 
+              <%=
+                #link_to t('button.remove'), bigbluebutton_server_room_path(@server, room, :redir_url => home_path), :confirm => 'Are you sure?', :method => :delete, :class => 'basic_button small_button pale_button'
                %>
             </span>
             <div class="invite_url url_share" id="invite_url-<%= button_id %>">

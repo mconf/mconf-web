@@ -68,6 +68,7 @@ class SpacesController < ApplicationController
     @news_to_show = @news[@news_position]
     @posts = @space.posts
     @lastest_posts=@posts.not_events().find(:all, :conditions => {"parent_id" => nil}, :order => "updated_at DESC").first(3)
+    @lastest_posts.reject!{ |p| p.author.nil? }
     @lastest_users=@space.stage_performances.sort {|x,y| y.created_at <=> x.created_at }.first(3).map{|performance| performance.agent}
     @lastest_users.reject!{ |u| u.nil? }
     @upcoming_events=@space.events.find(:all, :order => "start_date ASC").select{|e| e.start_date && e.start_date.future?}.first(5)

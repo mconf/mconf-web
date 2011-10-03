@@ -3,7 +3,7 @@
 <%end%>
 
 <%= content_for :javascript do%>
-    $("input[type=file]").filestyle({ 
+    $("input[type=file]").filestyle({
       image: "/images/buttons/browse.png",
       imageheight : 23,
       imagewidth : 63,
@@ -14,7 +14,7 @@
 
   <%= render :partial => 'manage/menu' %>
 <div id="manage">
-  
+
   <%= error_messages_for :current_site %>
 
 <%= form_for(:current_site, :url => site_path, :html => { :method => :put, :multipart => true }) do |f| %>
@@ -34,55 +34,21 @@
   </p>
 
   <p>
-    <%= f.label :presence_domain, t('site.presence_domain') %>
-    <%= f.text_field :presence_domain %>
+    <%= f.label :email, t('site.email') %>
+    <%= f.text_field :email %>
   </p>
-        
-  <p>
-    <%= f.label :cm_domain, t('site.cm_domain') %>
-    <%= f.text_field :cm_domain %>
-  </p>
-        
+
   <p>
     <%= f.label :locale, t('site.locale') %>
     <%= f.select :locale, I18n.available_locales %>
   </p>
-        
-  <p>
-    <%= f.label :chat_group_service_jid, t('site.chat_group_service_jid') %>
-    <%= f.text_field :chat_group_service_jid %>
-  </p>
 
+  <!--
   <p>
-    <%= f.label :xmpp_server_password, t('site.xmpp_server_password') %>
-    <%= f.password_field :xmpp_server_password %>
-  </p>
-
-  <p>
-    <%= f.label :xmpp_server_password_confirmation, t('site.xmpp_server_password_confirmation') %>
-    <%= f.password_field :xmpp_server_password_confirmation %>
-  </p>
-        
-  <p>
-    <%= f.label :vcc_user_for_chat_server, t('site.vcc_user_for_chat_server') %>
-    <%= f.text_field :vcc_user_for_chat_server %>
-  </p>
-        
-  <p>
-    <%= f.label :vcc_pass_for_chat_server, t('site.vcc_pass_for_chat_server') %>
-    <%= f.password_field :vcc_pass_for_chat_server %>
-  </p>
-
-  <p>
-    <!--<%= f.label :ssl, t('site.ssl') %>-->
-    <strong class="blue">SSL </strong>
+    <%= f.label :ssl, t('site.ssl') %>
     <%= f.check_box :ssl %>
   </p>
-
-  <p>
-    <%= f.label :email, t('site.email') %>
-    <%= f.text_field :email %>
-  </p>
+  -->
 
   <p>
     <%= f.label :feedback_url, t('site.feedback_url') %>
@@ -90,8 +56,7 @@
   </p>
 
   <p>
-    <!--<%= f.label :exception_notifications, t('site.exception_notifications') %>-->
-    <strong class="blue"><%= t('send_debug_emails') %> </strong>
+    <%= f.label :exception_notifications, t('site.exception_notifications') %>
     <%= f.check_box :exception_notifications %>
   </p>
 
@@ -99,13 +64,13 @@
     <%= f.label :exception_notifications_email, t('site.exception_notifications_email') %>
     <%= f.text_field :exception_notifications_email %>
   </p>
-  
+
   <p>
     <%= f.label :signature, t('site.signature') %>
     <%= f.text_area :signature %>
   </p>
 
-  <div id="site_button" class="margin-up">  
+  <div id="site_button" class="margin-up">
         <button type="submit" class="basic_button blue_button"><%=t("button.update")%></button>
   </div>
 <% end %>

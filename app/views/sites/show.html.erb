@@ -7,73 +7,57 @@
 <div id="manage">
   <p>
     <label><%= t('site.name') %>:</label>
-    <span><%= sanitize current_site.name %></span>
+    <span class="value"><%= sanitize current_site.name %></span>
   </p>
 
   <p>
-    <label><%= t('site.description') %>:</label> 
-    <span><%= sanitize current_site.description %></span>
+    <label><%= t('site.description') %>:</label>
+    <span class="value"><%= sanitize current_site.description %></span>
   </p>
 
   <p>
-    <label><%= t('site.domain') %>:</label> 
-    <%= sanitize current_site.domain %>
+    <label><%= t('site.domain') %>:</label>
+    <span class="value"><%= sanitize current_site.domain %></span>
   </p>
 
   <p>
-    <label><%= t('site.presence_domain') %>:</label> 
-    <%= sanitize current_site.presence_domain %>
+    <label><%= t('site.email') %>:</label>
+    <span class="value"><%= sanitize current_site.email %></span>
   </p>
 
   <p>
-    <label><%= t('site.cm_domain') %>:</label> 
-    <%= sanitize current_site.cm_domain %>
+    <label><%= t('site.locale') %>:</label>
+    <span class="value"><%= sanitize current_site.locale %></span>
   </p>
 
+  <!--
   <p>
-    <label><%= t('site.locale') %>:</label> 
-    <%= sanitize current_site.locale %>
+    <label><%= t('site.ssl') %>:</label>
+    <%= current_site.ssl? %></span>
   </p>
+  -->
 
   <p>
-    <label><%= t('site.chat_group_service_jid') %>:</label> 
-    <%= sanitize current_site.chat_group_service_jid %>
-  </p>
-        
-  <p>
-    <label><%= t('site.vcc_user_for_chat_server') %>:</label> 
-    <%= sanitize current_site.vcc_user_for_chat_server %>
-  </p>
-
-  <p>
-    <label><%= t('site.ssl') %>:</label> 
-    <%= current_site.ssl? %>
-  </p>
-
-  <p>
-    <label><%= t('site.email') %>:</label> 
-    <%= sanitize current_site.email %>
-  </p>
-
-  <p>
-    <label><%= t('site.feedback_url') %>:</label> 
-    <%= sanitize current_site.feedback_url %>
+    <label><%= t('site.feedback_url') %>:</label>
+    <span class="value"><%= sanitize current_site.feedback_url %></span>
   </p>
 
   <p>
     <label><%= t('site.exception_notifications') %>:</label>
-    <%= current_site.exception_notifications? %>
+    <span class="value"><%= current_site.exception_notifications? %></span>
   </p>
 
   <p>
     <label><%= t('site.exception_notifications_email') %>:</label>
-    <%= sanitize current_site.exception_notifications_email %>
+    <span class="value"><%= sanitize current_site.exception_notifications_email %>
   </p>
-  
+
   <p>
     <label><%= t('site.signature') %>:</label>
-    <%= current_site.signature_in_html %>
+    <span class="value"><%= current_site.signature_in_html %></span>
   </p>
+
+  <div class="clearer"></div>
 
   <div id="site_button" class="button_wrapper">
     <%= link_to ("<span>" + t('button.edit') + "</span>").html_safe, edit_site_path,:class => "basic_button blue_button"%>

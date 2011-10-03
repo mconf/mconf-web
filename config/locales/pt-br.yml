@@ -244,7 +244,7 @@ pt-br:
   bad_request: "Bad Request"
   bbb_room: 
     attendeePW: "Senha do Participante"
-    edit: "Configure sua sala do BigBlueButton"
+    edit: "Configure sua sala de webconferência"
     moderatorPW: "Senha do Moderador"
     private: "Sala Privada"
   beta: beta
@@ -493,6 +493,7 @@ pt-br:
   dblclick: "Duplo clique para editar..."
   delete: 
     confirm: "Excluir %{element}?"
+    invitation: "Remover convite para %{user}?"
     one: Excluir
     select: "Selecione para excluir"
   deny: Não

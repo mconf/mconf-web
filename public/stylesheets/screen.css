@@ -906,12 +906,13 @@ div#management-title{width:384px;margin-left:110px;float:left;}
 div#management-title span{font-size:2em;line-height:1;color:#244974;}
 div.user div.links{float:right;}
 div#manage p {clear:both;padding:8px 9px 9px 9px;margin:0;/*border-bottom:1px #ccc solid;*/}
-div#manage label{color:#244974;font-weight:bold;display:inline-block;width:150px}
+div#manage label{color:#244974;font-weight:bold;display:inline-block;width:200px;float:left;margin-right:5px;}
+div#manage .value{float:left;width:350px;}
 div#manage color{color:#244974;}
 div#preview_logo{margin:0px 0px 9px 10px;}
 div#preview_logo a{margin-right:5px;}
-div#manage input{width:300px;}
-div#manage #site_button{margin-left:162px;}
+div#manage input[type=text]{width:300px;}
+div#manage #site_button{margin-top:20px;margin-left:10px;}
 /*div#manage #site_button span{padding-left:10px;padding-right:10px;}*/
 div#manage textarea{width:300px;height:100px;}
 div#manage .users select{margin-left:0.75em;}
@@ -2598,7 +2599,18 @@ h3.dialog_title {
 
 .arrow_drop_box {
   cursor:pointer;
+  font-size: 11px;
+  color: ff9900;
 }
 .arrow_take_box {
   cursor:pointer;
+}
+
+
+#edit-bbb-room {
+  width: 270px;
+}
+#edit-bbb-room .passwords {
+  border-top: 1pxD solid #ccc;
+  margin-top: 5px;
 }
