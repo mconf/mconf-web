@@ -37,6 +37,7 @@ RVM_GEMSET=mconf                                        # gemset for production 
 DEPLOY_PATH=~/mconf-web/current                         # directory for the deployed application
 DEPLOY_REPO=git://github.com/mconf/mconf-web.git        # used to checkout the production environment
 DEPLOY_VERSION=                                         # set this variable to define an specific version to be installed
+                                                        # if not set, it will use the latest version available
 
 NGINX_VERSION=1.0.0                                     # default version for Nginx (used by Passenger)
 NGINX_DAEMON=/opt/nginx/sbin/nginx                      # default path for the nginx daemon (used by Passenger)
@@ -45,6 +46,8 @@ APACHE_DAEMON=/usr/sbin/apache2                         # default path for the a
 APACHE_PATH=/etc/apache2                                # default path for Apache
 
 GEM_VERSION_BUNDLER=1.0.18                              # bundler version
+GEM_VERSION_GOD=0.11.0                                  # god version
+GEM_VERSION_PASSENGER=3.0.7                             # passenger version
 
 BIGBLUEBUTTON_ALT_PORT=8888                             # alternative port for BigBlueButton if necessary (when Apache is installed)
 
@@ -66,8 +69,8 @@ usage() {
     echo
     echo "    --install-packages               Install dependencies to run Mconf-Web"
     echo "    --install-ruby                   Install ruby (using RVM)"
-    echo "    --deploy-setup                   Basic tasks before the application can be deployed"
-    echo "    --deploy-configure               Configures the application using the data on setup_conf.yml"
+    echo "    --checkout                       Checkout the code and basic dependencies (git submodules and gems)"
+    echo "    --deploy-setup                   Installs a web server and other system-wide applications and deploy the application"
     echo "                                     IMPORTANT: this will erase you database!"
     echo "    --restart                        Restarts the deployed app (executes cap deploy:restart)"
     echo "    --update                         Updates the deployed app code and runs the migrations (executes cap deploy:migrations)"
@@ -241,6 +244,7 @@ nginx_check_version() {
 # Installs nginx using passenger
 nginx_install() {
     rvm use $RVM_RUBY_VERSION@$RVM_GEMSET
+    gem install passenger --no-ri --no-rdoc -v $GEM_VERSION_PASSENGER
     rvmsudo passenger-install-apache2-module -a
 
     echo "-- Configuring Apache to enable Passenger and Mconf-Web"
@@ -283,13 +287,12 @@ apache_check_version() {
 # Installs apache using passenger
 apache_install() {
     echo "-- Installing Apache2 and other dependencies"
-    # system package dependencies
     dependencies_include_package_list
     install_dependencies "${PACKAGES_APACHE[*]}"
 
-    # echo "-- Installing the Passenger module for Apache"
-    rvm_source_it
+    echo "-- Installing Passenger and its module for Apache"
     rvm use $RVM_RUBY_VERSION@$RVM_GEMSET
+    gem install passenger --no-ri --no-rdoc -v $GEM_VERSION_PASSENGER
     rvmsudo passenger-install-apache2-module -a
 
     echo "-- Configuring Apache to enable Passenger and Mconf-Web"
@@ -612,6 +615,7 @@ deploy_install_web_server() {
                 echo "For help on how to configure it, see:"
                 echo "   http://code.google.com/p/mconf/wiki/MconfWebDeploymentManual"
                 echo
+                # TODO: ask if the user wants to proceed. files can be overwritten
                 exit 0
             fi
         else
@@ -642,6 +646,7 @@ deploy_install_web_server() {
                 echo "For help on how to configure it, see:"
                 echo "   http://code.google.com/p/mconf/wiki/MconfWebDeploymentManual"
                 echo
+                # TODO: ask if the user wants to proceed. files can be overwritten
                 exit 0
             fi
         else
@@ -720,6 +725,9 @@ deploy_select_web_server() {
 
 deploy_configure_god() {
     sudo mkdir -p /etc/god/conf.d/
+
+    # installing god
+    gem install god --no-ri --no-rdoc -v $GEM_VERSION_GOD
 
     # global config file = loads all files in /etc/god/conf.d/
     sudo curl https://raw.github.com/mconf/mconf-web/master/config/god/config -o /etc/god/config
