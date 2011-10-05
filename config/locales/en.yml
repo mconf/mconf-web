@@ -2207,8 +2207,8 @@ en:
     private_message: "Send Message"
     recent_join: "Recent users joined"
     registered: "Thanks for registering! We have just sent instructions on how to activate your user account"
-    request_password: "Request Password"
-    reset_password: "Reset Your Password"
+    request_password: "Request password"
+    reset_password: "Reset your password"
     results_count: 
       one: "People, %{users_size} result"
       other: "People, %{users_size} results"
@@ -2231,7 +2231,7 @@ en:
     upload: "Upload your vCard"
     use: "Use your vCard"
   vcard: vCard
-  vcc: "Mconf Conferences"
+  vcc: Mconf
   vcc_mail_label: "[Mconf]"
   vcc_registration: "Mconf Registration"
   version: 
