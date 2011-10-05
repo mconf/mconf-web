@@ -185,9 +185,9 @@ rvm_install() {
     rm ./rvm-installer
     sudo adduser `whoami` rvm
 
-    echo "-- Installing Ruby dependencies given by rvm notes"
+    echo "-- Installing Ruby dependencies given by rvm requirements"
     # Uses the section "For Ruby (MRI & ree)  you should install the following OS dependencies"
-    RVM_PACKAGES=`sudo /usr/local/rvm/bin/rvm notes | grep "^\s*ruby:.*install" | head -1 | sed 's/.* install //g'`
+    RVM_PACKAGES=`sudo /usr/local/rvm/bin/rvm requirements | grep "^\s*ruby:.*install" | head -1 | sed 's/.* install //g'`
     install_dependencies "$RVM_PACKAGES"
 
     echo "-- Installing Ruby ${RVM_RUBY_VERSION} and configuring"
