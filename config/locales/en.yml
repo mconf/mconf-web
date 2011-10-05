@@ -244,7 +244,7 @@ en:
   bad_request: "Bad Request"
   bbb_room: 
     attendeePW: "Attendee Password"
-    edit: "Configure your BigBlueButton Room"
+    edit: "Configure your webconference room"
     moderatorPW: "Moderator Password"
     private: "Private Room"
   beta: beta
@@ -494,6 +494,7 @@ en:
   dblclick: "Double click to edit..."
   delete: 
     confirm: "Delete %{element}?"
+    invitation: "Delete invitation to %{user}?"
     one: Delete
     select: "Select to delete"
   deny: "No"

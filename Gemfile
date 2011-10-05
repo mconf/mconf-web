@@ -60,5 +60,7 @@ group :development, :test do
 end
 
 group :production do
+  gem 'god', '0.11.0'
+  gem 'passenger', '3.0.7'
   gem 'exception_notification'
 end

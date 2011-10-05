@@ -4,7 +4,7 @@ development:
   adapter: mysql2
   database: mconf_development         # mysql database name
   username: root                      # mysql database user
-  password:                           # mysql database password
+  password: secret-pass               # mysql database password
   socket: /var/run/mysqld/mysqld.sock
 
 # Warning: The database defined as 'test' will be erased and
@@ -14,12 +14,12 @@ test:
   adapter: mysql2
   database: mconf_test                # mysql database name
   username: root                      # mysql database user
-  password:                           # mysql database password
+  password: secret-pass               # mysql database password
   socket: /var/run/mysqld/mysqld.sock
 
 production:
   adapter: mysql2
   database: mconf_production          # mysql database name
   username: root                      # mysql database user
-  password:                           # mysql database password
+  password: secret-pass               # mysql database password
   socket: /var/run/mysqld/mysqld.sock

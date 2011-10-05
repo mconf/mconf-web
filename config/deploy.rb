@@ -18,8 +18,7 @@
 # RVM bootstrap
 $:.unshift(File.expand_path('./lib', ENV['rvm_path'])) # Add RVM's lib directory to the load path.
 require "rvm/capistrano"
-set :rvm_ruby_string, '1.9.2@mconf_production'
-set :rvm_type, :user
+set :rvm_ruby_string, '1.9.2-p290@mconf'
 
 # bundler bootstrap
 require 'bundler/capistrano'
@@ -51,8 +50,8 @@ after 'multistage:ensure', 'deploy:info'
 
 after 'deploy:update_code', 'deploy:link_files'
 after 'deploy:update_code', 'deploy:upload_config_files'
-after 'deploy:update_code', 'deploy:fix_file_permissions'
-after 'deploy:restart', 'jobs:restart'
+# after 'deploy:update_code', 'deploy:fix_file_permissions'
+# after 'deploy:restart', 'jobs:restart'
 
 namespace :deploy do
 
@@ -96,17 +95,7 @@ namespace :deploy do
     end
   end
 
-  task :fix_file_permissions do
-    run  "/bin/mkdir -p #{release_path}/tmp/attachment_fu" # AttachmentFu dir is deleted in deployment
-    run "/bin/chmod -R g+w #{release_path}/tmp"
-    sudo "/bin/chgrp -R #{fetch(:user)} #{release_path}/tmp"
-    sudo "/bin/chgrp -R #{fetch(:user)} #{release_path}/public/images/tmp"
-    sudo "/bin/chgrp -R #{fetch(:user)} #{release_path}/config/locales" # Allow Translators modify locale files
-    sudo "/bin/mkdir -p /var/local/mconf-web"
-    sudo "/bin/chown #{fetch(:user)} /var/local/mconf-web"
-  end
-
-  # REVIEW do we really need this?
+  # User uploaded files are stored in the shared folder
   task :link_files do
     run "ln -sf #{shared_path}/public/logos #{release_path}/public"
     run "ln -sf #{shared_path}/attachments #{release_path}/attachments"
@@ -175,6 +164,7 @@ namespace :setup do
     run "cd #{ current_path } && #{try_sudo} bundle exec rake setup:db RAILS_ENV=production"
   end
 
+  # User uploaded files are stored in the shared folder
   task :create_shared do
     run "/bin/mkdir -p #{shared_path}/attachments"
     sudo "/bin/chgrp -R #{fetch(:user)} #{shared_path}/attachments"

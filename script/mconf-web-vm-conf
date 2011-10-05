@@ -1,0 +1,260 @@
+#!/bin/bash
+#
+# Mconf-Web configuration script for the Mconf VM.
+#
+# This file is part of Mconf - http://code.google.com/p/mconf
+#
+# See the change history for this file in our git at:
+#  https://github.com/mconf/mconf-web/blob/master/script/mconf-web-vm-conf
+#
+# Changelog:
+#   2011-09-23 LCD  First version. Created from mconf-web-conf.
+
+
+#
+# Environment variables
+#
+
+# local IP from ifconfig
+VM_ADDRESS=$(ifconfig | grep -v '127.0.0.1' | grep -E "[0-9]*\.[0-9]*\.[0-9]*\.[0-9]*" | head -1 | cut -d: -f2 | awk '{print $1}')
+# default port for BigBlueButton
+VM_PORT=8888
+
+SCRIPT_VERSION="0.3"                                    # The version of this script
+DEPLOY_PATH=~/mconf-web/current                         # local directory where the dev environment will be placed
+SETUP_VM_IP=$IP                                         # default IP/domain for BigBlueButton if not informed in --setup-vm
+SETUP_VM_PORT=8888                                      # default port for BigBlueButton if not informed in --setup-vm
+DEPLOY_BRANCH=stable                                    # branch to be be deployed # TODO: change to v0.4
+
+
+#
+# Usage and first check for parameters
+#
+
+usage() {
+    echo "Mconf-Web configuration script for the Mconf VM  - Version $SCRIPT_VERSION"
+    echo "http://code.google.com/p/mconf"
+    echo
+    echo "   mconf-web-vm-conf [-a ADDRESS] [-p PORT]"
+    echo "     [ADDRESS] is the IP or name address of your machine."
+    echo "     [PORT] is the port used for BigBlueButton."
+    echo
+    echo "  Other options:"
+    echo "    --help, -h                       Shows this help"
+    echo "    --version, -v                    Display version"
+    echo
+}
+
+check_root() {
+    if [ $EUID == 0 ]; then
+        echo "This operation should NOT be run as root."
+        echo
+        echo "If this operation needs to execute an operation as root, you'll be asked for"
+        echo "your password to execute the operation using sudo."
+        exit 1
+    fi
+}
+
+#if [ $# -eq 0 ]; then
+#    usage
+#    exit 1
+#fi
+
+
+#
+# Parse the parameters
+#
+
+while [ $# -gt 0 ]; do
+
+    if [ "$1" = "--version" -o "$1" = "-version" -o "$1" = "-v" ]; then
+        VERSION=1
+        shift
+        continue
+    fi
+
+    if [ "$1" = "--help" -o "$1" = "-help" -o "$1" = "-h" ]; then
+        usage
+        exit 0
+    fi
+
+    if [ "$1" = "--address" -o "$1" = "-a" ]; then
+        shift
+        VM_ADDRESS="${1}"
+        shift
+        continue
+    fi
+
+    if [ "$1" = "--port" -o "$1" = "-p" ]; then
+        shift
+        VM_PORT="${1}"
+        shift
+        continue
+    fi
+
+done
+
+
+echo "Setup Mconf-Web in the Mconf VM"
+echo
+echo "  Address: ${VM_ADDRESS}"
+echo "     Port: ${VM_PORT}"
+echo
+
+
+
+# Prints a nice error "banner" in the console with the text in
+# $1 in the center
+print_error_banner() {
+    echo
+    echo "### ERROR: $1"
+    echo
+}
+
+# Utility function to make a copy of the conf file
+# $1 is the file
+config_check_and_backup() {
+    # can we write to the configuration file?
+    if [ ! -w $1 ]; then
+        echo "Cannot write to $1!"
+        exit 1
+    fi
+
+    # let's see if we need a copy
+    cp $1 $1.bak
+    echo "-- Created the backup file at $1.bak"
+}
+
+# 3 parameters: the file, the variable name, the new value
+config_yml_get_value_from_user() {
+    echo -n "- "
+    grep "^[[:blank:]]*\(${2}\):.*" $1 -m 1 | sed "s/[[:space:]]*\(.*\)\(#.*\)$/Parameter \"${2}\": \2/" | sed "s/#[[:space:]]*//"
+    echo -n "  Current value: "
+    grep "^[[:blank:]]*\(${2}\):.*" $1 -m 1 | sed "s/[[:space:]]*${2}:[[:space:]]*\(.*\)\(#.*\)$/\1/"
+
+    echo -n "  Enter a new value [leave blank to skip]: "
+
+    # get the new value from the user
+    read -r USER_INPUT
+    if [ $USER_INPUT ]; then
+        # anything between "parameter:" and end-of-line or '#' will be replaced by the user input
+        echo "  New value: \"${USER_INPUT}\""
+        USER_INPUT=${USER_INPUT//\//\\/} # escape all slashes
+        sed -i "s/\(^[[:space:]]*${2}:\)[^#$]*\(.*\)$/\1 \"${USER_INPUT}\" \2/g" $1
+    fi
+}
+
+# Echoes the parameters $2 from the file $1
+echo_yml_file() {
+    if [ ! -f $1 ]; then
+        print_error_banner "The configuration file $1 doesn't exists."
+        exit 1
+    fi
+    FILENAME=$1
+
+    echo "File ${FILENAME}"
+    while [ $2 ]; do
+        grep "^[[:blank:]]*\(${2}\):.*" $FILENAME -m 1 | sed "s/[[:space:]]*\(.*\)\(#.*\)$/\1/"
+        shift
+    done
+}
+
+# Configures the file $1 (a yml file)
+# Ask the user for values to the parameters in the array $2
+config_yml_file() {
+    config_check_and_backup $1
+    echo
+
+    if [ ! -f $1 ]; then
+        print_error_banner "The configuration file $1 doesn't exists."
+        exit 1
+    fi
+    FILENAME=$1
+
+    while [ $2 ]; do
+        config_yml_get_value_from_user $FILENAME $2
+        echo
+        shift
+    done
+}
+
+# Calls config_yml_file until the user is satisfied
+# The list of parameters should be at PARAMS
+config_yml_file_with_review() {
+    REPLY=y
+    while [[ $REPLY == [yY] ]]; do
+        config_yml_file $1 ${PARAMS[*]}
+        read -p "Press enter to review the configurations..."
+        echo "--------------------------------------------------------------------------------"
+        echo_yml_file $1 ${PARAMS[*]}
+        echo "--------------------------------------------------------------------------------"
+        read -p "Do you need to edit these configurations again? (y/N)"
+    done
+}
+
+config_files_setup_vm() {
+    # automatically configure some files in mconf-web
+    SALT=`bbb-conf --salt | grep "Salt" | sed 's/[[:blank:]]*Salt: //'`
+    MCONF_WEB_SETUP_CONF="$DEPLOY_PATH/config/setup_conf.yml"
+    sed -i "s/\(^[[:space:]]*bbb_server_url:\)[^#$]*\(.*\)$/\1 \"http:\/\/${VM_ADDRESS}:${VM_PORT}\/bigbluebutton\/api\" \2/g" $MCONF_WEB_SETUP_CONF
+    sed -i "s/\(^[[:space:]]*bbb_server_salt:\)[^#$]*\(.*\)$/\1 \"${SALT}\" \2/g" $MCONF_WEB_SETUP_CONF
+    sed -i "s/\(^[[:space:]]*site_domain:\)[^#$]*\(.*\)$/\1 \"${VM_ADDRESS}\" \2/g" $MCONF_WEB_SETUP_CONF
+    sudo sed -i "s/server_name .*/server_name ${VM_ADDRESS};/" /etc/nginx/sites-available/mconf-web
+
+    echo
+    echo "################################################################################"
+    echo "#              ATTENTION: Setting up configuration files.                      #"
+    echo "################################################################################"
+    echo
+
+    # most of the parameters are already configured for the Mconf VM
+    # so we just need to ask a few of them here
+
+    echo "--------------------------------------------------------------------------------"
+    echo "GENERAL configurations:"
+    echo " - Here you will configure the admin account, a default BBB server and a gmail"
+    echo "   account used to send emails."
+    echo "--------------------------------------------------------------------------------"
+    echo
+    PARAMS=( admin_email admin_password \
+             sendmail_username sendmail_password)
+    config_yml_file_with_review "$DEPLOY_PATH/config/setup_conf.yml"
+
+    echo
+}
+
+check_root
+
+echo
+echo "################################################################################"
+echo "#                   Setting up Mconf-Web in the Mconf VM                       #"
+echo "################################################################################"
+echo "BigblueButton server at: http://${VM_ADDRESS}:${VM_PORT}/"
+echo
+
+if [ ! -f $DEPLOY_PATH/config/setup_conf.yml -o ! -f $DEPLOY_PATH/config/database.yml ]; then
+    print_error_banner "Mconf-Web was not found at ${DEPLOY_PATH}. Please download it and edit the configuration files before proceeding."
+    exit 1
+fi
+
+echo "-- Editing the configuration files"
+config_files_setup_vm
+
+cd $DEPLOY_PATH
+
+echo "-- Updating the development environment at master branch"
+git checkout $DEPLOY_BRANCH
+git pull origin $DEPLOY_BRANCH
+
+echo "-- Configuring the application"
+bundle exec rake setup:db RAILS_ENV=production
+bundle exec rake secret RAILS_ENV=production
+
+echo "-- Restarting Apache"
+sudo /etc/init.d/apache2 restart
+
+echo
+echo "-- Configuration files edition finished."
+echo
+
+
