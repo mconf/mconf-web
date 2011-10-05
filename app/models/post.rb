@@ -80,7 +80,7 @@ class Post < ActiveRecord::Base
     when NilClass
       Anonymous.current
     else
-      author_type.constantize.find author_id
+      author_type.constantize.find_by_id author_id
     end
   end
 

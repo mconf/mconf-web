@@ -8,9 +8,9 @@
     <%receiver = sanitize(invitation.candidate ? link_to(invitation.candidate_name, user_path(invitation.candidate)) : invitation.email)%>
     <li class="unified_user"><%=receiver%></li>
     <li class="main_text"><%= t('role.one') %>: <%= invitation.role && invitation.role.name %></li>
-  </ul>    
+  </ul>
   </div>
     <div class="group_links">
-    <%=link_to image_tag("icons/cancel.png",:alt=>"delete",:class=>"icon"),invitation, :method => :delete,:confirm => t('delete.confirm', :element => ' ' + t('invitation.other') + ' ' + t('to') + ' ' + receiver),:title=>"delete"%>
+    <%=link_to image_tag("icons/cancel.png",:alt=>"delete",:class=>"icon"),invitation, :method => :delete, :confirm => t('delete.invitation', :user => invitation.candidate ? invitation.candidate_name : invitation.email),:title=>"delete"%>
   </div>
 <% end %>

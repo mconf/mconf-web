@@ -244,7 +244,7 @@ pt-br:
   bad_request: "Bad Request"
   bbb_room: 
     attendeePW: "Senha do Participante"
-    edit: "Configure sua sala do BigBlueButton"
+    edit: "Configure sua sala de webconferência"
     moderatorPW: "Senha do Moderador"
     private: "Sala Privada"
   beta: beta
@@ -345,8 +345,8 @@ pt-br:
   click_here: "Clique aqui"
   click_to_see_all: "Ver todos"
   close: Fechar
-  collapse: Contrair
-  collapse_arrows: "Contrair >>"
+  collapse: menos
+  collapse_arrows: "<< menos"
   comment: 
     add: "Adicionar um comentário"
     add_new: "Adicionar um novo comentário"
@@ -493,6 +493,7 @@ pt-br:
   dblclick: "Duplo clique para editar..."
   delete: 
     confirm: "Excluir %{element}?"
+    invitation: "Remover convite para %{user}?"
     one: Excluir
     select: "Selecione para excluir"
   deny: Não
@@ -1929,6 +1930,8 @@ pt-br:
       private: "<p>Por favor, note que a comunidade é privada, então você precisa ser um usuário cadastrado no Mconf para ser capaz de enviar um pedido de adesão e acesso à comunidade. Você pode se registrar aqui: <a href=\"%{register_url}\">%{register_url}</a></p>"
       subject: "%{username} convida você para a comunidade %{space}"
     group_not_belong: "não pertence à mesma comunidade que o grupo"
+    index: 
+      select_at_left: "Selecione um espaço ao lado para ver sua descrição aqui"
     invitation: 
       body: Corpo
       one: "Convidar pessoas"
@@ -2159,11 +2162,12 @@ pt-br:
       instruction: "Para adicionar novos usuários insera um ou vários endereços de e-mail separados por \" \", \",\" ou \";\" e registre-os"
       note: "Por exemplo: \"João Silva\" <\"jsilva@example.com.br\">\", jct@dit.es, Aaron aaron@example.net e clicando em \"Registrar como Usuário\" irá registrar esses três endereços de e-mail como membros da comunidade e enviará um e-mail de validação para eles."
     add_more: "Adicionar usuários >>"
-    admin: Admin
+    admin: Administrador
     administrators: Administradores
     assist: Participantes
     by_email: "Por e-mail"
     by_private_message: "Por mensagem privada"
+    category: Categoria
     confirm_password: "Confirmar senha"
     delete_from_space: "Excluir usuário da comunidade"
     disable: "Desabilitar usuário"
@@ -2204,6 +2208,7 @@ pt-br:
     login: Login
     lost_password: "Esqueceu sua senha?"
     noactivity: "%{user} não tem atividade recente"
+    normal_user: "Usuário comum"
     not_activated: "Sua conta não está ativada. Por favor, verifique seu e-mail para ativá-la"
     not_assist: "Não participarão"
     not_confirmed: "Não confirmados"
@@ -2229,6 +2234,7 @@ pt-br:
       account: "Salvar conta"
       preferences: "Salvar preferências"
     search: "Procurar Usuários..."
+    superuser: Administrador
     timezone: "Fuso horário"
     updated: "Usuário atualizado com sucesso"
     vcc_email: "E-mail do usuário Mconf %{dir}"

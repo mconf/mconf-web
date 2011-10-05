@@ -52,6 +52,7 @@ class User < ActiveRecord::Base
   attr_accessible :expanded_post, :notification
   attr_accessible :chat_activation
   attr_accessible :special_event_id
+  attr_accessible :superuser
   attr_accessor :special_event_id
 
   # TODO is_indexed comes from Ultrasphinx

@@ -187,7 +187,6 @@ class UsersController < ApplicationController
   def edit_bbb_room
     @server = BigbluebuttonServer.first
     @room = BigbluebuttonRoom.find_by_param(params[:room])
-    @priv = @room.private
 
     respond_to do |format|
       format.html{

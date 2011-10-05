@@ -1,0 +1,3 @@
+# Load in all God shared configs.
+# Share configs apply to all instances.
+God.load "/etc/god/conf.d/*.god"

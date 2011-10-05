@@ -244,7 +244,7 @@ en:
   bad_request: "Bad Request"
   bbb_room: 
     attendeePW: "Attendee Password"
-    edit: "Configure your BigBlueButton Room"
+    edit: "Configure your webconference room"
     moderatorPW: "Moderator Password"
     private: "Private Room"
   beta: beta
@@ -345,8 +345,8 @@ en:
   click_here: "Click here"
   click_to_see_all: "See all"
   close: Close
-  collapse: collapse
-  collapse_arrows: "collapse >>"
+  collapse: less
+  collapse_arrows: "<< less"
   comment: 
     add: "Add a comment"
     add_new: "Add a new comment"
@@ -494,6 +494,7 @@ en:
   dblclick: "Double click to edit..."
   delete: 
     confirm: "Delete %{element}?"
+    invitation: "Delete invitation to %{user}?"
     one: Delete
     select: "Select to delete"
   deny: "No"
@@ -1923,6 +1924,8 @@ en:
       private: "<p>Please note that the space is private, so you need to be a registered user of the Virtual Conference Center to be able to send a join request and access the space. You can register here: <a href=\"%{register_url}\">%{register_url}</a></p>"
       subject: "%{username} invites you to space %{space}"
     group_not_belong: " do not belong to the same space as the group"
+    index: 
+      select_at_left: "Select a space in the left to see it's description here"
     invitation: 
       body: Body
       one: "Invite People"
@@ -2158,6 +2161,7 @@ en:
     assist: Attending
     by_email: "By email"
     by_private_message: "By private message"
+    category: Category
     confirm_password: "Confirm password"
     delete_from_space: "Delete user from space"
     disable: "Disable user"
@@ -2198,6 +2202,7 @@ en:
     login: Login
     lost_password: "Lost your password?"
     noactivity: "%{user} has no recent activity"
+    normal_user: "Normal user"
     not_activated: "Your account is not activated. Please, check your email to activate it"
     not_assist: "Not attending"
     not_confirmed: "Not confirmed"

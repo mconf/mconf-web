@@ -39,29 +39,37 @@
     }
     window.location=$.param.querystring("<%=home_path%>" + "?" + $.param.querystring(), "contents=" + contents.join(","));
   });
-  
-  $("#home_menu h3").livequery('click', function(event) {
-    $('#arrow_drop_activity').toggle(0);
+
+  $("#home_menu .arrow_take_box").livequery('click', function(event) {
+    $('#home_menu .arrow_drop_box').toggle(0);
+    $('#home_menu .arrow_take_box').toggle(0);
     $('.whyte_wrapper').toggle(0);
     $('#show').toggle(0);
   });
-  
-  $("#home_menu h3 .icon").livequery('click', function(event) {
-    $('#arrow_drop_activity').toggle(0);
+
+  $("#home_menu .arrow_drop_box").livequery('click', function(event) {
+    $('#home_menu .arrow_drop_box').toggle(0);
+    $('#home_menu .arrow_take_box').toggle(0);
     $('.whyte_wrapper').toggle(0);
     $('#show').toggle(0);
   });
-  
-  $("#home_menu .icon").livequery('click', function(event) {
-    $('#arrow_drop_activity').toggle(0);
-    $('.whyte_wrapper').toggle(0);
-    $('#show').toggle(0);
+
+  $("#my_spaces_title .arrow_drop_box").livequery('click', function(event) {
+    $('.my_spaces_home .all_my_spaces').toggle(0);
+    $('#my_spaces_title .arrow_take_box').toggle(0);
+    $('#my_spaces_title .arrow_drop_box').toggle(0);
   });
-  
-  $(".my_spaces_home #my_spaces_title").livequery('click', function(event) {
-    $('.all_my_spaces').toggle(0);
-    $('#arrow_take_space').toggle(0);
-    $('#arrow_drop_space').toggle(0);
+
+  $("#my_spaces_title .arrow_take_box").livequery('click', function(event) {
+    $('.my_spaces_home .all_my_spaces').toggle(0);
+    $('#my_spaces_title .arrow_take_box').toggle(0);
+    $('#my_spaces_title .arrow_drop_box').toggle(0);
+  });
+
+  $("#my_spaces_title .arrow_drop_space").livequery('click', function(event) {
+    $('.my_spaces_home .all_my_spaces').toggle(0);
+    $('#my_spaces_title .arrow_take_box').toggle(0);
+    $('#my_spaces_title .arrow_drop_box').toggle(0);
   });
 
 <% end %>
@@ -117,22 +125,22 @@
 
   <div id="home-inbox-full" class="margin-up">
 
-                <div id="home-inbox-title">
-        <h3>
-                <%=image_tag("icons/email.png",:class=>"icon")%>
-                                <%= link_to t('inbox.my', :checked => PrivateMessage.inbox(current_user).select{|msg| !msg.checked}.size), user_messages_path(current_user), menu_options(:inbox, :id => "user_inbox_link")%>
-                        </h3>
-                </div>
+    <div id="home-inbox-title">
+      <h3>
+        <%=image_tag("icons/email.png",:class=>"icon")%>
+        <%= link_to t('inbox.my', :checked => PrivateMessage.inbox(current_user).select{|msg| !msg.checked}.size), user_messages_path(current_user), menu_options(:inbox, :id => "user_inbox_link")%>
+      </h3>
+    </div>
 
-                <%if @private_messages.empty?%>
-                <div class="next-events-section">
-                <span><%=t("message.private.none")%></span>
-                </div>
-                <%else%>
-            <%for private_message in @private_messages%>
+    <%if @private_messages.empty?%>
+      <div class="next-events-section">
+        <span><%=t("message.private.none")%></span>
+      </div>
+    <%else%>
+      <%for private_message in @private_messages%>
         <%if @sender.present?%>
           <%@sender=User.find_with_disabled(private_message.sender_id)%>
-                <div class="next-events-section">
+          <div class="next-events-section">
             <div class="user-logo">
               <%= raw(link_logo(@sender,:size=>32, :url => user_path(@sender), :title=>@sender.login)) %>
             </div>
@@ -151,9 +159,9 @@
             </div>
           </div>
         <%end%>
-                  <%end%>
+      <%end%>
     <%end%>
-        </div>
+  </div>
 
 <%end%>
 

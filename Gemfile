@@ -7,7 +7,6 @@ gem "will_paginate", "~> 3.0.pre2"
 gem 'exception_notification_rails3'
 gem 'teambox-permalink_fu', :git => 'git://github.com/mconf/permalink_fu.git'
 gem 'jquery-rails', '>= 0.2.6'
-gem 'rmagick'
 gem 'vpim'
 gem 'ruby-openid'
 gem 'atom-tools'
@@ -24,7 +23,7 @@ gem 'prism'
 gem 'rubyzip' # TODO: see rubyzip2
 gem 'garb'
 gem 'simple_captcha', :git => 'git://github.com/galetahub/simple-captcha.git'
-gem 'rmagick', :require => false
+gem 'rmagick', :git => 'git://github.com/rmagick/rmagick.git', :require => false
 gem 'fckeditor'
 gem 'dynamic_form'
 gem 'bigbluebutton-api-ruby', :git => 'git://github.com/mconf/bigbluebutton-api-ruby.git'
@@ -61,5 +60,7 @@ group :development, :test do
 end
 
 group :production do
+  gem 'god', '0.11.0'
+  gem 'passenger', '3.0.7'
   gem 'exception_notification'
 end

@@ -68,7 +68,9 @@ class SpacesController < ApplicationController
     @news_to_show = @news[@news_position]
     @posts = @space.posts
     @lastest_posts=@posts.not_events().find(:all, :conditions => {"parent_id" => nil}, :order => "updated_at DESC").first(3)
+    @lastest_posts.reject!{ |p| p.author.nil? }
     @lastest_users=@space.stage_performances.sort {|x,y| y.created_at <=> x.created_at }.first(3).map{|performance| performance.agent}
+    @lastest_users.reject!{ |u| u.nil? }
     @upcoming_events=@space.events.find(:all, :order => "start_date ASC").select{|e| e.start_date && e.start_date.future?}.first(5)
     @performance=Performance.find(:all, :conditions => {:agent_id => current_user, :stage_id => @space, :stage_type => "Space"})
     @current_events = (Event.in(@space).all :order => "start_date ASC").select{|e| e.start_date && !e.start_date.future? && e.end_date.future?}
@@ -137,7 +139,7 @@ class SpacesController < ApplicationController
     params[:space][:bigbluebutton_room_attributes][:private] = !ActiveRecord::ConnectionAdapters::Column.value_to_boolean(params[:space][:public])
     params[:space][:bigbluebutton_room_attributes][:server] = BigbluebuttonServer.first # TODO temporary
     params[:space][:bigbluebutton_room_attributes][:logout_url] = "/feedback/webconf/"
-        
+
     @space = Space.new(params[:space])
 
     respond_to do |format|
@@ -188,7 +190,7 @@ class SpacesController < ApplicationController
       params[:space][:bigbluebutton_room_attributes][:id] = @space.bigbluebutton_room.id
     end
 
-    if @space.update_attributes(params[:space])      
+    if @space.update_attributes(params[:space])
       respond_to do |format|
         format.html {
           flash[:success] = t('space.updated')
@@ -197,11 +199,11 @@ class SpacesController < ApplicationController
         format.atom { head :ok }
         format.js{
           if params[:space][:name] or params[:space][:description]
-      
+
             # to set the correct logout_url in the webconference room
             # update_url = { :logout_url => space_url(@space) }
             # @space.bigbluebutton_room.update_attributes(update_url)
-            
+
             @result = params[:space][:name] ? nil : params[:space][:description]
             flash[:success] = t('space.updated')
             render "result.js"

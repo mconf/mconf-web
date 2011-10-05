@@ -40,11 +40,7 @@
   </div><br/>
 
   <% if logged_in? && current_user.superuser==true && @user.id != current_user.id %>
-    <p><label for="superuser"><%=t('user.admin')%></label><br/>
-    <%= f.check_box("superuser", {}, "true", "false") %></p>
-
-    <p><label for="disabled"><%=t('user.disable')%></label><br/>
-    <%= f.check_box("disabled", {}, "true", "false") %></p>
+    <p><%= f.check_box :superuser %><label for="superuser"> <%=t('user.admin')%></label></p>
   <% end -%>
 
   <button type="submit" class="blue_button basic_button"><%=t('save') %></button>

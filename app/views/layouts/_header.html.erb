@@ -1,26 +1,31 @@
-<% if space && space.id!=nil%>
-          <div id="logo">
-            <%= raw(link_logo(space, :size => "h64", :title=>space.name)) %>
-          </div>
-<!--
-        <div id="vcc-logo">
-                <%= link_to image_tag("vcc-logo-transparente1.png",:size=>"192x68"), root_path %>
-        </div>
--->
-<div id="name-space">
-        <%if space && space.id!=nil%>
-        <%if space.name.size > 20%>
-                <span id="small-title"><%=link_to(sanitize(first_words(space.name,30)),space_path(space), menu_options(:home))%></span>
-        <%else%>
-                <span><%=link_to(sanitize(space.name),space_path(space), menu_options(:home))%></span>
-        <%end%>
-        <%end%>
-</div>
+<% if space && space.id != nil %>
 
-<%= render :partial => 'layouts/header_logo' %>
+  <div id="logo">
+    <%= link_logo(space, :size => "h64", :title=>space.name).html_safe %>
+  </div>
 
-<div id="search">
-  <%= yield :search %>
-</div>
+  <div id="name-space">
+    <%if space && space.id!=nil%>
+      <%if space.name.size > 20%>
+        <span id="small-title"><%=link_to(sanitize(first_words(space.name,30)),space_path(space), menu_options(:home))%></span>
+      <%else%>
+        <span><%=link_to(sanitize(space.name),space_path(space), menu_options(:home))%></span>
+      <%end%>
+    <%end%>
+  </div>
+
+  <%= render :partial => 'layouts/header_logo' %>
+
+  <div id="search">
+    <%= yield :search %>
+  </div>
+
+<% else %>
+
+  <%= render :partial => 'layouts/header_logo' %>
+
+  <div id="search">
+    <%= yield :search %>
+  </div>
 
 <% end %>

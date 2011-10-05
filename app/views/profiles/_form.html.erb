@@ -1,32 +1,32 @@
-<%prefix_select = f.select :prefix_key, [[t('title_formal.mr'), 'title_formal.mr'], [t('title_formal.mrs'), 'title_formal.mrs'], [t('title_formal.ms'), 'title_formal.ms'], [t("other"), "other"]]%>
-<%prefix_input = "<div class='switch_js'> #{f.text_field :prefix_key} #{link_to 'suggest','javascript:suggest_prefix()'} </div>"%>
+<% prefix_select = f.select :prefix_key, [[t('title_formal.mr'), 'title_formal.mr'], [t('title_formal.mrs'), 'title_formal.mrs'], [t('title_formal.ms'), 'title_formal.ms'], [t("other"), "other"]] %>
+<% prefix_input = "<div class='switch_js'> #{f.text_field :prefix_key} #{link_to 'suggest','javascript:suggest_prefix()'} </div>".html_safe %>
 
 <%= content_for :javascript do %>
  $("#profile_prefix_key").livequery("change",function(){
   if ($("#profile_prefix_key option:selected").attr("value")== "other"){
-         $(this).replaceWith("<%=escape_javascript(prefix_input)%>"); 
+         $(this).replaceWith("<%=escape_javascript(prefix_input)%>");
         }
  });
- 
+
  suggest_prefix = function(){
   $(".switch_js").replaceWith("<%=escape_javascript(prefix_select)%>")
  };
- 
+
  $('#edit_public_profile img.tooltip_public_profile').qtip({
    content: '<%=t("tooltip.public_profile")%>',
          position: {adjust: { screen: true }},
    show:  'mouseover',
    hide: { when: 'mouseout', fixed: true },
    style: 'mystyle'
-  });   
-  
+  });
+
  $('#edit_private_profile img.tooltip_private_profile').qtip({
    content: '<%=t("tooltip.private_profile")%>',
          position: {adjust: { screen: true }},
    show:  'mouseover',
    hide: { when: 'mouseout', fixed: true },
    style: 'mystyle'
-  });     
+  });
 <%end%>
 
 <div id="edit_public_profile">
@@ -35,8 +35,8 @@
                 <%= t('profile.public') %>
                 <%=image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_public_profile icon",:style=>"cursor:pointer")%>
           </h3>
-        </div>  
-        
+        </div>
+
         <div class="profile_content_item">
                 <h4 class="margin-up"><%= t('personal_information') %></h4>
                 <div class="margin-up">
@@ -51,23 +51,23 @@
                         <label for="full_name"><%= t('name.full') %></label>
                         <%= f.text_field :full_name %>
                 </div>
-                
+
                 <div class="margin-up"><label for="organization"><%= t('organization') %></label>
                 <%= f.text_field :organization %></div>
-                
+
                 <div class="margin-up"><label for="city"><%= t('city') %></label>
                 <%= f.text_field :city %></div>
-                
+
                 <div class="margin-up"><label for="province"><%= t('province') %></label>
                 <%= f.text_field :province %></div>
-                
+
                 <div class="margin-up"><label for="country"><%= t('country') %></label>
                 <%= f.text_field :country %></div>
-                
+
                 <h4 class="margin-up"><%= t('description') %></h4>
                 <div class="margin-up" id="profile_description"><label for="description"><%= "Write something about you" %></label>
                 <%= f.text_area :description, :size => "34x7" %></div>
-                
+
                 <h4><%= t('url') %></h4>
                 <div class="margin-up"><label for="url"><%= "Add your website" %></label>
                 <%= f.text_field :url%></div>
@@ -90,17 +90,17 @@
                           <label for="<%=('visibility_' + vis_symbol.to_s)%>"><%= t( 'profile.visibility_' + vis_symbol.to_s ) %></label><br/></div>
                         <% end%>
                 </div>
-                
+
                 <div class="profile_contact">
             <h4 class="margin-up"><%= t('address') %></h4>
                         <div class="margin-up"><label for="address"><%= t('address') %></label>
             <%= f.text_field :address %></div>
-              
+
             <div class="margin-up"><label for="zipcode"><%= t('zipcode') %></label>
             <%= f.text_field :zipcode%></div>
-        
+
                         <h4 class="margin-up"><%= t('contact_information') %></h4>
-                        
+
                         <p class="bold blue"><%= t('internet.on_the') %></p>
                         <%= f.fields_for :user do |user_form| %>
                                 <div class="margin-up">
@@ -108,20 +108,20 @@
                                         <%= user_form.text_field :email %>
                                 </div>
                         <% end %>
-                        
+
                         <div class="margin-up"><label for="skype"><%= t('skype') %></label>
                         <%= f.text_field :skype %></div>
-                        
+
                         <div class="margin-up"><label for="im"><%= t('im') %></label>
                         <%= f.text_field :im %></div>
-                        
+
                         <p class="bold blue"><%= t('phone.plural') %></p>
                         <div class="margin-up"><label for="phone"><%= t('phone.landline') %></label>
                         <%= f.text_field :phone %></div>
-                                
+
                         <div class="margin-up"><label for="mobile"><%= t('phone.mobile') %></label>
                         <%= f.text_field :mobile %></div>
-                                
+
                         <div class="margin-up"><label for="fax"><%= t('fax') %></label>
                         <%= f.text_field :fax%></div>
     </div>
