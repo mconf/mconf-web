@@ -23,6 +23,7 @@ class ShibbolethController < ApplicationController
 
   respond_to :html
   layout 'clean'
+  layout false, :only => [:info]
 
   # Log in a user using his shibboleth information
   # The application should only reach this point after authenticating using Shibboleth
@@ -31,8 +32,6 @@ class ShibbolethController < ApplicationController
 
     #################################
     # FAKE TEST DATA
-    # @data["Shib-inetOrgPerson-sn"] = "JOAO DA SILVA"
-    # @data["Shib-inetOrgPerson-mail"] = "invalido@ufrgs.br"
     # shib_name = "JOAO DA SILVA"
     # shib_email = "invalido@ufrgs.br"
     # request.env["Shib-Application-ID"] = "default"
@@ -73,11 +72,16 @@ class ShibbolethController < ApplicationController
                           :password => password, :password_confirmation => password)
       user.activate
       user.profile.update_attributes(:full_name => shib_name)
+      flash[:notice] = t('shibboleth.create.account_created', :url => lost_password_path)
     end
 
     # login and go to home
     self.current_agent = user
     redirect_to home_path
+  end
+
+  def info
+    @data = session[:shib_data] if session.has_key?(:shib_data)
   end
 
 end

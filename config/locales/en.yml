@@ -322,6 +322,8 @@ en:
     sending: Sending...
     update: Update
     upload: Upload
+  cafe: 
+    login: "Login using CAFe"
   calendar: 
     my: "My Calendar"
     one: Calendar
@@ -1816,6 +1818,8 @@ en:
     one: Session
   share_participate_discuss: "Share, participate, discuss"
   shibboleth: 
+    create: 
+      account_created: "A new account with a random password was created for you and linked to your federated account. Both accounts can be used to log in this website. To change your password go to the <a href=\"%{url}\">forgot password page</a>."
     need_activation: 
       activation_email: "If you didn't receive the activation email, <a href=\"%{url}\">click here</a> and we will send you another one."
       message: "It appears that you already have an account in this website but you haven't activated it yet.<br/> Your federated account will be linked to this account, but first you need to activate it."
@@ -2169,6 +2173,7 @@ en:
     edit: 
       federated: 
         restrictions: "You will not be able to edit some data such as your e-mail and password."
+        see_your_data: "See your data..."
         title: "You are logged using a federation!"
         your_idp: "Your identity provider is: %{idp}"
       password_email: "If you forgot your password, <a href=\"%{url}\">click here</a>."
@@ -2201,6 +2206,7 @@ en:
     list_by: "List by"
     login: Login
     lost_password: "Lost your password?"
+    new_password: "New password"
     noactivity: "%{user} has no recent activity"
     normal_user: "Normal user"
     not_activated: "Your account is not activated. Please, check your email to activate it"

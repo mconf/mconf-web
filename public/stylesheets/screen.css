@@ -2634,3 +2634,16 @@ h3.dialog_title {
   font-size: 12px;
   font-weight: bold;
 }
+
+#edit_account_user_federated .more_information {
+  float: right;
+}
+
+#shibboleth_info ul {
+  margin: 5px;
+}
+
+#shibboleth_info label {
+  color:#244974;
+}
+

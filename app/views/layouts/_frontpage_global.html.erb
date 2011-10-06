@@ -36,28 +36,10 @@
              <%= link_to t('register.one'), signup_path, :class => "register_link" %>
              <span>|</span>
              <%= link_to t('user.lost_password'), lost_password_path, :class => "register_link" %>
-             <% # link_to_function t('openid.login'), "show_open_id_form()" %>
-           </div>
-         </div>
-
-         <!--
-         <div class="div_login_openid" style="display:none">
-           <div class="openid_form">
-             <%= form_tag session_url(:protocol => current_site.protocol), :class => "login_form" do -%>
-               <div id="openid_label">
-                 <span><%= t('openid.enter') %></span>
-                 <%= text_field_tag 'openid_identifier', params[:openid_identifier] %>
-                 <button type="submit" class="medium_button blue_button"><%=t("login.one")%></button>
-               </div>
-             <% end -%>
-           </div>
-           <div id="subtexto">
-             <%= link_to t('user.lost_password'), lost_password_path, :class => "register_link" %>
              <span>|</span>
-             <%= link_to_function t('login_traditional'), "show_user_password_form()" %>
+             <%= link_to t('cafe.login'), shibboleth_path %>
            </div>
          </div>
-         -->
 
         <% end %>
    </ul>

@@ -322,6 +322,8 @@ pt-br:
     sending: Enviando...
     update: Atualizar
     upload: Enviar
+  cafe: 
+    login: "Logar usando a CAFe"
   calendar: 
     my: "Meu Calendário"
     one: Calendário
@@ -1822,6 +1824,8 @@ pt-br:
     one: Sessão
   share_participate_discuss: "Compartilhe, participe, discuta"
   shibboleth: 
+    create: 
+      account_created: "Uma nova conta com uma senha aleatória foi criada para você e conectada a sua conta federada. Ambas as contas podem ser usadas para entrar neste site. Para modificar sua senha acesse <a href=\"%{url}\">esta página</a>."
     need_activation: 
       activation_email: "Se você não recebeu o e-mail de ativação, <a href=\"%{url}\">clique aqui</a> e nós lhe mandaremos outro."
       message: "Aparentemente você já possui uma conta neste site mas ela ainda não esta ativada.<br/> Sua conta federada será ligada a esta conta, mas antes você precisa ativá-la."
@@ -2175,6 +2179,7 @@ pt-br:
     edit: 
       federated: 
         restrictions: "Você não poderá editar alguns dados como seu e-mail e senha."
+        see_your_data: "Veja seus dados..."
         title: "Você está logado utilizando uma federação!"
         your_idp: "O seu provedor de identidade é: %{idp}"
       password_email: "Se você esqueceu sua senha, <a href=\"%{url}\">clique aqui</a>."
@@ -2207,6 +2212,7 @@ pt-br:
     list_by: "Listar por"
     login: Login
     lost_password: "Esqueceu sua senha?"
+    new_password: "Nova senha"
     noactivity: "%{user} não tem atividade recente"
     normal_user: "Usuário comum"
     not_activated: "Sua conta não está ativada. Por favor, verifique seu e-mail para ativá-la"
