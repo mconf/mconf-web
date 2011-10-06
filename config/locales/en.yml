@@ -264,6 +264,11 @@ en:
         external: 
           blank_meetingid: "You must specify the meetingid of the meeting you want to join"
         param_format: "you can only use letters, numbers and the symbols \"-\" or \"_\" (not at the begin or end)"
+      index: 
+        back_to_server_list: "Back to server list"
+        invite: Invite
+        join_mobile: "Join mobile"
+        new_room: "New room"
       notice: 
         create: 
           failure: "Your room could not be created."
@@ -277,9 +282,23 @@ en:
           failure: "Your room could not be updated."
           success: "Your room was successfully updated."
     servers: 
+      activity: 
+        activity: Activity
+        done: Done!
+        information: Information
+        now: Now!
+        refresh_now: "Refresh now"
+        refreshing_in: "Refreshing in:"
+        seconds: seconds
+        title: "Server activity monitor"
       errors: 
         param_format: "you can only use letters, numbers and the symbols \"-\" or \"_\" (not at the begin or end)"
         url_format: "should use the pattern http://<server>/bigbluebutton/api"
+      index: 
+        access_links: "Access links"
+        activity_monitor: "Activity monitor"
+        new_server: "New server"
+        view_rooms: "View rooms"
       notice: 
         create: 
           success: "Your server was successfully created."
@@ -1734,7 +1753,7 @@ en:
     other: Rooms
   rooms: 
     form: 
-      msg1: " prohibited this bigbluebutton_room from being saved:"
+      msg1: " prohibited this room from being saved:"
     invite: 
       msg1: "Invitation to the meeting "
       name: "Name:"
@@ -1808,7 +1827,7 @@ en:
     other: Servers
   servers: 
     form: 
-      msg1: " prohibited this bigbluebutton_server from being saved:"
+      msg1: " prohibited this server from being saved:"
   session: 
     error: 
       exist: "You are already logged in"

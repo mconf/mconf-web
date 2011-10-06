@@ -906,7 +906,7 @@ div#management-title{width:384px;margin-left:110px;float:left;}
 div#management-title span{font-size:2em;line-height:1;color:#244974;}
 div.user div.links{float:right;}
 div#manage p {clear:both;padding:8px 9px 9px 9px;margin:0;/*border-bottom:1px #ccc solid;*/}
-div#manage label{color:#244974;font-weight:bold;display:inline-block;width:200px;float:left;margin-right:5px;}
+div#manage label{color:#244974;font-weight:bold;display:inline-block;width:200px;float:left;margin-right:5px;clear:both;}
 div#manage .value{float:left;width:350px;}
 div#manage color{color:#244974;}
 div#preview_logo{margin:0px 0px 9px 10px;}
@@ -2613,4 +2613,17 @@ h3.dialog_title {
 #edit-bbb-room .passwords {
   border-top: 1pxD solid #ccc;
   margin-top: 5px;
+}
+
+#error_explanation {
+  padding:5px;
+  margin-top:7px;
+  border:2px solid #ddd;
+  background:#FBE3E4;
+  color:#8a1f11;
+  border-color:#FBC2C4;
+}
+
+#error_explanation ul {
+  margin: 5px 15px;
 }

@@ -264,6 +264,11 @@ pt-br:
         external: 
           blank_meetingid: "Você deve especificar o \"meetingid\" da reunião que você deseja ingressar"
         param_format: "você pode usar apenas letras, dígitos e os símbolos \"-\" ou \"_\" (mas não no início ou fim)"
+      index: 
+        back_to_server_list: "Ver lista de servidores"
+        invite: Convidar
+        join_mobile: Entrar/móvel
+        new_room: "Nova sala"
       notice: 
         create: 
           failure: "Sua sala não pode ser criada."
@@ -277,9 +282,23 @@ pt-br:
           failure: "Sua sala não pode ser actualizada."
           success: "Sua sala foi atualizada com sucesso."
     servers: 
+      activity: 
+        activity: Atividade
+        done: Pronto!
+        information: Informação
+        now: Agora!
+        refresh_now: "Atualizar agora"
+        refreshing_in: "Atualizando em:"
+        seconds: segundos
+        title: "Monitor de atividades do servidor"
       errors: 
         param_format: "você pode usar apenas letras, dígitos e os símbolos \"-\" ou \"_\" (mas não no início ou fim)"
         url_format: "você deve utilizar o padrão http://<server>/bigbluebutton/api"
+      index: 
+        access_links: "Links de acesso"
+        activity_monitor: "Monitor de atividade"
+        new_server: "Novo servidor"
+        view_rooms: "Ver salas"
       notice: 
         create: 
           success: "O servidor foi criado com sucesso."
@@ -1736,7 +1755,7 @@ pt-br:
     other: Salas
   rooms: 
     form: 
-      msg1: " prohibited this bigbluebutton_room from being saved:"
+      msg1: " impossibilitaram esta sala de ser salva:"
     invite: 
       msg1: "Convite para a reunião "
       name: "Nome:"
@@ -1814,7 +1833,7 @@ pt-br:
     other: Servidores
   servers: 
     form: 
-      msg1: " impossibilitaram este servidor BigBlueButton de ser salvo:"
+      msg1: " impossibilitaram este servidor de ser salvo:"
   session: 
     error: 
       exist: "Você já está logado"

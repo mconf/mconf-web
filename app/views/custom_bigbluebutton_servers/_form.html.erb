@@ -1,7 +1,7 @@
 <%= form_for(@server) do |f| %>
   <% if @server.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@server.errors.count, "error") %><%= t('servers.form.msg1') %></h2>
+      <h3><%= pluralize(@server.errors.count, "error") %><%= t('servers.form.msg1') %></h3>
       <ul>
       <% @server.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
@@ -33,6 +33,6 @@
     <%= f.text_field :param %>
   </div><br/>
   <div class="actions">
-    <button type="submit" class="basic_button medium_button pale_button"><%=t('button.confirm')%></button>
+    <button type="submit" class="basic_button medium_button blue_button"><%=t('button.confirm')%></button>
   </div>
 <% end %>
