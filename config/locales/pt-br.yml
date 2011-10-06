@@ -400,7 +400,7 @@ pt-br:
       other: "Atualizar Conteúdo"
   conversation: 
     compress: "Comprimir conversação"
-  could_not_find_anybody_with_that_email_address: "Não foi possível alguém com esse endereço de email"
+  could_not_find_anybody_with_that_email_address: "Não foi possível encontrar alguém com esse endereço de email"
   country: País
   create: Criar
   create_event: "Criar Evento"
@@ -2232,8 +2232,8 @@ pt-br:
     private_message: "Enviar Mensagem"
     recent_join: "Usuários recentemente inscritos"
     registered: "Obrigado por se registar! Acabamos de enviar instruções sobre como ativar a sua conta de usuário"
-    request_password: "Solicitação de Senha"
-    reset_password: "Redefinir sua senha"
+    request_password: "Solicitar senha"
+    reset_password: "Redefinir senha"
     results_count: 
       one: "Pessoas, %{users_size} resultado"
       other: "Pessoas, %{users_size} resultados"
@@ -2257,7 +2257,7 @@ pt-br:
     upload: "Envie o seu vCard"
     use: "Use seu vCard"
   vcard: vCard
-  vcc: "Conferências Mconf"
+  vcc: Mconf
   vcc_mail_label: "[Mconf]"
   vcc_registration: "Registro Mconf"
   version: 
