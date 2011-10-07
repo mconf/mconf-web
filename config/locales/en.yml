@@ -1853,8 +1853,8 @@ en:
     domain: "Application Domain"
     editing: "Editing Site configuration"
     email: Email
-    exception_notifications: "Send debug emails"
-    exception_notifications_email: "Debug emails recipient"
+    exception_notifications: "Send email on error"
+    exception_notifications_email: "Error emails recipients"
     feedback_url: "Feedback URL"
     locale: Language
     logo: Logo
@@ -1862,6 +1862,9 @@ en:
     one: Site
     other: Sites
     presence_domain: "Presence Domain"
+    shib_email_field: "Shibboleth field for email"
+    shib_enabled: "Enable Shibboleth"
+    shib_name_field: "Shibboleth field for name"
     signature: Signature
     ssl: SSL
     updated: "Site configuration was successfully updated."

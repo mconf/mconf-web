@@ -29,23 +29,10 @@ class ShibbolethController < ApplicationController
   # The application should only reach this point after authenticating using Shibboleth
   # The authentication is currently made with the Apache module mod_shib
   def create
-
-    #################################
-    # FAKE TEST DATA
-    # shib_name = "JOAO DA SILVA"
-    # shib_email = "invalido@ufrgs.br"
-    # request.env["Shib-Application-ID"] = "default"
-    # request.env["Shib-Session-ID"] = "09a612f952cc5995e4a86ddd87fd9f2a"
-    # request.env["Shib-Identity-Provider"] = "https://login.teste.ufrgs.br/idp/shibboleth"
-    # request.env["Shib-Authentication-Instant"] = "2011-09-21T19:11:58.039Z"
-    # request.env["Shib-Authentication-Method"] = "urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport"
-    # request.env["Shib-AuthnContext-Class"] = "urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport"
-    # request.env["Shib-brEduPerson-brEduAffiliationType"] = "student;position;faculty"
-    # request.env["Shib-eduPerson-eduPersonPrincipalName"] = "ef775988943825d2871e1cfa75473ec0@ufrgs.br"
-    # request.env["Shib-inetOrgPerson-cn"] = "JOAO DA SILVA"
-    # request.env["Shib-inetOrgPerson-mail"] = "invalido@ufrgs.br"
-    # request.env["Shib-inetOrgPerson-sn"] = "JOAO DA SILVA"
-    #################################
+    unless current_site.shib_enabled?
+      redirect_to login_path
+      return
+    end
 
     # stores any "Shib-" variable in the session
     shib_data = {}
@@ -53,6 +40,10 @@ class ShibbolethController < ApplicationController
       shib_data[key] = value if key.to_s.downcase =~ /^shib-/
     end
     session[:shib_data] = shib_data
+
+    # the fields that define the name and email are configurable in the Site model
+    shib_name = request.env[current_site.shib_name_field] || request.env["Shib-inetOrgPerson-cn"]
+    shib_email = request.env[current_site.shib_email_field] || request.env["Shib-inetOrgPerson-mail"]
 
     # uses the fed email to check if the user already has an account
     user = User.find_by_email(shib_email)

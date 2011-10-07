@@ -3,22 +3,27 @@
     <div id="lightbox-logo"><span><%= image_tag("bola_global_peque.png",:class=>"icon")%><%=t('vcc_registration')%></span></div>
   <% end %>
   <%= error_messages_for :user %>
-	<div class="form">
-		<%= form_for user, :url => users_path do |f| -%>
-			
-			<%= render :partial => 'form', :locals => { :f => f } %>
-			
-			<%= f.text_field :special_event_id, :style => 'display:none' %>
-			
-			<div id="captcha"><%= show_simple_captcha(:object=> :user) %> </div>
-			
-			<div class="button">
-				<button type="submit" class="basic_button blue_button"><%=t("button.accept")%></button>
-				<span><%= link_to t("login.one"), login_path, :class => "login_lightbox_link" %> | <%= link_to t('user.lost_password'), lost_password_path, :class => "login_lightbox_link" %></span>
-			</div>
-			* <%= t('mandatory_field')%><br>
-			<div><%= t('register.confirmation')%></div>
-		<% end -%>
-	</div>
+  <div class="form">
+    <%= form_for user, :url => users_path do |f| -%>
+
+      <%= render :partial => 'form', :locals => { :f => f } %>
+
+      <%= f.text_field :special_event_id, :style => 'display:none' %>
+
+      <div id="captcha"><%= show_simple_captcha(:object=> :user) %> </div>
+
+      <div class="button">
+        <button type="submit" class="basic_button blue_button"><%=t("button.accept")%></button>
+        <span>
+          <%= link_to t("login.one"), login_path %> |
+          <% if current_site.shib_enabled? %>
+            <%= link_to t('cafe.login'), shibboleth_path %>
+          <% end %>
+        </span>
+      </div>
+      * <%= t('mandatory_field')%><br>
+      <div><%= t('register.confirmation')%></div>
+    <% end -%>
+  </div>
 
 </div>

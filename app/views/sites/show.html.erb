@@ -30,6 +30,11 @@
     <span class="value"><%= sanitize current_site.locale %></span>
   </p>
 
+  <p>
+    <label><%= t('site.signature') %>:</label>
+    <span class="value"><%= current_site.signature_in_html %></span>
+  </p>
+
   <!--
   <p>
     <label><%= t('site.ssl') %>:</label>
@@ -53,8 +58,18 @@
   </p>
 
   <p>
-    <label><%= t('site.signature') %>:</label>
-    <span class="value"><%= current_site.signature_in_html %></span>
+    <label><%= t('site.shib_enabled') %>:</label>
+    <span class="value"><%= current_site.shib_enabled %></span>
+  </p>
+
+  <p>
+    <label><%= t('site.shib_email_field') %>:</label>
+    <span class="value"><%= current_site.shib_email_field %></span>
+  </p>
+
+  <p>
+    <label><%= t('site.shib_name_field') %>:</label>
+    <span class="value"><%= current_site.shib_name_field %></span>
   </p>
 
   <div class="clearer"></div>

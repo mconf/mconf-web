@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110823181209) do
+ActiveRecord::Schema.define(:version => 20111007150543) do
 
   create_table "admissions", :force => true do |t|
     t.string   "type"
@@ -420,6 +420,9 @@ ActiveRecord::Schema.define(:version => 20110823181209) do
     t.string   "vcc_user_for_chat_server"
     t.string   "vcc_pass_for_chat_server"
     t.string   "feedback_url"
+    t.boolean  "shib_enabled",                  :default => false
+    t.string   "shib_name_field"
+    t.string   "shib_email_field"
   end
 
   create_table "source_importations", :force => true do |t|

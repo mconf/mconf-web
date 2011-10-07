@@ -43,6 +43,11 @@
     <%= f.select :locale, I18n.available_locales %>
   </p>
 
+  <p>
+    <%= f.label :signature, t('site.signature') %>
+    <%= f.text_area :signature %>
+  </p>
+
   <!--
   <p>
     <%= f.label :ssl, t('site.ssl') %>
@@ -66,8 +71,18 @@
   </p>
 
   <p>
-    <%= f.label :signature, t('site.signature') %>
-    <%= f.text_area :signature %>
+    <%= f.label :shib_enabled, t('site.shib_enabled') %>
+    <%= f.check_box :shib_enabled %>
+  </p>
+
+  <p>
+    <%= f.label :shib_email_field, t('site.shib_email_field') %>
+    <%= f.text_field :shib_email_field %>
+  </p>
+
+  <p>
+    <%= f.label :shib_name_field, t('site.shib_name_field') %>
+    <%= f.text_field :shib_name_field %>
   </p>
 
   <div id="site_button" class="margin-up">

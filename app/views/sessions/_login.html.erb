@@ -2,19 +2,6 @@
   <div id="lightbox-logo"><span><%= image_tag("bola_global_peque.png",:class=>"icon")%><%= t('vcc') %></span></div>
   <div class="form">
     <%= form_tag session_url(:protocol => current_site.protocol), :class => "login_form" do -%>
-      <!--
-      <div id="openid-logo" <%='style="display:none;"'.html_safe unless request.xhr? %>>
-        <h3><%= t('openid.have') %></h3>
-        <%=link_to image_tag("open-id-logos/openid4.png",:size=>"h64"),"javascript:openid()"%> <span class="person_title"> <%= t('or_use_email') %></span>
-      </div>
-      <div class="openid_form" <%='style="display:none;"'.html_safe if request.xhr? %> >
-        <div id="openid_label">
-          <h3><%= t('openid.enter') %> <%= text_field_tag 'openid_identifier', params[:openid_identifier] %>
-            <button type="submit" class="basic_button blue_button"><%=t("login.one")%></button>
-          </h3>
-        </div>
-      </div>
-      -->
       <div>
         <label for="login"><%= t('login.email') %></label><br/>
         <%= text_field_tag 'login', params[:login] %>
@@ -24,11 +11,17 @@
         <%= password_field_tag 'password' %>
       </div>
       <div>
-        <label for="remember_me"><%= t('remember_me') %>:</label><%= check_box_tag ('remember_me') %>
+        <label for="remember_me"><%= check_box_tag ('remember_me') %> <%= t('remember_me') %></label>
       </div>
       <div class="button">
         <button type="submit" class="basic_button blue_button"><%=t("login.one")%></button>
-        <span><%= link_to t('register_now'), signup_path, :class => "login_lightbox_link" %> |  <%= link_to t('user.lost_password'), lost_password_path, :class => "login_lightbox_link" %></span>
+        <span>
+          <%= link_to t('register_now'), signup_path %> |
+          <% if current_site.shib_enabled? %>
+            <%= link_to t('cafe.login'), shibboleth_path %> |
+          <% end %>
+          <%= link_to t('user.lost_password'), lost_password_path %>
+        </span>
       </div>
     <% end -%>
   </div>

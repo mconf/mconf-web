@@ -1825,7 +1825,7 @@ pt-br:
   share_participate_discuss: "Compartilhe, participe, discuta"
   shibboleth: 
     create: 
-      account_created: "Uma nova conta com uma senha aleatória foi criada para você e conectada a sua conta federada. Ambas as contas podem ser usadas para entrar neste site. Para modificar sua senha acesse <a href=\"%{url}\">esta página</a>."
+      account_created: "Uma nova conta com uma senha aleatória foi criada para você e conectada a sua conta federada. Ambas as contas podem ser usadas para entrar neste site. Para modificar sua senha <a href=\"%{url}\">clique aqui</a>."
     need_activation: 
       activation_email: "Se você não recebeu o e-mail de ativação, <a href=\"%{url}\">clique aqui</a> e nós lhe mandaremos outro."
       message: "Aparentemente você já possui uma conta neste site mas ela ainda não esta ativada.<br/> Sua conta federada será ligada a esta conta, mas antes você precisa ativá-la."
@@ -1868,6 +1868,9 @@ pt-br:
     one: Site
     other: Sites
     presence_domain: "Domínio de Presença"
+    shib_email_field: "Campo Shibboleth para email"
+    shib_enabled: "Habilitar Shibboleth"
+    shib_name_field: "Campo Shibboleth para nome"
     signature: Assinatura
     ssl: SSL
     updated: "A configuração do site foi atualizada com sucesso."
