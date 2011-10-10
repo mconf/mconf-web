@@ -1873,7 +1873,7 @@ en:
     presence_domain: "Presence Domain"
     signature: Signature
     ssl: SSL
-    updated: "Site configuration was successfully updated."
+    updated: "Site configuration successfully updated. You might need to restart the application to apply your changes."
     vcc_pass_for_chat_server: "Vcc password for XMPP server authentication"
     vcc_pass_for_chat_server_confirmation: "Vcc password for XMPP server authentication confirmation"
     vcc_user_for_chat_server: "Vcc user for XMPP server authentication"

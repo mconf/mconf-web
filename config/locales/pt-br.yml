@@ -1879,7 +1879,7 @@ pt-br:
     presence_domain: "Domínio de Presença"
     signature: Assinatura
     ssl: SSL
-    updated: "A configuração do site foi atualizada com sucesso."
+    updated: "A configuração do site foi atualizada com sucesso. Você possivelmente precisa reiniciar seu servidor para aplicá-las."
     vcc_pass_for_chat_server: "Senha do VCC para autenticação no servidor XMPP"
     vcc_pass_for_chat_server_confirmation: "Senha do VCC para confirmação de autenticação no servidor XMPP"
     vcc_user_for_chat_server: "Usuário do VCC para autenticação no servidor XMPP"
