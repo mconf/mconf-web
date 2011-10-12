@@ -1863,7 +1863,9 @@ en:
     editing: "Editing Site configuration"
     email: Email
     exception_notifications: "Send debug emails"
-    exception_notifications_email: "Debug emails recipient"
+    exception_notifications_email: "Debug emails recipients"
+    exception_notifications_email_tip: "Use either spaces, commas or semi-colons to separate different emails."
+    exception_notifications_prefix: "Debug emails subject prefix"
     feedback_url: "Feedback URL"
     locale: Language
     logo: Logo

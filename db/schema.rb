@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110823181209) do
+ActiveRecord::Schema.define(:version => 20111012041449) do
 
   create_table "admissions", :force => true do |t|
     t.string   "type"
@@ -410,8 +410,8 @@ ActiveRecord::Schema.define(:version => 20110823181209) do
     t.string   "locale"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "ssl",                           :default => false
-    t.boolean  "exception_notifications",       :default => false
+    t.boolean  "ssl",                            :default => false
+    t.boolean  "exception_notifications",        :default => false
     t.string   "exception_notifications_email"
     t.text     "signature"
     t.string   "presence_domain"
@@ -420,6 +420,7 @@ ActiveRecord::Schema.define(:version => 20110823181209) do
     t.string   "vcc_user_for_chat_server"
     t.string   "vcc_pass_for_chat_server"
     t.string   "feedback_url"
+    t.string   "exception_notifications_prefix"
   end
 
   create_table "source_importations", :force => true do |t|

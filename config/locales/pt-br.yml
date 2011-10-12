@@ -1869,7 +1869,9 @@ pt-br:
     editing: "Editando a configuração do site"
     email: E-mail
     exception_notifications: "Enviar e-mails de depuração"
-    exception_notifications_email: "Destinatário dos e-mails de depuração"
+    exception_notifications_email: "Destinatários dos e-mails de depuração"
+    exception_notifications_email_tip: "Use espaços, vírgulas ou ponto-e-vírgulas para separar diferentes e-mails."
+    exception_notifications_prefix: "Prefixo no assunto dos e-mails de depuração"
     feedback_url: "Feedback URL"
     locale: Idioma
     logo: Logo

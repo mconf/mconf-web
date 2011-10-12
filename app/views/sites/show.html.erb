@@ -53,6 +53,11 @@
   </p>
 
   <p>
+    <label><%= t('site.exception_notifications_prefix') %>:</label>
+    <span class="value"><%= sanitize current_site.exception_notifications_prefix %>
+  </p>
+
+  <p>
     <label><%= t('site.signature') %>:</label>
     <span class="value"><%= current_site.signature_in_html %></span>
   </p>
