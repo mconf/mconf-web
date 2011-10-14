@@ -1876,7 +1876,9 @@ en:
     exception_notifications_email: "Debug emails recipients"
     exception_notifications_email_tip: "Use either spaces, commas or semi-colons to separate different emails."
     exception_notifications_prefix: "Debug emails subject prefix"
+    exception_notifications_tip: "Send debugging emails whenever the application crashes"
     feedback_url: "Feedback URL"
+    feedback_url_tip: "The users will be redirected to this URL when they log out of a webconference. If not set they are redirected to '%{default_url}'"
     locale: Language
     logo: Logo
     name: Name
@@ -1884,10 +1886,13 @@ en:
     other: Sites
     presence_domain: "Presence Domain"
     shib_email_field: "Shibboleth field for email"
+    shib_email_field_tip: "When a user authenticates in a Shibboleth service provider this field will be used to obtain the user's email. Example: Shib-inetOrgPerson-mail"
     shib_enabled: "Enable Shibboleth"
     shib_name_field: "Shibboleth field for name"
+    shib_name_field_tip: "When a user authenticates in a Shibboleth service provider this field will be used to obtain the user's name. Example: Shib-inetOrgPerson-sn"
     signature: Signature
     ssl: SSL
+    ssl_tip: "With SSL enabled all the internal links (including pages, images, attachments) will use the protocol https instead of http"
     updated: "Site configuration successfully updated. You might need to restart the application to apply your changes."
     vcc_pass_for_chat_server: "Vcc password for XMPP server authentication"
     vcc_pass_for_chat_server_confirmation: "Vcc password for XMPP server authentication confirmation"
