@@ -420,6 +420,9 @@ ActiveRecord::Schema.define(:version => 20111012041449) do
     t.string   "vcc_user_for_chat_server"
     t.string   "vcc_pass_for_chat_server"
     t.string   "feedback_url"
+    t.boolean  "shib_enabled",                   :default => false
+    t.string   "shib_name_field"
+    t.string   "shib_email_field"
     t.string   "exception_notifications_prefix"
   end
 
