@@ -1,15 +1,23 @@
-<%= content_for :headers do%>
+<%= content_for :headers do %>
   <%= javascript_include_tag 'jquery.filestyle' %>
-<%end%>
+<% end %>
 
-<%= content_for :javascript do%>
-    $("input[type=file]").filestyle({
-      image: "/images/buttons/browse.png",
-      imageheight : 23,
-      imagewidth : 63,
-      width : 237
-    });
-<%end%>
+<%= content_for :javascript do %>
+  $("input[type=file]").filestyle({
+    image: "/images/buttons/browse.png",
+    imageheight : 23,
+    imagewidth : 63,
+    width : 237
+  });
+
+ $('.tooltip_exception_notifications_email').qtip({
+   content: '<%= t('site.exception_notifications_email_tip') %>',
+   position: {adjust: { screen: true }},
+   show:  'mouseover',
+   hide: { when: 'mouseout', fixed: true },
+   style: 'mystyle'
+  });
+<% end %>
 
 
   <%= render :partial => 'manage/menu' %>
@@ -68,6 +76,12 @@
   <p>
     <%= f.label :exception_notifications_email, t('site.exception_notifications_email') %>
     <%= f.text_field :exception_notifications_email %>
+    <%= image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_exception_notifications_email icon",:style=>"cursor:pointer").html_safe %>
+  </p>
+
+  <p>
+    <%= f.label :exception_notifications_prefix, t('site.exception_notifications_prefix') %>
+    <%= f.text_field :exception_notifications_prefix %>
   </p>
 
   <p>

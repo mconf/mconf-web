@@ -58,6 +58,11 @@
   </p>
 
   <p>
+    <label><%= t('site.exception_notifications_prefix') %>:</label>
+    <span class="value"><%= sanitize current_site.exception_notifications_prefix %>
+  </p>
+
+  <p>
     <label><%= t('site.shib_enabled') %>:</label>
     <span class="value"><%= current_site.shib_enabled %></span>
   </p>

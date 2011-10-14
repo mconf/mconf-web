@@ -264,6 +264,11 @@ pt-br:
         external: 
           blank_meetingid: "Você deve especificar o \"meetingid\" da reunião que você deseja ingressar"
         param_format: "você pode usar apenas letras, dígitos e os símbolos \"-\" ou \"_\" (mas não no início ou fim)"
+      index: 
+        back_to_server_list: "Ver lista de servidores"
+        invite: Convidar
+        join_mobile: Entrar/móvel
+        new_room: "Nova sala"
       notice: 
         create: 
           failure: "Sua sala não pode ser criada."
@@ -277,9 +282,23 @@ pt-br:
           failure: "Sua sala não pode ser actualizada."
           success: "Sua sala foi atualizada com sucesso."
     servers: 
+      activity: 
+        activity: Atividade
+        done: Pronto!
+        information: Informação
+        now: Agora!
+        refresh_now: "Atualizar agora"
+        refreshing_in: "Atualizando em:"
+        seconds: segundos
+        title: "Monitor de atividades do servidor"
       errors: 
         param_format: "você pode usar apenas letras, dígitos e os símbolos \"-\" ou \"_\" (mas não no início ou fim)"
         url_format: "você deve utilizar o padrão http://<server>/bigbluebutton/api"
+      index: 
+        access_links: "Links de acesso"
+        activity_monitor: "Monitor de atividade"
+        new_server: "Novo servidor"
+        view_rooms: "Ver salas"
       notice: 
         create: 
           success: "O servidor foi criado com sucesso."
@@ -383,7 +402,7 @@ pt-br:
       other: "Atualizar Conteúdo"
   conversation: 
     compress: "Comprimir conversação"
-  could_not_find_anybody_with_that_email_address: "Não foi possível alguém com esse endereço de email"
+  could_not_find_anybody_with_that_email_address: "Não foi possível encontrar alguém com esse endereço de email"
   country: País
   create: Criar
   create_event: "Criar Evento"
@@ -1738,7 +1757,7 @@ pt-br:
     other: Salas
   rooms: 
     form: 
-      msg1: " prohibited this bigbluebutton_room from being saved:"
+      msg1: " impossibilitaram esta sala de ser salva:"
     invite: 
       msg1: "Convite para a reunião "
       name: "Nome:"
@@ -1816,7 +1835,7 @@ pt-br:
     other: Servidores
   servers: 
     form: 
-      msg1: " impossibilitaram este servidor BigBlueButton de ser salvo:"
+      msg1: " impossibilitaram este servidor de ser salvo:"
   session: 
     error: 
       exist: "Você já está logado"
@@ -1860,7 +1879,9 @@ pt-br:
     editing: "Editando a configuração do site"
     email: E-mail
     exception_notifications: "Enviar e-mails de depuração"
-    exception_notifications_email: "Destinatário dos e-mails de depuração"
+    exception_notifications_email: "Destinatários dos e-mails de depuração"
+    exception_notifications_email_tip: "Use espaços, vírgulas ou ponto-e-vírgulas para separar diferentes e-mails."
+    exception_notifications_prefix: "Prefixo no assunto dos e-mails de depuração"
     feedback_url: "Feedback URL"
     locale: Idioma
     logo: Logo
@@ -1873,7 +1894,7 @@ pt-br:
     shib_name_field: "Campo Shibboleth para nome"
     signature: Assinatura
     ssl: SSL
-    updated: "A configuração do site foi atualizada com sucesso."
+    updated: "A configuração do site foi atualizada com sucesso. Você possivelmente precisa reiniciar seu servidor para aplicá-las."
     vcc_pass_for_chat_server: "Senha do VCC para autenticação no servidor XMPP"
     vcc_pass_for_chat_server_confirmation: "Senha do VCC para confirmação de autenticação no servidor XMPP"
     vcc_user_for_chat_server: "Usuário do VCC para autenticação no servidor XMPP"
@@ -2234,8 +2255,8 @@ pt-br:
     private_message: "Enviar Mensagem"
     recent_join: "Usuários recentemente inscritos"
     registered: "Obrigado por se registar! Acabamos de enviar instruções sobre como ativar a sua conta de usuário"
-    request_password: "Solicitação de Senha"
-    reset_password: "Redefinir sua senha"
+    request_password: "Solicitar senha"
+    reset_password: "Redefinir senha"
     results_count: 
       one: "Pessoas, %{users_size} resultado"
       other: "Pessoas, %{users_size} resultados"
@@ -2259,7 +2280,7 @@ pt-br:
     upload: "Envie o seu vCard"
     use: "Use seu vCard"
   vcard: vCard
-  vcc: "Conferências Mconf"
+  vcc: Mconf
   vcc_mail_label: "[Mconf]"
   vcc_registration: "Registro Mconf"
   version: 

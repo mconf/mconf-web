@@ -1,5 +1,5 @@
 module Vcc
-  VERSION = "0.3".freeze
+  VERSION = "0.4".freeze
 
   # get the current git branch
   @@branch = nil

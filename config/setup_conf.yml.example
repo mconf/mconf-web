@@ -41,13 +41,6 @@ default:
   default_space_name: "Mconf-Web Space"                    # Space's name
   default_space_description: "Mconf-Web users space"       # Space's description
 
-  # Notifies when an exception occurs. The feature is disabled by default.
-  # This will only work in the PRODUCTION environment. To enable it, go to the
-  # production section below and change the property "enabled" to "true".
-  exception_notification_enabled: "false"                                          # Change to true to enable, don't use quotation marks
-  exception_notification_prefix: "[mconf-web error] "                              # Prefix added in the email subject
-  exception_notification_recipients: "my-email@server.com my-email2@server.com"    # Space-separated list of emails
-
   # Google Analytics identifier.
   analytics_code: ""                       # Google Analytics tracking code. Leave it empty to disable. Use the format: "UA-12345678-9".
 
@@ -77,7 +70,6 @@ default:
 #  bbb_server_url: "http://production-server/bigbluebutton/api"
 #  bbb_server_salt: "production-server-salt"
 #  bbb_server_version: "0.7"
-#  exception_notification_enabled: "true"
 #  analytics_code: ""
 
 # Test configurations

@@ -264,6 +264,11 @@ en:
         external: 
           blank_meetingid: "You must specify the meetingid of the meeting you want to join"
         param_format: "you can only use letters, numbers and the symbols \"-\" or \"_\" (not at the begin or end)"
+      index: 
+        back_to_server_list: "Back to server list"
+        invite: Invite
+        join_mobile: "Join mobile"
+        new_room: "New room"
       notice: 
         create: 
           failure: "Your room could not be created."
@@ -277,9 +282,23 @@ en:
           failure: "Your room could not be updated."
           success: "Your room was successfully updated."
     servers: 
+      activity: 
+        activity: Activity
+        done: Done!
+        information: Information
+        now: Now!
+        refresh_now: "Refresh now"
+        refreshing_in: "Refreshing in:"
+        seconds: seconds
+        title: "Server activity monitor"
       errors: 
         param_format: "you can only use letters, numbers and the symbols \"-\" or \"_\" (not at the begin or end)"
         url_format: "should use the pattern http://<server>/bigbluebutton/api"
+      index: 
+        access_links: "Access links"
+        activity_monitor: "Activity monitor"
+        new_server: "New server"
+        view_rooms: "View rooms"
       notice: 
         create: 
           success: "Your server was successfully created."
@@ -1736,7 +1755,7 @@ en:
     other: Rooms
   rooms: 
     form: 
-      msg1: " prohibited this bigbluebutton_room from being saved:"
+      msg1: " prohibited this room from being saved:"
     invite: 
       msg1: "Invitation to the meeting "
       name: "Name:"
@@ -1810,7 +1829,7 @@ en:
     other: Servers
   servers: 
     form: 
-      msg1: " prohibited this bigbluebutton_server from being saved:"
+      msg1: " prohibited this server from being saved:"
   session: 
     error: 
       exist: "You are already logged in"
@@ -1854,7 +1873,9 @@ en:
     editing: "Editing Site configuration"
     email: Email
     exception_notifications: "Send email on error"
-    exception_notifications_email: "Error emails recipients"
+    exception_notifications_email: "Debug emails recipients"
+    exception_notifications_email_tip: "Use either spaces, commas or semi-colons to separate different emails."
+    exception_notifications_prefix: "Debug emails subject prefix"
     feedback_url: "Feedback URL"
     locale: Language
     logo: Logo
@@ -1867,7 +1888,7 @@ en:
     shib_name_field: "Shibboleth field for name"
     signature: Signature
     ssl: SSL
-    updated: "Site configuration was successfully updated."
+    updated: "Site configuration successfully updated. You might need to restart the application to apply your changes."
     vcc_pass_for_chat_server: "Vcc password for XMPP server authentication"
     vcc_pass_for_chat_server_confirmation: "Vcc password for XMPP server authentication confirmation"
     vcc_user_for_chat_server: "Vcc user for XMPP server authentication"
@@ -2228,8 +2249,8 @@ en:
     private_message: "Send Message"
     recent_join: "Recent users joined"
     registered: "Thanks for registering! We have just sent instructions on how to activate your user account"
-    request_password: "Request Password"
-    reset_password: "Reset Your Password"
+    request_password: "Request password"
+    reset_password: "Reset your password"
     results_count: 
       one: "People, %{users_size} result"
       other: "People, %{users_size} results"
@@ -2252,7 +2273,7 @@ en:
     upload: "Upload your vCard"
     use: "Use your vCard"
   vcard: vCard
-  vcc: "Mconf Conferences"
+  vcc: Mconf
   vcc_mail_label: "[Mconf]"
   vcc_registration: "Mconf Registration"
   version: 

@@ -1,6 +1,6 @@
 .bbbrails_meeting_description {
   padding: 5px;
-  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 .bbbrails_meeting_description span.running {
@@ -32,8 +32,7 @@
 
 .bbbrails_countdown {
   float: right;
-  padding: 5px;
-  margin: 10px;
+  margin: 5px 10px;
 }
 
 .bbbrails_meeting_attendees {
@@ -74,28 +73,12 @@
 #bbbrails_servers_links {
   margin-bottom: 5px;
   padding-bottom: 5px;
+}
+
+.bbbrails_server {
+  margin-bottom: 15px;
+  padding: 10px;
   border-bottom: 1px solid #ddd;
-}
-
-#bbbrails_servers_list li {
-  margin-bottom: 5px;
-  padding-bottom: 5px;
-  border-bottom: 1px solid #ddd;
-  clear: both;
-}
-
-#bbbrails_servers_list div.field {
-  margin: 0;
-  padding: 0;
-  clear: both;
-}
-
-#bbbrails_servers_list label {
-  font-weight: bold;
-  width: 150px;
-  float: left;
-  text-align: right;
-  margin-right: 10px;
   clear: both;
 }
 
@@ -103,29 +86,18 @@
  * Used in bigbluebutton_rooms/index
  */
 
-#bbbrails_rooms_list {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-}
-
 #bbbrails_rooms_links {
   margin-bottom: 5px;
   padding-bottom: 5px;
   border-bottom: 1px solid #ddd;
 }
 
-#bbbrails_rooms_list li {
+#bbbrails_rooms_list_item {
   margin-bottom: 5px;
   padding-bottom: 5px;
   border-bottom: 1px solid #ddd;
   clear: both;
-}
-
-#bbbrails_rooms_list div.field {
-  margin: 0;
-  padding: 0;
-  clear: both;
+  margin-bottom: 10px;
 }
 
 #bbbrails_rooms_list label {
@@ -135,4 +107,26 @@
   text-align: right;
   margin-right: 10px;
   clear: both;
+}
+
+
+/*
+ * Used in bigbluebutton_servers/activity
+ */
+
+#bbbrails_activity_monitor {
+}
+
+#bbbrails_activity_monitor .title h3 {
+  font-size: 14px;
+  color:#244974;
+  padding: 3px 0;
+  margin: 0;
+}
+
+#bbbrails_activity_monitor .title {
+  border-bottom: 1px #A8C0D1 solid;
+}
+
+#bbbrails_activity_monitor .subsection {
 }

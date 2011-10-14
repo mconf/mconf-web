@@ -13,6 +13,8 @@
 #   * See other TODO: markers in the code
 #
 # Changelog:
+#   2011-10-07 LCD  Version 0.3
+#   2011-09-26 LCD  God installation and configuration
 #   2011-09-23 LCD  The deployment now does not use capistrano and so it does not require a
 #                   development environment.
 #   2011-09-20 LCD  Started removing all development-related tasks, the script will be used
@@ -28,7 +30,7 @@
 
 IP=$(ifconfig | grep -v '127.0.0.1' | grep -E "[0-9]*\.[0-9]*\.[0-9]*\.[0-9]*" | head -1 | cut -d: -f2 | awk '{print $1}') # local IP from ifconfig
 
-SCRIPT_VERSION="0.2"                                    # The version of this script
+SCRIPT_VERSION="0.3"                                    # The version of this script
 
 RVM_VERSION=1.8.5                                       # fixed RVM version to be installed
 RVM_RUBY_VERSION=1.9.2-p290                             # Ruby version
