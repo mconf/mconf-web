@@ -1,0 +1,16 @@
+NameVirtualHost *
+<VirtualHost *>
+        ServerName              YOUR_IP
+        ServerSignature Off
+
+        # SSL Redirect
+        RewriteEngine on
+        RewriteCond %{HTTPS} !=on
+        RewriteRule ^(.*) https://%{SERVER_NAME}$1 [R,L]
+
+        ErrorLog /var/log/apache2/error.log
+        # Possible values include: debug, info, notice, warn, error, crit,
+        # alert, emerg.
+        LogLevel info
+        CustomLog /var/log/apache2/sp-access-80.log combined
+</VirtualHost>
