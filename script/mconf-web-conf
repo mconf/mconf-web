@@ -6,7 +6,7 @@
 # This file was based on "bbb-conf" from BigBlueButton (http://www.bigbluebutton.org)
 #
 # See the change history for this file in our git at:
-#  https://github.com/mconf/mconf-web/blob/master/script/mconf-web-conf
+#  https://github.com/mconf/mconf-web/blob/latest/script/mconf-web-conf
 #
 # TODO:
 #   * --check
@@ -245,27 +245,21 @@ nginx_check_version() {
 
 # Installs nginx using passenger
 nginx_install() {
-    rvm use $RVM_RUBY_VERSION@$RVM_GEMSET
-    gem install passenger --no-ri --no-rdoc -v $GEM_VERSION_PASSENGER
-    rvmsudo passenger-install-apache2-module -a
+    rvmsudo passenger-install-nginx-module --auto --auto-download --prefix=/etc/nginx
+    # TODO: to uninstall nginx, we'll have to install it from source? (--nginx-source-dir=DIR --extra-configure-flags=STRING)
 
-    echo "-- Configuring Apache to enable Passenger and Mconf-Web"
+    # installs the init.d/nginx file
+    install_dependency curl
+    sudo curl https://raw.github.com/mconf/mconf-web/latest/config/nginx.init.example -o /etc/init.d/nginx
 
-    # enable the rewrite module and passenger
-    sudo ln -f -s $APACHE_PATH/mods-available/rewrite.load $APACHE_PATH/mods-enabled/rewrite.load &>/dev/null
-    rvmsudo passenger-install-apache2-module --snippet | sudo tee $APACHE_PATH/conf.d/mconf-passenger &>/dev/null
-    sudo rm $APACHE_PATH/sites-enabled/*
-
-    # configures and creates the mconf-web virtual host
+    # configures /opt/nginx/conf/nginx.conf
     TEMP=`mktemp`
-    curl https://raw.github.com/mconf/mconf-web/master/config/apache2.conf.example -o $TEMP
-    sudo sed -i "s#ServerName .*#ServerName $IP#g" $TEMP
-    sudo sed -i "s#DocumentRoot .*#DocumentRoot $DEPLOY_PATH/public#g" $TEMP
-    sudo sed -i "s#<Directory .*>#<Directory $DEPLOY_PATH/public>#g" $TEMP
-    sudo mv $TEMP $APACHE_PATH/sites-available/mconf-web
-    sudo ln -f -s $APACHE_PATH/sites-available/mconf-web $APACHE_PATH/sites-enabled/mconf-web &>/dev/null
+    curl https://raw.github.com/mconf/mconf-web/latest/config/nginx.1.0.conf.example -o $TEMP
+    sudo sed -i "s/server_name .*;/server_name $IP;/g" $TEMP
+    sudo sed -i "s>root .*;>root $PRODUCTION_PATH/current/public;>g" $TEMP
+    sudo sed -i "/http.*{/ r $TEMP" /opt/nginx/conf/nginx.conf
 
-    sudo /etc/init.d/apache2 restart
+    sudo /etc/init.d/nginx restart
 }
 
 apache_check() {
@@ -306,7 +300,7 @@ apache_install() {
 
     # configures and creates the mconf-web virtual host
     TEMP=`mktemp`
-    curl https://raw.github.com/mconf/mconf-web/master/config/apache2.conf.example -o $TEMP
+    curl https://raw.github.com/mconf/mconf-web/latest/config/apache2_mconf.example -o $TEMP
     sudo sed -i "s#ServerName .*#ServerName $IP#g" $TEMP
     sudo sed -i "s#DocumentRoot .*#DocumentRoot $DEPLOY_PATH/public#g" $TEMP
     sudo sed -i "s#<Directory .*>#<Directory $DEPLOY_PATH/public>#g" $TEMP
@@ -497,7 +491,7 @@ dependencies_include_package_list() {
     # get the dependencies from github
     install_dependency curl
     TEMP=`mktemp`
-    sudo curl https://raw.github.com/mconf/mconf-web/master/config/packages.ubuntu -o $TEMP
+    sudo curl https://raw.github.com/mconf/mconf-web/latest/config/packages.ubuntu -o $TEMP
     source $TEMP
 }
 
@@ -732,15 +726,15 @@ deploy_configure_god() {
     gem install god --no-ri --no-rdoc -v $GEM_VERSION_GOD
 
     # global config file = loads all files in /etc/god/conf.d/
-    sudo curl https://raw.github.com/mconf/mconf-web/master/config/god/config -o /etc/god/config
+    sudo curl https://raw.github.com/mconf/mconf-web/latest/config/god/config -o /etc/god/config
 
     # delayed_job config
-    sudo curl https://raw.github.com/mconf/mconf-web/master/config/god/delayed_job.god -o /etc/god/conf.d/delayed_job.god
+    sudo curl https://raw.github.com/mconf/mconf-web/latest/config/god/delayed_job.god -o /etc/god/conf.d/delayed_job.god
     sudo sed -i "s:^RAILS_ROOT =.*:RAILS_ROOT = \"${DEPLOY_PATH}\":g" /etc/god/conf.d/delayed_job.god
 
     # install and edit the init.d/god file
     # reference: http://openmonkey.com/2008/05/27/god-init-script-for-debian-ubuntu-systems
-    sudo curl https://raw.github.com/mconf/mconf-web/master/config/god/init_script -o /etc/init.d/god
+    sudo curl https://raw.github.com/mconf/mconf-web/latest/config/god/init_script -o /etc/init.d/god
     sudo sed -i "s:^GOD_LOG=.*:GOD_LOG=${DEPLOY_PATH}:g" /etc/init.d/god
     sudo chmod a+x /etc/init.d/god
     sudo update-rc.d god defaults
