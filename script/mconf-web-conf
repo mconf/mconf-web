@@ -6,13 +6,14 @@
 # This file was based on "bbb-conf" from BigBlueButton (http://www.bigbluebutton.org)
 #
 # See the change history for this file in our git at:
-#  https://github.com/mconf/mconf-web/blob/master/script/mconf-web-conf
+#  https://github.com/mconf/mconf-web/blob/latest/script/mconf-web-conf
 #
 # TODO:
 #   * --check
 #   * See other TODO: markers in the code
 #
 # Changelog:
+#   2011-10-18 LCD  Now all downloaded files come from the branch "latest" instead of "master"
 #   2011-10-07 LCD  Version 0.3
 #   2011-09-26 LCD  God installation and configuration
 #   2011-09-23 LCD  The deployment now does not use capistrano and so it does not require a
@@ -30,7 +31,7 @@
 
 IP=$(ifconfig | grep -v '127.0.0.1' | grep -E "[0-9]*\.[0-9]*\.[0-9]*\.[0-9]*" | head -1 | cut -d: -f2 | awk '{print $1}') # local IP from ifconfig
 
-SCRIPT_VERSION="0.3"                                    # The version of this script
+SCRIPT_VERSION="0.3.1"                                  # The version of this script
 
 RVM_VERSION=1.8.5                                       # fixed RVM version to be installed
 RVM_RUBY_VERSION=1.9.2-p290                             # Ruby version
@@ -258,7 +259,7 @@ nginx_install() {
 
     # configures and creates the mconf-web virtual host
     TEMP=`mktemp`
-    curl https://raw.github.com/mconf/mconf-web/master/config/apache2.conf.example -o $TEMP
+    curl https://raw.github.com/mconf/mconf-web/latest/config/apache2.conf.example -o $TEMP
     sudo sed -i "s#ServerName .*#ServerName $IP#g" $TEMP
     sudo sed -i "s#DocumentRoot .*#DocumentRoot $DEPLOY_PATH/public#g" $TEMP
     sudo sed -i "s#<Directory .*>#<Directory $DEPLOY_PATH/public>#g" $TEMP
@@ -306,12 +307,12 @@ apache_install() {
 
     # configures and creates the mconf-web virtual host
     TEMP=`mktemp`
-    curl https://raw.github.com/mconf/mconf-web/master/config/apache2.conf.example -o $TEMP
+    curl https://raw.github.com/mconf/mconf-web/latest/config/apache2.conf.example -o $TEMP
     sudo sed -i "s#ServerName .*#ServerName $IP#g" $TEMP
     sudo sed -i "s#DocumentRoot .*#DocumentRoot $DEPLOY_PATH/public#g" $TEMP
     sudo sed -i "s#<Directory .*>#<Directory $DEPLOY_PATH/public>#g" $TEMP
     sudo mv $TEMP $APACHE_PATH/sites-available/mconf-web
-    sudo ln -f -s $APACHE_PATH/sites-available/mconf-web $APACHE_PATH/sites-enabled/mconf-web &>/dev/null
+    sudo a2ensite mconf-web
 
     sudo /etc/init.d/apache2 restart
 }
@@ -497,7 +498,7 @@ dependencies_include_package_list() {
     # get the dependencies from github
     install_dependency curl
     TEMP=`mktemp`
-    sudo curl https://raw.github.com/mconf/mconf-web/master/config/packages.ubuntu -o $TEMP
+    sudo curl https://raw.github.com/mconf/mconf-web/latest/config/packages.ubuntu -o $TEMP
     source $TEMP
 }
 
@@ -732,15 +733,15 @@ deploy_configure_god() {
     gem install god --no-ri --no-rdoc -v $GEM_VERSION_GOD
 
     # global config file = loads all files in /etc/god/conf.d/
-    sudo curl https://raw.github.com/mconf/mconf-web/master/config/god/config -o /etc/god/config
+    sudo curl https://raw.github.com/mconf/mconf-web/latest/config/god/config -o /etc/god/config
 
     # delayed_job config
-    sudo curl https://raw.github.com/mconf/mconf-web/master/config/god/delayed_job.god -o /etc/god/conf.d/delayed_job.god
+    sudo curl https://raw.github.com/mconf/mconf-web/latest/config/god/delayed_job.god -o /etc/god/conf.d/delayed_job.god
     sudo sed -i "s:^RAILS_ROOT =.*:RAILS_ROOT = \"${DEPLOY_PATH}\":g" /etc/god/conf.d/delayed_job.god
 
     # install and edit the init.d/god file
     # reference: http://openmonkey.com/2008/05/27/god-init-script-for-debian-ubuntu-systems
-    sudo curl https://raw.github.com/mconf/mconf-web/master/config/god/init_script -o /etc/init.d/god
+    sudo curl https://raw.github.com/mconf/mconf-web/latest/config/god/init_script -o /etc/init.d/god
     sudo sed -i "s:^GOD_LOG=.*:GOD_LOG=${DEPLOY_PATH}:g" /etc/init.d/god
     sudo chmod a+x /etc/init.d/god
     sudo update-rc.d god defaults
