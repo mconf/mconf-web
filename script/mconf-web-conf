@@ -13,6 +13,7 @@
 #   * See other TODO: markers in the code
 #
 # Changelog:
+#   2011-10-18 LCD  Now all downloaded files come from the branch "latest" instead of "master"
 #   2011-10-07 LCD  Version 0.3
 #   2011-09-26 LCD  God installation and configuration
 #   2011-09-23 LCD  The deployment now does not use capistrano and so it does not require a
@@ -30,7 +31,7 @@
 
 IP=$(ifconfig | grep -v '127.0.0.1' | grep -E "[0-9]*\.[0-9]*\.[0-9]*\.[0-9]*" | head -1 | cut -d: -f2 | awk '{print $1}') # local IP from ifconfig
 
-SCRIPT_VERSION="0.3"                                    # The version of this script
+SCRIPT_VERSION="0.3.1"                                  # The version of this script
 
 RVM_VERSION=1.8.5                                       # fixed RVM version to be installed
 RVM_RUBY_VERSION=1.9.2-p290                             # Ruby version
@@ -305,7 +306,7 @@ apache_install() {
     sudo sed -i "s#DocumentRoot .*#DocumentRoot $DEPLOY_PATH/public#g" $TEMP
     sudo sed -i "s#<Directory .*>#<Directory $DEPLOY_PATH/public>#g" $TEMP
     sudo mv $TEMP $APACHE_PATH/sites-available/mconf-web
-    sudo ln -f -s $APACHE_PATH/sites-available/mconf-web $APACHE_PATH/sites-enabled/mconf-web &>/dev/null
+    sudo a2ensite mconf-web
 
     sudo /etc/init.d/apache2 restart
 }

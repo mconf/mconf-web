@@ -5,10 +5,12 @@
 # This file is part of Mconf - http://code.google.com/p/mconf
 #
 # See the change history for this file in our git at:
-#  https://github.com/mconf/mconf-web/blob/master/script/mconf-web-vm-conf
+#  https://github.com/mconf/mconf-web/blob/latest/script/mconf-web-vm-conf
 #
 # Changelog:
-#   2011-09-23 LCD  First version. Created from mconf-web-conf.
+#   2011-10-07 LCD  Version 0.3
+#   2011-10-06 LCD  File created from mconf-web-conf contents
+#   2011-07-05 LCD  Inital Version
 
 
 #
@@ -20,11 +22,11 @@ VM_ADDRESS=$(ifconfig | grep -v '127.0.0.1' | grep -E "[0-9]*\.[0-9]*\.[0-9]*\.[
 # default port for BigBlueButton
 VM_PORT=8888
 
-SCRIPT_VERSION="0.3"                                    # The version of this script
-DEPLOY_PATH=~/mconf-web/current                         # local directory where the dev environment will be placed
-SETUP_VM_IP=$IP                                         # default IP/domain for BigBlueButton if not informed in --setup-vm
-SETUP_VM_PORT=8888                                      # default port for BigBlueButton if not informed in --setup-vm
-DEPLOY_BRANCH=stable                                    # branch to be be deployed # TODO: change to v0.4
+MCONF_VM_VERSION="0.2"                                  # It should be used in this VM only
+DEPLOY_PATH=~/mconf-web/current                         # local directory where the dev environment is
+DEPLOY_REPO=git://github.com/mconf/mconf-web.git        # used to checkout the production environment
+DEPLOY_VERSION=                                         # set this variable to define an specific version to be installed
+                                                        # if not set, it will use the latest version available
 
 
 #
@@ -32,7 +34,7 @@ DEPLOY_BRANCH=stable                                    # branch to be be deploy
 #
 
 usage() {
-    echo "Mconf-Web configuration script for the Mconf VM  - Version $SCRIPT_VERSION"
+    echo "Mconf-Web configuration script for the Mconf VM - for the Mconf VM $MCONF_VM_VERSION"
     echo "http://code.google.com/p/mconf"
     echo
     echo "   mconf-web-vm-conf [-a ADDRESS] [-p PORT]"
@@ -54,11 +56,6 @@ check_root() {
         exit 1
     fi
 }
-
-#if [ $# -eq 0 ]; then
-#    usage
-#    exit 1
-#fi
 
 
 #
@@ -199,7 +196,7 @@ config_files_setup_vm() {
     sed -i "s/\(^[[:space:]]*bbb_server_url:\)[^#$]*\(.*\)$/\1 \"http:\/\/${VM_ADDRESS}:${VM_PORT}\/bigbluebutton\/api\" \2/g" $MCONF_WEB_SETUP_CONF
     sed -i "s/\(^[[:space:]]*bbb_server_salt:\)[^#$]*\(.*\)$/\1 \"${SALT}\" \2/g" $MCONF_WEB_SETUP_CONF
     sed -i "s/\(^[[:space:]]*site_domain:\)[^#$]*\(.*\)$/\1 \"${VM_ADDRESS}\" \2/g" $MCONF_WEB_SETUP_CONF
-    sudo sed -i "s/server_name .*/server_name ${VM_ADDRESS};/" /etc/nginx/sites-available/mconf-web
+    sudo sed -i "s/ServerName .*/ServerName ${VM_ADDRESS};/" /etc/apache2/sites-enabled/mconf-web
 
     echo
     echo "################################################################################"
@@ -223,6 +220,18 @@ config_files_setup_vm() {
     echo
 }
 
+# Returns in $REPLY the latest tag created = the latest version
+get_version_to_be_installed() {
+    if [ $DEPLOY_VERSION ]; then
+        REPLY=$DEPLOY_VERSION
+    else
+        # ls-remote anwsers with lines such as:
+        # 901dfadd9951371e40f7696a7ddc7fd1395e8741       refs/tags/v0.3^{}
+        REPLY=`git ls-remote --tags ${DEPLOY_REPO} v\*^{} | tail -1 | sed 's:.*refs/tags/\(.*\)^{}:\1:'`
+    fi
+}
+
+
 check_root
 
 echo
@@ -242,9 +251,10 @@ config_files_setup_vm
 
 cd $DEPLOY_PATH
 
-echo "-- Updating the development environment at master branch"
-git checkout $DEPLOY_BRANCH
-git pull origin $DEPLOY_BRANCH
+echo "-- Checking out branch $REPLY"
+get_version_to_be_installed
+git checkout $REPLY
+git pull origin $REPLY &>/dev/null # just in case a branch needs to be updated
 
 echo "-- Configuring the application"
 bundle exec rake setup:db RAILS_ENV=production
