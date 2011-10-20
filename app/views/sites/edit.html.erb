@@ -57,6 +57,22 @@
    hide: { when: 'mouseout', fixed: true },
    style: 'mystyle'
   });
+
+ $('.tooltip_email').qtip({
+   content: '<%= escape_javascript(t('site.email_tip')) %>',
+   position: {adjust: { screen: true }},
+   show:  'mouseover',
+   hide: { when: 'mouseout', fixed: true },
+   style: 'mystyle'
+  });
+
+ $('.tooltip_email_password').qtip({
+   content: '<%= escape_javascript(t('site.email_password_tip')) %>',
+   position: {adjust: { screen: true }},
+   show:  'mouseover',
+   hide: { when: 'mouseout', fixed: true },
+   style: 'mystyle'
+  });
 <% end %>
 
 
@@ -84,6 +100,13 @@
   <p>
     <%= f.label :email, t('site.email') %>
     <%= f.text_field :email %>
+    <%= image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_email icon",:style=>"cursor:pointer").html_safe %>
+  </p>
+
+  <p>
+    <%= f.label :email_password, t('site.email_password') %>
+    <%= f.password_field :email_password %>
+    <%= image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_email_password icon",:style=>"cursor:pointer").html_safe %>
   </p>
 
   <p>

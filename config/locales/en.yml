@@ -1872,6 +1872,9 @@ en:
     domain: "Application Domain"
     editing: "Editing Site configuration"
     email: Email
+    email_password: "Email password"
+    email_password_tip: "The password for your email account. This is necessary so that the application can use your account to send emails."
+    email_tip: "This email will be used by the application to send emails. Currently only Gmail accounts are supported."
     exception_notifications: "Send email on error"
     exception_notifications_email: "Debug emails recipients"
     exception_notifications_email_tip: "Use either spaces, commas or semi-colons to separate different emails."

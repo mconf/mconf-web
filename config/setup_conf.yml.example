@@ -7,9 +7,9 @@ default:
 
   # Admin account
   # You can change the password after the initial setup from within the application.
-  admin_login: "mconf"                             # Admin user login (e.g. mconf)
+  admin_login: "admin"                             # Admin user login (e.g. mconf)
   admin_fullname: "Mconf Admin"                    # Admin user full name
-  admin_email: "my-email@server.com"               # Admin user email
+  admin_email: "admin@default.com"                 # Admin user email
   admin_password: "admin"                          # Admin user password
 
   # BigBlueButton default server configuration
@@ -19,22 +19,19 @@ default:
   bbb_server_salt: "my-secret-salt"                                 # BBB server salt
   bbb_server_version: "0.7"                                         # BBB version
 
-  # Email account used to send all emails from within the application (invitations,
-  # registrations confirmations, etc). For now you have to use a Gmail account.
-  # See config/initializers/mail_conf.rb
-  sendmail_username: "my-username@gmail.com"      # Gmail account username
-  sendmail_password: "my-password"                # Gmail account password
-
   # Website default configuration
   # The information will be used to create the Site object, that defines your website.
   # They can be altered after the initial setup using the management area in the application.
   site_name: "Mconf Dev"                          # Website name
   site_description: "Mconf Development Website"   # Website description
-  site_email: "my-email@server.com"               # Website contact email
   site_locale: "en"                               # This will be the default locale for the application
   site_domain: "localhost"                        # Your server's IP or name address
   site_signature: "Mconf"                         # To sign emails
   site_feedback_url: ""                           # URL to be opened when a user logs out of a conference
+  # Email account used to send all emails from within the application (invitations,
+  # registrations confirmations, etc). For now you have to use a Gmail account.
+  site_email: "my-email@server.com"               # Website contact email
+  site_email_password: "my-password"              # Website email password
 
   # Default space: it will be created as a default public space, something like
   # "a space for all members of this website"

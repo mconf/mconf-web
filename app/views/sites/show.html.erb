@@ -26,6 +26,11 @@
   </p>
 
   <p>
+    <label><%= t('site.email_password') %>:</label>
+    <span class="value"><%= current_site.email_password.gsub(/./, "*") %></span>
+  </p>
+
+  <p>
     <label><%= t('site.locale') %>:</label>
     <span class="value"><%= sanitize current_site.locale %></span>
   </p>
