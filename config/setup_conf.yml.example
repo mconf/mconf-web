@@ -28,6 +28,7 @@ default:
   site_domain: "localhost"                        # Your server's IP or name address
   site_signature: "Mconf"                         # To sign emails
   site_feedback_url: ""                           # URL to be opened when a user logs out of a conference
+  site_analytics_code: ""                         # Google Analytics tracking code. Leave it empty to disable. Use the format: "UA-12345678-9".
   # Email account used to send all emails from within the application (invitations,
   # registrations confirmations, etc). For now you have to use a Gmail account.
   site_email: "my-email@server.com"               # Website contact email
@@ -37,9 +38,6 @@ default:
   # "a space for all members of this website"
   default_space_name: "Mconf-Web Space"                    # Space's name
   default_space_description: "Mconf-Web users space"       # Space's description
-
-  # Google Analytics identifier.
-  analytics_code: ""                       # Google Analytics tracking code. Leave it empty to disable. Use the format: "UA-12345678-9".
 
 # Configurations for each environment
 # You can find below the sections for each environment available.

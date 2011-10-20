@@ -14,7 +14,8 @@ u = Site.create :name => configatron.site_name,
                 :email_password => configatron.site_email_password,
                 :locale => configatron.site_locale,
                 :domain => configatron.site_domain,
-                :feedback_url => configatron.site_feedback_url
+                :feedback_url => configatron.site_feedback_url,
+                :analytics_code => configatron.analytics_code
 
 puts "* Create Permissions"
 

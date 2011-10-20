@@ -73,6 +73,14 @@
    hide: { when: 'mouseout', fixed: true },
    style: 'mystyle'
   });
+
+ $('.tooltip_analytics_code').qtip({
+   content: '<%= escape_javascript(t('site.analytics_code_tip')) %>',
+   position: {adjust: { screen: true }},
+   show:  'mouseover',
+   hide: { when: 'mouseout', fixed: true },
+   style: 'mystyle'
+  });
 <% end %>
 
 
@@ -129,6 +137,12 @@
     <%= f.label :feedback_url, t('site.feedback_url') %>
     <%= f.text_field :feedback_url %>
     <%= image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_feedback_url icon",:style=>"cursor:pointer").html_safe %>
+  </p>
+
+  <p>
+    <%= f.label :analytics_code, t('site.analytics_code') %>
+    <%= f.text_field :analytics_code %>
+    <%= image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_analytics_code icon",:style=>"cursor:pointer").html_safe %>
   </p>
 
   <p>

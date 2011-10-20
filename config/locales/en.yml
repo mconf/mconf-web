@@ -1864,6 +1864,8 @@ en:
     cron_agent: 
       name: Cron
   site: 
+    analytics_code: "Analytics Code"
+    analytics_code_tip: "Code for your Google Analytics account. Leave it blank to disable. Example: \"UA-12345678-9\""
     chat_group_service_jid: "Event Chat Group Service"
     cm_domain: "Conference Manager domain"
     config: "Site configuration"

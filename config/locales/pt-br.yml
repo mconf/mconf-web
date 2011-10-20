@@ -1870,6 +1870,8 @@ pt-br:
     cron_agent: 
       name: Cron
   site: 
+    analytics_code: "Código do Google Analytics"
+    analytics_code_tip: "Código para sua conta do Google Analytics. Deixe em branco para desabilitar. Exemplo: \"UA-12345678-9\""
     chat_group_service_jid: "Serviço de Chat em Grupo do Evento"
     cm_domain: "Domínio do Gerenciador da Conferência"
     config: "Configuração do site"
