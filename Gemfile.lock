@@ -101,8 +101,6 @@ GEM
     ci_reporter (1.6.4)
       builder (>= 2.1.2)
     color (1.4.1)
-    configatron (2.8.0)
-      yamler (>= 0.1.0)
     crack (0.1.8)
     daemon_controller (0.2.6)
     daemons (1.1.4)
@@ -227,7 +225,6 @@ GEM
     xml-simple (1.1.0)
     ya2yaml (0.30)
     yaml_db (0.2.1)
-    yamler (0.1.0)
 
 PLATFORMS
   ruby
@@ -242,7 +239,6 @@ DEPENDENCIES
   capistrano-ext
   chronic
   ci_reporter
-  configatron
   delayed_job
   dynamic_form
   exception_notification

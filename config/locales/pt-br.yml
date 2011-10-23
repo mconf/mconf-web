@@ -1969,7 +1969,7 @@ pt-br:
       subject: "%{username} convida você para a comunidade %{space}"
     group_not_belong: "não pertence à mesma comunidade que o grupo"
     index: 
-      select_at_left: "Selecione um espaço ao lado para ver sua descrição aqui"
+      select_at_left: "Selecione uma comunidade ao lado para ver sua descrição aqui"
     invitation: 
       body: Corpo
       one: "Convidar pessoas"

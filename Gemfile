@@ -29,7 +29,6 @@ gem 'bigbluebutton-api-ruby', :git => 'git://github.com/mconf/bigbluebutton-api-
 gem 'bigbluebutton_rails', :git => 'git://github.com/mconf/bigbluebutton_rails.git'
 gem 'rspec-rails', '~> 2.5'
 gem 'action_mailer_tls'
-gem 'configatron'
 gem 'attachment_fu', :git => 'git://github.com/mconf/attachment_fu.git'
 gem 'yaml_db'
 gem 'delayed_job'

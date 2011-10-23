@@ -27,7 +27,7 @@
 
   <p>
     <label><%= t('site.email_password') %>:</label>
-    <span class="value"><%= current_site.email_password.gsub(/./, "*") %></span>
+    <span class="value"><%= current_site.email_password.gsub(/./, "*") unless current_site.email_password.blank? %></span>
   </p>
 
   <p>

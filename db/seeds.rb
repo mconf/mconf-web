@@ -1,21 +1,51 @@
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
 
+# Make sure the config file exists and load it
+CONFIG_FILE = File.join(::Rails.root, "config", "setup_conf.yml")
+DEFAULT_CONFIG_FILE = File.join(::Rails.root, "config", "setup_conf.yml.example")
+unless File.exists? DEFAULT_CONFIG_FILE
+  puts
+  puts "ERROR"
+  puts "The default configuration file does not exists! Make sure your repository is up to date."
+  puts "Path: #{DEFAULT_CONFIG_FILE}"
+  puts
+  exit
+end
+
+# load the default values and the user configured values
+default_config = YAML.load_file(DEFAULT_CONFIG_FILE)
+config = default_config["default"]
+
+# the user customized config file
+if File.exists?(CONFIG_FILE)
+  user_config = YAML.load_file(CONFIG_FILE)
+  # use the default config but override any value also set in the user config
+  config.deep_merge!(user_config["default"]) unless user_config["default"].nil?
+  # merge the user configs for the current environment
+  config.deep_merge!(user_config[Rails.env]) unless user_config[Rails.env].nil?
+end
+
 puts "* Create the default site"
-puts "  name: #{configatron.site_name}"
-puts "  description: #{configatron.site_description}"
-puts "  email: #{configatron.site_email}"
-puts "  locale: #{configatron.site_locale}"
-puts "  domain: #{configatron.site_domain}"
-puts "  feedback_url: #{configatron.site_feedback_url}"
-u = Site.create :name => configatron.site_name,
-                :description => configatron.site_description,
-                :email => configatron.site_email,
-                :email_password => configatron.site_email_password,
-                :locale => configatron.site_locale,
-                :domain => configatron.site_domain,
-                :feedback_url => configatron.site_feedback_url,
-                :analytics_code => configatron.analytics_code
+puts "  name: #{config["site_name"]}"
+puts "  description: #{config["site_description"]}"
+puts "  email: #{config["site_email"]}"
+puts "  email_password: #{config["site_email_password"].gsub(/./, "*") unless config["site_email_password"].blank?}"
+puts "  locale: #{config["site_locale"]}"
+puts "  domain: #{config["site_domain"]}"
+puts "  signature: #{config["site_signature"]}"
+puts "  feedback_url: #{config["site_feedback_url"]}"
+puts "  analytics_code: #{config["site_analytics_code"]}"
+u = Site.create :name => config["site_name"],
+                :description => config["site_description"],
+                :email => config["site_email"],
+                :email_password => config["site_email_password"],
+                :locale => config["site_locale"],
+                :domain => config["site_domain"],
+                :signature => config["site_signature"],
+                :feedback_url => config["site_feedback_url"],
+                :analytics_code => config["analytics_code"]
+
 
 puts "* Create Permissions"
 
@@ -87,43 +117,26 @@ invited_role.permissions << Permission.find_by_action_and_objective('read', nil)
 invited_role.permissions << Permission.find_by_action_and_objective('read', 'content')
 invited_role.permissions << Permission.find_by_action_and_objective('read', 'performance')
 
-puts "* Create the default space:"
-puts "  name: #{configatron.default_space_name}"
-puts "  description: #{configatron.default_space_description}"
-default_space = Space.create :name => configatron.default_space_name,
-                             :description => configatron.default_space_description,
-                             :public => true,
-                             :default_logo => "models/front/space.png"
-
 puts "* Create the default BigBlueButton server"
-puts "  name: #{configatron.bbb_server_name}"
-puts "  url: #{configatron.bbb_server_url}"
-puts "  salt: #{configatron.bbb_server_salt}"
-puts "  version: #{configatron.bbb_server_version}"
-bbb_server = BigbluebuttonServer.create :name => configatron.bbb_server_name,
-                                        :url => configatron.bbb_server_url,
-                                        :salt => configatron.bbb_server_salt,
-                                        :version => configatron.bbb_server_version
-
-puts "* Create the BigBlueButton room for the default space"
-BigbluebuttonRoom.create :name => default_space.name,
-                         :meetingid => default_space.permalink,
-                         :server => bbb_server,
-                         :owner => default_space,
-                         :private => false,
-                         :logout_url => "/feedback/webconf/"
+puts "  name: #{config["bbb_server_name"]}"
+puts "  url: #{config["bbb_server_url"]}"
+puts "  salt: #{config["bbb_server_salt"]}"
+puts "  version: #{config["bbb_server_version"]}"
+bbb_server = BigbluebuttonServer.create :name => config["bbb_server_name"],
+                                        :url => config["bbb_server_url"],
+                                        :salt => config["bbb_server_salt"],
+                                        :version => config["bbb_server_version"]
 
 puts "* Create the administrator account"
-puts "  login: #{configatron.admin_login}"
-puts "  email: #{configatron.admin_email}"
-puts "  password: #{configatron.admin_password}"
-puts "  fullname: #{configatron.admin_fullname}"
-u = User.create :login => configatron.admin_login,
-                :email => configatron.admin_email,
-                :password => configatron.admin_password,
-                :password_confirmation => configatron.admin_password,
-                :_full_name => configatron.admin_fullname
+puts "  login: #{config["admin_login"]}"
+puts "  email: #{config["admin_email"]}"
+puts "  password: #{config["admin_password"]}"
+puts "  fullname: #{config["admin_fullname"]}"
+u = User.create :login => config["admin_login"],
+                :email => config["admin_email"],
+                :password => config["admin_password"],
+                :password_confirmation => config["admin_password"],
+                :_full_name => config["admin_fullname"]
 u.update_attribute(:superuser,true)
 u.activate
-u.profile!.update_attribute(:full_name, configatron.admin_fullname)
-
+u.profile!.update_attribute(:full_name, config["admin_fullname"])
