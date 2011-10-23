@@ -32,10 +32,29 @@ default:
   site_signature: "Mconf"                         # To sign emails
   site_feedback_url: ""                           # URL to be opened when a user logs out of a conference
   site_analytics_code: ""                         # Google Analytics tracking code. Leave it empty to disable. Use the format: "UA-12345678-9".
+
+  # With SSL enabled all internal links (images, pages, attachments) will use the protocol
+  # HTTPS instead of HTTP
+  site_ssl: "false"                               # Change to "true" to enable.
+
   # Email account used to send all emails from within the application (invitations,
   # registrations confirmations, etc). For now you have to use a Gmail account.
   site_email: "my-email@server.com"               # Website contact email
   site_email_password: "my-password"              # Website email password
+
+  # Notifies when an exception occurs. The feature is disabled by default.
+  # This will only work in the PRODUCTION environment. To enable it change the property
+  # below to "true".
+  site_exception_notifications: "false"                         # Change to "true" to enable
+  site_exception_notifications_prefix: "[Mconf-Web Error]"      # Prefix added in the email subject
+  # Emails that should receive the notification. Use a space, comma of semi-colon to separate multiple emails.
+  # Example: "my-email@server.com my-email2@server.com email3@server2.com"
+  site_exception_notifications_recipients: ""
+
+  # Enable or disable login using Shibboleth.
+  site_shibboleth: "false"                                       # Change to "true" to enable
+  site_shibboleth_email_field: "Shib-inetOrgPerson-mail"         # Field used to obtain the user's email
+  site_shibboleth_name_field: "Shib-inetOrgPerson-sn"            # Field used to obtain the user's name
 
 # Configurations for each environment
 # You can find below the sections for each environment available.

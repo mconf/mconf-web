@@ -36,6 +36,13 @@ puts "  domain: #{config["site_domain"]}"
 puts "  signature: #{config["site_signature"]}"
 puts "  feedback_url: #{config["site_feedback_url"]}"
 puts "  analytics_code: #{config["site_analytics_code"]}"
+puts "  ssl: #{config["site_ssl"] == "true"}"
+puts "  exception_notifications: #{config["site_exception_notifications"] == "true"}"
+puts "  exception_notifications_recipients: #{config["site_exception_notifications_recipients"]}"
+puts "  exception_notifications_prefix: #{config["site_exception_notifications_prefix"]}"
+puts "  shib_enabled: #{config["site_shibboleth"] == "true"}"
+puts "  shib_email_field: #{config["site_shibboleth_email_field"]}"
+puts "  shib_name_field: #{config["site_shibboleth_name_field"]}"
 u = Site.create :name => config["site_name"],
                 :description => config["site_description"],
                 :email => config["site_email"],
@@ -44,7 +51,14 @@ u = Site.create :name => config["site_name"],
                 :domain => config["site_domain"],
                 :signature => config["site_signature"],
                 :feedback_url => config["site_feedback_url"],
-                :analytics_code => config["analytics_code"]
+                :analytics_code => config["analytics_code"],
+                :ssl => config["site_ssl"] == "true",
+                :exception_notifications => config["site_exception_notifications"] == "true",
+                :exception_notifications_email => config["site_exception_notifications_recipients"],
+                :exception_notifications_prefix => config["site_exception_notifications_prefix"],
+                :shib_enabled => config["site_shibboleth"] == "true",
+                :shib_email_field => config["site_shibboleth_email_field"],
+                :shib_name_field => config["site_shibboleth_name_field"]
 
 
 puts "* Create Permissions"
