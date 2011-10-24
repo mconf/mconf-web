@@ -911,10 +911,10 @@ div#manage .value{float:left;width:350px;}
 div#manage color{color:#244974;}
 div#preview_logo{margin:0px 0px 9px 10px;}
 div#preview_logo a{margin-right:5px;}
-div#manage input[type=text]{width:300px;}
+div#manage input[type=text], div#manage input[type=password]{width:300px;}
 div#manage #site_button{margin-top:20px;margin-left:10px;}
 /*div#manage #site_button span{padding-left:10px;padding-right:10px;}*/
-div#manage textarea{width:300px;height:100px;}
+div#manage textarea{width:300px;height:70px;}
 div#manage .users select{margin-left:0.75em;}
 div#manage .users input{width:75px;}
 div#manage .user{background:none;}

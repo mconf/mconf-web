@@ -1,3 +1,6 @@
+# Note: DO NOT modify this file, it specifies default values that will be used if you don't
+# override them in the actual configuration file.
+
 # Default configurations
 # The values defined here will be used as default for all environments (development, test,
 # production). You can also define specific configurations for each environment to override
@@ -7,9 +10,9 @@ default:
 
   # Admin account
   # You can change the password after the initial setup from within the application.
-  admin_login: "mconf"                             # Admin user login (e.g. mconf)
+  admin_login: "admin"                             # Admin user login (e.g. mconf)
   admin_fullname: "Mconf Admin"                    # Admin user full name
-  admin_email: "my-email@server.com"               # Admin user email
+  admin_email: "admin@default.com"                 # Admin user email
   admin_password: "admin"                          # Admin user password
 
   # BigBlueButton default server configuration
@@ -19,45 +22,53 @@ default:
   bbb_server_salt: "my-secret-salt"                                 # BBB server salt
   bbb_server_version: "0.7"                                         # BBB version
 
-  # Email account used to send all emails from within the application (invitations,
-  # registrations confirmations, etc). For now you have to use a Gmail account.
-  # See config/initializers/mail_conf.rb
-  sendmail_username: "my-username@gmail.com"      # Gmail account username
-  sendmail_password: "my-password"                # Gmail account password
-
   # Website default configuration
   # The information will be used to create the Site object, that defines your website.
   # They can be altered after the initial setup using the management area in the application.
-  site_name: "Mconf Dev"                          # Website name
-  site_description: "Mconf Development Website"   # Website description
-  site_email: "my-email@server.com"               # Website contact email
+  site_name: "Mconf"                              # Website name
+  site_description: "Mconf Website"               # Website description
   site_locale: "en"                               # This will be the default locale for the application
   site_domain: "localhost"                        # Your server's IP or name address
   site_signature: "Mconf"                         # To sign emails
   site_feedback_url: ""                           # URL to be opened when a user logs out of a conference
+  site_analytics_code: ""                         # Google Analytics tracking code. Leave it empty to disable. Use the format: "UA-12345678-9".
 
-  # Default space: it will be created as a default public space, something like
-  # "a space for all members of this website"
-  default_space_name: "Mconf-Web Space"                    # Space's name
-  default_space_description: "Mconf-Web users space"       # Space's description
+  # With SSL enabled all internal links (images, pages, attachments) will use the protocol
+  # HTTPS instead of HTTP
+  site_ssl: "false"                               # Change to "true" to enable.
 
-  # Google Analytics identifier.
-  analytics_code: ""                       # Google Analytics tracking code. Leave it empty to disable. Use the format: "UA-12345678-9".
+  # Email account used to send all emails from within the application (invitations,
+  # registrations confirmations, etc). For now you have to use a Gmail account.
+  site_email: "my-email@server.com"               # Website contact email
+  site_email_password: "my-password"              # Website email password
+
+  # Notifies when an exception occurs. The feature is disabled by default.
+  # This will only work in the PRODUCTION environment. To enable it change the property
+  # below to "true".
+  site_exception_notifications: "false"                         # Change to "true" to enable
+  site_exception_notifications_prefix: "[Mconf-Web Error]"      # Prefix added in the email subject
+  # Emails that should receive the notification. Use a space, comma of semi-colon to separate multiple emails.
+  # Example: "my-email@server.com my-email2@server.com email3@server2.com"
+  site_exception_notifications_recipients: ""
+
+  # Enable or disable login using Shibboleth.
+  site_shibboleth: "false"                                       # Change to "true" to enable
+  site_shibboleth_email_field: "Shib-inetOrgPerson-mail"         # Field used to obtain the user's email
+  site_shibboleth_name_field: "Shib-inetOrgPerson-sn"            # Field used to obtain the user's name
 
 # Configurations for each environment
 # You can find below the sections for each environment available.
 # Uncomment the lines from one of them to define specific configurations for that environment.
 # You can copy any of the parameters from the default section and override them here.
 # Remember to copy the entire sections: if you want to override "site_email" and
-# "default_space_name", you must do something like:
+# "admin_login", you must do something like:
 #
 # development:
 #   site_email: "override the email"
-#   default_space_name: "new name"
+#   admin_login: "my-special-admin"
 #
 # Also remember to maintain the file indented with 2 spaces. The YML file must be well
 # formatted to be valid.
-
 
 # Development configurations
 #development:

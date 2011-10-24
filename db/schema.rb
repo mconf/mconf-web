@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111012041449) do
+ActiveRecord::Schema.define(:version => 20111020174404) do
 
   create_table "admissions", :force => true do |t|
     t.string   "type"
@@ -424,6 +424,8 @@ ActiveRecord::Schema.define(:version => 20111012041449) do
     t.string   "shib_name_field"
     t.string   "shib_email_field"
     t.string   "exception_notifications_prefix"
+    t.string   "email_password"
+    t.string   "analytics_code"
   end
 
   create_table "source_importations", :force => true do |t|

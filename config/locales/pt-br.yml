@@ -1870,6 +1870,8 @@ pt-br:
     cron_agent: 
       name: Cron
   site: 
+    analytics_code: "Código do Google Analytics"
+    analytics_code_tip: "Código para sua conta do Google Analytics. Deixe em branco para desabilitar. Exemplo: \"UA-12345678-9\""
     chat_group_service_jid: "Serviço de Chat em Grupo do Evento"
     cm_domain: "Domínio do Gerenciador da Conferência"
     config: "Configuração do site"
@@ -1878,6 +1880,9 @@ pt-br:
     domain: "Domínio da Aplicação"
     editing: "Editando a configuração do site"
     email: E-mail
+    email_password: "Senha para o e-mail"
+    email_password_tip: "A senha para sua conta de e-mail. Ela é necessária para que a aplicação possa usar a sua conta para enviar e-mails."
+    email_tip: "Este e-mail será utilizado pela aplicação para enviar e-mails. Atualmente apenas contas do Gmail são suportadas."
     exception_notifications: "Enviar e-mails de depuração"
     exception_notifications_email: "Destinatários dos e-mails de depuração"
     exception_notifications_email_tip: "Use espaços, vírgulas ou ponto-e-vírgulas para separar diferentes e-mails."
@@ -1964,7 +1969,7 @@ pt-br:
       subject: "%{username} convida você para a comunidade %{space}"
     group_not_belong: "não pertence à mesma comunidade que o grupo"
     index: 
-      select_at_left: "Selecione um espaço ao lado para ver sua descrição aqui"
+      select_at_left: "Selecione uma comunidade ao lado para ver sua descrição aqui"
     invitation: 
       body: Corpo
       one: "Convidar pessoas"

@@ -9,7 +9,10 @@ describe Space do
 
   it { should validate_presence_of(:name) }
   it { should validate_presence_of(:description) }
-  it { should validate_uniqueness_of(:name) }
+  it {
+    Factory.create(:space)
+    should validate_uniqueness_of(:name)
+  }
 
   describe ", regarding invitations," do
 
