@@ -3,14 +3,19 @@ RAILS_ENV = "production"
 
 2.times do |num|
   God.watch do |w|
-    w.name = "delayed_job-#{num}"
+    script = "cd #{RAILS_ROOT}; /usr/bin/env RAILS_ENV=#{RAILS_ENV} bundle exec script/delayed_job --pid-dir=#{RAILS_ROOT}/tmp/pids -i #{num}"
+
+    w.name = "mconf_delayed_job.#{num}"
+    w.group = "mconf_delayed_job"
     w.interval = 15.seconds
-    w.start = "/bin/bash -c 'cd #{RAILS_ROOT}; /usr/bin/env RAILS_ENV=#{RAILS_ENV} bundle exec script/delayed_job start > /tmp/delay_job.out'"
-    w.stop = "/bin/bash -c 'cd #{RAILS_ROOT}; /usr/bin/env RAILS_ENV=#{RAILS_ENV} bundle exec script/delayed_job stop'"
-    w.log = "#{RAILS_ROOT}/log/god_delayed_job.log"
+    w.start = "/bin/bash -c '#{script} start > #{RAILS_ROOT}/tmp/delay_job.out'"
+    w.stop = "/bin/bash -c '#{script} stop'"
+    w.log = "#{RAILS_ROOT}/log/god_delayed_job.#{num}.log"
     w.start_grace = 30.seconds
     w.restart_grace = 30.seconds
-    w.pid_file = "#{RAILS_ROOT}/tmp/pids/delayed_job.pid"
+    w.pid_file = "#{RAILS_ROOT}/tmp/pids/delayed_job.#{num}.pid"
+    w.uid = 'mconf'
+    w.gid = 'mconf'
 
     w.behavior(:clean_pid_file)
 

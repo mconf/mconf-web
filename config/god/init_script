@@ -14,6 +14,7 @@ DESC=god
 GOD_BIN=/usr/local/rvm/bin/bootup_god
 GOD_CONFIG=/etc/god/config
 GOD_LOG=/var/log/god.log
+GOD_PID=/var/run/god.pid
 
 set -e
 
@@ -35,7 +36,7 @@ RETVAL=0
 case "$1" in
   start)
     echo -n "Starting $DESC: "
-    $GOD_BIN -c $GOD_CONFIG -l $GOD_LOG --no-syslog --log-level warn
+    $GOD_BIN -c $GOD_CONFIG -l $GOD_LOG -P $GOD_PID --no-syslog --log-level warn
     RETVAL=$?
     echo "$NAME."
     ;;
