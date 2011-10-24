@@ -81,6 +81,14 @@
    hide: { when: 'mouseout', fixed: true },
    style: 'mystyle'
   });
+
+  $("#site_email_password_show").livequery('click', function(event) {
+    if ($(this).is(':checked')) {
+      changeInputTextType("#current_site_email_password", 'text');
+    } else {
+      changeInputTextType("#current_site_email_password", 'password');
+    }
+  });
 <% end %>
 
 
@@ -115,6 +123,7 @@
     <%= f.label :email_password, t('site.email_password') %>
     <%= f.password_field :email_password %>
     <%= image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_email_password icon",:style=>"cursor:pointer").html_safe %>
+    <%= check_box_tag 'site_email_password_show' %><%= t('show?') %>
   </p>
 
   <p>
