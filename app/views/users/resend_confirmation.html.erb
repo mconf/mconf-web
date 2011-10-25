@@ -1,0 +1,9 @@
+<div id="login_div"  class="blue_title">
+  <div class="form">
+  <%= form_tag url_for(:action => 'resend_confirmation') do %>
+    <span class="info"><%=t('user.email_used_to_create_account')%></span></br>
+    <%= text_field_tag(:email, logged_in? ? current_user.email : "", :size => 30) %>
+    <button id="missing_pswd" type="submit" class="basic_button blue_button"><%=t('user.request_confirmation')%></button>
+  <% end %>
+  </div>
+</div>

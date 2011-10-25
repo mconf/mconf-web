@@ -48,6 +48,12 @@
           <%= render :partial => "layouts/frontpage_header" %>
         </div>
 
+        <div id="frontpage_flashs">
+          <% flash.each do |name, msg| %>
+            <div class="<%= name %>"><%= msg.html_safe %></div>
+          <% end %>
+        </div>
+
         <div id="content">
           <%= yield %>
         </div>

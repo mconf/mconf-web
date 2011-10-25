@@ -1846,7 +1846,7 @@ pt-br:
     create: 
       account_created: "Uma nova conta com uma senha aleatória foi criada para você e conectada a sua conta federada. Ambas as contas podem ser usadas para entrar neste site. Para modificar sua senha <a href=\"%{url}\">clique aqui</a>."
     need_activation: 
-      activation_email: "Se você não recebeu o e-mail de ativação, <a href=\"%{url}\">clique aqui</a> e nós lhe mandaremos outro."
+      activation_email: "Se você não recebeu o e-mail de ativação, <a href=\"%{url}\">clique aqui</a> para solicitar o reenvio."
       message: "Aparentemente você já possui uma conta neste site mas ela ainda não esta ativada.<br/> Sua conta federada será ligada a esta conta, mas antes você precisa ativá-la."
       password_email: "Se você esqueceu sua senha, <a href=\"%{url}\">clique aqui</a>."
       title: "Olá, %{name}"
@@ -2219,6 +2219,7 @@ pt-br:
       password_email: "Se você esqueceu sua senha, <a href=\"%{url}\">clique aqui</a>."
     edit_account: "Editar sua conta"
     email: E-mail
+    email_used_to_create_account: "Digite o endereço de e-mail que você usou para criar a sua conta"
     enable: "Habilitar usuário"
     enabled: "Usuário habilitado com sucesso. O usuário atualmente não pertence a nenhuma comunidade, e terá que aderir às comunidades novamente."
     error: 
@@ -2247,9 +2248,11 @@ pt-br:
     login: Login
     lost_password: "Esqueceu sua senha?"
     new_password: "Nova senha"
+    new_password_confirmation: "Confirmação da nova senha"
+    new_password_tip: "Preencha este campo apenas se você deseja mudar a sua senha."
     noactivity: "%{user} não tem atividade recente"
     normal_user: "Usuário comum"
-    not_activated: "Sua conta não está ativada. Por favor, verifique seu e-mail para ativá-la"
+    not_activated: "Sua conta não está ativada, verifique o seu e-mail. (Não recebeu o e-mail? <a href=\"%{url}\">Clique aqui</a>.)"
     not_assist: "Não participarão"
     not_confirmed: "Não confirmados"
     notifications: "Como você deseja receber as notificações?"
@@ -2260,12 +2263,17 @@ pt-br:
       one: OpenID
       other: OpenIDs
     other: Usuários
-    password: "Senha atual"
-    password_info: "Digite o endereço de e-mail que você usou para criar a sua conta"
+    password: Senha
+    password_confirmation: "Confirmação de senha"
     private_message: "Enviar Mensagem"
     recent_join: "Usuários recentemente inscritos"
     registered: "Obrigado por se registar! Acabamos de enviar instruções sobre como ativar a sua conta de usuário"
+    request_confirmation: "Solicitar e-mail de confirmação"
     request_password: "Solicitar senha"
+    resend_confirmation_email: 
+      already_confirmed: "O e-mail '%{email}' já está confirmado"
+      link: "Reenviar e-mail de confirmação"
+      success: "E-mail de confirmação enviado para '%{email}'"
     reset_password: "Redefinir senha"
     results_count: 
       one: "Pessoas, %{users_size} resultado"

@@ -141,13 +141,14 @@ ol{list-style-type:decimal;}
 .event_invitation_actions{margin-left:140px;}
 
 /* forms.css */
-.error, .notice, .success, #enable_javascript,.errorExplanation {padding:.8em;margin-bottom:1em;margin-top:7px;border:2px solid #ddd;}
-.error,.errorExplanation {background:#FBE3E4;color:#8a1f11;border-color:#FBC2C4;}
-.notice, #enable_javascript {background:#FFF6BF;color:#514721;border-color:#FFD324;}
-.success {background:#E6EFC2;color:#264409;border-color:#C6D880;}
+.error, .notice, .success, #enable_javascript,.errorExplanation {padding:.8em;margin-bottom:1em;text-align: center;}
+.error,.errorExplanation {background:#FBE3E4;color:#8a1f11;}
+.notice,#enable_javascript {background:#FFF6BF;color:#514721;}
+.success {background:#E6EFC2;color:#264409;}
 .error a {color:#8a1f11;}
 .notice a {color:#514721;}
 .success a {color:#264409;}
+.margin-up{margin-top:0.75em;}
 .highlight{background:#47a0ec;}
 .new {background:#FFFF99;}
 /*File upload button*/

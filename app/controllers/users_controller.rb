@@ -241,4 +241,22 @@ class UsersController < ApplicationController
       format.atom { head :ok }
     end
   end
+
+  def resend_confirmation
+    if params[:email]
+      @user = User.find_by_email(params[:email])
+      unless @user
+        flash[:error] = t(:could_not_find_anybody_with_that_email_address)
+        return
+      end
+      if @user.activated_at
+        flash[:notice] = t('user.resend_confirmation_email.already_confirmed', :email => @user.email)
+      else
+        Notifier.delay.confirmation_email(@user)
+        flash[:notice] = t('user.resend_confirmation_email.success', :email => @user.email)
+        redirect_to root_path
+      end
+    end
+  end
+
 end

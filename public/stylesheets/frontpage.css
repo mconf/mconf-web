@@ -40,10 +40,10 @@ ol{list-style-type:decimal;}*/
 
 
 /* forms.css */
-.error, .notice, .success {padding:.8em;margin-bottom:1em;border:2px solid #ddd;}
-.error {background:#FBE3E4;color:#8a1f11;border-color:#FBC2C4;}
-.notice {background:#FFF6BF;color:#514721;border-color:#FFD324;}
-.success {background:#E6EFC2;color:#264409;border-color:#C6D880;}
+.error, .notice, .success {padding:.8em;margin-bottom:1em;text-align:center;}
+.error {background:#FBE3E4;color:#8a1f11;}
+.notice {background:#FFF6BF;color:#514721;}
+.success {background:#E6EFC2;color:#264409;}
 .error a {color:#8a1f11;}
 .notice a {color:#514721;}
 .success a {color:#264409;}
@@ -688,12 +688,11 @@ form {
 
 #content_top {
   background: #e1eef5;
-  padding: 25px 15px 25px 15px;
+  padding: 10px;
   margin-bottom: 20px;
   margin-top: 10px;
-  -moz-box-shadow: 0px 0px 6px rgba(0,0,0,0.45);
-  -khtml-box-shadow: 0px 0px 6px rgba(0,0,0,0.45);
-  -webkit-box-shadow: 0px 0px 6px rgba(0,0,0,0.45);
+  border-top: 1px solid #B1C8D4;
+  border-bottom: 1px solid #B1C8D4;
 }
 
 #content_top_container {
@@ -707,12 +706,8 @@ form {
   width: 280px;
   font-size: 1.2em;
   font-family: Verdana;
-  border: 1px solid #b1c8d4;
-  -webkit-border-radius:4px;
-  -moz-border-radius:4px;
-  border-radius: 4px;
-  padding: 10px;
-  background: #eee;
+  border-left: 1px solid #b1c8d4;
+  padding: 20px 15px 15px 15px;
 }
 
 #content_top_container .registration a.medium_button {
@@ -729,11 +724,12 @@ form {
 }
 
 #content_top_container .description {
+  padding: 15px;
   font-size: 1.25em;
   font-family: Verdana;
   text-align: justify;
   padding-right: 10px;
-  width: 580px;
+  width: 540px;
 }
 
 #content_top_container .description p {
@@ -864,5 +860,6 @@ form {
   color: #666;
 }
 
-
-
+#frontpage_flashs {
+  padding-top: 10px;
+}

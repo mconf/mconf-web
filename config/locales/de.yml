@@ -1701,6 +1701,7 @@ de:
     e-mail: E-Mail
     edit_account: "Bearbeiten Sie Ihr Konto"
     email: E-Mail
+    email_used_to_create_account: "Geben Sie die E-Mail-Adresse, die Sie zum Erstellen Ihres Kontos"
     enable: "Aktivieren Sie Benutzer"
     enabled: "User erfolgreich aktiviert. Der Benutzer gehört zur Zeit zu keinen Platz und müssen Räume wieder beizutreten."
     error: 
@@ -1741,7 +1742,6 @@ de:
       other: OpenIDs
     other: Benutzer
     password: Kennwort
-    password_info: "Geben Sie die E-Mail-Adresse, die Sie zum Erstellen Ihres Kontos"
     private_message: "Nachricht senden"
     recent_join: "Aktuelle Benutzer beigetreten"
     registered: "Vielen Dank für Ihre Registrierung! Wir haben gerade Anleitung zur Aktivierung Ihres Benutzerkontos gesendet"

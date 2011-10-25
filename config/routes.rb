@@ -229,6 +229,7 @@ Vcc::Application.routes.draw do
   match '/logout', :to => 'sessions#destroy', :as => 'logout'
   match '/signup', :to => 'users#new', :as => 'signup'
   match '/lost_password', :to => 'users#lost_password', :as => 'lost_password'
+  match '/resend_confirmation', :to => 'users#resend_confirmation', :as => 'resend_confirmation'
   match '/reset_password/:reset_password_code', :to => 'users#reset_password', :as => 'reset_password'
   match '/activate/:activation_code', :to => 'users#activate', :as => 'activate', :activation_code => nil
 

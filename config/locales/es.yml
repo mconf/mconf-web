@@ -1763,6 +1763,7 @@ es:
     e-mail: "correo electrónico"
     edit_account: "Modificar su cuenta"
     email: "correo electrónico"
+    email_used_to_create_account: "Introduzca la dirección de correo electrónico que utilizó para crear su cuenta"
     enable: "Habilitar usuario"
     enabled: "Usuario habilitado correctamente. El usuario actualmente no pertenece a ningún espacio. Tendrá que solicitar la participación en los espacios nuevamente."
     error: 
@@ -1807,7 +1808,6 @@ es:
       other: OpenIDs
     other: Usuarios
     password: Contraseña
-    password_info: "Introduzca la dirección de correo electrónico que utilizó para crear su cuenta"
     private_message: "Mensaje privado"
     recent_join: "Usuarios que se han unido recientemente"
     registered: "¡Gracias por registrarse! Le hemos enviado un correo electrónico con las instrucciones sobre cómo activar su cuenta de usuario."

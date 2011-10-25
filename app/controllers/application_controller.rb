@@ -101,7 +101,7 @@ class ApplicationController < ActionController::Base
     if authenticated? && ! current_agent.active?
       #if the account is going to be activated we only show the activaton flash not this one
       unless params[:controller] == "users" && params[:action]=="activate"
-        flash[:notice] = t('user.not_activated')
+        flash[:notice] = t('user.not_activated', :url => resend_confirmation_path)
       end
     end
   end

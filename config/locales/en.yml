@@ -1840,7 +1840,7 @@ en:
     create: 
       account_created: "A new account with a random password was created for you and linked to your federated account. Both accounts can be used to log in this website. To change your password go to the <a href=\"%{url}\">forgot password page</a>."
     need_activation: 
-      activation_email: "If you didn't receive the activation email, <a href=\"%{url}\">click here</a> and we will send you another one."
+      activation_email: "If you didn't receive the activation email, <a href=\"%{url}\">click here</a> to request another one."
       message: "It appears that you already have an account in this website but you haven't activated it yet.<br/> Your federated account will be linked to this account, but first you need to activate it."
       password_email: "If you forgot your password, <a href=\"%{url}\">click here</a>."
       title: "Hi, %{name}"
@@ -2213,6 +2213,7 @@ en:
       password_email: "If you forgot your password, <a href=\"%{url}\">click here</a>."
     edit_account: "Edit your account"
     email: Email
+    email_used_to_create_account: "Enter the email address you used to create your account"
     enable: "Enable user"
     enabled: "User successfully enabled. The user currently belongs to no space, and will have to join spaces again."
     error: 
@@ -2241,9 +2242,11 @@ en:
     login: Login
     lost_password: "Lost your password?"
     new_password: "New password"
+    new_password_confirmation: "New password confirmation"
+    new_password_tip: "Only fill this field if you wish to change your password."
     noactivity: "%{user} has no recent activity"
     normal_user: "Normal user"
-    not_activated: "Your account is not activated. Please, check your email to activate it"
+    not_activated: "Your account is not activated. Please, check your email to activate it. (Did not receive the email? <a href=\"%{url}\">Click here</a>.)"
     not_assist: "Not attending"
     not_confirmed: "Not confirmed"
     notifications: "How do you want to receive your notifications?"
@@ -2254,12 +2257,17 @@ en:
       one: OpenID
       other: OpenIDs
     other: Users
-    password: "Current password"
-    password_info: "Enter the email address you used to create your account"
+    password: Password
+    password_confirmation: "Password confirmation"
     private_message: "Send Message"
     recent_join: "Recent users joined"
     registered: "Thanks for registering! We have just sent instructions on how to activate your user account"
+    request_confirmation: "Request confirmation email"
     request_password: "Request password"
+    resend_confirmation_email: 
+      already_confirmed: "The email '%{email}' was already confirmed"
+      link: "Resend confirmation email"
+      success: "Confirmation email sent to '%{email}'"
     reset_password: "Reset your password"
     results_count: 
       one: "People, %{users_size} result"

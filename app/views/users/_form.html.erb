@@ -7,6 +7,14 @@
    style: 'mystyle'
   });
 
+ $('img.tooltip_new_password').qtip({
+   content: '<%=t("user.new_password_tip")%>',
+   position: {adjust: { screen: true }},
+   show:  'mouseover',
+   hide: { when: 'mouseout', fixed: true },
+   style: 'mystyle'
+  });
+
   $(".more_information a").fancybox({
     'hideOnContentClick' : false,
     'frameWidth' : 250,
@@ -14,16 +22,18 @@
   });
 <% end %>
 
-<% if @shib_user %>
-  <div id="edit_account_user_federated">
-    <div class="more_information"><%= link_to t('user.edit.federated.see_your_data'), shibboleth_info_path %></div>
-    <span class="title"><%= t('user.edit.federated.title') %></span><br/>
-    <span><%= t('user.edit.federated.your_idp', :idp => @shib_provider) %></span><br/>
-    <span><%= t('user.edit.federated.restrictions') %></span><br/>
-  </div>
+<% if logged_in? %>
+  <% if @shib_user %>
+    <div id="edit_account_user_federated">
+      <div class="more_information"><%= link_to t('user.edit.federated.see_your_data'), shibboleth_info_path %></div>
+      <span class="title"><%= t('user.edit.federated.title') %></span><br/>
+      <span><%= t('user.edit.federated.your_idp', :idp => @shib_provider) %></span><br/>
+      <span><%= t('user.edit.federated.restrictions') %></span><br/>
+    </div>
+  <% end %>
 <% end %>
 
-<div><label for="email"><%=t('user.email')%>*</label><br/>
+<div><label for="email"><%=t('user.email')%></label><br/>
 <% if @shib_user %>
   <%= f.text_field :email, :disabled => true %>
 <% else %>
@@ -32,19 +42,35 @@
 </div>
 
 <% if f.object.new_record? # User is not registered yet, generate login from full_name %>
-  <div><label for="full_name"><%=t('user.full_name')%>*</label><br/>
-  <%= f.text_field :_full_name %></div>
+  <div>
+    <label for="full_name"><%=t('user.full_name')%></label><br/>
+    <%= f.text_field :_full_name %>
+  </div>
 <% else -%>
-  <div id="userid"><label for="login"><%=t('user.id')%> <%=image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_user_id icon",:style=>"cursor:pointer")%></label><br/>
-  <%= f.text_field :login %></div>
+  <div id="userid">
+    <label for="login"><%=t('user.id')%></label><br/>
+    <%= f.text_field :login %> <%=image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_user_id icon",:style=>"cursor:pointer")%>
+  </div>
 <% end -%>
 
 <% if f.object.needs_password? -%>
-  <div>
-    <label for="password"><%=t('user.password')%>*</label><br/>
-    <%= f.password_field :password %> <%= t('user.edit.password_email', :url => lost_password_path).html_safe %>
-  </div>
-
-  <div><label for="password_confirmation"><%=t('user.confirm_password')%>*</label><br/>
-  <%= f.password_field :password_confirmation%></div>
+  <% if logged_in? %>
+    <div>
+      <label for="password"><%=t('user.new_password')%></label><br/>
+      <%= f.password_field :password %> <%=image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_new_password icon",:style=>"cursor:pointer")%>
+    </div>
+    <div>
+      <div><label for="password_confirmation"><%=t('user.new_password_confirmation')%></label><br/>
+      <%= f.password_field :password_confirmation%></div>
+    </div>
+  <% else %>
+    <div>
+      <label for="password"><%=t('user.password')%></label><br/>
+      <%= f.password_field :password %>
+    </div>
+    <div>
+      <div><label for="password_confirmation"><%=t('user.password_confirmation')%></label><br/>
+      <%= f.password_field :password_confirmation%></div>
+    </div>
+  <% end %>
 <% end -%>
