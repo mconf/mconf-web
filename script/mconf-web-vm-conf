@@ -8,6 +8,7 @@
 #  https://github.com/mconf/mconf-web/blob/latest/script/mconf-web-vm-conf
 #
 # Changelog:
+#   2011-10-18 LCD  Adapted to Mconf VM 0.2
 #   2011-10-07 LCD  Version 0.3
 #   2011-10-06 LCD  File created from mconf-web-conf contents
 #   2011-07-05 LCD  Inital Version
@@ -37,9 +38,9 @@ usage() {
     echo "Mconf-Web configuration script for the Mconf VM - for the Mconf VM $MCONF_VM_VERSION"
     echo "http://code.google.com/p/mconf"
     echo
-    echo "   mconf-web-vm-conf [-a ADDRESS] [-p PORT]"
+    echo "   mconf-web-vm-conf [-a ADDRESS] [-p BIGBLUEBUTTON_PORT]"
     echo "     [ADDRESS] is the IP or name address of your machine."
-    echo "     [PORT] is the port used for BigBlueButton."
+    echo "     [BIGBLUEBUTTON_PORT] is the port used by BigBlueButton (set it with bbb-conf --setip)."
     echo
     echo "  Other options:"
     echo "    --help, -h                       Shows this help"
@@ -251,8 +252,8 @@ config_files_setup_vm
 
 cd $DEPLOY_PATH
 
-echo "-- Checking out branch $REPLY"
 get_version_to_be_installed
+echo "-- Checking out version: ${REPLY}"
 git checkout $REPLY
 git pull origin $REPLY &>/dev/null # just in case a branch needs to be updated
 
@@ -264,7 +265,7 @@ echo "-- Restarting Apache"
 sudo /etc/init.d/apache2 restart
 
 echo
-echo "-- Configuration files edition finished."
+echo "-- Mconf-Web configuration finished."
 echo
 
 
