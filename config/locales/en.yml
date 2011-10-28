@@ -969,6 +969,7 @@ en:
     find_us: "You can find us at"
     gcode: "Google Code"
     github: GitHub
+    statistics: Statistics
     website: "Project website"
   form: 
     loading: "The form is loading..."

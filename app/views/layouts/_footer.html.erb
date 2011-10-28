@@ -10,7 +10,9 @@
         </div>
       </li>
       <li>-</li>
-      <li><%=link_to(t('feedback.send_us'), new_feedback_path(), :id => "feedback_link" )%></li>
+      <li><%= link_to(t('feedback.send_us'), new_feedback_path(), :id => "feedback_link" )%></li>
+      <li>-</li>
+      <li><%= link_to(t('footer.statistics'), "/stats.html" )%></li>
     </ul>
   </div>
 
