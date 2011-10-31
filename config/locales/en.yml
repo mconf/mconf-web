@@ -1838,7 +1838,7 @@ en:
   share_participate_discuss: "Share, participate, discuss"
   shibboleth: 
     create: 
-      account_created: "A new account with a random password was created for you and linked to your federated account. Both accounts can be used to log in this website. To change your password go to the <a href=\"%{url}\">forgot password page</a>."
+      account_created: "A new account with a random password was created for you and linked to your federated account. Both accounts can be used to log in this website. You won't need the Mconf password to login using the federation, but you can change your password go to the <a href=\"%{url}\">forgot password page</a>."
     need_activation: 
       activation_email: "If you didn't receive the activation email, <a href=\"%{url}\">click here</a> to request another one."
       message: "It appears that you already have an account in this website but you haven't activated it yet.<br/> Your federated account will be linked to this account, but first you need to activate it."

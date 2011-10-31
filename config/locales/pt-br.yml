@@ -1844,7 +1844,7 @@ pt-br:
   share_participate_discuss: "Compartilhe, participe, discuta"
   shibboleth: 
     create: 
-      account_created: "Uma nova conta com uma senha aleatória foi criada para você e conectada a sua conta federada. Ambas as contas podem ser usadas para entrar neste site. Para modificar sua senha <a href=\"%{url}\">clique aqui</a>."
+      account_created: "Uma nova conta com uma senha aleatória foi criada para você e conectada a sua conta federada. Ambas as contas podem ser usadas para entrar neste site. Você não precisará da sua senha do Mconf para logar usando a federação, mas se deseja modificar sua senha <a href=\"%{url}\">clique aqui</a>."
     need_activation: 
       activation_email: "Se você não recebeu o e-mail de ativação, <a href=\"%{url}\">clique aqui</a> para solicitar o reenvio."
       message: "Aparentemente você já possui uma conta neste site mas ela ainda não esta ativada.<br/> Sua conta federada será ligada a esta conta, mas antes você precisa ativá-la."
