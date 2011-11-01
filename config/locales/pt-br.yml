@@ -1303,14 +1303,13 @@ pt-br:
     will_invite: "Pessoas que você vai convidar"
     yes_accepted: aceito
   invite: 
-    email: "e-mail: "
-    invitation_successfully: "Convite enviado com sucesso por: <br>"
-    invitation_unsuccessfully: "Convite enviado sem sucesso por: <br>"
-    message: "Você foi convidado por <b>%{sender}</b> para participar da webconferência <b>%{name}</b>.<br/><br/> Você pode participar acessando o endereço <i><a href=\"%{invite_url}\">%{invite_url}</a></i>.<br/><br/> Mensagem de convite escrita por <b>%{sender}</b>:<br/><br/>%{message} <br/><br/>"
-    title: "Convite para participar de uma webconferência."
-    user_private_email: "e-mail do usuário: "
-    user_private_msg: "<li>mensagem privada para usuário</li>"
-    wrong_formatted: " (e-mail mal formatado)"
+    bad_format: "(e-mail mal formatado)"
+    email: "e-mail para %{email}"
+    invitation_successfully: "Convite enviado com sucesso:"
+    invitation_unsuccessfully: "Convite não pode ser enviado:"
+    message: "Você foi convidado por <b>%{sender}</b> para participar da webconferência <b>%{name}</b>.<br/>Você pode participar acessando o endereço: <i><a href=\"%{invite_url}\">%{invite_url}</a></i>.<br/>Esta é a mensagem escrita por <b>%{sender}</b>:"
+    title: "Convite para participar de uma webconferência"
+    user_private_msg: "mensagem privada para o usuário %{user}"
   invite_people: 
     email: 
       one: E-mail
