@@ -8,14 +8,12 @@ RAILS_ENV = "production"
     w.name = "mconf_delayed_job.#{num}"
     w.group = "mconf_delayed_job"
     w.interval = 15.seconds
-    w.start = "/bin/bash -c '#{script} start > #{RAILS_ROOT}/tmp/delay_job.out'"
+    w.start = "/bin/bash -c '#{script} start'"
     w.stop = "/bin/bash -c '#{script} stop'"
     w.log = "#{RAILS_ROOT}/log/god_delayed_job.#{num}.log"
     w.start_grace = 30.seconds
     w.restart_grace = 30.seconds
     w.pid_file = "#{RAILS_ROOT}/tmp/pids/delayed_job.#{num}.pid"
-    w.uid = 'mconf'
-    w.gid = 'mconf'
 
     w.behavior(:clean_pid_file)
 
