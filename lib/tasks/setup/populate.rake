@@ -6,16 +6,15 @@ namespace :setup do
     require 'populator'
     require 'ffaker'
 
-    # DESTROY #
-    spaces = Space.all
-    spaces.delete(Space.find(1))
-    spaces.each(&:destroy)
-    # Delete all users except Admin
-    users_without_admin = User.find_with_disabled(:all)
-    users_without_admin.delete(User.find_by_login("mconf"))
-    users_without_admin.each(&:destroy)
+    if ENV['CLEAR']
+      puts "* Destroying all old spaces and users (except admin)"
+      Space.destroy_all
+      users_without_admin = User.find_with_disabled(:all)
+      users_without_admin.delete(User.find_by_superuser(true))
+      users_without_admin.each(&:destroy)
+    end
 
-    puts "* Create Users"
+    puts "* Create Users (15)"
     User.populate 15 do |user|
       user.login = Populator.words(1)
       user.email = Faker::Internet.email
@@ -55,7 +54,7 @@ namespace :setup do
       end
     end
 
-    puts "* Create spaces"
+    puts "* Create spaces (10)"
     Space.populate 10 do |space|
       space.name = Populator.words(1..3).capitalize
       space.permalink = PermalinkFu.escape(space.name.titleize)
@@ -72,7 +71,7 @@ namespace :setup do
         post.updated_at = post.created_at..Time.now
       end
 
-      puts "* Create spaces: events for \"#{space.name}\""
+      puts "* Create spaces: events for \"#{space.name}\" (5..10)"
       Event.populate 5..10 do |event|
         event.space_id = space.id
         event.name = Populator.words(1..3).titleize

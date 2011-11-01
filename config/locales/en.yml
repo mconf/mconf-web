@@ -1305,14 +1305,13 @@ en:
     will_invite: "People you will invite"
     yes_accepted: accepted
   invite: 
-    email: "email: "
-    invitation_successfully: "Invitation succesfully by:<br>"
-    invitation_unsuccessfully: "Invitation unsuccessfully by:<br>"
-    message: "You have been invited by <b>%{sender}</b> to join the webconference <b>%{name}</b>.<br/><br/> You can join it by accessing <i><a href=\"%{invite_url}\">%{invite_url}</a></i>.<br/><br/> Invitation message written by <b>%{sender}</b>: <br/> %{message} <br/><br/>"
-    title: "Invitation to participate in a webconference."
-    user_private_email: "user email: "
-    user_private_msg: "<li>user private message</li>"
-    wrong_formatted: " (wrong formatted email)"
+    bad_format: "(bad formatting)"
+    email: "email to %{email}"
+    invitation_successfully: "Invitation succesfully sent:"
+    invitation_unsuccessfully: "Invitation could not be sent:"
+    message: "You have been invited by <b>%{sender}</b> to join the webconference <b>%{name}</b>.<br/>You can join it by accessing <i><a href=\"%{invite_url}\">%{invite_url}</a></i>.<br/>This is the message written by <b>%{sender}</b>:"
+    title: "Invitation to participate in a webconference"
+    user_private_msg: "private message to the user %{user}"
   invite_people: 
     email: 
       one: E-mail
@@ -1839,7 +1838,7 @@ en:
   share_participate_discuss: "Share, participate, discuss"
   shibboleth: 
     create: 
-      account_created: "A new account with a random password was created for you and linked to your federated account. Both accounts can be used to log in this website. To change your password go to the <a href=\"%{url}\">forgot password page</a>."
+      account_created: "A new account with a random password was created for you and linked to your federated account. Both accounts can be used to log in this website. You won't need the Mconf password to login using the federation, but you can change your password go to the <a href=\"%{url}\">forgot password page</a>."
     need_activation: 
       activation_email: "If you didn't receive the activation email, <a href=\"%{url}\">click here</a> to request another one."
       message: "It appears that you already have an account in this website but you haven't activated it yet.<br/> Your federated account will be linked to this account, but first you need to activate it."

@@ -66,9 +66,9 @@ class InvitesController < ApplicationController
           private_message = PrivateMessage.new(priv_msg)
           if private_message.save
             @success_messages << private_message
-            success = t('invite.invitation_successfully') << t('invite.user_private_msg')
+            success = t('invite.invitation_successfully') << " " << t('invite.user_private_msg', :user => private_message.receiver.full_name)
           else
-            error = t('invite.invitation_unsuccessfully') << t('invite.user_private_msg')
+            error = t('invite.invitation_unsuccessfully') << " " << t('invite.user_private_msg', :user => private_message.receiver.full_name)
             @fail_messages << private_message
           end
         end
@@ -80,20 +80,11 @@ class InvitesController < ApplicationController
           user = User.find(receiver)
           priv_email[:email_receiver] = user.email
           Notifier.delay.webconference_invite_email(priv_email)
-          #if email_message.deliver
-            if success.size == 0
-              success = t('invite.invitation_successfully') << "<li>" << t('invite.user_private_email') << user.email << "</li>"
-            else
-              success << "<li>" << t('invite.user_private_email') << user.email << "</li>"
-            end
-          #else
-          #  if error.size == 0
-          #    error = t('invite.invitation_unsuccessfully') << "<li>" << t('invite.user_private_email') << user.email << "</li>"
-          #  else
-          #    error << "<li>" << t('invite.user_private_email') << user.email << "</li>"
-          #  end
-          #  @fail_email << email_message
-          #end
+          if success.size == 0
+            success = t('invite.invitation_successfully') << " " << t('invite.email', :email => user.email)
+          else
+            success << ", " << t('invite.email', :email => user.email)
+          end
         end
       end
 
@@ -102,25 +93,16 @@ class InvitesController < ApplicationController
           priv_email[:email_receiver] = receiver
           Notifier.delay.webconference_invite_email(priv_email)
           if (receiver =~ /^[-a-z0-9_+\.]+\@([-a-z0-9]+\.)+[a-z0-9]{2,4}$/i)
-            #if email_message.deliver
-              if success.size == 0
-                success = t('invite.invitation_successfully') << "<li>" << t('invite.email') << receiver << "</li>"
-              else
-                success << "<li>" <<  t('invite.email') << receiver << "</li>"
-              end
-            #else
-            #  if error.size == 0
-            #    error = t('invite.invitation_unsuccessfully') << "<li>" <<  t('invite.email') << receiver << "</li>"
-            #  else
-            #    error << "<li>" <<  t('invite.email') << receiver << "</li>"
-            #  end
-            #  @fail_email << email_message
-            #end
+            if success.size == 0
+              success = t('invite.invitation_successfully') << " " << t('invite.email', :email => receiver)
+            else
+              success << ", " << t('invite.email', :email => receiver)
+            end
           else
             if error.size == 0
-              error = t('invite.invitation_unsuccessfully') << "<li>" <<  t('invite.email') << receiver << t('invite.wrong_formatted') << "</li>"
+              error = t('invite.invitation_unsuccessfully') << " " <<  t('invite.email', :email => receiver) << " " << t('invite.bad_format')
             else
-              error << "<li>" <<  t('invite.email') << receiver << t('invite.wrong_formatted') << "</li>"
+              error << ", " <<  t('invite.email', :email => receiver) << " " << t('invite.wrong_formatted')
             end
           end
         end
@@ -145,9 +127,9 @@ class InvitesController < ApplicationController
           private_message = PrivateMessage.new(msg)
           if private_message.save
             @success_messages << private_message
-            success = t('invite.invitation_successfully') << t('invite.user_private_msg')
+            success = t('invite.invitation_successfully') << " " << t('invite.user_private_msg', :user => private_message.receiver.full_name)
           else
-            error = t('invite.invitation_unsuccessfully') << t('invite.user_private_msg')
+            error = t('invite.invitation_unsuccessfully') << " " << t('invite.user_private_msg', :user => private_message.receiver.full_name)
             @fail_messages << private_message
           end
         end
@@ -158,20 +140,11 @@ class InvitesController < ApplicationController
           user = User.find(receiver)
           msg[:email_receiver] = user.email
           Notifier.delay.event_email(msg)
-          #if email_message.deliver
-            if success.size == 0
-              success = t('invite.invitation_successfully') << "<li>" << t('invite.user_private_email') << user.email << "</li>"
-            else
-              success << "<li>" << t('invite.user_private_email') << user.email << "</li>"
-            end
-          #else
-          #  if error.size == 0
-          #    error = t('invite.invitation_unsuccessfully') << "<li>" << t('invite.user_private_email') << user.email << "</li>"
-          #  else
-          #    error << "<li>" << t('invite.user_private_email') << user.email << "</li>"
-          #  end
-          #  @fail_email << email_message
-          #end
+          if success.size == 0
+            success = t('invite.invitation_successfully') << " " << t('invite.email', :email => user.email)
+          else
+            success << ", " << t('invite.email', :email => user.email)
+          end
         end
       end
 
@@ -181,25 +154,16 @@ class InvitesController < ApplicationController
           msg[:email_receiver] = receiver
           Notifier.delay.event_email(msg)
           if (receiver =~ /^[-a-z0-9_+\.]+\@([-a-z0-9]+\.)+[a-z0-9]{2,4}$/i)
-            #if email_message.deliver
-              if success.size == 0
-                success = t('invite.invitation_successfully') << "<li>" << t('invite.email') << receiver << "</li>"
-              else
-                success << "<li>" <<  t('invite.email') << receiver << "</li>"
-              end
-            #else
-            #  if error.size == 0
-            #    error = t('invite.invitation_unsuccessfully') << "<li>" <<  t('invite.email') << receiver << "</li>"
-            #  else
-            #    error << "<li>" <<  t('invite.email') << receiver << "</li>"
-            #  end
-            #  @fail_email << email_message
-            #end
+            if success.size == 0
+              success = t('invite.invitation_successfully') << " " << t('invite.email', :email => receiver)
+            else
+              success << ", " << t('invite.email', :email => receiver)
+            end
           else
             if error.size == 0
-              error = t('invite.invitation_unsuccessfully') << "<li>" <<  t('invite.email') << receiver << t('invite.wrong_formatted') << "</li>"
+              error = t('invite.invitation_unsuccessfully') << " " <<  t('invite.email', :email => receiver) << " " << t('invite.bad_format')
             else
-              error << "<li>" <<  t('invite.email') << receiver << t('invite.wrong_formatted') << "</li>"
+              error << ", " <<  t('invite.email', :email => receiver) << " " << t('invite.wrong_formatted')
             end
           end
         end

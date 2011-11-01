@@ -1304,14 +1304,13 @@ pt-br:
     will_invite: "Pessoas que você vai convidar"
     yes_accepted: aceito
   invite: 
-    email: "e-mail: "
-    invitation_successfully: "Convite enviado com sucesso por: <br>"
-    invitation_unsuccessfully: "Convite enviado sem sucesso por: <br>"
-    message: "Você foi convidado por <b>%{sender}</b> para participar da webconferência <b>%{name}</b>.<br/><br/> Você pode participar acessando o endereço <i><a href=\"%{invite_url}\">%{invite_url}</a></i>.<br/><br/> Mensagem de convite escrita por <b>%{sender}</b>:<br/><br/>%{message} <br/><br/>"
-    title: "Convite para participar de uma webconferência."
-    user_private_email: "e-mail do usuário: "
-    user_private_msg: "<li>mensagem privada para usuário</li>"
-    wrong_formatted: " (e-mail mal formatado)"
+    bad_format: "(e-mail mal formatado)"
+    email: "e-mail para %{email}"
+    invitation_successfully: "Convite enviado com sucesso:"
+    invitation_unsuccessfully: "Convite não pode ser enviado:"
+    message: "Você foi convidado por <b>%{sender}</b> para participar da webconferência <b>%{name}</b>.<br/>Você pode participar acessando o endereço: <i><a href=\"%{invite_url}\">%{invite_url}</a></i>.<br/>Esta é a mensagem escrita por <b>%{sender}</b>:"
+    title: "Convite para participar de uma webconferência"
+    user_private_msg: "mensagem privada para o usuário %{user}"
   invite_people: 
     email: 
       one: E-mail
@@ -1845,7 +1844,7 @@ pt-br:
   share_participate_discuss: "Compartilhe, participe, discuta"
   shibboleth: 
     create: 
-      account_created: "Uma nova conta com uma senha aleatória foi criada para você e conectada a sua conta federada. Ambas as contas podem ser usadas para entrar neste site. Para modificar sua senha <a href=\"%{url}\">clique aqui</a>."
+      account_created: "Uma nova conta com uma senha aleatória foi criada para você e conectada a sua conta federada. Ambas as contas podem ser usadas para entrar neste site. Você não precisará da sua senha do Mconf para logar usando a federação, mas se deseja modificar sua senha <a href=\"%{url}\">clique aqui</a>."
     need_activation: 
       activation_email: "Se você não recebeu o e-mail de ativação, <a href=\"%{url}\">clique aqui</a> para solicitar o reenvio."
       message: "Aparentemente você já possui uma conta neste site mas ela ainda não esta ativada.<br/> Sua conta federada será ligada a esta conta, mas antes você precisa ativá-la."

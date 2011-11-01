@@ -1,12 +1,6 @@
 module SpacesHelper
-  
-  def eduEsGay
-    create_auto_logo "EDU ES GAY", 2,1111
-  end
-  
-  
-  
-    def max_word_length text
+
+  def max_word_length text
     first_pos = 0
     max_length = 0
     while !((pos = (text+" ").index(' ', first_pos)).nil?)
@@ -17,19 +11,19 @@ module SpacesHelper
     end
     return max_length
   end
-  
+
   def create_auto_logo text, logo_style,spaceId
-    
+
     # We establish the paths for the pre-defined images, and the temporal dir for the generated logo
     images_path = File.join(Rails.root.to_s, "public", "images")
     tmp_path = File.join(images_path, "tmp")
     background_generic = File.join(images_path, "vcc-logo-bg.png")
     background_generated = File.join(tmp_path, "vcc-logo-"+spaceId.to_s + ".png")
-    
+
     # We open, read-only, the generic background image
     f = File.open(background_generic, "r+")
     img = Magick::Image.read(f).first
-    
+
     # This will be the blank image which will contain the text
     logo_text = Magick::Image.new(img.columns, img.rows)
     # To create the text, we use a new "Draw" object, and set some basic styles
@@ -45,7 +39,7 @@ module SpacesHelper
     gc.stroke_linecap("round")
     gc.fill = "darkblue"
 
-    # Depending on the desired logo_style, we create a text or another 
+    # Depending on the desired logo_style, we create a text or another
     case logo_style
       when 1
         gc.pointsize = 1.7 * img.columns / text.length
@@ -77,11 +71,11 @@ module SpacesHelper
         auto_logo = blank_bg.composite!(logo_text, Magick::CenterGravity, Magick::HardLightCompositeOp)
     end
     f.close
-    
+
     # Finally, we store the new image in the temp path
     auto_logo.write("png:" + background_generated)
   end
-  
-  
-  
+
+
+
 end
