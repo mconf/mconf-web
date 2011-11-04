@@ -328,7 +328,7 @@ restart_mconf_web() {
     restart_web_server
 
     echo "-- Restarting God"
-    sudo /etc/init.d/god stop
+    sudo /etc/init.d/god terminate # we need to also stop all monitored tasks
     sudo /etc/init.d/god start
 }
 
