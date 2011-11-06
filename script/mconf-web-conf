@@ -31,7 +31,7 @@
 
 IP=$(ifconfig | grep -v '127.0.0.1' | grep -E "[0-9]*\.[0-9]*\.[0-9]*\.[0-9]*" | head -1 | cut -d: -f2 | awk '{print $1}') # local IP from ifconfig
 
-SCRIPT_VERSION="0.3.1"                                  # The version of this script
+SCRIPT_VERSION="0.3.2"                                  # The version of this script
 
 RVM_VERSION=1.8.5                                       # fixed RVM version to be installed
 RVM_RUBY_VERSION=1.9.2-p290                             # Ruby version
@@ -825,6 +825,7 @@ if [ $DEPLOY_UPDATE ]; then
 
     VERSION=$REPLY
     echo "-- Updating the source code to the version ${VERSION}"
+    git pull
     git checkout $REPLY
     git pull origin $REPLY &>/dev/null # just in case a branch needs to be updated
 
