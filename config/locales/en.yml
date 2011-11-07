@@ -1375,6 +1375,7 @@ en:
   logged_out: "You have been logged out"
   login: 
     email: Email
+    email_or_login: "Email or username"
     one: Login
     password: Password
   login_or_register: "Login / Register"

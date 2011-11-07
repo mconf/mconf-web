@@ -3,7 +3,7 @@
   <div class="form">
     <%= form_tag session_url(:protocol => current_site.protocol), :class => "login_form" do -%>
       <div>
-        <label for="login"><%= t('login.email') %></label><br/>
+        <label for="login"><%= t('login.email_or_login') %></label><br/>
         <%= text_field_tag 'login', params[:login] %>
       </div>
       <div>
