@@ -3,23 +3,24 @@
  <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>Mconf-Graphics</title>
-    <!--<link href="layout.css" rel="stylesheet" type="text/css">-->
+    <!--link href="layout.css" rel="stylesheet" type="text/css"-->
     <!--[if lte IE 8]><script language="javascript" type="text/javascript" src="../excanvas.min.js"></script><![endif]-->
     <script language="javascript" type="text/javascript" src="javascripts/jquery.js"></script>
     <script language="javascript" type="text/javascript" src="javascripts/flot/jquery.flot.js"></script>
+    <script language="javascript" type="text/javascript" src="javascripts/flot/jquery.flot.selection.js"></script>
     <script language="javascript" type="text/javascript" src="javascripts/mconf-graphics.js"></script>
-    <script language="javascript" type="text/javascript" src="javascripts/flot/jquery.jsonp.min.js"></script>
+    <script language="javascript" type="text/javascript" src="javascripts/jquery.jsonp.min.js"></script>
  </head>
     <body>
 
-    <h1>Mconf Statistics - Experimental</h1>
-
-    <h2>Daily Summary</h2>
+    <h1>Daily Summary</h1>
     <div id="placeholder_daily" style="width:800px;height:200px;"></div>
-    <h2>Weekly Summary</h2>
+    <h1>Weekly Summary</h1>
     <div id="placeholder_weekly" style="width:800px;height:200px;"></div>
-    <h2>Monthly Summary</h2>
+    <h1>Monthly Summary</h1>
     <div id="placeholder_monthly" style="width:800px;height:200px;"></div>
+    <h1>Annually Summary</h1>
+    <div id="placeholder_annually" style="width:800px;height:200px;"></div>
 
     <script type="text/javascript">$(MconfGraphics.core_flot);</script>
 
