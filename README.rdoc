@@ -1,16 +1,23 @@
 = Welcome to Mconf-web
-http://travis-ci.org/mconf/mconf-web.png {(more...)}[http://travis-ci.org/#!/mconf/mconf-web]
 
-Mconf-web is a web application that controls the access to the Mconf webconferencing system.
+Mconf-Web is the social network in the Mconf webconferencing system. It is currently a fork of VCC, and open source system that can be found {here}[https://github.com/ging/vcc].
 
-It's developed in Ruby on Rails as a fork of {VCC}[https://github.com/ging/vcc].
-Mconf-web integrates {BigBlueButton}[http://www.bigbluebutton.org/] and {Global Plaza}[http://globalplaza.org/] (VCC).
+You can try out Mconf-Web at our free demo server at http://mconf.org.
+
+Mconf-web is a web application that connects to a {BigBlueButton}[http://www.bigbluebutton.org/] server instance and allows the users to create and participate in webconferences. It provides functionalities that are (by design) not implemented in the core of BigBlueButton, such as:
+
+* User authentication;
+* Permission control to access webconference rooms;
+* Follows a social network model (inherited from VCC) with spaces (communities) that have events;
+* Users have their own webconferences that they can share with other members or even invite non-members.
+* Each space also has a webconference room that its members can use to interact;
+* Events can be used to schedule webconferences inside a space.
 
 <b>For more details {read our wiki}[http://code.google.com/p/mconf/wiki/MconfWeb]</b>.
 
 == Links
 
-* {Project website}[http://www.inf.ufrgs.br/prav/gtmconf]
-* {Google Code page}[http://code.google.com/p/mconf]
-* {GitHub organization}[https://github.com/mconf]
+* {Mconf website}[http://www.inf.ufrgs.br/prav/gtmconf]
+* {Mconf @ Google Code}[http://code.google.com/p/mconf]
+* {Mconf @ GitHub}[https://github.com/mconf]
 

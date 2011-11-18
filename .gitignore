@@ -22,3 +22,4 @@ tmp/*
 .redcar
 db/data.yml
 pids/*
+doc/app/*
