@@ -46,10 +46,16 @@ case "$1" in
     RETVAL=$?
     echo "$NAME."
     ;;
+  terminate)
+    echo -n "Stopping $DESC and all tasks: "
+    $GOD_BIN terminate
+    RETVAL=$?
+    echo "$NAME."
+    ;;
   restart)
     echo -n "Restarting $DESC: "
     $GOD_BIN quit
-    $GOD_BIN -c $GOD_CONFIG -l $GOD_LOG --no-syslog --log-level warn
+    $GOD_BIN -c $GOD_CONFIG -l $GOD_LOG -P $GOD_PID --no-syslog --log-level warn
     RETVAL=$?
     echo "$NAME."
     ;;
@@ -58,7 +64,7 @@ case "$1" in
     RETVAL=$?
     ;;
   *)
-    echo "Usage: god {start|stop|restart|status}"
+    echo "Usage: god {start|stop|terminate|restart|status}"
     exit 1
     ;;
 esac
