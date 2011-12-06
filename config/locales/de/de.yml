@@ -17,40 +17,6 @@ de:
     one: Aktion
     other: Aktionen
   actions: Aktionen
-  activerecord: 
-    attributes: 
-      user: 
-        login: Login
-    errors: 
-      full_messages: 
-        format: "%{attribute} %{message}"
-      messages: 
-        accepted: "muss akzeptiert werden"
-        blank: "darf nicht leer sein"
-        confirmation: "stimmt nicht mit Bestätigung"
-        empty: "darf nicht leer sein"
-        equal_to: "muss gleich %{count}"
-        even: "muss auch"
-        exclusion: "ist reserviert"
-        greater_than: "muss größer als %{count}"
-        greater_than_or_equal_to: "muss größer als oder gleich %{count}"
-        inclusion: "ist nicht in der Liste aufgeführt"
-        invalid: "ist ungültig"
-        less_than: "muss kleiner als %{count}"
-        less_than_or_equal_to: "muss kleiner als oder gleich %{count}"
-        missing: fehlt
-        not_a_number: "ist keine Nummer"
-        odd: "muss ungerade sein"
-        record_invalid: "Validation failed: %{errors}"
-        taken: "bereits getroffen hat"
-        too_long: "ist zu lang (Maximum ist %{count} Zeichen)"
-        too_short: "ist zu kurz (Minimum ist %{count} Zeichen)"
-        wrong_length: "ist der falsche Länge (sollte %{count} Zeichen)"
-      template: 
-        body: "Es gab Probleme mit den folgenden Bereichen:"
-        header: 
-          one: "1 Fehler verboten diesem %{model} nicht gespeichert"
-          other: "%{count} errors prohibited this %{model} from being saved"
   add: Hinzufügen
   add_more_details: "Hinzufügen weiterer Details"
   address: Adresse
@@ -295,103 +261,6 @@ de:
   created_at: "Erstellt am"
   created_at_date: "Erstellt: %{date}"
   created_time_ago: "Erstellt %{time} ago"
-  date: 
-    abbr_day_names: 
-      - Son
-      - Mon
-      - Die
-      - Mit
-      - Don
-      - Fre
-      - Sam
-    abbr_month_names: 
-      - ~
-      - Jan
-      - Feb
-      - Mar
-      - Apr
-      - Mai
-      - Jun
-      - Jul
-      - Aug
-      - Sep
-      - Okt
-      - Nov
-      - Dez
-    at: at
-    day_names: 
-      - Sonntag
-      - Montag
-      - Dienstag
-      - Mittwoch
-      - Donnerstag
-      - Freitag
-      - Samstag
-    end: "End date"
-    formats: 
-      default: "%y/%m/%d"
-      long: "%B %d, %Y"
-      short: "%b %d"
-    month_names: 
-      - ~
-      - Januar
-      - Februar
-      - März
-      - April
-      - Mai
-      - Juni
-      - Juli
-      - August
-      - September
-      - Oktober
-      - November
-      - Dezember
-    order: 
-      - !ruby/symbol year
-      - !ruby/symbol month
-      - !ruby/symbol day
-    start: "Start date"
-    undefined: Undefined
-  datetime: 
-    distance_in_words: 
-      about_x_hours: 
-        one: "1 Stunde"
-        other: "%{count} Stunden"
-      about_x_months: 
-        one: "1 Monat"
-        other: "%{count} Monaten"
-      about_x_years: 
-        one: "1 Jahr"
-        other: "%{count} Jahre"
-      half_a_minute: "eine halbe Minute"
-      less_than_x_minutes: 
-        one: "1 Minute"
-        other: "%{count} Minuten"
-      less_than_x_seconds: 
-        one: "1 Sekunde"
-        other: "%{count} Sekunden"
-      over_x_years: 
-        one: "1 Jahr"
-        other: "%{count} Jahre"
-      x_days: 
-        one: "1 Tag"
-        other: "%{count} Tagen"
-      x_minutes: 
-        one: "1 Minute"
-        other: "%{count} Minuten"
-      x_months: 
-        one: "1 Monat"
-        other: "%{count} Monaten"
-      x_seconds: 
-        one: "1 Sekunde"
-        other: "%{count} Sekunden"
-    prompts: 
-      day: Tag
-      hour: Stunde
-      minute: Minute
-      month: Monat
-      second: Sekunden
-      year: Jahr
   days: Days
   dblclick: "Doppelklicken Sie zum Bearbeiten ..."
   delete: 
@@ -1118,38 +987,6 @@ de:
   no_tags_found: "Keine Tags gefunden"
   not_going: "Ich plane nicht zur Teilnahme an"
   now_exclamation: Now!
-  number: 
-    currency: 
-      format: 
-        delimiter: ","
-        format: "%u%n"
-        precision: 2
-        separator: "."
-        unit: $
-    format: 
-      delimiter: ","
-      precision: 3
-      separator: "."
-    human: 
-      format: 
-        delimiter: ""
-        precision: 1
-      storage_units: 
-        format: "%n %u"
-        units: 
-          byte: 
-            one: Byte
-            other: Bytes
-          gb: GB
-          kb: KB
-          mb: MB
-          tb: TB
-    percentage: 
-      format: 
-        delimiter: ""
-    precision: 
-      format: 
-        delimiter: ""
   ok: OK
   older: Older
   online: online
@@ -1579,15 +1416,6 @@ de:
   street: Straße
   subject: Gegenstand
   summary: Summary
-  support: 
-    array: 
-      last_word_connector: Und
-      two_words_connector: und
-      words_connector: ","
-    one: Unterstützung
-    select: 
-      prompt: "Bitte wählen Sie"
-    words_connector: ","
   tag: 
     add: "Tags hinzufügen"
     attachment: "Stichworte für die Befestigung"
@@ -1623,17 +1451,6 @@ de:
     show_comment_size: "Angezeigt wird die %{size} Kommentare, um die Nachricht"
     show_last_comment: "Showing last %{size} comments of %{children}"
     show_one_only_comment: "Angezeigt wird die einzige Kommentar, um die Nachricht"
-  time: 
-    am: am
-    end: "End time"
-    formats: 
-      default: "%a, %d %b %Y %H:%M:%S %z"
-      long: "%B %d, %Y %H:%M"
-      short: "%d %b %H:%M"
-    from: von
-    pm: pm
-    start: "Start time"
-    to: bis
   timezone: 
     one: Zeitzone
     set_up: "Sie haben noch nicht eingerichtet Ihre Zeitzone. Stellen Sie sich jetzt an"
@@ -1701,7 +1518,6 @@ de:
     e-mail: E-Mail
     edit_account: "Bearbeiten Sie Ihr Konto"
     email: E-Mail
-    email_used_to_create_account: "Geben Sie die E-Mail-Adresse, die Sie zum Erstellen Ihres Kontos"
     enable: "Aktivieren Sie Benutzer"
     enabled: "User erfolgreich aktiviert. Der Benutzer gehört zur Zeit zu keinen Platz und müssen Räume wieder beizutreten."
     error: 
@@ -1742,6 +1558,7 @@ de:
       other: OpenIDs
     other: Benutzer
     password: Kennwort
+    password_info: "Geben Sie die E-Mail-Adresse, die Sie zum Erstellen Ihres Kontos"
     private_message: "Nachricht senden"
     recent_join: "Aktuelle Benutzer beigetreten"
     registered: "Vielen Dank für Ihre Registrierung! Wir haben gerade Anleitung zur Aktivierung Ihres Benutzerkontos gesendet"

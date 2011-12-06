@@ -17,67 +17,6 @@ pt-br:
     one: Ação
     other: Ações
   actions: Ações
-  activerecord: 
-    attributes: 
-      bigbluebutton_room: 
-        attendee_password: "Senha de Participante"
-        dial_number: "Número para Ligação"
-        external: "Criada externamente"
-        logout_url: "URL após sair da sessão"
-        max_participants: "Número máximo de participantes"
-        meetingid: "ID da sala"
-        moderator_password: "Senha de Moderador"
-        name: Nome
-        param: Identificador
-        private: "Sala privada"
-        randomize_meetingid: "Aleatorizar ID da sala"
-        server_id: "ID do servidor"
-        voice_bridge: "Número para ligação VoIP"
-        welcome_msg: "Mensagem de Boas Vindas"
-      bigbluebutton_server: 
-        name: Nome
-        param: Identificador
-        salt: "Senha de Segurança"
-        url: URL
-        version: Versão
-      spaces: 
-        attendee_password: "Senha de Participante"
-        moderator_password: "Senha de Moderador"
-      user: 
-        login: Login
-    errors: 
-      full_messages: 
-        format: "%{attribute} %{message}"
-      messages: 
-        accepted: "deve ser aceito"
-        blank: "não pode estar em branco"
-        confirmation: "não coincide com a confirmação"
-        empty: "não pode estar vazio"
-        equal_to: "deve ser igual a %{count}"
-        even: "deve ser par"
-        exclusion: "está reservado"
-        greater_than: "deve ser maior que %{count}"
-        greater_than_or_equal_to: "deve ser maior ou igual a %{count}"
-        inclusion: "não está incluído na lista"
-        invalid: "é inválido"
-        less_than: "deve ser inferior a %{count}"
-        less_than_or_equal_to: "deve ser menor ou igual a %{count}"
-        missing: "não encontrado"
-        not_a_number: "não é um número"
-        odd: "deve ser ímpar"
-        record_invalid: "Validação falhou: %{errors}"
-        taken: "já está em uso"
-        too_long: "é muito longo (máximo de %{count} caracteres)"
-        too_short: "é muito curto (mínimo de %{count} caracteres)"
-        wrong_length: "é o tamanho errado (deveria ser %{count} caracteres)"
-      template: 
-        body: "Houve problemas com os seguintes campos:"
-        header: 
-          one: "Um erro impediu este %{model} de ser salvo"
-          other: "%{count} erros impediram este %{model} de ser salvo"
-    models: 
-      bigbluebutton_room: "Sala BigBlueButton"
-      bigbluebutton_server: "Servidor BigBlueButton"
   add: Adicionar
   add_more_details: "Adicionar mais detalhes"
   address: Endereço
@@ -411,105 +350,6 @@ pt-br:
   created_at: "Criado em"
   created_at_date: "Criado em: %{date}"
   created_time_ago: "Criado %{time} atrás"
-  date: 
-    abbr_day_names: 
-      - Dom
-      - Seg
-      - Ter
-      - Qua
-      - Qui
-      - Sex
-      - Sáb
-    abbr_month_names: 
-      - Jan
-      - Fev
-      - Mar
-      - Abr
-      - Mai
-      - Jun
-      - Jul
-      - Ago
-      - Set
-      - Out
-      - Nov
-      - Dez
-    at: às
-    day_names: 
-      - Domingo
-      - Segunda
-      - Terça
-      - Quarta
-      - Quinta
-      - Sexta
-      - Sábado
-    end: "Data final"
-    formats: 
-      default: "%d/%m/%y"
-      long: "%B %d, %Y"
-      short: "%b %d"
-    month_names: 
-      - ~
-      - Janeiro
-      - Fevereiro
-      - Março
-      - Abril
-      - Maio
-      - Junho
-      - Julho
-      - Agosto
-      - Setembro
-      - Outubro
-      - Novembro
-      - Dezembro
-    order: 
-      - !ruby/symbol year
-      - !ruby/symbol month
-      - !ruby/symbol day
-    start: "Data inicial"
-    undefined: "Não definido"
-  datetime: 
-    distance_in_words: 
-      about_x_hours: 
-        one: "1 hora"
-        other: "%{count} horas"
-      about_x_months: 
-        one: "1 mês"
-        other: "%{count} meses"
-      about_x_years: 
-        one: "1 ano"
-        other: "%{count} anos"
-      almost_x_years: 
-        one: "quase um ano"
-        other: "quase %{count} anos"
-      half_a_minute: "meio minuto"
-      less_than_x_minutes: 
-        one: "1 minuto"
-        other: "%{count} minutos"
-      less_than_x_seconds: 
-        one: "1 segundo"
-        other: "%{count} segundos"
-      over_x_years: 
-        one: "1 ano"
-        other: "%{count} anos"
-      x_days: 
-        one: "1 dia"
-        other: "%{count} dias"
-      x_minutes: 
-        one: "1 minuto"
-        other: "%{count} minutos"
-      x_months: 
-        one: "1 mês"
-        other: "%{count} meses"
-      x_seconds: 
-        one: "1 segundo"
-        other: "%{count} segundos"
-    prompts: 
-      day: Dia
-      hour: Hora
-      minute: Minuto
-      month: Mês
-      second: Segundos
-      year: Ano
   days: Dias
   dblclick: "Duplo clique para editar..."
   delete: 
@@ -571,29 +411,6 @@ pt-br:
     one: Erro
     other: Erros
     vcc_warning: "Aviso geral:"
-  errors: 
-    dynamic_format: "%{message}"
-    format: "%{attribute} %{message}"
-    messages: 
-      accepted: "deve ser aceito"
-      blank: "não pode estar em branco"
-      confirmation: "não coincide com a confirmação"
-      empty: "não pode estar vazio"
-      equal_to: "deve ser igual a %{count}"
-      even: "deve ser par"
-      exclusion: "está reservado"
-      greater_than: "deve ser maior que %{count}"
-      greater_than_or_equal_to: "deve ser maior ou igual a %{count}"
-      inclusion: "não está incluído na lista"
-      invalid: "é inválido"
-      less_than: "deve ser inferior a %{count}"
-      less_than_or_equal_to: "deve ser menor ou igual a %{count}"
-      not_a_number: "não é um número"
-      not_an_integer: "deve ser um inteiro"
-      odd: "deve ser ímpar"
-      too_long: "é muito longo (o máximo é %{count} caracteres)"
-      too_short: "é muito curto (o mínimo é %{count} caracteres)"
-      wrong_length: "tem comprimento errado (deveria ter %{count} caracteres)"
   eu_commision: "Comissão Européia"
   event: 
     Isabel: "Evento Isabel"
@@ -1166,13 +983,6 @@ pt-br:
   help_vcc: 
     info: "Aqui você pode encontrar informações sobre o Global"
     topics: Tópicos
-  helpers: 
-    select: 
-      prompt: "Por favor, selecione"
-    submit: 
-      create: "Criar %{model}"
-      submit: "Salvar %{model}"
-      update: "Atualizar %{model}"
   hide: Esconder
   his_message_reads_thus: "Sua mensagem diz assim"
   home: 
@@ -1303,13 +1113,14 @@ pt-br:
     will_invite: "Pessoas que você vai convidar"
     yes_accepted: aceito
   invite: 
-    bad_format: "(e-mail mal formatado)"
-    email: "e-mail para %{email}"
-    invitation_successfully: "Convite enviado com sucesso:"
-    invitation_unsuccessfully: "Convite não pode ser enviado:"
-    message: "Você foi convidado por <b>%{sender}</b> para participar da webconferência <b>%{name}</b>.<br/>Você pode participar acessando o endereço: <i><a href=\"%{invite_url}\">%{invite_url}</a></i>.<br/>Esta é a mensagem escrita por <b>%{sender}</b>:"
-    title: "Convite para participar de uma webconferência"
-    user_private_msg: "mensagem privada para o usuário %{user}"
+    email: "e-mail: "
+    invitation_successfully: "Convite enviado com sucesso por: <br>"
+    invitation_unsuccessfully: "Convite enviado sem sucesso por: <br>"
+    message: "Você foi convidado por <b>%{sender}</b> para participar da webconferência <b>%{name}</b>.<br/><br/> Você pode participar acessando o endereço <i><a href=\"%{invite_url}\">%{invite_url}</a></i>.<br/><br/> Mensagem de convite escrita por <b>%{sender}</b>:<br/><br/>%{message} <br/><br/>"
+    title: "Convite para participar de uma webconferência."
+    user_private_email: "e-mail do usuário: "
+    user_private_msg: "<li>mensagem privada para usuário</li>"
+    wrong_formatted: " (e-mail mal formatado)"
   invite_people: 
     email: 
       one: E-mail
@@ -1374,7 +1185,6 @@ pt-br:
   logged_out: "Você foi desconectado"
   login: 
     email: E-mail
-    email_or_login: "E-mail ou usuário"
     one: Login
     password: Senha
   login_or_register: "Login / Registre-se"
@@ -1456,53 +1266,6 @@ pt-br:
   no_tags_found: "Nenhuma tag encontrada"
   not_going: "Eu não pretendo participar"
   now_exclamation: Agora!
-  number: 
-    currency: 
-      format: 
-        delimiter: ","
-        format: "%u%n"
-        precision: "2"
-        separator: "."
-        significant: false
-        strip_insignificant_zeros: false
-        unit: $
-    format: 
-      delimiter: ","
-      precision: "3"
-      separator: "."
-      significant: false
-      strip_insignificant_zeros: false
-    human: 
-      decimal_units: 
-        format: "%n %u"
-        units: 
-          billion: Bilhões
-          million: Milhões
-          quadrillion: Quatrilhões
-          thousand: Mil
-          trillion: Trilhão
-          unit: ""
-      format: 
-        delimiter: ""
-        precision: "1"
-        significant: true
-        strip_insignificant_zeros: true
-      storage_units: 
-        format: "%n %u"
-        units: 
-          byte: 
-            one: Byte
-            other: Bytes
-          gb: GB
-          kb: KB
-          mb: MB
-          tb: TB
-    percentage: 
-      format: 
-        delimiter: ""
-    precision: 
-      format: 
-        delimiter: ""
   ok: OK
   older: "Mais velho"
   online: online
@@ -1844,9 +1607,9 @@ pt-br:
   share_participate_discuss: "Compartilhe, participe, discuta"
   shibboleth: 
     create: 
-      account_created: "Uma nova conta com uma senha aleatória foi criada para você e conectada a sua conta federada. Ambas as contas podem ser usadas para entrar neste site. Você não precisará da sua senha do Mconf para logar usando a federação, mas se deseja modificar sua senha <a href=\"%{url}\">clique aqui</a>."
+      account_created: "Uma nova conta com uma senha aleatória foi criada para você e conectada a sua conta federada. Ambas as contas podem ser usadas para entrar neste site. Para modificar sua senha <a href=\"%{url}\">clique aqui</a>."
     need_activation: 
-      activation_email: "Se você não recebeu o e-mail de ativação, <a href=\"%{url}\">clique aqui</a> para solicitar o reenvio."
+      activation_email: "Se você não recebeu o e-mail de ativação, <a href=\"%{url}\">clique aqui</a> e nós lhe mandaremos outro."
       message: "Aparentemente você já possui uma conta neste site mas ela ainda não esta ativada.<br/> Sua conta federada será ligada a esta conta, mas antes você precisa ativá-la."
       password_email: "Se você esqueceu sua senha, <a href=\"%{url}\">clique aqui</a>."
       title: "Olá, %{name}"
@@ -2050,15 +1813,6 @@ pt-br:
   street: Rua
   subject: Assunto
   summary: "Informações do vídeo"
-  support: 
-    array: 
-      last_word_connector: " e"
-      two_words_connector: e
-      words_connector: ","
-    one: Suporte
-    select: 
-      prompt: "Por favor, selecione"
-    words_connector: ","
   tag: 
     add: "Adicionar tags"
     attachment: "Tags para o anexo"
@@ -2094,17 +1848,6 @@ pt-br:
     show_comment_size: "Mostrando os %{size} comentários para a mensagem"
     show_last_comment: "Mostrando os últimos %{size} comentários de %{children}"
     show_one_only_comment: "Mostrando o único comentário Ã  mensagem"
-  time: 
-    am: am
-    end: "Hora de término"
-    formats: 
-      default: "%a, %d %b %Y %H:%M:%S %z"
-      long: "%B %d, %Y %H:%M"
-      short: "%d %b %H:%M"
-    from: "a partir de"
-    pm: pm
-    start: "Horário de início"
-    to: para
   timezone: 
     one: "Fuso horário"
     set_up: "Você não configurou seu fuso horário. <a href=\"%{path}\">Configure agora</a>"
@@ -2219,7 +1962,6 @@ pt-br:
       password_email: "Se você esqueceu sua senha, <a href=\"%{url}\">clique aqui</a>."
     edit_account: "Editar sua conta"
     email: E-mail
-    email_used_to_create_account: "Digite o endereço de e-mail que você usou para criar a sua conta"
     enable: "Habilitar usuário"
     enabled: "Usuário habilitado com sucesso. O usuário atualmente não pertence a nenhuma comunidade, e terá que aderir às comunidades novamente."
     error: 
@@ -2248,11 +1990,9 @@ pt-br:
     login: Login
     lost_password: "Esqueceu sua senha?"
     new_password: "Nova senha"
-    new_password_confirmation: "Confirmação da nova senha"
-    new_password_tip: "Preencha este campo apenas se você deseja mudar a sua senha."
     noactivity: "%{user} não tem atividade recente"
     normal_user: "Usuário comum"
-    not_activated: "Sua conta não está ativada, verifique o seu e-mail. (Não recebeu o e-mail? <a href=\"%{url}\">Clique aqui</a>.)"
+    not_activated: "Sua conta não está ativada. Por favor, verifique seu e-mail para ativá-la"
     not_assist: "Não participarão"
     not_confirmed: "Não confirmados"
     notifications: "Como você deseja receber as notificações?"
@@ -2263,17 +2003,12 @@ pt-br:
       one: OpenID
       other: OpenIDs
     other: Usuários
-    password: Senha
-    password_confirmation: "Confirmação de senha"
+    password: "Senha atual"
+    password_info: "Digite o endereço de e-mail que você usou para criar a sua conta"
     private_message: "Enviar Mensagem"
     recent_join: "Usuários recentemente inscritos"
     registered: "Obrigado por se registar! Acabamos de enviar instruções sobre como ativar a sua conta de usuário"
-    request_confirmation: "Solicitar e-mail de confirmação"
     request_password: "Solicitar senha"
-    resend_confirmation_email: 
-      already_confirmed: "O e-mail '%{email}' já está confirmado"
-      link: "Reenviar e-mail de confirmação"
-      success: "E-mail de confirmação enviado para '%{email}'"
     reset_password: "Redefinir senha"
     results_count: 
       one: "Pessoas, %{users_size} resultado"
