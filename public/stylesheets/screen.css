@@ -303,6 +303,7 @@ h3.selector_title{color:#244974;margin-top:15px;}
 #menu li .selected:hover{background:white; color:#244974;}
 #menu li .admin:hover{background:white;color:#ffa903;}
 #wrapper{padding:10px 10px 10px 10px;background-color:#fff;overflow:hidden;}
+#wrapper_blue{padding:10px 10px 10px 10px;background-color:#E1EEF5;overflow:hidden;}
 
 /*users and groups*/
 div.group{padding-bottom:0.5em;margin-top:2px;}
@@ -2659,4 +2660,21 @@ h3.dialog_title {
 
 #shibboleth_info label {
   color:#244974;
+}
+
+#terms_draft {
+  color: red;
+  margin-bottom: 20px;
+}
+#terms_title, #privacy_title {
+  margin-bottom: 10px;
+}
+#terms_title h1, #privacy_title h1 {
+  font-size: 1.6em;
+}
+#terms_body .terms_paragraph, #pricacy_body .privacy_paragraph {
+  margin-top: 20px;
+}
+#terms_body .terms_paragraph h3, #privacy_body .privacy_paragraph h3 {
+  font-size: 1.2em;
 }
