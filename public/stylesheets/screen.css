@@ -2678,3 +2678,6 @@ h3.dialog_title {
 #terms_body .terms_paragraph h3, #privacy_body .privacy_paragraph h3 {
   font-size: 1.2em;
 }
+#terms_body .terms_paragraph h4, #privacy_body .privacy_paragraph h4 {
+  margin-bottom: 7px;
+}

@@ -1,0 +1,118 @@
+<div id="terms_draft"><%=t('terms.draft').html_safe%></div>
+
+<div id="terms_title">
+  <h1>Termos e condições do uso do Mconf via federação CAFe</h1>
+</div>
+
+<div id="terms_body">
+
+  <div class="terms_paragraph">
+    <h4>1. Mecanismos de acesso ao projeto GT-Mconf via federação CAFe</h4>
+    <p>
+    O Mconf permite que o usuário se logue no sistema através da federação <a href="http://www.rnp.br/servicos/cafe.html">CAFe</a> (Comunidade Acadêmica Federada).
+    Neste caso, o usuário autentica em um provedor de identidade registrado na federação, e este redireciona o usuário ao Mconf após o processo de autenticação.
+    O Mconf possuirá acesso apenas a um conjunto restrito de dados disponibilizados pelo provedor de identidade. Estes dados são: nome completo, e-mail, afiliação e seu identificador único na federação (para maiores informações veja <a href="http://www.rnp.br/servicos/cafeespecificacao.html">este site</a> e <a href="http://wiki.rnp.br/display/cafewebsite/brEduPerson">este site</a>).
+    </p>
+
+    <p>
+    Quando um usuário utiliza a federação para logar no Mconf, acontecerá o seguinte processo:
+      <ul><li>
+        Se já existe um usuário (será chamado de "Usuário1") registrado no Mconf com o e-mail do usuário que está logando através da federação, o usuário que está se conectando possuirá acesso
+        à conta do Usuário1. O sistema então se comportará da mesma forma que se comportaria caso o Usuário1 tivesse feito o login da forma tradicional (sem utilizar a federação).
+      </li><li>
+        Se não há nenhum usuário registrado com o e-mail do usuário que está logando através da federação, uma nova conta será criada para este usuário. Serão utilizados o seu
+        e-mail e nome completo conforme informados ao Mconf pelo provedor de identidade, e será gerada uma senha aleatória para esta conta.
+        Esta nova conta estará então disponível para o usuário tanto através do login federado
+        quanto através do login tradicional. Com isso, na próxima vez que este usuário acessar o Mconf utilizando a federação, ele terá acesso à conta criada quando ele fez o
+        seu primeiro acesso. Caso o usuário queira acessar esta conta utilizando o modo padrão de login, ele precisa primeiro editar a senha de sua conta na seção "Conta" deste
+        site.
+      </li></ul>
+    </p>
+
+    <p>
+    Para fazer o login através da federação, o usuário precisa primeiro acessar o link "Logar usando a CAFe", disponível na <a href="/">página inicial</a> e na <a href="/login">página de login</a> deste site, como mostram as imagens abaixo:
+    <br/>
+    <img src="images/terms_cafe/login_cafe_1.png" />
+    <img src="images/terms_cafe/login_cafe_2.png" />
+    </p>
+
+    <p>
+    O usuário será então redirecionado para o serviço de seleção do seu provedor de identidade. Neste ele deve selecionar sua instituição, como mostra a imagem abaixo. Se o usuário
+    já utilizou a federação recentemente, possivelmente ele será redirecionado direto pra o provedor de identidade, pulando esta etapa.
+    <br/>
+    <img src="images/terms_cafe/cafe_wayf.png" />
+    </p>
+
+    <p>
+    Já no site do provedor de identidade o usuário entra com seu nome de usuário e senha. Se a autenticação for bem sucedida o usuário será redirecionado de volta para o Mconf e
+    estará logado no sistema.
+    </p>
+
+  </div>
+
+  <div class="terms_paragraph">
+    <h4>2. Tipos de informações transferidas e armazenadas no servidor do mconf</h4>
+    <p>
+    Os dados de login, nome completo, e-mail e afiliação são transferidos para o servidor do Mconf no momento em que o usuário se conecta ao serviço utilizando a federação.
+    Esses dados são praticamente os mesmos (exceto afiliação) exigidos para qualquer usuário que deseja se registrar no Mconf sem utilizar a federação.
+    É importante observar que o Mconf <b>não possui acesso</b> à senha do usuário utilizada para logar na federação.
+    </p>
+
+    <p>
+    Uma vez logado no sistema através da federação, o usuário pode ver as suas informações pessoais às quais o Mconf teve acesso. Basta acessar a seção "Conta" e clicar no link "Veja seus dados...", como mostra a imagem abaixo:
+    <br/>
+    <img src="images/any.png" width="200" height="80" />
+    </p>
+
+    <p>
+    Segue abaixo um exemplo dos dados recebidos para um usuário de testes:
+    <br/>
+    <img src="images/any.png" width="200" height="80" />
+    </p>
+
+    <p>
+    Todas as informações recebidas ficam armazenadas no servidor do Mconf, atualmente localizado em um laboratório de pesquisa conectado através da rede da UFRGS.
+    </p>
+  </div>
+
+  <div class="terms_paragraph">
+  <h4>3. Privacidade dos dados</h4>
+    <p>
+    Os dados armazenados no servidor do Mconf em nenhum momento serão distribuídos para qualquer pessoa ou instituição.
+    Reforça-se que o Mconf <b>não possui acesso</b> à senha do usuário quando este utiliza o login através da federação.
+    </p>
+
+    <p>
+    A partir do momento em que um usuário se registra, os dados do seu perfil <b>público</b> estarão visíveis para todos os outros usuários do site.
+    Nestes dados estão inclusos o seu nome completo e outras informações opcionais (organização, cidade, país e outras) que inicialmente não estarão preenchidas.
+    Usuários logados através da federação também possuem um perfil público assim como o restante dos usuários.
+    </p>
+
+    <p>
+    Além do perfil público os usuários possuem um perfil <b>privado</b>. Uma das informações do perfil privado é o e-mail do usuário.
+    A visibilidade deste perfil (assim como as informações de ambos os perfis) pode ser configurada na página de edição do perfil do usuário, vista na imagem abaixo:
+    <%= "(<a href=\"#{edit_user_profile_path(current_user)}\">clique aqui para acessá-la</a>)".html_safe if logged_in? %>
+    <br/>
+    <img src="images/terms_cafe/profiles.png" />
+    </p>
+  </div>
+
+  <div class="terms_paragraph">
+  <h4>4. Suporte ao serviço do projeto GT-Mconf</h4>
+    Este projeto é um GT de fase 2 da RNP, não sendo um serviço oficial da RNP, portanto, todo e qualquer contato sobre o uso do mesmo deverá ser feito através do e-mail <a href="mailto:mconf.prav@gmail.com">mconf.prav@gmail.com</a> ou utilizando <a href="https://mconf.org/feedback/new">a seção de feedback deste site</a>.
+    Reforça-se que a equipe da federação CAFe não tem qualquer ônus, e todo e qualquer contato deverá ser redirecionado ao coordenador do projeto Mconf, na UFRGS.
+  </div>
+
+  <div class="terms_paragraph">
+  <h4>5 Permissões de acesso</h4>
+    Toda e qualquer pessoa em qualquer instituição ligada à federação CAFe tem poder de usar o sistema, e o poder é idêntico para todos, não havendo privilégios ou poderes especiais a qualquer pessoa.
+    O mesmo é válido para pessoas conectadas ao sistema sem utilizar a federação.
+  </div>
+
+  <div class="terms_paragraph">
+  <h4>6. Custo</h4>
+    Esse é um projeto vinculado aos grupos de trabalho RNP, e enquanto for projeto ou serviço experimental, o uso é gratuito para qualquer número de pessoas e qualquer número de instituições.
+    Caso a pessoa não pertença a instituições vinculadas à federação CAFe, pode fazer o registro diretamente no site, através de um login e senha escolhidos na hora do registro.
+  </div>
+
+</div>
