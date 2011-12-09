@@ -1375,6 +1375,7 @@ pt-br:
   logged_out: "Você foi desconectado"
   login: 
     email: E-mail
+    email_or_login: "E-mail ou usuário"
     one: Login
     password: Senha
   login_or_register: "Login / Registre-se"

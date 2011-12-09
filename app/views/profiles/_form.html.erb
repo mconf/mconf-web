@@ -83,7 +83,7 @@
         </div>
         <div class="profile_content_item">
 
-                <h4 class="margin-up"><%= t('privacy') + ": " + t('profile.visibility_edit')%></h4>
+                <h4 class="margin-up"><%= t('profile.privacy') + ": " + t('profile.visibility_edit')%></h4>
                 <div class="profile_visibility_gradient">
                         <% for vis_symbol in Profile::VISIBILITY do %>
                           <div class="margin-up"><%= f.radio_button :visibility, Profile::VISIBILITY.index(vis_symbol)%>
