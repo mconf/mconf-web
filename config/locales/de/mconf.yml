@@ -24,11 +24,6 @@ de:
     errors: 
       messages: 
         missing: fehlt
-      template: 
-        body: "Es gab Probleme mit den folgenden Bereichen:"
-        header: 
-          one: "1 Fehler verboten diesem %{model} nicht gespeichert"
-          other: "%{count} errors prohibited this %{model} from being saved"
   add: Hinzufügen
   add_more_details: "Hinzufügen weiterer Details"
   address: Adresse
