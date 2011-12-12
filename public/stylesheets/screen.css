@@ -2672,12 +2672,27 @@ h3.dialog_title {
 #terms_title h1, #privacy_title h1 {
   font-size: 1.6em;
 }
-#terms_body .terms_paragraph, #pricacy_body .privacy_paragraph {
+#terms_body .terms_paragraph {
   margin-top: 20px;
 }
-#terms_body .terms_paragraph h3, #privacy_body .privacy_paragraph h3 {
+#terms_body .terms_paragraph h3 {
   font-size: 1.2em;
 }
-#terms_body .terms_paragraph h4, #privacy_body .privacy_paragraph h4 {
+#terms_body .terms_paragraph h4 {
   margin-bottom: 7px;
+}
+#terms_body .image_area {
+  margin-top: 10px;
+  text-align: center;
+}
+#terms_body .image_area img {
+  padding: 4px;
+  background: white;
+  border: 1px solid #ccc;
+}
+#terms_body .image_area .legend {
+  font-style: italic;
+  display: block;
+  text-align: center;
+  margin-bottom: 15px;
 }
