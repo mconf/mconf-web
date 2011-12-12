@@ -1046,6 +1046,12 @@ de:
   locale: 
     changed: "Application Sprache geändert "
     error: "Kann Veränderung der Sprache der Anwendung zu"
+  locales: 
+    de: Deutsch
+    en: English
+    es: Español
+    fr: Fraçais
+    pt-br: "Português (Brasil)"
   logged_in_successfully: "Angemeldet erfolgreich"
   logged_out: "Sie wurden abgemeldet"
   login: Login

@@ -1370,6 +1370,12 @@ pt-br:
   locale: 
     changed: "Idioma da aplicação alterado para "
     error: "Não foi possível alterar o idioma do aplicativo para"
+  locales: 
+    de: Deutsch
+    en: English
+    es: Español
+    fr: Fraçais
+    pt-br: "Português (Brasil)"
   logged_in_successfully: "Logado com sucesso"
   logged_out: "Você foi desconectado"
   login: 

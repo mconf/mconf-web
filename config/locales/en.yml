@@ -1371,6 +1371,12 @@ en:
   locale: 
     changed: "Application language changed to "
     error: "Unable to change application language to "
+  locales: 
+    de: Deutsch
+    en: English
+    es: Español
+    fr: Fraçais
+    pt-br: "Português (Brasil)"
   logged_in_successfully: "Logged in successfully"
   logged_out: "You have been logged out"
   login: 

@@ -1085,6 +1085,12 @@ es:
   locale: 
     changed: "Idioma de la aplicación cambiado a"
     error: "No se puede cambiar el idioma de la aplicación a"
+  locales: 
+    de: Deutsch
+    en: English
+    es: Español
+    fr: Fraçais
+    pt-br: "Português (Brasil)"
   logged_in_successfully: "Credenciales válidas"
   logged_out: "Ha salido de la aplicación"
   login: Entrar

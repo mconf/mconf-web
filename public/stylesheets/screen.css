@@ -934,6 +934,12 @@ div#manage .user a:hover{text-decoration:underline;}
 #footer ul li{display:inline-block;position:relative;margin-right:3px;}
 #footer ul #trade_mark{font-weight:bold;color:#111;}
 #footer .icon,#global .icon{margin-bottom:-4px;}
+#footer .languages {
+  border-top: 1px solid #E1EEF5;
+  margin-top:10px;
+  padding-top:10px;
+  text-align:center;
+}
 
 /*Inbox*/
 #inbox-wrapper{background:#fff url("../images/dot1.png") repeat-x bottom;}

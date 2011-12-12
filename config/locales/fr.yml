@@ -1046,6 +1046,12 @@ fr:
   locale: 
     changed: "Langue de la candidature changé "
     error: "Impossible de changer la langue de la demande"
+  locales: 
+    de: Deutsch
+    en: English
+    es: Español
+    fr: Fraçais
+    pt-br: "Português (Brasil)"
   logged_in_successfully: "Connecté avec succès"
   logged_out: "Vous avez été déconnecté"
   login: Login
