@@ -17,6 +17,18 @@ de:
     one: Aktion
     other: Aktionen
   actions: Aktionen
+  activerecord: 
+    attributes: 
+      user: 
+        login: Login
+    errors: 
+      messages: 
+        missing: fehlt
+      template: 
+        body: "Es gab Probleme mit den folgenden Bereichen:"
+        header: 
+          one: "1 Fehler verboten diesem %{model} nicht gespeichert"
+          other: "%{count} errors prohibited this %{model} from being saved"
   add: Hinzufügen
   add_more_details: "Hinzufügen weiterer Details"
   address: Adresse
@@ -261,6 +273,11 @@ de:
   created_at: "Erstellt am"
   created_at_date: "Erstellt: %{date}"
   created_time_ago: "Erstellt %{time} ago"
+  date: 
+    at: at
+    end: "End date"
+    start: "Start date"
+    undefined: Undefined
   days: Days
   dblclick: "Doppelklicken Sie zum Bearbeiten ..."
   delete: 
@@ -1416,6 +1433,9 @@ de:
   street: Straße
   subject: Gegenstand
   summary: Summary
+  support: 
+    one: Unterstützung
+    words_connector: ","
   tag: 
     add: "Tags hinzufügen"
     attachment: "Stichworte für die Befestigung"
@@ -1451,6 +1471,11 @@ de:
     show_comment_size: "Angezeigt wird die %{size} Kommentare, um die Nachricht"
     show_last_comment: "Showing last %{size} comments of %{children}"
     show_one_only_comment: "Angezeigt wird die einzige Kommentar, um die Nachricht"
+  time: 
+    end: "End time"
+    from: von
+    start: "Start time"
+    to: bis
   timezone: 
     one: Zeitzone
     set_up: "Sie haben noch nicht eingerichtet Ihre Zeitzone. Stellen Sie sich jetzt an"
@@ -1518,6 +1543,7 @@ de:
     e-mail: E-Mail
     edit_account: "Bearbeiten Sie Ihr Konto"
     email: E-Mail
+    email_used_to_create_account: "Geben Sie die E-Mail-Adresse, die Sie zum Erstellen Ihres Kontos"
     enable: "Aktivieren Sie Benutzer"
     enabled: "User erfolgreich aktiviert. Der Benutzer gehört zur Zeit zu keinen Platz und müssen Räume wieder beizutreten."
     error: 
@@ -1558,7 +1584,6 @@ de:
       other: OpenIDs
     other: Benutzer
     password: Kennwort
-    password_info: "Geben Sie die E-Mail-Adresse, die Sie zum Erstellen Ihres Kontos"
     private_message: "Nachricht senden"
     recent_join: "Aktuelle Benutzer beigetreten"
     registered: "Vielen Dank für Ihre Registrierung! Wir haben gerade Anleitung zur Aktivierung Ihres Benutzerkontos gesendet"

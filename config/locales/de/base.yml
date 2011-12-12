@@ -223,8 +223,6 @@ de:
         taken: "ist bereits vergeben"
         record_invalid: "Gültigkeitsprüfung ist fehlgeschlagen: %{errors}"
         <<: *errors_messages
-      template:
-        <<: *errors_template
 
       full_messages:
         format: "%{attribute} %{message}"

@@ -39,17 +39,16 @@ GIT
     teambox-permalink_fu (1.0.1)
 
 GIT
-  remote: git://github.com/mconf/translate.git
-  revision: 3f58668cf38c1e7942cfa4df3c065491723c628d
-  specs:
-    translate-rails3 (0.1.1)
-      ya2yaml (~> 0.30)
-
-GIT
   remote: git://github.com/rmagick/rmagick.git
   revision: 4c3d6450483c3e761a1d3f9967b43c0a46d4763f
   specs:
     rmagick (0.0.0)
+
+PATH
+  remote: ~/translate
+  specs:
+    translate-rails3 (0.1.1)
+      ya2yaml (~> 0.30)
 
 GEM
   remote: http://rubygems.org/

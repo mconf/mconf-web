@@ -17,6 +17,15 @@ es:
     one: Acción
     other: Acciones
   actions: Acciones
+  activerecord: 
+    attributes: 
+      user: 
+        login: Login
+    errors: 
+      attributes: ~
+      messages: 
+        missing: falta
+      models: ~
   add: Agregar
   add_more_details: "Añadir más detalles"
   address: Dirección
@@ -286,6 +295,11 @@ es:
   created_at: Creado
   created_at_date: "Creado: %{date}"
   created_time_ago: "Creado hace %{time}"
+  date: 
+    at: "a las"
+    end: "Fecha de finalización"
+    start: "Fecha de inicio"
+    undefined: Indefinido
   days: Días
   dblclick: "Haga doble click para editar..."
   delete: 
@@ -1474,6 +1488,11 @@ es:
   street: Calle
   subject: Tema
   summary: "Video Info"
+  support: 
+    array: 
+      sentence_connector: "y"
+    one: Soporte
+    words_connector: ","
   tag: 
     add: "Agregar etiquetas"
     attachment: "Etiquetas para el fichero adjunto"
@@ -1509,6 +1528,11 @@ es:
     show_comment_size: "Mostrando los %{size} comentarios al mensaje"
     show_last_comment: "Mostrando los últimos %{size} comentarios de %{children}"
     show_one_only_comment: "Mostrando el único comentario del mensaje."
+  time: 
+    end: "Hora de finalización"
+    from: desde
+    start: "Hora de inicio"
+    to: hasta
   timezone: 
     one: "Zona Horaria"
     set_up: "Usted no ha configurado su zona horaria. <a href=\"%{path}\">Configurarlo ahora</a>"
@@ -1577,6 +1601,7 @@ es:
     e-mail: "correo electrónico"
     edit_account: "Modificar su cuenta"
     email: "correo electrónico"
+    email_used_to_create_account: "Introduzca la dirección de correo electrónico que utilizó para crear su cuenta"
     enable: "Habilitar usuario"
     enabled: "Usuario habilitado correctamente. El usuario actualmente no pertenece a ningún espacio. Tendrá que solicitar la participación en los espacios nuevamente."
     error: 
@@ -1621,7 +1646,6 @@ es:
       other: OpenIDs
     other: Usuarios
     password: Contraseña
-    password_info: "Introduzca la dirección de correo electrónico que utilizó para crear su cuenta"
     private_message: "Mensaje privado"
     recent_join: "Usuarios que se han unido recientemente"
     registered: "¡Gracias por registrarse! Le hemos enviado un correo electrónico con las instrucciones sobre cómo activar su cuenta de usuario."

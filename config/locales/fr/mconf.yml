@@ -17,6 +17,16 @@ fr:
     one: Action
     other: Actes
   actions: Actes
+  activerecord: 
+    attributes: 
+      user: 
+        login: Login
+    errors: 
+      messages: 
+        missing: "est manquant"
+        too_long: "est trop long (maximum est de %{count} caractères)"
+        too_short: "est trop court (minimum est de %{count} caractères)"
+        wrong_length: "est la bonne longueur (devrait être %{count} caractères)"
   add: Ajouter
   add_more_details: "Ajouter plus de détails"
   address: Adresse
@@ -261,6 +271,11 @@ fr:
   created_at: "Created at"
   created_at_date: "Création: %{date}"
   created_time_ago: "Créé %{time} il ya"
+  date: 
+    at: at
+    end: "End date"
+    start: "Start date"
+    undefined: Undefined
   days: Journées
   dblclick: "Double-cliquez pour modifier ..."
   delete: 
@@ -1417,6 +1432,9 @@ fr:
   street: Rue
   subject: Sujet
   summary: Summary
+  support: 
+    one: Soutien
+    words_connector: ","
   tag: 
     add: "Ajouter des tags"
     attachment: "Tags pour la fixation"
@@ -1452,6 +1470,11 @@ fr:
     show_comment_size: "Showing the %{size} comments to the message"
     show_last_comment: "Showing last %{size} comments of %{children}"
     show_one_only_comment: "Voici le seul commentaire au message"
+  time: 
+    end: "End time"
+    from: "à partir de"
+    start: "Start time"
+    to: pour
   timezone: 
     one: Timezone
     set_up: "You have not set up your time zone. <a href=\"%{path}\">Set it up now</a>"
@@ -1519,6 +1542,7 @@ fr:
     e-mail: e-mail
     edit_account: "Modifier votre compte"
     email: e-mail
+    email_used_to_create_account: "Entrez l'adresse e-mail utilisée pour créer votre compte"
     enable: "Activer l'utilisateur"
     enabled: "L'utilisateur a été activé. L'utilisateur appartient actuellement à aucun espace, et aura à se joindre à nouveau les espaces."
     error: 
@@ -1559,7 +1583,6 @@ fr:
       other: OpenID
     other: Utilisateurs
     password: "Mot de passe"
-    password_info: "Entrez l'adresse e-mail utilisée pour créer votre compte"
     private_message: "Envoyer un message"
     recent_join: "utilisateurs récents rejoint"
     registered: "Merci pour votre inscription! Nous venons d'envoyer des instructions sur la façon d'activer votre compte d'utilisateur"
