@@ -1,13 +1,13 @@
-<div id="terms_draft"><%=t('terms.draft').html_safe%></div>
+<div id="terms_draft">Esta página é um rascunho e o seu conteúdo ainda não está efetivo neste site.</div>
 
 <div id="terms_title">
-  <h1>Termos e condições do uso do Mconf via federação CAFe</h1>
+  <h1>Termos e condições do acesso federado ao Mconf</h1>
 </div>
 
 <div id="terms_body">
 
   <div class="terms_paragraph">
-    <h4>1. Mecanismos de acesso ao projeto GT-Mconf via federação CAFe</h4>
+    <h4>1. Mecanismos de acesso ao projeto GT-Mconf via federação</h4>
     <p>
     O Mconf permite que o usuário se logue no sistema através da federação <a href="http://www.rnp.br/servicos/cafe.html">CAFe</a> (Comunidade Acadêmica Federada).
     Neste caso, o usuário autentica em um provedor de identidade registrado na federação, e este redireciona o usuário ao Mconf após o processo de autenticação.
@@ -31,16 +31,24 @@
 
     <p>
     Para fazer o login através da federação, o usuário precisa primeiro acessar o link "Logar usando a CAFe", disponível na <a href="/">página inicial</a> e na <a href="/login">página de login</a> deste site, como mostram as imagens abaixo:
-    <br/>
-    <img src="images/terms_cafe/login_cafe_1.png" />
-    <img src="images/terms_cafe/login_cafe_2.png" />
+    <div class="image_area">
+      <%= image_tag("/images/terms_federation/login_1.png") %>
+      <span class="legend">Acessar o login federado através da página inicial.</span>
+    </div>
+
+    <div class="image_area">
+      <%= image_tag("/images/terms_federation/login_2.png") %>
+      <span class="legend">Acessar o login federado através da página de login.</span>
+    </div>
     </p>
 
     <p>
     O usuário será então redirecionado para o serviço de seleção do seu provedor de identidade. Neste ele deve selecionar sua instituição, como mostra a imagem abaixo. Se o usuário
     já utilizou a federação recentemente, possivelmente ele será redirecionado direto pra o provedor de identidade, pulando esta etapa.
-    <br/>
-    <img src="images/terms_cafe/cafe_wayf.png" />
+    <div class="image_area">
+      <%= image_tag("/images/terms_federation/wayf.png") %>
+      <span class="legend">Exemplo de uma página para escolha do provedor de identidade na federação.</span>
+    </div>
     </p>
 
     <p>
@@ -60,14 +68,18 @@
 
     <p>
     Uma vez logado no sistema através da federação, o usuário pode ver as suas informações pessoais às quais o Mconf teve acesso. Basta acessar a seção "Conta" e clicar no link "Veja seus dados...", como mostra a imagem abaixo:
-    <br/>
-    <img src="images/any.png" width="200" height="80" />
+    <div class="image_area">
+      <%= image_tag("/images/terms_federation/see_your_data.png") %>
+      <span class="legend">Página informando ao usuário que ele está logado através de uma federação.</span>
+    </div>
     </p>
 
     <p>
     Segue abaixo um exemplo dos dados recebidos para um usuário de testes:
-    <br/>
-    <img src="images/any.png" width="200" height="80" />
+    <div class="image_area">
+      <%= image_tag("/images/terms_federation/user_data.png") %>
+      <span class="legend">Dados recebidos da federação para um usuário de testes.</span>
+    </div>
     </p>
 
     <p>
@@ -92,27 +104,29 @@
     Além do perfil público os usuários possuem um perfil <b>privado</b>. Uma das informações do perfil privado é o e-mail do usuário.
     A visibilidade deste perfil (assim como as informações de ambos os perfis) pode ser configurada na página de edição do perfil do usuário, vista na imagem abaixo:
     <%= "(<a href=\"#{edit_user_profile_path(current_user)}\">clique aqui para acessá-la</a>)".html_safe if logged_in? %>
-    <br/>
-    <img src="images/terms_cafe/profiles.png" />
+    <div class="image_area">
+      <%= image_tag("/images/terms_federation/profiles.png") %>
+      <span class="legend">Páginas de edição dos perfis público e privado.</span>
+    </div>
     </p>
   </div>
 
   <div class="terms_paragraph">
   <h4>4. Suporte ao serviço do projeto GT-Mconf</h4>
     Este projeto é um GT de fase 2 da RNP, não sendo um serviço oficial da RNP, portanto, todo e qualquer contato sobre o uso do mesmo deverá ser feito através do e-mail <a href="mailto:mconf.prav@gmail.com">mconf.prav@gmail.com</a> ou utilizando <a href="https://mconf.org/feedback/new">a seção de feedback deste site</a>.
-    Reforça-se que a equipe da federação CAFe não tem qualquer ônus, e todo e qualquer contato deverá ser redirecionado ao coordenador do projeto Mconf, na UFRGS.
+    Reforça-se que a equipe da federação não tem qualquer ônus, e todo e qualquer contato deverá ser redirecionado ao coordenador do projeto Mconf, na UFRGS.
   </div>
 
   <div class="terms_paragraph">
   <h4>5 Permissões de acesso</h4>
-    Toda e qualquer pessoa em qualquer instituição ligada à federação CAFe tem poder de usar o sistema, e o poder é idêntico para todos, não havendo privilégios ou poderes especiais a qualquer pessoa.
+    Toda e qualquer pessoa em qualquer instituição ligada à federação tem poder de usar o sistema, e o poder é idêntico para todos, não havendo privilégios ou poderes especiais a qualquer pessoa.
     O mesmo é válido para pessoas conectadas ao sistema sem utilizar a federação.
   </div>
 
   <div class="terms_paragraph">
   <h4>6. Custo</h4>
     Esse é um projeto vinculado aos grupos de trabalho RNP, e enquanto for projeto ou serviço experimental, o uso é gratuito para qualquer número de pessoas e qualquer número de instituições.
-    Caso a pessoa não pertença a instituições vinculadas à federação CAFe, pode fazer o registro diretamente no site, através de um login e senha escolhidos na hora do registro.
+    Caso a pessoa não pertença a instituições vinculadas à federação, pode fazer o registro diretamente no site, através de um login e senha escolhidos na hora do registro.
   </div>
 
 </div>
