@@ -46,35 +46,8 @@ pt-br:
       user: 
         login: Login
     errors: 
-      full_messages: 
-        format: "%{attribute} %{message}"
       messages: 
-        accepted: "deve ser aceito"
-        blank: "não pode estar em branco"
-        confirmation: "não coincide com a confirmação"
-        empty: "não pode estar vazio"
-        equal_to: "deve ser igual a %{count}"
-        even: "deve ser par"
-        exclusion: "está reservado"
-        greater_than: "deve ser maior que %{count}"
-        greater_than_or_equal_to: "deve ser maior ou igual a %{count}"
-        inclusion: "não está incluído na lista"
-        invalid: "é inválido"
-        less_than: "deve ser inferior a %{count}"
-        less_than_or_equal_to: "deve ser menor ou igual a %{count}"
         missing: "não encontrado"
-        not_a_number: "não é um número"
-        odd: "deve ser ímpar"
-        record_invalid: "Validação falhou: %{errors}"
-        taken: "já está em uso"
-        too_long: "é muito longo (máximo de %{count} caracteres)"
-        too_short: "é muito curto (mínimo de %{count} caracteres)"
-        wrong_length: "é o tamanho errado (deveria ser %{count} caracteres)"
-      template: 
-        body: "Houve problemas com os seguintes campos:"
-        header: 
-          one: "Um erro impediu este %{model} de ser salvo"
-          other: "%{count} erros impediram este %{model} de ser salvo"
     models: 
       bigbluebutton_room: "Sala BigBlueButton"
       bigbluebutton_server: "Servidor BigBlueButton"
@@ -412,104 +385,10 @@ pt-br:
   created_at_date: "Criado em: %{date}"
   created_time_ago: "Criado %{time} atrás"
   date: 
-    abbr_day_names: 
-      - Dom
-      - Seg
-      - Ter
-      - Qua
-      - Qui
-      - Sex
-      - Sáb
-    abbr_month_names: 
-      - Jan
-      - Fev
-      - Mar
-      - Abr
-      - Mai
-      - Jun
-      - Jul
-      - Ago
-      - Set
-      - Out
-      - Nov
-      - Dez
     at: às
-    day_names: 
-      - Domingo
-      - Segunda
-      - Terça
-      - Quarta
-      - Quinta
-      - Sexta
-      - Sábado
     end: "Data final"
-    formats: 
-      default: "%d/%m/%y"
-      long: "%B %d, %Y"
-      short: "%b %d"
-    month_names: 
-      - ~
-      - Janeiro
-      - Fevereiro
-      - Março
-      - Abril
-      - Maio
-      - Junho
-      - Julho
-      - Agosto
-      - Setembro
-      - Outubro
-      - Novembro
-      - Dezembro
-    order: 
-      - !ruby/symbol year
-      - !ruby/symbol month
-      - !ruby/symbol day
     start: "Data inicial"
     undefined: "Não definido"
-  datetime: 
-    distance_in_words: 
-      about_x_hours: 
-        one: "1 hora"
-        other: "%{count} horas"
-      about_x_months: 
-        one: "1 mês"
-        other: "%{count} meses"
-      about_x_years: 
-        one: "1 ano"
-        other: "%{count} anos"
-      almost_x_years: 
-        one: "quase um ano"
-        other: "quase %{count} anos"
-      half_a_minute: "meio minuto"
-      less_than_x_minutes: 
-        one: "1 minuto"
-        other: "%{count} minutos"
-      less_than_x_seconds: 
-        one: "1 segundo"
-        other: "%{count} segundos"
-      over_x_years: 
-        one: "1 ano"
-        other: "%{count} anos"
-      x_days: 
-        one: "1 dia"
-        other: "%{count} dias"
-      x_minutes: 
-        one: "1 minuto"
-        other: "%{count} minutos"
-      x_months: 
-        one: "1 mês"
-        other: "%{count} meses"
-      x_seconds: 
-        one: "1 segundo"
-        other: "%{count} segundos"
-    prompts: 
-      day: Dia
-      hour: Hora
-      minute: Minuto
-      month: Mês
-      second: Segundos
-      year: Ano
   days: Dias
   dblclick: "Duplo clique para editar..."
   delete: 
@@ -573,27 +452,6 @@ pt-br:
     vcc_warning: "Aviso geral:"
   errors: 
     dynamic_format: "%{message}"
-    format: "%{attribute} %{message}"
-    messages: 
-      accepted: "deve ser aceito"
-      blank: "não pode estar em branco"
-      confirmation: "não coincide com a confirmação"
-      empty: "não pode estar vazio"
-      equal_to: "deve ser igual a %{count}"
-      even: "deve ser par"
-      exclusion: "está reservado"
-      greater_than: "deve ser maior que %{count}"
-      greater_than_or_equal_to: "deve ser maior ou igual a %{count}"
-      inclusion: "não está incluído na lista"
-      invalid: "é inválido"
-      less_than: "deve ser inferior a %{count}"
-      less_than_or_equal_to: "deve ser menor ou igual a %{count}"
-      not_a_number: "não é um número"
-      not_an_integer: "deve ser um inteiro"
-      odd: "deve ser ímpar"
-      too_long: "é muito longo (o máximo é %{count} caracteres)"
-      too_short: "é muito curto (o mínimo é %{count} caracteres)"
-      wrong_length: "tem comprimento errado (deveria ter %{count} caracteres)"
   eu_commision: "Comissão Européia"
   event: 
     Isabel: "Evento Isabel"
@@ -1166,13 +1024,6 @@ pt-br:
   help_vcc: 
     info: "Aqui você pode encontrar informações sobre o Global"
     topics: Tópicos
-  helpers: 
-    select: 
-      prompt: "Por favor, selecione"
-    submit: 
-      create: "Criar %{model}"
-      submit: "Salvar %{model}"
-      update: "Atualizar %{model}"
   hide: Esconder
   his_message_reads_thus: "Sua mensagem diz assim"
   home: 
@@ -1424,7 +1275,7 @@ pt-br:
       new: "Nova mensagem privada"
       none: "Não há mensagens"
       send: "Enviar uma mensagem privada"
-    reply: "Responder Ã  mensagem"
+    reply: "Responder Ã  mensagem"
     send: "Enviar mensagem"
     sent: 
       other: "Mensagens enviadas"
@@ -1463,52 +1314,13 @@ pt-br:
   not_going: "Eu não pretendo participar"
   now_exclamation: Agora!
   number: 
-    currency: 
-      format: 
-        delimiter: ","
-        format: "%u%n"
-        precision: "2"
-        separator: "."
-        significant: false
-        strip_insignificant_zeros: false
-        unit: $
-    format: 
-      delimiter: ","
-      precision: "3"
-      separator: "."
-      significant: false
-      strip_insignificant_zeros: false
     human: 
       decimal_units: 
-        format: "%n %u"
         units: 
           billion: Bilhões
           million: Milhões
           quadrillion: Quatrilhões
-          thousand: Mil
           trillion: Trilhão
-          unit: ""
-      format: 
-        delimiter: ""
-        precision: "1"
-        significant: true
-        strip_insignificant_zeros: true
-      storage_units: 
-        format: "%n %u"
-        units: 
-          byte: 
-            one: Byte
-            other: Bytes
-          gb: GB
-          kb: KB
-          mb: MB
-          tb: TB
-    percentage: 
-      format: 
-        delimiter: ""
-    precision: 
-      format: 
-        delimiter: ""
   ok: OK
   older: "Mais velho"
   online: online
@@ -1516,7 +1328,7 @@ pt-br:
     client: 
       associating_to_id: "Associado ao OpenID: %{id}"
       discovery_failed: "Descoberta falhou para %{id}: %{error}"
-      id_attached_to_account: "OpenID: %{id} associado Ã  sua conta"
+      id_attached_to_account: "OpenID: %{id} associado Ã  sua conta"
       immediate_request_failed: "Pedido imediato falhou - Configuração Necessária"
       transaction_cancelled: "Transação OpenID cancelada"
       verification_failed: "Verificação falhou: %{message}"
@@ -2057,13 +1869,7 @@ pt-br:
   subject: Assunto
   summary: "Informações do vídeo"
   support: 
-    array: 
-      last_word_connector: " e"
-      two_words_connector: e
-      words_connector: ","
     one: Suporte
-    select: 
-      prompt: "Por favor, selecione"
     words_connector: ","
   tag: 
     add: "Adicionar tags"
@@ -2099,16 +1905,10 @@ pt-br:
     see_more: "Quer ver mais detalhes das mensagens?"
     show_comment_size: "Mostrando os %{size} comentários para a mensagem"
     show_last_comment: "Mostrando os últimos %{size} comentários de %{children}"
-    show_one_only_comment: "Mostrando o único comentário Ã  mensagem"
+    show_one_only_comment: "Mostrando o único comentário Ã  mensagem"
   time: 
-    am: am
     end: "Hora de término"
-    formats: 
-      default: "%a, %d %b %Y %H:%M:%S %z"
-      long: "%B %d, %Y %H:%M"
-      short: "%d %b %H:%M"
     from: "a partir de"
-    pm: pm
     start: "Horário de início"
     to: para
   timezone: 

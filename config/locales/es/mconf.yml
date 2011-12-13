@@ -23,36 +23,9 @@ es:
         login: Login
     errors: 
       attributes: ~
-      full_messages: 
-        format: "%{attribute} %{message}"
       messages: 
-        accepted: "debe ser aceptado"
-        blank: "no puede estar en blanco"
-        confirmation: "no coincide con la confirmación"
-        empty: "no puede estar vacío"
-        equal_to: "debe ser igual a %{count}"
-        even: "debe ser par"
-        exclusion: "está reservado"
-        greater_than: "debe ser mayor que %{count}"
-        greater_than_or_equal_to: "debe ser mayor que o igual a %{count}"
-        inclusion: "no está incluido en la lista"
-        invalid: "no es válido"
-        less_than: "debe ser menor que %{count}"
-        less_than_or_equal_to: "debe ser menor que o igual a %{count}"
         missing: falta
-        not_a_number: "no es un número"
-        odd: "debe ser impar"
-        record_invalid: "Validación errónea: %{errors}"
-        taken: "ya está en uso"
-        too_long: "es demasiado largo (%{count} caracteres máximo)"
-        too_short: "es demasiado corto (%{count} caracteres mínimo)"
-        wrong_length: "no tiene la longitud correcta (%{count} caracteres exactos)"
       models: ~
-      template: 
-        body: "Se encontraron problemas en los siguientes campos:"
-        header: 
-          one: "No se pudo guardar %{model} porque se encontró 1 error"
-          other: "No se pudo guardar %{model} porque se encontraron %{count} errores"
   add: Agregar
   add_more_details: "Añadir más detalles"
   address: Dirección
@@ -323,102 +296,10 @@ es:
   created_at_date: "Creado: %{date}"
   created_time_ago: "Creado hace %{time}"
   date: 
-    abbr_day_names: 
-      - dom
-      - lun
-      - mar
-      - mie
-      - jue
-      - vie
-      - sab
-    abbr_month_names: 
-      - ~
-      - ene
-      - feb
-      - mar
-      - abr
-      - may
-      - jun
-      - jul
-      - ago
-      - sep
-      - oct
-      - nov
-      - dic
     at: "a las"
-    day_names: 
-      - domingo
-      - lunes
-      - martes
-      - miércoles
-      - jueves
-      - viernes
-      - sábado
     end: "Fecha de finalización"
-    formats: 
-      default: "%d/%m/%y"
-      long: "%d de %B de %Y"
-      short: "%d de %b"
-    month_names: 
-      - ~
-      - enero
-      - febrero
-      - marzo
-      - abril
-      - mayo
-      - junio
-      - julio
-      - agosto
-      - septiembre
-      - octubre
-      - noviembre
-      - diciembre
-    order: 
-      - !ruby/symbol year
-      - !ruby/symbol month
-      - !ruby/symbol day
     start: "Fecha de inicio"
     undefined: Indefinido
-  datetime: 
-    distance_in_words: 
-      about_x_hours: 
-        one: "alrededor de 1 hora"
-        other: "alrededor de %{count} horas"
-      about_x_months: 
-        one: "alrededor de 1 mes"
-        other: "alrededor de %{count} meses"
-      about_x_years: 
-        one: "alrededor de 1 año"
-        other: "alrededor de %{count} años"
-      half_a_minute: "medio minuto"
-      less_than_x_minutes: 
-        one: "menos de 1 minuto"
-        other: "menos de %{count} minutos"
-      less_than_x_seconds: 
-        one: "menos de 1 segundo"
-        other: "menos de %{count} segundos"
-      over_x_years: 
-        one: "más de 1 año"
-        other: "más de %{count} años"
-      x_days: 
-        one: "1 día"
-        other: "%{count} días"
-      x_minutes: 
-        one: "1 minuto"
-        other: "%{count} minutos"
-      x_months: 
-        one: "1 mes"
-        other: "%{count} meses"
-      x_seconds: 
-        one: "1 segundo"
-        other: "%{count} segundos"
-    prompts: 
-      day: Día
-      hour: Hora
-      minute: Minuto
-      month: Mes
-      second: Segundos
-      year: Año
   days: Días
   dblclick: "Haga doble click para editar..."
   delete: 
@@ -1169,38 +1050,6 @@ es:
   none: Ninguno
   not_going: "No puedo asistir"
   now_exclamation: Ahora!
-  number: 
-    currency: 
-      format: 
-        delimiter: ","
-        format: "%u%n"
-        precision: 2
-        separator: "."
-        unit: $
-    format: 
-      delimiter: ","
-      precision: 3
-      separator: "."
-    human: 
-      format: 
-        delimiter: ""
-        precision: 1
-      storage_units: 
-        format: "%n %u"
-        units: 
-          byte: 
-            one: Byte
-            other: Bytes
-          gb: GB
-          kb: KB
-          mb: MB
-          tb: TB
-    percentage: 
-      format: 
-        delimiter: ""
-    precision: 
-      format: 
-        delimiter: ""
   ok: OK
   older: "Más viejo"
   online: online
@@ -1647,13 +1496,8 @@ es:
   summary: "Video Info"
   support: 
     array: 
-      last_word_connector: ", y"
       sentence_connector: "y"
-      two_words_connector: "y "
-      words_connector: ", "
     one: Soporte
-    select: 
-      prompt: "Por favor seleccione"
     words_connector: ","
   tag: 
     add: "Agregar etiquetas"
@@ -1691,14 +1535,8 @@ es:
     show_last_comment: "Mostrando los últimos %{size} comentarios de %{children}"
     show_one_only_comment: "Mostrando el único comentario del mensaje."
   time: 
-    am: am
     end: "Hora de finalización"
-    formats: 
-      default: "%a, %d %b %Y %H:%M:%S %z"
-      long: "%B %d, %Y %H:%M"
-      short: "%d %b %H:%M"
     from: desde
-    pm: pm
     start: "Hora de inicio"
     to: hasta
   timezone: 
