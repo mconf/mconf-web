@@ -43,6 +43,8 @@ group :development do
   gem 'capistrano', '~> 2.5'
   gem 'capistrano-ext'
   gem 'translate-rails3', :require => 'translate', :git => 'git://github.com/mconf/translate.git'
+  gem 'sass', '~> 3.1'
+  gem 'compass', '~> 0.11'
 end
 
 group :development, :test do

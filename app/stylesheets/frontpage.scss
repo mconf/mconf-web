@@ -1,67 +1,64 @@
+$contents-width: 960px;
+
+// TODO: can be put in base.scss maybe
 /* forms.css */
-.error, .notice, .success {
-  padding: .8em;
-  margin-bottom: 1em;
-  text-align: center; }
+.error, .notice, .success {padding:.8em;margin-bottom:1em;text-align:center;}
+.error {background:#FBE3E4;color:#8a1f11;}
+.notice {background:#FFF6BF;color:#514721;}
+.success {background:#E6EFC2;color:#264409;}
+.error a {color:#8a1f11;}
+.notice a {color:#514721;}
+.success a {color:#264409;}
 
-.error {
-  background: #FBE3E4;
-  color: #8a1f11; }
-
-.notice {
-  background: #FFF6BF;
-  color: #514721; }
-
-.success {
-  background: #E6EFC2;
-  color: #264409; }
-
-.error a {
-  color: #8a1f11; }
-
-.notice a {
-  color: #514721; }
-
-.success a {
-  color: #264409; }
 
 #site {
   background-color: #f5f5f5;
   margin: 0px auto;
-  width: 100%; }
+  width: 100%;
+}
 
 #global-header {
   padding: 0;
-  background-color: #1F4A75; }
+  background-color: #1F4A75;
+}
 
 #global-header-content {
-  width: 960px;
+  width: $contents-width;
   margin: 0 auto;
   padding: 0.5em 0;
-  height: 200px; }
-  #global-header-content a {
+  height: 200px;
+  a {
     color: #eee;
-    text-decoration: none; }
+    text-decoration: none;
+  }
+}
 
 #frontpage-logo {
   float: left;
   width: 200px;
-  margin-top: 50px; }
-  #frontpage-logo .title {
+  margin-top: 50px;
+
+  .title {
     color: white;
     font-weight: bold;
     font-size: 82px;
-    text-shadow: #6374AB 1px 1px 5px; }
-    #frontpage-logo .title:hover {
-      text-shadow: #909ec9 1px 1px 5px; }
-  #frontpage-logo .subtitle {
+    text-shadow: #6374AB 1px 1px 5px;
+    &:hover {
+      text-shadow: #909ec9 1px 1px 5px;
+    }
+  }
+
+  .subtitle {
     margin-left: 5px;
     color: #ccc;
     font-size: 16px;
     font-style: italic;
-    text-shadow: #888 1px 1px 3px; }
-    #frontpage-logo .subtitle:hover {
-      text-shadow: #909ec9 1px 1px 3px; }
+    text-shadow: #888 1px 1px 3px;
+    &:hover {
+      text-shadow: #909ec9 1px 1px 3px;
+    }
+  }
+}
 
 #login-box {
   float: right;
@@ -72,9 +69,19 @@
   vertical-align: top;
   padding-top: 5px;
   font-weight: normal;
-  margin-top: 3px; }
-  #login-box .action-links {
-    padding-top: 10px; }
+  margin-top: 3px;
+
+  .action-links {
+    padding-top: 10px;
+  }
+}
+
+
+
+
+
+
+
 
 /*
 
