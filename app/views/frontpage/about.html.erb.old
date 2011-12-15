@@ -391,7 +391,7 @@ Please do not hesitate to join the <a href="http://globalplaza.org">Global Plaza
                   <div id="about-sidebar">
                         <div id="go-vcc">
                           <img alt="Vcc-logo" src="images/vcc-logo1.png" title="Virtual Conference Centre" />
-                          <button type="button" onclick="location.href='http://vcc.dit.upm.es'"><%= image_tag("bola_global_peque.png",:class=>"icon")%> Go to Virtual Conference Centre</button>
+                          <button type="button" onclick="location.href='http://vcc.dit.upm.es'"><%= image_tag("mconf_logo_small.png",:class=>"icon")%> Go to Virtual Conference Centre</button>
                         </div>
                         <br/>
 
@@ -504,7 +504,7 @@ Please do not hesitate to join the <a href="http://globalplaza.org">Global Plaza
 
           <div id="footer">
             <ul>
-              <li id="trade_mark"><img alt="Bola_global_peque" class="icon" src="/images/bola_global_peque.png?1242226208" /> global-project.eu</li>
+              <li id="trade_mark"><img alt="Bola_global_peque" class="icon" src="/images/mconf_logo_small.png?1242226208" /> global-project.eu</li>
               <li>-</li>
               <li><%= t('all_rights_reserved') %></li>
             </ul>
