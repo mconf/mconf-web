@@ -1,6 +1,10 @@
-$contents-width: 960px;
+@import "compass/css3";
+@import "compass/utilities/general";
 
-// TODO: can be put in base.scss maybe
+$contents-width: 980px;
+
+// TODO: some styles that are here can be put in base.scss
+
 /* forms.css */
 .error, .notice, .success {padding:.8em;margin-bottom:1em;text-align:center;}
 .error {background:#FBE3E4;color:#8a1f11;}
@@ -41,10 +45,10 @@ $contents-width: 960px;
   .title {
     color: white;
     font-weight: bold;
-    font-size: 82px;
-    text-shadow: #6374AB 1px 1px 5px;
+    font-size: 72px;
+    @include text-shadow(#6374AB 1px 1px 5px);
     &:hover {
-      text-shadow: #909ec9 1px 1px 5px;
+      @include text-shadow(#909ec9 1px 1px 5px);
     }
   }
 
@@ -53,29 +57,88 @@ $contents-width: 960px;
     color: #ccc;
     font-size: 16px;
     font-style: italic;
-    text-shadow: #888 1px 1px 3px;
+    @include text-shadow(#888 1px 1px 3px);
     &:hover {
-      text-shadow: #909ec9 1px 1px 3px;
+      @include text-shadow(#909ec9 1px 1px 3px);
     }
   }
 }
 
 #login-box {
   float: right;
-  color: #FFF;
-  width: 580px;
+  color: #eee;
   display: inline-block;
   text-align: right;
   vertical-align: top;
-  padding-top: 5px;
-  font-weight: normal;
-  margin-top: 3px;
+  margin-top: 50px;
+  margin-right: 20px;
+  padding-right: 20px;
+  border-right: 1px solid #3a73ac;
 
   .action-links {
+    float: right;
     padding-top: 10px;
+    margin-right: 5px;
+  }
+
+  input[type=text], input[type=password] {
+    width: 200px;
+    font-size: 16px;
+    float: right;
+    clear: both;
+    margin-top: 5px;
+    @include border-radius(3px);
+    background: #eee;
+    @include background(linear-gradient(top, #ccc, #eee));
+
+    &:focus {
+      background: #fff;
+      border: 1px solid white;
+    }
+  }
+
+  label {
+    font-size: 18px;
+    float: right;
+    margin-right: 10px;
+    margin-top: 10px;
+  }
+
+  button {
+    font-size: 14px;
+    float: right;
+    clear: both;
+    margin-top: 5px;
   }
 }
 
+#registration-box {
+  float: right;
+  color: #eee;
+  display: inline-block;
+  text-align: right;
+  margin-top: 50px;
+  width: 250px;
+  font-size: 16px;
+  text-align: center;
+
+  .register_button {
+    color: #505050;
+    padding: 5px 10px;
+  }
+}
+
+#page-header {
+  padding: 0;
+  background-color: #ddd;
+}
+
+#page-header-content {
+  width: $contents-width;
+  margin: 0 auto;
+  padding: 0.5em 0;
+  height: 200px;
+}
 
 
 

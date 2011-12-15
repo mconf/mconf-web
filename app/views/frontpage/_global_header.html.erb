@@ -1,46 +1,33 @@
 <div id="global-header-content">
 
-  <% if logged_in? %>
+  <div id="frontpage-logo">
+    <a href="/"><span class="title"><%= t('mconf') %></span><span class="subtitle"><%= t('beta') %></span></a>
+  </div>
 
-    <% # TODO: this should never happen, add test %>
-    <ul id="prefs">
-      <% if current_user.superuser?%><li><%=link_to t('manage'), site_path%></li><% end %>
-      <li><%= link_to t('home.my'), home_path, menu_options(:home)%></li>
-      <li><%= link_to t('inbox.one', :checked => PrivateMessage.inbox(current_user).select{|msg| !msg.checked}.size), user_messages_path(current_user), menu_options(:inbox, :id => "user_inbox_link")%></li>
-      <li><%= link_to t('profile', :count => 1), user_path(current_user), menu_options(:profile)%></li>
-      <li><%= link_to t('account'), edit_user_path(current_user), menu_options(:preferences) %></li>
-      <li><%= link_to t('logout', :user => current_user.name), logout_path %></li>
-    </ul>
+  <div id="registration-box">
+    <span><%= t('frontpage.register_sentence') %></span><br/>
+    <a href="<%= signup_path %>" class="button register_button"><span><%= t('register.one') %></span></a>
+  </div>
 
-  <% else %>
+  <div id="login-box">
+    <%= form_tag session_url(:protocol => current_site.protocol), :class => "login_form" do -%>
 
-    <div id="frontpage-logo">
-      <a href="/"><span class="title"><%= t('mconf') %></span><span class="subtitle"><%= t('beta') %></span></a>
-    </div>
+      <%= text_field_tag 'login', params[:login] %>
+      <label for="login"><%= t('login.email_or_login') %></label>
 
-    <div id="login-box">
-      <%= form_tag session_url(:protocol => current_site.protocol), :class => "login_form" do -%>
+      <%= password_field_tag 'password', nil %>
+      <label for="password"><%= t('login.password') %></label>
 
-        <label for="login"><%= t('login.email_or_login') %></label>
-        <%= text_field_tag 'login', params[:login] %>
+      <button type="submit" class="button"><%=t("login.one")%></button>
+    <% end -%>
 
-        <label for="password"><%= t('login.password') %></label>
-        <%= password_field_tag 'password', nil %>
-
-        <button type="submit" class="basic_button medium_button pale_button"><%=t("login.one")%></button>
-      <% end -%>
-
-      <div class="action-links">
-        <%= link_to t('register.one'), signup_path %>
+    <div class="action-links">
+      <%= link_to t('user.lost_password'), lost_password_path %>
+      <% if current_site.shib_enabled? %>
         <span>|</span>
-        <%= link_to t('user.lost_password'), lost_password_path %>
-        <% if current_site.shib_enabled? %>
-          <span>|</span>
-          <%= link_to t('cafe.login'), shibboleth_path %>
-        <% end %>
-      </div>
+        <%= link_to t('cafe.login'), shibboleth_path %>
+      <% end %>
     </div>
-
-  <% end %>
+  </div>
 
 </div>

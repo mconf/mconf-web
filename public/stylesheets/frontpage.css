@@ -35,7 +35,7 @@
   background-color: #1F4A75; }
 
 #global-header-content {
-  width: 960px;
+  width: 980px;
   margin: 0 auto;
   padding: 0.5em 0;
   height: 200px; }
@@ -50,8 +50,8 @@
   #frontpage-logo .title {
     color: white;
     font-weight: bold;
-    font-size: 82px;
-    text-shadow: #6374AB 1px 1px 5px; }
+    font-size: 72px;
+    text-shadow: #6374ab 1px 1px 5px; }
     #frontpage-logo .title:hover {
       text-shadow: #909ec9 1px 1px 5px; }
   #frontpage-logo .subtitle {
@@ -59,22 +59,79 @@
     color: #ccc;
     font-size: 16px;
     font-style: italic;
-    text-shadow: #888 1px 1px 3px; }
+    text-shadow: #888888 1px 1px 3px; }
     #frontpage-logo .subtitle:hover {
       text-shadow: #909ec9 1px 1px 3px; }
 
 #login-box {
   float: right;
-  color: #FFF;
-  width: 580px;
+  color: #eee;
   display: inline-block;
   text-align: right;
   vertical-align: top;
-  padding-top: 5px;
-  font-weight: normal;
-  margin-top: 3px; }
+  margin-top: 50px;
+  margin-right: 20px;
+  padding-right: 20px;
+  border-right: 1px solid #3a73ac; }
   #login-box .action-links {
-    padding-top: 10px; }
+    float: right;
+    padding-top: 10px;
+    margin-right: 5px; }
+  #login-box input[type=text], #login-box input[type=password] {
+    width: 200px;
+    font-size: 16px;
+    float: right;
+    clear: both;
+    margin-top: 5px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -o-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -khtml-border-radius: 3px;
+    border-radius: 3px;
+    background: #eee;
+    background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #cccccc), color-stop(100%, #eeeeee));
+    background: -webkit-linear-gradient(top, #cccccc, #eeeeee);
+    background: -moz-linear-gradient(top, #cccccc, #eeeeee);
+    background: -o-linear-gradient(top, #cccccc, #eeeeee);
+    background: -ms-linear-gradient(top, #cccccc, #eeeeee);
+    background: linear-gradient(top, #cccccc, #eeeeee); }
+    #login-box input[type=text]:focus, #login-box input[type=password]:focus {
+      background: #fff;
+      border: 1px solid white; }
+  #login-box label {
+    font-size: 18px;
+    float: right;
+    margin-right: 10px;
+    margin-top: 10px; }
+  #login-box button {
+    font-size: 14px;
+    float: right;
+    clear: both;
+    margin-top: 5px; }
+
+#registration-box {
+  float: right;
+  color: #eee;
+  display: inline-block;
+  text-align: right;
+  margin-top: 50px;
+  width: 250px;
+  font-size: 16px;
+  text-align: center; }
+  #registration-box .register_button {
+    color: #505050;
+    padding: 5px 10px; }
+
+#page-header {
+  padding: 0;
+  background-color: #ddd; }
+
+#page-header-content {
+  width: 980px;
+  margin: 0 auto;
+  padding: 0.5em 0;
+  height: 200px; }
 
 /*
 
