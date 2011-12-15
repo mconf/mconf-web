@@ -42,4 +42,14 @@
 
   <div class="clearer"></div>
 
+  <div class="languages">
+    <%= t('translate.change') %>:
+    <% links = [] %>
+    <% for locale in (I18n.available_locales) -%>
+      <% image_tag("flags/" + locale.to_s + ".png", :title=>locale.to_s) %>
+      <% links << link_to(t('locales.' + locale.to_s), session_locale_path(:new_locale => locale.to_s), :method => :post) %>
+    <% end -%>
+    <%= links.join(" - ").html_safe %>
+  </div>
+
 </div>

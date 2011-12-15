@@ -107,6 +107,7 @@ namespace :deploy do
   task :upload_config_files do
     top.upload "config/database.yml", "#{release_path}/config/", :via => :scp
     top.upload "config/setup_conf.yml", "#{release_path}/config/", :via => :scp
+    top.upload "config/analytics_conf.yml", "#{release_path}/config/", :via => :scp
   end
 
 end
@@ -156,6 +157,7 @@ namespace :setup do
     top.deploy.update     # clone git repo and make it the current release
     setup.db              # destroys and recreates the DB
     setup.secret          # new secret
+    setup.statistics      # start the statistics
     top.deploy.restart    # restart the server
   end
 
@@ -184,6 +186,11 @@ namespace :setup do
   task :secret do
     run "cd #{current_path} && rake setup:secret RAILS_ENV=production"
     puts "You must restart the server to enable the new secret"
+  end
+
+  desc "Creates the Statistic table - needs config/analytics_conf.yml"
+  task :statistics do
+    run "cd #{current_path} && rake mconf:statistics:init RAILS_ENV=production"
   end
 end
 

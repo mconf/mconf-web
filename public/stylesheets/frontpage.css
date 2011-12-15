@@ -180,6 +180,9 @@ div.rel-users,div.rcnt-posts,div.contact{margin-top:1.5em;}
   background-color:#e1eef5;
 }
 #footer_right, #sponsor{font-weight:normal; font-size: 10px; line-height: 1.1em;}
+#footer .languages {
+  margin: 0 0.5em;
+}
 
 #sponsor{
   width: 900px;
