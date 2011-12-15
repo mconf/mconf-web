@@ -127,15 +127,15 @@ module ApplicationHelper
   end
 
   def application_version
-    Vcc::VERSION
+    Mconf::VERSION
   end
 
   def application_revision
-    Vcc.application_revision
+    Mconf.application_revision
   end
 
   def application_branch
-    Vcc.application_branch
+    Mconf.application_branch
   end
 
   def github_link_to_revision(revision)
