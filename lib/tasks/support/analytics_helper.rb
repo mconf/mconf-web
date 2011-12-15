@@ -1,4 +1,4 @@
-class StatisticsHelper
+class AnalyticsHelper
 
   # Gets the data from google analytics and returns a hash with { 'url' => views }
   def self.get_statistics(start_date, end_date, rules)
@@ -52,7 +52,12 @@ class StatisticsHelper
 
   # Creates the garb profile used to access google analytics
   def self.garb_login
-    myhash = YAML.load_file("#{Rails.root.to_s}/config/analytics_conf.yml")
+    file = "#{Rails.root.to_s}/config/analytics_conf.yml"
+    unless File.exists?(file)
+      raise Exception.new("The file #{file} was not configured yet.")
+    end
+
+    myhash = YAML.load_file(file)
     user = myhash["user"]
     pass = myhash["passwd"]
     agent = myhash["agent"]

@@ -27,7 +27,7 @@ class Space < ActiveRecord::Base
   has_many :attachments, :dependent => :destroy
 #  has_many :agendas, :through => :events
   has_many :tags, :dependent => :destroy, :as => :container
-  
+
   has_one :bigbluebutton_room, :as => :owner, :dependent => :destroy
   after_update :update_bbb_room
 
@@ -67,7 +67,7 @@ class Space < ActiveRecord::Base
     end
 
   end
-  
+
   def update_bbb_room
     bigbluebutton_room.update_attributes(:param => self.permalink, :name => self.name)
   end
@@ -292,7 +292,7 @@ class Space < ActiveRecord::Base
 
   def unique_pageviews
     # Use only the canonical aggregated url of the space (all views have been previously added here in the rake task)
-    corresponding_statistics = Statistic.find(:all, :conditions => ['url LIKE ?', '/spaces/' + self.permalink])
+    corresponding_statistics = Statistic.where('url LIKE ?', '/spaces/' + self.permalink)
     if corresponding_statistics.size == 0
       return 0
     elsif corresponding_statistics.size == 1
