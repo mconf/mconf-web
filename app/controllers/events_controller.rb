@@ -493,8 +493,8 @@ class EventsController < ApplicationController
         zos.put_next_entry("scorm.css")
         zos.print IO.read("#{Rails.root.to_s}/public/stylesheets/scorm.css")
         
-        zos.put_next_entry("bola_global_peque.png")
-        zos.print IO.read("#{Rails.root.to_s}/public/images/bola_global_peque.png")
+        zos.put_next_entry("mconf_logo_small.png")
+        zos.print IO.read("#{Rails.root.to_s}/public/images/mconf_logo_small.png")
         
         zos.put_next_entry("vcc-logo-transparente1.png")
         zos.print IO.read("#{Rails.root.to_s}/public/images/vcc-logo-transparente1.png")
