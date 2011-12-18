@@ -5,17 +5,31 @@
 <div id="page-header">
 
   <div id="page-header-content">
-    <div class="registration">
-      <span><%= t('frontpage.register_sentence') %></span><br/>
-      <div class="join_button">
-        <a href="<%= signup_path %>" class="basic_button medium_button orange_button"><span><%= t('register.one') %></span></a>
-      </div>
+    <div class="headline">
+      <% t('frontpage.project_description').html_safe %>
+      Mconf is an open source webconference system powered by <a>BigBlueButton</a>. It is developed in the research group <a>PRAV</a> at <a>UFRGS</a> (Brazil), and funded by <a>RNP</a>. And this is the web portal that provides access to Mconf.
+<!-- . It was developed based on Global Plaza and is being integrated with the webconference system BigBlueButton. -->
     </div>
-    <div class="description">
-      <%= t('frontpage.project_description').html_safe %>
+
+    <div class="links">
+      <ul>
+        <li>
+          <a class="link-title">PRAV</a><br/>
+          <span class="link-description">Project website</span>
+        </li>
+        <li>
+          <a class="link-title">GitHub</a><br/>
+          <span class="link-description">Source code</span>
+        </li>
+        <li>
+          <a class="link-title">Google Code</a><br/>
+          <span class="link-description">Documentation and bug tracker</span>
+        </li>
+      </ul>
     </div>
-    <div class="clearer"><span>&nbsp;</span></div>
   </div>
+
+  <div style="clear:both"></div>
 
 </div>
 
@@ -25,6 +39,7 @@
 
 <div id="content_container">
 
+<!--
   <div id="public_spaces">
     <div class="spaces_left">
       <h2><%=t('frontpage.popular_spaces')%></h2>
@@ -47,5 +62,13 @@
   </div>
   <div class="clearer"><span>&nbsp;</span></div>
 
+-->
 </div>
+
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
 

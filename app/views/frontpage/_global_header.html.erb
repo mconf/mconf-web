@@ -1,12 +1,14 @@
 <div id="global-header-content">
 
   <div id="frontpage-logo">
-    <a href="/"><span class="title"><%= t('mconf') %></span><span class="subtitle"><%= t('beta') %></span></a>
+    <a href="/" class="title"><%= t('mconf') %></a><span class="subtitle">.org</span>
   </div>
 
   <div id="registration-box">
-    <span><%= t('frontpage.register_sentence') %></span><br/>
-    <a href="<%= signup_path %>" class="button register_button"><span><%= t('register.one') %></span></a>
+    <span><%= t('frontpage.register_sentence') %></span>
+    <div class="register_button">
+      <a href="<%= signup_path %>" class="button orange big"><%= t('register.one') %></a>
+    </div>
   </div>
 
   <div id="login-box">

@@ -7,10 +7,7 @@
     <title><%= content_for?(:title) ? yield(:title) : current_site.name %></title>
     <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
     <%= stylesheet_link_tag "print", :media => "print" %>
-    <%= stylesheet_link_tag "base", :media => "screen, projection" %>
-    <%= stylesheet_link_tag "typography", :media => "screen, projection" %>
     <%= stylesheet_link_tag "frontpage", :media => "screen, projection" %>
-    <%= stylesheet_link_tag "header_big", :media => "screen, projection" %>
     <!--[if IE]>
       <%= stylesheet_link_tag "/stylesheets/ie.css", :media => "screen, projection" %>
     <![endif]-->
@@ -36,9 +33,6 @@
       </div>
 
       <div id="home">
-        <div id="header">
-          <%= render :partial => "layouts/frontpage_header" %>
-        </div>
 
         <div id="frontpage_flashs">
           <% flash.each do |name, msg| %>
@@ -50,11 +44,7 @@
           <%= yield %>
         </div>
 
-        <div id="sponsor-wrapper">
-          <%= render :partial => "layouts/sponsor" %>
-        </div>
-
-        <div id="footer-wrapper">
+        <div id="footer">
           <%= render :partial => "layouts/footer" %>
         </div>
 

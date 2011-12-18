@@ -45,6 +45,7 @@ group :development do
   gem 'translate-rails3', :require => 'translate', :git => 'git://github.com/mconf/translate.git'
   gem 'sass', '~> 3.1'
   gem 'compass', '~> 0.11'
+  gem 'fancy-buttons'
 end
 
 group :development, :test do

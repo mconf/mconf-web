@@ -1,0 +1,28 @@
+// fonts
+$font-small: 12px;
+$font-normal: 12px;
+$font-big: 18px;
+$font-gigantic: 28px;
+
+// standard colors
+$green: #508817;
+$blue: adjust_hue($green, 110);
+$red: adjust_hue($green, -100);
+$orange: darken(#d98026, 10); //darken(#e18e07, 10);
+$yellow: darken(#fde073, 35);
+
+// width of the central container
+$contents-width: 980px;
+
+// site-wide definitions
+$site-bg-color: #fff;
+$size-link: #1F4A75;
+$size-link-hover: $orange;
+$size-link-active: darken($orange, 10);
+
+// global header
+$header-bg-color: #1F4A75;
+
+// h1, h2, h3, ...
+$h-font-color: #244974;
+

@@ -118,6 +118,8 @@ GEM
       abstract (>= 1.0.0)
     exception_notification (2.4.1)
     factory_girl (1.3.3)
+    fancy-buttons (1.1.2)
+      compass (>= 0.11)
     fastthread (1.0.7)
     fckeditor (0.1.0)
     feed-normalizer (1.5.2)
@@ -251,6 +253,7 @@ DEPENDENCIES
   dynamic_form
   exception_notification
   factory_girl
+  fancy-buttons
   fckeditor
   feed-normalizer
   ffaker

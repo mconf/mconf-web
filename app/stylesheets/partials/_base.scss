@@ -1,46 +1,20 @@
 @import "compass/reset";
 @import "compass/css3";
 @import "compass/utilities/general";
+@import "fancy-buttons";
+@import "partials/definitions";
+@import "partials/typography";
 
 // TODO: the styles below are also in common.css. Remove this file when the other
 //       pages are ready to use base.css instead of common.css
 
-
-// default button
-.button, input[type=button], input[type=submit] {
-  @include border-radius(3px, 3px);
-  background-color: #eee;
-  @include background(linear-gradient(top, #fff, #ddd));
-  // @include box-shadow(#cfcfcf 0 1px 1px);
-  @include min-width(40px);
-  @include min-height(10px);
-  display: inline;
-  font-style: normal;
-  font-size: 12px;
-  font-weight: bold;
-  color: #505050;
-  border: 1px solid #aaa;
-  cursor: pointer;
-  white-space: nowrap;
-  padding: 3px 7px 3px 6px;
-
-  &:hover {
-    background-color: #dbdbdb;
-    @include background(linear-gradient(top, #fff, #b7b7b7));
-    text-decoration: none;
-    border: 1px solid #848484
-  }
-
-  &:active {
-    background-color: #969696;
-    @include background(linear-gradient(top, #b7b7b7, #fff));
-  }
-
+p {
+  margin-bottom: 0.4em;
 }
 
 input[type=password], input[type=text], textarea, ul.token-input-list-facebook {
   border: 1px solid #ccc;
-  font-size: 12px;
+  font-size: $font-normal;
   padding: 3px;
 }
 
@@ -52,8 +26,84 @@ input[type=checkbox] {
   margin: 5px 2px 0 2px;
 }
 
+button, input[type=submit], input[type=button], .button {
+  @include fancy-button-colors-matte(#aaa);
+  @include fancy-button-size(12px, 4px, 1px);
+  @include fancy-button-padding(4px, 8px, 1px);
+  cursor: pointer;
+
+  &:hover { text-decoration: none; }
+
+  // colors
+  &.red { @include fancy-button-colors-matte($red); }
+  &.blue { @include fancy-button-colors-matte($blue); }
+  &.green { @include fancy-button-colors-matte($green); }
+  &.orange { @include fancy-button-colors-matte($orange); }
+  &.yellow { @include fancy-button-colors-matte($yellow); }
+
+  // sizes
+  &.big {
+    @include fancy-button-size($font-big, 5px, 1px);
+    @include fancy-button-padding(8px, 20px, 1px);
+  }
+  &.small {
+    @include fancy-button-size($font-small, 3px, 1px);
+    @include fancy-button-padding(3px, 8px, 1px);
+  }
+}
+
+/*
+ * .ribbon {
+ *   text-align: center;
+ *   position: relative;
+ *   color: #fff;
+ *   margin: 0; // -10px 10px -10px;
+ *   padding: 10px 0;
+ *   text-shadow: 0 1px rgba(0,0,0,.8);
+ *   background: #5c5c5c;
+ *   background-image: -moz-linear-gradient(rgba(255,255,255,.3), rgba(255,255,255,0));
+ *   background-image: -webkit-linear-gradient(rgba(255,255,255,.3), rgba(255,255,255,0));
+ *   background-image: -o-linear-gradient(rgba(255,255,255,.3), rgba(255,255,255,0));
+ *   background-image: -ms-linear-gradient(rgba(255,255,255,.3), rgba(255,255,255,0));
+ *   background-image:  linear-gradient(rgba(255,255,255,.3), rgba(255,255,255,0));
+ *   -moz-box-shadow: 0 2px 0 rgba(0,0,0,.3);
+ *   -webkit-box-shadow: 0 2px 0 rgba(0,0,0,.3);
+ *   box-shadow: 0 2px 0 rgba(0,0,0,.3);
+ *
+ *   &:before, &:after {
+ *     content: '';
+ *     position: absolute;
+ *     border-style: solid;
+ *     border-color: transparent;
+ *     bottom: -10px;
+ *   }
+ *
+ *   &:before {
+ *     border-width: 0 10px 10px 0;
+ *     border-right-color: #222;
+ *     left: 0;
+ *   }
+ *
+ *   &:after {
+ *     border-width: 0 0 10px 10px;
+ *     border-left-color: #222;
+ *     right: 0;
+ *   }
+ * }
+ */
 
 
+
+
+
+
+
+
+
+
+
+
+/*********** OLD ***************/
 
 
 .big_button{
@@ -145,18 +195,20 @@ input[type=submit].blue_button:hover, button.blue_button:hover, a.blue_button:ho
 }
 
 /* ORANGE */
-input[type=submit].orange_button, button.orange_button, a.orange_button {
-  background: transparent url("../images/buttons/fondo-join-space.png");
-  color: white;
-  border-bottom:1px #C18500 solid;
-  border-top:1px #FFC14A solid;
-  border-left:1px #FFC14A solid;
-  border-right:1px #FFC14A solid;
-}
-input[type=submit].orange_button:hover, button.orange_button:hover, a.orange_button:hover {
-  background:url("../images/buttons/fondo-join-space2.png");
-  color: white;
-}
+/*
+ * input[type=submit].orange_button, button.orange_button, a.orange_button {
+ *   background: transparent url("../images/buttons/fondo-join-space.png");
+ *   color: white;
+ *   border-bottom:1px #C18500 solid;
+ *   border-top:1px #FFC14A solid;
+ *   border-left:1px #FFC14A solid;
+ *   border-right:1px #FFC14A solid;
+ * }
+ * input[type=submit].orange_button:hover, button.orange_button:hover, a.orange_button:hover {
+ *   background:url("../images/buttons/fondo-join-space2.png");
+ *   color: white;
+ * }
+ */
 
 /* PALE */
 input[type=submit].pale_button, button.pale_button, a.pale_button {
