@@ -1,4 +1,4 @@
-module Vcc
+module Mconf
   VERSION = "0.5".freeze
 
   # get the current git branch

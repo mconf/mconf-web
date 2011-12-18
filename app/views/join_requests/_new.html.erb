@@ -12,7 +12,7 @@
 
 <%if logged_in?%>
 
-  <div id="lightbox-logo"><span><%= image_tag("bola_global_peque.png",:class=>"icon")%><%= t('join_request.new.title', :space => space.name) %></span></div>
+  <div id="lightbox-logo"><span><%= image_tag("mconf_logo_small.png",:class=>"icon")%><%= t('join_request.new.title', :space => space.name) %></span></div>
 
   <%if !space.public?%>
     <p class="note"><%= space.name %> <%= t('space.is_private') %></p>

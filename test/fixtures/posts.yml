@@ -1,6 +1,0 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-
-post_simple: 
-  text: articulo de prueba
-  id: 5
-  title: titulo del articulo

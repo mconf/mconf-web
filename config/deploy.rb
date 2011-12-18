@@ -107,6 +107,7 @@ namespace :deploy do
   task :upload_config_files do
     top.upload "config/database.yml", "#{release_path}/config/", :via => :scp
     top.upload "config/setup_conf.yml", "#{release_path}/config/", :via => :scp
+    top.upload "config/analytics_conf.yml", "#{release_path}/config/", :via => :scp
   end
 
 end
@@ -156,6 +157,7 @@ namespace :setup do
     top.deploy.update     # clone git repo and make it the current release
     setup.db              # destroys and recreates the DB
     setup.secret          # new secret
+    setup.statistics      # start the statistics
     top.deploy.restart    # restart the server
   end
 
@@ -185,6 +187,11 @@ namespace :setup do
     run "cd #{current_path} && rake setup:secret RAILS_ENV=production"
     puts "You must restart the server to enable the new secret"
   end
+
+  desc "Creates the Statistic table - needs config/analytics_conf.yml"
+  task :statistics do
+    run "cd #{current_path} && rake mconf:statistics:init RAILS_ENV=production"
+  end
 end
 
 namespace :db do
@@ -192,5 +199,14 @@ namespace :db do
     run "cd #{current_release} && RAILS_ENV=production bundle exec rake db:data:dump"
     download "#{current_release}/db/data.yml", "db/data.yml"
     `bundle exec rake db:reset db:data:load`
+  end
+end
+
+# From: http://stackoverflow.com/questions/312214/how-do-i-run-a-rake-task-from-capistrano
+namespace :rake do
+  desc "Run a task on a remote server."
+  # run like: cap staging rake:invoke task=a_certain_task
+  task :invoke do
+    run("cd #{deploy_to}/current; bundle exec rake #{ENV['task']} RAILS_ENV=production")
   end
 end

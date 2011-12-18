@@ -24,3 +24,4 @@ db/data.yml
 pids/*
 doc/app/*
 .sass-cache/
+config/analytics_conf.yml

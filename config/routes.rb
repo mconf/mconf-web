@@ -1,4 +1,4 @@
-Vcc::Application.routes.draw do
+Mconf::Application.routes.draw do
 
   bigbluebutton_routes :default, :controllers => { :servers => 'custom_bigbluebutton_servers', :rooms => 'custom_bigbluebutton_rooms' }
 

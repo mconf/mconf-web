@@ -9,7 +9,7 @@ Bundler.require(:default, Rails.env) if defined?(Bundler)
 # Specifies gem version of Rails to use when vendor/rails is not present
 # RAILS_GEM_VERSION = '3.0.3' unless defined? RAILS_GEM_VERSION
 
-module Vcc
+module Mconf
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
