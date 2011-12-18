@@ -1,0 +1,9 @@
+<div id="notification-flashs">
+  <% flash.each do |name, msg| %>
+    <div class="<%= name %>">
+      <div class="message">
+        <%= msg.html_safe %> | <a href="#" id="notification-flashs-hide"><%= t('hide') %></a>
+      </div>
+    </div>
+  <% end %>
+</div>

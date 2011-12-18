@@ -4,14 +4,8 @@
 
 // TODO: some styles that are here can be put in base.scss
 
-/* forms.css */
-.error, .notice, .success {padding:.8em;margin-bottom:1em;text-align:center;}
-.error {background:#FBE3E4;color:#8a1f11;}
-.notice {background:#FFF6BF;color:#514721;}
-.success {background:#E6EFC2;color:#264409;}
-.error a {color:#8a1f11;}
-.notice a {color:#514721;}
-.success a {color:#264409;}
+$global-header-height: 220px;
+$page-header-height: 100px;
 
 body {
   background-color: $site-bg-color;
@@ -32,18 +26,16 @@ body {
   width: $contents-width;
   margin: 0 auto;
   padding: 0;
-  height: 200px;
+  height: $global-header-height;
   @include clearfix;
 }
 
 #frontpage-logo {
   float: left;
   width: 200px;
-  margin-top: 50px;
+  margin-top: ($global-header-height - 100px)/2;
 
-  a {
-    text-decoration: none;
-  }
+  a { text-decoration: none; }
 
   .title {
     color: white;
@@ -70,8 +62,8 @@ body {
   text-align: right;
   vertical-align: top;
   padding-right: 30px;
-  padding-top: 50px;
-  padding-bottom: 50px;
+  padding-top: ($global-header-height - 100px)/2;
+  padding-bottom: ($global-header-height - 100px)/2;
   @include background(linear-gradient(right, darken($header-bg-color, 8), $header-bg-color));
 
   a { color: #eee; }
@@ -120,8 +112,8 @@ body {
   font-size: $font-normal + 4px;
   text-align: center;
   padding-right: 30px;
-  padding-top: 50px;
-  padding-bottom: 50px;
+  padding-top: ($global-header-height - 100px)/2;
+  padding-bottom: ($global-header-height - 100px)/2;
   @include background(linear-gradient(left, darken($header-bg-color, 8), $header-bg-color));
 
   .register_button {
@@ -140,22 +132,23 @@ body {
   width: $contents-width;
   margin: 0 auto;
   padding: 20px;
-  height: 80px;
+  height: $page-header-height;
 
   .headline {
     float: left;
     font-size: $font-normal + 2px;
     text-align: right;
-    width: 500px;
+    width: 510px;
     @include text-shadow(white 1px 1px 2px);
-    padding: 10px 0;
+    padding: ($page-header-height - 60px)/2 0;
   }
 
   div.links {
     text-align: left;
     margin-left: 15px;
     border-left: 1px dashed #ccc;
-    padding: 10px 0 10px 15px;
+    padding: ($page-header-height - 60px)/2 0;
+    padding-left: 15px;
     float: left;
 
     h3 {
@@ -191,30 +184,61 @@ body {
   }
 }
 
-// TODO: work in progress...
+#notification-flashs {
+  position: absolute;
+  z-index: 101;
+  top: 5px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  line-height: 2.5;
+  overflow: hidden;
+  font-weight: bold;
+  @include box-shadow(0 0 5px black);
+  a { @include link-colors(#ccc); }
 
-#footer {
-  //background: #f4f4f4;
-  @include background(linear-gradient(top, #f4f4f4, $site-bg-color));
-  border-top: 1px solid #ddd;
-  padding: 10px;
+  .content { width: $contents-width; margin: 0 auto; }
+
+  .notice { background: #fde073; a { @include link-colors(#666); } }
+  .error { background: #ff3333; color: #eee; }
+  .success { background: #318f00; color: #eee; }
 }
-#footer ul, #sponsor ul{list-style-type:none;margin:0 0.5em; }
-#footer ul li,#sponsor ul li{display:inline-block;margin-right:0.25em;position:relative;}
-#footer ul li#trade_mark{font-weight:bold;color:#111;}
-#footer ul li#trade_mark_logo{font-weight:normal;}
-#footer_right, #sponsor{font-weight:normal; font-size: 10px; line-height: 1.1em;}
 
-#footer-content .languages {
-  border-top: 1px solid #eee;
-  margin-top:10px;
-  padding-top:10px;
-  text-align:center;
+// in the frontpage the footer is a little bit different
+#footer-bottom {
+  background: $footer-bg-color;
+  border-top: 0;
 }
 
-.clearer {
-  clear: both;
-  font-size: 1px;
+#content-middle {
+  width: $contents-width;
+  padding: 35px 0;
+  margin: 0 auto;
+
+  h2 {
+    text-align: left;
+    @include text-shadow(darken($site-bg-color, 20) 1px 1px 4px);
+  }
+}
+
+#content-about {
+  float: left;
+  width: 650px;
+  text-align: left;
+
+  img { @include box-shadow(2px 2px 10px #444); }
+
+  .content-block {
+    display: block;
+    margin-top: 10px;
+    img { float: left; margin: 0 10px 10px 0; }
+  }
+}
+
+#content-stats {
+  float: right;
+  text-align: left;
+  width: $contents-width - 670px;
 }
 
 

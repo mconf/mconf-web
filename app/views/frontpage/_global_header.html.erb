@@ -12,6 +12,8 @@
   </div>
 
   <div id="login-box">
+    <%= t('login.login_desc') %>
+
     <%= form_tag session_url(:protocol => current_site.protocol), :class => "login_form" do -%>
 
       <%= text_field_tag 'login', params[:login] %>

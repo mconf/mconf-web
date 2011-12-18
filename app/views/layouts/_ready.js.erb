@@ -1,3 +1,8 @@
+// Notification bar
+$("#notification-flashs-hide").livequery("click", function() {
+  $("#notification-flashs").hide('fast');
+});
+
 
 /*
  * Create new space
@@ -201,20 +206,6 @@ $("a.login_lightbox_link").livequery("click", function(){
 *});
 */
 
-
-/*
-* Login for frontpage and help
-*/
-
-  show_open_id_form = function(){
-    $(".div_login").hide();
-    $(".div_login_openid").show();
-  };
-
-  show_user_password_form = function(){
-    $(".div_login_openid").hide();
-    $(".div_login").show();
-  };
 
          /*
   Qtip style for the tooltips

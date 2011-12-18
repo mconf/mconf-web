@@ -1,53 +1,76 @@
-<div id="footer-content">
+<div id="footer">
+  <div id="footer-content">
 
-  <div class="float_left">
-    <ul>
-      <li><span id="trade_mark"><%= t('mconf') %></span> <%= t('all_rights_reserved') %>.</li>
-      <li>-</li>
-      <li>
-        <div id="support_select">
-          <%= link_to(image_tag("icons/help.png", :class=>"icon") + " " + t('help'), help_path) %>
-        </div>
-      </li>
-      <li>-</li>
-      <li><%=link_to(t('feedback.send_us'), new_feedback_path(), :id => "feedback_link" )%></li>
-    </ul>
+    <div class="link-group">
+      <h3><%= t('footer.links.title') %></h3>
+      <ul>
+        <li><%= link_to(t('help'), help_path) %></li>
+        <li><%= link_to(t('feedback.send_us'), new_feedback_path(), :id => "feedback_link" ) %></li>
+      </ul>
+    </div>
+
+    <div class="link-group">
+      <h3><%= t('footer.find_us') %></h3>
+      <ul>
+        <li><a href="http://www.inf.ufrgs.br/prav/gtmconf"><%= t('footer.website') %></a></li>
+        <li><a href="http://code.google.com/p/mconf"><%= t('footer.gcode') %></a></li>
+        <li><a href="https://github.com/mconf"><%= t('footer.github') %></a></li>
+      </ul>
+    </div>
+
+    <div class="link-group languages">
+      <h3><%= t('translate.change') %></h3>
+      <ul>
+      <% i = 1 %>
+      <% for locale in (I18n.available_locales) -%>
+        <% if i % 4 == 0 %>
+          </ul><ul>
+        <% end %>
+        <li>
+          <% flag = image_tag("flags/" + locale.to_s + ".png", :title => locale.to_s) %>
+          <% text = t('locales.' + locale.to_s) %>
+          <% link = link_to(text, session_locale_path(:new_locale => locale.to_s), :method => :post) %>
+          <%= (flag + " " + link).html_safe %>
+        </li>
+        <% i += 1 %>
+      <% end -%>
+      </ul>
+    </div>
+
+    <div class="link-group2 footer-sponsors">
+      <h3><%= t('footer.sponsors.title') %></h3>
+        <ul>
+        <li>
+          <%= image_tag("logos/prav_small.png") %>
+          <a href="http://www.inf.ufrgs.br/prav"><%= t('footer.sponsors.prav').html_safe %></a>
+        </li>
+        <li>
+          <%= image_tag("logos/rnp_small.jpg") %>
+          <a href="http://www.rnp.br"><%= t('footer.sponsors.rnp').html_safe %></a>
+        </li>
+      </ul>
+    </div>
+
+    <%= render_clearer %>
   </div>
+</div>
 
-  <div class="float_right" style="clear:right;">
-    <%= t('footer.built_on_top_of').html_safe %>
-  </div>
+<div id="footer-bottom">
+  <div id="footer-bottom-content">
 
-  <div class="float_left" style="clear:left;">
-    <ul>
-      <li><%= t('footer.find_us') %>:</li>
-      <li><a href="http://www.inf.ufrgs.br/prav/gtmconf"><%= t('footer.website') %></a></li>
-      <li>-</li>
-      <li><a href="http://code.google.com/p/mconf"><%= t('footer.gcode') %></a></li>
-      <li>-</li>
-      <li><a href="https://github.com/mconf"><%= t('footer.github') %></a></li>
-    </ul>
-  </div>
+    <div id="footer-logo" class="link-group">
+      <a href="/" class="title"><%= t('mconf') %></a><br/>
+      <span><%= t('footer.copyright') %></span>
+    </div>
 
-  <div class="float_right" style="clear:right;">
-    <div id="application_revision">
+    <div class="link-group2 version-info">
+      <%= t('footer.built_on_top_of').html_safe %><br/>
       <%= t('version.one') + ": " %>
       <a href="<%= github_link_to_revision(application_revision) %>">
         <%= application_version + "/" + application_branch + "/" + application_revision %>
       </a>
     </div>
+
+    <%= render_clearer %>
   </div>
-
-  <div class="clearer"></div>
-
-  <div class="languages">
-    <%= t('translate.change') %>:
-    <% links = [] %>
-    <% for locale in (I18n.available_locales) -%>
-      <% image_tag("flags/" + locale.to_s + ".png", :title=>locale.to_s) %>
-      <% links << link_to(t('locales.' + locale.to_s), session_locale_path(:new_locale => locale.to_s), :method => :post) %>
-    <% end -%>
-    <%= links.join(" - ").html_safe %>
-  </div>
-
 </div>

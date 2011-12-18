@@ -848,7 +848,7 @@ pt-br:
       one: "%{count} participante"
       other: "%{count} participantes"
     popular_spaces: "Comunidades públicas populares"
-    project_description: "<p>Este website é parte do projeto <a href=\"http://www.inf.ufrgs.br/prav/gtmconf\">Mconf</a>, sistema em desenvolvimento no grupo de pesquisa <a href=\"http://www.inf.ufrgs.br/prav\">PRAV</a> da <a href=\"http://www.ufrgs.br\">UFRGS</a> em parceria com a <a href=\"http://www.rnp.br\">RNP</a>. Ele foi desenvolvido com base no sistema <a href=\"http://www.globalplaza.org/\">Global Plaza</a> e integrado ao sistema de webconferência <a href=\"http://bigbluebutton.org/\">BigBlueButton</a>.</p> <p>Para mais informações, acesse o website do projeto <a href=\"http://www.inf.ufrgs.br/prav/gtmconf\">clicando aqui</a>.</p>"
+    project_description: "Mconf é um sistema de webconferência de código aberto que utiliza o <a href=\"http://bigbluebutton.org/\">BigBlueButton</a>. Ele é desenvolvido no grupo de pesquisa <a href=\"http://www.inf.ufrgs.br/prav\">PRAV</a> na <a href=\"http://www.ufrgs.br\">UFRGS</a> (Brasil), e financiado pela <a href=\"http://www.rnp.br\">RNP</a>. E este é o portal que provê acesso ao Mconf."
     register_sentence: "Crie uma conta para acessar comunidades privadas e criar suas próprias webconferências"
     room_name: "Nome da sala"
     running: 

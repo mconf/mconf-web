@@ -8,6 +8,7 @@
     <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
 
     <%= stylesheet_link_tag "common", :media => "screen, projection" %>
+    <%= stylesheet_link_tag "new_style_compat", :media => "screen, projection" %>
     <%= stylesheet_link_tag "screen", :media => "screen, projection" %>
     <%= stylesheet_link_tag "lightbox", :media => "screen, projection" %>
     <%= stylesheet_link_tag "calendar", :media => "screen, projection" %>
@@ -63,9 +64,9 @@
             <%= yield :sidebar %>
           </div>
         </div>
-        <%= render :partial => "layouts/footer" %>
       </div>
 
+      <%= render :partial => "layouts/footer" %>
     </div>
 
     <%= render :partial => "layouts/analytics" %>

@@ -14,6 +14,7 @@ body {
 }
 h1 {
   @include headers_base;
+  text-align: left;
   font-size: 2.6666em;
   line-height: 1.125;
   color: $h-font-color;
@@ -21,13 +22,14 @@ h1 {
 h2 {
   @include headers_base;
   font-size: 2em;
+  text-align: left;
   color: $h-font-color;
 }
 h3 {
   @include headers_base;
   font-size: 1.5em;
   line-height: 1.3846;
-  text-align: center;
+  text-align: left;
   color: $h-font-color;
 
   img {

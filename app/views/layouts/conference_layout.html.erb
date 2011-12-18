@@ -8,6 +8,7 @@
     <link href="/favicon.ico" rel="shortcut icon" />
 
     <%= stylesheet_link_tag "screen", :media => "screen, projection" %>
+    <%= stylesheet_link_tag "new_style_compat", :media => "screen, projection" %>
     <%= stylesheet_link_tag "conference", :media => "screen, projection" %>
     <%= stylesheet_link_tag "calendar", :media => "screen, projection" %>
     <%= stylesheet_link_tag "jquery.fancybox", :media => "screen, projection" %>
@@ -58,9 +59,9 @@
             </div>
           </div>
         </div>
-        <%= render :partial => "layouts/footer" %>
       </div>
 
+     <%= render :partial => "layouts/footer" %>
     </div>
 
     <%= render :partial => "layouts/analytics" %>

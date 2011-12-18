@@ -48,7 +48,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 /* incase an inverted custom gradient isn't specified */
 .fancy-button-reset-base-class {
   font-family: "Lucida Grande", Lucida, Arial, sans-serif;
-  background: url('/images/button_bg.png?1324088291') repeat-x bottom left;
+  background: url('/images/button_bg.png?1324175236') repeat-x bottom left;
   margin: 0;
   width: auto;
   overflow: visible;
@@ -73,6 +73,7 @@ body {
 h1 {
   font-weight: normal;
   color: #111;
+  text-align: left;
   font-size: 2.6666em;
   line-height: 1.125;
   color: #244974; }
@@ -81,6 +82,7 @@ h2 {
   font-weight: normal;
   color: #111;
   font-size: 2em;
+  text-align: left;
   color: #244974; }
 
 h3 {
@@ -88,7 +90,7 @@ h3 {
   color: #111;
   font-size: 1.5em;
   line-height: 1.3846;
-  text-align: center;
+  text-align: left;
   color: #244974; }
   h3 img {
     margin-bottom: -4px; }
@@ -508,6 +510,80 @@ button, input[type=submit], input[type=button], .button {
     padding: 3px 8px;
     border-width: 1px; }
 
+#footer {
+  background: #f4f4f4;
+  border-top: 1px solid #e6e6e6;
+  margin-top: 20px;
+  color: #444; }
+
+#footer-content, #footer-bottom-content {
+  width: 980px;
+  margin: 0 auto;
+  padding: 20px 5px 0 5px; }
+  #footer-content h3, #footer-bottom-content h3 {
+    font-size: 12px;
+    color: #555;
+    margin-bottom: 10px;
+    font-weight: bold;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #cecece; }
+  #footer-content ul, #footer-bottom-content ul {
+    list-style-type: none;
+    margin: 0; }
+    #footer-content ul li, #footer-bottom-content ul li {
+      display: block;
+      position: relative;
+      margin-bottom: 5px; }
+  #footer-content .link-group, #footer-bottom-content .link-group, #footer-content .link-group2, #footer-bottom-content #footer-content .link-group2, #footer-content #footer-bottom-content .link-group2, #footer-content #footer-bottom-content .link-group2, #footer-bottom-content #footer-content .link-group2, #footer-bottom-content .link-group2 {
+    float: left;
+    margin-right: 50px; }
+  #footer-content .link-group2, #footer-bottom-content .link-group2 {
+    float: right;
+    margin-right: 0;
+    margin-left: 20px;
+    text-align: right; }
+    #footer-content .link-group2 h3, #footer-bottom-content .link-group2 h3 {
+      text-align: right; }
+  #footer-content .footer-sponsors, #footer-bottom-content .footer-sponsors {
+    width: 200px; }
+    #footer-content .footer-sponsors li, #footer-bottom-content .footer-sponsors li {
+      margin-bottom: 15px; }
+    #footer-content .footer-sponsors img, #footer-bottom-content .footer-sponsors img {
+      float: right;
+      margin-left: 10px; }
+  #footer-content .languages ul, #footer-bottom-content .languages ul {
+    float: left;
+    margin-right: 20px; }
+  #footer-content .copyright, #footer-bottom-content .copyright {
+    margin-top: 10px;
+    padding-top: 10px;
+    text-align: left;
+    float: left; }
+
+#footer-bottom {
+  background: white;
+  border-top: 1px solid #e6e6e6;
+  clear: both; }
+
+#footer-bottom-content {
+  width: 980px;
+  padding: 5px 5px 0 5px; }
+  #footer-bottom-content .version-info {
+    margin-top: 10px; }
+
+#footer-logo {
+  width: 250px;
+  clear: left; }
+  #footer-logo a {
+    color: #555555;
+    text-decoration: none; }
+  #footer-logo .title {
+    font-weight: bold;
+    font-size: 28px;
+    text-shadow: #a8a8a8 1px 1px 4px; }
+    #footer-logo .title:hover {
+      color: #333; }
+
 /*
  * .ribbon {
  *   text-align: center;
@@ -730,33 +806,6 @@ input[type=submit].medium_button, button.medium_button, a.medium_button {
 .field {
   margin-bottom: 5px; }
 
-/* forms.css */
-.error, .notice, .success {
-  padding: .8em;
-  margin-bottom: 1em;
-  text-align: center; }
-
-.error {
-  background: #FBE3E4;
-  color: #8a1f11; }
-
-.notice {
-  background: #FFF6BF;
-  color: #514721; }
-
-.success {
-  background: #E6EFC2;
-  color: #264409; }
-
-.error a {
-  color: #8a1f11; }
-
-.notice a {
-  color: #514721; }
-
-.success a {
-  color: #264409; }
-
 body {
   background-color: white; }
 
@@ -773,14 +822,14 @@ body {
   width: 980px;
   margin: 0 auto;
   padding: 0;
-  height: 200px;
+  height: 220px;
   overflow: hidden;
   *zoom: 1; }
 
 #frontpage-logo {
   float: left;
   width: 200px;
-  margin-top: 50px; }
+  margin-top: 60px; }
   #frontpage-logo a {
     text-decoration: none; }
   #frontpage-logo .title {
@@ -803,8 +852,8 @@ body {
   text-align: right;
   vertical-align: top;
   padding-right: 30px;
-  padding-top: 50px;
-  padding-bottom: 50px;
+  padding-top: 60px;
+  padding-bottom: 60px;
   background: -webkit-gradient(linear, 100% 50%, 0% 50%, color-stop(0%, #163655), color-stop(100%, #1f4a75));
   background: -webkit-linear-gradient(right, #163655, #1f4a75);
   background: -moz-linear-gradient(right, #163655, #1f4a75);
@@ -857,8 +906,8 @@ body {
   font-size: 16px;
   text-align: center;
   padding-right: 30px;
-  padding-top: 50px;
-  padding-bottom: 50px;
+  padding-top: 60px;
+  padding-bottom: 60px;
   background: -webkit-gradient(linear, 0% 50%, 100% 50%, color-stop(0%, #163655), color-stop(100%, #1f4a75));
   background: -webkit-linear-gradient(left, #163655, #1f4a75);
   background: -moz-linear-gradient(left, #163655, #1f4a75);
@@ -878,19 +927,20 @@ body {
   width: 980px;
   margin: 0 auto;
   padding: 20px;
-  height: 80px; }
+  height: 100px; }
   #page-header-content .headline {
     float: left;
     font-size: 14px;
     text-align: right;
-    width: 500px;
+    width: 510px;
     text-shadow: white 1px 1px 2px;
-    padding: 10px 0; }
+    padding: 20px 0; }
   #page-header-content div.links {
     text-align: left;
     margin-left: 15px;
     border-left: 1px dashed #ccc;
-    padding: 10px 0 10px 15px;
+    padding: 20px 0;
+    padding-left: 15px;
     float: left; }
     #page-header-content div.links h3 {
       text-align: left;
@@ -915,46 +965,68 @@ body {
       color: #666;
       text-shadow: white 2px 2px 4px; }
 
-#footer {
-  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #f4f4f4), color-stop(100%, #ffffff));
-  background: -webkit-linear-gradient(top, #f4f4f4, #ffffff);
-  background: -moz-linear-gradient(top, #f4f4f4, #ffffff);
-  background: -o-linear-gradient(top, #f4f4f4, #ffffff);
-  background: -ms-linear-gradient(top, #f4f4f4, #ffffff);
-  background: linear-gradient(top, #f4f4f4, #ffffff);
-  border-top: 1px solid #ddd;
-  padding: 10px; }
-
-#footer ul, #sponsor ul {
-  list-style-type: none;
-  margin: 0 0.5em; }
-
-#footer ul li, #sponsor ul li {
-  display: inline-block;
-  margin-right: 0.25em;
-  position: relative; }
-
-#footer ul li#trade_mark {
+#notification-flashs {
+  position: absolute;
+  z-index: 101;
+  top: 5px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  line-height: 2.5;
+  overflow: hidden;
   font-weight: bold;
-  color: #111; }
+  -moz-box-shadow: 0 0 5px black;
+  -webkit-box-shadow: 0 0 5px black;
+  -o-box-shadow: 0 0 5px black;
+  box-shadow: 0 0 5px black; }
+  #notification-flashs a {
+    color: #cccccc; }
+  #notification-flashs .content {
+    width: 980px;
+    margin: 0 auto; }
+  #notification-flashs .notice {
+    background: #fde073; }
+    #notification-flashs .notice a {
+      color: #666666; }
+  #notification-flashs .error {
+    background: #ff3333;
+    color: #eee; }
+  #notification-flashs .success {
+    background: #318f00;
+    color: #eee; }
 
-#footer ul li#trade_mark_logo {
-  font-weight: normal; }
+#footer-bottom {
+  background: #f4f4f4;
+  border-top: 0; }
 
-#footer_right, #sponsor {
-  font-weight: normal;
-  font-size: 10px;
-  line-height: 1.1em; }
+#content-middle {
+  width: 980px;
+  padding: 35px 0;
+  margin: 0 auto; }
+  #content-middle h2 {
+    text-align: left;
+    text-shadow: #cccccc 1px 1px 4px; }
 
-#footer-content .languages {
-  border-top: 1px solid #eee;
-  margin-top: 10px;
-  padding-top: 10px;
-  text-align: center; }
+#content-about {
+  float: left;
+  width: 650px;
+  text-align: left; }
+  #content-about img {
+    -moz-box-shadow: 2px 2px 10px #444444;
+    -webkit-box-shadow: 2px 2px 10px #444444;
+    -o-box-shadow: 2px 2px 10px #444444;
+    box-shadow: 2px 2px 10px #444444; }
+  #content-about .content-block {
+    display: block;
+    margin-top: 10px; }
+    #content-about .content-block img {
+      float: left;
+      margin: 0 10px 10px 0; }
 
-.clearer {
-  clear: both;
-  font-size: 1px; }
+#content-stats {
+  float: right;
+  text-align: left;
+  width: 310px; }
 
 /*
 

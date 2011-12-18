@@ -5,39 +5,62 @@
 <div id="page-header">
 
   <div id="page-header-content">
-    <div class="headline">
-      <% t('frontpage.project_description').html_safe %>
-      Mconf is an open source webconference system powered by <a>BigBlueButton</a>. It is developed in the research group <a>PRAV</a> at <a>UFRGS</a> (Brazil), and funded by <a>RNP</a>. And this is the web portal that provides access to Mconf.
-<!-- . It was developed based on Global Plaza and is being integrated with the webconference system BigBlueButton. -->
-    </div>
+    <div class="headline"><%= t('frontpage.project_description').html_safe %></div>
 
     <div class="links">
       <ul>
         <li>
-          <a class="link-title">PRAV</a><br/>
-          <span class="link-description">Project website</span>
+          <a class="link-title" href="http://inf.ufrgs.br/prav/gtmconf"><%= t('frontpage.links.project_website') %></a><br/>
+          <span class="link-description"><%= t('frontpage.links.project_website_desc') %></span>
         </li>
         <li>
-          <a class="link-title">GitHub</a><br/>
-          <span class="link-description">Source code</span>
+          <a class="link-title" href="https://github.com/mconf"><%= t('frontpage.links.source_code') %></a><br/>
+          <span class="link-description"><%= t('frontpage.links.source_code_desc') %></span>
         </li>
         <li>
-          <a class="link-title">Google Code</a><br/>
-          <span class="link-description">Documentation and bug tracker</span>
+          <a class="link-title" href="http://code.google.com/p/mconf"><%= t('frontpage.links.docs') %></a><br/>
+          <span class="link-description"><%= t('frontpage.links.docs_desc') %></span>
         </li>
       </ul>
     </div>
   </div>
 
-  <div style="clear:both"></div>
-
 </div>
 
-<div id="content_stats">
-  <b><%= t('frontpage.stats.title') %></b> <%= t('frontpage.stats.text', :users => @stats[:users], :spaces => @stats[:spaces], :meetings => @stats[:meetings]) %>
-</div>
+<div id="content-middle">
 
-<div id="content_container">
+  <div id="content-about">
+    <h2>More about Mconf</h2>
+
+    <div class="content-block">
+      <%= image_tag('frontpage/bbb-screen-1.jpg') %>
+      <h3>BigBlueButton</h3>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sodales accumsan consectetur. Vivamus vulputate fermentum nisl, eget facilisis erat pellentesque eu. Sed eget tristique elit</p>
+      <%= render_clearer %>
+    </div>
+
+    <div class="content-block">
+      <%= image_tag('frontpage/mconf-mobile-photo-1.jpg') %>
+      <h3>Mconf-Mobile e BBB-Android</h3>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sodales accumsan consectetur. Vivamus vulputate fermentum nisl, eget facilisis erat pellentesque eu. Sed eget tristique elit</p>
+      <%= render_clearer %>
+    </div>
+
+    <div class="content-block">
+      <%= image_tag('frontpage/mconf-mobile-photo-1.jpg') %>
+      <h3>Mconf-Web</h3>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sodales accumsan consectetur. Vivamus vulputate fermentum nisl, eget facilisis erat pellentesque eu. Sed eget tristique elit</p>
+      <%= render_clearer %>
+    </div>
+  </div>
+
+  <div id="content-stats">
+    <h2>Statistics</h2>
+
+    <b><%= t('frontpage.stats.title') %></b> <%= t('frontpage.stats.text', :users => @stats[:users], :spaces => @stats[:spaces], :meetings => @stats[:meetings]) %>
+  </div>
+
+  <%= render_clearer %>
 
 <!--
   <div id="public_spaces">
@@ -61,14 +84,6 @@
     </div>
   </div>
   <div class="clearer"><span>&nbsp;</span></div>
-
 -->
+
 </div>
-
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-

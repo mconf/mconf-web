@@ -830,10 +830,17 @@ en:
   follow_reset_password: "%{agent}, please follow the link to reset your password"
   footer:
     built_on_top_of: "This website is based on <a href=\"https://github.com/ging/vcc\">VCC</a> (Global Plaza)"
-    find_us: "You can find us at"
+    find_us: "Find more about Mconf"
     gcode: "Google Code"
     github: GitHub
     website: "Project website"
+    copyright: "© 2010-2011 Mconf."
+    sponsors:
+      prav: "Projetos em<br/>Áudio e Vídeo"
+      rnp: "Rede Nacional de<br/>Ensino e Pesquisa"
+      title: Sponsors
+    links:
+      title: Links
   form:
     loading: "The form is loading..."
   from: From
@@ -854,7 +861,7 @@ en:
       one: "%{count} participant"
       other: "%{count} participants"
     popular_spaces: "Popular public spaces"
-    project_description: "<p>This website is part of the project <a href=\"http://www.inf.ufrgs.br/prav/gtmconf\">Mconf</a>, currently being developed in the research group <a href=\"http://www.inf.ufrgs.br/prav\">PRAV</a> from <a href=\"http://www.ufrgs.br\">UFRGS</a> in partnership with <a href=\"http://www.rnp.br\">RNP</a>. It was developed based on <a href=\"http://www.globalplaza.org/\">Global Plaza</a> and is being integrated with the webconference system <a href=\"http://bigbluebutton.org/\">BigBlueButton</a>.</p> <p>For more information, access the project website <a href=\"http://www.inf.ufrgs.br/prav/gtmconf\">clicking here</a>.</p>"
+    project_description: "Mconf is an open source webconference system powered by <a href=\"http://bigbluebutton.org/\">BigBlueButton</a>. It is developed in the research group <a href=\"http://www.inf.ufrgs.br/prav\">PRAV</a> at <a href=\"http://www.ufrgs.br\">UFRGS</a> (Brazil), and funded by <a href=\"http://www.rnp.br\">RNP</a>. And this is the web portal that provides access to Mconf."
     register_sentence: "Create an account to access private spaces and create your own webconferences"
     room_name: "Room's name"
     running:
@@ -866,6 +873,13 @@ en:
       title: "Current statistics:"
     webconferences: Webconferences
     your_name: "Your name"
+    links:
+      project_website: PRAV
+      project_website_desc: Project website
+      source_code: GitHub
+      source_code_desc: Source code
+      docs: Google Code
+      docs_desc: Documentation and bug tracker
   getting_started: "Getting started!"
   group:
     add_to_group: "Add to mailing list"
@@ -1228,7 +1242,7 @@ en:
   locale:
     changed: "Application language changed to "
     error: "Unable to change application language to "
-  locales: 
+  locales:
     de: Deutsch
     en: English
     es: Español
@@ -1241,6 +1255,7 @@ en:
     email_or_login: "Email or username"
     one: Login
     password: Password
+    login_desc: Sign in to your account
   login_or_register: "Login / Register"
   login_request: "You need to be logged in to "
   login_to: "Log in %{site}"
@@ -1846,9 +1861,6 @@ en:
     report: "Report spam"
     reported: "%{name} has reported spam in %{sitename}"
     valid: "This content is valid"
-  sponsors:
-    prav: "Projetos em<br/>Áudio e Vídeo"
-    rnp: "Rede Nacional de<br/>Ensino e Pesquisa"
   stage:
     all: All
     one: Stage

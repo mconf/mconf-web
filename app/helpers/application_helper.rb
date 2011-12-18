@@ -142,4 +142,11 @@ module ApplicationHelper
     "https://github.com/mconf/mconf-web/commit/#{revision}"
   end
 
+  def render_clearer
+    code = <<-EOF
+    <div style="clear:both;">&nbsp;</div>
+    EOF
+    code.html_safe
+  end
+
 end

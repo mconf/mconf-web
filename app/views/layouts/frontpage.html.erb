@@ -33,23 +33,15 @@
       </div>
 
       <div id="home">
-
-        <div id="frontpage_flashs">
-          <% flash.each do |name, msg| %>
-            <div class="<%= name %>"><%= msg.html_safe %></div>
-          <% end %>
-        </div>
+        <%= render :partial => "layouts/flashs" %>
 
         <div id="content">
           <%= yield %>
         </div>
 
-        <div id="footer">
-          <%= render :partial => "layouts/footer" %>
-        </div>
-
       </div>
 
+      <%= render :partial => "layouts/footer" %>
     </div>
 
     <%= render :partial => "layouts/analytics" %>

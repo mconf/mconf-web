@@ -163,7 +163,7 @@ ol{list-style-type:decimal;}
 body{min-width:960px;background-color:white;}
 body .icon{margin-bottom:-2px;}
 #header,#profile_header{background-color:#fff;height:67px;}
-#global,#space,#content,#footer-content,#faq,#help{width:960px;margin:0 auto;display:block;}
+#global,#space,#content,#faq,#help{width:960px;margin:0 auto;display:block;}
 #space{background-color:#e1eef5;}
 #content{clear:left;min-height:400px;padding-top:1em;overflow:hidden;position:relative;}
 
@@ -616,7 +616,7 @@ a.language_select,a.support_select,a.browse_select{
   background:#FFFFFF url(/images/icons/dropico.png) no-repeat scroll right center;
   border: 1px solid white;
 }
-#subtexto_busqueda a.language_select.menu-open,#footer-content a.support_select.menu-open,#subtexto_busqueda a.browse_select.menu-open{
+#subtexto_busqueda a.language_select.menu-open,#subtexto_busqueda a.browse_select.menu-open{
   background:#FFFFFF url(/images/icons/dropico.png) no-repeat scroll right center;
   border:1px solid #999;
   padding: 5px 18px 5px 4px;
@@ -644,7 +644,7 @@ div#language_select,div#support_select,div#browse_select{display:inline-block;}
   right: 5px;
   top: 20px;
 }
-#language_select ul#language_menu li,#footer-content ul#support_menu li{cursor:pointer;display:block;margin-right:0;border-top:1px solid #ccc;}
+#language_select ul#language_menu li{cursor:pointer;display:block;margin-right:0;border-top:1px solid #ccc;}
 .div_busqueda #subtexto_busqueda ul#browse_menu li,#subtexto_busqueda ul#browse_menu li{text-align:left;cursor:pointer;display:block;margin-right:0;border-bottom:1px solid #ccc;}
 ul#language_menu li:hover,ul#support_menu li:hover,ul#browse_menu li:hover{background:#244974;}
 ul#language_menu li a,ul#support_menu li a,ul#browse_menu li a{text-decoration:none;color:#222;display:block;padding:3px 3px 3px 10px;outline:none;background:#fff;}
@@ -924,22 +924,11 @@ div#manage .user a:hover{text-decoration:underline;}
 .spam_post{padding:0.75em 0.5em;border-top:1px #ccc solid;}
 #spam h3{margin:6px 6px 3px 6px;color:#244974;}
 
-/*footer*/
 .clearboth{clear:left;display:inline;}
 .clearfix:after {content:"\0020";display:block;height:0;clear:both;visibility:hidden;overflow:hidden;}
 .clearfix{display:block;}
 
-#footer-content{position:relative;clear:left;background:#fff;font-size:0.9166em;line-height:1.6363;color:#666;padding-top:1.5em;margin-bottom: 15px;}
-#footer-content ul{list-style-type:none;margin:0 0.75em; }
-#footer-content ul li{display:inline-block;position:relative;margin-right:3px;}
-#footer-content ul #trade_mark{font-weight:bold;color:#111;}
-#footer-content .icon,#global .icon{margin-bottom:-4px;}
-#footer-content .languages {
-  border-top: 1px solid #E1EEF5;
-  margin-top:10px;
-  padding-top:10px;
-  text-align:center;
-}
+#global .icon{margin-bottom:-4px;}
 
 /*Inbox*/
 #inbox-wrapper{background:#fff url("../images/dot1.png") repeat-x bottom;}
@@ -1772,50 +1761,6 @@ color:#244974;background:#BDD8EB;padding:5px 10px;
 
 .grey_bar .show_inv{float:right;}
 
-/*********************** footer */
-
-#footerFront {
-  width:100%;
-  padding:0;
-  background:#BDDAEE;
-}
-
-
-.banner_footer {
-  width:960px;
-  margin-left:auto;
-  margin-right:auto;
-  padding:0;
-  position:relative;
-}
-
-
-.banner_footer #footer_content{
-  text-align:left;
-  color: #ccc;
-
-}
-.banner_footer{
-  width:960px;
-  color: #0656a4;
-  margin-left:auto;
-  margin-right:auto;
-  padding-top:2px;
-
-  position:relative;
-}
-
-.banner_footer .a_border{
-  border-right:thin solid;
-  color:#0656a4;
-  padding:0px 7px;
-  text-decoration:underline;
-}
-.banner_footer a{
-  color:#0656a4;
-  padding:0px 7px;
-  text-decoration:underline;
-}
 
 input#space_name {
   width:99%;
@@ -1843,12 +1788,6 @@ input#space_attendeePW {
   display: block;
   height: 150px;
 
-}
-div.banner_footer a{
-  font-family:Helvetica;
-}
-.banner_footer span{
-  font-family:sans-serif;
 }
 
 
@@ -2079,7 +2018,6 @@ a.first_day_link{border:none;}
 
 #edit_video {float:right;}
 #header_help {font-weight: bold; }
-#footer_help {font-weight: bold; }
 
 #div_stats_button { float:left; margin-left: 75px;}
 #stats_header {border-bottom: 1px solid #DDDDDD; height: 65px;}
