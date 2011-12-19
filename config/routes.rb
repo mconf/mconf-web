@@ -220,8 +220,6 @@ Mconf::Application.routes.draw do
   root :to => 'frontpage#index'
   match 'help(/:action)', :to => 'faq#index', :as => 'help'
   match 'faq', :to => 'faq#index', :as => 'faq'
-  #match 'perf_indicator', :to => 'frontpage#performance', :as => 'perf_indicator'
-  #match 'about', :to => 'frontpage#about', :as => 'about' # TODO Create an about for Mconf
 
   resource :session
 

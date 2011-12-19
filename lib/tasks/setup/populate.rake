@@ -7,11 +7,12 @@ namespace :setup do
     require 'ffaker'
 
     if ENV['CLEAR']
-      puts "* Destroying all old spaces and users (except admin)"
+      puts "* Destroying old stuff"
       Space.destroy_all
       users_without_admin = User.find_with_disabled(:all)
       users_without_admin.delete(User.find_by_superuser(true))
       users_without_admin.each(&:destroy)
+      Statistic.destroy_all
     end
 
     puts "* Create Users (15)"
@@ -125,11 +126,6 @@ namespace :setup do
           event.end_date = last_agenda_entry_end_time
 
         end
-
-        Statistic.populate 1 do |statistic|
-          statistic.url = "/spaces/" + space.permalink + "/events/" + event.permalink
-          statistic.unique_pageviews = 0..100
-        end
       end
 
       News.populate 2..10 do |news|
@@ -142,7 +138,7 @@ namespace :setup do
 
       Statistic.populate 1 do |statistic|
         statistic.url = "/spaces/" + space.permalink
-        statistic.unique_pageviews = 0..100
+        statistic.unique_pageviews = 0..300
       end
     end
 

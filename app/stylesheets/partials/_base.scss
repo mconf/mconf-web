@@ -52,6 +52,26 @@ button, input[type=submit], input[type=button], .button {
   }
 }
 
+#notification-flashs {
+  position: absolute;
+  z-index: 101;
+  top: 5px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  line-height: 2.5;
+  overflow: hidden;
+  font-weight: bold;
+  @include box-shadow(0 0 5px black);
+  a { @include link-colors(#ccc); }
+
+  .content { width: $contents-width; margin: 0 auto; }
+
+  .notice { background: #fde073; a { @include link-colors(#666); } }
+  .error { background: #ff3333; color: #eee; }
+  .success { background: #318f00; color: #eee; }
+}
+
 #footer {
   background: $footer-bg-color;
   border-top: 1px solid #e6e6e6;

@@ -33,57 +33,69 @@
     <h2>More about Mconf</h2>
 
     <div class="content-block">
-      <%= image_tag('frontpage/bbb-screen-1.jpg') %>
-      <h3>BigBlueButton</h3>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sodales accumsan consectetur. Vivamus vulputate fermentum nisl, eget facilisis erat pellentesque eu. Sed eget tristique elit</p>
+      <div class="image">
+        <%= image_tag('frontpage/bbb-screen-1.jpg') %>
+      </div>
+      <div class="text">
+        <h3>BigBlueButton</h3>
+        <p>Mconf uses BigBlueButton (BBB) as the base system to hold web conferences. BBB is developed using more than 15 open source components to create a solid web conference platform and is one of the best open source web conferencing softwares (if not the best) today.</p>
+        <p>We use a customized version of BigBlueButton.</p>
+        <ul>
+          <li><a href="http://bigbluebutton.org">View more about BigBlueButton</a></li>
+          <li><a href="http://code.google.com/p/mconf/wiki/MconfBBB">See what Mconf has been doing in BigBlueButton</a></li>
+        </ul>
+      </div>
       <%= render_clearer %>
     </div>
 
     <div class="content-block">
-      <%= image_tag('frontpage/mconf-mobile-photo-1.jpg') %>
-      <h3>Mconf-Mobile e BBB-Android</h3>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sodales accumsan consectetur. Vivamus vulputate fermentum nisl, eget facilisis erat pellentesque eu. Sed eget tristique elit</p>
+      <div class="image">
+        <%= image_tag('frontpage/mconf-mobile-photo-1.jpg') %>
+      </div>
+      <div class="text">
+        <h3>Mconf-Mobile e BBB-Android</h3>
+        <p>Mconf-Mobile and BBB-Android are open source BigBlueButton clients for Android. BBB-Android is a native Android application that works with any BBB server, and Mconf-Mobile is its adaptation for Mconf.</p>
+        <ul>
+          <li><a href="http://code.google.com/p/mconf/wiki/MconfMobile">Read more about it</a></li>
+          <li><a href="https://picasaweb.google.com/108245856281359125408/BigBlueButtonForAndroidV03beta?feat=directlink">View pictures of the application</a></li>
+        </ul>
+      </div>
       <%= render_clearer %>
     </div>
 
     <div class="content-block">
-      <%= image_tag('frontpage/mconf-mobile-photo-1.jpg') %>
-      <h3>Mconf-Web</h3>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sodales accumsan consectetur. Vivamus vulputate fermentum nisl, eget facilisis erat pellentesque eu. Sed eget tristique elit</p>
-      <%= render_clearer %>
+      <div class="image">
+        <%= image_tag('frontpage/mconf-web-screen-1.png') %>
+      </div>
+      <div class="text">
+        <h3>Mconf-Web</h3>
+        <p>Mconf-Web is the website you are using right now. It is an open source web application implemented in Ruby on Rails (built on top of Global Plaza) that provides access to all features in Mconf. You can register for free in this website to test it.</p>
+        <ul>
+          <li><a href="http://code.google.com/p/mconf/wiki/MconfWeb">Read more about Mconf-Web</a></li>
+          <li><a href="<%= signup_path %>">Create an account and test it now!</a></li>
+        </ul>
+      </div>
     </div>
   </div>
 
   <div id="content-stats">
+    <h2>What can I do here?</h2>
+
+
+    <h2>Most active spaces</h2>
+    <a href="<%= spaces_path %>">view all spaces...</a>
+    <%= render :partial => 'space_list', :locals => { :spaces => @most_active_spaces } %>
+
     <h2>Statistics</h2>
 
-    <b><%= t('frontpage.stats.title') %></b> <%= t('frontpage.stats.text', :users => @stats[:users], :spaces => @stats[:spaces], :meetings => @stats[:meetings]) %>
+    <span><b>Spaces:</b> <%= @space_count %></span><br/>
+    <span><b>Users:</b> <%= @user_count %></span><br/>
+    <span><b>Events:</b> <%= @event_count %></span><br/>
+    <b><%= t('frontpage.stats.title') %></b> <%= t('frontpage.stats.text', :users => 0, :spaces => 0, :meetings => 0) %>
+
+
   </div>
 
   <%= render_clearer %>
-
-<!--
-  <div id="public_spaces">
-    <div class="spaces_left">
-      <h2><%=t('frontpage.popular_spaces')%></h2>
-      <% if @popular_spaces.empty? %>
-        <br/>
-        <%= t('frontpage.no_spaces') %>
-      <% else %>
-        <%= render :partial => 'space_list', :locals => { :spaces => @popular_spaces } %>
-      <% end %>
-    </div>
-    <div class="spaces_right">
-      <h2><%=t('frontpage.running_spaces')%></h2>
-      <% if @running_spaces.empty? %>
-        <br/>
-        <%= t('frontpage.no_rooms') %>
-      <% else %>
-        <%= render :partial => 'space_list', :locals => { :spaces => @running_spaces } %>
-      <% end %>
-    </div>
-  </div>
-  <div class="clearer"><span>&nbsp;</span></div>
--->
 
 </div>
