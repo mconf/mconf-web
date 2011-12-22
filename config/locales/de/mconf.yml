@@ -2,9 +2,11 @@
 de: 
   GMT: GMT
   RSS: RSS
+  abc: ABC
   about_me: "Über mich"
   about_sxsw: "Über SXSW"
   account: Konto
+  account_activated: "Ihr Konto wurde aktiviert!"
   action: 
     other: Aktionen
   actions: Aktionen
@@ -15,15 +17,18 @@ de:
   address: Adresse
   admin: 
     one: Admin
+    space: "The administrator of %{spacename}"
   admission: 
     other: Admissions
   advanced: Fortgeschritten
   advanced_editor: "Advanced Editor"
   agenda: 
+    del_entry: Löschen
     divider: 
       edit: "Edit Divider"
       error: 
         coinciding_times: "Es gibt einen Konflikt mit dem Zeitpunkt der neuen Teiler und bestehende Agenda-Einträge oder Trennwände"
+        date_out_of_event: "Das Datum des Teilers überschreitet die maximale Dauer der Veranstaltung: Tag %{max_days}"
         past_times: "Diese Art der Veranstaltung können nicht vergangenen Zeiten"
       new: "New Agenda divider"
       one: Divider
@@ -40,6 +45,7 @@ de:
         delete: "Fehler beim Löschen der Tagung in abgelegenen Videokonferenz-System"
         disordered_times: "Die Startzeit muss vor der Endzeit"
         out_of_event: "Part of the session time falls out of the event limits"
+        past_times: "Die Startzeit der Sitzung muss %{min_date} oder später werden"
       new: "Neue Agenda-Eintrag"
       options: 
         streaming: "Video streaming"
@@ -57,14 +63,27 @@ de:
   agree: Ja
   all: Alle
   all_events: "All Events"
+  all_rights_reserved: "Alle Rechte vorbehalten"
   any_field: "Jedes Feld"
+  are_you_sure: "Sind Sie sicher?"
   attachment: 
     add: "Upload hinzufügen"
+    delete: "Delete Attachment"
     deleted: "Attachment erfolgreich gelöscht"
+    error: 
+      not_deleted: "%{file} nicht korrekt gelöscht."
+      not_permission: "%{user} kann nicht gelöscht werden %{file}."
     file: "File:"
+    found: 
+      none: "Keine Anhänge gefunden"
+      one: "1 Anhang gefunden wurde"
+      other: "%{size} Anhänge wurden gefunden"
+    home: 
+      one: "File in space %{space}"
     info: Dokument-Info
     new: "Neue Anlage"
     not_selected: "Kein Dokument ausgewählt"
+    one: Pfändung
     other: Attachments
     selected: 
       none: "Keine Dateien ausgewählt"
@@ -75,6 +94,7 @@ de:
   avatar: 
     created: "Bild erfolgreich hochgeladen"
     crop: "Bild zuschneiden"
+    select: "Bild auswählen"
     select_new: "Wählen Sie Neues Bild"
     upload: "Bild hochladen"
   back: Zurück
@@ -118,7 +138,9 @@ de:
   collapse: Zusammenbruch
   collapse_arrows: Zusammenbruch>>;
   comment: 
+    add: "Kommentar hinzufügen"
     add_new: "Fügen Sie einen neuen Kommentar"
+    by: "Kommentar von %{author}"
     delete: "Kommentar löschen"
     edit: "Edit Kommentar"
     new: "Neuer Kommentar"
@@ -129,12 +151,14 @@ de:
   country: Land
   create: Schaffen
   create_event: "Neues Event"
+  created_time_ago: "Erstellt %{time} ago"
   date: 
     start: "Start date"
     undefined: Undefined
   days: Days
   dblclick: "Doppelklicken Sie zum Bearbeiten ..."
   delete: 
+    confirm: "Löschen %{element}?"
     one: Löschen
     select: "Wählen Sie zum Löschen"
   deny: Nicht
@@ -188,6 +212,7 @@ de:
     created: "Event erfolgreich erstellt"
     deleted: "Event erfolgreich gelöscht"
     description: 
+      add: "Beschreibung hinzufügen."
       none: "Niemand hat eine Beschreibung geschrieben."
     edit: Edit-Ereignis
     enable: 
@@ -199,18 +224,26 @@ de:
       dates: "Enddatum muss nach dem Startdatum werden"
       dates1: "Die Veranstaltung Startdatum muss als die vorherigen Veranstaltung Enddatum"
       marte: "Konnte nicht erstellt virtuelle Konferenz"
+      max_size_excedeed: "The maximum duration of the event is %{max_days} days and can't be excedeed"
       omit_date: "Die Veranstaltung muss Startdatum und Enddatum"
       too_short: "Event is too short, it must be at least 15 minutes long"
     future: "Ereignis in der Zukunft"
+    group_invitation: 
+      subject: "%{username} invites you to event %{eventname} in space %{space}"
     has: "Dieses Ereignis hat"
     help: 
       create: "Erstellen Sie Ihre Veranstaltung einfach in drei Schritten:"
       edit: "Bearbeiten Sie Ihre Veranstaltung"
       organisers: "Wählen Sie den Raum Benutzer, die dieses Ereignis organisiert wird"
+    home: 
+      one: "Event in den Raum %{space}"
+    last_7_days: "Letzte 7 Tage (%{size})"
+    last_month: "Im vergangenen Monat (%{size})"
     location: Standort
     logo: 
       created: "Event-Logo erfolgreich erstellt"
       crop: "Wählen Sie, welcher Teil des Bildes zu beschneiden"
+      new: "Fügen Sie ein Bild für Ihre Veranstaltung"
       select: "Ändern Sie Ihr Logo"
     move: 
       change_end_date: "Change event end date"
@@ -218,6 +251,7 @@ de:
       change_event_start_date_div: "<b>Change event start date:</b> This option lets you expand you event time by moving the start time. This change will only affect to the event start time and won't change anything more (the sessions will remain in the same time). Use this option if you need more time before you current event star time."
       change_start_date: "Change event start date"
       no_change: "No change"
+      out_date: "The agenda entry which title is \"%{agenda_entry}\" will be out of the event and it's not allowed. Move or edit your sessions to allow this change to be done."
     new: 
       conference: "Virtual Congress"
       meeting: "Virtual Meeting"
@@ -236,18 +270,24 @@ de:
       label: "Passen Sie Ihre Benachrichtigung"
       legend: 
         name: "'Name' wird in der Nachricht durch den Namen des Empfängers ersetzt werden."
+      message_beginning_with_start_date: "<p>'Name',</p><p>Regarding the <b>event 'event_name' in space %{space}</b> on 'event_date':</p>"
+      message_beginning_without_start_date: "<p>'Name',</p><p>Regarding the <b>event 'event_name' in space %{space}</b>:</p>"
+      message_ending: "<p>You can find more information about the event in <a href=\"event_url\">event_url</a> </p><p>Kind regards,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>"
       message_title: "Senden Sie eine Mitteilung an die Teilnehmer"
       personal: "Schreiben Sie Ihren persönlichen Text hier."
       select_all_attendants: "Anzeige aller Diener"
       selected_attendants: "Attendants Sie informieren:"
       show_all_attendants: "Alle Betreuer"
+      subject: "%{username} has sent a notification to you about event %{eventname} in space %{space}"
     now: "Veranstaltungen in diesem Moment:"
     one: Veranstaltung
     online: WebConference
     other: Veranstaltungen
     participation: 
+      add: "Fügen Sie ein."
       none: "Niemand hat jegliche Beteiligung URL gepostet."
     past: 
+      all: "Alle Vergangenheit (%{size})"
       last_month: "Keine Termine für letzten Monat."
       last_week: "Keine Termine für letzte Woche."
       none: "Keine Events in der Vergangenheit"
@@ -268,6 +308,7 @@ de:
     start: Start-Ereignis
     started: "Start erfolgreich Anfrage senden"
     streaming: 
+      add: "Fügen Sie ein."
       no_at_events: "Kein Streaming an den Sitzungen"
       none: "Niemand hat eine Streaming-URL gepostet"
       notice: "People will need access rights to this space to see this videos"
@@ -276,11 +317,13 @@ de:
       will_be_available: "Das Streaming wird während der Veranstaltung zur Verfügung"
     to: Zu
     today: "Heute Veranstaltungen"
+    today_and_yesterday: "Heute und gestern (%{size})"
     tomorrow: "Tomorrow Veranstaltungen"
     undated: 
       show: "Alle Veranstaltungen undatierten"
       title: "Events ohne Agenda definiert"
     upcoming: 
+      all: "Alle anstehenden (%{size})"
       next_month: "Es sind keine Termine für den nächsten Monat"
       next_week: "Es sind keine Termine für die nächste Woche"
       none: "Keine anstehenden Termine"
@@ -295,12 +338,15 @@ de:
     view_related_rec: "View on video list"
     view_streaming: Streaming
     will_attend: "Planen Sie, zu diesem Event teilnehmen?"
+    within_7_days: "Innerhalb von 7 Tagen (%{size})"
+    within_a_month: "Innerhalb eines Monats (%{size})"
   event_invitation: 
     instructions: "Click Send for each invitation you want to send, and click Finish when you are done."
     sent: "Invitations sent successfully"
     will_invite: "Personen, die Sie einladen:"
   fax: Fax
   feedback: 
+    email: "%{email} sent the following feedback:"
     note: "Helfen Sie uns, besser zu VCC. Bitte senden Sie Ihre Kommentare, Anregungen und Probleme. Wir werden versuchen, so schnell wie möglich antworten"
     one: Rückkopplung
     send: "Senden Sie Feedback"
@@ -321,12 +367,18 @@ de:
   help_createVC: 
     part1: "So erstellen Sie einen virtuellen Kongress in VCC:<br><br>  1. Klicken Sie auf die Registerkarte Ereignisse. <br> 2. Klicken Sie auf Virtual-Kongress auf der rechten Seite der Seite."
     part2: "3. Geben Sie einen Titel und eine Beschreibung für Ihre Veranstaltung.  <br>4. Geben Sie ein oder wählen Sie den Raum Nutzer Organisation der Veranstaltung.  <br>5. Art der Veranstaltung Ort.  <br> 6. Wählen Sie die Teilnahme-Modi, mit denen Sie entscheiden, wie die Menschen können die virtuellen Treffen zu verbinden.<li>  a. Isabel mittels der zugrunde liegenden Open-Source-Video-Conferencing-Software. <li> b. die Möglichkeit, Web-Browser über das Web zu beteiligen.  <br>7. Klicken Sie auf die Schaltfläche Erstellen."
+    part3: "8. Nachdem Sie das Ereignis erstellt haben, können Sie: <br><li><a href=%{agenda}>Definieren Sie die Agenda für die Veranstaltung </a><li>  Buchung Ressourcen erforderlich, um eine Videokonferenz zu machen <li> Personen einladen  <li>Schreiben Sie eine vollständige Beschreibung<li>  Bearbeiten Sie Ihre Veranstaltung<li>Importieren Sie die Tagesordnung zu Ihrem iCalendar  <li>Benachrichtigen Begleiter"
   help_createVM: 
     part1: "So erstellen Sie ein virtuelles Treffen in Global Plaza: <br><br> 1. Klicken Sie auf die Registerkarte Ereignisse.  <br>2. Klicken Sie auf Virtual Meeting auf der rechten Seite der Seite."
     part2: "3. Geben Sie einen Titel und eine Beschreibung für Ihre Veranstaltung. <br> 4. Geben Sie ein oder wählen Sie den Raum Nutzer Organisation der Veranstaltung. <br> 5. Art der Veranstaltung Ort.<br>  6. Wählen Sie die Teilnahme-Modi, mit denen Sie entscheiden, wie die Menschen können die virtuellen Treffen zu verbinden.  a. Isabel mittels der zugrunde liegenden Open-Source-Video-Conferencing-Software.  b. die Möglichkeit, Web-Browser über das Web zu beteiligen.<br>  7. Klicken Sie auf die Schaltfläche Erstellen."
+    part3: "8. Nachdem Sie das Ereignis erstellt haben, können Sie: <br><li><a href=%{agenda}>Definieren Sie die Agenda für die Veranstaltung</a><li>  Buchung Ressourcen erforderlich, um eine Videokonferenz zu machen <li> Personen einladen  <li>Schreiben Sie eine vollständige Beschreibung<li>  Bearbeiten Sie Ihre Veranstaltung<li> Importieren Sie die Tagesordnung zu Ihrem iCalendar  <li>Benachrichtigen Begleiter"
+  help_createevent: 
+    part1: "<a href=%{url} class=\"big_button red_button\" target=\"_blank\"><span>Screencast</span></a><br><br><br>So erstellen Sie eine Veranstaltung in Global Plaza:<br><br>  1. Klicken Sie auf die Registerkarte Ereignisse."
+    part2: "2. Sie können direkt ein Ereignis aus dem <b> Create Event </b> box auf der rechten Spalte der Seite. Global Plaza unterstützt drei Arten von Veranstaltungen, nach Ihren Bedürfnissen: <br><li> Die  <b><a href=%{url_meeting}>Konferenz</a></b> ist grundsätzlich zur Einfuhr Anzug physischen Sitzungen oder offline Sitzungen, für die Sie nicht benötigen oder Streaming-Video-Aufnahme, könnten aber dennoch lieber Sitzung haben Umgang mit Funktionen, die eine einfachere - wie das Erstellen und Ändern einer Tagesordnung, dass Menschen zu konsultieren oder in ihrem Kalender. Außerdem möchten Sie vielleicht Unterlagen für die Sitzung oder später tausche Bilder auf der Sitzung getroffen benötigt wird. <li> Das <b><a href=%{url_vm}>virtuelle Meeting</a></b>-Typ ist geeignet für Teilnehmer Online-Meetings oder physische Treffen mit einem starken virtuelle Komponente, was bedeutet, dass sowohl die lokale und Remote wird interaktiv die Möglichkeit haben zu kommunizieren.  <li>Die  <b> <a href=%{url_vc}> Virtual-Kongress</a> </b> Art ist sehr ähnlich zu dem virtuellen Treffen ausgerichtet, aber für größere Veranstaltungen, sowohl in Größe und Komplexität. Gewöhnlich erfordert diese Art der Unterstützung eines Betreibers vor Ort."
   help_createmeeting: 
     part1: "So erstellen Sie eine Sitzung in Global Plaza:  <br><br>1. Klicken Sie auf die Registerkarte Ereignisse.  <br>2. Klicken Sie auf Meeting auf der rechten Seite der Seite."
     part2: "3. Geben Sie einen Titel und eine Beschreibung für Ihre Veranstaltung.  <br>4. Geben Sie ein oder wählen Sie den Raum Nutzer Organisation der Veranstaltung.  <br>5. Art der Veranstaltung Ort. <br>6. Klicken Sie auf die Schaltfläche Erstellen."
+    part3: "7. Nachdem Sie das Ereignis erstellt haben, können Sie:<br><li><a href=%{agenda}>Definieren Sie die Agenda für die Veranstaltung</a><li> Personen einladen  <li>Schreiben Sie eine vollständige Beschreibung <li> Bearbeiten Sie Ihre Veranstaltung <li>Importieren Sie die Tagesordnung zu Ihrem iCalendar<li>  Benachrichtigen Begleiter"
   help_createpost: 
     part1: "So erstellen Sie eine Nachricht in der Wand in VCC:"
     part10: "a. HTML-Quelltext"
@@ -345,24 +397,36 @@ de:
     part9: "8. Sie können mit dem erweiterten Editor, um Inhalte zu erfassen. Dieser Editor ermöglicht es Ihnen:"
   help_createspace: 
     part1: "So erstellen Sie einen Platz im VCC:"
+    part2: "1. Klicken Sie auf <a href=%{url}>My Home</a> Elements aus der oberen Menüleiste."
+    part3: "2. Klicken Sie auf Create New Space-Taste."
     part4: "3. Fügen Sie einen Namen und eine Beschreibung für Ihren Raum."
     part5: "4. Entscheiden Sie, ob der Raum sollten öffentlich sein."
     part6: "5. Wenn Sie ein Document Repository aktivieren, wählen Sie diese Option."
   help_createuser: 
     part1: "So erstellen Sie einen Benutzer im VCC:"
+    part2: "1. Klicken Sie auf <a href=%{url}>Register</a> bar Element aus dem oberen Menü."
     part3: "2. Geben Sie eine E-Mail, Passwort und vollständigen Namen."
     part4: "3. Geben Sie den Code aus dem Bild gezeigt."
     part5: "4. Sobald Sie sich registriert haben, klicken Sie auf die Schaltfläche Fertig abgeschlossen."
     part6: "5. Nach der Registrierung für ein Konto, werden Sie eine Bestätigung per Email mit dem Link, um zu erhalten, um Ihr Konto zu aktivieren."
   help_define_agenda: 
+    part1: "<a href=%{url} class=\"big_button red_button\" target=\"_blank\"><span>Screencast </a></span><br><br><br>So erstellen Sie eine Agenda für Ihre Veranstaltung in VCC: <br><br> 1. Klicken Sie auf 'Events'. <br> 2. Klicken Sie auf den Fall, dass Sie bereits erstellt haben.<br>  3. Klicken Sie auf 'Definieren Sie den Zeitplan' Link, 'Agenda'-Button oder 'Agenda für die Veranstaltung'-Link (siehe blaue Pfeile in der Abbildung)"
     part2: "4. In der Tagesordnung Abschnitt, klicken Sie auf 'Add' Button zu erstellen ein Tagesordnungspunkt.  <br>5. Füllen Sie den Agenda-Eintrag Titel, die Startzeit und die Dauer und klicken Sie auf 'Next Step'-Button <br> 6. Sie können nun Details wie die Redner, die Site-Benutzer oder externen Benutzern, oder die Beschreibung werden können <br> 7. Wenn Sie eine Datei schließen, klicken Sie auf 'New attachment'-Link. <br> 8. Wenn die Art der Veranstaltung 'Meeting ist', können Sie einbetten Video zu diesem Tagesordnungspunkt"
     part3: "9. Wenn die Art Ihrer Veranstaltung lautet 'Virtual Meeting' oder 'Virtual Congress', können Sie Hard-und Software-Ressourcen für diesen Tagesordnungspunkt behalten, wählen Sie sowohl Streaming und Aufnahme"
     part4: "10. Klicken Sie auf die Schaltfläche 'Finish' um die Änderungen zu.  <br>11. Wenn Sie einen Teiler, Brüche zeigen, wie Kaffee-oder Mittagspausen, klicken Sie auf 'Add Teiler'-Button hinzufügen. Sie können die Startzeit und der Grund für die Pause. Klicken Sie auf 'Create'-Taste, um die Trennlinie hinzuzufügen.  <br>12. Wenn Ihre Veranstaltung dauert länger als einen Tag, können Sie eine neue Sitzung für den zweiten Tag. Jeder Tag hat seine eigene Registerkarte mit dem angegebenen Tagesordnungspunkten."
   help_index: 
     part1: "Global Plaza bietet einen virtuellen Event-Service, die es Ihnen ermöglichen Videokonferenzen durchführen, Streaming, Aufnahme und das elektronische Publizieren Ihrer Meetings, Vorträge, Schulungen, Konferenzen, Kongressen oder Workshops."
     part2: "GlobalPlaza des sozialen Netzwerks wird die Ankündigungen von Veranstaltungen, um andere zu verbreiten, ebenso wie wir entdecken Sie Veranstaltungen, die von anderen durchgeführt, um teilzunehmen oder folgen them.Typical Use-Cases von GlobalPlaza sind: <li>Broadcasting über das Internet per Streaming Veranstaltungen oder Vorträge statt in einem Klassenzimmer, Konferenzräume und Auditorien. <li>Aufnahme und Veröffentlichung von Veranstaltungen oder Vorträge statt in einem Klassenzimmer, Konferenzräume und Auditorien.<li>Bringing in entfernten Lautsprecher über das Internet in Ihre Veranstaltungen, von Desktops oder Zimmer.  <li>Aktivieren Fernteilnahme von Auditorien oder Zimmer in einem bestimmten Kongress oder Event. <li>Performing voll Veranstaltungen mit Remote-Desktops verteilt und Auditorien miteinander verbunden.  <li>Usw.<br><br> "
+    part3: "Die folgenden Aufnahmen von Veranstaltungen geben Ihnen eine Vorstellung davon, was Sie von der GlobalPlaza erhalten:  <li><a href=%{tnc08}>TNC'08</a>,<a href=%{tnc09}>TNC'09</a>,<a href=%{tnc10}>TNC'10 </a>."
+    part4: "<li>Belief Symposien in <a href=%{india}>Indien</a>,<a href=%{brazil}>Brasilien</a> und <a href=%{southafrica}>Südafrika</a>."
+    part5: "<li><a href=%{egee08}>EGEE'08</a> ,<a href=%{egee05}>5. EGEE User's Forum</a>.<li><a href=%{morfeo}>Asamblea Morfeo</a>"
+    part6: "<br>Global Plaza wird als ein sozio-Website, die gemeinsame soziale Netzwerke unterstützt gemeinsam mit kooperativen Unterstützung von Projekten und Aktivitäten strukturiert Gruppe. Jeder kann <a href=%{url}>registrieren</a> kostenlos in der Global-Plaza, um es Bestandteil des sozialen Netzwerks und die Nutzung des Dienstes."
+    part7: "Nach der Registrierung können Sie zu <a href=%{create}>erstellen</a>, öffentliche oder private Räume für die Zusammenarbeit mit eingeschränkten Gruppen von Personen, die durch und verwaltet werden Sie von den Personen, die Sie Administratoren ernennen. Sobald Sie ein reguläres Mitglied oder Administrator eines Raumes sind, können Sie zu erstellen, zu verkünden, durchführen, aufnehmen und veröffentlichen Sie Ihre Veranstaltungen in Global Plaza. Virtual Ereignisse können automatisch aufgezeichnet und veröffentlicht durch Global Plaza für den privaten oder den Zugang der Öffentlichkeit sowie in Blogs einbetten, Webseiten, etc. <br><br> Aktivitäten für Gruppen veranstaltet in Global-Plaza können öffentlich oder privat sein. Öffentliche Räume Host-Aktivitäten, die gesehen werden und anschließend kann jeder, während die privaten Räume unterstützt Projekte und Aktivitäten, bei denen eine Gruppe Informationen austauschen und treffen sich in privaten zusammenarbeiten können. <br><br>Sie können in einer virtuellen Global Plaza Ereignis aus Ihrem Web-Browser direkt an nur durch Zugriff auf die Event-Seite, wo das Ereignis angekündigt. Ihr Browser muss Flash installiert. Sie können auch eine Teilnahme mit <a href=%{isabel}>Isabel</a> Native Client, die eine bessere Qualität bietet audiovisuelle und ist empfohlen für Lautsprecher oder Auditorien verbinden Räume und. Ein SIP-Gateway ist ebenfalls vorgesehen, um die Beteiligung von einer Videokonferenz Ausrüstung ermöglichen."
+    part8: "Die Global wurde von der Plaza entwickelt worden <a href=%{web_global}>Europäischen Global projekt</a> durch die Wiederverwendung von Ergebnissen und Entwicklungen aus anderen Projekten, die verwandelt haben <a href=%{isabel}>Isabel </a>Applikation in ein Cloud-Computing-Dienst wie ITECBAN, Ecospace, Collaboration @ Rural, Cepos, etc. <br><br>So <a href=%{create}>erstellen</a> oder bearbeiten Leerzeichen, müssen Sie angemeldet sein Konto um Ihre Global Plaza. Wenn Sie noch kein Konto haben, <a href=%{url}>erstellen Sie jetzt</a>."
   help_logging: 
+    part1: "Wenn Sie bereits ein Konto VCC, können Sie <a href=%{url}>sich hier anmelden,</a> oder klicken Sie auf Login-Position aus der oberen Menüleiste. Geben Sie Ihre Email und Passwort auf dem Hauptbildschirm."
     part2: "Sie können Login automatisch, falls Sie einen Account bei einem OpenID-Provider."
+    part3: "Wenn Sie Ihr Passwort, das Sie dieses Formular verwenden können, um ihn wieder und haben es automatisch per E-Mail an Sie vergessen."
   help_newdoc: 
     part1: "So fügen Sie ein neues Dokument in VCC:"
     part2: "1. Klicken Sie auf Registerkarte <b>Archiv.</b>"
@@ -399,6 +463,9 @@ de:
     updated1: "Ein Eintrag Ihrer iCalendar waren schon auf Ihre Veranstaltung Tagesordnung und wurden aktualisiert."
     updatedn: "Einträge Ihres iCalendar waren schon auf Ihre Veranstaltung Tagesordnung und wurden aktualisiert."
   im: IM
+  inbox: 
+    my: "My Inbox (%{checked})"
+    one: "Inbox (%{checked})"
   information: 
     information1: "Dies sind die Bereiche gehören Sie zu"
     information2: "Hier finden Sie die neuesten Nachrichten, Veranstaltungen und Neuigkeiten der Räume gehören Sie zu"
@@ -410,10 +477,14 @@ de:
     ppal: Internet
   invitation: 
     accept: "Einladung annehmen"
+    access_space: "You are now a member of %{spacename} and now you can access it on <a href=\"%{space_url}\"> %{space_url} </a>"
+    add_more: "Mehr Leute einladen"
     deselect_all_users: "Deaktivieren Sie alle Benutzer"
     discard: "Discard Einladung"
     email: E-Mail
     hide_all_users: "Verstecken allen Benutzern"
+    info_space: "You can find more information about this space in <a href=\"%{space_url}\"> %{space_url} </a>"
+    info_users: "You can see the current list of users of the space in <a href=\"%{users_url}\"> %{users_url} </a>"
     introducer: Introducer
     label: "Passen Sie Ihre Einladung Nachricht"
     legend: 
@@ -421,17 +492,21 @@ de:
       name: "'Name' wird in der Nachricht durch den Namen des Empfängers ersetzt werden."
     logout_and_reload: "Du bist nicht der Benutzer, der diese Einladung erhalten haben, bitte abmelden und versuchen Sie es erneut"
     message_title: "Leute einladen Ihren Raum"
+    not_accepted: "nicht akzeptiert"
     not_pending: 
       other: "Es gibt keine ausstehenden Einladungen"
     pending: 
       other: "Bis Einladungen"
     personal: "Personal message"
+    rejoin_space: "If you would like to request membership again please go to <a href=\"%{space_url}\"> %{space_url} </a>"
     role_label: "Rolle für die eingeladenen Personen"
     select_all_users: "Wählen Sie alle Benutzer"
     show_all_users: "Alle Benutzer anzeigen"
     title: "Invite people"
     title2: "Space Einladung"
     to_accept_space: "So nehmen Sie meine Einladung besuchen Sie bitte die %{url}"
+    to_event: "%{username} invites you to event %{eventname} in space %{space}"
+    to_space: "%{username} invites you to space %{space}"
     will_invite: "Personen, die Sie einladen"
     yes_accepted: akzeptiert
   invited: Eingeladene
@@ -439,6 +514,8 @@ de:
   join_cam: Participate
   join_request: 
     already_sent: "Sie haben bereits gebeten, diesen Raum beitreten"
+    ask_subject: "%{candidate} möchte in %{space}"
+    asked_anonymous: "Jemand will in %{space} Raum von Ihnen verwalteten teilnehmen:"
     created: "Ihre Anfrage wurde an den Beitritt der Raum-Administratoren gesendet"
     joined: "Sie sind bereits Mitglied des Raumes"
     label: "Passen Sie Ihre Anfrage anzuschließen Nachricht"
@@ -463,6 +540,7 @@ de:
     created: "Logo erfolgreich hochgeladen"
     crop: "Crop Raum Logo"
     empty: "Das Logo ist leer"
+  logout: "Logout %{user}"
   manage: Verwalten
   mandatory_field: "Mandatory field"
   message: 
@@ -487,6 +565,7 @@ de:
     one: Name
     other: Names
     prefix: Titel
+  new_spam_detected: "Neue Spam erkannt"
   news: 
     created: "News Artikel veröffentlicht erfolgreich"
     deleted: "News Artikel erfolgreich gelöscht"
@@ -508,8 +587,10 @@ de:
   ok: OK
   older: Older
   optional: Optional
+  or: oder
   organization: Organisation
   organizer: Veranstalter
+  other: Andere
   participant: 
     created: "Ihre Teilnahme Informationen wurden erfolgreich aktualisiert"
     error: 
@@ -517,12 +598,21 @@ de:
   password: 
     confirm: "Kennwort bestätigen"
     one: Kennwort
+    request: "Passwort-Reset in %{sitename}"
+    reset_email: "Ihr Kennwort ist in %{sitename} zurückgesetzt worden"
+    to_reset: "Um Ihr Passwort zurückzusetzen besuchen Sie bitte die <a href=%{url}>%{url}</a>"
   past: Vergangenheit
   people: Menschen
   per_page: "pro Seite"
   performance: 
     notification: 
       estandar: "%{username} has change your role in %{stage} to %{role}. "
+      event: "%{username} has change your role in event %{event} to %{role}. "
+      space: "%{username} has change your role in space %{space} to %{role}. "
+      subject: 
+        estandar: "%{username} has change your role in %{stage} "
+        event: "%{username} has change your role in event %{event} "
+        space: "%{username} has change your role in space %{space} "
     updated: "User Leistung erfolgreich aktualisiert"
   permission: 
     other: "Die Rechte auf Zugang"
@@ -536,14 +626,19 @@ de:
   photos_view_arrows: "Bilder ansehen>>"
   place: Ort
   please: Bitte
+  popularity: Popularität
   post: 
+    deleted: "Comment %{postname} wurde gelöscht"
     found: 
       show_all: "Zeige alle Ergebnisse"
+    home: 
+      one: "Nachricht im Raum %{space}"
     latest: "Aktuelle Nachrichten"
     none_created: "Keine Nachricht erstellt"
     none_recent: "Es sind keine aktuellen Nachrichten"
     one: Nachricht
     other: Nachrichten
+    other_in_space: "Nachrichten im Raum %{space}"
     show_expanded_pref: "Wie möchten Sie Ihre Nachrichten sehen?"
     wall: Wand
   preferences: Preferences
@@ -561,17 +656,22 @@ de:
     public: "Öffentliches Profil"
     public_description: "Jeder kann auf diese Informationen zugreifen"
     updated: "Profil erfolgreich aktualisiert"
+    visibility_edit: "Bearbeiten Sie Ihr Profil Sichtbarkeit"
   province: Provinz
   public: Öffentlichkeit
   read_more: "Lesen Sie mehr"
+  received_message_more_machines: "Sie haben eine Nachricht von %{user} Bitte um mehr Maschinen erhalten"
   recent: 
     activity: "Aktuelle Tätigkeit"
   register: 
     and_participate: "Register To Participate"
     and_participate_description: "To participate in the event you should register"
+    and_participate_description_with_login: "To participate in the event you should register or <a href=%{url}>login</a>"
+    back_to_streaming: "back to streaming"
     confirmation: "Nach der Registrierung erhalten Sie eine Bestätigung per Email mit dem Link zur Aktivierung Ihres Kontos"
     one: Register
     or_choose: "or you can go"
+    thank_you: "Willkommen und vielen Dank für die Registrierung in %{sitename}"
   register_as_admin: "Registrieren Sie sich als admin"
   register_as_invited: "Registrieren Sie sich als eingeladen"
   register_as_user: "Registrieren Sie sich als Benutzer"
@@ -580,6 +680,7 @@ de:
   remove: Entfernen
   reply: Antwort
   reply_to: "Antwort an:"
+  reply_to_words: "Antwort an %{words}"
   report_spam: "Report spam"
   repository: 
     download: Download
@@ -592,6 +693,7 @@ de:
     info: "Ihre Anfrage an den Raum beitreten wurde erfolgreich an den Raum Administratoren gesendet. Ein Admin wird sich darum, so bald wie möglich"
     sent: "Anfrage zugesandt!"
   role: 
+    added: "%{role} role successfully added to %{agent}"
     editing: "Bearbeiten Rolle"
     listing: "Listing Rollen"
     new: "Neue Rolle"
@@ -631,6 +733,7 @@ de:
     results: Suchergebnisse
     space: 
       dots: "Suchen space ..."
+    switch: "Switch to globale Suche"
     users: "Benutzer suchen"
   searching_in: "Sie suchen in"
   select_image: "Wählen Sie ein Bild, bitte"
@@ -666,16 +769,23 @@ de:
     clic: "Klicken Sie auf Bearbeiten ..."
     clic_logo: "Klicken Sie auf Ändern Sie Ihr Logo"
     configuration: Space-Konfiguration
+    confirm: "Sind Sie sicher, dass Sie diesen Raum verlassen?"
     create_own: "Create new space"
     created: "Space erfolgreich erstellt"
     delete: "Löschen Space"
     deleted: "Space erfolgreich entfernt"
     description_none: "Ein Raum muss Beschreibung gegeben, um einen neuen Raum zu schaffen"
+    disable: "Disable space"
     disabled: "Space Behinderte erfolgreich"
+    enable: "Enable Raum"
     enabled: "Space aktiviert erfolgreich"
+    error: 
+      enabled: "Space %{name} ist bereits aktiviert"
     group_invitation: 
       button: "Liste einladen"
       message_title: "Invite mailing lists to join your space"
+      private: "<p>Please note that the space is private, so you need to be a registered user of the Virtual Conference Center to be able to send a join request and access the space. You can register here: <a href=\"%{register_url}\">%{register_url}</a></p>"
+      subject: "%{username} invites you to space %{space}"
     is_private: "ist ein privater Raum. Senden Sie eine Anfrage anzuschließen an den Administrator dieser Raum in Ihrem lassen"
     join: "Join this space"
     join_invitation: 
@@ -718,35 +828,47 @@ de:
     error: 
       check: "Es gab ein Problem Kennzeichnung der Ressource als Spam"
     report: "Report spam"
+    reported: "%{name} hat berichtet, Spam in %{sitename}"
     valid: "Dieser Inhalt ist gültig"
   stage_type: Stage-Typ
   street: Straße
   subject: Gegenstand
   summary: Summary
   tag: 
+    add: "Tags hinzufügen"
     edit: "Tags bearbeiten"
+    filter: "Filtern nach tag:"
     new: "Neuer Tag"
+    other_capital: Tags
     selected: 
       one: "Wählen Sie ein Tag:"
       other: "Ausgewählte tags:"
   tags: Tags
+  tags_by: "Tags von:"
   text: Text
   the_string: "die Zeichenkette"
   thread: 
     add: "Post message to wall"
+    comments: "%{children} Kommentare"
+    compact_view: "Switch to kompakte Ansicht"
     deleted: "Message (mit Kommentaren) wurde gestrichen"
     edit: "Edit Nachricht"
+    extended_view: "Wechseln Sie in der erweiterten Ansicht"
     or_add_new: "oder erstellen Sie eine neue Nachricht"
     see_less: "Komprimieren möchten alle Nachrichten?"
     see_more: "Wollen Sie mehr über die Nachrichten?"
+    show_last_comment: "Showing last %{size} comments of %{children}"
   time: 
     from: von
     to: bis
   timezone: 
     one: Zeitzone
+    set_up: "Sie haben noch nicht eingerichtet Ihre Zeitzone. Stellen Sie sich jetzt an"
   title: Titel
   title_formal: 
     mr: Herr
+    mrs: Frau
+    ms: Ms.
   to: zu
   today: Heute
   tooltip: 
@@ -764,10 +886,12 @@ de:
     change: "Sprache wechseln"
   type: Typ
   undated: Undatiert
+  unknown_content: "Inhalt unbekannt %{content}"
   upcoming: Bevorstehende
   update: Aktualisierung
   updated: Aktualisiert
   updated_at: "Aktualisiert am"
+  updated_time_ago: "%{time} ago"
   url: Webseite
   url_add: "Fügen Sie Ihre Website"
   url_plain: URL
@@ -783,11 +907,20 @@ de:
     by_private_message: "Durch private Nachricht"
     confirm_password: "Kennwort bestätigen"
     delete_from_space: "Benutzer löschen aus dem Weltraum"
+    disable: "Benutzer deaktivieren"
+    disabled: "User %{username} Behinderte"
     edit_account: "Bearbeiten Sie Ihr Konto"
     email: E-Mail
     email_used_to_create_account: "Geben Sie die E-Mail-Adresse, die Sie zum Erstellen Ihres Kontos"
+    enable: "Aktivieren Sie Benutzer"
     enabled: "User erfolgreich aktiviert. Der Benutzer gehört zur Zeit zu keinen Platz und müssen Räume wieder beizutreten."
+    error: 
+      enabled: "User %{name} ist bereits aktiviert"
     filter: "Invite by user name"
+    found: 
+      none: "Keine Benutzer gefunden"
+      one: "1 Benutzer gefunden"
+      other: "%{size} Benutzer gefunden"
     full_name: "Vollständiger Name"
     group_invite_email: "Invite by e-mail"
     id: "User ID"
@@ -797,6 +930,8 @@ de:
     invited: "Benutzer bereits aufgefordert"
     list_by: "Auflistung nach"
     lost_password: "Haben Sie Ihr Passwort vergessen?"
+    noactivity: "%{user} hat keine aktuelle Aktivität"
+    not_activated: "Ihr Konto ist nicht aktiviert. Bitte überprüfen Sie Ihre E-Mail zu aktivieren"
     not_assist: "Nicht Besucher"
     not_confirmed: "Nicht bestätigt"
     notifications: "Wie wollen Sie Ihre Mitteilungen erhalten?"
@@ -811,6 +946,7 @@ de:
     search: "Benutzer suchen ..."
     timezone: Zeitzone
     updated: "User erfolgreich aktualisiert"
+    vcc_email: "VCC Benutzer per E-Mail %{dir}"
     view_expanded_posts: "Alle Einträge in der Wand mit der erweiterten Ansicht standardmäßig"
   username: Benutzername
   vCard: 
