@@ -729,6 +729,7 @@ es:
   spam: 
     created: "Un mensaje reportando spam ha sido enviado correctamente al administrador de Global Plaza. Gracias"
     default: spam
+    detected: "Nuevo spam detectado"
     error: 
       check: "Se ha registrado un problema al marcar el recurso como spam"
     item: "Este elemento se ha detectado como spam"

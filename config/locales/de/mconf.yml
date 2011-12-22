@@ -714,6 +714,7 @@ de:
   spam: 
     created: "Eine Meldung von Spam-E-Mail wurde erfolgreich an den Administrator gesendet. Danke"
     default: Spam
+    detected: "Neue Spam erkannt"
     error: 
       check: "Es gab ein Problem Kennzeichnung der Ressource als Spam"
     report: "Report spam"

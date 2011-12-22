@@ -999,6 +999,7 @@ pt-br:
   spam: 
     created: "Um e-mail de notificação de spam foi enviado com sucesso para o administrador. Obrigado"
     default: spam
+    detected: "Novo spam detectado"
     error: 
       check: "Houve um problema marcando o recurso como spam"
     item: "Este artigo foi denunciado como spam"

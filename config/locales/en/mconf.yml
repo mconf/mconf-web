@@ -998,6 +998,7 @@ en:
   spam: 
     created: "A reporting spam e-mail has been successfully sent to the admin. Thank you"
     default: spam
+    detected: "New spam detected"
     error: 
       check: "There was a problem marking the resource as spam"
     item: "This item has been reported as spam"
