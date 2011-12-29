@@ -1,155 +1,74 @@
 --- 
 es: 
   GMT: GMT
-  Isabel: Isabel
   RSS: RSS
   abc: ABC
-  about: "Acerca de"
-  about_global: "Acerca de GLOBAL"
   about_me: "Acerca de mí"
   about_sxsw: "Acerca de SXSW"
-  about_vcc: "Acerca de GlobalPlaza"
   account: Cuenta
   account_activated: "Su cuenta ha sido activada"
-  account_activated_with_agent: "%{agent}, su cuenta ha sido activada"
-  account_created: "Su cuenta ha sido creada"
   action: 
-    one: Acción
     other: Acciones
   actions: Acciones
   activerecord: 
-    attributes: 
-      user: 
-        login: Login
     errors: 
-      attributes: ~
       messages: 
         missing: falta
-      models: ~
-  add: Agregar
-  add_more_details: "Añadir más detalles"
   address: Dirección
   admin: 
     one: Admin
     space: "El administrador de %{spacename}"
   admission: 
-    errors: 
-      candidate_equals_introducer: "El candidato y el invitador no pueden ser la misma persona (seguramente tenga que salir de la sesión)"
-      candidate_has_role: "ya tiene un rol"
-    one: Admisión
     other: Admisiones
   advanced: Avanzada
   advanced_editor: "Editor avanzado"
-  advanced_options: "Opciones avanzadas"
   agenda: 
-    add_divider: "Añadir divisor"
-    add_entry: "Añadir período de sesiones"
-    define: "Definir la agenda"
     del_entry: Borrar
     divider: 
-      delete: "El divisor ha sido borrado"
       edit: "Editar divisor"
       error: 
         coinciding_times: "Hay un conflicto entre la hora del nuevo divisor y las entradas de agenda o divisores ya existentes"
         date_out_of_event: "La fecha del divisor excede la máxima duración del evento: %{max_days} días"
         past_times: "Este tipo de evento no puede tener fechas en el pasado"
-      failed: "Ha habido un problema con el divisor de la agenda"
       new: "Nuevo divisor de agenda"
       one: Divisor
       start_time: "Hora de inicio"
       title: Título
-      updated: "El divisor se ha actualizado correctamente"
-    edit_entry: Editar
     entry: 
-      cannot_exclude: "No se puede excluir de la grabación de una entrada más corta de "
-      created: "La entrada en la agenda ha sido creada correctamente"
-      creating: "Creando entrada de la agenda"
-      delete: "La entrada en la agenda ha sido borrada con éxito"
-      deleting: "Borrando entrada de la agenda"
       description: Descripción
       duration: Duración
       edit: "Editar elemento de la sesi\\xC3\\xB3n"
-      embed_help: "Puede introducirse código HTML para embeber un vídeo"
       embedded_video: "Embeber vídeo en la entrada"
-      end_time: "Hora de finalización"
       error: 
         attribute_unchangeable: "Ha intentado cambiar un atributo inalterable de esta sesión"
         coinciding_times: "Hay un conflicto entre la hora de la nueva entrada en la agenda, y entradas o divisores ya existentes"
-        create: "Error al crear la sesión en el sistema de videoconferencia"
-        date_out_of_event: "La fecha de la entrada en la agenda excede la máxima duración del evento: %{max_days} días"
         delete: "Error al eliminar la sesión en el sistema de videoconferencia"
         disordered_times: "La hora de inicio debe ser anterior a la hora de finalización"
         out_of_event: "Parte de la sesi\\xC3\\xB3n cae fuera de los límites del evento"
         past_times: "La hora de inicio de la sesión debe ser %{min_date} o más tarde"
-        update: "Error al actualizar la sesión en el sistema de videoconferencia"
-      failed: "La entrada en la agenda no se pudo guardar"
-      has_attachment: "Esta entrada tiene archivos adjuntos"
-      has_video: "Video disponible para esta entrada"
-      help: 
-        recording: "Grabación habilitada para esta sesión"
-        streaming: "Streaming habilitado para esta sesión"
-      hidevideo: "Ocultar vídeo"
-      minutes: acta
       new: "Nueva entrada en la agenda"
-      no_record: "No"
-      one: Entrada
       options: 
-        add_video: "Descartar vídeo automático y añadir uno embebido"
-        help: "Compruebe la transmisión y/o servicios de grabación, según sea necesario"
-        help2: "En esta sesión ya ha tenido lugar y no puede editar su streaming o las opciones de grabación"
-        help3: "Esta sesión está en curso; sólo puede cambiar si desea o no streaming"
-        recording: "Grabación de vídeo"
         streaming: "Grabación de streaming"
-        title: "Opciones de videoconferencia"
-      record: Registro
-      remove: "La entrada de la agenda ha sido borrada"
       speakers: Intervienen
       start_time: "Hora de inicio"
       title: Título
-      updated: "entrada de Agenda se ha actualizado correctamente"
-      updating: "La agenda se está actualizando..."
       upload_video: "El video debe tener la extensión FLV."
       video: Grabación
-      yes_record: Sí
     error: 
-      dates: "La hora de inicio debe ser anterior a la hora de finalización"
-      end_time_overlaps: "La hora de finalización se solapa con una entrada ya existente en la agenda"
-      omit_date: "La entrada en la agenda necesita fechas de inicio y de finalización"
       omit_title: "Debe darse título a la entrada de la agenda"
-      omit_title_divider: "El título del divisor no puede estar vacío"
-      overlaps: "La entrada de la agenda se solapa con una entrada ya existente"
-      start_time_overlaps: "La hora de inicio se solapa con una entrada ya existente en la agenda"
-    expand_help: "Haga click en el título de una entrada de la agenda para expandirla o contraerla"
-    slot: "Selecciona el tiempo de cada apartado"
-    title: Programa
-    update: "Agenda actualizada correctamente."
-    upload: "Subir agenda"
     upload_file: "Subir Archivo"
   agent: 
     authentication: 
-      change_password: "Cambiar la contraseña"
       confirm_password: "Confirme la contraseña"
-      login: Login
-      lost_password: "¡Olvidé mi contraseña!"
       password: Contraseña
-    email: "Correo electrónico"
-    one: Usuario
-    other: Usuarios
-    select: 
-      one: "Seleccionar usuario"
   agree: Sí
   all: Todo
-  all_days: "Todos los dias"
   all_events: "Todos los eventos"
   all_rights_reserved: "Todos los derechos reservados"
-  any: Cualquier
   any_field: "Cualquier campo"
   are_you_sure: "¿Está seguro?"
-  at: en
   attachment: 
     add: "Subir archivo adjunto"
-    attach: Adjunto
-    created: "Adjunto creado correctamente"
     delete: "Eliminar archivo adjunto"
     deleted: "Adjunto eliminado correctamente"
     error: 
@@ -163,48 +82,37 @@ es:
     home: 
       one: "Archivo en el espacio %{space}"
     info: "Información sobre el documento"
-    loading: "Cargando información del documento ..."
     new: "Nuevo archivo adjunto"
     not_selected: "Ningún documento seleccionado"
-    not_valid: "El archivo adjunto no es válido"
     one: "Archivo adjunto"
     other: "Archivos adjuntos"
     selected: 
       none: "No hay archivos seleccionados"
       one: "archivo seleccionado"
       other: "archivos seleccionados"
-    updated: "Archivos adjuntos actualizados correctamente"
     upload_with_post: "Notificar la subida de ficheros con un mensaje en el muro"
   author: "Subido por"
   avatar: 
     created: "Imagen creada con éxito"
     crop: "Recortar imagen"
-    current: "Imagen actual"
-    empty: "Seleccione una imagen, por favor"
     select: "Seleccionar imagen"
     select_new: "Seleccionar nueva imagen"
     upload: "Cargar imagen"
   back: Vuelta
   back_to_inbox: "Volver a la bandeja de entrada"
-  bad_request: "Petición inválida"
   beta: beta
   body: Cuerpo
   button: 
     accept: Aceptar
-    back: Atrás
     cancel: Cancelar
     create: Crear
     creating: "Creando evento..."
-    creating_agenda: "Creando agenda..."
     edit: Editar
     editing: "Editando ..."
     finish: Terminar
     go: ¡Buscar!
     invite: ¡Invitar!
     next: "Siguiente paso"
-    next_invite: "Siguiente: Invitar gente"
-    next_program: "Siguiente: Definir el programa"
-    other_spaces: "Más espacios"
     post: Publicar
     publish: Publicar
     search: Buscar
@@ -215,39 +123,18 @@ es:
   calendar: 
     my: "Mi Calendario"
     one: Calendario
-  can_also: "O también puede:"
   cancel: Cancelar
   caption: 
     add: "Agregar un título"
-  category: 
-    confirm_delete: "¿Borrar la Categoría?"
-    created: "Categoría creada"
-    description: Descripción
-    domain: 
-      one: Dominio
-      other: Dominios
-      without_categories: "%{domain} no tiene categorías"
-    editing: "Editando Categoría"
-    name: "Nombre de la Categoría"
-    new: "Nueva Categoría"
-    one: Categoría
-    other: Categorías
-    other_in_domain: "Categorías - %{domain}"
-    updated: "Categoría actualizada"
-  change: Cambiar
   change_pic: "Cambiar la imagen"
-  changed_mind: "¿Ha cambiado de idea?"
   chat: 
     connecting_error_message: "Error al conectar"
     connecting_message: "Conectando con el chat del evento..."
-    edit_enabled: "Habilitar chat en la próxima sesión (experimental)"
-    edit_question: "¿Desea habilitar la función de chat (experimental)?"
     please_login_message: "Por favor, inicie sesión / regístrese para participar"
     reconnect_button_message: "Click para reconectar"
     reconnect_message: "Volver a conectar"
   check_mail: "Por favor, revise su correo electrónico"
   city: Ciudad
-  click_here: "Haga click aquí"
   click_to_see_all: "haga clic aquí para ver todas"
   close: Cerrar
   collapse: contraer
@@ -261,43 +148,14 @@ es:
     new: "Nuevo comentario"
     one: Comentario
     other: Comentarios
-    recent: 
-      other: "Comentarios recientes"
     show_all: "Mostrar todos los comentarios"
   consider_and_reply: "Favor de considerar y responder a"
   contact_information: "Información de contacto"
-  container: 
-    one: Contenedor
-    other: Contenedores
-  content: 
-    create: 
-      one: "Crear contenido"
-      other: "Crear contenidos"
-    delete: 
-      one: "Borrar contenido"
-      other: "Borrar contenidos"
-    new: "Nuevo contenido"
-    one: Contenido
-    other: Contenidos
-    read: 
-      one: "Ver contenido"
-      other: "Ver contenidos"
-    update: 
-      one: "Actualizar contenido"
-      other: "Actualizar contenidos"
-  conversation: 
-    compress: "Contraer conversación"
-  could_not_find_anybody_with_that_email_address: "No se ha encontrado a nadie con esa dirección de correo"
   country: País
   create: Crear
-  create_: Crear...
   create_event: "Crear Evento"
-  created_at: Creado
-  created_at_date: "Creado: %{date}"
   created_time_ago: "Creado hace %{time}"
   date: 
-    at: "a las"
-    end: "Fecha de finalización"
     start: "Fecha de inicio"
     undefined: Indefinido
   days: Días
@@ -309,47 +167,18 @@ es:
   deny: "No"
   description: Descripción
   destroy: Destruir
-  detail: 
-    other: Detalles
   disable: Deshabilitar
   disabled: "Espacios deshabilitados"
-  docs: Docs
   document: 
-    add: "Añadir nuevo documento"
     upload: "Subir nuevo documento"
-  done: ¡Hecho!
   download: Descargar
   download_file: "Descargar fichero"
-  e-mail: 
-    account_activated: "Su cuenta en %{sitename} ha sido activada con éxito."
-    commas: "Separados por comas"
-    confirm: "Es necesario confirmar su registro haciendo click en <a href=\"%{url}\">%{url}</a>"
-    copy_link: "Si no puede hacer click en el enlace de arriba, por favor copie y pegue la línea siguiente en el navegador: <br/> %{Url}"
-    dear: "Estimado %{name},"
-    invitation_result: 
-      admin_side: "%{name} ha %{action} la invitación al espacio %{spacename}"
-      user_side: "El administrador del espacio %{spacename} ha %{action} su solicitud para participar"
-    join_request: "Solicitud para participar"
-    kind_regards: "Un cordial saludo,"
-    notifications: "notificaciones por correo electrónico"
-    one: "correo electrónico"
-    other: "mensajes de correo electrónico"
-    spam_activation: "Si no se ha registrado en este sitio, por favor <a href=\"mailto:%{contact}\">contacte con nosotros</a> o envíenos <a href=\"%{feedback}\">comentarios.</a>"
-    spam_invitation: "Si cree que este mensaje es spam, por favor <a href=\"mailto:%{contact}\">contacte con nosotros</a> o envíenos <a href=\"%{feedback}\">comentarios.</a>"
-    thanks: "Gracias por visitar %{sitename}"
-    url_activated: "Ahora puede acceder a su cuenta con su correo electrónico (\"%{name}\") y su contraseña en <a href=\"%{url}\">%{url}</a>"
-    used_from: "correo electrónico utilizado en el formulario de contacto: %{dir}"
-    vcc_team: "El equipo de GlobalPlaza"
-    welcome: "Bienvenido a %{sitename}"
   edit: Editar
   edit_hours: "Editar horas"
   edit_profile: "Editar perfil"
   edit_your_profile: "Editar su perfil"
-  email: "Correo electrónico"
-  email_or_full_name: "Correo electrónico o nombre completo"
   enable: Habilitar
   enabled: Habilitado
-  enlarge: Ampliar
   error: 
     change: "El cambio no es válido"
     credentials: "Credenciales no válidas"
@@ -361,52 +190,26 @@ es:
     one: Error
     other: Errores
     vcc_warning: "Advertencia de GlobalPlaza:"
-  eu_commision: "Comisión Europea"
   event: 
     Isabel: "Evento Isabel"
-    action: 
-      select: Acciones
-    agenda: 
-      add_entry: "Añadir una."
-      download: PDF
-      download_small: "PDF pequeño"
-      export: Exportar
-      no_entries: "No hay entradas."
     assistance_title: Asistencia
     assistants_none: "Nadie ha confirmado todavía"
-    attend: Asistirán
     basic_info: "Introducir la información básica"
-    button: 
-      attevents: "Asistir a eventos"
-      atteventstitle0: "Eventos a los que ha confirmado su asistencia"
-      atteventstitle1: "Usted no ha confirmado su asistencia a ningún evento"
-      myevents: "Mis eventos"
-      myeventstitle0: "Eventos que ha creado"
-      myeventstitle1: "No ha creado ningún evento"
     cancel: 
       lose: "Se perderán todos los datos. ¿Está seguro?"
       stop: "¿Está seguro de que quiere dejar de editar?"
-    choose_location: "Elija el lugar"
-    colon: "Evento:"
-    coming: "Próximas actividades"
     connection: 
       info: "Información de conexión para este evento"
       isabel: "Servidor Isabel"
       sip: "Proxy SIP"
-      str: Streaming
       wait: "Esta info estará disponible durante el evento"
-      web: Participación
     create: 
       info: 
-        basic: "Aquí puede organizar tres tipos de eventos"
         conference: 
-          message: "Reuniones grandes, avanzadas. Producción estilo TV que necesita la gestión de un operador."
           name: "Congreso Virtual"
         meeting: 
-          message: "Videoconferencia de fácil participación, con compartición de documentos y streaming y grabación automáticos."
           name: "Reunión virtual"
         presential: 
-          message: "Ideal para reuniones rápidas y sencillas. Notifique a los participantes, suba documentos de trabajo. No tiene streaming o grabación de video."
           name: Reunión
       manual_conf: "Configuración manual"
       title: "Crear nuevo evento"
@@ -414,82 +217,37 @@ es:
     deleted: "El evento fue eliminado correctamente"
     description: 
       add: "Agregar una descripción."
-      edit: "Editar descripción"
       none: "Nadie ha escrito aún una descripción."
     edit: "Editar evento"
     enable: 
-      isabel: Isabel
       isabelbw: "Ancho de banda Isabel"
       participation: "Modos de participación"
       recbw: "Calidad Grabaci\\xC3\\xB3n"
       sip: SIP
-      web: Web
       webbw: "Ancho de banda Flash"
     error: 
       cm_connection: "La conexión con el sistema de videoconferencia ha fallado"
       date_past: "La fecha de inicio no puede estar en el pasado"
       dates: "La fecha de finalización debe ser posterior a la de inicio"
       dates1: "La fecha de inicio del evento debe ser anterior a la fecha de finalización"
-      delete: "El evento no se ha podido eliminar"
       marte: "No se ha podido crear la conferencia virtual"
       max_size_excedeed: "La duraci\\xC3\\xB3n total del evento son %{max_days} dias y no puede ser excedida"
       omit_date: "El evento necesita horas de inicio y fin"
       too_short: "El evento es demasiado corto, debe durar al menos 15 minutos"
-      videoconference: "No se ha podido crear el evento de videoconferencia"
-    features: Características
-    follow: "Siga esta reunión virtual"
-    found: 
-      none: "No se han encontrado eventos"
-      one: "Se ha encontrado 1 evento"
-      other: "Se han encontrado %{size} eventos"
     future: "Evento futuro"
-    generate_pdf: "Generar PDF"
     group_invitation: 
-      button: "Invitar usuarios no registrados"
-      message_private_with_start_date: 
-        in_person: "<p>I would like to invite you to <b>event 'event_name' in space %{space}</b> on 'event_date'.</p><p>You can find more information about this event in <a href=\"event_url\">event_url</a></p><p>Please note that the event is part of a private space, so you need to be a registered user of the Virtual Conference Center to be able to send a join request to the space and have access to the event. You can register here: <a href=\"%{register_url}\">%{register_url}</a></p><p>Kind regards,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>"
-        teleclass: "<p>I would like to invite you to <b>event 'event_name' in space %{space}</b> on 'event_date'. The event will be a virtual class with easy participation through the Isabel system.</p><p>You can find more information about this event in <a href=\"event_url\">event_url</a> </p><p>Please note that the event is part of a private space, so you need to be a registered user of the Virtual Conference Center to be able to send a join request to the space and have access to the event. You can register here: <a href=\"%{register_url}\">%{register_url}</a></p><p>Kind regards,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>"
-        teleconference: "<p>I would like to invite you to <b>event 'event_name' in space %{space}</b> on 'event_date'. The event will be a virtual conference with easy participation through the Isabel system.</p><p>You can find more information about this event in <a href=\"event_url\">event_url</a> </p><p>Please note that the event is part of a private space, so you need to be a registered user of the Virtual Conference Center to be able to send a join request to the space and have access to the event. You can register here: <a href=\"%{register_url}\">%{register_url}</a></p><p>Kind regards,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>"
-        telemeeting: "<p>I would like to invite you to <b>event 'event_name' in space %{space}</b> on 'event_date'. The event will be a virtual meeting with easy participation through the Isabel system.</p><p>You can find more information about this event in <a href=\"event_url\">event_url</a> </p><p>Please note that the event is part of a private space, so you need to be a registered user of the Virtual Conference Center to be able to send a join request to the space and have access to the event. You can register here: <a href=\"%{register_url}\">%{register_url}</a></p><p>Kind regards,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>"
-      message_private_without_start_date: 
-        in_person: "<p>I would like to invite you to <b>event 'event_name' in space %{space}</b>.</p><p>You can find more information about this event in <a href=\"event_url\">event_url</a></p><p>Please note that the event is part of a private space, so you need to be a registered user of the Virtual Conference Center to be able to send a join request to the space and have access to the event. You can register here: <a href=\"%{register_url}\">%{register_url}</a></p><p>Kind regards,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>"
-        teleclass: "<p>I would like to invite you to <b>event 'event_name' in space %{space}</b>. The event will be a virtual class with easy participation through the Isabel system.</p><p>You can find more information about this event in <a href=\"event_url\">event_url</a> </p><p>Please note that the event is part of a private space, so you need to be a registered user of the Virtual Conference Center to be able to send a join request to the space and have access to the event. You can register here: <a href=\"%{register_url}\">%{register_url}</a></p><p>Kind regards,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>"
-        teleconference: "<p>I would like to invite you to <b>event 'event_name' in space %{space}</b>. The event will be a virtual conference with easy participation through the Isabel system.</p><p>You can find more information about this event in <a href=\"event_url\">event_url</a> </p><p>Please note that the event is part of a private space, so you need to be a registered user of the Virtual Conference Center to be able to send a join request to the space and have access to the event. You can register here: <a href=\"%{register_url}\">%{register_url}</a></p><p>Kind regards,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>"
-        telemeeting: "<p>I would like to invite you to <b>event 'event_name' in space %{space}</b>. The event will be a virtual meeting with easy participation through the Isabel system.</p><p>You can find more information about this event in <a href=\"event_url\">event_url</a> </p><p>Please note that the event is part of a private space, so you need to be a registered user of the Virtual Conference Center to be able to send a join request to the space and have access to the event. You can register here: <a href=\"%{register_url}\">%{register_url}</a></p><p>Kind regards,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>"
-      message_public_with_start_date: 
-        in_person: "<p>I would like to invite you to <b>event 'event_name' in space %{space}</b> on 'event_date'.</p><p>You can find more information about this event in <a href=\"event_url\">event_url</a></p><p>Kind regards,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>"
-        teleclass: "<p>I would like to invite you to <b>event 'event_name' in space %{space}</b> on 'event_date'. The event will be a virtual class with easy participation through the Isabel system.</p><p>You can find more information about this event in <a href=\"event_url\">event_url</a> </p><p>Kind regards,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>"
-        teleconference: "<p>I would like to invite you to <b>event 'event_name' in space %{space}</b> on 'event_date'. The event will be a virtual conference with easy participation through the Isabel system.</p><p>You can find more information about this event in <a href=\"event_url\">event_url</a> </p><p>Kind regards,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>"
-        telemeeting: "<p>I would like to invite you to <b>event 'event_name' in space %{space}</b> on 'event_date'. The event will be a virtual meeting with easy participation through the Isabel system.</p>><p>You can find more information about this event in <a href=\"event_url\">event_url</a> </p><p>Kind regards,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>"
-      message_public_without_start_date: 
-        in_person: "<p>I would like to invite you to <b>event 'event_name' in space %{space}</b>.</p><p>You can find more information about this event in <a href=\"event_url\">event_url</a></p><p>Kind regards,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>"
-        teleclass: "<p>I would like to invite you to <b>event 'event_name' in space %{space}</b>. The event will be a virtual class with easy participation through the Isabel system.</p><p>You can find more information about this event in <a href=\"event_url\">event_url</a> </p><p>Kind regards,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>"
-        teleconference: "<p>I would like to invite you to <b>event 'event_name' in space %{space}</b>. The event will be a virtual conference with easy participation through the Isabel system.</p><p>You can find more information about this event in <a href=\"event_url\">event_url</a> </p><p>Kind regards,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>"
-        telemeeting: "<p>I would like to invite you to <b>event 'event_name' in space %{space}</b>. The event will be a virtual meeting with easy participation through the Isabel system.</p><p>You can find more information about this event in <a href=\"event_url\">event_url</a> </p><p>Kind regards,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>"
-      message_title: "Invitar a usuarios no registrados"
       subject: "%{username} invites you to event %{eventname} in space %{space}"
     has: "Este evento se ha"
-    held_with: "Este evento se llevará a cabo con"
     help: 
-      book: "Para hacer la videoconferencia, es necesario reservar recursos. Por favor, defina la agenda."
       create: "Crear un evento simple en tres pasos:"
-      creating_entries: "la creación de entradas"
-      define: "Definir el calendario de sus reuniones"
-      description: "Escriba una descripción completa"
       edit: "Editar su evento"
-      in_agenda: "en el programa"
-      now: "Ahora puede"
       organisers: "Seleccione los usuarios del espacio que organizarán este evento"
-      without_str: "Para recibir streaming y/o grabación, por favor indíquelo en su planificación"
     home: 
       one: "Evento en el espacio %{space}"
-    invite: "Invitar gente"
-    join: "Formar parte de este evento"
     last_7_days: "Últimos 7 días (%{size})"
     last_month: "El mes pasado (%{size})"
     location: Lugar
     logo: 
-      button: "Cambiar el logotipo"
       created: "logotipo de evento creado con éxito"
       crop: "Seleccione qué parte de la imagen desea cortar"
       new: "Agregar una imagen para el evento"
@@ -499,8 +257,6 @@ es:
       change_event_end_date_div: "<b>Cambiar fecha de fin del evento:</b> Esta opción le permite cambiar la duración de su evento moviendo la fecha de fin. Este cambio solo afectará a la fecha de fin del evento, no afectará a la hora de fin de las sesiones y no cambiará nada más (las sesiones mantendrán el mismo horario). Usa esta opción solo si necesita más tiempo después de la fecha actual de fin de su evento."
       change_event_start_date_div: "<b>Cambiar fecha de inicio del evento:</b> Esta opción le permite cambiar la duración de su evento moviendo la fecha de inicio. Este cambio solo afectará a la fecha de inicio del evento, no afectará a la hora de inicio de las sesiones y no cambiará nada más (las sesiones mantendrán el mismo horario). Usa esta opción solo si necesita más tiempo antes de la fecha actual de inicio de su evento."
       change_start_date: "Cambiar fecha de inicio del evento"
-      move_event: "Mover evento"
-      move_event_div: "<b>Mover Evento:</b> Esta opción le permite mover el evento entero. Puedes elegir una nueva fecha de inicio que afectará tanto al evento como a sus sesiones. <b>Todas las sesiones del evento cambiaran</b> su hora de inicio para mantener el tiempo relativo con el inicio del evento."
       no_change: "Sin cambios"
       out_date: "La sesión con título \"%{agenda_entry}\" estará fuera del evento y eso no está permitido. Mueva o edite sus sesiones para permitir que este cambio se realice."
     new: 
@@ -508,16 +264,11 @@ es:
       meeting: "Reunión virtual"
       presential: Reunión
     no_events: "No hay ningún evento"
-    no_param: "No hay parámetros seleccionados"
     none_coming: "No hay eventos próximos"
-    not_attend: "No asisten"
     note: 
-      both: "La participación web y el streaming estarán disponibles en el momento del evento"
-      none: "No hay streaming definido en el orden del día."
       not_organizer_after: "Este evento ocurrió en %{date}, ahora puedes ver la agenda y las grabaciones, disfrútalas"
       not_organizer_before: "Este evento ocurrirá el %{date}, ahora puedes confirmar tu asistencia y leer el programa"
       not_organizer_during: "Este evento está ocurriendo ahora, lo puedes seguir por el streaming o participar con el cliente flash y el chat"
-      nothing: "No hay participación web o streaming reservados en este momento"
       participation: "La participación web estará disponible en el momento del evento"
       streaming: "El streaming estará disponible en el momento del evento"
     notification: 
@@ -538,18 +289,13 @@ es:
       selected_attendants: "Asistentes a los que notificar:"
       show_all_attendants: "Mostrar todos los asistentes"
       subject: "%{username} le ha enviado una notificación acerca del evento %{eventname} en el espacio %{space}"
-      title: "Notificar a los asistentes del evento"
     now: "Eventos en curso:"
     one: Evento
     online: "Evento en línea"
     other: Eventos
     participation: 
       add: "Añadir una."
-      edit: "Editar código de cliente web"
       none: "Nadie ha publicado aún una url para la participación."
-      ready: "La participación está reservada. Estará disponible durante el evento"
-      title: Participación
-      will_be_available: "La participación estará disponible durante el evento"
     past: 
       all: "Todos los antiguos (%{size})"
       last_month: "No ha habido eventos el último mes."
@@ -559,37 +305,24 @@ es:
       other: "Eventos pasados"
       show: "Mostrar todos los eventos antiguos"
       today: "No hay eventos de ayer ni de hoy."
-    player: Reproductor
     recording: 
-      button_disabled: "Este botón se activará cuando el evento tenga alguna grabación"
       cloud: Videos!
       cloud_back: "Back to program"
       notice: "La gente debe tener derechos de acceso a este espacio para ver estos videos"
-      one: Video
-      other: "Lista de videos"
       share: Compartir
     repository: 
       enabled: "Habilitar el repositorio de decumentos"
       help: "Este repositorio muestra los documentos subidos en las sesiones del evento"
       title: "Documentos del evento"
-    scorm: 
-      button: "exportar formato scorm"
-      title: "Scorm (Zip para LMS)"
-    search: "Buscar eventos..."
-    select_date: "Seleccione una fecha para su evento"
-    session_now: "Sesión en curso"
     spam: "Spam en los eventos"
     start: "Reiniciar evento"
     started: "Solicitud de comienzo enviada con éxito"
-    steps: "Completa tu evento siguiente pasos:"
     streaming: 
       add: "Añadir una."
-      edit: "Editar el código de streaming"
       no_at_events: "Sin streaming en las reuniones"
       none: "Nadie ha publicado ninguna url de streaming"
       notice: "Los usuarios necesitarán derechos de acceso para ver este contenido"
       now: "Streaming de eventos"
-      ready: "El streaming ha sido reservado. Estará disponible durante el evento"
       title: "Sesión de streaming"
       will_be_available: "El streaming estará disponible durante el evento"
     time: 
@@ -598,15 +331,12 @@ es:
     to: Para
     today: "Los eventos de hoy"
     today_and_yesterday: "Ayer y hoy (%{size})"
-    today_size: "Hoy (%{size})"
     tomorrow: "Eventos de mañana"
     undated: 
-      none: "No hay eventos sin agenda"
       show: "Mostrar todos los eventos sin fecha"
       title: "Eventos sin agenda definida"
     upcoming: 
       all: "Todos los eventos por celebrarse (%{size})"
-      my_other: "Mis otros eventos"
       next_month: "No hay eventos para el próximo mes"
       next_week: "No hay eventos para la próxima semana"
       none: "No hay eventos por celebrarse"
@@ -616,41 +346,17 @@ es:
       today: "No hay eventos para hoy"
     updated: "El evento se ha actualizado correctamente"
     video_part: "Participación web"
-    view_agenda: Agenda
     view_participation: "Participación Web"
-    view_participation_disabled: "Participación disponible durante el evento"
     view_recordings: Grabaciones
-    view_recordings_disabled: "No hay grabaciones todavía"
     view_related_rec: "Ver en la lista de videos"
-    view_repo: Docs
     view_streaming: Streaming
-    view_streaming_disabled: "Streaming disponible durante el evento"
     will_attend: "¿Quiere asistir a este evento?"
     within_7_days: "Dentro de 7 días (%{size})"
     within_a_month: "Dentro de un mes (%{size})"
   event_invitation: 
-    accepted: "Ha aceptado la invitación a este evento"
-    clarify_registered: "Por favor, introduzca su contraseña para confirmar su asistencia al evento"
-    clarify_unregistered: "Por favor, introduzca su nombre completo y una contraseña para registrarse en GlobalPlaza y confirmar su asistencia al evento"
-    confirm_password: "Confirme la contraseña"
-    deselect_all_users: "Anular la selección de todos los usuarios"
-    discarded: "Ha desechado la invitación a este evento"
-    email: "Correo electrónico"
-    full_name: "Nombre completo"
-    hide_all_users: "Ocultar todos los usuarios"
     instructions: "Haz clic en Enviar por cada invitación que quieras enviar y haz clic en Terminar cuando hayas acabado."
-    logout_and_reload: "Usted no es el usuario que recibió esta invitación, por favor, cierre de sesión y vuelva a intentarlo"
-    message_title: "Invitar a usuarios registrados"
-    new: 
-      other: "Invitar a gente"
-    not_processed: "La invitación no se ha podido procesar"
-    password: Contraseña
-    select_all_users: "Seleccionar todos los usuarios"
     sent: "Invitación enviada con \\xC3\\xA9xito"
-    show_all_users: "Mostrar todos los usuarios"
-    title: "Invitación al evento"
     will_invite: "Gente invitada:"
-  export_widget: "Exportar widget"
   fax: Fax
   feedback: 
     email: "%{email} envió la siguiente comentario:"
@@ -659,61 +365,14 @@ es:
     send: "Enviar comentarios"
     send_us: "¡Envíenos sus comentarios!"
     sent: "Su correo electrónico con comentarios ha sido enviado con éxito. Gracias"
-  file: Fichero
   fill_fields: "Debe llenar todos los campos"
   find: 
     browse: Navegar
   find_in: "Buscar en:"
-  find_in_day: "Buscar en día:"
-  find_in_name_speakers: "Buscar en nombre/ponentes:"
-  follow_reset_password: "%{agent}, siga el enlace para cambiar su contraseña"
-  form: 
-    loading: "El formulario se está cargando..."
   from: Desde
-  frontpage: 
-    collaborate: 
-      sentence1: "Organice sus proyectos y actividades"
-      sentence2: "Participe en conferencias y eventos"
-      sentence3: "Cree su propio espacio y conferencias"
-    elements: 
-      comments: Comentarios
-      conferences: Conferencias
-      networks: "Redes Sociales"
-      organizers: Organizadores
-      participants: Participantes
-      spaces: Espacios
-      tags: Etiquetas
-    main_title: "GlobalPlaza: un servicio para la publicación y el descubrimiento de videoconferencias"
-    meet: 
-      sentence1: "Descubra las mejores videoconferencias online"
-      sentence2: "Conozca gente y grupos interesantes"
-      sentence3: "Videoconferencia con sus colegas"
-    share: 
-      sentence1: "Grabación y streaming de videoconferencias"
-      sentence2: "Repositorios de vídeos y documentos"
-      sentence3: "Sus contactos y relaciones"
-    stats: "%{vc} videoconferencias organizadas - %{vs} vídeos almacenados"
   getting_started: "¡Por dónde empezar!"
   group: 
-    add_to_group: "Añadir a lista de correo"
-    add_to_others: "Añadir a otras listas de correo"
-    create: "Crear nueva lista de correo"
-    created: "La lista de correo %{name} ha sido creada con éxito"
-    delete: "Borrar lista de correo"
-    deleted: "La lista de correo %{name} ha sido borrada con éxito"
-    different: "Otras listas de correo"
-    edit: "Editar lista de correo"
-    existing: "el nombre ya ha sido elegido"
-    join: "Únase a esta lista de correo"
-    mailing_list: "Lista de correo"
-    name: "Nombre de la lista de correo"
-    not_deleted: "Error al eliminar la lista de correo %{name}"
-    not_valid: "La lista de correo no es válido"
-    one: "Lista de correo"
     other: "Listas de correo"
-    send_message: "Enviar un mensaje a esta lista de correo"
-    updated: "La lista de correo %{name} ha sido actualizada correctamente"
-  groups_and_results: "Listas de correo, %{size} resultados"
   hcard: 
     not_found: "hCard no encontrada"
   hello: Hola
@@ -756,7 +415,6 @@ es:
     part4: "3. Escriba un nombre y una descripción para su espacio."
     part5: "4. Decida si el espacio debe ser público. Espacios colaborativos pueden ser públicos en donde cualquier usuario puede ver lo que sucede en ellos, o privados, en donde sólo sus miembros tienen accceso a las actividades del espacio."
     part6: "5. Si desea habilitar un repositorio de documentos, seleccione esta opción. <br>6. Puede asociar una lista de correo a su grupo. Esto le permitirá enviar correos electrónicos a su grupo en lugar de tener que enviarlos de manera individual a cada uno de los miembros.<br>7. Puede asignar un logo a su espacio, subiendo su propio logo, creando un logo basado en un texto o seleccionar una imagen de la galería. "
-    part7: "6. Puede asociar una lista de correo para su grupo. Se le permitirá enviar mensajes de correo electrónico a su grupo en lugar de tener que seleccionar una de las direcciones cada vez."
   help_createuser: 
     part1: "Para crear un usuario en Global Plaza:"
     part2: "1. Haga click en la opción de <a href=%{url}>Registro</a> ubicado en la barra superior."
@@ -788,12 +446,8 @@ es:
     part5: "4. Una vez que haya seleccionado su archivo, haga click en el botón Abrir."
     part6: "5. Puede <b>añadir etiquetas</b> que usted y otros usuarios pueden utilizar para encontrar y filtrar contenido. Pulse <b>enter</b> para confirmar cada etiqueta."
     part7: "6. Si desea <b>notificar</b> la subida de ficheros con un mensaje en el muro, elija esta opción."
-    part8: "7. Por último, haga click en el botón <b>Subir</b> para añadir el archivo al repositorio."
-  help_support: "Ayuda y soporte técnico"
   help_title: 
     about_vcc: "Acerca de Global Plaza"
-    configure_isabel: "Cómo configurar su propio servidor de Isabel"
-    connect_isabel: "Cómo conectarse a Isabel"
     create_VC: "Creación de un congreso virtual"
     create_VM: "Creación de una reunión virtual"
     create_event: "Creación de un evento"
@@ -802,49 +456,28 @@ es:
     create_space: "Creación de un espacio"
     create_user: "Creación de un usuario"
     define_agenda: "Definir la agenda del evento"
-    globalplaza: Globalplaza
-    info: "Aquí puede encontrar información sobre Global Plaza"
-    info_isabel: "Aquí usted puede encontrar información sobre la herramienta Isabel"
-    install_isabel: "Cómo instalar Isabel"
-    isabel: "Isabel (herramienta de Videoconferencia)"
     logging: "Iniciar  sesión con su cuenta "
     new_doc: "Añadir un nuevo documento"
     topics: Temas
-  help_vcc: 
-    info: "Aquí usted puede encontrar información sobre el VCC"
-    topics: Temas
-  hide: Ocultar
   his_message_reads_thus: "Su mensaje dice así"
   home: 
     activity: "Actividad reciente..."
     my: Inicio
     one: Inicio
   icalendar: 
-    add: "Actualizar y agregar nuevas entradas"
-    conflictive1: "Una entrada de su iCalendar ya existía en GlobalPlaza y se ha modificado. Debe actualizarla manualmente para evitar problemas."
-    conflictiven: "entradas de su iCalendar ya existían en GlobalPlaza y se han modificado. Debe actualizarlas manualmente para evitar problemas."
     error_import: "Se produjo un error al importar el iCalendar."
-    export: iCalendar
     import: "Importar de iCalendar"
     importMessage1: "Un total de"
     importMessage2: "se leyeron desde su iCalendar."
     importMessage3: "de ellos se salvaron o actualizaron correctamente."
-    instruction: "Utilícelo para agregar nuevas entradas a la agenda actual con el iCalendar."
-    outbounds1: "Una entrada de su iCalendar no encaja con las fechas del evento y no fue importado."
-    outboundsn: "entradas de su iCalendar no encajan con las fechas del evento y no fueron importadas."
     report: "Informe:"
-    succes_import: "El iCalendar se ha importado correctamente."
     updated1: "Una entrada de su iCalendar ya figuraba en la agenda del evento y se ha actualizado."
     updatedn: "entradas de su iCalendar ya figuraban en la agenda del evento y se han actualizado."
   im: "Mensajería Instantánea"
-  im_new: "Soy nuevo"
-  import: Importación
   inbox: 
     my: "Mis mensajes (%{checked})"
     one: "Bandeja de entrada (%{checked})"
-  index: Índice
   information: 
-    info_timezone: "Seleccionando su zona horaria no habrá malentendidos con gente de otros países al crear sus eventos."
     information1: "Estos son los espacios a los que pertences"
     information2: "Aquí puede encontrar los mensajes y eventos más recientes ,así como las noticias de los espacios a los que perteneces"
     information3: "Estos son los últimos posts o eventos que ha creado"
@@ -853,24 +486,14 @@ es:
   internet: 
     on_the: "En Internet"
     ppal: Internet
-  invalid_credentials: "Credenciales inválidas"
-  invalid_password_reset_code: "Código de cambio inválido. Por favor, compruebe en enlace e inténtelo otra vez. (Consejo: ¿Quizá su cliente de correo rompió el enlace?)"
   invitation: 
     accept: "Aceptar invitación"
-    accepted: "Invitación aceptada"
-    accepted_by: "%{candidate} aceptó la invitación"
     access_space: "Ahora es miembro de %{spacename}; puede acceder a él en <a href=\"%{space_url}\">%{space_url}</a>"
     add_more: "Invite a más gente"
-    comment: Comentario
-    confirm_delete: "¿Borrar invitación?"
-    created: "Invitación enviada"
     deselect_all_users: "Anular la selección de todos los usuarios"
     discard: "Descartar invitación"
-    discarded: "Invitación descartada"
-    discarded_by: "%{candidate} descartó la invitación"
     email: "Correo electrónico"
     hide_all_users: "Ocultar todos los usuarios"
-    info_event: "Puede encontrar más información sobre este evento en 'event_url'"
     info_space: "Puede encontrar más información acerca de este espacio en  <a href=\"%{space_url}\">%{space_url}</a>"
     info_users: "Puede ver la lista de usuarios del espacio en  <a href=\"%{users_url}\">%{users_url}</a>"
     introducer: Introductor
@@ -880,131 +503,66 @@ es:
       name: "'Nombre' será reemplazado en el mensaje por el nombre del receptor."
     logout_and_reload: "Usted no es el usuario que recibió esta invitación, por favor, cierre la sesión y vuelva a intentarlo"
     message_title: "Invite a gente a unirse a su espacio"
-    message_with_start_date: 
-      in_person: "<p>Me gustaría invitarle al <b>evento 'event_name' en el espacio %{space}</b>, el 'event_date'.</p><p>Para aceptar mi invitación, por favor visite %{url} </p><p>Puede encontrar más información acerca del evento en <a href=\"event_url\">event_url</a></p><p>Un cordial saludo,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>"
-      teleconference: "<p>Me gustaría invitarle al <b>evento 'event_name' en el espacio %{space}</b> el 'event_date'. El evento será una conferencia virtual en la que podrá participar fácilmente mediante el sistema Isabel.</p><p>Para aceptar mi invitación, por favor visite %{url} </p><p>Puede encontrar más información acerca del evento en <a href=\"event_url\">event_url</a></p><p>Un cordial saludo,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>"
-      telemeeting: "<p>Me gustaría invitarle al <b>evento 'event_name' en el espacio %{space}</b> el 'event_date'. El evento será una reunión virtual en la que podrá participar fácilmente mediante el sistema Isabel.</p><p>Para aceptar mi invitación, por favor visite %{url} </p><p>Puede encontrar más información acerca del evento en <a href=\"event_url\">event_url</a></p><p>Un cordial saludo,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>"
-    message_without_start_date: 
-      in_person: "<p>Me gustaría invitarle al <b>evento 'event_name' en el espacio %{space}</b>.</p><p>Para aceptar mi invitación, por favor visite %{url} </p><p>Puede encontrar más información acerca del evento en <a href=\"event_url\">event_url</a></p><p>Un cordial saludo,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>"
-      teleconference: "<p>Me gustaría invitarle al <b>evento 'event_name' en el espacio %{space}</b>. El evento será una conferencia virtual en la que podrá participar fácilmente mediante el sistema Isabel.</p><p>Para aceptar mi invitación, por favor visite %{url} </p><p>Puede encontrar más información acerca del evento en <a href=\"event_url\">event_url</a></p><p>Un cordial saludo,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>"
-      telemeeting: "<p>Me gustaría invitarle al <b>evento 'event_name' en el espacio %{space}</b>. El evento será una reunión virtual en la que podrá participar fácilmente mediante el sistema Isabel.</p><p>Para aceptar mi invitación, por favor visite %{url} </p><p>Puede encontrar más información acerca del evento en <a href=\"event_url\">event_url</a></p><p>Un cordial saludo,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>"
-    new: 
-      other: "Nuevas invitaciones"
     not_accepted: "no aceptado"
-    not_created: "no ha podido ser invitado a este espacio porque ya pertenece a él"
-    not_created_2: "no ha podido ser invitado a este espacio porque ya había sido invitado"
-    not_found: "Invitación no encontrada"
     not_pending: 
       other: "No hay invitaciones pendientes"
-    not_processed: "Invitación sin responder"
-    one: Invitación
-    other: Invitaciones
     pending: 
       other: "Invitaciones pendientes"
     personal: "Mensaje personal"
     rejoin_space: "Si desea solicitar de nuevo el ser miembro, por favor vaya a <a href=\"%{space_url}\"> %{space_url} </a>"
-    role: Rol
     role_label: "Papel de los invitados"
     select_all_users: "Seleccionar todos los usuarios"
-    send: 
-      one: "Enviar invitación"
-    show: "Unirse a %{group}"
     show_all_users: "Mostrar todos los usuarios"
-    sign: "Atentamente, ((nombre de usuario))"
-    space: "Me gustaría invitarle al espacio %{space} en GlobalPlaza."
-    subject: "%{username} le ha invitado a un evento en el espacio %{space}"
     tab: 
       title1: Email
       title2: Users
     title: "Invitar a la gente"
     title2: "Invitación a espacio"
-    to_accept: "Para aceptar mi invitación, por favor visite <a href=%{url}>%{url}</a>"
     to_accept_space: "Para aceptar mi invitación, por favor visite %{url}"
     to_event: "%{username} le ha invitado al evento %{eventname} en el espacio %{space}"
     to_space: "((Nombre de usuario)) le invita al espacio %{space}"
-    was_processed: 
-      accepted: "La invitación ya fue aceptada"
-      discarded: "La invitación ya ha sido descartada"
-      discarted: "La invitación ya fue descartada"
     will_invite: "Gente a la que invitará"
     yes_accepted: aceptado
   invited: Invitado
-  is_member_of: "es miembro de"
   join: Unirse
   join_cam: Participar
   join_request: 
-    accepted: "Petición aceptada"
     already_sent: "Usted ya ha enviado una petición para unirse a este espacio"
     ask_subject: "%{candidate} quiere participar en %{space}"
-    asked: "<b>%{candidate}</b> quiere participar en el espacio %{space}, administrado por usted:"
     asked_anonymous: "Alguien quiere participar en el espacio %{space}, administrado por usted:"
     created: "Su petición ha sido enviada a los administradores del espacio"
-    discarded: "Petición descartada"
     joined: "Usted ya es miembro del espacio"
     label: "Personalice su solicitud de participación"
     message_title: "Solicitar a los administradores del espacio unirse"
     not_logged_in: "Necesita estar registrado para solicitar unirse"
     not_pending: 
       other: "No hay peticiones de unión pendientes"
-    not_processed: "Petición de unión sin responder"
-    one: "Petición de unión"
-    other: "Peticiones de unión"
     pending: 
       other: "Peticiones de unión pendientes"
     personal: "Escribe el texto de su personal aquí."
-    send: "Enviar solicitud de Ingreso"
-    to_accept: "Para responder a la solicitud por favor visite <a href=\"%{url}\">%{url}</a>"
-    updated: "Petición actualizada"
-  join_to_site: "Unirse a %{site}"
   keywords: "Palabras clave (*)"
   language: Idioma
   last_week: "La semana pasada"
   latest_events: "Últimos eventos"
   latest_news: "Últimas noticias"
-  layout_footnote: "%{site} está basado en %{plugin}. Diseñado por %{designer}."
-  list_by: "Listar por"
   locale: 
     changed: "Idioma de la aplicación cambiado a"
     error: "No se puede cambiar el idioma de la aplicación a"
-  locales: 
-    de: Deutsch
-    en: English
-    es: Español
-    fr: Fraçais
-    pt-br: "Português (Brasil)"
-  logged_in_successfully: "Credenciales válidas"
-  logged_out: "Ha salido de la aplicación"
-  login: Entrar
   login_or_register: "Entrar / Registro"
   login_request: "Necesita estar conectado para"
-  login_to: "Entrar en %{site}"
-  login_traditional: "Usuario / clave"
   logo: 
-    click_to_change: "Haga click para cambiar el logotipo"
     created: "Logo creado con éxito"
     crop: "Cortar logo de espacio"
-    current: "Logo actual"
     empty: "El logo está vacío"
-    error: 
-      not_valid: "El logo de espacio no es válido"
-    one: Logo
   logout: Salir
-  mailing_list: 
-    associate: "Asociar lista de correo al grupo"
-    invalid: "La lista de correo contiene caracteres no válidos. Sólo se permiten letras, números, subrayados y guiones"
-    reserved: "La lista de correo %{systemMailingList} está reservada"
   manage: Administrar
-  management: gestión
   mandatory_field: "Campo obligatorio"
-  mark_checkbox: "Marque la casilla de verificación adecuada"
   message: 
     created: "Mensaje enviado correctamente"
     error: 
       create: "Error enviando mensaje privado"
     incoming: 
       other: "Buzón de entrada"
-    one: Mensaje
-    other: Mensajes
     private: 
       cant: "No puede enviar mensajes privados porque no tiene contactos en ningún espacio"
       editing: "Editar mensaje privado"
@@ -1012,10 +570,8 @@ es:
       none: "No hay mensajes"
       send: "Enviar mensaje privado"
     reply: "Responder mensaje"
-    send: "Enviar mensaje"
     sent: 
       other: "Mensajes enviados"
-  mobile: Mobile
   more_arrows: "más >>"
   my_friends: "Mis amigos"
   name: 
@@ -1023,7 +579,6 @@ es:
     one: Nombre
     other: Nombres
     prefix: Título
-  new_source: "Importar RSS/Atom"
   new_spam_detected: "Nuevo spam detectado"
   news: 
     created: "Noticia publicada exitosamente"
@@ -1033,93 +588,37 @@ es:
       create: "Se presentó un problema en la publicación de la noticia"
       delete: "Error borrando la noticia"
       update: "La noticia no se ha podido actualizar"
-    home: 
-      one: ""
-      zero: "No hay noticias para mostrar"
     item_in_home: "Noticia en el espacio"
-    none: Ninguno
     none_to_show: "No hay noticias para mostrar"
     other: Noticias
     publish_another: "Publicar nueva noticia"
     publish_home: "Publicar noticia"
     updated: "Artículo actualizado correctamente"
   next: Próximo
-  no_messages_in_forum: "No hay mensajes en este foro"
   no_messages_in_wall: "No hay ningún mensaje en el muro"
   no_tags_found: "No se encontraron etiquetas"
-  none: Ninguno
-  not_going: "No puedo asistir"
   now_exclamation: Ahora!
   ok: OK
   older: "Más viejo"
-  online: online
-  openid: 
-    client: 
-      associating_to_id: "Asociando a OpenID: %{id}"
-      discovery_failed: "Error indentificado para %{id}: %{error}"
-      id_attached_to_account: "OpenID: %{id} asociado a su cuenta"
-      immediate_request_failed: "La solicitud ha fallado. Se necesita configuración previa"
-      transaction_cancelled: "OpenID transacción cancelada"
-      verification_failed: "OpenID transacción cancelada"
-      verification_failed_with_id: "Verificación de %{id} ha fallado: %{message}"
-      verification_succeeded_with_id: "Verificación de %{id} se ha realizado con éxito"
-    enter: "Ingrese su OpenID"
-    have: "Tiene un usuario en OpenID? Click en el logo!"
-    login: "Registro con OpenID"
-    server: 
-      about_login_to: "Está a punto de iniciar sesión en %{server}"
-      anti_phishing: "Está página no contiene enlaces para evitar <i>phishing</i>. Debe escribir directamente la dirección en su navegador."
-      cancel: "No, cancelar"
-      decision: "Debe tomar una decisión:"
-      endpoint: "Este es un servidor de OpenID"
-      invalid_uri: "Esta identidad no te pertenece: %{uri}"
-      login_to: "Iniciar sesión en %{server}"
-      must_login: "Usted debe registrarse %{server}"
-      once: "Si, sólo esta vez"
-      optional_information_by: "Información opcional solicitada por %{server}"
-      required_information_by: "Información requerida solicitada por %{server} "
-      trust: "Si, recordarlo desde ahora"
-    title: OpenID
   optional: Opcional
   or: o
-  or_use_email: "o utilizar su correo electrónico ..."
   organization: Organización
   organizer: Organizadores
   other: Otros
-  pagination: 
-    next_label: "Siguiente >>"
-    previous_label: "<< Anterior"
   participant: 
     created: "La información de su participación ha sido actualizada exitosamente"
     error: 
       create: "Se presentó un problema al actualizar su información de participación"
   password: 
-    been_reset_email: "%{user}, su contraseña se ha restablecido"
     confirm: "Confirmar contraseña"
     one: Contraseña
     request: "Contraseña restablecida en %{sitename}"
     reset_email: "Su contraseña se ha restablecido en %{sitename}"
     to_reset: "Para restablecer su contraseña, por favor visite <a href=%{url}>%{url}</a>"
-  password_has_been_reset: "Su contraseña ha sido cambiada"
-  password_has_been_reset_with_agent: "%{agent}, su contraseña ha sido cambiada"
-  password_reset: "Cambiar Contraseña"
-  password_reset_link_sent_to_email_address: "Se ha enviado a la dirección de correo electrónico un enlace para cambiar la contraseña"
   past: Pasado
   people: Personas
   per_page: "por página"
   performance: 
-    change: Cambiar
-    confirm_delete: "¿Eliminar Rol?"
-    create: 
-      one: "Crear Rol"
-      other: "Crear Roles"
-    delete: 
-      one: "Eliminar Rol"
-      other: "Eliminar Roles"
-    errors: 
-      stage_should_not_run_out_of_performances_with_first_role: "El escenario no debería quedarse sin integrantes del primer rol."
-      the_role_should_not_belong_to_a_different_stage_type: "El rol no debería pertenecer a un tipo de escenario diferente."
-    new: "Nuevo miembro"
     notification: 
       estandar: "%{username} ha cambiado tu rol en %{stage} a %{role}. "
       event: "%{username} ha cambiado tu rol en el evento %{event} a %{role}. "
@@ -1128,17 +627,7 @@ es:
         estandar: "%{username} ha cambiado tu rol en %{stage} "
         event: "%{username} ha cambiado tu rol en el evento %{event} "
         space: "%{username} ha cambiado tu rol en el espacio %{space} "
-    one: Miembro
-    other: Miembros
-    other_in: "Miembros de %{stage}"
-    read: 
-      one: "Ver Rol"
-      other: "Ver Roles"
-    update: 
-      one: "Actualizar Rol"
-      other: "Actualizar Roles"
     updated: "El rol del usuario ha sido actualizado correctamente."
-    without_roles_available: "No hay ningún Rol disponible. Los roles no puede ser establecidos."
   permission: 
     other: "Derechos de acceso"
   personal_information: "Información personal"
@@ -1148,22 +637,13 @@ es:
     one: Teléfono
     plural: Teléfonos
   phone_optional: "Teléfono (opcional)"
-  photos: Fotos
   photos_view_arrows: "ver fotos >>"
   place: Lugar
   please: "Por favor,"
-  please_activate_account: "Por favor, active su cuenta"
   popularity: Popularidad
   post: 
-    created: "Mensaje creado"
     deleted: "Comentario %{postname} ha sido eliminado"
-    error: 
-      empty: "El contenido del mensaje no puede estar vacío"
-      not_valid: "El comentario no es válido"
     found: 
-      none: "Mensajes no encontrados"
-      one: "1 mensaje encontrado"
-      other: "%{size} mensajes fueron encontrados"
       show_all: "Mostrar todos los resultados"
     home: 
       one: "Mensaje en el espacio %{space}"
@@ -1174,45 +654,26 @@ es:
     other: Mensajes
     other_in_space: "Mensajes en el espacio %{space}"
     show_expanded_pref: "¿Cómo le gustaría ver sus mensajes?"
-    updated: "Mensaje actualizado"
     wall: Muro
   preferences: Preferencias
   previous: Anterior
   privacy: Privacidad
-  private: Privado
-  private_message: 
-    send: "Enviar mensaje privado"
   profile: 
-    created: "Perfil se ha creado correctamente."
     deleted: "Perfil ha sido borrado exitosamente."
     description: 
       add: "Descripción breve"
     error: 
       exist: "Su perfil ya existe"
-    hcard: 
-      fill_with: "Completa su perfil con su hCard"
     must_create: "Por favor, cree su perfil primero"
     one: Perfil
     private: "Perfil privado"
-    private_description: "Sólo sus compañeros podrán acceder a esta información"
     public: "Perfil público"
     public_description: "Cualquier persona puede acceder a esta información"
-    should_create: "Usted debe <a href=%{path}>crear</a> su perfil. Es muy útil."
     updated: "Perfil actualizado correctamente."
-    visibility: Visibilidad
-    visibility_description: "Elija quién podrá ver su perfil privado."
     visibility_edit: "Edita tu perfil de visibilidad"
-    visibility_everybody: "Todo el mundo puede ver su perfil privado."
-    visibility_everyone: "Todos pueden ver su perfil privado."
-    visibility_members: "Sólo los usuarios registrados pueden ver su perfil privado."
-    visibility_nobody: "Nadie puede ver su perfil privado."
-    visibility_private_fellows: "Sólo sus compañeros en un espacio privado pueden ver su perfil privado."
-    visibility_public_fellows: "Sólo sus compañeros en un espacio público o privado pueden ver su perfil privado."
   province: Provincia
   public: Públicos
-  read: Leer
   read_more: "Leer más"
-  read_more_arrows: "Leer más >>"
   received_message_more_machines: "Ha recibido un mensaje de %{user} solicitando más máquinas"
   recent: 
     activity: "Actividad reciente"
@@ -1229,7 +690,6 @@ es:
   register_as_invited: "Registrarse como invitado"
   register_as_user: "Registrarse como usuario"
   register_now: "¡Regístrese AHORA!"
-  remarks: Comentarios
   remember_me: Recordarme
   remove: Eliminar
   reply: Responder
@@ -1237,57 +697,27 @@ es:
   reply_to_words: "Responder a %{words}"
   report_spam: "Denunciar spam"
   repository: 
-    add_tags: "Agregar etiquetas"
     download: Descargar
-    enable: "¿Habilitar repositorio de documentos?"
     loading: "Actualizando el repositorio de documentos ..."
     need_javascript: "Por favor, active Javascript para poder trabajar con el repositorio de documentos"
     one: Docs
-    rem_tags: "Eliminar Etiquetas"
     remove: Eliminar
     search: "Buscar documentos:"
   request: 
-    default: solicitar
     info: "Su solicitud para participar en este espacio ha sido enviada con éxito a los administradores del espacio. Un administrador se encargará de su solicitud  tan pronto como sea posible"
     sent: "¡Solicitud enviada!"
-  request_change_password: "Solicitar cambiar su contraseña"
-  reset_password: "Cambiar Contraseña"
-  resource: 
-    one: Recurso
-    other: Recursos
   role: 
-    add: "Añadir rol..."
     added: "Rol %{role} añadido exitosamente a %{agent}"
-    change: "Cambiar rol..."
-    confirm_delete: "¿¿Borrar Rol?"
-    created: "Rol creado satisfactoriamente."
     editing: "Editando Rol"
-    go_to_manage: "Ir a la gestión de roles"
-    index: "Lista de Roles"
-    invalid: "El rol no es válido"
     listing: "Lista de roles"
-    name: Nombre
-    name_permissions: "Permisos %{name}"
     new: "Nuevo rol"
-    none: "No tiene rol asignado"
     one: Rol
-    other: Roles
-    select: 
-      one: "Seleccionar Rol"
     stage_type: "Tipo de escenario"
     sucess_update: "Rol actualizado exitosamente ..."
-    updated: "Rol actualizado satisfactoriamente"
-    without_permissions: "El rol %{role} no tiene permisos"
   save: Guardar
-  save_ch: "Guardar los cambios"
   screencast: 
-    button: "Ver screencast"
-    help: "¿Necesita ayuda? Vea el "
     link1: "Ayuda creando eventos"
-    link2: "Ayuda creando la agenda"
     link3: "Ayuda diferentes tipos de eventos"
-    link4: "Ayuda invitando a gente"
-    link5: "Ayuda sobre información de evento"
     sidebar: 
       title: Screencasts
     title: screencast
@@ -1296,13 +726,10 @@ es:
     title3: "Diferentes tipos de eventos"
     title4: "Invitando a gente"
     title5: "Información del evento"
-    video: 
-      one: Screencast
   search: 
     advanced: "Búsqueda avanzada"
     attachments: 
       dots: "Buscar archivos adjuntos ..."
-      no_dots: "Buscar archivos adjuntos"
     between_dates: 
       attachments: "Buscar sólo los archivos adjuntos actualizados entre dos fechas"
       events: "Buscar sólo eventos llevados a cabo entre dos fechas"
@@ -1310,12 +737,7 @@ es:
       videos: "Buscar sólo vídeos grabados entre dos fechas"
     dots: "Buscar ..."
     events: 
-      advanced: "Búsqueda avanzada de eventos"
-      description: "Buscar eventos por descripción"
-      dots: "Buscar eventos ..."
       no_dots: "Buscar eventos"
-      title: "Buscar eventos por título"
-    explanation: "(buscar por título y descripción que coincida exactamente con las palabras)"
     in: "Buscar en"
     one: Buscar
     parameters: "Consulta demasiado corta"
@@ -1330,76 +752,34 @@ es:
   searching_in: "Usted está buscando en"
   select_image: "Seleccione una imagen, por favor"
   send: Enviar
-  send_debug_emails: "Enviar correos electrónicos de depuración"
-  send_message: "Enviar un mensaje"
-  send_reset_password_request: "Enviar solicitud para cambiar contraseña"
   session: 
     error: 
       exist: "Usted ya está conectado"
       fill: "Por favor, complete estos datos"
     one: Sesión
-    should_create: "Usted debe crear su perfil, es muy útil"
-  share_participate_discuss: "Compartir, participar, discutir"
-  should_check_email_to_activate_account: "Debe comprobar su correo electrónico para activar su cuenta."
   show: Mostrar
   show_advanced_editor: "Mostrar editor avanzado"
   show_list_version_arrows: "Mostrar versión en forma de lista >>"
-  singular_agent: 
-    anonymous: 
-      name: Anónimo
-    anyone: 
-      name: Cualquiera
-    authenticated: 
-      name: Registrado
-    cron_agent: 
-      name: Cron
   site: 
-    chat_group_service_jid: "Servicio Chat de grupo del evento"
-    cm_domain: "Dominio del gestor de conferencia"
-    config: "Configuración del sitio"
     default: Sitio
     description: Descripción
     domain: "Dominio de aplicación"
-    editing: "Editando configuración del sitio"
     email: "Correo electrónico"
     exception_notifications: "Enviar correos electrónicos de depuración"
     exception_notifications_email: "Dirección destinataria de los correos de depuración"
-    logo: Logo
     name: Nombre
-    one: Sitio
-    other: Sitios
-    presence_domain: "Dominio de presencia"
     signature: Firma
     ssl: SSL
-    updated: "La configuración del sitio se ha actualizado satisfactoriamente"
-    vcc_pass_for_chat_server: "Vcc password for XMPP server authentication"
-    vcc_pass_for_chat_server_confirmation: "Vcc password for XMPP server authentication confirmation"
-    vcc_user_for_chat_server: "Vcc user for XMPP server authentication"
-    xmpp_server_password: "Contraseña del servidor XMPP"
-    xmpp_server_password_confirmation: "Confirmación de contraseña del servidor XMPP"
   size: Tamaño
   skype: Skype
-  society_media: "Sociedad de la Información y medios de Comunicación"
   source: 
-    created: "Recurso creado correctamente"
-    errors: 
-      content_type: 
-        invalid: "es inválido: %{content_type}"
-      dereference: "No se pudo conectar al recurso %{uri}"
-      multiple_feeds: "Recurso tiene varios feeds"
-      parse: "No se pudo analizar el feed  %{uri}"
-    imported_at: "Importado en"
-    one: Recurso
     other: RSS/Atom
-    target: Objetivo
-    uri: URL
   space: 
     about: "Acerca de"
     add_user: 
       other: "Añadir usuarios al espacio"
     all: "Todos los espacios"
     allow_public_access: "¿Permitir acceso público?"
-    be_fan: "Ser aficionado"
     clic: "Haga click para editar ..."
     clic_logo: "Haga click para cambiar su logo"
     configuration: "Configuración del espacio"
@@ -1409,38 +789,26 @@ es:
     delete: "Eliminar espacio"
     deleted: "Espacio eliminado correctamente"
     description_none: "Una descripción del espacio deberá ser dada para crear un nuevo espacio"
-    disabeld: "El espacio con éxito con discapacidad."
     disable: "Deshabilitar espacio"
     disabled: "Espacio deshabilitado correctamente"
-    does_not_belong: "no pertenece a ningún espacio"
-    edit_description: "editar la descripción de"
-    edit_name: "editar el nombre de"
     enable: "Habilitar el espacio"
     enabled: "Espacio habilitado correctamente."
     error: 
       enabled: "Espacio %{name} ya está habilitado"
-    found: 
-      none: "No se han encontrado espacios"
-      one: "Se ha encontrado 1 espacio"
-      other: "Se han encontrado %{size} espacios"
     group_invitation: 
       button: "Invitar lista de correo"
       message_title: "Invite a listas de correo para que se unan a su espacio"
       private: "<p>El espacio es privado; necesita ser usuario registrado de GlobalPlaza para poder solicitar unirse y acceder al espacio. Puede registrarse aquí: <a href=\"%{register_url}\">%{register_url}</a></p>"
       subject: "%{username} le invita al espacio %{space}"
-    group_not_belong: "no pertenecen al mismo espacio que el grupo"
     is_private: "es un espacio privado. Envíe una solicitud de participación al administrador del espacio"
     join: "Únete a este espacio"
     join_invitation: 
       clarify_registered: "Por favor, introduzca la contraseña para poder participar en este espacio."
       clarify_unregistered: "Por favor, introduzca su nombre completo y una contraseña para registrarse en el Global Plaza y participar en este espacio."
-      title: "Únete al espacio  >"
     join_pending: "Su solicitud de participación está siendo procesada"
     leave: "Dejar este espacio"
     logo: "Logo del espacio"
     logo_selected: 
-      close: Cerrar
-      close_gallery: "Cerrar la galería"
       default_message: "Logo del espacio"
       enter_text: "Introduzca un texto para generar logos:"
       generate_logo: Generar
@@ -1450,31 +818,24 @@ es:
       upload_logo_text: "Seleccione un logo para subir:"
       upload_text: Subir
       use_date: "Usar fecha del evento"
-    main: "Espacio principal"
     member_of: "Miembros del espacios"
     my_spaces: "Mis espacios"
     name_none: "Un nombre al espacio debe se dado para crear un nuevo espacio"
     one: Espacio
     other: Espacios
-    popular: 
-      other: "Espacios populares"
     possesion: "Mis espacios"
     private: "Espacios privados"
     public: 
       one: "Espacio público"
       other: "Espacios públicos"
-    recent: 
-      other: "Espacios Recientes"
     recording: 
       one: "Video del espacio"
       other: "Videos del espacio"
-    search: "Buscar espacio..."
     select: Espacios
     show_all: "Ver todos los espacios"
     subscribed_to_none: "No está suscrito a ningún espacio"
     update_logo: "Actualizar logo"
     updated: "Espacio actualizado correctamente"
-    upload_none: "Usted tiene que seleccionar un logo para subirlo"
   spam: 
     created: "Un mensaje reportando spam ha sido enviado correctamente al administrador de Global Plaza. Gracias"
     default: spam
@@ -1482,42 +843,25 @@ es:
     error: 
       check: "Se ha registrado un problema al marcar el recurso como spam"
     item: "Este elemento se ha detectado como spam"
-    no_spam: "Felicidades! No hay spam"
     report: "Reportar spam"
     reported: "Un usuario ha reportado spam en %{sitename}"
     valid: "Este contenido es válido"
-  stage: 
-    all: Todos
-    one: Escenario
   stage_type: "Tipo de escenario"
-  start_now_exclamation: "Inicie ahora!"
   street: Calle
   subject: Tema
   summary: "Video Info"
-  support: 
-    array: 
-      sentence_connector: "y"
-    one: Soporte
-    words_connector: ","
   tag: 
     add: "Agregar etiquetas"
-    attachment: "Etiquetas para el fichero adjunto"
     edit: "Editar etiquetas"
     filter: "Filtrar por etiquetas:"
     new: "Nueva etiqueta"
-    one: etiqueta
-    other: etiquetas
     other_capital: Etiquetas
-    other_in: "Etiquetas en %{container}"
     selected: 
       one: "Seleccione una etiqueta:"
       other: "Etiquetas seleccionadas:"
-    show_title: "Etiquetado con '%{tag}'"
-    start: "Comienza a escribir .."
   tags: Etiquetas
   tags_by: "Etiquetas por:"
   text: Texto
-  thank_you: Gracias
   the_string: "la cadena de"
   thread: 
     add: "Publicar mensaje en el muro"
@@ -1526,18 +870,12 @@ es:
     deleted: "El mensaje (con sus comentarios) ha sido borrado"
     edit: "Editar mensaje"
     extended_view: "Cambiar a la vista ampliada"
-    one: Conversación
     or_add_new: "o crear un nuevo mensaje"
-    other: Conversaciones
     see_less: "Desea comprimir todos los mensajes?"
     see_more: "¿Quiere ver más acerca de los mensajes?"
-    show_comment_size: "Mostrando los %{size} comentarios al mensaje"
     show_last_comment: "Mostrando los últimos %{size} comentarios de %{children}"
-    show_one_only_comment: "Mostrando el único comentario del mensaje."
   time: 
-    end: "Hora de finalización"
     from: desde
-    start: "Hora de inicio"
     to: hasta
   timezone: 
     one: "Zona Horaria"
@@ -1548,15 +886,9 @@ es:
     mrs: Sra.
     ms: Sra.
   to: para
-  to_configure_your: "para configurar su"
   today: Hoy
-  toke: 
-    not_available: "Token no disponible"
-  tomorrow: Mañana
   tooltip: 
     advanced_editor: "Este editor te permite: ver el código fuente en html; cambiar el estilo de la fuente, tamaño de fuente, color del texto y la alineación del texto; insertar / editar enlaces; añadir archivos adjuntos y etiquetas"
-    document_repository: "Un repositorio de documentos le permite organizar todos los archivos que se han subido al espacio"
-    mailing_list: "Una lista de correo le permitirá enviar mensajes de correo electrónico a su grupo en lugar de tener que enviar los mensajes individualmente"
     news_item: "Puede publicar una breve noticia en su home"
     private_profile: "Esta información es visible sólo para las personas que elija al editar su perfil"
     public_profile: "Cualquier persona puede acceder a esta información"
@@ -1564,16 +896,10 @@ es:
     tag: "Las etiquetas son palabras claves o términos asociados a un contenido que son utilizados para buscar y filtrar información. Presione enter para confirmar cada etiqueta."
     timezone: "Seleccionando su zona horaria no habrá malentendidos con gente de otros países al crear sus eventos."
     update_logo: "Puede actualizar su propio logo, crear un logo de texto o seleccionar una imagen de la galería"
-    user_filter: "Puede filtrar los usuarios por sus nombres o apellidos. Comienze a escribir!"
     user_id: "Puede utilizar su user ID como openID, usuario de chat y/o usuario de Marte"
     vcard: "vCard es un formato estándar para el intercambio de tarjetas personales electrónicas. "
-  topic: Tema
   translate: 
-    availables: "Traducciones disponibles"
     change: "Cambiar idioma"
-    one: Traducir
-    request: "¿Está pensando en la traducción de Global Plaza a otro idioma? Por favor, solicite al administrador que añada el nuevo lenguaje y su bandera"
-    translated: "GlobalPlaza esta siendo ahora traducido, o en proceso de traducción, a "
   type: Tipo
   undated: "Sin fecha"
   unknown_content: "Contenido %{content} desconocido"
@@ -1581,16 +907,11 @@ es:
   update: Actualizar
   updated: Actualizado
   updated_at: "Actualizado a"
-  updated_at_date: "Actualizado: %{date}"
   updated_time_ago: "Hace %{time}"
-  upload: Subir
   url: "Sitio web"
   url_add: "Añadir su sitio"
   url_plain: URL
   user: 
-    activation_email_sent: "Se ha enviado un correo de activación al usuario"
-    active: 
-      other: "Usuarios activos"
     add: 
       instruction: "Para añadir nuevos usuarios, introduzca una o varias direcciones de correo electrónico separadas por un espacio, coma o punto y coma, y regístrelos"
       note: "Por ejemplo:\"John Silver \"<\"jsilver@example.com\">\", jct@dit.es; Aaron aaron@example.net  y haga click en \"Registrar como usuario\". Esto registrará estas direcciones de email como miembros del espacio y les enviará un correo electrónico de validación."
@@ -1604,7 +925,6 @@ es:
     delete_from_space: "Eliminar el usuario del espacio"
     disable: "Deshabilitar usuario"
     disabled: "Usuario deshabilitado"
-    e-mail: "correo electrónico"
     edit_account: "Modificar su cuenta"
     email: "correo electrónico"
     email_used_to_create_account: "Introduzca la dirección de correo electrónico que utilizó para crear su cuenta"
@@ -1612,11 +932,7 @@ es:
     enabled: "Usuario habilitado correctamente. El usuario actualmente no pertenece a ningún espacio. Tendrá que solicitar la participación en los espacios nuevamente."
     error: 
       enabled: "El usuario %{name} ya está habilitado"
-    feed: 
-      author: SIR
-      title: Usuarios
     filter: "Invitar por nombre de usuario"
-    first_name: Nombre
     found: 
       none: "No se encontraron usuarios"
       one: "1 usuario encontrado"
@@ -1625,19 +941,10 @@ es:
     group_invite_email: "Invitar por correo electr\\xC3\\xB3nico"
     id: "ID de usuario"
     include_registered: "Incluir usuarios registrados"
-    included: 
-      other: "Miembros de la lista"
-    invitation: 
-      label: "Personalice su mensaje"
-      message: "Estimado 'nombre', me complace invitarle al evento 'nombre del evento' que tendrá lugar el dia 'f3echa' en 'lugar'."
-      sign: "Atentamente, 'firma'"
     invite: "Invitar personas"
     invite_email: "Invitar personas por e-mail"
-    invite_from_space_by_email: "Invitar usuarios de su espacio"
     invited: "Usuarios ya invitados"
-    last_name: Apellido
     list_by: "Lista de"
-    login: Login
     lost_password: "¿Contraseña olvidada?"
     noactivity: "%{user} no tiene actividad reciente"
     not_activated: "Su cuenta no está activada. Por favor, revise su correo electrónico para activarlo."
@@ -1645,11 +952,6 @@ es:
     not_confirmed: "Personas que no han confirmado"
     notifications: "¿De qué manera desea recibir las notificaciones?"
     one: Usuario
-    openid: 
-      add_to_access: "Añada sus OpenIDs para acceder a GlobalPlaza"
-      edit: "Edite sus OpenID"
-      one: OpenID
-      other: OpenIDs
     other: Usuarios
     password: Contraseña
     private_message: "Mensaje privado"
@@ -1657,29 +959,18 @@ es:
     registered: "¡Gracias por registrarse! Le hemos enviado un correo electrónico con las instrucciones sobre cómo activar su cuenta de usuario."
     request_password: "Solicitar contraseña"
     reset_password: "Restablecer su contraseña"
-    results_count: 
-      one: "Personas, %{users_size} resultado"
-      other: "Personas, %{users_size} resultados"
-    save: 
-      account: Guardar
-      one: "Guardar usuario"
-      preferences: "Guardar preferencias"
     search: "Buscar usuarios..."
     timezone: "Zona horaria"
     updated: "El usuario se ha actualizado correctamente"
     vcc_email: "Correo electrónico del usuario de GlobalPlaza %{dir}"
     view_expanded_posts: "Mostrar mensajes en el muro expandidos por defecto"
-    without_group: "Personas sin lista de correo"
   username: "Nombre de usuario"
   vCard: 
     corrupt: "La vCard enviada está dañada o es una versión no compatible"
     export: "Exporte su vCard"
     message: "Use su tarjeta vCard para completar automáticamente su perfil"
-    no_selection: "No hay ninguna vCard definida"
-    success: "vCard cargada correctamente"
     upload: "Suba su vCard"
     use: "Use su vCard"
-  vcard: vCard
   vcc: GlobalPlaza
   vcc_mail_label: "[GlobalPlaza]"
   vcc_registration: "Registro en Global Plaza"
@@ -1687,16 +978,7 @@ es:
     new: "Nueva versión"
     one: Versión
   video: 
-    found: 
-      none: "No se han encontrado vídeos"
-      one: "Se ha encontrado 1 vídeo"
-      other: "Se han encontrado %{size} vídeos"
-    one: Vídeo
     other: Vídeos
-  visit_link_to_activate_account: "Visite este enlace para activar su cuenta"
-  week: 
-    next: "La próxima semana"
-    this: "Esta semana"
   when: Cuándo
   where: Donde
   xmpp_server: 
