@@ -534,6 +534,12 @@ de:
   locale: 
     changed: "Application Sprache geändert "
     error: "Kann Veränderung der Sprache der Anwendung zu"
+  locales: 
+    de: Deutsch
+    en: English
+    es: Español
+    fr: Fraçais
+    pt-br: "Português (Brasil)"
   login_or_register: "Anmelden / Registrieren"
   login_request: "Du musst eingeloggt sein, um"
   logo: 

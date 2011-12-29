@@ -778,6 +778,12 @@ pt-br:
   locale: 
     changed: "Idioma da aplicação alterado para "
     error: "Não foi possível alterar o idioma do aplicativo para"
+  locales: 
+    de: Deutsch
+    en: English
+    es: Español
+    fr: Fraçais
+    pt-br: "Português (Brasil)"
   login: 
     email_or_login: "E-mail ou usuário"
     one: Login

@@ -534,6 +534,12 @@ fr:
   locale: 
     changed: "Langue de la candidature changé "
     error: "Impossible de changer la langue de la demande"
+  locales: 
+    de: Deutsch
+    en: English
+    es: Español
+    fr: Fraçais
+    pt-br: "Português (Brasil)"
   login_or_register: "Connexion / S'inscrire"
   login_request: "Vous devez être connecté pour"
   logo: 
