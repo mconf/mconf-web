@@ -144,7 +144,7 @@ module ApplicationHelper
 
   def render_clearer
     code = <<-EOF
-    <div style="clear:both;">&nbsp;</div>
+    <div style="clear:both;font-size:0;">&nbsp;</div>
     EOF
     code.html_safe
   end

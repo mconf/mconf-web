@@ -18,6 +18,8 @@ h1 {
   font-size: 2.6666em;
   line-height: 1.125;
   color: $h-font-color;
+  margin-top: 10px;
+  margin-bottom: 15px;
 }
 h2 {
   @include headers_base;
@@ -96,8 +98,4 @@ ul, ol {
 a {
   @include link-colors($size-link, $size-link-hover, $size-link-active);
   text-decoration:none;
-
-  &:hover, &:focus {
-    text-decoration: underline;
-  }
 }

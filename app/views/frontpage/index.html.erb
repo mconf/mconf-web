@@ -28,73 +28,81 @@
 </div>
 
 <div id="content-middle">
+  <%= render :partial => "components" %>
 
-  <div id="content-about">
-    <h2>More about Mconf</h2>
-
-    <div class="content-block">
-      <div class="image">
-        <%= image_tag('frontpage/bbb-screen-1.jpg') %>
-      </div>
-      <div class="text">
-        <h3>BigBlueButton</h3>
-        <p>Mconf uses BigBlueButton (BBB) as the base system to hold web conferences. BBB is developed using more than 15 open source components to create a solid web conference platform and is one of the best open source web conferencing softwares (if not the best) today.</p>
-        <p>We use a customized version of BigBlueButton.</p>
-        <ul>
-          <li><a href="http://bigbluebutton.org">View more about BigBlueButton</a></li>
-          <li><a href="http://code.google.com/p/mconf/wiki/MconfBBB">See what Mconf has been doing in BigBlueButton</a></li>
-        </ul>
+  <div id="content-spaces">
+    <div class="section-title">
+      <h2>Most active spaces</h2>
+      <div class="subtitle">
+        <span>Spaces are groups for people with similar interests. </span><a href="<%= spaces_path %>">View the complete list...</a>
       </div>
       <%= render_clearer %>
     </div>
-
-    <div class="content-block">
-      <div class="image">
-        <%= image_tag('frontpage/mconf-mobile-photo-1.jpg') %>
-      </div>
-      <div class="text">
-        <h3>Mconf-Mobile e BBB-Android</h3>
-        <p>Mconf-Mobile and BBB-Android are open source BigBlueButton clients for Android. BBB-Android is a native Android application that works with any BBB server, and Mconf-Mobile is its adaptation for Mconf.</p>
-        <ul>
-          <li><a href="http://code.google.com/p/mconf/wiki/MconfMobile">Read more about it</a></li>
-          <li><a href="https://picasaweb.google.com/108245856281359125408/BigBlueButtonForAndroidV03beta?feat=directlink">View pictures of the application</a></li>
-        </ul>
-      </div>
-      <%= render_clearer %>
-    </div>
-
-    <div class="content-block">
-      <div class="image">
-        <%= image_tag('frontpage/mconf-web-screen-1.png') %>
-      </div>
-      <div class="text">
-        <h3>Mconf-Web</h3>
-        <p>Mconf-Web is the website you are using right now. It is an open source web application implemented in Ruby on Rails (built on top of Global Plaza) that provides access to all features in Mconf. You can register for free in this website to test it.</p>
-        <ul>
-          <li><a href="http://code.google.com/p/mconf/wiki/MconfWeb">Read more about Mconf-Web</a></li>
-          <li><a href="<%= signup_path %>">Create an account and test it now!</a></li>
-        </ul>
-      </div>
-    </div>
+    <%= render :partial => 'space_list', :locals => { :spaces => @most_active_spaces } %>
   </div>
 
   <div id="content-stats">
-    <h2>What can I do here?</h2>
-
-
-    <h2>Most active spaces</h2>
-    <a href="<%= spaces_path %>">view all spaces...</a>
-    <%= render :partial => 'space_list', :locals => { :spaces => @most_active_spaces } %>
-
-    <h2>Statistics</h2>
+    <div class="section-title">
+      <h2>Statistics</h2>
+      <div class="subtitle">
+        <span>See how mconf.org is being used</span>
+      </div>
+      <%= render_clearer %>
+    </div>
 
     <span><b>Spaces:</b> <%= @space_count %></span><br/>
     <span><b>Users:</b> <%= @user_count %></span><br/>
     <span><b>Events:</b> <%= @event_count %></span><br/>
     <b><%= t('frontpage.stats.title') %></b> <%= t('frontpage.stats.text', :users => 0, :spaces => 0, :meetings => 0) %>
-
-
   </div>
+
+
+  <div id="content-features">
+    <h2>Features</h2>
+    <div class="content-block">
+      <%= image_tag('frontpage/mconf-mobile-photo-1.jpg', :size => '25x25') %>
+      Create your own webconferences for free.
+    </div>
+    <div class="content-block">
+      <%= image_tag('frontpage/mconf-mobile-photo-1.jpg', :size => '25x25') %>
+      Communicate with groups of people using audio, video, presentations, desktop sharing, and others.
+    </div>
+    <div class="content-block">
+      <%= image_tag('frontpage/mconf-mobile-photo-1.jpg', :size => '25x25') %>
+      Exchange information and share files inside spaces.
+    </div>
+    <div class="content-block">
+      <%= image_tag('frontpage/mconf-mobile-photo-1.jpg', :size => '25x25') %>
+      Access webconferences using Android devices.
+    </div>
+  </div>
+
+
+<!--
+      <div class="content-block">
+        <%= image_tag('frontpage/icon-use-pb.png', :size => '40x40') %>
+        <span class="link-title">Use Mconf</span>
+        It's free but first you need to <a href="<%= signup_path %>">create an account</a>.
+      </div>
+      <div class="content-block">
+        <%= image_tag('frontpage/icon-install-pb.png', :size => '40x40') %>
+        <span class="link-title">Install Mconf</span>
+        Learn how to install Mconf in your own servers.
+      </div>
+      <div class="content-block">
+        <%= image_tag('frontpage/icon-collaborate-pb.png', :size => '40x40') %>
+        <span class="link-title">Collaborate</span>
+        Help us improve Mconf.
+      </div>
+      <div class="content-block">
+        <%= image_tag('frontpage/icon-collaborate-pb.png', :size => '40x40') %>
+        <span class="link-title">Anything else</span>
+        Help us improve Mconf.
+      </div>
+
+-->
+
+
 
   <%= render_clearer %>
 
