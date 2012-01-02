@@ -124,7 +124,7 @@ div.anythingSlider .arrow a {
 	width: 45px;
 	text-align: center;
 	outline: 0;
-	background: url(../images/default.png) no-repeat;
+	/*background: url(../images/default.png) no-repeat; mconf */
 }
 /* hide text, target the span so IE7 doesn't text-indent the link */
 div.anythingSlider .arrow a span { display: block; visibility: hidden; }
@@ -150,7 +150,7 @@ div.anythingSlider .anythingControls ul a {
 	padding: 2px 8px;
 	height: 18px;
 	margin: 0 5px 0 0;
-	background-image: url(../images/default.png);
+	/*background-image: url(../images/default.png); mconf */
 	background-position: center -288px ;
 	background-repeat: repeat-x;
 	text-align: center;
@@ -176,7 +176,7 @@ div.anythingSlider.rtl .anythingWindow {
 
 /* Autoplay Start/Stop button */
 div.anythingSlider .start-stop {
-	background-image: url(../images/default.png);
+	/*background-image: url(../images/default.png); mconf */
 	background-position: center -288px;
 	background-repeat: repeat-x;
 	padding: 2px 5px;

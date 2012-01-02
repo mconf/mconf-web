@@ -46,10 +46,16 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   display: block; }
 
 #footer {
-  background: #f4f4f4;
-  border-top: 1px solid #e6e6e6;
+  border-top: 1px dashed #d4d4d4;
+  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #eeeeee), color-stop(30%, #eeeeee), color-stop(100%, #ffffff));
+  background: -webkit-linear-gradient(top, #eeeeee, #eeeeee 30%, #ffffff);
+  background: -moz-linear-gradient(top, #eeeeee, #eeeeee 30%, #ffffff);
+  background: -o-linear-gradient(top, #eeeeee, #eeeeee 30%, #ffffff);
+  background: -ms-linear-gradient(top, #eeeeee, #eeeeee 30%, #ffffff);
+  background: linear-gradient(top, #eeeeee, #eeeeee 30%, #ffffff);
   margin-top: 20px;
-  color: #444; }
+  color: #444;
+  clear: both; }
 
 #footer-content, #footer-bottom-content {
   width: 980px;
@@ -61,7 +67,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
     margin-bottom: 10px;
     font-weight: bold;
     padding-bottom: 5px;
-    border-bottom: 1px solid #cecece; }
+    border-bottom: 1px solid #c8c8c8; }
   #footer-content ul, #footer-bottom-content ul {
     list-style-type: none;
     margin: 0; }
@@ -97,11 +103,10 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 
 #footer-bottom {
   background: white;
-  border-top: 1px solid #e6e6e6;
-  clear: both; }
+  clear: both;
+  margin-bottom: 15px; }
 
 #footer-bottom-content {
-  background: white;
   width: 980px;
   padding: 5px 5px 0 5px; }
   #footer-bottom-content .version-info {
@@ -116,6 +121,6 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   #footer-logo .title {
     font-weight: bold;
     font-size: 28px;
-    text-shadow: #a8a8a8 1px 1px 4px; }
+    text-shadow: #a2a2a2 1px 1px 4px; }
     #footer-logo .title:hover {
       color: #333; }

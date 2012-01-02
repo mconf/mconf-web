@@ -29,18 +29,17 @@ class FrontpageController < ApplicationController
     @stats[:users] = User.count
     @stats[:spaces] = Space.count
     @stats[:events] = Event.count
-
-    # TODO
-    @webconferences_count =
-      Statistic.where(['url LIKE ?', '/join']).order('unique_pageviews desc').count
+    @stats[:posts] = Post.count
+    @stats[:documents] = Attachment.count
+    @stats[:webconferences] = Statistic.where(['url LIKE ?', '/join']).count
 
     # Find the public spaces that have most pageviews
     @most_active_spaces = []
     Statistic.where(['url LIKE ?', '/spaces/%']).order('unique_pageviews desc').each do |rec|
       perma = rec.url.split("/").last
       space = Space.find_by_permalink(perma)
-      @most_active_spaces << space if space.public?
-      break if @most_active_spaces.size == 8
+      @most_active_spaces << space if space and space.public?
+      break if @most_active_spaces.size == 10
     end
 
     respond_to do |format|
@@ -48,8 +47,6 @@ class FrontpageController < ApplicationController
         format.html { redirect_to home_path}
       else
         format.html # index.html.erb
-        format.xml  { render :xml => @spaces }
-        format.atom
       end
     end
   end

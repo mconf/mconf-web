@@ -27,10 +27,60 @@
 
 </div>
 
-<div id="content-middle">
+<div id="content-mconf">
   <%= render :partial => "components" %>
 
-  <div id="content-left-wrapper">
+  <div class="content-left-wrapper">
+
+    <div id="content-news">
+      <div class="section-title">
+        <h2>News</h2>
+        <%= render_clearer %>
+      </div>
+      <div class="news-box">
+        <%= image_tag('frontpage/mconf-graphics-screenshot.png', :size => '300x137') %>
+        Mconf is developing a monitor for BigBlueButton that will collect usage statistics and display it in nice graphics such as the one you're seeing in the picture.
+        <ul>
+          <li>Click here to see the experimental page with more graphics.</li>
+          <li>Source code is at: here and here.</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="content-right-wrapper">
+
+    <div id="content-searching-for">
+      <div class="section-title">
+        <h2>What are you searching for?</h2>
+        <%= render_clearer %>
+      </div>
+      <div class="content-block">
+        <%= image_tag('frontpage/icon-use-pb.png', :size => '40x40') %>
+        <span class="link-title">Use Mconf</span>
+        It's free but first you need to <a href="<%= signup_path %>">create an account</a>.
+      </div>
+      <div class="content-block">
+        <%= image_tag('frontpage/icon-install-pb.png', :size => '40x40') %>
+        <span class="link-title">Install Mconf</span>
+        Learn how to install Mconf in your own servers.
+      </div>
+      <div class="content-block">
+        <%= image_tag('frontpage/icon-collaborate-pb.png', :size => '40x40') %>
+        <span class="link-title">Collaborate</span>
+        Help us improve Mconf.
+      </div>
+    </div>
+
+  </div>
+
+  <%= render_clearer %>
+</div>
+
+<div id="content-current-site">
+
+  <div class="content-left-wrapper">
 
     <div id="content-spaces">
       <div class="section-title">
@@ -42,6 +92,10 @@
       </div>
       <%= render :partial => 'space_list', :locals => { :spaces => @most_active_spaces } %>
     </div>
+
+  </div>
+
+  <div class="content-right-wrapper">
 
     <div id="content-stats">
       <div class="section-title">
@@ -65,99 +119,23 @@
           <span class="param">Events:</span>
           <span class="value"><%= @stats[:events] %></span>
         </div>
-      </div>
-
-    </div>
-
-  </div>
-
-  <div id="content-right-wrapper">
-
-    <div id="content-news">
-      <div class="section-title">
-        <h2>News</h2>
-        <div class="subtitle">
-          <span>What's currently happening in Mconf?</span>
+        <div class="content-block">
+          <span class="param">Posts:</span>
+          <span class="value"><%= @stats[:posts] %></span>
         </div>
-        <%= render_clearer %>
+        <div class="content-block">
+          <span class="param">Documents:</span>
+          <span class="value"><%= @stats[:documents] %></span>
+        </div>
+        <div class="content-block">
+          <span class="param">Webconferences:</span>
+          <span class="value"><%= @stats[:webconferences] %></span>
+        </div>
       </div>
-      <div class="graphics">
-        <%= image_tag('frontpage/mconf-graphics-screenshot.png', :size => '300x137') %>
-      </div>
+
     </div>
 
   </div>
-
-<!--
-    <div class="content-block">
-      <%= image_tag('icons/user-36x36.png') %>
-      <div class="text">
-        <span>Users: </span><span class="value"><%= @stats[:users] %></span>
-      </div>
-    </div>
-    <div class="content-block">
-      <%= image_tag('icons/space-36x36.png') %>
-      <div class="text">
-        <span>Spaces: </span><span class="value"><%= @stats[:spaces] %></span>
-      </div>
-    </div>
-    <div class="content-block">
-      <%= image_tag('icons/event-36x36.png') %>
-      <div class="text">
-        <span>Events: </span><span class="value"><%= @stats[:events] %></span>
-      </div>
-    </div>
-  </div>
--->
-
-  <!--
-  <div id="content-features">
-    <h2>Features</h2>
-    <div class="content-block">
-      <%= image_tag('frontpage/mconf-mobile-photo-1.jpg', :size => '25x25') %>
-      Create your own webconferences for free.
-    </div>
-    <div class="content-block">
-      <%= image_tag('frontpage/mconf-mobile-photo-1.jpg', :size => '25x25') %>
-      Communicate with groups of people using audio, video, presentations, desktop sharing, and others.
-    </div>
-    <div class="content-block">
-      <%= image_tag('frontpage/mconf-mobile-photo-1.jpg', :size => '25x25') %>
-      Exchange information and share files inside spaces.
-    </div>
-    <div class="content-block">
-      <%= image_tag('frontpage/mconf-mobile-photo-1.jpg', :size => '25x25') %>
-      Access webconferences using Android devices.
-    </div>
-  </div>
-  -->
-
-
-<!--
-      <div class="content-block">
-        <%= image_tag('frontpage/icon-use-pb.png', :size => '40x40') %>
-        <span class="link-title">Use Mconf</span>
-        It's free but first you need to <a href="<%= signup_path %>">create an account</a>.
-      </div>
-      <div class="content-block">
-        <%= image_tag('frontpage/icon-install-pb.png', :size => '40x40') %>
-        <span class="link-title">Install Mconf</span>
-        Learn how to install Mconf in your own servers.
-      </div>
-      <div class="content-block">
-        <%= image_tag('frontpage/icon-collaborate-pb.png', :size => '40x40') %>
-        <span class="link-title">Collaborate</span>
-        Help us improve Mconf.
-      </div>
-      <div class="content-block">
-        <%= image_tag('frontpage/icon-collaborate-pb.png', :size => '40x40') %>
-        <span class="link-title">Anything else</span>
-        Help us improve Mconf.
-      </div>
-
--->
-
-
 
   <%= render_clearer %>
 

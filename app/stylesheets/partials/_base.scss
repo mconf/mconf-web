@@ -73,8 +73,9 @@ button, input[type=submit], input[type=button], .button {
 }
 
 #footer {
-  background: $footer-bg-color;
-  border-top: 1px solid #e6e6e6;
+  border-top: 1px dashed darken($footer-bg-color, 10);
+  @include background(linear-gradient(top, $footer-bg-color, $footer-bg-color 30%, $site-bg-color));
+
   margin-top: 20px;
   color: #444;
   clear: both;
@@ -142,9 +143,9 @@ button, input[type=submit], input[type=button], .button {
 }
 
 #footer-bottom {
-  background: white;
-  border-top: 1px solid #e6e6e6;
+  background: $site-bg-color;
   clear: both;
+  margin-bottom: 15px;
 }
 
 #footer-bottom-content {
