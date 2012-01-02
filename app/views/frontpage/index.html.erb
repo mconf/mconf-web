@@ -30,33 +30,87 @@
 <div id="content-middle">
   <%= render :partial => "components" %>
 
-  <div id="content-spaces">
-    <div class="section-title">
-      <h2>Most active spaces</h2>
-      <div class="subtitle">
-        <span>Spaces are groups for people with similar interests. </span><a href="<%= spaces_path %>">View the complete list...</a>
-      </div>
-      <%= render_clearer %>
-    </div>
-    <%= render :partial => 'space_list', :locals => { :spaces => @most_active_spaces } %>
-  </div>
+  <div id="content-left-wrapper">
 
-  <div id="content-stats">
-    <div class="section-title">
-      <h2>Statistics</h2>
-      <div class="subtitle">
-        <span>See how mconf.org is being used</span>
+    <div id="content-spaces">
+      <div class="section-title">
+        <h2>Public Spaces</h2>
+        <div class="subtitle">
+          <span>Spaces are discussion groups for people with similar interests. </span><a href="<%= spaces_path %>">View the complete list...</a>
+        </div>
+        <%= render_clearer %>
       </div>
-      <%= render_clearer %>
+      <%= render :partial => 'space_list', :locals => { :spaces => @most_active_spaces } %>
     </div>
 
-    <span><b>Spaces:</b> <%= @space_count %></span><br/>
-    <span><b>Users:</b> <%= @user_count %></span><br/>
-    <span><b>Events:</b> <%= @event_count %></span><br/>
-    <b><%= t('frontpage.stats.title') %></b> <%= t('frontpage.stats.text', :users => 0, :spaces => 0, :meetings => 0) %>
+    <div id="content-stats">
+      <div class="section-title">
+        <h2>Statistics</h2>
+        <div class="subtitle">
+          <span>Usage statistics for mconf.org</span>
+        </div>
+        <%= render_clearer %>
+      </div>
+
+      <div class="data">
+        <div class="content-block">
+          <span class="param">Users:</span>
+          <span class="value"><%= @stats[:users] %></span>
+        </div>
+        <div class="content-block">
+          <span class="param">Spaces:</span>
+          <span class="value"><%= @stats[:spaces] %></span>
+        </div>
+        <div class="content-block">
+          <span class="param">Events:</span>
+          <span class="value"><%= @stats[:events] %></span>
+        </div>
+      </div>
+
+    </div>
+
   </div>
 
+  <div id="content-right-wrapper">
 
+    <div id="content-news">
+      <div class="section-title">
+        <h2>News</h2>
+        <div class="subtitle">
+          <span>What's currently happening in Mconf?</span>
+        </div>
+        <%= render_clearer %>
+      </div>
+      <div class="graphics">
+        <%= image_tag('frontpage/mconf-graphics-screenshot.png', :size => '300x137') %>
+      </div>
+    </div>
+
+  </div>
+
+<!--
+    <div class="content-block">
+      <%= image_tag('icons/user-36x36.png') %>
+      <div class="text">
+        <span>Users: </span><span class="value"><%= @stats[:users] %></span>
+      </div>
+    </div>
+    <div class="content-block">
+      <%= image_tag('icons/space-36x36.png') %>
+      <div class="text">
+        <span>Spaces: </span><span class="value"><%= @stats[:spaces] %></span>
+      </div>
+    </div>
+    <div class="content-block">
+      <%= image_tag('icons/event-36x36.png') %>
+      <div class="text">
+        <span>Events: </span><span class="value"><%= @stats[:events] %></span>
+      </div>
+    </div>
+  </div>
+-->
+
+  <!--
   <div id="content-features">
     <h2>Features</h2>
     <div class="content-block">
@@ -76,6 +130,7 @@
       Access webconferences using Android devices.
     </div>
   </div>
+  -->
 
 
 <!--

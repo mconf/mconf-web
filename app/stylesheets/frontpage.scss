@@ -66,7 +66,7 @@ body {
   padding-bottom: ($global-header-height - 100px)/2;
   @include background(linear-gradient(right, darken($header-bg-color, 8), $header-bg-color));
 
-  a { @include link-colors(#ddd, white, $size-link-active); }
+  a { @include link-colors(#ddd, white, $site-link-active); }
 
   .action-links {
     float: right;
@@ -175,7 +175,7 @@ body {
       font-weight: bold;
       @include text-shadow(white 2px 2px 4px);
       &:hover {
-        color: $size-link-hover;
+        color: $site-link-hover;
         text-decoration: none;
       }
     }
@@ -233,15 +233,16 @@ body {
     margin: 0;
     float: left;
     background: $sub-header-bg-color;
+    padding: 30px;
     @include background(linear-gradient(left, darken($sub-header-bg-color, 5), $sub-header-bg-color));
-    padding: 20px 20px 30px 20px;
     @include border-radius(4px);
+
     .anythingWindow { border: 0; }
   }
 
 }
 
-$components-images-width: 550px;
+$components-images-width: 560px;
 #components-images {
   width: $components-images-width;
   margin: 0;
@@ -251,10 +252,7 @@ $components-images-width: 550px;
   list-style: none;
 
   .caption { display: none; }
-  img {
-    //@include box-shadow(0 0 10px #444);
-    @include border-radius(4px);
-  }
+  img { @include border-radius(4px); }
 }
 
 #components-menu {
@@ -265,7 +263,7 @@ $components-images-width: 550px;
 
   .content-block {
     clear: both;
-    width: $contents-width - $components-images-width - 30px;
+    width: $contents-width - $components-images-width - 40px;
     height: 50px;
     float: left;
     padding: 5px 15px;
@@ -331,17 +329,9 @@ $components-images-width: 550px;
   ul { list-style-type: disc; margin-top: 10px; }
 }
 
-
-
-
-
-
-
-
-
-$content-left-width: 650px;
+$content-left-width: 560px;
 #content-right-wrapper {
-  clear: both;
+  clear: right;
   float: right;
   text-align: left;
   width: $contents-width - $content-left-width - 20px;
@@ -351,20 +341,6 @@ $content-left-width: 650px;
   clear: left;
   float: left;
   width: $content-left-width;
-}
-
-#content-features {
-  clear: both;
-
-  .content-block {
-    clear: both;
-    margin-bottom: 5px;
-    float: left;
-    img {
-      float: left;
-      margin-right: 5px;
-    }
-  }
 }
 
 #content-spaces {
@@ -385,14 +361,67 @@ $content-left-width: 650px;
     @include box-shadow(0px 0px 5px #777);
     margin: 4px;
 
-    &:hover { @include box-shadow(0px 0px 10px $header-bg-color); }
+    &:hover { @include box-shadow(0px 0px 15px $header-bg-color); }
   }
 }
 
 #content-stats {
+
+  .data {
+    float: left;
+
+    .content-block {
+      clear: both;
+      margin-right: 10px;
+      margin-top: 10px;
+
+      .param {
+        float: left;
+        min-width: 100px;
+        text-align: right;
+        margin-right: 10px;
+      }
+      .value {
+        float: left;
+        min-width: 50px;
+        font-weight: bold;
+        @include text-shadow(#aaa 1px 1px 4px);
+      }
+    }
+  }
+}
+
+#content-news {
+  .graphics {
+    float: right;
+
+    @include box-shadow(0px 0px 5px #777);
+    &:hover { @include box-shadow(0px 0px 15px $header-bg-color); }
+  }
 }
 
 
+
+
+
+
+
+
+
+
+#content-features {
+  clear: both;
+
+  .content-block {
+    clear: both;
+    margin-bottom: 5px;
+    float: left;
+    img {
+      float: left;
+      margin-right: 5px;
+    }
+  }
+}
 
 
 

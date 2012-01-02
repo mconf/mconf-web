@@ -25,9 +25,10 @@ class FrontpageController < ApplicationController
     # @recent_posts = Post.find(:all, :conditions => {:parent_id => nil}, :order => "created_at Desc").select{|p| !p.space.disabled? && p.space.public == true}.first(2)
     # @recent_spaces = Space.where(:public => true).order("created_at Desc").first(4)
 
-    @user_count = User.count
-    @space_count = Space.count
-    @event_count = Event.count
+    @stats = {}
+    @stats[:users] = User.count
+    @stats[:spaces] = Space.count
+    @stats[:events] = Event.count
 
     # TODO
     @webconferences_count =
