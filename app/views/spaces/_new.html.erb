@@ -277,12 +277,12 @@ function cropImage (c){
         <div class="field">
           <%= r.label :moderator_password, t('activerecord.attributes.spaces.moderator_password') %>
           <%= r.password_field :moderator_password, :id => "moderatorPW" %>
-          <%= check_box_tag 'hideMPW' %><%= t('show?') %>
+          <%= check_box_tag 'hideMPW' %><%= t('show_question') %>
         </div>
         <div class="field">
           <%= r.label :attendee_password, t('activerecord.attributes.spaces.attendee_password') %>
           <%= r.password_field :attendee_password, :id => "attendeePW" %>
-          <%= check_box_tag 'hideAPW' %><%= t('show?') %>
+          <%= check_box_tag 'hideAPW' %><%= t('show_question') %>
         </div>
         <% end %>
       </div>

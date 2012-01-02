@@ -19,12 +19,12 @@
       <div class="field">
         <%= f.label :moderator_password %>
         <%= f.text_field :moderator_password, :id => "moderatorPW", :disabled => true, :type => 'password' %>
-        <%= check_box_tag 'hideMPW' %><%= t('show?') %>
+        <%= check_box_tag 'hideMPW' %><%= t('show_question') %>
       </div>
       <div class="field">
         <%= f.label :attendee_password %>
         <%= f.text_field :attendee_password, :id => "attendeePW", :disabled => true, :type => 'password' %>
-        <%= check_box_tag 'hideAPW' %><%= t('show?') %>
+        <%= check_box_tag 'hideAPW' %><%= t('show_question') %>
       </div>
     </div>
     <div class="float_right">
