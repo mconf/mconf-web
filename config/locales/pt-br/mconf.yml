@@ -494,6 +494,8 @@ pt-br:
     find_us: "Você pode nos encontrar em"
     gcode: "Google Code"
     github: GitHub
+    links:
+      statistics: Estatísticas
     website: "Site do Projeto"
   from: De
   frontpage: 
