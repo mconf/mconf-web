@@ -14,7 +14,7 @@
 
 #footer {
   border-top: 1px dashed darken($footer-bg-color, 10);
-  @include background(linear-gradient(top, $footer-bg-color, $footer-bg-color 30%, $site-bg-color));
+  // @include background(linear-gradient(top, $footer-bg-color, $footer-bg-color 30%, $site-bg-color));
 
   margin-top: 20px;
   color: #444;

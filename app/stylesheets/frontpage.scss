@@ -361,7 +361,6 @@ $components-images-width: 560px;
     }
 
     &:hover {
-      cursor: pointer;
       background: $sub-header-bg-color;
       @include background(linear-gradient(left, darken($sub-header-bg-color, 8), white));
     }
@@ -373,6 +372,7 @@ $components-images-width: 560px;
       font-weight: bold;
       display: block;
       @include text-shadow(white 2px 2px 4px);
+      a { @include link-colors(#555,  $site-link-hover, $site-link-active) }
     }
 
   }

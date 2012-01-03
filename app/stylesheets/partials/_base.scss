@@ -61,13 +61,11 @@ button, input[type=submit], input[type=button], .button {
   text-align: center;
   line-height: 2.5;
   overflow: hidden;
-  font-weight: bold;
-  @include box-shadow(0 0 5px black);
-  a { @include link-colors(#ccc); }
+  a { @include link-colors(#ccc, white, $site-link-active) }
 
   .content { width: $contents-width; margin: 0 auto; }
 
-  .notice { background: #fde073; a { @include link-colors(#666); } }
+  .notice { background: #fde073; a { @include link-colors(#666, black, $site-link-active); } }
   .error { background: #ff3333; color: #eee; }
   .success { background: #318f00; color: #eee; }
 }

@@ -48,7 +48,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 /* incase an inverted custom gradient isn't specified */
 .fancy-button-reset-base-class {
   font-family: "Lucida Grande", Lucida, Arial, sans-serif;
-  background: url('/images/button_bg.png?1324175236') repeat-x bottom left;
+  background: url('/images/button_bg.png?1325552133') repeat-x bottom left;
   margin: 0;
   width: auto;
   overflow: visible;
@@ -518,14 +518,13 @@ button, input[type=submit], input[type=button], .button {
   right: 0;
   text-align: center;
   line-height: 2.5;
-  overflow: hidden;
-  font-weight: bold;
-  -moz-box-shadow: 0 0 5px black;
-  -webkit-box-shadow: 0 0 5px black;
-  -o-box-shadow: 0 0 5px black;
-  box-shadow: 0 0 5px black; }
+  overflow: hidden; }
   #notification-flashs a {
     color: #cccccc; }
+    #notification-flashs a:hover {
+      color: white; }
+    #notification-flashs a:active {
+      color: #824d17; }
   #notification-flashs .content {
     width: 980px;
     margin: 0 auto; }
@@ -533,6 +532,10 @@ button, input[type=submit], input[type=button], .button {
     background: #fde073; }
     #notification-flashs .notice a {
       color: #666666; }
+      #notification-flashs .notice a:hover {
+        color: black; }
+      #notification-flashs .notice a:active {
+        color: #824d17; }
   #notification-flashs .error {
     background: #ff3333;
     color: #eee; }
@@ -1175,7 +1178,6 @@ body {
     float: left;
     margin-right: 5px; }
   #content-searching-for .content-block:hover, #content-searching-for #components-menu .content-block-selected:hover, #components-menu #content-searching-for .content-block-selected:hover {
-    cursor: pointer;
     background: #eeeeee;
     background: -webkit-gradient(linear, 0% 50%, 100% 50%, color-stop(0%, #dadada), color-stop(100%, #ffffff));
     background: -webkit-linear-gradient(left, #dadada, #ffffff);
@@ -1190,6 +1192,12 @@ body {
     font-weight: bold;
     display: block;
     text-shadow: white 2px 2px 4px; }
+    #content-searching-for .content-block .link-title a, #content-searching-for #components-menu .content-block-selected .link-title a, #components-menu #content-searching-for .content-block-selected .link-title a, #content-searching-for #components-menu .content-block-selected:hover .link-title a, #components-menu #content-searching-for .content-block-selected:hover .link-title a {
+      color: #555555; }
+      #content-searching-for .content-block .link-title a:hover, #content-searching-for #components-menu .content-block-selected .link-title a:hover, #components-menu #content-searching-for .content-block-selected .link-title a:hover, #content-searching-for #components-menu .content-block-selected:hover .link-title a:hover, #components-menu #content-searching-for .content-block-selected:hover .link-title a:hover {
+        color: #ae661e; }
+      #content-searching-for .content-block .link-title a:active, #content-searching-for #components-menu .content-block-selected .link-title a:active, #components-menu #content-searching-for .content-block-selected .link-title a:active, #content-searching-for #components-menu .content-block-selected:hover .link-title a:active, #components-menu #content-searching-for .content-block-selected:hover .link-title a:active {
+        color: #824d17; }
 
 #content-current-site {
   border-top: 2px dashed #e6e6e6; }

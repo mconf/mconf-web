@@ -496,8 +496,10 @@ en:
     gcode: "Google Code"
     github: GitHub
     links: 
-      title: Links
+      feedback: "Send feedback"
+      help: Help
       statistics: Statistics
+      title: Links
     sponsors: 
       prav: "Projetos em<br/>Áudio e Vídeo"
       rnp: "Rede Nacional de<br/>Ensino e Pesquisa"

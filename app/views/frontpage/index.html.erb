@@ -58,17 +58,17 @@
       </div>
       <div class="content-block">
         <%= image_tag('frontpage/icon-use-pb-40x40.png', :size => '40x40') %>
-        <span class="link-title"><%= t('frontpage.searching_for.use.title') %></span>
+        <span class="link-title"><a href="<%= signup_path %>"><%= t('frontpage.searching_for.use.title') %></a></span>
         <span><%= t('frontpage.searching_for.use.message').html_safe %></span>
       </div>
       <div class="content-block">
         <%= image_tag('frontpage/icon-install-pb-40x40.png', :size => '40x40') %>
-        <span class="link-title"><%= t('frontpage.searching_for.install.title') %></span>
+        <span class="link-title"><a href="http://code.google.com/p/mconf/wiki/MconfInstallation"><%= t('frontpage.searching_for.install.title') %></a></span>
         <span><%= t('frontpage.searching_for.install.message').html_safe %></span>
       </div>
       <div class="content-block">
         <%= image_tag('frontpage/icon-collaborate-pb-40x40.png', :size => '40x40') %>
-        <span class="link-title"><%= t('frontpage.searching_for.collaborate.title') %></span>
+        <span class="link-title"><a href="http://code.google.com/p/mconf/wiki/MconfCollaborate"><%= t('frontpage.searching_for.collaborate.title') %></a></span>
         <span><%= t('frontpage.searching_for.collaborate.message').html_safe %></span>
       </div>
     </div>
