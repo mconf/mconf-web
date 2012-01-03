@@ -504,8 +504,6 @@ en:
     website: "Project website"
   from: From
   frontpage: 
-    about: About
-    join_button: Join
     links: 
       docs: "Google Code"
       docs_desc: "Documentation and bug tracker"
@@ -513,21 +511,36 @@ en:
       project_website_desc: "Project website"
       source_code: GitHub
       source_code_desc: "Source code"
-    members: Members
-    more_info: "More information..."
-    no_rooms: "No meetings in progress right now."
-    no_spaces: "No public spaces found."
-    not_running: "Not running"
-    popular_spaces: "Popular public spaces"
+    news: 
+      item1: "<a href=\"/stats.html\">Click here</a> to see the experimental page with more graphics."
+      item2: "Source code can be found at: <a href=\"https://github.com/mconf/mconf-graphics\">here</a> and <a href=\"https://github.com/mconf/mconf-statistics\">here</a>."
+      message: "Mconf is developing a monitor for BigBlueButton that will collect usage statistics and display it in nice graphics such as the one you're seeing in the picture."
+      title: News
     project_description: "Mconf is an open source webconference system powered by <a href=\"http://bigbluebutton.org/\">BigBlueButton</a>. It is developed in the research group <a href=\"http://www.inf.ufrgs.br/prav\">PRAV</a> at <a href=\"http://www.ufrgs.br\">UFRGS</a> (Brazil), and funded by <a href=\"http://www.rnp.br\">RNP</a>. And this is the web portal that provides access to Mconf."
     register_sentence: "Create an account to access private spaces and create your own webconferences"
-    running: 
-      one: "Running with %{count} participant"
-      other: "Running with %{count} participants"
-    running_spaces: "Last active spaces"
+    searching_for: 
+      collaborate: 
+        message: "Help us improve Mconf."
+        title: Collaborate
+      install: 
+        message: "Learn how to install Mconf in your own servers."
+        title: "Install Mconf"
+      title: "What are you searching for?"
+      use: 
+        message: "It's free but first you need to <a href=\"/signup\">create an account</a>."
+        title: "Use Mconf"
+    spaces: 
+      subtitle: "Spaces are discussion groups for people with similar interests. </span><a href=\"/spaces\">View the complete list..."
+      title: "Public Spaces"
     stats: 
-      text: "%{users} users, %{spaces} spaces, %{meetings} active meetings"
-      title: "Current statistics:"
+      param_documents: "Documents:"
+      param_events: "Events:"
+      param_posts: "Posts:"
+      param_spaces: "Spaces:"
+      param_users: "Users:"
+      param_webconferences: "Webconferences:"
+      subtitle: "Usage statistics for mconf.org"
+      title: Statistics
   getting_started: "Getting started!"
   group: 
     other: "Mailing lists"

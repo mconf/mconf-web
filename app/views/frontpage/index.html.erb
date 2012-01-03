@@ -34,15 +34,15 @@
 
     <div id="content-news">
       <div class="section-title">
-        <h2>News</h2>
+        <h2><%= t('frontpage.news.title') %></h2>
         <%= render_clearer %>
       </div>
       <div class="news-box">
-        <%= image_tag('frontpage/mconf-graphics-screenshot.png', :size => '300x137') %>
-        Mconf is developing a monitor for BigBlueButton that will collect usage statistics and display it in nice graphics such as the one you're seeing in the picture.
+        <a href="stats.html"><%= image_tag('frontpage/mconf-graphics-screenshot.png', :size => '300x137') %></a>
+        <%= t('frontpage.news.message') %>
         <ul>
-          <li>Click here to see the experimental page with more graphics.</li>
-          <li>Source code is at: here and here.</li>
+          <li><%= t('frontpage.news.item1').html_safe %></li>
+          <li><%= t('frontpage.news.item2').html_safe %></li>
         </ul>
       </div>
     </div>
@@ -53,23 +53,23 @@
 
     <div id="content-searching-for">
       <div class="section-title">
-        <h2>What are you searching for?</h2>
+        <h2><%= t('frontpage.searching_for.title') %></h2>
         <%= render_clearer %>
       </div>
       <div class="content-block">
         <%= image_tag('frontpage/icon-use-pb-40x40.png', :size => '40x40') %>
-        <span class="link-title">Use Mconf</span>
-        It's free but first you need to <a href="<%= signup_path %>">create an account</a>.
+        <span class="link-title"><%= t('frontpage.searching_for.use.title') %></span>
+        <span><%= t('frontpage.searching_for.use.message').html_safe %></span>
       </div>
       <div class="content-block">
         <%= image_tag('frontpage/icon-install-pb-40x40.png', :size => '40x40') %>
-        <span class="link-title">Install Mconf</span>
-        Learn how to install Mconf in your own servers.
+        <span class="link-title"><%= t('frontpage.searching_for.install.title') %></span>
+        <span><%= t('frontpage.searching_for.install.message').html_safe %></span>
       </div>
       <div class="content-block">
         <%= image_tag('frontpage/icon-collaborate-pb-40x40.png', :size => '40x40') %>
-        <span class="link-title">Collaborate</span>
-        Help us improve Mconf.
+        <span class="link-title"><%= t('frontpage.searching_for.collaborate.title') %></span>
+        <span><%= t('frontpage.searching_for.collaborate.message').html_safe %></span>
       </div>
     </div>
 
@@ -81,54 +81,43 @@
 <div id="content-current-site">
 
   <div class="content-left-wrapper">
-
-    <div id="content-spaces">
-      <div class="section-title">
-        <h2>Public Spaces</h2>
-        <div class="subtitle">
-          <span>Spaces are discussion groups for people with similar interests. </span><a href="<%= spaces_path %>">View the complete list...</a>
-        </div>
-        <%= render_clearer %>
-      </div>
-      <%= render :partial => 'space_list', :locals => { :spaces => @most_active_spaces } %>
-    </div>
-
+    <%= render :partial => 'space_list', :locals => { :spaces => @most_active_spaces } %>
   </div>
 
   <div class="content-right-wrapper">
 
     <div id="content-stats">
       <div class="section-title">
-        <h2>Statistics</h2>
+        <h2><%= t('frontpage.stats.title') %></h2>
         <div class="subtitle">
-          <span>Usage statistics for mconf.org</span>
+          <span><%= t('frontpage.stats.subtitle') %></span>
         </div>
         <%= render_clearer %>
       </div>
 
       <div class="data">
         <div class="content-block">
-          <span class="param">Users:</span>
+          <span class="param"><%= t('frontpage.stats.param_users') %></span>
           <span class="value"><%= @stats[:users] %></span>
         </div>
         <div class="content-block">
-          <span class="param">Spaces:</span>
+          <span class="param"><%= t('frontpage.stats.param_spaces') %></span>
           <span class="value"><%= @stats[:spaces] %></span>
         </div>
         <div class="content-block">
-          <span class="param">Events:</span>
+          <span class="param"><%= t('frontpage.stats.param_events') %></span>
           <span class="value"><%= @stats[:events] %></span>
         </div>
         <div class="content-block">
-          <span class="param">Posts:</span>
+          <span class="param"><%= t('frontpage.stats.param_posts') %></span>
           <span class="value"><%= @stats[:posts] %></span>
         </div>
         <div class="content-block">
-          <span class="param">Documents:</span>
+          <span class="param"><%= t('frontpage.stats.param_documents') %></span>
           <span class="value"><%= @stats[:documents] %></span>
         </div>
         <div class="content-block">
-          <span class="param">Webconferences:</span>
+          <span class="param"><%= t('frontpage.stats.param_webconferences') %></span>
           <span class="value"><%= @stats[:webconferences] %></span>
         </div>
       </div>
@@ -138,5 +127,4 @@
   </div>
 
   <%= render_clearer %>
-
 </div>
