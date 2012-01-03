@@ -83,22 +83,22 @@ describe Notifier do
     end
 
   end
-  
+
   #describe para event invitation
   #describe "in the event invitation email" do
   #  it "shoul include the sender's name, email, the name of the space and the name and url of the event" do
-  #     
-  #    msg = I18n.t('event.invite_message', 
-  #      :event_name => @event.name, 
-  #      :space => @space.name, 
-  #      :event_date => @event.start_date.strftime("%A %B %d at %H:%M:%S"), 
-  #      :event_url => space_event_url(@space,@event), 
-  #      :username => @admin.full_name, 
-  #      :useremail => @admin.email, 
+  #
+  #    msg = I18n.t('event.invite_message',
+  #      :event_name => @event.name,
+  #      :space => @space.name,
+  #      :event_date => @event.start_date.strftime("%A %B %d at %H:%M:%S"),
+  #      :event_url => space_event_url(@space,@event),
+  #      :username => @admin.full_name,
+  #      :useremail => @admin.email,
   #      :userorg => @admin.organization
   #    ).html_safe
-  #    
-  #    
+  #
+  #
   #  end
   #end
 
@@ -229,7 +229,7 @@ describe Notifier do
 
       # Build the join request
       jr_comment = "<p>" + I18n.t('join_request.asked', :candidate => @registered_user.full_name, :space => @space.name) + "</p>" +
-        "<p>" + I18n.t('join_request.to_accept', :url => ("http://" + Site.current.domain + "/spaces/" + @space.permalink + "admissions")) + "</p>" +
+        "<p>" + I18n.t('join_request.to_accept_space', :url => ("http://" + Site.current.domain + "/spaces/" + @space.permalink + "admissions")) + "</p>" +
         "<p>" + Site.current.signature_in_html + "</p>"
       params = {:candidate => @registered_user, :email => @registered_user.email, :group => @space, :comment => jr_comment}
       jr = @space.join_requests.build params
