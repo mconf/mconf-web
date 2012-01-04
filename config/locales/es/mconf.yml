@@ -149,7 +149,6 @@ es:
     one: Comentario
     other: Comentarios
     show_all: "Mostrar todos los comentarios"
-  consider_and_reply: "Favor de considerar y responder a"
   contact_information: "Información de contacto"
   country: País
   create: Crear
@@ -241,7 +240,6 @@ es:
     help: 
       create: "Crear un evento simple en tres pasos:"
       edit: "Editar su evento"
-      organisers: "Seleccione los usuarios del espacio que organizarán este evento"
     home: 
       one: "Evento en el espacio %{space}"
     last_7_days: "Últimos 7 días (%{size})"
@@ -564,9 +562,6 @@ es:
   manage: Administrar
   mandatory_field: "Campo obligatorio"
   message: 
-    created: "Mensaje enviado correctamente"
-    error: 
-      create: "Error enviando mensaje privado"
     incoming: 
       other: "Buzón de entrada"
     private: 

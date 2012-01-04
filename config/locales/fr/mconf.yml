@@ -234,7 +234,6 @@ fr:
     help: 
       create: "Créez votre événement simple en trois étapes:"
       edit: "Modifier votre événement"
-      organisers: "Sélectionnez les utilisateurs espace qui organisera cet événement"
     home: 
       one: "L'événement dans l'espace %{space}"
     last_7_days: "Les 7 derniers jours (%{size})"
@@ -550,9 +549,6 @@ fr:
   manage: Manage
   mandatory_field: "Mandatory field"
   message: 
-    created: "Message envoyé avec succès"
-    error: 
-      create: "Erreur d'envoi message privé"
     incoming: 
       other: "Les messages entrants"
     private: 

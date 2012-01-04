@@ -234,7 +234,6 @@ de:
     help: 
       create: "Erstellen Sie Ihre Veranstaltung einfach in drei Schritten:"
       edit: "Bearbeiten Sie Ihre Veranstaltung"
-      organisers: "Wählen Sie den Raum Benutzer, die dieses Ereignis organisiert wird"
     home: 
       one: "Event in den Raum %{space}"
     last_7_days: "Letzte 7 Tage (%{size})"
@@ -550,9 +549,6 @@ de:
   manage: Verwalten
   mandatory_field: "Mandatory field"
   message: 
-    created: "Nachricht erfolgreich gesendet"
-    error: 
-      create: "Fehler beim senden Private Nachricht"
     incoming: 
       other: "Eingehende Nachrichten"
     private: 

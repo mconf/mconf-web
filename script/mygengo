@@ -1,0 +1,48 @@
+#!/usr/bin/env ruby
+
+ROOT = File.expand_path(File.join(File.dirname(__FILE__), '..'))
+URL = "http://mygengo.com/string/p/mconf-web-1/export/all/"
+TMP = "#{ROOT}/tmp/"
+BASE_LOCALE = "en"
+IGNORE_FILES = [ "_base.yml" ]
+
+puts "Downloading..."
+`curl #{URL} > #{TMP}/mygengo.zip`
+puts "Extracting..."
+`unzip -o #{TMP}/mygengo.zip -d #{ROOT}/config/locales/`
+`rm #{TMP}/mygengo.zip`
+
+# Cleanup the BASE_LOCALE files to format them
+
+Dir["#{ROOT}/config/locales/#{BASE_LOCALE}/*.yml"].each do |file_full|
+  file = file_full.split("/").last
+
+  unless IGNORE_FILES.include?(file)
+    puts "Cleanup file: #{BASE_LOCALE}/#{file}..."
+    `bundle exec rake translate:cleanup LOCALE=#{BASE_LOCALE} FILE=#{file_full} FILTER=1`
+  end
+
+end
+
+# Cleanup the other language files using as base the BASE_LOCALE files
+# Will remove any extra keys that do not exist in the base locale
+
+dirs = Dir["#{ROOT}/config/locales/*"]
+puts "Languages detected: " + dirs.to_s
+
+dirs.each do |dir_full|
+  locale = dir_full.split("/").last
+
+  unless locale == BASE_LOCALE
+    Dir["#{dir_full}/*.yml"].each do |file_full|
+      file = file_full.split("/").last
+
+      unless IGNORE_FILES.include?(file)
+        model = "#{ROOT}/config/locales/#{BASE_LOCALE}/#{file}"
+        puts "Formatting file: #{locale}/#{file}..."
+        `bundle exec rake translate:remove_deleted_keys LOCALE=#{locale} SOURCE=#{file_full} MODEL=#{model}`
+      end
+
+    end
+  end
+end
