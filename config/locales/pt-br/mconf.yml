@@ -308,7 +308,6 @@ pt-br:
     has: "Este evento tem"
     help: 
       create: "Crie o seu evento simples em três etapas:"
-      define3: ""
       edit: "Editar seu evento"
     home: 
       one: "Evento na comunidade %{space}"
@@ -1064,6 +1063,7 @@ pt-br:
   show: Exibir
   show_advanced_editor: "Exibir editor avançado"
   show_list_version_arrows: "exibir versão em lista >>"
+  show_question: Exibir?
   site: 
     analytics_code: "Código do Google Analytics"
     analytics_code_tip: "Código para sua conta do Google Analytics. Deixe em branco para desabilitar. Exemplo: \"UA-12345678-9\""
@@ -1099,7 +1099,6 @@ pt-br:
     about: Sobre
     add_user: 
       other: "Adicionar usuários à comunidade"
-    add_user_other: ""
     all: "Todas comunidades"
     allow_public_access: "Permitir acesso público?"
     clic: "Clique para editar..."

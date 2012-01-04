@@ -28,7 +28,7 @@ end
 # Will remove any extra keys that do not exist in the base locale
 
 dirs = Dir["#{ROOT}/config/locales/*"]
-puts "Languages detected: " + dirs.to_s
+puts "Languages detected: " + dirs.map{ |dir| dir.split("/").last }.to_s
 
 dirs.each do |dir_full|
   locale = dir_full.split("/").last
