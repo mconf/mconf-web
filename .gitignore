@@ -9,7 +9,7 @@ config/ultrasphinx/*conf
 public/logos
 attachments/*
 attachment_videos/*
-public/images/tmp/*
+app/assets/images/tmp/*
 spec/reports
 *~
 config/locales/log

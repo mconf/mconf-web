@@ -8,11 +8,12 @@ group :assets do
   gem 'sass-rails',   '~> 3.1.5'
   gem 'coffee-rails', '~> 3.1.1'
   gem 'uglifier', '>= 1.0.3'
-  gem 'compass'
+  gem 'compass', '0.12.alpha.4'
   gem 'fancy-buttons'
 end
 
 gem 'jquery-rails'
+gem 'therubyracer', :require => 'v8'
 
 gem 'rake'
 
@@ -62,7 +63,7 @@ group :development, :test do
   gem 'populator'
   gem 'ffaker'
   gem 'factory_girl'
-  gem 'sqlite3-ruby', :require => 'sqlite3'
+  gem 'sqlite3'
   gem 'webrat'
   gem 'rspec-instafail'
   gem 'fuubar'
