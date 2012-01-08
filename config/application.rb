@@ -2,12 +2,12 @@ require File.expand_path('../boot', __FILE__)
 
 require 'rails/all'
 
-# If you have a Gemfile, require the gems listed there, including any gems
-# you've limited to :test, :development, or :production.
-Bundler.require(:default, Rails.env) if defined?(Bundler)
-
-# Specifies gem version of Rails to use when vendor/rails is not present
-# RAILS_GEM_VERSION = '3.0.3' unless defined? RAILS_GEM_VERSION
+if defined?(Bundler)
+  # If you precompile assets before deploying to production, use this line
+  Bundler.require(*Rails.groups(:assets => %w(development test)))
+  # If you want your assets lazily compiled in production, use this line
+  # Bundler.require(:default, :assets, Rails.env)
+end
 
 module Mconf
   class Application < Rails::Application
@@ -44,15 +44,7 @@ module Mconf
 
     config.generators do |g|
       g.fixture_replacement :factory_girl
-      #g.template_engine :haml
     end
-
-    # JavaScript files you want as :defaults (application.js is always included).
-    # config.action_view.javascript_expansions[:defaults] = %w(jquery rails)
-    # Allowed html tags for sanitize
-    # TODO rails 3: sanitized_allowed
-    #config.action_view.sanitized_allowed_tags = 'table', 'tr', 'td', 'embed', 'u'
-    #config.action_view.sanitized_allowed_attributes = 'id', 'class', 'style', 'allowfullscreen', 'wmode'
 
     # Configure the default encoding used in templates for Ruby 1.9.
     config.encoding = "utf-8"
@@ -62,5 +54,11 @@ module Mconf
 
     # Load files inside the lib folder. Not the best approach, see http://www.strictlyuntyped.com/2008/06/rails-where-to-put-other-files.html
     config.autoload_paths += %W( #{ Rails.root }/lib )
+
+    # Enable the asset pipeline
+    config.assets.enabled = true
+
+    # Version of your assets, change this if you want to expire all your assets
+    config.assets.version = '1.0'
   end
 end

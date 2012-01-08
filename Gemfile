@@ -1,11 +1,23 @@
 source 'http://rubygems.org'
 
-gem 'rails', '~> 3.0.3'
+gem 'rails', '~> 3.1.0'
 
-gem "rake", "0.8.7"
-gem "will_paginate", "~> 3.0.pre2"
+# Gems used only for assets and not required
+# in production environments by default.
+group :assets do
+  gem 'sass-rails',   '~> 3.1.5'
+  gem 'coffee-rails', '~> 3.1.1'
+  gem 'uglifier', '>= 1.0.3'
+  gem 'compass'
+  gem 'fancy-buttons'
+end
+
+gem 'jquery-rails'
+
+gem 'rake'
+
+gem 'will_paginate', '~> 3.0.pre2'
 gem 'teambox-permalink_fu', :git => 'git://github.com/mconf/permalink_fu.git'
-gem 'jquery-rails', '>= 0.2.6'
 gem 'vpim'
 gem 'ruby-openid'
 gem 'atom-tools'
@@ -33,19 +45,17 @@ gem 'attachment_fu', :git => 'git://github.com/mconf/attachment_fu.git'
 gem 'yaml_db'
 gem 'delayed_job'
 
-gem 'mysql2', '~> 0.2.0' # must use 0.2.x releases in Rails <= 3.0.x
+gem 'mysql2', '~> 0.3.0'
 
 # not the official repo, but has fixes to use it with rails 3
-gem 'table_helper', :git => 'git://github.com/echen/table_helper.git'
+# TODO: remove or update
+gem 'table_helper', :git => 'git://github.com/eeng/table_helper.git'
 
 group :development do
   #gem 'ruby-debug19', :require => 'ruby-debug'
   gem 'capistrano', '~> 2.5'
   gem 'capistrano-ext'
   gem 'translate-rails3', :require => 'translate', :git => 'git://github.com/mconf/translate.git'
-  gem 'sass', '~> 3.1'
-  gem 'compass', '~> 0.11'
-  gem 'fancy-buttons'
 end
 
 group :development, :test do
@@ -58,6 +68,7 @@ group :development, :test do
   gem 'fuubar'
   gem 'shoulda-matchers'
   gem 'htmlentities'
+  gem 'turn', '0.8.2', :require => false
 end
 
 group :production do
@@ -65,3 +76,9 @@ group :production do
   gem 'passenger', '3.0.7'
   gem 'exception_notification'
 end
+
+# Rails 3.1 - Heroku
+#group :production do
+#  gem 'therubyracer-heroku', '0.8.1.pre3'
+#  gem 'pg'
+#end

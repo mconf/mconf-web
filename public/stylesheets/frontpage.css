@@ -48,7 +48,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 /* incase an inverted custom gradient isn't specified */
 .fancy-button-reset-base-class {
   font-family: "Lucida Grande", Lucida, Arial, sans-serif;
-  background: url('/images/button_bg.png?1325552133') repeat-x bottom left;
+  background: url('/images/button_bg.png?1325979918') repeat-x bottom left;
   margin: 0;
   width: auto;
   overflow: visible;
