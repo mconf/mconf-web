@@ -1,4 +1,5 @@
 # This file should be in /etc/cron.d/mconf
 
 # Mconf daily
-0 4 * * * mconf cd /home/mconf/mconf-web/current && bundle exec rake --silent mconf:cron:daily RAILS_ENV=production
+0 0 * * * /bin/bash -l -c 'cd /home/mconf/mconf-web/current && bundle exec rake mconf:cron:daily RAILS_ENV=production'
+0 0 * * 0 /bin/bash -l -c 'cd /home/mconf/mconf-web/current && bundle exec rake mconf:cron:weekly RAILS_ENV=production'
