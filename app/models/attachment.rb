@@ -134,7 +134,7 @@ class Attachment < ActiveRecord::Base
     }
 
     found_errors = attachment.errors.select{ |k,v| v.all? { |msg| missing_file_errors[k.to_s].include?(msg) } }
-    if found_errors.values.flatten.size >= 4
+    if found_errors.flatten.size >= 4
       errors = attachment.errors.clone
       attachment.errors.clear
       attachment.errors.add("upload_data",I18n.t('activerecord.errors.messages.missing'))

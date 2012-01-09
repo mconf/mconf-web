@@ -7,7 +7,7 @@
 <%= content_for :javascript do %>
         <%= render :partial => "edit_new_javascript.js" %>
         if ($("#event_image").val() != "")
-          $("#selected_logo_image").attr('src', "/public/images/" + $("#event_image").val() );
+          $("#selected_logo_image").attr('src', "/assets/" + $("#event_image").val() );
         $("#cancel_event").fancybox({
         'scrolling'                  : 'no',
         'titleShow'                  : false,
@@ -17,7 +17,7 @@
         'height'             : 80
         });
 
-   
+
   $('#space_logo img.tooltip_update_logo').qtip({
    content: '<%=t("tooltip.event_logo")%>',
          position: {adjust: { screen: true }},
@@ -46,16 +46,16 @@
       </div>
     </div>
   </div>
-        
+
   <div id="for_lightbox" style="display:none">
   </div>
-        
-  <% @files = Dir.entries("public/images/default_event_logos/")
+
+  <% @files = Dir.entries("app/assets/images/default_event_logos/")
   @files.delete(".")
   @files.delete("..") %>
-        
+
   <%= render :partial => "edit_new_logo" %>
-        
+
   <%= form_for(:event, :url => space_events_path(@space), :html => { :multiple => "multiple", :autocomplete=>"off" }) do |f| -%>
     <%= f.hidden_field "rand_value" %>
     <%= render :partial => "edit_new_form", :locals => {:f => f} %>
@@ -64,12 +64,12 @@
       <button type="submit" id="create_event_button" class="basic_button blue_button">
         <%=t("button.create") %>
       </button>
-  
+
       <button id="wait_create_event_button" class="basic_button blue_button">
         <%=t("button.creating") %>
       </button>
-  
-      <%= link_to ("<span>" + t('cancel') + "</span>").html_safe, "#sure_form",:class => "basic_button blue_button", :id=>"cancel_event" %>        
+
+      <%= link_to ("<span>" + t('cancel') + "</span>").html_safe, "#sure_form",:class => "basic_button blue_button", :id=>"cancel_event" %>
     </ul>
   <% end %>
     <!--

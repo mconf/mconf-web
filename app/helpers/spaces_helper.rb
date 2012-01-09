@@ -1,5 +1,4 @@
 module SpacesHelper
-
   def max_word_length text
     first_pos = 0
     max_length = 0
@@ -15,7 +14,7 @@ module SpacesHelper
   def create_auto_logo text, logo_style,spaceId
 
     # We establish the paths for the pre-defined images, and the temporal dir for the generated logo
-    images_path = File.join(Rails.root.to_s, "public", "images")
+    images_path = PathHelpers.images_full_path
     tmp_path = File.join(images_path, "tmp")
     background_generic = File.join(images_path, "vcc-logo-bg.png")
     background_generated = File.join(tmp_path, "vcc-logo-"+spaceId.to_s + ".png")

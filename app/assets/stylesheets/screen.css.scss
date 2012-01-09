@@ -69,7 +69,7 @@ ol{list-style-type:decimal;}
 
 .on_live{
   float:right;
-        background:url("../images/buttons/grey-button.png") repeat-x scroll 0 4%;
+        background:url(asset_path("buttons/grey-button.png", image)) repeat-x scroll 0 4%;
         border:1px solid #999999;
   margin-right:4px;
   color:#444;
@@ -79,7 +79,7 @@ ol{list-style-type:decimal;}
 .on_live span{
   line-height:18px;
   color:#222;
-  background:url("../images/icons/record.png") no-repeat 8% center;
+  background:url(asset_path("icons/record.png", image)) no-repeat 8% center;
   padding:3px 7px 3px 23px;
         display:block;
 }
@@ -88,7 +88,7 @@ ol{list-style-type:decimal;}
         -moz-border-radius:0;
         margin:0;
         float:right;
-        background:url("../images/buttons/grey-button.png") repeat-x scroll 0 4%;
+        background:url(asset_path("buttons/grey-button.png", image)) repeat-x scroll 0 4%;
         border:1px solid #999999;
         border-right:none;
 }
@@ -97,16 +97,16 @@ ol{list-style-type:decimal;}
         -moz-border-radius:0;
         line-height:18px;
   color:#222;
-  background:url("../images/icons/webcam_add.png") no-repeat 4% center;
+  background:url(asset_path("icons/webcam_add.png", image)) no-repeat 4% center;
   padding:3px 6px 3px 25px;
         border:none;
 }
 
 #streaming_content a.basic_button span#leave_cam{
-  background:url("../images/icons/webcam_exit.png") no-repeat 4% center;
+  background:url(asset_path("icons/webcam_exit.png", image)) no-repeat 4% center;
 }
 
-#streaming_content a.basic_button:hover,#event_card_show .selected span,.agenda_entry_description a.basic_button:hover,.agenda_entry_description a.basic_button span:hover{background:url("../images/buttons/fondo-join-space2.png");}
+#streaming_content a.basic_button:hover,#event_card_show .selected span,.agenda_entry_description a.basic_button:hover,.agenda_entry_description a.basic_button span:hover{background:url(asset_path("buttons/fondo-join-space2.png", image));}
 
 .agenda_entry_description a.basic_button span{
   -moz-border-radius:0;
@@ -117,14 +117,14 @@ ol{list-style-type:decimal;}
         }
 
 .agenda_entry_description a.basic_button span.video_list{
-        background:url("../images/icons/list1.png") no-repeat center center;
+        background:url(asset_path("icons/list1.png", image)) no-repeat center center;
   padding:4px 16px;
   text-indent:-99999px;
 }
 
 #event_description_content form button,#participation_content form button,#more_invitations form input[type="button"],#event_invitations_external form input[type="button"],#more_notifications form input[type="button"],#space-conf #jedit_form button{
         color:#FFF;
-        background:#275b8a url("../images/buttons/boton-generico1.png") repeat-x scroll;
+        background:#275b8a url(asset_path("buttons/boton-generico1.png", image)) repeat-x scroll;
         border:1px solid #244974;
          -webkit-border-radius:4px;-moz-border-radius:4px;
   font-size:95%;
@@ -344,7 +344,7 @@ div.admin{background-color:none;border-bottom:1px #CCC solid;padding:9px 0.5em 9
 .odd-posts{margin-bottom:1.5em;}
 .odd_thread .post,.odd_thread .comments-status,.odd-posts .post, .event-comment-wrapper .post,.even_thread .post,.even_thread .comments-status{background:#d5e0e8;border-top:none;margin-top:2px;}/*verde*/
 .odd_thread .post_i,.even_thread .post_i{border-top-color:#bdd8eb;}
-.odd_thread .post-wrapper,.odd-posts .post-wrapper, .event-comment-wrapper,.even_thread .post-wrapper {background:url("../images/comments-bg3.png") no-repeat scroll left top;}
+.odd_thread .post-wrapper,.odd-posts .post-wrapper, .event-comment-wrapper,.even_thread .post-wrapper {background:url(asset_path("images/comments-bg3.png", image)) no-repeat scroll left top;}
 
 
 /*main format at threads and posts for the titles and divs */
@@ -538,7 +538,7 @@ p.sidebar_info2{margin:6px 0 0 0;padding:5px;border:1px solid #bdd8eb;background
 #sidebar #assistance_info .event_options div.option{float:left;position:relative;}
 #sidebar #assistance_info .event_options a{text-decoration:none;}
 #sidebar #assistance_info .event_options .option span{
-        background:transparent url("../images/icons/accept1.png") no-repeat scroll 0 0;
+        background:transparent url(asset_path("icons/accept1.png", image)) no-repeat scroll 0 0;
         display:block;
         left:-3px;
         padding:8px;
@@ -551,7 +551,7 @@ p.sidebar_info2{margin:6px 0 0 0;padding:5px;border:1px solid #bdd8eb;background
         -moz-border-radius-bottomright:2px;
         -moz-border-radius-topleft:2px;
         -moz-border-radius-topright:2px;
-        background:transparent url("../images/buttons/fondo-boton2.png") repeat scroll 0 0;
+        background:transparent url(asset_path("buttons/fondo-boton2.png", image)) repeat scroll 0 0;
         border:1px solid #CCCCCC;
         color:#666666;
         cursor:pointer;
@@ -570,7 +570,7 @@ p.sidebar_info2{margin:6px 0 0 0;padding:5px;border:1px solid #bdd8eb;background
 }
 #sidebar #assistance_info button:hover{border-color:#8A8A8A;}
 #sidebar #assistance_info button#choice{
-        background:transparent url("../images/buttons/fondo-boton1.png") repeat scroll 0 0;
+        background:transparent url(asset_path("buttons/fondo-boton1.png", image)) repeat scroll 0 0;
         border:1px solid #64A3CF;
         color:#fff;
         font-weight:bold;
@@ -602,7 +602,7 @@ ul#actions_menu{
 }
 
 ul#actions_menu li{cursor:pointer;border-bottom:1px solid #ccc;}
-ul#actions_menu li:hover{background:transparent url("../images/buttons/fondo-boton2.png") repeat-x;}
+ul#actions_menu li:hover{background:transparent url(asset_path("buttons/fondo-boton2.png", image)) repeat-x;}
 ul#actions_menu li a{color:#222;display:block;padding:3px 3px 3px 10px;outline:none;}
 ul#actions_menu li a:hover{text-decoration:none;}
 
@@ -613,11 +613,11 @@ ul#actions_menu li a:hover{text-decoration:none;}
 a.language_select,a.support_select,a.browse_select{
   padding: 5px 18px 5px 4px;
   outline:none;
-  background:#FFFFFF url(/images/icons/dropico.png) no-repeat scroll right center;
+  background:#FFFFFF url(asset_path("icons/dropico.png", image)) no-repeat scroll right center;
   border: 1px solid white;
 }
 #subtexto_busqueda a.language_select.menu-open,#subtexto_busqueda a.browse_select.menu-open{
-  background:#FFFFFF url(/images/icons/dropico.png) no-repeat scroll right center;
+  background:#FFFFFF url(asset_path("icons/dropico.png", image)) no-repeat scroll right center;
   border:1px solid #999;
   padding: 5px 18px 5px 4px;
   color:#222;
@@ -698,7 +698,7 @@ div.pagination a{color:#244974;}
 #sidebar input[type="text"],#sidebar input[type="file"]{width:92%;}
 #sidebar #event_text_input{
         width:80%;
-        background:#FFFFFF url(/images/icons/find.png) no-repeat scroll right center;
+        background:#FFFFFF url(asset_path("icons/find.png", image)) no-repeat scroll right center;
         border:1px solid #BDDBD8;}
 
 #event_day_select{margin-left:20px;}
@@ -806,7 +806,7 @@ div#accept_invitation,div#discard_invitation{float:left;margin-top:18px;}
 #edit_public_profile .profile_content_item,#edit_private_profile .profile_content_item{background:#fff;padding-bottom:9px;}
 #profile_edit_title{float:left;margin-left:15px;}
 #profile_edit_title h2{margin:0;}
-#profile_header .triangle_css,#header .triangle_css{position:absolute;background:url("../images/pico_azul_profile.png") no-repeat;padding:9px 15px;bottom:0;}
+#profile_header .triangle_css,#header .triangle_css{position:absolute;background:url(asset_path("pico_azul_profile.png", image)) no-repeat;padding:9px 15px;bottom:0;}
 #profile_prefix{width:50px;margin-right:20px;}
 .profile_content_item div.margin-up{position:relative;overflow:hidden;clear:both;}
 #edit_public_profile div.margin-up label,.profile_contact div.margin-up label,.profile_contact p{float:left;width:25%;padding-left:70px;}
@@ -817,7 +817,7 @@ div#accept_invitation,div#discard_invitation{float:left;margin-top:18px;}
   width:40%;margin-right:10px;
 }
 
-#edit_private_profile .profile_visibility_gradient{margin-left:45px;padding-left:20px;padding-bottom:1px;background:url("../images/gradient.png") no-repeat left center;}
+#edit_private_profile .profile_visibility_gradient{margin-left:45px;padding-left:20px;padding-bottom:1px;background:url(asset_path("gradient.png", image)) no-repeat left center;}
 .profile_save_ch{background:#E1EEF5;padding-top:1.5em;float:left;}
 
 
@@ -931,7 +931,7 @@ div#manage .user a:hover{text-decoration:underline;}
 #global .icon{margin-bottom:-4px;}
 
 /*Inbox*/
-#inbox-wrapper{background:#fff url("../images/dot1.png") repeat-x bottom;}
+#inbox-wrapper{background:#fff url(asset_path("dot1.png", image)) repeat-x bottom;}
 ul#inbox{margin:0.75em 0 0 0;list-style-type:none;font-size:1em;line-height:1.5;font-weight:bold;}
 ul#inbox li{display:inline;margin-right:-3px;}
 ul#inbox li a{display:inline-block;padding:0.5em 1.5em;border-right:1px solid #f0f0f0;text-decoration:none;background:#BDD8EB; color:#244974;}
@@ -1062,7 +1062,7 @@ div.dialog{
 #alert{
         width:250px;
         height:50px;
-        background:url(../images/icons/alert.png) no-repeat left;
+        background:url(asset_path("icons/alert.png", image)) no-repeat left;
         margin-left:140px;
         margin-top:10px;
 
@@ -1135,7 +1135,7 @@ a.extract_form{margin-right:0.5em;}
 #home_menu h3{margin:0;color:#244974;font-size:1.1666em;line-height:1.2857;font-weight:bold;padding:6px 0;}
 #home_menu ul{list-style-type:none;margin:0;font-size:1.1666em;line-height:1.2857;font-weight:bold;}
 #home_menu li{display:inline-block;padding:0.5em 2em;border-right:1px solid #d3e8f6;background:#244974; color:white}
-#line{background:url("../images/dot.png") center repeat-x;opacity:0.7;margin:3px 0;}
+#line{background:url(asset_path("dot.png", image)) center repeat-x;opacity:0.7;margin:3px 0;}
 #line span{background:#fff;padding:0 6px 0 6px;margin-left:25px;}
 .whyte_wrapper{
                 background:#FFFFFF none repeat scroll 0 0;
@@ -1178,7 +1178,7 @@ a.extract_form{margin-right:0.5em;}
         width:24px;
         height:10px;
         margin-left:9%;
-        background-image: url(../images/flecha2.png);
+        background-image: url(asset_path("flecha2.png", image));
         margin-top:-5px;
 }
 
@@ -1379,7 +1379,7 @@ td.attachment-tags .event_in_tags{
         }
 
 .video_preview span.play_icon{
-        background:url('../images/icons/32/play.png') no-repeat center center;
+        background:url(asset_path("icons/32/play.png", image)) no-repeat center center;
         display:block;
         left:0%;
         padding:45px 60px;
@@ -1388,7 +1388,7 @@ td.attachment-tags .event_in_tags{
         cursor:pointer;}
 
 .video_preview_sidebar span.play_icon{
-        background:url('../images/icons/16/play.png') no-repeat center center;
+        background:url(asset_path("icons/16/play.png", image)) no-repeat center center;
         display:block;
         left:6px;
         padding:35px 45px;
@@ -1396,9 +1396,9 @@ td.attachment-tags .event_in_tags{
         top:3px;
         cursor:pointer;}
 
-.video_preview span.play_icon:hover{background:url('../images/icons/32/play1.png') no-repeat center center;}
+.video_preview span.play_icon:hover{background:url(asset_path("icons/32/play1.png", image)) no-repeat center center;}
 
-.video_preview_sidebar span.play_icon:hover{background:url('../images/icons/32/play1.png') no-repeat center center;}
+.video_preview_sidebar span.play_icon:hover{background:url(asset_path("icons/32/play1.png", image)) no-repeat center center;}
 
 .video_preview a, .video_preview_sidebar a,.entry_title a{outline:none;}
 
@@ -1423,7 +1423,7 @@ td.attachment-tags .event_in_tags{
   margin: 0;
 }
 
-#agenda_tabs{margin-top:6px;background:url("../images/tab_bottom.png") repeat-x bottom;}
+#agenda_tabs{margin-top:6px;background:url(asset_path("tab_bottom.png", image)) repeat-x bottom;}
 #agenda_tabs ul{list-style-type:none;margin:0;margin-left:9px;font-size:0.9166em;line-height:1.6363;font-weight:bold;}
 
 #agenda_tabs li{
@@ -1574,7 +1574,7 @@ input#agenda_entry_title,#agenda_entry_description,#agenda_entry_embedded_video{
   padding: 2px 10px;
 }
 
-#orange_bar{background: transparent url("../images/linea_naranja.png") repeat-x;overflow:visible;}
+#orange_bar{background: transparent url(asset_path("linea_naranja.png", image)) repeat-x;overflow:visible;}
 #orange_bar ul{list-style-type:none;margin:0 0 0.75em 0;position:relative;clear:both;overflow:hidden;border:1px solid #FFA903;}
 #orange_bar ul li{
         float:left;
@@ -1584,9 +1584,9 @@ input#agenda_entry_title,#agenda_entry_description,#agenda_entry_embedded_video{
 #orange_bar ul li h3{margin:5px 0 0 50px;color:#353535;font-size:1.25em;line-height:2.4;}
 #orange_bar ul li p{margin:0 0 0 0;padding:0 15px;color:#505050;font-size:1.0833em;line-height:1.3846;}
 
-#orange_bar ul li.orange_one{background:transparent url("../images/meeting.png") no-repeat 15px 7px;width:31%;}
-#orange_bar ul li.orange_two{background:transparent url("../images/virtual_meeting.png") no-repeat 15px 9px;width:34%;}
-#orange_bar ul li.orange_three{border:none;width:34%;background:transparent url("../images/congress_icon_big.png") no-repeat 15px 5px;}
+#orange_bar ul li.orange_one{background:transparent url(asset_path("meeting.png", image)) no-repeat 15px 7px;width:31%;}
+#orange_bar ul li.orange_two{background:transparent url(asset_path("virtual_meeting.png", image)) no-repeat 15px 9px;width:34%;}
+#orange_bar ul li.orange_three{border:none;width:34%;background:transparent url(asset_path("congress_icon_big.png", image)) no-repeat 15px 5px;}
 #orange_bar ul li.orange_three h3{margin-left:70px;}
 #orange_bar ul li.orange_three p{margin-top:18px;}
 /* botones del crear evento*/
@@ -1594,14 +1594,14 @@ input#agenda_entry_title,#agenda_entry_description,#agenda_entry_embedded_video{
 #create_event ul{list-style-type:none;margin:0 0 0 0;border:1px solid #5c96bf;border-bottom:none;clear:both;overflow:hidden;}
 #create_event ul li{text-align:center;position:relative;clear:both;height:100%;width:238px;}
 #create_event ul li.event_b_title{overflow:visible;}
-#create_event ul li.event_b_title span.pico_azul{padding:3px 25px;background:transparent url("../images/pico_azul.png") no-repeat center center;}
+#create_event ul li.event_b_title span.pico_azul{padding:3px 25px;background:transparent url(asset_path("pico_azul.png", image)) no-repeat center center;}
 
 #sidebar #create_event ul li h3{
         margin:0;
         padding:3px 0;
         font-size:1.25em;
         line-height:2.4;
-        background:transparent url("../images/linea_azul.png") repeat-x scroll 0 102%;
+        background:transparent url(asset_path("linea_azul.png", image)) repeat-x scroll 0 102%;
         border-bottom:1px solid #5c96bf;}
 .event_b_item{font-size:1.16667em;line-height:2.5714;font-weight:bold;background:#f0f6f9;border-bottom:1px solid #5C96BF;}
 #create_event ul li.event_b_item:hover{background:#D5E0E8;}
@@ -1621,13 +1621,13 @@ input#agenda_entry_title,#agenda_entry_description,#agenda_entry_embedded_video{
         width:100%;
         }
 #create_event ul li.event_b_item a.l_one{
-        background:transparent url("../images/meeting.png") no-repeat 27% center;
+        background:transparent url(asset_path("meeting.png", image)) no-repeat 27% center;
         padding-left:6px;}
 #create_event ul li.event_b_item a.l_two{
-        background:transparent url("../images/virtual_meeting.png") no-repeat 17% center;
+        background:transparent url(asset_path("virtual_meeting.png", image)) no-repeat 17% center;
         padding:4px 0 4px 16px;}
 #create_event ul li.event_b_item a.l_three{
-        background:transparent url("../images/congress_icon.png") no-repeat 13% center;
+        background:transparent url(asset_path("congress_icon.png", image)) no-repeat 13% center;
         padding:4px 0 4px 30px;}
 
 
@@ -1657,7 +1657,7 @@ input#agenda_entry_title,#agenda_entry_description,#agenda_entry_embedded_video{
 .video_full {text-align: center; margin-top: 3px;}
 .video-bar {background: #EEEEEE none repeat scroll 0 0;border: 1px solid #CCCCCC;clear:both;overflow:hidden;margin-bottom:0.75em;}
 .video_properties{padding:3px 6px;}
-.video_share{background:url("../images/share.png") no-repeat 100% center;margin-right:10px;padding:6px 17px 6px 6px;display:inline-block;}
+.video_share{background:url(asset_path("share.png", image)) no-repeat 100% center;margin-right:10px;padding:6px 17px 6px 6px;display:inline-block;}
 .video_share span{background:#8f8f8f;color:#f1f1f1;font-weight:bold;}
 .url_share{/*border-top: 1px solid #CCCCCC;*/background:#bdd8eb;margin-bottom:3px;margin-top:9px;}
 .url_share form{display:inline-block;margin-top:5px;}
@@ -1691,7 +1691,7 @@ color:#244974;background:#BDD8EB;padding:5px 10px;
         font-size:1em;
         line-height:1.5;
         color:#555;
-        background:url('../images/buttons/grey-button.png') repeat-x scroll 0 4%;
+        background:url(asset_path("buttons/grey-button.png", image)) repeat-x scroll 0 4%;
         border:1px solid #999;
          -moz-border-radius:3px;
   -webkit-border-radius:3px;
@@ -1700,7 +1700,7 @@ color:#244974;background:#BDD8EB;padding:5px 10px;
 }
 
 #share_insert .share:hover ,#share_insert .insert:hover, #share_insert_video .share:hover ,#share_insert_video .insert:hover{
-        background:url('../images/buttons/grey-button.png') repeat-x scroll 0 100%;
+        background:url(asset_path("buttons/grey-button.png", image)) repeat-x scroll 0 100%;
         color:#222;}
 
 #share_insert_video{
@@ -1722,7 +1722,7 @@ color:#244974;background:#BDD8EB;padding:5px 10px;
 #event_help {margin-bottom:0;list-style-type:decimal;}
 #form_space_select select{font-size:93%;}
 
-#carrusel_tabs{margin-top:6px;background:url("../images/tab_bottom.png") repeat-x bottom;}
+#carrusel_tabs{margin-top:6px;background:url(asset_path("tab_bottom.png", image)) repeat-x bottom;}
 #carrusel_tabs ul{list-style-type:none;margin:0;margin-left:9px;font-size:0.9166em;line-height:1.6363;font-weight:bold;}
 
 #carrusel_tabs li{
@@ -1906,10 +1906,10 @@ ul#browse_menu2 li a:hover{text-decoration:none;color:#fff;}
     cursor:pointer;
 }
 #event_type_meeting,#event_type_class,#event_type_conference{ color:#aaa; cursor: default; } /* temporarily disabled */
-#event_type_meeting{background:url('../images/virtual_meeting.png') no-repeat center left;}
-#event_type_class{background:url('../images/virtual_class.png') no-repeat center left;padding-left:50px;}
-#event_type_conference{background:url('../images/virtual_congress.png') no-repeat center left;}
-#event_type_presential{background:url('../images/in_person.png') no-repeat center left;padding-left:40px;}
+#event_type_meeting{background:url(asset_path("virtual_meeting.png", image)) no-repeat center left;}
+#event_type_class{background:url(asset_path("virtual_class.png", image)) no-repeat center left;padding-left:50px;}
+#event_type_conference{background:url(asset_path("virtual_congress.png", image)) no-repeat center left;}
+#event_type_presential{background:url(asset_path("in_person.png", image)) no-repeat center left;padding-left:40px;}
 
 .event_info{position:relative;display:block;clear:both;}
 .event_info div.margin-up{position:relative;clear:both;}
@@ -1939,9 +1939,9 @@ div #advanced_config{padding-top: 10px;}
         margin-right:20px;
         padding:6px 0 6px 54px;}
 #all_steps div h2{margin:0;}
-#first_step_logo{background:url('/images/one.png') no-repeat left center;}
-#second_step_logo{background:url('/images/two.png') no-repeat left center;}
-#third_step_logo{background:url('/images/three.png') no-repeat left center;}
+#first_step_logo{background:url(asset_path("one.png", image)) no-repeat left center;}
+#second_step_logo{background:url(asset_path("two.png", image)) no-repeat left center;}
+#third_step_logo{background:url(asset_path("three.png", image)) no-repeat left center;}
 
 #lightbox_advise{background:none repeat scroll 0 0 #E1E1E1;font-weight:bold;padding:7px 12px;}
 .lightbox_advise{background:none repeat scroll 0 0 #E1E1E1;font-weight:bold;padding:7px 12px;}
@@ -2058,7 +2058,7 @@ a.first_day_link{border:none;}
 
 div.webconference-url {
   color:#244974;
-  background:url('/images/url.png') no-repeat left center;
+  background:url(asset_path("url.png", image)) no-repeat left center;
   padding: 12.5px;
   text-align: center;
   width: 450px;
@@ -2459,7 +2459,7 @@ h3.dialog_title {
   width: 16px;
   height: 16px;
   float: left;
-  background: url('../images/icons/cellphone.png') center left no-repeat;
+  background: url(asset_path("icons/cellphone.png", image)) center left no-repeat;
 }
 
 .jcrop-holder {

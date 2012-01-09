@@ -18,7 +18,7 @@
 
 class Space < ActiveRecord::Base
 
-  TMP_PATH = File.join(Rails.root.to_s, "public", "images", "tmp")
+  TMP_PATH = File.join(PathHelpers.images_full_path, "tmp")
 
   has_many :posts,  :dependent => :destroy
   has_many :events, :dependent => :destroy
@@ -159,9 +159,9 @@ class Space < ActiveRecord::Base
 
   def update_logo
     return unless @default_logo.present?
-    img_orig = Magick::Image.read(File.join("public/images/", @default_logo)).first
+    img_orig = Magick::Image.read(File.join(PathHelpers.images_full_path, @default_logo)).first
     img_orig = img_orig.scale(337, 256)
-    images_path = File.join(Rails.root.to_s, "public", "images")
+    images_path = PathHelpers.images_full_path
     final_path = FileUtils.mkdir_p(File.join(images_path, "tmp/#{@rand_value}"))
     img_orig.write(File.join(images_path, "tmp/#{@rand_value}/temp.jpg"))
     original = File.open(File.join(images_path, "tmp/#{@rand_value}/temp.jpg"))
@@ -179,7 +179,7 @@ class Space < ActiveRecord::Base
     logo = { :media => original_tmp_io }
     logo = self.build_logo(logo)
 
-    images_path = File.join(Rails.root.to_s, "public", "images")
+    images_path = PathHelpers.images_full_path
     tmp_path = File.join(images_path, "tmp")
 
     if @rand_value != nil

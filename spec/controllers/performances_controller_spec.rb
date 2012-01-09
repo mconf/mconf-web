@@ -2,13 +2,14 @@ require "spec_helper"
 
 describe PerformancesController do
   include ActionController::AuthenticationTestHelper
-  
+
   render_views
- 
+
   describe "as Invited" do
     before do
       @performance = Factory(:invited_performance)
       login_as(@performance.agent)
+      request.env["HTTP_REFERER"] = "/"
     end
 
     it "should destroy his own performance" do

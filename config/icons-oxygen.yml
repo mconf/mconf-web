@@ -1,7 +1,7 @@
 # The directory where icons are
 source_dir: /usr/share/icons/oxygen
 # The directory to copy the icons to
-destination_dir: public/images/models
+destination_dir: app/assets/images/models
 
 # The sizes to be copied
 resource_sizes: [ 16, 32, 64, 128 ]

@@ -17,7 +17,7 @@ gem 'therubyracer', :require => 'v8'
 
 gem 'rake'
 
-gem 'will_paginate', '~> 3.0.pre2'
+gem 'will_paginate'
 gem 'teambox-permalink_fu', :git => 'git://github.com/mconf/permalink_fu.git'
 gem 'vpim'
 gem 'ruby-openid'
@@ -34,17 +34,17 @@ gem 'nokogiri', '1.4.1'
 gem 'prism'
 gem 'rubyzip' # TODO: see rubyzip2
 gem 'garb'
-gem 'simple_captcha', :git => 'git://github.com/galetahub/simple-captcha.git'
+gem 'galetahub-simple_captcha', :require => 'simple_captcha'
 gem 'rmagick', :git => 'git://github.com/rmagick/rmagick.git', :require => false
 gem 'fckeditor'
 gem 'dynamic_form'
 gem 'bigbluebutton-api-ruby', :git => 'git://github.com/mconf/bigbluebutton-api-ruby.git'
 gem 'bigbluebutton_rails', :git => 'git://github.com/mconf/bigbluebutton_rails.git'
-gem 'rspec-rails', '~> 2.5'
 gem 'action_mailer_tls'
 gem 'attachment_fu', :git => 'git://github.com/mconf/attachment_fu.git'
 gem 'yaml_db'
-gem 'delayed_job'
+gem 'delayed_job_active_record'
+gem 'rails_autolink'
 
 gem 'mysql2', '~> 0.3.0'
 
@@ -60,6 +60,7 @@ group :development do
 end
 
 group :development, :test do
+  gem 'rspec-rails', '>= 2.5'
   gem 'populator'
   gem 'ffaker'
   gem 'factory_girl'

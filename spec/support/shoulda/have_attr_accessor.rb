@@ -5,7 +5,7 @@
 #   it { should have_attr_accessor(:value).write_only }
 module Shoulda
   module Matchers
-    module ActiveRecord # :nodoc
+    module ActiveModel # :nodoc
 
       def have_attr_accessor(attribute)
         HaveAttrAccessorMatcher.new(attribute)

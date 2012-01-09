@@ -279,7 +279,6 @@ button#change_logo{float:left;}
 
 
 
-/********** NEW STYLES ***********/
 
 
 input[type=submit].basic_button, button.basic_button, a.basic_button {
@@ -288,7 +287,7 @@ input[type=submit].basic_button, button.basic_button, a.basic_button {
   font-size:1em;
   line-height:1.4em;
   color:#555;
-  background:url('../images/buttons/grey-button.png') repeat-x scroll 0 4%;
+  background:url(asset_path("buttons/grey-button.png", image)) repeat-x scroll 0 4%;
   border:1px solid #999;
   -moz-border-radius:3px;
   -webkit-border-radius:3px;
@@ -296,7 +295,7 @@ input[type=submit].basic_button, button.basic_button, a.basic_button {
 }
 
 input[type=submit].basic_button:hover, button.basic_button:hover, a.basic_button:hover {
-  background:url('../images/buttons/grey-button.png') repeat-x scroll 0 100%;
+  background:url(asset_path("buttons/grey-button.png", image)) repeat-x scroll 0 100%;
   color:#222;
   text-decoration: none;
 }
@@ -357,7 +356,7 @@ input[type=submit].red_pale_button:hover, button.red_pale_button:hover, a.red_pa
 
 /* RED */
 input[type=submit].red_button, button.red_button, a.red_button {
-  background: url("../images/buttons/leave-space-notext3.png");
+  background: url(asset_path("buttons/leave-space-notext3.png", image));
   color: white;
   border-bottom:1px #a2042b solid;
   border-top:1px #d60337 solid;
@@ -365,7 +364,7 @@ input[type=submit].red_button, button.red_button, a.red_button {
   border-right:1px #d60337 solid;
 }
 input[type=submit].red_button:hover, button.red_button:hover, a.red_button:hover {
-  background:url("../images/buttons/leave-space-notext4.png");
+  background:url(asset_path("buttons/leave-space-notext4.png", image));
   color: white;
 }
 

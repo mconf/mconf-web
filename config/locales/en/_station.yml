@@ -129,9 +129,6 @@ en:
       required_information_by: "Required information requested by {{server}}"
       trust: "Yes, remember from now on"
     title: OpenID
-  pagination: 
-    next_label: "Next &raquo;"
-    previous_label: "&laquo; Previous"
   password_has_been_reset: "Your password has been reset"
   password_has_been_reset_with_agent: "{{agent}}, your password has been reset"
   password_reset: "Password Reset"
@@ -240,3 +237,7 @@ en:
     disabled: "User %{username} disabled"
     other: Users
   visit_link_to_activate_account: "Visit this link to activate your account"
+  will_paginate: 
+    next_label: "Next &raquo;"
+    previous_label: "&laquo; Previous"
+

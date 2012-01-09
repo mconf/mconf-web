@@ -2,28 +2,28 @@
 
 
 
- <% 
-	time = Time.new
+ <%
+  time = Time.new
 
-	@files = Dir.entries("public/images/tmp/#{params[:rand_name]}")
-	    images_for_row = 5 # number of images per row
-				images_now = 1
-				@files.delete(".")
-				@files.delete("..")
-				@files.delete("uploaded_logo.png")
-				
-				selected = rand(@files.length)
+  @files = Dir.entries("app/assets/images/tmp/#{params[:rand_name]}")
+      images_for_row = 5 # number of images per row
+        images_now = 1
+        @files.delete(".")
+        @files.delete("..")
+        @files.delete("uploaded_logo.png")
+
+        selected = rand(@files.length)
 %>
-		<%
+    <%
 
-	         for file in @files
-				
-					images_now+= 1
-			%>
-			<%=link_to (image_tag "tmp/#{params[:rand_name]}/" + file.to_s + "?#{time.min}#{time.sec}", {:id=> ( file.to_s.gsub('.','') ),:class => "default_space_logo",:title => "Click to choose a default image",:size => "64x64"}), 'javascript:selectGeneratedImage("tmp/'+ params[:rand_name].to_s + "/" + ( file.to_s ) + '");' %>	
-						
-   			<%	if images_now > images_for_row %>
-						<br>
-						<% images_now=1;
-					end %>				
-				<% end %>
+           for file in @files
+
+          images_now+= 1
+      %>
+      <%=link_to (image_tag "tmp/#{params[:rand_name]}/" + file.to_s + "?#{time.min}#{time.sec}", {:id=> ( file.to_s.gsub('.','') ),:class => "default_space_logo",:title => "Click to choose a default image",:size => "64x64"}), 'javascript:selectGeneratedImage("tmp/'+ params[:rand_name].to_s + "/" + ( file.to_s ) + '");' %>
+
+        <%  if images_now > images_for_row %>
+            <br>
+            <% images_now=1;
+          end %>
+        <% end %>

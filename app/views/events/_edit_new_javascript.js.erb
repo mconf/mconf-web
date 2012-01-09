@@ -17,11 +17,11 @@
        $('#event_type_presential').addClass('blue_selected');
        $('#check_presential').show();
      <%end%>
-     
+
   <% # TODO Rails 3: check the effects of this if block in the page %>
   <% unless @event.new_record? %>
   <%= render :partial => 'logos/crop_logo.js.erb',
-    :locals => { 
+    :locals => {
       :url_form => precrop_space_event_logo_path(@event.space, @event),
       :aspect_ratio => EventLogo::ASPECT_RATIO_S,
       :form_id => 'select_logo_form',
@@ -30,11 +30,11 @@
       :on_success => 'onCropLogoFormSuccess'
     } %>
   <% end %>
-                
-        
+
+
         $("#wait_create_event_button").hide();
         $("#wait_create_event_button").attr('disabled', true);
-        
+
         $("#create_event_button").click(function(){
                 $("#create_event_button").hide();
                 $("#wait_create_event_button").show();
@@ -50,11 +50,11 @@
     maxshownitems: 4,
                 newel: true
   });
-  
+
   $("#advanced_config").click(function(){
     $("#extra-info").show();
   });
-  
+
   /* Disabling virtual conferences temporarily
 
   $("#event_type_meeting").click(function(){
@@ -66,7 +66,7 @@
         $("#videoconference_options").show();
         $("#extra_space").hide();
   });
-    
+
   $("#event_type_class").click(function(){
     $("#event_vc_mode").val("<%=Event::VC_MODE.index(:teleclass)%>");
         $(".blue_selected").removeClass("blue_selected");
@@ -76,7 +76,7 @@
         $("#videoconference_options").show();
         $("#extra_space").hide();
   });
-  
+
   $("#event_type_conference").click(function(){
     $("#event_vc_mode").val("<%=Event::VC_MODE.index(:teleconference)%>");
         $(".blue_selected").removeClass("blue_selected");
@@ -86,7 +86,7 @@
         $("#videoconference_options").show();
         $("#extra_space").hide();
   });*/
-  
+
   $("#event_type_presential").click(function(){
     $("#event_vc_mode").val("<%=Event::VC_MODE.index(:in_person)%>");
         $(".blue_selected").removeClass("blue_selected");
@@ -97,13 +97,13 @@
         $("#extra_space").show();
   });
   $("#event_type_presential").click();
-  
+
   change_logo = function(){
     $("#update_logo").show();
     $("#update_logo").effect("highlight", {color:"#F5DF51"}, 3000);
   };
-  
-  
+
+
   $("#event_manual_configuration").click(function(){
     if ($("#event_manual_configuration").is(":checked")) {
           //we select "no recording"
@@ -114,32 +114,32 @@
           $("#manual_str_and_rec").show();
           $("#extra-info").width("90%");
         }else
-    { 
+    {
       $("#event_recording_type_0, #event_recording_type_1, #event_recording_type_2").removeAttr('disabled', 'disabled');
           $("#extra-info-part1").show();
       $("#manual_str_and_rec").hide("slow");
           $("#extra-info").width("56%");
-    }                   
+    }
   });
-  
+
   if ($("#event_manual_configuration").is(":checked")) {
           $("#extra-info").show();
           $("#initial-info").hide("slow");
-          $("#extra-info-part1").hide("slow");    
+          $("#extra-info-part1").hide("slow");
           $("#manual_str_and_rec").show();
   };
-  
+
   $('#event_description').wysiwyg();
-  
-  
-  
+
+
+
   $('#move_event').click(function(){
           $('#move_event_div').show();
           //$('#change_event_start_date_div').hide();
           $('#change_date_div').show();
           //$('#change_event_start_date_div').hide();
           //$('#change_event_end_date_div').hide();
-          
+
           $('#event_edit_date_action').attr('value','move_event');
           $('#event_start_date_1i').attr('disabled',false);
           $('#event_start_date_2i').attr('disabled',false);
@@ -151,19 +151,19 @@
           $('#event_end_date_3i').attr('disabled',false);
           $('#event_end_date_4i').attr('disabled',false);
           $('#event_end_date_5i').attr('disabled',false);
-          
+
           $('#no_event_date_change').css('border','none');
           $('#move_event').css('border','2px #BDD8EB solid');
           $('#change_event_start_date').css('border','none');
           $('#change_event_end_date').css('border','none');
   });
-  
+
 /*  $('#change_event_start_date').click(function(){
           $('#move_event_div').hide();
           $('#change_event_start_date_div').show();
           $('#change_start_date_div').show();
           $('#change_event_end_date_div').show();
-          
+
           $('#event_edit_date_action').attr('value','start_date');
           $('#event_start_date_1i').attr('disabled',false);
           $('#event_start_date_2i').attr('disabled',false);
@@ -175,18 +175,18 @@
           $('#event_end_date_3i').attr('disabled',true);
           $('#event_end_date_4i').attr('disabled',true);
           $('#event_end_date_5i').attr('disabled',true);
-          
+
           $('#no_event_date_change').css('border','none');
           $('#move_event').css('border','none');
           $('#change_event_start_date').css('border','2px #BDD8EB solid');
           $('#change_event_end_date').css('border','none');
   });
-  
+
   $('#change_event_end_date').click(function(){
           $('#change_start_date_div').hide();
           $('#change_event_end_date_div').show();
-          
-          $('#event_edit_date_action').attr('value','end_date');          
+
+          $('#event_edit_date_action').attr('value','end_date');
           $('#event_start_date_1i').attr('disabled',true);
           $('#event_start_date_2i').attr('disabled',true);
           $('#event_start_date_3i').attr('disabled',true);
@@ -197,7 +197,7 @@
           $('#event_end_date_3i').attr('disabled',false);
           $('#event_end_date_4i').attr('disabled',false);
           $('#event_end_date_5i').attr('disabled',false);
-          
+
           $('#no_event_date_change').css('border','none');
           $('#move_event').css('border','none');
           $('#change_event_start_date').css('border','none');
@@ -217,28 +217,28 @@
           $('#event_end_date_3i').attr('disabled',true);
           $('#event_end_date_4i').attr('disabled',true);
           $('#event_end_date_5i').attr('disabled',true);
-          
+
           $('#event_edit_date_action').attr('value','none');
-          
+
           $('#no_event_date_change').css('border','2px #BDD8EB solid');
           $('#move_event').css('border','none');
           $('#change_event_start_date').css('border','none');
           $('#change_event_end_date').css('border','none');
   });
-  
+
 closeLogoFormDiv = function(){
          $("#change_logo_form_div").hide("slow");
-        $("#default_upload_logo").hide("slow"); 
-        $("#default_text_logo").hide("slow");   
+        $("#default_upload_logo").hide("slow");
+        $("#default_text_logo").hide("slow");
         $("#default_space_images").hide("slow");
 }
 
 closeUploadLogo = function(){
-        $("#default_upload_logo").hide("slow"); 
+        $("#default_upload_logo").hide("slow");
 }
 
 closeTextLogo = function(){
-        $("#default_text_logo").hide("slow");   
+        $("#default_text_logo").hide("slow");
 }
 
 closeGallery  = function (){
@@ -247,7 +247,7 @@ closeGallery  = function (){
 
 openGallery  = function (){
          $("#change_logo_form_div").show("slow");
-         $("#default_space_images").show("slow");        
+         $("#default_space_images").show("slow");
          $("#close_gallery_link").show();
          $("#open_gallery_link").hide();
 }
@@ -256,12 +256,12 @@ openUploadLogo  = function (){
          $("#change_logo_form_div").show("slow");
         $("#default_upload_logo").show("slow");
         $("#open_upload_logo_link").hide();
-        $("#close_upload_logo_link").show();    
+        $("#close_upload_logo_link").show();
 }
 
 openTextLogo = function(){
          $("#change_logo_form_div").show("slow");
-        $("#default_text_logo").show("slow");   
+        $("#default_text_logo").show("slow");
         $("#open_text_logo_link").hide();
         $("#close_text_logo_link").show();
 }
@@ -283,30 +283,30 @@ $("#generate_text_logo_button").livequery('click',function(){
 ///////////////////////////////
 selectDefaultImage = function(image){
         $("#event_image").attr('value', "default_event_logos/" + image);
-        $("#selected_logo_image").attr('src', "/images/default_event_logos/" + image);
+        $("#selected_logo_image").attr('src', "/assets/default_event_logos/" + image);
         logoSelected();
 }
 
 selectGeneratedImage = function(image){
         $("#event_image").attr('value', image);
-        $("#selected_logo_image").attr('src', "/images/" + image + "?" + (new Date()).getTime());
+        $("#selected_logo_image").attr('src', "/assets/" + image + "?" + (new Date()).getTime());
         logoSelected();
 }
 
 logoSelected = function(){
         $(".event_logo").show("slow");
-        $(".event_date_image").hide("slow");    
+        $(".event_date_image").hide("slow");
 }
 
 dateSelected = function(){
         $(".event_date_image").show("slow");
-        $(".event_logo").hide("slow");  
+        $(".event_logo").hide("slow");
         <% if params[:action].present? and params[:action].eql? "edit" %>
-        $("#event_image").attr('value', "use_date_logo"); 
+        $("#event_image").attr('value', "use_date_logo");
         <% else %>
                 $("#event_image").attr('value', "");
         <% end %>
-        
+
 }
 
 // function executed after the crop fancy box is shown
@@ -320,21 +320,21 @@ onCropLogoFormSuccess = function() {
       closeLogoFormDiv();
       $('#resultado').fadeIn('slow');
       $("#event_image").attr('value', "tmp/" + rand + "/uploaded_logo.png");
-      $("#selected_logo_image").attr('src', "/images/" + "tmp/" + rand + "/uploaded_logo.png?" + (new Date()).getTime());
+      $("#selected_logo_image").attr('src', "/assets/" + "tmp/" + rand + "/uploaded_logo.png?" + (new Date()).getTime());
       logoSelected();
       closeUploadLogo();
     }
   });
 }
-       /*$('#select_logo_form').ajaxForm({ 
+       /*$('#select_logo_form').ajaxForm({
 
-        // target identifies the element(s) to update with the server response 
-        target: '#resultado', 
- 
-        // success identifies the function to invoke when the server response 
-        // has been received; here we apply a fade-in effect to the new content 
-        success: function() { 
-                        
+        // target identifies the element(s) to update with the server response
+        target: '#resultado',
+
+        // success identifies the function to invoke when the server response
+        // has been received; here we apply a fade-in effect to the new content
+        success: function() {
+
                         $("#logo_media").attr('value', "");
             $('#resultado').fadeIn('slow');
                         size = 256;
@@ -346,9 +346,9 @@ onCropLogoFormSuccess = function() {
                                                 setSelect: [188,188,188*2,188*2]
                                                 //setSelect: [188/4,188/4,3*188/4,3*188/4]
                 });
-                        
-                        $('#crop_logo_form').ajaxForm({ 
-                                beforeSubmit:function() {  
+
+                        $('#crop_logo_form').ajaxForm({
+                                beforeSubmit:function() {
                                         $("#selected_logo_image").attr('src', "");
                                 },
                         target: '#resultado',
@@ -356,13 +356,13 @@ onCropLogoFormSuccess = function() {
                                         closeLogoFormDiv();
                         $('#resultado').fadeIn('slow');
                                         $("#event_image").attr('value', "tmp/" + rand + "/uploaded_logo.png");
-                                        $("#selected_logo_image").attr('src', "/images/" + "tmp/" + rand + "/uploaded_logo.png?" + (new Date()).getTime());
+                                        $("#selected_logo_image").attr('src', "/assets/" + "tmp/" + rand + "/uploaded_logo.png?" + (new Date()).getTime());
                                         logoSelected();
                                         closeUploadLogo();
-                        } 
+                        }
                 });
        }
-                 
+
                 });*/
 
 

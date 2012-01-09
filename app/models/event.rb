@@ -90,7 +90,7 @@ class Event < ActiveRecord::Base
       end
     end
   end
-  
+
   #  def update_date
   #  if self.edit_date_action.eql?("move_event") || self.edit_date_action.eql?("start_date")
   #    self.start_date(1i) = self.start_date
@@ -107,7 +107,7 @@ class Event < ActiveRecord::Base
       return false
     end
   end
-  
+
   def edit_date_actions
     if !self.edit_date_action.nil?
       if !self.edit_date_action.eql?("move_event")
@@ -139,9 +139,9 @@ class Event < ActiveRecord::Base
       self.logo = nil
       return true
     end
-    img_orig = Magick::Image.read(File.join("public/images/", @default_logo)).first
+    img_orig = Magick::Image.read(File.join(PathHelpers.images_full_path, @default_logo)).first
     img_orig = img_orig.scale(256, 256)
-    images_path = File.join(Rails.root.to_s, "public", "images")
+    images_path = PathHelpers.images_full_path
     final_path = FileUtils.mkdir_p(File.join(images_path, "tmp/#{@rand_value}"))
     img_orig.write(File.join(images_path, "tmp/#{@rand_value}/temp.jpg"))
     original = File.open(File.join(images_path, "tmp/#{@rand_value}/temp.jpg"))

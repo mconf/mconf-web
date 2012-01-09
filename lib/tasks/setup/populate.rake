@@ -166,7 +166,7 @@ namespace :setup do
     end
 
     puts "* Create spaces: logos"
-    logos = Dir.entries("public/images/default_space_logos/")
+    logos = Dir.entries(File.join(PathHelpers.images_full_path, "default_space_logos"))
     logos.delete(".")
     logos.delete("..")
     Space.all.each do |space|
@@ -235,7 +235,7 @@ namespace :setup do
       ( space.posts + space.events ).each do |item|
         item.author = space.users[rand(space.users.length)]
         # Save the items without performing validations, to allow further testing
-        item.save(false)
+        item.save(:validate => false)
       end
 
     end

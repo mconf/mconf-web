@@ -17,8 +17,8 @@ input[type=checkbox] {
 
 button,input[type=button]{padding:3px 7px 3px 6px;overflow:visible;width:auto;margin-right:5px;}
 
-.cloud_button{background: url("../images/orange-cloud.png") no-repeat center 9%;}
-.cloud_button:hover{background: url("../images/orange-cloud.png") no-repeat center 93%;}
+.cloud_button{background: url(asset_path("orange-cloud.png", image)) no-repeat center 9%;}
+.cloud_button:hover{background: url(asset_path("orange-cloud.png", image)) no-repeat center 93%;}
 .cloud_button{
         font-family:"Lucida Grande",Arial,Helvetica,sans-serif;
   font-weight:bold;
@@ -97,7 +97,7 @@ input[type=submit].basic_button, button.basic_button, a.basic_button {
   font-size:1em;
   line-height:1.4em;
   color:#555;
-  background:url('../images/buttons/grey-button.png') repeat-x scroll 0 4%;
+  background:url(asset_path("buttons/grey-button.png", image)) repeat-x scroll 0 4%;
   border:1px solid #999;
   -moz-border-radius:3px;
   -webkit-border-radius:3px;
@@ -105,7 +105,7 @@ input[type=submit].basic_button, button.basic_button, a.basic_button {
 }
 
 input[type=submit].basic_button:hover, button.basic_button:hover, a.basic_button:hover {
-  background:url('../images/buttons/grey-button.png') repeat-x scroll 0 100%;
+  background:url(asset_path("buttons/grey-button.png", image)) repeat-x scroll 0 100%;
   color:#222;
   text-decoration: none;
 }
@@ -123,7 +123,7 @@ input[type=submit].blue_button:hover, button.blue_button:hover, a.blue_button:ho
 
 /* ORANGE */
 input[type=submit].orange_button, button.orange_button, a.orange_button {
-  background: transparent url("../images/buttons/fondo-join-space.png");
+  background: transparent url(asset_path("buttons/fondo-join-space.png", image));
   color: white;
   border-bottom:1px #C18500 solid;
   border-top:1px #FFC14A solid;
@@ -131,7 +131,7 @@ input[type=submit].orange_button, button.orange_button, a.orange_button {
   border-right:1px #FFC14A solid;
 }
 input[type=submit].orange_button:hover, button.orange_button:hover, a.orange_button:hover {
-  background:url("../images/buttons/fondo-join-space2.png");
+  background:url(asset_path("buttons/fondo-join-space2.png", image));
   color: white;
 }
 
@@ -164,7 +164,7 @@ input[type=submit].red_pale_button:hover, button.red_pale_button:hover, a.red_pa
 
 /* RED */
 input[type=submit].red_button, button.red_button, a.red_button {
-  background: url("../images/buttons/leave-space-notext3.png");
+  background: url(asset_path("buttons/leave-space-notext3.png", image));
   color: white;
   border-bottom:1px #a2042b solid;
   border-top:1px #d60337 solid;
@@ -172,7 +172,7 @@ input[type=submit].red_button, button.red_button, a.red_button {
   border-right:1px #d60337 solid;
 }
 input[type=submit].red_button:hover, button.red_button:hover, a.red_button:hover {
-  background:url("../images/buttons/leave-space-notext4.png");
+  background:url(asset_path("buttons/leave-space-notext4.png", image));
   color: white;
 }
 

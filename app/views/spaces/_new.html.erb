@@ -34,7 +34,7 @@ onCropLogoFormSuccess = function() {
     success: function() {
       $('#resultado').fadeIn('slow');
       $("#space_image").attr('value', "tmp/" + rand + "/uploaded_logo.png");
-      $("#selected_logo_image").attr('src', "/images/" + "tmp/" + rand + "/uploaded_logo.png?" + (new Date()).getTime());
+      $("#selected_logo_image").attr('src', "/assets/" + "tmp/" + rand + "/uploaded_logo.png?" + (new Date()).getTime());
       $.fancybox.close();
       closeUploadLogo();
     }
@@ -43,15 +43,15 @@ onCropLogoFormSuccess = function() {
 
 selectDefaultImage = function(image){
         $("#space_image").attr('value', "default_space_logos/" + image);
-        $("#selected_logo_image").attr('src', "/images/default_space_logos/" + image);
+        $("#selected_logo_image").attr('src', "/assets/default_space_logos/" + image);
 }
 
 selectGeneratedImage = function(image){
         $("#space_image").attr('value', image);
-        $("#selected_logo_image").attr('src', "/images/" + image + "?" + (new Date()).getTime());
+        $("#selected_logo_image").attr('src', "/assets/" + image + "?" + (new Date()).getTime());
 }
 
-$("#selected_logo_image").attr('src', "/images/" + ($("#space_image").val()));
+$("#selected_logo_image").attr('src', "/assets/" + ($("#space_image").val()));
 
 closeTextLogo = function(){
         $("#default_text_logo").hide(0);
@@ -158,7 +158,7 @@ $("#create_space_button").livequery('click',function(){
                         success: function() {
                         $('#resultado').fadeIn('slow');
                                         $("#space_image").attr('value', "tmp/" + rand + "/uploaded_logo.png");
-                                        $("#selected_logo_image").attr('src', "/images/" + "tmp/" + rand + "/uploaded_logo.png?" + (new Date()).getTime());
+                                        $("#selected_logo_image").attr('src', "/assets/" + "tmp/" + rand + "/uploaded_logo.png?" + (new Date()).getTime());
                                         closeUploadLogo();
                         }
                 });
@@ -287,7 +287,7 @@ function cropImage (c){
         <% end %>
       </div>
       <%
-         @files = Dir.entries("public/images/default_space_logos/")
+         @files = Dir.entries("app/assets/images/default_space_logos/")
          images_for_row = 5 # number of images per row
          images_now = 1
          @files.delete(".")

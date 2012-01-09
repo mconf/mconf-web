@@ -4,7 +4,7 @@ class TempLogo
   include Magick
 
   REL_TMP_PATH = File.join("tmp")
-  ABS_TMP_PATH = File.join(Rails.root.to_s, "public", "images", REL_TMP_PATH)
+  ABS_TMP_PATH = File.join(PathHelpers.images_full_path, REL_TMP_PATH)
   FORMAT = Mime::Type.lookup "image/png"
   MAX_SIZE = 600
 

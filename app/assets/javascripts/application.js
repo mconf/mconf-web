@@ -1,4 +1,4 @@
-/* jQuery.ajaxSetup({ 
+/* jQuery.ajaxSetup({
   'beforeSend': function(xhr) {xhr.setRequestHeader("Accept", "text/javascript")}
 })
 */
@@ -27,14 +27,14 @@ jQuery.fn.submitWithAjax = function() {
  */
 
 jQuery.fn.postsForm = function(route){
-	this.ajaxForm({
-		dataType: 'script',
-		success: function(data){
-			if (data == "") {
-				window.location = route;
-			}
-		}
-	});
+  this.ajaxForm({
+    dataType: 'script',
+    success: function(data){
+      if (data == "") {
+        window.location = route;
+      }
+    }
+  });
 };
 
 /*
@@ -44,8 +44,8 @@ jQuery.fn.postsForm = function(route){
 jQuery.fn.ajaxLink = function(){
   this.click(function(data) {
     $.get(this.href,{},function(data){
-		  eval(data);
-	  },"script");
+      eval(data);
+    },"script");
     return false;
   })
   return this;
@@ -54,13 +54,13 @@ jQuery.fn.ajaxLink = function(){
 /*
  *  Input files style
  */
- 
+
 style_file_input = function(){
   $("input[type=file]")
-	  .filter(function(index) {
+    .filter(function(index) {
       if ($(this).css("opacity") != "0") return true;
-    }).filestyle({ 
-        image: "/images/buttons/browse.png",
+    }).filestyle({
+        image: "/assets/buttons/browse.png",
         imageheight : 23,
         imagewidth : 63,
         width : 115
@@ -73,8 +73,8 @@ style_file_input = function(){
 
 setFullScreen = function(){
 
-	var windowHeight = window.innerHeight ? window.innerHeight : document.documentElement.clientHeight ? document.documentElement.clientHeight : document.body.clientHeight;
-          
+  var windowHeight = window.innerHeight ? window.innerHeight : document.documentElement.clientHeight ? document.documentElement.clientHeight : document.body.clientHeight;
+
   $("#header").hide();
   $("#selector").hide();
   $("#menu").hide();
@@ -84,7 +84,7 @@ setFullScreen = function(){
   $("#content").css({height:"100%",width:"100%"});
   $("#main").css({height:"100%",width:"100%"});
   $("#embed").css({height:windowHeight,width:"100%"});
-	$("div").css({padding:"0",margin:"0"});
+  $("div").css({padding:"0",margin:"0"});
 };
 
 unsetFullScreen = function(){
@@ -97,5 +97,5 @@ unsetFullScreen = function(){
   $("#content").css({height:"",width:""});
   $("#main").css({height:"",width:""});
   $("#embed").css({height:"",width:""});
-	$("div").css({padding:"",margin:""});
+  $("div").css({padding:"",margin:""});
 };

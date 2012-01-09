@@ -6,7 +6,7 @@
 
 <div id="crop-logo-lightbox-content">
 
-  <%= image_tag "/images/tmp/" + params[:logo][:rand] + "/uploaded_logo.png", :id => "croplogo", :size => image_size %>
+  <%= image_tag "/assets/tmp/" + params[:logo][:rand] + "/uploaded_logo.png", :id => "croplogo", :size => image_size %>
 
   <%= form_for :logo, :html => {:method => :post, :id =>"crop_logo_form", :multipart => true, :name => "space_new_form"}, :url => {:controller => :logos, :action => :new, :upload_crop => :yes} do |f|%>
     <%= fields_for :crop_size do |fc| %>

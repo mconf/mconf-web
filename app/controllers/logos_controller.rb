@@ -24,7 +24,7 @@ class LogosController
   include Magick
 
   REL_TMP_PATH = File.join("tmp")
-  ABS_TMP_PATH = File.join(Rails.root.to_s, "public", "images", REL_TMP_PATH)
+  ABS_TMP_PATH = File.join(PathHelpers.images_full_path, REL_TMP_PATH)
   FORMAT = Mime::Type.lookup "image/png"
 
   def new
@@ -45,7 +45,7 @@ class LogosController
 
    if params[:upload]
 
-     images_path = File.join(Rails.root.to_s, "public", "images")
+     images_path = PathHelpers.images_full_path
      tmp_path = File.join(images_path, "tmp")
      final_path = FileUtils.mkdir_p(tmp_path + "/#{params[:logo][:rand]}")
      uploaded_image = File.join(final_path, "uploaded_logo.png")
@@ -66,7 +66,7 @@ class LogosController
    end
 
    if params[:upload_crop]
-     images_path = File.join(Rails.root.to_s, "public", "images")
+     images_path = PathHelpers.images_full_path
      tmp_path = File.join(images_path, "tmp")
      final_path = FileUtils.mkdir_p(tmp_path + "/#{params[:crop_size][:rand]}")
      uploaded_image = File.join(final_path, "uploaded_logo.png")
@@ -199,7 +199,7 @@ class LogosController
   def create_auto_logo text, logo_style, event_logo
 
     # We establish the paths for the pre-defined images, and the temporal dir for the generated logo
-    images_path = File.join(Rails.root.to_s, "public", "images")
+    images_path = PathHelpers.images_full_path
     tmp_path = File.join(images_path, "tmp")
     final_path = FileUtils.mkdir_p(tmp_path + "/#{params[:rand_name]}")
     if event_logo

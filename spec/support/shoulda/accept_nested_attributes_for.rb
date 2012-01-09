@@ -1,6 +1,6 @@
 module Shoulda
   module Matchers
-    module ActiveRecord # :nodoc
+    module ActiveModel # :nodoc
 
       # Usage example: accept_nested_attributes_for(:address)
       def accept_nested_attributes_for(attribute)

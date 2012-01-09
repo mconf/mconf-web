@@ -1,39 +1,39 @@
 <style>
 .sortableTable {
   border: 1px solid #999;
-  background-image:url(../images/logo_opaque.png);	
-	background-position: center;
-	background-repeat:no-repeat;	
+  background-image:url(asset_path("logo_opaque.png", image));
+  background-position: center;
+  background-repeat:no-repeat;
 }
 
 .sortableTable td {
-	font-size: .95em;
-	padding: 3px 6px;
-	color: #101010;
-	border-bottom: 1px solid #999;
+  font-size: .95em;
+  padding: 3px 6px;
+  color: #101010;
+  border-bottom: 1px solid #999;
 }
 
 .sortableTable tr.tableHeaderRow td {
-	color: #830519;	
+  color: #830519;
   background: #c7e1f0;
-	border-top: 1px solid #830519;
-	border-bottom: 1px solid #830519;
-	font-weight: bold;
+  border-top: 1px solid #830519;
+  border-bottom: 1px solid #830519;
+  font-weight: bold;
 }
 
 .sortableTable tr.tableHeaderRow td.sortup {
-	background-color: #faf1ed;
-  background-image:url(../images/arrow_down.gif); 
-	background-position: top right;
-	background-repeat:no-repeat;
-	
+  background-color: #faf1ed;
+  background-image:url(asset_path("arrow_down.gif", image));
+  background-position: top right;
+  background-repeat:no-repeat;
+
 }
 
 .sortableTable tr.tableHeaderRow td.sortdown {
-	background-color: #faf1ed;
-  background-image:url(../images/arrow_up.gif); 
-	background-position: top right;
-	background-repeat:no-repeat;
+  background-color: #faf1ed;
+  background-image:url(asset_path("arrow_up.gif", image));
+  background-position: top right;
+  background-repeat:no-repeat;
 }
 
 #search {
@@ -44,7 +44,7 @@
 <% if search %>
   <div id='search'>
   <%= form_tag({:action => @action}, {:method => 'get', :id => 'search_form'}) do %>
-    <%=text_field_tag("q", params['q'], :size => 10 ) %> 
+    <%=text_field_tag("q", params['q'], :size => 10 ) %>
     <%=submit_tag 'Search'%>
   <% end %>
   </div>
@@ -55,25 +55,25 @@
     <%= table_header %>
   </thead>
   <tbody>
-	<%if @objects.size == 0%>
-  	  <tr><td colspan='<%= @headings.size %>'>No items in the list</td></tr>
-	<%else  
-	    @objects.each do |object|
-	        klass = cycle('odd', 'even')        
+  <%if @objects.size == 0%>
+      <tr><td colspan='<%= @headings.size %>'>No items in the list</td></tr>
+  <%else
+      @objects.each do |object|
+          klass = cycle('odd', 'even')
         %>
-	    <tr id='<%=dom_id(object)%>' class='<%= klass %>'>
+      <tr id='<%=dom_id(object)%>' class='<%= klass %>'>
          <% @headings.each do |heading| %>
              <td>
-             	 <%piece = heading[1].split(".")%>
-							 <%item = object%>
-							 <%piece.each do |p|%>
+               <%piece = heading[1].split(".")%>
+               <%item = object%>
+               <%piece.each do |p|%>
                  <%item = item.send(p) %>
-							 <%end%>
-							 <%=item%>
+               <%end%>
+               <%=item%>
              </td>
          <% end %>
-  		</tr>
-	<%  end
-	 end%>
-	</tbody>
+      </tr>
+  <%  end
+   end%>
+  </tbody>
 </table>

@@ -139,7 +139,6 @@
     </ul>
 
     <div class="read_more margin-up">
-      <!--<img src="../images/icons/16/arrow5.png"></img>-->
       <%= link_to t('read_more'), space_events_path(@space), :class => "read_more_link" if space.authorize?([:read, :content], :to => current_user) %>
     </div>
   </div>
