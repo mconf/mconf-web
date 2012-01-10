@@ -13,12 +13,14 @@
     <%= stylesheet_link_tag "screen", :media => "screen, projection" %>
     <%= stylesheet_link_tag "print", :media => "print" %>
     <%= stylesheet_link_tag "lightbox", :media => "screen, projection" %>
-    <%= stylesheet_link_tag "jquery.fancybox", :media => "screen, projection" %>
+    <%= stylesheet_link_tag "jquery.fancybox.css", :media => "screen, projection" %>
     <%= stylesheet_link_tag "token-input-facebook", :media => "screen, projection" %>
     <!--[if IE]>
     <%= stylesheet_link_tag "ie", :media => "screen, projection" %>
     <![endif]-->
-    <%= javascript_include_tag 'jquery', 'jquery_ujs', 'application', 'jquery.livequery', 'jquery.fancybox', 'jquery.easing','jquery.qtip-1.0.0-rc3', 'jquery.tokeninput' %>
+    <%= javascript_include_tag 'jquery', 'jquery_ujs', 'application', '/assets/jquery.livequery.js',
+                               '/assets/jquery.fancybox.js', '/assets/jquery.easing.js',
+                               '/assets/jquery.qtip-1.0.0-rc3.js', '/assets/jquery.tokeninput.js' %>
     <%= csrf_meta_tag %>
                 <script type="text/javascript" charset="utf-8">
       $(document).ready(function() {

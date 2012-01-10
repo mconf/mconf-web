@@ -199,7 +199,7 @@ describe PostsController do
             valid_attributes = Factory.attributes_for(:post)
             post :create, :space_id => @current_space.to_param, :post => valid_attributes
             assert_response 302
-            response.should redirect_to(root_path)
+            response.should redirect_to(space_posts_path(@current_space))
           end
           it "post should redirect to the page from where #create was requested" do
             valid_attributes = Factory.attributes_for(:post)
