@@ -11,7 +11,7 @@
     <%= stylesheet_link_tag "new_style_compat", :media => "screen, projection" %>
     <%= stylesheet_link_tag "conference", :media => "screen, projection" %>
     <%= stylesheet_link_tag "calendar", :media => "screen, projection" %>
-    <%= stylesheet_link_tag "jquery.fancybox.css", :media => "screen, projection" %>
+    <%= stylesheet_link_tag "jquery/jquery.fancybox.css", :media => "screen, projection" %>
     <%= stylesheet_link_tag "timeentry", :media => "screen, projection" %>
     <%= stylesheet_link_tag "print", :media => "print" %>
     <%= stylesheet_link_tag "token-input-facebook", :media => "screen, projection" %>
@@ -20,9 +20,7 @@
     <%= stylesheet_link_tag "ie", :media => "screen, projection" %>
     <![endif]-->
 
-    <%= javascript_include_tag  'jquery', 'jquery_ujs', 'application', '/assets/jquery.livequery.js', '/assets/jquery.fancybox.js',
-                                '/assets/jquery.easing.js', 'jquery-ui', '/assets/jquery.form.js', '/assets/jquery.qtip-1.0.0-rc3.js',
-                                '/assets/jquery.tokeninput.js' %>
+    <%= javascript_include_tag 'application' %>
     <%= csrf_meta_tag %>
     <script type="text/javascript" charset="utf-8">
       $(document).ready(function() {

@@ -1,20 +1,20 @@
 <% menu(:repository) %>
 
 <%= content_for :headers do%>
-  <%= javascript_include_tag 'jquery.fcbkcomplete','jquery.ba-bbq.min' %>
+  <%= javascript_include_tag 'jquery/jquery.fcbkcomplete', 'jquery/jquery.ba-bbq.min' %>
   <%= stylesheet_link_tag "fcbkcomplete", :media => "screen, projection" %>
 <%end%>
 
 <%= content_for :javascript do%>
   <%= render :partial => 'repository_javascript.js' %>
-  
+
  $('#sidebar img.tooltip_doc_search').qtip({
    content: '<%=t("tooltip.doc_search")%>',
-	 position: {adjust: { screen: true }},
+   position: {adjust: { screen: true }},
    show:  'mouseover',
    hide: { when: 'mouseout', fixed: true },
    style: 'mystyle'
-  });  
+  });
 <% end %>
 
 <%= content_for :search do  %>
@@ -22,21 +22,21 @@
 <%end%>
 
 <%= content_for :sidebar do%>
-	<div class="tag_filter_wrapper">
-		<h3 class="blue"><%=t('repository.search')%> <%=image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_doc_search icon",:style=>"cursor:pointer")%></h3>
-		<div class="tag_filter_content">
-			<%= render :partial => 'mixed_filter' %>
-		</div>
-		
-		<%= render :partial => 'tag_filter' %>
+  <div class="tag_filter_wrapper">
+    <h3 class="blue"><%=t('repository.search')%> <%=image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_doc_search icon",:style=>"cursor:pointer")%></h3>
+    <div class="tag_filter_content">
+      <%= render :partial => 'mixed_filter' %>
+    </div>
 
-	</div>
-	
-	<%if attachment.errors.any?%>
-	  <%= render :partial => 'upload_form' %>
+    <%= render :partial => 'tag_filter' %>
+
+  </div>
+
+  <%if attachment.errors.any?%>
+    <%= render :partial => 'upload_form' %>
   <%else%>
-	  <div id="doc_action"></div>  
-	<%end%>
+    <div id="doc_action"></div>
+  <%end%>
 <%end%>
 
 
@@ -44,5 +44,5 @@
 <div id="enable_javascript"><%=t('repository.need_javascript')%></div>
 <div id ="doc_repository">
   <%= render :partial => 'multiple_actions' %>
-	<%= render :partial => 'doc_table' %>
+  <%= render :partial => 'doc_table' %>
 </div>

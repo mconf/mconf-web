@@ -1,7 +1,7 @@
 <html>
   <head>
     <script type="text/javascript" language="javascript" src="ijabbar/ijabbar.nocache.js"></script>
-		<%= javascript_include_tag 'jquery', 'jquery.ba-urlinternal.min.definition', 'jquery.ba-hashchange.min', 'jquery.ba-bbq.min', 'jquery.url.packed', 'jquery.ba-resize.min', 'jquery.vcc' %>
+    <%= javascript_include_tag 'jquery', 'jquery/jquery.ba-urlinternal.min.definition', 'jquery/jquery.ba-hashchange.min', 'jquery/jquery.ba-bbq.min', 'jquery/jquery.url.packed', 'jquery/jquery.ba-resize.min', 'jquery/jquery.vcc' %>
 
     <script type="text/javascript" charset="utf-8">
       function getUrlInAnchor(url) {
@@ -10,7 +10,7 @@
         var anchorUrl;
         if ( anchor ) {
           // "url=/spaces?space_id=my" -> "/spaces?space_id=my"
-          anchorUrl = anchor.slice(anchor.search(/url=/)+4, anchor.length); 
+          anchorUrl = anchor.slice(anchor.search(/url=/)+4, anchor.length);
         }
         return anchorUrl;
       }
@@ -36,23 +36,23 @@
       var ijab_auto_password = "SID";
       var ijab_anonymous_prefix = "";
       var ijab_reconnect_count = 3;
-			var ijab_vcc_session_cookie = "<%=ActionController::Base.session_options[:key]%>";
+      var ijab_vcc_session_cookie = "<%=ActionController::Base.session_options[:key]%>";
     </script>
 
     <script type="text/javascript">
-    	// Load jquery.ba-urlinternal.min.definition into jQuery
+      // Load jquery.ba-urlinternal.min.definition into jQuery
       baUrlInternal(jQuery);
-			
-			// Config some variables
+
+      // Config some variables
       var iframeSelector = "#main_iframe";
       var contentIframeSelector = "#site";
 
       var absoluteBaseUrlApp = "<%=root_url%>";
       var absoluteInitPage = "<%=@init_url%>";
-			// Set urlInternalHost to detect internal/external links with ba-urlinternal library
+      // Set urlInternalHost to detect internal/external links with ba-urlinternal library
       $.urlInternalHost( absoluteBaseUrlApp );
-			
-      // Change height iframe to fix to content into iframe 
+
+      // Change height iframe to fix to content into iframe
       function resizeIframe() {
         var siteHeight = $(iframeSelector).contents().find(contentIframeSelector).height();
         if ( siteHeight < $(window).height() ) {
@@ -74,9 +74,9 @@
       function isEqualsToCurrentUrl(urlToCompare) {
         var urlIframe = $(iframeSelector).contents().attr("location").href;
         var relativeUrlIframe = $.url.setUrl(urlIframe).attr("relative");
-        
+
         var relativeUrlToCompare = $.url.setUrl(urlToCompare).attr("relative");
-        
+
         return ( relativeUrlIframe == relativeUrlToCompare );
       }
 
@@ -86,7 +86,7 @@
 
       // Search all links in iframe and prepare them
       function prepareLinks() {
-				// When click in a external link, go out from iframe/chat
+        // When click in a external link, go out from iframe/chat
         $(iframeSelector).contents().find("a:urlExternal").click(function(){
           skipIframe(this);
         });
@@ -100,9 +100,9 @@
         var linksWithoutEvents;
         // If children page has loaded jQuery, be careful because links can already have associated click events
         if ($(iframeSelector)[0].contentWindow.jQuery != null) {
-					// Load jquery.ba-urlinternal.min.definition into jQuery children page
+          // Load jquery.ba-urlinternal.min.definition into jQuery children page
           baUrlInternal($(iframeSelector)[0].contentWindow.jQuery);
-					// Set urlInternalHost to detect internal/external links with ba-urlinternal library
+          // Set urlInternalHost to detect internal/external links with ba-urlinternal library
           $(iframeSelector)[0].contentWindow.jQuery.urlInternalHost( absoluteBaseUrlApp );
           var internalLinks = $(iframeSelector)[0].contentWindow.jQuery("a:urlInternal");
 
@@ -119,38 +119,38 @@
         }
 
         // When click all internal links that has no events attached
-				// change url anchor
+        // change url anchor
         $(linksWithoutEvents).click(function(){
           // Copy URL from clicked link to anchor in window.location
           var hrefTo = $(this).attr("href");
 
           var newUrl = getUrlWithNewAnchor(hrefTo);
 
-					$.param.fragment.noEscape( ",/?=" );
+          $.param.fragment.noEscape( ",/?=" );
           $.bbq.pushState({ url: newUrl });
         });
       }
 
       $(document).ready(function(){
 
-        // When window trigger resize event -> run resizeIframe function 
+        // When window trigger resize event -> run resizeIframe function
         //$(window).bind("resize", resizeIframe);
 
         // When iframe is loaded
         $(iframeSelector).load(function(){
           resizeIframe();
           prepareLinks();
-					// When iframe load comes from redirect (not from click link) (eg. space selector) anchor will not change
-					// Then we must change it 
+          // When iframe load comes from redirect (not from click link) (eg. space selector) anchor will not change
+          // Then we must change it
           if (!isEqualsToCurrentUrl(getUrlInAnchor(window.location.href))) {
             var iframeLocation = $(iframeSelector).contents().attr("location").href;
             var relativeIframeLocation = $.url.setUrl( iframeLocation ).attr("relative");
-						$.param.fragment.noEscape( ",/?=" );
+            $.param.fragment.noEscape( ",/?=" );
             $.bbq.pushState({ url: relativeIframeLocation });
           }
-					// Bind a resize event to iframe content, then if iframe content height is dynamically changed
-					// Iframe height will be adjusted
-					$(iframeSelector).contents().find(contentIframeSelector).bind('resize', resizeIframe);
+          // Bind a resize event to iframe content, then if iframe content height is dynamically changed
+          // Iframe height will be adjusted
+          $(iframeSelector).contents().find(contentIframeSelector).bind('resize', resizeIframe);
         });
 
         $(window).bind( "hashchange", function(e) {
@@ -159,7 +159,7 @@
           // If anchor AND anchor != iframe.src -> URL in anchor is copied to src.iframe
           var newUrl = "";
           var anchorUrl = getUrlInAnchor(window.location.href);
-					
+
           if ( anchorUrl ) {
             // If anchor match with iframe.src do nothing
             // If it is different, set iframe.src with url in anchor
@@ -172,7 +172,7 @@
               //$(iframeSelector).attr("src", absoluteInitPage);
               $(iframeSelector).contents().attr("location").href = absoluteInitPage;
             }
-						// Anycase -> set anchor to init page
+            // Anycase -> set anchor to init page
             var relativeInitPage = $.url.setUrl( absoluteInitPage ).attr("relative");
             $.bbq.pushState({ url: relativeInitPage });
           }
@@ -202,5 +202,5 @@
       <p>No IFrame Support</p>
     </iframe>
   </body>
-</html> 
+</html>
 

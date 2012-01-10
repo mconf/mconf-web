@@ -1,4 +1,6 @@
-<%= javascript_include_tag 'jquery.jcrop' %>
+<%= content_for :headers do%>
+  <%= javascript_include_tag 'jquery/jquery.jcrop' %>
+<% end %>
 
 <%= content_for :javascript do %>
 

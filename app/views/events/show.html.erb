@@ -2,69 +2,69 @@
 <% atom_link_header(space, Event.new) %>
 
 <%= content_for :headers do%>
-  <%= javascript_include_tag 'jquery.timeentry','jquery.mousewheel','jquery.filestyle', 'user_filter' %>
-  <%= javascript_include_tag 'jquery.jeditable', 'jquery.wysiwyg', 'jquery.jeditable.wysiwyg', 'jquery.filestyle', 'jquery.fcbkcomplete' %>
-	<%= javascript_include_tag 'jquery.vcc' %>
-  <%= stylesheet_link_tag "fcbkcomplete", :media => "screen, projection" %> 
-  <%= stylesheet_link_tag "jquery.wysiwyg", :media => "screen, projection" %> 
+  <%= javascript_include_tag 'jquery/jquery.timeentry','jquery/jquery.mousewheel','jquery/jquery.filestyle', 'user_filter' %>
+  <%= javascript_include_tag 'jquery/jquery.jeditable', 'jquery/jquery.wysiwyg', 'jquery/jquery.jeditable.wysiwyg', 'jquery/jquery.filestyle', 'jquery/jquery.fcbkcomplete' %>
+  <%= javascript_include_tag 'jquery/jquery.vcc' %>
+  <%= stylesheet_link_tag "fcbkcomplete", :media => "screen, projection" %>
+  <%= stylesheet_link_tag "jquery/jquery.wysiwyg", :media => "screen, projection" %>
 <%end%>
 
 <%= content_for :javascript do%>
   <%= render :partial => 'events_javascript.js' %>
  $('#event_views img.tooltip_num_views').qtip({
    content: '<%=t("tooltip.num_views")%>',
-	 position: {adjust: { screen: true }},
+   position: {adjust: { screen: true }},
    show:  'mouseover',
    hide: { when: 'mouseout', fixed: true },
    style: 'mystyle'
-  });  
+  });
 <% end %>
 
 <%= content_for :sidebar do  %>
 
   <div id="full_sidebar">
-  	<%if !logged_in?%>
+    <%if !logged_in?%>
       <div id="event_register" class="button_wrapper margin-up">
         <%= link_to ("<span>" + t('register.and_participate') + "</span>").html_safe,signup_path("user[special_event_id]" => (@event.id).to_s) ,:class => "register_link big_button orange_button"%>
       </div>
-	    <p class="big_margin_down_40 note">
+      <p class="big_margin_down_40 note">
         <%= t('register.and_participate_description_with_login', :url => login_path ).html_safe %>
       </p>
-	  <%elsif event.authorize?(:update, :to => current_user) %>
-	    <%= render :partial => "actions" %>
-	  <%elsif event.is_happening_now? %>
-	    <p class="big_margin_down_40 note">
+    <%elsif event.authorize?(:update, :to => current_user) %>
+      <%= render :partial => "actions" %>
+    <%elsif event.is_happening_now? %>
+      <p class="big_margin_down_40 note">
         <%= t('event.note.not_organizer_during').html_safe %>
       </p>
-	  <%elsif event.past?%>
-	    <p class="big_margin_down_60 note">
+    <%elsif event.past?%>
+      <p class="big_margin_down_60 note">
         <%= t('event.note.not_organizer_after', :date => @event.start_date.strftime("%d %b %Y")).html_safe %>
       </p>
-	  <%elsif  @event.start_date%>
-	    <p class="note">
+    <%elsif  @event.start_date%>
+      <p class="note">
         <%= t('event.note.not_organizer_before', :date => @event.start_date.strftime("%d %b %Y")).html_safe %>
       </p>
-	  <%else%>
-	    <p class="note">
+    <%else%>
+      <p class="note">
         <%= t('event.note.not_organizer_no_date').html_safe %>
       </p>
-	  <%end%>	
-	
+    <%end%>
+
     <%if params[:edit_comment]%>
-	    <%= render(:partial => "posts/edit_post", :locals => { :post => Post.find(params[:edit_comment]) }) if @space.authorize?([:create, :content],:to => current_user) %>
+      <%= render(:partial => "posts/edit_post", :locals => { :post => Post.find(params[:edit_comment]) }) if @space.authorize?([:create, :content],:to => current_user) %>
     <%elsif params[:show_streaming] || params[:show_participation]%>
       <%=render :partial => "video_online"%>
-	    <%= render :partial => 'participants' %>
-    <%else%>	  
-      <%= render :partial => 'participants' %>	  
-    <%end%>  
-           
+      <%= render :partial => 'participants' %>
+    <%else%>
+      <%= render :partial => 'participants' %>
+    <%end%>
+
     <%if event.authorize?(:update, :to => current_user) %>
-      <%= 
-        #render :partial => "change_logo" 
+      <%=
+        #render :partial => "change_logo"
       %>
-      <%= 
-        #render :partial => "import_icalendar" 
+      <%=
+        #render :partial => "import_icalendar"
        %>
     <%end%>
 
@@ -73,9 +73,9 @@
       <span class="separated_5"><%=@event.unique_pageviews%></span><%=t('statistics.event_views')%>
       <%=image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_num_views icon",:style=>"cursor:pointer")%>
     </div>
-	
-  </div> 
-    
+
+  </div>
+
 <%end%>
 
 
@@ -90,62 +90,62 @@
   <div id="for_lightbox" style="display:none"></div>
 <!--
   <%if params[:new_invitations]%>
-	  <%=
-      #render :partial => 'new_invitations', :locals => {:checked_users => Array.new} 
+    <%=
+      #render :partial => 'new_invitations', :locals => {:checked_users => Array.new}
     %>
   <%elsif params[:notification]%>
     <%=
-      #render :partial => 'notification', :locals => {:checked_attendants => Array.new} 
+      #render :partial => 'notification', :locals => {:checked_attendants => Array.new}
     %>
   <%elsif params[:group_invitation]%>
     <%=
-      #render :partial => 'group_invitation' 
-    %>  
+      #render :partial => 'group_invitation'
+    %>
   <%elsif params[:show_repository]%>
     <%=
       #render :partial => "show_repository"
     %>
   <%elsif params[:show_agenda] || params[:show_streaming] || params[:show_participation]%>
-	  <%if params[:show_streaming] && @event.is_in_person? %>
-	    <%=
+    <%if params[:show_streaming] && @event.is_in_person? %>
+      <%=
         #render :partial => "external_streaming"
       %>
-		  <%= 
+      <%=
         #render :partial => "connection_info"
       %>
-	  <%elsif params[:show_participation] && @event.is_in_person? %>
-	    <%=
+    <%elsif params[:show_participation] && @event.is_in_person? %>
+      <%=
         #render :partial => "external_participation"
       %>
-		  <%= 
+      <%=
         #render :partial => "connection_info"
       %>
-	  <%elsif params[:show_streaming]%>
-	    <%=
+    <%elsif params[:show_streaming]%>
+      <%=
         #render :partial => "cm_streaming"
         %>
-		  <%= 
+      <%=
         #render :partial => "connection_info"
       %>
-	  <%elsif params[:show_participation]%>
-	    <%=
+    <%elsif params[:show_participation]%>
+      <%=
         #render :partial => "cm_participation"
       %>
-		  <%= 
+      <%=
         #render :partial => "connection_info"
       %>
-		<%end%>  
+    <%end%>
   <%else%>
-    <%= 
-      #t('event.no_param') 
+    <%=
+      #t('event.no_param')
     %>
   <%end%>
 -->
- 
-  
+
+
 <%= content_for :javascript do%>
-  
-  //It is compulsory for this code to be here, because of a bug in the fcbkcomplete that if you apply it 
+
+  //It is compulsory for this code to be here, because of a bug in the fcbkcomplete that if you apply it
   //when the html is not shown it does not work properly, with will be set to 0px
   $("#speakers_name_edit").livequery(function () {
     $(this).fcbkcomplete({

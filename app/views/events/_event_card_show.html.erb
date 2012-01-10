@@ -1,5 +1,5 @@
 <%= content_for :headers do %>
-  <%= javascript_include_tag 'jquery.filestyle','jquery.jcrop' %>
+  <%= javascript_include_tag 'jquery/jquery.filestyle', 'jquery/jquery.jcrop' %>
 <%end %>
 
 <div class="<%= event.is_happening_now? ? 'single_event current_single_event' : 'single_event'%>">
@@ -43,17 +43,17 @@
   <p>
     <%=link_to sanitize(highlight(event.title,@query)), space_event_path(@space, @event),:class=>"unified_event" %> <span class="updated"><%=t('created_time_ago', :time => sanitize(time_ago_in_words(@event.created_at))) %></span>
   </p>
-  
+
   <%if @event.agenda.has_past_session_with_video? && params[:show_video]%>
     <div class="video_cloud">
-          <%=link_to t('event.recording.cloud_back'), space_event_path(@space, @event, :show_agenda => true),:class=>"cloud_button" %> 
+          <%=link_to t('event.recording.cloud_back'), space_event_path(@space, @event, :show_agenda => true),:class=>"cloud_button" %>
     </div>
   <%elsif @event.agenda.has_past_session_with_video?%>
     <div class="video_cloud">
           <%=link_to t('event.recording.cloud'),space_event_path(@space, @event, :show_video => @event.agenda.first_video_entry_id),:class=>"cloud_button"%>
     </div>
   <%end%>
-  
+
   <ul>
     <li class="main_date logo_padding">
       <%= t('when') %>: <%=@event.get_formatted_date %>
@@ -76,13 +76,13 @@
       </li>
       <li class="main_text logo_padding">
         <!--
-        <%= 
-          #t('event.features') 
-        %>: 
+        <%=
+          #t('event.features')
+        %>:
         <%isfirst=true %>
-        <%if @event.has_streaming? || @event.is_in_person? %>           
+        <%if @event.has_streaming? || @event.is_in_person? %>
           <%
-            #unless @event.is_happening_now? || (@event.is_in_person? && !@event.past?) 
+            #unless @event.is_happening_now? || (@event.is_in_person? && !@event.past?)
           %>
             <%=
               #t('event.view_streaming')
@@ -109,7 +109,7 @@
             <%=t('event.view_participation')%>
           <%else%>
             <%=link_to t('event.view_participation'), space_event_path(@space, @event, :show_participation => true)%>
-          <%end%>                    
+          <%end%>
         <%end%>
         <%if @event.agenda.has_past_session_with_video?%>
           <%if isfirst %>
@@ -119,8 +119,8 @@
           <%end %>
           <%=link_to ("<span>" + t('event.view_recordings') + "</span>"), space_event_path(@space, @event, :show_video => @event.agenda.first_video_entry_id)%>
         <%elsif @event.agenda.has_entries_with_video? %>
-          ,<%=t('event.view_recordings')%>  
-        <%end%>           
+          ,<%=t('event.view_recordings')%>
+        <%end%>
       </li>
   </ul>
 
@@ -140,7 +140,7 @@
   <%= render :partial => "connection_info"%>
 <%end%>
 
-<div id="jar">  
+<div id="jar">
         <%if @event.agenda.present? %>
                 <%unless params[:show_video] || params[:edit_video] || params[:show_streaming] || params[:show_participation] %>
       <%= render :partial => "event_description" %>

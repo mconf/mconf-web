@@ -1,20 +1,20 @@
 <%= content_for :headers do%>
-  <%= javascript_include_tag 'jquery.fcbkcomplete' %>
+  <%= javascript_include_tag 'jquery/jquery.fcbkcomplete' %>
   <%= stylesheet_link_tag "fcbkcomplete", :media => "screen, projection" %>
 <%end%>
 
 <%= content_for :javascript do%>
 
-	$("#wait_create_event_button").hide();
-	$("#wait_create_event_button").attr('disabled', true);
-	
-	$("#create_event_button").click(function(){
-		$("#create_event_button").hide();
-		$("#wait_create_event_button").show();
-	});
+  $("#wait_create_event_button").hide();
+  $("#wait_create_event_button").attr('disabled', true);
+
+  $("#create_event_button").click(function(){
+    $("#create_event_button").hide();
+    $("#wait_create_event_button").show();
+  });
 
 
-	$("#organizers_name").livequery(function () {
+  $("#organizers_name").livequery(function () {
     $(this).fcbkcomplete({
       cache: true,
       filter_case: false,
@@ -24,11 +24,11 @@
       maxshownitems: 4
     });
   });
-	
-	$('#change-event').hide();
-	
-	<%= render :partial => 'toggle_view'%>
-	
+
+  $('#change-event').hide();
+
+  <%= render :partial => 'toggle_view'%>
+
 
   //fist we detect if the option is checked and update the location field
   if($("#event_marte_event").is(":checked"))
@@ -36,8 +36,8 @@
     $("#event_location").val("<%= escape_javascript(t('event.online')) %>");
     $("#event_location").attr('disabled', true);
   }
-    
-  
+
+
   $("#event_marte_event").click(function(){
     if($("#event_marte_event").is(":checked"))
     {
@@ -49,39 +49,39 @@
       $("#event_location").val("");
       $("#event_location").attr('disabled', false);
     }
-    
+
   });
-  
+
   $('#cancel_event').click(function(){
     $('#extra-info').hide();
     $('#change-event').hide();
     $('#create_event').slideDown("slow");
-		$('#orange_bar').slideDown();
+    $('#orange_bar').slideDown();
   });
-  
+
   $('#presential_event').click(function(){
     $('#create_event').hide();
-		$('#orange_bar').slideUp("slow");
+    $('#orange_bar').slideUp("slow");
     $('#change-event').slideDown("slow");
     $('#event_vc_mode').val('<%=Event::VC_MODE.index(:in_person)%>');
   });
-  
+
   $('#meeting_event').click(function(){
     $('#create_event').hide();
-		$('#orange_bar').slideUp("slow");
+    $('#orange_bar').slideUp("slow");
     $('#change-event').slideDown("slow");
     $('#extra-info').slideDown();
     $('#event_vc_mode').val('<%=Event::VC_MODE.index(:telemeeting)%>');
   });
-  
+
   $('#conference_event').click(function(){
     $('#create_event').hide();
-		$('#orange_bar').slideUp("slow");
+    $('#orange_bar').slideUp("slow");
     $('#change-event').slideDown("slow");
     $('#extra-info').slideDown();
     $('#event_vc_mode').val('<%=Event::VC_MODE.index(:teleconference)%>');
   });
-  
+
 <%end%>
 
 <%= content_for :headers do  -%>
@@ -91,8 +91,8 @@
 <div id="create_event">
   <ul>
     <li class="event_b_title">
-    	<h3 class="blue"> <%=t('create_event')%></h3>
-			<span class="pico_azul"></span>
+      <h3 class="blue"> <%=t('create_event')%></h3>
+      <span class="pico_azul"></span>
   </li>
     <li class="event_b_item blue"><%=link_to("<span>"+ t('event.new.presential') +"</span>","#",:id=>"presential_event",:class=>"l_one")%></li>
     <li class="event_b_item blue"><%=link_to("<span>"+ t('event.new.meeting') +"</span>","#",:id=>"meeting_event",:class=>"l_two")%></li>
@@ -102,16 +102,16 @@
 
 <!--
 <div id="event_creation">
-  	<div class="button_wrapper">
-  	  <button id="presential_event" class="big_button orange_button margin-up"><%=t('event.new.presential')%></button>
-	  <button id="meeting_event" class="big_button orange_button margin-up"><%=t('event.new.meeting')%></button>
-  	  <button id="conference_event" class="big_button orange_button margin-up"><%=t('event.new.conference')%></button>
+    <div class="button_wrapper">
+      <button id="presential_event" class="big_button orange_button margin-up"><%=t('event.new.presential')%></button>
+    <button id="meeting_event" class="big_button orange_button margin-up"><%=t('event.new.meeting')%></button>
+      <button id="conference_event" class="big_button orange_button margin-up"><%=t('event.new.conference')%></button>
     </div>
 </div>
---> 
+-->
 
 <div id="change-event">
-	
+
   <h3><div id="help" title="<%=h(t('event.help.create'))%>"></div><%= t('event.create.title') %></h3>
   <%= form_for(:event, :url => space_events_path(@space), :html => { :multiple => "multiple" }) do |f| -%>
     <div>
@@ -123,7 +123,7 @@
       <label for="Description"><%= t('description') %>:</label>
       <%=f.text_area :description%>
     </div>
-  
+
     <div>
       <div id="help2" title="<%=h(t('event.help.organisers'))%>"></div><label for="Organizer"><%= t('organizer') %>:</label>
       <%=select(:organizers, :name, @space.users.map{|u| u.full_name}, {}, {:multiple=>"multiple"})%>
@@ -131,27 +131,27 @@
     <div>
       <label for="Location"><%= t('event.location') %>:</label>
       <%= f.text_field :location, :size =>25  %>
-    </div>    
+    </div>
     <%= f.hidden_field :vc_mode, :value => Event::VC_MODE.index(:in_person) %>
     <div id="extra-info"  style="display:none">
       <div class="margin-up">
-        <strong><span>2. <%= t('event.enable.participation')%></span></strong>	
+        <strong><span>2. <%= t('event.enable.participation')%></span></strong>
       </div>
        <%= t('event.enable.isabelbw') %> : <%= f.select "isabel_bw", options_for_select_with_class_selected([["2M", "2M"], ["1M", "1M"], ["512K", "512K"]] , ["1M", "1M"])%> <br/>
-	   <%= t('event.enable.webbw') %> : <%= f.select "web_bw", options_for_select_with_class_selected([["High (450K Sorenson)", "2"], ["Medium (250K H.264)", "1"], ["Low (150K H.264)", "0"]] , ["Medium (250K H.264)", "1"])%> <br/>
-	   <%= t('event.enable.recbw') %> : <%= f.select "recording_bw", options_for_select_with_class_selected([["High (550K H.264)", "2"],["Medium (250K H.264)", "1"]] , ["Medium (250K H.264)", "1"])%> <br/>
-	   <div class="checkbox_event">
+     <%= t('event.enable.webbw') %> : <%= f.select "web_bw", options_for_select_with_class_selected([["High (450K Sorenson)", "2"], ["Medium (250K H.264)", "1"], ["Low (150K H.264)", "0"]] , ["Medium (250K H.264)", "1"])%> <br/>
+     <%= t('event.enable.recbw') %> : <%= f.select "recording_bw", options_for_select_with_class_selected([["High (550K H.264)", "2"],["Medium (250K H.264)", "1"]] , ["Medium (250K H.264)", "1"])%> <br/>
+     <div class="checkbox_event">
        <%=f.check_box :sip_interface,:class=>"icon", :checked => false  %>
         <label for="enable_isabel" class="label_izquierda" ><%= t('event.enable.sip') %></label>
       </div>
-	  <%= f.hidden_field :web_interface, :value => true %>
-	  <%= f.hidden_field :isabel_interface, :value => true %>
+    <%= f.hidden_field :web_interface, :value => true %>
+    <%= f.hidden_field :isabel_interface, :value => true %>
     </div>
-	 <div class="margin-up">
+   <div class="margin-up">
      <button type="submit" id="create_event_button" class="basic_button blue_button"><%=t("button.create")%></button>
-	 <button id="wait_create_event_button" class="basic_button blue_button"><%=t("button.creating")%></button>
+   <button id="wait_create_event_button" class="basic_button blue_button"><%=t("button.creating")%></button>
       <%= link_to "<span>" + t('cancel') + "</span>", "#",:class => "basic_button blue_button", :id=>"cancel_event"%>
-	 </div>
+   </div>
   <% end %>
 </div>
 

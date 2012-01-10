@@ -1,13 +1,13 @@
 <% menu :posts %>
 
 <%= content_for :headers do  -%>
-  <%= javascript_include_tag 'jquery.filestyle', 'fckeditor/fckeditor', 'jquery.fcbkcomplete'%>
-	<%= stylesheet_link_tag "fcbkcomplete", :media => "screen, projection" %> 
+  <%= javascript_include_tag 'jquery/jquery.filestyle', 'fckeditor/fckeditor', 'jquery/jquery.fcbkcomplete'%>
+  <%= stylesheet_link_tag "fcbkcomplete", :media => "screen, projection" %>
 <% end -%>
 
 <%= content_for :javascript do %>
 
-<%= render :partial => 'fckeditor_functions' %>  
+<%= render :partial => 'fckeditor_functions' %>
 
 /*
  *  Reply panel
@@ -26,7 +26,7 @@ $(".new_reply_options").click(function(){
 
 
 $(".new_attachment_link").livequery('click',function () {
-  $(".new_attachment_form").show(); 
+  $(".new_attachment_form").show();
   return false;
 });
 
@@ -38,7 +38,7 @@ $("a.big_new_reply").fancybox({
     $(".big_post_text").val($(".small_post_text").val());
     big_textarea();
     $("#fancy_outer").width($("#new_thread_big").width() + 50);
-	$("#fancy_outer").height($("#new_thread_big").height() + 80);
+  $("#fancy_outer").height($("#new_thread_big").height() + 80);
     $(window).resize();
   },
   'callbackOnClose' : function(){
@@ -54,35 +54,35 @@ $("a.edit_post_link").click(function(){
       {authenticity_token: "<%=form_authenticity_token()%>"},
       function(data){
         $("#sidebar").children("div:last").replaceWith(data);
-				
-				 /*Edit thread*/
+
+         /*Edit thread*/
          $(".edit_thread_options").click(function(){
          $(".edit_thread_options").removeClass("selected");
          $(this).addClass("selected");});
-         
+
          /*Edit reply*/
          $(".edit_reply_options").click(function(){
          $(".edit_reply_options").removeClass("selected");
          $(this).addClass("selected");});
-				 
-				 style_file_input();
-				 
-				 /*Extract form fancbox*/ 
-		     $("a#big_edit_thread").fancybox({
-		        'hideOnContentClick' : false,
-		        'callbackOnShow' : function(){
-		          $(".big_post_text").val($(".small_post_text").val());
-		          big_textarea();
-		          $("#fancy_outer").width($("#new_thread_big").width() + 50);
-				  $("#fancy_outer").height($("#new_thread_big").height() + 80);
-		          $(window).resize();
-		        },
-		        'callbackOnClose' : function(){
-			        var oEditor = FCKeditorAPI.GetInstance('post[text]') ;
-			        var data = oEditor.GetHTML();
-			        $(".small_post_text").val(data);
-			      }
-		      });
+
+         style_file_input();
+
+         /*Extract form fancbox*/
+         $("a#big_edit_thread").fancybox({
+            'hideOnContentClick' : false,
+            'callbackOnShow' : function(){
+              $(".big_post_text").val($(".small_post_text").val());
+              big_textarea();
+              $("#fancy_outer").width($("#new_thread_big").width() + 50);
+          $("#fancy_outer").height($("#new_thread_big").height() + 80);
+              $(window).resize();
+            },
+            'callbackOnClose' : function(){
+              var oEditor = FCKeditorAPI.GetInstance('post[text]') ;
+              var data = oEditor.GetHTML();
+              $(".small_post_text").val(data);
+            }
+          });
       }
     );
   return false;
@@ -90,13 +90,13 @@ $("a.edit_post_link").click(function(){
 
   $("#new_comment_big_link").livequery('click',function () {
     $(".big_options").removeClass("selected");
-    $(this).addClass("selected"); 
+    $(this).addClass("selected");
     $("#new_photo_big_form").hide();
     $("#fancy_outer").height($("#new_thread_big").height() + 80);
     $(window).resize();
     return false;
   });
-  
+
   $("#new_photo_big_link").livequery('click',function () {
     $(".big_options").removeClass("selected");
     $(this).addClass("selected");
@@ -105,7 +105,7 @@ $("a.edit_post_link").click(function(){
     $(window).resize();
     return false;
   });
-  
+
   $("#new_doc_big_link").livequery('click',function () {
     $(".big_options").removeClass("selected");
     $(this).addClass("selected");
@@ -113,7 +113,7 @@ $("a.edit_post_link").click(function(){
     $("#fancy_outer").height($("#new_thread_big").height() + 80);
     $(window).resize();
     return false;
-  });	
+  });
 
 <% end %>
 
@@ -122,14 +122,14 @@ $("a.edit_post_link").click(function(){
 <%end%>
 
 <%if @space.authorize?([:create, :content],:to => current_user)%>
-	<%= content_for :sidebar do  %>
-	  <%if params[:edit]%>
-		  <%= render :partial => "edit_post", :locals => { :post => Post.find(params[:edit]) } %>
-		<%else%>
-  	  <% params[:reply_to] = @post.id %>
-  	  <%= render :partial => "new_post", :locals => { :post => @post, :p_id=> @post.id, :id => "reply-form"} %>
-		<%end%>
-	<% end %>
+  <%= content_for :sidebar do  %>
+    <%if params[:edit]%>
+      <%= render :partial => "edit_post", :locals => { :post => Post.find(params[:edit]) } %>
+    <%else%>
+      <% params[:reply_to] = @post.id %>
+      <%= render :partial => "new_post", :locals => { :post => @post, :p_id=> @post.id, :id => "reply-form"} %>
+    <%end%>
+  <% end %>
 <% end %>
 
 <%= render :partial => 'post_with_children' %>

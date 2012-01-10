@@ -1,8 +1,8 @@
 //= require jquery
 //= require jquery_ujs
-//= require jquery.livequery.js
-//= require jquery.easing.1.3.js
-//= require jquery.timers-1.2.js
-//= require jquery.qtip-1.0.0-rc3.js
-//= require anythingslider/jquery.anythingslider.min.js
-//= require application
+//= require jquery/jquery.livequery
+//= require jquery/jquery.easing.1.3
+//= require jquery/jquery.timers-1.2
+//= require jquery/jquery.qtip-1.0.0-rc3
+//= require anythingslider/jquery.anythingslider.min
+//= require application_base

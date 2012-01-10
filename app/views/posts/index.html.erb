@@ -2,8 +2,8 @@
 <% atom_link_header(space, Post.new, :title => h(t('post.other_in_space', :space => space.name))) %>
 
 <%= content_for :headers do  -%>
-  <%= javascript_include_tag 'jquery.fancybox', 'jquery.filestyle', 'fckeditor/fckeditor', 'jquery.fcbkcomplete' %>
-  <%= stylesheet_link_tag "fcbkcomplete", :media => "screen, projection" %>  
+  <%= javascript_include_tag 'jquery/jquery.fancybox', 'jquery/jquery.filestyle', 'fckeditor/fckeditor', 'jquery/jquery.fcbkcomplete' %>
+  <%= stylesheet_link_tag "fcbkcomplete", :media => "screen, projection" %>
 <% end -%>
 
 
@@ -16,15 +16,15 @@ extend_thread = function(id){
   $("#parent_" + id + " .extended_thread").show();
   $("#parent_" + id + " .extend_thread").hide();
   $("#parent_" + id + " .collapse_thread").show();
-  
+
 }
 
 collapse_thread = function(id){
   $("#parent_" + id + " .extended_thread").hide();
   $("#parent_" + id + " .extend_thread").show();
   $("#parent_" + id + " .collapse_thread").hide();
-  
-}  
+
+}
 
 
 /*
@@ -37,10 +37,10 @@ $("a.reply_to_link").click(function(){
          {authenticity_token: "<%=form_authenticity_token()%>"},
          function(data){
            $("#sidebar").children("div:last").replaceWith(data);
-           
+
            /* Reply panel javascript*/
            /*$("#reply-form").postsForm('<%= space_posts_url(@space) %>');*/
-           
+
            var destination = $('#add').offset().top;
            $("html:not(:animated),body:not(:animated)").animate({ scrollTop: destination}, 1100, function() {
              window.location.hash = '#add'
@@ -48,7 +48,7 @@ $("a.reply_to_link").click(function(){
            setTimeout(function() {
              $("#new_reply").effect("highlight", {color:"#F5DF51"}, 3000);
            }, 1000);
-             
+
            $("a.big_new_reply").fancybox({
        'hideOnContentClick' : false,
                                    'callbackOnShow' : function(){
@@ -77,27 +77,27 @@ $("a.edit_post_link").click(function(){
          {authenticity_token: "<%=form_authenticity_token()%>"},
          function(data){
            $("#sidebar").children("div:last").replaceWith(data);
-           
+
            /*Edit thread*/
            /*$("#edit-form").postsForm('<%= space_posts_url(@space) %>');*/
-           
+
            $(".edit_thread_options").click(function(){
              $(".edit_thread_options").removeClass("selected");
              $(this).addClass("selected");});
-             
+
              /*Edit reply*/
              $(".edit_reply_options").click(function(){
                $(".edit_reply_options").removeClass("selected");
                $(this).addClass("selected");});
-               
+
                style_file_input();
-               
+
                /*Scroll to the edit form*/
                var destination = $('#add').offset().top;
                $("html:not(:animated),body:not(:animated)").animate({ scrollTop: destination}, 1100, function() {
                  window.location.hash = '#add'
-                 
-                 /*Extract form fancbox*/ 
+
+                 /*Extract form fancbox*/
                  $("a#big_edit_thread").fancybox({
                    'hideOnContentClick' : false,
                                                  'callbackOnShow' : function(){
@@ -118,13 +118,13 @@ $("a.edit_post_link").click(function(){
                                                  }
                  });
                });
-               
+
                setTimeout(function() {
                  $("#edit_reply").effect("highlight", {color:"#F5DF51"}, 3000);
                  $("#edit_thread").effect("highlight", {color:"#F5DF51"}, 3000);
-               }, 1000);        
+               }, 1000);
          });
-         
+
          return false;
 });
 
@@ -146,12 +146,12 @@ $("a.big_new_thread_link").fancybox({
                                'callbackOnClose' : function(){
                                  $(".small_post_title").val($(".big_post_title").val());
                                  /*close_lightbox();*/
-                                 
+
                                  var oEditor = FCKeditorAPI.GetInstance('post[text]') ;
                                  var data = oEditor.GetHTML();
                                  $("div#new_post_content").append("<%= escape_javascript(small_post_text_area) %>"); //IE Compatibility
                                  $(".small_post_text").val(data);
-                               }    
+                               }
 });
 
 
@@ -177,15 +177,15 @@ $("#new_attachment_big_link").livequery('click',function () {
 <%= content_for :sidebar do  %>
 
   <%= render :partial => 'spaces/sidebar' %>
-        
-  <%if @space.authorize?([:create, :content],:to => current_user)%>      
+
+  <%if @space.authorize?([:create, :content],:to => current_user)%>
     <% if params[:reply_to]%>
       <%= render :partial => "new_post", :locals => {:p_id=> Post.find(params[:reply_to]).id, :id => "reply-form"} %>
     <% elsif params[:edit] %>
       <%= render :partial => "edit_post", :locals => { :post => Post.find(params[:edit]) } %>
     <%else%>
       <%= render :partial => "new_post", :locals => {:id => "thread-form" }%>
-    <%end%>  
+    <%end%>
   <% end %>
 <% end %>
 

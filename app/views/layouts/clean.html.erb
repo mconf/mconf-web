@@ -12,8 +12,8 @@
     <%= stylesheet_link_tag "screen", :media => "screen, projection" %>
     <%= stylesheet_link_tag "lightbox", :media => "screen, projection" %>
     <%= stylesheet_link_tag "calendar", :media => "screen, projection" %>
-    <%= stylesheet_link_tag "jquery.fancybox.css", :media => "screen, projection" %>
-    <%= stylesheet_link_tag "jquery.jcrop.css", :media => "screen, projection" %>
+    <%= stylesheet_link_tag "jquery/jquery.fancybox.css", :media => "screen, projection" %>
+    <%= stylesheet_link_tag "jquery/jquery.jcrop.css", :media => "screen, projection" %>
     <%= stylesheet_link_tag "timeentry", :media => "screen, projection" %>
     <%= stylesheet_link_tag "print", :media => "print" %>
     <%= stylesheet_link_tag "token-input-facebook", :media => "screen, projection" %>
@@ -27,9 +27,7 @@
       }
     </script>
 
-    <%= javascript_include_tag 'jquery', 'jquery_ujs', '/assets/jquery.livequery.js', '/assets/jquery.fancybox.js', '/assets/jquery.easing.js',
-                               'jquery-ui', '/assets/jquery.form.js', 'application', '/assets/jquery.qtip-1.0.0-rc3.js',
-                               '/assets/jquery.tokeninput.js' %>
+    <%= javascript_include_tag 'application' %>
     <%= csrf_meta_tag %>
     <%= yield :headers %>
 
