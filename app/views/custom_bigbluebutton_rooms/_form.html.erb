@@ -1,10 +1,10 @@
 <% if @room.new_record? %>
-  <% url = bigbluebutton_server_rooms_path(@server) %>
+  <% url = bigbluebutton_rooms_path %>
 <% else %>
-  <% url = bigbluebutton_server_room_path(@server, @room) %>
+  <% url = bigbluebutton_room_path(@room) %>
 <% end %>
 
-<%= form_for [@server, @room], :url => url do |f| %>
+<%= form_for @room, :url => url do |f| %>
   <% if @room.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@room.errors.count, "error") %><%= t('rooms.form.msg1') %></h2>
@@ -17,6 +17,10 @@
   <% end %>
 
   <br/>
+  <div class="field">
+    <color><b><%= f.label :server_id %></b></color><br />
+    <%= f.text_field :server_id %>
+  </div>
   <div class="field">
     <color><b><%= f.label :name %></b></color><br />
     <%= f.text_field :name %>

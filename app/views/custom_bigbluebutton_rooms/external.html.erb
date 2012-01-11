@@ -1,0 +1,25 @@
+<h1>Join the meeting <%= @room.name %></h1>
+
+<div id="error_explanation"><%= flash[:error] %></div>
+
+<p>This meeting was created from another application.<br/>You must provide a name and a password to join:</p>
+
+<%= form_tag external_bigbluebutton_rooms_path do %>
+  <%= hidden_field_tag "server_id", params[:server_id] %>
+  <%= hidden_field_tag "meeting", params[:meeting] %>
+
+  <div class="field">
+    <label for="user_name">Name:</label><br />
+    <% if bigbluebutton_user.nil? %>
+      <%= text_field_tag "user[name]", "" %>
+    <% else %>
+      <%= text_field_tag "user[name]", bigbluebutton_user.name %>
+    <% end %>
+  </div>
+  <div class="field">
+    <label for="user_password">Password:</label><br />
+    <%= password_field_tag "user[password]", "" %>
+  </div>
+
+  <%= submit_tag "Submit" %>
+<% end %>

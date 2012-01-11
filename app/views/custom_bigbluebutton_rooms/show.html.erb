@@ -12,7 +12,7 @@
 
   <p>
     <label><%= BigbluebuttonRoom.human_attribute_name(:server_id) %>:</label>
-    <span class="value"><%= @room.server.id %></span>
+    <span class="value"><%= @room.server_id %></span>
   </p>
 
   <p>
@@ -76,9 +76,12 @@
   </p>
 
   <br/><br/>
-  <%= link_to t('edit'), edit_bigbluebutton_server_room_path(@server, @room), :class => 'basic_button medium_button blue_button' %>
-  <%= link_to t('destroy'), bigbluebutton_server_room_path(@server, @room), :confirm => t('are_you_sure'), :method => :delete, :class => 'basic_button medium_button blue_button' %>
-  <%= link_to t('join'), join_bigbluebutton_server_room_path(@room.server, @room), :class => 'basic_button medium_button blue_button' %>
+  <%= link_to t('edit'), edit_bigbluebutton_room_path(@room), :class => 'basic_button medium_button blue_button' %>
+  <%= link_to t('join'), join_bigbluebutton_room_path(@room), :class => 'basic_button medium_button blue_button' %>
+  <%= link_to 'Invite', invite_bigbluebutton_room_path(@room) %>
+  <%= link_to 'Mobile Join', join_mobile_bigbluebutton_room_path(@room) %>
+  <%= link_to 'End', end_bigbluebutton_room_path(@room), :confirm => 'Are you sure?' %>
+  <%= link_to t('destroy'), bigbluebutton_room_path(@room), :confirm => t('are_you_sure'), :method => :delete, :class => 'basic_button medium_button blue_button' %>
   <br/><br/>
-  <%= link_to t('back'), bigbluebutton_server_rooms_path, :class => 'basic_button small_button blue_button' %>
+  <%= link_to t('back'), bigbluebutton_rooms_path, :class => 'basic_button small_button blue_button' %>
 </div>

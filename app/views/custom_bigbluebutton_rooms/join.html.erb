@@ -2,7 +2,7 @@
 
 function ajax_request() {
   $.ajax({
-    url: "<%= running_bigbluebutton_server_room_url(@server, @room, :format => 'json') %>",
+    url: "<%= running_bigbluebutton_room_url(@room, :format => 'json') %>",
     dataType: 'json',
     error: function(xhr_data) {
       //

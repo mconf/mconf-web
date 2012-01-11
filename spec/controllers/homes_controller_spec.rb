@@ -44,7 +44,7 @@ describe HomesController do
       }
       let(:expected_json_response) {
         rooms.map{ |r|
-          link = "/bigbluebutton/servers/#{r.server.to_param}/rooms/#{r.to_param}/join?mobile=1"
+          link = "/bigbluebutton/rooms/#{r.to_param}/join?mobile=1"
           { :bigbluebutton_room => { :name => r.name, :join_path => link, :owner => owner_hash(r.owner) } }
         }.to_json
       }

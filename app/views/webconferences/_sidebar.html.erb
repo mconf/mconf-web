@@ -1,7 +1,7 @@
 <% if logged_in? %>
-  <% join_link = space_join_room_path(space, @bbb_room) %>
+  <% join_link = join_space_room_path(space, @bbb_room) %>
 <% else %>
-  <% join_link = space_invite_room_path(space, @bbb_room) %>
+  <% join_link = invite_space_room_path(space, @bbb_room) %>
 <% end %>
 
 <%= link_to ("<span>" + t('button.join_webconference') + "</span>").html_safe, join_link, :class => 'big_button orange_button bigbluebutton_button clean_popup' %>
@@ -11,6 +11,6 @@
 
 <% if logged_in? %>
   <% ico = "<div class=\"webconference_join_mobile_ico\"></div>" %>
-  <%= link_to ("<span>" + ico + t('button.join_webconference_mobile') + "</span>").html_safe, space_join_mobile_room_path(space, @bbb_room),
+  <%= link_to ("<span>" + ico + t('button.join_webconference_mobile') + "</span>").html_safe, join_mobile_space_room_path(space, @bbb_room),
         :class => 'big_button orange_button bigbluebutton_button', :id => "join_mobile_button" %>
 <% end %>
