@@ -30,7 +30,7 @@
 <div id="content-mconf">
   <%= render :partial => "components" %>
 
-  <div class="content-left-wrapper">
+<!--  <div class="content-left-wrapper">
 
     <div id="content-news">
       <div class="section-title">
@@ -49,42 +49,48 @@
 
   </div>
 
-  <div class="content-right-wrapper">
+  <div class="content-right-wrapper">-->
 
     <div id="content-searching-for">
       <div class="section-title">
         <h2><%= t('frontpage.searching_for.title') %></h2>
-        <%= render_clearer %>
       </div>
       <div class="content-block">
         <%= image_tag('frontpage/icon-use-pb-40x40.png', :size => '40x40') %>
-        <span class="link-title"><a href="<%= signup_path %>"><%= t('frontpage.searching_for.use.title') %></a></span>
-        <span><%= t('frontpage.searching_for.use.message').html_safe %></span>
+        <div class="text">
+          <span class="link-title"><a href="<%= signup_path %>"><%= t('frontpage.searching_for.use.title') %></a></span>
+          <span><%= t('frontpage.searching_for.use.message').html_safe %></span>
+        </div>
       </div>
       <div class="content-block">
         <%= image_tag('frontpage/icon-install-pb-40x40.png', :size => '40x40') %>
-        <span class="link-title"><a href="http://code.google.com/p/mconf/wiki/MconfInstallation"><%= t('frontpage.searching_for.install.title') %></a></span>
-        <span><%= t('frontpage.searching_for.install.message').html_safe %></span>
+        <div class="text">
+          <span class="link-title"><a href="http://code.google.com/p/mconf/wiki/MconfInstallation"><%= t('frontpage.searching_for.install.title') %></a></span>
+          <span><%= t('frontpage.searching_for.install.message').html_safe %></span>
+        </div>
       </div>
       <div class="content-block">
         <%= image_tag('frontpage/icon-collaborate-pb-40x40.png', :size => '40x40') %>
-        <span class="link-title"><a href="http://code.google.com/p/mconf/wiki/MconfCollaborate"><%= t('frontpage.searching_for.collaborate.title') %></a></span>
-        <span><%= t('frontpage.searching_for.collaborate.message').html_safe %></span>
+        <div class="text">
+          <span class="link-title"><a href="http://code.google.com/p/mconf/wiki/MconfCollaborate"><%= t('frontpage.searching_for.collaborate.title') %></a></span>
+          <span><%= t('frontpage.searching_for.collaborate.message').html_safe %></span>
+        </div>
       </div>
+      <%= render_clearer %>
     </div>
 
-  </div>
+<!--  </div>-->
 
   <%= render_clearer %>
 </div>
 
 <div id="content-current-site">
 
-  <div class="content-left-wrapper">
+  <!--<div class="content-left-wrapper">-->
     <%= render :partial => 'space_list', :locals => { :spaces => @most_active_spaces } %>
-  </div>
+  <!--</div>-->
 
-  <div class="content-right-wrapper">
+  <!--<div class="content-right-wrapper">-->
 
     <div id="content-stats">
       <div class="section-title">
@@ -124,7 +130,7 @@
 
     </div>
 
-  </div>
+  <!--</div>-->
 
   <%= render_clearer %>
 </div>

@@ -9,8 +9,9 @@ body {
 }
 
 @mixin headers_base {
-  font-weight: normal;
+  font-weight: bold;
   color: #111;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 h1 {
   @include headers_base;
@@ -23,7 +24,7 @@ h1 {
 }
 h2 {
   @include headers_base;
-  font-size: 2em;
+  font-size: $font-big; //2em;
   text-align: left;
   color: $h-font-color;
 }

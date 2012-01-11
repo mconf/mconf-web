@@ -206,15 +206,17 @@ body {
 
     h2 {
       text-align: left;
-      font-weight: bold;
-      @include text-shadow(darken($site-bg-color, 20) 1px 1px 4px);
-      margin: 0 15px 0 0;
+      @include text-shadow(darken($site-bg-color, 15) 1px 1px 4px);
+      margin: 0;
       float: left;
       clear: both;
-      font-variant: small-caps;
     }
     .subtitle {
-      clear: left;
+      padding-left: 8px;
+      border-left: 4px solid #ddd;
+      float: left;
+      margin-top: 5px;
+      margin-left: 8px;
     }
   }
 
@@ -271,6 +273,12 @@ $components-images-width: 560px;
   padding: 0;
   float: right;
 
+  h2 {
+    @include border-radius(5px);
+    @include text-shadow(darken($site-bg-color, 20) 1px 1px 4px);
+    margin-bottom: 5px;
+  }
+
   .content-block {
     clear: both;
     width: $contents-width - $components-images-width - 40px;
@@ -290,7 +298,6 @@ $components-images-width: 560px;
     .link-title {
       font-size: $font-big;
       color: #555;
-      font-variant: small-caps;
       font-weight: bold;
       display: block;
       @include text-shadow(white 2px 2px 4px);
@@ -353,27 +360,39 @@ $components-images-width: 560px;
 }
 
 #content-searching-for {
+  margin: 20px 0;
+
+  .section-title h2 {
+    margin-top: 20px;
+    margin-right: 15px;
+  }
 
   .content-block {
-    clear: both;
-    margin-bottom: 5px;
     padding: 5px;
     @include border-radius(4px);
-
-    img {
-      float: left;
-      margin-right: 5px;
-    }
+    clear: none;
+    float: left;
+    margin-right: 20px;
+    width: 200px;
 
     &:hover {
       background: $sub-header-bg-color;
-      @include background(linear-gradient(left, darken($sub-header-bg-color, 8), white));
+      @include background(linear-gradient(left, $sub-header-bg-color, white));
+    }
+
+    img {
+      float: left;
+      margin-right: 10px;
+      margin-top: 7px;
+    }
+
+    .text {
+      margin-left: 50px;
     }
 
     .link-title {
-      font-size: $font-big;
+      font-size: $font-medium;
       color: #555;
-      font-variant: small-caps;
       font-weight: bold;
       display: block;
       @include text-shadow(white 2px 2px 4px);
@@ -385,7 +404,7 @@ $components-images-width: 560px;
 
 #content-current-site {
   @extend #content-mconf;
-  border-top: 2px dashed darken($site-bg-color, 10);
+  border-top: 1px dashed darken($site-bg-color, 14);
 
   $wrapper-left-width: 700px;
   .content-left-wrapper { width: $wrapper-left-width; }

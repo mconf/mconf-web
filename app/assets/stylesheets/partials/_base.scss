@@ -70,11 +70,14 @@ button, input[type=submit], input[type=button], .button {
   .success { background: #318f00; color: #eee; }
 }
 
-#footer {
-  border-top: 1px dashed darken($footer-bg-color, 10);
-  @include background(linear-gradient(top, $footer-bg-color, $footer-bg-color 30%, $site-bg-color));
+#content-wrapper {
+  padding-bottom: 20px;
+  border-bottom: 1px dashed darken($footer-bg-color, 10);
+}
 
-  margin-top: 20px;
+#footer {
+  border-top: 1px solid $site-bg-color;
+  @include background(linear-gradient(top, $footer-bg-color, $footer-bg-color 30%, $site-bg-color));
   color: #444;
   clear: both;
 }

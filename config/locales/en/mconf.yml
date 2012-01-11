@@ -523,7 +523,7 @@ en:
     register_sentence: "Create an account to access private spaces and create your own webconferences"
     searching_for: 
       collaborate: 
-        message: "Help us improve Mconf."
+        message: "Find out how you can help us improve Mconf."
         title: Collaborate
       install: 
         message: "Learn how to install Mconf in your own servers."
