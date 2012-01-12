@@ -17,6 +17,15 @@
     <%= stylesheet_link_tag "print", :media => "print" %>
     <%= stylesheet_link_tag "token-input-facebook", :media => "screen, projection" %>
 
+    <% unless Rails.env == "production" %>
+      <style type="text/css">
+        .translation_missing {
+          color: purple;
+          background-color: red;
+        }
+      </style>
+    <% end %>
+
     <!--[if IE]>
     <%= stylesheet_link_tag "ie", :media => "screen, projection" %>
     <![endif]-->
