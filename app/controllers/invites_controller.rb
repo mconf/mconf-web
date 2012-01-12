@@ -59,6 +59,7 @@ class InvitesController < ApplicationController
       priv_email[:room_name] = params[:invite][:room_name]
       priv_email[:room_url] = params[:invite][:room_url]
       priv_email[:user_name] = current_user.name
+      priv_email[:locale] = current_user.locale
 
       if params[:invite][:im_check] != "0"
         for receiver in params[:invite][:members_tokens].split(",")
@@ -120,7 +121,6 @@ class InvitesController < ApplicationController
       body = t('event.invite_message', :event_name => @event.name, :space => @event.space.name, :event_date => @event.start_date.strftime("%A %B %d at %H:%M:%S"), :event_url => space_event_url(@event.space,@event), :username => current_user.full_name, :useremail => current_user.email, :userorg => current_user.organization).html_safe
       msg[:body] = body
 
-
       if params[:invite][:im_check] != "0"
         for receiver in params[:invite][:members_tokens].split(",")
           msg[:receiver_id] = receiver
@@ -139,6 +139,7 @@ class InvitesController < ApplicationController
         for receiver in params[:invite][:members_tokens].split(",")
           user = User.find(receiver)
           msg[:email_receiver] = user.email
+          msg[:locale] = user.locale
           Notifier.delay.event_email(msg)
           if success.size == 0
             success = t('invite.invitation_successfully') << " " << t('invite.email', :email => user.email)
@@ -152,6 +153,7 @@ class InvitesController < ApplicationController
       if params[:invite][:email_tokens].size != 0
         for receiver in params[:invite][:email_tokens].split(/;|,/)
           msg[:email_receiver] = receiver
+          msg[:locale] = current_user.locale
           Notifier.delay.event_email(msg)
           if (receiver =~ /^[-a-z0-9_+\.]+\@([-a-z0-9]+\.)+[a-z0-9]{2,4}$/i)
             if success.size == 0
@@ -209,6 +211,7 @@ class InvitesController < ApplicationController
         msg[:body] = t('event.notification_message', :name => user.full_name,:event_name => @event.name, :space => @event.space.name, :event_date => @event.start_date.strftime("%A %B %d at %H:%M:%S"), :event_url => space_event_url(@event.space,@event), :username => current_user.full_name, :useremail => current_user.email, :userorg => current_user.organization).html_safe
 
         msg[:email_receiver] = user.email
+        msg[:locale] = user.locale
         Notifier.delay.event_email(msg)
       end
     end
