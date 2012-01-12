@@ -16,7 +16,6 @@
 
     <script type="text/javascript" charset="utf-8">
       $(document).ready(function() {
-        <%= render :partial => 'layouts/ready.js.erb' %>
         <%= yield :javascript %>
       });
     </script>
@@ -31,7 +30,7 @@
       </div>
 
       <div id="content-wrapper">
-        <%= render :partial => "layouts/flashs" %>
+        <%= render :partial => "layouts/notifications" %>
 
         <div id="content">
           <%= yield %>

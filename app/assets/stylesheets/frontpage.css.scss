@@ -25,6 +25,8 @@ body {
 #global-header {
   padding: 0;
   background-color: $header-bg-color;
+  @include background(linear-gradient(bottom, darken($header-bg-color, 5), $header-bg-color));
+  //@include background(linear-gradient(top, #333, #222));
 }
 
 #global-header-content {
@@ -69,7 +71,7 @@ body {
   padding-right: 30px;
   padding-top: ($global-header-height - 100px)/2;
   padding-bottom: ($global-header-height - 100px)/2;
-  @include background(linear-gradient(right, darken($header-bg-color, 8), $header-bg-color));
+  //@include background(linear-gradient(right, darken($header-bg-color, 8), $header-bg-color));
 
   a { @include link-colors(#ddd, white, $site-link-active); }
 
@@ -119,7 +121,7 @@ body {
   padding-right: 30px;
   padding-top: ($global-header-height - 100px)/2;
   padding-bottom: ($global-header-height - 100px)/2;
-  @include background(linear-gradient(left, darken($header-bg-color, 8), $header-bg-color));
+  //@include background(linear-gradient(left, darken($header-bg-color, 8), $header-bg-color));
 
   .register_button {
     margin-top: 20px;
@@ -139,6 +141,7 @@ body {
   margin: 0 auto;
   padding: 20px;
   height: $page-header-height;
+  color: #444;
 
   .headline {
     float: left;
@@ -220,19 +223,6 @@ body {
     }
   }
 
-  $wrapper-left-width: 560px;
-  .content-left-wrapper {
-    clear: left;
-    float: left;
-    width: $wrapper-left-width;
-  }
-  .content-right-wrapper {
-    clear: right;
-    float: right;
-    text-align: left;
-    width: $contents-width - $wrapper-left-width - 30px;
-  }
-
 }
 
 #components {
@@ -252,7 +242,6 @@ body {
 
     .anythingWindow { border: 0; }
   }
-
 }
 
 $components-images-width: 560px;
@@ -346,19 +335,6 @@ $components-images-width: 560px;
   ul { list-style-type: disc; margin-top: 10px; }
 }
 
-#content-news {
-  ul { list-style-type: disc; margin-top: 10px; }
-
-  img {
-    float: right;
-    margin-left: 10px;
-    margin-bottom: 10px;
-
-    @include box-shadow(0px 0px 5px #777);
-    &:hover { @include box-shadow(0px 0px 15px $header-bg-color); }
-  }
-}
-
 #content-searching-for {
   margin: 20px 0;
 
@@ -405,10 +381,6 @@ $components-images-width: 560px;
 #content-current-site {
   @extend #content-mconf;
   border-top: 1px dashed darken($site-bg-color, 14);
-
-  $wrapper-left-width: 700px;
-  .content-left-wrapper { width: $wrapper-left-width; }
-  .content-right-wrapper { width: $contents-width - $wrapper-left-width - 30px; }
 }
 
 #content-spaces {
@@ -428,6 +400,7 @@ $components-images-width: 560px;
   img {
     @include box-shadow(0px 0px 5px #777);
     margin: 4px;
+    @include border-radius(2px);
 
     &:hover { @include box-shadow(0px 0px 15px $header-bg-color); }
   }

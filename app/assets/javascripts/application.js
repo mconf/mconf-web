@@ -9,4 +9,6 @@
 //= require jquery/jquery.form
 //= require jquery/jquery.tokeninput
 //= require anythingslider/jquery.anythingslider.min
-//= require application_base
+//= require application/base
+//= require application/document_ready
+//= require application/notifications

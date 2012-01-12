@@ -5,4 +5,5 @@
 //= require jquery/jquery.timers-1.2
 //= require jquery/jquery.qtip-1.0.0-rc3
 //= require anythingslider/jquery.anythingslider.min
-//= require application_base
+//= require application
+//= require frontpage/components

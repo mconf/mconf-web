@@ -34,7 +34,6 @@
 
     <script type="text/javascript" charset="utf-8">
       $(document).ready(function() {
-        <%= render :partial => 'layouts/ready.js.erb' %>
         <%= yield :javascript %>
         <%if params[:controller]=="events" && (params[:action]=="new" || params[:action]=="edit")%>
           $("#little_triangle").addClass("triangle_first_step");
