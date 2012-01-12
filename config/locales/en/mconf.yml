@@ -933,7 +933,7 @@ en:
   preferences: Preferences
   previous: Previous
   privacy: Privacy
-  private_message:
+  private_message: 
     send: "Send private message"
   profile: 
     deleted: "Profile deleted successfully"

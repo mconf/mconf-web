@@ -1,2 +1,242 @@
 --- 
-pt-br: {}
+pt-br: 
+  account_activated: "Sua conta foi ativada!"
+  account_activated_with_agent: "%{agent}, sua conta foi ativada"
+  account_created: "Sua conta foi criada"
+  action: 
+    one: Ação
+    other: Ações
+  admission: 
+    errors: 
+      candidate_equals_introducer: "Candidato e introdutor não podem ser a mesma pessoa. (Você provavelmente deve sair da aplicação.)"
+      candidate_has_role: "já possui um papel"
+  agent: 
+    authentication: 
+      change_password: "Modificar Senha"
+      confirm_password: "Confirmar Senha"
+      login: Login
+      lost_password: "Perdi minha senha!"
+      password: Senha
+    email: E-mail
+    one: Agente
+    other: Agentes
+    select: 
+      one: "Selecionar Agente"
+  are_you_sure: "Você tem certeza?"
+  author: Author
+  back: Voltar
+  bad_request: "Requisição Errada"
+  container: 
+    one: Contêiner
+    other: Contêineres
+  content: 
+    create: 
+      one: "Criar Conteúdo"
+      other: "Criar Conteúdo"
+    delete: 
+      one: "Remover Conteúdo"
+      other: "Remover Conteúdo"
+    new: "Novo Conteúdo"
+    one: Conteúdo
+    other: Conteúdo
+    read: 
+      one: "Ler Conteúdo"
+      other: "Ler Conteúdo"
+    update: 
+      one: "Atualizar Conteúdo"
+      other: "Atualizar Conteúdo"
+  could_not_find_anybody_with_that_email_address: "Não foi possível encontrar alguém com este e-mail"
+  create: Criar
+  created_at: "Criado em"
+  created_at_date: "Criado: %{date}"
+  description: Descrição
+  detail: 
+    other: Detalhes
+  edit: Editar
+  file: Arquivo
+  follow_reset_password: "%{agenda}, por favor siga o link para redefinir sua senha"
+  help: Ajuda
+  im_new: "Sou novo"
+  index: Índice
+  invalid_credentials: "Credenciais Inválidas"
+  invalid_password_reset_code: "Código de redefinição inválido. Por favor verifique i link novamente. (Dica: Seu cliente de e-mail quebrou o link?)"
+  invitation: 
+    accept: "Aceitar convite"
+    accepted: "Convite aceito"
+    accepted_by: "%{condidate} aceitou o convite"
+    comment: Comentário
+    confirm_delete: "Remover convite?"
+    created: "Convite enviado"
+    discard: "Descartar convite"
+    discarded: "Convite descartado"
+    discarded_by: "%{candidate} descartou o convite"
+    email: E-mail
+    new: "Novo Convite"
+    not_found: "Convite não encontrado"
+    not_processed: "Convite não processado"
+    one: Convite
+    other: Convites
+    pending: 
+      other: "Convites pendentes"
+    role: Papel
+    send: 
+      one: "Enviar convite"
+    show: "Entrar em %{group}"
+    was_processed: 
+      accepted: "Convite já foi aceito"
+      discarted: "Convite já foi descartado"
+  join: Ingressar
+  join_request: 
+    accepted: "Pedido de Ingresso aceito"
+    created: "Pedido de Ingresso enviado"
+    discarded: "Pedido de Ingresso descartado"
+    not_processed: "Pedido de Ingresso não processado"
+    one: "Pedido de Ingresso"
+    other: "Pedidos de Ingresso"
+    updated: "Pedido de Ingresso atualizado"
+  join_to_site: "Ingressar em %{site}"
+  layout_footnote: "%{site} é baseado em %{plugin}. Design por %{designer}."
+  logged_in_successfully: "Login efetuado"
+  logged_out: "Você saiu da sua conta"
+  login_to: "Entrar em %{site}"
+  logo: 
+    current: "Logo Atual"
+    one: Logo
+  logout: Sair
+  name: 
+    one: Nome
+  openid: 
+    client: 
+      associating_to_id: "Associando ao OpenID: %{id}"
+      discovery_failed: "Descoberta falhou para %{id}: %{error}"
+      id_attached_to_account: "OpenID: %{id} anexado à sua conta"
+      immediate_request_failed: "Requisição imediata falhou - Configurações necessárias"
+      transaction_cancelled: "Transação OpenID cancelada"
+      verification_failed: "Verificação falhou: %{message}"
+      verification_failed_with_id: "Verificação de %{id} falhou: %{message}"
+      verification_succeeded_with_id: "Verificação de %{id} teve sucesso"
+    server: 
+      about_login_to: "Você está prestes a entrar em %{server}"
+      anti_phishing: "Esta página não possui links para evitar <i>phishing</i>. Você deve inserir você mesmo o endereço no navegador."
+      cancel: "Não, cancelar"
+      decision: "Você deve decidir:"
+      endpoint: "Este é um servidor terminal OpenID"
+      invalid_uri: "Esta identidade não pertence à você: %{uri}"
+      login_to: "Entrar em %{server}"
+      must_login: "Você deve entrar em %{server}"
+      once: "Sim, apenas esta vez"
+      optional_information_by: "Informação opcional requisitada por %{server}"
+      required_information_by: "Informação requirida requisitada por %{server}"
+      trust: "Sim, lembre disso daqui para frente"
+    title: OpenID
+  pagination: 
+    next_label: "Próximo &raquo;"
+    previous_label: "&laquo; Anterior"
+  password_has_been_reset: "Sua senha foi redefinida"
+  password_has_been_reset_with_agent: "%{agent}, sua senha foi redefinida"
+  password_reset: "Senha Redefinida"
+  password_reset_link_sent_to_email_address: "Um link para redefinir sua senha foi enviado para o e-mail"
+  performance: 
+    change: Modificar
+    confirm_delete: "Remover Performance?"
+    create: 
+      one: "Criar Performance"
+      other: "Criar Performances"
+    delete: 
+      one: "Remover Performance"
+      other: "Remover Performances"
+    errors: 
+      stage_should_not_run_out_of_performances_with_first_role: "O estágio não deve ficar sem performances com o primeiro papel."
+      the_role_should_not_belong_to_a_different_stage_type: "O papel não deve pertencer a um diferente tipo de estágio."
+    new: "Nova Performance"
+    other: Performances
+    other_in: "Performances em %{stage}"
+    read: 
+      one: "Ler Performance"
+      other: "Ler Performances"
+    update: 
+      one: "Atualizar Performance"
+      other: "Atualizar Performances"
+    without_roles_available: "Não existem Papéis disponíveis. Performances não podem ser atribuídas."
+  permission: 
+    other: Permissão
+  please_activate_account: "Por favor ative sua nova conta"
+  read: Ler
+  request_change_password: "Requisição para modificar sua senha"
+  reset_password: "Redefinir Senha"
+  resource: 
+    one: Recurso
+    other: Recursos
+  role: 
+    confirm_delete: "Remover Papel?"
+    created: "Papel foi criado com sucesso."
+    editing: "Editando Papel"
+    go_to_manage: "Ir para gerencia de papéis"
+    index: "Listando Papéis"
+    name: Nome
+    name_permissions: "%{name} permissões"
+    new: "Novo Papel"
+    one: Papel
+    other: Papéis
+    select: 
+      one: "Selecionar Papel"
+    stage_type: "Tipo de Estágio"
+    updated: "Papel foi atualizardo com sucesso."
+    without_permissions: "Papel %{role} não possui nenhuma permissão"
+  save: Salvar
+  send: Enviar
+  send_reset_password_request: "Enviar Solicitação de Redefinição de Senha"
+  should_check_email_to_activate_account: "Você deve verificar seu e-mail para ativar sua conta"
+  show: Exibir
+  singular_agent: 
+    anonymous: 
+      name: Anônimo
+    anyone: 
+      name: Qualquer
+    authenticated: 
+      name: Autenticado
+    cron_agent: 
+      name: Cron
+  site: 
+    config: "Configuração do site"
+    description: Descrição
+    domain: Domínio
+    editing: "Editar configuração do site"
+    email: E-mail
+    exception_notifications: "Enviar e-mails de depuração"
+    exception_notifications_email: "Destinatários dos e-mails de depuração"
+    logo: Logo
+    name: Nome
+    one: Site
+    other: Sites
+    ssl: SSL
+    updated: "A configuração do site foi atualizada."
+  source: 
+    errors: 
+      content_type: 
+        invalid: "é inválido: %{content_type}"
+      dereference: "Não foi possível conectar à fonte %{uri}"
+      multiple_feeds: "Fonte possui múltiplos feeds"
+      parse: "Não foi possível analisar o feed %{uri}"
+    imported_at: "Importado em"
+    one: Fonte
+    other: Fontes
+    target: Alvo
+    uri: URL
+  stage: 
+    all: Todos
+    one: Estágio
+  tag: 
+    one: Tag
+    other: Tags
+    other_in: "Tags em %{container}"
+    show_title: "Com a tag %{tag}"
+  title: Título
+  update: Atualizar
+  updated_at: "Atualizado em"
+  updated_at_date: "Atualizado: %{date}"
+  user: 
+    activation_email_sent: "Um e-mail de ativação foi enviado ao usuário"
+    disabled: "Usuário desabilitado"
+    other: Usuários
+  visit_link_to_activate_account: "Visite este link para ativar sua conta"

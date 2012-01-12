@@ -1,7 +1,7 @@
 --- 
 es: 
   account_activated: "Su cuenta ha sido activada"
-  account_activated_with_agent: "{{agent}}, su cuenta ha sido activada"
+  account_activated_with_agent: "%{agent}, su cuenta ha sido activada"
   account_created: "Su cuenta se ha creado"
   action: 
     one: Acción
@@ -48,13 +48,13 @@ es:
   could_not_find_anybody_with_that_email_address: "No se pudo encontrar a nadie con esa dirección de correo"
   create: Crear
   created_at: Creado
-  created_at_date: "Creado: {{date}}"
+  created_at_date: "Creado: %{date}"
   description: Descripción
   detail: 
     other: Detalles
   edit: Editar
   file: Fichero
-  follow_reset_password: "{{agent}}, siga el enlace para cambiar su contraseña"
+  follow_reset_password: "%{agent}, siga el enlace para cambiar su contraseña"
   help: Ayuda
   im_new: "Soy nuevo"
   index: Índice
@@ -63,13 +63,13 @@ es:
   invitation: 
     accept: "Aceptar invitación"
     accepted: "Invitación aceptada"
-    accepted_by: "{{candidate}} aceptó la invitación"
+    accepted_by: "%{candidate} aceptó la invitación"
     comment: Comentario
     confirm_delete: "¿Borrar invitación?"
     created: "Invitación enviada"
     discard: "Descartar invitación"
     discarded: "Invitación descartada"
-    discarded_by: "{{candidate}} descartó la invitación"
+    discarded_by: "%{candidate} descartó la invitación"
     email: "Correo electrónico"
     new: "Nueva Invitación"
     not_found: "Invitación no encontrada"
@@ -81,7 +81,7 @@ es:
     role: Rol
     send: 
       one: "Enviar invitación"
-    show: "Unirse a {{group}}"
+    show: "Unirse a %{group}"
     was_processed: 
       accepted: "La invitación ya fue aceptada"
       discarted: "La invitación ya fue descartada"
@@ -94,11 +94,11 @@ es:
     one: "Petición de incorporación"
     other: "Peticiones de incorporación"
     updated: "Petición actualizada"
-  join_to_site: "Unirse a {{site}}"
-  layout_footnote: "{{site}} está basado en {{plugin}}. Diseñado por {{designer}}."
+  join_to_site: "Unirse a %{site}"
+  layout_footnote: "%{site} está basado en %{plugin}. Diseñado por %{designer}."
   logged_in_successfully: "Credenciales válidas"
   logged_out: "Has salido de la aplicación"
-  login_to: "Entrar en {{site}}"
+  login_to: "Entrar en %{site}"
   logo: 
     current: "Logo actual"
     one: Logo
@@ -107,33 +107,33 @@ es:
     one: Nombre
   openid: 
     client: 
-      associating_to_id: "Asociando a OpenID: {{id}}"
-      discovery_failed: "El descubrimiento falló para {{id}}: {{error}}"
-      id_attached_to_account: "OpenID: {{id}} asociado a su cuenta"
+      associating_to_id: "Asociando a OpenID: %{id}"
+      discovery_failed: "El descubrimiento falló para %{id}: %{error}"
+      id_attached_to_account: "OpenID: %{id} asociado a su cuenta"
       immediate_request_failed: "La petición inmediata ha fallado. Se necesita configuración previa"
       transaction_cancelled: "Transacción de OpenID cancelada"
-      verification_failed: "La verificación falló: {{message}}"
-      verification_failed_with_id: "La verificación de {{id}} falló: {{message}}"
-      verification_succeeded_with_id: "La verificación de {{id}} se realizó con éxito"
+      verification_failed: "La verificación falló: %{message}"
+      verification_failed_with_id: "La verificación de %{id} falló: %{message}"
+      verification_succeeded_with_id: "La verificación de %{id} se realizó con éxito"
     server: 
-      about_login_to: "Vas a entrar en {{server}}"
+      about_login_to: "Vas a entrar en %{server}"
       anti_phishing: "Esta página no tiene enlaces para evitar el <i>phishing</i>. Tienes que introducir tú la dirección en el navegador."
       cancel: "No, cancelar"
       decision: "Debes elegir:"
       endpoint: "Esto es un servidor de OpenID"
-      invalid_uri: "Esta identidad no te pertenece: {{uri}}"
-      login_to: "Entrar en {{server}}"
-      must_login: "Tienes que identificarte en {{server}}"
+      invalid_uri: "Esta identidad no te pertenece: %{uri}"
+      login_to: "Entrar en %{server}"
+      must_login: "Tienes que identificarte en %{server}"
       once: "Sí, sólo esta vez"
-      optional_information_by: "Información opcional pedida por {{server}}"
-      required_information_by: "Informacion necesaria pedida por {{server}}"
+      optional_information_by: "Información opcional pedida por %{server}"
+      required_information_by: "Informacion necesaria pedida por %{server}"
       trust: "Sí, y recordar a partir de ahora"
     title: OpenID
   pagination: 
-    next_label: "Siguiente →"
-    previous_label: "← Anterior"
+    next_label: "Siguiente &raquo;"
+    previous_label: "&laquo; Anterior"
   password_has_been_reset: "La contraseña se ha cambiado"
-  password_has_been_reset_with_agent: "{{agent}}, su contraseña se ha cambiado"
+  password_has_been_reset_with_agent: "%{agent}, su contraseña se ha cambiado"
   password_reset: "Cambio de Contraseña"
   password_reset_link_sent_to_email_address: "Se ha enviado a la dirección de correo un enlace para cambiar la contraseña"
   performance: 
@@ -150,7 +150,7 @@ es:
       the_role_should_not_belong_to_a_different_stage_type: "El rol no debería pertenecer a un tipo de escenario diferente."
     new: "Nuevo Integrante"
     other: Integrantes
-    other_in: "Integrantes de {{stage}}"
+    other_in: "Integrantes de %{stage}"
     read: 
       one: "Ver Integrante"
       other: "Ver Integrantes"
@@ -174,7 +174,7 @@ es:
     go_to_manage: "Ir a gestionar roles"
     index: "Lista de Roles"
     name: Nombre
-    name_permissions: "Permisos de {{name}}"
+    name_permissions: "Permisos de %{name}"
     new: "Nuevo Rol"
     one: Rol
     other: Roles
@@ -182,7 +182,7 @@ es:
       one: "Seleccionar Rol"
     stage_type: "Tipo de escenario"
     updated: "Rol actualizado satisfactoriamente."
-    without_permissions: "El rol {{role}} no tiene permisos"
+    without_permissions: "El rol %{role} no tiene permisos"
   save: Guardar
   send: Enviar
   send_reset_password_request: "Enviar petición de cambio de contraseña"
@@ -214,10 +214,10 @@ es:
   source: 
     errors: 
       content_type: 
-        invalid: "no es válido: {{content_type}}"
-      dereference: "No se pudo conectar a la fuente {{uri}}"
+        invalid: "no es válido: %{content_type}"
+      dereference: "No se pudo conectar a la fuente %{uri}"
       multiple_feeds: "La dirección tiene varias fuentes"
-      parse: "No se pudo analizar la fuente {{uri}}"
+      parse: "No se pudo analizar la fuente %{uri}"
     imported_at: Importada
     one: Fuente
     other: Fuentes
@@ -229,12 +229,12 @@ es:
   tag: 
     one: Etiqueta
     other: Etiquetas
-    other_in: "Etiquetas de {{container}}"
-    show_title: "Etiqueta '{{tag}}'"
+    other_in: "Etiquetas de %{container}"
+    show_title: "Etiqueta %{tag}"
   title: Título
   update: Actualizar
   updated_at: Actualizado
-  updated_at_date: "Actualizado: {{date}}"
+  updated_at_date: "Actualizado: %{date}"
   user: 
     activation_email_sent: "Se ha enviado un correo de activación al usuario"
     disabled: "Usuario deshabilitado"
