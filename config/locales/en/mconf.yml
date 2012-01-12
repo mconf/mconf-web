@@ -299,6 +299,7 @@ en:
     deleted: "Event deleted successfully"
     description: 
       add: "Add description."
+      edit: "Edit description"
       none: "No one has written a description yet."
     edit: "Edit event basic info"
     edit_data: "Change event date"
@@ -932,6 +933,8 @@ en:
   preferences: Preferences
   previous: Previous
   privacy: Privacy
+  private_message:
+    send: "Send private message"
   profile: 
     deleted: "Profile deleted successfully"
     description: 
@@ -1120,6 +1123,7 @@ en:
     add_user_other: ""
     all: "All spaces"
     allow_public_access: "Allow public access?"
+    attendeePW: "edit attendee password"
     clic: "Click to edit..."
     clic_logo: "Click to change your logo"
     configuration: "Space configuration"
@@ -1136,6 +1140,8 @@ en:
     disabled: "Space disabled successfully"
     edit: 
       webconference_passwords: "Webconference room passwords"
+    edit_description: "edit description"
+    edit_name: "edit name"
     enable: "Enable space"
     enabled: "Space enabled successfully"
     error: 
@@ -1166,6 +1172,7 @@ en:
       upload_text: Upload
       use_date: "Use event date"
     member_of: "Member of the spaces"
+    moderatorPW: "edit moderator password"
     my_spaces: "My Spaces"
     name_none: "A space name must be given to create a new space"
     one: Space
