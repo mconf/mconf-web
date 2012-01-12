@@ -44,7 +44,7 @@ class WebconferencesController < ApplicationController
   def join
     @room = BigbluebuttonRoom.find_by_param(params[:id])
     @server = BigbluebuttonServer.first
-    redirect_to invite_bigbluebutton_server_room_path(@server, @room)
+    redirect_to invite_bigbluebutton_room_path(@room)
   end
 
 end
