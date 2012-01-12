@@ -1,6 +1,6 @@
 <div id="bbbrails_rooms_links">
-  <%= link_to('View servers list', bigbluebutton_servers_path, :class => 'basic_button medium_button blue_button') %>
-  <%= link_to('New room', new_bigbluebutton_room_path, :class => 'basic_button medium_button blue_button') %>
+  <%= link_to(t('bigbluebutton_rails.view_server_list'), bigbluebutton_servers_path, :class => 'basic_button medium_button blue_button') %>
+  <%= link_to(t('bigbluebutton_rails.new_room'), new_bigbluebutton_room_path, :class => 'basic_button medium_button blue_button') %>
 </div>
 
 <% @rooms.each do |room| %>
@@ -23,8 +23,8 @@
     <label><%= t('bigbluebutton_rails.servers.index.access_links') %></label>
     <div class="value">
       <%= link_to t('join'), join_bigbluebutton_room_path(room), :class => 'basic_button small_button blue_button' %>
-      <%= link_to t('bigbluebutton_rails.rooms.index.join_mobile'), join_mobile_bigbluebutton_room_path(room), :class => 'basic_button small_button blue_button' %>
-      <%= link_to t('bigbluebutton_rails.rooms.index.invite'), invite_bigbluebutton_room_path(room), :class => 'basic_button small_button blue_button' %>
+      <%= link_to t('bigbluebutton_rails.rooms.join_mobile'), join_mobile_bigbluebutton_room_path(room), :class => 'basic_button small_button blue_button' %>
+      <%= link_to t('bigbluebutton_rails.rooms.invite'), invite_bigbluebutton_room_path(room), :class => 'basic_button small_button blue_button' %>
       <%= link_to t('edit'), edit_bigbluebutton_room_path(room), :class => 'basic_button small_button blue_button' %>
       <%= link_to t('end'), end_bigbluebutton_room_path(room), :confirm => t('are_you_sure'), :class => 'basic_button small_button blue_button' %>
       <%= link_to t('destroy'), bigbluebutton_room_path(room), :confirm => t('are_you_sure'), :method => :delete, :class => 'basic_button small_button blue_button' %>

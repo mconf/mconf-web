@@ -32,9 +32,9 @@
 
   <br/><br/>
   <%= link_to t('edit'), edit_bigbluebutton_server_path(@server), :class => 'basic_button medium_button blue_button' %>
-  <%= link_to 'View rooms', rooms_bigbluebutton_server_path(@server), :class => 'basic_button medium_button blue_button' %>
-  <%= link_to 'Activity monitor', activity_bigbluebutton_server_path(@server) %>
-  <%= link_to 'Destroy', bigbluebutton_server_path(@server), :confirm => t('are_you_sure'), :method => :delete %>
+  <%= link_to t('bigbluebutton_rails.view_rooms'), rooms_bigbluebutton_server_path(@server), :class => 'basic_button medium_button blue_button' %>
+  <%= link_to t('bigbluebutton_rails.activity_monitor'), activity_bigbluebutton_server_path(@server) %>
+  <%= link_to t('destroy'), bigbluebutton_server_path(@server), :confirm => t('are_you_sure'), :method => :delete %>
   <%= link_to t('room.other'), bigbluebutton_rooms_path, :class => 'basic_button medium_button blue_button' %>
   <br/><br/>
   <%= link_to t('back'), bigbluebutton_servers_path, :class => 'basic_button small_button blue_button' %>

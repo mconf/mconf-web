@@ -116,27 +116,42 @@ en:
   beta: beta
   bigbluebutton: BigBlueButton
   bigbluebutton_rails: 
+    activity_monitor: "Activity monitor"
+    attendees: 
+      id: ID
+      name: Name
+      role: Role
+    new_room: "New room"
+    new_server: "New server"
     rooms: 
+      external: 
+        header: "This meeting was created from another application.<br/>You must provide a name and a password to join:"
       index: 
         back_to_server_list: "Back to server list"
         invite: Invite
-        join_mobile: "Join mobile"
         new_room: "New room"
+      invite: Invite
+      join_mobile: "Join mobile"
     servers: 
       activity: 
         activity: Activity
         done: Done!
+        ended_at: "Ended at: %{time} (forcibly ended: %{forcibly})"
         information: Information
+        not_running: "Not running"
         now: Now!
+        participants: "Participants (%{total} total, %{mods} moderators):"
         refresh_now: "Refresh now"
         refreshing_in: "Refreshing in:"
+        running: Running!
         seconds: seconds
+        started_at: "Started at: %{time}"
         title: "Server activity monitor"
       index: 
         access_links: "Access links"
-        activity_monitor: "Activity monitor"
-        new_server: "New server"
-        view_rooms: "View rooms"
+    view_room_list: "View room list"
+    view_rooms: "View rooms"
+    view_server_list: "View server list"
   body: Body
   button: 
     accept: Accept
@@ -239,6 +254,7 @@ en:
     welcome: "Welcome to %{sitename}"
   enable: Enable
   enabled: Enabled
+  end: End
   error: 
     change: "Invalid change"
     credentials: "Invalid credentials"

@@ -5,34 +5,34 @@
         <div class="button_bar">
           <%= link_to 'Show', bigbluebutton_room_path(room) %>
           <%= link_to 'Edit', edit_bigbluebutton_room_path(room) %>
-          <%= link_to 'Destroy', bigbluebutton_room_path(room), :confirm => 'Are you sure?', :method => :delete %>
+          <%= link_to 'Destroy', bigbluebutton_room_path(room), :confirm => t('are_you_sure'), :method => :delete %>
         </div>
         <div class="button_bar">
-          <%= link_to 'Join', join_bigbluebutton_room_path(room) %>
-          <%= link_to 'Mobile Join', join_mobile_bigbluebutton_room_path(room) %>
-          <%= link_to 'End', end_bigbluebutton_room_path(room), :confirm => 'Are you sure?' %>
+          <%= link_to t('join.button'), join_bigbluebutton_room_path(room) %>
+          <%= link_to t('bigbluebutton_rails.rooms.index.join_mobile'), join_mobile_bigbluebutton_room_path(room) %>
+          <%= link_to t('bigbluebutton_rails.servers.activity.end'), end_bigbluebutton_room_path(room), :confirm => t('are_you_sure') %>
         </div>
       <% end %>
       <b><%= room.name %></b> (ID: <%= room.meetingid %>) -
       <% if room.is_running? %>
-        <span class="running">Running!</span>
+        <span class="running"><%= t('bigbluebutton_rails.servers.activity.running') %></span>
       <% else %>
-        <span class="not_running">Not running</span>
+        <span class="not_running"><%= t('bigbluebutton_rails.servers.activity.not_running') %></span>
       <% end %>
     </div>
     <% unless room.start_time.nil? %>
-      Started at: <%= room.start_time.strftime("%F, %R UTC%z") %><br/>
+      <%= t('bigbluebutton_rails.servers.activity.started_at', :time => room.start_time.strftime("%F, %R UTC%z")) %><br/>
     <% end %>
     <% unless room.end_time.nil? %>
-      Ended at: <%= room.end_time.strftime("%F, %R UTC%z") %> (forcibly ended: <%= room.has_been_forcibly_ended %>)
+      <%= t('bigbluebutton_rails.servers.activity.ended_at', :time => room.end_time.strftime("%F, %R UTC%z"), :forcibly => room.has_been_forcibly_ended) %>
     <% end %>
     <% unless room.attendees.count == 0 %>
-      Participants (<%= room.participant_count %> total, <%= room.moderator_count %> moderators):
+      <%= t('bigbluebutton_rails.servers.activity.participants', :total => room.participant_count, :mods => room.moderator_count) %>
       <div class="bbbrails_meeting_attendees">
         <div class="header">
-          <div class="field">Role</div>
-          <div class="field">ID</div>
-          <div class="field">Name</div>
+          <div class="field"><%= t('bigbluebutton_rails.attendees.role') %></div>
+          <div class="field"><%= t('bigbluebutton_rails.attendees.id') %></div>
+          <div class="field"><%= t('bigbluebutton_rails.attendees.name') %></div>
         </div>
         <% room.attendees.each do |attendee| %>
           <div class="row">
