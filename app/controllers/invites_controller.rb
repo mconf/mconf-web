@@ -116,15 +116,15 @@ class InvitesController < ApplicationController
       msg = Hash.new
       msg[:sender_id] = current_user.id
 
-      msg[:title] = t('event.invite_title', :username => current_user.full_name, :eventname => @event.name, :space => @event.space.name).html_safe
-
-      body = t('event.invite_message', :event_name => @event.name, :space => @event.space.name, :event_date => @event.start_date.strftime("%A %B %d at %H:%M:%S"), :event_url => space_event_url(@event.space,@event), :username => current_user.full_name, :useremail => current_user.email, :userorg => current_user.organization).html_safe
-      msg[:body] = body
-
       if params[:invite][:im_check] != "0"
         for receiver in params[:invite][:members_tokens].split(",")
+          user = User.find(receiver)
+          msg[:title] = t('event.invite_title', :username => current_user.full_name, :eventname => @event.name, :space => @event.space.name, :locale => user.locale).html_safe
+          body = t('event.invite_message', :event_name => @event.name, :space => @event.space.name, :event_date => @event.start_date.strftime("%A %B %d at %H:%M:%S"), :event_url => space_event_url(@event.space,@event), :username => current_user.full_name, :useremail => current_user.email, :userorg => current_user.organization, :locale => user.locale).html_safe
+          msg[:body] = body
           msg[:receiver_id] = receiver
           private_message = PrivateMessage.new(msg)
+
           if private_message.save
             @success_messages << private_message
             success = t('invite.invitation_successfully') << " " << t('invite.user_private_msg', :user => private_message.receiver.full_name)
@@ -138,9 +138,13 @@ class InvitesController < ApplicationController
       if params[:invite][:email_check] != "0"
         for receiver in params[:invite][:members_tokens].split(",")
           user = User.find(receiver)
+          msg[:title] = t('event.invite_title', :username => current_user.full_name, :eventname => @event.name, :space => @event.space.name, :locale => user.locale).html_safe
+          body = t('event.invite_message', :event_name => @event.name, :space => @event.space.name, :event_date => @event.start_date.strftime("%A %B %d at %H:%M:%S"), :event_url => space_event_url(@event.space,@event), :username => current_user.full_name, :useremail => current_user.email, :userorg => current_user.organization, :locale => user.locale).html_safe
+          msg[:body] = body
           msg[:email_receiver] = user.email
           msg[:locale] = user.locale
           Notifier.delay.event_email(msg)
+
           if success.size == 0
             success = t('invite.invitation_successfully') << " " << t('invite.email', :email => user.email)
           else
@@ -152,9 +156,13 @@ class InvitesController < ApplicationController
 
       if params[:invite][:email_tokens].size != 0
         for receiver in params[:invite][:email_tokens].split(/;|,/)
+          msg[:title] = t('event.invite_title', :username => current_user.full_name, :eventname => @event.name, :space => @event.space.name, :locale => current_user.locale).html_safe
+          body = t('event.invite_message', :event_name => @event.name, :space => @event.space.name, :event_date => @event.start_date.strftime("%A %B %d at %H:%M:%S"), :event_url => space_event_url(@event.space,@event), :username => current_user.full_name, :useremail => current_user.email, :userorg => current_user.organization, :locale => current_user.locale).html_safe
+          msg[:body] = body
           msg[:email_receiver] = receiver
           msg[:locale] = current_user.locale
           Notifier.delay.event_email(msg)
+
           if (receiver =~ /^[-a-z0-9_+\.]+\@([-a-z0-9]+\.)+[a-z0-9]{2,4}$/i)
             if success.size == 0
               success = t('invite.invitation_successfully') << " " << t('invite.email', :email => receiver)
@@ -201,14 +209,14 @@ class InvitesController < ApplicationController
 
     msg = Hash.new
 
-    msg[:title] = t('event.notification_title', :username => current_user.full_name, :eventname => @event.name, :space => @event.space.name).html_safe
     msg[:sender_id] = current_user.id
 
     @event.participants.each do |p|
       user = User.find(p.user_id)
 
       if user != current_user
-        msg[:body] = t('event.notification_message', :name => user.full_name,:event_name => @event.name, :space => @event.space.name, :event_date => @event.start_date.strftime("%A %B %d at %H:%M:%S"), :event_url => space_event_url(@event.space,@event), :username => current_user.full_name, :useremail => current_user.email, :userorg => current_user.organization).html_safe
+        msg[:title] = t('event.notification_title', :username => current_user.full_name, :eventname => @event.name, :space => @event.space.name, :locale => user.locale).html_safe
+        msg[:body] = t('event.notification_message', :name => user.full_name,:event_name => @event.name, :space => @event.space.name, :event_date => @event.start_date.strftime("%A %B %d at %H:%M:%S"), :event_url => space_event_url(@event.space,@event), :username => current_user.full_name, :useremail => current_user.email, :userorg => current_user.organization, :locale => user.locale).html_safe
 
         msg[:email_receiver] = user.email
         msg[:locale] = user.locale
