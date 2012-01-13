@@ -1,0 +1,75 @@
+- content_for :"global-header" do
+  = render :partial => "global_header"
+
+#page-header
+  #page-header-content
+    .headline= t('frontpage.project_description').html_safe
+    .links
+      %ul
+        %li
+          %a.link-title{:href => "http://inf.ufrgs.br/prav/gtmconf"}= t('frontpage.links.project_website')
+          %br/
+          %span.link-description= t('frontpage.links.project_website_desc')
+        %li
+          %a.link-title{:href => "https://github.com/mconf"}= t('frontpage.links.source_code')
+          %br/
+          %span.link-description= t('frontpage.links.source_code_desc')
+        %li
+          %a.link-title{:href => "http://code.google.com/p/mconf"}= t('frontpage.links.docs')
+          %br/
+          %span.link-description= t('frontpage.links.docs_desc')
+
+#content-mconf
+  = render :partial => "components"
+  #content-searching-for
+    .section-title
+      %h2= t('frontpage.searching_for.title')
+    .content-block
+      = image_tag('frontpage/icon-use-pb-40x40.png', :size => '40x40')
+      .text
+        %span.link-title
+          %a{:href => signup_path}= t('frontpage.searching_for.use.title')
+        %span= t('frontpage.searching_for.use.message').html_safe
+    .content-block
+      = image_tag('frontpage/icon-install-pb-40x40.png', :size => '40x40')
+      .text
+        %span.link-title
+          %a{:href => "http://code.google.com/p/mconf/wiki/MconfInstallation"}= t('frontpage.searching_for.install.title')
+        %span= t('frontpage.searching_for.install.message').html_safe
+    .content-block
+      = image_tag('frontpage/icon-collaborate-pb-40x40.png', :size => '40x40')
+      .text
+        %span.link-title
+          %a{:href => "http://code.google.com/p/mconf/wiki/MconfCollaborate"}= t('frontpage.searching_for.collaborate.title')
+        %span= t('frontpage.searching_for.collaborate.message').html_safe
+    = render_clearer
+  = render_clearer
+
+#content-current-site
+  = render :partial => 'space_list', :locals => { :spaces => @most_active_spaces }
+  #content-stats
+    .section-title
+      %h2= t('frontpage.stats.title')
+      .subtitle
+        %span= t('frontpage.stats.subtitle')
+      = render_clearer
+    .data
+      .content-block
+        %span.param= t('frontpage.stats.param_users')
+        %span.value= @stats[:users]
+      .content-block
+        %span.param= t('frontpage.stats.param_spaces')
+        %span.value= @stats[:spaces]
+      .content-block
+        %span.param= t('frontpage.stats.param_events')
+        %span.value= @stats[:events]
+      .content-block
+        %span.param= t('frontpage.stats.param_posts')
+        %span.value= @stats[:posts]
+      .content-block
+        %span.param= t('frontpage.stats.param_documents')
+        %span.value= @stats[:documents]
+      .content-block
+        %span.param= t('frontpage.stats.param_webconferences')
+        %span.value= @stats[:webconferences]
+  = render_clearer

@@ -37,10 +37,11 @@ body {
   @include clearfix;
 }
 
-#frontpage-logo {
+#main-logo {
   float: left;
   width: 200px;
   margin-top: ($global-header-height - 100px)/2;
+  white-space: nowrap;
 
   a { text-decoration: none; }
 
@@ -109,6 +110,12 @@ body {
     float: right;
     clear: both;
     margin-top: 5px;
+  }
+
+  .shibboleth_login {
+    border-left: 1px solid #888;
+    padding-left: 7px;
+    margin-left: 5px;
   }
 }
 

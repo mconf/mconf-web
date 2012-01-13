@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# Converts all .html.erb files in the folder '$1' to haml
+# Recusively:
+#   ./script/all_to_haml .
+# Not recusively:
+#   ./script/all_to_haml . "-maxdepth 1"
+find $1 $2 -name '*.erb' | xargs ruby -e 'ARGV.each { |i| puts "html2haml -e #{i} #{i.sub(/erb$/,"haml")}"}' | bash

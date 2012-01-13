@@ -141,6 +141,7 @@ GEM
       activesupport (>= 2.2.0)
       crack (>= 0.1.6)
     god (0.11.0)
+    haml (3.1.4)
     highline (1.6.2)
     hike (1.2.1)
     hoe (2.9.4)
@@ -294,6 +295,7 @@ DEPENDENCIES
   galetahub-simple_captcha
   garb
   god (= 0.11.0)
+  haml
   hoe
   hpricot
   htmlentities

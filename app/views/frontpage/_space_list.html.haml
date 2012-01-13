@@ -1,0 +1,17 @@
+#content-spaces
+
+  .section-title
+    %h2= t('frontpage.spaces.title')
+    .subtitle
+      %span
+        = t('frontpage.spaces.subtitle').html_safe
+    = render_clearer
+
+  #most-active-spaces
+    %ul
+      - spaces.each do |space|
+        %li
+          %a{:href => space_path(space)}
+            = logo(space, :size => 'h96', :title => sanitize(space.name)).html_safe
+
+  = render_clearer

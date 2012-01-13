@@ -15,6 +15,8 @@ end
 gem 'jquery-rails'
 gem 'therubyracer', :require => 'v8'
 
+gem 'haml'
+
 gem 'rake'
 
 gem 'will_paginate'

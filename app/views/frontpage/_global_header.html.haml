@@ -1,0 +1,23 @@
+#global-header-content
+
+  #main-logo
+    %a.title{:href => "/"}= t('mconf')
+    %span.subtitle .org
+
+  #registration-box
+    %span= t('frontpage.register_sentence')
+    .register_button
+      %a.button.orange.big{:href => signup_path}= t('register.one')
+
+  #login-box
+    = t('login.login_desc')
+    = form_tag session_url(:protocol => current_site.protocol) do
+      = text_field_tag 'login', params[:login]
+      %label{:for => "login"}= t('login.email_or_login')
+      = password_field_tag 'password', nil
+      %label{:for => "password"}= t('login.password')
+      %button.button{:type => "submit"}= t("login.one")
+    .action-links
+      = link_to t('user.lost_password'), lost_password_path
+      - if current_site.shib_enabled?
+        = link_to t('cafe.login'), shibboleth_path, :class => 'shibboleth_login'
