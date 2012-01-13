@@ -44,7 +44,7 @@ button, input[type=submit], input[type=button], .button {
   // sizes
   &.big {
     @include fancy-button-size($font-big, 5px, 1px);
-    @include fancy-button-padding(8px, 20px, 1px);
+    @include fancy-button-padding(8px, 15px, 1px);
   }
   &.small {
     @include fancy-button-size($font-small, 3px, 1px);
@@ -106,16 +106,19 @@ button, input[type=submit], input[type=button], .button {
   @include background(linear-gradient(top, $footer-bg-color, $footer-bg-color 30%, $site-bg-color));
   color: #444;
   clear: both;
+  margin-bottom: 10px;
 }
 
 #footer-content {
   width: $contents-width;
   margin: 0 auto;
   padding: 20px 5px 0 5px;
+  color: #666;
+  a { @include link-colors(desaturate($site-link, 20), $site-link-hover, $site-link-active); text-decoration: none;}
 
   h3 {
     font-size: 12px;
-    color: #555;
+    color: #777;
     margin-bottom: 10px;
     font-weight: bold;
     padding-bottom: 5px;
@@ -134,7 +137,7 @@ button, input[type=submit], input[type=button], .button {
 
   .link-group {
     float: left;
-    margin-right: 50px;
+    margin-right: 35px;
   }
 
   .link-group2 {
@@ -165,37 +168,34 @@ button, input[type=submit], input[type=button], .button {
     text-align: left;
     float: left;
   }
-}
-
-#footer-bottom {
-  background: $site-bg-color;
-  clear: both;
-  margin-bottom: 15px;
-}
-
-#footer-bottom-content {
-  @extend #footer-content;
-  width: $contents-width;
-  padding: 5px 5px 0 5px;
 
   .version-info {
-    margin-top: 10px;
     font-size: $font-small;
   }
 }
 
 #footer-logo {
-  width: 250px;
-  clear: left;
+  float: left;
+  color: #888;
 
-  a { @include link-colors(#555); text-decoration: none;}
+  a { @include link-colors(#bbb); }
 
   .title {
     font-weight: bold;
     font-size: 28px;
-    @include text-shadow(darken($footer-bg-color, 30) 1px 1px 4px);
-    &:hover { color: #333; }
   }
+
+  span { display: block; }
+}
+
+#footer-version {
+  float: left;
+  clear: left;
+  margin-top: 15px;
+  font-size: $font-small;
+  color: #888;
+
+  a { @include link-colors(#777, $site-link-hover, $site-link-active); display: block; }
 }
 
 

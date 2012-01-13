@@ -25,21 +25,13 @@ class FrontpageController < ApplicationController
     # @recent_posts = Post.find(:all, :conditions => {:parent_id => nil}, :order => "created_at Desc").select{|p| !p.space.disabled? && p.space.public == true}.first(2)
     # @recent_spaces = Space.where(:public => true).order("created_at Desc").first(4)
 
-    @stats = {}
-    @stats[:users] = User.count
-    @stats[:spaces] = Space.count
-    @stats[:events] = Event.count
-    @stats[:posts] = Post.count
-    @stats[:documents] = Attachment.count
-    @stats[:webconferences] = Statistic.where(['url LIKE ?', '/join']).count
-
     # Find the public spaces that have most pageviews
     @most_active_spaces = []
     Statistic.where(['url LIKE ?', '/spaces/%']).order('unique_pageviews desc').each do |rec|
       perma = rec.url.split("/").last
       space = Space.find_by_permalink(perma)
       @most_active_spaces << space if space and space.public?
-      break if @most_active_spaces.size == 14
+      break if @most_active_spaces.size == 7
     end
 
     respond_to do |format|

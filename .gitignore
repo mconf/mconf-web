@@ -10,6 +10,7 @@ public/logos
 attachments/*
 attachment_videos/*
 app/assets/images/tmp/*
+public/images/tmp/*
 spec/reports
 *~
 config/locales/log

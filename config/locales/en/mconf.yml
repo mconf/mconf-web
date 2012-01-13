@@ -492,6 +492,7 @@ en:
   footer: 
     built_on_top_of: "This website is based on <a href=\"https://github.com/ging/vcc\">VCC</a> (Global Plaza)"
     copyright: "© 2010-2012 Mconf."
+    current_version: Current version
     find_us: "Find more about Mconf"
     gcode: "Google Code"
     github: GitHub

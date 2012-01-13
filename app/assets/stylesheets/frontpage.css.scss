@@ -9,8 +9,8 @@
 
 // TODO: some styles that are here can be put in base.scss
 
-$global-header-height: 220px;
-$page-header-height: 100px;
+$global-header-height: 110px;
+$page-header-height: 80px;
 
 body {
   background-color: $site-bg-color;
@@ -32,7 +32,7 @@ body {
 #global-header-content {
   width: $contents-width;
   margin: 0 auto;
-  padding: 0;
+  padding: 25px;
   height: $global-header-height;
   @include clearfix;
 }
@@ -40,15 +40,15 @@ body {
 #main-logo {
   float: left;
   width: 200px;
-  margin-top: ($global-header-height - 100px)/2;
   white-space: nowrap;
+  margin-top: 10px;
 
   a { text-decoration: none; }
 
   .title {
     color: white;
     font-weight: bold;
-    font-size: 72px;
+    font-size: 66px;
     @include text-shadow(darken($header-bg-color, 30) 1px 1px 4px);
     &:hover {
       color: #ddd;
@@ -70,8 +70,6 @@ body {
   text-align: right;
   vertical-align: top;
   padding-right: 30px;
-  padding-top: ($global-header-height - 100px)/2;
-  padding-bottom: ($global-header-height - 100px)/2;
   //@include background(linear-gradient(right, darken($header-bg-color, 8), $header-bg-color));
 
   a { @include link-colors(#ddd, white, $site-link-active); }
@@ -84,10 +82,10 @@ body {
 
   input[type=text], input[type=password] {
     width: 200px;
-    font-size: 16px;
+    font-size: 14px;
     float: right;
     clear: both;
-    margin-top: 5px;
+    margin-top: 3px;
     @include border-radius(3px);
     background: #eee;
     @include background(linear-gradient(top, #ccc, #eee));
@@ -99,10 +97,10 @@ body {
   }
 
   label {
-    font-size: 18px;
+    font-size: 14px;
     float: right;
     margin-right: 10px;
-    margin-top: 10px;
+    margin-top: 7px;
   }
 
   button {
@@ -123,11 +121,9 @@ body {
   float: right;
   color: #eee;
   width: 250px;
-  font-size: $font-normal + 4px;
+  font-size: $font-normal + 2px;
   text-align: center;
   padding-right: 30px;
-  padding-top: ($global-header-height - 100px)/2;
-  padding-bottom: ($global-header-height - 100px)/2;
   //@include background(linear-gradient(left, darken($header-bg-color, 8), $header-bg-color));
 
   .register_button {
@@ -186,7 +182,6 @@ body {
     .link-title {
       font-size: $font-gigantic;
       color: #555;
-      font-variant: small-caps;
       font-weight: bold;
       @include text-shadow(white 2px 2px 4px);
       &:hover {
@@ -395,6 +390,7 @@ $components-images-width: 560px;
 
   #most-active-spaces {
     clear: both;
+    margin-top: 10px;
 
     ul { margin: 5px 0; }
     li {
@@ -402,6 +398,7 @@ $components-images-width: 560px;
       display: inline;
       margin-right: 5px;
     }
+
   }
 
   img {
@@ -413,28 +410,8 @@ $components-images-width: 560px;
   }
 }
 
-#content-stats {
-
-  .data {
-    float: left;
-
-    .content-block {
-      clear: both;
-      margin-right: 10px;
-      margin-top: 10px;
-
-      .param {
-        float: left;
-        min-width: 120px;
-        text-align: right;
-        margin-right: 10px;
-      }
-      .value {
-        float: left;
-        min-width: 50px;
-        font-weight: bold;
-        @include text-shadow(#aaa 1px 1px 4px);
-      }
-    }
-  }
+.qtip, .qtip-content, .qtip-wrapper, .qtip-contentWrapper, .qtip-title, .qtip-tip {
+  background: #000;
+  color: #fff;
+  // @include opacity(0.9);
 }

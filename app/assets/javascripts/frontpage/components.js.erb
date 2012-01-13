@@ -1,5 +1,22 @@
 $(document).ready(function() {
 
+// We'll target all AREA elements with alt tags (Don't target the map element!!!)
+   $('#most-active-spaces img').qtip(
+   {
+      content: {
+         attr: 'alt' // Use the ALT attribute of the area map for the content
+      },
+      position: {
+        corner: {
+           target: 'topMiddle',
+           tooltip: 'center'
+        }
+      },
+      hide: {
+        fixed: true // Make it fixed so it can be hovered over
+      }
+   });
+
   // clicking the items in the components menu changes the component
   // active in the slider
   $("#components-menu .content-block").livequery("click", function() {

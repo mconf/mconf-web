@@ -47,29 +47,4 @@
 
 #content-current-site
   = render :partial => 'space_list', :locals => { :spaces => @most_active_spaces }
-  #content-stats
-    .section-title
-      %h2= t('frontpage.stats.title')
-      .subtitle
-        %span= t('frontpage.stats.subtitle')
-      = render_clearer
-    .data
-      .content-block
-        %span.param= t('frontpage.stats.param_users')
-        %span.value= @stats[:users]
-      .content-block
-        %span.param= t('frontpage.stats.param_spaces')
-        %span.value= @stats[:spaces]
-      .content-block
-        %span.param= t('frontpage.stats.param_events')
-        %span.value= @stats[:events]
-      .content-block
-        %span.param= t('frontpage.stats.param_posts')
-        %span.value= @stats[:posts]
-      .content-block
-        %span.param= t('frontpage.stats.param_documents')
-        %span.value= @stats[:documents]
-      .content-block
-        %span.param= t('frontpage.stats.param_webconferences')
-        %span.value= @stats[:webconferences]
   = render_clearer
