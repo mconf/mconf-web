@@ -2,19 +2,17 @@
 %html
 
   %head
-    %meta{:content => "text/html; charset=utf-8", "http-equiv" => "Content-type"}/
+    %meta{:content => "text/html; charset=utf-8", "http-equiv" => "Content-type"}
     %title= content_for?(:title) ? yield(:title) : current_site.name
-    %link{:href => "/favicon.ico", :rel => "shortcut icon", :type => "image/x-icon"}/
+    %link{:href => "/favicon.ico", :rel => "shortcut icon", :type => "image/x-icon"}
+
     = stylesheet_link_tag 'frontpage_print', :media => 'print'
     = stylesheet_link_tag 'frontpage', :media => 'screen, projection'
     /[if IE]
-      <haml:loud> stylesheet_link_tag 'frontpage_ie.css', :media =&amp;gt; 'screen, projection' </haml:loud>
+      = stylesheet_link_tag 'frontpage_ie.css', :media => 'screen, projection'
     = javascript_include_tag 'frontpage'
     = csrf_meta_tag
-    %script{:charset => "utf-8", :type => "text/javascript"}
-      $(document).ready(function() {
-      <haml:loud> yield :javascript </haml:loud>
-      });
+
     = yield :headers
 
   %body

@@ -38,9 +38,6 @@ $("a.reply_to_link").click(function(){
          function(data){
            $("#sidebar").children("div:last").replaceWith(data);
 
-           /* Reply panel javascript*/
-           /*$("#reply-form").postsForm('<%= space_posts_url(@space) %>');*/
-
            var destination = $('#add').offset().top;
            $("html:not(:animated),body:not(:animated)").animate({ scrollTop: destination}, 1100, function() {
              window.location.hash = '#add'
@@ -78,9 +75,6 @@ $("a.edit_post_link").click(function(){
          function(data){
            $("#sidebar").children("div:last").replaceWith(data);
 
-           /*Edit thread*/
-           /*$("#edit-form").postsForm('<%= space_posts_url(@space) %>');*/
-
            $(".edit_thread_options").click(function(){
              $(".edit_thread_options").removeClass("selected");
              $(this).addClass("selected");});
@@ -89,8 +83,6 @@ $("a.edit_post_link").click(function(){
              $(".edit_reply_options").click(function(){
                $(".edit_reply_options").removeClass("selected");
                $(this).addClass("selected");});
-
-               style_file_input();
 
                /*Scroll to the edit form*/
                var destination = $('#add').offset().top;

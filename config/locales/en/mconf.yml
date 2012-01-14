@@ -180,6 +180,7 @@ en:
     reconnect_message: Reconnect
   check_mail: "Please, check your email"
   city: City
+  click_to_hide: "Click to hide"
   click_to_see_all: "See all"
   close: Close
   collapse: less

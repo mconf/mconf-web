@@ -13,11 +13,6 @@
  *  Reply panel
  */
 
-/* Submit without ajax until it will be posible to render message errors when a post witj attachment fail*/
-/*$("#reply-form").postsForm('<%= space_post_path(@space,@post, :last_page => true) %>');*/
-
-style_file_input();
-
 $(".new_reply_options").click(function(){
     $(".new_reply_options").removeClass("selected");
     $(this).addClass("selected");
@@ -64,8 +59,6 @@ $("a.edit_post_link").click(function(){
          $(".edit_reply_options").click(function(){
          $(".edit_reply_options").removeClass("selected");
          $(this).addClass("selected");});
-
-         style_file_input();
 
          /*Extract form fancbox*/
          $("a#big_edit_thread").fancybox({

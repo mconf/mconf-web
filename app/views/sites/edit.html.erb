@@ -1,20 +1,9 @@
-<%= content_for :headers do %>
-  <%= javascript_include_tag 'jquery/jquery.filestyle' %>
-<% end %>
-
 <%= content_for :javascript do %>
-  $("input[type=file]").filestyle({
-    image: "/assets/buttons/browse.png",
-    imageheight : 23,
-    imagewidth : 63,
-    width : 237
-  });
-
   $("#site_email_password_show").livequery('click', function(event) {
     if ($(this).is(':checked')) {
-      changeInputTextType("#current_site_email_password", 'text');
+      changeInputType("#current_site_email_password", 'text');
     } else {
-      changeInputTextType("#current_site_email_password", 'password');
+      changeInputType("#current_site_email_password", 'password');
     }
   });
 <% end %>
