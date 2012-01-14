@@ -2,7 +2,7 @@
 <% atom_link_header(space, Post.new, :title => h(t('post.other_in_space', :space => space.name))) %>
 
 <%= content_for :headers do  -%>
-  <%= javascript_include_tag 'jquery/jquery.fancybox', 'jquery/jquery.filestyle', 'fckeditor/fckeditor', 'jquery/jquery.fcbkcomplete' %>
+  <%= javascript_include_tag 'jquery/jquery.fancybox', 'fckeditor/fckeditor', 'jquery/jquery.fcbkcomplete' %>
   <%= stylesheet_link_tag "fcbkcomplete", :media => "screen, projection" %>
 <% end -%>
 
