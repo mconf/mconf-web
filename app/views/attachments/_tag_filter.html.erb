@@ -1,125 +1,117 @@
 <%= content_for :javascript do%>
-	//Add and rm tags functions
-	
-	$("#tag_filter").show();
+  //Add and rm tags functions
+
+  $("#tag_filter").show();
 
   hide_table = function(){
     $("#doc_repository").parent().html("<%=escape_javascript(t('repository.loading'))%>");
   }
-	
-	tags_array = function(){
-		return $.map($("#attachment_tags_filter option.selected"), function(element){
-		  return element.value;
-		});
+
+  tags_array = function(){
+    return $.map($("#attachment_tags_filter option.selected"), function(element){
+      return element.value;
+    });
   };
-	
-	update_tags = function(tags){
-	  if($.deparam.querystring().tags != tags.join(",")){
+
+  update_tags = function(tags){
+    if($.deparam.querystring().tags != tags.join(",")){
       hide_table();
       window.location = $.param.querystring(window.location + "", "tags=" + tags.join(","));
     }
-	};
-	
-	add_tag = function (){
-	  var tags= tags_array();
-	  update_tags(tags);
-	};
-	
-	rm_tag = function (item){
-	  var tags = tags_array();
-		for (var i = 0; i < tags.length; i++) {
-		  if (tags[i] == item._value) {
-		    tags.splice(i, 1);
-		    break;
-		  }
-		}
-	  update_tags(tags);
-	};
-		
-	$("#attachment_tags_filter").fcbkcomplete({
-	  cache: true,
-	  filter_case: false,
-	  filter_hide: true,
-	  firstselected: true,
-	  filter_selected: true,
-	  maxshownitems: 4,
-	  newel: false,
-	  complete_opts: true,
-	  onremove: rm_tag,
-	  onselect: add_tag
-	 });
-	 
-	 $(".add_tag_filter").click(function(){
-	   hide_table();
-	 });
-	 
-	 //Tag list functions
-	 
-	 collapse_tag_list = function(){
-	   $("#tag_abc_list").hide();
+  };
+
+  add_tag = function (){
+    var tags= tags_array();
+    update_tags(tags);
+  };
+
+  rm_tag = function (item){
+    var tags = tags_array();
+    for (var i = 0; i < tags.length; i++) {
+      if (tags[i] == item._value) {
+        tags.splice(i, 1);
+        break;
+      }
+    }
+    update_tags(tags);
+  };
+
+  $("#attachment_tags_filter").fcbkcomplete({
+    cache: true,
+    filter_case: false,
+    filter_hide: true,
+    firstselected: true,
+    filter_selected: true,
+    maxshownitems: 4,
+    newel: false,
+    complete_opts: true,
+    onremove: rm_tag,
+    onselect: add_tag
+   });
+
+   $(".add_tag_filter").click(function(){
+     hide_table();
+   });
+
+   //Tag list functions
+
+   collapse_tag_list = function(){
+     $("#tag_abc_list").hide();
      $("#tag_used_list").hide();
-		 $("#tag_collapsed_list").show();
-	 }
-	 
-	 used_tag_list = function(){
+     $("#tag_collapsed_list").show();
+   }
+
+   used_tag_list = function(){
      $("#tag_abc_list").hide();
      $("#tag_used_list").show();
      $("#tag_collapsed_list").hide();
    }
-	 
-	 abc_tag_list = function(){
+
+   abc_tag_list = function(){
      $("#tag_abc_list").show();
      $("#tag_used_list").hide();
      $("#tag_collapsed_list").hide();
    }
-	 
-	 $("a.tag_list_abc_order").click(function(){
-	   abc_tag_list();
-		 return false;
-	 });
-	 
-	 $("a.tag_list_used_order").click(function(){
+
+   $("a.tag_list_abc_order").click(function(){
+     abc_tag_list();
+     return false;
+   });
+
+   $("a.tag_list_used_order").click(function(){
      used_tag_list();
      return false;
    });
-   
- $('#tag_filter img.tooltip_tag_by').qtip({
-   content: '<%=t("tooltip.tag_by")%>',
-	 position: {adjust: { screen: true }},
-   show:  'mouseover',
-   hide: { when: 'mouseout', fixed: true },
-   style: 'mystyle'
-  });
 <%end%>
 
 
 <div id="tag_filter" style="display:none">
-	<div class="tag_filter_content">
-	  <label class="bold"><%=@tags.present? ? t('tag.selected', :count => @tags.size) : t('tag.filter')%></label>
+  <div class="tag_filter_content">
+    <label class="bold"><%=@tags.present? ? t('tag.selected', :count => @tags.size) : t('tag.filter')%></label>
     <select id="attachment_tags_filter" multiple="multiple" name="tags[]">
-	    <%=options_for_fcbkcomplete(@attachments.map(&:tags).flatten.compact.uniq,:id,:name,@tags).html_safe%>
-	  </select>
-	</div>
-	
-	<div id="tag_used_list" class="tag_filter_content">
-		<span>
+      <%=options_for_fcbkcomplete(@attachments.map(&:tags).flatten.compact.uniq,:id,:name,@tags).html_safe%>
+    </select>
+  </div>
+
+  <div id="tag_used_list" class="tag_filter_content">
+    <span>
       <label class="bold"><%=t 'tags_by'%></label>
-      <%=image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_tag_by",:style=>"cursor:pointer")%>
-      <label class="bold"><%=t 'popularity'%></label> | 
+      <%=image_tag("icons/help.png",:title=>t("tooltip.tag_by"),:size=>"16x16",:class=>"tooltipped upwards",:style=>"cursor:pointer")%>
+      <label class="bold"><%=t 'popularity'%></label> |
       <%=link_to "#{t 'abc'}", "", :class => "tag_list_abc_order"%>
     </span>
-		<ul>
-	      <% tag_count(@attachments, @tags, :order => "popularity").each do |t|%>
-	        <li><%=link_to "#{t[:tag].name}(#{t[:count]})", path_for_attachments({:add_tag => t[:tag].id}), :class => "add_tag_filter"%></li>
-	      <%end%>
-		</ul>
-	</div>
-	
-	<div id="tag_abc_list" class="tag_filter_content" style="display:none">
-	  <span>
+    <ul>
+        <% tag_count(@attachments, @tags, :order => "popularity").each do |t|%>
+          <li><%=link_to "#{t[:tag].name}(#{t[:count]})", path_for_attachments({:add_tag => t[:tag].id}), :class => "add_tag_filter"%></li>
+        <%end%>
+    </ul>
+  </div>
+
+  <div id="tag_abc_list" class="tag_filter_content" style="display:none">
+    <span>
       <label class="bold"><%=t 'tags_by'%></label>
-      <%=image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_tag_by",:style=>"cursor:pointer")%>
-      <%=link_to "#{t 'popularity'}", "", :class => "tag_list_used_order"%> | 
+      <%=image_tag("icons/help.png",:title=>t("tooltip.tag_by"),:size=>"16x16",:class=>"tooltipped upwards",:style=>"cursor:pointer")%>
+      <%=link_to "#{t 'popularity'}", "", :class => "tag_list_used_order"%> |
       <label class="bold"><%=t 'abc'%></label>
     </span>
       <ul>
@@ -127,9 +119,9 @@
           <li><%=link_to "#{t[:tag].name}(#{t[:count]})", path_for_attachments({:add_tag => t[:tag].id}), :class => "add_tag_filter"%></li>
         <%end%>
       </ul>
-	</div>
-	
-	<div id="tag_collapsed_list" style="display:none" class="tag_filter_content">
-		<span><label class="bold"><%=t 'tags_by'%> </label><%=link_to "#{t 'popularity'}", "", :class => "tag_list_used_order"%> | <%=link_to "#{t 'abc'}", "", :class => "tag_list_abc_order"%></span>
-	</div>
+  </div>
+
+  <div id="tag_collapsed_list" style="display:none" class="tag_filter_content">
+    <span><label class="bold"><%=t 'tags_by'%> </label><%=link_to "#{t 'popularity'}", "", :class => "tag_list_used_order"%> | <%=link_to "#{t 'abc'}", "", :class => "tag_list_abc_order"%></span>
+  </div>
 </div>

@@ -13,11 +13,12 @@
 // will be removed.
 
 #footer {
-  border-top: 1px solid $site-bg-color;
-  @include background(linear-gradient(top, $footer-bg-color, $footer-bg-color 30%, $site-bg-color));
+  border-top: 1px dashed #ddd;
+  // @include background(linear-gradient(top, $footer-bg-color, $footer-bg-color 30%, $site-bg-color));
   color: #444;
   clear: both;
   margin-bottom: 10px;
+  margin-top: 20px;
 }
 
 #footer-content {

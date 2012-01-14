@@ -26,7 +26,7 @@
   });
 
  $('#upload_vcard img.tooltip_vcard').qtip({
-   content: '<%=t("tooltip.vcard")%>',
+   content: '<%=%>',
    show:  'mouseover',
    hide: { when: 'mouseout', fixed: true },
    style: 'mystyle'
@@ -82,7 +82,7 @@
     </div>
 
     <div id="upload_vcard" style="display:none">
-      <h3><%=t("vCard.upload")%> <%=image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_vcard",:style=>"cursor:pointer")%></h3>
+      <h3><%=t("vCard.upload")%> <%=image_tag("icons/help.png",:title=>t("tooltip.vcard"),:size=>"16x16",:class=>"tooltipped upwards rightwards",:style=>"cursor:pointer")%></h3>
       <p class="sidebar_info2"><%=t("vCard.message")%></p>
       <%= form_for @profile, :url => user_profile_path(@user), :html => { :multipart => true, :method => :put } do |f| %>
         <p><%= f.file_field 'vcard' %></p>

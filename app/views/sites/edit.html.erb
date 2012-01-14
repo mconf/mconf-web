@@ -10,78 +10,6 @@
     width : 237
   });
 
- $('.tooltip_exception_notifications_email').qtip({
-   content: '<%= escape_javascript(t('site.exception_notifications_email_tip')) %>',
-   position: {adjust: { screen: true }},
-   show:  'mouseover',
-   hide: { when: 'mouseout', fixed: true },
-   style: 'mystyle'
-  });
-
- $('.tooltip_ssl').qtip({
-   content: '<%= escape_javascript(t('site.ssl_tip')) %>',
-   position: {adjust: { screen: true }},
-   show:  'mouseover',
-   hide: { when: 'mouseout', fixed: true },
-   style: 'mystyle'
-  });
-
- $('.tooltip_feedback_url').qtip({
-   content: '<%= escape_javascript(t('site.feedback_url_tip', :default_url => webconf_feedback_index_path)) %>',
-   position: {adjust: { screen: true }},
-   show:  'mouseover',
-   hide: { when: 'mouseout', fixed: true },
-   style: 'mystyle'
-  });
-
- $('.tooltip_exception_notifications').qtip({
-   content: '<%= escape_javascript(t('site.exception_notifications_tip')) %>',
-   position: {adjust: { screen: true }},
-   show:  'mouseover',
-   hide: { when: 'mouseout', fixed: true },
-   style: 'mystyle'
-  });
-
- $('.tooltip_shib_email_field').qtip({
-   content: '<%= escape_javascript(t('site.shib_email_field_tip')) %>',
-   position: {adjust: { screen: true }},
-   show:  'mouseover',
-   hide: { when: 'mouseout', fixed: true },
-   style: 'mystyle'
-  });
-
- $('.tooltip_shib_name_field').qtip({
-   content: '<%= escape_javascript(t('site.shib_name_field_tip')) %>',
-   position: {adjust: { screen: true }},
-   show:  'mouseover',
-   hide: { when: 'mouseout', fixed: true },
-   style: 'mystyle'
-  });
-
- $('.tooltip_email').qtip({
-   content: '<%= escape_javascript(t('site.email_tip')) %>',
-   position: {adjust: { screen: true }},
-   show:  'mouseover',
-   hide: { when: 'mouseout', fixed: true },
-   style: 'mystyle'
-  });
-
- $('.tooltip_email_password').qtip({
-   content: '<%= escape_javascript(t('site.email_password_tip')) %>',
-   position: {adjust: { screen: true }},
-   show:  'mouseover',
-   hide: { when: 'mouseout', fixed: true },
-   style: 'mystyle'
-  });
-
- $('.tooltip_analytics_code').qtip({
-   content: '<%= escape_javascript(t('site.analytics_code_tip')) %>',
-   position: {adjust: { screen: true }},
-   show:  'mouseover',
-   hide: { when: 'mouseout', fixed: true },
-   style: 'mystyle'
-  });
-
   $("#site_email_password_show").livequery('click', function(event) {
     if ($(this).is(':checked')) {
       changeInputTextType("#current_site_email_password", 'text');
@@ -116,13 +44,13 @@
   <p>
     <%= f.label :email, t('site.email') %>
     <%= f.text_field :email %>
-    <%= image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_email icon",:style=>"cursor:pointer").html_safe %>
+    <%= image_tag("icons/help.png",:title=>t('site.email_tip'),:size=>"16x16",:class=>"icon tooltipped upwards rightwards",:style=>"cursor:pointer").html_safe %>
   </p>
 
   <p>
     <%= f.label :email_password, t('site.email_password') %>
     <%= f.password_field :email_password %>
-    <%= image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_email_password icon",:style=>"cursor:pointer").html_safe %>
+    <%= image_tag("icons/help.png",:title=>t('site.email_password_tip'),:size=>"16x16",:class=>"icon tooltipped upwards rightwards",:style=>"cursor:pointer").html_safe %>
     <%= check_box_tag 'site_email_password_show' %><%= t('show_question') %>
   </p>
 
@@ -139,31 +67,31 @@
   <p>
     <%= f.label :ssl, t('site.ssl') %>
     <%= f.check_box :ssl %>
-    <%= image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_ssl icon",:style=>"cursor:pointer").html_safe %>
+    <%= image_tag("icons/help.png",:title=>t('site.ssl_tip'),:size=>"16x16",:class=>"icon tooltipped upwards rightwards",:style=>"cursor:pointer").html_safe %>
   </p>
 
   <p>
     <%= f.label :feedback_url, t('site.feedback_url') %>
     <%= f.text_field :feedback_url %>
-    <%= image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_feedback_url icon",:style=>"cursor:pointer").html_safe %>
+    <%= image_tag("icons/help.png",:title=>t('site.feedback_url_tip', :default_url => webconf_feedback_index_path),:size=>"16x16",:class=>"icon tooltipped upwards rightwards",:style=>"cursor:pointer").html_safe %>
   </p>
 
   <p>
     <%= f.label :analytics_code, t('site.analytics_code') %>
     <%= f.text_field :analytics_code %>
-    <%= image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_analytics_code icon",:style=>"cursor:pointer").html_safe %>
+    <%= image_tag("icons/help.png",:title=>t('site.analytics_code_tip'),:size=>"16x16",:class=>"icon tooltipped upwards rightwards",:style=>"cursor:pointer").html_safe %>
   </p>
 
   <p>
     <%= f.label :exception_notifications, t('site.exception_notifications') %>
     <%= f.check_box :exception_notifications %>
-    <%= image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_exception_notifications icon",:style=>"cursor:pointer").html_safe %>
+    <%= image_tag("icons/help.png",:title=>t('site.exception_notifications_tip'),:size=>"16x16",:class=>"icon tooltipped upwards rightwards",:style=>"cursor:pointer").html_safe %>
   </p>
 
   <p>
     <%= f.label :exception_notifications_email, t('site.exception_notifications_email') %>
     <%= f.text_field :exception_notifications_email %>
-    <%= image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_exception_notifications_email icon",:style=>"cursor:pointer").html_safe %>
+    <%= image_tag("icons/help.png",:title=>t('site.exception_notifications_email_tip'),:size=>"16x16",:class=>"icon tooltipped upwards rightwards",:style=>"cursor:pointer").html_safe %>
   </p>
 
   <p>
@@ -179,13 +107,13 @@
   <p>
     <%= f.label :shib_email_field, t('site.shib_email_field') %>
     <%= f.text_field :shib_email_field %>
-    <%= image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_shib_email_field icon",:style=>"cursor:pointer").html_safe %>
+    <%= image_tag("icons/help.png",:title=>t('site.shib_email_field_tip'),:size=>"16x16",:class=>"icon tooltipped upwards rightwards",:style=>"cursor:pointer").html_safe %>
   </p>
 
   <p>
     <%= f.label :shib_name_field, t('site.shib_name_field') %>
     <%= f.text_field :shib_name_field %>
-    <%= image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_shib_name_field icon",:style=>"cursor:pointer").html_safe %>
+    <%= image_tag("icons/help.png",:title=>t('site.shib_name_field_tip'),:size=>"16x16",:class=>"icon tooltipped upwards rightwards",:style=>"cursor:pointer").html_safe %>
   </p>
 
   <div id="site_button" class="margin-up">

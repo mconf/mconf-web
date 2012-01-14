@@ -2,14 +2,6 @@
 
 <%= content_for :javascript do  %>
 
-  $('#sidebar img.tooltip_invite_people').qtip({
-    content: '<%=t("tooltip.invite_people")%>',
-    position: {adjust: { screen: true }},
-    show:  'mouseover',
-    hide: { when: 'mouseout', fixed: true },
-    style: 'mystyle'
-  });
-
   $("a#invite_bbb_link").fancybox({
     'hideOnContentClick' : false,
     'frameWidth' : 450,

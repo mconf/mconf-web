@@ -11,29 +11,13 @@
  suggest_prefix = function(){
   $(".switch_js").replaceWith("<%=escape_javascript(prefix_select)%>")
  };
-
- $('#edit_public_profile img.tooltip_public_profile').qtip({
-   content: '<%=t("tooltip.public_profile")%>',
-         position: {adjust: { screen: true }},
-   show:  'mouseover',
-   hide: { when: 'mouseout', fixed: true },
-   style: 'mystyle'
-  });
-
- $('#edit_private_profile img.tooltip_private_profile').qtip({
-   content: '<%=t("tooltip.private_profile")%>',
-         position: {adjust: { screen: true }},
-   show:  'mouseover',
-   hide: { when: 'mouseout', fixed: true },
-   style: 'mystyle'
-  });
 <%end%>
 
 <div id="edit_public_profile">
         <div class="title">
           <h3>
                 <%= t('profile.public') %>
-                <%=image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_public_profile icon",:style=>"cursor:pointer")%>
+                <%=image_tag("icons/help.png",:title=>t("tooltip.public_profile"),:size=>"16x16",:class=>"icon tooltipped upwards rightwards",:style=>"cursor:pointer")%>
           </h3>
         </div>
 
@@ -78,7 +62,7 @@
         <div class="title">
           <h3>
                 <%= t('profile.private') %>
-                <%=image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_private_profile icon",:style=>"cursor:pointer")%>
+                <%=image_tag("icons/help.png",:title=>t("tooltip.private_profile"),:size=>"16x16",:class=>"icon tooltipped upwards rightwards",:style=>"cursor:pointer")%>
           </h3>
         </div>
         <div class="profile_content_item">

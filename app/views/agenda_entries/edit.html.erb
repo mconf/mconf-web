@@ -34,19 +34,6 @@
 
         });
 
-
-  $('.agenda_edit_entry img[tooltip]').each(function()
-   {
-      $(this).qtip({
-         content: $(this).attr('tooltip'), // Use the tooltip attribute of the element for the content
-                           position: {adjust: { screen: true }},
-                           show:  'mouseover',
-                           hide: { when: 'mouseout', fixed: true },
-         style: 'mystyle' // Give it a crea mstyle to make it stand out
-      });
-   });
-
-
   $('.vid_type_radio').change(function(){
         update_video_type_status();
   });
@@ -87,7 +74,7 @@
         <%= "eventAttachment='#{ generate_template(f,:attachments) }'" %>
       <% end %>
 
-      <div class="margin-up"><label for="divider"><%= t('agenda.divider.one') %></label> <%=image_tag('icons/help.png',:class=>'icon',:tooltip=>t('tooltip.divider'))%><br/>
+      <div class="margin-up"><label for="divider"><%= t('agenda.divider.one') %></label> <%=image_tag('icons/help.png',:class=>'icon tooltipped upwards',:title=>t('tooltip.divider'))%><br/>
         <%= f.text_field :divider %>
       </div>
 
@@ -133,9 +120,9 @@
           <%= t('agenda.entry.options.streaming') %>
         </label>
                 <%if @agenda_entry.past?%>
-                  <%=image_tag('icons/help.png',:class=>'icon',:tooltip=>t('tooltip.help4'))%>
+                  <%=image_tag('icons/help.png',:class=>'icon tooltipped upwards',:title=>t('tooltip.help4'))%>
                 <%elsif @agenda_entry.is_happening_now?%>
-                  <%=image_tag('icons/help.png',:class=>'icon',:tooltip=>t('tooltip.help5'))%>
+                  <%=image_tag('icons/help.png',:class=>'icon tooltipped upwards',:title=>t('tooltip.help5'))%>
                 <%end%>
       </div>
    <%end%>
@@ -149,7 +136,7 @@
                   <%end%>
                   <div><%= f.radio_button :video_type, AgendaEntry::VIDEO_TYPE.index(vid_type), :class=>"vid_type_radio"%>
               <label for="<%=('video_type_' + vid_type.to_s)%>"><%= t( 'agenda.entry.label_' + vid_type.to_s ) %></label>
-              <%=image_tag('icons/help.png',:class=>'icon',:tooltip=>t('tooltip.label_' + vid_type.to_s)) %>
+              <%=image_tag('icons/help.png',:class=>'icon tooltipped upwards',:title=>t('tooltip.label_' + vid_type.to_s)) %>
               </div>
         <% end%>
      </div>
@@ -157,7 +144,7 @@
 
 
       <div class="margin-up" id="video_embed_div" style="display:none">
-        <div id="help" title="<%= h(t('tooltip.embed_help')) %>"></div>
+        <div id="help" title="<%= h(t('tooltip.embed_help')) %>" class="tooltipped upwards"></div>
         <label for="embedded_video"><%= t('agenda.entry.embedded_video') %></label><br/>
         <%= f.text_area :embedded_video, :size => "25x5" %>
       </div>
@@ -176,7 +163,7 @@
 
                           <%= at_form.check_box '_delete' %>
                           <%= at_form.label '_delete', t('video_attachment.delete') %>
-                                                  <%=image_tag('icons/help.png',:class=>'icon',:tooltip=>t('tooltip.video_upload_explanation')) %>
+                                                  <%=image_tag('icons/help.png',:class=>'icon tooltipped upwards',:title=>t('tooltip.video_upload_explanation')) %>
 
                         <% end %>
 

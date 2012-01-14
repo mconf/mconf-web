@@ -1,5 +1,5 @@
 <div id="space_logo" class="space_logo">
-    <h3>Event Logo<%=image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_update_logo icon",:style=>"cursor:pointer") %></h3>
+    <h3>Event Logo<%=image_tag("icons/help.png",:title=>t("tooltip.event_logo"),:size=>"16x16",:class=>"icon tooltipped upwards",:style=>"cursor:pointer") %></h3>
     <div id = "selected_logo" style="padding-bottom:10px;">
         <center>
         <%if @event.logo %>

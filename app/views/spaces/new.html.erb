@@ -1,3 +1,367 @@
-<%= render :partial => 'new' %>
+<%= content_for :headers do%>
+  <%= javascript_include_tag 'jquery/jquery.jcrop' %>
+<% end %>
+
+<%= content_for :javascript do %>
+
+// fancy box to crop the image
+<%= render :partial => 'logos/crop_logo.js.erb',
+           :locals => { :form_id => 'select_logo_form',
+                        :url_form => logos_path({ :upload => :yes}),
+                        :container_id => 'resultado',
+                        :aspect_ratio => Logo::ASPECT_RATIO_S,
+                        :crop_size => 188,
+                        :on_success => 'onCropLogoFormSuccess' } %>
+
+  $(document).ready(function() {
+    if ($("#create_space #public").is(':checked')) {
+      $('#new_space_webconf_area').hide();
+      $('#moderatorPW').attr('disabled', true);
+      $('#attendeePW').attr('disabled', true);
+    }
+    else {
+      $('#new_space_webconf_area').show();
+      $('#moderatorPW').removeAttr('disabled');
+      $('#attendeePW').removeAttr('disabled');
+    }
+  });
+
+// function executed after the crop fancy box is shown
+onCropLogoFormSuccess = function() {
+  $('#crop_logo_form').ajaxForm({
+    beforeSubmit:function() {
+      $("#selected_logo_image").attr('src', "");
+    },
+    target: '#resultado',
+    success: function() {
+      $('#resultado').fadeIn('slow');
+      $("#space_image").attr('value', "tmp/" + rand + "/uploaded_logo.png");
+      $("#selected_logo_image").attr('src', "/assets/" + "tmp/" + rand + "/uploaded_logo.png?" + (new Date()).getTime());
+      $.fancybox.close();
+      closeUploadLogo();
+    }
+  });
+}
+
+selectDefaultImage = function(image){
+        $("#space_image").attr('value', "default_space_logos/" + image);
+        $("#selected_logo_image").attr('src', "/assets/default_space_logos/" + image);
+}
+
+selectGeneratedImage = function(image){
+        $("#space_image").attr('value', image);
+        $("#selected_logo_image").attr('src', "/assets/" + image + "?" + (new Date()).getTime());
+}
+
+$("#selected_logo_image").attr('src', "/assets/" + ($("#space_image").val()));
+
+closeTextLogo = function(){
+        $("#default_text_logo").hide(0);
+        $("#open_text_logo_link").show();
+        $("#close_text_logo_link").hide();
+}
+
+openTextLogo = function(){
+        $("#default_text_logo").show(0);
+        $("#open_text_logo_link").hide();
+        $("#close_text_logo_link").show();
+}
+
+closeGallery  = function (){
+        $("#default_space_images").hide(0);
+        $("#open_gallery_link").show();
+        $("#close_gallery_link").hide();
+}
+
+openGallery  = function (){
+         $("#default_space_images").show(0);
+         $("#close_gallery_link").show();
+         $("#open_gallery_link").hide();
+}
+
+closeUploadLogo = function(){
+        $("#default_upload_logo").hide(0);
+        $("#open_upload_logo_link").show();
+        $("#close_upload_logo_link").hide();
+}
+
+openUploadLogo  = function (){
+        $("#default_upload_logo").show(0);
+        $("#open_upload_logo_link").hide();
+        $("#close_upload_logo_link").show();
+}
+
+var dateTime = new Date();
+var rand = dateTime.getHours() + "" + dateTime.getMinutes() + "" + dateTime.getSeconds() + "" + dateTime.getMilliseconds();
+
+//$("#logo_rand").attr('value', dateTime.getHours() + "" + dateTime.getMinutes() + "" + dateTime.getSeconds() + "" + dateTime.getMilliseconds());
+$("#logo_rand").attr('value', rand);
+$("#space_rand_value").attr('value', rand);
+
+$("#generate_text_logo_button").livequery('click',function(){
+        $.get('/logos/new?text='+ ($("#space_text_logo").val()) + '&rand_name=' + rand , function(data) {
+                $('#generated_text_logos').html(data);
+        });
+});
+
+$("#create_space_button").livequery('click',function(){
+
+  // Validate name
+  var name = ($('#space_name').val());
+  if (name == "") {
+    $("#error_name").show();
+    var destination_add = $('#new_space_anchor').offset().top;
+    $("html:not(:animated),body:not(:animated)").animate({ scrollTop: destination_add}, 1100, function() {
+      window.location.hash = '#new_space_anchor';
+    });
+  } else {
+    $("#error_name").hide();
+  }
+
+  // Validate description
+  var description = ($('#space_description').val());
+  if (description == "") {
+    $("#error_description").show();
+    var destination_add = $('#new_space_anchor').offset().top;
+    $("html:not(:animated),body:not(:animated)").animate({ scrollTop: destination_add}, 1100, function() {
+      window.location.hash = '#new_space_anchor';
+    });
+  } else {
+    $("#error_description").hide();
+  }
+
+  if ((name != "") && (description != "")) {
+    $("form#space_new_form").submit();
+  }
+});
+
+/*
+        $('#select_logo_form').ajaxForm({
+
+        // target identifies the element(s) to update with the server response
+        target: '#resultado',
+
+        // success identifies the function to invoke when the server response
+        // has been received; here we apply a fade-in effect to the new content
+        success: function() {
+            $('#resultado').fadeIn('slow');
+                        size = 188;
+                        $("#croplogo").Jcrop({
+                              onSelect: cropImage,
+                              onChange: cropImage,
+                                                bgColor : 'white',
+                });
+
+                        $('#crop_logo_form').ajaxForm({
+                                beforeSubmit:function() {
+                                        $("#selected_logo_image").attr('src', "");
+                                },
+                        target: '#resultado',
+                        success: function() {
+                        $('#resultado').fadeIn('slow');
+                                        $("#space_image").attr('value', "tmp/" + rand + "/uploaded_logo.png");
+                                        $("#selected_logo_image").attr('src', "/assets/" + "tmp/" + rand + "/uploaded_logo.png?" + (new Date()).getTime());
+                                        closeUploadLogo();
+                        }
+                });
+       }
+
+    });
 
 
+function cropImage (c){
+        $("#crop_size_x").val(c.x);
+        $("#crop_size_y").val(c.y);
+        $("#crop_size_height").val(c.h);
+        $("#crop_size_width").val(c.w);
+};
+*/
+
+  $('#space_new_form img[tooltip]').each(function()
+  {
+      $(this).qtip({
+         content: $(this).attr('tooltip'), // Use the tooltip attribute of the element for the content
+                           position: {adjust: { screen: true }},
+                           show:  'mouseover',
+                           hide: { when: 'mouseout', fixed: true },
+         style: 'mystyle' // Give it a crea mstyle to make it stand out
+      });
+    });
+
+  $("#create_space #public").livequery('click', function(event) {
+    $('#new_space_webconf_area').toggle(0);
+    if ($(this).is(':checked')) {
+      $('#moderatorPW').attr('disabled', true);
+      $('#attendeePW').attr('disabled', true);
+    } else {
+      $('#moderatorPW').removeAttr('disabled');
+      $('#attendeePW').removeAttr('disabled');
+    }
+  });
+
+  $("#create_space #hideMPW").livequery('click', function(event) {
+    if ($(this).is(':checked')) {
+      changeInputTextType("#moderatorPW", 'text');
+    }
+    else {
+      changeInputTextType("#moderatorPW", 'password');
+    }
+  });
+
+  $("#create_space #hideAPW").livequery('click', function(event) {
+    if ($(this).is(':checked')) {
+      changeInputTextType("#attendeePW", 'text');
+    }
+    else {
+      changeInputTextType("#attendeePW", 'password');
+    }
+  });
+
+<% end %>
+
+
+
+<div id="create_space" class="create_space_blinking">
+  <a id="new_space_anchor" name="new_space_anchor" ></a>
+  <div class="form">
+    <%= form_for @space, :html => {:method => :post, :multipart => true, :name => "space_new_form", :id => "space_new_form"}, :url => spaces_url(:protocol => current_site.protocol) do |f|%>
+    <%= f.hidden_field "rand_value" %>
+    <%unless logged_in?%>
+    <div id="left">
+      <div class="options">
+        <ul>
+          <li class="title"><%= t('login_or_register') %>:</li>
+          <li><%=link_to t("login.one"), new_space_path(), :id => "create_and_login_link", :class=>"#{'selected' unless params[:register]}"%></li>
+          <li> | </li>
+          <li><%=link_to t('register.one'), new_space_path(:register => true), :id => "create_and_register_link", :class=>"#{'selected' if params[:register]}"%></li>
+        </ul>
+      </div>
+
+      <%if params[:register]%>
+      <%= render :partial => 'register_fields' %>
+      <%else%>
+      <%= render :partial => 'login_fields' %>
+      <%end%>
+    </div>
+
+    <div id="right">
+      <%end%>
+      <%if logged_in?%>
+      <div><span class="title"><%= t('space.create_own') %></span></div>
+      <div>
+        <label for="name" id= "space_name_label"><%= t('name.one') %></label><br/>
+        <div class='error' id="error_name" style="display:none" ><%= escape_javascript(t('space.name_none'))%></div>
+        <%= f.text_field :name %>
+      </div>
+
+      <div>
+        <label for="description" id= "space_description_label"><%= t('description') %></label><br/>
+        <div class='error' id="error_description" style="display:none" ><%= escape_javascript(t('space.description_none'))%></div>
+        <%= f.text_area(:description,:class=>"area") %>
+      </div>
+
+      <div>
+        <%= f.check_box :public, :id => "public" %><label for="public"><%= t('space.public.one') %></label>
+        <%=image_tag("icons/help.png",:title=>"", :size=>"16x16",:class=>"icon",:style=>"cursor:pointer",:tooltip=> t("tooltip.public_space"))%>
+      </div>
+
+      <div id="new_space_webconf_area">
+        <h3><%= t('space.create.webconf_options') %></h3>
+        <%= f.fields_for :bigbluebutton_room do |r| %>
+        <div class="field">
+          <%= r.label :moderator_password, t('activerecord.attributes.spaces.moderator_password') %>
+          <%= r.password_field :moderator_password, :id => "moderatorPW" %>
+          <%= check_box_tag 'hideMPW' %><%= t('show_question') %>
+        </div>
+        <div class="field">
+          <%= r.label :attendee_password, t('activerecord.attributes.spaces.attendee_password') %>
+          <%= r.password_field :attendee_password, :id => "attendeePW" %>
+          <%= check_box_tag 'hideAPW' %><%= t('show_question') %>
+        </div>
+        <% end %>
+      </div>
+      <%
+         @files = Dir.entries("app/assets/images/default_space_logos/")
+         images_for_row = 5 # number of images per row
+         images_now = 1
+         @files.delete(".")
+         @files.delete("..")
+         selected = rand(@files.length)
+      %>
+
+      <%= hidden_field "space","image",:value => "default_space_logos/" + @files[selected].to_s, :name => "space[default_logo]" %>
+
+      <br>
+
+
+      <div id='default_text_logo' style="display:none">
+
+        <label for="logo_text" id= "space_logo_text_label">
+          <%= t('space.logo_selected.enter_text') %>
+        </label>
+        <br/>
+        <%= f.text_field :text_logo %>
+        <input type="button" id="generate_text_logo_button" value="<%=t("space.logo_selected.generate_logo") %>" class="basic_button blue_button"/>
+
+        <div id = "generated_text_logos"></div>
+
+      </div>
+
+      <div id='default_space_images' style="display:none">
+
+
+        <%
+           for file in @files
+           images_now+= 1
+        %>
+        <%=link_to (image_tag "default_space_logos/" + file.to_s, {:id=> ( file.to_s.gsub('.','') ),:class => "default_space_logo",:title => "Click to choose a default image",:size => "100x76"}), 'javascript:selectDefaultImage("' + ( file.to_s ) + '");' %>
+
+        <% if images_now > images_for_row %>
+        <br>
+        <% images_now=1;
+           end %>
+        <% end %>
+      </div>
+
+
+      <%unless logged_in?%>
+    </div><%end%>
+    <%end%>
+    <%end%>
+    <%if logged_in?%>
+    <div id="default_upload_logo" style="display:none">
+      <%= form_for :logo, :html => {:method => :post, :id =>"select_logo_form", :multipart => true, :name => "space_new_form"}, :url => {:controller => :logos, :action => :new, :upload => :yes} do |f| %>
+      <%= t("space.logo_selected.upload_logo_text")%><br>
+      <%= f.file_field :media, :class=>"file file1 basic_button blue_button" %>
+
+      <%= f.hidden_field  "rand" %>
+      <input id="upload_logo_button" type="submit" class = "basic_button blue_button" value="<%=t("space.logo_selected.upload_text")%>" /><% end %>
+      <div id="resultado">
+      </div>
+    </div>
+
+    <br><input type="button" id="create_space_button" value="<%=t("button.create") %>" class="basic_button blue_button"/>
+    <%end%>
+  </div>
+</div>
+
+
+<%= content_for :sidebar do %>
+<%if logged_in?%>
+<div id="space_logo" class="space_logo">
+  <h3><%=t('space.logo_selected.default_message') %> <%=image_tag("icons/help.png",:title=>t("tooltip.update_logo"),:size=>"16x16",:class=>"icon tooltipped upwards",:style=>"cursor:pointer")%></h3>
+  <div id="selected_logo" style="padding-bottom:10px;">
+    <center>
+      <%=image_tag "default_space_logos/", {:id=> "selected_logo_image",:class => "default_space_logo",:title => "Click to choose a default image",:size => "160x122"} %>
+    </center>
+  </div>
+</div>
+
+<ul class="first_options">
+  <li><%=link_to t('space.logo_selected.open_gallery'), 'javascript:closeTextLogo();closeUploadLogo();openGallery();', { :class=>"show_inv tooltip1",:title => t('space.logo_selected.open_gallery')} %></li>
+  <li><%=link_to t('space.logo_selected.text_logo'), 'javascript:closeUploadLogo();closeGallery();openTextLogo();', { :class=>"show_inv",:title => t('space.logo_selected.text_logo')} %></li>
+  <li><%=link_to t('space.logo_selected.upload_logo'), 'javascript:closeTextLogo();closeGallery();openUploadLogo();', { :class=>"show_inv",:title => t('space.logo_selected.upload_logo')} %></li>
+</ul>
+
+<% end %>
+<% end %>

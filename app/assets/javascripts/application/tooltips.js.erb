@@ -7,9 +7,12 @@ $(document).ready(function() {
     if (obj.hasClass("downwards")) {
       my = 'top';
       at = 'bottom';
-    } else {
+    } else if (obj.hasClass("upwards")) {
       my = 'bottom';
       at = 'top';
+    } else {
+      at = 'center';
+      my = 'center';
     }
     if (obj.hasClass("leftwards")) {
       my += ' right';
