@@ -1,6 +1,8 @@
 /*
  *= require ../../../vendor/assets/stylesheets/anythingslider/anythingslider
  *= require ../../../vendor/assets/stylesheets/anythingslider/theme-minimalist-round
+ *= require ../../../vendor/assets/stylesheets/jquery/jquery.qtip.2.0.0pre
+ *= require_tree ./application/
  */
 
 @import "compass/css3";
@@ -246,13 +248,13 @@ body {
   }
 }
 
-$components-images-width: 560px;
+$components-images-width: 530px;
 #components-images {
   width: $components-images-width;
   margin: 0;
   float: left;
-  width: 500px;
-  height: 320px;
+  width: 470px;
+  height: 300px;
   list-style: none;
 
   .caption { display: none; }
@@ -263,6 +265,7 @@ $components-images-width: 560px;
   margin: 0;
   padding: 0;
   float: right;
+  width: $contents-width - $components-images-width - 10px;
 
   h2 {
     @include border-radius(5px);
@@ -271,10 +274,7 @@ $components-images-width: 560px;
   }
 
   .content-block {
-    clear: both;
-    width: $contents-width - $components-images-width - 40px;
-    height: 50px;
-    float: left;
+    height: 40px;
     padding: 5px 15px;
     @include border-radius(4px);
     text-align: left;
@@ -311,14 +311,14 @@ $components-images-width: 560px;
       border: solid transparent;
       content: ' ';
       height: 0;
-      left: -35px;
+      left: -32px;
       position: absolute;
       width: 0;
     }
     &:before {
       border-width: 20px;
       border-right-color: #222;
-      top: 10px;
+      top: 5px;
     }
   }
 
@@ -408,10 +408,4 @@ $components-images-width: 560px;
 
     &:hover { @include box-shadow(0px 0px 15px $header-bg-color); }
   }
-}
-
-.qtip, .qtip-content, .qtip-wrapper, .qtip-contentWrapper, .qtip-title, .qtip-tip {
-  background: #000;
-  color: #fff;
-  // @include opacity(0.9);
 }

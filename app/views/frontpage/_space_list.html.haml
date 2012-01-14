@@ -12,6 +12,8 @@
       - spaces.each do |space|
         %li
           %a{:href => space_path(space)}
-            = logo(space, :size => 'h96', :title => sanitize(space.name)).html_safe
+            - options = { :size => 'h96', :title => sanitize(space.name), :class => 'tooltipped-label downwards' }
+            = logo(space, options).html_safe
+    = render_clearer
 
   = render_clearer

@@ -13,24 +13,23 @@
 // will be removed.
 
 #footer {
-  border-top: 1px dashed darken($footer-bg-color, 10);
-  // @include background(linear-gradient(top, $footer-bg-color, $footer-bg-color 30%, $site-bg-color));
-
-  margin-top: 20px;
+  border-top: 1px solid $site-bg-color;
+  @include background(linear-gradient(top, $footer-bg-color, $footer-bg-color 30%, $site-bg-color));
   color: #444;
   clear: both;
+  margin-bottom: 10px;
 }
 
 #footer-content {
   width: $contents-width;
   margin: 0 auto;
   padding: 20px 5px 0 5px;
-
-  // a { @include link-colors(#666); }
+  color: #666;
+  a { @include link-colors(desaturate($site-link, 20), $site-link-hover, $site-link-active); text-decoration: none;}
 
   h3 {
     font-size: 12px;
-    color: #555;
+    color: #777;
     margin-bottom: 10px;
     font-weight: bold;
     padding-bottom: 5px;
@@ -49,7 +48,7 @@
 
   .link-group {
     float: left;
-    margin-right: 50px;
+    margin-right: 35px;
   }
 
   .link-group2 {
@@ -80,32 +79,40 @@
     text-align: left;
     float: left;
   }
-}
 
-#footer-bottom {
-  background: $site-bg-color;
-  clear: both;
-  margin-bottom: 15px;
-}
-
-#footer-bottom-content {
-  @extend #footer-content;
-  width: $contents-width;
-  padding: 5px 5px 0 5px;
-
-  .version-info { margin-top: 10px; }
+  .version-info {
+    font-size: $font-small;
+  }
 }
 
 #footer-logo {
-  width: 250px;
-  clear: left;
+  float: left;
+  color: #888;
 
-  a { @include link-colors(#555); text-decoration: none;}
+  a { @include link-colors(#bbb, #bbb, #bbb); }
 
   .title {
     font-weight: bold;
     font-size: 28px;
-    @include text-shadow(darken($footer-bg-color, 30) 1px 1px 4px);
-    &:hover { color: #333; }
+  }
+
+  span { display: block; }
+}
+
+#footer-version {
+  float: left;
+  clear: left;
+  margin-top: 15px;
+  font-size: $font-small;
+  color: #888;
+
+  a { @include link-colors(#777, $site-link-hover, $site-link-active); display: block; }
+}
+
+.ui-tooltip-mconf {
+  .ui-tooltip-content {
+    font-size: $font-normal;
+    text-align: center;
+    line-height: 1.3em;
   }
 }

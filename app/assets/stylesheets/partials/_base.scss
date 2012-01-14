@@ -178,7 +178,7 @@ button, input[type=submit], input[type=button], .button {
   float: left;
   color: #888;
 
-  a { @include link-colors(#bbb); }
+  a { @include link-colors(#bbb, #bbb, #bbb); }
 
   .title {
     font-weight: bold;
@@ -197,7 +197,6 @@ button, input[type=submit], input[type=button], .button {
 
   a { @include link-colors(#777, $site-link-hover, $site-link-active); display: block; }
 }
-
 
 
 /*
