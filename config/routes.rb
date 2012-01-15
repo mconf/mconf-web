@@ -81,8 +81,6 @@ Mconf::Application.routes.draw do
         get :spam_lightbox
         post :start
         get :chat
-        get :webstats
-        get :webmap
       end
 
       collection do
@@ -230,8 +228,10 @@ Mconf::Application.routes.draw do
   #match '/simple_captcha(/:id)', :to => 'simple_captcha#show'
 
   # root
-  root :to => 'frontpage#index'
-  match 'help(/:action)', :to => 'faq#index', :as => 'help'
+  root :to => 'frontpage#show'
+
+  # FAQ
+  match 'help', :to => 'faq#index', :as => 'help'
   match 'faq', :to => 'faq#index', :as => 'faq'
 
   resource :session

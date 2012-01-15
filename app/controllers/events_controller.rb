@@ -59,7 +59,6 @@ class EventsController < ApplicationController
   # GET /events/1
   # GET /events/1.xml
   def show
-
     if params[:participation_by_ajax] || params[:streaming_by_ajax]
       respond_to do |format|
         format.js
@@ -76,107 +75,19 @@ class EventsController < ApplicationController
     #For event repository
     @attachments,@tags = Attachment.repository_attachments(@event, params)
 
-    #first check if it is an online event
-    if @event.marte_event && params[:show_conference]
-      #let's calculate the wait time
-      @wait = (@event.start_date - Time.now).floor
-      respond_to do |format|
-        format.html {render :partial=> "online_event", :layout => "conference_layout"} # show.html.erb
-        format.xml  { render :xml => @event }
-        format.js
-        #format.ics {name = "agenda_" + @event.name + ".ics"
-          #send_data @event.to_ics, :filename => "#{name}"}
-        #format.pdf {
-        #
-        #  @event.to_pdf(params[:small_version])
-        #
-        #  if params[:small_version] == "true"
-        #    name = "agenda_" + @event.permalink + "_small.pdf"
-        #  else
-        #    name = "agenda_" + @event.permalink + ".pdf"
-        #  end
-        #
-        #  pdf_path = "#{Rails.root.to_s}/public/pdf/#{@event.permalink}/#{nombre}"
-        #  send_file pdf_path
+    @comments = @event.posts.paginate(:page => params[:page],:per_page => 5)
 
-        #}
+    respond_to do |format|
+      if params[:step] == "3"
+        format.html { render "_invitations", :layout => "new_event" } # TODO shouldn't need to use _ at "_invitations"
       end
-    else
-
-      @comments = @event.posts.paginate(:page => params[:page],:per_page => 5)
-
-      # Clear bad params
-      #params[:show_video]=nil if event.future?
-
-      #if there is no param we show the agenda
-      #if !params[:show_agenda] && !params[:show_video] && !params[:edit_video] && !params[:show_repository] && !params[:show_streaming] && !params[:show_participation]
-      #  params[:show_agenda]=true
-      #end
-
-      #if the event is now we also show the streaming or participation
-      #if params[:show_agenda] && event.is_happening_now? && event.has_streaming?
-      #  params[:show_streaming]=true
-      #elsif params[:show_agenda] && event.is_happening_now? && event.has_participation?
-      #  params[:show_participation]=true
-      #end
-
-
-      #if params[:show_video] || params[:format]=="zip" || params[:edit_video]
-      #  if @event.agenda.present?
-      #    @video_entries = @event.videos
-      #  else
-      #    @video_entries = []
-      #  end
-      #  #this is because googlebot asks for Arrays of videos and params[:show_video].to_i failed
-      #  if params[:show_video].class == String
-      #    @display_entry = AgendaEntry.find(params[:show_video].to_i)
-      #  elsif params[:edit_video].class == String
-      #    @display_entry = AgendaEntry.find(params[:edit_video].to_i)
-      #  else
-      #    @display_entry = nil
-      #  end
-        #      #@show_day=0
-        #      for day in 1..@event.days
-        #        if @video_entries[day][params[:show_video].to_i]
-        #          #@show_day = day
-        #          @display_entry = @video_entries[day][params[:show_video].to_i]
-        #          break
-        #        end
-        #      end
-      #end
-
-      respond_to do |format|
-
-        if params[:step] == "3"
-          format.html { render "_invitations", :layout => "new_event" } # TODO shouldn't need to use _ at "_invitations"
-        end
-
-        format.html # show.html.erb
-        format.xml  {render :xml => @event }
-
-
-        #format.ics {
-        #  name = "agenda_" + @event.name + ".ics"
-        #  send_data @event.to_ics, :filename => "#{name}"
-        #}
-        #format.pdf {
-        #  @event.to_pdf(params[:small_version])
-        #
-        #  if params[:small_version] == "true"
-        #    name = "agenda_" + @event.permalink + "_small.pdf"
-        #  else
-        #    name = "agenda_" + @event.permalink + ".pdf"
-        #  end
-        #
-        #  pdf_path = "#{Rails.root.to_s}/public/pdf/#{@event.permalink}/#{name}"
-        #  send_file pdf_path
-
-        #}
-        format.zip{
-          create_and_send_zip_file_for_scorm
-        }
-      end
+      format.html # show.html.erb
+      format.xml{ render :xml => @event }
+      format.zip{
+        create_and_send_zip_file_for_scorm
+      }
     end
+
   end
 
   # GET /events/new
@@ -354,17 +265,6 @@ class EventsController < ApplicationController
   def chat
     render :layout => false
   end
-
-
-  def webstats
-    render :layout => "application_without_sidebar"
-  end
-
-
-  def webmap
-    render :layout => "application_without_sidebar"
-  end
-
 
   private
 

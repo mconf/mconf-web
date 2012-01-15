@@ -140,7 +140,6 @@ en:
   body: Body
   button: 
     accept: Accept
-    back_to_event: "Back to event"
     cancel: Cancel
     confirm: Confirm
     create: Create
@@ -402,12 +401,8 @@ en:
     start: "Restart event"
     started: "Start request send successfully"
     stats: 
-      map: "View map"
       message1: "This page show the stats of the web connections to the event."
-      message2: "This page show the map of the web connections to the event."
       title1: "Statistics of the event \"%{event}\""
-      title2: "Connections map of the event \"%{event}\""
-      view: "View stats"
     streaming: 
       add: "Add one."
       back: "Back to streaming"

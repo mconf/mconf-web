@@ -18,7 +18,7 @@
 
 class FrontpageController < ApplicationController
 
-  def index
+  def show
     # @relevant_users = User.find(:all).sort_by{|user| user.posts.size}.reverse.first(4)
     # @recent_spaces = Space.find(:all, :conditions => {:public => true},:order => "created_at Desc").first(3)
     # @recent_events = Event.find(:all, :order => "start_date Desc").select{|p| !p.space.disabled? && p.space.public? &&  p.start_date && p.start_date.future?}.first(2)
@@ -36,9 +36,9 @@ class FrontpageController < ApplicationController
 
     respond_to do |format|
       if logged_in?
-        format.html { redirect_to home_path}
+        format.html { redirect_to home_path }
       else
-        format.html # index.html.erb
+        format.html
       end
     end
   end
