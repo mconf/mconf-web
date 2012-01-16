@@ -46,7 +46,7 @@ set :auto_accept, 0
 
 # whenever integration
 set :whenever_command, "bundle exec whenever"
-set :whenever_environment, defer { stage }
+#set :whenever_environment, defer { stage }
 require "whenever/capistrano"
 
 after 'multistage:ensure', 'deploy:info'
