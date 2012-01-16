@@ -1,11 +1,12 @@
 # Quick refs:
 # (note: you can replace "staging" by "production" to set the target stage, see deploy/conf.yml)
 #
-#  cap staging setup:all           # first time setup of a server
-#  cap staging deploy:migrations   # update to a new release, run the migrations (i.e. updates the DB) and restart the web server
-#  cap staging deploy:udpate       # update to a new release
-#  cap staging deploy:migrate      # run the migrations
-#  cap staging deploy:restart      # restart the web server
+#  cap staging setup:all                     # first time setup of a server
+#  cap staging deploy:migrations             # update to a new release, run the migrations (i.e. updates the DB) and restart the web server
+#  cap staging deploy:udpate                 # update to a new release
+#  cap staging deploy:migrate                # run the migrations
+#  cap staging deploy:restart                # restart the web server
+#  cap staging rake:invoke TASK=jobs:queued  # run a rake task in the remote server
 #
 #  Other:
 #  cap staging deploy:web:disable  # start maintenance mode (the site will be offline)
@@ -43,6 +44,11 @@ set :git_enable_submodules, 1
 set :use_sudo, false
 set :auto_accept, 0
 
+# whenever integration
+set :whenever_command, "bundle exec whenever"
+set :whenever_environment, defer { stage }
+require "whenever/capistrano"
+
 after 'multistage:ensure', 'deploy:info'
 
 # DEPLOY tasks
@@ -51,7 +57,6 @@ after 'multistage:ensure', 'deploy:info'
 after 'deploy:update_code', 'deploy:link_files'
 after 'deploy:update_code', 'deploy:upload_config_files'
 # after 'deploy:update_code', 'deploy:fix_file_permissions'
-# after 'deploy:restart', 'jobs:restart'
 
 namespace :deploy do
 
