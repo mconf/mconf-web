@@ -43,9 +43,9 @@ class HomesController < ApplicationController
     unless current_user.spaces.empty?
       @events_of_user = Event.in(current_user.spaces).all(:order => "start_date ASC")
     end
-    
+
     @update_act = params[:contents] ? true : false
-    
+
     @contents_per_page = params[:per_page] || 5
     @contents = params[:contents].present? ? params[:contents].split(",").map(&:to_sym) : Space.contents
     @all_contents = ActiveRecord::Content.paginate({ :page => params[:page], :per_page => @contents_per_page.to_i, :order => 'updated_at DESC' },
@@ -85,7 +85,7 @@ class HomesController < ApplicationController
   def user_rooms
     array = current_user.accessible_rooms || []
     mapped_array = array.map{ |r|
-      link = join_bigbluebutton_server_room_path(r.server, r, :mobile => '1')
+      link = join_bigbluebutton_room_path(r, :mobile => '1')
       { :bigbluebutton_room => { :name => r.name, :join_path => link, :owner => owner_hash(r.owner) } }
     }
     render :json => mapped_array

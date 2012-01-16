@@ -7,7 +7,9 @@
 <div id="manage">
   <br/>
   <div id="bbbrails_servers_links">
-    <%= link_to t('bigbluebutton_rails.servers.index.new_server'), new_bigbluebutton_server_path, :class => 'basic_button medium_button blue_button' %>
+    <%= link_to(t('bigbluebutton_rails.view_room_list'), bigbluebutton_rooms_path, :class => 'basic_button medium_button blue_button') %>
+    <%= link_to(t('bigbluebutton_rails.new_server'), new_bigbluebutton_server_path, :class => 'basic_button medium_button blue_button') %>
+    <%= link_to(t('bigbluebutton_rails.new_room'), new_bigbluebutton_room_path, :class => 'basic_button medium_button blue_button') %>
   </div>
 
   <% @servers.each do |server| %>
@@ -20,10 +22,10 @@
 
       <label><%= t('bigbluebutton_rails.servers.index.access_links') %></label>
       <div class="value">
-        <%= link_to t('bigbluebutton_rails.servers.index.view_rooms'), bigbluebutton_server_rooms_path(server), :class => 'basic_button small_button blue_button' %>
-        <%= link_to t('bigbluebutton_rails.servers.index.activity_monitor'), activity_bigbluebutton_server_path(server), :class => 'basic_button small_button blue_button' %>
+        <%= link_to t('bigbluebutton_rails.view_rooms'), rooms_bigbluebutton_server_path(server), :class => 'basic_button small_button blue_button' %>
+        <%= link_to t('bigbluebutton_rails.activity_monitor'), activity_bigbluebutton_server_path(server), :class => 'basic_button small_button blue_button' %>
         <%= link_to t('edit'), edit_bigbluebutton_server_path(server), :class => 'basic_button small_button blue_button' %>
-        <%= link_to t('destroy'), server, :confirm => t('are_you_sure'), :method => :delete, :class => 'basic_button small_button blue_button' %>
+        <%= link_to t('destroy'), bigbluebutton_server_path(server), :confirm => t('are_you_sure'), :method => :delete, :class => 'basic_button small_button blue_button' %>
       </div>
 
       <div class="clearer"></div>

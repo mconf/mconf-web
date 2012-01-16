@@ -12,6 +12,15 @@
     <%= stylesheet_link_tag "application", :media => "screen, projection" %>
     <%= stylesheet_link_tag "application/old/screen", :media => "screen, projection" %>
     <%= stylesheet_link_tag "homes_temp", :media => "screen, projection" %>
+    <% unless Rails.env == "production" %>
+      <style type="text/css">
+        .translation_missing {
+          color: purple;
+          background-color: red;
+        }
+      </style>
+    <% end %>
+
     <!--[if IE]>
     <%= stylesheet_link_tag "ie", :media => "screen, projection" %>
     <![endif]-->

@@ -2,9 +2,8 @@ require "spec_helper"
 
 describe CustomBigbluebuttonServersController do
   include ActionController::AuthenticationTestHelper
-  # render_views
 
-  context "authenticates a" do
+  context "checks access permissions for a(n)" do
     render_views false
     let(:server) { Factory.create(:bigbluebutton_server) }
     let(:hash) { { :id => server.to_param } }
@@ -19,6 +18,7 @@ describe CustomBigbluebuttonServersController do
       it { should_not deny_access_to(:create).via(:post) }
       it { should_not deny_access_to(:update, hash).via(:put) }
       it { should_not deny_access_to(:destroy, hash).via(:delete) }
+      it { should_not deny_access_to(:rooms, hash) }
     end
 
     context "user" do
@@ -31,6 +31,7 @@ describe CustomBigbluebuttonServersController do
       it { should deny_access_to(:create).via(:post) }
       it { should deny_access_to(:update, hash).via(:put) }
       it { should deny_access_to(:destroy, hash).via(:delete) }
+      it { should deny_access_to(:rooms, hash) }
     end
 
     context "anonymous user" do
@@ -42,6 +43,7 @@ describe CustomBigbluebuttonServersController do
       it { should deny_access_to(:create).via(:post).using_code(:redirect) }
       it { should deny_access_to(:update, hash).via(:put).using_code(:redirect) }
       it { should deny_access_to(:destroy, hash).via(:delete).using_code(:redirect) }
+      it { should deny_access_to(:rooms, hash).using_code(:redirect) }
     end
 
   end

@@ -116,27 +116,42 @@ pt-br:
   beta: beta
   bigbluebutton: BigBlueButton
   bigbluebutton_rails: 
+    activity_monitor: "Monitor de atividades"
+    attendees: 
+      id: ID
+      name: Nome
+      role: Papel
+    new_room: "Nova sala"
+    new_server: "Novo servidor"
     rooms: 
+      external: 
+        header: "Esta reunião foi criada por uma outra aplicação. <br/>Você deve fornecer um nome e uma senha para entrar:"
       index: 
-        back_to_server_list: "Ver lista de servidores"
+        back_to_server_list: "Voltar à lista de servidores"
         invite: Convidar
-        join_mobile: Entrar/móvel
         new_room: "Nova sala"
+      invite: Convidar
+      join_mobile: Entrar/móvel
     servers: 
       activity: 
         activity: Atividade
         done: Pronto!
+        ended_at: "Finalizada em: %{time} (forçadamente: %{forcibly})"
         information: Informação
+        not_running: "Não está em execução"
         now: Agora!
+        participants: "Participantes (%{total} total, %{mods} moderadores):"
         refresh_now: "Atualizar agora"
         refreshing_in: "Atualizando em:"
+        running: "Em execução!"
         seconds: segundos
+        started_at: "Iniciada em: %{time}"
         title: "Monitor de atividades do servidor"
       index: 
         access_links: "Links de acesso"
-        activity_monitor: "Monitor de atividade"
-        new_server: "Novo servidor"
-        view_rooms: "Ver salas"
+    view_room_list: "Ver lista de salas"
+    view_rooms: "Ver salas"
+    view_server_list: "Ver lista de servidores"
   body: Corpo
   button: 
     accept: Aceitar
@@ -239,6 +254,7 @@ pt-br:
     welcome: "Bem-vindo(a) a %{sitename}"
   enable: Habilitar
   enabled: Habilitado
+  end: Finalizar
   error: 
     change: "Mudança inválida"
     credentials: "Credenciais inválidas"
@@ -283,6 +299,7 @@ pt-br:
     deleted: "Evento excluído com sucesso"
     description: 
       add: "Adicionar descrição."
+      edit: "Editar descrição"
       none: "Ninguém escrever uma descrição ainda."
     edit: "Editar informações básicas do evento"
     edit_data: "Alterar a data do evento"
@@ -916,6 +933,8 @@ pt-br:
   preferences: Preferências
   previous: Anterior
   privacy: Privacidade
+  private_message: 
+    send: "Enviar mensagem privada"
   profile: 
     deleted: "Perfil excluído com sucesso"
     description: 
@@ -1103,6 +1122,7 @@ pt-br:
       other: "Adicionar usuários à comunidade"
     all: "Todas comunidades"
     allow_public_access: "Permitir acesso público?"
+    attendeePW: "editar senha de participante"
     clic: "Clique para editar..."
     clic_logo: "Clique para mudar o seu logotipo"
     configuration: "Configurações da comunidade"
@@ -1119,6 +1139,8 @@ pt-br:
     disabled: "Comunidade desativada com sucesso"
     edit: 
       webconference_passwords: "Senhas da sala de webconferência"
+    edit_description: "editar descrição"
+    edit_name: "editar nome"
     enable: "Habilitar comunidade"
     enabled: "Comunidade habilitada com sucesso"
     error: 
@@ -1149,6 +1171,7 @@ pt-br:
       upload_text: Enviar
       use_date: "Use data do evento"
     member_of: "Membro das comunidades"
+    moderatorPW: "editar senha de moderador"
     my_spaces: "Minhas comunidades"
     name_none: "Um nome deve ser dado para criar uma nova comunidade"
     one: Comunidade

@@ -1,7 +1,7 @@
 --- 
 en: 
   account_activated: "Your account has been activated!"
-  account_activated_with_agent: "{{agent}}, your account has been activated"
+  account_activated_with_agent: "%{agent}, your account has been activated"
   account_created: "Your account has been created"
   action: 
     one: Action
@@ -48,13 +48,13 @@ en:
   could_not_find_anybody_with_that_email_address: "Could not find anybody with that email address"
   create: Create
   created_at: "Created at"
-  created_at_date: "Created: {{date}}"
+  created_at_date: "Created: %{date}"
   description: Description
   detail: 
     other: Details
   edit: Edit
   file: File
-  follow_reset_password: "{{agent}}, please follow the link to reset your password"
+  follow_reset_password: "%{agent}, please follow the link to reset your password"
   help: Help
   im_new: "I'm new"
   index: Index
@@ -63,13 +63,13 @@ en:
   invitation: 
     accept: "Accept invitation"
     accepted: "Invitation accepted"
-    accepted_by: "{{candidate}} accepted the invitation"
+    accepted_by: "%{candidate} accepted the invitation"
     comment: Comment
     confirm_delete: "Delete invitation?"
     created: "Invitation sent"
     discard: "Discard invitation"
     discarded: "Invitation discarded"
-    discarded_by: "{{candidate}} discarded the invitation"
+    discarded_by: "%{candidate} discarded the invitation"
     email: E-mail
     new: "New Invitation"
     not_found: "Invitation not found"
@@ -81,7 +81,7 @@ en:
     role: Role
     send: 
       one: "Send invitation"
-    show: "Join {{group}}"
+    show: "Join %{group}"
     was_processed: 
       accepted: "Invitation was already accepted"
       discarted: "Invitation was already discarted"
@@ -94,11 +94,11 @@ en:
     one: "Join Request"
     other: "Join Requests"
     updated: "Join Request updated"
-  join_to_site: "Join in {{site}}"
-  layout_footnote: "{{site}} is based on {{plugin}}. Design by {{designer}}."
+  join_to_site: "Join in %{site}"
+  layout_footnote: "%{site} is based on %{plugin}. Design by %{designer}."
   logged_in_successfully: "Logged in successfully"
   logged_out: "You have been logged out"
-  login_to: "Log in {{site}}"
+  login_to: "Log in %{site}"
   logo: 
     current: "Current Logo"
     one: Logo
@@ -107,30 +107,30 @@ en:
     one: Name
   openid: 
     client: 
-      associating_to_id: "Associating to OpenID: {{id}}"
-      discovery_failed: "Discovery failed for {{id}}: {{error}}"
-      id_attached_to_account: "OpenID: {{id}} attached to your account"
+      associating_to_id: "Associating to OpenID: %{id}"
+      discovery_failed: "Discovery failed for %{id}: %{error}"
+      id_attached_to_account: "OpenID: %{id} attached to your account"
       immediate_request_failed: "Immediate request failed - Setup Needed"
       transaction_cancelled: "OpenID transaction cancelled"
-      verification_failed: "Verification failed: {{message}}"
-      verification_failed_with_id: "Verification of {{id}} failed: {{message}}"
-      verification_succeeded_with_id: "Verification of {{id}} succeeded"
+      verification_failed: "Verification failed: %{message}"
+      verification_failed_with_id: "Verification of %{id} failed: %{message}"
+      verification_succeeded_with_id: "Verification of %{id} succeeded"
     server: 
-      about_login_to: "You are about log in to {{server}}"
+      about_login_to: "You are about log in to %{server}"
       anti_phishing: "This page hasn't links to avoid <i>phishing</i>. You must enter yourself the address in your browser."
       cancel: "No, cancel"
       decision: "You must take a decision:"
       endpoint: "This is an OpenID server endpoint"
-      invalid_uri: "This identity doesn't belong to you: {{uri}}"
-      login_to: "Login to {{server}}"
-      must_login: "You must log in {{server}}"
+      invalid_uri: "This identity doesn't belong to you: %{uri}"
+      login_to: "Login to %{server}"
+      must_login: "You must log in %{server}"
       once: "Yes, only this time"
-      optional_information_by: "Optional information requested by {{server}}"
-      required_information_by: "Required information requested by {{server}}"
+      optional_information_by: "Optional information requested by %{server}"
+      required_information_by: "Required information requested by %{server}"
       trust: "Yes, remember from now on"
     title: OpenID
   password_has_been_reset: "Your password has been reset"
-  password_has_been_reset_with_agent: "{{agent}}, your password has been reset"
+  password_has_been_reset_with_agent: "%{agent}, your password has been reset"
   password_reset: "Password Reset"
   password_reset_link_sent_to_email_address: "A password reset link has been sent to email address"
   performance: 
@@ -147,7 +147,7 @@ en:
       the_role_should_not_belong_to_a_different_stage_type: "The role should not belong to a different stage type."
     new: "New Performance"
     other: Performances
-    other_in: "Performances in {{stage}}"
+    other_in: "Performances in %{stage}"
     read: 
       one: "Read Performance"
       other: "Read Performances"
@@ -171,7 +171,7 @@ en:
     go_to_manage: "Go to manage roles"
     index: "Listing Roles"
     name: Name
-    name_permissions: "{{name}} permissions"
+    name_permissions: "%{name} permissions"
     new: "New role"
     one: Role
     other: Roles
@@ -179,7 +179,7 @@ en:
       one: "Select Role"
     stage_type: "Stage Type"
     updated: "Role was successfully updated."
-    without_permissions: "Role {{role}} hasn't any permissions"
+    without_permissions: "Role %{role} hasn't any permissions"
   save: Save
   send: Send
   send_reset_password_request: "Send Reset Password Request"
@@ -211,10 +211,10 @@ en:
   source: 
     errors: 
       content_type: 
-        invalid: "is invalid: {{content_type}}"
-      dereference: "Could not connect to source {{uri}}"
+        invalid: "is invalid: %{content_type}"
+      dereference: "Could not connect to source %{uri}"
       multiple_feeds: "Source has multiple feeds"
-      parse: "Could not parse feed {{uri}}"
+      parse: "Could not parse feed %{uri}"
     imported_at: "Imported at"
     one: Source
     other: RSS/Atom
@@ -226,12 +226,12 @@ en:
   tag: 
     one: Tag
     other: Tags
-    other_in: "Tags in {{container}}"
-    show_title: "Tagged with {{tag}}"
+    other_in: "Tags in %{container}"
+    show_title: "Tagged with %{tag}"
   title: Title
   update: Update
   updated_at: "Updated at"
-  updated_at_date: "Updated: {{date}}"
+  updated_at_date: "Updated: %{date}"
   user: 
     activation_email_sent: "Activation email has been sent to user"
     disabled: "User %{username} disabled"
