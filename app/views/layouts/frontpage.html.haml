@@ -13,6 +13,13 @@
     = javascript_include_tag 'frontpage'
     = csrf_meta_tag
 
+    -unless Rails.env == "production"
+      :css
+        .translation_missing {
+          color: purple;
+          background-color: red;
+        }
+
     = yield :headers
 
   %body

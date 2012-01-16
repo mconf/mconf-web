@@ -15,6 +15,13 @@
     - if asset_exists?(params[:controller])
       = javascript_include_tag params[:controller]
 
+    -unless Rails.env == "production"
+      :css
+        .translation_missing {
+          color: purple;
+          background-color: red;
+        }
+
     = yield :headers
 
   %body
