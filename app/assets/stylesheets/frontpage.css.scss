@@ -2,7 +2,7 @@
  *= require ../../../vendor/assets/stylesheets/anythingslider/anythingslider
  *= require ../../../vendor/assets/stylesheets/anythingslider/theme-minimalist-round
  *= require ../../../vendor/assets/stylesheets/jquery/jquery.qtip.2.0.0pre
- *= require_tree ./application/
+ *= require application/tooltips
  */
 
 @import "compass/css3";
@@ -24,14 +24,14 @@ body {
   width: 100%;
 }
 
-#global-header {
+#global-header-wrapper {
   padding: 0;
   background-color: $header-bg-color;
   @include background(linear-gradient(bottom, darken($header-bg-color, 5), $header-bg-color));
   //@include background(linear-gradient(top, #333, #222));
 }
 
-#global-header-content {
+#global-header {
   width: $contents-width;
   margin: 0 auto;
   padding: 25px;

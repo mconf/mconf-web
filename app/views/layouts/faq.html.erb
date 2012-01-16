@@ -7,15 +7,9 @@
     <title><%= content_for?(:title) ? yield(:title) : current_site.name %></title>
     <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
 
-    <%= stylesheet_link_tag "common", :media => "screen, projection" %>
-    <%= stylesheet_link_tag "header_big", :media => "screen, projection" %>
-    <%= stylesheet_link_tag "new_style_compat", :media => "screen, projection" %>
-    <%= stylesheet_link_tag "screen", :media => "screen, projection" %>
-    <%= stylesheet_link_tag "print", :media => "print" %>
-    <%= stylesheet_link_tag "lightbox", :media => "screen, projection" %>
-    <%= stylesheet_link_tag "jquery/jquery.fancybox.css", :media => "screen, projection" %>
-    <%= stylesheet_link_tag "jquery/jquery.qtip.2.0.0pre.css", :media => "screen, projection" %>
-    <%= stylesheet_link_tag "token-input-facebook", :media => "screen, projection" %>
+    <%= stylesheet_link_tag "application_print", :media => "print" %>
+    <%= stylesheet_link_tag "application", :media => "screen, projection" %>
+    <%= stylesheet_link_tag "faq_temp", :media => "screen, projection" %>
     <!--[if IE]>
     <%= stylesheet_link_tag "ie", :media => "screen, projection" %>
     <![endif]-->
@@ -30,7 +24,7 @@
 
   <body>
     <div id="site">
-      <%= render :partial => "layouts/global" %>
+      <%= render :partial => "layouts/application_global_header" %>
       <div id="faq">
         <div id="header">
           <%= render :partial => "layouts/faq_header" %>

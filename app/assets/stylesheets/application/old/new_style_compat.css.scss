@@ -1,4 +1,4 @@
-@import "compass/reset";
+// @import "compass/reset";
 @import "compass/css3";
 @import "compass/utilities/general";
 @import "compass/typography/links/link-colors";
@@ -117,3 +117,32 @@
     line-height: 1.3em;
   }
 }
+
+#page-header-wrapper {
+  width: 960px;
+  margin: 0 auto;
+  clear: both;
+  height: 68px;
+  padding-top: 1em;
+  padding-bottom: 1em;
+  overflow: visible !important;
+}
+
+#content-wrapper {
+  width: 960px;
+  margin: 0 auto;
+  clear: both;
+  background-color: #E1EEF5;
+  padding: 15px;
+}
+
+#content {
+  float: left;
+  width: 660px;
+  margin-right: 15px;
+  background-color: white;
+  padding: 10px;
+  overflow: hidden;
+}
+
+

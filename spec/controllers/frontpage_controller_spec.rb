@@ -2,12 +2,12 @@ require "spec_helper"
 
 describe FrontpageController do
   include ActionController::AuthenticationTestHelper
-  
+
   render_views
 
   describe "when Anonymous" do
-    it "should render index" do
-      get :index
+    it "should render show" do
+      get :show
       assert_response :success
     end
   end
@@ -18,9 +18,9 @@ describe FrontpageController do
     end
 
     it "should redirect to home" do
-      get :index
+      get :show
       response.should redirect_to(home_path)
     end
   end
 end
-  
+

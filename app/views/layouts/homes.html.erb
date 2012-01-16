@@ -7,27 +7,13 @@
     <title><%= content_for?(:title) ? yield(:title) : current_site.name %></title>
     <link href="/favicon.ico" rel="shortcut icon" />
 
-    <%= stylesheet_link_tag "common", :media => "screen, projection" %>
-    <%= stylesheet_link_tag "new_style_compat", :media => "screen, projection" %>
-    <%= stylesheet_link_tag "screen", :media => "screen, projection" %>
-    <%= stylesheet_link_tag "lightbox", :media => "screen, projection" %>
-    <%= stylesheet_link_tag "calendar", :media => "screen, projection" %>
-    <%= stylesheet_link_tag "jquery/jquery.fancybox.css", :media => "screen, projection" %>
-    <%= stylesheet_link_tag "jquery/jquery.jcrop.css", :media => "screen, projection" %>
-    <%= stylesheet_link_tag "jquery/jquery.qtip.2.0.0pre.css", :media => "screen, projection" %>
-    <%= stylesheet_link_tag "timeentry", :media => "screen, projection" %>
-    <%= stylesheet_link_tag "print", :media => "print" %>
-    <%= stylesheet_link_tag "token-input-facebook", :media => "screen, projection" %>
-
+    <%= stylesheet_link_tag "application_print", :media => "print" %>
+    <%= stylesheet_link_tag "application", :media => "screen, projection" %>
+    <%= stylesheet_link_tag "application/old/screen", :media => "screen, projection" %>
+    <%= stylesheet_link_tag "homes_temp", :media => "screen, projection" %>
     <!--[if IE]>
     <%= stylesheet_link_tag "ie", :media => "screen, projection" %>
     <![endif]-->
-    <script type="text/javascript">
-      if (navigator.userAgent.indexOf('Mac') != -1) {
-         document.write("<link href='/stylesheets/mac.css' media='screen, projection' rel='stylesheet' type='text/css' />");
-      }
-    </script>
-
     <%= javascript_include_tag 'application' %>
     <%= csrf_meta_tag %>
     <%= yield :headers %>
@@ -42,11 +28,14 @@
 
   <body>
     <div id="site">
-      <%= render :partial => "layouts/global" %>
+      <%= render :partial => "layouts/application_global_header" %>
+
       <div id="space">
+
         <div id="header">
           <%= render :partial => "layouts/home_header" %>
         </div>
+
         <div id="content">
           <div id="main">
 

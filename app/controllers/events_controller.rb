@@ -391,7 +391,7 @@ class EventsController < ApplicationController
         end
         #in the end we include the css for the html files and the images
         zos.put_next_entry("scorm.css")
-        zos.print IO.read("#{Rails.root.to_s}/public/stylesheets/scorm.css")
+        zos.print IO.read("#{Rails.root.to_s}/app/assets/stylesheets/application/old/scorm.css")
 
         zos.put_next_entry("mconf_logo_small.png")
         zos.print IO.read("#{PathHelpers.images_full_path}/mconf_logo_small.png")

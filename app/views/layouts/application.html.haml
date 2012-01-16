@@ -1,0 +1,37 @@
+!!! Strict
+%html{:lang => I18n.locale.to_s}
+
+  %head
+    %meta{:content => "text/html; charset=utf-8", "http-equiv" => "Content-type"}
+    %title= content_for?(:title) ? yield(:title) : current_site.name
+    %link{:href => "/favicon.ico", :rel => "shortcut icon", :type => "image/x-icon"}
+
+    = stylesheet_link_tag "application_print", :media => "print"
+    = stylesheet_link_tag "application", :media => "screen, projection"
+    /[if IE]
+      = stylesheet_link_tag 'ie.css', :media => 'screen, projection'
+    = javascript_include_tag 'application'
+    = csrf_meta_tag
+    - if asset_exists?(params[:controller])
+      = javascript_include_tag params[:controller]
+
+    = yield :headers
+
+  %body
+    #site
+      #global-header-wrapper
+        = render :partial => 'layouts/application_global_header'
+      #page-header-wrapper
+        = render :partial => "layouts/header"
+        = render_clearer
+      #content-wrapper
+        = render :partial => "layouts/notifications"
+        -# TODO: Maybe remove this menu from the layout and add a yield :menu
+        = render :partial => "layouts/menu"
+        #content
+          = yield
+        #sidebar
+          = yield :sidebar
+        = render_clearer
+      = render :partial => "layouts/footer"
+    = render :partial => "layouts/analytics"
