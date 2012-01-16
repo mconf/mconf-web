@@ -1,6 +1,6 @@
 <h3 class="dialog_title"> <%= t('webconference.new_webconference') %> </h3>
 
-<%= form_for [@server, @room], :url => bigbluebutton_server_rooms_path(@server) do |f| %>
+<%= form_for [@server, @room], :url => bigbluebutton_rooms_path do |f| %>
 <div id="new-webconf-room">
   <div class="webconf-rooms">
     <%= hidden_field_tag :redir_url, home_path %>
@@ -19,12 +19,12 @@
       <div class="field">
         <%= f.label :moderator_password %>
         <%= f.text_field :moderator_password, :id => "moderatorPW", :disabled => true, :type => 'password' %>
-        <%= check_box_tag 'hideMPW' %><%= t('show?') %>
+        <%= check_box_tag 'hideMPW' %><%= t('show_question') %>
       </div>
       <div class="field">
         <%= f.label :attendee_password %>
         <%= f.text_field :attendee_password, :id => "attendeePW", :disabled => true, :type => 'password' %>
-        <%= check_box_tag 'hideAPW' %><%= t('show?') %>
+        <%= check_box_tag 'hideAPW' %><%= t('show_question') %>
       </div>
     </div>
     <div class="float_right">

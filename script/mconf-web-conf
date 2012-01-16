@@ -463,7 +463,7 @@ get_application_version() {
     if [ -d $DEPLOY_PATH ]; then
         REPLY=
         if [ -f $DEPLOY_PATH/lib/version.rb ]; then
-            if cat $DEPLOY_PATH/lib/version.rb | grep -q "module Vcc"; then
+            if cat $DEPLOY_PATH/lib/version.rb | grep -q "module Mconf"; then
                 REPLY=`cat $DEPLOY_PATH/lib/version.rb | grep "VERSION" | sed 's/[^"]*"\([^"]*\)".*/\1/g'`
             fi
         fi

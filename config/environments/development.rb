@@ -1,7 +1,7 @@
 #for debugging (by ENRIQUE)
 # require "ruby-debug"
 
-Vcc::Application.configure do
+Mconf::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
   # In the development environment your application's code is reloaded on

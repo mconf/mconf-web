@@ -1,0 +1,62 @@
+--- 
+en: 
+  activerecord: 
+    attributes: 
+      bigbluebutton_room: 
+        attendee_password: "Attendee Password"
+        dial_number: "Dial Number"
+        external: "Externally created"
+        logout_url: "Logout URL"
+        max_participants: "Maximum Number of Participants"
+        meetingid: "Meeting ID"
+        moderator_password: "Moderator Password"
+        name: Name
+        param: "String ID"
+        private: Private
+        randomize_meetingid: "Randomize Meeting ID"
+        server_id: "Server ID"
+        voice_bridge: "Voice Bridge"
+        welcome_msg: "Welcome Message"
+      bigbluebutton_server: 
+        name: Name
+        param: "String ID"
+        salt: "Security Salt"
+        url: URL
+        version: Version
+    models: 
+      bigbluebutton_room: "BigBlueButton Room"
+      bigbluebutton_server: "BigBlueButton Server"
+  bigbluebutton_rails: 
+    bigbluebutton: BigBlueButton
+    rooms: 
+      errors: 
+        auth: 
+          failure: "Authentication failure."
+          not_running: "The meeting is not running. You must wait for a moderator to join."
+          wrong_params: "Wrong params in your request."
+        external: 
+          blank_meetingid: "You must specify the meetingid of the meeting you want to join"
+        param_format: "you can only use letters, numbers and the symbols \"-\" or \"_\" (not at the begin or end)"
+        server: 
+          nil: "Your room must be associated to a server to execute this operation."
+      notice: 
+        create: 
+          failure: "Your room could not be created."
+          success: "Your room was successfully created."
+        destroy: 
+          success: "The meeting was successfully destroyed."
+        end: 
+          not_running: "The meeting could not be ended because it is not running."
+          success: "The meeting was successfully ended."
+        update: 
+          failure: "Your room could not be updated."
+          success: "Your room was successfully updated."
+    servers: 
+      errors: 
+        param_format: "you can only use letters, numbers and the symbols \"-\" or \"_\" (not at the begin or end)"
+        url_format: "should use the pattern http://<server>/bigbluebutton/api"
+      notice: 
+        create: 
+          success: "Your server was successfully created."
+        update: 
+          success: "Your server was successfully updated."

@@ -1,0 +1,34 @@
+<div id="bbbrails_rooms_links">
+  <%= link_to(t('bigbluebutton_rails.view_server_list'), bigbluebutton_servers_path, :class => 'basic_button medium_button blue_button') %>
+  <%= link_to(t('bigbluebutton_rails.new_room'), new_bigbluebutton_room_path, :class => 'basic_button medium_button blue_button') %>
+</div>
+
+<% @rooms.each do |room| %>
+  <div id="bbbrails_rooms_list_item">
+    <label><%= BigbluebuttonRoom.human_attribute_name(:server_id) %></label> <span class="value"><%= room.server_id %></span>
+    <label><%= BigbluebuttonRoom.human_attribute_name(:meetingid) %></label> <span class="value"><%= room.meetingid %></span>
+    <label><%= BigbluebuttonRoom.human_attribute_name(:randomize_meetingid) %></label> <span class="value"><%= room.randomize_meetingid %></span>
+    <label><%= BigbluebuttonRoom.human_attribute_name(:name) %></label> <span class="value"><%= room.name %></span>
+    <label><%= BigbluebuttonRoom.human_attribute_name(:private) %></label> <span class="value"><%= room.private %></span>
+    <label><%= BigbluebuttonRoom.human_attribute_name(:attendee_password) %></label> <span class="value"><%= room.attendee_password %></span>
+    <label><%= BigbluebuttonRoom.human_attribute_name(:moderator_password) %></label> <span class="value"><%= room.moderator_password %></span>
+    <label><%= BigbluebuttonRoom.human_attribute_name(:welcome_msg) %></label> <span class="value"><%= room.welcome_msg %></span>
+    <label><%= BigbluebuttonRoom.human_attribute_name(:logout_url) %></label> <span class="value"><%= room.logout_url %></span>
+    <label><%= BigbluebuttonRoom.human_attribute_name(:dial_number) %></label> <span class="value"><%= room.dial_number %></span>
+    <label><%= BigbluebuttonRoom.human_attribute_name(:voice_bridge) %></label> <span class="value"><%= room.voice_bridge %></span>
+    <label><%= BigbluebuttonRoom.human_attribute_name(:max_participants) %></label> <span class="value"><%= room.max_participants %></span>
+    <label><%= BigbluebuttonRoom.human_attribute_name(:external) %></label> <span class="value"><%= room.external %></span>
+    <label><%= BigbluebuttonRoom.human_attribute_name(:param) %></label> <span class="value"><%= room.param %></span>
+
+    <label><%= t('bigbluebutton_rails.servers.index.access_links') %></label>
+    <div class="value">
+      <%= link_to t('join'), join_bigbluebutton_room_path(room), :class => 'basic_button small_button blue_button' %>
+      <%= link_to t('bigbluebutton_rails.rooms.join_mobile'), join_mobile_bigbluebutton_room_path(room), :class => 'basic_button small_button blue_button' %>
+      <%= link_to t('bigbluebutton_rails.rooms.invite'), invite_bigbluebutton_room_path(room), :class => 'basic_button small_button blue_button' %>
+      <%= link_to t('edit'), edit_bigbluebutton_room_path(room), :class => 'basic_button small_button blue_button' %>
+      <%= link_to t('end'), end_bigbluebutton_room_path(room), :confirm => t('are_you_sure'), :class => 'basic_button small_button blue_button' %>
+      <%= link_to t('destroy'), bigbluebutton_room_path(room), :confirm => t('are_you_sure'), :method => :delete, :class => 'basic_button small_button blue_button' %>
+    </div>
+    <div class="clearer"></div>
+  </div>
+<% end %>

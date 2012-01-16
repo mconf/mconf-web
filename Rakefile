@@ -9,4 +9,4 @@ require File.expand_path('../config/application', __FILE__)
 desc 'Default: run specs.'
 task :default => ["db:test:prepare", "db:seed", :spec]
 
-Vcc::Application.load_tasks
+Mconf::Application.load_tasks

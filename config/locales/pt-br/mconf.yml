@@ -1,182 +1,81 @@
 --- 
 pt-br: 
   GMT: GMT
-  Isabel: Isabel
   RSS: RSS
   abc: ABC
-  about: Sobre
-  about_global: "Sobre a GLOBAL"
   about_me: "Sobre mim"
   about_sxsw: "Sobre o SXSW"
-  about_vcc: "Sobre o Mconf"
   account: Conta
   account_activated: "Sua conta foi ativada!"
-  account_activated_with_agent: "%{agent}, a sua conta foi ativada"
-  account_created: "Sua conta foi criada"
   action: 
-    one: Ação
     other: Ações
   actions: Ações
   activerecord: 
     attributes: 
-      bigbluebutton_room: 
-        attendee_password: "Senha de Participante"
-        dial_number: "Número para Ligação"
-        external: "Criada externamente"
-        logout_url: "URL após sair da sessão"
-        max_participants: "Número máximo de participantes"
-        meetingid: "ID da sala"
-        moderator_password: "Senha de Moderador"
-        name: Nome
-        param: Identificador
-        private: "Sala privada"
-        randomize_meetingid: "Aleatorizar ID da sala"
-        server_id: "ID do servidor"
-        voice_bridge: "Número para ligação VoIP"
-        welcome_msg: "Mensagem de Boas Vindas"
-      bigbluebutton_server: 
-        name: Nome
-        param: Identificador
-        salt: "Senha de Segurança"
-        url: URL
-        version: Versão
       spaces: 
         attendee_password: "Senha de Participante"
         moderator_password: "Senha de Moderador"
-      user: 
-        login: Login
     errors: 
       messages: 
         missing: "não encontrado"
-    models: 
-      bigbluebutton_room: "Sala BigBlueButton"
-      bigbluebutton_server: "Servidor BigBlueButton"
-  add: Adicionar
-  add_more_details: "Adicionar mais detalhes"
   address: Endereço
   admin: 
     one: Admin
     space: "Administração do %{spacename}"
   admission: 
-    errors: 
-      candidate_equals_introducer: "Candidato e introdutor não podem ser a mesma pessoa. (Você provavelmente deve sair do sistema)"
-      candidate_has_role: "já tem uma função"
-    one: Admissão
     other: Admissões
   advanced: Avançado
   advanced_editor: "Editor avançado"
-  advanced_options: "Opções avançadas"
   agenda: 
-    add_divider: "Adicionar divisor"
-    add_entry: "Adicionar sessão"
-    define: "Definir Agenda"
     del_entry: Remover
     divider: 
-      delete: "Divisor foi removido com sucesso"
       edit: "Editar Divisor"
       error: 
         coinciding_times: "Há um conflito entre o horário do novo divisor e entradas ou divisores existentes"
         date_out_of_event: "A data do divisor excede a duração máxima do evento: %{max_days} dias"
         past_times: "Este tipo de evento não pode ter períodos no passado"
-      failed: "Houve um problema com o divisor da agenda"
       new: "Novo divisor de agenda"
       one: Divisor
       start_time: "Horário inicial"
       title: Título
-      updated: "Divisor foi atualizado com sucesso"
     edit: "Editar agenda"
-    edit_entry: Editar
     entry: 
-      cannot_exclude: "Você não pode excluir da gravação uma entrada menor que"
-      created: "Entrada da agenda criada com sucesso"
-      creating: "Criando entrada na agenda"
-      delete: "Entrada da agenda foi removida com sucesso"
-      deleting: "Removendo entrada da agenda"
       description: Descrição
       documents: "Documentos relacionados"
       duration: Duração
       edit: "Editar item da sessão"
       embedded_video: "Embutir vídeo na entrada"
-      end_time: "Horário final"
       error: 
         attribute_unchangeable: "Você tentou modificar um atributo não modificável para esta sessão"
         coinciding_times: "Há um conflito entre o horário da nova entrada da agenda e entradas ou divisores existentes"
-        create: "Erro criando sessão no sistema remoto de videoconferência"
-        date_out_of_event: "A data da entrada da agenda excede a duração máxima do evento: %{max_days} dias"
         delete: "Erro removendo sessão no sistema remoto de videoconferência"
         disordered_times: "O horário inicial deve ser menor que o horário final"
         out_of_event: "Parte do horário da sessão está fora dos limites do evento"
         past_times: "O horário inicial da sessão deve ser %{min_data} ou posterior"
-        update: "Erro atualizando sessão no sistema remoto de videoconferência"
-      failed: "Entrada da agenda não pode ser salva"
-      has_attachment: "Esta entrada possui anexos"
-      has_video: "Vídeo disponível para esta entrada"
-      help: 
-        recording: "Gravação habilitada para esta sessão"
-        streaming: "Streaming habilitado para esta sessão"
-      hidevideo: "Esconder vídeo"
-      label_automatic: "Usar vídeo gravado automaticamente"
-      label_embedded: "Usar vídeo embutido para esta sessão"
-      label_none: "Não há vídeo"
       label_title_video_type: "Gravação de vídeo"
-      label_uploaded: "Enviar vídeo"
-      minutes: minutos
       new: "Nova entrada na agenda"
-      no_record: Não
-      one: Entrada
       options: 
-        add_video: "Descarte vídeo automaticamente e adicione um embarcado"
-        recording: "Gravação de vídeo"
         streaming: "Streaming de vídeo"
-        title: "Opções de videoconferência"
-      record: Gravar
-      remove: "Remover item da sessão"
       speakers: Palestrantes
       start_time: "Horário inicial"
       title: Título
-      updated: "Entrada da agenda foi atualizada com sucesso"
       upload_video: "O vídeo deve ter extensão FLV."
       video: Gravação
-      yes_record: Sim
     error: 
-      dates: "O horário inicial deve ser anterior ao horário final"
-      end_time_overlaps: "O horário final se sobrepõe a uma entrada existente na agenda"
-      omit_date: "A entrada da agenda necessita uma data inicial e uma data final"
       omit_title: "Um título deve ser dado para a entrada da agenda"
-      omit_title_divider: "Título do divisor não pode ficar em branco"
-      overlaps: "A entrada da agenda se sobrepõe a uma entrada existente na agenda"
-      start_time_overlaps: "O horário inicial se sobrepõe a uma entrada existente na agenda"
-    expand_help: "Clique no título de uma agenda para expandí-la ou contraí-la"
-    slot: "Selecione o período de tempo para a visualização"
-    title: Programa
-    update: "A agenda foi atualizada com sucesso."
-    updating: "A agenda está sendo atualizada..."
-    upload: "Enviar Agenda"
     upload_file: "Enviar Arquivo"
   agent: 
     authentication: 
-      change_password: "Alterar senha"
       confirm_password: "Confirme a senha"
-      login: Login
-      lost_password: "Perdi minha senha!"
       password: Senha
-    email: E-mail
-    one: Usuário
-    other: Agentes
-    select: 
-      one: "Selecione agente"
   agree: Sim
   all: Todos
-  all_days: "Todos os dias"
   all_events: "Todos eventos"
   all_rights_reserved: "Todos os direitos reservados"
-  any: Qualquer
   any_field: "Qualquer campo"
   are_you_sure: "Você tem certeza?"
-  at: em
   attachment: 
     add: "Adicionar anexo"
-    created: "Anexo criado com sucesso"
     delete: "Remover anexo"
     deleted: "Anexo removido com sucesso"
     error: 
@@ -190,31 +89,25 @@ pt-br:
     home: 
       one: "Arquivo na comunidade %{space}"
     info: "Informações do documento"
-    loading: "Carregando informações do documento..."
     new: "Novo anexo"
     not_selected: "Nenhum documento selecionado"
-    not_valid: "O anexo não é válido"
     one: Anexo
     other: Anexos
     selected: 
       none: "Nenhum arquivo selecionado"
       one: "arquivo selecionado"
       other: "arquivos selecionados"
-    updated: "Anexo atualizado com sucesso"
     upload_with_post: "Notificar o envio com uma mensagem no mural"
   attendeePW: "Senha de Participante"
   author: "Enviado por"
   avatar: 
     created: "Imagem enviada com sucesso"
     crop: "Ajustar sua imagem"
-    current: "Imagem atual"
-    empty: "Selecione uma imagem, por favor"
     select: "Selecionar imagem"
     select_new: "Selecionar nova imagem"
     upload: "Enviar imagem"
   back: Voltar
   back_to_inbox: "Voltar para caixa de entrada"
-  bad_request: "Bad Request"
   bbb_room: 
     attendeePW: "Senha do Participante"
     edit: "Configure sua sala de webconferência"
@@ -223,89 +116,60 @@ pt-br:
   beta: beta
   bigbluebutton: BigBlueButton
   bigbluebutton_rails: 
-    bigbluebutton: BigBlueButton
+    activity_monitor: "Monitor de atividades"
+    attendees: 
+      id: ID
+      name: Nome
+      role: Papel
+    new_room: "Nova sala"
+    new_server: "Novo servidor"
     rooms: 
-      error: 
-        auth: 
-          failure: "Falha de autenticação."
-          not_running: "A reunião ainda não começou. Você deve esperar por um moderador para participar."
-      errors: 
-        auth: 
-          failure: "Falha de autenticação."
-          not_running: "A reunião ainda não começou. Você deve esperar por um moderador para participar."
-          wrong_params: "Parâmetros errados na sua requisição."
-        external: 
-          blank_meetingid: "Você deve especificar o \"meetingid\" da reunião que você deseja ingressar"
-        param_format: "você pode usar apenas letras, dígitos e os símbolos \"-\" ou \"_\" (mas não no início ou fim)"
+      external: 
+        header: "Esta reunião foi criada por uma outra aplicação. <br/>Você deve fornecer um nome e uma senha para entrar:"
       index: 
-        back_to_server_list: "Ver lista de servidores"
+        back_to_server_list: "Voltar à lista de servidores"
         invite: Convidar
-        join_mobile: Entrar/móvel
         new_room: "Nova sala"
-      notice: 
-        create: 
-          failure: "Sua sala não pode ser criada."
-          success: "Sua sala foi criada com sucesso."
-        destroy: 
-          success: "A sala foi destruída com sucesso."
-        end: 
-          not_running: "A reunião não pôde ser finalizada porque ele não está em andamento."
-          success: "A reunião foi encerrada com sucesso."
-        update: 
-          failure: "Sua sala não pode ser actualizada."
-          success: "Sua sala foi atualizada com sucesso."
+      invite: Convidar
+      join_mobile: Entrar/móvel
     servers: 
       activity: 
         activity: Atividade
         done: Pronto!
+        ended_at: "Finalizada em: %{time} (forçadamente: %{forcibly})"
         information: Informação
+        not_running: "Não está em execução"
         now: Agora!
+        participants: "Participantes (%{total} total, %{mods} moderadores):"
         refresh_now: "Atualizar agora"
         refreshing_in: "Atualizando em:"
+        running: "Em execução!"
         seconds: segundos
+        started_at: "Iniciada em: %{time}"
         title: "Monitor de atividades do servidor"
-      errors: 
-        param_format: "você pode usar apenas letras, dígitos e os símbolos \"-\" ou \"_\" (mas não no início ou fim)"
-        url_format: "você deve utilizar o padrão http://<server>/bigbluebutton/api"
       index: 
         access_links: "Links de acesso"
-        activity_monitor: "Monitor de atividade"
-        new_server: "Novo servidor"
-        view_rooms: "Ver salas"
-      notice: 
-        create: 
-          success: "O servidor foi criado com sucesso."
-        update: 
-          success: "O servidor foi atualizado com sucesso."
-  bigbluebutton_space: "Sala BigBlueButton"
+    view_room_list: "Ver lista de salas"
+    view_rooms: "Ver salas"
+    view_server_list: "Ver lista de servidores"
   body: Corpo
   button: 
     accept: Aceitar
-    back: Voltar
     back_to_event: "Voltar ao evento"
     cancel: Cancelar
     confirm: Confirm
     create: Criar
-    create_bbb_server: "Criar servidor BigBlueButton"
     creating: "Criando evento..."
-    creating_agenda: "Criando agenda..."
     edit: Editar
     editing: Editando...
-    enter: Entrar
     finish: Finalizar
     go: Ir!
-    insert: Inserir
     invite: Convidar
     join: Entrar
     join_webconference: "Entrar na conferência"
     join_webconference_mobile: "Entrar usando um celular"
     new_room: "Nova sala"
     next: "Próximo Passo"
-    next_edit_program: "Próximo: Editar o programa"
-    next_invite: "Próximo: Convidar pessoas"
-    next_program: "Próximo: Definir programa"
-    ok: OK
-    other_spaces: "Encontrar outras comunidades"
     post: Postar
     publish: Publicar
     remove: Remover
@@ -319,24 +183,18 @@ pt-br:
   calendar: 
     my: "Meu Calendário"
     one: Calendário
-  can_also: "Ou você também pode:"
   cancel: Cancelar
   caption: 
     add: "Adicionar legenda"
-  change: Modificar
   change_pic: "Modificar imagem"
-  changed_mind: "Mudou de ideia?"
   chat: 
     connecting_error_message: "Erro conectando"
     connecting_message: "Conectando ao chat do evento..."
-    edit_enabled: "Habilitar chat experimental no próximo login"
-    edit_question: "Você gostaria de habilitar o chat experimental?"
     please_login_message: "Pro favor, faça login ou registre-se para participar"
     reconnect_button_message: "Clique para reconectar"
     reconnect_message: Reconectar
   check_mail: "Por favor, verifique seu e-mail"
   city: Cidade
-  click_here: "Clique aqui"
   click_to_see_all: "Ver todos"
   close: Fechar
   collapse: menos
@@ -350,43 +208,13 @@ pt-br:
     new: "Novo comentário"
     one: Comentário
     other: Comentários
-    recent: 
-      other: "Comentários recentes"
     show_all: "Mostrar todos comentários"
   contact_information: "Informações de contato"
-  container: 
-    one: Container
-    other: Containers
-  content: 
-    create: 
-      one: "Criar Conteúdo"
-      other: "Criar Conteúdos"
-    delete: 
-      one: "Excluir Conteúdo"
-      other: "Excluir Conteúdos"
-    new: "Novos Conteúdos"
-    one: Conteúdo
-    other: Conteúdo
-    read: 
-      one: "Ler Conteúdo"
-      other: "Ler Conteúdo"
-    update: 
-      one: "Atualizar Conteúdo"
-      other: "Atualizar Conteúdo"
-  conversation: 
-    compress: "Comprimir conversação"
-  could_not_find_anybody_with_that_email_address: "Não foi possível encontrar alguém com esse endereço de email"
   country: País
   create: Criar
   create_event: "Criar Evento"
-  create_room: 
-    name: Name
-  created_at: "Criado em"
-  created_at_date: "Criado em: %{date}"
   created_time_ago: "Criado %{time} atrás"
   date: 
-    at: às
-    end: "Data final"
     start: "Data inicial"
     undefined: "Não definido"
   days: Dias
@@ -399,15 +227,10 @@ pt-br:
   deny: Não
   description: Descrição
   destroy: Destruir
-  detail: 
-    other: Detalhes
   disable: Desabilitar
   disabled: Desabilitado
-  docs: Documentos
   document: 
-    add: "Adicionar novo documento"
     upload: "Enviar novo documento"
-  done: Pronto!
   download: Baixar
   download_file: "Baixar arquivo"
   edit: Editar
@@ -418,27 +241,20 @@ pt-br:
     account_activated: "Sua conta em %{sitename} foi ativada com sucesso."
     commas: "Separado por vírgulas"
     confirm: "Você agora precisa confirmar seu registro clicando em <a href=\"%{url}\"> %{url} </a>"
-    copy_link: "Se você não pode clicar no link acima, por favor copie e cole a seguinte linha em seu navegador:<br/> %{ur}"
-    dear: "Prezado(a), %{name}"
     invitation_result: 
       admin_side: "%{name} %{action} o convite para a comunidade %{spacename}"
       user_side: "Seu pedido de autorização na comunidade %{spacename} foi: %{action}"
-    join_request: "Pedido de Participação"
     kind_regards: "Atenciosamente,"
     notifications: "notificações por e-mail"
     one: e-mail
-    other: e-mails
     spam_activation: "Se você não se registrou neste site, por favor <a href=\"mailto:%{contact}\"> entre em contato </a> ou nos <a href=\"%{feedback}\"> envie uma mensagem.</a>"
     spam_invitation: "Se você acredita que esta mensagem é um spam, por favor <a href=\"mailto:%{contact}\"> entre em contato </a> ou nos <a href=\"%{feedback}\"> envie uma mensagem.</a>"
-    thanks: "Obrigado por visitar %{sitename}"
     url_activated: "Você agora pode entrar na sua conta com seu email \"%{name}\" e sua senha em <a href=\"%{url}\"> %{url}</a>"
     used_from: "e-mail usado no formulário de contato: %{dir}"
-    vcc_team: "Equipe do Mconf"
     welcome: "Bem-vindo(a) a %{sitename}"
-  email_or_full_name: "e-mail ou nome completo"
   enable: Habilitar
   enabled: Habilitado
-  enlarge: Ampliar
+  end: Finalizar
   error: 
     change: "Mudança inválida"
     credentials: "Credenciais inválidas"
@@ -450,61 +266,34 @@ pt-br:
     one: Erro
     other: Erros
     vcc_warning: "Aviso geral:"
-  errors: 
-    dynamic_format: "%{message}"
-  eu_commision: "Comissão Européia"
   event: 
     Isabel: "Evento Isabel"
-    action: 
-      select: Ações
     agenda: 
-      add_entry: "Adicionar um."
-      download: PDF
-      download_small: "PDF pequeno"
-      export: Exportar
-      no_entries: "Ainda não existem entradas."
       see: "Ver na agenda"
     assistance_title: Participação
     assistants_none: "Ninguém confirmou ainda"
-    attend: Participando
     basic_info: "Introduzir informação básica"
-    button: 
-      attevents: "Eventos participar"
-      atteventstitle0: "Eventos em que você confirmou participação"
-      atteventstitle1: "Você não confirmou a participação em nenhum evento"
-      myevents: "Meus eventos"
-      myeventstitle0: "Eventos que você criou"
-      myeventstitle1: "Você não criou nenhum evento"
     cancel: 
       lose: "Todos os dados serão perdidos. Você tem certeza?"
       stop: "Você tem certeza que deseja parar a edição?"
-    choose_location: "Escolher localização"
-    colon: "Evento:"
     connection: 
       info: "Informação de conexão para este evento"
       isabel: "Servidor Isabel"
       sip: "Proxy SIP"
-      str: Streaming
       wait: "Esta informação estará disponível durante o evento"
-      web: Participação
     create: 
       advanced_conf: "Configurações avançadas"
       info: 
-        basic: "Aqui você pode organizar três tipos de eventos"
         class: 
           name: "Classe Virtual"
         conference: 
-          message: "Avançado. Grandes reuniões. Produção estilo televisão, que precisa ser gerenciada por um operador."
           name: "Congresso Virtual"
         meeting: 
-          message: "Fácil. Participação em videoconferência com compartilhamento de documentos e streaming e gravação automáticos."
           name: "Reunião Virtual"
         presential: 
-          message: "Ótimo para reuniões simples e rápidas. Notifique seus parceiros, envie documentos de trabalho. Não há streaming nem gravação automáticos."
           name: "Em pessoa"
       manual_conf: "Configuração manual"
       title: "Criar novo evento"
-      video_recording: "Gravação de vídeo"
       video_streaming: "Streaming de vídeo"
     created: "Evento criado com sucesso"
     deleted: "Evento excluído com sucesso"
@@ -516,81 +305,36 @@ pt-br:
     edit_data: "Alterar a data do evento"
     embed: Embarcar
     enable: 
-      isabel: Isabel
       isabelbw: "Bandwidth Isabel"
       participation: "Modos de participação"
       recbw: "Qualidade de gravação"
       sip: "Habilitar SIP"
-      web: Web
       webbw: "Flash Bandwidth"
     error: 
       cm_connection: "Conexão com o sistema remoto de videoconferência falhou"
       date_past: "Data inicial não pode ser no passado"
       dates: "Data final deve ser após a data inicial"
       dates1: "A data inicial do evento deve ser antes da data final do evento"
-      delete: "O evento não pode ser excluido"
       marte: "Não foi possível criar a conferência virtual"
       max_size_excedeed: "A duração máxima do evento é %{max_days} dias e não pode ser excedida"
       omit_date: "O evento precisa uma data inicial e uma data final"
       too_short: "O evento é muito curto, ele deve ter pelo menos 15 minutos"
-      videoconference: "Não foi possível criar o evento de videoconferência"
-    features: "Características do evento"
-    follow: "Entrar nesta Reunião Virtual"
-    found: 
-      none: "Não foram encontrados eventos"
-      one: "1 evento foi encontrado"
-      other: "%{size} eventos foram encontrados"
     future: "Evento Futuro"
-    generate_pdf: "Gerar PDF"
     group_invitation: 
-      button: "Convidar usuários não registrados"
-      message_private_with_start_date: 
-        in_person: "<p>Gostaria de convidá-lo para <b>o evento 'event_name' na comunidade %{space}</b> em 'event_date'. </p><p>Você pode encontrar mais informações sobre este evento em <a href=\"event_url\">event_url</a></p><p>Por favor, note que o evento faz parte de uma comunidade privada, então você precisa ser um usuário cadastrado no Virtual Conference Center para ser capaz de enviar um pedido de adesão à comunidade e ter acesso ao evento. Você pode se registrar aqui: <a href=\"%{register_url}\">%{register_url}</a></p><p>Atenciosamente,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>"
-        teleclass: "<p> Gostaria de convidá-lo para <b>o evento 'event_name' na comunidade %{space}</b> em 'event_date'. O evento será uma classe virtual com participação simples através do sistema Isabel. </p><p> Você pode encontrar mais informações sobre este evento em <a href=\"event_url\">event_url</a> </p><p> Por favor, note que o evento faz parte de uma comunidade privada, então você precisa ser um usuário cadastrado no Virtual Conference Center para ser capaz de enviar um pedido de adesão à comunidade e ter acesso ao evento. Você pode se registrar aqui: <a href=\"%{register_url}\">%{register_url}</a></p> <p>Atenciosamente,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>"
-        teleconference: "<p> Gostaria de convidá-lo para <b>o evento 'event_name' na comunidade %{space}</b> em 'event_date'. O evento será uma conferência virtual com participação simples através do sistema Isabel. </p><p> Você pode encontrar mais informações sobre este evento em <a href=\"event_url\">event_url</a> </p><p> Por favor, note que o evento faz parte de uma comunidade privada, então você precisa ser um usuário cadastrado no Virtual Conference Center para ser capaz de enviar um pedido de adesão à comunidade e ter acesso ao evento. Você pode se registrar aqui: <a href=\"%{register_url}\">%{register_url}</a></p> <p>Atenciosamente,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>"
-        telemeeting: "<p> Gostaria de convidá-lo para <b>o evento 'event_name' na comunidade %{space}</b> em 'event_date'. O evento será uma reunião virtual com participação simples através do sistema Isabel. </p><p> Você pode encontrar mais informações sobre este evento em <a href=\"event_url\">event_url</a> </p><p> Por favor, note que o evento faz parte de uma comunidade privada, então você precisa ser um usuário cadastrado no Virtual Conference Center para ser capaz de enviar um pedido de adesão à comunidade e ter acesso ao evento. Você pode se registrar aqui: <a href=\"%{register_url}\">%{register_url}</a></p> <p>Atenciosamente,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>"
-      message_private_without_start_date: 
-        in_person: "<p> Gostaria de convidá-lo para <b>o evento 'event_name' na comunidade %{space}</b>.</p><p> Você pode encontrar mais informações sobre este evento em <a href=\"event_url\">event_url</a> </p><p> Por favor, note que o evento faz parte de uma comunidade privada, então você precisa ser um usuário cadastrado no Virtual Conference Center para ser capaz de enviar um pedido de adesão à comunidade e ter acesso ao evento. Você pode se registrar aqui: <a href=\"%{register_url}\">%{register_url}</a></p><p>Atenciosamente,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>"
-        teleclass: "<p> Gostaria de convidá-lo para <b>o evento 'event_name' na comunidade %{space}</b>. O evento será uma classe virtual com participação simples através do sistema Isabel. </p><p> Você pode encontrar mais informações sobre este evento em <a href=\"event_url\">event_url</a> </p><p> Por favor, note que o evento faz parte de uma comunidade privada, então você precisa ser um usuário cadastrado no Virtual Conference Center para ser capaz de enviar um pedido de adesão à comunidade e ter acesso ao evento. Você pode se registrar aqui: <a href=\"%{register_url}\">%{register_url}</a></p> <p>Atenciosamente,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>"
-        teleconference: "<p> Gostaria de convidá-lo para <b>o evento 'event_name' na comunidade %{space}</b>. O evento será uma conferência virtual com participação simples através do sistema Isabel. </p><p> Você pode encontrar mais informações sobre este evento em <a href=\"event_url\">event_url</a> </p><p> Por favor, note que o evento faz parte de uma comunidade privada, então você precisa ser um usuário cadastrado no Virtual Conference Center para ser capaz de enviar um pedido de adesão à comunidade e ter acesso ao evento. Você pode se registrar aqui: <a href=\"%{register_url}\">%{register_url}</a></p> <p>Atenciosamente,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>"
-        telemeeting: "<p> Gostaria de convidá-lo para <b>o evento 'event_name' na comunidade %{space}</b>. O evento será uma reunião virtual com participação simples através do sistema Isabel. </p><p> Você pode encontrar mais informações sobre este evento em <a href=\"event_url\">event_url</a> </p><p> Por favor, note que o evento faz parte de uma comunidade privada, então você precisa ser um usuário cadastrado no Virtual Conference Center para ser capaz de enviar um pedido de adesão à comunidade e ter acesso ao evento. Você pode se registrar aqui: <a href=\"%{register_url}\">%{register_url}</a></p> <p>Atenciosamente,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>"
-      message_public_with_start_date: 
-        in_person: "<p> Gostaria de convidá-lo para <b>o evento 'event_name' na comunidade %{space}</b> em 'event_date'. </p><p> Você pode encontrar mais informações sobre este evento em <a href=\"event_url\">event_url</a> </p><p> Atenciosamente, <br/><br/> %{username} <br/> %{usermail} <br/> %{userorg} </p>"
-        teleclass: "<p> Gostaria de convidá-lo para <b>o evento 'event_name' na comunidade %{space}</b> em 'event_date'. O evento será uma classe virtual com participação simples através do sistema Isabel. </p><p> Você pode encontrar mais informações sobre este evento em <a href=\"event_url\">event_url</a> </p> <p>Atenciosamente,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>"
-        teleconference: "<p> Gostaria de convidá-lo para <b>o evento 'event_name' na comunidade %{space}</b> em 'event_date'. O evento será uma conferência virtual com participação simples através do sistema Isabel. </p><p> Você pode encontrar mais informações sobre este evento em <a href=\"event_url\">event_url</a> </p><p>Atenciosamente,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>"
-        telemeeting: "<p> Gostaria de convidá-lo para <b>o evento 'event_name' na comunidade %{space}</b> em 'event_date'. O evento será uma reunião virtual com participação simples através do sistema Isabel. </p><p> Você pode encontrar mais informações sobre este evento em <a href=\"event_url\">event_url</a> </p><p>Atenciosamente,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>"
-      message_public_without_start_date: 
-        in_person: "<p> Gostaria de convidá-lo para <b>o evento 'event_name' na comunidade %{space}</b>.</p><p> Você pode encontrar mais informações sobre este evento em <a href=\"event_url\">event_url</a> </p><p>Atenciosamente,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>"
-        teleclass: "<p> Gostaria de convidá-lo para <b>o evento 'event_name' na comunidade %{space}</b>. O evento será uma classe virtual com participação simples através do sistema Isabel. </p><p> Você pode encontrar mais informações sobre este evento em <a href=\"event_url\">event_url</a> </p> <p>Atenciosamente,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>"
-        teleconference: "<p> Gostaria de convidá-lo para <b>o evento 'event_name' na comunidade %{space}</b>. O evento será uma conferência virtual com participação simples através do sistema Isabel. </p><p> Você pode encontrar mais informações sobre este evento em <a href=\"event_url\">event_url</a> </p> <p>Atenciosamente,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>"
-        telemeeting: "<p> Gostaria de convidá-lo para <b>o evento 'event_name' na comunidade %{space}</b>. O evento será uma reunião virtual com participação simples através do sistema Isabel. </p><p> Você pode encontrar mais informações sobre este evento em <a href=\"event_url\">event_url</a> </p> <p>Atenciosamente,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>"
-      message_title: "Convidar usuários não registrados"
       subject: "%{username} convida você para o evento %{eventname} na comunidade %{space}"
     has: "Este evento tem"
-    held_with: "Este evento será realizado com"
     help: 
-      book: "É necessário reservar recursos para fazer uma videoconferência. Por favor, defina o seu cronograma na agenda."
       create: "Crie o seu evento simples em três etapas:"
-      creating_entries: "criando entradas"
-      define: "Definir o cronograma de sua reunião"
-      define3: ""
-      description: "Escreva uma descrição completa"
       edit: "Editar seu evento"
-      in_agenda: "na agenda"
-      now: "Agora você pode"
-      without_str: "Para obter streaming e/ou gravação, por favor indique-o na sua agenda"
     home: 
       one: "Evento na comunidade %{space}"
-    invite: "Convidar pessoas"
     invite_event: "Convide pessoas para o evento %{event_name}"
     invite_message: "Gostaria de convidá-lo para <b>o evento %{event_name} na comunidade %{space}</b> em %{event_date}. </p><p> Você pode encontrar mais informações sobre este evento em <a href=\"%{event_url}\">%{event_url}</a> </p><p> Atenciosamente,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>"
     invite_title: "%{username} convida você para o evento %{eventname} na comunidade %{space}"
-    join: "Junte-se a este evento"
     last_7_days: "Últimos 7 dias (%{size})"
     last_month: "Mês passado (%{size})"
     location: Localização
     logo: 
-      button: "Alterar o logotipo"
       created: "Logotipo do evento criado com sucesso"
       crop: "Selecione a parte da imagem para recortar"
       new: "Adicionar uma imagem para o seu evento"
@@ -601,32 +345,24 @@ pt-br:
       change_event_end_date_div: "<b>Alterar a data final do evento:</b> Esta opção permite expandir o horário do evento movendo o horário final. Esta mudança afetará somente para o horário final do evento e nada mais (as sessões permanecerão com mesmo horário). Use esta opção se você precisar de mais tempo após o horário final do seu evento."
       change_event_start_date_div: "<b>Alterar a data final do evento:</b> Esta opção permite expandir o horário do evento movendo o horário inicial. Esta mudança afetará somente para o horário inicial do evento e nada mais (as sessões permanecerão com mesmo horário). Use esta opção se você precisar de mais tempo antes do horário inicial do seu evento."
       change_start_date: "Alterar data de início do evento"
-      move_event: "Mover evento"
-      move_event_div: "<b>Mover evento:</b> Esta opção permite mover seu evento. Você pode escolher um novo horário inicial e isso vai afetar tudo em seu evento. <b>Todas as sessões do evento vão mudar</b> seu horário de início para manter a relação de tempo com o início do evento."
       no_change: "Nenhuma mudança"
       out_date: "A entrada de agenda com título \"%{agenda_entry}\" estará fora do evento e isso não é permitido. Mova ou edite as suas sessões para permitir que essa alteração seja feita."
     new: 
       basic: "Informações básicas"
       conference: "Congresso Virtual"
       date: Data
-      docs: Documentos
       meeting: "Encontro Virtual"
       presential: Reunião
       type: "Tipo de evento"
       vcoptions: "Opções de videoconferência"
     no_events: "Você não tem eventos"
-    no_param: "Nenhum parâmetro selecionado"
     none_coming: "Não há eventos próximos"
-    not_attend: "Não participarão"
     not_available: "Disponível em breve"
     note: 
-      both: "Participação na Web e streaming estarão disponíveis no momento do evento"
-      none: "Não há transmissão definida na agenda."
       not_organizer_after: "Este evento aconteceu em %{date}, agora você pode desfrutar do programa do evento e das gravações"
       not_organizer_before: "Este evento acontecerá em %{date}, você pode agora confirmar a sua participação e ler o programa"
       not_organizer_during: "Este evento está acontecendo agora, você pode segui-lo com o streaming ou participar com o cliente de bate-papo e o cliente flash"
       not_organizer_no_date: "Este evento ainda não tem data. Você pode confirmar sua assintance agora e voltar mais tarde para ler o programa"
-      nothing: "Nenhuma participação Web ou streaming reservados neste momento"
       participation: "A participação Web estará disponível no momento do evento"
       streaming: "O streaming de vídeo estará disponível no momento do evento"
     notification: 
@@ -647,7 +383,6 @@ pt-br:
       selected_attendants: "Participantes que você deseja notificar:"
       show_all_attendants: "Mostrar todos os participantes"
       subject: "%{username} enviou uma notificação para informá-lo sobre o evento %{eventname} na comunidade %{space}"
-      title: "Informe os participantes do evento"
     notification_message: "<p> %{name}, </p><p> Quanto o <b> %{event_name} na comunidade %{space}</b> em %{event_date}. </p><p> Você pode encontrar mais informações sobre este evento em <a href=\"%{event_url}\">%{event_url}</a> </p><p> Atenciosamente,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>"
     notification_successfully: "Notificação enviada a todos com sucesso."
     notification_title: "%{username} enviou uma notificação para informá-lo sobre o evento %{eventname} na comunidade %{space}"
@@ -657,11 +392,7 @@ pt-br:
     other: Eventos
     participation: 
       add: "Adicionar um."
-      edit: "Edite o código do cliente Web"
       none: "Ninguém postou qualquer URL de participação."
-      ready: "A participação está agendada. Ela estará disponível durante o evento"
-      title: Participação
-      will_be_available: "A participação estará disponível durante o evento"
     past: 
       all: "Todos passados (%{size})"
       last_month: "Não há eventos para o mês passado."
@@ -671,30 +402,17 @@ pt-br:
       other: "Eventos passados"
       show: "Mostrar todos os eventos antigos"
       today: "Não existem eventos para ontem nem hoje."
-    player: Player
     recording: 
-      button_disabled: "Este botão será ativado quando o evento tiver alguma gravação"
       cloud: Vídeos!
       cloud_back: "Voltar ao programa"
       insert: Inserir
       notice: "As pessoas vão precisar de direitos de acesso a esta comunidade para ver estes vídeos"
-      one: Vídeo
-      other: "Lista de vídeos"
       recorded: "Eventos gravados"
       share: Compartilhe
-    recording_automatic: "Gravação automática"
-    recording_manual: "Gravação manual"
-    recording_none: "Nenhuma gravação"
     repository: 
       enabled: "Ativar repositório de documentos"
       help: "Este repositório apresenta os documentos carregados nas sessões da agenda do evento"
       title: "Documentos de evento"
-    scorm: 
-      button: "Exportar formato scorm"
-      title: "Scorm (Zip para LMS)"
-    search: "Procurar eventos..."
-    select_date: "Selecione uma data para seu evento"
-    session_now: "Sessão de hoje"
     spam: "Spam em eventos"
     start: "Reinicie o evento"
     started: "pedido Iniciar enviar com êxito"
@@ -708,30 +426,24 @@ pt-br:
     streaming: 
       add: "Acrescentar um."
       back: "Voltar para o streaming"
-      edit: "Editar código do streaming"
       no_at_events: "Sem streaming nas reuniões"
       none: "Ninguém postou uma URL para streaming"
       notice: "As pessoas vão precisar de direitos de acesso a esta comunidade para ver este conteúdo"
       now: "Streaming do evento"
-      ready: "O streaming foi agendado. Ele estará disponível durante o evento"
       title: "Sessão de streaming"
       will_be_available: "O streaming estará disponível durante o evento"
-    temporarily_disabled: "Temporariamente desabilitado"
     time: 
       end: Fim
       start: Início
     to: Para
     today: "Eventos de hoje"
     today_and_yesterday: "Hoje e ontem (%{size})"
-    today_size: "Hoje (%{size})"
     tomorrow: "Eventos de amanhã"
     undated: 
-      none: "Não há eventos sem agenda"
       show: "Mostrar todos os eventos sem data"
       title: "Eventos sem agenda definida"
     upcoming: 
       all: "Todos os programados (%{size})"
-      my_other: "Meu eventos programados"
       next_month: "Não há eventos para o próximo mês"
       next_week: "Não há eventos para a próxima semana"
       none: "Não há eventos programados"
@@ -741,41 +453,17 @@ pt-br:
       today: "Não há eventos para hoje"
     updated: "Evento atualizado com sucesso"
     video_part: "Participação Web"
-    view_agenda: Agenda
     view_participation: "Participação Web"
-    view_participation_disabled: "Participação disponível durante o evento"
     view_recordings: "Gravação de vídeo"
-    view_recordings_disabled: "Ainda não há gravações"
     view_related_rec: "Ver na lista de vídeos"
-    view_repo: Documentos
     view_streaming: Streaming
-    view_streaming_disabled: "Streaming disponível durante o evento"
     will_attend: "Você pretende participar deste evento?"
     within_7_days: "Dentro de 7 dias (%{size})"
     within_a_month: "Dentro de um mês (%{size})"
   event_invitation: 
-    accepted: "Você aceitou o convite para este evento"
-    clarify_registered: "Favor introduzir sua senha para confirmar sua participação no evento"
-    clarify_unregistered: "Favor introduzir seu nome completo e uma senha para se registrar no Mconf e confirmar sua participação no evento"
-    confirm_password: "Confirmar senha"
-    deselect_all_users: "Desselecionar todos usuários"
-    discarded: "Você descartou o convite para este evento"
-    email: E-mail
-    full_name: "Nome completo"
-    hide_all_users: "Esconder todos usuários"
     instructions: "Clique Enviar para cada convite que você deseja enviar, e clique Finalizar quando você concluir."
-    logout_and_reload: "Você não é o usuário que recebeu este convite, por favor saia do sistema e tente novamente"
-    message_title: "Convidar usuários registrados"
-    new: 
-      other: "Convidar pessoas"
-    not_processed: "O convite não pode ser processado"
-    password: Senha
-    select_all_users: "Selecionar todos usuários"
     sent: "Convites enviados com sucesso"
-    show_all_users: "Exibir todos usuários"
-    title: "Convite para o evento"
     will_invite: "Pessoas que você irá convidar?"
-  export_widget: "Exportar widget"
   faq: 
     faq0: 
       answer: "Este FAQ, como todo este website, é baseado no Global Plaza. Se você não achou a resposta que você estava procurando, talvez você possa achar no <a href=\"http://globalplaza.org/faq\">Global Plaza FAQ</a>."
@@ -802,7 +490,6 @@ pt-br:
       answer: "Wow! Estamos muito contentes que você está interessado em dar a sua contribuição para o Mconf. Então, como você pode contribuir?<br><br>Primeiramente, de uma olhada em nossa <a href=\"http://code.google.com/p/mconf\">página do Google Code</a>, onde você pode encontrar o sistema de acompanhamento de tarefas com todas as tarefas atualmente em desenvolvimento e também toda nossa documentação (wiki). Após isso, se você quiser entrar em contato conosco, registre-se em <a href=\"http://groups.google.com/group/mconf-dev\">nossa lista de emails</a> e mande para nós uma mensagem.<br><br>Há muitas coisas que você pode fazer. Você pode ajudar a resolver um bug, talvez? Ou, se você não for um desenvolvedor, talvez você pode instalar Mconf e fornecer algum feedback? Você também pode ajudar com a tradução se você falar outras línguas. Vamos apreciar todos os comentários e sugestões, fique à vontade para interagir conosco."
       question: "Eu tenho boas ideias para o seu site. Você aceita sugestões? Como posso contribuir para o desenvolvimento?"
     header_title: FAQ
-    tag: FAQ
     title: "Perguntas Frequentes"
   fax: Fax
   feedback: 
@@ -814,14 +501,10 @@ pt-br:
     sent: "Seu e-mail de feedback foi enviado com sucesso. Obrigado"
     webconf: 
       text: "Você saiu da conferência.<br/>Você já pode fechar esta janela."
-  file: Arquivo
   fill_fields: "Você deve preencher todos os campos"
   find: 
     browse: Navegar
   find_in: "Pesquisar em:"
-  find_in_day: "Pesquisar no dia:"
-  find_in_name_speakers: "Pesquisar em nome/palestrantes:"
-  follow_reset_password: "%{agent}, por favor siga o link para redefinir a sua senha"
   footer: 
     built_on_top_of: "Este site é baseado no <a href=\"https://github.com/ging/vcc\">VCC</a> (Global Plaza)"
     find_us: "Você pode nos encontrar em"
@@ -829,29 +512,18 @@ pt-br:
     github: GitHub
     statistics: Estatísticas
     website: "Site do Projeto"
-  form: 
-    loading: "O formulário está carregando..."
   from: De
   frontpage: 
     about: Sobre
-    create_button: Criar
-    create_room: "Criar uma nova sala"
     join_button: Entrar
-    join_or_create: "Entre em uma sala existente ou crie a sua própria sala!"
-    meetings_in_progress: "Reuniões em progresso"
     members: Membros
     more_info: "Mais informações..."
     no_rooms: "Nenhuma reunião em progresso."
     no_spaces: "Nenhum espaço público encontrado."
     not_running: "Não está em progresso"
-    participants: participantes
-    participants_in: 
-      one: "%{count} participante"
-      other: "%{count} participantes"
     popular_spaces: "Comunidades públicas populares"
     project_description: "<p>Este website é parte do projeto <a href=\"http://www.inf.ufrgs.br/prav/gtmconf\">Mconf</a>, sistema em desenvolvimento no grupo de pesquisa <a href=\"http://www.inf.ufrgs.br/prav\">PRAV</a> da <a href=\"http://www.ufrgs.br\">UFRGS</a> em parceria com a <a href=\"http://www.rnp.br\">RNP</a>. Ele foi desenvolvido com base no sistema <a href=\"http://www.globalplaza.org/\">Global Plaza</a> e integrado ao sistema de webconferência <a href=\"http://bigbluebutton.org/\">BigBlueButton</a>.</p> <p>Para mais informações, acesse o website do projeto <a href=\"http://www.inf.ufrgs.br/prav/gtmconf\">clicando aqui</a>.</p>"
     register_sentence: "Crie uma conta para acessar comunidades privadas e criar suas próprias webconferências"
-    room_name: "Nome da sala"
     running: 
       one: "Ativa com %{count} participante"
       other: "Ativa com %{count} participantes"
@@ -859,29 +531,9 @@ pt-br:
     stats: 
       text: "%{users} usuários, %{spaces} espaços, %{meetings} webconferências ativas"
       title: "Estatísticas atuais:"
-    webconferences: Webconferências
-    your_name: "Seu nome"
   getting_started: Começando!
   group: 
-    add_to_group: "Adicionar à lista de e-mails"
-    add_to_others: "Adicionar outra listas de e-mails"
-    create: "Criar nova lista de e-mails"
-    created: "Lista de e-mails %{name} criada com sucesso"
-    delete: "Excluir lista de e-mails"
-    deleted: "Lista de e-mails %{name} excluída com sucesso"
-    different: "Outras listas de e-mails"
-    edit: "Editar lista de e-mails"
-    existing: "nome já foi escolhido"
-    join: "Junte-se a esta lista de e-mails"
-    mailing_list: "Lista de e-mails"
-    name: "Nome da lista de e-mails"
-    not_deleted: "Erro ao excluir lista de e-mails %{name}"
-    not_valid: "A lista de e-mails não é válida"
-    one: "Lista de e-mails"
     other: "Listas de e-mails"
-    send_message: "Enviar uma mensagem para esta lista de e-mails"
-    updated: "Lista de e-mails %{name} atualizada com sucesso"
-  groups_and_results: "Listas de e-mails, %{size} resultados"
   hcard: 
     not_found: "hCard não encontrado"
   header_global: 
@@ -926,7 +578,6 @@ pt-br:
     part4: "3. Digite um nome e uma descrição para sua própria comunidade."
     part5: "4. Decida se a comunidade deve ser pública. Comunidades colaborativas podem ser públicas, para que qualquer pessoa veja o que acontece nelas, ou privadas, onde apenas os membros terão acesso às atividades da comunidade."
     part6: "5. Se você deseja habilitar um repositório de documentos, escolha esta opção.<br> 6. Você pode associar uma lista de e-mails no seu grupo. Ela permitirá que você envie mensagens de e-mail para todo o grupo em vez de ter de escolher os endereços individualmente. <br> 7. Você pode carregar o seu próprio logotipo, criar um logotipo de texto ou selecionar uma imagem da galeria."
-    part7: ""
   help_createuser: 
     part1: "Para criar um usuário no Global Plaza:"
     part2: "1. Clique no item <a href=%{url}>registrar</a> na barra de menu superior."
@@ -974,7 +625,6 @@ pt-br:
     part5: "4. Depois que o arquivo estiver selecionado, clique no botão <b>Abrir</b>."
     part6: "5. Você pode <b>adicionar tags</b> que você e outros podem usar para localizar e filtrar o conteúdo. Pressione enter para confirmar cada tag."
     part7: "6. Se você deseja <b>notificar</b> o documento com uma mensagem no mural, escolha esta opção."
-    part8: "7. Por fim, clique no botão <b>Upload</b> para adicionar o arquivo no repositório de documentos."
   help_page: 
     header_title: Ajuda
   help_participation: 
@@ -996,11 +646,8 @@ pt-br:
     part7: "1. Clique na caixa <b>Pesquisa avançada</b> no menu superior"
     part8: "2. Especifique se você deseja pesquisar em qualquer comunidade ou em uma comunidade em particular na lista em <b> Pesquisar em </b>"
     part9: "3. Escolha o tipo de elemento da lista <b> Pesquisar em </b>"
-  help_support: "Ajuda e suporte"
   help_title: 
     about_vcc: "Sobre o Mconf"
-    configure_isabel: "Como configurar o seu próprio servidor Isabel"
-    connect_isabel: "Como se conectar ao Isabel"
     create_VC: "Criando um congresso virtual"
     create_VM: "Criando uma reunião virtual"
     create_event: "Criando um evento"
@@ -1010,22 +657,13 @@ pt-br:
     create_user: "Criando um usuário"
     define_agenda: "Definindo a agenda para o evento"
     export_program: "Exportando um evento"
-    globalplaza: "Global Plaza"
-    info: "Aqui você pode encontrar informações sobre o Global Plaza"
-    info_isabel: "Aqui você pode encontrar informações sobre a ferramenta Isabel"
-    install_isabel: "Como instalar o Isabel"
     invitation: "Convidando usuários para eventos"
-    isabel: "Isabel (ferramenta de videoconferência)"
     join_space: "Participando de uma comunidade"
     logging: "Logando na sua conta"
     new_doc: "Adicionando um novo documento"
     participation: "Participando em um evento"
     search_global: "Pesquisando no Global Plaza"
     topics: Tópicos
-  help_vcc: 
-    info: "Aqui você pode encontrar informações sobre o Global"
-    topics: Tópicos
-  hide: Esconder
   his_message_reads_thus: "Sua mensagem diz assim"
   home: 
     activity: "Atividade recente..."
@@ -1041,32 +679,20 @@ pt-br:
         other: "ativa com %{count} participantes"
     view_invite_url: "Ver URL para convites"
   icalendar: 
-    add: "Atualizar e adicionar novas entradas"
-    conflictive1: "Uma entrada de seu iCalendar estava na aplicação Mconf e foi modificada. É necessário atualizá-la manualmente para evitar problemas."
-    conflictiven: "entradas de seu iCalendar estavam na aplicação Mconf e foram modificadas. É necessário atualizá-las manualmente para evitar problemas."
     error_import: "Ocorreu um erro ao importar o iCalendar."
-    export: iCalendar
     import: "Importar iCalendar"
     importMessage1: "Um total de"
     importMessage2: "foram lidos a partir do seu iCalendar."
     importMessage3: "deles foram salvos ou atualizados corretamente."
-    instruction: "Use para adicionar novas entradas à agenda atual com o iCalendar."
-    outbounds1: "Uma entrada de seu iCalendar não coincide com as datas do evento e não foi importada."
-    outboundsn: "entradas de seu iCalendar não coincidem com as datas do evento e não foram importadas."
     report: "Relatório:"
-    succes_import: "iCalendar foi importado com sucesso."
     updated1: "Uma entrada de seu iCalendar já estava em sua agenda de eventos e foi atualizada."
     updatedn: "entradas de seu iCalendar já estavam em sua agenda de eventos e foram atualizadas."
   im: IM
-  im_new: "Eu sou novo"
-  import: Importar
   inbox: 
     my: "Minha caixa de entrada (%{checked})"
     one: "Caixa de Entrada (%{checked})"
-  index: Índice
   information: 
     expand: "Expandir Lista.."
-    info_timezone: "Ao selecionar o seu fuso horário não haverá equívoco ao criar eventos com pessoas de outros países."
     information1: "Estas são as comunidades dos quais você faz parte"
     information2: "Aqui você pode encontrar as mensagens recentes, eventos e notícias das comunidades das quais você faz parte"
     information3: "Estas são as últimas mensagens ou eventos que você criou"
@@ -1076,25 +702,15 @@ pt-br:
   internet: 
     on_the: "Na Internet"
     ppal: Internet
-  invalid_credentials: "Credenciais inválidas"
-  invalid_password_reset_code: "Código inválido. Por favor, verifique o link e tente novamente. (Dica: o seu cliente de e-mail não quebrou o link?)"
   invitation: 
     accept: "Aceitar o convite"
-    accepted: "Você aceitou o convite"
-    accepted_by: "%{candidate} aceitou o convite"
     access_space: "Você agora é um membro da comunidade %{spacename} e pode acessá-la em <a href=\"%{space_url}\"> %{space_url} </a>"
     add_more: "Convidar mais pessoas"
-    comment: Comentário
-    confirm_delete: "Excluir convite?"
-    created: "Convite enviado"
     deselect_all_users: "Desmarcar todos os usuários"
     discard: "Descartar convite"
-    discarded: "O convite foi descartado"
-    discarded_by: "%{candidate} descartou o convite"
     email: E-mail
     full_message: "<b>%{username} convida você para a comunidade %{space}.</b><br/><br/>%{comment}<br/><br/> Para aceitar o convite por favor visite <a href=\"%{url}\">%{url}</a><br/> Você pode encontrar mais informações sobre esta comunidade em <a href=\"%{space_url}\">%{space_url}</a><br/><br/> Atenciosamente,<br/><br/>%{user_name}<br/>%{user_email}<br/>%{user_organization}<br/><br/> Se você acredita que esta mensagem é um spam, por favor <a href=\"mailto:%{contact}\"> entre em contato </a> ou nos <a href=\"%{feedback}\"> envie uma mensagem.</a>"
     hide_all_users: "Ocultar todos os usuários"
-    info_event: "Você pode encontrar mais informações sobre este evento em 'event_url'"
     info_space: "Você pode encontrar mais informações sobre esta comunidade em <a href=\"%{space_url}\"> %{space_url} </a>"
     info_users: "Você pode ver a lista atual de usuários da comunidade em <a href=\"%{users_url}\"> %{users_url} </a>"
     introducer: Introdutor
@@ -1114,44 +730,24 @@ pt-br:
       teleclass: "<p>Gostaria de convidá-lo para <b>o evento 'event_name' na comunidade %{space} </b>. O evento será uma classe virtual com participação simples através do sistema Isabel. </p><p> Para aceitar meu convite, por favor visite %{url} </p><p> Você pode encontrar mais informações sobre este evento em <a href=\"event_url\">event_url</a></p><p> Atenciosamente, <br/><br/> %{username}<br/>%{useremail}<br/>%{userorg}</p>"
       teleconference: "<p>Gostaria de convidá-lo para <b>o evento 'event_name' na comunidade %{space} </b>. O evento será uma conferência virtual com participação simples através do sistema Isabel. </p><p> Para aceitar meu convite, por favor visite %{url} </p><p> Você pode encontrar mais informações sobre este evento em <a href=\"event_url\">event_url</a></p><p> Atenciosamente, <br/><br/> %{username}<br/>%{useremail}<br/>%{userorg}</p>"
       telemeeting: "<p>Gostaria de convidá-lo para <b>o evento 'event_name' na comunidade %{space} </b>. O evento será uma reunião virtual com participação simples através do sistema Isabel. </p><p> Para aceitar meu convite, por favor visite %{url} </p><p> Você pode encontrar mais informações sobre este evento em <a href=\"event_url\">event_url</a></p><p> Atenciosamente, <br/><br/> %{username}<br/>%{useremail}<br/>%{userorg}</p>"
-    new: 
-      other: "Novos convites"
     not_accepted: "não aceito"
-    not_created: "não pode ser convidado(a) para esta comunidade pois já é um membro"
-    not_created_2: "não pode ser convidado(a) para esta comunidade pois já foi convidado(a)"
-    not_found: "Convite não encontrado"
     not_pending: 
       other: "Não há convites pendentes"
-    not_processed: "Convite não processado"
-    one: Convite
-    other: convite
     pending: 
       other: "Convites pendentes"
     personal: "Mensagem pessoal"
     rejoin_space: "Se você gostaria de solicitar a adesão novamente por favor acesse <a href=\"%{space_url}\"> %{space_url} </a>"
-    role: Função
     role_label: "Função para as pessoas convidadas"
     select_all_users: "Selecionar todos usuários"
-    send: 
-      one: "Enviar convite"
-    show: "Entrar em %{group}"
     show_all_users: "Mostrar todos usuários"
-    sign: "Atenciosamente, %{username}"
-    space: "Gostaria de convidá-lo para a comunidade %{space} no Mconf."
-    subject: "%{username} convidou-o para um evento na comunidade %{space}"
     tab: 
       title1: "Usuários não registrados"
       title2: "Usuários registrados"
     title: "Convidar pessoas"
     title2: "Convite da comunidade"
-    to_accept: "Para aceitar o convite por favor visite <a href=%{url}> %{url} </a>"
     to_accept_space: "Para aceitar o convite por favor visite 'URL'"
     to_event: "%{username} convida você para o evento %{eventname} na comunidade %{space}"
     to_space: "%{username} convida você para a comunidade %{space}"
-    was_processed: 
-      accepted: "Convite já foi aceito"
-      discarded: "O convite já foi descartado"
-      discarted: "Convite já foi descartado"
     will_invite: "Pessoas que você vai convidar"
     yes_accepted: aceito
   invite: 
@@ -1181,19 +777,15 @@ pt-br:
       no_results: "Nenhum resultado encontrado"
       searching: Procurando...
   invited: Convidados
-  is_member_of: "é membro de"
   join: Entrar
   join_cam: Participar
   join_request: 
-    accepted: "Pedido de adesão aceito"
     already_sent: "Você já pediu para participar desta comunidade"
     ask_subject: "%{candidate} quer participar de %{space}"
-    asked: "<b>%{candidate}</b> quer participar da comunidade %{space} que é administrado por você:"
     asked_anonymous: "Alguém quer participar da comunidade %{space} administrado por você:"
     asked_anonymous_full: "Alguém quer participar da comunidade %{space} administrado por você: %{comment} <br/><br/><p>Para atender o pedido visite <a href=\"%{url}\">%{url}</a></p><p>Se você acredita que esta mensagem é um spam, por favor <a href=\"mailto:%{contact}\"> entre em contato </a> ou nos <a href=\"%{feedback}\"> envie uma mensagem.</a></p><p>%{signature}</p>"
     asked_full: "<b>%{candidate}</b> quer participar da comunidade %{space} administrado por você: %{comment} <br/><br/><p>Para atender o pedido visite <a href=\"%{url}\">%{url}</a></p><p>Se você acredita que esta mensagem é um spam, por favor <a href=\"mailto:%{contact}\"> entre em contato</a> ou nos <a href=\"%{feedback}\"> envie uma mensagem.</a></p><p>%{signature}</p>"
     created: "Seu pedido de adesão foi enviado para os administradores da comunidade"
-    discarded: "Pedido de adesão descartado"
     joined: "Você já é um membro da comunidade"
     label: "Personalize a sua mensagem de solicitação de adesão"
     message_title: "Enviar um pedido de adesão aos administradores da comunidade"
@@ -1202,23 +794,14 @@ pt-br:
     not_logged_in: "Você precisa estar logado para enviar um pedido de adesão"
     not_pending: 
       other: "Não existem solicitações de adesão pendentes"
-    not_processed: "Pedido de adesão não processado"
-    one: "Pedido de Adesão"
-    other: "Pedidos de Adesão"
     pending: 
       other: "Pedidos de adesão pendentes"
     personal: "Escreva o seu texto pessoal aqui."
-    send: "Enviar pedido de adesão"
-    to_accept: "Para atender o pedido visite <a href=\"%{url}\">%{url}</a>"
-    updated: "Pedido de adesão atualizado"
-  join_to_site: "Participe do %{site}"
   keywords: "Palavras-chave (*)"
   language: Idioma
   last_week: "Semana passada"
   latest_events: "Últimos eventos"
   latest_news: "Últimas notícias"
-  layout_footnote: "%{site} é baseado em %{plugin}. Design de %{designer}."
-  list_by: "Listar por"
   locale: 
     changed: "Idioma da aplicação alterado para "
     error: "Não foi possível alterar o idioma do aplicativo para"
@@ -1228,48 +811,27 @@ pt-br:
     es: Español
     fr: Fraçais
     pt-br: "Português (Brasil)"
-  logged_in_successfully: "Logado com sucesso"
-  logged_out: "Você foi desconectado"
   login: 
-    email: E-mail
     email_or_login: "E-mail ou usuário"
     one: Login
     password: Senha
   login_or_register: "Login / Registre-se"
   login_request: "Você precisa estar logado para"
-  login_to: "Logar em %{site}"
-  login_traditional: "Login utilizando usuário/senha"
   logo: 
-    click_to_change: "Clique para mudar o logotipo"
     created: "Logotipo enviado com sucesso"
     crop: "Cortar logotipo da comunidade"
-    current: "Logotipo atual"
     empty: "O logotipo está vazio"
-    error: 
-      not_valid: "Logo não é válido"
     no_image: "Nenhuma imagem foi selecionada"
-    one: Logotipo
   logout: Sair
-  mailing_list: 
-    associate: "Associar lista de e-mails ao seu grupo"
-    invalid: "A lista de e-mails tem caracteres inválidos. Somente letras, números, sublinhados e hífens são permitidos"
-    reserved: "A lista de e-mails %{systemMailingList} é reservada"
   manage: Gerenciar
-  management: gerenciamento
   mandatory_field: "Campo obrigatório"
-  mark_checkbox: "Marque a caixa de seleção apropriada"
   mconf: Mconf
   members: 
     one: "%{count} membro"
     other: "%{count} membros"
   message: 
-    created: "Mensagem enviada com sucesso"
-    error: 
-      create: "Erro ao enviar mensagem privada"
     incoming: 
       other: "Mensagens recebidas"
-    one: Mensagem
-    other: Mensagens
     private: 
       cant: "Você não pode enviar mensagens privadas porque você não tem parceiros em nenhuma comunidade"
       editing: "Editando mensagem privada"
@@ -1277,7 +839,6 @@ pt-br:
       none: "Não há mensagens"
       send: "Enviar uma mensagem privada"
     reply: "Responder Ã  mensagem"
-    send: "Enviar mensagem"
     sent: 
       other: "Mensagens enviadas"
     special1: "A plataforma Mconf estará indisponível a partir de sexta-feira, 17 dezembro às 16:00 UTC, até sábado, 18-Dez 16:00 UTC. Desculpem o incómodo."
@@ -1291,8 +852,6 @@ pt-br:
     one: Nome
     other: Nomes
     prefix: Título
-  new_server: "Novo Servidor"
-  new_source: "Importar RSS/Atom"
   new_spam_detected: "Novo spam detectado"
   news: 
     created: "Notícia publicada com sucesso"
@@ -1303,7 +862,6 @@ pt-br:
       delete: "Erro ao excluir notícia"
       update: "Notícia não pôde ser atualizada"
     item_in_home: "Notícia na comunidade"
-    none: Nenhum
     none_to_show: "Nenhuma notícia para mostrar"
     other: Notícias
     publish_another: "Publicar outra notícia"
@@ -1312,55 +870,14 @@ pt-br:
   next: Próximo
   no_messages_in_wall: "Não há mensagens no mural"
   no_tags_found: "Nenhuma tag encontrada"
-  not_going: "Eu não pretendo participar"
   now_exclamation: Agora!
-  number: 
-    human: 
-      decimal_units: 
-        units: 
-          billion: Bilhões
-          million: Milhões
-          quadrillion: Quatrilhões
-          trillion: Trilhão
   ok: OK
   older: "Mais velho"
-  online: online
-  openid: 
-    client: 
-      associating_to_id: "Associado ao OpenID: %{id}"
-      discovery_failed: "Descoberta falhou para %{id}: %{error}"
-      id_attached_to_account: "OpenID: %{id} associado Ã  sua conta"
-      immediate_request_failed: "Pedido imediato falhou - Configuração Necessária"
-      transaction_cancelled: "Transação OpenID cancelada"
-      verification_failed: "Verificação falhou: %{message}"
-      verification_failed_with_id: "Verificação de %{id} falhou: %{mensagem}"
-      verification_succeeded_with_id: "Verificação de %{id} teve sucesso"
-    enter: "Insira o seu OpenID"
-    have: "Você tem um OpenID? Clique no logo!"
-    login: "Login com OpenID"
-    server: 
-      about_login_to: "Você está prestes a logar no servidor %{server}"
-      anti_phishing: "Esta página não tem links para evitar <i>phishing</i>. Você deve inserir você mesmo o endereço no seu navegador."
-      cancel: "Não, cancelar"
-      decision: "Você deve tomar uma decisão:"
-      endpoint: "Este é um terminal do servidor OpenID"
-      invalid_uri: "Essa identidade não pertence a você: %{uri}"
-      login_to: "Logar em %{server}"
-      must_login: "Você deve logar em %{server}"
-      once: "Sim, só desta vez"
-      optional_information_by: "Informações opcionais solicitados pelo %{server}"
-      required_information_by: "Informações necessárias solicitadas pelo %{server}"
-      trust: "Sim, lembre-se de agora em diante"
-    title: OpenID
   optional: Opcional
   or: ou
-  or_use_email: "ou use seu e-mail..."
   organization: Organização
   organizer: Organizadores
   other: Outro
-  pagination: 
-    next_label: "Próximo >>"
-    previous_label: "<< Anterior"
   participant: 
     created: "Suas informações de participação foram atualizadas com sucesso"
     error: 
@@ -1371,26 +888,10 @@ pt-br:
     request: "Redefinição de senha em %{sitename}"
     reset_email: "Sua senha foi redefinida em %{sitename}"
     to_reset: "Para redefinir sua senha, visite <a href=%{url}> %{url} </a>"
-  password_has_been_reset: "Sua senha foi redefinida"
-  password_has_been_reset_with_agent: "%{agent}, sua senha foi redefinida"
-  password_reset: "Redefinição de Senha"
-  password_reset_link_sent_to_email_address: "Um link de redefinição de senha foi enviado para o endereço de email"
   past: Passado
   people: pessoas
   per_page: "por página"
   performance: 
-    change: Alterar
-    confirm_delete: "Excluir Desempenho?"
-    create: 
-      one: "Criar Desempenho"
-      other: "Criar Desempenhos"
-    delete: 
-      one: "Excluir Desempenho"
-      other: "Excluir Desempenhos"
-    errors: 
-      stage_should_not_run_out_of_performances_with_first_role: "O estágio não deve ficar sem desempenhos com a primeira função."
-      the_role_should_not_belong_to_a_different_stage_type: "A função não deve pertencer a um tipo de estágio diferente."
-    new: "Novo membro"
     notification: 
       estandar: "%{username} mudou sua função em %{stage} para %{role}."
       event: "%{username} mudou sua função no evento %{event} para %{role}."
@@ -1399,17 +900,7 @@ pt-br:
         estandar: "%{username} mudou sua função em %{stage}"
         event: "%{username} mudou sua função no evento %{event}"
         space: "%{username} mudou sua função na comunidade %{space}"
-    one: Membro
-    other: Membros
-    other_in: "Membros de %{stage}"
-    read: 
-      one: "Ler Desempenho"
-      other: "Ler Desempenhos"
-    update: 
-      one: "Atualizar Desempenho"
-      other: "Atualizar Desempenhos"
     updated: "Desempenho do usuário foi atualizado com sucesso"
-    without_roles_available: "Não existem Funções disponíveis. Desempenhos não podem ser definidos."
   permission: 
     other: "Direitos de acesso"
   personal_information: "Informações pessoais"
@@ -1419,22 +910,13 @@ pt-br:
     one: Telefone
     plural: Telefones
   phone_optional: "Telefone (opcional)"
-  photos: Fotos
   photos_view_arrows: "ver fotos >>"
   place: Local
   please: "Por favor"
-  please_activate_account: "Por favor ative sua nova conta"
   popularity: Popularidade
   post: 
-    created: "Mensagem criada"
     deleted: "Comentário %{postname} foi excluído"
-    error: 
-      empty: "A mensagem não pode ser vazia"
-      not_valid: "O comentário não é válido"
     found: 
-      none: "Nenhuma mensagem encontrada"
-      one: "1 mensagem encontrada"
-      other: "%{size} mensagens encontradas"
       show_all: "Mostrar todos os resultados"
     home: 
       one: "Mensagem na comunidade %{space}"
@@ -1445,47 +927,31 @@ pt-br:
     other: Mensagens
     other_in_space: "Mensagens na comunidade %{space}"
     show_expanded_pref: "Como você gostaria de ver suas mensagens?"
-    updated: "Mensagem atualizada"
     wall: Mural
   prav: PRAV
   preferences: Preferências
   previous: Anterior
   privacy: Privacidade
-  private: Privado
   private_message: 
     send: "Enviar mensagem privada"
   profile: 
-    created: "Perfil criado com sucesso"
     deleted: "Perfil excluído com sucesso"
     description: 
       add: "Biografia resumida"
     error: 
       exist: "Seu perfil já existe"
-    hcard: 
-      fill_with: "Preencha seu perfil com o seu hCard"
     header_title: "Perfil de usuário"
     must_create: "Por favor, crie o seu perfil primeiro"
     no_spaces: "%{user} não pertence a nenhuma comunidade."
     one: Perfil
     private: "Perfil privado"
-    private_description: "Esta informação só é visível para as pessoas que você escolher quando você editar seu perfil"
     public: "Perfil público"
     public_description: "Qualquer pessoa pode acessar esta informação"
-    should_create: "Você deve <a href=%{path}> criar</a> seu perfil. É muito útil."
     updated: "Perfil atualizado com sucesso"
-    visibility: Visibilidade
-    visibility_description: "Escolha quem será capaz de ver o seu perfil privado"
     visibility_edit: "Edite a visibilidade do seu perfil"
-    visibility_everybody: "Todos podem ver o seu perfil privado."
-    visibility_members: "Somente usuários registrados podem ver o seu perfil privado."
-    visibility_nobody: "Ninguém pode ver o seu perfil privado."
-    visibility_private_fellows: "Apenas os seus parceiros em uma comunidade privada podem ver o seu perfil privado."
-    visibility_public_fellows: "Apenas os seus parceiros em comunidades públicas ou privadas podem ver o seu perfil privado."
   province: Província
   public: Público
-  read: Ler
   read_more: "Ler mais"
-  read_more_arrows: "ler mais >>"
   received_message_more_machines: "Você recebeu uma mensagem de %{user} pedindo mais máquinas"
   recent: 
     activity: "Atividades recentes"
@@ -1496,11 +962,7 @@ pt-br:
     button_pause: "Pausar gravação"
     button_publish: "Publicar gravação"
     button_start: "Iniciar gravação"
-    help_automatic: "A gravação está definida como <b>automática</b> para este evento. A gravação vai começar e parar no momento exato em que você indicou quando criou as sessões. <br/> Nota: Esta opção só está visível para os administradores do evento"
-    help_manual: "A gravação está definida como <b>manual</b> para este evento Aqui você tem um botão <b>iniciar</b> para iniciar a gravação, e, depois de pressioná-lo, você terá um botão <b>parar</b> para finalizar a gravação. <br/> Nota: Esta opção só está visível para os administradores do event"
-    help_none: "A gravação está <b>desabilitada</b> para este evento. Se você quiser gravação, edite o evento e selecione a opção que você deseja. <br/> Nota: Esta opção só está visível para os administradores do even"
     manual: Manual
-    message_now_recording: "Gravando ..."
     none: Nenhum
     warning_continue_recording: "Atenção: esta ação irá interromper outras gravações deste evento em andamento. <br/> Você quer continuar?"
     warning_pause_recording: "Atenção: esta ação irá pausar a gravação. Você será capaz de continuar ela no futuro ou publicá-la. <br/> Você quer continuar?"
@@ -1519,7 +981,6 @@ pt-br:
   register_as_invited: "Registe-se como convidado"
   register_as_user: "Registe-se como usuário"
   register_now: "Registe-se agora!"
-  remarks: Observações
   remember_me: "Lembrar de mim"
   remove: Remover
   reply: Responder
@@ -1527,52 +988,25 @@ pt-br:
   reply_to_words: "Responder para %{words}"
   report_spam: "Denunciar spam"
   repository: 
-    add_tags: "Adicionar Tags"
     download: Download
-    enable: "Habilitar repositório de documentos?"
     loading: "Atualizando repositório de documentos ..."
     need_javascript: "Por favor, ative o javascript para utilizar o repositório de documentos"
     one: Documentos
-    rem_tags: "Remover Tags"
     remove: Remover
     search: "Pesquisa do Documentos:"
   request: 
-    default: solicitar
     info: "Seu pedido para entrar na comunidade foi enviado com sucesso para os administradores da comunidade. Um administrador cuidará dele o mais rapidamente possível"
     sent: "Solicitação enviada!"
-  request_change_password: "Solicitação para alterar a sua senha"
-  reset_password: "Redefinir Senha"
-  resource: 
-    one: Recurso
-    other: Recursos
   rnp: RNP
   role: 
-    add: "Adicionar função ..."
     added: "Função %{role} adicionado com sucesso a %{agent}"
-    change: "Alterar função ..."
-    confirm_delete: "Excluir Função?"
-    created: "A função foi criado com sucesso."
     editing: "Editando função"
-    go_to_manage: "Ir para gerenciador de funções"
-    index: "Lista de funções"
-    invalid: "Runção é inválida"
     listing: "Listando funções"
-    name: Nome
-    name_permissions: "%{name} permissões"
     new: "Nova função"
-    none: "Nenhuma função atribuída"
     one: Função
-    other: Funções
-    select: 
-      one: "Selecione Função"
     stage_type: "Tipo de Estágio"
     sucess_update: "Função atualizada com sucesso..."
-    updated: "A função foi atualizada com sucesso."
-    without_permissions: "Função %{role} não tem quaisquer permissões"
   room: 
-    created: "Sala criada com sucesso"
-    error: 
-      create: "Erro ao criar a sala"
     other: Salas
   rooms: 
     form: 
@@ -1593,15 +1027,9 @@ pt-br:
     refresh: "atualizar status"
     running: rodando!
   save: Salvar
-  save_ch: "Salvar alterações"
   screencast: 
-    button: "Assistir screencast"
-    help: "Precisa de ajuda? Tente ver o"
     link1: "Ajudar a criar eventos"
-    link2: "Ajuda criando a agenda"
     link3: "Ajuda: Três tipos de eventos"
-    link4: "Ajuda convidando pessoas"
-    link5: "Ajuda sobre informações do evento"
     sidebar: 
       title: Screencasts
     title: screencast
@@ -1610,13 +1038,10 @@ pt-br:
     title3: "Diferentes tipos de eventos"
     title4: "Convidando pessoas"
     title5: "Informações de evento"
-    video: 
-      one: Screencast
   search: 
     advanced: "Pesquisa avançada"
     attachments: 
       dots: "Pesquisar anexos..."
-      no_dots: "Pesquisar anexos"
     between_dates: 
       attachments: "Pesquisar apenas anexos atualizados entre duas datas"
       events: "Pesquisar somente os eventos realizados entre duas datas"
@@ -1624,12 +1049,7 @@ pt-br:
       videos: "Procurar apenas vídeos realizados entre duas datas"
     dots: Pesquisa...
     events: 
-      advanced: "Pesquisa avançada de eventos"
-      description: "Procurar eventos por descrição"
-      dots: "Procurar eventos..."
       no_dots: "Procurar eventos"
-      title: "Procurar eventos por título"
-    explanation: "(pesquisa pelo título e pela descrição usando palavras exatas)"
     in: "Procurar em"
     one: Procurar
     parameters: "Consulta muito curta"
@@ -1644,14 +1064,6 @@ pt-br:
   searching_in: "Você está procurando em"
   select_image: "Selecione uma imagem, por favor"
   send: Enviar
-  send_debug_emails: "Enviar emails de debug"
-  send_reset_password_request: "Enviar requisição de reset de senha"
-  sendemail: 
-    created: "E-mail enviado com sucesso"
-    error: 
-      created: "Erro ao enviar e-mail"
-  server: 
-    other: Servidores
   servers: 
     form: 
       msg1: " impossibilitaram este servidor de ser salvo:"
@@ -1660,7 +1072,6 @@ pt-br:
       exist: "Você já está logado"
       fill: "Por favor preencha estes dados"
     one: Sessão
-  share_participate_discuss: "Compartilhe, participe, discuta"
   shibboleth: 
     create: 
       account_created: "Uma nova conta com uma senha aleatória foi criada para você e conectada a sua conta federada. Ambas as contas podem ser usadas para entrar neste site. Você não precisará da sua senha do Mconf para logar usando a federação, mas se deseja modificar sua senha <a href=\"%{url}\">clique aqui</a>."
@@ -1669,35 +1080,16 @@ pt-br:
       message: "Aparentemente você já possui uma conta neste site mas ela ainda não esta ativada.<br/> Sua conta federada será ligada a esta conta, mas antes você precisa ativá-la."
       password_email: "Se você esqueceu sua senha, <a href=\"%{url}\">clique aqui</a>."
       title: "Olá, %{name}"
-  should_check_email_to_activate_account: "Você deve verificar o seu e-mail para ativar sua conta."
   show: Exibir
-  show?: Exibir?
   show_advanced_editor: "Exibir editor avançado"
   show_list_version_arrows: "exibir versão em lista >>"
-  simple_captcha: 
-    label: "Digite o texto da imagem"
-    message: 
-      default: "O código inserido não é o mesmo da imagem"
-      user: "O código inserido não é o mesmo da imagem"
-  singular_agent: 
-    anonymous: 
-      name: Anônimo
-    anyone: 
-      name: "Qualquer um"
-    authenticated: 
-      name: Autenticado
-    cron_agent: 
-      name: Cron
+  show_question: Exibir?
   site: 
     analytics_code: "Código do Google Analytics"
     analytics_code_tip: "Código para sua conta do Google Analytics. Deixe em branco para desabilitar. Exemplo: \"UA-12345678-9\""
-    chat_group_service_jid: "Serviço de Chat em Grupo do Evento"
-    cm_domain: "Domínio do Gerenciador da Conferência"
-    config: "Configuração do site"
     default: site
     description: Descrição
     domain: "Domínio da Aplicação"
-    editing: "Editando a configuração do site"
     email: E-mail
     email_password: "Senha para o e-mail"
     email_password_tip: "A senha para sua conta de e-mail. Ela é necessária para que a aplicação possa usar a sua conta para enviar e-mails."
@@ -1710,11 +1102,7 @@ pt-br:
     feedback_url: "Feedback URL"
     feedback_url_tip: "Os usuários serão redirecionados para esta URL quando eles sairem de uma conferência. Se o campo ficar em branco, eles serão redirecionados para '%{default_url}'"
     locale: Idioma
-    logo: Logo
     name: Nome
-    one: Site
-    other: Sites
-    presence_domain: "Domínio de Presença"
     shib_email_field: "Campo Shibboleth para email"
     shib_email_field_tip: "Quando um usuário se autentica em provedor de serviços Shibboleth este campo será utilizado para obter o e-mail do usuário. Exemplo: Shib-inetOrgPerson-mail"
     shib_enabled: "Habilitar Shibboleth"
@@ -1723,37 +1111,17 @@ pt-br:
     signature: Assinatura
     ssl: SSL
     ssl_tip: "Com SSL habilitado todos os links internos (incluindo páginas, imagens, anexos) utilizarão o protocolo https ao invés de http"
-    updated: "A configuração do site foi atualizada com sucesso. Você possivelmente precisa reiniciar seu servidor para aplicá-las."
-    vcc_pass_for_chat_server: "Senha do VCC para autenticação no servidor XMPP"
-    vcc_pass_for_chat_server_confirmation: "Senha do VCC para confirmação de autenticação no servidor XMPP"
-    vcc_user_for_chat_server: "Usuário do VCC para autenticação no servidor XMPP"
-    xmpp_server_password: "Senha do servidor XMPP"
-    xmpp_server_password_confirmation: "Confirmação de senha do servidor XMPP"
   size: Tamanho
   skype: Skype
-  society_media: "Sociedade da Informação e Mídia"
   source: 
-    created: "Fonte criada com sucesso"
-    errors: 
-      content_type: 
-        invalid: "é inválido: %{content_type}"
-      dereference: "Não foi possível conectar-se a fonte %{uri}"
-      multiple_feeds: "Fonte tem vários feeds"
-      parse: "Não foi possível analisar feed %{uri}"
-    imported_at: "Importado em"
-    one: Fonte
     other: RSS/Atom
-    target: Alvo
-    uri: URL
   space: 
     about: Sobre
     add_user: 
       other: "Adicionar usuários à comunidade"
-    add_user_other: ""
     all: "Todas comunidades"
     allow_public_access: "Permitir acesso público?"
-    attendeePW: "Editar senha de participante"
-    be_fan: "Seja Fan"
+    attendeePW: "editar senha de participante"
     clic: "Clique para editar..."
     clic_logo: "Clique para mudar o seu logotipo"
     configuration: "Configurações da comunidade"
@@ -1768,7 +1136,6 @@ pt-br:
     description_none: "Uma descrição da comunidade deve ser fornecida para criar uma nova comunidade"
     disable: "Desativar a comunidade"
     disabled: "Comunidade desativada com sucesso"
-    does_not_belong: "não pertence a qualquer comunidade"
     edit: 
       webconference_passwords: "Senhas da sala de webconferência"
     edit_description: "editar descrição"
@@ -1777,35 +1144,22 @@ pt-br:
     enabled: "Comunidade habilitada com sucesso"
     error: 
       enabled: "Comunidade %{name} já está habilitada"
-    found: 
-      none: "Nenhuma comunidade encontrada"
-      one: "1 comunidade foi encontrada"
-      other: "%{size} comunidades foram encontradas"
     group_invitation: 
       button: "Convide listas de e-mail"
       message_title: "Convide listas de e-mail para participar da sua comunidade"
       private: "<p>Por favor, note que a comunidade é privada, então você precisa ser um usuário cadastrado no Mconf para ser capaz de enviar um pedido de adesão e acesso à comunidade. Você pode se registrar aqui: <a href=\"%{register_url}\">%{register_url}</a></p>"
       subject: "%{username} convida você para a comunidade %{space}"
-    group_not_belong: "não pertence à mesma comunidade que o grupo"
     index: 
       select_at_left: "Selecione uma comunidade ao lado para ver sua descrição aqui"
-    invitation: 
-      body: Corpo
-      one: "Convidar pessoas"
-      other: "Convidar pessoas"
-      to: "Para:"
     is_private: "é uma comunidade privado. Envie um pedido de adesão ao administrador desta comunidade para deixá-lo entrar"
     join: "Entrar na comunidade"
     join_invitation: 
       clarify_registered: "Por favor, digite a senha para participar desta comunidade."
       clarify_unregistered: "Por favor, digite o seu nome completo e uma senha para se registrar no Mconf e participar desta comunidade."
-      title: "Aderir à comunidade >"
     join_pending: "Pedido de adesão sendo processado"
     leave: "Sair desta comunidade"
     logo: "Logo da comunidade"
     logo_selected: 
-      close: Fechar
-      close_gallery: "Feche a galeria"
       default_message: "Logo da comunidade"
       enter_text: "Digite um texto para gerar logos:"
       generate_logo: Gerar
@@ -1815,9 +1169,8 @@ pt-br:
       upload_logo_text: "Selecione um logotipo para enviar:"
       upload_text: Enviar
       use_date: "Use data do evento"
-    main: "Comunidade principal"
     member_of: "Membro das comunidades"
-    moderatorPW: "Editar senha de moderador"
+    moderatorPW: "editar senha de moderador"
     my_spaces: "Minhas comunidades"
     name_none: "Um nome deve ser dado para criar uma nova comunidade"
     one: Comunidade
@@ -1825,25 +1178,19 @@ pt-br:
     people_in_conference: 
       one: "%{count} participant in the room."
       other: "%{count} participant in the room."
-    popular: 
-      other: "Comunidades populares"
     possesion: "Minhas Comunidades"
     private: "Comunidades privadas"
     public: 
       one: "Comunidade pública"
       other: "Comunidades públicas"
-    recent: 
-      other: "Comunidades recentes"
     recording: 
       one: "Vídeo da comunidade"
       other: "Vídeos da comunidade"
-    search: "Procurar na comunidade..."
     select: Comunidades
     show_all: "Mostrar todas as comunidades"
     subscribed_to_none: "Você não está inscrito em nenhuma comunidade"
     update_logo: "Atualizar logo"
     updated: "Comunidade atualizada com sucesso"
-    upload_none: "Você tem que selecionar um logotipo para enviar."
   spam: 
     created: "Um e-mail de notificação de spam foi enviado com sucesso para o administrador. Obrigado"
     default: spam
@@ -1851,16 +1198,12 @@ pt-br:
     error: 
       check: "Houve um problema marcando o recurso como spam"
     item: "Este artigo foi denunciado como spam"
-    no_spam: "Parabéns! Nenhum spam aqui"
     report: "Denunciar spam"
     reported: "%{name} denunciou spam em %{sitename}"
     valid: "Este conteúdo é válido"
   sponsors: 
     prav: "Projetos em<br/>Áudio e Vídeo"
     rnp: "Rede Nacional de<br/>Ensino e Pesquisa"
-  stage: 
-    all: Todos
-    one: Estágio
   stage_type: "Tipo de Estágio"
   statistics: 
     event_views: visualizações
@@ -1869,28 +1212,18 @@ pt-br:
   street: Rua
   subject: Assunto
   summary: "Informações do vídeo"
-  support: 
-    one: Suporte
-    words_connector: ","
   tag: 
     add: "Adicionar tags"
-    attachment: "Tags para o anexo"
     edit: "Editar tags"
     filter: "Filtrar por tag:"
     new: "Nova tag"
-    one: tag
-    other: tags
     other_capital: Tags
-    other_in: "Tags em %{container}"
     selected: 
       one: "Selecione uma tag:"
       other: "Tags selecionadas:"
-    show_title: "Marcados com %{tag}"
-    start: "Comece a escrever..."
   tags: Tags
   tags_by: "Tags por:"
   text: Texto
-  thank_you: Obrigado
   the_string: "a string"
   thread: 
     add: "Postar mensagem no mural"
@@ -1899,94 +1232,55 @@ pt-br:
     deleted: "A mensagem (com os seus comentários) foi excluída"
     edit: "Editar mensagem"
     extended_view: "Alternar para a exibição estendida"
-    one: Tópico
     or_add_new: "ou criar uma nova mensagem"
-    other: Tópicos
     see_less: "Quer exibir menos detalhes?"
     see_more: "Quer ver mais detalhes das mensagens?"
-    show_comment_size: "Mostrando os %{size} comentários para a mensagem"
     show_last_comment: "Mostrando os últimos %{size} comentários de %{children}"
-    show_one_only_comment: "Mostrando o único comentário Ã  mensagem"
   time: 
-    end: "Hora de término"
     from: "a partir de"
-    start: "Horário de início"
     to: para
   timezone: 
     one: "Fuso horário"
     set_up: "Você não configurou seu fuso horário. <a href=\"%{path}\">Configure agora</a>"
-  tips: Dicas
   title: Título
   title_formal: 
     mr: Sr.
     mrs: Sra.
     ms: Ms.
   to: para
-  to_configure_your: "para configurar o seu"
   today: Hoje
-  toke: 
-    not_available: "Token não disponível"
-  tomorrow: Amanhã
   tooltip: 
     admin: "Esta seção mostra as pessoas que têm direitos de administrador nesta comunidade"
     advanced_editor: "Este editor permite que você: veja o código html; modifique o estilo e tamanho da fonte, cor de texto e alinhamento do texto; insira/edite links; adicione anexos e tags"
     bigbluebutton_space: "Esta é uma sala de webconferência pública para esta comunidade. Apenas membros desta comunidade podem acessar a sala."
-    divider: "Use um divisor para indicar pausas, como pausas para café ou almoço. Você também pode usá-lo para separar sessões com tópicos diferentes."
     doc_search: "Use os campos deste lado para filtrar e atualizar a tabela de documentos com seus resultados da pesquisa"
-    document_repository: "Um repositório de documentos permite que você organize todos os arquivos que foram enviados para a comunidade"
     embed_help: "Pode ser preenchido com código HTML para inserir um vídeo"
-    ev_type: "Coloque o mouse sobre os títulos para saber mais sobre os tipos de eventos"
-    event: "Selecione os documentos do evento que você quer ver"
     event_logo: "Você pode enviar o seu próprio logotipo, criar um logotipo de texto ou selecionar uma imagem da galeria"
-    help: "Verificar streaming e/ou serviços de gravação conforme necessário"
-    help2: "Esta sessão já aconteceu, você não pode editar as opções de streaming ou gravação"
-    help3: "Esta sessão está acontecendo agora, você só pode mudar se você quer ou não streaming"
-    help4: "Você não pode alterar essa opção porque a sessão já passou"
-    help5: "Você não pode alterar essa opção porque a sessão está acontecendo agora"
     inperson: "O tipo Em-pessoa é basicamente projetado para atender às reuniões físicas ou offline para as quais você não precisa gravação ou streaming de vídeo, mas, apesar disso, gostaria de ter funcionalidades que tornam o tratamento de uma reunião mais simples - como criar e modificar uma agenda que as pessoas possam consultar ou importar em seu calendário. Além disso, você pode querer fornecer os documentos necessários para a reunião ou posteriormente compartilhar fotos tiradas durante a reunião."
     insert: "Use este código para inserir este vídeo em seu blog ou página web."
     invite_people: "Invite people to this Webconference."
-    label_automatic: "O vídeo para esta sessão será o vídeo que o sistema gravou."
-    label_embedded: "Com esta opção você vai descartar o vídeo automático e será capaz de escrever um código para inserir este vídeo."
-    label_none: "Esta sessão não terá um vídeo relacionado."
-    label_uploaded: "Com esta opção você vai descartar o vídeo automático e você será capaz de carregar um novo vídeo em FLV."
     latest_news: "Esta seção mostra a notícia de que os administradores enviam para todas as pessoas nesta comunidade"
     leave_space: "Este link permitirá que você a abandone esta comunidade definitivamente"
-    mailing_list: "Uma lista de e-mails permitirá que você envie mensagens de e-mail para o seu grupo em vez de ter de escolher os endereços individualmente"
-    manual_configuration: "Selecione este item se você possui toda sua infraestrutura de videoconferência. O aplicativo não irá iniciar qualquer Isabel, streaming, nem a gravação, mas sim vai oferecer-lhe duas áreas de texto para escrever seu código para embutir streaming e para participação."
     news_item: "Você pode publicar uma notícia curta em casa"
     num_views: "Este número representa as vistas únicas para essa página"
-    organisers: "Selecione os usuários da comunidade que vão organizar este evento"
     private_profile: "Esta informação só é visível para as pessoas que você escolher quando você editar seu perfil"
     public_profile: "Qualquer pessoa pode acessar esta informação"
     public_space: "Comunidades colaborativas podem ser públicas, para que qualquer pessoa possa ver o que acontece nelas, ou privadas, onde apenas os membros têm acesso às atividades da comunidade"
-    recording_automatic: "Com este modo a aplicação irá gravar as sessões automaticamente, iniciando no momento exato que você indicar"
-    recording_manual: "Com este modo a página web do evento irá oferecer-lhe um botão para iniciar e interromper o aplicativo, e você será o encarregado de iniciar e encerrar a gravação das sessões"
-    recording_none: "Selecione este modo se você não quer gravação"
     search_video: "Comece a escrever o que você deseja procurar e a lista de vídeos será atualizada automaticamente com os resultados"
     share: "Esta é a url para compartilhar este vídeo com os seus colegas"
     space_video: "Este filtro permitirá que você selecione apenas os vídeos de um evento específico"
-    streaming: "Selecione esta opção se você quer streaming automático para seu evento. Se você tiver qualquer sessão sem streaming (como uma sessão de testes), você pode desmarcar o recurso de streaming por sessão individualmente ao criá-las."
     tag: "Tags são palavras-chave ou termos associados com o conteúdo que são utilizadas para localizar e filtrar as informações. Pressione enter para confirmar cada tag."
     tag_by: "Tags são palavras que descrevem os documentos. Use este link para ordená-las por popularidade ou por ordem alfabética. Em seguida, clique nelas para ver os documentos relacionados."
     timezone: "Ao selecionar o seu fuso horário não haverá equívoco ao criar eventos com pessoas de outros países"
     upcoming: "Esta seção mostra os próximos eventos nesta comunidade"
     update_logo: "Você pode enviar o seu próprio logotipo, criar um logotipo de texto ou selecionar uma imagem da galeria"
-    user_filter: "Você pode filtrar os usuários por seus nomes ou sobrenomes. Comece a digitar!"
     user_id: "Este nome será utilizado para identificar o seu usuário e a sua sala de webconferência. Use apenas letras, números e hifens."
     vcard: "vCard é um formato de arquivo padrão para cartões eletrÃ´nicos"
     vclass: "O tipo Classe Virtual é a maneira perfeita para organizar aulas, conferências e seminários, onde o professor assume um papel de destaque."
-    vconfoptions: "Selecione streaming de vídeo se você quiser transmitir o seu evento. Selecione a opção de gravação de vídeo se você quer gravar o seu evento para visualizações futuras. Você também pode configurar os parâmetros de largura de banda e qualidade da videoconferência clicando no link de configurações avançadas."
     vcongress: "O tipo Congresso Virtual é muito parecido com o tipo Reunião Virtual, mas voltado para eventos maiores, tanto em tamanho quanto em complexidade. Normalmente, este tipo requer o apoio de um operador local."
-    video_upload_explanation: "Utilize esta opção para excluir o arquivo já carregado. Ou, se você quiser enviar um novo, basta selecioná-lo no campo de busca e editar a sessão que o novo vídeo irá substituir o antigo."
     vmeeting: "O tipo Reunião Virtual é adequado para reuniões online ou encontros presenciais com fortes características virtuais, ou seja, onde os participantes locais e remoto terão a oportunidade de se comunicar de forma interativa."
-  topic: Tópico
   translate: 
-    availables: "Traduções disponíveis"
     change: "Mudar idioma"
-    one: Traduzir
-    request: "Para traduzir para uma linguagem diferente, por favor peça ao administrador para acrescentar a nova língua e sua respectiva bandeira"
-    translated: "O Mconf é agora traduzido, ou está em processo de tradução"
   type: Tipo
   undated: "Sem data"
   unknown_content: "Conteúdo desconhecido %{content}"
@@ -1994,15 +1288,11 @@ pt-br:
   update: Atualizar
   updated: Atualizados
   updated_at: Atualizado
-  updated_at_date: "Atualizado: %{date}"
   updated_time_ago: "%{time} atrás"
   url: Website
   url_add: "Adicione seu site"
   url_plain: URL
   user: 
-    activation_email_sent: "O e-mail de ativação foi enviado para o usuário"
-    active: 
-      other: "Usuários ativos"
     add: 
       instruction: "Para adicionar novos usuários insera um ou vários endereços de e-mail separados por \" \", \",\" ou \";\" e registre-os"
       note: "Por exemplo: \"João Silva\" <\"jsilva@example.com.br\">\", jct@dit.es, Aaron aaron@example.net e clicando em \"Registrar como Usuário\" irá registrar esses três endereços de e-mail como membros da comunidade e enviará um e-mail de validação para eles."
@@ -2023,7 +1313,6 @@ pt-br:
         see_your_data: "Veja seus dados..."
         title: "Você está logado utilizando uma federação!"
         your_idp: "O seu provedor de identidade é: %{idp}"
-      password_email: "Se você esqueceu sua senha, <a href=\"%{url}\">clique aqui</a>."
     edit_account: "Editar sua conta"
     email: E-mail
     email_used_to_create_account: "Digite o endereço de e-mail que você usou para criar a sua conta"
@@ -2031,11 +1320,7 @@ pt-br:
     enabled: "Usuário habilitado com sucesso. O usuário atualmente não pertence a nenhuma comunidade, e terá que aderir às comunidades novamente."
     error: 
       enabled: "Usuário %{name} já está habilitado"
-    feed: 
-      author: SIR
-      title: Usuários
     filter: "Convidar por nome de usuário"
-    first_name: "Primeiro nome"
     found: 
       none: "Nenhum usuário encontrado"
       one: "1 usuário encontrado"
@@ -2044,15 +1329,10 @@ pt-br:
     group_invite_email: "Convidar por e-mail"
     id: "ID do Usuário"
     include_registered: "Incluir usuários registrados"
-    included: 
-      other: "Membros da lista"
     invite: "Convidar pessoas"
     invite_email: "Convide pessoas por e-mail"
-    invite_from_space_by_email: "Convidar pessoas de sua comunidade"
     invited: "Usuários já convidados"
-    last_name: Sobrenome
     list_by: "Listar por"
-    login: Login
     lost_password: "Esqueceu sua senha?"
     new_password: "Nova senha"
     new_password_confirmation: "Confirmação da nova senha"
@@ -2064,11 +1344,6 @@ pt-br:
     not_confirmed: "Não confirmados"
     notifications: "Como você deseja receber as notificações?"
     one: Usuário
-    openid: 
-      add_to_access: "Adicione sua OpenID para acessar o Mconf"
-      edit: "Edite suas OpenIDs"
-      one: OpenID
-      other: OpenIDs
     other: Usuários
     password: Senha
     password_confirmation: "Confirmação de senha"
@@ -2082,29 +1357,18 @@ pt-br:
       link: "Reenviar e-mail de confirmação"
       success: "E-mail de confirmação enviado para '%{email}'"
     reset_password: "Redefinir senha"
-    results_count: 
-      one: "Pessoas, %{users_size} resultado"
-      other: "Pessoas, %{users_size} resultados"
-    save: 
-      account: "Salvar conta"
-      preferences: "Salvar preferências"
     search: "Procurar Usuários..."
-    superuser: Administrador
     timezone: "Fuso horário"
     updated: "Usuário atualizado com sucesso"
     vcc_email: "E-mail do usuário Mconf %{dir}"
     view_expanded_posts: "Mostrar mensagens no mural com a visão expandida por padrão"
-    without_group: "Pessoas sem lista de e-mail"
   username: "Nome de usuário"
   vCard: 
     corrupt: "O vCard que você enviou está corrompido ou é uma versão não suportada"
     export: "Exportar seu vCard"
     message: "Use seu vCard para preencher automaticamente seu perfil"
-    no_selection: "sem vCard"
-    success: "vCard carregado com êxito"
     upload: "Envie o seu vCard"
     use: "Use seu vCard"
-  vcard: vCard
   vcc: Mconf
   vcc_mail_label: "[Mconf]"
   vcc_registration: "Registro Mconf"
@@ -2114,16 +1378,10 @@ pt-br:
   video: 
     close_edit: "Fechar edição de vídeo"
     edit: "Editar vídeo"
-    found: 
-      none: "Nenhum vídeo encontrado"
-      one: "1 vídeo encontrado"
-      other: "%{size} vídeos encontrados"
-    one: Vídeo
     other: Vídeos
   video_attachment: 
     delete: "Excluir anexo de vídeo"
     video_name: "Vídeo Enviado"
-  visit_link_to_activate_account: "Visite este link para ativar a sua conta"
   webconference: 
     currently_running: 
       one: "A conferência está ativa com %{count} participante"
@@ -2139,7 +1397,6 @@ pt-br:
       one_line: "Não há ninguém na sala."
     not_running: inativa
     one: Webconferência
-    other: Webconferências
     running: ativa
     space: 
       description: "A sala de webconferência associada a esta comunidade está atualmente: <b>%{status}</b> <br/> Clique no botão no topo da barra lateral para ingressar na webconferência. <br/> Você também pode compartilhar o link abaixo (ou clicar em \"convidar\") para convidar outras pessoas."
@@ -2147,9 +1404,6 @@ pt-br:
       see_more: "saiba mais"
       share: Compartilhar
     title_people_conf: "Pessoas na sala"
-  week: 
-    next: "Na semana que vem"
-    this: "Essa semana"
   when: Quando
   where: Onde
   xmpp_server: 

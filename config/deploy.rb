@@ -59,7 +59,7 @@ namespace :deploy do
   task(:start) {}
   task(:stop) {}
   task :restart, :roles => :app, :except => { :no_release => true } do
-    run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
+    run "#{try_sudo} touch #{File.join(current_path, 'tmp', 'restart.txt')}"
   end
 
   desc "Prints information about the selected stage"
@@ -110,36 +110,6 @@ namespace :deploy do
     top.upload "config/analytics_conf.yml", "#{release_path}/config/", :via => :scp
   end
 
-end
-
-
-# delayed_job tasks
-namespace :jobs do
-  desc "Start delayed_job"
-  task :start do
-    run "cd #{current_path}; RAILS_ENV=production bundle exec script/delayed_job -n 2 start"
-  end
-
-  desc "Stop delayed_job"
-  task :stop do
-    run "cd #{current_path}; RAILS_ENV=production bundle exec script/delayed_job stop"
-  end
-
-  desc "Restart delayed_job"
-  task :restart do
-    jobs.stop
-    jobs.start
-  end
-
-  desc "Clear the jobs table"
-  task :clear do
-    run "cd #{current_path}; RAILS_ENV=production bundle exec rake jobs:clear"
-  end
-
-  desc "Prints the number of queued jobs"
-  task :queued do
-    run "cd #{current_path}; RAILS_ENV=production bundle exec rake jobs:queued"
-  end
 end
 
 
@@ -199,5 +169,14 @@ namespace :db do
     run "cd #{current_release} && RAILS_ENV=production bundle exec rake db:data:dump"
     download "#{current_release}/db/data.yml", "db/data.yml"
     `bundle exec rake db:reset db:data:load`
+  end
+end
+
+# From: http://stackoverflow.com/questions/312214/how-do-i-run-a-rake-task-from-capistrano
+namespace :rake do
+  desc "Run a task on a remote server."
+  # example: cap staging rake:invoke task=jobs:queued
+  task :invoke do
+    run("cd #{deploy_to}/current; bundle exec rake #{ENV['task']} RAILS_ENV=production")
   end
 end

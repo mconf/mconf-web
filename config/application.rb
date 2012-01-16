@@ -9,7 +9,7 @@ Bundler.require(:default, Rails.env) if defined?(Bundler)
 # Specifies gem version of Rails to use when vendor/rails is not present
 # RAILS_GEM_VERSION = '3.0.3' unless defined? RAILS_GEM_VERSION
 
-module Vcc
+module Mconf
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
@@ -33,10 +33,12 @@ module Vcc
     # config.time_zone = 'Central Time (US & Canada)'
     config.time_zone = 'Madrid'
 
-    # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
-    config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '*', '*.{rb,yml}').to_s]
-    # config.i18n.default_locale = :de
-
+    # The translations are stored in config/locales/**/*.yml, in separate files for base strings,
+    # gem strings and application strings (mconf.yml). The application strings should always be
+    # loaded after all the others, so that it can override strings.
+    config.i18n.load_path +=
+      Dir[Rails.root.join('config', 'locales', '**', '_*.yml').to_s] +
+      Dir[Rails.root.join('config', 'locales', '**', 'mconf.yml').to_s]
     config.i18n.fallbacks = true
     config.i18n.default_locale = :en
 

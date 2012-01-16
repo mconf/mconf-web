@@ -1,0 +1,241 @@
+--- 
+es: 
+  account_activated: "Su cuenta ha sido activada"
+  account_activated_with_agent: "%{agent}, su cuenta ha sido activada"
+  account_created: "Su cuenta se ha creado"
+  action: 
+    one: Acción
+    other: Acciones
+  admission: 
+    errors: 
+      candidate_equals_introducer: "Candidato e introductor no pueden ser la misma persona. (Seguramente tengas que salir de la sessión)"
+      candidate_has_role: "ya tiene un rol"
+  agent: 
+    authentication: 
+      change_password: "Cambiar la contraseña"
+      confirm_password: "Confirme la Contraseña"
+      login: Login
+      lost_password: "¡Olvidé la contraseña!"
+      password: Contraseña
+    email: "Correo electrónico"
+    one: Agente
+    other: Agentes
+    select: 
+      one: "Seleccionar Agente"
+  are_you_sure: "Are you sure?"
+  author: Autor
+  back: Atrás
+  bad_request: "Petición Inválida"
+  container: 
+    one: Contenedor
+    other: Contenedores
+  content: 
+    create: 
+      one: "Crear Contenido"
+      other: "Crear Contenidos"
+    delete: 
+      one: "Borrar Contenido"
+      other: "Borrar Contenidos"
+    new: "Nuevo Contenido"
+    one: Contenido
+    other: Contenidos
+    read: 
+      one: "Ver Contenido"
+      other: "Ver Contenidos"
+    update: 
+      one: "Actualizar Contenido"
+      other: "Actualizar Contenidos"
+  could_not_find_anybody_with_that_email_address: "No se pudo encontrar a nadie con esa dirección de correo"
+  create: Crear
+  created_at: Creado
+  created_at_date: "Creado: %{date}"
+  description: Descripción
+  detail: 
+    other: Detalles
+  edit: Editar
+  file: Fichero
+  follow_reset_password: "%{agent}, siga el enlace para cambiar su contraseña"
+  help: Ayuda
+  im_new: "Soy nuevo"
+  index: Índice
+  invalid_credentials: "Credenciales no válidas"
+  invalid_password_reset_code: "El código de cambio no es válido. Por favor, compruebe en enlace e inténtelo otra vez. (Consejo: ¿Quizá su cliente de correo rompió el enlace?)"
+  invitation: 
+    accept: "Aceptar invitación"
+    accepted: "Invitación aceptada"
+    accepted_by: "%{candidate} aceptó la invitación"
+    comment: Comentario
+    confirm_delete: "¿Borrar invitación?"
+    created: "Invitación enviada"
+    discard: "Descartar invitación"
+    discarded: "Invitación descartada"
+    discarded_by: "%{candidate} descartó la invitación"
+    email: "Correo electrónico"
+    new: "Nueva Invitación"
+    not_found: "Invitación no encontrada"
+    not_processed: "Invitación sin responder"
+    one: Invitación
+    other: Invitaciones
+    pending: 
+      other: "Invitaciones pendientes"
+    role: Rol
+    send: 
+      one: "Enviar invitación"
+    show: "Unirse a %{group}"
+    was_processed: 
+      accepted: "La invitación ya fue aceptada"
+      discarted: "La invitación ya fue descartada"
+  join: Unirse
+  join_request: 
+    accepted: "Petición aceptada"
+    created: "Petición enviada"
+    discarded: "Petición descartada"
+    not_processed: "Petición sin responder"
+    one: "Petición de incorporación"
+    other: "Peticiones de incorporación"
+    updated: "Petición actualizada"
+  join_to_site: "Unirse a %{site}"
+  layout_footnote: "%{site} está basado en %{plugin}. Diseñado por %{designer}."
+  logged_in_successfully: "Credenciales válidas"
+  logged_out: "Has salido de la aplicación"
+  login_to: "Entrar en %{site}"
+  logo: 
+    current: "Logo actual"
+    one: Logo
+  logout: Salir
+  name: 
+    one: Nombre
+  openid: 
+    client: 
+      associating_to_id: "Asociando a OpenID: %{id}"
+      discovery_failed: "El descubrimiento falló para %{id}: %{error}"
+      id_attached_to_account: "OpenID: %{id} asociado a su cuenta"
+      immediate_request_failed: "La petición inmediata ha fallado. Se necesita configuración previa"
+      transaction_cancelled: "Transacción de OpenID cancelada"
+      verification_failed: "La verificación falló: %{message}"
+      verification_failed_with_id: "La verificación de %{id} falló: %{message}"
+      verification_succeeded_with_id: "La verificación de %{id} se realizó con éxito"
+    server: 
+      about_login_to: "Vas a entrar en %{server}"
+      anti_phishing: "Esta página no tiene enlaces para evitar el <i>phishing</i>. Tienes que introducir tú la dirección en el navegador."
+      cancel: "No, cancelar"
+      decision: "Debes elegir:"
+      endpoint: "Esto es un servidor de OpenID"
+      invalid_uri: "Esta identidad no te pertenece: %{uri}"
+      login_to: "Entrar en %{server}"
+      must_login: "Tienes que identificarte en %{server}"
+      once: "Sí, sólo esta vez"
+      optional_information_by: "Información opcional pedida por %{server}"
+      required_information_by: "Informacion necesaria pedida por %{server}"
+      trust: "Sí, y recordar a partir de ahora"
+    title: OpenID
+  pagination: 
+    next_label: "Siguiente &raquo;"
+    previous_label: "&laquo; Anterior"
+  password_has_been_reset: "La contraseña se ha cambiado"
+  password_has_been_reset_with_agent: "%{agent}, su contraseña se ha cambiado"
+  password_reset: "Cambio de Contraseña"
+  password_reset_link_sent_to_email_address: "Se ha enviado a la dirección de correo un enlace para cambiar la contraseña"
+  performance: 
+    change: Cambiar
+    confirm_delete: "¿Borrar el Integrante?"
+    create: 
+      one: "Crear Integrante"
+      other: "Crear Integrantes"
+    delete: 
+      one: "Borrar Integrante"
+      other: "Borrar Integrantes"
+    errors: 
+      stage_should_not_run_out_of_performances_with_first_role: "El escenario no debería quedarse sin integrantes del primer rol."
+      the_role_should_not_belong_to_a_different_stage_type: "El rol no debería pertenecer a un tipo de escenario diferente."
+    new: "Nuevo Integrante"
+    other: Integrantes
+    other_in: "Integrantes de %{stage}"
+    read: 
+      one: "Ver Integrante"
+      other: "Ver Integrantes"
+    update: 
+      one: "Actualizar Integrante"
+      other: "Actualizar Integrantes"
+    without_roles_available: "No hay ningún Rol disponible. Los Integrantes no se pueden establecer."
+  permission: 
+    other: Permisos
+  please_activate_account: "Por favor, active su cuenta"
+  read: Ver
+  request_change_password: "Petición de cambio de contraseña"
+  reset_password: "Cambiar Contraseña"
+  resource: 
+    one: Recurso
+    other: Recursos
+  role: 
+    confirm_delete: "¿Borrar Rol?"
+    created: "Rol creado satisfactoriamente."
+    editing: "Editando Rol"
+    go_to_manage: "Ir a gestionar roles"
+    index: "Lista de Roles"
+    name: Nombre
+    name_permissions: "Permisos de %{name}"
+    new: "Nuevo Rol"
+    one: Rol
+    other: Roles
+    select: 
+      one: "Seleccionar Rol"
+    stage_type: "Tipo de escenario"
+    updated: "Rol actualizado satisfactoriamente."
+    without_permissions: "El rol %{role} no tiene permisos"
+  save: Guardar
+  send: Enviar
+  send_reset_password_request: "Enviar petición de cambio de contraseña"
+  should_check_email_to_activate_account: "Debe comprobar el correo para activar su cuenta."
+  show: Ver
+  singular_agent: 
+    anonymous: 
+      name: Anónimo
+    anyone: 
+      name: Cualquiera
+    authenticated: 
+      name: Registrado
+    cron_agent: 
+      name: Cron
+  site: 
+    config: "Configuración del Sitio"
+    description: Descripción
+    domain: Dominio
+    editing: "Editando la configuración del Sitio"
+    email: "Correo electrónico"
+    exception_notifications: "Enviar correos de depuración"
+    exception_notifications_email: "Dirección destinataria de los correos de depuración"
+    logo: Logo
+    name: Nombre
+    one: Sitio
+    other: Sitios
+    ssl: SSL
+    updated: "La configuración del sitio se ha actualizado satisfactoriamente"
+  source: 
+    errors: 
+      content_type: 
+        invalid: "no es válido: %{content_type}"
+      dereference: "No se pudo conectar a la fuente %{uri}"
+      multiple_feeds: "La dirección tiene varias fuentes"
+      parse: "No se pudo analizar la fuente %{uri}"
+    imported_at: Importada
+    one: Fuente
+    other: Fuentes
+    target: Objetivo
+    uri: URL
+  stage: 
+    all: Todos
+    one: Escenario
+  tag: 
+    one: Etiqueta
+    other: Etiquetas
+    other_in: "Etiquetas de %{container}"
+    show_title: "Etiqueta %{tag}"
+  title: Título
+  update: Actualizar
+  updated_at: Actualizado
+  updated_at_date: "Actualizado: %{date}"
+  user: 
+    activation_email_sent: "Se ha enviado un correo de activación al usuario"
+    disabled: "Usuario deshabilitado"
+  visit_link_to_activate_account: "Visite este enlace para activar su cuenta"
