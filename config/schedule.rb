@@ -7,7 +7,7 @@
 # for some reason the default 'rake' wasn't using 'bundle exec', so we're redefining it here
 job_type :rake, "cd :path && RAILS_ENV=:environment bundle exec rake :task --silent :output"
 
-every 1.day, :at => '2am' do
+every :day, :at => '2am' do
   rake "mconf:analytics:update"
 end
 
