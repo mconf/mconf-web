@@ -97,7 +97,7 @@ module ApplicationHelper
   def javascript_include_tags_for_action
     tag  = javascript_include_tag_if_exists(params[:controller] + '.js')
     tag += javascript_include_tag_if_exists(params[:controller] + "/" + params[:action] + '.js')
-    tag
+    tag.html_safe
   end
   def javascript_include_tag_if_exists(asset)
     if asset_exists?(asset)
@@ -112,7 +112,7 @@ module ApplicationHelper
   def stylesheet_link_tags_for_action
     tag  = stylesheet_link_tag_if_exists(params[:controller] + '.css')
     tag += stylesheet_link_tag_if_exists(params[:controller] + "/" + params[:action] + '.css')
-    tag
+    tag.html_safe
   end
   def stylesheet_link_tag_if_exists(asset)
     if asset_exists?(asset)

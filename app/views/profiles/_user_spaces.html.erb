@@ -1,32 +1,3 @@
-  <%= content_for :javascript do %>
-
-  /*jquery for assistants div*/
-  $(".list_my_spaces").livequery('click',function () {
-    $("#my_spaces_lite").hide();
-    $("#all_my_spaces").hide();
-    $("#my_spaces_list").show();
-    return false;
-  });
-
-   $(".more_spaces").livequery('click',function () {
-    $("#my_spaces_lite").hide();
-    $("#my_spaces_list").hide();
-    $("#all_my_spaces").show();
-    return false;
-  });
-
-   $(".less_spaces").livequery('click',function () {
-     $("#all_my_spaces").hide();
-     $("#my_spaces_list").hide();
-     $("#my_spaces_lite").show();
-
-    return false;
-  });
-
-<%end%>
-
-
-
         <div class="my_spaces margin-up">
             <div id="my_spaces_title">
                 <h3>

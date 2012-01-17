@@ -123,6 +123,6 @@ $(document).ready(function() {
 
 <%= render :partial => "rooms" %>
 
-<%= render :partial => 'profiles/user_spaces_home', :locals => {:show_user =>current_user, :title=>t('space.my_spaces')} %>
+<%= render :partial => "user_spaces", :locals => {:show_user =>current_user, :title=>t('space.my_spaces')} %>
 
 <%= render :partial => "recent_activity" %>

@@ -1,0 +1,21 @@
+//= require jquery/jquery.jcrop
+
+$(document).ready(function() {
+
+  $("#change_pic").click(function(){
+    $("#update_logo").show()
+  });
+
+  $("#vcard_use").click(function(){
+    $("#upload_vcard").show()
+  });
+
+  $("#update_logo .close_pic").click(function(){
+    $("#update_logo").hide()
+  });
+
+  $("#upload_vcard .close_vcard").click(function(){
+    $("#upload_vcard").hide()
+  });
+
+});

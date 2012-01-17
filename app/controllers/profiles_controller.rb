@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Copyright 2008-2010 Universidad Politécnica de Madrid and Agora Systems S.A.
 #
 # This file is part of VCC (Virtual Conference Center).
@@ -17,13 +18,11 @@
 
 class ProfilesController < ApplicationController
   before_filter :user!
-  
+
   authorization_filter :manage, :profile, :except => [ :show ]
 
   before_filter :unique_profile, :only => [:new, :create]
-  
-  layout "profiles"
-  
+
   # GET /profile
   # GET /profile.xml
   # if params[:hcard] then hcard is rendered
@@ -41,7 +40,7 @@ class ProfilesController < ApplicationController
       @profile.from_hcard(params[:hcard_uri])
     end
   end
-  
+
   # PUT /profile
   # PUT /profile.xml
   def update
@@ -56,7 +55,7 @@ class ProfilesController < ApplicationController
       end
     end
   end
-  
+
   # DELETE /profile
   # DELETE /profile.xml
   def destroy
@@ -67,15 +66,15 @@ class ProfilesController < ApplicationController
       format.xml  { head :ok }
     end
   end
-  
-  
+
+
   private
 
   def user!
     @user = User.find_with_param(params[:user_id]) || raise(ActiveRecord::RecordNotFound)
     @profile = @user.profile!
   end
-  
+
   #this is used to create the hcard microformat of an user in order to show it in the application
   def hcard
     if @profile.nil?
@@ -88,10 +87,10 @@ class ProfilesController < ApplicationController
       end
     end
   end
-  
+
   def unique_profile
     unless @user.profile.new_record?
-      flash[:error] = t('profile.error.exist')     
+      flash[:error] = t('profile.error.exist')
       redirect_to user_path(@user)
     end
   end

@@ -1,42 +1,20 @@
-<%= content_for :javascript do%>
+<%= content_for :headers do %>
+<script type="text/javascript" charset="utf-8">
+
+$(document).ready(function() {
   <%= render :partial => 'logos/crop_logo.js.erb',
              :locals => { :form_id => 'form_update_avatar',
                           :url_form => precrop_user_avatar_path(@profile.user),
                           :container_id => 'for_lightbox',
                           :aspect_ratio => Avatar::ASPECT_RATIO_S } %>
 
-  $("#change_pic").click(function(){
-    $("#update_logo").show()
-  });
-
-  $("#vcard_use").click(function(){
-    $("#upload_vcard").show()
-  });
-
-  $("#update_logo .close_pic").click(function(){
-    $("#update_logo").hide()
-  });
-
-  $("#upload_vcard .close_vcard").click(function(){
-    $("#upload_vcard").hide()
-  });
-
   $("#vcard_export").click(function(){
     window.location.href = "<%= user_profile_path(@user,:format => "vcf") %>";
   });
 
- $('#upload_vcard img.tooltip_vcard').qtip({
-   content: '<%=%>',
-   show:  'mouseover',
-   hide: { when: 'mouseout', fixed: true },
-   style: 'mystyle'
-  });
-
+});
+</script>
 <% end %>
-
-<%= content_for :headers do%>
-  <%= javascript_include_tag 'jquery/jquery.jcrop' %>
-<%end%>
 
 <%= content_for :header do%>
 <div id="profile_edit_title">
