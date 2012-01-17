@@ -32,6 +32,7 @@ gem 'action_mailer_tls'
 gem 'attachment_fu', :git => 'git://github.com/mconf/attachment_fu.git'
 gem 'yaml_db'
 gem 'delayed_job'
+gem 'whenever', :require => false
 
 gem 'mysql2', '~> 0.2.0' # must use 0.2.x releases in Rails <= 3.0.x
 
