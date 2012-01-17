@@ -1,9 +1,5 @@
 <% menu :admin %>
 
-<%= content_for :search do  %>
-  <%= render :partial => 'search/form' %>
-<%end%>
-
 <%= content_for :sidebar do %>
   <%= render :partial => 'edit_space' %>
 <% end %>
@@ -16,15 +12,15 @@
   #elsif params[:group_invitation]
 %>
   <%=
-    #render :partial => 'group_invitation' 
+    #render :partial => 'group_invitation'
   %>
 <%else%>
   <div>
     <% for performance in @performances -%>
-      <%= render :partial => 'edit_performance', :locals => {:performance => performance, :user => performance.agent} %>    
+      <%= render :partial => 'edit_performance', :locals => {:performance => performance, :user => performance.agent} %>
     <% end -%>
-	<%= render :partial => 'precrop_logo' %>
+  <%= render :partial => 'precrop_logo' %>
 
-	
+
   </div>
 <%end%>

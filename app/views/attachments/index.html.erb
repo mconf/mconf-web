@@ -9,10 +9,6 @@
   <%= render :partial => 'repository_javascript.js' %>
 <% end %>
 
-<%= content_for :search do  %>
-  <%= render :partial => 'search/form' %>
-<%end%>
-
 <%= content_for :sidebar do%>
   <div class="tag_filter_wrapper">
     <h3 class="blue"><%=t('repository.search')%> <%=image_tag("icons/help.png",:title=>t("tooltip.doc_search"),:size=>"16x16",:class=>"icon tooltipped upwards",:style=>"cursor:pointer")%></h3>

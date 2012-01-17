@@ -1,17 +1,13 @@
-<%= content_for :search do  %>
-  <%= render :partial => 'search/form' %>
-<%end%>
-	
 <%= render :partial => 'menu' %>
 
-<div id="manage">	
-	<div class="users">
-	  <%for user in @users%>
-		  <%if user.disabled?%>
+<div id="manage">
+  <div class="users">
+    <%for user in @users%>
+      <%if user.disabled?%>
         <%= render :partial => 'disabled_user', :locals => {:user => user}  %>
       <%else%>
         <%= render :partial => 'enabled_user', :locals => {:user => user, :performance => current_site.stage_performances.find(:first, :conditions => {:agent_id => user.id, :agent_type => "User"}) }%>
       <%end%>
-		<%end%>	
-	</div>
+    <%end%>
+  </div>
 </div>

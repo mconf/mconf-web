@@ -43,10 +43,6 @@
   <% webconf_join_link = invite_space_room_path(space, @bbb_room) %>
 <% end %>
 
-<%= content_for :search do  %>
-  <%= render :partial => 'search/form' %>
-<%end%>
-
 <%= content_for :sidebar do  %>
   <%= render :partial => 'sidebar' %>
   <%= render :partial => 'sidebar_leave_space' %>

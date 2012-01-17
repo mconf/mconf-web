@@ -20,7 +20,7 @@ describe FeedbackController do
       before(:each) { get :webconf }
       it { should respond_with(:success) }
       it { should render_template(:webconf) }
-      it { should render_with_layout("clean") }
+      it { should render_with_layout("application_without_sidebar") }
     end
 
     context "renders :webconf if the current site's feedback_url is nil" do
@@ -28,7 +28,7 @@ describe FeedbackController do
       before(:each) { get :webconf }
       it { should respond_with(:success) }
       it { should render_template(:webconf) }
-      it { should render_with_layout("clean") }
+      it { should render_with_layout("application_without_sidebar") }
     end
   end
 

@@ -110,10 +110,6 @@ $("a.edit_post_link").click(function(){
 
 <% end %>
 
-<%= content_for :search do  %>
-  <%= render :partial => 'search/form' %>
-<%end%>
-
 <%if @space.authorize?([:create, :content],:to => current_user)%>
   <%= content_for :sidebar do  %>
     <%if params[:edit]%>
