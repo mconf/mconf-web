@@ -142,7 +142,8 @@ class InvitesController < ApplicationController
       if params[:invite][:email_check] != "0"
         for receiver in params[:invite][:members_tokens].split(",")
           user = User.find(receiver)
-          msg_email[:receiver] = user
+          msg_email[:receiver] = user.email
+          msg_email[:locale] = user.locale
           Notifier.delay.event_invitation_email(msg_email)
 
           if success.size == 0
@@ -156,12 +157,9 @@ class InvitesController < ApplicationController
 
       if params[:invite][:email_tokens].size != 0
         for receiver in params[:invite][:email_tokens].split(/;|,/)
-          msg[:title] = t('event.invite_title', :username => current_user.full_name, :eventname => @event.name, :space => @event.space.name, :locale => current_user.locale).html_safe
-          body = t('event.invite_message', :event_name => @event.name, :space => @event.space.name, :event_date => @event.start_date.strftime("%A %B %d at %H:%M:%S"), :event_url => space_event_url(@event.space,@event), :username => current_user.full_name, :useremail => current_user.email, :userorg => current_user.organization, :locale => current_user.locale).html_safe
-          msg[:body] = body
-          msg[:email_receiver] = receiver
-          msg[:locale] = current_user.locale
-          Notifier.delay.event_email(msg)
+          msg_email[:receiver] = receiver
+          msg_email[:locale] = current_site.locale
+          Notifier.delay.event_invitation_email(msg_email)
 
           if (receiver =~ /^[-a-z0-9_+\.]+\@([-a-z0-9]+\.)+[a-z0-9]{2,4}$/i)
             if success.size == 0

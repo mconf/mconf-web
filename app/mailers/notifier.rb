@@ -38,15 +38,15 @@ class Notifier < ActionMailer::Base
 
 
   def event_invitation_email(invitation)
-    setup_email(invitation[:receiver].email)
+    setup_email(invitation[:receiver])
 
     @sender = invitation[:sender]
-    @receiver = invitation[:receiver]
+    @locale = invitation[:locale]
     @event = invitation[:event]
     @replyto = invitation[:sender].email
-    @subject = t('event.invite_title', :username => @sender.full_name, :eventname => @event.name, :space => @event.space.name, :locale => @receive.locale).html_safe
+    @subject = t('event.invite_title', :username => @sender.full_name, :eventname => @event.name, :space => @event.space.name, :locale => @locale).html_safe
 
-    create_default_mail(@receiver.locale)
+    create_default_mail(@locale)
   end
 
   def event_notification_email(notification)
@@ -229,16 +229,6 @@ class Notifier < ActionMailer::Base
     @room_url = params[:room_url]
     @subject = params[:title]
     @message = params[:body]
-    @signature  = Site.current.signature_in_html
-
-    create_default_mail(params[:locale])
-  end
-
-  def event_email(params)
-    setup_email(params[:email_receiver])
-
-    @subject = params[:title]
-    @body_text = params[:body]
     @signature  = Site.current.signature_in_html
 
     create_default_mail(params[:locale])
