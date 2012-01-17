@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Copyright 2008-2010 Universidad Politécnica de Madrid and Agora Systems S.A.
 #
 # This file is part of VCC (Virtual Conference Center).
@@ -16,7 +17,8 @@
 # along with VCC.  If not, see <http://www.gnu.org/licenses/>.
 
 class FaqController < ApplicationController
-  def index
-  end
+  layout 'application_without_sidebar'
 
+  def show
+  end
 end

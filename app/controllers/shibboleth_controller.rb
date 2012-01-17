@@ -22,8 +22,7 @@ require "net/http"
 class ShibbolethController < ApplicationController
 
   respond_to :html
-  layout 'clean'
-  layout false, :only => [:info]
+  layout false
 
   # Log in a user using his shibboleth information
   # The application should only reach this point after authenticating using Shibboleth

@@ -39,8 +39,9 @@
         = render :partial => "layouts/menu"
         #content
           = yield
-        #sidebar
-          = yield :sidebar
+        - if content_for?(:sidebar)
+          #sidebar
+            = yield :sidebar
         = render_clearer
       = render :partial => "layouts/footer"
     = render :partial => "layouts/analytics"

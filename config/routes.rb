@@ -231,8 +231,8 @@ Mconf::Application.routes.draw do
   root :to => 'frontpage#show'
 
   # FAQ
-  match 'help', :to => 'faq#index', :as => 'help'
-  match 'faq', :to => 'faq#index', :as => 'faq'
+  match 'help', :to => 'faq#show', :as => 'help'
+  match 'faq', :to => 'faq#show', :as => 'faq'
 
   resource :session
 
