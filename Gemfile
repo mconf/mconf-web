@@ -47,6 +47,7 @@ gem 'attachment_fu', :git => 'git://github.com/mconf/attachment_fu.git'
 gem 'yaml_db'
 gem 'delayed_job_active_record'
 gem 'rails_autolink'
+gem 'whenever', :require => false
 
 gem 'mysql2', '~> 0.3.0'
 

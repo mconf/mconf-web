@@ -93,7 +93,7 @@ GEM
       net-ssh-gateway (>= 1.1.0)
     capistrano-ext (1.2.1)
       capistrano (>= 1.0.0)
-    chronic (0.3.0)
+    chronic (0.6.6)
     chunky_png (1.2.5)
     ci_reporter (1.6.4)
       builder (>= 2.1.2)
@@ -263,7 +263,10 @@ GEM
       nokogiri (>= 1.2.0)
       rack (>= 1.0)
       rack-test (>= 0.5.3)
-    will_paginate (3.0.2)
+    whenever (0.7.2)
+      activesupport (>= 2.3.4)
+      chronic (~> 0.6.3)
+    will_paginate (3.0.pre2)
     xml-simple (1.1.1)
     ya2yaml (0.30)
     yaml_db (0.2.1)
@@ -327,5 +330,6 @@ DEPENDENCIES
   uglifier (>= 1.0.3)
   vpim
   webrat
+  whenever
   will_paginate
   yaml_db
