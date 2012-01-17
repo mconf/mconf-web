@@ -94,28 +94,32 @@ module ApplicationHelper
 
   # Includes javascripts for the current controller and action
   # Example: 'assets/events.js' and 'assets/events/show.js'
-  # FIXME: use better method to concat the tags
   def javascript_include_tags_for_action
-    tag = javascript_include_tag params[:controller] if asset_exists?(params[:controller])
-    action_js = params[:controller] + "/" + params[:action]
-    if asset_exists?(action_js)
-      tag += javascript_include_tag action_js
-    end
-
+    tag  = javascript_include_tag_if_exists(params[:controller] + '.js')
+    tag += javascript_include_tag_if_exists(params[:controller] + "/" + params[:action] + '.js')
     tag
+  end
+  def javascript_include_tag_if_exists(asset)
+    if asset_exists?(asset)
+      javascript_include_tag(asset)
+    else
+      ""
+    end
   end
 
   # Includes stylesheets for the current controller and action
   # Example: 'assets/events.css' and 'assets/events/show.css'
-  # FIXME: use better method to concat the tags
   def stylesheet_link_tags_for_action
-    tag = stylesheet_link_tag params[:controller] if asset_exists?(params[:controller])
-    action_css = params[:controller] + "/" + params[:action]
-    if asset_exists?(action_css)
-      tag += stylesheet_link_tag action_css
-    end
-
+    tag  = stylesheet_link_tag_if_exists(params[:controller] + '.css')
+    tag += stylesheet_link_tag_if_exists(params[:controller] + "/" + params[:action] + '.css')
     tag
+  end
+  def stylesheet_link_tag_if_exists(asset)
+    if asset_exists?(asset)
+      stylesheet_link_tag(asset)
+    else
+      ""
+    end
   end
 
 

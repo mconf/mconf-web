@@ -1,5 +1,5 @@
 <div id="logo">
-        <%= raw(link_logo(current_user,:size => "64",:url => user_path(current_user),:title=>current_user.name)) %>
+  <%= raw(link_logo(current_user,:size => "64",:url => user_path(current_user),:title=>current_user.name)) %>
 </div>
 
 <div id="name-home">
@@ -7,8 +7,6 @@
 </div>
 
 <%= render :partial => 'layouts/header_logo' %>
-
-<!--<%= render :partial => 'special_message'%>-->
 
 <div id="search">
   <%= yield :search %>

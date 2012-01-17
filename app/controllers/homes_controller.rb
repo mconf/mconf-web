@@ -55,18 +55,6 @@ class HomesController < ApplicationController
     @private_messages = PrivateMessage.find(:all, :conditions => {:deleted_by_receiver => false, :receiver_id => current_user.id},:order => "created_at DESC", :limit => 3)
   end
 
-  def new_room
-    @server = BigbluebuttonServer.first
-    @room = BigbluebuttonRoom.new(:owner => current_user, :server => BigbluebuttonServer.first, :logout_url => home_url)
-    respond_to do |format|
-      format.html{
-        if request.xhr?
-          render :layout => false
-        end
-      }
-    end
-  end
-
   # renders a json with the webconference rooms accessible to the current user
   # response example:
   #

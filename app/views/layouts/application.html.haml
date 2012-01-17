@@ -31,7 +31,7 @@
       #global-header-wrapper
         = render :partial => 'layouts/application_global_header'
       #page-header-wrapper
-        = render :partial => "layouts/header"
+        = content_for?(:header) ? yield(:header) : render(:partial => "layouts/header")
         = render_clearer
       #content-wrapper
         = render :partial => "layouts/notifications"
