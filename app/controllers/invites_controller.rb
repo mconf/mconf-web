@@ -135,15 +135,15 @@ class InvitesController < ApplicationController
         end
       end
 
+      msg_email = Hash.new
+      msg_email[:sender] = current_user
+      msg_email[:event] = @event
+
       if params[:invite][:email_check] != "0"
         for receiver in params[:invite][:members_tokens].split(",")
           user = User.find(receiver)
-          msg[:title] = t('event.invite_title', :username => current_user.full_name, :eventname => @event.name, :space => @event.space.name, :locale => user.locale).html_safe
-          body = t('event.invite_message', :event_name => @event.name, :space => @event.space.name, :event_date => @event.start_date.strftime("%A %B %d at %H:%M:%S"), :event_url => space_event_url(@event.space,@event), :username => current_user.full_name, :useremail => current_user.email, :userorg => current_user.organization, :locale => user.locale).html_safe
-          msg[:body] = body
-          msg[:email_receiver] = user.email
-          msg[:locale] = user.locale
-          Notifier.delay.event_email(msg)
+          msg_email[:receiver] = user
+          Notifier.delay.event_invitation_email(msg_email)
 
           if success.size == 0
             success = t('invite.invitation_successfully') << " " << t('invite.email', :email => user.email)
@@ -209,18 +209,15 @@ class InvitesController < ApplicationController
 
     msg = Hash.new
 
-    msg[:sender_id] = current_user.id
+    msg[:sender] = current_user
+    msg[:event] = @event
 
     @event.participants.each do |p|
       user = User.find(p.user_id)
 
       if user != current_user
-        msg[:title] = t('event.notification_title', :username => current_user.full_name, :eventname => @event.name, :space => @event.space.name, :locale => user.locale).html_safe
-        msg[:body] = t('event.notification_message', :name => user.full_name,:event_name => @event.name, :space => @event.space.name, :event_date => @event.start_date.strftime("%A %B %d at %H:%M:%S"), :event_url => space_event_url(@event.space,@event), :username => current_user.full_name, :useremail => current_user.email, :userorg => current_user.organization, :locale => user.locale).html_safe
-
-        msg[:email_receiver] = user.email
-        msg[:locale] = user.locale
-        Notifier.delay.event_email(msg)
+        msg[:receiver] = user
+        Notifier.delay.event_notification_email(msg)
       end
     end
 

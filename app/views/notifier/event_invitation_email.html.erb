@@ -1,15 +1,16 @@
 <html>
   <body>
-    <%if @invitation.candidate!=nil%>
-      <%@invitation.comment = @invitation.comment.gsub('\'' + t('name.one') + '\'',@invitation.candidate.full_name)%>
-    <%else%>
-      <%@invitation.comment = @invitation.comment.gsub('\'' + t('name.one') + '\'',@invitation.email[0,@invitation.email.index('@')])%>
-    <%end%>
-    <%@invitation.comment = @invitation.comment.gsub('\'' + t('url_plain') + '\'', "<a href=\"" + invitation_url(@invitation) + "\">" + invitation_url(@invitation) + "</a>") %>
-    <%if @invitation.comment == ""%>
-      <%= t('invitation.to_event', :username => @user.full_name,:eventname => @invitation.group.name, :space => @space.name) %><br/><br/>
-    <%else%>
-      <%=@invitation.comment%><br/><br/>
-    <%end%>
+    <%=
+      t('event.invite_message',
+       :event_name => @event.name,
+       :space => @event.space.name,
+       :event_date => @event.start_date.strftime("%A %B %d at %H:%M:%S"),
+       :event_url => space_event_url(@event.space,@event),
+       :username => @sender.full_name,
+       :useremail => @sender.email,
+       :userorg => @sender.organization,
+       :locale => @receiver.locale
+      ).html_safe
+    %>
   </body>
 </html>

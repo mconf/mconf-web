@@ -38,29 +38,27 @@ class Notifier < ActionMailer::Base
 
 
   def event_invitation_email(invitation)
-    setup_email(invitation.email)
+    setup_email(invitation[:receiver].email)
 
-    @subject += I18n.t("invitation.to_event",:eventname=>invitation.group.name,:space=>invitation.group.space.name,:username=>invitation.introducer.full_name,:locale=>invitation.locale).html_safe
-    @invitation = invitation
-    @space = invitation.group.space
-    @event = invitation.group
-    @user = invitation.introducer
-    @replyto = invitation.introducer.email
-    @invitation = invitation
+    @sender = invitation[:sender]
+    @receiver = invitation[:receiver]
+    @event = invitation[:event]
+    @replyto = invitation[:sender].email
+    @subject = t('event.invite_title', :username => @sender.full_name, :eventname => @event.name, :space => @event.space.name, :locale => @receive.locale).html_safe
 
-    create_default_mail(invitation.locale)
+    create_default_mail(@receiver.locale)
   end
 
-  def event_notification_email(event,receiver)
-    setup_email(receiver.email)
+  def event_notification_email(notification)
+    setup_email(notification[:receiver].email)
 
-    user_sender = User.find(event.notif_sender_id)
-    @subject += I18n.t("event.notification.subject",:eventname=>event.name,:space=>event.space.name,:username=>user_sender.full_name,:locale=>receiver.locale).html_safe
-    @event = event
-    @receiver = receiver
-    @replyto = user_sender.email
+    @event = notification[:event]
+    @sender = notification[:sender]
+    @subject = t('event.notification_title', :username => @sender.full_name, :eventname => @event.name, :space => @event.space.name).html_safe
+    @receiver = notification[:receiver]
+    @replyto = @sender.email
 
-    create_default_mail(receiver.locale)
+    create_default_mail(@receiver.locale)
   end
 
   def performance_update_notification_email(sender,receiver,stage,rol)
