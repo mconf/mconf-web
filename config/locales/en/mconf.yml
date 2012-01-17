@@ -1314,6 +1314,7 @@ en:
     vmeeting: "The Virtual meeting type is suited for online meetings or physical meetings with a strong virtual component, meaning that both local and remote participants will have the opportunity to communicate interactively."
   translate: 
     change: "Switch language"
+    help_us: "Want this site in your language? Click to see how to help us translate it!"
   type: Type
   undated: Undated
   unknown_content: "Unknown content %{content}"

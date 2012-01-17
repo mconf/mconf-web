@@ -12,7 +12,7 @@
 // css files. In the future only base.scss should be used and this file
 // will be removed.
 
-#footer {
+#footer-wrapper {
   border-top: 1px dashed #ddd;
   // @include background(linear-gradient(top, $footer-bg-color, $footer-bg-color 30%, $site-bg-color));
   color: #444;
@@ -21,7 +21,7 @@
   margin-top: 20px;
 }
 
-#footer-content {
+#footer {
   width: $contents-width;
   margin: 0 auto;
   padding: 20px 5px 0 5px;
@@ -70,8 +70,9 @@
     }
   }
 
-  .languages ul {
-    float: left; margin-right: 20px;
+  .languages {
+    img.help-translate-icon { float: right; margin-top: 6px; }
+    ul { float: left; margin-right: 20px; }
   }
 
   .copyright {

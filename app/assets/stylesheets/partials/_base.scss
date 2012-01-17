@@ -101,7 +101,7 @@ button, input[type=submit], input[type=button], .button {
   border-bottom: 1px dashed darken($footer-bg-color, 10);
 }
 
-#footer {
+#footer-wrapper {
   border-top: 1px solid $site-bg-color;
   @include background(linear-gradient(top, $footer-bg-color, $footer-bg-color 30%, $site-bg-color));
   color: #444;
@@ -109,7 +109,7 @@ button, input[type=submit], input[type=button], .button {
   margin-bottom: 10px;
 }
 
-#footer-content {
+#footer {
   width: $contents-width;
   margin: 0 auto;
   padding: 20px 5px 0 5px;
@@ -158,8 +158,9 @@ button, input[type=submit], input[type=button], .button {
     }
   }
 
-  .languages ul {
-    float: left; margin-right: 20px;
+  .languages {
+    img.help-translate-icon { float: right; }
+    ul { float: left; margin-right: 20px; }
   }
 
   .copyright {

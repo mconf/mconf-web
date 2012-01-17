@@ -1,11 +1,16 @@
 @import "../partials/definitions";
 
 .ui-tooltip-mconf {
-  font-size: $font-normal;
-  text-align: center;
+  .ui-tooltip-content {
+    font-size: $font-normal;
+    text-align: center;
+    line-height: 1.3em;
+  }
 }
 
 .ui-tooltip-mconf-label {
-  font-size: $font-medium;
-  text-align: center;
+  .ui-tooltip-content {
+    font-size: $font-medium;
+    text-align: center;
+  }
 }
