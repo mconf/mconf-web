@@ -1,0 +1,54 @@
+//= require jquery/jquery.timeentry
+//= require jquery/jquery.mousewheel
+//= require jquery/jquery.jeditable
+//= require jquery/jquery.wysiwyg
+//= require jquery/jquery.jeditable.wysiwyg
+//= require jquery.vcc
+//= require user_filter
+
+change_logo = function(){
+  $('#new_reply').hide();
+  $('#carrusel').hide();
+  $("#import_icalendar").hide();
+  $("#update_logo").show();
+  $("#update_logo").effect("highlight", {color:"#F5DF51"}, 3000);
+  $("ul#actions_menu").hide();
+};
+
+submit_icalendar = function(){
+  $('#new_reply').hide();
+  $('#carrusel').hide();
+  $("#update_logo").hide();
+  $("#import_icalendar").show();
+  $("#import_icalendar").effect("highlight", {color:"#F5DF51"}, 3000);
+  $("ul#actions_menu").hide();
+};
+
+$(document).ready(function() {
+
+  $(".event_image").click(function(){
+    $("#change_logo").click();
+  });
+
+  // Action links
+  $("a.repository_sidebar_action").livequery("click",function(){
+    if($(this).hasClass("disabled_button")){
+      return false;
+    }
+  });
+
+  //It is compulsory for this code to be here, because of a bug in the fcbkcomplete that if you apply it
+  //when the html is not shown it does not work properly, with will be set to 0px
+  $("#speakers_name_edit").livequery(function () {
+    $(this).fcbkcomplete({
+      cache: true,
+      filter_case: false,
+      filter_hide: true,
+      firstselected: true,
+      filter_selected: true,
+      maxshownitems: 4,
+      newel: true
+    });
+  });
+
+});

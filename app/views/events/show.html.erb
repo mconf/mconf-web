@@ -1,17 +1,66 @@
 <% menu :events %>
 <% atom_link_header(space, Event.new) %>
 
-<%= content_for :headers do%>
-  <%= javascript_include_tag 'jquery/jquery.timeentry','jquery/jquery.mousewheel', 'user_filter' %>
-  <%= javascript_include_tag 'jquery/jquery.jeditable', 'jquery/jquery.wysiwyg', 'jquery/jquery.jeditable.wysiwyg', 'jquery/jquery.fcbkcomplete' %>
-  <%= javascript_include_tag 'jquery/jquery.vcc' %>
-  <%= stylesheet_link_tag "fcbkcomplete", :media => "screen, projection" %>
-  <%= stylesheet_link_tag "jquery/jquery.wysiwyg", :media => "screen, projection" %>
-<%end%>
 
-<%= content_for :javascript do%>
-  <%= render :partial => 'events_javascript.js' %>
+<%= content_for :headers do %>
+<script type="text/javascript" charset="utf-8">
+
+edit_description = function(){
+  $('#event_description_content').dblclick();
+};
+
+change_status = function(ae_id, new_status) {
+  $.ajax({
+    url: '<%=space_event_url(@event.space, @event) + "/agenda/agenda_entries/"%>' + ae_id,
+    type: 'PUT',
+    data: 'status=' + new_status,
+    success: function(data) {
+      update_status_and_refresh_view(ae_id, new_status);
+      our_close();
+    }
+  });
+}
+
+$(document).ready(function() {
+
+  <% if @event.future? && !@event.authorize?(:update, :to => current_user) %>
+    $("#streaming_content").hide();
+  <% end %>
+
+  <% if @event.authorize?(:update, :to => current_user) %>
+    $('#event_description_content form input').livequery("blur",function(){
+      $('#edit_description_icon').show();
+    });
+
+    $('#event_description_content').editable('<%=space_event_path(@space, @event, :format => 'js')%>',{
+      method : 'PUT',
+      tooltip   : '<%= t('dblclick')%>',
+      cancel    : '<%= t('cancel')%>',
+      submit    : '<%= t('ok')%>',
+      indicator : '<img src="ui/icons/accept.png" />',
+      onblur : 'ignore',
+      placeholder: '<%=t("event.description.none")%> <%=link_to_function t('event.description.add'), "edit_description()", :id => "add_description_link"%>',
+      type      : 'wysiwyg',
+      name : 'event[description]',
+      cssclass: 'formEdit',
+      width : 635,
+      height: 150,
+      event: "dblclick",
+      data: function(value, settings) {
+        /* Convert <br> to newline. This is not done any more */
+        var retval = '<%= stylesheet_link_tag "jquery/jquery.wysiwyg"%>' + value;
+        return retval;
+      },
+      submitdata : {authenticity_token: "<%=form_authenticity_token()%>"},
+    });
+
+  <% end %>
+
+});
+</script>
 <% end %>
+
+
 
 <%= content_for :sidebar do  %>
 
@@ -64,7 +113,7 @@
 
     <div id="event_views" class="share_insert">
       <span class="separated_5"><%=@event.unique_pageviews%></span><%=t('statistics.event_views')%>
-      <%=image_tag("icons/help.png",:title=>t("tooltip.num_views"),:size=>"16x16",:class=>"icon tooltipped upwards",:style=>"cursor:pointer")%>
+      <%=image_tag("icons/help.png",:title=>t("tooltip.num_views"),:size=>"16x16",:class=>"icon tooltipped upwards leftwards",:style=>"cursor:pointer")%>
     </div>
 
   </div>
@@ -134,21 +183,3 @@
     %>
   <%end%>
 -->
-
-
-<%= content_for :javascript do%>
-
-  //It is compulsory for this code to be here, because of a bug in the fcbkcomplete that if you apply it
-  //when the html is not shown it does not work properly, with will be set to 0px
-  $("#speakers_name_edit").livequery(function () {
-    $(this).fcbkcomplete({
-      cache: true,
-      filter_case: false,
-      filter_hide: true,
-      firstselected: true,
-      filter_selected: true,
-      maxshownitems: 4,
-      newel: true
-    });
-  });
-<%end%>

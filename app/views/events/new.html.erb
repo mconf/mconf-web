@@ -1,34 +1,50 @@
-<%= content_for :headers do %>
-        <%= javascript_include_tag 'jquery/jquery.fcbkcomplete', 'jquery/jquery.jcrop', 'jquery/jquery.wysiwyg' %>
-        <%= stylesheet_link_tag "fcbkcomplete", "jquery/jquery.wysiwyg", :media => "screen, projection" %>
-        <%= stylesheet_link_tag "jquery/jquery.fancybox", :media => "screen, projection" %>
-<%end %>
-
-<%= content_for :javascript do %>
-        <%= render :partial => "edit_new_javascript.js" %>
-        if ($("#event_image").val() != "")
-          $("#selected_logo_image").attr('src', "/assets/" + $("#event_image").val() );
-        $("#cancel_event").fancybox({
-        'scrolling'                  : 'no',
-        'titleShow'                  : false,
-        'hideOnContentClick' : false,
-        'autoDimensions'         : false,
-        'width'              : 250,
-        'height'             : 80
-        });
-<%end %>
-
 <%= content_for :sidebar do %>
   <%= render :partial => "edit_new_sidebar" %>
 <%end %>
 
+<%= content_for :headers do %>
+<script type="text/javascript" charset="utf-8">
+$(document).ready(function() {
+
+<% if @event.id
+     case @event.vc_mode
+     when Event::VC_MODE.index(:telemeeting) %>
+      $('#event_type_meeting').addClass('blue_selected');
+      $('#check_meeting').show();
+  <% when Event::VC_MODE.index(:teleclass) %>
+      $('#event_type_class').addClass('blue_selected');
+      $('#check_class').show();
+  <% when Event::VC_MODE.index(:teleconference) %>
+      $('#event_type_conference').addClass('blue_selected');
+      $('#check_conference').show();
+  <% when Event::VC_MODE.index(:in_person) %>
+      $('#event_type_presential').addClass('blue_selected');
+      $('#check_presential').show();
+  <% end %>
+<% else %>
+  $('#event_type_presential').addClass('blue_selected');
+  $('#check_presential').show();
+<% end %>
+
+<% unless @event.new_record? %>
+  <%= render :partial => 'logos/crop_logo.js.erb',
+        :locals => {
+          :url_form => precrop_space_event_logo_path(@event.space, @event),
+          :aspect_ratio => EventLogo::ASPECT_RATIO_S,
+          :form_id => 'select_logo_form',
+          :container_id => 'resultado',
+          :crop_size => 188,
+          :on_success => 'onCropLogoFormSuccess'
+        } %>
+<% end %>
+
+});
+</script>
+<% end %>
+
+
 <div class="whyte_wrapper">
   <div style="display:none">
-    <script type="text/javascript">
-      function our_close(){
-          $.fancybox.close();
-      }
-    </script>
     <div id="sure_form">
       <div id="lightbox_advise"><%= t('event.cancel.lose') %></div>
       <div id="event_step_cancel_buttons">

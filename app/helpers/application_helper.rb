@@ -92,6 +92,33 @@ module ApplicationHelper
     !Mconf::Application.assets.find_asset(asset_name).nil?
   end
 
+  # Includes javascripts for the current controller and action
+  # Example: 'assets/events.js' and 'assets/events/show.js'
+  # FIXME: use better method to concat the tags
+  def javascript_include_tags_for_action
+    tag = javascript_include_tag params[:controller] if asset_exists?(params[:controller])
+    action_js = params[:controller] + "/" + params[:action]
+    if asset_exists?(action_js)
+      tag += javascript_include_tag action_js
+    end
+
+    tag
+  end
+
+  # Includes stylesheets for the current controller and action
+  # Example: 'assets/events.css' and 'assets/events/show.css'
+  # FIXME: use better method to concat the tags
+  def stylesheet_link_tags_for_action
+    tag = stylesheet_link_tag params[:controller] if asset_exists?(params[:controller])
+    action_css = params[:controller] + "/" + params[:action]
+    if asset_exists?(action_css)
+      tag += stylesheet_link_tag action_css
+    end
+
+    tag
+  end
+
+
 
   # TODO: All the code below should be reviewed
 

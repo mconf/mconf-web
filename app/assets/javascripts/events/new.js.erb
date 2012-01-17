@@ -1,0 +1,23 @@
+//= require jquery/jquery.fcbkcomplete
+//= require jquery/jquery.jcrop
+//= require jquery/jquery.wysiwyg
+//= require events/edit_new_javascript
+
+$(document).ready(function() {
+
+  if ($("#event_image").val() != "")
+    $("#selected_logo_image").attr('src', "/assets/" + $("#event_image").val() );
+  $("#cancel_event").fancybox({
+    'scrolling'          : 'no',
+    'titleShow'          : false,
+    'hideOnContentClick' : false,
+    'autoDimensions'     : false,
+    'width'              : 250,
+    'height'             : 80
+  });
+
+});
+
+window.our_close = function (){
+  $.fancybox.close();
+}

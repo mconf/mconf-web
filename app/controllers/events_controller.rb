@@ -79,7 +79,7 @@ class EventsController < ApplicationController
 
     respond_to do |format|
       if params[:step] == "3"
-        format.html { render "_invitations", :layout => "new_event" } # TODO shouldn't need to use _ at "_invitations"
+        format.html { render "_invitations" } # TODO shouldn't need to use _ at "_invitations"
       end
       format.html # show.html.erb
       format.xml{ render :xml => @event }
@@ -96,7 +96,7 @@ class EventsController < ApplicationController
     @event = Event.new
 
     respond_to do |format|
-      format.html {render "new", :layout => "new_event"}
+      format.html { render "new" }
       format.xml  { render :xml => @event }
     end
   end
@@ -107,7 +107,7 @@ class EventsController < ApplicationController
     @invited_candidates = @event.invitations.select{|e| !e.candidate.nil?}
     @invited_emails = @event.invitations.select{|e| e.candidate.nil?}
     respond_to do |format|
-      format.html {render "edit", :layout => "new_event"}
+      format.html { render "edit" }
     end
   end
 
@@ -120,7 +120,6 @@ class EventsController < ApplicationController
 
     respond_to do |format|
       if @event.save
-        #@event.tag_with(params[:tags]) if params[:tags] #pone las tags a la entrada asociada al evento
         format.html {
           flash[:success] = t('event.created')
           redirect_to space_events_path(@space)
@@ -128,11 +127,11 @@ class EventsController < ApplicationController
         format.xml  { render :xml => @event, :status => :created, :location => @event }
       else
         format.html {
-        message = ""
-        @event.errors.full_messages.each {|msg| message += msg + "  <br/>"}
-        flash[:error] = message
-        events
-        render :action => "new", :layout => "new_event"
+          message = ""
+          @event.errors.full_messages.each {|msg| message += msg + "  <br/>"}
+          flash[:error] = message
+          events
+          render :action => "new"
         }
         format.xml  { render :xml => @event.errors, :status => :unprocessable_entity }
       end
