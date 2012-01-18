@@ -1,0 +1,47 @@
+//
+// Notification bar
+//
+
+#notification-flashs {
+  cursor: pointer;
+  _position: absolute;
+  position: absolute;
+  z-index: 101;
+  margin-left: -$contents-width / 2;
+  width: $contents-width;
+  top: 0;
+  left: 50%;
+  right: 0;
+  text-align: center;
+  font-size: $font-medium;
+  line-height: 2.5;
+  overflow: hidden;
+  @include border-bottom-radius(3px);
+  @include box-shadow(0px 0px 5px #222);
+
+  a { @include link-colors(#ccc, white, $site-link-active) }
+
+  .content { width: $contents-width; margin: 0 auto; }
+
+  $notif-success-bg: #318f00;
+  $notif-notice-bg: #fde073;
+  $notif-error-bg: #D14836;
+  .notice {
+    background: $notif-notice-bg;
+    @include background(linear-gradient(top, $notif-notice-bg, darken($notif-notice-bg, 5)));
+    @include border-bottom-radius(3px);
+    a { @include link-colors(#666, black, $site-link-active); }
+  }
+  .error {
+    background: $notif-error-bg;
+    @include background(linear-gradient(top, $notif-error-bg, darken($notif-error-bg, 5)));
+    @include border-bottom-radius(3px);
+    color: #eee;
+  }
+  .success {
+    background: $notif-success-bg;
+    @include background(linear-gradient(top, $notif-success-bg, darken($notif-success-bg, 5)));
+    @include border-bottom-radius(3px);
+    color: #eee;
+  }
+}

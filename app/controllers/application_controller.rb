@@ -24,7 +24,7 @@ class ApplicationController < ActionController::Base
   include SimpleCaptcha::ControllerHelpers
   include LocaleControllerModule
 
-#  alias_method :rescue_action_locally, :rescue_action_in_public
+  # alias_method :rescue_action_locally, :rescue_action_in_public
 
   helper :all # include all helpers, all the time
 

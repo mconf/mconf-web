@@ -1,12 +1,21 @@
-@import "compass/reset";
 @import "compass/css3";
 @import "compass/utilities/general";
 @import "fancy-buttons";
 @import "partials/definitions";
 @import "partials/typography";
+@import "partials/notifications";
 
 // TODO: the styles below are also in common.css. Remove this file when the other
 //       pages are ready to use base.css instead of common.css
+
+body {
+  background-color: $site-bg-color;
+}
+
+
+//
+// Default styles for different tags
+//
 
 p {
   margin-bottom: 0.4em;
@@ -52,48 +61,44 @@ button, input[type=submit], input[type=button], .button {
   }
 }
 
-#notification-flashs {
-  cursor: pointer;
-  _position: absolute;
-  position: absolute;
-  z-index: 101;
-  margin-left: -$contents-width / 2;
+
+//
+// Page containers, defined in the layouts
+//
+
+#site {
+  background-color: $site-bg-color;
+  margin: 0px auto;
+  width: 100%;
+}
+
+#global-header-wrapper {
+  margin: 0;
+  padding: 0;
+  background-color: $header-bg-color;
+  @include background(linear-gradient(bottom, darken($header-bg-color, 5), $header-bg-color));
+  //@include background(linear-gradient(top, #333, #222));
+}
+
+#global-header {
   width: $contents-width;
-  top: 0;
-  left: 50%;
-  right: 0;
-  text-align: center;
-  font-size: $font-medium;
-  line-height: 2.5;
-  overflow: hidden;
-  @include border-bottom-radius(3px);
-  @include box-shadow(0px 0px 5px #222);
+  margin: 0 auto;
+  @include clearfix;
+}
 
-  a { @include link-colors(#ccc, white, $site-link-active) }
+#page-header-wrapper {
+  margin: 0;
+  padding: 0;
+  background-color: $sub-header-bg-color;
+  // @include background(linear-gradient(top, darken($sub-header-bg-color, 5), $sub-header-bg-color));
+  border-top: 1px solid #BBB;
+  border-bottom: 1px solid #BBB;
+}
 
-  .content { width: $contents-width; margin: 0 auto; }
-
-  $notif-success-bg: #318f00;
-  $notif-notice-bg: #fde073;
-  $notif-error-bg: #D14836;
-  .notice {
-    background: $notif-notice-bg;
-    @include background(linear-gradient(top, $notif-notice-bg, darken($notif-notice-bg, 5)));
-    @include border-bottom-radius(3px);
-    a { @include link-colors(#666, black, $site-link-active); }
-  }
-  .error {
-    background: $notif-error-bg;
-    @include background(linear-gradient(top, $notif-error-bg, darken($notif-error-bg, 5)));
-    @include border-bottom-radius(3px);
-    color: #eee;
-  }
-  .success {
-    background: $notif-success-bg;
-    @include background(linear-gradient(top, $notif-success-bg, darken($notif-success-bg, 5)));
-    @include border-bottom-radius(3px);
-    color: #eee;
-  }
+#page-header {
+  width: $contents-width;
+  margin: 0 auto;
+  color: #444;
 }
 
 #content-wrapper {

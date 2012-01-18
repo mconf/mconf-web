@@ -31,17 +31,18 @@
       #global-header-wrapper
         = render :partial => 'layouts/application_global_header'
       #page-header-wrapper
-        = content_for?(:header) ? yield(:header) : render(:partial => "layouts/header")
+        = render :partial => "layouts/application_header"
         = render_clearer
       #content-wrapper
         = render :partial => "layouts/notifications"
         -# TODO: Maybe remove this menu from the layout and add a yield :menu
-        = render :partial => "layouts/menu"
         #content
-          = yield
-        - if content_for?(:sidebar)
-          #sidebar
-            = yield :sidebar
+          = render :partial => "layouts/menu"
+          #content-middle
+            = yield
+          - if content_for?(:sidebar)
+            #sidebar
+              = yield :sidebar
         = render_clearer
       = render :partial => "layouts/footer"
     = render :partial => "layouts/analytics"

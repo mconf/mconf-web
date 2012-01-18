@@ -1,4 +1,5 @@
 /*
+ *= require application/reset
  *= require ../../../vendor/assets/stylesheets/anythingslider/anythingslider
  *= require ../../../vendor/assets/stylesheets/anythingslider/theme-minimalist-round
  *= require ../../../vendor/assets/stylesheets/jquery/jquery.qtip.2.0.0pre
@@ -9,27 +10,10 @@
 @import "compass/utilities/general";
 @import "partials/base";
 
-// TODO: some styles that are here can be put in base.scss
+// TODO: some styles that are here can be put in partials/_base.scss
 
 $global-header-height: 110px;
 $page-header-height: 80px;
-
-body {
-  background-color: $site-bg-color;
-}
-
-#site {
-  background-color: $site-bg-color;
-  margin: 0px auto;
-  width: 100%;
-}
-
-#global-header-wrapper {
-  padding: 0;
-  background-color: $header-bg-color;
-  @include background(linear-gradient(bottom, darken($header-bg-color, 5), $header-bg-color));
-  //@include background(linear-gradient(top, #333, #222));
-}
 
 #global-header {
   width: $contents-width;
@@ -134,19 +118,8 @@ body {
 }
 
 #page-header {
-  padding: 0;
-  background-color: $sub-header-bg-color;
-  // @include background(linear-gradient(top, darken($sub-header-bg-color, 5), $sub-header-bg-color));
-  border-top: 1px solid #BBB;
-  border-bottom: 1px solid #BBB;
-}
-
-#page-header-content {
-  width: $contents-width;
-  margin: 0 auto;
   padding: 20px;
   height: $page-header-height;
-  color: #444;
 
   .headline {
     float: left;
@@ -201,8 +174,12 @@ body {
   }
 }
 
-#content-mconf {
+#content {
   width: $contents-width;
+  margin: 0 auto;
+}
+
+#content-mconf {
   padding: 20px 0;
   margin: 0 auto;
 
@@ -230,7 +207,6 @@ body {
 }
 
 #components {
-  width: $contents-width;
   margin: 20px auto;
   float: left;
 

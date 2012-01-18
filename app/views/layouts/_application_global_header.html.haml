@@ -1,0 +1,20 @@
+#global-header
+
+  #main-logo
+    %a.title{:href => root_path}= t('mconf')
+    %span.subtitle .org
+
+  %ul#global-header-user-links
+    - if logged_in?
+      - if current_user.superuser?
+        %li= link_to t('manage'), site_path
+        %li.divider
+      %li= link_to t('space.all'), spaces_path
+      %li.divider
+      %li= link_to t('home.my'), home_path
+      %li= link_to t('inbox.one', :checked => current_user.unread_private_messages)
+      %li= link_to t('profile.one'), user_path(current_user)
+      %li= link_to t('account'), edit_user_path(current_user)
+      %li= link_to t('logout', :user => current_user.name), logout_path
+    - else
+      %li= link_to t('login_or_register'), login_path

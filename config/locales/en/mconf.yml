@@ -1245,6 +1245,7 @@ en:
   street: Street
   subject: Subject
   summary: "Video Info"
+  superuser: "Superuser"
   tag: 
     add: "Add tags"
     edit: "Edit tags"

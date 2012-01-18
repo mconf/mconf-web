@@ -12,6 +12,7 @@
 // css files. In the future only base.scss should be used and this file
 // will be removed.
 
+/*
 #footer-wrapper {
   border-top: 1px dashed #ddd;
   // @include background(linear-gradient(top, $footer-bg-color, $footer-bg-color 30%, $site-bg-color));
@@ -110,6 +111,8 @@
 
   a { @include link-colors(#777, $site-link-hover, $site-link-active); display: block; }
 }
+
+*/
 
 .ui-tooltip-mconf {
   .ui-tooltip-content {

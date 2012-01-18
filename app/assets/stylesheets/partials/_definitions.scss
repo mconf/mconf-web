@@ -4,6 +4,7 @@ $font-normal: 12px;
 $font-medium: 14px;
 $font-big: 16px;
 $font-gigantic: 28px;
+$font-section-title: 36px;
 
 // standard colors
 $green: #508817;
@@ -12,8 +13,9 @@ $red: adjust_hue($green, -100);
 $orange: darken(#d98026, 10); //darken(#e18e07, 10);
 $yellow: darken(#fde073, 35);
 
-// width of the central container
+// width of the central container and standard sidebar
 $contents-width: 980px;
+$sidebar-width: 240px;
 
 // site-wide definitions
 $site-bg-color: #fff;
@@ -30,4 +32,4 @@ $footer-bg-color: #eee;
 
 // h1, h2, h3, ...
 $h-font-color: #244974;
-
+$section-title-color: #244974;

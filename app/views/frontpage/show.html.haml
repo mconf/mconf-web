@@ -1,8 +1,8 @@
 - content_for :"global-header" do
   = render :partial => "global_header"
 
-#page-header
-  #page-header-content
+- content_for :"page-header" do
+  #page-header
     .headline= t('frontpage.project_description').html_safe
     .links
       %ul
