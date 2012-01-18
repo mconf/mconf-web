@@ -60,6 +60,7 @@ group :development do
   gem 'capistrano', '~> 2.5'
   gem 'capistrano-ext'
   gem 'translate-rails3', :require => 'translate', :git => 'git://github.com/mconf/translate.git'
+  gem 'rails-dev-tweaks', '~> 0.5.2' # speed up rails 3.1 development server
 end
 
 group :development, :test do
