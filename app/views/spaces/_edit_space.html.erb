@@ -1,30 +1,7 @@
+<% # TODO: remove javascript to independent js files %>
 <%= content_for :headers do %>
-  <%= javascript_include_tag 'jquery/jquery.jeditable', 'jquery/jquery.jcrop' %>
-<% end %>
-
-<%= content_for :javascript do %>
-
-  $("#jedit_form #public_checkbox").livequery('click', function(event) {
-    if ($(this).is(':checked')) {
-      $("#private_check").hide();
-      $('#moderatorPW').attr('disabled', true);
-      $('#attendeePW').attr('disabled', true);
-    }
-    else{
-      $("#private_check").show();
-      $('#moderatorPW').removeAttr('disabled');
-      $('#attendeePW').removeAttr('disabled');
-    }
-  });
-
-
-  $("#nonjavascript_form").remove();
-  $("#jedit_form").show();
-
-  edit_name = function(){
-    $('#space_name').click();
-    $('#edit_name_icon').hide();
-  };
+<script type="text/javascript" charset="utf-8">
+$(document).ready(function() {
 
   $('#space_name').editable(function(value, settings){
     $.post("<%=space_path(@space, :format => 'js')%>",{
@@ -45,11 +22,6 @@
     }
   });
 
-  edit_description = function(){
-    $('#space_description').click();
-    $('#edit_description_icon').hide();
-  };
-
   $('#space_description').editable('<%=space_path(@space, :format => 'js')%>', {
     method : 'PUT',
     type : 'textarea',
@@ -69,12 +41,6 @@
     }
   });
 
-  edit_moderatorPW = function(){
-    $('#space_moderatorPW').show();
-    $('#space_moderatorPW').click();
-    $('#edit_moderatorPW_icon').hide();
-  };
-
   $('#space_moderatorPW').editable('<%=space_path(@space, :format => 'js')%>', {
     method : 'PUT',
     cancel    : '<%= t('cancel')%>',
@@ -93,12 +59,6 @@
       $('#edit_moderatorPW_icon').show();
     }
   });
-
-  edit_attendeePW = function(){
-    $('#space_attendeePW').show();
-    $('#space_attendeePW').click();
-    $('#edit_attendeePW_icon').hide();
-  };
 
   $('#space_attendeePW').editable('<%=space_path(@space, :format => 'js')%>', {
     method : 'PUT',
@@ -137,28 +97,15 @@
     );
   });
 
-  $("#edit_space_button").click(function(){
-    $("form#edit_logo_form").submit();
-  });
-
   <% render :partial => 'logos/crop_logo.js.erb',
              :locals => { :url_form => edit_space_url(@space),
                           :form_id => 'form_update_avatar',
                           :container_id => 'for_lightbox',
                           :aspect_ratio => Logo::ASPECT_RATIO_S } %>
 
-
-  edit_logo_fun = function(){
-    $('div#update_logo').show();
-    $('#logo_preview').hide();
-    //
-    //$("#selected_logo_image").hide();
-    $(".user").fadeOut("slow",function(){$("#edit_logo_menu").fadeIn("slow");$("#default_space_images").fadeIn("slow");});
-    closeTextLogo();
-    closeUploadLogo();
-  };
-
-<%end%>
+});
+</script>
+<% end %>
 
 <div id="space-conf">
 

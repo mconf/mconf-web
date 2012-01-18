@@ -1,0 +1,74 @@
+//= require fckeditor/fckeditor
+//= require jquery/jquery.fcbkcomplete
+
+/*
+ *  Reply panel
+ */
+
+$(document).ready(function() {
+
+$(".new_reply_options").click(function(){
+    $(".new_reply_options").removeClass("selected");
+    $(this).addClass("selected");
+});
+
+$(".new_attachment_link").livequery('click',function () {
+  $(".new_attachment_form").show();
+  return false;
+});
+
+$("a.big_new_reply").fancybox({
+  'hideOnContentClick' : false,
+  'callbackOnShow' : function(){
+    $(".big_post_text").val($(".small_post_text").val());
+    big_textarea();
+    $("#fancy_outer").width($("#new_thread_big").width() + 50);
+  $("#fancy_outer").height($("#new_thread_big").height() + 80);
+    $(window).resize();
+  },
+  'callbackOnClose' : function(){
+    var oEditor = FCKeditorAPI.GetInstance('post[text]') ;
+    var data = oEditor.GetHTML();
+    $(".small_post_text").val(data);
+  }
+});
+
+
+  $("#new_comment_big_link").livequery('click',function () {
+    $(".big_options").removeClass("selected");
+    $(this).addClass("selected");
+    $("#new_photo_big_form").hide();
+    $("#fancy_outer").height($("#new_thread_big").height() + 80);
+    $(window).resize();
+    return false;
+  });
+
+  $("#new_photo_big_link").livequery('click',function () {
+    $(".big_options").removeClass("selected");
+    $(this).addClass("selected");
+    $("#new_photo_big_form").show();
+    $("#fancy_outer").height($("#new_thread_big").height() + 80);
+    $(window).resize();
+    return false;
+  });
+
+  $("#new_doc_big_link").livequery('click',function () {
+    $(".big_options").removeClass("selected");
+    $(this).addClass("selected");
+    $("#new_photo_big_form").show();
+    $("#fancy_outer").height($("#new_thread_big").height() + 80);
+    $(window).resize();
+    return false;
+  });
+
+ big_textarea = function(data){
+    var div = document.getElementById("big_textarea_div");
+    var oFCKeditor = new FCKeditor( 'post[text]' ) ;
+    oFCKeditor.BasePath = "/javascripts/fckeditor/";
+  oFCKeditor.Height = "270";
+    oFCKeditor.ToolbarSet = 'vccToolbar' ;
+    oFCKeditor.Value = $(".big_post_text").val();
+    div.innerHTML = oFCKeditor.CreateHtml();
+  };
+
+});

@@ -1,7 +1,11 @@
 <% prefix_select = f.select :prefix_key, [[t('title_formal.mr'), 'title_formal.mr'], [t('title_formal.mrs'), 'title_formal.mrs'], [t('title_formal.ms'), 'title_formal.ms'], [t("other"), "other"]] %>
 <% prefix_input = "<div class='switch_js'> #{f.text_field :prefix_key} #{link_to 'suggest','javascript:suggest_prefix()'} </div>".html_safe %>
 
-<%= content_for :javascript do %>
+<% # TODO: remove javascript to independent js files %>
+<%= content_for :headers do %>
+<script type="text/javascript" charset="utf-8">
+$(document).ready(function() {
+
  $("#profile_prefix_key").livequery("change",function(){
   if ($("#profile_prefix_key option:selected").attr("value")== "other"){
          $(this).replaceWith("<%=escape_javascript(prefix_input)%>");
@@ -11,7 +15,10 @@
  suggest_prefix = function(){
   $(".switch_js").replaceWith("<%=escape_javascript(prefix_select)%>")
  };
-<%end%>
+
+});
+</script>
+<% end %>
 
 <div id="edit_public_profile">
         <div class="title">

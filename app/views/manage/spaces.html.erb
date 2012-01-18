@@ -1,16 +1,3 @@
-<%= content_for :javascript do%>
-  $("#manage_space_filter").show();
-
-  $("input#disabled").click(function(){
-    $("div.disabled").slideToggle("slow");
-  });
-
-  $("input#enabled").click(function(){
-    $("div.enabled").slideToggle("slow");
-  });
-
-<%end%>
-
 <%= content_for :sidebar do%>
   <div id="manage_space_filter" style="display:none">
     <h3 class="blue">Show spaces:</h3>
@@ -18,8 +5,6 @@
     <%= check_box_tag "disabled","disabled",true%><%= label_tag t("disabled") %>
   </div>
 <%end%>
-
-
 
 <%= render :partial => 'menu' %>
 

@@ -1,7 +1,3 @@
-<%= content_for :javascript do%>
-  <%= render :partial => 'attachments/repository_filter.js' %>
-<% end %>
-
 <div id="doc_table" class="main_text">
   <% interactive = interactive.nil? ? true : interactive %>
   <%= collection_table(version_attachment(@attachments)) do |t|

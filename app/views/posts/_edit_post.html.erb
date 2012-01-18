@@ -2,24 +2,6 @@
     post #Mandatory
 %>
 
-<%= content_for :javascript do %>
-        $(".newAttach").livequery('click',function () {
-          $(".newAttach1").show();
-          var new_id = new Date().getTime();
-          $(this).before( attachment.replace(/NEW_RECORD/g, new_id) );
-                $("#post_attachments_attributes_"+new_id+"__tags").fcbkcomplete({
-        cache: true,
-        filter_case: false,
-        filter_hide: true,
-        firstselected: true,
-        filter_selected: true,
-        maxshownitems: 4,
-        newel: true,
-        complete_opts: true
-    });
-        }); 
-<% end %>
-
 <div id="edit_thread">
 
   <%# div title %>
@@ -28,33 +10,38 @@
         <% elsif post.parent_id.nil?%>
           <h3><%=link_to image_tag("arrow_right_up.png", :size=>"16x16",:title=>"Show Advanced Editor"), edit_space_post_path(@space, post), :id => "big_edit_thread", :class => "extract_form" %><%= t('thread.edit') %></h3>
         <%else%>
-    <h3><%=link_to image_tag("arrow_right_up.png", :size=>"16x16",:title=>"Show Advanced Editor"), edit_space_post_path(@space, post), :id => "big_edit_thread", :class => "extract_form" %><%= t('comment.edit') %></h3>         
+    <h3><%=link_to image_tag("arrow_right_up.png", :size=>"16x16",:title=>"Show Advanced Editor"), edit_space_post_path(@space, post), :id => "big_edit_thread", :class => "extract_form" %><%= t('comment.edit') %></h3>
   <%end%>
-        
+
         <%# Form %>
-        <%= form_for(prepare_for_form(post),:html => { :multipart => true, :id => "edit-form"}) do |f| -%>  
+        <%= form_for(prepare_for_form(post),:html => { :multipart => true, :id => "edit-form"}) do |f| -%>
     <div id="edit_post_content">
         <%=hidden_field_tag 'format', 'html'%>
-                
-                  <%# Title %>          
+
+                  <%# Title %>
                         <%if post.parent_id.nil? && post.event.nil?%>
-                    
+
                       <label for="Title"><%= t('title') %></label><br/>
                       <%= f.text_field :title, :size => 25, :class => "small_post_title" %>
-                    
+
                   <%end%>
-      
-                        <%# Text %>             
+
+                        <%# Text %>
             <label for="text"><%= t('text') %></label><br/>
             <%= small_post_text_area(post.text) %>
     </div>
 
-                
+
                 <%# Attachments%>
-                <%= content_for :javascript do %>
-     <%= raw("var attachment='#{ generate_template(f, :attachments, :partial => 'posts/attachment') }'") %>
-    <% end %>
-    
+                <% # TODO: remove javascript to independent js files %>
+                <%= content_for :headers do %>
+                <script type="text/javascript" charset="utf-8">
+                $(document).ready(function() {
+                  <%= raw("var attachment='#{ generate_template(f, :attachments, :partial => 'posts/attachment') }'") %>
+                });
+                </script>
+                <% end %>
+
     <div id="new_attachment_form">
      <div id="cabinet">
         <div><span><%=t('delete.select')%></span></div>
@@ -79,7 +66,7 @@
 
     <%# Footer %>
           <button type="submit" class="basic_button blue_button"><%=t("button.update") %></button>
-          <%unless post.event.present?%>  
+          <%unless post.event.present?%>
                         <div class="float">
               <%= link_to t('thread.or_add_new'), space_posts_path(@space) %>
             </div>

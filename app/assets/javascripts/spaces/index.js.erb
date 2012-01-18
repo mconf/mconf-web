@@ -1,0 +1,40 @@
+$(document).ready(function() {
+
+  $("#space_filter").show();
+
+  $("input#spaces_all").click(function(){
+    $(".other").show();
+  });
+
+  $("input#spaces_my").click(function(){
+    $(".other").hide();
+  });
+
+  $("#space_name_filter").keyup(function(){
+    var filter_text = this.value.toLowerCase();
+    $("div.space_item").each(function() {
+      if($(this).attr("name").toLowerCase().search(filter_text)>=0){
+        $(this).css("display","inline");
+      }else{
+        $(this).hide();
+      }
+    });
+  });
+
+  $(".space_item").hover(
+    function () {
+      var route = "div#" + $(this).attr("name");
+                           $("#space_description_at_index div").hide();
+                           $(route).show();
+
+      },
+      function () {
+      }
+  );
+
+
+  $(".unautorized a").fancybox({
+    'hideOnContentClick' : false
+  });
+
+});

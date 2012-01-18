@@ -1,26 +1,31 @@
 <% last ||= false -%>
 
-<%= content_for :javascript do%>
+<% # TODO: remove javascript to independent js files %>
+<%= content_for :headers do %>
+<script type="text/javascript" charset="utf-8">
 
-    expand_news_<%=news.id%> = function(){
-       $("#collapsed_news_<%=news.id%>").hide();
-       $("#expanded_news_<%=news.id%>").show();      
-    }
-        
-    collapse_news_<%=news.id%> = function(){
-       $("#expanded_news_<%=news.id%>").hide();
-       $("#collapsed_news_<%=news.id%>").show();  
-         }
-<%end%>
+$(document).ready(function() {
+  expand_news_<%=news.id%> = function(){
+    $("#collapsed_news_<%=news.id%>").hide();
+    $("#expanded_news_<%=news.id%>").show();
+  }
+
+  collapse_news_<%=news.id%> = function(){
+    $("#expanded_news_<%=news.id%>").hide();
+    $("#collapsed_news_<%=news.id%>").show();
+  }
+});
+</script>
+<% end %>
 
 <div class="<%=cycle("even_thread" , "odd_thread")%> news_cloud news_padding  <%='last' if last %>">
   <%if news.nil? %>
         <p><%= t('news.none_to_show') %></p>
   <%else%>
   <div>
-    <div class="div-logo">  
+    <div class="div-logo">
           <%= raw(link_logo(news.space, :size =>'w48', :url => space_path(news.space), :title=>news.space.name)) %>
-        </div>       
+        </div>
     <div class="news-content">
           <div class="news-home-title">
             <%=image_tag("icons/newspaper.png",:class=>"icon", :title => t('news.item_in_home', :space=>news.space.name))%>

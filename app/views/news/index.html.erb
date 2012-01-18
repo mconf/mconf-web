@@ -1,10 +1,9 @@
 <% menu :admin %>
 
-<%= content_for :headers do  -%>
-  <%= javascript_include_tag 'fckeditor/fckeditor' %>
-<% end -%>
-
-<%= content_for :javascript do  %>
+<% # TODO: remove javascript to independent js files %>
+<%= content_for :headers do %>
+<script type="text/javascript" charset="utf-8">
+$(document).ready(function() {
   $(".edit_news_link").livequery("click", function(){
     var route = $(this).attr("href");
     $(this).attr("href","#").addClass("clicked_edit_news_link");
@@ -67,6 +66,8 @@
     div.innerHTML = oFCKeditor.CreateHtml();
   };
 
+});
+</script>
 <% end %>
 
 <%= content_for :sidebar do %>

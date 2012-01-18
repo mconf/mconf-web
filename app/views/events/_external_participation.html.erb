@@ -1,4 +1,7 @@
-<%= content_for :javascript do%>
+<% # TODO: remove javascript to independent js files %>
+<%= content_for :headers do %>
+<script type="text/javascript" charset="utf-8">
+$(document).ready(function() {
 
 <%if @event.authorize?(:update, :to => current_user)%>
   $('#participation_url_value').editable('<%=space_event_path(@space, @event, :format => 'js')%>',{
@@ -26,8 +29,9 @@
    };
 <%end%>
 
-
-<%end%>
+});
+</script>
+<% end %>
 
 <div id="streaming_url" class="margin-up main_text">
 

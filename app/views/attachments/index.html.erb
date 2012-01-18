@@ -1,12 +1,12 @@
 <% menu(:repository) %>
 
-<%= content_for :headers do%>
-  <%= javascript_include_tag 'jquery/jquery.fcbkcomplete', 'jquery/jquery.ba-bbq.min' %>
-  <%= stylesheet_link_tag "fcbkcomplete", :media => "screen, projection" %>
-<%end%>
-
-<%= content_for :javascript do%>
+<% # TODO: remove javascript to independent js files %>
+<%= content_for :headers do %>
+<script type="text/javascript" charset="utf-8">
+$(document).ready(function() {
   <%= render :partial => 'repository_javascript.js' %>
+});
+</script>
 <% end %>
 
 <%= content_for :sidebar do%>

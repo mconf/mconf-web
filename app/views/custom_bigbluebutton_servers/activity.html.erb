@@ -1,23 +1,27 @@
-<%= content_for :javascript do %>
+<% # TODO: remove javascript to independent js files %>
+<%= content_for :headers do %>
+<script type="text/javascript" charset="utf-8">
+$(document).ready(function() {
+
   var serverActivityCountdown = 0
   var serverActivityCountdownInterval = 30 // in seconds
 
-  function serverActivityUpdateMeetingsLoad() {
+  serverActivityUpdateMeetingsLoad = function() {
     $("#bbbrails_server_activity_meetings").load("<%= activity_bigbluebutton_server_path(@server, :update_list => true) %>", serverActivityUpdateMeetingsEnd());
   }
 
-  function serverActivityUpdateMeetingsStart() {
+  serverActivityUpdateMeetingsStart = function() {
     clearInterval(serverActivityCountdown);
     $(".bbbrails_countdown_value").html("<%= t('bigbluebutton_rails.servers.activity.now') %>");
     serverActivityUpdateMeetingsLoad();
   }
 
-  function serverActivityUpdateMeetingsEnd() {
+  serverActivityUpdateMeetingsEnd = function() {
     $(".bbbrails_countdown_value").html("<%= t('bigbluebutton_rails.servers.activity.done') %>");
     serverActivitySetCountdown();
   }
 
-  function serverActivitySetCountdown() {
+  serverActivitySetCountdown = function() {
     var count = serverActivityCountdownInterval;
     serverActivityCountdown = setInterval(function(){
       $(".bbbrails_countdown_value").html(count + " <%= t('bigbluebutton_rails.servers.activity.seconds') %>");
@@ -28,15 +32,15 @@
     }, 1000);
   }
 
-  $(document).ready(function(){
-    serverActivitySetCountdown();
+  serverActivitySetCountdown();
 
-    $('.bbbrails_countdown a.bbbrails_refresh_now').click(function() {
-      serverActivityUpdateMeetingsStart();
-      return false;
-    });
+  $('.bbbrails_countdown a.bbbrails_refresh_now').click(function() {
+    serverActivityUpdateMeetingsStart();
+    return false;
   });
 
+});
+</script>
 <% end %>
 
 <%= render :partial => 'manage/menu' %>

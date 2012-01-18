@@ -1,6 +1,27 @@
-<%= content_for :javascript do%>
-        <%= render :partial => 'posts/collapse_expand', :locals => { :selected_post => false, :post => post } %>
-<%end%>
+<% # TODO: remove javascript to independent js files %>
+<%= content_for :headers do %>
+<script type="text/javascript" charset="utf-8">
+$(document).ready(function() {
+
+    $("#collapsed_post_<%=post.id%>").show();
+    $("#expanded_post_<%=post.id%>").hide();
+    $("#expanded_post_<%=post.id%>").append("<%=escape_javascript(link_to t('collapse_arrows') , "javascript:collapse_post_#{post.id}()", :class=>"collapse")%>");
+
+    expand_post_<%=post.id%> = function(){
+       $("#collapsed_post_<%=post.id%>").hide();
+       $("#expanded_post_<%=post.id%>").show();
+       $("#collapsed_post_<%=post.id%>").parents(".post").nextAll().hide().show();
+    }
+
+    collapse_post_<%=post.id%> = function(){
+       $("#expanded_post_<%=post.id%>").hide();
+       $("#collapsed_post_<%=post.id%>").show();
+       $("#collapsed_post_<%=post.id%>").parents(".post").nextAll().hide().show();
+  }
+
+});
+</script>
+<% end %>
 
 <div class="event-comment-wrapper">
         <%= div_for(post, :class=>"post_moved") do%>

@@ -1,4 +1,8 @@
-<%= content_for :javascript do%>
+<% # TODO: remove javascript to independent js files %>
+<%= content_for :headers do %>
+<script type="text/javascript" charset="utf-8">
+$(document).ready(function() {
+
   //Add and rm tags functions
 
   $("#tag_filter").show();
@@ -82,7 +86,10 @@
      used_tag_list();
      return false;
    });
-<%end%>
+
+});
+</script>
+<% end %>
 
 
 <div id="tag_filter" style="display:none">

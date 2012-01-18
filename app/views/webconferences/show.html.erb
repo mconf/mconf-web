@@ -1,21 +1,5 @@
 <% menu(:webconference) %>
 
-<%= content_for :javascript do  %>
-
-  $("a#invite_bbb_link").fancybox({
-    'hideOnContentClick' : false,
-    'frameWidth' : 450,
-    'frameHeight' : 430
-  });
-
-  $("a#join_mobile_button").fancybox({
-    'hideOnContentClick' : false,
-    'frameWidth' : 250,
-    'frameHeight' : 500
-  });
-
-<% end %>
-
 <%= content_for :sidebar do  %>
   <%= render :partial => 'sidebar' %>
 <% end %>

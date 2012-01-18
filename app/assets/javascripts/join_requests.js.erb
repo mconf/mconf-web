@@ -1,0 +1,11 @@
+$(document).ready(function() {
+
+  $("#wait_join_request_button").hide();
+  $("#wait_join_request_button").attr('disabled', true);
+
+  $("#send_join_request_button").livequery('click',function(){
+    $("#send_join_request_button").hide();
+    $("#wait_join_request_button").show();
+  });
+
+});

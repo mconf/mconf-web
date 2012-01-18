@@ -1,11 +1,3 @@
-<%= content_for :javascript do%>
-  $(".more_information a").fancybox({
-    'hideOnContentClick' : false,
-    'frameWidth' : 250,
-    'frameHeight' : 500
-  });
-<% end %>
-
 <% if logged_in? %>
   <% if @shib_user %>
     <div id="edit_account_user_federated">

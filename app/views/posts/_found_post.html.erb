@@ -1,24 +1,29 @@
-<%= content_for :javascript do%>
-  
+<% # TODO: remove javascript to independent js files %>
+<%= content_for :headers do %>
+<script type="text/javascript" charset="utf-8">
+$(document).ready(function() {
+
   <%if !selected_post%>
     $("#collapsed_post_<%=post.id%>").show();
     $("#expanded_post_<%=post.id%>").hide();
   <%end%>
     $("#expanded_post_<%=post.id%>").append("<%=(link_to t('collapse'), "javascript:collapse_post_#{post.id}()").gsub('"','\"')%>");
-  
+
   expand_post_<%=post.id%> = function(){
     $("#collapsed_post_<%=post.id%>").hide();
     $("#expanded_post_<%=post.id%>").show("normal");
   }
-  
+
    collapse_post_<%=post.id%> = function(){
     $("#expanded_post_<%=post.id%>").hide("normal", function(){
       $("#collapsed_post_<%=post.id%>").show();
     });
-    
+
   }
-  
-<%end%>
+
+});
+</script>
+<% end %>
 
 <%= div_for post do%>
 <div class="post-logo">
@@ -31,7 +36,7 @@
 
 <div class="post-content">
   <ul>
-  <%if current_user.fellows.include?(post.author) or (space.present? && space.authorize?([:read, :performance],:to=> current_user))%>   
+  <%if current_user.fellows.include?(post.author) or (space.present? && space.authorize?([:read, :performance],:to=> current_user))%>
         <li class="person_title">Author: <%=link_to highlight(post.author.name, params[:query]), user_path(post.author)%> Thread:  <%=link_to highlight(thread_title(post),@query), space_post_path(post.space, thread(post))%></li>
   <%else%>
     <li class="person_title">Author: <%=highlight(post.author.name, params[:query])%> Thread:  <%=link_to highlight(thread_title(post),@query), space_post_path(post.space, thread(post))%></li>
@@ -46,5 +51,5 @@
      <%=link_to image_tag("icons/comment-edit.png", :alt => t('comment.edit')), get_edit_route(post), :title => t('comment.edit') if post.authorize?(:update, :to => current_user)%>
     </li>
    </ul>
-</div>  
+</div>
 <%end%>

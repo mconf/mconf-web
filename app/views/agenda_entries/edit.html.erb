@@ -1,9 +1,12 @@
-<%= content_for :headers do%>
-  <%= javascript_include_tag 'jquery/jquery.fcbkcomplete' %>
-  <%= stylesheet_link_tag "fcbkcomplete", :media => "screen, projection" %>
-<%end%>
+<% # TODO: remove javascript to independent js files %>
+<%= content_for :headers do %>
 
-<%= content_for :javascript do%>
+<%= javascript_include_tag 'jquery/jquery.fcbkcomplete' %>
+<%= stylesheet_link_tag "fcbkcomplete", :media => "screen, projection" %>
+
+<script type="text/javascript" charset="utf-8">
+$(document).ready(function() {
+
 
         $("#speakers_name").fcbkcomplete({
     cache: true,
@@ -59,7 +62,10 @@
 
   //call update_video_type_status when loading
   update_video_type_status();
-<%end%>
+
+});
+</script>
+<% end %>
 
 <div class="agenda_edit_entry" >
   <a id="edit_entry_anchor" name="edit_entry_anchor" ></a>
@@ -70,8 +76,13 @@
   <div id="new_entry_content">
     <%= form_for(prepare_for_form(@agenda_entry), :url=>space_event_agenda_agenda_entry_path(@space, @event, @agenda_entry), :html => {:method => :put, :multipart => true, :name => "agenda_entry_edit_form", :autocomplete=>"off"}) do |f| %>
 
-      <%= content_for :agenda_attachments do%>
+      <% # TODO: remove javascript to independent js files %>
+      <%= content_for :headers do %>
+      <script type="text/javascript" charset="utf-8">
+      $(document).ready(function() {
         <%= "eventAttachment='#{ generate_template(f,:attachments) }'" %>
+      });
+      </script>
       <% end %>
 
       <div class="margin-up"><label for="divider"><%= t('agenda.divider.one') %></label> <%=image_tag('icons/help.png',:class=>'icon tooltipped upwards',:title=>t('tooltip.divider'))%><br/>
@@ -188,8 +199,3 @@
   </div>
   <br/>
 </div>
-
-
-<%= content_for :javascript do%>
-    <%= yield :agenda_attachments%>
-<%end%>

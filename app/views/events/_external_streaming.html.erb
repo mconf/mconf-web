@@ -1,91 +1,96 @@
-<%= content_for :javascript do%>
+<% # TODO: remove javascript to independent js files %>
+<%= content_for :headers do %>
+<script type="text/javascript" charset="utf-8">
+$(document).ready(function() {
 
-<%if @event.authorize?(:update, :to => current_user)%> 
+<%if @event.authorize?(:update, :to => current_user)%>
   $('#streaming_url_value').editable('<%=space_event_path(@space, @event, :format => 'js')%>',{
         method : 'PUT',
-	tooltip   : '<%= t('dblclick')%>',
+  tooltip   : '<%= t('dblclick')%>',
         cancel    : '<%= t('cancel')%>',
-		onblur : 'ignore',
+    onblur : 'ignore',
         submit    : '<%= t('ok')%>',
         indicator : '<img src="ui/icons/accept.png" />',
         placeholder: '<%=t("event.streaming.none")%> <%=link_to_function t('event.streaming.add'), "edit_streaming()", :id => "add_streaming_link"%>',
         type      : 'textarea',
         name : 'event[other_streaming_url]',
-	width : 635,
-	height: 150,
-	event     : "dblclick",
+  width : 635,
+  height: 150,
+  event     : "dblclick",
         submitdata : {authenticity_token: "<%=form_authenticity_token()%>"},
    });
-	 
+
    $('#streaming_url_value form input').livequery("blur",function(){
      $('#edit_streaming_icon').show();
    });
-   
+
    edit_streaming = function(){
      $('#streaming_url_value').dblclick();
    };
-   
+
 <%end%>
 
    request_participation = function(){
-	   var route = "<%= space_event_path(@space, @event) %>" + "?participation_by_ajax=true";
-	   $.get(route,{
-	      authenticity_token: "<%=form_authenticity_token()%>"
-	      }, function(data){ 		         
-		      $("#title_content").html("<%=t('event.video_part')%>");
+     var route = "<%= space_event_path(@space, @event) %>" + "?participation_by_ajax=true";
+     $.get(route,{
+        authenticity_token: "<%=form_authenticity_token()%>"
+        }, function(data){
+          $("#title_content").html("<%=t('event.video_part')%>");
               $("#streaming_url_value").html(data);
-			  $("#req_participation_link").html('<%=link_to_function ('<span id="leave_cam">' + t('event.streaming.back') + '</span>'),"request_streaming()", {:id=>"view_streaming", :class=>"grey_button basic_button",:title => t('event.view_participation')} %>');
-	      });
+        $("#req_participation_link").html('<%=link_to_function ('<span id="leave_cam">' + t('event.streaming.back') + '</span>'),"request_streaming()", {:id=>"view_streaming", :class=>"grey_button basic_button",:title => t('event.view_participation')} %>');
+        });
    };
-   
+
    request_streaming = function(){
        var route = "<%= space_event_path(@space, @event) %>" + "?streaming_by_ajax=true";
-	   $.get(route,{
-	      authenticity_token: "<%=form_authenticity_token()%>"
-	      }, function(data){ 		       
-		      $("#title_content").html("<%=t('event.streaming.title')%>");  
+     $.get(route,{
+        authenticity_token: "<%=form_authenticity_token()%>"
+        }, function(data){
+          $("#title_content").html("<%=t('event.streaming.title')%>");
               $("#streaming_url_value").html(data);
-			  $("#req_participation_link").html('<%=link_to_function ('<span>' + t('join_cam') + '</span>'), "request_participation()", {:id=>"view_streaming", :class=>"grey_button basic_button",:title => t('event.view_participation')} %>');
-	      });
+        $("#req_participation_link").html('<%=link_to_function ('<span>' + t('join_cam') + '</span>'), "request_participation()", {:id=>"view_streaming", :class=>"grey_button basic_button",:title => t('event.view_participation')} %>');
+        });
    };
 
 
-<%end%>
-   
+});
+</script>
+<% end %>
+
 <div id="streaming_url" class="margin-up main_text">
-  
+
     <%= link_to_function(image_tag("icons/pencil.png", :alt => t('edit'),:title=>t('event.streaming.edit'), :class=>"icon" ), "edit_streaming()", :id => "edit_streaming_icon") if @event.authorize?(:update, :to => current_user) %>
     <div id="streaming_title"><h3 class="blue">
-	<%if @event.is_happening_now?%>
-	  <div class="image"><%=image_tag("down.png",:class=>"jqueryToggle")%><%=image_tag("right.png",:style=>"display:none",:class=>"jqueryToggle")%></div>
-	  <span id="title_content"><%=t('event.streaming.title')%></span>
-	<%else%>
-	  <div class="image"><%=image_tag("down.png",:class=>"jqueryToggle")%><%=image_tag("right.png",:style=>"display:none",:class=>"jqueryToggle")%></div>
-	  <%=t('event.streaming.will_be_available')%>
-	<%end%>
+  <%if @event.is_happening_now?%>
+    <div class="image"><%=image_tag("down.png",:class=>"jqueryToggle")%><%=image_tag("right.png",:style=>"display:none",:class=>"jqueryToggle")%></div>
+    <span id="title_content"><%=t('event.streaming.title')%></span>
+  <%else%>
+    <div class="image"><%=image_tag("down.png",:class=>"jqueryToggle")%><%=image_tag("right.png",:style=>"display:none",:class=>"jqueryToggle")%></div>
+    <%=t('event.streaming.will_be_available')%>
+  <%end%>
     </h3></div>
   <div id="streaming_content">
-  	<%if (@event.other_streaming_url== nil || @event.other_streaming_url=="") && !@event.authorize?(:update, :to => current_user)%>
-	    <%=t("event.streaming.none")%>
-	<%elsif (@event.other_streaming_url== nil || @event.other_streaming_url=="") && @event.authorize?(:update, :to => current_user)%>
-	  <div id="streaming_url_value"><%=@event.other_streaming_url%></div>
-	<%else%>
-	  <div class="button_wrapper">
-  	    <div class="on_live"><span>Live!</span></div> 
-  	    <div id="req_participation_link">
-		  <%#we only allow getting participation by ajax if the users can't edit the code, because if the user can edit it we show him a new page%>
-		  <%if @event.is_virtual? || !@event.authorize?(:update, :to => current_user)%>
-		    <%=link_to_function ("<span>" + t('join_cam') + "</span>"), 'request_participation()', {:id=>"view_streaming", :class=>"grey_button basic_button",:title => t('event.view_participation')} %>
-  	 	  <%else%>
-		    <%=link_to ("<span>" + t('join_cam') + "</span>"), space_event_path(@space, @event, :show_participation => true) , {:id=>"view_streaming", :class=>"grey_button basic_button",:title => t('event.view_participation')} %>
-		  <%end%>
-		</div> 
-  	  </div>
+    <%if (@event.other_streaming_url== nil || @event.other_streaming_url=="") && !@event.authorize?(:update, :to => current_user)%>
+      <%=t("event.streaming.none")%>
+  <%elsif (@event.other_streaming_url== nil || @event.other_streaming_url=="") && @event.authorize?(:update, :to => current_user)%>
+    <div id="streaming_url_value"><%=@event.other_streaming_url%></div>
+  <%else%>
+    <div class="button_wrapper">
+        <div class="on_live"><span>Live!</span></div>
+        <div id="req_participation_link">
+      <%#we only allow getting participation by ajax if the users can't edit the code, because if the user can edit it we show him a new page%>
+      <%if @event.is_virtual? || !@event.authorize?(:update, :to => current_user)%>
+        <%=link_to_function ("<span>" + t('join_cam') + "</span>"), 'request_participation()', {:id=>"view_streaming", :class=>"grey_button basic_button",:title => t('event.view_participation')} %>
+        <%else%>
+        <%=link_to ("<span>" + t('join_cam') + "</span>"), space_event_path(@space, @event, :show_participation => true) , {:id=>"view_streaming", :class=>"grey_button basic_button",:title => t('event.view_participation')} %>
+      <%end%>
+    </div>
+      </div>
       <div id="streaming_url_value"><%=@event.other_streaming_url%></div>
-	<%end%>
+  <%end%>
   </div>
 </div>
 
-<%if @event.description != ""%>  
+<%if @event.description != ""%>
     <%= render :partial => "events/event_description" %>
 <%end%>

@@ -1,22 +1,29 @@
-<%= content_for :javascript do%>
-  $("#mixed_filter").show();  
-<%end%>
+<% # TODO: remove javascript to independent js files %>
+<%= content_for :headers do %>
+<script type="text/javascript" charset="utf-8">
+$(document).ready(function() {
+
+  $("#mixed_filter").show();
+
+});
+</script>
+<% end %>
 
 <div id="mixed_filter" style="display:none">
-	<label class="bold blue"><%=t('find_in')%></label><br/>
-	<select id="mix_filter">
-		<option value="any_field_filter"><%=t('any_field')%></option>
-		<option value="author_filter"><%=t('author')%></option>
-		<option value="type_filter"><%=t('type')%></option>
-		<option value="title_filter"><%=t('title')%></option>
-	</select>
-	<%=text_field_tag :any_field,'', :id => "any_field_filter", :class => "mixed_alternative" %>
-	<%=text_field_tag :title,'', :id => "title_filter", :class => "mixed_alternative", :style => "display:none" %>
-	<%=text_field_tag :author,'', :id => "author_filter", :class => "mixed_alternative", :style => "display:none" %>
-	<select id="type_filter" class="mixed_alternative" style="display:none">
-		<option value="" id="blank_option"><%=t('all')%></option> 
-	 	<%@attachments.select{|a| a.mime_type.present?}.map{|a| a.mime_type.to_sym.to_s}.uniq.each do |type|%>
-		  <option value="<%=type%>"><%=type%></option>  
-		<%end%>
+  <label class="bold blue"><%=t('find_in')%></label><br/>
+  <select id="mix_filter">
+    <option value="any_field_filter"><%=t('any_field')%></option>
+    <option value="author_filter"><%=t('author')%></option>
+    <option value="type_filter"><%=t('type')%></option>
+    <option value="title_filter"><%=t('title')%></option>
+  </select>
+  <%=text_field_tag :any_field,'', :id => "any_field_filter", :class => "mixed_alternative" %>
+  <%=text_field_tag :title,'', :id => "title_filter", :class => "mixed_alternative", :style => "display:none" %>
+  <%=text_field_tag :author,'', :id => "author_filter", :class => "mixed_alternative", :style => "display:none" %>
+  <select id="type_filter" class="mixed_alternative" style="display:none">
+    <option value="" id="blank_option"><%=t('all')%></option>
+    <%@attachments.select{|a| a.mime_type.present?}.map{|a| a.mime_type.to_sym.to_s}.uniq.each do |type|%>
+      <option value="<%=type%>"><%=type%></option>
+    <%end%>
   </select>
 </div>

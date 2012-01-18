@@ -1,50 +1,23 @@
-<%= content_for :javascript do  %>
-
-  $("a#invite_event").fancybox({
-    'hideOnContentClick' : false,
-    'frameWidth' : 450,
-    'frameHeight' : 430
-  });
-  
-<% end %>
-
 <div id="actions_full">
-	<div id="actions_title">
-	  <h3><%=t("action.other")%></h3>
-	</div>
-	<div class="actions_sidebar">
-	  <ul>
-			<li>
-			  <%=link_to t('event.edit'), edit_space_event_path(@space, @event) %>
-			</li>
-		  <!--
-		    <li>
-		    <%=
-          #link_to t('agenda.edit'), edit_space_event_agenda_path(@space, @event)
-        %>
-        </li>
-      -->
+  <div id="actions_title">
+    <h3><%=t("action.other")%></h3>
+  </div>
+  <div class="actions_sidebar">
+    <ul>
+      <li>
+        <%=link_to t('event.edit'), edit_space_event_path(@space, @event) %>
+      </li>
       <%if @event.future? || @event.is_happening_now?%>
         <li>
-          <%=
-            #link_to t('icalendar.import'),"javascript:submit_icalendar();" 
-          %>
-        </li>
-        <li>
-          <%=
-            #link_to t('invitation.title'), space_event_path(@space, @event, :in_steps=>false, :step=>"3")
-           %>
           <%= link_to t('invitation.title'), inviteroom_invite_path(:type => "event", :event => @event.id), :id => 'invite_event' %>
         </li>
       <%end%>
-		  <li>
-			  <%=
-			    link_to t('event.notification.button'),sendnotification_invite_path(:event_id => @event.id)
-			  %>
-			</li>
-			<% if @event.authorize?(:start, :to => current_user) && !@event.is_in_person? && @event.is_happening_now?%>
+      <li>
+        <%= link_to t('event.notification.button'),sendnotification_invite_path(:event_id => @event.id) %>
+      </li>
+      <% if @event.authorize?(:start, :to => current_user) && !@event.is_in_person? && @event.is_happening_now?%>
         <li><%=link_to t('event.start'), start_space_event_path(@space, @event), :method => :post %></li>
       <% end %>
-	  </ul>
-	</div>
+    </ul>
+  </div>
 </div>

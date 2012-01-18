@@ -1,8 +1,29 @@
-<%= content_for :javascript do%>
-  
-        <%= render :partial => 'posts/collapse_expand', :locals => { :selected_post => selected_post, :post => post } %>
-        
-<%end%>
+<% # TODO: remove javascript to independent js files %>
+<%= content_for :headers do %>
+<script type="text/javascript" charset="utf-8">
+$(document).ready(function() {
+
+  <%if !selected_post%>
+    $("#collapsed_post_<%=post.id%>").show();
+    $("#expanded_post_<%=post.id%>").hide();
+  <%end%>
+    $("#expanded_post_<%=post.id%>").append("<%=escape_javascript(link_to t('collapse_arrows') , "javascript:collapse_post_#{post.id}()", :class=>"collapse")%>");
+
+    expand_post_<%=post.id%> = function(){
+       $("#collapsed_post_<%=post.id%>").hide();
+       $("#expanded_post_<%=post.id%>").show();
+       $("#collapsed_post_<%=post.id%>").parents(".post").nextAll().hide().show();
+    }
+
+    collapse_post_<%=post.id%> = function(){
+       $("#expanded_post_<%=post.id%>").hide();
+       $("#collapsed_post_<%=post.id%>").show();
+       $("#collapsed_post_<%=post.id%>").parents(".post").nextAll().hide().show();
+  }
+
+});
+</script>
+<% end %>
 
 <!-- this partial render a post with their links -->
 
@@ -11,15 +32,15 @@
 
 <%= div_for(post, :class=>"post_moved") do%>
 
- 
+
         <div class="post-logo">
           <%= raw(link_logo(post.author, :size => 22, :url => user_path(post.author), :title=>post.author.name)) %>
-        </div>  
+        </div>
         <div class="post-content">
             <div id="edit" class="group_links">
-            <%=link_to(image_tag("icons/exclamation.png", :alt => "Report Spam",:class=>"icon"), spam_lightbox_space_post_path(@space,post),{:name => post.id, :class => 'spam_link', :title => t('spam.report')}) if logged_in? && post.spam != true%> 
-                <%=link_to(image_tag("icons/pencil.png", :alt => "edit comment",:class=>"icon"), get_edit_route(post),{:name => post.id, :class => 'edit_post_link', :title => t('comment.edit')}) if post.authorize?(:update, :to => current_user)%> 
-                  <%=link_to(image_tag("icons/cancel.png", :alt => "delete",:class=>"icon"), space_post_path(@space,post), {:method => :delete, :class => 'delete_post_link', :title => t('comment.delete'), :confirm => t('delete.confirm', :element => t('comment.by', :author => post.author.name))}) if post.authorize?(:delete, :to => current_user)%> 
+            <%=link_to(image_tag("icons/exclamation.png", :alt => "Report Spam",:class=>"icon"), spam_lightbox_space_post_path(@space,post),{:name => post.id, :class => 'spam_link', :title => t('spam.report')}) if logged_in? && post.spam != true%>
+                <%=link_to(image_tag("icons/pencil.png", :alt => "edit comment",:class=>"icon"), get_edit_route(post),{:name => post.id, :class => 'edit_post_link', :title => t('comment.edit')}) if post.authorize?(:update, :to => current_user)%>
+                  <%=link_to(image_tag("icons/cancel.png", :alt => "delete",:class=>"icon"), space_post_path(@space,post), {:method => :delete, :class => 'delete_post_link', :title => t('comment.delete'), :confirm => t('delete.confirm', :element => t('comment.by', :author => post.author.name))}) if post.authorize?(:delete, :to => current_user)%>
             </div>
           <ul>
                 <li class="unified_user">
@@ -50,10 +71,10 @@
                         <ul class="small-font main_text">
                                 <li><%=attachment.filename%></li>
                                   <li><%=attachment.get_size()%> <%= attachment_link(attachment, false)%></li>
-                                </ul>   
+                                </ul>
                   <%end%>
                 </li>
-          </ul> 
+          </ul>
          </div>
 <%end%>
 </div>

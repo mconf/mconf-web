@@ -6,17 +6,23 @@
 <div id="new_thread_big">
     <div id="feedback_form">
         <%= form_for(prepare_for_form(Post.new, :parent_id => @post.id), :html => { :multipart => true, :id => "reply-form" }) do |f| -%>
-        <%= content_for :javascript do %>
-        <%= "var attachment='#{ generate_template(f, :attachments) }'" %>
+
+        <% # TODO: remove javascript to independent js files %>
+        <%= content_for :headers do %>
+        <script type="text/javascript" charset="utf-8">
+        $(document).ready(function() {
+          <%= "var attachment='#{ generate_template(f, :attachments) }'" %>
+        });
+        </script>
         <% end %>
                                 <div> <%= t('comment.one') %></div>
-                                
+
         <div id="big_textarea_div">
             <textarea id="big_textarea" name="post[text]" class="big_post_text">
                  <%=params[:post_text] %>
             </textarea>
-        </div>                  
-        <p class ='newAttach1' style="display: none;"><%= t('attachment.add') %></p>            
+        </div>
+        <p class ='newAttach1' style="display: none;"><%= t('attachment.add') %></p>
                                 <div id="post-buttoms" class="actions margin-up">
               <ul>
                   <li class ='newAttach add'>
@@ -27,7 +33,7 @@
                   </li>
               </ul>
           </div>
-        
+
 </div>
 <%if @show_view %>
 <%= hidden_field_tag :show, "true" %>

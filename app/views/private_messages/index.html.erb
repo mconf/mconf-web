@@ -1,5 +1,10 @@
 <% menu :inbox %>
-<%= content_for :javascript do  %>
+
+<% # TODO: remove javascript to independent js files %>
+<%= content_for :headers do %>
+<script type="text/javascript" charset="utf-8">
+$(document).ready(function() {
+
   $(".message_link").attr('href', '#');
   $(".message_link").livequery('click', function() {
     $(this).parents(".message_div").find("div.message_content").toggle();
@@ -16,7 +21,10 @@
       $("#<%=params[:message]%>").effect("highlight", {color:"#F5DF51"}, 3000);
           }, 1000);
   <%end%>
-<%end%>
+
+});
+</script>
+<% end %>
 
 <%= content_for :sidebar do  %>
   <%if params[:reply_to] %>

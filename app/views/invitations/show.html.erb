@@ -1,12 +1,3 @@
-<%= content_for :javascript do%>
-
-  $("#discard_invitation_button").livequery('click',function(){
-    $('#invitation_accepted').attr('value', 'false');
-    document.forms["invitation_process_form"].submit();
-  });
-
-<%end%>
-
 <%if authenticated? && current_user != @invitation.candidate%>
     <p class="notice">
       <%=t("invitation.logout_and_reload")%>

@@ -2,6 +2,7 @@
   <%= render :partial => "edit_new_sidebar" %>
 <%end %>
 
+<% # TODO: remove javascript to independent js files %>
 <%= content_for :headers do %>
 <script type="text/javascript" charset="utf-8">
 $(document).ready(function() {
@@ -41,7 +42,6 @@ $(document).ready(function() {
 });
 </script>
 <% end %>
-
 
 <div class="whyte_wrapper">
   <div style="display:none">

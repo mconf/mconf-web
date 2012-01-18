@@ -1,9 +1,30 @@
-<%= content_for :javascript do%>
-  <%= render :partial => 'posts/collapse_expand', :locals => { :selected_post => selected_post, :post => post } %>
-<%end%>
+<% # TODO: remove javascript to independent js files %>
+<%= content_for :headers do %>
+<script type="text/javascript" charset="utf-8">
+$(document).ready(function() {
+  <%if !selected_post%>
+    $("#collapsed_post_<%=post.id%>").show();
+    $("#expanded_post_<%=post.id%>").hide();
+  <%end%>
+    $("#expanded_post_<%=post.id%>").append("<%=escape_javascript(link_to t('collapse_arrows') , "javascript:collapse_post_#{post.id}()", :class=>"collapse")%>");
+
+    expand_post_<%=post.id%> = function(){
+       $("#collapsed_post_<%=post.id%>").hide();
+       $("#expanded_post_<%=post.id%>").show();
+       $("#collapsed_post_<%=post.id%>").parents(".post").nextAll().hide().show();
+    }
+
+    collapse_post_<%=post.id%> = function(){
+       $("#expanded_post_<%=post.id%>").hide();
+       $("#collapsed_post_<%=post.id%>").show();
+       $("#collapsed_post_<%=post.id%>").parents(".post").nextAll().hide().show();
+  }
+});
+</script>
+<% end %>
 
 <!-- Author photo and name -->
-        
+
 <%if @show_view%>
         <div class="parent-post-logo">
                 <%= raw(link_logo(post.author, :size => 32, :url => user_path(post.author), :title=>post.author.name)) %>
@@ -17,8 +38,8 @@
                                 <%= link_to(post.author.name, user_path(post.author),:class=>"unified_user")%>
                                 <span class="updated"><%= t('updated_time_ago', :time => time_ago_in_words(post.updated_at)) %></span>
                         </li>
-                <%end%> 
-        
+                <%end%>
+
                 <%if post.text.size < 500 || @show_view%>
                         <li class="main_text">
                         <%=sanitize(auto_link(post_format(post.text)))%>

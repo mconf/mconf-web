@@ -1,6 +1,9 @@
 <% menu(:videos) %>
 
-<%= content_for :javascript do  %>
+<% # TODO: remove javascript to independent js files %>
+<%= content_for :headers do %>
+<script type="text/javascript" charset="utf-8">
+$(document).ready(function() {
 
    $(".play_icon").livequery('click',function(){
      $(this).siblings("a").click();
@@ -37,6 +40,8 @@
          $("#embed_share").toggle('slow');
   });
 
+});
+</script>
 <% end %>
 
 <%= content_for :sidebar do  %>

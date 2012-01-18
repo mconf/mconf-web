@@ -1,111 +1,43 @@
-        <%= content_for :javascript do%>
+<% # TODO: remove javascript to independent js files %>
+<%= content_for :headers do %>
+<script type="text/javascript" charset="utf-8">
+$(document).ready(function() {
 
-selectDefaultImage = function(image){
-        //$("#selected_logo_image").fadeIn();
-        $("#space_image").attr('value', "default_space_logos/" + image);
-        $("#selected_logo_image").attr('src', "/assets/default_space_logos/" + image);
-}
+  $('#select_logo_form').ajaxForm({
+    // target identifies the element(s) to update with the server response
+    target: '#resultado',
 
-selectGeneratedImage = function(image){
-        //$("#selected_logo_image").fadeIn();
-        $("#space_image").attr('value', image);
-        $("#selected_logo_image").attr('src', "/assets/" + image + "?" + (new Date()).getTime());
-}
-
-//$("#selected_logo_image").attr('src', "/assets/" + ($("#space_image").val()));
-
-closeUploadLogo = function(){
-        $("#default_upload_logo").hide("slow");
-        $("#open_upload_logo_link").show();
-        $("#close_upload_logo_link").hide();
-}
-
-closeTextLogo = function(){
-        $("#default_text_logo").hide("slow");
-        $("#open_text_logo_link").show();
-        $("#close_text_logo_link").hide();
-}
-
-closeGallery  = function (){
-        $("#default_space_images").hide("slow");
-        $("#open_gallery_link").show();
-        $("#close_gallery_link").hide();
-}
-
-openGallery  = function (){
-         $("#default_space_images").show("slow");
-         $("#close_gallery_link").show();
-         $("#open_gallery_link").hide();
-}
-
-openUploadLogo  = function (){
-        $("#default_upload_logo").show("slow");
-        $("#open_upload_logo_link").hide();
-        $("#close_upload_logo_link").show();
-}
-
-openTextLogo = function(){
-        $("#default_text_logo").show("slow");
-        $("#open_text_logo_link").hide();
-        $("#close_text_logo_link").show();
-}
-
-var dateTime = new Date();
-var rand = dateTime.getHours() + "" + dateTime.getMinutes() + "" + dateTime.getSeconds() + "" + dateTime.getMilliseconds();
-
-//$("#logo_rand").attr('value', dateTime.getHours() + "" + dateTime.getMinutes() + "" + dateTime.getSeconds() + "" + dateTime.getMilliseconds());
-$("#logo_rand").attr('value', rand);
-$("#space_rand_value").attr('value', rand);
-
-$("#generate_text_logo_button").livequery('click',function(){
-        $.get('/logos/new?text='+ ($("#space_text_logo").val()) + '&rand_name=' + rand , function(data) {
-                $('#generated_text_logos').html(data);
-        });
-});
-
-        $('#select_logo_form').ajaxForm({
-        // target identifies the element(s) to update with the server response
+    // success identifies the function to invoke when the server response
+    // has been received; here we apply a fade-in effect to the new content
+    success: function() {
+      $('#resultado').fadeIn('slow');
+      size = 188;
+      $("#croplogo").Jcrop({
+        onSelect: cropImage,
+        onChange: cropImage,
+        bgColor : 'white',
+        aspectRatio: <%=Logo::ASPECT_RATIO_S%>,
+        setSelect: [188/4,188/4,3*188/4,3*188/4]
+      });
+      $('#crop_logo_form').ajaxForm({
+        beforeSubmit:function() {
+          $("#selected_logo_image").attr('src', "");
+        },
         target: '#resultado',
-
-        // success identifies the function to invoke when the server response
-        // has been received; here we apply a fade-in effect to the new content
         success: function() {
-            $('#resultado').fadeIn('slow');
-                        size = 188;
-                        $("#croplogo").Jcrop({
-                              onSelect: cropImage,
-                              onChange: cropImage,
-                                                bgColor : 'white',
-                                 aspectRatio: <%=Logo::ASPECT_RATIO_S%>,
-                                                setSelect: [188/4,188/4,3*188/4,3*188/4]
-                });
+          $('#resultado').fadeIn('slow');
+          $("#space_image").attr('value', "tmp/" + rand + "/uploaded_logo.png");
+          $("#selected_logo_image").attr('src', "/assets/" + "tmp/" + rand + "/uploaded_logo.png?" + (new Date()).getTime());
+          closeUploadLogo();
+        }
+      });
+    }
+  });
 
-                        $('#crop_logo_form').ajaxForm({
-                                beforeSubmit:function() {
-                                        $("#selected_logo_image").attr('src', "");
-                                },
-                        target: '#resultado',
-                        success: function() {
-                                        //$("#selected_logo_image").fadeIn();
-                        $('#resultado').fadeIn('slow');
-                                        $("#space_image").attr('value', "tmp/" + rand + "/uploaded_logo.png");
-                                        $("#selected_logo_image").attr('src', "/assets/" + "tmp/" + rand + "/uploaded_logo.png?" + (new Date()).getTime());
-                                        closeUploadLogo();
-                        }
-                });
-       }
+});
+</script>
+<% end %>
 
-    });
-
-
-function cropImage (c){
-        $("#crop_size_x").val(c.x);
-        $("#crop_size_y").val(c.y);
-        $("#crop_size_height").val(c.h);
-        $("#crop_size_width").val(c.w);
-};
-
-<%end%>
 <%= content_for :sidebar do %>
 <%if logged_in?%>
 <div id="space_logo" class="space_logo" style="display:none">

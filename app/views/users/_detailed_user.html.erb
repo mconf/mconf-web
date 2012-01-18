@@ -1,16 +1,3 @@
-<%= content_for :javascript do  %>
-  /*
-   * Send Private Message
-   */
-
-  $("a#new_private_message_link").fancybox({
-    'hideOnContentClick' : false,
-    'frameWidth' : 450,
-    'frameHeight' : 430
-  });
-
-<% end %>
-
 <div class="user">
   <%if detailed_user.profile!.authorize?(:read, :to=> current_user) && current_user != detailed_user %>
     <ul class="user-actions">

@@ -1,15 +1,5 @@
-<%= content_for :javascript do %>
-  $("#site_email_password_show").livequery('click', function(event) {
-    if ($(this).is(':checked')) {
-      changeInputType("#current_site_email_password", 'text');
-    } else {
-      changeInputType("#current_site_email_password", 'password');
-    }
-  });
-<% end %>
+<%= render :partial => 'manage/menu' %>
 
-
-  <%= render :partial => 'manage/menu' %>
 <div id="manage">
 
   <%= error_messages_for :current_site %>
