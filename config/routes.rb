@@ -13,26 +13,19 @@
 
 Mconf::Application.routes.draw do
 
+  # bigbluebutton_rails default routes
   bigbluebutton_routes :default, :controllers => { :servers => 'custom_bigbluebutton_servers', :rooms => 'custom_bigbluebutton_rooms' }
-
-  match '/secure', :to => 'shibboleth#create', :as => "shibboleth"
-  match '/secure/info', :to => 'shibboleth#info', :as => "shibboleth_info"
 
   # FIXME: Temporary, this should probably be done by bigbluebutton_rails
   match '/webconf/:id', :to => 'webconferences#join',
                         :as => "join_webconf"
 
-  #Translate::Routes.translation_ui(map) if RAILS_ENV != "production"
-  scope '/translate' do
-    match '/translate_list', :to => 'translate#index'
-    match '/translate', :to => 'translate#translate'
-    match '/translate_reload', :to => 'translate#reload', :as => 'translate_reload'
-  end
+  # shibboleth controller
+  match '/secure', :to => 'shibboleth#create', :as => "shibboleth"
+  match '/secure/info', :to => 'shibboleth#info', :as => "shibboleth_info"
 
   # Experimental chat
   #match '/p', :to => 'p#index', :as => 'p'
-
-  match '/ui/:action', :to => 'ui'
 
   # Global search
   #match '/search(.:format)', :to => 'search#index', :as => 'search_all' #=> /search, SearchController
@@ -70,7 +63,6 @@ Mconf::Application.routes.draw do
     end
 
     resource :webconference
-    #resources :videos
     resources :readers
 
     resources :events do
@@ -92,30 +84,12 @@ Mconf::Application.routes.draw do
       resources :invitations
       resources :participants
 
-#      resource :agenda do
-#        member do
-#          get :generate_pdf
-#        end
-#      end
-
-#      resource :agenda do
-#       resources :agenda_dividers
-#       resources :agenda_entries
-#       resources :agenda_entries do
-#         resource :attachment
-#       end
-#       resources :agenda_record_entries
-#      end
-
-## TODO check
-      #event.resource :logo, :controller => 'event_logos', :member => {:precrop => :post}
-      # limit to only create, update and precrop
       resource :logo, :controller => 'event_logos' do
         member do
           post :precrop
         end
       end
-##
+
       resource :chat_log
     end
 
@@ -126,11 +100,8 @@ Mconf::Application.routes.draw do
       end
     end
 
-## TODO check
-    #Route to delete attachment collections with a DELETE to /:space_id/attachments
-    #space.attachments 'attachments', :controller => 'attachments' , :action => 'delete_collection', :conditions => { :method => :delete }
     delete 'attachments', :to => 'attachments#delete_collection', :as => 'attachments'
-##
+
     resources :attachments do
       member do
         get :edit_tags
@@ -144,11 +115,9 @@ Mconf::Application.routes.draw do
       end
     end
 
-    #resources :groups
     resources :admissions
     resources :invitations
     resources :join_requests
-    # resources :event_invitations
     resources :performances
     resources :news
   end
@@ -163,16 +132,7 @@ Mconf::Application.routes.draw do
   resources :admissions
 
   resources :memberships
-  #resources :groups
-  #resources :groups do
-  #  resources :memberships
-  #end
-
-  #resources :posts
-  #resources :attachments
   resources :attachment_videos
-
-  #resource :notifier
 
   resources :users do
     member do
@@ -213,18 +173,15 @@ Mconf::Application.routes.draw do
       get :webconf
     end
   end
-  resource :session_locale
 
   match '/manage/users', :to => 'manage#users', :as => 'manage_users'
   match '/manage/spaces', :to => 'manage#spaces', :as => 'manage_spaces'
   match '/manage/spam', :to => 'manage#spam', :as => 'manage_spam'
 
   # Locale controller (globalize)
+  resource :session_locale
   match ':locale/:controller/:action/:id'
   match 'locale/set/:id', :to => 'locale#set', :as => 'set'
-
-  # simple_captcha controller
-  #match '/simple_captcha(/:id)', :to => 'simple_captcha#show'
 
   # root
   root :to => 'frontpage#show'
@@ -242,8 +199,6 @@ Mconf::Application.routes.draw do
   match '/resend_confirmation', :to => 'users#resend_confirmation', :as => 'resend_confirmation'
   match '/reset_password/:reset_password_code', :to => 'users#reset_password', :as => 'reset_password'
   match '/activate/:activation_code', :to => 'users#activate', :as => 'activate', :activation_code => nil
-
-  match '/change_space', :to => 'spaces#change_space', :as => 'change_space'
 
   match 'get_file/:id', :to => 'machines#get_file', :as => 'get_file'
 end
