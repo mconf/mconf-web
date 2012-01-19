@@ -2,12 +2,12 @@ require "spec_helper"
 
 describe User do
   it "should automatically create the profile of a user after creating the user" do
-    @user = Factory(:user)
+    @user = Factory.create(:user)
     @user.profile.should_not be_nil
   end
-  
+
   it "should automatically create the bbb room of a user after creating the user" do
-    @user = Factory(:user)
+    @user = Factory.create(:user)
     @user.bigbluebutton_room.should_not be_nil
   end
 
@@ -19,6 +19,10 @@ describe User do
     it "should not create a new instance given no email" do
       User.create(:email => nil).should_not be_valid
     end
+  end
+
+  [ :receive_digest ].each do |attribute|
+    it { should allow_mass_assignment_of(attribute) }
   end
 
   describe "login uses a unique permalink" do
@@ -51,7 +55,7 @@ describe User do
           user3.update_attributes(:login => "user-name")
           user3.errors[:login].should include(I18n.t('activerecord.errors.messages.taken'))
         }
-        it { 
+        it {
           user3.update_attributes(:login => "user-name-bbb")
           user3.bigbluebutton_room.param.should eq("user-name-bbb")
         }

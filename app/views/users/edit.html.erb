@@ -35,8 +35,15 @@
 
   <div>
     <h5><%= t('user.notifications')%></h5>
-    <%= f.radio_button  :notification, "1"%> <%=t('user.by_email')%>
-    <%= f.radio_button  :notification, "2"%> <%=t('user.by_private_message')%>
+    <%= f.radio_button :notification, User::NOTIFICATION_VIA_EMAIL %> <%=t('user.by_email')%>
+    <%= f.radio_button :notification, User::NOTIFICATION_VIA_PM %> <%=t('user.by_private_message')%>
+  </div><br/>
+
+  <div>
+    <h5><%= t('user.receive_digest.description')%></h5>
+    <%= f.radio_button :receive_digest, User::RECEIVE_DIGEST_NEVER %> <%=t('user.receive_digest.never') %>
+    <%= f.radio_button :receive_digest, User::RECEIVE_DIGEST_DAILY %> <%=t('user.receive_digest.daily') %>
+    <%= f.radio_button :receive_digest, User::RECEIVE_DIGEST_WEEKLY %> <%=t('user.receive_digest.weekly') %>
   </div><br/>
 
   <% if logged_in? && current_user.superuser==true && @user.id != current_user.id %>

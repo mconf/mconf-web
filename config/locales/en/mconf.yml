@@ -1317,6 +1317,11 @@ en:
     password: Password
     password_confirmation: "Password confirmation"
     private_message: "Send Message"
+    receive_digest:
+      description: "How often do you want to receive digest emails with recent activity in the communities you are a part of?"
+      never: "Never"
+      daily: "Every day"
+      weekly: "Every week"
     recent_join: "Recent users joined"
     registered: "Thanks for registering! We have just sent instructions on how to activate your user account"
     request_confirmation: "Request confirmation email"
