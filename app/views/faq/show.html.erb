@@ -1,5 +1,6 @@
-<%= content_for(:"page-header") do %>
-  <%= render :partial => 'header' %>
+<%= content_for :"page-header" do %>
+  <% locals = { :page_title => t('faq.header_title'), :logo => 'icons/faq-64x64.png', :clean => true } %>
+  <%= render :partial => 'layouts/page_title', :locals => locals %>
 <% end %>
 
 <h3 class="faq-wrapper-title"><%=t('faq.title')%></h3>

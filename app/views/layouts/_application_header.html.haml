@@ -5,9 +5,9 @@
       = yield :"page-header"
     - else
       - if space && space.id != nil
-        .space-logo
+        .current-page-logo
           = link_logo(space, :size => "h64", :title => space.name).html_safe
-        .space-description
+        .current-page-title
           - if space.name.size > 20
             .small-title
               = link_to(sanitize(first_words(space.name, 30)), space_path(space), menu_options(:home))

@@ -64,7 +64,7 @@ $page-header-height: 70px;
 }
 
 #page-header {
-  padding: 10px;
+  padding: 5px;
   height: $page-header-height;
 }
 
@@ -92,20 +92,23 @@ ul#global-header-user-links {
 #page-header-left {
   float: left;
 
-  .space-logo {
+  .current-page-logo {
     float: left;
     border: 1px #ccc solid;
     padding: 1px;
     height: 64px;
     background-color: white;
+    &.clean { background-color: $sub-header-bg-color; border: 0; }
   }
 
-  .space-description {
+  .current-page-title {
     float: left;
-    margin-left: 20px;
-    margin-top: 10px;
+    margin-left: 10px;
+    margin-top: 14px;
     font-size: $font-section-title;
     color: $section-title-color;
+    font-weight: bold;
+    @include text-shadow(lighten($sub-header-bg-color, 15) 1px 1px 10px);
 
     .small-title {
       font-size: $font-section-title - 10px;
@@ -130,7 +133,7 @@ ul#global-header-user-links {
   .user-info {
     float: right;
     text-align: right;
-    margin-top: 5px;
+    margin-top: 7px;
     .main-info {
       font-size: $font-medium;
     }

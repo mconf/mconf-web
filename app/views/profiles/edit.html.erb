@@ -16,14 +16,9 @@ $(document).ready(function() {
 </script>
 <% end %>
 
-<%= content_for :"page-header" do%>
-<div id="profile_edit_title">
-  <h2 class="blue"><%=t('edit_your_profile')%></h2>
-</div>
-
-<span class="triangle_css"></span>
-<%end%>
-
+<%= content_for :"page-header" do %>
+  <%= render :partial => 'layouts/page_title', :locals => { :page_title => t('edit_your_profile') } %>
+<% end %>
 
 <%= content_for :sidebar do  %>
   <div id="edit_profile_sidebar">
