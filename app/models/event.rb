@@ -70,6 +70,10 @@ class Event < ActiveRecord::Base
 
   after_save :update_agenda_entries
 
+  def self.within(from, to)
+    where("(start_date >= ? AND start_date <= ?) OR (end_date >= ? AND end_date <= ?)", from, to, from, to)
+  end
+
   RECORDING_TYPE = [:automatic, :manual, :none]
   EXTRA_TIME_FOR_EVENTS_WITH_MANUAL_REC = 1.hour
 
@@ -90,7 +94,7 @@ class Event < ActiveRecord::Base
       end
     end
   end
-  
+
   #  def update_date
   #  if self.edit_date_action.eql?("move_event") || self.edit_date_action.eql?("start_date")
   #    self.start_date(1i) = self.start_date
@@ -107,7 +111,7 @@ class Event < ActiveRecord::Base
       return false
     end
   end
-  
+
   def edit_date_actions
     if !self.edit_date_action.nil?
       if !self.edit_date_action.eql?("move_event")
