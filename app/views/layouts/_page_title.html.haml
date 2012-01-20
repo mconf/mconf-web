@@ -1,8 +1,8 @@
-- clean ||= nil
+- transparent ||= nil
 - logo ||= nil
 
 - unless logo.nil?
-  .current-page-logo{ :class => clean ? 'clean' : '' }
+  .current-page-logo{ :class => transparent ? 'clean' : '' }
     = image_tag(logo, :title => page_title)
 .current-page-title
   = page_title

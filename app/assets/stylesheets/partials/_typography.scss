@@ -16,9 +16,12 @@ body {
 h1 {
   @include headers_base;
   text-align: left;
-  font-size: 2.6666em;
-  line-height: 1.125;
-  color: $h-font-color;
+  // color: $h-font-color;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 5px;
+  font-size: 26px;
+  line-height: 50px;
+  color: #404040;
   margin-top: 10px;
   margin-bottom: 15px;
 }

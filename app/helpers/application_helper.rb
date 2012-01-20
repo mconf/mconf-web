@@ -121,7 +121,12 @@ module ApplicationHelper
     end
   end
 
-
+  # Renders the partial 'layout/page_title'
+  # useful to simplify the calls from the views
+  def render_page_title(title, logo, options={})
+    opt = options.merge(:page_title => title, :logo => logo)
+    render(:partial => 'layouts/page_title', :locals => opt)
+  end
 
   # TODO: All the code below should be reviewed
 

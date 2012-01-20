@@ -1,5 +1,35 @@
+@import "partials/definitions";
+
 // we don't have a sidebar, so the content must fill the
 // entire width of the page
-#content {
+#content-middle {
   width: 100%;
+  color: #404040;
 }
+
+h4 {
+  font-size: $font-medium;
+  line-height: 1.5;
+  color: black;
+
+  &.question {
+    margin-top: 20px;
+    margin-bottom: 10px;
+  }
+}
+
+#faq-topics {
+  list-style-type: decimal;
+}
+
+#faq-answers {
+  list-style-type: decimal;
+
+  .answer {
+    line-height: 1.4;
+    text-align: justify;
+    padding: 0 10px;
+  }
+}
+
+

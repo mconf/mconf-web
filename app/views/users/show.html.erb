@@ -1,5 +1,5 @@
 <%= content_for :"page-header" do %>
-  <%= render :partial => 'layouts/page_title', :locals => { :page_title => t('profile.header_title') } %>
+  <%= render_page_title t('profile.header_title'), nil, { :transparent => true } %>
 <%end%>
 
 <% menu :profile %>

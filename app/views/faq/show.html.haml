@@ -1,0 +1,18 @@
+= content_for :"page-header" do
+  = render_page_title t('faq.header_title'), 'icons/faq-64x64.png', { :transparent => true }
+
+%h1= t('faq.title')
+
+%ol#faq-topics
+  - for i in (0..7) do
+    %li
+      %h4
+        %a{:href => "#faq#{i}"}= t("faq.faq#{i}.question")
+
+%ul#faq-answers
+  - for i in (0..7) do
+    %li
+      %a{:name => "faq#{i}"}
+      %h4.question= t("faq.faq#{i}.question")
+      .answer
+        %p= t("faq.faq#{i}.answer").html_safe

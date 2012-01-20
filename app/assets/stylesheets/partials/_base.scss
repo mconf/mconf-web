@@ -77,7 +77,6 @@ button, input[type=submit], input[type=button], .button {
   padding: 0;
   background-color: $header-bg-color;
   @include background(linear-gradient(bottom, darken($header-bg-color, 5), $header-bg-color));
-  //@include background(linear-gradient(top, #333, #222));
 }
 
 #global-header {
@@ -89,10 +88,8 @@ button, input[type=submit], input[type=button], .button {
 #page-header-wrapper {
   margin: 0;
   padding: 0;
-  background-color: $sub-header-bg-color;
-  // @include background(linear-gradient(top, darken($sub-header-bg-color, 5), $sub-header-bg-color));
-  border-top: 1px solid #BBB;
-  border-bottom: 1px solid #BBB;
+  @include background(linear-gradient(top, darken($sub-header-bg-color, 5), lighten($sub-header-bg-color, 10)));
+  border-top: 1px solid #bbb;
 }
 
 #page-header {

@@ -27,8 +27,7 @@ $(document).ready(function() {
 <% end %>
 
 <%= content_for :"page-header" do %>
-  <% locals = { :page_title => t('home.my'), :logo => 'icons/my-home-64x64.png', :clean => true } %>
-  <%= render :partial => 'layouts/page_title', :locals => locals %>
+  <%= render_page_title t('home.my'), 'icons/my-home-64x64.png', { :transparent => true } %>
 <% end %>
 
 <%= content_for :sidebar do  %>

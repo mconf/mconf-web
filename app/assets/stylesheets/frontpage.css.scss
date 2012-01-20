@@ -23,6 +23,11 @@ $page-header-height: 80px;
   @include clearfix;
 }
 
+#page-header-wrapper {
+  background: $sub-header-bg-color;
+  border-bottom: 1px solid #ddd;
+}
+
 #main-logo {
   float: left;
   width: 200px;

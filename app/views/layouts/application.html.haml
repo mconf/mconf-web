@@ -37,8 +37,8 @@
         = render :partial => "layouts/notifications"
         -# TODO: Maybe remove this menu from the layout and add a yield :menu
         #content
-          = render :partial => "layouts/menu"
           #content-middle
+            = render :partial => "layouts/menu"
             = yield
           - if content_for?(:sidebar)
             #sidebar

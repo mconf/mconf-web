@@ -64,7 +64,7 @@ $page-header-height: 70px;
 }
 
 #page-header {
-  padding: 5px;
+  padding: 15px;
   height: $page-header-height;
 }
 
@@ -97,8 +97,7 @@ ul#global-header-user-links {
     border: 1px #ccc solid;
     padding: 1px;
     height: 64px;
-    background-color: white;
-    &.clean { background-color: $sub-header-bg-color; border: 0; }
+    &.clean { border: 0; }
   }
 
   .current-page-title {
@@ -163,12 +162,42 @@ ul#global-header-user-links {
 
 #content-middle {
   float: left;
-  padding: 10px;
-  width: $contents-width - $sidebar-width - 20px; // - padding x2
+  width: $contents-width - $sidebar-width - 20px; // less right-margin
 }
 
 #sidebar {
   float: right;
-  padding: 5px;
-  width: $sidebar-width - 10px; // - padding x2
+  width: $sidebar-width;
+
+  .content-block-wrapper {
+    padding: 5px;
+    @include border-radius(5px);
+    background: #f6f6f6;
+    margin-bottom: 10px;
+  }
+
+  .content-block {
+    padding: 10px;
+    border: 1px solid #ddd;
+    @include border-radius(5px);
+    background: $site-bg-color;
+
+    h3 {
+      font-size: 1.2em;
+      margin-top: 0;
+    }
+  }
 }
+
+/* TODO: temporary, may be moved to _base */
+
+/*
+h3 {
+  color: #404040;
+  font-size: 1.4em;
+  margin-bottom: 10px;
+  margin-top: 20px;
+}
+
+#menu { display: none; }
+*/
