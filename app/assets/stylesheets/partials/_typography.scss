@@ -1,53 +1,43 @@
 @import "compass/typography/links/link-colors";
 
 body {
-  font-size: 75%;
-  color: #222;
-  background-color: #f8f9f9;
+  font-size: $font-normal;
+  color: $font-color;
+  background-color: $site-bg-color;
   font-family: "Lucida Grande", Helvetica, Arial, Helvetica, sans-serif;
-  line-height: 1.4;
+  line-height: 1.5;
 }
 
 @mixin headers_base {
   font-weight: bold;
-  color: #111;
+  color: $h-font-color;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  text-align: left;
+  a { color: $h-font-color; }
 }
 h1 {
   @include headers_base;
-  text-align: left;
-  // color: $h-font-color;
   border-bottom: 1px solid #ddd;
   padding-bottom: 5px;
   font-size: 26px;
   line-height: 50px;
-  color: #404040;
   margin-top: 10px;
   margin-bottom: 15px;
 }
 h2 {
   @include headers_base;
   font-size: $font-big; //2em;
-  text-align: left;
-  color: $h-font-color;
 }
 h3 {
   @include headers_base;
-  font-size: 1.5em;
+  font-size: 1.4em;
   line-height: 1.3846;
-  text-align: left;
-  color: $h-font-color;
-
-  img {
-    margin-bottom: -4px;
-  }
 }
 h5 {
   @include headers_base;
   font-size: 0.9166em;
   line-height: 1.6363;
   margin-bottom: 0.75em;
-  font-weight: bold;
 }
 
 blockquote {

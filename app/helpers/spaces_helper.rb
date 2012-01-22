@@ -1,4 +1,20 @@
 module SpacesHelper
+
+  # Stores the current tab in the menu for spaces
+  def spaces_menu_at(tab)
+    @spaces_menu_tab = tab
+  end
+
+  # Selects the tab if it is the current tab in the menu for spaces
+  def spaces_menu_select_if(tab, options = {})
+    @spaces_menu_tab == tab ?
+      options.update({ :class => 'selected' }) :
+      options
+  end
+
+
+  # TODO: check the methods below
+
   def max_word_length text
     first_pos = 0
     max_length = 0

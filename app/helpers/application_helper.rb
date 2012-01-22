@@ -61,8 +61,18 @@ module ApplicationHelper
 
   end
 
-  def mobile_icon_link(url)
-    link_to image_tag("icons/cellphone.png", :mouseover => "icons/cellphone_over.png"), url, :id => 'mobile_join', :class => 'mobile_icon'
+  # Default link to open the popup to join a webconference using a mobile device
+  # If url is nil, renders a disabled button
+  def webconf_mobile_icon_link(url)
+    cls = 'webconf-join-mobile-link button blue'
+    unless url
+      url = '#'
+      cls += ' disabled login-to-enable'
+    end
+
+    link_to url, :class => cls  do
+      content_tag :span, t('bigbluebutton_rails.rooms.join_mobile'),
+    end
   end
 
   def application_version
@@ -123,22 +133,50 @@ module ApplicationHelper
 
   # Renders the partial 'layout/page_title'
   # useful to simplify the calls from the views
+  # Ex:
+  #   <%= render_page_title('users', 'logos/user.png', { :transparent => true }) %>
   def render_page_title(title, logo, options={})
-    opt = options.merge(:page_title => title, :logo => logo)
-    render(:partial => 'layouts/page_title', :locals => opt)
+    block_to_partial('layouts/page_title', options.merge(:page_title => title, :logo => logo))
   end
+
+  # Renders the partial 'layout/sidebar_content_block'
+  # If options[:active], will set a css style to emphasize the block
+  # Ex:
+  #   <%= render_sidebar_content_block('users') do %>
+  #     any content
+  #   <% end %>
+  def render_sidebar_content_block(id=nil, options={}, &block)
+    options[:active] ||= false
+    block_to_partial('layouts/sidebar_content_block', options.merge(:id => id), &block)
+  end
+
+  # Default icon that shows a tooltip with help about something
+  def help_icon(title, options={})
+    cls = "help-icon tooltipped upwards "
+    options[:class] = options.has_key?(:class) ? cls + options[:class] : cls
+    options.merge!(:title => title)
+    content_tag :div, nil, options
+  end
+
+  # Default icon to a feed (rss, atom)
+  def feed_icon(options={})
+    cls = "feed-icon tooltipped upwards "
+    options[:class] = options.has_key?(:class) ? cls + options[:class] : cls
+    options.merge!(:alt => t('RSS'), :title => t('RSS'))
+    content_tag :div, nil, options
+  end
+
+  # Default icon to an attachment
+  def attachment_icon(title, options={})
+    cls = "attachment-icon tooltipped upwards "
+    options[:class] = options.has_key?(:class) ? cls + options[:class] : cls
+    options.merge!(:alt => title, :title => title)
+    image_tag "icons/attach.png", options
+  end
+
+
 
   # TODO: All the code below should be reviewed
-
-  def menu(tab)
-    @menu_tab = tab
-  end
-
-  def menu_options(tab, options = {})
-    @menu_tab == tab ?
-      options.update({ :class => 'selected' }) :
-      options
-  end
 
   def options_for_select_with_class_selected(container, selected = nil)
     container = container.to_a if Hash === container
@@ -192,5 +230,15 @@ module ApplicationHelper
     escape_javascript generate_html(form_builder, method, options)
   end
 
+
+  private
+
+  # Based on http://www.igvita.com/2007/03/15/block-helpers-and-dry-views-in-rails/
+  # There's a better solution at http://pathfindersoftware.com/2008/07/pretty-blocks-in-rails-views/
+  # But render(:layout => 'something') with a block is not working (rails 3.1.3, jan/12)
+  def block_to_partial(partial_name, options={}, &block)
+    options.merge!(:body => capture(&block)) if block_given?
+    render(:partial => partial_name, :locals => options)
+  end
 
 end

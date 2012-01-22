@@ -5,17 +5,14 @@
 @import "partials/typography";
 @import "partials/notifications";
 
-// TODO: the styles below are also in common.css. Remove this file when the other
-//       pages are ready to use base.css instead of common.css
+
+//
+// Default styles for different tags, used site-wide
+//
 
 body {
   background-color: $site-bg-color;
 }
-
-
-//
-// Default styles for different tags
-//
 
 p {
   margin-bottom: 0.4em;
@@ -35,8 +32,9 @@ input[type=checkbox] {
   margin: 5px 2px 0 2px;
 }
 
+$fb-allow-disabled: true;
 button, input[type=submit], input[type=button], .button {
-  @include fancy-button-colors-matte(#aaa);
+  @include fancy-button-colors-matte(#ddd);
   @include fancy-button-size(12px, 4px, 1px);
   @include fancy-button-padding(4px, 8px, 1px);
   cursor: pointer;
@@ -63,7 +61,39 @@ button, input[type=submit], input[type=button], .button {
 
 
 //
-// Page containers, defined in the layouts
+// Components used site-wide, in any layout
+//
+
+.help-icon {
+  float: right;
+  cursor: pointer;
+  background: url(asset_path("icons/help-16x16.png", image)) no-repeat bottom;
+  width: 16px;
+  height: 16px;
+  &:hover {
+    background: url(asset_path("icons/help-hover-16x16.png", image)) no-repeat bottom;
+  }
+}
+
+.feed-icon {
+  float: left;
+  cursor: pointer;
+  background: url(asset_path("icons/feed.png", image)) no-repeat bottom;
+  width: 16px;
+  height: 16px;
+}
+
+.webconf-join-mobile-link {
+  span {
+    padding-left: 20px;
+    background: url(asset_path('icons/mobile-white-16x16.png', image)) bottom left no-repeat;
+  }
+}
+
+
+//
+// Page containers, redefined in the layouts
+// Here we define the basic styles used in all layouts
 //
 
 #site {
@@ -90,6 +120,7 @@ button, input[type=submit], input[type=button], .button {
   padding: 0;
   @include background(linear-gradient(top, darken($sub-header-bg-color, 5), lighten($sub-header-bg-color, 10)));
   border-top: 1px solid #bbb;
+  margin-bottom: 15px;
 }
 
 #page-header {

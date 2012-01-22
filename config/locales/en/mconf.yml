@@ -177,6 +177,7 @@ en:
     sending: Sending...
     update: Update
     upload: Upload
+  by: "by"
   cafe: 
     login: "Login using CAFe"
   calendar: 
@@ -1417,6 +1418,7 @@ en:
   video_attachment: 
     delete: "Delete video attachment"
     video_name: "Uploaded Video"
+  view_more: "View more"
   webconference: 
     currently_running: 
       one: "The webconference is currently in progress with %{count} participant"

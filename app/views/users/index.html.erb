@@ -1,8 +1,5 @@
-<% menu :people %>
-
 <%= content_for :sidebar do  %>
-<!-- Ojo, esto hay que pensar qué queremos que se vea aquí -->
-  <%= render :partial => 'spaces/sidebar' %>
+  <%= render :partial => 'spaces/sidebar_join_links' %>
 
   <%if params[:send_message]%>
     <%= render :partial => 'private_messages/new_private_message', :locals => { :checked_users =>  params[:send_message]} %>

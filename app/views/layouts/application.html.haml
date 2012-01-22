@@ -35,9 +35,9 @@
         = render_clearer
       #content-wrapper
         = render :partial => "layouts/notifications"
-        -# TODO: Maybe remove this menu from the layout and add a yield :menu
         #content
           #content-middle
+            -# TODO: Maybe remove this menu from the layout and add a yield :menu
             = render :partial => "layouts/menu"
             = yield
           - if content_for?(:sidebar)

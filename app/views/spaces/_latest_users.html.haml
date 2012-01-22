@@ -1,0 +1,12 @@
+#latest-users
+  .content-block-content-wrapper
+
+    - for user in @lastest_users
+      .user-wrapper
+        .user-logo
+          = link_logo(user, :size => 32, :url => user_path(user), :title => user.name).html_safe
+        = link_to sanitize(user.full_name), user_path(user), :class => 'user-name'
+        %span.user-organization= sanitize(user.organization)
+
+  .content-block-footer
+    = link_to t('read_more'), space_users_path(@space) if space.authorize?([:read, :performance], :to => current_user)

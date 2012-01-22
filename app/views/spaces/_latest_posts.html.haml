@@ -1,0 +1,23 @@
+#latest-posts
+  .content-block-content-wrapper
+
+    - if @lastest_posts.empty?
+      %span= t('post.none_recent')
+
+    - else
+      - for post in @lastest_posts
+        .post-wrapper
+          .post-logo
+            = link_logo(post.author, :size => 32, :url => user_path(post.author), :title => post.author.name).html_safe
+          .post-title-wrapper
+            = link_to(first_words(post.title, 40), space_post_path(@space, post), :class => 'post-title')
+            = attachment_icon(attachment_name(post)) if has_attachments(post)
+            %span= t('by')
+            = link_to(post.author.name, user_path(post.author), :class => 'post-author')
+            %span.updated-at= t('updated_time_ago', :time => time_ago_in_words(post.updated_at))
+          .post-text
+            = first_words(strip_tags(post.text), 100)
+
+  .content-block-footer
+    = link_to feed_icon, space_posts_path(@space, :format => :atom)
+    = link_to t('read_more'), space_posts_path(@space) if space.authorize?([:read, :content], :to => current_user)

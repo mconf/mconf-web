@@ -34,10 +34,6 @@ $page-header-height: 70px;
   a { @include link-colors(#bbb, white, $site-link-active); }
 }
 
-#footer-wrapper {
-  background: $site-bg-color;
-}
-
 #main-logo {
   float: left;
   width: 100px;
@@ -143,8 +139,8 @@ ul#global-header-user-links {
     height: 16px;
     background: url(asset_path("icons/superuser-16x16.png", image)) no-repeat scroll left top;
     position: absolute;
-    bottom: 5px;
-    right: 5px;
+    top: 3px;
+    right: 3px;
   }
 
   span {
@@ -152,17 +148,10 @@ ul#global-header-user-links {
   }
 }
 
-
-
 #content {
   width: $contents-width;
   margin: 0 auto;
   padding: 0;
-}
-
-#content-middle {
-  float: left;
-  width: $contents-width - $sidebar-width - 20px; // less right-margin
 }
 
 #sidebar {
@@ -174,10 +163,15 @@ ul#global-header-user-links {
     @include border-radius(5px);
     background: #f6f6f6;
     margin-bottom: 10px;
+
+    &.active {
+      background: #95BD6C;
+    }
   }
 
   .content-block {
-    padding: 10px;
+    clear: both;
+    padding: 5px 10px;
     border: 1px solid #ddd;
     @include border-radius(5px);
     background: $site-bg-color;
@@ -185,19 +179,102 @@ ul#global-header-user-links {
     h3 {
       font-size: 1.2em;
       margin-top: 0;
+      img { margin-bottom: -3px; }
+    }
+  }
+
+  .content-block-content-wrapper {
+    margin-top: 10px;
+  }
+
+  .content-block-footer {
+    text-align: right;
+    margin-top: 10px;
+    padding-top: 2px;
+    padding-right: 5px;
+    clear: both;
+  }
+
+  .top-action-button {
+    text-align: center;
+    margin-bottom: 10px;
+    padding: 10px;
+    a, span {
+      float: right;
+      width: $sidebar-width - 50px;
     }
   }
 }
 
-/* TODO: temporary, may be moved to _base */
+#content-middle {
+  float: left;
+  width: $contents-width - $sidebar-width - 20px; // less right-margin
 
-/*
-h3 {
-  color: #404040;
-  font-size: 1.4em;
-  margin-bottom: 10px;
-  margin-top: 20px;
+  h3 {
+    color: #404040;
+    font-size: 1.4em;
+    padding-top: 10px;
+
+    // horitontal line in the title
+    //height: 13px;
+    //border-bottom: 3px solid #eee;
+    //margin-bottom: 15px;
+    margin-bottom: 5px;
+
+    span {
+      background: white;
+      padding-right: 15px;
+    }
+    .help-icon { margin-top: 5px; }
+  }
+
+  .content-block {
+    clear: both;
+    margin-bottom: 20px;
+  }
+
+  .content-block-footer {
+    padding: 4px 10px;
+    text-align: right;
+    background: #f6f6f6;
+    border-top: 1px solid #ddd;
+  }
+
+  .content-block-content-wrapper {
+    padding: 5px;
+  }
 }
 
-#menu { display: none; }
-*/
+#page-menu {
+  margin: 0 0 10px 0;
+  border-bottom: 1px solid #DDD;
+
+  ul {
+    margin: 0;
+    border-bottom: 2px solid #F6F6F6;
+  }
+
+  li {
+    display: inline-block;
+    padding-left: 10px;
+
+    a {
+      display: inline-block;
+      margin-bottom: -5px;
+      @include link-colors(#808080, $site-link-hover, $site-link-active);
+      padding: 5px 10px;
+      font-weight: bold;
+      font-size: 14px;
+
+      &.selected {
+        color: $blue;
+        @include border-top-radius(5px);
+        border-top: 1px solid #ddd;
+        border-left: 1px solid #ddd;
+        border-right: 1px solid #ddd;
+        border-bottom: 1px solid white;
+        background: $site-bg-color;
+      }
+    }
+  }
+}

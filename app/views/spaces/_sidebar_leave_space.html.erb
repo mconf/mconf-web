@@ -1,9 +1,0 @@
-<%if space.users.include?(current_user)&& logged_in? %>
-  <div id="leave_space">
-    <%if !(space.is_last_admin?(current_user))%>
-        <%= link_to t('space.leave'), space_performance_path(@space, @space.stage_performances.find_by_agent_id(current_user)), :method => :delete, :title => t('space.leave'), :confirm => t('space.confirm') %>
-    <%=image_tag("icons/help.png",:title=>t("tooltip.leave_space"),:size=>"16x16",:class=>"icon tooltipped upwards",:style=>"cursor:pointer")%>
-    <%end%>
-  </div>
-<% end %>
-

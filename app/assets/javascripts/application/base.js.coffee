@@ -5,9 +5,26 @@ $(document).ready ->
 
   # Links to open the webconference
   # Open it in a new borderless window
-  $("a.open-webconf-link").live "click", (e) ->
+  $("a.webconf-start-link:not(.disabled)").live "click", (e) ->
     window.open $(this)[0].href, "_blank", "resizable=yes"
     e.preventDefault()
+
+  # Links to open the window to join a webconference from a mobile device
+  # Open it using fancybox
+  $("a.webconf-join-mobile-link:not(.disabled)").fancybox ->
+    hideOnContentClick: false
+    frameWidth: 250
+    frameHeight: 500
+
+  # Disable the click in any link with the 'disabled' class
+  $("a.disabled").live "click", (e) ->
+    false
+
+  # Add a title and tooltip to elements that can only be used by a logged user
+  $(".login-to-enable").each (index) ->
+    $(this).attr("title", "You need to be logged in") # TODO: get from i18n
+    $(this).addClass("tooltipped")
+    $(this).addClass("upwards")
 
 # Changes the type of an input tag
 # Example:
@@ -19,7 +36,7 @@ window.changeInputType = (id, type) ->
 
 
 
-# TODO: check if the code below is being used
+# TODO: check if the code below is being used / works
 
 jQuery.fn.submitWithAjax = ->
   @submit ->

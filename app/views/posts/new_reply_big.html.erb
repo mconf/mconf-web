@@ -2,7 +2,7 @@
     <span><%= image_tag("mconf_logo_small.png",:class=>"icon") %><%= t('vcc') %></span>
     > <%= t('reply_to_words', :words => first_words(@post.title, 40)) %>
 </div>
-<% menu :posts %>
+<% spaces_menu_at :posts %>
 <div id="new_thread_big">
     <div id="feedback_form">
         <%= form_for(prepare_for_form(Post.new, :parent_id => @post.id), :html => { :multipart => true, :id => "reply-form" }) do |f| -%>

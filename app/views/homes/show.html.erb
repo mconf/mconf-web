@@ -80,7 +80,7 @@ $(document).ready(function() {
     <div id="home-inbox-title">
       <h3>
         <%=image_tag("icons/email.png",:class=>"icon")%>
-        <%= link_to t('inbox.my', :checked => PrivateMessage.inbox(current_user).select{|msg| !msg.checked}.size), user_messages_path(current_user), menu_options(:inbox, :id => "user_inbox_link")%>
+        <%= link_to t('inbox.my', :checked => PrivateMessage.inbox(current_user).select{|msg| !msg.checked}.size), user_messages_path(current_user), :id => "user_inbox_link" %>
       </h3>
     </div>
 

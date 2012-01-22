@@ -10,9 +10,9 @@
         .current-page-title
           - if space.name.size > 20
             .small-title
-              = link_to(sanitize(first_words(space.name, 30)), space_path(space), menu_options(:home))
+              = link_to(sanitize(first_words(space.name, 30)), space_path(space))
           - else
-            = link_to(sanitize(space.name), space_path(space), menu_options(:home))
+            = link_to(sanitize(space.name), space_path(space))
 
   - if logged_in?
     #page-header-right

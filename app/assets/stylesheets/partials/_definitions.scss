@@ -5,11 +5,12 @@ $font-medium: 14px;
 $font-big: 16px;
 $font-gigantic: 28px;
 $font-section-title: 32px;
+$font-color: #333;
 
 // standard colors
 $green: #508817;
 $blue: adjust_hue($green, 110);
-$red: adjust_hue($green, -100);
+$red: darken(#DD4B39, 10); //adjust_hue($green, -100);
 $orange: darken(#d98026, 10); //darken(#e18e07, 10);
 $yellow: darken(#fde073, 35);
 
@@ -31,5 +32,17 @@ $sub-header-bg-color: #eee; //#EDEBE1;
 $footer-bg-color: #eee;
 
 // h1, h2, h3, ...
-$h-font-color: #244974;
+$h-font-color: #404040; //#244974;
+// titles in the page headers
 $section-title-color: #244974;
+
+// user logos in a thread with several snippets
+// e.g. list of posts, list of recent users, etc.
+@mixin user-logo-in-thread {
+  float: left;
+  border: 1px solid #ddd;
+  padding: 1px;
+  margin-right: 5px;
+  width: 32px;
+  height: 32px;
+}

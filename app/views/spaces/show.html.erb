@@ -1,17 +1,17 @@
-<% menu(:home) %>
+<% spaces_menu_at :home %>
 
 <% # TODO: remove javascript to independent js files %>
 <%= content_for :headers do %>
 <script type="text/javascript" charset="utf-8">
 $(document).ready(function() {
 
-  $(".news_navigation_link").livequery("click", function(){
+  $(".latest-news-navigation-link").livequery("click", function(){
     var route = $(this).attr("href");
     $(this).attr("href","#")
     $.get(route,
           {authenticity_token: "<%=form_authenticity_token()%>"},
           function(data){
-            $("#last_news").replaceWith(data);
+            $("#latest-news-content").replaceWith(data);
           }
     );
   });
@@ -32,96 +32,111 @@ $(document).ready(function() {
 </script>
 <% end %>
 
-<% if logged_in? %>
-  <% webconf_join_link = join_space_room_path(space, @bbb_room) %>
-<% else %>
-  <% webconf_join_link = invite_space_room_path(space, @bbb_room) %>
-<% end %>
-
 <%= content_for :sidebar do  %>
-  <%= render :partial => 'sidebar' %>
-  <%= render :partial => 'sidebar_leave_space' %>
+  <%= render :partial => 'sidebar_join_links' %>
 
-  <div class="webconference-space-sidebar">
+  <%= render_sidebar_content_block('sidebar-webconference', :active => @bbb_room.is_running?) do %>
     <h3>
-      <%= image_tag("icons/bbb_logo.png") %> <%= t('webconference.one') %> <%= image_tag("icons/help.png",:title=>t("tooltip.bigbluebutton_space"),:size=>"16x16",:class=>"icon tooltipped upwards",:style=>"cursor:pointer").html_safe %>
-      <div class="float_right more_info"><%= link_to t('more'), space_webconference_path(space) %></div>
+      <%= t('webconference.one') %>
+      <%= help_icon t("tooltip.bigbluebutton_space"), :class => 'leftwards' %>
     </h3>
-    <div class="float_right">
-      <%= link_to ("<span>" + t('button.join') + "</span>").html_safe, webconf_join_link, :class => 'basic_button small_button orange_button open-webconf-link' %>
-    </div>
-    <div class="float_right">
-      <% if logged_in? %>
-        <%= mobile_icon_link(join_mobile_space_room_path(space, @bbb_room)) %>
-      <% end %>
-    </div>
-    <div class="content">
-      <% if @bbb_room.is_running? %>
-        <span class="red"><%= t('space.people_in_conference', :count => @bbb_room.participant_count) %></span>
-      <% else %>
-        <span class="red"><%= t('webconference.nobody.one_line') %></span>
-      <% end %>
-      <div class="clearer"></div>
-    </div>
-  </div>
-
-  <div id="inc-events">
-    <h3><span><%=link_to(image_tag("icons/feed.png",:class=>"icon", :alt => t('RSS'), :title => t('RSS') ),space_events_path(@space,:format => :atom))%></span><%=image_tag("icons/date.png",:class=>"icon")%> <%=link_to t('event.upcoming.other'), space_events_path(@space)%> <%=image_tag("icons/help.png",:title=>t("tooltip.upcoming"),:size=>"16x16",:class=>"icon tooltipped upwards",:style=>"cursor:pointer")%></h3>
-    <ul>
-      <%if @upcoming_events.empty?%>
-        <p><%= t('event.upcoming.none') %></p>
-      <%else%>
-        <% for event in @upcoming_events -%>
-          <li class="event">
-            <%event_link="<h5 class="'unified_event'">" + sanitize(event.title) + "</strong></h5> <span class='sidebar_date small-font'>" + event.start_date.to_formatted_s(:short) + " - " + event.end_date.to_formatted_s(:short) + "(GMT "+  Time.zone.formatted_offset + ")</span>"%>
-            <%=link_to raw(event_link), space_event_path(@space,event)%>
-            <%=link_to "", space_event_path(@space,event),:class=>"box-link"%>
-          </li>
-        <% end -%>
-      <%end%>
-    </ul>
-
-    <div class="read_more margin-up">
-      <%= link_to t('read_more'), space_events_path(@space), :class => "read_more_link" if space.authorize?([:read, :content], :to => current_user) %>
-    </div>
-  </div>
-
-  <div class="space-desc">
-    <h3><%=t('user.administrators')%> <%=image_tag("icons/help.png",:title=>t("tooltip.admin"),:size=>"16x16",:class=>"icon tooltipped upwards",:style=>"cursor:pointer")%> <!--<em><%=@space.name%></em>--></h3>
-    <p>
-    <% admins = space.actors(:role => 'Admin') %>
-
-    <% admins.each do |admin| %>
-    <div class="admin">
-      <div class="post-logo"><%=link_to raw(logo(admin, :size=>32, :title=>admin.name)), user_path(admin)%></div>
-        <div>
-          <ul>
-            <li><%=link_to sanitize(admin.full_name),user_path(admin),:class=>"unified_user"%></li>
-            <li><%=sanitize(admin.organization)%></li>
-          </ul>
-        </div>
+    <div class="content-block-content-wrapper">
+      <div class="description">
+        <% if @bbb_room.is_running? %>
+          <span><%= t('webconference.currently_running', :count => @bbb_room.participant_count) %></span>
+        <% else %>
+          <span><%= t('webconference.nobody.one_line') %></span>
+        <% end %>
       </div>
+      <div class="buttons">
+        <% if logged_in? %>
+          <% webconf_join_link = join_space_room_path(space, @bbb_room) %>
+        <% else %>
+          <% webconf_join_link = invite_space_room_path(space, @bbb_room) %>
+        <% end %>
+
+        <%= link_to t('button.join'), webconf_join_link, :class => 'button green webconf-start-link' %>
+        <% if logged_in? %>
+          <%= webconf_mobile_icon_link(join_mobile_space_room_path(space, @bbb_room)) %>
+        <% else %>
+          <%= webconf_mobile_icon_link(false) %>
+        <% end %>
+        <%= render_clearer %>
+      </div>
+    </div>
+    <div class="content-block-footer">
+      <%= link_to t('view_more'), space_webconference_path(space) %>
+    </div>
+  <% end %>
+
+  <%= render_sidebar_content_block('sidebar-upcoming-events') do %>
+    <h3>
+      <%= image_tag("icons/date.png") %>
+      <%= link_to t('event.upcoming.other'), space_events_path(@space) %>
+      <%= help_icon t("tooltip.upcoming"), :class => 'leftwards' %>
+    </h3>
+    <div class="content-block-content-wrapper">
+      <% if @upcoming_events.empty? %>
+        <p><%= t('event.upcoming.none') %></p>
+      <% else %>
+        <span class="event-timezone">
+          (<%= t('timezone.one') %>: <%= Time.zone.formatted_offset %>)
+        </span>
+        <% for event in @upcoming_events %>
+          <div class="event-wrapper">
+            <%= link_to sanitize(event.title), space_event_path(@space, event), :class => "event-title" %>
+            <span class="event-date">
+              <%= "#{event.start_date.to_formatted_s(:short)} - #{event.end_date.to_formatted_s(:short)}".html_safe %>
+            </span>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+    <div class="content-block-footer">
+      <%= link_to feed_icon, space_events_path(@space, :format => :atom)  %>
+      <%= link_to(t('read_more'), space_events_path(@space)) if space.authorize?([:read, :content], :to => current_user) %>
+    </div>
+  <% end %>
+
+  <%= render_sidebar_content_block("sidebar-space-admins") do %>
+    <h3>
+      <%=t('user.administrators')%>
+      <%= help_icon t("tooltip.admin"), :class => 'leftwards' %>
+    </h3>
+    <div class="content-block-content-wrapper">
+      <% admins = space.actors(:role => 'Admin') %>
+      <% admins.each do |admin| %>
+        <div class="admin-wrapper">
+          <div class="admin-logo">
+            <%= link_logo(admin, :size => 32, :url => user_path(admin), :title => admin.name).html_safe %>
+          </div>
+          <div class="admin-text">
+            <%= link_to sanitize(admin.full_name), user_path(admin), :class => "admin-name" %>
+            <span class="admin-organization"><%= sanitize(admin.organization) %></span>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+
+  <% if space.users.include?(current_user) && logged_in? %>
+    <%= render_sidebar_content_block do %>
+      <%= render :partial => 'sidebar_leave_space' %>
     <% end %>
-    </p>
-  </div>
+  <% end %>
 
-  <div id="space_views">
-    <span class="separated_5"><%=@space.unique_pageviews%></span><%=t('statistics.space_views')%>
-    <%=image_tag("icons/help.png",:size=>"16x16",:title=>t('tooltip.num_views'),:class=>"tooltipped downwards leftwards icon",:style=>"cursor:pointer")%>
-  </div>
+  <%= render_sidebar_content_block('sidebar-pageviews') do %>
+    <div id="content-block-content-wrapper">
+      <span class="value"><%= @space.unique_pageviews %></span>
+      <span><%=t('statistics.space_views')%></span>
+      <%= help_icon t("tooltip.num_views"), :class => 'leftwards' %>
+    </div>
+  <% end %>
 
-<% end %>
-
-<% if @bbb_room.is_running? %>
-  <div id="space_webconference_alert">
-    <%= t('webconference.currently_running', :count => @bbb_room.participant_count) %>,
-    <%= link_to t('webconference.space.join_now'), webconf_join_link %> <%= t('or') %>
-    <%= link_to t('webconference.space.see_more'), space_webconference_path(space) %>.
-  </div>
 <% end %>
 
 <% if !@current_events.empty? %>
-  <div id="home_current_events">
+  <div class="content-block">
     <ul>
       <li><h3><%=link_to t('event.now'), space_events_path(@space)%></h3></li>
       <%for event in @current_events do%>
@@ -136,87 +151,44 @@ $(document).ready(function() {
   </div>
 <% end %>
 
-<div id="space_description">
-  <h3><%= t('space.description') %></h3>
-  <div class="main_text">
+<div class="content-block">
+  <h3><span><%= t('space.description') %></span></h3>
+  <div class="content-block-content-wrapper">
     <%= @space.description %>
-  </div>
-  <div class="botton_margin">
   </div>
 </div>
 
 <% if @news_to_show %>
-  <div id="latest_news">
-    <h3><%=image_tag("icons/newspaper.png")%> <%= t('latest_news') %> <%=image_tag("icons/help.png",:title=>t("tooltip.latest_news"),:size=>"16x16",:class=>"icon tooltipped upwards",:style=>"cursor:pointer")%></h3>
-    <%= render :partial => 'last_news' %>
+  <div id="latest-news" class="content-block">
+    <h3>
+      <span>
+        <%= image_tag("icons/newspaper.png")%>
+        <%= t('latest_news') %>
+        <%= help_icon t("tooltip.latest_news"), :class => 'leftwards' %>
+      </span>
+    </h3>
+    <%= render :partial => 'latest_news' %>
   </div>
 <% end %>
 
-<div id="latest_posts">
-  <h3><span><%=link_to(image_tag("icons/feed.png",:class=>"icon",:alt=>t('RSS'),:title=>t('RSS')),space_posts_path(@space,:format=> :atom))%></span><%=image_tag("icons/comment.png")%><%=link_to t('post.latest'),space_posts_path(@space)%></h3>
-  <%if @lastest_posts.empty?%>
-    <div class="thread post last">
-      <span class="main_text">
-        <%= t('post.none_recent') %>
-      </span>
-    </div>
-    <div class="read_more">
-    </div>
-  <%else%>
-    <%last_post = @lastest_posts.last%>
-    <% for post in @lastest_posts -%>
-      <div class="thread post <%= 'last' if (post == last_post)%>" >
-        <div class="thread_content">
-          <div class="post-logo">
-            <%= raw(link_logo(post.author, :size => 32, :url => user_path(post.author), :title=>post.author.name)) %>
-          </div>
-          <div class="thread-title-wrapper">
-            <ul class="thread-title">
-              <li>
-                <span class="unified_user"><%=link_to(post.author.name,user_path(post.author),:class=>"unified_user")%>:</span>
-                <%=link_to(first_words(post.title, 40), space_post_path(@space,post),:class=>"unified_posts")%>
-                <%if has_attachments(post)%>
-                  <%=image_tag("icons/attach.png",:title=>attachment_name(post),:class=>"icon")%>
-                <%end%>
-                <span class="updated"><%= t('updated_time_ago', :time => time_ago_in_words(post.updated_at)) %></span>
-              </li>
-              <li>
-                <div class="main_text">
-                  <%=first_words(strip_tags(post.text),90)%>
-                </div>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <!--<div class="post">
-      <%=link_to sanitize(post.title),space_post_path(@space,post),:class=>"unified_posts"%> <span class="updated"><%=link_to( t('updated_time_ago', :time => time_ago_in_words(post.updated_at) ),space_post_path(@space, post))%></span>
-      <a href=<%=space_post_path(@space, post)%> class="box-link"></a>
-      </div>-->
-    <% end -%>
-    <div class="read_more">
-      <%= link_to t('read_more'), space_posts_path(@space), :class => "read_more_link" if space.authorize?([:read, :content], :to => current_user)%>
-    </div>
-  <%end%>
+<div class="content-block">
+  <h3>
+    <span>
+      <%= image_tag("icons/comment.png") %>
+      <%= link_to t('post.latest'), space_posts_path(@space) %>
+    </span>
+  </h3>
+  <%= render :partial => 'latest_posts' %>
 </div>
 
-<div id="latest_users">
-  <h3><%=image_tag("icons/user.png")%> <%=link_to t('user.recent_join'), space_users_path(@space)%> </h3>
-  <%last_user = @lastest_users.last%>
-  <% for user in @lastest_users -%>
-    <div class="user <%= 'last' if (user == last_user)%>">
-      <div class="post-logo"><%=link_to raw(logo(user, :size=>32, :title => user.name)), user_path(user)%></div>
-      <div>
-        <ul>
-          <li><%=link_to sanitize(user.full_name),user_path(user),:class=>"unified_user"%></li>
-          <li><%=sanitize(user.organization)%></li>
-        </ul>
-      </div>
-    </div>
-  <% end -%>
-  <div class="read_more">
-    <%= link_to t('read_more'), space_users_path(@space), :class => "read_more_link" if space.authorize?([:read, :performance], :to => current_user)%>
-  </div>
+<div class="content-block">
+  <h3>
+    <span>
+      <%= image_tag("icons/user.png") %>
+      <%= link_to t('user.recent_join'), space_users_path(@space) %>
+    </span>
+  </h3>
+  <%= render :partial => 'latest_users' %>
 </div>
 
-<div id="lightbox_content" style="display:none"></div>
+<!--<div id="lightbox_content" style="display:none"></div>-->

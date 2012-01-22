@@ -74,10 +74,11 @@ class SpacesController < ApplicationController
     @upcoming_events=@space.events.find(:all, :order => "start_date ASC").select{|e| e.start_date && e.start_date.future?}.first(5)
     @performance=Performance.find(:all, :conditions => {:agent_id => current_user, :stage_id => @space, :stage_type => "Space"})
     @current_events = (Event.in(@space).all :order => "start_date ASC").select{|e| e.start_date && !e.start_date.future? && e.end_date.future?}
+
     respond_to do |format|
-      format.html{
+      format.html {
         if request.xhr?
-          render :partial=>"last_news"
+          render :partial => "latest_news"
         end
       }
       format.xml  { render :xml => @space }

@@ -182,6 +182,10 @@ $page-header-height: 80px;
 #content {
   width: $contents-width;
   margin: 0 auto;
+
+  h2 {
+    color: #244974;
+  }
 }
 
 #content-mconf {

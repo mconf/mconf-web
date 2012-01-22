@@ -1,4 +1,4 @@
-<% menu :posts %>
+<% spaces_menu_at :posts %>
 <% atom_link_header(space, Post.new, :title => h(t('post.other_in_space', :space => space.name))) %>
 
 <% # TODO: remove javascript to independent js files %>
@@ -131,7 +131,7 @@ $("a.big_new_thread_link").fancybox({
 
 <%= content_for :sidebar do  %>
 
-  <%= render :partial => 'spaces/sidebar' %>
+  <%= render :partial => 'spaces/sidebar_join_links' %>
 
   <%if @space.authorize?([:create, :content],:to => current_user)%>
     <% if params[:reply_to]%>

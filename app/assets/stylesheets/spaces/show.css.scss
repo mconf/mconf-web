@@ -1,0 +1,133 @@
+@import "compass/typography/links";
+@import "partials/definitions";
+
+// date of comments, news, posts, etc.
+.updated-at {
+  font-style: italic;
+  margin-left: 10px;
+  color: #777;
+}
+
+#latest-news {
+
+  .news-title {
+    h4 {
+      float: left;
+      color: black;
+      font-weight: bold;
+    }
+  }
+
+  .news-content {
+    clear: both;
+    margin-top: 5px;
+  }
+
+}
+
+#sidebar-leave-space {
+  text-align: center;
+  a { @include link-colors($red, $site-link-hover, $site-link-active); }
+}
+
+#sidebar-webconference {
+  .description {
+    text-align: center;
+  }
+  .buttons {
+    text-align: center;
+    margin: 15px 0;
+
+    .webconf-start-link {
+      float: left;
+      width: 80px;
+    }
+    .webconf-join-mobile-link {
+      float: right;
+      width: 90px;
+    }
+  }
+}
+
+#latest-posts {
+  .post-wrapper {
+    clear: both;
+    margin-bottom: 10px;
+    margin-top: 5px;
+
+    .post-logo {
+      @include user-logo-in-thread; // defined in _definitions
+    }
+
+    .post-title {
+      font-weight: bold;
+    }
+  }
+}
+
+#latest-users {
+  .user-wrapper {
+    clear: both;
+    margin-bottom: 10px;
+    margin-top: 5px;
+
+    .user-logo {
+      @include user-logo-in-thread; // defined in _definitions
+    }
+
+    .user-name { display: block; }
+    .user-organization { display: block; }
+  }
+}
+
+#sidebar-space-admins {
+  .admin-wrapper {
+    clear: both;
+    margin-bottom: 10px;
+    margin-top: 5px;
+
+    .admin-logo {
+      @include user-logo-in-thread; // defined in _definitions
+    }
+    .admin-text {
+      margin-left: 40px;
+    }
+
+    .admin-name { display: block; }
+    .admin-organization { display: block; }
+  }
+}
+
+#sidebar-pageviews {
+  text-align: center;
+  .value {
+    font-weight: bold;
+    color: $blue;
+  }
+}
+
+#sidebar-upcoming-events {
+  .event-timezone {
+    float: left;
+    margin-bottom: 10px;
+    color: #777;
+    font-size: $font-small;
+  }
+
+  .event-wrapper {
+    clear: both;
+    margin-bottom: 10px;
+
+    .event-title {
+      font-weight: bold;
+      display: block;
+    }
+
+    .event-date {
+      display: block;
+      font-size: $font-small;
+      color: #777;
+      margin-left: 5px;
+    }
+  }
+}
