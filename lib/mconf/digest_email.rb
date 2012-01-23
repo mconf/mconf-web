@@ -53,7 +53,7 @@ module Mconf
         order('updated_at desc')
 
       # Unread messages in the inbox
-      inbox = PrivateMessage.inbox(User.first).select{ |msg| !msg.checked }
+      inbox = PrivateMessage.inbox(user).select { |msg| !msg.checked }
 
       [ posts, news, attachments, events, inbox ]
     end

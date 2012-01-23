@@ -9,6 +9,7 @@ Factory.define :user do |u|
   u.disabled false
   u.chat_activation true
   u.sequence(:_full_name) { |n| "User #{ n }" }
+  u.receive_digest { User::RECEIVE_DIGEST_NEVER }
 end
 
 Factory.define :author, :parent => :user do |a|
