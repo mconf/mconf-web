@@ -22,10 +22,10 @@ class Notifier < ActionMailer::Base
   def invitation_email(invitation)
     setup_email(invitation.email)
 
-    @subject += I18n.t("invitation.to_space",:space=>invitation.group.name,:username=>invitation.introducer.full_name,:locale=>invitation.locale).html_safe
+    @user = invitation.introducer
+    @subject += I18n.t("invitation.to_space",:space=>invitation.group.name,:username=>invitation.introducer.full_name,:locale=>@user.locale).html_safe
     @invitation = invitation
     @space = invitation.group
-    @user = invitation.introducer
     if invitation.candidate
       @name = invitation.candidate.full_name
     else
@@ -33,7 +33,7 @@ class Notifier < ActionMailer::Base
     end
     @replyto = invitation.introducer.email
 
-    create_default_mail(invitation.locale)
+    create_default_mail(@user.locale)
   end
 
 
