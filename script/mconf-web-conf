@@ -736,7 +736,6 @@ deploy_configure_god() {
     # install and edit the init.d/god file
     # reference: http://openmonkey.com/2008/05/27/god-init-script-for-debian-ubuntu-systems
     sudo curl https://raw.github.com/mconf/mconf-web/latest/config/god/init_script -o /etc/init.d/god
-    sudo sed -i "s:^GOD_LOG=.*:GOD_LOG=${DEPLOY_PATH}:g" /etc/init.d/god
     sudo chmod a+x /etc/init.d/god
     sudo update-rc.d god defaults
 

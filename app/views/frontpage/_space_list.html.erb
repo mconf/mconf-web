@@ -20,7 +20,7 @@
           <% count = (room.participant_count.nil?) ? 0 : room.participant_count %>
           <% if room.is_running? %>
             <div class="join_button">
-              <a href="<%= space_invite_room_path(space, room) %>"><span><%=t('frontpage.join_button')%></span></a>
+              <a href="<%= invite_space_room_path(space, room) %>"><span><%=t('frontpage.join_button')%></span></a>
             </div>
           <% end %>
           <h4><%= t('webconference.one') %></h4>

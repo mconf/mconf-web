@@ -43,9 +43,9 @@ class HomesController < ApplicationController
     unless current_user.spaces.empty?
       @events_of_user = Event.in(current_user.spaces).all(:order => "start_date ASC")
     end
-    
+
     @update_act = params[:contents] ? true : false
-    
+
     @contents_per_page = params[:per_page] || 5
     @contents = params[:contents].present? ? params[:contents].split(",").map(&:to_sym) : Space.contents
     @all_contents = ActiveRecord::Content.paginate({ :page => params[:page], :per_page => @contents_per_page.to_i, :order => 'updated_at DESC' },
@@ -53,18 +53,6 @@ class HomesController < ApplicationController
 
     #let's get the inbox for the user
     @private_messages = PrivateMessage.find(:all, :conditions => {:deleted_by_receiver => false, :receiver_id => current_user.id},:order => "created_at DESC", :limit => 3)
-  end
-
-  def new_room
-    @server = BigbluebuttonServer.first
-    @room = BigbluebuttonRoom.new(:owner => current_user, :server => BigbluebuttonServer.first, :logout_url => home_url)
-    respond_to do |format|
-      format.html{
-        if request.xhr?
-          render :layout => false
-        end
-      }
-    end
   end
 
   # renders a json with the webconference rooms accessible to the current user
@@ -85,7 +73,7 @@ class HomesController < ApplicationController
   def user_rooms
     array = current_user.accessible_rooms || []
     mapped_array = array.map{ |r|
-      link = join_bigbluebutton_server_room_path(r.server, r, :mobile => '1')
+      link = join_bigbluebutton_room_path(r, :mobile => '1')
       { :bigbluebutton_room => { :name => r.name, :join_path => link, :owner => owner_hash(r.owner) } }
     }
     render :json => mapped_array
