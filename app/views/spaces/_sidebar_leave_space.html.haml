@@ -1,4 +1,3 @@
 #sidebar-leave-space
-  - if !(space.is_last_admin?(current_user))
-    - link = space_performance_path(@space, @space.stage_performances.find_by_agent_id(current_user))
-    = link_to t('space.leave'), link, :method => :delete, :title => t("tooltip.leave_space"), :confirm => t('space.confirm'), :class => 'tooltipped upwards'
+  - link = space_performance_path(@space, @space.stage_performances.find_by_agent_id(current_user))
+  = link_to t('space.leave'), link, :method => :delete, :title => t("tooltip.leave_space"), :confirm => t('space.confirm'), :class => 'tooltipped upwards'

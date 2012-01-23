@@ -7,5 +7,7 @@
     .news-content
       %p= sanitize(auto_link(@news_to_show.text))
   .content-block-footer
-    = link_to t('previous'), space_path(@space, :news_position => @news_position-1), :id => "previous_news", :class => "latest-news-navigation-link" if @news_position > 0
-    = link_to t('next'), space_path(@space, :news_position => @news_position+1), :id => "next_news", :class => "latest-news-navigation-link" if @news_position + 1 < @news.size
+    - if @news_position > 0
+      = link_to t('previous'), space_path(@space, :news_position => @news_position-1), :remote => true, :class => "latest-news-navigation-link"
+    - if @news_position + 1 < @news.size
+      = link_to t('next'), space_path(@space, :news_position => @news_position+1), :remote => true, :class => "latest-news-navigation-link"

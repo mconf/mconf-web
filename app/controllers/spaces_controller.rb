@@ -28,9 +28,10 @@ class SpacesController < ApplicationController
 
   set_params_from_atom :space, :only => [ :create, :update ]
 
-  # GET /spaces
-  # GET /spaces.xml
-  # GET /spaces.atom
+  # TODO: cleanup the other actions adding respond_to blocks here
+  respond_to :js, :only => [:index, :show]
+  respond_to :html, :only => [:new, :edit, :index, :show]
+
   def index
     if params[:space_id] && params[:space_id]!= "all" && params[:space_id]!="my" && params[:space_id]!=""
       redirect_to space_path(Space.find_by_permalink(params[:space_id]))
@@ -46,16 +47,8 @@ class SpacesController < ApplicationController
       session[:current_tab] = "Manage"
       session[:current_sub_tab] = "Spaces"
     end
-    respond_to do |format|
-      format.html # index.html.erb
-      format.xml  { render :xml => @spaces }
-      format.atom
-    end
   end
 
-  # GET /spaces/1
-  # GET /spaces/1.xml
-  # GET /spaces/1.atom
   def show
     @bbb_room = BigbluebuttonRoom.where("owner_id = ? AND owner_type = ?", @space.id, @space.class.name).first
     begin
@@ -64,7 +57,7 @@ class SpacesController < ApplicationController
     end
 
     @news_position = (params[:news_position] ? params[:news_position].to_i : 0)
-    @news = @space.news.find(:all, :order => "updated_at DESC")
+    @news = @space.news.order("updated_at DESC").all
     @news_to_show = @news[@news_position]
     @posts = @space.posts
     @lastest_posts=@posts.not_events().find(:all, :conditions => {"parent_id" => nil}, :order => "updated_at DESC").first(3)
@@ -74,43 +67,19 @@ class SpacesController < ApplicationController
     @upcoming_events=@space.events.find(:all, :order => "start_date ASC").select{|e| e.start_date && e.start_date.future?}.first(5)
     @performance=Performance.find(:all, :conditions => {:agent_id => current_user, :stage_id => @space, :stage_type => "Space"})
     @current_events = (Event.in(@space).all :order => "start_date ASC").select{|e| e.start_date && !e.start_date.future? && e.end_date.future?}
-
-    respond_to do |format|
-      format.html {
-        if request.xhr?
-          render :partial => "latest_news"
-        end
-      }
-      format.xml  { render :xml => @space }
-      format.atom
-    end
   end
 
-  # GET /spaces/new
   def new
     @space = Space.new
     @space.build_bigbluebutton_room
-    respond_to do |format|
-      format.html{
-          if request.xhr?
-            render :partial=>"new"
-          end
-      }
-    end
   end
 
-  # GET /spaces/1/edit
   def edit
-    #@users = @space.actors.sort {|x,y| x.name <=> y.name }
+    # @users = @space.actors.sort {|x,y| x.name <=> y.name }
     @performances = space.stage_performances.sort {|x,y| x.agent.name <=> y.agent.name }
     @roles = Space.roles
   end
 
-
-  # POST /spaces
-  # POST /spaces.xml
-  # POST /spaces.atom
-  # {"space"=>{"name"=>"test space", "public"=>"1", "description"=>"<p>this is the description of the space</p>"}
   def create
     unless logged_in?
       if params[:register]
@@ -149,37 +118,18 @@ class SpacesController < ApplicationController
         flash[:success] = t('space.created')
         @space.stage_performances.create(:agent => current_user, :role => Space.role('Admin'))
 
-        # to set the correct logout_url in the webconference room
-        # update_url = { :logout_url => space_url(@space) }
-        # @space.bigbluebutton_room.update_attributes(update_url)
-
         format.html { redirect_to :action => "show", :id => @space  }
-        format.xml  { render :xml => @space, :status => :created, :location => @space }
-        format.atom {
-          headers["Location"] = formatted_space_url(@space, :atom )
-          render :action => 'show',
-                 :status => :created
-        }
       else
         format.html {
           message = ""
           @space.errors.full_messages.each {|msg| message += msg + "  <br/>"}
           flash[:error] = message
           render :action => :new, :layout => "application"
-          }
-        #format.html { redirect_to :action => "new"}
-        format.xml  { render :xml => @space.errors, :status => :unprocessable_entity }
-        format.atom { render :xml => @space.errors.to_xml, :status => :bad_request }
+        }
       end
-
     end
   end
 
-
-
-  # PUT /spaces/1
-  # PUT /spaces/1.xml
-  # PUT /spaces/1.atom
   def update
     # TODO update bigbluebutton_room.private when room.public is updated
     #unless params[:space][:public].blank?
@@ -197,14 +147,8 @@ class SpacesController < ApplicationController
           flash[:success] = t('space.updated')
           redirect_to request.referer
         }
-        format.atom { head :ok }
-        format.js{
+        format.js {
           if params[:space][:name] or params[:space][:description]
-
-            # to set the correct logout_url in the webconference room
-            # update_url = { :logout_url => space_url(@space) }
-            # @space.bigbluebutton_room.update_attributes(update_url)
-
             @result = params[:space][:name] ? nil : params[:space][:description]
             flash[:success] = t('space.updated')
             render "result.js"
@@ -223,19 +167,13 @@ class SpacesController < ApplicationController
       respond_to do |format|
         flash[:error] = t('error.change')
         format.js {
-        @result = "$(\"#admin_tabs\").before(\"<div class=\\\"error\\\">" + t('.error.not_valid') +  "</div>\")"
+          @result = "$(\"#admin_tabs\").before(\"<div class=\\\"error\\\">" + t('.error.not_valid') +  "</div>\")"
         }
-        format.html {
-        redirect_to edit_space_path() }
-        format.xml  { render :xml => @space.errors, :status => :unprocessable_entity }
-        format.atom { render :xml => @space.errors.to_xml, :status => :not_acceptable }
+        format.html { redirect_to edit_space_path }
       end
     end
   end
 
-  # DELETE /spaces/1
-  # DELETE /spaces/1.xml
-  # DELETE /spaces/1.atom
   def destroy
     @space_destroy = Space.find_with_param(params[:id])
     @space_destroy.disable
@@ -249,19 +187,8 @@ class SpacesController < ApplicationController
           redirect_to(spaces_url)
         end
       }
-      format.xml  { head :ok }
-      format.atom { head :ok }
     end
   end
-
-#  def create_group
-#    if params[:mail].blank?
-#      @space.mailing_list_for_group = ""
-#    end
-#      @group = Group.new(:name => @space.emailize_name, :mailing_list => @space.mailing_list_for_group)
-#      @group.users << @space.users(:role => "admin")
-#      @group.users << @space.users(:role => "user")
-#  end
 
   def enable
     unless @space.disabled?
@@ -274,11 +201,7 @@ class SpacesController < ApplicationController
 
     flash[:success] = t('space.enabled')
     respond_to do |format|
-      format.html {
-          redirect_to manage_spaces_path
-      }
-      format.xml  { head :ok }
-      format.atom { head :ok }
+      format.html { redirect_to manage_spaces_path }
     end
   end
 
