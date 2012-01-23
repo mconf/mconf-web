@@ -15,13 +15,7 @@ de:
       messages: 
         missing: fehlt
   address: Adresse
-  admin: 
-    one: Admin
-    space: "The administrator of %{spacename}"
-  admission: 
-    other: Admissions
   advanced: Fortgeschritten
-  advanced_editor: "Advanced Editor"
   agenda: 
     del_entry: Löschen
     divider: 
@@ -31,20 +25,17 @@ de:
         date_out_of_event: "Das Datum des Teilers überschreitet die maximale Dauer der Veranstaltung: Tag %{max_days}"
         past_times: "Diese Art der Veranstaltung können nicht vergangenen Zeiten"
       new: "New Agenda divider"
-      one: Divider
       start_time: Startzeit
       title: Titel
     entry: 
       description: Beschreibung
       duration: Dauer
-      edit: "Edit session item"
       embedded_video: "Embed-Video für den Eintrag"
       error: 
         attribute_unchangeable: "Sie haben versucht, eine unveränderliche Attribut für diese Sitzung ändern"
         coinciding_times: "Es gibt einen Konflikt mit dem Zeitpunkt der neuen Agenda-Eintrag und bestehende Agenda-Einträge oder Trennwände"
         delete: "Fehler beim Löschen der Tagung in abgelegenen Videokonferenz-System"
         disordered_times: "Die Startzeit muss vor der Endzeit"
-        out_of_event: "Part of the session time falls out of the event limits"
         past_times: "Die Startzeit der Sitzung muss %{min_date} oder später werden"
       new: "Neue Agenda-Eintrag"
       options: 
@@ -68,7 +59,6 @@ de:
   are_you_sure: "Sind Sie sicher?"
   attachment: 
     add: "Upload hinzufügen"
-    delete: "Delete Attachment"
     deleted: "Attachment erfolgreich gelöscht"
     error: 
       not_deleted: "%{file} nicht korrekt gelöscht."
@@ -78,13 +68,10 @@ de:
       none: "Keine Anhänge gefunden"
       one: "1 Anhang gefunden wurde"
       other: "%{size} Anhänge wurden gefunden"
-    home: 
-      one: "File in space %{space}"
     info: Dokument-Info
     new: "Neue Anlage"
     not_selected: "Kein Dokument ausgewählt"
     one: Pfändung
-    other: Attachments
     selected: 
       none: "Keine Dateien ausgewählt"
       one: "Datei ausgewählt"
@@ -107,15 +94,9 @@ de:
     create: Schaffen
     creating: Creating...
     edit: Bearbeiten
-    finish: Finish
-    go: Go!
-    invite: Einladen!
-    next: "Next Step"
-    post: Post
+    invite: Einladen
     publish: Veröffentlichen
-    search: Search
     send: Senden
-    sending: Sending...
     update: Aktualisierung
     upload: Laden
   calendar: 
@@ -129,14 +110,10 @@ de:
     connecting_error_message: "Fehler bei der Verbindung"
     connecting_message: "Anschließen an Event-Chat ..."
     please_login_message: "Bitte einloggen / registrieren um teilzunehmen"
-    reconnect_button_message: "Click to reconnect"
-    reconnect_message: Reconnect
   check_mail: "Bitte überprüfen Sie Ihre E-Mail"
-  city: City
   click_to_see_all: Alle
   close: Schließen
   collapse: Zusammenbruch
-  collapse_arrows: Zusammenbruch>>;
   comment: 
     add: "Kommentar hinzufügen"
     add_new: "Fügen Sie einen neuen Kommentar"
@@ -152,10 +129,6 @@ de:
   create: Schaffen
   create_event: "Neues Event"
   created_time_ago: "Erstellt %{time} ago"
-  date: 
-    start: "Start date"
-    undefined: Undefined
-  days: Days
   dblclick: "Doppelklicken Sie zum Bearbeiten ..."
   delete: 
     confirm: "Löschen %{element}?"
@@ -168,14 +141,12 @@ de:
   disabled: Deaktiviert
   document: 
     upload: "Upload neues Dokument"
-  download: Download
   download_file: "Datei herunterladen"
   edit: Bearbeiten
   edit_hours: "Edit Stunden"
   edit_profile: "Profil bearbeiten"
   edit_your_profile: "Bearbeiten Sie Ihr Profil"
   enable: Ermöglichen
-  enabled: Enabled
   error: 
     change: "Ungültige ändern"
     credentials: "Ungültige Anmeldeinformationen"
@@ -185,29 +156,14 @@ de:
     mistyped_or_moved: "Sie können die Adresse oder die Seite vertippt haben, wurde eventuell verschoben"
     not_allowed: "Sie sind nicht berechtigt zur Ausführung dieser Aktion"
     one: Fehler
-    other: Errors
-    vcc_warning: "VCC-Warnung:"
   event: 
     Isabel: "Isabel Veranstaltung"
     assistance_title: Teilnahme
     assistants_none: "Niemand hat noch nicht bestätigt"
     basic_info: "Führen Sie grundlegende Informationen"
-    cancel: 
-      lose: "All data will be lost. Are you sure?"
-      stop: "Are you sure that you want to stop editing?"
     connection: 
       info: "Connection Informationen zu diesem Event"
-      isabel: "Isabel Server"
-      sip: "SIP Proxy"
-      wait: "This info will be available during the event"
     create: 
-      info: 
-        conference: 
-          name: "Virtual Congress"
-        meeting: 
-          name: "Virtual Meeting"
-        presential: 
-          name: Sitzung
       title: "Neues Event"
     created: "Event erfolgreich erstellt"
     deleted: "Event erfolgreich gelöscht"
@@ -224,17 +180,12 @@ de:
       dates: "Enddatum muss nach dem Startdatum werden"
       dates1: "Die Veranstaltung Startdatum muss als die vorherigen Veranstaltung Enddatum"
       marte: "Konnte nicht erstellt virtuelle Konferenz"
-      max_size_excedeed: "The maximum duration of the event is %{max_days} days and can't be excedeed"
       omit_date: "Die Veranstaltung muss Startdatum und Enddatum"
-      too_short: "Event is too short, it must be at least 15 minutes long"
     future: "Ereignis in der Zukunft"
-    group_invitation: 
-      subject: "%{username} invites you to event %{eventname} in space %{space}"
     has: "Dieses Ereignis hat"
     help: 
       create: "Erstellen Sie Ihre Veranstaltung einfach in drei Schritten:"
       edit: "Bearbeiten Sie Ihre Veranstaltung"
-      organisers: "Wählen Sie den Raum Benutzer, die dieses Ereignis organisiert wird"
     home: 
       one: "Event in den Raum %{space}"
     last_7_days: "Letzte 7 Tage (%{size})"
@@ -245,16 +196,7 @@ de:
       crop: "Wählen Sie, welcher Teil des Bildes zu beschneiden"
       new: "Fügen Sie ein Bild für Ihre Veranstaltung"
       select: "Ändern Sie Ihr Logo"
-    move: 
-      change_end_date: "Change event end date"
-      change_event_end_date_div: "<b>Change event end date:</b> This option lets you expand you event time by moving the end time. This change will only affect to the event end time and won't change anything more (the sessions will remain in the same time). Use this option if you need more time after you current event end time."
-      change_event_start_date_div: "<b>Change event start date:</b> This option lets you expand you event time by moving the start time. This change will only affect to the event start time and won't change anything more (the sessions will remain in the same time). Use this option if you need more time before you current event star time."
-      change_start_date: "Change event start date"
-      no_change: "No change"
-      out_date: "The agenda entry which title is \"%{agenda_entry}\" will be out of the event and it's not allowed. Move or edit your sessions to allow this change to be done."
     new: 
-      conference: "Virtual Congress"
-      meeting: "Virtual Meeting"
       presential: Sitzung
     no_events: "Sie haben keine Veranstaltungen"
     none_coming: "Keine Termine"
@@ -270,15 +212,11 @@ de:
       label: "Passen Sie Ihre Benachrichtigung"
       legend: 
         name: "'Name' wird in der Nachricht durch den Namen des Empfängers ersetzt werden."
-      message_beginning_with_start_date: "<p>'Name',</p><p>Regarding the <b>event 'event_name' in space %{space}</b> on 'event_date':</p>"
-      message_beginning_without_start_date: "<p>'Name',</p><p>Regarding the <b>event 'event_name' in space %{space}</b>:</p>"
-      message_ending: "<p>You can find more information about the event in <a href=\"event_url\">event_url</a> </p><p>Kind regards,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>"
       message_title: "Senden Sie eine Mitteilung an die Teilnehmer"
       personal: "Schreiben Sie Ihren persönlichen Text hier."
       select_all_attendants: "Anzeige aller Diener"
       selected_attendants: "Attendants Sie informieren:"
       show_all_attendants: "Alle Betreuer"
-      subject: "%{username} has sent a notification to you about event %{eventname} in space %{space}"
     now: "Veranstaltungen in diesem Moment:"
     one: Veranstaltung
     online: WebConference
@@ -296,12 +234,9 @@ de:
       show: "Alle alten Ereignisse"
       today: "Keine Termine für gestern noch heute."
     recording: 
-      cloud: Videos!
-      cloud_back: "Back to program"
       notice: "Die Menschen müssen Zugriffsrechte für diesen Raum, diese Videos zu sehen"
       share: Anteil
     repository: 
-      enabled: "Enable Document Repository?"
       help: "Dieses Document Repository zeigen die Dokumente in den Sitzungen der Veranstaltung Tagesordnung hochgeladen"
       title: "Dokumente zur Veranstaltung"
     spam: "Spam in Veranstaltungen"
@@ -328,25 +263,17 @@ de:
       next_week: "Es sind keine Termine für die nächste Woche"
       none: "Keine anstehenden Termine"
       other: "Bevorstehende Veranstaltungen"
-      other_all: "Other upcoming events"
       show: "Alle kommenden Veranstaltungen"
       today: "Es sind keine Termine für heute"
     updated: "Event erfolgreich aktualisiert"
     video_part: "Web Beteiligung"
     view_participation: Teilnahme
-    view_recordings: Recordings
-    view_related_rec: "View on video list"
-    view_streaming: Streaming
     will_attend: "Planen Sie, zu diesem Event teilnehmen?"
     within_7_days: "Innerhalb von 7 Tagen (%{size})"
     within_a_month: "Innerhalb eines Monats (%{size})"
   event_invitation: 
-    instructions: "Click Send for each invitation you want to send, and click Finish when you are done."
-    sent: "Invitations sent successfully"
     will_invite: "Personen, die Sie einladen:"
-  fax: Fax
   feedback: 
-    email: "%{email} sent the following feedback:"
     note: "Helfen Sie uns, besser zu VCC. Bitte senden Sie Ihre Kommentare, Anregungen und Probleme. Wir werden versuchen, so schnell wie möglich antworten"
     one: Rückkopplung
     send: "Senden Sie Feedback"
@@ -383,7 +310,6 @@ de:
     part1: "So erstellen Sie eine Nachricht in der Wand in VCC:"
     part10: "a. HTML-Quelltext"
     part11: "b. Ändern Sie den Schriftschnitt (fett, kursiv und unterstrichen), Schriftgröße und Schriftfarbe und Ausrichtung des Textes."
-    part12: "c. Insert / Edit Links."
     part13: "d. Hinzufügen von Anlagen"
     part14: "e. Tags Dateien"
     part15: "9. Schließlich, am Schaltfläche <b>'Senden'</b> zu klicken Wand stellen Sie Ihre Nachricht im."
@@ -452,7 +378,6 @@ de:
   home: 
     activity: "Letzte Aktivität ..."
     my: "My Home"
-    one: "nach Hause"
   icalendar: 
     error_import: "Ein Fehler ist beim Importieren der iCalendar."
     import: "ICalendar Import"
@@ -463,29 +388,21 @@ de:
     updated1: "Ein Eintrag Ihrer iCalendar waren schon auf Ihre Veranstaltung Tagesordnung und wurden aktualisiert."
     updatedn: "Einträge Ihres iCalendar waren schon auf Ihre Veranstaltung Tagesordnung und wurden aktualisiert."
   im: IM
-  inbox: 
-    my: "My Inbox (%{checked})"
-    one: "Inbox (%{checked})"
   information: 
     information1: "Dies sind die Bereiche gehören Sie zu"
     information2: "Hier finden Sie die neuesten Nachrichten, Veranstaltungen und Neuigkeiten der Räume gehören Sie zu"
     information3: "Dies sind die neuesten Nachrichten oder Ereignisse, die Sie erstellt haben"
     information4: "Dies sind die Bereiche gehören Sie zu"
-    information5: "These are the upcoming events of other spaces."
   internet: 
     on_the: "Auf dem Internet"
     ppal: Internet
   invitation: 
     accept: "Einladung annehmen"
-    access_space: "You are now a member of %{spacename} and now you can access it on <a href=\"%{space_url}\"> %{space_url} </a>"
     add_more: "Mehr Leute einladen"
     deselect_all_users: "Deaktivieren Sie alle Benutzer"
     discard: "Discard Einladung"
     email: E-Mail
     hide_all_users: "Verstecken allen Benutzern"
-    info_space: "You can find more information about this space in <a href=\"%{space_url}\"> %{space_url} </a>"
-    info_users: "You can see the current list of users of the space in <a href=\"%{users_url}\"> %{users_url} </a>"
-    introducer: Introducer
     label: "Passen Sie Ihre Einladung Nachricht"
     legend: 
       URL: "'URL' wird in der Nachricht durch die URL der Ausschreibung ersetzt werden."
@@ -497,21 +414,16 @@ de:
       other: "Es gibt keine ausstehenden Einladungen"
     pending: 
       other: "Bis Einladungen"
-    personal: "Personal message"
     rejoin_space: "If you would like to request membership again please go to <a href=\"%{space_url}\"> %{space_url} </a>"
     role_label: "Rolle für die eingeladenen Personen"
     select_all_users: "Wählen Sie alle Benutzer"
     show_all_users: "Alle Benutzer anzeigen"
-    title: "Invite people"
     title2: "Space Einladung"
     to_accept_space: "So nehmen Sie meine Einladung besuchen Sie bitte die %{url}"
-    to_event: "%{username} invites you to event %{eventname} in space %{space}"
-    to_space: "%{username} invites you to space %{space}"
     will_invite: "Personen, die Sie einladen"
     yes_accepted: akzeptiert
   invited: Eingeladene
   join: Beitreten
-  join_cam: Participate
   join_request: 
     already_sent: "Sie haben bereits gebeten, diesen Raum beitreten"
     ask_subject: "%{candidate} möchte in %{space}"
@@ -526,7 +438,6 @@ de:
     pending: 
       other: "Bis beitreten Zugriffe"
     personal: "Schreiben Sie Ihren persönlichen Text hier."
-  keywords: "Keywords (*)"
   language: Sprache
   last_week: "Letzte Woche"
   latest_events: "Aktuelle Veranstaltungen"
@@ -546,13 +457,9 @@ de:
     created: "Logo erfolgreich hochgeladen"
     crop: "Crop Raum Logo"
     empty: "Das Logo ist leer"
-  logout: "Logout %{user}"
   manage: Verwalten
   mandatory_field: "Mandatory field"
   message: 
-    created: "Nachricht erfolgreich gesendet"
-    error: 
-      create: "Fehler beim senden Private Nachricht"
     incoming: 
       other: "Eingehende Nachrichten"
     private: 
@@ -564,12 +471,11 @@ de:
     reply: "Auf Nachricht antworten"
     sent: 
       other: "Gesendete Nachrichten"
+  more: mehr...
   more_arrows: mehr>>;
   my_friends: "Meine Freunde"
   name: 
     full: "Vollständiger Name"
-    one: Name
-    other: Names
     prefix: Titel
   new_spam_detected: "Neue Spam erkannt"
   news: 
@@ -589,10 +495,7 @@ de:
   next: Nächste
   no_messages_in_wall: "Es sind keine Einträge in der Wand"
   no_tags_found: "Keine Tags gefunden"
-  now_exclamation: Now!
   ok: OK
-  older: Older
-  optional: Optional
   or: oder
   organization: Organisation
   organizer: Veranstalter
@@ -611,21 +514,12 @@ de:
   people: Menschen
   per_page: "pro Seite"
   performance: 
-    notification: 
-      estandar: "%{username} has change your role in %{stage} to %{role}. "
-      event: "%{username} has change your role in event %{event} to %{role}. "
-      space: "%{username} has change your role in space %{space} to %{role}. "
-      subject: 
-        estandar: "%{username} has change your role in %{stage} "
-        event: "%{username} has change your role in event %{event} "
-        space: "%{username} has change your role in space %{space} "
     updated: "User Leistung erfolgreich aktualisiert"
   permission: 
     other: "Die Rechte auf Zugang"
   personal_information: "Persönliche Informationen"
   phone: 
     landline: Telefon
-    mobile: Mobile
     one: Telefon
     plural: "Schnurlose Telefone"
   phone_optional: "Telefon (optional)"
@@ -670,13 +564,7 @@ de:
   recent: 
     activity: "Aktuelle Tätigkeit"
   register: 
-    and_participate: "Register To Participate"
-    and_participate_description: "To participate in the event you should register"
-    and_participate_description_with_login: "To participate in the event you should register or <a href=%{url}>login</a>"
-    back_to_streaming: "back to streaming"
     confirmation: "Nach der Registrierung erhalten Sie eine Bestätigung per Email mit dem Link zur Aktivierung Ihres Kontos"
-    one: Register
-    or_choose: "or you can go"
     thank_you: "Willkommen und vielen Dank für die Registrierung in %{sitename}"
   register_as_admin: "Registrieren Sie sich als admin"
   register_as_invited: "Registrieren Sie sich als eingeladen"
@@ -692,32 +580,21 @@ de:
     download: Download
     loading: "Erfrischend Dokumentenserver ..."
     need_javascript: "Bitte JavaScript aktiv zu genießen Dokumentenserver"
-    one: Docs
     remove: Entfernen
     search: "Dokument-Suche:"
   request: 
     info: "Ihre Anfrage an den Raum beitreten wurde erfolgreich an den Raum Administratoren gesendet. Ein Admin wird sich darum, so bald wie möglich"
     sent: "Anfrage zugesandt!"
   role: 
-    added: "%{role} role successfully added to %{agent}"
     editing: "Bearbeiten Rolle"
     listing: "Listing Rollen"
     new: "Neue Rolle"
-    one: Rolle
     stage_type: "Stage Typ"
     sucess_update: "Rolle erfolgreich aktualisiert ..."
   save: Sparen
   screencast: 
-    link1: "Help creating events"
-    link3: "Help about different kinds of events"
-    sidebar: 
-      title: Screencasts
-    title: screencast
     title1: "Ereignis erstellen"
     title2: "Agenda für das Ereignis erstellen"
-    title3: "Different kinds of events"
-    title4: "Inviting people"
-    title5: "Event Information"
   search: 
     advanced: "Erweiterte Suche"
     attachments: 
@@ -748,26 +625,21 @@ de:
     error: 
       exist: "Sie sind bereits angemeldet"
       fill: "Bitte füllen Sie das folgende Daten"
-    one: Session
-  show: Show
   show_advanced_editor: "Show erweiterten Editor"
   show_list_version_arrows: "Liste anzeigen Version>>"
   site: 
     default: Standort
     description: Beschreibung
-    domain: "Application Domain"
     email: E-Mail
     exception_notifications: "Senden Sie E-Mails debug"
     exception_notifications_email: "Debug Emails Empfänger"
     name: Name
     signature: Unterschrift
     ssl: SSL
-  size: Size
   skype: Skype
   source: 
     other: RSS/Atom
   space: 
-    about: About
     add_user: 
       other: "Fügen Sie die Benutzer auf den Raum"
     all: "Alle Bereiche"
@@ -776,22 +648,12 @@ de:
     clic_logo: "Klicken Sie auf Ändern Sie Ihr Logo"
     configuration: Space-Konfiguration
     confirm: "Sind Sie sicher, dass Sie diesen Raum verlassen?"
-    create_own: "Create new space"
     created: "Space erfolgreich erstellt"
     delete: "Löschen Space"
     deleted: "Space erfolgreich entfernt"
     description_none: "Ein Raum muss Beschreibung gegeben, um einen neuen Raum zu schaffen"
-    disable: "Disable space"
-    disabled: "Space Behinderte erfolgreich"
-    enable: "Enable Raum"
-    enabled: "Space aktiviert erfolgreich"
-    error: 
-      enabled: "Space %{name} ist bereits aktiviert"
     group_invitation: 
       button: "Liste einladen"
-      message_title: "Invite mailing lists to join your space"
-      private: "<p>Please note that the space is private, so you need to be a registered user of the Virtual Conference Center to be able to send a join request and access the space. You can register here: <a href=\"%{register_url}\">%{register_url}</a></p>"
-      subject: "%{username} invites you to space %{space}"
     is_private: "ist ein privater Raum. Senden Sie eine Anfrage anzuschließen an den Administrator dieser Raum in Ihrem lassen"
     join: "Join this space"
     join_invitation: 
@@ -809,37 +671,27 @@ de:
       upload_logo: "Laden Sie Ihr eigenes Logo"
       upload_logo_text: "Wähle ein Logo hochladen:"
       upload_text: Laden
-      use_date: "Use event date"
     member_of: "Mitglied der Räume"
     my_spaces: "Meine Räume"
     name_none: "Ein Raum muss Namen gegeben, um einen neuen Raum zu schaffen"
     one: Raum
-    other: Spaces
     possesion: "Meine Räume"
     private: "Private Räume"
     public: 
       one: "Der öffentliche Raum"
       other: "Öffentliche Räume"
-    recording: 
-      one: "Space video"
-      other: "Space videos"
-    select: Spaces
     show_all: "Alle Räume"
     subscribed_to_none: "Sie sind nicht zu jedem Raum gezeichnet"
-    updated: "Space erfolgreich aktualisiert"
   spam: 
     created: "Eine Meldung von Spam-E-Mail wurde erfolgreich an den Administrator gesendet. Danke"
-    default: Spam
     detected: "Neue Spam erkannt"
     error: 
       check: "Es gab ein Problem Kennzeichnung der Ressource als Spam"
-    report: "Report spam"
     reported: "%{name} hat berichtet, Spam in %{sitename}"
     valid: "Dieser Inhalt ist gültig"
   stage_type: Stage-Typ
   street: Straße
   subject: Gegenstand
-  summary: Summary
   tag: 
     add: "Tags hinzufügen"
     edit: "Tags bearbeiten"
@@ -854,7 +706,6 @@ de:
   text: Text
   the_string: "die Zeichenkette"
   thread: 
-    add: "Post message to wall"
     comments: "%{children} Kommentare"
     compact_view: "Switch to kompakte Ansicht"
     deleted: "Message (mit Kommentaren) wurde gestrichen"
@@ -897,16 +748,8 @@ de:
   update: Aktualisierung
   updated: Aktualisiert
   updated_at: "Aktualisiert am"
-  updated_time_ago: "%{time} ago"
-  url: Webseite
   url_add: "Fügen Sie Ihre Website"
-  url_plain: URL
   user: 
-    add: 
-      instruction: "To add new users enter one or several email addresses separated by \" \", \",\" or \";\" and register them"
-      note: "For example: \"John Silver \"<\"jsilver@example.com\">\", jct@dit.es; Aaron aaron@example.net and click on 'Register as User' will register those 3 email addresses as members of the space and will send a validation email to them."
-    add_more: "Add users >>"
-    admin: Admin
     administrators: Administratoren
     assist: Teilnehmende
     by_email: "Per E-Mail"
@@ -920,16 +763,11 @@ de:
     email_used_to_create_account: "Geben Sie die E-Mail-Adresse, die Sie zum Erstellen Ihres Kontos"
     enable: "Aktivieren Sie Benutzer"
     enabled: "User erfolgreich aktiviert. Der Benutzer gehört zur Zeit zu keinen Platz und müssen Räume wieder beizutreten."
-    error: 
-      enabled: "User %{name} ist bereits aktiviert"
-    filter: "Invite by user name"
     found: 
       none: "Keine Benutzer gefunden"
       one: "1 Benutzer gefunden"
       other: "%{size} Benutzer gefunden"
     full_name: "Vollständiger Name"
-    group_invite_email: "Invite by e-mail"
-    id: "User ID"
     include_registered: "Enthalten registrierte Benutzer"
     invite: "Personen einladen"
     invite_email: "Personen einladen per E-Mail"
@@ -957,18 +795,15 @@ de:
   username: Benutzername
   vCard: 
     corrupt: "Die vCard Sie geschickt wird beschädigt oder ist ein nicht-unterstützte Version"
-    export: "Export your vCard"
     message: "Verwenden Sie Ihre vCard automatisch in Ihrem Profil ausfüllen"
     upload: "Upload Ihre vCard"
     use: "Verwenden Sie Ihre vCard"
   vcc: "Virtual Conference Centre"
-  vcc_mail_label: "[VCC]"
-  vcc_registration: "Global Plaza Registration"
+  vcc_mail_label: "[Mconf]"
+  vcc_registration: "Mconf Registration"
   version: 
     new: Neufassung
     one: Version
-  video: 
-    other: Videos
   when: Wann
   where: Wo
   xmpp_server: 

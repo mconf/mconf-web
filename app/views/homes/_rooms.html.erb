@@ -54,11 +54,6 @@
   <div class="my-webconference-rooms">
     <h3>
       <%= image_tag("icons/bbb_logo.png") %> <%= t('webconference.my_webconference') %>
-      <span class="float_right">
-        <%=
-          #link_to t('button.new_room'), newroom_home_path, :id => 'newroom_bbb_link', :class => 'basic_button small_button'
-         %>
-      </span>
     </h3>
     <div class="room_list">
       <% if @bbb_rooms.empty? %>
@@ -68,8 +63,8 @@
         <% button_id = 0 %>
         <% @bbb_rooms.each do |room| %>
           <li>
-            <%= link_to t('button.join'), join_bigbluebutton_server_room_path(@server, room), :class => 'basic_button small_button orange_pale_button clean_popup' %>
-            <%= mobile_icon_link(join_mobile_bigbluebutton_server_room_path(@server, room)) %>
+            <%= link_to t('button.join'), join_bigbluebutton_room_path(room), :class => 'basic_button small_button orange_pale_button clean_popup' %>
+            <%= mobile_icon_link(join_mobile_bigbluebutton_room_path(room)) %>
             <span class="room_name">
               <%= room.name %>
             </span>
@@ -90,9 +85,6 @@
               <%= link_to t('button.invite'), inviteroom_invite_path(:type => "webconference", :room => room.to_param), :id => 'invite_bbb_link', :class => 'basic_button small_button pale_button'%>
               <%= link_to t('home.view_invite_url'), '#', :id => "invite_url_button-#{button_id}", :class => 'basic_button small_button invite_url_button pale_button'%>
               <%= link_to t('button.edit'), edit_bbb_room_user_path(current_user, :room => room.to_param), :id => "edit_bbb_room", :class => 'basic_button small_button pale_button' %>
-              <%=
-                #link_to t('button.remove'), bigbluebutton_server_room_path(@server, room, :redir_url => home_path), :confirm => 'Are you sure?', :method => :delete, :class => 'basic_button small_button pale_button'
-               %>
             </span>
             <div class="invite_url url_share" id="invite_url-<%= button_id %>">
               <span class="only_url"><%= t('home.invite_url') + ":" %> </span>

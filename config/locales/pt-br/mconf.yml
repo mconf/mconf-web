@@ -116,27 +116,42 @@ pt-br:
   beta: beta
   bigbluebutton: BigBlueButton
   bigbluebutton_rails: 
+    activity_monitor: "Monitor de atividades"
+    attendees: 
+      id: ID
+      name: Nome
+      role: Papel
+    new_room: "Nova sala"
+    new_server: "Novo servidor"
     rooms: 
+      external: 
+        header: "Esta reunião foi criada por uma outra aplicação. <br/>Você deve fornecer um nome e uma senha para entrar:"
       index: 
-        back_to_server_list: "Ver lista de servidores"
+        back_to_server_list: "Voltar à lista de servidores"
         invite: Convidar
-        join_mobile: Entrar/móvel
         new_room: "Nova sala"
+      invite: Convidar
+      join_mobile: Entrar/móvel
     servers: 
       activity: 
         activity: Atividade
         done: Pronto!
+        ended_at: "Finalizada em: %{time} (forçadamente: %{forcibly})"
         information: Informação
+        not_running: "Não está em execução"
         now: Agora!
+        participants: "Participantes (%{total} total, %{mods} moderadores):"
         refresh_now: "Atualizar agora"
         refreshing_in: "Atualizando em:"
+        running: "Em execução!"
         seconds: segundos
+        started_at: "Iniciada em: %{time}"
         title: "Monitor de atividades do servidor"
       index: 
         access_links: "Links de acesso"
-        activity_monitor: "Monitor de atividade"
-        new_server: "Novo servidor"
-        view_rooms: "Ver salas"
+    view_room_list: "Ver lista de salas"
+    view_rooms: "Ver salas"
+    view_server_list: "Ver lista de servidores"
   body: Corpo
   button: 
     accept: Aceitar
@@ -239,6 +254,7 @@ pt-br:
     welcome: "Bem-vindo(a) a %{sitename}"
   enable: Habilitar
   enabled: Habilitado
+  end: Finalizar
   error: 
     change: "Mudança inválida"
     credentials: "Credenciais inválidas"
@@ -283,6 +299,7 @@ pt-br:
     deleted: "Evento excluído com sucesso"
     description: 
       add: "Adicionar descrição."
+      edit: "Editar descrição"
       none: "Ninguém escrever uma descrição ainda."
     edit: "Editar informações básicas do evento"
     edit_data: "Alterar a data do evento"
@@ -308,7 +325,6 @@ pt-br:
     has: "Este evento tem"
     help: 
       create: "Crie o seu evento simples em três etapas:"
-      define3: ""
       edit: "Editar seu evento"
     home: 
       one: "Evento na comunidade %{space}"
@@ -703,6 +719,16 @@ pt-br:
       name: "'Nome' será substituído na mensagem pelo nome do receptor."
     logout_and_reload: "Você não é o usuário que recebeu esse convite, por favor saia e tente novamente"
     message_title: "Convide as pessoas individualmente para participar da sua comunidade"
+    message_with_start_date: 
+      in_person: "<p>Gostaria de convidá-lo para <b>o evento 'event_name' na comunidade %{space} </b> na data 'event_date'.</p><p> Para aceitar meu convite, por favor visite %{url} </p><p> Você pode encontrar mais informações sobre este evento em <a href=\"event_url\">event_url</a></p><p> Atenciosamente, <br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>"
+      teleclass: "<p>Gostaria de convidá-lo para <b>o evento 'event_name' na comunidade %{space} </b> na data 'event_date'. O evento será uma classe virtual com participação simples através do sistema Isabel. </p><p> Para aceitar meu convite, por favor visite %{url} </p><p> Você pode encontrar mais informações sobre este evento em <a href=\"event_url\">event_url</a></p><p> Atenciosamente, <br/><br/> %{username}<br/>%{useremail}<br/>%{userorg}</p>"
+      teleconference: "<p>Gostaria de convidá-lo para <b>o evento 'event_name' na comunidade %{space} </b> na data 'event_date'. O evento será uma conferência virtual com participação simples através do sistema Isabel. </p><p> Para aceitar meu convite, por favor visite %{url} </p><p> Você pode encontrar mais informações sobre este evento em <a href=\"event_url\">event_url</a></p><p> Atenciosamente, <br/><br/> %{username}<br/>%{useremail}<br/>%{userorg}</p>"
+      telemeeting: "<p>Gostaria de convidá-lo para <b>o evento 'event_name' na comunidade %{space} </b> na data 'event_date'. O evento será uma reunião virtual com participação simples através do sistema Isabel. </p><p> Para aceitar meu convite, por favor visite %{url} </p><p> Você pode encontrar mais informações sobre este evento em <a href=\"event_url\">event_url</a></p><p> Atenciosamente, <br/><br/> %{username}<br/>%{useremail}<br/>%{userorg}</p>"
+    message_without_start_date: 
+      in_person: "<p>Gostaria de convidá-lo para <b>o evento 'event_name' na comunidade %{space} </b>.</p><p> Para aceitar meu convite, por favor visite %{url} </p><p> Você pode encontrar mais informações sobre este evento em <a href=\"event_url\">event_url</a></p><p> Atenciosamente, <br/><br/> %{username}<br/>%{useremail}<br/>%{userorg}</p>"
+      teleclass: "<p>Gostaria de convidá-lo para <b>o evento 'event_name' na comunidade %{space} </b>. O evento será uma classe virtual com participação simples através do sistema Isabel. </p><p> Para aceitar meu convite, por favor visite %{url} </p><p> Você pode encontrar mais informações sobre este evento em <a href=\"event_url\">event_url</a></p><p> Atenciosamente, <br/><br/> %{username}<br/>%{useremail}<br/>%{userorg}</p>"
+      teleconference: "<p>Gostaria de convidá-lo para <b>o evento 'event_name' na comunidade %{space} </b>. O evento será uma conferência virtual com participação simples através do sistema Isabel. </p><p> Para aceitar meu convite, por favor visite %{url} </p><p> Você pode encontrar mais informações sobre este evento em <a href=\"event_url\">event_url</a></p><p> Atenciosamente, <br/><br/> %{username}<br/>%{useremail}<br/>%{userorg}</p>"
+      telemeeting: "<p>Gostaria de convidá-lo para <b>o evento 'event_name' na comunidade %{space} </b>. O evento será uma reunião virtual com participação simples através do sistema Isabel. </p><p> Para aceitar meu convite, por favor visite %{url} </p><p> Você pode encontrar mais informações sobre este evento em <a href=\"event_url\">event_url</a></p><p> Atenciosamente, <br/><br/> %{username}<br/>%{useremail}<br/>%{userorg}</p>"
     not_accepted: "não aceito"
     not_pending: 
       other: "Não há convites pendentes"
@@ -803,9 +829,6 @@ pt-br:
     one: "%{count} membro"
     other: "%{count} membros"
   message: 
-    created: "Mensagem enviada com sucesso"
-    error: 
-      create: "Erro ao enviar mensagem privada"
     incoming: 
       other: "Mensagens recebidas"
     private: 
@@ -908,6 +931,8 @@ pt-br:
   preferences: Preferências
   previous: Anterior
   privacy: Privacidade
+  private_message: 
+    send: "Enviar mensagem privada"
   profile: 
     deleted: "Perfil excluído com sucesso"
     description: 
@@ -1057,6 +1082,7 @@ pt-br:
   show: Exibir
   show_advanced_editor: "Exibir editor avançado"
   show_list_version_arrows: "exibir versão em lista >>"
+  show_question: Exibir?
   site: 
     analytics_code: "Código do Google Analytics"
     analytics_code_tip: "Código para sua conta do Google Analytics. Deixe em branco para desabilitar. Exemplo: \"UA-12345678-9\""
@@ -1092,9 +1118,9 @@ pt-br:
     about: Sobre
     add_user: 
       other: "Adicionar usuários à comunidade"
-    add_user_other: ""
     all: "Todas comunidades"
     allow_public_access: "Permitir acesso público?"
+    attendeePW: "editar senha de participante"
     clic: "Clique para editar..."
     clic_logo: "Clique para mudar o seu logotipo"
     configuration: "Configurações da comunidade"
@@ -1111,6 +1137,8 @@ pt-br:
     disabled: "Comunidade desativada com sucesso"
     edit: 
       webconference_passwords: "Senhas da sala de webconferência"
+    edit_description: "editar descrição"
+    edit_name: "editar nome"
     enable: "Habilitar comunidade"
     enabled: "Comunidade habilitada com sucesso"
     error: 
@@ -1141,6 +1169,7 @@ pt-br:
       upload_text: Enviar
       use_date: "Use data do evento"
     member_of: "Membro das comunidades"
+    moderatorPW: "editar senha de moderador"
     my_spaces: "Minhas comunidades"
     name_none: "Um nome deve ser dado para criar uma nova comunidade"
     one: Comunidade

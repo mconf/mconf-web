@@ -1,5 +1,7 @@
-RAILS_ROOT = File.join(File.dirname(File.dirname(__FILE__)), "..", "..")
+RAILS_ROOT = "/home/mconf/mconf-web/current"
 RAILS_ENV = "production"
+
+Dir[File.join(RAILS_ROOT, "lib", "god", "conditions", "*.rb")].each { |f| require f }
 
 2.times do |num|
   God.watch do |w|
@@ -14,6 +16,8 @@ RAILS_ENV = "production"
     w.start_grace = 30.seconds
     w.restart_grace = 30.seconds
     w.pid_file = "#{RAILS_ROOT}/tmp/pids/delayed_job.#{num}.pid"
+    w.uid = 'mconf'
+    w.gid = 'mconf'
 
     w.behavior(:clean_pid_file)
 
@@ -33,6 +37,13 @@ RAILS_ENV = "production"
       restart.condition(:cpu_usage) do |c|
         c.above = 50.percent
         c.times = 5
+      end
+
+      # To restart the job when deployed with capistrano
+      # http://www.simonecarletti.com/blog/2011/02/how-to-restart-god-when-you-deploy-a-new-release/
+      restart.condition(:restart_file_touched) do |c|
+        c.interval = 5.seconds
+        c.restart_file = File.join(RAILS_ROOT, 'tmp', 'restart.txt')
       end
     end
 
