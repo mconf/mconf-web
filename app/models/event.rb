@@ -90,7 +90,7 @@ class Event < ActiveRecord::Base
       end
     end
   end
-  
+
   #  def update_date
   #  if self.edit_date_action.eql?("move_event") || self.edit_date_action.eql?("start_date")
   #    self.start_date(1i) = self.start_date
@@ -107,7 +107,7 @@ class Event < ActiveRecord::Base
       return false
     end
   end
-  
+
   def edit_date_actions
     if !self.edit_date_action.nil?
       if !self.edit_date_action.eql?("move_event")
@@ -669,13 +669,17 @@ class Event < ActiveRecord::Base
 
   def unique_pageviews
     # Use only the canonical aggregated url of the event (all views have been previously added here in the rake task)
-    corresponding_statistics = Statistic.find(:all, :conditions => ['url LIKE ?', '/spaces/' + self.space.permalink + '/events/'+ self.permalink])
+    search_string = '/spaces/' + self.space.permalink + '/events/'+ self.permalink
+    corresponding_statistics = Statistic.find(:all, :conditions => ['url LIKE ?', search_string])
     if corresponding_statistics.size == 0
       return 0
     elsif corresponding_statistics.size == 1
       return corresponding_statistics.first.unique_pageviews
     elsif corresponding_statistics.size > 1
-      raise "Incorrectly parsed statistics"
+      logger.warn "Incorrectly parsed statistics:"
+      logger.warn "  Search string: \"#{search_string}\""
+      logger.warn "  Registries found: #{corresponding_statistics.size}"
+      return corresponding_statistics.first.unique_pageviews
     end
   end
 
