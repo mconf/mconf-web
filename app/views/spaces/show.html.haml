@@ -35,16 +35,9 @@
       = link_to t('event.upcoming.other'), space_events_path(@space)
       = help_icon t("tooltip.upcoming"), :class => 'leftwards'
     .content-block-content-wrapper
-      - if @upcoming_events.empty?
-        %p= t('event.upcoming.none')
-      - else
-        %span.event-timezone
-          (#{t('timezone.one')}: #{Time.zone.formatted_offset})
-        - for event in @upcoming_events
-          .event-wrapper
-            = link_to sanitize(event.title), space_event_path(@space, event), :class => "event-title"
-            %span.event-date
-              = "#{event.start_date.to_formatted_s(:short)} - #{event.end_date.to_formatted_s(:short)}".html_safe
+      %span.event-timezone
+        (#{t('timezone.one')}: GMT#{Time.zone.formatted_offset})
+      = render 'events/sidebar_event_wrapper', :events => @upcoming_events
     .content-block-footer
       = link_to feed_icon, space_events_path(@space, :format => :atom)
       = link_to(t('read_more'), space_events_path(@space)) if space.authorize?([:read, :content], :to => current_user)

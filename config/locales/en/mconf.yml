@@ -357,7 +357,7 @@ en:
       presential: Meeting
       type: "Event type"
       vcoptions: "Videoconference options"
-    no_events: "You have no events"
+    no_events: "No events to show"
     none_coming: "No coming events"
     not_available: "Available soon"
     note: 

@@ -105,29 +105,3 @@
     color: $blue;
   }
 }
-
-#sidebar-upcoming-events {
-  .event-timezone {
-    float: left;
-    margin-bottom: 10px;
-    color: #777;
-    font-size: $font-small;
-  }
-
-  .event-wrapper {
-    clear: both;
-    margin-bottom: 10px;
-
-    .event-title {
-      font-weight: bold;
-      display: block;
-    }
-
-    .event-date {
-      display: block;
-      font-size: $font-small;
-      color: #777;
-      margin-left: 5px;
-    }
-  }
-}

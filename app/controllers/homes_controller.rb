@@ -26,7 +26,6 @@ class HomesController < ApplicationController
   end
 
   def show
-    @server = BigbluebuttonServer.first
     @bbb_rooms = BigbluebuttonRoom.where("owner_id = ? AND owner_type = ?", current_user.id, current_user.class.name)
     @bbb_rooms.each do |room|
       begin
@@ -35,13 +34,20 @@ class HomesController < ApplicationController
       end
     end
 
+    # TODO: probably unnecessary
     if params[:update_rooms]
       render :partial => 'homes/rooms'
       return
     end
 
     unless current_user.spaces.empty?
-      @events_of_user = Event.in(current_user.spaces).all(:order => "start_date ASC")
+      @today_events = Event.
+        within(DateTime.now.beginning_of_day, DateTime.now.end_of_day).
+        in(current_user.spaces).
+        order("start_date ASC").all
+      @upcoming_events = Event.in(current_user.spaces).
+        where('end_date >= ?', DateTime.now.end_of_day).
+        limit(5).order("start_date ASC").all
     end
 
     @update_act = params[:contents] ? true : false
@@ -51,7 +57,6 @@ class HomesController < ApplicationController
     @all_contents = ActiveRecord::Content.paginate({ :page => params[:page], :per_page => @contents_per_page.to_i, :order => 'updated_at DESC' },
                                                    { :containers => current_user.spaces, :contents => @contents} )
 
-    #let's get the inbox for the user
     @private_messages = PrivateMessage.find(:all, :conditions => {:deleted_by_receiver => false, :receiver_id => current_user.id},:order => "created_at DESC", :limit => 3)
   end
 
