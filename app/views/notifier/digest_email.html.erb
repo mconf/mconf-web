@@ -1,13 +1,23 @@
 <html>
   <body>
     <%= t('email.digest.message') %>
-    <br/><br/>
-    <% unless @posts == nil %>
-    <b><%= "Posts:" %></b><br><br>
+    <br><br>
+    <% unless @posts.empty? %>
+    <b><%= "Posts:" %></b>
+    <br><br>
     <% end %>
     <% @posts.each do |post| %>
-    <b><%= post.author.name %></b> <%= t('email.digest.posted', :space_name => post.space.name).html_safe %>: <%=link_to post.title, space_post_url(post.space,post)%>
+    <%= t('email.digest.posted', :author_name => post.author.name, :space_name => post.space.name).html_safe %> <%=link_to post.title, space_post_url(post.space,post)%>
     <%= t('updated_time_ago', :time => time_ago_in_words(post.updated_at)) %><br>
+    <% end %>
+    <% unless @news.empty? %>
+    <br><br>
+    <b><%= "News:" %></b>
+    <br><br>
+    <% end %>
+    <% @news.each do |news| %>
+    <%= t('email.digest.news', :space_name => news.space.name).html_safe %> <%= link_to(sanitize(news.title), space_url(news.space)) %>
+    <%= t('updated_time_ago', :time => time_ago_in_words(news.updated_at)) %><br>
     <% end %>
   </body>
 </html>

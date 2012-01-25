@@ -243,7 +243,8 @@ en:
     confirm: "You need now to confirm your registration by clicking on <a href=\"%{url}\"> %{url} </a>"
     digest:
       message: "Last activities on your spaces:"
-      posted: "posted in <b>%{space_name}</b> this message"
+      news: "A new news was published in <b>%{space_name}</b>:"
+      posted: "<b>%{author_name}</b> posted in <b>%{space_name}</b> this message:"
       title: "%{type} digest of your spaces activities."
     invitation_result:
       admin_side: "%{name} has %{action} the invitation to space %{spacename}"
