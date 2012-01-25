@@ -19,7 +19,8 @@ module Mconf
 
     def self.send_digest(to, date_start, date_end)
       posts, news, attachments, events, inbox = get_activity(to, date_start, date_end)
-      # TODO: send_email
+
+      Notifier.delay.digest_email(to,posts,news,attachments,events,inbox)
     end
 
     def self.get_activity(user, date_start, date_end)

@@ -1,0 +1,13 @@
+<html>
+  <body>
+    <%= t('email.digest.message') %>
+    <br/><br/>
+    <% unless @posts == nil %>
+    <b><%= "Posts:" %></b><br><br>
+    <% end %>
+    <% @posts.each do |post| %>
+    <b><%= post.author.name %></b> <%= t('email.digest.posted', :space_name => post.space.name).html_safe %>: <%=link_to post.title, space_post_url(post.space,post)%>
+    <%= t('updated_time_ago', :time => time_ago_in_words(post.updated_at)) %><br>
+    <% end %>
+  </body>
+</html>
