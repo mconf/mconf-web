@@ -1,5 +1,9 @@
 @import "../partials/definitions";
 
+.tooltipped {
+  cursor: pointer;
+}
+
 .ui-tooltip-mconf {
   .ui-tooltip-content {
     font-size: $font-normal;

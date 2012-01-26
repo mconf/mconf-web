@@ -1,3 +1,5 @@
+<div class="content-block">
+
 <% per_page_values = [15, 30, 50]%>
 <div id="home_menu">
   <div class="arrow_take_box float_right_icon <%= 'hide' unless @update_act %>" style="margin-top: 7px;">
@@ -52,6 +54,8 @@
 
   <%= will_paginate @all_contents %>
   <br/>
+</div>
+
 </div>
 
 </div>

@@ -1,6 +1,6 @@
 - spaces_menu_at :home
 
-// Starts the sidebar...
+// Starting the sidebar code
 = content_for :sidebar do
 
   = render :partial => 'sidebar_join_links'
@@ -68,7 +68,7 @@
       = help_icon t("tooltip.num_views"), :class => 'leftwards'
 
 
-// Starts the content in the middle of the page...
+// Starting the content in the middle of the page...
 
 // TODO: This block below should be tested
 - if !@current_events.empty?

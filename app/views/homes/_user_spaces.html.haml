@@ -1,0 +1,40 @@
+#user-spaces.content-block
+
+  %h3
+    = image_tag "icons/information.png", :title => t('home.my_spaces_tooltip'), :class => "icon tooltipped upwards"
+    = t('home.my_spaces')
+    - if logged_in?
+      = link_to t('space.create_own'), new_space_path, :class => "button orange", :id => 'new-space-button'
+
+  -#.arrow_take_box.float_right
+  -#  = image_tag("icons/takeico.png", :class=>"icon",:title=> t('information.reduce'))
+  -#.arrow_drop_box.float_right.hide
+  -#  = image_tag("icons/dropico.png", :class=>"icon",:title=> t('information.expand'))
+
+  - if current_user.spaces.empty?
+    %p= t('profile.no_spaces', :user => current_user.name)
+  - else
+    %ul.space-list
+      - current_user.spaces.each do |space|
+        - if space.authorize? :read, :to => current_user
+          %li
+            .space_box
+              .logo
+                - title = space.name + ": " + first_words(space.description, 80)
+                = link_to logo(space, :size => "h32", :title => title, :class => 'tooltipped upwards').html_safe, space_path(space)
+              .description-box
+                = link_to first_words(space.name, 20), space_path(space), :title => space.name, :class => "title"
+                %span.description= t('members', :count => space.actors.count)
+              .clearer
+            = render_clearer
+        - else
+          %li
+            .space_box
+              .logo
+                = logo(space, {:size => "h64", :title => s.name }).html_safe
+              .description
+                %span.title= first_words(space.name, 20)
+                = t('members', :count => space.actors.count)
+              .clearer
+
+  = render_clearer

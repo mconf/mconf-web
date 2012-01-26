@@ -701,6 +701,8 @@ en:
     activity: "Recent activity..."
     invite_url: "Invite URL"
     my: "My Home"
+    my_spaces: "My spaces"
+    my_spaces_tooltip: "These are the spaces you belong to."
     one: home
     view_invite_url: "View Invite URL"
     webconference:
@@ -729,7 +731,6 @@ en:
     information1: "These are the spaces you belong to"
     information2: "Here you can find the newest messages, events and news of the spaces you belong to"
     information3: "These are the latest messages or events that you have created"
-    information4: "These are the spaces you belong to"
     information5: "These are the upcoming events of other spaces."
     reduce: "Reduce List.."
   internet: 
