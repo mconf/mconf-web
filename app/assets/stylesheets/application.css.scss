@@ -38,7 +38,6 @@ $page-header-height: 70px;
   float: left;
   width: 100px;
   white-space: nowrap;
-  margin-top: 2px;
 
   a { text-decoration: none; }
 
@@ -165,7 +164,7 @@ ul#global-header-user-links {
     margin-bottom: 10px;
 
     &.active {
-      background: #95BD6C;
+      background: #c0d7a9;
     }
   }
 
@@ -197,7 +196,6 @@ ul#global-header-user-links {
 
   .sidebar-top-action-button {
     text-align: center;
-    margin-bottom: 10px;
     padding: 10px;
     a, span {
       float: right;

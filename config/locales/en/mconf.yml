@@ -210,6 +210,7 @@ en:
     one: Comment
     other: Comments
     show_all: "Show all comments"
+  configurations: "Configurations"
   contact_information: "Contact information"
   country: Country
   create: Create
@@ -700,15 +701,16 @@ en:
     activity: "Recent activity..."
     invite_url: "Invite URL"
     my: "My Home"
-    no_rooms: "You have no webconference rooms."
-    not_running: "not running"
     one: home
-    running_with: 
-      no_participants: "running with no participants"
-      participants: 
-        one: "running with %{count} participant"
-        other: "running with %{count} participants"
     view_invite_url: "View Invite URL"
+    webconference:
+      not_running: "Your webconference is not in progress."
+      running_with: 
+        no_participants: "Your webconference is in progress with no participants."
+        participants: 
+          one: "Your webconference is in progress with %{count} participant!"
+          other: "Your webconference is in progress with %{count} participants!"
+      your_url: "Your URL"
   icalendar: 
     error_import: "An error ocurred while importing the iCalendar."
     import: "Import iCalendar"
@@ -862,6 +864,7 @@ en:
     one: "%{count} member"
     other: "%{count} members"
   message: 
+    created: "Message sent!"
     incoming: 
       other: "Incoming messages"
     private: 
@@ -1434,6 +1437,7 @@ en:
       one: "The webconference is currently in progress with %{count} participant"
       other: "The webconference is currently in progress with %{count} participants"
     invite_webconference: "Invite people to the webconference"
+    join: Join
     join_mobile: 
       direct_link: "<b>Click here</b><br/>to join from a mobile device"
       scan_code: "Or scan the code below:"
@@ -1450,6 +1454,7 @@ en:
       join_now: "Join now"
       see_more: "see more"
       share: Share
+    start_now: "Start now!"
     title_people_conf: "People in the room"
   when: When
   where: Where

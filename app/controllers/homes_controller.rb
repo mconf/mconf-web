@@ -26,18 +26,10 @@ class HomesController < ApplicationController
   end
 
   def show
-    @bbb_rooms = BigbluebuttonRoom.where("owner_id = ? AND owner_type = ?", current_user.id, current_user.class.name)
-    @bbb_rooms.each do |room|
-      begin
-       room.fetch_meeting_info
-      rescue Exception
-      end
-    end
-
-    # TODO: probably unnecessary
-    if params[:update_rooms]
-      render :partial => 'homes/rooms'
-      return
+    @room = current_user.bigbluebutton_room
+    begin
+      @room.fetch_meeting_info
+    rescue BigBlueButton::BigBlueButtonException
     end
 
     unless current_user.spaces.empty?
@@ -57,7 +49,12 @@ class HomesController < ApplicationController
     @all_contents = ActiveRecord::Content.paginate({ :page => params[:page], :per_page => @contents_per_page.to_i, :order => 'updated_at DESC' },
                                                    { :containers => current_user.spaces, :contents => @contents} )
 
-    @private_messages = PrivateMessage.find(:all, :conditions => {:deleted_by_receiver => false, :receiver_id => current_user.id},:order => "created_at DESC", :limit => 3)
+    @private_messages = PrivateMessage.
+      where(:deleted_by_receiver => false).
+      where(:receiver_id => 1).
+      order('created_at DESC').
+      includes(:sender).
+      limit(3)
   end
 
   # renders a json with the webconference rooms accessible to the current user

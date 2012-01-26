@@ -21,12 +21,12 @@
 </h3>
 
 <div id="webconference_invite_dialog">
-  
+
   <% if @type == "webconference" %>
     <div class="header">
       <div class="label"><%= t('invite_people.room_name') %></div>
       <div class="value"><span><%= @room.name %></span></div>
-      <div class="label"><%= t('home.invite_url') %></div>
+      <div class="label"><%= t('home.webconference.your_url') %></div>
       <div class="value">
         <%= text_field_tag "room_invite_url", join_webconf_url(@room), :disabled => true %>
       </div>

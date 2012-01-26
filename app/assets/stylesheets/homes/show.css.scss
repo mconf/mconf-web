@@ -1,0 +1,73 @@
+@import "compass/css3";
+@import "partials/definitions";
+
+#sidebar-inbox {
+  .message-wrapper {
+    clear: both;
+    margin-bottom: 10px;
+    margin-top: 5px;
+
+    .sender-logo {
+      @include user-logo-in-thread; // defined in _definitions
+    }
+
+    .message-text { margin-left: 45px; }
+    .message-title { display: block; }
+    .message-body { display: block; }
+  }
+}
+
+#webconference-room {
+  margin-top: 10px;
+
+  .action-buttons {
+    float: right;
+    margin: 8px;
+
+    .button {
+      float: right;
+      min-width: 90px;
+      text-align: center;
+      margin-right: 5px;
+    }
+  }
+
+  .in-progress-icon {
+    float: left;
+    margin-top: 4px;
+    margin-right: 10px;
+  }
+
+  .webconference-footer {
+    clear: both;
+    margin-top: 10px;
+    padding: 5px;
+    background: #eee;
+    @include border-radius(5px);
+
+    .config-buttons {
+      float: right;
+      margin: 6px 10px 0 15px;
+    }
+
+    .invite-url {
+      float: right;
+
+      input[type=text] {
+        width: 410px;
+        padding: 5px;
+        @include border-radius(5px);
+        margin-left: 5px;
+        background: #f6f6f6;
+      }
+
+      .clippy {
+        margin-top: 8px;
+        margin-left: -20px;
+        float: right;
+      }
+    }
+  }
+
+}
+
