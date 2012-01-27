@@ -245,6 +245,7 @@ class Notifier < ActionMailer::Base
     @type = receiver.receive_digest == 1 ? "Daily" : "Weekly"
     @locale = receiver.locale
     @subject = t('email.digest.title', :type => @type, :locale => @locale)
+    @signature  = Site.current.signature_in_html
 
     create_default_mail(@locale)
   end

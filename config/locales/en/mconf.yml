@@ -89,6 +89,9 @@ en:
     home:
       one: "File in space %{space}"
     info: "Document info"
+    more:
+      one: "and one more attachment..<br>"
+      other: "and more %{count} attachments..<br>"
     new: "New attachment"
     not_selected: "No document selected"
     one: Attachment
@@ -97,6 +100,7 @@ en:
       none: "No files selected"
       one: " file selected"
       other: " files selected"
+    title: "Attachments (%{count})"
     upload_with_post: "Notify the upload with a message in the wall"
   attendeePW: "Attendee Password"
   author: "Uploaded by"
@@ -242,9 +246,12 @@ en:
     commas: "Separated by commas"
     confirm: "You need now to confirm your registration by clicking on <a href=\"%{url}\"> %{url} </a>"
     digest:
+      attachment: "<b>%{author_name}</b> has attached a new file in <b>%{space_name}</b>:"
+      event: "<b>%{author_name}</b> has created a new even in <b>%{space_name}</b>:"
+      inbox: "<b>%{sender_name}</b> has sent a message for you:"
       message: "Last activities on your spaces:"
       news: "A new news was published in <b>%{space_name}</b>:"
-      posted: "<b>%{author_name}</b> posted in <b>%{space_name}</b> this message:"
+      posted: "<b>%{author_name}</b> has posted in <b>%{space_name}</b> this message:"
       title: "%{type} digest of your spaces activities."
     invitation_result:
       admin_side: "%{name} has %{action} the invitation to space %{spacename}"
@@ -345,6 +352,9 @@ en:
       crop: "Select what part of the image to crop"
       new: "Add a picture for your event"
       select: "Change your logo"
+    more:
+      one: "and one more event..<br>"
+      other: "and more %{count} events..<br>"
     move:
       change_date: "<b>Change Event Date:</b> This option lets you change your event date. You can choose a new start or end time."
       change_end_date: "Change event end date"
@@ -441,6 +451,7 @@ en:
     time:
       end: End
       start: Start
+    title: "Events (%{count})"
     to: To
     today: "Today events"
     today_and_yesterday: "Today and yesterday (%{size})"
@@ -868,10 +879,14 @@ en:
       delete: "Error deleting news item"
       update: "News item could not be updated"
     item_in_home: "News item in space"
+    more:
+      one: "and more one new.."
+      other: "and more %{count} news.."
     none_to_show: "No news items to show"
     other: News
     publish_another: "Publish another news item"
     publish_home: "Publish news item"
+    title: "News (%{count})"
     updated: "News item updated successfully"
   next: Next
   no_messages_in_wall: "There are no messages in the wall"
@@ -927,19 +942,29 @@ en:
     home:
       one: "Message in space %{space}"
     latest: "Latest messages"
+    more:
+      one: "and one more message..<br>"
+      other: "and more %{count} messages..<br>"
     none_created: "No message created"
     none_recent: "There are no recent messages"
     one: Message
     other: Messages
     other_in_space: "Messages in space %{space}"
     show_expanded_pref: "How would you like to see your messages?"
+    title: "Messages (%{count})"
     wall: Wall
   prav: PRAV
   preferences: Preferences
   previous: Previous
   privacy: Privacy
   private_message:
+    more:
+      one: "and one more private message..<br>"
+      other: "and more %{count} private messages..<br>"
+    one: "Private Message"
+    other: "Private Messages"
     send: "Send private message"
+    title: "Private Messages (%{count})"
   profile:
     deleted: "Profile deleted successfully"
     description:
@@ -1369,6 +1394,9 @@ en:
       link: "Resend confirmation email"
       success: "Confirmation email sent to '%{email}'"
     reset_password: "Reset your password"
+    results_count:
+      one: "People, %{users_size} result"
+      other: "People, %{users_size} results"
     search: "Search Users..."
     timezone: Timezone
     updated: "User updated successfully"

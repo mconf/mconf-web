@@ -20,7 +20,9 @@ module Mconf
     def self.send_digest(to, date_start, date_end)
       posts, news, attachments, events, inbox = get_activity(to, date_start, date_end)
 
-      Notifier.delay.digest_email(to,posts,news,attachments,events,inbox)
+      unless (posts.empty? && news.empty? && attachments.empty? && events.empty? && inbox.empty?)
+        Notifier.delay.digest_email(to,posts,news,attachments,events,inbox)
+      end
     end
 
     def self.get_activity(user, date_start, date_end)
