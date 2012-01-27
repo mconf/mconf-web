@@ -52,18 +52,6 @@ $(document).ready(function() {
 
 
 
-  $("a#invite_bbb_link").fancybox({
-    'hideOnContentClick' : false,
-    'frameWidth' : 450,
-    'frameHeight' : 430
-  });
-
-  $("a#edit_bbb_room").fancybox({
-    'hideOnContentClick' : false,
-    'frameWidth' : 450,
-    'frameHeight' : 430
-  });
-
   $("#edit-bbb-room #private").livequery('click', function(event) {
     $('#edit-bbb-room .passwords').toggle(0);
     if ($("#private").is(':checked')) {

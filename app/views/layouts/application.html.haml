@@ -14,8 +14,8 @@
     = csrf_meta_tag
 
     -# Automatically includes js's and css's for the current controller and action
-    - javascript_include_tags_for_action
     - stylesheet_link_tags_for_action
+    - javascript_include_tags_for_action
 
     -unless Rails.env == "production"
       :css

@@ -703,9 +703,13 @@ en:
     my: "My Home"
     my_spaces: "My spaces"
     my_spaces_tooltip: "These are the spaces you belong to."
+    no_spaces: "You not belong to any spaces. You can see the spaces available <a href=\"%{link}\">here</a>."
     one: home
+    recent_activity_tooltip: "Here you can find the newest messages, events and news of the spaces you belong to"
     view_invite_url: "View Invite URL"
-    webconference:
+    webconference: 
+      config_tooltip: "Configurations"
+      invite_tooltip: "Invite people to join your conference"
       not_running: "Your webconference is not in progress."
       running_with: 
         no_participants: "Your webconference is in progress with no participants."
@@ -729,7 +733,6 @@ en:
   information: 
     expand: "Expand List.."
     information1: "These are the spaces you belong to"
-    information2: "Here you can find the newest messages, events and news of the spaces you belong to"
     information3: "These are the latest messages or events that you have created"
     information5: "These are the upcoming events of other spaces."
     reduce: "Reduce List.."
@@ -951,6 +954,7 @@ en:
   please: Please
   popularity: Popularity
   post: 
+    created: "Message posted!"
     deleted: "Comment %{postname} has been deleted"
     found: 
       show_all: "Show all the results"

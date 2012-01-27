@@ -9,13 +9,6 @@ $(document).ready ->
     window.open $(this)[0].href, "_blank", "resizable=yes"
     e.preventDefault()
 
-  # Links to open the window to join a webconference from a mobile device
-  # Open it using fancybox
-  $("a.webconf-join-mobile-link:not(.disabled)").fancybox ->
-    hideOnContentClick: false
-    frameWidth: 250
-    frameHeight: 500
-
   # Disable the click in any link with the 'disabled' class
   $("a.disabled").live "click", (e) ->
     false

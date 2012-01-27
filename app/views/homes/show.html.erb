@@ -72,7 +72,9 @@ $(document).ready(function() {
         <div class="message-wrapper">
           <% sender = message.sender %>
           <div class="sender-logo">
-            <%= link_logo(sender, :size => 32, :url => user_path(sender), :title => sender.full_name, :class => 'tooltipped upwards').html_safe %>
+            <% if sender %>
+              <%= link_logo(sender, :size => 32, :url => user_path(sender), :title => sender.full_name, :class => 'tooltipped upwards').html_safe %>
+            <% end %>
           </div>
           <div class="message-text">
             <% title = first_words(sanitize(message.title), 25) %>

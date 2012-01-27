@@ -113,6 +113,7 @@ ul#global-header-user-links {
 
 #page-header-right {
   float: right;
+  margin-right: 15px;
 
   .user-avatar {
     float: right;
@@ -136,10 +137,10 @@ ul#global-header-user-links {
   .superuser-icon {
     width: 16px;
     height: 16px;
-    background: url(asset_path("icons/superuser-16x16.png", image)) no-repeat scroll left top;
+    background: url(asset_path("icons/superuser-12x12.png", image)) no-repeat scroll left top;
     position: absolute;
     top: 3px;
-    right: 3px;
+    right: 0;
   }
 
   span {
@@ -212,17 +213,19 @@ ul#global-header-user-links {
     color: #404040;
     font-size: 1.4em;
     padding-top: 10px;
-
-    // horitontal line in the title
-    //height: 13px;
-    //border-bottom: 3px solid #eee;
-    //margin-bottom: 15px;
     margin-bottom: 5px;
 
-    span {
-      background: white;
-      padding-right: 15px;
+    // horitontal line in the title
+    &.horizontal-line {
+      height: 13px;
+      border-bottom: 3px solid #eee;
+      margin-bottom: 15px;
+      span {
+        background: white;
+        padding-right: 15px;
+      }
     }
+
     .help-icon { margin-top: 5px; }
   }
 

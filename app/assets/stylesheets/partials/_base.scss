@@ -22,10 +22,11 @@ input[type=password], input[type=text], textarea, ul.token-input-list-facebook {
   border: 1px solid #ccc;
   font-size: $font-normal;
   padding: 3px;
+  @include border-radius(3px);
 }
 
 input[type=password]:focus, input[type=text]:focus, textarea:focus, ul.token-input-list-facebook:focus {
-  border: 1px solid #275b8a;
+  border: 1px solid $orange; //#275b8a;
 }
 
 input[type=checkbox] {

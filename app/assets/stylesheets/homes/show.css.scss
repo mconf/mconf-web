@@ -19,18 +19,6 @@
 
 #webconference-room {
 
-  .action-buttons {
-    float: right;
-    margin: 8px;
-
-    .button {
-      float: right;
-      min-width: 90px;
-      text-align: center;
-      margin-right: 5px;
-    }
-  }
-
   .in-progress-icon {
     float: left;
     margin-top: 4px;
@@ -42,26 +30,34 @@
     margin-top: 5px;
     padding: 5px;
     background: #f6f6f6;
-    border-top: 1px solid #ddd;
-    // @include border-radius(5px);
+    @include border-radius(5px);
 
-    .config-buttons {
+    .action-buttons {
       float: right;
-      margin: 6px 10px 0 15px;
+      margin: 4px;
+
+      .button {
+        float: left;
+
+        text-align: center;
+        margin-right: 5px;
+      }
+
+      .webconf-start-link, .webconf-join-mobile-link {
+        min-width: 90px;
+      }
     }
 
     .invite-url {
-      float: right;
+      float: left;
+      margin-left: 5px;
 
       input[type=text] {
-        width: 410px;
+        width: 300px;
         padding: 5px;
-        @include border-radius(5px);
         margin-left: 5px;
-        background: white;
-        &:focus {
-          border: 1px solid black;
-        }
+        background: $site-bg-color;
+        color: #444;
       }
 
       .clippy {
@@ -76,56 +72,81 @@
 
 #user-spaces {
 
+  .action-buttons {
+    float: right;
+    padding-right: 10px;
+    padding-left: 10px;
+    background: white;
+  }
+
+  .no-spaces { text-align: center; }
+
   .space-list {
     margin: 0;
-    margin-top: 15px;
+    margin-top: 5px;
 
     li {
       text-align: left;
       position: relative;
       display: block;
       margin-right: 8px;
-      margin-bottom: 8px;
-
+      margin-top: 10px;
       float: left;
       width: 170px;
-
-      //&:hover {
-      //  background: #eee;
-      //}
     }
 
-    img {
+    .space-logo-wrapper {
       float: left;
       margin-top: 2px;
-      //@include box-shadow(0px 0px 3px #555);
-      //@include border-radius(2px);
-      border: 1px solid #aaa;
-      &:hover { @include box-shadow(0px 0px 5px $header-bg-color); }
+      height: 32px;
+      padding: 2px;
+      border: 1px solid #ddd;
+
+      img {
+        //@include border-radius(5px);
+        &:hover { @include box-shadow(0px 0px 5px $header-bg-color); }
+      }
     }
 
     .description-box {
       float: left;
       margin-left: 5px;
-      width: 120px;
+      width: 110px;
       overflow: hidden;
-    }
 
-    .description {
-      //float: left;
+      .space-title {
+        font-weight: bold;
+        display: block;
+        white-space: nowrap;
+        overflow: hidden;
+      }
     }
+  }
 
-    .title {
-      font-weight: bold;
-      display: block;
-      white-space: nowrap;
-      overflow: hidden;
-    }
+  .content-block-footer {
+    margin-top: 15px;
+    padding: 10px;
   }
 }
 
-#new-space-button {
+#recent-activity {
+  margin-top: 20px;
+}
+
+#recent-activity-options {
+  background: $site-bg-color;
   float: right;
-  //margin-top: 5px;
-  margin-right: 10px;
+  font-size: $font-normal;
+  font-weight: normal;
+  padding-right: 10px;
+  padding-left: 10px;
+}
+
+#recent-activity-content {
+
+  .interval-title {
+    margin-top: 5px;
+    margin-bottom: 10px;
+    font-weight: bold;
+  }
 }
