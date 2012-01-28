@@ -9,7 +9,7 @@
       </li>
       <%if @event.future? || @event.is_happening_now?%>
         <li>
-          <%= link_to t('invitation.title'), inviteroom_invite_path(:type => "event", :event => @event.id), :id => 'invite_event' %>
+          <%= link_to t('invitation.title'), inviteroom_invite_path(:type => "event", :event => @event.id), :class => 'open-modal' %>
         </li>
       <%end%>
       <li>

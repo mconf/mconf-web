@@ -4,6 +4,6 @@
 //= require jquery/jquery.easing.1.3
 //= require jquery/jquery.timers-1.2
 //= require jquery/jquery.qtip.2.0.0pre
-//= require anythingslider/jquery.anythingslider.min
+//= require jquery/jquery.anythingslider.min
 //= require application
 //= require_tree ./frontpage/

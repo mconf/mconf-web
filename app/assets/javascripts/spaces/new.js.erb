@@ -13,6 +13,7 @@ $(document).ready(function() {
   }
 
   // function executed after the crop fancy box is shown
+  // TODO: crop with modal window
   onCropLogoFormSuccess = function() {
     $('#crop_logo_form').ajaxForm({
       beforeSubmit:function() {
@@ -23,7 +24,7 @@ $(document).ready(function() {
         $('#resultado').fadeIn('slow');
         $("#space_image").attr('value', "tmp/" + rand + "/uploaded_logo.png");
         $("#selected_logo_image").attr('src', "/assets/" + "tmp/" + rand + "/uploaded_logo.png?" + (new Date()).getTime());
-        $.fancybox.close();
+        closeModalWindows();
         closeUploadLogo();
       }
     });

@@ -4,14 +4,13 @@
 
 <div id="edit_thread">
 
-  <%# div title %>
-        <% if post.event.present?%>
-          <h3><%= t('comment.edit') %></h3>
-        <% elsif post.parent_id.nil?%>
-          <h3><%=link_to image_tag("arrow_right_up.png", :size=>"16x16",:title=>"Show Advanced Editor"), edit_space_post_path(@space, post), :id => "big_edit_thread", :class => "extract_form" %><%= t('thread.edit') %></h3>
-        <%else%>
-    <h3><%=link_to image_tag("arrow_right_up.png", :size=>"16x16",:title=>"Show Advanced Editor"), edit_space_post_path(@space, post), :id => "big_edit_thread", :class => "extract_form" %><%= t('comment.edit') %></h3>
-  <%end%>
+  <% if post.event.present?%>
+    <h3><%= t('comment.edit') %></h3>
+  <% elsif post.parent_id.nil?%>
+    <h3><%=link_to image_tag("arrow_right_up.png", :size=>"16x16",:title=>"Show Advanced Editor"), edit_space_post_path(@space, post), :id => "big_edit_thread", :class => "extract_form open-modal", :data => { :"modal-options" => 'big_edit_thread_modal' } %><%= t('thread.edit') %></h3>
+  <% else %>
+    <h3><%=link_to image_tag("arrow_right_up.png", :size=>"16x16",:title=>"Show Advanced Editor"), edit_space_post_path(@space, post), :id => "big_edit_thread", :class => "extract_form open-modal", :data => { :"modal-options" => 'big_edit_thread_modal' } %><%= t('comment.edit') %></h3>
+  <% end %>
 
         <%# Form %>
         <%= form_for(prepare_for_form(post),:html => { :multipart => true, :id => "edit-form"}) do |f| -%>

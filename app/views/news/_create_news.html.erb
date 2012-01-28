@@ -15,7 +15,7 @@
   <button type="submit" class="blue_button basic_button"><%=t('button.publish')%></button>
   </div>
 
-  <%= link_to t('advanced_editor'), new_space_news_path(@space), :id => "big_new_news", :class => "extract_form" %>
+  <%= link_to t('advanced_editor'), new_space_news_path(@space), :id => "big_new_news", :class => "extract_form open-modal", :data => { :"modal-options" => 'big_new_news_modal' } %>
   <%= image_tag("icons/help.png",:title=>t("tooltip.advanced_editor"),:size=>"16x16",:class=>"icon tooltipped upwards",:style=>"cursor:pointer")%>
 
 <% end %>

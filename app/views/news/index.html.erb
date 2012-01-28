@@ -12,26 +12,6 @@ $(document).ready(function() {
             function(data){
               $("#news_sidebar").replaceWith(data);
               $(".clicked_edit_news_link").attr("href",route).removeClass("clicked_edit_news_link");
-
-                /*New piece of news*/
-
-              $("a#big_edit_news").fancybox({
-                'hideOnContentClick' : false,
-                'callbackOnShow' : function(){
-                  $(".big_news_title").val($(".small_news_title").val());
-                  $(".big_news_text").val($(".small_news_text").val());
-                  big_textarea();
-                  $("#fancy_outer").width($("#news_big").width() + 50);
-                $("#fancy_outer").height($("#news_big").height() + 70);
-                  $(window).resize();
-                },
-                'callbackOnClose' : function(){
-                  $(".small_news_title").val($(".big_news_title").val());
-                  var oEditor = FCKeditorAPI.GetInstance('news[text]') ;
-                  var data = oEditor.GetHTML();
-                  $(".small_news_text").val(data);
-                }
-              });
             },
             "html"
           );
@@ -39,28 +19,48 @@ $(document).ready(function() {
 
    /*New piece of news*/
 
-    $("a#big_new_news").fancybox({
-    'hideOnContentClick' : false,
-    'callbackOnShow' : function(){
-      $(".big_news_title").val($(".small_news_title").val());
-      $(".big_news_text").val($(".small_news_text").val());
-      big_textarea();
-      $("#fancy_outer").width($("#news_big").width() + 50);
-    $("#fancy_outer").height($("#news_big").height() + 70);
-      $(window).resize();
-    },
-    'callbackOnClose' : function(){
-      $(".small_news_title").val($(".big_news_title").val());
-      var oEditor = FCKeditorAPI.GetInstance('news[text]') ;
-      var data = oEditor.GetHTML();
-      $(".small_news_text").val(data);
-    }
-  });
+  big_new_news_modal = function() {
+    return {
+      'onComplete' : function(){
+        $(".big_news_title").val($(".small_news_title").val());
+        $(".big_news_text").val($(".small_news_text").val());
+        big_textarea();
+        $("#fancy_outer").width($("#news_big").width() + 50);
+        $("#fancy_outer").height($("#news_big").height() + 70);
+          $(window).resize();
+        },
+      'onClosed' : function(){
+        $(".small_news_title").val($(".big_news_title").val());
+        var oEditor = FCKeditorAPI.GetInstance('news[text]') ;
+        var data = oEditor.GetHTML();
+        $(".small_news_text").val(data);
+      }
+     };
+  };
+
+  big_edit_news_modal = function() {
+    return {
+      'onComplete' : function(){
+        $(".big_news_title").val($(".small_news_title").val());
+        $(".big_news_text").val($(".small_news_text").val());
+        big_textarea();
+        $("#fancy_outer").width($("#news_big").width() + 50);
+        $("#fancy_outer").height($("#news_big").height() + 70);
+          $(window).resize();
+        },
+      'onClosed' : function(){
+        $(".small_news_title").val($(".big_news_title").val());
+        var oEditor = FCKeditorAPI.GetInstance('news[text]') ;
+        var data = oEditor.GetHTML();
+        $(".small_news_text").val(data);
+      }
+    };
+  };
 
    big_textarea = function(data){
     var div = document.getElementById("big_textarea_div");
     var oFCKeditor = new FCKeditor( 'news[text]' ) ;
-    oFCKeditor.BasePath = "/javascripts/fckeditor/" ;
+    oFCKeditor.BasePath = "/assets/fckeditor/" ;
     oFCKeditor.ToolbarSet = 'vccToolbar' ;
     oFCKeditor.Value = $(".big_news_text").val();
     div.innerHTML = oFCKeditor.CreateHtml();

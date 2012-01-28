@@ -1,3 +1,5 @@
+// TODO: crop with modal window
+
 //style_file_input();
 
 logo_crop_form = $("#<%= form_id %>");
@@ -17,7 +19,7 @@ logo_crop_form.ajaxForm(function(data) {
   $("#<%= container_id %>").append("<div id=\"<%= container_id %>_content\">" + data + "</div>");
   $("#<%= container_id %>_content").width($("#croplogo").attr('width') + 20);
 
-  $("#logo_crop_submit_anchor").fancybox({
+  $("#logo_crop_submit_anchor").colorbox({
     'hideOnContentClick' : false,
     'frameWidth' : 200,
     'frameHeight' : 200,

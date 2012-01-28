@@ -34,7 +34,7 @@ $(document).ready ->
         adjust:
           method: "shift"
       style:
-        classes: "ui-tooltip-youtube ui-tooltip-mconf"
+        classes: "ui-tooltip-tipsy ui-tooltip-mconf"
 
   # A tooltip in the format of a label, inside the component (used mainly
   # for images)
@@ -52,4 +52,4 @@ $(document).ready ->
         adjust:
           method: "shift"
       style:
-        classes: "ui-tooltip-youtube ui-tooltip-mconf-label"
+        classes: "ui-tooltip-tipsy ui-tooltip-mconf-label"

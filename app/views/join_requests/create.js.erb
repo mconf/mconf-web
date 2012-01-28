@@ -1,5 +1,5 @@
 $("#lightbox_content").children().remove();
 $("#lightbox_content").append("<%=escape_javascript(render :partial => "new.html.erb") %>");
-$("<a href=\"#lightbox_content\"></a>").fancybox({
+$("<a href=\"#lightbox_content\"></a>").colorbox({
   'hideOnContentClick' : false
 }).click();

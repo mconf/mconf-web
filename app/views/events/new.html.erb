@@ -44,15 +44,6 @@ $(document).ready(function() {
 <% end %>
 
 <div class="whyte_wrapper">
-  <div style="display:none">
-    <div id="sure_form">
-      <div id="lightbox_advise"><%= t('event.cancel.lose') %></div>
-      <div id="event_step_cancel_buttons">
-        <%= link_to "<span>" + t('button.accept') + "</span>", space_events_path,:class => "basic_button blue_button", :id=>"button_yes" %>
-        <%= link_to "<span>" + t('button.cancel') + "</span>", "javascript:our_close();" ,:class => "basic_button blue_button", :id=>"button_no" %>
-      </div>
-    </div>
-  </div>
 
   <div id="for_lightbox" style="display:none">
   </div>
@@ -76,7 +67,7 @@ $(document).ready(function() {
         <%=t("button.creating") %>
       </button>
 
-      <%= link_to ("<span>" + t('cancel') + "</span>").html_safe, "#sure_form",:class => "basic_button blue_button", :id=>"cancel_event" %>
+      <%= link_to ("<span>" + t('cancel') + "</span>").html_safe, space_events_path,:class => "button", :confirm => t('are_you_sure') %>
     </ul>
   <% end %>
     <!--

@@ -1,20 +1,20 @@
 <div id="news_sidebar">
 
-<h3><%=link_to image_tag("arrow_right_up.png", :size=>"16x16", :title => t('show_advanced_editor')),  edit_space_news_path(@space, :big => true), :id => "big_edit_news", :class => "extract_form" %><%= t('news.edit') %></h3>
+<h3><%=link_to image_tag("arrow_right_up.png", :size=>"16x16", :title => t('show_advanced_editor')),  edit_space_news_path(@space, :big => true), :id => "big_edit_news", :class => "extract_form open-modal", :data => { :"modal-options" => 'big_edit_news_modal' } %><%= t('news.edit') %></h3>
 
 <%= form_for(@edit_news, :url => space_news_path(@space, @edit_news)) do |f| %>
-  
+
   <div>
     <label for="title"><%= t('title') %>:</label><%= f.text_field :title, :class => "small_news_title" %>
   </div>
-  
+
   <div class="margin-up">
     <label for="text"><%= t('description') %>:</label><br/>
     <%= f.text_area :text, :class => "span-6 small_news_text"%>
   </div>
   <div class="margin-up">
     <button class="blue_button basic_button" type="submit"><%=t("button.update")%></button>
-	<%= link_to t('news.publish_another'), space_news_index_path(@space)%>
+  <%= link_to t('news.publish_another'), space_news_index_path(@space)%>
   </div>
 
 <% end %>

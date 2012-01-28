@@ -61,23 +61,13 @@ $(document).ready(function() {
     }
   });
 
-  /*
-   * Send Private Message
-   */
-
-  $("a#new_private_message_link").fancybox({
-    'hideOnContentClick' : false,
-    'frameWidth' : 450,
-    'frameHeight' : 430
-  });
-
 });
 </script>
 <% end %>
 
 <div class="user">
   <ul class="group_links">
-    <li><%= "#{link_to image_tag("icons/email.png", :title=>t('private_message.send'), :alt=>t('private_message.send'), :class=>"icon"), new_user_message_path(:user_id => current_user.to_param, :receiver => user.id), :id => 'new_private_message_link'}".html_safe %></li>
+    <li><%= "#{link_to image_tag("icons/email.png", :title=>t('private_message.send'), :alt=>t('private_message.send'), :class=>"icon"), new_user_message_path(:user_id => current_user.to_param, :receiver => user.id), :class => 'open-modal'}".html_safe %></li>
     <li><%= link_to image_tag("icons/cancel.png", :alt => t('user.delete_from_space'),:class=>"icon" ), space_performance_path(@space, performance), :confirm => t('are_you_sure'), :method => :delete,:title => t('user.delete_from_space') %></li>
   </ul>
 

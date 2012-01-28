@@ -1,5 +1,4 @@
 //= require fckeditor/fckeditor
-//= require jquery/jquery.fancybox
 //= require jquery/jquery.fcbkcomplete
 
 $(document).ready(function() {
@@ -33,7 +32,7 @@ $("#new_attachment_big_link").livequery('click',function () {
  big_textarea = function(data){
     var div = document.getElementById("big_textarea_div");
     var oFCKeditor = new FCKeditor( 'post[text]' ) ;
-    oFCKeditor.BasePath = "/javascripts/fckeditor/";
+    oFCKeditor.BasePath = "/assets/fckeditor/";
   oFCKeditor.Height = "270";
     oFCKeditor.ToolbarSet = 'vccToolbar' ;
     oFCKeditor.Value = $(".big_post_text").val();
