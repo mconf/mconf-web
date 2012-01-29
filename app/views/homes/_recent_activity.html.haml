@@ -30,13 +30,14 @@
       - interval[:contents].each do |content|
         - case content
         - when Post
-          = render :partial => "posts/unified_post" , :locals => {:thread => content.reload, :extended => false, :last => (interval[:contents].last == content), :show_author => true}
+          = render "posts/unified_post", :thread => content.reload, :extended => false, :show_author => true
         - when Event
-          = render :partial => "events/unified_event", :locals => {:event => content.reload, :last => (interval[:contents].last == content)}
+          = render "events/unified_event", :event => content.reload
         - when News
-          = render :partial => "news/unified_news", :locals =>{:news => content.reload, :last => (interval[:contents].last == content)}
+          = render "news/unified_news", :news => content.reload
         - when Attachment
           - content = content.reload
-          = render :partial => "attachments/unified_attachment", :locals =>{:attachment => content, :last => (interval[:contents].last == content), :show_author => true} if content.post.blank?
+          - if content.post.blank?
+            = render "attachments/unified_attachment", :attachment => content, :show_author => true
     .content-block-footer
       = will_paginate @all_contents

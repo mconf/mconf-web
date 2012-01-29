@@ -1,5 +1,3 @@
-<% last ||= false -%>
-
 <% # TODO: remove javascript to independent js files %>
 <%= content_for :headers do %>
 <script type="text/javascript" charset="utf-8">
@@ -18,13 +16,13 @@ $(document).ready(function() {
 </script>
 <% end %>
 
-<div class="<%=cycle("even_thread" , "odd_thread")%> news_cloud news_padding  <%='last' if last %>">
+<div class="<%=cycle("even_thread" , "odd_thread")%> news_cloud news_padding">
   <%if news.nil? %>
         <p><%= t('news.none_to_show') %></p>
   <%else%>
   <div>
-    <div class="div-logo">
-          <%= raw(link_logo(news.space, :size =>'w48', :url => space_path(news.space), :title=>news.space.name)) %>
+    <div class="logo-in-thread">
+          <%= link_logo(news.space, :size =>'w48', :url => space_path(news.space), :title=>news.space.name).html_safe %>
         </div>
     <div class="news-content">
           <div class="news-home-title">

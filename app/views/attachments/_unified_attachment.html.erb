@@ -1,11 +1,10 @@
-<% last ||= false -%>
 <% show_author ||= false%>
 
-<div class="<%=cycle("even_thread" , "odd_thread")%> attachment_cloud <%='last' if last%>">
+<div class="<%=cycle("even_thread" , "odd_thread")%> attachment_cloud">
 
   <div class="event event_padding">
-    <div class="div-logo">
-      <%= raw(link_logo(attachment.space, :size =>'w48', :url => space_path(attachment.space), :title=>attachment.space.name)) %>
+    <div class="logo-in-thread">
+      <%= link_logo(attachment.space, :size =>'w48', :url => space_path(attachment.space), :title=>attachment.space.name).html_safe %>
     </div>
     <div class="home_event">
       <ul class="group_links">

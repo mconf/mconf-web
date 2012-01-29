@@ -698,7 +698,7 @@ en:
     topics: Topics
   his_message_reads_thus: "His message reads thus"
   home: 
-    activity: "Recent activity..."
+    activity: "Recent activity"
     invite_url: "Invite URL"
     my: "My Home"
     my_spaces: "My spaces"
@@ -1263,7 +1263,7 @@ en:
   street: Street
   subject: Subject
   summary: "Video Info"
-  superuser: "Superuser"
+  superuser: "Administrator"
   tag: 
     add: "Add tags"
     edit: "Edit tags"

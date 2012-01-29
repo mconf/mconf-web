@@ -1,12 +1,11 @@
-<% last ||= false -%>
 <% show_author ||= false -%>
 
-<div id="parent_<%=thread.id%>" class="<%=cycle("even_thread" , "odd_thread")%> post_cloud <%='last' if last%>">
+<div id="parent_<%=thread.id%>" class="<%=cycle("even_thread" , "odd_thread")%> post_cloud">
   <div class="thread">
 
     <div class="thread_content">
-      <div class="div-logo">
-        <%= raw(link_logo(thread.space, :size =>'w48', :url => space_path(thread.space), :title=>thread.space.name)) %>
+      <div class="logo-in-thread">
+        <%= link_logo(thread.space, :size =>'w48', :url => space_path(thread.space), :title=>thread.space.name).html_safe %>
       </div>
 
       <div class="thread-home">
