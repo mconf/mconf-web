@@ -1,26 +1,35 @@
 namespace :setup do
 
-  desc "Populate the DB with random test data"
+  desc "Populate the DB with random test data. Options: SINCE, CLEAR"
   task :populate => :environment do
+
+    if ENV['SINCE']
+      @created_at_start = DateTime.parse(ENV['SINCE']).to_time
+    else
+      @created_at_start = 6.months.ago
+    end
+    puts "- Start date set to: #{@created_at_start}"
 
     require 'populator'
     require 'ffaker'
 
     if ENV['CLEAR']
       puts "* Destroying old stuff"
+      PrivateMessage.destroy_all
+      Statistic.destroy_all
+      Performance.destroy_all
       Space.destroy_all
       users_without_admin = User.find_with_disabled(:all)
       users_without_admin.delete(User.find_by_superuser(true))
       users_without_admin.each(&:destroy)
-      Statistic.destroy_all
     end
 
-    puts "* Create Users (15)"
+    puts "* Create users (15)"
     User.populate 15 do |user|
       user.login = Populator.words(1)
       user.email = Faker::Internet.email
       user.crypted_password = User.encrypt("test", "")
-      user.activated_at = 2.years.ago..Time.now
+      user.activated_at = @created_at_start..Time.now
       user.disabled = false
       user.notification = User::NOTIFICATION_VIA_EMAIL
 
@@ -44,8 +53,6 @@ namespace :setup do
         profile.visibility = Populator.value_in_range((Profile::VISIBILITY.index(:everybody))..(Profile::VISIBILITY.index(:nobody)))
       end
     end
-
-    puts "* Create Users: webconference rooms"
     User.all.each do |user|
       if user.bigbluebutton_room.nil?
         user.create_bigbluebutton_room :owner => user,
@@ -55,9 +62,26 @@ namespace :setup do
       end
     end
 
+    puts "* Create private messages (8 for each user)"
+    User.all.each do |user|
+      senders = User.all.reject!{ |u| u == user }.map(&:id)
+      PrivateMessage.populate 10 do |message|
+        message.receiver_id = user.id
+        message.sender_id = senders
+        message.title = Populator.words(1..3).capitalize
+        message.body = Populator.sentences(1..3)
+        message.checked = [ true, false ]
+        message.deleted_by_sender = false
+        message.deleted_by_receiver = false
+        message.created_at = @created_at_start..Time.now
+        message.updated_at = message.created_at..Time.now
+      end
+    end
+
     puts "* Create spaces (10)"
     Space.populate 10 do |space|
-      space.name = Populator.words(1..3).capitalize
+      name = Populator.words(1..3).capitalize until Space.find_by_name(name).nil?
+      space.name = name
       space.permalink = PermalinkFu.escape(space.name.titleize)
       space.description = Populator.sentences(1..3)
       space.public = [ true, false ]
@@ -68,7 +92,7 @@ namespace :setup do
         post.title = Populator.words(1..4).titleize
         post.text = Populator.sentences(3..15)
         post.spam = false
-        post.created_at = 2.years.ago..Time.now
+        post.created_at = @created_at_start..Time.now
         post.updated_at = post.created_at..Time.now
       end
 
@@ -79,7 +103,7 @@ namespace :setup do
         event.description = Populator.sentences(0..3)
         event.place = Populator.sentences(0..2)
         event.spam = false
-        event.created_at = 1.years.ago..Time.now
+        event.created_at = @created_at_start..Time.now
         event.updated_at = event.created_at..Time.now
         event.start_date = event.created_at..1.years.since(Time.now)
         event.end_date = 2.hours.since(event.start_date)..2.days.since(event.start_date)
@@ -95,36 +119,8 @@ namespace :setup do
           last_agenda_entry_end_time = event.start_date
           first_agenda_entry = true
 
-          AgendaEntry.populate 2..10 do |agenda_entry|
-            agenda_entry.agenda_id = agenda.id
-            agenda_entry.title = Populator.words(1..3).titleize
-            agenda_entry.description = Populator.sentences(0..2)
-            agenda_entry.speakers = Populator.words(2..6).titleize
-            if first_agenda_entry
-              # fixing the start_time of the first agenda entry to the start_date of the event
-              agenda_entry.start_time = event.start_date
-              first_agenda_entry = false
-            else
-              agenda_entry.start_time = last_agenda_entry_end_time..event.end_date
-            end
-            agenda_entry.end_time = agenda_entry.start_time..event.end_date
-
-            # updating the inferior limit for the next agenda entry
-            last_agenda_entry_end_time = agenda_entry.end_time
-
-            agenda_entry.created_at = agenda.created_at..Time.now
-            agenda_entry.updated_at = agenda_entry.created_at..Time.now
-            agenda_entry.embedded_video = "<object width='425' height='344'><param name='movie' " +
-              "value='http://www.youtube.com/v/9ri3y2RDzUM&hl=es_ES&fs=1&'></param><param name='allowFullScreen'" +
-              " value='true'></param><param name='allowscriptaccess' value='always'></param><embed" +
-              " src='http://www.youtube.com/v/9ri3y2RDzUM&hl=es_ES&fs=1&' type='application/x-shockwave-flash'" +
-              " allowscriptaccess='always' allowfullscreen='true' width='425' height='344'></embed></object>"
-            agenda_entry.video_thumbnail = "http://i2.ytimg.com/vi/9ri3y2RDzUM/default.jpg"
-          end
-
           # fixing the end_date of the event to the end_time of the last_agenda_entry
           event.end_date = last_agenda_entry_end_time
-
         end
       end
 
@@ -132,7 +128,7 @@ namespace :setup do
         news.space_id = space.id
         news.title = Populator.words(3..8).titleize
         news.text = Populator.sentences(2..10)
-        news.created_at = 2.years.ago..Time.now
+        news.created_at = @created_at_start..Time.now
         news.updated_at = news.created_at..Time.now
       end
 
@@ -142,14 +138,11 @@ namespace :setup do
       end
     end
 
-    users = User.all
-    role_ids = Role.find_all_by_stage_type('Space').map(&:id)
-
     puts "* Create spaces: webconference rooms"
     Space.all.each do |space|
       if space.bigbluebutton_room.nil?
         BigbluebuttonRoom.populate 1 do |room|
-          room.server_id = BigbluebuttonServer.first
+          room.server_id = BigbluebuttonServer.first.id
           room.owner_id = space.id
           room.owner_type = 'Space'
           room.name = space.name
@@ -158,7 +151,7 @@ namespace :setup do
           room.attendee_password = "ap"
           room.moderator_password = "mp"
           room.private = !space.public
-          room.logout_url = "/spaces/#{space.permalink}"
+          room.logout_url = "/feedback/webconf"
           room.external = false
           room.param = space.name.parameterize.downcase
         end
@@ -171,12 +164,19 @@ namespace :setup do
     logos.delete("..")
     Space.all.each do |space|
       space.default_logo = "default_space_logos/" + logos[rand(logos.length)].to_s
-      space.save
+      begin
+        space.save
+      rescue
+        # TODO: ignoring the error:
+        # "no decode delegate for this image format ..."
+        puts "- warn: failed to create a logo for #{space.name}"
+      end
     end
 
-    puts "* Create spaces: more data..."
+    puts "* Create spaces: adding users"
     Space.all.each do |space|
-      available_users = users.dup
+      role_ids = Role.find_all_by_stage_type('Space').map(&:id)
+      available_users = User.all.dup
 
       Performance.populate 5..7 do |performance|
         user = available_users.delete_at((rand * available_users.size).to_i)
@@ -239,8 +239,6 @@ namespace :setup do
       end
 
     end
-
-    Site.find(1).update_attribute(:signature, "Mconf")
 
   end
 end
