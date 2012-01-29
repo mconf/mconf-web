@@ -1,9 +1,8 @@
 #recent-activity.content-block
 
-  %h3
-    %span
-      = image_tag "icons/information.png", :title => t('home.recent_activity_tooltip'), :class => "icon tooltipped upwards rightwards"
-      = t('home.activity')
+  .content-block-header
+    %h3= t('home.activity')
+    = info_icon t('home.recent_activity_tooltip')
     #recent-activity-options
       = t('show') + ":"
       = home_menu_checkbox "posts"
@@ -23,7 +22,7 @@
   -#%div{:class => "arrow_drop_box float_right_icon #{'hide' if @update_act}"}
   -#  = image_tag("icons/dropico.png", :class=>"icon",:title=> t('information.expand'))
 
-  #recent-activity-content
+  #recent-activity-content.content-block-middle
     - for interval in intervals(@all_contents) do
       - unless interval[:contents].empty?
         .interval-title

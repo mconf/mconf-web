@@ -158,6 +158,14 @@ module ApplicationHelper
     content_tag :div, nil, options
   end
 
+  # Default icon that shows a tooltip with information about something
+  def info_icon(title, options={})
+    cls = "info-icon tooltipped upwards "
+    options[:class] = options.has_key?(:class) ? cls + options[:class] : cls
+    options.merge!(:title => title)
+    content_tag :div, nil, options
+  end
+
   # Default icon to a feed (rss, atom)
   def feed_icon(options={})
     cls = "feed-icon tooltipped upwards "

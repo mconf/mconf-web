@@ -6,12 +6,12 @@
   = render :partial => 'sidebar_join_links'
 
   = render_sidebar_content_block('sidebar-webconference', :active => @bbb_room.is_running?) do
-    %h3
+    .content-block-header
       - if @bbb_room.is_running?
         = image_tag('icons/in_progress-16x16.gif', :class => 'in-progress-icon')
-      = t('webconference.one')
+      %h3= t('webconference.one')
       = help_icon t("tooltip.bigbluebutton_space"), :class => 'leftwards'
-    .content-block-content-wrapper
+    .content-block-middle
       .description
         - if @bbb_room.is_running?
           %span= t('webconference.currently_running', :count => @bbb_room.participant_count)
@@ -32,11 +32,12 @@
       = link_to t('view_more'), space_webconference_path(space)
 
   = render_sidebar_content_block('sidebar-upcoming-events') do
-    %h3
+    .content-block-header
       = image_tag("icons/date.png")
-      = link_to t('event.upcoming.other'), space_events_path(@space)
+      %h3
+        = link_to t('event.upcoming.other'), space_events_path(@space)
       = help_icon t("tooltip.upcoming"), :class => 'leftwards'
-    .content-block-content-wrapper
+    .content-block-middle
       %span.event-timezone
         (#{t('timezone.one')}: GMT#{Time.zone.formatted_offset})
       = render 'events/sidebar_event_wrapper', :events => @upcoming_events
@@ -45,27 +46,27 @@
       = link_to(t('read_more'), space_events_path(@space)) if space.authorize?([:read, :content], :to => current_user)
 
   = render_sidebar_content_block("sidebar-space-admins") do
-    %h3
-      = t('user.administrators')
+    .content-block-header
+      %h3= t('user.administrators')
       = help_icon t("tooltip.admin"), :class => 'leftwards'
-    .content-block-content-wrapper
+    .content-block-middle
       - admins = space.actors(:role => 'Admin')
       - admins.each do |admin|
         .admin-wrapper
-          .admin-logo
+          .logo-in-thread
             = link_logo(admin, :size => 32, :url => user_path(admin), :title => admin.name).html_safe
           .admin-text
             = link_to sanitize(admin.full_name), user_path(admin), :class => "admin-name"
             %span.admin-organization= sanitize(admin.organization)
+
   - if logged_in? && space.users.include?(current_user) && !(space.is_last_admin?(current_user))
     = render_sidebar_content_block do
       = render :partial => 'sidebar_leave_space'
 
   = render_sidebar_content_block('sidebar-pageviews') do
-    #content-block-content-wrapper
-      %span.value= @space.unique_pageviews
-      %span= t('statistics.space_views')
-      = help_icon t("tooltip.num_views"), :class => 'leftwards'
+    %span.value= @space.unique_pageviews
+    %span= t('statistics.space_views')
+    = help_icon t("tooltip.num_views"), :class => 'leftwards'
 
 
 // Starting the content in the middle of the page...
@@ -87,32 +88,14 @@
             \- #{event.end_date.to_formatted_s(:short)} (#{t('GMT')} #{Time.zone.formatted_offset} )
 
 .content-block
-  %h3
-    %span
-      = t('space.description')
-  .content-block-content-wrapper
+  .content-block-header
+    %h3= t('space.description')
+  .content-block-middle
     = @space.description
 
 - if @news_to_show
-  #latest-news.content-block
-    %h3
-      %span
-        = image_tag("icons/newspaper.png")
-        = t('latest_news')
-        = image_tag('icons/loading-16x16.gif', :class => 'loading-icon') # TODO: move to helper
-        = help_icon t("tooltip.latest_news"), :class => 'leftwards'
-    = render :partial => 'latest_news'
+  = render :partial => 'latest_news'
 
-.content-block
-  %h3
-    %span
-      = image_tag("icons/comment.png")
-      = link_to t('post.latest'), space_posts_path(@space)
-  = render :partial => 'latest_posts'
+= render :partial => 'latest_posts'
 
-.content-block
-  %h3
-    %span
-      = image_tag("icons/user.png")
-      = link_to t('user.recent_join'), space_users_path(@space)
-  = render :partial => 'latest_users'
+= render :partial => 'latest_users'

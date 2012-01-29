@@ -1,15 +1,12 @@
 @import "compass/css3";
 @import "partials/definitions";
+@import "partials/base";
 
 #sidebar-inbox {
   .message-wrapper {
     clear: both;
     margin-bottom: 10px;
     margin-top: 5px;
-
-    .sender-logo {
-      @include user-logo-in-thread; // defined in _definitions
-    }
 
     .message-text { margin-left: 45px; }
     .message-title { display: block; }
@@ -83,34 +80,24 @@
 
   .space-list {
     margin: 0;
-    margin-top: 5px;
 
     li {
       text-align: left;
       position: relative;
       display: block;
-      margin-right: 8px;
+      margin-right: 5px;
       margin-top: 10px;
       float: left;
       width: 170px;
     }
 
-    .space-logo-wrapper {
-      float: left;
+    .space-logo {
+      @extend .logo-in-thread;
       margin-top: 2px;
-      height: 32px;
-      padding: 2px;
-      border: 1px solid #ddd;
-
-      img {
-        //@include border-radius(5px);
-        &:hover { @include box-shadow(0px 0px 5px $header-bg-color); }
-      }
     }
 
     .description-box {
       float: left;
-      margin-left: 5px;
       width: 110px;
       overflow: hidden;
 
@@ -124,8 +111,12 @@
   }
 
   .content-block-footer {
-    margin-top: 15px;
+    margin-top: 5px;
     padding: 10px;
+
+    .all-spaces {
+      float: left;
+    }
   }
 }
 

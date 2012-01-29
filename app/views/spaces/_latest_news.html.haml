@@ -1,5 +1,10 @@
-#latest-news-content
-  .content-block-content-wrapper
+#latest-news.content-block
+  .content-block-header
+    = image_tag("icons/newspaper.png")
+    %h3= t('latest_news')
+    = help_icon t("tooltip.latest_news")
+    = image_tag('icons/loading-16x16.gif', :class => 'loading-icon') # TODO: move to helper
+  .content-block-middle
     .news-title
       %h4= sanitize(@news_to_show.title)
       %span.updated-at= t('updated_time_ago', :time => time_ago_in_words(@news_to_show.updated_at))

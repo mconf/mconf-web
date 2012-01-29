@@ -32,20 +32,13 @@ $(document).ready(function() {
 
 <%= content_for :sidebar do  %>
 
-  <% if logged_in? %>
-    <!--<div class="sidebar-top-action-button">-->
-      <% link_to t('space.create_own'), new_space_path, :class => "button orange big" %>
-      <% render_clearer %>
-    <!--</div>-->
-  <% end %>
-
   <%= render_sidebar_content_block('sidebar-upcoming-events') do %>
-    <h3>
+    <div class="content-block-header">
       <%= image_tag("icons/date.png") %>
-      <%= t('calendar.my') %>
-    </h3>
+      <h3><%= t('calendar.my') %></h3>
+    </div>
 
-    <div class="content-block-content-wrapper">
+    <div class="content-block-middle">
       <span class="event-timezone">
         (<%= t('timezone.one') %>: GMT<%= Time.zone.formatted_offset %>)
       </span>
@@ -59,34 +52,37 @@ $(document).ready(function() {
   <% end %>
 
   <%= render_sidebar_content_block('sidebar-inbox') do %>
-    <h3>
+    <div class="content-block-header">
       <%= image_tag("icons/email.png", :class => "icon") %>
-      <%= link_to t('inbox.my', :checked => current_user.unread_private_messages), user_messages_path(current_user) %>
-    </h3>
+      <h3>
+        <%= link_to t('inbox.my', :checked => current_user.unread_private_messages), user_messages_path(current_user) %>
+      </h3>
+    </div>
 
-    <% if @private_messages.empty? %>
-      <p><%=t("message.private.none")%></p>
-    <% else %>
-
-      <% @private_messages.each do |message| %>
-        <div class="message-wrapper">
-          <% sender = message.sender %>
-          <div class="sender-logo">
-            <% if sender %>
-              <%= link_logo(sender, :size => 32, :url => user_path(sender), :title => sender.full_name, :class => 'tooltipped upwards').html_safe %>
-            <% end %>
+    <div class="content-block-middle">
+      <% if @private_messages.empty? %>
+        <p><%=t("message.private.none")%></p>
+      <% else %>
+        <% @private_messages.each do |message| %>
+          <div class="message-wrapper">
+            <% sender = message.sender %>
+            <div class="logo-in-thread">
+              <% if sender %>
+                <%= link_logo(sender, :size => 32, :url => user_path(sender), :title => sender.full_name, :class => 'tooltipped upwards').html_safe %>
+              <% end %>
+            </div>
+            <div class="message-text">
+              <% title = first_words(sanitize(message.title), 25) %>
+              <%= link_to title, user_messages_path(current_user, :message => message), :title => message.title, :class => 'message-title' %>
+              <span class="message-body">
+                <%= sanitize(first_words(message.body, 50)) %>
+              </span>
+            </div>
           </div>
-          <div class="message-text">
-            <% title = first_words(sanitize(message.title), 25) %>
-            <%= link_to title, user_messages_path(current_user, :message => message), :title => message.title, :class => 'message-title' %>
-            <span class="message-body">
-              <%= sanitize(first_words(message.body, 50)) %>
-            </span>
-          </div>
-        </div>
+        <% end %>
       <% end %>
+    </div>
 
-    <% end %>
   <% end %>
 
 <% end %>

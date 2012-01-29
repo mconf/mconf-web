@@ -1,13 +1,16 @@
-#latest-posts
-  .content-block-content-wrapper
+#latest-posts.content-block
+  .content-block-header
+    = image_tag("icons/comment.png")
+    %h3
+      = link_to t('post.latest'), space_posts_path(@space)
 
+  .content-block-middle
     - if @lastest_posts.empty?
       %span= t('post.none_recent')
-
     - else
       - for post in @lastest_posts
         .post-wrapper
-          .post-logo
+          .logo-in-thread
             = link_logo(post.author, :size => 32, :url => user_path(post.author), :title => post.author.name).html_safe
           .post-title-wrapper
             = link_to(first_words(post.title, 40), space_post_path(@space, post), :class => 'post-title')

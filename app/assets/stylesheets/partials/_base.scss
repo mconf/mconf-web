@@ -68,12 +68,19 @@ button, input[type=submit], input[type=button], .button {
 .help-icon {
   float: right;
   cursor: pointer;
-  background: url(asset_path("icons/help-16x16.png", image)) no-repeat bottom;
+  background: url(asset_path("icons/help-16x16.png", image)) no-repeat 0 0;
   width: 16px;
   height: 16px;
-  &:hover {
-    background: url(asset_path("icons/help-hover-16x16.png", image)) no-repeat bottom;
-  }
+  &:hover { background-position: -16px 0; }
+}
+
+.info-icon {
+  float: right;
+  cursor: pointer;
+  background: url(asset_path("icons/information-16x16.png", image)) no-repeat 0 0;
+  width: 16px;
+  height: 16px;
+  &:hover { background-position: -16px 0; }
 }
 
 .feed-icon {
@@ -88,6 +95,20 @@ button, input[type=submit], input[type=button], .button {
   span {
     padding-left: 20px;
     background: url(asset_path('icons/mobile-white-16x16.png', image)) bottom left no-repeat;
+  }
+}
+
+// user logos in a thread with several snippets
+// e.g. list of posts, list of recent users, etc.
+.logo-in-thread {
+  float: left;
+  margin-right: 5px;
+
+  img.logo {
+    padding: 2px;
+    border: 1px solid #ddd;
+    @include border-radius(2px);
+    &:hover { border: 1px solid desaturate(lighten($orange, 20), 20); }
   }
 }
 

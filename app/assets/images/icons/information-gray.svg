@@ -70,7 +70,7 @@
      id="layer1">
     <path
        sodipodi:type="arc"
-       style="fill:#000000;fill-opacity:1"
+       style="fill:#bbbbbb;fill-opacity:1"
        id="path3259"
        sodipodi:cx="66.434784"
        sodipodi:cy="64.463768"
@@ -88,6 +88,6 @@
          id="tspan4272"
          x="34.086624"
          y="115.47826"
-         style="fill:#ffffff;fill-opacity:1">?</tspan></text>
+         style="fill:#ffffff;fill-opacity:1">!</tspan></text>
   </g>
 </svg>

@@ -26,7 +26,7 @@
           %a{:href => "https://github.com/mconf"}= t('footer.github')
     .link-group.languages
       = link_to 'http://code.google.com/p/mconf/wiki/MconfWebLocalization' do
-        = image_tag('icons/plus-16x16.png', :title => t('translate.help_us'), :class => 'help-translate-icon tooltipped upwards rightwards')
+        = info_icon t('translate.help_us'), :class => 'help-translate-icon'
       %h3= t('translate.change')
       %ul
         - for locale in (I18n.available_locales)

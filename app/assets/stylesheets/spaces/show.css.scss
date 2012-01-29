@@ -1,5 +1,6 @@
 @import "compass/typography/links";
 @import "partials/definitions";
+@import "partials/base";
 
 // date of comments, news, posts, etc.
 .updated-at {
@@ -62,10 +63,6 @@
     margin-bottom: 10px;
     margin-top: 5px;
 
-    .post-logo {
-      @include user-logo-in-thread; // defined in _definitions
-    }
-
     .post-title {
       font-weight: bold;
     }
@@ -78,10 +75,6 @@
     margin-bottom: 10px;
     margin-top: 5px;
 
-    .user-logo {
-      @include user-logo-in-thread; // defined in _definitions
-    }
-
     .user-name { display: block; }
     .user-organization { display: block; }
   }
@@ -93,13 +86,7 @@
     margin-bottom: 10px;
     margin-top: 5px;
 
-    .admin-logo {
-      @include user-logo-in-thread; // defined in _definitions
-    }
-    .admin-text {
-      margin-left: 45px;
-    }
-
+    .admin-text { margin-left: 45px; }
     .admin-name { display: block; }
     .admin-organization { display: block; }
   }

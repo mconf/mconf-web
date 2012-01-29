@@ -36,13 +36,3 @@ $h-font-color: #404040; //#244974;
 // titles in the page headers
 $section-title-color: #244974;
 
-// user logos in a thread with several snippets
-// e.g. list of posts, list of recent users, etc.
-@mixin user-logo-in-thread {
-  float: left;
-  border: 1px solid #ddd;
-  padding: 1px;
-  margin-right: 5px;
-  width: 32px;
-  height: 32px;
-}

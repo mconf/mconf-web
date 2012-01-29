@@ -183,8 +183,9 @@ ul#global-header-user-links {
     }
   }
 
-  .content-block-content-wrapper {
-    margin-top: 10px;
+  .content-block-middle {
+    padding-top: 10px;
+    clear: both;
   }
 
   .content-block-footer {
@@ -195,6 +196,11 @@ ul#global-header-user-links {
     clear: both;
   }
 
+  .content-block-header {
+    img { float: left; }
+    h3 { float: left; margin-left: 4px; }
+  }
+
   .sidebar-top-action-button {
     text-align: center;
     padding: 10px;
@@ -203,6 +209,9 @@ ul#global-header-user-links {
       width: $sidebar-width - 50px;
     }
   }
+
+  .help-icon { float: right; }
+  .info-icon { float: right; }
 }
 
 #content-middle {
@@ -212,7 +221,7 @@ ul#global-header-user-links {
   h3 {
     color: #404040;
     font-size: 1.4em;
-    padding-top: 10px;
+    //padding-top: 10px;
     margin-bottom: 5px;
 
     // horitontal line in the title
@@ -225,8 +234,6 @@ ul#global-header-user-links {
         padding-right: 15px;
       }
     }
-
-    .help-icon { margin-top: 5px; }
   }
 
   .content-block {
@@ -239,11 +246,23 @@ ul#global-header-user-links {
     text-align: right;
     background: #f6f6f6;
     border-top: 1px solid #ddd;
+    clear: both;
   }
 
-  .content-block-content-wrapper {
+  .content-block-middle {
     padding: 5px;
+    clear: both;
   }
+
+  .content-block-header {
+    img { float: left; }
+    h3 { float: left; margin: -3px 4px 0 4px; }
+  }
+
+  .help-icon { float: left; }
+  .info-icon { float: left; }
+
+  .loading-icon { float: right; } // TODO: temporary, this may become default in _base
 }
 
 #page-menu {
@@ -284,7 +303,7 @@ ul#global-header-user-links {
 #sidebar-upcoming-events {
   .event-timezone {
     float: left;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
     color: #777;
     font-size: $font-small;
   }
@@ -310,5 +329,6 @@ ul#global-header-user-links {
     clear: both;
     display: block;
     font-weight: bold;
+    margin-bottom: 3px;
   }
 }
