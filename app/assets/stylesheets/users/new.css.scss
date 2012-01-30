@@ -1,0 +1,35 @@
+@import "partials/definitions";
+
+#register-wrapper {
+  margin-bottom: 50px;
+
+  form {
+    margin: 0;
+
+    input[type=submit] {
+      margin-top: 15px;
+    }
+  }
+
+  .comments {
+    margin-top: 15px;
+    font-style: italic;
+    clear: both;
+
+    span { display: block; }
+  }
+
+  ul.extra-links {
+    margin: 0;
+    margin-top: 15px;
+    list-style: circle;
+    clear: both;
+
+    li {
+      float: left;
+      margin-right: 10px;
+      margin-left: 20px;
+    }
+  }
+
+}

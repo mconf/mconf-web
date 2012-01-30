@@ -1,52 +1,22 @@
-<% if logged_in? %>
-  <% if @shib_user %>
-    <div id="edit_account_user_federated">
-      <div class="more_information"><%= link_to t('user.edit.federated.see_your_data'), shibboleth_info_path, :class => 'open-modal' %></div>
-      <span class="title"><%= t('user.edit.federated.title') %></span><br/>
-      <span><%= t('user.edit.federated.your_idp', :idp => @shib_provider) %></span><br/>
-      <span><%= t('user.edit.federated.restrictions') %></span><br/>
-    </div>
-  <% end %>
-<% end %>
-
-<div><label for="email"><%=t('user.email')%></label><br/>
-<% if @shib_user %>
-  <%= f.text_field :email, :disabled => true %>
+<% if logged_in? && @shib_user %>
+  <%= f.input :email, :label => t('user.email'), :required => true, :disabled => true %>
 <% else %>
-  <%= f.text_field :email %>
+  <%= f.input :email, :label => t('user.email'), :required => true %>
 <% end %>
-</div>
 
-<% if f.object.new_record? # User is not registered yet, generate login from full_name %>
-  <div>
-    <label for="full_name"><%=t('user.full_name')%></label><br/>
-    <%= f.text_field :_full_name %>
-  </div>
-<% else -%>
-  <div id="userid">
-    <label for="login"><%=t('user.id')%></label><br/>
-    <%= f.text_field :login %> <%=image_tag("icons/help.png",:title=>t("tooltip.user_id"),:size=>"16x16",:class=>"icon tooltipped upwards rightwards",:style=>"cursor:pointer")%>
-  </div>
+<% if f.object.new_record? %>
+  <%= f.input :_full_name, :label => t('user.full_name'), :required => true %>
+<% else %>
+  <%= f.input :_full_name, :as => 'hidden', :input_html => { :value => user.full_name } %>
+  <%= help_icon t("tooltip.user_id") %>
+  <%= f.input :login, :label => t('user.id'), :required => true %>
 <% end -%>
 
-<% if f.object.needs_password? -%>
-  <% if logged_in? %>
-    <div>
-      <label for="password"><%=t('user.new_password')%></label><br/>
-      <%= f.password_field :password %> <%=image_tag("icons/help.png",:title=>t("user.new_password_tip"),:size=>"16x16",:class=>"icon tooltipped upwards rightwards",:style=>"cursor:pointer")%>
-    </div>
-    <div>
-      <div><label for="password_confirmation"><%=t('user.new_password_confirmation')%></label><br/>
-      <%= f.password_field :password_confirmation%></div>
-    </div>
-  <% else %>
-    <div>
-      <label for="password"><%=t('user.password')%></label><br/>
-      <%= f.password_field :password %>
-    </div>
-    <div>
-      <div><label for="password_confirmation"><%=t('user.password_confirmation')%></label><br/>
-      <%= f.password_field :password_confirmation%></div>
-    </div>
-  <% end %>
-<% end -%>
+<% if f.object.new_record? %>
+  <%= f.input :password, :label => t('user.password'), :required => true %>
+  <%= f.input :password_confirmation, :label => t('user.password_confirmation'), :required => true %>
+<% else %>
+  <%= help_icon t("user.new_password_tip") %>
+  <%= f.input :password, :label => t('user.new_password'), :required => true %>
+  <%= f.input :password_confirmation, :label => t('user.new_password_confirmation'), :required => true %>
+<% end %>

@@ -1131,6 +1131,10 @@ en:
   show_advanced_editor: "Show advanced editor"
   show_list_version_arrows: "show list version >>"
   show_question: Show?
+  simple_captcha: 
+    label: "Insert here the text from the image"
+    message: 
+      user: "is incorrect"
   site: 
     analytics_code: "Analytics Code"
     analytics_code_tip: "Code for your Google Analytics account. Leave it blank to disable. Example: \"UA-12345678-9\""

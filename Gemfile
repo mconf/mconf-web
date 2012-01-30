@@ -12,47 +12,42 @@ group :assets do
   gem 'fancy-buttons'
 end
 
-gem 'jquery-rails'
-gem 'therubyracer', :require => 'v8'
-
-gem 'haml'
+gem 'mysql2', '~> 0.3.0'
 
 gem 'rake'
-
+gem 'jquery-rails'
+gem 'therubyracer', :require => 'v8'
+gem 'haml'
 gem 'will_paginate'
-gem 'teambox-permalink_fu', :git => 'git://github.com/mconf/permalink_fu.git'
-gem 'vpim'
-gem 'ruby-openid'
-gem 'atom-tools'
-gem 'rcov'
 gem 'chronic'
-gem 'hpricot'
-gem 'feed-normalizer'
-gem 'hoe'
-gem 'httparty'
-gem 'pdf-writer'
-gem 'ci_reporter'
-gem 'nokogiri', '1.4.1'
-gem 'prism'
-gem 'rubyzip' # TODO: see rubyzip2
-gem 'garb'
-gem 'galetahub-simple_captcha', :require => 'simple_captcha'
-gem 'rmagick', :git => 'git://github.com/rmagick/rmagick.git', :require => false
-gem 'fckeditor'
-gem 'dynamic_form'
-gem 'bigbluebutton-api-ruby', :git => 'git://github.com/mconf/bigbluebutton-api-ruby.git'
-gem 'bigbluebutton_rails', :git => 'git://github.com/mconf/bigbluebutton_rails.git'
-gem 'action_mailer_tls'
-gem 'attachment_fu', :git => 'git://github.com/mconf/attachment_fu.git'
 gem 'yaml_db'
 gem 'delayed_job_active_record'
 gem 'rails_autolink'
 gem 'whenever', :require => false
+gem 'garb'
+gem 'bigbluebutton-api-ruby', :git => 'git://github.com/mconf/bigbluebutton-api-ruby.git'
+gem 'bigbluebutton_rails', :git => 'git://github.com/mconf/bigbluebutton_rails.git'
+gem 'simple_form'
 
-gem 'mysql2', '~> 0.3.0'
-
+# TODO: Gems to review if we can remove/update
+gem 'galetahub-simple_captcha', :require => 'simple_captcha'
+gem 'attachment_fu', :git => 'git://github.com/mconf/attachment_fu.git'
+gem 'vpim' # vcard and icalendar
+gem 'teambox-permalink_fu', :git => 'git://github.com/mconf/permalink_fu.git'
+gem 'ruby-openid'
+gem 'atom-tools'
+gem 'hpricot'
+gem 'feed-normalizer'
+gem 'httparty'
+gem 'pdf-writer'
+gem 'ci_reporter'
+gem 'nokogiri', '1.4.1'
+gem 'rubyzip' # TODO: see rubyzip2
+gem 'rmagick', :git => 'git://github.com/rmagick/rmagick.git', :require => false
+gem 'fckeditor'
+gem 'dynamic_form'
+gem 'prism'
 # not the official repo, but has fixes to use it with rails 3
-# TODO: remove or update
 gem 'table_helper', :git => 'git://github.com/eeng/table_helper.git'
 
 group :development do
@@ -75,6 +70,7 @@ group :development, :test do
   gem 'shoulda-matchers'
   gem 'htmlentities'
   gem 'turn', '0.8.2', :require => false
+  gem 'rcov'
 end
 
 group :production do

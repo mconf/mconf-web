@@ -33,7 +33,6 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.xml
   # GET /users.atom
-
   def index
     @users = space.users.sort {|x,y| x.name <=> y.name }
     #@groups = @space.groups.all(:order => "name ASC")
@@ -81,8 +80,7 @@ class UsersController < ApplicationController
   # GET /users/new.xml
   def new
     user.openid_identifier = session[:openid_identifier]
-
-    render :partial => "register" if request.xhr?
+    render :layout => 'no_sidebar'
   end
 
   # POST /users

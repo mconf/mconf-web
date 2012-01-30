@@ -17,7 +17,7 @@
 # along with VCC.  If not, see <http://www.gnu.org/licenses/>.
 
 class FaqController < ApplicationController
-  layout 'application_without_sidebar'
+  layout 'no_sidebar'
 
   def show
   end

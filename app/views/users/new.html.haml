@@ -1,0 +1,18 @@
+= content_for :"page-header" do
+  = render_page_title t('register.one')
+
+#register-wrapper
+  = simple_form_for user, :url => users_path do |f|
+    = render :partial => 'form', :locals => { :f => f }
+    = f.text_field :special_event_id, :style => 'display:none'
+    %div{ :class => user.errors[:captcha].empty? ? 'captcha' : 'captcha field_with_errors' }
+      = show_simple_captcha(:object => :user)
+    = f.button :submit, t("button.accept")
+  .comments
+    %span= "* " + t('mandatory_field')
+    %span= t('register.confirmation')
+  %ul.extra-links
+    %li= link_to t("login.one"), login_path
+    - unless current_site.shib_enabled?
+      %li= link_to t('cafe.login'), shibboleth_path
+  = render_clearer

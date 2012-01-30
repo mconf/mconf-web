@@ -109,6 +109,7 @@ class User < ActiveRecord::Base
   attr_accessor :_full_name
   attr_accessible :_full_name
   has_permalink :_full_name, :login
+  validates :_full_name, :presence => true, :on => :create
 
   after_create do |user|
     user.create_profile :full_name => user._full_name

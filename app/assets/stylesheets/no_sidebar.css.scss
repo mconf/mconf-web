@@ -1,3 +1,5 @@
+// For the 'no_sidebar' layout
+
 @import "partials/definitions";
 
 // we don't have a sidebar, so the content must fill the
@@ -6,6 +8,8 @@
   width: 100%;
   color: #404040;
 }
+
+// TODO: temporary, maybe move the styles below to specific files
 
 h4 {
   font-size: $font-medium;

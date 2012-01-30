@@ -135,7 +135,7 @@ module ApplicationHelper
   # useful to simplify the calls from the views
   # Ex:
   #   <%= render_page_title('users', 'logos/user.png', { :transparent => true }) %>
-  def render_page_title(title, logo, options={})
+  def render_page_title(title, logo=nil, options={})
     block_to_partial('layouts/page_title', options.merge(:page_title => title, :logo => logo))
   end
 

@@ -23,7 +23,7 @@ class FeedbackController < ApplicationController
     unless feedback_url.blank?
       redirect_to feedback_url
     else
-      render :webconf, :layout => "application_without_sidebar"
+      render :webconf, :layout => "no_sidebar"
     end
   end
 
