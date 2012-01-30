@@ -32,7 +32,7 @@ class Informer
 
    def self.deliver_event_invitation(admission)
      if !admission.candidate || admission.candidate.notification == User::NOTIFICATION_VIA_EMAIL
-       Notifier.delay.event_invitation_email(admission)
+       #Notifier.delay.event_invitation_email(admission)
      elsif admission.candidate.notification == User::NOTIFICATION_VIA_PM
        PrivateSender.event_invitation_message(admission)
      end
@@ -40,7 +40,7 @@ class Informer
 
    def self.deliver_event_notification(event,receiver)
      if receiver.notification == User::NOTIFICATION_VIA_EMAIL
-       Notifier.delay.event_notification_email(event,receiver)
+       #Notifier.delay.event_notification_email(event,receiver)
      elsif receiver.notification == User::NOTIFICATION_VIA_PM
        PrivateSender.event_notification_message(event,receiver)
      end

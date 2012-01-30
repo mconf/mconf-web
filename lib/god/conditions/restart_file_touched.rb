@@ -13,7 +13,7 @@ module God
       end
 
       def restart_file_modification_time
-        File.mtime(self.restart_file)
+        File.exists?(self.restart_file) ? File.mtime(self.restart_file) : Time.at(0)
       end
 
       def valid?

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111020174404) do
+ActiveRecord::Schema.define(:version => 20120119155353) do
 
   create_table "admissions", :force => true do |t|
     t.string   "type"
@@ -511,6 +511,7 @@ ActiveRecord::Schema.define(:version => 20111020174404) do
     t.integer  "notification",                            :default => 1
     t.string   "locale"
     t.boolean  "chat_activation",                         :default => false
+    t.integer  "receive_digest",                          :default => 0
   end
 
 end
