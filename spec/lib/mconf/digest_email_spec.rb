@@ -88,6 +88,15 @@ describe Mconf::DigestEmail do
       @expected.sort_by!{ |p| p.updated_at }.reverse!
     end
 
+    context "returns empty arrays if nothing is found" do
+      before(:each) { call_get_activity }
+      it { @posts.should == [] }
+      it { @attachments.should == [] }
+      it { @news.should == [] }
+      it { @events.should == [] }
+      it { @inbox.should == [] }
+    end
+
     context "returns the latest posts in the user's spaces" do
       before { create_default_objects(:post) }
       before(:each) { call_get_activity }
@@ -151,9 +160,49 @@ describe Mconf::DigestEmail do
 
     context "calls .get_activity" do
       before do
-        subject.should_receive(:get_activity).with(user, date_start, date_end)
+        subject.should_receive(:get_activity).with(user, date_start, date_end).
+          and_return([ [], [], [], [], [] ])
       end
       it { subject.send_digest(user, date_start, date_end) }
+    end
+
+    context "doesn't send the email if there's no recent activity" do
+      before do
+        subject.should_receive(:get_activity).with(user, date_start, date_end).
+          and_return([ [], [], [], [], [] ])
+      end
+      it {
+        expect {
+          subject.send_digest(user, date_start, date_end)
+        }.not_to change{ ActionMailer::Base.deliveries.length}.by(1)
+      }
+    end
+
+    context "sends the email" do
+      let(:space) { Factory.create(:space) }
+
+      before do
+        # add the user to the space
+        Factory.create(:admin_performance, :agent => user, :stage => space)
+        # create the data to be returned
+        @posts = [ Factory.create(:post, :space => space, :updated_at => date_start) ]
+        @news = [ Factory.create(:news, :space => space, :updated_at => date_start) ]
+        @attachments = [ Factory.create(:attachment, :space => space, :updated_at => date_start) ]
+        @events = [ Factory.create(:event, :space => space, :start_date => date_start,
+                                   :end_date => date_start + 1.hour, :author => user) ]
+        @inbox = [ Factory.create(:private_message, :receiver => user, :sender => Factory.create(:user)) ]
+
+        subject.should_receive(:get_activity).with(user, date_start, date_end).
+          and_return([ @posts, @news, @attachments, @events, @inbox ])
+
+        delayer = mock()
+        Notifier.stub(:delay).and_return(delayer)
+        delayer.should_receive(:digest_email).
+          with(user, @posts, @news, @attachments, @events, @inbox)
+      end
+      it {
+        subject.send_digest(user, date_start, date_end)
+      }
     end
   end
 

@@ -21,7 +21,7 @@ module Mconf
       posts, news, attachments, events, inbox = get_activity(to, date_start, date_end)
 
       unless (posts.empty? && news.empty? && attachments.empty? && events.empty? && inbox.empty?)
-        Notifier.delay.digest_email(to,posts,news,attachments,events,inbox)
+        Notifier.delay.digest_email(to, posts, news, attachments, events, inbox)
       end
     end
 
@@ -56,7 +56,7 @@ module Mconf
         order('updated_at desc')
 
       # Unread messages in the inbox
-      inbox = PrivateMessage.inbox(user).select { |msg| !msg.checked }
+      inbox = PrivateMessage.inbox(user).select{ |msg| !msg.checked }
 
       [ posts, news, attachments, events, inbox ]
     end
