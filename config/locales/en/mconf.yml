@@ -218,7 +218,8 @@ en:
   create: Create
   create_event: "Create Event"
   created_time_ago: "Created %{time} ago"
-  date:
+  date: 
+    at: "at"
     start: "Start date"
     undefined: Undefined
   days: Days
@@ -461,6 +462,7 @@ en:
       title: "Events without agenda defined"
     upcoming:
       all: "All upcoming (%{size})"
+      my_other: "My upcoming events"
       next_month: "There are no events for next month"
       next_week: "There are no events for next week"
       none: "No upcoming events"
@@ -979,7 +981,14 @@ en:
     public: "Public profile"
     public_description: "Anyone can access this information"
     updated: "Profile updated successfully"
+    visibility: Visibility
+    visibility_description: "Choose who will be able to see your private profile"
     visibility_edit: "Edit your profile visibility"
+    visibility_everybody: "Everyone can see your private profile."
+    visibility_members: "Only registered members can see your private profile."
+    visibility_nobody: "Nobody can see your private profile."
+    visibility_private_fellows: "Only your partners in a private space can see your private profile."
+    visibility_public_fellows: "Only your partners in a public or private space can see your private profile."
   province: Province
   public: Public
   read_more: "Read more"
@@ -1397,6 +1406,7 @@ en:
     results_count:
       one: "People, %{users_size} result"
       other: "People, %{users_size} results"
+    results_found: "Users found"
     search: "Search Users..."
     timezone: Timezone
     updated: "User updated successfully"

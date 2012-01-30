@@ -31,7 +31,7 @@
 
 IP=$(ifconfig | grep -v '127.0.0.1' | grep -E "[0-9]*\.[0-9]*\.[0-9]*\.[0-9]*" | head -1 | cut -d: -f2 | awk '{print $1}') # local IP from ifconfig
 
-SCRIPT_VERSION="0.3.2"                                  # The version of this script
+SCRIPT_VERSION="0.3.3"                                  # The version of this script
 
 RVM_VERSION=1.8.5                                       # fixed RVM version to be installed
 RVM_RUBY_VERSION=1.9.2-p290                             # Ruby version
@@ -182,10 +182,7 @@ rvm_install() {
     install_dependency git-core
 
     echo "-- Downloading and installing RVM version $RVM_VERSION"
-    curl -s https://rvm.beginrescueend.com/install/rvm -o rvm-installer
-    chmod +x rvm-installer
-    sudo ./rvm-installer --version $RVM_VERSION
-    rm ./rvm-installer
+    sudo bash -s -- --version $RVM_VERSION < <(curl -s https://raw.github.com/wayneeseguin/rvm/master/binscripts/rvm-installer)
     sudo adduser `whoami` rvm
 
     echo "-- Installing Ruby dependencies given by rvm requirements"
@@ -747,6 +744,12 @@ deploy_configure_god() {
     sudo /etc/init.d/god start
 }
 
+deploy_configure_cron() {
+    # use whenever to setup the cron jobs
+    cd $DEPLOY_PATH
+    bundle exec whenever --update-crontab
+}
+
 if [ $DEPLOY_SETUP ]; then
     check_root
 
@@ -758,6 +761,9 @@ if [ $DEPLOY_SETUP ]; then
 
     echo "-- Installing god - process monitoring framework"
     deploy_configure_god
+
+    echo "-- Setting up your crontab"
+    deploy_configure_cron
 
     require_deployed_application
 
@@ -823,16 +829,19 @@ if [ $DEPLOY_UPDATE ]; then
     get_version_to_be_installed
 
     VERSION=$REPLY
-    echo "-- Updating the source code to the version ${VERSION}"
+    echo "-- Updating the source code to the version/branch ${VERSION}"
     git pull
-    git checkout $REPLY
-    git pull origin $REPLY &>/dev/null # just in case a branch needs to be updated
+    git checkout $VERSION
+    git pull origin $VERSION &>/dev/null # just in case a branch needs to be updated
 
     echo "-- Installing the required gems"
     deploy_update_dependencies
 
     echo "-- Updating the database"
     bundle exec rake db:migrate RAILS_ENV=production
+
+    echo "-- Updating your crontab"
+    bundle exec whenever --update-crontab RAILS_ENV=production
 
     restart_mconf_web
 
