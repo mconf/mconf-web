@@ -22,9 +22,10 @@ describe Mconf::DigestEmail do
       end
 
       it "with the correct start and end dates" do
-        @now = DateTime.now
-        DateTime.stub(:now) { @now }
-        subject.should_receive(:send_digest).twice.with(anything, @now - 1.day, @now)
+        @now = Time.parse("Sun, 10 Jan 2012 00:00:00 +0000")
+        @from = Time.parse("Sun, 09 Jan 2012 00:00:00 +0000")
+        Time.stub(:now) { @now }
+        subject.should_receive(:send_digest).twice.with(anything, @from, @now)
         subject.send_daily_digest
       end
     end
@@ -48,9 +49,10 @@ describe Mconf::DigestEmail do
       end
 
       it "with the correct start and end dates" do
-        @now = DateTime.now
-        DateTime.stub(:now) { @now }
-        subject.should_receive(:send_digest).twice.with(anything, @now - 7.day, @now)
+        @now = Time.parse("Sun, 10 Jan 2012 00:00:00 +0000")
+        @from = Time.parse("Sun, 03 Jan 2012 00:00:00 +0000")
+        Time.stub(:now) { @now }
+        subject.should_receive(:send_digest).twice.with(anything, @from, @now)
         subject.send_weekly_digest
       end
     end
@@ -58,7 +60,7 @@ describe Mconf::DigestEmail do
 
   describe ".get_activity" do
     let(:user) { Factory.create(:user) }
-    let(:now) { DateTime.now }
+    let(:now) { Time.now }
     let(:date_start) { now - 1.day }
     let(:date_end) { now }
     let(:space) { Factory.create(:space) }
@@ -79,12 +81,12 @@ describe Mconf::DigestEmail do
     def create_default_objects(factory)
       # objects (barely) out of range
       Factory.create(factory, :space => space, :updated_at => date_start - 1.second)
-      Factory.create(factory, :space => space, :updated_at => date_end)
+      Factory.create(factory, :space => space, :updated_at => date_end + 1.second)
       # objects within range
       @expected = []
       @expected << Factory.create(factory, :space => space, :updated_at => date_start)
       @expected << Factory.create(factory, :space => space, :updated_at => date_start + 1.hour)
-      @expected << Factory.create(factory, :space => space, :updated_at => date_end - 1.second)
+      @expected << Factory.create(factory, :space => space, :updated_at => date_end)
       @expected.sort_by!{ |p| p.updated_at }.reverse!
     end
 
@@ -124,7 +126,7 @@ describe Mconf::DigestEmail do
         @expected = []
         @expected << Factory.create(:event, :space => space, :start_date => date_start, :end_date => date_start + 1.hour)
         @expected << Factory.create(:event, :space => space, :start_date => date_start + 1.hour, :end_date => date_start + 2.hours)
-        @expected << Factory.create(:event, :space => space, :start_date => date_end - 1.hour, :end_date => date_end - 1.second)
+        @expected << Factory.create(:event, :space => space, :start_date => date_end - 1.hour, :end_date => date_end)
         # events with only start or end within range
         @expected << Factory.create(:event, :space => space, :start_date => date_start - 1.hour, :end_date => date_start + 1.hour)
         @expected << Factory.create(:event, :space => space, :start_date => date_end - 1.hour, :end_date => date_end + 1.hour)
@@ -154,7 +156,7 @@ describe Mconf::DigestEmail do
 
   describe ".send_digest" do
     let(:user) { Factory.create(:user) }
-    let(:now) { DateTime.now }
+    let(:now) { Time.now }
     let(:date_start) { now - 1.day }
     let(:date_end) { now }
 
