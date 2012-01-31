@@ -11,12 +11,12 @@
 
   #login-box
     = t('login.login_desc')
-    = form_tag session_url(:protocol => current_site.protocol) do
-      = text_field_tag 'login', params[:login]
-      %label{:for => "login"}= t('login.email_or_login')
-      = password_field_tag 'password', nil
-      %label{:for => "password"}= t('login.password')
-      %button.button{:type => "submit"}= t("login.one")
+    = simple_form_for :session, :url => session_url(:protocol => current_site.protocol) do |f|
+      = f.text_field :login
+      = f.label t('login.email_or_login')
+      = f.password_field :password
+      = f.label t('login.password')
+      = f.button :submit, t("login.one")
     .action-links
       = link_to t('user.lost_password'), lost_password_path
       - if current_site.shib_enabled?

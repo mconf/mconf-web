@@ -63,6 +63,10 @@ $page-header-height: 70px;
   height: $page-header-height;
 }
 
+#notification-flashs {
+ top: $global-header-height;
+}
+
 
 //
 // Unique styles, defined only here

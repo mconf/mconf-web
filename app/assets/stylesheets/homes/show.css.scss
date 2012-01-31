@@ -1,6 +1,5 @@
 @import "compass/css3";
 @import "partials/definitions";
-@import "partials/base";
 
 #sidebar-inbox {
   .message-wrapper {
@@ -92,7 +91,7 @@
     }
 
     .space-logo {
-      @extend .logo-in-thread;
+      @include logo-in-thread;
       margin-top: 2px;
     }
 

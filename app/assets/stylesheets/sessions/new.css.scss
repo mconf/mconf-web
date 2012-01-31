@@ -1,0 +1,10 @@
+@import "partials/definitions";
+@import "users/new";
+
+#login-wrapper {
+  // the base is just like the container in the register page
+  @extend #register-wrapper;
+
+  // every field is required, so we don't need to show it
+  abbr[title=required] { display: none; }
+}

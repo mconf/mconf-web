@@ -94,12 +94,14 @@ $page-header-height: 80px;
     margin-top: 7px;
   }
 
-  button {
+  input[type=submit] {
     font-size: 14px;
     float: right;
     clear: both;
     margin-top: 5px;
   }
+
+  abbr[title=required] { display: none; }
 
   .shibboleth_login {
     border-left: 1px solid #888;

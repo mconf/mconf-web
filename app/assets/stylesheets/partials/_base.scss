@@ -129,15 +129,7 @@ button, input[type=submit], input[type=button], .button {
 // user logos in a thread with several snippets
 // e.g. list of posts, list of recent users, etc.
 .logo-in-thread {
-  float: left;
-  margin-right: 5px;
-
-  img.logo {
-    padding: 2px;
-    border: 1px solid #ddd;
-    @include border-radius(2px);
-    &:hover { border: 1px solid desaturate(lighten($orange, 20), 20); }
-  }
+  @include logo-in-thread;
 }
 
 
