@@ -60,5 +60,5 @@ end
 
 # for production
 gem 'god', '0.12.1'
-gem 'passenger', '3.0.7'
+gem 'passenger', '3.0.11'
 gem 'exception_notification'
