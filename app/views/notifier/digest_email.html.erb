@@ -1,65 +1,65 @@
 <html>
   <body>
-    <%= t('email.digest.message') %>
-    <br><br>
+    <h3><%= t('email.digest.message') %></h3>
     <% unless @inbox.empty? %>
-    <b><%= t('private_message.title', :count => @inbox.size()) %></b>
-    <br>
-    <% @inbox.take(10).each do |inbox| %>
-    <p>
-      <%= t('email.digest.inbox', :sender_name => inbox.sender.name).html_safe %> <%= link_to sanitize(inbox.title), user_message_url(inbox.receiver, inbox) %>
-      <%= t('updated_time_ago', :time => sanitize(time_ago_in_words(inbox.updated_at))) %>
-    </p>
-    <% end %>
-    <%= if @inbox.size() > 10 then t('private_message.more', :count => (@inbox.size()-10)).html_safe end %>
+      <h4><%= t('private_message.title', :count => @inbox.size) %></h4>
+      <% @inbox.take(10).each do |inbox| %>
+        <p>
+          <%= t('email.digest.inbox', :sender_name => inbox.sender.name).html_safe %> <%= link_to sanitize(inbox.title), user_message_url(inbox.receiver, inbox) %>
+          <%= t('updated_time_ago', :time => sanitize(time_ago_in_words(inbox.updated_at))) %>
+        </p>
+      <% end %>
+      <% if @inbox.size > 10 %>
+        <p><%= t('private_message.more', :count => @inbox.size - 10) %></p>
+      <% end %>
     <% end %>
     <% unless @posts.empty? %>
-    <br>
-    <b><%= t('post.title', :count => @posts.size()) %></b>
-    <br>
-    <% @posts.take(10).each do |post| %>
-    <p>
-      <%= t('email.digest.posted', :author_name => post.author.name, :space_name => post.space.name).html_safe %> <%=link_to post.title, space_post_url(post.space,post)%>
-      <%= t('updated_time_ago', :time => time_ago_in_words(post.updated_at)) %>
-    </p>
-    <% end %>
-    <%= if @posts.size() > 10 then t('post.more', :count => (@posts.size()-10)).html_safe end %>
+      <h4><%= t('post.title', :count => @posts.size) %></h4>
+      <% @posts.take(10).each do |post| %>
+        <p>
+          <%= t('email.digest.posted', :author_name => post.author.name, :space_name => post.space.name).html_safe %> <%=link_to post.title, space_post_url(post.space,post)%>
+          <%= t('updated_time_ago', :time => time_ago_in_words(post.updated_at)) %>
+        </p>
+      <% end %>
+      <% if @posts.size > 10 %>
+        <p><%= t('post.more', :count => @posts.size - 10) %></p>
+      <% end %>
     <% end %>
     <% unless @news.empty? %>
-    <br>
-    <b><%= t('news.title', :count => @news.size()) %></b>
-    <br>
-    <% @news.take(10).each do |news| %>
-    <p>
-      <%= t('email.digest.news', :space_name => news.space.name).html_safe %> <%= link_to(sanitize(news.title), space_url(news.space)) %>
-      <%= t('updated_time_ago', :time => time_ago_in_words(news.updated_at)) %><br>
-    </p>
-    <% end %>
-    <%= if @news.size() > 10 then t('news.more', :count => (@news.size()-10)).html_safe end %>
+      <h4><%= t('news.title', :count => @news.size) %></h4>
+      <% @news.take(10).each do |news| %>
+        <p>
+          <%= t('email.digest.news', :space_name => news.space.name).html_safe %> <%= link_to(sanitize(news.title), space_url(news.space)) %>
+          <%= t('updated_time_ago', :time => time_ago_in_words(news.updated_at)) %><br/>
+        </p>
+      <% end %>
+      <% if @news.size > 10 %>
+        <p><%= t('new.more', :count => @news.size - 10) %></p>
+      <% end %>
     <% end %>
     <% unless @attachments.empty? %>
-    <br>
-    <b><%= t('attachment.title', :count => @attachments.size()) %></b>
-    <br>
-    <% @attachments.take(10).each do |att| %>
-    <p>
-      <%= t('email.digest.attachment', :author_name => att.author.name, :space_name => att.space.name).html_safe %> <%= link_to(sanitize(att.filename), space_attachment_url(att.space, att, :format => att.format!)) %>
-      <%= t('created_time_ago', :time => sanitize(time_ago_in_words(att.created_at))) %>
-    </p>
-    <% end %>
-    <%= if @attachments.size() > 10 then t('attachment.more', :count => (@attachments.size()-10)).html_safe end %>
+      <h4><%= t('attachment.title', :count => @attachments.size) %></h4>
+      <% @attachments.take(10).each do |att| %>
+        <p>
+          <%= t('email.digest.attachment', :author_name => att.author.name, :space_name => att.space.name).html_safe %> <%= link_to(sanitize(att.filename), space_attachment_url(att.space, att, :format => att.format!)) %>
+          <%= t('created_time_ago', :time => sanitize(time_ago_in_words(att.created_at))) %>
+        </p>
+      <% end %>
+      <% if @attachments.size > 10 %>
+        <p><%= t('attachment.more', :count => @attachments.size - 10) %></p>
+      <% end %>
     <% end %>
     <% unless @events.empty? %>
-    <br>
-    <b><%= t('event.title', :count => @events.size()) %></b>
-    <br>
-    <% @events.take(10).each do |event| %>
-    <p>
-      <%= t('email.digest.event', :author_name => event.author.name, :space_name => event.space.name).html_safe %> <%=link_to sanitize(event.title), space_event_url(event.space, event) %>
-      <%= t('updated_time_ago', :time => sanitize(time_ago_in_words(event.updated_at))) %>
-    </p>
-    <% end %>
-    <%= if @events.size() > 10 then t('event.more', :count => (@events.size()-10)).html_safe end %>
+      <h4><%= t('event.title', :count => @events.size) %></h4>
+      <% @events.take(10).each do |event| %>
+        <p>
+          <%= t('email.digest.event', :author_name => event.author.name, :space_name => event.space.name).html_safe %> <%=link_to sanitize(event.title), space_event_url(event.space, event) %>
+          <%= t('updated_time_ago', :time => sanitize(time_ago_in_words(event.updated_at))) %>
+        </p>
+      <% end %>
+      <% if @events.size > 10 %>
+        <p><%= t('event.more', :count => @events.size - 10) %></p>
+      <% end %>
     <% end %>
     <%= @signature %>
   </body>
