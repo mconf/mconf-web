@@ -234,6 +234,26 @@ class Notifier < ActionMailer::Base
     create_default_mail(params[:locale])
   end
 
+  def digest_email(receiver,posts,news,attachments,events,inbox)
+    setup_email(receiver.email)
+
+    @posts = posts
+    @news = news
+    @attachments = attachments
+    @events = events
+    @inbox = inbox
+    @locale = receiver.locale
+    if receiver.receive_digest == User::RECEIVE_DIGEST_DAILY
+      @type = t('email.digest.type.daily', :locale => @locale)
+    else
+      @type = t('email.digest.type.weekly', :locale => @locale)
+    end
+    @subject = t('email.digest.title', :type => @type, :locale => @locale)
+    @signature  = Site.current.signature_in_html
+
+    create_default_mail(@locale)
+  end
+
   private
 
   def setup_email(recipients)

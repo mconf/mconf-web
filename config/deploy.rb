@@ -182,6 +182,6 @@ namespace :rake do
   desc "Run a task on a remote server."
   # example: cap staging rake:invoke task=jobs:queued
   task :invoke do
-    run("cd #{deploy_to}/current; bundle exec rake #{ENV['task']} RAILS_ENV=production")
+    run("cd #{deploy_to}/current; bundle exec rake #{ENV['TASK']} RAILS_ENV=production")
   end
 end

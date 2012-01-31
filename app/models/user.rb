@@ -47,12 +47,14 @@ class User < ActiveRecord::Base
   accepts_nested_attributes_for :bigbluebutton_room
 
   attr_accessible :captcha, :captcha_key, :authenticate_with_captcha
-  attr_accessible :email2, :email3 , :machine_ids
+  attr_accessible :email2, :email3, :machine_ids
   attr_accessible :timezone
-  attr_accessible :expanded_post, :notification
+  attr_accessible :expanded_post
+  attr_accessible :notification
   attr_accessible :chat_activation
   attr_accessible :special_event_id
   attr_accessible :superuser
+  attr_accessible :receive_digest
   attr_accessor :special_event_id
 
   # TODO is_indexed comes from Ultrasphinx
@@ -71,12 +73,16 @@ class User < ActiveRecord::Base
 
   default_scope :conditions => {:disabled => false}
 
-  #constant for the notification attribute
+  # constants for the notification attribute
   NOTIFICATION_VIA_EMAIL = 1
   NOTIFICATION_VIA_PM = 2
 
-  # Profile
+  # constants for the receive_digest attribute
+  RECEIVE_DIGEST_NEVER = 0
+  RECEIVE_DIGEST_DAILY = 1
+  RECEIVE_DIGEST_WEEKLY = 2
 
+  # Profile
   def profile!
     if profile.blank?
       self.create_profile

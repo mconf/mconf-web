@@ -73,11 +73,9 @@ group :development, :test do
   gem 'rcov'
 end
 
-group :production do
-  gem 'god', '0.11.0'
-  gem 'passenger', '3.0.7'
-  gem 'exception_notification'
-end
+gem 'god', '0.12.1'
+gem 'passenger', '3.0.7'
+gem 'exception_notification'
 
 # Rails 3.1 - Heroku
 #group :production do
