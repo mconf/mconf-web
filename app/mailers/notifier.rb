@@ -242,8 +242,12 @@ class Notifier < ActionMailer::Base
     @attachments = attachments
     @events = events
     @inbox = inbox
-    @type = receiver.receive_digest == 1 ? "Daily" : "Weekly"
     @locale = receiver.locale
+    if receiver.receive_digest == User::RECEIVE_DIGEST_DAILY
+      @type = t('email.digest.type.daily', :locale => @locale)
+    else
+      @type = t('email.digest.type.weekly', :locale => @locale)
+    end
     @subject = t('email.digest.title', :type => @type, :locale => @locale)
     @signature  = Site.current.signature_in_html
 

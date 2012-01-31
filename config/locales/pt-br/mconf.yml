@@ -89,6 +89,9 @@ pt-br:
     home: 
       one: "Arquivo na comunidade %{space}"
     info: "Informações do documento"
+    more: 
+      one: "e mais um anexo..."
+      other: "e mais %{count} anexos..."
     new: "Novo anexo"
     not_selected: "Nenhum documento selecionado"
     one: Anexo
@@ -97,6 +100,7 @@ pt-br:
       none: "Nenhum arquivo selecionado"
       one: "arquivo selecionado"
       other: "arquivos selecionados"
+    title: "Anexos (%{count})"
     upload_with_post: "Notificar o envio com uma mensagem no mural"
   attendeePW: "Senha de Participante"
   author: "Enviado por"
@@ -215,6 +219,7 @@ pt-br:
   create_event: "Criar Evento"
   created_time_ago: "Criado %{time} atrás"
   date: 
+    at: em
     start: "Data inicial"
     undefined: "Não definido"
   days: Dias
@@ -241,6 +246,17 @@ pt-br:
     account_activated: "Sua conta em %{sitename} foi ativada com sucesso."
     commas: "Separado por vírgulas"
     confirm: "Você agora precisa confirmar seu registro clicando em <a href=\"%{url}\"> %{url} </a>"
+    digest: 
+      attachment: "<b>%{author_name}</b> enviou um novo anexo em <b>%{space_name}</b>:"
+      event: "<b>%{author_name}</b> criou um novo evento em <b>%{space_name}</b>:"
+      inbox: "<b>%{sender_name}</b> enviou uma mensagem para você:"
+      message: "Últimas atividades em suas comunidades:"
+      news: "Uma nova notícia foi publicada em <b>%{space_name}</b>:"
+      posted: "<b>%{author_name}</b> escreveu em <b>%{space_name}</b> a mensagem:"
+      title: "Resumo %{type} com as atividades em suas comunidades"
+      type: 
+        daily: diário
+        weekly: semanal
     invitation_result: 
       admin_side: "%{name} %{action} o convite para a comunidade %{spacename}"
       user_side: "Seu pedido de autorização na comunidade %{spacename} foi: %{action}"
@@ -339,6 +355,9 @@ pt-br:
       crop: "Selecione a parte da imagem para recortar"
       new: "Adicionar uma imagem para o seu evento"
       select: "Mudar seu logotipo"
+    more: 
+      one: "e mais um evento..."
+      other: "e mais %{count} eventos..."
     move: 
       change_date: "<b>Alterar a Data do Evento:</b> Essa opção permite que você altere a data do seu evento. Você pode alterar a data inicial, data final ou as duas."
       change_end_date: "Alterar a data final do evento"
@@ -435,6 +454,7 @@ pt-br:
     time: 
       end: Fim
       start: Início
+    title: "Eventos (%{count})"
     to: Para
     today: "Eventos de hoje"
     today_and_yesterday: "Hoje e ontem (%{size})"
@@ -444,6 +464,7 @@ pt-br:
       title: "Eventos sem agenda definida"
     upcoming: 
       all: "Todos os programados (%{size})"
+      my_other: "Meus próximos events"
       next_month: "Não há eventos para o próximo mês"
       next_week: "Não há eventos para a próxima semana"
       none: "Não há eventos programados"
@@ -862,10 +883,14 @@ pt-br:
       delete: "Erro ao excluir notícia"
       update: "Notícia não pôde ser atualizada"
     item_in_home: "Notícia na comunidade"
+    more: 
+      one: "e mais uma notícia..."
+      other: "e mais %{count} notícias..."
     none_to_show: "Nenhuma notícia para mostrar"
     other: Notícias
     publish_another: "Publicar outra notícia"
     publish_home: "Publicar notícia"
+    title: "Notícias (%{count})"
     updated: "Notícia atualizada com sucesso"
   next: Próximo
   no_messages_in_wall: "Não há mensagens no mural"
@@ -921,19 +946,29 @@ pt-br:
     home: 
       one: "Mensagem na comunidade %{space}"
     latest: "Últimas mensagens"
+    more: 
+      one: "e uma outra mensagem..."
+      other: "e mais %{count} mensagens..."
     none_created: "Nenhuma mensagem criada"
     none_recent: "Não há mensagens recentes"
     one: Mensagem
     other: Mensagens
     other_in_space: "Mensagens na comunidade %{space}"
     show_expanded_pref: "Como você gostaria de ver suas mensagens?"
+    title: "Mensagens (%{count})"
     wall: Mural
   prav: PRAV
   preferences: Preferências
   previous: Anterior
   privacy: Privacidade
   private_message: 
+    more: 
+      one: "e uma outra mensagem privada..."
+      other: "e mais %{count} mensagens privadas..."
+    one: "Mensagem Privada"
+    other: "Mensagens Privadas"
     send: "Enviar mensagem privada"
+    title: "Mensagens Privadas (%{count})"
   profile: 
     deleted: "Perfil excluído com sucesso"
     description: 
@@ -948,7 +983,14 @@ pt-br:
     public: "Perfil público"
     public_description: "Qualquer pessoa pode acessar esta informação"
     updated: "Perfil atualizado com sucesso"
+    visibility: Visibilidade
+    visibility_description: "Escolha quem poderá ver o seu perfil privado"
     visibility_edit: "Edite a visibilidade do seu perfil"
+    visibility_everybody: "Todos podem ver o seu perfil privado."
+    visibility_members: "Apenas usuários registrados podem ver o seu perfil privado."
+    visibility_nobody: "Ninguém pode ver o seu perfil privado."
+    visibility_private_fellows: "Apenas os seus colegas em um espaço privado podem ver o seu perfil privado."
+    visibility_public_fellows: "Apenas os seus colegas em um espaço público podem ver o seu perfil privado."
   province: Província
   public: Público
   read_more: "Ler mais"
@@ -1348,6 +1390,11 @@ pt-br:
     password: Senha
     password_confirmation: "Confirmação de senha"
     private_message: "Enviar Mensagem"
+    receive_digest: 
+      daily: Diariamente
+      description: "O quão frequentemente você gostaria de receber emails com um resumo das atividades que aconteceram nas comunidades as quais você pertence?"
+      never: Nunca
+      weekly: Semanalmente
     recent_join: "Usuários recentemente inscritos"
     registered: "Obrigado por se registar! Acabamos de enviar instruções sobre como ativar a sua conta de usuário"
     request_confirmation: "Solicitar e-mail de confirmação"
@@ -1357,6 +1404,10 @@ pt-br:
       link: "Reenviar e-mail de confirmação"
       success: "E-mail de confirmação enviado para '%{email}'"
     reset_password: "Redefinir senha"
+    results_count: 
+      one: "Pessoas, %{users_size} resultado"
+      other: "Pessoas, %{users_size} resultados"
+    results_found: "Usuários encontrados"
     search: "Procurar Usuários..."
     timezone: "Fuso horário"
     updated: "Usuário atualizado com sucesso"

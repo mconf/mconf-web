@@ -126,7 +126,7 @@ GEM
     garb (0.9.1)
       activesupport (>= 2.2.0)
       crack (>= 0.1.6)
-    god (0.11.0)
+    god (0.12.1)
     highline (1.6.2)
     hoe (2.9.4)
       rake (>= 0.8.7)
@@ -154,7 +154,7 @@ GEM
     net-ssh-gateway (1.1.0)
       net-ssh (>= 1.99.1)
     nokogiri (1.4.1)
-    passenger (3.0.7)
+    passenger (3.0.11)
       daemon_controller (>= 0.2.5)
       fastthread (>= 1.0.1)
       rack
@@ -253,7 +253,7 @@ DEPENDENCIES
   ffaker
   fuubar
   garb
-  god (= 0.11.0)
+  god (= 0.12.1)
   hoe
   hpricot
   htmlentities
@@ -261,7 +261,7 @@ DEPENDENCIES
   jquery-rails (>= 0.2.6)
   mysql2 (~> 0.2.0)
   nokogiri (= 1.4.1)
-  passenger (= 3.0.7)
+  passenger (= 3.0.11)
   pdf-writer
   populator
   prism
