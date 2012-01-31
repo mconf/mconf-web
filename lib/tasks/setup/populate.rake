@@ -80,7 +80,9 @@ namespace :setup do
 
     puts "* Create spaces (10)"
     Space.populate 10 do |space|
-      name = Populator.words(1..3).capitalize until Space.find_by_name(name).nil?
+      begin
+        name = Populator.words(1..3).capitalize
+      end until Space.find_by_name(name).nil?
       space.name = name
       space.permalink = PermalinkFu.escape(space.name.titleize)
       space.description = Populator.sentences(1..3)
