@@ -8,4 +8,5 @@
 //= require jquery/jquery.qtip.2.0.0pre
 //= require jquery/jquery-ui
 //= require jquery/jquery.form
+//= require jquery/jquery.sticky
 //= require_tree ./application/

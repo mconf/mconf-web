@@ -40,6 +40,13 @@ class SpacesController < ApplicationController
     @spaces = Space.find(:all, :order => 'name ASC')
     @private_spaces = @spaces.select{|s| !s.public?}
     @public_spaces = @spaces.select{|s| s.public?}
+
+    if logged_in? && current_user.spaces.any?
+      @user_spaces = current_user.spaces
+    else
+      @user_spaces = []
+    end
+
     if @space
        session[:current_tab] = "Spaces"
     end

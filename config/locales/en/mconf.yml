@@ -1229,6 +1229,7 @@ en:
     enabled: "Space enabled successfully"
     error: 
       enabled: "Space %{name} is already enabled"
+    event_count: "%{count} events"
     group_invitation: 
       button: "Invite mailing lists"
       message_title: "Invite mailing lists to join your space"
@@ -1254,6 +1255,7 @@ en:
       upload_logo_text: "Select a logo to upload:"
       upload_text: Upload
       use_date: "Use event date"
+    member_count: "%{count} members"
     member_of: "Member of the spaces"
     moderatorPW: "edit moderator password"
     my_spaces: "My Spaces"
@@ -1264,6 +1266,7 @@ en:
       one: "%{count} participant in the room."
       other: "%{count} participant in the room."
     possesion: "My Spaces"
+    post_count: "%{count} posts"
     private: "Private spaces"
     public: 
       one: "Public space"

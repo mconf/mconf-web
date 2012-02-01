@@ -1,8 +1,8 @@
 @import "compass/typography/links";
 @import "partials/definitions";
-@import "partials/base";
 
 // date of comments, news, posts, etc.
+// TODO: maybe move to _base
 .updated-at {
   font-style: italic;
   margin-left: 10px;

@@ -27,70 +27,88 @@ $(document).ready(function() {
 </script>
 <% end %>
 
-<%= content_for :sidebar do  %>
-  <% if logged_in? %>
-    <div class="button_wrapper">
-      <%= link_to ("<span>" + t('space.create_own') + "</span>").html_safe, new_space_path, :class => "new_space_link big_button orange_button"%>
-    </div>
-    <div class="clearer"></div>
-  <% else %>
-    <div class="join">
-      <h2><%= t('getting_started') %></h2>
-      <div class="button_wrapper margin-up">
-        <%= link_to ("<span>" + t('register.one') + "</span>").html_safe, signup_path(), :class => "register_link big_button orange_button"%>
-      </div>
-    </div>
-  <% end %>
+<%= content_for :sidebar do %>
 
-  <div id="space_description_at_index">
-    <div>
-      <p><%= t('space.index.select_at_left') %></p>
+
+  <!--<div class="sidebar-spacer"></div>-->
+
+  <%= render_sidebar_content_block('space-description-wrapper') do %>
+    <div class="content">
+      <div class="content-block-middle">
+        <p><%= t('space.index.select_at_left') %></p>
+      </div>
     </div>
     <% for space in @spaces %>
-      <div style="display:none;" id="<%=space.permalink%>" >
-        <%= render :partial=> "space_description", :locals => {:space => space}%>
+      <div class="content" style="display:none;" id="<%= space.permalink %>-description">
+        <div class="content-block-middle">
+          <div class="space-logo">
+            <%= link_logo(space, :size => 'h128', :title => sanitize(space.name)).html_safe %>
+          </div>
+          <h3><%= sanitize(space.name) %></h3>
+          <p class="description"><%= sanitize(space.description) %></p>
+          <p class="details">
+            <span><%= t('space.member_count', :count => space.actors.count) %></span>
+            <span><%= t('space.post_count', :count => space.posts.count) %></span>
+            <span><%= t('space.event_count', :count => space.events.count) %></span>
+          </p>
+        </div>
       </div>
-    <%end%>
-  </div>
+    <% end %>
+  <% end %>
+
 <% end %>
 
-<% @page_title = "Spaces"-%>
-<%if logged_in? && current_user.spaces.any?%>
-  <% @user_spaces = current_user.spaces%>
-<%else%>
-  <%@user_spaces = []%>
-<%end%>
+<div id="space-filter">
+  <%= radio_button_tag "show-spaces", "filter", true %>
+  <%= text_field_tag 'space-name-filter', (params[:filter] ? params[:filter] : t('search.space.dots')) %>
+  <% if logged_in? %>
+    <%= radio_button_tag "show-spaces", "all", false %>
+    <%= label_tag t('space.all'), nil, :for => "show-spaces_all" %>
+    <%= radio_button_tag "show-spaces", "mine", false %>
+    <%= label_tag t('space.my_spaces'), nil, :for => "show-spaces_mine" %>
+  <% end %>
 
-<div id="space_filter" style="display:none">
-  <%=text_field_tag 'space_name_filter',(params[:filter] ? params[:filter] :  t('search.space.dots'))%>
-  <%if logged_in?%>
-    <%= radio_button_tag "spaces", "all", true %><%= label_tag t('space.all') %>
-    <%= radio_button_tag "spaces", "my", false %><%= label_tag t('space.my_spaces') %>
-  <%end%>
-</div>
-
-<div id = "public_spaces" class="space-box margin-up">
-  <div id="title"><h3 class="blue bold"><%= t('space.public.other') %></h3></div>
-  <div id="space_content">
-    <% for space in @public_spaces %>
-      <div class="space_item <%= if @user_spaces.include?(space) then 'mymy' else 'other' end %>" name="<%=space.permalink%>"><%= link_logo(space, :size => 'h64', :title => sanitize(space.name)).html_safe %></div>
+  <div class="action-button">
+    <% if logged_in? %>
+      <%= link_to t('space.create_own'), new_space_path, :class => "button orange"%>
+    <% else %>
+      <%= t('getting_started') %>
+      <%= link_to t('register.one'), signup_path, :class => "button orange" %>
     <% end %>
   </div>
+
 </div>
 
-<div id = "private_spaces" class="space-box">
-  <div id="title"><h3 class="blue bold"><%= t('space.private') %></h3></div>
-  <div id="space_content">
-    <% for space in @private_spaces %>
+<div class="content-block" id="public-spaces">
+  <div class="content-block-header">
+    <h3><%= t('space.public.other') %></h3>
+  </div>
+  <div class="content-block-middle">
+    <% @public_spaces.each do |space| %>
+      <div class="space-item <%= @user_spaces.include?(space) ? 'my-space' : 'not-my-space' %>" name="<%= space.permalink %>">
+        <%= link_logo(space, :size => 'h64', :title => sanitize(space.name), :class => 'tooltipped-label downwards').html_safe %>
+      </div>
+    <% end %>
+  </div>
+  <%= render_clearer %>
+</div>
+
+<div class="content-block" id="private-spaces">
+  <div class="content-block-header">
+    <h3><%= t('space.private') %></h3>
+  </div>
+  <div class="content-block-middle">
+    <% @private_spaces.each do |space| %>
       <% unless space.authorize?(:read, :to => current_agent) %>
-        <div class="space_item other" name="<%=space.permalink%>">
-          <%= raw(link_logo(space, :size =>'h64', :url => new_space_join_request_path(space), :title=>sanitize(space.name))) %>
+        <div class="space-item not-my-space" name="<%= space.permalink %>">
+          <%= link_logo(space, :size => 'h64', :url => new_space_join_request_path(space), :title => sanitize(space.name), :class => 'tooltipped-label downwards').html_safe %>
         </div>
       <% else %>
-        <div class="space_item <%= if @user_spaces.include?(space) then "mymy" else "other" end%>" name="<%=space.permalink%>"><%= link_logo(space, :size=> 'h64', :title => sanitize(space.name)).html_safe %></div>
+        <div class="space-item <%= @user_spaces.include?(space) ? 'my-space' : 'not-my-space' %>" name="<%=space.permalink%>">
+          <%= link_logo(space, :size => 'h64', :title => sanitize(space.name), :class => 'tooltipped-label downwards').html_safe %>
+        </div>
       <% end %>
     <% end %>
   </div>
+  <%= render_clearer %>
 </div>
-
-<div id="lightbox_join_content" style="display:none"></div>
