@@ -19,6 +19,9 @@ $(document).ready ->
     $(this).addClass("tooltipped")
     $(this).addClass("upwards")
 
+  # Use jquery for placeholders in browsers that don't support it
+  $('input[placeholder], textarea[placeholder]').placeholder();
+
 # Changes the type of an input tag
 # Example:
 #   changeInputType("#moderator_password", 'password')

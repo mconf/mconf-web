@@ -1,11 +1,11 @@
 @import "compass/css3";
 @import "partials/definitions";
 
-//#sidebar {
-//  width: 210px;
-//}
+#content-middle {
+  min-height: 450px;
+}
 
-#space-filter {
+#space-filter-wrapper {
   margin-bottom: 20px;
   padding: 10px 5px;
   background: #f6f6f6;
@@ -17,6 +17,8 @@
     margin-top: 5px;
     margin-right: 10px;
   }
+
+  label { margin-right: 15px; }
 }
 
 #space-description-wrapper {
@@ -27,8 +29,6 @@
       img {
         padding: 20px;
         background: #f6f6f6;
-        //border-bottom: 1px solid #ddd;
-        //border-top: 1px solid #ddd;
       }
     }
   }
@@ -51,11 +51,10 @@
     @include border-radius(2px);
 
     &.selected {
-      //background: #ddd;
       border: 1px solid $orange;
       background: lighten($orange, 35);
+      @include box-shadow(0 0 15px $orange);
     }
   }
-
 
 }

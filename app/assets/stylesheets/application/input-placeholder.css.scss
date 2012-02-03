@@ -1,0 +1,34 @@
+// From: https://gist.github.com/923593
+// More about it: http://groups.google.com/group/compass-users/browse_thread/thread/a5839c520053b92?pli=1
+
+@mixin placeholder-style {
+  color: #777
+  // add your defaults here.
+  // if you need more than one style-group you can either create several mixins,
+  // or just name the style-groups and take a single style-group-name argument.
+}
+
+@mixin apply-placeholders {
+  &::-webkit-input-placeholder {
+    @include placeholder-style;
+  }
+  &:-moz-placeholder {
+    @include placeholder-style;
+  }
+  &.placeholder {
+    @include placeholder-style;
+  }
+}
+
+// Template --------------------------------------------------------------
+// you can create as many templates as you need for your site
+.placeholders {
+  @include apply-placeholders;
+}
+
+// Placeholders --------------------------------------------------------------
+// call the template with @extend when you can
+// or, when fighting the cascade you can call the mixin
+input, textarea {
+  @extend .placeholders;
+}

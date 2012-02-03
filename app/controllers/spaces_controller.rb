@@ -33,10 +33,10 @@ class SpacesController < ApplicationController
   respond_to :html, :only => [:new, :edit, :index, :show]
 
   def index
-    if params[:space_id] && params[:space_id]!= "all" && params[:space_id]!="my" && params[:space_id]!=""
-      redirect_to space_path(Space.find_by_permalink(params[:space_id]))
-      return
-    end
+    #if params[:space_id] && params[:space_id] != "all" && params[:space_id] !="my" && params[:space_id] !=""
+    #  redirect_to space_path(Space.find_by_permalink(params[:space_id]))
+    #  return
+    #end
     @spaces = Space.find(:all, :order => 'name ASC')
     @private_spaces = @spaces.select{|s| !s.public?}
     @public_spaces = @spaces.select{|s| s.public?}
