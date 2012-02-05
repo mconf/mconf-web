@@ -9,4 +9,5 @@
 //= require jquery/jquery-ui
 //= require jquery/jquery.form
 //= require jquery/jquery.placeholder
+//= require uikit/ui
 //= require_tree ./application/

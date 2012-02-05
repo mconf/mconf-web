@@ -1,5 +1,6 @@
 #notification-flashs
+  -#.click-to-hide
+  -#  = t('click_to_hide')
   - flash.each do |name, msg|
-    %div{:class => "#{name} tooltipped downwards", :title => t('click_to_hide')}
-      .message
-        = msg.html_safe
+    %div{:name => "#{name}"}
+      = msg.html_safe

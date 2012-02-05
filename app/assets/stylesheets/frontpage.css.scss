@@ -1,14 +1,13 @@
 /*
- *= require application/reset
+ *= require application
  *= require ../../../vendor/assets/stylesheets/jquery/jquery.anythingslider
  *= require ../../../vendor/assets/stylesheets/jquery/jquery.anythingslider.theme-minimalist-round
- *= require ../../../vendor/assets/stylesheets/jquery/jquery.qtip.2.0.0pre
- *= require application/tooltips
  */
 
 @import "compass/css3";
 @import "compass/utilities/general";
-@import "partials/base";
+@import "compass/typography";
+@import "partials/definitions";
 
 // TODO: some styles that are here can be put in partials/_base.scss
 

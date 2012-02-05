@@ -1,8 +1,45 @@
+@import "compass/css3";
+
+#notification-flashs {
+  display: none;
+}
+
+#notifications {
+  top: 35px;
+}
+
+$notif-success-bg: #318f00;
+$notif-notice-bg: #fde073;
+$notif-error-bg: #D14836;
+.notification {
+  @include box-shadow(0 1px 4px 0 #ddd);
+  font-size: 14px;
+  background-color: $notif-success-bg;
+  color: white;
+
+  .close { color: #ccc }
+  &.closable { cursor: pointer; }
+
+  &.warn {
+    background: $notif-notice-bg;
+    color: #333;
+    .close { color: #666 }
+  }
+  &.error {
+    background: $notif-error-bg;
+    color: white;
+  }
+}
+
+/* Old notification styles, without using uikit
+
 //
 // Notification bar
 //
 
 #notification-flashs {
+  display: none;
+
   cursor: pointer;
   _position: absolute;
   position: absolute;
@@ -44,4 +81,13 @@
     @include border-bottom-radius(3px);
     color: #eee;
   }
+
+  .click-to-hide {
+    float: right;
+    color: #ccc;
+    position: absolute;
+    right: 10px;
+    font-style: italic;
+  }
 }
+*/
