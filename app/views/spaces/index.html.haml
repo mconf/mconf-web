@@ -9,12 +9,17 @@
       .content-block-middle{:id => "#{space.permalink}-description", :style => "display:none;"}
         .space-logo
           = link_logo(space, :size => 'h128', :title => sanitize(space.name)).html_safe
-        %h3= sanitize(space.name)
+        = link_to space_path(space) do
+          %h3= sanitize(space.name)
         %p.description= sanitize(space.description)
         %p.details
+          - if !space.users.include?(current_user)
+            %span.is_member= t('space.index.user_is_member')
           %span= t('space.member_count', :count => space.actors.count)
           %span= t('space.post_count', :count => space.posts.count)
           %span= t('space.event_count', :count => space.events.count)
+        %p.action-links
+          = link_to t('more'), space_path(space)
 
 #space-filter-wrapper
   = radio_button_tag "show-spaces", "all", true

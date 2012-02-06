@@ -1237,6 +1237,7 @@ en:
       subject: "%{username} invites you to space %{space}"
     index: 
       select_at_left: "Select a space in the left to see it's description here"
+      user_is_member: "You are a member!"
     is_private: "is a private space. Send a join request to the administrator of this space to let you in"
     join: "Join this space"
     join_invitation: 

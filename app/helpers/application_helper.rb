@@ -71,7 +71,7 @@ module ApplicationHelper
     end
 
     link_to url, :class => cls  do
-      content_tag :span, t('bigbluebutton_rails.rooms.join_mobile'),
+      content_tag :span, t('bigbluebutton_rails.rooms.join_mobile')
     end
   end
 
