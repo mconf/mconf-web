@@ -12,7 +12,8 @@
     = status.capitalize
     - t('webconference.my_webconference')
 
-  .webconference-footer
+  - active_cls = @room.is_running? ? "active" : ""
+  .webconference-footer{ :class => active_cls }
 
     .action-buttons
       -#= link_to t('configurations'), edit_bbb_room_user_path(current_user, :room => @room.to_param), :id => "edit_bbb_room", :class => 'button'

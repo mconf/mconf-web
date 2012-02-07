@@ -38,20 +38,43 @@ input[type=checkbox] {
 }
 
 $fb-allow-disabled: true;
+$fb-gradient-style: matte;
 button, input[type=submit], input[type=button], .button {
-  @include fancy-button-colors-matte(#ddd);
+  @include fancy-button(#ddd);
   @include fancy-button-size(12px, 4px, 1px);
   @include fancy-button-padding(4px, 8px, 1px);
+  border: 0;
+  font-weight: normal;
   cursor: pointer;
 
+  &.bordered { border: 1px solid #ddd; }
   &:hover { text-decoration: none; }
 
   // colors
-  &.red { @include fancy-button-colors-matte($red); }
-  &.blue { @include fancy-button-colors-matte($blue); }
-  &.green { @include fancy-button-colors-matte($green); }
-  &.orange { @include fancy-button-colors-matte($orange); }
-  &.yellow { @include fancy-button-colors-matte($yellow); }
+  &.red {
+    @include fancy-button-colors($red);
+    &.bordered { border-color: $red; }
+  }
+  &.blue {
+    @include fancy-button-colors($blue);
+    &.bordered { border-color: $blue; }
+  }
+  &.green {
+    @include fancy-button-colors($green);
+    &.bordered { border-color: $green; }
+  }
+  &.orange {
+    @include fancy-button-colors($orange);
+    &.bordered { border-color: $orange; }
+  }
+  &.yellow {
+    @include fancy-button-colors($yellow);
+    &.bordered { border-color: $yellow; }
+  }
+  &.dark-gray {
+    @include fancy-button-colors(#666);
+    &.bordered { border-color: #666; }
+  }
 
   // sizes
   &.big {

@@ -7,7 +7,7 @@
     = f.text_field :special_event_id, :style => 'display:none'
     %div{ :class => user.errors[:captcha].empty? ? 'captcha' : 'captcha field_with_errors' }
       = show_simple_captcha(:object => :user)
-    = f.button :submit, t("button.accept")
+    = f.button :submit, t("button.accept"), :class => 'bordered'
   .comments
     %span= "* " + t('mandatory_field')
     %span= t('register.confirmation')

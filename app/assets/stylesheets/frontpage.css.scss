@@ -271,7 +271,7 @@ $components-images-width: 530px;
     &:hover {
       cursor: pointer;
       background: $sub-header-bg-color;
-      @include background(linear-gradient(left, darken($sub-header-bg-color, 8), white));
+      //@include background(linear-gradient(left, darken($sub-header-bg-color, 8), white));
     }
 
     .link-title {
@@ -284,28 +284,30 @@ $components-images-width: 530px;
   }
 
   .content-block-selected, .content-block-selected:hover {
+    $selected-color: $header-bg-color;
+
     @extend .content-block;
-    @include background(linear-gradient(left, #222, #444));
-    border: 1px solid #222;
+    @include background(linear-gradient(left, $selected-color, lighten($selected-color, 5)));
+    border: 1px solid $selected-color;
     color: #ddd;
     position: relative;
 
     .link-title {
       color: #ddd;
-      @include text-shadow(#222 2px 2px 4px);
+      @include text-shadow(darken($selected-color, 5) 2px 2px 4px);
     }
 
     &:before {
       border: solid transparent;
       content: ' ';
       height: 0;
-      left: -32px;
+      left: -35px;
       position: absolute;
       width: 0;
     }
     &:before {
       border-width: 20px;
-      border-right-color: #222;
+      border-right-color: $selected-color;
       top: 5px;
     }
   }
@@ -328,6 +330,7 @@ $components-images-width: 530px;
 #content-searching-for {
   @include mconf_clearfix;
   margin: 20px 0;
+  margin-left: 20px;
 
   .section-title h2 {
     margin-top: 20px;
@@ -339,30 +342,20 @@ $components-images-width: 530px;
     @include border-radius(4px);
     clear: none;
     float: left;
-    margin-right: 20px;
+    margin-right: 30px;
     width: 200px;
-
-    &:hover {
-      background: $sub-header-bg-color;
-      @include background(linear-gradient(left, $sub-header-bg-color, white));
-    }
-
-    img {
-      float: left;
-      margin-right: 10px;
-      margin-top: 7px;
-    }
-
-    .text {
-      margin-left: 50px;
-    }
+    text-align: center;
 
     .link-title {
       font-size: $font-medium;
       color: #555;
       font-weight: bold;
       display: block;
-      @include text-shadow(white 2px 2px 4px);
+      padding: 2px 5px;
+      background: #f6f6f6;
+      border-bottom: 1px solid #ddd;
+      margin-bottom: 10px;
+      @include text-shadow(darken($site-bg-color, 10) 2px 2px 4px);
       a { @include link-colors(#555,  $site-link-hover, $site-link-active) }
     }
 
@@ -398,10 +391,13 @@ $components-images-width: 530px;
   }
 
   img {
-    @include box-shadow(0px 0px 5px #777);
-    margin: 4px;
+    margin: 3px;
     @include border-radius(2px);
+    border: 1px solid #ccc;
 
-    &:hover { @include box-shadow(0px 0px 15px $header-bg-color); }
+    &:hover {
+      border: 1px solid $orange;
+      @include box-shadow(0 0 15px $orange);
+    }
   }
 }

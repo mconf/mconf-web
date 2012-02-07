@@ -29,6 +29,8 @@
     background: #f6f6f6;
     @include border-radius(5px);
 
+    &.active { border: 2px solid #C0D7A9; }
+
     .action-buttons {
       float: right;
       margin: 4px;

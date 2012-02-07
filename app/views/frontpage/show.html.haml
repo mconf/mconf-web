@@ -25,23 +25,17 @@
     .section-title
       %h2= t('frontpage.searching_for.title')
     .content-block
-      = image_tag('frontpage/icon-use-pb-40x40.png', :size => '40x40')
-      .text
-        %span.link-title
-          %a{:href => signup_path}= t('frontpage.searching_for.use.title')
-        %span= t('frontpage.searching_for.use.message').html_safe
+      %span.link-title
+        %a{:href => signup_path}= t('frontpage.searching_for.use.title')
+      %span= t('frontpage.searching_for.use.message').html_safe
     .content-block
-      = image_tag('frontpage/icon-install-pb-40x40.png', :size => '40x40')
-      .text
-        %span.link-title
-          %a{:href => "http://code.google.com/p/mconf/wiki/MconfInstallation"}= t('frontpage.searching_for.install.title')
-        %span= t('frontpage.searching_for.install.message').html_safe
+      %span.link-title
+        %a{:href => "http://code.google.com/p/mconf/wiki/MconfInstallation"}= t('frontpage.searching_for.install.title')
+      %span= t('frontpage.searching_for.install.message').html_safe
     .content-block
-      = image_tag('frontpage/icon-collaborate-pb-40x40.png', :size => '40x40')
-      .text
-        %span.link-title
-          %a{:href => "http://code.google.com/p/mconf/wiki/MconfCollaborate"}= t('frontpage.searching_for.collaborate.title')
-        %span= t('frontpage.searching_for.collaborate.message').html_safe
+      %span.link-title
+        %a{:href => "http://code.google.com/p/mconf/wiki/MconfCollaborate"}= t('frontpage.searching_for.collaborate.title')
+      %span= t('frontpage.searching_for.collaborate.message').html_safe
 
 #content-current-site
   = render :partial => 'space_list', :locals => { :spaces => @most_active_spaces }
