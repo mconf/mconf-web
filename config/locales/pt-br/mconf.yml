@@ -709,8 +709,8 @@ pt-br:
     updatedn: "entradas de seu iCalendar já estavam em sua agenda de eventos e foram atualizadas."
   im: IM
   inbox: 
-    my: "Minha caixa de entrada (%{checked})"
-    one: "Caixa de Entrada (%{checked})"
+    my: "Caixa de entrada (%{checked})"
+    one: "Caixa de entrada (%{checked})"
   information: 
     expand: "Expandir Lista.."
     information1: "Estas são as comunidades dos quais você faz parte"
@@ -1125,6 +1125,8 @@ pt-br:
   show_advanced_editor: "Exibir editor avançado"
   show_list_version_arrows: "exibir versão em lista >>"
   show_question: Exibir?
+  simple_captcha: 
+    label: "Insira aqui o texto da imagem"
   site: 
     analytics_code: "Código do Google Analytics"
     analytics_code_tip: "Código para sua conta do Google Analytics. Deixe em branco para desabilitar. Exemplo: \"UA-12345678-9\""
@@ -1169,7 +1171,7 @@ pt-br:
     confirm: "Tem certeza que quer deixar esta comunidade?"
     create: 
       webconf_options: "Opções para a sala de webconferência"
-    create_own: "Criar uma nova comunidade"
+    create_own: "Criar nova comunidade"
     created: "Comunidade criada com sucesso"
     delete: "Excluir Comunidade"
     deleted: "Comunidade removida com sucesso"
