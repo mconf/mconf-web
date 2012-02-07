@@ -7,9 +7,9 @@
 @import "compass/css3";
 @import "compass/utilities/general";
 @import "compass/typography";
-@import "partials/definitions";
+@import "definitions";
 
-// TODO: some styles that are here can be put in partials/_base.scss
+// TODO: some styles that are here can be put in application/base.scss
 
 $global-header-height: 110px;
 $page-header-height: 80px;

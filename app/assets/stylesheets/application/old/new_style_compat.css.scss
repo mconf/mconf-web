@@ -2,7 +2,7 @@
 @import "compass/css3";
 @import "compass/utilities/general";
 @import "compass/typography/links/link-colors";
-@import "partials/definitions";
+@import "definitions";
 // @import "fancy-buttons";
 // @import "partials/typography";
 
@@ -11,108 +11,6 @@
 // Replicated things from base that are being used together with the old
 // css files. In the future only base.scss should be used and this file
 // will be removed.
-
-/*
-#footer-wrapper {
-  border-top: 1px dashed #ddd;
-  // @include background(linear-gradient(top, $footer-bg-color, $footer-bg-color 30%, $site-bg-color));
-  color: #444;
-  clear: both;
-  margin-bottom: 10px;
-  margin-top: 20px;
-}
-
-#footer {
-  width: $contents-width;
-  margin: 0 auto;
-  padding: 20px 5px 0 5px;
-  color: #666;
-  a { @include link-colors(desaturate($site-link, 20), $site-link-hover, $site-link-active); text-decoration: none;}
-
-  h3 {
-    font-size: 12px;
-    color: #777;
-    margin-bottom: 10px;
-    font-weight: bold;
-    padding-bottom: 5px;
-    border-bottom: 1px solid darken($footer-bg-color, 15);
-  }
-
-  ul {
-    list-style-type: none;
-    margin: 0;
-    li {
-      display: block;
-      position: relative;
-      margin-bottom: 5px;
-    }
-  }
-
-  .link-group {
-    float: left;
-    margin-right: 35px;
-  }
-
-  .link-group2 {
-    @extend .link-group;
-    float: right;
-    margin-right: 0;
-    margin-left: 20px;
-    text-align: right;
-    h3 { text-align: right; }
-  }
-
-  .footer-sponsors {
-    width: 200px;
-    li { margin-bottom: 15px; }
-    img {
-      float: right;
-      margin-left: 10px;
-    }
-  }
-
-  .languages {
-    img.help-translate-icon { float: right; margin-top: 6px; }
-    ul { float: left; margin-right: 20px; }
-  }
-
-  .copyright {
-    margin-top: 10px;
-    padding-top: 10px;
-    text-align: left;
-    float: left;
-  }
-
-  .version-info {
-    font-size: $font-small;
-  }
-}
-
-#footer-logo {
-  float: left;
-  color: #888;
-
-  a { @include link-colors(#bbb, #bbb, #bbb); }
-
-  .title {
-    font-weight: bold;
-    font-size: 28px;
-  }
-
-  span { display: block; }
-}
-
-#footer-version {
-  float: left;
-  clear: left;
-  margin-top: 15px;
-  font-size: $font-small;
-  color: #888;
-
-  a { @include link-colors(#777, $site-link-hover, $site-link-active); display: block; }
-}
-
-*/
 
 .ui-tooltip-mconf {
   .ui-tooltip-content {

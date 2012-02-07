@@ -1,14 +1,9 @@
-#footer-wrapper
-
-  #footer.clearfix
+#upper-footer-wrapper
+  #upper-footer
     .link-group
       #footer-logo.link-group
         %a.title{:href => "/"}= t('mconf')
         %span= t('footer.copyright')
-      #footer-version
-        = t('footer.current_version') + ": "
-        %a{:href => github_link_to_revision(application_revision)}
-          = application_version + "/" + application_branch + "/" + application_revision
     .link-group
       %h3= t('footer.links.title')
       %ul
@@ -44,5 +39,12 @@
         %li
           = image_tag("logos/rnp_small.jpg")
           %a{:href => "http://www.rnp.br"}= t('footer.sponsors.rnp').html_safe
-    .link-group2.version-info
+
+#lower-footer-wrapper
+  #lower-footer
+    .version-info
       = t('footer.built_on_top_of').html_safe
+    .current-version
+      = t('footer.current_version') + ": "
+      %a{:href => github_link_to_revision(application_revision)}
+        = application_version + "/" + application_branch + "/" + application_revision

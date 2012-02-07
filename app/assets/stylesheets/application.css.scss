@@ -1,11 +1,18 @@
 /*
  *= require application/reset
+ *
+ * Vendored stylesheets
  *= require ../../../vendor/assets/stylesheets/jquery/jquery.colorbox
  *= require ../../../vendor/assets/stylesheets/jquery/jquery.jcrop
  *= require ../../../vendor/assets/stylesheets/jquery/jquery.qtip.2.0.0pre
  *= require ../../../vendor/assets/stylesheets/calendar
  *= require ../../../vendor/assets/stylesheets/token-input-facebook
  *= require ../../../vendor/assets/stylesheets/uikit/ui
+ *
+ * Note: the order matters!
+ *= require application/typography
+ *= require application/base
+ *= require application/notifications
  *= require application/tooltips
  *= require application/input-placeholder
  *
@@ -20,8 +27,8 @@
 
 @import "compass/css3";
 @import "compass/utilities/general";
-@import "partials/definitions";
-@import "partials/base";
+@import "compass/typography/links";
+@import "definitions";
 
 //
 // Redefining or adjusting some styles from partials/_base
@@ -33,7 +40,6 @@ $page-header-height: 70px;
 #global-header {
   padding: 0;
   height: $global-header-height;
-  a { @include link-colors(#bbb, white, $site-link-active); }
 }
 
 #main-logo {
@@ -80,6 +86,8 @@ ul#global-header-user-links {
   margin: 0;
   float: right;
   margin-top: 7px;
+
+  a { @include link-colors(#bbb, white, $site-link-active); }
 
   li {
     margin-left: 8px;

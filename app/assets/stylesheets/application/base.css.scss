@@ -1,9 +1,8 @@
 @import "compass/css3";
 @import "compass/utilities/general";
+@import "compass/typography/links";
 @import "fancy-buttons";
-@import "partials/definitions";
-@import "partials/typography";
-@import "partials/notifications";
+@import "definitions";
 
 
 //
@@ -177,31 +176,34 @@ button, input[type=submit], input[type=button], .button {
 
 #content-wrapper {
   padding-bottom: 20px;
-  border-bottom: 1px dashed darken($footer-bg-color, 10);
 }
 
-#footer-wrapper {
-  border-top: 1px solid $site-bg-color;
-  @include background(linear-gradient(top, $footer-bg-color, $footer-bg-color 30%, $site-bg-color));
+#upper-footer-wrapper {
+  border-top: 1px solid darken($upper-footer-bg-color, 7);
+  border-bottom: 1px solid darken($upper-footer-bg-color, 7);
+  //@include background(linear-gradient(top, $upper-footer-bg-color, $upper-footer-bg-color 30%, $site-bg-color));
+  background: $upper-footer-bg-color;
   color: #444;
   clear: both;
-  margin-bottom: 10px;
+  padding-top: 15px;
+  padding-bottom: 15px;
 }
 
-#footer {
+#upper-footer {
+  @include mconf_clearfix;
   width: $contents-width;
   margin: 0 auto;
-  padding: 20px 5px 0 5px;
+  padding: 0;
   color: #666;
   a { @include link-colors(desaturate($site-link, 20), $site-link-hover, $site-link-active); text-decoration: none;}
 
   h3 {
     font-size: 12px;
-    color: #777;
-    margin-bottom: 10px;
+    color: #888;
+    margin-bottom: 7px;
     font-weight: bold;
-    padding-bottom: 5px;
-    border-bottom: 1px solid darken($footer-bg-color, 15);
+    padding-bottom: 3px;
+    border-bottom: 1px solid darken($upper-footer-bg-color, 7);
   }
 
   ul {
@@ -249,9 +251,6 @@ button, input[type=submit], input[type=button], .button {
     float: left;
   }
 
-  .version-info {
-    font-size: $font-small;
-  }
 }
 
 #footer-logo {
@@ -268,15 +267,29 @@ button, input[type=submit], input[type=button], .button {
   span { display: block; }
 }
 
-#footer-version {
-  float: left;
-  clear: left;
-  margin-top: 15px;
-  font-size: $font-small;
-  color: #888;
-
-  a { @include link-colors(#777, $site-link-hover, $site-link-active); display: block; }
+#lower-footer-wrapper {
+  padding: 10px 0;
+  background: $lower-footer-bg-color;
 }
+
+#lower-footer {
+  @include mconf_clearfix;
+  width: $contents-width;
+  margin: 0 auto;
+  color: #888;
+  a { @include link-colors(#777, $site-link-hover, $site-link-active); }
+
+  .current-version {
+    float: left;
+    font-size: $font-small;
+  }
+
+  .version-info {
+    float: right;
+    font-size: $font-small;
+  }
+}
+
 
 
 /*
