@@ -32,7 +32,6 @@
         = render :partial => 'layouts/application_global_header'
       #page-header-wrapper
         = render :partial => "layouts/application_header"
-        = render_clearer
       #content-wrapper
         = render :partial => "layouts/notifications"
         #content
@@ -43,6 +42,5 @@
           - if content_for?(:sidebar)
             #sidebar
               = yield :sidebar
-          = render_clearer
       = render :partial => "layouts/footer"
     = render :partial => "layouts/analytics"

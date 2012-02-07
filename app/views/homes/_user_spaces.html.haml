@@ -4,7 +4,7 @@
     %h3= t('home.my_spaces')
     = info_icon t('home.my_spaces_tooltip')
 
-  .content-block-middle
+  .content-block-middle.clearfix
     - if current_user.spaces.empty?
       %p.no-spaces
         = t('home.no_spaces', :link => spaces_path).html_safe
@@ -25,7 +25,6 @@
               - else
                 %span{:title => space.name, :class => "space-title"}= first_words(space.name, 20)
               %span.description= t('members', :count => space.actors.count)
-    = render_clearer
 
   .content-block-footer
     = link_to t('space.all'), spaces_path, :class => 'all-spaces'

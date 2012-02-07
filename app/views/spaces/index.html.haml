@@ -39,16 +39,15 @@
 #public-spaces.content-block
   .content-block-header
     %h3= t('space.public.other')
-  .content-block-middle
+  .content-block-middle.clearfix
     - @public_spaces.each do |space|
       %div{:class => "space-item #{@user_spaces.include?(space) ? 'my-space' : 'not-my-space'}", :name => space.permalink}
         = link_logo(space, :size => 'h64', :title => sanitize(space.name), :class => 'tooltipped-label downwards').html_safe
-  = render_clearer
 
 #private-spaces.content-block
   .content-block-header
     %h3= t('space.private')
-  .content-block-middle
+  .content-block-middle.clearfix
     - @private_spaces.each do |space|
       - unless space.authorize?(:read, :to => current_agent)
         .space-item.not-my-space{:name => space.permalink}
@@ -56,4 +55,3 @@
       - else
         %div{:class => "space-item #{@user_spaces.include?(space) ? 'my-space' : 'not-my-space'}", :name => space.permalink}
           = link_logo(space, :size => 'h64', :title => sanitize(space.name), :class => 'tooltipped-label downwards').html_safe
-  = render_clearer

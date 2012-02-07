@@ -63,6 +63,7 @@ $page-header-height: 70px;
 #page-header {
   padding: 15px;
   height: $page-header-height;
+  @include mconf_clearfix;
 }
 
 #notification-flashs {
@@ -160,6 +161,7 @@ ul#global-header-user-links {
   width: $contents-width;
   margin: 0 auto;
   padding: 0;
+  @include mconf_clearfix;
 }
 
 #sidebar {
@@ -210,6 +212,7 @@ ul#global-header-user-links {
   }
 
   .sidebar-top-action-button {
+    @include mconf_clearfix;
     text-align: center;
     padding: 10px;
     a, span {
@@ -225,6 +228,7 @@ ul#global-header-user-links {
 #content-middle {
   float: left;
   width: $contents-width - $sidebar-width - 20px; // less right-margin
+  @include mconf_clearfix;
 
   h3 {
     color: #404040;

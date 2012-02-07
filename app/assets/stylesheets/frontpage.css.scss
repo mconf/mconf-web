@@ -126,6 +126,7 @@ $page-header-height: 80px;
 #page-header {
   padding: 20px;
   height: $page-header-height;
+  @include mconf_clearfix;
 
   .headline {
     float: left;
@@ -217,6 +218,7 @@ $page-header-height: 80px;
 }
 
 #components {
+  @include mconf_clearfix;
   margin: 20px auto;
   float: left;
 
@@ -324,6 +326,7 @@ $components-images-width: 530px;
 }
 
 #content-searching-for {
+  @include mconf_clearfix;
   margin: 20px 0;
 
   .section-title h2 {
@@ -374,17 +377,24 @@ $components-images-width: 530px;
 #content-spaces {
   clear: both;
 
+  .section-title {
+    @include mconf_clearfix;
+  }
+
   #most-active-spaces {
+    @include mconf_clearfix;
     clear: both;
     margin-top: 10px;
 
-    ul { margin: 5px 0; }
+    ul {
+      @include mconf_clearfix;
+      margin: 5px 0;
+    }
     li {
       float: left;
       display: inline;
       margin-right: 5px;
     }
-
   }
 
   img {

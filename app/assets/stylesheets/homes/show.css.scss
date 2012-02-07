@@ -22,6 +22,7 @@
   }
 
   .webconference-footer {
+    @include mconf_clearfix;
     clear: both;
     margin-top: 5px;
     padding: 5px;

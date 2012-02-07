@@ -1,6 +1,6 @@
 #footer-wrapper
 
-  #footer
+  #footer.clearfix
     .link-group
       #footer-logo.link-group
         %a.title{:href => "/"}= t('mconf')
@@ -46,4 +46,3 @@
           %a{:href => "http://www.rnp.br"}= t('footer.sponsors.rnp').html_safe
     .link-group2.version-info
       = t('footer.built_on_top_of').html_safe
-    = render_clearer

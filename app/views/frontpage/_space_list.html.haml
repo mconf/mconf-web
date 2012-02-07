@@ -5,7 +5,6 @@
     .subtitle
       %span
         = t('frontpage.spaces.subtitle').html_safe
-    = render_clearer
 
   #most-active-spaces
     %ul
@@ -14,6 +13,3 @@
           %a{:href => space_path(space)}
             - options = { :size => 'h96', :title => sanitize(space.name), :class => 'tooltipped-label downwards' }
             = logo(space, options).html_safe
-    = render_clearer
-
-  = render_clearer

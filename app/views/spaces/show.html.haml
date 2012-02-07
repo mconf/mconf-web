@@ -11,7 +11,7 @@
         = image_tag('icons/in_progress-16x16.gif', :class => 'in-progress-icon')
       %h3= t('webconference.one')
       = help_icon t("tooltip.bigbluebutton_space"), :class => 'leftwards'
-    .content-block-middle
+    .content-block-middle.clearfix
       .description
         - if @bbb_room.is_running?
           %span= t('webconference.currently_running', :count => @bbb_room.participant_count)
@@ -27,7 +27,6 @@
           = webconf_mobile_icon_link(join_mobile_space_room_path(space, @bbb_room))
         - else
           = webconf_mobile_icon_link(false)
-        = render_clearer
     .content-block-footer
       = link_to t('view_more'), space_webconference_path(space)
 

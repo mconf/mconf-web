@@ -91,13 +91,6 @@ module ApplicationHelper
     "https://github.com/mconf/mconf-web/commit/#{revision}"
   end
 
-  def render_clearer
-    code = <<-EOF
-    <div style="clear:both;font-size:0;">&nbsp;</div>
-    EOF
-    code.html_safe
-  end
-
   # Ex: asset_exists?('news', 'css')
   def asset_exists?(asset_name, default_ext)
     !Mconf::Application.assets.find_asset(asset_name + '.' + default_ext).nil?

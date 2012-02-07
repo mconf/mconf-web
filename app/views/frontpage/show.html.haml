@@ -42,9 +42,6 @@
         %span.link-title
           %a{:href => "http://code.google.com/p/mconf/wiki/MconfCollaborate"}= t('frontpage.searching_for.collaborate.title')
         %span= t('frontpage.searching_for.collaborate.message').html_safe
-    = render_clearer
-  = render_clearer
 
 #content-current-site
   = render :partial => 'space_list', :locals => { :spaces => @most_active_spaces }
-  = render_clearer

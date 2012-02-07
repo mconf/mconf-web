@@ -129,7 +129,11 @@ button, input[type=submit], input[type=button], .button {
 // user logos in a thread with several snippets
 // e.g. list of posts, list of recent users, etc.
 .logo-in-thread {
-  @include logo-in-thread;
+  @include logo-in-thread; // in _definitions
+}
+
+.clearfix {
+  @include mconf_clearfix; // in _definitions
 }
 
 
@@ -154,7 +158,7 @@ button, input[type=submit], input[type=button], .button {
 #global-header {
   width: $contents-width;
   margin: 0 auto;
-  @include clearfix;
+  @include mconf_clearfix;
 }
 
 #page-header-wrapper {

@@ -5,10 +5,9 @@
     = help_icon t("tooltip.latest_news")
     = image_tag('icons/loading-16x16.gif', :class => 'loading-icon') # TODO: move to helper
   .content-block-middle
-    .news-title
+    .news-title.clearfix
       %h4= sanitize(@news_to_show.title)
       %span.updated-at= t('updated_time_ago', :time => time_ago_in_words(@news_to_show.updated_at))
-      = render_clearer
     .news-content
       %p= sanitize(auto_link(@news_to_show.text))
   .content-block-footer
