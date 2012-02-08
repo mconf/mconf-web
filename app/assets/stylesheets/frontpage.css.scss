@@ -11,45 +11,37 @@
 
 // TODO: some styles that are here can be put in application/base.scss
 
-$global-header-height: 110px;
-$page-header-height: 80px;
+$navbar-height: 110px;
+$sub-header-height: 80px;
 
-#global-header {
+#navbar {
   width: $contents-width;
   margin: 0 auto;
   padding: 25px;
-  height: $global-header-height;
+  height: $navbar-height;
   @include clearfix;
 }
 
-#page-header-wrapper {
+#sub-header-wrapper {
   background: $sub-header-bg-color;
   border-bottom: 1px solid #ddd;
 }
 
 #main-logo {
-  float: left;
-  width: 200px;
-  white-space: nowrap;
-  margin-top: 10px;
-
-  a { text-decoration: none; }
+  width: 230px;
 
   .title {
-    color: white;
+    @include link-colors(#bbb, #ddd, #ddd, #bbb);
     font-weight: bold;
     font-size: 66px;
-    @include text-shadow(darken($header-bg-color, 30) 1px 1px 4px);
-    &:hover {
-      color: #ddd;
-    }
+    @include text-shadow(darken($navbar-bg-color, 30) 1px 1px 4px);
   }
 
   .subtitle {
     margin-left: 5px;
-    color: white;
-    font-size: 16px;
-    @include text-shadow(darken($header-bg-color, 30) 1px 1px 4px);
+    font-size: 18px;
+    margin-top: 50px;
+    @include text-shadow(darken($navbar-bg-color, 30) 1px 1px 4px);
   }
 }
 
@@ -60,9 +52,8 @@ $page-header-height: 80px;
   text-align: right;
   vertical-align: top;
   padding-right: 30px;
-  //@include background(linear-gradient(right, darken($header-bg-color, 8), $header-bg-color));
 
-  a { @include link-colors(#ddd, white, $site-link-active); }
+  a { @include link-colors(#bbb, white, $site-link-active); }
 
   .action-links {
     float: right;
@@ -116,16 +107,18 @@ $page-header-height: 80px;
   font-size: $font-normal + 2px;
   text-align: center;
   padding-right: 30px;
-  //@include background(linear-gradient(left, darken($header-bg-color, 8), $header-bg-color));
+  //@include background(linear-gradient(left, darken($navbar-bg-color, 8), $navbar-bg-color));
 
   .register_button {
     margin-top: 20px;
   }
 }
 
-#page-header {
+#sub-header {
   padding: 20px;
-  height: $page-header-height;
+  height: $sub-header-height;
+  width: $contents-width;
+  margin: 0 auto;
   @include mconf_clearfix;
 
   .headline {
@@ -134,14 +127,14 @@ $page-header-height: 80px;
     text-align: right;
     width: 510px;
     @include text-shadow(white 1px 1px 2px);
-    padding: ($page-header-height - 60px)/2 0;
+    padding: ($sub-header-height - 60px)/2 0;
   }
 
   div.links {
     text-align: left;
     margin-left: 15px;
     border-left: 1px dashed darken($sub-header-bg-color, 25);
-    padding: ($page-header-height - 60px)/2 0;
+    padding: ($sub-header-height - 60px)/2 0;
     padding-left: 15px;
     float: left;
 
@@ -284,7 +277,7 @@ $components-images-width: 530px;
   }
 
   .content-block-selected, .content-block-selected:hover {
-    $selected-color: $header-bg-color;
+    $selected-color: $navbar-bg-color;
 
     @extend .content-block;
     @include background(linear-gradient(left, $selected-color, lighten($selected-color, 5)));

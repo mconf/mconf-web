@@ -1,7 +1,4 @@
-= content_for :"page-header" do
-  = render_page_title t('faq.header_title'), 'icons/faq-64x64.png', { :transparent => true }
-
-%h1= t('faq.title')
+= render_page_title t('faq.title')
 
 %ol#faq-topics
   - for i in (0..7) do

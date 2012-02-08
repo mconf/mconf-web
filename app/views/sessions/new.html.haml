@@ -1,5 +1,4 @@
-= content_for :"page-header" do
-  = render_page_title t('login.one')
+= render_page_title t('login.one')
 
 #login-wrapper
   = simple_form_for :session, :url => session_url(:protocol => current_site.protocol) do |f|

@@ -8,14 +8,14 @@
 
     = stylesheet_link_tag "application_print", :media => "print"
     = stylesheet_link_tag "application", :media => "screen, projection"
+
     /[if IE]
       = stylesheet_link_tag 'ie.css', :media => 'screen, projection'
-    = javascript_include_tag 'application'
-    = csrf_meta_tag
+      // HTML5 shim, for IE6-8 support of HTML elements
+      /[if lt IE 9]
+        = javascript_include_tag "http://html5shim.googlecode.com/svn/trunk/html5.js"
 
-    -# Automatically includes js's and css's for the current controller and action
-    - stylesheet_link_tags_for_action
-    - javascript_include_tags_for_action
+    = csrf_meta_tag
 
     -unless Rails.env == "production"
       :css
@@ -24,23 +24,31 @@
           background-color: red;
         }
 
+    // TODO: Place javascript at the end of the document so the pages load faster
+    = javascript_include_tag 'application'
+    -# Automatically includes js's and css's for the current controller and action
+    - stylesheet_link_tags_for_action
+    - javascript_include_tags_for_action
     = yield :headers
 
   %body
     #site
-      #global-header-wrapper
-        = render :partial => 'layouts/application_global_header'
-      #page-header-wrapper
-        = render :partial => "layouts/application_header"
+      #navbar-wrapper
+        = render :partial => 'layouts/application_navbar'
       #content-wrapper
         = render :partial => "layouts/notifications"
         #content
           #content-middle
+            = render :partial => "layouts/application_header"
+
             -# TODO: Maybe remove this menu from the layout and add a yield :menu
             = render :partial => "layouts/menu"
+
             = yield
+
           - if content_for?(:sidebar)
             #sidebar
               = yield :sidebar
+
       = render :partial => "layouts/footer"
     = render :partial => "layouts/analytics"

@@ -92,5 +92,6 @@ ul, ol {
 
 a {
   @include link-colors($site-link, $site-link-hover, $site-link-active);
-  text-decoration:none;
+  text-decoration: none;
+  &:hover { text-decoration: none; }
 }

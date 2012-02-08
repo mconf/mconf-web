@@ -1,28 +1,15 @@
-#page-header
-
-  #page-header-left
-    - if content_for?(:"page-header")
-      = yield :"page-header"
-    - else
-      - if space && space.id != nil
-        .current-page-logo
-          = link_logo(space, :size => "h64", :title => space.name).html_safe
-        .current-page-title
-          - if space.name.size > 20
-            .small-title
-              = link_to(sanitize(first_words(space.name, 30)), space_path(space))
-          - else
-            = link_to(sanitize(space.name), space_path(space))
-
-  - if logged_in?
-    #page-header-right
-      .user-avatar
-        = link_logo(current_user, :size => "64", :url => user_path(current_user), :title => current_user.name).html_safe
-        - if current_user.superuser?
-          .superuser-icon.tooltipped.leftwards{:title => t('superuser')}
-      .user-info
-        %span.main-info= current_user.name
-        %span
-          = link_to(current_user.email, "mailto: #{current_user.email}")
-        %span= current_user.profile.organization unless current_user.profile.organization.nil?
+- if content_for? :"page-header"
+  #page-header
+    = yield :"page-header"
+- else
+  - if space && space.id != nil
+    #page-header
+      .current-page-logo
+        = link_logo(space, :size => "h64", :title => space.name).html_safe
+      .current-page-title
+        - if space.name.size > 20
+          .small-title
+            = link_to(sanitize(first_words(space.name, 30)), space_path(space))
+        - else
+          = link_to(sanitize(space.name), space_path(space))
 

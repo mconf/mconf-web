@@ -15,6 +15,7 @@ $blue: adjust_hue($green, 110);
 $red: darken(#DD4B39, 10); //adjust_hue($green, -100);
 $orange: darken(#d98026, 10); //darken(#e18e07, 10);
 $yellow: darken(#fde073, 35);
+$light-blue: rgba(82, 168, 236, 0.6);
 
 // width of the central container and standard sidebar
 $contents-width: 980px;
@@ -27,7 +28,7 @@ $site-link-hover: $orange;
 $site-link-active: $site-link;
 
 // headers
-$header-bg-color: #333; //#1F4A75;
+$navbar-bg-color: #222; //#1F4A75;
 $sub-header-bg-color: #eee; //#EDEBE1;
 
 // global footer
@@ -37,7 +38,7 @@ $lower-footer-bg-color: #fff;
 // h1, h2, h3, ...
 $h-font-color: #404040; //#244974;
 // titles in the page headers
-$section-title-color: #244974;
+$section-title-color: #505050; //#244974;
 
 // user logos in a thread with several snippets
 // e.g. list of posts, list of recent users, etc.

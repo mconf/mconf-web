@@ -16,9 +16,7 @@ $(document).ready(function() {
 </script>
 <% end %>
 
-<%= content_for :"page-header" do %>
-  <%= render :partial => 'layouts/page_title', :locals => { :page_title => t('edit_your_profile') } %>
-<% end %>
+<%= render_page_title t('edit_your_profile') %>
 
 <%= content_for :sidebar do  %>
   <div id="edit_profile_sidebar">

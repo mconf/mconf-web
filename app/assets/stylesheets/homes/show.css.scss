@@ -50,6 +50,7 @@
     .invite-url {
       float: left;
       margin-left: 5px;
+      position: relative;
 
       input[type=text] {
         width: 300px;
@@ -60,9 +61,9 @@
       }
 
       .clippy {
-        margin-top: 8px;
-        margin-left: -20px;
-        float: right;
+        position: absolute;
+        top: 8px;
+        right: 6px;
       }
     }
   }

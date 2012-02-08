@@ -1,2 +1,4 @@
-.sidebar-top-action-button
-  = space_join_button(space, :class => "button orange big")
+- btn = space_join_button(space, :class => "button orange big")
+- unless btn.nil?
+  .sidebar-top-action-button
+    = btn.html_safe

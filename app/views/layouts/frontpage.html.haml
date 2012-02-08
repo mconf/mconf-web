@@ -10,7 +10,9 @@
     = stylesheet_link_tag 'frontpage', :media => 'screen, projection'
     /[if IE]
       = stylesheet_link_tag 'frontpage_ie.css', :media => 'screen, projection'
-    = javascript_include_tag 'frontpage'
+      // HTML5 shim, for IE6-8 support of HTML elements
+      /[if lt IE 9]
+        = javascript_include_tag "http://html5shim.googlecode.com/svn/trunk/html5.js"
     = csrf_meta_tag
 
     -unless Rails.env == "production"
@@ -24,13 +26,16 @@
 
   %body
     #site
-      #global-header-wrapper
-        = yield :"global-header"
-      #page-header-wrapper
-        = yield(:"page-header")
+      #navbar-wrapper
+        = yield :"navbar"
+      #sub-header-wrapper
+        = yield :"sub-header"
       #content-wrapper
         = render :partial => "layouts/notifications"
         #content
           = yield
       = render :partial => "layouts/footer"
     = render :partial => "layouts/analytics"
+
+    // Javascript placed at the end of the document so the pages load faster
+    = javascript_include_tag 'frontpage'

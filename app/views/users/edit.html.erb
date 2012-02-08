@@ -1,6 +1,4 @@
-<%= content_for :"page-header" do %>
-  <%= render_page_title t('user.edit_account') %>
-<% end %>
+<%= render_page_title t('user.edit_account') %>
 
 <%= simple_form_for user, :url => user_path(user.login_changed? ? user.login_was : user), :html => {:method => :put} do |f| -%>
 

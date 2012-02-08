@@ -1,8 +1,11 @@
 - transparent ||= nil
 - logo ||= nil
 
-- unless logo.nil?
-  .current-page-logo{ :class => transparent ? 'clean' : '' }
-    = image_tag(logo, :title => page_title)
-.current-page-title
-  = page_title
+= content_for :"page-header" do
+  - unless logo.nil?
+    .current-page-logo{ :class => transparent ? 'clean' : '' }
+      = image_tag(logo, :title => page_title)
+    .current-page-title
+      = page_title
+  - else
+    %h1= page_title
