@@ -5,6 +5,7 @@
 }
 
 .ui-tooltip-mconf {
+  z-index: 9999;
   .ui-tooltip-content {
     font-size: $font-normal;
     text-align: center;
@@ -14,6 +15,7 @@
 }
 
 .ui-tooltip-mconf-label {
+  z-index: 9999;
   .ui-tooltip-content {
     font-size: $font-medium;
     text-align: center;

@@ -12,6 +12,7 @@
  * Note: the order matters!
  *= require application/typography
  *= require application/base
+ *= require application/dropdown-menu
  *= require application/notifications
  *= require application/tooltips
  *= require application/input-placeholder
@@ -47,6 +48,158 @@ $navbar-height: 35px;
   }
 }
 
+ul#navbar-left-links {
+  list-style-type: none;
+  float: left;
+  margin: 0 10px;
+
+  a {
+    @include link-colors(#bbb, white, white);
+    &:hover {
+      @include text-shadow(lighten($navbar-bg-color, 30) 0 0 5px);
+    }
+  }
+
+  li {
+    display: inline;
+    float: left;
+    margin-top: 10px;
+    margin-right: 10px;
+    padding-right: 10px;
+    border-right: 1px solid lighten($navbar-bg-color, 13);
+
+    a { float: left; }
+    &.last { border: 0; }
+  }
+}
+
+ul#navbar-right-links {
+  @extend ul#navbar-left-links;
+  float: right;
+  margin-right: 0;
+
+  li {
+    margin-left: 10px;
+    margin-right: 0;
+    padding-left: 10px;
+    padding-right: 0;
+    border-left: 1px solid lighten($navbar-bg-color, 13);
+    border-right: 0;
+  }
+
+  .user-info-dropdown {
+    margin: 0;
+    padding: 4px 10px;
+  }
+
+  // small user info in the navbar
+  .user-info {
+
+    .user-name {
+      padding: 4px 10px 4px 5px;
+      float: right;
+      display: block;
+      &:hover { color: white; }
+    }
+
+    .user-avatar {
+      position: relative;
+      float: right;
+      border: 1px solid lighten($navbar-bg-color, 30);
+      padding: 1px;
+      height: 22px;
+      width: 22px;
+      @include border-radius(3px);
+    }
+
+    .superuser-icon {
+      width: 12px;
+      height: 12px;
+      background: url(asset_path("icons/superuser-12x12.png", image)) no-repeat scroll left top;
+      position: absolute;
+      bottom: -2px;
+      right: -2px;
+    }
+  }
+
+  // dropdown menu with the user information
+  // it needs some adjustments over the default style
+  .dropdown {
+    &.open { background: #181818; }
+    .caret { margin-top: 10px; }
+
+    .dropdown-menu {
+      top: 37px;
+      right: 0;
+      left: auto;
+      min-width: 300px;
+      width: 300px;
+
+    }
+  }
+
+  // big user info shown in the dropdown clicking in the navbar
+  .user-info-big {
+    @include mconf_clearfix;
+
+    .user-data {
+      @include mconf_clearfix;
+      padding-left: 7px;
+      a, span {
+        display: block;
+        float: left;
+        clear: left;
+        margin-bottom: 3px;
+      }
+    }
+
+    .user-name {
+      padding: 4px 10px 4px 5px;
+      float: right;
+      display: block;
+      &:hover { color: white; }
+    }
+
+    .user-avatar {
+      //@extend ul#navbar-right-links .
+      position: relative;
+      float: left;
+      border: 1px solid lighten($navbar-bg-color, 30);
+      padding: 1px;
+      height: 64px;
+      width: 64px;
+      @include border-radius(3px);
+    }
+
+    .superuser-icon {
+      width: 12px;
+      height: 12px;
+      background: url(asset_path("icons/superuser-12x12.png", image)) no-repeat scroll left top;
+      position: absolute;
+      bottom: -2px;
+      right: -2px;
+    }
+  }
+
+  // user links shown in the dropdown clicking in the navbar
+  .user-links {
+    @include mconf_clearfix;
+    clear: both;
+    margin-top: 5px;
+    border-top: 1px solid lighten($navbar-bg-color, 13);
+    ul {
+      margin: 0;
+      li {
+        float: right;
+        margin: 0;
+        border: 0;
+        padding: 5px 10px;
+      }
+    }
+  }
+
+}
+
 #main-logo {
   float: left;
   width: 100px;
@@ -72,80 +225,6 @@ $navbar-height: 35px;
 
 #notification-flashs {
  top: $navbar-height;
-}
-
-
-//
-// Unique styles, defined only here
-//
-
-ul#navbar-left-links {
-  list-style-type: none;
-  float: left;
-  margin-left: 10px;
-
-  a {
-    @include link-colors(#bbb, white, white);
-    &:hover {
-      @include text-shadow(lighten($navbar-bg-color, 30) 0 0 5px);
-    }
-  }
-
-  li {
-    display: inline;
-    float: left;
-    margin-top: 10px;
-    margin-right: 10px;
-    padding-right: 10px;
-    border-right: 1px solid lighten($navbar-bg-color, 13);
-
-    a { float: left; }
-    &.last { border: 0; }
-  }
-}
-
-ul#navbar-right-links {
-  @extend ul#navbar-left-links;
-  float: right;
-  margin-left: 0;
-
-  li {
-    margin-left: 10px;
-    margin-right: 0;
-    padding-left: 10px;
-    padding-right: 0;
-    border-left: 1px solid lighten($navbar-bg-color, 13);
-    border-right: 0;
-  }
-
-  .user-info {
-    margin-top: 5px;
-
-    .user-name {
-      margin-top: 5px;
-      float: right;
-    }
-
-    .user-avatar {
-      position: relative;
-      float: right;
-      margin-left: 10px;
-      border: 1px solid lighten($navbar-bg-color, 30);
-      padding: 1px;
-      height: 22px;
-      width: 22px;
-      @include border-radius(3px);
-    }
-
-    .superuser-icon {
-      width: 12px;
-      height: 12px;
-      background: url(asset_path("icons/superuser-12x12.png", image)) no-repeat scroll left top;
-      position: absolute;
-      bottom: -2px;
-      right: -2px;
-    }
-  }
 }
 
 /* breadcrumbs try 1

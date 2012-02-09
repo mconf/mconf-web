@@ -18,31 +18,34 @@
 
   %ul#navbar-right-links
     - if logged_in?
-      %li.last.user-info.dropdown
-        .user-avatar
-          = link_logo(current_user, :size => "22", :url => user_path(current_user), :title => current_user.name).html_safe
-          - if current_user.superuser?
-            .superuser-icon.tooltipped.downwards{:title => t('superuser')}
-        .user-name
-          %span= current_user.name
+      %li.dropdown.user-info-dropdown.last
+
+        -# small user information in the navbar
+        .user-info.dropdown-toggle{ :"data-toggle" => "dropdown" }
+          .user-avatar
+            = link_logo(current_user, :size => "22", :url => user_path(current_user), :title => current_user.name).html_safe
+            - if current_user.superuser?
+              .superuser-icon.tooltipped.downwards{:title => t('superuser')}
+          %span.user-name= current_user.name
+          %b.caret
+
+        -# dropdown menu opened when clicking in the dropdown
+        .dropdown-menu.arrow-right
+          .user-info-big
+            .user-avatar
+              = link_logo(current_user, :size => "64", :url => user_path(current_user), :title => current_user.name).html_safe
+              - if current_user.superuser?
+                .superuser-icon.tooltipped.leftwards{:title => t('superuser')}
+            .user-data
+              = link_to(current_user.name, user_path(current_user))
+              = link_to(current_user.email, "mailto: #{current_user.email}")
+              %span= current_user.profile.organization unless current_user.profile.organization.nil?
+          .user-links
+            %ul
+              %li= link_to t('logout', :user => current_user.name), logout_path
+              %li= link_to t('account'), edit_user_path(current_user)
+              %li.last= link_to t('profile.one'), user_path(current_user)
+
     - else
       %li.last= link_to t('login.one'), login_path
       %li= link_to t('register.one'), signup_path
-
--# TODO: dropdown with info about the user
--#
--# %li= link_to t('profile.one'), user_path(current_user)
--# %li= link_to t('account'), edit_user_path(current_user)
--# %li= link_to t('logout', :user => current_user.name), logout_path
--#
--#  - if logged_in?
--#    #page-header-right
--#      .user-avatar
--#        = link_logo(current_user, :size => "64", :url => user_path(current_user), :title => current_user.name).html_safe
--#        - if current_user.superuser?
--#          .superuser-icon.tooltipped.leftwards{:title => t('superuser')}
--#      .user-info
--#        %span.main-info= current_user.name
--#        %span
--#          = link_to(current_user.email, "mailto: #{current_user.email}")
--#        %span= current_user.profile.organization unless current_user.profile.organization.nil?

@@ -171,6 +171,7 @@ button, input[type=submit], input[type=button], .button {
   height: 16px;
 }
 
+
 //
 // Page containers, redefined in the layouts
 // Here we define the basic styles used in all layouts
@@ -193,7 +194,6 @@ button, input[type=submit], input[type=button], .button {
 #navbar {
   width: $contents-width;
   margin: 0 auto;
-  @include mconf_clearfix;
 }
 
 #content-wrapper {
