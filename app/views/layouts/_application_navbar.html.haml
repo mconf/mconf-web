@@ -12,7 +12,9 @@
       %li= link_to t('inbox.one', :checked => current_user.unread_private_messages), user_messages_path(current_user)
       - if current_user.superuser?
         %li= link_to t('space.all'), spaces_path
-        %li.last= link_to t('manage'), site_path
+        %li.last
+          = superuser_icon
+          = link_to t('manage'), site_path
       - else
         %li.last= link_to t('space.all'), spaces_path
 
@@ -34,8 +36,6 @@
           .user-info-big
             .user-avatar
               = link_logo(current_user, :size => "64", :url => user_path(current_user), :title => current_user.name).html_safe
-              - if current_user.superuser?
-                .superuser-icon.tooltipped.leftwards{:title => t('superuser')}
             .user-data
               = link_to(current_user.name, user_path(current_user))
               = link_to(current_user.email, "mailto: #{current_user.email}")

@@ -46,6 +46,8 @@ $navbar-height: 35px;
     float: left;
     margin-right: 3px;
   }
+
+  .superuser-icon { margin-top: 2px; }
 }
 
 ul#navbar-left-links {
@@ -161,7 +163,6 @@ ul#navbar-right-links {
     }
 
     .user-avatar {
-      //@extend ul#navbar-right-links .
       position: relative;
       float: left;
       border: 1px solid lighten($navbar-bg-color, 30);
@@ -169,15 +170,6 @@ ul#navbar-right-links {
       height: 64px;
       width: 64px;
       @include border-radius(3px);
-    }
-
-    .superuser-icon {
-      width: 12px;
-      height: 12px;
-      background: url(asset_path("icons/superuser-12x12.png", image)) no-repeat scroll left top;
-      position: absolute;
-      bottom: -2px;
-      right: -2px;
     }
   }
 

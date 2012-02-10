@@ -175,6 +175,14 @@ module ApplicationHelper
     image_tag "icons/attach.png", options
   end
 
+  # Admin red icon
+  def superuser_icon(options={})
+    cls = "icon superuser-icon "
+    options[:class] = options.has_key?(:class) ? cls + options[:class] : cls
+    options[:size] = '12x12'
+    image_tag "icons/superuser-12x12.png", options
+  end
+
 
 
   # TODO: All the code below should be reviewed
