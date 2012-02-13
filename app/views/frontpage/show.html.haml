@@ -5,20 +5,20 @@
   #subnav
     %ul.nav
       %li.active
-        %a{ :href => '#what-is-it' } Introduction
+        %a.smooth{ :href => '#introduction' } Introduction
       %li
-        %a{ :href => '#more-about-mconf' } Learn more about Mconf
+        %a.smooth{ :href => '#more-about-mconf' } Learn more about Mconf
 
     .registration-area
       %span= t('frontpage.register_sentence')
       %a.button.orange{:href => signup_path}= t('register.one')
 
     %ul.register-and-login
-      %li= link_to t('login.one'), '#site' # just go to the top of the page
+      %li= link_to t('login.one'), '#site', :class => 'smooth' # just go to the top of the page
       %li= link_to t('register.one'), signup_path
 
 #content
-  #introduction-container
+  #introduction
 
     .left-column
       #what-is-it
