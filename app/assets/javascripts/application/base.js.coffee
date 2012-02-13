@@ -5,12 +5,12 @@ $(document).ready ->
 
   # Links to open the webconference
   # Open it in a new borderless window
-  $("a.webconf-start-link:not(.disabled)").live "click", (e) ->
+  $("a.webconf-start-link:not(.disabled)").on "click", (e) ->
     window.open $(this)[0].href, "_blank", "resizable=yes"
     e.preventDefault()
 
   # Disable the click in any link with the 'disabled' class
-  $("a.disabled").live "click", (e) ->
+  $("a.disabled").on "click", (e) ->
     false
 
   # Add a title and tooltip to elements that can only be used by a logged user
@@ -21,6 +21,10 @@ $(document).ready ->
 
   # Use jquery for placeholders in browsers that don't support it
   $('input[placeholder], textarea[placeholder]').placeholder();
+
+  # auto focus the first element with the attribute 'autofocus' (in case the
+  # browser doesn't do it)
+  $('[autofocus]').first().focus()
 
 # Changes the type of an input tag
 # Example:

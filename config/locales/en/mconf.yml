@@ -199,6 +199,7 @@ en:
     reconnect_message: Reconnect
   check_mail: "Please, check your email"
   city: City
+  click_here_to_see_more: "Click here to see more"
   click_to_hide: "Click to hide"
   click_to_see_all: "See all"
   close: Close
@@ -557,7 +558,7 @@ en:
       message: "Mconf is developing a monitor for BigBlueButton that will collect usage statistics and display it in nice graphics such as the one you're seeing in the picture."
       title: News
     project_description: "Mconf is an open source webconference system powered by <a href=\"http://bigbluebutton.org/\">BigBlueButton</a>. It is developed in the research group <a href=\"http://www.inf.ufrgs.br/prav\">PRAV</a> at <a href=\"http://www.ufrgs.br\">UFRGS</a> (Brazil), and funded by <a href=\"http://www.rnp.br\">RNP</a>. And this is the web portal that provides access to Mconf."
-    register_sentence: "Create an account to access private spaces and create your own webconferences"
+    register_sentence: "Register to create your own spaces and webconferences"
     searching_for: 
       collaborate: 
         message: "Find out how to collaborate and help us improve Mconf!"

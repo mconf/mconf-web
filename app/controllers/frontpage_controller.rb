@@ -31,7 +31,7 @@ class FrontpageController < ApplicationController
       perma = rec.url.split("/").last
       space = Space.find_by_permalink(perma)
       @most_active_spaces << space if space and space.public?
-      break if @most_active_spaces.size == 7
+      break if @most_active_spaces.size == 10
     end
 
     respond_to do |format|

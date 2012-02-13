@@ -28,12 +28,9 @@
     #site
       #navbar-wrapper
         = yield :"navbar"
-      #sub-header-wrapper
-        = yield :"sub-header"
       #content-wrapper
         = render :partial => "layouts/notifications"
-        #content
-          = yield
+        = yield
       = render :partial => "layouts/footer"
     = render :partial => "layouts/analytics"
 

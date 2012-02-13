@@ -1,7 +1,7 @@
 <% if logged_in? && @shib_user %>
   <%= f.input :email, :label => t('user.email'), :required => true, :disabled => true %>
 <% else %>
-  <%= f.input :email, :label => t('user.email'), :required => true %>
+  <%= f.input :email, :label => t('user.email'), :required => true, :autofocus => true %>
 <% end %>
 
 <% if f.object.new_record? %>

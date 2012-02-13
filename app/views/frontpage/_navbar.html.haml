@@ -4,15 +4,10 @@
     %a.title{:href => root_path}= t('mconf')
     %span.subtitle .org
 
-  #registration-box
-    %span= t('frontpage.register_sentence')
-    .register_button
-      %a.button.orange.big{:href => signup_path}= t('register.one')
-
   #login-box
     = t('login.login_desc')
     = simple_form_for :session, :url => session_url(:protocol => current_site.protocol) do |f|
-      = f.text_field :login
+      = f.text_field :login, :autofocus => true
       = f.label t('login.email_or_login')
       = f.password_field :password
       = f.label t('login.password')

@@ -253,7 +253,7 @@ ul#navbar-right-links {
     font-size: $font-section-title;
     color: $section-title-color;
     font-weight: bold;
-    @include text-shadow(lighten($sub-header-bg-color, 15) 1px 1px 10px);
+    @include text-shadow(darken($site-bg-color, 10) 1px 1px 10px);
 
     .small-title {
       font-size: $font-section-title - 10px;

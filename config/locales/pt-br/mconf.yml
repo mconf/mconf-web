@@ -545,7 +545,7 @@ pt-br:
     not_running: "Não está em progresso"
     popular_spaces: "Comunidades públicas populares"
     project_description: "Mconf é um sistema de webconferência de código aberto que utiliza o <a href=\"http://bigbluebutton.org/\">BigBlueButton</a>. Ele é desenvolvido no grupo de pesquisa <a href=\"http://www.inf.ufrgs.br/prav\">PRAV</a> na <a href=\"http://www.ufrgs.br\">UFRGS</a> (Brasil), e financiado pela <a href=\"http://www.rnp.br\">RNP</a>. E este é o portal que provê acesso ao Mconf."
-    register_sentence: "Crie uma conta para acessar comunidades privadas e criar suas próprias webconferências"
+    register_sentence: "Registre-se para criar suas próprias comunidades e webconferências"
     running: 
       one: "Ativa com %{count} participante"
       other: "Ativa com %{count} participantes"

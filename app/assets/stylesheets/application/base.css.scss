@@ -49,7 +49,7 @@ $fb-allow-disabled: true;
 $fb-gradient-style: matte;
 button, input[type=submit], input[type=button], .button {
   @include fancy-button(#ddd);
-  @include fancy-button-size(12px, 4px, 1px);
+  @include fancy-button-size($font-normal, 4px, 1px);
   @include fancy-button-padding(4px, 8px, 1px);
   border: 0;
   font-weight: normal;
@@ -175,7 +175,6 @@ button, input[type=submit], input[type=button], .button {
   width: 12px;
   height: 12px;
 }
-
 
 //
 // Page containers, redefined in the layouts

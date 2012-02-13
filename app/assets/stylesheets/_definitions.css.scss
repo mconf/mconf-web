@@ -29,16 +29,22 @@ $site-link-active: $site-link;
 
 // headers
 $navbar-bg-color: #222; //#1F4A75;
-$sub-header-bg-color: #eee; //#EDEBE1;
+$subnav-bg-color: #eee; //#EDEBE1;
 
 // global footer
 $upper-footer-bg-color: #f6f6f6;
 $lower-footer-bg-color: #fff;
 
 // h1, h2, h3, ...
-$h-font-color: #404040; //#244974;
+$h-font-color: #404040;
+$h-font-color-alternative: #244974;
 // titles in the page headers
-$section-title-color: #505050; //#244974;
+$section-title-color: #505050;
+
+// z-indexes
+$z-index-navbar: 100;
+$z-index-dialog: 200;     // TODO: not being used yet
+$z-index-tooltip: 999999; // TODO: not being used yet
 
 // user logos in a thread with several snippets
 // e.g. list of posts, list of recent users, etc.

@@ -1,3 +1,4 @@
 //= require application
-//= require jquery/jquery.anythingslider.min
+//= require bootstrap/bootstrap-scrollspy
+//= require jquery/jquery.sticky
 //= require_tree ./frontpage/

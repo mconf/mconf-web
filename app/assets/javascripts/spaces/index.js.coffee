@@ -32,7 +32,7 @@ $(document).ready ->
     $("#space-filter-text").focus()
 
   # hovering an space shows its description in the sidebar
-  $(".space-item").live "hover", ->
+  $(".space-item").on "hover", ->
 
     # hide all descriptions and shows the selected
     hovered = "div#" + $(this).attr("name") + "-description"
@@ -43,6 +43,11 @@ $(document).ready ->
     $(".space-item.selected").removeClass "selected"
     $(this).addClass "selected"
 
+    # updates the position of the description div
+    $("#space-description-wrapper").sticky('update')
+
   # move the space description in the sidebar to be always in
   # the visible space of the page when the page is scrolled
-  $("#space-description-wrapper").sticky topSpacing: 20
+  $("#space-description-wrapper").sticky
+    topSpacing: 20
+    bottomSpacing: 250

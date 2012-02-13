@@ -1,41 +1,77 @@
 - content_for :"navbar" do
   = render :partial => "navbar"
 
-- content_for :"sub-header" do
-  #sub-header
-    .headline= t('frontpage.project_description').html_safe
-    .links
-      %ul
-        %li
-          %a.link-title{:href => "http://inf.ufrgs.br/prav/gtmconf"}= t('frontpage.links.project_website')
-          %br/
-          %span.link-description= t('frontpage.links.project_website_desc')
-        %li
-          %a.link-title{:href => "https://github.com/mconf"}= t('frontpage.links.source_code')
-          %br/
-          %span.link-description= t('frontpage.links.source_code_desc')
-        %li
-          %a.link-title{:href => "http://code.google.com/p/mconf"}= t('frontpage.links.docs')
-          %br/
-          %span.link-description= t('frontpage.links.docs_desc')
+#subnav-wrapper
+  #subnav
+    %ul.nav
+      %li.active
+        %a{ :href => '#what-is-it' } Introduction
+      %li
+        %a{ :href => '#more-about-mconf' } Learn more about Mconf
 
-#content-mconf
-  = render :partial => "components"
-  #content-searching-for
-    .section-title
-      %h2= t('frontpage.searching_for.title')
-    .content-block
-      %span.link-title
-        %a{:href => signup_path}= t('frontpage.searching_for.use.title')
-      %span= t('frontpage.searching_for.use.message').html_safe
-    .content-block
-      %span.link-title
-        %a{:href => "http://code.google.com/p/mconf/wiki/MconfInstallation"}= t('frontpage.searching_for.install.title')
-      %span= t('frontpage.searching_for.install.message').html_safe
-    .content-block
-      %span.link-title
-        %a{:href => "http://code.google.com/p/mconf/wiki/MconfCollaborate"}= t('frontpage.searching_for.collaborate.title')
-      %span= t('frontpage.searching_for.collaborate.message').html_safe
+    .registration-area
+      %span= t('frontpage.register_sentence')
+      %a.button.orange{:href => signup_path}= t('register.one')
 
-#content-current-site
-  = render :partial => 'space_list', :locals => { :spaces => @most_active_spaces }
+    %ul.register-and-login
+      %li= link_to t('login.one'), '#site' # just go to the top of the page
+      %li= link_to t('register.one'), signup_path
+
+#content
+  #introduction-container
+
+    .left-column
+      #what-is-it
+        .headline
+          .section-title
+            %h2 What is Mconf?
+          .text= t('frontpage.project_description').html_safe
+      = render :partial => 'space_list', :locals => { :spaces => @most_active_spaces }
+
+    .right-column
+      #searching-for
+        .section-title
+          %h2= t('frontpage.searching_for.title')
+        .content
+          .content-block
+            %span.link-title= t('frontpage.searching_for.use.title')
+            %span= t('frontpage.searching_for.use.message').html_safe
+          .content-block
+            %span.link-title= t('frontpage.searching_for.install.title')
+            %span= t('frontpage.searching_for.install.message').html_safe
+            .more
+              = link_to t("click_here_to_see_more"), "http://code.google.com/p/mconf/wiki/MconfInstallation"
+          .content-block
+            %span.link-title= t('frontpage.searching_for.collaborate.title')
+            %span= t('frontpage.searching_for.collaborate.message').html_safe
+            .more
+              = link_to t("click_here_to_see_more"), "http://code.google.com/p/mconf/wiki/MconfCollaborate"
+
+#more-about-mconf-wrapper
+  #more-about-mconf
+
+    #mconf-links
+      .section-title
+        %h2= "Open source"
+        .subtitle
+          %span
+            = "Mconf is an open source project, see here where you can find us"
+      .links.content-block
+        %ul
+          %li
+            = link_to "http://code.google.com/p/mconf" do
+              = image_tag('logos/google-code-48x48.png', :size => '48x48')
+            = link_to t('frontpage.links.docs'), "http://code.google.com/p/mconf", :class => 'link-title'
+            %span.link-description= t('frontpage.links.docs_desc')
+          %li
+            = link_to "https://github.com/mconf" do
+              = image_tag('logos/github-octocat-48x48.png', :size => '48x48')
+            = link_to t('frontpage.links.source_code'), "https://github.com/mconf", :class => 'link-title'
+            %span.link-description= t('frontpage.links.source_code_desc')
+          %li
+            = image_tag('logos/prav-73x48.png', :size => '73x48')
+            %a.link-title{:href => "http://inf.ufrgs.br/prav/gtmconf"}= t('frontpage.links.project_website')
+            %span.link-description= t('frontpage.links.project_website_desc')
+
+    = render :partial => "components"
+

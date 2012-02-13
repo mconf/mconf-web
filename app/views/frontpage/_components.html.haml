@@ -1,43 +1,59 @@
 #components
-  %ul#components-images
-    %li
-      = image_tag('frontpage/bbb-screen-1.png', :size => '470x300')
-      .caption
-        %p
-          Mconf uses BigBlueButton (BBB) as the base system to hold web conferences. BBB is developed using more than 15 open source components to create a solid web conference platform and is one of the best open source web conferencing softwares (if not the best) today.
-          We use a customized version of BigBlueButton.
-        %ul
-          %li
-            %a{:href => "http://bigbluebutton.org"} View more about BigBlueButton
-          %li
-            %a{:href => "http://code.google.com/p/mconf/wiki/MconfBBB"} See what Mconf has been doing in BigBlueButton
-    %li
-      = image_tag('frontpage/mconf-mobile-photo-1.jpg', :size => '470x300')
-      .caption
-        %p Mconf-Mobile and BBB-Android are open source BigBlueButton clients for Android. BBB-Android is a native Android application that works with any BBB server, and Mconf-Mobile is its adaptation for Mconf.
-        %ul
-          %li
-            %a{:href => "http://code.google.com/p/mconf/wiki/MconfMobile"} Read more about it
-          %li
-            %a{:href => "https://picasaweb.google.com/108245856281359125408/BigBlueButtonForAndroidV03beta?feat=directlink"} View pictures of the application
-    %li
-      = image_tag('frontpage/mconf-web-screen-1.png', :size => '470x300')
-      .caption
-        %p Mconf-Web is the website you are using right now. It is an open source web application implemented in Ruby on Rails (built on top of Global Plaza) that provides access to all features in Mconf. You can register for free in this website to test it.
-        %ul
-          %li
-            %a{:href => "http://code.google.com/p/mconf/wiki/MconfWeb"} Read more about Mconf-Web
-          %li
-            %a{:href => signup_path} Create an account and test it now!
-  #components-menu
-    .content-block
-      %span.link-title BigBlueButton
-      The core webconference system.
-    .content-block
-      %span.link-title Mconf-Mobile and BBB-Android
-      Use Mconf in mobile devices.
-    .content-block
-      %span.link-title Mconf-Web
-      The web portal.
-  #components-description
-    .content
+
+  .section-title
+    %h2= "Components"
+    .subtitle
+      %span
+        = "The blocks that form Mconf"
+
+  .content-block
+
+    .component.first
+      .picture
+        = image_tag('frontpage/bbb-screen-1.png', :size => '314x200')
+        = image_tag('logos/bbb-36x36.png', :size => '36x36', :class => 'overlay')
+      .description-container
+        %h3.component-title
+          BigBlueButton
+          %span.subtitle= "The core webconference system"
+        .description
+          %p
+            Mconf uses BigBlueButton (BBB) as the base system to hold web conferences. BBB is developed using more than 15 open source components to create a solid web conference platform and is one of the best open source web conferencing softwares (if not the best) today.
+            We use a customized version of BigBlueButton.
+          %ul
+            %li
+              %a{:href => "http://bigbluebutton.org"} View more about BigBlueButton
+            %li
+              %a{:href => "http://code.google.com/p/mconf/wiki/MconfBBB"} See what Mconf has been doing in BigBlueButton
+
+    .component
+      .picture
+        = image_tag('frontpage/mconf-mobile-photo-1.jpg', :size => '314x200')
+        = image_tag('logos/android-36x36.png', :size => '36x36', :class => 'overlay')
+      .description-container
+        %h3.component-title
+          Mconf-Mobile and BBB-Android
+          %span.subtitle= "Use Mconf in mobile devices"
+        .description
+          %p Mconf-Mobile and BBB-Android are open source BigBlueButton clients for Android. BBB-Android is a native Android application that works with any BBB server, and Mconf-Mobile is its adaptation for Mconf.
+          %ul
+            %li
+              %a{:href => "http://code.google.com/p/mconf/wiki/MconfMobile"} Read more about it
+            %li
+              %a{:href => "https://picasaweb.google.com/108245856281359125408/BigBlueButtonForAndroidV03beta?feat=directlink"} View pictures of the application
+
+    .component
+      .picture
+        = image_tag('frontpage/mconf-web-screen-1.png', :size => '314x200')
+        = image_tag('logos/rails-36x36.png', :size => '36x36', :class => 'overlay')
+      .description-container
+        %h3.component-title
+          Mconf-Web
+          %span.subtitle= "The web portal"
+        .description
+          %p Mconf-Web is the website you are using right now. It is an open source web application implemented in Ruby on Rails (built on top of Global Plaza) that provides access to all features in Mconf. You can register for free in this website to test it.
+          %ul
+            %li
+              %a{:href => "http://code.google.com/p/mconf/wiki/MconfWeb"} Read more about Mconf-Web
+            %li
+              %a{:href => signup_path} Create an account and test it now!
