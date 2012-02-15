@@ -306,7 +306,7 @@ ul#navbar-right-links {
 #content {
   width: $contents-width;
   margin: 20px auto 0 auto;
-  padding: 0;
+  padding: 0 10px;
   @include mconf_clearfix;
 }
 

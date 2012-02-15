@@ -30,7 +30,7 @@ $more-about-mconf-bg-color: #ddd; //#BFCDDD;//#d4d4d4;
 #navbar {
   width: $contents-width;
   margin: 0 auto;
-  padding: 25px;
+  padding: 25px 0;
   height: $navbar-height;
   @include clearfix;
 }
