@@ -131,12 +131,13 @@ ul#navbar-right-links {
     .caret { margin-top: 10px; }
 
     .dropdown-menu {
-      top: 37px;
+      top: $navbar-height;
       right: 0;
       left: auto;
       min-width: 300px;
       width: 300px;
-
+      border-top: 0;
+      @include border-top-radius(0);
     }
   }
 

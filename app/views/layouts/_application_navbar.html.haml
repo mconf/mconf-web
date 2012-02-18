@@ -12,9 +12,7 @@
       %li= link_to t('inbox.one', :checked => current_user.unread_private_messages), user_messages_path(current_user)
       - if current_user.superuser?
         %li= link_to t('space.all'), spaces_path
-        %li.last
-          = superuser_icon
-          = link_to t('manage'), site_path
+        %li.last= link_to t('manage'), site_path
       - else
         %li.last= link_to t('space.all'), spaces_path
 
@@ -32,7 +30,7 @@
           %b.caret
 
         -# dropdown menu opened when clicking in the dropdown
-        .dropdown-menu.arrow-right
+        .dropdown-menu
           .user-info-big
             .user-avatar
               = link_logo(current_user, :size => "64", :url => user_path(current_user), :title => current_user.name).html_safe
