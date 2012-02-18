@@ -1,28 +1,28 @@
 /*
- *= require application/reset
+ *= require ./application/reset
  *
  * Vendored stylesheets
- *= require ../../../vendor/assets/stylesheets/jquery/jquery.colorbox
- *= require ../../../vendor/assets/stylesheets/jquery/jquery.jcrop
- *= require ../../../vendor/assets/stylesheets/jquery/jquery.qtip.2.0.0pre
- *= require ../../../vendor/assets/stylesheets/calendar
- *= require ../../../vendor/assets/stylesheets/token-input-facebook
- *= require ../../../vendor/assets/stylesheets/uikit/ui
+ *= require ../../../../vendor/assets/stylesheets/jquery/jquery.colorbox
+ *= require ../../../../vendor/assets/stylesheets/jquery/jquery.jcrop
+ *= require ../../../../vendor/assets/stylesheets/jquery/jquery.qtip.2.0.0pre
+ *= require ../../../../vendor/assets/stylesheets/calendar
+ *= require ../../../../vendor/assets/stylesheets/token-input-facebook
+ *= require ../../../../vendor/assets/stylesheets/uikit/ui
  *
  * Note: the order matters!
- *= require application/typography
- *= require application/base
- *= require application/dropdown-menu
- *= require application/notifications
- *= require application/tooltips
- *= require application/input-placeholder
+ *= require ./application/typography
+ *= require ./application/base
+ *= require ./application/dropdown-menu
+ *= require ./application/notifications
+ *= require ./application/tooltips
+ *= require ./application/input-placeholder
  *
  * TODO: integrate the old styles below
- * require application/old/common
- * require application/old/bigbluebutton_rails
- * require application/old/lightbox
- * require application/old/screen
- * require application/old/new_style_compat
+ * require ./application/old/common
+ * require ./application/old/bigbluebutton_rails
+ * require ./application/old/lightbox
+ * require ./application/old/screen
+ * require ./application/old/new_style_compat
  *
  */
 

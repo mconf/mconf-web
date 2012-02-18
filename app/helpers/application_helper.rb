@@ -91,36 +91,26 @@ module ApplicationHelper
     "https://github.com/mconf/mconf-web/commit/#{revision}"
   end
 
-  # Ex: asset_exists?('news', 'css')
+  # Ex: asset_exists?('news/edit', 'css')
   def asset_exists?(asset_name, default_ext)
     !Mconf::Application.assets.find_asset(asset_name + '.' + default_ext).nil?
   end
 
   # Includes javascripts for the current controller and action
-  # Example: 'assets/events.js' and 'assets/events/show.js'
+  # Example: 'assets/events/_all.js' and 'assets/events/show.js'
   def javascript_include_tags_for_action
-    concat(javascript_include_tag_if_exists(params[:controller]))
-    concat(javascript_include_tag_if_exists(params[:controller] + "/" + params[:action]))
-  end
-  def javascript_include_tag_if_exists(asset)
-    if asset_exists?(asset, 'js')
-      javascript_include_tag(asset).html_safe
-    else
-      ""
+    ["_all", params[:action]].each do |action|
+      asset = "#{params[:controller]}/#{action}"
+      concat(javascript_include_tag(asset)) if asset_exists?(asset, "js")
     end
   end
 
   # Includes stylesheets for the current controller and action
-  # Example: 'assets/events.css' and 'assets/events/show.css'
+  # Example: 'assets/events/_all.css' and 'assets/events/show.css'
   def stylesheet_link_tags_for_action
-    concat(stylesheet_link_tag_if_exists(params[:controller]))
-    concat(stylesheet_link_tag_if_exists(params[:controller] + "/" + params[:action]))
-  end
-  def stylesheet_link_tag_if_exists(asset)
-    if asset_exists?(asset, 'css')
-      stylesheet_link_tag(asset).html_safe
-    else
-      ""
+    ["_all", params[:action]].each do |action|
+      asset = "#{params[:controller]}/#{action}"
+      concat(stylesheet_link_tag(asset)) if asset_exists?(asset, "css")
     end
   end
 

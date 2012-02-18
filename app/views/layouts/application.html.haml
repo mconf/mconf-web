@@ -6,11 +6,11 @@
     %title= content_for?(:title) ? yield(:title) : current_site.name
     %link{:href => "/favicon.ico", :rel => "shortcut icon", :type => "image/x-icon"}
 
-    = stylesheet_link_tag "application_print", :media => "print"
-    = stylesheet_link_tag "application", :media => "screen, projection"
+    = stylesheet_link_tag "layouts/application_print", :media => "print"
+    = stylesheet_link_tag "layouts/application", :media => "screen, projection"
 
     /[if IE]
-      = stylesheet_link_tag 'ie.css', :media => 'screen, projection'
+      = stylesheet_link_tag "layouts/ie", :media => "screen, projection"
       // HTML5 shim, for IE6-8 support of HTML elements
       /[if lt IE 9]
         = javascript_include_tag "http://html5shim.googlecode.com/svn/trunk/html5.js"
@@ -25,7 +25,7 @@
         }
 
     // TODO: Place javascript at the end of the document so the pages load faster
-    = javascript_include_tag 'application'
+    = javascript_include_tag "layouts/application"
     -# Automatically includes js's and css's for the current controller and action
     - stylesheet_link_tags_for_action
     - javascript_include_tags_for_action

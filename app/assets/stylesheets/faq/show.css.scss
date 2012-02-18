@@ -1,0 +1,27 @@
+@import "definitions";
+
+#faq-topics {
+  list-style-type: decimal;
+}
+
+#faq-answers {
+  list-style-type: decimal;
+
+  .answer {
+    line-height: 1.4;
+    text-align: justify;
+    padding: 0 10px;
+  }
+}
+
+h4 {
+  font-size: $font-medium;
+  line-height: 1.5;
+  color: black;
+
+  &.question {
+    font-weight: bold;
+    margin-top: 20px;
+    margin-bottom: 10px;
+  }
+}
