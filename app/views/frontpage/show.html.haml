@@ -5,9 +5,9 @@
   #subnav
     %ul.nav
       %li.active
-        %a.smooth{ :href => '#introduction' } Introduction
+        = link_to t('frontpage.sections.introduction'), '#introduction', :class => 'smooth'
       %li
-        %a.smooth{ :href => '#more-about-mconf' } Learn more about Mconf
+        = link_to t('frontpage.sections.more_about_mconf'), '#more-about-mconf', :class => 'smooth'
 
     .registration-area
       %span= t('frontpage.register_sentence')
@@ -24,7 +24,7 @@
       #what-is-it
         .headline
           .section-title
-            %h2 What is Mconf?
+            %h2= t('frontpage.sections.what_is_mconf')
           .text= t('frontpage.project_description').html_safe
       = render :partial => 'space_list', :locals => { :spaces => @most_active_spaces }
 
@@ -52,10 +52,9 @@
 
     #mconf-links
       .section-title
-        %h2= "Open source"
+        %h2= t('frontpage.open_source.title')
         .subtitle
-          %span
-            = "Mconf is an open source project, see here where you can find us"
+          %span= t('frontpage.open_source.subtitle')
       .links.content-block
         %ul
           %li

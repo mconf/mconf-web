@@ -195,23 +195,15 @@ ul#navbar-right-links {
 
 #main-logo {
   float: left;
-  width: 100px;
   white-space: nowrap;
   margin-top: 2px;
+  margin-right: 5px;
   @include mconf_clearfix;
 
   .title {
     @include link-colors(#bbb, white, white, #bbb);
     font-size: 21px;
     float: left;
-    //@include text-shadow(lighten($navbar-bg-color, 30) 0 0 10px);
-  }
-
-  .subtitle {
-    font-size: 12px;
-    float: left;
-    margin-top: 9px;
-    margin-left: 2px;
     //@include text-shadow(lighten($navbar-bg-color, 30) 0 0 10px);
   }
 }

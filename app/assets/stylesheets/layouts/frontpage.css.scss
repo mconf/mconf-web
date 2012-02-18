@@ -46,9 +46,10 @@ $more-about-mconf-bg-color: #ddd; //#BFCDDD;//#d4d4d4;
   }
 
   .subtitle {
+    float: left;
     margin-left: 5px;
     font-size: 18px;
-    margin-top: 50px;
+    margin-top: 52px;
     @include text-shadow(darken($navbar-bg-color, 30) 1px 1px 4px);
   }
 }
@@ -81,7 +82,6 @@ $more-about-mconf-bg-color: #ddd; //#BFCDDD;//#d4d4d4;
 
     &:focus {
       background: #fff;
-      border: 1px solid white;
     }
   }
 

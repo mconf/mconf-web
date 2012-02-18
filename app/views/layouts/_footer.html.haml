@@ -2,8 +2,8 @@
   #upper-footer
     .link-group
       #footer-logo.link-group
-        %a.title{:href => "/"}= t('mconf')
-        %span= t('footer.copyright')
+        = link_to current_site.name, "/", :class => 'title'
+        %span= t('footer.copyright', :site => current_site.name)
     .link-group
       %h3= t('footer.links.title')
       %ul
@@ -13,12 +13,9 @@
     .link-group
       %h3= t('footer.find_us')
       %ul
-        %li
-          %a{:href => "http://www.inf.ufrgs.br/prav/gtmconf"}= t('footer.website')
-        %li
-          %a{:href => "http://code.google.com/p/mconf"}= t('footer.gcode')
-        %li
-          %a{:href => "https://github.com/mconf"}= t('footer.github')
+        %li= link_to t('footer.website'), "http://www.inf.ufrgs.br/prav/gtmconf"
+        %li= link_to t('footer.gcode'), "http://code.google.com/p/mconf"
+        %li= link_to t('footer.github'), "https://github.com/mconf"
     .link-group.languages
       = link_to 'http://code.google.com/p/mconf/wiki/MconfWebLocalization' do
         = info_icon t('translate.help_us'), :class => 'help-translate-icon'
@@ -35,10 +32,10 @@
       %ul
         %li
           = image_tag("logos/prav_small.png")
-          %a{:href => "http://www.inf.ufrgs.br/prav"}= t('footer.sponsors.prav').html_safe
+          = link_to t('footer.sponsors.prav').html_safe, "http://www.inf.ufrgs.br/prav"
         %li
           = image_tag("logos/rnp_small.jpg")
-          %a{:href => "http://www.rnp.br"}= t('footer.sponsors.rnp').html_safe
+          = link_to t('footer.sponsors.rnp').html_safe, "http://www.rnp.br"
 
 #lower-footer-wrapper
   #lower-footer
@@ -46,5 +43,5 @@
       = t('footer.built_on_top_of').html_safe
     .current-version
       = t('footer.current_version') + ": "
-      %a{:href => github_link_to_revision(application_revision)}
+      = link_to github_link_to_revision(application_revision) do
         = application_version + "/" + application_branch + "/" + application_revision

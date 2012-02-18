@@ -1,8 +1,7 @@
 #navbar
 
   #main-logo
-    %a.title{:href => root_path}= t('mconf')
-    %span.subtitle .org
+    %a.title{:href => root_path}= current_site.name
 
   %ul#navbar-left-links
     - if logged_in?
