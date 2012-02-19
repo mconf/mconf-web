@@ -1,0 +1,26 @@
+@import "compass/css3";
+
+#colorbox {
+  @include box-shadow(0 4px 12px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.5));
+}
+
+#colorbox, #cboxWrapper, #cboxContent  {
+  @include border-radius(6px);
+}
+
+#cboxLoadedContent {
+  padding: 0;
+}
+
+#colorbox .modal-title {
+  background: #f6f6f6;
+  font-size: 14px;
+  padding: 7px 30px 5px 10px;
+  @include border-top-radius(6px);
+  border-bottom: 1px solid #ddd;
+  font-weight: bold;
+}
+
+#colorbox .modal-content {
+  padding: 10px 15px 15px 15px;
+}

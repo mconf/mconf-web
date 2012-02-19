@@ -12,15 +12,15 @@
   });
 </script>
 
-<h3 class="dialog_title">
+<div class="modal-title">
   <% if @type == "webconference" %>
     <%= t('webconference.invite_webconference') %>
   <% elsif @type == "event" %>
     <%= t('event.invite_event', :event_name => @event.name) %>
   <% end %>
-</h3>
+</div>
 
-<div id="webconference_invite_dialog">
+<div id="webconference_invite_dialog" class="modal-content">
 
   <% if @type == "webconference" %>
     <div class="header">

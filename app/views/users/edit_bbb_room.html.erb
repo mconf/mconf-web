@@ -1,8 +1,8 @@
-<h3 class="dialog_title">
-  <%= t('bbb_room.edit') %>
-</h3>
+<div class="modal-title">
+  <span><%= t('bbb_room.edit') %></span>
+</div>
 
-<div id="edit-bbb-room">
+<div id="edit-bbb-room" class="modal-content">
   <%= form_for(current_user.bigbluebutton_room, :url => user_path, :html => { :method => :put, :multipart => true }) do |f| %>
     <%= hidden_field_tag :bbb_room, "1" %>
     <div id="priv_check">

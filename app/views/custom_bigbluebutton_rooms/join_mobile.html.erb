@@ -3,7 +3,7 @@
 <div id="webconference_join_mobile_dialog">
   <a href="<%= @join_url %>"><%= t('webconference.join_mobile.direct_link').html_safe %></a><br><br/>
   <span><%= t('webconference.join_mobile.scan_code') %></span><br/>
-  <img src="<%= qrcode_url(@qrcode_url) %>"/>
+  <%= image_tag qrcode_url(@qrcode_url, '200x200'), :size => '200x200' %>
 </div>
 
 
