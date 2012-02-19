@@ -30,10 +30,11 @@
       #navbar-wrapper
         = yield :"navbar"
       #content-wrapper
-        = render :partial => "layouts/notifications"
         = yield
       = render :partial => "layouts/footer"
+
     = render :partial => "layouts/analytics"
+    = render :partial => "layouts/notifications"
 
     // Javascript placed at the end of the document so the pages load faster
     = javascript_include_tag 'layouts/frontpage'

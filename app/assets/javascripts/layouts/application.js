@@ -9,6 +9,6 @@
 //= require jquery/jquery-ui
 //= require jquery/jquery.form
 //= require jquery/jquery.placeholder
-//= require uikit/ui
+//= require jquery/jquery.noty
 //= require bootstrap/bootstrap-dropdown
 //= require_tree ./application/

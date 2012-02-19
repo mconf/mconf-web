@@ -1,18 +1,30 @@
-# hide the notification bar on click
-#$("#notification-flashs").livequery "click", ->
-#  $("#notification-flashs").animate
-#    top: -$(this).outerHeight() - 5
-#  , 500
-
+# Notifications using jquery.noty
 $(document).ready ->
-  $("#notification-flashs > div[name='success']").each ->
-    ui.notify($(this).text()).closable().hide(8000).effect('slide')
-    $(this).addClass "success"
-  $("#notification-flashs > div[name='notice']").each ->
-    ui.warn($(this).text()).closable().hide(8000).effect('slide')
-  $("#notification-flashs > div[name='error']").each ->
-    ui.error($(this).text()).closable().sticky().effect('slide')
 
-# hide closable notifications onclick
-$("#notifications .closable").livequery "click", ->
-  $(this).hide()
+  # default options for noty
+  noty_opt =
+    closable: true
+    timeout: true
+    force: false
+    modal: false
+    timeout: 6000
+    textAlign: 'center'
+    layout: 'top'
+
+  $("#notification-flashs > div[name='error']").each ->
+    opts = $.extend {}, noty_opt,
+      text: $(this).text()
+      type: 'error'
+      force: true
+      timeout: false
+    noty opts
+  $("#notification-flashs > div[name='success']").each ->
+    opts = $.extend {}, noty_opt,
+      text: $(this).text()
+      type: 'success'
+    noty opts
+  $("#notification-flashs > div[name='notice']").each ->
+    opts = $.extend {}, noty_opt,
+      text: $(this).text()
+      type: 'alert'
+    noty opts

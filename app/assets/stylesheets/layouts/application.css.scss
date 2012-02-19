@@ -7,7 +7,7 @@
  *= require ../../../../vendor/assets/stylesheets/jquery/jquery.qtip.2.0.0pre
  *= require ../../../../vendor/assets/stylesheets/calendar
  *= require ../../../../vendor/assets/stylesheets/token-input-facebook
- *= require ../../../../vendor/assets/stylesheets/uikit/ui
+ *= require ../../../../vendor/assets/stylesheets/jquery/jquery.noty
  *
  * Note: the order matters!
  *= require ./application/typography
@@ -91,7 +91,7 @@ ul#navbar-right-links {
 
   .user-info-dropdown {
     margin: 0;
-    padding: 4px 10px;
+    padding: 5px 10px;
   }
 
   // small user info in the navbar

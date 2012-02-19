@@ -36,7 +36,6 @@
       #navbar-wrapper
         = render :partial => 'layouts/application_navbar'
       #content-wrapper
-        = render :partial => "layouts/notifications"
         #content
           #content-middle
             = render :partial => "layouts/application_header"
@@ -51,4 +50,6 @@
               = yield :sidebar
 
       = render :partial => "layouts/footer"
+
     = render :partial => "layouts/analytics"
+    = render :partial => "layouts/notifications"
