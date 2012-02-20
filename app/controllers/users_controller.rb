@@ -132,6 +132,7 @@ class UsersController < ApplicationController
   def edit
     @shib_user = session.has_key?(:shib_data)
     @shib_provider = session[:shib_data]["Shib-Identity-Provider"] if @shib_user
+    render :layout => 'no_sidebar'
   end
 
   def clean

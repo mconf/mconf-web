@@ -39,8 +39,7 @@ input, textarea {
 }
 
 input:focus {
-  border: 1px solid $orange; //#275b8a;
-  border-color: $light-blue;
+  border: 1px solid $light-blue; //#275b8a;
   outline: thin dotted 9;
   @include box-shadow(inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 5px lighten($light-blue, 10));
 }
@@ -54,8 +53,14 @@ button, input[type=submit], input[type=button], .button {
   border: 0;
   font-weight: normal;
   cursor: pointer;
+  &:focus {
+    @include box-shadow(inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 5px lighten($light-blue, 10));
+  }
 
-  &.bordered { border: 1px solid #ddd; }
+  &.bordered {
+    border: 1px solid #ddd;
+    &:focus { border: 1px solid $light-blue; }
+  }
   &:hover { text-decoration: none; }
 
   // colors
@@ -98,10 +103,24 @@ button, input[type=submit], input[type=button], .button {
 .simple_form {
 
   .input {
-    margin-bottom: 5px;
+    margin-top: 5px;
+    margin-bottom: 10px;
 
-    label { display: block; }
-    abbr { border: 0; }
+    label {
+      display: block;
+      margin-bottom: 5px;
+    }
+    abbr {
+      border: 0;
+      margin: 0;
+      color: red;
+    }
+    input { font-size: $font-medium; }
+  }
+
+  .help-icon {
+    float: left;
+    margin-right: 5px;
   }
 
   .field_with_errors {

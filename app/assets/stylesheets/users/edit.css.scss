@@ -1,0 +1,30 @@
+@import "definitions";
+@import "compass/css3";
+
+$column-width: ($contents-width / 2) - 10px;
+
+.left-column {
+  float: left;
+  width: $column-width;
+}
+
+.right-column {
+  float: right;
+  width: $column-width;
+}
+
+#user-federated-info {
+  margin-bottom: 15px;
+  padding: 10px;
+  background: #f0f6f9;
+  @include border-radius(5px);
+
+  span.title {
+    font-size: 12px;
+    font-weight: bold;
+  }
+
+  span { display: block; }
+
+  .more-information { float: right; }
+}

@@ -1,0 +1,8 @@
+.modal-title
+  = t('shibboleth.your_data')
+.modal-content
+  %ul
+    - @data.each do |key,value|
+      %li
+        %label= key + ":"
+        %span= value

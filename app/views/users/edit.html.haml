@@ -1,0 +1,41 @@
+= render_page_title t('user.edit_account')
+
+- if logged_in? and @shib_user
+  #user-federated-info
+    .more-information= link_to t('user.edit.federated.see_your_data'), shibboleth_info_path, :class => 'open-modal'
+    %span.title= t('user.edit.federated.title')
+    %span= t('user.edit.federated.your_idp', :idp => @shib_provider)
+    %span= t('user.edit.federated.restrictions')
+
+.left-column
+  %h3= t('account_info')
+  = simple_form_for user, :url => user_path(user.login_changed? ? user.login_was : user), :html => {:method => :put} do |f|
+    = render :partial => 'form', :locals => { :f => f }
+    = f.button :submit, t("save"), :class => 'bordered'
+
+.right-column
+  %h3= t('preferences')
+  = simple_form_for :user, :url => user_path(@user), :html => {:method => :put} do |f|
+    = help_icon t("tooltip.timezone")
+    = f.input :timezone, :label => t('user.timezone'), :required => false do
+      = f.time_zone_select :timezone, nil, :include_blank => true
+    = f.input :expanded_post, :label => t("post.show_expanded_pref"), :required => false do
+      = f.check_box :expanded_post, {}, true, false
+      %span= t('user.view_expanded_posts')
+    = f.input :notification, :label => t('user.notifications'), :required => false do
+      = f.radio_button :notification, User::NOTIFICATION_VIA_EMAIL
+      = t('user.by_email')
+      = f.radio_button :notification, User::NOTIFICATION_VIA_PM
+      = t('user.by_private_message')
+    = f.input :receive_digest, :label => t('user.receive_digest.description'), :required => false do
+      = f.radio_button :receive_digest, User::RECEIVE_DIGEST_NEVER
+      = t('user.receive_digest.never')
+      = f.radio_button :receive_digest, User::RECEIVE_DIGEST_DAILY
+      = t('user.receive_digest.daily')
+      = f.radio_button :receive_digest, User::RECEIVE_DIGEST_WEEKLY
+      = t('user.receive_digest.weekly')
+    - if logged_in? && current_user.superuser==true && @user.id != current_user.id
+      = f.input :superuser, :label => t('user.edit.make_admin'), :required => false do
+        = f.check_box :superuser
+        = t('user.admin')
+    = f.button :submit, t("save"), :class => 'bordered'
