@@ -311,7 +311,7 @@ ul#navbar-right-links {
   .content-block-wrapper {
     padding: 5px;
     @include border-radius(5px);
-    background: #f6f6f6;
+    background: $light-gray;
     margin-bottom: 10px;
 
     &.active {
@@ -396,7 +396,7 @@ ul#navbar-right-links {
   .content-block-footer {
     padding: 4px 10px;
     text-align: right;
-    background: #f6f6f6;
+    background: $light-gray;
     border-top: 1px solid #ddd;
     clear: both;
   }
@@ -485,3 +485,44 @@ ul#navbar-right-links {
     margin-bottom: 3px;
   }
 }
+
+// Unified style for threads: posts, news, attachments
+.thread {
+  clear: both;
+  padding: 10px;
+
+  .thread-content {
+    margin-left: 60px;
+  }
+
+  .thread-updated-at {
+    color: #666;
+    font-style: italic;
+  }
+
+  .thread-action-links {
+    float: right;
+    margin: 0;
+    padding: 0;
+    @include mconf_clearfix;
+
+    li {
+      margin: 0;
+      padding: 0;
+      float: left;
+      display: inline-block;
+      margin-left: 10px;
+    }
+  }
+
+  &.thread-even { background: transparent; }
+  &.thread-odd { background: $light-gray; }
+}
+
+
+// Blocks that can be automatically expanded/collapsed
+.block-expanded { display: none; }
+.block-collapsed { }
+
+// Blocks that will only be visible on hover
+.visible-on-hover { display: none; }

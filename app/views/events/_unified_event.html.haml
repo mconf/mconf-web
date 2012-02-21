@@ -1,0 +1,22 @@
+= div_for(event, :class => "thread thread-event #{cycle("thread-even" , "thread-odd")}") do
+
+  .logo-in-thread
+    = link_logo(event.space, :size => 'w48', :url => space_path(event.space), :title => event.space.name).html_safe
+
+  .thread-content
+
+    %ul.thread-action-links.visible-on-hover{ :"data-hover-tracked" => "event_#{event.id}" }
+      - if event.authorize?(:update, :to => current_user)
+        %li= link_to t('edit').downcase, edit_space_event_path(event.space, event), :title => t('event.edit')
+      - if event.authorize?(:delete, :to => current_user)
+        %li= link_to t('remove').downcase, space_event_path(event.space, event), {:method => :delete, :title => t('delete.one'), :confirm => t('delete.confirm', :element => event.title) }
+      - if logged_in? && event.spam != true
+        %li= link_to t('spam.default').downcase, spam_lightbox_space_event_path(event.space,event), { :name => event.id, :title => t('spam.report') }
+
+    .thread-title
+      = event_icon t('event.home.one', :space => event.space.name)
+      = link_to sanitize(highlight(event.title, params[:query])), space_event_path(event.space, event)
+      %span.thread-updated-at= t('updated_time_ago', :time => sanitize(time_ago_in_words(event.updated_at)))
+
+    .thread-text
+      %span= event.get_formatted_date

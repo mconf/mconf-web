@@ -17,16 +17,10 @@
         = link_to_unless @contents_per_page.to_i == per_page, per_page, path_for_home(:per_page => per_page)
       = t('per_page')
 
-  -#%div{:class => "arrow_take_box float_right_icon #{'hide' unless @update_act}", :style => "margin-top: 7px;"}
-  -#  = image_tag("icons/takeico.png", :class=>"icon",:title=> t('information.reduce'))
-  -#%div{:class => "arrow_drop_box float_right_icon #{'hide' if @update_act}"}
-  -#  = image_tag("icons/dropico.png", :class=>"icon",:title=> t('information.expand'))
-
   #recent-activity-content.content-block-middle
     - for interval in intervals(@all_contents) do
       - unless interval[:contents].empty?
-        .interval-title
-          %span.bold= t('updated') + " " + interval[:name]
+        %span.interval-title= interval[:name]
       - interval[:contents].each do |content|
         - case content
         - when Post

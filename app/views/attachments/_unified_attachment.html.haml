@@ -1,0 +1,21 @@
+- show_author ||= false
+
+= div_for(attachment, :class => "thread thread-attachment #{cycle("thread-even" , "thread-odd")}") do
+
+  .logo-in-thread
+    = link_logo(attachment.space, :size => 'w48', :url => space_path(attachment.space), :title => attachment.space.name).html_safe
+
+  .thread-content
+
+    %ul.thread-action-links.visible-on-hover{ :"data-hover-tracked" => "attachment_#{attachment.id}" }
+      - if attachment.authorize?(:delete, :to => current_user)
+        %li= link_to t('remove').downcase, space_attachment_path(attachment.space, attachment), {:method => :delete, :title => t('delete.one'), :confirm => t('delete.confirm', :element => attachment.filename) }
+
+    .thread-title
+      = attachment_icon t('attachment.home.one', :space => attachment.space.name)
+      = link_to sanitize(attachment.filename), space_attachment_path(attachment.space, attachment, :format => attachment.format!)
+      %span.thread-updated-at= t('created_time_ago', :time => sanitize(time_ago_in_words(attachment.created_at)))
+
+    - if show_author
+      %span= t('author') + ":"
+      = link_to attachment.author.name,user_path(attachment.author)

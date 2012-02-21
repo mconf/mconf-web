@@ -14,17 +14,53 @@ $(document).ready ->
     false
 
   # Add a title and tooltip to elements that can only be used by a logged user
-  $(".login-to-enable").each (index) ->
+  $(".login-to-enable").each (idx) ->
     $(this).attr("title", "You need to be logged in") # TODO: get from i18n
     $(this).addClass("tooltipped")
     $(this).addClass("upwards")
 
   # Use jquery for placeholders in browsers that don't support it
-  $('input[placeholder], textarea[placeholder]').placeholder();
+  $('input[placeholder], textarea[placeholder]').placeholder()
 
   # auto focus the first element with the attribute 'autofocus' (in case the
   # browser doesn't do it)
   $('[autofocus]').first().focus()
+
+  # links that automatically collapse or expand blocks inside a parent
+  # div. Ex:
+  # <div id="event_123">
+  #   <div class"block-collapsed">
+  #     i'm collapsed
+  #     <a href="#event_123" class="link-to-expand">more</a>
+  #   </div>
+  #   <div class"block-expanded">
+  #     i'm expanded
+  #     <a href="#event_123" class="link-to-collapse">less</a>
+  #   </div>
+  # </div>
+  $('.link-to-expand').on "click", (e) ->
+    e.preventDefault()
+    parent = $("#" + $(this).attr("href"))
+    parent.find(".block-collapsed").hide()
+    parent.find(".block-expanded").show()
+  $('.link-to-collapse').on "click", (e) ->
+    e.preventDefault()
+    parent = $("#" + $(this).attr("href"))
+    parent.find(".block-collapsed").show()
+    parent.find(".block-expanded").hide()
+
+  # Items with this class will only be visible when the item defined
+  # by the id in the 'data-hover-tracked' attribute is hovered. Ex:
+  # <div class="visible-on-hover" data-hover-tracked="event_123"></div>
+  $('.visible-on-hover').each (idx) ->
+    target = $(this)
+    tracked = $("#" + $(this).attr("data-hover-tracked"))
+    tracked.hover (e) ->
+      target.show()
+    , (e) ->
+      target.hide()
+
+
 
 # Changes the type of an input tag
 # Example:

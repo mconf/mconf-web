@@ -26,7 +26,7 @@
     clear: both;
     margin-top: 5px;
     padding: 5px;
-    background: #f6f6f6;
+    background: $light-gray;
     @include border-radius(5px);
 
     &.active { border: 2px solid #C0D7A9; }

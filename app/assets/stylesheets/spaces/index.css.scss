@@ -8,7 +8,7 @@
 #space-filter-wrapper {
   margin-bottom: 20px;
   padding: 10px 5px;
-  background: #f6f6f6;
+  background: $light-gray;
   @include border-radius(5px);
   text-align: center;
 
@@ -29,7 +29,7 @@
       text-align: center;
       img {
         padding: 20px;
-        background: #f6f6f6;
+        background: $light-gray;
       }
     }
   }

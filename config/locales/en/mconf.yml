@@ -77,6 +77,7 @@ en:
   are_you_sure: "Are you sure?"
   attachment: 
     add: "Add attachment"
+    created: "Attachment added"
     delete: "Delete attachment"
     deleted: "Attachment successfully deleted"
     error: 

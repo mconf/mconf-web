@@ -165,6 +165,30 @@ module ApplicationHelper
     image_tag "icons/attach.png", options
   end
 
+  # Default icon to a comment
+  def comment_icon(title, options={})
+    cls = "comment-icon tooltipped upwards "
+    options[:class] = options.has_key?(:class) ? cls + options[:class] : cls
+    options.merge!(:alt => title, :title => title)
+    image_tag "icons/comments.png", options
+  end
+
+  # Default icon to an event
+  def event_icon(title, options={})
+    cls = "event-icon tooltipped upwards "
+    options[:class] = options.has_key?(:class) ? cls + options[:class] : cls
+    options.merge!(:alt => title, :title => title)
+    image_tag "icons/date.png", options
+  end
+
+  # Default icon to news
+  def news_icon(title, options={})
+    cls = "news-icon tooltipped upwards "
+    options[:class] = options.has_key?(:class) ? cls + options[:class] : cls
+    options.merge!(:alt => title, :title => title)
+    image_tag "icons/newspaper.png", options
+  end
+
   # Admin red icon
   def superuser_icon(options={})
     cls = "icon superuser-icon "

@@ -1,4 +1,5 @@
 @import "compass/css3";
+@import "definitions";
 
 #colorbox {
   @include box-shadow(0 4px 12px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.5));
@@ -13,7 +14,7 @@
 }
 
 #colorbox .modal-title {
-  background: #f6f6f6;
+  background: $light-gray;
   font-size: 14px;
   padding: 7px 30px 5px 10px;
   @include border-top-radius(6px);
