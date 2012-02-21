@@ -62,7 +62,7 @@ $z-index-tooltip: 999999; // TODO: not being used yet
   }
 }
 
-@mixin mconf_clearfix {
+@mixin mconf-clearfix {
   @include clearfix;
   @include pie-clearfix;
 }

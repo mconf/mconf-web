@@ -144,10 +144,10 @@ ul#navbar-right-links {
 
   // big user info shown in the dropdown clicking in the navbar
   .user-info-big {
-    @include mconf_clearfix;
+    @include mconf-clearfix;
 
     .user-data {
-      @include mconf_clearfix;
+      @include mconf-clearfix;
       padding-left: 7px;
       a, span {
         display: block;
@@ -177,7 +177,7 @@ ul#navbar-right-links {
 
   // user links shown in the dropdown clicking in the navbar
   .user-links {
-    @include mconf_clearfix;
+    @include mconf-clearfix;
     clear: both;
     margin-top: 5px;
     border-top: 1px solid lighten($navbar-bg-color, 13);
@@ -199,7 +199,7 @@ ul#navbar-right-links {
   white-space: nowrap;
   margin-top: 2px;
   margin-right: 5px;
-  @include mconf_clearfix;
+  @include mconf-clearfix;
 
   .title {
     @include link-colors(#bbb, white, white, #bbb);
@@ -217,14 +217,14 @@ ul#navbar-right-links {
 //#page-header {
   //padding: 15px;
   //height: 30px;
-  //@include mconf_clearfix;
+  //@include mconf-clearfix;
   //margin: 0 auto;
   //width: $contents-width;
 //}
 */
 
 #page-header {
-  @include mconf_clearfix;
+  @include mconf-clearfix;
   margin: 0;
   margin-bottom: 15px;
   padding: 0;
@@ -301,7 +301,7 @@ ul#navbar-right-links {
   width: $contents-width;
   margin: 20px auto 0 auto;
   padding: 0 10px;
-  @include mconf_clearfix;
+  @include mconf-clearfix;
 }
 
 #sidebar {
@@ -352,7 +352,7 @@ ul#navbar-right-links {
   }
 
   .sidebar-top-action-button {
-    @include mconf_clearfix;
+    @include mconf-clearfix;
     text-align: center;
     padding: 10px;
     a, span {
@@ -368,7 +368,7 @@ ul#navbar-right-links {
 #content-middle {
   float: left;
   width: $contents-width - $sidebar-width - 20px; // less right-margin
-  @include mconf_clearfix;
+  @include mconf-clearfix;
 
   h3 {
     color: #404040;
@@ -504,7 +504,7 @@ ul#navbar-right-links {
     float: right;
     margin: 0;
     padding: 0;
-    @include mconf_clearfix;
+    @include mconf-clearfix;
 
     li {
       margin: 0;

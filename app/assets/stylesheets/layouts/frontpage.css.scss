@@ -176,7 +176,7 @@ $more-about-mconf-bg-color: #ddd; //#BFCDDD;//#d4d4d4;
   h2 { color: $h-font-color-alternative; }
 
   .section-title {
-    @include mconf_clearfix;
+    @include mconf-clearfix;
     clear: both;
     display: block;
     margin: 10px 0;
@@ -199,7 +199,7 @@ $more-about-mconf-bg-color: #ddd; //#BFCDDD;//#d4d4d4;
 }
 
 #introduction {
-  @include mconf_clearfix;
+  @include mconf-clearfix;
   padding: 35px 0;
   margin: 0 auto;
 
@@ -215,7 +215,7 @@ $more-about-mconf-bg-color: #ddd; //#BFCDDD;//#d4d4d4;
 }
 
 #what-is-it {
-  @include mconf_clearfix;
+  @include mconf-clearfix;
   margin-bottom: 20px;
 
   .headline {
@@ -239,12 +239,12 @@ $more-about-mconf-bg-color: #ddd; //#BFCDDD;//#d4d4d4;
   clear: both;
 
   #most-active-spaces {
-    @include mconf_clearfix;
+    @include mconf-clearfix;
     clear: both;
     margin-top: 10px;
 
     ul {
-      @include mconf_clearfix;
+      @include mconf-clearfix;
       margin: 5px 0;
     }
     li {
@@ -268,7 +268,7 @@ $more-about-mconf-bg-color: #ddd; //#BFCDDD;//#d4d4d4;
 
 #searching-for {
   float: right;
-  @include mconf_clearfix;
+  @include mconf-clearfix;
 
   // so the box-shadow in .content can be seen
   padding-right: 5px;
@@ -320,7 +320,7 @@ $more-about-mconf-bg-color: #ddd; //#BFCDDD;//#d4d4d4;
 
 #more-about-mconf {
   @extend #content;
-  @include mconf_clearfix;
+  @include mconf-clearfix;
   padding: 35px 0;
 
   h2 { color: darken($h-font-color-alternative, 10); }
@@ -341,10 +341,10 @@ $more-about-mconf-bg-color: #ddd; //#BFCDDD;//#d4d4d4;
 }
 
 #mconf-links {
-  @include mconf_clearfix;
+  @include mconf-clearfix;
 
   div.links {
-    @include mconf_clearfix;
+    @include mconf-clearfix;
     padding: 15px;
     @include box-shadow(1px 1px 2px rgba(0, 0, 0, 0.2));
 
@@ -388,7 +388,7 @@ $more-about-mconf-bg-color: #ddd; //#BFCDDD;//#d4d4d4;
   margin: 20px auto;
 
   .component {
-    @include mconf_clearfix;
+    @include mconf-clearfix;
     clear: both;
     padding: 30px 10px;
 

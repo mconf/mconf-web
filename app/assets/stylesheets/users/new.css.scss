@@ -1,7 +1,7 @@
 @import "definitions";
 
 #register-wrapper {
-  @include mconf_clearfix;
+  @include mconf-clearfix;
   margin-bottom: 50px;
 
   form {

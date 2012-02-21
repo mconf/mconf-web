@@ -182,7 +182,7 @@ button, input[type=submit], input[type=button], .button {
 }
 
 .clearfix {
-  @include mconf_clearfix; // in _definitions
+  @include mconf-clearfix; // in _definitions
 }
 
 .icon {
@@ -238,7 +238,7 @@ button, input[type=submit], input[type=button], .button {
 }
 
 #upper-footer {
-  @include mconf_clearfix;
+  @include mconf-clearfix;
   width: $contents-width;
   margin: 0 auto;
   padding: 0;
@@ -321,7 +321,7 @@ button, input[type=submit], input[type=button], .button {
 }
 
 #lower-footer {
-  @include mconf_clearfix;
+  @include mconf-clearfix;
   width: $contents-width;
   margin: 0 auto;
   color: #888;
