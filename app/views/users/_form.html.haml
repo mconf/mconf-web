@@ -7,13 +7,11 @@
   = f.input :_full_name, :label => t('user.full_name'), :required => true
 - else
   = f.input :_full_name, :as => 'hidden', :input_html => { :value => user.full_name }
-  = help_icon t("tooltip.user_id")
-  = f.input :login, :label => t('user.id'), :required => true
+  = f.input :login, :label => t('user.id'), :required => true, :hint => t("tooltip.user_id")
 
 - if f.object.new_record?
   = f.input :password, :label => t('user.password'), :required => true
   = f.input :password_confirmation, :label => t('user.password_confirmation'), :required => true
 - else
-  = help_icon t("user.new_password_tip")
-  = f.input :password, :label => t('user.new_password'), :required => false
+  = f.input :password, :label => t('user.new_password'), :required => false, :hint => t("user.new_password_tip")
   = f.input :password_confirmation, :label => t('user.new_password_confirmation'), :required => false

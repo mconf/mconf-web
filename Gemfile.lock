@@ -239,7 +239,7 @@ GEM
       tilt (~> 1.3.2)
     shoulda-matchers (1.0.0)
     simple-rss (1.2.3)
-    simple_form (1.5.2)
+    simple_form (2.0.0.rc)
       actionpack (~> 3.0)
       activemodel (~> 3.0)
     sprockets (2.0.3)
@@ -324,7 +324,7 @@ DEPENDENCIES
   rubyzip
   sass-rails (~> 3.1.5)
   shoulda-matchers
-  simple_form
+  simple_form (~> 2.0.0.rc)
   sqlite3
   table_helper!
   teambox-permalink_fu!

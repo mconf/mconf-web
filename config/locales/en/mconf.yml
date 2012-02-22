@@ -1424,7 +1424,9 @@ en:
     delete_from_space: "Delete user from space"
     disable: "Disable user"
     disabled: "User %{username} disabled"
-    edit: 
+    edit:
+      click_to_edit_profile: "Click here to edit your profile"
+      did_not_find_info: "Didn't find what you were looking for?"
       federated: 
         restrictions: "You will not be able to edit some data such as your e-mail and password."
         see_your_data: "See your data..."

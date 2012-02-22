@@ -22,9 +22,10 @@ p {
 // Forms, buttons, inputs
 //
 
-input[type=password], input[type=text], input[type=email], textarea, ul.token-input-list-facebook {
+input[type=password], input[type=text], input[type=email], textarea, ul.token-input-list-facebook, select {
   border: 1px solid #ccc;
   font-size: $font-normal;
+  font-weight: normal;
   padding: 3px;
   @include border-radius(3px);
 }
@@ -33,15 +34,19 @@ input[type=checkbox] {
   margin: 5px 2px 0 2px;
 }
 
-input, textarea {
+input, textarea, select {
   @include transition(border linear 0.2s, box-shadow linear 0.2s);
   @include box-shadow(inset 0 1px 1px rgba(0, 0, 0, 0.075));
 }
 
-input:focus {
+select:focus, input:focus {
   border: 1px solid $light-blue; //#275b8a;
   outline: thin dotted 9;
   @include box-shadow(inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 5px lighten($light-blue, 10));
+}
+
+select {
+  background: white;
 }
 
 $fb-allow-disabled: true;
@@ -109,18 +114,29 @@ button, input[type=submit], input[type=button], .button {
     label {
       display: block;
       margin-bottom: 5px;
+
+      &.radio, &.collection_radio_buttons {
+        display: inline;
+      }
     }
+
     abbr {
       border: 0;
       margin: 0;
       color: red;
     }
-    input { font-size: $font-medium; }
-  }
 
-  .help-icon {
-    float: left;
-    margin-right: 5px;
+    input, select { font-size: $font-medium; }
+
+    .hint {
+      font-size: $font-small;
+      display: block;
+      color: $blue;
+      text-align: right;
+      background: $light-gray;
+      padding: 5px;
+      @include border-bottom-radius(5px);
+    }
   }
 
   .field_with_errors {
@@ -227,7 +243,6 @@ button, input[type=submit], input[type=button], .button {
 #upper-footer-wrapper {
   border-top: 1px solid darken($upper-footer-bg-color, 7);
   border-bottom: 1px solid darken($upper-footer-bg-color, 7);
-  //@include background(linear-gradient(top, $upper-footer-bg-color, $upper-footer-bg-color 30%, $site-bg-color));
   background: $upper-footer-bg-color;
   color: #444;
   clear: both;
@@ -235,6 +250,7 @@ button, input[type=submit], input[type=button], .button {
   padding-bottom: 15px;
   @include box-shadow(inset 0 1px 0 white, 0 1px 1px rgba(0, 0, 0, 0.1));
   margin-bottom: 3px;
+  margin-top: 20px;
 }
 
 #upper-footer {

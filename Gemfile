@@ -27,7 +27,7 @@ gem 'whenever', :require => false
 gem 'garb'
 gem 'bigbluebutton-api-ruby', :git => 'git://github.com/mconf/bigbluebutton-api-ruby.git'
 gem 'bigbluebutton_rails', :git => 'git://github.com/mconf/bigbluebutton_rails.git'
-gem 'simple_form'
+gem 'simple_form', '~> 2.0.0.rc'
 
 # TODO: Gems to review if we can remove/update
 gem 'galetahub-simple_captcha', :require => 'simple_captcha'
