@@ -13,18 +13,6 @@ $column-width: ($contents-width / 2) - 20px;
   width: $column-width;
 }
 
-#account-info {
-  input[type=text], input[type=password], input[type=email] {
-    width: 100%;
-  }
-}
-
-#account-preferences {
-  select {
-    width: 100%;
-  }
-}
-
 #user-federated-info {
   margin-bottom: 15px;
   padding: 10px;

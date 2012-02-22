@@ -41,8 +41,8 @@ SimpleForm.setup do |config|
 
     ## Inputs
     b.use :label_input
-    b.use :hint,  :tag => :span, :class => :hint
     b.use :error, :tag => :span, :class => :error
+    b.use :hint,  :tag => :span, :class => :hint
   end
 
   # The default wrapper to be used by the FormBuilder.

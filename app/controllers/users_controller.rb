@@ -68,6 +68,7 @@ class UsersController < ApplicationController
     respond_to do |format|
       format.html {
         headers['X-XRDS-Location'] = user_path(user, :format => :xrds)
+        render 'profiles/show'
       }
       format.xml { render :xml => user }
       format.atom
@@ -120,7 +121,7 @@ class UsersController < ApplicationController
           :status => :created
         }
       else
-        format.html { render :action => "new" }
+        format.html { render :action => "new", :layout => "no_sidebar" }
         format.xml  { render :xml => @user.errors, :status => :unprocessable_entity }
         format.atom { render :xml => @user.errors.to_xml, :status => :bad_request }
       end
@@ -138,7 +139,6 @@ class UsersController < ApplicationController
   def clean
     render :update do |page|
       page.replace_html 'search_results', ""
-
     end
   end
 
@@ -166,14 +166,7 @@ class UsersController < ApplicationController
           format.xml  { render :xml => @user }
           format.atom { head :ok }
         else
-          format.html { #the superuser will be redirected to list_users
-            if current_user.superuser == true
-               render :action => "edit"
-              #redirect_to(space_users_path(@space))
-            else
-               render :action => "edit"
-              #redirect_to(space_user_path(@space, @user))
-            end }
+          format.html { render :action => "edit", :layout => "no_sidebar" }
           format.xml  { render :xml => @user.errors, :status => :unprocessable_entity }
           format.atom { render :xml => @user.errors.to_xml, :status => :not_acceptable }
         end

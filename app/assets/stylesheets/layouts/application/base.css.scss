@@ -22,16 +22,14 @@ p {
 // Forms, buttons, inputs
 //
 
-input[type=password], input[type=text], input[type=email], textarea, ul.token-input-list-facebook, select {
+// all inputs with a 'text-like' style
+input[type=password], input[type=text], input[type=email], input[type=tel],
+input[type=url], textarea, ul.token-input-list-facebook, select {
   border: 1px solid #ccc;
   font-size: $font-normal;
   font-weight: normal;
   padding: 3px;
   @include border-radius(3px);
-}
-
-input[type=checkbox] {
-  margin: 5px 2px 0 2px;
 }
 
 input, textarea, select {
@@ -43,6 +41,10 @@ select:focus, input:focus {
   border: 1px solid $light-blue; //#275b8a;
   outline: thin dotted 9;
   @include box-shadow(inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 5px lighten($light-blue, 10));
+}
+
+input[type=checkbox] {
+  margin: 5px 2px 0 2px;
 }
 
 select {
@@ -131,23 +133,34 @@ button, input[type=submit], input[type=button], .button {
     .hint {
       font-size: $font-small;
       display: block;
-      color: $blue;
+      color: lighten($font-color, 30);
       text-align: right;
-      background: $light-gray;
-      padding: 5px;
+      padding: 0;
+      margin: 0;
       @include border-bottom-radius(5px);
     }
   }
 
   .field_with_errors {
-    input {
-      border-color: $red;
-    }
+    input { border-color: $red; }
 
     .error {
       margin-left: 5px;
       color: $red;
       font-style: italic;
+    }
+  }
+
+  // forms with a single column, where no information can be
+  // shown at the side of an input
+  &.single-column {
+    input.string, input.password, textarea.text, select {
+      width: 99%;
+    }
+
+    .field_with_errors .error {
+      display: block;
+      text-align: right;
     }
   }
 

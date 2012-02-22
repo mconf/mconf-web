@@ -1033,6 +1033,9 @@ en:
     deleted: "Profile deleted successfully"
     description: 
       add: "Short bio"
+    edit: 
+      description: "Write something about you"
+      url: "Your website"
     error: 
       exist: "Your profile already exists"
     header_title: "User profile"
@@ -1426,7 +1429,7 @@ en:
     disabled: "User %{username} disabled"
     edit:
       click_to_edit_profile: "Click here to edit your profile"
-      did_not_find_info: "Didn't find what you were looking for?"
+      did_not_find_info: "Didn't find the information you were looking for?"
       federated: 
         restrictions: "You will not be able to edit some data such as your e-mail and password."
         see_your_data: "See your data..."

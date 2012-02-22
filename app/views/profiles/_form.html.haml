@@ -1,0 +1,56 @@
+- prefix_select = f.select :prefix_key, [[t('title_formal.mr'), 'title_formal.mr'], [t('title_formal.mrs'), 'title_formal.mrs'], [t('title_formal.ms'), 'title_formal.ms'], [t("other"), "other"]]
+- prefix_input = "<div class='switch_js'> #{f.text_field :prefix_key} #{link_to 'suggest','javascript:suggest_prefix()'} </div>".html_safe
+
+#edit-public-profile.left-column
+
+  .content-block-header
+    %h3= t('profile.public')
+    = help_icon t("tooltip.public_profile")
+
+  .content-block-middle
+    = f.input :prefix_key, :label => t('name.prefix') do
+      - if @profile.prefix_key.include?("title_formal.") || @profile.prefix_key == ""
+        = prefix_select
+      - else
+        = prefix_input
+    = f.input :full_name, :label => t('name.full')
+    = f.input :organization, :label => t('organization')
+    = f.input :city, :label => t('city')
+    = f.input :province, :label => t('province')
+    = f.input :country, :as => :string, :label => t('country')
+    = f.input :description, :as => :text, :label => t('profile.edit.description'), :input_html => { :size => '45x10' }
+    = f.input :url, :label => t('profile.edit.url')
+
+#edit-private-profile.right-column
+
+  .content-block-header
+    %h3= t('profile.private')
+    = help_icon t("tooltip.private_profile")
+
+  .content-block-middle
+
+    -#%h4.margin-up= t('privacy') + ": " + t('profile.visibility_edit')
+    -#.profile_visibility_gradient
+    .visibility-options
+      - collection = []
+      - for vis_symbol in Profile::VISIBILITY do
+        - collection.push([Profile::VISIBILITY.index(vis_symbol), t('profile.visibility_' + vis_symbol.to_s)])
+      = f.collection_radio_buttons :visibility, collection, :first, :last
+
+    -#%h4.margin-up= t('address')
+    = f.input :address, :label => t('address')
+    = f.input :zipcode, :label => t('zipcode')
+
+    -#%h4.margin-up= t('contact_information')
+    -#%p.bold.blue= t('internet.on_the')
+    = f.fields_for :user do |u|
+      = u.input :email, :label => t('email.one')
+    = f.input :skype, :label => t('skype')
+    = f.input :im, :label => t('im')
+
+    -#%p.bold.blue= t('phone.plural')
+    = f.input :phone, :label => t('phone.landline')
+    = f.input :mobile, :label => t('phone.mobile')
+    = f.input :fax, :label => t('fax')
+
+= f.button :submit, t("save"), :class => 'bordered'

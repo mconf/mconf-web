@@ -12,14 +12,14 @@
 
 #account-info.left-column
   %h3= t('account_info')
-  = simple_form_for user, :url => user_path(user.login_changed? ? user.login_was : user), :html => {:method => :put} do |f|
+  = simple_form_for user, :url => user_path(user.login_changed? ? user.login_was : user), :html => {:method => :put, :class => 'single-column'} do |f|
     = render :partial => 'form', :locals => { :f => f }
     = f.button :submit, t("save"), :class => 'bordered'
 
 #account-preferences.right-column
   %h3= t('preferences')
 
-  = simple_form_for :user, :url => user_path(@user), :html => {:method => :put} do |f|
+  = simple_form_for :user, :url => user_path(@user), :html => {:method => :put, :class => 'single-column'} do |f|
 
     = f.input :timezone, :label => t('user.timezone'), :required => false, :hint => t("tooltip.timezone") do
       = f.time_zone_select :timezone, nil, :include_blank => true

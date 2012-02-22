@@ -12,6 +12,17 @@ $(document).ready(function() {
     window.location.href = "<%= user_profile_path(@user,:format => "vcf") %>";
   });
 
+ // from _form
+ //$("#profile_prefix_key").livequery("change",function(){
+ // if ($("#profile_prefix_key option:selected").attr("value")== "other"){
+ //        $(this).replaceWith("escape_javascript(prefix_input)");
+ //       }
+ //});
+
+ //suggest_prefix = function(){
+ // $(".switch_js").replaceWith("escape_javascript(prefix_select)")
+ //};
+
 });
 </script>
 <% end %>
@@ -63,22 +74,6 @@ $(document).ready(function() {
   </div>
 <% end %>
 
-<div id="flash_div" class="success" style="display:none"></div>
-
-<% flash.each do |name, msg| %>
-  <div class="<%= name %>"><%= msg %></div>
-<% end %>
-
-<%= error_messages_for :profile %>
-
-<%= form_for @profile, :url => user_profile_path(@user) , :html => { :multipart => true } do |f| %>
+<%= simple_form_for @profile, :url => user_profile_path(@user), :html => {:multipart => true, :class => 'single-column'} do |f| %>
   <%= render :partial => 'form', :locals => { :f => f } %>
-  <div class="profile_save_ch">
-    <button type="submit" class="basic_button blue_button"><%=t("save")%></button>
-  </div>
-  <div class="profile_save_ch">
-    <%= link_to ("<span>" + t('cancel') + "</span>").html_safe, user_profile_path(@user),:class => "basic_button blue_button", :id=>"cancel_profile"%>
-  </div>
 <% end %>
-
-<div id="for_lightbox" style="display:none"></div>
