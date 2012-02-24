@@ -5,9 +5,10 @@ gem 'rails', '~> 3.1.0'
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'sass-rails',   '~> 3.1.5'
+  gem 'sass-rails', '~> 3.1.5'
   gem 'coffee-rails', '~> 3.1.1'
   gem 'uglifier', '>= 1.0.3'
+  gem 'yui-compressor'
   gem 'compass', '0.12.alpha.4'
   gem 'fancy-buttons'
 end
@@ -21,6 +22,7 @@ gem 'haml'
 gem 'will_paginate'
 gem 'chronic'
 gem 'yaml_db'
+gem 'delayed_job', '~> 3.0.0'
 gem 'delayed_job_active_record'
 gem 'rails_autolink'
 gem 'whenever', :require => false

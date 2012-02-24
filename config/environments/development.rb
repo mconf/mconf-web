@@ -22,9 +22,11 @@ Mconf::Application.configure do
   # Only use best-standards-support built into browsers
   config.action_dispatch.best_standards_support = :builtin
 
-  # Do not compress assets
-  config.assets.compress = false
-
-  # Expands the lines which load the assets
-  config.assets.debug = true
+  # By default we use the same options as in production to prevent errors in production
+  # only. For debug, comment the lines below and uncomment the commented ones
+  config.assets.compress = true
+  config.assets.css_compressor = :yui
+  config.assets.debug = false
+  # config.assets.compress = false # Do not compress assets
+  # config.assets.debug = true # Expands the lines which load the assets
 end

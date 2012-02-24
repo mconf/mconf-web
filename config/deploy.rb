@@ -55,7 +55,7 @@ after 'multistage:ensure', 'deploy:info'
 # They are used for each time the app is deployed
 
 after 'deploy:update_code', 'deploy:link_files'
-after 'deploy:update_code', 'deploy:upload_config_files'
+after 'deploy:finalize_update', 'deploy:upload_config_files'
 # after 'deploy:update_code', 'deploy:fix_file_permissions'
 
 namespace :deploy do
