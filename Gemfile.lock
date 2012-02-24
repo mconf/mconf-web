@@ -84,7 +84,7 @@ GEM
       mime-types
       xml-simple
     builder (3.0.0)
-    capistrano (2.6.0)
+    capistrano (2.11.2)
       highline
       net-scp (>= 1.0.0)
       net-sftp (>= 2.0.0)
@@ -141,7 +141,7 @@ GEM
       crack (>= 0.1.6)
     god (0.12.1)
     haml (3.1.4)
-    highline (1.6.2)
+    highline (1.6.11)
     hike (1.2.1)
     hoe (2.9.4)
       rake (>= 0.8.7)
@@ -166,7 +166,7 @@ GEM
       net-ssh (>= 1.99.1)
     net-sftp (2.0.5)
       net-ssh (>= 2.0.9)
-    net-ssh (2.1.4)
+    net-ssh (2.3.0)
     net-ssh-gateway (1.1.0)
       net-ssh (>= 1.99.1)
     nokogiri (1.4.1)
@@ -283,7 +283,7 @@ DEPENDENCIES
   attachment_fu!
   bigbluebutton-api-ruby!
   bigbluebutton_rails!
-  capistrano (~> 2.5)
+  capistrano (~> 2.11)
   capistrano-ext
   chronic
   ci_reporter

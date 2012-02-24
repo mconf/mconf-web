@@ -178,10 +178,8 @@ namespace :db do
 end
 
 # From: http://stackoverflow.com/questions/312214/how-do-i-run-a-rake-task-from-capistrano
-namespace :rake do
-  desc "Run a task on a remote server."
-  # example: cap staging rake:invoke task=jobs:queued
-  task :invoke do
-    run("cd #{deploy_to}/current; bundle exec rake #{ENV['TASK']} RAILS_ENV=production")
-  end
+# example: cap staging invoke task=jobs:queued
+desc "Run a task on a remote server."
+task :invoke do
+  run("cd #{deploy_to}/current; bundle exec rake #{ENV['TASK']} RAILS_ENV=production")
 end

@@ -52,7 +52,7 @@ gem 'table_helper', :git => 'git://github.com/eeng/table_helper.git'
 
 group :development do
   #gem 'ruby-debug19', :require => 'ruby-debug'
-  gem 'capistrano', '~> 2.5'
+  gem 'capistrano', '~> 2.11'
   gem 'capistrano-ext'
   gem 'translate-rails3', :require => 'translate', :git => 'git://github.com/mconf/translate.git'
   gem 'rails-dev-tweaks', '~> 0.5.2' # speed up rails 3.1 development server
