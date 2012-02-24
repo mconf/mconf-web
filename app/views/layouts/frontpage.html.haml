@@ -6,10 +6,9 @@
     %title= content_for?(:title) ? yield(:title) : current_site.name
     %link{:href => "/favicon.ico", :rel => "shortcut icon", :type => "image/x-icon"}
 
-    = stylesheet_link_tag 'layouts/application_print', :media => 'print'
-    = stylesheet_link_tag 'layouts/frontpage', :media => 'screen, projection'
+    = stylesheet_link_tag "layouts/application_print", :media => "print"
+    = stylesheet_link_tag "layouts/frontpage", :media => "screen, projection"
     /[if IE]
-      = stylesheet_link_tag 'layouts/frontpage_ie.css', :media => 'screen, projection'
       // HTML5 shim, for IE6-8 support of HTML elements
       /[if lt IE 9]
         = javascript_include_tag "http://html5shim.googlecode.com/svn/trunk/html5.js"
