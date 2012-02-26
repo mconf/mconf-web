@@ -13,6 +13,7 @@
 #   * See other TODO: markers in the code
 #
 # Changelog:
+#   2012-11-31 LCD  Updated the versions of god and passenger
 #   2011-10-18 LCD  Now all downloaded files come from the branch "latest" instead of "master"
 #   2011-10-07 LCD  Version 0.3
 #   2011-09-26 LCD  God installation and configuration
@@ -49,8 +50,8 @@ APACHE_DAEMON=/usr/sbin/apache2                         # default path for the a
 APACHE_PATH=/etc/apache2                                # default path for Apache
 
 GEM_VERSION_BUNDLER=1.0.18                              # bundler version
-GEM_VERSION_GOD=0.11.0                                  # god version
-GEM_VERSION_PASSENGER=3.0.7                             # passenger version
+GEM_VERSION_GOD=0.12.1                                  # god version
+GEM_VERSION_PASSENGER=3.0.11                            # passenger version
 
 BIGBLUEBUTTON_ALT_PORT=8888                             # alternative port for BigBlueButton if necessary (when Apache is installed)
 
