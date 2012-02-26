@@ -6,21 +6,16 @@
     %title= content_for?(:title) ? yield(:title) : current_site.name
     %link{:href => "/favicon.ico", :rel => "shortcut icon", :type => "image/x-icon"}
 
-    = stylesheet_link_tag "layouts/application_print", :media => "print"
-    = stylesheet_link_tag "layouts/frontpage", :media => "screen, projection"
+    = stylesheet_link_tag "application_print", :media => "print"
+    = stylesheet_link_tag "frontpage", :media => "screen, projection"
+    = stylesheet_link_tag "_development" unless Rails.env == "production"
+
     /[if IE]
       // HTML5 shim, for IE6-8 support of HTML elements
       /[if lt IE 9]
         = javascript_include_tag "http://html5shim.googlecode.com/svn/trunk/html5.js"
+
     = csrf_meta_tag
-
-    -unless Rails.env == "production"
-      :css
-        .translation_missing {
-          color: purple;
-          background-color: red;
-        }
-
     = yield :headers
 
   -# TODO: why can't this data-spy be called from the js? (see frontpage/show.js)
@@ -36,4 +31,4 @@
     = render :partial => "layouts/notifications"
 
     // Javascript placed at the end of the document so the pages load faster
-    = javascript_include_tag 'layouts/frontpage'
+    = javascript_include_tag 'frontpage'

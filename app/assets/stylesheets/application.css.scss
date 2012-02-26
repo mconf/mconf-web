@@ -1,0 +1,528 @@
+/*
+ *= require ./app/application/reset
+ *
+ * Vendored stylesheets
+ *= require ../../../vendor/assets/stylesheets/jquery/jquery.colorbox
+ *= require ../../../vendor/assets/stylesheets/jquery/jquery.jcrop
+ *= require ../../../vendor/assets/stylesheets/jquery/jquery.qtip.2.0.0pre
+ *= require ../../../vendor/assets/stylesheets/calendar
+ *= require ../../../vendor/assets/stylesheets/token-input-facebook
+ *= require ../../../vendor/assets/stylesheets/jquery/jquery.noty
+ *
+ * Note: the order matters!
+ *= require ./app/application/typography
+ *= require ./app/application/base
+ *= require ./app/application/dropdown-menu
+ *= require ./app/application/notifications
+ *= require ./app/application/tooltips
+ *= require ./app/application/input-placeholder
+ *= require ./app/application/modal
+ *
+ */
+
+@import "compass/css3";
+@import "compass/utilities/general";
+@import "compass/typography/links";
+@import "definitions";
+
+//
+// Redefining or adjusting some styles from partials/_base
+//
+
+$navbar-height: 35px;
+
+#navbar {
+  padding: 0;
+  height: $navbar-height;
+  color: #bbb;
+
+  .icon {
+    float: left;
+    margin-right: 3px;
+  }
+
+  .superuser-icon { margin-top: 2px; }
+}
+
+ul#navbar-left-links {
+  list-style-type: none;
+  float: left;
+  margin: 0 10px;
+
+  a {
+    @include link-colors(#bbb, white, white);
+    &:hover {
+      @include text-shadow(lighten($navbar-bg-color, 30) 0 0 5px);
+    }
+  }
+
+  li {
+    display: inline;
+    float: left;
+    margin-top: 10px;
+    margin-right: 10px;
+    padding-right: 10px;
+    border-right: 1px solid lighten($navbar-bg-color, 13);
+
+    a { float: left; }
+    &.last { border: 0; }
+  }
+}
+
+ul#navbar-right-links {
+  @extend ul#navbar-left-links;
+  float: right;
+  margin-right: 0;
+
+  li {
+    margin-left: 10px;
+    margin-right: 0;
+    padding-left: 10px;
+    padding-right: 0;
+    border-left: 1px solid lighten($navbar-bg-color, 13);
+    border-right: 0;
+  }
+
+  .user-info-dropdown {
+    margin: 0;
+    padding: 5px 10px;
+  }
+
+  // small user info in the navbar
+  .user-info {
+
+    .user-name {
+      padding: 4px 10px 4px 5px;
+      float: right;
+      display: block;
+      &:hover { color: white; }
+    }
+
+    .user-avatar {
+      position: relative;
+      float: right;
+      border: 1px solid lighten($navbar-bg-color, 30);
+      padding: 1px;
+      height: 22px;
+      width: 22px;
+      @include border-radius(3px);
+    }
+
+    .superuser-icon {
+      width: 12px;
+      height: 12px;
+      background: url(asset_path("icons/superuser-12x12.png", image)) no-repeat scroll left top;
+      position: absolute;
+      bottom: -2px;
+      right: -2px;
+    }
+  }
+
+  // dropdown menu with the user information
+  // it needs some adjustments over the default style
+  .dropdown {
+    &.open { background: #181818; }
+    .caret { margin-top: 10px; }
+
+    .dropdown-menu {
+      top: $navbar-height;
+      right: 0;
+      left: auto;
+      min-width: 300px;
+      width: 300px;
+      border-top: 0;
+      @include border-top-radius(0);
+    }
+  }
+
+  // big user info shown in the dropdown clicking in the navbar
+  .user-info-big {
+    @include mconf-clearfix;
+
+    .user-data {
+      @include mconf-clearfix;
+      padding-left: 7px;
+      a, span {
+        display: block;
+        float: left;
+        clear: left;
+        margin-bottom: 3px;
+      }
+    }
+
+    .user-name {
+      padding: 4px 10px 4px 5px;
+      float: right;
+      display: block;
+      &:hover { color: white; }
+    }
+
+    .user-avatar {
+      position: relative;
+      float: left;
+      border: 1px solid lighten($navbar-bg-color, 30);
+      padding: 1px;
+      height: 64px;
+      width: 64px;
+      @include border-radius(3px);
+    }
+  }
+
+  // user links shown in the dropdown clicking in the navbar
+  .user-links {
+    @include mconf-clearfix;
+    clear: both;
+    margin-top: 5px;
+    border-top: 1px solid lighten($navbar-bg-color, 13);
+    ul {
+      margin: 0;
+      li {
+        float: right;
+        margin: 0;
+        border: 0;
+        padding: 5px 10px;
+      }
+    }
+  }
+
+}
+
+#main-logo {
+  float: left;
+  white-space: nowrap;
+  margin-top: 2px;
+  margin-right: 5px;
+  @include mconf-clearfix;
+
+  .title {
+    @include link-colors(#bbb, white, white, #bbb);
+    font-size: 21px;
+    float: left;
+    //@include text-shadow(lighten($navbar-bg-color, 30) 0 0 10px);
+  }
+}
+
+#notification-flashs {
+ top: $navbar-height;
+}
+
+/* breadcrumbs try 1
+//#page-header {
+  //padding: 15px;
+  //height: 30px;
+  //@include mconf-clearfix;
+  //margin: 0 auto;
+  //width: $contents-width;
+//}
+*/
+
+#page-header {
+  @include mconf-clearfix;
+  margin: 0;
+  margin-bottom: 15px;
+  padding: 0;
+  clear: both;
+
+  a { @include link-colors($section-title-color, $site-link-hover, $site-link-active); }
+
+  .current-page-logo {
+    float: left;
+    border: 1px #ccc solid;
+    padding: 1px;
+    height: 64px;
+    &.clean { border: 0; }
+  }
+
+  .current-page-title {
+    float: left;
+    margin-left: 10px;
+    margin-top: 14px;
+    font-size: $font-section-title;
+    color: $section-title-color;
+    font-weight: bold;
+    @include text-shadow(darken($site-bg-color, 10) 1px 1px 10px);
+
+    .small-title {
+      font-size: $font-section-title - 10px;
+      margin-top: 5px;
+    }
+  }
+
+  .current-page-extra {
+    float: right;
+    margin-top: 25px;
+    text-align: right;
+    a, span { display: block; }
+  }
+}
+
+/*
+#page-header-right {
+  float: right;
+  margin-right: 15px;
+
+  .user-avatar {
+    float: right;
+    margin-left: 10px;
+    border: 1px #ccc solid;
+    padding: 1px;
+    height: 64px;
+    background-color: white;
+    position: relative;
+  }
+
+  .user-info {
+    float: right;
+    text-align: right;
+    margin-top: 7px;
+    .main-info {
+      font-size: $font-medium;
+    }
+  }
+
+  .superuser-icon {
+    width: 12px;
+    height: 12px;
+    background: url(asset_path("icons/superuser-12x12.png", image)) no-repeat scroll left top;
+    position: absolute;
+    bottom: -3px;
+    left: -3px;
+    background-color: white;
+    border: 1px solid #bbb;
+  }
+
+  span {
+    display: block;
+  }
+}
+*/
+
+#content {
+  width: $contents-width;
+  margin: 20px auto 0 auto;
+  padding: 0 10px;
+  @include mconf-clearfix;
+}
+
+#sidebar {
+  float: right;
+  width: $sidebar-width;
+
+  .content-block-wrapper {
+    padding: 5px;
+    @include border-radius(5px);
+    background: $light-gray;
+    margin-bottom: 10px;
+
+    &.active {
+      background: #c0d7a9;
+    }
+  }
+
+  .content-block {
+    clear: both;
+    padding: 5px 10px;
+    border: 1px solid #ddd;
+    @include border-radius(5px);
+    background: $site-bg-color;
+
+    h3 {
+      font-size: 1.2em;
+      margin-top: 0;
+      img { margin-bottom: -3px; }
+    }
+  }
+
+  .content-block-middle {
+    padding-top: 10px;
+    clear: both;
+  }
+
+  .content-block-footer {
+    text-align: right;
+    margin-top: 10px;
+    padding-top: 2px;
+    padding-right: 5px;
+    clear: both;
+  }
+
+  .content-block-header {
+    img { float: left; }
+    h3 { float: left; margin-left: 4px; }
+  }
+
+  .sidebar-top-action-button {
+    @include mconf-clearfix;
+    text-align: center;
+    padding: 10px;
+    a, span {
+      float: right;
+      width: $sidebar-width - 50px;
+    }
+  }
+
+  .help-icon { float: right; }
+  .info-icon { float: right; }
+}
+
+#content-middle {
+  float: left;
+  width: $contents-width - $sidebar-width - 20px; // less right-margin
+  @include mconf-clearfix;
+
+  h3 {
+    color: #404040;
+    font-size: 1.4em;
+    //padding-top: 10px;
+    margin-bottom: 5px;
+
+    // horitontal line in the title
+    &.horizontal-line {
+      height: 13px;
+      border-bottom: 3px solid #eee;
+      margin-bottom: 15px;
+      span {
+        background: white;
+        padding-right: 15px;
+      }
+    }
+  }
+
+  .content-block {
+    clear: both;
+    margin-bottom: 30px;
+  }
+
+  .content-block-footer {
+    padding: 4px 10px;
+    text-align: right;
+    background: $light-gray;
+    border-top: 1px solid #ddd;
+    clear: both;
+  }
+
+  .content-block-middle {
+    padding: 5px;
+    clear: both;
+  }
+
+  .content-block-header {
+    img { float: left; }
+    h3 { float: left; margin: -3px 4px 0 4px; }
+  }
+
+  .help-icon { float: left; }
+  .info-icon { float: left; }
+
+  .loading-icon { float: right; } // TODO: temporary, this may become default in _base
+}
+
+#page-menu {
+  margin: 0 0 20px 0;
+  border-bottom: 1px solid #DDD;
+  clear: both;
+
+  ul {
+    margin: 0;
+    border-bottom: 2px solid #F6F6F6;
+  }
+
+  li {
+    display: inline-block;
+    padding-left: 10px;
+
+    a {
+      display: inline-block;
+      margin-bottom: -5px;
+      @include link-colors(#808080, $site-link-hover, $site-link-active);
+      padding: 5px 10px;
+      font-weight: bold;
+      font-size: 14px;
+
+      &.selected {
+        color: $blue;
+        @include border-top-radius(5px);
+        border-top: 1px solid #ddd;
+        border-left: 1px solid #ddd;
+        border-right: 1px solid #ddd;
+        border-bottom: 1px solid white;
+        background: $site-bg-color;
+      }
+    }
+  }
+}
+
+// the upcoming events are shown in spaces/show and homes/show
+#sidebar-upcoming-events {
+  .event-timezone {
+    float: left;
+    margin-bottom: 5px;
+    color: #777;
+    font-size: $font-small;
+  }
+
+  .event-wrapper {
+    clear: both;
+    margin-bottom: 10px;
+
+    .event-title {
+      font-weight: bold;
+      display: block;
+    }
+
+    .event-date {
+      display: block;
+      font-size: $font-small;
+      color: #777;
+      margin-left: 5px;
+    }
+  }
+
+  .event-category {
+    clear: both;
+    display: block;
+    font-weight: bold;
+    margin-bottom: 3px;
+  }
+}
+
+// Unified style for threads: posts, news, attachments
+.thread {
+  clear: both;
+  padding: 10px;
+
+  .thread-content {
+    margin-left: 60px;
+  }
+
+  .thread-updated-at {
+    color: #666;
+    font-style: italic;
+  }
+
+  .thread-action-links {
+    float: right;
+    margin: 0;
+    padding: 0;
+    @include mconf-clearfix;
+
+    li {
+      margin: 0;
+      padding: 0;
+      float: left;
+      display: inline-block;
+      margin-left: 10px;
+    }
+  }
+
+  &.thread-even { background: transparent; }
+  &.thread-odd { background: $light-gray; }
+}
+
+
+// Blocks that can be automatically expanded/collapsed
+.block-expanded { display: none; }
+.block-collapsed { }
+
+// Blocks that will only be visible on hover
+.visible-on-hover { display: none; }

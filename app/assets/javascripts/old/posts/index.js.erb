@@ -1,0 +1,47 @@
+//= require fckeditor/fckeditor
+//= require jquery/jquery.fcbkcomplete
+
+$(document).ready(function() {
+
+/*
+*  Expand and collapse thread
+*/
+extend_thread = function(id){
+  $("#parent_" + id + " .extended_thread").show();
+  $("#parent_" + id + " .extend_thread").hide();
+  $("#parent_" + id + " .collapse_thread").show();
+}
+
+collapse_thread = function(id){
+  $("#parent_" + id + " .extended_thread").hide();
+  $("#parent_" + id + " .extend_thread").show();
+  $("#parent_" + id + " .collapse_thread").hide();
+}
+
+/*Reply*/
+
+if (isOnPage('posts', 'index')) {
+
+$("#new_attachment_big_link").livequery('click',function () {
+  $(".big_options").removeClass("selected");
+  $(this).addClass("selected");
+  $("#new_attachment_form").show();
+  $("#fancy_outer").height($("#new_thread_big").height() + 80);
+  $(window).resize();
+  return false;
+});
+
+ big_textarea = function(data){
+    var div = document.getElementById("big_textarea_div");
+    var oFCKeditor = new FCKeditor( 'post[text]' ) ;
+    oFCKeditor.BasePath = "/assets/fckeditor/";
+  oFCKeditor.Height = "270";
+    oFCKeditor.ToolbarSet = 'vccToolbar' ;
+    oFCKeditor.Value = $(".big_post_text").val();
+    div.innerHTML = oFCKeditor.CreateHtml();
+  };
+
+}
+
+});
+

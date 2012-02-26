@@ -1,0 +1,25 @@
+$(document).ready(function() {
+
+  if (isOnPage('posts')) {
+
+  $(".newAttach").livequery('click',function () {
+    $(".newAttach1").show();
+    $(".newAttach.add").hide();
+    $(".newAttach.new_one").show();
+    var new_id = new Date().getTime();
+    $(this).before( attachment.replace(/NEW_RECORD/g, new_id) );
+    $("#post_attachments_attributes_"+new_id+"__tags").fcbkcomplete({
+        cache: true,
+        filter_case: false,
+        filter_hide: true,
+        firstselected: true,
+        filter_selected: true,
+        maxshownitems: 4,
+        newel: true,
+        complete_opts: true
+    });
+  });
+
+  }
+
+});

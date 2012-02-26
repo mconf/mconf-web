@@ -1,5 +1,5 @@
 <%= content_for :headers do%>
-  <%= javascript_include_tag 'user_filter' %>
+  <%= javascript_include_tag 'old/user_filter' %>
 <%end%>
 
 <div id="questions">
@@ -15,25 +15,25 @@
         <label for="User filter" class="bold"><%= t('user.filter') %></label><br/>
         <%= text_field_tag :user_selector,'', :size => 25 %>
       </div>
-      <a href="javascript:show_all_users()" id="show_all_users_link"><%=t('invitation.show_all_users')%></a> 
-      <a href="javascript:hide_all_users()" id="hide_all_users_link"><%=t('invitation.hide_all_users')%></a> 
-      <a href="javascript:select_all_users()" id="select_all_users_link"><%=t('invitation.select_all_users')%></a>  
+      <a href="javascript:show_all_users()" id="show_all_users_link"><%=t('invitation.show_all_users')%></a>
+      <a href="javascript:hide_all_users()" id="hide_all_users_link"><%=t('invitation.hide_all_users')%></a>
+      <a href="javascript:select_all_users()" id="select_all_users_link"><%=t('invitation.select_all_users')%></a>
       <a href="javascript:deselect_all_users()" id="deselect_all_users_link"><%=t('invitation.deselect_all_users')%></a>
-      
-      <div id="unselected_users"> 
+
+      <div id="unselected_users">
         <% for user in User.all -%>
           <div class="user_checkbox">
             <%= check_box_tag "space[invitation_ids][]", user.id, checked_users.include?(user.id.to_s) %><%= label("checkbox",sanitize(user.full_name))%><br />
           </div>
         <%end%>
       </div>
-      
-      
+
+
       <div class="margin-up">
         <label for="e-mails" class="label_izquierda bold"><%= t('user.invite_email') %> <%= t('email.commas') %>:</label>
         <%= f.text_field :invitation_mails %>
       </div>
-      
+
       <div class="margin-up">
         <label class="label_izquierda bold"><%= t('invitation.role_label') %>:</label>
         <%= f.select :invitations_role_id, Space.roles.map{|r| [ r.name, r.id ]}, {:selected=> Space.role("User").id },:class=>"small-font"%>
@@ -58,7 +58,7 @@
         <p>* <%= t('invitation.legend.name') %><br/>
         * <%= t('invitation.legend.URL') %></p>
       </div>
-      
+
       <div class="margin-up">
         <input type="submit" id="send_invitation_button" value="<%=t("button.send")%>" />
       </div>

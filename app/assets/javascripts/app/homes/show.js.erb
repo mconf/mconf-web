@@ -1,0 +1,83 @@
+//= require fckeditor/fckeditor
+//= require jquery/jquery.ba-bbq.min
+
+$(document).ready(function() {
+
+  if (isOnPage('homes', 'show')) {
+
+  extend_thread = function(id){
+    $("#parent_" + id + " .extended_thread").show();
+    $("#parent_" + id + " .extend_thread").hide();
+    $("#parent_" + id + " .collapse_thread").show();
+    $("#message-body-" + id).hide();
+  }
+
+  collapse_thread = function(id){
+    $("#parent_" + id + " .extended_thread").hide();
+    $("#parent_" + id + " .extend_thread").show();
+    $("#parent_" + id + " .collapse_thread").hide();
+    $("#message-body-" + id).show();
+  }
+
+  $("#home_menu .arrow_take_box").livequery('click', function(event) {
+    $('#home_menu .arrow_drop_box').toggle(0);
+    $('#home_menu .arrow_take_box').toggle(0);
+    $('.whyte_wrapper').toggle(0);
+    $('#show').toggle(0);
+  });
+
+  $("#home_menu .arrow_drop_box").livequery('click', function(event) {
+    $('#home_menu .arrow_drop_box').toggle(0);
+    $('#home_menu .arrow_take_box').toggle(0);
+    $('.whyte_wrapper').toggle(0);
+    $('#show').toggle(0);
+  });
+
+  $("#my_spaces_title .arrow_drop_box").livequery('click', function(event) {
+    $('.my_spaces_home .all_my_spaces').toggle(0);
+    $('#my_spaces_title .arrow_take_box').toggle(0);
+    $('#my_spaces_title .arrow_drop_box').toggle(0);
+  });
+
+  $("#my_spaces_title .arrow_take_box").livequery('click', function(event) {
+    $('.my_spaces_home .all_my_spaces').toggle(0);
+    $('#my_spaces_title .arrow_take_box').toggle(0);
+    $('#my_spaces_title .arrow_drop_box').toggle(0);
+  });
+
+  $("#my_spaces_title .arrow_drop_space").livequery('click', function(event) {
+    $('.my_spaces_home .all_my_spaces').toggle(0);
+    $('#my_spaces_title .arrow_take_box').toggle(0);
+    $('#my_spaces_title .arrow_drop_box').toggle(0);
+  });
+
+
+
+
+  $("#edit-bbb-room #private").livequery('click', function(event) {
+    $('#edit-bbb-room .passwords').toggle(0);
+    if ($("#private").is(':checked')) {
+      $('#moderatorPW').removeAttr('disabled');
+      $('#attendeePW').removeAttr('disabled');
+    }
+    else{
+      $('#moderatorPW').attr('disabled', true);
+      $('#attendeePW').attr('disabled', true);
+    }
+  });
+
+  $("#new-webconf-room #private").livequery('click', function(event) {
+    $('#new_room_private_area').toggle(0);
+    if ($(this).is(':checked')) {
+      $('#moderatorPW').removeAttr('disabled');
+      $('#attendeePW').removeAttr('disabled');
+    }
+    else {
+      $('#moderatorPW').attr('disabled', true);
+      $('#attendeePW').attr('disabled', true);
+    }
+  });
+
+  }
+
+});

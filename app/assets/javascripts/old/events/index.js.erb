@@ -1,0 +1,36 @@
+//= require jquery/jquery.timeentry
+//= require jquery/jquery.mousewheel
+
+start_timepicker_setTime = function(){
+  $("#start_timepicker").timeEntry('setTime');
+};
+
+start_datepicker_setdate = function(){
+  $("#start_datepicker").datepicker('show');
+};
+
+$(document).ready(function() {
+
+  if (isOnPage('events', 'index')) {
+
+  /*
+   * Timepicker and datepicker configuration
+   */
+
+  $("#start_datepicker").datepicker({
+     dateFormat: 'd M yy'
+  });
+
+  $('.timepicker').timeEntry({show24Hours: true, showSeconds: false, spinnerImage: '../../images/up-down.png',
+    spinnerSize: [15, 16, 0], spinnerBigSize: [30, 32, 0], spinnerIncDecOnly: true, show24Hours: true }
+  );
+
+  $("#start_timepicker").click(function(){
+    if($(this).val()==""){
+      start_timepicker_setTime();
+    }
+  });
+
+  }
+
+});

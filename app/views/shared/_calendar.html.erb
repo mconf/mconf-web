@@ -40,34 +40,34 @@ y como no lo encuentra, no muestra el tiempo ahí.
 
 
 <div id="event_summary">
-	
+
 </div>
 
 <br />
 <script type="text/javascript">
-//configuración del calendario:   
+//configuración del calendario:
   //the array with the dates to highlight:
-  //linea quitada por ivan en la adaptacion de los nuevos eventos  
+  //linea quitada por ivan en la adaptacion de los nuevos eventos
   //Preguntar a kike. Esto sirve para poner en azul oscuro los días que tengan evento
-  <%=Event.array_calendar%>    
+  <%=Event.array_calendar%>
 </script>
-<%= javascript_include_tag("calendar_config") %>
+<%= javascript_include_tag("old/calendar_config") %>
 
 <script type="text/javascript">
 var calendar = Calendar.setup(
     {
       flat         : "calendar-container", // ID of the parent element
-      flatCallback : dateChanged,           // our callback function  
+      flatCallback : dateChanged,           // our callback function
       firstDay     : 1,
-	  //showsTime    : true,
+    //showsTime    : true,
       dateStatusFunc : ourDateStatusFunc,
-      date         : new Date(<%="'"+@start_day.month.to_s+"/"+@start_day.day.to_s+"/"+@start_day.year.to_s+"'"%>)    
+      date         : new Date(<%="'"+@start_day.month.to_s+"/"+@start_day.day.to_s+"/"+@start_day.year.to_s+"'"%>)
     }
   );
   <%if @space%>
-  	calendar.space_id = "<%=@space.name%>";
+    calendar.space_id = "<%=@space.name%>";
   <%else%>
-  	calendar.space_id = "Public";
+    calendar.space_id = "Public";
   <%end%>
 </script>
 
@@ -75,24 +75,24 @@ var calendar = Calendar.setup(
 
 <%end%>
 
-<% rounded(:class => "tips") do %>	
-	<%= render :partial=> 'shared/search'%>
-	<%end%>
+<% rounded(:class => "tips") do %>
+  <%= render :partial=> 'shared/search'%>
+  <%end%>
 
-	
-<% rounded(:class => "tips") do %>	
-	<h2 class="title_sidebar">Recent Activity</h2>
-	<%end%>
-	
-<% rounded() do %>	
-	<%= render :partial=>'shared/tag_cloud'%>
-	<%end%>	
-		
-	<% rounded(:class => "tips") do %>
-	<div class="logo_sidebar"><%=link_to(image_tag("logo_sidebar.png"),"http://#{Site.current.domain}")%> </div>
-	<div class="bandera"></div>
-	<%end%>	
-		
+
+<% rounded(:class => "tips") do %>
+  <h2 class="title_sidebar">Recent Activity</h2>
+  <%end%>
+
+<% rounded() do %>
+  <%= render :partial=>'shared/tag_cloud'%>
+  <%end%>
+
+  <% rounded(:class => "tips") do %>
+  <div class="logo_sidebar"><%=link_to(image_tag("logo_sidebar.png"),"http://#{Site.current.domain}")%> </div>
+  <div class="bandera"></div>
+  <%end%>
+
 </div>
 
 

@@ -1,0 +1,105 @@
+@import "compass/typography/links";
+@import "definitions";
+
+body.spaces.show {
+
+  // date of comments, news, posts, etc.
+  // TODO: maybe move to _base
+  .updated-at {
+    font-style: italic;
+    margin-left: 10px;
+    color: #777;
+  }
+
+  #latest-news {
+
+    .news-title {
+      h4 {
+        float: left;
+        color: black;
+        font-weight: bold;
+      }
+    }
+
+    .news-content {
+      clear: both;
+      margin-top: 5px;
+    }
+
+  }
+
+  #sidebar-leave-space {
+    text-align: center;
+    a { @include link-colors($red, $site-link-hover, $site-link-active); }
+  }
+
+  #sidebar-webconference {
+    .description {
+      text-align: center;
+    }
+
+    .buttons {
+      text-align: center;
+      margin: 15px 0;
+
+      .webconf-start-link {
+        float: left;
+        width: 80px;
+      }
+      .webconf-join-mobile-link {
+        float: right;
+        width: 90px;
+      }
+    }
+
+    .in-progress-icon {
+      float: left;
+      margin-top: 2px;
+      margin-right: 5px;
+    }
+  }
+
+  #latest-posts {
+    .post-wrapper {
+      clear: both;
+      margin-bottom: 10px;
+      margin-top: 5px;
+
+      .post-title {
+        font-weight: bold;
+      }
+    }
+  }
+
+  #latest-users {
+    .user-wrapper {
+      clear: both;
+      margin-bottom: 10px;
+      margin-top: 5px;
+
+      .user-name { display: block; }
+      .user-organization { display: block; }
+    }
+  }
+
+  #sidebar-space-admins {
+    .admin-wrapper {
+      clear: both;
+      margin-bottom: 10px;
+      margin-top: 5px;
+
+      .admin-text { margin-left: 45px; }
+      .admin-name { display: block; }
+      .admin-organization { display: block; }
+    }
+  }
+
+  #sidebar-pageviews {
+    text-align: center;
+    .value {
+      font-weight: bold;
+      color: $blue;
+    }
+  }
+
+}

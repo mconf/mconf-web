@@ -1,0 +1,13 @@
+//= require old/user_filter
+
+$(document).ready(function() {
+
+  if (isOnPage('users', 'index')) {
+
+  $("a#toggle").click(function () {
+    $("div#expanded_add_users").toggle("slow");
+  });
+
+  }
+
+});
