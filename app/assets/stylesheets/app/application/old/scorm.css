@@ -36,16 +36,16 @@ margin-top: 10px;
 }
 
 #topic_title {
-	float: left;
-	margin-left: 150px;
-	width: 500px;
-	margin-top: 10px;
+  float: left;
+  margin-left: 150px;
+  width: 500px;
+  margin-top: 10px;
 }
 
 #topic_title span{
-	color: #244974;
-	font-size: 2em;
-	text-align: center;
+  color: #244974;
+  font-size: 2em;
+  text-align: center;
 }
 
 #summary {
@@ -135,9 +135,9 @@ display: block;
 }
 
 a {
-	text-decoration: none;
-	color: #244974;
-	text-align: center;
+  text-decoration: none;
+  color: #244974;
+  text-align: center;
 }
 
 li {
@@ -174,10 +174,10 @@ margin-top: 3px;
 text-align: center;
 }
 
-embed[height=480] {
+embed[height='480'] {
 height: 480px;
 }
-embed[width=640] {
+embed[width='640'] {
 width: 640px;
 }
 

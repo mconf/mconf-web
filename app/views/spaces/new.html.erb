@@ -86,7 +86,7 @@ $(document).ready(function() {
          selected = rand(@files.length)
       %>
 
-      <%= hidden_field "space","image",:value => "default_space_logos/" + @files[selected].to_s, :name => "space[default_logo]" %>
+      <%= hidden_field "space","image",:value => "/assets/default_space_logos/" + @files[selected].to_s, :name => "space[default_logo]" %>
 
       <br>
 
@@ -111,7 +111,7 @@ $(document).ready(function() {
            for file in @files
            images_now+= 1
         %>
-        <%=link_to (image_tag "default_space_logos/" + file.to_s, {:id=> ( file.to_s.gsub('.','') ),:class => "default_space_logo",:title => "Click to choose a default image",:size => "100x76"}), 'javascript:selectDefaultImage("' + ( file.to_s ) + '");' %>
+        <%=link_to (image_tag "/assets/default_space_logos/" + file.to_s, {:id=> ( file.to_s.gsub('.','') ),:class => "default_space_logo",:title => "Click to choose a default image",:size => "100x76"}), 'javascript:selectDefaultImage("' + ( file.to_s ) + '");' %>
 
         <% if images_now > images_for_row %>
         <br>
@@ -149,7 +149,7 @@ $(document).ready(function() {
   <h3><%=t('space.logo_selected.default_message') %> <%=image_tag("icons/help.png",:title=>t("tooltip.update_logo"),:size=>"16x16",:class=>"icon tooltipped upwards",:style=>"cursor:pointer")%></h3>
   <div id="selected_logo" style="padding-bottom:10px;">
     <center>
-      <%=image_tag "default_space_logos/", {:id=> "selected_logo_image",:class => "default_space_logo",:title => "Click to choose a default image",:size => "160x122"} %>
+      <%=image_tag "/assets/default_space_logos/", {:id=> "selected_logo_image",:class => "default_space_logo",:title => "Click to choose a default image",:size => "160x122"} %>
     </center>
   </div>
 </div>

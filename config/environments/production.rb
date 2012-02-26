@@ -10,6 +10,8 @@ Mconf::Application.configure do
 
   # Disable Rails's static asset server (Apache or nginx will already do this)
   config.serve_static_assets = false
+  # Set to false to test the production env locally using rails s -e production
+  # config.serve_static_assets = true
 
   # Compress JavaScripts and CSS
   config.assets.compress = true
@@ -46,7 +48,9 @@ Mconf::Application.configure do
   # config.action_controller.asset_host = "http://assets.example.com"
 
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
-  config.assets.precompile += %w( frontpage.js )
+  # Every js or css in the root directory is compiled, except the ones started by "_"
+  config.assets.precompile +=
+    Dir.glob("#{Rails.root}/app/assets/{stylesheets,javascripts}/[^_]*.{css,scss,js,coffee}").map{ |f| File.basename(f).gsub(/\.(scss|coffee)/, '') }
 
   # Disable delivery errors, bad email addresses will be ignored
   # TODO: review
