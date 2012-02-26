@@ -299,9 +299,13 @@ ul#navbar-right-links {
 
 #content {
   width: $contents-width;
-  margin: 20px auto 0 auto;
-  padding: 0 10px;
+  margin: 0 auto;
+  padding: 20px 10px 0 0;
+
+  // best way found to use mconf-clearfix and still get the element
+  // centralized and with the correct margins/paddings
   @include mconf-clearfix;
+  overflow: visible;
 }
 
 #sidebar {
