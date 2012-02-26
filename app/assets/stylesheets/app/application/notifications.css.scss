@@ -1,36 +1,41 @@
 @import "compass/css3";
+@import "definitions";
 
 #notification-flashs {
   display: none;
 }
 
 .noty_bar .noty_close {
-  top: 6px;
+  top: 9px;
   right: 20px;
-  background-image: url('/assets/jquery/noty/closelabel.png');
+  background-image: image-url('jquery/noty/closelabel.png');
 }
 
 .noty_bar .noty_message {
-  padding: 5px 30px 5px 10px;
+  font-size: $font-medium;
+  padding: 10px 30px 10px 10px;
 }
 
-$notif-success-bg: lightgreen; //#318f00;
-$notif-notice-bg: #ddd; //#fde073;
-$notif-error-bg: red; //#D14836;
-
-.noty_bar {
-  @include box-shadow(0 1px 2px 0 #ddd);
-}
 .noty_bar.top {
-  border-bottom-width: 1px;
+  border-bottom-width: 0px;
 }
+
+$notif-success-bg: #3AA900;
+$notif-notice-bg: #fde073;
+$notif-error-bg: #D14836;
+
 .noty_bar.alert {
   background-color: $notif-notice-bg;
-  border-color: darken($notif-notice-bg, 20);
+  color: #222;
+  @include box-shadow(0 1px 5px 0 darken($notif-notice-bg, 15));
 }
 .noty_bar.error {
   background-color: $notif-error-bg;
+  color: #fff;
+  @include box-shadow(0 1px 5px 0 darken($notif-error-bg, 15));
 }
 .noty_bar.success {
   background-color: $notif-success-bg;
+  color: #111;
+  @include box-shadow(0 1px 5px 0 darken($notif-success-bg, 15));
 }

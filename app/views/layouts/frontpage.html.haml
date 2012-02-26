@@ -7,6 +7,7 @@
     %link{:href => "/favicon.ico", :rel => "shortcut icon", :type => "image/x-icon"}
 
     = stylesheet_link_tag "application_print", :media => "print"
+    = stylesheet_link_tag "application", :media => "screen, projection"
     = stylesheet_link_tag "frontpage", :media => "screen, projection"
     = stylesheet_link_tag "_development" unless Rails.env == "production"
 
