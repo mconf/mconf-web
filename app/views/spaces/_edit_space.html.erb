@@ -97,7 +97,7 @@ $(document).ready(function() {
     );
   });
 
-  <% render :partial => 'logos/crop_logo.js.erb',
+  <% render :partial => 'logos/crop_logo', :formats => [:js],
              :locals => { :url_form => edit_space_url(@space),
                           :form_id => 'form_update_avatar',
                           :container_id => 'for_lightbox',

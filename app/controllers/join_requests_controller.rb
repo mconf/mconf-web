@@ -33,7 +33,7 @@ class JoinRequestsController
   end
 
   def create
-  
+
     unless authenticated?
       unless params[:user]
         respond_to do |format|
@@ -75,16 +75,16 @@ class JoinRequestsController
     end
 
     if space.users.include?(current_agent)
-      
+
       flash[:notice] = t('join_request.joined')
       if request.xhr?
-        render :partial=> "redirect.js.erb", :locals => {:url => space_path(space)}
+        render :partial => "redirect", :formats => [:js], :locals => {:url => space_path(space)}
       else
         redirect_to space
       end
       return
     end
-    
+
     @join_request = space.join_requests.new(params[:join_request])
     @join_request.candidate = current_user
 
@@ -99,9 +99,9 @@ class JoinRequestsController
 
     if request.xhr?
       if space.public
-        render :partial => "redirect.js.erb", :locals => {:url => space_path(space)}
+        render :partial => "redirect", :formats => [:js], :locals => {:url => space_path(space)}
       else
-        render :partial => "redirect.js.erb", :locals => {:url => spaces_path}
+        render :partial => "redirect", :formats => [:js], :locals => {:url => spaces_path}
       end
     else
       if space.public

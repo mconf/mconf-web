@@ -4,7 +4,7 @@
 $(document).ready(function() {
 
 // fancy box to crop the image
-<%= render :partial => 'logos/crop_logo.js.erb',
+<%= render :partial => 'logos/crop_logo', :formats => [:js],
            :locals => { :form_id => 'select_logo_form',
                         :url_form => logos_path({ :upload => :yes}),
                         :container_id => 'resultado',

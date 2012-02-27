@@ -2,7 +2,7 @@
 <script type="text/javascript" charset="utf-8">
 
 $(document).ready(function() {
-  <%= render :partial => 'logos/crop_logo.js.erb',
+  <%= render :partial => 'logos/crop_logo', :formats => [:js],
              :locals => { :form_id => 'form_update_avatar',
                           :url_form => precrop_user_avatar_path(@profile.user),
                           :container_id => 'for_lightbox',

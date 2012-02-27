@@ -46,6 +46,9 @@ class User < ActiveRecord::Base
   has_one :bigbluebutton_room, :as => :owner, :dependent => :destroy
   accepts_nested_attributes_for :bigbluebutton_room
 
+  # TODO: see JoinRequestsController#create L50
+  attr_accessible :created_at, :updated_at, :activated_at, :disabled
+
   attr_accessible :captcha, :captcha_key, :authenticate_with_captcha
   attr_accessible :email2, :email3, :machine_ids
   attr_accessible :timezone

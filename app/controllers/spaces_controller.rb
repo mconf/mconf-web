@@ -158,15 +158,15 @@ class SpacesController < ApplicationController
           if params[:space][:name] or params[:space][:description]
             @result = params[:space][:name] ? nil : params[:space][:description]
             flash[:success] = t('space.updated')
-            render "result.js"
+            render "result", :formats => [:js]
           elsif !params[:space][:bigbluebutton_room_attributes].blank?
             if params[:space][:bigbluebutton_room_attributes][:moderator_password] or params[:space][:bigbluebutton_room_attributes][:attendee_password]
               @result = params[:space][:bigbluebutton_room_attributes][:moderator_password] ? params[:space][:bigbluebutton_room_attributes][:moderator_password] : params[:space][:bigbluebutton_room_attributes][:attendee_password]
               flash[:success] = t('space.updated')
-              render "result.js"
+              render "result", :formats => [:js]
             end
           else
-            render "update.js"
+            render "update", :formats => [:js]
           end
         }
       end

@@ -1,12 +1,12 @@
 source 'http://rubygems.org'
 
-gem 'rails', '~> 3.1.0'
+gem 'rails', '~> 3.2.0'
 
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'sass-rails', '~> 3.1.5'
-  gem 'coffee-rails', '~> 3.1.1'
+  gem 'sass-rails', '~> 3.2.0'
+  gem 'coffee-rails', '~> 3.2.0'
   gem 'uglifier', '>= 1.0.3'
   gem 'yui-compressor'
   gem 'compass', '0.12.alpha.4'
@@ -57,7 +57,6 @@ group :development do
   gem 'capistrano', '~> 2.11'
   gem 'capistrano-ext'
   gem 'translate-rails3', :require => 'translate', :git => 'git://github.com/mconf/translate.git'
-  gem 'rails-dev-tweaks', '~> 0.5.2' # speed up rails 3.1 development server
 end
 
 group :development, :test do
