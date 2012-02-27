@@ -9,12 +9,11 @@ group :assets do
   gem 'coffee-rails', '~> 3.2.0'
   gem 'uglifier', '>= 1.0.3'
   gem 'yui-compressor'
-  gem 'compass', '0.12.alpha.4'
+  gem 'compass', '0.12.rc.1'
   gem 'fancy-buttons'
 end
 
 gem 'mysql2', '~> 0.3.0'
-
 gem 'rake'
 gem 'jquery-rails'
 gem 'therubyracer', :require => 'v8'
@@ -29,7 +28,7 @@ gem 'whenever', :require => false
 gem 'garb'
 gem 'bigbluebutton-api-ruby', :git => 'git://github.com/mconf/bigbluebutton-api-ruby.git'
 gem 'bigbluebutton_rails', :git => 'git://github.com/mconf/bigbluebutton_rails.git'
-gem 'simple_form', '~> 2.0.0.rc'
+gem 'simple_form', '~> 2.0.0'
 
 # TODO: Gems to review if we can remove/update
 gem 'galetahub-simple_captcha', :require => 'simple_captcha'
@@ -49,7 +48,7 @@ gem 'rmagick', :git => 'git://github.com/rmagick/rmagick.git', :require => false
 gem 'fckeditor'
 gem 'dynamic_form'
 gem 'prism'
-# not the official repo, but has fixes to use it with rails 3
+# not the official repo, but has fixes for rails 3
 gem 'table_helper', :git => 'git://github.com/eeng/table_helper.git'
 
 group :development do
@@ -60,10 +59,10 @@ group :development do
 end
 
 group :development, :test do
-  gem 'rspec-rails', '>= 2.5'
+  gem 'rspec-rails', '~> 2.8'
   gem 'populator'
   gem 'ffaker'
-  gem 'factory_girl'
+  gem 'factory_girl_rails'
   gem 'sqlite3'
   gem 'webrat'
   gem 'rspec-instafail'
