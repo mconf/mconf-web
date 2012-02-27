@@ -9,7 +9,7 @@ group :assets do
   gem 'coffee-rails', '~> 3.2.0'
   gem 'uglifier', '>= 1.0.3'
   gem 'yui-compressor'
-  gem 'compass', '0.12.rc.1'
+  gem 'compass', '0.12.alpha.4'
   gem 'fancy-buttons'
 end
 
@@ -29,6 +29,7 @@ gem 'garb'
 gem 'bigbluebutton-api-ruby', :git => 'git://github.com/mconf/bigbluebutton-api-ruby.git'
 gem 'bigbluebutton_rails', :git => 'git://github.com/mconf/bigbluebutton_rails.git'
 gem 'simple_form', '~> 2.0.0'
+gem 'acts_as_tree', :git => 'https://github.com/parasew/acts_as_tree.git'
 
 # TODO: Gems to review if we can remove/update
 gem 'galetahub-simple_captcha', :require => 'simple_captcha'
