@@ -6,12 +6,12 @@ describe CustomBigbluebuttonRoomsController do
 
   context "checks access permissions for a(n)" do
     render_views false
-    let(:room) { Factory.create(:bigbluebutton_room) }
+    let(:room) { FactoryGirl.create(:bigbluebutton_room) }
     let(:hash_with_server) { { :server_id => room.server.id } }
     let(:hash) { hash_with_server.merge!(:id => room.to_param) }
 
     context "superuser" do
-      before(:each) { login_as(Factory.create(:superuser)) }
+      before(:each) { login_as(FactoryGirl.create(:superuser)) }
       it { should_not deny_access_to(:index) }
       it { should_not deny_access_to(:new) }
       it { should_not deny_access_to(:show, hash) }
@@ -30,7 +30,7 @@ describe CustomBigbluebuttonRoomsController do
     end
 
     context "user" do
-      before(:each) { login_as(Factory.create(:user)) }
+      before(:each) { login_as(FactoryGirl.create(:user)) }
       it { should deny_access_to(:index) }
       it { should deny_access_to(:new) }
       it { should deny_access_to(:show, hash) }

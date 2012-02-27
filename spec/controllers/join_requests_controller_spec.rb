@@ -28,7 +28,7 @@ describe JoinRequestsController do
     end
 
     it "should register user when sending valid params" do
-      user_attrs = Factory.attributes_for(:user)
+      user_attrs = FactoryGirl.attributes_for(:user)
 
       post :create, :space_id => @space.to_param,
         :user => user_attrs, :register => "true"
@@ -45,7 +45,7 @@ describe JoinRequestsController do
 
   describe "as other user" do
     before do
-      @other_user = Factory.create(:user)
+      @other_user = FactoryGirl.create(:user)
 
       ActionMailer::Base.delivery_method = :test
       ActionMailer::Base.perform_deliveries = true
@@ -70,7 +70,7 @@ describe JoinRequestsController do
 
   describe "as authenticated user" do
     before do
-      @auth_user = Factory.create(:user)
+      @auth_user = FactoryGirl.create(:user)
       login_as(@auth_user)
 
       ActionMailer::Base.delivery_method = :test
@@ -107,7 +107,7 @@ describe JoinRequestsController do
     describe "POST new" do
       it "creates new Invitation" do
         post :create, :group_id => @group.id,
-                      :invitation => Factory.attributes_for(:invitation)
+                      :invitation => FactoryGirl.attributes_for(:invitation)
         response.should be_redirect
         assigns[:invitation].should be_valid
         assigns[:invitation].introducer.should == @admin
@@ -123,7 +123,7 @@ describe JoinRequestsController do
   describe "accepting invitation" do
     describe "without candidate" do
       before do
-        @invitation = Factory.create(:invitation, :candidate => nil)
+        @invitation = FactoryGirl.create(:invitation, :candidate => nil)
       end
 
       it "should render" do
@@ -156,7 +156,7 @@ describe JoinRequestsController do
 
     describe "with candidate" do
       before do
-        @invitation = Factory.create(:invitation, :email => nil)
+        @invitation = FactoryGirl.create(:invitation, :email => nil)
       end
 
       it "should redirect the user to sessions/new" do

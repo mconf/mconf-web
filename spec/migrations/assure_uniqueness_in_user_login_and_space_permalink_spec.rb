@@ -12,14 +12,14 @@ describe AssureUniquenessInUserLoginAndSpacePermalink, :migration => true do
 
       context "using with test data" do
         let(:users) {
-          [ Factory.create(:user, :_full_name => "User one"),
-            Factory.create(:user, :_full_name => "User two"),
-            Factory.create(:user, :_full_name => "User three") ]
+          [ FactoryGirl.create(:user, :_full_name => "User one"),
+            FactoryGirl.create(:user, :_full_name => "User two"),
+            FactoryGirl.create(:user, :_full_name => "User three") ]
         }
         let(:spaces) {
-          [ Factory.create(:space, :name => "Space one"),
-            Factory.create(:space, :name => "Space two"),
-            Factory.create(:space, :name => "Space three") ]
+          [ FactoryGirl.create(:space, :name => "Space one"),
+            FactoryGirl.create(:space, :name => "Space two"),
+            FactoryGirl.create(:space, :name => "Space three") ]
         }
         before do
           TestMigrator.migrate_to_previous(@target_migration)

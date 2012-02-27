@@ -8,10 +8,10 @@ describe HomesController do
   describe "#user_rooms" do
 
     context "returns the user room, user space's rooms and public space's rooms" do
-      let(:user) { Factory.create(:user) }
-      let(:space) { Factory.create(:space) }
-      let(:space_not_member) { Factory.create(:space) }
-      let(:other) { Factory.create(:event) } # anything other than User or Space
+      let(:user) { FactoryGirl.create(:user) }
+      let(:space) { FactoryGirl.create(:space) }
+      let(:space_not_member) { FactoryGirl.create(:space) }
+      let(:other) { FactoryGirl.create(:event) } # anything other than User or Space
 
       # creates the hash that represents the room owner in the json response
       def owner_hash(owner)
@@ -36,11 +36,11 @@ describe HomesController do
       # one "other" room
       # one room with no owner
       let(:rooms) {
-        [ Factory.create(:bigbluebutton_room, :owner => user),
-          Factory.create(:bigbluebutton_room, :owner => space),
-          Factory.create(:bigbluebutton_room, :owner => space_not_member),
-          Factory.create(:bigbluebutton_room, :owner => other),
-          Factory.create(:bigbluebutton_room, :owner => nil) ]
+        [ FactoryGirl.create(:bigbluebutton_room, :owner => user),
+          FactoryGirl.create(:bigbluebutton_room, :owner => space),
+          FactoryGirl.create(:bigbluebutton_room, :owner => space_not_member),
+          FactoryGirl.create(:bigbluebutton_room, :owner => other),
+          FactoryGirl.create(:bigbluebutton_room, :owner => nil) ]
       }
       let(:expected_json_response) {
         rooms.map{ |r|
@@ -64,7 +64,7 @@ describe HomesController do
 
   context "returns empty if accessible_rooms returns empty" do
     before do
-      login_as(Factory.create(:user))
+      login_as(FactoryGirl.create(:user))
       controller.current_user.should_receive(:accessible_rooms).and_return(nil)
     end
     before(:each) { get :user_rooms, :format => :json }

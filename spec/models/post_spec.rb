@@ -30,8 +30,8 @@ describe Post do
   end
 
   it "should not duplicate post attachments in nested attributes" do
-    attributes = Factory.attributes_for(:post)
-    attributes['attachments_attributes'] = { '1' => Factory.attributes_for(:attachment) }
+    attributes = FactoryGirl.attributes_for(:post)
+    attributes['attachments_attributes'] = { '1' => FactoryGirl.attributes_for(:attachment) }
 
     post = Post.create!(attributes)
     assert_equal 1, post.reload.attachments.count

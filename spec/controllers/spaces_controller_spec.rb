@@ -27,7 +27,7 @@ describe SpacesController do
       login_as(@superuser)
     end
     it "should be able to create a new space" do
-      valid_attributes = Factory.attributes_for(:public_space)
+      valid_attributes = FactoryGirl.attributes_for(:public_space)
       post :create, :space => valid_attributes
       assert_response 302
       space = Space.find_by_name(valid_attributes[:name])
@@ -80,7 +80,7 @@ describe SpacesController do
     end
 
     it "should be able to create a new space" do
-      valid_attributes = Factory.attributes_for(:public_space)
+      valid_attributes = FactoryGirl.attributes_for(:public_space)
       post :create, :space=> valid_attributes
       assert_response 302
       space = Space.find_by_name(valid_attributes[:name])
@@ -124,7 +124,7 @@ describe SpacesController do
     end
 
     it "should  NOT be able to create a new space" do
-      valid_attributes = Factory.attributes_for(:public_space)
+      valid_attributes = FactoryGirl.attributes_for(:public_space)
       post :create, :space=> valid_attributes
       assert_response 302
     end
@@ -159,7 +159,7 @@ describe SpacesController do
 
     it "created when the space is created" do
       expect {
-        post :create, :space => Factory.attributes_for(:public_space)
+        post :create, :space => FactoryGirl.attributes_for(:public_space)
       }.to change{ BigbluebuttonRoom.count }.by(1)
       space = Space.last
       room = space.bigbluebutton_room

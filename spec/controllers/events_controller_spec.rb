@@ -46,7 +46,7 @@ describe EventsController do
         end
 
         it "trying to create a new event" do
-          valid_attributes = Factory.attributes_for(:event)
+          valid_attributes = FactoryGirl.attributes_for(:event)
           post :create, :space_id => @current_space.to_param, :event => valid_attributes
           assert_response 302
           event = Event.find_by_name(valid_attributes[:name])
@@ -55,14 +55,14 @@ describe EventsController do
 
         describe "trying to update" do
           it "my event." do
-            valid_attributes = Factory.attributes_for(:event)
+            valid_attributes = FactoryGirl.attributes_for(:event)
             post :update, :space_id => @current_space.to_param, :id => @current_event_mine.to_param, :event => valid_attributes, :format => 'html'
             assert_response 302
             response.should redirect_to(space_event_path(@current_space, Event.find_by_id(@current_event_mine.id)))
             flash[:success].should == I18n.t('event.updated')
           end
           it "other's event." do
-            valid_attributes = Factory.attributes_for(:event)
+            valid_attributes = FactoryGirl.attributes_for(:event)
             post :update, :space_id => @current_space.to_param, :id => @current_event_other.to_param, :event => valid_attributes, :format => 'html'
             assert_response 302
             response.should redirect_to(space_event_path(@current_space, Event.find_by_id(@current_event_other.id)))
@@ -118,7 +118,7 @@ describe EventsController do
         end
 
         it "trying to create a new event." do
-          valid_attributes = Factory.attributes_for(:event)
+          valid_attributes = FactoryGirl.attributes_for(:event)
           post :create, :space_id => @current_space.to_param, :event => valid_attributes
           assert_response 302
           event = Event.find_by_name(valid_attributes[:name])
@@ -127,14 +127,14 @@ describe EventsController do
 
         describe "trying to update" do
           it "my event." do
-            valid_attributes = Factory.attributes_for(:event)
+            valid_attributes = FactoryGirl.attributes_for(:event)
             post :update, :space_id => @current_space.to_param, :id => @current_event_mine.to_param, :event => valid_attributes, :format => 'html'
             assert_response 302
             response.should redirect_to(space_event_path(@current_space, Event.find_by_id(@current_event_mine.id)))
             flash[:success].should == I18n.t('event.updated')
           end
           it "other's event." do
-            valid_attributes = Factory.attributes_for(:event)
+            valid_attributes = FactoryGirl.attributes_for(:event)
             post :update, :space_id => @current_space.to_param, :id => @current_event_other.to_param, :event => valid_attributes, :format => 'html'
             assert_response 302
             response.should redirect_to(space_event_path(@current_space, Event.find_by_id(@current_event_other.id)))
@@ -193,7 +193,7 @@ describe EventsController do
         end
 
         it "trying to create a new event" do
-          valid_attributes = Factory.attributes_for(:event)
+          valid_attributes = FactoryGirl.attributes_for(:event)
           post :create, :space_id => @current_space.to_param, :event => valid_attributes
           assert_response 302
           event = Event.find_by_name(valid_attributes[:name])
@@ -202,14 +202,14 @@ describe EventsController do
 
         describe "trying to update" do
           it "my event." do
-            valid_attributes = Factory.attributes_for(:event)
+            valid_attributes = FactoryGirl.attributes_for(:event)
             post :update, :space_id => @current_space.to_param, :id => @current_event_mine.to_param, :event => valid_attributes, :format => 'html'
             assert_response 302
             response.should redirect_to(space_event_path(@current_space, Event.find_by_id(@current_event_mine.id)))
             flash[:success].should == I18n.t('event.updated')
           end
           it "other's event." do
-            valid_attributes = Factory.attributes_for(:event)
+            valid_attributes = FactoryGirl.attributes_for(:event)
             post :update, :space_id => @current_space.to_param, :id => @current_event_other.to_param, :event => valid_attributes, :format => 'html'
             assert_response 403
           end
@@ -260,7 +260,7 @@ describe EventsController do
         end
 
         it "trying to create a new event." do
-          valid_attributes = Factory.attributes_for(:event)
+          valid_attributes = FactoryGirl.attributes_for(:event)
           post :create, :space_id => @current_space.to_param, :event => valid_attributes
           assert_response 302
           event = Event.find_by_name(valid_attributes[:name])
@@ -269,14 +269,14 @@ describe EventsController do
 
         describe "trying to update" do
           it "my event." do
-            valid_attributes = Factory.attributes_for(:event)
+            valid_attributes = FactoryGirl.attributes_for(:event)
             post :update, :space_id => @current_space.to_param, :id => @current_event_mine.to_param, :event => valid_attributes, :format => 'html'
             assert_response 302
             response.should redirect_to(space_event_path(@current_space, Event.find_by_id(@current_event_mine)))
             flash[:success].should == I18n.t('event.updated')
           end
           it "other's event." do
-            valid_attributes = Factory.attributes_for(:event)
+            valid_attributes = FactoryGirl.attributes_for(:event)
             post :update, :space_id => @current_space.to_param, :id => @current_event_other.to_param, :event => valid_attributes, :format => 'html'
             assert_response 403
           end
@@ -330,21 +330,21 @@ describe EventsController do
         end
 
         it "trying to create a new event" do
-          valid_attributes = Factory.attributes_for(:event)
+          valid_attributes = FactoryGirl.attributes_for(:event)
           post :create, :space_id => @current_space.to_param, :event => valid_attributes
           assert_response 403
         end
 
         describe "trying to update" do
           it "my event." do
-            valid_attributes = Factory.attributes_for(:event)
+            valid_attributes = FactoryGirl.attributes_for(:event)
             post :update, :space_id => @current_space.to_param, :id => @current_event_mine.to_param, :event => valid_attributes, :format => 'html'
             assert_response 302
             response.should redirect_to(space_event_path(@current_space, Event.find_by_id(@current_event_mine)))
             flash[:success].should == I18n.t('event.updated')
           end
           it "other's event." do
-            valid_attributes = Factory.attributes_for(:event)
+            valid_attributes = FactoryGirl.attributes_for(:event)
             post :update, :space_id => @current_space.to_param, :id => @current_event_other.to_param, :event => valid_attributes, :format => 'html'
             assert_response 403
           end
@@ -395,21 +395,21 @@ describe EventsController do
         end
 
         it "trying to create a new event." do
-          valid_attributes = Factory.attributes_for(:event)
+          valid_attributes = FactoryGirl.attributes_for(:event)
           post :create, :space_id => @current_space.to_param, :event => valid_attributes
           assert_response 403
         end
 
         describe "trying to update" do
           it "my event." do
-            valid_attributes = Factory.attributes_for(:event)
+            valid_attributes = FactoryGirl.attributes_for(:event)
             post :update, :space_id => @current_space.to_param, :id => @current_event_mine.to_param, :event => valid_attributes, :format => 'html'
             assert_response 302
             response.should redirect_to(space_event_path(@current_space, Event.find_by_id(@current_event_mine)))
             flash[:success].should == I18n.t('event.updated')
           end
           it "other's event." do
-            valid_attributes = Factory.attributes_for(:event)
+            valid_attributes = FactoryGirl.attributes_for(:event)
             post :update, :space_id => @current_space.to_param, :id => @current_event_other.to_param, :event => valid_attributes, :format => 'html'
             assert_response 403
           end
@@ -452,14 +452,14 @@ describe EventsController do
         end
 
         it "trying to create a new event" do
-          valid_attributes = Factory.attributes_for(:event)
+          valid_attributes = FactoryGirl.attributes_for(:event)
           post :create, :space_id => @current_space.to_param, :event => valid_attributes
           assert_response 302
           response.should redirect_to(new_session_path)
         end
 
         it "trying to update an event." do
-          valid_attributes = Factory.attributes_for(:event)
+          valid_attributes = FactoryGirl.attributes_for(:event)
           post :update, :space_id => @current_space.to_param, :id => @current_event.to_param, :event => valid_attributes
           assert_response 302
           response.should redirect_to(new_session_path)
@@ -491,14 +491,14 @@ describe EventsController do
         end
 
         it "trying to create a new event" do
-          valid_attributes = Factory.attributes_for(:event)
+          valid_attributes = FactoryGirl.attributes_for(:event)
           post :create, :space_id => @current_space.to_param, :event => valid_attributes
           assert_response 302
           response.should redirect_to(new_session_path)
         end
 
         it "trying to update an event." do
-          valid_attributes = Factory.attributes_for(:event)
+          valid_attributes = FactoryGirl.attributes_for(:event)
           post :update, :space_id => @current_space.to_param, :id => @current_event.to_param, :event => valid_attributes
           assert_response 302
           response.should redirect_to(new_session_path)

@@ -38,5 +38,3 @@ RSpec.configure do |config|
   config.filter_run_excluding :migration => true
   config.run_all_when_everything_filtered = true
 end
-
-FactoryGirl.find_definitions

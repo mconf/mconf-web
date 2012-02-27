@@ -4,13 +4,13 @@ describe Space do
   extend ActiveRecord::AuthorizationTestHelper
 
   it "creates a new instance given valid attributes" do
-    Factory.build(:space).should be_valid
+    FactoryGirl.build(:space).should be_valid
   end
 
   it { should validate_presence_of(:name) }
   it { should validate_presence_of(:description) }
   it {
-    Factory.create(:space)
+    FactoryGirl.create(:space)
     should validate_uniqueness_of(:name)
   }
 
@@ -114,7 +114,7 @@ describe Space do
   end
 
   describe "when a space is updated" do
-    let(:space) { Factory.create(:space, :name => "Space Name") }
+    let(:space) { FactoryGirl.create(:space, :name => "Space Name") }
     before { space.update_attributes(:name => "New Name") }
     it { space.permalink.should eq("new-name") }
     it { space.bigbluebutton_room.param.should == space.permalink }
@@ -122,11 +122,11 @@ describe Space do
   end
 
   describe "#permalink is unique" do
-    let(:space) { Factory.create(:space, :name => "Space Name") }
+    let(:space) { FactoryGirl.create(:space, :name => "Space Name") }
     it { space.permalink.should eq("space-name") }
 
     describe "and cannot conflict with some users's login" do
-      let(:user) { Factory.create(:user, :login => "space-name") }
+      let(:user) { FactoryGirl.create(:user, :login => "space-name") }
 
       describe "when a space is created" do
         it { user.login.should eq("space-name") }
@@ -138,7 +138,7 @@ describe Space do
       end
 
       describe "when a space is updated" do
-        let(:user2) { Factory.create(:user, :login => "space-name-for-user") }
+        let(:user2) { FactoryGirl.create(:user, :login => "space-name-for-user") }
         it { user2.permalink.should eq("space-name-for-user") }
         it {
           user2

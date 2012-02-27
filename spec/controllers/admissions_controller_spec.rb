@@ -34,9 +34,9 @@ describe AdmissionsController do
 
     describe "with admissions" do
       before do
-        Factory.create(:invitation, :group => @space)
-        Factory.create(:candidate_invitation, :group => @space)
-        Factory.create(:join_request, :group => @space)
+        FactoryGirl.create(:invitation, :group => @space)
+        FactoryGirl.create(:candidate_invitation, :group => @space)
+        FactoryGirl.create(:join_request, :group => @space)
       end
 
       it "should render index" do

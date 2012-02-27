@@ -5,11 +5,11 @@ describe CustomBigbluebuttonServersController do
 
   context "checks access permissions for a(n)" do
     render_views false
-    let(:server) { Factory.create(:bigbluebutton_server) }
+    let(:server) { FactoryGirl.create(:bigbluebutton_server) }
     let(:hash) { { :id => server.to_param } }
 
     context "superuser" do
-      before(:each) { login_as(Factory.create(:superuser)) }
+      before(:each) { login_as(FactoryGirl.create(:superuser)) }
       it { should_not deny_access_to(:index) }
       it { should_not deny_access_to(:new) }
       it { should_not deny_access_to(:show, hash) }
@@ -22,7 +22,7 @@ describe CustomBigbluebuttonServersController do
     end
 
     context "user" do
-      before(:each) { login_as(Factory.create(:user)) }
+      before(:each) { login_as(FactoryGirl.create(:user)) }
       it { should deny_access_to(:index) }
       it { should deny_access_to(:new) }
       it { should deny_access_to(:show, hash) }

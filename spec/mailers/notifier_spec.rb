@@ -9,9 +9,9 @@ describe Notifier do
     @registered_user = Factory(:user_performance).agent
     @unregistered_user_email = "unregistered@example.com"
 
-    @admin.profile.update_attributes Factory.attributes_for(:profile)
+    @admin.profile.update_attributes FactoryGirl.attributes_for(:profile)
     @admin.update_attribute(:notification,User::NOTIFICATION_VIA_EMAIL)
-    @registered_user.profile.update_attributes Factory.attributes_for(:profile)
+    @registered_user.profile.update_attributes FactoryGirl.attributes_for(:profile)
     @registered_user.update_attribute(:notification,User::NOTIFICATION_VIA_EMAIL)
     @event.update_attribute(:space, @space)
     @event.update_attribute(:author, @admin)

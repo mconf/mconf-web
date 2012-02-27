@@ -24,7 +24,7 @@ describe AttachmentsController do
   describe "The admin of a space" do
     it "should be able to delete attachments in his space repository" do
       login_as(@admin2)
-      @attachment = Factory.create(:attachment,:space => @private_space2,:author => @user_space2)
+      @attachment = FactoryGirl.create(:attachment,:space => @private_space2,:author => @user_space2)
       delete :destroy, :id => @attachment.to_param, :space_id => @private_space2.to_param
       assert_nil Attachment.find_by_id(@attachment.id)
     end
@@ -41,14 +41,14 @@ describe AttachmentsController do
     end
     it"should be able to show attachments in his space repository"do
       login_as(@admin2)
-      @attachment = Factory.create(:attachment,:space => @private_space2,:author => @user_space2)
+      @attachment = FactoryGirl.create(:attachment,:space => @private_space2,:author => @user_space2)
       get :show, :space_id => @private_space2.to_param, :id => @attachment.to_param
       assert_response 200
     end
     it"should be able to create a new version of an attachment"do
       login_as(@admin2)
-      @attachment = Factory.create(:attachment,:space => @private_space2,:author => @user_space2)
-      put :update, :space_id => @private_space2.to_param, :id => @attachment.to_param ,:attachment => Factory.attributes_for(:attachment)
+      @attachment = FactoryGirl.create(:attachment,:space => @private_space2,:author => @user_space2)
+      put :update, :space_id => @private_space2.to_param, :id => @attachment.to_param ,:attachment => FactoryGirl.attributes_for(:attachment)
     end
   end
 
@@ -64,13 +64,13 @@ describe AttachmentsController do
       login_as(@user)
       @public_space_with_repository=Factory(:public_space_with_repository)
       @attachment = Factory(:attachment,:space => @public_space_with_repository,:author => @user_space2)
-      put :update, :space_id => @public_space_with_repository.to_param, :id=>@attachment.id ,:attachment => Factory.attributes_for(:attachment)
+      put :update, :space_id => @public_space_with_repository.to_param, :id=>@attachment.id ,:attachment => FactoryGirl.attributes_for(:attachment)
     end
     it"should be able to create a new version of an attachment in a private space if he belongs to its"do
       login_as(@user_space2)
       @private_space_with_repository=Factory(:private_space_with_repository)
       @attachment = Factory(:attachment,:space => @private_space_with_repository,:author => @admin2)
-      put :update, :space_id => @private_space_with_repository.to_param, :id=>@attachment.id ,:attachment => Factory.attributes_for(:attachment)
+      put :update, :space_id => @private_space_with_repository.to_param, :id=>@attachment.id ,:attachment => FactoryGirl.attributes_for(:attachment)
     end
   end
 

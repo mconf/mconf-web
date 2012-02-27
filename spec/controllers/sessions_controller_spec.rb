@@ -16,7 +16,7 @@ describe SessionsController do
   describe "create" do
     describe 'with valid login and password of user with chat' do
       before do
-        user_attributes = Factory.attributes_for(:user)
+        user_attributes = FactoryGirl.attributes_for(:user)
         @user = User.create(user_attributes)
         @user.activate
         @credentials = user_attributes.reject{ |k, v|
@@ -34,7 +34,7 @@ describe SessionsController do
 
     describe 'with valid login and password of user without chat' do
       before do
-        user_attributes = Factory.attributes_for(:user_without_chat)
+        user_attributes = FactoryGirl.attributes_for(:user_without_chat)
         @user = User.create(user_attributes)
         @user.activate
         @credentials = user_attributes.reject{ |k, v|

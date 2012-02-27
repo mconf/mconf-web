@@ -55,7 +55,7 @@ describe PostsController do
         end
         describe "trying to create a new" do
           it "post." do
-            valid_attributes = Factory.attributes_for(:post)
+            valid_attributes = FactoryGirl.attributes_for(:post)
             post :create, :space_id => @current_space.to_param, :post => valid_attributes
             assert_response 302
             response.should redirect_to(@request.referer)
@@ -126,7 +126,7 @@ describe PostsController do
         end
         describe "trying to create a new" do
           it "post." do
-            valid_attributes = Factory.attributes_for(:post)
+            valid_attributes = FactoryGirl.attributes_for(:post)
             post :create, :space_id => @current_space.to_param, :post => valid_attributes
             assert_response 302
             response.should redirect_to(@request.referer)
@@ -196,13 +196,13 @@ describe PostsController do
         end
         describe "trying to create a new" do
           it "post." do
-            valid_attributes = Factory.attributes_for(:post)
+            valid_attributes = FactoryGirl.attributes_for(:post)
             post :create, :space_id => @current_space.to_param, :post => valid_attributes
             assert_response 302
             response.should redirect_to(space_posts_path(@current_space))
           end
           it "post should redirect to the page from where #create was requested" do
-            valid_attributes = Factory.attributes_for(:post)
+            valid_attributes = FactoryGirl.attributes_for(:post)
             # to set request.referer (see after_create_with_success)
             @request.env['HTTP_REFERER'] = "http://test.host/spaces/#{@current_space.to_param}/posts/new"
             get :new, :space_id => @current_space.to_param
@@ -292,7 +292,7 @@ describe PostsController do
         end
         describe "trying to create a new" do
           it "post." do
-            valid_attributes = Factory.attributes_for(:post)
+            valid_attributes = FactoryGirl.attributes_for(:post)
             post :create, :space_id => @current_space.to_param, :post => valid_attributes
             assert_response 302
             response.should redirect_to(@request.referer)
@@ -366,7 +366,7 @@ describe PostsController do
         end
         describe "trying to create a new" do
           it "post." do
-            valid_attributes = Factory.attributes_for(:post)
+            valid_attributes = FactoryGirl.attributes_for(:post)
             post :create, :space_id => @current_space.to_param, :post => valid_attributes
             assert_response 302
             response.should redirect_to(@request.referer)
@@ -448,7 +448,7 @@ describe PostsController do
         end
         describe "trying to create a new" do
           it "post." do
-            valid_attributes = Factory.attributes_for(:post)
+            valid_attributes = FactoryGirl.attributes_for(:post)
             post :create, :space_id => @current_space.to_param, :post => valid_attributes
             assert_response 403
           end
@@ -513,7 +513,7 @@ describe PostsController do
         end
         describe "trying to create a new" do
           it "post." do
-            valid_attributes = Factory.attributes_for(:post)
+            valid_attributes = FactoryGirl.attributes_for(:post)
             post :create, :space_id => @current_space.to_param, :post => valid_attributes
             assert_response 403
           end
@@ -579,7 +579,7 @@ describe PostsController do
         end
         describe "trying to create a new" do
           it "post." do
-            valid_attributes = Factory.attributes_for(:post)
+            valid_attributes = FactoryGirl.attributes_for(:post)
             post :create, :space_id => @current_space.to_param, :post => valid_attributes
             assert_response 302
             response.should redirect_to(@request.referer)
@@ -677,7 +677,7 @@ describe PostsController do
         end
         describe "trying to create a new" do
           it "post." do
-            valid_attributes = Factory.attributes_for(:post)
+            valid_attributes = FactoryGirl.attributes_for(:post)
             post :create, :space_id => @current_space.to_param, :post => valid_attributes
             assert_response 403
           end
@@ -742,7 +742,7 @@ describe PostsController do
         end
         describe "trying to create a new" do
           it "post." do
-            valid_attributes = Factory.attributes_for(:post)
+            valid_attributes = FactoryGirl.attributes_for(:post)
             post :create, :space_id => @current_space.to_param, :post => valid_attributes
             assert_response 403
           end
@@ -808,7 +808,7 @@ describe PostsController do
         end
         describe "trying to create a new" do
           it "post." do
-            valid_attributes = Factory.attributes_for(:post)
+            valid_attributes = FactoryGirl.attributes_for(:post)
             post :create, :space_id => @current_space.to_param, :post => valid_attributes, :format => 'html'
             assert_response 302
             response.should redirect_to(@request.referer)
@@ -877,7 +877,7 @@ describe PostsController do
         end
         describe "trying to create a new" do
           it "post." do
-            valid_attributes = Factory.attributes_for(:post)
+            valid_attributes = FactoryGirl.attributes_for(:post)
             post :create, :space_id => @current_space.to_param, :post => valid_attributes
             assert_response 403
           end
@@ -949,7 +949,7 @@ describe PostsController do
         end
         describe "trying to create a new" do
           it "post." do
-            valid_attributes = Factory.attributes_for(:post)
+            valid_attributes = FactoryGirl.attributes_for(:post)
             post :create, :space_id => @current_space.to_param, :post => valid_attributes
             assert_response 302
             response.should redirect_to(new_session_path)
@@ -1002,7 +1002,7 @@ describe PostsController do
         end
         describe "trying to create a new" do
           it "post." do
-            valid_attributes = Factory.attributes_for(:post)
+            valid_attributes = FactoryGirl.attributes_for(:post)
             post :create, :space_id => @current_space.to_param, :post => valid_attributes
             assert_response 302
             response.should redirect_to(new_session_path)
