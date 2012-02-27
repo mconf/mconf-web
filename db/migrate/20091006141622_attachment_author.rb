@@ -1,7 +1,7 @@
 class AttachmentAuthor < ActiveRecord::Migration
 
   class AttachmentMigration < ActiveRecord::Base
-    set_table_name "attachments"
+    self.table_name = "attachments"
     belongs_to :author, :polymorphic => true
     belongs_to :post
   end

@@ -1,16 +1,16 @@
 class AttachmentSpace < ActiveRecord::Migration
 
   class AttachmentMigration < ActiveRecord::Base
-    set_table_name "attachments"
-    
+    self.table_name = "attachments"
+
     belongs_to :post
     belongs_to :space
   end
-  
+
   def self.up
     add_column :attachments, :space_id, :integer
     add_column :attachments, :event_id, :integer
-      
+
     AttachmentMigration.record_timestamps = false
     AttachmentMigration.all.each do |a|
       unless a.post.blank?
@@ -18,7 +18,7 @@ class AttachmentSpace < ActiveRecord::Migration
         a.save
       end
     end
-    
+
     Attachment.reset_column_information
     Attachment.all.each do |a|
       a.save #All attachments are resaved to add the first version

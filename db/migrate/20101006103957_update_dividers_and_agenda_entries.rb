@@ -2,9 +2,9 @@ class UpdateDividersAndAgendaEntries < ActiveRecord::Migration
 
   # Auxiliary class to avoid validations and callbacks for agenda entries
   class AuxiliaryClass < ActiveRecord::Base
-  
-    set_table_name("agenda_entries")  
-  
+
+    self.table_name = "agenda_entries"
+
   end
 
   def self.up
@@ -12,7 +12,7 @@ class UpdateDividersAndAgendaEntries < ActiveRecord::Migration
     Event.all.each{|e|
       if e.days > 0
         (1..e.days).each do |d|
-          day_contents = e.agenda.contents_for_day(d) 
+          day_contents = e.agenda.contents_for_day(d)
           day_contents.each{|c|
             if (c.class == AgendaDivider)
               index_of_content = day_contents.index(c)
@@ -28,7 +28,7 @@ class UpdateDividersAndAgendaEntries < ActiveRecord::Migration
           }
         end
       end
-    
+
     }
   end
 

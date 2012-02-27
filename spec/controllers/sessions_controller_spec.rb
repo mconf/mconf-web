@@ -25,7 +25,7 @@ describe SessionsController do
       end
 
       it 'should validate user and redirect to home with chat' do
-        post :create, @credentials
+        post :create, { :session => @credentials }
 
         assert controller.current_user == @user
         response.should redirect_to(home_path)
@@ -43,7 +43,7 @@ describe SessionsController do
       end
 
       it 'should validate user and redirect to home without chat' do
-        post :create, @credentials
+        post :create, { :session => @credentials }
 
         assert controller.current_user == @user
         response.should redirect_to(home_path)
@@ -56,7 +56,7 @@ describe SessionsController do
       end
 
       it 'should NOT validate user' do
-        post :create, @credentials
+        post :create, { :session => @credentials }
 
         controller.current_user.should be(Anonymous.current)
         assert_response 200
