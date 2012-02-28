@@ -10,5 +10,6 @@
 //= require jquery/jquery.form
 //= require jquery/jquery.placeholder
 //= require jquery/jquery.noty
+//= require jquery/jquery.Jcrop
 //= require bootstrap/bootstrap-dropdown
 //= require_tree ./app/application/

@@ -2,11 +2,14 @@
 <script type="text/javascript" charset="utf-8">
 
 $(document).ready(function() {
-  <%= render :partial => 'logos/crop_logo', :formats => [:js],
-             :locals => { :form_id => 'form_update_avatar',
-                          :url_form => precrop_user_avatar_path(@profile.user),
-                          :container_id => 'for_lightbox',
-                          :aspect_ratio => Avatar::ASPECT_RATIO_S } %>
+
+  mconfPrecropImage('form-update-avatar');
+
+  // render :partial => 'logos/crop_logo', :formats => [:js],
+  //           :locals => { :form_id => 'form_update_avatar',
+  //                        :url_form => precrop_user_avatar_path(@profile.user),
+  //                        :container_id => 'for_lightbox',
+  //                        :aspect_ratio => Avatar::ASPECT_RATIO_S }
 
   $("#vcard_export").click(function(){
     window.location.href = "<%= user_profile_path(@user,:format => "vcf") %>";
@@ -50,7 +53,8 @@ $(document).ready(function() {
 
     <div id="update_logo" class="update_logo" style="display:none">
       <h3 class="blue"><%=@profile.logo ? t('avatar.select_new') : t('avatar.select') %></h3>
-      <%= form_for @profile.logo || Avatar.new, :url => [@profile.user, @profile.logo || :avatar], :html => { :multipart => true, :method => :put, :id => 'form_update_avatar' } do |f| %>
+      <% # form_for @profile.logo || Avatar.new, :url => [@profile.user, @profile.logo || :avatar], :html => { :multipart => true, :method => :put, :id => 'form_update_avatar' }  do |f| %>
+      <%= form_for @profile.logo || Avatar.new, :url => precrop_user_avatar_path(@profile.user), :html => { :multipart => true, :method => :post, :id => 'form-update-avatar' } do |f| %>
         <p><%= f.file_field :media, :id => 'logo_media' %></p>
         <div class="margin-up">
           <button type="submit" class="basic_button blue_button"><%=t("save")%></button>

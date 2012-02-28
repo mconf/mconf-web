@@ -223,6 +223,9 @@ en:
   create: Create
   create_event: "Create Event"
   created_time_ago: "Created %{time} ago"
+  crop_image:
+   description: "Select a part of the image to crop"
+   title: "Crop image"
   date: 
     at: at
     start: "Start date"

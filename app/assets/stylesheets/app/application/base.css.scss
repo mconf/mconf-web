@@ -128,7 +128,7 @@ button, input[type=submit], input[type=button], .button {
       color: red;
     }
 
-    input, select { font-size: $font-medium; }
+    input, select { font-size: $font-normal + 1px; }
 
     .hint {
       font-size: $font-small;
@@ -364,6 +364,31 @@ button, input[type=submit], input[type=button], .button {
   .version-info {
     float: right;
     font-size: $font-small;
+  }
+}
+
+// Container area in the window to crop an image
+// See views/logos/precrop
+#crop-image-wrapper {
+  text-align: center;
+  @include mconf-clearfix;
+
+  // to centralize the image to be cropped with Jcrop
+  //.jcrop-holder {
+  //  margin: 0 auto;
+  //}
+
+  .description {
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  //img.cropable {
+  //  border: 2px solid darken($light-gray, 10);
+  //}
+
+  input[type=submit] {
+    float: none;
   }
 }
 
