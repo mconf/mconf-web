@@ -66,3 +66,22 @@ $z-index-tooltip: 999999; // TODO: not being used yet
   @include clearfix;
   @include pie-clearfix;
 }
+
+// to 'hide' it and move it off the screen
+// we can't just hide it because it won't be clickable
+@mixin hide-input-file {
+  opacity: 0;
+  position: absolute;
+  left: -1000px;
+  top: -1000px;
+  width: 0;
+  height: 0;
+
+  label { display: none; }
+  input[type=file] {
+    opacity: 0;
+    position: absolute;
+    width: 0;
+    height: 0;
+  }
+}

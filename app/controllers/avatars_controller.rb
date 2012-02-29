@@ -30,16 +30,15 @@ class AvatarsController < ApplicationController
     temp_logo = TempLogo.new(Avatar, @user, params[:avatar])
     TempLogo.to_session(session, temp_logo)
     size = temp_logo.size
-    size = "#{size[0]}x#{size[1]}"
+    size = "#{size[1]}x#{size[0]}"
 
     render :template => "logos/precrop",
            :layout => false,
-           :locals => {:logo_crop_text => t('avatar.crop'),
-                       :p_form_for => @avatar,
-                       :p_form_url => [@user, :avatar],
-                       :image => temp_logo.image,
-                       :image_size => size
-                      }
+           :locals => { :form_for_element => @avatar,
+                        :form_url => [@user, :avatar],
+                        :image => temp_logo.image,
+                        :image_size => size,
+                        :aspect_ratio => Avatar::ASPECT_RATIO_S }
   end
 
   def create

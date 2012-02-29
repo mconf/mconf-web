@@ -6,7 +6,9 @@ class TempLogo
   REL_TMP_PATH = File.join("tmp")
   ABS_TMP_PATH = File.join(PathHelpers.images_full_path, REL_TMP_PATH)
   FORMAT = Mime::Type.lookup "image/png"
-  MAX_SIZE = 600
+  # TODO: this size could be informed by the user depending on the size
+  #       of his browser window.
+  MAX_SIZE = 500
 
   attr_accessor :logo_class, :owner
 
@@ -38,7 +40,7 @@ class TempLogo
       temp_file.write(object['media'].read)
       temp_file.close
 
-      reshape_image temp_path, @logo_class::ASPECT_RATIO_F
+      #reshape_image temp_path, @logo_class::ASPECT_RATIO_F
       resize_if_bigger temp_path, MAX_SIZE
     end
   end
@@ -118,14 +120,13 @@ class TempLogo
     reshaped.write("#{FORMAT.to_sym.to_s}:" + path)
   end
 
-  def reshape_image path, aspect_ratio
+  def reshape_image(path, aspect_ratio)
     TempLogo.reshape_image path, aspect_ratio
   end
 
   private
 
-  def resize_if_bigger path, size
-
+  def resize_if_bigger(path, size)
     f = File.open(path)
     img = Magick::Image.read(f).first
     if img.columns >= img.rows && img.columns > size
@@ -137,9 +138,6 @@ class TempLogo
       f.close
       resized.write("#{FORMAT.to_sym.to_s}:" + path)
     end
-
   end
-
-
 
 end

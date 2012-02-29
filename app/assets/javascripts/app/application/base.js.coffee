@@ -60,6 +60,12 @@ $ ->
     , (e) ->
       target.hide()
 
+  # Links with 'data-open-file' will trigger a click
+  # in the input[type=file] element pointed by 'href'
+  $("a[data-open-file]").on "click", (e) ->
+    e.preventDefault()
+    $($(this).attr("href")).click()
+
 
 
 # Changes the type of an input tag

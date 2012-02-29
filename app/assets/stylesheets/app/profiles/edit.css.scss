@@ -1,4 +1,6 @@
+@import "compass/css3";
 @import "definitions";
+@import "classes";
 
 body.profiles.edit, body.profiles.update {
 
@@ -51,6 +53,15 @@ body.profiles.edit, body.profiles.update {
         float: left;
         margin-left: 5px;
       }
+    }
+  }
+
+  #profile-in-sidebar {
+    @extend .profile-in-sidebar;
+
+    // 'hide' it and move it off the screen
+    .input.file {
+      @include hide-input-file;
     }
   }
 

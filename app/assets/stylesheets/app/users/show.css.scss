@@ -1,0 +1,11 @@
+@import "compass/css3";
+@import "definitions";
+@import "classes";
+
+body.users.show {
+
+  #profile-in-sidebar {
+    @extend .profile-in-sidebar;
+  }
+
+}

@@ -41,3 +41,6 @@ window.showModalWindow = (data) ->
     scrolling: false,
     initialWidth: 32,
     initialHeight: 32
+    onComplete: ->
+      # just in case the contents changed their size
+      $.colorbox.resize()

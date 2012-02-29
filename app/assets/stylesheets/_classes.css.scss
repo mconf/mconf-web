@@ -1,0 +1,15 @@
+// For now this file contains generic css classes/styles that
+// are extended in more than one place
+
+// used in users/show, profiles/edit
+.profile-in-sidebar {
+  text-align: center;
+  background: $light-gray;
+  @include border-radius(4px);
+  padding: 5px;
+
+  .profile-logo {
+    margin: 15px 0;
+    border: 1px solid darken($light-gray, 10);
+  }
+}

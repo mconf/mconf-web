@@ -1,0 +1,19 @@
+= render_page_title t('edit_your_profile')
+
+= content_for :sidebar do
+  #profile-in-sidebar
+    = logo(@user, :size => '128', :class => 'profile-logo').html_safe
+    %ul
+      %li
+        = simple_form_for @profile.logo || Avatar.new, :url => precrop_user_avatar_path(@profile.user), :html => { :multipart => true, :method => :post, :class => 'form-for-crop' } do |f|
+          = link_to t('change_pic'), '#avatar_media', :"data-open-file" => true
+          = f.input :media, :as => :file
+      %li
+        = simple_form_for @profile, :url => user_profile_path(@user), :html => { :multipart => true, :method => :put } do |f|
+          = link_to t('vCard.use'), '#profile_vcard', :"data-open-file" => true
+          = text_help_icon t("tooltip.vcard")
+          = f.input :vcard, :as => :file
+      %li= link_to t('vCard.export'), user_profile_path(@user, :format => "vcf")
+
+= simple_form_for @profile, :url => user_profile_path(@user), :html => {:multipart => true, :class => 'single-column'} do |f|
+  = render :partial => 'form', :locals => { :f => f }

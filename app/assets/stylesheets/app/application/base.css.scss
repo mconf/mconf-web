@@ -180,6 +180,12 @@ button, input[type=submit], input[type=button], .button {
   &:hover { background-position: -16px 0; }
 }
 
+.text-help-icon {
+  font-size: $font-small;
+  color: $h-font-color;
+  &:hover { font-weight: bold; }
+}
+
 .info-icon {
   float: right;
   cursor: pointer;
@@ -374,18 +380,15 @@ button, input[type=submit], input[type=button], .button {
   @include mconf-clearfix;
 
   // to centralize the image to be cropped with Jcrop
-  //.jcrop-holder {
-  //  margin: 0 auto;
-  //}
+  .jcrop-holder {
+    margin: 0 auto;
+    border: 2px solid darken($light-gray, 10);
+  }
 
   .description {
     display: block;
     margin-bottom: 10px;
   }
-
-  //img.cropable {
-  //  border: 2px solid darken($light-gray, 10);
-  //}
 
   input[type=submit] {
     float: none;

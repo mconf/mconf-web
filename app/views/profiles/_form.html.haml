@@ -1,6 +1,3 @@
-- prefix_select = f.select :prefix_key, [[t('title_formal.mr'), 'title_formal.mr'], [t('title_formal.mrs'), 'title_formal.mrs'], [t('title_formal.ms'), 'title_formal.ms'], [t("other"), "other"]]
-- prefix_input = "<div class='switch_js'> #{f.text_field :prefix_key} #{link_to 'suggest','javascript:suggest_prefix()'} </div>".html_safe
-
 #edit-public-profile.left-column
 
   .content-block-header
@@ -8,12 +5,9 @@
     = help_icon t("tooltip.public_profile")
 
   .content-block-middle
-    = f.input :prefix_key, :label => t('name.prefix') do
-      - if @profile.prefix_key.include?("title_formal.") || @profile.prefix_key == ""
-        = prefix_select
-      - else
-        = prefix_input
-    = f.input :full_name, :label => t('name.full')
+    - titles = [[t('title_formal.mr'), 'title_formal.mr'], [t('title_formal.mrs'), 'title_formal.mrs'], [t('title_formal.ms'), 'title_formal.ms']]
+    = f.input :prefix_key, :label => t('name.prefix'), :collection => titles, :include_blank => true
+    = f.input :full_name, :label => t('name.full'), :required => true
     = f.input :organization, :label => t('organization')
     = f.input :city, :label => t('city')
     = f.input :province, :label => t('province')

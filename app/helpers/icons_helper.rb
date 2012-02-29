@@ -22,6 +22,14 @@ module IconsHelper
     content_tag :div, nil, options
   end
 
+  # Help icon but using a text instead of an image
+  def text_help_icon(title, options={})
+    cls = "text-help-icon tooltipped upwards "
+    options[:class] = options.has_key?(:class) ? cls + options[:class] : cls
+    options.merge!(:title => title)
+    content_tag :span, "(?)", options
+  end
+
   # Default icon that shows a tooltip with information about something
   def info_icon(title, options={})
     cls = "info-icon tooltipped upwards "

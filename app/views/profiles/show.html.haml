@@ -5,16 +5,19 @@
     = render :partial => 'profiles/user_spaces', :locals => {:show_user =>@user, :title=>"#{t('space.other')}"}
 
 = content_for :sidebar do
-  .profile_logo
-    = logo(@user, :size => '128').html_safe
-  %ul.first_options
-    = "<li> #{link_to t('edit_profile'), edit_user_profile_path(@user)} </li>".html_safe if @profile.authorize? :update, :to => current_user
-    = "<li> #{link_to t('vCard.export'), user_profile_path(@user,:format => 'vcf')} </li>".html_safe if @profile.authorize? :update, :to => current_user
-    = "<li> #{link_to t('message.private.new'), new_user_message_path(:user_id => current_user.to_param, :receiver => @user.id), :class => 'open-modal'} </li>".html_safe if ((@user != current_user) && (current_user != Anonymous.current))
-  %span.adr
-    = render :partial=>'profiles/public_hcard'
-  - if @profile.authorize? :read, :to => current_user
-    = render :partial=>'profiles/private_hcard'
+  #profile-in-sidebar
+    = logo(@user, :size => '128', :class => 'profile-logo').html_safe
+    %ul
+      - if @profile.authorize? :update, :to => current_user
+        %li= link_to t('edit_profile'), edit_user_profile_path(@user)
+        %li= link_to t('vCard.export'), user_profile_path(@user,:format => 'vcf')
+      - if ((@user != current_user) && (current_user != Anonymous.current))
+        %li= link_to t('message.private.new'), new_user_message_path(:user_id => current_user.to_param, :receiver => @user.id), :class => 'open-modal'
+
+    %span.adr
+      = render :partial=>'profiles/public_hcard'
+    - if @profile.authorize? :read, :to => current_user
+      = render :partial=>'profiles/private_hcard'
 
 .profile_center
   #flash_div.success{:style => "display:none"}

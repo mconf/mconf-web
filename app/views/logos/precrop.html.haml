@@ -5,9 +5,9 @@
 
 #crop-image-wrapper.modal-content
   .description= t('crop_image.description')
-  = simple_form_for p_form_for, :url => p_form_url do |f|
+  = simple_form_for form_for_element, :url => form_url do |f|
     -# TODO: the aspect ratio can differ in other cases
-    = image_tag image, :class => "cropable", :size => image_size, :"data-crop-aspect-ratio" => Avatar::ASPECT_RATIO_S
+    = image_tag image, :class => "cropable", :size => image_size, :"data-crop-aspect-ratio" => aspect_ratio
     = fields_for :crop_size do |fc|
       = fc.hidden_field :x
       = fc.hidden_field :y
