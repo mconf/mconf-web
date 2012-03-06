@@ -1,0 +1,42 @@
+@import "compass/css3";
+@import "definitions";
+
+#profile-in-sidebar {
+  text-align: center;
+  background: $light-gray;
+  @include border-radius(4px);
+  padding: 20px 5px;
+
+  .profile-logo {
+    margin: 5px;
+    border: 1px solid darken($light-gray, 10);
+  }
+
+  ul { margin: 5px 0; }
+
+  // 'hide' it and move it off the screen
+  .input.file {
+    @include hide-input-file;
+  }
+
+  .profile-hcard {
+    text-align: left;
+    border-top: 1px solid darken($light-gray, 10);
+    @include box-shadow(inset 0 1px 0 $site-bg-color);
+    margin: 10px 5px;
+    padding: 15px 5px;
+
+    .hcard-content {
+      .sub-section {
+        font-weight: bold;
+        margin-top: 10px;
+      }
+      ul {
+        margin-left: 10px;
+      }
+      .key {
+        color: lighten($font-color, 20);
+      }
+    }
+  }
+}

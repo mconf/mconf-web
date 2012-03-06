@@ -1,0 +1,38 @@
+@import "compass/css3";
+@import "definitions";
+
+#users-user-spaces {
+  .no-spaces { text-align: center; }
+
+  .space-list {
+    margin: 0;
+
+    li {
+      text-align: left;
+      position: relative;
+      display: block;
+      margin-right: 5px;
+      margin-top: 10px;
+      float: left;
+      width: 170px;
+    }
+
+    .space-logo {
+      @include logo-in-thread;
+      margin-top: 2px;
+    }
+
+    .description-box {
+      float: left;
+      width: 110px;
+      overflow: hidden;
+
+      .space-title {
+        font-weight: bold;
+        display: block;
+        white-space: nowrap;
+        overflow: hidden;
+      }
+    }
+  }
+}

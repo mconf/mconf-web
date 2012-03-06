@@ -1,9 +1,5 @@
 = render_page_title t('profile.header_title')
 
-#profile_right
-  #profile_spaces
-    = render :partial => 'profiles/user_spaces', :locals => {:show_user =>@user, :title=>"#{t('space.other')}"}
-
 = content_for :sidebar do
   #profile-in-sidebar
     = logo(@user, :size => '128', :class => 'profile-logo').html_safe
@@ -14,30 +10,16 @@
       - if ((@user != current_user) && (current_user != Anonymous.current))
         %li= link_to t('message.private.new'), new_user_message_path(:user_id => current_user.to_param, :receiver => @user.id), :class => 'open-modal'
 
-    %span.adr
-      = render :partial=>'profiles/public_hcard'
+    = render :partial => 'profiles/public_hcard'
     - if @profile.authorize? :read, :to => current_user
-      = render :partial=>'profiles/private_hcard'
+      = render :partial => 'profiles/private_hcard'
 
-.profile_center
-  #flash_div.success{:style => "display:none"}
-  - flash.each do |name, msg|
-    %div{:class => name}= msg
-  .title
-    %h3.item_title
-    #help2{:title => h(t('information.information3'))}
-    = t('recent.activity')
-  #profile_content
-    - if @recent_activity.empty?
-      %p.nothing= t('user.noactivity', :user=>@user.name)
-    - @recent_activity.each do |content|
-      - case content
-      - when Post
-        = render :partial => "posts/unified_post" , :locals => {:thread => content.reload, :extended => false}
-      - when Event
-        = render :partial => "events/unified_event", :locals => {:event => content.reload}
-      - when Attachment
-        = render :partial => "attachments/unified_attachment", :locals =>{:attachment => content.reload} if content.post.blank?
-      - else
-        %div= t('unknown_content', :content => content.class)
-    = will_paginate @recent_activity
+-# TODO: js tabs for activity/spaces
+
+= render 'users/recent_activity', :content => @recent_activity
+
+#users-user-spaces.content-block
+  .content-block-header
+    %h3= t('space.other')
+  = render 'users/user_spaces', :user => @user
+

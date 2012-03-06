@@ -1,11 +1,11 @@
 @import "compass/css3";
 @import "definitions";
-@import "classes";
+
+// for the partials used in this page
+@import "app/users/user_spaces";
+@import "app/users/recent_activity";
+
+@import "app/profiles/profile_in_sidebar";
 
 body.users.show {
-
-  #profile-in-sidebar {
-    @extend .profile-in-sidebar;
-  }
-
 }

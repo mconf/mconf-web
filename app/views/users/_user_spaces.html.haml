@@ -1,0 +1,23 @@
+-# locals: user
+
+.content-block-middle.clearfix
+  - if user.spaces.empty?
+    %p.no-spaces
+      = t('home.no_spaces', :link => spaces_path).html_safe
+  - else
+    %ul.space-list
+      - user.spaces.each do |space|
+        %li
+          .space-logo
+            - space_logo = logo(space, :size => "h32", :title => space.name).html_safe
+            - if space.authorize? :read, :to => user
+              = link_to space_path(space) do
+                = space_logo
+            - else
+              = space_logo
+          .description-box
+            - if space.authorize? :read, :to => user
+              = link_to first_words(space.name, 20), space_path(space), :title => space.name, :class => "space-title"
+            - else
+              %span{:title => space.name, :class => "space-title"}= first_words(space.name, 20)
+            %span.description= t('members', :count => space.actors.count)

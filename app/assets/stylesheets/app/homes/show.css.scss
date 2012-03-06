@@ -1,6 +1,10 @@
 @import "compass/css3";
 @import "definitions";
 
+// for the partials used in this page
+@import "app/users/user_spaces";
+@import "app/users/recent_activity";
+
 body.homes.show {
 
   #sidebar-inbox {
@@ -72,49 +76,7 @@ body.homes.show {
 
   }
 
-  #user-spaces {
-
-    .action-buttons {
-      float: right;
-      padding-right: 10px;
-      padding-left: 10px;
-      background: white;
-    }
-
-    .no-spaces { text-align: center; }
-
-    .space-list {
-      margin: 0;
-
-      li {
-        text-align: left;
-        position: relative;
-        display: block;
-        margin-right: 5px;
-        margin-top: 10px;
-        float: left;
-        width: 170px;
-      }
-
-      .space-logo {
-        @include logo-in-thread;
-        margin-top: 2px;
-      }
-
-      .description-box {
-        float: left;
-        width: 110px;
-        overflow: hidden;
-
-        .space-title {
-          font-weight: bold;
-          display: block;
-          white-space: nowrap;
-          overflow: hidden;
-        }
-      }
-    }
-
+  #users-user-spaces {
     .content-block-footer {
       margin-top: 5px;
       padding: 10px;
@@ -137,13 +99,4 @@ body.homes.show {
     padding-right: 10px;
     padding-left: 10px;
   }
-
-  #recent-activity-content {
-    .interval-title {
-      margin-top: 5px;
-      margin-bottom: 10px;
-      font-weight: bold;
-    }
-  }
-
 }

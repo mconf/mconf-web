@@ -2,6 +2,9 @@
 
 = content_for :sidebar do
   #profile-in-sidebar
+    %ul
+      %li
+        = link_to "View your profile", user_profile_path(current_user)
     = logo(@user, :size => '128', :class => 'profile-logo').html_safe
     %ul
       %li

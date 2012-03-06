@@ -121,10 +121,11 @@ ul#navbar-right-links {
   // dropdown menu with the user information
   // it needs some adjustments over the default style
   .dropdown {
-    &.open { background: #181818; }
+    &.open { background: darken($navbar-bg-color, 5); }
     .caret { margin-top: 10px; }
 
     .dropdown-menu {
+      background: darken($navbar-bg-color, 5);
       top: $navbar-height;
       right: 0;
       left: auto;

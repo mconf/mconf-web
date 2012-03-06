@@ -1,0 +1,33 @@
+#profile-private-hcard.profile-hcard
+  .section-title
+    %h3= t('contact_information')
+
+  .hcard-content
+    - if @profile.phone.present? || @profile.mobile.present? || @profile.fax.present?
+      %h4.sub-section= t('phone.plural')
+      %ul
+        - if @profile.phone.present?
+          %li
+            %span.key= t("phone.one") + ":"
+            %span.value= @profile.phone
+        - if @profile.mobile.present?
+          %li
+            %span.key= t("phone.mobile") + ":"
+            %span.value= @profile.mobile
+        - if @profile.fax.present?
+          %li
+            %span.key= t("fax") + ":"
+            %span.value= @profile.fax
+    %h4.sub-section= t('internet.ppal')
+    %ul
+      %li
+        %span.key= t('email.one') + ":"
+        %span.value= link_to @user.email, "mailto:#{@user.email}"
+      - if @profile.skype.present?
+        %li
+          %span.key= t("skype") + ":"
+          %span.value= link_to @profile.skype, "callto://#{@profile.skype}"
+      - if @profile.im.present?
+        %li
+          %span.key= t("im") + ":"
+          %span.value= @profile.im

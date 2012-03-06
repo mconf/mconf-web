@@ -1,0 +1,48 @@
+#profile-public-hcard.profile-hcard
+  .section-title
+    %h3= t('personal_information')
+  .hcard-content
+    %ul
+      %li
+        %span.key= t('name.one') + ":"
+        %span.value= @user.full_name
+      - if @profile.organization.present?
+        %li
+          %span.key= t("organization") + ":"
+          %span.value= @profile.organization
+
+    - if (@profile.address.present? && (@profile.authorize? :read, :to => current_user)) || (@profile.city.present?) ||(@profile.province.present?) || (@profile.country.present?) || (@profile.zipcode.present? && (@profile.authorize? :read, :to => current_user))
+      %h4.sub-section= t('address')
+      %ul
+        - if @profile.address.present?
+          %li
+            %span.key= t('street') + ":"
+            %span.value= @profile.address
+        - if @profile.city.present?
+          %li
+            %span.key= t('city') + ":"
+            %span.value= @profile.city
+        - if @profile.province.present?
+          %li
+            %span.key= t('province') + ":"
+            %span.value= @profile.province
+        - if @profile.country.present?
+          %li
+            %span.key= t('country') + ":"
+            %span.value= @profile.country
+        - if @profile.zipcode.present?
+          %li
+            %span.key= t('zipcode') + ":"
+            %span.value= @profile.zipcode
+
+    - if @profile.url.present? && @profile.url != 'http://'
+      %h4.sub-section= t('url')
+      %ul
+        %li
+          %span.value= link_to @profile.url, @profile.url
+
+    - if @profile.description.present?
+      %h4.sub-section= t('description')
+      %ul
+        %li
+          %span.value= @profile.description

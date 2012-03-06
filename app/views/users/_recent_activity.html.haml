@@ -1,0 +1,41 @@
+-# locals: content, items_per_page
+
+#users-recent-activity.content-block
+
+  .content-block-header
+    %h3= t('home.activity')
+    = info_icon t('home.recent_activity_tooltip')
+    -# TODO: enable these options below
+    -# #recent-activity-options
+    -#   = t('show') + ":"
+    -#   = home_menu_checkbox "posts"
+    -#   = label_tag t('post.other')
+    -#   = home_menu_checkbox "events"
+    -#   = label_tag t('event.other')
+    -#   = home_menu_checkbox "news"
+    -#   = label_tag t('news.other')
+    -#   = home_menu_checkbox "attachments"
+    -#   = label_tag t('attachment.other')
+    -#   - [15, 30, 50].each do |per_page|
+    -#     = link_to_unless items_per_page.to_i == per_page, per_page, path_for_home(:per_page => per_page)
+    -#   = t('per_page')
+
+  #users-recent-activity-content.content-block-middle
+    - for interval in intervals(content) do
+      - unless interval[:contents].empty?
+        %span.interval-title= interval[:name]
+      - interval[:contents].each do |content|
+        - case content
+        - when Post
+          = render "posts/unified_post", :thread => content.reload, :extended => false, :show_author => true
+        - when Event
+          = render "events/unified_event", :event => content.reload
+        - when News
+          = render "news/unified_news", :news => content.reload
+        - when Attachment
+          - content = content.reload
+          - if content.post.blank?
+            = render "attachments/unified_attachment", :attachment => content, :show_author => true
+    -# TODO: use js to change the pages
+    .content-block-footer
+      = will_paginate content
