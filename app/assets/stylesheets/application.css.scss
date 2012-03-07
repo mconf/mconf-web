@@ -5,7 +5,6 @@
  *= require ../../../vendor/assets/stylesheets/jquery/jquery.colorbox
  *= require ../../../vendor/assets/stylesheets/jquery/jquery.Jcrop
  *= require ../../../vendor/assets/stylesheets/jquery/jquery.qtip.2.0.0pre
- *= require ../../../vendor/assets/stylesheets/calendar
  *= require ../../../vendor/assets/stylesheets/token-input-facebook
  *= require ../../../vendor/assets/stylesheets/jquery/jquery.noty
  *
@@ -17,6 +16,7 @@
  *= require ./app/application/tooltips
  *= require ./app/application/input-placeholder
  *= require ./app/application/modal
+ *= require ./app/application/tabs
  *
  */
 
@@ -224,8 +224,6 @@ ul#navbar-right-links {
   padding: 0;
   clear: both;
 
-  a { @include link-colors($section-title-color, $site-link-hover, $site-link-active); }
-
   .current-page-logo {
     float: left;
     border: 1px #ccc solid;
@@ -239,9 +237,10 @@ ul#navbar-right-links {
     margin-left: 10px;
     margin-top: 14px;
     font-size: $font-section-title;
-    color: $section-title-color;
     font-weight: bold;
     @include text-shadow(darken($site-bg-color, 10) 1px 1px 10px);
+
+    a { @include link-colors($section-title-color, $site-link-hover, $site-link-active); }
 
     .small-title {
       font-size: $font-section-title - 10px;
@@ -430,28 +429,28 @@ ul#navbar-right-links {
   ul {
     margin: 0;
     border-bottom: 2px solid #F6F6F6;
-  }
 
-  li {
-    display: inline-block;
-    padding-left: 10px;
-
-    a {
+    li {
       display: inline-block;
-      margin-bottom: -5px;
-      @include link-colors(#808080, $site-link-hover, $site-link-active);
-      padding: 5px 10px;
-      font-weight: bold;
-      font-size: 14px;
+      padding-left: 10px;
 
-      &.selected {
-        color: $blue;
-        @include border-top-radius(5px);
-        border-top: 1px solid #ddd;
-        border-left: 1px solid #ddd;
-        border-right: 1px solid #ddd;
-        border-bottom: 1px solid white;
-        background: $site-bg-color;
+      a {
+        display: inline-block;
+        margin-bottom: -5px;
+        @include link-colors(#808080, $site-link-hover, $site-link-active);
+        padding: 5px 10px;
+        font-weight: bold;
+        font-size: 14px;
+
+        &.selected {
+          color: $blue;
+          @include border-top-radius(5px);
+          border-top: 1px solid #ddd;
+          border-left: 1px solid #ddd;
+          border-right: 1px solid #ddd;
+          border-bottom: 1px solid white;
+          background: $site-bg-color;
+        }
       }
     }
   }
@@ -531,3 +530,29 @@ ul#navbar-right-links {
 
 // Blocks that will only be visible on hover
 .visible-on-hover { display: none; }
+
+ul.selectable-buttons {
+  margin: 0;
+
+  li {
+    display: inline-block;
+    padding-left: 10px;
+
+    a {
+      display: inline-block;
+      @include link-colors(#808080, $site-link-hover, $site-link-active);
+      padding: 5px 10px;
+      font-weight: bold;
+      font-size: 14px;
+      @include text-shadow(darken($site-bg-color, 10) 1px 1px 2px);
+
+      &.selected {
+        color: $blue;
+        background: $light-gray;
+        @include border-radius(5px);
+        //@include box-shadow(inset 0 1px 2px rgba(0, 0, 0, 0.1));
+        //border: 1px solid darken($light-gray, 5);
+      }
+    }
+  }
+}

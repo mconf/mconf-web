@@ -1,3 +1,7 @@
+= content_for :"page-header-extra" do
+  %ul.selectable-buttons
+    %li= link_to t('recent.activity'), "#tab-recent-activity", :class => 'selected'
+    %li= link_to t('space.other'), "#tab-spaces"
 = render_page_title t('profile.header_title')
 
 = content_for :sidebar do
@@ -14,12 +18,11 @@
     - if @profile.authorize? :read, :to => current_user
       = render :partial => 'profiles/private_hcard'
 
--# TODO: js tabs for activity/spaces
-
-= render 'users/recent_activity', :content => @recent_activity
-
-#users-user-spaces.content-block
-  .content-block-header
-    %h3= t('space.other')
-  = render 'users/user_spaces', :user => @user
-
+.selectable-buttons-target
+  #tab-recent-activity
+    = render 'users/recent_activity', :content => @recent_activity
+  #tab-spaces
+    #users-user-spaces.content-block
+      .content-block-header
+        %h3= t('space.other')
+      = render 'users/user_spaces', :user => @user
