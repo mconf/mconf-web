@@ -1,0 +1,49 @@
+= content_for :sidebar do
+
+  -# Upcoming events
+  = render_sidebar_content_block('sidebar-upcoming-events') do
+    .content-block-header
+      = image_tag("icons/date.png")
+      %h3= t('calendar.my')
+    .content-block-middle
+      %span.event-timezone
+        (#{t('timezone.one')}: GMT#{Time.zone.formatted_offset})
+      %span.event-category= t('today')
+      = render 'events/sidebar_event_wrapper', :events => @today_events
+      %span.event-category= t('event.upcoming.my_other')
+      = render 'events/sidebar_event_wrapper', :events => @upcoming_events
+
+  -# Inbox
+  = render_sidebar_content_block('sidebar-inbox') do
+    .content-block-header
+      = image_tag("icons/email.png", :class => "icon")
+      %h3
+        = link_to t('inbox.my', :checked => current_user.unread_private_messages), user_messages_path(current_user)
+    .content-block-middle
+      - if @private_messages.empty?
+        %p= t("message.private.none")
+      - else
+        - @private_messages.each do |message|
+          .message-wrapper
+            - sender = message.sender
+            .logo-in-thread
+              - if sender
+                = link_logo(sender, :size => 32, :url => user_path(sender), :title => sender.full_name, :class => 'tooltipped upwards').html_safe
+            .message-text
+              - title = first_words(sanitize(message.title), 25)
+              = link_to title, user_messages_path(current_user, :message => message), :title => message.title, :class => 'message-title'
+              %span.message-body
+                = sanitize(first_words(message.body, 50))
+
+= render :partial => "webconference_room"
+
+#users-user-spaces.content-block
+  .content-block-header
+    %h3= t('home.my_spaces')
+    = info_icon t('home.my_spaces_tooltip')
+  = render "users/user_spaces", :user => current_user
+  .content-block-footer
+    = link_to t('space.all'), spaces_path, :class => 'all-spaces'
+    = link_to t('space.create_own'), new_space_path, :class => "button orange"
+
+= render "users/recent_activity", :content => @all_contents

@@ -138,6 +138,8 @@ en:
         new_room: "New room"
       invite: Invite
       join_mobile: "Join mobile"
+      private: 
+        tooltip: "Private rooms require a password for users to join. Public rooms can be accessed by anyone with its link."
     servers: 
       activity: 
         activity: Activity

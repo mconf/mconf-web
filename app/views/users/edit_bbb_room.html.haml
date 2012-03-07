@@ -1,0 +1,12 @@
+-# To be shown in a modal window
+
+.modal-title
+  %span= t('bbb_room.edit')
+
+#edit-bbb-room.modal-content
+  = simple_form_for @room, :remote => true do |f|
+    = hidden_field_tag :redir_url, @redir_to
+    = f.input :private, :label => t('bbb_room.private'), :hint => t('bigbluebutton_rails.rooms.private.tooltip')
+    = f.input :moderator_password, :as => :showable_password, :label => t('bbb_room.moderatorPW')
+    = f.input :attendee_password, :as => :showable_password, :label => t('bbb_room.attendeePW')
+    = f.button :submit, t("button.update"), :class => 'bordered'

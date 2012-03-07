@@ -147,37 +147,28 @@ class UsersController < ApplicationController
   # PUT /users/1.atom
   #this method updates a user
   def update
-    if params[:bbb_room]
-      user.bigbluebutton_room.update_attributes(params[:bigbluebutton_room])
-      respond_to do |format|
-        format.html {
-          redirect_to(home_path(user))
-        }
-      end
-    else
-      respond_to do |format|
-        if user.update_attributes(params[:user])
-          user.tag_with(params[:tags]) if params[:tags]
+    respond_to do |format|
+      if user.update_attributes(params[:user])
+        user.tag_with(params[:tags]) if params[:tags]
 
-          flash[:success] = t('user.updated')
-          format.html { #the superuser will be redirected to list_users
-            redirect_to(user_path(@user))
-          }
-          format.xml  { render :xml => @user }
-          format.atom { head :ok }
-        else
-          format.html { render :action => "edit", :layout => "no_sidebar" }
-          format.xml  { render :xml => @user.errors, :status => :unprocessable_entity }
-          format.atom { render :xml => @user.errors.to_xml, :status => :not_acceptable }
-        end
+        flash[:success] = t('user.updated')
+        format.html { #the superuser will be redirected to list_users
+          redirect_to(user_path(@user))
+        }
+        format.xml  { render :xml => @user }
+        format.atom { head :ok }
+      else
+        format.html { render :action => "edit", :layout => "no_sidebar" }
+        format.xml  { render :xml => @user.errors, :status => :unprocessable_entity }
+        format.atom { render :xml => @user.errors.to_xml, :status => :not_acceptable }
       end
     end
-
   end
 
   def edit_bbb_room
-    @server = BigbluebuttonServer.first
-    @room = BigbluebuttonRoom.find_by_param(params[:room])
+    @room = current_user.bigbluebutton_room
+    @server = @room.server
+    @redir_to = home_path
 
     respond_to do |format|
       format.html{

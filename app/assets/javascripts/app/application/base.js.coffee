@@ -67,15 +67,6 @@ $ ->
     $($(this).attr("href")).click()
 
 
-
-# Changes the type of an input tag
-# Example:
-#   changeInputType("#moderator_password", 'password')
-window.changeInputType = (id, type) ->
-  marker = $("<span />").insertBefore(id)
-  $(id).detach().attr("type", type).insertAfter marker
-  marker.remove()
-
 # Returns true if we're currently in the view 'action' inside 'controller'
 # If 'action' is empty, will check only for the controller
 # Ex:
