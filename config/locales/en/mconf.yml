@@ -754,7 +754,10 @@ en:
     recent_activity_tooltip: "Here you can find the newest messages, events and news of the spaces you belong to"
     view_invite_url: "View Invite URL"
     webconference: 
-      config_tooltip: "Configurations"
+      config_tooltip: "Change the configurations of your web conference room"
+      end: "Stop the meeting"
+      end_tooltip: "This action will end the current conference!"
+      invite: "Invite people"
       invite_tooltip: "Invite people to join your conference"
       not_running: "Your webconference is not in progress."
       running_with: 

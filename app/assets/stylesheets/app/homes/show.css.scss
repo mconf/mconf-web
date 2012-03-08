@@ -8,6 +8,83 @@
 
 body.homes.show {
 
+  $second-content-bg-color: darken($light-gray, 2); //#eee; //#BFCDDD;//#d4d4d4;
+  $upper-right-area-width: 500px;
+
+  #upper-content-wrapper {
+    background: $second-content-bg-color;
+    border-top: 1px solid darken($second-content-bg-color, 5);
+    border-bottom: 1px solid darken($second-content-bg-color, 5);
+    @include box-shadow(inset 2px 0 5px rgba(0, 0, 0, 0.15));
+    margin-top: 20px;
+    padding: 20px 0;
+  }
+
+  #upper-content {
+    width: $contents-width;
+    margin: 0 auto;
+    @include mconf-clearfix;
+
+    .left-column {
+      float: left;
+      width: $contents-width - $upper-right-area-width - 10px;
+    }
+
+    .right-column {
+      float: right;
+      width: $upper-right-area-width;
+    }
+  }
+
+  #user-info {
+    .user-avatar {
+      position: relative;
+      float: left;
+      border: 1px solid darken($light-gray, 20);
+      padding: 3px;
+      height: 96px;
+      width: 96px;
+      @include border-radius(3px);
+    }
+
+    .superuser-icon {
+      width: 12px;
+      height: 12px;
+      background: url(asset_path("icons/superuser-12x12.png", image)) no-repeat scroll left top;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+    }
+
+    .user-data {
+      @include mconf-clearfix;
+      padding-left: 7px;
+      a, span {
+        display: block;
+        margin-bottom: 3px;
+      }
+
+      .user-name {
+        font-size: $font-big;
+        font-weight: bold;
+      }
+    }
+
+    .user-links {
+      @include mconf-clearfix;
+      margin-top: 5px;
+      ul {
+        margin: 0;
+        li {
+          float: left;
+          margin: 0;
+          border: 0;
+          padding: 5px 10px;
+        }
+      }
+    }
+  }
+
   #sidebar-inbox {
     .message-wrapper {
       clear: both;
@@ -21,57 +98,65 @@ body.homes.show {
   }
 
   #webconference-room {
+    @include mconf-clearfix;
+
+    //&.active h3 { background: #C0D7A9; }
+
+    h3 {
+      text-align: center;
+      margin: 0;
+      margin-bottom: 10px;
+    }
+
+    .right-column { width: 130px; }
+    .left-column { width: $upper-right-area-width - 130px - 10px; }
 
     .in-progress-icon {
-      float: left;
-      margin-top: 4px;
       margin-right: 10px;
     }
 
-    .webconference-footer {
-      @include mconf-clearfix;
-      clear: both;
-      margin-top: 5px;
-      padding: 5px;
-      background: $light-gray;
-      @include border-radius(5px);
+    .main-action-buttons {
+      float: right;
 
-      &.active { border: 2px solid #C0D7A9; }
-
-      .action-buttons {
-        float: right;
-        margin: 4px;
-
-        .button {
-          float: left;
-
-          text-align: center;
-          margin-right: 5px;
-        }
-
-        .webconf-start-link, .webconf-join-mobile-link {
-          min-width: 90px;
-        }
+      .button {
+        display: block;
+        text-align: center;
+        margin-bottom: 3px;
       }
 
-      .invite-url {
-        float: left;
+      .webconf-start-link, .webconf-join-mobile-link {
+        min-width: 90px;
+      }
+    }
+
+    .invite-url {
+      float: right;
+      margin-top: 2px;
+      position: relative;
+
+      input[type=text] {
+        width: $upper-right-area-width - 130px - 100px; // - main-action-buttons - 100
+        padding: 5px;
         margin-left: 5px;
-        position: relative;
+        background: $site-bg-color;
+        color: #444;
+      }
 
-        input[type=text] {
-          width: 300px;
-          padding: 5px;
-          margin-left: 5px;
-          background: $site-bg-color;
-          color: #444;
-        }
+      .clippy {
+        position: absolute;
+        top: 8px;
+        right: 6px;
+      }
+    }
 
-        .clippy {
-          position: absolute;
-          top: 8px;
-          right: 6px;
-        }
+    ul.action-buttons {
+      margin: 0;
+      margin-top: 5px;
+      li {
+        float: right;
+        margin: 0;
+        border: 0;
+        padding: 5px 10px;
       }
     }
 

@@ -117,6 +117,11 @@ module ApplicationHelper
     block_to_partial('layouts/sidebar_content_block', options.merge(:id => id), &block)
   end
 
+  # Checks if the current page is the user's home page
+  def at_home?
+    params[:controller] == 'homes' && params[:action] == 'show'
+  end
+
 
   # TODO: All the code below should be reviewed
 

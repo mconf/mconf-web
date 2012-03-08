@@ -1,3 +1,6 @@
+= content_for :"upper-content" do
+  = render :partial => "upper_content"
+
 = content_for :sidebar do
 
   -# Upcoming events
@@ -35,15 +38,22 @@
               %span.message-body
                 = sanitize(first_words(message.body, 50))
 
-= render :partial => "webconference_room"
+= content_for :"page-header-extra" do
+  #sub-page-menu
+    %ul.selectable-buttons
+      %li= link_to t('recent.activity'), "#tab-recent-activity", :class => 'selected'
+      %li= link_to t('space.other'), "#tab-spaces"
+= render_page_title t('home.my')
 
-#users-user-spaces.content-block
-  .content-block-header
-    %h3= t('home.my_spaces')
-    = info_icon t('home.my_spaces_tooltip')
-  = render "users/user_spaces", :user => current_user
-  .content-block-footer
-    = link_to t('space.all'), spaces_path, :class => 'all-spaces'
-    = link_to t('space.create_own'), new_space_path, :class => "button orange"
-
-= render "users/recent_activity", :content => @all_contents
+.selectable-buttons-target
+  #tab-recent-activity
+    = render "users/recent_activity", :content => @all_contents
+  #tab-spaces
+    #users-user-spaces.content-block
+      .content-block-header
+        %h3= t('home.my_spaces')
+        = info_icon t('home.my_spaces_tooltip')
+      = render "users/user_spaces", :user => current_user
+      .content-block-footer
+        = link_to t('space.all'), spaces_path, :class => 'all-spaces'
+        = link_to t('space.create_own'), new_space_path, :class => "button orange"

@@ -1,0 +1,18 @@
+.left-column
+  #user-info
+    .user-avatar
+      = logo(current_user, :size => "96", :title => current_user.name).html_safe
+      - if current_user.superuser?
+        .superuser-icon.tooltipped.downwards{:title => t('superuser')}
+    .user-data
+      %span.user-name= current_user.name
+      %span.user-email= current_user.email
+      %span= current_user.profile.organization unless current_user.profile.organization.nil?
+    .user-links
+      %ul
+        %li.last= link_to t('profile.one'), user_path(current_user)
+        %li= link_to t('account'), edit_user_path(current_user)
+        %li= link_to t('logout', :user => current_user.name), logout_path
+
+.right-column
+  = render :partial => "webconference_room"

@@ -10,6 +10,8 @@
   .profile-logo {
     margin: 5px;
     border: 1px solid darken($light-gray, 10);
+    padding: 3px;
+    background: $site-bg-color;
   }
 
   ul { margin: 5px 0; }

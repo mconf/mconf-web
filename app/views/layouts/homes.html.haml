@@ -1,0 +1,46 @@
+!!! Strict
+%html{:lang => I18n.locale.to_s}
+
+  %head
+    %meta{:content => "text/html; charset=utf-8", "http-equiv" => "Content-type"}
+    %title= content_for?(:title) ? yield(:title) : current_site.name
+    %link{:href => "/favicon.ico", :rel => "shortcut icon", :type => "image/x-icon"}
+
+    = stylesheet_link_tag "application_print", :media => "print"
+    = stylesheet_link_tag "application", :media => "screen, projection"
+    = stylesheet_link_tag_for_controller :media => "screen, projection"
+    = stylesheet_link_tag "_development" unless Rails.env == "production"
+
+    /[if IE]
+      // HTML5 shim, for IE6-8 support of HTML elements
+      /[if lt IE 9]
+        = javascript_include_tag "http://html5shim.googlecode.com/svn/trunk/html5.js"
+
+    -# TODO: Place javascript at the end of the document so the pages load faster
+    = javascript_include_tag "application"
+    = javascript_include_tag_for_controller
+
+    = csrf_meta_tag
+    = yield :headers
+
+  %body{:class => "#{params[:controller]} #{params[:action]}"}
+    #site
+      #navbar-wrapper
+        = render :partial => 'layouts/application_navbar'
+
+      #upper-content-wrapper
+        #upper-content
+          = yield :"upper-content"
+
+      #content-wrapper
+        #content
+          #content-middle
+            = render :partial => "layouts/application_header"
+            = yield
+          #sidebar
+            = yield :sidebar
+
+      = render :partial => "layouts/footer"
+
+    = render :partial => "layouts/analytics"
+    = render :partial => "layouts/notifications"

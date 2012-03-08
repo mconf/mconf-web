@@ -108,15 +108,6 @@ ul#navbar-right-links {
       width: 22px;
       @include border-radius(3px);
     }
-
-    .superuser-icon {
-      width: 12px;
-      height: 12px;
-      background: url(asset_path("icons/superuser-12x12.png", image)) no-repeat scroll left top;
-      position: absolute;
-      bottom: -2px;
-      right: -2px;
-    }
   }
 
   // dropdown menu with the user information
@@ -556,4 +547,9 @@ ul.selectable-buttons {
       }
     }
   }
+}
+
+.danger-text {
+  color: $red;
+  @include link-colors($red, lighten($red, 10), darken($red, 10));
 }

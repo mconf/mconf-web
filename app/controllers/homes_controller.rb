@@ -44,7 +44,7 @@ class HomesController < ApplicationController
 
     @update_act = params[:contents] ? true : false
 
-    @contents_per_page = params[:per_page] || 5
+    @contents_per_page = params[:per_page] || 15
     @contents = params[:contents].present? ? params[:contents].split(",").map(&:to_sym) : Space.contents
     @all_contents = ActiveRecord::Content.paginate({ :page => params[:page], :per_page => @contents_per_page.to_i, :order => 'updated_at DESC' },
                                                    { :containers => current_user.spaces, :contents => @contents} )
