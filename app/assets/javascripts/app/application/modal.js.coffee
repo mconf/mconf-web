@@ -12,8 +12,8 @@ applyModalWindow = (event) ->
   settings =
     href: $(this).attr('href')
     scrolling: false,
-    initialWidth: 32,
-    initialHeight: 32
+    initialWidth: 48,
+    initialHeight: 48
   jQuery.extend(settings, options)
   $.colorbox settings
 

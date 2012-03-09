@@ -14,12 +14,12 @@
 }
 
 #colorbox .modal-title {
-  background: $light-gray;
+  background: $navbar-bg-color; //$light-gray;
   font-size: 14px;
   padding: 7px 30px 5px 10px;
   @include border-top-radius(6px);
-  border-bottom: 1px solid #ddd;
-  font-weight: bold;
+  border-bottom: 1px solid #000;
+  color: $light-gray;
 }
 
 #colorbox .modal-content {

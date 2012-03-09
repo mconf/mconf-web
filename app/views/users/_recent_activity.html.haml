@@ -4,7 +4,7 @@
 
   .content-block-header
     %h3= t('recent.activity')
-    = info_icon t('home.recent_activity_tooltip')
+    = info_icon t('recent_activity.tooltip')
     -# TODO: enable these options below
     -# #recent-activity-options
     -#   = t('show') + ":"
@@ -21,21 +21,25 @@
     -#   = t('per_page')
 
   #users-recent-activity-content.content-block-middle
-    - for interval in intervals(content) do
-      - unless interval[:contents].empty?
-        %span.interval-title= interval[:name]
-      - interval[:contents].each do |content|
-        - case content
-        - when Post
-          = render "posts/unified_post", :thread => content.reload, :extended => false, :show_author => true
-        - when Event
-          = render "events/unified_event", :event => content.reload
-        - when News
-          = render "news/unified_news", :news => content.reload
-        - when Attachment
-          - content = content.reload
-          - if content.post.blank?
-            = render "attachments/unified_attachment", :attachment => content, :show_author => true
+    - if content.empty?
+      = t('recent_activity.empty')
+    - else
+      - for interval in intervals(content) do
+        - unless interval[:contents].empty?
+          %span.interval-title= interval[:name]
+        - interval[:contents].each do |item|
+          - case item
+          - when Post
+            = render "posts/unified_post", :thread => item.reload, :extended => false, :show_author => true
+          - when Event
+            = render "events/unified_event", :event => item.reload
+          - when News
+            = render "news/unified_news", :news => item.reload
+          - when Attachment
+            - item = item.reload
+            - if item.post.blank?
+              = render "attachments/unified_attachment", :attachment => item, :show_author => true
     -# TODO: use js to change the pages
-    .content-block-footer
-      = will_paginate content
+    - unless content.empty?
+      .content-block-footer
+        = will_paginate content

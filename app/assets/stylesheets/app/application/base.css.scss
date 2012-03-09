@@ -395,6 +395,9 @@ button, input[type=submit], input[type=button], .button {
   }
 }
 
+.danger-text {
+  @include danger-text;
+}
 
 
 /*

@@ -8,7 +8,7 @@
       %li
         = image_tag('icons/my-home-16x16.png', :size => '16x16', :class => 'icon')
         = link_to t('home.my'), home_path
-      %li= link_to t('inbox.one', :checked => current_user.unread_private_messages), user_messages_path(current_user)
+      %li= link_to t('inbox.one', :checked => current_user.unread_private_messages.size), user_messages_path(current_user)
       - if current_user.superuser?
         %li= link_to t('space.all'), spaces_path
         %li.last= link_to t('manage'), site_path
@@ -16,7 +16,10 @@
         %li.last= link_to t('space.all'), spaces_path
 
   -# the right menu is not shown in the home page
-  - unless at_home?
+  - if at_home?
+    %ul#navbar-right-links
+      %li.last= link_to t('logout', :user => current_user.name), logout_path
+  - else
     %ul#navbar-right-links
       - if logged_in?
         %li.dropdown.user-info-dropdown.last

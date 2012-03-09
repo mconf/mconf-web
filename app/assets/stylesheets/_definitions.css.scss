@@ -85,3 +85,8 @@ $z-index-tooltip: 999999; // TODO: not being used yet
     height: 0;
   }
 }
+
+@mixin danger-text {
+  color: $red;
+  @include link-colors($red, lighten($red, 10), darken($red, 10));
+}

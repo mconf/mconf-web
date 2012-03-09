@@ -8,22 +8,23 @@
 
 body.homes.show {
 
-  $second-content-bg-color: darken($light-gray, 2); //#eee; //#BFCDDD;//#d4d4d4;
+  $second-content-bg-color: darken($light-gray, 2);;
   $upper-right-area-width: 500px;
+  $sidebar-width: 200px; // the sidebars are smaller in this page
 
   #upper-content-wrapper {
-    background: $second-content-bg-color;
-    border-top: 1px solid darken($second-content-bg-color, 5);
-    border-bottom: 1px solid darken($second-content-bg-color, 5);
-    @include box-shadow(inset 2px 0 5px rgba(0, 0, 0, 0.15));
-    margin-top: 20px;
-    padding: 20px 0;
+    //background: $second-content-bg-color;
+    //border-top: 1px solid darken($second-content-bg-color, 5);
+    //border-bottom: 1px solid darken($second-content-bg-color, 5);
+    //@include box-shadow(inset 2px 0 5px rgba(0, 0, 0, 0.15));
+    //margin-top: 20px;
   }
 
   #upper-content {
     width: $contents-width;
     margin: 0 auto;
     @include mconf-clearfix;
+    padding: 20px 0 10px 0;
 
     .left-column {
       float: left;
@@ -32,7 +33,8 @@ body.homes.show {
 
     .right-column {
       float: right;
-      width: $upper-right-area-width;
+      width: $upper-right-area-width - 10px;
+      margin-right: 10px;
     }
   }
 
@@ -86,14 +88,8 @@ body.homes.show {
   }
 
   #sidebar-inbox {
-    .message-wrapper {
-      clear: both;
-      margin-bottom: 10px;
-      margin-top: 5px;
-
-      .message-text { margin-left: 45px; }
-      .message-title { display: block; }
-      .message-body { display: block; }
+    .content-block-middle {
+      text-align: center;
     }
   }
 
@@ -108,8 +104,8 @@ body.homes.show {
       margin-bottom: 10px;
     }
 
-    .right-column { width: 130px; }
-    .left-column { width: $upper-right-area-width - 130px - 10px; }
+    .right-column { float: right; width: auto; margin-left: 10px; }
+    .left-column { float: right; width: $upper-right-area-width - 130px - 10px; }
 
     .in-progress-icon {
       margin-right: 10px;
@@ -121,6 +117,7 @@ body.homes.show {
       .button {
         display: block;
         text-align: center;
+        margin-top: 3px;
         margin-bottom: 3px;
       }
 
@@ -131,7 +128,6 @@ body.homes.show {
 
     .invite-url {
       float: right;
-      margin-top: 2px;
       position: relative;
 
       input[type=text] {
@@ -159,17 +155,20 @@ body.homes.show {
         padding: 5px 10px;
       }
     }
-
   }
 
   #users-user-spaces {
-    .content-block-footer {
-      margin-top: 5px;
-      padding: 10px;
-
-      .all-spaces {
-        float: left;
+    .toolbar {
+      a {
+        display: block;
       }
+      //.all-spaces {
+      //  float: left;
+      //}
+    }
+
+    .space-list li {
+      margin-top: 3px; // reduce a little bit the spacing
     }
   }
 

@@ -751,7 +751,6 @@ en:
     my_spaces_tooltip: "These are the spaces you belong to."
     no_spaces: "You not belong to any spaces. You can see the spaces available <a href=\"%{link}\">here</a>."
     one: home
-    recent_activity_tooltip: "Here you can find the newest messages, events and news of the spaces you belong to"
     view_invite_url: "View Invite URL"
     webconference: 
       config_tooltip: "Change the configurations of your web conference room"
@@ -777,6 +776,9 @@ en:
     updatedn: " entries of your iCalendar were already on your event agenda and were updated. "
   im: IM
   inbox: 
+    unread_text: 
+      one: "You have %{count} unread message!"
+      other: "You have %{count} unread messages!"
     my: "My Inbox (%{checked})"
     one: "Inbox (%{checked})"
   information: 
@@ -1068,6 +1070,9 @@ en:
   received_message_more_machines: "You have received a message from %{user} asking for more machines"
   recent: 
     activity: "Recent activity"
+  recent_activity: 
+    empty: "You still have no recent activity to be shown. Join spaces and start interacting to have this area filled."
+    tooltip: "Here you can find the newest messages, events and news of the spaces you belong to"
   recording: 
     automatic: Automatic
     box_title: Recording

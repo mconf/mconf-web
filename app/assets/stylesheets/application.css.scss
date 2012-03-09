@@ -300,7 +300,7 @@ ul#navbar-right-links {
   overflow: visible;
 }
 
-#sidebar {
+#sidebar, .sidebar {
   float: right;
   width: $sidebar-width;
 
@@ -343,8 +343,9 @@ ul#navbar-right-links {
   }
 
   .content-block-header {
-    img { float: left; }
-    h3 { float: left; margin-left: 4px; }
+    @include mconf-clearfix;
+    img { float: right; margin-left: 3px; }
+    h3 { float: left; }
   }
 
   .sidebar-top-action-button {
@@ -355,6 +356,15 @@ ul#navbar-right-links {
       float: right;
       width: $sidebar-width - 50px;
     }
+  }
+
+  .toolbar {
+    margin-top: 10px;
+    padding: 5px 10px;
+    background: $light-gray;
+    @include border-radius(4px);
+    clear: both;
+    text-align: center;
   }
 
   .help-icon { float: right; }
@@ -444,6 +454,11 @@ ul#navbar-right-links {
           background: $site-bg-color;
         }
       }
+
+      a.danger-text {
+        @include danger-text;
+        @include opacity(0.8);
+      }
     }
   }
 }
@@ -451,8 +466,8 @@ ul#navbar-right-links {
 // the upcoming events are shown in spaces/show and homes/show
 #sidebar-upcoming-events {
   .event-timezone {
-    float: left;
-    margin-bottom: 5px;
+    //float: left;
+    //margin-bottom: 5px;
     color: #777;
     font-size: $font-small;
   }
@@ -547,9 +562,4 @@ ul.selectable-buttons {
       }
     }
   }
-}
-
-.danger-text {
-  color: $red;
-  @include link-colors($red, lighten($red, 10), darken($red, 10));
 }

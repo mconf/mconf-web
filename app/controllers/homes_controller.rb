@@ -48,13 +48,7 @@ class HomesController < ApplicationController
     @contents = params[:contents].present? ? params[:contents].split(",").map(&:to_sym) : Space.contents
     @all_contents = ActiveRecord::Content.paginate({ :page => params[:page], :per_page => @contents_per_page.to_i, :order => 'updated_at DESC' },
                                                    { :containers => current_user.spaces, :contents => @contents} )
-
-    @private_messages = PrivateMessage.
-      where(:deleted_by_receiver => false).
-      where(:receiver_id => 1).
-      order('created_at DESC').
-      includes(:sender).
-      limit(3)
+    @private_messages = current_user.unread_private_messages
   end
 
   # renders a json with the webconference rooms accessible to the current user
