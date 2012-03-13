@@ -29,7 +29,7 @@ enableAjaxInCropForms = ->
     # when the user selects a file it automatically submits the form
     $("input[type=file]", form).on "change", ->
       form.ajaxSubmit (data) ->
-        showModalWindow(data)
+        showModalWindow({ html: data })
         enableCropInImages()
 
 # Triggers the associations...

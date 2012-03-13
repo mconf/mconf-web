@@ -2,6 +2,39 @@ $(function() {
 
   if (isOnPage('spaces', 'new|create')) {
 
+    setNewLogo = function(img) {
+      $("#space_image").attr('value', img);
+      $("#selected-logo-image").attr('src', img);
+    }
+
+    // when clicking in a logo in the gallery
+    $("#logos-gallery a").on("click", function() {
+      img = $(this).find("img").attr("src");
+      setNewLogo(img);
+    });
+
+    // when clicking in a text-genrated logo
+    $(document).on("click", "#logos-text-generated a", function() {
+      img = $(this).find("img").attr("src");
+      setNewLogo(img);
+    });
+
+    var dateTime = new Date();
+    var rand = dateTime.getHours() + "" + dateTime.getMinutes() + "" + dateTime.getSeconds() + "" + dateTime.getMilliseconds();
+
+    // TODO: why do we need these rands?
+    $("#logo_rand").attr('value', rand);
+    $("#space_rand_value").attr('value', rand);
+
+    $(document).on("click", "#logos-text-submit", function(){
+      $.get('/logos/new?text='+ ($("#logos-text-input").val()) + '&rand_name=' + rand , function(data) {
+        $('#logos-text-generated').html(data);
+      });
+    });
+
+
+
+  /*
   if ($("#create_space #public").is(':checked')) {
     $('#new_space_webconf_area').hide();
     $('#moderatorPW').attr('disabled', true);
@@ -30,17 +63,11 @@ $(function() {
     });
   }
 
-  selectDefaultImage = function(image){
-        $("#space_image").attr('value', "/assets/default_space_logos/" + image);
-        $("#selected_logo_image").attr('src', "/assets/default_space_logos/" + image);
-  }
 
   selectGeneratedImage = function(image){
         $("#space_image").attr('value', image);
         $("#selected_logo_image").attr('src', "/assets/" + image + "?" + (new Date()).getTime());
   }
-
-  $("#selected_logo_image").attr('src', "/assets/" + ($("#space_image").val()));
 
   closeTextLogo = function(){
         $("#default_text_logo").hide(0);
@@ -78,49 +105,6 @@ $(function() {
         $("#close_upload_logo_link").show();
   }
 
-  var dateTime = new Date();
-  var rand = dateTime.getHours() + "" + dateTime.getMinutes() + "" + dateTime.getSeconds() + "" + dateTime.getMilliseconds();
-
-  $("#logo_rand").attr('value', rand);
-  $("#space_rand_value").attr('value', rand);
-
-  $("#generate_text_logo_button").livequery('click',function(){
-        $.get('/logos/new?text='+ ($("#space_text_logo").val()) + '&rand_name=' + rand , function(data) {
-                $('#generated_text_logos').html(data);
-        });
-  });
-
-  $("#create_space_button").livequery('click',function(){
-
-    // Validate name
-    var name = ($('#space_name').val());
-    if (name == "") {
-     $("#error_name").show();
-       var destination_add = $('#new_space_anchor').offset().top;
-      $("html:not(:animated),body:not(:animated)").animate({ scrollTop: destination_add}, 1100, function() {
-        window.location.hash = '#new_space_anchor';
-      });
-    } else {
-      $("#error_name").hide();
-    }
-
-    // Validate description
-    var description = ($('#space_description').val());
-    if (description == "") {
-      $("#error_description").show();
-      var destination_add = $('#new_space_anchor').offset().top;
-      $("html:not(:animated),body:not(:animated)").animate({ scrollTop: destination_add}, 1100, function() {
-        window.location.hash = '#new_space_anchor';
-      });
-    } else {
-      $("#error_description").hide();
-    }
-
-    if ((name != "") && (description != "")) {
-      $("form#space_new_form").submit();
-    }
-
-  });
 
 
   $("#create_space #public").livequery('click', function(event) {
@@ -151,6 +135,7 @@ $(function() {
       changeInputType("#attendeePW", 'password');
     }
   });
+  */
 
   }
 

@@ -33,7 +33,7 @@ class LogosController
         params[:text] = " "
       end
 
-      for i in 1..5
+      for i in 1..4
         create_auto_logo params[:text], i, params[:event_logo].present?
       end
       if params[:event_logo].present?

@@ -79,6 +79,9 @@ class SpacesController < ApplicationController
   def new
     @space = Space.new
     @space.build_bigbluebutton_room
+    respond_with @space do |format|
+      format.html { render :layout => 'no_sidebar' }
+    end
   end
 
   def edit

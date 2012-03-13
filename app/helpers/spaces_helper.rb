@@ -34,6 +34,14 @@ module SpacesHelper
     end
   end
 
+  # Returns an array with all images that can be used as a space logo
+  def get_default_logo_files
+    files = Dir.entries("app/assets/images/default_space_logos/")
+    files.delete(".")
+    files.delete("..")
+    files
+  end
+
   # TODO: check the methods below
 
   def max_word_length text

@@ -1,0 +1,73 @@
+@import "definitions";
+@import "compass/css3";
+
+body.spaces.new, body.spaces.create {
+
+  $column-width: ($contents-width / 2) - 20px;
+
+  .left-column {
+    float: left;
+    width: $column-width + 20px;
+  }
+
+  .right-column {
+    float: right;
+    width: $column-width - 20px;
+  }
+
+
+  #new-space-basic-info {
+    input[type=text], textarea {
+      width: 98%;
+    }
+  }
+
+  #selected-logo {
+    @include mconf-clearfix;
+
+    #selected-logo-image {
+      float: left;
+      border: 1px solid #DDD;
+      padding: 3px;
+      background: white;
+    }
+
+    ul.selectable-buttons {
+      float: left;
+      width: 250px;
+
+      li { display: block; }
+    }
+  }
+
+  #logo-selection-options {
+    clear: both;
+    @include mconf-clearfix;
+    margin-top: 10px;
+    @include border-radius(4px);
+    background: $light-gray;
+    border: 1px solid darken($light-gray, 5);
+    padding: 10px;
+  }
+
+  #logos-gallery {
+    ul { margin: 0; }
+    li {
+      float: left;
+      margin-right: 5px;
+      margin-bottom: 5px;
+    }
+  }
+
+  #logos-text-generated {
+    @include mconf-clearfix;
+    margin-top: 10px;
+    clear: both;
+    a {
+      float: left;
+      margin-right: 5px;
+      margin-bottom: 5px;
+    }
+  }
+
+}
