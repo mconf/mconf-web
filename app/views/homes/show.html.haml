@@ -8,11 +8,8 @@
     = render_sidebar_content_block('sidebar-inbox') do
       - unread_msgs = current_user.unread_private_messages.size
       .content-block-header
-        = image_tag("icons/email.png", :class => "icon")
-        %h3
-          = t('inbox.my', :checked => unread_msgs)
-      .content-block-middle
         = link_to t('inbox.unread_text', :count => unread_msgs), user_messages_path(current_user)
+        = image_tag("icons/email.png", :class => "icon")
 
   -# Upcoming events
   = render_sidebar_content_block('sidebar-upcoming-events') do

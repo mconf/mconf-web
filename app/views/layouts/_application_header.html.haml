@@ -5,11 +5,11 @@
   - if space && space.id != nil
     #page-header
       .current-page-logo
-        = link_logo(space, :size => "h64", :title => space.name).html_safe
+        = logo(space, :size => "h64", :title => space.name).html_safe
       .current-page-title
-        - if space.name.size > 20
+        - if space.name.size > 30
           .small-title
-            = link_to(sanitize(first_words(space.name, 30)), space_path(space))
+            = sanitize(first_words(space.name, 30))
         - else
-          = link_to(sanitize(space.name), space_path(space))
+          = sanitize(space.name)
 

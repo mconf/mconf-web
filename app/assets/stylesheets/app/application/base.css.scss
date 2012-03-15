@@ -95,6 +95,14 @@ button, input[type=submit], input[type=button], .button {
     @include fancy-button-colors(#666);
     &.bordered { border-color: #666; }
   }
+  &.main-color {
+    @include fancy-button-colors($main-color);
+    &.bordered { border-color: $main-color; }
+  }
+  &.second-color {
+    @include fancy-button-colors($second-color);
+    &.bordered { border-color: $second-color; }
+  }
 
   // sizes
   &.big {

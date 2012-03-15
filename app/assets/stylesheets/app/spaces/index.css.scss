@@ -63,9 +63,9 @@ body.spaces.index {
       @include border-radius(2px);
 
       &.selected {
-        border: 1px solid $orange;
-        background: lighten($orange, 35);
-        @include box-shadow(0 0 15px $orange);
+        border: 1px solid $second-color;
+        background: lighten($second-color, 35);
+        @include box-shadow(0 0 15px $second-color);
       }
     }
 

@@ -11,13 +11,17 @@ $font-color: #333;
 
 // standard colors
 $green: #508817;
-$blue: adjust_hue($green, 110);
-$red: darken(#DD4B39, 10); //adjust_hue($green, -100);
-$orange: darken(#d98026, 10); //darken(#e18e07, 10);
-$yellow: darken(#fde073, 35);
+$blue: #2F70B1;
+$red: #C23321;
+$orange: #AE661E;
+$yellow: #BB9403;
+$green-water: #1f7385;
 $light-gray: #f6f6f6;
 $light-blue: rgba(36, 145, 231, 0.6);
 $light-blue2: #f0f6f9;
+
+$main-color: $blue;
+$second-color: $blue;
 
 // width of the central container and standard sidebar
 $contents-width: 980px;
@@ -25,9 +29,9 @@ $sidebar-width: 240px;
 
 // site-wide definitions
 $site-bg-color: #fff;
-$site-link: #2F70B1; // #2A639D //#1F4A75
-$site-link-hover: $orange;
-$site-link-active: $site-link;
+$site-link: lighten($main-color, 10); //$main-color; // #2A639D //#1F4A75
+$site-link-hover: darken($main-color, 10); //$second-color;
+$site-link-active: lighten($site-link, 10);
 
 // headers
 $navbar-bg-color: #222; //#1F4A75;
@@ -58,7 +62,7 @@ $z-index-tooltip: 999999; // TODO: not being used yet
     padding: 2px;
     border: 1px solid #ddd;
     @include border-radius(2px);
-    &:hover { border: 1px solid desaturate(lighten($orange, 20), 20); }
+    &:hover { border: 1px solid desaturate(lighten($second-color, 20), 10); }
   }
 }
 

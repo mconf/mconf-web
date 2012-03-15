@@ -14,7 +14,7 @@
 }
 
 #colorbox .modal-title {
-  background: $navbar-bg-color; //$light-gray;
+  background: lighten($navbar-bg-color, 5); //$light-gray;
   font-size: 14px;
   padding: 7px 30px 5px 10px;
   @include border-top-radius(6px);

@@ -21,10 +21,10 @@
 #space-filter-wrapper
   .action-button
     - if logged_in?
-      = link_to t('space.create_own'), new_space_path, :class => "button orange"
+      = link_to t('space.create_own'), new_space_path, :class => "button second-color"
     - else
       = t('getting_started')
-      = link_to t('register.one'), signup_path, :class => "button orange"
+      = link_to t('register.one'), signup_path, :class => "button second-color"
   = radio_button_tag "show-spaces", "all", true
   = label_tag t('space.all'), nil, :for => "show-spaces_all"
   - if logged_in?

@@ -6,9 +6,15 @@
 }
 
 .noty_bar .noty_close {
-  top: 9px;
+  top: 12px;
   right: 20px;
-  background-image: image-url('jquery/noty/closelabel.png');
+  background-image: image-url('jquery/noty/close.png');
+  width: 16px;
+  height: 16px;
+
+  &:hover {
+    background-position: -16px 0;
+  }
 }
 
 .noty_bar .noty_message {
@@ -20,13 +26,13 @@
   border-bottom-width: 0px;
 }
 
-$notif-success-bg: #3AA900;
-$notif-notice-bg: #fde073;
+$notif-success-bg: #2c8000; //#3AA900;
+$notif-notice-bg: #666; //#fde073;
 $notif-error-bg: #D14836;
 
 .noty_bar.alert {
   background-color: $notif-notice-bg;
-  color: #222;
+  color: #fff;
   @include box-shadow(0 1px 5px 0 darken($notif-notice-bg, 15));
 }
 .noty_bar.error {
@@ -36,6 +42,6 @@ $notif-error-bg: #D14836;
 }
 .noty_bar.success {
   background-color: $notif-success-bg;
-  color: #111;
+  color: #fff;
   @include box-shadow(0 1px 5px 0 darken($notif-success-bg, 15));
 }

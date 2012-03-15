@@ -257,8 +257,8 @@ $more-about-mconf-bg-color: #ddd; //#BFCDDD;//#d4d4d4;
     border: 1px solid #ccc;
 
     &:hover {
-      border: 1px solid $orange;
-      @include box-shadow(0 0 15px $orange);
+      border: 1px solid $second-color;
+      @include box-shadow(0 0 15px $second-color);
     }
   }
 }

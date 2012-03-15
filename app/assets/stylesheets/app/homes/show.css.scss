@@ -10,15 +10,16 @@ body.homes.show {
 
   $second-content-bg-color: darken($light-gray, 2);;
   $upper-right-area-width: 500px;
-  $sidebar-width: 200px; // the sidebars are smaller in this page
 
-  #upper-content-wrapper {
-    //background: $second-content-bg-color;
-    //border-top: 1px solid darken($second-content-bg-color, 5);
-    //border-bottom: 1px solid darken($second-content-bg-color, 5);
-    //@include box-shadow(inset 2px 0 5px rgba(0, 0, 0, 0.15));
-    //margin-top: 20px;
-  }
+  /*
+   * #upper-content-wrapper {
+   *   background: $second-content-bg-color;
+   *   border-top: 1px solid darken($second-content-bg-color, 5);
+   *   border-bottom: 1px solid darken($second-content-bg-color, 5);
+   *   @include box-shadow(inset 2px 0 5px rgba(0, 0, 0, 0.15));
+   *   margin-top: 20px;
+   * }
+   */
 
   #upper-content {
     width: $contents-width;
@@ -88,8 +89,9 @@ body.homes.show {
   }
 
   #sidebar-inbox {
-    .content-block-middle {
-      text-align: center;
+    .content-block-header a {
+      float: left;
+      width: $sidebar-width - 60px;
     }
   }
 
