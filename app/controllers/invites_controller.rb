@@ -48,7 +48,8 @@ class InvitesController < ApplicationController
 
       # message body
       body = t('invite.message', :sender => current_user.name, :name => params[:invite][:room_name],
-               :invite_url => params[:invite][:room_url], :message => params[:invite][:message]).html_safe
+               :invite_url => params[:invite][:room_url], :message => params[:invite][:message],
+               :mobile_url => params[:invite][:mobile_url]).html_safe
       unless params[:invite][:message].empty?
         priv_email[:body] = params[:invite][:message]
       end
@@ -58,6 +59,7 @@ class InvitesController < ApplicationController
       priv_email[:title] = t('invite.title')
       priv_email[:room_name] = params[:invite][:room_name]
       priv_email[:room_url] = params[:invite][:room_url]
+      priv_email[:mobile_url] = params[:invite][:mobile_url]
       priv_email[:user_name] = current_user.name
       priv_email[:locale] = current_user.locale
 

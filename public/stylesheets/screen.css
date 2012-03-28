@@ -2701,4 +2701,11 @@ h3.dialog_title {
   display: block;
   text-align: center;
   margin-bottom: 15px;
+
+.bbbrails_invite_device_type {
+  background:#f0f6f9;
+  border: 1px solid #ddd;
+  padding: 5px;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }

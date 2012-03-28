@@ -778,7 +778,7 @@ en:
     email: "email to %{email}"
     invitation_successfully: "Invitation succesfully sent:"
     invitation_unsuccessfully: "Invitation could not be sent:"
-    message: "You have been invited by <b>%{sender}</b> to join the webconference <b>%{name}</b>.<br/>You can join it by accessing <i><a href=\"%{invite_url}\">%{invite_url}</a></i>.<br/>This is the message written by <b>%{sender}</b>:"
+    message: "You have been invited by <b>%{sender}</b> to join the webconference <b>%{name}</b>.<br/><br/>You can join it by accessing: <a href=\"%{invite_url}\">%{invite_url}</a><br/>If you're in a mobile client, use this url: <a href=\"%{mobile_url}\">%{mobile_url}</a><br/><br/>This is the message written by <b>%{sender}</b>:"
     title: "Invitation to participate in a webconference"
     user_private_msg: "private message to the user %{user}"
   invite_people: 
@@ -1074,6 +1074,8 @@ en:
     form: 
       msg1: " prohibited this room from being saved:"
     invite: 
+      join_from_desktop: "In this page you can join the conference from a <b>desktop</b>. To join from a mobile device <a href=\"%{url}\">click here</a>."
+      join_from_mobile: "In this page you can join the conference from a <b>mobile device</b>. To join from a desktop <a href=\"%{url}\">click here</a>."
       msg1: "Invitation to the meeting "
       name: "Name:"
       name_enter: "Enter your name."
@@ -1146,6 +1148,8 @@ en:
   show_advanced_editor: "Show advanced editor"
   show_list_version_arrows: "show list version >>"
   show_question: Show?
+  simple_captcha: 
+    label: "Insert here the text from the image"
   site: 
     analytics_code: "Analytics Code"
     analytics_code_tip: "Code for your Google Analytics account. Leave it blank to disable. Example: \"UA-12345678-9\""
@@ -1477,6 +1481,7 @@ en:
     join_mobile: 
       direct_link: "<b>Click here</b><br/>to join from a mobile device"
       scan_code: "Or scan the code below:"
+      sip_number: "To join the voice conference from a SIP client, dial <b>%{number}</b>."
       title: "Mobile access to %{room}"
     my_webconference: "My webconference room"
     new_webconference: "New webconference room"

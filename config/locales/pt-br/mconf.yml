@@ -710,8 +710,8 @@ pt-br:
     updatedn: "entradas de seu iCalendar já estavam em sua agenda de eventos e foram atualizadas."
   im: IM
   inbox: 
-    my: "Minha caixa de entrada (%{checked})"
-    one: "Caixa de Entrada (%{checked})"
+    my: "Caixa de entrada (%{checked})"
+    one: "Caixa de entrada (%{checked})"
   information: 
     expand: "Expandir Lista.."
     information1: "Estas são as comunidades dos quais você faz parte"
@@ -776,7 +776,7 @@ pt-br:
     email: "e-mail para %{email}"
     invitation_successfully: "Convite enviado com sucesso:"
     invitation_unsuccessfully: "Convite não pode ser enviado:"
-    message: "Você foi convidado por <b>%{sender}</b> para participar da webconferência <b>%{name}</b>.<br/>Você pode participar acessando o endereço: <i><a href=\"%{invite_url}\">%{invite_url}</a></i>.<br/>Esta é a mensagem escrita por <b>%{sender}</b>:"
+    message: "Você foi convidado por <b>%{sender}</b> para participar da webconferência <b>%{name}</b>.<br/><br/>Você pode participar acessando o endereço: <a href=\"%{invite_url}\">%{invite_url}</a><br/>Se você está em um cliente móvel, use este endereço: <a href=\"%{mobile_url}\">%{mobile_url}</a><br/><br/>Esta é a mensagem escrita por <b>%{sender}</b>:"
     title: "Convite para participar de uma webconferência"
     user_private_msg: "mensagem privada para o usuário %{user}"
   invite_people: 
@@ -1054,6 +1054,8 @@ pt-br:
     form: 
       msg1: " impossibilitaram esta sala de ser salva:"
     invite: 
+      join_from_desktop: "Nesta página você pode entrar na conferência a partir de um <b>computador desktop</b>. Para entrar usando um dispositivo móvel, <a href=\"%{url}\">clique aqui</a>."
+      join_from_mobile: "Nesta página você pode entrar na conferência a partir de um <b>dispositivo móvel</b>. Para entrar usando um computador desktop, <a href=\"%{url}\">clique aqui</a>."
       msg1: "Convite para a reunião "
       name: "Nome:"
       name_enter: "Insira seu nome"
@@ -1126,6 +1128,8 @@ pt-br:
   show_advanced_editor: "Exibir editor avançado"
   show_list_version_arrows: "exibir versão em lista >>"
   show_question: Exibir?
+  simple_captcha: 
+    label: "Insira aqui o texto da imagem"
   site: 
     analytics_code: "Código do Google Analytics"
     analytics_code_tip: "Código para sua conta do Google Analytics. Deixe em branco para desabilitar. Exemplo: \"UA-12345678-9\""
@@ -1170,7 +1174,7 @@ pt-br:
     confirm: "Tem certeza que quer deixar esta comunidade?"
     create: 
       webconf_options: "Opções para a sala de webconferência"
-    create_own: "Criar uma nova comunidade"
+    create_own: "Criar nova comunidade"
     created: "Comunidade criada com sucesso"
     delete: "Excluir Comunidade"
     deleted: "Comunidade removida com sucesso"
@@ -1441,6 +1445,7 @@ pt-br:
     join_mobile: 
       direct_link: "<b>Clique aqui</b> <br/> para entrar utilizando um dispositivo móvel"
       scan_code: "Ou faça a leitura do código abaixo:"
+      sip_number: "Para entrar na conferência de voz usando um cliente SIP, disque para <b>%{number}</b>."
       title: "Acesso móvel à sala %{room}"
     my_webconference: "Minha sala de webconferência"
     new_webconference: "Nova sala de webconferência"

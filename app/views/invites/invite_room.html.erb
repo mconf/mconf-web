@@ -21,7 +21,7 @@
 </h3>
 
 <div id="webconference_invite_dialog">
-  
+
   <% if @type == "webconference" %>
     <div class="header">
       <div class="label"><%= t('invite_people.room_name') %></div>
@@ -70,6 +70,7 @@
       <% if @type == "webconference" %>
         <%= f.hidden_field :room_name, :value => @room.name %>
         <%= f.hidden_field :room_url, :value => join_webconf_url(@room) %>
+        <%= f.hidden_field :mobile_url, :value => join_webconf_url(@room, :mobile => true) %>
       <% elsif @type == "event" %>
         <%= f.hidden_field :event_id, :value => @event.id %>
       <% end %>

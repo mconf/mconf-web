@@ -33,26 +33,31 @@ $(document).ready(function(){
     <p class="status"><%= t('rooms.invite.status') %><span id="meeting_status">-</span> (<a href="javascript:ajax_request();"><%= t('rooms.refresh') %></a>)</p>
   </div>
 
-  <%= form_tag join_bigbluebutton_room_path(@room) do %>
+  <div class="bbbrails_invite_device_type">
+    <% if @mobile %>
+      <%= t('rooms.invite.join_from_mobile', :url => invite_bigbluebutton_room_path(@room)).html_safe %>
+    <% else %>
+      <%= t('rooms.invite.join_from_desktop', :url => invite_bigbluebutton_room_path(@room, :mobile => true)).html_safe %>
+    <% end %>
+  </div>
+
+  <%= form_tag join_bigbluebutton_room_path(@room, :mobile => @mobile) do %>
 
     <div class="field">
       <%= t('rooms.invite.name') %><br />
       <% if bigbluebutton_user.nil? %>
-        <%= text_field_tag "user[name]", "", :size => 30 %> <span class="obs"><%= t('rooms.invite.name_enter') %></span>
+        <%= text_field_tag "user[name]", "", :size => 30 %>
       <% else %>
-        <%= hidden_field_tag "user[name]", bigbluebutton_user.name %> <span class="obs"><%= bigbluebutton_user.name %></span>
+        <%= text_field_tag "user[name]", bigbluebutton_user.name, :size => 30, :readonly => true, :disabled => true %>
       <% end %>
     </div>
 
-    <div class="field">
-      <% if @room.private %>
-        <%= t('rooms.invite.password') %><br />
-        <%= password_field_tag "user[password]", "", :size => 30 %> <span class="obs"><%= t('rooms.invite.password_role') %></span>
-      <% else %>
-        <%= hidden_field_tag "user[password]", @room.attendee_password %> <span class="obs"><% t('rooms.invite.password_role') %></span><br/>
-        <span class="obs2"><% t('rooms.invite.password_filled') %></span>
-      <% end %>
-    </div>
+    <% if @user_role != :attendee and @user_role != :moderator %>
+      <div class="field">
+      <%= t('rooms.invite.password') %><br />
+        <%= password_field_tag "user[password]", "", :size => 30 %>
+      </div>
+    <% end %>
     <div class="submit_area">
       <button type="submit" class="basic_button medium_button orange_pale_button"><%=t('join')%></button>
     </div>
