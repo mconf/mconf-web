@@ -777,7 +777,7 @@ en:
     email: "email to %{email}"
     invitation_successfully: "Invitation succesfully sent:"
     invitation_unsuccessfully: "Invitation could not be sent:"
-    message: "You have been invited by <b>%{sender}</b> to join the webconference <b>%{name}</b>.<br/><br/>You can join it by accessing: <a href=\"%{invite_url}\">%{invite_url}</a><br/>If you're in a mobile client, use this url: <a href=\"%{mobile_url}\">%{mobile_url}</a>.<br/><br/>This is the message written by <b>%{sender}</b>:"
+    message: "You have been invited by <b>%{sender}</b> to join the webconference <b>%{name}</b>.<br/><br/>You can join it by accessing: <a href=\"%{invite_url}\">%{invite_url}</a><br/>If you're in a mobile client, use this url: <a href=\"%{mobile_url}\">%{mobile_url}</a><br/><br/>This is the message written by <b>%{sender}</b>:"
     title: "Invitation to participate in a webconference"
     user_private_msg: "private message to the user %{user}"
   invite_people: 
