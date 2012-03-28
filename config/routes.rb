@@ -6,7 +6,7 @@ Mconf::Application.routes.draw do
   match '/secure/info', :to => 'shibboleth#info', :as => "shibboleth_info"
 
   # FIXME: Temporary, this should probably be done by bigbluebutton_rails
-  match '/webconf/:id', :to => 'webconferences#join',
+  match '/webconf/:id', :to => 'custom_bigbluebutton_rooms#invite',
                         :as => "join_webconf"
 
   #Translate::Routes.translation_ui(map) if RAILS_ENV != "production"

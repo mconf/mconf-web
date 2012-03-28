@@ -34,14 +34,14 @@ $(document).ready(function(){
   </div>
 
   <div class="bbbrails_invite_device_type">
-    <% if @mobile %>
+    <% if params[:mobile] %>
       <%= t('rooms.invite.join_from_mobile', :url => invite_bigbluebutton_room_path(@room)).html_safe %>
     <% else %>
       <%= t('rooms.invite.join_from_desktop', :url => invite_bigbluebutton_room_path(@room, :mobile => true)).html_safe %>
     <% end %>
   </div>
 
-  <%= form_tag join_bigbluebutton_room_path(@room, :mobile => @mobile) do %>
+  <%= form_tag join_bigbluebutton_room_path(@room, :mobile => params[:mobile]) do %>
 
     <div class="field">
       <%= t('rooms.invite.name') %><br />
