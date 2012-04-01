@@ -26,7 +26,7 @@
           = r.input :attendee_password, :as => :showable_password, :label => t('activerecord.attributes.spaces.attendee_password')
           = r.input :moderator_password, :as => :showable_password, :label => t('activerecord.attributes.spaces.moderator_password')
       = hidden_field "space", "image", :value => "/assets/default_space_logos/" + @files[selected].to_s, :name => "space[default_logo]"
-      = f.button :submit, t("button.create"), :class => 'bordered'
+      = f.button :submit, t("button.create")
 
   .right-column
 
@@ -52,7 +52,7 @@
       #logos-text
         %span= t('space.logo_selected.enter_text')
         = text_field_tag :text_logo, nil, :id => "logos-text-input"
-        = button_tag t("space.logo_selected.generate_logo"), :id => "logos-text-submit", :class => "bordered"
+        = button_tag t("space.logo_selected.generate_logo"), :id => "logos-text-submit"
         #logos-text-generated
 
       #logos-gallery

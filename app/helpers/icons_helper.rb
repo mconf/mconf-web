@@ -3,7 +3,7 @@ module IconsHelper
   # Default link to open the popup to join a webconference using a mobile device
   # If url is nil, renders a disabled button
   def webconf_mobile_icon_link(url)
-    cls = 'webconf-join-mobile-link button blue'
+    cls = 'webconf-join-mobile-link button dark-gray-hover'
     unless url
       url = '#'
       cls += ' disabled login-to-enable'

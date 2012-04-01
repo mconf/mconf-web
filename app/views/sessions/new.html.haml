@@ -7,7 +7,7 @@
     .remember-me
       = check_box_tag ('remember_me')
       %label{:for => "remember_me"}= t('remember_me')
-    = f.button :submit, t("login.one"), :class => 'bordered'
+    = f.button :submit, t("login.one")
 
   %ul.extra-links
     %li= link_to t("register.one"), signup_path

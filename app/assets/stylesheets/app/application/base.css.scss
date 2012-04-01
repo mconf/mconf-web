@@ -4,6 +4,7 @@
 @import "fancy-buttons";
 @import "definitions";
 
+$focus-border-color: $second-color;
 
 //
 // General tags
@@ -37,10 +38,10 @@ input, textarea, select {
   @include box-shadow(inset 0 1px 1px rgba(0, 0, 0, 0.075));
 }
 
-select:focus, input:focus {
-  border: 1px solid $light-blue; //#275b8a;
+input:focus, textarea:focus, select:focus {
+  border: 1px solid $focus-border-color;
   outline: thin dotted 9;
-  @include box-shadow(inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 5px lighten($light-blue, 10));
+  @include box-shadow(inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 5px lighten($focus-border-color, 10));
 }
 
 input[type=checkbox] {
@@ -51,58 +52,52 @@ select {
   background: white;
 }
 
+
+@mixin button-colors($color) {
+  @include fancy-button-colors($color);
+  border-color: lighten($color, 5);
+  @include background(linear-gradient(top, lighten($color, 5), darken($color, 5)));
+  &:focus {
+    @include box-shadow(inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 5px lighten($focus-border-color, 10));
+    border: 1px solid $focus-border-color;
+  }
+  //old style, without border
+  //@include fancy-button-colors($blue);
+  //&.bordered { border-color: $blue; }
+}
 $fb-allow-disabled: true;
 $fb-gradient-style: matte;
 button, input[type=submit], input[type=button], .button {
   @include fancy-button(#ddd);
   @include fancy-button-size($font-normal, 4px, 1px);
   @include fancy-button-padding(4px, 8px, 1px);
-  border: 0;
+
   font-weight: normal;
   cursor: pointer;
-  &:focus {
-    @include box-shadow(inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 5px lighten($light-blue, 10));
+
+  @include button-colors(#ececec);
+  border-color: #ddd;
+
+  &.unbordered {
+    border: 0;
+    &:focus { border: 0; }
   }
 
-  &.bordered {
-    border: 1px solid #ddd;
-    &:focus { border: 1px solid $light-blue; }
-  }
   &:hover { text-decoration: none; }
 
   // colors
-  &.red {
-    @include fancy-button-colors($red);
-    &.bordered { border-color: $red; }
-  }
-  &.blue {
-    @include fancy-button-colors($blue);
-    &.bordered { border-color: $blue; }
-  }
-  &.green {
-    @include fancy-button-colors($green);
-    &.bordered { border-color: $green; }
-  }
-  &.orange {
-    @include fancy-button-colors($orange);
-    &.bordered { border-color: $orange; }
-  }
-  &.yellow {
-    @include fancy-button-colors($yellow);
-    &.bordered { border-color: $yellow; }
-  }
-  &.dark-gray {
-    @include fancy-button-colors(#666);
-    &.bordered { border-color: #666; }
-  }
-  &.main-color {
-    @include fancy-button-colors($main-color);
-    &.bordered { border-color: $main-color; }
-  }
-  &.second-color {
-    @include fancy-button-colors($second-color);
-    &.bordered { border-color: $second-color; }
-  }
+  &.red { @include button-colors($red); }
+  &.blue { @include button-colors($blue); }
+  &.green { @include button-colors($green); }
+  &.green-logo { @include button-colors(lighten($green-logo, 10)); }
+  &.orange { @include button-colors($orange); }
+  &.yellow { @include button-colors($yellow); }
+  &.dark-gray { @include button-colors(#666); }
+  &.main-color { @include button-colors($main-color); }
+  &.second-color { @include button-colors($second-color); }
+
+  &.green-logo-hover:hover { @include button-colors(lighten($green-logo, 10)); }
+  //&.dark-gray-hover:hover { @include button-colors(#666); }
 
   // sizes
   &.big {
@@ -214,7 +209,7 @@ button, input[type=submit], input[type=button], .button {
 .webconf-join-mobile-link {
   span {
     padding-left: 20px;
-    background: url(asset_path('icons/mobile-white-16x16.png', image)) bottom left no-repeat;
+    background: url(asset_path('icons/mobile-gray-16x16.png', image)) bottom left no-repeat;
   }
 }
 

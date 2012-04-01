@@ -16,7 +16,7 @@
   .right-column
     .main-action-buttons
       - join_text = @room.is_running? ? t('webconference.join') : t('webconference.start_now')
-      = link_to join_text, join_bigbluebutton_room_path(@room), :class => 'button green webconf-start-link'
+      = link_to join_text, join_bigbluebutton_room_path(@room), :class => 'button orange webconf-start-link'
       = webconf_mobile_icon_link(join_mobile_bigbluebutton_room_path(@room))
 
   .left-column

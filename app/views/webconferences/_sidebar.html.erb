@@ -5,11 +5,11 @@
 <% end %>
 
 <div class="sidebar-top-action-button">
-  <%= link_to ("<span>" + t('button.join_webconference') + "</span>").html_safe, join_link, :class => 'webconf-start-link button green big' %>
+  <%= link_to ("<span>" + t('button.join_webconference') + "</span>").html_safe, join_link, :class => 'webconf-start-link button green-logo big' %>
 </div>
 
 <% if logged_in? %>
   <div class="sidebar-top-action-button">
-  <%= link_to t('button.join_webconference_mobile'), join_mobile_space_room_path(space, @bbb_room), :class => 'webconf-join-mobile-link button big blue' %>
+  <%= link_to t('button.join_webconference_mobile'), join_mobile_space_room_path(space, @bbb_room), :class => 'webconf-join-mobile-link button big' %>
   </div>
 <% end %>

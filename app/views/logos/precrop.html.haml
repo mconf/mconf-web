@@ -18,4 +18,4 @@
       - if params.has_key?(:logo) and params[:logo].has_key?(:rand)
         = fc.hidden_field :rand, :value => params[:logo][:rand]
 
-    = f.button :submit, t("save"), :class => 'bordered'
+    = f.button :submit, t("save")

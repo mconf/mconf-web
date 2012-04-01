@@ -86,7 +86,7 @@ ul#navbar-right-links {
 
   .user-info-dropdown {
     margin: 0;
-    padding: 5px 10px;
+    padding: 4px 10px;
   }
 
   // small user info in the navbar
@@ -102,7 +102,7 @@ ul#navbar-right-links {
     .user-avatar {
       position: relative;
       float: right;
-      border: 1px solid lighten($navbar-bg-color, 30);
+      border: 1px solid lighten($navbar-bg-color, 5);
       padding: 1px;
       height: 22px;
       width: 22px;
@@ -113,18 +113,25 @@ ul#navbar-right-links {
   // dropdown menu with the user information
   // it needs some adjustments over the default style
   .dropdown {
-    &.open { background: darken($navbar-bg-color, 5); }
+    &.open {
+      background: darken($navbar-bg-color, 5);
+    }
     .caret { margin-top: 10px; }
 
     .dropdown-menu {
-      background: darken($navbar-bg-color, 5);
-      top: $navbar-height;
+      color: $font-color;
+      background: $site-bg-color;
+      top: $navbar-height + 5px;
       right: 0;
       left: auto;
       min-width: 300px;
       width: 300px;
-      border-top: 0;
-      @include border-top-radius(0);
+      border: 1px solid #ccc;
+      &.arrow-right:after { border-bottom-color: white; }
+      a {
+        @include link-colors($site-link, $site-link-hover, $site-link-active);
+        &:hover { @include text-shadow(none); }
+      }
     }
   }
 
@@ -147,13 +154,12 @@ ul#navbar-right-links {
       padding: 4px 10px 4px 5px;
       float: right;
       display: block;
-      &:hover { color: white; }
     }
 
     .user-avatar {
       position: relative;
       float: left;
-      border: 1px solid lighten($navbar-bg-color, 30);
+      border: 1px solid darken($site-bg-color, 15);
       padding: 1px;
       height: 64px;
       width: 64px;
@@ -166,7 +172,9 @@ ul#navbar-right-links {
     @include mconf-clearfix;
     clear: both;
     margin-top: 5px;
-    border-top: 1px solid lighten($navbar-bg-color, 13);
+    background: darken($site-bg-color, 5);
+    margin-bottom: 5px;
+    @include border-radius(4px);
     ul {
       margin: 0;
       li {
@@ -445,7 +453,7 @@ ul#navbar-right-links {
         font-size: 14px;
 
         &.selected {
-          color: $blue;
+          color: $main-color;
           @include border-top-radius(5px);
           border-top: 1px solid #ddd;
           border-left: 1px solid #ddd;
@@ -552,12 +560,13 @@ ul.selectable-buttons {
       font-weight: bold;
       font-size: 14px;
       @include text-shadow(darken($site-bg-color, 10) 1px 1px 2px);
+      //border: 1px solid $site-bg-color;
 
       &.selected {
-        color: $blue;
+        color: $main-color;
         background: $light-gray;
         @include border-radius(5px);
-        //@include box-shadow(inset 0 1px 2px rgba(0, 0, 0, 0.1));
+        @include box-shadow(inset 0 1px 2px rgba(0, 0, 0, 0.1));
         //border: 1px solid darken($light-gray, 5);
       }
     }

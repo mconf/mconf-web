@@ -6,7 +6,7 @@
 }
 
 #colorbox, #cboxWrapper, #cboxContent  {
-  @include border-radius(6px);
+  //@include border-radius(2px);
 }
 
 #cboxLoadedContent {
@@ -14,10 +14,11 @@
 }
 
 #colorbox .modal-title {
-  background: lighten($navbar-bg-color, 5); //$light-gray;
+  //background: lighten($navbar-bg-color, 5); //$light-gray;
+  @include background(linear-gradient(top, lighten($navbar-bg-color, 10), $navbar-bg-color));
   font-size: 14px;
   padding: 7px 30px 5px 10px;
-  @include border-top-radius(6px);
+  //@include border-top-radius(2px);
   border-bottom: 1px solid #000;
   color: $light-gray;
 }
