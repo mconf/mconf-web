@@ -44,7 +44,6 @@ class LogosController
    end
 
    if params[:upload]
-
      images_path = PathHelpers.images_full_path
      tmp_path = File.join(images_path, "tmp")
      final_path = FileUtils.mkdir_p(tmp_path + "/#{params[:logo][:rand]}")
@@ -53,16 +52,18 @@ class LogosController
      temp_file = File.open(uploaded_image, "wb")
      temp_file.write(params[:logo][:media].read)
      temp_file.close
-     TempLogo.reshape_image uploaded_image, Logo::ASPECT_RATIO_F
      img_orig = Magick::Image.read(uploaded_image).first
      img_orig = img_orig.resize_to_fit(600, 600)
      img_orig.write(uploaded_image)
      size = "#{img_orig.columns}x#{img_orig.rows}"
 
-     render :template => "logos/precrop_without_space",
+     render :template => "logos/precrop",
             :layout => false,
-            :locals => { :logo_crop_text => t('avatar.crop'),
-                         :image_size => size }
+            :locals => { :form_for_element => :logo,
+                         :form_url => {:controller => :logos, :action => :new, :upload_crop => :yes},
+                         :image => "/assets/tmp/" + params[:logo][:rand] + "/uploaded_logo.png",
+                         :image_size => size,
+                         :aspect_ratio => Logo::ASPECT_RATIO_F }
    end
 
    if params[:upload_crop]
@@ -73,15 +74,17 @@ class LogosController
 
      img = Magick::Image.read(uploaded_image).first
 
-     crop_args = [Integer(params[:crop_size][:x]),Integer(params[:crop_size][:y]),Integer(params[:crop_size][:width]),Integer(params[:crop_size][:height])]
-     crop_img = img.crop(*crop_args)
+     crop_args = [ Integer(params[:crop_size][:x]),
+                   Integer(params[:crop_size][:y]),
+                   Integer(params[:crop_size][:width]),
+                   Integer(params[:crop_size][:height])]
+     img.crop!(*crop_args)
 
      temp_file = File.open(uploaded_image, "w+")
-     crop_img.write(temp_file.path)
+     img.write(temp_file.path)
      temp_file.close
 
      render :text => ""
-     #render :text => "" + params[:crop_size][:x].to_s + "," + params[:crop_size][:y].to_s + "," + params[:crop_size][:height].to_s + "," + params[:crop_size][:width].to_s + "," + "<img src= '" +uploaded_image.to_s + "'>"
    end
 
   end
@@ -203,11 +206,10 @@ class LogosController
     tmp_path = File.join(images_path, "tmp")
     final_path = FileUtils.mkdir_p(tmp_path + "/#{params[:rand_name]}")
     if event_logo
-      background_generic = File.join(images_path, "vcc-event-logo-bg.png")
+      background_generic = File.join(images_path, "logos-event-background.png")
     else
-      background_generic = File.join(images_path, "vcc-logo-bg.png")
+      background_generic = File.join(images_path, "logos-background.png")
     end
-    #background_generated = File.join(tmp_path, "vcc-logo-#{params[:rand_name]}-#{logo_style}.png")
     background_generated = File.join(final_path, "vcc-logo-#{params[:rand_name]}-#{logo_style}.png")
 
     # We open, read-only, the generic background image
@@ -219,47 +221,42 @@ class LogosController
     # To create the text, we use a new "Draw" object, and set some basic styles
     gc = Magick::Draw.new
     gc.font_family = "Helvetica"
-    gc.font_style = Magick::ObliqueStyle
-    gc.font_weight = Magick::LighterWeight
+    gc.font_weight = Magick::BolderWeight
     gc.gravity = Magick::CenterGravity
-    gc.stroke = "darkblue"
+    gc.stroke = "#888888"
     gc.stroke_opacity(1)
     gc.text_antialias(true)
     gc.stroke_antialias(true)
     gc.stroke_linecap("round")
-    gc.fill = "darkblue"
+    gc.fill = "black"
+
+    text = text.gsub(" ", "\\n")
 
     # Depending on the desired logo_style, we create a text or another
     case logo_style
       when 1
-        gc.pointsize = 0.7 * (multiline_point_size text+"\\n", img.columns, img.rows)
+        gc.pointsize = multiline_point_size (text+"\\n"), img.columns, img.rows
         gc.gravity = Magick::SouthGravity
         gc.annotate(logo_text,img.columns,img.rows,0,0,text+"\\n")
-        auto_logo = img.composite!(logo_text, Magick::CenterGravity, Magick::ColorBurnCompositeOp)
-      when 2
-        gc.pointsize = singleline_point_size text, img.columns
-        gc.annotate(logo_text,img.columns,img.rows,0,0,text)
-        logo_text = logo_text.shade(true, 300, 30)
+        logo_text = logo_text.shade(false, 300, 30)
         auto_logo = img.composite!(logo_text, Magick::CenterGravity, Magick::HardLightCompositeOp)
-      when 3
+      when 2
         gc.pointsize = multiline_point_size text, img.columns, img.rows
-        text = text.gsub(" ", "\\n")
-        gc.annotate(logo_text,0,0,0,0,text)
-        auto_logo = img.composite!(logo_text, Magick::CenterGravity, Magick::ColorBurnCompositeOp)
-      when 4
-        gc.pointsize = multiline_point_size text, img.columns, img.rows
-        text = text.gsub(" ", "\\n")
         gc.annotate(logo_text,img.columns,img.rows,0,0,text)
         logo_text = logo_text.shade(false, 300, 30)
-        blank_bg = Magick::Image.new(img.columns, img.rows, GradientFill.new(0, 0, img.columns, 0, '#EBEBEB', '#BDD8EB'))
-        auto_logo = blank_bg.composite!(logo_text, Magick::CenterGravity, Magick::HardLightCompositeOp)
-      when 5
-        gc.pointsize = multiline_point_size text, img.columns, img.rows
-        text = text.gsub(" ", "\\n")
-        gc.annotate(logo_text,img.columns,img.rows,0,0,text)
-        logo_text = logo_text.shade(true, 300, 25)
-        #blank_bg = Magick::Image.new(img.columns, img.rows, GradientFill.new(0, 0, img.columns, 0, '#EBEBEB', '#BDD8EB'))
         auto_logo = img.composite!(logo_text, Magick::CenterGravity, Magick::HardLightCompositeOp)
+      when 3
+        gc.pointsize = multiline_point_size ("\\n"+text), img.columns, img.rows
+        gc.gravity = Magick::NorthGravity
+        gc.annotate(logo_text,0,0,0,0,"\\n"+text)
+        logo_text = logo_text.shade(false, 300, 30)
+        auto_logo = img.composite!(logo_text, Magick::CenterGravity, Magick::HardLightCompositeOp)
+      when 4
+        gc.pointsize = multiline_point_size text, img.columns, img.rows
+        gc.annotate(logo_text,img.columns,img.rows,0,0,text)
+        logo_text = logo_text.shade(false, 300, 30)
+        blank_bg = Magick::Image.new(img.columns, img.rows, GradientFill.new(0, 0, img.columns, 0, '#eee', '#888'))
+        auto_logo = blank_bg.composite!(logo_text, Magick::CenterGravity, Magick::HardLightCompositeOp)
     end
     f.close
 

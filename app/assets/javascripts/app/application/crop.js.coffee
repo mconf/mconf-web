@@ -18,7 +18,7 @@ enableCropInImages = ->
     $(this).Jcrop
       onSelect: saveCropCoordinates,
       onChange: saveCropCoordinates,
-      aspectRatio: parseInt($(this).attr("data-crop-aspect-ratio"))
+      aspectRatio: parseFloat($(this).attr("data-crop-aspect-ratio"))
 
 # All forms with '.form-for-crop' will be associated with the crop
 # functionality. The contents returned after the form is submitted are
@@ -31,6 +31,7 @@ enableAjaxInCropForms = ->
       form.ajaxSubmit (data) ->
         showModalWindow({ html: data })
         enableCropInImages()
+        $(document).trigger "crop-window-shown";
 
 # Triggers the associations...
 $ ->

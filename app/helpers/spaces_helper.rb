@@ -61,7 +61,7 @@ module SpacesHelper
     # We establish the paths for the pre-defined images, and the temporal dir for the generated logo
     images_path = PathHelpers.images_full_path
     tmp_path = File.join(images_path, "tmp")
-    background_generic = File.join(images_path, "vcc-logo-bg.png")
+    background_generic = File.join(images_path, "logos-background.png")
     background_generated = File.join(tmp_path, "vcc-logo-"+spaceId.to_s + ".png")
 
     # We open, read-only, the generic background image

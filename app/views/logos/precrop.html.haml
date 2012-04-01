@@ -1,16 +1,21 @@
 -# To be displayed in a modal window
+-# Locals: form_for_element, form_url, aspect_ratio, image, image_size
 
 .modal-title
   = t('crop_image.title')
 
 #crop-image-wrapper.modal-content
   .description= t('crop_image.description')
-  = simple_form_for form_for_element, :url => form_url do |f|
-    -# TODO: the aspect ratio can differ in other cases
+  = simple_form_for form_for_element, :url => form_url, :html => { :id => 'crop-form' } do |f|
     = image_tag image, :class => "cropable", :size => image_size, :"data-crop-aspect-ratio" => aspect_ratio
     = fields_for :crop_size do |fc|
       = fc.hidden_field :x
       = fc.hidden_field :y
       = fc.hidden_field :width
       = fc.hidden_field :height
+
+      -# used at controllers/logos#new
+      - if params.has_key?(:logo) and params[:logo].has_key?(:rand)
+        = fc.hidden_field :rand, :value => params[:logo][:rand]
+
     = f.button :submit, t("save"), :class => 'bordered'

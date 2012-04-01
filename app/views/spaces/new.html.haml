@@ -44,12 +44,10 @@
     #logo-selection-options.selectable-buttons-target
 
       #logos-upload
-        = form_for :logo, :html => {:method => :post, :id =>"select_logo_form", :multipart => true, :name => "space_new_form"}, :url => {:controller => :logos, :action => :new, :upload => :yes} do |f|
-          = t("space.logo_selected.upload_logo_text")
-          = f.file_field :media, :class=>"file file1 basic_button blue_button"
+        = simple_form_for :logo, :html => {:method => :post, :id => "select_logo_form", :multipart => true, :class => "form-for-crop"}, :url => {:controller => :logos, :action => :new, :upload => :yes} do |f|
+          = link_to t("space.logo_selected.upload_logo_text"), '#logo_media', :"data-open-file" => true
+          = f.input :media, :as => :file
           = f.hidden_field "rand"
-          %input#upload_logo_button.basic_button.blue_button{:type => "submit", :value => t("space.logo_selected.upload_text")}/
-        #resultado
 
       #logos-text
         %span= t('space.logo_selected.enter_text')
@@ -60,4 +58,4 @@
       #logos-gallery
         %ul
           - for file in @files
-            %li= link_to (image_tag "/assets/default_space_logos/" + file.to_s, {:id=> ( file.to_s.gsub('.','') ),:class => "default_space_logo",:title => "Click to choose a default image",:size => "100x76"}), 'javascript:selectDefaultImage("' + ( file.to_s ) + '");'
+            %li= link_to (image_tag "/assets/default_space_logos/" + file.to_s, { :size => "100x76"}), '#'

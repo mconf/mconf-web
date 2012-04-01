@@ -8,13 +8,15 @@ $(function() {
     }
 
     // when clicking in a logo in the gallery
-    $("#logos-gallery a").on("click", function() {
+    $("#logos-gallery a").on("click", function(e) {
+      e.preventDefault();
       img = $(this).find("img").attr("src");
       setNewLogo(img);
     });
 
     // when clicking in a text-genrated logo
-    $(document).on("click", "#logos-text-generated a", function() {
+    $(document).on("click", "#logos-text-generated a", function(e) {
+      e.preventDefault();
       img = $(this).find("img").attr("src");
       setNewLogo(img);
     });
@@ -31,6 +33,31 @@ $(function() {
         $('#logos-text-generated').html(data);
       });
     });
+
+    // TODO: not finished
+    $(document).on("crop-window-shown", function() {
+      $('#crop-form').ajaxForm({
+        success: function() {
+          setNewLogo("/assets/" + "tmp/" + rand + "/uploaded_logo.png?" + (new Date()).getTime());
+          closeModalWindows();
+        }
+      });
+    });
+
+// ajaxForm({
+//       beforeSubmit:function() {
+//         $("#selected_logo_image").attr('src', "");
+//       },
+//       target: '#resultado',
+//       success: function() {
+//         alert('lalala');
+//         $('#resultado').fadeIn('slow');
+//         $("#space_image").attr('value', "tmp/" + rand + "/uploaded_logo.png");
+//         $("#selected_logo_image").attr('src', "/assets/" + "tmp/" + rand + "/uploaded_logo.png?" + (new Date()).getTime());
+//         closeModalWindows();
+//         closeUploadLogo();
+//       }
+//     });
 
 
 

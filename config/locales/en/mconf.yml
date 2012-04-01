@@ -1292,7 +1292,7 @@ en:
       open_gallery: "Open the gallery"
       text_logo: "Create a text logo"
       upload_logo: "Upload your own logo"
-      upload_logo_text: "Select a logo to upload:"
+      upload_logo_text: "Click to select a logo to upload"
       upload_text: Upload
       use_date: "Use event date"
     member_count: "%{count} members"

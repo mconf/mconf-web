@@ -40,7 +40,7 @@ body.spaces.new, body.spaces.create {
     }
   }
 
-  #logo-selection-options {
+  #logos-upload, #logos-text, #logos-gallery {
     clear: both;
     @include mconf-clearfix;
     margin-top: 10px;
@@ -56,6 +56,14 @@ body.spaces.new, body.spaces.create {
       float: left;
       margin-right: 5px;
       margin-bottom: 5px;
+    }
+  }
+
+  #logos-upload {
+    text-align: center;
+
+    .input.file {
+      @include hide-input-file;
     }
   }
 

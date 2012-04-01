@@ -1,0 +1,8 @@
+- time = Time.new
+- @files = Dir.entries("app/assets/images/tmp/#{params[:rand_name]}")
+- @files.delete(".")
+- @files.delete("..")
+- @files.delete("uploaded_logo.png")
+- selected = rand(@files.length)
+- for file in @files
+  = link_to (image_tag "tmp/#{params[:rand_name]}/" + file.to_s + "?#{time.min}#{time.sec}", { :size => "100x76" }), '#'
