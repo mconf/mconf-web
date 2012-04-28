@@ -3,7 +3,7 @@
     .user-avatar
       = logo(current_user, :size => "96", :title => current_user.name).html_safe
       - if current_user.superuser?
-        .superuser-icon.tooltipped.downwards{:title => t('superuser')}
+        = superuser_icon
     .user-data
       %span.user-name= current_user.name
       %span.user-email= current_user.email

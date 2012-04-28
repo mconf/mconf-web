@@ -11,15 +11,13 @@ body.homes.show {
   $second-content-bg-color: darken($light-gray, 2);;
   $upper-right-area-width: 500px;
 
-  /*
-   * #upper-content-wrapper {
-   *   background: $second-content-bg-color;
-   *   border-top: 1px solid darken($second-content-bg-color, 5);
-   *   border-bottom: 1px solid darken($second-content-bg-color, 5);
-   *   @include box-shadow(inset 2px 0 5px rgba(0, 0, 0, 0.15));
-   *   margin-top: 20px;
-   * }
-   */
+  #upper-content-wrapper {
+    //@include background(linear-gradient(top, #ddd, white));
+    //@include box-shadow(inset 0 0 2px rgba(0, 0, 0, 0.15));
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    background: whiteSmoke;
+    padding: 10px 0;
+  }
 
   #upper-content {
     width: $contents-width;
@@ -48,15 +46,6 @@ body.homes.show {
       height: 96px;
       width: 96px;
       @include border-radius(3px);
-    }
-
-    .superuser-icon {
-      width: 12px;
-      height: 12px;
-      background: url(asset_path("icons/superuser-12x12.png", image)) no-repeat scroll left top;
-      position: absolute;
-      bottom: 0;
-      left: 0;
     }
 
     .user-data {
@@ -116,15 +105,9 @@ body.homes.show {
     .main-action-buttons {
       float: right;
 
-      .button {
-        display: block;
-        text-align: center;
-        margin-top: 3px;
-        margin-bottom: 5px;
-      }
-
       .webconf-start-link, .webconf-join-mobile-link {
-        min-width: 90px;
+        display: block;
+        margin-bottom: 5px;
       }
     }
 
@@ -132,19 +115,27 @@ body.homes.show {
       float: right;
       position: relative;
 
+      label {
+        display: inline;
+      }
+
       input[type=text] {
         width: $upper-right-area-width - 130px - 100px; // - main-action-buttons - 100
         padding: 5px;
         margin-left: 5px;
         background: $site-bg-color;
         color: #444;
+
+        &:focus {
+          border-color: $second-color;
+        }
       }
 
-      .clippy {
+      /*.clippy {
         position: absolute;
         top: 8px;
         right: 6px;
-      }
+      }*/
     }
 
     ul.action-buttons {

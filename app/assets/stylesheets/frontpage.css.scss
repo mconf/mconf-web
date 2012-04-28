@@ -6,7 +6,7 @@
 // TODO: some styles that are here can be put in application/base.scss
 
 $navbar-height: 110px;
-$subnav-height: 25px;
+$subnav-height: 28px;
 $more-about-mconf-bg-color: #ddd; //#BFCDDD;//#d4d4d4;
 
 
@@ -27,7 +27,7 @@ $more-about-mconf-bg-color: #ddd; //#BFCDDD;//#d4d4d4;
 #navbar {
   width: $contents-width;
   margin: 0 auto;
-  padding: 25px 0;
+  padding: 20px 0 30px 0;
   height: $navbar-height;
   @include clearfix;
 }
@@ -63,13 +63,13 @@ $more-about-mconf-bg-color: #ddd; //#BFCDDD;//#d4d4d4;
 
   .action-links {
     float: right;
-    padding-top: 8px;
-    margin-right: 5px;
+    padding-top: 5px;
+    margin-right: 10px;
   }
 
   input[type=text], input[type=password] {
     width: 200px;
-    font-size: 14px;
+    //font-size: 14px;
     float: right;
     clear: both;
     margin-top: 3px;
@@ -87,12 +87,12 @@ $more-about-mconf-bg-color: #ddd; //#BFCDDD;//#d4d4d4;
     float: right;
     margin-right: 10px;
     margin-top: 7px;
+    color: #eee;
   }
 
   input[type=submit] {
     float: right;
     clear: both;
-    margin-top: 5px;
   }
 
   abbr[title=required] { display: none; }
@@ -136,7 +136,7 @@ $more-about-mconf-bg-color: #ddd; //#BFCDDD;//#d4d4d4;
       display: inline;
       margin-top: 4px;
       font-size: $font-medium;
-      padding: 2px 10px;
+      padding: 5px 10px;
       margin: 0;
 
       &.active {
@@ -158,10 +158,13 @@ $more-about-mconf-bg-color: #ddd; //#BFCDDD;//#d4d4d4;
     display: block;
     float: right;
     margin-right: 20px;
+
     span {
-      margin-right: 5px;
-      margin-top: 2px;
+      margin-right: 10px;
+      margin-top: 6px;
+      float: left;
     }
+    a { float: left; }
   }
 }
 
@@ -196,7 +199,7 @@ $more-about-mconf-bg-color: #ddd; //#BFCDDD;//#d4d4d4;
 
 #introduction {
   @include mconf-clearfix;
-  padding: 35px 0;
+  padding: 10px 0;
   margin: 0 auto;
 
   $left-col-width: 700px;
@@ -317,7 +320,7 @@ $more-about-mconf-bg-color: #ddd; //#BFCDDD;//#d4d4d4;
 #more-about-mconf {
   @extend #content;
   @include mconf-clearfix;
-  padding: 35px 0;
+  padding: 10px 0;
 
   h2 { color: darken($h-font-color-alternative, 10); }
 
@@ -353,6 +356,7 @@ $more-about-mconf-bg-color: #ddd; //#BFCDDD;//#d4d4d4;
       float: left;
       text-align: center;
       white-space: nowrap;
+      line-height: 25px;
 
       .link-title {
         font-size: $font-gigantic;
@@ -374,7 +378,6 @@ $more-about-mconf-bg-color: #ddd; //#BFCDDD;//#d4d4d4;
       img {
         float: left;
         margin-right: 15px;
-        margin-top: 5px;
       }
     }
   }

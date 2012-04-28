@@ -3,13 +3,13 @@
 $ ->
   if isOnPage 'spaces', 'index'
 
-    # radio buttons to select the type of filter
-    $("#show-spaces_all").on "click", ->
+    # buttons to select the type of filter
+    $("#show-spaces-all").on "click", ->
       $("#content-middle .not-my-space").show()
-    $("#show-spaces_mine").on "click", ->
+    $("#show-spaces-mine").on "click", ->
       $("#content-middle .not-my-space").hide()
       $("#content-middle .my-space").show()
-    $("#show-spaces_filter").on "click", ->
+    $("#show-spaces-filter").on "click", ->
       $("#space-filter-text").keyup()
       $("#space-filter-text").focus()
 

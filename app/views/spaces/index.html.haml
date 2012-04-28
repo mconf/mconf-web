@@ -21,17 +21,17 @@
 #space-filter-wrapper
   .action-button
     - if logged_in?
-      = link_to t('space.create_own'), new_space_path, :class => "button second-color"
+      = link_to t('space.create_own'), new_space_path, :class => "btn btn-info"
     - else
       = t('getting_started')
-      = link_to t('register.one'), signup_path, :class => "button second-color"
-  = radio_button_tag "show-spaces", "all", true
-  = label_tag t('space.all'), nil, :for => "show-spaces_all"
-  - if logged_in?
-    = radio_button_tag "show-spaces", "mine", false
-    = label_tag t('space.my_spaces'), nil, :for => "show-spaces_mine"
-  = radio_button_tag "show-spaces", "filter", false
-  = text_field_tag 'space-filter-text', params[:filter], :placeholder => t('search.space.dots')
+      = link_to t('register.one'), signup_path, :class => "btn btn-primary"
+
+  .btn-group{ :"data-toggle" => "buttons-radio" }
+    = button_tag t('space.all'), :id => "show-spaces-all", :class => "btn active"
+    - if logged_in?
+      = button_tag t('space.my_spaces'), :id => "show-spaces-mine", :class => "btn"
+    = button_tag t('search.space.dots'), :id => "show-spaces-filter", :class => "btn"
+    = text_field_tag 'space-filter-text', params[:filter], :placeholder => t('search.space.dots')
 
 #public-spaces.content-block
   .content-block-header

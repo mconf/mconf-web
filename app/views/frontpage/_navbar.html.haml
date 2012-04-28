@@ -11,7 +11,7 @@
       = f.label t('login.email_or_login')
       = f.password_field :password
       = f.label t('login.password')
-      = f.button :submit, t("login.one")
+      = f.button :submit, t("login.one"), :class => "btn"
     .action-links
       = link_to t('user.lost_password'), lost_password_path
       - if current_site.shib_enabled?

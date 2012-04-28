@@ -1,7 +1,7 @@
 = content_for :"page-header-extra" do
-  %ul.selectable-buttons
-    %li= link_to t('recent.activity'), "#tab-recent-activity", :class => 'selected'
-    %li= link_to t('space.other'), "#tab-spaces"
+  .selectable-buttons.btn-group{:"data-toggle" => 'buttons-radio'}
+    = link_to t('recent.activity'), "#tab-recent-activity", :class => 'btn active'
+    = link_to t('space.other'), "#tab-spaces", :class => 'btn'
 = render_page_title t('profile.header_title')
 
 = content_for :sidebar do

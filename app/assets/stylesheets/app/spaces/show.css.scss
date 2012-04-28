@@ -30,7 +30,7 @@ body.spaces.show {
 
   #sidebar-leave-space {
     text-align: center;
-    a { @include link-colors($red, $site-link-hover, $site-link-active); }
+    padding: 5px 0;
   }
 
   #sidebar-webconference {
@@ -44,11 +44,11 @@ body.spaces.show {
 
       .webconf-start-link {
         float: left;
-        width: 80px;
+        width: 35%;
       }
       .webconf-join-mobile-link {
         float: right;
-        width: 90px;
+        width: 40%;
       }
     }
 

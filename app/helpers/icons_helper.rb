@@ -3,7 +3,7 @@ module IconsHelper
   # Default link to open the popup to join a webconference using a mobile device
   # If url is nil, renders a disabled button
   def webconf_mobile_icon_link(url)
-    cls = 'webconf-join-mobile-link button dark-gray-hover'
+    cls = 'webconf-join-mobile-link btn btn-small dark-gray-hover'
     unless url
       url = '#'
       cls += ' disabled login-to-enable'
@@ -74,12 +74,12 @@ module IconsHelper
     icon_constructor title, "icons/newspaper.png", options
   end
 
-  # Admin red icon
+  # Admin red label/icon
+  # Usually shown on top of an avatar.
   def superuser_icon(options={})
-    cls = "icon superuser-icon "
+    cls = "superuser-icon label label-important "
     options[:class] = options.has_key?(:class) ? cls + options[:class] : cls
-    options[:size] = '12x12'
-    image_tag "icons/superuser-12x12.png", options
+    content_tag :span, t('admin.one'), options
   end
 
   private

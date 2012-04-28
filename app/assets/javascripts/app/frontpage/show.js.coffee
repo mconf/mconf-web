@@ -11,7 +11,7 @@ $ ->
   $("div#subnav a.smooth").on "click", (e) ->
     focus_input = $(this).attr("href") == "#site"
     $('html, body').animate
-      scrollTop: $($(this).attr("href")).offset().top
+      scrollTop: $($(this).attr("href")).offset().top - $("div#subnav").height()
     , 300, ->
       # clicking in the login link goes to the top of the page and focus
       # the first input text

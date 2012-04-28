@@ -17,18 +17,18 @@ selectableButtonsChange = (target) ->
 
   # deselect the current button/tab
   $("div.selectable-buttons-target > div").hide()
-  $("ul.selectable-buttons a").each ->
-    $(this).removeClass("selected")
+  $(".selectable-buttons a").each ->
+    $(this).removeClass("active")
 
   # select the target button/tab
-  target.addClass("selected")
+  target.addClass("active")
   $(target.attr("href")).show()
 
 $ ->
 
   # to hide the panels at startup
-  selectableButtonsChange $("ul.selectable-buttons a.selected")
+  selectableButtonsChange $(".selectable-buttons a.active")
 
-  $("ul.selectable-buttons a").on "click", (e) ->
+  $(".selectable-buttons a").on "click", (e) ->
     e.preventDefault()
     selectableButtonsChange $(this)

@@ -16,7 +16,7 @@
     <span class="only_url"><%= t('url_plain') %>: </span><span class="blue"><%= join_webconf_url(@bbb_room) %></span>
     <% if logged_in? %>
       <div class="invite_button">
-        <%= link_to t('button.invite'), inviteroom_invite_path(:type => "webconference", :room => space.bigbluebutton_room.to_param), :class => 'button open-modal' %>
+        <%= link_to t('button.invite'), inviteroom_invite_path(:type => "webconference", :room => space.bigbluebutton_room.to_param), :class => 'btn btn-mini open-modal' %>
       </div>
     <% end %>
   </div>

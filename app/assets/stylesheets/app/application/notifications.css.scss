@@ -5,12 +5,23 @@
   display: none;
 }
 
+.noty_bar {
+  position: absolute;
+  border-bottom: 1px solid transparent;
+  margin: 0;
+  padding: 0;
+  @include border-radius(0);
+}
+
 .noty_bar .noty_close {
-  top: 12px;
+  top: 10px;
   right: 20px;
   background-image: image-url('jquery/noty/close.png');
   width: 16px;
   height: 16px;
+  cursor: pointer;
+  padding: 0;
+  border: 0;
 
   &:hover {
     background-position: -16px 0;
@@ -19,29 +30,34 @@
 
 .noty_bar .noty_message {
   font-size: $font-medium;
-  padding: 10px 30px 10px 10px;
+  padding: 8px 35px 8px 14px;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
 }
-
-.noty_bar.top {
-  border-bottom-width: 0px;
-}
-
-$notif-success-bg: #2c8000; //#3AA900;
-$notif-notice-bg: #666; //#fde073;
-$notif-error-bg: #D14836;
 
 .noty_bar.alert {
+  $notif-notice-bg: #D9EDF7; //yellow: #FCF8E3; //#666;
   background-color: $notif-notice-bg;
-  color: #fff;
+  color: #3A87AD;
+  //yellow: color: #C09853;
   @include box-shadow(0 1px 5px 0 darken($notif-notice-bg, 15));
+  border-bottom-width: 1px;
+  border-color: darken($notif-notice-bg, 15);
 }
+
 .noty_bar.error {
+  $notif-error-bg: #F2DEDE;
   background-color: $notif-error-bg;
-  color: #fff;
+  color: #B94A48;
   @include box-shadow(0 1px 5px 0 darken($notif-error-bg, 15));
+  border-bottom-width: 1px;
+  border-color: darken($notif-error-bg, 15);
 }
+
 .noty_bar.success {
+  $notif-success-bg: #DFF0D8; //#2c8000 //#3AA900;
   background-color: $notif-success-bg;
-  color: #fff;
+  color: #468847;
   @include box-shadow(0 1px 5px 0 darken($notif-success-bg, 15));
+  border-bottom-width: 1px;
+  border-color: darken($notif-success-bg, 15);
 }

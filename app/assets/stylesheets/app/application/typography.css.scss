@@ -28,6 +28,7 @@ h1 {
 h2 {
   @include headers_base;
   font-size: 18px; //2em;
+  line-height: 30px;
 }
 h3 {
   @include headers_base;

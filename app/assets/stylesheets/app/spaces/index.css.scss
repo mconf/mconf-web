@@ -8,6 +8,7 @@ body.spaces.index {
   }
 
   #space-filter-wrapper {
+    @include mconf-clearfix;
     margin-bottom: 20px;
     padding: 10px 5px;
     background: $light-gray;
@@ -20,7 +21,17 @@ body.spaces.index {
       margin-right: 10px;
     }
 
-    label { margin-right: 15px; }
+    .btn-group {
+      margin-left: 15px;
+      float: left;
+
+      #space-filter-text {
+        float: left;
+        border-left: 0;
+        margin: 0;
+        @include border-left-radius(0);
+      }
+    }
   }
 
   #space-description-wrapper {

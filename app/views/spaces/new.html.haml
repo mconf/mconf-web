@@ -26,7 +26,7 @@
           = r.input :attendee_password, :as => :showable_password, :label => t('activerecord.attributes.spaces.attendee_password')
           = r.input :moderator_password, :as => :showable_password, :label => t('activerecord.attributes.spaces.moderator_password')
       = hidden_field "space", "image", :value => "/assets/default_space_logos/" + @files[selected].to_s, :name => "space[default_logo]"
-      = f.button :submit, t("button.create")
+      = f.button :submit, t("button.create"), :class => "btn"
 
   .right-column
 
@@ -35,11 +35,11 @@
         %h3= t('space.logo_selected.default_message')
         = help_icon t("tooltip.update_logo")
       .content-block-middle
-        = image_tag ("/assets/default_space_logos/" + @files[selected].to_s), { :id => "selected-logo-image", :size => "160x122"}
-        %ul.selectable-buttons
-          %li= link_to t('space.logo_selected.open_gallery'), '#logos-gallery'
-          %li= link_to t('space.logo_selected.text_logo'), '#logos-text'
-          %li= link_to t('space.logo_selected.upload_logo'), '#logos-upload'
+        = image_tag ("/assets/default_space_logos/" + @files[selected].to_s), { :id => "selected-logo-image" }
+        .selectable-buttons.btn-group{:"data-toggle" => 'buttons-radio'}
+          = link_to t('space.logo_selected.open_gallery'), '#logos-gallery', :class => 'btn'
+          = link_to t('space.logo_selected.text_logo'), '#logos-text', :class => 'btn'
+          = link_to t('space.logo_selected.upload_logo'), '#logos-upload', :class => 'btn'
 
     #logo-selection-options.selectable-buttons-target
 
@@ -50,12 +50,14 @@
           = f.hidden_field "rand"
 
       #logos-text
-        %span= t('space.logo_selected.enter_text')
-        = text_field_tag :text_logo, nil, :id => "logos-text-input"
-        = button_tag t("space.logo_selected.generate_logo"), :id => "logos-text-submit"
+        %label= t('space.logo_selected.enter_text')
+        %form.form-horizontal
+          .input-append
+            = text_field_tag :text_logo, nil, :id => "logos-text-input"
+            = button_tag t("space.logo_selected.generate_logo"), :id => "logos-text-submit", :class => "btn"
         #logos-text-generated
 
       #logos-gallery
         %ul
           - for file in @files
-            %li= link_to (image_tag "/assets/default_space_logos/" + file.to_s, { :size => "100x76"}), '#'
+            %li= link_to (image_tag "/assets/default_space_logos/" + file.to_s), '#'
