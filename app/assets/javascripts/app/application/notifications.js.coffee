@@ -8,8 +8,10 @@ $ ->
     force: false
     modal: false
     timeout: 6000
+    speed: 200
     textAlign: 'center'
-    layout: 'top'
+    layout: 'topCenter'
+    closeButton: true
 
   $("#notification-flashs > div[name='error']").each ->
     opts = $.extend {}, noty_opt,
