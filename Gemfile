@@ -41,7 +41,7 @@ gem 'atom-tools'
 gem 'hpricot'
 gem 'feed-normalizer'
 gem 'httparty'
-gem 'pdf-writer'
+#gem 'pdf-writer'
 gem 'ci_reporter'
 gem 'nokogiri', '1.4.1'
 gem 'rubyzip' # TODO: see rubyzip2
