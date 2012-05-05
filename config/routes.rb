@@ -17,7 +17,7 @@ Mconf::Application.routes.draw do
   bigbluebutton_routes :default, :controllers => { :servers => 'custom_bigbluebutton_servers', :rooms => 'custom_bigbluebutton_rooms' }
 
   # FIXME: Temporary, this should probably be done by bigbluebutton_rails
-  match '/webconf/:id', :to => 'webconferences#join',
+  match '/webconf/:id', :to => 'custom_bigbluebutton_rooms#invite',
                         :as => "join_webconf"
 
   # shibboleth controller

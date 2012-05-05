@@ -227,6 +227,7 @@ class Notifier < ActionMailer::Base
     @sender = params[:user_name]
     @room_name = params[:room_name]
     @room_url = params[:room_url]
+    @mobile_url = params[:mobile_url]
     @subject = params[:title]
     @message = params[:body]
     @signature  = Site.current.signature_in_html

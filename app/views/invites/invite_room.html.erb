@@ -1,5 +1,3 @@
-<% # Displayed in a modal window  %>
-
 <script type="text/javascript">
   $(document).ready(function () {
     $("#invite_members_tokens").tokenInput("/invite/invite_room.json", {
@@ -14,21 +12,21 @@
   });
 </script>
 
-<div class="modal-title">
+<h3 class="dialog_title">
   <% if @type == "webconference" %>
     <%= t('webconference.invite_webconference') %>
   <% elsif @type == "event" %>
     <%= t('event.invite_event', :event_name => @event.name) %>
   <% end %>
-</div>
+</h3>
 
 <div id="webconference_invite_dialog" class="modal-content">
-
+  
   <% if @type == "webconference" %>
     <div class="header">
       <div class="label"><%= t('invite_people.room_name') %></div>
       <div class="value"><span><%= @room.name %></span></div>
-      <div class="label"><%= t('home.webconference.your_url') %></div>
+      <div class="label"><%= t('home.invite_url') %></div>
       <div class="value">
         <%= text_field_tag "room_invite_url", join_webconf_url(@room), :disabled => true %>
       </div>

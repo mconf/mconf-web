@@ -15,6 +15,10 @@ Mconf-web is a web application that connects to a {BigBlueButton}[http://www.big
 
 <b>For more details {read our wiki}[http://code.google.com/p/mconf/wiki/MconfWeb]</b>.
 
+== License
+
+This project is under the {AGPL version 3 license}[http://www.gnu.org/licenses/agpl-3.0.html]. See COPYING.
+
 == Links
 
 * {Mconf website}[http://www.inf.ufrgs.br/prav/gtmconf]
