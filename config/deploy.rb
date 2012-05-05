@@ -16,8 +16,9 @@
 #  cap staging setup:db            # drops, creates and populates the db with the basic data
 #
 
+LOCAL_PATH = File.expand_path(File.dirname(__FILE__))
+
 # RVM bootstrap
-# $:.unshift(File.expand_path('./lib', ENV['rvm_path'])) # Add RVM's lib directory to the load path.
 require "rvm/capistrano"
 set :rvm_ruby_string, '1.9.2-p290@mconf'
 set :rvm_type, :system
@@ -111,9 +112,9 @@ namespace :deploy do
 
   desc "Send to the server the local configuration files"
   task :upload_config_files do
-    top.upload "config/database.yml", "#{release_path}/config/", :via => :scp
-    top.upload "config/setup_conf.yml", "#{release_path}/config/", :via => :scp
-    top.upload "config/analytics_conf.yml", "#{release_path}/config/", :via => :scp
+    top.upload "#{LOCAL_PATH}/database.yml", "#{release_path}/config/", :via => :scp
+    top.upload "#{LOCAL_PATH}/setup_conf.yml", "#{release_path}/config/", :via => :scp
+    top.upload "#{LOCAL_PATH}/analytics_conf.yml", "#{release_path}/config/", :via => :scp
   end
 
 end
