@@ -42,6 +42,7 @@ gem 'table_helper', :git => 'git://github.com/echen/table_helper.git'
 group :development do
   #gem 'ruby-debug19', :require => 'ruby-debug'
   gem 'capistrano', '~> 2.5'
+  gem 'rvm-capistrano'
   gem 'capistrano-ext'
   gem 'translate-rails3', :require => 'translate', :git => 'git://github.com/mconf/translate.git'
 end
