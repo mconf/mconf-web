@@ -237,6 +237,8 @@ GEM
     ruby-openid (2.1.8)
     ruby-progressbar (0.0.10)
     rubyzip (0.9.4)
+    rvm-capistrano (1.1.0)
+      capistrano (>= 2.0.0)
     sass (3.1.15)
     sass-rails (3.2.4)
       railties (~> 3.2.0)
@@ -327,6 +329,7 @@ DEPENDENCIES
   rspec-rails (~> 2.8)
   ruby-openid
   rubyzip
+  rvm-capistrano
   sass-rails (~> 3.2.0)
   shoulda-matchers
   simple_form (~> 2.0.0)
