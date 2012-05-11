@@ -134,7 +134,7 @@ ul#navbar-right-links {
         padding: 0;
         &:hover {
           @include text-shadow(none);
-          background-color: transparent;
+          background-color: $transparent;
         }
       }
     }
@@ -201,26 +201,27 @@ ul#navbar-right-links {
   @include mconf-clearfix;
 
   .title {
+    //@include text-shadow(lighten($navbar-bg-color, 30) 0 0 10px);
     @include link-colors(#bbb, white, white, #bbb);
     font-size: 21px;
     float: left;
-    //@include text-shadow(lighten($navbar-bg-color, 30) 0 0 10px);
   }
 }
 
 #notification-flashs {
- top: $navbar-height;
+  top: $navbar-height;
 }
 
-/* breadcrumbs try 1
-//#page-header {
-  //padding: 15px;
-  //height: 30px;
-  //@include mconf-clearfix;
-  //margin: 0 auto;
-  //width: $contents-width;
-//}
-*/
+/*
+ *  breadcrumbs try 1
+ * #page-header {
+ *   padding: 15px;
+ *   height: 30px;
+ *   @include mconf-clearfix;
+ *   margin: 0 auto;
+ *   width: $contents-width;
+ * }
+ */
 
 #page-header {
   @include mconf-clearfix;
@@ -506,7 +507,7 @@ ul#navbar-right-links {
 
       &:hover {
         background: #d6d6d6;
-        color: #444;//$site-link;
+        color: #444;
       }
     }
   }
@@ -531,7 +532,7 @@ ul#navbar-right-links {
     }
   }
 
-  &.thread-even { background: transparent; }
+  &.thread-even { background: $transparent; }
   &.thread-odd { background: $light-gray; }
 }
 
@@ -544,30 +545,30 @@ ul#navbar-right-links {
 .visible-on-hover { display: none; }
 
 /*
-ul.selectable-buttons {
-  margin: 0;
-
-  li {
-    display: inline-block;
-    padding-left: 10px;
-
-    a {
-      display: inline-block;
-      @include link-colors(#808080, $site-link-hover, $site-link-active);
-      padding: 5px 10px;
-      font-weight: bold;
-      font-size: 14px;
-      @include text-shadow(darken($site-bg-color, 10) 1px 1px 2px);
-      //border: 1px solid $site-bg-color;
-
-      &.selected {
-        color: $main-color;
-        background: $light-gray;
-        @include border-radius(5px);
-        @include box-shadow(inset 0 1px 2px rgba(0, 0, 0, 0.1));
-        //border: 1px solid darken($light-gray, 5);
-      }
-    }
-  }
-}
-*/
+ * ul.selectable-buttons {
+ *   margin: 0;
+ *
+ *   li {
+ *     display: inline-block;
+ *     padding-left: 10px;
+ *
+ *     a {
+ *       display: inline-block;
+ *       @include link-colors(#808080, $site-link-hover, $site-link-active);
+ *       padding: 5px 10px;
+ *       font-weight: bold;
+ *       font-size: 14px;
+ *       @include text-shadow(darken($site-bg-color, 10) 1px 1px 2px);
+ *       //border: 1px solid $site-bg-color;
+ *
+ *       &.selected {
+ *         color: $main-color;
+ *         background: $light-gray;
+ *         @include border-radius(5px);
+ *         @include box-shadow(inset 0 1px 2px rgba(0, 0, 0, 0.1));
+ *         //border: 1px solid darken($light-gray, 5);
+ *       }
+ *     }
+ *   }
+ * }
+ */

@@ -538,7 +538,7 @@ p.sidebar_info2{margin:6px 0 0 0;padding:5px;border:1px solid #bdd8eb;background
 #sidebar #assistance_info .event_options div.option{float:left;position:relative;}
 #sidebar #assistance_info .event_options a{text-decoration:none;}
 #sidebar #assistance_info .event_options .option span{
-        background:transparent url(asset_path("icons/accept1.png", image)) no-repeat scroll 0 0;
+        background:rgba(255,255,255,0) url(asset_path("icons/accept1.png", image)) no-repeat scroll 0 0;
         display:block;
         left:-3px;
         padding:8px;
@@ -551,7 +551,7 @@ p.sidebar_info2{margin:6px 0 0 0;padding:5px;border:1px solid #bdd8eb;background
         -moz-border-radius-bottomright:2px;
         -moz-border-radius-topleft:2px;
         -moz-border-radius-topright:2px;
-        background:transparent url(asset_path("buttons/fondo-boton2.png", image)) repeat scroll 0 0;
+        background:rgba(255,255,255,0) url(asset_path("buttons/fondo-boton2.png", image)) repeat scroll 0 0;
         border:1px solid #CCCCCC;
         color:#666666;
         cursor:pointer;
@@ -570,7 +570,7 @@ p.sidebar_info2{margin:6px 0 0 0;padding:5px;border:1px solid #bdd8eb;background
 }
 #sidebar #assistance_info button:hover{border-color:#8A8A8A;}
 #sidebar #assistance_info button#choice{
-        background:transparent url(asset_path("buttons/fondo-boton1.png", image)) repeat scroll 0 0;
+        background:rgba(255,255,255,0) url(asset_path("buttons/fondo-boton1.png", image)) repeat scroll 0 0;
         border:1px solid #64A3CF;
         color:#fff;
         font-weight:bold;
@@ -602,7 +602,7 @@ ul#actions_menu{
 }
 
 ul#actions_menu li{cursor:pointer;border-bottom:1px solid #ccc;}
-ul#actions_menu li:hover{background:transparent url(asset_path("buttons/fondo-boton2.png", image)) repeat-x;}
+ul#actions_menu li:hover{background:rgba(255,255,255,0) url(asset_path("buttons/fondo-boton2.png", image)) repeat-x;}
 ul#actions_menu li a{color:#222;display:block;padding:3px 3px 3px 10px;outline:none;}
 ul#actions_menu li a:hover{text-decoration:none;}
 
@@ -1585,7 +1585,7 @@ input#agenda_entry_title,#agenda_entry_description,#agenda_entry_embedded_video{
   padding: 2px 10px;
 }
 
-#orange_bar{background: transparent url(asset_path("linea_naranja.png", image)) repeat-x;overflow:visible;}
+#orange_bar{background: rgba(255,255,255,0) url(asset_path("linea_naranja.png", image)) repeat-x;overflow:visible;}
 #orange_bar ul{list-style-type:none;margin:0 0 0.75em 0;position:relative;clear:both;overflow:hidden;border:1px solid #FFA903;}
 #orange_bar ul li{
         float:left;
@@ -1595,9 +1595,9 @@ input#agenda_entry_title,#agenda_entry_description,#agenda_entry_embedded_video{
 #orange_bar ul li h3{margin:5px 0 0 50px;color:#353535;font-size:1.25em;line-height:2.4;}
 #orange_bar ul li p{margin:0 0 0 0;padding:0 15px;color:#505050;font-size:1.0833em;line-height:1.3846;}
 
-#orange_bar ul li.orange_one{background:transparent url(asset_path("meeting.png", image)) no-repeat 15px 7px;width:31%;}
-#orange_bar ul li.orange_two{background:transparent url(asset_path("virtual_meeting.png", image)) no-repeat 15px 9px;width:34%;}
-#orange_bar ul li.orange_three{border:none;width:34%;background:transparent url(asset_path("congress_icon_big.png", image)) no-repeat 15px 5px;}
+#orange_bar ul li.orange_one{background:rgba(255,255,255,0) url(asset_path("meeting.png", image)) no-repeat 15px 7px;width:31%;}
+#orange_bar ul li.orange_two{background:rgba(255,255,255,0) url(asset_path("virtual_meeting.png", image)) no-repeat 15px 9px;width:34%;}
+#orange_bar ul li.orange_three{border:none;width:34%;background:rgba(255,255,255,0) url(asset_path("congress_icon_big.png", image)) no-repeat 15px 5px;}
 #orange_bar ul li.orange_three h3{margin-left:70px;}
 #orange_bar ul li.orange_three p{margin-top:18px;}
 /* botones del crear evento*/
@@ -1605,14 +1605,14 @@ input#agenda_entry_title,#agenda_entry_description,#agenda_entry_embedded_video{
 #create_event ul{list-style-type:none;margin:0 0 0 0;border:1px solid #5c96bf;border-bottom:none;clear:both;overflow:hidden;}
 #create_event ul li{text-align:center;position:relative;clear:both;height:100%;width:238px;}
 #create_event ul li.event_b_title{overflow:visible;}
-#create_event ul li.event_b_title span.pico_azul{padding:3px 25px;background:transparent url(asset_path("pico_azul.png", image)) no-repeat center center;}
+#create_event ul li.event_b_title span.pico_azul{padding:3px 25px;background:rgba(255,255,255,0) url(asset_path("pico_azul.png", image)) no-repeat center center;}
 
 #sidebar #create_event ul li h3{
         margin:0;
         padding:3px 0;
         font-size:1.25em;
         line-height:2.4;
-        background:transparent url(asset_path("linea_azul.png", image)) repeat-x scroll 0 102%;
+        background:rgba(255,255,255,0) url(asset_path("linea_azul.png", image)) repeat-x scroll 0 102%;
         border-bottom:1px solid #5c96bf;}
 .event_b_item{font-size:1.16667em;line-height:2.5714;font-weight:bold;background:#f0f6f9;border-bottom:1px solid #5C96BF;}
 #create_event ul li.event_b_item:hover{background:#D5E0E8;}
@@ -1632,13 +1632,13 @@ input#agenda_entry_title,#agenda_entry_description,#agenda_entry_embedded_video{
         width:100%;
         }
 #create_event ul li.event_b_item a.l_one{
-        background:transparent url(asset_path("meeting.png", image)) no-repeat 27% center;
+        background:rgba(255,255,255,0) url(asset_path("meeting.png", image)) no-repeat 27% center;
         padding-left:6px;}
 #create_event ul li.event_b_item a.l_two{
-        background:transparent url(asset_path("virtual_meeting.png", image)) no-repeat 17% center;
+        background:rgba(255,255,255,0) url(asset_path("virtual_meeting.png", image)) no-repeat 17% center;
         padding:4px 0 4px 16px;}
 #create_event ul li.event_b_item a.l_three{
-        background:transparent url(asset_path("congress_icon.png", image)) no-repeat 13% center;
+        background:rgba(255,255,255,0) url(asset_path("congress_icon.png", image)) no-repeat 13% center;
         padding:4px 0 4px 30px;}
 
 

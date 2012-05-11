@@ -123,7 +123,7 @@ input[type=submit].blue_button:hover, button.blue_button:hover, a.blue_button:ho
 
 /* ORANGE */
 input[type=submit].orange_button, button.orange_button, a.orange_button {
-  background: transparent url(asset_path("buttons/fondo-join-space.png", image));
+  background: rgba(255,255,255,0) url(asset_path("buttons/fondo-join-space.png", image));
   color: white;
   border-bottom:1px #C18500 solid;
   border-top:1px #FFC14A solid;

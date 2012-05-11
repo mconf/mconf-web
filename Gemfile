@@ -9,8 +9,8 @@ group :assets do
   gem 'coffee-rails', '~> 3.2.0'
   gem 'uglifier', '>= 1.0.3'
   gem 'yui-compressor'
-  gem 'compass', '0.12.alpha.4'
-  gem 'fancy-buttons'
+  gem 'compass-rails', '~> 1.0'
+  gem 'fancy-buttons', '~> 1.2' # TODO: check if we can remove it
 end
 
 gem 'mysql2', '~> 0.3.0'
