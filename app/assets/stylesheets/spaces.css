@@ -1,3 +1,5 @@
 /*
- *= require_tree ./app/spaces/
+ *= require ./app/spaces/index
+ *= require ./app/spaces/new
+ *= require ./app/spaces/show
  */

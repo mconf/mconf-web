@@ -121,11 +121,9 @@ body.homes.show {
 
       input[type=text] {
         width: $upper-right-area-width - 130px - 100px; // - main-action-buttons - 100
-        padding: 5px;
         margin-left: 5px;
         background: $site-bg-color;
         color: #444;
-
         &:focus {
           border-color: $second-color;
         }

@@ -20,6 +20,7 @@ class SpacesController < ApplicationController
   include ActionController::StationResources
 
   before_filter :space
+  before_filter :webconf_room!, :only => [:show, :edit]
 
   authentication_filter :only => [:new, :create]
   authorization_filter :read,   :space, :only => [:show]
@@ -57,12 +58,6 @@ class SpacesController < ApplicationController
   end
 
   def show
-    @bbb_room = BigbluebuttonRoom.where("owner_id = ? AND owner_type = ?", @space.id, @space.class.name).first
-    begin
-      @bbb_room.fetch_meeting_info
-    rescue Exception
-    end
-
     @news_position = (params[:news_position] ? params[:news_position].to_i : 0)
     @news = @space.news.order("updated_at DESC").all
     @news_to_show = @news[@news_position]
@@ -74,6 +69,7 @@ class SpacesController < ApplicationController
     @upcoming_events=@space.events.find(:all, :order => "start_date ASC").select{|e| e.start_date && e.start_date.future?}.first(5)
     @performance=Performance.find(:all, :conditions => {:agent_id => current_user, :stage_id => @space, :stage_type => "Space"})
     @current_events = (Event.in(@space).all :order => "start_date ASC").select{|e| e.start_date && !e.start_date.future? && e.end_date.future?}
+    render :layout => 'spaces_show'
   end
 
   def new
@@ -88,6 +84,7 @@ class SpacesController < ApplicationController
     # @users = @space.actors.sort {|x,y| x.name <=> y.name }
     @performances = space.stage_performances.sort {|x,y| x.agent.name <=> y.agent.name }
     @roles = Space.roles
+    render :layout => 'spaces_show'
   end
 
   def create

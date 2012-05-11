@@ -1,0 +1,80 @@
+@import "compass/typography/links";
+@import "definitions";
+
+body.spaces.show,
+body.spaces.edit, body.spaces.update,
+body.webconferences.show {
+
+  #space-sidebar {
+
+    #latest-news {
+
+      .news-title {
+        h4 {
+          float: left;
+          color: black;
+          font-weight: bold;
+        }
+      }
+
+      .news-content {
+        clear: both;
+        margin-top: 5px;
+      }
+
+    }
+
+    #sidebar-leave-space {
+      text-align: center;
+      padding: 5px 0;
+    }
+
+    #sidebar-webconference {
+      .description {
+        text-align: center;
+      }
+
+      .buttons {
+        text-align: center;
+        margin: 15px 0;
+
+        .webconf-start-link {
+          float: left;
+          width: 35%;
+        }
+        .webconf-join-mobile-link {
+          float: right;
+          width: 40%;
+        }
+      }
+
+      .in-progress-icon {
+        float: left;
+        margin-top: 2px;
+        margin-right: 5px;
+      }
+    }
+
+    #sidebar-space-admins {
+      .admin-wrapper {
+        clear: both;
+        margin-bottom: 10px;
+        margin-top: 5px;
+
+        .admin-text { margin-left: 45px; }
+        .admin-name { display: block; }
+        .admin-organization { display: block; }
+      }
+    }
+
+    #sidebar-pageviews {
+      text-align: center;
+      .value {
+        font-weight: bold;
+        color: $blue;
+      }
+    }
+
+  }
+
+}

@@ -1,0 +1,55 @@
+@import "compass/css3";
+@import "definitions";
+
+@import "app/spaces/sidebar";
+
+body.webconferences.show {
+
+  #webconference-description {
+    /*
+     * .join-links {
+     *   float: left;
+     *   width: 200px;
+     *   text-align: center;
+     *
+     *   .btn {
+     *     width: 160px;
+     *     margin-bottom: 5px;
+     *   }
+     * }
+     *
+     * .description-text {
+     *   margin-left: 210px;
+     * }
+     */
+  }
+
+  #webconference-share {
+
+    .share-url {
+      margin-top: 10px;
+      @include mconf-clearfix;
+      background: $light-gray;
+      padding: 10px;
+      @include border-radius(4px);
+
+      label {
+        float: left;
+        margin-top: 5px;
+        margin-right: 10px;
+      }
+      input[type=text] {
+        float: left;
+        width: 400px;
+        margin: 0;
+        margin-right: 10px;
+        background: $site-bg-color;
+        &:focus {
+          border-color: $second-color;
+        }
+      }
+    }
+
+  }
+
+}

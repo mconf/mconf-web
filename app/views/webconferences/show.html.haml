@@ -1,0 +1,41 @@
+- spaces_menu_at :webconference
+
+
+#webconference-description.content-block
+  .content-block-header
+    %h3= t('webconference.space.access.header')
+  .content-block-middle
+    -# - if logged_in?
+    -#   - join_link = join_space_room_path(space, @webconf_room)
+    -# - else
+    -#   - join_link = invite_space_room_path(space, @webconf_room)
+    -# .join-links
+    -#   = link_to t('button.join_webconference'), join_link, :class => 'webconf-start-link btn btn-info'
+    -#   = link_to t('button.join_webconference_mobile'), join_mobile_space_room_path(space, @webconf_room), :class => 'webconf-join-mobile-link btn'
+    .description-text
+      - status = @webconf_room.is_running? ? t('webconference.running') : t('webconference.not_running')
+      = t('webconference.space.access.description', :status => status).html_safe
+
+#webconference-share.content-block
+  .content-block-header
+    %h3= t('webconference.space.share.header')
+  .content-block-middle
+    = t('webconference.space.share.description')
+    .share-url
+      = label_tag 'invite-url-text', t('webconference.space.share.url')
+      = text_field_tag 'invite-url-text', join_webconf_url(@webconf_room), :readonly => true
+      - if logged_in?
+        = link_to t('button.invite'), inviteroom_invite_path(:type => "webconference", :room => space.bigbluebutton_room.to_param), :title => t('home.webconference.invite_tooltip'), :class => 'btn open-modal tooltipped upwards'
+
+.content-block
+  .content-block-header
+    = image_tag("icons/user.png")
+    %h3
+      = t('webconference.title_people_conf')
+      = "(#{@webconf_room.participant_count})"
+  .content-block-middle
+    - if @webconf_attendees.count == 0
+      = t('webconference.nobody.one_line')
+    - else
+      - @webconf_attendees.each do |user|
+        = render :partial => 'users/detailed_user', :object => user

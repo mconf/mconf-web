@@ -96,6 +96,10 @@ class ApplicationController < ActionController::Base
 
   helper_method :space, :space!
 
+  def webconf_room!
+    @webconf_room = @space.bigbluebutton_room || raise(ActiveRecord::RecordNotFound)
+  end
+
   before_filter :not_activated_warning
   def not_activated_warning
     if authenticated? && ! current_agent.active?

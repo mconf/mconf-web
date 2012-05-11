@@ -185,7 +185,7 @@ en:
     sending: Sending...
     update: Update
     upload: Upload
-  by: "by"
+  by: by
   cafe: 
     login: "Login using CAFe"
   calendar: 
@@ -219,15 +219,15 @@ en:
     one: Comment
     other: Comments
     show_all: "Show all comments"
-  configurations: "Configurations"
+  configurations: Configurations
   contact_information: "Contact information"
   country: Country
   create: Create
   create_event: "Create Event"
   created_time_ago: "Created %{time} ago"
-  crop_image:
-   description: "Select a part of the image to crop"
-   title: "Crop image"
+  crop_image: 
+    description: "Select a part of the image to crop"
+    title: "Crop image"
   date: 
     at: at
     start: "Start date"
@@ -536,7 +536,7 @@ en:
   footer: 
     built_on_top_of: "This website is based on <a href=\"https://github.com/ging/vcc\">VCC</a> (Global Plaza)"
     copyright: "© 2010-2012 %{site}."
-    current_version: Current version
+    current_version: "Current version"
     find_us: "Find more about Mconf"
     gcode: "Google Code"
     github: GitHub
@@ -551,28 +551,28 @@ en:
       title: Sponsors
     website: "Project website"
   from: From
-  frontpage:
-    components:
-      bigbluebutton:
+  frontpage: 
+    components: 
+      bigbluebutton: 
         description: "Mconf uses BigBlueButton (BBB) as the base system to hold web conferences. BBB is developed using more than 15 open source components to create a solid web conference platform and is one of the best open source web conferencing softwares (if not the best) today. Mconf uses a customized version of BigBlueButton and contributes to the development of the project."
         link1: "Learn more about BigBlueButton"
         link2: "See what Mconf has been doing in BigBlueButton"
         subtitle: "The core web conference system"
-        title: "BigBlueButton"
-      mobile:
+        title: BigBlueButton
+      mobile: 
         description: "Mconf-Mobile and BBB-Android are open source BigBlueButton clients for Android devices. BBB-Android is a native Android application that works with any BBB server, and Mconf-Mobile is its customization for Mconf. Both application are available for download in the Android Market."
         link1: "Read more about it"
         link2: "View pictures of the application"
         subtitle: "Use Mconf in mobile devices"
         title: "Mconf-Mobile and BBB-Android"
-      portal:
+      portal: 
         description: "Mconf-Web is the website you are using right now. It is an open source web application implemented in Ruby on Rails (built on top of Global Plaza) that provides access to all features in Mconf. You can register for free in this website to test it."
         link1: "Read more about it"
         link2: "Create an account and test it now!"
         subtitle: "The web portal"
-        title: "Mconf-Web"
+        title: Mconf-Web
       subtitle: "The blocks that form Mconf"
-      title: "Components"
+      title: Components
     links: 
       docs: "Google Code"
       docs_desc: "Documentation and bug tracker"
@@ -585,6 +585,9 @@ en:
       item2: "Source code can be found at: <a href=\"https://github.com/mconf/mconf-graphics\">here</a> and <a href=\"https://github.com/mconf/mconf-statistics\">here</a>."
       message: "Mconf is developing a monitor for BigBlueButton that will collect usage statistics and display it in nice graphics such as the one you're seeing in the picture."
       title: News
+    open_source: 
+      subtitle: "Mconf is an open source project, see here where you can find us"
+      title: "Open source"
     project_description: "Mconf is an open source webconference system powered by <a href=\"http://bigbluebutton.org/\">BigBlueButton</a>. It is developed in the research group <a href=\"http://www.inf.ufrgs.br/prav\">PRAV</a> at <a href=\"http://www.ufrgs.br\">UFRGS</a> (Brazil), and funded by <a href=\"http://www.rnp.br\">RNP</a>. And this is the web portal that provides access to Mconf."
     register_sentence: "Register to create your own spaces and webconferences"
     searching_for: 
@@ -598,13 +601,10 @@ en:
       use: 
         message: "You can use Mconf for free, but first you need to <a href=\"/signup\">create an account</a>."
         title: "Use Mconf"
-    sections:
-      introduction: "Introduction"
+    sections: 
+      introduction: Introduction
       more_about_mconf: "Learn more about Mconf"
       what_is_mconf: "What is Mconf?"
-    open_source:
-      subtitle: "Mconf is an open source project, see here where you can find us"
-      title: "Open source"
     spaces: 
       subtitle: "Spaces are discussion groups for people with similar interests. </span><a href=\"/spaces\">View the complete list..."
       title: "Public Spaces"
@@ -776,11 +776,11 @@ en:
     updatedn: " entries of your iCalendar were already on your event agenda and were updated. "
   im: IM
   inbox: 
+    my: "My Inbox (%{checked})"
+    one: "Inbox (%{checked})"
     unread_text: 
       one: "You have %{count} unread message!"
       other: "You have %{count} unread messages!"
-    my: "My Inbox (%{checked})"
-    one: "Inbox (%{checked})"
   information: 
     expand: "Expand List.."
     information1: "These are the spaces you belong to"
@@ -1345,7 +1345,7 @@ en:
   street: Street
   subject: Subject
   summary: "Video Info"
-  superuser: "Administrator"
+  superuser: Administrator
   tag: 
     add: "Add tags"
     edit: "Edit tags"
@@ -1442,7 +1442,7 @@ en:
     delete_from_space: "Delete user from space"
     disable: "Disable user"
     disabled: "User %{username} disabled"
-    edit:
+    edit: 
       click_to_edit_profile: "Click here to edit your profile"
       did_not_find_info: "Didn't find the information you were looking for?"
       federated: 
@@ -1549,10 +1549,15 @@ en:
     one: Webconference
     running: running
     space: 
-      description: "The webconference room associated with this space is currently: <b>%{status}</b> <br/> Click in the button at the top of the sidebar to join the webconference. <br/> You can also share the link below (or click \"invite\") to invite other people to this conference."
+      access: 
+        description: "The webconference room associated with this space is currently: <b>%{status}</b> <br/> Click in the button at the top of the sidebar to join the webconference."
+        header: "Webconference access"
       join_now: "Join now"
       see_more: "see more"
-      share: Share
+      share: 
+        description: "You can invite people to this webconference by sharing the link below or clicking in the \"invite\" button."
+        header: Share
+        url: "Webconference URL"
     start_now: "Start now!"
     title_people_conf: "People in the room"
   when: When
