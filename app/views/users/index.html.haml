@@ -1,0 +1,10 @@
+- spaces_menu_at :users
+= content_for :menu do
+  = render :partial => 'spaces/menu'
+
+#user-list.content-block
+  .content-block-header
+    %h3= t('user.index.user_list.header', :count => @users.size)
+  .content-block-middle
+    - for user in @users
+      = render :partial => 'users/detailed_user', :locals => { :user => user }

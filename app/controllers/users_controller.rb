@@ -21,7 +21,8 @@ class UsersController < ApplicationController
   include ActionController::StationResources
   include ActionController::Agents
 
-  before_filter :space!, :only => [ :index ]
+  before_filter :space!, :only => [:index]
+  before_filter :webconf_room!, :only => [:index]
 
   # Permission filters
   authorization_filter [ :read, :performance ], :space, :only => [ :index ]
@@ -44,7 +45,7 @@ class UsersController < ApplicationController
     #end
 
     respond_to do |format|
-      format.html
+      format.html { render :layout => 'spaces_show' }
       format.xml { render :xml => @users }
       format.atom
     end

@@ -448,6 +448,7 @@ ul#navbar-right-links {
       a.danger-text {
         @include danger-text;
         @include opacity(0.8);
+        &.selected { @include opacity(1); }
       }
     }
   }

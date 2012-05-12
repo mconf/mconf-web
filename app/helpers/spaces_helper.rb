@@ -7,8 +7,9 @@ module SpacesHelper
 
   # Selects the tab if it is the current tab in the menu for spaces
   def spaces_menu_select_if(tab, options={})
+    old_class = options[:class] || ''
     @spaces_menu_tab == tab ?
-      options.update({ :class => 'selected' }) :
+      options.update({ :class => "#{old_class} selected" }) :
       options
   end
 

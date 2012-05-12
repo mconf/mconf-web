@@ -1471,6 +1471,9 @@ en:
     group_invite_email: "Invite by e-mail"
     id: "User ID"
     include_registered: "Include registered users"
+    index: 
+      user_list: 
+        header: "Users in this space: %{count}"
     invite: "Invite people"
     invite_email: "Invite people by email"
     invited: "Users already invited"

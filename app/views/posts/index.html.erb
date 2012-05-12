@@ -1,4 +1,7 @@
 <% spaces_menu_at :posts %>
+<%= content_for :menu do %>
+  <%= render :partial => 'spaces/menu' %>
+<% end %>
 <% atom_link_header(space, Post.new, :title => h(t('post.other_in_space', :space => space.name))) %>
 
 <% # TODO: remove javascript to independent js files %>

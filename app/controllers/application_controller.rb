@@ -101,7 +101,7 @@ class ApplicationController < ActionController::Base
     if @webconf_room
       begin
         @webconf_room.fetch_meeting_info
-      rescue
+      rescue Exception
       end
     else
       raise(ActiveRecord::RecordNotFound)

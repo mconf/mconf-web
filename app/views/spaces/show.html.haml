@@ -1,4 +1,6 @@
 - spaces_menu_at :home
+= content_for :menu do
+  = render :partial => 'spaces/menu'
 
 // TODO: This block below should be tested
 - if !@current_events.empty?

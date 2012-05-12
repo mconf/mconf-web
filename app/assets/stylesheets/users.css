@@ -3,4 +3,5 @@
  *= require ./app/users/edit
  *= require ./app/users/show
  *= require ./app/users/new
+ *= require ./app/users/index
  */

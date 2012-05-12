@@ -31,10 +31,7 @@
         #content
           #content-middle
             = render :partial => "layouts/application_header"
-
-            -# TODO: Maybe remove this menu from the layout and add a yield :menu
-            = render :partial => "layouts/menu"
-
+            = yield :menu
             = yield
 
           - if content_for?(:sidebar)
