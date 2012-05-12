@@ -27,12 +27,6 @@ GIT
       rails (>= 3.0.0)
 
 GIT
-  remote: git://github.com/mconf/permalink_fu.git
-  revision: a42f16a13ab1f7bf14256e57a8e0fe6c6f902bf9
-  specs:
-    teambox-permalink_fu (1.0.1)
-
-GIT
   remote: git://github.com/mconf/translate.git
   revision: 66f8c7d16696b4b217cb91b4dc3c0e326340b2d3
   specs:
@@ -145,6 +139,7 @@ GEM
       hpricot (>= 0.6)
       simple-rss (>= 1.1)
     ffaker (1.12.1)
+    friendly_id (4.0.5)
     fssm (0.2.9)
     fuubar (1.0.0)
       rspec (~> 2.0)
@@ -308,6 +303,7 @@ DEPENDENCIES
   fckeditor
   feed-normalizer
   ffaker
+  friendly_id
   fuubar
   galetahub-simple_captcha
   garb
@@ -337,7 +333,6 @@ DEPENDENCIES
   simple_form (~> 2.0.0)
   sqlite3
   table_helper!
-  teambox-permalink_fu!
   therubyracer
   translate-rails3!
   turn (= 0.8.2)

@@ -31,24 +31,18 @@ class User < ActiveRecord::Base
   acts_as_stage
   acts_as_taggable :container => false
   acts_as_resource :param => :login
-  validates :login, :uniqueness => true
 
   has_one :profile, :dependent => :destroy
   has_many :events, :as => :author
   has_many :participants
   has_many :posts, :as => :author
   has_many :memberships, :dependent => :destroy
-  #has_many :groups, :through => :memberships
-
-  # exclusive and unique BBB Room for each user
-  after_create :create_webconf_room
-  after_update :update_webconf_room
   has_one :bigbluebutton_room, :as => :owner, :dependent => :destroy
+
   accepts_nested_attributes_for :bigbluebutton_room
 
   # TODO: see JoinRequestsController#create L50
   attr_accessible :created_at, :updated_at, :activated_at, :disabled
-
   attr_accessible :captcha, :captcha_key, :authenticate_with_captcha
   attr_accessible :email2, :email3, :machine_ids
   attr_accessible :timezone
@@ -60,19 +54,20 @@ class User < ActiveRecord::Base
   attr_accessible :receive_digest
   attr_accessor :special_event_id
 
-  # TODO is_indexed comes from Ultrasphinx
-=begin
-  is_indexed :fields => ['login','email'],
-             :conditions => "disabled = 0",
-             :include => [ {:class_name => 'Profile',:field => 'full_name',:as => 'full_name'},
-             { :class_name => 'Profile',:field => 'organization',:as => 'profile_organization'},
-            #{ :class_name => 'Profile',:field => 'lastname',:as => 'profile_lastname'}
-            ],
+  # Full name must go to the profile, but it is provided by the user in signing up
+  # so we have to temporally cache it until the user is created; :_full_name
+  attr_accessor :_full_name
+  attr_accessible :_full_name
+  extend FriendlyId
+  friendly_id :_full_name, :use => :slugged, :slug_column => :login
+  # BigbluebuttonRoom requires an identifier with 3 chars generated from :name
+  # So we'll require :_full_name and :login to have length >= 3
+  validates :login, :uniqueness => true, :length => { :minimum => 3 }
+  validates :_full_name, :presence => true, :length => { :minimum => 3 }, :on => :create
 
-             :concatenate => [ { :class_name => 'Tag',:field => 'name',:as => 'tags',
-                                 :association_sql => "LEFT OUTER JOIN taggings ON (users.`id` = taggings.`taggable_id` AND taggings.`taggable_type` = 'User') LEFT OUTER JOIN tags ON (tags.`id` = taggings.`tag_id`)"
-             }]
-=end
+  after_validation :check_login
+  after_create :create_webconf_room
+  after_update :update_webconf_room
 
   default_scope :conditions => {:disabled => false}
 
@@ -118,12 +113,6 @@ class User < ActiveRecord::Base
     [ self.city, self.country ].join(', ')
   end
 
-  # Full name must go to the profile, but it is provided by the user in signing up
-  # so we have to temporally cache it until the user is created; :_full_name
-  attr_accessor :_full_name
-  attr_accessible :_full_name
-  has_permalink :_full_name, :login
-  validates :_full_name, :presence => true, :on => :create
 
   after_create do |user|
     user.create_profile :full_name => user._full_name
@@ -146,37 +135,6 @@ class User < ActiveRecord::Base
       part_aux.save!
     end
 
-  end
-
-  # User.login and Space.permalink should be unique
-  validate :validate_unique_login_against_spaces
-
-  # Method adapted from PermalinkFu.create_unique_permalink
-  # Checks if there's a space with the permalink set for this user.
-  def validate_unique_login_against_spaces
-    if Space.where(:permalink => self.login).count > 0
-      if self.new_record?
-        update_unique_permalink
-      else
-        self.errors.add :login, I18n.t('activerecord.errors.messages.taken')
-      end
-    end
-  end
-
-  def update_unique_permalink
-    counter = 1
-    limit, base = create_common_permalink
-    return if limit.nil? # nil if the permalink has not changed or :if/:unless fail
-
-    # check for duplication either on spaces permalinks or users logins
-    while Space.where(:permalink => self.login).count > 0 or
-        User.where(:login => self.login).count > 0
-
-      # try a new value
-      suffix = "-#{counter += 1}"
-      new_value = "#{base[0..limit-suffix.size-1]}#{suffix}"
-      send("#{self.class.permalink_field}=", new_value)
-    end
   end
 
   def self.find_with_disabled *args
@@ -301,6 +259,16 @@ class User < ActiveRecord::Base
   # Returns the number of unread private messages for this user
   def unread_private_messages
     PrivateMessage.inbox(self).select{|msg| !msg.checked}
+  end
+
+  private
+
+  # Checks whether there an error in :login.
+  # If there is, set the error in :_full_name to be shown in the views.
+  def check_login
+    if self.errors[:login].size > 0
+      self.errors.add :_full_name, I18n.t('activerecord.errors.messages.invalid_identifier', :id => self.login)
+    end
   end
 
 end

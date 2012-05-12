@@ -18,6 +18,7 @@ en:
         moderator_password: "Moderator Password"
     errors: 
       messages: 
+        invalid_identifier: "generates an invalid identifier: \"%{id}\""
         missing: "is missing"
   address: Address
   admin: 

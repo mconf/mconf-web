@@ -96,7 +96,7 @@ select {
   }
 
   .field_with_errors {
-    input { border-color: $red; }
+    input, textarea { border-color: $red; }
 
     .error {
       margin-left: 5px;

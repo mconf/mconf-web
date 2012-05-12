@@ -26,7 +26,8 @@ class Event < ActiveRecord::Base
   has_one :chat_log
 
   has_logo :class_name => "EventLogo"
-  has_permalink :name, :update => true
+  extend FriendlyId
+  friendly_id :name, :use => :slugged, :slug_column => :permalink
 
   include EventToIcs
 

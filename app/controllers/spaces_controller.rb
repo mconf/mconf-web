@@ -106,9 +106,6 @@ class SpacesController < ApplicationController
       end
     else
       respond_with @space do |format|
-        # TODO: error is shown with a notification and not with simple_form, why?
-        #message = @space.errors.full_messages.join("<br/>")
-        #flash[:error] = message
         format.html { render :action => :new, :layout => "no_sidebar" }
       end
     end

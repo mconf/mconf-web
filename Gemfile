@@ -30,18 +30,17 @@ gem 'bigbluebutton-api-ruby', :git => 'git://github.com/mconf/bigbluebutton-api-
 gem 'bigbluebutton_rails', :git => 'git://github.com/mconf/bigbluebutton_rails.git'
 gem 'simple_form', '~> 2.0.0'
 gem 'acts_as_tree', :git => 'https://github.com/parasew/acts_as_tree.git'
+gem 'friendly_id'
 
 # TODO: Gems to review if we can remove/update
 gem 'galetahub-simple_captcha', :require => 'simple_captcha'
 gem 'attachment_fu', :git => 'git://github.com/mconf/attachment_fu.git'
 gem 'vpim' # vcard and icalendar
-gem 'teambox-permalink_fu', :git => 'git://github.com/mconf/permalink_fu.git'
 gem 'ruby-openid'
 gem 'atom-tools'
 gem 'hpricot'
 gem 'feed-normalizer'
 gem 'httparty'
-#gem 'pdf-writer'
 gem 'ci_reporter'
 gem 'nokogiri', '1.4.1'
 gem 'rubyzip' # TODO: see rubyzip2

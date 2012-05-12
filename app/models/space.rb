@@ -25,16 +25,24 @@ class Space < ActiveRecord::Base
   has_many :news, :dependent => :destroy
   has_many :attachments, :dependent => :destroy
   has_many :tags, :dependent => :destroy, :as => :container
-
+  has_logo
   has_one :bigbluebutton_room, :as => :owner, :dependent => :destroy
-  after_update :update_webconf_room
+  extend FriendlyId
+  friendly_id :name, :use => :slugged, :slug_column => :permalink
+
   accepts_nested_attributes_for :bigbluebutton_room
 
-  has_permalink :name, :permalink, :update => true
+  validates :description, :presence => true
+
+  # BigbluebuttonRoom requires an identifier with 3 chars generated from :name
+  # So we'll require :name and :permalink to have length >= 3
+  validates :name, :presence => true, :uniqueness => true, :length => { :minimum => 3 }
+  validates :permalink, :presence => true, :length => { :minimum => 3 }
 
   acts_as_resource :param => :permalink
   acts_as_container :contents => [ :news, :posts, :attachments, :events ], :sources => true
   acts_as_stage
+
   attr_accessor :invitation_ids
   attr_accessor :invitation_mails
   attr_accessor :invite_msg
@@ -45,49 +53,16 @@ class Space < ActiveRecord::Base
   attr_accessor :rand_value
   attr_accessor :logo_rand
 
-  # User.login and Space.permalink should be unique
-  validate :validate_unique_permalink_against_users
-  validates_presence_of :name, :description
-  validates_uniqueness_of :name
-
-  has_logo
+  default_scope :conditions => { :disabled => false }
 
   before_validation :update_logo
   after_validation :logo_mi
-
-  default_scope :conditions => { :disabled => false }
-
-  # Method adapted from PermalinkFu.create_unique_permalink
-  # Checks if there's a user with the permalink set for this space.
-  def validate_unique_permalink_against_users
-    if User.where(:login => self.permalink).count > 0
-      if self.new_record?
-        update_unique_permalink
-      else
-        self.errors.add :permalink, I18n.t('activerecord.errors.messages.taken')
-      end
-    end
-  end
+  after_validation :check_permalink
+  after_update :update_webconf_room
 
   # Update the webconf room after updating the space
   def update_webconf_room
     bigbluebutton_room.update_attributes(:param => self.permalink, :name => self.name)
-  end
-
-  def update_unique_permalink
-    counter = 1
-    limit, base = create_common_permalink
-    return if limit.nil? # nil if the permalink has not changed or :if/:unless fail
-
-    # check for duplication either on spaces permalinks or users logins
-    while Space.where(:permalink => self.permalink).select{ |s| s.id != self.id }.count > 0 or
-          User.where(:login => self.permalink).count > 0
-
-      # try a new value
-      suffix = "-#{counter += 1}"
-      new_value = "#{base[0..limit-suffix.size-1]}#{suffix}"
-      send("#{self.class.permalink_field}=", new_value)
-    end
   end
 
   # Returns the next 'count' events (starting in the current date) in this space.
@@ -287,4 +262,17 @@ class Space < ActiveRecord::Base
       true
     end
   end
+
+  private
+
+  # Checks whether there an error in :permalink or :bigbluebutton_room.param.
+  # If there is, set the error in :name to be shown in the views.
+  def check_permalink
+    if self.errors[:permalink].size > 0
+      self.errors.add :name, I18n.t('activerecord.errors.messages.invalid_identifier', :id => self.permalink)
+    elsif self.bigbluebutton_room.errors[:param].size > 0
+      self.errors.add :name, I18n.t('activerecord.errors.messages.invalid_identifier', :id => self.bigbluebutton_room.param)
+    end
+  end
+
 end
