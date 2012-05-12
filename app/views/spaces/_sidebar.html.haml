@@ -18,16 +18,16 @@
             %span= t('webconference.nobody.one_line')
         .buttons
           - if logged_in?
-            - webconf_join_link = join_space_room_path(space, @webconf_room)
+            - webconf_join_link = join_space_room_path(@space, @webconf_room)
           - else
-            - webconf_join_link = invite_space_room_path(space, @webconf_room)
+            - webconf_join_link = invite_space_room_path(@space, @webconf_room)
           = link_to t('button.join'), webconf_join_link, :class => 'btn btn-info webconf-start-link'
           - if logged_in?
-            = webconf_mobile_icon_link(join_mobile_space_room_path(space, @webconf_room))
+            = webconf_mobile_icon_link(join_mobile_space_room_path(@space, @webconf_room))
           - else
             = webconf_mobile_icon_link(false)
       .content-block-footer
-        = link_to t('view_more'), space_webconference_path(space)
+        = link_to t('view_more'), space_webconference_path(@space)
 
     = render_sidebar_content_block('sidebar-upcoming-events') do
       .content-block-header
@@ -38,29 +38,23 @@
       .content-block-middle
         %span.event-timezone
           = "(#{t('timezone.one')}: GMT#{Time.zone.formatted_offset})"
-        = render 'events/sidebar_event_wrapper', :events => @upcoming_events
+        = render 'events/sidebar_event_wrapper', :events => @space.upcoming_events(5)
       .content-block-footer
         = link_to feed_icon, space_events_path(@space, :format => :atom)
-        = link_to(t('read_more'), space_events_path(@space)) if space.authorize?([:read, :content], :to => current_user)
+        = link_to(t('read_more'), space_events_path(@space)) if @space.authorize?([:read, :content], :to => current_user)
 
     = render_sidebar_content_block("sidebar-space-admins") do
       .content-block-header
         %h3= t('user.administrators')
         = help_icon t("tooltip.admin"), :class => 'leftwards'
       .content-block-middle
-        - admins = space.actors(:role => 'Admin')
-        - admins.each do |admin|
-          .admin-wrapper
-            .logo-in-thread
-              = link_logo(admin, :size => 32, :url => user_path(admin), :title => admin.name).html_safe
-            .admin-text
-              = link_to sanitize(admin.full_name), user_path(admin), :class => "admin-name"
-              %span.admin-organization= sanitize(admin.organization)
+        - @space.admins.each do |user|
+          = render :partial => 'users/simple_user', :locals => { :user => user }
 
     = render_sidebar_content_block('sidebar-pageviews') do
       %span.value= @space.unique_pageviews
       %span= t('statistics.space_views')
       = help_icon t("tooltip.num_views"), :class => 'leftwards'
 
-    - if logged_in? && space.users.include?(current_user) && !(space.is_last_admin?(current_user))
-      = render :partial => 'sidebar_leave_space'
+    - if logged_in? && @space.users.include?(current_user) && !(@space.is_last_admin?(current_user))
+      = render :partial => 'spaces/sidebar_leave_space'

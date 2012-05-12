@@ -41,8 +41,8 @@ class User < ActiveRecord::Base
   #has_many :groups, :through => :memberships
 
   # exclusive and unique BBB Room for each user
-  after_create :create_bbb_room
-  after_update :update_bbb_room
+  after_create :create_webconf_room
+  after_update :update_webconf_room
   has_one :bigbluebutton_room, :as => :owner, :dependent => :destroy
   accepts_nested_attributes_for :bigbluebutton_room
 
@@ -94,7 +94,7 @@ class User < ActiveRecord::Base
     end
   end
 
-  def create_bbb_room
+  def create_webconf_room
     create_bigbluebutton_room :owner => self,
                               :server => BigbluebuttonServer.first,
                               :param => self.login,
@@ -102,7 +102,7 @@ class User < ActiveRecord::Base
                               :logout_url => "/feedback/webconf/"
   end
 
-  def update_bbb_room
+  def update_webconf_room
     if self.login_changed?
       bigbluebutton_room[:param] = self.login
     end
@@ -112,6 +112,11 @@ class User < ActiveRecord::Base
   alias_attribute :name, :full_name
   alias_attribute :title, :full_name
   alias_attribute :permalink, :login
+
+  # Full location: city + country
+  def location
+    [ self.city, self.country ].join(', ')
+  end
 
   # Full name must go to the profile, but it is provided by the user in signing up
   # so we have to temporally cache it until the user is created; :_full_name
@@ -143,13 +148,12 @@ class User < ActiveRecord::Base
 
   end
 
-  # user.login and space.permalink should be unique
+  # User.login and Space.permalink should be unique
   validate :validate_unique_login_against_spaces
 
-  # method adapted from PermalinkFu.create_unique_permalink
+  # Method adapted from PermalinkFu.create_unique_permalink
+  # Checks if there's a space with the permalink set for this user.
   def validate_unique_login_against_spaces
-
-    # there's some space with a permalink == self.login
     if Space.where(:permalink => self.login).count > 0
       if self.new_record?
         update_unique_permalink

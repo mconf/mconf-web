@@ -28,8 +28,6 @@ class Event < ActiveRecord::Base
   has_logo :class_name => "EventLogo"
   has_permalink :name, :update => true
 
-  # TODO PDF creation must be reimplemented. See README.
-  # include EventToPdf
   include EventToIcs
 
   acts_as_resource :per_page => 10, :param => :permalink
@@ -38,8 +36,7 @@ class Event < ActiveRecord::Base
   acts_as_stage
   acts_as_container :contents => [:agenda]
   alias_attribute :title, :name
-  validates_presence_of :name,
-                        :message => "must be specified"
+  validates_presence_of :name
 
   # Attributes for jQuery selectors
   attr_accessor :end_hour
@@ -58,7 +55,7 @@ class Event < ActiveRecord::Base
   attr_accessor :invited_registered
   attr_accessor :invited_unregistered
 
-  #For logos
+  # For logos
   attr_accessor :default_logo
   attr_accessor :text_logo
   attr_accessor :rand_value
@@ -74,9 +71,16 @@ class Event < ActiveRecord::Base
     where("(start_date >= ? AND start_date <= ?) OR (end_date >= ? AND end_date <= ?)", from, to, from, to)
   end
 
+  # Events that are in the future, that have not started yet.
+  scope :future, lambda { where("start_date > ?", Time.now) }
+
+  # Events that are either in the future or are running now.
+  scope :upcoming, lambda {
+    where("events.end_date > ? AND spaces.disabled = ?", Time.now, false).includes(:space).order("start_date")
+  }
+
   RECORDING_TYPE = [:automatic, :manual, :none]
   EXTRA_TIME_FOR_EVENTS_WITH_MANUAL_REC = 1.hour
-
 
   def agenda_entries
     self.agenda.agenda_entries
@@ -174,13 +178,7 @@ class Event < ActiveRecord::Base
       final_path = FileUtils.rm_rf(tmp_path + "/#{@rand_value}")
     end
 
-
   end
-
-
-  scope :upcoming, lambda {
-    where("events.end_date > ? AND spaces.disabled = ?", Time.now, false).includes(:space).order("start_date")
-  }
 
   # TODO is_indexed comes from Ultrasphinx
 =begin

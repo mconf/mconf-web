@@ -22,42 +22,44 @@ class Space < ActiveRecord::Base
 
   has_many :posts,  :dependent => :destroy
   has_many :events, :dependent => :destroy
-  #has_many :groups, :dependent => :destroy
   has_many :news, :dependent => :destroy
   has_many :attachments, :dependent => :destroy
-#  has_many :agendas, :through => :events
   has_many :tags, :dependent => :destroy, :as => :container
 
   has_one :bigbluebutton_room, :as => :owner, :dependent => :destroy
-  after_update :update_bbb_room
+  after_update :update_webconf_room
+  accepts_nested_attributes_for :bigbluebutton_room
 
   has_permalink :name, :permalink, :update => true
 
   acts_as_resource :param => :permalink
-  acts_as_container :contents => [ :news, :posts, :attachments, :events ],
-                    :sources => true
+  acts_as_container :contents => [ :news, :posts, :attachments, :events ], :sources => true
   acts_as_stage
-  #attr_accessor :mailing_list_for_group
   attr_accessor :invitation_ids
   attr_accessor :invitation_mails
-  #attr_accessor :group_invitation_mails
   attr_accessor :invite_msg
   attr_accessor :inviter_id
-  #attr_accessor :group_inv_sender_id
-  #attr_accessor :group_invitation_msg
   attr_accessor :invitations_role_id
   attr_accessor :default_logo
   attr_accessor :text_logo
   attr_accessor :rand_value
   attr_accessor :logo_rand
 
-  # user.login and space.permalink should be unique
-  validate :validate_unique_permalink_against_spaces
+  # User.login and Space.permalink should be unique
+  validate :validate_unique_permalink_against_users
+  validates_presence_of :name, :description
+  validates_uniqueness_of :name
 
-  # method adapted from PermalinkFu.create_unique_permalink
-  def validate_unique_permalink_against_spaces
+  has_logo
 
-    # there's some user with a login == self.permalink
+  before_validation :update_logo
+  after_validation :logo_mi
+
+  default_scope :conditions => { :disabled => false }
+
+  # Method adapted from PermalinkFu.create_unique_permalink
+  # Checks if there's a user with the permalink set for this space.
+  def validate_unique_permalink_against_users
     if User.where(:login => self.permalink).count > 0
       if self.new_record?
         update_unique_permalink
@@ -65,10 +67,10 @@ class Space < ActiveRecord::Base
         self.errors.add :permalink, I18n.t('activerecord.errors.messages.taken')
       end
     end
-
   end
 
-  def update_bbb_room
+  # Update the webconf room after updating the space
+  def update_webconf_room
     bigbluebutton_room.update_attributes(:param => self.permalink, :name => self.name)
   end
 
@@ -88,28 +90,31 @@ class Space < ActiveRecord::Base
     end
   end
 
-  accepts_nested_attributes_for :bigbluebutton_room
+  # Returns the next 'count' events (starting in the current date) in this space.
+  def upcoming_events(count)
+    self.events.upcoming.first(5)
+  end
 
-  has_logo
+  # Returns all admins of this space.
+  def admins
+    self.actors(:role => 'Admin')
+  end
 
-  after_validation :logo_mi
+  # Return the number of unique pageviews for this space using the Statistic model.
+  # Will throw an exception if the data in Statistic in incorrect.
+  def unique_pageviews
+    # Use only the canonical aggregated url of the space (all views have been previously added here in the rake task)
+    corresponding_statistics = Statistic.where('url LIKE ?', '/spaces/' + self.permalink)
+    if corresponding_statistics.size == 0
+      return 0
+    elsif corresponding_statistics.size == 1
+      return corresponding_statistics.first.unique_pageviews
+    elsif corresponding_statistics.size > 1
+      raise "Incorrectly parsed statistics"
+    end
+  end
 
-  before_validation :update_logo
-
-  # TODO is_indexed comes from Ultrasphinx
-  #is_indexed :fields => ['name','description'],
-  #           :conditions => "disabled = 0"
-
-  validates_presence_of :name, :description
-  validates_uniqueness_of :name
-
-  #after_create { |space|
-      #group = Group.new(:name => space.emailize_name, :space_id => space.id, :mailing_list => space.mailing_list)
-      #group.users << space.users(:role => "admin")
-      #group.users << space.users(:role => "user")
-      #group.save
-  #}
-
+  #-#-#
 
   after_save do |space|
     if space.invitation_mails
@@ -197,7 +202,6 @@ class Space < ActiveRecord::Base
     where(:public => true)
   }
 
-  default_scope :conditions => {:disabled => false}
 
   def self.find_with_disabled *args
     self.with_exclusive_scope { find(*args) }
@@ -274,32 +278,6 @@ class Space < ActiveRecord::Base
       end
     end
     return false
-  end
-
-#  def videos
-#
-#    @space_videos = []
-#
-#    agendas.each do |agenda|
-#      agenda.agenda_entries.select{|ae| ae.past? & ae.recording?}.each do |video|
-#        @space_videos << video
-#      end
-#    end
-#
-#    @space_videos
-#
-#  end
-
-  def unique_pageviews
-    # Use only the canonical aggregated url of the space (all views have been previously added here in the rake task)
-    corresponding_statistics = Statistic.where('url LIKE ?', '/spaces/' + self.permalink)
-    if corresponding_statistics.size == 0
-      return 0
-    elsif corresponding_statistics.size == 1
-      return corresponding_statistics.first.unique_pageviews
-    elsif corresponding_statistics.size > 1
-      raise "Incorrectly parsed statistics"
-    end
   end
 
   # There are previous authorization rules because of the stage

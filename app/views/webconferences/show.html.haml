@@ -38,4 +38,4 @@
       = t('webconference.nobody.one_line')
     - else
       - @webconf_attendees.each do |user|
-        = render :partial => 'users/detailed_user', :object => user
+        = render :partial => 'users/detailed_user', :locals => { :user => user }

@@ -544,6 +544,31 @@ ul#navbar-right-links {
 // Blocks that will only be visible on hover
 .visible-on-hover { display: none; }
 
+// Wrapper around information about a user
+// See users/_simple_user and users/_detailed_user
+.user-wrapper {
+  clear: both;
+  margin-bottom: 10px;
+  margin-top: 5px;
+  @include mconf-clearfix;
+
+
+  &.user-simple {
+    .user-text { margin-left: 45px; }
+    .user-name { display: block; }
+    .user-organization { display: block; }
+  }
+
+  &.user-detailed {
+    .user-text { float: left; }
+    .user-divider { float: left; margin-left: 5px; margin-right: 5px; color: $gray; }
+    .user-name { float: left; }
+    .user-mail { float: left; }
+    .user-organization { float: left; clear: left; }
+    .user-location { float: left; }
+  }
+}
+
 /*
  * ul.selectable-buttons {
  *   margin: 0;

@@ -97,7 +97,16 @@ class ApplicationController < ActionController::Base
   helper_method :space, :space!
 
   def webconf_room!
-    @webconf_room = @space.bigbluebutton_room || raise(ActiveRecord::RecordNotFound)
+    @webconf_room = @space.bigbluebutton_room
+    if @webconf_room
+      begin
+        @webconf_room.fetch_meeting_info
+      rescue
+      end
+    else
+      raise(ActiveRecord::RecordNotFound)
+    end
+    @webconf_room
   end
 
   before_filter :not_activated_warning
