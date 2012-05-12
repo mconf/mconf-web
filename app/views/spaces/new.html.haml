@@ -25,7 +25,7 @@
         = f.fields_for :bigbluebutton_room do |r|
           = r.input :attendee_password, :as => :showable_password, :label => t('activerecord.attributes.spaces.attendee_password')
           = r.input :moderator_password, :as => :showable_password, :label => t('activerecord.attributes.spaces.moderator_password')
-      = hidden_field "space", "image", :value => "/assets/default_space_logos/" + @files[selected].to_s, :name => "space[default_logo]"
+      = hidden_field "space", "image", :value => "/default_space_logos/" + @files[selected].to_s, :name => "space[default_logo]"
       = f.button :submit, t("button.create"), :class => "btn"
 
   .right-column

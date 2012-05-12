@@ -88,29 +88,8 @@ class SpacesController < ApplicationController
   end
 
   def create
-    unless logged_in?
-      if params[:register]
-        cookies.delete :auth_token
-        @user = User.new(params[:user])
-        unless @user.save_with_captcha
-          message = ""
-          @user.errors.full_messages.each {|msg| message += msg + "  <br/>"}
-          flash[:error] = message
-          render :action => :new, :layout => "frontpage"
-          return
-        end
-      end
-
-      self.current_agent = User.authenticate_with_login_and_password(params[:user][:email], params[:user][:password])
-      unless logged_in?
-          flash[:error] = t('error.credentials')
-          render :action => :new, :layout => "frontpage"
-          return
-      end
-    end
-
+    # TODO: this shouldn't be here
     params[:space][:repository] = 1;
-
     params[:space][:bigbluebutton_room_attributes] ||= {}
     params[:space][:bigbluebutton_room_attributes][:name] = params[:space][:name]
     params[:space][:bigbluebutton_room_attributes][:private] = !ActiveRecord::ConnectionAdapters::Column.value_to_boolean(params[:space][:public])
@@ -119,20 +98,18 @@ class SpacesController < ApplicationController
 
     @space = Space.new(params[:space])
 
-    respond_to do |format|
-
-      if @space.save
+    if @space.save
+      respond_with @space do |format|
         flash[:success] = t('space.created')
         @space.stage_performances.create(:agent => current_user, :role => Space.role('Admin'))
-
         format.html { redirect_to :action => "show", :id => @space  }
-      else
-        format.html {
-          message = ""
-          @space.errors.full_messages.each {|msg| message += msg + "  <br/>"}
-          flash[:error] = message
-          render :action => :new, :layout => "application"
-        }
+      end
+    else
+      respond_with @space do |format|
+        # TODO: error is shown with a notification and not with simple_form, why?
+        #message = @space.errors.full_messages.join("<br/>")
+        #flash[:error] = message
+        format.html { render :action => :new, :layout => "no_sidebar" }
       end
     end
   end

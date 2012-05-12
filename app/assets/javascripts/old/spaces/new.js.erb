@@ -3,8 +3,11 @@ $(function() {
   if (isOnPage('spaces', 'new|create')) {
 
     setNewLogo = function(img) {
-      $("#space_image").attr('value', img);
       $("#selected-logo-image").attr('src', img);
+
+      // the hidden field that defines the image selected
+      img = img.replace("/assets", "");
+      $("#space_image").attr('value', img);
     }
 
     // when clicking in a logo in the gallery

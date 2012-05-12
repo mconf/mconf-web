@@ -653,7 +653,7 @@ en:
     part2: "1. Click on <a href=%{url}> My Home </a> item from the top bar."
     part3: "2. Click on <a href=%{url}>Create New Space </a> button."
     part4: "3. Type a name and description for your space."
-    part5: "4. Decide whether the space should be public. Collaborative spaces can be public, for anybody to watch what happens in them, or private, where members only have access to the activities of the space."
+    part5: "4. Decide whether the space should be public. Collaborative spaces can be public, for anybody to watch what happens in them, or private, where only members have access to the activities of the space."
     part6: "5. If you want to enable a document repository, choose this option. <br>6. You can associate a mailing list to your group. It will allow you to send email messages to your group instead of having to pick out the individual addresses every time.<br>7. You can upload your own logo, create a text logo or select an image from the gallery."
   help_createuser: 
     part1: "To create a user in Global Plaza:"
