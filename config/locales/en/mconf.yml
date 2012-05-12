@@ -1277,6 +1277,10 @@ en:
       private: "<p>Please note that the space is private, so you need to be a registered user of the Virtual Conference Center to be able to send a join request and access the space. You can register here: <a href=\"%{register_url}\">%{register_url}</a></p>"
       subject: "%{username} invites you to space %{space}"
     index: 
+      filters: 
+        all: "All spaces"
+        filter: "Filter:"
+        my_spaces: "My spaces"
       select_at_left: "Select a space in the left to see it's description here"
       user_is_member: "You are a member!"
     is_private: "is a private space. Send a join request to the administrator of this space to let you in"

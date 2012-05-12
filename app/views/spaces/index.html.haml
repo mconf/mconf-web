@@ -27,10 +27,10 @@
       = link_to t('register.one'), signup_path, :class => "btn btn-primary"
 
   .btn-group{ :"data-toggle" => "buttons-radio" }
-    = button_tag t('space.all'), :id => "show-spaces-all", :class => "btn active"
+    = button_tag t('space.index.filters.all'), :id => "show-spaces-all", :class => "btn active"
     - if logged_in?
-      = button_tag t('space.my_spaces'), :id => "show-spaces-mine", :class => "btn"
-    = button_tag t('search.space.dots'), :id => "show-spaces-filter", :class => "btn"
+      = button_tag t('space.index.filters.my_spaces'), :id => "show-spaces-mine", :class => "btn"
+    = button_tag t('space.index.filters.filter'), :id => "show-spaces-filter", :class => "btn"
     = text_field_tag 'space-filter-text', params[:filter], :placeholder => t('search.space.dots')
 
 #public-spaces.content-block

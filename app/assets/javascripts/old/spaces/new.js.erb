@@ -28,7 +28,8 @@ $(function() {
     $("#logo_rand").attr('value', rand);
     $("#space_rand_value").attr('value', rand);
 
-    $(document).on("click", "#logos-text-submit", function(){
+    $(document).on("click", "#logos-text-submit", function(e) {
+      e.preventDefault();
       $.get('/logos/new?text='+ ($("#logos-text-input").val()) + '&rand_name=' + rand , function(data) {
         $('#logos-text-generated').html(data);
       });
