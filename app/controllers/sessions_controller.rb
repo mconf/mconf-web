@@ -16,10 +16,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with VCC.  If not, see <http://www.gnu.org/licenses/>.
 
-# Require Station Controller
-require_dependency "#{ Rails.root.to_s }/vendor/plugins/station/app/controllers/sessions_controller"
-
-class SessionsController
+class SessionsController < ApplicationController
   layout :application_layout
 
   #after_filter :update_user   #this is used to remember when did he logged in or out the last time and update his/her home
@@ -43,7 +40,57 @@ class SessionsController
     end
   end
 
+
+  #-#-# from station
+  include ActionController::Sessions
+
+  before_filter :save_location, :only => "new"
+
+  # render new.rhtml
+  def new
+    authentication_methods_chain(:new)
+  end
+
+  def create
+    if authentication_methods_chain(:create)
+      respond_to do |format|
+        format.html {
+          redirect_back_or_default(after_create_path)
+        }
+        format.js
+      end unless performed?
+    else
+      respond_to do |format|
+        format.html {
+          flash[:error] ||= t(:invalid_credentials)
+          render(:action => "new")
+        }
+        format.js
+      end unless performed?
+    end
+  end
+
+  def destroy
+    authentication_methods_chain(:destroy)
+
+    reset_session
+
+    return if performed?
+
+    flash[:notice] = t(:logged_out)
+    redirect_back_or_default(after_destroy_path)
+  end
+
   private
+
+  def after_create_path
+    '/'
+  end
+
+  def after_destroy_path
+    '/'
+  end
+  #-#-#
 
   def after_create_path
     if current_user.superuser == true && Site.current.new_record?
@@ -65,4 +112,5 @@ class SessionsController
   def application_layout
     (request.format.to_sym == :m)? 'mobile.html' : 'application'
   end
+
 end

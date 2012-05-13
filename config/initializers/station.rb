@@ -1,16 +1,14 @@
-# Modifications of Station Engine
+ActiveSupport.on_load(:after_initialize) do
 
-# In Global authorization, users that are superusers are gods
-# This module allows implementing this feature in all classes that implement authorizes?
-
-module ActiveRecord::Authorization::InstanceMethods
-  alias authorize_without_superuser authorize?
-
-  def authorize_with_superuser(permission, options = {})
-    return true if options[:to] && options[:to].superuser
-
-    authorize_without_superuser(permission, options)
+  # Initialize all Singular Agents
+  if SingularAgent.table_exists?
+    SingularAgent
+    Anonymous.current
+    Anyone.current
+    Authenticated.current
   end
 
-  alias authorize? authorize_with_superuser
+  if Site.table_exists?
+    ActionMailer::Base.default_url_options[:host] = Site.current.domain
+  end
 end

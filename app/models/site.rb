@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Copyright 2008-2010 Universidad Politécnica de Madrid and Agora Systems S.A.
 #
 # This file is part of VCC (Virtual Conference Center).
@@ -15,10 +16,8 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with VCC.  If not, see <http://www.gnu.org/licenses/>.
 
-# Require Station Model
-require_dependency "#{ Rails.root.to_s }/vendor/plugins/station/app/models/site"
+class Site < ActiveRecord::Base
 
-class Site
   acts_as_stage
 
   def signature_in_html
@@ -39,7 +38,7 @@ class Site
       def xmpp_server_#{ a }            # def xmpp_server_password
         xmpp_server.#{ a }              #   xmpp_server.password
       end                               # end
-      
+
       def xmpp_server_#{ a }=(value)    # def xmpp_server_password=(value)
         xmpp_server.#{ a } = value      #   xmpp_server.password = value
       end                               # end
@@ -53,13 +52,37 @@ class Site
   after_save :save_xmpp_server
   after_save :reload_cm_classes
 
+  #-#-# from station
+  acts_as_logoable
+
+  def self.current
+    first || create
+  end
+
+  # Nice format email address for the Site
+  def email_with_name
+    "#{ name } <#{ email }>"
+  end
+
+  # HTTP protocol based on SSL setting
+  def protocol
+    "http#{ ssl? ? 's' : nil }"
+  end
+
+  # Domain http url considering protocol
+  def domain_with_protocol
+    "#{ protocol }://#{ domain }"
+  end
+  #-#-#
+
   private
 
   def save_xmpp_server
     xmpp_server.save! if xmpp_server.password.present? && xmpp_server.__send__(:password_not_saved?)
   end
-  
+
   def reload_cm_classes
     ConferenceManager::Resource.reload
   end
+
 end

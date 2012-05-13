@@ -45,6 +45,12 @@ GIT
   specs:
     acts_as_tree (1.2.3)
 
+PATH
+  remote: ../station
+  specs:
+    station (0.0.1)
+      rails (>= 3.0.0)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -332,6 +338,7 @@ DEPENDENCIES
   shoulda-matchers
   simple_form (~> 2.0.0)
   sqlite3
+  station!
   table_helper!
   therubyracer
   translate-rails3!

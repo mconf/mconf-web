@@ -16,11 +16,9 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with VCC.  If not, see <http://www.gnu.org/licenses/>.
 
-# Require Station Controller
-require_dependency "#{ Rails.root.to_s }/vendor/plugins/station/app/controllers/logos_controller"
 require 'RMagick'
 
-class LogosController
+class LogosController < ApplicationController
   include Magick
 
   REL_TMP_PATH = File.join("tmp")
@@ -140,6 +138,11 @@ class LogosController
       redirect_to edit_space_path(space)
     end
   end
+
+  #-#-# from station
+  include ActionController::Logos
+  before_filter :get_logoable_from_path
+  #-#-# from station
 
   private
 

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Copyright 2008-2010 Universidad Politécnica de Madrid and Agora Systems S.A.
 #
 # This file is part of VCC (Virtual Conference Center).
@@ -15,10 +16,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with VCC.  If not, see <http://www.gnu.org/licenses/>.
 
-# Require Station Model
-require_dependency "#{ Rails.root.to_s }/vendor/plugins/station/app/models/singular_agent"
-
-class SingularAgent
+class SingularAgent < ActiveRecord::Base
   def superuser
     false
   end
@@ -47,8 +45,25 @@ class SingularAgent
   def expanded_post
     false
   end
-  
+
   def chat_activation
     false
   end
+
+  #-#-# from station
+
+  acts_as_agent :authentication => [],
+                :invite         => false
+
+  class << self
+    def current
+      @current ||= first || create
+    end
+  end
+
+  def name
+    I18n.t :name, :scope => "singular_agent.#{ self.class.to_s.underscore }"
+  end
+
+  alias login name
 end

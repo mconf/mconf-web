@@ -1,3 +1,0 @@
-[submodule "vendor/plugins/station"]
-        path = vendor/plugins/station
-        url = git://github.com/mconf/station.git
