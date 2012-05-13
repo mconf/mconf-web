@@ -89,18 +89,26 @@ body.homes.show {
 
     //&.active h3 { background: #C0D7A9; }
 
-    h3 {
-      text-align: center;
-      margin: 0;
-      margin-bottom: 10px;
+    .header {
+      @include mconf-clearfix;
+
+      h3 {
+        text-align: center;
+        margin: 0;
+        margin-bottom: 10px;
+        margin-right: 10px;
+        float: right;
+      }
+
+      .in-progress-icon {
+        margin-right: 10px;
+        float: right;
+      }
+
     }
 
     .right-column { float: right; width: auto; margin-left: 10px; }
     .left-column { float: right; width: $upper-right-area-width - 130px - 10px; }
-
-    .in-progress-icon {
-      margin-right: 10px;
-    }
 
     .main-action-buttons {
       float: right;

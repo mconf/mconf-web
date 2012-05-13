@@ -6,8 +6,7 @@
 
     = render_sidebar_content_block('sidebar-webconference', :active => @webconf_room.is_running?) do
       .content-block-header
-        - if @webconf_room.is_running?
-          = image_tag('icons/in_progress-16x16.gif', :class => 'in-progress-icon')
+        = in_progress_icon if @webconf_room.is_running?
         %h3= t('webconference.one')
         = help_icon t("tooltip.bigbluebutton_space"), :class => 'leftwards'
       .content-block-middle.clearfix
