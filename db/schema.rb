@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120119155353) do
+ActiveRecord::Schema.define(:version => 20120513055623) do
 
   create_table "admissions", :force => true do |t|
     t.string   "type"
@@ -272,34 +272,6 @@ ActiveRecord::Schema.define(:version => 20120119155353) do
     t.integer  "space_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-  end
-
-  create_table "open_id_associations", :force => true do |t|
-    t.binary  "server_url"
-    t.string  "handle"
-    t.binary  "secret"
-    t.integer "issued"
-    t.integer "lifetime"
-    t.string  "assoc_type"
-  end
-
-  create_table "open_id_nonces", :force => true do |t|
-    t.string  "server_url", :default => "", :null => false
-    t.integer "timestamp",                  :null => false
-    t.string  "salt",       :default => "", :null => false
-  end
-
-  create_table "open_id_ownings", :force => true do |t|
-    t.integer "agent_id"
-    t.string  "agent_type"
-    t.integer "uri_id"
-    t.boolean "local",      :default => false
-  end
-
-  create_table "open_id_trusts", :force => true do |t|
-    t.integer "agent_id"
-    t.string  "agent_type"
-    t.integer "uri_id"
   end
 
   create_table "participants", :force => true do |t|

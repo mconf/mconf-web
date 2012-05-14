@@ -21,8 +21,7 @@ class User < ActiveRecord::Base
   apply_simple_captcha
 
   # LoginAndPassword Authentication:
-  acts_as_agent :activation => true,
-                :openid_server => true
+  acts_as_agent :activation => true
 
   validates_presence_of  :email
   validates_exclusion_of :login, :in => %w( xmpp_server )

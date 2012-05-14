@@ -37,7 +37,6 @@ gem 'station', :path => '../station'
 gem 'galetahub-simple_captcha', :require => 'simple_captcha'
 gem 'attachment_fu', :git => 'git://github.com/mconf/attachment_fu.git'
 gem 'vpim' # vcard and icalendar
-gem 'ruby-openid'
 gem 'atom-tools'
 gem 'hpricot'
 gem 'feed-normalizer'

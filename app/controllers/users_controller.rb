@@ -67,13 +67,9 @@ class UsersController < ApplicationController
     @profile = user.profile!
 
     respond_to do |format|
-      format.html {
-        headers['X-XRDS-Location'] = user_path(user, :format => :xrds)
-        render 'profiles/show'
-      }
+      format.html { render 'profiles/show' }
       format.xml { render :xml => user }
       format.atom
-      format.xrds
       format.atomsvc
     end
   end
@@ -81,7 +77,6 @@ class UsersController < ApplicationController
   # GET /users/new
   # GET /users/new.xml
   def new
-    user.openid_identifier = session[:openid_identifier]
     render :layout => 'no_sidebar'
   end
 
@@ -98,7 +93,6 @@ class UsersController < ApplicationController
     # request forgery protection.
     # uncomment at your own risk
     # reset_session
-    user.openid_identifier = session[:openid_identifier]
 
     respond_to do |format|
       if user.save_with_captcha

@@ -105,30 +105,6 @@ pt-br:
   logout: Sair
   name: 
     one: Nome
-  openid: 
-    client: 
-      associating_to_id: "Associando ao OpenID: %{id}"
-      discovery_failed: "Descoberta falhou para %{id}: %{error}"
-      id_attached_to_account: "OpenID: %{id} anexado à sua conta"
-      immediate_request_failed: "Requisição imediata falhou - Configurações necessárias"
-      transaction_cancelled: "Transação OpenID cancelada"
-      verification_failed: "Verificação falhou: %{message}"
-      verification_failed_with_id: "Verificação de %{id} falhou: %{message}"
-      verification_succeeded_with_id: "Verificação de %{id} teve sucesso"
-    server: 
-      about_login_to: "Você está prestes a entrar em %{server}"
-      anti_phishing: "Esta página não possui links para evitar <i>phishing</i>. Você deve inserir você mesmo o endereço no navegador."
-      cancel: "Não, cancelar"
-      decision: "Você deve decidir:"
-      endpoint: "Este é um servidor terminal OpenID"
-      invalid_uri: "Esta identidade não pertence à você: %{uri}"
-      login_to: "Entrar em %{server}"
-      must_login: "Você deve entrar em %{server}"
-      once: "Sim, apenas esta vez"
-      optional_information_by: "Informação opcional requisitada por %{server}"
-      required_information_by: "Informação requirida requisitada por %{server}"
-      trust: "Sim, lembre disso daqui para frente"
-    title: OpenID
   pagination: 
     next_label: "Próximo &raquo;"
     previous_label: "&laquo; Anterior"

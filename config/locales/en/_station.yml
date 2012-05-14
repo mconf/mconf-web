@@ -105,30 +105,6 @@ en:
   logout: Logout
   name: 
     one: Name
-  openid: 
-    client: 
-      associating_to_id: "Associating to OpenID: %{id}"
-      discovery_failed: "Discovery failed for %{id}: %{error}"
-      id_attached_to_account: "OpenID: %{id} attached to your account"
-      immediate_request_failed: "Immediate request failed - Setup Needed"
-      transaction_cancelled: "OpenID transaction cancelled"
-      verification_failed: "Verification failed: %{message}"
-      verification_failed_with_id: "Verification of %{id} failed: %{message}"
-      verification_succeeded_with_id: "Verification of %{id} succeeded"
-    server: 
-      about_login_to: "You are about log in to %{server}"
-      anti_phishing: "This page hasn't links to avoid <i>phishing</i>. You must enter yourself the address in your browser."
-      cancel: "No, cancel"
-      decision: "You must take a decision:"
-      endpoint: "This is an OpenID server endpoint"
-      invalid_uri: "This identity doesn't belong to you: %{uri}"
-      login_to: "Login to %{server}"
-      must_login: "You must log in %{server}"
-      once: "Yes, only this time"
-      optional_information_by: "Optional information requested by %{server}"
-      required_information_by: "Required information requested by %{server}"
-      trust: "Yes, remember from now on"
-    title: OpenID
   password_has_been_reset: "Your password has been reset"
   password_has_been_reset_with_agent: "%{agent}, your password has been reset"
   password_reset: "Password Reset"
