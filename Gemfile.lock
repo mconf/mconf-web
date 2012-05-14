@@ -27,6 +27,14 @@ GIT
       rails (>= 3.0.0)
 
 GIT
+  remote: git://github.com/mconf/station.git
+  revision: 35d2faab1dedafb8926e0491f85068b99910b050
+  branch: gem
+  specs:
+    station (0.0.1)
+      rails (>= 3.0.0)
+
+GIT
   remote: git://github.com/mconf/translate.git
   revision: 66f8c7d16696b4b217cb91b4dc3c0e326340b2d3
   specs:
@@ -44,12 +52,6 @@ GIT
   revision: ed52495d1671c99e1add582628403bf8104e9077
   specs:
     acts_as_tree (1.2.3)
-
-PATH
-  remote: ../station
-  specs:
-    station (0.0.1)
-      rails (>= 3.0.0)
 
 GEM
   remote: http://rubygems.org/
