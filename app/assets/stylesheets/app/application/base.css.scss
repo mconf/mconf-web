@@ -157,6 +157,12 @@ select {
   height: 16px;
 }
 
+.in-progress-icon {
+  background: url(asset_path("icons/in-progress-19x19.gif", image)) no-repeat bottom;
+  width: 19px;
+  height: 19px;
+}
+
 .webconf-join-mobile-link {
   span {
     padding-left: 20px;

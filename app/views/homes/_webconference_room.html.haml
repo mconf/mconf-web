@@ -1,17 +1,18 @@
 - active_cls = @room.is_running? ? "active" : ""
 #webconference-room{ :class => active_cls }
 
-  %h3
+  .header
     - if @room.is_running?
-      = image_tag('icons/in_progress-16x16.gif', :class => 'in-progress-icon')
-      - if @room.participant_count == 0
-        - status = t('home.webconference.running_with.no_participants')
+      = in_progress_icon
+    %h3
+      - if @room.is_running?
+        - if @room.participant_count == 0
+          - status = t('home.webconference.running_with.no_participants')
+        - else
+          - status = t('home.webconference.running_with.participants', :count => @room.participant_count)
       - else
-        - status = t('home.webconference.running_with.participants', :count => @room.participant_count)
-    - else
-      - status = t('home.webconference.not_running')
-    = status.capitalize
-    - t('webconference.my_webconference')
+        - status = t('home.webconference.not_running')
+      = status.capitalize
 
   .right-column
     .main-action-buttons

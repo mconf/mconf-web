@@ -82,6 +82,13 @@ module IconsHelper
     content_tag :span, t('admin.one'), options
   end
 
+  # Conference "in progress" icon.
+  def in_progress_icon(options={})
+    cls = "in-progress-icon "
+    options[:class] = options.has_key?(:class) ? cls + options[:class] : cls
+    content_tag :div, nil, options
+  end
+
   private
 
   # Base method for most of the methods above
