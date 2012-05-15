@@ -187,18 +187,6 @@ es:
     other: Sitios
     ssl: SSL
     updated: "La configuración del sitio se ha actualizado satisfactoriamente"
-  source: 
-    errors: 
-      content_type: 
-        invalid: "no es válido: %{content_type}"
-      dereference: "No se pudo conectar a la fuente %{uri}"
-      multiple_feeds: "La dirección tiene varias fuentes"
-      parse: "No se pudo analizar la fuente %{uri}"
-    imported_at: Importada
-    one: Fuente
-    other: Fuentes
-    target: Objetivo
-    uri: URL
   stage: 
     all: Todos
     one: Escenario

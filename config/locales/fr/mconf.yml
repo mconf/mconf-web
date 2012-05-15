@@ -653,8 +653,6 @@ fr:
     ssl: SSL
   size: Taille
   skype: Skype
-  source: 
-    other: RSS/Atom
   space: 
     about: Sur
     add_user: 

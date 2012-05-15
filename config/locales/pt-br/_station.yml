@@ -187,18 +187,6 @@ pt-br:
     other: Sites
     ssl: SSL
     updated: "A configuração do site foi atualizada."
-  source: 
-    errors: 
-      content_type: 
-        invalid: "é inválido: %{content_type}"
-      dereference: "Não foi possível conectar à fonte %{uri}"
-      multiple_feeds: "Fonte possui múltiplos feeds"
-      parse: "Não foi possível analisar o feed %{uri}"
-    imported_at: "Importado em"
-    one: Fonte
-    other: Fontes
-    target: Alvo
-    uri: URL
   stage: 
     all: Todos
     one: Estágio

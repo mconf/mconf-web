@@ -28,7 +28,7 @@ GIT
 
 GIT
   remote: git://github.com/mconf/station.git
-  revision: 35d2faab1dedafb8926e0491f85068b99910b050
+  revision: 294dac5f1a2310090f44b908c7aa6808936db81a
   branch: gem
   specs:
     station (0.0.1)

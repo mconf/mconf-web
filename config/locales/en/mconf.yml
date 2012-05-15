@@ -1239,8 +1239,6 @@ en:
     ssl_tip: "With SSL enabled all the internal links (including pages, images, attachments) will use the protocol https instead of http"
   size: Size
   skype: Skype
-  source: 
-    other: RSS/Atom
   space: 
     about: About
     add_user: 

@@ -40,7 +40,7 @@ class Space < ActiveRecord::Base
   validates :permalink, :presence => true, :length => { :minimum => 3 }
 
   acts_as_resource :param => :permalink
-  acts_as_container :contents => [ :news, :posts, :attachments, :events ], :sources => true
+  acts_as_container :contents => [ :news, :posts, :attachments, :events ]
   acts_as_stage
 
   attr_accessor :invitation_ids

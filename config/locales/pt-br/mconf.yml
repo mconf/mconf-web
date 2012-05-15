@@ -1160,8 +1160,6 @@ pt-br:
     ssl_tip: "Com SSL habilitado todos os links internos (incluindo páginas, imagens, anexos) utilizarão o protocolo https ao invés de http"
   size: Tamanho
   skype: Skype
-  source: 
-    other: RSS/Atom
   space: 
     about: Sobre
     add_user: 

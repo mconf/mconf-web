@@ -773,8 +773,6 @@ es:
     ssl: SSL
   size: Tamaño
   skype: Skype
-  source: 
-    other: RSS/Atom
   space: 
     about: "Acerca de"
     add_user: 

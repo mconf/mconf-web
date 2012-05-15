@@ -184,18 +184,6 @@ en:
     other: Sites
     ssl: SSL
     updated: "Site configuration was successfully updated."
-  source: 
-    errors: 
-      content_type: 
-        invalid: "is invalid: %{content_type}"
-      dereference: "Could not connect to source %{uri}"
-      multiple_feeds: "Source has multiple feeds"
-      parse: "Could not parse feed %{uri}"
-    imported_at: "Imported at"
-    one: Source
-    other: RSS/Atom
-    target: Target
-    uri: URL
   stage: 
     all: All
     one: Stage
