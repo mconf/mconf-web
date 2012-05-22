@@ -739,6 +739,11 @@ form {
   margin-bottom: 3px;
 }
 
+#content_top_container .contact {
+  font-size: 15px;
+  font-weight: bold;
+}
+
 #content_container {
   margin: auto;
   width: 900px;

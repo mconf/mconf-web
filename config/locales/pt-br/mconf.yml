@@ -542,7 +542,7 @@ pt-br:
     no_spaces: "Nenhum espaço público encontrado."
     not_running: "Não está em progresso"
     popular_spaces: "Comunidades públicas populares"
-    project_description: "<p>Este website é parte do projeto <a href=\"http://www.inf.ufrgs.br/prav/gtmconf\">Mconf</a>, sistema em desenvolvimento no grupo de pesquisa <a href=\"http://www.inf.ufrgs.br/prav\">PRAV</a> da <a href=\"http://www.ufrgs.br\">UFRGS</a> em parceria com a <a href=\"http://www.rnp.br\">RNP</a>. Ele foi desenvolvido com base no sistema <a href=\"http://www.globalplaza.org/\">Global Plaza</a> e integrado ao sistema de webconferência <a href=\"http://bigbluebutton.org/\">BigBlueButton</a>. Para mais informações, acesse o website do projeto <a href=\"http://www.inf.ufrgs.br/prav/gtmconf\">clicando aqui</a>.</p><p>Contate-nos: <a href=\"mailto:mconf@mconf.org\">mconf@mconf.org</a></p>"
+    project_description: "<p>Este website é parte do projeto <a href=\"http://www.inf.ufrgs.br/prav/gtmconf\">Mconf</a>, sistema em desenvolvimento no grupo de pesquisa <a href=\"http://www.inf.ufrgs.br/prav\">PRAV</a> da <a href=\"http://www.ufrgs.br\">UFRGS</a> em parceria com a <a href=\"http://www.rnp.br\">RNP</a>. Ele foi desenvolvido com base no sistema <a href=\"http://www.globalplaza.org/\">Global Plaza</a> e integrado ao sistema de webconferência <a href=\"http://bigbluebutton.org/\">BigBlueButton</a>. Para mais informações, acesse o website do projeto <a href=\"http://www.inf.ufrgs.br/prav/gtmconf\">clicando aqui</a>.</p><p class=\"contact\">Contate-nos: <a href=\"mailto:mconf@mconf.org\">mconf@mconf.org</a></p>"
     register_sentence: "Crie uma conta para acessar comunidades privadas e criar suas próprias webconferências"
     running: 
       one: "Ativa com %{count} participante"
