@@ -562,7 +562,7 @@ ul#navbar-right-links {
   }
 }
 
-#page-header {
+#page-title {
   @include mconf-clearfix;
   margin: 0;
   margin-bottom: 15px;
@@ -893,7 +893,7 @@ ul#navbar-right-links {
 
 /*
  *  breadcrumbs try 1
- * #page-header {
+ * #page-title {
  *   padding: 15px;
  *   height: 30px;
  *   @include mconf-clearfix;

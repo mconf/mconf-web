@@ -22,11 +22,23 @@
   %body{:class => "#{params[:controller]} #{params[:action]}"}
     #site
       #navbar-wrapper
-        = render :partial => 'layouts/application_navbar'
+        #navbar
+          = render :partial => 'layouts/application_navbar'
+
+      - if content_for?(:"page-header")
+        #page-header-wrapper
+          #page-header
+            = yield :"page-header"
+
       #content-wrapper
         #content
           #content-middle
-            = render :partial => "layouts/application_header"
+            - if content_for? :"page-title"
+              #page-title
+                = yield :"page-title"
+            - else
+              = render :partial => "layouts/spaces_page_title"
+
             = yield :menu
             = yield
 

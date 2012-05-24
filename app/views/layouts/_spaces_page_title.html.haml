@@ -1,0 +1,11 @@
+- if space && space.id != nil
+  #page-title
+    .current-page-logo
+      = logo(space, :size => "h64", :title => space.name).html_safe
+    .current-page-title
+      - if space.name.size > 30
+        .small-title
+          = sanitize(first_words(space.name, 30))
+      - else
+        = sanitize(space.name)
+

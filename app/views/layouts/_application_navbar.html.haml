@@ -1,51 +1,49 @@
-#navbar
+#main-logo
+  %a.title{:href => root_path}= current_site.name
 
-  #main-logo
-    %a.title{:href => root_path}= current_site.name
+%ul#navbar-left-links
+  - if logged_in?
+    %li
+      = image_tag('icons/my-home-16x16.png', :size => '16x16', :class => 'icon')
+      = link_to t('home.my'), home_path
+    %li= link_to t('inbox.one', :checked => current_user.unread_private_messages.size), user_messages_path(current_user)
+    - if current_user.superuser?
+      %li= link_to t('space.all'), spaces_path
+      %li.last= link_to t('manage'), site_path
+    - else
+      %li.last= link_to t('space.all'), spaces_path
 
-  %ul#navbar-left-links
+-# the right menu is not shown in the home page
+- if at_home?
+  %ul#navbar-right-links
+    %li.last= link_to t('logout', :user => current_user.name), logout_path
+- else
+  %ul#navbar-right-links
     - if logged_in?
-      %li
-        = image_tag('icons/my-home-16x16.png', :size => '16x16', :class => 'icon')
-        = link_to t('home.my'), home_path
-      %li= link_to t('inbox.one', :checked => current_user.unread_private_messages.size), user_messages_path(current_user)
-      - if current_user.superuser?
-        %li= link_to t('space.all'), spaces_path
-        %li.last= link_to t('manage'), site_path
-      - else
-        %li.last= link_to t('space.all'), spaces_path
+      %li.dropdown.user-info-dropdown.last
 
-  -# the right menu is not shown in the home page
-  - if at_home?
-    %ul#navbar-right-links
-      %li.last= link_to t('logout', :user => current_user.name), logout_path
-  - else
-    %ul#navbar-right-links
-      - if logged_in?
-        %li.dropdown.user-info-dropdown.last
+        -# small user information in the navbar
+        .user-info.dropdown-toggle{ :"data-toggle" => "dropdown" }
+          .user-avatar
+            = link_logo(current_user, :size => "22", :url => user_path(current_user), :title => current_user.name).html_safe
+          %span.user-name= current_user.name
+          %b.caret
 
-          -# small user information in the navbar
-          .user-info.dropdown-toggle{ :"data-toggle" => "dropdown" }
+        -# dropdown menu opened when clicking in the dropdown
+        .dropdown-menu.arrow-right
+          .user-info-big
             .user-avatar
-              = link_logo(current_user, :size => "22", :url => user_path(current_user), :title => current_user.name).html_safe
-            %span.user-name= current_user.name
-            %b.caret
+              = link_logo(current_user, :size => "64", :url => user_path(current_user), :title => current_user.name).html_safe
+            .user-data
+              = link_to(current_user.name, user_path(current_user))
+              = link_to(current_user.email, "mailto: #{current_user.email}")
+              %span= current_user.profile.organization unless current_user.profile.organization.nil?
+          .user-links
+            %ul
+              %li= link_to t('logout', :user => current_user.name), logout_path
+              %li= link_to t('account'), edit_user_path(current_user)
+              %li.last= link_to t('profile.one'), user_path(current_user)
 
-          -# dropdown menu opened when clicking in the dropdown
-          .dropdown-menu.arrow-right
-            .user-info-big
-              .user-avatar
-                = link_logo(current_user, :size => "64", :url => user_path(current_user), :title => current_user.name).html_safe
-              .user-data
-                = link_to(current_user.name, user_path(current_user))
-                = link_to(current_user.email, "mailto: #{current_user.email}")
-                %span= current_user.profile.organization unless current_user.profile.organization.nil?
-            .user-links
-              %ul
-                %li= link_to t('logout', :user => current_user.name), logout_path
-                %li= link_to t('account'), edit_user_path(current_user)
-                %li.last= link_to t('profile.one'), user_path(current_user)
-
-      - else
-        %li.last= link_to t('login.one'), login_path
-        %li= link_to t('register.one'), signup_path
+    - else
+      %li.last= link_to t('login.one'), login_path
+      %li= link_to t('register.one'), signup_path
