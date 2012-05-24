@@ -20,7 +20,7 @@
     = yield :headers
 
   -# TODO: why can't this data-spy be called from the js? (see frontpage/show.js)
-  %body{ :"data-spy" => "scroll", :"data-target" => "#subnav", :"data-offset" => "80" }
+  %body{ :class => "#{params[:controller]} #{params[:action]}", :"data-spy" => "scroll", :"data-target" => "#subnav", :"data-offset" => "80" }
     #site
       #navbar-wrapper
         = yield :"navbar"

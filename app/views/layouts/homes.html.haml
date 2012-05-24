@@ -16,10 +16,6 @@
       /[if lt IE 9]
         = javascript_include_tag "http://html5shim.googlecode.com/svn/trunk/html5.js"
 
-    -# TODO: Place javascript at the end of the document so the pages load faster
-    = javascript_include_tag "application"
-    = javascript_include_tag_for_controller
-
     = csrf_meta_tag
     = yield :headers
 
@@ -28,6 +24,7 @@
       #navbar-wrapper
         = render :partial => 'layouts/application_navbar'
 
+      -# TODO: this block is the only difference between this layout and application layout
       #upper-content-wrapper
         #upper-content
           = yield :"upper-content"
@@ -36,11 +33,18 @@
         #content
           #content-middle
             = render :partial => "layouts/application_header"
+            = yield :menu
             = yield
-          #sidebar
-            = yield :sidebar
+
+          - if content_for?(:sidebar)
+            #sidebar
+              = yield :sidebar
 
       = render :partial => "layouts/footer"
 
     = render :partial => "layouts/analytics"
     = render :partial => "layouts/notifications"
+
+    -# Javascript placed at the end of the document so the pages load faster
+    = javascript_include_tag "application"
+    = javascript_include_tag_for_controller

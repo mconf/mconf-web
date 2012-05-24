@@ -16,10 +16,6 @@
       /[if lt IE 9]
         = javascript_include_tag "http://html5shim.googlecode.com/svn/trunk/html5.js"
 
-    -# TODO: Place javascript at the end of the document so the pages load faster
-    = javascript_include_tag "application"
-    = javascript_include_tag_for_controller
-
     = csrf_meta_tag
     = yield :headers
 
@@ -42,3 +38,7 @@
 
     = render :partial => "layouts/analytics"
     = render :partial => "layouts/notifications"
+
+    -# Javascript placed at the end of the document so the pages load faster
+    = javascript_include_tag "application"
+    = javascript_include_tag_for_controller
