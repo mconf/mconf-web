@@ -1,10 +1,10 @@
 @import "compass/css3";
 @import "compass/utilities/general";
 @import "compass/typography/links";
-@import "fancy-buttons";
 @import "definitions";
 
 $focus-border-color: $second-color;
+$navbar-height: 35px;
 
 //
 // General tags
@@ -25,42 +25,6 @@ ul {
 form {
   margin: 0;
 }
-
-//
-// Forms, buttons, inputs
-//
-
-// all inputs with a 'text-like' style
-/*
-input[type=password], input[type=text], input[type=email], input[type=tel],
-input[type=url], textarea, ul.token-input-list-facebook, select {
-  border: 1px solid #ccc;
-  font-size: $font-normal;
-  font-weight: normal;
-  padding: 3px;
-  @include border-radius(3px);
-}
-
-input, textarea, select {
-  @include transition(border linear 0.2s, box-shadow linear 0.2s);
-  @include box-shadow(inset 0 1px 1px rgba(0, 0, 0, 0.075));
-}
-
-input:focus, textarea:focus, select:focus {
-  border: 1px solid $focus-border-color;
-  outline: thin dotted 9;
-  @include box-shadow(inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 5px lighten($focus-border-color, 10));
-}
-
-input[type=checkbox] {
-  margin: 5px 2px 0 2px;
-}
-
-select {
-  background: white;
-}
-*/
-
 
 .simple_form {
 
@@ -183,6 +147,8 @@ select {
 .icon {
   width: 16px;
   height: 16px;
+  float: left;
+  margin-right: 3px;
 }
 
 .superuser-icon {
@@ -194,6 +160,96 @@ select {
   width: 70px;
   text-align: center;
   overflow: hidden;
+}
+
+.danger-text {
+  @include danger-text;
+}
+
+#notification-flashs {
+  top: $navbar-height;
+}
+
+// Unified style for threads: posts, news, attachments
+.thread {
+  clear: both;
+  padding: 10px;
+
+  .thread-content {
+    margin-left: 60px;
+  }
+
+  .thread-title {
+    margin-bottom: 5px;
+    a {
+      background-color: #eee;
+      padding: 1px 4px 2px;
+      vertical-align: middle;
+      white-space: nowrap;
+      @include border-radius(3px);
+
+      &:hover {
+        background: #d6d6d6;
+        color: #444;
+      }
+    }
+  }
+
+  .thread-updated-at {
+    color: #666;
+    font-size: $font-small;
+  }
+
+  .thread-action-links {
+    float: right;
+    margin: 0;
+    padding: 0;
+    @include mconf-clearfix;
+
+    li {
+      margin: 0;
+      padding: 0;
+      float: left;
+      display: inline-block;
+      margin-left: 10px;
+    }
+  }
+
+  &.thread-even { background: $transparent; }
+  &.thread-odd { background: $light-gray; }
+}
+
+
+// Blocks that can be automatically expanded/collapsed
+.block-expanded { display: none; }
+.block-collapsed { }
+
+// Blocks that will only be visible on hover
+.visible-on-hover { display: none; }
+
+// Wrapper around information about a user
+// See users/_simple_user and users/_detailed_user
+.user-wrapper {
+  clear: both;
+  margin-bottom: 10px;
+  margin-top: 5px;
+  @include mconf-clearfix;
+
+
+  &.user-simple {
+    .user-text { margin-left: 45px; }
+    .user-name { display: block; }
+    .user-organization { display: block; }
+  }
+
+  &.user-detailed {
+    .user-text { float: left; }
+    .user-divider { float: left; margin-left: 5px; margin-right: 5px; color: $gray; }
+    .user-name { float: left; }
+    .user-mail { float: left; }
+    .user-organization { float: left; clear: left; }
+    .user-location { float: left; }
+  }
 }
 
 
@@ -219,6 +275,9 @@ select {
 #navbar {
   width: $contents-width;
   margin: 0 auto;
+  padding: 0;
+  height: $navbar-height;
+  color: #bbb;
 }
 
 #content-wrapper {
@@ -340,6 +399,434 @@ select {
   }
 }
 
+ul#navbar-left-links {
+  list-style-type: none;
+  float: left;
+  margin: 0 10px;
+
+  a {
+    @include link-colors(#bbb, white, white);
+    &:hover {
+      @include text-shadow(lighten($navbar-bg-color, 30) 0 0 5px);
+    }
+  }
+
+  li {
+    display: inline;
+    float: left;
+    margin-top: 10px;
+    margin-right: 10px;
+    padding-right: 10px;
+    border-right: 1px solid lighten($navbar-bg-color, 13);
+
+    a { float: left; }
+    &.last { border: 0; }
+  }
+}
+
+ul#navbar-right-links {
+  @extend ul#navbar-left-links;
+  float: right;
+  margin-right: 0;
+
+  li {
+    margin-left: 10px;
+    margin-right: 0;
+    padding-left: 10px;
+    padding-right: 0;
+    border-left: 1px solid lighten($navbar-bg-color, 13);
+    border-right: 0;
+  }
+
+  .user-info-dropdown {
+    margin: 0;
+    padding: 4px 10px;
+  }
+
+  // small user info in the navbar
+  .user-info {
+
+    .user-name {
+      padding: 4px 10px 4px 5px;
+      float: right;
+      display: block;
+      &:hover { color: white; }
+    }
+
+    .user-avatar {
+      position: relative;
+      float: right;
+      border: 1px solid lighten($navbar-bg-color, 5);
+      padding: 1px;
+      height: 22px;
+      width: 22px;
+      @include border-radius(3px);
+    }
+  }
+
+  // dropdown menu with the user information
+  // it needs some adjustments over the default style
+  .dropdown {
+    &.open {
+      background: darken($navbar-bg-color, 5);
+    }
+    .caret { margin-top: 10px; }
+
+    .dropdown-menu {
+      color: $font-color;
+      background: $site-bg-color;
+      top: $navbar-height + 5px;
+      right: 0;
+      left: auto;
+      min-width: 300px;
+      width: 300px;
+      border: 1px solid #ccc;
+      &.arrow-right:after { border-bottom-color: white; }
+
+      a {
+        @include link-colors($site-link, $site-link-hover, $site-link-active);
+        padding: 0;
+        &:hover {
+          @include text-shadow(none);
+          background-color: $transparent;
+        }
+      }
+    }
+  }
+
+  // big user info shown in the dropdown clicking in the navbar
+  .user-info-big {
+    @include mconf-clearfix;
+
+    .user-data {
+      @include mconf-clearfix;
+      padding-left: 7px;
+      a, span {
+        display: block;
+        float: left;
+        clear: left;
+        margin-bottom: 3px;
+      }
+    }
+
+    .user-name {
+      padding: 4px 10px 4px 5px;
+      float: right;
+      display: block;
+    }
+
+    .user-avatar {
+      position: relative;
+      float: left;
+      border: 1px solid darken($site-bg-color, 15);
+      padding: 1px;
+      height: 64px;
+      width: 64px;
+      @include border-radius(3px);
+    }
+  }
+
+  // user links shown in the dropdown clicking in the navbar
+  .user-links {
+    @include mconf-clearfix;
+    clear: both;
+    margin-top: 5px;
+    background: darken($site-bg-color, 5);
+    margin-bottom: 5px;
+    @include border-radius(4px);
+    ul {
+      margin: 0;
+      li {
+        float: right;
+        margin: 0;
+        border: 0;
+        padding: 5px 10px;
+      }
+    }
+  }
+
+}
+
+#main-logo {
+  float: left;
+  white-space: nowrap;
+  margin-top: 2px;
+  margin-right: 5px;
+  @include mconf-clearfix;
+
+  .title {
+    //@include text-shadow(lighten($navbar-bg-color, 30) 0 0 10px);
+    @include link-colors(#bbb, white, white, #bbb);
+    font-size: 21px;
+    float: left;
+  }
+}
+
+#page-title {
+  @include mconf-clearfix;
+  margin: 0;
+  margin-bottom: 15px;
+  padding: 0;
+  clear: both;
+
+  .current-page-logo {
+    float: left;
+    border: 1px #ccc solid;
+    padding: 1px;
+    height: 64px;
+    &.clean { border: 0; }
+  }
+
+  .current-page-title {
+    float: left;
+    margin-left: 10px;
+    margin-top: 14px;
+    font-size: $font-section-title;
+    font-weight: bold;
+    @include text-shadow(darken($site-bg-color, 10) 1px 1px 10px);
+
+    a { @include link-colors($section-title-color, $site-link-hover, $site-link-active); }
+
+    .small-title {
+      font-size: $font-section-title - 10px;
+      margin-top: 5px;
+    }
+  }
+
+  .current-page-extra {
+    float: right;
+    margin-top: 25px;
+    text-align: right;
+    a, span { display: block; }
+  }
+}
+
+#content {
+  width: $contents-width;
+  margin: 0 auto;
+  padding: 20px 10px 0 0;
+
+  // best way found to use mconf-clearfix and still get the element
+  // centralized and with the correct margins/paddings
+  @include mconf-clearfix;
+  overflow: visible;
+}
+
+#sidebar, .sidebar {
+  float: right;
+  width: $sidebar-width;
+
+  .content-block-wrapper {
+    padding: 5px;
+    @include border-radius(5px);
+    background: $light-gray;
+    margin-bottom: 10px;
+
+    &.active {
+      background: $bright-blue;
+    }
+  }
+
+  .content-block {
+    clear: both;
+    padding: 5px 10px;
+    border: 1px solid #ddd;
+    @include border-radius(5px);
+    background: $site-bg-color;
+
+    h3 {
+      font-size: 1.2em;
+      margin-top: 0;
+      img { margin-bottom: -3px; }
+    }
+  }
+
+  .content-block-middle {
+    padding-top: 10px;
+    clear: both;
+  }
+
+  .content-block-footer {
+    text-align: right;
+    margin-top: 10px;
+    padding-top: 2px;
+    padding-right: 5px;
+    clear: both;
+  }
+
+  .content-block-header {
+    @include mconf-clearfix;
+    img { float: right; margin-left: 3px; }
+    h3 { float: left; }
+  }
+
+  .sidebar-top-action-button {
+    @include mconf-clearfix;
+    text-align: center;
+    padding: 10px;
+
+    a, span {
+      //float: right;
+      width: $sidebar-width - 50px;
+    }
+  }
+
+  .toolbar {
+    margin-top: 10px;
+    padding: 5px 10px;
+    background: $light-gray;
+    @include border-radius(4px);
+    clear: both;
+    text-align: center;
+  }
+
+  .help-icon { float: right; }
+  .info-icon { float: right; }
+}
+
+#content-middle {
+  float: left;
+  width: $contents-width - $sidebar-width - 20px; // less right-margin
+  @include mconf-clearfix;
+
+  h3 {
+    color: #404040;
+    font-size: 1.4em;
+    //padding-top: 10px;
+    margin-bottom: 5px;
+
+    // horitontal line in the title
+    &.horizontal-line {
+      height: 13px;
+      border-bottom: 3px solid #eee;
+      margin-bottom: 15px;
+      span {
+        background: white;
+        padding-right: 15px;
+      }
+    }
+  }
+
+  .content-block {
+    clear: both;
+    margin-bottom: 30px;
+  }
+
+  .content-block-footer {
+    padding: 4px 10px;
+    text-align: right;
+    background: $light-gray;
+    border-top: 1px solid #ddd;
+    clear: both;
+
+    // adapt bootstrap's .pagination
+    @include mconf-clearfix;
+    .pagination {
+      height: auto;
+      margin: 2px 0;
+      float: right;
+      ul {
+        margin: 0;
+        background-color: white;
+      }
+      a {
+        padding: 0 12px;
+        line-height: 30px;
+      }
+    }
+  }
+
+  .content-block-middle {
+    padding: 5px;
+    clear: both;
+  }
+
+  .content-block-header {
+    img { float: left; }
+    h3 { float: left; margin: -3px 4px 0 4px; }
+  }
+
+  .help-icon { float: left; }
+  .info-icon { float: left; }
+
+  .loading-icon { float: right; } // TODO: temporary, this may become default in _base
+}
+
+#page-menu {
+  margin: 0 0 20px 0;
+  border-bottom: 1px solid #DDD;
+  clear: both;
+
+  ul {
+    margin: 0;
+    border-bottom: 2px solid #F6F6F6;
+
+    li {
+      display: inline-block;
+      padding-left: 10px;
+
+      a {
+        display: inline-block;
+        margin-bottom: -5px;
+        @include link-colors(#808080, $site-link-hover, $site-link-active);
+        padding: 5px 10px;
+        font-weight: bold;
+        font-size: 14px;
+
+        &.selected {
+          color: $main-color;
+          @include border-top-radius(5px);
+          border-top: 1px solid #ddd;
+          border-left: 1px solid #ddd;
+          border-right: 1px solid #ddd;
+          border-bottom: 1px solid white;
+          background: $site-bg-color;
+        }
+      }
+
+      a.danger-text {
+        @include danger-text;
+        @include opacity(0.8);
+        &.selected { @include opacity(1); }
+      }
+    }
+  }
+}
+
+// the upcoming events are shown in spaces/show and homes/show
+#sidebar-upcoming-events {
+  .event-timezone {
+    //float: left;
+    //margin-bottom: 5px;
+    color: #777;
+    font-size: $font-small;
+  }
+
+  .event-wrapper {
+    clear: both;
+    margin-bottom: 10px;
+
+    .event-title {
+      font-weight: bold;
+      display: block;
+    }
+
+    .event-date {
+      display: block;
+      font-size: $font-small;
+      color: #777;
+      margin-left: 5px;
+    }
+  }
+
+  .event-category {
+    clear: both;
+    display: block;
+    font-weight: bold;
+    margin-bottom: 3px;
+  }
+}
+
 // Container area in the window to crop an image
 // See views/logos/precrop
 #crop-image-wrapper {
@@ -362,9 +849,6 @@ select {
   }
 }
 
-.danger-text {
-  @include danger-text;
-}
 
 
 /*
@@ -403,6 +887,46 @@ select {
  *     border-width: 0 0 10px 10px;
  *     border-left-color: #222;
  *     right: 0;
+ *   }
+ * }
+ */
+
+/*
+ *  breadcrumbs try 1
+ * #page-title {
+ *   padding: 15px;
+ *   height: 30px;
+ *   @include mconf-clearfix;
+ *   margin: 0 auto;
+ *   width: $contents-width;
+ * }
+ */
+
+/*
+ * ul.selectable-buttons {
+ *   margin: 0;
+ *
+ *   li {
+ *     display: inline-block;
+ *     padding-left: 10px;
+ *
+ *     a {
+ *       display: inline-block;
+ *       @include link-colors(#808080, $site-link-hover, $site-link-active);
+ *       padding: 5px 10px;
+ *       font-weight: bold;
+ *       font-size: 14px;
+ *       @include text-shadow(darken($site-bg-color, 10) 1px 1px 2px);
+ *       //border: 1px solid $site-bg-color;
+ *
+ *       &.selected {
+ *         color: $main-color;
+ *         background: $light-gray;
+ *         @include border-radius(5px);
+ *         @include box-shadow(inset 0 1px 2px rgba(0, 0, 0, 0.1));
+ *         //border: 1px solid darken($light-gray, 5);
+ *       }
+ *     }
  *   }
  * }
  */

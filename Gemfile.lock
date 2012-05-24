@@ -139,8 +139,6 @@ GEM
     factory_girl_rails (1.7.0)
       factory_girl (~> 2.6.0)
       railties (>= 3.0.0)
-    fancy-buttons (1.2.0)
-      compass (>= 0.11)
     fastthread (1.0.7)
     fckeditor (0.1.0)
     feed-normalizer (1.5.2)
@@ -306,7 +304,6 @@ DEPENDENCIES
   dynamic_form
   exception_notification
   factory_girl_rails
-  fancy-buttons (~> 1.2)
   fckeditor
   feed-normalizer
   ffaker

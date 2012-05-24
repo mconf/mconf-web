@@ -9,9 +9,9 @@
 body.homes.show {
 
   $second-content-bg-color: darken($light-gray, 2);;
-  $upper-right-area-width: 500px;
+  $page-header-right-width: 500px;
 
-  #upper-content-wrapper {
+  #page-header-wrapper {
     //@include background(linear-gradient(top, #ddd, white));
     //@include box-shadow(inset 0 0 2px rgba(0, 0, 0, 0.15));
     border: 1px solid rgba(0, 0, 0, 0.05);
@@ -19,7 +19,7 @@ body.homes.show {
     padding: 10px 0;
   }
 
-  #upper-content {
+  #page-header {
     width: $contents-width;
     margin: 0 auto;
     @include mconf-clearfix;
@@ -27,12 +27,12 @@ body.homes.show {
 
     .left-column {
       float: left;
-      width: $contents-width - $upper-right-area-width - 10px;
+      width: $contents-width - $page-header-right-width - 10px;
     }
 
     .right-column {
       float: right;
-      width: $upper-right-area-width - 10px;
+      width: $page-header-right-width - 10px;
       margin-right: 10px;
     }
   }
@@ -108,7 +108,7 @@ body.homes.show {
     }
 
     .right-column { float: right; width: auto; margin-left: 10px; }
-    .left-column { float: right; width: $upper-right-area-width - 130px - 10px; }
+    .left-column { float: right; width: $page-header-right-width - 130px - 10px; }
 
     .main-action-buttons {
       float: right;
@@ -128,7 +128,7 @@ body.homes.show {
       }
 
       input[type=text] {
-        width: $upper-right-area-width - 130px - 100px; // - main-action-buttons - 100
+        width: $page-header-right-width - 130px - 100px; // - main-action-buttons - 100
         margin-left: 5px;
         background: $site-bg-color;
         color: #444;
