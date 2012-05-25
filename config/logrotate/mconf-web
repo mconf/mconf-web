@@ -1,0 +1,19 @@
+/home/mconf/mconf-web/shared/log/production.log {
+         weekly
+         size 20M
+         copytruncate
+         rotate 10
+         compress
+         missingok
+         notifempty
+}
+
+/home/mconf/mconf-web/shared/log/*delayed_job*.log {
+         weekly
+         size 50k
+         copytruncate
+         rotate 10
+         compress
+         missingok
+         notifempty
+}
