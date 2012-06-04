@@ -83,25 +83,6 @@ namespace :deploy do
     puts
   end
 
-  # Prompt to make really sure we want to deploy into production
-  # By http://www.pastbedti.me/2009/01/handling-a-staging-environment-with-capistrano-rails/
-  desc "Confirm if the deployment should proceed"
-  task :confirm do
-    puts "\n\e[0;31m"
-    puts "   ######################################################################"
-    puts "          Are you REALLY sure you want to deploy to #{stage.upcase} ?"
-    puts "           Enter [y/Y] to continue or anything else to cancel"
-    puts "   ######################################################################"
-    puts "\e[0m\n"
-    if fetch(:auto_accept) == 0
-      proceed = STDIN.gets[0..0] rescue nil
-      unless proceed == 'y' || proceed == 'Y'
-        puts "Aborting..."
-        exit
-      end
-    end
-  end
-
   # User uploaded files are stored in the shared folder
   task :link_files do
     run "ln -sf #{shared_path}/public/logos #{release_path}/public"
