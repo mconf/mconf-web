@@ -1,28 +1,42 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
- <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Mconf-Graphics</title>
-    <!--link href="layout.css" rel="stylesheet" type="text/css"-->
-    <!--[if lte IE 8]><script language="javascript" type="text/javascript" src="../excanvas.min.js"></script><![endif]-->
-    <script language="javascript" type="text/javascript" src="javascripts/jquery.js"></script>
-    <script language="javascript" type="text/javascript" src="javascripts/flot/jquery.flot.js"></script>
-    <script language="javascript" type="text/javascript" src="javascripts/flot/jquery.flot.selection.js"></script>
-    <script language="javascript" type="text/javascript" src="javascripts/mconf-graphics.js"></script>
-    <script language="javascript" type="text/javascript" src="javascripts/jquery.jsonp.min.js"></script>
- </head>
-    <body>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <title>Mconf-Graphics</title>
 
-    <h1>Daily Summary</h1>
-    <div id="placeholder_daily" style="width:800px;height:200px;"></div>
-    <h1>Weekly Summary</h1>
-    <div id="placeholder_weekly" style="width:800px;height:200px;"></div>
-    <h1>Monthly Summary</h1>
-    <div id="placeholder_monthly" style="width:800px;height:200px;"></div>
-    <h1>Annually Summary</h1>
-    <div id="placeholder_annually" style="width:800px;height:200px;"></div>
-
-    <script type="text/javascript">$(MconfGraphics.core_flot);</script>
-
- </body>
+        <script text="javascript">
+            function load_images() {
+                var hour = 3600;
+                var day = hour * 24;
+                var week = day * 7;
+                var year = 365.25 * day;
+                var month = year / 12;
+                var threashold = 0.2;
+                document.getElementById('daily').src = build_url(day * (1 + threashold));
+                document.getElementById('weekly').src = build_url(week * (1 + threashold));
+                document.getElementById('montly').src = build_url(month * (1 + threashold));
+                document.getElementById('annually').src = build_url(year * (1 + threashold));
+            }
+            
+            function build_url(value) {
+                var num_points = 150;
+                var rrdopts = "+-snow-VALUE+-enow-0+--step=PERCENTAGE";
+                //var addr = "http://lb.mconf.org:8080/nagiosgraph/cgi-bin/showgraph.cgi?host=lb.mconf.org&service=BigBlueButton%20Info&db=users,data&db=meetings,data&db=audios,data&db=videos,data&rrdopts=" + rrdopts;
+                var addr = "http://lb.mconf.org:8080/nagiosgraph/cgi-bin/showgraph.cgi?host=lb.mconf.org&service=BigBlueButton%20Info&db=users,data&db=meetings,data&rrdopts=" + rrdopts;
+                addr = addr.replace("VALUE", Math.floor(value)).replace("PERCENTAGE", Math.floor(value / num_points));
+                return addr;
+            }
+        </script>
+    </head>
+ 
+    <body onload="load_images()">
+        <h1>Daily Summary</h1>
+        <img id="daily" />
+        <h1>Weekly Summary</h1>
+        <img id="weekly" />
+        <h1>Monthly Summary</h1>
+        <img id="montly" />
+        <h1>Annually Summary</h1>
+        <img id="annually" />
+    </body>
 </html>
