@@ -935,12 +935,6 @@ div#manage .user a:hover{text-decoration:underline;}
 #footer ul li{display:inline-block;position:relative;margin-right:3px;}
 #footer ul #trade_mark{font-weight:bold;color:#111;}
 #footer .icon,#global .icon{margin-bottom:-4px;}
-#footer .languages {
-  border-top: 1px solid #E1EEF5;
-  margin-top:10px;
-  padding-top:10px;
-  text-align:center;
-}
 
 /*Inbox*/
 #inbox-wrapper{background:#fff url("../images/dot1.png") repeat-x bottom;}
@@ -2701,6 +2695,12 @@ h3.dialog_title {
   display: block;
   text-align: center;
   margin-bottom: 15px;
+}
+
+#service_body .annex-start {
+  margin-top: 50px;
+  border-top: 5px solid #fff;
+  padding-top: 50px;
 }
 
 .bbbrails_invite_device_type {

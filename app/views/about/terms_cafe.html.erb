@@ -32,12 +32,12 @@
     <p>
     Para fazer o login através da federação, o usuário precisa primeiro acessar o link "Logar usando a CAFe", disponível na <a href="/">página inicial</a> e na <a href="/login">página de login</a> deste site, como mostram as imagens abaixo:
     <div class="image_area">
-      <%= image_tag("/images/terms_federation/login_1.png") %>
+      <%= image_tag("/images/about/terms-cafe/login_1.png") %>
       <span class="legend">Acessar o login federado através da página inicial.</span>
     </div>
 
     <div class="image_area">
-      <%= image_tag("/images/terms_federation/login_2.png") %>
+      <%= image_tag("/images/about/terms-cafe/login_2.png") %>
       <span class="legend">Acessar o login federado através da página de login.</span>
     </div>
     </p>
@@ -46,7 +46,7 @@
     O usuário será então redirecionado para o serviço de seleção do seu provedor de identidade. Neste ele deve selecionar sua instituição, como mostra a imagem abaixo. Se o usuário
     já utilizou a federação recentemente, possivelmente ele será redirecionado direto pra o provedor de identidade, pulando esta etapa.
     <div class="image_area">
-      <%= image_tag("/images/terms_federation/wayf.png") %>
+      <%= image_tag("/images/about/terms-cafe/wayf.png") %>
       <span class="legend">Exemplo de uma página para escolha do provedor de identidade na federação.</span>
     </div>
     </p>
@@ -69,7 +69,7 @@
     <p>
     Uma vez logado no sistema através da federação, o usuário pode ver as suas informações pessoais às quais o Mconf teve acesso. Basta acessar a seção "Conta" e clicar no link "Veja seus dados...", como mostra a imagem abaixo:
     <div class="image_area">
-      <%= image_tag("/images/terms_federation/see_your_data.png") %>
+      <%= image_tag("/images/about/terms-cafe/see_your_data.png") %>
       <span class="legend">Página informando ao usuário que ele está logado através de uma federação.</span>
     </div>
     </p>
@@ -77,7 +77,7 @@
     <p>
     Segue abaixo um exemplo dos dados recebidos para um usuário de testes:
     <div class="image_area">
-      <%= image_tag("/images/terms_federation/user_data.png") %>
+      <%= image_tag("/images/about/terms-cafe/user_data.png") %>
       <span class="legend">Dados recebidos da federação para um usuário de testes.</span>
     </div>
     </p>
@@ -105,7 +105,7 @@
     A visibilidade deste perfil (assim como as informações de ambos os perfis) pode ser configurada na página de edição do perfil do usuário, vista na imagem abaixo:
     <%= "(<a href=\"#{edit_user_profile_path(current_user)}\">clique aqui para acessá-la</a>)".html_safe if logged_in? %>
     <div class="image_area">
-      <%= image_tag("/images/terms_federation/profiles.png") %>
+      <%= image_tag("/images/about/terms-cafe/profiles.png") %>
       <span class="legend">Páginas de edição dos perfis público e privado.</span>
     </div>
     </p>

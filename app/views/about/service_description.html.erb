@@ -1,16 +1,16 @@
-<div id="terms_title">
+<div id="service_title">
   <h1>Descrição do Serviço</h1>
 </div>
 
-<div id="terms_body">
+<div id="service_body">
 
-  <div class="terms_paragraph">
+  <div class="service_paragraph">
     <p>
     O serviço experimental Beta Mconf (<a href="http://mconf.org">http://mconf.org</a>) permite a criação de conferências web, tanto entre computadores como dispositivos móveis. A ideia é possibilitar que usuários distantes geograficamente interajam por meio de áudio, vídeo, quadro de notas e bate-papo. Também é possível compartilhar textos, apresentações, imagens e telas de computador, tudo através do navegador web.
     </p>
 
     <p>
-      Nesta página você tem acesso ao <a href="#manual-de-uso">manual de uso do sistema</a>, com base em alguns casos de uso, e o <a href="#guia-rapido">guia rápido de uso</a>.
+      Nesta página você tem acesso ao <a href="#manual-de-uso">manual de uso do sistema</a>, que é descrito com base em alguns casos de uso, e o <a href="#guia-rapido">guia rápido de uso</a>.
     </p>
 
     <h3 id="manual-de-uso">Manual e casos de uso</h3>
@@ -32,10 +32,10 @@
         <li><a href="http://www.mozilla.org/pt-BR/firefox/new/">Mozilla Firefox</a></li>
       </ul>
       <li>
-        Ao acessar o site <a href="https://mconf.org">https://mconf.org</a> pela primeira vez, você receberá um aviso de segurança com uma mensagem similar a esta: “o certificado de segurança do site não é confiável”. Isso acontece pois o certificado utilizado pelo Mconf ainda não está cadastrado em um servidor de certificados no qual os navegadores confiam por padrão. Porém, isso não significa que o site não é confiável. Apenas certifique-se que a barra de endereços está com o endereço “https://mconf.org” e você pode prosseguir, conforme descrito no Anexo 1.
+        Ao acessar o site <a href="https://mconf.org">https://mconf.org</a> pela primeira vez, você receberá um aviso de segurança com uma mensagem similar a esta: "o certificado de segurança do site não é confiável". Isso acontece pois o certificado utilizado pelo Mconf ainda não está cadastrado em um servidor de certificados no qual os navegadores confiam por padrão. Porém, isso não significa que o site não é confiável. Apenas certifique-se que a barra de endereços está com o endereço "https://mconf.org" e você pode prosseguir, conforme descrito no <a href="#annex-1">Anexo 1</a>.
       </li>
       <li>
-        Por ser uma ferramenta internacional, o portal do Mconf está por padrão em inglês. Para modificar para português basta ir para o final da página e clicar no link “Português (Brasil)”. Se você fizer isso quando estiver logado no sistema, o idioma português será definido como idioma padrão para o seu usuário.
+        Por ser uma ferramenta internacional, o portal do Mconf está por padrão em inglês. Para modificar para português basta ir para o final da página e clicar no link "Português (Brasil)". Se você fizer isso quando estiver logado no sistema, o idioma português será definido como idioma padrão para o seu usuário.
       </li>
     </ul>
 
@@ -75,7 +75,7 @@
     </ul>
 
     <p>
-      Além disso, o portal permite que as salas sejam públicas ou privadas. Em salas públicas, qualquer pessoa, cadastrada ou não no portal, poderá acessar a conferência apenas utilizando o link da sala (e.g. https://mconf.org/webconf/usuario). Em salas privadas, são definidas duas senhas, uma para moderadores e uma para participantes. Quando um usuário tentar entrar na sala, a senha será solicitada e será utilizada para definir o papel deste usuário na conferência.
+      Além disso, o portal permite que as salas sejam públicas ou privadas. Em salas públicas, qualquer pessoa, cadastrada ou não no portal, poderá acessar a conferência apenas utilizando o link da sala (e.g. <i>https://mconf.org/webconf/usuario</i>). Em salas privadas, são definidas duas senhas, uma para moderadores e uma para participantes. Quando um usuário tentar entrar na sala, a senha será solicitada e será utilizada para definir o papel deste usuário na conferência.
     </p>
 
 
@@ -90,19 +90,24 @@
     <h4><i>Configuração inicial do ambiente</i></h4>
 
     <p>
-      Para utilizar o Mconf para estas reuniões, o primeiro passo é efetuar o cadastro no portal https://mconf.org. É aconselhável que todos os participantes façam o seu cadastro, apesar de ser possível convidar pessoas externas (pessoas que não estão cadastradas no portal) para participar de uma webconferência, como será comentado posteriormente. Além disso, em uma conferência com poucos usuários, como neste caso de uso, é desejável que todos os participantes tenham o papel de moderador. Para isso, vamos criar uma comunidade e adicionar todos os participantes nesta comunidade. Para detalhes sobre como se registrar no portal, como criar uma comunidade e aceitar novos usuários, veja o Anexo 2.
+      Para utilizar o Mconf para estas reuniões, o primeiro passo é efetuar o cadastro no portal <a href="http://mconf.org">https://mconf.org</a>. É aconselhável que todos os participantes façam o seu cadastro, apesar de ser possível convidar pessoas externas (pessoas que não estão cadastradas no portal) para participar de uma webconferência, como será comentado posteriormente. Além disso, em uma conferência com poucos usuários, como neste caso de uso, é desejável que todos os participantes tenham o papel de moderador. Para isso, vamos criar uma comunidade e adicionar todos os participantes nesta comunidade. Para detalhes sobre como se registrar no portal, como criar uma comunidade e aceitar novos usuários, veja o <a href="#annex-2">Anexo 2</a>.
     </p>
     <p>
-      Assim que todos participantes estiverem inscritos na comunidade, qualquer um deles pode acessar a página da comunidade e iniciar a conferência clicando no botão “entrar” exibido na barra lateral direita.
+      Assim que todos participantes estiverem inscritos na comunidade, qualquer um deles pode acessar a página da comunidade e iniciar a conferência clicando no botão "entrar" exibido na barra lateral direita.
     </p>
 
-    <!--<%= image_tag("/images/about/wayf.png") %>-->
+    <div class="image_area">
+      <%= image_tag("/images/about/service/webconf-link-sidebar.png") %>
+    </div>
 
     <p>
-      Outra forma de acessar a conferência é utilizando o seu endereço (link). Cada sala de webconferência possui um endereço próprio, como o exibido no exemplo da imagem abaixo. Basta o usuário digitar o endereço no seu navegador e ele será redirecionado para a conferência (caso tenha permissões para tal). O endereço da sala pode ser visto na seção “Webconferência” da comunidade.
+      Outra forma de acessar a conferência é utilizando o seu endereço (link). Cada sala de webconferência possui um endereço próprio, como o exibido no exemplo da imagem abaixo. Basta o usuário digitar o endereço no seu navegador e ele será redirecionado para a conferência (caso tenha permissões para tal). O endereço da sala pode ser visto na seção "Webconferência" da comunidade.
     </p>
 
-    <!-- IMG -->
+    <div class="image_area">
+      <%= image_tag("/images/about/service/webconf-address-1.png") %>
+      <%= image_tag("/images/about/service/webconf-address-2.png") %>
+    </div>
 
     <p>
       Não esqueça de que você precisa estar logado no sistema para ser detectado como membro da comunidade e ter o papel de moderador na conferência.
@@ -111,20 +116,32 @@
     <h4><i>Configurações recomendadas para a conferência</i></h4>
 
     <p>
-      Durante a conferência, siga as dicas a abaixo. Utilize o “Guia rápido de uso” para ver como acessar as funções da conferência.
+      Durante a conferência, siga as dicas a abaixo. Utilize o "Guia rápido de uso" para ver como acessar as funções da conferência.
     </p>
 
     <ul>
       <li>Habilite voz e vídeo para todos participantes.</li>
       <li>Quando você não estiver falando, coloque o seu microfone em mudo para evitar sons descenessários na conferência.</li>
       <li>É recomendável que todos os participantes usem fones de ouvido (ou headsets -- fones de ouvido e microfone integrados) para evitar realimentação de som.</li>
-      <li>Como todos os participantes são moderadores, qualquer um pode executar funções de moderador. É recomendado, porém, que a pessoa que irá “guiar” a conferência também atue como moderador da sessão, tendo como principais funções:</li>
+      <li>Como todos os participantes são moderadores, qualquer um pode executar funções de moderador. É recomendado, porém, que a pessoa que irá "guiar" a conferência também atue como moderador da sessão, tendo como principais funções:</li>
       <ul>
         <li>Atribuir o papel de apresentador para a pessoa que irá apresentar.</li>
         <li>Verificar possíveis problemas de áudio e tentar resolvê-los.</li>
         <li>Passar a palavra para usuários que pediram a vez (usando o ícone de pedir a vez ou por chat). </li>
       </ul>
     </ul>
+
+    <p>
+      Veja nas imagens abaixo layouts recomendados para reuniões seguindo este modelo:
+    </p>
+
+    <div class="image_area">
+      <%= image_tag("/images/about/service/case-1-layout-1.png") %>
+      <div class="legend">
+        Layout com foco nos vídeos e apresentação, mas com o bloco de notas sempre visível.
+      </div>
+    </div>
+
 
     <h4>Caso 2: Transmissão de um evento com participantes remotos</h4>
 
@@ -138,7 +155,12 @@
       Assim como no caso de uso anterior, recomenda-se a criação de uma comunidade para o evento. Neste caso, porém, apenas o palestrante e/ou um moderador precisam fazer parte da comunidade. Os outros usuários entrarão na conferência através do link da mesma.
     </p>
 
-    <!-- IMG -->
+    <div class="image_area">
+      <%= image_tag("/images/about/service/webconf-address-2.png") %>
+      <div class="legend">
+        Layout com foco nos vídeos e apresentação, mas com o bloco de notas sempre visível.
+      </div>
+    </div>
 
     <p>
       Esta comunidade pode ser pública ou privada. Se for necessário limitar o acesso à ela, crie-a como privada e atribua uma senha à sala de webconferência. Assim os usuários que acessarem o link da sala de webconferência deverão colocar a senha da sala para ingressar na conferência. Se ela for privada, os usuários precisarão apenas digitar o seu nome para ingressar.
@@ -147,7 +169,7 @@
     <h4><i>Configurações recomendadas para a conferência</i></h4>
 
     <p>
-      Durante a conferência, siga as dicas a abaixo. Utilize o “Guia rápido de uso” para ver como acessar as funções da conferência.
+      Durante a conferência, siga as dicas a abaixo. Utilize o "Guia rápido de uso" para ver como acessar as funções da conferência.
     </p>
 
 
@@ -183,19 +205,130 @@
         </ul>
       </li>
       <li>
-        Avise aos participantes que eles podem fazer perguntas pelo chat e também pode user o ícone de “levantar a mão” quando eles possuem alguma questão.
+        Avise aos participantes que eles podem fazer perguntas pelo chat e também pode user o ícone de "levantar a mão" quando eles possuem alguma questão.
       </li>
     </ul>
 
     <p>
-      Considere uma palestra que será dada em um auditório (ou sala de aula) com participantes locais, mas que também deve ser transmitida para um grupo de espectadores remotos, que estão em outra localidade. Tanto os participantes locais quanto os participantes remotos querem ter a possibilidade de interagir com o palestrante através de perguntas e o palestrante deve ter capacidade de responder tanto para os participantes locais quanto para os remotos.
+      Veja nas imagens abaixo layouts recomendados para reuniões seguindo este modelo:
     </p>
 
+    <div class="image_area">
+      <%= image_tag("/images/about/service/case-2-layout-1.png") %>
+      <div class="legend">
+        Foco na apresentação, mas com o vídeo visível ao lado. O bloco de notas é opcional.
+      </div>
+
+      <%= image_tag("/images/about/service/case-2-layout-2.png") %>
+      <div class="legend">
+        Apresentação maximizada e navegador em tela cheia, a ser usado localmente pelo palestrante.
+      </div>
+    </div>
+
+  </div>
+
+  <div class="service_paragraph">
     <h3 id="guia-rapido">Guia rápido de uso</h3>
 
     <p>
-      <a href="../files/Mconf - Guia rápido de uso.pdf">Clique aqui</a> para fazer download do guia rápido de uso em formato PDF.
+      <a href="/files/Mconf - Guia rápido de uso.pdf">Clique aqui</a> ou na imagem abaixo para fazer download do guia rápido de uso em formato PDF.
     </p>
 
+    <div class="image_area">
+      <a href="/files/Mconf - Guia rápido de uso.pdf">
+        <%= image_tag("/images/about/service/guia-rapido-preview.png") %>
+      </a>
+    </div>
+
   </div>
+
+  <div class="service_paragraph annex-start">
+    <h3 id="annex-1">Anexo 1: certificado do site https://mconf.org</h3>
+
+    <p>
+      Para aceitar o certificado do Mconf e acessar o site, siga os passos abaixo.
+    </p>
+
+    <h4>Chrome</h4>
+    <p>
+      No Google Chrome, você verá uma tela como a imagem abaixo. Para prosseguir, basta clicar no botão "Continuar mesmo assim" e você será redirecionado para o site do Mconf.
+    </p>
+
+    <div class="image_area">
+      <%= image_tag("/images/about/service/certificate-chrome.png") %>
+    </div>
+
+    <h4>Firefox</h4>
+    <p>
+      No Firefox, você inicialmente verá uma tela como a imagem à esquerda abaixo. Clique em "Entendo os riscos" e você verá a tela exibida à direita.
+    </p>
+
+    <div class="image_area">
+      <%= image_tag("/images/about/service/certificate-firefox-1.png") %>
+      <%= image_tag("/images/about/service/certificate-firefox-2.png") %>
+    </div>
+
+    <p>
+      A seguir, clique no botão "Adicionar exceção" e você verá a tela abaixo. Nela, clique em "Confirmar exceção de segurança" e você será redirecionado para o site do Mconf.
+    </p>
+
+    <div class="image_area">
+      <%= image_tag("/images/about/service/certificate-firefox-3.png") %>
+    </div>
+
+    <h4>Mais informações</h4>
+    <p>
+      Se você deseja mais informações sobre o que é um certificado e o motivo do aviso de segurança aparecer, acesse: <a href="http://support.google.com/chrome/bin/answer.py?hl=pt-BR&answer=98884">http://support.google.com/chrome/bin/answer.py?hl=pt-BR&answer=98884</a>
+    </p>
+  </div>
+
+  <div class="service_paragraph">
+    <h3 id="annex-2">Anexo 2: Registro e criação de comunidades</h3>
+
+    <p>
+      Este anexo mostra como criar um novo usuário no portal do Mconf e como criar novas comunidades e aceitar usuários como membros.
+    </p>
+
+    <div class="image_area">
+      <%= image_tag("/images/about/service/annex-2-register.png") %>
+    </div>
+
+    <div class="image_area">
+      <%= image_tag("/images/about/service/annex-2-new-space.png") %>
+    </div>
+
+    <p>
+      Na criação de uma comunidade, se você selecionar a opção "Comunidade <b>pública</b>", qualquer pessoa terá acesso à comunidade e à sua sala de webconferência. Porém, somente um membro da comunidade pode criar a conferência, ou seja, usuáriosque não pertencem à comunidade podem acessar a conferência apenas se ela já está em andamento. Além disso, mesmo a comunidade sendo pública, usuários só podem fazer parte da comunidade após o criador da mesma aceitar o seu ingresso.
+    </p>
+
+    <p>
+      Se a comunidade for <b>privada</b>, a diferença é que as páginas da comunidade e a sua sala de webconferência só estarão acessíveis aos membros da mesma. A sala de webconferência terá uma senha, que pode ser utilizada como um "atalho" para pessoas que não pertencem à comunidade acessarem uma webconferência.
+    </p>
+
+    <p>
+      Para outros usuários entrarem na comunidade, basta que eles acessem a página no formato <i>https://mconf.org/spaces/nome-comunidade/join_requests/new</i> que lhes será exibido um formulário para solicitar o ingresso.
+    </p>
+
+    <div class="image_area">
+      <%= image_tag("/images/about/service/annex-2-join.png") %>
+    </div>
+
+    <p>
+      Para encontrar o link do forumulário de solicitação de ingresso, basta procurar a comunidade na lista de comunidades e clicar no seu logo:
+    </p>
+
+    <div class="image_area">
+      <%= image_tag("/images/about/service/annex-2-spaces.png") %>
+    </div>
+
+    <p>
+      Veja na imagem abaixo como o criador da comunidade pode aceitar pedidos de ingresso:
+    </p>
+
+    <div class="image_area">
+      <%= image_tag("/images/about/service/annex-2-join-accept.png") %>
+    </div>
+
+  </div>
+
 </div>
