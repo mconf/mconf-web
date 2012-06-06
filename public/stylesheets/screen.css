@@ -2666,33 +2666,38 @@ h3.dialog_title {
   color: red;
   margin-bottom: 20px;
 }
-#terms_title, #privacy_title {
+#terms_title, #privacy_title, #service_title {
   margin-bottom: 10px;
 }
-#terms_title h1, #privacy_title h1 {
+#terms_title h1, #privacy_title h1, #service_title h1 {
   font-size: 1.6em;
 }
-#terms_body .terms_paragraph {
+#terms_body .terms_paragraph, #service_body .service_paragraph {
   margin-top: 20px;
 }
-#terms_body .terms_paragraph h3 {
+#terms_body .terms_paragraph h3, #service_body .service_paragraph h3 {
   font-size: 1.2em;
 }
-#terms_body .terms_paragraph h4 {
+#terms_body .terms_paragraph h4, #service_body .service_paragraph h4 {
   margin-bottom: 7px;
 }
-#terms_body .image_area {
+#terms_body .image_area, #service_body .image_area {
   margin-top: 10px;
   text-align: center;
 }
-#terms_body .image_area img {
+#terms_body .image_area img, #service_body .image_area img {
   padding: 4px;
   background: white;
   border: 1px solid #ccc;
 }
-#terms_body .image_area .legend {
+#terms_body .image_area .legend, #service_body .image_area .legend {
   font-style: italic;
   display: block;
   text-align: center;
   margin-bottom: 15px;
+}
+#service_body .annex-start {
+  margin-top: 50px;
+  border-top: 5px solid #fff;
+  padding-top: 50px;
 }
