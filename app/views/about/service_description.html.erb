@@ -1,0 +1,201 @@
+<div id="terms_title">
+  <h1>Descrição do Serviço</h1>
+</div>
+
+<div id="terms_body">
+
+  <div class="terms_paragraph">
+    <p>
+    O serviço experimental Beta Mconf (<a href="http://mconf.org">http://mconf.org</a>) permite a criação de conferências web, tanto entre computadores como dispositivos móveis. A ideia é possibilitar que usuários distantes geograficamente interajam por meio de áudio, vídeo, quadro de notas e bate-papo. Também é possível compartilhar textos, apresentações, imagens e telas de computador, tudo através do navegador web.
+    </p>
+
+    <p>
+      Nesta página você tem acesso ao <a href="#manual-de-uso">manual de uso do sistema</a>, com base em alguns casos de uso, e o <a href="#guia-rapido">guia rápido de uso</a>.
+    </p>
+
+    <h3 id="manual-de-uso">Manual e casos de uso</h3>
+
+    <p>
+    Esta página tem como objetivo demonstrar o uso da ferramenta Mconf de forma simples através de casos de uso. O foco do documento é apresentar alguns casos de uso de webconferência, para que possam ser seguidos por usuários que estão aprendendo a utilizar o sistema.
+    </p>
+
+    <h3>Recomendações e conceitos básicos</h3>
+
+    <h4>Recomendações gerais</h4>
+
+    <ul>
+      <li>
+        Para acessar o Mconf, recomenda-se o uso de um dos navegadores abaixo, de preferência em suas últimas versões:
+      </li>
+      <ul style="margin-bottom:0;">
+        <li><a href="https://www.google.com/chrome">Google Chrome</a></li>
+        <li><a href="http://www.mozilla.org/pt-BR/firefox/new/">Mozilla Firefox</a></li>
+      </ul>
+      <li>
+        Ao acessar o site <a href="https://mconf.org">https://mconf.org</a> pela primeira vez, você receberá um aviso de segurança com uma mensagem similar a esta: “o certificado de segurança do site não é confiável”. Isso acontece pois o certificado utilizado pelo Mconf ainda não está cadastrado em um servidor de certificados no qual os navegadores confiam por padrão. Porém, isso não significa que o site não é confiável. Apenas certifique-se que a barra de endereços está com o endereço “https://mconf.org” e você pode prosseguir, conforme descrito no Anexo 1.
+      </li>
+      <li>
+        Por ser uma ferramenta internacional, o portal do Mconf está por padrão em inglês. Para modificar para português basta ir para o final da página e clicar no link “Português (Brasil)”. Se você fizer isso quando estiver logado no sistema, o idioma português será definido como idioma padrão para o seu usuário.
+      </li>
+    </ul>
+
+    <h4>Tipos de usuários e permissões</h4>
+
+    <p>
+      O sistema de webconferência possui dois tipos principais de usuários:
+    </p>
+
+    <ul>
+      <li>
+        <b>Moderador</b>: Possui permissão para fazer todas as tarefas possíveis na conferência. Pode, principalmente, forçar que participantes fiquem com seu microfone mudo e modificar que é o apresentador atual da conferência (veja mais sobre o apresentador abaixo);
+      </li>
+      <li>
+        <b>Participante</b>: Possui permissões restritas. Pode compartilhar o seu áudio e vídeo, mas não pode efetuar as tarefas de moderadores citadas acima.
+      </li>
+    </ul>
+
+    <p>
+      O papel do usuário é definido pelo portal do Mconf no momento em que o usuário entra na conferência. Se ele é moderador, ele será moderador até o final da conferência. O mesmo vale para participantes.
+    </p>
+    <p>
+      Além disso, há um papel que pode ser atribuído durante a conferência, que é o papel de apresentador. Um moderador da sessão pode escolher qual participante é o atual apresentador (há apenas um apresentador por sessão) e este apresentador terá capacidade de modificar a apresentação que está sendo compartilhada e utilizar seus controles: mudar o slide atual, fazer anotações sobre a apresentação, etc.
+    </p>
+
+    <p>
+      O papel dos usuários nas conferências depende do tipo da sala de conferência que está sendo acessada. O portal do Mconf oferece dois tipos de salas:
+    </p>
+
+    <ul>
+      <li>
+        Salas <b>pessoais</b>, onde o dono da sala será o moderador da conferência e todos os outros usuários serão participantes com permissões restritas;
+      </li>
+      <li>
+        Salas de <b>comunidades</b>, onde todos os membros da comunidade são moderadores. Pessoas que não fazem parte da comunidade serão sempre participantes com permissões restritas. Isso vale tanto para pessoas registradas quanto para pessoas não registradas no portal.
+      </li>
+    </ul>
+
+    <p>
+      Além disso, o portal permite que as salas sejam públicas ou privadas. Em salas públicas, qualquer pessoa, cadastrada ou não no portal, poderá acessar a conferência apenas utilizando o link da sala (e.g. https://mconf.org/webconf/usuario). Em salas privadas, são definidas duas senhas, uma para moderadores e uma para participantes. Quando um usuário tentar entrar na sala, a senha será solicitada e será utilizada para definir o papel deste usuário na conferência.
+    </p>
+
+
+    <h3>Casos de uso</h3>
+
+    <h4>Caso 1: Reunião com participantes remotos</h4>
+
+    <p>
+      Considere uma instituição que possui diversos escritórios (ou campus, ou filiais) em diferentes cidades e precisa conectar os gerentes destes escritórios para realização de reuniões. Cada gerente possui a sua sala pessoal e seu equipamento de webconferência: um computador, uma webcam e um headset (conjunto de fones de ouvido e microfone).
+    </p>
+
+    <h4><i>Configuração inicial do ambiente</i></h4>
+
+    <p>
+      Para utilizar o Mconf para estas reuniões, o primeiro passo é efetuar o cadastro no portal https://mconf.org. É aconselhável que todos os participantes façam o seu cadastro, apesar de ser possível convidar pessoas externas (pessoas que não estão cadastradas no portal) para participar de uma webconferência, como será comentado posteriormente. Além disso, em uma conferência com poucos usuários, como neste caso de uso, é desejável que todos os participantes tenham o papel de moderador. Para isso, vamos criar uma comunidade e adicionar todos os participantes nesta comunidade. Para detalhes sobre como se registrar no portal, como criar uma comunidade e aceitar novos usuários, veja o Anexo 2.
+    </p>
+    <p>
+      Assim que todos participantes estiverem inscritos na comunidade, qualquer um deles pode acessar a página da comunidade e iniciar a conferência clicando no botão “entrar” exibido na barra lateral direita.
+    </p>
+
+    <!--<%= image_tag("/images/about/wayf.png") %>-->
+
+    <p>
+      Outra forma de acessar a conferência é utilizando o seu endereço (link). Cada sala de webconferência possui um endereço próprio, como o exibido no exemplo da imagem abaixo. Basta o usuário digitar o endereço no seu navegador e ele será redirecionado para a conferência (caso tenha permissões para tal). O endereço da sala pode ser visto na seção “Webconferência” da comunidade.
+    </p>
+
+    <!-- IMG -->
+
+    <p>
+      Não esqueça de que você precisa estar logado no sistema para ser detectado como membro da comunidade e ter o papel de moderador na conferência.
+    </p>
+
+    <h4><i>Configurações recomendadas para a conferência</i></h4>
+
+    <p>
+      Durante a conferência, siga as dicas a abaixo. Utilize o “Guia rápido de uso” para ver como acessar as funções da conferência.
+    </p>
+
+    <ul>
+      <li>Habilite voz e vídeo para todos participantes.</li>
+      <li>Quando você não estiver falando, coloque o seu microfone em mudo para evitar sons descenessários na conferência.</li>
+      <li>É recomendável que todos os participantes usem fones de ouvido (ou headsets -- fones de ouvido e microfone integrados) para evitar realimentação de som.</li>
+      <li>Como todos os participantes são moderadores, qualquer um pode executar funções de moderador. É recomendado, porém, que a pessoa que irá “guiar” a conferência também atue como moderador da sessão, tendo como principais funções:</li>
+      <ul>
+        <li>Atribuir o papel de apresentador para a pessoa que irá apresentar.</li>
+        <li>Verificar possíveis problemas de áudio e tentar resolvê-los.</li>
+        <li>Passar a palavra para usuários que pediram a vez (usando o ícone de pedir a vez ou por chat). </li>
+      </ul>
+    </ul>
+
+    <h4>Caso 2: Transmissão de um evento com participantes remotos</h4>
+
+    <p>
+      Considere uma palestra que será dada em um auditório (ou sala de aula) com participantes locais, mas que também deve ser transmitida para um grupo de espectadores remotos, que estão em outra localidade. Tanto os participantes locais quanto os participantes remotos querem ter a possibilidade de interagir com o palestrante através de perguntas e o palestrante deve ter capacidade de responder tanto para os participantes locais quanto para os remotos.
+    </p>
+
+    <h4><i>Configuração inicial do ambiente</i></h4>
+
+    <p>
+      Assim como no caso de uso anterior, recomenda-se a criação de uma comunidade para o evento. Neste caso, porém, apenas o palestrante e/ou um moderador precisam fazer parte da comunidade. Os outros usuários entrarão na conferência através do link da mesma.
+    </p>
+
+    <!-- IMG -->
+
+    <p>
+      Esta comunidade pode ser pública ou privada. Se for necessário limitar o acesso à ela, crie-a como privada e atribua uma senha à sala de webconferência. Assim os usuários que acessarem o link da sala de webconferência deverão colocar a senha da sala para ingressar na conferência. Se ela for privada, os usuários precisarão apenas digitar o seu nome para ingressar.
+    </p>
+
+    <h4><i>Configurações recomendadas para a conferência</i></h4>
+
+    <p>
+      Durante a conferência, siga as dicas a abaixo. Utilize o “Guia rápido de uso” para ver como acessar as funções da conferência.
+    </p>
+
+
+    <ul>
+      <li>
+        Se houver uma pessoa para auxiliar o palestrante, faça ela de moderador (inclua ela na comunidade) e ela poderá ajudar durante a apresentação. Caso contrário, o palestrante pode assumir também o papel de moderador.
+      </li>
+      <li>
+        O palestrante usará o próprio Mconf para fazer sua apresentação. Ele deve enviar sua apresentação de preferência logo que a conferência é criada, antes de iniciar a sessão.
+        <ul>
+          <li>Recomenda-se enviar a apresentação no formato PDF. Outros formatos, como PPT e PPTX serão convertidos para PDF e poderão perder um pouco de sua formatação.</li>
+        </ul>
+      </li>
+      <li>
+        Após enviar a apresentação, verifique que ela está correta (mude alguns slides). O palestrante pode maximizar a apresentação para que ela ocupe a tela inteira. É possível também colocar o navegador em tela cheia, para aumentar ainda mais o tamanho da apresentação.
+        <ul>
+          <li>No Chrome e Firefox, para colocar o navegador em tela cheia clique na barra de endereço e aperte F11.</li>
+        </ul>
+      </li>
+      <li>
+        Esta máquina que o palestrante está usando com o Mconf pode ser ligada a um projetor para apresentação local. Os espectadores remotos assistirão a sessão pelo Mconf.
+      </li>
+      <li>
+        No início da sessão, solicite que os visualizadores não habilitem sua câmera para evitar tráfego desnecessário de dados na rede. Apenas o palestrante deve habilitar a sua câmera para que os espectadores remotos recebam tanto sua apresentação quanto seu vídeo.
+        <ul>
+          <li>Outros participantes podem habilitar seu vídeo quando forem fazer alguma interação.</li>
+        </ul>
+      </li>
+      <li>
+        Também no início da sessão, clique no botão para deixar todos em mudo. Com isso, assim que outros participantes entrarem na sessão eles já estarão com seu microfone em mudo, evitando interrupções desnecessárias. Todos os participantes da conferência devem estar conectados à conferência de áudio, porém apenas o palestrante deve estar com seu microfone aberto (não mudo).
+        <ul>
+          <li>O moderador pode também garantir que outros participantes não vão abrir o seu microfone clicando no cadeado ao lado do nome do participante enquanto este estiver com seu microfone no mudo</li>
+        </ul>
+      </li>
+      <li>
+        Avise aos participantes que eles podem fazer perguntas pelo chat e também pode user o ícone de “levantar a mão” quando eles possuem alguma questão.
+      </li>
+    </ul>
+
+    <p>
+      Considere uma palestra que será dada em um auditório (ou sala de aula) com participantes locais, mas que também deve ser transmitida para um grupo de espectadores remotos, que estão em outra localidade. Tanto os participantes locais quanto os participantes remotos querem ter a possibilidade de interagir com o palestrante através de perguntas e o palestrante deve ter capacidade de responder tanto para os participantes locais quanto para os remotos.
+    </p>
+
+    <h3 id="guia-rapido">Guia rápido de uso</h3>
+
+    <p>
+      <a href="files/Mconf - Guia rápido de uso.pdf">Clique aqui</a> para fazer download do guia rápido de uso em formato PDF.
+    </p>
+
+  </div>
+</div>
