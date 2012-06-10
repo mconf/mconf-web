@@ -36,7 +36,7 @@ class SpacesController < ApplicationController
       redirect_to space_path(Space.find_by_permalink(params[:space_id]))
       return
     end
-    @spaces = Space.find(:all, :order => 'name ASC')
+    @spaces = Space.order('name ASC').all
     @private_spaces = @spaces.select{|s| !s.public?}
     @public_spaces = @spaces.select{|s| s.public?}
     if @space
@@ -48,8 +48,12 @@ class SpacesController < ApplicationController
     end
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => @spaces }
-      format.atom
+      format.xml { render :xml => @public_spaces }
+      format.js {
+        json = @public_spaces.to_json(:methods => :user_count, :include => {:logo => { :only => [:height, :width], :methods => :logo_image_path } })
+        render :json => json, :callback => params[:callback]
+      }
+      #format.atom
     end
   end
 
