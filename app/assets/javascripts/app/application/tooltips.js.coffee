@@ -1,5 +1,4 @@
-$ ->
-
+window.bindTooltips = ->
   # Inserts a tooltip for every element with the class 'tooltipped'
   # Uses qTip
   # Examples:
@@ -53,3 +52,6 @@ $ ->
           method: "shift"
       style:
         classes: "ui-tooltip-tipsy ui-tooltip-mconf-label"
+
+$ ->
+  bindTooltips()
