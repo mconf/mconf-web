@@ -1,4 +1,4 @@
 ---
 BUNDLE_BUILD__LINECACHE19: --with-ruby-include=$rvm_path/src/$rvm_ruby_string/
 BUNDLE_BUILD__RUBY-DEBUG-BASE19: --with-ruby-include=$rvm_path/src/$rvm_ruby_string/
-
+BUNDLE_WITHOUT: development:test
