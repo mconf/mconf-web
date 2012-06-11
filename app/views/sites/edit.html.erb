@@ -66,8 +66,8 @@
    style: 'mystyle'
   });
 
- $('.tooltip_email_password').qtip({
-   content: '<%= escape_javascript(t('site.email_password_tip')) %>',
+ $('.tooltip_smtp_password').qtip({
+   content: '<%= escape_javascript(t('site.smtp_password_tip')) %>',
    position: {adjust: { screen: true }},
    show:  'mouseover',
    hide: { when: 'mouseout', fixed: true },
@@ -82,11 +82,11 @@
    style: 'mystyle'
   });
 
-  $("#site_email_password_show").livequery('click', function(event) {
+  $("#site_smtp_password_show").livequery('click', function(event) {
     if ($(this).is(':checked')) {
-      changeInputTextType("#current_site_email_password", 'text');
+      changeInputTextType("#current_site_smtp_password", 'text');
     } else {
-      changeInputTextType("#current_site_email_password", 'password');
+      changeInputTextType("#current_site_smtp_password", 'password');
     }
   });
 <% end %>
@@ -114,17 +114,43 @@
   </p>
 
   <p>
-    <%= f.label :email, t('site.email') %>
-    <%= f.text_field :email %>
+    <%= f.label :smtp_login, t('site.smtp_login') %>
+    <%= f.text_field :smtp_login %>
     <%= image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_email icon",:style=>"cursor:pointer").html_safe %>
   </p>
 
   <p>
-    <%= f.label :email_password, t('site.email_password') %>
-    <%= f.password_field :email_password %>
-    <%= image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_email_password icon",:style=>"cursor:pointer").html_safe %>
-    <%= check_box_tag 'site_email_password_show' %><%= t('show_question') %>
+    <%= f.label :smtp_password, t('site.smtp_password') %>
+    <%= f.password_field :smtp_password %>
+    <%= image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_smtp_password icon",:style=>"cursor:pointer").html_safe %>
+    <%= check_box_tag 'site_smtp_password_show' %><%= t('show_question') %>
   </p>
+  <p>
+      <%= f.label :smtp_server, t('site.smtp_server') %>
+      <%= f.text_field :smtp_server%>
+  </p>
+  <p>
+      <%= f.label :smtp_port, t('site.smtp_port') %>
+      <%= f.text_field :smtp_port %>
+  </p>
+  <p>
+     <%= f.label :smtp_use_tls, t('site.smtp_use_tls') %>
+     <%= f.check_box :smtp_use_tls %>
+  </p>
+  <p>
+     <%= f.label "Auto Start TLS", t('site.smtp_auto_tls') %>
+     <%= f.check_box :smtp_auto_tls %>
+  </p>
+
+  <p>
+      <%= f.label :smtp_auth_type,t('site.smtp_auth_type') %>
+      <%= f.text_field :smtp_auth_type %>
+  </p>
+  <p>
+
+  </p>
+      <%= f.label :smtp_sender,t('site.smtp_sender') %>
+      <%= f.text_field :smtp_sender %>
 
   <p>
     <%= f.label :locale, t('site.locale') %>
