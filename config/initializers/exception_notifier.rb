@@ -6,7 +6,7 @@ if Rails.env.production? and Site.table_exists?
     recipients = site.exception_notifications_email.split(/[\s,;]/).reject(&:empty?) # accepts " ", "," and ";" as separators
     Mconf::Application.config.middleware.use ExceptionNotifier,
       :email_prefix => site.exception_notifications_prefix + " ",
-      :sender_address => %("#{site.name}" <#{site.email}>),
+      :sender_address => %("#{site.name}" <#{site.smtp_login}>),
       :exception_recipients => recipients
   end
 end

@@ -259,7 +259,7 @@ class Notifier < ActionMailer::Base
 
   def setup_email(recipients)
     @recipients = recipients
-    @from = "#{ Site.current.name } <#{ Site.current.email }>"
+    @from = "#{ Site.current.name } <#{ Site.current.smtp_sender }>"
     @subject = I18n.t("vcc_mail_label").html_safe + " "
     @sent_on = Time.now
     @content_type ="text/html"

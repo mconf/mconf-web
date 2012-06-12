@@ -5,7 +5,7 @@
 
 <%= raw(t('email.confirm', :url => "http://" + Site.current.domain.to_s + "/activate/" + @hash )) %><br/><br/>
 
-<%= raw(t('email.spam_activation', :contact => Site.current.email, :feedback => "http://" + Site.current.domain.to_s + new_feedback_path())) %><br/><br/>
+<%= raw(t('email.spam_activation', :contact => Site.current.smtp_sender, :feedback => "http://" + Site.current.domain.to_s + new_feedback_path())) %><br/><br/>
 
 <%= @signature %><br/>
 </body>
