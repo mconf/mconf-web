@@ -8,7 +8,7 @@
         :space => @join_request.group.name, 
         :comment => @join_request.comment, 
         :url => space_admissions_url(@join_request.group), 
-        :contact => Site.current.email, 
+        :contact => Site.current.smtp_sender, 
         :feedback => new_feedback_url(), 
         :signature => Site.current.signature_in_html
         ).html_safe 

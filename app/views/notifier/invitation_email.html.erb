@@ -10,7 +10,7 @@
         :user_name => @user.full_name, 
         :user_email => @user.email, 
         :user_organization => @user.organization, 
-        :contact => Site.current.email, 
+        :contact => Site.current.smtp_sender, 
         :feedback => new_feedback_url()
         ).html_safe
     %>
