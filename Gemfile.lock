@@ -5,6 +5,14 @@ GIT
     table_helper (0.2.2)
 
 GIT
+  remote: git://github.com/fnando/i18n-js.git
+  revision: 20f6d119ec58bafff394caff05a0ee60d9729c06
+  branch: rewrite
+  specs:
+    i18n-js (3.0.0.rc2)
+      i18n
+
+GIT
   remote: git://github.com/mconf/attachment_fu.git
   revision: 746363b1b7ffc20602a6827d1d8fb65259e2cf29
   specs:
@@ -316,6 +324,7 @@ DEPENDENCIES
   hpricot
   htmlentities
   httparty
+  i18n-js!
   jquery-rails
   mysql2 (~> 0.3.0)
   nokogiri (= 1.4.1)

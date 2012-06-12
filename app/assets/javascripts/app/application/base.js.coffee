@@ -3,6 +3,9 @@
 
 $ ->
 
+  # Setting I18n-js with the user language
+  I18n.locale = $('html').attr "lang"
+
   # Links to open the webconference
   # Open it in a new borderless window
   $("a.webconf-start-link:not(.disabled)").on "click", (e) ->

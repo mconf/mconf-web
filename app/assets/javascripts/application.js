@@ -7,6 +7,7 @@
 //= require jquery/jquery.placeholder
 //= require jquery/jquery.noty
 //= require jquery/jquery.Jcrop
+//= require jquery/jquery.autosize
 
 // TODO: These jquery plugins are probably not used anymore
 //= require jquery/jquery.livequery
@@ -17,3 +18,6 @@
 
 //= require bootstrap/bootstrap-dropdown
 //= require_tree ./app/application/
+//= require i18n/translations
+
+//= require strophe
