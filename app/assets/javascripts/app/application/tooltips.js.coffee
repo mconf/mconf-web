@@ -1,4 +1,10 @@
-window.bindTooltips = ->
+mconf = window.mconf or= {}
+mconf.tooltips = {}
+
+mconf.tooltips.create = (obj, options={}) ->
+  obj.qtip options
+
+mconf.tooltips.bind = ->
   # Inserts a tooltip for every element with the class 'tooltipped'
   # Uses qTip
   # Examples:
@@ -24,8 +30,8 @@ window.bindTooltips = ->
     else
       at += " center"
       my += " center"
-    target = if obj.hasClass("from-mouse") then 'mouse' else obj
-    obj.qtip
+    target = if obj.hasClass("from-mouse") then "mouse" else obj
+    options =
       position:
         my: my
         at: at
@@ -34,6 +40,7 @@ window.bindTooltips = ->
           method: "shift"
       style:
         classes: "ui-tooltip-tipsy ui-tooltip-mconf"
+     mconf.tooltips.create obj, options
 
   # A tooltip in the format of a label, inside the component (used mainly
   # for images)
@@ -43,7 +50,7 @@ window.bindTooltips = ->
       at = "bottom center"
     else
       at = "top center"
-    obj.qtip
+    options =
       position:
         my: "center"
         at: at
@@ -52,6 +59,7 @@ window.bindTooltips = ->
           method: "shift"
       style:
         classes: "ui-tooltip-tipsy ui-tooltip-mconf-label"
+     mconf.tooltips.create obj, options
 
 $ ->
-  bindTooltips()
+  mconf.tooltips.bind()
