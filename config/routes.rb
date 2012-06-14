@@ -134,10 +134,11 @@ Mconf::Application.routes.draw do
   resources :memberships
   resources :attachment_videos
 
-  resources :users do
+  resource :users do
     member do
       post :enable
       get :edit_bbb_room
+      get :select_users
     end
 
     resources :private_messages, :as => 'messages'

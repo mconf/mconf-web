@@ -213,6 +213,8 @@ pt-br:
       busy: "Ocupado"
       away: "Ausente"
       offline: "Offline"
+    typing: "está digitando.."
+    title: "Bate-papo"
   check_mail: "Por favor, verifique seu e-mail"
   city: Cidade
   click_to_see_all: "Ver todos"

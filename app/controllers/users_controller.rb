@@ -236,4 +236,22 @@ class UsersController < ApplicationController
     end
   end
 
+  def select_users
+    tags = []
+    members = Profile.where("full_name like ?", "%#{ params[:q]}%").select(['full_name', 'id']).limit(4)
+    members.each do |f|
+      user = User.find(f.id)
+      tags.push("id"=>user.login, "name"=>f.full_name)
+    end
+
+    respond_to do |format|
+      format.html{
+        if request.xhr?
+          render :layout => false
+        end
+      }
+      format.json { render :json => tags }
+    end
+  end
+
 end
