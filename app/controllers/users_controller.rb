@@ -236,20 +236,12 @@ class UsersController < ApplicationController
     end
   end
 
+  # GET /users/select_users.json
+  # This method returns a list with the login and name of all users
   def select_users
-    tags = []
-    members = Profile.where("full_name like ?", "%#{ params[:q]}%").select(['full_name', 'id']).limit(4)
-    members.each do |f|
-      user = User.find(f.id)
-      tags.push("id"=>user.login, "name"=>f.full_name)
-    end
+    tags = User.select_all_users(params[:q])
 
     respond_to do |format|
-      format.html{
-        if request.xhr?
-          render :layout => false
-        end
-      }
       format.json { render :json => tags }
     end
   end

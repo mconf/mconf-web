@@ -4,8 +4,6 @@ Chat =
   last_status: null
   login: null
   password: null
-  invite_chat: null
-  invite_bbb_chat: null
   bbb_room_url: null
 
   jid_to_id: (jid) ->
@@ -100,8 +98,8 @@ Chat =
               $("#chat-"+jid_id+" .none").addClass "away"
 
       li = contact
-      li.remove
-      Chat.insert_contact li
+      #li.remove
+      Chat.insert_contact contact
 
     jid_id = Chat.jid_to_id from
     $("#chat-" + jid_id).data "jid", Strophe.getBareJidFromJid from
@@ -165,7 +163,7 @@ Chat =
       composing = $(message).find 'composing'
 
       if composing.length > 0
-        $('#chat-' + jid_id + ' #content-chat #message-area .chat-messages').append("<div class='chat-event'>" + name + " is typing...</div>")
+        $('#chat-' + jid_id + ' #content-chat #message-area .chat-messages').append("<div class='chat-event'>" + name + " " + I18n.t("chat.typing") +  "</div>")
         Chat.scroll_chat jid_id
 
       body = $(message).find "html > body"
@@ -258,7 +256,6 @@ $ ->
         Chat.connection.send $pres({to: Chat.pending_subscriber,"type": "unsubscribed"})
         Chat.pending_subscriber = null
         $(this).dialog 'close'
-        return
 
       "Approve": ->
         iq = $iq({type: "set"})
@@ -269,7 +266,6 @@ $ ->
 
         Chat.pending_subscriber = null
         $(this).dialog 'close'
-        return
 
   $(".main-chat-area").on "click", "#main-chat #content-chat li#status", ->
     $("#status_list").toggle(0)
@@ -367,7 +363,66 @@ $ ->
       " </span><span class='chat-text'>" + body +
       "</span></div>")
 
-  #***ARRUMAR FANCYBOX
+  # Add Users
+  $(".main-chat-area").on 'click', ".mHfL .nn #main-chat #content-chat #add_user", ->
+    $.colorbox
+      html:"<div class='modal-title'><span>" + I18n.t("chat.add")  + "</span></div><div class='modal-content'><label for='member_token'>" + I18n.t('chat.name.other') +
+        "</label>" + "<input id='member_token' name='member_token' type='text' style='width:396px;' /><br>" +
+        "<br><br><br><div class='float_right'><input id='submit' type='submit' value='" + I18n.t('chat.add') + "' ></div></div>"
+      onComplete: ->
+        jid = new Array()
+        name = new Array()
+
+        $("#member_token").tokenInput '/users/select_users.json',
+          crossDomain: false
+          theme: 'facebook'
+          preventDuplicates: true
+          searchDelay: 200
+          hintText: "teste"
+          onAdd: (item) ->
+            jid.push item.id
+            name.push item.name
+          onDelete: (item) ->
+            jid.splice jid.indexOf(item.id),1
+            name.splice name.indexOf(item.name),1
+
+        $(document).on "click", "#submit", ->
+          if jid.length
+            $(document).trigger 'contact_added', { jid: jid, name: name }
+            $.colorbox.close()
+
+  $(".main-chat-area").on 'click', ".mHfL .nn #main-chat #content-chat #bbb_invite", ->
+    $.colorbox
+      html:"<div class='modal-title'><span>" + I18n.t("chat.invite.bbb")  + "</span></div><div class='modal-content'><label for='member_token'>" + I18n.t('chat.name.other') +
+        "</label>" + "<input id='member_token' name='member_token' type='text' style='width:396px;' /><br>" +
+        "<br><br><br><div class='float_right'><button id='submit' class='btm' type='submit'>" + I18n.t('chat.invite.button') + "</button></div></div>"
+      onComplete: ->
+        jid = new Array()
+
+        $("#member_token").tokenInput '/users/select_users.json',
+          crossDomain: false
+          theme: 'facebook'
+          preventDuplicates: true
+          searchDelay: 200
+          hintText: "teste"
+          onAdd: (item) ->
+            jid.push item.id
+          onDelete: (item) ->
+            jid.splice jid.indexOf(item.id),1
+          onResult: (result) ->
+            results = result
+            iten =0
+            $.each result, (index) ->
+              login = result[index-iten].id.replace(" ","-") + "-chat-bottin-no-ip-info"
+              unless $("#" + login).hasClass "online"
+                results.splice index-iten,1
+                iten = iten + 1
+            results
+
+        $(document).on "click", "#submit", ->
+          if jid.length
+            $(document).trigger 'send_bbb', { jid: jid }
+            $.colorbox.close()
 
 $(document).bind 'connect', (ev, data) ->
   conn = new Strophe.Connection 'http://chat-bottin.no-ip.info:5280/http-bind'
@@ -378,8 +433,6 @@ $(document).bind 'connect', (ev, data) ->
       Chat.user_name = data.name
       Chat.login = data.login
       Chat.password = data.password
-      Chat.invite_chat = data.invite_chat
-      Chat.invite_bbb_chat = data.invite_bbb_chat
       Chat.bbb_room_url = data.url
       $("#status").removeClass("offline").addClass "online"
       $(document).trigger 'connected'
@@ -395,7 +448,7 @@ $(document).bind 'connected', ->
     $("#chat-bar").append(
       "<div class='mHfL' style='width: 200px; height: 100%;'><div><div class='nn' style='width: 195px; height: 100%; position: absolute;'>" +
       "<div id='main-chat' class='chat-area' style='position: absolute;'>" +
-      "<div class='chat-area-title'><h3><ul><li id='status-title' class='none online'>" + "Web Chat"  + "</li></ul></h3></div>" +
+      "<div class='chat-area-title'><h3><ul><li id='status-title' class='none online'>" + I18n.t("chat.title")  + "</li></ul></h3></div>" +
       "<div id='content-chat'><div style='border-bottom: solid 1px #DDD;'>" +
       "<img id='add_user' src='/assets/icons/user_add.png' class='chat-menu-icon' style='cursor: pointer; cursor: hand;' title='Invite Users'/>" +
       "<img id='bbb_invite' src='/assets/icons/bbb_logo.png' class='chat-menu-icon' style='cursor: pointer; cursor: hand;' title='Invite users to your BBB room'/>" +
@@ -429,11 +482,11 @@ $(document).bind 'disconnected', ->
   return
 
 $(document).bind 'contact_added', (ev,data) ->
-  iq = $iq({type: "set"}).c("query", {xmlns: "jabber:iq:roster"}).c("item", data)
-
-  Chat.connection.sendIQ iq
-  subscribe = $pres({to: data.jid, "type": "subscribe", "name": data.inviter})
-  Chat.connection.send subscribe
+  $.each data.jid, (index) ->
+    iq = $iq({type: "set"}).c("query", {xmlns: "jabber:iq:roster"}).c("item", {jid:data.jid[index] + "@chat-bottin.no-ip.info", name:data.name[index]})
+    Chat.connection.sendIQ iq
+    subscribe = $pres({to: data.jid[index] + "@chat-bottin.no-ip.info", "type": "subscribe", "name": Chat.user_name})
+    Chat.connection.send subscribe
   return
 
 $(document).bind 'change_status', (ev,data) ->
@@ -454,7 +507,15 @@ $(document).bind 'change_status', (ev,data) ->
   return
 
 $(document).bind 'send_bbb', (ev,data) ->
-  $(data.jid).each (index,element) =>
-    Chat.connection.send $pres({to: data.jid[index], "bbb": "invite", "url": Chat.bbb_room_url})
-    return
-  return
+  $(data.jid).each (index) ->
+    name = $("#status").text()
+    jid = data.jid[index] + "@chat-bottin.no-ip.info"
+
+    body = I18n.t('chat.invite.msg_clean')
+    body = body.replace /URL/g,Chat.bbb_room_url
+    message = $msg({to: jid, "type": "chat", "bbb": "invite"})
+      .c('body').t(body).up()
+      .c('active', {xmlns: "http://jabber.org/protocol/chatstates"})
+
+    Chat.connection.send message
+    #Chat.connection.send $pres({to: jid, "bbb": "invite", "url": Chat.bbb_room_url})

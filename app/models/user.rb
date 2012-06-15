@@ -187,6 +187,15 @@ class User < ActiveRecord::Base
     { :user => user, :tags => tags}
   end
 
+  def self.select_all_users(name)
+    tags = []
+    members = Profile.where("full_name like ?", "%#{ name }%").select(['full_name', 'id']).limit(4)
+    members.each do |f|
+      user = User.find(f.id)
+      tags.push("id"=>user.login, "name"=>f.full_name)
+    end
+    tags
+  end
 
   def disable
     self.update_attribute(:disabled,true)
