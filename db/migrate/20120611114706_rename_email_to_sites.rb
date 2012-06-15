@@ -5,8 +5,7 @@ class RenameEmailToSites < ActiveRecord::Migration
   end
 
   def self.down
-    rename_column :sites, :smtp_login ,:email 
+    rename_column :sites, :smtp_login, :email
     rename_column :sites, :smtp_password, :email_password
-
   end
 end

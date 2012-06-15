@@ -6,54 +6,40 @@ if Site.table_exists?
   ActionMailer::Base.perform_deliveries = true
   ActionMailer::Base.raise_delivery_errors = true
 
-  settings={} 
-  if site.respond_to?(:smtp_server) && not(site.smtp_server.empty?)
-     settings[:address]=site.smtp_server
-  elsif
-     settings[:address]=nil
+  # default settings
+  settings = { :address => nil,
+               :port => 25,
+               :domain => nil,
+               :enable_starttls_auto => false,
+               :authentication => nil,
+               :tls => false,
+               :user_name => nil,
+               :password => nil }
+
+  if site.respond_to?(:smtp_server) and not site.smtp_server.blank?
+    settings[:address] = site.smtp_server
   end
-  
-  if site.respond_to?(:port) && site.smtp_port
-     settings[:port]=site.smtp_port
-  elsif
-     settings[:port]=25
-  end     
-  if site.respond_to?(:domain) && site.domain
-     settings[:domain]=site.domain
-  elsif
-     settings[:domain]=nil
+  if site.respond_to?(:port) and not site.smtp_port.blank?
+    settings[:port] = site.smtp_port
   end
-  
-  if site.respond_to?(:smtp_auto_tls) && (site.smtp_auto_tls)
-     settings[:enable_starttls_auto]= true
-  else
-     settings[:enable_starttls_auto]= nil
+  if site.respond_to?(:domain) and not site.domain.blank?
+    settings[:domain] = site.domain
   end
-  
-  if site.respond_to?(:smtp_auth_type) && not(site.smtp_auth_type.empty?)
-     settings[:authentication]=site.smtp_auth_type
-  elsif
-     settings[:authentication]=nil
+  if site.respond_to?(:smtp_auto_tls) and not site.smtp_auto_tls.blank?
+    settings[:enable_starttls_auto] = true
+  end
+  if site.respond_to?(:smtp_auth_type) and not site.smtp_auth_type.blank?
+    settings[:authentication] = site.smtp_auth_type
+  end
+  if site.respond_to?(:smtp_use_tls) and not site.smtp_use_tls.blank?
+    settings[:tls] = true
+  end
+  if site.respond_to?(:smtp_login) and not site.smtp_login.blank?
+    settings[:user_name] = site.smtp_login
+  end
+  if site.respond_to?(:smtp_password) and not site.smtp_password.blank?
+    settings[:password] = site.smtp_password
   end
 
-  if site.respond_to?(:smtp_use_tls) && (site.smtp_use_tls)
-     settings[:tls]=true
-  else
-     settings[:tls]=nil
-  end
-  
-  if site.respond_to?(:smtp_login) && not(site.smtp_login.empty?)
-     settings[:user_name]=site.smtp_login
-  elsif
-     settings[:user_name]=nil
-  end
-
-  if site.respond_to?(:smtp_password) && not(site.smtp_password.empty?)
-     settings[:password]=site.smtp_password
-  elsif
-     settings[:password]=nil
-  end
   ActionMailer::Base.smtp_settings=settings
-
-   
 end

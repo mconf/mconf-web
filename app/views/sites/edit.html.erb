@@ -59,7 +59,7 @@
   });
 
  $('.tooltip_email').qtip({
-   content: '<%= escape_javascript(t('site.email_tip')) %>',
+   content: '<%= escape_javascript(t('site.smtp_login_tip')) %>',
    position: {adjust: { screen: true }},
    show:  'mouseover',
    hide: { when: 'mouseout', fixed: true },
@@ -125,32 +125,36 @@
     <%= image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_smtp_password icon",:style=>"cursor:pointer").html_safe %>
     <%= check_box_tag 'site_smtp_password_show' %><%= t('show_question') %>
   </p>
+
   <p>
-      <%= f.label :smtp_server, t('site.smtp_server') %>
-      <%= f.text_field :smtp_server%>
-  </p>
-  <p>
-      <%= f.label :smtp_port, t('site.smtp_port') %>
-      <%= f.text_field :smtp_port %>
-  </p>
-  <p>
-     <%= f.label :smtp_use_tls, t('site.smtp_use_tls') %>
-     <%= f.check_box :smtp_use_tls %>
-  </p>
-  <p>
-     <%= f.label "Auto Start TLS", t('site.smtp_auto_tls') %>
-     <%= f.check_box :smtp_auto_tls %>
+    <%= f.label :smtp_server, t('site.smtp_server') %>
+    <%= f.text_field :smtp_server%>
   </p>
 
   <p>
-      <%= f.label :smtp_auth_type,t('site.smtp_auth_type') %>
-      <%= f.text_field :smtp_auth_type %>
+    <%= f.label :smtp_port, t('site.smtp_port') %>
+    <%= f.text_field :smtp_port %>
   </p>
-  <p>
 
+  <p>
+    <%= f.label :smtp_use_tls, t('site.smtp_use_tls') %>
+    <%= f.check_box :smtp_use_tls %>
   </p>
-      <%= f.label :smtp_sender,t('site.smtp_sender') %>
-      <%= f.text_field :smtp_sender %>
+
+  <p>
+    <%= f.label :smtp_auto_tls, t('site.smtp_auto_start_tls') %>
+    <%= f.check_box :smtp_auto_tls %>
+  </p>
+
+  <p>
+    <%= f.label :smtp_auth_type, t('site.smtp_auth_type') %>
+    <%= f.text_field :smtp_auth_type %>
+  </p>
+
+  <p>
+    <%= f.label :smtp_sender, t('site.smtp_sender') %>
+    <%= f.text_field :smtp_sender %>
+  </p>
 
   <p>
     <%= f.label :locale, t('site.locale') %>

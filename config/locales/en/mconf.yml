@@ -1137,10 +1137,6 @@ en:
     default: site
     description: Description
     domain: "Application Domain"
-    email: Email
-    email_password: "Email password"
-    email_password_tip: "The password for your email account. This is necessary so that the application can use your account to send emails."
-    email_tip: "This email will be used by the application to send emails. Currently only Gmail accounts are supported."
     exception_notifications: "Send email on error"
     exception_notifications_email: "Debug emails recipients"
     exception_notifications_email_tip: "Use either spaces, commas or semi-colons to separate different emails."
@@ -1156,6 +1152,16 @@ en:
     shib_name_field: "Shibboleth field for name"
     shib_name_field_tip: "When a user authenticates in a Shibboleth service provider this field will be used to obtain the user's name. Example: Shib-inetOrgPerson-sn"
     signature: Signature
+    smtp_auth_type: STMP authentication type
+    smtp_auto_start_tls: Auto start TLS in SMTP
+    smtp_login: SMTP login
+    smtp_login_tip: "The login email to your SMTP server."
+    smtp_password: SMTP password
+    smtp_password_tip: "The password for your email account in your SMTP server."
+    smtp_port: SMTP port
+    smtp_sender: SMTP sender
+    smtp_server: SMTP server
+    smtp_use_tls: Use TLS in STMP
     ssl: SSL
     ssl_tip: "With SSL enabled all the internal links (including pages, images, attachments) will use the protocol https instead of http"
   size: Size
