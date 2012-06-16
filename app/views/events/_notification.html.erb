@@ -1,6 +1,6 @@
 <%= content_for :javascript do%>
 
-  $("#send_notification_button").livequery('click',function(){ 
+  $("#send_notification_button").livequery('click',function(){
 
     // Build notification message by putting its parts together
     <%if @event.start_date%>
@@ -11,12 +11,12 @@
     // Changing the new line characters to <br/>
     var personal_msg = ($('#notify_personal').val()).replace(/\n/g,'<br/>');
     var ending = "<%= escape_javascript(t('event.notification.message_ending' ,:username=>current_user.full_name,:useremail=>current_user.email,:userorg=>current_user.organization).gsub('event_url',space_event_url(@event.space,@event))) %><br/>" +
-                 "<%= escape_javascript(t('email.spam_invitation', :contact => Site.current.email, :feedback => "http://" + Site.current.domain.to_s + new_feedback_path())) %>";
-    var complete_msg = beginning + personal_msg + '<br/>' + ending; 
-    
+                 "<%= escape_javascript(t('email.spam_invitation', :contact => Site.current.smtp_sender, :feedback => "http://" + Site.current.domain.to_s + new_feedback_path())) %>";
+    var complete_msg = beginning + personal_msg + '<br/>' + ending;
+
     $('#notify_msg').text(complete_msg);
 
-    document.forms["notification_edit_form"].submit();   
+    document.forms["notification_edit_form"].submit();
   });
 
 <%end%>
@@ -34,23 +34,23 @@
         <label for="User filter" class="bold"><%= t('event.notification.attendant.filter') %></label><br/>
         <%= text_field_tag :user_selector,'', :size => 25 %>
       </div>
-      <a href="javascript:show_all_users()" id="show_all_users_link"><%=t('event.notification.show_all_attendants')%></a> 
-      <a href="javascript:hide_all_users()" id="hide_all_users_link"><%=t('event.notification.hide_all_attendants')%></a> 
-      <a href="javascript:select_all_users()" id="select_all_users_link"><%=t('event.notification.select_all_attendants')%></a>  
+      <a href="javascript:show_all_users()" id="show_all_users_link"><%=t('event.notification.show_all_attendants')%></a>
+      <a href="javascript:hide_all_users()" id="hide_all_users_link"><%=t('event.notification.hide_all_attendants')%></a>
+      <a href="javascript:select_all_users()" id="select_all_users_link"><%=t('event.notification.select_all_attendants')%></a>
       <a href="javascript:deselect_all_users()" id="deselect_all_users_link"><%=t('event.notification.deselect_all_attendants')%></a>
-      
-      <div id="unselected_users"> 
+
+      <div id="unselected_users">
         <% for participant in @event.participants -%>
           <% if participant.attend then%>
             <div class="user_checkbox">
               <%= check_box_tag "event[notification_ids][]", participant.id, checked_attendants.include?(participant.id.to_s) %><%= label("checkbox",sanitize(participant.user.full_name))%><br />
             </div>
-					<%end%>
+          <%end%>
         <%end%>
       </div>
-      
+
       <%= f.text_field :notif_sender_id, :style => 'display:none', :value => current_user.id %>
-      
+
       <div class="margin-up">
         <label for="message" class="label_izquierda bold"><%= t('event.notification.label') %>:</label>
         <textarea style="display:none" id="notify_msg" name="event[notify_msg]"></textarea>
@@ -65,7 +65,7 @@
         </div>
         <p>* <%= t('event.notification.legend.name') %></p>
       </div>
-      
+
       <div class="margin-up">
         <input type="button" id="send_notification_button" value="<%=t("button.send")%>" />
       </div>
