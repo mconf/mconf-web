@@ -29,8 +29,9 @@ end
 puts "* Create the default site"
 puts "  name: #{config["site_name"]}"
 puts "  description: #{config["site_description"]}"
-puts "  email: #{config["site_email"]}"
-puts "  email_password: #{config["site_email_password"].gsub(/./, "*") unless config["site_email_password"].blank?}"
+puts "  smtp_login: #{config["site_smtp_login"]}"
+puts "  smtp_password: #{config["site_smtp_password"].gsub(/./, "*") unless config["site_smtp_password"].blank?}"
+puts "  smtp configurations defaults to Gmail"
 puts "  locale: #{config["site_locale"]}"
 puts "  domain: #{config["site_domain"]}"
 puts "  signature: #{config["site_signature"]}"
@@ -45,8 +46,15 @@ puts "  shib_email_field: #{config["site_shibboleth_email_field"]}"
 puts "  shib_name_field: #{config["site_shibboleth_name_field"]}"
 u = Site.create :name => config["site_name"],
                 :description => config["site_description"],
-                :email => config["site_email"],
-                :email_password => config["site_email_password"],
+                :smtp_login => config["site_smtp_login"],
+                :smtp_sender => config["site_smtp_login"],
+                :smtp_password => config["site_smtp_password"],
+                :smtp_auto_tls => true,
+                :smtp_server => "smtp.gmail.com",
+                :smtp_port => 587,
+                :smtp_use_tls => true,
+                :smtp_domain => "gmail.com",
+                :smtp_auth_type => :plain,
                 :locale => config["site_locale"],
                 :domain => config["site_domain"],
                 :signature => config["site_signature"],

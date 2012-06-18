@@ -21,13 +21,42 @@
   </p>
 
   <p>
-    <label><%= t('site.email') %>:</label>
-    <span class="value"><%= sanitize current_site.email %></span>
+    <label><%= t('site.smtp_login') %>:</label>
+    <span class="value"><%= sanitize current_site.smtp_login %></span>
   </p>
 
   <p>
-    <label><%= t('site.email_password') %>:</label>
-    <span class="value"><%= current_site.email_password.gsub(/./, "*") unless current_site.email_password.blank? %></span>
+    <label><%= t('site.smtp_password') %>:</label>
+    <span class="value"><%= current_site.smtp_password.gsub(/./, "*") unless current_site.smtp_password.blank? %></span>
+  </p>
+  <p>
+    <label><%= t('site.smtp_server') %>:</label>
+    <span class="value"><%= current_site.smtp_server %></span>
+  </p>
+
+  <p>
+    <label><%= t('site.smtp_port') %>:</label>
+    <span class="value"><%= current_site.smtp_port %></span>
+  </p>
+
+  <p>
+    <label><%= t('site.smtp_use_tls') %>:</label>
+    <span class="value"><%= current_site.smtp_use_tls? %></span>
+  </p>
+
+  <p>
+    <label><%= t('site.smtp_auto_start_tls') %></label>
+    <span class="value"><%= current_site.smtp_auto_tls? %></span>
+  </p>
+
+  <p>
+    <label><%= t('site.smtp_auth_type') %>:</label>
+    <span class="value"><%= current_site.smtp_auth_type %></span>
+  </p>
+
+  <p>
+    <label><%= t('site.smtp_sender') %>:</label>
+    <span class="value"><%= current_site.smtp_sender %></span>
   </p>
 
   <p>

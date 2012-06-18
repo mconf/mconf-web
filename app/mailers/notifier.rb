@@ -151,7 +151,7 @@ class Notifier < ActionMailer::Base
     @subject += I18n.t("email.welcome",:sitename=>Site.current.name,:locale=>user.locale).html_safe
     @name = user.full_name
     @hash = user.activation_code
-    @contact_email = Site.current.email
+    @contact_email = Site.current.smtp_sender
     @signature  = Site.current.signature_in_html
 
     create_default_mail(user.locale)
@@ -162,7 +162,7 @@ class Notifier < ActionMailer::Base
 
     @subject += I18n.t("account_activated", :sitename=>Site.current.name).html_safe
     @user = user
-    @contact_email = Site.current.email
+    @contact_email = Site.current.smtp_sender
     @url  = "http://" + Site.current.domain + "/"
     @sitename  = Site.current.name
     @signature  = Site.current.signature_in_html
@@ -176,7 +176,7 @@ class Notifier < ActionMailer::Base
 
     @subject += I18n.t("password.request", :sitename=>Site.current.name,:locale=>user.locale).html_safe
     @name = user.full_name
-    @contact_email = Site.current.email
+    @contact_email = Site.current.smtp_sender
     @url  = "http://#{Site.current.domain}/reset_password/#{user.reset_password_code}"
     @signature  = Site.current.signature_in_html
 
@@ -196,7 +196,7 @@ class Notifier < ActionMailer::Base
 
   #this method is used when a user has sent feedback to the admin.
   def feedback_email(email, subject, body)
-    setup_email(Site.current.email)
+    setup_email(Site.current.smtp_sender)
 
     @from = email
     @subject += I18n.t("feedback.one").html_safe + " " + subject
@@ -208,7 +208,7 @@ class Notifier < ActionMailer::Base
 
   #this method is used when a user has sent feedback to the admin.
   def spam_email(user,subject, body, url)
-    setup_email(Site.current.email)
+    setup_email(Site.current.smtp_sender)
 
     @from = user.email
     @subject += subject
@@ -259,7 +259,7 @@ class Notifier < ActionMailer::Base
 
   def setup_email(recipients)
     @recipients = recipients
-    @from = "#{ Site.current.name } <#{ Site.current.email }>"
+    @from = "#{ Site.current.name } <#{ Site.current.smtp_sender }>"
     @subject = I18n.t("vcc_mail_label").html_safe + " "
     @sent_on = Time.now
     @content_type ="text/html"

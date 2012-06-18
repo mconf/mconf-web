@@ -59,7 +59,7 @@ describe PrivateSender do
       params = {:role_id => Role.find_by_name("Invitedevent").id.to_s, :email => @registered_user.email}
       invitation = @event.invitations.build params
       invitation_comment = "<p>\'" + I18n.t('name.one') + "\',</p>" +
-        I18n.t('invitation.message_with_start_date.' + (Event::VC_MODE[@event.vc_mode]).to_s ,:space=>@space.name,:url=>'\'' + I18n.t('url_plain') + '\'',:contact => Site.current.email, :feedback => "http://" + Site.current.domain.to_s + "feedback/new",:username=>@admin.full_name,:useremail=>@admin.email,:userorg=>@admin.organization).gsub('\'event_name\'',@event.name).gsub('\'event_date\'', @event.start_date.strftime("%A %B %d at %H:%M:%S")).gsub('event_url', "http://" + Site.current.domain + "/spaces/" + @space.permalink + "/events/" + @event.permalink)
+        I18n.t('invitation.message_with_start_date.' + (Event::VC_MODE[@event.vc_mode]).to_s ,:space=>@space.name,:url=>'\'' + I18n.t('url_plain') + '\'',:contact => Site.current.smtp_sender, :feedback => "http://" + Site.current.domain.to_s + "feedback/new",:username=>@admin.full_name,:useremail=>@admin.email,:userorg=>@admin.organization).gsub('\'event_name\'',@event.name).gsub('\'event_date\'', @event.start_date.strftime("%A %B %d at %H:%M:%S")).gsub('event_url', "http://" + Site.current.domain + "/spaces/" + @space.permalink + "/events/" + @event.permalink)
       invitation.update_attributes(:comment => invitation_comment, :introducer => @event.author)
 
       # Check the message of the receiver
@@ -150,7 +150,7 @@ describe PrivateSender do
       # Build the join request
       jr_comment = "<p>" + I18n.t('join_request.asked_full', :candidate => @registered_user.full_name, :space => @space.name, :comment => 'comment',
                                   :url => ("http://" + Site.current.domain + "/spaces/" + @space.permalink + "admissions"),
-                                  :contact => Site.current.email, :feedback => Site.current.domain + "/feedback/new", :signature => Site.current.signature_in_html)
+                                  :contact => Site.current.smtp_sender, :feedback => Site.current.domain + "/feedback/new", :signature => Site.current.signature_in_html)
       params = {:candidate => @registered_user, :email => @registered_user.email, :group => @space, :comment => jr_comment}
       jr = @space.join_requests.build params
       jr.save!
@@ -176,7 +176,7 @@ describe PrivateSender do
       # Build the join request
       jr_comment = "<p>" + I18n.t('join_request.asked_full', :candidate => @registered_user.full_name, :space => @space.name, :comment => 'comment',
                                   :url => ("http://" + Site.current.domain + "/spaces/" + @space.permalink + "admissions"),
-                                  :contact => Site.current.email, :feedback => Site.current.domain + "/feedback/new", :signature => Site.current.signature_in_html)
+                                  :contact => Site.current.smtp_sender, :feedback => Site.current.domain + "/feedback/new", :signature => Site.current.signature_in_html)
       params = {:candidate => @registered_user, :email => @registered_user.email, :group => @space, :comment => jr_comment}
       jr = @space.join_requests.build params
       jr.save!

@@ -219,6 +219,10 @@ class Space < ActiveRecord::Base
     actors(options)
   end
 
+  def user_count
+    users.size
+  end
+
   # AtomPub
   def self.atom_parser(data)
     e = Atom::Entry.parse(data)

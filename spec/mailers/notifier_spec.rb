@@ -42,7 +42,7 @@ describe Notifier do
         :user_name => @admin.full_name,
         :user_email => @admin.email,
         :user_organization => @admin.organization,
-        :contact => Site.current.email,
+        :contact => Site.current.smtp_sender,
         :feedback => new_feedback_url()
       ).html_safe
 
@@ -74,7 +74,7 @@ describe Notifier do
         :user_name => @admin.full_name,
         :user_email => @admin.email,
         :user_organization => @admin.organization,
-        :contact => Site.current.email,
+        :contact => Site.current.smtp_sender,
         :feedback => new_feedback_url()
       ).html_safe
 
@@ -211,7 +211,7 @@ describe Notifier do
         :space => @space.name,
         :comment => "Accept my solicitation",
         :url =>  space_admissions_url(@space),
-        :contact => Site.current.email,
+        :contact => Site.current.smtp_sender,
         :feedback => new_feedback_url(),
         :signature => Site.current.signature_in_html
         ).html_safe

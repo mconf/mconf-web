@@ -1,9 +1,9 @@
 <%= content_for :javascript do%>
 
-  $("#send_group_invitation_button").livequery('click',function(){ 
+  $("#send_group_invitation_button").livequery('click',function(){
 
     // Build invitation message by putting its parts together
-    
+
     // Changing the new line characters to <br/>
     var personal_msg = ($('#invite_personal').val()).replace(/\n/g,'<br/>');
     <%if @event.start_date%>
@@ -19,13 +19,13 @@
         var ending = "<%= escape_javascript(t('event.group_invitation.message_private_without_start_date.' + (Event::VC_MODE[@event.vc_mode]).to_s ,:space=>@space.name,:register_url=>signup_url,:username=>current_user.full_name,:useremail=>current_user.email,:userorg=>current_user.organization).gsub('\'event_name\'',@event.name).gsub('event_url',space_event_url(@event.space,@event)).html_safe)%>"
       <%end%>
     <%end%>
-    var complete_msg = personal_msg + '<br/><br/>' + ending + "<%= escape_javascript(t('email.spam_invitation', :contact => Site.current.email, :feedback => "http://" + Site.current.domain.to_s + new_feedback_path())) %><br/><br/>";
-    
+    var complete_msg = personal_msg + '<br/><br/>' + ending + "<%= escape_javascript(t('email.spam_invitation', :contact => Site.current.smtp_sender, :feedback => "http://" + Site.current.domain.to_s + new_feedback_path())) %><br/><br/>";
+
     $('#group_invitation_msg').text(complete_msg);
 
-    document.forms["group_invitation_edit_form"].submit();   
+    document.forms["group_invitation_edit_form"].submit();
   });
-  
+
 <%end%>
 
 <div id="email_invitations">
@@ -34,7 +34,7 @@
       <label for="e-mails" class="bold"><%= t('user.group_invite_email') %></label>
       <%= f.text_field :group_invitation_mails %>
       <div id="event_invitations_note">*<%= t('email.commas') %></div>
-    </div>  
+    </div>
 
     <%= f.text_field :group_inv_sender_id, :style => 'display:none', :value => current_user.id %>
     <%= f.text_field :invited_unregistered, :style => 'display:none', :value => true %>
@@ -66,11 +66,11 @@
             <%end%>
           <%end%>
         </div>
-        
+
         <div class="margin-up">
           <input type="button" id="send_group_invitation_button" value="<%=t("button.send")%>" />
         </div>
-        
+
       </div>
     </div>
   <% end %>

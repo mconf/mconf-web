@@ -2,22 +2,44 @@
 # Works only in production
 if Site.table_exists?
   site = Site.current
-  if site.respond_to?(:email) && site.respond_to?(:email_password) &&
-     site.email && site.email_password
+  ActionMailer::Base.delivery_method = :smtp
+  ActionMailer::Base.perform_deliveries = true
+  ActionMailer::Base.raise_delivery_errors = true
 
-    ActionMailer::Base.delivery_method = :smtp
-    ActionMailer::Base.perform_deliveries = true
-    ActionMailer::Base.raise_delivery_errors = true
-    ActionMailer::Base.smtp_settings = {
-      :enable_starttls_auto => true,
-      :address              => 'smtp.gmail.com',
-      :port                 => 587,
-      :tls                  => true,
-      :domain               => 'gmail.com',
-      :authentication       => :plain,
-      :user_name            => site.email,
-      :password             => site.email_password
-    }
+  # default settings
+  settings = { :address => nil,
+               :port => 25,
+               :domain => nil,
+               :enable_starttls_auto => false,
+               :authentication => nil,
+               :tls => false,
+               :user_name => nil,
+               :password => nil }
 
+  if site.respond_to?(:smtp_server) and not site.smtp_server.blank?
+    settings[:address] = site.smtp_server
   end
+  if site.respond_to?(:port) and not site.smtp_port.blank?
+    settings[:port] = site.smtp_port
+  end
+  if site.respond_to?(:domain) and not site.domain.blank?
+    settings[:domain] = site.domain
+  end
+  if site.respond_to?(:smtp_auto_tls) and not site.smtp_auto_tls.blank?
+    settings[:enable_starttls_auto] = true
+  end
+  if site.respond_to?(:smtp_auth_type) and not site.smtp_auth_type.blank?
+    settings[:authentication] = site.smtp_auth_type
+  end
+  if site.respond_to?(:smtp_use_tls) and not site.smtp_use_tls.blank?
+    settings[:tls] = true
+  end
+  if site.respond_to?(:smtp_login) and not site.smtp_login.blank?
+    settings[:user_name] = site.smtp_login
+  end
+  if site.respond_to?(:smtp_password) and not site.smtp_password.blank?
+    settings[:password] = site.smtp_password
+  end
+
+  ActionMailer::Base.smtp_settings=settings
 end
