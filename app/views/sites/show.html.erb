@@ -29,9 +29,15 @@
     <label><%= t('site.smtp_password') %>:</label>
     <span class="value"><%= current_site.smtp_password.gsub(/./, "*") unless current_site.smtp_password.blank? %></span>
   </p>
+
   <p>
     <label><%= t('site.smtp_server') %>:</label>
     <span class="value"><%= current_site.smtp_server %></span>
+  </p>
+
+  <p>
+    <label><%= t('site.smtp_domain') %>:</label>
+    <span class="value"><%= current_site.smtp_domain %></span>
   </p>
 
   <p>
