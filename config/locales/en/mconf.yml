@@ -1173,6 +1173,7 @@ en:
     signature: Signature
     smtp_auth_type: STMP authentication type
     smtp_auto_start_tls: Auto start TLS in SMTP
+    smtp_domain: STMP domain
     smtp_login: SMTP login
     smtp_login_tip: "The login email to your SMTP server."
     smtp_password: SMTP password

@@ -128,7 +128,12 @@
 
   <p>
     <%= f.label :smtp_server, t('site.smtp_server') %>
-    <%= f.text_field :smtp_server%>
+    <%= f.text_field :smtp_server %>
+  </p>
+
+  <p>
+    <%= f.label :smtp_server, t('site.smtp_domain') %>
+    <%= f.text_field :smtp_domain %>
   </p>
 
   <p>
