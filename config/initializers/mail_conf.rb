@@ -19,11 +19,11 @@ if Site.table_exists?
   if site.respond_to?(:smtp_server) and not site.smtp_server.blank?
     settings[:address] = site.smtp_server
   end
-  if site.respond_to?(:port) and not site.smtp_port.blank?
+  if site.respond_to?(:smtp_port) and not site.smtp_port.blank?
     settings[:port] = site.smtp_port
   end
-  if site.respond_to?(:domain) and not site.domain.blank?
-    settings[:domain] = site.domain
+  if site.respond_to?(:smtp_domain) and not site.smtp_domain.blank?
+    settings[:domain] = site.smtp_domain
   end
   if site.respond_to?(:smtp_auto_tls) and not site.smtp_auto_tls.blank?
     settings[:enable_starttls_auto] = true
@@ -41,5 +41,5 @@ if Site.table_exists?
     settings[:password] = site.smtp_password
   end
 
-  ActionMailer::Base.smtp_settings=settings
+  ActionMailer::Base.smtp_settings = settings
 end
