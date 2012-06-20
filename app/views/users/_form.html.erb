@@ -22,7 +22,7 @@
   function updateWebconfRoomLink() {
     login = $("#user_login").val();
     if (login.match(/[^a-z0-9-]/g) || login.trim() === "")
-      link = '<%= t("user.invalid_user_id") %>';
+      link = '<%= t("user.enter_a_valid_user_id").html_safe %>';
     else
       link = "<%= webconf_link_base() %>/" + login;
     $("#webconf-room-link .link").text(link);
