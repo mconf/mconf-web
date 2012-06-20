@@ -1136,10 +1136,6 @@ pt-br:
     default: site
     description: Descrição
     domain: "Domínio da Aplicação"
-    email: E-mail
-    email_password: "Senha para o e-mail"
-    email_password_tip: "A senha para sua conta de e-mail. Ela é necessária para que a aplicação possa usar a sua conta para enviar e-mails."
-    email_tip: "Este e-mail será utilizado pela aplicação para enviar e-mails. Atualmente apenas contas do Gmail são suportadas."
     exception_notifications: "Enviar e-mails de depuração"
     exception_notifications_email: "Destinatários dos e-mails de depuração"
     exception_notifications_email_tip: "Use espaços, vírgulas ou ponto-e-vírgulas para separar diferentes e-mails."
@@ -1155,6 +1151,17 @@ pt-br:
     shib_name_field: "Campo Shibboleth para nome"
     shib_name_field_tip: "Quando um usuário se autentica em provedor de serviços Shibboleth este campo será utilizado para obter o nome do usuário. Exemplo: Shib-inetOrgPerson-sn"
     signature: Assinatura
+    smtp_auth_type: "Tipo de autenticação SMTP"
+    smtp_auto_start_tls: "Auto iniciar TLS no SMTP"
+    smtp_domain: "Domínio SMTP"
+    smtp_login: "Login SMTP"
+    smtp_login_tip: "O e-mail de login no seu servidor SMTP"
+    smtp_password: "Senha SMTP"
+    smtp_password_tip: "A senha para sua conta SMTP."
+    smtp_port: "Porta SMTP"
+    smtp_sender: "E-mail do remetente SMTP"
+    smtp_server: "Servidor SMTP"
+    smtp_use_tls: "Usar TLS no SMTP"
     ssl: SSL
     ssl_tip: "Com SSL habilitado todos os links internos (incluindo páginas, imagens, anexos) utilizarão o protocolo https ao invés de http"
   size: Tamanho
@@ -1320,7 +1327,7 @@ pt-br:
     timezone: "Ao selecionar o seu fuso horário não haverá equívoco ao criar eventos com pessoas de outros países"
     upcoming: "Esta seção mostra os próximos eventos nesta comunidade"
     update_logo: "Você pode enviar o seu próprio logotipo, criar um logotipo de texto ou selecionar uma imagem da galeria"
-    user_id: "Este nome será utilizado para identificar o seu usuário e a sua sala de webconferência. Use apenas letras, números e hifens."
+    user_id: "Este nome será utilizado para identificar o seu usuário e a sua sala de webconferência. Use apenas letras, números e hifens. Se você utilizar caracteres inválidos eles serão convertidos para caracteres válidos."
     vcard: "vCard é um formato de arquivo padrão para cartões eletrÃ´nicos"
     vclass: "O tipo Classe Virtual é a maneira perfeita para organizar aulas, conferências e seminários, onde o professor assume um papel de destaque."
     vcongress: "O tipo Congresso Virtual é muito parecido com o tipo Reunião Virtual, mas voltado para eventos maiores, tanto em tamanho quanto em complexidade. Normalmente, este tipo requer o apoio de um operador local."
@@ -1373,7 +1380,7 @@ pt-br:
       other: "%{size} usuários encontrados"
     full_name: "Nome completo"
     group_invite_email: "Convidar por e-mail"
-    id: "ID do Usuário"
+    id: Identificador
     include_registered: "Incluir usuários registrados"
     invite: "Convidar pessoas"
     invite_email: "Convide pessoas por e-mail"

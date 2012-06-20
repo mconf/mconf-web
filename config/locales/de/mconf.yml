@@ -630,7 +630,6 @@ de:
   site: 
     default: Standort
     description: Beschreibung
-    email: E-Mail
     exception_notifications: "Senden Sie E-Mails debug"
     exception_notifications_email: "Debug Emails Empfänger"
     name: Name
