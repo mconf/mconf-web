@@ -143,7 +143,7 @@ module ApplicationHelper
   end
 
   def webconf_link_base
-    "https://mconf.org/webconf"
+    "#{request.protocol}#{request.host_with_port}/webconf"
   end
 
 end
