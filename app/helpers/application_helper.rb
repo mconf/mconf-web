@@ -142,4 +142,8 @@ module ApplicationHelper
     "https://github.com/mconf/mconf-web/commit/#{revision}"
   end
 
+  def webconf_link_base
+    "https://mconf.org/webconf"
+  end
+
 end
