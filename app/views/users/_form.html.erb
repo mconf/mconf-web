@@ -1,5 +1,25 @@
-<%= content_for :javascript do%>
- $('#userid img.tooltip_user_id').qtip({
+<%= content_for :javascript do %>
+
+  // http://dense13.com/blog/2009/05/03/converting-string-to-slug-javascript/
+  function string_to_slug(str) {
+    str = str.replace(/^\s+|\s+$/g, ''); // trim
+    str = str.toLowerCase();
+
+    // remove accents, swap ñ for n, etc
+    var from = "ãàáäâẽèéëêĩìíïîõòóöôũùúüûñçć·/_,:;!";
+    var to   = "aaaaaeeeeeiiiiiooooouuuuuncc-------";
+    for (var i=0, l=from.length ; i<l ; i++) {
+      str = str.replace(new RegExp(from.charAt(i), 'g'), to.charAt(i));
+    }
+
+    str = str.replace(/[^a-z0-9 -]/g, '') // remove invalid chars
+      .replace(/\s+/g, '-') // collapse whitespace and replace by -
+      .replace(/-+/g, '-'); // collapse dashes
+
+    return str;
+  }
+
+ $('img.tooltip_user_id').qtip({
    content: '<%=t("tooltip.user_id")%>',
    position: {adjust: { screen: true }},
    show:  'mouseover',
@@ -20,6 +40,11 @@
     'frameWidth' : 250,
     'frameHeight' : 500
   });
+
+  $("#user__full_name").keyup(function() {
+    $("#user_login").attr("value", string_to_slug($(this).attr("value")));
+  });
+
 <% end %>
 
 <% if logged_in? %>
@@ -41,17 +66,17 @@
 <% end %>
 </div>
 
-<% if f.object.new_record? # User is not registered yet, generate login from full_name %>
+<% if f.object.new_record? # User is not registered yet, ask for a full_name %>
   <div>
     <label for="full_name"><%=t('user.full_name')%></label><br/>
     <%= f.text_field :_full_name %>
   </div>
-<% else -%>
-  <div id="userid">
-    <label for="login"><%=t('user.id')%></label><br/>
-    <%= f.text_field :login %> <%=image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_user_id icon",:style=>"cursor:pointer")%>
-  </div>
 <% end -%>
+
+<div id="userid">
+  <label for="login"><%=t('user.id')%></label><br/>
+  <%= f.text_field :login %> <%=image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_user_id icon",:style=>"cursor:pointer")%>
+</div>
 
 <% if f.object.needs_password? -%>
   <% if logged_in? %>
