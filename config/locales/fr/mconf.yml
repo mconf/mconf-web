@@ -795,6 +795,7 @@ fr:
     email_used_to_create_account: "Entrez l'adresse e-mail utilisée pour créer votre compte"
     enable: "Activer l'utilisateur"
     enabled: "L'utilisateur a été activé. L'utilisateur appartient actuellement à aucun espace, et aura à se joindre à nouveau les espaces."
+    enter_a_valid_user_id: "<entrer un identifiant valide>"
     error: 
       enabled: "%{name} Utilisateur est déjà activé"
     filter: "Invite by user name"
@@ -827,6 +828,7 @@ fr:
     updated: "Utilisateur mis à jour avec succès"
     vcc_email: "%{dir} utilisateur VCC e-mail"
     view_expanded_posts: "Afficher les messages dans le mur au point de vue développé par défaut"
+    your_webconf_room_is: "Votre webconférence sera:"
   username: "Nom d'utilisateur"
   vCard: 
     corrupt: "Le vCard que vous avez envoyé est corrompu ou d'une version non prise en charge"

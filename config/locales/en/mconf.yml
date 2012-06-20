@@ -1407,6 +1407,7 @@ en:
     email_used_to_create_account: "Enter the email address you used to create your account"
     enable: "Enable user"
     enabled: "User successfully enabled. The user currently belongs to no space, and will have to join spaces again."
+    enter_a_valid_user_id: "<enter a valid user ID>"
     error: 
       enabled: "User %{name} is already enabled"
     filter: "Invite by user name"
@@ -1458,8 +1459,9 @@ en:
     search: "Search Users..."
     timezone: Timezone
     updated: "User updated successfully"
-    vcc_email: "Mconf user e-mail %{dir}"
+    vcc_email: "Mconf user email %{dir}"
     view_expanded_posts: "Show messages in wall with the expanded view by default"
+    your_webconf_room_is: "Your webconference room will be:"
   username: Username
   vCard: 
     corrupt: "The vCard you sent is corrupted or is a non-supported version"

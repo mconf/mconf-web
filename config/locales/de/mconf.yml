@@ -762,6 +762,7 @@ de:
     email_used_to_create_account: "Geben Sie die E-Mail-Adresse, die Sie zum Erstellen Ihres Kontos"
     enable: "Aktivieren Sie Benutzer"
     enabled: "User erfolgreich aktiviert. Der Benutzer gehört zur Zeit zu keinen Platz und müssen Räume wieder beizutreten."
+    enter_a_valid_user_id: "<geben Sie eine gültige Benutzer-ID>"
     found: 
       none: "Keine Benutzer gefunden"
       one: "1 Benutzer gefunden"
@@ -791,6 +792,7 @@ de:
     updated: "User erfolgreich aktualisiert"
     vcc_email: "VCC Benutzer per E-Mail %{dir}"
     view_expanded_posts: "Alle Einträge in der Wand mit der erweiterten Ansicht standardmäßig"
+    your_webconf_room_is: "Ihre Web-Konferenzraum wird"
   username: Benutzername
   vCard: 
     corrupt: "Die vCard Sie geschickt wird beschädigt oder ist ein nicht-unterstützte Version"

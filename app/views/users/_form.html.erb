@@ -19,6 +19,15 @@
     return str;
   }
 
+  function updateWebconfRoomLink() {
+    login = $("#user_login").val();
+    if (login.match(/[^a-z0-9-]/g) || login.trim() === "")
+      link = '<%= t("user.invalid_user_id") %>';
+    else
+      link = "<%= webconf_link_base() %>/" + login;
+    $("#webconf-room-link .link").text(link);
+  }
+
  $('img.tooltip_user_id').qtip({
    content: '<%=t("tooltip.user_id")%>',
    position: {adjust: { screen: true }},
@@ -41,10 +50,16 @@
     'frameHeight' : 500
   });
 
-  $("#user__full_name").keyup(function() {
+  $("#user__full_name").bind("input keyup", function() {
     $("#user_login").attr("value", string_to_slug($(this).attr("value")));
+    updateWebconfRoomLink();
   });
 
+  $("#user_login").bind("input keyup", function() {
+    updateWebconfRoomLink();
+  });
+
+  updateWebconfRoomLink();
 <% end %>
 
 <% if logged_in? %>
@@ -76,6 +91,10 @@
 <div id="userid">
   <label for="login"><%=t('user.id')%></label><br/>
   <%= f.text_field :login %> <%=image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_user_id icon",:style=>"cursor:pointer")%>
+  <div id="webconf-room-link">
+    <span><%= t("user.your_webconf_room_is") %> </span>
+    <span class="link"></span>
+  </div>
 </div>
 
 <% if f.object.needs_password? -%>

@@ -2709,3 +2709,16 @@ h3.dialog_title {
   margin-top: 10px;
   margin-bottom: 10px;
 }
+
+.new_user #webconf-room-link,
+.edit_user #webconf-room-link {
+  margin-left: 5px;
+  margin-top: 5px;
+  margin-bottom: 15px;
+  color: #666;
+}
+
+.new_user #webconf-room-link .link,
+.edit_user #webconf-room-link .link{
+  color: #244974;
+}

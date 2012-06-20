@@ -1328,7 +1328,7 @@ pt-br:
     upcoming: "Esta seção mostra os próximos eventos nesta comunidade"
     update_logo: "Você pode enviar o seu próprio logotipo, criar um logotipo de texto ou selecionar uma imagem da galeria"
     user_id: "Este nome será utilizado para identificar o seu usuário e a sua sala de webconferência. Use apenas letras, números e hifens. Se você utilizar caracteres inválidos eles serão convertidos para caracteres válidos."
-    vcard: "vCard é um formato de arquivo padrão para cartões eletrÃ´nicos"
+    vcard: "vCard é um formato de arquivo padrão para cartões eletrônicos"
     vclass: "O tipo Classe Virtual é a maneira perfeita para organizar aulas, conferências e seminários, onde o professor assume um papel de destaque."
     vcongress: "O tipo Congresso Virtual é muito parecido com o tipo Reunião Virtual, mas voltado para eventos maiores, tanto em tamanho quanto em complexidade. Normalmente, este tipo requer o apoio de um operador local."
     vmeeting: "O tipo Reunião Virtual é adequado para reuniões online ou encontros presenciais com fortes características virtuais, ou seja, onde os participantes locais e remoto terão a oportunidade de se comunicar de forma interativa."
@@ -1371,6 +1371,7 @@ pt-br:
     email_used_to_create_account: "Digite o endereço de e-mail que você usou para criar a sua conta"
     enable: "Habilitar usuário"
     enabled: "Usuário habilitado com sucesso. O usuário atualmente não pertence a nenhuma comunidade, e terá que aderir às comunidades novamente."
+    enter_a_valid_user_id: "<insira um identificador válido>"
     error: 
       enabled: "Usuário %{name} já está habilitado"
     filter: "Convidar por nome de usuário"
@@ -1424,6 +1425,7 @@ pt-br:
     updated: "Usuário atualizado com sucesso"
     vcc_email: "E-mail do usuário Mconf %{dir}"
     view_expanded_posts: "Mostrar mensagens no mural com a visão expandida por padrão"
+    your_webconf_room_is: "Sua sala de webconferência será:"
   username: "Nome de usuário"
   vCard: 
     corrupt: "O vCard que você enviou está corrompido ou é uma versão não suportada"
