@@ -645,7 +645,6 @@ fr:
   show_list_version_arrows: "Voir la version la liste >>"
   site: 
     domain: "Domaine d'application"
-    email: Email
     exception_notifications: "Envoyer des courriels de débogage"
     exception_notifications_email: "Debug emails destinataire"
     name: Nom

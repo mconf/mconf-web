@@ -1152,17 +1152,17 @@ en:
     shib_name_field: "Shibboleth field for name"
     shib_name_field_tip: "When a user authenticates in a Shibboleth service provider this field will be used to obtain the user's name. Example: Shib-inetOrgPerson-sn"
     signature: Signature
-    smtp_auth_type: STMP authentication type
-    smtp_auto_start_tls: Auto start TLS in SMTP
-    smtp_domain: STMP domain
-    smtp_login: SMTP login
+    smtp_auth_type: "STMP authentication type"
+    smtp_auto_start_tls: "Auto start TLS in SMTP"
+    smtp_domain: "STMP domain"
+    smtp_login: "SMTP login"
     smtp_login_tip: "The login email to your SMTP server."
-    smtp_password: SMTP password
+    smtp_password: "SMTP password"
     smtp_password_tip: "The password for your email account in your SMTP server."
-    smtp_port: SMTP port
-    smtp_sender: SMTP sender
-    smtp_server: SMTP server
-    smtp_use_tls: Use TLS in STMP
+    smtp_port: "SMTP port"
+    smtp_sender: "SMTP sender"
+    smtp_server: "SMTP server"
+    smtp_use_tls: "Use TLS in STMP"
     ssl: SSL
     ssl_tip: "With SSL enabled all the internal links (including pages, images, attachments) will use the protocol https instead of http"
   size: Size
@@ -1329,7 +1329,7 @@ en:
     timezone: "By selecting your time-zone there will be no misunderstanding when creating events with people from other countries"
     upcoming: "This section shows the next events in this space"
     update_logo: "You can update your own logo, create a text logo or select an image from the gallery"
-    user_id: "This ID will be used to identify your user and your webconference room. Use only letters, numbers and dashes."
+    user_id: "This ID will be used to identify your user and your webconference room. Use only letters, numbers and dashes. If you use invalid characters they will be converted to valid ones."
     vcard: "vCard is a file format standard for electronic business cards"
     vclass: "The virtual class type is the perfect way to organise classes, conferences and seminars, where the teacher assumes a prominent role."
     vcongress: "The  Virtual congress type is very similar to the virtual meeting but geared for larger events, both in size and complexity. Usually, this type requires the support of an onsite operator."

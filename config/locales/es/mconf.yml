@@ -765,7 +765,6 @@ es:
     default: Sitio
     description: Descripción
     domain: "Dominio de aplicación"
-    email: "Correo electrónico"
     exception_notifications: "Enviar correos electrónicos de depuración"
     exception_notifications_email: "Dirección destinataria de los correos de depuración"
     name: Nombre
