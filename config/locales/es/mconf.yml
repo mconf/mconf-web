@@ -930,6 +930,7 @@ es:
     email_used_to_create_account: "Introduzca la dirección de correo electrónico que utilizó para crear su cuenta"
     enable: "Habilitar usuario"
     enabled: "Usuario habilitado correctamente. El usuario actualmente no pertenece a ningún espacio. Tendrá que solicitar la participación en los espacios nuevamente."
+    enter_a_valid_user_id: "<introducir un ID de usuario válido>"
     error: 
       enabled: "El usuario %{name} ya está habilitado"
     filter: "Invitar por nombre de usuario"
@@ -964,6 +965,7 @@ es:
     updated: "El usuario se ha actualizado correctamente"
     vcc_email: "Correo electrónico del usuario de GlobalPlaza %{dir}"
     view_expanded_posts: "Mostrar mensajes en el muro expandidos por defecto"
+    your_webconf_room_is: "Su sala de conferencia Web será:"
   username: "Nombre de usuario"
   vCard: 
     corrupt: "La vCard enviada está dañada o es una versión no compatible"
