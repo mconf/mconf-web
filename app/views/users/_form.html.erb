@@ -41,7 +41,7 @@
     'frameHeight' : 500
   });
 
-  $("#user__full_name").keyup(function() {
+  $("#user__full_name").bind("input keyup", function() {
     $("#user_login").attr("value", string_to_slug($(this).attr("value")));
   });
 
