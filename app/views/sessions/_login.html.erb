@@ -15,16 +15,26 @@
       </div>
       <div class="button">
         <button type="submit" class="basic_button blue_button"><%=t("login.one")%></button>
-        <span>
-          <%= link_to t('register_now'), signup_path %> |
-          <% if current_site.shib_enabled? %>
-            <%= link_to t('cafe.login'), shibboleth_path %> |
-          <% end %>
-          <%= link_to t('user.lost_password'), lost_password_path %> |
-          <%= link_to t('user.resend_confirmation_email.link'), resend_confirmation_path %>
-        </span>
       </div>
     <% end -%>
   </div>
 
+  <% if current_site.shib_enabled? %>
+    <div id="shib-login">
+      <span><%= t('cafe.login_page.description') %></span>
+      <%= link_to(image_tag("logos/cafe-logo.jpg"), shibboleth_path) %>
+      <span><%= t('read_more') %>:</span>
+      <ul>
+        <li><%= link_to(t('cafe.login_page.more_about_cafe'), "http://www.rnp.br/servicos/cafe.html") %></li>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="other-links">
+    <span>
+      <%= link_to t('register_now'), signup_path %> |
+      <%= link_to t('user.lost_password'), lost_password_path %> |
+      <%= link_to t('user.resend_confirmation_email.link'), resend_confirmation_path %>
+    </span>
+  </div>
 </div>

@@ -1,3 +1,15 @@
+<script type="text/javascript" charset="utf-8">
+  $(document).ready(function() {
+    $('.shib-login').qtip({
+      content: '<%= escape_javascript(t('cafe.login_tip')) %>',
+      position: {adjust: { screen: true }, corner: 'bottomMiddle' },
+      show:  'mouseover',
+      hide: { when: 'mouseout', fixed: true },
+      style: 'mystyle'
+    });
+  });
+</script>
+
 <div id="global-wrapper">
   <div id="global" class="banner">
 
@@ -38,7 +50,10 @@
              <%= link_to t('user.lost_password'), lost_password_path, :class => "register_link" %>
              <% if current_site.shib_enabled? %>
                <span>|</span>
-               <%= link_to t('cafe.login'), shibboleth_path %>
+               <div class="shib-login">
+                 <%= link_to t('cafe.login'), shibboleth_path %>
+                 <%= link_to image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"icon",:style=>"cursor:pointer").html_safe, login_path %>
+               </div>
              <% end %>
            </div>
          </div>
