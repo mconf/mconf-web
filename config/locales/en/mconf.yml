@@ -184,11 +184,11 @@ en:
     upload: Upload
   cafe: 
     login: "Login using CAFe"
-    login_tip: "Mconf is an experimental service in the federation CAFe. Click in the '?' sign to learn more about it."
     login_page:
       description: "Log in using the federation CAFe"
       more_about_cafe: "Learn more about CAFe"
       terms_of_service: "Terms of service"
+    login_tip: "Mconf is an experimental service in the federation CAFe. Click in the '?' sign to learn more about it."
   calendar: 
     my: "My Calendar"
     one: Calendar
@@ -966,6 +966,7 @@ en:
   prav: PRAV
   preferences: Preferences
   previous: Previous
+  privacy: Privacy
   private_message: 
     more: 
       one: "and one more private message..."
@@ -984,7 +985,6 @@ en:
     must_create: "Please create your profile first"
     no_spaces: "%{user} does not belong to any spaces."
     one: Profile
-    privacy: "Privacy"
     private: "Private profile"
     public: "Public profile"
     public_description: "Anyone can access this information"

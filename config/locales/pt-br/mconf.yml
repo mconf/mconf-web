@@ -184,6 +184,10 @@ pt-br:
     upload: Enviar
   cafe: 
     login: "Logar usando a CAFe"
+    login_page: 
+      description: "Faça o login usando a federação CAFe"
+      more_about_cafe: "Leia mais sobre a CAFe"
+    login_tip: "O Mconf é um serviço experimental na federação CAFe. Clique no ícone '?' para ler mais sobre isso."
   calendar: 
     my: "Meu Calendário"
     one: Calendário
