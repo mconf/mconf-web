@@ -65,7 +65,7 @@
 <% if logged_in? %>
   <% if @shib_user %>
     <div id="edit_account_user_federated">
-      <div class="more_information"><%= link_to t('user.edit.federated.see_your_data'), shibboleth_info_path %></div>
+      <div class="more_information"><%= link_to t('user.edit.federated.see_your_data'), shib_info_path %></div>
       <span class="title"><%= t('user.edit.federated.title') %></span><br/>
       <span><%= t('user.edit.federated.your_idp', :idp => @shib_provider) %></span><br/>
       <span><%= t('user.edit.federated.restrictions') %></span><br/>

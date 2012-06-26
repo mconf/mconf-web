@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120611114706) do
+ActiveRecord::Schema.define(:version => 20120626180633) do
 
   create_table "admissions", :force => true do |t|
     t.string   "type"
@@ -385,6 +385,14 @@ ActiveRecord::Schema.define(:version => 20120611114706) do
   create_table "roles", :force => true do |t|
     t.string "name"
     t.string "stage_type"
+  end
+
+  create_table "shib_tokens", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "identifier"
+    t.text     "data"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "simple_captcha_data", :force => true do |t|

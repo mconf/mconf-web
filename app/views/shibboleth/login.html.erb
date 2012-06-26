@@ -1,0 +1,30 @@
+<div id="shib-user-associate">
+  <div id="lightbox-logo"><span><%= image_tag("mconf_logo_small.png",:class=>"icon")%><%= t('vcc') %></span></div>
+
+  <div id="existing-account">
+    <p><%= t('cafe.login_page.description') %></p>
+    <%= form_tag shib_associate_url(:protocol => current_site.protocol), :class => "login_form" do -%>
+      <%= hidden_field_tag 'existing_account', '1' %>
+      <div>
+        <label for="login"><%= t('login.email_or_login') %></label><br/>
+        <%= text_field_tag 'login', params[:login] %>
+      </div>
+      <div>
+        <label for="password"><%= t('login.password') %></label><br/>
+        <%= password_field_tag 'password' %>
+      </div>
+      <div>
+        <button type="submit" class="basic_button blue_button"><%= t("go") %></button>
+      </div>
+    <% end %>
+  </div>
+
+  <div id="new-account">
+    <p><%= t('cafe.login_page.description') %></p>
+    <%= form_tag shib_associate_url(:protocol => current_site.protocol), :class => "login_form" do -%>
+      <%= hidden_field_tag 'new_account', '1' %>
+      <button type="submit" class="basic_button blue_button">Create a new account</button>
+    <% end %>
+  </div>
+
+</div>

@@ -2722,3 +2722,16 @@ h3.dialog_title {
   padding-top: 10px;
   clear: both;
 }
+
+#shib-user-associate #existing-account {
+  float: left;
+  width: 400px;
+  padding: 10px;
+  text-align: center;
+}
+#shib-user-associate #new-account {
+  float: left;
+  width: 400px;
+  padding: 10px;
+  text-align: center;
+}
