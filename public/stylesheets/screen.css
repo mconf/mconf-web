@@ -2722,3 +2722,38 @@ h3.dialog_title {
 .edit_user #webconf-room-link .link{
   color: #244974;
 }
+
+#login_div .form {
+  float: left;
+  width: 400px;
+}
+
+#login_div .form input[type=text],
+#login_div .form input[type=password]{
+  width: 250px;
+}
+
+#login_div #shib-login {
+  float: left;
+  width: 400px;
+  padding: 10px;
+  text-align: center;
+}
+
+#login_div #shib-login ul {
+  list-style: none;
+}
+
+#login_div #shib-login img {
+  margin: 20px 0;
+  display: block;
+}
+
+#login_div #shib-login span {
+  display: block;
+}
+
+#login_div .other-links {
+  padding-top: 10px;
+  clear: both;
+}

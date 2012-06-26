@@ -871,3 +871,11 @@ form {
 #frontpage_flashs {
   padding-top: 10px;
 }
+
+.shib-login {
+  float: right;
+  margin-left: 7px;
+}
+#global .div_login .shib-login a {
+  padding: 0;
+}
