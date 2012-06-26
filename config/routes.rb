@@ -221,7 +221,7 @@ Mconf::Application.routes.draw do
   match 'faq', :to => 'faq#index', :as => 'faq'
   #match 'perf_indicator', :to => 'frontpage#performance', :as => 'perf_indicator'
   #match 'about', :to => 'frontpage#about', :as => 'about' # TODO Create an about for Mconf
-  match 'about/terms-cafe', :to => 'about#terms_cafe', :as => 'terms'
+  match 'about/terms-cafe', :to => 'about#terms_cafe', :as => 'terms_cafe'
   match 'about/service', :to => 'about#service_description', :as => 'service_description'
 
   resource :session
