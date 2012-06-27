@@ -2614,11 +2614,45 @@ h3.dialog_title {
 }
 
 #edit-bbb-room {
-  width: 270px;
+  width: 350px;
+  overflow: hidden;
 }
-#edit-bbb-room .passwords {
-  border-top: 1pxD solid #ccc;
+#edit-bbb-room .webconf-password {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding: 0 5px;
+}
+#edit-bbb-room .webconf-password .passwords {
   margin-top: 5px;
+}
+#edit-bbb-room .webconf-url {
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding: 0 5px;
+  padding-bottom: 10px;
+}
+#edit-bbb-room .webconf-url span {
+  display: block;
+}
+#edit-bbb-room .webconf-url h3 {
+  text-align: left;
+}
+#edit-bbb-room .webconf-url .tip {
+  color: #666;
+  width: 280px;
+  margin: 5px auto 0 auto;
+}
+#edit-bbb-room input[type=text],
+#edit-bbb-room input[type=password] {
+  display: block;
+  width: 330px;
+}
+#edit-bbb-room .webconf-url input {
+  text-align: center;
+}
+#edit-bbb-room #site_button {
+  margin-top: 15px;
 }
 
 #error_explanation {

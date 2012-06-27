@@ -1377,6 +1377,12 @@ en:
         title: "You are logged using a federation!"
         your_idp: "Your identity provider is: %{idp}"
     edit_account: "Edit your account"
+    edit_bbb_room: 
+      webconf_password: 
+        title: "Permissions:"
+      webconf_url: 
+        tip: "You can modify this url by changing your user login in the <a href=\"%{url}\">account page</a>."
+        title: "Your webconference room is at:"
     email: Email
     email_used_to_create_account: "Enter the email address you used to create your account"
     enable: "Enable user"
