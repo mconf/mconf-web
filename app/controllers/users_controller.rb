@@ -83,7 +83,8 @@ class UsersController < ApplicationController
   def new
     user.openid_identifier = session[:openid_identifier]
 
-    render :partial => "register" if request.xhr?
+    #render :partial => "register" if request.xhr?
+    render :layout => 'application_without_sidebar'
   end
 
   # POST /users
@@ -108,13 +109,11 @@ class UsersController < ApplicationController
         flash[:notice] = t('user.registered')
 
         format.html {
-
           if (user.special_event.nil?)
             redirect_back_or_default root_path
           else
             redirect_to space_event_url(user.special_event.space,user.special_event)
           end
-
         }
         format.xml  { render :xml => @user, :status => :created, :location => @user }
         format.atom {
@@ -123,7 +122,7 @@ class UsersController < ApplicationController
           :status => :created
         }
       else
-        format.html { render :action => "new" }
+        format.html { render :action => "new", :layout => 'application_without_sidebar' }
         format.xml  { render :xml => @user.errors, :status => :unprocessable_entity }
         format.atom { render :xml => @user.errors.to_xml, :status => :bad_request }
       end

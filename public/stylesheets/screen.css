@@ -2663,6 +2663,11 @@ h3.dialog_title {
   margin: 5px;
 }
 
+#shibboleth-error {
+  padding: 20px;
+
+}
+
 #shibboleth_info label {
   color:#244974;
 }
@@ -2689,8 +2694,8 @@ h3.dialog_title {
 }
 
 #login_div .form {
-  float: left;
   width: 400px;
+  float: left;
 }
 
 #login_div .form input[type=text],
@@ -2752,4 +2757,11 @@ h3.dialog_title {
   padding-top: 30px;
   clear: both;
   text-align: center;
+}
+
+.errorExplanation h2 {
+  font-size: 12px;
+}
+.errorExplanation ul {
+  list-style: none;
 }
