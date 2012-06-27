@@ -395,6 +395,9 @@ ActiveRecord::Schema.define(:version => 20120626180633) do
     t.datetime "updated_at"
   end
 
+  add_index "shib_tokens", ["identifier"], :name => "index_shib_tokens_on_identifier", :unique => true
+  add_index "shib_tokens", ["user_id"], :name => "index_shib_tokens_on_user_id", :unique => true
+
   create_table "simple_captcha_data", :force => true do |t|
     t.string   "key",        :limit => 40
     t.string   "value",      :limit => 6

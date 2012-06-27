@@ -58,7 +58,7 @@ class ShibbolethController < ApplicationController
     # everything's ok, log in
     else
       self.current_agent = token.user
-      flash.keep(:notice)
+      flash.keep(:success)
       redirect_to home_path
     end
   end
@@ -71,8 +71,13 @@ class ShibbolethController < ApplicationController
     if params[:new_account]
       token = find_or_create_token()
       token.user = create_account(shib_name_from_session(), shib_email_from_session())
-      token.save!
-      flash[:notice] = t('shibboleth.create.account_created', :url => lost_password_path)
+      if token.user
+        token.data = shib_data_from_session()
+        token.save!
+        flash[:success] = t('shibboleth.create.account_created', :url => lost_password_path)
+      else
+        flash[:error] = t('shibboleth.create.existent_email', :email => shib_email_from_session())
+      end
 
     # Associate the shib user with an existing user account
     elsif params[:existing_account]
@@ -89,10 +94,11 @@ class ShibbolethController < ApplicationController
       if agent && !agent.disabled
         token = find_or_create_token()
         token.user = agent
+        token.data = shib_data_from_session()
         token.save!
-        #flash[:notice] = ""
+        flash[:success] = t("shibboleth.create.account_associated", :login => agent.login)
       else
-        flash[:notice] = t("invalid_credentials")
+        flash[:error] = t("shibboleth.create.invalid_credentials")
       end
     end
 
@@ -145,6 +151,11 @@ class ShibbolethController < ApplicationController
     name
   end
 
+  # Returns the shibboleth data stored in the session.
+  def shib_data_from_session
+    session[:shib_data]
+  end
+
   # Searches for a ShibToken using data in the session. Creates a new ShibToken
   # if nothing is found.
   def find_or_create_token
@@ -156,11 +167,15 @@ class ShibbolethController < ApplicationController
 
   def create_account(name, email)
     password = SecureRandom.hex(16)
-    user = User.create!(:login => name.clone, :email => email,
-                        :password => password, :password_confirmation => password)
-    user.activate
-    user.profile.update_attributes(:full_name => name)
-    user
+    unless User.find_by_email(email)
+      user = User.create!(:login => name.clone, :email => email,
+                          :password => password, :password_confirmation => password)
+      user.activate
+      user.profile.update_attributes(:full_name => name)
+      user
+    else
+      nil
+    end
   end
 
   def create_token(id)

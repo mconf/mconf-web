@@ -2735,3 +2735,21 @@ h3.dialog_title {
   padding: 10px;
   text-align: center;
 }
+#shib-user-associate #existing-account button {
+  margin-top: 15px;
+}
+#shib-user-associate .login-description {
+  margin-top: 10px;
+  margin-bottom: 15px;
+  padding: 10px;
+  background: #DFF0D8;
+  border: 1px solid #D6E9C6;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+}
+#shib-user-associate .other-links {
+  padding-top: 30px;
+  clear: both;
+  text-align: center;
+}

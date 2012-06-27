@@ -24,7 +24,7 @@ class User < ActiveRecord::Base
   acts_as_agent :activation => true,
                 :openid_server => true
 
-  validates_presence_of  :email
+  validates_presence_of :email
   validates_exclusion_of :login, :in => %w( xmpp_server )
   validates_format_of :email, :with => /^[\w\d._%+-]+@[\w\d.-]+\.[\w]{2,}$/
 
@@ -38,6 +38,7 @@ class User < ActiveRecord::Base
   has_many :participants
   has_many :posts, :as => :author
   has_many :memberships, :dependent => :destroy
+  has_one :shib_token, :dependent => :destroy
   #has_many :groups, :through => :memberships
 
   # exclusive and unique BBB Room for each user

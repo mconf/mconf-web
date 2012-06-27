@@ -6,6 +6,8 @@ class CreateShibTokens < ActiveRecord::Migration
       t.text     "data"
       t.timestamps
     end
+    add_index :shib_tokens, :user_id, :unique => true
+    add_index :shib_tokens, :identifier, :unique => true
   end
 
   def self.down
