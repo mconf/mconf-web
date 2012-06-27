@@ -91,7 +91,7 @@ class UsersController < ApplicationController
   # POST /users.xml
   # POST /users.atom
   # {"commit"=>"Sign up", "captcha"=>"FBIILL", "tags"=>"", "action"=>"create",
-  # "controller"=>"users", "user"=>{"password_confirmation"=>"prueba", "email2"=>"", "email3"=>"",
+  # "controller"=>"users", "user"=>{"password_confirmation"=>"prueba",
   # "login"=>"julito", "password"=>"prueba", "email"=>"email@domain.com"}}
 
   def create
@@ -157,6 +157,7 @@ class UsersController < ApplicationController
       end
     else
       respond_to do |format|
+        params[:user].delete(:email) # block email changes
         if user.update_attributes(params[:user])
           user.tag_with(params[:tags]) if params[:tags]
 

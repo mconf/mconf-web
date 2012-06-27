@@ -1373,7 +1373,6 @@ en:
     disabled: "User %{username} disabled"
     edit: 
       federated: 
-        restrictions: "You will not be able to edit some data such as your e-mail and password."
         see_your_data: "See your data..."
         title: "You are logged using a federation!"
         your_idp: "Your identity provider is: %{idp}"
