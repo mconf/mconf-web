@@ -25,6 +25,7 @@ class ShibbolethController < ApplicationController
   layout 'application_without_sidebar'
 
   before_filter :check_shib_enabled
+  before_filter :check_current_user, :except => [:info]
 
   # Log in a user using his shibboleth information
   # The application should only reach this point after authenticating using Shibboleth
@@ -47,6 +48,9 @@ class ShibbolethController < ApplicationController
     #################################
 
     shib_vars_to_session()
+
+    return unless check_shib_information()
+
     token = find_or_create_token()
 
     # no user associated yet, render a page to do it
@@ -112,12 +116,37 @@ class ShibbolethController < ApplicationController
 
   private
 
+  # Checks if shibboleth is enabled in the current site.
   def check_shib_enabled
-    unless current_site.shib_enabled?
+    unless current_site.shib_enabled
       redirect_to login_path
       return false
     else
       return true
+    end
+  end
+
+  # If there's a current user redirects to home.
+  def check_current_user
+    if current_user != Anonymous.current
+      redirect_to home_path
+      return false
+    else
+      return true
+    end
+  end
+
+  # Checks if the required information for shibboleth to work is
+  # available in the session.
+  def check_shib_information
+    unless session[:shib_data] &&
+        shib_email_from_session() &&
+        shib_name_from_session()
+      flash[:error] = t("shibboleth.create.data_error")
+      render 'error', :layout => 'application_without_sidebar'
+      false
+    else
+      true
     end
   end
 
