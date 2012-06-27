@@ -31,24 +31,7 @@ class ShibbolethController < ApplicationController
   # The application should only reach this point after authenticating using Shibboleth
   # The authentication is currently made with the Apache module mod_shib
   def login
-
-    #################################
-    # FAKE TEST DATA
-    # request.env["Shib-Application-ID"] = "default"
-    # request.env["Shib-Session-ID"] = "09a612f952cc5995e4a86ddd87fd9f2a"
-    # request.env["Shib-Identity-Provider"] = "https://login.teste.ufrgs.br/idp/shibboleth"
-    # request.env["Shib-Authentication-Instant"] = "2011-09-21T19:11:58.039Z"
-    # request.env["Shib-Authentication-Method"] = "urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport"
-    # request.env["Shib-AuthnContext-Class"] = "urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport"
-    # request.env["Shib-brEduPerson-brEduAffiliationType"] = "student;position;faculty"
-    # request.env["Shib-eduPerson-eduPersonPrincipalName"] = "ef775988943825d2871e1cfa75473ec0@ufrgs.br"
-    # request.env["Shib-inetOrgPerson-cn"] = "JOAO DA SILVA"
-    # request.env["Shib-inetOrgPerson-mail"] = "invalido@ufrgs.br"
-    # request.env["Shib-inetOrgPerson-sn"] = "JOAO DA SILVA"
-    #################################
-
     shib_vars_to_session()
-
     return unless check_shib_information()
 
     token = find_or_create_token()
@@ -209,6 +192,21 @@ class ShibbolethController < ApplicationController
 
   def create_token(id)
     ShibToken.create!(:identifier => id)
+  end
+
+  def test_data
+    # FAKE TEST DATA
+    request.env["Shib-Application-ID"] = "default"
+    request.env["Shib-Session-ID"] = "09a612f952cds995e4a86ddd87fd9f2a"
+    request.env["Shib-Identity-Provider"] = "https://login.teste.ufrgs.br/idp/shibboleth"
+    request.env["Shib-Authentication-Instant"] = "2011-09-21T19:11:58.039Z"
+    request.env["Shib-Authentication-Method"] = "urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport"
+    request.env["Shib-AuthnContext-Class"] = "urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport"
+    request.env["Shib-brEduPerson-brEduAffiliationType"] = "student;position;faculty"
+    request.env["Shib-eduPerson-eduPersonPrincipalName"] = "75a988943825d2871e1cfa75473ec0@ufrgs.br"
+    request.env["Shib-inetOrgPerson-cn"] = "JOAO DA SILVA"
+    request.env["Shib-inetOrgPerson-mail"] = "invalido@ufrgs.br"
+    request.env["Shib-inetOrgPerson-sn"] = "JOAO DA SILVA"
   end
 
 end
