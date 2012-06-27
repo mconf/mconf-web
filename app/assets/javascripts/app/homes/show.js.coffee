@@ -1,8 +1,8 @@
-#= require ../users/edit_bbb_room
+   #= require ../users/edit_bbb_room
 
 # $ ->
 #   if isOnPage 'homes', 'show'
 
 $ ->
 
-  $(document).trigger('connect',{login: "USER_LOGIN@CHAT.HOST", password: "USER PASSWORD", name: "USER FULL NAME", url: "USER BBB ROOM"})
+  $(document).trigger('connect',{login: login, password: cookie, name: name, url: "http://www.google.com.br"})

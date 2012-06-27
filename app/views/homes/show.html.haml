@@ -40,7 +40,7 @@
   #chat-bar.no.fLvV
     .mHfL.w5
 
--# approval dialog
-#approve_dialog.hidden
-  %p
-    #approve-jid
+:javascript
+  var cookie = "AuthByCookie>>" + "#{cookies[Rails.application.config.session_options[:key]]}";
+  var login = "#{current_user.login}" + "@chat-bottin.no-ip.info";
+  var name = "#{current_user.full_name}";
