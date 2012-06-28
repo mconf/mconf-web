@@ -1125,12 +1125,12 @@ en:
     create: 
       account_associated: "Your account '%{login}' was associated to your federated account! You can now log to this account in using either your Mconf credentials or your federated account."
       account_created: "A new account with a random password was created for you and linked to your federated account. Both accounts can be used to log in this website. You won't need the Mconf password to login using the federation, but you can change your password go to the <a href=\"%{url}\">forgot password page</a>."
+      data_error: "There was an error trying to access your information from the federation. Please contact us to solve the problem."
       existent_email: "There's already an account with your federated email (%{email}). If this account is yours, use the form below to associate it to your federated login. If you're having problems you may contact us or find help in the FAQ page."
       invalid_credentials: "Invalid account or password. Please, try again."
-      data_error: "There was an error trying to access your information from the federation. Please contact us to solve the problem."
     login: 
       create_new_account: "Create a new account"
-      existing_account: "If you already have an account in Mconf, you can link your federated account to your Mconf account. Whever you use the federation to log in, you will be using the Mconf account linked here."
+      existing_account: "If you already have an account in Mconf, you can link your federated account to your Mconf account. Whenever you use the federation to log in, you will be using the Mconf account linked here."
       link_to_this_account: "Link to this account"
       new_account: "If you don't have an account in Mconf yet, click in the button below to automatically create a new one using your CAFe account information."
       title: "Your federated account is not yet associated to any Mconf account. Select one of the options below:"
@@ -1381,7 +1381,7 @@ en:
       webconf_password: 
         title: "Permissions:"
       webconf_url: 
-        tip: "You can modify this url by changing your user login in the <a href=\"%{url}\">account page</a>."
+        tip: "You can modify this URL by changing your user login in the <a href=\"%{url}\">account page</a>."
         title: "Your webconference room is at:"
     email: Email
     email_used_to_create_account: "Enter the email address you used to create your account"
