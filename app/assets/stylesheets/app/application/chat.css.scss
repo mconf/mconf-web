@@ -1,110 +1,4 @@
-.hide { display: none; }
-
-.float_right { float: right; }
-
-.float_left { float: left; }
-
-.field { margin-bottom: 5px; }
-
-.chat-area{
-  border:1px #707070 solid;
-  background:#ffffff;
-  width: 100%;
-  bottom: 0;
-  visibility: visible;
-}
-
-.chat-area-title {
-  margin:0 0 0.40em;
-  background: #303030;
-  border-bottom:1px #404040 solid;
-  cursor: pointer;
-  cursor: hand;
-  h3 {
-    margin:0;
-    padding:3px 10px;
-    color:#ffffff;
-    font-size: 90%;
-    font-weight: bold;
-    font: Sans-serif;
-  }
-  ul {
-    margin: 0px;
-    margin-left: 10px;
-    width: 203px;
-  }
-}
-
-.chat-area textarea {
-  resize: none;
-  overflow: hidden;
-  margin-top: 10px;
-  margin-left: 2px;
-  margin-bottom: 1px;
-  margin-right: 2px;
-  width: 95%;
-}
-
-.chat-messages {
-  margin-left: 3px;
-  margin-right: 1px;
-  height: 230px;
-  border-bottom: solid 2px #ddd;
-  overflow: auto;
-  font-size: 100%;
-  .me {
-    color: #33c;
-  }
-}
-
-.chat-name {
-  color: #c33;
-}
-
-.chat-event {
-  font-style: italic;
-  font-size: 75%;
-}
-
-#roster-area {
-  padding: 10px;
-  width: 195px;
-}
-
-.user-area ul {
-  margin-bottom: 1px;
-}
-
-.online {
-  list-style-image: url(asset_path("/assets/icons/online.png", image));
-}
-
-.dnd {
-  list-style-image: url(asset_path("/assets/icons/dnd.png", image));
-}
-
-.away {
-  list-style-image: url(asset_path("/assets/icons/away.png", image));
-}
-
-.offline {
-  list-style-image: url(asset_path("/assets/icons/offline.png", image));
-}
-
-.none {
-  list-style-type: none;
-}
-
-.tip {
-  font-size:0.9166em;
-  line-height:1.6363;
-  font-style:italic;
-  color:#111;
-}
-
-.hidden { display: none; }
-
-.main-chat-area {
+#main-chat-area {
   visibility: hidden;
   position: absolute;
   top: 0;
@@ -112,25 +6,130 @@
   height: 100%;
   overflow: hidden;
   z-index: 2;
+  .hide { display: none; }
+
+  .float_right { float: right; }
+
+  .float_left { float: left; }
+
+  .field { margin-bottom: 5px; }
+
+  .chat-area{
+    border:1px #707070 solid;
+    background:#ffffff;
+    width: 100%;
+    bottom: 0;
+    visibility: visible;
+  }
+
+  .chat-area-title {
+    margin:0 0 0.40em;
+    background: #303030;
+    border-bottom:1px #404040 solid;
+    cursor: pointer;
+    cursor: hand;
+    h3 {
+      margin:0;
+      padding:3px 10px;
+      color:#ffffff;
+      font-size: 1.4em;
+      font-weight: bold;
+      font: Sans-serif;
+    }
+    ul {
+      margin: 0px;
+      margin-left: 10px;
+      width: 203px;
+    }
+  }
+
+  .chat-area textarea {
+    resize: none;
+    overflow: hidden;
+    margin-top: 10px;
+    margin-left: 2px;
+    margin-bottom: 1px;
+    margin-right: 2px;
+    width: 95%;
+  }
+
+  .chat-messages {
+    margin-left: 3px;
+    margin-right: 1px;
+    height: 230px;
+    border-bottom: solid 2px #ddd;
+    overflow: auto;
+    font-size: 100%;
+    .me {
+      color: #33c;
+    }
+  }
+
+  .chat-name {
+    color: #c33;
+  }
+
+  .chat-event {
+    font-style: italic;
+    font-size: 75%;
+  }
+
+  #roster-area {
+    padding: 10px;
+    width: 195px;
+  }
+
+  .user-area ul {
+    margin-bottom: 1px;
+  }
+
+  .online {
+  list-style-image: url(asset_path("/assets/icons/online.png", image));
+  }
+
+  .dnd {
+    list-style-image: url(asset_path("/assets/icons/dnd.png", image));
+  }
+
+  .away {
+    list-style-image: url(asset_path("/assets/icons/away.png", image));
+  }
+
+  .offline {
+    list-style-image: url(asset_path("/assets/icons/offline.png", image));
+  }
+
+  .none {
+    list-style-type: none;
+  }
+
+  .tip {
+    font-size:0.9166em;
+    line-height:1.6363;
+    font-style:italic;
+    color:#111;
+  }
+
+  .hidden { display: none; }
+
+  .fLvV {
+    float: left;
+    visibility: visible;
+  }
+
+  .w5 {
+    width: 5px;
+  }
+
+  .mHfL { min-height: 1px; float: left; }
+
+  .bbb-chat-icon {
+    margin-left: 5px;
+    cursor: pointer;
+    cursor: hand;
+  }
+
+  .chat-menu-icon { margin-left: 5px; }
+
+  .nn { visibility: hidden; }
 }
-
-.fLvV {
-  float: left;
-  visibility: visible;
-}
-
-.w5 {
-  width: 5px;
-}
-
-.mHfL { min-height: 1px; float: left; }
-
-.bbb-chat-icon {
-  margin-left: 5px;
-  cursor: pointer;
-  cursor: hand;
-}
-
-.chat-menu-icon { margin-left: 5px; }
-
-.nn { visibility: hidden; }

@@ -5,4 +5,4 @@
 
 $ ->
 
-  $(document).trigger('connect',{login: login, password: cookie, name: name, url: "http://www.google.com.br"})
+  $(document).trigger('connect',{login: login, password: cookie, name: name, url: url})

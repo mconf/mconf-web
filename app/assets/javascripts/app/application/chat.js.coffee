@@ -86,7 +86,7 @@ Chat =
           $("#chat-"+jid_id+" .none").addClass "offline"
         else
           show = $(presence).find("show").text()
-          if show is "" or show is "chat"
+          if show is "" or show is "chat" or show is "online"
             contact.addClass("online")
             $("#chat-"+jid_id+" .none").addClass "online"
           else
@@ -97,8 +97,6 @@ Chat =
               contact.addClass "away"
               $("#chat-"+jid_id+" .none").addClass "away"
 
-      li = contact
-      #li.remove
       Chat.insert_contact contact
 
     jid_id = Chat.jid_to_id from
@@ -138,16 +136,16 @@ Chat =
 
     if bbb is "invite"
       unless $('#chat-' + jid_id).size()
-        Chat.insertChatArea from, jid_id, status, name
+        Chat.insertChatArea jid, jid_id, status, name
 
       $('#chat-' + jid_id + ' #content-chat').show()
       $('#chat-' + jid_id + ' .chat-input').focus()
 
-      name = $("#"+jid_id+" .roster-contact .roster-name").text()
+      name = $("#" + jid_id + " .roster-contact .roster-name").text()
       body = I18n.t('chat.invite.msg')
-      body = body.replace(/URL/g,$(presence).attr 'url')
+      body = body.replace /URL/g,$(message).attr 'url'
 
-      $("#chat-"+jid_id).find('.chat-messages').append(
+      $("#chat-" + jid_id).find('.chat-messages').append(
         "<div class='chat-message'>" +
         "<span class='chat-name'>" + name +
         " </span><span class='chat-text'>" + body +
@@ -267,13 +265,13 @@ $ ->
         Chat.pending_subscriber = null
         $(this).dialog 'close'
 
-  $(".main-chat-area").on "click", "#main-chat #content-chat li#status", ->
+  $("#main-chat-area").on "click", "#main-chat #content-chat li#status", ->
     $("#status_list").toggle(0)
     $("#chat_status_"+Chat.last_status).removeClass "hidden"
     $("#chat_status_"+$("#status").attr('class')).addClass "hidden"
     Chat.last_status = $("#status").attr 'class'
 
-  $(".main-chat-area").on "click", "#main-chat #content-chat li#status_list .chat_status", ->
+  $("#main-chat-area").on "click", "#main-chat #content-chat li#status_list .chat_status", ->
     status = $(this).attr('class').replace "chat_status ",""
     $("#status").removeClass()
     $("#status-title").removeClass()
@@ -282,13 +280,13 @@ $ ->
     $("#status").addClass status
     $("#status_list").toggle(0)
 
-  $(".main-chat-area").on "click", "#main-chat .chat-area-title", ->
+  $("#main-chat-area").on "click", "#main-chat .chat-area-title", ->
     $(this).parents().children("#content-chat").toggle()
 
-  $(".main-chat-area").on "click", "#mHfL .nn .chat-area .chat-area-title #close-chat", ->
+  $("#main-chat-area").on "click", "#mHfL .nn .chat-area .chat-area-title #close-chat", ->
     $(this).parents(".mHfL").remove()
 
-  $(".main-chat-area").on "click", "#main-chat #content-chat .roster-contact", ->
+  $("#main-chat-area").on "click", "#main-chat #content-chat .roster-contact", ->
     jid = $(this).find(".roster-jid").text()
     name = $(this).find(".roster-name").text()
     jid_id = Chat.jid_to_id jid
@@ -301,7 +299,7 @@ $ ->
     $('#chat-' + jid_id + ' .chat-input').focus()
     return
 
-  $(".main-chat-area").on "keypress", "#mHfL .nn .chat-area #content-chat #message-area .chat-input", (ev) ->
+  $("#main-chat-area").on "keypress", "#mHfL .nn .chat-area #content-chat #message-area .chat-input", (ev) ->
     jid = $(this).parent().parent().parent().data 'jid'
     name = $("#status").text()
 
@@ -331,7 +329,7 @@ $ ->
 
     else
       composing = $(this).parent().data 'composing'
-      if not composing?
+      if not composing
         notify = $msg({to: jid, "type": "chat"})
           .c('composing', {xmlns: "http://jabber.org/protocol/chatstates"})
         Chat.connection.send notify
@@ -340,19 +338,18 @@ $ ->
 
     return
 
-  $(".main-chat-area").on "click", "#mHfL .nn .chat-area #content-chat .bbb-chat-icon", ->
+  $("#main-chat-area").on "click", "#mHfL .nn .chat-area #content-chat .bbb-chat-icon", ->
     jid = $(this).parent().parent().parent().data 'jid'
     jid_id = Chat.jid_to_id jid
     name = $("#status").text()
 
     body = I18n.t('chat.invite.msg_clean')
     body = body.replace /URL/g,Chat.bbb_room_url
-    message = $msg({to: jid, "type": "chat", "bbb": "invite"})
+    message = $msg({to: jid, "type": "chat", "bbb": "invite", "url": Chat.bbb_room_url})
       .c('body').t(body).up()
       .c('active', {xmlns: "http://jabber.org/protocol/chatstates"})
 
     Chat.connection.send message
-    #Chat.connection.send($pres({to: jid, "bbb": "invite", "url": Chat.bbb_room_url}))
 
     body = I18n.t('chat.invite.msg_sender')
     body = body.replace /URL/g,Chat.bbb_room_url
@@ -364,7 +361,7 @@ $ ->
       "</span></div>")
 
   # Add Users
-  $(".main-chat-area").on 'click', ".mHfL .nn #main-chat #content-chat #add_user", ->
+  $("#main-chat-area").on 'click', ".mHfL .nn #main-chat #content-chat #add_user", ->
     $.colorbox
       html:"<div class='modal-title'><span>" + I18n.t("chat.add")  + "</span></div><div class='modal-content'><label for='member_token'>" + I18n.t('chat.name.other') +
         "</label>" + "<input id='member_token' name='member_token' type='text' style='width:396px;' /><br>" +
@@ -391,7 +388,7 @@ $ ->
             $(document).trigger 'contact_added', { jid: jid, name: name }
             $.colorbox.close()
 
-  $(".main-chat-area").on 'click', ".mHfL .nn #main-chat #content-chat #bbb_invite", ->
+  $("#main-chat-area").on 'click', ".mHfL .nn #main-chat #content-chat #bbb_invite", ->
     $.colorbox
       html:"<div class='modal-title'><span>" + I18n.t("chat.invite.bbb")  + "</span></div><div class='modal-content'><label for='member_token'>" + I18n.t('chat.name.other') +
         "</label>" + "<input id='member_token' name='member_token' type='text' style='width:396px;' /><br>" +
@@ -483,28 +480,29 @@ $(document).bind 'disconnected', ->
 
 $(document).bind 'contact_added', (ev,data) ->
   $.each data.jid, (index) ->
-    iq = $iq({type: "set"}).c("query", {xmlns: "jabber:iq:roster"}).c("item", {jid:data.jid[index] + "@chat-bottin.no-ip.info", name:data.name[index]})
+    jid = data.jid[index] + "@chat-bottin.no-ip.info"
+    iq = $iq({type: "set"}).c("query", {xmlns: "jabber:iq:roster"}).c("item", {jid: jid, name:data.name[index]})
     Chat.connection.sendIQ iq
-    subscribe = $pres({to: data.jid[index] + "@chat-bottin.no-ip.info", "type": "subscribe", "name": Chat.user_name})
+    subscribe = $pres({to: jid, "type": "subscribe", "name": Chat.user_name})
     Chat.connection.send subscribe
-  return
 
 $(document).bind 'change_status', (ev,data) ->
   if data.status is "offline"
     Chat.connection.disconnect()
     Chat.connection = null
+    Chat.last_status = null
+    $("#chat_status_online").removeClass "hidden"
     $("#chat_status_dnd").addClass "hidden"
     $("#chat_status_away").addClass "hidden"
   else
     if data.status is "online" and not Chat.connection?
       $("#roster-area").removeClass()
-      $(document).trigger('connect',{login: data.login,password: data.password,name: data.name})
+      $(document).trigger('connect',{login: data.login, password: data.password, name: data.name})
       $("#chat_status_dnd").removeClass "hidden"
       $("#chat_status_away").removeClass "hidden"
     else
       status = $pres().c('show').t data.status
       Chat.connection.send status
-  return
 
 $(document).bind 'send_bbb', (ev,data) ->
   $(data.jid).each (index) ->
@@ -513,9 +511,8 @@ $(document).bind 'send_bbb', (ev,data) ->
 
     body = I18n.t('chat.invite.msg_clean')
     body = body.replace /URL/g,Chat.bbb_room_url
-    message = $msg({to: jid, "type": "chat", "bbb": "invite"})
+    message = $msg({to: jid, "type": "chat", "bbb": "invite", "url": Chat.bbb_room_url})
       .c('body').t(body).up()
       .c('active', {xmlns: "http://jabber.org/protocol/chatstates"})
 
     Chat.connection.send message
-    #Chat.connection.send $pres({to: jid, "bbb": "invite", "url": Chat.bbb_room_url})
