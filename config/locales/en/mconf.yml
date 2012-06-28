@@ -184,11 +184,12 @@ en:
     upload: Upload
   cafe: 
     login: "Login using CAFe"
-    login_page:
-      description: "Log in using the federation CAFe"
+    login_page: 
+      click_here_to_login: "click here to log in"
+      description: "Log in using the federation CAFe (part of <a href=\"http://www.edugain.org\">eduGAIN</a>)"
       more_about_cafe: "Learn more about CAFe"
       terms_of_service: "Terms of service (in portuguese)"
-    login_tip: "Mconf is an experimental service in the federation CAFe. Click in the '?' sign to learn more about it."
+    login_tip: "Mconf is an experimental service in the federation CAFe. Click in the icon to learn more about it."
   calendar: 
     my: "My Calendar"
     one: Calendar
@@ -1416,8 +1417,8 @@ en:
       webconf_password: 
         title: "Permissions:"
       webconf_url: 
-        tip: "You can modify this URL by changing your user login in the <a href=\"%{url}\">account page</a>."
-        title: "Your webconference room is at:"
+        tip: "You can modify your webconference room address by changing your user login in the <a href=\"%{url}\">account page</a>."
+        title: "Your webconference room address is:"
     email: Email
     email_used_to_create_account: "Enter the email address you used to create your account"
     enable: "Enable user"
