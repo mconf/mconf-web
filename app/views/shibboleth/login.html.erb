@@ -1,0 +1,42 @@
+<div id="shib-user-associate">
+  <div id="lightbox-logo"><span><%= image_tag("mconf_logo_small.png",:class=>"icon")%><%= t('shibboleth.login.title') %></span></div>
+
+  <div id="existing-account">
+    <div class="login-description">
+      <span><%= t('shibboleth.login.existing_account') %></span>
+    </div>
+    <%= form_tag shib_associate_url(:protocol => current_site.protocol), :class => "login_form" do -%>
+      <%= hidden_field_tag 'existing_account', '1' %>
+      <div>
+        <label for="login"><%= t('login.email_or_login') %></label><br/>
+        <%= text_field_tag 'login', params[:login] %>
+      </div>
+      <div>
+        <label for="password"><%= t('login.password') %></label><br/>
+        <%= password_field_tag 'password' %>
+      </div>
+      <div>
+        <button type="submit" class="basic_button blue_button"><%= t('shibboleth.login.link_to_this_account') %></button>
+      </div>
+    <% end %>
+  </div>
+
+  <div id="new-account">
+    <div class="login-description">
+      <span><%= t('shibboleth.login.new_account') %></span>
+    </div>
+    <%= form_tag shib_associate_url(:protocol => current_site.protocol), :class => "login_form" do -%>
+      <%= hidden_field_tag 'new_account', '1' %>
+      <button type="submit" class="basic_button blue_button"><%= t('shibboleth.login.create_new_account') %></button>
+    <% end %>
+  </div>
+
+  <div class="other-links">
+    <span>
+      <%= link_to t('register_now'), signup_path %> |
+      <%= link_to t('user.lost_password'), lost_password_path %> |
+      <%= link_to t('user.resend_confirmation_email.link'), resend_confirmation_path %>
+    </span>
+  </div>
+
+</div>

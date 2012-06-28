@@ -83,14 +83,15 @@ class UsersController < ApplicationController
   def new
     user.openid_identifier = session[:openid_identifier]
 
-    render :partial => "register" if request.xhr?
+    #render :partial => "register" if request.xhr?
+    render :layout => 'application_without_sidebar'
   end
 
   # POST /users
   # POST /users.xml
   # POST /users.atom
   # {"commit"=>"Sign up", "captcha"=>"FBIILL", "tags"=>"", "action"=>"create",
-  # "controller"=>"users", "user"=>{"password_confirmation"=>"prueba", "email2"=>"", "email3"=>"",
+  # "controller"=>"users", "user"=>{"password_confirmation"=>"prueba",
   # "login"=>"julito", "password"=>"prueba", "email"=>"email@domain.com"}}
 
   def create
@@ -108,13 +109,11 @@ class UsersController < ApplicationController
         flash[:notice] = t('user.registered')
 
         format.html {
-
           if (user.special_event.nil?)
             redirect_back_or_default root_path
           else
             redirect_to space_event_url(user.special_event.space,user.special_event)
           end
-
         }
         format.xml  { render :xml => @user, :status => :created, :location => @user }
         format.atom {
@@ -123,7 +122,7 @@ class UsersController < ApplicationController
           :status => :created
         }
       else
-        format.html { render :action => "new" }
+        format.html { render :action => "new", :layout => 'application_without_sidebar' }
         format.xml  { render :xml => @user.errors, :status => :unprocessable_entity }
         format.atom { render :xml => @user.errors.to_xml, :status => :bad_request }
       end
@@ -158,6 +157,7 @@ class UsersController < ApplicationController
       end
     else
       respond_to do |format|
+        params[:user].delete(:email) # block email changes
         if user.update_attributes(params[:user])
           user.tag_with(params[:tags]) if params[:tags]
 

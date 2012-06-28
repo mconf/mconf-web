@@ -303,7 +303,6 @@ h3.selector_title{color:#244974;margin-top:15px;}
 #menu li .selected:hover{background:white; color:#244974;}
 #menu li .admin:hover{background:white;color:#ffa903;}
 #wrapper{padding:10px 10px 10px 10px;background-color:#fff;overflow:hidden;}
-#wrapper_blue{padding:10px 10px 10px 10px;background-color:#E1EEF5;overflow:hidden;}
 
 /*users and groups*/
 div.group{padding-bottom:0.5em;margin-top:2px;}
@@ -935,6 +934,12 @@ div#manage .user a:hover{text-decoration:underline;}
 #footer ul li{display:inline-block;position:relative;margin-right:3px;}
 #footer ul #trade_mark{font-weight:bold;color:#111;}
 #footer .icon,#global .icon{margin-bottom:-4px;}
+#footer .languages {
+  border-top: 1px solid #E1EEF5;
+  margin-top:10px;
+  padding-top:10px;
+  text-align:center;
+}
 
 /*Inbox*/
 #inbox-wrapper{background:#fff url("../images/dot1.png") repeat-x bottom;}
@@ -2662,46 +2667,6 @@ h3.dialog_title {
   color:#244974;
 }
 
-#terms_draft {
-  color: red;
-  margin-bottom: 20px;
-}
-#terms_title, #privacy_title, #service_title {
-  margin-bottom: 10px;
-}
-#terms_title h1, #privacy_title h1, #service_title h1 {
-  font-size: 1.6em;
-}
-#terms_body .terms_paragraph, #service_body .service_paragraph {
-  margin-top: 20px;
-}
-#terms_body .terms_paragraph h3, #service_body .service_paragraph h3 {
-  font-size: 1.2em;
-}
-#terms_body .terms_paragraph h4, #service_body .service_paragraph h4 {
-  margin-bottom: 7px;
-}
-#terms_body .image_area, #service_body .image_area {
-  margin-top: 10px;
-  text-align: center;
-}
-#terms_body .image_area img, #service_body .image_area img {
-  padding: 4px;
-  background: white;
-  border: 1px solid #ccc;
-}
-#terms_body .image_area .legend, #service_body .image_area .legend {
-  font-style: italic;
-  display: block;
-  text-align: center;
-  margin-bottom: 15px;
-}
-#service_body .annex-start {
-  margin-top: 50px;
-  border-top: 5px solid #fff;
-  padding-top: 50px;
-}
-
 .bbbrails_invite_device_type {
   background:#f0f6f9;
   border: 1px solid #ddd;
@@ -2756,6 +2721,44 @@ h3.dialog_title {
 #login_div .other-links {
   padding-top: 10px;
   clear: both;
+}
+
+#shib-user-associate #existing-account {
+  float: left;
+  width: 400px;
+  padding: 10px;
+  text-align: center;
+}
+#shib-user-associate #new-account {
+  float: left;
+  width: 400px;
+  padding: 10px;
+  text-align: center;
+}
+#shib-user-associate #existing-account button {
+  margin-top: 15px;
+}
+#shib-user-associate .login-description {
+  margin-top: 10px;
+  margin-bottom: 15px;
+  padding: 10px;
+  background: #DFF0D8;
+  border: 1px solid #D6E9C6;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+}
+#shib-user-associate .other-links {
+  padding-top: 30px;
+  clear: both;
+  text-align: center;
+}
+
+.errorExplanation h2 {
+  font-size: 12px;
+}
+.errorExplanation ul {
+  list-style: none;
 }
 
 #terms_draft {

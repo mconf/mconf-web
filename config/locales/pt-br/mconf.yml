@@ -1123,12 +1123,17 @@ pt-br:
     one: Sessão
   shibboleth: 
     create: 
-      account_created: "Uma nova conta com uma senha aleatória foi criada para você e conectada a sua conta federada. Ambas as contas podem ser usadas para entrar neste site. Você não precisará da sua senha do Mconf para logar usando a federação, mas se deseja modificar sua senha <a href=\"%{url}\">clique aqui</a>."
-    need_activation: 
-      activation_email: "Se você não recebeu o e-mail de ativação, <a href=\"%{url}\">clique aqui</a> para solicitar o reenvio."
-      message: "Aparentemente você já possui uma conta neste site mas ela ainda não esta ativada.<br/> Sua conta federada será ligada a esta conta, mas antes você precisa ativá-la."
-      password_email: "Se você esqueceu sua senha, <a href=\"%{url}\">clique aqui</a>."
-      title: "Olá, %{name}"
+      account_associated: "Sua conta '%{login}' foi associada à sua conta federada! Você agora pode acessar esta conta tanto através da federação quando através de suas credenciais do Mconf."
+      account_created: "Uma nova conta com uma senha aleatória foi criada para você e conectada à sua conta federada. Ambas as contas podem ser usadas para entrar neste site. Você não precisará da sua senha do Mconf para utilizá-lo apenas pela federação, porém, se desejar modificá-la <a href=\"%{url}\">clique aqui</a>."
+      data_error: "Houve um erro tentando acessar suas informações através da federação. Por favor contate-nos para resolver o problema."
+      existent_email: "Já existe uma conta com o seu e-mail federado (%{email}). Se esta conta é sua, use o formulário abaixo para associá-la à sua conta na federação. Se você tiver problemas você pode nos contatar ou encontrar ajuda na página FAQ."
+      invalid_credentials: "Conta ou senha inválida. Por favor, tente novamente."
+    login: 
+      create_new_account: "Criar uma nova conta"
+      existing_account: "Se você já possui uma conta no Mconf, você pode associá-la à sua conta na federação. Com isso, quando você utilizar a federação para logar no Mconf, você estará acessando esta conta que foi associada."
+      link_to_this_account: "Associar a esta conta"
+      new_account: "Se você ainda não possui uma conta no Mconf, clique no botão abaixo para criar uma nova conta automaticamente utilizando suas informações recebidas através da federação."
+      title: "Sua conta na federação ainda não está associada a nenhuma conta do Mconf. Selecione uma opção abaixo:"
   show: Exibir
   show_advanced_editor: "Exibir editor avançado"
   show_list_version_arrows: "exibir versão em lista >>"
@@ -1367,11 +1372,16 @@ pt-br:
     disabled: "Usuário %{username} desabilitado"
     edit: 
       federated: 
-        restrictions: "Você não poderá editar alguns dados como seu e-mail e senha."
         see_your_data: "Veja seus dados..."
         title: "Você está logado utilizando uma federação!"
         your_idp: "O seu provedor de identidade é: %{idp}"
     edit_account: "Editar sua conta"
+    edit_bbb_room: 
+      webconf_password: 
+        title: "Permissões:"
+      webconf_url: 
+        tip: "Você pode modificar esta URL alterando o seu identificador pessoal na página da <a href=\"%{url}\">sua conta</a>."
+        title: "O endereço da sua sala de webconferência é:"
     email: E-mail
     email_used_to_create_account: "Digite o endereço de e-mail que você usou para criar a sua conta"
     enable: "Habilitar usuário"

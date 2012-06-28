@@ -21,7 +21,7 @@ require_dependency "#{ Rails.root.to_s }/vendor/plugins/station/app/controllers/
 
 class SessionsController
   # Don't render Station layout, use application layout instead
-  layout :application_layout
+  layout 'application_without_sidebar'
 
   #after_filter :update_user   #this is used to remember when did he logged in or out the last time and update his/her home
 
@@ -44,7 +44,7 @@ class SessionsController
           render :partial => "sessions/login"
         }
       end
-      format.html { render :layout => "application_without_sidebar" }
+      format.html
       format.m
     end
   end

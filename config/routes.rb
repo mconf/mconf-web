@@ -2,8 +2,9 @@ Mconf::Application.routes.draw do
 
   bigbluebutton_routes :default, :controllers => { :servers => 'custom_bigbluebutton_servers', :rooms => 'custom_bigbluebutton_rooms' }
 
-  match '/secure', :to => 'shibboleth#create', :as => "shibboleth"
-  match '/secure/info', :to => 'shibboleth#info', :as => "shibboleth_info"
+  get '/secure', :to => 'shibboleth#login', :as => "shib_login"
+  get '/secure/info', :to => 'shibboleth#info', :as => "shib_info"
+  post '/secure/associate', :to => 'shibboleth#associate', :as => "shib_associate"
 
   # FIXME: Temporary, this should probably be done by bigbluebutton_rails
   match '/webconf/:id', :to => 'custom_bigbluebutton_rooms#invite',

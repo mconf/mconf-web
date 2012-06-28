@@ -65,20 +65,15 @@
 <% if logged_in? %>
   <% if @shib_user %>
     <div id="edit_account_user_federated">
-      <div class="more_information"><%= link_to t('user.edit.federated.see_your_data'), shibboleth_info_path %></div>
+      <div class="more_information"><%= link_to t('user.edit.federated.see_your_data'), shib_info_path %></div>
       <span class="title"><%= t('user.edit.federated.title') %></span><br/>
       <span><%= t('user.edit.federated.your_idp', :idp => @shib_provider) %></span><br/>
-      <span><%= t('user.edit.federated.restrictions') %></span><br/>
     </div>
   <% end %>
 <% end %>
 
 <div><label for="email"><%=t('user.email')%></label><br/>
-<% if @shib_user %>
-  <%= f.text_field :email, :disabled => true %>
-<% else %>
-  <%= f.text_field :email %>
-<% end %>
+<%= text_field_tag 'name', @user.email, :disabled => true, :size => 30 %>
 </div>
 
 <% if f.object.new_record? # User is not registered yet, ask for a full_name %>
