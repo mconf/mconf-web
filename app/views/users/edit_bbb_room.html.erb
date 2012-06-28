@@ -5,7 +5,9 @@
 <div id="edit-bbb-room">
   <div class="webconf-url">
     <h3><%= t('user.edit_bbb_room.webconf_url.title') %></h3>
-    <%= text_field_tag 'user-webconf-room', join_webconf_url(@room), :disabled => true, :size => 30 %>
+    <div class="url">
+      <%= join_webconf_url(@room) %>
+    </div>
     <span class="tip">
       <%= t('user.edit_bbb_room.webconf_url.tip', :url => edit_user_path(current_user)).html_safe %>
     </span>
