@@ -4,7 +4,8 @@
 }
 
 #frontpage_logo.federated {
-  margin-top: 25px;
+  margin-top: 20px;
+  margin-left: 20px;
 }
 
 #frontpage_logo .title {
@@ -13,6 +14,10 @@
   font-size: 36px;
   text-shadow: #6374AB 1px 1px 5px;
   font-family: Helvetica,sans-serif;
+}
+
+#frontpage_logo.federated .title {
+  font-size: 46px;
 }
 
 #frontpage_logo .title:hover {

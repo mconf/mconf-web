@@ -21,7 +21,7 @@
 
   <% if current_site.shib_enabled? %>
     <div id="shib-login">
-      <span><%= t('cafe.login_page.description') %></span>
+      <span><%= t('cafe.login_page.description').html_safe %></span>
       <div class="image">
         <%= link_to(image_tag("logos/cafe-logo.jpg"), shib_login_path) %>
         <%= link_to(t('cafe.login_page.click_here_to_login'), shib_login_path) %>
