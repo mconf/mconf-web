@@ -1,17 +1,17 @@
 <script type="text/javascript" charset="utf-8">
   $(document).ready(function() {
-    $('.shib-login').qtip({
+    $('.federation-tip').qtip({
       content: '<%= escape_javascript(t('cafe.login_tip')) %>',
-      position: {adjust: { screen: true }, corner: 'bottomMiddle' },
+      position: {adjust: { screen: true }},
       show:  'mouseover',
       hide: { when: 'mouseout', fixed: true },
-      style: 'mystyle'
+      style: 'light',
     });
   });
 </script>
 
 <div id="global-wrapper">
-  <div id="global" class="banner">
+  <div id="global" class="banner <%= current_site.shib_enabled? ? 'federated' : '' %>">
 
         <% if logged_in? %>
           <ul id="prefs">
@@ -25,7 +25,7 @@
         <% else %>
 
          <!--<a id="logo" class="frontpage_logo" href="/"></a>-->
-         <div id="frontpage_logo">
+         <div id="frontpage_logo" class="<%= current_site.shib_enabled? ? 'federated' : '' %>">
            <a href="/"><span class="title"><%= t('mconf') %></span><span class="beta"><%= t('beta') %></span></a>
          </div>
 
@@ -45,17 +45,23 @@
            <% end -%>
 
            <div id="subtexto">
-             <%= link_to t('register.one'), signup_path, :class => "register_link" %>
-             <span>|</span>
              <%= link_to t('user.lost_password'), lost_password_path, :class => "register_link" %>
-             <% if current_site.shib_enabled? %>
-               <span>|</span>
-               <div class="shib-login">
-                 <%= link_to t('cafe.login'), shib_login_path %>
-                 <%= link_to image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"icon",:style=>"cursor:pointer").html_safe, login_path %>
-               </div>
-             <% end %>
            </div>
+
+           <% if current_site.shib_enabled? %>
+             <div id="login-federation">
+               <div class="button">
+                 <a href="<%= shib_login_path %>" class="basic_button medium_button pale_button"><%= t("login.one") %></a>
+               </div>
+               <div class="image">
+                 <%= image_tag("logos/cafe-logo-transp.png", :size => '250x43') %>
+               </div>
+               <div class="description">
+                 <%= t('cafe.login_page.description').html_safe %>
+                 <%= link_to(image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"icon",:style=>"cursor:pointer").html_safe, login_path, :class => 'federation-tip') %>
+               </div>
+             </div>
+           <% end %>
          </div>
 
         <% end %>

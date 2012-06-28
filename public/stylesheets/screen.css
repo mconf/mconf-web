@@ -2758,8 +2758,11 @@ h3.dialog_title {
   list-style: none;
 }
 
-#login_div #shib-login img {
+#login_div #shib-login .image {
   margin: 20px 0;
+  display: block;
+}
+#login_div #shib-login .image a {
   display: block;
 }
 
