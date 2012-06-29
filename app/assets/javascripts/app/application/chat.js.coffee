@@ -208,7 +208,7 @@ Chat =
     pres = Chat.presence_value elem
     contacts = $('#roster-area li')
 
-    if contacts.lenght > 0
+    if contacts.size() > 0
       inserted = false
       contacts.each (index, element) =>
         cmp_pres = Chat.presence_value $(element)
@@ -232,9 +232,9 @@ Chat =
 
   insertChatArea: (jid,jid_id,status,name) ->
     $("#chat-bar").append(
-      "<div id='mHfL' class='mHfL' style='width: 230px; height: 100%;'><div><div class='nn' style='width: 225px; height: 100%; position: absolute;'>" +
+      "<div id='contact-chat' class='mHfL' style='width: 230px; height: 100%;'><div><div class='nn' style='width: 225px; height: 100%; position: absolute;'>" +
       "<div id='chat-" + jid_id + "' class='chat-area' style='position: absolute;'>" + "<div class='chat-area-title'><h3><ul><li class='none " + status + "'>" + name +
-      "<img id='close-chat' src='/assets/icons/close-chat.png' width='12' height='12' style='margin-top: 1px; float: right; display:inline;' /></li></ul></h3></div>" +
+      "<img id='close-chat' src='/assets/icons/close-chat.png' width='12' height='12' style='margin-top: 3.5px; margin-right: 5px; float: right; display:inline;' /></li></ul></h3></div>" +
       "<div id='content-chat'><div style='border-bottom: solid 1px #DDD'><img id='bbb-chat-" + jid_id + "' src='/assets/icons/bbb_logo.png' class='bbb-chat-icon'/></div></br>" +
       "<div id='message-area'><div class='chat-messages' style='word-wrap: break-word;'></div><textarea class='chat-input'></textarea></div></div></div></div></div></div>")
 
@@ -275,7 +275,7 @@ $ ->
     status = $(this).attr('class').replace "chat_status ",""
     $("#status").removeClass()
     $("#status-title").removeClass()
-    $(document).trigger('change_status', {login: Chat.login, password: Chat.password, status: status,name: Chat.user_name})
+    $(document).trigger('change_status', {login: Chat.login, password: Chat.password, status: status, name: Chat.user_name, url: Chat.bbb_room_url})
     $("#status-title").addClass status
     $("#status").addClass status
     $("#status_list").toggle(0)
@@ -283,8 +283,8 @@ $ ->
   $("#main-chat-area").on "click", "#main-chat .chat-area-title", ->
     $(this).parents().children("#content-chat").toggle()
 
-  $("#main-chat-area").on "click", "#mHfL .nn .chat-area .chat-area-title #close-chat", ->
-    $(this).parents(".mHfL").remove()
+  $("#main-chat-area").on "click", "#contact-chat .nn .chat-area .chat-area-title #close-chat", ->
+    $(this).parents("#contact-chat").remove()
 
   $("#main-chat-area").on "click", "#main-chat #content-chat .roster-contact", ->
     jid = $(this).find(".roster-jid").text()
@@ -299,7 +299,7 @@ $ ->
     $('#chat-' + jid_id + ' .chat-input').focus()
     return
 
-  $("#main-chat-area").on "keypress", "#mHfL .nn .chat-area #content-chat #message-area .chat-input", (ev) ->
+  $("#main-chat-area").on "keypress", "#contact-chat .nn .chat-area #content-chat #message-area .chat-input", (ev) ->
     jid = $(this).parent().parent().parent().data 'jid'
     name = $("#status").text()
 
@@ -312,12 +312,20 @@ $ ->
 
       Chat.connection.send message
 
-      $(this).parent().find('.chat-messages').append(
-        "<div class='chat-message'>" +
-        "<span class='chat-name me'>" + name +
-        " </span><span class='chat-text'>" +
-        body +
-        "</span></div>")
+      if $(this).parent().find('.chat-messages').find('.chat-event').size() > 0
+        $(this).parent().find('.chat-messages').find('.chat-event').before(
+          "<div class='chat-message'>" +
+          "<span class='chat-name me'>" + name +
+          " </span><span class='chat-text'>" +
+          body +
+          "</span></div>")
+      else
+        $(this).parent().find('.chat-messages').append(
+          "<div class='chat-message'>" +
+          "<span class='chat-name me'>" + name +
+          " </span><span class='chat-text'>" +
+          body +
+          "</span></div>")
 
       Chat.scroll_chat Chat.jid_to_id jid
 
@@ -338,7 +346,7 @@ $ ->
 
     return
 
-  $("#main-chat-area").on "click", "#mHfL .nn .chat-area #content-chat .bbb-chat-icon", ->
+  $("#main-chat-area").on "click", "#contact-chat .nn .chat-area #content-chat .bbb-chat-icon", ->
     jid = $(this).parent().parent().parent().data 'jid'
     jid_id = Chat.jid_to_id jid
     name = $("#status").text()
@@ -425,7 +433,6 @@ $(document).bind 'connect', (ev, data) ->
   conn = new Strophe.Connection 'http://chat-bottin.no-ip.info:5280/http-bind'
 
   conn.connect data.login, data.password, (status) ->
-
     if status is Strophe.Status.CONNECTED
       Chat.user_name = data.name
       Chat.login = data.login
@@ -449,7 +456,7 @@ $(document).bind 'connected', ->
       "<div id='content-chat'><div style='border-bottom: solid 1px #DDD;'>" +
       "<img id='add_user' src='/assets/icons/user_add.png' class='chat-menu-icon' style='cursor: pointer; cursor: hand;' title='Invite Users'/>" +
       "<img id='bbb_invite' src='/assets/icons/bbb_logo.png' class='chat-menu-icon' style='cursor: pointer; cursor: hand;' title='Invite users to your BBB room'/>" +
-      "</div></br><ul style='margin-bottom: 0px;'>" +
+      "</div><ul style='margin-top: 10px; margin-bottom: 0px;'>" +
       "<li id='status' class='online' style='margin-left: 5px; cursor: pointer; cursor: hand;'>" + Chat.user_name  + "</li>" +
       "<li id='status_list' class='none' style='display: none; margin-left: 5px;'><ul style='cursor: pointer; cursor: hand;'>" +
       "<li id='chat_status_online' class='chat_status online'>Online</li>" +
@@ -475,7 +482,7 @@ $(document).bind 'disconnected', ->
   $('#roster-area ul').empty()
   $('#roster-area').addClass "hidden"
   $('#main-chat #content-chat').toggle(0)
-  $('#chat-bar #mHfL').remove()
+  $('#chat-bar #contact-chat').remove()
   return
 
 $(document).bind 'contact_added', (ev,data) ->
@@ -497,7 +504,7 @@ $(document).bind 'change_status', (ev,data) ->
   else
     if data.status is "online" and not Chat.connection?
       $("#roster-area").removeClass()
-      $(document).trigger('connect',{login: data.login, password: data.password, name: data.name})
+      $(document).trigger('connect',{login: data.login, password: data.password, name: data.name, url: data.url})
       $("#chat_status_dnd").removeClass "hidden"
       $("#chat_status_away").removeClass "hidden"
     else

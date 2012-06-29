@@ -6,6 +6,7 @@
   height: 100%;
   overflow: hidden;
   z-index: 2;
+
   .hide { display: none; }
 
   .float_right { float: right; }
@@ -13,6 +14,10 @@
   .float_left { float: left; }
 
   .field { margin-bottom: 5px; }
+
+  #content-chat {
+    margin-bottom: 10px;
+  }
 
   .chat-area{
     border:1px #707070 solid;
@@ -38,7 +43,7 @@
     }
     ul {
       margin: 0px;
-      margin-left: 10px;
+      margin-left: 13px;
       width: 203px;
     }
   }
@@ -75,7 +80,7 @@
   }
 
   #roster-area {
-    padding: 10px;
+    padding: 5px 10px 0px 10px;
     width: 195px;
   }
 
@@ -117,19 +122,32 @@
     visibility: visible;
   }
 
-  .w5 {
-    width: 5px;
+  #chat-bar {
+    float: left;
+    visibility: visible;
   }
 
-  .mHfL { min-height: 1px; float: left; }
+  .mHfL {
+    min-height: 1px;
+    float: left;
+  }
+
+  #contact-chat {
+    min-height: 1px;
+    float: left;
+  }
 
   .bbb-chat-icon {
     margin-left: 5px;
+    margin-bottom: 4px;
     cursor: pointer;
     cursor: hand;
   }
 
-  .chat-menu-icon { margin-left: 5px; }
+  .chat-menu-icon {
+    margin-left: 5px;
+    margin-bottom: 4px;
+  }
 
   .nn { visibility: hidden; }
 }
