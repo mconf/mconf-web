@@ -73,7 +73,11 @@
 <% end %>
 
 <div><label for="email"><%=t('user.email')%></label><br/>
-<%= text_field_tag 'name', @user.email, :disabled => true, :size => 30 %>
+<% if f.object.new_record? %>
+  <%= f.text_field :email, :size => 30 %>
+<% else %>
+  <%= text_field_tag 'name', @user.email, :disabled => true, :size => 30 %>
+<% end %>
 </div>
 
 <% if f.object.new_record? # User is not registered yet, ask for a full_name %>
