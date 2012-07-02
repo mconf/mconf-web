@@ -49,3 +49,4 @@
   var login = "#{current_user.login}" + "@chat-bottin.no-ip.info";
   var name = "#{current_user.full_name}";
   var url = "#{join_webconf_url(current_users.bigbluebutton_room)}";
+  window.onbeforeunload = function() { $(document).trigger("disconnect"); }

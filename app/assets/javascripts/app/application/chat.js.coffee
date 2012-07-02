@@ -5,6 +5,7 @@ Chat =
   login: null
   password: null
   bbb_room_url: null
+  requester_name: null
 
   jid_to_id: (jid) ->
     Strophe.getBareJidFromJid(jid).replace(/@/,"-").replace(/\./g, "-")
@@ -33,7 +34,6 @@ Chat =
     ptype = $(presence).attr 'type'
     from = $(presence).attr 'from'
     jid_id = Chat.jid_to_id from
-    online = $(presence).attr 'on'
     bbb = $(presence).attr 'bbb'
 
     if bbb is "invite"
@@ -59,14 +59,11 @@ Chat =
     if ptype is "subscribe"
       name = $(presence).attr "name"
       Chat.pending_subscriber = from
-      $("#approve-jid").text name
-      $("#approve_dialog").dialog "open"
-
-    if online is "yes"
-      Chat.connection.send $pres
+      Chat.requester_name = name
+      $(document).trigger('approve_request', {name: name, pending_subscriber: from})
 
     if ptype is "subscribed"
-      Chat.connection.send $pres({to: from, "type": "subscribed", "on": "yes"})
+      Chat.connection.send $pres({to: from, "type": "subscribed"})
     else
       if ptype isnt "error"
         contact = $('#roster-area #' + jid_id)
@@ -103,7 +100,7 @@ Chat =
     $("#chat-" + jid_id).data "jid", Strophe.getBareJidFromJid from
 
   on_roster_changed: (iq) ->
-    $(iq).find('item').each (index, element) =>
+    $(iq).find('item').each (index, element) ->
       sub = $(element).attr 'subscription'
       jid = $(element).attr 'jid'
       name = $(element).attr('name') or jid
@@ -113,18 +110,16 @@ Chat =
         $('#' + jid_id).remove()
       else
         contact_html = "<li id='" + jid_id + "' class='" +
-          $('#' + jid_id).attr 'class' or "offline" +
+          ($('#' + jid_id).attr 'class' or "offline") +
           "'>" + "<div class='roster-contact'>" +
           "<div class='roster-name'>" + name +
           "</div><div class='roster-jid hidden'>" + jid +
           "</div></div></li>"
 
-        if $('#' + jid_id).lenght > 0
+        if $('#' + jid_id).length > 0
           $('#' + jid_id).replaceWith contact_html
         else
           Chat.insert_contact $(contact_html)
-      return
-    return
 
   on_message: (message) ->
     full_jid = $(message).attr 'from'
@@ -232,7 +227,7 @@ Chat =
 
   insertChatArea: (jid,jid_id,status,name) ->
     $("#chat-bar").append(
-      "<div id='contact-chat' class='mHfL' style='width: 230px; height: 100%;'><div><div class='nn' style='width: 225px; height: 100%; position: absolute;'>" +
+      "<div id='contact-chat' class='chat-align' style='width: 230px; height: 100%;'><div><div class='no-show' style='width: 225px; height: 100%; position: absolute;'>" +
       "<div id='chat-" + jid_id + "' class='chat-area' style='position: absolute;'>" + "<div class='chat-area-title'><h3><ul><li class='none " + status + "'>" + name +
       "<img id='close-chat' src='/assets/icons/close-chat.png' width='12' height='12' style='margin-top: 3.5px; margin-right: 5px; float: right; display:inline;' /></li></ul></h3></div>" +
       "<div id='content-chat'><div style='border-bottom: solid 1px #DDD'><img id='bbb-chat-" + jid_id + "' src='/assets/icons/bbb_logo.png' class='bbb-chat-icon'/></div></br>" +
@@ -243,27 +238,6 @@ Chat =
     return
 
 $ ->
-
-  $("#approve_dialog").dialog
-    autoOpen: false
-    draggable: false
-    modal: true
-    title: "Subscription Request"
-    buttons:
-      "Deny": ->
-        Chat.connection.send $pres({to: Chat.pending_subscriber,"type": "unsubscribed"})
-        Chat.pending_subscriber = null
-        $(this).dialog 'close'
-
-      "Approve": ->
-        iq = $iq({type: "set"})
-          .c("query", {xmlns: "jabber:iq:roster"})
-          .c("item", { jid: Chat.pending_subscriber, name: $('#approve-jid').text()})
-        Chat.connection.sendIQ iq
-        Chat.connection.send $pres({to: Chat.pending_subscriber,"type": "subscribed"})
-
-        Chat.pending_subscriber = null
-        $(this).dialog 'close'
 
   $("#main-chat-area").on "click", "#main-chat #content-chat li#status", ->
     $("#status_list").toggle(0)
@@ -280,10 +254,10 @@ $ ->
     $("#status").addClass status
     $("#status_list").toggle(0)
 
-  $("#main-chat-area").on "click", "#main-chat .chat-area-title", ->
+  $("#main-chat-area").on "click", ".chat-area-title", ->
     $(this).parents().children("#content-chat").toggle()
 
-  $("#main-chat-area").on "click", "#contact-chat .nn .chat-area .chat-area-title #close-chat", ->
+  $("#main-chat-area").on "click", "#contact-chat .no-show .chat-area .chat-area-title #close-chat", ->
     $(this).parents("#contact-chat").remove()
 
   $("#main-chat-area").on "click", "#main-chat #content-chat .roster-contact", ->
@@ -299,7 +273,7 @@ $ ->
     $('#chat-' + jid_id + ' .chat-input').focus()
     return
 
-  $("#main-chat-area").on "keypress", "#contact-chat .nn .chat-area #content-chat #message-area .chat-input", (ev) ->
+  $("#main-chat-area").on "keypress", "#contact-chat .no-show .chat-area #content-chat #message-area .chat-input", (ev) ->
     jid = $(this).parent().parent().parent().data 'jid'
     name = $("#status").text()
 
@@ -346,7 +320,7 @@ $ ->
 
     return
 
-  $("#main-chat-area").on "click", "#contact-chat .nn .chat-area #content-chat .bbb-chat-icon", ->
+  $("#main-chat-area").on "click", "#contact-chat .no-show .chat-area #content-chat .bbb-chat-icon", ->
     jid = $(this).parent().parent().parent().data 'jid'
     jid_id = Chat.jid_to_id jid
     name = $("#status").text()
@@ -368,12 +342,11 @@ $ ->
       " </span><span class='chat-text'>" + body +
       "</span></div>")
 
-  # Add Users
-  $("#main-chat-area").on 'click', ".mHfL .nn #main-chat #content-chat #add_user", ->
+  $("#main-chat-area").on 'click', ".chat-align .no-show #main-chat #content-chat #add_user", ->
     $.colorbox
       html:"<div class='modal-title'><span>" + I18n.t("chat.add")  + "</span></div><div class='modal-content'><label for='member_token'>" + I18n.t('chat.name.other') +
         "</label>" + "<input id='member_token' name='member_token' type='text' style='width:396px;' /><br>" +
-        "<br><br><br><div class='float_right'><input id='submit' type='submit' value='" + I18n.t('chat.add') + "' ></div></div>"
+        "<div id='chat_invite_button'><button id='submit' class='btm' type='submit'>" + I18n.t('chat.add') + "</button></div></div>"
       onComplete: ->
         jid = new Array()
         name = new Array()
@@ -383,24 +356,34 @@ $ ->
           theme: 'facebook'
           preventDuplicates: true
           searchDelay: 200
-          hintText: "teste"
+          minChar: 2
+          hintText: I18n.t("chat.invite.hint")
           onAdd: (item) ->
             jid.push item.id
             name.push item.name
           onDelete: (item) ->
             jid.splice jid.indexOf(item.id),1
             name.splice name.indexOf(item.name),1
+          onResult: (result) ->
+            results = result
+            iten = 0
+            $.each result, (index) ->
+              if result[index]
+                if result[index].name is Chat.user_name
+                  results.splice index-iten,1
+                  iten = iten + 1
+            results
 
         $(document).on "click", "#submit", ->
           if jid.length
             $(document).trigger 'contact_added', { jid: jid, name: name }
             $.colorbox.close()
 
-  $("#main-chat-area").on 'click', ".mHfL .nn #main-chat #content-chat #bbb_invite", ->
+  $("#main-chat-area").on 'click', ".chat-align .no-show #main-chat #content-chat #bbb_invite", ->
     $.colorbox
       html:"<div class='modal-title'><span>" + I18n.t("chat.invite.bbb")  + "</span></div><div class='modal-content'><label for='member_token'>" + I18n.t('chat.name.other') +
         "</label>" + "<input id='member_token' name='member_token' type='text' style='width:396px;' /><br>" +
-        "<br><br><br><div class='float_right'><button id='submit' class='btm' type='submit'>" + I18n.t('chat.invite.button') + "</button></div></div>"
+        "<div id='chat_invite_button'><button id='submit' class='btm' type='submit'>" + I18n.t('chat.invite.button') + "</button></div></div>"
       onComplete: ->
         jid = new Array()
 
@@ -409,7 +392,7 @@ $ ->
           theme: 'facebook'
           preventDuplicates: true
           searchDelay: 200
-          hintText: "teste"
+          hintText: I18n.t("chat.invite.hint")
           onAdd: (item) ->
             jid.push item.id
           onDelete: (item) ->
@@ -428,6 +411,27 @@ $ ->
           if jid.length
             $(document).trigger 'send_bbb', { jid: jid }
             $.colorbox.close()
+
+$(document).bind 'approve_request', (ev,data) ->
+  $.colorbox
+    html:"<div class='modal-title'><span>" + I18n.t("chat.request.title")  + "</span></div><div class='modal-content'>" + I18n.t("chat.request.body", {name: data.name})  +
+      "<br><div id='chat_request_button'><button id='approve' class='btm' type='submit'>" + I18n.t('chat.request.approve') +
+      "</button><button id='deny' class='btm' type='submit'>" + I18n.t('chat.request.deny') + "</button></div></div>"
+    onComplete: ->
+      $(document).on "click", "#approve", ->
+        iq = $iq({type: "set"})
+          .c("query", {xmlns: "jabber:iq:roster"})
+          .c("item", { jid: data.pending_subscriber, name: data.name})
+        Chat.connection.sendIQ iq
+        Chat.connection.send $pres({to: data.pending_subscriber, "type": "subscribed"})
+        Chat.pending_subscriber = null
+        $.colorbox.close()
+
+      $(document).on "click", "#deny", ->
+        Chat.connection.send $pres({to: data.pending_subscriber, "type": "unsubscribed"})
+        Chat.pending_subscriber = null
+        $.colorbox.close()
+
 
 $(document).bind 'connect', (ev, data) ->
   conn = new Strophe.Connection 'http://chat-bottin.no-ip.info:5280/http-bind'
@@ -450,7 +454,7 @@ $(document).bind 'connect', (ev, data) ->
 $(document).bind 'connected', ->
   unless $("#main-chat").size()
     $("#chat-bar").append(
-      "<div class='mHfL' style='width: 200px; height: 100%;'><div><div class='nn' style='width: 195px; height: 100%; position: absolute;'>" +
+      "<div class='chat-align' style='width: 200px; height: 100%;'><div><div class='no-show' style='width: 195px; height: 100%; position: absolute;'>" +
       "<div id='main-chat' class='chat-area' style='position: absolute;'>" +
       "<div class='chat-area-title'><h3><ul><li id='status-title' class='none online'>" + I18n.t("chat.title")  + "</li></ul></h3></div>" +
       "<div id='content-chat'><div style='border-bottom: solid 1px #DDD;'>" +
@@ -475,6 +479,10 @@ $(document).bind 'connected', ->
   Chat.connection.addHandler Chat.on_message, null, "message", "chat"
   return
 
+$(document).bind 'disconnect', ->
+  if Chat.connection
+    Chat.connection.disconnect()
+
 $(document).bind 'disconnected', ->
   Chat.connection = null
   Chat.pending_subscriber = null
@@ -496,7 +504,6 @@ $(document).bind 'contact_added', (ev,data) ->
 $(document).bind 'change_status', (ev,data) ->
   if data.status is "offline"
     Chat.connection.disconnect()
-    Chat.connection = null
     Chat.last_status = null
     $("#chat_status_online").removeClass "hidden"
     $("#chat_status_dnd").addClass "hidden"

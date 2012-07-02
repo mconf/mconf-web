@@ -7,12 +7,6 @@
   overflow: hidden;
   z-index: 2;
 
-  .hide { display: none; }
-
-  .float_right { float: right; }
-
-  .float_left { float: left; }
-
   .field { margin-bottom: 5px; }
 
   #content-chat {
@@ -115,11 +109,8 @@
     color:#111;
   }
 
-  .hidden { display: none; }
-
-  .fLvV {
-    float: left;
-    visibility: visible;
+  .hidden {
+    display: none;
   }
 
   #chat-bar {
@@ -127,7 +118,7 @@
     visibility: visible;
   }
 
-  .mHfL {
+  .chat-align {
     min-height: 1px;
     float: left;
   }
@@ -149,5 +140,17 @@
     margin-bottom: 4px;
   }
 
-  .nn { visibility: hidden; }
+  .no-show {
+    visibility: hidden;
+  }
+}
+
+#chat_invite_button {
+  float: right;
+  margin-top: 60px;
+}
+
+#chat_request_button {
+  float: right;
+  padding: 10px 0px;
 }

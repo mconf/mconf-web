@@ -196,11 +196,12 @@ pt-br:
     connecting_error_message: "Erro conectando"
     connecting_message: "Conectando ao chat do evento..."
     invite:
+      bbb: "Convide usuários para sua sala BBB"
+      button: "Convidar Pessoas"
+      hint: "Digite para começar a buscar"
       msg: "Convidou você para participar de uma webconferência, siga este link: <a href=\' URL \'> URL </a>"
       msg_clean: "Convidou você para participar de uma webconferência, siga este link: URL"
       msg_sender: "Convite enviado. Link para sua sala: <a href=\' URL \'> URL </a>"
-      button: "Convidar Pessoas"
-      bbb: "Convide usuários para sua sala BBB"
     me: "eu"
     name:
       one: "Nome"
@@ -208,6 +209,11 @@ pt-br:
     please_login_message: "Pro favor, faça login ou registre-se para participar"
     reconnect_button_message: "Clique para reconectar"
     reconnect_message: Reconectar
+    request:
+      approve: "Confirmar"
+      deny: "Rejeitar"
+      title: "Solicitação de Amizade"
+      body: "<b>%{name}</b> quer adicionar você como amigo."
     status:
       online: "Online"
       busy: "Ocupado"

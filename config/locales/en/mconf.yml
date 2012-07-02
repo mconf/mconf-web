@@ -201,11 +201,12 @@ en:
     connecting_error_message: "Error while connecting"
     connecting_message: "Connecting to event chat..."
     invite:
+      bbb: "Invite users to your BBB room"
+      button: "Invite Users"
+      hint: "Type to start searching"
       msg: "Has invited you to participate in a webconference, follow this link: <a href=\' URL \'> URL </a>"
       msg_clean: "Has invited you to participate in a webconference, follow this link: URL"
       msg_sender: "Invitation sent. Link to your room: <a href=\' URL \'> URL </a>"
-      button: "Invite Users"
-      bbb: "Invite users to your BBB room"
     me: "me"
     name:
       one: "Name"
@@ -213,6 +214,11 @@ en:
     please_login_message: "Please, login/register to participate"
     reconnect_button_message: "Click to reconnect"
     reconnect_message: Reconnect
+    request:
+      approve: "Approve"
+      deny: "Deny"
+      title: "Friend Request"
+      body: "<b>%{name}</b> want to add you as a friend."
     status:
       online: "Online"
       busy: "Busy"
