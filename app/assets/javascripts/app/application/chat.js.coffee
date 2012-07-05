@@ -6,6 +6,7 @@ Chat =
   password: null
   bbb_room_url: null
   requester_name: null
+  list_of_pending_contacts: [],
 
   jid_to_id: (jid) ->
     Strophe.getBareJidFromJid(jid).replace(/@/,"-").replace(/\./g, "-")
@@ -59,11 +60,16 @@ Chat =
     if ptype is "subscribe"
       name = $(presence).attr "name"
       Chat.pending_subscriber = from
-      Chat.requester_name = name
-      $(document).trigger('approve_request', {name: name, pending_subscriber: from})
+      iq = $iq({to: from, type: "get"}).c("vcard", {xmlns: "vcard-temp"})
+      Chat.connection.sendIQ iq
 
     if ptype is "subscribed"
       Chat.connection.send $pres({to: from, "type": "subscribed"})
+
+    if ptype is "unsubscribed"
+      iq = $iq({type: "set"}).c("query", {xmlns: "jabber:iq:roster"}).c("item", {jid: from, subscription: "remove"})
+      Chat.connection.sendIQ iq
+
     else
       if ptype isnt "error"
         contact = $('#roster-area #' + jid_id)
@@ -98,6 +104,15 @@ Chat =
 
     jid_id = Chat.jid_to_id from
     $("#chat-" + jid_id).data "jid", Strophe.getBareJidFromJid from
+
+  on_vcard_temp: (iq) ->
+    name_vcard = null
+    from = $(iq).attr 'from'
+    $(iq).find('FN').each (index, element) ->
+      name_vcard = $(element).text()
+      Chat.list_of_pending_contacts.push {name: name_vcard,jid:from}
+    $(document).trigger('pending_requests')
+    #$(document).trigger('approve_request', {name: name_vcard, pending_subscriber: Chat.pending_subscriber})
 
   on_roster_changed: (iq) ->
     $(iq).find('item').each (index, element) ->
@@ -412,11 +427,42 @@ $ ->
             $(document).trigger 'send_bbb', { jid: jid }
             $.colorbox.close()
 
+  $("#main-chat-area").on 'click', ".chat-align .no-show #main-chat #content-chat #request_contacts", ->
+    html = "<div class='modal-title'><span>" + I18n.t("chat.request.title")  + "</span></div><div class='modal-content'>"
+    Chat.list_of_pending_contacts.forEach (element) ->
+      html += "<div style='height:24px;'>" + I18n.t("chat.request.body", {name: element.name}) + "<div id='contact_request_button'><button id='approve' class='btm' type='submit'>" + I18n.t('chat.request.approve') +
+        "</button><button id='deny' class='btm' type='submit' style='margin-left:3px;'>" + I18n.t('chat.request.deny') + "</button></div></div><br/>"
+    html += "</div>"
+    #Continuar arrumando os botões
+    $.colorbox
+      html: html
+      onComplete: ->
+        $(document).on "click", "#approve", ->
+          iq = $iq({type: "set"})
+            .c("query", {xmlns: "jabber:iq:roster"})
+            .c("item", { jid: data.pending_subscriber, name: data.name})
+          Chat.connection.sendIQ iq
+          Chat.connection.send $pres({to: data.pending_subscriber, "type": "subscribed"})
+          Chat.pending_subscriber = null
+          $.colorbox.close()
+
+        $(document).on "click", "#deny", ->
+          Chat.connection.send $pres({to: data.pending_subscriber, "type": "unsubscribed"})
+          Chat.pending_subscriber = null
+          $.colorbox.close()
+
+$(document).bind 'pending_requests', (ev) ->
+  $("#request_contacts").removeClass "hidden"
+  $("#request_contacts").empty().append Chat.list_of_pending_contacts.length
+  Chat.list_of_pending_contacts.forEach (element) ->
+    console.log element.name
+    console.log element.jid
+
 $(document).bind 'approve_request', (ev,data) ->
   $.colorbox
     html:"<div class='modal-title'><span>" + I18n.t("chat.request.title")  + "</span></div><div class='modal-content'>" + I18n.t("chat.request.body", {name: data.name})  +
       "<br><div id='chat_request_button'><button id='approve' class='btm' type='submit'>" + I18n.t('chat.request.approve') +
-      "</button><button id='deny' class='btm' type='submit'>" + I18n.t('chat.request.deny') + "</button></div></div>"
+      "</button><button id='deny' class='btm' type='submit' style='margin-left:3px;'>" + I18n.t('chat.request.deny') + "</button></div></div>"
     onComplete: ->
       $(document).on "click", "#approve", ->
         iq = $iq({type: "set"})
@@ -460,6 +506,7 @@ $(document).bind 'connected', ->
       "<div id='content-chat'><div style='border-bottom: solid 1px #DDD;'>" +
       "<img id='add_user' src='/assets/icons/user_add.png' class='chat-menu-icon' style='cursor: pointer; cursor: hand;' title='Invite Users'/>" +
       "<img id='bbb_invite' src='/assets/icons/bbb_logo.png' class='chat-menu-icon' style='cursor: pointer; cursor: hand;' title='Invite users to your BBB room'/>" +
+      "<span id='request_contacts' class='contacts_square hidden' style='cursor: pointer; cursor: hand;'></span>" +
       "</div><ul style='margin-top: 10px; margin-bottom: 0px;'>" +
       "<li id='status' class='online' style='margin-left: 5px; cursor: pointer; cursor: hand;'>" + Chat.user_name  + "</li>" +
       "<li id='status_list' class='none' style='display: none; margin-left: 5px;'><ul style='cursor: pointer; cursor: hand;'>" +
@@ -475,20 +522,25 @@ $(document).bind 'connected', ->
   Chat.connection.sendIQ iq, Chat.on_roster
 
   Chat.connection.addHandler Chat.on_roster_changed, "jabber:iq:roster", "iq", "set"
+  Chat.connection.addHandler Chat.on_vcard_temp, "vcard-temp", "iq", "result"
 
   Chat.connection.addHandler Chat.on_message, null, "message", "chat"
   return
 
 $(document).bind 'disconnect', ->
   if Chat.connection
-    Chat.connection.disconnect()
+    $("#status-title").addClass "offline"
+    $("#status").addClass "offline"
+    $(document).trigger('change_status',{status: "offline"})
 
 $(document).bind 'disconnected', ->
   Chat.connection = null
+  Chat.list_of_pending_contacts = []
   Chat.pending_subscriber = null
 
   $('#roster-area ul').empty()
   $('#roster-area').addClass "hidden"
+  $('#request_contacts').addClass "hidden"
   $('#main-chat #content-chat').toggle(0)
   $('#chat-bar #contact-chat').remove()
   return

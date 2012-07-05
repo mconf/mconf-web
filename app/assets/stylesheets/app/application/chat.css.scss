@@ -135,6 +135,17 @@
     cursor: hand;
   }
 
+  .contacts_square {
+    background-color: #F37070;
+    border: 1.2px solid #000000;
+    display: block;
+    float: right;
+    height: 16px;
+    margin-right: 2px;
+    text-align: center;
+    width: 16px;
+  }
+
   .chat-menu-icon {
     margin-left: 5px;
     margin-bottom: 4px;
@@ -148,6 +159,11 @@
 #chat_invite_button {
   float: right;
   margin-top: 60px;
+}
+
+#contact_request_button {
+  float: right;
+  margin-left: 5px;
 }
 
 #chat_request_button {
