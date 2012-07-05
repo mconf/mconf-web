@@ -5,7 +5,8 @@
       position: {adjust: { screen: true }},
       show:  'mouseover',
       hide: { when: 'mouseout', fixed: true },
-      style: 'light',
+      style: 'mystyle',
+      show: { delay: 0 }
     });
   });
 </script>
@@ -51,14 +52,14 @@
            <% if current_site.shib_enabled? %>
              <div id="login-federation">
                <div class="button">
-                 <a href="<%= shib_login_path %>" class="basic_button medium_button pale_button"><%= t("login.one") %></a>
+                 <a href="<%= shib_login_path %>" class="basic_button medium_button pale_button federation-tip"><%= t("login.one") %></a>
                </div>
                <div class="image">
-                 <%= image_tag("logos/cafe-logo-transp.png", :size => '250x43') %>
+                 <%= image_tag("logos/cafe-logo-transp.png", :size => '174x30') %>
                </div>
                <div class="description">
                  <%= t('cafe.login_page.description').html_safe %>
-                 <%= link_to(image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"icon",:style=>"cursor:pointer").html_safe, login_path, :class => 'federation-tip') %>
+                 <% link_to(image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"icon",:style=>"cursor:pointer").html_safe, login_path) %>
                </div>
              </div>
            <% end %>
