@@ -57,7 +57,7 @@ body .icon{margin-bottom:-3px;}
 #home{background-color:#f8f9f9;}
 
 #global{padding:0.5em 0; height:50px;}
-#global.federated{padding:0.5em 0; height:100px;}
+#global.federated{padding:0.5em 0; height:95px;}
 #global a{color:#eee;text-decoration:none;}
 #global-logo {font-family:Trebuchet;font-weight:bold;text-shadow:#000 1px 1px 1px;}
 #global-logo img{margin:0 4px -4px 0;}
@@ -374,15 +374,19 @@ a.login{
 }
 
 .div_login #subtexto, .div_login_openid #subtexto{
-  margin-right: 50px;
+  margin-right: 60px;
   font-size: 11px;
   clear: both;
   margin-top: 5px;
 }
 
+#global .div_login {
+  font-size: 13px;
+}
+
 #global .div_login a,#global .div_login_openid a{
-        color:#FFFFFF;
-        padding:0px 7px;
+  color:#FFFFFF;
+  padding:0px 7px;
 }
 
 #global .div_login a:hover,#global .div_login_openid a:hover{text-decoration:underline;}
@@ -408,16 +412,19 @@ div#openid_label input#openid_identifier{
 
 #global #login-federation {
   clear: both;
+  margin-top: 5px;
 }
 #global #login-federation .description {
   float: right;
   width: 200px;
-  margin-top: 5px;
+  color: #ddd;
+  font-size: 12px;
 }
 #global #login-federation .image {
   float: right;
   margin-left: 10px;
-  width: 250px;
+  margin-top: 2px;
+  width: 175px;
 }
 #global #login-federation a {
   padding: 0;
@@ -425,7 +432,7 @@ div#openid_label input#openid_identifier{
 #global #login-federation .button {
   float: right;
   margin-left: 20px;
-  margin-top: 13px;
+  margin-top: 10px;
 }
 #global #login-federation .button a {
   padding: 3px 5px;

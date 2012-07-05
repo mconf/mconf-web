@@ -186,9 +186,9 @@ pt-br:
     login: "Logar usando a CAFe"
     login_page: 
       click_here_to_login: "clique aqui para entrar"
-      description: "Faça o login usando a federação CAFe (parte do <a href=\"http://www.edugain.org\">eduGAIN</a>)"
+      description: "Teste experimental de acesso ao Mconf via Federação CAFe"
       more_about_cafe: "Leia mais sobre a CAFe"
-    login_tip: "O Mconf é um serviço experimental na federação CAFe. Clique no ícone para ler mais sobre isso."
+    login_tip: "O Mconf é um serviço experimental na federação CAFe. Clique neste botão para logar utilizando a federação."
   calendar: 
     my: "Meu Calendário"
     one: Calendário

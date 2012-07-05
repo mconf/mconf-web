@@ -186,9 +186,9 @@ en:
     login: "Login using CAFe"
     login_page: 
       click_here_to_login: "click here to log in"
-      description: "Log in using the federation CAFe (part of <a href=\"http://www.edugain.org\">eduGAIN</a>)"
+      description: "Experimental test of access to Mconf using the federation CAFe"
       more_about_cafe: "Learn more about CAFe"
-    login_tip: "Mconf is an experimental service in the federation CAFe. Click in the icon to learn more about it."
+    login_tip: "Mconf is an experimental service in the federation CAFe. Click here to log in using the federation."
   calendar: 
     my: "My Calendar"
     one: Calendar
