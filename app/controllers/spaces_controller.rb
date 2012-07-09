@@ -58,7 +58,10 @@ class SpacesController < ApplicationController
 
     respond_with @spaces do |format|
       format.html { render :index }
-      format.js { render :json => @public_spaces }
+      format.js {
+        json = @spaces.to_json(:methods => :user_count, :include => { :logo => {  :only => [:height, :width], :methods => :logo_image_path } })
+        render :json => json, :callback => params[:callback]
+      }
       format.xml { render :xml => @public_spaces }
     end
   end
