@@ -4,5 +4,4 @@
 #   if isOnPage 'homes', 'show'
 
 $ ->
-
-  $(document).trigger('connect',{login: login, password: cookie, name: name, url: url})
+  $(document).trigger('connect',{domain: domain, login: login+domain, password: cookie, name: name, url: url})

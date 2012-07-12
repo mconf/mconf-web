@@ -83,19 +83,19 @@
   }
 
   .online {
-  list-style-image: url(asset_path("/assets/icons/online.png", image));
+  list-style-image: url(image_path("/assets/icons/online.png"));
   }
 
   .dnd {
-    list-style-image: url(asset_path("/assets/icons/dnd.png", image));
+    list-style-image: url(image_path("/assets/icons/dnd.png"));
   }
 
   .away {
-    list-style-image: url(asset_path("/assets/icons/away.png", image));
+    list-style-image: url(image_path("/assets/icons/away.png"));
   }
 
   .offline {
-    list-style-image: url(asset_path("/assets/icons/offline.png", image));
+    list-style-image: url(image_path("/assets/icons/offline.png"));
   }
 
   .none {
@@ -135,8 +135,24 @@
     cursor: hand;
   }
 
+  .contacts_circle {
+    background-color: #FC4C4C;
+    border: 1.2px solid #000000;
+    border-radius: 10px;
+    display: block;
+    float: right;
+    height: 16px;
+    margin-right: 2px;
+    text-align: center;
+    vertical-align: text-top;
+    width: 16px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -khtml-border-radius: 10px;
+  }
+
   .contacts_square {
-    background-color: #F37070;
+    background-color: #FC4C4C;
     border: 1.2px solid #000000;
     display: block;
     float: right;

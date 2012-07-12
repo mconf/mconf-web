@@ -46,7 +46,8 @@
 
 :javascript
   var cookie = "AuthByCookie>>" + "#{cookies[Rails.application.config.session_options[:key]]}";
-  var login = "#{current_user.login}" + "@chat-bottin.no-ip.info";
+  var login = "#{current_user.login}";
   var name = "#{current_user.full_name}";
   var url = "#{join_webconf_url(current_users.bigbluebutton_room)}";
+  var domain = "@chat-bottin.no-ip.info";
   window.onbeforeunload = function() { $(document).trigger("disconnect"); }
