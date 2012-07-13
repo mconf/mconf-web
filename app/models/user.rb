@@ -167,6 +167,10 @@ class User < ActiveRecord::Base
     u && u.password_authenticated?(password) ? u : nil
   end
 
+  def user_count
+    users.size
+  end
+
   def self.atom_parser(data)
     e = Atom::Entry.parse(data)
     user = {}

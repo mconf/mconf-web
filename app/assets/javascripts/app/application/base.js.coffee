@@ -23,7 +23,8 @@ $ ->
     $(this).addClass("upwards")
 
   # Use jquery for placeholders in browsers that don't support it
-  $('input[placeholder], textarea[placeholder]').placeholder()
+  if jQuery().placeholder
+    $('input[placeholder], textarea[placeholder]').placeholder()
 
   # auto focus the first element with the attribute 'autofocus' (in case the
   # browser doesn't do it)

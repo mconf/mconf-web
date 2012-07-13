@@ -150,7 +150,7 @@ u = User.create :login => config["admin_login"],
                 :email => config["admin_email"],
                 :password => config["admin_password"],
                 :password_confirmation => config["admin_password"],
-                :_full_name => config["admin_fullname"]
+                :_full_name => config["admin_login"]
 u.update_attribute(:superuser, true)
 u.update_attribute(:created_at, DateTime.now)
 u.activate

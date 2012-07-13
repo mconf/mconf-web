@@ -38,7 +38,7 @@ class SpacesController < ApplicationController
     #  redirect_to space_path(Space.find_by_permalink(params[:space_id]))
     #  return
     #end
-    @spaces = Space.find(:all, :order => 'name ASC')
+    @spaces = Space.order('name ASC').all
     @private_spaces = @spaces.select{|s| !s.public?}
     @public_spaces = @spaces.select{|s| s.public?}
 
@@ -54,6 +54,15 @@ class SpacesController < ApplicationController
     if params[:manage]
       session[:current_tab] = "Manage"
       session[:current_sub_tab] = "Spaces"
+    end
+
+    respond_with @spaces do |format|
+      format.html { render :index }
+      format.js {
+        json = @spaces.to_json(:methods => :user_count, :include => { :logo => {  :only => [:height, :width], :methods => :logo_image_path } })
+        render :json => json, :callback => params[:callback]
+      }
+      format.xml { render :xml => @public_spaces }
     end
   end
 
