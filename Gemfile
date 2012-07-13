@@ -51,7 +51,7 @@ gem 'prism'
 gem 'table_helper', :git => 'git://github.com/eeng/table_helper.git'
 
 group :development do
-  #gem 'ruby-debug19', :require => 'ruby-debug'
+  gem 'debugger'
   gem 'capistrano', '~> 2.11'
   gem 'rvm-capistrano'
   gem 'capistrano-ext'
