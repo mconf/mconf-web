@@ -1158,6 +1158,9 @@ pt-br:
   site:
     analytics_code: "Código do Google Analytics"
     analytics_code_tip: "Código para sua conta do Google Analytics. Deixe em branco para desabilitar. Exemplo: \"UA-12345678-9\""
+    chat_enabled: "Habilitar Chat"
+    chat_domain: "Domínio do bate-papo XMPP"
+    chat_domain_field_tip: "Domínio usado para identificar o servidor XMPP."
     default: site
     description: Descrição
     domain: "Domínio da Aplicação"

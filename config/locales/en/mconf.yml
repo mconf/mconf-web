@@ -1237,6 +1237,9 @@ en:
   site:
     analytics_code: "Analytics Code"
     analytics_code_tip: "Code for your Google Analytics account. Leave it blank to disable. Example: \"UA-12345678-9\""
+    chat_enabled: "Enable Chat"
+    chat_domain_field: "XMPP Chat Domain"
+    chat_domain_field_tip: "Domain used to identify the XMPP server."
     default: site
     description: Description
     domain: "Application Domain"

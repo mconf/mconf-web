@@ -7,8 +7,7 @@ Chat =
   password: null
   bbb_room_url: null
   requester_name: null
-  list_of_pending_contacts: [],
-  pending_name: null
+  list_of_pending_contacts: []
 
   jid_to_id: (jid) ->
     Strophe.getBareJidFromJid(jid).replace(/@/,"-").replace(/\./g, "-")
@@ -112,7 +111,9 @@ Chat =
       sub = $(element).attr 'subscription'
       jid = $(element).attr 'jid'
       jid_id = Chat.jid_to_id jid
-      name = $(element).attr('name') or jid
+      name_jid = $(element).attr('name') or jid
+      if $('#' + jid_id).length > 0 and $('#' + jid_id).find('.roster-name').text() isnt jid
+        name = $('#' + jid_id).find('.roster-name').text()
 
       if sub is 'remove'
         $('#' + jid_id).remove()
@@ -120,7 +121,7 @@ Chat =
         contact_html = "<li id='" + jid_id + "' class='" +
           ($('#' + jid_id).attr('class') or "offline") +
           "'>" + "<div class='roster-contact'>" +
-          "<div class='roster-name'>" + name +
+          "<div class='roster-name'>" + (name or name_jid) +
           "</div><div class='roster-jid hidden'>" + jid +
           "</div></div></li>"
 
@@ -437,9 +438,7 @@ $ ->
         $(document).on "click", "#approve", ->
           name = $(this).parent().data('name')
           jid = $(this).parent().data('jid')
-          iq = $iq({type: "set"})
-            .c("query", {xmlns: "jabber:iq:roster"})
-            .c("item", {jid: jid, name: name})
+          iq = $iq({type: "set"}).c("query", {xmlns: "jabber:iq:roster"}).c("item", {jid: jid, name: name})
           Chat.connection.sendIQ iq
           Chat.connection.send $pres({to: jid, "type": "subscribe"})
           Chat.connection.send $pres({to: jid, "type": "subscribed"})

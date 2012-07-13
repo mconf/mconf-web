@@ -95,6 +95,17 @@
     <%= image_tag("icons/help.png",:title=>t('site.shib_name_field_tip'),:size=>"16x16",:class=>"icon tooltipped upwards rightwards",:style=>"cursor:pointer").html_safe %>
   </p>
 
+  <p>
+    <%= f.label :chat_enabled, t('site.chat_enabled') %>
+    <%= f.check_box :chat_enabled %>
+  </p>
+
+  <p>
+    <%= f.label :presence_domain, t('site.chat_domain_field') %>
+    <%= f.text_field :presence_domain %>
+    <%= image_tag("icons/help.png",:title=>t('site.chat_domain_field_tip'),:size=>"16x16",:class=>"icon tooltipped upwards rightwards",:style=>"cursor:pointer").html_safe %>
+  </p>
+
   <div id="site_button" class="margin-up">
         <button type="submit" class="basic_button blue_button"><%=t("button.update")%></button>
   </div>

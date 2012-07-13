@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120515001030) do
+ActiveRecord::Schema.define(:version => 20120713195223) do
 
   create_table "admissions", :force => true do |t|
     t.string   "type"
@@ -399,6 +399,7 @@ ActiveRecord::Schema.define(:version => 20120515001030) do
     t.string   "exception_notifications_prefix"
     t.string   "email_password"
     t.string   "analytics_code"
+    t.boolean  "chat_enabled",                   :default => false
   end
 
   create_table "spaces", :force => true do |t|

@@ -81,6 +81,16 @@
     <span class="value"><%= current_site.shib_name_field %></span>
   </p>
 
+  <p>
+    <label><%= t('site.chat_enabled') %>:</label>
+    <span class="value"><%= current_site.chat_enabled %></span>
+  </p>
+
+  <p>
+    <label><%= t('site.chat_domain_field') %>:</label>
+    <span class="value"><%= current_site.presence_domain %></span>
+  </p>
+
   <div class="clearer"></div>
 
   <div id="site_button" class="button_wrapper">
