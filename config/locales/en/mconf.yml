@@ -1240,6 +1240,8 @@ en:
     chat_enabled: "Enable Chat"
     chat_domain_field: "XMPP Chat Domain"
     chat_domain_field_tip: "Domain used to identify the XMPP server."
+    chat_server_field: "XMPP Server Address"
+    chat_server_field_tip: "Address where's located the XMPP server."
     default: site
     description: Description
     domain: "Application Domain"

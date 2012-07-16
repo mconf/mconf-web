@@ -1161,6 +1161,8 @@ pt-br:
     chat_enabled: "Habilitar Chat"
     chat_domain: "Domínio do bate-papo XMPP"
     chat_domain_field_tip: "Domínio usado para identificar o servidor XMPP."
+    chat_server_field: "Endereço do servidor XMPP"
+    chat_server_field_tip: "Endereço onde está localizado o servidor XMPP."
     default: site
     description: Descrição
     domain: "Domínio da Aplicação"

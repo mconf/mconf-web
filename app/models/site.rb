@@ -28,9 +28,9 @@ class Site < ActiveRecord::Base
     end
   end
 
-  def xmpp_server
-    XmppServer.current
-  end
+  #def xmpp_server
+  #  XmppServer.current
+  #end
 
   # Delegate xmpp_server_password and xmpp_server_password_confirmation
   %w( password password_confirmation ).each do |a|

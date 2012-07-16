@@ -106,6 +106,12 @@
     <%= image_tag("icons/help.png",:title=>t('site.chat_domain_field_tip'),:size=>"16x16",:class=>"icon tooltipped upwards rightwards",:style=>"cursor:pointer").html_safe %>
   </p>
 
+  <p>
+    <%= f.label :xmpp_server, t('site.chat_server_field') %>
+    <%= f.text_field :xmpp_server %>
+    <%= image_tag("icons/help.png",:title=>t('site.chat_server_field_tip'),:size=>"16x16",:class=>"icon tooltipped upwards rightwards",:style=>"cursor:pointer").html_safe %>
+  </p>
+
   <div id="site_button" class="margin-up">
         <button type="submit" class="basic_button blue_button"><%=t("button.update")%></button>
   </div>

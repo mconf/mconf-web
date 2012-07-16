@@ -52,5 +52,6 @@
   var name = "#{current_user.full_name}";
   var url = "#{join_webconf_url(current_users.bigbluebutton_room)}";
   var domain = "#{current_site.presence_domain}";
+  var xmpp_server = "#{current_site.xmpp_server}";
   window.onbeforeunload = function() { $(document).trigger("disconnect"); }
   }

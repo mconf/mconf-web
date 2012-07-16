@@ -411,7 +411,8 @@ $ ->
             results = result
             iten =0
             $.each result, (index) ->
-              login = result[index-iten].id.replace(" ","-") + "-chat-bottin-no-ip-info"
+              domain_id = Chat.jid_to_id Chat.domain
+              login = result[index-iten].id.replace(" ","-") + domain_id
               unless $("#" + login).hasClass "online"
                 results.splice index-iten,1
                 iten = iten + 1
@@ -460,10 +461,11 @@ $(document).bind 'pending_requests', (ev) ->
     $("#request_contacts").addClass "hidden"
 
 $(document).bind 'connect', (ev, data) ->
-  conn = new Strophe.Connection 'http://chat-bottin.no-ip.info:5280/http-bind'
+  conn = new Strophe.Connection data.xmpp_server
 
   conn.connect data.login, data.password, (status) ->
     if status is Strophe.Status.CONNECTED
+      Chat.xmpp_server = data.xmpp_server
       Chat.user_name = data.name
       Chat.domain = data.domain
       Chat.login = data.login
@@ -538,7 +540,7 @@ $(document).bind 'change_status', (ev,data) ->
   else
     if data.status is "online" and not Chat.connection?
       $("#roster-area").removeClass()
-      $(document).trigger('connect',{login: data.login, password: data.password, name: data.name, url: data.url, domain: data.domain})
+      $(document).trigger('connect',{login: data.login, password: data.password, name: data.name, url: data.url, domain: data.domain, xmpp_server: Chat.xmpp_server})
       $("#chat_status_dnd").removeClass "hidden"
       $("#chat_status_away").removeClass "hidden"
     else
