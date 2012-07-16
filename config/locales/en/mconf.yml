@@ -188,6 +188,7 @@ en:
       click_here_to_login: "click here to log in"
       description: "Experimental test of access to Mconf using the federation CAFe"
       more_about_cafe: "Learn more about CAFe"
+      read_more: "read more..."
       terms_of_service: "Terms of service (in portuguese)"
     login_tip: "Mconf is an experimental service in the federation CAFe. Click here to log in using the federation."
   calendar: 

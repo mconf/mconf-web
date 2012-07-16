@@ -2853,3 +2853,26 @@ h3.dialog_title {
   border-top: 5px solid #fff;
   padding-top: 50px;
 }
+
+#terms_disclaimer {
+  margin-bottom: 30px;
+  padding: 15px;
+  padding-bottom: 0;
+  background: #f6f6f6; /*#D3E3EC;*/
+  border: 1px solid #A1C4D8;
+  border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;
+}
+#terms_disclaimer_title {
+  margin-top: 10px;
+  margin-bottom: 20px;
+  font-size: 14px;
+}
+#terms_disclaimer_title h1 {
+    font-size: 1.6em;
+}
+#terms_disclaimer .terms_paragraph {
+  clear: both;
+}
+#terms_disclaimer .disclaimer_info {
+  float: right;
+}
