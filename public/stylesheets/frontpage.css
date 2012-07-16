@@ -56,7 +56,8 @@ body .icon{margin-bottom:-3px;}
 #global,#home,#footer,#sponsor{width:960px;margin:0 auto;}
 #home{background-color:#f8f9f9;}
 
-#global{padding:0.5em 0; height:55px;}
+#global{padding:0.5em 0; height:50px;}
+#global.federated{padding:0.5em 0; height:95px;}
 #global a{color:#eee;text-decoration:none;}
 #global-logo {font-family:Trebuchet;font-weight:bold;text-shadow:#000 1px 1px 1px;}
 #global-logo img{margin:0 4px -4px 0;}
@@ -346,10 +347,9 @@ a.login{
   display:inline-block;
   text-align: right;
   vertical-align: top;
-  padding-top: 5px;
   font-family:Helvetica;
   font-weight:normal;
-  margin-top:3px;
+  margin-top: 5px;
 }
 
 .div_login #username, .div_login_openid #username{
@@ -374,15 +374,19 @@ a.login{
 }
 
 .div_login #subtexto, .div_login_openid #subtexto{
-        padding-top: 10px;
-        height:12px;
-        font-size: 11px;
-  font-family:Helvetica;
+  margin-right: 60px;
+  font-size: 11px;
+  clear: both;
+  margin-top: 5px;
+}
+
+#global .div_login {
+  font-size: 13px;
 }
 
 #global .div_login a,#global .div_login_openid a{
-        color:#FFFFFF;
-        padding:0px 7px;
+  color:#FFFFFF;
+  padding:0px 7px;
 }
 
 #global .div_login a:hover,#global .div_login_openid a:hover{text-decoration:underline;}
@@ -405,6 +409,42 @@ div#openid_label input#openid_identifier{
   padding: 3px 3px 3px 18px;
   background: #fff url("../images/open-id-logos/openid1.png") no-repeat scroll left center;
 }
+
+#global #login-federation {
+  clear: both;
+  margin-top: 5px;
+}
+#global #login-federation .description {
+  float: right;
+  width: 200px;
+  color: #ddd;
+  font-size: 12px;
+}
+#global #login-federation .image {
+  float: right;
+  margin-left: 10px;
+  margin-top: 2px;
+  width: 175px;
+}
+#global #login-federation a {
+  padding: 0;
+}
+#global #login-federation .button {
+  float: right;
+  margin-left: 20px;
+  margin-top: 10px;
+}
+#global #login-federation .button a {
+  padding: 3px 5px;
+  color: #444;
+  margin-right: 6px;
+}
+#global #login-federation .button a:hover {
+  text-decoration: none;
+}
+
+
+
 
 /**************BÚSQUEDA*****************/
 /*

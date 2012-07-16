@@ -184,11 +184,12 @@ en:
     upload: Upload
   cafe: 
     login: "Login using CAFe"
-    login_page:
-      description: "Log in using the federation CAFe"
+    login_page: 
+      click_here_to_login: "click here to log in"
+      description: "Experimental test of access to Mconf using the federation CAFe"
       more_about_cafe: "Learn more about CAFe"
       terms_of_service: "Terms of service (in portuguese)"
-    login_tip: "Mconf is an experimental service in the federation CAFe. Click in the '?' sign to learn more about it."
+    login_tip: "Mconf is an experimental service in the federation CAFe. Click here to log in using the federation."
   calendar: 
     my: "My Calendar"
     one: Calendar

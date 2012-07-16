@@ -24,9 +24,10 @@ class User < ActiveRecord::Base
   acts_as_agent :activation => true,
                 :openid_server => true
 
-  validates_presence_of  :email
+  validates_presence_of :email
   validates_exclusion_of :login, :in => %w( xmpp_server )
   validates_format_of :email, :with => /^[\w\d._%+-]+@[\w\d.-]+\.[\w]{2,}$/
+  attr_protected :email
 
   acts_as_stage
   acts_as_taggable :container => false
@@ -38,6 +39,7 @@ class User < ActiveRecord::Base
   has_many :participants
   has_many :posts, :as => :author
   has_many :memberships, :dependent => :destroy
+  has_one :shib_token, :dependent => :destroy
   #has_many :groups, :through => :memberships
 
   # exclusive and unique BBB Room for each user
@@ -47,7 +49,7 @@ class User < ActiveRecord::Base
   accepts_nested_attributes_for :bigbluebutton_room
 
   attr_accessible :captcha, :captcha_key, :authenticate_with_captcha
-  attr_accessible :email2, :email3, :machine_ids
+  attr_accessible :machine_ids
   attr_accessible :timezone
   attr_accessible :expanded_post
   attr_accessible :notification

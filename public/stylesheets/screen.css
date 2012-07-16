@@ -2615,11 +2615,55 @@ h3.dialog_title {
 }
 
 #edit-bbb-room {
-  width: 270px;
+  width: 350px;
+  overflow: hidden;
 }
-#edit-bbb-room .passwords {
-  border-top: 1pxD solid #ccc;
+#edit-bbb-room .webconf-password {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding: 0 5px;
+}
+#edit-bbb-room .webconf-password .passwords {
   margin-top: 5px;
+}
+#edit-bbb-room .webconf-url {
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding: 0 5px;
+  padding-bottom: 10px;
+}
+#edit-bbb-room .webconf-url span {
+  display: block;
+}
+#edit-bbb-room .webconf-url h3 {
+  text-align: left;
+}
+#edit-bbb-room .webconf-url .tip {
+  color: #666;
+  width: 280px;
+  margin: 5px auto 0 auto;
+}
+#edit-bbb-room .webconf-url .url {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  padding: 3px 10px;
+  background: #DFF0D8;
+  border: 1px solid #D6E9C6;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+}
+#edit-bbb-room input[type=text],
+#edit-bbb-room input[type=password] {
+  display: block;
+  width: 330px;
+}
+#edit-bbb-room .webconf-url input {
+  text-align: center;
+}
+#edit-bbb-room #site_button {
+  margin-top: 15px;
 }
 
 #error_explanation {
@@ -2662,6 +2706,11 @@ h3.dialog_title {
 
 #shibboleth_info ul {
   margin: 5px;
+}
+
+#shibboleth-error {
+  padding: 20px;
+
 }
 
 #shibboleth_info label {
@@ -2710,8 +2759,11 @@ h3.dialog_title {
   list-style: none;
 }
 
-#login_div #shib-login img {
+#login_div #shib-login .image {
   margin: 20px 0;
+  display: block;
+}
+#login_div #shib-login .image a {
   display: block;
 }
 
@@ -2722,6 +2774,44 @@ h3.dialog_title {
 #login_div .other-links {
   padding-top: 10px;
   clear: both;
+}
+
+#shib-user-associate #existing-account {
+  float: left;
+  width: 400px;
+  padding: 10px;
+  text-align: center;
+}
+#shib-user-associate #new-account {
+  float: left;
+  width: 400px;
+  padding: 10px;
+  text-align: center;
+}
+#shib-user-associate #existing-account button {
+  margin-top: 15px;
+}
+#shib-user-associate .login-description {
+  margin-top: 10px;
+  margin-bottom: 15px;
+  padding: 10px;
+  background: #DFF0D8;
+  border: 1px solid #D6E9C6;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+}
+#shib-user-associate .other-links {
+  padding-top: 30px;
+  clear: both;
+  text-align: center;
+}
+
+.errorExplanation h2 {
+  font-size: 12px;
+}
+.errorExplanation ul {
+  list-style: none;
 }
 
 #terms_draft {

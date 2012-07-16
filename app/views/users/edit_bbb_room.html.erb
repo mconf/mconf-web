@@ -3,23 +3,36 @@
 </h3>
 
 <div id="edit-bbb-room">
-  <%= form_for(current_user.bigbluebutton_room, :url => user_path, :html => { :method => :put, :multipart => true }) do |f| %>
-    <%= hidden_field_tag :bbb_room, "1" %>
-    <div id="priv_check">
-      <%= f.check_box :private, :id => "private" %> <%= f.label :name, t('bbb_room.private') %>
+  <div class="webconf-url">
+    <h3><%= t('user.edit_bbb_room.webconf_url.title') %></h3>
+    <div class="url">
+      <%= join_webconf_url(@room) %>
     </div>
-    <div class="passwords <%= "hide_fields" unless @room.private %>">
-      <div class="field">
-        <%= f.label :moderator_password, t('bbb_room.moderatorPW') %>:<br/>
-        <%= f.text_field :moderator_password, :id => "moderatorPW" %>
+    <span class="tip">
+      <%= t('user.edit_bbb_room.webconf_url.tip', :url => edit_user_path(current_user)).html_safe %>
+    </span>
+  </div>
+
+  <div class="webconf-password">
+    <h3><%= t('user.edit_bbb_room.webconf_password.title') %></h3>
+    <%= form_for(current_user.bigbluebutton_room, :url => user_path, :html => { :method => :put, :multipart => true }) do |f| %>
+      <%= hidden_field_tag :bbb_room, "1" %>
+      <div id="priv_check">
+        <%= f.check_box :private, :id => "private" %> <%= f.label :name, t('bbb_room.private') %>
       </div>
-      <div class="field">
-        <%= f.label :attendee_password, t('bbb_room.attendeePW') %>:<br/>
-        <%= f.text_field :attendee_password, :id => "attendeePW" %>
+      <div class="passwords <%= "hide_fields" unless @room.private %>">
+        <div class="field">
+          <%= f.label :moderator_password, t('bbb_room.moderatorPW') %>:<br/>
+          <%= f.text_field :moderator_password, :id => "moderatorPW" %>
+        </div>
+        <div class="field">
+          <%= f.label :attendee_password, t('bbb_room.attendeePW') %>:<br/>
+          <%= f.text_field :attendee_password, :id => "attendeePW" %>
+        </div>
       </div>
-    </div>
-    <div id="site_button" class="margin-up">
-      <button type="submit" class="basic_button blue_button"><%=t("button.update")%></button>
-    </div>
-  <%end%>
+      <div id="site_button" class="margin-up">
+        <button type="submit" class="basic_button blue_button"><%=t("button.update")%></button>
+      </div>
+    <%end%>
+  </div>
 </div>
