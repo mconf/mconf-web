@@ -184,10 +184,11 @@ en:
     upload: Upload
   cafe: 
     login: "Login using CAFe"
-    login_page: 
+    login_page:
       click_here_to_login: "click here to log in"
       description: "Experimental test of access to Mconf using the federation CAFe"
       more_about_cafe: "Learn more about CAFe"
+      read_more: "read more..."
       terms_of_service: "Terms of service (in portuguese)"
     login_tip: "Mconf is an experimental service in the federation CAFe. Click here to log in using the federation."
   calendar: 
@@ -968,24 +969,7 @@ en:
   prav: PRAV
   preferences: Preferences
   previous: Previous
-  privacy: 
-    paragraph_1: "<p>This privacy policy is written under the provisions of Law 15/1999, of December 13, Protection of personal data, Mconf as owner of the website mconf.org informs the user of this web the existence of an automated file of personal data which collects, uses, shares and protects the information obtained by Mconf, which purpose is to manage and maintain the relationship with the web site user, and the tasks of information, statistics, and marketing of the service and the activities related thereto, being Mconf the solely responsible of this automated file. The mere access to mconf.org, either to all or part of its content and services implies the acceptance without reservations to this privacy policy, in addition to the terms and conditions which are mandatory to accept and be bound by them.</p>"
-    paragraph_10: "<p><b>SIXTH:</b> Mconf provides several options for you to exercise your rights of access, rectification, cancellation and opposition of your data, you can write with the reference 'Data Protection' at the following email address: mconf.prav@gmail.com.</p>"
-    paragraph_11: "<p>You guarantee that the information provided is truthful, accurate, complete and updated, being responsible for any loss or damage, direct or indirect, that could arise as a result of a breach of that obligation.</p>"
-    paragraph_12: "<p>You agree that navigating the web site and provide your personal information is an act of free will, with the purpose of the collection and processing of such information in the file owned by Mconf. On the assumption that Mconf decided to change the Privacy Policy on the website, we will indicate those changes on this privacy statement and on the homepage of the Site and any other places we deem appropriate for you to be aware of what information we collect, how we use it and under what circumstances, if any, we communicate it.</p>"
-    paragraph_13: "<p><b>SEVENTH:</b> To deliver a better service, you consent to Mconf to have the right to verify investigate and/or verify the data provided such as the education, work experience, judicial and/or criminal records or those which may be needed.</p>"
-    paragraph_14: "<p><b>EIGHTH:</b> You agree that Mconf may disclose your personal information, participation in counselling and/or previous and current projects, meeting the requirements of a proceeding or court order or legal process, you also agree that if Mconf sells part or all the company or merged with another, it may disclose your information to new commercial members.</p>"
-    paragraph_15: "<p><b>NINTH:</b> Mconf in order to ensure the security and confidentiality of the users personal data has been adopted safety standards required to protect personal data and installed the technical means available to prevent the loss, misuse, alteration, unauthorized access and theft of personal data provided to Mconf through its website: mconf.org</p>"
-    paragraph_2: "<p><b>FIRST:</b> mconf.org can not be used by those with legal incapacity or minors, in that sense people who are under 18 should not provide their data in the mconf.org web.</p>"
-    paragraph_3: "<p><b>SECOND:</b> At the time of acceptance of the Term and Conditions of the website, Mconf will require the collection of data which is basic and indispensable for the provision of the services, such data are: names, email address and password; and alternative data in her profile are: date of birth, address, area code postal, location and other relevant information about you which is provided voluntarily by the user. The registered user may voluntarily provide to Mconf a photograph of herself for inclusion in her profile mconf.org, this upload is understood as an authorization to make the photograph available on the website. Every time, the user will be informed of the necessity of collecting such data for the proper management of the services in mconf.org.</p>"
-    paragraph_4: "<p><b>THIRD:</b> Mconf, for the provision of certain services, may request the user to supply additional information, for what will be informed in due course of the collection and treatment of it.</p>"
-    paragraph_5: "<p>Mconf is solely responsible for the information requested and collected from registered users of mconf.org, having no responsibility at any time of the personal information which may be assigned, transferred or provided among the users themselves on the website mconf.org.</p>"
-    paragraph_6: "<p>Mconf cares about the privacy of its users and urges them to not make available to other Users personal data directly, because this information should be managed through the web service to ensure the protection of user data.</p>"
-    paragraph_7: "<p><b>FOURTH:</b> The registered user may give his consent, if desired, to specifically authorize Mconf to make use of her data to deliver information and advertising of the website. In any case, Mconf will assign the registered user data to third parties without the prior written consent of its users.</p>"
-    paragraph_8: "<p><b>FIFTH:</b> At the moment you enter mconf.org we will send cookies which are small files which contain information of the visitors of the web, as well as more selected content, geographical location and other data to optimize and improve the web site navigation which uniquely identifies your browser and it will be easier to the user to log on at mconf.org.</p>"
-    paragraph_9: "<p>You can set your browser to accept, reject or notify you when a cookie is being hosted on your computer (each browser is different, so you are advised to check the 'Help' menu of your browser to learn how to change your preferences on cookies).</p>"
-    title: "Privacy Policy"
-  private: Private
+  privacy: Privacy
   private_message: 
     more: 
       one: "and one more private message..."
@@ -1004,7 +988,6 @@ en:
     must_create: "Please create your profile first"
     no_spaces: "%{user} does not belong to any spaces."
     one: Profile
-    privacy: Privacy
     private: "Private profile"
     public: "Public profile"
     public_description: "Anyone can access this information"

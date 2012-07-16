@@ -303,6 +303,7 @@ h3.selector_title{color:#244974;margin-top:15px;}
 #menu li .selected:hover{background:white; color:#244974;}
 #menu li .admin:hover{background:white;color:#ffa903;}
 #wrapper{padding:10px 10px 10px 10px;background-color:#fff;overflow:hidden;}
+#wrapper_blue{padding:10px 10px 10px 10px;background-color:#E1EEF5;overflow:hidden;}
 
 /*users and groups*/
 div.group{padding-bottom:0.5em;margin-top:2px;}
@@ -2738,8 +2739,8 @@ h3.dialog_title {
 }
 
 #login_div .form {
-  float: left;
   width: 400px;
+  float: left;
 }
 
 #login_div .form input[type=text],
@@ -2851,4 +2852,27 @@ h3.dialog_title {
   margin-top: 50px;
   border-top: 5px solid #fff;
   padding-top: 50px;
+}
+
+#terms_disclaimer {
+  margin-bottom: 30px;
+  padding: 15px;
+  padding-bottom: 0;
+  background: #f6f6f6; /*#D3E3EC;*/
+  border: 1px solid #A1C4D8;
+  border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;
+}
+#terms_disclaimer_title {
+  margin-top: 10px;
+  margin-bottom: 20px;
+  font-size: 14px;
+}
+#terms_disclaimer_title h1 {
+    font-size: 1.6em;
+}
+#terms_disclaimer .terms_paragraph {
+  clear: both;
+}
+#terms_disclaimer .disclaimer_info {
+  float: right;
 }

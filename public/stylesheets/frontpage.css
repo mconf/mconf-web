@@ -416,9 +416,12 @@ div#openid_label input#openid_identifier{
 }
 #global #login-federation .description {
   float: right;
-  width: 200px;
-  color: #ddd;
+  width: 270px;
+  color: #ccc;
   font-size: 12px;
+}
+#global #login-federation .description a {
+  color: #fff;
 }
 #global #login-federation .image {
   float: right;

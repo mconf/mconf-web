@@ -59,6 +59,7 @@
                </div>
                <div class="description">
                  <%= t('cafe.login_page.description').html_safe %>
+                 (<%= link_to t('cafe.login_page.read_more').html_safe, terms_cafe_path %>)
                  <% link_to(image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"icon",:style=>"cursor:pointer").html_safe, login_path) %>
                </div>
              </div>
