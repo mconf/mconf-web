@@ -170,6 +170,41 @@
   .no-show {
     visibility: hidden;
   }
+
+  span.ellipsis {
+    -o-text-overflow: ellipsis;
+    -webkit-text-overflow: ellipsis;
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 180px;
+    white-space: nowrap;
+  }
+
+  #close-chat {
+    margin-top: 3.5px;
+    margin-right: 5px;
+    float: right;
+    display:inline;
+  }
+}
+
+@-moz-document url-prefix() {
+  #main-chat-area span.ellipsis {
+    display: block;
+  }
+}
+
+@-moz-document url-prefix() {
+  #main-chat-area #close-chat {
+    margin-top: -15px;
+  }
+}
+
+@-moz-document url-prefix() {
+  #main-chat-area .chat-area textarea {
+    width: 94%;
+  }
 }
 
 #chat_invite_button {
