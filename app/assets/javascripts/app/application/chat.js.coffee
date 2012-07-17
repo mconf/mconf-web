@@ -1,3 +1,20 @@
+# trigger to start the chat
+$ ->
+  if chat_enabled? and chat_enabled
+    $(document).trigger "connect",
+      domain: domain
+      login: login + domain
+      password: cookie
+      name: name
+      url: url
+      xmpp_server: xmpp_server
+
+# trigger to remove the chat
+window.onbeforeunload = ->
+  $(document).trigger("disconnect")
+  return
+
+
 Chat =
   connection: null
   user_name: null
@@ -238,7 +255,7 @@ Chat =
     $("#chat-bar").append(
       "<div id='contact-chat' class='chat-align' style='width: 230px; height: 100%;'><div><div class='no-show' style='width: 225px; height: 100%; position: absolute;'>" +
       "<div id='chat-" + jid_id + "' class='chat-area' style='position: absolute;'>" + "<div class='chat-area-title'><h3><ul><li class='none " + status + "'><span class='ellipsis'>" + name +
-      "</span><img id='close-chat' src='/assets/icons/close-chat.png' width='12' height='12' /></li></ul></h3></div>" +
+      "</span><img id='close-chat' src='/assets/chat/icons/close-chat.png' width='12' height='12' /></li></ul></h3></div>" +
       "<div id='content-chat'><div style='border-bottom: solid 1px #DDD'><img id='bbb-chat-" + jid_id + "' src='/assets/icons/bbb_logo.png' class='bbb-chat-icon'/></div></br>" +
       "<div id='message-area'><div class='chat-messages' style='word-wrap: break-word;'></div><textarea class='chat-input'></textarea></div></div></div></div></div></div>")
 

@@ -1,0 +1,17 @@
+- if logged_in?
+
+  #main-chat-area
+    #chat-bar
+
+  //- TODO: remove from here, try to use something like
+  //-       gon (https://github.com/gazay/gon)
+  :javascript
+    var chat_enabled = #{current_site.chat_enabled};
+    if (chat_enabled){
+    var cookie = "AuthByCookie>>" + "#{cookies[Rails.application.config.session_options[:key]]}";
+    var login = "#{current_user.login}";
+    var name = "#{current_user.full_name}";
+    var url = "#{join_webconf_url(current_users.bigbluebutton_room)}";
+    var domain = "#{current_site.presence_domain}";
+    var xmpp_server = "#{current_site.xmpp_server}";
+    }

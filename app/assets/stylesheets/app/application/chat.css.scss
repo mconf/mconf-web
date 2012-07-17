@@ -1,11 +1,12 @@
 #main-chat-area {
   visibility: hidden;
-  position: absolute;
-  top: 0;
+  position: fixed;
+  bottom: 3px;
   width: 100%;
   height: 100%;
   overflow: hidden;
   z-index: 2;
+  padding: 0 10px;
 
   .field { margin-bottom: 5px; }
 
@@ -83,19 +84,19 @@
   }
 
   .online {
-  list-style-image: url(image_path("/assets/icons/online.png"));
+    list-style-image: url(image_path("/assets/chat/icons/online.png"));
   }
 
   .dnd {
-    list-style-image: url(image_path("/assets/icons/dnd.png"));
+    list-style-image: url(image_path("/assets/chat/icons/dnd.png"));
   }
 
   .away {
-    list-style-image: url(image_path("/assets/icons/away.png"));
+    list-style-image: url(image_path("/assets/chat/icons/away.png"));
   }
 
   .offline {
-    list-style-image: url(image_path("/assets/icons/offline.png"));
+    list-style-image: url(image_path("/assets/chat/icons/offline.png"));
   }
 
   .none {

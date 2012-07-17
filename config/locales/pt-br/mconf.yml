@@ -192,7 +192,7 @@ pt-br:
     add: "Adicionar legenda"
   change_pic: "Modificar imagem"
   chat:
-    add: "Add Usuário"
+    add: "Adicionar Usuário"
     connecting_error_message: "Erro conectando"
     connecting_message: "Conectando ao chat do evento..."
     invite:

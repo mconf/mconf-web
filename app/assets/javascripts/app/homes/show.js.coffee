@@ -1,7 +1,16 @@
-   #= require ../users/edit_bbb_room
+#= require ../users/edit_bbb_room
 
-# $ ->
-#   if isOnPage 'homes', 'show'
+window.onbeforeunload = ->
+  $(document).trigger("disconnect")
+  return
 
 $ ->
-  $(document).trigger('connect',{domain: domain, login: login+domain, password: cookie, name: name, url: url, xmpp_server: xmpp_server}) if chat_enabled
+  if isOnPage 'homes', 'show'
+    if chat_enabled
+      $(document).trigger 'connect',
+        domain: domain
+        login: login + domain
+        password: cookie
+        name: name
+        url: url
+        xmpp_server: xmpp_server
