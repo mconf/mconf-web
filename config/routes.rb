@@ -24,9 +24,6 @@ Mconf::Application.routes.draw do
   match '/secure', :to => 'shibboleth#create', :as => "shibboleth"
   match '/secure/info', :to => 'shibboleth#info', :as => "shibboleth_info"
 
-  # Experimental chat
-  #match '/p', :to => 'p#index', :as => 'p'
-
   # Global search
   #match '/search(.:format)', :to => 'search#index', :as => 'search_all' #=> /search, SearchController
   #match '/tags/:tag', :to => 'search#tag', :as => 'search_by_tag' #=> /tags/:id/events, TagsController (actualmente es parte del searchcontroller)
@@ -72,7 +69,6 @@ Mconf::Application.routes.draw do
         post :spam
         get :spam_lightbox
         post :start
-        get :chat
       end
 
       collection do
@@ -89,8 +85,6 @@ Mconf::Application.routes.draw do
           post :precrop
         end
       end
-
-      resource :chat_log
     end
 
     resources :posts do

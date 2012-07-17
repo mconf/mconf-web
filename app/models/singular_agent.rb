@@ -46,10 +46,6 @@ class SingularAgent < ActiveRecord::Base
     false
   end
 
-  def chat_activation
-    false
-  end
-
   #-#-# from station
 
   acts_as_agent :authentication => [],

@@ -95,7 +95,6 @@ $(document).ready(function() {
     <%if params[:edit_comment]%>
       <%= render(:partial => "posts/edit_post", :locals => { :post => Post.find(params[:edit_comment]) }) if @space.authorize?([:create, :content],:to => current_user) %>
     <%elsif params[:show_streaming] || params[:show_participation]%>
-      <%=render :partial => "video_online"%>
       <%= render :partial => 'participants' %>
     <%else%>
       <%= render :partial => 'participants' %>
