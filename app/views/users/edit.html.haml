@@ -13,7 +13,7 @@
 #account-info.left-column
   %h3= t('account_info')
   = simple_form_for user, :url => user_path(user.login_changed? ? user.login_was : user), :html => {:method => :put, :class => 'single-column'} do |f|
-    = render :partial => 'form', :locals => { :f => f }
+    = render :partial => 'form_fields', :locals => { :f => f }
     = f.button :submit, t("save"), :class => "btn"
 
 #account-preferences.right-column

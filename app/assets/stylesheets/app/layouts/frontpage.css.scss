@@ -3,28 +3,25 @@
 @import "compass/typography";
 @import "definitions";
 
-// TODO: some styles that are here can be put in application/base.scss
+$navbar-height: auto;
+$login-box-width: 440px;
+$registration-box-width: $contents-width - $login-box-width - 20px;
 
-$navbar-height: 110px;
-$subnav-height: 28px;
-$more-about-mconf-bg-color: #ddd; //#BFCDDD;//#d4d4d4;
+body {
+  background: $green-logo;
+}
 
+#navbar-wrapper {
+  background: darken($green-logo, 3);
+}
 
-/* the footer is a bit different in the frontpage */
-#upper-footer-wrapper {
-  background: $site-bg-color;
-  border: 0;
-  margin: 0;
+#site {
+  background: none;
   @include box-shadow(none);
 }
-#lower-footer-wrapper {
-  background: $subnav-bg-color;
-  border: 1px solid darken($subnav-bg-color, 10);
-}
-/*****/
-
 
 #navbar {
+  background: none;
   width: $contents-width;
   margin: 0 auto;
   padding: 20px 0 30px 0;
@@ -33,47 +30,37 @@ $more-about-mconf-bg-color: #ddd; //#BFCDDD;//#d4d4d4;
 }
 
 #main-logo {
-  width: 250px;
+  width: 240px;
+  margin: 30px auto;
+  padding: 0;
+  float: none;
 
-  .title {
-    @include link-colors(#bbb, #ddd, #ddd, #bbb);
-    font-weight: bold;
-    font-size: 66px;
-    @include text-shadow(darken($navbar-bg-color, 30) 1px 1px 4px);
-  }
-
-  .subtitle {
-    float: left;
-    margin-left: 5px;
-    font-size: 18px;
-    margin-top: 52px;
-    @include text-shadow(darken($navbar-bg-color, 30) 1px 1px 4px);
+  img {
+    width: 231px;
+    height: 120px;
   }
 }
 
-#login-box {
-  float: right;
+.form-area {
+  padding: 0;
+  margin: 0;
   color: #eee;
-  display: inline-block;
   text-align: right;
   vertical-align: top;
-  padding-right: 30px;
+  float: left;
 
   a { @include link-colors(#bbb, white, $site-link-active); }
 
-  .action-links {
-    float: right;
-    padding-top: 5px;
+  label {
+    font-size: 14px;
     margin-right: 10px;
+    margin-top: 7px;
+    color: #eee;
   }
 
-  input[type=text], input[type=password] {
-    width: 200px;
-    //font-size: 14px;
-    float: right;
+  input[type=text], input[type=password], input[type=email] {
+    width: 260px;
     clear: both;
-    margin-top: 3px;
-    @include border-radius(3px);
     background: #eee;
     @include background(linear-gradient(top, #ccc, #eee));
 
@@ -82,374 +69,73 @@ $more-about-mconf-bg-color: #ddd; //#BFCDDD;//#d4d4d4;
     }
   }
 
-  label {
-    font-size: 14px;
-    float: right;
-    margin-right: 10px;
-    margin-top: 7px;
-    color: #eee;
-  }
+  abbr[title=required] { display: none; }
+}
 
-  input[type=submit] {
+#login-box {
+  width: $login-box-width;
+
+  .action-links {
     float: right;
+    margin-top: 15px;
     clear: both;
   }
-
-  abbr[title=required] { display: none; }
 
   .shibboleth_login {
     border-left: 1px solid #888;
     padding-left: 7px;
     margin-left: 5px;
   }
-}
 
-#subnav-wrapper {
-  background: $subnav-bg-color;
-  border-bottom: 1px solid darken($subnav-bg-color, 7);
-  @include box-shadow(0 2px 5px rgba(0, 0, 0, 0.1));
+  input[type=submit] {
+    float: right;
+  }
 
-  &.is-sticky {
-    left: 0;
-    width: 100%;
-    z-index: $z-index-navbar;
+  .remember-me {
+    float: right;
 
-    // change the visible divs when the subnav becomes sticky
-    ul.register-and-login { display: block; }
-    .registration-area { display: none; }
+    input[type=checkbox] {
+      margin-top: -5px;
+      margin-right: 5px;
+    }
   }
 }
 
-#subnav {
-  padding: 7px;
-  height: $subnav-height;
-  width: $contents-width;
-  margin: 0 auto;
+#registration-box {
+  width: $registration-box-width;
 
-  ul.nav, ul.register-and-login {
-    margin: 0;
-    padding: 0;
-    float: left;
+  .simple_captcha {
+    float: right;
+    padding: 0 !important;
+    margin: 10px 0;
 
-    li {
-      float: left;
-      display: inline;
-      margin-top: 4px;
-      font-size: $font-medium;
-      padding: 5px 10px;
-      margin: 0;
+    div { display: inline; }
 
-      &.active {
-        @include border-radius(4px);
-        background: darken($subnav-bg-color, 7);
-        @include box-shadow(inset 0 1px 1px rgba(0, 0, 0, 0.1));
-        a { color: #222; }
-      }
+    .simple_captcha_field {
+      text-align: center;
+    }
+
+    .simple_captcha_image {
+      background: white;
+      margin-right: 5px;
     }
   }
 
-  // hidden links, will be shown when the subnav becomes sticky
-  ul.register-and-login {
+  input[type=submit] {
     float: right;
-    display: none;
-  }
-
-  .registration-area {
-    display: block;
-    float: right;
-    margin-right: 20px;
-
-    span {
-      margin-right: 10px;
-      margin-top: 6px;
-      float: left;
-    }
-    a { float: left; }
+    clear: both;
   }
 }
 
 #content {
   width: $contents-width;
   margin: 0 auto;
+  padding-top: 50px;
 
-  h2 { color: $h-font-color-alternative; }
-
-  .section-title {
-    @include mconf-clearfix;
-    clear: both;
-    display: block;
-    margin: 10px 0;
-
-    h2 {
-      text-align: left;
-      @include text-shadow(darken($site-bg-color, 15) 1px 1px 4px);
-      margin: 0;
-      float: left;
-      clear: both;
-    }
-    .subtitle {
-      padding-left: 8px;
-      border-left: 4px solid #ddd;
-      float: left;
-      margin-top: 5px;
-      margin-left: 8px;
-    }
-  }
-}
-
-#introduction {
-  @include mconf-clearfix;
-  padding: 10px 0;
-  margin: 0 auto;
-
-  $left-col-width: 700px;
-  .left-column {
-    width: $left-col-width;
-    float: left;
-  }
-  .right-column {
-    width: $contents-width - $left-col-width - 20px;
-    float: right;
-  }
-}
-
-#what-is-it {
-  @include mconf-clearfix;
-  margin-bottom: 20px;
-
-  .headline {
-    float: left;
-    font-size: $font-normal + 2px;
-    text-align: left;
-    width: 550px;
-    @include text-shadow(white 1px 1px 2px);
-    color: #555;
-    h3 {
-      color: #777;
-    }
-    .text {
-      clear: both;
-      margin-top: 5px;
-    }
-  }
-}
-
-#public-spaces {
-  clear: both;
-
-  #most-active-spaces {
-    @include mconf-clearfix;
-    clear: both;
-    margin-top: 10px;
-
-    ul {
-      @include mconf-clearfix;
-      margin: 5px 0;
-    }
-    li {
-      float: left;
-      display: inline;
-      margin-right: 5px;
-    }
-  }
-
-  img {
-    margin: 3px;
-    @include border-radius(2px);
-    border: 1px solid #ccc;
-
-    &:hover {
-      border: 1px solid $second-color;
-      @include box-shadow(0 0 15px $second-color);
-    }
-  }
-}
-
-#searching-for {
-  float: right;
-  @include mconf-clearfix;
-
-  // so the box-shadow in .content can be seen
-  padding-right: 5px;
-  padding-bottom: 10px;
-
-  .content {
-    padding: 10px;
-    background: lighten($subnav-bg-color, 5);
-    border: 1px solid darken($subnav-bg-color, 5);
-    @include border-radius(4px);
-    @include box-shadow(2px 4px 10px rgba(0, 0, 0, 0.1));
-  }
-
-  .content-block {
-    text-align: center;
-    margin-top: 5px;
-    margin-bottom: 15px;
-
-    .link-title {
-      font-size: $font-medium;
-      text-align: left;
-      color: #555;
-      font-weight: bold;
-      display: block;
-      background: darken($subnav-bg-color, 5);
-      @include border-radius(4px);
-      padding: 2px 10px;
-      margin-bottom: 10px;
-      @include text-shadow(darken($site-bg-color, 10) 2px 2px 4px);
-    }
-
-    .more { margin-top: 5px; }
-  }
-}
-
-
-
-//
-// begins the bottom section: More about Mconf
-//
-
-#more-about-mconf-wrapper {
-  background: $more-about-mconf-bg-color;
-  border-top: 1px solid darken($more-about-mconf-bg-color, 5);
-  border-bottom: 1px solid darken($more-about-mconf-bg-color, 5);
-  @include box-shadow(inset 2px 0 10px rgba(0, 0, 0, 0.2));
-  margin-top: 30px;
-}
-
-#more-about-mconf {
-  @extend #content;
-  @include mconf-clearfix;
-  padding: 10px 0;
-
-  h2 { color: darken($h-font-color-alternative, 10); }
-
-  .section-title {
-    .subtitle {
-      border-left: 4px solid #aaa;
-    }
-  }
-
-  a { @include link-colors(darken($site-link, 10), darken($site-link-hover, 5), $site-link-active); }
-
-  .content-block {
-    margin: 20px 5px;
-    background: lighten($more-about-mconf-bg-color, 7);
-    @include border-radius(4px);
-  }
-}
-
-#mconf-links {
-  @include mconf-clearfix;
-
-  div.links {
-    @include mconf-clearfix;
-    padding: 15px;
-    @include box-shadow(1px 1px 2px rgba(0, 0, 0, 0.2));
-
-    ul { margin: 0; }
-
-    li {
-      display: inline;
-      list-style-type: none;
-      margin-left: 80px;
-      float: left;
-      text-align: center;
-      white-space: nowrap;
-      line-height: 25px;
-
-      .link-title {
-        font-size: $font-gigantic;
-        color: #555;
-        font-weight: bold;
-        @include text-shadow(white 2px 2px 4px);
-        &:hover {
-          color: $site-link-hover;
-          text-decoration: none;
-        }
-      }
-
-      .link-description {
-        display: block;
-        color: #666;
-        @include text-shadow(white 2px 2px 4px);
-      }
-
-      img {
-        float: left;
-        margin-right: 15px;
-      }
-    }
-  }
-}
-
-#components {
-  margin: 20px auto;
-
-  .component {
-    @include mconf-clearfix;
-    clear: both;
-    padding: 30px 10px;
-
-    &.first {
-      @include box-shadow(none);
-      border-top: none;
-    }
-
-    .picture {
-      float: left;
-      margin: 5px;
-      margin-right: 20px;
-      @include border-radius(4px);
-      @include box-shadow(3px 3px 5px rgba(0, 0, 0, 0.2));
-      height: 200px;
-      position: relative;
-
-      img { @include border-radius(4px); }
-      .overlay {
-        position: absolute;
-        right: -10px;
-        bottom: -10px;
-        padding: 3px;
-        background: white;
-        @include border-radius(4px);
-        border: 1px solid darken($more-about-mconf-bg-color, 5);
-      }
-    }
-
-    .description-container {
-      font-size: $font-medium;
-      float: left;
-      width: $contents-width - 380px;
-      color: #444;
-
-      .component-title {
-        margin-bottom: 10px;
-        color: #222;
-
-        h3 {
-          font-size: $font-big;
-          font-weight: bold;
-          display: block;
-          @include text-shadow(lighten($more-about-mconf-bg-color, 5) 2px 2px 4px);
-        }
-
-        .subtitle {
-          display: block;
-          font-size: $font-normal;
-          font-style: italic;
-          font-weight: normal;
-        }
-      }
-
-      .description { margin-left: 10px; }
-
-      ul {
-        list-style-type: disc;
-        margin-top: 10px;
-        li { margin-left: 15px; }
-      }
-    }
-
+  h2 {
+    text-align: right;
+    margin: 0 0 10px 0;
+    color: #ddd;
+    @include text-shadow(darken($green-logo, 5) 1px 1px 4px);
   }
 }

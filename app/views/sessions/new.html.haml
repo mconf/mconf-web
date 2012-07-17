@@ -1,14 +1,7 @@
 = render_page_title t('login.one')
 
 #login-wrapper
-  = simple_form_for :session, :url => session_url(:protocol => current_site.protocol) do |f|
-    = f.input :login, :label => t('login.email_or_login'), :required => true, :autofocus => true
-    = f.input :password, :label => t('login.password'), :required => true
-    .remember-me
-      = check_box_tag ('remember_me')
-      %label{:for => "remember_me"}= t('remember_me')
-    = f.button :submit, t("login.one"), :class => "btn"
-
+  = render :partial => 'login_form'
   %ul.extra-links
     %li= link_to t("register.one"), signup_path
     - unless current_site.shib_enabled?

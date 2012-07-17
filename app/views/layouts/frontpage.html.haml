@@ -1,3 +1,5 @@
+//- TODO: this could be a "clean" layout
+
 !!! Strict
 %html{:lang => I18n.locale.to_s}
 
@@ -19,14 +21,12 @@
     = csrf_meta_tag
     = yield :headers
 
-  -# TODO: why can't this data-spy be called from the js? (see frontpage/show.js)
-  %body{ :class => "#{params[:controller]} #{params[:action]}", :"data-spy" => "scroll", :"data-target" => "#subnav", :"data-offset" => "80" }
+  %body{ :class => "#{params[:controller]} #{params[:action]}" }
     #site
       #navbar-wrapper
         = yield :"navbar"
       #content-wrapper
         = yield
-      = render :partial => "layouts/footer"
 
     = render :partial => "layouts/analytics"
     = render :partial => "layouts/notifications"

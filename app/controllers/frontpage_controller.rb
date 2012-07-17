@@ -26,13 +26,15 @@ class FrontpageController < ApplicationController
     # @recent_spaces = Space.where(:public => true).order("created_at Desc").first(4)
 
     # Find the public spaces that have most pageviews
-    @most_active_spaces = []
-    Statistic.where(['url LIKE ?', '/spaces/%']).order('unique_pageviews desc').each do |rec|
-      perma = rec.url.split("/").last
-      space = Space.find_by_permalink(perma)
-      @most_active_spaces << space if space and space.public?
-      break if @most_active_spaces.size == 10
-    end
+    # @most_active_spaces = []
+    # Statistic.where(['url LIKE ?', '/spaces/%']).order('unique_pageviews desc').each do |rec|
+    #   perma = rec.url.split("/").last
+    #   space = Space.find_by_permalink(perma)
+    #   @most_active_spaces << space if space and space.public?
+    #   break if @most_active_spaces.size == 10
+    # end
+
+    @user = User.new
 
     respond_to do |format|
       if logged_in?
