@@ -8,7 +8,6 @@ FactoryGirl.define do
     u.updated_at { Time.now }
     u.activated_at { Time.now }
     u.disabled false
-    u.chat_activation true
     u.sequence(:_full_name) { |n| "User #{ n }" }
     u.receive_digest { User::RECEIVE_DIGEST_NEVER }
   end
@@ -18,9 +17,5 @@ FactoryGirl.define do
 
   factory :superuser, :parent => :user do |u|
     u.superuser true
-  end
-
-  factory :user_without_chat, :parent => :user do |u|
-    u.chat_activation false
   end
 end
