@@ -1,19 +1,7 @@
-# trigger to start the chat
-$ ->
-  if chat_enabled? and chat_enabled
-    $(document).trigger "connect",
-      domain: domain
-      login: login + domain
-      password: cookie
-      name: name
-      url: url
-      xmpp_server: xmpp_server
-
 # trigger to remove the chat
 window.onbeforeunload = ->
   $(document).trigger("disconnect")
   return
-
 
 Chat =
   connection: null
@@ -263,6 +251,15 @@ Chat =
     $('#chat-' + jid_id + ' .chat-input').autosize()
 
 $ ->
+  # trigger to start the chat
+  if chat_enabled? and chat_enabled
+    $(document).trigger "connect",
+      domain: domain
+      login: login + domain
+      password: cookie
+      name: name
+      url: url
+      xmpp_server: xmpp_server
 
   $("#main-chat-area").on "click", "#main-chat #content-chat li#status", ->
     $("#status_list").toggle(0)
