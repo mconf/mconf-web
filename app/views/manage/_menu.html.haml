@@ -1,0 +1,7 @@
+#page-menu
+  %ul
+    %li= link_to t('site.default').capitalize, site_path, :class => "#{'selected' if params[:controller] == 'sites'}"
+    %li= link_to t('space.other').capitalize, manage_spaces_path, :class => "#{'selected' if params[:controller] == 'manage' && params[:action] == 'spaces'}"
+    %li= link_to t('user.other').capitalize, manage_users_path, :class => "#{'selected' if params[:controller] == 'manage' && params[:action] == 'users'}"
+    %li= link_to t('spam.default').capitalize, manage_spam_path, :class => "#{'selected' if params[:controller] == 'manage' && params[:action] == 'spam'}"
+    %li= link_to t('bigbluebutton').capitalize, bigbluebutton_servers_path, :class => "#{'selected' if params[:controller] == 'custom_bigbluebutton_servers' || params[:controller] == 'custom_bigbluebutton_rooms'}"
