@@ -1,0 +1,35 @@
+@import "definitions";
+@import "compass/css3";
+
+body.custom_bigbluebutton_servers.index, body.custom_bigbluebutton_servers.edit {
+
+  $column-width: ($contents-width / 2) - 20px;
+
+  .simple_form.single-column input.string,
+  .simple_form.single-column input.password,
+  .simple_form.single-column textarea.text,
+  .simple_form.single-column select {
+    width: 80%
+  }
+
+  .left-column {
+    float: left;
+    width: $column-width;
+  }
+
+  .right-column {
+    float: right;
+    width: $column-width;
+  }
+
+  #bbbrails_servers_links {
+    padding-bottom: 10px;
+  }
+
+  .bbbrails_server {
+    padding-bottom: 10px;
+    padding-left: 20px;
+    border-top: 1px solid #ccc;
+  }
+
+}

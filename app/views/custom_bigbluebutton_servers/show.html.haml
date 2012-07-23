@@ -1,0 +1,16 @@
+= render :partial => 'manage/menu'
+
+= simple_form_for @server do |f|
+  = f.input :name, :required => false, :disabled => true
+  = f.input :url, :required => false, :disabled => true
+  = f.input :salt, :required => false, :disabled => true
+  = f.input :version, :required => false, :disabled => true
+  = f.input :param, :required => false, :disabled => true
+  = link_to t('edit'), edit_bigbluebutton_server_path(@server), :class => 'btn'
+  = link_to t('bigbluebutton_rails.view_rooms'), rooms_bigbluebutton_server_path(@server), :class => 'btn'
+  = link_to t('bigbluebutton_rails.activity_monitor'), activity_bigbluebutton_server_path(@server)
+  = link_to t('destroy'), bigbluebutton_server_path(@server), :confirm => t('are_you_sure'), :method => :delete
+  = link_to t('room.other'), bigbluebutton_rooms_path, :class => 'btn'
+  %br
+  %br
+  = link_to t('back'), bigbluebutton_servers_path, :class => 'btn'
