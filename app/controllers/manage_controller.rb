@@ -20,7 +20,7 @@ class ManageController < ApplicationController
   authorization_filter :manage, :current_site
 
   def users
-    @users = User.find_with_disabled(:all,:order => "login")
+    @users = User.find_with_disabled(:all,:order => "login").paginate(:page => params[:page], :per_page => 20)
     @site_roles = Site.roles
   end
 
