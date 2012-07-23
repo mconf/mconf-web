@@ -117,7 +117,7 @@ def authByCookie(in_user, in_cookie):
         out = False
         cookies = dict(_mconf_session=pass_args[1])
         xml = requests.get(auth_url, cookies=cookies, verify=False)
-        dom = parseString(xml.text)
+        dom = parseString(xml.text.encode('utf-8'))
         username = dom.getElementsByTagName('username')[0].firstChild.data
         if in_user == username:
                 out = True
