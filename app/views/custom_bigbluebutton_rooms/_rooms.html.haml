@@ -6,9 +6,9 @@
   #bbbrails_rooms_list_item
     = simple_form_for room, :html => { :class => 'single-column' } do |f|
       .left-column
-        = f.input :server_id, :required => false, :disabled => true
         = f.input :name, :required => false, :disabled => true
         = f.input :meetingid, :required => false, :disabled => true
+        = f.input :server_id, :required => false, :disabled => true
         = f.input :randomize_meetingid, :required => false, :as => :boolean, :disabled => true
         = f.input :private, :required => false, :as => :boolean, :disabled => true
         = f.input :attendee_password, :required => false, :disabled => true
