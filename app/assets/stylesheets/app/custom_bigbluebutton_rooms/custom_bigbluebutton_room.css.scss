@@ -1,19 +1,24 @@
 @import "definitions";
 @import "compass/css3";
 
-body.custom_bigbluebutton_servers.index, body.custom_bigbluebutton_servers.edit, body.custom_bigbluebutton_servers.new {
+body.custom_bigbluebutton_rooms, body.custom_bigbluebutton_servers.rooms {
 
   $column-width: ($contents-width / 2) - 20px;
+
+  #content-middle {
+    width: 100%;
+  }
 
   .simple_form.single-column input.string,
   .simple_form.single-column input.password,
   .simple_form.single-column textarea.text,
   .simple_form.single-column select {
-    width: 80%
+    width: 98%
   }
 
   .left-column {
     float: left;
+    padding-bottom: 10px;
     width: $column-width;
   }
 
@@ -22,12 +27,13 @@ body.custom_bigbluebutton_servers.index, body.custom_bigbluebutton_servers.edit,
     width: $column-width;
   }
 
-  #bbbrails_servers_links {
+  #bbbrails_rooms_links {
     padding-bottom: 10px;
   }
 
-  .bbbrails_server {
-    padding-bottom: 10px;
+  #bbbrails_rooms_list_item {
+    padding-top: 10px;
+    padding-bottom: 20px;
     padding-left: 20px;
     border-top: 1px solid #ccc;
   }
