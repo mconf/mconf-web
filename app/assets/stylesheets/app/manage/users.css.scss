@@ -23,4 +23,10 @@ body.manage.users {
     padding-left: 30px;
   }
 
+  .disabled {
+    .user_data {
+      padding-top: 8px;
+    }
+  }
+
 }

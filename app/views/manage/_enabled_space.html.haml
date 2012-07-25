@@ -1,0 +1,6 @@
+.user.enabled
+  .names
+    %p
+      = link_to space.name, space_path(space)
+  .links
+    = link_to image_tag("icons/cancel.png", :alt => t('disable'), :title => t('space.disable')), space_path(space), :confirm => t('are_you_sure'), :method => :delete

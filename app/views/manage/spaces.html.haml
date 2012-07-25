@@ -1,0 +1,23 @@
+= render :partial => 'menu'
+
+= content_for :sidebar do
+  #manage_space_filter
+    %h3
+      = t("space.show")
+    #options
+      %label
+        = check_box_tag "enabled", 'enabled', true
+        = t("enabled")
+      %label
+        = check_box_tag "disabled","disabled",true
+        = t("disabled")
+
+#manage
+  - for space in @spaces
+    - if space.disabled?
+      = render :partial => 'disabled_space', :locals => {:space => space}
+    - else
+      = render :partial => 'enabled_space', :locals => {:space => space}
+
+.content-block-footer
+  = page_navigation_links @spaces

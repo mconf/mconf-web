@@ -1234,6 +1234,7 @@ pt-br:
       one: "Vídeo da comunidade"
       other: "Vídeos da comunidade"
     select: Comunidades
+    show: "Mostrar comunidades:"
     show_all: "Mostrar todas as comunidades"
     subscribed_to_none: "Você não está inscrito em nenhuma comunidade"
     update_logo: "Atualizar logo"

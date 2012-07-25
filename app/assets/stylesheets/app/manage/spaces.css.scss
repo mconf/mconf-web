@@ -1,0 +1,33 @@
+@import "definitions";
+@import "compass/css3";
+
+body.manage.spaces {
+
+  #manage_space_filter {
+    padding-top: 35px;
+    padding-left: 10px;
+  }
+
+  #options {
+    input {
+      float: left;
+      margin-right: 5px;
+      margin-left: 5px;
+    }
+  }
+
+  .links {
+    float: right;
+  }
+
+  .names {
+    float: left;
+  }
+
+  .user {
+    border-bottom: solid 1px #ccc;
+    padding-top: 10px;
+    height: 30px;
+  }
+
+}

@@ -25,7 +25,7 @@ class ManageController < ApplicationController
   end
 
   def spaces
-    @spaces=Space.find_with_disabled(:all,:order => "name")
+    @spaces=Space.find_with_disabled(:all,:order => "name").paginate(:page => params[:page], :per_page => 20)
   end
 
   def spam

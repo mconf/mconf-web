@@ -1,0 +1,11 @@
+.user.disabled
+  = raw link_logo(user, :size => 32, :url => user_path(user), :title => user.name)
+
+  %ul.group_links
+    = link_to image_tag("icons/accept.png", :alt => t('enable'), :title => t('user.enable')), enable_user_path(user.id), :method => :post
+
+  .user_data
+    %ul
+      %li.main_text
+        = t('name.one') + ":"
+        = user.name
