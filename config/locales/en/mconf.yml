@@ -973,6 +973,7 @@ en:
   organization: Organization
   organizer: Organisers
   other: Other
+  other_options: "Other options"
   participant: 
     created: "Your attendance information has been updated successfully"
     error: 

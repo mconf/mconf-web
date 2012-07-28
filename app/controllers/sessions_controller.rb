@@ -17,7 +17,7 @@
 # along with VCC.  If not, see <http://www.gnu.org/licenses/>.
 
 class SessionsController < ApplicationController
-  layout :application_layout
+  layout 'no_sidebar'
 
   #after_filter :update_user   #this is used to remember when did he logged in or out the last time and update his/her home
 

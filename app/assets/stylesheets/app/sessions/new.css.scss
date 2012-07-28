@@ -1,14 +1,55 @@
+@import "compass/typography";
 @import "definitions";
-@import "app/users/new";
 
 body.sessions.new, body.sessions.create {
 
-  #login-wrapper {
-    // the base is just like the container in the register page
-    @include register-wrapper;
+  $login-box-width: 440px;
+  $right-side-width: $contents-width - $login-box-width - 50px;
 
-    // every field is required, so we don't need to show it
-    abbr[title=required] { display: none; }
+  #login-wrapper {
+    @include mconf-clearfix;
+    margin: 40px 0;
+
+    form {
+      @include mconf-clearfix;
+      float: left;
+      width: $login-box-width;
+
+      // every field is required, we don't need to show it
+      abbr[title=required] { display: none; }
+
+      input[type=text], input[type=password], input[type=email] {
+        width: 250px;
+      }
+
+      .field_with_errors .error {
+        display: block;
+      }
+
+      input[type=submit] {
+        float: right;
+      }
+
+      .remember-me {
+        float: right;
+
+        input[type=checkbox] {
+          margin-top: -5px;
+          margin-right: 5px;
+        }
+      }
+    }
+
+    .extra-links {
+      max-width: $right-side-width;
+      float: left;
+      margin: 5px 0 0 50px;
+      padding: 0;
+      ul {
+        list-style: disc;
+      }
+    }
+
   }
 
 }

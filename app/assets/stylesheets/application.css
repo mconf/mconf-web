@@ -11,6 +11,8 @@
  * Note: the order matters!
  *= require ./app/application/typography
  *= require ./app/application/base
+ *= require ./app/application/bootstrap
+ *= require ./app/application/simple_form
  *= require ./app/application/dropdown-menu
  *= require ./app/application/notifications
  *= require ./app/application/tooltips

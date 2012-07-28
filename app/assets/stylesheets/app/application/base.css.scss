@@ -26,65 +26,6 @@ form {
   margin: 0;
 }
 
-.simple_form {
-
-  .input {
-    margin-top: 5px;
-    margin-bottom: 10px;
-
-    label {
-      &.collection_radio_buttons {
-        display: inline;
-        margin-left: 5px;
-        margin-right: 10px;
-      }
-    }
-
-    abbr {
-      border: 0;
-      margin: 0;
-      color: red;
-    }
-
-    input, select { font-size: $font-normal + 1px; }
-
-    .hint {
-      font-size: $font-small;
-      display: block;
-      color: lighten($font-color, 30);
-      text-align: right;
-      padding: 0;
-      margin: 0;
-      @include border-bottom-radius(5px);
-    }
-  }
-
-  .field_with_errors {
-    input, textarea { border-color: $red; }
-
-    .error {
-      margin-left: 5px;
-      color: $red;
-      font-style: italic;
-    }
-  }
-
-  // forms with a single column, where no information can be
-  // shown at the side of an input
-  &.single-column {
-    input.string, input.password, textarea.text, select {
-      width: 99%;
-    }
-
-    .field_with_errors .error {
-      display: block;
-      text-align: right;
-    }
-  }
-
-}
-
-
 //
 // Components used site-wide, in any layout
 //

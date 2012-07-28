@@ -1,43 +1,69 @@
 @import "definitions";
 
-// defining it as a mixin to be used in the login page too
-@mixin register-wrapper {
-  @include mconf-clearfix;
-
-  form {
-    margin: 0;
-
-    input[type=submit] {
-      margin-top: 15px;
-    }
-  }
-
-  .comments {
-    margin-top: 15px;
-    font-style: italic;
-    clear: both;
-
-    span { display: block; }
-  }
-
-  ul.extra-links {
-    margin: 0;
-    margin-top: 15px;
-    list-style: circle;
-    clear: both;
-
-    li {
-      float: left;
-      margin-right: 10px;
-      margin-left: 20px;
-    }
-  }
-}
-
 body.users.new, body.users.create {
 
+  $register-box-width: 500px;
+  $right-side-width: $contents-width - $register-box-width - 50px;
+
   #register-wrapper {
-    @include register-wrapper;
+    @include mconf-clearfix;
+    margin: 20px 0;
+
+    form {
+      @include mconf-clearfix;
+      float: left;
+      width: $register-box-width;
+      margin: 0;
+
+      input[type=text], input[type=password], input[type=email] {
+        width: 250px;
+      }
+
+      .field_with_errors .error {
+        display: block;
+      }
+
+      .simple_captcha {
+        float: right;
+        padding: 0 !important;
+        margin: 10px 0;
+
+        div { display: inline; }
+
+        .simple_captcha_field {
+          text-align: center;
+        }
+
+        .simple_captcha_image {
+          background: white;
+          margin-right: 5px;
+        }
+      }
+
+      input[type=submit] {
+        margin-top: 15px;
+        float: right;
+        clear: both;
+      }
+
+    }
+
+   .extra-links {
+     max-width: $right-side-width;
+     float: left;
+     margin: 5px 0 0 30px;
+     padding: 0;
+     ul {
+       list-style: disc;
+     }
+
+     .comments {
+       font-style: italic;
+       margin-bottom: 20px;
+       span { display: block; }
+     }
+   }
+
   }
 
 }
