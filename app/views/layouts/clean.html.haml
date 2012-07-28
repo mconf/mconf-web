@@ -1,5 +1,3 @@
-//- TODO: this could be a "clean" layout
-
 !!! Strict
 %html{:lang => I18n.locale.to_s}
 
@@ -10,7 +8,7 @@
 
     = stylesheet_link_tag "application_print", :media => "print"
     = stylesheet_link_tag "application", :media => "screen, projection"
-    = stylesheet_link_tag "frontpage", :media => "screen, projection"
+    = stylesheet_link_tag_for_controller :media => "screen, projection"
     = stylesheet_link_tag "_development" unless Rails.env == "production"
 
     /[if IE]
@@ -32,4 +30,5 @@
     = render :partial => "layouts/notifications"
 
     -# Javascript placed at the end of the document so the pages load faster
-    = javascript_include_tag 'frontpage'
+    = javascript_include_tag "application"
+    = javascript_include_tag_for_controller

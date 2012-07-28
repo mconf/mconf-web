@@ -18,6 +18,8 @@
 
 class FrontpageController < ApplicationController
 
+  layout 'clean'
+
   def show
     # @relevant_users = User.find(:all).sort_by{|user| user.posts.size}.reverse.first(4)
     # @recent_spaces = Space.find(:all, :conditions => {:public => true},:order => "created_at Desc").first(3)
