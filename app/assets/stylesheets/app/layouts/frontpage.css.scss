@@ -8,7 +8,7 @@ $login-box-width: 440px;
 $registration-box-width: $contents-width - $login-box-width - 20px;
 
 body {
-  background: $green-logo;
+  background: adjust-color($green-logo, $red: -15, $blue: -15, $green: -15);
 }
 
 #navbar-wrapper {
