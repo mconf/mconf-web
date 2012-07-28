@@ -29,19 +29,14 @@
         #page-header-wrapper
           #page-header
             = yield :"page-header"
+      - else
+        = render :partial => "layouts/spaces_page_title"
 
       #content-wrapper
         #content
           #content-middle
-            - if content_for? :"page-title"
-              #page-title
-                = yield :"page-title"
-            - else
-              = render :partial => "layouts/spaces_page_title"
-
             = yield :menu
             = yield
-
           - if content_for?(:sidebar)
             #sidebar
               = yield :sidebar

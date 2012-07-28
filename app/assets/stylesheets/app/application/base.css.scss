@@ -562,12 +562,26 @@ ul#navbar-right-links {
   }
 }
 
-#page-title {
+#page-header-wrapper {
+  //@include background(linear-gradient(top, #ddd, white));
+  //@include box-shadow(inset 0 0 2px rgba(0, 0, 0, 0.15));
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  background: whiteSmoke;
+  padding: 10px 0;
+}
+
+#page-header {
+  width: $contents-width;
+  margin: 0 auto;
   @include mconf-clearfix;
-  margin: 0;
-  margin-bottom: 15px;
-  padding: 0;
-  clear: both;
+  padding: 10px 0 5px 0;
+
+ clear: both;
+
+  h1 {
+    margin: 0;
+    border: 0;
+  }
 
   .current-page-logo {
     float: left;
@@ -595,7 +609,7 @@ ul#navbar-right-links {
 
   .current-page-extra {
     float: right;
-    margin-top: 25px;
+    margin-top: 10px;
     text-align: right;
     a, span { display: block; }
   }
