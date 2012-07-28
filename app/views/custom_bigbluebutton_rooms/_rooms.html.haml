@@ -1,0 +1,31 @@
+#bbbrails_rooms_links
+  = link_to t('bigbluebutton_rails.view_server_list'), bigbluebutton_servers_path, :class => 'btn'
+  = link_to t('bigbluebutton_rails.new_room'), new_bigbluebutton_room_path, :class => 'btn'
+
+- @rooms.each do |room|
+  #bbbrails_rooms_list_item
+    = simple_form_for room, :html => { :class => 'single-column' } do |f|
+      .left-column
+        = f.input :name, :required => false, :disabled => true
+        = f.input :meetingid, :required => false, :disabled => true
+        = f.input :server_id, :required => false, :disabled => true
+        = f.input :randomize_meetingid, :required => false, :as => :boolean, :disabled => true
+        = f.input :private, :required => false, :as => :boolean, :disabled => true
+        = f.input :attendee_password, :required => false, :disabled => true
+        = f.input :moderator_password, :required => false, :disabled => true
+      .right-column
+        = f.input :welcome_msg, :required => false, :disabled => true
+        = f.input :logout_url, :required => false, :disabled => true
+        = f.input :dial_number, :required => false, :disabled => true
+        = f.input :voice_bridge, :required => false, :disabled => true
+        = f.input :max_participants, :required => false, :disabled => true
+        = f.input :external, :required => false, :as => :boolean, :disabled => true
+        = f.input :param, :required => false, :disabled => true
+
+      = f.label t('bigbluebutton_rails.servers.index.access_links')
+      = link_to t('join'), join_bigbluebutton_room_path(room), :class => 'btn'
+      = link_to t('bigbluebutton_rails.rooms.join_mobile'), join_mobile_bigbluebutton_room_path(room), :class => 'btn'
+      = link_to t('bigbluebutton_rails.rooms.invite'), invite_bigbluebutton_room_path(room), :class => 'btn'
+      = link_to t('edit'), edit_bigbluebutton_room_path(room), :class => 'btn'
+      = link_to t('end'), end_bigbluebutton_room_path(room), :confirm => t('are_you_sure'), :class => 'btn'
+      = link_to t('destroy'), bigbluebutton_room_path(room), :confirm => t('are_you_sure'), :method => :delete, :class => 'btn'

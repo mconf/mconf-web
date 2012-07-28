@@ -1,0 +1,17 @@
+= simple_form_for @server, :html => { :class => 'single-column' } do |f|
+  - if @server.errors.any?
+    #error_explanation
+      %h3
+        = pluralize(@server.errors.count, "error")
+        = t('servers.form.msg1')
+      %ul
+      - @server.errors.full_messages.each do |msg|
+        %li
+          = msg
+
+  = f.input :name, :required => false
+  = f.input :url, :required => false
+  = f.input :salt, :required => false
+  = f.input :version, :required => false
+  = f.input :param, :required => false
+  = f.button :submit, t("button.confirm"), :class => "btn"

@@ -84,7 +84,6 @@ namespace :setup do
         name = Populator.words(1..3).capitalize
       end until Space.find_by_name(name).nil?
       space.name = name
-      space.permalink = PermalinkFu.escape(space.name.titleize)
       space.description = Populator.sentences(1..3)
       space.public = [ true, false ]
       space.disabled = false
@@ -110,7 +109,6 @@ namespace :setup do
         event.start_date = event.created_at..1.years.since(Time.now)
         event.end_date = 2.hours.since(event.start_date)..2.days.since(event.start_date)
         event.vc_mode = Event::VC_MODE.index(:in_person)
-        event.permalink = PermalinkFu.escape(event.name)
 
         Agenda.populate 1 do |agenda|
           agenda.event_id = event.id
@@ -133,12 +131,10 @@ namespace :setup do
         news.created_at = @created_at_start..Time.now
         news.updated_at = news.created_at..Time.now
       end
-
-      Statistic.populate 1 do |statistic|
-        statistic.url = "/spaces/" + space.permalink
-        statistic.unique_pageviews = 0..300
-      end
     end
+
+    Space.find_each(&:save) # to generate #permalink
+    Event.find_each(&:save) # to generate #permalink
 
     puts "* Create spaces: webconference rooms"
     Space.all.each do |space|
@@ -220,6 +216,11 @@ namespace :setup do
 
     # Posts.parent_id
     Space.all.each do |space|
+      Statistic.populate 1 do |statistic|
+        statistic.url = "/spaces/" + space.permalink
+        statistic.unique_pageviews = 0..300
+      end
+
       total_posts = space.posts.dup
       # The first Post should not have parent
       final_posts = Array.new << total_posts.shift

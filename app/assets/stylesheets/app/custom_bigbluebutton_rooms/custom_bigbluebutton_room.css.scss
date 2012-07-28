@@ -1,0 +1,41 @@
+@import "definitions";
+@import "compass/css3";
+
+body.custom_bigbluebutton_rooms, body.custom_bigbluebutton_servers.rooms {
+
+  $column-width: ($contents-width / 2) - 20px;
+
+  #content-middle {
+    width: 100%;
+  }
+
+  .simple_form.single-column input.string,
+  .simple_form.single-column input.password,
+  .simple_form.single-column textarea.text,
+  .simple_form.single-column select {
+    width: 98%
+  }
+
+  .left-column {
+    float: left;
+    padding-bottom: 10px;
+    width: $column-width;
+  }
+
+  .right-column {
+    float: right;
+    width: $column-width;
+  }
+
+  #bbbrails_rooms_links {
+    padding-bottom: 10px;
+  }
+
+  #bbbrails_rooms_list_item {
+    padding-top: 10px;
+    padding-bottom: 20px;
+    padding-left: 20px;
+    border-top: 1px solid #ccc;
+  }
+
+}

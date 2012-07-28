@@ -1320,6 +1320,7 @@ en:
       one: "Space video"
       other: "Space videos"
     select: Spaces
+    show: "Show spaces:"
     show_all: "Show all spaces"
     subscribed_to_none: "You are not subscribed to any space"
     update_logo: "Update logo"

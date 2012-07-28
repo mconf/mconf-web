@@ -1,0 +1,33 @@
+@import "definitions";
+@import "compass/css3";
+
+body.sites.edit, body.sites.show {
+
+  $column-width: ($contents-width / 2) - 20px;
+
+  #content-middle {
+    width: 100%;
+  }
+
+  .simple_form.single-column input.string,
+  .simple_form.single-column input.password,
+  .simple_form.single-column textarea.text,
+  .simple_form.single-column select {
+    width: 98%
+  }
+
+  form textarea {
+    resize: none;
+  }
+
+  .left-column {
+    float: left;
+    width: $column-width;
+  }
+
+  .right-column {
+    float: right;
+    width: $column-width;
+  }
+
+}

@@ -62,7 +62,9 @@ class Space < ActiveRecord::Base
 
   # Update the webconf room after updating the space
   def update_webconf_room
-    bigbluebutton_room.update_attributes(:param => self.permalink, :name => self.name)
+    if self.bigbluebutton_room
+      bigbluebutton_room.update_attributes(:param => self.permalink, :name => self.name)
+    end
   end
 
   # Returns the next 'count' events (starting in the current date) in this space.
@@ -270,7 +272,7 @@ class Space < ActiveRecord::Base
   def check_permalink
     if self.errors[:permalink].size > 0
       self.errors.add :name, I18n.t('activerecord.errors.messages.invalid_identifier', :id => self.permalink)
-    elsif self.bigbluebutton_room.errors[:param].size > 0
+    elsif self.bigbluebutton_room and self.bigbluebutton_room.errors[:param].size > 0
       self.errors.add :name, I18n.t('activerecord.errors.messages.invalid_identifier', :id => self.bigbluebutton_room.param)
     end
   end

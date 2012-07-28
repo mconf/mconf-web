@@ -1,0 +1,32 @@
+@import "definitions";
+@import "compass/css3";
+
+body.manage.users {
+
+  .user {
+    border-bottom: solid 1px #ccc;
+    padding-top: 5px;
+    height: 40px;
+  }
+
+  .group_links {
+    float: right;
+    padding-top: 8px;
+  }
+
+  .logo {
+    float: left;
+    padding: 1.5px;
+  }
+
+  .user_data {
+    padding-left: 30px;
+  }
+
+  .disabled {
+    .user_data {
+      padding-top: 8px;
+    }
+  }
+
+}
