@@ -4,20 +4,22 @@
 @import "definitions";
 
 $navbar-height: auto;
-$login-box-width: 440px;
-$registration-box-width: $contents-width - $login-box-width - 20px;
+$login-box-width: 400px;
+$registration-box-width: $contents-width - $login-box-width - 40px;
+$bg-light: adjust-color($green-logo, $red: -15, $blue: -15, $green: -15);
+$bg-normal: darken($green-logo, 3);
 
 body {
-  background: adjust-color($green-logo, $red: -15, $blue: -15, $green: -15);
-}
-
-#navbar-wrapper {
-  background: darken($green-logo, 3);
+  background: $bg-light;
 }
 
 #site {
   background: none;
   @include box-shadow(none);
+}
+
+#navbar-wrapper {
+  background: $bg-normal;
 }
 
 #navbar {
@@ -101,6 +103,7 @@ body {
 #registration-box {
   float: right;
   width: $registration-box-width;
+  margin-right: 20px;
 
   .simple_captcha {
     float: right;
@@ -135,5 +138,23 @@ body {
     margin: 0 0 10px 0;
     color: #ddd;
     @include text-shadow(darken($green-logo, 5) 1px 1px 4px);
+  }
+}
+
+#upper-footer {
+  margin-top: 30px;
+  color: #ccc;
+
+  a {
+    @include link-colors(#ccc, $site-link-hover, $site-link-active);
+  }
+
+  h3 {
+    color: #fff;
+    border-bottom: 1px solid lighten($bg-normal, 4);
+  }
+
+  #footer-logo {
+    color: #ccc;
   }
 }

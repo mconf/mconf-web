@@ -245,7 +245,10 @@ form {
   margin: 0 auto;
   padding: 0;
   color: #666;
-  a { @include link-colors(desaturate($site-link, 20), $site-link-hover, $site-link-active); text-decoration: none;}
+  a {
+    @include link-colors(desaturate($site-link, 20), $site-link-hover, $site-link-active);
+    text-decoration: none;
+  }
 
   h3 {
     font-size: 12px;
@@ -290,6 +293,7 @@ form {
   }
 
   .languages {
+    img { margin-top: -4px; }
     img.help-translate-icon { float: right; }
     ul { float: left; margin-right: 20px; }
   }
@@ -301,6 +305,35 @@ form {
     float: left;
   }
 
+}
+
+/* Simplified version */
+#upper-footer-wrapper.simple-footer {
+  background: none;
+  border: 0;;
+  @include box-shadow(none);
+
+  #upper-footer {
+    h3 {
+      float: left;
+      border: 0;
+      margin: 0 15px 0 0;
+    }
+
+    .languages {
+      margin: 40px 0 0 0;
+      float: right;
+      ul {
+        float: right;
+        margin: 0;
+        li {
+          display: inline;
+          float: left;
+          margin: 0 10px 0 0;
+        }
+      }
+    }
+  }
 }
 
 #footer-logo {
