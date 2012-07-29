@@ -445,7 +445,7 @@ ActiveRecord::Schema.define(:version => 20120729031436) do
   add_index "uris", ["uri"], :name => "index_uris_on_uri"
 
   create_table "users", :force => true do |t|
-    t.string   "login"
+    t.string   "username"
     t.string   "email",                  :default => "",    :null => false
     t.string   "encrypted_password",     :default => "",    :null => false
     t.string   "password_salt",          :limit => 40

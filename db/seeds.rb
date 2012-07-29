@@ -142,15 +142,15 @@ bbb_server = BigbluebuttonServer.create :name => config["bbb_server_name"],
                                         :version => config["bbb_server_version"]
 
 puts "* Create the administrator account"
-puts "  login: #{config["admin_login"]}"
+puts "  username: #{config["admin_username"]}"
 puts "  email: #{config["admin_email"]}"
 puts "  password: #{config["admin_password"]}"
 puts "  fullname: #{config["admin_fullname"]}"
-u = User.new :login => config["admin_login"],
+u = User.new :username => config["admin_username"],
                 :email => config["admin_email"],
                 :password => config["admin_password"],
                 :password_confirmation => config["admin_password"],
-                :_full_name => config["admin_login"],
+                :_full_name => config["admin_username"],
                 :created_at => DateTime.now,
                 :superuser => true
 u.skip_confirmation!

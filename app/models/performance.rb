@@ -61,7 +61,7 @@ class Performance < ActiveRecord::Base
       xml.agent do
         xml.id agent.id
         xml.type agent.type
-        xml.login(agent.login) if agent.respond_to?(:login)
+        xml.login(agent.username) if agent.respond_to?(:username)
       end
       xml.role do
         xml.id role.id

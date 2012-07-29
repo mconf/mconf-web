@@ -42,6 +42,9 @@ class AddDeviseToUsers < ActiveRecord::Migration
       ## Encryptable
       t.rename :salt, :password_salt
 
+      # To enable login with username or email
+      t.rename :login, :username
+
       ## Token authenticatable
       # t.string :authentication_token
 

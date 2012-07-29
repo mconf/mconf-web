@@ -292,7 +292,7 @@ class Event < ActiveRecord::Base
 
       #first we delete the old ones if there were some (this is for the update operation that creates new performances in the event)
       past_performances = event.stage_performances.find(:all, :conditions => {:role_id => Event.role("Organizer")})
-      past_organizers = past_performances.map(&:agent).map(&:login)
+      past_organizers = past_performances.map(&:agent).map(&:username)
 
       invited_performances = event.stage_performances.find(:all, :conditions => {:role_id => Event.role("Invitedevent")})
 
@@ -301,16 +301,16 @@ class Event < ActiveRecord::Base
 
         # we remove the previous Invited role in the event if it exists
         invited_performances.each do |p|
-          if (p.role == Event.role("Invitedevent")) && (p.agent.login == login)
+          if (p.role == Event.role("Invitedevent")) && (p.agent.username == login)
             p.destroy
           end
         end
 
-        event.stage_performances.create! :agent => User.find_by_login(login), :role  => Event.role("Organizer")
+        event.stage_performances.create! :agent => User.find_by_username(login), :role  => Event.role("Organizer")
       end
 
       # we remove those organizers that are not organizers any more
-      past_performances.select{ |p| (past_organizers - event.new_organizers).include?(p.agent.login)}.map(&:destroy)
+      past_performances.select{ |p| (past_organizers - event.new_organizers).include?(p.agent.username)}.map(&:destroy)
     end
 
     if event.recording_type_changed?

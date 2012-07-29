@@ -58,7 +58,7 @@ class ShibbolethController < ApplicationController
     # create one based on the info returned by shibboleth
     if user.nil?
       password = SecureRandom.hex(16)
-      user = User.create!(:login => shib_name.clone, :email => shib_email,
+      user = User.create!(:username => shib_name.clone, :email => shib_email,
                           :password => password, :password_confirmation => password)
       user.activate
       user.profile.update_attributes(:full_name => shib_name)

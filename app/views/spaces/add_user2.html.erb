@@ -29,7 +29,7 @@
 			<div id="select_users_from_space" class="select_users">
 				<%= select 'users',
 				           'id',
-				           User.find(:all).collect { |u| [ u.login, u.id ] },
+				           User.find(:all).collect { |u| [ u.username, u.id ] },
 				           {},
 				           { :multiple => true,
 				             :size     => 10 } %>
@@ -57,7 +57,7 @@
 		<div id="admin_users_select" class="select_users">
 			<%= select 'users',
 			           'id',
-			           @space.get_users_with_role("Admin").collect { |u| [ u.login, u.id ] },
+			           @space.get_users_with_role("Admin").collect { |u| [ u.username, u.id ] },
 			           {},
 			           { :multiple => true,
 			             :size     => 10 } %>
@@ -75,7 +75,7 @@
 		<div id="users_users_select" class="select_users">
 			<%= select 'users',
 			           'id',
-			           @space.get_users_with_role("User").collect { |u| [ u.login, u.id ] },
+			           @space.get_users_with_role("User").collect { |u| [ u.username, u.id ] },
 			           {},
 			           { :multiple => true,
 			             :size     => 10 } %>
@@ -93,7 +93,7 @@
 		<div id="invited_users_select" class="select_users">
 			<%= select 'users',
 			           'id',
-			           @space.get_users_with_role("Invited").collect { |u| [ u.login, u.id ] },
+			           @space.get_users_with_role("Invited").collect { |u| [ u.username, u.id ] },
 			           {},
 			           { :multiple => true,
 			             :size     => 10 } %>

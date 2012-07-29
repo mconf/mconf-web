@@ -1,6 +1,6 @@
 -# TODO: works with ssl?
 = simple_form_for(resource, :as => resource_name, :url => user_session_path, :html => { :class => 'form-inline' }) do |f|
-  = f.input :email, :label => t('login.email_or_login'), :required => true, :autofocus => true
+  = f.input :login, :label => t('login.email_or_login'), :required => true, :autofocus => true
   = f.input :password, :label => t('login.password'), :required => true
   = f.button :submit, t("login.one"), :class => "btn"
   .remember-me

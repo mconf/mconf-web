@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Copyright 2008-2010 Universidad Politécnica de Madrid and Agora Systems S.A.
 #
 # This file is part of VCC (Virtual Conference Center).
@@ -56,7 +57,7 @@ class AttachmentsController < ApplicationController
             errors += I18n.t("attachment.error.not_deleted", :file => attachment.filename)
           end
         else
-          errors += I18n.t("attachment.error.not_permission", :file => attachment.filename, :user => current_user.login)
+          errors += I18n.t("attachment.error.not_permission", :file => attachment.filename, :user => current_user.username)
         end
       end
       if errors==""

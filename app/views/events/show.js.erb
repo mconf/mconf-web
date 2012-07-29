@@ -9,7 +9,7 @@
 		<span><%=t('event.note.participation')%></span>
 	  </div>
   <%elsif @event.is_virtual? %>
-      <%= @event.web current_user.login %>
+      <%= @event.web current_user.username %>
   <%elsif (@event.other_participation_url== nil || @event.other_participation_url=="") && !@event.authorize?(:update, :to => current_user)%>
 	  <%=t("event.participation.none")%>
   <%else%>

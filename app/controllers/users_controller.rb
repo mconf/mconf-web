@@ -131,7 +131,7 @@ class UsersController < ApplicationController
   def destroy
     user.disable
 
-    flash[:notice] = t('user.disabled', :username => @user.login)
+    flash[:notice] = t('user.disabled', :username => @user.username)
 
     respond_to do |format|
       format.html {
@@ -152,7 +152,7 @@ class UsersController < ApplicationController
     @user = User.find_with_disabled(params[:id])
 
     unless @user.disabled?
-      flash[:notice] = t('user.error.enabled', :name => @user.login)
+      flash[:notice] = t('user.error.enabled', :name => @user.username)
       redirect_to request.referer
       return
     end
