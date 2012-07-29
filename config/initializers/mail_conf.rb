@@ -4,6 +4,8 @@ ActiveSupport.on_load(:after_initialize) do
 
   if Site.table_exists?
     site = Site.current
+
+    ActionMailer::Base.default_url_options[:host] = site.domain
     if site.respond_to?(:email) && site.respond_to?(:email_password) &&
         site.email && site.email_password
 
@@ -14,7 +16,6 @@ ActiveSupport.on_load(:after_initialize) do
         :enable_starttls_auto => true,
         :address              => 'smtp.gmail.com',
         :port                 => 587,
-        :tls                  => true,
         :domain               => 'gmail.com',
         :authentication       => :plain,
         :user_name            => site.email,

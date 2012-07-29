@@ -13,6 +13,8 @@
 
 Mconf::Application.routes.draw do
 
+  devise_for :users
+
   # bigbluebutton_rails default routes
   bigbluebutton_routes :default, :controllers => { :servers => 'custom_bigbluebutton_servers', :rooms => 'custom_bigbluebutton_rooms' }
 

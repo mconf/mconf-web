@@ -146,12 +146,16 @@ puts "  login: #{config["admin_login"]}"
 puts "  email: #{config["admin_email"]}"
 puts "  password: #{config["admin_password"]}"
 puts "  fullname: #{config["admin_fullname"]}"
-u = User.create :login => config["admin_login"],
+u = User.new :login => config["admin_login"],
                 :email => config["admin_email"],
                 :password => config["admin_password"],
                 :password_confirmation => config["admin_password"],
-                :_full_name => config["admin_login"]
-u.update_attribute(:superuser, true)
-u.update_attribute(:created_at, DateTime.now)
-u.activate
+                :_full_name => config["admin_login"],
+                :created_at => DateTime.now,
+                :superuser => true
+u.skip_confirmation!
+unless u.save(:validation => false)
+  puts "ERROR!"
+  puts u.errors.inspect
+end
 u.profile!.update_attribute(:full_name, config["admin_fullname"])
