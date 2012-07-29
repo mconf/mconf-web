@@ -18,7 +18,7 @@
 
 class HomesController < ApplicationController
 
-  before_filter :authentication_required
+  before_filter :authenticate_user!
   respond_to :json, :only => [:user_rooms]
   respond_to :html, :except => [:user_rooms]
 

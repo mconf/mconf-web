@@ -1,7 +1,7 @@
 <%if params[:participation_by_ajax]%>
-  <%if !logged_in?%>
+  <%if !user_signed_in?%>
       <p class="note"><%= t('register.and_participate_description') %></p>
-	  <%= link_to "<span>" + t('register.and_participate') + "</span>",signup_path("user[special_event_id]" => (@event.id).to_s) ,:class => "register_link"%>
+	  <%= link_to "<span>" + t('register.and_participate') + "</span>",register_path("user[special_event_id]" => (@event.id).to_s) ,:class => "register_link"%>
 	  <%= t('register.or_choose') + " " %>  <%= link_to t('register.back_to_streaming'),space_event_path(@space, @event, :show_streaming => true) %>
   <%elsif @event.is_virtual? && !@event.has_session_now?%>
       <div class="video_wrapper">

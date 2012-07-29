@@ -26,7 +26,7 @@ class SessionLocalesController < ActionController::Base
       session[:locale] =  new_locale 
     
       #Add locale to the user profile
-      if logged_in?
+      if user_signed_in?
         current_user.update_attribute(:locale, params[:new_locale])
       end
 

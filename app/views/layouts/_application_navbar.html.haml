@@ -2,7 +2,7 @@
   %a.title{:href => root_path}= current_site.name
 
 %ul#navbar-left-links
-  - if logged_in?
+  - if user_signed_in?
     %li
       = image_tag('icons/my-home-16x16.png', :size => '16x16', :class => 'icon')
       = link_to t('home.my'), home_path
@@ -19,7 +19,7 @@
     %li.last= link_to t('logout', :user => current_user.name), logout_path
 - else
   %ul#navbar-right-links
-    - if logged_in?
+    - if user_signed_in?
       %li.dropdown.user-info-dropdown.last
 
         -# small user information in the navbar
@@ -51,4 +51,4 @@
 
     - else
       %li.last= link_to t('login.one'), login_path
-      %li= link_to t('register.one'), signup_path
+      %li= link_to t('register.one'), register_path

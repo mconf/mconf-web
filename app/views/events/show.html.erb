@@ -65,9 +65,9 @@ $(document).ready(function() {
 <%= content_for :sidebar do  %>
 
   <div id="full_sidebar">
-    <%if !logged_in?%>
+    <%if !user_signed_in?%>
       <div id="event_register" class="button_wrapper margin-up">
-        <%= link_to ("<span>" + t('register.and_participate') + "</span>").html_safe,signup_path("user[special_event_id]" => (@event.id).to_s) ,:class => "register_link big_button orange_button"%>
+        <%= link_to ("<span>" + t('register.and_participate') + "</span>").html_safe,register_path("user[special_event_id]" => (@event.id).to_s) ,:class => "register_link big_button orange_button"%>
       </div>
       <p class="big_margin_down_40 note">
         <%= t('register.and_participate_description_with_login', :url => login_path ).html_safe %>

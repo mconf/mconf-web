@@ -10,7 +10,7 @@
         %li= link_to t('edit').downcase, edit_space_event_path(event.space, event), :title => t('event.edit')
       - if event.authorize?(:delete, :to => current_user)
         %li= link_to t('remove').downcase, space_event_path(event.space, event), {:method => :delete, :title => t('delete.one'), :confirm => t('delete.confirm', :element => event.title) }
-      - if logged_in? && event.spam != true
+      - if user_signed_in? && event.spam != true
         %li= link_to t('spam.default').downcase, spam_lightbox_space_event_path(event.space,event), { :name => event.id, :title => t('spam.report') }
 
     .thread-title

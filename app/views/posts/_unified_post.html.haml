@@ -16,7 +16,7 @@
         %li= link_to t('edit').downcase, get_edit_route(thread), :title => t('edit')
       - if thread.authorize?(:delete, :to => current_user)
         %li= link_to t('remove').downcase, space_post_path(thread.space,thread), {:method => :delete, :title => t('delete.one'), :confirm => t('delete.confirm', :element => thread.title) }
-      - if logged_in? && thread.spam != true
+      - if user_signed_in? && thread.spam != true
         %li= link_to t('spam.default').downcase, spam_lightbox_space_post_path(thread.space,thread), { :name => thread.id, :title => t('spam.report') }
 
     .thread-title

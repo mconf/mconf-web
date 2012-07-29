@@ -16,12 +16,12 @@
           - else
             %span= t('webconference.nobody.one_line')
         .buttons
-          - if logged_in?
+          - if user_signed_in?
             - webconf_join_link = join_space_room_path(@space, @webconf_room)
           - else
             - webconf_join_link = invite_space_room_path(@space, @webconf_room)
           = link_to t('button.join'), webconf_join_link, :class => 'btn btn-info webconf-start-link'
-          - if logged_in?
+          - if user_signed_in?
             = webconf_mobile_icon_link(join_mobile_space_room_path(@space, @webconf_room))
           - else
             = webconf_mobile_icon_link(false)
@@ -55,5 +55,5 @@
       %span= t('statistics.space_views')
       = help_icon t("tooltip.num_views"), :class => 'leftwards'
 
-    - if logged_in? && @space.users.include?(current_user) && !(@space.is_last_admin?(current_user))
+    - if user_signed_in? && @space.users.include?(current_user) && !(@space.is_last_admin?(current_user))
       = render :partial => 'spaces/sidebar_leave_space'

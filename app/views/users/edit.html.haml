@@ -3,7 +3,7 @@
   = link_to t('user.edit.click_to_edit_profile'), edit_user_profile_path(current_user)
 = render_page_title t('user.edit_account')
 
-- if logged_in? and @shib_user
+- if user_signed_in? and @shib_user
   #user-federated-info
     .more-information= link_to t('user.edit.federated.see_your_data'), shibboleth_info_path, :class => 'open-modal'
     %span.title= t('user.edit.federated.title')
@@ -39,7 +39,7 @@
       - collection.push([User::RECEIVE_DIGEST_WEEKLY, t('user.receive_digest.weekly')])
       = f.collection_radio_buttons :receive_digest, collection, :first, :last
 
-    - if logged_in? && current_user.superuser==true && @user.id != current_user.id
+    - if user_signed_in? && current_user.superuser==true && @user.id != current_user.id
       = f.input :superuser, :as => :radio_buttons, :label => t('user.edit.make_admin'), :required => false
 
     = f.button :submit, t("save"), :class => "btn"

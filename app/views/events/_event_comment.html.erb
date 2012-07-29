@@ -32,7 +32,7 @@ $(document).ready(function() {
 
                   <div class="post-content">
                     <div id="edit" class="group_links">
-                        <%=link_to(image_tag("icons/exclamation.png", :alt => t('spam.report'),:class=>"icon"), spam_lightbox_space_post_path(@space,post),{:name => post.id, :class => 'spam_link', :title => t('spam.report')}) if logged_in? && post.spam == false%>
+                        <%=link_to(image_tag("icons/exclamation.png", :alt => t('spam.report'),:class=>"icon"), spam_lightbox_space_post_path(@space,post),{:name => post.id, :class => 'spam_link', :title => t('spam.report')}) if user_signed_in? && post.spam == false%>
                 <%=link_to(image_tag("icons/pencil.png", :alt => t('comment.edit')), space_event_path(@space, @event, :edit_comment=>post.id),{:name => post.id, :class => 'edit_post_link', :title => t('comment.edit')}) if post.authorize?(:update, :to => current_user)%>
                                         <%=link_to(image_tag("icons/cancel.png", :alt => t('comment.delete')), space_post_path(@space, post),{:method => :delete,:name => post.id, :class => 'delete_post_link', :title => t('comment.delete'),:confirm => t('delete.confirm', :element => t('comment.by', :author => post.author.name))}) if post.authorize?(:update, :to => current_user)%>
                     </div>

@@ -1,7 +1,7 @@
 <div class="<%= event.is_happening_now? ? 'single_event current_single_event' : 'single_event'%>">
   <ul class="group_links">
     <li>
-      <%=link_to(image_tag("icons/exclamation.png", :alt => t('spam.report'),:class=>"icon"), spam_lightbox_space_event_path(@space,event),{:name => event.id, :class => 'spam_link', :title => t('spam.report')}) if logged_in? && event.spam != true %>
+      <%=link_to(image_tag("icons/exclamation.png", :alt => t('spam.report'),:class=>"icon"), spam_lightbox_space_event_path(@space,event),{:name => event.id, :class => 'spam_link', :title => t('spam.report')}) if user_signed_in? && event.spam != true %>
     </li>
     <!--<li>
       <%=link_to image_tag("icons/comments-add.png",:alt => t('reply'),:class=>"icon" ), space_event_path(@space,event,:reply_to =>event.id),{:name => event.id, :class => 'reply_to_link', :title => t('comment.add_new')}if @space.authorize?([:create, :content],:to => current_user) %>

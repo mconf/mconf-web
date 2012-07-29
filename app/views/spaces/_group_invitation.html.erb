@@ -21,7 +21,7 @@ $(document).ready(function() {
           "<%= escape_javascript(t('email.spam_invitation', :contact => Site.current.email, :feedback => "http://" + Site.current.domain.to_s + new_feedback_path())) %><br/><br/>";
     <%else%>
       var ending = "<%= escape_javascript(t('invitation.info_space', :space_url => space_url(@space))) %><br/><br/>" +
-          "<%= escape_javascript(t('space.group_invitation.private', :register_url=>signup_url)) %><br/>" +
+          "<%= escape_javascript(t('space.group_invitation.private', :register_url=>register_url)) %><br/>" +
           "<%= escape_javascript(t('email.kind_regards')) %><br/><br/>" +
           "<%= current_user.full_name%><br/><%= current_user.email %><br/><%= current_user.organization%><br/>" +
           "<%= escape_javascript(t('email.spam_invitation', :contact => Site.current.email, :feedback => "http://" + Site.current.domain.to_s + new_feedback_path())) %><br/><br/>";
@@ -63,7 +63,7 @@ $(document).ready(function() {
           <textarea id="invite_personal"><%= t('invitation.personal') %></textarea><br/>
           <%= t('invitation.info_space', :space_url => space_url(@space)) %><br/><br/>
           <%if !(@space.public)%>
-            <%= t('space.group_invitation.private', :register_url=>signup_url) %><br/>
+            <%= t('space.group_invitation.private', :register_url=>register_url) %><br/>
           <%end%>
           <%= t('email.kind_regards') %><br/><br/>
           <%= current_user.full_name%><br/>

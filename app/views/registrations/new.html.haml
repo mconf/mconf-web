@@ -1,0 +1,8 @@
+= render_page_title t('register.one')
+
+#register-wrapper
+  = render :partial => 'signup_form'
+  .extra-links
+    .comments
+      %span= t('register.confirmation')
+    = render "devise/shared/links"

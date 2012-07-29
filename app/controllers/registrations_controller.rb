@@ -16,16 +16,6 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with VCC.  If not, see <http://www.gnu.org/licenses/>.
 
-module LocaleControllerModule
-  def set_vcc_locale
-    if user_signed_in? && current_user.is_a?(User) && current_user.locale.present? && I18n.available_locales.include?(current_user.locale.to_sym)
-      I18n.locale = current_user.locale.to_sym
-    elsif session[:locale] and I18n.available_locales.include?(session[:locale])
-      I18n.locale = session[:locale]
-    elsif current_site and current_site.locale and I18n.available_locales.include?(current_site.locale.to_sym)
-      I18n.locale = current_site.locale
-    else
-      I18n.locale = I18n.default_locale
-    end
-  end
+class RegistrationsController < Devise::RegistrationsController
+  layout 'no_sidebar'
 end

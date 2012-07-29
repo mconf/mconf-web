@@ -34,7 +34,7 @@ module ApplicationHelper
     bg_color = options.delete(:bg_color)
     query_string = options.to_query
 
-    html = <<-EOF
+    <<-EOF
     <object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000"
             width="14"
             height="14"
@@ -85,17 +85,26 @@ module ApplicationHelper
   # Includes javascripts for the current controller
   # Example: 'assets/events.js'
   def javascript_include_tag_for_controller
-    if asset_exists?(params[:controller], "js")
-      javascript_include_tag(params[:controller])
+    ctl = controller_name_for_view
+    if asset_exists?(ctl, "js")
+      javascript_include_tag(ctl)
     end
   end
 
   # Includes stylesheets for the current controller
   # Example: 'assets/events.css'
   def stylesheet_link_tag_for_controller(options={})
-    if asset_exists?(params[:controller], "css")
-      stylesheet_link_tag(params[:controller], options)
+    ctl = controller_name_for_view
+    if asset_exists?(ctl, "css")
+      stylesheet_link_tag(ctl, options)
     end
+  end
+
+  # Returns the name of the current controller to be used in view
+  # (for js and css names). Used to convert names with slashes
+  # such as 'devise/sessions'.
+  def controller_name_for_view
+    params[:controller].parameterize
   end
 
   # Renders the partial 'layout/page_title'

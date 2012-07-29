@@ -1,6 +1,6 @@
 @import "definitions";
 
-body.users.new, body.users.create {
+body.registrations.new, body.registrations.create {
 
   $register-box-width: 500px;
   $right-side-width: $contents-width - $register-box-width - 50px;

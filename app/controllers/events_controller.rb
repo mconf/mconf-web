@@ -43,7 +43,7 @@ class EventsController < ApplicationController
 
     respond_to do |format|
       format.html {
-        if logged_in? && current_user.timezone == nil
+        if user_signed_in? && current_user.timezone == nil
           flash[:notice] = t('timezone.set_up', :path => edit_user_path(current_user)).html_safe
         end
         if request.xhr?
@@ -231,7 +231,7 @@ class EventsController < ApplicationController
   #method to get the token to participate in a online videoconference
   def token
           #if the user is not logged in the name should be guest+number
-          if !logged_in?
+          if !user_signed_in?
                   @token = MarteToken.create :username=>"Guest-"+rand(100).to_s, :role=>"admin", :room_id=>params[:id]
           else
                    @token = MarteToken.create :username=>current_user.name, :role=>"admin", :room_id=>params[:id]
@@ -239,7 +239,7 @@ class EventsController < ApplicationController
 
           if @token.nil?
                   MarteRoom.create :name => params[:id]
-                  if !logged_in?
+                  if !user_signed_in?
                            @token = MarteToken.create :username=>"Guest-"+rand(100).to_s, :role=>"admin", :room_id=>params[:id]
                   else
                       @token = MarteToken.create :username=>current_user.name, :role=>"admin", :room_id=>params[:id]

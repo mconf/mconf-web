@@ -1,6 +1,6 @@
 <div id="assistance_info">
         <div id="assistance_title"><h3><%= t('event.assistance_title') %></h3></div>
-        <%if logged_in?%>
+        <%if user_signed_in?%>
         <div id="assistance_status">
           <%if @event.participants.map(&:user).include?(current_user)%>
                   <h5><%= t('event.will_attend') %></h5>
@@ -26,7 +26,7 @@
                         </div>
                   <%end%>
                 <%else%>
-                  <%if @space.authorize?([:read, :content], :to => current_user) && logged_in? && !@event.past?%>
+                  <%if @space.authorize?([:read, :content], :to => current_user) && user_signed_in? && !@event.past?%>
                         <h5><%= t('event.will_attend') %></h5>
                           <div class="event_options">
                                 <%=link_to ("<button>"+t('agree')+"</button>").html_safe, space_event_participants_path(@space,@event,:participant => {:attend => true}),:method => :post, :class => "participant" %>

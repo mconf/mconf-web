@@ -39,7 +39,7 @@ class FrontpageController < ApplicationController
     @user = User.new
 
     respond_to do |format|
-      if logged_in?
+      if user_signed_in?
         format.html { redirect_to home_path }
       else
         format.html
