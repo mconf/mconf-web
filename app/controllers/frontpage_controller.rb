@@ -36,9 +36,7 @@ class FrontpageController < ApplicationController
     #   break if @most_active_spaces.size == 10
     # end
 
-    @user = User.new
-
-    respond_to do |format|
+   respond_to do |format|
       if user_signed_in?
         format.html { redirect_to home_path }
       else

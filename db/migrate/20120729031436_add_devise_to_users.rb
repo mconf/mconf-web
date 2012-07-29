@@ -6,7 +6,6 @@ class AddDeviseToUsers < ActiveRecord::Migration
       t.rename :crypted_password, :encrypted_password
       t.change :encrypted_password, :string, :null => false, :default => ""
       t.change :email,              :string, :null => false, :default => ""
-      t.remove :salt
 
       ## Recoverable
       t.string   :reset_password_token
@@ -39,6 +38,9 @@ class AddDeviseToUsers < ActiveRecord::Migration
       # t.integer  :failed_attempts, :default => 0 # Only if lock strategy is :failed_attempts
       # t.string   :unlock_token # Only if unlock strategy is :email or :both
       # t.datetime :locked_at
+
+      ## Encryptable
+      t.rename :salt, :password_salt
 
       ## Token authenticatable
       # t.string :authentication_token

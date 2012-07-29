@@ -74,57 +74,6 @@ class UsersController < ApplicationController
     end
   end
 
-  # GET /users/new
-  # GET /users/new.xml
-  def new
-    @user = user
-    render :layout => 'no_sidebar'
-  end
-
-  # POST /users
-  # POST /users.xml
-  # POST /users.atom
-  # {"commit"=>"Sign up", "captcha"=>"FBIILL", "tags"=>"", "action"=>"create",
-  # "controller"=>"users", "user"=>{"password_confirmation"=>"prueba", "email2"=>"", "email3"=>"",
-  # "login"=>"julito", "password"=>"prueba", "email"=>"email@domain.com"}}
-
-  def create
-    cookies.delete :auth_token
-    # protects against session fixation attacks, wreaks havoc with
-    # request forgery protection.
-    # uncomment at your own risk
-    # reset_session
-
-    respond_to do |format|
-      if user.save_with_captcha
-        user.tag_with(params[:tags]) if params[:tags]
-        self.current_agent = user
-        flash[:notice] = t('user.registered')
-
-        format.html {
-
-          if (user.special_event.nil?)
-            redirect_back_or_default root_path
-          else
-            redirect_to space_event_url(user.special_event.space,user.special_event)
-          end
-
-        }
-        format.xml  { render :xml => @user, :status => :created, :location => @user }
-        format.atom {
-          headers["Location"] = formatted_user_url(@user, :atom )
-          render :action => 'show',
-          :status => :created
-        }
-      else
-        format.html { render :action => "new", :layout => "no_sidebar" }
-        format.xml  { render :xml => @user.errors, :status => :unprocessable_entity }
-        format.atom { render :xml => @user.errors.to_xml, :status => :bad_request }
-      end
-    end
-
-  end
-
   #This method returns the user to show the form to edit himself
   def edit
     @shib_user = session.has_key?(:shib_data)

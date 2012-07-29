@@ -93,8 +93,12 @@ body {
   .remember-me {
     float: right;
 
+    label {
+      margin-top: 0;
+    }
+
     input[type=checkbox] {
-      margin-top: -5px;
+      margin-top: 3px;
       margin-right: 5px;
     }
   }

@@ -448,6 +448,7 @@ ActiveRecord::Schema.define(:version => 20120729031436) do
     t.string   "login"
     t.string   "email",                  :default => "",    :null => false
     t.string   "encrypted_password",     :default => "",    :null => false
+    t.string   "password_salt",          :limit => 40
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "superuser",              :default => false

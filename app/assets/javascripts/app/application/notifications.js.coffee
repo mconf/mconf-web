@@ -13,7 +13,7 @@ $ ->
     layout: 'topCenter'
     closeButton: true
 
-  $("#notification-flashs > div[name='error']").each ->
+  $("div[name='error'], div[name='alert']", "#notification-flashs").each ->
     opts = $.extend {}, noty_opt,
       text: $(this).text()
       type: 'error'
