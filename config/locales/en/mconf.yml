@@ -1537,6 +1537,7 @@ en:
   video_attachment: 
     delete: "Delete video attachment"
     video_name: "Uploaded Video"
+  view: "View"
   view_more: "View more"
   webconference: 
     currently_running: 

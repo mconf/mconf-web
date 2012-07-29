@@ -438,6 +438,7 @@ ul#navbar-right-links {
       min-width: 300px;
       width: 300px;
       border: 1px solid #ccc;
+      padding: 10px;
       &.arrow-right:after { border-bottom-color: white; }
 
       a {
@@ -487,17 +488,25 @@ ul#navbar-right-links {
   .user-links {
     @include mconf-clearfix;
     clear: both;
-    margin-top: 5px;
-    background: darken($site-bg-color, 5);
-    margin-bottom: 5px;
+    margin-top: 10px;
+    background: $light-gray;
+    padding: 2px;
     @include border-radius(4px);
+    border: 1px solid darken($light-gray, 5);
+
     ul {
       margin: 0;
       li {
         float: right;
         margin: 0;
         border: 0;
-        padding: 5px 10px;
+        padding: 0 10px;
+        white-space: nowrap;
+        a {
+          clear: none;
+          float: none;
+          display: inline;
+        }
       }
     }
   }

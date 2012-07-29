@@ -42,7 +42,12 @@
             %ul
               %li= link_to t('logout', :user => current_user.name), logout_path
               %li= link_to t('account'), edit_user_path(current_user)
-              %li.last= link_to t('profile.one'), user_path(current_user)
+              %li
+                = t('profile.one') + ":"
+                %span
+                  = link_to t('view'), user_path(current_user)
+                  = "/ "
+                  = link_to t('edit'), edit_user_path(current_user)
 
     - else
       %li.last= link_to t('login.one'), login_path
