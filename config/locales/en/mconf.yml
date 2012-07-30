@@ -1542,8 +1542,6 @@ en:
     title_people_conf: "People in the room"
   when: When
   where: Where
-  xmpp_server: 
-    password_invalid: "invalid password"
   yesterday: Yesterday
   your_interests_tags: "Your interests (tags)"
   your_vcard: "your vCard"

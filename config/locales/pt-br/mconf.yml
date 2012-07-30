@@ -1475,8 +1475,6 @@ pt-br:
     title_people_conf: "Pessoas na sala"
   when: Quando
   where: Onde
-  xmpp_server:
-    password_invalid: "senha inválida"
   yesterday: Ontem
   your_interests_tags: "Seus interesses (tags)"
   your_vcard: "seu vCard"

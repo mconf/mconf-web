@@ -843,8 +843,6 @@ fr:
     other: Vidéos
   when: Quand
   where: Où
-  xmpp_server: 
-    password_invalid: "mot de passe invalide"
   yesterday: Hier
   your_interests_tags: "Vos centres d'intérêts (tags)"
   your_vcard: "votre vCard"

@@ -804,8 +804,6 @@ de:
     one: Version
   when: Wann
   where: Wo
-  xmpp_server: 
-    password_invalid: "ungültiges Passwort"
   yesterday: Gestern
   your_interests_tags: "Ihre Interessen (Tags)"
   your_vcard: "Ihre vCard"
