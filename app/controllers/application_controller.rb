@@ -109,13 +109,11 @@ class ApplicationController < ActionController::Base
     @webconf_room
   end
 
+  # TODO: it's pretty annoying to show this in every page
   before_filter :not_activated_warning
   def not_activated_warning
-    if authenticated? && ! current_agent.active?
-      #if the account is going to be activated we only show the activaton flash not this one
-      unless params[:controller] == "users" && params[:action]=="activate"
-        flash[:notice] = t('user.not_activated', :url => resend_confirmation_path)
-      end
+    if user_signed_in? && !current_user.confirmed?
+      flash[:notice] = t('user.not_activated', :url => new_user_confirmation_path)
     end
   end
 

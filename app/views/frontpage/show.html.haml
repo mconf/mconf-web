@@ -9,9 +9,11 @@
     %h2= t('login.login_desc')
     = render :partial => 'sessions/login_form'
     .action-links
-      = link_to t('user.lost_password'), lost_password_path
-      - if current_site.shib_enabled?
-        = link_to t('cafe.login'), shibboleth_path, :class => 'shibboleth_login'
+      %ul
+        %li= link_to t('user.lost_password'), new_user_password_path
+        %li= link_to t("user.resend_confirmation_email.link"), new_confirmation_path(resource_name)
+        - if current_site.shib_enabled?
+          %li= link_to t('cafe.login'), shibboleth_path, :class => 'shibboleth_login'
 
   #registration-box.form-area
     %h2= t('register.one')

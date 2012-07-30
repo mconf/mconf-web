@@ -47,10 +47,6 @@
   // forms with a single column, where no information can be
   // shown at the side of an input
   &.single-column {
-    input.string, input.password, textarea.text, select {
-      width: 99%;
-    }
-
     .field_with_errors .error {
       display: block;
       text-align: right;

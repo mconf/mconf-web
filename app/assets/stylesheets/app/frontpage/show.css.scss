@@ -78,12 +78,11 @@ body {
     float: right;
     margin-top: 15px;
     clear: both;
-  }
 
-  .shibboleth_login {
-    border-left: 1px solid #888;
-    padding-left: 7px;
-    margin-left: 5px;
+    ul {
+      margin: 0;
+      text-align: right;
+    }
   }
 
   input[type=submit] {

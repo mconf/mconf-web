@@ -62,7 +62,7 @@ class ShibbolethController < ApplicationController
                           :password => password, :password_confirmation => password)
       user.activate
       user.profile.update_attributes(:full_name => shib_name)
-      flash[:notice] = t('shibboleth.create.account_created', :url => lost_password_path)
+      flash[:notice] = t('shibboleth.create.account_created', :url => new_user_password_path)
     end
 
     # login and go to home

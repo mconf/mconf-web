@@ -1,5 +1,5 @@
 -# TODO: works with ssl?
-= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :class => 'form-inline' }) do |f|
+= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :class => 'form-inline single-column' }) do |f|
   = render :partial => 'registrations/form_fields', :locals => { :f => f }
   = f.button :submit, t('register.one'), :class => "btn"
 

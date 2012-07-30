@@ -15,8 +15,7 @@ Mconf::Application.routes.draw do
 
   controllers = { :sessions => "sessions", :registrations => "registrations" }
   paths = { :sign_in => "login", :sign_out => "logout", :sign_up => "signup" }
-  devise_for :users, :path_names => paths, :controllers => controllers
-  devise_scope :user do
+  devise_for :users, :path_names => paths, :controllers => controllers do
     get "login", :to => "sessions#new"
     get "logout", :to => "sessions#destroy"
     get "register", :to => "registrations#new"
@@ -199,14 +198,7 @@ Mconf::Application.routes.draw do
   match 'help', :to => 'faq#show', :as => 'help'
   match 'faq', :to => 'faq#show', :as => 'faq'
 
-  #resource :session
-  #match '/login', :to => 'sessions#new', :as => 'login'
-  #match '/logout', :to => 'sessions#destroy', :as => 'logout'
-  #match '/signup', :to => 'users#new', :as => 'signup'
-  match '/lost_password', :to => 'users#lost_password', :as => 'lost_password'
-  match '/resend_confirmation', :to => 'users#resend_confirmation', :as => 'resend_confirmation'
   match '/reset_password/:reset_password_code', :to => 'users#reset_password', :as => 'reset_password'
-  match '/activate/:activation_code', :to => 'users#activate', :as => 'activate', :activation_code => nil
 
   match 'get_file/:id', :to => 'machines#get_file', :as => 'get_file'
 end

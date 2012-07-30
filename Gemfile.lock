@@ -28,8 +28,8 @@ GIT
 
 GIT
   remote: git://github.com/mconf/station.git
-  revision: e3ff51aa622f17e017e5a95a139e343ff4a9a728
-  branch: gem
+  revision: 8d234cb6d99929e76e7e518f680b1b3f9151c5d6
+  branch: no-auth
   specs:
     station (0.0.1)
       rails (>= 3.0.0)
