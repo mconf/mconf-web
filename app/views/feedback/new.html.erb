@@ -19,7 +19,7 @@
     <%= text_area_tag 'body', params[:body].present? ? params[:body] : nil,:id => "feedback_textarea" %>
   </p>
 	
-	<%if logged_in?%>		
+	<%if user_signed_in?%>		
 		<%= hidden_field_tag 'from',current_user.email%>	
 	<%else%>		
 		<p>

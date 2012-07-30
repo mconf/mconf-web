@@ -18,9 +18,9 @@ module SpacesHelper
   # If the user is already a member of the space, returns nil.
   def space_join_button(space, options={})
     # no user logged, renders a register button
-    if !logged_in?
+    if !user_signed_in?
       unless options.has_key?(:skip_register) and options[:skip_register]
-        link_to t('register.one'), signup_path, options
+        link_to t('register.one'), register_path, options
       end
 
     # a user is logged and he's not in the space

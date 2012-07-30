@@ -1,6 +1,6 @@
 <div class="grey_bar button_wrapper">
   <div id="first_button_group" class="float_left">
-    <% if logged_in? && attachment.authorize?(:read,:to => current_user)%>
+    <% if user_signed_in? && attachment.authorize?(:read,:to => current_user)%>
       <%=link_to ("<span>#{t('document.upload')}</span>").html_safe,new_space_attachment_path(@space),
                  {:id=>"add_document_label_link",:class=>"repository_sidebar_action grey_button basic_button small_button"} %>
     <% else %>

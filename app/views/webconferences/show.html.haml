@@ -6,7 +6,7 @@
   .content-block-header
     %h3= t('webconference.space.access.header')
   .content-block-middle
-    -# - if logged_in?
+    -# - if user_signed_in?
     -#   - join_link = join_space_room_path(space, @webconf_room)
     -# - else
     -#   - join_link = invite_space_room_path(space, @webconf_room)
@@ -25,7 +25,7 @@
     .share-url
       = label_tag 'invite-url-text', t('webconference.space.share.url')
       = text_field_tag 'invite-url-text', join_webconf_url(@webconf_room), :readonly => true
-      - if logged_in?
+      - if user_signed_in?
         = link_to t('button.invite'), inviteroom_invite_path(:type => "webconference", :room => space.bigbluebutton_room.to_param), :title => t('home.webconference.invite_tooltip'), :class => 'btn open-modal tooltipped upwards'
 
 .content-block

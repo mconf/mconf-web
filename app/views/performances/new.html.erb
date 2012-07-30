@@ -27,7 +27,7 @@
                         <div>
                                 <%= select 'users',
                                            'id',
-                                           User.find(:all).collect { |u| [ u.login, u.id ] },
+                                           User.find(:all).collect { |u| [ u.username, u.id ] },
                                            {},
                                            { :multiple => true,
                                              :size     => 10 } %>
@@ -61,7 +61,7 @@
                         <span><%= t('admin.one') %></span>
                         <%= select 'users',
                                    'id',
-                                   @space.get_users_with_role("Admin").collect { |u| [ u.login, u.id ] },
+                                   @space.get_users_with_role("Admin").collect { |u| [ u.username, u.id ] },
                                    {},
                                    { :multiple => true,
                                      :size     => 10 } %>
@@ -83,7 +83,7 @@
                         <span><%= t('user.one') %></span>
                         <%= select 'users',
                                    'id',
-                                   @space.get_users_with_role("User").collect { |u| [ u.login, u.id ] },
+                                   @space.get_users_with_role("User").collect { |u| [ u.username, u.id ] },
                                    {},
                                    { :multiple => true,
                                      :size     => 10 } %>
@@ -104,7 +104,7 @@
                 <span><%= t('invited') %></span>
                         <%= select 'users',
                                    'id',
-                                   @space.get_users_with_role("Invited").collect { |u| [ u.login, u.id ] },
+                                   @space.get_users_with_role("Invited").collect { |u| [ u.username, u.id ] },
                                    {},
                                    { :multiple => true,
                                      :size     => 10 } %>

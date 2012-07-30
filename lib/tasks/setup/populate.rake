@@ -26,7 +26,7 @@ namespace :setup do
 
     puts "* Create users (15)"
     User.populate 15 do |user|
-      user.login = Populator.words(1)
+      user.username = Populator.words(1)
       user.email = Faker::Internet.email
       user.crypted_password = User.encrypt("test", "")
       user.activated_at = @created_at_start..Time.now
@@ -57,7 +57,7 @@ namespace :setup do
       if user.bigbluebutton_room.nil?
         user.create_bigbluebutton_room :owner => user,
                                        :server => BigbluebuttonServer.first,
-                                       :param => user.login,
+                                       :param => user.username,
                                        :name => user.profile.full_name
       end
     end

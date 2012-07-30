@@ -59,7 +59,7 @@ class JoinRequestsController < ApplicationController
         end
       end
       self.current_agent = User.authenticate_with_login_and_password(params[:user][:email], params[:user][:password])
-      unless logged_in?
+      unless user_signed_in?
         flash[:error] = t('error.credentials')
         respond_to do |format|
           format.html {

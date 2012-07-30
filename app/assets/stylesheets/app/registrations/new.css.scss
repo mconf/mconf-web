@@ -1,6 +1,6 @@
 @import "definitions";
 
-body.users.new, body.users.create {
+body.registrations.new, body.registrations.create {
 
   $register-box-width: 500px;
   $right-side-width: $contents-width - $register-box-width - 50px;
@@ -17,10 +17,6 @@ body.users.new, body.users.create {
 
       input[type=text], input[type=password], input[type=email] {
         width: 250px;
-      }
-
-      .field_with_errors .error {
-        display: block;
       }
 
       .simple_captcha {

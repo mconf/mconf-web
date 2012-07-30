@@ -16,20 +16,44 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with VCC.  If not, see <http://www.gnu.org/licenses/>.
 
+require 'devise/encryptors/station_encryptor'
 require 'digest/sha1'
 class User < ActiveRecord::Base
-  apply_simple_captcha
+  # Other available devise modules are:
+  # :token_authenticatable, :lockable, :timeoutable and :omniauthable
+  devise :database_authenticatable, :registerable, :confirmable,
+         :recoverable, :rememberable, :trackable, :validatable,
+         :encryptable
+
+  # Virtual attribute for authenticating by either username or email
+  attr_accessor :login
+
+  # Setup accessible (or protected) attributes for your model
+  attr_accessible :email, :password, :password_confirmation, :remember_me,
+                  :username, :login
+
+  def self.find_first_by_auth_conditions(warden_conditions)
+    conditions = warden_conditions.dup
+    if login = conditions.delete(:login)
+      where_clause = ["lower(username) = :value OR lower(email) = :value", { :value => login.downcase }]
+      where(conditions).where(where_clause).first
+    else
+      where(conditions).first
+    end
+  end
 
   # LoginAndPassword Authentication:
   acts_as_agent :activation => true
 
+  apply_simple_captcha
+
   validates_presence_of  :email
-  validates_exclusion_of :login, :in => %w( xmpp_server )
+  validates_exclusion_of :username, :in => %w( xmpp_server )
   validates_format_of :email, :with => /^[\w\d._%+-]+@[\w\d.-]+\.[\w]{2,}$/
 
   acts_as_stage
   acts_as_taggable :container => false
-  acts_as_resource :param => :login
+  acts_as_resource :param => :username
 
   has_one :profile, :dependent => :destroy
   has_many :events, :as => :author
@@ -57,13 +81,13 @@ class User < ActiveRecord::Base
   attr_accessor :_full_name
   attr_accessible :_full_name
   extend FriendlyId
-  friendly_id :_full_name, :use => :slugged, :slug_column => :login
+  friendly_id :_full_name, :use => :slugged, :slug_column => :username
   # BigbluebuttonRoom requires an identifier with 3 chars generated from :name
-  # So we'll require :_full_name and :login to have length >= 3
-  validates :login, :uniqueness => true, :length => { :minimum => 3 }
+  # So we'll require :_full_name and :username to have length >= 3
+  validates :username, :uniqueness => true, :length => { :minimum => 3 }
   validates :_full_name, :presence => true, :length => { :minimum => 3 }, :on => :create
 
-  after_validation :check_login
+  after_validation :check_username
   after_create :create_webconf_room
   after_update :update_webconf_room
 
@@ -90,21 +114,21 @@ class User < ActiveRecord::Base
   def create_webconf_room
     create_bigbluebutton_room :owner => self,
                               :server => BigbluebuttonServer.first,
-                              :param => self.login,
+                              :param => self.username,
                               :name => self._full_name,
                               :logout_url => "/feedback/webconf/"
   end
 
   def update_webconf_room
-    if self.login_changed?
-      bigbluebutton_room[:param] = self.login
+    if self.username_changed?
+      bigbluebutton_room[:param] = self.username
     end
   end
 
   delegate :full_name, :logo, :organization, :city, :country, :to => :profile!
   alias_attribute :name, :full_name
   alias_attribute :title, :full_name
-  alias_attribute :permalink, :login
+  alias_attribute :permalink, :username
 
   # Full location: city + country
   def location
@@ -140,7 +164,7 @@ class User < ActiveRecord::Base
   end
 
   def <=>(user)
-    self.login <=> user.login
+    self.username <=> user.username
   end
 
   def spaces
@@ -153,17 +177,17 @@ class User < ActiveRecord::Base
 
   #this method let's the user to login with his e-mail
   def self.authenticate_with_login_and_password(login, password)
-    u = if login =~ /@/
-          if login =~ /(.*)@#{ Site.current.presence_domain }$/
-            find_by_login $1
-          else
-            find_by_email login
-          end
-        else
-          find_by_login login
-        end
+    # u = if login =~ /@/
+    #       if login =~ /(.*)@#{ Site.current.presence_domain }$/
+    #         find_by_login $1
+    #       else
+    #         find_by_email login
+    #       end
+    #     else
+    #       find_by_login login
+    #     end
 
-    u && u.password_authenticated?(password) ? u : nil
+    # u && u.password_authenticated?(password) ? u : nil
   end
 
   def user_count
@@ -173,7 +197,7 @@ class User < ActiveRecord::Base
   def self.atom_parser(data)
     e = Atom::Entry.parse(data)
     user = {}
-    user[:login] = e.title.to_s
+    user[:username] = e.title.to_s
     user[:password] = e.get_elem(e.to_xml, "http://sir.dit.upm.es/schema", "password").text
     user[:password_confirmation] = user[:password]
     e.get_elems(e.to_xml, "http://schemas.google.com/g/2005", "email").each do |email|
@@ -274,11 +298,11 @@ class User < ActiveRecord::Base
 
   private
 
-  # Checks whether there an error in :login.
+  # Checks whether there an error in :username.
   # If there is, set the error in :_full_name to be shown in the views.
-  def check_login
-    if self.errors[:login].size > 0
-      self.errors.add :_full_name, I18n.t('activerecord.errors.messages.invalid_identifier', :id => self.login)
+  def check_username
+    if self.errors[:username].size > 0
+      self.errors.add :_full_name, I18n.t('activerecord.errors.messages.invalid_identifier', :id => self.username)
     end
   end
 

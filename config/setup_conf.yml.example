@@ -10,7 +10,7 @@ default:
 
   # Admin account
   # You can change the password after the initial setup from within the application.
-  admin_login: "admin"                             # Admin user login (e.g. mconf)
+  admin_username: "admin"                          # Admin user login (e.g. mconf)
   admin_fullname: "Mconf Admin"                    # Admin user full name
   admin_email: "admin@default.com"                 # Admin user email
   admin_password: "admin"                          # Admin user password
@@ -61,11 +61,11 @@ default:
 # Uncomment the lines from one of them to define specific configurations for that environment.
 # You can copy any of the parameters from the default section and override them here.
 # Remember to copy the entire sections: if you want to override "site_email" and
-# "admin_login", you must do something like:
+# "admin_username", you must do something like:
 #
 # development:
 #   site_email: "override the email"
-#   admin_login: "my-special-admin"
+#   admin_username: "my-special-admin"
 #
 # Also remember to maintain the file indented with 2 spaces. The YML file must be well
 # formatted to be valid.

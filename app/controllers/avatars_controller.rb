@@ -24,7 +24,7 @@ class AvatarsController < ApplicationController
       return
     end
 
-    @user = User.find_by_login(params[:user_id])
+    @user = User.find_by_username(params[:user_id])
     @avatar = @user.profile!.logo || Avatar.new
 
     temp_logo = TempLogo.new(Avatar, @user, params[:avatar])
@@ -42,7 +42,7 @@ class AvatarsController < ApplicationController
   end
 
   def create
-    user = User.find_by_login(params[:user_id])
+    user = User.find_by_username(params[:user_id])
     if params[:crop_size].present?
       temp_logo = TempLogo.from_session(session)
       params[:avatar] = temp_logo.crop_and_resize params[:crop_size]
@@ -59,7 +59,7 @@ class AvatarsController < ApplicationController
   end
 
   def update
-    user = User.find_by_login(params[:user_id])
+    user = User.find_by_username(params[:user_id])
     if params[:crop_size].present?
       temp_logo = TempLogo.from_session(session)
       params[:avatar] = temp_logo.crop_and_resize params[:crop_size]
@@ -75,7 +75,7 @@ class AvatarsController < ApplicationController
   end
 
   def show
-    user = User.find_by_login(params[:user_id])
+    user = User.find_by_username(params[:user_id])
 
     if user.logo.present?
       logo = user.logo

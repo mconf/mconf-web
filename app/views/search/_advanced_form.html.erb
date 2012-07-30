@@ -62,7 +62,7 @@ $(document).ready(function() {
   <%if @space.nil?%>
     <h3>
       <%=t('search.in')%>
-      <%=select_tag "space_id", options_for_select(["Any space"] + ((logged_in? ? current_user.spaces : []) | Space.public.all).map{|s| [s.name, s.permalink]}, "Any space")%>
+      <%=select_tag "space_id", options_for_select(["Any space"] + ((user_signed_in? ? current_user.spaces : []) | Space.public.all).map{|s| [s.name, s.permalink]}, "Any space")%>
     </h3>
   <%else%>
     <h3><%=t('searching_in')%> <%=@space.name%>.<%=link_to t('search.switch'), search_all_path(:advanced => true)%></h3>

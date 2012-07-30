@@ -22,7 +22,7 @@ class SpacesController < ApplicationController
   before_filter :space
   before_filter :webconf_room!, :only => [:show, :edit]
 
-  authentication_filter :only => [:new, :create]
+  before_filter :authenticate_user!, :only => [:new, :create]
   authorization_filter :read,   :space, :only => [:show]
   authorization_filter :update, :space, :only => [:edit, :update]
   authorization_filter :delete, :space, :only => [:destroy, :enable]
@@ -42,7 +42,7 @@ class SpacesController < ApplicationController
     @private_spaces = @spaces.select{|s| !s.public?}
     @public_spaces = @spaces.select{|s| s.public?}
 
-    if logged_in? && current_user.spaces.any?
+    if user_signed_in? && current_user.spaces.any?
       @user_spaces = current_user.spaces
     else
       @user_spaces = []

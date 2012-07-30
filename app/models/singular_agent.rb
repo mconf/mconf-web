@@ -62,4 +62,5 @@ class SingularAgent < ActiveRecord::Base
   end
 
   alias login name
+  alias username name
 end

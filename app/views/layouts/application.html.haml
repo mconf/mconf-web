@@ -19,7 +19,7 @@
     = csrf_meta_tag
     = yield :headers
 
-  %body{:class => "#{params[:controller]} #{params[:action]}"}
+  %body{:class => "#{controller_name_for_view} #{params[:action]}"}
     #site
       #navbar-wrapper
         #navbar

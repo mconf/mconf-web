@@ -20,15 +20,15 @@
 
 #space-filter-wrapper
   .action-button
-    - if logged_in?
+    - if user_signed_in?
       = link_to t('space.create_own'), new_space_path, :class => "btn btn-info"
     - else
       = t('getting_started')
-      = link_to t('register.one'), signup_path, :class => "btn btn-primary"
+      = link_to t('register.one'), register_path, :class => "btn btn-primary"
 
   .btn-group{ :"data-toggle" => "buttons-radio" }
     = button_tag t('space.index.filters.all'), :id => "show-spaces-all", :class => "btn active"
-    - if logged_in?
+    - if user_signed_in?
       = button_tag t('space.index.filters.my_spaces'), :id => "show-spaces-mine", :class => "btn"
     = button_tag t('space.index.filters.filter'), :id => "show-spaces-filter", :class => "btn"
     = text_field_tag 'space-filter-text', params[:filter], :placeholder => t('search.space.dots')

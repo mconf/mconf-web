@@ -18,7 +18,7 @@
 
 module LocaleControllerModule
   def set_vcc_locale
-    if logged_in? && current_user.is_a?(User) && current_user.locale.present? && I18n.available_locales.include?(current_user.locale.to_sym)
+    if user_signed_in? && current_user.is_a?(User) && current_user.locale.present? && I18n.available_locales.include?(current_user.locale.to_sym)
       I18n.locale = current_user.locale.to_sym
     elsif session[:locale] and I18n.available_locales.include?(session[:locale])
       I18n.locale = session[:locale]

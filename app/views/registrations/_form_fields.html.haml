@@ -1,0 +1,22 @@
+= f.input :email, :label => t('user.email'), :required => true, :autofocus => true
+= f.input :_full_name, :label => t('user.full_name'), :required => true
+= f.input :password, :label => t('user.password'), :required => true
+= f.input :password_confirmation, :label => t('user.password_confirmation'), :required => true
+
+-# - if user_signed_in? && @shib_user
+-#   = f.input :email, :label => t('user.email'), :required => true, :disabled => true
+-# - else
+-#   = f.input :email, :label => t('user.email'), :required => true
+
+-# - if f.object.new_record?
+-#   = f.input :_full_name, :label => t('user.full_name'), :required => true
+-# - else
+-#   = f.input :_full_name, :as => 'hidden', :input_html => { :value => user.full_name }
+-#   = f.input :login, :label => t('user.id'), :required => true, :hint => t("tooltip.user_id")
+
+-# - if f.object.new_record?
+-#   = f.input :password, :label => t('user.password'), :required => true
+-#   = f.input :password_confirmation, :label => t('user.password_confirmation'), :required => true
+-# - else
+-#   = f.input :password, :label => t('user.new_password'), :required => false, :hint => t("user.new_password_tip")
+-#   = f.input :password_confirmation, :label => t('user.new_password_confirmation'), :required => false

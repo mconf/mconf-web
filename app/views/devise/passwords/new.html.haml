@@ -1,0 +1,6 @@
+= render_page_title t('user.lost_password')
+
+#form-wrapper
+  = simple_form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post, :class => 'form-inline single-column' }) do |f|
+    = f.input :email, :label => t('user.email_used_to_create_account'), :required => true
+    = f.button :submit, t('user.request_password'), :class => 'btn'

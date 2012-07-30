@@ -17,15 +17,15 @@
 # along with VCC.  If not, see <http://www.gnu.org/licenses/>.
 
 class UserObserver < ActiveRecord::Observer
-  def after_create(user)
-    Notifier.delay.confirmation_email(user) unless user.activated_at
-  end
+  # def after_create(user)
+  #   Notifier.delay.confirmation_email(user) unless user.activated_at
+  # end
 
-  def after_save(user)
-    if user.class.password_recovery?
-      Notifier.delay.activation(user) if user.recently_activated?
-      Notifier.delay.lost_password(user) if user.recently_lost_password?
-      Notifier.delay.reset_password(user) if user.recently_reset_password?
-    end
-  end
+  # def after_save(user)
+  #   if user.class.password_recovery?
+  #     Notifier.delay.activation(user) if user.recently_activated?
+  #     Notifier.delay.lost_password(user) if user.recently_lost_password?
+  #     Notifier.delay.reset_password(user) if user.recently_reset_password?
+  #   end
+  # end
 end

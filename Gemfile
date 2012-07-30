@@ -30,7 +30,9 @@ gem 'bigbluebutton_rails', :git => 'git://github.com/mconf/bigbluebutton_rails.g
 gem 'simple_form', '~> 2.0.0'
 gem 'acts_as_tree', :git => 'https://github.com/parasew/acts_as_tree.git'
 gem 'friendly_id'
-gem 'station', :git => 'git://github.com/mconf/station.git', :branch => 'gem'
+gem 'station', :git => 'git://github.com/mconf/station.git', :branch => 'no-auth'
+gem 'devise'
+gem 'devise-encryptable' # TODO: only while we have old station users
 gem 'i18n-js', :git => "git://github.com/fnando/i18n-js.git", :branch => 'rewrite'
 
 # TODO: Gems to review if we can remove/update
