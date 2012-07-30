@@ -1,76 +1,19 @@
 - content_for :"navbar" do
-  = render :partial => "navbar"
-
-#subnav-wrapper
-  #subnav
-    %ul.nav
-      %li.active
-        = link_to t('frontpage.sections.introduction'), '#introduction', :class => 'smooth'
-      %li
-        = link_to t('frontpage.sections.more_about_mconf'), '#more-about-mconf', :class => 'smooth'
-
-    .registration-area
-      %span= t('frontpage.register_sentence')
-      %a.btn.btn-success{:href => signup_path}= t('register.one')
-
-    %ul.register-and-login
-      %li= link_to t('login.one'), '#site', :class => 'smooth' # just go to the top of the page
-      %li= link_to t('register.one'), signup_path
+  #navbar
+    #main-logo
+      %a.title{:href => root_path}= image_tag 'logos/mconf-white-transp.png', :size => '231x120'
 
 #content
-  #introduction
 
-    .left-column
-      #what-is-it
-        .headline
-          .section-title
-            %h2= t('frontpage.sections.what_is_mconf')
-          .text= t('frontpage.project_description').html_safe
-      = render :partial => 'space_list', :locals => { :spaces => @most_active_spaces }
+  #login-box.form-area
+    %h2= t('login.login_desc')
+    = render :partial => 'sessions/login_form'
+    .action-links
+      = link_to t('user.lost_password'), lost_password_path
+      - if current_site.shib_enabled?
+        = link_to t('cafe.login'), shibboleth_path, :class => 'shibboleth_login'
 
-    .right-column
-      #searching-for
-        .section-title
-          %h2= t('frontpage.searching_for.title')
-        .content
-          .content-block
-            %span.link-title= t('frontpage.searching_for.use.title')
-            %span= t('frontpage.searching_for.use.message').html_safe
-          .content-block
-            %span.link-title= t('frontpage.searching_for.install.title')
-            %span= t('frontpage.searching_for.install.message').html_safe
-            .more
-              = link_to t("click_here_to_see_more"), "http://code.google.com/p/mconf/wiki/MconfInstallation"
-          .content-block
-            %span.link-title= t('frontpage.searching_for.collaborate.title')
-            %span= t('frontpage.searching_for.collaborate.message').html_safe
-            .more
-              = link_to t("click_here_to_see_more"), "http://code.google.com/p/mconf/wiki/MconfCollaborate"
-
-#more-about-mconf-wrapper
-  #more-about-mconf
-
-    #mconf-links
-      .section-title
-        %h2= t('frontpage.open_source.title')
-        .subtitle
-          %span= t('frontpage.open_source.subtitle')
-      .links.content-block
-        %ul
-          %li
-            = link_to "http://code.google.com/p/mconf" do
-              = image_tag('logos/google-code-48x48.png', :size => '48x48')
-            = link_to t('frontpage.links.docs'), "http://code.google.com/p/mconf", :class => 'link-title'
-            %span.link-description= t('frontpage.links.docs_desc')
-          %li
-            = link_to "https://github.com/mconf" do
-              = image_tag('logos/github-octocat-48x48.png', :size => '48x48')
-            = link_to t('frontpage.links.source_code'), "https://github.com/mconf", :class => 'link-title'
-            %span.link-description= t('frontpage.links.source_code_desc')
-          %li
-            = image_tag('logos/prav-73x48.png', :size => '73x48')
-            %a.link-title{:href => "http://inf.ufrgs.br/prav/gtmconf"}= t('frontpage.links.project_website')
-            %span.link-description= t('frontpage.links.project_website_desc')
-
-    = render :partial => "components"
+  #registration-box.form-area
+    %h2= t('register.one')
+    = render :partial => 'users/signup_form'
 

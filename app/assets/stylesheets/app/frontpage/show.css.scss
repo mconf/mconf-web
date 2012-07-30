@@ -1,0 +1,160 @@
+@import "compass/css3";
+@import "compass/utilities/general";
+@import "compass/typography";
+@import "definitions";
+
+$navbar-height: auto;
+$login-box-width: 400px;
+$registration-box-width: $contents-width - $login-box-width - 40px;
+$bg-light: adjust-color($green-logo, $red: -15, $blue: -15, $green: -15);
+$bg-normal: darken($green-logo, 3);
+
+body {
+  background: $bg-light;
+}
+
+#site {
+  background: none;
+  @include box-shadow(none);
+}
+
+#navbar-wrapper {
+  background: $bg-normal;
+}
+
+#navbar {
+  background: none;
+  width: $contents-width;
+  margin: 0 auto;
+  padding: 20px 0 30px 0;
+  height: $navbar-height;
+  @include clearfix;
+}
+
+#main-logo {
+  width: 240px;
+  margin: 30px auto;
+  padding: 0;
+  float: none;
+
+  img {
+    width: 231px;
+    height: 120px;
+  }
+}
+
+.form-area {
+  color: #eee;
+
+  form {
+    float: right;
+  }
+
+  a { @include link-colors(#bbb, white, $site-link-active); }
+
+  label {
+    font-size: 14px;
+    color: #eee;
+  }
+
+  input[type=text], input[type=password], input[type=email] {
+    width: 250px;
+    background: #eee;
+    @include background(linear-gradient(top, #ccc, #eee));
+
+    &:focus {
+      background: #fff;
+    }
+  }
+
+  abbr[title=required] { display: none; }
+}
+
+#login-box {
+  float: left;
+  width: $login-box-width;
+
+  .action-links {
+    float: right;
+    margin-top: 15px;
+    clear: both;
+  }
+
+  .shibboleth_login {
+    border-left: 1px solid #888;
+    padding-left: 7px;
+    margin-left: 5px;
+  }
+
+  input[type=submit] {
+    float: right;
+  }
+
+  .remember-me {
+    float: right;
+
+    input[type=checkbox] {
+      margin-top: -5px;
+      margin-right: 5px;
+    }
+  }
+}
+
+#registration-box {
+  float: right;
+  width: $registration-box-width;
+  margin-right: 20px;
+
+  .simple_captcha {
+    float: right;
+    padding: 0 !important;
+    margin: 10px 0;
+
+    div { display: inline; }
+
+    .simple_captcha_field {
+      text-align: center;
+    }
+
+    .simple_captcha_image {
+      background: white;
+      margin-right: 5px;
+    }
+  }
+
+  input[type=submit] {
+    float: right;
+    clear: both;
+  }
+}
+
+#content {
+  width: $contents-width;
+  margin: 0 auto;
+  padding-top: 50px;
+
+  h2 {
+    text-align: right;
+    margin: 0 0 10px 0;
+    color: #ddd;
+    @include text-shadow(darken($green-logo, 5) 1px 1px 4px);
+  }
+}
+
+#upper-footer {
+  margin-top: 30px;
+  color: #ccc;
+
+  a {
+    @include link-colors(#ccc, $site-link-hover, $site-link-active);
+  }
+
+  h3 {
+    color: #fff;
+    border-bottom: 1px solid lighten($bg-normal, 4);
+  }
+
+  #footer-logo {
+    color: #ccc;
+  }
+}

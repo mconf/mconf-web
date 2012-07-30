@@ -1,0 +1,6 @@
+= simple_form_for @user, :url => users_path, :html => { :class => 'form-inline' } do |f|
+  = render :partial => 'users/form_fields', :locals => { :f => f }
+  = f.text_field :special_event_id, :style => 'display:none'
+  %div{ :class => @user.errors[:captcha].empty? ? 'captcha' : 'captcha field_with_errors' }
+    = show_simple_captcha(:object => :user)
+  = f.button :submit, t('register.one'), :class => "btn"

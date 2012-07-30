@@ -26,65 +26,6 @@ form {
   margin: 0;
 }
 
-.simple_form {
-
-  .input {
-    margin-top: 5px;
-    margin-bottom: 10px;
-
-    label {
-      &.collection_radio_buttons {
-        display: inline;
-        margin-left: 5px;
-        margin-right: 10px;
-      }
-    }
-
-    abbr {
-      border: 0;
-      margin: 0;
-      color: red;
-    }
-
-    input, select { font-size: $font-normal + 1px; }
-
-    .hint {
-      font-size: $font-small;
-      display: block;
-      color: lighten($font-color, 30);
-      text-align: right;
-      padding: 0;
-      margin: 0;
-      @include border-bottom-radius(5px);
-    }
-  }
-
-  .field_with_errors {
-    input, textarea { border-color: $red; }
-
-    .error {
-      margin-left: 5px;
-      color: $red;
-      font-style: italic;
-    }
-  }
-
-  // forms with a single column, where no information can be
-  // shown at the side of an input
-  &.single-column {
-    input.string, input.password, textarea.text, select {
-      width: 99%;
-    }
-
-    .field_with_errors .error {
-      display: block;
-      text-align: right;
-    }
-  }
-
-}
-
-
 //
 // Components used site-wide, in any layout
 //
@@ -286,15 +227,12 @@ form {
 }
 
 #upper-footer-wrapper {
-  border-top: 1px solid darken($upper-footer-bg-color, 7);
-  border-bottom: 1px solid darken($upper-footer-bg-color, 7);
+  border-top: 1px solid darken($upper-footer-bg-color, 10);
+  border-bottom: 1px solid darken($upper-footer-bg-color, 10);
   background: $upper-footer-bg-color;
   color: #444;
   clear: both;
-  padding-top: 15px;
-  padding-bottom: 15px;
-  @include box-shadow(inset 0 1px 0 white, 0 1px 1px rgba(0, 0, 0, 0.1));
-  margin-bottom: 3px;
+  padding: 10px 0;
   margin-top: 20px;
 }
 
@@ -304,7 +242,10 @@ form {
   margin: 0 auto;
   padding: 0;
   color: #666;
-  a { @include link-colors(desaturate($site-link, 20), $site-link-hover, $site-link-active); text-decoration: none;}
+  a {
+    @include link-colors($site-link, $site-link-hover, $site-link-active);
+    text-decoration: none;
+  }
 
   h3 {
     font-size: 12px;
@@ -312,7 +253,7 @@ form {
     margin-bottom: 7px;
     font-weight: bold;
     padding-bottom: 3px;
-    border-bottom: 1px solid darken($upper-footer-bg-color, 7);
+    border-bottom: 1px solid darken($upper-footer-bg-color, 8);
   }
 
   ul {
@@ -328,19 +269,16 @@ form {
   .link-group {
     float: left;
     margin-right: 35px;
+    margin-top: 5px;
   }
 
-  .link-group2 {
-    @extend .link-group;
+  .footer-sponsors {
+    width: 200px;
     float: right;
     margin-right: 0;
     margin-left: 20px;
     text-align: right;
     h3 { text-align: right; }
-  }
-
-  .footer-sponsors {
-    width: 200px;
     li { margin-bottom: 15px; }
     img {
       float: right;
@@ -348,25 +286,50 @@ form {
     }
   }
 
-  .languages {
+  .footer-languages {
+    img { margin-top: -4px; }
     img.help-translate-icon { float: right; }
     ul { float: left; margin-right: 20px; }
   }
 
-  .copyright {
-    margin-top: 10px;
-    padding-top: 10px;
-    text-align: left;
-    float: left;
-  }
+}
 
+/* Simplified version */
+#upper-footer-wrapper.simple-footer {
+  background: none;
+  border: 0;;
+  @include box-shadow(none);
+
+  #upper-footer {
+    h3 {
+      float: left;
+      border: 0;
+      margin: 0 15px 0 0;
+    }
+
+    .languages {
+      margin: 40px 0 0 0;
+      float: right;
+      ul {
+        float: right;
+        margin: 0;
+        li {
+          display: inline;
+          float: left;
+          margin: 0 10px 0 0;
+        }
+      }
+    }
+  }
 }
 
 #footer-logo {
   float: left;
   color: #888;
+  float: left;
+  margin-right: 35px;
 
-  a { @include link-colors(#bbb, #bbb, #bbb); }
+  a { @include link-colors(#bbb, $site-link-hover, $site-link-active); }
 
   .title {
     font-weight: bold;
@@ -385,18 +348,12 @@ form {
   @include mconf-clearfix;
   width: $contents-width;
   margin: 0 auto;
-  color: #888;
-  a { @include link-colors(#777, $site-link-hover, $site-link-active); }
+  color: #999;
+  font-size: $font-small;
+  a { @include link-colors(desaturate($site-link, 10), $site-link-hover, $site-link-active); }
 
-  .current-version {
-    float: left;
-    font-size: $font-small;
-  }
-
-  .version-info {
-    float: right;
-    font-size: $font-small;
-  }
+  .current-version { float: left; }
+  .version-info { float: right; }
 }
 
 ul#navbar-left-links {
@@ -481,6 +438,7 @@ ul#navbar-right-links {
       min-width: 300px;
       width: 300px;
       border: 1px solid #ccc;
+      padding: 10px;
       &.arrow-right:after { border-bottom-color: white; }
 
       a {
@@ -530,17 +488,25 @@ ul#navbar-right-links {
   .user-links {
     @include mconf-clearfix;
     clear: both;
-    margin-top: 5px;
-    background: darken($site-bg-color, 5);
-    margin-bottom: 5px;
+    margin-top: 10px;
+    background: $light-gray;
+    padding: 2px;
     @include border-radius(4px);
+    border: 1px solid darken($light-gray, 5);
+
     ul {
       margin: 0;
       li {
         float: right;
         margin: 0;
         border: 0;
-        padding: 5px 10px;
+        padding: 0 10px;
+        white-space: nowrap;
+        a {
+          clear: none;
+          float: none;
+          display: inline;
+        }
       }
     }
   }
@@ -562,12 +528,26 @@ ul#navbar-right-links {
   }
 }
 
-#page-title {
+#page-header-wrapper {
+  //@include background(linear-gradient(top, #ddd, white));
+  //@include box-shadow(inset 0 0 2px rgba(0, 0, 0, 0.15));
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  background: whiteSmoke;
+  padding: 10px 0;
+}
+
+#page-header {
+  width: $contents-width;
+  margin: 0 auto;
   @include mconf-clearfix;
-  margin: 0;
-  margin-bottom: 15px;
-  padding: 0;
-  clear: both;
+  padding: 10px 0 5px 0;
+
+ clear: both;
+
+  h1 {
+    margin: 0;
+    border: 0;
+  }
 
   .current-page-logo {
     float: left;
@@ -595,7 +575,7 @@ ul#navbar-right-links {
 
   .current-page-extra {
     float: right;
-    margin-top: 25px;
+    margin-top: 10px;
     text-align: right;
     a, span { display: block; }
   }

@@ -77,6 +77,7 @@ class UsersController < ApplicationController
   # GET /users/new
   # GET /users/new.xml
   def new
+    @user = user
     render :layout => 'no_sidebar'
   end
 

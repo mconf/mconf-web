@@ -8,7 +8,7 @@
 
     = stylesheet_link_tag "application_print", :media => "print"
     = stylesheet_link_tag "application", :media => "screen, projection"
-    = stylesheet_link_tag "frontpage", :media => "screen, projection"
+    = stylesheet_link_tag_for_controller :media => "screen, projection"
     = stylesheet_link_tag "_development" unless Rails.env == "production"
 
     /[if IE]
@@ -19,17 +19,17 @@
     = csrf_meta_tag
     = yield :headers
 
-  -# TODO: why can't this data-spy be called from the js? (see frontpage/show.js)
-  %body{ :class => "#{params[:controller]} #{params[:action]}", :"data-spy" => "scroll", :"data-target" => "#subnav", :"data-offset" => "80" }
+  %body{ :class => "#{params[:controller]} #{params[:action]}" }
     #site
       #navbar-wrapper
         = yield :"navbar"
       #content-wrapper
         = yield
-      = render :partial => "layouts/footer"
+      = render :partial => "layouts/footer_simple"
 
     = render :partial => "layouts/analytics"
     = render :partial => "layouts/notifications"
 
     -# Javascript placed at the end of the document so the pages load faster
-    = javascript_include_tag 'frontpage'
+    = javascript_include_tag "application"
+    = javascript_include_tag_for_controller

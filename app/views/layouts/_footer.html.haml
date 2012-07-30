@@ -1,9 +1,8 @@
 #upper-footer-wrapper
   #upper-footer
-    .link-group
-      #footer-logo.link-group
-        = link_to current_site.name, "/", :class => 'title'
-        %span= t('footer.copyright', :site => current_site.name)
+    #footer-logo
+      = link_to current_site.name, "/", :class => 'title'
+      %span= t('footer.copyright', :site => current_site.name)
     .link-group
       %h3= t('footer.links.title')
       %ul
@@ -16,18 +15,19 @@
         %li= link_to t('footer.website'), "http://www.inf.ufrgs.br/prav/gtmconf"
         %li= link_to t('footer.gcode'), "http://code.google.com/p/mconf"
         %li= link_to t('footer.github'), "https://github.com/mconf"
-    .link-group.languages
+    .link-group.footer-languages
       = link_to 'http://code.google.com/p/mconf/wiki/MconfWebLocalization' do
         = info_icon t('translate.help_us'), :class => 'help-translate-icon'
       %h3= t('translate.change')
-      %ul
-        - for locale in (I18n.available_locales)
-          %li
-            - flag = image_tag("flags/" + locale.to_s + ".png", :title => locale.to_s)
-            - text = t('locales.' + locale.to_s)
-            - link = link_to(text, session_locale_path(:new_locale => locale.to_s), :method => :post)
-            = (flag + " " + link).html_safe
-    .link-group2.footer-sponsors
+      - I18n.available_locales.each_slice(3) do |locales|
+        %ul
+          - locales.each do |locale|
+            %li
+              - flag = image_tag("flags/" + locale.to_s + ".png", :title => locale.to_s)
+              - text = t('locales.' + locale.to_s)
+              - link = link_to(text, session_locale_path(:new_locale => locale.to_s), :method => :post)
+              = (flag + " " + link).html_safe
+    .link-group.footer-sponsors
       %h3= t('footer.sponsors.title')
       %ul
         %li

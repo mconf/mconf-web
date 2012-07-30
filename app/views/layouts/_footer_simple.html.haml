@@ -1,0 +1,15 @@
+#upper-footer-wrapper.simple-footer
+  #upper-footer
+    .link-group
+      #footer-logo.link-group
+        = link_to current_site.name, "/", :class => 'title'
+        %span= t('footer.copyright', :site => current_site.name)
+    .link-group.languages
+      %h3= t('translate.change')
+      %ul
+        - for locale in (I18n.available_locales)
+          %li
+            - flag = image_tag("flags/" + locale.to_s + ".png", :title => locale.to_s)
+            - text = t('locales.' + locale.to_s)
+            - link = link_to(text, session_locale_path(:new_locale => locale.to_s), :method => :post)
+            = (flag + " " + link).html_safe
