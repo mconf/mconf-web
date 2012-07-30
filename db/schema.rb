@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120515001030) do
+ActiveRecord::Schema.define(:version => 20120717183338) do
 
   create_table "admissions", :force => true do |t|
     t.string   "type"
@@ -22,8 +22,8 @@ ActiveRecord::Schema.define(:version => 20120515001030) do
     t.string   "group_type"
     t.integer  "role_id"
     t.string   "code"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
     t.datetime "processed_at"
     t.integer  "introducer_id"
     t.string   "introducer_type"
@@ -36,8 +36,8 @@ ActiveRecord::Schema.define(:version => 20120515001030) do
     t.integer  "agenda_id"
     t.string   "title"
     t.datetime "start_time"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
     t.datetime "end_time"
   end
 
@@ -48,8 +48,8 @@ ActiveRecord::Schema.define(:version => 20120515001030) do
     t.string   "speakers"
     t.datetime "start_time"
     t.datetime "end_time"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
     t.text     "embedded_video"
     t.text     "video_thumbnail"
     t.integer  "cm_session_id"
@@ -66,14 +66,14 @@ ActiveRecord::Schema.define(:version => 20120515001030) do
     t.datetime "start_time"
     t.datetime "end_time"
     t.boolean  "record"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "agendas", :force => true do |t|
     t.integer  "event_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                 :null => false
+    t.datetime "updated_at",                 :null => false
     t.integer  "slot",       :default => 15
   end
 
@@ -132,8 +132,8 @@ ActiveRecord::Schema.define(:version => 20120515001030) do
     t.integer  "max_participants"
     t.boolean  "private",             :default => false
     t.boolean  "randomize_meetingid", :default => true
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                             :null => false
+    t.datetime "updated_at",                             :null => false
     t.boolean  "external",            :default => false
     t.string   "param"
   end
@@ -147,16 +147,9 @@ ActiveRecord::Schema.define(:version => 20120515001030) do
     t.string   "url"
     t.string   "salt"
     t.string   "version"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
     t.string   "param"
-  end
-
-  create_table "chat_logs", :force => true do |t|
-    t.integer  "event_id"
-    t.text     "content",    :limit => 2147483647
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
   create_table "db_files", :force => true do |t|
@@ -172,8 +165,8 @@ ActiveRecord::Schema.define(:version => 20120515001030) do
     t.datetime "locked_at"
     t.datetime "failed_at"
     t.string   "locked_by"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
     t.string   "queue"
   end
 
@@ -217,7 +210,6 @@ ActiveRecord::Schema.define(:version => 20120515001030) do
     t.integer  "web_bw"
     t.integer  "recording_bw"
     t.datetime "generate_pdf_small_at"
-    t.integer  "chat_log_id"
     t.boolean  "streaming_by_default",    :default => true
     t.boolean  "manual_configuration",    :default => false
     t.integer  "recording_type",          :default => 0
@@ -270,8 +262,8 @@ ActiveRecord::Schema.define(:version => 20120515001030) do
     t.string   "title"
     t.text     "text"
     t.integer  "space_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "participants", :force => true do |t|
@@ -363,8 +355,8 @@ ActiveRecord::Schema.define(:version => 20120515001030) do
   create_table "simple_captcha_data", :force => true do |t|
     t.string   "key",        :limit => 40
     t.string   "value",      :limit => 6
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",               :null => false
+    t.datetime "updated_at",               :null => false
   end
 
   add_index "simple_captcha_data", ["key"], :name => "idx_key"
@@ -388,10 +380,7 @@ ActiveRecord::Schema.define(:version => 20120515001030) do
     t.string   "exception_notifications_email"
     t.text     "signature"
     t.string   "presence_domain"
-    t.string   "chat_group_service_jid"
     t.string   "cm_domain"
-    t.string   "vcc_user_for_chat_server"
-    t.string   "vcc_pass_for_chat_server"
     t.string   "feedback_url"
     t.boolean  "shib_enabled",                   :default => false
     t.string   "shib_name_field"
@@ -399,6 +388,8 @@ ActiveRecord::Schema.define(:version => 20120515001030) do
     t.string   "exception_notifications_prefix"
     t.string   "email_password"
     t.string   "analytics_code"
+    t.boolean  "chat_enabled",                   :default => false
+    t.string   "xmpp_server"
   end
 
   create_table "spaces", :force => true do |t|
@@ -417,8 +408,8 @@ ActiveRecord::Schema.define(:version => 20120515001030) do
   create_table "statistics", :force => true do |t|
     t.string   "url"
     t.integer  "unique_pageviews"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
   end
 
   create_table "taggings", :force => true do |t|
@@ -462,7 +453,6 @@ ActiveRecord::Schema.define(:version => 20120515001030) do
     t.boolean  "expanded_post",                           :default => false
     t.integer  "notification",                            :default => 1
     t.string   "locale"
-    t.boolean  "chat_activation",                         :default => false
     t.integer  "receive_digest",                          :default => 0
   end
 

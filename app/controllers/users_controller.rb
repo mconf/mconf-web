@@ -236,4 +236,23 @@ class UsersController < ApplicationController
     end
   end
 
+  # GET /users/select_users.json
+  # This method returns a list with the login and name of all users
+  def select_users
+    tags = User.select_all_users(params[:q])
+
+    respond_to do |format|
+      format.json { render :json => tags }
+    end
+  end
+
+  # GET /xmpp/me
+  # This method return a xml with the login/username from chat of a current_user
+  def xmpp_current_user
+    @user = current_user
+    respond_to do |format|
+      format.xml
+    end
+  end
+
 end

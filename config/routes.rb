@@ -24,9 +24,6 @@ Mconf::Application.routes.draw do
   match '/secure', :to => 'shibboleth#create', :as => "shibboleth"
   match '/secure/info', :to => 'shibboleth#info', :as => "shibboleth_info"
 
-  # Experimental chat
-  #match '/p', :to => 'p#index', :as => 'p'
-
   # Global search
   #match '/search(.:format)', :to => 'search#index', :as => 'search_all' #=> /search, SearchController
   #match '/tags/:tag', :to => 'search#tag', :as => 'search_by_tag' #=> /tags/:id/events, TagsController (actualmente es parte del searchcontroller)
@@ -72,7 +69,6 @@ Mconf::Application.routes.draw do
         post :spam
         get :spam_lightbox
         post :start
-        get :chat
       end
 
       collection do
@@ -89,8 +85,6 @@ Mconf::Application.routes.draw do
           post :precrop
         end
       end
-
-      resource :chat_log
     end
 
     resources :posts do
@@ -135,6 +129,8 @@ Mconf::Application.routes.draw do
   resources :attachment_videos
 
   resources :users do
+    get :select_users, :on => :collection
+    get :xmpp_current_user, :on => :collection
     member do
       post :enable
       get :edit_bbb_room
@@ -197,6 +193,7 @@ Mconf::Application.routes.draw do
   match '/signup', :to => 'users#new', :as => 'signup'
   match '/lost_password', :to => 'users#lost_password', :as => 'lost_password'
   match '/resend_confirmation', :to => 'users#resend_confirmation', :as => 'resend_confirmation'
+  match '/xmpp/me', :to => 'users#xmpp_current_user', :as => 'xmpp_me', :defaults => { :format => 'xml' }
   match '/reset_password/:reset_password_code', :to => 'users#reset_password', :as => 'reset_password'
   match '/activate/:activation_code', :to => 'users#activate', :as => 'activate', :activation_code => nil
 

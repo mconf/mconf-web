@@ -28,28 +28,28 @@ class Site < ActiveRecord::Base
     end
   end
 
-  def xmpp_server
-    XmppServer.current
-  end
+  #def xmpp_server
+  #  XmppServer.current
+  #end
 
   # Delegate xmpp_server_password and xmpp_server_password_confirmation
-  %w( password password_confirmation ).each do |a|
-    eval <<-EOS
-      def xmpp_server_#{ a }            # def xmpp_server_password
-        xmpp_server.#{ a }              #   xmpp_server.password
-      end                               # end
+  #%w( password password_confirmation ).each do |a|
+  #  eval <<-EOS
+  #    def xmpp_server_#{ a }            # def xmpp_server_password
+  #      xmpp_server.#{ a }              #   xmpp_server.password
+  #    end                               # end
+  #
+  #    def xmpp_server_#{ a }=(value)    # def xmpp_server_password=(value)
+  #      xmpp_server.#{ a } = value      #   xmpp_server.password = value
+  #    end                               # end
+  #  EOS
+  #end
 
-      def xmpp_server_#{ a }=(value)    # def xmpp_server_password=(value)
-        xmpp_server.#{ a } = value      #   xmpp_server.password = value
-      end                               # end
-    EOS
-  end
+  #validates_associated :xmpp_server,
+  #                     :if => Proc.new{ |site| site.xmpp_server_password.present? },
+  #                     :message => I18n.t('xmpp_server.password_invalid')
 
-  validates_associated :xmpp_server,
-                       :if => Proc.new{ |site| site.xmpp_server_password.present? },
-                       :message => I18n.t('xmpp_server.password_invalid')
-
-  after_save :save_xmpp_server
+  #after_save :save_xmpp_server
   after_save :reload_cm_classes
 
   #-#-# from station
@@ -77,9 +77,9 @@ class Site < ActiveRecord::Base
 
   private
 
-  def save_xmpp_server
-    xmpp_server.save! if xmpp_server.password.present? && xmpp_server.__send__(:password_not_saved?)
-  end
+  #def save_xmpp_server
+  #  xmpp_server.save! if xmpp_server.password.present? && xmpp_server.__send__(:password_not_saved?)
+  #end
 
   def reload_cm_classes
     ConferenceManager::Resource.reload
