@@ -1,0 +1,6 @@
+#admin-tabs
+  = link_to t('news.other').upcase, space_news_index_path(@space), :class => "btn"
+  .float-right
+    = link_to t('invitation.title'), edit_space_path(@space, :new_invitations => @space), {:class=>"btn",:title => t('invitation.add_more')}
+    = link_to t('admission.other'), space_admissions_path(@space), :class => "btn"
+    = link_to t('user.other'), edit_space_path(@space), :class => "btn"

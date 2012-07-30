@@ -2,4 +2,5 @@
  *= require ./app/spaces/index
  *= require ./app/spaces/new
  *= require ./app/spaces/show
+ *= require ./app/spaces/_admin_tabs
  */

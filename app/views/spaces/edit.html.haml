@@ -1,0 +1,15 @@
+- spaces_menu_at :admin
+= content_for :menu do
+  = render :partial => 'spaces/menu'
+
+= content_for :sidebar do
+  = render :partial => 'edit_space'
+
+= render :partial => 'admin_tabs'
+
+- if params[:new_invitations]
+  = render :partial => 'new_invitation', :locals => {:checked_users => Array.new}
+- else
+  - for performance in @performances
+    = render :partial => 'edit_performance', :locals => {:performance => performance, :user => performance.agent}
+  = render :partial => 'precrop_logo'
