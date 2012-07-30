@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+
+# -*- coding: utf-8 -*-
 # Copyright 2008-2010 Universidad Politécnica de Madrid and Agora Systems S.A.
 #
 # This file is part of VCC (Virtual Conference Center).
@@ -219,7 +221,7 @@ class User < ActiveRecord::Base
     members = Profile.where("full_name like ?", "%#{ name }%").select(['full_name', 'id']).limit(4)
     members.each do |f|
       user = User.find(f.id)
-      tags.push("id"=>user.login, "name"=>f.full_name)
+      tags.push("id"=>user.username, "name"=>f.full_name)
     end
     tags
   end
