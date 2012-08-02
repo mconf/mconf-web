@@ -165,6 +165,7 @@ Mconf::Application.routes.draw do
   #resource :notifier
 
   resources :users do
+    get :xmpp_current_user, :on => :collection
     member do
       post :enable
       get :edit_bbb_room
@@ -230,6 +231,7 @@ Mconf::Application.routes.draw do
   match '/signup', :to => 'users#new', :as => 'signup'
   match '/lost_password', :to => 'users#lost_password', :as => 'lost_password'
   match '/resend_confirmation', :to => 'users#resend_confirmation', :as => 'resend_confirmation'
+  match '/xmpp/me', :to => 'users#xmpp_current_user', :as => 'xmpp_me', :defaults => { :format => 'xml' }
   match '/reset_password/:reset_password_code', :to => 'users#reset_password', :as => 'reset_password'
   match '/activate/:activation_code', :to => 'users#activate', :as => 'activate', :activation_code => nil
 
