@@ -198,4 +198,11 @@ Mconf::Application.routes.draw do
   match '/activate/:activation_code', :to => 'users#activate', :as => 'activate', :activation_code => nil
 
   match 'get_file/:id', :to => 'machines#get_file', :as => 'get_file'
+
+  # 'Hack' to show a custom 404 page.
+  # See more at http://blog.igodigital.com/blog/notes-on-cyber-weekend-targeted-email-campaigns/custom-error-handling-in-rails-303
+  # and http://ramblinglabs.com/blog/2012/01/rails-3-1-adding-custom-404-and-500-error-pages
+  unless Rails.application.config.consider_all_requests_local
+    match '*not_found', :to => 'errors#error_404'
+  end
 end

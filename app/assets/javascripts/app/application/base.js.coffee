@@ -78,7 +78,7 @@ $ ->
 #   isOnPage 'spaces', 'new|create'
 #   isOnPage 'events'
 window.isOnPage = (controller, action='') ->
-  if action == ''
+  if action is ''
     return $('body').is ".#{controller}"
   else
     actions = action.split("|")
