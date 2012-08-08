@@ -21,9 +21,12 @@
 
   %body{ :class => "errors" }
     #site
+      #navbar-wrapper
+        #navbar
+          = render :partial => 'layouts/application_navbar'
       #content-wrapper
         #content
-          = render :partial => "errors/header"
+          = render :partial => "errors/default_content"
           = yield
       = render :partial => "layouts/footer_simple"
 

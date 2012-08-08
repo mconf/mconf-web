@@ -308,9 +308,15 @@ en:
   error: 
     change: "Invalid change"
     credentials: "Invalid credentials"
-    e403: "You are not allowed to see that page."
-    e404: "The page you were looking for doesn't exist."
-    e500: "The page you were looking for doesn't exist."
+    e403: 
+      description: "The page you were looking for is forbidden. You are not allowed to perform that action."
+      title: "Forbidden"
+    e404: 
+      description: "Oops, the page \"%{url}\" does not exist."
+      title: "404"
+    e500: 
+      description: "We're sorry, but something went wrong. We've been notified about this issue and we'll take a look at it shortly."
+      title: "Error"
     mistyped_or_moved: "You may have mistyped the address or the page may have been moved"
     not_allowed: "You are not allowed to perform that action"
     one: Error

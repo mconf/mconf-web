@@ -2,10 +2,14 @@
 @import "compass/typography";
 @import "definitions";
 
-$bg-normal: darken($green-logo, 5);
+$bg-normal: darken($green-logo, 3);
 $logo-top: 300px;
 $logo-rot-pos1: rotate(45deg);
 $logo-rot-pos2: rotate(80deg);
+
+// so the footer is always behind the content if they overlap
+$z-index-content: 1;
+$z-index-footer: 0;
 
 @include keyframes(hang) {
   to { @include transform($logo-rot-pos1); }
@@ -27,7 +31,6 @@ $logo-rot-pos2: rotate(80deg);
   }
 }
 
-
 html, body {
   background: $bg-normal;
   color: #ddd;
@@ -40,11 +43,12 @@ html, body {
   background: none;
   @include box-shadow(none);
 
-  a { @include link-colors(#bbb, white, $site-link-active); }
+  a { @include link-colors(#eee, $site-link-hover, $site-link-active); }
 }
 
 #content-wrapper, #content {
-  height: 80%;
+  z-index: $z-index-content;
+  background: $bg-normal;
 }
 
 #content {
@@ -63,8 +67,10 @@ html, body {
     margin: 30px 0;
     text-align: center;
     font-size: $font-gigantic;
+    line-height: $font-gigantic + 6px;
     p {
       font-size: $font-gigantic;
+      line-height: $font-gigantic + 6px;
     }
   }
 
@@ -102,4 +108,16 @@ html, body {
     }
   }
 
+}
+
+#upper-footer {
+  position: fixed;
+  bottom: 15px;
+  right: 0;
+  left: 0;
+  z-index: $z-index-footer;
+}
+
+#upper-footer h3, #footer-logo {
+  color: #ccc;
 }
