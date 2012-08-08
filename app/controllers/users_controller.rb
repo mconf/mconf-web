@@ -263,8 +263,14 @@ class UsersController < ApplicationController
   # This method return a xml with the login/username from chat of a current_user
   def xmpp_current_user
     @user = current_user
+    @user = nil if @user == Anonymous.current
     respond_to do |format|
       format.xml
+      format.js {
+        json = {}
+        json = @user.to_json(:methods => :name, :only => [:login]) if @user
+        render :json => json, :callback => params[:callback]
+      }
     end
   end
 
