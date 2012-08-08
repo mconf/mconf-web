@@ -517,6 +517,9 @@ $(document).bind 'connected', ->
   iq = $iq({type: 'get'}).c('query', {xmlns: 'jabber:iq:roster'})
   Chat.connection.sendIQ iq, Chat.on_roster
 
+  iq = $iq({type: "set"}).c("vcard", {xmlns: "vcard-temp"}).c("FN", Chat.user_name)
+  Chat.connection.sendIQ iq
+
   Chat.connection.addHandler Chat.on_roster_changed, "jabber:iq:roster", "iq", "set"
   Chat.connection.addHandler Chat.on_message, null, "message", "chat"
 
