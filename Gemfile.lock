@@ -211,6 +211,9 @@ GEM
     populator (1.0.0)
     prism (0.1.0)
       nokogiri
+    rabl (0.7.1)
+      activesupport (>= 2.3.14)
+      multi_json (~> 1.0)
     rack (1.4.1)
     rack-cache (1.2)
       rack (>= 0.4)
@@ -296,6 +299,7 @@ GEM
     will_paginate (3.0.3)
     xml-simple (1.1.1)
     ya2yaml (0.30)
+    yajl-ruby (1.1.0)
     yaml_db (0.2.2)
     yui-compressor (0.9.6)
       POpen4 (>= 0.1.4)
@@ -340,6 +344,7 @@ DEPENDENCIES
   passenger (= 3.0.11)
   populator
   prism
+  rabl
   rails (~> 3.2.0)
   rails_autolink
   rake
@@ -363,5 +368,6 @@ DEPENDENCIES
   webrat
   whenever
   will_paginate
+  yajl-ruby
   yaml_db
   yui-compressor

@@ -11,7 +11,7 @@ db_username_field="login"
 db_password_field="crypted_password"
 db_salt_field="salt"
 domain_suffix="@my-server.com"
-auth_url="http://my-server.com/xmpp/me"
+auth_url="http://my-server.com/users/current"
 
 ########################################################################
 # Setup
