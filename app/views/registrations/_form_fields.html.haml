@@ -1,7 +1,15 @@
-= f.input :email, :label => t('user.email'), :required => true, :autofocus => true
-= f.input :_full_name, :label => t('user.full_name'), :required => true
-= f.input :password, :label => t('user.password'), :required => true
-= f.input :password_confirmation, :label => t('user.password_confirmation'), :required => true
+- if user_signed_in?
+  = f.input :email, :label => t('user.email'), :required => true, :autofocus => true, :disabled => true
+  = f.input :username, :label => t('user.id'), :required => true, :hint => t("tooltip.user_id")
+  = f.input :password, :autocomplete => "off", :label => t('user.password'), :hint => "leave it blank if you don't want to change it", :required => false
+  = f.input :password_confirmation, :label => t('user.password_confirmation'), :required => false
+  = f.input :current_password, :hint => "we need your current password to confirm your changes", :required => true
+- else
+  = f.input :email, :label => t('user.email'), :required => true, :autofocus => true
+  = f.input :_full_name, :label => t('user.full_name'), :required => true
+  = f.input :password, :label => t('user.password'), :required => true
+  = f.input :password_confirmation, :label => t('user.password_confirmation'), :required => true
+
 
 -# - if user_signed_in? && @shib_user
 -#   = f.input :email, :label => t('user.email'), :required => true, :disabled => true

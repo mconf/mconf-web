@@ -15,6 +15,10 @@ body.users.edit, body.users.update {
     width: $column-width;
   }
 
+  input[type=password], input[type=email], input[type=text], select {
+    width: 100%;
+  }
+
   #user-federated-info {
     margin-bottom: 15px;
     padding: 10px;

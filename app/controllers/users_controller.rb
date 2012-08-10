@@ -76,37 +76,34 @@ class UsersController < ApplicationController
 
   #This method returns the user to show the form to edit himself
   def edit
+    @user = current_user
     @shib_user = session.has_key?(:shib_data)
     @shib_provider = session[:shib_data]["Shib-Identity-Provider"] if @shib_user
     render :layout => 'no_sidebar'
   end
 
-  def clean
-    render :update do |page|
-      page.replace_html 'search_results', ""
+  def update
+    @user = User.find(current_user.id)
+    password_changed = params[:user].has_key?(:password) && !params[:user][:password].empty?
+    updated = if password_changed
+                @user.update_with_password(params[:user])
+              else
+                params[:user].delete(:current_password)
+                @user.update_without_password(params[:user])
+              end
+
+    if updated
+      # Sign in the user bypassing validation in case his password changed
+      sign_in @user, :bypass => true
+      redirect_to home_path
+    else
+      render "edit", :layout => 'no_sidebar'
     end
   end
 
-  # PUT /users/1
-  # PUT /users/1.xml
-  # PUT /users/1.atom
-  #this method updates a user
-  def update
-    respond_to do |format|
-      if user.update_attributes(params[:user])
-        user.tag_with(params[:tags]) if params[:tags]
-
-        flash[:success] = t('user.updated')
-        format.html { #the superuser will be redirected to list_users
-          redirect_to(user_path(@user))
-        }
-        format.xml  { render :xml => @user }
-        format.atom { head :ok }
-      else
-        format.html { render :action => "edit", :layout => "no_sidebar" }
-        format.xml  { render :xml => @user.errors, :status => :unprocessable_entity }
-        format.atom { render :xml => @user.errors.to_xml, :status => :not_acceptable }
-      end
+  def clean
+    render :update do |page|
+      page.replace_html 'search_results', ""
     end
   end
 

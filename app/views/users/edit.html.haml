@@ -3,23 +3,25 @@
   = link_to t('user.edit.click_to_edit_profile'), edit_user_profile_path(current_user)
 = render_page_title t('user.edit_account')
 
-- if user_signed_in? and @shib_user
-  #user-federated-info
-    .more-information= link_to t('user.edit.federated.see_your_data'), shibboleth_info_path, :class => 'open-modal'
-    %span.title= t('user.edit.federated.title')
-    %span= t('user.edit.federated.your_idp', :idp => @shib_provider)
-    %span= t('user.edit.federated.restrictions')
+-# - if user_signed_in? and @shib_user
+-#   #user-federated-info
+-#     .more-information= link_to t('user.edit.federated.see_your_data'), shibboleth_info_path, :class => 'open-modal'
+-#     %span.title= t('user.edit.federated.title')
+-#     %span= t('user.edit.federated.your_idp', :idp => @shib_provider)
+-#     %span= t('user.edit.federated.restrictions')
 
-#account-info.left-column
-  %h3= t('account_info')
-  = simple_form_for user, :url => user_path(user.username_changed? ? user.username_was : user), :html => {:method => :put, :class => 'single-column'} do |f|
-    = render :partial => 'form_fields', :locals => { :f => f }
-    = f.button :submit, t("save"), :class => "btn"
+= simple_form_for @user, :url => user_path(@user), :html => {:method => :put, :class => 'single-column'} do |f|
 
-#account-preferences.right-column
-  %h3= t('preferences')
+  #account-info.left-column
+    %h3= t('account_info')
+    = render :partial => 'registrations/form_fields', :locals => { :f => f }
 
-  = simple_form_for :user, :url => user_path(@user), :html => {:method => :put, :class => 'single-column'} do |f|
+    %h3 Cancel my account?
+    %p
+      Unhappy? #{link_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete}.
+
+  #account-preferences.right-column
+    %h3= t('preferences')
 
     = f.input :timezone, :label => t('user.timezone'), :required => false, :hint => t("tooltip.timezone") do
       = f.time_zone_select :timezone, nil, :include_blank => true

@@ -34,6 +34,8 @@ class User < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, :remember_me,
                   :username, :login
 
+  # To login with username or email
+  # See: http://goo.gl/zdIZ5
   def self.find_first_by_auth_conditions(warden_conditions)
     conditions = warden_conditions.dup
     if login = conditions.delete(:login)
@@ -84,6 +86,10 @@ class User < ActiveRecord::Base
   attr_accessible :_full_name
   extend FriendlyId
   friendly_id :_full_name, :use => :slugged, :slug_column => :username
+  def should_generate_new_friendly_id?
+    new_record?
+  end
+
   # BigbluebuttonRoom requires an identifier with 3 chars generated from :name
   # So we'll require :_full_name and :username to have length >= 3
   validates :username, :uniqueness => true, :length => { :minimum => 3 }
@@ -300,7 +306,7 @@ class User < ActiveRecord::Base
 
   private
 
-  # Checks whether there an error in :username.
+  # Checks whether there's' an error in :username.
   # If there is, set the error in :_full_name to be shown in the views.
   def check_username
     if self.errors[:username].size > 0
