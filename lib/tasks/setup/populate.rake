@@ -1,3 +1,5 @@
+require 'devise/encryptors/station_encryptor'
+
 namespace :setup do
 
   desc "Populate the DB with random test data. Options: SINCE, CLEAR"
@@ -13,6 +15,8 @@ namespace :setup do
     require 'populator'
     require 'ffaker'
 
+    username_offset = 0 # to prevent duplicated usernames
+
     if ENV['CLEAR']
       puts "* Destroying old stuff"
       PrivateMessage.destroy_all
@@ -26,10 +30,9 @@ namespace :setup do
 
     puts "* Create users (15)"
     User.populate 15 do |user|
-      user.username = Populator.words(1)
+      user.username = "#{Populator.words(1)}-#{username_offset += 1}"
       user.email = Faker::Internet.email
-      user.crypted_password = User.encrypt("test", "")
-      user.activated_at = @created_at_start..Time.now
+      user.confirmed_at = @created_at_start..Time.now
       user.disabled = false
       user.notification = User::NOTIFICATION_VIA_EMAIL
 
@@ -60,6 +63,9 @@ namespace :setup do
                                        :param => user.username,
                                        :name => user.profile.full_name
       end
+      # set the password this way so that devise makes the encryption
+      pass = "test"
+      user.update_attributes(:password => pass, :password_confirmation => pass)
     end
 
     puts "* Create private messages (8 for each user)"
