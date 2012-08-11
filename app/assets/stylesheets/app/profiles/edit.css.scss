@@ -25,7 +25,7 @@ body.profiles.edit, body.profiles.update {
     @include mconf-clearfix;
     float: left;
 
-    input, textarea { width: $edit-area-width - 20px; }
+    input, textarea, select { width: $edit-area-width - 20px; }
   }
 
   #edit-private-profile {

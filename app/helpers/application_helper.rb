@@ -131,6 +131,12 @@ module ApplicationHelper
     params[:controller] == 'homes' && params[:action] == 'show'
   end
 
+  # Returns the url prefix used to identify a webconf room
+  # e.g. 'https://server.org/webconf/'
+  def webconf_url_prefix
+    # note: '/webconf' is defined in routes.rb
+    "#{Site.current.domain_with_protocol}/webconf/"
+  end
 
   # TODO: All the code below should be reviewed
 

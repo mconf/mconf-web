@@ -2,7 +2,9 @@
 = simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :class => 'form-inline single-column' }) do |f|
   = f.input :email, :label => t('user.email'), :required => true, :autofocus => true
   = f.input :_full_name, :label => t('user.full_name'), :required => true
-  = f.input :username, :label => t('user.id'), :required => true, :hint => t("tooltip.user_id")
+  = f.input :username, :label => t('user.id'), :required => true, :hint => t("tooltip.user_id"), :wrapper => :prepend do
+    = content_tag :span, webconf_url_prefix, :class => "add-on"
+    = f.input_field :username
   = f.input :password, :label => t('user.password'), :required => true
   = f.input :password_confirmation, :label => t('user.password_confirmation'), :required => true
   = f.button :submit, t('register.one'), :class => "btn"

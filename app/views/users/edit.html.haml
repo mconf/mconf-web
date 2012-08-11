@@ -26,6 +26,8 @@
 
     #other-options
       %h3= t('user.edit.other_options')
+      - if user_signed_in? && current_user.superuser && @user.id != current_user.id
+        = f.input :superuser, :label => t('user.edit.make_admin'), :required => false
       #cancel-account.alert.alert-danger
         %span= t('user.edit.cancel_account')
         = link_to t('user.edit.yes_cancel_account'), registration_path(resource_name), :data => { :confirm => t("are_you_sure") }, :method => :delete, :class => 'btn btn-small btn-danger'
@@ -51,8 +53,5 @@
         - collection.push([User::RECEIVE_DIGEST_DAILY, t('user.receive_digest.daily')])
         - collection.push([User::RECEIVE_DIGEST_WEEKLY, t('user.receive_digest.weekly')])
         = f.collection_radio_buttons :receive_digest, collection, :first, :last
-
-      - if user_signed_in? && current_user.superuser==true && @user.id != current_user.id
-        = f.input :superuser, :as => :radio_buttons, :label => t('user.edit.make_admin'), :required => false
 
       = f.button :submit, t("save"), :class => "btn"

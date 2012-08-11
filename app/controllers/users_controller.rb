@@ -74,16 +74,17 @@ class UsersController < ApplicationController
     end
   end
 
-  #This method returns the user to show the form to edit himself
   def edit
-    @user = current_user
-    @shib_user = session.has_key?(:shib_data)
-    @shib_provider = session[:shib_data]["Shib-Identity-Provider"] if @shib_user
+    if current_user == @user # User editing himself
+      @shib_user = session.has_key?(:shib_data)
+      @shib_provider = session[:shib_data]["Shib-Identity-Provider"] if @shib_user
+    end
     render :layout => 'no_sidebar'
   end
 
   def update
-    @user = User.find(current_user.id)
+    params[:user].delete(:username)
+    params[:user].delete(:email)
     password_changed = params[:user].has_key?(:password) && !params[:user][:password].empty?
     updated = if password_changed
                 @user.update_with_password(params[:user])
@@ -93,9 +94,12 @@ class UsersController < ApplicationController
               end
 
     if updated
+      # User editing himself
       # Sign in the user bypassing validation in case his password changed
-      sign_in @user, :bypass => true
-      redirect_to home_path
+      sign_in @user, :bypass => true if current_user == @user
+
+      flash = { :success => t("user.updated") }
+      redirect_to edit_user_path(@user), :flash => flash
     else
       render "edit", :layout => 'no_sidebar'
     end

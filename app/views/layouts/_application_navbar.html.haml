@@ -47,7 +47,7 @@
                 %span
                   = link_to t('view'), user_path(current_user)
                   = "/ "
-                  = link_to t('edit'), edit_user_path(current_user)
+                  = link_to t('edit'), edit_user_profile_path(current_user)
 
     - else
       %li.last= link_to t('login.one'), login_path

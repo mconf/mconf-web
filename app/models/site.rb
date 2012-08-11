@@ -20,12 +20,28 @@ class Site < ActiveRecord::Base
 
   acts_as_stage
 
+  # Returns the current (default) site
+  def self.current
+    first || create
+  end
+
   def signature_in_html
     if signature
       return signature.gsub(/\r\n?/,'<br>')
     else
       return ""
     end
+  end
+
+  # HTTP protocol based on SSL setting
+  def protocol
+    "http#{ ssl? ? 's' : nil }"
+  end
+
+  # Domain http url considering protocol
+  # e.g. http://server.org
+  def domain_with_protocol
+    "#{protocol}://#{domain}"
   end
 
   # def xmpp_server
@@ -50,29 +66,15 @@ class Site < ActiveRecord::Base
   #                      :message => I18n.t('xmpp_server.password_invalid')
 
   # after_save :save_xmpp_server
-  after_save :reload_cm_classes
 
   #-#-# from station
   acts_as_logoable
-
-  def self.current
-    first || create
-  end
 
   # Nice format email address for the Site
   def email_with_name
     "#{ name } <#{ email }>"
   end
 
-  # HTTP protocol based on SSL setting
-  def protocol
-    "http#{ ssl? ? 's' : nil }"
-  end
-
-  # Domain http url considering protocol
-  def domain_with_protocol
-    "#{ protocol }://#{ domain }"
-  end
   #-#-#
 
   private
@@ -80,9 +82,5 @@ class Site < ActiveRecord::Base
   # def save_xmpp_server
   #   xmpp_server.save! if xmpp_server.password.present? && xmpp_server.__send__(:password_not_saved?)
   # end
-
-  def reload_cm_classes
-    ConferenceManager::Resource.reload
-  end
 
 end

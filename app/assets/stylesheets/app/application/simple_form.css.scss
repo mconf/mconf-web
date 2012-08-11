@@ -29,8 +29,7 @@
       color: lighten($font-color, 30);
       text-align: right;
       padding: 0;
-      margin: 0;
-      @include border-bottom-radius(5px);
+      margin: 5px 0 0 0;
     }
   }
 
@@ -51,6 +50,14 @@
       display: block;
       text-align: right;
     }
+  }
+
+  .input-prepend .add-on, .input-prepend .btn {
+    margin-right: -4px;
+  }
+
+  div.controls {
+    display: inline;
   }
 
 }

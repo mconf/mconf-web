@@ -52,22 +52,40 @@ body {
 
   a { @include link-colors(#bbb, white, $site-link-active); }
 
-  label {
-    font-size: 14px;
-    color: #eee;
-  }
+  .input {
+    clear: both;
 
-  input[type=text], input[type=password], input[type=email] {
-    width: 250px;
-    background: #eee;
-    @include background(linear-gradient(top, #ccc, #eee));
+    label {
+      font-size: 14px;
+      color: #eee;
+    }
 
-    &:focus {
-      background: #fff;
+    input[type=text], input[type=password], input[type=email] {
+      width: 250px;
+      background: #eee;
+      @include background(linear-gradient(top, #ccc, #eee));
+
+      &:focus {
+        background: #fff;
+      }
+    }
+
+    abbr[title=required] { display: none; }
+
+    .hint {
+      float: right;
+      max-width: 310px;
+      margin-top: 5px;
+      margin-bottom: 10px;
+      color: #ccc;
+    }
+
+    .add-on {
+      background: white;
+      color: #666;
     }
   }
 
-  abbr[title=required] { display: none; }
 }
 
 #login-box {

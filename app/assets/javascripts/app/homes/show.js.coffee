@@ -1,3 +1,5 @@
-#= require ../users/edit_bbb_room
+#= require ../users/_edit_bbb_room
+
 $ ->
-  #if isOnPage 'homes', 'show'
+  if isOnPage 'homes', 'show'
+    window.mconf.EditBbbRoom.setup()

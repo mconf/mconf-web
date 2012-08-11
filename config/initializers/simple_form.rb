@@ -1,4 +1,6 @@
 # Use this setup block to configure all options available in SimpleForm.
+# See more examples at:
+# https://github.com/rafaelfranca/simple_form-bootstrap/blob/master/config/initializers/simple_form.rb
 SimpleForm.setup do |config|
   # Wrappers are used by the form builder to generate a
   # complete input. You can remove any component from the
@@ -43,6 +45,34 @@ SimpleForm.setup do |config|
     b.use :label_input
     b.use :error, :wrap_with => { :tag => :span, :class => :error }
     b.use :hint, :wrap_with => { :tag => :span, :class => :hint }
+  end
+
+  config.wrappers :prepend, :tag => 'div', :class => 'input control-group',
+    :error_class => :field_with_errors do |b|
+    b.use :html5
+    b.use :placeholder
+    b.use :label
+    b.wrapper :tag => 'div', :class => 'controls' do |input|
+      input.wrapper :tag => 'div', :class => 'input-prepend' do |prepend|
+        prepend.use :input
+      end
+      input.use :error, :wrap_with => { :tag => 'span', :class => 'error' }
+      input.use :hint,  :wrap_with => { :tag => 'span', :class => 'hint' }
+    end
+  end
+
+  config.wrappers :append, :tag => 'div', :class => 'input control-group',
+    :error_class => :field_with_errors do |b|
+    b.use :html5
+    b.use :placeholder
+    b.use :label
+    b.wrapper :tag => 'div', :class => 'controls' do |input|
+      input.wrapper :tag => 'div', :class => 'input-append' do |append|
+        append.use :input
+      end
+      input.use :error, :wrap_with => { :tag => 'span', :class => 'error' }
+      input.use :hint,  :wrap_with => { :tag => 'span', :class => 'hint' }
+    end
   end
 
   # The default wrapper to be used by the FormBuilder.
