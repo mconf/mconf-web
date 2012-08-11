@@ -19,6 +19,21 @@ body.users.edit, body.users.update {
     width: 100%;
   }
 
+  #account-info, #change-password {
+    margin-bottom: 25px;
+    clear: both;
+  }
+
+  #account-preferences {
+    @include mconf-clearfix;
+  }
+
+  #cancel-account {
+    clear: both;
+    text-align: center;
+    span { margin-right: 15px; }
+  }
+
   #user-federated-info {
     margin-bottom: 15px;
     padding: 10px;
@@ -33,6 +48,12 @@ body.users.edit, body.users.update {
     span { display: block; }
 
     .more-information { float: right; }
+  }
+
+  form input[type=submit] {
+    float: right;
+    clear: both;
+    margin-top: 10px;
   }
 
 }

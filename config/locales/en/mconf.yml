@@ -7,7 +7,6 @@ en:
   about_sxsw: "About SXSW"
   account: Account
   account_activated: "Your account has been activated!"
-  account_info: "Account info"
   action: 
     other: Actions
   actions: Actions
@@ -1419,6 +1418,9 @@ en:
     disable: "Disable user"
     disabled: "User %{username} disabled"
     edit: 
+      account_info: "Account info"
+      cancel_account: "Cancel account?"
+      change_password: "Change your password"
       click_to_edit_profile: "Click here to edit your profile"
       did_not_find_info: "Didn't find the information you were looking for?"
       federated: 
@@ -1427,6 +1429,10 @@ en:
         title: "You are logged using a federation!"
         your_idp: "Your identity provider is: %{idp}"
       make_admin: "Make this user an administrator of this website"
+      other_options: "Other options"
+      password:
+        hint: "Leave it blank if you don't want to change it"
+      yes_cancel_account: "Yes, cancel my account"
     edit_account: "Edit your account"
     email: Email
     email_used_to_create_account: "Enter the email address you used to create your account"

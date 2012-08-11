@@ -14,6 +14,7 @@ body.registrations.new, body.registrations.create {
       float: left;
       width: $register-box-width;
       margin: 0;
+      padding: 0 5px 5px 0;
 
       input[type=text], input[type=password], input[type=email] {
         width: 250px;

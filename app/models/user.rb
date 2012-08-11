@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-
-# -*- coding: utf-8 -*-
 # Copyright 2008-2010 Universidad Politécnica de Madrid and Agora Systems S.A.
 #
 # This file is part of VCC (Virtual Conference Center).
@@ -21,38 +19,46 @@
 require 'devise/encryptors/station_encryptor'
 require 'digest/sha1'
 class User < ActiveRecord::Base
+
+  ## Devise setup
   # Other available devise modules are:
   # :token_authenticatable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable,
          :encryptable
-
   # Virtual attribute for authenticating by either username or email
   attr_accessor :login
-
-  # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me,
-                  :username, :login
-
-  # To login with username or email
-  # See: http://goo.gl/zdIZ5
+  # To login with username or email, see: http://goo.gl/zdIZ5
   def self.find_first_by_auth_conditions(warden_conditions)
     conditions = warden_conditions.dup
     if login = conditions.delete(:login)
-      where_clause = ["lower(username) = :value OR lower(email) = :value", { :value => login.downcase }]
+      hash = { :value => login.downcase }
+      where_clause = ["lower(username) = :value OR lower(email) = :value", hash]
       where(conditions).where(where_clause).first
     else
       where(conditions).first
     end
   end
 
-  # LoginAndPassword Authentication:
-  acts_as_agent :activation => true
+  attr_accessible :email, :password, :password_confirmation, :remember_me,
+                  :login, :username
+  # TODO: block :username from being modified after registration
+  # attr_accessible :username, :as => :create
+
+  validates :username, :uniqueness => { :case_sensitive => false },
+                       :presence => true,
+                       :format => /^[A-Za-z0-9\-_]*$/,
+                       :length => { :minimum => 3 }
+  extend FriendlyId
+  friendly_id :username
+
+###
+
+  acts_as_agent
 
   apply_simple_captcha
 
   validates_presence_of  :email
-  validates_exclusion_of :username, :in => %w( xmpp_server )
   validates_format_of :email, :with => /^[\w\d._%+-]+@[\w\d.-]+\.[\w]{2,}$/
 
   acts_as_stage
@@ -80,22 +86,15 @@ class User < ActiveRecord::Base
   attr_accessible :receive_digest
   attr_accessor :special_event_id
 
-  # Full name must go to the profile, but it is provided by the user in signing up
-  # so we have to temporally cache it until the user is created; :_full_name
+  # Full name must go to the profile, but it is provided by the user when
+  # signing up so we have to cache it until the profile is created
   attr_accessor :_full_name
   attr_accessible :_full_name
-  extend FriendlyId
-  friendly_id :_full_name, :use => :slugged, :slug_column => :username
-  def should_generate_new_friendly_id?
-    new_record?
-  end
 
   # BigbluebuttonRoom requires an identifier with 3 chars generated from :name
   # So we'll require :_full_name and :username to have length >= 3
-  validates :username, :uniqueness => true, :length => { :minimum => 3 }
   validates :_full_name, :presence => true, :length => { :minimum => 3 }, :on => :create
 
-  after_validation :check_username
   after_create :create_webconf_room
   after_update :update_webconf_room
 
@@ -302,16 +301,6 @@ class User < ActiveRecord::Base
   # Returns the number of unread private messages for this user
   def unread_private_messages
     PrivateMessage.inbox(self).select{|msg| !msg.checked}
-  end
-
-  private
-
-  # Checks whether there's' an error in :username.
-  # If there is, set the error in :_full_name to be shown in the views.
-  def check_username
-    if self.errors[:username].size > 0
-      self.errors.add :_full_name, I18n.t('activerecord.errors.messages.invalid_identifier', :id => self.username)
-    end
   end
 
 end

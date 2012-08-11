@@ -12,36 +12,47 @@
 
 = simple_form_for @user, :url => user_path(@user), :html => {:method => :put, :class => 'single-column'} do |f|
 
-  #account-info.left-column
-    %h3= t('account_info')
-    = render :partial => 'registrations/form_fields', :locals => { :f => f }
+  .left-column
+    #account-info
+      %h3= t('user.edit.account_info')
+      = f.input :email, :label => t('user.email'), :required => false, :disabled => true
+      = f.input :username, :label => t('user.id'), :required => false, :disabled => true
 
-    %h3 Cancel my account?
-    %p
-      Unhappy? #{link_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete}.
+    #change-password
+      %h3= t('user.edit.change_password')
+      = f.input :password, :autocomplete => "off", :label => t('user.password'), :placeholder => t('user.edit.password.hint'), :required => false
+      = f.input :password_confirmation, :label => t('user.password_confirmation'), :required => false
+      = f.input :current_password
 
-  #account-preferences.right-column
-    %h3= t('preferences')
+    #other-options
+      %h3= t('user.edit.other_options')
+      #cancel-account.alert.alert-danger
+        %span= t('user.edit.cancel_account')
+        = link_to t('user.edit.yes_cancel_account'), registration_path(resource_name), :data => { :confirm => t("are_you_sure") }, :method => :delete, :class => 'btn btn-small btn-danger'
 
-    = f.input :timezone, :label => t('user.timezone'), :required => false, :hint => t("tooltip.timezone") do
-      = f.time_zone_select :timezone, nil, :include_blank => true
+  .right-column
+    #account-preferences
+      %h3= t('preferences')
 
-    = f.input :expanded_post, :label => t('user.view_expanded_posts'), :required => false, :as => :radio_buttons
+      = f.input :timezone, :label => t('user.timezone'), :required => false, :hint => t("tooltip.timezone") do
+        = f.time_zone_select :timezone, nil, :include_blank => true
 
-    = f.input :notification, :label => t('user.notifications'), :required => false do
-      - collection = []
-      - collection.push([User::NOTIFICATION_VIA_PM, t('user.by_private_message')])
-      - collection.push([User::NOTIFICATION_VIA_EMAIL, t('user.by_email')])
-      = f.collection_radio_buttons :notification, collection, :first, :last
+      = f.input :expanded_post, :label => t('user.view_expanded_posts'), :required => false, :as => :radio_buttons
 
-    = f.input :receive_digest, :label => t('user.receive_digest.description'), :required => false do
-      - collection = []
-      - collection.push([User::RECEIVE_DIGEST_NEVER, t('user.receive_digest.never')])
-      - collection.push([User::RECEIVE_DIGEST_DAILY, t('user.receive_digest.daily')])
-      - collection.push([User::RECEIVE_DIGEST_WEEKLY, t('user.receive_digest.weekly')])
-      = f.collection_radio_buttons :receive_digest, collection, :first, :last
+      = f.input :notification, :label => t('user.notifications'), :required => false do
+        - collection = []
+        - collection.push([User::NOTIFICATION_VIA_PM, t('user.by_private_message')])
+        - collection.push([User::NOTIFICATION_VIA_EMAIL, t('user.by_email')])
+        = f.collection_radio_buttons :notification, collection, :first, :last
 
-    - if user_signed_in? && current_user.superuser==true && @user.id != current_user.id
-      = f.input :superuser, :as => :radio_buttons, :label => t('user.edit.make_admin'), :required => false
+      = f.input :receive_digest, :label => t('user.receive_digest.description'), :required => false do
+        - collection = []
+        - collection.push([User::RECEIVE_DIGEST_NEVER, t('user.receive_digest.never')])
+        - collection.push([User::RECEIVE_DIGEST_DAILY, t('user.receive_digest.daily')])
+        - collection.push([User::RECEIVE_DIGEST_WEEKLY, t('user.receive_digest.weekly')])
+        = f.collection_radio_buttons :receive_digest, collection, :first, :last
 
-    = f.button :submit, t("save"), :class => "btn"
+      - if user_signed_in? && current_user.superuser==true && @user.id != current_user.id
+        = f.input :superuser, :as => :radio_buttons, :label => t('user.edit.make_admin'), :required => false
+
+      = f.button :submit, t("save"), :class => "btn"
