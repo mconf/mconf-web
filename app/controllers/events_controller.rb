@@ -115,7 +115,7 @@ class EventsController < ApplicationController
   # POST /events.xml
   def create
     @event = Event.new(params[:event])
-    @event.author = current_agent
+    @event.author = current_user
     @event.container = space
 
     respond_to do |format|

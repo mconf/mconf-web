@@ -38,7 +38,7 @@ describe JoinRequestsController do
       assigns[:join_request].email.should == user_attrs[:email]
 
       assert authenticated?
-      assert current_agent.email.should == assigns[:join_request].email
+      assert current_user.email.should == assigns[:join_request].email
     end
 
   end
@@ -62,7 +62,7 @@ describe JoinRequestsController do
       assigns[:join_request].candidate.should == @other_user
 
       assert authenticated?
-      assert current_agent.email.should == assigns[:join_request].email
+      assert current_user.email.should == assigns[:join_request].email
 
       ActionMailer::Base.deliveries.size.should == 1
     end
@@ -86,7 +86,7 @@ describe JoinRequestsController do
       assigns[:join_request].candidate.should == @auth_user
 
       assert authenticated?
-      assert current_agent.email.should == assigns[:join_request].email
+      assert current_user.email.should == assigns[:join_request].email
 
       ActionMailer::Base.deliveries.size.should == 1
     end
@@ -144,9 +144,9 @@ describe JoinRequestsController do
           assigns[:invitation].state.should == :accepted
 
           assert authenticated?
-          assert current_agent.email.should == @invitation.email
+          assert current_user.email.should == @invitation.email
 
-          assert @invitation.group.users.include? current_agent
+          assert @invitation.group.users.include? current_user
         end
 
       end
@@ -182,9 +182,9 @@ describe JoinRequestsController do
           assigns[:invitation].should be_valid
           assigns[:invitation].state.should == :accepted
 
-          assert current_agent.email.should == @invitation.email
+          assert current_user.email.should == @invitation.email
 
-          assert @invitation.group.users.include? current_agent
+          assert @invitation.group.users.include? current_user
         end
 
       end

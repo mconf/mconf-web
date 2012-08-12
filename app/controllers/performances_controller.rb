@@ -130,7 +130,7 @@ class PerformancesController < ApplicationController
 
     respond_to do |format|
       format.html {
-        redirect_to(@performance.stage.authorize?(:read, :to => current_agent) ? request.referer : root_path)
+        redirect_to(@performance.stage.authorize?(:read, :to => current_user) ? request.referer : root_path)
       }
 
       format.js {
@@ -225,7 +225,7 @@ class PerformancesController < ApplicationController
     @performances = @stage.stage_performances.find(:all,
                                                    :include => :role).sort{ |x, y| y.role <=> x.role }
     @roles = @stage.class.roles.sort{ |x, y| y <=> x }
-    @roles = @roles.select{ |r| r <= @stage.role_for(current_agent) } if @stage.role_for(current_agent)
+    @roles = @roles.select{ |r| r <= @stage.role_for(current_user) } if @stage.role_for(current_user)
 
     @agents = ActiveRecord::Agent.all - @performances.map(&:agent)
   end

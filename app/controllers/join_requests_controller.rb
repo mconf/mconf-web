@@ -31,47 +31,47 @@ class JoinRequestsController < ApplicationController
 
   def create
 
-    unless authenticated?
-      unless params[:user]
-        respond_to do |format|
-          format.html {
-            render :action => 'new'
-          }
-          format.js
-        end
-        return
-      end
+    # unless authenticated?
+    #   unless params[:user]
+    #     respond_to do |format|
+    #       format.html {
+    #         render :action => 'new'
+    #       }
+    #       format.js
+    #     end
+    #     return
+    #   end
 
-      if params[:register]
-        cookies.delete :auth_token
-        @user = User.new(params[:user])
-        unless @user.save_with_captcha
-          message = ""
-          @user.errors.full_messages.each {|msg| message += msg + "  <br/> "}
-          flash[:error] = message
-          respond_to do |format|
-            format.html {
-              render :action => 'new'
-            }
-            format.js
-          end
-          return
-        end
-      end
-      self.current_agent = User.authenticate_with_login_and_password(params[:user][:email], params[:user][:password])
-      unless user_signed_in?
-        flash[:error] = t('error.credentials')
-        respond_to do |format|
-          format.html {
-            render :action => 'new'
-          }
-          format.js
-        end
-        return
-      end
-    end
+    #   if params[:register]
+    #     cookies.delete :auth_token
+    #     @user = User.new(params[:user])
+    #     unless @user.save_with_captcha
+    #       message = ""
+    #       @user.errors.full_messages.each {|msg| message += msg + "  <br/> "}
+    #       flash[:error] = message
+    #       respond_to do |format|
+    #         format.html {
+    #           render :action => 'new'
+    #         }
+    #         format.js
+    #       end
+    #       return
+    #     end
+    #   end
+    #   self.current_agent = User.authenticate_with_login_and_password(params[:user][:email], params[:user][:password])
+    #   unless user_signed_in?
+    #     flash[:error] = t('error.credentials')
+    #     respond_to do |format|
+    #       format.html {
+    #         render :action => 'new'
+    #       }
+    #       format.js
+    #     end
+    #     return
+    #   end
+    # end
 
-    if space.users.include?(current_agent)
+    if space.users.include?(current_user)
 
       flash[:notice] = t('join_request.joined')
       if request.xhr?
@@ -113,7 +113,7 @@ class JoinRequestsController < ApplicationController
 
   def create
     @join_request = group.join_requests.build params[:join_request]
-    @join_request.candidate = current_agent
+    @join_request.candidate = current_user
 
     respond_to do |format|
       if @join_request.save
@@ -130,7 +130,7 @@ class JoinRequestsController < ApplicationController
 
   def update
     join_request.attributes = params[:join_request]
-    join_request.introducer = current_agent if join_request.recently_processed?
+    join_request.introducer = current_user if join_request.recently_processed?
 
     respond_to do |format|
       if join_request.save

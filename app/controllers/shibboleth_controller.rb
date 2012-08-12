@@ -66,7 +66,7 @@ class ShibbolethController < ApplicationController
     end
 
     # login and go to home
-    self.current_agent = user
+    sign_in user, :bypass => true
     redirect_to home_path
   end
 

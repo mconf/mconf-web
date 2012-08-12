@@ -30,7 +30,7 @@ class InvitationsController < ApplicationController
 
   def create
     @invitation = ( group.try(:invitations) || Invitation ).new params[:invitation]
-    @invitation.introducer = current_agent
+    @invitation.introducer = current_user
 
     if @invitation.save
       flash[:success] = t('invitation.created')
@@ -62,7 +62,7 @@ class InvitationsController < ApplicationController
         @candidate = klass.new(params[klass.to_s.underscore])
         @candidate.email = invitation.email
         # Agent has read the invitation email, so it's already activated
-        @candidate.activated_at = Time.now if @candidate.class.agent_options[:activation]
+        @candidate.confirmed_at = Time.now
 
         unless @candidate.save
           render :action => :show
@@ -71,9 +71,9 @@ class InvitationsController < ApplicationController
       end
 
       # Authenticate Agent
-      self.current_agent = @candidate
+      sign_in @candidate, :bypass => true
 
-      # invitation.candidate should have changed, explicity or due to current_agent callback
+      # invitation.candidate should have changed, explicity or due to sign_in
       invitation.reload
     end
 
@@ -81,7 +81,7 @@ class InvitationsController < ApplicationController
     invitation.attributes = params[:invitation]
     # Invitation may be accepted by an already registered user when sent to a different
     # email address
-    invitation.candidate ||= current_agent if params[:invitation][:processed]
+    invitation.candidate ||= current_user if params[:invitation][:processed]
 
     respond_to do |format|
       if invitation.save
@@ -107,7 +107,7 @@ class InvitationsController < ApplicationController
 
   def introducer_authenticated
     #TODO logout and redirect to invitation again
-    redirect_to logout_path if invitation.introducer == current_agent
+    redirect_to logout_path if invitation.introducer == current_user
   end
 
   def processed_invitation
