@@ -122,6 +122,9 @@ form {
 
   .thread-title {
     margin-bottom: 5px;
+    white-space: nowrap;
+    overflow: hidden;
+
     a {
       background-color: #eee;
       padding: 1px 4px 2px;
