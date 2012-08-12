@@ -19,4 +19,6 @@
 //= require jquery/jquery.qtip.2.0.0pre
 //= require jquery/jquery.form
 
+// 'base' HAS to be the first one included
+//= require ./app/application/base
 //= require_tree ./app/application/

@@ -2,4 +2,4 @@
 
 $ ->
   if isOnPage 'registrations', 'new|create'
-    window.mconf.SignupForm.setup()
+    mconf.SignupForm.setup()

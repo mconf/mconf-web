@@ -2,4 +2,4 @@
 
 $ ->
   if isOnPage 'homes', 'show'
-    window.mconf.EditBbbRoom.setup()
+    mconf.EditBbbRoom.setup()

@@ -1,6 +1,9 @@
 # TODO: This file has utility functions of all kinds, might be
 #       better to separate them in more files.
 
+# Global object to store our classes, methods, etc.
+window.mconf = {}
+
 $ ->
 
   # Setting I18n-js with the user language
@@ -86,25 +89,3 @@ window.isOnPage = (controller, action='') ->
       if $('body').is ".#{controller}.#{act}"
         return true
     return false
-
-# TODO: check if the code below is being used / works
-
-jQuery.fn.submitWithAjax = ->
-  @submit ->
-    $.post @action, $(this).serialize(), null, "script"
-    false
-  this
-
-jQuery.fn.postsForm = (route) ->
-  @ajaxForm
-    dataType: "script"
-    success: (data) ->
-      window.location = route  if data is ""
-
-jQuery.fn.ajaxLink = ->
-  @click (data) ->
-    $.get @href, {}, ((data) ->
-      eval data
-    ), "script"
-    false
-  this

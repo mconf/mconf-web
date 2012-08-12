@@ -2,4 +2,4 @@
 
 $ ->
   if isOnPage 'frontpage', 'show'
-    window.mconf.SignupForm.setup()
+    mconf.SignupForm.setup()

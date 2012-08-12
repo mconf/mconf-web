@@ -29,7 +29,7 @@ enableAjaxInCropForms = ->
     # when the user selects a file it automatically submits the form
     $("input[type=file]", form).on "change", ->
       form.ajaxSubmit (data) ->
-        showModalWindow({ html: data })
+        mconf.Modal.showWindow({ html: data })
         enableCropInImages()
         $(document).trigger "crop-window-shown";
 

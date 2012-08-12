@@ -1,5 +1,5 @@
 # http://dense13.com/blog/2009/05/03/converting-string-to-slug-javascript/
-string_to_slug = (str) ->
+stringToSlug = (str) ->
   str = str.replace(/^\s+|\s+$/g, '')
   str = str.toLowerCase()
 
@@ -13,10 +13,10 @@ string_to_slug = (str) ->
      .replace(/\s+/g, '-') # collapse whitespace and replace by -
      .replace(/-+/g, '-') # collapse dashes
 
-class window.mconf.SignupForm
+class mconf.SignupForm
   @setup: ->
     $fullname = $("#user__full_name")
     $username = $("#user_username")
-    $username.attr "value", string_to_slug($fullname.attr("value"))
+    $username.attr "value", stringToSlug($fullname.attr("value"))
     $fullname.on "input keyup", () ->
-      $username.attr "value", string_to_slug($fullname.attr("value"))
+      $username.attr "value", stringToSlug($fullname.attr("value"))

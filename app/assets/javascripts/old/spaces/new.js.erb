@@ -43,7 +43,7 @@ $(function() {
       $('#crop-form').ajaxForm({
         success: function() {
           setNewLogo("/assets/" + "tmp/" + rand + "/uploaded_logo.png?" + (new Date()).getTime());
-          closeModalWindows();
+          mconf.Modal.closeWindows();
         }
       });
     });
@@ -58,7 +58,7 @@ $(function() {
 //         $('#resultado').fadeIn('slow');
 //         $("#space_image").attr('value', "tmp/" + rand + "/uploaded_logo.png");
 //         $("#selected_logo_image").attr('src', "/assets/" + "tmp/" + rand + "/uploaded_logo.png?" + (new Date()).getTime());
-//         closeModalWindows();
+//         mconf.Modal.closeWindows();
 //         closeUploadLogo();
 //       }
 //     });
@@ -88,7 +88,7 @@ $(function() {
         $('#resultado').fadeIn('slow');
         $("#space_image").attr('value', "tmp/" + rand + "/uploaded_logo.png");
         $("#selected_logo_image").attr('src', "/assets/" + "tmp/" + rand + "/uploaded_logo.png?" + (new Date()).getTime());
-        closeModalWindows();
+        mconf.Modal.closeWindows();
         closeUploadLogo();
       }
     });
@@ -151,19 +151,19 @@ $(function() {
 
   $("#create_space #hideMPW").livequery('click', function(event) {
     if ($(this).is(':checked')) {
-      changeInputType("#moderatorPW", 'text');
+      mconf.ShowablePassword.changeInputType("#moderatorPW", 'text');
     }
     else {
-      changeInputType("#moderatorPW", 'password');
+      mconf.ShowablePassword.changeInputType("#moderatorPW", 'password');
     }
   });
 
   $("#create_space #hideAPW").livequery('click', function(event) {
     if ($(this).is(':checked')) {
-      changeInputType("#attendeePW", 'text');
+      mconf.ShowablePassword.changeInputType("#attendeePW", 'text');
     }
     else {
-      changeInputType("#attendeePW", 'password');
+      mconf.ShowablePassword.changeInputType("#attendeePW", 'password');
     }
   });
   */
