@@ -34,6 +34,8 @@ gem 'station', :git => 'git://github.com/mconf/station.git', :branch => 'no-auth
 gem 'devise'
 gem 'devise-encryptable' # TODO: only while we have old station users
 gem 'i18n-js', :git => "git://github.com/fnando/i18n-js.git", :branch => 'rewrite'
+gem 'rabl'
+gem 'yajl-ruby' # json parser for rabl
 
 # TODO: Gems to review if we can remove/update
 gem 'galetahub-simple_captcha', :require => 'simple_captcha'

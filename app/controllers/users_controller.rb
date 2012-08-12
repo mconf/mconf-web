@@ -180,12 +180,13 @@ class UsersController < ApplicationController
     end
   end
 
-  # GET /xmpp/me
-  # This method return a xml with the login/username from chat of a current_user
-  def xmpp_current_user
+  # Returns info of the current_user
+  def current
     @user = current_user
+    @user = nil if @user == Anonymous.current
     respond_to do |format|
       format.xml
+      format.json
     end
   end
 

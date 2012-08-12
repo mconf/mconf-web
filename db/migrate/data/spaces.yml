@@ -1,7 +1,0 @@
-Public:
-    id: 1
-    name: Public
-    description: Public space
-    parent_id: 0
-    deleted: 0
-    public: 1

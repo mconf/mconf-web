@@ -1,8 +1,0 @@
-function fullscreen(){
-
-}
-
-function smallscreen(){
-		
-}
-

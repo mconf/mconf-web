@@ -163,17 +163,12 @@ Chat =
       Chat.scroll_chat jid_id
 
     else
-      unless $('#chat-' + jid_id).size()
-        Chat.insertChatArea jid, jid_id, status, name
-
-      $('#chat-' + jid_id + ' #content-chat').show()
-      $('#chat-' + jid_id + ' .chat-input').focus()
-
       composing = $(message).find 'composing'
 
       if composing.length > 0
-        $('#chat-' + jid_id + ' #content-chat #message-area .chat-messages').append("<div class='chat-event'>" + name + " " + I18n.t("chat.typing") +  "</div>")
-        Chat.scroll_chat jid_id
+        if $('#chat-' + jid_id).size()
+          $('#chat-' + jid_id + ' #content-chat #message-area .chat-messages').append("<div class='chat-event'>" + name + " " + I18n.t("chat.typing") +  "</div>")
+          Chat.scroll_chat jid_id
 
       body = $(message).find "html > body"
 
@@ -194,6 +189,12 @@ Chat =
         body = span
 
       if body?
+        unless $('#chat-' + jid_id).size()
+          Chat.insertChatArea jid, jid_id, status, name
+
+        $('#chat-' + jid_id + ' #content-chat').show()
+        $('#chat-' + jid_id + ' .chat-input').focus()
+
         $('#chat-' + jid_id + ' #content-chat #message-area .chat-messages .chat-event').remove()
         $('#chat-' + jid_id + ' #content-chat #message-area .chat-messages').append(
           "<div class='chat-message'>" +
@@ -516,6 +517,9 @@ $(document).bind 'connected', ->
 
   iq = $iq({type: 'get'}).c('query', {xmlns: 'jabber:iq:roster'})
   Chat.connection.sendIQ iq, Chat.on_roster
+
+  iq = $iq({type: "set"}).c("vcard", {xmlns: "vcard-temp"}).c("FN", Chat.user_name)
+  Chat.connection.sendIQ iq
 
   Chat.connection.addHandler Chat.on_roster_changed, "jabber:iq:roster", "iq", "set"
   Chat.connection.addHandler Chat.on_message, null, "message", "chat"

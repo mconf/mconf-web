@@ -138,7 +138,7 @@ Mconf::Application.routes.draw do
 
   resources :users do
     get :select_users, :on => :collection
-    get :xmpp_current_user, :on => :collection
+    get :current, :on => :collection, :defaults => { :format => 'xml' }
     member do
       post :enable
       get :edit_bbb_room

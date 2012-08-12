@@ -980,8 +980,6 @@ es:
     other: Vídeos
   when: Cuándo
   where: Donde
-  xmpp_server: 
-    password_invalid: "la contraseña no es válida"
   yesterday: Ayer
   your_interests_tags: "Sus intereses (tags)"
   your_vcard: "su vCard"
