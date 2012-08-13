@@ -39,6 +39,10 @@ class EventsController < ApplicationController
   # GET /events
   # GET /events.xml
   def index
+    # AtomPub feeds are ordered by updated_at
+    if request.format == Mime::ATOM
+      params[:order], params[:direction] = "updated_at", "DESC"
+    end
     events
 
     respond_to do |format|

@@ -29,11 +29,8 @@ class UsersController < ApplicationController
   authorization_filter :update, :user, :only => [ :edit, :update ]
   authorization_filter :delete, :user, :only => [ :destroy ]
 
-  set_params_from_atom :user, :only => [ :create, :update ]
-
   # GET /users
   # GET /users.xml
-  # GET /users.atom
   def index
     @users = space.users.sort {|x,y| x.name <=> y.name }
     #@groups = @space.groups.all(:order => "name ASC")
@@ -47,14 +44,12 @@ class UsersController < ApplicationController
     respond_to do |format|
       format.html { render :layout => 'spaces_show' }
       format.xml { render :xml => @users }
-      format.atom
     end
 
   end
 
   # GET /users/1
   # GET /users/1.xml
-  # GET /users/1.atom
   def show
     user
 
@@ -69,8 +64,6 @@ class UsersController < ApplicationController
     respond_to do |format|
       format.html { render 'profiles/show' }
       format.xml { render :xml => user }
-      format.atom
-      format.atomsvc
     end
   end
 
@@ -83,7 +76,6 @@ class UsersController < ApplicationController
 
   # POST /users
   # POST /users.xml
-  # POST /users.atom
   # {"commit"=>"Sign up", "captcha"=>"FBIILL", "tags"=>"", "action"=>"create",
   # "controller"=>"users", "user"=>{"password_confirmation"=>"prueba", "email2"=>"", "email3"=>"",
   # "login"=>"julito", "password"=>"prueba", "email"=>"email@domain.com"}}
@@ -111,15 +103,9 @@ class UsersController < ApplicationController
 
         }
         format.xml  { render :xml => @user, :status => :created, :location => @user }
-        format.atom {
-          headers["Location"] = formatted_user_url(@user, :atom )
-          render :action => 'show',
-          :status => :created
-        }
       else
         format.html { render :action => "new", :layout => "no_sidebar" }
         format.xml  { render :xml => @user.errors, :status => :unprocessable_entity }
-        format.atom { render :xml => @user.errors.to_xml, :status => :bad_request }
       end
     end
 
@@ -140,7 +126,6 @@ class UsersController < ApplicationController
 
   # PUT /users/1
   # PUT /users/1.xml
-  # PUT /users/1.atom
   #this method updates a user
   def update
     respond_to do |format|
@@ -152,11 +137,9 @@ class UsersController < ApplicationController
           redirect_to(user_path(@user))
         }
         format.xml  { render :xml => @user }
-        format.atom { head :ok }
       else
         format.html { render :action => "edit", :layout => "no_sidebar" }
         format.xml  { render :xml => @user.errors, :status => :unprocessable_entity }
-        format.atom { render :xml => @user.errors.to_xml, :status => :not_acceptable }
       end
     end
   end
@@ -178,7 +161,6 @@ class UsersController < ApplicationController
 
   # DELETE /users/1
   # DELETE /users/1.xml
-  # DELETE /users/1.atom
   def destroy
     user.disable
 
@@ -195,7 +177,6 @@ class UsersController < ApplicationController
         end
       }
       format.xml  { head :ok }
-      format.atom { head :ok }
     end
   end
 
@@ -216,7 +197,6 @@ class UsersController < ApplicationController
           redirect_to manage_users_path
       }
       format.xml  { head :ok }
-      format.atom { head :ok }
     end
   end
 

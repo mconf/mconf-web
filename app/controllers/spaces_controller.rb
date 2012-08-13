@@ -27,8 +27,6 @@ class SpacesController < ApplicationController
   authorization_filter :update, :space, :only => [:edit, :update]
   authorization_filter :delete, :space, :only => [:destroy, :enable]
 
-  set_params_from_atom :space, :only => [ :create, :update ]
-
   # TODO: cleanup the other actions adding respond_to blocks here
   respond_to :js, :only => [:index, :show]
   respond_to :html, :only => [:new, :edit, :index, :show]

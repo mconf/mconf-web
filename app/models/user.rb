@@ -170,26 +170,6 @@ class User < ActiveRecord::Base
     users.size
   end
 
-  def self.atom_parser(data)
-    e = Atom::Entry.parse(data)
-    user = {}
-    user[:login] = e.title.to_s
-    user[:password] = e.get_elem(e.to_xml, "http://sir.dit.upm.es/schema", "password").text
-    user[:password_confirmation] = user[:password]
-    e.get_elems(e.to_xml, "http://schemas.google.com/g/2005", "email").each do |email|
-        user[:email] = email.attributes['address']
-    end
-    t = []
-    e.categories.each do |c|
-      unless c.scheme
-        t << c.term
-      end
-    end
-    tags = t.join(sep=",")
-
-    { :user => user, :tags => tags}
-  end
-
   def self.select_all_users(name)
     tags = []
     members = Profile.where("full_name like ?", "%#{ name }%").select(['full_name', 'id']).limit(4)

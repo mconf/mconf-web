@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120717183338) do
+ActiveRecord::Schema.define(:version => 20120812235634) do
 
   create_table "admissions", :force => true do |t|
     t.string   "type"
@@ -428,12 +428,6 @@ ActiveRecord::Schema.define(:version => 20120717183338) do
   end
 
   add_index "tags", ["name", "container_id", "container_type"], :name => "index_tags_on_name_and_container_id_and_container_type"
-
-  create_table "uris", :force => true do |t|
-    t.string "uri"
-  end
-
-  add_index "uris", ["uri"], :name => "index_uris_on_uri"
 
   create_table "users", :force => true do |t|
     t.string   "login"

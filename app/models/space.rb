@@ -200,22 +200,6 @@ class Space < ActiveRecord::Base
     actors(options)
   end
 
-  # AtomPub
-  def self.atom_parser(data)
-    e = Atom::Entry.parse(data)
-
-    space = {}
-    space[:name] = e.title.to_s
-    space[:description] = e.summary.to_s
-    space[:deleted] = e.get_elem(e.to_xml, "http://schemas.google.com/g/2005", "deleted").text
-    space[:parent_id] = e.get_elem(e.to_xml, "http://sir.dit.upm.es/schema", "parent_id").text
-
-    visibility = e.get_elem(e.to_xml, "http://schemas.google.com/g/2005", "visibility").text
-    space[:public] = visibility == "public"
-
-    { :space => space }
-  end
-
   def disable
     self.update_attributes(:disabled => true, :name => "#{name.split(" RESTORED").first} DISABLED #{Time.now.to_i}")
 =begin
