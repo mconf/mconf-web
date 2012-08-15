@@ -1,0 +1,51 @@
+%div{:id => "parent_#{thread.id}", :class => "#{cycle("even_thread", "odd_thread")} post_cloud #{"last" if last}"}
+  .thread
+    .thread_content
+      .post-logo
+        = raw link_logo(thread.author, :size => 32, :url => user_path(thread.author), :title => thread.author.name)
+      .thread-title-wrapper
+        %ul{:class => "thread_options extended_thread #{'offscreen' unless extended}"}
+          = link_to(image_tag("icons/exclamation.png", :alt => t('spam.report')), spam_lightbox_space_post_path(@space,thread),{:name => thread.id, :class => 'spam_link', :title => t('spam.report')}) if logged_in? && thread.spam != true
+          %li
+            = link_to image_tag("icons/comments-add.png",:alt => t('reply') ), space_posts_path(@space,:reply_to => thread),{:name => thread.id, :class => 'reply_to_link', :title => t('comment.add')}if @space.authorize?([:create, :content],:to => current_user)
+          %li
+            = link_to image_tag("icons/pencil.png", :alt => t('edit')), get_edit_route(thread),{:name => thread.id, :class => 'edit_post_link', :title => t('edit')} if thread.authorize?(:update, :to => current_user)
+          %li
+            = link_to image_tag("icons/cancel.png", :alt => t('delete.one') ), space_post_path(@space,thread),{ :class => 'delete_thread', :confirm => t('delete.confirm', :element => thread.title), :method => :delete, :title => t('delete.one') } if thread.authorize?(:delete, :to => current_user)
+
+        %ul.thread-title
+          %li
+            %span.unified_user
+              = link_to(thread.author.name,user_path(thread.author), :class => "unified_user")
+              = ":"
+              = link_to(truncate(thread.title,:length => 80), space_post_path(@space,thread),:class=>"unified_posts") if @space.authorize?([:read, :content],:to => current_user)
+              - if has_attachments(thread)
+                = image_tag("icons/attach.png",:title => attachment_name(thread), :class => "icon")
+              - if !thread.children.empty?
+                = link_to_function t('thread.comments', :children => thread.children.size), "extend_thread(#{thread.id})", :class => "extend_thread", :style => "#{'display:none' if extended}"
+              %span{:class => "updated extend_thread #{'offscreen' if extended}"}
+                = t('updated_time_ago', :time => time_ago_in_words(thread.updated_at))
+          %li
+            %div{:class => "grey extend_thread #{'offscreen' if extended}"}
+              = truncate(strip_tags(thread.text), :length => 100)
+              = link_to_function t('more_arrows'), "extend_thread(#{thread.id})", :class => "extend_thread", :style => "#{'display:none' if extended}"
+            %div{:id => 'grey', :class => "extended_thread grey #{'offscreen' unless extended}"}
+              = render :partial => "posts/parent_post",:locals => { :post =>  thread, :selected_post => false}
+
+      %div{:class => "extended_thread #{'offscreen' unless extended}"}
+        - unless thread.children.size < 4
+          .comments-status
+            = t('thread.show_last_comment', :size => thread.three_last_comment().size, :children => thread.children.size)
+            = link_to(t('comment.show_all'), space_post_path(@space,thread)) if @space.authorize?([:read, :content],:to => current_user)
+
+        %div
+          - for comment in thread.three_last_comment()
+            = render :partial => "posts/post" , :locals => { :post =>  comment, :selected_post => false}
+
+
+        .add-new-comment
+          = link_to_function t('collapse'), "collapse_thread(#{thread.id})", :class => "collapse_thread", :style => "#{'display:none' unless extended}"
+          %span{:class => "extended_thread #{'offscreen' unless extended}"}
+            = " | "
+          - if @space.authorize?([:create, :content],:to => current_user)
+            = link_to t('comment.add_new'), space_posts_path(@space,:reply_to => thread),{:name => thread.id, :class => 'reply_to_link', :title => t('reply')}

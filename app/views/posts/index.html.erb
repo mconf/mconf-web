@@ -117,4 +117,4 @@ $("a.edit_post_link").click(function(){
 <%else%>
   <%= render :partial => "collapsed_threads", :locals => {:threads => @posts} %>
 <%end%>
-<%= will_paginate @posts %>
+<%= page_navigation_links @posts %>

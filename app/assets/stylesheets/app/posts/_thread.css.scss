@@ -1,0 +1,41 @@
+@import "definitions";
+@import "compass/css3";
+
+body.posts.index, body.posts.show {
+
+  .post-logo {
+    float: left;
+    padding-right: 5px;
+  }
+
+  .thread_content {
+    position: relative;
+    clear: both;
+  }
+
+  .post-content {
+    .group_links {
+      float: right;
+    }
+  }
+
+  .post-wrapper {
+    border-top: 1px solid #EEE;
+    padding-top: 5px;
+    margin-bottom: -10px;
+  }
+
+  .thread_options {
+    float: right;
+    list-style-type: none;
+    margin-right: 3px;
+    li {
+      display: inline;
+    }
+  }
+
+  .offscreen {
+    display: none;
+  }
+
+}
