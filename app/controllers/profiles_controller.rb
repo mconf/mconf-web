@@ -17,11 +17,10 @@
 # along with VCC.  If not, see <http://www.gnu.org/licenses/>.
 
 class ProfilesController < ApplicationController
-  before_filter :user!
-
-  authorization_filter :manage, :profile, :except => [ :show ]
-
   before_filter :unique_profile, :only => [:new, :create]
+
+  load_and_authorize_resource :user
+  load_and_authorize_resource :through => :user, :singleton => true
 
   # GET /profile
   # GET /profile.xml
@@ -81,8 +80,8 @@ class ProfilesController < ApplicationController
       flash[:notice]= t('profile.must_create')
       redirect_to new_space_user_profile_path(@space, :user_id=>current_user.id)
     else
-        render :partial=>'public_hcard'
-      if @profile.authorize? :read, :to => current_user
+      render :partial=>'public_hcard'
+      if can?(:read, @profile)
         render :partial=>'private_hcard'
       end
     end
@@ -95,4 +94,3 @@ class ProfilesController < ApplicationController
     end
   end
 end
-

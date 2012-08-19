@@ -252,5 +252,4 @@ class Agenda < ActiveRecord::Base
     end
   end
   
-  authorization_delegate(:space,:as => :content)
 end

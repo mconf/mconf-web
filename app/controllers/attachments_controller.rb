@@ -19,14 +19,11 @@
 
 class AttachmentsController < ApplicationController
   include ActionController::StationResources
-  
-  # Always needs a space
-  before_filter :space!
-  authorization_filter :create, :attachment, :only => [ :new, :create ]
-  authorization_filter :read,   :attachment, :only => [ :index, :show ]
-  authorization_filter :update, :attachment, :only => [ :edit, :update ]
-  authorization_filter :delete, :attachment, :only => [ :destroy ]
-  
+
+  #before_filter :space!
+  load_and_authorize_resource :space
+  load_and_authorize_resource :attachment, :through => :space
+
   def index
     attachments
     respond_to do |format|
@@ -49,7 +46,7 @@ class AttachmentsController < ApplicationController
       attachments
       errors = ""
       @attachments.each do |attachment|
-        if attachment.authorize?(:delete, :to => current_user)
+        if can?(:destroy, attachment)
           attachment.tags.each do |tag|
             tag.delete
           end

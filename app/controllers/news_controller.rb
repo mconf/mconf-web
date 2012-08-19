@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Copyright 2008-2010 Universidad Politécnica de Madrid and Agora Systems S.A.
 #
 # This file is part of VCC (Virtual Conference Center).
@@ -16,9 +17,9 @@
 # along with VCC.  If not, see <http://www.gnu.org/licenses/>.
 
 class NewsController < ApplicationController
-  
-  before_filter :space, :only => [ :create, :index, :destroy, :edit, :update,:show, :new ]
-  
+  load_and_authorize_resource :space
+  load_and_authorize_resource :through => :space
+
   def create
     @news = News.new(params[:news])
     @news.space = @space
@@ -33,8 +34,8 @@ class NewsController < ApplicationController
       end
     end
   end
-  
-  def index 
+
+  def index
     @news = @space.news.find(:all, :order => "updated_at DESC")
     @edit_news = @news.select{|n| n.id == params[:edit_news].to_i} if params[:edit_news]
      respond_to do |format|

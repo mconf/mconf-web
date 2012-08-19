@@ -259,24 +259,4 @@ class Profile < ActiveRecord::Base
       maker.add_url((url  || ""))
     end
   end
-
-
-  authorizing do |agent, permission|
-    if self.user == agent
-      true
-    elsif (permission == :read)
-      case visibility
-        when VISIBILITY.index(:everybody)
-          true
-        when VISIBILITY.index(:members)
-          agent != Anonymous.current
-        when VISIBILITY.index(:public_fellows)
-          self.user.public_fellows.include?(agent)
-        when VISIBILITY.index(:private_fellows)
-          self.user.private_fellows.include?(agent)
-        when VISIBILITY.index(:nobody)
-          false
-      end
-    end
-  end
 end

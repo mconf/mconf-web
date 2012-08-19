@@ -105,8 +105,6 @@
 
 #   before_destroy :avoid_destroying_only_one_with_highest_role
 
-#   authorization_delegate(:stage)
-
 #   private
 
 #   # Avoids the only Admin to change his role to a lower one

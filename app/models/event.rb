@@ -548,18 +548,6 @@ class Event < ActiveRecord::Base
     end
   end
 
-  authorizing do |agent, permission|
-    if ( permission == :update || permission == :delete || permission == [:update, :content] || permission == [:delete, :content] ) && author == agent
-      true
-    end
-  end
-
-  authorizing do |agent, permission|
-    if permission == :read && agent.is_a?(XmppServer)
-      true
-    end
-  end
-
   #method to know if a scorm file needs to be generated
   def scorm_needs_generate
     isFile = File.exist?("#{Rails.root.to_s}/public/scorm/#{permalink}.zip")

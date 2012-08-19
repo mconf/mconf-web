@@ -1,4 +1,6 @@
-- if user.profile!.authorize?(:read, :to => current_user)
+-# locals: user
+
+- if can?(:read, user.profile!)
   .user-wrapper.user-detailed
     .logo-in-thread
       = link_logo(user, :size => 32, :url => user_path(user), :title => user.name).html_safe

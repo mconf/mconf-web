@@ -40,7 +40,7 @@
         = render 'events/sidebar_event_wrapper', :events => @space.upcoming_events(5)
       .content-block-footer
         = link_to feed_icon, space_events_path(@space, :format => :atom)
-        = link_to(t('read_more'), space_events_path(@space)) if @space.authorize?([:read, :content], :to => current_user)
+        = link_to(t('read_more'), space_events_path(@space))
 
     = render_sidebar_content_block("sidebar-space-admins") do
       .content-block-header

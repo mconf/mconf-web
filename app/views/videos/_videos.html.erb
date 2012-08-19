@@ -69,7 +69,7 @@ $(document).ready(function() {
         <h3 class="blue"><%=t('space.recording.one')%>
           <%if params[:action]=="edit"%>
                 <span id="edit_video"><%= link_to t('video.close_edit'), space_video_path(@space, @display_entry) %></span>
-      <%elsif @display_entry && @display_entry.authorize?(:update, :to => current_user) && (Time.now > Time.parse("2010-12-21")) %>
+      <%elsif @display_entry && can?(:update, @display_entry) && (Time.now > Time.parse("2010-12-21")) %>
         <span id="edit_video"><%= link_to image_tag("icons/pencil.png", :alt => t('event.edit'),:class=>"icon"), edit_space_video_path(@space, @display_entry),:title => t('video.edit') %> </span>
           <%end%>
         </h3>

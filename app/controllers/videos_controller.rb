@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Copyright 2008-2010 Universidad Politécnica de Madrid and Agora Systems S.A.
 #
 # This file is part of VCC (Virtual Conference Center).
@@ -18,10 +19,7 @@
 class VideosController < ApplicationController
   before_filter :space!
   
-  authorization_filter [:create, :content ], :space, :only => [ :new, :create ]
-  authorization_filter [:read, :content ],   :space, :only => [ :show, :index ]
-  authorization_filter [:update, :content ], :space, :only => [ :edit, :update ]
-  authorization_filter [:delete, :content ], :space, :only => [ :destroy ]
+  load_and_authorize_resource
   
   def index
       if space.videos[0]

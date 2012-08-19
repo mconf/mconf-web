@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Copyright 2008-2010 Universidad Politécnica de Madrid and Agora Systems S.A.
 #
 # This file is part of VCC (Virtual Conference Center).
@@ -27,13 +28,10 @@ class PostsController < ApplicationController
   before_filter :space!
   
   before_filter :post, :except => [ :index, :new, :create]
-  
-  authorization_filter [ :read, :content ],   :space, :only => [ :index ]
-  authorization_filter [ :create, :content ], :space, :only => [ :new, :create ]
-  authorization_filter :read,   :post, :only => [ :show ]
-  authorization_filter :update, :post, :only => [ :edit, :update ]
-  authorization_filter :delete, :post, :only => [ :destroy ]
-  
+
+  load_and_authorize_resource :space
+  load_and_authorize_resource :through => :space
+
   def index
     posts
     respond_to do |format|

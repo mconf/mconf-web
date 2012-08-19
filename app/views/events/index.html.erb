@@ -34,7 +34,7 @@ $(document).ready(function() {
 <%= content_for :sidebar do  %>
     <%= render :partial => 'spaces/sidebar_join_links' %>
 
-        <%if @space.authorize?([:create, :content],:to => current_user)%>
+        <%if can?(:create_event, @space) %>
 
             <div class="button_wrapper">
               <%= link_to ("<span>" + t('event.create.title') + "</span>").html_safe, new_space_event_path,:class => "new_space_link big_button orange_button"%>

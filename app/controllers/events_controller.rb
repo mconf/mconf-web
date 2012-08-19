@@ -26,15 +26,13 @@ class EventsController < ApplicationController
   include ActionController::StationResources
   include SpamControllerModule
 
-  before_filter :space!
+  #before_filter :space!
   before_filter :event, :only => [ :show, :edit, :update, :destroy ]
 
   before_filter :adapt_new_date, :only => [:create, :update]
 
-  authorization_filter :create, :event, :only => [ :new, :create ]
-  authorization_filter :read,   :event, :only => [ :show, :index ]
-  authorization_filter :update, :event, :only => [ :edit, :update, :start ]
-  authorization_filter :delete, :event, :only => [ :destroy ]
+  load_and_authorize_resource :space
+  load_and_authorize_resource :through => :space
 
   # GET /events
   # GET /events.xml

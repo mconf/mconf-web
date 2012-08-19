@@ -11,7 +11,9 @@
           %span.key= t("organization") + ":"
           %span.value= @profile.organization
 
-    - if (@profile.address.present? && (@profile.authorize? :read, :to => current_user)) || (@profile.city.present?) ||(@profile.province.present?) || (@profile.country.present?) || (@profile.zipcode.present? && (@profile.authorize? :read, :to => current_user))
+    - can_read = can?(:read, @profile)
+    - has_some = @profile.city.present? || @profile.city.present? || @profile.province.present? || @profile.country.present? || @profile.zipcode.present?
+    - if can_read and has_some
       %h4.sub-section= t('address')
       %ul
         - if @profile.address.present?

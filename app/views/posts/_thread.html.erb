@@ -19,16 +19,16 @@
         <!-- Options for the user to edit, delete or answer a thread..only visible at the extended view-->
         <ul class="thread_options extended_thread <%= 'offscreen' unless extended %>">
           <%=link_to(image_tag("icons/exclamation.png", :alt => t('spam.report')), spam_lightbox_space_post_path(@space,thread),{:name => thread.id, :class => 'spam_link', :title => t('spam.report')}) if user_signed_in? && thread.spam != true%> 
-          <li><%=link_to image_tag("icons/comments-add.png",:alt => t('reply') ), space_posts_path(@space,:reply_to =>thread),{:name => thread.id, :class => 'reply_to_link', :title => t('comment.add')}if @space.authorize?([:create, :content],:to => current_user)%></li>
-          <li><%=link_to image_tag("icons/pencil.png", :alt => t('edit')), get_edit_route(thread),{:name => thread.id, :class => 'edit_post_link', :title => t('edit')} if thread.authorize?(:update, :to => current_user)%></li>
-          <li><%=link_to image_tag("icons/cancel.png", :alt => t('delete.one') ), space_post_path(@space,thread),{ :class => 'delete_thread', :confirm => t('delete.confirm', :element => thread.title), :method => :delete, :title => t('delete.one') } if thread.authorize?(:delete, :to => current_user)%></li>
+          <li><%=link_to image_tag("icons/comments-add.png",:alt => t('reply') ), space_posts_path(@space,:reply_to =>thread),{:name => thread.id, :class => 'reply_to_link', :title => t('comment.add')}if can?(:create_post, @space)%></li>
+          <li><%=link_to image_tag("icons/pencil.png", :alt => t('edit')), get_edit_route(thread),{:name => thread.id, :class => 'edit_post_link', :title => t('edit')} if can?(:update, thread)%></li>
+          <li><%=link_to image_tag("icons/cancel.png", :alt => t('delete.one') ), space_post_path(@space,thread),{ :class => 'delete_thread', :confirm => t('delete.confirm', :element => thread.title), :method => :delete, :title => t('delete.one') } if can?(:destroy, thread)%></li>
         </ul>
         <!-- DARLE UNA VUELTA A LAS CONDICIONES PORQUE NO VEO CLARO QUE ESTÉ BIEN LO DE LOS PERMISOS-->
         <ul class="thread-title">      
           <li>
             <span class="unified_user"><%=link_to(thread.author.name,user_path(thread.author),:class=>"unified_user")%>: </span>
           
-              <%=link_to(truncate(thread.title,:length=>80), space_post_path(@space,thread),:class=>"unified_posts") if @space.authorize?([:read, :content],:to => current_user)%>
+              <%=link_to(truncate(thread.title,:length=>80), space_post_path(@space,thread),:class=>"unified_posts") if can?(:create_post, @space)%>
               <%if has_attachments(thread)%>
                 <%=image_tag("icons/attach.png",:title=>attachment_name(thread),:class=>"icon")%>
               <%end%>
@@ -75,7 +75,7 @@
               %>
             <%else%>-->
               <%= t('thread.show_last_comment', :size => thread.three_last_comment().size, :children => thread.children.size) %>
-              <%=link_to(t('comment.show_all'), space_post_path(@space,thread))if @space.authorize?([:read, :content],:to => current_user)%>
+              <%=link_to(t('comment.show_all'), space_post_path(@space,thread))if can?(:read, @space)%>
             <!--><%end%>-->
           </div>
         <%end%>
@@ -90,7 +90,7 @@
         <div class="add-new-comment">
           <%=link_to_function t('collapse'), "collapse_thread(#{thread.id})", :class => "collapse_thread", :style => "#{'display:none' unless extended}"%>
           <span class="extended_thread <%= 'offscreen' unless extended %>"> | </span>
-          <%if @space.authorize?([:create, :content],:to => current_user)%>
+          <%if can?(:create_post, @space)%>
             <%=link_to t('comment.add_new'), space_posts_path(@space,:reply_to =>thread),{:name => thread.id, :class => 'reply_to_link', :title => t('reply')}%>
           <%end%>
         </div>

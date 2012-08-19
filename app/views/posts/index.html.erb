@@ -94,7 +94,7 @@ $("a.edit_post_link").click(function(){
 
   <%= render :partial => 'spaces/sidebar_join_links' %>
 
-  <%if @space.authorize?([:create, :content],:to => current_user)%>
+  <%if can?(:create_post, @space)%>
     <% if params[:reply_to]%>
       <%= render :partial => "new_post", :locals => {:p_id=> Post.find(params[:reply_to]).id, :id => "reply-form"} %>
     <% elsif params[:edit] %>

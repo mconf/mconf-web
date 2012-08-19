@@ -24,10 +24,7 @@ class UsersController < ApplicationController
   before_filter :space!, :only => [:index]
   before_filter :webconf_room!, :only => [:index]
 
-  # Permission filters
-  authorization_filter [ :read, :performance ], :space, :only => [ :index ]
-  authorization_filter :update, :user, :only => [ :edit, :update ]
-  authorization_filter :delete, :user, :only => [ :destroy ]
+  load_and_authorize_resource
 
   set_params_from_atom :user, :only => [ :create, :update ]
 

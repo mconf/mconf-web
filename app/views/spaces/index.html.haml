@@ -46,9 +46,9 @@
     %h3= t('space.private')
   .content-block-middle.clearfix
     - @private_spaces.each do |space|
-      - unless space.authorize?(:read, :to => current_user)
-        .space-item.not-my-space{:name => space.permalink}
-          = link_logo(space, :size => 'h64', :url => new_space_join_request_path(space), :title => sanitize(space.name), :class => 'tooltipped-label downwards').html_safe
-      - else
+      - if can?(:read, space)
         %div{:class => "space-item #{@user_spaces.include?(space) ? 'my-space' : 'not-my-space'}", :name => space.permalink}
           = link_logo(space, :size => 'h64', :title => sanitize(space.name), :class => 'tooltipped-label downwards').html_safe
+      - else
+        .space-item.not-my-space{:name => space.permalink}
+          = link_logo(space, :size => 'h64', :url => new_space_join_request_path(space), :title => sanitize(space.name), :class => 'tooltipped-label downwards').html_safe

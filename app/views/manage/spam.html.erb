@@ -12,8 +12,8 @@
     <%for spam in @spam_posts%>
         <div class="spam_post">
       <div class="group_links">
-        <%=link_to(image_tag("icons/cancel.png", :alt => "delete",:class=>"icon"), space_post_path(spam.space,spam), {:method => :delete, :class => 'delete_post_link', :title => t('comment.delete'), :confirm => t('delete.confirm', :element=> spam.title)}) if spam.authorize?(:delete, :to => current_user)%>
-          <%=link_to(image_tag("icons/accept.png", :alt => "confirm",:class=>"icon"), edit_space_post_path(spam.space,spam,:valid => true), {:title => t('spam.valid')}) if spam.authorize?(:update, :to => current_user)%>
+        <%=link_to(image_tag("icons/cancel.png", :alt => "delete",:class=>"icon"), space_post_path(spam.space,spam), {:method => :delete, :class => 'delete_post_link', :title => t('comment.delete'), :confirm => t('delete.confirm', :element=> spam.title)}) if can?(:destroy, spam)%>
+          <%=link_to(image_tag("icons/accept.png", :alt => "confirm",:class=>"icon"), edit_space_post_path(spam.space,spam,:valid => true), {:title => t('spam.valid')}) if can?(:update, spam)%>
       </div>
           <%=link_to spam.title, space_post_path(spam.space, spam),:class=>"unified_posts"%>
     </div>

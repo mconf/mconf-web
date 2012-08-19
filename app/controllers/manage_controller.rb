@@ -17,7 +17,7 @@
 # along with VCC.  If not, see <http://www.gnu.org/licenses/>.
 
 class ManageController < ApplicationController
-  authorization_filter :manage, :current_site
+  authorize_resource :class => false
 
   def users
     @users = User.find_with_disabled(:all,:order => "username")
@@ -26,7 +26,7 @@ class ManageController < ApplicationController
   end
 
   def spaces
-    @spaces=Space.find_with_disabled(:all,:order => "name").paginate(:page => params[:page], :per_page => 20)
+    @spaces = Space.find_with_disabled(:all,:order => "name").paginate(:page => params[:page], :per_page => 20)
   end
 
   def spam

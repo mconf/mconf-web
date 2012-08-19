@@ -17,7 +17,8 @@
 # along with VCC.  If not, see <http://www.gnu.org/licenses/>.
 
 class InvitationsController < ApplicationController
-  authorization_filter :forbidden, :invitation, :only => [ :index ]
+  # TODO: permissions
+  #authorization_filter :forbidden, :invitation, :only => [ :index ]
 
   #-#-# from station
 

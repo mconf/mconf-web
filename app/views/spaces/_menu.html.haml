@@ -7,8 +7,7 @@
         %li= link_to t('webconference.one').capitalize, space_webconference_path(@space), spaces_menu_select_if(:webconference)
         %li= link_to t('post.wall').capitalize, space_posts_path(@space), spaces_menu_select_if(:posts)
         %li= link_to t('event.other').capitalize, space_events_path(@space), spaces_menu_select_if(:events)
-        - if @space.authorize?([:read, :performance], :to => current_user)
-          %li= link_to t('people').capitalize, space_users_path(@space), spaces_menu_select_if(:users)
+        %li= link_to t('people').capitalize, space_users_path(@space), spaces_menu_select_if(:users)
         - if @space.repository?
           %li= link_to t('repository.one').capitalize, space_attachments_path(@space), spaces_menu_select_if(:repository)
         - if @space.role_for?(current_user, :name => 'Admin') || current_user.superuser?

@@ -21,11 +21,9 @@ class SpacesController < ApplicationController
 
   before_filter :space
   before_filter :webconf_room!, :only => [:show, :edit]
-
   before_filter :authenticate_user!, :only => [:new, :create]
-  authorization_filter :read,   :space, :only => [:show]
-  authorization_filter :update, :space, :only => [:edit, :update]
-  authorization_filter :delete, :space, :only => [:destroy, :enable]
+
+  load_and_authorize_resource
 
   set_params_from_atom :space, :only => [ :create, :update ]
 

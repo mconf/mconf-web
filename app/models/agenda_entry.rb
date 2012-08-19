@@ -318,9 +318,6 @@ class AgendaEntry < ActiveRecord::Base
     end
   end
 
-  authorization_delegate(:event,:as => :content)
-  authorization_delegate(:space,:as => :content)
-
   include ConferenceManager::Support::AgendaEntry
 
   def to_fullcalendar_json

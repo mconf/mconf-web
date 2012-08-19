@@ -1,13 +1,10 @@
+# TODO: move :show to SpacesController#webconference
+
 class WebconferencesController < ApplicationController
   before_filter :space!
   before_filter :webconf_room!
 
-  authorization_filter [:create, :content ], :space, :only => [ :new, :create ]
-  authorization_filter [:read, :content ],   :space, :only => [ :show, :index ]
-  authorization_filter [:update, :content ], :space, :only => [ :edit, :update ]
-  authorization_filter [:delete, :content ], :space, :only => [ :destroy ]
-
-  layout 'spaces_show', :only => [:show]
+  layout 'spaces_show'
 
   # def index
   #     if space.webconferences[0]
@@ -21,6 +18,7 @@ class WebconferencesController < ApplicationController
   # end
 
   def show
+    authorize! :read, @space
     # FIXME Temporarily matching users by name, should use the userID
     @webconf_attendees = []
     unless @webconf_room.attendees.nil?

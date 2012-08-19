@@ -9,4 +9,4 @@
       = render :partial => 'users/detailed_user', :locals => { :user => user }
 
   .content-block-footer
-    = link_to t('read_more'), space_users_path(@space) if space.authorize?([:read, :performance], :to => current_user)
+    = link_to t('read_more'), space_users_path(@space) if can?(:read, space)

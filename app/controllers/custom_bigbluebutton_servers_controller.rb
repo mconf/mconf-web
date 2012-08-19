@@ -1,3 +1,4 @@
 class CustomBigbluebuttonServersController < Bigbluebutton::ServersController
-  authorization_filter :manage, :current_site
+  before_filter :authenticate_user!
+  authorize_resource :class => "BigbluebuttonServer"
 end

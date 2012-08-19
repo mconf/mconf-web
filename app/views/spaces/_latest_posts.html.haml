@@ -23,4 +23,4 @@
 
   .content-block-footer
     = link_to feed_icon, space_posts_path(@space, :format => :atom)
-    = link_to t('read_more'), space_posts_path(@space) if space.authorize?([:read, :content], :to => current_user)
+    = link_to t('read_more'), space_posts_path(@space)

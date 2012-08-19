@@ -52,6 +52,10 @@ class User < ActiveRecord::Base
   extend FriendlyId
   friendly_id :username
 
+  def ability
+    @ability ||= Ability.new(self)
+  end
+
 ###
 
   acts_as_agent
@@ -254,18 +258,6 @@ class User < ActiveRecord::Base
 
   def private_fellows
     stages(:type => "Space").select{|x| x.public == false}.map(&:actors).flatten.compact.uniq.sort{ |x, y| x.name <=> y.name }
-  end
-
-  authorizing do |agent, permission|
-    false if disabled?
-  end
-
-  authorizing do |agent, permission|
-    true if permission == :read
-  end
-
-  authorizing do |agent, permission|
-    true if agent == self
   end
 
   def has_events_in_this_space?(space)

@@ -15,7 +15,7 @@
       <li>
         <%= link_to t('event.notification.button'),sendnotification_invite_path(:event_id => @event.id) %>
       </li>
-      <% if @event.authorize?(:start, :to => current_user) && !@event.is_in_person? && @event.is_happening_now?%>
+      <% if can?(:start, @event) && !@event.is_in_person? && @event.is_happening_now?%>
         <li><%=link_to t('event.start'), start_space_event_path(@space, @event), :method => :post %></li>
       <% end %>
     </ul>

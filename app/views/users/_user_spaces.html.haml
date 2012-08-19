@@ -10,13 +10,13 @@
         %li
           .space-logo
             - space_logo = logo(space, :size => "h32", :title => space.name).html_safe
-            - if space.authorize? :read, :to => user
+            - if user.ability.can?(:read, space)
               = link_to space_path(space) do
                 = space_logo
             - else
               = space_logo
           .description-box
-            - if space.authorize? :read, :to => user
+            - if user.ability.can?(:read, space)
               = link_to first_words(space.name, 20), space_path(space), :title => space.name, :class => "space-title"
             - else
               %span{:title => space.name, :class => "space-title"}= first_words(space.name, 20)

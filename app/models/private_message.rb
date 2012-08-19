@@ -57,12 +57,4 @@ class PrivateMessage < ActiveRecord::Base
   def after_update_method
     self.destroy if self.deleted_by_sender && self.deleted_by_receiver
   end
-
-  authorizing do |agent, permission|
-    if permission == :read && agent == sender
-      true
-    elsif permission == :read && agent == receiver
-      true
-    end
-  end
 end

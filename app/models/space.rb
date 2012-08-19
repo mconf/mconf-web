@@ -218,20 +218,10 @@ class Space < ActiveRecord::Base
 
   def disable
     self.update_attributes(:disabled => true, :name => "#{name.split(" RESTORED").first} DISABLED #{Time.now.to_i}")
-=begin
-    for group in self.groups
-      Group.disable_list(group)
-    end
-=end
   end
 
   def enable
     self.update_attributes(:disabled => false, :name => "#{name.split(" DISABLED").first} RESTORED")
-=begin
-    for group in self.groups
-      Group.enable_list(group)
-    end
-=end
   end
 
   def is_last_admin?(user)
@@ -255,14 +245,6 @@ class Space < ActiveRecord::Base
       end
     end
     return false
-  end
-
-  # There are previous authorization rules because of the stage
-  # See acts_as_stage documentation
-  authorizing do |agent, permission|
-    if self.public? && [ :read, [ :read, :content ], [ :read, :performance ] ].include?(permission)
-      true
-    end
   end
 
   private

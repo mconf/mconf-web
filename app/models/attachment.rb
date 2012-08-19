@@ -45,14 +45,6 @@ class Attachment < ActiveRecord::Base
       nil
   end
 
-  # Define this authorization method before acts_as_content to priorize it
-  #
-  # Deny all requests except reading an already saved attachment in a space that hasn't repository
-  # Otherwise, we'll check permissions below
-  authorizing do |agent, permission|
-    false unless space.repository? || ( permission == :read && ! new_record? )
-  end
-
   acts_as_resource :has_media => :attachment_fu
   acts_as_taggable
   acts_as_content :reflection => :space
@@ -207,10 +199,6 @@ class Attachment < ActiveRecord::Base
     format ? format : :all
   end
 
-  authorizing do |agent, permission|
-    parent.authorize?(permission, :to => agent) if parent.present?
-  end
-
   def current_data
     File.file?(full_filename) ? File.read(full_filename) : nil
   end
@@ -264,15 +252,6 @@ class Attachment < ActiveRecord::Base
     self.class.record_timestamps=false
     yield self
     self.class.record_timestamps=rt
-  end
-
-# Author Permissions
-  authorizing do |agent, permission|
-    if author == agent &&
-        permission == :delete  &&
-        space.authorize?([ :create, :content ], :to => agent)
-      true
-    end
   end
 
 end

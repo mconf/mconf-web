@@ -86,7 +86,4 @@ class AgendaDivider < ActiveRecord::Base
     return start_time
   end
 
-  authorization_delegate(:event,:as => :content)
-  authorization_delegate(:space,:as => :content)
-  
 end

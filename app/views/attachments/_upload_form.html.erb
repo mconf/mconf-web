@@ -10,7 +10,7 @@
   });
 </script>
 
-<%if attachment.authorize?(:create,:to => current_user)%>
+<%if can?(:create_attachment, @space)%>
   <div id="doc_action">
     <div id="add_new_doc">
       <h3 class="blue"><%=t("document.upload")%></h3>

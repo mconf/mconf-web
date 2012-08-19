@@ -17,7 +17,8 @@
 # along with VCC.  If not, see <http://www.gnu.org/licenses/>.
 
 class SitesController < ApplicationController
-  authorization_filter :manage, :current_site
+  before_filter :authenticate_user!
+  authorize_resource :class => false
 
   #-#-# from station
 

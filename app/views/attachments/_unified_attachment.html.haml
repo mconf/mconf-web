@@ -8,7 +8,7 @@
   .thread-content
 
     %ul.thread-action-links.visible-on-hover{ :"data-hover-tracked" => "attachment_#{attachment.id}" }
-      - if attachment.authorize?(:delete, :to => current_user)
+      - if can?(:destroy, attachment)
         %li= link_to t('remove').downcase, space_attachment_path(attachment.space, attachment), {:method => :delete, :title => t('delete.one'), :confirm => t('delete.confirm', :element => attachment.filename) }
 
     .thread-title

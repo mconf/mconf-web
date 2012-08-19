@@ -1,7 +1,7 @@
 module AttachmentsHelper
   def table_actions(row, attachment, interactive)
     #html = ""
-    #html << link_to(image_tag("icons/cancel.png", :alt => t('delete'),:class=>"icon"), space_attachment_path(@space,attachment, :version => attachment.version), {:method => :delete, :title => t('attachment.delete'), :confirm => t('delete.confirm', :element => t('attachment.one'))}) if attachment.authorize?(:delete, :to => current_user)
+    #html << link_to(image_tag("icons/cancel.png", :alt => t('delete'),:class=>"icon"), space_attachment_path(@space,attachment, :version => attachment.version), {:method => :delete, :title => t('attachment.delete'), :confirm => t('delete.confirm', :element => t('attachment.one'))}) if can?(:destroy, attachment)
     #html << link_to("NV")
     #html << link_to(image_tag("icons/comment.png", :alt => t('post.one'),:class=>"icon"), space_post_path(@space,attachment.post)) if attachment.post.present?
     #html << link_to(image_tag("icons/date.png", :alt => t('date.one'),:class=>"icon"), space_event_path(@space,attachment.event)) if attachment.event.present?
@@ -9,23 +9,23 @@ module AttachmentsHelper
 
     html=""
 
-    html << if attachment.authorize?(:read,:to => current_user)
+    html << if can?(:read, attachment)
               link_to(image_tag("icons/download_doc20.png", :title => t('download'),:class=>"icon"), space_attachment_path(attachment.space,attachment, :format => attachment.format!), :class=>"no-dot")
           else
               image_tag("icons/download_doc20.png", :title => t('login_request' + 'download'),:class=>"icon fade")
             end
-    html << if interactive && attachment.current_version? && attachment.authorize?(:update,:to => current_user)
+    html << if interactive && attachment.current_version? && can?(:update, attachment)
               link_to(image_tag("icons/new_version_doc20.png", :title=> t('version.new'), :class=>"icon"), edit_space_attachment_path(attachment.space, attachment), :class => "repository_sidebar_action no-dot")
             else
               image_tag("icons/new_version_doc20.png", :title=> t('login_request'), :class=>"icon fade")
             end
-    html << if interactive && attachment.authorize?(:update,:to => current_user)
+    html << if interactive && can?(:update, attachment)
               attachment.tags.size>0 ? (link_to(image_tag("icons/pencil.png", :title=> t('tag.edit'),:class=>"icon"),edit_tags_space_attachment_path(attachment.space, attachment), :class=>"repository_sidebar_action no-dot")) : (link_to(image_tag('icons/add_tag20.png', :title => t('tag.add'),:class=>"icon"), edit_tags_space_attachment_path(@space, attachment), :class=>"repository_sidebar_action no-dot"))
             else
               image_tag("icons/pencil.png", :title=>t('login_request' + 'tag.edit'),:class=>"icon fade")
             end
 
-    if attachment.authorize?(:delete, :to => current_user)
+    if can?(:destroy, attachment)
       html << link_to(image_tag("icons/cancel.png", :title => t('delete.one'), :class =>"icon can_delete"), space_attachment_path(attachment.space,attachment), {:method => :delete, :confirm => t('delete.confirm', :element => t('attachment.one'))}, :class=>"no-dot")
       row[:class] += " can_delete"
     else

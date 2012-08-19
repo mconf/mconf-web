@@ -10,11 +10,11 @@
   .thread-content
 
     %ul.thread-action-links.visible-on-hover{ :"data-hover-tracked" => "parent-#{thread.id}" }
-      - if thread.space.authorize?([:create, :content], :to => current_user)
+      - if can?(:create_post, thread.space)
         %li= link_to t('reply').downcase, space_post_path(thread.space, thread, :reply_to => thread), { :name => thread.id, :title => t('comment.add') }
-      - if thread.authorize?(:update, :to => current_user)
+      - if can?(:update, thread)
         %li= link_to t('edit').downcase, get_edit_route(thread), :title => t('edit')
-      - if thread.authorize?(:delete, :to => current_user)
+      - if can?(:destroy, thread)
         %li= link_to t('remove').downcase, space_post_path(thread.space,thread), {:method => :delete, :title => t('delete.one'), :confirm => t('delete.confirm', :element => thread.title) }
       - if user_signed_in? && thread.spam != true
         %li= link_to t('spam.default').downcase, spam_lightbox_space_post_path(thread.space,thread), { :name => thread.id, :title => t('spam.report') }
@@ -23,7 +23,7 @@
       = comment_icon t('post.home.one', :space => thread.space.name)
       - if show_author and thread.author
         = link_to thread.author.name, user_path(thread.author), { :class => "thread-author" }
-      - if thread.space.authorize?([:read, :content], :to => current_user)
+      - if can?(:read, thread.space)
         = t('date.at')
         = link_to first_words(thread.title, 30), space_post_path(thread.space, thread)
       - if thread.attachments.any?

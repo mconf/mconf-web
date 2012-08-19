@@ -10,7 +10,7 @@
 	  </div>
   <%elsif @event.is_virtual? %>
       <%= @event.web current_user.username %>
-  <%elsif (@event.other_participation_url== nil || @event.other_participation_url=="") && !@event.authorize?(:update, :to => current_user)%>
+  <%elsif (@event.other_participation_url== nil || @event.other_participation_url=="") && cannot?(:update, @event)%>
 	  <%=t("event.participation.none")%>
   <%else%>
       <div id="participation_url_value"><%=@event.other_participation_url%></div>	 
@@ -23,7 +23,7 @@
 	 </div>
 	<%elsif @event.is_virtual?%>
 	   <%= @event.streaming(640, 480, 'flash')%>
-	<%elsif (@event.other_streaming_url== nil || @event.other_streaming_url=="") && !@event.authorize?(:update, :to => current_user)%>
+	<%elsif (@event.other_streaming_url== nil || @event.other_streaming_url=="") && cannot?(:update, @event)%>
 	    <%=t("event.streaming.none")%>
 	<%else%>
 	  <div id="streaming_url_value"><%=@event.other_streaming_url%></div>

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Copyright 2008-2010 Universidad Politécnica de Madrid and Agora Systems S.A.
 #
 # This file is part of VCC (Virtual Conference Center).
@@ -16,12 +17,8 @@
 # along with VCC.  If not, see <http://www.gnu.org/licenses/>.
 
 class PrivateMessagesController < ApplicationController
-  
   before_filter :private_message, :only => [:show, :edit, :update, :destroy]
-  
-  authorization_filter [ :manage, :message ], :user, :except => [ :show ]
-  authorization_filter :read, :private_message, :only => [ :show ]
-  authorization_filter [ :forbidden_edit, :message ], :user, :only => [ :edit ]
+  load_and_authorize_resource
 
   def index
     if params[:sent_messages]

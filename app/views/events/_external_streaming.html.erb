@@ -3,7 +3,7 @@
 <script type="text/javascript" charset="utf-8">
 $(document).ready(function() {
 
-<%if @event.authorize?(:update, :to => current_user)%>
+<%if can?(:update, @event)%>
   $('#streaming_url_value').editable('<%=space_event_path(@space, @event, :format => 'js')%>',{
         method : 'PUT',
   tooltip   : '<%= t('dblclick')%>',
@@ -59,7 +59,7 @@ $(document).ready(function() {
 
 <div id="streaming_url" class="margin-up main_text">
 
-    <%= link_to_function(image_tag("icons/pencil.png", :alt => t('edit'),:title=>t('event.streaming.edit'), :class=>"icon" ), "edit_streaming()", :id => "edit_streaming_icon") if @event.authorize?(:update, :to => current_user) %>
+    <%= link_to_function(image_tag("icons/pencil.png", :alt => t('edit'),:title=>t('event.streaming.edit'), :class=>"icon" ), "edit_streaming()", :id => "edit_streaming_icon") if can?(:update, @event) %>
     <div id="streaming_title"><h3 class="blue">
   <%if @event.is_happening_now?%>
     <div class="image"><%=image_tag("down.png",:class=>"jqueryToggle")%><%=image_tag("right.png",:style=>"display:none",:class=>"jqueryToggle")%></div>
@@ -70,16 +70,16 @@ $(document).ready(function() {
   <%end%>
     </h3></div>
   <div id="streaming_content">
-    <%if (@event.other_streaming_url== nil || @event.other_streaming_url=="") && !@event.authorize?(:update, :to => current_user)%>
+    <%if (@event.other_streaming_url== nil || @event.other_streaming_url=="") && cannot?(:update, @event)%>
       <%=t("event.streaming.none")%>
-  <%elsif (@event.other_streaming_url== nil || @event.other_streaming_url=="") && @event.authorize?(:update, :to => current_user)%>
+  <%elsif (@event.other_streaming_url== nil || @event.other_streaming_url=="") && can?(:update, @event)%>
     <div id="streaming_url_value"><%=@event.other_streaming_url%></div>
   <%else%>
     <div class="button_wrapper">
         <div class="on_live"><span>Live!</span></div>
         <div id="req_participation_link">
       <%#we only allow getting participation by ajax if the users can't edit the code, because if the user can edit it we show him a new page%>
-      <%if @event.is_virtual? || !@event.authorize?(:update, :to => current_user)%>
+      <%if @event.is_virtual? || cannot?(:update, @event)%>
         <%=link_to_function ("<span>" + t('join_cam') + "</span>"), 'request_participation()', {:id=>"view_streaming", :class=>"grey_button basic_button",:title => t('event.view_participation')} %>
         <%else%>
         <%=link_to ("<span>" + t('join_cam') + "</span>"), space_event_path(@space, @event, :show_participation => true) , {:id=>"view_streaming", :class=>"grey_button basic_button",:title => t('event.view_participation')} %>

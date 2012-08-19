@@ -26,7 +26,7 @@
                         </div>
                   <%end%>
                 <%else%>
-                  <%if @space.authorize?([:read, :content], :to => current_user) && user_signed_in? && !@event.past?%>
+                  <%if user_signed_in? && can?(:read, @space) && !@event.past?%>
                         <h5><%= t('event.will_attend') %></h5>
                           <div class="event_options">
                                 <%=link_to ("<button>"+t('agree')+"</button>").html_safe, space_event_participants_path(@space,@event,:participant => {:attend => true}),:method => :post, :class => "participant" %>
@@ -122,7 +122,9 @@
         </div>
 
         <div id="no_responding">
-                <%if current_user.superuser? or @space.role_for?(current_user, :name => 'Admin') or @event.authorize?([:update], :to=>current_user) %>
+                <%if current_user.superuser? or
+                  @space.role_for?(current_user, :name => 'Admin') or
+                  can?(:update, @event) %>
                   <div id="no_responding_lite" <%= 'style="display: none;"'.html_safe if params[:all_no_responding] or params[:list_no_responding]%>>
                                 <%if !@not_responding_candidates.empty? or !@not_responding_emails.empty? %>
                                  <h5><%= t('user.not_confirmed') %></h5>

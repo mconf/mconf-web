@@ -99,13 +99,4 @@ class Post < ActiveRecord::Base
   def self.last_news(space)
     return Post.not_events().find(:all, :conditions => {:space_id => space, :parent_id => nil}, :order => "updated_at DESC", :limit => 4)
   end
-
-  # Author Permissions
-  authorizing do |agent, permission|
-    if author == agent &&
-        ( permission == :update || permission == :delete ) &&
-        space.authorize?([ :create, :content ], :to => agent)
-      true
-    end
-  end
 end
