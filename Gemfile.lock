@@ -36,8 +36,8 @@ GIT
 
 GIT
   remote: git://github.com/mconf/station.git
-  revision: 5b9899e1ac4974b8e56d4e83cdf34415c8402ec5
-  branch: no-auth
+  revision: 987c1395c6f6bcde57d289a8343306df7e1f46de
+  branch: no-authorization
   specs:
     station (0.0.1)
       rails (>= 3.0.0)
@@ -104,6 +104,7 @@ GEM
       xml-simple
     bcrypt-ruby (3.0.1)
     builder (3.0.0)
+    cancan (1.6.8)
     capistrano (2.11.2)
       highline
       net-scp (>= 1.0.0)
@@ -311,7 +312,7 @@ GEM
     xml-simple (1.1.1)
     ya2yaml (0.30)
     yajl-ruby (1.1.0)
-    yaml_db (0.2.2)
+    yaml_db (0.2.3)
     yui-compressor (0.9.6)
       POpen4 (>= 0.1.4)
 
@@ -324,6 +325,7 @@ DEPENDENCIES
   attachment_fu!
   bigbluebutton-api-ruby!
   bigbluebutton_rails!
+  cancan
   capistrano (~> 2.11)
   capistrano-ext
   chronic

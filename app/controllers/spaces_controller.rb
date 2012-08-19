@@ -71,12 +71,11 @@ class SpacesController < ApplicationController
     @news = @space.news.order("updated_at DESC").all
     @news_to_show = @news[@news_position]
     @posts = @space.posts
-    @lastest_posts=@posts.not_events().find(:all, :conditions => {"parent_id" => nil}, :order => "updated_at DESC").first(3)
-    @lastest_posts.reject!{ |p| p.author.nil? }
-    @lastest_users=@space.stage_performances.sort {|x,y| y.created_at <=> x.created_at }.first(3).map{|performance| performance.agent}
+    @lastest_posts = @posts.not_events().where(:parent_id => nil).where('author_id is not null').order("updated_at DESC").first(3)
+    @lastest_users = @space.stage_permissions.sort {|x,y| y.created_at <=> x.created_at }.first(3).map{ |p| p.user }
     @lastest_users.reject!{ |u| u.nil? }
-    @upcoming_events=@space.events.find(:all, :order => "start_date ASC").select{|e| e.start_date && e.start_date.future?}.first(5)
-    @performance=Performance.find(:all, :conditions => {:agent_id => current_user, :stage_id => @space, :stage_type => "Space"})
+    @upcoming_events = @space.events.order("start_date ASC").all.select{ |e| e.start_date && e.start_date.future? }.first(5)
+    @permission = Permission.where(:user_id => current_user, :subject_id => @space, :subject_type => 'Space').first
     @current_events = (Event.in(@space).all :order => "start_date ASC").select{|e| e.start_date && !e.start_date.future? && e.end_date.future?}
     render :layout => 'spaces_show'
   end
@@ -91,7 +90,7 @@ class SpacesController < ApplicationController
 
   def edit
     # @users = @space.actors.sort {|x,y| x.name <=> y.name }
-    @performances = space.stage_performances.sort {|x,y| x.agent.name <=> y.agent.name }
+    @permissions = space.stage_permissions.sort{ |x,y| x.user.name <=> y.user.name }
     @roles = Space.roles
     render :layout => 'spaces_show'
   end
@@ -110,7 +109,7 @@ class SpacesController < ApplicationController
     if @space.save
       respond_with @space do |format|
         flash[:success] = t('space.created')
-        @space.stage_performances.create(:agent => current_user, :role => Space.role('Admin'))
+        @space.stage_permissions.create(:user => current_user, :role => Space.role('Admin'))
         format.html { redirect_to :action => "show", :id => @space  }
       end
     else

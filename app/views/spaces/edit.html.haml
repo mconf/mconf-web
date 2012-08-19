@@ -10,6 +10,6 @@
 - if params[:new_invitations]
   = render :partial => 'new_invitation', :locals => {:checked_users => Array.new}
 - else
-  - for performance in @performances
-    = render :partial => 'edit_performance', :locals => {:performance => performance, :user => performance.agent}
+  - for permission in @permissions
+    = render :partial => 'edit_user_permission', :locals => {:permission => permission, :user => permission.user}
   = render :partial => 'precrop_logo'

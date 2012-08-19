@@ -30,9 +30,10 @@ gem 'bigbluebutton_rails', :git => 'git://github.com/mconf/bigbluebutton_rails.g
 gem 'simple_form', '~> 2.0.0'
 gem 'acts_as_tree', :git => 'https://github.com/parasew/acts_as_tree.git'
 gem 'friendly_id'
-gem 'station', :git => 'git://github.com/mconf/station.git', :branch => 'no-auth'
+gem 'station', :git => 'git://github.com/mconf/station.git', :branch => 'no-authorization'
 gem 'devise'
 gem 'devise-encryptable' # TODO: only while we have old station users
+gem 'cancan'
 gem 'i18n-js', :git => "git://github.com/fnando/i18n-js.git", :branch => 'rewrite'
 gem 'rabl'
 gem 'yajl-ruby' # json parser for rabl

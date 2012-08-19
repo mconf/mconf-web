@@ -61,18 +61,18 @@ class Notifier < ActionMailer::Base
     create_default_mail(@receiver.locale)
   end
 
-  def performance_update_notification_email(sender,receiver,stage,rol)
+  def permission_update_notification_email(sender,receiver,stage,rol)
     setup_email(receiver.email)
 
     if stage.type.name == 'Space'
-      @subject += I18n.t("performance.notification.subject.space", :username=>sender.full_name , :space=>stage.name, :locale=>receiver.locale).html_safe
-      @text = I18n.t("performance.notification.space", :username=>sender.full_name , :space=>stage.name , :role => rol, :locale=>receiver.locale ).html_safe;
+      @subject += I18n.t("permission.notification.subject.space", :username=>sender.full_name , :space=>stage.name, :locale=>receiver.locale).html_safe
+      @text = I18n.t("permission.notification.space", :username=>sender.full_name , :space=>stage.name , :role => rol, :locale=>receiver.locale ).html_safe;
     elsif stage.type.name == 'Event'
-      @subject += I18n.t("performance.notification.subject.event", :username=>sender.full_name , :event=>stage.name, :locale=>receiver.locale).html_safe
-      @text = I18n.t("performance.notification.event", :username=>sender.full_name , :event=>stage.name , :role => rol, :locale=>receiver.locale).html_safe;
+      @subject += I18n.t("permission.notification.subject.event", :username=>sender.full_name , :event=>stage.name, :locale=>receiver.locale).html_safe
+      @text = I18n.t("permission.notification.event", :username=>sender.full_name , :event=>stage.name , :role => rol, :locale=>receiver.locale).html_safe;
     else
-      @subject += I18n.t("performance.notification.subject.estandar", :username=>sender.full_name , :stage=>stage.name, :locale=>receiver.locale).html_safe
-      @text = I18n.t("performance.notification.estandar", :locale=>receiver.locale).html_safe;
+      @subject += I18n.t("permission.notification.subject.default", :username=>sender.full_name , :stage=>stage.name, :locale=>receiver.locale).html_safe
+      @text = I18n.t("permission.notification.default", :locale=>receiver.locale).html_safe;
     end
     @sender = sender
     @receiver = receiver

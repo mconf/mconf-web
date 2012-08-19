@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Copyright 2008-2010 Universidad Politécnica de Madrid and Agora Systems S.A.
 #
 # This file is part of VCC (Virtual Conference Center).
@@ -43,10 +44,10 @@ class PrivateSender
   end
   
   
-  def self.performance_update_notification_message(sender,receiver,stage, rol)
+  def self.permission_update_notification_message(sender,receiver,stage, rol)
     if stage.type.name == 'Space'
-      m = PrivateMessage.new :title => I18n.t("performance.notification.subject.space", :username=>sender.full_name , :space=>stage.name),
-      :body =>  I18n.t("performance.notification.space", :username=>sender.full_name , :space=>stage.name , :role => rol );
+      m = PrivateMessage.new :title => I18n.t("permission.notification.subject.space", :username=>sender.full_name , :space=>stage.name),
+      :body =>  I18n.t("permission.notification.space", :username=>sender.full_name , :space=>stage.name , :role => rol );
       m.receiver = receiver
       m.save! 
     end

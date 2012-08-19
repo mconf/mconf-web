@@ -46,11 +46,11 @@ class Informer
      end
    end
 
-   def self.deliver_performance_update_notification(sender,receiver,stage,rol)
+   def self.deliver_permission_update_notification(sender,receiver,stage,rol)
      if receiver.notification == User::NOTIFICATION_VIA_EMAIL
-       Notifier.delay.performance_update_notification_email(sender,receiver,stage,rol)
+       Notifier.delay.permission_update_notification_email(sender,receiver,stage,rol)
      elsif receiver.notification == User::NOTIFICATION_VIA_PM
-       PrivateSender.performance_update_notification_message(sender,receiver,stage,rol)
+       PrivateSender.permission_update_notification_message(sender,receiver,stage,rol)
      end
    end
 

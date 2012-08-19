@@ -9,20 +9,11 @@
       = image_tag "icons/cancel.png", :alt => t('disable'), :title => t('user.disable')
 
   .user_data
-    - if performance.nil?
-      = form_for :performance, :url => site_performances_path do |f|
-        %ul
-          %li.main_text
-            = t('name.one') + ":"
-            %span.unified_user
-              = sanitize link_to(user.name, user_path(user))
-          %li.main_text
-            = t('user.category') + ":"
-            = user.superuser? ? t('user.admin') : t('user.normal_user')
-    - else
-      = form_for :performance, :url => site_performance_path(performance.id), :html => { :method => :put} do |f|
-        %ul
-          %li.main_text
-            = t('name.one')
-            %span.unified_user
-              = sanitize link_to(user.name, user_path(user))
+    %ul
+      %li.main_text
+        = t('name.one') + ":"
+        %span.unified_user
+          = sanitize link_to(user.name, user_path(user))
+      %li.main_text
+        = t('user.category') + ":"
+        = user.superuser? ? t('user.admin') : t('user.normal_user')

@@ -101,7 +101,7 @@ describe Space do
   describe "being public" do
     before(:each) do
       @space = populated_public_space
-      @admin = @space.stage_performances.detect{ |p| p.role.name == "Admin" }.agent
+      @admin = @space.stage_permissions.detect{ |p| p.role.name == "Admin" }.user
     end
 
     it_should_authorize(:admin, :update, :space)

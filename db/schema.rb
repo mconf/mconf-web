@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120729031436) do
+ActiveRecord::Schema.define(:version => 20120819022001) do
 
   create_table "admissions", :force => true do |t|
     t.string   "type"
@@ -275,24 +275,13 @@ ActiveRecord::Schema.define(:version => 20120729031436) do
     t.boolean  "attend"
   end
 
-  create_table "performances", :force => true do |t|
-    t.integer  "agent_id"
-    t.string   "agent_type"
-    t.integer  "role_id"
-    t.integer  "stage_id"
-    t.string   "stage_type"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "permissions", :force => true do |t|
-    t.string "action"
-    t.string "objective"
-  end
-
-  create_table "permissions_roles", :id => false, :force => true do |t|
-    t.integer "permission_id"
-    t.integer "role_id"
+    t.integer  "user_id",      :null => false
+    t.integer  "subject_id",   :null => false
+    t.string   "subject_type", :null => false
+    t.integer  "role_id",      :null => false
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
   end
 
   create_table "post_attachments", :force => true do |t|

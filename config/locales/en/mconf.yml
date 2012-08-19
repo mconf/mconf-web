@@ -952,13 +952,13 @@ en:
   past: Past
   people: people
   per_page: "per page"
-  performance: 
+  permission: 
     notification: 
-      estandar: "%{username} has change your role in %{stage} to %{role}. "
+      default: "%{username} has change your role in %{stage} to %{role}. "
       event: "%{username} has change your role in event %{event} to %{role}. "
       space: "%{username} has change your role in space %{space} to %{role}. "
       subject: 
-        estandar: "%{username} has change your role in %{stage} "
+        default: "%{username} has change your role in %{stage} "
         event: "%{username} has change your role in event %{event} "
         space: "%{username} has change your role in space %{space} "
     updated: "User perfomance has been updated successfully"

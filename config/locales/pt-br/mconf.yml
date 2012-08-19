@@ -923,13 +923,13 @@ pt-br:
   past: Passado
   people: pessoas
   per_page: "por página"
-  performance:
+  permission:
     notification:
-      estandar: "%{username} mudou sua função em %{stage} para %{role}."
+      default: "%{username} mudou sua função em %{stage} para %{role}."
       event: "%{username} mudou sua função no evento %{event} para %{role}."
       space: "%{username} mudou sua função na comunidade %{space} para %{role}."
       subject:
-        estandar: "%{username} mudou sua função em %{stage}"
+        default: "%{username} mudou sua função em %{stage}"
         event: "%{username} mudou sua função no evento %{event}"
         space: "%{username} mudou sua função na comunidade %{space}"
     updated: "Desempenho do usuário foi atualizado com sucesso"

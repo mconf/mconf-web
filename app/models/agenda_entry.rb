@@ -35,7 +35,7 @@ class AgendaEntry < ActiveRecord::Base
                           :as => 'event_name',
                           :association_sql => "LEFT OUTER JOIN agendas ON (agendas.`id` = agenda_entries.`agenda_id`) LEFT OUTER JOIN events ON (events.`id` = agendas.`event_id`)"}],
              :concatenate => [ { :class_name => 'Profile',:field => 'full_name',:as => 'registered_speakers',
-                                 :association_sql => "LEFT OUTER JOIN performances ON (performances.`stage_id` = agenda_entries.`id` AND performances.`stage_type` = 'AgendaEntry' AND performances.`agent_type` = 'User') LEFT OUTER JOIN profiles ON (profiles.`user_id` = performances.`agent_id`)"}]
+                                 :association_sql => "LEFT OUTER JOIN permissions ON (permissions.`subject_id` = agenda_entries.`id` AND permissions.`subject_type` = 'AgendaEntry') LEFT OUTER JOIN profiles ON (profiles.`user_id` = permissions.`user_id`)"}]
 =end
 
   validates_presence_of :title

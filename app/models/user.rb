@@ -233,7 +233,7 @@ class User < ActiveRecord::Base
 
   def disable
     self.update_attribute(:disabled,true)
-    self.agent_performances.each(&:destroy)
+    self.agent_permissions.each(&:destroy)
   end
 
   def enable

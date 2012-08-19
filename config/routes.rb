@@ -120,7 +120,6 @@ Mconf::Application.routes.draw do
     resources :admissions
     resources :invitations
     resources :join_requests
-    resources :performances
     resources :news
   end
 
@@ -130,7 +129,7 @@ Mconf::Application.routes.draw do
     end
   end
 
-  resources :performances
+  resources :permissions
   resources :admissions
 
   resources :memberships
@@ -155,7 +154,8 @@ Mconf::Application.routes.draw do
     end
   end
 
-  resources :roles
+  # resources :roles # TODO: permissions
+
   resource :site
 
   resource :home do

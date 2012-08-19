@@ -234,7 +234,7 @@ class Event < ActiveRecord::Base
     #create a directory to save attachments
     FileUtils.mkdir_p("#{Rails.root.to_s}/attachments/conferences/#{event.permalink}")
     if event.author.present?
-      event.stage_performances.create! :agent => event.author, :role  => Event.role("Organizer")
+      event.stage_permissions.create! :user => event.author, :role  => Event.role("Organizer")
     end
   end
 
@@ -287,27 +287,17 @@ class Event < ActiveRecord::Base
 
     if event.new_organizers.present?
 
-      #first we delete the old ones if there were some (this is for the update operation that creates new performances in the event)
-      past_performances = event.stage_performances.find(:all, :conditions => {:role_id => Event.role("Organizer")})
-      past_organizers = past_performances.map(&:agent).map(&:username)
-
-      invited_performances = event.stage_performances.find(:all, :conditions => {:role_id => Event.role("Invitedevent")})
+      #first we delete the old ones if there were some (this is for the update operation that creates new permissions in the event)
+      past_permissions = event.stage_permissions.find(:all, :conditions => {:role_id => Event.role("Organizer")})
+      past_organizers = past_permissions.map(&:agent).map(&:username)
 
       # we add those organizers that were not past organizers
-       (event.new_organizers - past_organizers).each do |login|
-
-        # we remove the previous Invited role in the event if it exists
-        invited_performances.each do |p|
-          if (p.role == Event.role("Invitedevent")) && (p.agent.username == login)
-            p.destroy
-          end
-        end
-
-        event.stage_performances.create! :agent => User.find_by_username(login), :role  => Event.role("Organizer")
+      (event.new_organizers - past_organizers).each do |login|
+        event.stage_permissions.create! :user => User.find_by_username(login), :role  => Event.role("Organizer")
       end
 
       # we remove those organizers that are not organizers any more
-      past_performances.select{ |p| (past_organizers - event.new_organizers).include?(p.agent.username)}.map(&:destroy)
+      past_permissions.select{ |p| (past_organizers - event.new_organizers).include?(p.agent.username)}.map(&:destroy)
     end
 
     if event.recording_type_changed?

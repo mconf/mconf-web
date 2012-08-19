@@ -3,34 +3,34 @@
 <script type="text/javascript" charset="utf-8">
 $(document).ready(function() {
 
-  $("#update_button_<%=performance.id%>").remove();
-  $("#nonjavascript_other_groups_<%=performance.id%>").remove();
-  $("#other_groups_link_<%=performance.id%>").show();
+  $("#update_button_<%=permission.id%>").remove();
+  $("#nonjavascript_other_groups_<%=permission.id%>").remove();
+  $("#other_groups_link_<%=permission.id%>").show();
 
-  show_other_groups_<%=performance.id%> = function(){
-    $("#other_groups_link_<%=performance.id%>").hide();
-    $("#other_groups_<%=performance.id%>").slideDown("normal");
-    $("#other_groups_<%=performance.id%>").css("clear","left");
+  show_other_groups_<%=permission.id%> = function(){
+    $("#other_groups_link_<%=permission.id%>").hide();
+    $("#other_groups_<%=permission.id%>").slideDown("normal");
+    $("#other_groups_<%=permission.id%>").css("clear","left");
   };
 
-  close_other_groups_<%=performance.id%> = function(){
-    $("#other_groups_link_<%=performance.id%>").show();
-    $("#other_groups_<%=performance.id%>").slideUp("normal", function(){
+  close_other_groups_<%=permission.id%> = function(){
+    $("#other_groups_link_<%=permission.id%>").show();
+    $("#other_groups_<%=permission.id%>").slideUp("normal", function(){
     });
   };
 
-  $("#role_select_<%=performance.id%>").livequery('change', function(){
+  $("#role_select_<%=permission.id%>").livequery('change', function(){
     val = $(this).val();
-    $.post("<%=performance_path(performance)%>",{
+    $.post("<%=permission_path(permission)%>",{
         _method: "put", authenticity_token: "<%=form_authenticity_token()%>",
-        'performance[role_id]': val
+        permission[role_id]': val
     },
            function(data){eval(data);},
            "script"
           );
   });
 
-  $(".group_checkbox_<%=performance.id%>").livequery('click', function(){
+  $(".group_checkbox_<%=permission.id%>").livequery('click', function(){
     if($(this).is(":checked")){
         $(this).addClass("clicked_checkbox");
         var route = "/groups/" + $(this).val() + "/memberships/"
@@ -40,10 +40,10 @@ $(document).ready(function() {
                    eval(data);
                    var old_checkbox = $(".clicked_checkbox").removeClass("clicked_checkbox").attr("id", membership_id).parent().removeClass("crossed");
                    var new_checkbox = old_checkbox.clone();
-                   $("div#selected_groups_<%=performance.id%>").append(new_checkbox);
+                   $("div#selected_groups_<%=permission.id%>").append(new_checkbox);
                    old_checkbox.remove();
-                   if($("#other_groups_<%=performance.id%> div").size() == 0){
-                       $("#other_groups_<%=performance.id%>").hide();
+                   if($("#other_groups_<%=permission.id%> div").size() == 0){
+                       $("#other_groups_<%=permission.id%>").hide();
                    }
                }
               );
@@ -68,7 +68,7 @@ $(document).ready(function() {
 <div class="user">
   <ul class="group_links">
     <li><%= "#{link_to image_tag("icons/email.png", :title=>t('private_message.send'), :alt=>t('private_message.send'), :class=>"icon"), new_user_message_path(:user_id => current_user.to_param, :receiver => user.id), :class => 'open-modal'}".html_safe %></li>
-    <li><%= link_to image_tag("icons/cancel.png", :alt => t('user.delete_from_space'),:class=>"icon" ), space_performance_path(@space, performance), :confirm => t('are_you_sure'), :method => :delete,:title => t('user.delete_from_space') %></li>
+    <li><%= link_to image_tag("icons/cancel.png", :alt => t('user.delete_from_space'),:class=>"icon" ), permission_path(permission), :confirm => t('are_you_sure'), :method => :delete,:title => t('user.delete_from_space') %></li>
   </ul>
 
   <div>
@@ -76,7 +76,7 @@ $(document).ready(function() {
   </div>
 
   <div class="user_data">
-    <%= form_for :performance, :url => performance_path(performance), :html => { :method => :put} do |f| %>
+    <%= form_for :permission, :url => permission_path(permission), :html => { :method => :put} do |f| %>
       <%=hidden_field_tag 'update_groups'%>
       <ul class="main_text">
         <li>
@@ -87,11 +87,11 @@ $(document).ready(function() {
           <%if @space.is_last_admin?(user)%>
             Admin
           <%else%>
-            <%=select "performance", "role_id", @roles.collect {|p| [ p.name, p.id ]}, {:selected => performance.role_id}, {:id => "role_select_#{performance.id}",:class=>"small-font"} %>
+            <%=select "permission", "role_id", @roles.collect {|p| [ p.name, p.id ]}, {:selected => permission.role_id}, {:id => "role_select_#{permission.id}",:class=>"small-font"} %>
           <%end%>
         </li>
       </ul>
-      <%= submit_tag t('update'), :id=> "update_button_#{performance.id}"%>
+      <%= submit_tag t('update'), :id=> "update_button_#{permission.id}"%>
     <% end %>
   </div>
 </div>
