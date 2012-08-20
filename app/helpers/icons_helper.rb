@@ -38,7 +38,7 @@ module IconsHelper
     content_tag :div, nil, options
   end
 
-  # Default icon to a feed (rss, atom)
+  # Default icon to a feed (rss)
   def feed_icon(options={})
     cls = "feed-icon tooltipped upwards "
     options[:class] = options.has_key?(:class) ? cls + options[:class] : cls

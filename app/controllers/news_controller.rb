@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright 2008-2010 Universidad Politécnica de Madrid and Agora Systems S.A.
 #
 # This file is part of VCC (Virtual Conference Center).
@@ -40,19 +39,19 @@ class NewsController < ApplicationController
     @edit_news = @news.select{|n| n.id == params[:edit_news].to_i} if params[:edit_news]
      respond_to do |format|
       format.html{
-      }       
+      }
       format.atom
-     end 
+     end
   end
-  
-  def show 
+
+  def show
     @news = News.find(params[:id])
      respond_to do |format|
       format.html{
-      }       
-     end 
+      }
+     end
   end
-  
+
   def destroy
     news = @space.news.find(params[:id])
     if news.destroy
@@ -67,7 +66,7 @@ class NewsController < ApplicationController
       redirect_to request.referer
     end
   end
-  
+
   def edit
     respond_to do |format|
       format.html {
@@ -76,22 +75,22 @@ class NewsController < ApplicationController
           if request.xhr?
             render "edit_news_big", :layout => false
           else
-            render "edit_news_big"  
+            render "edit_news_big"
           end
         else
           if request.xhr?
             @edit_news = @space.news.find(params[:id])
-            render :partial => 'edit_news' 
+            render :partial => 'edit_news'
           else
-            redirect_to space_news_index_path(@space, :edit_news => params[:id])  
+            redirect_to space_news_index_path(@space, :edit_news => params[:id])
           end
         end
       }
-      format.js { 
+      format.js {
       }
     end
   end
-  
+
   def update
     @news = @space.news.find(params[:id])
     if @news.update_attributes(params[:news])
@@ -106,7 +105,7 @@ class NewsController < ApplicationController
       redirect_to space_news_index_path(@space)
     end
   end
-  
+
   def new
       respond_to do |format|
       format.html {
@@ -116,6 +115,6 @@ class NewsController < ApplicationController
           render "create_news_big"
         end
       }
-    end   
+    end
   end
 end

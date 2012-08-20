@@ -418,12 +418,6 @@ ActiveRecord::Schema.define(:version => 20120819022001) do
 
   add_index "tags", ["name", "container_id", "container_type"], :name => "index_tags_on_name_and_container_id_and_container_type"
 
-  create_table "uris", :force => true do |t|
-    t.string "uri"
-  end
-
-  add_index "uris", ["uri"], :name => "index_uris_on_uri"
-
   create_table "users", :force => true do |t|
     t.string   "username"
     t.string   "email",                                :default => "",    :null => false

@@ -1,9 +1,0 @@
-<div id="posts">
-  <%if threads.empty?%>
-    <p><%= t('no_messages_in_wall') %></p>
-	<%end%>
-	
-	<% threads.each do |thread| -%>
-    <%= render :partial => "thread" , :locals => {:thread => thread, :extended => true,:last => false} %>
-  <% end -%>
-</div>

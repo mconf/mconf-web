@@ -26,11 +26,8 @@ class UsersController < ApplicationController
 
   load_and_authorize_resource
 
-  set_params_from_atom :user, :only => [ :create, :update ]
-
   # GET /users
   # GET /users.xml
-  # GET /users.atom
   def index
     @users = space.users.sort {|x,y| x.name <=> y.name }
     #@groups = @space.groups.all(:order => "name ASC")
@@ -44,14 +41,12 @@ class UsersController < ApplicationController
     respond_to do |format|
       format.html { render :layout => 'spaces_show' }
       format.xml { render :xml => @users }
-      format.atom
     end
 
   end
 
   # GET /users/1
   # GET /users/1.xml
-  # GET /users/1.atom
   def show
     user
 
@@ -66,8 +61,6 @@ class UsersController < ApplicationController
     respond_to do |format|
       format.html { render 'profiles/show' }
       format.xml { render :xml => user }
-      format.atom
-      format.atomsvc
     end
   end
 
@@ -125,7 +118,6 @@ class UsersController < ApplicationController
 
   # DELETE /users/1
   # DELETE /users/1.xml
-  # DELETE /users/1.atom
   def destroy
     user.disable
 
@@ -142,7 +134,6 @@ class UsersController < ApplicationController
         end
       }
       format.xml  { head :ok }
-      format.atom { head :ok }
     end
   end
 
@@ -163,7 +154,6 @@ class UsersController < ApplicationController
           redirect_to manage_users_path
       }
       format.xml  { head :ok }
-      format.atom { head :ok }
     end
   end
 

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Copyright 2008-2010 Universidad Politécnica de Madrid and Agora Systems S.A.
 #
 # This file is part of VCC (Virtual Conference Center).
@@ -22,11 +23,4 @@ class News < ActiveRecord::Base
 
   acts_as_resource
   acts_as_content :reflection => :space
-
-  class << self
-    def params_from_atom(entry)
-      { :title => entry.title.to_s,
-        :text => ( entry.content.to_s.present? ? entry.content.to_s : entry.title.to_s ) }
-    end
-  end
 end

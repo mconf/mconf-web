@@ -25,8 +25,6 @@ class SpacesController < ApplicationController
 
   load_and_authorize_resource
 
-  set_params_from_atom :space, :only => [ :create, :update ]
-
   # TODO: cleanup the other actions adding respond_to blocks here
   respond_to :js, :only => [:index, :show]
   respond_to :html, :only => [:new, :edit, :index, :show]
