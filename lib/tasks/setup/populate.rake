@@ -21,7 +21,7 @@ namespace :setup do
       puts "* Destroying old stuff"
       PrivateMessage.destroy_all
       Statistic.destroy_all
-      Performance.destroy_all
+      Permission.destroy_all
       Space.destroy_all
       users_without_admin = User.find_with_disabled(:all)
       users_without_admin.delete(User.find_by_superuser(true))
@@ -68,10 +68,10 @@ namespace :setup do
       user.update_attributes(:password => pass, :password_confirmation => pass)
     end
 
-    puts "* Create private messages (8 for each user)"
+    puts "* Create private messages"
     User.all.each do |user|
       senders = User.all.reject!{ |u| u == user }.map(&:id)
-      PrivateMessage.populate 10 do |message|
+      PrivateMessage.populate 5 do |message|
         message.receiver_id = user.id
         message.sender_id = senders
         message.title = Populator.words(1..3).capitalize
@@ -182,17 +182,17 @@ namespace :setup do
       role_ids = Role.find_all_by_stage_type('Space').map(&:id)
       available_users = User.all.dup
 
-      Performance.populate 5..7 do |performance|
+      Permission.populate 3..10 do |permission|
         user = available_users.delete_at((rand * available_users.size).to_i)
-        performance.stage_id = space.id
-        performance.stage_type = 'Space'
-        performance.role_id = role_ids
-        performance.agent_id = user.id
-        performance.agent_type = 'User'
+        permission.user_id = user.id
+        permission.subject_id = space.id
+        permission.subject_type = 'Space'
+        permission.role_id = role_ids
+        permission.created_at = user.created_at
+        permission.updated_at = permission.created_at
       end
 
       event_role_ids = Role.find_all_by_stage_type('Event').map(&:id)
-
       space.events.each do |event|
         available_event_participants = space.users.dup
         Participant.populate 0..space.users.count do |participant|
@@ -204,14 +204,13 @@ namespace :setup do
           participant.updated_at = participant.created_at..Time.now
           participant.attend = (rand(0) > 0.5)
 
-          Performance.populate 1 do |performance|
-            performance.stage_id = event.id
-            performance.stage_type = 'Event'
-            performance.role_id = event_role_ids
-            performance.agent_id = participant.user_id
-            performance.agent_type = 'User'
-            performance.created_at = participant.created_at
-            performance.updated_at = performance.created_at
+          Permission.populate 1 do |permission|
+            permission.user_id = participant.user_id
+            permission.subject_id = event.id
+            permission.subject_type = 'Event'
+            permission.role_id = event_role_ids
+            permission.created_at = participant.created_at
+            permission.updated_at = permission.created_at
           end
         end
       end
@@ -236,14 +235,12 @@ namespace :setup do
         unless parent.parent_id
           post.update_attribute :parent_id, parent.id
         end
-
         posts << post
       end
 
       # Author
       ( space.posts + space.events ).each do |item|
         item.author = space.users[rand(space.users.length)]
-        # Save the items without performing validations, to allow further testing
         item.save(:validate => false)
       end
 
