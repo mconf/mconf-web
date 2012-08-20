@@ -30,9 +30,11 @@ class CreateNewPermissionsTable < ActiveRecord::Migration
       v = "(#{row[1]}, #{row[4]}, '#{row[5]}', #{row[3]})"
       values.push v
     end
-    cols = "(user_id, subject_id, subject_type, role_id)"
-    sql = "INSERT INTO permissions_tmp #{cols} VALUES #{values.join(", ")}"
-    connection.execute sql
+    if values.count > 0
+      cols = "(user_id, subject_id, subject_type, role_id)"
+      sql = "INSERT INTO permissions_tmp #{cols} VALUES #{values.join(", ")}"
+      connection.execute sql
+    end
   end
 
   def down

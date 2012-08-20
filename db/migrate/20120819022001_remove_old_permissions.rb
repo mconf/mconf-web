@@ -1,9 +1,11 @@
 class RemoveOldPermissions < ActiveRecord::Migration
   def up
-    Role.where(:name => 'Speaker', :stage_type => 'AgendaEntry').first.destroy
-    Role.where(:name => 'Translator', :stage_type => 'Site').first.destroy
-    Role.where(:name => 'Invitedevent', :stage_type => 'Event').first.destroy
-    Role.where(:name => 'Invited', :stage_type => 'Space').first.destroy
+    old_roles = [['Speaker', 'AgendaEntry'], ['Translator', 'Site'],
+                 ['Invitedevent', 'Event'], ['Invited', 'Space']]
+    for role in old_roles
+      r = Role.where(:name => role[0], :stage_type => role[1]).first
+      r.destroy if r
+    end
     drop_table :permissions_roles
     drop_table :permissions
     drop_table :performances
