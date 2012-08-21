@@ -209,7 +209,6 @@ class Space < ActiveRecord::Base
   end
 
   def is_last_admin?(user)
-
     admins = self.actors(:role => 'Admin')
     if admins.length != 1 then
       false
@@ -218,7 +217,6 @@ class Space < ActiveRecord::Base
     else
       false
     end
-
   end
 
   def pending_join_requests_for?(user)
@@ -231,6 +229,12 @@ class Space < ActiveRecord::Base
     return false
   end
 
+  # Add a `user` to this space with the role `role_name` (e.g. 'User', 'Admin').
+  def add_member!(user, role_name)
+    role = Role.find_by_name_and_stage_type('Admin', 'Space')
+    Permission.create! :user => user, :subject => self, :role => role
+  end
+
   private
 
   # Checks whether there an error in :permalink or :bigbluebutton_room.param.
@@ -241,6 +245,7 @@ class Space < ActiveRecord::Base
     elsif self.bigbluebutton_room and self.bigbluebutton_room.errors[:param].size > 0
       self.errors.add :name, I18n.t('activerecord.errors.messages.invalid_identifier', :id => self.bigbluebutton_room.param)
     end
+
   end
 
 end

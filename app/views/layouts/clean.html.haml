@@ -17,7 +17,6 @@
         = javascript_include_tag "http://html5shim.googlecode.com/svn/trunk/html5.js"
 
     = csrf_meta_tag
-    = yield :headers
 
   %body{:class => "#{controller_name_for_view} #{params[:action]}"}
     #site
@@ -33,3 +32,4 @@
     -# Javascript placed at the end of the document so the pages load faster
     = javascript_include_tag "application"
     = javascript_include_tag_for_controller
+    = yield :headers

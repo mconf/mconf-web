@@ -1,3 +1,7 @@
 #sidebar-leave-space
-  - link = permission_path(@space.stage_permissions.find_by_user_id(current_user))
-  = link_to t('space.leave'), link, :method => :delete, :title => t("tooltip.leave_space"), :confirm => t('space.confirm'), :class => 'tooltipped upwards btn btn-mini btn-danger'
+  - link = leave_space_path(@space)
+  - params = { :method => :post,
+               :title => t("tooltip.leave_space"),
+               :confirm => t('space.confirm'),
+               :class => 'tooltipped upwards btn btn-mini btn-danger'}
+  = link_to t('space.leave.leave_this_space'), link, params

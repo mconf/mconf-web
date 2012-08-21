@@ -23,7 +23,7 @@ $(document).ready(function() {
     val = $(this).val();
     $.post("<%=permission_path(permission)%>",{
         _method: "put", authenticity_token: "<%=form_authenticity_token()%>",
-        permission[role_id]': val
+        'permission[role_id]': val
     },
            function(data){eval(data);},
            "script"
@@ -85,7 +85,7 @@ $(document).ready(function() {
         <li>
           <label for="admin"><%=t('role.one')%>: </label>
           <%if @space.is_last_admin?(user)%>
-            Admin
+            <%= t("admin.one") %>
           <%else%>
             <%=select "permission", "role_id", @roles.collect {|p| [ p.name, p.id ]}, {:selected => permission.role_id}, {:id => "role_select_#{permission.id}",:class=>"small-font"} %>
           <%end%>

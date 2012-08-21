@@ -61,6 +61,7 @@ Mconf::Application.routes.draw do
 
     member do
       post :enable
+      post :leave
     end
 
     resources :users do

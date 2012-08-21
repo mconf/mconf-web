@@ -19,11 +19,43 @@
 # TODO: permissions
 #       review
 
-# class PermissionsController < ApplicationController
-#   authorization_filter :create, :performance, :only => [ :new, :create ]
-#   authorization_filter :read,   :performance, :only => [ :index, :show ]
-#   authorization_filter :update, :performance, :only => [ :edit, :update ]
-#   authorization_filter :delete, :performance, :only => [ :destroy ]
+class PermissionsController < ApplicationController
+  load_and_authorize_resource
+  before_filter :subject
+
+  def update
+    # prevent forgery
+    params[:permission].delete(:subject_id)
+    params[:permission].delete(:subject_type)
+
+    if @permission.update_attributes(params[:permission])
+      if @permission.subject_type == 'Space'
+        # TODO: permissions
+        # Informer.delay.performance_update_notification(current_user, @performance.agent, @performance.stage, @performance.role.name)
+      end
+      respond_to do |format|
+        format.html {
+          flash[:success] = t('performance.updated')
+          redirect_to request.referer
+        }
+      end
+    else
+      respond_to do |format|
+        format.html {
+          flash[:error] = @update_errors
+          redirect_to request.referer
+        }
+      end
+    end
+  end
+
+  private
+
+  def subject
+    @subject ||= @permission.subject
+  end
+
+end
 
 #   def index
 #     if stage.is_a?(Event)
@@ -62,85 +94,18 @@
 #     end
 #   end
 
-#   def update
-
-#     @update_errors=""
-#     if params[:update_groups]
-#       user=User.find(@performance.agent_id)
-#       space=Space.find(@performance.stage_id)
-
-#       #Groups to delete
-#       if params[:groups_to_delete]
-#         groups_to_delete = space.groups.select{|g| g.users.include?(user) && !params[:groups_to_delete].map{|a| a.to_i}.include?(g.id)}
-#       else
-#         groups_to_delete = space.groups.select{|g| g.users.include?(user)}
-#       end
-#       for group in groups_to_delete do
-#         group.user_ids -= [user.id]
-#         unless group.save
-#           @update_errors += group.errors + "</br>"
-#         end
-#       end
-
-#       #New groups added
-#       if params[:groups_to_add] && params[:groups_to_add][:id] != ""
-#         group = Group.find(params[:groups_to_add][:id])
-#         group.user_ids += [user.id]
-#         unless group.save
-#           @update_errors += group.errors + "</br>"
-#         end
-#       end
-#     end
-#     # Prevent Performance forge
-#     params[:performance].delete(:stage_id)
-#     params[:performance].delete(:stage_type)
-
-#     if @performance.update_attributes(params[:performance])
-
-#       if stage.type.name == 'Space'
-#         #Informer.delay.performance_update_notification(sender,receiver, stage, rol)
-#         Informer.delay.performance_update_notification(current_user, @performance.agent, @performance.stage, @performance.role.name)
-#       end
-
-#     else
-#       @update_errors += @performance.errors.to_xml + "</br>"
-#     end
-
-#     if @update_errors==""
-#       respond_to do |format|
-#         format.html {
-#           flash[:success] = t('performance.updated')
-#           redirect_to request.referer
-#         }
-#         format.js {
-
-#         }
-#       end
-#     else
-#       respond_to do |format|
-#         format.html {
-#           flash[:error] = @update_errors
-#           redirect_to request.referer
-#         }
-#         format.js{
-#         }
-#       end
-#     end
-#   end
-
-#   def destroy
-#     @performance.destroy
-
-#     respond_to do |format|
-#       format.html {
-#         redirect_to(@performance.stage.authorize?(:read, :to => current_user) ? request.referer : root_path)
-#       }
-
-#       format.js {
-#         performances
-#       }
-#     end
-#   end
+  # def destroy
+  #   @permission.destroy
+  #   respond_to do |format|
+  #     format.html {
+  #       if can?(:read, @subject)
+  #         redirect_to request.referer
+  #       else
+  #         redirect_to root_path
+  #       end
+  #     }
+  #   end
+  # end
 
 #   #-#-# from station
 
@@ -213,12 +178,6 @@
 #     end
 #   end
 
-#   private
-
-#   def stage
-#     @stage ||= record_from_path(:acts_as => :stage)
-#   end
-
 #   def performance
 #     @stage = resource.stage
 #     resource
@@ -245,5 +204,3 @@
 #       end
 #     end
 #   end
-
-# end

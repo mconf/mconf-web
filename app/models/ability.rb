@@ -98,12 +98,20 @@ class Ability
     can :manage, PrivateMessage, :sender_id => user.id
     cannot :edit, PrivateMessage # can't edit any private message
 
-    # TODO: Permissions
-    #     if agent == self.agent
-    #       if permission == :delete
-    #         true
-    #       end
-    #     end
+    # Permissions
+    can :update, Permission do |perm|
+      # only space admins can update user roles/permissions
+      case perm.subject_type
+      when "Space"
+        admins = perm.subject.admins
+      when "Event"
+        admins = perm.subject.space.admins
+      else
+        admins = []
+      end
+      admins.include?(user)
+    end
+    # can :destroy, Permission, :user_id => user.id
 
     # TODO: station's Stage
     # authorizing do |agent, permission|

@@ -5,8 +5,11 @@ class Permission < ActiveRecord::Base
 
   validates :user, :presence => true
   validates :subject, :presence => true
-  validates :role, :presence => true,
+  # note: has to be role_id, not the association name (role)
+  validates :role_id, :presence => true,
     :uniqueness => {:scope => [:user_id, :subject_id, :subject_type]}
+
+  attr_accessible :role_id, :user_id
 
   # TODO: permissions
   # def title

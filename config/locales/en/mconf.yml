@@ -965,6 +965,8 @@ en:
     updated: "User perfomance has been updated successfully"
   permission: 
     other: "Access rights"
+    update:
+      success: "Permissions updated"
   personal_information: "Personal information"
   phone: 
     landline: Telephone
@@ -1260,7 +1262,9 @@ en:
       clarify_registered: "Please introduce password in order to join this space."
       clarify_unregistered: "Please introduce your full name and a password in order to register onto the Mconf and join this space."
     join_pending: "Join request being processed"
-    leave: "Leave this space"
+    leave: 
+      leave_this_space: "Leave this space"
+      success: "You left the space %{space_name}"
     logo: "Space Logo"
     logo_selected: 
       default_message: "Space logo"

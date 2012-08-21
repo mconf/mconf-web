@@ -86,7 +86,9 @@ class SpacesController < ApplicationController
 
   def edit
     # @users = @space.actors.sort {|x,y| x.name <=> y.name }
-    @permissions = space.stage_permissions.sort{ |x,y| x.user.name <=> y.user.name }
+    @permissions = space.stage_permissions.sort{
+      |x,y| x.user.name <=> y.user.name
+    }
     @roles = Space.roles
     render :layout => 'spaces_show'
   end
@@ -187,6 +189,27 @@ class SpacesController < ApplicationController
     flash[:success] = t('space.enabled')
     respond_to do |format|
       format.html { redirect_to manage_spaces_path }
+    end
+  end
+
+  def leave
+    permission = @space.stage_permissions.find_by_user_id(current_user)
+    if permission
+      permission.destroy
+      respond_to do |format|
+        format.html {
+          flash[:success] = t('space.leave.success', :space_name => @space.name)
+          if can?(:read, @space)
+            redirect_to space_path(@space)
+          else
+            redirect_to root_path
+          end
+        }
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to space_path(@space) }
+      end
     end
   end
 
