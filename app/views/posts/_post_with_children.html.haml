@@ -5,7 +5,8 @@
         = image_tag("icons/comments.png")
         = link_to(@post.title, space_post_path(@space,@post),:class=>"unified_posts")
         %ul.thread_options
-          = link_to image_tag("icons/exclamation.png", :alt => t('spam.report')), spam_lightbox_space_post_path(@space,post),{:name => post.id, :class => 'spam_link', :title => t('spam.report')} if logged_in? && post.spam != true
+          - if user_signed_in? && !post.spam
+            = link_to image_tag("icons/exclamation.png", :alt => t('spam.report')), spam_lightbox_space_post_path(@space,post),{:name => post.id, :class => 'spam_link', :title => t('spam.report')}
           %li
             - if can?(:update, @post)
               - image = image_tag("icons/pencil.png", :alt => t('edit'))
