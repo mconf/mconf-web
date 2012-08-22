@@ -298,9 +298,15 @@ pt-br:
   error:
     change: "Mudança inválida"
     credentials: "Credenciais inválidas"
-    e403: "Você não tem permissão para ver esta página."
-    e404: "A página que você está procurando não existe."
-    e500: "A página que você está procurando não existe."
+    e403: 
+      description: "Você não possui permissão para visualizar esta página."
+      title: "Proibido"
+    e404: 
+      description: "Oops, a página \"%{url}\" não existe."
+      title: "404"
+    e500: 
+      description: "Desculpe, mas algum erro aconteceu. Já fomos notificados sobre o problema e iremos resolvê-lo assim que possível."
+      title: "Erro"
     mistyped_or_moved: "Você pode ter digitado o endereço incorretamente ou a página pode ter sido movida"
     not_allowed: "Você não tem permissão para executar esta ação"
     one: Erro

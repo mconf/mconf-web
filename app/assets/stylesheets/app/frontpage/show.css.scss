@@ -31,11 +31,16 @@ body {
   @include clearfix;
 }
 
+#content {
+  a { @include link-colors(#bbb, white, $site-link-active); }
+}
+
 #main-logo {
   width: 240px;
   margin: 30px auto;
   padding: 0;
   float: none;
+  overflow: visible;
 
   img {
     width: 231px;
@@ -49,8 +54,6 @@ body {
   form {
     float: right;
   }
-
-  a { @include link-colors(#bbb, white, $site-link-active); }
 
   label {
     font-size: 14px;
