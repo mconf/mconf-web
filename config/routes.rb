@@ -89,6 +89,7 @@ Mconf::Application.routes.draw do
 
     resources :posts do
       member do
+        get :reply_post
         post :spam
         get :spam_lightbox
       end

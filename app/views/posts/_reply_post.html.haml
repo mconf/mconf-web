@@ -1,0 +1,17 @@
+.modal-title
+  %span
+    %b= t("reply_to")
+    %span.unified_posts
+      = post.title
+
+.modal-content
+  = form_for(prepare_for_form(Post.new, :parent_id => @post_id), :html => { :multipart => true ,:id => "reply-form"}) do |f|
+    = f.hidden_field :parent_id
+    - # Post text
+    %label{:for => "text"}
+      %b= t('body')
+    = text_area_tag "post[text]"
+    %br
+    - # Footer
+    %button{:type => "submit", :class => "btm submit"}
+      = t("button.post")

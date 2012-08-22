@@ -1,3 +1,29 @@
 /*
  *= require ../../../../../vendor/assets/stylesheets/fcbkcomplete
  */
+
+@import "app/spaces/sidebar";
+
+body.posts.index {
+
+  #new_post {
+    text-align: center;
+    button {
+      margin-left: 264px;
+    }
+  }
+
+  #post_title {
+    width: 300px;
+  }
+
+  #new_post_text {
+    display: none;
+
+    textarea {
+      width: 300px;
+      height: 100px;
+      resize: none;
+    }
+  }
+}

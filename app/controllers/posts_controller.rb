@@ -19,11 +19,14 @@
 class PostsController < ApplicationController
   # Include basic Resource methods
   # See documentation: ActionController::StationResources
+
+  layout "spaces_show"
   include ActionController::StationResources
   include SpamControllerModule
 
   # Posts needs a Space. It will respond 404 if no space if found
   before_filter :space!
+  before_filter :webconf_room!
 
   before_filter :post, :except => [ :index, :new, :create]
 
@@ -101,8 +104,14 @@ class PostsController < ApplicationController
     end
   end
 
-
-
+  def reply_post
+    @post_id = params[:id]
+    respond_to do |format|
+      format.html{
+        render :partial => "reply_post"
+      }
+    end
+  end
 
   # Renders form for editing this Entry metadata
   #   GET /posts/:id/edit

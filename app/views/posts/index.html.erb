@@ -9,29 +9,6 @@
 <script type="text/javascript" charset="utf-8">
 $(document).ready(function() {
 
-/*
-*  Replace with Ajax links
-*/
-
-$("a.reply_to_link").click(function(){
-  var route = "<%= space_posts_path(@space) %>" + "/" + $(this).attr("name");
-  $.get(route,
-        {authenticity_token: "<%=form_authenticity_token()%>"},
-        function(data){
-          $("#sidebar").children("div:last").replaceWith(data);
-          var destination = $('#add').offset().top;
-          $("html:not(:animated),body:not(:animated)").animate({ scrollTop: destination}, 1100, function() {
-            window.location.hash = '#add'
-          });
-          setTimeout(function() {
-            $("#new_reply").effect("highlight", {color:"#F5DF51"}, 3000);
-          }, 1000);
-
-         }
-         );
-         return false;
-});
-
 $("a.edit_post_link").click(function(){
   var route = "<%= space_posts_path(@space) %>" + "/" + $(this).attr("name") + "?edit=true";
   $.get(route,
@@ -95,26 +72,24 @@ $("a.edit_post_link").click(function(){
   <%= render :partial => 'spaces/sidebar_join_links' %>
 
   <%if @space.authorize?([:create, :content],:to => current_user)%>
-    <% if params[:reply_to]%>
-      <%= render :partial => "new_post", :locals => {:p_id=> Post.find(params[:reply_to]).id, :id => "reply-form"} %>
-    <% elsif params[:edit] %>
+    <% if params[:edit] %>
       <%= render :partial => "edit_post", :locals => { :post => Post.find(params[:edit]) } %>
-    <%else%>
-      <%= render :partial => "new_post", :locals => {:id => "thread-form" }%>
     <%end%>
   <% end %>
 <% end %>
 
-<!-- Content -->
-<div id="change_view">
-  <% extended = (params[:extended] == "true" || (!params[:extended] && current_user.expanded_post)) %>
-  <%= raw(t('thread.see_less') + " " + link_to(t('thread.compact_view'), space_posts_path(@space, :extended => "false"))) if extended %>
-  <%= raw(t('thread.see_more') + " " + link_to(t('thread.extended_view'), space_posts_path(@space, :extended => "true"))) unless extended %>
+<div id='new_post'>
+  <%= form_for(prepare_for_form(Post.new), :html => { :multipart => true}) do |f| %>
+    <%= f.text_field :title, :placeholder => "New post .." %>
+    <div id='new_post_text'>
+      <%= f.text_area :text %>
+      </br>
+      <button type="submit", class="btm" id="new_post_submit">
+        <%= t("button.post") %>
+      </button>
+    </div>
+  <% end %>
 </div>
 
-<%if params[:extended]=="true" || (!params[:extended] && current_user.expanded_post)%>
-  <%= render :partial => "extended_threads", :locals => {:threads => @posts} %>
-<%else%>
-  <%= render :partial => "collapsed_threads", :locals => {:threads => @posts} %>
-<%end%>
+<%= render :partial => "collapsed_threads", :locals => {:threads => @posts} %>
 <%= page_navigation_links @posts %>
