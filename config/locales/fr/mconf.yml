@@ -611,29 +611,8 @@ fr:
     title1: "Comment faire pour créer un événement"
     title2: "Créer un ordre du jour de l'événement"
   search: 
-    advanced: "Recherche avancée"
-    attachments: 
-      dots: "Recherche des pièces jointes ..."
-    between_dates: 
-      attachments: "Rechercher uniquement les accessoires mis à jour entre deux dates"
-      events: "Recherche limitée à la tenue d'événements entre deux dates"
-      posts: "Recherche limitée à la mise à jour des messages entre deux dates"
-      videos: "Rechercher dans les vidéos seulement a lieu entre deux dates"
-    dots: "Rechercher ..."
-    events: 
-      no_dots: "Recherche des événements"
-    in: "Recherche dans"
-    one: Recherche
-    parameters: "de chaîne de requête trop Trier"
-    posts: 
-      dots: "Messages de recherche ..."
-      no_dots: "Rechercher des messages"
-    results: "Résultats de la recherche"
     space: 
       dots: "L'espace de recherche ..."
-    switch: "Basculer vers la recherche globale"
-    users: "Rechercher des utilisateurs"
-  searching_in: "Vous cherchez dans"
   select_image: "Sélectionnez une image, s'il vous plaît"
   send: Envoyer
   session: 
@@ -821,7 +800,6 @@ fr:
     registered: "Merci pour votre inscription! Nous venons d'envoyer des instructions sur la façon d'activer votre compte d'utilisateur"
     request_password: "Demande de mot de passe"
     reset_password: "Réinitialiser votre mot de passe"
-    search: "Les utilisateurs de la recherche ..."
     timezone: "Fuseau horaire"
     updated: "Utilisateur mis à jour avec succès"
     vcc_email: "%{dir} utilisateur VCC e-mail"

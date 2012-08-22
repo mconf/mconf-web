@@ -596,29 +596,8 @@ de:
     title1: "Ereignis erstellen"
     title2: "Agenda für das Ereignis erstellen"
   search: 
-    advanced: "Erweiterte Suche"
-    attachments: 
-      dots: "Suche Attachments ..."
-    between_dates: 
-      attachments: "Suche nur Arbeitsgeräte zwischen zwei Daten aktualisiert"
-      events: "Suche nur Ereignisse zwischen zwei Terminen statt"
-      posts: "Suche nur die Nachrichten zwischen zwei Daten aktualisiert"
-      videos: "Suche nur Videos zwischen zwei Terminen statt"
-    dots: "Suche ..."
-    events: 
-      no_dots: "Suche nach Veranstaltungen"
-    in: "Suche in"
-    one: Suche
-    parameters: "Query-String zu sortieren"
-    posts: 
-      dots: "Suche Einträge ..."
-      no_dots: "Suchen Nachrichten"
-    results: Suchergebnisse
     space: 
       dots: "Suchen space ..."
-    switch: "Switch to globale Suche"
-    users: "Benutzer suchen"
-  searching_in: "Sie suchen in"
   select_image: "Wählen Sie ein Bild, bitte"
   send: Senden
   session: 
@@ -785,7 +764,6 @@ de:
     registered: "Vielen Dank für Ihre Registrierung! Wir haben gerade Anleitung zur Aktivierung Ihres Benutzerkontos gesendet"
     request_password: "Passwort anfordern"
     reset_password: "Ihr Passwort zurücksetzen"
-    search: "Benutzer suchen ..."
     timezone: Zeitzone
     updated: "User erfolgreich aktualisiert"
     vcc_email: "VCC Benutzer per E-Mail %{dir}"

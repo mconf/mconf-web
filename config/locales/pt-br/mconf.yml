@@ -82,10 +82,6 @@ pt-br:
       not_deleted: "%{file} não removido corretamente."
       not_permission: "%{user} não pode remover o arquivo %{file}"
     file: "Arquivo:"
-    found:
-      none: "Nenhum anexo encontrado"
-      one: "1 anexo encontrado"
-      other: "%{size} anexos encontrados"
     home:
       one: "Arquivo na comunidade %{space}"
     info: "Informações do documento"
@@ -667,19 +663,6 @@ pt-br:
     part3: "3) <b>Participação pelo Isabel</b>. Você também pode participar com um cliente nativo Isabel que roda em Linux. <a href='http://isabel.dit.upm.es/mediawiki/index.php/Isabel_v5_Quick_Guide'>Instruções de instalação podem ser encontradas aqui</a>. O cliente nativo proporciona uma melhor qualidade audiovisual e é recomendado para palestrantes ou para conectar salas e auditórios. Contate os organizadores para testes preliminares."
     part4: "4) <b>Um gateway SIP</b> também é fornecido para permitir a participação através de um equipamento de videoconferência compatível com SIP, como, por exemplo, um Polycom. Os organizadores do evento devem ter habilitado participação SIP para este modo estar disponível."
     part5: "Durante um evento o Global Plaza define os elementos necessários como recursos virtuais na nuvem, de tal forma que seu evento possa ocorrer. Esses recursos incluem um servidor de videoconferência com MCU, um servidor de streaming, um gravador digital, um servidor de streaming de vídeo, bem como os gateways necessários para o acesso Web baseado em Flash ou o acesso SIP. O organizador do evento seleciona os modos de acesso disponíveis ao criar o evento."
-  help_search_global:
-    part1: "Você pode procurar comunidades, mensagens, eventos, vídeos, usuários e anexos no Global Plaza. Existem duas opções para pesquisa: pesquisa simples e avançada."
-    part10: "4. Digite o nome do evento na caixa <b> a palavra </b>"
-    part11: "5. Se você escolher os eventos, você pode especificar a data de um evento realizado entre duas datas"
-    part12: "6. Clique no botão <b>Ir</b>."
-    part2: "<b>Pesquisa simples</b>"
-    part3: "1. Clique no campo <b> Pesquisa </b> no menu ao topo"
-    part4: "2. Digite o nome do item que você deseja pesquisar"
-    part5: "3. Pressione enter ou clique no botão <b>Ir</b>"
-    part6: "<b>Pesquisa avançada</b>"
-    part7: "1. Clique na caixa <b>Pesquisa avançada</b> no menu superior"
-    part8: "2. Especifique se você deseja pesquisar em qualquer comunidade ou em uma comunidade em particular na lista em <b> Pesquisar em </b>"
-    part9: "3. Escolha o tipo de elemento da lista <b> Pesquisar em </b>"
   help_title:
     about_vcc: "Sobre o Mconf"
     create_VC: "Criando um congresso virtual"
@@ -696,7 +679,6 @@ pt-br:
     logging: "Logando na sua conta"
     new_doc: "Adicionando um novo documento"
     participation: "Participando em um evento"
-    search_global: "Pesquisando no Global Plaza"
     topics: Tópicos
   his_message_reads_thus: "Sua mensagem diz assim"
   home:
@@ -955,8 +937,6 @@ pt-br:
   popularity: Popularidade
   post:
     deleted: "Comentário %{postname} foi excluído"
-    found:
-      show_all: "Mostrar todos os resultados"
     home:
       one: "Mensagem na comunidade %{space}"
     latest: "Últimas mensagens"
@@ -1097,29 +1077,8 @@ pt-br:
     title4: "Convidando pessoas"
     title5: "Informações de evento"
   search:
-    advanced: "Pesquisa avançada"
-    attachments:
-      dots: "Pesquisar anexos..."
-    between_dates:
-      attachments: "Pesquisar apenas anexos atualizados entre duas datas"
-      events: "Pesquisar somente os eventos realizados entre duas datas"
-      posts: "Pesquisar apenas mensagens atualizadas entre duas datas"
-      videos: "Procurar apenas vídeos realizados entre duas datas"
-    dots: Pesquisa...
-    events:
-      no_dots: "Procurar eventos"
-    in: "Procurar em"
-    one: Procurar
-    parameters: "Consulta muito curta"
-    posts:
-      dots: "Procurar mensagens..."
-      no_dots: "Procurar mensagens"
-    results: "Resultados da pesquisa"
     space:
       dots: "Filtrar comunidade..."
-    switch: "Mudar para pesquisa global"
-    users: "Procurar usuários"
-  searching_in: "Você está procurando em"
   select_image: "Selecione uma imagem, por favor"
   send: Enviar
   servers:
@@ -1332,7 +1291,6 @@ pt-br:
     private_profile: "Esta informação só é visível para as pessoas que você escolher quando você editar seu perfil"
     public_profile: "Qualquer pessoa pode acessar esta informação"
     public_space: "Comunidades colaborativas podem ser públicas, para que qualquer pessoa possa ver o que acontece nelas, ou privadas, onde apenas os membros têm acesso às atividades da comunidade"
-    search_video: "Comece a escrever o que você deseja procurar e a lista de vídeos será atualizada automaticamente com os resultados"
     share: "Esta é a url para compartilhar este vídeo com os seus colegas"
     space_video: "Este filtro permitirá que você selecione apenas os vídeos de um evento específico"
     tag: "Tags são palavras-chave ou termos associados com o conteúdo que são utilizadas para localizar e filtrar as informações. Pressione enter para confirmar cada tag."
@@ -1387,10 +1345,6 @@ pt-br:
     error:
       enabled: "Usuário %{name} já está habilitado"
     filter: "Convidar por nome de usuário"
-    found:
-      none: "Nenhum usuário encontrado"
-      one: "1 usuário encontrado"
-      other: "%{size} usuários encontrados"
     full_name: "Nome completo"
     group_invite_email: "Convidar por e-mail"
     id: "ID do Usuário"
@@ -1432,7 +1386,6 @@ pt-br:
       one: "Pessoas, %{users_size} resultado"
       other: "Pessoas, %{users_size} resultados"
     results_found: "Usuários encontrados"
-    search: "Procurar Usuários..."
     timezone: "Fuso horário"
     updated: "Usuário atualizado com sucesso"
     vcc_email: "E-mail do usuário Mconf %{dir}"

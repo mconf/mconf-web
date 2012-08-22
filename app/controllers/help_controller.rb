@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Copyright 2008-2010 Universidad Politécnica de Madrid and Agora Systems S.A.
 #
 # This file is part of VCC (Virtual Conference Center).
@@ -60,9 +61,6 @@ class HelpController < ApplicationController
 
   end
   def participation
-
-  end
-  def search_global
 
   end
   def export_scorm

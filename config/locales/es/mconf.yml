@@ -728,29 +728,10 @@ es:
     title4: "Invitando a gente"
     title5: "Información del evento"
   search: 
-    advanced: "Búsqueda avanzada"
-    attachments: 
-      dots: "Buscar archivos adjuntos ..."
-    between_dates: 
-      attachments: "Buscar sólo los archivos adjuntos actualizados entre dos fechas"
-      events: "Buscar sólo eventos llevados a cabo entre dos fechas"
-      posts: "Buscar sólo mensajes actualizados entre dos fechas"
-      videos: "Buscar sólo vídeos grabados entre dos fechas"
-    dots: "Buscar ..."
-    events: 
-      no_dots: "Buscar eventos"
-    in: "Buscar en"
-    one: Buscar
-    parameters: "Consulta demasiado corta"
-    posts: 
-      dots: "Buscar mensajes..."
-      no_dots: "Buscar mensajes"
-    results: "Resultados de la búsqueda"
     space: 
       dots: "Buscar espacio..."
     switch: "Cambiar a búsqueda global"
     users: "Buscar usuarios"
-  searching_in: "Usted está buscando en"
   select_image: "Seleccione una imagen, por favor"
   send: Enviar
   session: 
@@ -958,7 +939,6 @@ es:
     registered: "¡Gracias por registrarse! Le hemos enviado un correo electrónico con las instrucciones sobre cómo activar su cuenta de usuario."
     request_password: "Solicitar contraseña"
     reset_password: "Restablecer su contraseña"
-    search: "Buscar usuarios..."
     timezone: "Zona horaria"
     updated: "El usuario se ha actualizado correctamente"
     vcc_email: "Correo electrónico del usuario de GlobalPlaza %{dir}"

@@ -39,24 +39,6 @@ class Post < ActiveRecord::Base
     where(:event_id =>  nil)
   }
 
-
-  # TODO is_indexed comes from Ultrasphinx
-=begin
-  is_indexed :fields => ['text','title','space_id','updated_at'],
-             :include =>[{:class_name => 'Tag',
-                          :field => 'name',
-                          :as => 'tags',
-                          :association_sql => "LEFT OUTER JOIN taggings ON (posts.`id` = taggings.`taggable_id` AND taggings.`taggable_type` = 'Post') LEFT OUTER JOIN tags ON (tags.`id` = taggings.`tag_id`)"},
-                          {:class_name => 'User',
-                               :field => 'login',
-                               :as => 'login_user',
-                               :association_sql => "LEFT OUTER JOIN users ON (posts.`author_id` = users.`id` AND posts.`author_type` = 'User') "}#,
-                          #{:class_name => 'Profile',:field=> 'name',:as => 'name_user',:association_sql => "LEFT OUTER JOIN profiles ON (profiles.`user_id` = users.`id`)"},
-                          #{:class_name => 'Profile',:field=> 'lastname',:as => 'lastname_user',:association_sql => "LEFT OUTER JOIN profiles ON (profiles.`user_id` = users.`id`)"}
-                          ]
-
-=end
-
   validates_presence_of :title, :unless => Proc.new { |post| post.parent.present? || post.event.present? }
   validates_presence_of :text, :if => Proc.new { |post| post.attachments.empty? && post.event.blank? }
 
