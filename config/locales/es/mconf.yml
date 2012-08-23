@@ -716,17 +716,6 @@ es:
     stage_type: "Tipo de escenario"
     sucess_update: "Rol actualizado exitosamente ..."
   save: Guardar
-  screencast: 
-    link1: "Ayuda creando eventos"
-    link3: "Ayuda diferentes tipos de eventos"
-    sidebar: 
-      title: Screencasts
-    title: screencast
-    title1: "Como crear un evento"
-    title2: "Crear agenda para el evento"
-    title3: "Diferentes tipos de eventos"
-    title4: "Invitando a gente"
-    title5: "Información del evento"
   search: 
     space: 
       dots: "Buscar espacio..."

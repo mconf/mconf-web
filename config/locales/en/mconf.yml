@@ -1102,17 +1102,6 @@ en:
     refresh: "force refresh"
     running: running!
   save: Save
-  screencast: 
-    link1: "Help creating events"
-    link3: "Help: Three kinds of events"
-    sidebar: 
-      title: Screencasts
-    title: screencast
-    title1: "How to create an event"
-    title2: "Create an agenda for the event"
-    title3: "Different kinds of events"
-    title4: "Inviting people"
-    title5: "Event Information"
   search: 
     space: 
       dots: "Filter space..."

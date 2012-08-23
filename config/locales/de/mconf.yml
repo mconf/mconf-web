@@ -592,9 +592,6 @@ de:
     stage_type: "Stage Typ"
     sucess_update: "Rolle erfolgreich aktualisiert ..."
   save: Sparen
-  screencast: 
-    title1: "Ereignis erstellen"
-    title2: "Agenda für das Ereignis erstellen"
   search: 
     space: 
       dots: "Suchen space ..."

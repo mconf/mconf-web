@@ -30,8 +30,6 @@ Mconf::Application.routes.draw do
     end
   end
 
-  resources :screencasts
-
   resources :machines do
     collection do
       get :contact_mail

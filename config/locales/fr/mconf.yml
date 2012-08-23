@@ -607,9 +607,6 @@ fr:
     new: "Nouveau rôle"
     sucess_update: "Rôle mis à jour avec succès ..."
   save: Sauver
-  screencast: 
-    title1: "Comment faire pour créer un événement"
-    title2: "Créer un ordre du jour de l'événement"
   search: 
     space: 
       dots: "L'espace de recherche ..."
