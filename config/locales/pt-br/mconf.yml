@@ -60,7 +60,6 @@ pt-br:
       start_time: "Horário inicial"
       title: Título
       upload_video: "O vídeo deve ter extensão FLV."
-      video: Gravação
     error:
       omit_title: "Um título deve ser dado para a entrada da agenda"
     upload_file: "Enviar Arquivo"
@@ -82,10 +81,6 @@ pt-br:
       not_deleted: "%{file} não removido corretamente."
       not_permission: "%{user} não pode remover o arquivo %{file}"
     file: "Arquivo:"
-    found:
-      none: "Nenhum anexo encontrado"
-      one: "1 anexo encontrado"
-      other: "%{size} anexos encontrados"
     home:
       one: "Arquivo na comunidade %{space}"
     info: "Informações do documento"
@@ -298,9 +293,15 @@ pt-br:
   error:
     change: "Mudança inválida"
     credentials: "Credenciais inválidas"
-    e403: "Você não tem permissão para ver esta página."
-    e404: "A página que você está procurando não existe."
-    e500: "A página que você está procurando não existe."
+    e403: 
+      description: "Você não possui permissão para visualizar esta página."
+      title: "Proibido"
+    e404: 
+      description: "Oops, a página \"%{url}\" não existe."
+      title: "404"
+    e500: 
+      description: "Desculpe, mas algum erro aconteceu. Já fomos notificados sobre o problema e iremos resolvê-lo assim que possível."
+      title: "Erro"
     mistyped_or_moved: "Você pode ter digitado o endereço incorretamente ou a página pode ter sido movida"
     not_allowed: "Você não tem permissão para executar esta ação"
     one: Erro
@@ -449,7 +450,6 @@ pt-br:
       cloud: Vídeos!
       cloud_back: "Voltar ao programa"
       insert: Inserir
-      notice: "As pessoas vão precisar de direitos de acesso a esta comunidade para ver estes vídeos"
       recorded: "Eventos gravados"
       share: Compartilhe
     repository:
@@ -558,6 +558,8 @@ pt-br:
     links:
       statistics: Estatísticas
     website: "Site do Projeto"
+  frontpage: 
+    headline: "Um sistema global e escalável de código aberto para multiconferência web e em dispositivos móveis"
   from: De
   getting_started: Começando!
   group:
@@ -568,130 +570,6 @@ pt-br:
     welcome: "Olá, %{user}"
   hello: Olá
   help: Ajuda
-  help_createVC:
-    part1: "Para criar um congresso virtual no Global: <br><br>1. Clique na guia <b>Eventos</b>.<br>2. Clique em <b>Congresso Virtual</b> no lado direito da página."
-    part2: "3. Digite um título e uma descrição para seu evento.<br> 4. Digite ou selecione o usuários que fazem parte da organização do evento.<br> 5. Digite o local do evento.<br> 6. Escolha os modos de participação, que lhe permitem decidir como as pessoas podem conectar na reunião virtual. <br>&nbsp; &nbsp; a. <b> Isabel </b> é o sistema de código aberto utilizado como base para vídeoconferência.<br> &nbsp;&nbsp; &nbsp;b.<b> Web </b> é a possibilidade de participar via navegador web. <br> 7. Clique no botão <b>Criar</b>."
-    part3: "8. Depois de ter criado o evento você pode: <br><li><a href=%{agenda}> Definir a agenda para o evento</a><il>Reservar recursos é necessário para fazer uma videoconferência<li>Convidar pessoas<li>Escrever uma descrição completa<li>Editar seu evento<li>Importar a agenda para o seu iCalendar<li>Notificar os participantes"
-  help_createVM:
-    part1: "Para criar uma reunião virtual no Global Plaza:<br><br> 1. Clique na guia <b>Eventos</b>.<br>2. Clique em <b>Reunião Virtual</b> no lado direito da página."
-    part2: "3. Digite um título e uma descrição para seu evento. <br> 4. Digite ou selecione os organizadores do evento. <br> 5. Digite o local do evento. <br>6. Escolha os modos de participação, que lhe permitem decidir como as pessoas podem ligar para a reunião virtual.<br>&nbsp; &nbsp; a. <b> Isabel </b> é o sistema de código aberto utilizado como base para vídeoconferência.<br> &nbsp;&nbsp; &nbsp;b.<b> Web </b> é a possibilidade de participar via navegador web. <br> 7. Clique no botão <b>Criar</b>."
-    part3: "8. Depois de ter criado o evento você pode: <br><li><a href=%{agenda}> Definir a agenda para o evento</a><il>Reservar recursos é necessário para fazer uma videoconferência<li>Convidar pessoas<li>Escrever uma descrição completa<li>Editar seu evento<li>Importar a agenda para o seu iCalendar<li>Notificar os participantes"
-  help_createevent:
-    part1: "<a href=%{url} class=\"big_button red_button\" target=\"_blank\"><span>Assistir ao screencast</span></a><br><br><br>Para criar um evento no Global Plaza:<br><br>1. Clique na guia <b>Eventos</br>."
-    part2: "2. Você pode criar um evento diretamente do campo <b>Criar evento</b> na coluna do lado direito da página. O Global Plaza oferece suporte a três tipos de eventos, de acordo com suas necessidades:  <br><li>O tipo <b><a href=%{url_meeting}> Reunião </a></b> é basicamente projetado de acordo com reuniões físicas ou reuniões offline para as quais você não precisa de gravação de vídeo ou streaming, mas precisa preferencialmente de características que tornam simples lidar com reuniões - como criar e modificar uma agenda que as pessoas possam consultar ou importar em seu calendário. Além disso, você pode querer fornecer os documentos necessários para a reunião ou compartilhar fotos tiradas na reunião. <li>O tipo <b><a href=%{url_vm}>Reunião Virtual </a> é adequado para reuniões on-line ou encontros presenciais com um forte aspecto virtual, o que significa que ambos os participantes locais e remotos terão a oportunidade de se comunicar de forma interativa. .<li>O tipo <b> <a href=%{url_vc}>Congresso Virtual</a> </b> é muito semelhante ao tipo <i>Reunião Virtual</i>, mas voltado para eventos maiores, tanto em tamanho quanto em complexidade. Normalmente, este tipo requer o apoio de um operador local."
-  help_createmeeting:
-    part1: "Para criar uma reunião no Global Plaza: <br><br>1. Clique na guia <b>Eventos</b>.<br> 2. Clique em <b>Reunião</b> do lado direito da página."
-    part2: "3. Digite um título e uma descrição para seu evento.<br>4. Digite ou selecione a comunidade usuários organização do evento.<br>5. Digite o local do evento.<br> 6. Clique no botão <b>Criar</b>."
-    part3: "7. Depois de ter criado o evento você pode: <br><li><a href=%{agenda}> Definir a agenda para o evento</a><li>Convidar pessoas<li>Escrever uma descrição completa<li>Editar seu evento<li>Importar a agenda para o seu iCalendar<li>Notificar os participantes"
-  help_createpost:
-    part1: "Para criar uma mensagem no mural no Global Plaza:"
-    part10: "a. Ver código html"
-    part11: "b. Mudar o estilo da fonte (negrito, itálico e sublinhado), tamanho da fonte e cor e alinhamento do texto."
-    part12: "c. Inserir/Editar links."
-    part13: "d. Adicionar anexos"
-    part14: "e. Inserir tags nos arquivos"
-    part15: "9. Por fim, clique no botão <b>Enviar</b> para colocar a sua mensagem no mural."
-    part2: "1. Clique na guia <b>MURAL</b>."
-    part3: "2. Você pode <b>criar um novo post</b> no lado direito da página."
-    part4: "3. Digite um título e um comentário para sua mensagem."
-    part5: "4. Clique no link <b>Adicionar anexo</b> para anexar um arquivo."
-    part6: "5. Clique em <b>Escolher arquivo</b> para procurar e encontrar o arquivo que deseja anexar."
-    part7: "6. Você pode adicionar tags no seu arquivo. Tags permitem que você encontre arquivos facilmente. Pressione enter para confirmar cada tag."
-    part8: "7. Repita os passos 4, 5 e 6 para cada arquivo que você deseja adicionar."
-    part9: "8. Você pode usar o editor avançado para incluir conteúdo. Este editor permite que você:"
-  help_createspace:
-    part1: "Para criar uma comunidade no Mconf:"
-    part2: "1. Clique no item <a href=%{url}> Página inicial </a> da barra superior."
-    part3: "2. Clique no botão <a href=%{url}>Criar Nova Comunidade</a>."
-    part4: "3. Digite um nome e uma descrição para sua própria comunidade."
-    part5: "4. Decida se a comunidade deve ser pública. Comunidades colaborativas podem ser públicas, para que qualquer pessoa veja o que acontece nelas, ou privadas, onde apenas os membros terão acesso às atividades da comunidade."
-    part6: "5. Se você deseja habilitar um repositório de documentos, escolha esta opção.<br> 6. Você pode associar uma lista de e-mails no seu grupo. Ela permitirá que você envie mensagens de e-mail para todo o grupo em vez de ter de escolher os endereços individualmente. <br> 7. Você pode carregar o seu próprio logotipo, criar um logotipo de texto ou selecionar uma imagem da galeria."
-  help_createuser:
-    part1: "Para criar um usuário no Global Plaza:"
-    part2: "1. Clique no item <a href=%{url}>registrar</a> na barra de menu superior."
-    part3: "2. Digite e-mail, senha e nome completo."
-    part4: "3. Digite o código da imagem exibida."
-    part5: "4. Depois de ter concluído sua inscrição, clique no botão <b>Pronto</b>."
-    part6: "5. Depois de registrar uma conta, você receberá uma confirmação por e-mail com o link para ativar sua conta."
-  help_define_agenda:
-    part1: "<a href=%{url} class=\"big_button red_button\" target=\"_blank\"><span>Assistir ao screencast</a></span><br><br><br> Para criar uma agenda para o seu evento no VCC: <br><br> 1. Clique no na guia <b>Eventos</b>.<br> 2. Clique no evento que você já criou. <br> 3. Clique no link \"Definir a agenda\" no botão \"Agenda\" ou no link \"Agenda para o evento\" (ver setas azuis na figura)"
-    part2: "4. Na seção da agenda, clique no botão \"Adicionar sessão\" para criar um item da agenda. <br> 5. Preencha o título da entrada da agenda, o horário de início e a duração e clique em no botão \"Próximo passo\"<br> 6. Agora você pode editar os detalhes, tais como palestrantes, que podem ser usuários do site ou usuários externos, ou a descrição<br> 7. Se quiser anexar um arquivo, clique no link \"Novo anexo\". <br> 8. Se o tipo do seu evento é \"Reunião\", você pode inserir vídeos neste item da agenda"
-    part3: "9. Se o tipo do evento é \"Reunião Virtual\" ou \"Congresso Virtual\", você pode reservar os recursos de hardware e software para este item da agenda, selecione tanto streaming quanto gravação"
-    part4: "10. Clique no botão \"Finalizar\" para enviar suas alterações.  <br> 11. Se quiser acrescentar um divisor para indicar intervalos, como pausas para café ou almoço, clique no botão \"Adicionar divisor\". Você pode definir o horário de início e os motivos para a pausa. Clique no botão \"Criar\" para adicionar o divisor. <br> 12. Se o evento leva mais tempo do que um dia, você pode adicionar uma nova sessão para o segundo dia. Cada dia tem sua própria aba com os items da agenda especificada."
-  help_export:
-    part1: "Os eventos podem ser exportados como segue:"
-    part2: "1. Ir para a página do <b>Evento</b> que pretende exportar"
-    part3: "2. Clique em <b>Exportar</b> na barra de programas"
-    part4: "3. Você pode exportar um evento em quatro formatos: <ul><li><b> PDF </b>: exporta o programa completo como um arquivo PDF. </li><li><b> PDF pequeno</b>: exporta uma versão reduzida do programa em um arquivo PDF.</li><li><b> iCalendar</b>: exporta os dados do evento no formato iCalendar para incluí-lo em aplicações de calendário e e-mails.</li><li><b> SCORM</b>: exporta o conteúdo dos eventos em um arquivo compatível com SCORM, que pode ser importado por um LMS (Learning Management System). Somente os eventos gravados podem ser exportados em SCORM. </li></ul>"
-    part5: "Um exemplo de exportação em SCORM no Moodle é exibido na figura abaixo:"
-  help_index:
-    part1: "Global Plaza oferece um serviço de eventos virtuais para a Internet, que lhe permite realizar videoconferências, transmissão, gravação e publicação eletrÃ´nica de suas reuniões, palestras, sessões de treinamento, conferências, congressos ou workshops."
-    part2: "A rede social do Global Plaza vai divulgar os anúncios dos seus eventos para outras pessoas, bem como permitir que você descubra eventos realizados por outras pessoas para participar deles ou acompanhá-los. Os usos típicos do Global Plaza são: <ul><li> Broadcast através da Internet via streaming de eventos ou palestras que acontecem em uma sala de aula, sala de reuniões, auditório ou de seu desktop.</li><li> Gravação e publicação de eventos ou palestras que ocorrem em uma sala de aula, sala de reuniões, auditório ou de seu desktop.</li><li> Trazer  palestrantes remotos para seus eventos através da Internet, a partir de computadores ou salas. </li><li> Possibilitar a participação remota a partir de auditórios ou salas em um congresso ou evento. </li><li> Realizar eventos totalmente distribuídos com auditórios e desktops remotos interligados.</li><li> Etc. </li></ul>"
-    part3: "As gravações de eventos a seguir lhe dão uma idéia do que você pode obter a partir do Global Plaza: <ul><li><a href=%{egee08}>EGEE''08</a>, <a href=%{egee05}>5th EGEE User''s Forum</a>.<li><a href=%{morfeo}>Asamblea Morfeo</a>"
-    part4: "<li><a href=%{tnc08}>TNC'08</a>, <a href=%{tnc09}>TNC'09</a>, <a href=%{tnc10}>TNC'10</a>."
-    part5: "<li>Belief symposiums na <a href=%{india}>Índia</a>, <a href=%{brazil}>Brazil</a> e <a href=%{southafrica}>África do Sul</a></ul>"
-    part6: "O Global Plaza está estruturado como um site sócio-colaborativo que suporta comunicação social juntamente com suporte colaborativo para projetos e atividades em grupo. Qualquer pessoa pode se <a href=%{url}>registrar</a> gratuitamente no Global Plaza para formar parte da sua rede social e utilizar os seus serviços e recursos, tais como gravações, descrições de eventos, etc. Todos os recursos têm um link permanente, que pode ser utilizado e incorporado em outras páginas da web."
-    part7: "Depois de registrar você será capaz de <a href=%{create}>criar</a> comunidades públicos pu privados para colaboração com grupos restritos de pessoas, que serão administrados por você e pelas pessoas que você indicar como administradores. Uma vez que você é um membro regular ou administrador de uma comunidade, você será capaz de criar, anunciar, executar, registrar e publicar os seus eventos no Global Plaza. Eventos virtuais podem ser automaticamente gravado e publicados pelo Global Plaza para acesso público ou privado, bem como para incorporar em blogs, páginas da Web, etc <br><br> Você pode participar de um evento virtual do Global Plaza diretamente a partir de seu navegador Web, apenas acessando a página do evento. Seu navegador precisa ter o Flash instalado. Você também pode participar com um cilente <a href=%{isabel}> Isabel </a> nativo, que proporciona uma melhor qualidade audiovisual e é recomendado para palestrantes ou para conectar salas e auditórios. Um gateway SIP também é fornecido para permitir a participação a partir de um equipamento de videoconferência. <br><br> As atividades em grupo hospedadas no Plaza Global podem ser públicas ou privadas. Comunidades públicas possuem atuvidades que podem ser vistas e seguidas por qualquer pessoa, enquanto comunidades privadas possuem projetos e atividades onde um grupo podem colaborar compartilhando informações e reunindo-se de maneira privada."
-    part8: "O Global Plaza foi desenvolvido pelo <a href=%{web_global}>projeto European Global</a>, reutilizando os resultados e a evolução de outros projetos que transformaram a aplicação <a href=%{isabel}> Isabel </a> em um serviço de computação em nuvem, como o ITECBAN, Ecospace, Collaboration@Rura, CEPOS, etc <br><br> Para <a href=%{create}>criar</a> ou editar comunidades, você deve estar logado com sua sua conta do Plaza Global. Se você não tiver uma conta, <a href=%{url}>crie uma agora</a>"
-  help_invitation:
-    part1: "Em construção"
-  help_join_space:
-    part1: "Para aderir a uma comunidade no Global Plaza:"
-    part2: "1. <a href=%{url}>Procurar</a> a comunidade que você deseja ingressar."
-    part3: "2. Clique no botão <b>Entrar nesta comunidade</b> no lado direito da página."
-    part4: "3. Digite uma mensagem pessoal para os administradores da comunidade (opcional)."
-    part5: "4. Por fim, clique no botão <b>enviar</b> para enviar a solicitação para participar dos administradores."
-  help_logging:
-    part1: "Se você já tiver uma conta global Plaza, você pode <a href=%{url}>logar aqui</a> ou inserir seu e-mail e senha na barra superior."
-    part2: "Se você tiver uma conta com um provedor OpenID, você pode fazer login automaticamente. Clique em <b>Entrar com OpenID</b> na barra de menu superior."
-    part3: "Se você esqueceu sua senha, você pode <a href=%{url}>recuperá-la aqui</a> ou clique em <b>Você perdeu a sua senha</b> na barra de menu superior. Um e-mail será enviado para você recuperar sua senha."
-  help_newdoc:
-    part1: "Para adicionar um novo documento no Global Plaza:"
-    part2: "1. Clique na guia <b>Docs</b>."
-    part3: "2. Clique no botão <b>Adicionar novo documento</b>."
-    part4: "3. Clique em <b>Escolher arquivo</b> no lado direito da página."
-    part5: "4. Depois que o arquivo estiver selecionado, clique no botão <b>Abrir</b>."
-    part6: "5. Você pode <b>adicionar tags</b> que você e outros podem usar para localizar e filtrar o conteúdo. Pressione enter para confirmar cada tag."
-    part7: "6. Se você deseja <b>notificar</b> o documento com uma mensagem no mural, escolha esta opção."
-  help_page:
-    header_title: Ajuda
-  help_participation:
-    part1: "Existem quatro maneiras de participar de um evento: <ul> 1) Siga o <b>Streaming de Vídeo</b>. A maneira mais simples de seguir eventos virtuais através da Internet é com o seu navegador Web, apenas entrando na página do evento no Global Plaza. A página do evento irá mostrar o streaming de vídeo enquanto o evento está ocorrendo, permitindo que você siga-o. Se você estiver logado no Global Plaza, você será capaz de enviar mensagens de chat para o resto dos participantes do evento. <br> Requisitos: Seu navegador deve possuir a última versão do Flash instalado."
-    part2: "<br> 2) <b>Participação interativa pela Web</b>. Você também pode participar de forma interativa com o seu navegador web. Uma vez que você está na página do evento, basta clicar no botão \"Participar\", digitar o seu apelido quando solicitado e clicar em participar da reunião. Você entrará na reunião como um participante interativo, que pode interagir com áudio, vídeo ou chat, bem como compartilhar aplicações. Você precisa estar logado no Global Plaza para participar de forma interativa. <br> Requisitos: Seu navegador deve ter a última versão do Flash instalado. A porta TCP 1935 usada pelo cliente Flash precisa estar aberta para conectar ao evento virtual com um navegador. No caso de você acessar a página do evento e não ver o vídeo, você deve solicitar que os administradores de rede da sua instituição abram esta porta."
-    part3: "3) <b>Participação pelo Isabel</b>. Você também pode participar com um cliente nativo Isabel que roda em Linux. <a href='http://isabel.dit.upm.es/mediawiki/index.php/Isabel_v5_Quick_Guide'>Instruções de instalação podem ser encontradas aqui</a>. O cliente nativo proporciona uma melhor qualidade audiovisual e é recomendado para palestrantes ou para conectar salas e auditórios. Contate os organizadores para testes preliminares."
-    part4: "4) <b>Um gateway SIP</b> também é fornecido para permitir a participação através de um equipamento de videoconferência compatível com SIP, como, por exemplo, um Polycom. Os organizadores do evento devem ter habilitado participação SIP para este modo estar disponível."
-    part5: "Durante um evento o Global Plaza define os elementos necessários como recursos virtuais na nuvem, de tal forma que seu evento possa ocorrer. Esses recursos incluem um servidor de videoconferência com MCU, um servidor de streaming, um gravador digital, um servidor de streaming de vídeo, bem como os gateways necessários para o acesso Web baseado em Flash ou o acesso SIP. O organizador do evento seleciona os modos de acesso disponíveis ao criar o evento."
-  help_search_global:
-    part1: "Você pode procurar comunidades, mensagens, eventos, vídeos, usuários e anexos no Global Plaza. Existem duas opções para pesquisa: pesquisa simples e avançada."
-    part10: "4. Digite o nome do evento na caixa <b> a palavra </b>"
-    part11: "5. Se você escolher os eventos, você pode especificar a data de um evento realizado entre duas datas"
-    part12: "6. Clique no botão <b>Ir</b>."
-    part2: "<b>Pesquisa simples</b>"
-    part3: "1. Clique no campo <b> Pesquisa </b> no menu ao topo"
-    part4: "2. Digite o nome do item que você deseja pesquisar"
-    part5: "3. Pressione enter ou clique no botão <b>Ir</b>"
-    part6: "<b>Pesquisa avançada</b>"
-    part7: "1. Clique na caixa <b>Pesquisa avançada</b> no menu superior"
-    part8: "2. Especifique se você deseja pesquisar em qualquer comunidade ou em uma comunidade em particular na lista em <b> Pesquisar em </b>"
-    part9: "3. Escolha o tipo de elemento da lista <b> Pesquisar em </b>"
-  help_title:
-    about_vcc: "Sobre o Mconf"
-    create_VC: "Criando um congresso virtual"
-    create_VM: "Criando uma reunião virtual"
-    create_event: "Criando um evento"
-    create_meeting: "Criando uma reunião"
-    create_post: "Postando uma mensagem no mural"
-    create_space: "Criando uma comunidade"
-    create_user: "Criando um usuário"
-    define_agenda: "Definindo a agenda para o evento"
-    export_program: "Exportando um evento"
-    invitation: "Convidando usuários para eventos"
-    join_space: "Participando de uma comunidade"
-    logging: "Logando na sua conta"
-    new_doc: "Adicionando um novo documento"
-    participation: "Participando em um evento"
-    search_global: "Pesquisando no Global Plaza"
-    topics: Tópicos
   his_message_reads_thus: "Sua mensagem diz assim"
   home:
     activity: "Atividade recente..."
@@ -950,8 +828,6 @@ pt-br:
   popularity: Popularidade
   post:
     deleted: "Comentário %{postname} foi excluído"
-    found:
-      show_all: "Mostrar todos os resultados"
     home:
       one: "Mensagem na comunidade %{space}"
     latest: "Últimas mensagens"
@@ -1080,41 +956,9 @@ pt-br:
     refresh: "atualizar status"
     running: rodando!
   save: Salvar
-  screencast:
-    link1: "Ajudar a criar eventos"
-    link3: "Ajuda: Três tipos de eventos"
-    sidebar:
-      title: Screencasts
-    title: screencast
-    title1: "Como criar um evento"
-    title2: "Criar uma agenda para o evento"
-    title3: "Diferentes tipos de eventos"
-    title4: "Convidando pessoas"
-    title5: "Informações de evento"
   search:
-    advanced: "Pesquisa avançada"
-    attachments:
-      dots: "Pesquisar anexos..."
-    between_dates:
-      attachments: "Pesquisar apenas anexos atualizados entre duas datas"
-      events: "Pesquisar somente os eventos realizados entre duas datas"
-      posts: "Pesquisar apenas mensagens atualizadas entre duas datas"
-      videos: "Procurar apenas vídeos realizados entre duas datas"
-    dots: Pesquisa...
-    events:
-      no_dots: "Procurar eventos"
-    in: "Procurar em"
-    one: Procurar
-    parameters: "Consulta muito curta"
-    posts:
-      dots: "Procurar mensagens..."
-      no_dots: "Procurar mensagens"
-    results: "Resultados da pesquisa"
     space:
       dots: "Filtrar comunidade..."
-    switch: "Mudar para pesquisa global"
-    users: "Procurar usuários"
-  searching_in: "Você está procurando em"
   select_image: "Selecione uma imagem, por favor"
   send: Enviar
   servers:
@@ -1243,9 +1087,6 @@ pt-br:
     public:
       one: "Comunidade pública"
       other: "Comunidades públicas"
-    recording:
-      one: "Vídeo da comunidade"
-      other: "Vídeos da comunidade"
     select: Comunidades
     show: "Mostrar comunidades:"
     show_all: "Mostrar todas as comunidades"
@@ -1327,7 +1168,6 @@ pt-br:
     private_profile: "Esta informação só é visível para as pessoas que você escolher quando você editar seu perfil"
     public_profile: "Qualquer pessoa pode acessar esta informação"
     public_space: "Comunidades colaborativas podem ser públicas, para que qualquer pessoa possa ver o que acontece nelas, ou privadas, onde apenas os membros têm acesso às atividades da comunidade"
-    search_video: "Comece a escrever o que você deseja procurar e a lista de vídeos será atualizada automaticamente com os resultados"
     share: "Esta é a url para compartilhar este vídeo com os seus colegas"
     space_video: "Este filtro permitirá que você selecione apenas os vídeos de um evento específico"
     tag: "Tags são palavras-chave ou termos associados com o conteúdo que são utilizadas para localizar e filtrar as informações. Pressione enter para confirmar cada tag."
@@ -1382,10 +1222,6 @@ pt-br:
     error:
       enabled: "Usuário %{name} já está habilitado"
     filter: "Convidar por nome de usuário"
-    found:
-      none: "Nenhum usuário encontrado"
-      one: "1 usuário encontrado"
-      other: "%{size} usuários encontrados"
     full_name: "Nome completo"
     group_invite_email: "Convidar por e-mail"
     id: "ID do Usuário"
@@ -1427,7 +1263,6 @@ pt-br:
       one: "Pessoas, %{users_size} resultado"
       other: "Pessoas, %{users_size} resultados"
     results_found: "Usuários encontrados"
-    search: "Procurar Usuários..."
     timezone: "Fuso horário"
     updated: "Usuário atualizado com sucesso"
     vcc_email: "E-mail do usuário Mconf %{dir}"
@@ -1445,13 +1280,6 @@ pt-br:
   version:
     new: "Nova versão"
     one: Versão
-  video:
-    close_edit: "Fechar edição de vídeo"
-    edit: "Editar vídeo"
-    other: Vídeos
-  video_attachment:
-    delete: "Excluir anexo de vídeo"
-    video_name: "Vídeo Enviado"
   webconference:
     currently_running:
       one: "A conferência está ativa com %{count} participante"

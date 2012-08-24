@@ -43,7 +43,6 @@ de:
       speakers: Referenten
       start_time: Startzeit
       title: Titel
-      video: Aufnahme
     error: 
       omit_title: "Ein Titel muss für die Agenda-Eintrag angegeben werden"
     upload_file: "Upload File"
@@ -234,7 +233,6 @@ de:
       show: "Alle alten Ereignisse"
       today: "Keine Termine für gestern noch heute."
     recording: 
-      notice: "Die Menschen müssen Zugriffsrechte für diesen Raum, diese Videos zu sehen"
       share: Anteil
     repository: 
       help: "Dieses Document Repository zeigen die Dokumente in den Sitzungen der Veranstaltung Tagesordnung hochgeladen"
@@ -291,89 +289,6 @@ de:
     not_found: "hCard nicht gefunden"
   hello: Hallo
   help: Hilfe
-  help_createVC: 
-    part1: "So erstellen Sie einen virtuellen Kongress in VCC:<br><br>  1. Klicken Sie auf die Registerkarte Ereignisse. <br> 2. Klicken Sie auf Virtual-Kongress auf der rechten Seite der Seite."
-    part2: "3. Geben Sie einen Titel und eine Beschreibung für Ihre Veranstaltung.  <br>4. Geben Sie ein oder wählen Sie den Raum Nutzer Organisation der Veranstaltung.  <br>5. Art der Veranstaltung Ort.  <br> 6. Wählen Sie die Teilnahme-Modi, mit denen Sie entscheiden, wie die Menschen können die virtuellen Treffen zu verbinden.<li>  a. Isabel mittels der zugrunde liegenden Open-Source-Video-Conferencing-Software. <li> b. die Möglichkeit, Web-Browser über das Web zu beteiligen.  <br>7. Klicken Sie auf die Schaltfläche Erstellen."
-    part3: "8. Nachdem Sie das Ereignis erstellt haben, können Sie: <br><li><a href=%{agenda}>Definieren Sie die Agenda für die Veranstaltung </a><li>  Buchung Ressourcen erforderlich, um eine Videokonferenz zu machen <li> Personen einladen  <li>Schreiben Sie eine vollständige Beschreibung<li>  Bearbeiten Sie Ihre Veranstaltung<li>Importieren Sie die Tagesordnung zu Ihrem iCalendar  <li>Benachrichtigen Begleiter"
-  help_createVM: 
-    part1: "So erstellen Sie ein virtuelles Treffen in Global Plaza: <br><br> 1. Klicken Sie auf die Registerkarte Ereignisse.  <br>2. Klicken Sie auf Virtual Meeting auf der rechten Seite der Seite."
-    part2: "3. Geben Sie einen Titel und eine Beschreibung für Ihre Veranstaltung. <br> 4. Geben Sie ein oder wählen Sie den Raum Nutzer Organisation der Veranstaltung. <br> 5. Art der Veranstaltung Ort.<br>  6. Wählen Sie die Teilnahme-Modi, mit denen Sie entscheiden, wie die Menschen können die virtuellen Treffen zu verbinden.  a. Isabel mittels der zugrunde liegenden Open-Source-Video-Conferencing-Software.  b. die Möglichkeit, Web-Browser über das Web zu beteiligen.<br>  7. Klicken Sie auf die Schaltfläche Erstellen."
-    part3: "8. Nachdem Sie das Ereignis erstellt haben, können Sie: <br><li><a href=%{agenda}>Definieren Sie die Agenda für die Veranstaltung</a><li>  Buchung Ressourcen erforderlich, um eine Videokonferenz zu machen <li> Personen einladen  <li>Schreiben Sie eine vollständige Beschreibung<li>  Bearbeiten Sie Ihre Veranstaltung<li> Importieren Sie die Tagesordnung zu Ihrem iCalendar  <li>Benachrichtigen Begleiter"
-  help_createevent: 
-    part1: "<a href=%{url} class=\"big_button red_button\" target=\"_blank\"><span>Screencast</span></a><br><br><br>So erstellen Sie eine Veranstaltung in Global Plaza:<br><br>  1. Klicken Sie auf die Registerkarte Ereignisse."
-    part2: "2. Sie können direkt ein Ereignis aus dem <b> Create Event </b> box auf der rechten Spalte der Seite. Global Plaza unterstützt drei Arten von Veranstaltungen, nach Ihren Bedürfnissen: <br><li> Die  <b><a href=%{url_meeting}>Konferenz</a></b> ist grundsätzlich zur Einfuhr Anzug physischen Sitzungen oder offline Sitzungen, für die Sie nicht benötigen oder Streaming-Video-Aufnahme, könnten aber dennoch lieber Sitzung haben Umgang mit Funktionen, die eine einfachere - wie das Erstellen und Ändern einer Tagesordnung, dass Menschen zu konsultieren oder in ihrem Kalender. Außerdem möchten Sie vielleicht Unterlagen für die Sitzung oder später tausche Bilder auf der Sitzung getroffen benötigt wird. <li> Das <b><a href=%{url_vm}>virtuelle Meeting</a></b>-Typ ist geeignet für Teilnehmer Online-Meetings oder physische Treffen mit einem starken virtuelle Komponente, was bedeutet, dass sowohl die lokale und Remote wird interaktiv die Möglichkeit haben zu kommunizieren.  <li>Die  <b> <a href=%{url_vc}> Virtual-Kongress</a> </b> Art ist sehr ähnlich zu dem virtuellen Treffen ausgerichtet, aber für größere Veranstaltungen, sowohl in Größe und Komplexität. Gewöhnlich erfordert diese Art der Unterstützung eines Betreibers vor Ort."
-  help_createmeeting: 
-    part1: "So erstellen Sie eine Sitzung in Global Plaza:  <br><br>1. Klicken Sie auf die Registerkarte Ereignisse.  <br>2. Klicken Sie auf Meeting auf der rechten Seite der Seite."
-    part2: "3. Geben Sie einen Titel und eine Beschreibung für Ihre Veranstaltung.  <br>4. Geben Sie ein oder wählen Sie den Raum Nutzer Organisation der Veranstaltung.  <br>5. Art der Veranstaltung Ort. <br>6. Klicken Sie auf die Schaltfläche Erstellen."
-    part3: "7. Nachdem Sie das Ereignis erstellt haben, können Sie:<br><li><a href=%{agenda}>Definieren Sie die Agenda für die Veranstaltung</a><li> Personen einladen  <li>Schreiben Sie eine vollständige Beschreibung <li> Bearbeiten Sie Ihre Veranstaltung <li>Importieren Sie die Tagesordnung zu Ihrem iCalendar<li>  Benachrichtigen Begleiter"
-  help_createpost: 
-    part1: "So erstellen Sie eine Nachricht in der Wand in VCC:"
-    part10: "a. HTML-Quelltext"
-    part11: "b. Ändern Sie den Schriftschnitt (fett, kursiv und unterstrichen), Schriftgröße und Schriftfarbe und Ausrichtung des Textes."
-    part13: "d. Hinzufügen von Anlagen"
-    part14: "e. Tags Dateien"
-    part15: "9. Schließlich, am Schaltfläche <b>'Senden'</b> zu klicken Wand stellen Sie Ihre Nachricht im."
-    part2: "1. Klicken Sie auf <b>WALL</b> Registerkarte."
-    part3: "2. Sie können Seite <b>Erstellen einer neuen Nachricht</b> auf der rechten Seite des."
-    part4: "3. Geben Sie einen Titel und Kommentar für Ihre Nachricht."
-    part5: "4. Klicken Sie auf <b>Add Attachment</b> Link zu dieser Datei beilegen."
-    part6: "5. Klicken Sie auf <b>Datei auswählen</b> zu durchsuchen und die Datei finden Sie anhängen möchten."
-    part7: "6. Sie können Ihre Datei Tags hinzuzufügen. Tags ermöglichen es Ihnen, Dateien leicht finden. Drücken Sie die Eingabetaste, um jeden Tag zu bestätigen."
-    part8: "7. Wiederholen Sie Schritt 4, 5 und 6 für jede Datei, die Sie hinzufügen möchten."
-    part9: "8. Sie können mit dem erweiterten Editor, um Inhalte zu erfassen. Dieser Editor ermöglicht es Ihnen:"
-  help_createspace: 
-    part1: "So erstellen Sie einen Platz im VCC:"
-    part2: "1. Klicken Sie auf <a href=%{url}>My Home</a> Elements aus der oberen Menüleiste."
-    part3: "2. Klicken Sie auf Create New Space-Taste."
-    part4: "3. Fügen Sie einen Namen und eine Beschreibung für Ihren Raum."
-    part5: "4. Entscheiden Sie, ob der Raum sollten öffentlich sein."
-    part6: "5. Wenn Sie ein Document Repository aktivieren, wählen Sie diese Option."
-  help_createuser: 
-    part1: "So erstellen Sie einen Benutzer im VCC:"
-    part2: "1. Klicken Sie auf <a href=%{url}>Register</a> bar Element aus dem oberen Menü."
-    part3: "2. Geben Sie eine E-Mail, Passwort und vollständigen Namen."
-    part4: "3. Geben Sie den Code aus dem Bild gezeigt."
-    part5: "4. Sobald Sie sich registriert haben, klicken Sie auf die Schaltfläche Fertig abgeschlossen."
-    part6: "5. Nach der Registrierung für ein Konto, werden Sie eine Bestätigung per Email mit dem Link, um zu erhalten, um Ihr Konto zu aktivieren."
-  help_define_agenda: 
-    part1: "<a href=%{url} class=\"big_button red_button\" target=\"_blank\"><span>Screencast </a></span><br><br><br>So erstellen Sie eine Agenda für Ihre Veranstaltung in VCC: <br><br> 1. Klicken Sie auf 'Events'. <br> 2. Klicken Sie auf den Fall, dass Sie bereits erstellt haben.<br>  3. Klicken Sie auf 'Definieren Sie den Zeitplan' Link, 'Agenda'-Button oder 'Agenda für die Veranstaltung'-Link (siehe blaue Pfeile in der Abbildung)"
-    part2: "4. In der Tagesordnung Abschnitt, klicken Sie auf 'Add' Button zu erstellen ein Tagesordnungspunkt.  <br>5. Füllen Sie den Agenda-Eintrag Titel, die Startzeit und die Dauer und klicken Sie auf 'Next Step'-Button <br> 6. Sie können nun Details wie die Redner, die Site-Benutzer oder externen Benutzern, oder die Beschreibung werden können <br> 7. Wenn Sie eine Datei schließen, klicken Sie auf 'New attachment'-Link. <br> 8. Wenn die Art der Veranstaltung 'Meeting ist', können Sie einbetten Video zu diesem Tagesordnungspunkt"
-    part3: "9. Wenn die Art Ihrer Veranstaltung lautet 'Virtual Meeting' oder 'Virtual Congress', können Sie Hard-und Software-Ressourcen für diesen Tagesordnungspunkt behalten, wählen Sie sowohl Streaming und Aufnahme"
-    part4: "10. Klicken Sie auf die Schaltfläche 'Finish' um die Änderungen zu.  <br>11. Wenn Sie einen Teiler, Brüche zeigen, wie Kaffee-oder Mittagspausen, klicken Sie auf 'Add Teiler'-Button hinzufügen. Sie können die Startzeit und der Grund für die Pause. Klicken Sie auf 'Create'-Taste, um die Trennlinie hinzuzufügen.  <br>12. Wenn Ihre Veranstaltung dauert länger als einen Tag, können Sie eine neue Sitzung für den zweiten Tag. Jeder Tag hat seine eigene Registerkarte mit dem angegebenen Tagesordnungspunkten."
-  help_index: 
-    part1: "Global Plaza bietet einen virtuellen Event-Service, die es Ihnen ermöglichen Videokonferenzen durchführen, Streaming, Aufnahme und das elektronische Publizieren Ihrer Meetings, Vorträge, Schulungen, Konferenzen, Kongressen oder Workshops."
-    part2: "GlobalPlaza des sozialen Netzwerks wird die Ankündigungen von Veranstaltungen, um andere zu verbreiten, ebenso wie wir entdecken Sie Veranstaltungen, die von anderen durchgeführt, um teilzunehmen oder folgen them.Typical Use-Cases von GlobalPlaza sind: <li>Broadcasting über das Internet per Streaming Veranstaltungen oder Vorträge statt in einem Klassenzimmer, Konferenzräume und Auditorien. <li>Aufnahme und Veröffentlichung von Veranstaltungen oder Vorträge statt in einem Klassenzimmer, Konferenzräume und Auditorien.<li>Bringing in entfernten Lautsprecher über das Internet in Ihre Veranstaltungen, von Desktops oder Zimmer.  <li>Aktivieren Fernteilnahme von Auditorien oder Zimmer in einem bestimmten Kongress oder Event. <li>Performing voll Veranstaltungen mit Remote-Desktops verteilt und Auditorien miteinander verbunden.  <li>Usw.<br><br> "
-    part3: "Die folgenden Aufnahmen von Veranstaltungen geben Ihnen eine Vorstellung davon, was Sie von der GlobalPlaza erhalten:  <li><a href=%{tnc08}>TNC'08</a>,<a href=%{tnc09}>TNC'09</a>,<a href=%{tnc10}>TNC'10 </a>."
-    part4: "<li>Belief Symposien in <a href=%{india}>Indien</a>,<a href=%{brazil}>Brasilien</a> und <a href=%{southafrica}>Südafrika</a>."
-    part5: "<li><a href=%{egee08}>EGEE'08</a> ,<a href=%{egee05}>5. EGEE User's Forum</a>.<li><a href=%{morfeo}>Asamblea Morfeo</a>"
-    part6: "<br>Global Plaza wird als ein sozio-Website, die gemeinsame soziale Netzwerke unterstützt gemeinsam mit kooperativen Unterstützung von Projekten und Aktivitäten strukturiert Gruppe. Jeder kann <a href=%{url}>registrieren</a> kostenlos in der Global-Plaza, um es Bestandteil des sozialen Netzwerks und die Nutzung des Dienstes."
-    part7: "Nach der Registrierung können Sie zu <a href=%{create}>erstellen</a>, öffentliche oder private Räume für die Zusammenarbeit mit eingeschränkten Gruppen von Personen, die durch und verwaltet werden Sie von den Personen, die Sie Administratoren ernennen. Sobald Sie ein reguläres Mitglied oder Administrator eines Raumes sind, können Sie zu erstellen, zu verkünden, durchführen, aufnehmen und veröffentlichen Sie Ihre Veranstaltungen in Global Plaza. Virtual Ereignisse können automatisch aufgezeichnet und veröffentlicht durch Global Plaza für den privaten oder den Zugang der Öffentlichkeit sowie in Blogs einbetten, Webseiten, etc. <br><br> Aktivitäten für Gruppen veranstaltet in Global-Plaza können öffentlich oder privat sein. Öffentliche Räume Host-Aktivitäten, die gesehen werden und anschließend kann jeder, während die privaten Räume unterstützt Projekte und Aktivitäten, bei denen eine Gruppe Informationen austauschen und treffen sich in privaten zusammenarbeiten können. <br><br>Sie können in einer virtuellen Global Plaza Ereignis aus Ihrem Web-Browser direkt an nur durch Zugriff auf die Event-Seite, wo das Ereignis angekündigt. Ihr Browser muss Flash installiert. Sie können auch eine Teilnahme mit <a href=%{isabel}>Isabel</a> Native Client, die eine bessere Qualität bietet audiovisuelle und ist empfohlen für Lautsprecher oder Auditorien verbinden Räume und. Ein SIP-Gateway ist ebenfalls vorgesehen, um die Beteiligung von einer Videokonferenz Ausrüstung ermöglichen."
-    part8: "Die Global wurde von der Plaza entwickelt worden <a href=%{web_global}>Europäischen Global projekt</a> durch die Wiederverwendung von Ergebnissen und Entwicklungen aus anderen Projekten, die verwandelt haben <a href=%{isabel}>Isabel </a>Applikation in ein Cloud-Computing-Dienst wie ITECBAN, Ecospace, Collaboration @ Rural, Cepos, etc. <br><br>So <a href=%{create}>erstellen</a> oder bearbeiten Leerzeichen, müssen Sie angemeldet sein Konto um Ihre Global Plaza. Wenn Sie noch kein Konto haben, <a href=%{url}>erstellen Sie jetzt</a>."
-  help_logging: 
-    part1: "Wenn Sie bereits ein Konto VCC, können Sie <a href=%{url}>sich hier anmelden,</a> oder klicken Sie auf Login-Position aus der oberen Menüleiste. Geben Sie Ihre Email und Passwort auf dem Hauptbildschirm."
-    part2: "Sie können Login automatisch, falls Sie einen Account bei einem OpenID-Provider."
-    part3: "Wenn Sie Ihr Passwort, das Sie dieses Formular verwenden können, um ihn wieder und haben es automatisch per E-Mail an Sie vergessen."
-  help_newdoc: 
-    part1: "So fügen Sie ein neues Dokument in VCC:"
-    part2: "1. Klicken Sie auf Registerkarte <b>Archiv.</b>"
-    part3: "2. Klicken Sie auf <b>Neues Dokument hinzufügen</b> klicken."
-    part4: "3. Klicken Sie auf Seite <b>wählen Datei</b> auf der rechten Seite des."
-    part5: "4. Sobald Ihre Datei ausgewählt ist, klicken Sie auf die Schaltfläche Öffnen."
-    part6: "5. Sie können <b>Tags hinzufügen,</b> dass Sie und andere Inhalte verwenden können, um zu finden und zu filtern. Drücken Sie die Eingabetaste, um jeden Tag zu bestätigen."
-    part7: "6. Wenn Sie möchten, Wand <b>teilt</b> das Dokument mit einer Meldung in der, die diese Option wählen."
-  help_title: 
-    about_vcc: "Über Global Plaza"
-    create_VC: "Erstellen eines virtuellen Kongresses"
-    create_VM: "Erstellen eines virtuellen Treffen"
-    create_event: "Erstellen eines Ereignisses"
-    create_meeting: "Erstellen einer Sitzung"
-    create_post: "Erstellen einer Nachricht in der Wand"
-    create_space: "Erstellen eines Space"
-    create_user: "Benutzer anlegen"
-    define_agenda: "Festlegen der Tagesordnung für die Veranstaltung"
-    logging: "Das Anmelden in Ihrem Konto"
-    new_doc: "Hinzufügen eines neuen Dokuments"
-    topics: Themen
   his_message_reads_thus: "Seine Botschaft lautet also"
   home: 
     activity: "Letzte Aktivität ..."
@@ -592,33 +507,9 @@ de:
     stage_type: "Stage Typ"
     sucess_update: "Rolle erfolgreich aktualisiert ..."
   save: Sparen
-  screencast: 
-    title1: "Ereignis erstellen"
-    title2: "Agenda für das Ereignis erstellen"
   search: 
-    advanced: "Erweiterte Suche"
-    attachments: 
-      dots: "Suche Attachments ..."
-    between_dates: 
-      attachments: "Suche nur Arbeitsgeräte zwischen zwei Daten aktualisiert"
-      events: "Suche nur Ereignisse zwischen zwei Terminen statt"
-      posts: "Suche nur die Nachrichten zwischen zwei Daten aktualisiert"
-      videos: "Suche nur Videos zwischen zwei Terminen statt"
-    dots: "Suche ..."
-    events: 
-      no_dots: "Suche nach Veranstaltungen"
-    in: "Suche in"
-    one: Suche
-    parameters: "Query-String zu sortieren"
-    posts: 
-      dots: "Suche Einträge ..."
-      no_dots: "Suchen Nachrichten"
-    results: Suchergebnisse
     space: 
       dots: "Suchen space ..."
-    switch: "Switch to globale Suche"
-    users: "Benutzer suchen"
-  searching_in: "Sie suchen in"
   select_image: "Wählen Sie ein Bild, bitte"
   send: Senden
   session: 
@@ -785,7 +676,6 @@ de:
     registered: "Vielen Dank für Ihre Registrierung! Wir haben gerade Anleitung zur Aktivierung Ihres Benutzerkontos gesendet"
     request_password: "Passwort anfordern"
     reset_password: "Ihr Passwort zurücksetzen"
-    search: "Benutzer suchen ..."
     timezone: Zeitzone
     updated: "User erfolgreich aktualisiert"
     vcc_email: "VCC Benutzer per E-Mail %{dir}"

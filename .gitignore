@@ -5,7 +5,6 @@ index
 log/*.log
 *kpf
 .tmp_*
-config/ultrasphinx/*conf
 public/logos
 attachments/*
 attachment_videos/*

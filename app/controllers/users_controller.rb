@@ -118,12 +118,6 @@ class UsersController < ApplicationController
     render :layout => 'no_sidebar'
   end
 
-  def clean
-    render :update do |page|
-      page.replace_html 'search_results', ""
-    end
-  end
-
   # PUT /users/1
   # PUT /users/1.xml
   #this method updates a user
