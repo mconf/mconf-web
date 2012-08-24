@@ -573,6 +573,8 @@ en:
       rnp: "Rede Nacional de<br/>Ensino e Pesquisa"
       title: Sponsors
     website: "Project website"
+  frontpage: 
+    headline: "A global scalable opensource multiconference system for web and mobile devices"
   from: From
   getting_started: "Getting started!"
   group: 

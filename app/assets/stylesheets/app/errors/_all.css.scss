@@ -2,8 +2,7 @@
 @import "compass/typography";
 @import "definitions";
 
-$bg-normal: darken($green-logo, 3);
-$logo-top: 300px;
+$logo-top: 50px;
 $logo-rot-pos1: rotate(45deg);
 $logo-rot-pos2: rotate(80deg);
 
@@ -32,8 +31,6 @@ $z-index-footer: 0;
 }
 
 html, body {
-  background: $bg-normal;
-  color: #ddd;
   height: 100%;
   overflow: hidden;
 }
@@ -42,21 +39,25 @@ html, body {
   height: 100%;
   background: none;
   @include box-shadow(none);
-
-  a { @include link-colors(#eee, $site-link-hover, $site-link-active); }
 }
 
-#content-wrapper, #content {
+#content-wrapper {
   z-index: $z-index-content;
-  background: $bg-normal;
+  background: $subnav-bg-color;
+  border-top: 1px solid #EED3D7;
+  border-bottom: 1px solid #EED3D7;
+  margin-top: 80px;
+  color: #B94A48;
+
+  h1 {
+    color: #B94A48;
+  }
 }
 
 #content {
   position: relative;
 
   .title {
-    margin-top: 80px;
-    color: #eee;
     border: 0;
     text-align: center;
     font-size: 68px;
@@ -84,7 +85,7 @@ html, body {
 
  .logo {
     position: absolute;
-    right: 30px;
+    right: -250px;
     top: $logo-top;
     width: 231px;
     height: 120px;
@@ -116,8 +117,4 @@ html, body {
   right: 0;
   left: 0;
   z-index: $z-index-footer;
-}
-
-#upper-footer h3, #footer-logo {
-  color: #ccc;
 }
