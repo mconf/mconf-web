@@ -3,6 +3,9 @@
     #main-logo
       %a.title{:href => root_path}= image_tag 'logos/mconf-white-transp.png', :size => '231x120'
 
+- content_for :"page-header" do
+  = t("frontpage.headline")
+
 #content
 
   #login-box.form-area

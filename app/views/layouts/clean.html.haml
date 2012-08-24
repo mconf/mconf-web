@@ -23,6 +23,10 @@
     #site
       #navbar-wrapper
         = yield :navbar
+      - if content_for?(:"page-header")
+        #page-header-wrapper
+          #page-header
+            = yield :"page-header"
       #content-wrapper
         = yield
       = render :partial => "layouts/footer_simple"

@@ -558,6 +558,8 @@ pt-br:
     links:
       statistics: Estatísticas
     website: "Site do Projeto"
+  frontpage: 
+    headline: "Um sistema global e escalável de código aberto para multiconferência web e em dispositivos móveis"
   from: De
   getting_started: Começando!
   group:
