@@ -74,22 +74,6 @@ class Attachment < ActiveRecord::Base
     where(:version_child_id => nil).order(sanitize_order_and_direction(order, direction))
   }
 
-  # TODO is_indexed comes from Ultrasphinx
-=begin
-  is_indexed :fields => ['filename', 'type', 'space_id', 'updated_at'],
-             :conditions => 'parent_id IS NULL',
-             :include => [
-               { :class_name => 'Tag',
-                 :field => 'name',
-                  :as => 'tags',
-                  :association_sql => "LEFT OUTER JOIN taggings ON (attachments.`id` = taggings.`taggable_id` AND taggings.`taggable_type` = 'Attachment') LEFT OUTER JOIN tags ON (tags.`id` = taggings.`tag_id`)"},
-               { :class_name => 'User',
-                 :field => 'login',
-                 :as => 'author',
-                 :association_sql => "LEFT OUTER JOIN users ON (attachments.`author_id` = users.`id` AND attachments.`author_type` = 'User') "}
-             ]
-=end
-
   protected
 
   validate :validate_method

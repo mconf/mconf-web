@@ -124,12 +124,12 @@ GEM
       execjs
     coffee-script-source (1.2.0)
     columnize (0.3.6)
-    compass (0.12.1)
+    compass (0.13.alpha.0)
       chunky_png (~> 1.2)
       fssm (>= 0.2.7)
-      sass (~> 3.1)
-    compass-rails (1.0.1)
-      compass (~> 0.12.0)
+      sass (~> 3.2.0.alpha.93)
+    compass-rails (1.0.3)
+      compass (>= 0.12.2, < 0.14)
     crack (0.1.8)
     daemon_controller (0.2.6)
     debugger (1.1.4)
@@ -269,7 +269,7 @@ GEM
     rubyzip (0.9.4)
     rvm-capistrano (1.1.0)
       capistrano (>= 2.0.0)
-    sass (3.1.17)
+    sass (3.2.0.alpha.277)
     sass-rails (3.2.5)
       railties (~> 3.2.0)
       sass (>= 3.1.10)
@@ -329,6 +329,7 @@ DEPENDENCIES
   chronic
   ci_reporter
   coffee-rails (~> 3.2.0)
+  compass (~> 0.13.alpha)
   compass-rails (~> 1.0)
   debugger
   delayed_job (~> 3.0.0)

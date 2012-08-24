@@ -61,7 +61,6 @@ en:
       start_time: "Start time"
       title: Title
       upload_video: "The video must have the extension FLV."
-      video: Recording
     error: 
       omit_title: "A title must be given for the agenda entry"
     upload_file: "Upload File"
@@ -84,10 +83,6 @@ en:
       not_deleted: "%{file} not deleted correctly. "
       not_permission: "%{user} cannot delete %{file}. "
     file: "File: "
-    found: 
-      none: "No attachments found"
-      one: "1 attachment was found"
-      other: "%{size} attachments were found"
     home: 
       one: "File in space %{space}"
     info: "Document info"
@@ -307,9 +302,15 @@ en:
   error: 
     change: "Invalid change"
     credentials: "Invalid credentials"
-    e403: "You are not allowed to see that page."
-    e404: "The page you were looking for doesn't exist."
-    e500: "The page you were looking for doesn't exist."
+    e403: 
+      description: "The page you were looking for is forbidden. You are not allowed to perform that action."
+      title: "Forbidden"
+    e404: 
+      description: "Oops, the page \"%{url}\" does not exist."
+      title: "404"
+    e500: 
+      description: "We're sorry, but something went wrong. We've been notified about this issue and we'll take a look at it shortly."
+      title: "Error"
     mistyped_or_moved: "You may have mistyped the address or the page may have been moved"
     not_allowed: "You are not allowed to perform that action"
     one: Error
@@ -459,7 +460,6 @@ en:
       cloud: Videos!
       cloud_back: "Back to program"
       insert: Insert
-      notice: "People will need access rights to this space to see this videos"
       recorded: "Recorded events"
       share: Share
     repository: 
@@ -583,131 +583,6 @@ en:
     welcome: "Welcome, %{user}"
   hello: Hello
   help: Help
-  help_createVC: 
-    part1: "To create a virtual congress in Global:<br><br>1. Click on <b>Events</b> tab.<br>2. Click on <b>Virtual Congress</b> on the right side of the page."
-    part2: "3. Type a title and description for your event. <br>4. Type or select the space users organising the event. <br>5. Type the even's location.<br>6.    Choose the participation modes, which let you decide how people can connect to the virtual meeting. <br>&nbsp; &nbsp; a. <b> Isabel </b> means the underlying open source video-conferencing software.<br> &nbsp;&nbsp; &nbsp;b.<b> Web </b> the opportunity to participate via web browser.  <br>7. Click on <b>Create</b> button."
-    part3: "8. Once you have created the event, you can: <br><li><a href=%{agenda}>Define the agenda for the event</a><li>Booking resources is needed in order to make a videoconference<li>Invite people<li>Write a complete description<li>Edit your event<li>Import the agenda to your iCalendar<li>Notify attendants "
-  help_createVM: 
-    part1: "To create a virtual meeting in Global Plaza:<br><br>1. Click on <b>Events</b> tab.<br>2. Click on <b>Virtual Meeting</b> on the right side of the page."
-    part2: "3. Type a title and description for your event. <br>4. Type or select the space users organising the event. <br>5. Type the event's location.<br>6.   Choose the participation modes, which let you decide how people can connect to the virtual meeting. <br>&nbsp; &nbsp; a. <b> Isabel </b> means the underlying open source video-conferencing software.<br> &nbsp;&nbsp; &nbsp;b.<b> Web </b> the opportunity to participate via web browser.  <br>7. Click on <b>Create</b> button."
-    part3: "8. Once you have created the event, you can: <br><li><a href=%{agenda}>Define the agenda for the event</a><li>Booking resources is needed in order to make a videoconference<li>Invite people<li>Write a complete description<li>Edit your event<li>Import the agenda to your iCalendar<li>Notify attendants "
-  help_createevent: 
-    part1: "<a href=%{url} class=\"big_button red_button\" target=\"_blank\"><span>Watch screencast</span></a><br><br><br>To create an event in Global Plaza: <br><br>1. Click on <b>Events</b> tab. "
-    part2: "2. You can create an event directly from the <b>Create event</b> box on the right-hand column of the page. Global Plaza supports three types of events, according to your needs: <br><li>The <b><a href=%{url_meeting}> Meeting </a></b>type is basically designed to suit physical meetings or offline meetings for which you won't need video recording or streaming but would nevertheless prefer to have features that make handling a meeting simpler -  like creating and modifying an agenda that people can consult or import in their calendar. Also, you might wnat to provide documents needed for the meeting or later share pictures taken at the meeting.<li>The <b><a href=%{url_vm}>Virtual meeting </a></b>type is suited for online meetings or physical meetings with a strong virtual component, meaning that both local and remote participants will have the opportunity to communicate interactively.<li>The <b> <a href=%{url_vc}>Virtual congress</a> </b>type is very similar to <i>the virtual meeting</i> but geared for larger events, both in size and complexity. Usually, this type requires the support of an onsite operator."
-  help_createmeeting: 
-    part1: "To create a meeting in Global Plaza:<br><br>1. Click on <b>Events</b> tab.<br>2. Click on <b>Meeting</b> on the right side of the page."
-    part2: "3. Type a title and description for your event. <br>4. Type or select the space users organising the event. <br>5. Type the event's location.<br>6. Click on <b>Create</b> button."
-    part3: "7. Once you have created the event, you can: <br><li><a href=%{agenda}>Define the agenda for the event</a><li>Invite people<li>Write a complete description<li>Edit your event<li>Import the agenda to your iCalendar<li>Notify attendants "
-  help_createpost: 
-    part1: "To create a message on the wall in Global Plaza:"
-    part10: "a. View source html"
-    part11: "b. Change the font style (bold, italic and underline), font size and text color and alignment of the text."
-    part12: "c. Insert/Edit links."
-    part13: "d. Add attachments"
-    part14: "e. Tags files"
-    part15: "9. Finally, click on <b>Send</b> button to put your message on the wall."
-    part2: "1. Click on <b>WALL</b> tab."
-    part3: "2. You can <b>create a new post</b> on the right side of the page."
-    part4: "3. Type a title and comment for your message."
-    part5: "4. Click on <b>Add attachment</b> link to enclose a file."
-    part6: "5. Click on <b>Choose file</b> to browse and find the file you want to attach."
-    part7: "6. You can add tags to your file. Tags allow you to find files easily.  Press enter to confirm each tag."
-    part8: "7. Repeat step 4, 5 and 6 for each file you want to add."
-    part9: "8. You can use the advanced editor to include content. This editor allows you to:"
-  help_createspace: 
-    part1: "To create a space in Global Plaza:"
-    part2: "1. Click on <a href=%{url}> My Home </a> item from the top bar."
-    part3: "2. Click on <a href=%{url}>Create New Space </a> button."
-    part4: "3. Type a name and description for your space."
-    part5: "4. Decide whether the space should be public. Collaborative spaces can be public, for anybody to watch what happens in them, or private, where only members have access to the activities of the space."
-    part6: "5. If you want to enable a document repository, choose this option. <br>6. You can associate a mailing list to your group. It will allow you to send email messages to your group instead of having to pick out the individual addresses every time.<br>7. You can upload your own logo, create a text logo or select an image from the gallery."
-  help_createuser: 
-    part1: "To create a user in Global Plaza:"
-    part2: "1. Click on <a href=%{url}>register</a> item from the top menu bar."
-    part3: "2. Type an email, password and full name."
-    part4: "3. Type the code from the image showed."
-    part5: "4. Once you have completed your registration, click on <b>Done</b> button."
-    part6: "5. After registering for an account, you will receive an email confirmation with the link in order to activate your account."
-  help_define_agenda: 
-    part1: "<a href=%{url} class=\"big_button red_button\" target=\"_blank\"><span>Watch screencast</a></span><br><br><br>To create an agenda for your event in VCC:<br><br>1. Click on &#34;Events&#34; tab.<br>2. Click on the event that you have already created.<br>3. Click on &#34;Define the schedule&#34; link, &#34;Agenda&#34; button or &#34;Agenda for the event&#34; link (see blue arrows in the figure)"
-    part2: "4. In the agenda section, click on &#34;Add session&#34; button to create an agenda item. <br>5. Fill the agenda entry title, the start time and the duration and click on &#34;Next step&#34; button<br>6. You can now edit details such as the speakers, which can be site users or external users, or the description<br>\n\
-        7. If you want to enclose a file, click on &#34;New attachment&#34; link.<br>8. If the type of your event is &#34;Meeting&#34;, you can embed video for this agenda item  "
-    part3: "9. If the type of your event is &#34;Virtual Meeting&#34; or &#34;Virtual Congress&#34;, you can reserve hardware and software resources for this agenda item, select both streaming and recording"
-    part4: "10. Click on the &#34;Finish&#34; button to commit your changes. <br>11. If you want to add a divider to indicate breaks, like coffee or lunch breaks, click on &#34;Add divider&#34; button. You can set the start time and the reason for the break. Click on &#34;Create&#34; button to add the divider.<br> 12. If your event takes longer than one day, you can add a new session for the second day. Each day has its own tab with the specified agenda items. "
-  help_export: 
-    part1: "Events can be exported as follows:"
-    part2: "1. Go to the <b>Event </b>page you want to export"
-    part3: "2. Click on <b>Export</b> on the program bar"
-    part4: "3. You can export an event in four formats:<ul><li><b>PDF</b>: exports the complete program as a PDF file.</li><li><b>Small PDF</b>: exports a reduce version of the program ina PDF file.</li><li><b>iCalendar</b>: exports the event data in the iCalendar format to include it in calendaring apps or emails.</li><li><b>SCORM</b>: exports the events content in a SCORM compliant file which can be imported by an LMS (learning Management System). Only recorded events can be exported in SCORM.</li></ul>"
-    part5: "Example of exporting in SCORM by Moodle is shown in the figure below:"
-  help_index: 
-    part1: "Global Plaza delivers a virtual event service for the Internet, which will enable you to perform videoconferencing, streaming, recording and electronic publishing of your meetings, lectures, training sessions, conferences, congresses or workshops."
-    part2: "Global Plaza's social network will disseminate the announcements of your events to others, as well as let you discover events performed by others to participate or follow them.Typical use cases of Global Plaza are:<ul><li>Broadcasting over the Internet via streaming events or lectures taking place in a classroom, meeting room, auditorium or from your desktop.<li>Recording and publishing events or lectures taking place in a classroom, meeting room, auditorium or from your desktop.<li>Bringing in remote speakers over the Internet into your events, from desktops or rooms.<li>Enabling remote participation from auditoriums or rooms into a given congress or event.<li>Performing fully distributed events with remote auditoriums and desktops interconnected.<li>Etc.</ul>"
-    part3: "The following recordings of events give you an idea of what you can obtain from Global Plaza:<ul><li><a href=%{egee08}>EGEE'08</a>, <a href=%{egee05}>5th EGEE User's Forum</a>.<li><a href=%{morfeo}>Asamblea Morfeo</a>"
-    part4: "<li><a href=%{tnc08}>TNC'08</a>, <a href=%{tnc09}>TNC'09</a>, <a href=%{tnc10}>TNC'10</a>."
-    part5: "<li>Belief symposiums in <a href=%{india}>India</a>, <a href=%{brazil}>Brazil</a> and <a href=%{southafrica}>SouthAfrica</a></ul>"
-    part6: "Global Plaza is structured as a socio-collaborative site which supports social networking together with collaborative support to projects and group activities. Anybody can <a href=%{url}>register</a> for free in Global Plaza to form part of its social network and use its services and resources, such as recordings, event descriptions, etc. All resources have a permanent link, which can be used and embedded on other web pages."
-    part7: "After registering you will be able to <a href=%{create}>create</a> public or private spaces for collaborating with restricted groups of persons, which will be administered by you and by the persons you appoint as administrators. Once you are a regular member or administrator of a space, you will be able to create, announce, perform, record and publish your events in Global Plaza. Virtual events can be automatically recorded and published by Global Plaza for private or public access, as well as to embed in blogs, Web pages, etc.<br><br>You can participate in a Global Plaza virtual event from your Web browser directly, just by accessing the event page. Your browser must have Flash installed. You can also participate with an <a href=%{isabel}> Isabel </a>native client which provides a better audiovisual quality and is recommended for speakers or to connect rooms and auditoriums. A SIP gateway is also provided to allow participation from a videoconferencing equipment.<br><br>Group activities hosted in Global Plaza can be public or private. Public spaces host activities which can be seen and followed by anybody, whereas private spaces support projects and activities where a group can share information and meet in private to collaborate."
-    part8: "Global Plaza has been developed by the <a href=%{web_global}>European Global project</a> by reusing results and developments from other projects which have transformed the <a href=%{isabel}> Isabel </a>application into a cloud-computing service, such as ITECBAN, Ecospace, Collaboration@Rural, CEPOS, etc. <br><br>To <a href=%{create}>create</a> or edit spaces, you must be signed in to your Global Plaza account. If you do not have an account, <a href=%{url}>create one now</a>"
-  help_invitation: 
-    part1: "Under construction"
-  help_join_space: 
-    part1: "To join a space in Global Plaza:"
-    part2: "1. <a href=%{url}>Search</a> the space which you want to join."
-    part3: "2. Click on <b>Join this space</b> button on the right side of the page."
-    part4: "3. Type a personal message to the administrators of the space (optional)."
-    part5: "4. Finally, click on <b>send</b> button to send the join request to the administrators."
-  help_logging: 
-    part1: "If you already have a Global Plaza account, you can <a href=%{url}>login here</a> or enter your email and password in the top bar."
-    part2: "If you have an account with an OpenID provider, you can login automatically. Click on <b>Login with OpenID</b> item in the top menu bar."
-    part3: "If you have forgotten your password, you can <a href=%{url}> recover it here</a> or click on <b>Have you lost your password</b> in the top menu bar. An email to recover your password will be sent to you."
-  help_newdoc: 
-    part1: "To add a new document in Global Plaza:"
-    part2: "1. Click on <b>Docs </b> tab."
-    part3: "2. Click on <b>Add new document</b> button."
-    part4: "3. Click on <b>Choose file</b> on the right side of the page."
-    part5: "4. Once your file is selected, click on <b>Open</b> button."
-    part6: "5. You can <b>add tags</b> that you and others can use to find and filter content.  Press enter to confirm each tag."
-    part7: "6. If you want to <b>notify</b> the document with a message on the wall, choose this option."
-  help_page: 
-    header_title: Help
-  help_participation: 
-    part1: "There are four ways to participate in an event:<ul>1) Follow the <b>Video Streaming</b>. The simplest way to follow a virtual events over the Internet is with your Web browser, just by entering the event page at the Global Plaza. The event page will show the video streaming while the event is taking place, enabling you to follow it. If you are logged into the Global Plaza, you will be able to send msgs via the chat to the rest of participants in the event.<br><br>Requirements: Your browser must have the latest version of Flash installed."
-    part2: "<br>2) <b>Interactive Web Participation</b>. You can also participate interactively with your Web browser. Once your are in the event page, just click on the <b>Participate</b> button, enter your nickname when asked and click on join meeting. You will enter then the meeting as an interactive participant which can interact with audio, video or chat, as well as sharing applications. You must be logged in the Global Plaza to participate interactively.<br><br>Requirements: Your browser must have the latest version of Flash installed. The TCP Port 1935 used by the Flash client needs to be open for connecting to the virtual event with a browser. In case you access the event page and do not see the video, you must tell the network administrators of your institution to open this port."
-    part3: "3) <b>Isabel Participation</b>. You can also participate with an Isabel native client which runs on Linux. <a href='http://isabel.dit.upm.es/mediawiki/index.php/Isabel_v5_Quick_Guide'>Installation instructions can be found here</a>. The native client provides a better audiovisual quality and is recommended for speakers or to connect rooms and auditoriums. Contact organizers for some preliminary tests."
-    part4: "4) A <b>SIP gateway</b> iis also provided to allow participation from a videoconferencing equipment compliant with SIP, as for example a Polycom. The event organizers must have enabled SIP participation for this mode to be available."
-    part5: "During an event the Global Plaza sets-up the necessary elements as virtualized resources in the cloud, such that your event can take place. Those resources include a videoconferencing server with MCU, a streaming server, a digital recorder, a video streaming server, as well as the necessary gateways for Flash based web access or SIP access. The event organizer selects the access modes available when creating the event."
-  help_search_global: 
-    part1: "You can search spaces, posts, events, videos, users and attachments in Global Plaza. There are two options for searching: simple and advanced search."
-    part10: "4. Type a name of the event in <b>the string</b> box"
-    part11: "5. If you choose events, you can specify the date of an event held between two dates"
-    part12: "6. Click on <b>Go</b> button."
-    part2: "<b>Simple search</b>"
-    part3: "1. Click on <b>Search</b> box from the top bar"
-    part4: "2. Type the name of the item which you want to search"
-    part5: "3. Press enter or click on <b>Go</b> button"
-    part6: "<b>Advanced search</b>"
-    part7: "1. Click on <b>Advanced search</b> box from the top"
-    part8: "2. Specify if you want to search in any space or in a particular space from the drop down list <b> Search in </b>"
-    part9: "3. Choose the type of element from the drop down list <b> Find in </b>"
-  help_title: 
-    about_vcc: "About Mconf"
-    create_VC: "Creating a virtual congress"
-    create_VM: "Creating a virtual meeting"
-    create_event: "Creating an event"
-    create_meeting: "Creating a meeting"
-    create_post: "Posting a message on the wall"
-    create_space: "Creating a space"
-    create_user: "Creating a user"
-    define_agenda: "Defining the agenda for the event"
-    export_program: "Exporting an event"
-    invitation: "Inviting users to events"
-    join_space: "Joining a space"
-    logging: "Logging In to your account"
-    new_doc: "Adding a new document"
-    participation: "Participating in a event"
-    search_global: "Searching in Global Plaza"
-    topics: Topics
   his_message_reads_thus: "His message reads thus"
   home: 
     activity: "Recent activity"
@@ -981,8 +856,6 @@ en:
   post: 
     created: "Message posted!"
     deleted: "Comment %{postname} has been deleted"
-    found: 
-      show_all: "Show all the results"
     home: 
       one: "Message in space %{space}"
     latest: "Latest messages"
@@ -1117,41 +990,9 @@ en:
     refresh: "force refresh"
     running: running!
   save: Save
-  screencast: 
-    link1: "Help creating events"
-    link3: "Help: Three kinds of events"
-    sidebar: 
-      title: Screencasts
-    title: screencast
-    title1: "How to create an event"
-    title2: "Create an agenda for the event"
-    title3: "Different kinds of events"
-    title4: "Inviting people"
-    title5: "Event Information"
   search: 
-    advanced: "Advanced search"
-    attachments: 
-      dots: "Search attachments..."
-    between_dates: 
-      attachments: "Search only attachments updated between two dates"
-      events: "Search only events held between two dates"
-      posts: "Search only messages updated between two dates"
-      videos: "Search only videos held between two dates"
-    dots: Search...
-    events: 
-      no_dots: "Search events"
-    in: "Search in"
-    one: Search
-    parameters: "Query string too sort"
-    posts: 
-      dots: "Search messages..."
-      no_dots: "Search messages"
-    results: "Search results"
     space: 
       dots: "Filter space..."
-    switch: "Switch to global search"
-    users: "Search users"
-  searching_in: "You are searching in "
   select_image: "Select an image, please"
   send: Send
   servers: 
@@ -1292,9 +1133,6 @@ en:
     public: 
       one: "Public space"
       other: "Public spaces"
-    recording: 
-      one: "Space video"
-      other: "Space videos"
     select: Spaces
     show: "Show spaces:"
     show_all: "Show all spaces"
@@ -1380,7 +1218,6 @@ en:
     private_profile: "This information is visible only to the people you choose when you edit your profile"
     public_profile: "Anyone can access this information"
     public_space: "Collaborative spaces can be public, for anybody to watch what happens in them, or private, where members only have access to the activities of the space"
-    search_video: "Start to write what you want to search and the video list will be automatically updated with the results"
     share: "This is the url to share this video with your colleagues"
     space_video: "This filter will allow you to select only the videos of one specific event"
     tag: "Tags are keywords or terms associate with content used to find and filter information. Press enter to confirm each tag."
@@ -1446,10 +1283,6 @@ en:
     error: 
       enabled: "User %{name} is already enabled"
     filter: "Invite by user name"
-    found: 
-      none: "No users found"
-      one: "1 user found"
-      other: "%{size} users were found"
     full_name: "Full name"
     group_invite_email: "Invite by e-mail"
     id: "User ID"
@@ -1494,7 +1327,6 @@ en:
       one: "People, %{users_size} result"
       other: "People, %{users_size} results"
     results_found: "Users found"
-    search: "Search Users..."
     timezone: Timezone
     updated: "User updated successfully"
     vcc_email: "Mconf user e-mail %{dir}"
@@ -1512,13 +1344,6 @@ en:
   version: 
     new: "New version"
     one: Version
-  video: 
-    close_edit: "Close video edition"
-    edit: "Edit video"
-    other: Videos
-  video_attachment: 
-    delete: "Delete video attachment"
-    video_name: "Uploaded Video"
   view: "View"
   view_more: "View more"
   webconference: 

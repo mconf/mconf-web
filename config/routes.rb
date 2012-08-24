@@ -32,21 +32,11 @@ Mconf::Application.routes.draw do
   match '/secure', :to => 'shibboleth#create', :as => "shibboleth"
   match '/secure/info', :to => 'shibboleth#info', :as => "shibboleth_info"
 
-  # Global search
-  #match '/search(.:format)', :to => 'search#index', :as => 'search_all' #=> /search, SearchController
-  #match '/tags/:tag', :to => 'search#tag', :as => 'search_by_tag' #=> /tags/:id/events, TagsController (actualmente es parte del searchcontroller)
-
-  # Search in the space
-  #match '/spaces/:space_id/search', :to => 'search#index', :as => 'space_search_all' #=> /search, SearchController
-  #match '/spaces/:space_id/tags/:tag', :to => 'search#tag', :as => 'space_search_by_tag' #=> /tags/:id/events, TagsController (actualmente es parte del searchcontroller)
-
   resources :logos do
     collection do
       post :new
     end
   end
-
-  resources :screencasts
 
   resources :machines do
     collection do
@@ -132,9 +122,7 @@ Mconf::Application.routes.draw do
 
   resources :permissions
   resources :admissions
-
   resources :memberships
-  resources :attachment_videos
 
   resources :users do
     get :select_users, :on => :collection
@@ -198,4 +186,11 @@ Mconf::Application.routes.draw do
   match '/reset_password/:reset_password_code', :to => 'users#reset_password', :as => 'reset_password'
 
   match 'get_file/:id', :to => 'machines#get_file', :as => 'get_file'
+
+  # 'Hack' to show a custom 404 page.
+  # See more at http://blog.igodigital.com/blog/notes-on-cyber-weekend-targeted-email-campaigns/custom-error-handling-in-rails-303
+  # and http://ramblinglabs.com/blog/2012/01/rails-3-1-adding-custom-404-and-500-error-pages
+  unless Rails.application.config.consider_all_requests_local
+    match '*not_found', :to => 'errors#error_404'
+  end
 end

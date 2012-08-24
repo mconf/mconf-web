@@ -27,17 +27,6 @@ class AgendaEntry < ActiveRecord::Base
   acts_as_content :reflection => :agenda
   acts_as_resource
 
-  # TODO is_indexed comes from Ultrasphinx
-=begin
-  is_indexed :fields => ['title','description','speakers','start_time','end_time'],
-             :include =>[{:class_name => 'Event',
-                          :field => 'name',
-                          :as => 'event_name',
-                          :association_sql => "LEFT OUTER JOIN agendas ON (agendas.`id` = agenda_entries.`agenda_id`) LEFT OUTER JOIN events ON (events.`id` = agendas.`event_id`)"}],
-             :concatenate => [ { :class_name => 'Profile',:field => 'full_name',:as => 'registered_speakers',
-                                 :association_sql => "LEFT OUTER JOIN permissions ON (permissions.`subject_id` = agenda_entries.`id` AND permissions.`subject_type` = 'AgendaEntry') LEFT OUTER JOIN profiles ON (profiles.`user_id` = permissions.`user_id`)"}]
-=end
-
   validates_presence_of :title
   validates_presence_of :agenda, :start_time, :end_time
 

@@ -8,7 +8,7 @@
 
     = stylesheet_link_tag "application_print", :media => "print"
     = stylesheet_link_tag "application", :media => "screen, projection"
-    = stylesheet_link_tag_for_controller :media => "screen, projection"
+    = stylesheet_link_tag "errors", :media => "screen, projection"
     = stylesheet_link_tag "_development" unless Rails.env == "production"
 
     /[if IE]
@@ -17,13 +17,17 @@
         = javascript_include_tag "http://html5shim.googlecode.com/svn/trunk/html5.js"
 
     = csrf_meta_tag
+    = yield :headers
 
-  %body{:class => "#{controller_name_for_view} #{params[:action]}"}
+  %body{ :class => "errors" }
     #site
       #navbar-wrapper
-        = yield :navbar
+        #navbar
+          = render :partial => 'layouts/application_navbar'
       #content-wrapper
-        = yield
+        #content
+          = render :partial => "errors/default_content"
+          = yield
       = render :partial => "layouts/footer_simple"
 
     = render :partial => "layouts/analytics"
@@ -31,5 +35,4 @@
 
     -# Javascript placed at the end of the document so the pages load faster
     = javascript_include_tag "application"
-    = javascript_include_tag_for_controller
-    = yield :headers
+    = javascript_include_tag "errors"

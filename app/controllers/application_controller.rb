@@ -35,6 +35,16 @@ class ApplicationController < ActionController::Base
   # Don't log passwords
   config.filter_parameter :password, :password_confirmation
 
+  # Handle errors - error pages
+  unless Rails.application.config.consider_all_requests_local
+    rescue_from Exception, :with => :render_500
+    rescue_from ActiveRecord::RecordNotFound, :with => :render_404
+    rescue_from ActionController::RoutingError, :with => :render_404
+    rescue_from ActionController::UnknownController, :with => :render_404
+    rescue_from ::AbstractController::ActionNotFound, :with => :render_404
+    #rescue_from ActiveController::StationForbidden, :with => :render_403
+  end
+
   # This method calls one from the plugin, to get the Space from params or session
   def space
     @space ||= current_container(:type => :space, :path_ancestors => true)
@@ -129,48 +139,27 @@ class ApplicationController < ActionController::Base
   # Locale as param
   before_filter :set_vcc_locale
 
-  def render_optional_error_file(status_code)
-    if status_code == 403
-      render_403
-    elsif status_code == 404
-      render_404
-    elsif status_code == 500
-      render_500
-    else
-      super
-    end
-  end
-
-  def render_403
-    respond_to do |type|
-      type.html { render :template => "errors/error_403", :layout => 'application', :status => 403 }
-      type.all  { render :nothing => true, :status => 403 }
-    end
-    true
-  end
-
-  def render_404
-    respond_to do |type|
-      type.html { render :template => "errors/error_404", :layout => 'application', :status => 404 }
-      type.all  { render :nothing => true, :status => 404 }
-    end
-    true
-  end
-
-  def render_500
-    respond_to do |type|
-      type.html { render :template => "errors/error_500", :layout => 'application', :status => 500 }
-      type.all  { render :nothing => true, :status => 500 }
-    end
-    true
-  end
-
-
-
   private
 
   def accept_language_header_locale
     request.env['HTTP_ACCEPT_LANGUAGE'].scan(/^[a-z]{2}/).first.to_sym if request.env['HTTP_ACCEPT_LANGUAGE'].present?
+  end
+
+  def render_404(exception)
+    # FIXME: this is never triggered, see the bottom of routes.rb
+    @exception = exception
+    render :template => "/errors/error_404", :status => 404, :layout => "error"
+  end
+
+  def render_500(exception)
+    @exception = exception
+    pp exception
+    render :template => "/errors/error_500", :status => 500, :layout => "error"
+  end
+
+  def render_403(exception)
+    @exception = exception
+    render :template => "/errors/error_403", :status => 500, :layout => "error"
   end
 
 end

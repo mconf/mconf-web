@@ -10,6 +10,10 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
   gem 'yui-compressor'
   gem 'compass-rails', '~> 1.0'
+
+  # TODO: remove when compass-rails is updated
+  # This compass is here so we can have css3/animation
+  gem 'compass', '~> 0.13.alpha'
 end
 
 gem 'mysql2', '~> 0.3.0'

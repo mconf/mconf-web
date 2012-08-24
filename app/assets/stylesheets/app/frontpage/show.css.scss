@@ -36,6 +36,7 @@ body {
   margin: 30px auto;
   padding: 0;
   float: none;
+  overflow: visible;
 
   img {
     width: 231px;
@@ -103,6 +104,12 @@ body {
     }
   }
 
+  .shibboleth_login {
+    border-left: 1px solid #888;
+    padding-left: 7px;
+    margin-left: 5px;
+  }
+
   input[type=submit] {
     float: right;
   }
@@ -115,7 +122,7 @@ body {
     }
 
     input[type=checkbox] {
-      margin-top: 3px;
+      margin-top: -5px;
       margin-right: 5px;
     }
   }

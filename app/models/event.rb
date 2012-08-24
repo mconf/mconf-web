@@ -178,20 +178,6 @@ class Event < ActiveRecord::Base
 
   end
 
-  # TODO is_indexed comes from Ultrasphinx
-=begin
-  is_indexed :fields => ['name','description','place','start_date','end_date', 'space_id', {:field => 'start_date', :as => 'start_time'}, {:field => 'end_date', :as => 'end_time'}],
-             :include =>[{:class_name => 'Tag',
-                          :field => 'name',
-                          :as => 'tags',
-                          :association_sql => "LEFT OUTER JOIN taggings ON (events.`id` = taggings.`taggable_id` AND taggings.`taggable_type` = 'Event') LEFT OUTER JOIN tags ON (tags.`id` = taggings.`tag_id`)"},
-  {:class_name => 'User',
-                               :field => 'login',
-                               :as => 'login_user',
-                               :association_sql => "LEFT OUTER JOIN users ON (events.`author_id` = users.`id` AND events.`author_type` = 'User') "}
-  ]
-=end
-
   VC_MODE = [:in_person, :telemeeting, :teleconference, :teleclass]
 
   # The vc_mode symbol of this event

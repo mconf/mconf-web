@@ -1,0 +1,123 @@
+@import "compass/css3";
+@import "compass/typography";
+@import "definitions";
+
+$bg-normal: darken($green-logo, 3);
+$logo-top: 300px;
+$logo-rot-pos1: rotate(45deg);
+$logo-rot-pos2: rotate(80deg);
+
+// so the footer is always behind the content if they overlap
+$z-index-content: 1;
+$z-index-footer: 0;
+
+@include keyframes(hang) {
+  to { @include transform($logo-rot-pos1); }
+}
+
+@include keyframes(fall) {
+  0% {
+    opacity: 1;
+    top: $logo-top;
+  }
+  10% {
+    opacity: 1;
+    top: $logo-top - 50px;
+  }
+  100% {
+    top: 5000px;
+    height: 0;
+    opacity: 0;
+  }
+}
+
+html, body {
+  background: $bg-normal;
+  color: #ddd;
+  height: 100%;
+  overflow: hidden;
+}
+
+#site {
+  height: 100%;
+  background: none;
+  @include box-shadow(none);
+
+  a { @include link-colors(#eee, $site-link-hover, $site-link-active); }
+}
+
+#content-wrapper, #content {
+  z-index: $z-index-content;
+  background: $bg-normal;
+}
+
+#content {
+  position: relative;
+
+  .title {
+    margin-top: 80px;
+    color: #eee;
+    border: 0;
+    text-align: center;
+    font-size: 68px;
+    line-height: 80px;
+  }
+
+  .error-description {
+    margin: 30px 0;
+    text-align: center;
+    font-size: $font-gigantic;
+    line-height: $font-gigantic + 6px;
+    p {
+      font-size: $font-gigantic;
+      line-height: $font-gigantic + 6px;
+    }
+  }
+
+  .access-links {
+    font-size: $font-big;
+
+    .icon {
+      margin-top: 3px;
+    }
+  }
+
+ .logo {
+    position: absolute;
+    right: 30px;
+    top: $logo-top;
+    width: 231px;
+    height: 120px;
+    @include transform($logo-rot-pos2);
+    @include transform-origin(5%, 15%);
+    @include animation-name(hang);
+    @include animation-duration(1s);
+    @include animation-direction(alternate);
+    @include animation-timing-function(ease-in-out);
+    @include animation-delay(0s);
+    @include animation-iteration-count(infinite);
+
+    &.fall {
+      opacity: 0;
+      height: 0;
+      @include animation-name(fall, hang);
+      @include animation-duration(5s, .7s);
+      @include animation-timing-function(ease-in-out, ease-in-out);
+      @include animation-delay(0s, 1s);
+      @include animation-iteration-count(1, infinite);
+    }
+  }
+
+}
+
+#upper-footer {
+  position: fixed;
+  bottom: 15px;
+  right: 0;
+  left: 0;
+  z-index: $z-index-footer;
+}
+
+#upper-footer h3, #footer-logo {
+  color: #ccc;
+}

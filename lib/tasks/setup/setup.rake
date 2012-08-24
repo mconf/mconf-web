@@ -17,10 +17,10 @@ namespace :setup do
   ###############################################################
 
   BASIC_TASKS = %w( setup:git_submodules setup:config )
-  COMMON_TASKS = %w( db:drop db:create db:migrate db:seed ) # :config_mailing_list_dir
+  COMMON_TASKS = %w( db:drop db:create db:migrate db:seed )
   TASKS = {
     :development => COMMON_TASKS, # setup:populate
-    :production => COMMON_TASKS, # :config_cron, :config_logrotate, :config_awstats, :config_sphinx
+    :production => COMMON_TASKS,
     :test => %w( db:test:prepare db:seed )
   }
 
@@ -86,77 +86,5 @@ namespace :setup do
       puts
     end
   end
-
-
-  ### Old tasks commented below
-
-=begin
-  #TODO rails 3: ultrasphinx
-  desc "Link /etc/sphinxsearch/sphinx.conf to current/config/ultrasphinx/production.conf"
-  task :config_sphinx do
-    print "* Checking /etc/sphinxsearch/sphinx.conf: "
-    sphinx_file = "/etc/sphinxsearch/sphinx.conf"
-
-    if File.exist?(sphinx_file)
-      puts "file exists."
-    else
-      `sudo ln -s #{ Rails.root.to_s.gsub(/releases\/\d+/, '') }current/config/ultrasphinx/production.conf #{ sphinx_file }`
-      puts "linked."
-    end
-  end
-=end
-
-=begin
-  desc "Copy cron.d/vcc if it doesn't exist"
-  task :config_cron do
-    print "* Checking /etc/cron.d/vcc: "
-    cron_file = "/etc/cron.d/vcc"
-
-    if File.exist?(cron_file)
-      puts "file exists."
-    else
-      `sudo cp #{ Rails.root.to_s }/extras/cron/vcc #{ cron_file }`
-      puts "copied."
-    end
-  end
-=end
-
-=begin
-  desc "Copy logrotate.d/vcc if it doesn't exist"
-  task :config_logrotate do
-    print "* Checking /etc/logrotate.d/vcc: "
-    logrotate_file = "/etc/logrotate.d/vcc"
-
-    if File.exist?(logrotate_file)
-      puts "file exists."
-    else
-      `sudo cp #{ Rails.root.to_s }/extras/logrotate/vcc #{ logrotate_file }`
-      puts "copied."
-    end
-  end
-=end
-
-=begin
-  desc "Copy awstats configuration files"
-  task :config_awstats do
-    print "* Checking /etc/awstats/awstats.global-project.eu.conf: "
-    aw_file = "/etc/awstats/awstats.global-project.eu.conf"
-
-    if File.exist?(aw_file)
-      puts "files exist."
-    else
-      `sudo cp #{ Rails.root.to_s }/extras/awstats/* /etc/awstats/`
-      puts "copied."
-    end
-  end
-=end
-
-=begin
-  desc "Creates the directory for mailing lists files"
-  task :config_mailing_list_dir do
-    `sudo mkdir -p /var/local/global2`
-    `sudo chown www-data /var/local/global2`
-  end
-=end
 
 end

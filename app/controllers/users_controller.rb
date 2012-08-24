@@ -93,12 +93,7 @@ class UsersController < ApplicationController
     else
       render "edit", :layout => 'no_sidebar'
     end
-  end
 
-  def clean
-    render :update do |page|
-      page.replace_html 'search_results', ""
-    end
   end
 
   def edit_bbb_room
