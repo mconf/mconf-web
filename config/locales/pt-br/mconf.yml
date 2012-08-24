@@ -834,6 +834,7 @@ pt-br:
     more:
       one: "e uma outra mensagem..."
       other: "e mais %{count} mensagens..."
+    new_post: "Novo post .."
     none_created: "Nenhuma mensagem criada"
     none_recent: "Não há mensagens recentes"
     one: Mensagem

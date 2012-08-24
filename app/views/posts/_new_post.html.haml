@@ -1,39 +1,8 @@
-- #Partial parameters default values
-- p_id ||= nil
-- id ||= ""
-- event ||= nil
-
 #new_post
-  - if event.present?
-    %h3
-      = t('comment.new')
-  - elsif p_id.present?
-    %h3
-      = t("reply_to")
-      %span.unified_posts
-        = post.title
-  - else
-    %h3
-      = t('thread.add')
-
-  = form_for(prepare_for_form(Post.new, :parent_id => p_id, :event => event), :html => { :multipart => true ,:id => id}) do |f|
-    = f.hidden_field :parent_id
-    = f.hidden_field :event_id
-
-    #new_post_content
-      - # Post title - only for new threads
-      - if p_id.nil? && event.nil?
-        %label{:for=> "Title"}
-          = t('title')
-        = f.text_field :title, :size => 25, :class => "small_post_title"
-
-      - # Post text
-      %label{:for => "text"}
-        = t('body')
-      = small_post_text_area
-
-    - # Footer
-    %button{:type => "submit", :class => "basic_button blue_button"}
-      = t("button.post")
-
-
+  = form_for(prepare_for_form(Post.new), :html => { :multipart => true}) do |f|
+    = f.text_field :title, :placeholder => t('post.new_post')
+    #new_post_text
+      = f.text_area :text
+      %br
+      %button#new_post_submit.btm{:type => 'submit'}
+        = t("button.post")

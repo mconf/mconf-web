@@ -69,7 +69,9 @@ $("a.edit_post_link").click(function(){
 
 <%= content_for :sidebar do  %>
 
-  <%= render :partial => 'spaces/sidebar_join_links' %>
+  <%= content_for :new_post do %>
+    <%= render :partial => "new_post" %>
+  <% end %>
 
   <%if @space.authorize?([:create, :content],:to => current_user)%>
     <% if params[:edit] %>
@@ -77,19 +79,6 @@ $("a.edit_post_link").click(function(){
     <%end%>
   <% end %>
 <% end %>
-
-<div id='new_post'>
-  <%= form_for(prepare_for_form(Post.new), :html => { :multipart => true}) do |f| %>
-    <%= f.text_field :title, :placeholder => "New post .." %>
-    <div id='new_post_text'>
-      <%= f.text_area :text %>
-      </br>
-      <button type="submit", class="btm" id="new_post_submit">
-        <%= t("button.post") %>
-      </button>
-    </div>
-  <% end %>
-</div>
 
 <%= render :partial => "collapsed_threads", :locals => {:threads => @posts} %>
 <%= page_navigation_links @posts %>

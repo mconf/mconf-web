@@ -864,6 +864,7 @@ en:
     more: 
       one: "and one more message..."
       other: "and more %{count} messages..."
+    new_post: "New post .."
     none_created: "No message created"
     none_recent: "There are no recent messages"
     one: Message
