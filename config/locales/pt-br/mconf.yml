@@ -60,7 +60,6 @@ pt-br:
       start_time: "Horário inicial"
       title: Título
       upload_video: "O vídeo deve ter extensão FLV."
-      video: Gravação
     error:
       omit_title: "Um título deve ser dado para a entrada da agenda"
     upload_file: "Enviar Arquivo"
@@ -451,7 +450,6 @@ pt-br:
       cloud: Vídeos!
       cloud_back: "Voltar ao programa"
       insert: Inserir
-      notice: "As pessoas vão precisar de direitos de acesso a esta comunidade para ver estes vídeos"
       recorded: "Eventos gravados"
       share: Compartilhe
     repository:
@@ -1086,9 +1084,6 @@ pt-br:
     public:
       one: "Comunidade pública"
       other: "Comunidades públicas"
-    recording:
-      one: "Vídeo da comunidade"
-      other: "Vídeos da comunidade"
     select: Comunidades
     show: "Mostrar comunidades:"
     show_all: "Mostrar todas as comunidades"
@@ -1282,13 +1277,6 @@ pt-br:
   version:
     new: "Nova versão"
     one: Versão
-  video:
-    close_edit: "Fechar edição de vídeo"
-    edit: "Editar vídeo"
-    other: Vídeos
-  video_attachment:
-    delete: "Excluir anexo de vídeo"
-    video_name: "Vídeo Enviado"
   webconference:
     currently_running:
       one: "A conferência está ativa com %{count} participante"

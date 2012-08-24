@@ -43,7 +43,6 @@ de:
       speakers: Referenten
       start_time: Startzeit
       title: Titel
-      video: Aufnahme
     error: 
       omit_title: "Ein Titel muss für die Agenda-Eintrag angegeben werden"
     upload_file: "Upload File"
@@ -234,7 +233,6 @@ de:
       show: "Alle alten Ereignisse"
       today: "Keine Termine für gestern noch heute."
     recording: 
-      notice: "Die Menschen müssen Zugriffsrechte für diesen Raum, diese Videos zu sehen"
       share: Anteil
     repository: 
       help: "Dieses Document Repository zeigen die Dokumente in den Sitzungen der Veranstaltung Tagesordnung hochgeladen"

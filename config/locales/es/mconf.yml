@@ -53,7 +53,6 @@ es:
       start_time: "Hora de inicio"
       title: Título
       upload_video: "El video debe tener la extensión FLV."
-      video: Grabación
     error: 
       omit_title: "Debe darse título a la entrada de la agenda"
     upload_file: "Subir Archivo"
@@ -306,7 +305,6 @@ es:
     recording: 
       cloud: Videos!
       cloud_back: "Back to program"
-      notice: "La gente debe tener derechos de acceso a este espacio para ver estos videos"
       share: Compartir
     repository: 
       enabled: "Habilitar el repositorio de decumentos"
@@ -715,9 +713,6 @@ es:
     public: 
       one: "Espacio público"
       other: "Espacios públicos"
-    recording: 
-      one: "Video del espacio"
-      other: "Videos del espacio"
     select: Espacios
     show_all: "Ver todos los espacios"
     subscribed_to_none: "No está suscrito a ningún espacio"
@@ -863,8 +858,6 @@ es:
   version: 
     new: "Nueva versión"
     one: Versión
-  video: 
-    other: Vídeos
   when: Cuándo
   where: Donde
   yesterday: Ayer

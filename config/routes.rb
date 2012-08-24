@@ -114,9 +114,7 @@ Mconf::Application.routes.draw do
 
   resources :performances
   resources :admissions
-
   resources :memberships
-  resources :attachment_videos
 
   resources :users do
     get :select_users, :on => :collection

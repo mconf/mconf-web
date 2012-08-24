@@ -49,7 +49,6 @@ fr:
       speakers: Haut-parleurs
       start_time: "Heure de début"
       title: Titre
-      video: Enregistrement
     error: 
       omit_title: "Un produit doit être donnée à l'entrée du jour"
     upload_file: "Upload File"
@@ -256,8 +255,6 @@ fr:
       other: "Evénements passés"
       show: "Voir tous les anciens événements"
       today: "Aucune manifestation d'hier, ni aujourd'hui."
-    recording: 
-      notice: "Les gens ont besoin de droits d'accès à cet espace pour voir cette vidéo"
     repository: 
       enabled: "Activer référentiel de documents?"
       help: "Ce référentiel montrent les documents téléchargés dans les sessions de l'ordre du jour événement"
@@ -593,9 +590,6 @@ fr:
     public: 
       one: "L'espace public"
       other: "Espaces publics"
-    recording: 
-      one: "Space video"
-      other: "Space videos"
     select: Espaces
     show_all: "Voir tous les espaces"
     subscribed_to_none: "Vous n'êtes pas abonné à n'importe quel espace"
@@ -730,8 +724,6 @@ fr:
   version: 
     new: "Nouvelle version"
     one: Version
-  video: 
-    other: Vidéos
   when: Quand
   where: Où
   yesterday: Hier

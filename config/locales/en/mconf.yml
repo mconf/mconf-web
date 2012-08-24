@@ -62,7 +62,6 @@ en:
       start_time: "Start time"
       title: Title
       upload_video: "The video must have the extension FLV."
-      video: Recording
     error: 
       omit_title: "A title must be given for the agenda entry"
     upload_file: "Upload File"
@@ -462,7 +461,6 @@ en:
       cloud: Videos!
       cloud_back: "Back to program"
       insert: Insert
-      notice: "People will need access rights to this space to see this videos"
       recorded: "Recorded events"
       share: Share
     repository: 
@@ -1132,9 +1130,6 @@ en:
     public: 
       one: "Public space"
       other: "Public spaces"
-    recording: 
-      one: "Space video"
-      other: "Space videos"
     select: Spaces
     show: "Show spaces:"
     show_all: "Show all spaces"
@@ -1339,13 +1334,6 @@ en:
   version: 
     new: "New version"
     one: Version
-  video: 
-    close_edit: "Close video edition"
-    edit: "Edit video"
-    other: Videos
-  video_attachment: 
-    delete: "Delete video attachment"
-    video_name: "Uploaded Video"
   view: "View"
   view_more: "View more"
   webconference: 
