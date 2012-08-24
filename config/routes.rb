@@ -165,6 +165,7 @@ Mconf::Application.routes.draw do
   #resource :notifier
 
   resources :users do
+    get :current, :on => :collection, :defaults => { :format => 'xml' }
     member do
       post :enable
       get :edit_bbb_room

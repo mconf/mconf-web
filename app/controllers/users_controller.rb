@@ -259,4 +259,18 @@ class UsersController < ApplicationController
     end
   end
 
+ # Returns info of the current_user
+  def current
+    @user = current_user
+    @user = nil if @user == Anonymous.current
+    respond_to do |format|
+      format.xml
+      format.json {
+        json = {}
+        json = @user.to_json(:methods => :name, :only => [:login]) if @user
+        render :json => json, :callback => params[:callback]
+      }
+    end
+  end
+
 end
