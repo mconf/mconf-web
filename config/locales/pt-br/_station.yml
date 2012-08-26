@@ -164,15 +164,6 @@ pt-br:
   send_reset_password_request: "Enviar Solicitação de Redefinição de Senha"
   should_check_email_to_activate_account: "Você deve verificar seu e-mail para ativar sua conta"
   show: Exibir
-  singular_agent: 
-    anonymous: 
-      name: Anônimo
-    anyone: 
-      name: Qualquer
-    authenticated: 
-      name: Autenticado
-    cron_agent: 
-      name: Cron
   site: 
     config: "Configuração do site"
     description: Descrição

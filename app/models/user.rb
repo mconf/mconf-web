@@ -186,21 +186,6 @@ class User < ActiveRecord::Base
     Space.public.all(:order => :name) - spaces
   end
 
-  #this method let's the user to login with his e-mail
-  def self.authenticate_with_login_and_password(login, password)
-    # u = if login =~ /@/
-    #       if login =~ /(.*)@#{ Site.current.presence_domain }$/
-    #         find_by_login $1
-    #       else
-    #         find_by_email login
-    #       end
-    #     else
-    #       find_by_login login
-    #     end
-
-    # u && u.password_authenticated?(password) ? u : nil
-  end
-
   def user_count
     users.size
   end

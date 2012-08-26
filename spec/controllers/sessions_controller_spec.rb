@@ -40,7 +40,7 @@ describe SessionsController do
       it 'should NOT validate user' do
         post :create, { :session => @credentials }
 
-        controller.current_user.should be(Anonymous.current)
+        controller.current_user.should be(nil)
         assert_response 200
         response.should render_template('new')
       end

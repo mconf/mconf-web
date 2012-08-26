@@ -105,7 +105,7 @@ describe Space do
     end
 
     it_should_authorize(:admin, :update, :space)
-    it_should_not_authorize(Anonymous.current, :update, :space)
+    it_should_not_authorize(nil, :update, :space)
   end
 
   describe "#bigbluebutton room" do

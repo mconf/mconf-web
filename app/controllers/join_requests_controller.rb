@@ -31,6 +31,7 @@ class JoinRequestsController < ApplicationController
 
   def create
 
+    # TODO: authentication
     # unless authenticated?
     #   unless params[:user]
     #     respond_to do |format|

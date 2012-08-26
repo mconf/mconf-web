@@ -60,7 +60,7 @@ class Post < ActiveRecord::Base
     when User
       User.find_with_disabled(author_id)
     when NilClass
-      Anonymous.current
+      nil
     else
       author_type.constantize.find_by_id author_id
     end

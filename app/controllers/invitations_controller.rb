@@ -45,38 +45,39 @@ class InvitationsController < ApplicationController
   # PUT /invitations/1
   # PUT /invitations/1.xml
   def update
-    unless authenticated?
-      # To update an Invitation, we require always Authentication.
-      #
-      # The agent may register or signup with her account, due to other email.
-      klass = ActiveRecord::Agent::Invite.classes.first
+    # TODO: authentication
+    # unless authenticated?
+    #   # To update an Invitation, we require always Authentication.
+    #   #
+    #   # The agent may register or signup with her account, due to other email.
+    #   klass = ActiveRecord::Agent::Invite.classes.first
 
-      # We first try to authenticate the credentials
-      # TODO: other authentication methods like OpenID
-      @candidate = params[klass.to_s.underscore].present? ?
-        klass.authenticate_with_login_and_password(params[klass.to_s.underscore][:login],
-                                                   params[klass.to_s.underscore][:password]) :
-        nil
+    #   # We first try to authenticate the credentials
+    #   # TODO: other authentication methods like OpenID
+    #   @candidate = params[klass.to_s.underscore].present? ?
+    #     klass.authenticate_with_login_and_password(params[klass.to_s.underscore][:login],
+    #                                                params[klass.to_s.underscore][:password]) :
+    #     nil
 
-      if @candidate.blank?
-        # If agent is not authenticated, try to register
-        @candidate = klass.new(params[klass.to_s.underscore])
-        @candidate.email = invitation.email
-        # Agent has read the invitation email, so it's already activated
-        @candidate.confirmed_at = Time.now
+    #   if @candidate.blank?
+    #     # If agent is not authenticated, try to register
+    #     @candidate = klass.new(params[klass.to_s.underscore])
+    #     @candidate.email = invitation.email
+    #     # Agent has read the invitation email, so it's already activated
+    #     @candidate.confirmed_at = Time.now
 
-        unless @candidate.save
-          render :action => :show
-          return
-        end
-      end
+    #     unless @candidate.save
+    #       render :action => :show
+    #       return
+    #     end
+    #   end
 
-      # Authenticate Agent
-      sign_in @candidate, :bypass => true
+    #   # Authenticate Agent
+    #   sign_in @candidate, :bypass => true
 
-      # invitation.candidate should have changed, explicity or due to sign_in
-      invitation.reload
-    end
+    #   # invitation.candidate should have changed, explicity or due to sign_in
+    #   invitation.reload
+    # end
 
 
     invitation.attributes = params[:invitation]
@@ -103,7 +104,7 @@ class InvitationsController < ApplicationController
   end
 
   def candidate_authenticated
-    not_authenticated if invitation.candidate && ! authenticated?
+    not_authenticated if invitation.candidate && ! user_signed_in?
   end
 
   def introducer_authenticated

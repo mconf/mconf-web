@@ -164,15 +164,6 @@ es:
   send_reset_password_request: "Enviar petición de cambio de contraseña"
   should_check_email_to_activate_account: "Debe comprobar el correo para activar su cuenta."
   show: Ver
-  singular_agent: 
-    anonymous: 
-      name: Anónimo
-    anyone: 
-      name: Cualquiera
-    authenticated: 
-      name: Registrado
-    cron_agent: 
-      name: Cron
   site: 
     config: "Configuración del Sitio"
     description: Descripción

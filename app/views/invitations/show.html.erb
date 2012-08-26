@@ -1,4 +1,4 @@
-<%if authenticated? && current_user != @invitation.candidate%>
+<% if user_signed_in? && current_user != @invitation.candidate %>
     <p class="notice">
       <%=t("invitation.logout_and_reload")%>
     </p>
@@ -25,7 +25,7 @@
 
 
         <!--This is shown only in case the user is not authenticated or not registered -->
-        <% unless authenticated? && current_user == @invitation.candidate %>
+        <% unless user_signed_in? && current_user == @invitation.candidate %>
           <%= fields_for(@candidate || @invitation.candidate || User.new) do |cf| %>
 
             <%= cf.error_messages %>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120819022001) do
+ActiveRecord::Schema.define(:version => 20120826215828) do
 
   create_table "admissions", :force => true do |t|
     t.string   "type"
@@ -349,12 +349,6 @@ ActiveRecord::Schema.define(:version => 20120819022001) do
   end
 
   add_index "simple_captcha_data", ["key"], :name => "idx_key"
-
-  create_table "singular_agents", :force => true do |t|
-    t.string "type"
-    t.string "crypted_password", :limit => 40
-    t.string "salt",             :limit => 40
-  end
 
   create_table "sites", :force => true do |t|
     t.string   "name"

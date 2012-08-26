@@ -165,7 +165,6 @@ class UsersController < ApplicationController
   # Returns info of the current_user
   def current
     @user = current_user
-    @user = nil if @user == Anonymous.current
     respond_to do |format|
       format.xml
       format.json

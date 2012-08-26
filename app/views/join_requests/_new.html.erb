@@ -19,7 +19,7 @@
 
           <div class="grey_bar">
 
-            <%if current_user != Anonymous.current %>
+            <%if user_signed_in? %>
               <p><%= t('join_request.ask_subject', :candidate => current_user.full_name, :space => @space.name).html_safe %></p>
             <%else%>
               <p><%= t('join_request.asked_anonymous', :space => @space.name) %></p>

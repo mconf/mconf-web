@@ -88,7 +88,7 @@ describe Profile do
 
     #we set the visibility to :everybody and check the authorization
     @user.profile.update_attribute(:visibility, Profile::VISIBILITY.index(:everybody))
-    (@user.profile.authorize? :read, :to => Anonymous.current).should be_true
+    (@user.profile.authorize? :read, :to => nil).should be_true
 
     #we restore the visibility to the default value
     @user.profile.update_attribute(:visibility, Profile::VISIBILITY.index(:public_fellows))
@@ -100,7 +100,7 @@ describe Profile do
 
     #we set the visibility to :members and check the authorization
     @user.profile.update_attribute(:visibility, Profile::VISIBILITY.index(:members))
-    (@user.profile.authorize? :read, :to => Anonymous.current).should be_false
+    (@user.profile.authorize? :read, :to => nil).should be_false
 
     #we restore the visibility to the default value
     @user.profile.update_attribute(:visibility, Profile::VISIBILITY.index(:public_fellows))
