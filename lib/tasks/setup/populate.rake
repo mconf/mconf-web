@@ -114,13 +114,6 @@ namespace :setup do
           agenda.event_id = event.id
           agenda.created_at = event.created_at..Time.now
           agenda.updated_at = agenda.created_at..Time.now
-
-          # inferior limit for the start time of the first agenda entry
-          last_agenda_entry_end_time = event.start_date
-          first_agenda_entry = true
-
-          # fixing the end_date of the event to the end_time of the last_agenda_entry
-          event.end_date = last_agenda_entry_end_time
         end
       end
 
