@@ -228,7 +228,6 @@ es:
       date_past: "La fecha de inicio no puede estar en el pasado"
       dates: "La fecha de finalización debe ser posterior a la de inicio"
       dates1: "La fecha de inicio del evento debe ser anterior a la fecha de finalización"
-      marte: "No se ha podido crear la conferencia virtual"
       max_size_excedeed: "La duraci\\xC3\\xB3n total del evento son %{max_days} dias y no puede ser excedida"
       omit_date: "El evento necesita horas de inicio y fin"
       too_short: "El evento es demasiado corto, debe durar al menos 15 minutos"
@@ -778,7 +777,7 @@ es:
     tag: "Las etiquetas son palabras claves o términos asociados a un contenido que son utilizados para buscar y filtrar información. Presione enter para confirmar cada etiqueta."
     timezone: "Seleccionando su zona horaria no habrá malentendidos con gente de otros países al crear sus eventos."
     update_logo: "Puede actualizar su propio logo, crear un logo de texto o seleccionar una imagen de la galería"
-    user_id: "Puede utilizar su user ID como openID, usuario de chat y/o usuario de Marte"
+    user_id: "Puede utilizar su user ID como openID y/o usuario de chat"
     vcard: "vCard es un formato estándar para el intercambio de tarjetas personales electrónicas. "
   translate: 
     change: "Cambiar idioma"

@@ -200,7 +200,6 @@ fr:
       date_past: "Date de début ne peut pas être passé"
       dates: "Date de fin doit être la date de début après"
       dates1: "La date de début de l'événement doit être antérieur à la date de fin de l'événement"
-      marte: "Impossible de créer de conférence virtuelle"
       omit_date: "L'événement doit commencer à la date et la date de fin"
     future: "Événement futur"
     has: "Cet événement a"
@@ -649,7 +648,7 @@ fr:
     tag: "Les tags sont des mots clés ou termes associés avec le contenu utilisé pour trouver et filtrer les informations. Appuyez sur Entrée pour confirmer chaque balise."
     timezone: "En choisissant votre fuseau horaire, il y aura pas de malentendu lors de la création d'événements avec des gens d'autres pays"
     update_logo: "Vous pouvez mettre à jour votre propre logo, créer un logo texte ou sélectionner une image dans la galerie"
-    user_id: "Vous pouvez utiliser votre nom d'utilisateur comme OpenID, l'utilisateur chat et / ou l'utilisateur Marte"
+    user_id: "Vous pouvez utiliser votre nom d'utilisateur comme OpenID et/ou l'utilisateur chat"
     vcard: "vCard est un format de fichier standard pour les cartes de visite électroniques."
   translate: 
     change: "Changer de langue"

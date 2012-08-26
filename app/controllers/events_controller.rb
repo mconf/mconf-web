@@ -151,11 +151,6 @@ class EventsController < ApplicationController
     respond_to do |format|
       if @event.update_attributes(params[:event])
 
-      #if the event is not marte, we have to remove the room in case it had it already assigned
-        if params[:event][:marte_event]==0 &&  @event.marte_room?
-          @event.update_attribute(:marte_room, false)
-        end
-
         @event.tag_with(params[:tags]) if params[:tags] #pone las tags a la entrada asociada al evento
         flash[:success] = t('event.updated')
         format.html {
@@ -227,31 +222,6 @@ class EventsController < ApplicationController
         format.xml  { render :xml => @event.errors, :status => :unprocessable_entity }
       end
     end
-  end
-
-
-  #method to get the token to participate in a online videoconference
-  def token
-          #if the user is not logged in the name should be guest+number
-          if !user_signed_in?
-                  @token = MarteToken.create :username=>"Guest-"+rand(100).to_s, :role=>"admin", :room_id=>params[:id]
-          else
-                   @token = MarteToken.create :username=>current_user.name, :role=>"admin", :room_id=>params[:id]
-          end
-
-          if @token.nil?
-                  MarteRoom.create :name => params[:id]
-                  if !user_signed_in?
-                           @token = MarteToken.create :username=>"Guest-"+rand(100).to_s, :role=>"admin", :room_id=>params[:id]
-                  else
-                      @token = MarteToken.create :username=>current_user.name, :role=>"admin", :room_id=>params[:id]
-              end
-          end
-          if @token.nil?
-                render :text => t('token.not_available'), :status => 500
-          else
-               render :text => @token.id
-          end
   end
 
   def start

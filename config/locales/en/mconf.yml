@@ -365,7 +365,6 @@ en:
       date_past: "Start date could not be past"
       dates: "End date must be after start date"
       dates1: "The event start date must be previous than the event end date "
-      marte: "Could not create virtual conference"
       max_size_excedeed: "The maximum duration of the event is %{max_days} days and can't be excedeed"
       omit_date: "The event needs start date and end date "
       too_short: "Event is too short, it must be at least 15 minutes long"

@@ -191,27 +191,9 @@ class Event < ActiveRecord::Base
 
   validate :validate_method
   def validate_method
-    #    if start_date.to_date.past?
-    #      errors.add(:base, I18n.t('event.error.date_past'))
-    #    end
-    #    if self.start_date.nil? || self.end_date.nil?
-    #      errors.add(:base, I18n.t('event.error.omit_date'))
-    #    else
     unless self.start_date < self.end_date
       errors.add(:base, I18n.t('event.error.dates1'))
     end
-    #    end
-    if self.marte_event? && ! self.marte_room?
-      #check connectivity with Marte
-      begin
-        MarteRoom.find(:all)
-      rescue => e
-        errors.add(:base, I18n.t('event.error.marte'))
-      end
-    end
-    #    unless self.start_date.future?
-    #      errors.add(:base, "The event start date should be a future date  ")
-    #    end
   end
 
   after_create do |event|
@@ -260,17 +242,6 @@ class Event < ActiveRecord::Base
       }
     end
 
-    if event.marte_event? && ! event.marte_room? && !event.marte_room_changed?
-      mr = begin
-        MarteRoom.create(:name => event.id)
-      rescue => e
-        logger.warn "Failed to create MarteRoom: #{ e }"
-        nil
-      end
-
-      event.update_attribute(:marte_room, true) if mr
-    end
-
     if event.new_organizers.present?
 
       #first we delete the old ones if there were some (this is for the update operation that creates new permissions in the event)
@@ -307,13 +278,6 @@ class Event < ActiveRecord::Base
   after_destroy do |event|
     FileUtils.rm_rf("#{Rails.root.to_s}/attachments/conferences/#{event.permalink}")
     FileUtils.rm_rf("#{Rails.root.to_s}/public/pdf/#{event.permalink}")
-
-    if event.marte_event? && event.marte_room?
-      begin
-        MarteRoom.find(event.id).destroy
-      rescue
-      end
-    end
   end
 
 
@@ -507,17 +471,6 @@ class Event < ActiveRecord::Base
     ! is_in_person?
   end
 
-
-  def get_room_data
-    return nil unless marte_event?
-
-    begin
-      MarteRoom.find(self.id)
-    rescue
-      update_attribute('marte_room', false) if attributes['marte_room']
-      nil
-    end
-  end
 
   def to_xml(options = {})
     options[:indent] ||= 2

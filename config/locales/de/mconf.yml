@@ -178,7 +178,6 @@ de:
       date_past: "Starttermin könnte nicht vorbei"
       dates: "Enddatum muss nach dem Startdatum werden"
       dates1: "Die Veranstaltung Startdatum muss als die vorherigen Veranstaltung Enddatum"
-      marte: "Konnte nicht erstellt virtuelle Konferenz"
       omit_date: "Die Veranstaltung muss Startdatum und Enddatum"
     future: "Ereignis in der Zukunft"
     has: "Dieses Ereignis hat"
@@ -626,7 +625,7 @@ de:
     tag: "Tags sind Schlüsselwörter oder Begriffe assoziieren mit Inhalten verwendet werden, um Informationen zu finden und filtern. Drücken Sie die Eingabetaste, um jeden Tag zu bestätigen."
     timezone: "Mit der Auswahl Ihrer Zeitzone wird es keine Missverständnisse beim Erstellen Veranstaltungen mit Menschen aus anderen Ländern"
     update_logo: "Sie können Ihre eigenen Logos, erstellen Sie ein Text-Logo oder wählen Sie ein Bild aus der Galerie"
-    user_id: "Sie können Ihre Benutzer als openID-ID, User-Chat und / oder Benutzungsgebühren Marte"
+    user_id: "Sie können Ihre Benutzer als openID-ID und/oder User-Chat"
     vcard: "vCard ist ein Standard-Dateiformat für elektronische Visitenkarten."
   translate: 
     change: "Sprache wechseln"

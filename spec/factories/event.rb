@@ -18,8 +18,6 @@ FactoryGirl.define do
     #  e.space_id"
     #  e.author_id"
     #  e.author_type"
-    #  e.marte_event",  :default => false
-    #  e.marte_room"
     #  e.spam",         :default => false
     #  e.notes"
     e.vc_mode {0}
