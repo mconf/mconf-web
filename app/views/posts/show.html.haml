@@ -1,0 +1,10 @@
+- spaces_menu_at :posts
+
+- if @space.authorize?([:create, :content],:to => current_user)
+  = content_for :sidebar do
+    - if params[:edit]
+      = render :partial => "edit_post", :locals => { :post => Post.find(params[:edit]) }
+
+= render :partial => 'post_with_children'
+
+= page_navigation_links @posts

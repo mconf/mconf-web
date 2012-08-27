@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Copyright 2008-2010 Universidad Politécnica de Madrid and Agora Systems S.A.
 #
 # This file is part of VCC (Virtual Conference Center).
@@ -21,9 +22,11 @@ class PostsController < ApplicationController
   include ActionController::StationResources
   include SpamControllerModule
 
+  layout "spaces_show"
+
   # Posts needs a Space. It will respond 404 if no space if found
   before_filter :space!
-  
+  before_filter :webconf_room!
   before_filter :post, :except => [ :index, :new, :create]
 
   load_and_authorize_resource :space
@@ -97,8 +100,14 @@ class PostsController < ApplicationController
     end
   end
 
-
-
+  def reply_post
+    @post_id = params[:id]
+    respond_to do |format|
+      format.html{
+        render :partial => "reply_post"
+      }
+    end
+  end
 
   # Renders form for editing this Entry metadata
   #   GET /posts/:id/edit

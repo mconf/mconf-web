@@ -708,6 +708,7 @@ pt-br:
   last_week: "Semana passada"
   latest_events: "Últimos eventos"
   latest_news: "Últimas notícias"
+  less: "menos..."
   locale:
     changed: "Idioma da aplicação alterado para "
     error: "Não foi possível alterar o idioma do aplicativo para"
@@ -833,6 +834,7 @@ pt-br:
     more:
       one: "e uma outra mensagem..."
       other: "e mais %{count} mensagens..."
+    new_post: "Novo post .."
     none_created: "Nenhuma mensagem criada"
     none_recent: "Não há mensagens recentes"
     one: Mensagem

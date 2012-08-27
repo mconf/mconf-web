@@ -1,0 +1,8 @@
+#new_post
+  = form_for(prepare_for_form(Post.new), :html => { :multipart => true}) do |f|
+    = f.text_field :title, :placeholder => t('post.new_post')
+    #new_post_text
+      = f.text_area :text
+      %br
+      %button#new_post_submit.btm{:type => 'submit'}
+        = t("button.post")

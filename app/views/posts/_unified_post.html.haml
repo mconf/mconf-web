@@ -31,6 +31,10 @@
       %span.thread-updated-at= t('updated_time_ago', :time => time_ago_in_words(thread.updated_at))
 
     .thread-text
-      %p= first_words(thread.text, 100)
-      - if extended
-        = render :partial => "posts/parent_post", :locals => { :post =>  thread, :selected_post => false}
+      .block-collapsed
+        %p= first_words(thread.text, 100)
+        - if thread.text.length > 100 #or !thread.children.empty?
+          %a.link-to-expand{:href => "parent-#{thread.id}"} more
+      .block-expanded
+        %p= thread.text
+        %a.link-to-collapse{:href => "parent-#{thread.id}"} less

@@ -1,0 +1,19 @@
+@import "definitions";
+@import "compass/css3";
+
+body.posts.index, body.posts.show {
+
+  .submit {
+    float: right;
+    margin-bottom: 10px;
+  }
+
+  .modal-content {
+    textarea {
+      width: 300px;
+      height: 100px;
+      resize: none;
+    }
+  }
+
+}

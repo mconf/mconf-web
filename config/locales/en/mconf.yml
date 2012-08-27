@@ -732,6 +732,7 @@ en:
   last_week: "Last week"
   latest_events: "Latest events"
   latest_news: "Latest news"
+  less: "less..."
   locale: 
     changed: "Application language changed to "
     error: "Unable to change application language to "
@@ -863,6 +864,7 @@ en:
     more: 
       one: "and one more message..."
       other: "and more %{count} messages..."
+    new_post: "New post .."
     none_created: "No message created"
     none_recent: "There are no recent messages"
     one: Message
