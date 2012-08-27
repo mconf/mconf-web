@@ -125,10 +125,6 @@
 
 </div>
 
-<%if @event.future?%>
-  <%= render :partial => "connection_info"%>
-<%end%>
-
 <div id="jar">
         <%if @event.agenda.present? %>
                 <%unless params[:show_video] || params[:edit_video] || params[:show_streaming] || params[:show_participation] %>

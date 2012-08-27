@@ -317,7 +317,6 @@ en:
     other: Errors
     vcc_warning: "Warning:"
   event: 
-    Isabel: "Isabel event"
     agenda: 
       see: "See on agenda"
     assistance_title: Participation
@@ -328,7 +327,6 @@ en:
       stop: "Are you sure that you want to stop editing?"
     connection: 
       info: "Connection info for this event"
-      isabel: "Isabel server"
       sip: "Proxy SIP"
       wait: "This info will be available during the event"
     create: 
@@ -355,13 +353,11 @@ en:
     edit_data: "Change event date"
     embed: Embed
     enable: 
-      isabelbw: "Isabel Bandwidth"
       participation: "Participation modes"
       recbw: "Recording Quality"
       sip: "Enable SIP"
       webbw: "Flash Bandwidth"
     error: 
-      cm_connection: "Connection to remote videoconference system fails"
       date_past: "Start date could not be past"
       dates: "End date must be after start date"
       dates1: "The event start date must be previous than the event end date "
@@ -652,14 +648,8 @@ en:
     message_title: "Invite people individually to join your space"
     message_with_start_date: 
       in_person: "<p>I would like to invite you to <b>event 'event_name' in space %{space}</b> on 'event_date'.</p><p>To accept my invitation please visit %{url} </p><p>You can find more information about this event in <a href=\"event_url\">event_url</a></p><p>Kind regards,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>"
-      teleclass: "<p>I would like to invite you to <b>event 'event_name' in space %{space}</b> on 'event_date'. The event will be a virtual class with easy participation through the Isabel system.</p><p>To accept my invitation please visit %{url} </p><p>You can find more information about this event in <a href=\"event_url\">event_url</a> </p><p>Kind regards,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>"
-      teleconference: "<p>I would like to invite you to <b>event 'event_name' in space %{space}</b> on 'event_date'. The event will be a virtual conference with easy participation through the Isabel system.</p><p>To accept my invitation please visit %{url} </p><p>You can find more information about this event in <a href=\"event_url\">event_url</a> </p><p>Kind regards,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>"
-      telemeeting: "<p>I would like to invite you to <b>event 'event_name' in space %{space}</b> on 'event_date'. The event will be a virtual meeting with easy participation through the Isabel system.</p><p>To accept my invitation please visit %{url} </p><p>You can find more information about this event in <a href=\"event_url\">event_url</a> </p><p>Kind regards,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>"
     message_without_start_date: 
       in_person: "<p>I would like to invite you to <b>event 'event_name' in space %{space}</b>.</p><p>To accept my invitation please visit %{url} </p><p>You can find more information about this event in <a href=\"event_url\">event_url</a></p><p>Kind regards,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>"
-      teleclass: "<p>I would like to invite you to <b>event 'event_name' in space %{space}</b>. The event will be a virtual class with easy participation through the Isabel system.</p><p>To accept my invitation please visit %{url} </p><p>You can find more information about this event in <a href=\"event_url\">event_url</a> </p><p>Kind regards,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>"
-      teleconference: "<p>I would like to invite you to <b>event 'event_name' in space %{space}</b>. The event will be a virtual conference with easy participation through the Isabel system.</p><p>To accept my invitation please visit %{url} </p><p>You can find more information about this event in <a href=\"event_url\">event_url</a> </p><p>Kind regards,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>"
-      telemeeting: "<p>I would like to invite you to <b>event 'event_name' in space %{space}</b>. The event will be a virtual meeting with easy participation through the Isabel system.</p><p>To accept my invitation please visit %{url} </p><p>You can find more information about this event in <a href=\"event_url\">event_url</a> </p><p>Kind regards,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>"
     not_accepted: "not accepted"
     not_pending: 
       other: "There are no pending invitations"

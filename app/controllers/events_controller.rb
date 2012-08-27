@@ -224,15 +224,6 @@ class EventsController < ApplicationController
     end
   end
 
-  def start
-    event.start!
-    event.errors.any? ?
-      flash[:error] = event.errors.to_xml :
-      flash[:success] = t('event.started')
-
-    redirect_to event
-  end
-
   private
 
   #method to adapt the start_date + number of days to the start_date and end_date that the event expects

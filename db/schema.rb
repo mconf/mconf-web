@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120826223452) do
+ActiveRecord::Schema.define(:version => 20120827011123) do
 
   create_table "admissions", :force => true do |t|
     t.string   "type"
@@ -48,14 +48,11 @@ ActiveRecord::Schema.define(:version => 20120826223452) do
     t.string   "speakers"
     t.datetime "start_time"
     t.datetime "end_time"
-    t.datetime "created_at",                         :null => false
-    t.datetime "updated_at",                         :null => false
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
     t.text     "embedded_video"
     t.text     "video_thumbnail"
-    t.integer  "cm_session_id"
     t.text     "uid"
-    t.boolean  "cm_streaming",    :default => false
-    t.boolean  "cm_recording",    :default => false
     t.text     "divider"
     t.integer  "video_type"
   end
@@ -176,7 +173,6 @@ ActiveRecord::Schema.define(:version => 20120826223452) do
     t.string   "name"
     t.text     "description"
     t.string   "place"
-    t.boolean  "isabel_event"
     t.datetime "start_date"
     t.datetime "end_date"
     t.integer  "machine_id"
@@ -196,15 +192,12 @@ ActiveRecord::Schema.define(:version => 20120826223452) do
     t.text     "location"
     t.text     "other_streaming_url"
     t.string   "permalink"
-    t.integer  "cm_event_id"
     t.integer  "vc_mode",                 :default => 0
     t.text     "other_participation_url"
     t.boolean  "web_interface",           :default => false
-    t.boolean  "isabel_interface",        :default => false
     t.boolean  "sip_interface",           :default => false
     t.datetime "generate_pdf_at"
     t.datetime "generate_scorm_at"
-    t.text     "isabel_bw"
     t.integer  "web_bw"
     t.integer  "recording_bw"
     t.datetime "generate_pdf_small_at"
@@ -361,7 +354,6 @@ ActiveRecord::Schema.define(:version => 20120826223452) do
     t.string   "exception_notifications_email"
     t.text     "signature"
     t.string   "presence_domain"
-    t.string   "cm_domain"
     t.string   "feedback_url"
     t.boolean  "shib_enabled",                   :default => false
     t.string   "shib_name_field"

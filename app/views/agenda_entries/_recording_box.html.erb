@@ -21,7 +21,6 @@
     <div id="sure_form<%=@agenda_entry.id%>">
         <div class="lightbox_advise"><%= t('recording.warning_start_recording') %></div>
       <div class="event_step_cancel_buttons">
-            <%= link_to_function "<span>" + t('button.accept') + "</span>", "change_status('#{@agenda_entry.id}', '#{AgendaEntry::SESSION_STATUS[:recording]}')",:class => "basic_button blue_button", :id=>"button_yes" %>
             <%= link_to(("<span>" + t('button.cancel') + "</span>").html_safe, "javascript:our_close();" ,:class => "basic_button blue_button", :id=>"button_no") %>
       </div>
     </div>
@@ -31,7 +30,6 @@
     <div id="sure_form_pause<%=@agenda_entry.id%>">
         <div class="lightbox_advise"><%= t('recording.warning_pause_recording') %></div>
       <div class="event_step_cancel_buttons">
-            <%= link_to_function "<span>" + t('button.accept') + "</span>", "change_status('#{@agenda_entry.id}', '#{AgendaEntry::SESSION_STATUS[:recorded]}')",:class => "basic_button blue_button", :id=>"button_yes" %>
             <%= link_to(("<span>" + t('button.cancel') + "</span>").html_safe, "javascript:our_close();" ,:class => "basic_button blue_button", :id=>"button_no") %>
       </div>
     </div>
@@ -41,7 +39,6 @@
     <div id="sure_form_continue<%=@agenda_entry.id%>">
         <div class="lightbox_advise"><%= t('recording.warning_continue_recording') %></div>
       <div class="event_step_cancel_buttons">
-            <%= link_to_function "<span>" + t('button.accept') + "</span>", "change_status('#{@agenda_entry.id}', '#{AgendaEntry::SESSION_STATUS[:recording]}')",:class => "basic_button blue_button", :id=>"button_yes" %>
             <%= link_to(("<span>" + t('button.cancel') + "</span>").html_safe, "javascript:our_close();" ,:class => "basic_button blue_button", :id=>"button_no") %>
       </div>
     </div>
@@ -51,7 +48,6 @@
     <div id="sure_form_publish<%=@agenda_entry.id%>">
         <div class="lightbox_advise"><%= t('recording.warning_publish_recording') %></div>
       <div class="event_step_cancel_buttons">
-            <%= link_to_function "<span>" + t('button.accept') + "</span>", "change_status('#{@agenda_entry.id}', '#{AgendaEntry::SESSION_STATUS[:published]}')",:class => "basic_button blue_button", :id=>"button_yes" %>
             <%= link_to(("<span>" + t('button.cancel') + "</span>").html_safe, "javascript:our_close();" ,:class => "basic_button blue_button", :id=>"button_no") %>
       </div>
     </div>

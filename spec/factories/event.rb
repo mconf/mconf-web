@@ -3,7 +3,6 @@ FactoryGirl.define do
     e.sequence(:name) { |n| "Event #{ n }" }
     e.sequence(:description)  { |n| "Event description #{ n }" }
     e.sequence(:place) { |n| "Place #{ n }" }
-    #  e.isabel_event
     e.start_date { Time.now + 2.hours}
     e.end_date { Time.now + 4.hours}
     #  e.machine_id

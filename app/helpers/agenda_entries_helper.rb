@@ -27,9 +27,6 @@ module AgendaEntriesHelper
     result = '<div id="mconf_embed" style="width:645px;"><strong style="display:block;padding:12px 0 4px;">'
     result += link_to(entry.title,space_event_url(entry.space, entry.event, :show_video=> entry.id))
     result +='</strong><div style="padding:3px 3px 0px 3px;background:#244974">'
-    if entry.recording?
-      result += entry.video_player("640","480")
-    end
     result += '<div style="padding:0 6px 0px 6px;text-align:right;"><a style="text-decoration:none;outline:none;font-weight:bold;color:#fff" href="http://mconf.inf.ufrgs.br">Mconf</a></div>'
     result += '</div></div>'
 

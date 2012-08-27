@@ -1,9 +1,3 @@
-<%if params[:embedded_video]%>
-  <%=@agenda_entry.video_player("530","398")%>
-<%else%>
-  <div class="video_full">
-      <%=@agenda_entry.video_player("640","480")%>
-  </div>  
   <div class="video_properties">  	
   	  <div class="video_title">
   	      <%=@agenda_entry.title%>  
@@ -17,4 +11,3 @@
 		  <%end%>
 	  </div>
   </div>
-<%end%>

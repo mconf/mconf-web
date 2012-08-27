@@ -189,7 +189,6 @@ es:
     other: Errores
     vcc_warning: "Advertencia de GlobalPlaza:"
   event: 
-    Isabel: "Evento Isabel"
     assistance_title: Asistencia
     assistants_none: "Nadie ha confirmado todavía"
     basic_info: "Introducir la información básica"
@@ -198,7 +197,6 @@ es:
       stop: "¿Está seguro de que quiere dejar de editar?"
     connection: 
       info: "Información de conexión para este evento"
-      isabel: "Servidor Isabel"
       sip: "Proxy SIP"
       wait: "Esta info estará disponible durante el evento"
     create: 
@@ -218,13 +216,11 @@ es:
       none: "Nadie ha escrito aún una descripción."
     edit: "Editar evento"
     enable: 
-      isabelbw: "Ancho de banda Isabel"
       participation: "Modos de participación"
       recbw: "Calidad Grabaci\\xC3\\xB3n"
       sip: SIP
       webbw: "Ancho de banda Flash"
     error: 
-      cm_connection: "La conexión con el sistema de videoconferencia ha fallado"
       date_past: "La fecha de inicio no puede estar en el pasado"
       dates: "La fecha de finalización debe ser posterior a la de inicio"
       dates1: "La fecha de inicio del evento debe ser anterior a la fecha de finalización"

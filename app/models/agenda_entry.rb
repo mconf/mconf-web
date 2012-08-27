@@ -157,52 +157,11 @@ class AgendaEntry < ActiveRecord::Base
   end
 
   def recording?
-    if event.recording_type == Event::RECORDING_TYPE.index(:manual)
-      return session_status==SESSION_STATUS[:published]
-    elsif video_type == VIDEO_TYPE.index(:automatic)
-      return past?
-    elsif video_type == VIDEO_TYPE.index(:embedded)
-      return embedded_video.present? && embedded_video != ""
-    elsif video_type == VIDEO_TYPE.index(:uploaded)
-      return true
-    else
-      return false
-    end
-
-=begin
-    if !event.uses_conference_manager?  #manual mode
-      if embedded_video.present? && embedded_video != ""
-        return true
-      else
-        return false
-      end
-    else #automatic mode, the event uses the CM
-      if discard_automatic_video
-        if embedded_video.present? && embedded_video != ""
-          return true
-        else
-          return false
-        end
-      else
-        if event.recording_type == Event::RECORDING_TYPE.index(:manual)
-          return session_status==SESSION_STATUS[:published]
-        elsif event.recording_type == Event::RECORDING_TYPE.index(:automatic)
-          return past?
-        else #recording_type :none
-          return false
-        end
-      end
-    end
-=end
+    return false
   end
 
-
-  scope :with_recording, lambda {
-    where("embedded_video is not ? or cm_recording = ?", nil, true)
-  }
-
   def streaming?
-    cm_streaming?
+    false
   end
 
   def thumbnail
@@ -211,46 +170,8 @@ class AgendaEntry < ActiveRecord::Base
       "default_background.jpg"
   end
 
-  #returns the player with the specified width and height
-  #or the embedded_video or the uploaded video if the entry has one
-  def video_player(width, height)
-    case video_type
-      when AgendaEntry::VIDEO_TYPE.index(:automatic)
-        player(width, height)
-      when AgendaEntry::VIDEO_TYPE.index(:embedded)
-        embedded_video
-      when AgendaEntry::VIDEO_TYPE.index(:uploaded)
-        attachment_video.embed_html(width, height)
-      when AgendaEntry::VIDEO_TYPE.index(:none)
-        nil
-      end
-  end
-
-
-  #returns the editor with the specified width and height
-  def video_editor(width, height)
-    editor(width, height)
-  end
-
-
-  def initDate
-    DateTime.strptime(cm_session.initDate)
-  end
-
-  def endDate
-    DateTime.strptime(cm_session.endDate)
-  end
-
   def past?
     return end_time.past?
-  end
-
-  def name
-    cm_session.try(:name)
-  end
-
-  def has_error?
-    return self.cm_error.present?
   end
 
   #returns the day of the agenda entry, 1 for the first day, 2 for the second day, ...
@@ -306,8 +227,6 @@ class AgendaEntry < ActiveRecord::Base
       raise "Incorrectly parsed statistics"
     end
   end
-
-  include ConferenceManager::Support::AgendaEntry
 
   def to_fullcalendar_json
       "{

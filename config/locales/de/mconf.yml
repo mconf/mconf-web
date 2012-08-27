@@ -156,7 +156,6 @@ de:
     not_allowed: "Sie sind nicht berechtigt zur Ausführung dieser Aktion"
     one: Fehler
   event: 
-    Isabel: "Isabel Veranstaltung"
     assistance_title: Teilnahme
     assistants_none: "Niemand hat noch nicht bestätigt"
     basic_info: "Führen Sie grundlegende Informationen"
@@ -174,7 +173,6 @@ de:
       participation: "Wählen Sie die Teilnahme-Modi"
       sip: SIP
     error: 
-      cm_connection: "Die Verbindung zum entfernten System ausfällt Videokonferenz"
       date_past: "Starttermin könnte nicht vorbei"
       dates: "Enddatum muss nach dem Startdatum werden"
       dates1: "Die Veranstaltung Startdatum muss als die vorherigen Veranstaltung Enddatum"

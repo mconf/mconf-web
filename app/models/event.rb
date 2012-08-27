@@ -257,21 +257,6 @@ class Event < ActiveRecord::Base
       past_permissions.select{ |p| (past_organizers - event.new_organizers).include?(p.agent.username)}.map(&:destroy)
     end
 
-    if event.recording_type_changed?
-      if event.recording_type_was == Event::RECORDING_TYPE.index(:automatic)
-        #changed FROM automatic, update all the agenda_entries with recording=false to the CM
-        event.agenda.agenda_entries.each do |entry|
-          entry.update_attributes(:cm_recording=> false)
-        end
-      end
-      if event.recording_type == Event::RECORDING_TYPE.index(:automatic)
-        #changed TO automatic, update all the agenda_entries with recording=true to the CM
-        event.agenda.agenda_entries.each do |entry|
-          entry.update_attributes(:cm_recording=> true)
-        end
-      end
-    end
-
   end
 
 
@@ -333,14 +318,7 @@ class Event < ActiveRecord::Base
         return true
       end
     else
-      begin
-        agenda.agenda_entries.each do |entry|
-          return true if entry.cm_session.streaming?
-        end
-        false
-      rescue
-        nil
-      end
+      false
     end
   end
 
@@ -353,11 +331,7 @@ class Event < ActiveRecord::Base
         return true
       end
     else
-      begin
-        cm_event.enable_web?
-      rescue
-        nil
-      end
+      false
     end
   end
 
@@ -371,30 +345,12 @@ class Event < ActiveRecord::Base
   def show_participation?
     is_happening_now? || is_in_person?
   end
-  #better the method agenda.has_entries_with_video?
-  #
-  #  #method to know if any of the agenda_entry of the event has recording
-  #  def has_recording?
-  #    begin
-  #      agenda.agenda_entries.each do |entry|
-  #        return true if entry.cm_session.recording?
-  #      end
-  #      false
-  #    rescue
-  #      nil
-  #    end
-  #  end
-
 
   #method to know if this event is happening now
   def is_happening_now?
     #first we check if start date is past and end date is future
     if has_date? && start_date.past? && end_date.future?
       true
-    elsif uses_conference_manager? && recording_type == RECORDING_TYPE.index(:manual)
-      if has_date? && start_date.past? && (end_date + EXTRA_TIME_FOR_EVENTS_WITH_MANUAL_REC).future?
-        true
-      end
     else
       return false
     end
@@ -599,6 +555,4 @@ class Event < ActiveRecord::Base
       return corresponding_statistics.first.unique_pageviews
     end
   end
-
-  include ConferenceManager::Support::Event
 end

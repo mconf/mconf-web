@@ -126,7 +126,6 @@ $(document).ready(function() {
 
     <%if !@event.is_in_person?%>
       <div class="checkbox_event">
-        <%=f.check_box :cm_streaming,:class=>"icon", :checked => @agenda_entry.cm_streaming?, :disabled => @agenda_entry.past? ? true:false %>
         <label for="entry_streaming" class="label_izquierda">
           <%= t('agenda.entry.options.streaming') %>
         </label>

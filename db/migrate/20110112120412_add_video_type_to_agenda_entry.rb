@@ -9,18 +9,20 @@ class AddVideoTypeToAgendaEntry < ActiveRecord::Migration
     AgendaEntry.record_timestamps=false
     
     AgendaEntry.all.each{ |a| 
-      if a.event != nil && a.event.uses_conference_manager? && a.discard_automatic_video==true 
-        if a.embedded_video.present? && a.embedded_video !=""
+      if a.event.respond_to?("uses_conference_manager?")
+        if a.event != nil && a.event.uses_conference_manager? && a.discard_automatic_video==true 
+          if a.embedded_video.present? && a.embedded_video !=""
+            a.update_attribute(:video_type,AgendaEntry::VIDEO_TYPE.index(:embedded))
+          else
+            a.update_attribute(:video_type,AgendaEntry::VIDEO_TYPE.index(:none))
+          end        
+        elsif a.event != nil && a.event.uses_conference_manager? && a.discard_automatic_video==false
+          a.update_attribute(:video_type,AgendaEntry::VIDEO_TYPE.index(:automatic))
+        elsif a.event != nil && !a.event.uses_conference_manager? && a.embedded_video.present? && a.embedded_video !="" 
           a.update_attribute(:video_type,AgendaEntry::VIDEO_TYPE.index(:embedded))
-        else
+        elsif a.event != nil && !a.event.uses_conference_manager? && !a.embedded_video.present?
           a.update_attribute(:video_type,AgendaEntry::VIDEO_TYPE.index(:none))
-        end        
-      elsif a.event != nil && a.event.uses_conference_manager? && a.discard_automatic_video==false
-        a.update_attribute(:video_type,AgendaEntry::VIDEO_TYPE.index(:automatic))
-      elsif a.event != nil && !a.event.uses_conference_manager? && a.embedded_video.present? && a.embedded_video !="" 
-        a.update_attribute(:video_type,AgendaEntry::VIDEO_TYPE.index(:embedded))
-      elsif a.event != nil && !a.event.uses_conference_manager? && !a.embedded_video.present?
-        a.update_attribute(:video_type,AgendaEntry::VIDEO_TYPE.index(:none))
+        end
       end
     }
     

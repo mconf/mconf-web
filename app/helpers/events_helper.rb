@@ -162,15 +162,4 @@ module EventsHelper
       return result
     end
 
-    #method to generate a hash to represent the entries and the status of each entry
-    #this hash is like this example: var entries = {123:"recording", 234: "recorded", 33: "published", 454: "init"}
-    def generate_entries_javascript_array(event)
-      output = "var entries = {"
-      event.agenda.agenda_entries.each do |entry|
-        output += entry.id.to_s + ": \"" + entry.session_status + "\","
-      end
-      output.chop!
-      output += "}"
-    end
-
 end

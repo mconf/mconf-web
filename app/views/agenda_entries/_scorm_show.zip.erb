@@ -15,13 +15,6 @@
 				<div id="wrapper">		
 					<div id="event_recordings" class="margin-up">
 						<div id="recordings_title"><h3 class="blue"><%=link_to(entry.title,space_event_url(entry.space, entry.event, :show_video=> entry.id), :target=>'_blank')%>   </h3></div>
-						<div id="recordings_content">	  
-							<div id="videos">
-								<div class="video_full">
-									<%=entry.video_player("640","480")%>
-								</div>  
-							</div>
-						</div>
 					</div>
 				</div>		
 			</div>

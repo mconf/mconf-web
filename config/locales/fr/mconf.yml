@@ -173,13 +173,11 @@ fr:
     other: Erreurs
     vcc_warning: "VCC avertissement:"
   event: 
-    Isabel: "Si Isabel"
     assistance_title: Participation
     assistants_none: "Personne n'a encore confirmé"
     basic_info: "Présenter l'information de base"
     connection: 
       info: "Les informations de connexion pour cet événement"
-      isabel: "Serveur Isabel"
     create: 
       info: 
         conference: 
@@ -196,7 +194,6 @@ fr:
     enable: 
       participation: "Sélectionnez modes de participation"
     error: 
-      cm_connection: "Connexion au système de vidéoconférence à distance échoue"
       date_past: "Date de début ne peut pas être passé"
       dates: "Date de fin doit être la date de début après"
       dates1: "La date de début de l'événement doit être antérieur à la date de fin de l'événement"

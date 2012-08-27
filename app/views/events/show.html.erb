@@ -9,18 +9,6 @@ edit_description = function(){
   $('#event_description_content').dblclick();
 };
 
-change_status = function(ae_id, new_status) {
-  $.ajax({
-    url: '<%=space_event_url(@event.space, @event) + "/agenda/agenda_entries/"%>' + ae_id,
-    type: 'PUT',
-    data: 'status=' + new_status,
-    success: function(data) {
-      update_status_and_refresh_view(ae_id, new_status);
-      our_close();
-    }
-  });
-}
-
 $(document).ready(function() {
 
   <% if @event.future? && !@event.authorize?(:update, :to => current_user) %>

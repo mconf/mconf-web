@@ -66,7 +66,6 @@ Mconf::Application.routes.draw do
       member do
         post :spam
         get :spam_lightbox
-        post :start
       end
 
       collection do
