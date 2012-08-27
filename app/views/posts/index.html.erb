@@ -69,8 +69,10 @@ $("a.edit_post_link").click(function(){
 
 <%= content_for :sidebar do  %>
 
-  <%= content_for :new_post do %>
-    <%= render :partial => "new_post" %>
+  <%if can?(:create_post, @space)%>
+    <%= content_for :new_post do %>
+      <%= render :partial => "new_post" %>
+    <% end %>
   <% end %>
 
   <%if can?(:create_post, @space)%>

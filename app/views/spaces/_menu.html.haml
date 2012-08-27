@@ -10,5 +10,6 @@
         %li= link_to t('people').capitalize, space_users_path(@space), spaces_menu_select_if(:users)
         - if @space.repository?
           %li= link_to t('repository.one').capitalize, space_attachments_path(@space), spaces_menu_select_if(:repository)
-        - if @space.role_for?(current_user, :name => 'Admin') || current_user.superuser?
-          %li= link_to t('admin.one').capitalize, edit_space_path(@space), spaces_menu_select_if(:admin, :class => "admin danger-text")
+        - if user_signed_in?
+          - if @space.role_for?(current_user, :name => 'Admin') || current_user.superuser?
+            %li= link_to t('admin.one').capitalize, edit_space_path(@space), spaces_menu_select_if(:admin, :class => "admin danger-text")

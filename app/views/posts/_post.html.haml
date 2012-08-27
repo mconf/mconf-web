@@ -4,11 +4,11 @@
     = link_logo(post.author, :size => 22, :url => user_path(post.author), :title=>post.author.name).html_safe
   .thread-content
     %ul.thread-action-links.visible-on-hover{ :"data-hover-tracked" => "parent_#{post.id}" }
-      - if post.authorize?(:update, :to => current_user)
+      - if can?(:update, post)
         %li= link_to t('edit').downcase, get_edit_route(post), :title => t('edit')
-      - if post.authorize?(:delete, :to => current_user)
+      - if can?(:destroy, post)
         %li= link_to t('remove').downcase, space_posts_path(@space,post), {:method => :delete, :title => t('delete.one'), :confirm => t('delete.confirm', :element => post.title) }
-      - if logged_in? && post.spam != true
+      - if user_signed_in? && post.spam != true
         %li= link_to t('spam.default').downcase, spam_lightbox_space_post_path(@space,post), { :name => post.id, :title => t('spam.report') }
 
     .thread-title
