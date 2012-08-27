@@ -36,7 +36,7 @@ GIT
 
 GIT
   remote: git://github.com/mconf/station.git
-  revision: 1d282fca51290c1f7d0f0bc276d83e827cdec3f2
+  revision: f938ca8911b6ec67df1e7631ffc23d62874598be
   branch: no-authorization
   specs:
     station (0.0.1)
