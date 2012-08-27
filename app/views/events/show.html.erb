@@ -11,11 +11,11 @@ edit_description = function(){
 
 $(document).ready(function() {
 
-  <% if @event.future? && !@event.authorize?(:update, :to => current_user) %>
+  <% if @event.future? && cannot?(:update, @event) %>
     $("#streaming_content").hide();
   <% end %>
 
-  <% if @event.authorize?(:update, :to => current_user) %>
+  <% if can?(:update, @event) %>
     $('#event_description_content form input').livequery("blur",function(){
       $('#edit_description_icon').show();
     });
@@ -53,14 +53,14 @@ $(document).ready(function() {
 <%= content_for :sidebar do  %>
 
   <div id="full_sidebar">
-    <%if !logged_in?%>
+    <%if !user_signed_in?%>
       <div id="event_register" class="button_wrapper margin-up">
         <%= link_to ("<span>" + t('register.and_participate') + "</span>").html_safe,signup_path("user[special_event_id]" => (@event.id).to_s) ,:class => "register_link big_button orange_button"%>
       </div>
       <p class="big_margin_down_40 note">
         <%= t('register.and_participate_description_with_login', :url => login_path ).html_safe %>
       </p>
-    <%elsif event.authorize?(:update, :to => current_user) %>
+    <%elsif can?(:update, event) %>
       <%= render :partial => "actions" %>
     <%elsif event.is_happening_now? %>
       <p class="big_margin_down_40 note">
@@ -81,14 +81,14 @@ $(document).ready(function() {
     <%end%>
 
     <%if params[:edit_comment]%>
-      <%= render(:partial => "posts/edit_post", :locals => { :post => Post.find(params[:edit_comment]) }) if @space.authorize?([:create, :content],:to => current_user) %>
+      <%= render(:partial => "posts/edit_post", :locals => { :post => Post.find(params[:edit_comment]) }) if can?(:create_post, @space) %>
     <%elsif params[:show_streaming] || params[:show_participation]%>
       <%= render :partial => 'participants' %>
     <%else%>
       <%= render :partial => 'participants' %>
     <%end%>
 
-    <%if event.authorize?(:update, :to => current_user) %>
+    <%if can?(:update, event) %>
       <%=
         #render :partial => "change_logo"
       %>

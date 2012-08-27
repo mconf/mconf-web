@@ -11,9 +11,7 @@
     <li>
       <%=link_to(image_tag("icons/cancel.png", :alt =>
       t('delete.one'),:class=>"icon") , space_event_path(@space,
-      event),{:method => :delete, :title => t('delete.one'),:confirm
-      => t('delete.confirm', :element => event.title)}) if
-      can?(:destroy, event) && !event.is_happening_now?%>
+      event),{:method => :delete, :title => t('delete.one'),:confirm => t('delete.confirm', :element => event.title)}) if can?(:destroy, event) && !event.is_happening_now?%>
     </li>
   </ul>
   <div class="event_image">
@@ -74,30 +72,6 @@
         <%end %>
       </li>
       <li class="main_text logo_padding">
-        <!--
-        <%=
-          #t('event.features')
-        %>:
-        <%isfirst=true %>
-        <%if @event.has_streaming? || @event.is_in_person? %>
-          <%
-            #unless @event.is_happening_now? || (@event.is_in_person? && !@event.past?)
-          %>
-            <%=
-              #t('event.view_streaming')
-            %>
-          <%
-            #else
-          %>
-            <%=
-              #link_to t('event.view_streaming'),space_event_path(@space, @event, :show_streaming => true)
-            %>
-          <%
-            #end
-          %>
-          <%isfirst=false %>
-        <%end%>
-        -->
         <%if @event.web_interface? %>
           <%if isfirst %>
             <%isfirst=false %>
