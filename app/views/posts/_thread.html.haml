@@ -8,7 +8,7 @@
       - if thread.space.authorize?([:create, :content], :to => current_user)
         %li= link_to t('reply').downcase, "#", { :"data-href" => reply_post_space_post_path(@space, thread), :name => thread.id, :title => t('comment.add'), :id => "post-reply" }
       - if thread.authorize?(:update, :to => current_user)
-        %li= link_to t('edit').downcase, get_edit_route(thread), :title => t('edit')
+        %li= link_to t('edit').downcase, "#", { :"data-href" => edit_post_path(thread), :name => thread.id, :title => t('edit'), :id => "post-edit" }
       - if thread.authorize?(:delete, :to => current_user)
         %li= link_to t('remove').downcase, space_posts_path(@space,thread), {:method => :delete, :title => t('delete.one'), :confirm => t('delete.confirm', :element => thread.title) }
       - if logged_in? && thread.spam != true

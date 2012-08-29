@@ -11,6 +11,10 @@ $ ->
     $.colorbox
       href: $(this).attr 'data-href'
 
+  $("a#post-edit").on 'click', ->
+    $.colorbox
+      href: $(this).attr 'data-href'
+
   $(document).on 'click', ->
     if !$("#post_title").is(":focus") and !$("#post_text").is(":focus") and !$("#new_post_submit").data("clicked")
       $("#new_post_text").hide 0
