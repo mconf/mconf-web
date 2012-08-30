@@ -72,7 +72,7 @@ $(document).ready(function() {
                 <% end%>
                 <td class="subject">
                                                       <div>
-                    <span class="topic"><%= t('subject') %>: <%=link_to sanitize(private_message.title), user_message_path(params[:user_id], private_message), :class => "message_link"%></span>
+                    <span class="topic"><%= t('subject') %> <%=link_to sanitize(private_message.title), user_message_path(params[:user_id], private_message), :class => "message_link"%></span>
                                                         <!--<span><%= sanitize(private_message.body)%></span>-->
                                                       </div>
                 </td>

@@ -1103,7 +1103,7 @@ pt-br:
     space_views: visualizações
     views: visualizações
   street: Rua
-  subject: Assunto
+  subject: "Assunto:"
   summary: "Informações do vídeo"
   tag:
     add: "Adicionar tags"

@@ -1,0 +1,15 @@
+- if @show_view
+  .parent-post-logo
+    = link_logo(post.author, :size => 32, :url => user_path(post.author), :title=>post.author.name).html_safe
+
+.post-content
+  %ul
+    - if @show_view
+      %li
+        = link_to(post.author.name, user_path(post.author),:class=>"unified_user")
+        %span.updated
+          = t('updated_time_ago', :time => time_ago_in_words(post.updated_at))
+
+    %li.main_text
+      = sanitize(auto_link(post_format(post.text)))
+

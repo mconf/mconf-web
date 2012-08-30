@@ -1154,7 +1154,7 @@ en:
     space_views: views
     views: Views
   street: Street
-  subject: Subject
+  subject: "Subject:"
   summary: "Video Info"
   superuser: Administrator
   tag: 

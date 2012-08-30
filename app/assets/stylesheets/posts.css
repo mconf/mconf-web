@@ -2,5 +2,4 @@
  *= require ./app/posts/index
  *= require ./app/posts/show
  *= require ./app/posts/_thread
- *= require ./app/posts/_reply_post
  */

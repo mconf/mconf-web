@@ -74,32 +74,6 @@ class PostsController < ApplicationController
     end
   end
 
-  def new
-
-    @post = Post.roots.in(@space).find(params[:reply]) if params[:reply]
-
-    respond_to do |format|
-      format.html {
-
-        # FIXME: this is wrong, VIEW code should go to app/views or app/helpers
-        if params[:reply]
-          if request.xhr?
-            render "new_reply_big", :layout => false
-          else
-            render "new_reply_big"
-          end
-        else
-          if request.xhr?
-            render "new_thread_big",:layout => false
-          else
-            render "new_thread_big"
-          end
-        end
-
-      }
-    end
-  end
-
   def reply_post
     @post_id = params[:id]
     respond_to do |format|
@@ -114,20 +88,7 @@ class PostsController < ApplicationController
   def edit
     respond_to do |format|
       format.html {
-        # FIXME: this is wrong, VIEW code should go to app/views or app/helpers
-        if @post.parent.nil?
-          if request.xhr?
-            render "edit_thread_big", :layout => false, :locals => { :post => @post}
-          else
-            render "edit_thread_big", :locals => { :post => @post}
-          end
-        else
-          if request.xhr?
-            render "edit_thread_big", :layout => false, :locals => { :post => @post}
-          else
-            render "edit_thread_big", :locals => { :post => @post}
-          end
-        end
+        render :partial => "edit_post"
       }
     end
   end
