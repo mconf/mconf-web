@@ -1,12 +1,15 @@
 .modal-title
-  %span
-    %b= t('thread.edit')
+  #post-title
+    %span
+      %b= t('thread.edit')
 
 .modal-content
-  = simple_form_for(prepare_for_form(post), :html => { :multipart => true ,:id => "edit-form"}) do |f|
-    = f.input :title, :label => t('title')
-    = f.input :text, :label => t('body'), :as => :text
-    %br
-    - # Footer
-    %button{:type => "submit", :class => "btm submit"}
-      = t("button.update")
+  #post-message
+    = simple_form_for(prepare_for_form(post), :html => { :multipart => true ,:id => "edit-form"}) do |f|
+      - unless post.parent_id?
+        = f.input :title, :label => t('title')
+      = f.input :text, :label => t('body'), :as => :text
+      %br
+      - # Footer
+      %button{:type => "submit", :class => "btm submit"}
+        = t("button.update")

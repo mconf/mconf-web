@@ -111,6 +111,27 @@ form {
   top: $navbar-height;
 }
 
+// Style for reply and edit posts inside a colorbox
+
+.modal-content {
+  #post-message {
+    textarea {
+      width: 300px;
+      height: 100px;
+      resize: none;
+    }
+
+    #post_title {
+      width: 300px;
+    }
+
+    .submit {
+      float: right;
+      margin-bottom: 10px;
+    }
+  }
+}
+
 // Unified style for threads: posts, news, attachments
 .thread {
   clear: both;

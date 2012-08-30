@@ -3,7 +3,6 @@
 
 -# TODO: Review if the id can't be created with div_for(thread)
 %div.thread.thread-post{:class => "#{cycle("thread-even" , "thread-odd")}", :id => "parent-#{thread.id}"}
-
   .logo-in-thread
     = link_logo(thread.space, :size => 'w48', :url => space_path(thread.space), :title => thread.space.name).html_safe
 
@@ -11,9 +10,9 @@
 
     %ul.thread-action-links.visible-on-hover{ :"data-hover-tracked" => "parent-#{thread.id}" }
       - if thread.space.authorize?([:create, :content], :to => current_user)
-        %li= link_to t('reply').downcase, space_post_path(thread.space, thread, :reply_to => thread), { :name => thread.id, :title => t('comment.add') }
+        %li= link_to t('reply').downcase, "#", { :"data-href" => reply_post_space_post_path(thread.space, thread), :name => thread.id, :title => t('comment.add'), :id => "post-reply" }
       - if thread.authorize?(:update, :to => current_user)
-        %li= link_to t('edit').downcase, get_edit_route(thread), :title => t('edit')
+        %li= link_to t('edit').downcase, "#", { :"data-href" => edit_post_path(thread), :name => thread.id, :title => t('edit'), :id => "post-edit" }
       - if thread.authorize?(:delete, :to => current_user)
         %li= link_to t('remove').downcase, space_post_path(thread.space,thread), {:method => :delete, :title => t('delete.one'), :confirm => t('delete.confirm', :element => thread.title) }
       - if logged_in? && thread.spam != true
@@ -33,8 +32,15 @@
     .thread-text
       .block-collapsed
         %p= first_words(thread.text, 100)
-        - if thread.text.length > 100 #or !thread.children.empty?
-          %a.link-to-expand{:href => "parent-#{thread.id}"} more
+        - if thread.text.length > 100 or !thread.children.empty?
+          %a.link-to-expand{:href => "parent-#{thread.id}"}= t('more')
       .block-expanded
         %p= thread.text
-        %a.link-to-collapse{:href => "parent-#{thread.id}"} less
+        - unless thread.children.size < 4
+          .comments-status
+            = t('thread.show_last_comment', :size => thread.three_last_comment().size, :children => thread.children.size)
+            = link_to(t('comment.show_all'), space_post_path(thread.space,thread)) if thread.space.authorize?([:read, :content],:to => current_user)
+        %div
+          - for comment in thread.three_last_comment()
+            = render :partial => "posts/post" , :locals => { :post =>  comment, :selected_post => false }
+        %a.link-to-collapse{:href => "parent-#{thread.id}"}= t('less')

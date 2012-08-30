@@ -4,7 +4,7 @@
       - if post.authorize?([:create, :content], :to => current_user)
         %li= link_to t('reply').downcase, "#", { :"data-href" => reply_post_space_post_path(@space, post), :name => post.id, :title => t('comment.add'), :id => "post-reply" }
       - if post.authorize?(:update, :to => current_user)
-        %li= link_to t('edit').downcase, get_edit_route(post), :title => t('edit')
+        %li= link_to t('edit').downcase, "#", { :"data-href" => edit_post_path(post), :name => post.id, :title => t('edit'), :id => "post-edit" }
       - if post.authorize?(:delete, :to => current_user)
         %li= link_to t('remove').downcase, space_posts_path(@space,post), {:method => :delete, :title => t('delete.one'), :confirm => t('delete.confirm', :element => post.title) }
       - if logged_in? && post.spam != true
