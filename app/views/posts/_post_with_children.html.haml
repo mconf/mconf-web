@@ -6,9 +6,9 @@
       - if post.authorize?(:update, :to => current_user)
         %li= link_to t('edit').downcase, "#", { :"data-href" => edit_post_path(post), :name => post.id, :title => t('edit'), :id => "post-edit" }
       - if post.authorize?(:delete, :to => current_user)
-        %li= link_to t('remove').downcase, space_posts_path(@space,post), {:method => :delete, :title => t('delete.one'), :confirm => t('delete.confirm', :element => post.title) }
+        %li= link_to t('remove').downcase, space_post_path(@space,post), {:method => :delete, :title => t('delete.one'), :confirm => t('delete.confirm', :element => post.title) }
       - if logged_in? && post.spam != true
-        %li= link_to t('spam.default').downcase, spam_lightbox_space_post_path(@space,post), { :name => post.id, :title => t('spam.report') }
+        %li= link_to t('spam.default').downcase, "#", { :"data-spam" => spam_lightbox_space_post_path(@space,post), :name => post.id, :title => t('spam.report'), :id => "spam-lightbox" }
     .thread-title
       %h2
         = image_tag("icons/comments.png")

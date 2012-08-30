@@ -1,0 +1,20 @@
+.modal-title
+  #spam-title
+    = t('spam.report')
+
+.modal-content
+  #spam-message
+    = form_tag(spam_space_post_path(@space,@post)) do
+      #spam_form
+        %p
+          %label{:for => "subject"}
+            = t('subject')
+            %strong
+              = t('spam.detected')
+        %p
+          %label{:for => "body"}
+            = t('comment.other')
+          = text_area_tag 'body', params[:body].present? ? params[:body] : nil,:id => "spam_textarea"
+
+      %button{:type => "submit", :class => "btm submit"}
+        = t('spam.report')

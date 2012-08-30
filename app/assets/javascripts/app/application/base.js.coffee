@@ -79,6 +79,10 @@ $ ->
     $.colorbox
       href: $(this).attr 'data-href'
 
+  $("a#spam-lightbox").on 'click', ->
+    $.colorbox
+      href: $(this).attr 'data-spam'
+
 
 # Returns true if we're currently in the view 'action' inside 'controller'
 # If 'action' is empty, will check only for the controller
