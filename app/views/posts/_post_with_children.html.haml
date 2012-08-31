@@ -4,7 +4,7 @@
       - if can?(:create_post, @space)
         %li= link_to t('reply').downcase, "#", { :"data-href" => reply_post_space_post_path(@space, post), :name => post.id, :title => t('comment.add'), :id => "post-reply" }
       - if can?(:update, post)
-        %li= link_to t('edit').downcase, "#", { :"data-href" => edit_post_path(post), :name => post.id, :title => t('edit'), :id => "post-edit" }
+        %li= link_to t('edit').downcase, "#", { :"data-href" => edit_space_post_path(post.space, post), :name => post.id, :title => t('edit'), :id => "post-edit" }
       - if can?(:destroy, post)
         %li= link_to t('remove').downcase, space_post_path(@space,post), {:method => :delete, :title => t('delete.one'), :confirm => t('delete.confirm', :element => post.title) }
       - if user_signed_in? && post.spam != true

@@ -5,7 +5,7 @@
   .thread-content
     %ul.thread-action-links.visible-on-hover{ :"data-hover-tracked" => "parent_#{post.id}" }
       - if can?(:update, post)
-        %li= link_to t('edit').downcase, "#", { :"data-href" => edit_post_path(post), :name => post.id, :title => t('edit'), :id => "post-edit" }
+        %li= link_to t('edit').downcase, "#", { :"data-href" => edit_space_post_path(post.space, post), :name => post.id, :title => t('edit'), :id => "post-edit" }
       - if can?(:destroy, post)
         %li= link_to t('remove').downcase, space_post_path(post.space,post), {:method => :delete, :title => t('delete.one'), :confirm => t('delete.confirm', :element => post.title) }
       - if user_signed_in? && post.spam != true

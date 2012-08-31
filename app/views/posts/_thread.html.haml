@@ -8,7 +8,7 @@
       - if can?(:create_post, thread.space)
         %li= link_to t('reply').downcase, "#", { :"data-href" => reply_post_space_post_path(@space, thread), :name => thread.id, :title => t('comment.add'), :id => "post-reply" }
       - if can?(:update, thread)
-        %li= link_to t('edit').downcase, "#", { :"data-href" => edit_post_path(thread), :name => thread.id, :title => t('edit'), :id => "post-edit" }
+        %li= link_to t('edit').downcase, "#", { :"data-href" => edit_space_post_path(thread.space, thread), :name => thread.id, :title => t('edit'), :id => "post-edit" }
       - if can?(:destroy, thread)
         %li= link_to t('remove').downcase, space_post_path(@space,thread), {:method => :delete, :title => t('delete.one'), :confirm => t('delete.confirm', :element => thread.title) }
       - if user_signed_in? && thread.spam != true

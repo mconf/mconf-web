@@ -1,0 +1,12 @@
+- spaces_menu_at :posts
+= content_for :menu do
+  = render :partial => 'spaces/menu'
+- atom_link_header(space, Post.new, :title => h(t('post.other_in_space', :space => space.name)))
+
+= content_for :sidebar do
+  - if can?(:create_post, @space)
+    = content_for :new_post do
+      = render :partial => "new_post"
+
+= render :partial => "collapsed_threads", :locals => {:threads => @posts}
+= page_navigation_links @posts
