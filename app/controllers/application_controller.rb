@@ -31,7 +31,7 @@ class ApplicationController < ActionController::Base
     rescue_from ActionController::RoutingError, :with => :render_404
     rescue_from ActionController::UnknownController, :with => :render_404
     rescue_from ::AbstractController::ActionNotFound, :with => :render_404
-    #rescue_from ActiveController::StationForbidden, :with => :render_403
+    rescue_from CanCan::AccessDenied, :with => :render_403
   end
 
   # This method calls one from the plugin, to get the Space from params or session
@@ -148,7 +148,7 @@ class ApplicationController < ActionController::Base
 
   def render_403(exception)
     @exception = exception
-    render :template => "/errors/error_403", :status => 500, :layout => "error"
+    render :template => "/errors/error_403", :status => 403, :layout => "error"
   end
 
 end

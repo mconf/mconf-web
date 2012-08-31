@@ -2,9 +2,9 @@
 @import "compass/typography";
 @import "definitions";
 
-$logo-top: 50px;
-$logo-rot-pos1: rotate(45deg);
-$logo-rot-pos2: rotate(80deg);
+$logo-top: -50px;
+$logo-rot-pos1: rotate(-100deg);
+$logo-rot-pos2: rotate(-160deg);
 
 // so the footer is always behind the content if they overlap
 $z-index-content: 1;
@@ -25,7 +25,6 @@ $z-index-footer: 0;
   }
   100% {
     top: 5000px;
-    height: 0;
     opacity: 0;
   }
 }
@@ -85,12 +84,10 @@ html, body {
 
  .logo {
     position: absolute;
-    right: -250px;
+    right: -70px;
     top: $logo-top;
-    width: 231px;
-    height: 120px;
+    @include transform-origin(right, 90%);
     @include transform($logo-rot-pos2);
-    @include transform-origin(5%, 15%);
     @include animation-name(hang);
     @include animation-duration(1s);
     @include animation-direction(alternate);
@@ -98,14 +95,22 @@ html, body {
     @include animation-delay(0s);
     @include animation-iteration-count(infinite);
 
+    .text {
+      padding-left: 15px;
+      display: block;
+      color: $transparent;
+      @include transform(rotate(180deg));
+    }
+
     &.fall {
       opacity: 0;
-      height: 0;
       @include animation-name(fall, hang);
-      @include animation-duration(5s, .7s);
+      @include animation-duration(6s, 1s);
       @include animation-timing-function(ease-in-out, ease-in-out);
       @include animation-delay(0s, 1s);
       @include animation-iteration-count(1, infinite);
+
+      .text { color: #B94A48; }
     }
   }
 
