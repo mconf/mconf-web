@@ -19,7 +19,9 @@ Mconf-web is a web application that connects to a {BigBlueButton}[http://www.big
 
 This project is under the {AGPL version 3 license}[http://www.gnu.org/licenses/agpl-3.0.html]. See LICENSE.
 
-== Links
+== Contact
+
+This project is developed as part of Mconf (http://mconf.org).
 
 * {Mconf website}[http://www.inf.ufrgs.br/prav/gtmconf]
 * {Mconf @ Google Code}[http://code.google.com/p/mconf]

@@ -1,14 +1,20 @@
+# This file is part of Mconf-Web, a web application that provides access
+# to the Mconf webconferencing system. Copyright (C) 2010-2012 Mconf
+#
+# This file is licensed under the Affero General Public License version
+# 3 or later. See the LICENSE file.
+
 # The priority is based upon order of creation:
 # first created -> highest priority.
-
+#
 # Sample of regular route:
 #   match 'products/:id' => 'catalog#view'
 # Keep in mind you can assign values other than :controller and :action
-
+#
 # Sample of named route:
 #   match 'products/:id/purchase' => 'catalog#purchase', :as => :purchase
 # This route can be invoked with purchase_url(:id => product.id)
-
+#
 # See how all your routes lay out with "rake routes"
 
 Mconf::Application.routes.draw do
