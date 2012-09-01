@@ -1,7 +1,7 @@
 - if @space && @space.id != nil
   - member_or_superuser = (current_user && (@space.actors.include?(current_user) || current_user.superuser?))
   - if @space.public? || member_or_superuser
-    #page-menu
+    = content_for :page_menu do
       %ul
         %li= link_to t('home.one').capitalize, space_path(@space), spaces_menu_select_if(:home)
         %li= link_to t('webconference.one').capitalize, space_webconference_path(@space), spaces_menu_select_if(:webconference)

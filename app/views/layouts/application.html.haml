@@ -24,17 +24,19 @@
         #navbar
           = render :partial => 'layouts/application_navbar'
 
-      - if content_for?(:"page-header")
-        #page-header-wrapper
-          #page-header
+      #page-header-wrapper
+        #page-header
+          - if content_for?(:"page-header")
             = yield :"page-header"
-      - else
-        = render :partial => "layouts/spaces_page_title"
+          - else
+            = render :partial => "layouts/spaces_page_title"
+          - if content_for?(:page_menu)
+            #page-menu
+              = yield :page_menu
 
       #content-wrapper
         #content
           #content-middle
-            = yield :menu
             = yield
           - if content_for?(:sidebar)
             #sidebar

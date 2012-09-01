@@ -1,6 +1,6 @@
 = render_page_title t('manage')
 
-#page-menu
+= content_for :page_menu do
   %ul
     %li= link_to t('site.default').capitalize, site_path, :class => "#{'selected' if params[:controller] == 'sites'}"
     %li= link_to t('space.other').capitalize, manage_spaces_path, :class => "#{'selected' if params[:controller] == 'manage' && params[:action] == 'spaces'}"
