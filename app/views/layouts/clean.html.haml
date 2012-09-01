@@ -22,10 +22,13 @@
     #site
       #navbar-wrapper
         = yield :navbar
-      - if content_for?(:"page-header")
+      - if content_for?(:page_header)
         #page-header-wrapper
           #page-header
-            = yield :"page-header"
+            = yield :page_header
+            - if content_for?(:page_menu)
+              #page-menu
+                = yield :page_menu
       #content-wrapper
         = yield
       = render :partial => "layouts/footer_simple"

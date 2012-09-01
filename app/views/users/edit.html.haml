@@ -1,4 +1,4 @@
-= content_for :"page-header-extra" do
+= content_for :page_header_extra do
   %span= t('user.edit.did_not_find_info')
   = link_to t('user.edit.click_to_edit_profile'), edit_user_profile_path(current_user)
 = render_page_title t('user.edit_account')

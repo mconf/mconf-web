@@ -1,9 +1,9 @@
-- content_for :"navbar" do
+- content_for :navbar do
   #navbar
     #main-logo
       %a.title{:href => root_path}= image_tag 'logos/mconf-white-transp.png', :size => '231x120'
 
-- content_for :"page-header" do
+- content_for :page_header do
   = t("frontpage.headline")
 
 #content

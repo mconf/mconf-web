@@ -26,8 +26,8 @@
 
       #page-header-wrapper
         #page-header
-          - if content_for?(:"page-header")
-            = yield :"page-header"
+          - if content_for?(:page_header)
+            = yield :page_header
           - else
             = render :partial => "layouts/spaces_page_title"
           - if content_for?(:page_menu)

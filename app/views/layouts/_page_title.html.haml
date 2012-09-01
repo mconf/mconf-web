@@ -1,17 +1,17 @@
 - transparent ||= nil
 - logo ||= nil
 
-= content_for :"page-header" do
+= content_for :page_header do
   - unless logo.nil?
     .current-page-logo{ :class => transparent ? 'clean' : '' }
       = image_tag(logo, :title => page_title)
     .current-page-title
       = page_title
     .current-title-extra
-      - if content_for?(:"page-header-extra")
-        = yield :"page-header-extra"
+      - if content_for?(:page_header_extra)
+        = yield :page_header_extra
   - else
     .current-page-extra
-      - if content_for?(:"page-header-extra")
-        = yield :"page-header-extra"
+      - if content_for?(:page_header_extra)
+        = yield :page_header_extra
     %h1= page_title
