@@ -11,7 +11,7 @@ class ManageController < ApplicationController
   def users
     @users = User.find_with_disabled(:all,:order => "username")
                  .paginate(:page => params[:page], :per_page => 20)
-    @site_roles = Site.roles
+    render :layout => 'no_sidebar'
   end
 
   def spaces
@@ -19,8 +19,9 @@ class ManageController < ApplicationController
   end
 
   def spam
-    @spam_events= Event.find(:all, :conditions => {:spam => true})
-    @spam_posts = Post.find(:all, :conditions => {:spam => true})
+    @spam_events = Event.where(:spam => true).all
+    @spam_posts = Post.where(:spam => true).all
+    render :layout => 'no_sidebar'
   end
 
 end

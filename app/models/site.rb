@@ -33,14 +33,8 @@ class Site < ActiveRecord::Base
     "#{protocol}://#{domain}"
   end
 
-  #-#-# from station
-  acts_as_logoable
-
-  # Nice format email address for the Site
+  # Nice formatted email address for the Site
   def email_with_name
-    "#{ name } <#{ email }>"
+    "#{name} <#{email}>"
   end
-
-  #-#-#
-
 end

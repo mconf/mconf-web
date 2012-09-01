@@ -150,8 +150,6 @@ Mconf::Application.routes.draw do
 
   # resources :roles # TODO: permissions
 
-  resource :site
-
   resource :home do
     member do
       get :user_rooms
@@ -171,6 +169,9 @@ Mconf::Application.routes.draw do
       get :webconf
     end
   end
+
+  # The unique Site is created in db/seeds and can only be edited
+  resource :site, :only => [:show, :edit, :update]
 
   match '/manage/users', :to => 'manage#users', :as => 'manage_users'
   match '/manage/spaces', :to => 'manage#spaces', :as => 'manage_spaces'

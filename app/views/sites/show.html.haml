@@ -1,30 +1,26 @@
 = render :partial => 'manage/menu'
 
 #manage
-  = error_messages_for :current_site
-
-= simple_form_for :current_site, :html => { :class => 'single-column' } do |f|
-  .left-column
-    = f.input :name, :label => t('site.name'), :required => false, :disabled => true
-    = f.input :description, :label => t('site.description'), :required => false, :as => :text, :input_html => { :rows => 5 }, :disabled => true
-    = f.input :domain, :label => t('site.domain'), :required => false, :disabled => true
-    = f.input :email, :label => t('site.email'), :required => false, :disabled => true
-    = f.input :email_password, :label => t('site.email_password'), :required => false, :disabled => true
-    /<%= check_box_tag 'site_email_password_show' %><%= t('show_question') %>
-    = f.input :locale, :label => t('site.locale'), :required => false, :collection => I18n.available_locales, :disabled => true
-    = f.input :signature, :label => t('site.signature'), :required => false, :as => :text, :input_html => { :rows => 5 }, :disabled => true
-    = f.input :ssl, :label => t('site.ssl'), :required => false, :as => :boolean, :disabled => true
-    = link_to t('button.edit'), edit_site_path, :class => "btn"
-
-  .right-column
-    = f.input :feedback_url, :label => t('site.feedback_url'), :required => false, :default_url => webconf_feedback_index_path, :disabled => true
-    = f.input :analytics_code, :label => t('site.analytics_code'), :required => false, :disabled => true
-    = f.input :exception_notifications, :label => t('site.exception_notifications'), :required => false, :as => :boolean, :disabled => true
-    = f.input :exception_notifications_email, :label => t('site.exception_notifications_email'), :required => false, :disabled => true
-    = f.input :exception_notifications_prefix, :label => t('site.exception_notifications_prefix'), :required => false, :disabled => true
-    = f.input :shib_enabled, :label => t('site.shib_enabled'), :required => false, :as => :boolean, :disabled => true
-    = f.input :shib_email_field, :label => t('site.shib_email_field'), :required => false, :disabled => true
-    = f.input :shib_name_field, :label => t('site.shib_name_field'), :required => false, :disabled => true
-    = f.input :chat_enabled, :label => t('site.chat_enabled'), :required => false, :as => :boolean, :disabled => true
-    = f.input :presence_domain, :label => t('site.chat_domain_field'), :required => false, :disabled => true
-    = f.input :xmpp_server, :label => t('site.chat_server_field'), :required => false, :disabled => true
+  = simple_form_for :current_site, :html => { :class => 'single-column' } do |f|
+    .left-column
+      = f.input :name, :label => t('site.name'), :required => false, :disabled => true
+      = f.input :description, :label => t('site.description'), :required => false, :as => :text, :input_html => { :rows => 5 }, :disabled => true
+      = f.input :domain, :label => t('site.domain'), :required => false, :disabled => true
+      = f.input :email, :label => t('site.email'), :required => false, :disabled => true
+      = f.input :email_password, :label => t('site.email_password'), :required => false, :disabled => true
+      = f.input :locale, :label => t('site.locale'), :required => false, :collection => I18n.available_locales, :disabled => true
+      = f.input :signature, :label => t('site.signature'), :required => false, :as => :text, :input_html => { :rows => 5 }, :disabled => true
+      = f.input :ssl, :label => t('site.ssl'), :required => false, :as => :boolean, :disabled => true
+      = link_to t('button.edit'), edit_site_path, :class => "btn"
+    .right-column
+      = f.input :feedback_url, :label => t('site.feedback_url'), :required => false, :default_url => webconf_feedback_index_path, :disabled => true
+      = f.input :analytics_code, :label => t('site.analytics_code'), :required => false, :disabled => true
+      = f.input :exception_notifications, :label => t('site.exception_notifications'), :required => false, :as => :boolean, :disabled => true
+      = f.input :exception_notifications_email, :label => t('site.exception_notifications_email'), :required => false, :disabled => true
+      = f.input :exception_notifications_prefix, :label => t('site.exception_notifications_prefix'), :required => false, :disabled => true
+      = f.input :shib_enabled, :label => t('site.shib_enabled'), :required => false, :as => :boolean, :disabled => true
+      = f.input :shib_email_field, :label => t('site.shib_email_field'), :required => false, :disabled => true
+      = f.input :shib_name_field, :label => t('site.shib_name_field'), :required => false, :disabled => true
+      = f.input :chat_enabled, :label => t('site.chat_enabled'), :required => false, :as => :boolean, :disabled => true
+      = f.input :presence_domain, :label => t('site.chat_domain_field'), :required => false, :disabled => true
+      = f.input :xmpp_server, :label => t('site.chat_server_field'), :required => false, :disabled => true

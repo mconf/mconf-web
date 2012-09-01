@@ -19,5 +19,6 @@
     - else
       = render :partial => 'enabled_space', :locals => {:space => space}
 
-.content-block-footer
-  = page_navigation_links @spaces
+- nav = page_navigation_links @spaces
+- unless nav.nil?
+  .content-block-footer= nav

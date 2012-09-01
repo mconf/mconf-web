@@ -8,5 +8,6 @@
       - else
         = render :partial => 'enabled_user', :locals => { :user => user }
 
-.content-block-footer
-  = page_navigation_links @users
+- nav = page_navigation_links @users
+- unless nav.nil?
+  .content-block-footer= nav
