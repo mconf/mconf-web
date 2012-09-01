@@ -455,6 +455,8 @@ pt-br:
     spam: "Spam em eventos"
     start: "Reinicie o evento"
     started: "pedido Iniciar enviar com êxito"
+    statistics:
+      views: "visualizações"
     stats:
       map: "Ver mapa"
       message1: "Esta página mostra as estatísticas das conexões Web para o evento."
@@ -1081,6 +1083,8 @@ pt-br:
     select: Comunidades
     show: "Mostrar comunidades:"
     show_all: "Mostrar todas as comunidades"
+    statistics:
+      views: "visualizações"
     subscribed_to_none: "Você não está inscrito em nenhuma comunidade"
     update_logo: "Atualizar logo"
     updated: "Comunidade atualizada com sucesso"
@@ -1099,9 +1103,18 @@ pt-br:
     rnp: "Rede Nacional de<br/>Ensino e Pesquisa"
   stage_type: "Tipo de Estágio"
   statistics:
-    event_views: visualizações
-    space_views: visualizações
-    views: visualizações
+    show:
+      description: "Esta página mostra algumas estatísticas atuais deste site. As estatísticas são em tempo real e refletem o estado do site neste exato momento."
+      table:
+        events: "Eventos"
+        how_many: "Quantos?"
+        posts: "Mensagens publicadas"
+        private_messages: "Mensagens privadas trocadas"
+        spaces: "Comunidades"
+        users: "Usuários"
+        webconf_rooms: "Salas de webconferência disponíveis"
+        what: "O quê?"
+      title: "Estatísticas do site"
   street: Rua
   subject: "Assunto:"
   summary: "Informações do vídeo"

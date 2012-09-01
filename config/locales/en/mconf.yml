@@ -464,6 +464,8 @@ en:
     spam: "Spam in events"
     start: "Restart event"
     started: "Start request send successfully"
+    statistics:
+      views: "views"
     stats: 
       message1: "This page show the stats of the web connections to the event."
       title1: "Statistics of the event \"%{event}\""
@@ -1129,6 +1131,8 @@ en:
     select: Spaces
     show: "Show spaces:"
     show_all: "Show all spaces"
+    statistics:
+      views: "views"
     subscribed_to_none: "You are not subscribed to any space"
     update_logo: "Update logo"
     updated: "Space updated successfully"
@@ -1150,9 +1154,18 @@ en:
     one: Stage
   stage_type: "Stage type"
   statistics: 
-    event_views: views
-    space_views: views
-    views: Views
+    show:
+      description: "This page shows a few statistics of this website. These statistics are in real-time and reflect the state of the website in this exact instant."
+      table:
+        events: "Events"
+        how_many: "How many?"
+        posts: "Messages posted"
+        private_messages: "Private messages exchanged"
+        spaces: "Spaces"
+        users: "Users"
+        webconf_rooms: "Available webconference rooms"
+        what: "What?"
+      title: "Site statistics"
   street: Street
   subject: "Subject:"
   summary: "Video Info"

@@ -56,7 +56,7 @@
 
     = render_sidebar_content_block('sidebar-pageviews') do
       %span.value= @space.unique_pageviews
-      %span= t('statistics.space_views')
+      %span= t('space.statistics.views')
       = help_icon t("tooltip.num_views"), :class => 'leftwards'
 
     - if user_signed_in? && @space.users.include?(current_user) && !(@space.is_last_admin?(current_user))

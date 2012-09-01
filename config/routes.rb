@@ -188,6 +188,9 @@ Mconf::Application.routes.draw do
   match 'help', :to => 'faq#show', :as => 'help'
   match 'faq', :to => 'faq#show', :as => 'faq'
 
+  # Statistics
+  match '/statistics', :to => 'statistics#show', :as => 'show_statistics'
+
   match '/reset_password/:reset_password_code', :to => 'users#reset_password', :as => 'reset_password'
 
   match 'get_file/:id', :to => 'machines#get_file', :as => 'get_file'
