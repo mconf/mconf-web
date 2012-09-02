@@ -68,7 +68,7 @@ group :development do
 end
 
 group :development, :test do
-  gem 'rspec-rails', '~> 2.8'
+  gem 'rspec-rails'
   gem 'populator'
   gem 'ffaker'
   gem 'factory_girl_rails'
@@ -78,12 +78,12 @@ group :development, :test do
   gem 'fuubar'
   gem 'shoulda-matchers'
   gem 'htmlentities'
-  gem 'turn', '0.8.2', :require => false
-  gem 'rcov'
+  gem 'turn', '0.8.2', :require => false # TODO: why 0.8.2?
+  gem 'simplecov'
 end
 
 gem 'god', '0.12.1'
-gem 'passenger', '3.0.11'
+gem 'passenger', '3.0.17'
 gem 'exception_notification'
 
 # Rails 3.1 - Heroku
