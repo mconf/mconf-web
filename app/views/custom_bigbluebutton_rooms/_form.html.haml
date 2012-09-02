@@ -3,32 +3,19 @@
 - else
   - url = bigbluebutton_room_path(@room)
 
-= simple_form_for @room, :url => url, :html => { :class => 'single-column' } do |f|
-  - if @room.errors.any?
-    #error_explanation
-      %h2
-        = pluralize(@room.errors.count, "error")
-        = t('rooms.form.msg1')
-      %ul
-        - @room.errors.full_messages.each do |msg|
-          %li
-            = msg
-
-  .left-column
-    = f.input :name, :required => false
-    = f.input :meetingid, :required => false
-    = f.input :server_id, :required => false
-    = f.input :randomize_meetingid, :required => false, :as => :boolean
-    = f.input :private, :required => false, :as => :boolean
-    = f.input :attendee_password, :required => false
-    = f.input :moderator_password, :required => false
-    = f.button :submit, t('button.confirm'), :class => 'btn'
-
-  .right-column
-    = f.input :welcome_msg, :required => false
-    = f.input :logout_url, :required => false
-    = f.input :dial_number, :required => false
-    = f.input :voice_bridge, :required => false
-    = f.input :max_participants, :required => false
-    = f.input :external, :required => false, :as => :boolean
-    = f.input :param, :required => false
+= simple_form_for @room, :url => url, :html => { :class => 'form-inline' } do |f|
+  = f.input :name, :required => false
+  = f.input :meetingid, :required => false
+  = f.input :server_id, :required => false
+  = f.input :randomize_meetingid, :required => false, :as => :boolean
+  = f.input :private, :required => false, :as => :boolean
+  = f.input :attendee_password, :required => false
+  = f.input :moderator_password, :required => false
+  = f.input :welcome_msg, :required => false
+  = f.input :logout_url, :required => false
+  = f.input :dial_number, :required => false
+  = f.input :voice_bridge, :required => false
+  = f.input :max_participants, :required => false
+  = f.input :external, :required => false, :as => :boolean
+  = f.input :param, :required => false
+  = f.button :submit, t('button.confirm'), :class => 'btn'

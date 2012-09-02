@@ -47,6 +47,10 @@
       display: block;
       text-align: right;
     }
+
+    input.string, input.password, textarea.text, select {
+      width: 97%
+    }
   }
 
   .input-prepend .add-on, .input-prepend .btn {

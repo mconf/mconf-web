@@ -16,7 +16,8 @@
     margin-top: 7px;
   }
 
-  input[type=text], input[type=password], input[type=email] {
+  input[type=text], input[type=password],
+  input[type=email], input[type=url] {
     width: 60%;
     clear: both;
   }

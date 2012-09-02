@@ -1,0 +1,25 @@
+.webconf-room
+  = simple_form_for room, :html => { :class => 'form-inline' } do |f|
+    = f.input :name, :required => false, :disabled => true
+    = f.input :meetingid, :required => false, :disabled => true
+    = f.input :server_id, :required => false, :disabled => true
+    = f.input :randomize_meetingid, :required => false, :as => :boolean, :disabled => true
+    = f.input :private, :required => false, :as => :boolean, :disabled => true
+    = f.input :attendee_password, :required => false, :disabled => true
+    = f.input :moderator_password, :required => false, :disabled => true
+    = f.input :welcome_msg, :required => false, :disabled => true
+    = f.input :logout_url, :required => false, :disabled => true
+    = f.input :dial_number, :required => false, :disabled => true
+    = f.input :voice_bridge, :required => false, :disabled => true
+    = f.input :max_participants, :required => false, :disabled => true
+    = f.input :external, :required => false, :as => :boolean, :disabled => true
+    = f.input :param, :required => false, :disabled => true
+
+  .room-links
+    %label= t('bigbluebutton_rails.servers.index.access_links')
+    = link_to t('join'), join_bigbluebutton_room_path(room)
+    = link_to t('bigbluebutton_rails.rooms.join_mobile'), join_mobile_bigbluebutton_room_path(room)
+    = link_to t('bigbluebutton_rails.rooms.invite'), invite_bigbluebutton_room_path(room)
+    = link_to t('edit'), edit_bigbluebutton_room_path(room)
+    = link_to t('end'), end_bigbluebutton_room_path(room), :confirm => t('are_you_sure')
+    = link_to t('destroy'), bigbluebutton_room_path(room), :confirm => t('are_you_sure'), :method => :delete

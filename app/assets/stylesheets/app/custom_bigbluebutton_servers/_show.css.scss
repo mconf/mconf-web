@@ -1,0 +1,23 @@
+@import "definitions";
+@import "compass/css3";
+
+body.custom_bigbluebutton_servers {
+
+  .webconf-server {
+    @include mconf-clearfix;
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid darken($light-gray, 5);
+
+    .server-links {
+      float: right;
+      width: 17%;
+      a { display: block; }
+    }
+
+    form {
+      width: 80%;
+    }
+  }
+
+}

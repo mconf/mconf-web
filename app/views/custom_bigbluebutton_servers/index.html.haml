@@ -1,22 +1,9 @@
 = render :partial => 'manage/menu'
+= content_for :sidebar do
+  = link_to t('bigbluebutton_rails.view_room_list'), bigbluebutton_rooms_path, :class => 'btn btn-block'
+  = link_to t('bigbluebutton_rails.new_server'), new_bigbluebutton_server_path, :class => 'btn btn-block'
+  = link_to t('bigbluebutton_rails.new_room'), new_bigbluebutton_room_path, :class => 'btn btn-block'
 
 #manage
-  #bbbrails_servers_links
-    = link_to t('bigbluebutton_rails.view_room_list'), bigbluebutton_rooms_path, :class => 'btn'
-    = link_to t('bigbluebutton_rails.new_server'), new_bigbluebutton_server_path, :class => 'btn'
-    = link_to t('bigbluebutton_rails.new_room'), new_bigbluebutton_room_path, :class => 'btn'
-
   - @servers.each do |server|
-    .bbbrails_server
-      = simple_form_for server, :html => { :class => 'single-column' } do |f|
-        = f.input :name, :required => false, :disabled => true
-        = f.input :url, :required => false, :disabled => true
-        = f.input :salt, :required => false, :disabled => true
-        = f.input :version, :required => false, :disabled => true
-        = f.input :param, :required => false, :disabled => true
-
-        = f.label t('bigbluebutton_rails.servers.index.access_links')
-        = link_to t('bigbluebutton_rails.view_rooms'), rooms_bigbluebutton_server_path(server), :class => 'btn'
-        = link_to t('bigbluebutton_rails.activity_monitor'), activity_bigbluebutton_server_path(server), :class => 'btn'
-        = link_to t('destroy'), bigbluebutton_server_path(server), :confirm => t('are_you_sure'), :method => :delete, :class => 'btn'
-        = link_to t('edit'), edit_bigbluebutton_server_path(server), :class => 'btn'
+    = render 'custom_bigbluebutton_servers/show', :server => server

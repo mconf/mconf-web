@@ -8,6 +8,7 @@ body.users.edit, body.users.update {
   .left-column {
     float: left;
     width: $column-width;
+    padding-left: 2px; // so inputs' box-shadow aren't cut
   }
 
   .right-column {
