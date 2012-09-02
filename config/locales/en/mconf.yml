@@ -435,7 +435,7 @@ en:
     notification_message: "<p>%{name},</p><p>Regarding the <b>event %{event_name} in space %{space}</b> on %{event_date}.</p><p>You can find more information about this event in <a href=\"%{event_url}\">%{event_url}</a></p><p>Kind regards,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>"
     notification_successfully: "Notification sent to all successfully."
     notification_title: "%{username} has sent a notification to you about event %{eventname} in space %{space}"
-    now: "Events at this moment: "
+    now: "Events hapenning now"
     one: Event
     online: WebConference
     other: Events

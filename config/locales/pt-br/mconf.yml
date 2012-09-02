@@ -426,7 +426,7 @@ pt-br:
     notification_message: "<p> %{name}, </p><p> Quanto o <b> %{event_name} na comunidade %{space}</b> em %{event_date}. </p><p> Você pode encontrar mais informações sobre este evento em <a href=\"%{event_url}\">%{event_url}</a> </p><p> Atenciosamente,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>"
     notification_successfully: "Notificação enviada a todos com sucesso."
     notification_title: "%{username} enviou uma notificação para informá-lo sobre o evento %{eventname} na comunidade %{space}"
-    now: "Eventos neste momento:"
+    now: "Eventos acontecendo agora"
     one: Evento
     online: Webconferência
     other: Eventos

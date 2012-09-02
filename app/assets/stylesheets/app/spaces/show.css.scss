@@ -1,4 +1,4 @@
-@import "compass/typography/links";
+@import "compass/css3";
 @import "definitions";
 
 @import "app/spaces/sidebar";
@@ -32,6 +32,35 @@ body.spaces.show {
     .updated-at {
       font-size: $font-normal;
       font-weight: normal;
+    }
+  }
+
+  #current-events {
+    background: $alert-bg;
+    padding: 15px;
+    border: 1px solid darken($alert-bg, 15);
+    @include border-radius(4px);
+    @include box-shadow(2px 3px 3px rgba(0, 0, 0, 0.1));
+    margin-right: 3px;
+
+    .current-event {
+      margin-top: 10px;
+      @include mconf-clearfix;
+      clear: both;
+
+      .event-title {
+        float: left;
+        font-size: $font-medium;
+        font-weight: bold;
+        img { margin-right: 5px; }
+      }
+
+      .event-date {
+        float: left;
+        margin: 2px 0 0 10px;
+        color: #777;
+        font-style: italic;
+      }
     }
   }
 

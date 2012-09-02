@@ -1,21 +1,21 @@
 - spaces_menu_at :home
 = render :partial => 'spaces/menu'
 
-// TODO: This block below should be tested
 - unless @current_events.empty?
-  .content-block
-    %ul
-      %li
-        %h3= link_to t('event.now'), space_events_path(@space)
+  #current-events.content-block
+    .content-block-header
+      %h3= t('event.now')
+    .content-block-middle
       - for event in @current_events do
-        %li.margin-up
-          %h3
-            = image_tag("icons/date.png",:class=>"icon")
-            = link_to(event.name,space_event_path(@space,event),:class=>"unified_event")
-        %li
-          %span.small-font.main_text
+        .current-event
+          .event-title
+            = image_tag("icons/date.png")
+            = link_to(event.name, space_event_path(@space,event))
+          .event-date
             = event.start_date.to_formatted_s(:short)
-            \- #{event.end_date.to_formatted_s(:short)} (#{t('GMT')} #{Time.zone.formatted_offset} )
+            = "-"
+            = event.end_date.to_formatted_s(:short)
+            = "(#{t('GMT')} #{Time.zone.formatted_offset})"
 
 .content-block
   .content-block-header

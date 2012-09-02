@@ -665,11 +665,6 @@ ul#navbar-right-links {
     @include mconf-clearfix;
     text-align: center;
     padding: 10px;
-
-    a, span {
-      //float: right;
-      width: $sidebar-width - 50px;
-    }
   }
 
   .toolbar {
