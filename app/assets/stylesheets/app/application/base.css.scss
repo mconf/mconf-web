@@ -267,7 +267,7 @@ form {
   padding: 0;
   color: #666;
   a {
-    @include link-colors($site-link, $site-link-hover, $site-link-active);
+    @include link-colors($link-color, $link-color-hover, $link-color-active);
     text-decoration: none;
   }
 
@@ -353,7 +353,7 @@ form {
   float: left;
   margin-right: 35px;
 
-  a { @include link-colors(#bbb, $site-link-hover, $site-link-active); }
+  a { @include link-colors(#bbb, $link-color-hover, $link-color-active); }
 
   .title {
     font-weight: bold;
@@ -374,7 +374,7 @@ form {
   margin: 0 auto;
   color: #999;
   font-size: $font-small;
-  a { @include link-colors(desaturate($site-link, 10), $site-link-hover, $site-link-active); }
+  a { @include link-colors(desaturate($link-color, 10), $link-color-hover, $link-color-active); }
 
   .current-version { float: left; }
   .version-info { float: right; }
@@ -466,7 +466,7 @@ ul#navbar-right-links {
       &.arrow-right:after { border-bottom-color: white; }
 
       a {
-        @include link-colors($site-link, $site-link-hover, $site-link-active);
+        @include link-colors($link-color, $link-color-hover, $link-color-active);
         padding: 0;
         &:hover {
           @include text-shadow(none);
@@ -586,8 +586,9 @@ ul#navbar-right-links {
     font-size: $font-section-title;
     font-weight: bold;
     @include text-shadow(darken($site-bg-color, 10) 1px 1px 10px);
+    color: $page-title-color;
 
-    a { @include link-colors($section-title-color, $site-link-hover, $site-link-active); }
+    a { @include link-colors($page-title-color, $link-color-hover, $link-color-active); }
 
     .small-title {
       font-size: $font-section-title - 10px;
@@ -763,7 +764,7 @@ ul#navbar-right-links {
       a {
         display: inline-block;
         margin-bottom: 0px;
-        @include link-colors(#808080, $site-link-hover, $site-link-active);
+        @include link-colors(#808080, $link-color-hover, $link-color-active);
         padding: 5px 10px;
         font-weight: bold;
         font-size: $font-medium;
@@ -905,7 +906,7 @@ ul#navbar-right-links {
  *
  *     a {
  *       display: inline-block;
- *       @include link-colors(#808080, $site-link-hover, $site-link-active);
+ *       @include link-colors(#808080, $link-color-hover, $link-color-active);
  *       padding: 5px 10px;
  *       font-weight: bold;
  *       font-size: 14px;

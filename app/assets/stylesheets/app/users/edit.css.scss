@@ -41,7 +41,7 @@ body.users.edit, body.users.update {
   #user-federated-info {
     margin-bottom: 15px;
     padding: 10px;
-    background: $light-blue2;
+    background: $alert-info-bg;
     @include border-radius(5px);
 
     span.title {

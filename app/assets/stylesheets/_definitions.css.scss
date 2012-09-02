@@ -10,17 +10,14 @@ $font-section-title: 32px;
 $font-color: #333;
 
 // standard colors
-$green: #508817; // #007a5a;
-$blue: #005fca; //#2F70B1;
+$green: #508817;
+$blue: #005fca;
 $red: #C23321;
-$orange: #C47322;//#AE661E;
+$orange: #C47322;
 $yellow: #BB9403;
-$green-water: #1f7385;
-$green-logo: #27535C;//#0a3138;
+$green-logo: #27535C;
 $gray: #ccc;
 $light-gray: #f6f6f6;
-$light-blue: rgba(36, 145, 231, 0.6);
-$light-blue2: #f0f6f9;
 $bright-blue: #49afcd;
 $transparent: rgba(255,255,255,0);
 
@@ -34,22 +31,22 @@ $alert-info-font: #3A87AD;
 $alert-danger-bg: #F2DEDE;
 $alert-danger-font: #B94A48;
 
+$site-bg-color: #fff;
 $main-color: $green-logo;
-$second-color: #49AFCD; //$orange; //#a44238;//$orange; //#273d5c;
+$second-color: $bright-blue;
 
 // width of the central container and standard sidebar
 $contents-width: 980px;
 $sidebar-width: 240px;
 
-// site-wide definitions
-$site-bg-color: #fff;
-$site-link: lighten($main-color, 10); //$main-color; // #2A639D //#1F4A75
-$site-link-hover: $second-color; // darken($main-color, 10);
-$site-link-active: darken($site-link-hover, 15);
+// links
+$link-color: lighten($main-color, 10);
+$link-color-hover: $second-color;
+$link-color-active: darken($link-color-hover, 15);
 
 // headers
-$navbar-bg-color: darken($green-logo, 10); //#222; //#1F4A75;
-$subnav-bg-color: #eee; //#EDEBE1;
+$navbar-bg-color: darken($green-logo, 10);
+$subnav-bg-color: #eee;
 
 // global footer
 $upper-footer-bg-color: $light-gray;
@@ -57,14 +54,16 @@ $lower-footer-bg-color: #fff;
 
 // h1, h2, h3, ...
 $h-font-color: #404040;
-$h-font-color-alternative: $green-logo;//#244974;
+$h-font-color-alternative: $green-logo;
+
 // titles in the page headers
-$section-title-color: #505050;
+$page-title-color: #505050;
 
 // z-indexes
+// TODO: not being used yet
 $z-index-navbar: 100;
-$z-index-dialog: 200;     // TODO: not being used yet
-$z-index-tooltip: 999999; // TODO: not being used yet
+$z-index-dialog: 200;
+$z-index-tooltip: 999999;
 
 // user logos in a thread with several snippets
 // e.g. list of posts, list of recent users, etc.
