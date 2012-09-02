@@ -6,9 +6,10 @@
 
 FactoryGirl.define do
   factory :news do |p|
-    p.sequence(:title) { |n| "News #{ n }" }
-    p.sequence(:text) { |n| "Text #{ n }" }
+    p.sequence(:title) { |n| Forgery::Basic.unique_text(n) }
+    p.text { Forgery::Basic.text }
     p.created_at { Time.now }
     p.updated_at { Time.now }
+    p.association :space, :factory => :space
   end
 end

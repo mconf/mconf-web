@@ -36,7 +36,7 @@ GIT
 
 GIT
   remote: git://github.com/mconf/station.git
-  revision: f938ca8911b6ec67df1e7631ffc23d62874598be
+  revision: ec89200a5cb1be7dbe0d7e07a89f83a3e5002d14
   branch: no-authorization
   specs:
     station (0.0.1)
@@ -169,6 +169,7 @@ GEM
       hpricot (>= 0.6)
       simple-rss (>= 1.1)
     ffaker (1.15.0)
+    forgery (0.5.0)
     friendly_id (4.0.8)
     fssm (0.2.9)
     fuubar (1.0.0)
@@ -346,6 +347,7 @@ DEPENDENCIES
   fckeditor
   feed-normalizer
   ffaker
+  forgery
   friendly_id
   fuubar
   galetahub-simple_captcha

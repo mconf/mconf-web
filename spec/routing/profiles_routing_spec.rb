@@ -7,30 +7,23 @@
 require "spec_helper"
 
 describe ProfilesController do
+  include Shoulda::Matchers::ActionController
+
   describe "routing" do
+    it { should route(:get, "/users/u1/profile").to(:action => :show, :user_id => "u1") }
 
-    #it "do not recognizes #new" do # TODO this route is not necessary but station adds it
-    #  { :get => '/profiles/new' }.should_not be_routable
-    #end
+    # make sure some routes don't exist
+    it { { :get => '/users/u1/profile/new' }.should_not be_routable }
+    it { { :post => '/users/u1/profile' }.should_not be_routable }
+    it { { :get => '/spaces/s1/users/u1/profile/new' }.should_not be_routable }
+    it { { :post => '/spaces/s1/users/u1/profile' }.should_not be_routable }
 
-    it "do not recognizes #new for users" do
-      { :get => '/users/user-1/profile/new' }.should_not be_routable
-    end
-
-    it "do not recognizes #new for spaces/users" do
-      { :get => '/spaces/space-1/users/user-1/profile/new' }.should_not be_routable
-    end
-
-    #it "do not recognizes #create" do # TODO this route is not necessary but station adds it
-    #  { :post => '/profiles' }.should_not be_routable
-    #end
-
-    it "do not recognizes #create for users" do
-      { :post => '/users/user-1/profile' }.should_not be_routable
-    end
-
-    it "do not recognizes #create for spaces/users" do
-      { :post => '/spaces/space-1/users/user-1/profile' }.should_not be_routable
-    end
+    # TODO: these routes are added by station but are not necessary
+    it {
+      pending("useless route added by station")
+      { :get => '/profiles/new' }.should_not be_routable }
+    it {
+      pending("useless route added by station")
+      { :post => '/profiles' }.should_not be_routable }
   end
 end

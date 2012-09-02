@@ -19,9 +19,11 @@
 
 Mconf::Application.routes.draw do
 
+  # devise
   controllers = { :sessions => "sessions", :registrations => "registrations" }
   paths = { :sign_in => "login", :sign_out => "logout", :sign_up => "signup" }
-  devise_for :users, :path_names => paths, :controllers => controllers do
+  devise_for :users, :path_names => paths, :controllers => controllers
+  devise_scope :user do
     get "login", :to => "sessions#new"
     get "logout", :to => "sessions#destroy"
     get "register", :to => "registrations#new"

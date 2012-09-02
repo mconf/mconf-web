@@ -71,6 +71,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'populator'
   gem 'ffaker'
+  gem 'forgery'
   gem 'factory_girl_rails'
   gem 'sqlite3'
   gem 'webrat'

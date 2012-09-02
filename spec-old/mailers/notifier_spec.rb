@@ -6,6 +6,7 @@
 
 require "spec_helper"
 
+# TODO: extremely verbose, it should be simplified
 describe Notifier do
 
   before(:each) do

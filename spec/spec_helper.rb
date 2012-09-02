@@ -29,7 +29,7 @@ RSpec.configure do |config|
   config.mock_with :rspec
 
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
-  config.fixture_path = "#{::Rails.root}/spec/fixtures"
+  # config.fixture_path = "#{::Rails.root}/spec/fixtures"
 
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
@@ -43,4 +43,7 @@ RSpec.configure do |config|
   # TODO: how to filter migration specs here but override it in command line
   config.filter_run_excluding :migration => true
   config.run_all_when_everything_filtered = true
+
+  config.include Devise::TestHelpers, :type => :controller
+  #config.extend ControllerMacros, :type => :controller
 end

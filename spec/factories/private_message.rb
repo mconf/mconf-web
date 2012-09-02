@@ -6,10 +6,12 @@
 
 FactoryGirl.define do
   factory :private_message do |m|
-    m.sequence(:title) { |n| "Message #{n}" }
-    m.sequence(:body) { |n| "Message body #{n}" }
-    m.checked { false }
-    m.deleted_by_sender { false }
-    m.deleted_by_receiver { false }
+    m.sequence(:title) { |n| Forgery::Basic.unique_text(n) }
+    m.body { Forgery::Basic.text }
+    m.checked false
+    m.deleted_by_sender false
+    m.deleted_by_receiver false
+    m.association :sender, :factory => :user
+    m.association :receiver, :factory => :user
   end
 end

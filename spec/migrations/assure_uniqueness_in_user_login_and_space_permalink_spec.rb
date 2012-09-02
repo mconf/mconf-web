@@ -82,9 +82,3 @@ def check_unique_attribute(model)
 
   spaces.empty? && users.empty?
 end
-
-
-
-
-
-

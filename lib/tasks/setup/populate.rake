@@ -1,5 +1,6 @@
 require 'devise/encryptors/station_encryptor'
 
+# TODO: replace Faker by Forgery
 namespace :setup do
 
   desc "Populate the DB with random test data. Options: SINCE, CLEAR"

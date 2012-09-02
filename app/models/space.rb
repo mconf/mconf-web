@@ -219,9 +219,12 @@ class Space < ActiveRecord::Base
   end
 
   # Add a `user` to this space with the role `role_name` (e.g. 'User', 'Admin').
-  def add_member!(user, role_name)
-    role = Role.find_by_name_and_stage_type('Admin', 'Space')
-    Permission.create! :user => user, :subject => self, :role => role
+  def add_member!(user, role_name='User')
+    p = Permission.new
+    p.user = user
+    p.subject = self
+    p.role = Role.find_by_name_and_stage_type(role_name, 'Space')
+    p.save!
   end
 
   private

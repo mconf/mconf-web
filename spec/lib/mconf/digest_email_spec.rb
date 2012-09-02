@@ -74,8 +74,7 @@ describe Mconf::DigestEmail do
       @posts, @news, @attachments, @events, @inbox = subject.get_activity(user, date_start, date_end)
     }
     before do
-      # add the user to the space
-      FactoryGirl.create(:admin_performance, :agent => user, :stage => space)
+      space.add_member!(user)
       # create some extra data that should not be returned
       other_space = FactoryGirl.create(:space)
       FactoryGirl.create(:event, :space => other_space)
@@ -190,8 +189,7 @@ describe Mconf::DigestEmail do
       let(:space) { FactoryGirl.create(:space) }
 
       before do
-        # add the user to the space
-        FactoryGirl.create(:admin_performance, :agent => user, :stage => space)
+        space.add_member!(user)
         # create the data to be returned
         @posts = [ FactoryGirl.create(:post, :space => space, :updated_at => date_start) ]
         @news = [ FactoryGirl.create(:news, :space => space, :updated_at => date_start) ]
