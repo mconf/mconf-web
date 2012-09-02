@@ -10,7 +10,7 @@
     -# - else
     -#   - join_link = invite_space_room_path(space, @webconf_room)
     -# .join-links
-    -#   = link_to t('button.join_webconference'), join_link, :class => 'webconf-start-link btn btn-info'
+    -#   = link_to t('button.join_webconference'), join_link, :class => 'webconf-start-link btn btn-primary'
     -#   = link_to t('button.join_webconference_mobile'), join_mobile_space_room_path(space, @webconf_room), :class => 'webconf-join-mobile-link btn'
     .description-text
       - status = @webconf_room.is_running? ? t('webconference.running') : t('webconference.not_running')

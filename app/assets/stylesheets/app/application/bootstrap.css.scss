@@ -21,3 +21,28 @@
     clear: both;
   }
 }
+
+input, select {
+  font-size: $font-normal+1px !important;
+  line-height: $font-normal+6px !important;
+}
+
+.btn {
+  font-size: $font-normal+1px !important;
+
+  &.btn-large {
+    font-size: $font-big !important;
+  }
+  &.btn-mini, &.btn-small {
+    font-size: $font-small !important;
+  }
+}
+
+label {
+  font-size: $font-normal !important;
+  line-height: $font-normal+4px !important;
+}
+
+input[type="radio"], input[type="checkbox"] {
+  margin: 0;
+}

@@ -21,7 +21,7 @@
 #space-filter-wrapper
   .action-button
     - if user_signed_in?
-      = link_to t('space.create_own'), new_space_path, :class => "btn btn-info"
+      = link_to t('space.create_own'), new_space_path, :class => "btn btn-primary"
     - else
       = t('getting_started')
       = link_to t('register.one'), register_path, :class => "btn btn-primary"

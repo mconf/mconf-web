@@ -2,7 +2,6 @@
 @import "definitions";
 
 .simple_form {
-
   .input {
     margin-top: 5px;
     margin-bottom: 10px;
@@ -20,8 +19,6 @@
       margin: 0;
       color: red;
     }
-
-    input, select { font-size: $font-normal + 1px; }
 
     .hint {
       font-size: $font-small;

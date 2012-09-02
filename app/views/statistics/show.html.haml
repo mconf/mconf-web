@@ -5,30 +5,31 @@
   .about.alert.alert-info.span4
     = t('statistics.show.description')
 
-  %table.table.table-striped.span7
-    %thead
-      %tr
-        %th= t('statistics.show.table.what')
-        %th= t('statistics.show.table.how_many')
-    %tbody.span6
-      %tr
-        %td= t('statistics.show.table.users')
-        %td= @user_count
-      %tr
-        %td= t('statistics.show.table.spaces')
-        %td= @space_count
-      %tr
-        %td= t('statistics.show.table.events')
-        %td= @event_count
-      %tr
-        %td= t('statistics.show.table.posts')
-        %td= @post_count
-      %tr
-        %td= t('statistics.show.table.webconf_rooms')
-        %td= @webconf_room_count
-      %tr
-        %td= t('statistics.show.table.private_messages')
-        %td= @private_message_count
-      -# %tr
-      -#   %td= "Active meetings"
-      -#   %td= @meeting_count
+  .span7
+    %table.table.table-striped.table-hover
+      %thead
+        %tr
+          %th= t('statistics.show.table.what')
+          %th= t('statistics.show.table.how_many')
+      %tbody
+        %tr
+          %td= t('statistics.show.table.users')
+          %td= @user_count
+        %tr
+          %td= t('statistics.show.table.spaces')
+          %td= @space_count
+        %tr
+          %td= t('statistics.show.table.events')
+          %td= @event_count
+        %tr
+          %td= t('statistics.show.table.posts')
+          %td= @post_count
+        %tr
+          %td= t('statistics.show.table.webconf_rooms')
+          %td= @webconf_room_count
+        %tr
+          %td= t('statistics.show.table.private_messages')
+          %td= @private_message_count
+        -# %tr
+        -#   %td= "Active meetings"
+        -#   %td= @meeting_count

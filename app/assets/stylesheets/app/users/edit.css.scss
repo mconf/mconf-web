@@ -19,6 +19,10 @@ body.users.edit, body.users.update {
     width: 100%;
   }
 
+  #page-header .current-page-extra {
+    a, span { display: block; }
+  }
+
   #account-info, #change-password {
     margin-bottom: 25px;
     clear: both;

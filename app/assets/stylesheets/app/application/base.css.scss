@@ -421,7 +421,7 @@ ul#navbar-right-links {
 
   .user-info-dropdown {
     margin: 0;
-    padding: 4px 10px;
+    padding: 3px 10px;
   }
 
   // small user info in the navbar
@@ -471,6 +471,7 @@ ul#navbar-right-links {
         &:hover {
           @include text-shadow(none);
           background-color: $transparent;
+          background-image: none;
         }
       }
     }
@@ -596,9 +597,8 @@ ul#navbar-right-links {
 
   .current-page-extra {
     float: right;
-    margin-top: 10px;
+    margin: 10px 10px 0 0;
     text-align: right;
-    a, span { display: block; }
   }
 }
 

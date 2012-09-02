@@ -26,9 +26,9 @@ body.spaces.index {
       float: left;
 
       #space-filter-text {
-        float: left;
         border-left: 0;
         margin: 0;
+        margin-bottom: 1px;
         @include border-left-radius(0);
       }
     }
