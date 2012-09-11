@@ -1,0 +1,25 @@
+@import "app/spaces/sidebar";
+
+body.events.new {
+
+  .btn {
+    margin-bottom: 9px;
+  }
+
+  .simple_form .input {
+
+    input {
+      width: 78%;
+    }
+
+    textarea {
+      width: 78%;
+      resize: none;
+    }
+
+    select {
+      width: 15%;
+    }
+  }
+
+}

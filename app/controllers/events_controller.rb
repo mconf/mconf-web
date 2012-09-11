@@ -12,12 +12,15 @@ require 'vpim/duration'
 class EventsController < ApplicationController
   # Include basic Resource methods
   # See documentation: ActionController::StationResources
+
+  layout "spaces_show"
   include ActionController::StationResources
   include SpamControllerModule
 
   #before_filter :space!
   before_filter :event, :only => [ :show, :edit, :update, :destroy ]
-
+  before_filter :space!
+  before_filter :webconf_room!
   before_filter :adapt_new_date, :only => [:create, :update]
 
   load_and_authorize_resource :space
@@ -353,5 +356,3 @@ class EventsController < ApplicationController
     send_file "#{Rails.root.to_s}/public/scorm/#{@event.permalink}.zip", :type => 'application/zip', :disposition => 'attachment', :filename => "#{@event.permalink}.zip"
   end
 end
-
-

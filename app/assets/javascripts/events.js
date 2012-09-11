@@ -1,1 +1,1 @@
-//= require_tree ./old/events/
+//= require_tree ./app/events/

@@ -1,0 +1,24 @@
+- spaces_menu_at :events
+= content_for :menu do
+  = render :partial => 'spaces/menu'
+- atom_link_header(space, Event.new, :title => "#{ t 'event.other' } - #{ space.name }")
+
+
+- @files = Dir.entries("app/assets/images/default_event_logos/")
+- @files.delete(".")
+- @files.delete("..")
+
+.whyte_wrapper
+  = render :partial => "edit_new_logo"
+  = simple_form_for(:event, :url => space_events_path(@space), :html => { :multiple => "multiple", :autocomplete=>"off" }) do |f|
+    = f.input :rand_value, :as => :hidden
+    = f.input :name, :label =>  t('name.one')
+    = f.input :description, :label => t('description'), :as => :text, :input_html => { :rows => 14 }
+    = f.input :location, :label => t('event.location')
+
+    = f.input :start_date, :label => t('event.time.start'), :as => :datetime, :start_year => Time.zone.now.year, :order => [:day, :month, :year], :minute_step => Agenda::SLOT_VALUES[1], :default => Agenda.next_time_slot_for_drop_down
+    = f.input :end_date, :label => t('event.time.end'), :as => :datetime, :start_year => Time.zone.now.year, :order => [:day, :month, :year], :minute_step => Agenda::SLOT_VALUES[1], :default => Agenda.next_time_slot_for_drop_down + 2.hours
+
+    = f.button :submit, t('button.create'), :class => 'btn'
+
+    = link_to t('cancel'), space_events_path, :class => "btn", :confirm => t('are_you_sure')

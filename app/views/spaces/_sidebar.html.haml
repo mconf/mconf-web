@@ -6,6 +6,14 @@
       = render_sidebar_content_block('sidebar-new-post') do
         = yield :new_post
 
+    - if content_for?(:new_event)
+      = render_sidebar_content_block('sidebar-new-post') do
+        = yield :new_event
+
+    - if content_for?(:event_logo)
+      = render_sidebar_content_block('sidebar-new-post') do
+        = yield :event_logo
+
     = render :partial => 'spaces/sidebar_join_links'
 
     = render_sidebar_content_block('sidebar-webconference', :active => @webconf_room.is_running?) do
@@ -34,10 +42,10 @@
 
     = render_sidebar_content_block('sidebar-upcoming-events') do
       .content-block-header
-        = image_tag("icons/date.png")
         %h3
           = link_to t('event.upcoming.other'), space_events_path(@space)
         = help_icon t("tooltip.upcoming"), :class => 'leftwards'
+        = image_tag("icons/date.png")
       .content-block-middle
         %span.event-timezone
           = "(#{t('timezone.one')}: GMT#{Time.zone.formatted_offset})"

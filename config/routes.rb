@@ -109,6 +109,7 @@ Mconf::Application.routes.draw do
     resources :entries
     resource :logo do
       member do
+        post :new
         post :precrop
       end
     end

@@ -1,0 +1,43 @@
+= div_for(event) do
+  .thread{:class => "#{event.is_happening_now? ? 'single_event current_single_event' : 'single_event'} #{cycle("thread-even" , "thread-odd")}", :id => "parent_event_#{event.id}"}
+
+    .logo-in-thread
+      %a.event_image{:href => "#{space_event_path(event.space, event)}"}
+        .event_image
+          - if event.logo
+            .event_logo
+              = logo(event.logo, :size => 64).html_safe
+          - elsif event.has_date?
+            .event_date_image
+              .event_day
+                = sanitize(event.start_date.strftime("%d"))
+              .event_month
+                = localize(event.start_date, :format => "%b")
+              .event_hour
+                = event.get_formatted_hour
+          - else
+            .event_date_image
+    .thread-content
+      %ul.thread-action-links.visible-on-hover{ :"data-hover-tracked" => "parent_event_#{event.id}" }
+        - if can?(:update, event)
+          %li= link_to t('edit').downcase, "#", { :"data-href" => edit_space_event_path(event.space, event), :name => event.id, :title => t('edit'), :id => "event-edit" }
+        - if can?(:destroy, event) && !event.is_happening_now?
+          %li= link_to t('remove').downcase, space_event_path(event.space, event), {:method => :delete, :title => t('delete.one'), :confirm => t('delete.confirm', :element => event.title) }
+        - if user_signed_in? && event.spam != true
+          %li= link_to t('spam.default').downcase, spam_lightbox_space_event_path(event.space,event), { :name => event.id, :title => t('spam.report'), :id => "spam-lightbox" }
+      .thread-title
+        = link_to sanitize(highlight(event.title,params[:query])), space_event_path(event.space, event), :class=>"unified_event"
+      .thread-text
+        %ul
+          %li.main_text
+            = t('when')
+            %span.main_date
+              = event.get_formatted_date
+          - if event.location
+            %li.main_text
+              = t('where')
+              = sanitize(event.location)
+          %li.main_text
+            = t('organizer')
+            - event.organizers.each do |org|
+              = link_to(highlight(org.name,params[:query]),user_path(org), :class=>"unified_user")
