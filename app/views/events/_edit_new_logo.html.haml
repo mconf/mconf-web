@@ -6,9 +6,12 @@
 
     .content-block-middle.clearfix
       .description
-        .event_logo{ :style => "display:none" }
-          = image_tag "default_event_logos/", { :id => "selected_logo_image", :class => "default_space_logo", :title => "Click to choose a default image", :size => "64x64" }
-        .event_date_image
+        .event_logo{ :class => "#{'hide' unless event.logo}" }
+          - if event.logo
+            = logo(event.logo, :size => 64, :id => "selected_logo_image").html_safe
+          - else
+            = image_tag "default_event_logos/", { :id => "selected_logo_image", :class => "default_space_logo", :title => "Click to choose a default image", :size => "64x64" }
+        .event_date_image{ :class => "#{'hide' if event.logo}" }
           .event_day
             = sanitize(Time.now().strftime("%d"))
           .event_month

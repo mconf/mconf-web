@@ -10,8 +10,8 @@
 
 .whyte_wrapper
   = render :partial => "edit_new_logo"
-  = simple_form_for(:event, :url => space_events_path(@space), :html => { :multiple => "multiple", :autocomplete=>"off" }) do |f|
+  = simple_form_for(:event, :url => space_event_path(@space, @event), :html => {:method => :put, :multiple => "multiple", :autocomplete=>"off" }) do |f|
     = render :partial => "events_form", :locals => { :f => f }
-    = f.button :submit, t('button.create'), :class => 'btn'
+    = f.button :submit, t('button.edit'), :class => 'btn'
 
     = link_to t('cancel'), space_events_path, :class => "btn", :confirm => t('are_you_sure')

@@ -20,7 +20,7 @@
     .thread-content
       %ul.thread-action-links.visible-on-hover{ :"data-hover-tracked" => "parent_event_#{event.id}" }
         - if can?(:update, event)
-          %li= link_to t('edit').downcase, "#", { :"data-href" => edit_space_event_path(event.space, event), :name => event.id, :title => t('edit'), :id => "event-edit" }
+          %li= link_to t('edit').downcase, edit_space_event_path(event.space, event), { :name => event.id, :title => t('edit'), :id => "event-edit" }
         - if can?(:destroy, event) && !event.is_happening_now?
           %li= link_to t('remove').downcase, space_event_path(event.space, event), {:method => :delete, :title => t('delete.one'), :confirm => t('delete.confirm', :element => event.title) }
         - if user_signed_in? && event.spam != true
