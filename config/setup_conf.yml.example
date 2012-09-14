@@ -88,4 +88,3 @@ default:
 #  bbb_server_url: "http://test-server/bigbluebutton/api"
 #  bbb_server_salt: "test-server-salt"
 #  bbb_server_version: "0.7"
-

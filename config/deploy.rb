@@ -25,9 +25,9 @@
 LOCAL_PATH = File.expand_path(File.dirname(__FILE__))
 
 # RVM bootstrap
-require "rvm/capistrano"
-set :rvm_ruby_string, '1.9.2-p290@mconf'
+set :rvm_ruby_string, "1.9.3-p194@mconf"
 set :rvm_type, :system
+require "rvm/capistrano"
 
 # bundler bootstrap
 require 'bundler/capistrano'
@@ -46,10 +46,8 @@ default_run_options[:pty] = true
 # standard configuration for all stages
 set :application, "mconf-web"
 set :user, "mconf"
-set :deploy_to, "/home/#{fetch(:user)}/#{fetch(:application)}"
+set :deploy_to, "/var/www/#{fetch(:application)}/"
 set :deploy_via, :remote_cache
-set :git_enable_submodules, 1
-set :use_sudo, false
 set :auto_accept, 0
 
 # whenever integration
@@ -57,15 +55,9 @@ set :whenever_command, "bundle exec whenever"
 #set :whenever_environment, defer { stage }
 require "whenever/capistrano"
 
-after 'multistage:ensure', 'deploy:info'
 
 # DEPLOY tasks
 # They are used for each time the app is deployed
-
-after 'deploy:update_code', 'deploy:link_files'
-after 'deploy:finalize_update', 'deploy:upload_config_files'
-# after 'deploy:update_code', 'deploy:fix_file_permissions'
-
 namespace :deploy do
 
   # Nginx tasks
@@ -90,11 +82,18 @@ namespace :deploy do
   end
 
   # User uploaded files are stored in the shared folder
-  task :link_files do
+  task :symlinks do
     run "ln -sf #{shared_path}/public/logos #{release_path}/public"
     run "ln -sf #{shared_path}/attachments #{release_path}/attachments"
-    run "ln -sf #{shared_path}/public/scorm #{release_path}/public"
-    run "ln -sf #{shared_path}/public/pdf #{release_path}/public"
+    # run "ln -sf #{shared_path}/public/scorm #{release_path}/public"
+    # run "ln -sf #{shared_path}/public/pdf #{release_path}/public"
+  end
+
+  desc "Fix permissions in folders and files"
+  task :fix_permissions, :roles => :app do
+    run "#{try_sudo} chown -R #{user}:#{user_group} #{deploy_to}"
+    run "#{try_sudo} chmod -R g+w #{shared_path}/attachments"
+    run "#{try_sudo} chmod -R g+w #{shared_path}/public/logos"
   end
 
   desc "Send to the server the local configuration files"
@@ -106,13 +105,9 @@ namespace :deploy do
 
 end
 
-
 # SETUP tasks
 # They are usually used only once when the application is being set up for the
 # first time and affect the database or important setup files
-
-after 'deploy:setup', 'setup:create_shared'
-
 namespace :setup do
 
   desc "Setup a server for the first time"
@@ -132,18 +127,8 @@ namespace :setup do
 
   # User uploaded files are stored in the shared folder
   task :create_shared do
-    run "/bin/mkdir -p #{shared_path}/attachments"
-    sudo "/bin/chgrp -R #{fetch(:user)} #{shared_path}/attachments"
-    run "/bin/chmod -R g+w #{shared_path}/attachments"
-    run "/bin/mkdir -p #{shared_path}/config"
-    sudo "/bin/chgrp -R #{fetch(:user)} #{shared_path}/config"
-    run "/bin/chmod -R g+w #{shared_path}/config"
-    run "/bin/mkdir -p #{shared_path}/public/logos"
-    sudo "/bin/chgrp -R #{fetch(:user)} #{shared_path}/public"
-    run "/bin/chmod -R g+w #{shared_path}/public"
-    run "/usr/bin/touch #{shared_path}/log/production.log"
-    sudo "/bin/chgrp -R #{fetch(:user)} #{shared_path}/log"
-    run "/bin/chmod -R g+w #{shared_path}/log"
+    run "#{try_sudo} mkdir -p #{shared_path}/attachments"
+    run "#{try_sudo} mkdir -p #{shared_path}/public/logos"
   end
 
   desc "Creates a new secret in config/initializers/secret_token.rb"
@@ -172,3 +157,11 @@ desc "Run a task on a remote server."
 task :invoke do
   run("cd #{deploy_to}/current; bundle exec rake #{ENV['TASK']} RAILS_ENV=production")
 end
+
+after 'multistage:ensure', 'deploy:info'
+before 'deploy:setup', 'rvm:install_ruby'
+after 'deploy:setup', 'setup:create_shared'
+after 'deploy:setup', 'deploy:fix_permissions'
+after 'deploy:update_code', 'deploy:symlinks'
+after 'deploy:update_code', 'deploy:fix_permissions'
+after 'deploy:finalize_update', 'deploy:upload_config_files'
