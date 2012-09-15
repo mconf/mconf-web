@@ -25,9 +25,9 @@
 LOCAL_PATH = File.expand_path(File.dirname(__FILE__))
 
 # RVM bootstrap
-set :rvm_ruby_string, "1.9.3-p194@mconf"
-set :rvm_type, :system
 require "rvm/capistrano"
+set :rvm_ruby_string, '1.9.3-p194@mconf'
+set :rvm_type, :system
 
 # bundler bootstrap
 require 'bundler/capistrano'
@@ -116,13 +116,13 @@ namespace :setup do
     top.deploy.update     # clone git repo and make it the current release
     setup.db              # destroys and recreates the DB
     setup.secret          # new secret
-    setup.statistics      # start the statistics
+    setup.statistics      # start google analytics statistics
     top.deploy.restart    # restart the server
   end
 
   desc "recreates the DB and populates it with the basic data"
   task :db do
-    run "cd #{ current_path } && #{try_sudo} bundle exec rake setup:db RAILS_ENV=production"
+    run "cd #{current_path} && bundle exec rake setup:db RAILS_ENV=production"
   end
 
   # User uploaded files are stored in the shared folder
@@ -133,13 +133,21 @@ namespace :setup do
 
   desc "Creates a new secret in config/initializers/secret_token.rb"
   task :secret do
-    run "cd #{current_path} && rake setup:secret RAILS_ENV=production"
+    run "cd #{current_path} && bundle exec rake setup:secret RAILS_ENV=production"
     puts "You must restart the server to enable the new secret"
   end
 
   desc "Creates the Statistic table - needs config/analytics_conf.yml"
   task :statistics do
-    run "cd #{current_path} && rake mconf:statistics:init RAILS_ENV=production"
+    run "cd #{current_path} && bundle exec rake mconf:statistics:init RAILS_ENV=production"
+  end
+end
+
+namespace :rvm do
+  desc 'Trust rvmrc file'
+  task :trust_rvmrc do
+    run "if [ -d #{current_release} ]; then rvm rvmrc trust #{current_release}; fi"
+    run "if [ -d #{current_path} ]; then rvm rvmrc trust #{current_path}; fi"
   end
 end
 
@@ -160,8 +168,11 @@ end
 
 after 'multistage:ensure', 'deploy:info'
 before 'deploy:setup', 'rvm:install_ruby'
+before 'deploy:setup', 'rvm:trust_rvmrc'
+after 'deploy:setup', 'setup:create_shared'
 after 'deploy:setup', 'setup:create_shared'
 after 'deploy:setup', 'deploy:fix_permissions'
+after 'deploy:update_code', 'rvm:trust_rvmrc'
 after 'deploy:update_code', 'deploy:symlinks'
 after 'deploy:update_code', 'deploy:fix_permissions'
 after 'deploy:finalize_update', 'deploy:upload_config_files'
