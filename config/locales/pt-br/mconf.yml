@@ -1096,7 +1096,7 @@ pt-br:
     detected: "Novo spam detectado"
     error:
       check: "Houve um problema marcando o recurso como spam"
-    item: "Este artigo foi denunciado como spam"
+    item: "Este artigo foi denunciado como spam e está sendo avaliado pelos administradores"
     report: "Denunciar spam"
     reported: "%{name} denunciou spam em %{sitename}"
     valid: "Este conteúdo é válido"

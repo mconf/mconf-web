@@ -7,12 +7,13 @@
         %li= link_to t('edit').downcase, edit_space_post_path(post.space, post), { :name => post.id, :title => t('edit'), :class => "open-modal" }
       - if can?(:destroy, post)
         %li= link_to t('remove').downcase, space_post_path(@space,post), {:method => :delete, :title => t('delete.one'), :confirm => t('delete.confirm', :element => post.title) }
-      - if user_signed_in? && post.spam != true
-        %li= link_to t('spam.default').downcase, "#", { :"data-spam" => spam_lightbox_space_post_path(@space,post), :name => post.id, :title => t('spam.report'), :id => "spam-lightbox" }
+      - if user_signed_in? and !post.spam
+        %li= link_to t('spam.default').downcase, spam_lightbox_space_post_path(@space,post), { :name => post.id, :title => t('spam.report'), :class => "spam-report" }
     .thread-title
       %h2
         = image_tag("icons/comments.png")
         = @post.title
+        = spam_icon() if post.spam
     .thread-text
       = render :partial => "posts/parent_post" , :locals => { :post =>  @post, :selected_post => false}
       - for comment in @posts

@@ -1144,7 +1144,7 @@ en:
     detected: "New spam detected"
     error: 
       check: "There was a problem marking the resource as spam"
-    item: "This item has been reported as spam"
+    item: "This item has been reported as spam and is being evaluated by the administrators"
     report: "Report spam"
     reported: "%{name} has reported spam in %{sitename}"
     valid: "This content is valid"

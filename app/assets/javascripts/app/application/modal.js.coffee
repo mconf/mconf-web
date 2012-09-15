@@ -63,3 +63,7 @@ $ ->
   # Links to open the window to join a webconference from a mobile device
   joinMobile = "a.webconf-join-mobile-link:not(.disabled)"
   $(document).on "click", joinMobile, mconf.Modal.bind
+
+  # Links to report a spam are also in a modal
+  openModal = "a.spam-report:not(.disabled)"
+  $(document).on "click", openModal, mconf.Modal.bind

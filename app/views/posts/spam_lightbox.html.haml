@@ -16,5 +16,5 @@
             = t('comment.other')
           = text_area_tag 'body', params[:body].present? ? params[:body] : nil,:id => "spam_textarea"
 
-      %button{:type => "submit", :class => "btm submit"}
+      %button{:type => "submit", :class => "btn submit"}
         = t('spam.report')

@@ -30,6 +30,13 @@ form {
 // Components used site-wide, in any layout
 //
 
+.icon {
+  width: 16px;
+  height: 16px;
+  float: left;
+  margin-right: 3px;
+}
+
 .help-icon {
   float: right;
   cursor: pointer;
@@ -68,6 +75,12 @@ form {
   height: 19px;
 }
 
+.spam-icon {
+  background: url(asset_path("icons/spam.png", image)) no-repeat bottom;
+  width: 16px;
+  height: 16px;
+}
+
 .webconf-join-mobile-link {
   span {
     padding-left: 20px;
@@ -83,13 +96,6 @@ form {
 
 .clearfix {
   @include mconf-clearfix; // in _definitions
-}
-
-.icon {
-  width: 16px;
-  height: 16px;
-  float: left;
-  margin-right: 3px;
 }
 
 .superuser-icon {
@@ -160,6 +166,12 @@ form {
     }
 
     h2 { margin-bottom: 0; }
+
+    .spam-icon {
+      display: inline-block;
+      margin-bottom: -3px;
+      margin-right: 3px;
+    }
   }
 
   .thread-updated-at {

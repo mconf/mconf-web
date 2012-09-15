@@ -15,8 +15,8 @@
         %li= link_to t('edit').downcase, edit_space_post_path(thread.space, thread), { :name => thread.id, :title => t('edit'), :class => "open-modal" }
       - if can?(:destroy, thread)
         %li= link_to t('remove').downcase, space_post_path(thread.space,thread), {:method => :delete, :title => t('delete.one'), :confirm => t('delete.confirm', :element => thread.title) }
-      - if user_signed_in? && thread.spam != true
-        %li= link_to t('spam.default').downcase, "#", { :"data-spam" => spam_lightbox_space_post_path(thread.space,thread), :name => thread.id, :title => t('spam.report'), :id => "spam-lightbox" }
+      - if user_signed_in? and !thread.spam
+        %li= link_to t('spam.default').downcase, spam_lightbox_space_post_path(thread.space,thread), { :name => thread.id, :title => t('spam.report'), :class => "spam-report" }
 
     .thread-title
       = comment_icon t('post.home.one', :space => thread.space.name)
@@ -28,6 +28,7 @@
         %span{ :title => t('thread.comments', :children => thread.children.size)}
           = "(" + t('thread.comments', :children => thread.children.size) + ")"
       %span.thread-updated-at= t('updated_time_ago', :time => time_ago_in_words(thread.updated_at))
+      = spam_icon() if thread.spam
 
     - if show_space
       .thread-title

@@ -8,12 +8,13 @@
         %li= link_to t('edit').downcase, edit_space_post_path(post.space, post), { :name => post.id, :title => t('edit'), :class => "open-modal" }
       - if can?(:destroy, post)
         %li= link_to t('remove').downcase, space_post_path(post.space,post), {:method => :delete, :title => t('delete.one'), :confirm => t('delete.confirm', :element => post.title) }
-      - if user_signed_in? && post.spam != true
-        %li= link_to t('spam.default').downcase, "#", { :"data-spam" => spam_lightbox_space_post_path(post.space,post), :name => post.id, :title => t('spam.report'), :id => "spam-lightbox" }
+      - if user_signed_in? and !post.spam
+        %li= link_to t('spam.default').downcase, spam_lightbox_space_post_path(post.space,post), { :name => post.id, :title => t('spam.report'), :class => "spam-report" }
 
     .thread-title
       = comment_icon t('post.home.one', :space => post.space.name)
       - if post.author
         = link_to post.author.name, user_path(post.author), { :class => "thread-author" }
+      = spam_icon() if post.spam
     .thread-text
       %p= post.text
