@@ -14,24 +14,20 @@
 
   - unless today.empty?
     %span.interval-title= t('today')
-
-  - today.each do |thread|
-    = render :partial => "thread" , :locals => {:thread => thread, :extended => false,:last => thread == today_last}
+    - today.each do |thread|
+      = render :partial => "unified_post" , :locals => {:thread => thread}
 
   - unless yesterday.empty?
     %span.interval-title= t('yesterday')
-
-  - yesterday.each do |thread|
-    = render :partial => "thread" , :locals => {:thread => thread, :extended => false,:last => thread == yesterday_last}
+    - yesterday.each do |thread|
+      = render :partial => "unified_post" , :locals => {:thread => thread}
 
   - unless last_week.empty?
-    %span.interval-title{:"data-href" => "http://www.yahoo.com" }= t('last_week')
-
-  - last_week.each do |thread|
-    = render :partial => "thread" , :locals => {:thread => thread, :extended => false,:last => thread == last_week_last}
+    %span.interval-title= t('last_week')
+    - last_week.each do |thread|
+      = render :partial => "unified_post" , :locals => {:thread => thread}
 
   - unless older.empty?
     %span.interval-title= t('old_items')
-
-  - older.each do |thread|
-    = render :partial => "thread" , :locals => {:thread => thread, :extended => false,:last => thread == older_last}
+    - older.each do |thread|
+      = render :partial => "unified_post" , :locals => {:thread => thread}

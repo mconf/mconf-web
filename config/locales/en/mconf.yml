@@ -856,14 +856,16 @@ en:
     more: 
       one: "and one more message..."
       other: "and more %{count} messages..."
-    new_post: "New post .."
+    new_post: "Post a new message..."
     none_created: "No message created"
     none_recent: "There are no recent messages"
     one: Message
     other: Messages
     other_in_space: "Messages in space %{space}"
+    posted: "posted"
     show_expanded_pref: "How would you like to see your messages?"
     title: "Messages (%{count})"
+    updated: "Message updated!"
     wall: Wall
   prav: PRAV
   preferences: Preferences

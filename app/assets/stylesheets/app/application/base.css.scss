@@ -112,7 +112,7 @@ form {
 }
 
 // Style for reply and edit posts inside a colorbox
-
+// TODO
 .modal-content {
   #post-message,#spam-message {
     textarea {
@@ -158,6 +158,8 @@ form {
         color: #444;
       }
     }
+
+    h2 { margin-bottom: 0; }
   }
 
   .thread-updated-at {
@@ -170,6 +172,9 @@ form {
     margin: 0;
     padding: 0;
     @include mconf-clearfix;
+    @include border-radius(4px);
+    border: 1px solid darken($alert-info-bg, 7);
+    background: lighten($alert-info-bg, 5);
 
     li {
       margin: 0;
@@ -177,7 +182,17 @@ form {
       float: left;
       display: inline-block;
       margin-left: 10px;
+      &:last-child {
+        margin-right: 10px;
+      }
     }
+
+  }
+
+  .thread-observation {
+    color: #666;
+    font-style: italic;
+    float: right;
   }
 
   &.thread-even { background: $transparent; }
@@ -644,7 +659,6 @@ ul#navbar-right-links {
   }
 
   .content-block-middle {
-    padding-top: 10px;
     clear: both;
   }
 

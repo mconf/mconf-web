@@ -826,14 +826,16 @@ pt-br:
     more:
       one: "e uma outra mensagem..."
       other: "e mais %{count} mensagens..."
-    new_post: "Novo post .."
+    new_post: "Postar uma mensagem..."
     none_created: "Nenhuma mensagem criada"
     none_recent: "Não há mensagens recentes"
     one: Mensagem
     other: Mensagens
     other_in_space: "Mensagens na comunidade %{space}"
+    posted: "postou"
     show_expanded_pref: "Como você gostaria de ver suas mensagens?"
     title: "Mensagens (%{count})"
+    updated: "Mensagem atualizada!"
     wall: Mural
   prav: PRAV
   preferences: Preferências

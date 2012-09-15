@@ -1,7 +1,0 @@
-#posts
-  - if threads.empty?
-    %p
-      = t('no_messages_in_wall')
-
-  - threads.each do |thread|
-    = render :partial => "thread" , :locals => {:thread => thread, :extended => true, :last => false}

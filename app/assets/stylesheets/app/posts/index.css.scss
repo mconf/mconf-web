@@ -1,15 +1,16 @@
-/*
- *= require ../../../../../vendor/assets/stylesheets/fcbkcomplete
- */
-
 @import "app/spaces/sidebar";
+@import "app/posts/thread";
 
 body.posts.index {
 
-  #new_post {
+  #new-post {
     text-align: center;
+    margin-top: 5px;
+    @include mconf-clearfix;
+
     button {
-      margin-left: 73%;
+      float: right;
+      margin-bottom: 5px;
     }
   }
 
@@ -17,7 +18,7 @@ body.posts.index {
     width: 90%;
   }
 
-  #new_post_text {
+  #new-post-text {
     display: none;
 
     textarea {
