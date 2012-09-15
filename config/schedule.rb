@@ -15,12 +15,12 @@ job_type :rake, "cd :path && RAILS_ENV=:environment bundle exec rake :task --sil
 
 every :day, :at => '1am' do
   # updates the stats - will only increment stats from the past day
-  rake "mconf:analytics:update"
+  rake "mconf:statistics:update"
 end
 
 every :sunday, :at => '2am' do
   # restart the analytics stats every week
-  rake "mconf:analytics:init"
+  rake "mconf:statistics:init"
 end
 
 every :day, :at => '2pm' do

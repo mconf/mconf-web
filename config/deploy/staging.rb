@@ -12,9 +12,6 @@
 configs[stage.to_s].each do |hash_key, hash_value|
   set(hash_key.to_sym, hash_value.to_s)
 end
-unless configs[stage.to_s].has_key?("deploy_to")
-  set :deploy_to, "/home/#{fetch(:user)}/#{fetch(:application)}"
-end
 
 role :app, fetch(:server)
 role :web, fetch(:server)
