@@ -18,13 +18,13 @@ $(document).ready(function() {
       var ending = "<%= escape_javascript(t('invitation.info_space', :space_url => space_url(@space))) %><br/><br/>" +
           "<%= escape_javascript(t('email.kind_regards')) %><br/><br/>" +
           "<%= current_user.full_name%><br/><%= current_user.email %><br/><%= current_user.organization%><br/>" +
-          "<%= escape_javascript(t('email.spam_invitation', :contact => Site.current.email, :feedback => "http://" + Site.current.domain.to_s + new_feedback_path())) %><br/><br/>";
+          "<%= escape_javascript(t('email.spam_invitation', :contact => Site.current.smtp_sender, :feedback => "http://" + Site.current.domain.to_s + new_feedback_path())) %><br/><br/>";
     <%else%>
       var ending = "<%= escape_javascript(t('invitation.info_space', :space_url => space_url(@space))) %><br/><br/>" +
           "<%= escape_javascript(t('space.group_invitation.private', :register_url=>register_url)) %><br/>" +
           "<%= escape_javascript(t('email.kind_regards')) %><br/><br/>" +
           "<%= current_user.full_name%><br/><%= current_user.email %><br/><%= current_user.organization%><br/>" +
-          "<%= escape_javascript(t('email.spam_invitation', :contact => Site.current.email, :feedback => "http://" + Site.current.domain.to_s + new_feedback_path())) %><br/><br/>";
+          "<%= escape_javascript(t('email.spam_invitation', :contact => Site.current.smtp_sender, :feedback => "http://" + Site.current.domain.to_s + new_feedback_path())) %><br/><br/>";
     <%end%>
 
 

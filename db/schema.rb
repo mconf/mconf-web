@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120827011123) do
+ActiveRecord::Schema.define(:version => 20120915225828) do
 
   create_table "admissions", :force => true do |t|
     t.string   "type"
@@ -345,7 +345,7 @@ ActiveRecord::Schema.define(:version => 20120827011123) do
     t.string   "name"
     t.text     "description"
     t.string   "domain"
-    t.string   "email"
+    t.string   "smtp_login"
     t.string   "locale"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -359,10 +359,17 @@ ActiveRecord::Schema.define(:version => 20120827011123) do
     t.string   "shib_name_field"
     t.string   "shib_email_field"
     t.string   "exception_notifications_prefix"
-    t.string   "email_password"
+    t.string   "smtp_password"
     t.string   "analytics_code"
     t.boolean  "chat_enabled",                   :default => false
     t.string   "xmpp_server"
+    t.boolean  "smtp_auto_tls"
+    t.string   "smtp_server"
+    t.integer  "smtp_port"
+    t.boolean  "smtp_use_tls"
+    t.string   "smtp_domain"
+    t.string   "smtp_auth_type"
+    t.string   "smtp_sender"
   end
 
   create_table "spaces", :force => true do |t|

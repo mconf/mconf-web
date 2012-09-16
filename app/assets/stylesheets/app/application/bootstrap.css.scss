@@ -16,9 +16,17 @@
     margin-top: 7px;
   }
 
-  input[type=text], input[type=password],
-  input[type=email], input[type=url] {
+  input.string, input.password,
+  textarea.text {
     width: 60%;
+    clear: both;
+  }
+  select {
+    width: 62%;
+    clear: both;
+  }
+  input.showable_password {
+    width: 50%;
     clear: both;
   }
 }

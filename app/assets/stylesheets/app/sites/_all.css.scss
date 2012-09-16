@@ -2,34 +2,15 @@
 @import "compass/css3";
 
 body.sites {
-
-  $column-width: ($contents-width / 2) - 25px;
-
-  .simple_form.single-column input.string,
-  .simple_form.single-column input.password,
-  .simple_form.single-column textarea.text,
-  .simple_form.single-column select {
-    width: 97%;
-  }
-
-  .simple_form.single-column input.showable_password {
-    width: 80%
+  form {
+    width: 70%;
   }
 
   form textarea {
     resize: none;
   }
 
-  .left-column {
-    float: left;
-    width: $column-width;
-    padding-left: 2px; // so inputs' box-shadow aren't cut
+  label.required abbr {
+    display: none;
   }
-
-  .right-column {
-    float: right;
-    width: $column-width;
-    padding-right: 2px; // so inputs' box-shadow aren't cut
-  }
-
 }
