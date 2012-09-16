@@ -712,6 +712,7 @@ ul#navbar-right-links {
   float: left;
   width: $contents-width - $sidebar-width - 20px; // less right-margin
   @include mconf-clearfix;
+  overflow: visible;
 
   h3 {
     color: #404040;

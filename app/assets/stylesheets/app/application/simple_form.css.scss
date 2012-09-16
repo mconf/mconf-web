@@ -2,11 +2,16 @@
 @import "definitions";
 
 .simple_form {
+  overflow: display;
+
   .input {
     margin-top: 5px;
     margin-bottom: 10px;
+    position: relative;
 
     label {
+      cursor: pointer;
+
       &.collection_radio_buttons {
         display: inline;
         margin-left: 5px;
@@ -20,13 +25,42 @@
       color: red;
     }
 
+    // hints
+    $hint-border-color: #222; //darken($alert-bg, 25);
     .hint {
-      font-size: $font-small;
-      display: block;
-      color: lighten($font-color, 30);
-      text-align: right;
-      padding: 0;
-      margin: 5px 0 0 0;
+      font-size: $font-normal;
+      border: 1px solid $hint-border-color;
+      @include border-radius(3px);
+      padding: 3px 8px;
+      z-index: $z-index-tooltip;
+      position: absolute;
+      display: none;
+      color: #eee;
+      background: #222;
+    }
+    .hint::before {
+      display: inline-block;
+      content: '';
+      border-left: 7px solid $transparent;
+      border-right: 7px solid $transparent;
+      border-bottom: 7px solid $hint-border-color;
+      border-bottom-color: $hint-border-color;
+      position: absolute;
+      top: -8px;
+      left: 5px;
+    }
+    // focusing or hovering shows the hint
+    &:hover .hint, *:focus ~ .hint { display: block; }
+
+    // add a nice icon to fields that have a hint
+    &.field_with_hint {
+      &:hover, &:focus { color: darken($alert-info-font, 20); }
+      cursor: pointer;
+      background: url("/assets/icons/help-16x16.png") no-repeat left top;
+      background-position: -16px 0;
+      label {
+        margin-left: 20px;
+      }
     }
   }
 
