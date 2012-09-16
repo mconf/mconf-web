@@ -73,6 +73,12 @@ $ ->
     e.preventDefault()
     $($(this).attr("href")).click()
 
+  # Links with 'submit-form' will trigger a submit
+  # in the form pointed by 'href'.
+  $("a.submit-form, button.submit-form").on "click", (e) ->
+    e.preventDefault()
+    $($(this).attr("href")).submit()
+
 
 # Returns true if we're currently in the view 'action' inside 'controller'
 # If 'action' is empty, will check only for the controller

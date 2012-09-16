@@ -1,4 +1,4 @@
-.webconf-room
+.webconf-room{:class => "#{cycle("thread-even" , "thread-odd")}"}
   = simple_form_for room, :html => { :class => 'form-inline' } do |f|
     = f.input :name, :required => false, :disabled => true
     = f.input :meetingid, :required => false, :disabled => true

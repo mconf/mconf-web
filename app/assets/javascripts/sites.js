@@ -1,1 +1,1 @@
-//= require_tree ./old/sites/
+//= require_tree ./app/sites/

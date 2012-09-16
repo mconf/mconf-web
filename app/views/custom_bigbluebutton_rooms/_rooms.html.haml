@@ -1,6 +1,7 @@
 = content_for :sidebar do
-  = link_to t('bigbluebutton_rails.view_server_list'), bigbluebutton_servers_path, :class => 'btn btn-block'
-  = link_to t('bigbluebutton_rails.new_room'), new_bigbluebutton_room_path, :class => 'btn btn-block'
+  .affix-top{ :"data-spy" => "affix", :"data-offset-top" => "160" }
+    = link_to t('bigbluebutton_rails.view_server_list'), bigbluebutton_servers_path, :class => 'btn btn-block'
+    = link_to t('bigbluebutton_rails.new_room'), new_bigbluebutton_room_path, :class => 'btn btn-block'
 
 - @rooms.each do |room|
   = render 'custom_bigbluebutton_rooms/show', :room => room

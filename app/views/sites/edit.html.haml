@@ -1,31 +1,36 @@
 = render :partial => 'manage/menu'
 
+= content_for :sidebar do
+  .affix-top{ :"data-spy" => "affix", :"data-offset-top" => "160" }
+    = link_to t('save'), "#form-edit-site", :class => "btn btn-primary btn-block submit-form"
+
 #manage
-  = simple_form_for :current_site, :url => site_path, :html => { :method => :put, :multipart => true, :class => 'form-inline' } do |f|
-    = f.input :name, :label => t('site.name')
-    = f.input :description, :label => t('site.description'), :as => :text, :input_html => { :rows => 5 }
-    = f.input :domain, :label => t('site.domain')
-    = f.input :locale, :label => t('site.locale'), :collection => I18n.available_locales
-    = f.input :signature, :label => t('site.signature'), :as => :text, :input_html => { :rows => 5 }
-    = f.input :ssl, :label => t('site.ssl'), :as => :boolean, :hint => t('site.ssl_tip')
-    = f.input :feedback_url, :label => t('site.feedback_url'), :hint => t('site.feedback_url_tip', :default_url => webconf_feedback_index_path)
-    = f.input :analytics_code, :label => t('site.analytics_code'), :hint => t('site.analytics_code_tip')
-    = f.input :smtp_login, :label => t('site.smtp_login'), :hint => t('site.smtp_login_tip')
-    = f.input :smtp_password, :label => t('site.smtp_password'), :as => :showable_password, :hint => t('site.smtp_password_tip')
-    = f.input :smtp_sender, :label => t('site.smtp_sender')
-    = f.input :smtp_domain, :label => t('site.smtp_domain')
-    = f.input :smtp_server, :label => t('site.smtp_server')
-    = f.input :smtp_port, :label => t('site.smtp_port')
-    = f.input :smtp_use_tls, :label => t('site.smtp_use_tls')
-    = f.input :smtp_auto_tls, :label => t('site.smtp_auto_tls')
-    = f.input :smtp_auth_type, :label => t('site.smtp_auth_type')
-    = f.input :exception_notifications, :label => t('site.exception_notifications'), :as => :boolean, :hint => t('site.exception_notifications_tip')
-    = f.input :exception_notifications_email, :label => t('site.exception_notifications_email'), :hint => t('site.exception_notifications_email_tip')
-    = f.input :exception_notifications_prefix, :label => t('site.exception_notifications_prefix')
-    = f.input :shib_enabled, :label => t('site.shib_enabled'), :as => :boolean
-    = f.input :shib_email_field, :label => t('site.shib_email_field'), :hint => t('site.shib_email_field_tip')
-    = f.input :shib_name_field, :label => t('site.shib_name_field'), :hint => t('site.shib_name_field_tip')
-    = f.input :chat_enabled, :label => t('site.chat_enabled'), :as => :boolean
-    = f.input :presence_domain, :label => t('site.chat_domain_field'), :hint => t('site.chat_domain_field_tip')
-    = f.input :xmpp_server, :label => t('site.chat_server_field'), :hint => t('site.chat_server_field_tip')
-    = f.button :submit, t("button.update"), :class => "btn"
+  = simple_form_for @site, :url => site_path, :html => { :id => "form-edit-site", :method => :put, :multipart => true, :class => 'single-column' } do |f|
+    .left-column
+      = f.input :name, :label => t('site.name')
+      = f.input :description, :label => t('site.description'), :as => :text, :input_html => { :rows => 5 }
+      = f.input :domain, :label => t('site.domain')
+      = f.input :locale, :label => t('site.locale'), :collection => I18n.available_locales
+      = f.input :signature, :label => t('site.signature'), :as => :text, :input_html => { :rows => 5 }
+      = f.input :ssl, :label => t('site.ssl'), :as => :boolean, :hint => t('site.ssl_tip')
+      = f.input :feedback_url, :label => t('site.feedback_url'), :hint => t('site.feedback_url_tip', :default_url => webconf_feedback_index_path)
+      = f.input :analytics_code, :label => t('site.analytics_code'), :hint => t('site.analytics_code_tip')
+      = f.input :shib_enabled, :label => t('site.shib_enabled'), :as => :boolean
+      = f.input :shib_email_field, :label => t('site.shib_email_field'), :hint => t('site.shib_email_field_tip')
+      = f.input :shib_name_field, :label => t('site.shib_name_field'), :hint => t('site.shib_name_field_tip')
+    .right-column
+      = f.input :smtp_login, :label => t('site.smtp_login'), :hint => t('site.smtp_login_tip')
+      = f.input :smtp_password, :label => t('site.smtp_password'), :as => :showable_password, :hint => t('site.smtp_password_tip')
+      = f.input :smtp_sender, :label => t('site.smtp_sender')
+      = f.input :smtp_domain, :label => t('site.smtp_domain')
+      = f.input :smtp_server, :label => t('site.smtp_server')
+      = f.input :smtp_port, :label => t('site.smtp_port')
+      = f.input :smtp_use_tls, :label => t('site.smtp_use_tls')
+      = f.input :smtp_auto_tls, :label => t('site.smtp_auto_tls')
+      = f.input :smtp_auth_type, :label => t('site.smtp_auth_type')
+      = f.input :exception_notifications, :label => t('site.exception_notifications'), :as => :boolean, :hint => t('site.exception_notifications_tip')
+      = f.input :exception_notifications_email, :label => t('site.exception_notifications_email'), :hint => t('site.exception_notifications_email_tip')
+      = f.input :exception_notifications_prefix, :label => t('site.exception_notifications_prefix')
+      = f.input :chat_enabled, :label => t('site.chat_enabled'), :as => :boolean
+      = f.input :presence_domain, :label => t('site.chat_domain_field'), :hint => t('site.chat_domain_field_tip')
+      = f.input :xmpp_server, :label => t('site.chat_server_field'), :hint => t('site.chat_server_field_tip')

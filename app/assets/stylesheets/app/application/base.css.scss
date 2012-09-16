@@ -206,10 +206,11 @@ form {
     font-style: italic;
     float: right;
   }
-
-  &.thread-even { background: $transparent; }
-  &.thread-odd { background: $light-gray; }
 }
+// Classes outside .thread so that they can be used anywhere to
+// cycle background colors
+.thread-even { background: $transparent; }
+.thread-odd { background: $light-gray; }
 
 
 // Blocks that can be automatically expanded/collapsed

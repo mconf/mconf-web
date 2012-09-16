@@ -1,4 +1,4 @@
-.webconf-server
+.webconf-server{:class => "#{cycle("thread-even" , "thread-odd")}"}
   .server-links
     %label= t('bigbluebutton_rails.servers.index.access_links')
     = link_to t('bigbluebutton_rails.view_rooms'), rooms_bigbluebutton_server_path(server)
