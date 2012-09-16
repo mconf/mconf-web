@@ -3,11 +3,12 @@
 //= require jquery-ui
 //= require bootstrap.min
 //= require jquery/jquery.tokeninput
-//= require jquery/jquery.colorbox
 //= require jquery/jquery.placeholder
 //= require jquery/jquery.noty
 //= require jquery/jquery.Jcrop
 //= require jquery/jquery.autosize
+//= require jquery/jquery.dialog2
+//= require jquery/jquery.dialog2.helpers
 //= require i18n/translations
 //= require strophe
 

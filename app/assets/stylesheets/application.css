@@ -2,10 +2,10 @@
  * Vendored stylesheets
  *= require ../../../vendor/assets/stylesheets/bootstrap.min
  *= require ../../../vendor/assets/stylesheets/bootstrap-responsive.min
- *= require ../../../vendor/assets/stylesheets/jquery/jquery.colorbox
  *= require ../../../vendor/assets/stylesheets/jquery/jquery.Jcrop
  *= require ../../../vendor/assets/stylesheets/jquery/jquery.qtip.2.0.0pre
  *= require ../../../vendor/assets/stylesheets/jquery/jquery.noty
+ *= require ../../../vendor/assets/stylesheets/jquery/jquery.dialog2
  *= require ../../../vendor/assets/stylesheets/token-input-facebook
  *
  * Note: the order matters!

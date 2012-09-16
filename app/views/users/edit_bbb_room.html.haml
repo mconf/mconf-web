@@ -1,12 +1,12 @@
 -# To be shown in a modal window
 
-.modal-title
-  %span= t('bbb_room.edit')
-
-#edit-bbb-room.modal-content
-  = simple_form_for @room, :remote => true do |f|
+#edit-bbb-room
+  %h1= t('bbb_room.edit')
+  = simple_form_for @room, :remote => true, :html => { :class => "single-column" } do |f|
     = hidden_field_tag :redir_url, @redir_to
     = f.input :private, :label => t('bbb_room.private'), :hint => t('bigbluebutton_rails.rooms.private.tooltip')
     = f.input :moderator_password, :as => :showable_password, :label => t('bbb_room.moderatorPW')
     = f.input :attendee_password, :as => :showable_password, :label => t('bbb_room.attendeePW')
-    = f.button :submit, t("button.update")
+    .form-actions
+      = f.button :submit, t("save"), :class => "btn btn-primary"
+      = link_to t("cancel"), "#", :class => "btn close-dialog"

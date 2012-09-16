@@ -1,19 +1,11 @@
-.modal-title
-  #post-title
-    %span
-      %b= t("reply_to")
-      %span.unified_posts
-        = post.title
-
-.modal-content
+#post-reply
+  %h1
+    = t("reply_to")
+    = post.title
   #post-message
-    = form_for(prepare_for_form(Post.new, :parent_id => @post.id), :html => { :multipart => true ,:id => "reply-form"}) do |f|
+    = simple_form_for(prepare_for_form(Post.new, :parent_id => @post.id), :html => { :multipart => true, :class => "single-column" }) do |f|
       = f.hidden_field :parent_id
-      - # Post text
-      %label{:for => "text"}
-        %b= t('post.one')
-      = text_area_tag "post[text]"
-      %br
-      - # Footer
-      %button{:type => "submit", :class => "btn submit"}
-        = t("button.post")
+      = f.input :text
+      .form-actions
+        = f.button :submit, t("button.post"), :class => "btn btn-primary"
+        = link_to t("cancel"), "#", :class => "btn close-dialog"

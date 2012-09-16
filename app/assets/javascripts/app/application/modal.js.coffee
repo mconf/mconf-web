@@ -1,61 +1,49 @@
-# Use the class 'open-modal' in a <a> to open as modal
-# The attr 'data-modal-options' can be used to point to a function
-# that should return custom options for the modal window
-# The attr 'data-modal-content' can be used to open content that's
-# already in the page
+# Use the class 'open-modal' in a <a> to open as modal.
+# If 'href' is a link, it will be executed (ajax) and the content
+# will be renderd in the modal. If the 'href' points to an id
+# (e.g. #my-element), the element's content will be displayed inside
+# the modal window.
 
 class mconf.Modal
 
   # Shows the modal window using the options in 'options'
   @showWindow: (options) ->
-    settings =
-      scrolling: false,
-      initialWidth: 48,
-      initialHeight: 48
-      onComplete: ->
-        # just in case the contents changed their size
-        $.colorbox.resize()
-    jQuery.extend settings, options
-    $.colorbox settings
+    localOptions = {}
+    #   backdrop: true
+    #   keyboard: true
+    # jQuery.extend localOptions, options
+    if options.target?
+      el = $(options.target)
+      delete options.target
+    else
+      el = $("<div/>")
+    jQuery.extend localOptions, options
+    el.dialog2(localOptions)
 
   # Global method to close all modal windows open
   @closeWindows: ->
-    $.colorbox.close()
+    # TODO: test
+    $(".modal").dialog2("close")
 
   # Links a <a> to be opened with a modal window.
   # Used internally only.
   @bind: (event) ->
     event.preventDefault()
-
-    # calls a function defined in the attribute data-modal-options
-    # to get the custom options for this modal
-    fn = window[$(this).attr('data-modal-options')]
-    options = if fn? then fn() else {}
+    options = {}
 
     # check whether we should show content that's already in the page
-    html = null
-    elem_name = $(this).attr('data-modal-content')
-    if elem_name?
-      elem = $("#" + elem_name)
-      if elem?
-        html = elem.html()
+    # TODO: not yet being used in the app, test better when first used
+    href = $(this).attr("href")
+    if href? and href[0] is "#" and $(href)?
+      options.target = href
 
-    # if 'html' we show its content, otherwise we render the content
-    # pointed by this <a>
-    if html?
-      settings = { html: html }
+    # otherwise we render the content pointed by this <a>
     else
-      settings = { href: $(this).attr('href') }
-    jQuery.extend settings, options
+      options.content = href
 
-    mconf.Modal.showWindow settings
+    mconf.Modal.showWindow options
 
 $ ->
-
-  # Change some default options for colorbox
-  $.colorbox.settings.opacity = 0.6
-  $.colorbox.settings.speed = 100
-
   # General links to open with a modal window
   openModal = "a.open-modal:not(.disabled)"
   $(document).on "click", openModal, mconf.Modal.bind
@@ -65,5 +53,5 @@ $ ->
   $(document).on "click", joinMobile, mconf.Modal.bind
 
   # Links to report a spam are also in a modal
-  openModal = "a.spam-report:not(.disabled)"
-  $(document).on "click", openModal, mconf.Modal.bind
+  spam = "a.spam-report:not(.disabled)"
+  $(document).on "click", spam, mconf.Modal.bind

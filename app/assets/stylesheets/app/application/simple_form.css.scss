@@ -25,6 +25,11 @@
       color: red;
     }
 
+    // limit the height of a textarea by default
+    textarea {
+      max-height: 150px;
+    }
+
     // hints
     $hint-border-color: #222; //darken($alert-bg, 25);
     .hint {
@@ -82,7 +87,7 @@
       text-align: right;
     }
 
-    input.string, input.password, textarea.text, select {
+    input.string, input.password, textarea, select {
       width: 97%
     }
     input.showable_password {

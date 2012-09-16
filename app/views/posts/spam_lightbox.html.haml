@@ -1,20 +1,12 @@
-.modal-title
-  #spam-title
-    = t('spam.report')
-
-.modal-content
+#spam-report
+  %h1= t('spam.report')
   #spam-message
-    = form_tag(spam_space_post_path(@space,@post)) do
-      #spam_form
-        %p
-          %label{:for => "subject"}
-            = t('subject')
-            %strong
-              = t('spam.detected')
-        %p
-          %label{:for => "body"}
-            = t('comment.other')
-          = text_area_tag 'body', params[:body].present? ? params[:body] : nil,:id => "spam_textarea"
-
-      %button{:type => "submit", :class => "btn submit"}
-        = t('spam.report')
+    = simple_form_for :spam, :url => spam_space_post_path(@space, @post), :html => { :class => "single-column" } do |f|
+      .input
+        %label{:for => "subject"}
+          = t('subject')
+        = text_field_tag "subject", t('spam.detected'), :disabled => true, :class => "string"
+      = f.input :body, :label => t('comment.other'), :as => :text
+      .form-actions
+        = f.button :submit, t('spam.report'), :class => "btn btn-primary"
+        = link_to t("cancel"), "#", :class => "btn close-dialog"
