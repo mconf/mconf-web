@@ -1,7 +1,7 @@
-namespace :setup do
+namespace :secret do
 
   desc "Set a new secret_token in initializers/secret_token.rb"
-  task :secret => :environment do
+  task :save => :environment do
     filepath = File.join(Rails.root, "config", "initializers", "secret_token.rb")
     new_filepath = filepath + ".tmp"
 
@@ -21,5 +21,3 @@ namespace :setup do
     puts "New secret: #{secret}"
   end
 end
-
-

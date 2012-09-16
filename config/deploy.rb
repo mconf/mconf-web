@@ -122,7 +122,7 @@ namespace :setup do
 
   desc "recreates the DB and populates it with the basic data"
   task :db do
-    run "cd #{current_path} && bundle exec rake setup:db RAILS_ENV=production"
+    run "cd #{current_path} && bundle exec rake db:reset RAILS_ENV=production"
   end
 
   # User uploaded files are stored in the shared folder
@@ -133,13 +133,13 @@ namespace :setup do
 
   desc "Creates a new secret in config/initializers/secret_token.rb"
   task :secret do
-    run "cd #{current_path} && bundle exec rake setup:secret RAILS_ENV=production"
+    run "cd #{current_path} && bundle exec rake secret:save RAILS_ENV=production"
     puts "You must restart the server to enable the new secret"
   end
 
   desc "Creates the Statistic table - needs config/analytics_conf.yml"
   task :statistics do
-    run "cd #{current_path} && bundle exec rake mconf:statistics:init RAILS_ENV=production"
+    run "cd #{current_path} && bundle exec rake statistics:init RAILS_ENV=production"
   end
 end
 
