@@ -470,6 +470,11 @@ ul#navbar-right-links {
       height: 22px;
       width: 22px;
       @include border-radius(3px);
+
+      img.logo-user {
+        height: 22px;
+        width: 22px;
+      }
     }
   }
 
@@ -534,6 +539,10 @@ ul#navbar-right-links {
       height: 64px;
       width: 64px;
       @include border-radius(3px);
+      img.logo-user {
+        height: 64px;
+        width: 64px;
+      }
     }
   }
 
@@ -605,6 +614,12 @@ ul#navbar-right-links {
     padding: 1px;
     height: 64px;
     &.clean { border: 0; }
+
+    // default size for spaces logos
+    img.logo-space {
+      width: 84px;
+      height: 64px;
+    }
   }
 
   .current-page-title {
@@ -756,6 +771,11 @@ ul#navbar-right-links {
       }
       a {
         padding: 0 12px;
+        line-height: 30px;
+      }
+      span {
+        padding: 0;
+        border: 0;
         line-height: 30px;
       }
     }

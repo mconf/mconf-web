@@ -76,6 +76,16 @@ $z-index-tooltip: 999999;
     border: 1px solid #ddd;
     @include border-radius(2px);
     &:hover { border: 1px solid desaturate(lighten($second-color, 20), 10); }
+
+    // default dimensions for logos inside threads
+    &.logo-space {
+      height: 36px;
+      width: 48px;
+    }
+    &.logo-user {
+      height: 32px;
+      width: 32px;
+    }
   }
 }
 
