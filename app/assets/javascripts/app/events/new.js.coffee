@@ -22,10 +22,10 @@ $ ->
     $(".event_date_image").show "slow"
     $(".event_logo").hide "slow"
     $("#event_image").attr('value', "use_date_logo")
-    $("#change_logo_form_div").hide 0
     $("#default_upload_logo").hide 0
     $("#default_text_logo").hide 0
     $("#default_event_images").hide 0
+    $("#change_logo_form_div").hide 0
 
   $("#text_logo").on 'click', ->
     $("#default_upload_logo").hide 0

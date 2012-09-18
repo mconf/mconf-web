@@ -4,9 +4,7 @@
 - atom_link_header(space, Event.new, :title => "#{ t 'event.other' } - #{ space.name }")
 
 
-- @files = Dir.entries("app/assets/images/default_event_logos/")
-- @files.delete(".")
-- @files.delete("..")
+- @files = get_default_event_logo_files
 
 .whyte_wrapper
   = render :partial => "edit_new_logo"
