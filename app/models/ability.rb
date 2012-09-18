@@ -7,10 +7,15 @@
 class Ability
   include CanCan::Ability
 
-  # TODO: won't user.id checks fail if user is a new_record?
+  # TODO: user.id checks fail if user is a new_record?
   def initialize(user)
 
     user ||= User.new # guest user (not logged in)
+
+    # Users
+    # Disabled users are only visible to superusers
+    can :read, User, :disabled => false
+    can :manage, User, :id => user.id, :disabled => false
 
     # User profiles
     can :read, Profile do |profile|
@@ -18,7 +23,7 @@ class Ability
       when Profile::VISIBILITY.index(:everybody)
         true
       when Profile::VISIBILITY.index(:members)
-        !user.new_record?
+        !user.anonymous?
       when Profile::VISIBILITY.index(:public_fellows)
         profile.user.public_fellows.include?(user)
       when Profile::VISIBILITY.index(:private_fellows)
@@ -27,7 +32,7 @@ class Ability
         false
       end
     end
-    can :manage, Profile, :user_id => user.id
+    can [:read, :update], Profile, :user_id => user.id
 
     # Posts
     can :read, Post, :space => { :public => true }
@@ -72,7 +77,7 @@ class Ability
     # TODO: why not :manage?
     can :destroy, Attachment, :author_id => user.id
     # can't do anything if attachments are disabled in the space
-    # false unless space.repository? || ( permission == :read && ! new_record? )
+    # false unless space.repository? || ( permission == :read && ! anonymous? )
     cannot :manage, Attachment do |attach|
       !attach.space.repository?
     end
@@ -87,15 +92,10 @@ class Ability
     can :read, Space do |space|
       space.users.include?(user)
     end
-    can :create, Space unless user.new_record?
+    can :create, Space unless user.anonymous?
     can :manage, Space do |space|
       space.admins.include?(user)
     end
-
-    # Users
-    can :read, User
-    can :manage, User, :id => user.id, :disabled => false
-    cannot :manage, User, :disabled => true
 
     # Private messages
     can :read, PrivateMessage do |message|

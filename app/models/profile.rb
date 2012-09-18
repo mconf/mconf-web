@@ -10,20 +10,20 @@ require 'prism'
 
 class Profile < ActiveRecord::Base
   attr_accessor :vcard
-  
+
   belongs_to :user
   accepts_nested_attributes_for :user
 
   acts_as_taggable :container => false
   has_logo :class_name => "Avatar"
-  
+
   # The order implies inclusion: everybody > members > public_fellows > private_fellows
   VISIBILITY = [:everybody, :members, :public_fellows, :private_fellows, :nobody]
-  
+
   before_validation do |profile|
     if profile.url
       if (profile.url.index('http') != 0)
-        profile.url = "http://" << profile.url 
+        profile.url = "http://" << profile.url
       end
     end
   end
@@ -34,7 +34,7 @@ class Profile < ActiveRecord::Base
   def validate_method
     errors.add(:base, @vcard_errors) if @vcard_errors.present?
   end
-  
+
   def prefix
     self.prefix_key.include?("title_formal.") ? I18n.t(self.prefix_key) : self.prefix_key
   end
@@ -43,11 +43,11 @@ class Profile < ActiveRecord::Base
     return unless @vcard.present?
 
     @vcard = Vpim::Vcard.decode(@vcard).first
-    
+
     #TELEPHONE
-    if !@vcard.telephone('pref').nil? 
+    if !@vcard.telephone('pref').nil?
       self.phone = @vcard.telephone('pref')
-    else 
+    else
       if !@vcard.telephone('work').nil?
         self.phone = @vcard.telephone('work')
       elsif !@vcard.telephone('home').nil?
@@ -56,39 +56,39 @@ class Profile < ActiveRecord::Base
         self.phone = @vcard.telephones[0]
       end
     end
-    
+
     #FAX
     if !@vcard.telephone('fax').nil?
-      self.fax = @vcard.telephone('fax') 
+      self.fax = @vcard.telephone('fax')
     end
 
    #NAME
    if !@vcard.name.nil?
-     
+
       temporal = ''
-      
+
       if !@vcard.name.prefix.eql? ''
         self.prefix_key = @vcard.name.prefix
-      end  
+      end
       if !@vcard.name.given.eql? ''
         temporal =  @vcard.name.given + ' '
       end
       if !@vcard.name.additional.eql? ''
-        temporal = temporal + @vcard.name.additional + ' ' 
-      end             
+        temporal = temporal + @vcard.name.additional + ' '
+      end
       if !@vcard.name.family.eql? ''
         temporal = temporal + @vcard.name.family
       end
-      
-      if !temporal.eql? '' 
+
+      if !temporal.eql? ''
         self.full_name = temporal.unpack('M*')[0];
       end
    end
-      
+
     #EMAIL
-    if !@vcard.email('pref').nil? 
+    if !@vcard.email('pref').nil?
       self.user.email = @vcard.email('pref')
-    else 
+    else
       if !@vcard.email('work').nil?
         self.user.email = @vcard.email('work')
       elsif !@vcard.email('home').nil?
@@ -97,7 +97,7 @@ class Profile < ActiveRecord::Base
         self.user.email = @vcard.emails[0]
       end
     end
-    
+
     #URL
     if !@vcard.url.nil?
         self.url = @vcard.url.uri.to_s
@@ -107,24 +107,24 @@ class Profile < ActiveRecord::Base
     if !@vcard.note.nil?
         self.description = @vcard.note.unpack('M*')[0]
     end
-  
+
     #ORGANIZATION
-    if !@vcard.org.nil?  
+    if !@vcard.org.nil?
       self.organization = @vcard.org[0].unpack('M*')[0]
-    end 
-  
+    end
+
     #DIRECTION
-    address = nil;              
-    if !@vcard.address('pref').nil? 
+    address = nil;
+    if !@vcard.address('pref').nil?
       address = @vcard.address('pref')
-    else 
+    else
       if !@vcard.address('work').nil?
         address = @vcard.address('work')
       elsif !(@vcard.addresses.nil?||@vcard.addresses[0].nil?)
         address = @vcard.addresses[0]
       end
-    end            
-    if !address.nil? 
+    end
+    if !address.nil?
           self.address = address.street.unpack('M*')[0] + ' ' + address.extended.unpack('M*')[0]
           self.city = address.locality.unpack('M*')[0]
           self.zipcode = address.postalcode.unpack('M*')[0]
@@ -152,7 +152,7 @@ class Profile < ActiveRecord::Base
     if hcard.n
       if hcard.n.honorific_prefix
         self.prefix_key = hcard.n.honorific_prefix
-      end  
+      end
 
       full_name = hcard.fn ||
                   "#{ hcard.n.try(:given_name) } #{ hcard.n.try(:additional_name) } #{ hcard.n.try(:family_name) }".strip
@@ -165,15 +165,15 @@ class Profile < ActiveRecord::Base
     if hcard.email
       user.email = hcard.email
     end
-    
+
     if hcard.url
         self.url = Array(hcard.url).first
     end
 
     if hcard.org
       self.organization = hcard.org
-    end 
-  
+    end
+
     if hcard.adr
       if hcard.adr.street_address || hcard.adr.extended_address
         self.address = "#{ hcard.adr.street_address } #{ hcard.adr.extended_address }".strip
@@ -228,7 +228,7 @@ class Profile < ActiveRecord::Base
       else
         maker.add_tel(mobile) do |vtel|
           vtel.location = 'cell'
-        end  
+        end
       end
 
       if fax.blank?

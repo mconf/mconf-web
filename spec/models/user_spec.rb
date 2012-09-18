@@ -21,12 +21,6 @@ describe User do
     user.profile.should be_an_instance_of(Profile)
   end
 
-  it "should create the user's webconf room after creating the user" do
-    user = FactoryGirl.create(:user)
-    user.bigbluebutton_room.should_not be_nil
-    user.bigbluebutton_room.should be_an_instance_of(BigbluebuttonRoom)
-  end
-
   [ :receive_digest ].each do |attribute|
     it { should allow_mass_assignment_of(attribute) }
   end
@@ -34,6 +28,12 @@ describe User do
   describe "#bigbluebutton_room" do
     it { should have_one(:bigbluebutton_room).dependent(:destroy) }
     it { should accept_nested_attributes_for(:bigbluebutton_room) }
+
+    it "should be created after creating the user" do
+      user = FactoryGirl.create(:user)
+      user.bigbluebutton_room.should_not be_nil
+      user.bigbluebutton_room.should be_an_instance_of(BigbluebuttonRoom)
+    end
   end
 
   describe "#accessible_rooms" do
@@ -57,6 +57,60 @@ describe User do
     it { should include(public_space_member.bigbluebutton_room) }
     it { should include(public_space_not_member.bigbluebutton_room) }
     it { should_not include(private_space_not_member.bigbluebutton_room) }
+  end
+
+  describe "#anonymous" do
+    subject { user.anonymous? }
+
+    context "for a user in the database" do
+      let(:user) { FactoryGirl.create(:user) }
+      it { should be_false }
+    end
+
+    context "for a user not in the database" do
+      let(:user) { FactoryGirl.build(:user) }
+      it { should be_true }
+    end
+  end
+
+  describe "abilities" do
+    subject { ability }
+    let(:ability) { Ability.new(user) }
+    let(:target) { FactoryGirl.create(:user) }
+
+    context "when is the user himself" do
+      let(:user) { target }
+      it { should be_able_to(:manage, target) }
+
+      context "and he is disabled" do
+        before { target.disable() }
+        it { should_not be_able_to_do_anything_to(target) }
+      end
+    end
+
+    context "when is a superuser" do
+      let(:user) { FactoryGirl.create(:superuser) }
+      it { should be_able_to(:manage, target) }
+
+      context "and the target user is disabled" do
+        before { target.disable() }
+        it { should be_able_to(:manage, target) }
+      end
+
+      context "he can do anything" do
+        it { should be_able_to(:manage, :all) }
+      end
+    end
+
+    context "when is an anonymous user" do
+      let(:user) { User.new }
+      it { should_not be_able_to_do_anything_to(target).except(:read) }
+
+      context "and the target user is disabled" do
+        before { target.disable() }
+        it { should_not be_able_to_do_anything_to(target) }
+      end
+    end
   end
 
 end
