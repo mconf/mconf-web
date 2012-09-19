@@ -1,0 +1,39 @@
+%li
+  #message_header
+    - if private_message.sender_id.present?
+      - @sender = User.find_with_disabled(private_message.sender_id)
+      .picture
+        = @sender.disabled? ? logo(@sender, :size => 32) : raw(link_logo(@sender,:size=>32, :url => user_path(@sender), :title => @sender.username))
+      .name_date
+        %span.name
+          =@sender.disabled? ? @sender.name : link_to(@sender.name, user_path(@sender))
+        %span.date
+          =((Time.now.to_date == private_message.created_at.to_date) ? time_ago_in_words(private_message.created_at) + " ago" : private_message.created_at.strftime("%d %b"))
+    - else
+      .name_date
+        %span.date
+          =((Time.now.to_date == private_message.created_at.to_date) ? time_ago_in_words(private_message.created_at) + " ago" : private_message.created_at.strftime("%d %b"))
+
+    .subject
+      %div
+        %span.topic
+          = t('subject')
+          - if params[:id] 
+            = private_message.title 
+          - else 
+            = link_to sanitize(private_message.title), user_message_path(params[:user_id], private_message), :class => "message_link"
+
+    .reply
+      =link_to image_tag("icons/comments-add.png", :alt => t('reply') ), user_messages_path(params[:user_id], :reply_to => private_message), :title => t('reply') unless params[:sent_messages] || params[:id]
+
+    - privatetitle = sanitize(private_message.title)
+
+    .delete
+      = link_to image_tag("icons/cancel.png", :alt => t('delete.one') ), user_message_path(params[:user_id],private_message, :private_message => {:deleted_by_receiver => true}), :confirm => t('delete.confirm', :element => privatetitle), :method => :delete,:title => t('delete.one') unless params[:id]
+
+%div.message_content
+  %p
+    - if params[:id]
+      = sanitize(auto_link(simple_format(private_message.body)))
+    - else
+      = sanitize(auto_link(simple_format(private_message.body[0...200]))) 

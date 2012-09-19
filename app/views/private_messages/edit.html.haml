@@ -1,0 +1,11 @@
+%h1
+  = t('message.private.editing')
+
+= form_for(@private_message) do |f|
+  = f.error_messages
+
+  %p
+    = f.submit t('update')
+
+= link_to t('show'), @private_message
+= link_to t('back'), private_message_path

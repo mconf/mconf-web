@@ -1,0 +1,6 @@
+- private_messages_menu_at(:compose)
+
+= render_page_title t('private_messages')
+= render :partial => 'private_messages/menu'
+
+= render :partial => "new_private_message", :locals => { :receiver_id => params[:receiver] }

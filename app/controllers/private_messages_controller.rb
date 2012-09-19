@@ -15,8 +15,13 @@ class PrivateMessagesController < ApplicationController
     else  
       @private_messages = PrivateMessage.inbox(user).paginate(:page => params[:page], :per_page => 10)
     end
-    
 
+    #search the name of the user when replying a message
+    if params[:reply_to]
+      @previous_message = PrivateMessage.find(params[:reply_to])
+      @receiver_name = User.find(@previous_message.sender_id).name
+    end
+  
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @private_messages }
@@ -25,6 +30,14 @@ class PrivateMessagesController < ApplicationController
 
   def show
     @show_message = PrivateMessage.find(params[:id])
+    @previous_message = @show_message
+    @receiver_name = User.find(@show_message.sender_id).name
+    @previous_messages = []
+    previous = @show_message 
+    while previous.parent_id
+      previous = PrivateMessage.find(previous.parent_id)
+      @previous_messages << previous
+    end
     if @is_receiver = user.id == @show_message.receiver_id
       @show_message.checked = true
       @show_message.save
@@ -35,7 +48,9 @@ class PrivateMessagesController < ApplicationController
   def new
        
     @private_message = PrivateMessage.new
-
+    if params[:receiver]
+      @receiver_name = User.find(params[:receiver]).name
+    end
     respond_to do |format|
       format.html{
         if request.xhr?
@@ -51,10 +66,14 @@ class PrivateMessagesController < ApplicationController
   end
 
   def create
-    if params[:receiver_ids]
+    receivers = []
+    if params[:private_message][:users_tokens]
+      receivers = params[:private_message][:users_tokens].split(",")
+    end
+    unless receivers.empty?
       @success_messages = Array.new
       @fail_messages = Array.new
-      for receiver in params[:receiver_ids].uniq
+      for receiver in receivers.uniq
         params[:private_message][:sender_id] = user.id
         params[:private_message][:receiver_id] = receiver
         private_message = PrivateMessage.new(params[:private_message])

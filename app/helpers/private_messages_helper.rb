@@ -5,6 +5,20 @@
 # 3 or later. See the LICENSE file.
 
 module PrivateMessagesHelper
+  
+  # Stores the current tab in the menu
+  def private_messages_menu_at(tab)
+    @private_messages_menu_tab = tab
+  end
+
+  # Selects the tab if it is the current tab in the menu
+  def private_messages_menu_select_if(tab, options={})
+    old_class = options[:class] || ''
+    @private_messages_menu_tab == tab ?
+      options.update({ :class => "#{old_class} selected" }) :
+      options
+  end
+
   def getCospaceUsers ()
     # Fixme, optimize this method
     if @space

@@ -1,0 +1,5 @@
+= content_for :page_menu do
+  %ul
+    %li= link_to t('private_message.inbox').capitalize, user_messages_path(current_user), private_messages_menu_select_if(:inbox)
+    %li= link_to t('private_message.sent').capitalize, user_messages_path(current_user, :sent_messages => true), private_messages_menu_select_if(:sent)
+    %li= link_to t('private_message.compose').capitalize,new_user_message_path(current_user), private_messages_menu_select_if(:compose)

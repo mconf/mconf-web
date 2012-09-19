@@ -171,12 +171,12 @@ ActiveRecord::Schema.define(:version => 20120827011123) do
 
   create_table "events", :force => true do |t|
     t.string   "name"
-    t.text     "description"
+    t.text     "description",             :limit => 255
     t.string   "place"
     t.datetime "start_date"
     t.datetime "end_date"
     t.integer  "machine_id"
-    t.string   "colour",                  :default => ""
+    t.string   "colour",                                 :default => ""
     t.string   "repeat"
     t.integer  "at_job"
     t.integer  "parent_id"
@@ -187,23 +187,23 @@ ActiveRecord::Schema.define(:version => 20120827011123) do
     t.integer  "space_id"
     t.integer  "author_id"
     t.string   "author_type"
-    t.boolean  "spam",                    :default => false
+    t.boolean  "spam",                                   :default => false
     t.text     "notes"
     t.text     "location"
     t.text     "other_streaming_url"
     t.string   "permalink"
-    t.integer  "vc_mode",                 :default => 0
+    t.integer  "vc_mode",                                :default => 0
     t.text     "other_participation_url"
-    t.boolean  "web_interface",           :default => false
-    t.boolean  "sip_interface",           :default => false
+    t.boolean  "web_interface",                          :default => false
+    t.boolean  "sip_interface",                          :default => false
     t.datetime "generate_pdf_at"
     t.datetime "generate_scorm_at"
     t.integer  "web_bw"
     t.integer  "recording_bw"
     t.datetime "generate_pdf_small_at"
-    t.boolean  "streaming_by_default",    :default => true
-    t.boolean  "manual_configuration",    :default => false
-    t.integer  "recording_type",          :default => 0
+    t.boolean  "streaming_by_default",                   :default => true
+    t.boolean  "manual_configuration",                   :default => false
+    t.integer  "recording_type",                         :default => 0
   end
 
   create_table "groups", :force => true do |t|
@@ -298,13 +298,13 @@ ActiveRecord::Schema.define(:version => 20120827011123) do
     t.integer  "sender_id"
     t.integer  "receiver_id"
     t.integer  "parent_id"
-    t.boolean  "checked",             :default => false
+    t.boolean  "checked",                            :default => false
     t.string   "title"
-    t.text     "body"
+    t.text     "body",                :limit => 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "deleted_by_sender",   :default => false
-    t.boolean  "deleted_by_receiver", :default => false
+    t.boolean  "deleted_by_sender",                  :default => false
+    t.boolean  "deleted_by_receiver",                :default => false
   end
 
   create_table "profiles", :force => true do |t|
@@ -317,13 +317,13 @@ ActiveRecord::Schema.define(:version => 20120827011123) do
     t.string  "zipcode"
     t.string  "province"
     t.string  "country"
-    t.integer "user_id"
-    t.string  "prefix_key",   :default => ""
+    t.integer "user_id",      :limit => 255
+    t.string  "prefix_key",                  :default => ""
     t.text    "description"
     t.string  "url"
     t.string  "skype"
     t.string  "im"
-    t.integer "visibility",   :default => 3
+    t.integer "visibility",                  :default => 3
     t.string  "full_name"
   end
 
@@ -405,7 +405,7 @@ ActiveRecord::Schema.define(:version => 20120827011123) do
   create_table "users", :force => true do |t|
     t.string   "username"
     t.string   "email",                                :default => "",    :null => false
-    t.string   "encrypted_password",                   :default => "",    :null => false
+    t.string   "encrypted_password",     :limit => 40, :default => "",    :null => false
     t.string   "password_salt",          :limit => 40
     t.datetime "created_at"
     t.datetime "updated_at"

@@ -1,0 +1,45 @@
+:javascript
+  $(document).ready(function () {
+    $("#private_message_users_tokens").tokenInput("/users/fellow_users.json", {
+      crossDomain: false,
+      theme: 'facebook',
+      preventDuplicates: true,
+      searchDelay: 150
+    });
+  });
+
+- if getCospaceUsers().empty?
+  = t("message.private.cant")
+- else
+  #priv-msg
+    %h3 
+      = t('message.private.send') 
+    = form_for(:private_message, :url => user_messages_path(current_user)) do |f| 
+      = f.error_messages
+      - if params[:receiver]
+        %div
+          %label{:for => "To"}
+            = t('message.to') +": "+ @receiver_name
+          = hidden_field_tag "private_message[receiver_id]", params[:receiver]
+      %div
+        %label{:for => "Title"} 
+          = t('title')
+        = f.text_field :title, :size =>25 
+      %div
+        %label{:for => "Body"} 
+          = t('body') 
+        <br />
+        = f.text_area :body 
+      - unless params[:receiver]
+        %div
+          %label{:for => :users_tokens} 
+            = t('message.to')
+          %span.tip
+            ( 
+            = t('invite_people.names_tip') 
+            )
+            <br/>
+          = f.text_field :users_tokens
+      .margin-up        
+        %button.btn{:type => "submit", :class => "basic_button blue_button"}
+          = t("button.send")

@@ -1,0 +1,21 @@
+#priv-msg
+  %h3
+    = t('message.reply') 
+  = form_for(:private_message, :url => user_messages_path(current_user)) do |f| 
+    = f.error_messages 
+    %div
+      %label{:for => "To"}
+        = t('message.to') + ": " + @receiver_name
+    %div
+      %label{:for => "Title"}
+        = t('title')
+      = f.text_field :title, :size =>25, :value => "Re: " + previous_message.title
+    %div
+      %label{:for => "Body"} 
+        = t('body')
+      = f.text_area :body, :value => "", :autofocus => true
+    %p
+      = hidden_field_tag 'private_message[parent_id]', @previous_message.id
+      = hidden_field_tag 'private_message[receiver_id]', @previous_message.sender_id
+      %button{:type => "submit", :class => "basic_button blue_button"}
+        = t("button.send")

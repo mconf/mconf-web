@@ -8,7 +8,7 @@
 class PrivateMessage < ActiveRecord::Base
   belongs_to :sender,  :class_name => "User"
   belongs_to :receiver, :class_name => "User"
-
+  attr_accessor :users_tokens
   acts_as_resource :per_page => 10
 
   validates_presence_of :receiver_id , :title, :body,

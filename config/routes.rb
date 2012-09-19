@@ -132,6 +132,7 @@ Mconf::Application.routes.draw do
   resources :memberships
 
   resources :users do
+    get :fellow_users, :on => :collection, :defaults => { :format => 'json' }
     get :select_users, :on => :collection
     get :current, :on => :collection, :defaults => { :format => 'xml' }
     member do
@@ -139,7 +140,7 @@ Mconf::Application.routes.draw do
       get :edit_bbb_room
     end
 
-    resources :private_messages, :as => 'messages'
+    resources :private_messages, :as => 'messages', :except => [:edit]
     resource :profile, :except => [:new, :create] do
       resource :logo
     end

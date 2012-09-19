@@ -36,6 +36,7 @@ namespace :setup do
       user.confirmed_at = @created_at_start..Time.now
       user.disabled = false
       user.notification = User::NOTIFICATION_VIA_EMAIL
+      user.encrypted_password = "123"
 
       Profile.populate 1 do |profile|
         profile.user_id = user.id
@@ -65,7 +66,7 @@ namespace :setup do
                                        :name => user.profile.full_name
       end
       # set the password this way so that devise makes the encryption
-      pass = "test"
+      pass = "Testes123"
       user.update_attributes(:password => pass, :password_confirmation => pass)
     end
 

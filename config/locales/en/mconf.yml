@@ -108,7 +108,8 @@ en:
     select_new: "Select new picture"
     upload: "Upload picture"
   back: Back
-  back_to_inbox: "Back to inbox"
+  back_to_inbox: "Back to Inbox"
+  back_to_sent: "Back to Sent"
   bbb_room: 
     attendeePW: "Attendee Password"
     edit: "Configure your webconference room"
@@ -768,6 +769,9 @@ en:
       other: "Sent messages"
     special1: "The Mconf platform will be down from Friday 17-Dec at 16:00 UTC until Saturday 18-Dec 16:00 UTC. Sorry for the inconveniences."
     special2: "The Mconf Team"
+    error:
+      create: "Error sending message"
+    to: To
   moderatorPW: "Moderator Password"
   more: more...
   more_arrows: "more >>"
@@ -869,7 +873,11 @@ en:
   preferences: Preferences
   previous: Previous
   privacy: Privacy
-  private_message: 
+  private_message:
+    inbox: Inbox
+    sent: Sent 
+    compose: Compose
+    open: Open
     more: 
       one: "and one more private message..."
       other: "and more %{count} private messages..."
@@ -877,6 +885,7 @@ en:
     other: "Private Messages"
     send: "Send private message"
     title: "Private Messages (%{count})"
+  private_messages: "Private Messages"
   profile: 
     deleted: "Profile deleted successfully"
     description: 

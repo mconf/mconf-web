@@ -1,0 +1,28 @@
+/*
+ *= require ../../../../../vendor/assets/stylesheets/fcbkcomplete
+ */
+
+body {
+
+  #new_message {
+    text-align: center;
+    button {
+      margin-left: 73%;
+    }
+  }
+
+  #message_title {
+    width: 90%;
+  }
+
+  #new_message_text {
+    display: none;
+
+    textarea {
+      width: 90%;
+      height: 100px;
+      resize: none;
+    }
+  }
+}
+

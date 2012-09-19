@@ -107,6 +107,7 @@ pt-br:
     upload: "Enviar imagem"
   back: Voltar
   back_to_inbox: "Voltar para caixa de entrada"
+  back_to_sent: "Voltar para Enviadas"
   bbb_room:
     attendeePW: "Senha do Participante"
     edit: "Configure sua sala de webconferência"
@@ -737,11 +738,14 @@ pt-br:
       new: "Nova mensagem privada"
       none: "Não há mensagens"
       send: "Enviar uma mensagem privada"
-    reply: "Responder Ã  mensagem"
+    reply: "Responder à mensagem"
     sent:
       other: "Mensagens enviadas"
     special1: "A plataforma Mconf estará indisponível a partir de sexta-feira, 17 dezembro às 16:00 UTC, até sábado, 18-Dez 16:00 UTC. Desculpem o incómodo."
     special2: "A Equipe do Mconf"
+    error:
+      create: "Ocorreu um erro ao enviar sua mensagem"
+    to: Para 
   moderatorPW: "Senha de Moderador"
   more: mais...
   more_arrows: "mais >>"
@@ -840,6 +844,10 @@ pt-br:
   previous: Anterior
   privacy: Privacidade
   private_message:
+    inbox: "Caixa de entrada"
+    sent: Enviadas
+    compose: "Escrever"
+    open: Abrir
     more:
       one: "e uma outra mensagem privada..."
       other: "e mais %{count} mensagens privadas..."
@@ -847,6 +855,7 @@ pt-br:
     other: "Mensagens Privadas"
     send: "Enviar mensagem privada"
     title: "Mensagens Privadas (%{count})"
+  private_messages: "Mensagens Privadas"
   profile:
     deleted: "Perfil excluído com sucesso"
     description:

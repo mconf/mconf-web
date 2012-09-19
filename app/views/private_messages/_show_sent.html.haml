@@ -1,0 +1,29 @@
+- @receiver = User.find_with_disabled(private_message.receiver_id)
+.picture
+  = @receiver.disabled? ? logo(@receiver, :size => 32) : raw(link_logo(@receiver,:size=>32, :url => user_path(@receiver)))
+.name_date
+  %span.name
+    = @receiver.disabled? ? @receiver.name : link_to(@receiver.name, user_path(@receiver))
+  %span.date
+    = ((Time.now.to_date == private_message.created_at.to_date) ? time_ago_in_words(private_message.created_at) + " ago" : private_message.created_at.strftime("%d %b"))
+    
+.subject
+  %div
+    %span.topic
+      = t('subject')
+      - if params[:id] 
+        = sanitize(private_message.title) 
+      - else 
+        = link_to sanitize(private_message.title), user_message_path(params[:user_id], private_message), :class => "message_link"
+   
+- privatetitle = sanitize(private_message.title)
+
+.delete
+  = link_to image_tag("icons/cancel.png", :alt => t('delete.one') ), user_message_path(params[:user_id],private_message, :private_message => {:deleted_by_sender => true}), :confirm => t('delete.confirm', :element => privatetitle), :method => :delete,:title => t('delete.one') unless params[:id]
+
+.message_content
+  %p
+    - if params[:id]
+      = sanitize(auto_link(simple_format(private_message.body[0...200])))
+    - else  
+      = sanitize(auto_link(simple_format(private_message.body)))

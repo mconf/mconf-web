@@ -1,0 +1,39 @@
+- if @is_receiver
+  - private_messages_menu_at :inbox
+- else
+  - private_messages_menu_at :sent
+
+= render_page_title t('private_messages')
+= render :partial => 'private_messages/menu'
+
+= content_for :sidebar do
+  - if params[:reply_to]
+    = render :partial => "reply_private_message", :locals => { :previous_message => PrivateMessage.find(params[:id]) }
+
+
+%h3= sanitize(@show_message.title)
+
+%p
+  - if @show_message.sender_id.present?
+    = link_logotype(User.find(@show_message.sender_id), :size => 96, :title => User.find(@show_message.sender_id).name).html_safe
+    - if @is_receiver && @show_message.sender_id.present?
+      = link_to image_tag("ui/icons/arrow-rotate0anticlockwise.png", :alt => t('reply')).html_safe, user_message_path(params[:user_id], @show_message, :reply_to => true), :title => t('reply') unless params[:reply_to]
+      = link_to image_tag("ui/icons/cross.png", :alt => t('delete.one')).html_safe, user_message_path(params[:user_id], @show_message, :private_message => {:deleted_by_receiver => true}), :confirm => t('delete.confirm', :element => @show_message.title), :method => :delete, :title => t('delete.one')
+    - else
+      = link_to image_tag("ui/icons/cross.ong", :alt => t('delete.one')).html_safe, user_message_path(params[:user_id], @show_message, :private_message => {:delted_by_sender => true}), :confirm => t('delete.confirm', :element => @show_message.title), :method => :delete, :title => t('delete.one')
+
+%p
+  = sanitize(auto_link(simple_format(@show_message.body)))
+
+- if @is_receiver
+  = link_to t('back_to_inbox'), user_messages_path(params[:user_id])
+- else
+  = link_to t('back_to_sent'), user_messages_path(params[:user_id], :sent_messages => true )
+
+%ul
+  - @previous_messages.each do |message|
+    .message_div{:id => message.id, :class => cycle('row-even', 'row-odd') }
+      - if message.sender_id == current_user.id
+        = render :partial => "show_sent", :locals => { :private_message => message }
+      - else
+        = render :partial => "show_received", :locals => { :private_message => message }  

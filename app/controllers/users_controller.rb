@@ -160,4 +160,18 @@ class UsersController < ApplicationController
     end
   end
 
+  # Returns fellows users
+  def fellow_users
+    fellows = []
+    current_user.fellows.each do |fellow|
+      if /#{params[:q]}/i.match fellow.full_name
+        fellows << { "id" => fellow.id,
+                  "name" => fellow.full_name }
+      end
+    end
+    respond_to do |format|
+      format.json { render :json => fellows }
+    end
+  end
+
 end

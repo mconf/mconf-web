@@ -1,0 +1,27 @@
+- if params[:sent_messages]
+  - private_messages_menu_at :sent
+- else
+  - private_messages_menu_at :inbox
+
+= render_page_title t('private_messages')
+= render :partial => 'private_messages/menu'
+
+= content_for :sidebar do
+  - if params[:reply_to] 
+    = render :partial => "reply_private_message", :locals => { :previous_message =>  PrivateMessage.find(params[:reply_to])}
+  - else
+    = render :partial => "new_private_message"
+
+#show-messages
+  - if @private_messages.blank?
+    = t('message.private.none')
+  
+  %ul
+    - @private_messages.each do |private_message|
+      .message_div{:id => private_message.id, :class => cycle('row-even', 'row-odd') }
+        - if params[:sent_messages]
+          = render :partial => "show_sent", :locals => { :private_message => private_message }
+        - else
+          = render :partial => "show_received", :locals => { :private_message => private_message } 
+  = will_paginate @private_messages unless @private_messages.empty?
+
