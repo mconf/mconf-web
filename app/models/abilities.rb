@@ -34,6 +34,7 @@ module Abilities
       # Disabled users are only visible to superusers
       can :read, User, :disabled => false
       can :update, User, :id => user.id, :disabled => false
+      can :fellow_users, User, :id => user.id, :disabled => false
 
       # User profiles
       can :read, Profile do |profile|
