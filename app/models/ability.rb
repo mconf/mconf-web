@@ -7,7 +7,6 @@
 class Ability
   include CanCan::Ability
 
-  # TODO: user.id checks fail if user is a new_record?
   def initialize(user)
 
     user ||= User.new # guest user (not logged in)
@@ -15,7 +14,7 @@ class Ability
     # Users
     # Disabled users are only visible to superusers
     can :read, User, :disabled => false
-    can :manage, User, :id => user.id, :disabled => false
+    can :update, User, :id => user.id, :disabled => false
 
     # User profiles
     can :read, Profile do |profile|
@@ -34,19 +33,33 @@ class Ability
     end
     can [:read, :update], Profile, :user_id => user.id
 
-    # Posts
-    can :read, Post, :space => { :public => true }
-    can :read, Post do |post|
-      post.space.users.include?(user)
+    # Private messages
+    can :create, PrivateMessage unless user.anonymous?
+    can :read, PrivateMessage do |message|
+      message.sender_id == user.id or message.receiver_id == user.id
     end
-    can :create_post, Space do |space|
+    can :destroy, PrivateMessage, :sender_id => user.id
+
+    # Spaces
+    can :create, Space unless user.anonymous?
+    can :read, Space, :public => true
+    can :read, Space do |space|
       space.users.include?(user)
     end
-    # TODO: why not :manage?
-    # TODO: && space.authorize?([ :create, :content ], :to => agent)
-    can [:update, :destroy], Post, :author_id => user.id
+    can :update, Space do |space|
+      space.admins.include?(user)
+    end
+
+    # Posts
+    # TODO: maybe space admins should be able to alter posts
+    can :read, Post, :space => { :public => true }
+    can [:read, :create, :reply_post], Post do |post|
+      post.space.users.include?(user)
+    end
+    can [:read, :reply_post, :update, :destroy], Post, :author_id => user.id
 
     # News
+    # Only admins can create/alter news, the rest can only read
     can :read, News, :space => { :public => true }
     can :read, News do |news|
       news.space.users.include?(user)
@@ -56,28 +69,23 @@ class Ability
     end
 
     # Events
+    # TODO: there are some :create_event's still in the code, remove them
+    # TODO: maybe space admins should be able to alter events
     can :read, Event, :space => { :public => true }
-    can :read, Event do |event|
+    can [:read, :create], Event do |event|
       event.space.users.include?(user)
     end
-    can :create_event, Space do |space|
-      space.users.include?(user)
-    end
-    # TODO: why not :manage?
-    can [:update, :destroy], Event, :author_id => user.id
+    can [:read, :update, :destroy], Event, :author_id => user.id
 
     # Attachments
+    # TODO: there are some :create_attachment's still in the code, remove them
+    # TODO: maybe space admins should be able to alter attachments
     can :read, Attachment, :space => { :public => true }
-    can :read, Attachment do |attach|
+    can [:read, :create], Attachment do |attach|
       attach.space.users.include?(user)
     end
-    can :create_attachment, Space do |space|
-      space.users.include?(user)
-    end
-    # TODO: why not :manage?
-    can :destroy, Attachment, :author_id => user.id
+    can [:read, :destroy], Attachment, :author_id => user.id
     # can't do anything if attachments are disabled in the space
-    # false unless space.repository? || ( permission == :read && ! anonymous? )
     cannot :manage, Attachment do |attach|
       !attach.space.repository?
     end
@@ -86,23 +94,6 @@ class Ability
     #     can? :manage, attach.parent
     #   end
     # end
-
-    # Spaces
-    can :read, Space, :public => true
-    can :read, Space do |space|
-      space.users.include?(user)
-    end
-    can :create, Space unless user.anonymous?
-    can :manage, Space do |space|
-      space.admins.include?(user)
-    end
-
-    # Private messages
-    can :read, PrivateMessage do |message|
-      message.sender_id == user.id or message.receiver_id == user.id
-    end
-    can :manage, PrivateMessage, :sender_id => user.id
-    cannot :edit, PrivateMessage # can't edit any private message
 
     # Permissions
     can :update, Permission do |perm|
@@ -139,6 +130,7 @@ class Ability
     # authorization_delegate(:space,:as => :content)
 
     # Superusers
+    # TODO: restrict a bit what superusers can do
     can :manage, :all if user.superuser?
 
   end

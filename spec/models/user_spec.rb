@@ -80,7 +80,7 @@ describe User do
 
     context "when is the user himself" do
       let(:user) { target }
-      it { should be_able_to(:manage, target) }
+      it { should_not be_able_to_do_anything_to(target).except([:read, :update]) }
 
       context "and he is disabled" do
         before { target.disable() }

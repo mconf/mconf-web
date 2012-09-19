@@ -15,9 +15,11 @@ require 'cancan/matchers'
 # in spec/support/ and its subdirectories.
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
-# All actions possible in our cancan Ability class
+# ALL actions possible in our cancan Ability class should be here
+# including our custom actions
 Shoulda::Matchers::ActiveModel::BeAbleToDoAnythingToMatcher.
-  actions = [:read, :create, :update, :destroy, :manage]
+  actions = [:read, :create, :update, :destroy, :manage,
+             :reply_post]
 
 ActionMailer::Base.delivery_method = :test
 ActionMailer::Base.perform_deliveries = true

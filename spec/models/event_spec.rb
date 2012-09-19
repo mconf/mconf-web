@@ -1,0 +1,57 @@
+# This file is part of Mconf-Web, a web application that provides access
+# to the Mconf webconferencing system. Copyright (C) 2010-2012 Mconf
+#
+# This file is licensed under the Affero General Public License version
+# 3 or later. See the LICENSE file.
+
+require "spec_helper"
+
+describe Event do
+
+  describe "abilities" do
+    subject { ability }
+    let(:ability) { Ability.new(user) }
+    let(:target) { FactoryGirl.create(:event) }
+
+    context "when is the event author" do
+      let(:user) { target.author }
+      it { should_not be_able_to_do_anything_to(target).except([:read, :update, :destroy]) }
+    end
+
+    context "when is an anonymous user" do
+      let(:user) { User.new }
+
+      context "and the event is in a public space" do
+        before { target.space.update_attributes(:public => true) }
+        it { should_not be_able_to_do_anything_to(target).except(:read) }
+      end
+
+      context "and the event is in a private space" do
+        before { target.space.update_attributes(:public => false) }
+        it { should_not be_able_to_do_anything_to(target) }
+      end
+
+    end
+
+    context "when is a registered user" do
+      context "that's a member of the space the event is in" do
+        let(:user) { FactoryGirl.create(:user) }
+        before { target.space.add_member!(user) }
+        it { should_not be_able_to_do_anything_to(target).except([:read, :create]) }
+      end
+
+      context "that's not a member of the private space the event is in" do
+        let(:user) { FactoryGirl.create(:user) }
+        before { target.space.update_attributes(:public => false) }
+        it { should_not be_able_to_do_anything_to(target) }
+      end
+
+      context "that's not a member of the public space the event is in" do
+        let(:user) { FactoryGirl.create(:user) }
+        before { target.space.update_attributes(:public => true) }
+        it { should_not be_able_to_do_anything_to(target).except(:read) }
+      end
+    end
+
+  end
+end
