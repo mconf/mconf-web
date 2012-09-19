@@ -830,14 +830,16 @@ pt-br:
     more:
       one: "e uma outra mensagem..."
       other: "e mais %{count} mensagens..."
-    new_post: "Novo post .."
+    new_post: "Postar uma mensagem..."
     none_created: "Nenhuma mensagem criada"
     none_recent: "Não há mensagens recentes"
     one: Mensagem
     other: Mensagens
     other_in_space: "Mensagens na comunidade %{space}"
+    posted: "postou"
     show_expanded_pref: "Como você gostaria de ver suas mensagens?"
     title: "Mensagens (%{count})"
+    updated: "Mensagem atualizada!"
     wall: Mural
   prav: PRAV
   preferences: Preferências
@@ -996,10 +998,6 @@ pt-br:
     default: site
     description: Descrição
     domain: "Domínio da Aplicação"
-    email: E-mail
-    email_password: "Senha para o e-mail"
-    email_password_tip: "A senha para sua conta de e-mail. Ela é necessária para que a aplicação possa usar a sua conta para enviar e-mails."
-    email_tip: "Este e-mail será utilizado pela aplicação para enviar e-mails. Atualmente apenas contas do Gmail são suportadas."
     exception_notifications: "Enviar e-mails de depuração"
     exception_notifications_email: "Destinatários dos e-mails de depuração"
     exception_notifications_email_tip: "Use espaços, vírgulas ou ponto-e-vírgulas para separar diferentes e-mails."
@@ -1015,6 +1013,17 @@ pt-br:
     shib_name_field: "Campo Shibboleth para nome"
     shib_name_field_tip: "Quando um usuário se autentica em provedor de serviços Shibboleth este campo será utilizado para obter o nome do usuário. Exemplo: Shib-inetOrgPerson-sn"
     signature: Assinatura
+    smtp_auth_type: "Tipo de autenticação STMP"
+    smtp_auto_tls: "Auto-iniciar TLS no SMTP"
+    smtp_domain: "Domínio STMP"
+    smtp_login: Login SMTP
+    smtp_login_tip: "O e-mail de login no servidor SMTP."
+    smtp_password: Senha SMTP
+    smtp_password_tip: "A senha para sua conta de e-mail no servidor SMTP."
+    smtp_port: Porta SMTP
+    smtp_sender: Remetente SMTP
+    smtp_server: Servidor SMTP
+    smtp_use_tls: Usar TLS no STMP
     ssl: SSL
     ssl_tip: "Com SSL habilitado todos os links internos (incluindo páginas, imagens, anexos) utilizarão o protocolo https ao invés de http"
   size: Tamanho
@@ -1103,7 +1112,7 @@ pt-br:
     detected: "Novo spam detectado"
     error:
       check: "Houve um problema marcando o recurso como spam"
-    item: "Este artigo foi denunciado como spam"
+    item: "Este artigo foi denunciado como spam e está sendo avaliado pelos administradores"
     report: "Denunciar spam"
     reported: "%{name} denunciou spam em %{sitename}"
     valid: "Este conteúdo é válido"

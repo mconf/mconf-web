@@ -45,6 +45,11 @@ class User < ActiveRecord::Base
     @ability ||= Ability.new(self)
   end
 
+  # Returns true if the user is anonymous (not registered)
+  def anonymous?
+    self.new_record?
+  end
+
 ###
 
   acts_as_agent

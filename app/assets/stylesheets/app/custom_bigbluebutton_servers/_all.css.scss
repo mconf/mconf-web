@@ -7,4 +7,16 @@
 @import "app/custom_bigbluebutton_rooms/_show";
 
 body.custom_bigbluebutton_servers {
+  $sidebar-width: 150px;
+  #sidebar {
+    width: $sidebar-width;
+  }
+  #content-middle {
+    width: $contents-width - $sidebar-width - 20px; // less right-margin
+  }
+
+  .affix {
+    width: $sidebar-width;
+    top: 20px;
+  }
 }

@@ -43,6 +43,8 @@ body.spaces.index {
         img {
           padding: 20px;
           background: $light-gray;
+          width: 169px;
+          height: 128px;
         }
       }
     }
@@ -77,6 +79,11 @@ body.spaces.index {
         border: 1px solid $second-color;
         background: lighten($second-color, 35);
         @include box-shadow(0 0 15px $second-color);
+      }
+
+      img {
+        height: 64px;
+        width: 84px;
       }
     }
 

@@ -17,22 +17,19 @@
 # For more about multistage see: https://github.com/capistrano/capistrano/wiki/2.x-Multistage-Extension
 
 staging:
-  server: "127.0.0.1"                                 # Deployment server IP or domain
+  server: "my-server-domain-or-ip"                    # Deployment server IP or domain
   application: "mconf-web"                            # Application name, do not use spaces
   user: "mconf"                                       # User (in the server) used to deploy
+  user_group: "www-data"                              # Group (in the server) for the application files
   repository: "git://github.com/mconf/mconf-web.git"  # Repository to get the app from
   scm: "git"                                          # Repository scm
   branch: "master"                                    # Branch or tag to be deployed
-#  scm_username: "scm-username"                        # Username to access the scm
-#  scm_password: "scm-pass"                            # Password to access the scm
-#  deploy_to: "/home/myuser/deploy_folder/"            # Folder where the app will be in the server
-#  use_sudo: true                                      # Use sudo when running commands in the server?
-#  rvm_ruby_string: '1.9.2@my_gemset'                  # Ruby version and gemset used in rvm
 
 production:
-  server: "127.0.0.1"
+  server: "my-server-domain-or-ip"
   application: "mconf-web"
   user: "mconf"
+  user_group: "www-data"
   repository: "git://github.com/mconf/mconf-web.git"
   scm: "git"
-  branch: "v0.6"
+  branch: "latest"

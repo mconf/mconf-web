@@ -8,7 +8,6 @@
 class SitesController < ApplicationController
   before_filter :authenticate_user!
   authorize_resource :class => false
-  layout 'no_sidebar'
 
   def show
     @site = current_site
@@ -20,7 +19,7 @@ class SitesController < ApplicationController
 
   def update
     respond_to do |format|
-      if current_site.update_attributes(params[:current_site])
+      if current_site.update_attributes(params[:site])
         flash[:success] = t('site.updated')
         format.html { redirect_to site_path }
       else

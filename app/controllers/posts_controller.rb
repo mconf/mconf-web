@@ -27,17 +27,14 @@ class PostsController < ApplicationController
       params[:order], params[:direction] = "updated_at", "DESC"
     end
 
-    posts
+    get_posts
 
     respond_to do |format|
       format.html
       format.atom
-      format.xml { render :xml => @posts }
     end
   end
 
-  # Show this Entry
-  #   GET /posts/:id
   def show
     if params[:last_page]
       post_comments(post, {:last => true})
@@ -46,34 +43,18 @@ class PostsController < ApplicationController
     end
 
     respond_to do |format|
-      format.html {
-        # FIXME: this is wrong, VIEW code should go to app/views or app/helpers
-        if request.xhr?
-          if params[:edit]
-
-            params[:form]='attachments'
-            render :partial => "edit_post", :locals => { :post => post }
-          else
-            render :partial => "new_post", :locals => { :p_id=> @post.id, :id => "reply-form"}
-          end
-        end
-      }
-      format.xml { render :xml => @post.to_xml }
-      format.json { render :json => @post.to_json }
+      format.html
     end
   end
 
   def reply_post
-    @post_id = params[:id]
     respond_to do |format|
-      format.html{
+      format.html {
         render :partial => "reply_post"
       }
     end
   end
 
-  # Renders form for editing this Entry metadata
-  #   GET /posts/:id/edit
   def edit
     respond_to do |format|
       format.html {
@@ -82,11 +63,8 @@ class PostsController < ApplicationController
     end
   end
 
-  # create and update now in ActionController::StationResources
-
-  # Delete this Entry
-  #   DELETE /spaces/:id/posts/:id --> :method => delete
-  #destroy de content of the post. Then its container(post) is destroyed automatic.
+  # Destroys de content of the post. Then its container(post) is
+  # destroyed automatically.
   def destroy
     @post.destroy
     respond_to do |format|
@@ -101,20 +79,16 @@ class PostsController < ApplicationController
         format.html { redirect_to request.referer }
       end
       format.js
-      format.xml { head :ok }
     end
   end
 
   private
 
-  # DRY (used in index and create.js)
-  def posts
+  def get_posts
     per_page = params[:extended] ? 6 : 15
-    @posts ||= Post.roots.in(@space).not_events().find(:all,
-                                                     :order => "updated_at DESC"
-    ).paginate(:page => params[:page],
-                                                              :per_page => per_page)
-
+    @posts ||= Post.roots.in(@space).not_events()
+      .find(:all, :order => "updated_at DESC")
+      .paginate(:page => params[:page], :per_page => per_page)
   end
 
   def post_comments(parent_post, options = {})
@@ -126,6 +100,8 @@ class PostsController < ApplicationController
     @posts ||= total_posts.paginate(:page => page, :per_page => per_page)
   end
 
+  # TODO: these error/success methods were not properly tested
+
   def after_create_with_success
     redirect_to(request.referer || space_posts_path(@space))
   end
@@ -134,7 +110,7 @@ class PostsController < ApplicationController
     # This should be in the view
     params[:form] = 'attachments' if @post.attachments.any?
     flash[:error] = @post.errors.to_xml
-    posts
+    get_posts
     render :index
     flash.delete([:error])
   end

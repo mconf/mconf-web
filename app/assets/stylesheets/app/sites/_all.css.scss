@@ -3,33 +3,40 @@
 
 body.sites {
 
-  $column-width: ($contents-width / 2) - 25px;
-
-  .simple_form.single-column input.string,
-  .simple_form.single-column input.password,
-  .simple_form.single-column textarea.text,
-  .simple_form.single-column select {
-    width: 97%;
+  $sidebar-width: 100px;
+  #sidebar {
+    width: $sidebar-width;
+  }
+  #content-middle {
+    width: $contents-width - $sidebar-width - 20px; // less right-margin
   }
 
-  .simple_form.single-column input.showable_password {
-    width: 80%
+  form {
+    width: 100%;
   }
 
   form textarea {
     resize: none;
   }
 
-  .left-column {
-    float: left;
-    width: $column-width;
-    padding-left: 2px; // so inputs' box-shadow aren't cut
+  label.required abbr {
+    display: none;
   }
 
+  $column-width: (($contents-width - $sidebar-width) / 2) - 30px;
   .right-column {
     float: right;
     width: $column-width;
     padding-right: 2px; // so inputs' box-shadow aren't cut
   }
+  .left-column {
+    float: left;
+    width: $column-width;
+    padding-left: 2px; // so inputs' box-shadow aren't cut}
+  }
 
+  .affix {
+    width: $sidebar-width;
+    top: 20px;
+  }
 }

@@ -30,7 +30,7 @@
         - interval[:contents].each do |item|
           - case item
           - when Post
-            = render "posts/unified_post", :thread => item.reload, :extended => false, :show_author => true
+            = render "posts/unified_post", :thread => item.reload, :show_space => true
           - when Event
             = render "events/unified_event", :event => item.reload
           - when News
@@ -38,7 +38,7 @@
           - when Attachment
             - item = item.reload
             - if item.post.blank?
-              = render "attachments/unified_attachment", :attachment => item, :show_author => true
+              = render "attachments/unified_attachment", :attachment => item
     -# TODO: use js to change the pages
     - unless content.empty?
       .content-block-footer

@@ -5,9 +5,7 @@ body.custom_bigbluebutton_servers {
 
   .webconf-server {
     @include mconf-clearfix;
-    margin-bottom: 15px;
-    padding-bottom: 15px;
-    border-bottom: 1px solid darken($light-gray, 5);
+    padding: 15px 0;
 
     .server-links {
       float: right;

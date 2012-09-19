@@ -37,10 +37,10 @@ default:
   # HTTPS instead of HTTP
   site_ssl: "false"                               # Change to "true" to enable.
 
-  # Email account used to send all emails from within the application (invitations,
-  # registrations confirmations, etc). For now you have to use a Gmail account.
-  site_email: "my-email@server.com"               # Website contact email
-  site_email_password: "my-password"              # Website email password
+  # Basic configurations for SMTP. Defaults to Gmail, unless you configure the
+  # rest of the data in the manage page.
+  site_smtp_login: "my-email@server.com"         # SMTP login
+  site_smtp_password: "my-password"              # SMTP password
 
   # Notifies when an exception occurs. The feature is disabled by default.
   # This will only work in the PRODUCTION environment. To enable it change the property
@@ -60,11 +60,11 @@ default:
 # You can find below the sections for each environment available.
 # Uncomment the lines from one of them to define specific configurations for that environment.
 # You can copy any of the parameters from the default section and override them here.
-# Remember to copy the entire sections: if you want to override "site_email" and
+# Remember to copy the entire sections: if you want to override "site_smtp_login" and
 # "admin_username", you must do something like:
 #
 # development:
-#   site_email: "override the email"
+#   site_smtp_login: "override the SMTP login"
 #   admin_username: "my-special-admin"
 #
 # Also remember to maintain the file indented with 2 spaces. The YML file must be well
@@ -88,4 +88,3 @@ default:
 #  bbb_server_url: "http://test-server/bigbluebutton/api"
 #  bbb_server_salt: "test-server-salt"
 #  bbb_server_version: "0.7"
-

@@ -1,46 +1,55 @@
--# TODO: when extended == true
-- show_author ||= false
+- return if cannot?(:read, thread)
+- show_space ||= false
 
 -# TODO: Review if the id can't be created with div_for(thread)
 %div.thread.thread-post{:class => "#{cycle("thread-even" , "thread-odd")}", :id => "parent-#{thread.id}"}
   .logo-in-thread
-    = link_logo(thread.space, :size => 'w48', :url => space_path(thread.space), :title => thread.space.name).html_safe
+    = link_logo(thread.author, :size => 32, :url => user_path(thread.author), :title => thread.author.name).html_safe
 
   .thread-content
 
     %ul.thread-action-links.visible-on-hover{ :"data-hover-tracked" => "parent-#{thread.id}" }
-      - if can?(:create_post, thread.space)
-        %li= link_to t('reply').downcase, "#", { :"data-href" => reply_post_space_post_path(thread.space, thread), :name => thread.id, :title => t('comment.add'), :id => "post-reply" }
+      - if can?(:create, thread.space.posts.build)
+        %li= link_to t('reply').downcase, reply_post_space_post_path(thread.space, thread), { :name => thread.id, :title => t('comment.add'), :class => "open-modal" }
       - if can?(:update, thread)
-        %li= link_to t('edit').downcase, "#", { :"data-href" => edit_space_post_path(thread.space, thread), :name => thread.id, :title => t('edit'), :id => "post-edit" }
+        %li= link_to t('edit').downcase, edit_space_post_path(thread.space, thread), { :name => thread.id, :title => t('edit'), :class => "open-modal" }
       - if can?(:destroy, thread)
         %li= link_to t('remove').downcase, space_post_path(thread.space,thread), {:method => :delete, :title => t('delete.one'), :confirm => t('delete.confirm', :element => thread.title) }
-      - if user_signed_in? && thread.spam != true
-        %li= link_to t('spam.default').downcase, "#", { :"data-spam" => spam_lightbox_space_post_path(thread.space,thread), :name => thread.id, :title => t('spam.report'), :id => "spam-lightbox" }
+      - if user_signed_in? and !thread.spam
+        %li= link_to t('spam.default').downcase, spam_lightbox_space_post_path(thread.space,thread), { :name => thread.id, :title => t('spam.report'), :class => "spam-report" }
 
     .thread-title
       = comment_icon t('post.home.one', :space => thread.space.name)
-      - if show_author and thread.author
+      - if thread.author
         = link_to thread.author.name, user_path(thread.author), { :class => "thread-author" }
-      - if can?(:read, thread.space)
-        = t('date.at')
-        = link_to first_words(thread.title, 30), space_post_path(thread.space, thread)
-      - if thread.attachments.any?
-        = attachment_icon thread.attachments.first.filename
+      = t('post.posted')
+      = link_to first_words(thread.title, 30), space_post_path(thread.space, thread)
+      - unless thread.children.empty?
+        %span{ :title => t('thread.comments', :children => thread.children.size)}
+          = "(" + t('thread.comments', :children => thread.children.size) + ")"
       %span.thread-updated-at= t('updated_time_ago', :time => time_ago_in_words(thread.updated_at))
+      = spam_icon() if thread.spam
+
+    - if show_space
+      .thread-title
+        = t('date.at')
+        = link_to thread.space.name, space_path(thread.space)
+        - if thread.attachments.any?
+          = attachment_icon thread.attachments.first.filename
 
     .thread-text
       .block-collapsed
-        %p= first_words(thread.text, 100)
-        - if thread.text.length > 100 or !thread.children.empty?
-          %a.link-to-expand{:href => "parent-#{thread.id}"}= t('more')
+        %p
+          = first_words(thread.text, 200)
+          - if thread.text.length > 200 or !thread.children.empty?
+            %a.link-to-expand{:href => "parent-#{thread.id}"}= t('more')
       .block-expanded
         %p= thread.text
         - unless thread.children.size < 4
-          .comments-status
+          .thread-observation
             = t('thread.show_last_comment', :size => thread.three_last_comment().size, :children => thread.children.size)
             = link_to(t('comment.show_all'), space_post_path(thread.space,thread)) if can?(:read, thread.space)
+        %a.link-to-collapse{:href => "parent-#{thread.id}"}= t('less')
         %div
           - for comment in thread.three_last_comment()
             = render :partial => "posts/post" , :locals => { :post =>  comment, :selected_post => false }
-        %a.link-to-collapse{:href => "parent-#{thread.id}"}= t('less')

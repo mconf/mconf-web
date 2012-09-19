@@ -1,21 +1,25 @@
-# sqlite3 for development and testing
-# mysql2 for production
-
+# MySQL (default setup). Versions 4.1 and 5.0 are recommended.
+#
 development:
-  adapter: sqlite3
-  database: db/development.sqlite3
-  pool: 5
-  timeout: 5000
+  adapter: mysql2
+  database: mconf_development         # mysql database name
+  username: mconf                     # mysql database user
+  password: secret-pass               # mysql database password
+  socket: /var/run/mysqld/mysqld.sock
 
+# Warning: The database defined as 'test' will be erased and
+# re-generated from your development database when you run 'rake'.
+# Do not set this db to the same as development or production.
 test:
-  adapter: sqlite3
-  database: db/test.sqlite3
-  pool: 5
-  timeout: 5000
+  adapter: mysql2
+  database: mconf_test                # mysql database name
+  username: mconf                     # mysql database user
+  password: secret-pass               # mysql database password
+  socket: /var/run/mysqld/mysqld.sock
 
 production:
   adapter: mysql2
-  database: mconf_production           # MySQL database name
-  username: root                       # MySQL database user
-  password: mysecretpass               # MySQL database password
+  database: mconf_production          # mysql database name
+  username: mconf                     # mysql database user
+  password: secret-pass               # mysql database password
   socket: /var/run/mysqld/mysqld.sock

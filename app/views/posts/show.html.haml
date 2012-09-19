@@ -1,10 +1,5 @@
 - spaces_menu_at :posts
-
-- if can?(:create_post, @space)
-  = content_for :sidebar do
-    - if params[:edit]
-      = render :partial => "edit_post", :locals => { :post => Post.find(params[:edit]) }
+= render :partial => 'spaces/menu'
 
 = render :partial => 'post_with_children'
-
 = page_navigation_links @posts

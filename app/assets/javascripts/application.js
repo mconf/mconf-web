@@ -2,7 +2,6 @@
 //= require jquery_ujs
 //= require jquery-ui
 //= require bootstrap.min
-//= require bootstrap/bootstrap-dropdown
 //= require jquery/jquery.tokeninput
 //= require jquery/jquery.colorbox
 //= require jquery/jquery.placeholder

@@ -30,6 +30,13 @@ form {
 // Components used site-wide, in any layout
 //
 
+.icon {
+  width: 16px;
+  height: 16px;
+  float: left;
+  margin-right: 3px;
+}
+
 .help-icon {
   float: right;
   cursor: pointer;
@@ -68,6 +75,12 @@ form {
   height: 19px;
 }
 
+.spam-icon {
+  background: url(asset_path("icons/spam.png", image)) no-repeat bottom;
+  width: 16px;
+  height: 16px;
+}
+
 .webconf-join-mobile-link {
   span {
     padding-left: 20px;
@@ -83,13 +96,6 @@ form {
 
 .clearfix {
   @include mconf-clearfix; // in _definitions
-}
-
-.icon {
-  width: 16px;
-  height: 16px;
-  float: left;
-  margin-right: 3px;
 }
 
 .superuser-icon {
@@ -112,7 +118,7 @@ form {
 }
 
 // Style for reply and edit posts inside a colorbox
-
+// TODO
 .modal-content {
   #post-message,#spam-message {
     textarea {
@@ -158,6 +164,14 @@ form {
         color: #444;
       }
     }
+
+    h2 { margin-bottom: 0; }
+
+    .spam-icon {
+      display: inline-block;
+      margin-bottom: -3px;
+      margin-right: 3px;
+    }
   }
 
   .thread-updated-at {
@@ -170,6 +184,9 @@ form {
     margin: 0;
     padding: 0;
     @include mconf-clearfix;
+    @include border-radius(4px);
+    border: 1px solid darken($alert-info-bg, 7);
+    background: lighten($alert-info-bg, 5);
 
     li {
       margin: 0;
@@ -177,12 +194,23 @@ form {
       float: left;
       display: inline-block;
       margin-left: 10px;
+      &:last-child {
+        margin-right: 10px;
+      }
     }
+
   }
 
-  &.thread-even { background: $transparent; }
-  &.thread-odd { background: $light-gray; }
+  .thread-observation {
+    color: #666;
+    font-style: italic;
+    float: right;
+  }
 }
+// Classes outside .thread so that they can be used anywhere to
+// cycle background colors
+.thread-even { background: $transparent; }
+.thread-odd { background: $light-gray; }
 
 
 // Blocks that can be automatically expanded/collapsed
@@ -442,6 +470,11 @@ ul#navbar-right-links {
       height: 22px;
       width: 22px;
       @include border-radius(3px);
+
+      img.logo-user {
+        height: 22px;
+        width: 22px;
+      }
     }
   }
 
@@ -506,6 +539,10 @@ ul#navbar-right-links {
       height: 64px;
       width: 64px;
       @include border-radius(3px);
+      img.logo-user {
+        height: 64px;
+        width: 64px;
+      }
     }
   }
 
@@ -577,6 +614,12 @@ ul#navbar-right-links {
     padding: 1px;
     height: 64px;
     &.clean { border: 0; }
+
+    // default size for spaces logos
+    img.logo-space {
+      width: 84px;
+      height: 64px;
+    }
   }
 
   .current-page-title {
@@ -644,7 +687,6 @@ ul#navbar-right-links {
   }
 
   .content-block-middle {
-    padding-top: 10px;
     clear: both;
   }
 
@@ -685,6 +727,7 @@ ul#navbar-right-links {
   float: left;
   width: $contents-width - $sidebar-width - 20px; // less right-margin
   @include mconf-clearfix;
+  overflow: visible;
 
   h3 {
     color: #404040;
@@ -728,6 +771,11 @@ ul#navbar-right-links {
       }
       a {
         padding: 0 12px;
+        line-height: 30px;
+      }
+      span {
+        padding: 0;
+        border: 0;
         line-height: 30px;
       }
     }

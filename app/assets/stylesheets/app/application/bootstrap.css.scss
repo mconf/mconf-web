@@ -2,6 +2,7 @@
  * Styles that redefine bootstrap styles.
  */
 
+@import "compass/css3";
 @import "definitions";
 
 .form-inline {
@@ -16,9 +17,17 @@
     margin-top: 7px;
   }
 
-  input[type=text], input[type=password],
-  input[type=email], input[type=url] {
+  input.string, input.password,
+  textarea.text {
     width: 60%;
+    clear: both;
+  }
+  select {
+    width: 62%;
+    clear: both;
+  }
+  input.showable_password {
+    width: 50%;
     clear: both;
   }
 }
@@ -46,4 +55,29 @@ label {
 
 input[type="radio"], input[type="checkbox"] {
   margin: 0;
+}
+
+.nav-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  @include border-radius(6px);
+  @include box-shadow(0 1px 4px rgba(0, 0, 0, .065));
+
+  li {
+    a {
+      display: block;
+      padding: 9px 15px;
+      border: 1px solid #E5E5E5;
+      margin: 0 0 -1px;
+    }
+  }
+
+  li:first-child > a {
+    @include border-top-radius(6px);
+  }
+
+  li:last-child > a {
+    @include border-bottom-radius(6px);
+  }
 }

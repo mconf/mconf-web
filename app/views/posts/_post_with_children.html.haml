@@ -1,18 +1,19 @@
 #post_with_children.thread
-  .thread_content{:id => "parent_#{post.id}"}
-    %ul.thread-action-links.visible-on-hover{ :"data-hover-tracked" => "parent_#{post.id}" }
-      - if can?(:create_post, @space)
-        %li= link_to t('reply').downcase, "#", { :"data-href" => reply_post_space_post_path(@space, post), :name => post.id, :title => t('comment.add'), :id => "post-reply" }
+  .thread_content{:id => "parent-#{post.id}"}
+    %ul.thread-action-links
+      - if can?(:create, @space.posts.build)
+        %li= link_to t('reply').downcase, reply_post_space_post_path(@space, post), { :name => post.id, :title => t('comment.add'), :class => "open-modal" }
       - if can?(:update, post)
-        %li= link_to t('edit').downcase, "#", { :"data-href" => edit_space_post_path(post.space, post), :name => post.id, :title => t('edit'), :id => "post-edit" }
+        %li= link_to t('edit').downcase, edit_space_post_path(post.space, post), { :name => post.id, :title => t('edit'), :class => "open-modal" }
       - if can?(:destroy, post)
         %li= link_to t('remove').downcase, space_post_path(@space,post), {:method => :delete, :title => t('delete.one'), :confirm => t('delete.confirm', :element => post.title) }
-      - if user_signed_in? && post.spam != true
-        %li= link_to t('spam.default').downcase, "#", { :"data-spam" => spam_lightbox_space_post_path(@space,post), :name => post.id, :title => t('spam.report'), :id => "spam-lightbox" }
+      - if user_signed_in? and !post.spam
+        %li= link_to t('spam.default').downcase, spam_lightbox_space_post_path(@space,post), { :name => post.id, :title => t('spam.report'), :class => "spam-report" }
     .thread-title
       %h2
         = image_tag("icons/comments.png")
         = @post.title
+        = spam_icon() if post.spam
     .thread-text
       = render :partial => "posts/parent_post" , :locals => { :post =>  @post, :selected_post => false}
       - for comment in @posts

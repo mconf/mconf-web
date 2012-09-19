@@ -73,18 +73,11 @@ $ ->
     e.preventDefault()
     $($(this).attr("href")).click()
 
-  # Posts reply and edit will open in a colorbox
-  $("a#post-reply").on 'click', ->
-    $.colorbox
-      href: $(this).attr 'data-href'
-
-  $("a#post-edit").on 'click', ->
-    $.colorbox
-      href: $(this).attr 'data-href'
-
-  $("a#spam-lightbox").on 'click', ->
-    $.colorbox
-      href: $(this).attr 'data-spam'
+  # Links with 'submit-form' will trigger a submit
+  # in the form pointed by 'href'.
+  $("a.submit-form, button.submit-form").on "click", (e) ->
+    e.preventDefault()
+    $($(this).attr("href")).submit()
 
 
 # Returns true if we're currently in the view 'action' inside 'controller'

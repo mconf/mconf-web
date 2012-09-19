@@ -39,6 +39,10 @@ class ApplicationController < ActionController::Base
     @space ||= current_container(:type => :space, :path_ancestors => true)
   end
 
+  def current_ability
+    @current_ability ||= Abilities.ability_for(current_user)
+  end
+
   # overriding bigbluebutton_rails function
   def bigbluebutton_user
     if current_user && current_user.is_a?(User)

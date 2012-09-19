@@ -95,6 +95,14 @@ module IconsHelper
     content_tag :div, nil, options
   end
 
+  # Spam icon.
+  def spam_icon(options={})
+    cls = "spam-icon tooltipped upwards "
+    options[:class] = options.has_key?(:class) ? cls + options[:class] : cls
+    options[:title] = t("spam.item")
+    content_tag :div, nil, options
+  end
+
   private
 
   # Base method for most of the methods above

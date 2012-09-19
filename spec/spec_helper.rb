@@ -9,10 +9,20 @@ ENV["RAILS_ENV"] ||= 'test'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'shoulda-matchers'
+require 'cancan/matchers'
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
+
+# ALL actions possible in our cancan Ability class should be here
+# including our custom actions
+Shoulda::Matchers::ActiveModel::BeAbleToDoAnythingToMatcher.
+  actions = [
+    :read, :create, :update, :destroy, :manage, # standard
+    :reply_post,                                # posts
+    :leave                                      # spaces
+  ]
 
 ActionMailer::Base.delivery_method = :test
 ActionMailer::Base.perform_deliveries = true
