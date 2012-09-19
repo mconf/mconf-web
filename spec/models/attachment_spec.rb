@@ -10,7 +10,7 @@ describe Attachment do
 
   describe "abilities" do
     subject { ability }
-    let(:ability) { Ability.new(user) }
+    let(:ability) { Abilities.ability_for(user) }
     let(:target) { FactoryGirl.create(:attachment) }
 
     context "when is the attachment author" do

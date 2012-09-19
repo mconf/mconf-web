@@ -10,7 +10,7 @@ describe Post do
 
   describe "abilities" do
     subject { ability }
-    let(:ability) { Ability.new(user) }
+    let(:ability) { Abilities.ability_for(user) }
     let(:target) { FactoryGirl.create(:post) }
 
     context "when is the post author" do

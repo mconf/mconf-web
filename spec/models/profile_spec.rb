@@ -10,26 +10,24 @@ describe Profile do
 
   describe "abilities" do
     subject { ability }
-    let(:ability) { Ability.new(user) }
+    let(:ability) { Abilities.ability_for(user) }
     let(:target) { FactoryGirl.create(:user).profile }
 
     # commons specs run for several types of users
     shared_examples_for "a profile's ability" do |visibilities|
-      context "given the profile visibility is in #{visibilities}" do
+      context "given the profile visibility is" do
         visibilities.each do |visibility|
-          it {
+          it "'#{visibility}'" do
             target.visibility = Profile::VISIBILITY.index(visibility)
             should_not be_able_to_do_anything_to(target).except(:read)
-          }
+          end
         end
-      end
-      context "given the profile visibility is not in #{visibilities}" do
         Profile::VISIBILITY.each do |visibility|
           unless visibilities.include?(visibility)
-            it {
+            it "'#{visibility}'" do
               target.visibility = Profile::VISIBILITY.index(visibility)
               should_not be_able_to_do_anything_to(target)
-            }
+            end
           end
         end
       end

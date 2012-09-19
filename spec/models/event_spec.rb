@@ -10,7 +10,7 @@ describe Event do
 
   describe "abilities" do
     subject { ability }
-    let(:ability) { Ability.new(user) }
+    let(:ability) { Abilities.ability_for(user) }
     let(:target) { FactoryGirl.create(:event) }
 
     context "when is the event author" do

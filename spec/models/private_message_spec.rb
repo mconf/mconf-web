@@ -10,7 +10,7 @@ describe PrivateMessage do
 
   describe "abilities" do
     subject { ability }
-    let(:ability) { Ability.new(user) }
+    let(:ability) { Abilities.ability_for(user) }
     let(:target) { FactoryGirl.create(:private_message) }
 
     context "when is a registered user" do

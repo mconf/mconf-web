@@ -21,7 +21,7 @@ describe Space do
 
   describe "abilities" do
     subject { ability }
-    let(:ability) { Ability.new(user) }
+    let(:ability) { Abilities.ability_for(user) }
     let(:target) { FactoryGirl.create(:space) }
 
     context "when is an anonymous user" do
