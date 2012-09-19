@@ -33,20 +33,19 @@ describe News do
     end
 
     context "when is a registered user" do
+      let(:user) { FactoryGirl.create(:user) }
+
       context "that's a member of the space the news is in" do
-        let(:user) { FactoryGirl.create(:user) }
         before { target.space.add_member!(user) }
         it { should_not be_able_to_do_anything_to(target).except(:read) }
       end
 
       context "that's not a member of the private space the news is in" do
-        let(:user) { FactoryGirl.create(:user) }
         before { target.space.update_attributes(:public => false) }
         it { should_not be_able_to_do_anything_to(target) }
       end
 
       context "that's not a member of the public space the news is in" do
-        let(:user) { FactoryGirl.create(:user) }
         before { target.space.update_attributes(:public => true) }
         it { should_not be_able_to_do_anything_to(target).except(:read) }
       end

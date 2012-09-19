@@ -44,25 +44,21 @@ describe Attachment do
       let(:user) { FactoryGirl.create(:user) }
 
       context "that's a member of the space the attachment is in" do
-        let(:user) { FactoryGirl.create(:user) }
         before { target.space.add_member!(user) }
         it { should_not be_able_to_do_anything_to(target).except([:read, :create]) }
       end
 
       context "that's not a member of the private space the attachment is in" do
-        let(:user) { FactoryGirl.create(:user) }
         before { target.space.update_attributes(:public => false) }
         it { should_not be_able_to_do_anything_to(target) }
       end
 
       context "that's not a member of the public space the attachment is in" do
-        let(:user) { FactoryGirl.create(:user) }
         before { target.space.update_attributes(:public => true) }
         it { should_not be_able_to_do_anything_to(target).except(:read) }
       end
 
       context "member of the space but the space has the file repository disabled" do
-        let(:user) { FactoryGirl.create(:user) }
         before {
           target.space.add_member!(user)
           target.space.update_attributes(:repository => false)

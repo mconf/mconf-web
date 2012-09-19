@@ -42,25 +42,21 @@ describe Space do
       let(:user) { FactoryGirl.create(:user) }
 
       context "that's a member of the space" do
-        let(:user) { FactoryGirl.create(:user) }
         before { target.add_member!(user) }
-        it { should_not be_able_to_do_anything_to(target).except([:read, :create]) }
+        it { should_not be_able_to_do_anything_to(target).except([:read, :create, :leave]) }
       end
 
       context "that's an admin of the space" do
-        let(:user) { FactoryGirl.create(:user) }
         before { target.add_member!(user, "Admin") }
-        it { should_not be_able_to_do_anything_to(target).except([:read, :create, :update]) }
+        it { should_not be_able_to_do_anything_to(target).except([:read, :create, :leave, :update]) }
       end
 
       context "that's not a member of the private space" do
-        let(:user) { FactoryGirl.create(:user) }
         before { target.update_attributes(:public => false) }
         it { should_not be_able_to_do_anything_to(target).except(:create) }
       end
 
       context "that's not a member of the public space" do
-        let(:user) { FactoryGirl.create(:user) }
         before { target.update_attributes(:public => true) }
         it { should_not be_able_to_do_anything_to(target).except([:read, :create]) }
       end

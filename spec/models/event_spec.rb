@@ -34,23 +34,27 @@ describe Event do
     end
 
     context "when is a registered user" do
+      let(:user) { FactoryGirl.create(:user) }
+
       context "that's a member of the space the event is in" do
-        let(:user) { FactoryGirl.create(:user) }
         before { target.space.add_member!(user) }
         it { should_not be_able_to_do_anything_to(target).except([:read, :create]) }
       end
 
       context "that's not a member of the private space the event is in" do
-        let(:user) { FactoryGirl.create(:user) }
         before { target.space.update_attributes(:public => false) }
         it { should_not be_able_to_do_anything_to(target) }
       end
 
       context "that's not a member of the public space the event is in" do
-        let(:user) { FactoryGirl.create(:user) }
         before { target.space.update_attributes(:public => true) }
         it { should_not be_able_to_do_anything_to(target).except(:read) }
       end
+    end
+
+    context "when is a superuser" do
+      let(:user) { FactoryGirl.create(:superuser) }
+      it { should be_able_to(:manage, target) }
     end
 
   end

@@ -60,9 +60,9 @@ module Abilities
       can :destroy, PrivateMessage, :sender_id => user.id
 
       # Spaces
-      can :create, Space unless user.anonymous?
+      can :create, Space
       can :read, Space, :public => true
-      can :read, Space do |space|
+      can [:read, :leave], Space do |space|
         space.users.include?(user)
       end
       can :update, Space do |space|
@@ -115,8 +115,8 @@ module Abilities
       # end
 
       # Permissions
-      can :update, Permission do |perm|
-        # only space admins can update user roles/permissions
+      # Only space admins can update user roles/permissions
+      can [:read, :update], Permission do |perm|
         case perm.subject_type
         when "Space"
           admins = perm.subject.admins
@@ -127,7 +127,6 @@ module Abilities
         end
         admins.include?(user)
       end
-      # can :destroy, Permission, :user_id => user.id
 
       # TODO: station's Stage
       # authorizing do |agent, permission|
