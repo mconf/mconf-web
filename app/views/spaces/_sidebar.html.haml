@@ -1,18 +1,29 @@
 = content_for :sidebar do
 
   #space-sidebar
-
     - if content_for?(:new_post)
       = render_sidebar_content_block('sidebar-new-post') do
         = yield :new_post
 
     - if content_for?(:new_event)
-      = render_sidebar_content_block('sidebar-new-post') do
+      = render_sidebar_content_block('sidebar-new-event') do
         = yield :new_event
 
     - if content_for?(:event_logo)
-      = render_sidebar_content_block('sidebar-new-post') do
+      = render_sidebar_content_block('sidebar-event-logo') do
         = yield :event_logo
+
+    - if content_for?(:event_phrase)
+      = render_sidebar_content_block('sidebar-event-phrase') do
+        = yield :event_phrase
+
+    - if content_for?(:event_actions)
+      = render_sidebar_content_block('sidebar-event-actions') do
+        = yield :event_actions
+
+    - if content_for?(:event_participation)
+      = render_sidebar_content_block('sidebar-event-participation') do
+        = yield :event_participation
 
     = render :partial => 'spaces/sidebar_join_links'
 

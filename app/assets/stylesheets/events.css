@@ -3,6 +3,6 @@
  *= require ./app/events/index
  *= require ./app/events/new
  *= require ./app/events/show
- *= require ./app/events/_event
+ *= require ./app/events/_events
  *= require ./app/events/_events_image
  */

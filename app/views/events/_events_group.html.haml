@@ -1,0 +1,8 @@
+%div
+  - if events_group.empty?
+    %p= message
+  - else
+    - for event in events_group
+      = render :partial => event
+    .content-block-footer
+      = page_navigation_links events_group

@@ -1,14 +1,4 @@
 #events_content
-  - unless @first_undated_events.empty?
-    %h3
-      = t('event.undated.title')
-    - for event in @first_undated_events
-      = render :partial => event
-    .group_links
-      = link_to t('event.undated.show'), space_events_path(@space, :show => "undated_events"), :class => 'undated_link event_navigation'
-  %br
-  %br
-
   %h3
     = t('event.upcoming.other')
   - if @first_upcoming_events.empty?
@@ -19,17 +9,7 @@
       = render :partial => event
     .group_links
       = link_to t('event.upcoming.show'), space_events_path(@space, :show => "upcoming_events"), :class => 'upcoming_link event_navigation'
-  %br
-  %br
-
   %h3
-    .group_links
-      - if params[:order_by_time]
-        = image_tag("icons/16/arrow-down.png")
-        = link_to "order DESC", space_events_path(@space), :class => 'past_link event_navigation'
-      - else
-        = image_tag("icons/16/arrow-up.png")
-        = link_to "order ASC", space_events_path(@space, :order_by_time => "ASC"), :class => 'past_link event_navigation'
     = t('event.past.other')
 
   - if @last_past_events.empty?

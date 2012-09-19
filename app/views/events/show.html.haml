@@ -4,38 +4,47 @@
 - atom_link_header(space, Event.new, :title => "#{ t 'event.other' } - #{ space.name }")
 
 = content_for :sidebar do
-  #full_sidebar
-    - if !user_signed_in?
-      #event_register.button_wrapper.margin-up
-        = link_to t('register.and_participate'),signup_path("user[special_event_id]" => (@event.id).to_s) ,:class => "register_link big_button orange_button"
-      %p.big_margin_down_40.note
-        = t('register.and_participate_description_with_login', :url => login_path ).html_safe
-    - elsif can?(:update, event)
+  - if !user_signed_in?
+    #event_register.button_wrapper.margin-up
+      = link_to t('register.and_participate'),signup_path("user[special_event_id]" => (@event.id).to_s) ,:class => "register_link big_button orange_button"
+    %p.big_margin_down_40.note
+      = t('register.and_participate_description_with_login', :url => login_path ).html_safe
+  - elsif can?(:update, event)
+    = content_for :event_actions do
       = render :partial => "actions"
-    - elsif event.is_happening_now?
-      %p.big_margin_down_40.note
-        = t('event.note.not_organizer_during').html_safe
-    - elsif event.past?
-      %p.big_margin_down_60.note
-        = t('event.note.not_organizer_after', :date => @event.start_date.strftime("%d %b %Y")).html_safe
-    - elsif  @event.start_date
-      %p.note
-        = t('event.note.not_organizer_before', :date => @event.start_date.strftime("%d %b %Y")).html_safe
-    - else
-      %p.note
-        = t('event.note.not_organizer_no_date').html_safe
 
-    - if params[:edit_comment]
-      = render(:partial => "posts/edit_post", :locals => { :post => Post.find(params[:edit_comment]) }) if can?(:create_post, @space)
-    - elsif params[:show_streaming] || params[:show_participation]
+  - if event.is_happening_now?
+    = content_for :event_phrase do
+      .content-block-middle.clearfix
+        %p
+          = t('event.note.not_organizer_during').html_safe
+  - elsif event.past?
+    = content_for :event_phrase do
+      .content-block-middle.clearfix
+        %p
+          = t('event.note.not_organizer_after', :date => @event.start_date.strftime("%d %b %Y")).html_safe
+  - elsif  @event.start_date
+    = content_for :event_phrase do
+      .content-block-middle.clearfix
+        %p
+          = t('event.note.not_organizer_before', :date => @event.start_date.strftime("%d %b %Y")).html_safe
+  - else
+    = content_for :event_phrase do
+      .content-block-middle.clearfix
+        %p
+          = t('event.note.not_organizer_no_date').html_safe
+
+  - if params[:show_streaming] || params[:show_participation]
+    = content_for :event_participation do
       = render :partial => 'participants'
-    - else
+  - else
+    = content_for :event_participation do
       = render :partial => 'participants'
 
-    #event_views.share_insert
-      %span.separated_5
-        = @event.unique_pageviews
-      = t('statistics.event_views')
-      = image_tag("icons/help.png",:title=>t("tooltip.num_views"),:size=>"16x16",:class=>"icon tooltipped upwards leftwards",:style=>"cursor:pointer")
+  #event_views.share_insert
+    %span.separated_5
+      = @event.unique_pageviews
+    = t('statistics.event_views')
+    = image_tag("icons/help.png", :title => t("tooltip.num_views"), :size => "16x16", :class => "icon tooltipped upwards leftwards", :style => "cursor:pointer")
 
 = render :partial => "event_card_show"
