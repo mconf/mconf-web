@@ -42,7 +42,7 @@ class User < ActiveRecord::Base
   friendly_id :username
 
   def ability
-    @ability ||= Ability.new(self)
+    @ability ||= Abilities.ability_for(self)
   end
 
   # Returns true if the user is anonymous (not registered)
