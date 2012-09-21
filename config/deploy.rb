@@ -49,12 +49,12 @@ set :user, "mconf"
 set :deploy_to, "/var/www/#{fetch(:application)}/"
 set :deploy_via, :remote_cache
 set :auto_accept, 0
+set :keep_releases, 10
 
 # whenever integration
 set :whenever_command, "bundle exec whenever"
 #set :whenever_environment, defer { stage }
 require "whenever/capistrano"
-
 
 # DEPLOY tasks
 # They are used for each time the app is deployed
@@ -168,10 +168,10 @@ end
 
 after 'multistage:ensure', 'deploy:info'
 before 'deploy:setup', 'rvm:install_ruby'
-before 'deploy:setup', 'rvm:trust_rvmrc'
 after 'deploy:setup', 'setup:create_shared'
-after 'deploy:setup', 'setup:create_shared'
+after 'deploy:setup', 'rvm:trust_rvmrc'
 after 'deploy:setup', 'deploy:fix_permissions'
+after 'deploy:update', 'deploy:cleanup'
 after 'deploy:update_code', 'rvm:trust_rvmrc'
 after 'deploy:update_code', 'deploy:symlinks'
 after 'deploy:update_code', 'deploy:fix_permissions'
