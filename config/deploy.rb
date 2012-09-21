@@ -31,7 +31,6 @@ CONFIG_FILE = File.join(File.dirname(__FILE__), 'deploy', 'conf.yml')
 set :configs, YAML.load_file(CONFIG_FILE)
 
 # multistage setup
-set :stages, %w(production staging)
 require 'capistrano/ext/multistage'
 
 # anti-tty error
@@ -134,7 +133,7 @@ namespace :setup do
     top.deploy.update     # clone git repo and make it the current release
     setup.db              # destroys and recreates the DB
     setup.secret          # new secret
-    setup.statistics      # start the statistics
+    #setup.statistics      # start the statistics
     top.deploy.restart    # restart the server
   end
 
@@ -167,7 +166,7 @@ namespace :setup do
 
   desc "Creates the Statistic table - needs config/analytics_conf.yml"
   task :statistics do
-    run "cd #{current_path} && rake mconf:statistics:init RAILS_ENV=production"
+    run "cd #{current_path} && rake mconf:analytics:init RAILS_ENV=production"
   end
 end
 
