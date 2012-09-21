@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120915225828) do
+ActiveRecord::Schema.define(:version => 20120921002223) do
 
   create_table "admissions", :force => true do |t|
     t.string   "type"
@@ -72,22 +72,6 @@ ActiveRecord::Schema.define(:version => 20120915225828) do
     t.datetime "created_at",                 :null => false
     t.datetime "updated_at",                 :null => false
     t.integer  "slot",       :default => 15
-  end
-
-  create_table "attachment_videos", :force => true do |t|
-    t.string   "type"
-    t.integer  "size"
-    t.string   "content_type"
-    t.string   "filename"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "space_id"
-    t.integer  "event_id"
-    t.integer  "author_id"
-    t.string   "author_type"
-    t.integer  "agenda_entry_id"
-    t.integer  "version_child_id"
-    t.integer  "version_family_id"
   end
 
   create_table "attachments", :force => true do |t|
@@ -171,12 +155,12 @@ ActiveRecord::Schema.define(:version => 20120915225828) do
 
   create_table "events", :force => true do |t|
     t.string   "name"
-    t.text     "description",             :limit => 255
+    t.text     "description"
     t.string   "place"
     t.datetime "start_date"
     t.datetime "end_date"
     t.integer  "machine_id"
-    t.string   "colour",                                 :default => ""
+    t.string   "colour",                  :default => ""
     t.string   "repeat"
     t.integer  "at_job"
     t.integer  "parent_id"
@@ -187,23 +171,23 @@ ActiveRecord::Schema.define(:version => 20120915225828) do
     t.integer  "space_id"
     t.integer  "author_id"
     t.string   "author_type"
-    t.boolean  "spam",                                   :default => false
+    t.boolean  "spam",                    :default => false
     t.text     "notes"
     t.text     "location"
     t.text     "other_streaming_url"
     t.string   "permalink"
-    t.integer  "vc_mode",                                :default => 0
+    t.integer  "vc_mode",                 :default => 0
     t.text     "other_participation_url"
-    t.boolean  "web_interface",                          :default => false
-    t.boolean  "sip_interface",                          :default => false
+    t.boolean  "web_interface",           :default => false
+    t.boolean  "sip_interface",           :default => false
     t.datetime "generate_pdf_at"
     t.datetime "generate_scorm_at"
     t.integer  "web_bw"
     t.integer  "recording_bw"
     t.datetime "generate_pdf_small_at"
-    t.boolean  "streaming_by_default",                   :default => true
-    t.boolean  "manual_configuration",                   :default => false
-    t.integer  "recording_type",                         :default => 0
+    t.boolean  "streaming_by_default",    :default => true
+    t.boolean  "manual_configuration",    :default => false
+    t.integer  "recording_type",          :default => 0
   end
 
   create_table "groups", :force => true do |t|
@@ -298,13 +282,13 @@ ActiveRecord::Schema.define(:version => 20120915225828) do
     t.integer  "sender_id"
     t.integer  "receiver_id"
     t.integer  "parent_id"
-    t.boolean  "checked",                            :default => false
+    t.boolean  "checked",             :default => false
     t.string   "title"
-    t.text     "body",                :limit => 255
+    t.text     "body"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "deleted_by_sender",                  :default => false
-    t.boolean  "deleted_by_receiver",                :default => false
+    t.boolean  "deleted_by_sender",   :default => false
+    t.boolean  "deleted_by_receiver", :default => false
   end
 
   create_table "profiles", :force => true do |t|
@@ -317,13 +301,13 @@ ActiveRecord::Schema.define(:version => 20120915225828) do
     t.string  "zipcode"
     t.string  "province"
     t.string  "country"
-    t.integer "user_id",      :limit => 255
-    t.string  "prefix_key",                  :default => ""
+    t.integer "user_id"
+    t.string  "prefix_key",   :default => ""
     t.text    "description"
     t.string  "url"
     t.string  "skype"
     t.string  "im"
-    t.integer "visibility",                  :default => 3
+    t.integer "visibility",   :default => 3
     t.string  "full_name"
   end
 
@@ -412,7 +396,7 @@ ActiveRecord::Schema.define(:version => 20120915225828) do
   create_table "users", :force => true do |t|
     t.string   "username"
     t.string   "email",                                :default => "",    :null => false
-    t.string   "encrypted_password",     :limit => 40, :default => "",    :null => false
+    t.string   "encrypted_password",                   :default => "",    :null => false
     t.string   "password_salt",          :limit => 40
     t.datetime "created_at"
     t.datetime "updated_at"
