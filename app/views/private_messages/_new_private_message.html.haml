@@ -1,14 +1,4 @@
-:javascript
-  $(document).ready(function () {
-    $("#private_message_users_tokens").tokenInput("/users/fellow_users.json", {
-      crossDomain: false,
-      theme: 'facebook',
-      preventDuplicates: true,
-      searchDelay: 150
-    });
-  });
-
-- if getCospaceUsers().empty?
+- if current_user.fellows.empty?
   = t("message.private.cant")
 - else
   #priv-msg
