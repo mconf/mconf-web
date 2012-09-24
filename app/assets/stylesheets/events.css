@@ -5,4 +5,5 @@
  *= require ./app/events/show
  *= require ./app/events/_events
  *= require ./app/events/_events_image
+ *= require ./app/events/_participants
  */

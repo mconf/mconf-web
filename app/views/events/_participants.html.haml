@@ -1,32 +1,26 @@
-#assistance_info
-  #assistance_title
-    %h3= t('event.assistance_title')
+.content-block-header
+  %h3= t('event.assistance_title')
+
+.content-block-middle
   - if user_signed_in?
     #assistance_status
       - if @event.participants.map(&:user).include?(current_user)
         %h5= t('event.will_attend')
         - if get_user_state(@event,current_user)
           .event_options
-            .option
-              %button#choice
-                = t('agree')
-              .span#tick
-            .option
-              = link_to ("<button>"+t('deny')+"</button>").html_safe, space_event_participant_path(@space,@event,get_participant(@event,current_user),:participant => {:attend => false}),:method => :put, :class => "participant"
+            = link_to t('agree'), space_event_participant_path(@space,@event,get_participant(@event,current_user),:participant => {:attend => true}),:method => :put, :class => "btn active"
+            = link_to t('deny'), space_event_participant_path(@space,@event,get_participant(@event,current_user),:participant => {:attend => false}),:method => :put, :class => "btn"
         - else
           .event_options
-            .option
-              = link_to ("<button>"+t('agree')+"</button>").html_safe, space_event_participant_path(@space,@event,get_participant(@event,current_user),:participant => {:attend => true}),:method => :put, :class => "participant"
-            .option
-              %button#choice
-                = t('deny')
-              %span
+            = link_to t('agree'), space_event_participant_path(@space,@event,get_participant(@event,current_user),:participant => {:attend => true}),:method => :put, :class => "btn"
+            = link_to t('deny'), space_event_participant_path(@space,@event,get_participant(@event,current_user),:participant => {:attend => false}),:method => :put, :class => "btn active"
       - else
         - if user_signed_in? && can?(:read, @space) && !@event.past?
           %h5= t('event.will_attend')
           .event_options
-            = link_to ("<button>"+t('agree')+"</button>").html_safe, space_event_participants_path(@space,@event,:participant => {:attend => true}),:method => :post, :class => "participant"
-            = link_to ("<button>"+t('deny')+"</button>").html_safe, space_event_participants_path(@space,@event,:participant => {:attend => false}),:method => :post, :class => "participant"
+            = link_to t('agree'), space_event_participants_path(@space,@event,:participant => {:attend => true}),:method => :post, :class => "btn"
+            = link_to t('deny'), space_event_participants_path(@space,@event,:participant => {:attend => false}),:method => :post, :class => "btn"
+
   #asisstants
     - if @assistants.empty?
       #assistants_lite

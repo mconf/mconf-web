@@ -13,7 +13,7 @@ class EventsController < ApplicationController
   # Include basic Resource methods
   # See documentation: ActionController::StationResources
 
-  layout "spaces_show"
+  layout "events_show"
   include ActionController::StationResources
   include SpamControllerModule
 

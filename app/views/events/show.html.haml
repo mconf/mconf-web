@@ -13,38 +13,28 @@
     = content_for :event_actions do
       = render :partial => "actions"
 
-  - if event.is_happening_now?
-    = content_for :event_phrase do
+  = content_for :event_phrase do
+    - if event.is_happening_now?
       .content-block-middle.clearfix
         %p
           = t('event.note.not_organizer_during').html_safe
-  - elsif event.past?
-    = content_for :event_phrase do
+    - elsif event.past?
       .content-block-middle.clearfix
         %p
           = t('event.note.not_organizer_after', :date => @event.start_date.strftime("%d %b %Y")).html_safe
-  - elsif  @event.start_date
-    = content_for :event_phrase do
+    - elsif  @event.start_date
       .content-block-middle.clearfix
         %p
           = t('event.note.not_organizer_before', :date => @event.start_date.strftime("%d %b %Y")).html_safe
-  - else
-    = content_for :event_phrase do
+    - else
       .content-block-middle.clearfix
         %p
           = t('event.note.not_organizer_no_date').html_safe
 
-  - if params[:show_streaming] || params[:show_participation]
-    = content_for :event_participation do
+  = content_for :event_participation do
+    - if params[:show_streaming] || params[:show_participation]
       = render :partial => 'participants'
-  - else
-    = content_for :event_participation do
+    - else
       = render :partial => 'participants'
-
-  #event_views.share_insert
-    %span.separated_5
-      = @event.unique_pageviews
-    = t('statistics.event_views')
-    = image_tag("icons/help.png", :title => t("tooltip.num_views"), :size => "16x16", :class => "icon tooltipped upwards leftwards", :style => "cursor:pointer")
 
 = render :partial => "event_card_show"
