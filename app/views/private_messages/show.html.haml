@@ -13,27 +13,39 @@
 
 %h3= sanitize(@show_message.title)
 
-%p
-  - if @show_message.sender_id.present?
+
+- if @show_message.sender_id.present?
+  .private-messages.thread{:id => "parent-#{@show_message.id}"}
     = link_logotype(User.find(@show_message.sender_id), :size => 96, :title => User.find(@show_message.sender_id).name).html_safe
-    - if @is_receiver && @show_message.sender_id.present?
-      = link_to image_tag("ui/icons/arrow-rotate0anticlockwise.png", :alt => t('reply')).html_safe, user_message_path(params[:user_id], @show_message, :reply_to => true), :title => t('reply') unless params[:reply_to]
-      = link_to image_tag("ui/icons/cross.png", :alt => t('delete.one')).html_safe, user_message_path(params[:user_id], @show_message, :private_message => {:deleted_by_receiver => true}), :confirm => t('delete.confirm', :element => @show_message.title), :method => :delete, :title => t('delete.one')
-    - else
-      = link_to image_tag("ui/icons/cross.ong", :alt => t('delete.one')).html_safe, user_message_path(params[:user_id], @show_message, :private_message => {:delted_by_sender => true}), :confirm => t('delete.confirm', :element => @show_message.title), :method => :delete, :title => t('delete.one')
-
-%p
-  = sanitize(auto_link(simple_format(@show_message.body)))
-
-- if @is_receiver
-  = link_to t('back_to_inbox'), user_messages_path(params[:user_id])
-- else
-  = link_to t('back_to_sent'), user_messages_path(params[:user_id], :sent_messages => true )
-
-%ul
-  - @previous_messages.each do |message|
-    .message_div{:id => message.id, :class => cycle('row-even', 'row-odd') }
-      - if message.sender_id == current_user.id
-        = render :partial => "show_sent", :locals => { :private_message => message }
+    %ul.thread-action-links.visible-on-hover{ :"data-hover-tracked" => "parent-#{@show_message.id}" }
+      - if @is_receiver
+        %li
+          = link_to t('back_to_inbox'), user_messages_path(params[:user_id])
       - else
-        = render :partial => "show_received", :locals => { :private_message => message }  
+        %li
+          = link_to t('back_to_sent'), user_messages_path(params[:user_id], :sent_messages => true )
+      - if @is_receiver && @show_message.sender_id.present?
+        %li
+          = link_to t('reply'), user_message_path(params[:user_id], @show_message, :reply_to => true), :title => t('reply') unless params[:reply_to]
+        %li
+          = link_to t('delete.one'), user_message_path(params[:user_id], @show_message, :private_message => {:deleted_by_receiver => true}), :confirm => t('delete.confirm', :element => @show_message.title), :method => :delete, :title => t('delete.one')
+      - else
+        %li
+          = link_to t('delete.one'), user_message_path(params[:user_id], @show_message, :private_message => {:delted_by_sender => true}), :confirm => t('delete.confirm', :element => @show_message.title), :method => :delete, :title => t('delete.one')
+
+    %p
+      = sanitize(auto_link(simple_format(@show_message.body)))
+
+ 
+- @previous_messages.each do |message|
+  %div.private-messages.thread{:id => "parent-#{message.id}", :class => cycle('thread-odd', 'thread-even') }
+    - if message.sender_id == current_user.id
+      = render :partial => "show_sent", :locals => { :private_message => message }
+    - else
+      = render :partial => "show_received", :locals => { :private_message => message }  
+
+.margin-up
+  - if @is_receiver
+    .btn= link_to t('back_to_inbox'), user_messages_path(params[:user_id])
+  - else
+    .btn= link_to t('back_to_sent'), user_messages_path(params[:user_id], :sent_messages => true )

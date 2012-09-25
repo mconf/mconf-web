@@ -12,16 +12,17 @@
   - else
     = render :partial => "new_private_message"
 
-#show-messages
-  - if @private_messages.blank?
-    = t('message.private.none')
-  
-  %ul
-    - @private_messages.each do |private_message|
-      .message_div{:id => private_message.id, :class => cycle('row-even', 'row-odd') }
-        - if params[:sent_messages]
-          = render :partial => "show_sent", :locals => { :private_message => private_message }
-        - else
-          = render :partial => "show_received", :locals => { :private_message => private_message } 
-  = will_paginate @private_messages unless @private_messages.empty?
+- if @private_messages.blank?
+  = t('message.private.none')
+
+- @private_messages.each do |private_message|
+  %div.private-messages.thread{ :id => "parent-#{private_message.id}", :class => cycle('thread-even', 'thread-odd') }
+    %div{:class => ("unread" unless private_message.checked)}
+      - if params[:sent_messages]
+        = render :partial => "show_sent", :locals => { :private_message => private_message }
+      - else
+        = render :partial => "show_received", :locals => { :private_message => private_message } 
+
+.content-block-footer
+  = page_navigation_links @private_messages unless @private_messages.empty?
 

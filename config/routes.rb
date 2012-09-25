@@ -111,6 +111,7 @@ Mconf::Application.routes.draw do
     resources :entries
     resource :logo do
       member do
+        post :new
         post :precrop
       end
     end
@@ -132,7 +133,7 @@ Mconf::Application.routes.draw do
   resources :memberships
 
   resources :users do
-    get :fellow_users, :on => :collection, :defaults => { :format => 'json' }
+    get :fellows, :on => :collection, :defaults => { :format => 'json' }
     get :select_users, :on => :collection
     get :current, :on => :collection, :defaults => { :format => 'xml' }
     member do

@@ -210,6 +210,10 @@ class User < ActiveRecord::Base
       logo_image_path_without_logo(options)
   end
   alias_method_chain :logo_image_path, :logo
+  
+  def fellows(name="")
+    stages.map(&:actors).flatten.compact.uniq.select{|u| /#{name}/i.match(u.full_name)}.sort{ |x, y| x.name <=> y.name }
+  end
 
   def public_fellows
     fellows
