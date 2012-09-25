@@ -71,6 +71,14 @@ module EventsHelper
       return nil
     end
 
+  # Returns an array with all images that can be used as a space logo
+  def get_default_event_logo_files
+    files = Dir.entries("app/assets/images/default_event_logos/")
+    files.delete(".")
+    files.delete("..")
+    files
+  end
+
      #method to know if there are events at this quarter of an hour between the events in the array @events
     #that are all of the same day
     #retuns the duration (in quarters of an hour) of the event at this time or nil if no event found

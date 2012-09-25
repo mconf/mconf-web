@@ -1,0 +1,41 @@
+= content_for :sidebar do
+
+  #space-sidebar
+    = render :partial => 'spaces/sidebar_join_links'
+
+    - if content_for?(:event_logo)
+      = render_sidebar_content_block('sidebar-event-logo') do
+        = yield :event_logo
+
+    - if content_for?(:event_phrase)
+      = render_sidebar_content_block('sidebar-event-phrase') do
+        = yield :event_phrase
+
+    - if content_for?(:event_actions)
+      = render_sidebar_content_block('sidebar-event-actions') do
+        = yield :event_actions
+
+    - if content_for?(:event_participation)
+      = render_sidebar_content_block('sidebar-event-participation') do
+        = yield :event_participation
+
+    - if content_for?(:sidebar_webconference)
+      = render_sidebar_content_block('sidebar-webconference', :active => @webconf_room.is_running?) do
+        = yield :sidebar_webconference
+
+
+    = render_sidebar_content_block("sidebar-space-admins") do
+      .content-block-header
+        %h3= t('user.administrators')
+        = help_icon t("tooltip.admin"), :class => 'leftwards'
+      .content-block-middle
+        - @space.admins.each do |user|
+          = render :partial => 'users/simple_user', :locals => { :user => user }
+
+    = render_sidebar_content_block('sidebar-pageviews') do
+      %span.value= @space.unique_pageviews
+      %span= t('statistics.space_views')
+      = help_icon t("tooltip.num_views"), :class => 'leftwards'
+
+    - if user_signed_in? && @space.users.include?(current_user) && !(@space.is_last_admin?(current_user))
+      = render :partial => 'spaces/sidebar_leave_space'

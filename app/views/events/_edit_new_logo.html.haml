@@ -1,0 +1,65 @@
+= content_for :sidebar do
+  = content_for :event_logo do
+    .content-block-header
+      %h3= "Event Logo"
+      = help_icon t("tooltip.event_logo"), :class => 'leftwards'
+
+    .content-block-middle.clearfix
+      .description
+        .event_logo{ :class => "#{'hide' unless event.logo}" }
+          - if event.logo
+            = logo(event.logo, :size => 64, :id => "selected_logo_image").html_safe
+          - else
+            = image_tag "default_event_logos/", { :id => "selected_logo_image", :class => "default_space_logo", :title => "Click to choose a default image", :size => "64x64" }
+        .event_date_image{ :class => "#{'hide' if event.logo}" }
+          .event_day
+            = sanitize(Time.now().strftime("%d"))
+          .event_month
+            = sanitize(Time.now().strftime("%b"))
+          .event_hour
+            = sanitize(Time.now().strftime("%H:%M"))
+
+      .buttons
+        %ul
+          %li= link_to t('space.logo_selected.use_date'), '#', :id => "use_event_date", :title => t('space.logo_selected.open_gallery')
+          %li= link_to t('space.logo_selected.open_gallery'), '#', :id => "open_gallery", :title => t('space.logo_selected.open_gallery')
+          %li= link_to t('space.logo_selected.text_logo'), '#', :id => "text_logo", :title => t('space.logo_selected.text_logo')
+          %li= link_to t('space.logo_selected.upload_logo'), '#', :id => "upload_logo", :title => t('space.logo_selected.upload_logo')
+
+#change_logo_form_div.hide
+  .blue_border_down
+    %h3
+      = "Change logo: "
+      = link_to "Close", '#', :id => "close_logo_div"
+
+  #default_text_logo.hide
+    %label#space_logo_text_label{ :for => "logo_text"}
+      = t('space.logo_selected.enter_text')
+    %br
+    = text_field :event, :text_logo
+    #generate_text_logo_button.btn
+      = t("space.logo_selected.generate_logo")
+    #generated_text_logos
+
+  #default_event_images.hide
+    %label= "Chose one logo from the gallery"
+    %br
+    - images_for_row = 5
+    - images_now = 1
+    - for file in @files
+      - images_now += 1
+      = link_to (image_tag "default_event_logos/" + file.to_s, { :id=> ( file.to_s.gsub('.','') ), :class => "default_space_logo", :title => "Click to choose a default image", :size => "64x64", :"data-image" => file.to_s }).html_safe, '#'
+      - if images_now > images_for_row
+        %br
+        - images_now = 1
+
+  #default_upload_logo.hide
+    = form_for :logo,  :html => { :method => :post,:id =>"select_logo_form", :multipart => true, :name => "space_new_form" }, :url => { :controller => :logos, :action => :new, :upload => :yes } do |f|
+      %label= t("space.logo_selected.upload_logo_text")
+
+      = f.file_field :media
+      = f.hidden_field  "rand"
+      %br
+      %input#upload_logo_button.btn{ :type => "submit", :value => "#{t("space.logo_selected.upload_text")}" }
+    #resultado
+    %br

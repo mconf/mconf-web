@@ -1,0 +1,10 @@
+.content-block-header
+  %h3= t("action.other")
+  = #help_icon t("tooltip.bigbluebutton_space"), :class => 'leftwards'
+.content-block-middle.clearfix
+  %ul
+    - if @event.future? || @event.is_happening_now?
+      %li
+        = link_to t('invitation.title'), inviteroom_invite_path(:type => "event", :event => @event.id), :class => 'open-modal'
+    %li
+      = link_to t('event.notification.button'),sendnotification_invite_path(:event_id => @event.id)
