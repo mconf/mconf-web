@@ -17,5 +17,6 @@
     %p
       = hidden_field_tag 'private_message[parent_id]', @previous_message.id
       = hidden_field_tag 'private_message[receiver_id]', @previous_message.sender_id
-      %button{:type => "submit", :class => "basic_button blue_button"}
-        = t("button.send")
+      .margin-up
+        %button.btn{:type => "submit", :class => "basic_button blue_button"}
+          = t("button.send")
