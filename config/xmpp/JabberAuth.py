@@ -7,9 +7,9 @@ db_user="mconf"
 db_pass="my-password"
 db_host="my-server.com"
 db_table="users"
-db_username_field="login"
-db_password_field="crypted_password"
-db_salt_field="salt"
+db_username_field="username"
+db_password_field="encrypted_password"
+db_salt_field="password_salt"
 domain_suffix="@my-server.com"
 auth_url="http://my-server.com/users/current"
 
@@ -89,7 +89,10 @@ def isuser(in_user, in_host):
         return out
 
 def auth(in_user, in_host, password):
-        data=db_entry(in_user)
+        try:
+                data=db_entry(in_user)
+        except:
+                return False
         out=False
         if data==None:
                 out=False
@@ -106,9 +109,12 @@ def auth(in_user, in_host, password):
 
 def authByPass(in_user, in_password):
         out = False
-        xml = requests.get(auth_url, auth=(in_user, in_password), verify=False)
+        try:
+                xml = requests.get(auth_url, auth=(in_user, in_password), verify=False)
+        except:
+                return False
         dom = parseString(xml.text)
-        username = dom.getElementsByTagName('login')[0].firstChild.data
+        username = dom.getElementsByTagName(db_username_field)[0].firstChild.data
         if in_user == username:
                 out = True
         return out
@@ -116,9 +122,12 @@ def authByPass(in_user, in_password):
 def authByCookie(in_user, in_cookie):
         out = False
         cookies = dict(_mconf_session=pass_args[1])
-        xml = requests.get(auth_url, cookies=cookies, verify=False)
+        try:
+                xml = requests.get(auth_url, cookies=cookies, verify=False)
+        except:
+                return False
         dom = parseString(xml.text.encode('utf-8'))
-        username = dom.getElementsByTagName('login')[0].firstChild.data
+        username = dom.getElementsByTagName(db_username_field)[0].firstChild.data
         if in_user == username:
                 out = True
         return out
