@@ -1,28 +1,17 @@
-/*
- *= require ../../../../../vendor/assets/stylesheets/fcbkcomplete
- */
-
-body {
-
-  #new_message {
-    text-align: center;
-    button {
-      margin-left: 73%;
-    }
+body.private_messages.index {
+  .thread-author, .thread-updated-at, .subject {
+    float: left;
   }
-
-  #message_title {
-    width: 90%;
+  .unread {
+    font-weight: bold;
   }
-
-  #new_message_text {
-    display: none;
-
-    textarea {
-      width: 90%;
-      height: 100px;
-      resize: none;
-    }
+  ul.token-input-list-facebook {
+    width: 100% !important;
+    float: left;
+    max-width: 220px;
   }
+  .margin-up {
+    margin-top: 5px;  
+  } 
 }
 

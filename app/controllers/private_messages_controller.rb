@@ -114,7 +114,7 @@ class PrivateMessagesController < ApplicationController
   def update
 
     respond_to do |format|
-      if @success_update = @private_message.update_attributes(params[:private_message])
+      if @private_message.update_attributes(params[:private_message])
         format.html { redirect_to(@private_message) }
         format.xml  { head :ok }
         format.js
