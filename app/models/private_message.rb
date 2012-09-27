@@ -33,6 +33,15 @@ class PrivateMessage < ActiveRecord::Base
               end
     where(:deleted_by_sender => false, :sender_id => user_id).order("created_at DESC")
   }
+  
+  scope :previous, lambda { |message|
+    previous = []
+    while message.parent_id
+      message = PrivateMessage.find(message.parent_id)
+      previous << message
+    end
+    previous
+  }
 
 # Commented because it causes an error when a user is joining to a space and sends private messages to space admins
 

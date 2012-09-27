@@ -43,6 +43,8 @@
       = render :partial => "show_sent", :locals => { :private_message => message }
     - else
       = render :partial => "show_received", :locals => { :private_message => message }  
+.content-block-footer
+  = page_navigation_links @previous_messages unless @previous_messages.empty?
 
 .margin-up
   - if @is_receiver

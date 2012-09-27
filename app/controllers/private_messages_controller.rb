@@ -6,7 +6,7 @@
 # 3 or later. See the LICENSE file.
 
 class PrivateMessagesController < ApplicationController
-  before_filter :private_message, :only => [:show, :edit, :update, :destroy]
+  before_filter :private_message, :only => [:show, :update, :destroy]
   load_and_authorize_resource
 
   def index
@@ -30,13 +30,15 @@ class PrivateMessagesController < ApplicationController
 
   def show
     @show_message = PrivateMessage.find(params[:id])
+    params[:page] ||= 1
     @previous_message = @show_message #this is to the reply message partial
     @receiver_name = User.find(@show_message.sender_id).name
-    @previous_messages = []
-    previous = @show_message 
-    while previous.parent_id
-      previous = PrivateMessage.find(previous.parent_id)
-      @previous_messages << previous
+    @previous_messages = WillPaginate::Collection.create(params[:page], 5) do |pager|
+      @previous_messages = PrivateMessage.previous(@show_message).reverse
+      pager.replace(@previous_messages[pager.offset, pager.per_page])
+      unless pager.total_entries
+        pager.total_entries = @previous_messages.count 
+      end
     end
     if @is_receiver = user.id == @show_message.receiver_id
       @show_message.checked = true
@@ -61,8 +63,8 @@ class PrivateMessagesController < ApplicationController
   end
 
   # GET /private_messages/1/edit
-  def edit
-  end
+  #def edit
+  #end
 
   def create
     receivers = []
