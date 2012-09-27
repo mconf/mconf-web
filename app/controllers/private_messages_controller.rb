@@ -30,7 +30,7 @@ class PrivateMessagesController < ApplicationController
 
   def show
     @show_message = PrivateMessage.find(params[:id])
-    @previous_message = @show_message
+    @previous_message = @show_message #this is to the reply message partial
     @receiver_name = User.find(@show_message.sender_id).name
     @previous_messages = []
     previous = @show_message 
@@ -42,7 +42,6 @@ class PrivateMessagesController < ApplicationController
       @show_message.checked = true
       @show_message.save
     end
-    
   end
 
   def new

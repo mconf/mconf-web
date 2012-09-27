@@ -10,7 +10,11 @@
 
   .thread-title
     .thread-author
-      = @receiver.disabled? ? @receiver.name : link_to(@receiver.name, user_path(@receiver))
+      - if params[:id]
+        - @sender = User.find_with_disabled(private_message.sender_id)
+        = @sender.disabled? ? @semder.name : link_to(@sender.name, user_path(@sender))
+      - else
+        = @receiver.disabled? ? @receiver.name : link_to(@receiver.name, user_path(@receiver))
     .subject
       = t('subject')
       - if params[:id] 

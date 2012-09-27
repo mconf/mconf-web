@@ -58,7 +58,9 @@ module Abilities
       can :read, PrivateMessage do |message|
         message.sender_id == user.id or message.receiver_id == user.id
       end
-      can :destroy, PrivateMessage, :sender_id => user.id
+      can :destroy, PrivateMessage do |message| 
+        message.sender_id == user.id or message.receiver_id == user.id
+      end
 
       # Spaces
       can :create, Space
