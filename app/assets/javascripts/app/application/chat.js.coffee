@@ -245,11 +245,47 @@ Chat =
       "<div id='contact-chat' class='chat-align' style='width: 230px; height: 100%;'><div><div class='no-show' style='width: 225px; height: 100%; position: absolute;'>" +
       "<div id='chat-" + jid_id + "' class='chat-area' style='position: absolute;'>" + "<div class='chat-area-title'><h3><ul><li class='none " + status + "'><span class='ellipsis'>" + name +
       "</span><img id='close-chat' src='/assets/chat/icons/close-chat.png' width='12' height='12' /></li></ul></h3></div>" +
-      "<div id='content-chat'><div style='border-bottom: solid 1px #DDD'><img id='bbb-chat-" + jid_id + "' src='/assets/icons/bbb_logo.png' class='bbb-chat-icon'/></div></br>" +
+      "<div id='content-chat'><div style='border-bottom: solid 1px #DDD'><img id='bbb-chat-" + jid_id + "' src='/assets/icons/webcam.png' class='bbb-chat-icon'/></div></br>" +
       "<div id='message-area'><div class='chat-messages' style='word-wrap: break-word;'></div><textarea class='chat-input'></textarea></div></div></div></div></div></div>")
 
     $('#chat-' + jid_id).data 'jid', jid
     $('#chat-' + jid_id + ' .chat-input').autosize()
+    iq = $iq({type: "get"})
+      .c("list", {xmlns: "http://www.xmpp.org/extensions/xep-0136.html#ns", with: jid})
+      .c("set", {xmlns: "http://jabber.org/protocol/rsm"})
+      .c("max").t("100")
+    Chat.connection.sendIQ iq, Chat.chat_history_list
+
+  chat_history_list: (iq) ->
+    iq1 = $iq({type: "get"})
+      .c("retrieve", {xmlns: "http://www.xmpp.org/extensions/xep-0136.html#ns", with: $(iq).find("chat").last().attr("with"), start: $(iq).find("chat").last().attr("start")})
+      .c("set", {xmlns: "http://jabber.org/protocol/rsm"})
+      .c("max").t("100")
+    Chat.connection.sendIQ iq1, Chat.chat_history
+
+  chat_history: (iq) ->
+    jid_id = Chat.jid_to_id $(iq).find("chat").attr("with")
+    name = $("#"+jid_id).find(".roster-name").text()
+    name_me = $("#status").text()
+    $(iq).find("chat").children().each (index, element) =>
+      if $(element).is("to")
+        $("#chat-" + jid_id).find('.chat-messages').append(
+          "<div class='chat-message'>" +
+          "<span class='chat-name me'>" + name_me +
+          " </span><span class='chat-text'>" + $(element).find("body").text() +
+          "</span></div>")
+        Chat.scroll_chat jid_id
+      if $(element).is("from")
+        $("#chat-" + jid_id).find('.chat-messages').append(
+          "<div class='chat-message'>" +
+          "<span class='chat-name'>" + name +
+          " </span><span class='chat-text'>" + $(element).find("body").text() +
+          "</span></div>")
+        Chat.scroll_chat jid_id
+
+    $("#chat-" + jid_id).find('.chat-messages').append(
+      "<div class='chat-message border-history'></div>")
+    Chat.scroll_chat jid_id
 
 $ ->
   # trigger to start the chat
@@ -502,7 +538,7 @@ $(document).bind 'connected', ->
       "<div class='chat-area-title'><h3><ul><li id='status-title' class='none online'>" + I18n.t("chat.title")  + "</li></ul></h3></div>" +
       "<div id='content-chat'><div style='border-bottom: solid 1px #DDD;'>" +
       "<img id='add_user' src='/assets/icons/user_add.png' class='chat-menu-icon' style='cursor: pointer; cursor: hand;' title='Invite Users'/>" +
-      "<img id='bbb_invite' src='/assets/icons/bbb_logo.png' class='chat-menu-icon' style='cursor: pointer; cursor: hand;' title='Invite users to your BBB room'/>" +
+      "<img id='bbb_invite' src='/assets/icons/webcam_add.png' class='chat-menu-icon' style='cursor: pointer; cursor: hand;' title='Invite users to your BBB room'/>" +
       "<span id='request_contacts' class='contacts_circle hidden' style='cursor: pointer; cursor: hand;'></span>" +
       "</div><ul style='margin-top: 10px; margin-bottom: 0px;'>" +
       "<li id='status' class='online' style='margin-left: 5px; cursor: pointer; cursor: hand;'>" + Chat.user_name  + "</li>" +
