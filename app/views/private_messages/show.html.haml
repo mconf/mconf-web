@@ -7,8 +7,7 @@
 = render :partial => 'private_messages/menu'
 
 = content_for :sidebar do
-  - if params[:reply_to]
-    = render :partial => "reply_private_message", :locals => { :previous_message => PrivateMessage.find(params[:id]) }
+  = render :partial => "reply_private_message", :locals => { :reply_to => true, :previous_message => PrivateMessage.find(params[:id]) }
 
 
 %h3= sanitize(@show_message.title)
@@ -17,7 +16,7 @@
 - if @show_message.sender_id.present?
   .private-messages.thread{:id => "parent-#{@show_message.id}"}
     = link_logotype(User.find(@show_message.sender_id), :size => 96, :title => User.find(@show_message.sender_id).name).html_safe
-    %ul.thread-action-links.visible-on-hover{ :"data-hover-tracked" => "parent-#{@show_message.id}" }
+    %ul.thread-action-links
       - if @is_receiver
         %li
           = link_to t('back_to_inbox'), user_messages_path(params[:user_id])
@@ -26,12 +25,10 @@
           = link_to t('back_to_sent'), user_messages_path(params[:user_id], :sent_messages => true )
       - if @is_receiver && @show_message.sender_id.present?
         %li
-          = link_to t('reply'), user_message_path(params[:user_id], @show_message, :reply_to => true), :title => t('reply') unless params[:reply_to]
-        %li
           = link_to t('delete.one'), user_message_path(params[:user_id], @show_message, :private_message => {:deleted_by_receiver => true}), :confirm => t('delete.confirm', :element => @show_message.title), :method => :delete, :title => t('delete.one')
       - else
         %li
-          = link_to t('delete.one'), user_message_path(params[:user_id], @show_message, :private_message => {:delted_by_sender => true}), :confirm => t('delete.confirm', :element => @show_message.title), :method => :delete, :title => t('delete.one')
+          = link_to t('delete.one'), user_message_path(params[:user_id], @show_message, :private_message => {:deleted_by_sender => true}), :confirm => t('delete.confirm', :element => @show_message.title), :method => :delete, :title => t('delete.one')
 
     %p
       = sanitize(auto_link(simple_format(@show_message.body)))
@@ -43,8 +40,9 @@
       = render :partial => "show_sent", :locals => { :private_message => message }
     - else
       = render :partial => "show_received", :locals => { :private_message => message }  
-.content-block-footer
-  = page_navigation_links @previous_messages unless @previous_messages.empty?
+- unless @previous_messages.empty?
+  .content-block-footer
+    = page_navigation_links @previous_messages
 
 .margin-up
   - if @is_receiver

@@ -3,4 +3,16 @@
 = render_page_title t('private_messages')
 = render :partial => 'private_messages/menu'
 
-= render :partial => "new_private_message", :locals => { :receiver_id => params[:receiver] }
+- if current_user.fellows.empty?
+  = t("message.private.cant")
+- else
+  #priv-msg
+    %h3
+      = t('message.private.send')
+    = simple_form_for @private_message, :url => user_messages_path(current_user) do |f|
+      = f.input :users_tokens, :label => t('message.to'), :required => true
+      %div{:style => "clear: both;"}
+      = f.input :title, :label => t('title'), :size => 25
+      = f.input :body, :as => :text, :label => t('body')
+      .margin-up
+        = f.button :submit, t('button.send'), :class => "btn"

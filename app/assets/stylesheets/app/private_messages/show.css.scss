@@ -1,7 +1,13 @@
 @import "compass/css3";
 
-body.private-messages.show {
+body.private_messages.show {
   .thread-content {
     margin-left: 50px;
+  }
+  #priv-msg { 
+    textarea { 
+      resize:vertical;
+      height: 200px; 
+    }
   }
 }

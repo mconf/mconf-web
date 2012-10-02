@@ -6,12 +6,6 @@
 = render_page_title t('private_messages')
 = render :partial => 'private_messages/menu'
 
-= content_for :sidebar do
-  - if params[:reply_to] 
-    = render :partial => "reply_private_message", :locals => { :previous_message =>  PrivateMessage.find(params[:reply_to])}
-  - else
-    = render :partial => "new_private_message"
-
 - if @private_messages.blank?
   = t('message.private.none')
 
@@ -22,7 +16,7 @@
         = render :partial => "show_sent", :locals => { :private_message => private_message }
       - else
         = render :partial => "show_received", :locals => { :private_message => private_message } 
-
-.content-block-footer
-  = page_navigation_links @private_messages unless @private_messages.empty?
+- unless @private_messages.empty?
+  .content-block-footer
+    = page_navigation_links @private_messages 
 

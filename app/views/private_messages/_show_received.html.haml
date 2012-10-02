@@ -5,7 +5,6 @@
   - unless params[:id]
     %ul.thread-action-links.visible-on-hover{ :"data-hover-tracked" => "parent-#{private_message.id}" }
       %li= link_to t('private_message.open'), user_message_path(params[:user_id], private_message)
-      %li= link_to t('reply'), user_messages_path(params[:user_id], :reply_to => private_message), :title => t('reply') unless params[:sent_messages]
       - privatetitle = sanitize(private_message.title)
       %li= link_to t('delete.one'), user_message_path(params[:user_id],private_message, :private_message => {:deleted_by_receiver => true}), :confirm => t('delete.confirm', :element => privatetitle), :method => :delete,:title => t('delete.one')
     
@@ -13,7 +12,6 @@
     - if private_message.sender_id.present?
       .thread-author
         = @sender.disabled? ? @sender.name : link_to(@sender.name, user_path(@sender))
-
     .subject
       = t('subject')
       - if params[:id] 
