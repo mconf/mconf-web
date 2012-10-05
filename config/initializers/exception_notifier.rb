@@ -18,7 +18,7 @@ end
 def get_sender_address
   site = Site.current
   if site.respond_to?(:name) && site.respond_to?(:smtp_sender)
-    %("#{site.name}" <#{site.sender}>)
+    %("#{site.name}" <#{site.smtp_sender}>)
   else
     "Undefined"
   end
