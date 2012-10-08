@@ -14,12 +14,12 @@
       %div
         %label{:for => "Title"} 
           = t('title')
-        =h f.text_field :title, :size =>25 
+        = f.text_field :title, :size =>25 
       %div
         %label{:for => "Body"} 
           = t('body') 
         <br />
-        =h f.text_area :body 
+        = f.text_area :body 
       - unless params[:receiver]
         %div  
           %label{:for => :users_tokens} 

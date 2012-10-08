@@ -21,7 +21,7 @@ describe PrivateMessage do
 
       context "and the message receiver" do
         let(:user) { target.receiver }
-        it { should_not be_able_to_do_anything_to(target).except([:read, :create]) }
+        it { should_not be_able_to_do_anything_to(target).except([:read, :create, :destroy]) }
       end
 
       context "but not the sender or receiver" do

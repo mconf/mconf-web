@@ -7,10 +7,10 @@
 # Quick refs:
 # (note: you can replace "staging" by "production" to set the target stage, see deploy/conf.yml)
 #
-#  cap staging setup:all                     # first time setup of a server
+#  cap staging deploy:setup                  # initial setup (basic dirs, etc.)
+#  cap staging deploy:update                 # update to a new release
+#  cap staging setup:basic                   # first time setup of a server (create the db, etc.)
 #  cap staging deploy:migrations             # update to a new release, run the migrations (i.e. updates the DB) and restart the web server
-#  cap staging deploy:udpate                 # update to a new release
-#  cap staging deploy:migrate                # run the migrations
 #  cap staging deploy:restart                # restart the web server
 #  cap staging rake:invoke TASK=jobs:queued  # run a rake task in the remote server
 #
@@ -18,8 +18,6 @@
 #  cap staging deploy:web:disable  # start maintenance mode (the site will be offline)
 #  cap staging deploy:web:enable   # stop maintenance mode (the site will be online)
 #  cap staging deploy:rollback     # go back to the previous version
-#  cap staging setup:secret        # creates a new secret token (requires restart)
-#  cap staging setup:db            # drops, creates and populates the db with the basic data
 #
 
 LOCAL_PATH = File.expand_path(File.dirname(__FILE__))
@@ -37,7 +35,6 @@ CONFIG_FILE = File.join(File.dirname(__FILE__), 'deploy', 'conf.yml')
 set :configs, YAML.load_file(CONFIG_FILE)
 
 # multistage setup
-set :stages, %w(production staging)
 require 'capistrano/ext/multistage'
 
 # anti-tty error
@@ -64,7 +61,7 @@ namespace :deploy do
   task(:start) {}
   task(:stop) {}
   task :restart, :roles => :app, :except => { :no_release => true } do
-    run "#{try_sudo} touch #{File.join(current_path, 'tmp', 'restart.txt')}"
+    run "#{try_sudo} touch #{File.join(current_release, 'tmp', 'restart.txt')}"
   end
 
   desc "Prints information about the selected stage"
@@ -77,6 +74,7 @@ namespace :deploy do
     puts "   repository: #{ fetch(:repository) }"
     puts "  application: #{ fetch(:application) }"
     puts " release path: #{ release_path }"
+    puts "   user:group: #{user}:#{group}"
     puts "*******************************************************"
     puts
   end
@@ -91,7 +89,7 @@ namespace :deploy do
 
   desc "Fix permissions in folders and files"
   task :fix_permissions, :roles => :app do
-    run "#{try_sudo} chown -R #{user}:#{user_group} #{deploy_to}"
+    run "#{try_sudo} chown -R #{user}:#{group} #{deploy_to}"
     run "#{try_sudo} chmod -R g+w #{shared_path}/attachments"
     run "#{try_sudo} chmod -R g+w #{shared_path}/public/logos"
   end
@@ -102,7 +100,6 @@ namespace :deploy do
     top.upload "#{LOCAL_PATH}/setup_conf.yml", "#{release_path}/config/", :via => :scp
     top.upload "#{LOCAL_PATH}/analytics_conf.yml", "#{release_path}/config/", :via => :scp
   end
-
 end
 
 # SETUP tasks
@@ -111,18 +108,15 @@ end
 namespace :setup do
 
   desc "Setup a server for the first time"
-  task :all do
-    top.deploy.setup      # basic setup of directories
-    top.deploy.update     # clone git repo and make it the current release
+  task :basic do
     setup.db              # destroys and recreates the DB
     setup.secret          # new secret
-    setup.statistics      # start google analytics statistics
-    top.deploy.restart    # restart the server
+    # setup.statistics      # start google analytics statistics
   end
 
   desc "recreates the DB and populates it with the basic data"
   task :db do
-    run "cd #{current_path} && bundle exec rake db:reset RAILS_ENV=production"
+    run "cd #{current_release} && bundle exec rake db:reset RAILS_ENV=production"
   end
 
   # User uploaded files are stored in the shared folder
@@ -133,13 +127,13 @@ namespace :setup do
 
   desc "Creates a new secret in config/initializers/secret_token.rb"
   task :secret do
-    run "cd #{current_path} && bundle exec rake secret:save RAILS_ENV=production"
+    run "cd #{current_release} && bundle exec rake secret:save RAILS_ENV=production"
     puts "You must restart the server to enable the new secret"
   end
 
   desc "Creates the Statistic table - needs config/analytics_conf.yml"
   task :statistics do
-    run "cd #{current_path} && bundle exec rake statistics:init RAILS_ENV=production"
+    run "cd #{current_release} && bundle exec rake statistics:init RAILS_ENV=production"
   end
 end
 
@@ -165,6 +159,14 @@ desc "Run a task on a remote server."
 task :invoke do
   run("cd #{deploy_to}/current; bundle exec rake #{ENV['TASK']} RAILS_ENV=production")
 end
+
+# TODO: Temporary task to set the production environment even when deploying to
+# the 'staging' stage. This needs to be reviewed.
+task :set_env do
+  set :rails_env, "production"
+  set :default_env, "production"
+end
+before 'deploy:assets:precompile', 'set_env'
 
 after 'multistage:ensure', 'deploy:info'
 before 'deploy:setup', 'rvm:install_ruby'

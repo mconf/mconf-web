@@ -1,7 +1,24 @@
 @import "compass/css3";
+@import "definitions";
 
-body.private-messages.show {
+body.private_messages.show {
   .thread-content {
     margin-left: 50px;
+  }
+  #priv-msg { 
+    textarea { 
+      resize:vertical;
+      height: 200px; 
+    }
+    #private_message_title, #private_message_body {
+      width: 95%;
+    }
+  }
+  $sidebar-width: 350px;
+  #sidebar {
+    width: $sidebar-width;
+  }
+  #content-middle {
+    width: $contents-width - $sidebar-width - 20px; // less right-margin
   }
 }

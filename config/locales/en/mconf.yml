@@ -108,8 +108,8 @@ en:
     select_new: "Select new picture"
     upload: "Upload picture"
   back: Back
-  back_to_inbox: "Back to Inbox"
-  back_to_sent: "Back to Sent"
+  back_to_inbox: "Back to inbox"
+  back_to_sent: "Back to sent"
   bbb_room: 
     attendeePW: "Attendee Password"
     edit: "Configure your webconference room"

@@ -23,7 +23,7 @@ class PrivateMessagesController < ApplicationController
     end
   
     respond_to do |format|
-      format.html # index.html.erb
+      format.html { render :layout => "no_sidebar" }
       format.xml  { render :xml => @private_messages }
     end
   end
@@ -47,17 +47,12 @@ class PrivateMessagesController < ApplicationController
   end
 
   def new
-       
     @private_message = PrivateMessage.new
     if params[:receiver]
       @receiver_name = User.find(params[:receiver]).name
     end
     respond_to do |format|
-      format.html{
-        if request.xhr?
-          render :layout => false
-        end
-      }
+      format.html { render :layout => "no_sidebar" }
       format.xml  { render :xml => @private_message }
     end
   end

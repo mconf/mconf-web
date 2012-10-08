@@ -51,8 +51,12 @@ class PrivateMessage < ActiveRecord::Base
 #    end
 #  end
 
+
+# Couldnt be destroyed to mantain the thread history
+=begin
   after_update :after_update_method
   def after_update_method
     self.destroy if self.deleted_by_sender && self.deleted_by_receiver
   end
+=end
 end
