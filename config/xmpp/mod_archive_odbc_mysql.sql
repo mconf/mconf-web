@@ -2,8 +2,6 @@ CREATE DATABASE IF NOT EXISTS ejabberd CHARACTER SET utf8 COLLATE utf8_general_c
 
 USE ejabberd;
 
-SET table_type=InnoDB;
-
 CREATE TABLE archive_collections(id INTEGER NOT NULL AUTO_INCREMENT,
                                  prev_id INTEGER,
                                  next_id INTEGER,
