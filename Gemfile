@@ -26,6 +26,7 @@ gem 'chronic'
 gem 'yaml_db'
 gem 'delayed_job', '~> 3.0.0'
 gem 'delayed_job_active_record'
+gem 'daemons' # for delayed_job
 gem 'rails_autolink'
 gem 'whenever', :require => false
 gem 'garb'
