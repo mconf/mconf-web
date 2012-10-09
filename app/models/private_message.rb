@@ -10,7 +10,7 @@ class PrivateMessage < ActiveRecord::Base
   belongs_to :receiver, :class_name => "User"
   attr_accessor :users_tokens
   acts_as_resource :per_page => 10
-
+  validates_acceptance_of :users_tokens, :unless => Proc.new { |pm| pm.receiver_id } 
   validates_presence_of :receiver_id , :title, :body,
                           :message => "must be specified"
 
