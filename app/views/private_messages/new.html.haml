@@ -11,8 +11,10 @@
       = t('message.private.send')
     = simple_form_for @private_message, :url => user_messages_path(current_user) do |f|
       = f.input :users_tokens, :label => t('message.to'), :required => true
+      %span{:data => { :pre => @addressee.to_json }, :id => "prepopulate"}
       %div{:style => "clear: both;"}
       = f.input :title, :label => t('title'), :size => 25
       = f.input :body, :as => :text, :label => t('body')
+      = f.hidden_field :parent_id, :value => @private_message.parent_id if @private_message
       .margin-up
         = f.button :submit, t('button.send'), :class => "btn"
