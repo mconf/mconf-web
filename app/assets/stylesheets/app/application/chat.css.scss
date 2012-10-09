@@ -71,6 +71,14 @@
     }
   }
 
+  #message-area {
+    margin-top: 5px;
+  }
+
+  .history-name {
+    color: #0E7C04;
+  }
+
   .chat-name {
     color: #c33;
   }
@@ -193,6 +201,16 @@
     margin-right: 5px;
     float: right;
     display:inline;
+  }
+
+  #space-users {
+    border-bottom: solid 1px #DDD;
+    margin-bottom: 5px;
+    margin-top: 5px;
+
+    ul {
+      margin-left: 30px;
+    }
   }
 }
 
