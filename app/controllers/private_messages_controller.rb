@@ -19,7 +19,7 @@ class PrivateMessagesController < ApplicationController
     #search the name of the user when replying a message
     if params[:reply_to]
       @previous_message = PrivateMessage.find(params[:reply_to])
-      @receiver_name = User.find(@previous_message.sender_id).name
+      @receiver = User.find(@previous_message.sender_id)
     end
   
     respond_to do |format|
@@ -32,7 +32,7 @@ class PrivateMessagesController < ApplicationController
     @show_message = PrivateMessage.find(params[:id])
     params[:page] ||= 1
     @previous_message = @show_message #this is to the reply message partial
-    @receiver_name = User.find(@show_message.sender_id).name
+    @receiver = User.find(@show_message.sender_id)
     @previous_messages = WillPaginate::Collection.create(params[:page], 5) do |pager|
       @previous_messages = PrivateMessage.previous(@show_message).reverse
       pager.replace(@previous_messages[pager.offset, pager.per_page])
@@ -47,9 +47,9 @@ class PrivateMessagesController < ApplicationController
   end
 
   def new
-    @private_message = PrivateMessage.new
+    @private_message ||= PrivateMessage.new
     if params[:receiver]
-      @receiver_name = User.find(params[:receiver]).name
+      @receiver = User.find(params[:receiver])
     end
     respond_to do |format|
       format.html { render :layout => "no_sidebar" }
@@ -66,6 +66,7 @@ class PrivateMessagesController < ApplicationController
     if params[:private_message][:users_tokens]
       receivers = params[:private_message][:users_tokens].split(",")
     end
+    @addressee = receivers.map {|receiver| { "id" => receiver.to_i, "name" => User.find(receiver).name} }
     unless receivers.empty?
       @success_messages = Array.new
       @fail_messages = Array.new
@@ -86,14 +87,17 @@ class PrivateMessagesController < ApplicationController
           format.xml  { render :xml => @success_messages, :status => :created, :location => @success_messages }
         else
           flash[:error] = t('message.error.create')
-          format.html { redirect_to request.referer }
+          format.html { render :action => "new" }
           format.xml  { render :xml => @fail_messages.map{|m| m.errors}, :status => :unprocessable_entity }
         end
       end
     else  
       params[:private_message][:sender_id] = user.id
       @private_message = PrivateMessage.new(params[:private_message])
-  
+      if params[:private_message][:receiver_id]
+        receiver = User.find(params[:private_message][:receiver_id])
+        @addressee << { "id" => receiver.id, "name" => receiver.name }  
+      end
       respond_to do |format|
         if @private_message.save
           flash[:success] = t('message.created')

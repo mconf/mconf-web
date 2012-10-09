@@ -5,6 +5,7 @@ $ ->
         crossDomain: false,
         theme: 'facebook',
         preventDuplicates: true,
-        searchDelay: 150
+        searchDelay: 150,
+        prePopulate: $("span#prepopulate").data("pre")
       };
 

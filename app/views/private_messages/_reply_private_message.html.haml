@@ -5,7 +5,7 @@
         = t('message.reply') 
       = simple_form_for :private_message, :url => user_messages_path(current_user) do |f| 
         %label{:for => "To"}
-          = t('message.to') + ": " + @receiver_name
+          = t('message.to') + ": " + @receiver.name
         = f.input :title, :label => t('title'), :size => 25, :input_html => { :value => previous_message.title }
         = f.input :body, :as => :text, :label => t('body'), :input_html => { :value => '' }  
         = f.hidden_field :parent_id, :value => @previous_message.id
