@@ -80,7 +80,7 @@ describe User do
 
     context "when is the user himself" do
       let(:user) { target }
-      it { should_not be_able_to_do_anything_to(target).except([:read, :update]) }
+      it { should_not be_able_to_do_anything_to(target).except([:read, :update, :fellows, :current]) }
 
       context "and he is disabled" do
         before { target.disable() }
@@ -104,7 +104,7 @@ describe User do
 
     context "when is an anonymous user" do
       let(:user) { User.new }
-      it { should_not be_able_to_do_anything_to(target).except(:read) }
+      it { should_not be_able_to_do_anything_to(target).except([:read, :current]) }
 
       context "and the target user is disabled" do
         before { target.disable() }

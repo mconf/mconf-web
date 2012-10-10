@@ -21,7 +21,8 @@ Shoulda::Matchers::ActiveModel::BeAbleToDoAnythingToMatcher.
   actions = [
     :read, :create, :update, :destroy, :manage, # standard
     :reply_post,                                # posts
-    :leave                                      # spaces
+    :leave,                                     # spaces
+    :fellows, :current                          # UsersController
   ]
 
 ActionMailer::Base.delivery_method = :test
