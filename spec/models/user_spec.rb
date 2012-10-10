@@ -80,7 +80,10 @@ describe User do
 
     context "when is the user himself" do
       let(:user) { target }
-      it { should_not be_able_to_do_anything_to(target).except([:read, :update, :fellows, :current]) }
+      it {
+        allowed = [:read, :update, :fellows, :current, :select_users]
+        should_not be_able_to_do_anything_to(target).except(allowed)
+      }
 
       context "and he is disabled" do
         before { target.disable() }
