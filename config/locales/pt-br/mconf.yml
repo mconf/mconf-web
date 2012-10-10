@@ -16,6 +16,11 @@ pt-br:
         attendee_password: "Senha de Participante"
         moderator_password: "Senha de Moderador"
     errors:
+      models:
+        private_message: 
+          attributes:
+            users_tokens:
+              accepted: "deve escolher ao menos um destinatário"
       messages:
         missing: "não encontrado"
   address: Endereço
