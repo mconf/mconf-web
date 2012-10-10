@@ -15,7 +15,12 @@ en:
       spaces: 
         attendee_password: "Attendee Password"
         moderator_password: "Moderator Password"
-    errors: 
+    errors:
+      models:
+        private_message: 
+          attributes:
+            users_tokens:
+              accepted: "must choose at least one receiver" 
       messages: 
         invalid_identifier: "generates an invalid identifier: \"%{id}\""
         missing: "is missing"
