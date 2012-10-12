@@ -66,8 +66,10 @@ namespace :db do
                                        :name => user.profile.full_name
       end
       # set the password this way so that devise makes the encryption
-      pass = "Testes123"
-      user.update_attributes(:password => pass, :password_confirmation => pass)
+      unless user == User.first # except for the admin
+        pass = "123456"
+        user.update_attributes(:password => pass, :password_confirmation => pass)
+      end
     end
 
     puts "* Create private messages"
