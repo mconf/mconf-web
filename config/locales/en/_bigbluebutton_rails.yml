@@ -24,8 +24,8 @@ en:
         url: URL
         version: Version
     models: 
-      bigbluebutton_room: "BigBlueButton Room"
-      bigbluebutton_server: "BigBlueButton Server"
+      bigbluebutton_room: "Web Conference Room"
+      bigbluebutton_server: "Web Conference Server"
   bigbluebutton_rails: 
     bigbluebutton: BigBlueButton
     rooms: 

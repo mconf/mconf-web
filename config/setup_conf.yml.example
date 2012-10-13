@@ -15,7 +15,7 @@ default:
   admin_email: "admin@default.com"                 # Admin user email
   admin_password: "admin"                          # Admin user password
 
-  # BigBlueButton default server configuration
+  # Default web conference server
   # This server will be your first and default server
   bbb_server_name: "Default Server"                                 # BBB server name
   bbb_server_url: "http://my-development-server/bigbluebutton/api"  # BBB server url in the format http://<server>/bigbluebutton/api

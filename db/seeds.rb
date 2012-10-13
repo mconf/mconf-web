@@ -139,7 +139,7 @@ invited_role.permissions << Permission.find_by_action_and_objective('read', nil)
 invited_role.permissions << Permission.find_by_action_and_objective('read', 'content')
 invited_role.permissions << Permission.find_by_action_and_objective('read', 'performance')
 
-puts "* Create the default BigBlueButton server"
+puts "* Create the default web conference server"
 puts "  name: #{config["bbb_server_name"]}"
 puts "  url: #{config["bbb_server_url"]}"
 puts "  salt: #{config["bbb_server_salt"]}"
