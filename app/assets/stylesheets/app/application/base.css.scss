@@ -70,9 +70,9 @@ form {
 }
 
 .in-progress-icon {
-  background: url(asset_path("icons/in-progress-19x19.gif", image)) no-repeat bottom;
-  width: 19px;
-  height: 19px;
+  background: url(asset_path("icons/in-progress-green-16x16.gif", image)) no-repeat bottom;
+  width: 16px;
+  height: 16px;
 }
 
 .spam-icon {
@@ -668,7 +668,7 @@ ul#navbar-right-links {
     margin-bottom: 10px;
 
     &.active {
-      background: $bright-blue;
+      background: darken($alert-success-bg, 5);
     }
   }
 
