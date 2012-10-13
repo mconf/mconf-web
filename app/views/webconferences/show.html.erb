@@ -33,7 +33,6 @@
 <% end %>
 
 <div id="space_webconference_description">
-  <div class="event_image"><%= image_tag("logos/bbb.png") %></div>
   <% status = @bbb_room.is_running? ? t('webconference.running')+"!" : t('webconference.not_running') %>
   <%= t('webconference.space.description', :status => status).html_safe %>
 

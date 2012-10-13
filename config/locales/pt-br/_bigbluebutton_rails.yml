@@ -24,10 +24,10 @@ pt-br:
         url: URL
         version: Versão
     models: 
-      bigbluebutton_room: "Sala BigBlueButton"
-      bigbluebutton_server: "Servidor BigBlueButton"
+      bigbluebutton_room: "Sala de Webconferência"
+      bigbluebutton_server: "Servidor de Webconferência"
   bigbluebutton_rails: 
-    bigbluebutton: "BigBlueButton\n"
+    bigbluebutton: "BigBlueButton"
     rooms: 
       errors: 
         auth: 
