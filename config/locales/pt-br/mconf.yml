@@ -243,6 +243,20 @@ pt-br:
   create: Criar
   create_event: "Criar Evento"
   created_time_ago: "Criado %{time} atrás"
+  custom_bigbluebutton_rooms: 
+    invite: 
+      click_to_select: "Clique aqui para selecionar"
+      desktop: "Selecione esta opção para acessar de um <em>computador</em>."
+      mobile: "Selecione esta opção para acessar de um <em>dispositivo móvel</em>."
+      not_running: "não iniciada"
+      refresh: "Esta informação é atualizada automaticamente"
+      room_type_private: "Esta é uma conferência <em>privada</em>, preencha os campos abaixo para entrar."
+      room_type_public: "Esta é uma conferência <em>pública</em>, preencha os campos abaixo para entrar."
+      running: "em andamento!"
+      selected: "selecionado"
+      status: "O estado atual da reunião é"
+      title: "Entrar em: %{name}"
+      unknown: "desconhecido"
   date:
     at: em
     start: "Data inicial"
