@@ -1,0 +1,13 @@
+= render_page_title t('custom_bigbluebutton_rooms.invite.title', :name => @room.name)
+
+
+#webconf-room-status{:"data-url" => running_bigbluebutton_room_url(@room, :format => 'json')}
+  .message
+    .loading
+      = image_tag "loading.gif"
+    %h4
+      = t('rooms.join.msg1')
+  .info
+    .label.label-important
+      = t('custom_bigbluebutton_rooms.important')
+    = t('rooms.join.msg2')

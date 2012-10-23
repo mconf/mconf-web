@@ -244,6 +244,7 @@ pt-br:
   create_event: "Criar Evento"
   created_time_ago: "Criado %{time} atrás"
   custom_bigbluebutton_rooms: 
+    important: Importante
     invite: 
       click_to_select: "Clique aqui para selecionar"
       desktop: "Selecione esta opção para acessar de um <em>computador</em>."
@@ -477,6 +478,7 @@ pt-br:
     started: "pedido Iniciar enviar com êxito"
     statistics:
       views: "visualizações"
+      space-views: "visualizações"
     stats:
       map: "Ver mapa"
       message1: "Esta página mostra as estatísticas das conexões Web para o evento."
@@ -973,7 +975,7 @@ pt-br:
       status: "Status da reunião: "
     join:
       msg1: "Esta reunião ainda não começou, espere pelo moderador."
-      msg2: "Seu navegador irá recarregar automaticamente and entrará na reunião assim que ela começar."
+      msg2: "Seu navegador irá recarregar automaticamente e entrará na reunião assim que ela começar."
       title: "Sala: %{name}"
     not_running: inativa.
     refresh: "atualizar status"
@@ -1326,6 +1328,7 @@ pt-br:
       one: "A conferência está ativa com %{count} participante"
       other: "A conferência está ativa com %{count} participantes"
     invite_webconference: "Convidar pessoas para a conferência"
+    join: Join
     join_mobile:
       direct_link: "<b>Clique aqui</b> <br/> para entrar utilizando um dispositivo móvel"
       scan_code: "Ou faça a leitura do código abaixo:"

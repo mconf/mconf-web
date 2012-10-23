@@ -252,7 +252,8 @@ en:
   crop_image: 
     description: "Select a part of the image to crop"
     title: "Crop image"
-  custom_bigbluebutton_rooms: 
+  custom_bigbluebutton_rooms:
+    important: Important 
     invite: 
       click_to_select: "Click here to select"
       desktop: "Select this option to join from a <em>desktop computer</em>."
@@ -263,7 +264,7 @@ en:
       room_type_public: "This is a <em>public</em> web conference, fill the fields below to join it."
       running: "running!"
       selected: "selected"
-      status: "The meeting current is"
+      status: "The meeting currently is"
       title: "Join: %{name}"
       unknown: "unknown"
   date: 
