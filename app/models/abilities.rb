@@ -8,7 +8,7 @@
 module Abilities
 
   def self.ability_for(user)
-    if user.superuser?
+    if user and user.superuser?
       SuperUserAbility.new(user)
     elsif user and !user.anonymous?
       MemberAbility.new(user)
@@ -32,9 +32,8 @@ module Abilities
     def initialize(user)
       # Users
       # Disabled users are only visible to superusers
-      can :read, User, :disabled => false
-      can :update, User, :id => user.id, :disabled => false
-      can :fellows, User, :id => user.id, :disabled => false
+      can [:read, :fellows, :current, :select_users], User, :disabled => false
+      can [:update], User, :id => user.id, :disabled => false
 
       # User profiles
       can :read, Profile do |profile|
@@ -58,7 +57,7 @@ module Abilities
       can :read, PrivateMessage do |message|
         message.sender_id == user.id or message.receiver_id == user.id
       end
-      can :destroy, PrivateMessage do |message| 
+      can :destroy, PrivateMessage do |message|
         message.sender_id == user.id or message.receiver_id == user.id
       end
 
@@ -164,7 +163,7 @@ module Abilities
           false
         end
       end
-      can :read, User, :disabled => false
+      can [:read, :current], User, :disabled => false
       can :read, Space, :public => true
       can :read, Post, :space => { :public => true }
       can :read, News, :space => { :public => true }

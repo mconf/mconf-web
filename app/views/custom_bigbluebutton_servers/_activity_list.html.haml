@@ -1,0 +1,49 @@
+- @server.meetings.each do |room|
+  .thread{:class => cycle('thread-odd', 'thread-even') }
+    - unless room.new_record? 
+      .links
+        %ul
+          %li= link_to t('show'), bigbluebutton_room_path(room)
+          %li= link_to t('edit'), edit_bigbluebutton_room_path(room) 
+          %li= link_to t('destroy'), bigbluebutton_room_path(room), :confirm => t('are_you_sure'), :method => :delete 
+          <br />
+          %li= link_to t('join'), join_bigbluebutton_room_path(room)
+          %li= link_to t('bigbluebutton_rails.rooms.join_mobile'), join_mobile_bigbluebutton_room_path(room)
+          %li= link_to t('end'), end_bigbluebutton_room_path(room), :confirm => t('are_you_sure')
+    .bbbrails_meeting_description
+      .title_bar
+        %h3.title= room.name
+        .header
+          (ID: 
+          = room.meetingid 
+          ) 
+        - if room.is_running?
+          .label.label-info.status
+            = t('bigbluebutton_rails.servers.activity.running')
+        - else
+          .label.label-important.status
+            = t('bigbluebutton_rails.servers.activity.not_running')
+      %div{:style => "clear:both;"}
+      - unless room.start_time.nil?
+        = t('bigbluebutton_rails.servers.activity.started_at', :time => room.start_time.strftime("%F, %R UTC%z"))
+        <br/>
+      - unless room.end_time.nil?
+        = t('bigbluebutton_rails.servers.activity.ended_at', :time => room.end_time.strftime("%F, %R UTC%z"), :forcibly => room.has_been_forcibly_ended) 
+      <br />
+      - unless room.attendees.count == 0
+        = t('bigbluebutton_rails.servers.activity.participants', :total => room.participant_count, :mods => room.moderator_count)
+        .bbbrails_meeting_attendees
+          %table.table
+            %thead
+              %tr
+                %th= t('bigbluebutton_rails.attendees.role')
+                %th= t('bigbluebutton_rails.attendees.id')
+                %th= t('bigbluebutton_rails.attendees.name')
+            %tbody
+              - room.attendees.each do |attendee|
+                %tr
+                  %td= attendee.role
+                  %td= attendee.user_id
+                  %td= attendee.full_name
+      %div{:style => "clear:both;"}
+
