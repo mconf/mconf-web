@@ -43,6 +43,11 @@ class ApplicationController < ActionController::Base
     @current_ability ||= Abilities.ability_for(current_user)
   end
 
+  # Where to redirect to after sign in with Devise
+  def after_sign_in_path_for(resource)
+    stored_location_for(resource) || home_path
+  end
+
   # overriding bigbluebutton_rails function
   def bigbluebutton_user
     if current_user && current_user.is_a?(User)
