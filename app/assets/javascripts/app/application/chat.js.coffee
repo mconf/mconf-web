@@ -249,42 +249,6 @@ Chat =
 
     $('#chat-' + jid_id).data 'jid', jid
     $('#chat-' + jid_id + ' .chat-input').autosize()
-    iq = $iq({type: "get"})
-      .c("list", {xmlns: "http://www.xmpp.org/extensions/xep-0136.html#ns", with: jid})
-      .c("set", {xmlns: "http://jabber.org/protocol/rsm"})
-      .c("max").t("100")
-    Chat.connection.sendIQ iq, Chat.chat_history_list
-
-  chat_history_list: (iq) ->
-    iq1 = $iq({type: "get"})
-      .c("retrieve", {xmlns: "http://www.xmpp.org/extensions/xep-0136.html#ns", with: $(iq).find("chat").last().attr("with"), start: $(iq).find("chat").last().attr("start")})
-      .c("set", {xmlns: "http://jabber.org/protocol/rsm"})
-      .c("max").t("100")
-    Chat.connection.sendIQ iq1, Chat.chat_history
-
-  chat_history: (iq) ->
-    jid_id = Chat.jid_to_id $(iq).find("chat").attr("with")
-    name = $("#"+jid_id).find(".roster-name").text()
-    name_me = $("#status").text()
-    $(iq).find("chat").children().each (index, element) =>
-      if $(element).is("to")
-        $("#chat-" + jid_id).find('.chat-messages').append(
-          "<div class='chat-message'>" +
-          "<span class='history-name'>" + name_me +
-          " </span><span class='chat-text'>" + $(element).find("body").text() +
-          "</span></div>")
-        Chat.scroll_chat jid_id
-      if $(element).is("from")
-        $("#chat-" + jid_id).find('.chat-messages').append(
-          "<div class='chat-message'>" +
-          "<span class='history-name'>" + name +
-          " </span><span class='chat-text'>" + $(element).find("body").text() +
-          "</span></div>")
-        Chat.scroll_chat jid_id
-
-    $("#chat-" + jid_id).find('.chat-messages').append(
-      "<div class='chat-message border-history'></div>")
-    Chat.scroll_chat jid_id
 
 #  creating_room: (iq) ->
 #    console.log "sala"
