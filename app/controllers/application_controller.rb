@@ -39,6 +39,15 @@ class ApplicationController < ActionController::Base
     @space ||= current_container(:type => :space, :path_ancestors => true)
   end
 
+  def current_ability
+    @current_ability ||= Abilities.ability_for(current_user)
+  end
+
+  # Where to redirect to after sign in with Devise
+  def after_sign_in_path_for(resource)
+    stored_location_for(resource) || home_path
+  end
+
   # overriding bigbluebutton_rails function
   def bigbluebutton_user
     if current_user && current_user.is_a?(User)
@@ -49,41 +58,49 @@ class ApplicationController < ActionController::Base
   end
 
   def bigbluebutton_role(room)
-    user = nil
-    unless bigbluebutton_user.nil? # user belongs to mconf
-      if room.owner_type == "User" # room belongs to a user
+    # TODO: temporary guest role that only exists in mconf-live
+    guest_role = :attendee
+    if defined?(BigbluebuttonRoom.guest_support) and
+        BigbluebuttonRoom.guest_support
+      guest_role = :guest
+    end
+
+    unless bigbluebutton_user.nil?
+
+      # user rooms
+      if room.owner_type == "User"
         if room.owner.id == current_user.id
-          :moderator # join as moderator if current_user is the room owner
+          # only the owner is moderator
+          :moderator
         else
           if room.private
             :password # ask for a password if room is private
           else
-            :attendee # join as attendee if current_user isn't the room owner
+            guest_role
           end
         end
-      elsif room.owner_type == "Space" # room belongs to a space
+
+      # space rooms
+      elsif room.owner_type == "Space"
         space = Space.find(room.owner.id)
-        space.users.each do |u|
-          if u.id == current_user.id
-            user = u
-            break
-          end
-        end
-        unless user.nil?
-          :moderator # join as moderator if current_user belongs to this space
+        if space.users.include?(current_user)
+          # space members are moderators
+          :moderator
         else
           if room.private
-            :password # ask for password if current_user don't belongs to this space and room is private
+            :password
           else
-            :attendee # join as attendee if current_user don't belongs to this space and room isn't private
+            guest_role
           end
         end
       end
+
+    # anonymous users
     else
       if room.private?
-        :password #ask for a password
+        :password
       else
-        :attendee
+        guest_role
       end
     end
   end

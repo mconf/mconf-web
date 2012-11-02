@@ -160,4 +160,15 @@ class UsersController < ApplicationController
     end
   end
 
+  # Returns fellows users
+  def fellows
+    fellows = current_user.fellows(params[:q]).map do |f|
+       { "id" => f.id, "name" => f.full_name }
+    end
+  
+    respond_to do |format|
+      format.json { render :json => fellows }
+    end
+  end
+
 end

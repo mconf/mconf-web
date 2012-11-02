@@ -9,7 +9,7 @@
   .thread-content
 
     %ul.thread-action-links.visible-on-hover{ :"data-hover-tracked" => "parent-#{thread.id}" }
-      - if can?(:create_post, thread.space)
+      - if can?(:create, thread.space.posts.build)
         %li= link_to t('reply').downcase, reply_post_space_post_path(thread.space, thread), { :name => thread.id, :title => t('comment.add'), :class => "open-modal" }
       - if can?(:update, thread)
         %li= link_to t('edit').downcase, edit_space_post_path(thread.space, thread), { :name => thread.id, :title => t('edit'), :class => "open-modal" }

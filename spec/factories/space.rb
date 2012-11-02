@@ -8,7 +8,7 @@ FactoryGirl.define do
   factory :space do |s|
     s.sequence(:name) { |n| Forgery::Name.unique_space_name(n) }
     s.description { Forgery::Basic.text }
-    s.public true
+    s.public false
     s.association :bigbluebutton_room
     s.deleted false
     s.repository false

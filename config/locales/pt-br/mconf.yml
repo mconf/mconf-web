@@ -16,6 +16,11 @@ pt-br:
         attendee_password: "Senha de Participante"
         moderator_password: "Senha de Moderador"
     errors:
+      models:
+        private_message: 
+          attributes:
+            users_tokens:
+              accepted: "deve escolher ao menos um destinatário"
       messages:
         missing: "não encontrado"
   address: Endereço
@@ -107,6 +112,7 @@ pt-br:
     upload: "Enviar imagem"
   back: Voltar
   back_to_inbox: "Voltar para caixa de entrada"
+  back_to_sent: "Voltar para Enviadas"
   bbb_room:
     attendeePW: "Senha do Participante"
     edit: "Configure sua sala de webconferência"
@@ -237,6 +243,21 @@ pt-br:
   create: Criar
   create_event: "Criar Evento"
   created_time_ago: "Criado %{time} atrás"
+  custom_bigbluebutton_rooms: 
+    important: Importante
+    invite: 
+      click_to_select: "Clique aqui para selecionar"
+      desktop: "Selecione esta opção para acessar de um <em>computador</em>."
+      mobile: "Selecione esta opção para acessar de um <em>dispositivo móvel</em>."
+      not_running: "não iniciada"
+      refresh: "Esta informação é atualizada automaticamente"
+      room_type_private: "Esta é uma conferência <em>privada</em>, preencha os campos abaixo para entrar."
+      room_type_public: "Esta é uma conferência <em>pública</em>, preencha os campos abaixo para entrar."
+      running: "em andamento!"
+      selected: "selecionado"
+      status: "O estado atual da reunião é"
+      title: "Entrar em: %{name}"
+      unknown: "desconhecido"
   date:
     at: em
     start: "Data inicial"
@@ -457,6 +478,7 @@ pt-br:
     started: "pedido Iniciar enviar com êxito"
     statistics:
       views: "visualizações"
+      space-views: "visualizações"
     stats:
       map: "Ver mapa"
       message1: "Esta página mostra as estatísticas das conexões Web para o evento."
@@ -737,11 +759,14 @@ pt-br:
       new: "Nova mensagem privada"
       none: "Não há mensagens"
       send: "Enviar uma mensagem privada"
-    reply: "Responder Ã  mensagem"
+    reply: "Responder à mensagem"
     sent:
       other: "Mensagens enviadas"
     special1: "A plataforma Mconf estará indisponível a partir de sexta-feira, 17 dezembro às 16:00 UTC, até sábado, 18-Dez 16:00 UTC. Desculpem o incómodo."
     special2: "A Equipe do Mconf"
+    error:
+      create: "Ocorreu um erro ao enviar sua mensagem"
+    to: Para 
   moderatorPW: "Senha de Moderador"
   more: mais...
   more_arrows: "mais >>"
@@ -842,6 +867,10 @@ pt-br:
   previous: Anterior
   privacy: Privacidade
   private_message:
+    inbox: "Caixa de entrada"
+    sent: Enviadas
+    compose: "Escrever"
+    open: Abrir
     more:
       one: "e uma outra mensagem privada..."
       other: "e mais %{count} mensagens privadas..."
@@ -849,6 +878,7 @@ pt-br:
     other: "Mensagens Privadas"
     send: "Enviar mensagem privada"
     title: "Mensagens Privadas (%{count})"
+  private_messages: "Mensagens Privadas"
   profile:
     deleted: "Perfil excluído com sucesso"
     description:
@@ -945,7 +975,7 @@ pt-br:
       status: "Status da reunião: "
     join:
       msg1: "Esta reunião ainda não começou, espere pelo moderador."
-      msg2: "Seu navegador irá recarregar automaticamente and entrará na reunião assim que ela começar."
+      msg2: "Seu navegador irá recarregar automaticamente e entrará na reunião assim que ela começar."
       title: "Sala: %{name}"
     not_running: inativa.
     refresh: "atualizar status"
@@ -1298,6 +1328,7 @@ pt-br:
       one: "A conferência está ativa com %{count} participante"
       other: "A conferência está ativa com %{count} participantes"
     invite_webconference: "Convidar pessoas para a conferência"
+    join: Join
     join_mobile:
       direct_link: "<b>Clique aqui</b> <br/> para entrar utilizando um dispositivo móvel"
       scan_code: "Ou faça a leitura do código abaixo:"

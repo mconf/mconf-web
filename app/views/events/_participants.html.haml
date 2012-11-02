@@ -1,0 +1,124 @@
+.content-block-header
+  %h3= t('event.assistance_title')
+
+.content-block-middle
+  - if user_signed_in?
+    #assistance_status
+      - if @event.participants.map(&:user).include?(current_user)
+        %h5= t('event.will_attend')
+        - if get_user_state(@event,current_user)
+          .event_options
+            = link_to t('agree'), space_event_participant_path(@space,@event,get_participant(@event,current_user),:participant => {:attend => true}),:method => :put, :class => "btn active"
+            = link_to t('deny'), space_event_participant_path(@space,@event,get_participant(@event,current_user),:participant => {:attend => false}),:method => :put, :class => "btn"
+        - else
+          .event_options
+            = link_to t('agree'), space_event_participant_path(@space,@event,get_participant(@event,current_user),:participant => {:attend => true}),:method => :put, :class => "btn"
+            = link_to t('deny'), space_event_participant_path(@space,@event,get_participant(@event,current_user),:participant => {:attend => false}),:method => :put, :class => "btn active"
+      - else
+        - if user_signed_in? && can?(:read, @space) && !@event.past?
+          %h5= t('event.will_attend')
+          .event_options
+            = link_to t('agree'), space_event_participants_path(@space,@event,:participant => {:attend => true}),:method => :post, :class => "btn"
+            = link_to t('deny'), space_event_participants_path(@space,@event,:participant => {:attend => false}),:method => :post, :class => "btn"
+
+  #asisstants
+    - if @assistants.empty?
+      #assistants_lite
+        %h5= t('user.assist')
+        %span.sidebar_text= t("event.assistants_none")
+    - unless @assistants.empty?
+      #assistants_lite{ :class => "#{'hide' if params[:all_assistants] or params[:list_assistants]}" }
+        %h5= t('user.assist')
+        - for participant in @assistants.first(12)
+          = link_to logo(participant.user, {:size=>32, :title=> participant.user.name }).html_safe, user_path(participant.user)
+        .links
+          = link_to t('show_list_version_arrows'), space_event_path(@space,@event, :list_assistants => true),:class => "list_assistants"
+          = link_to t('more_arrows'), space_event_path(@space,@event, :all_assistants => true),:class => "more_assistants" if @assistants.size > 6
+      #all_assistants{ :class => "#{'hide' unless params[:all_assistants]}" }
+        %h5= t('user.assist')
+        - for participant in @assistants
+          = link_to logo(participant.user, {:size=>32, :title=> participant.user.name }).html_safe, user_path(participant.user)
+        .links
+          = link_to t('show_list_version_arrows'), space_event_path(@space,@event, :list_assistants => true),:class => "list_assistants"
+          = link_to t('collapse_arrows'), space_event_path(@space,@event), :class => "less_assistants"
+
+      #assistants_list{ :class => "#{'hide' unless params[:list_assistants]}" }
+        %h5= t('user.assist')
+        %ul
+          - for participant in @assistants
+            %li= link_to participant.user.name, user_path(participant.user)
+        .links
+          = link_to t('photos_view_arrows'), space_event_path(@space,@event), :class => "less_assistants"
+  #no-assistants
+    - unless @no_assistants.empty?
+      #no_assistants_lite{ :class => "#{'hide' if params[:all_no_assistants] or params[:list_no_assistants]}" }
+        %h5= t('user.not_assist')
+        - for participant in @no_assistants.first(12)
+          - if participant.user
+            = link_to logo(participant.user, {:size=>32, :title=> participant.user.name }).html_safe, user_path(participant.user)
+          - else
+            = image_tag("avatars/undefined.png", :title=> participant.email )
+        .links
+          = link_to t('show_list_version_arrows'), space_event_path(@space,@event, :list_no_assistants => true), :class => "list_no_assistants"
+          = link_to t('more_arrows'), space_event_path(@space,@event, :all_no_assistants => true), :class => "more_no_assistants" if @no_assistants.size > 6
+
+      #all_no_assistants{ :class => "#{'hide' unless params[:all_no_assistants]}" }
+        %h5= t('user.not_assist')
+        - for participant in @assistants
+          = link_to logo(participant.user, {:size=>32, :title=> participant.user.name }).html_safe, user_path(participant.user)
+        .links
+          = link_to t('show_list_version_arrows'), space_event_path(@space,@event, :list_no_assistants => true), :class => "list_no_assistants"
+          = link_to t('collapse_arrows'), space_event_path(@space,@event), :class => "less_no_assistants"
+
+      #no_assistants_list{ :class => "#{'hide' unless params[:list_no_assistants]}" }
+        %h5= t('user.not_assist')
+        %ul
+          - for participant in @no_assistants
+            %li= link_to participant.user.name, user_path(participant.user)
+        .links
+          = link_to t('photos_view_arrows'), space_event_path(@space,@event), :class => "less_no_assistants"
+
+  #no_responding
+    - if current_user.superuser? or @space.role_for?(current_user, :name => 'Admin') or can?(:update, @event)
+      #no_responding_lite{ :class => "#{'hide' if params[:all_no_responding] or params[:list_no_responding]}" }
+        - if !@not_responding_candidates.empty? or !@not_responding_emails.empty?
+          %h5= t('user.not_confirmed')
+        - if !@not_responding_candidates.empty?
+          - for event_inv in @not_responding_candidates.first(6)
+            = link_to logo(event_inv.candidate, {:size=>32, :title=> event_inv.candidate.name }).html_safe, user_path(event_inv.candidate)
+        - if !@not_responding_emails.empty? and @not_responding_candidates.size < 5
+          - for event_inv in @not_responding_emails.first(6 -@not_responding_candidates.size)
+            = image_tag("avatars/undefined.png", :title=> event_inv.email )
+        - if !@not_responding_candidates.empty? or !@not_responding_emails.empty?
+          .links
+            = link_to t('show_list_version_arrows'), space_event_path(@space,@event, :list_no_responding => true), :class => "list_no_responding"
+            = link_to t('more_arrows'), space_event_path(@space,@event, :all_no_responding => true), :class => "more_no_responding" if (@not_responding_candidates.size + @not_responding_emails.size)  > 6
+
+      #all_no_responding{ :class => "#{'hide' unless params[:all_no_responding]}" }
+        - if !@not_responding_candidates.empty? or !@not_responding_emails.empty?
+          %h5= t('user.not_confirmed')
+        - if !@not_responding_candidates.empty?
+          - for event_inv in @not_responding_candidates
+            = link_to logo(event_inv.candidate, {:size=>32, :title=> event_inv.candidate.name }).html_safe, user_path(event_inv.candidate)
+        - if !@not_responding_emails.empty?
+          - for event_inv in @not_responding_emails
+            = image_tag("avatars/undefined.png", :title=> event_inv.email )
+        - if !@not_responding_candidates.empty? or !@not_responding_emails.empty?
+          .links
+            = link_to t('show_list_version_arrows'), space_event_path(@space,@event, :list_no_responding => true), :class => "list_no_responding"
+            = link_to t('more_arrows'), space_event_path(@space,@event), :class => "less_no_responding"
+
+      #no_responding_list{ :class => "#{'hide' unless params[:list_no_responding]}" }
+        - if !@not_responding_candidates.empty? or !@not_responding_emails.empty?
+          %h5= t('user.not_confirmed')
+        - if !@not_responding_candidates.empty?
+          %ul
+            - for event_inv in @not_responding_candidates
+              %li= link_to event_inv.candidate.name, user_path(event_inv.candidate)
+        - if !@not_responding_emails.empty?
+          %ul
+            - for event_inv in @not_responding_emails
+              %li= event_inv.email
+        - if !@not_responding_candidates.empty? or !@not_responding_emails.empty?
+          .links
+            = link_to t('photos_view_arrows'), space_event_path(@space,@event) , :class => "less_no_responding"

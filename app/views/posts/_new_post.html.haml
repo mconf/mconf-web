@@ -1,5 +1,5 @@
 #new-post
-  = form_for(prepare_for_form(Post.new), :html => { :multipart => true }) do |f|
+  = form_for(@space.posts.build, :html => { :multipart => true }) do |f|
     = f.text_field :title, :placeholder => t('post.new_post')
     #new-post-text
       = f.text_area :text

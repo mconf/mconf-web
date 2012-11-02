@@ -6,7 +6,7 @@
 # 3 or later. See the LICENSE file.
 
 class PrivateMessagesController < ApplicationController
-  before_filter :private_message, :only => [:show, :edit, :update, :destroy]
+  before_filter :private_message, :only => [:show, :update, :destroy]
   load_and_authorize_resource
 
   def index
@@ -15,46 +15,62 @@ class PrivateMessagesController < ApplicationController
     else  
       @private_messages = PrivateMessage.inbox(user).paginate(:page => params[:page], :per_page => 10)
     end
-    
 
+    #search the name of the user when replying a message
+    if params[:reply_to]
+      @previous_message = PrivateMessage.find(params[:reply_to])
+      @receiver = User.find(@previous_message.sender_id)
+    end
+  
     respond_to do |format|
-      format.html # index.html.erb
+      format.html { render :layout => "no_sidebar" }
       format.xml  { render :xml => @private_messages }
     end
   end
 
   def show
     @show_message = PrivateMessage.find(params[:id])
+    params[:page] ||= 1
+    @previous_message = @show_message #this is to the reply message partial
+    @receiver = User.find(@show_message.sender_id)
+    @previous_messages = WillPaginate::Collection.create(params[:page], 5) do |pager|
+      @previous_messages = PrivateMessage.previous(@show_message).reverse
+      pager.replace(@previous_messages[pager.offset, pager.per_page])
+      unless pager.total_entries
+        pager.total_entries = @previous_messages.count 
+      end
+    end
     if @is_receiver = user.id == @show_message.receiver_id
       @show_message.checked = true
       @show_message.save
     end
-    
   end
 
   def new
-       
-    @private_message = PrivateMessage.new
-
+    @private_message ||= PrivateMessage.new
+    if params[:receiver]
+      @receiver = User.find(params[:receiver])
+    end
     respond_to do |format|
-      format.html{
-        if request.xhr?
-          render :layout => false
-        end
-      }
+      format.html { render :layout => "no_sidebar" }
       format.xml  { render :xml => @private_message }
     end
   end
 
   # GET /private_messages/1/edit
-  def edit
-  end
+  #def edit
+  #end
 
   def create
-    if params[:receiver_ids]
+    receivers = []
+    if params[:private_message][:users_tokens]
+      receivers = params[:private_message][:users_tokens].split(",")
+    end
+    @addressee = receivers.map {|receiver| { "id" => receiver.to_i, "name" => User.find(receiver).name} }
+    unless receivers.empty?
       @success_messages = Array.new
       @fail_messages = Array.new
-      for receiver in params[:receiver_ids].uniq
+      for receiver in receivers.uniq
         params[:private_message][:sender_id] = user.id
         params[:private_message][:receiver_id] = receiver
         private_message = PrivateMessage.new(params[:private_message])
@@ -71,14 +87,17 @@ class PrivateMessagesController < ApplicationController
           format.xml  { render :xml => @success_messages, :status => :created, :location => @success_messages }
         else
           flash[:error] = t('message.error.create')
-          format.html { redirect_to request.referer }
+          format.html { render :action => "new" }
           format.xml  { render :xml => @fail_messages.map{|m| m.errors}, :status => :unprocessable_entity }
         end
       end
     else  
       params[:private_message][:sender_id] = user.id
       @private_message = PrivateMessage.new(params[:private_message])
-  
+      if params[:private_message][:receiver_id]
+        receiver = User.find(params[:private_message][:receiver_id])
+        @addressee << { "id" => receiver.id, "name" => receiver.name }  
+      end
       respond_to do |format|
         if @private_message.save
           flash[:success] = t('message.created')
@@ -95,7 +114,7 @@ class PrivateMessagesController < ApplicationController
   def update
 
     respond_to do |format|
-      if @success_update = @private_message.update_attributes(params[:private_message])
+      if @private_message.update_attributes(params[:private_message])
         format.html { redirect_to(@private_message) }
         format.xml  { head :ok }
         format.js

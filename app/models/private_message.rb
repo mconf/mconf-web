@@ -8,11 +8,10 @@
 class PrivateMessage < ActiveRecord::Base
   belongs_to :sender,  :class_name => "User"
   belongs_to :receiver, :class_name => "User"
-
+  attr_accessor :users_tokens
   acts_as_resource :per_page => 10
-
-  validates_presence_of :receiver_id , :title, :body,
-                          :message => "must be specified"
+  validates :users_tokens, :acceptance => true, :unless => Proc.new { |pm| pm.receiver_id }
+  validates :receiver_id, :title, :body, :presence => true
 
   scope :inbox, lambda{ |user|
     user_id = case user
@@ -33,6 +32,15 @@ class PrivateMessage < ActiveRecord::Base
               end
     where(:deleted_by_sender => false, :sender_id => user_id).order("created_at DESC")
   }
+  
+  scope :previous, lambda { |message|
+    previous = []
+    while message.parent_id
+      message = PrivateMessage.find(message.parent_id)
+      previous << message
+    end
+    previous
+  }
 
 # Commented because it causes an error when a user is joining to a space and sends private messages to space admins
 
@@ -42,8 +50,12 @@ class PrivateMessage < ActiveRecord::Base
 #    end
 #  end
 
+
+# Couldnt be destroyed to mantain the thread history
+=begin
   after_update :after_update_method
   def after_update_method
     self.destroy if self.deleted_by_sender && self.deleted_by_receiver
   end
+=end
 end

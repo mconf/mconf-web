@@ -1,0 +1,47 @@
+body.events.index, body.events.new, body.events.edit, body.events.show {
+
+  a.event_image {
+    display: block;
+    color: black;
+    float: left;
+    padding: 0;
+    text-align: center;
+    font-weight: bold;
+    vertical-align: middle;
+    cursor: pointer;
+  }
+
+  .event_image {
+    margin-right: 7px;
+    margin-left: 5px;
+    width: 64px;
+  }
+
+  .event_date_image, .event_logo {
+    margin: 0px 10px 0px 0px;
+    width: 100%;
+    color: black;
+    text-align: center;
+    font-weight: bold;
+    vertical-align: middle;
+  }
+
+  .event_day {
+    font-size: 3em;
+    line-height: 90%;
+    padding-bottom: 5px;
+  }
+
+  .event_month {
+    font-size: 2em;
+    line-height: 70%;
+    padding-bottom: 5px;
+  }
+
+  .event_hour {
+    font-size: 1.2em;
+    min-width: 30px;
+    min-height: 20px;
+  }
+
+}

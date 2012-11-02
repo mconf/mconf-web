@@ -1,5 +1,6 @@
 #main-logo
-  %a.title{:href => root_path}= current_site.name
+  - url = user_signed_in? ? home_path : root_path
+  %a.title{:href => url}= current_site.name
 
 %ul#navbar-left-links
   - if user_signed_in?

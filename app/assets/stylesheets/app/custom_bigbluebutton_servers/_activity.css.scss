@@ -1,0 +1,32 @@
+@import "compass/css3";
+@import "definitions";
+
+body.custom_bigbluebutton_servers.activity {
+  .bbbrails_meeting_description {
+    width: 80%;
+    @include mconf-clearfix;
+  }
+  .links {
+    margin-top: 15px;
+    float: right;
+    width: 17%;
+    a { 
+      display: block;
+    }
+  }
+  h3.title {
+    float: left;
+  }
+  .header {
+    float: left;
+    margin-top: 12px;
+    padding-right:5px;
+  }
+  .status {
+    float: left;
+    margin-top:12px;
+  }
+  .thread {
+    min-height: 150px;
+  }  
+}

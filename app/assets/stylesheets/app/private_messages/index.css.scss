@@ -1,0 +1,17 @@
+body.private_messages.index {
+  .thread-author, .thread-updated-at, .subject {
+    float: left;
+  }
+  .unread {
+    font-weight: bold;
+  }
+  ul.token-input-list-facebook {
+    width: 100% !important;
+    float: left;
+    max-width: 220px;
+  }
+  .margin-up {
+    margin-top: 5px;  
+  } 
+}
+

@@ -11,6 +11,7 @@ FactoryGirl.define do
     e.place { Forgery::Name.location }
     e.start_date { Time.now + 2.hours}
     e.end_date { Time.now + 4.hours}
+    e.association :author, :factory => :user
     e.association :space, :factory => :space
   end
 end

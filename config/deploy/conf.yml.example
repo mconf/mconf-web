@@ -20,7 +20,7 @@ staging:
   server: "my-server-domain-or-ip"                    # Deployment server IP or domain
   application: "mconf-web"                            # Application name, do not use spaces
   user: "mconf"                                       # User (in the server) used to deploy
-  user_group: "www-data"                              # Group (in the server) for the application files
+  group: "www-data"                                   # Group (in the server) for the application files
   repository: "git://github.com/mconf/mconf-web.git"  # Repository to get the app from
   scm: "git"                                          # Repository scm
   branch: "master"                                    # Branch or tag to be deployed
@@ -29,7 +29,7 @@ production:
   server: "my-server-domain-or-ip"
   application: "mconf-web"
   user: "mconf"
-  user_group: "www-data"
+  group: "www-data"
   repository: "git://github.com/mconf/mconf-web.git"
   scm: "git"
   branch: "latest"

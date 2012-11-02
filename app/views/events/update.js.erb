@@ -1,7 +1,0 @@
-<%if @result==""%>
-  <%return%>
-<%elsif @description.present? && @description%>
-  <%=sanitize(auto_link(simple_format(@result)))%>
-<%else%>
-  <%=sanitize(auto_link(@result))%>
-<%end%>

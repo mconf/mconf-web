@@ -15,7 +15,12 @@ en:
       spaces: 
         attendee_password: "Attendee Password"
         moderator_password: "Moderator Password"
-    errors: 
+    errors:
+      models:
+        private_message: 
+          attributes:
+            users_tokens:
+              accepted: "must choose at least one receiver" 
       messages: 
         invalid_identifier: "generates an invalid identifier: \"%{id}\""
         missing: "is missing"
@@ -109,6 +114,7 @@ en:
     upload: "Upload picture"
   back: Back
   back_to_inbox: "Back to inbox"
+  back_to_sent: "Back to sent"
   bbb_room: 
     attendeePW: "Attendee Password"
     edit: "Configure your webconference room"
@@ -246,6 +252,21 @@ en:
   crop_image: 
     description: "Select a part of the image to crop"
     title: "Crop image"
+  custom_bigbluebutton_rooms:
+    important: Important 
+    invite: 
+      click_to_select: "Click here to select"
+      desktop: "Select this option to join from a <em>desktop computer</em>."
+      mobile: "Select this option to join from a <em>mobile device</em>."
+      not_running: "not running"
+      refresh: "This information is updated automatically"
+      room_type_private: "This is a <em>private</em> web conference, fill the fields below to join it."
+      room_type_public: "This is a <em>public</em> web conference, fill the fields below to join it."
+      running: "running!"
+      selected: "selected"
+      status: "The meeting currently is"
+      title: "Join: %{name}"
+      unknown: "unknown"
   date: 
     at: at
     start: "Start date"
@@ -768,6 +789,9 @@ en:
       other: "Sent messages"
     special1: "The Mconf platform will be down from Friday 17-Dec at 16:00 UTC until Saturday 18-Dec 16:00 UTC. Sorry for the inconveniences."
     special2: "The Mconf Team"
+    error:
+      create: "Error sending message"
+    to: To
   moderatorPW: "Moderator Password"
   more: more...
   more_arrows: "more >>"
@@ -871,7 +895,11 @@ en:
   preferences: Preferences
   previous: Previous
   privacy: Privacy
-  private_message: 
+  private_message:
+    inbox: Inbox
+    sent: Sent 
+    compose: Compose
+    open: Open
     more: 
       one: "and one more private message..."
       other: "and more %{count} private messages..."
@@ -879,6 +907,7 @@ en:
     other: "Private Messages"
     send: "Send private message"
     title: "Private Messages (%{count})"
+  private_messages: "Private Messages"
   profile: 
     deleted: "Profile deleted successfully"
     description: 

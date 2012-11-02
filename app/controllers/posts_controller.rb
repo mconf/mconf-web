@@ -20,6 +20,7 @@ class PostsController < ApplicationController
 
   load_and_authorize_resource :space
   load_and_authorize_resource :through => :space
+  skip_load_resource :only => :index
 
   def index
     # AtomPub feeds are ordered by updated_at
@@ -86,8 +87,8 @@ class PostsController < ApplicationController
 
   def get_posts
     per_page = params[:extended] ? 6 : 15
-    @posts ||= Post.roots.in(@space).not_events()
-      .find(:all, :order => "updated_at DESC")
+    @posts = Post.roots.in(@space).not_events()
+      .order("updated_at DESC")
       .paginate(:page => params[:page], :per_page => per_page)
   end
 

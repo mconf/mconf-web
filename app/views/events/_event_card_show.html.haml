@@ -1,0 +1,72 @@
+%div.thread{ :class => "#{event.is_happening_now? ? 'single_event current_single_event' : 'single_event'}" }
+  %p
+    %h2
+      = @event.title
+  .logo-in-thread
+    .event_image
+      - if @event.logo
+        .event_logo
+          = logo(@event.logo, { :size => 64 }).html_safe
+      - elsif @event.has_date?
+        .event_date_image
+          .event_day
+            = sanitize(event.start_date.strftime("%d"))
+          .event_month
+            = localize(event.start_date, :format => "%b")
+          .event_hour
+            = event.get_formatted_hour
+      - else
+        .event_date_image
+          .event_day
+
+  .thread_content{ :id => "parent_event_#{@event.id}" }
+    %ul.thread-action-links.visible-on-hover{ :"data-hover-tracked" => "parent_event_#{@event.id}" }
+      - if can?(:update, @event)
+        %li= link_to t('edit').downcase, edit_space_event_path(@event.space, @event), { :name => @event.id, :title => t('edit'), :id => "event-edit" }
+      - if can?(:destroy, @event) && !@event.is_happening_now?
+        %li= link_to t('remove').downcase, space_event_path(@event.space, @event), {:method => :delete, :title => t('delete.one'), :confirm => t('delete.confirm', :element => @event.title) }
+      - if user_signed_in? && event.spam != true
+        %li= link_to t('spam.default').downcase, spam_lightbox_space_event_path(@event.space,@event), { :name => @event.id, :title => t('spam.report'), :id => "spam-lightbox" }
+    .thread-title
+      %p
+        %span.updated
+          = t('created_time_ago', :time => sanitize(time_ago_in_words(@event.created_at)))
+      .main_date.logo_padding
+        = t('when')
+        = @event.get_formatted_date
+      - if event.location
+        .main_text.logo_padding
+          = t('where')
+          = sanitize(@event.location)
+        .main_text.logo_padding
+          = t('organizer')
+          - isfirst=true
+          - event.organizers.each do |org|
+            - if isfirst
+              - isfirst=false
+            - else
+              = ","
+            = link_to(highlight(org.name,@query),user_path(org),:class=>"unified_user")
+        .main_text.logo_padding
+          - if @event.web_interface?
+            - if isfirst
+              - isfirst=false
+            - else
+              = ","
+            - unless @event.is_happening_now? || (@event.is_in_person? && !@event.past?)
+              = t('event.view_participation')
+            - else
+              = link_to t('event.view_participation'), space_event_path(@space, @event, :show_participation => true)
+          - if @event.agenda.has_past_session_with_video?
+            - if isfirst
+              - isfirst=false
+            - else
+              = ","
+            = link_to t('event.view_recordings'), space_event_path(@space, @event, :show_video => @event.agenda.first_video_entry_id)
+          - elsif @event.agenda.has_entries_with_video?
+            = ","
+            = t('event.view_recordings')
+
+    .thread-text
+      %p
+        = simple_format(@event.description)

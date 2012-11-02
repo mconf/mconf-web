@@ -1,9 +1,10 @@
+= atom_link_header(space, @new_post, :title => h(t('post.other_in_space', :space => space.name)))
+
 - spaces_menu_at :posts
 = render :partial => 'spaces/menu'
-- atom_link_header(space, Post.new, :title => h(t('post.other_in_space', :space => space.name)))
 
 = content_for :sidebar do
-  - if can?(:create_post, @space)
+  - if can?(:create, @space.posts.build)
     = content_for :new_post do
       = render :partial => "new_post"
 

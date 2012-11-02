@@ -42,7 +42,12 @@ class User < ActiveRecord::Base
   friendly_id :username
 
   def ability
-    @ability ||= Ability.new(self)
+    @ability ||= Abilities.ability_for(self)
+  end
+
+  # Returns true if the user is anonymous (not registered)
+  def anonymous?
+    self.new_record?
   end
 
 ###
@@ -205,6 +210,10 @@ class User < ActiveRecord::Base
       logo_image_path_without_logo(options)
   end
   alias_method_chain :logo_image_path, :logo
+  
+  def fellows(name="")
+    stages.map(&:actors).flatten.compact.uniq.select{|u| /#{name}/i.match(u.full_name)}.sort{ |x, y| x.name <=> y.name }
+  end
 
   def public_fellows
     fellows

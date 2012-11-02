@@ -20,6 +20,15 @@ enableCropInImages = ->
       onChange: saveCropCoordinates,
       aspectRatio: parseFloat($(this).attr("data-crop-aspect-ratio"))
 
+# Makes the crop form be submitted with ajax
+bindAjaxToCropForm = ->
+  $('#crop-form').ajaxForm
+    success: (data) ->
+      $(document).trigger "crop-form-success", data
+      mconf.Modal.closeWindows();
+    error: () ->
+      $(document).trigger "crop-form-error"
+
 # All forms with '.form-for-crop' will be associated with the crop
 # functionality. The contents returned after the form is submitted are
 # shown in a modal window and the image in it can be cropped.
@@ -31,7 +40,7 @@ enableAjaxInCropForms = ->
       form.ajaxSubmit (data) ->
         mconf.Modal.showWindow({ html: data })
         enableCropInImages()
-        $(document).trigger "crop-window-shown";
+        bindAjaxToCropForm()
 
 # Triggers the associations...
 $ ->

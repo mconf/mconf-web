@@ -1,7 +1,7 @@
 #post_with_children.thread
   .thread_content{:id => "parent-#{post.id}"}
     %ul.thread-action-links
-      - if can?(:create_post, @space)
+      - if can?(:create, @space.posts.build)
         %li= link_to t('reply').downcase, reply_post_space_post_path(@space, post), { :name => post.id, :title => t('comment.add'), :class => "open-modal" }
       - if can?(:update, post)
         %li= link_to t('edit').downcase, edit_space_post_path(post.space, post), { :name => post.id, :title => t('edit'), :class => "open-modal" }

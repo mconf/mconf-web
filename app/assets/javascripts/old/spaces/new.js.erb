@@ -39,13 +39,9 @@ $(function() {
     });
 
     // TODO: not finished
-    $(document).on("crop-window-shown", function() {
-      $('#crop-form').ajaxForm({
-        success: function() {
-          setNewLogo("/assets/" + "tmp/" + rand + "/uploaded_logo.png?" + (new Date()).getTime());
-          mconf.Modal.closeWindows();
-        }
-      });
+    $(document).on("crop-form-success", function(data) {
+      rand = $("#logo_rand").attr('value');
+      setNewLogo("/assets/" + "tmp/" + rand + "/uploaded_logo.png");
     });
 
 // ajaxForm({

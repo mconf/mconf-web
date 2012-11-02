@@ -1,0 +1,14 @@
+@import "app/spaces/sidebar";
+
+body.events.index {
+
+  .group_links {
+    float: right;
+  }
+
+  #new_event {
+    margin-bottom: 10px;
+    text-align: center;
+  }
+
+}

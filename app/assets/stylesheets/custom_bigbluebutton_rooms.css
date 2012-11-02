@@ -1,3 +1,6 @@
 /*
  *= require ./app/custom_bigbluebutton_rooms/_all
+ *= require ./app/custom_bigbluebutton_rooms/invite
+ *= require ./app/custom_bigbluebutton_rooms/_join
  */
+

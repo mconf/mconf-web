@@ -50,7 +50,13 @@
     margin-left: 2px;
     margin-bottom: 1px;
     margin-right: 2px;
-    width: 93.9%;
+    width: 92%;
+  }
+
+  .border-history {
+    border-bottom: solid 2px #ddd;
+    margin-bottom: 5px;
+    margin-top: 5px;
   }
 
   .chat-messages {
@@ -63,6 +69,14 @@
     .me {
       color: #33c;
     }
+  }
+
+  #message-area {
+    margin-top: 5px;
+  }
+
+  .history-name {
+    color: #0E7C04;
   }
 
   .chat-name {
@@ -188,6 +202,16 @@
     float: right;
     display:inline;
   }
+
+  #space-users {
+    border-bottom: solid 1px #DDD;
+    margin-bottom: 5px;
+    margin-top: 5px;
+
+    ul {
+      margin-left: 30px;
+    }
+  }
 }
 
 @-moz-document url-prefix() {
@@ -204,7 +228,7 @@
 
 @-moz-document url-prefix() {
   #main-chat-area .chat-area textarea {
-    width: 93.9%;
+    width: 92%;
   }
 }
 

@@ -1,0 +1,22 @@
+- if params[:sent_messages]
+  - private_messages_menu_at :sent
+- else
+  - private_messages_menu_at :inbox
+
+= render_page_title t('private_messages')
+= render :partial => 'private_messages/menu'
+
+- if @private_messages.blank?
+  = t('message.private.none')
+
+- @private_messages.each do |private_message|
+  %div.private-messages.thread{ :id => "parent-#{private_message.id}", :class => cycle('thread-even', 'thread-odd') }
+    %div{:class => ("unread" unless private_message.checked)}
+      - if params[:sent_messages]
+        = render :partial => "show_sent", :locals => { :private_message => private_message }
+      - else
+        = render :partial => "show_received", :locals => { :private_message => private_message } 
+- unless @private_messages.empty?
+  .content-block-footer
+    = page_navigation_links @private_messages 
+

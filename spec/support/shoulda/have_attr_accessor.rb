@@ -49,7 +49,7 @@ module Shoulda
         end
 
         def description
-          description = "ensure the model has reader and/or writer methods for #{@attribute}"
+          "ensure the model has reader and/or writer methods for #{@attribute}"
         end
 
         def failure_message

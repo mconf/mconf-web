@@ -1,0 +1,23 @@
+= render :partial => 'manage/menu'
+
+%noscript
+  <meta http-equiv="refresh" content="30">
+
+#manage
+  #bbbrails_activity_monitor
+    %h1.title
+      = t('bigbluebutton_rails.servers.activity.title')
+    %h2.subsection
+      = t('bigbluebutton_rails.servers.activity.information')
+    .white_bg
+      .blue
+        = BigbluebuttonServer.human_attribute_name(:name)
+        = @server.name
+        </br>
+      .blue
+        = BigbluebuttonServer.human_attribute_name(:url) 
+        = @server.url
+    %h2.subsection
+      = t('bigbluebutton_rails.servers.activity.activity')
+    #bbbrails_server_activity_meetings
+      = render :partial => 'activity_list'

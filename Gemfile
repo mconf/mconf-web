@@ -26,6 +26,7 @@ gem 'chronic'
 gem 'yaml_db'
 gem 'delayed_job', '~> 3.0.0'
 gem 'delayed_job_active_record'
+gem 'daemons' # for delayed_job
 gem 'rails_autolink'
 gem 'whenever', :require => false
 gem 'garb'
@@ -61,7 +62,7 @@ gem 'table_helper', :git => 'git://github.com/eeng/table_helper.git'
 
 group :development do
   gem 'debugger'
-  gem 'capistrano', '~> 2.11'
+  gem 'capistrano', '~> 2.13'
   gem 'rvm-capistrano'
   gem 'capistrano-ext'
   gem 'translate-rails3', :require => 'translate', :git => 'git://github.com/mconf/translate.git'

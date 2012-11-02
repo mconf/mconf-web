@@ -164,14 +164,12 @@ Chat =
 
     else
       composing = $(message).find 'composing'
-
       if composing.length > 0
         if $('#chat-' + jid_id).size()
           $('#chat-' + jid_id + ' #content-chat #message-area .chat-messages').append("<div class='chat-event'>" + name + " " + I18n.t("chat.typing") +  "</div>")
           Chat.scroll_chat jid_id
 
       body = $(message).find "html > body"
-
       if body.length == 0
         body = $(message).find 'body'
         if body.length > 0
@@ -212,7 +210,8 @@ Chat =
   presence_value: (elem) ->
     if elem.hasClass 'online' then 3 else
       if elem.hasClass 'dnd' then  2 else
-        if elem.hasClass 'away' then 1 else 0
+        if elem.hasClass 'away' then 1 else
+          if elem.hasClass 'offline' then 0
 
   insert_contact: (elem) ->
     jid = elem.find('.roster-jid').text()
@@ -228,28 +227,32 @@ Chat =
         if pres > cmp_pres
           $(element).before elem
           inserted = true
+          return false
         else
           if pres is cmp_pres
             if jid < cmp_jid
               $(element).before elem
               inserted = true
-        return
+              return false
 
       if not inserted then $('#roster-area ul').append elem
-
-    else $('#roster-area ul').append elem
-
+    else
+      $('#roster-area ul').append elem
 
   insertChatArea: (jid,jid_id,status,name) ->
     $("#chat-bar").append(
       "<div id='contact-chat' class='chat-align' style='width: 230px; height: 100%;'><div><div class='no-show' style='width: 225px; height: 100%; position: absolute;'>" +
       "<div id='chat-" + jid_id + "' class='chat-area' style='position: absolute;'>" + "<div class='chat-area-title'><h3><ul><li class='none " + status + "'><span class='ellipsis'>" + name +
       "</span><img id='close-chat' src='/assets/chat/icons/close-chat.png' width='12' height='12' /></li></ul></h3></div>" +
-      "<div id='content-chat'><div style='border-bottom: solid 1px #DDD'><img id='bbb-chat-" + jid_id + "' src='/assets/icons/bbb_logo.png' class='bbb-chat-icon'/></div></br>" +
+      "<div id='content-chat'><div style='border-bottom: solid 1px #DDD'><img id='bbb-chat-" + jid_id + "' src='/assets/icons/webcam.png' class='bbb-chat-icon'/></div>" +
       "<div id='message-area'><div class='chat-messages' style='word-wrap: break-word;'></div><textarea class='chat-input'></textarea></div></div></div></div></div></div>")
 
     $('#chat-' + jid_id).data 'jid', jid
     $('#chat-' + jid_id + ' .chat-input').autosize()
+
+#  creating_room: (iq) ->
+#    console.log "sala"
+#    console.log iq
 
 $ ->
   # trigger to start the chat
@@ -502,7 +505,7 @@ $(document).bind 'connected', ->
       "<div class='chat-area-title'><h3><ul><li id='status-title' class='none online'>" + I18n.t("chat.title")  + "</li></ul></h3></div>" +
       "<div id='content-chat'><div style='border-bottom: solid 1px #DDD;'>" +
       "<img id='add_user' src='/assets/icons/user_add.png' class='chat-menu-icon' style='cursor: pointer; cursor: hand;' title='Invite Users'/>" +
-      "<img id='bbb_invite' src='/assets/icons/bbb_logo.png' class='chat-menu-icon' style='cursor: pointer; cursor: hand;' title='Invite users to your BBB room'/>" +
+      "<img id='bbb_invite' src='/assets/icons/webcam_add.png' class='chat-menu-icon' style='cursor: pointer; cursor: hand;' title='Invite users to your BBB room'/>" +
       "<span id='request_contacts' class='contacts_circle hidden' style='cursor: pointer; cursor: hand;'></span>" +
       "</div><ul style='margin-top: 10px; margin-bottom: 0px;'>" +
       "<li id='status' class='online' style='margin-left: 5px; cursor: pointer; cursor: hand;'>" + Chat.user_name  + "</li>" +
@@ -524,6 +527,11 @@ $(document).bind 'connected', ->
   Chat.connection.addHandler Chat.on_roster_changed, "jabber:iq:roster", "iq", "set"
   Chat.connection.addHandler Chat.on_message, null, "message", "chat"
 
+  #iq = $iq({to: 'teste@conference.prav-chat.no-ip.org', type: 'get'}).c("query", {xmlns: "http://jabber.org/protocol/muc#owner"})
+  #console.log "send owner request!"
+  #console.log iq
+  #Chat.connection.sendIQ iq, Chat.creating_room
+
 $(document).bind 'disconnect', ->
   if Chat.connection
     $("#status-title").addClass "offline"
@@ -542,11 +550,26 @@ $(document).bind 'disconnected', ->
 
 $(document).bind 'contact_added', (ev,data) ->
   $.each data.jid, (index) ->
-    jid = data.jid[index] + Chat.domain
-    iq = $iq({type: "set"}).c("query", {xmlns: "jabber:iq:roster"}).c("item", {jid: jid,name:data.name[index]})
-    Chat.connection.sendIQ iq
-    subscribe = $pres({to: jid, "type": "subscribe"})
-    Chat.connection.send subscribe
+    found = false
+    Chat.list_of_pending_contacts.forEach (element) ->
+      if element.name is data.name[index]
+        name = element.name
+        jid = element.jid
+        index = jQuery.inArray(element,Chat.list_of_pending_contacts)
+        iq = $iq({type: "set"}).c("query", {xmlns: "jabber:iq:roster"}).c("item", {jid: jid, name: name})
+        Chat.connection.sendIQ iq
+        Chat.connection.send $pres({to: jid, "type": "subscribe"})
+        Chat.connection.send $pres({to: jid, "type": "subscribed"})
+        Chat.list_of_pending_contacts.splice(index,1)
+        $(document).trigger('pending_requests')
+        found = true
+        return
+    unless found
+      jid = data.jid[index] + Chat.domain
+      iq = $iq({type: "set"}).c("query", {xmlns: "jabber:iq:roster"}).c("item", {jid: jid,name:data.name[index]})
+      Chat.connection.sendIQ iq
+      subscribe = $pres({to: jid, "type": "subscribe"})
+      Chat.connection.send subscribe
 
 $(document).bind 'change_status', (ev,data) ->
   if data.status is "offline"

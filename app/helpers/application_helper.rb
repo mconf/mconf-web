@@ -160,18 +160,13 @@ module ApplicationHelper
   end
 
   # Initialize an object for a form with suitable params
+  # TODO: not really needed, can be replaced by @space.post.build, for example
   def prepare_for_form(obj, options = {})
     case obj
     when Post
-      #obj.attachments.build
-      obj.attachments << Attachment.new if obj.new_record? && obj.attachments.blank?
-
       obj.space = @space if obj.space.blank?
     when Attachment
       obj.space = @space if obj.space.blank?
-    when AgendaEntry
-       obj.attachments << Attachment.new if obj.new_record? && obj.attachments.blank?
-       obj.attachment_video ||= AttachmentVideo.new
     else
       raise "Unknown object #{ obj.class }"
     end

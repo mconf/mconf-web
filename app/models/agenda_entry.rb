@@ -8,9 +8,7 @@
 class AgendaEntry < ActiveRecord::Base
   belongs_to :agenda
   has_many :attachments, :dependent => :destroy
-  has_one :attachment_video, :dependent => :destroy
   accepts_nested_attributes_for :attachments, :allow_destroy => true
-  accepts_nested_attributes_for :attachment_video, :allow_destroy => true
   attr_accessor :author, :duration, :date_update_action
   acts_as_stage
   acts_as_content :reflection => :agenda
@@ -81,12 +79,6 @@ class AgendaEntry < ActiveRecord::Base
 
   end
 
-  before_save do |entry|
-    if entry.embedded_video.present?
-      entry.video_thumbnail  = entry.get_background_from_embed
-    end
-  end
-
   after_create do |entry|
     # This method should be uncomment when agenda_entry was created in one step (uncomment also after_update 2nd line)
     #    entry.attachments.each do |a|
@@ -100,11 +92,11 @@ class AgendaEntry < ActiveRecord::Base
     end
 
     #check the correct option for video_type param in agenda_entry
-    if entry.event.is_in_person?
-      entry.update_attribute(:video_type, AgendaEntry::VIDEO_TYPE.index(:none))
-    else
-      entry.update_attribute(:video_type, AgendaEntry::VIDEO_TYPE.index(:automatic))
-    end
+    # if entry.event.is_in_person?
+    #   entry.update_attribute(:video_type, AgendaEntry::VIDEO_TYPE.index(:none))
+    # else
+    #   entry.update_attribute(:video_type, AgendaEntry::VIDEO_TYPE.index(:automatic))
+    # end
 
   end
 
