@@ -3,6 +3,11 @@
 # will be renderd in the modal. If the 'href' points to an id
 # (e.g. #my-element), the element's content will be displayed inside
 # the modal window.
+# 
+# Triggers the events:
+# * `modal-before-configure`
+# * `modal-before-open`
+# * `modal-opened`
 
 class mconf.Modal
 
@@ -18,12 +23,18 @@ class mconf.Modal
     else
       el = $("<div/>")
     jQuery.extend localOptions, options
+
+    # events
+    $(document).on "dialog2.before-open", $(options.element), ->
+      $(options.element).trigger("modal-before-open")
+    $(document).on "dialog2.opened", $(options.element), ->
+      $(options.element).trigger("modal-opened")
+
     el.dialog2(localOptions)
 
   # Global method to close all modal windows open
   @closeWindows: ->
-    # TODO: test
-    $(".modal").dialog2("close")
+    $(".modal > .modal-body.opened").dialog2("close")
 
   # Links a <a> to be opened with a modal window.
   # Used internally only.
@@ -31,13 +42,15 @@ class mconf.Modal
     event.preventDefault()
     options = {}
 
+    options.element = event.target # who generated the event
+    $(options.element).trigger("modal-before-configure")
+
     # check whether we should show content that's already in the page
-    # TODO: not yet being used in the app, test better when first used
     href = $(this).attr("href")
     if href? and href[0] is "#" and $(href)?
       options.target = href
 
-    # otherwise we render the content pointed by this <a>
+    # otherwise we render the content returned by the url
     else
       options.content = href
 

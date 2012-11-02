@@ -366,117 +366,133 @@ $ ->
       "</span></div>")
     Chat.scroll_chat jid_id
 
-  $("#main-chat-area").on 'click', ".chat-align .no-show #main-chat #content-chat #add_user", ->
-    $.colorbox
-      html:"<div class='modal-title'><span>" + I18n.t("chat.add")  + "</span></div><div class='modal-content'><label for='member_token'>" + I18n.t('chat.name.other') +
-        "</label>" + "<input id='member_token' name='member_token' type='text' style='width:396px;' /><br>" +
-        "<div id='chat_invite_button'><button id='submit' class='btm' type='submit'>" + I18n.t('chat.add') + "</button></div></div>"
-      onComplete: ->
+  # The modal to add users
+  $("#main-chat-area").on "modal-before-configure", "#chat-add-user", ->
+    unless $("#main-chat-area #chat-add-user-modal").length
+      $("#main-chat-area").append(
+        "<div id='chat-add-user-modal'>" +
+          "<h1>" + I18n.t("chat.add")  + "</h1>" +
+          "<div><label for='member_token'>" + I18n.t('chat.name.other') + "</label>" +
+          "<input id='member_token' name='member_token' type='text' />" +
+          "<div class='form-actions'>" +
+            "<div id='chat_invite_button'><button id='submit' class='btn' type='submit'>" + I18n.t('chat.add') + "</button></div></div>" +
+          "</div>" +
+        "</div>"
+      )
+  $("#main-chat-area").on "modal-opened", "#chat-add-user", ->
+    jid = []
+    name = []
+    $("#member_token").tokenInput '/users/select_users.json',
+      crossDomain: false
+      theme: 'facebook'
+      preventDuplicates: true
+      searchDelay: 200
+      minChar: 2
+      hintText: I18n.t("chat.invite.hint")
+      onAdd: (item) ->
+        jid.push item.id
+        name.push item.name
+      onDelete: (item) ->
+        jid.splice jid.indexOf(item.id),1
+        name.splice name.indexOf(item.name),1
+      onResult: (result) ->
+        results = result
+        iten = 0
+        $.each result, (index) ->
+          if result[index]
+            if result[index].name is Chat.user_name
+              results.splice index-iten,1
+              iten = iten + 1
+        results
+    $('#member_token_tokeninput').focus()
+    $(document).on "click", "#submit", ->
+      if jid.length
+        $(document).trigger 'contact_added', { jid: jid, name: name }
         jid = []
         name = []
+        mconf.Modal.closeWindows()
 
-        $("#member_token").tokenInput '/users/select_users.json',
-          crossDomain: false
-          theme: 'facebook'
-          preventDuplicates: true
-          searchDelay: 200
-          minChar: 2
-          hintText: I18n.t("chat.invite.hint")
-          onAdd: (item) ->
-            jid.push item.id
-            name.push item.name
-          onDelete: (item) ->
-            jid.splice jid.indexOf(item.id),1
-            name.splice name.indexOf(item.name),1
-          onResult: (result) ->
-            results = result
-            iten = 0
-            $.each result, (index) ->
-              if result[index]
-                if result[index].name is Chat.user_name
-                  results.splice index-iten,1
-                  iten = iten + 1
-            results
+  # The modal to invite users to a webconference
+  $("#main-chat-area").on "modal-before-configure", "#chat-webconf-invite", ->
+    unless $("#main-chat-area #chat-webconf-invite-modal").length
+      $("#main-chat-area").append(
+        "<div id='chat-webconf-invite-modal'>" +
+          "<h1>" + I18n.t("chat.invite.bbb")  + "</h1>" +
+          "<div><label for='member_token'>" + I18n.t('chat.name.other') + "</label>" +
+          "<input id='member_token' name='member_token' type='text' />" +
+          "<div class='form-actions'>" +
+            "<div id='chat_invite_button'><button id='submit' class='btn' type='submit'>" + I18n.t('chat.invite.button') + "</button></div>" +
+          "</div>" +
+        "</div>"
+      )
+  $("#main-chat-area").on "modal-opened", "#chat-webconf-invite", ->
+    jid = []
+    $("#member_token").tokenInput '/users/select_users.json',
+      crossDomain: false
+      theme: 'facebook'
+      preventDuplicates: true
+      searchDelay: 200
+      hintText: I18n.t("chat.invite.hint")
+      onAdd: (item) ->
+        jid.push item.id
+      onDelete: (item) ->
+        jid.splice jid.indexOf(item.id),1
+      onResult: (result) ->
+        results = result
+        iten =0
+        $.each result, (index) ->
+          domain_id = Chat.jid_to_id Chat.domain
+          login = result[index-iten].id.replace(" ","-") + domain_id
+          unless $("#" + login).hasClass "online"
+            results.splice index-iten,1
+            iten = iten + 1
+        results
+    $('#member_token_tokeninput').focus()
+    $(document).on "click", "#submit", ->
+      if jid.length
+        $(document).trigger 'send_bbb', { jid: jid }
+        mconf.Modal.closeWindows()
 
-        $('#member_token_tokeninput').focus()
-
-        $(document).on "click", "#submit", ->
-          if jid.length
-            $(document).trigger 'contact_added', { jid: jid, name: name }
-            jid = []
-            name = []
-            $.colorbox.close()
-
-  $("#main-chat-area").on 'click', ".chat-align .no-show #main-chat #content-chat #bbb_invite", ->
-    $.colorbox
-      html:"<div class='modal-title'><span>" + I18n.t("chat.invite.bbb")  + "</span></div><div class='modal-content'><label for='member_token'>" + I18n.t('chat.name.other') +
-        "</label>" + "<input id='member_token' name='member_token' type='text' style='width:396px;' /><br>" +
-        "<div id='chat_invite_button'><button id='submit' class='btm' type='submit'>" + I18n.t('chat.invite.button') + "</button></div></div>"
-      onComplete: ->
-        jid = []
-
-        $("#member_token").tokenInput '/users/select_users.json',
-          crossDomain: false
-          theme: 'facebook'
-          preventDuplicates: true
-          searchDelay: 200
-          hintText: I18n.t("chat.invite.hint")
-          onAdd: (item) ->
-            jid.push item.id
-          onDelete: (item) ->
-            jid.splice jid.indexOf(item.id),1
-          onResult: (result) ->
-            results = result
-            iten =0
-            $.each result, (index) ->
-              domain_id = Chat.jid_to_id Chat.domain
-              login = result[index-iten].id.replace(" ","-") + domain_id
-              unless $("#" + login).hasClass "online"
-                results.splice index-iten,1
-                iten = iten + 1
-            results
-
-        $('#member_token_tokeninput').focus()
-
-        $(document).on "click", "#submit", ->
-          if jid.length
-            $(document).trigger 'send_bbb', { jid: jid }
-            $.colorbox.close()
-
-  $("#main-chat-area").on 'click', ".chat-align .no-show #main-chat #content-chat #request_contacts", ->
-    html = "<div class='modal-title'><span>" + I18n.t("chat.request.title")  + "</span></div><div class='modal-content'>"
-    Chat.list_of_pending_contacts.forEach (element) ->
-      html += "<div style='height:24px;'><span style=' line-height:24px;'>" + I18n.t("chat.request.body", {name: element.name}) + "</span><div id='contact_request_button' data-name='" +
-        element.name + "' data-jid='" + element.jid + "' data-index='" + jQuery.inArray(element,Chat.list_of_pending_contacts) +
-        "'><button id='approve' class='btm' type='submit'>" + I18n.t('chat.request.approve') +
-        "</button><button id='deny' class='btm' type='submit' style='margin-left:3px;'>" + I18n.t('chat.request.deny') + "</button></div></div><br/>"
-    html += "</div>"
-    $.colorbox
-      html: html
-      onComplete: ->
-        $(document).on "click", "#approve", ->
-          name = $(this).parent().data('name')
-          jid = $(this).parent().data('jid')
-          iq = $iq({type: "set"}).c("query", {xmlns: "jabber:iq:roster"}).c("item", {jid: jid, name: name})
-          Chat.connection.sendIQ iq
-          Chat.connection.send $pres({to: jid, "type": "subscribe"})
-          Chat.connection.send $pres({to: jid, "type": "subscribed"})
-          Chat.list_of_pending_contacts.splice($(this).parent().data('index'),1)
-          $(document).trigger('pending_requests')
-          $.colorbox.close()
-
-        $(document).on "click", "#deny", ->
-          Chat.connection.send $pres({to: $(this).parent().data('jid'), "type": "unsubscribed"})
-          Chat.list_of_pending_contacts.splice($(this).parent().data('index'),1)
-          $(document).trigger('pending_requests')
-          $.colorbox.close()
+  # The modal to show friend requests
+  $("#main-chat-area").on "modal-before-configure", "#chat-friend-requests", ->
+    unless $("#main-chat-area #chat-friend-requests-modal").length
+     html = "<div id='chat-friend-requests-modal'>" +
+            "<h1>" + I18n.t("chat.request.title")  + "</h1>" +
+            "<div>"
+     Chat.list_of_pending_contacts.forEach (element) ->
+       html += "<div class='friend-request'>" +
+                 "<span>" + I18n.t("chat.request.body", {name: element.name}) + "</span>" +
+                 "<div class='friend-request-buttons'" +
+                   " data-name='" + element.name + "' data-jid='" + element.jid +
+                   "' data-index='" + jQuery.inArray(element, Chat.list_of_pending_contacts) + "'>" +
+                   "<button class='btn btn-mini btn-success friend-request-approve' type='submit'>" + I18n.t('chat.request.approve') + "</button>" +
+                   "<button class='btn btn-mini btn-danger friend-request-deny' type='submit'>" + I18n.t('chat.request.deny') + "</button>" +
+               "</div></div>"
+     html += "</div></div>"
+     $("#main-chat-area").append(html)
+  $("#main-chat-area").on "modal-opened", "#chat-friend-requests", ->
+    $(document).on "click", "#chat-friend-requests-modal .friend-request-approve", ->
+      name = $(this).parent().data('name')
+      jid = $(this).parent().data('jid')
+      iq = $iq({type: "set"}).c("query", {xmlns: "jabber:iq:roster"}).c("item", {jid: jid, name: name})
+      Chat.connection.sendIQ iq
+      Chat.connection.send $pres({to: jid, "type": "subscribe"})
+      Chat.connection.send $pres({to: jid, "type": "subscribed"})
+      Chat.list_of_pending_contacts.splice($(this).parent().data('index'),1)
+      mconf.Modal.closeWindows()
+      $(document).trigger('pending_requests')
+    $(document).on "click", "#chat-friend-requests-modal .friend-request-deny", ->
+      Chat.connection.send $pres({to: $(this).parent().data('jid'), "type": "unsubscribed"})
+      Chat.list_of_pending_contacts.splice($(this).parent().data('index'),1)
+      mconf.Modal.closeWindows()
+      $(document).trigger('pending_requests')
 
 $(document).bind 'pending_requests', (ev) ->
   if Chat.list_of_pending_contacts.length > 0
-    $("#request_contacts").removeClass "hidden"
-    $("#request_contacts").empty().append ("<b>" + Chat.list_of_pending_contacts.length + "</b>")
+    $("#chat-friend-requests").removeClass "hidden"
+    $("#chat-friend-requests").empty().append ("<b>" + Chat.list_of_pending_contacts.length + "</b>")
   else
-    $("#request_contacts").addClass "hidden"
+    $("#chat-friend-requests").addClass "hidden"
 
 $(document).bind 'connect', (ev, data) ->
   conn = new Strophe.Connection data.xmpp_server
@@ -504,9 +520,9 @@ $(document).bind 'connected', ->
       "<div id='main-chat' class='chat-area' style='position: absolute;'>" +
       "<div class='chat-area-title'><h3><ul><li id='status-title' class='none online'>" + I18n.t("chat.title")  + "</li></ul></h3></div>" +
       "<div id='content-chat'><div style='border-bottom: solid 1px #DDD;'>" +
-      "<img id='add_user' src='/assets/icons/user_add.png' class='chat-menu-icon' style='cursor: pointer; cursor: hand;' title='Invite Users'/>" +
-      "<img id='bbb_invite' src='/assets/icons/webcam_add.png' class='chat-menu-icon' style='cursor: pointer; cursor: hand;' title='Invite users to your BBB room'/>" +
-      "<span id='request_contacts' class='contacts_circle hidden' style='cursor: pointer; cursor: hand;'></span>" +
+      "<a id='chat-add-user' href='#chat-add-user-modal' class='open-modal'><img src='/assets/icons/user_add.png' class='chat-menu-icon' title='Invite Users'/></a>" +
+      "<a id='chat-webconf-invite' href='#chat-webconf-invite-modal' class='open-modal'><img src='/assets/icons/webcam_add.png' class='chat-menu-icon' title='Invite users to your webconference room'/></a>" +
+      "<a id='chat-friend-requests'  href='#chat-friend-requests-modal' class='contacts_circle open-modal hidden'></a>" +
       "</div><ul style='margin-top: 10px; margin-bottom: 0px;'>" +
       "<li id='status' class='online' style='margin-left: 5px; cursor: pointer; cursor: hand;'>" + Chat.user_name  + "</li>" +
       "<li id='status_list' class='none' style='display: none; margin-left: 5px;'><ul style='cursor: pointer; cursor: hand;'>" +
@@ -544,7 +560,7 @@ $(document).bind 'disconnected', ->
 
   $('#roster-area ul').empty()
   $('#roster-area').addClass "hidden"
-  $('#request_contacts').addClass "hidden"
+  $('#chat-friend-requests').addClass "hidden"
   $('#main-chat #content-chat').toggle(0)
   $('#chat-bar #contact-chat').remove()
 
