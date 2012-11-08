@@ -52,7 +52,7 @@ $(document).ready(function(){
       <% end %>
     </div>
 
-    <% if @user_role != :attendee and @user_role != :moderator %>
+    <% if @user_role == :password %>
       <div class="field">
       <%= t('rooms.invite.password') %><br />
         <%= password_field_tag "user[password]", "", :size => 30 %>
