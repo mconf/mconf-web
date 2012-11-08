@@ -18,7 +18,7 @@ BigbluebuttonRoom.class_eval do
     when :attendee
       self.server.api.join_meeting_url(self.meetingid, username, self.attendee_password)
     when :guest
-      params = { :isGuest => true }
+      params = { :guest => true }
       self.server.api.join_meeting_url(self.meetingid, username, self.attendee_password, params)
     else
       self.server.api.join_meeting_url(self.meetingid, username, password)
