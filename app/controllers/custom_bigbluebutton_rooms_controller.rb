@@ -9,5 +9,6 @@ class CustomBigbluebuttonRoomsController < Bigbluebutton::RoomsController
     :except => [:invite, :auth, :running, :external]
   authorize_resource :class => "BigbluebuttonRoom",
     :except => [:invite, :auth, :running, :join, :end, :external, :join_mobile]
-  layout 'application', :except => [:join_mobile]
+  layout "application", :except => [:join_mobile]
+  layout false, :only => [:join_mobile]
 end

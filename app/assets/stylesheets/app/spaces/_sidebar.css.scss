@@ -1,12 +1,16 @@
 @import "compass/typography/links";
 @import "definitions";
 
-body.spaces.show,
-body.spaces.edit, body.spaces.update,
-body.users.index,
-body.posts.index, body.posts.show,
-body.events.index, body.events.show, body.events.edit, body.events.new,
-body.webconferences.show {
+@import "app/custom_bigbluebutton_rooms/join_mobile";
+
+// TODO: this is shown in too many pages, maybe the #space-sidebar selector
+// is enough, so the body selectors are not really necessary here
+// body.spaces.show,
+// body.spaces.edit, body.spaces.update,
+// body.users.index,
+// body.posts.index, body.posts.show,
+// body.events.index, body.events.show, body.events.edit, body.events.new,
+// body.webconferences.show {
 
   #space-sidebar {
 
@@ -70,4 +74,4 @@ body.webconferences.show {
 
   }
 
-}
+//}

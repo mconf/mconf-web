@@ -1,0 +1,21 @@
+// Our customizations to tokeninput
+// Most of it is simulating a normal input as styled by bootstrap
+
+@import "compass/css3";
+
+ul.token-input-list-facebook {
+  float: none;
+
+  background-color: white;
+  border: 1px solid #CCC;
+  display: inline-block;
+  padding: 4px 6px;
+  margin-bottom: 9px;
+  color: #555;
+  @include border-radius(3px);
+
+  &:focus {
+    border-color: rgba(82, 168, 236, 0.8);
+    @include box-shadow(inset 0 1px 1px rgba(0, 0, 0, 0.075),0 0 8px rgba(82, 168, 236, 0.6));
+  }
+}

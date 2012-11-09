@@ -164,22 +164,14 @@
     -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
     -khtml-border-radius: 10px;
-  }
-
-  .contacts_square {
-    background-color: #FC4C4C;
-    border: 1.2px solid #000000;
-    display: block;
-    float: right;
-    height: 16px;
-    margin-right: 2px;
-    text-align: center;
-    width: 16px;
+    cursor: pointer;
+    color: black;
   }
 
   .chat-menu-icon {
     margin-left: 5px;
     margin-bottom: 4px;
+    cursor: pointer;
   }
 
   .no-show {
@@ -237,12 +229,39 @@
   margin-top: 60px;
 }
 
-#contact_request_button {
-  float: right;
-  margin-left: 5px;
-}
-
 #chat_request_button {
   float: right;
   padding: 10px 0px;
+}
+
+#chat-add-user-modal, #chat-webconf-invite-modal {
+  #member_token {
+    width: 95%;
+  }
+  .token-input-list-facebook {
+    width: 95%;
+    float: none;
+  }
+  .token-input-dropdown-facebook {
+    width: 85%;
+    float: none;
+  }
+}
+
+#chat-friend-requests-modal {
+  .friend-request {
+    text-align: center;
+    border-bottom: 1px solid #e6e6e6;
+    padding: 5px 0 10px 0;
+    &:last-child { border-bottom: none; }
+  }
+
+  .friend-request-buttons {
+    text-align: center;
+    margin-top: 5px; // 0 10px 0;
+
+    button:first-child {
+      margin-right: 5px;
+    }
+  }
 }

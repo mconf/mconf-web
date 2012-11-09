@@ -1,10 +1,12 @@
 @import "compass/css3";
 @import "definitions";
 
-// for the partials used in this page
+// for the partials/modals used in this page
 @import "app/users/user_spaces";
 @import "app/users/recent_activity";
 @import "app/users/edit_bbb_room";
+@import "app/invites/invite_room";
+@import "app/custom_bigbluebutton_rooms/join_mobile";
 
 body.homes.show {
 
