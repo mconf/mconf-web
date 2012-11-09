@@ -1,0 +1,53 @@
+-# TODO remove it from here
+:javascript
+  $(document).ready(function () {
+    $("#invite_members_tokens").tokenInput("/invite/invite_room.json", {
+      crossDomain: false,
+      theme: 'facebook',
+      preventDuplicates: true,
+      searchDelay: 200,
+      hintText: "#{t('invite_people.users.hint')}",
+      noResultsText: "#{t('invite_people.users.no_results')}",
+      searchingText: "#{t('invite_people.users.searching')}"
+    });
+  });
+
+%h1
+  - if @type == "webconference"
+    = t('webconference.invite_webconference')
+  - elsif @type == "event"
+    = t('event.invite_event', :event_name => @event.name)
+
+#webconference-invite
+  - if @type == "webconference"
+    .header
+      %label= t('home.invite_url')
+      = text_field_tag "room_invite_url", join_webconf_url(@room), :disabled => true
+
+  = simple_form_for :invite, :url => sendinvite_invite_path, :html => { :class => 'single-column' } do |f|
+    = f.hidden_field :type, :value => @type
+
+    .section-header
+      = help_icon t('invite_people.names_tip')
+      = t('invite_people.mconf_users')
+    = f.text_field :members_tokens
+    = t('invite_people.notify_by') + ': '
+    = f.check_box :im_check, :checked => 'checked'
+    = t('invite_people.internal_message')
+    = f.check_box :email_check, :checked => 'checked'
+    = t('invite_people.email.one')
+
+    .section-header
+      = help_icon t('invite_people.emails_tip')
+      = t('invite_people.other_people')
+    = f.text_field :email_tokens, :size => 76, :class => 'string', :placeholder => t('invite_people.email.other')
+
+    - if @type != "event"
+      = f.text_area :message, :id=> "text_message", :placeholder => t('invite_people.message')
+    - if @type == "webconference"
+      = f.hidden_field :room_name, :value => @room.name
+      = f.hidden_field :room_url, :value => join_webconf_url(@room)
+    - elsif @type == "event"
+      = f.hidden_field :event_id, :value => @event.id
+    .form-actions
+      = f.button :submit, t('invite_people.send_invitations'), :class => "btn btn-primary"

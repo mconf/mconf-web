@@ -19,6 +19,7 @@
  *= require ./app/application/input-placeholder
  *= require ./app/application/modal
  *= require ./app/application/showable_password_input
+ *= require ./app/application/tokeninput
  *= require ./app/application/chat
  *
  */

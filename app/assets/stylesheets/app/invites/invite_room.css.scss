@@ -1,0 +1,35 @@
+@import "compass/css3";
+@import "definitions";
+
+#webconference-invite {
+
+  .header {
+    background: #eee;
+    border: 1px solid #ddd;
+    @include border-radius(3px);
+    padding: 10px;
+    text-align: center;
+
+    input {
+      width: 90%;
+      background: white;
+      color: #444;
+      margin: 0;
+    }
+  }
+
+  .section-header {
+    font-weight: bold;
+    margin: 15px 0 5px 0;
+    font-size: $font-medium;
+  }
+
+  input[type=checkbox] {
+    margin-left: 5px;
+  }
+
+  textarea {
+    height: 100px;
+  }
+
+}

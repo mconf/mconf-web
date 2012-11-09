@@ -1,0 +1,17 @@
+@import "compass/css3";
+@import "definitions";
+
+#webconference-join-mobile-dialog {
+  text-align: center;
+
+  .qr-code {
+    margin-top: 15px;
+    img {
+      border:1px solid #ccc;
+    }
+  }
+
+  .sip-number {
+    margin-top: 15px;
+  }
+}

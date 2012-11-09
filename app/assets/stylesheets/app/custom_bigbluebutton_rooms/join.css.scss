@@ -2,7 +2,6 @@
 @import "definitions";
 
 body.custom_bigbluebutton_rooms.join {
-  //text-align: center; 
   .loading {
     margin: 10px 15px 0 5px;
     float: left;
@@ -11,7 +10,7 @@ body.custom_bigbluebutton_rooms.join {
     padding: 5px;
     background-color: $light-gray;
     @include border-radius(4px);
-    @include mconf-clearfix;    
+    @include mconf-clearfix;
   }
   .info {
     margin-top: 15px;

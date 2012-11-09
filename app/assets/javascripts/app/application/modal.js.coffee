@@ -3,7 +3,7 @@
 # will be renderd in the modal. If the 'href' points to an id
 # (e.g. #my-element), the element's content will be displayed inside
 # the modal window.
-# 
+#
 # Triggers the events:
 # * `modal-before-configure`
 # * `modal-before-open`
@@ -29,6 +29,8 @@ class mconf.Modal
       $(options.element).trigger("modal-before-open")
     $(document).on "dialog2.opened", $(options.element), ->
       $(options.element).trigger("modal-opened")
+    $(document).on "dialog2.after-update-markup", $(options.element), ->
+      mconf.Tooltip.bind() # bind tooltips
 
     el.dialog2(localOptions)
 

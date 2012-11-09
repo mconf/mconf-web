@@ -87,7 +87,8 @@
       text-align: right;
     }
 
-    input.string, input.password, textarea, select {
+    input.string, input.password, textarea, select,
+    ul.token-input-list-facebook {
       width: 97%
     }
     input.showable_password {

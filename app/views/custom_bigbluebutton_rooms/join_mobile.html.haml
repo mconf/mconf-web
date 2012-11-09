@@ -1,17 +1,13 @@
-%h3
-  = t('webconference.join_mobile.title', :room => @room.name)
+%h1= t('webconference.join_mobile.title', :room => @room.name)
 
-#webconference_join_mobile_dialog
-  = link_to t('webconference.join_mobile.direct_link').html_safe, @join_url
-  %br
-  %br
-  %span
-    = t('webconference.join_mobile.scan_code')
-    %br
-  = image_tag qrcode_url(@qrcode_url, '200x200'), :size => '200x200'
-  %span
-    %br
-    = t('webconference.join_mobile.sip_number', :number => @room.voice_bridge).html_safe
+#webconference-join-mobile-dialog
+  .join-link
+    = link_to t('webconference.join_mobile.direct_link').html_safe, @join_url
+  .qr-code
+    %label= t('webconference.join_mobile.scan_code')
+    = image_tag qrcode_url(@qrcode_url, '200x200'), :size => '200x200'
+  .sip-number
+    %label= t('webconference.join_mobile.sip_number', :number => @room.voice_bridge).html_safe
 
 
 
