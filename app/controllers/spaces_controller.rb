@@ -94,6 +94,12 @@ class SpacesController < ApplicationController
     @space = Space.new(params[:space])
 
     if @space.save
+      # Aqui modificar para criar a sala permanente da comunidade
+      client = Jabber::Client.new(Jabber::JID.new(current_user.username+current_site.presence_domain))
+      client.connect
+      client.auth(current_user.encrypted_password)
+      # Termina aqui a criação da sala da comunidade
+
       respond_with @space do |format|
         flash[:success] = t('space.created')
         @space.stage_permissions.create(:user => current_user, :role => Space.role('Admin'))

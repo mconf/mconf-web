@@ -317,6 +317,7 @@ GEM
       chronic (~> 0.6.3)
     will_paginate (3.0.3)
     xml-simple (1.1.1)
+    xmpp4r (0.5)
     ya2yaml (0.30)
     yajl-ruby (1.1.0)
     yaml_db (0.2.3)
@@ -392,6 +393,7 @@ DEPENDENCIES
   webrat
   whenever
   will_paginate
+  xmpp4r
   yajl-ruby
   yaml_db
   yui-compressor

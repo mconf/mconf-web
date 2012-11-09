@@ -250,9 +250,26 @@ Chat =
     $('#chat-' + jid_id).data 'jid', jid
     $('#chat-' + jid_id + ' .chat-input').autosize()
 
-#  creating_room: (iq) ->
-#    console.log "sala"
-#    console.log iq
+  creating_room: (iq) ->
+    console.log "sala"
+    console.log iq
+
+    #iq = $iq({to: "teste@conference.mconf-chat-test.inf.ufrgs.br", type: "set"}).c("query", {xmlns: "http://jabber.org/protocol/muc#owner"}).c("x", {xmlns: "jabber:x:data", type: "submit"})
+    #  .c("field", {var: "FORM_TYPE"}).c('value').t("http://jabber.org/protocol/muc#roomconfig").up()
+    #  .c("field", {var: "muc#roomconfig_roomname"}).c('value').t("A Test room").up()
+    #  .c("field", {var: "muc#roomconfig_roomdesc"}).c('value').t("Sala de teste!!!").up()
+    #  .c("field", {var: "muc#roomconfig_"}).c('value').t("").up()
+
+    # Comando para entrar na sala "teste"
+    #Chat.connection.send $pres({to: "teste@conference.mconf-chat-test.inf.ufrgs.br/"+Chat.user_name}).c('x', {xmlns: "http://jabber.org/protocol/muc"}),  Chat.entering_room, Chat.entering_room_error
+
+  entering_room: (pres) ->
+    console.log "room"
+    console.log pres
+
+  entering_room_error: (pres) ->
+    console.log "room error"
+    console.log pres
 
 $ ->
   # trigger to start the chat
@@ -527,10 +544,9 @@ $(document).bind 'connected', ->
   Chat.connection.addHandler Chat.on_roster_changed, "jabber:iq:roster", "iq", "set"
   Chat.connection.addHandler Chat.on_message, null, "message", "chat"
 
-  #iq = $iq({to: 'teste@conference.prav-chat.no-ip.org', type: 'get'}).c("query", {xmlns: "http://jabber.org/protocol/muc#owner"})
-  #console.log "send owner request!"
-  #console.log iq
-  #Chat.connection.sendIQ iq, Chat.creating_room
+  iq = $iq({to: 'teste@conference.mconf-chat-test.inf.ufrgs.br', type: 'get'}).c("query", {xmlns: "http://jabber.org/protocol/muc#owner"})
+  console.log "send owner request!"
+  Chat.connection.sendIQ iq, Chat.creating_room
 
 $(document).bind 'disconnect', ->
   if Chat.connection
