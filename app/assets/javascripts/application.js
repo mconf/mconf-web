@@ -1,7 +1,7 @@
 //= require jquery
 //= require jquery_ujs
+//= require twitter/bootstrap
 //= require jquery-ui
-//= require bootstrap.min
 //= require jquery/jquery.tokeninput
 //= require jquery/jquery.placeholder
 //= require jquery/jquery.noty

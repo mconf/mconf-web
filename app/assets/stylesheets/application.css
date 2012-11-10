@@ -1,7 +1,6 @@
 /*
  * Vendored stylesheets
- *= require ../../../vendor/assets/stylesheets/bootstrap.min
- *= require ../../../vendor/assets/stylesheets/bootstrap-responsive.min
+ *= require ./bootstrap_and_overrides
  *= require ../../../vendor/assets/stylesheets/jquery/jquery.Jcrop
  *= require ../../../vendor/assets/stylesheets/jquery/jquery.qtip.2.0.0pre
  *= require ../../../vendor/assets/stylesheets/jquery/jquery.noty

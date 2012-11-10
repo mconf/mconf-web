@@ -10,6 +10,7 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
   gem 'yui-compressor'
   gem 'compass-rails', '~> 1.0'
+  gem 'less-rails' # twitter-bootstrap-rails uses it
 
   # TODO: remove when compass-rails is updated
   # This compass is here so we can have css3/animation
@@ -42,6 +43,7 @@ gem 'cancan'
 gem 'i18n-js', :git => "git://github.com/fnando/i18n-js.git", :branch => 'rewrite'
 gem 'rabl'
 gem 'yajl-ruby' # json parser for rabl
+gem 'twitter-bootstrap-rails'
 
 # TODO: Gems to review if we can remove/update
 gem 'galetahub-simple_captcha', :require => 'simple_captcha'

@@ -124,6 +124,7 @@ GEM
       execjs
     coffee-script-source (1.2.0)
     columnize (0.3.6)
+    commonjs (0.2.6)
     compass (0.13.alpha.0)
       chunky_png (~> 1.2)
       fssm (>= 0.2.7)
@@ -196,6 +197,11 @@ GEM
       thor (~> 0.14)
     jruby-pageant (1.1.1)
     json (1.7.5)
+    less (2.2.2)
+      commonjs (~> 0.2.6)
+    less-rails (2.2.6)
+      actionpack (>= 3.1)
+      less (~> 2.2.0)
     libv8 (3.3.10.4)
     mail (2.4.4)
       i18n (>= 0.4.0)
@@ -301,6 +307,10 @@ GEM
       polyglot (>= 0.3.1)
     turn (0.8.2)
       ansi (>= 1.2.2)
+    twitter-bootstrap-rails (2.1.6)
+      actionpack (>= 3.1)
+      execjs
+      railties (>= 3.1)
     tzinfo (0.3.33)
     uglifier (1.2.7)
       execjs (>= 0.3.0)
@@ -363,6 +373,7 @@ DEPENDENCIES
   httparty
   i18n-js!
   jquery-rails
+  less-rails
   mysql2 (~> 0.3.0)
   nokogiri (= 1.4.1)
   passenger (= 3.0.17)
@@ -387,6 +398,7 @@ DEPENDENCIES
   therubyracer
   translate-rails3!
   turn (= 0.8.2)
+  twitter-bootstrap-rails
   uglifier (>= 1.0.3)
   vpim
   webrat
