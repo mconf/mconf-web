@@ -133,9 +133,11 @@ Mconf::Application.routes.draw do
   resources :memberships
 
   resources :users do
-    get :fellows, :on => :collection, :defaults => { :format => 'json' }
-    get :select_users, :on => :collection
-    get :current, :on => :collection, :defaults => { :format => 'xml' }
+    collection do
+      get :fellows
+      get :select
+      get :current
+    end
     member do
       post :enable
       get :edit_bbb_room

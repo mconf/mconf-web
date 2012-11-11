@@ -382,7 +382,7 @@ $ ->
   $("#main-chat-area").on "modal-opened", "#chat-add-user", ->
     jid = []
     name = []
-    $("#member_token").tokenInput '/users/select_users.json',
+    $("#member_token").tokenInput '/users/select.json',
       crossDomain: false
       theme: 'facebook'
       preventDuplicates: true
@@ -427,7 +427,7 @@ $ ->
       )
   $("#main-chat-area").on "modal-opened", "#chat-webconf-invite", ->
     jid = []
-    $("#member_token").tokenInput '/users/select_users.json',
+    $("#member_token").tokenInput '/users/select.json',
       crossDomain: false
       theme: 'facebook'
       preventDuplicates: true

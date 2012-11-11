@@ -73,6 +73,114 @@ describe User do
     end
   end
 
+  describe "#fellows" do
+    context "returns the fellows of the current user" do
+      let(:user) { FactoryGirl.create(:user) }
+      subject { user.fellows }
+      before do
+        space = FactoryGirl.create(:space)
+        space.add_member! user
+        @users = Helpers.create_fellows(2, space)
+        # 2 no fellows
+        2.times { FactoryGirl.create(:user) }
+      end
+      it { subject.length.should == 2 }
+      it { should include(@users[0]) }
+      it { should include(@users[1]) }
+    end
+
+    context "filters by name" do
+      let(:user) { FactoryGirl.create(:user) }
+      subject { user.fellows("another") }
+      before do
+        space = FactoryGirl.create(:space)
+        space.add_member! user
+        @fellows = Helpers.create_fellows(3, space)
+        @fellows[0].profile.update_attribute(:full_name, "Yet Another User")
+        @fellows[1].profile.update_attribute(:full_name, "Abc de Fgh")
+        @fellows[2].profile.update_attribute(:full_name, "Marcos da Silva")
+      end
+      it { subject.length.should == 1 }
+      it { should include(@fellows[0]) }
+    end
+
+    context "orders by name" do
+      let(:user) { FactoryGirl.create(:user) }
+      subject { user.fellows }
+      before do
+        space = FactoryGirl.create(:space)
+        space.add_member! user
+        @users = Helpers.create_fellows(5, space)
+        @users.sort!{ |x, y| x.name <=> y.name }
+      end
+      it { subject.length.should == 5 }
+      it { should == @users }
+    end
+
+    context "don't return duplicates" do
+      let(:user) { FactoryGirl.create(:user) }
+      subject { user.fellows }
+      before do
+        space1 = FactoryGirl.create(:space)
+        space2 = FactoryGirl.create(:space)
+        space1.add_member! user
+        space2.add_member! user
+        @fellow = FactoryGirl.create(:user)
+        space1.add_member! @fellow
+        space2.add_member! @fellow
+      end
+      it { subject.length.should == 1 }
+      it { should include(@fellow) }
+    end
+
+    context "don't return the user himself" do
+      let(:user) { FactoryGirl.create(:user) }
+      subject { user.fellows }
+      before do
+        space = FactoryGirl.create(:space)
+        space.add_member! user
+        @users = Helpers.create_fellows(2, space)
+      end
+      it { subject.length.should == 2 }
+      it { should include(@users[0]) }
+      it { should include(@users[1]) }
+      it { should_not include(user) }
+    end
+
+    context "limits the results" do
+      let(:user) { FactoryGirl.create(:user) }
+      subject { user.fellows(nil, 3) }
+      before do
+        space = FactoryGirl.create(:space)
+        space.add_member! user
+        Helpers.create_fellows(10, space)
+      end
+      it { subject.length.should == 3 }
+    end
+
+    context "limits to 5 results by default" do
+      let(:user) { FactoryGirl.create(:user) }
+      subject { user.fellows }
+      before do
+        space = FactoryGirl.create(:space)
+        space.add_member! user
+        Helpers.create_fellows(10, space)
+      end
+      it { subject.length.should == 5 }
+    end
+
+    context "limits to a maximum of 50 results" do
+      let(:user) { FactoryGirl.create(:user) }
+      subject { user.fellows(nil, 51) }
+      before do
+        space = FactoryGirl.create(:space)
+        space.add_member! user
+        Helpers.create_fellows(60, space)
+      end
+      it { subject.length.should == 50 }
+    end
+  end
+
   describe "abilities" do
     subject { ability }
     let(:ability) { Abilities.ability_for(user) }
@@ -81,7 +189,7 @@ describe User do
     context "when is the user himself" do
       let(:user) { target }
       it {
-        allowed = [:read, :update, :fellows, :current, :select_users]
+        allowed = [:read, :update, :fellows, :current, :select]
         should_not be_able_to_do_anything_to(target).except(allowed)
       }
 

@@ -184,16 +184,6 @@ class User < ActiveRecord::Base
     users.size
   end
 
-  def self.select_all_users(name)
-    tags = []
-    members = Profile.where("full_name like ?", "%#{ name }%").select(['full_name', 'id']).limit(4)
-    members.each do |f|
-      user = User.find(f.id)
-      tags.push("id"=>user.username, "name"=>f.full_name)
-    end
-    tags
-  end
-
   def disable
     self.update_attribute(:disabled,true)
     self.agent_permissions.each(&:destroy)
@@ -210,9 +200,21 @@ class User < ActiveRecord::Base
       logo_image_path_without_logo(options)
   end
   alias_method_chain :logo_image_path, :logo
-  
-  def fellows(name="")
-    stages.map(&:actors).flatten.compact.uniq.select{|u| /#{name}/i.match(u.full_name)}.sort{ |x, y| x.name <=> y.name }
+
+  def fellows(name=nil, limit=nil)
+    limit = limit || 5            # default to 5
+    limit = 50 if limit.to_i > 50 # no more than 50
+
+    # ids of stages this user belongs to
+    ids = agent_permissions.where(:subject_type => "Space").map(&:subject_id)
+
+    # ids of unique users that belong to the same stages
+    ids = Permission.where(:subject_id => ids).select(:user_id).uniq.map(&:user_id)
+
+    # filters and selects the users
+    query = User.where(:id => ids).joins(:profile).where("users.id != ?", self.id)
+    query = query.where("profiles.full_name LIKE ?", "%#{name}%") unless name.nil?
+    query.limit(limit).order("profiles.full_name").includes(:profile)
   end
 
   def public_fellows

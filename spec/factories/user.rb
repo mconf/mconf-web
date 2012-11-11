@@ -10,6 +10,7 @@ FactoryGirl.define do
     u.sequence(:email) { |n| Forgery::Internet.unique_email_address(n) }
     u.sequence(:_full_name) { |n| Forgery::Name.unique_full_name(n) }
     u.association :bigbluebutton_room
+    u.association :profile
     u.created_at { Time.now }
     u.updated_at { Time.now }
     u.confirmed_at { Time.now }

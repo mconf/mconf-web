@@ -22,7 +22,7 @@ Shoulda::Matchers::ActiveModel::BeAbleToDoAnythingToMatcher.
     :read, :create, :update, :destroy, :manage, # standard
     :reply_post,                                # posts
     :leave,                                     # spaces
-    :fellows, :current, :select_users           # UsersController
+    :fellows, :current, :select                # UsersController
   ]
 
 ActionMailer::Base.delivery_method = :test
@@ -50,11 +50,11 @@ RSpec.configure do |config|
   # Make the rails routes avaiable in all specs
   #config.include Rails.application.routes.url_helpers
 
-  # we don't run migration specs all the time
-  # TODO: how to filter migration specs here but override it in command line
+  # we don't ever run migration specs, they should be used individually
   config.filter_run_excluding :migration => true
   config.run_all_when_everything_filtered = true
 
   config.include Devise::TestHelpers, :type => :controller
-  #config.extend ControllerMacros, :type => :controller
+  config.extend ControllerMacros, :type => :controller
+  config.include Helpers
 end

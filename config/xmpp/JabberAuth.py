@@ -11,7 +11,7 @@ db_username_field="username"
 db_password_field="encrypted_password"
 db_salt_field="password_salt"
 domain_suffix="@my-server.com"
-auth_url="http://my-server.com/users/current"
+auth_url="http://my-server.com/users/current.xml"
 
 ########################################################################
 # Setup

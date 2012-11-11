@@ -15,8 +15,10 @@ class UsersController < ApplicationController
 
   load_and_authorize_resource
 
-  # GET /users
-  # GET /users.xml
+  respond_to :html, :except => [:select, :current, :fellows]
+  respond_to :js, :only => [:select, :current, :fellows]
+  respond_to :xml, :only => [:current]
+
   def index
     @users = space.users.sort {|x,y| x.name <=> y.name }
     #@groups = @space.groups.all(:order => "name ASC")
@@ -29,13 +31,9 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       format.html { render :layout => 'spaces_show' }
-      format.xml { render :xml => @users }
     end
-
   end
 
-  # GET /users/1
-  # GET /users/1.xml
   def show
     user
 
@@ -49,7 +47,6 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       format.html { render 'profiles/show' }
-      format.xml { render :xml => user }
     end
   end
 
@@ -82,7 +79,6 @@ class UsersController < ApplicationController
     else
       render "edit", :layout => 'no_sidebar'
     end
-
   end
 
   def edit_bbb_room
@@ -117,7 +113,6 @@ class UsersController < ApplicationController
           redirect_to(space_users_path(@space))
         end
       }
-      format.xml  { head :ok }
     end
   end
 
@@ -137,37 +132,41 @@ class UsersController < ApplicationController
       format.html {
           redirect_to manage_users_path
       }
-      format.xml  { head :ok }
     end
   end
 
-  # GET /users/select_users.json
-  # This method returns a list with the login and name of all users
-  def select_users
-    tags = User.select_all_users(params[:q])
+  # Finds users by name (params[:q]) and returns a list of selected attributes
+  def select
+    name = params[:q]
+    limit = params[:limit] || 5   # default to 5
+    limit = 50 if limit.to_i > 50 # no more than 50
+    @users = if name.nil?
+               User.joins(:profile).limit(limit).all
+             else
+               User.joins(:profile).where("profiles.full_name like ?", "%#{name}%").limit(limit)
+             end
 
-    respond_to do |format|
-      format.json { render :json => tags }
-    end
-  end
-
-  # Returns info of the current_user
-  def current
-    @user = current_user
-    respond_to do |format|
-      format.xml
+    respond_with @users do |format|
       format.json
     end
   end
 
-  # Returns fellows users
+  # Returns fellows users - users that a members of spaces
+  # the current user is also a member
   def fellows
-    fellows = current_user.fellows(params[:q]).map do |f|
-       { "id" => f.id, "name" => f.full_name }
+    @users = current_user.fellows(params[:q], params[:limit])
+
+    respond_with @users do |format|
+      format.json
     end
-  
-    respond_to do |format|
-      format.json { render :json => fellows }
+  end
+
+  # Returns info of the current user
+  def current
+    @user = current_user
+    respond_with @user do |format|
+      format.xml
+      format.json
     end
   end
 
