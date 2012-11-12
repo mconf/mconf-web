@@ -182,6 +182,8 @@ describe User do
   end
 
   describe "abilities" do
+    set_custom_ability_actions([:fellows, :current, :select, :edit_bbb_room])
+
     subject { ability }
     let(:ability) { Abilities.ability_for(user) }
     let(:target) { FactoryGirl.create(:user) }
@@ -189,7 +191,7 @@ describe User do
     context "when is the user himself" do
       let(:user) { target }
       it {
-        allowed = [:read, :update, :fellows, :current, :select]
+        allowed = [:read, :update, :destroy, :fellows, :current, :select, :edit_bbb_room]
         should_not be_able_to_do_anything_to(target).except(allowed)
       }
 

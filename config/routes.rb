@@ -132,7 +132,7 @@ Mconf::Application.routes.draw do
   resources :admissions
   resources :memberships
 
-  resources :users do
+  resources :users, :except => [:new, :create] do
     collection do
       get :fellows
       get :select
@@ -153,8 +153,6 @@ Mconf::Application.routes.draw do
       end
     end
   end
-
-  # resources :roles # TODO: permissions
 
   resource :home do
     member do

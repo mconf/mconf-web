@@ -15,16 +15,6 @@ require 'cancan/matchers'
 # in spec/support/ and its subdirectories.
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
-# ALL actions possible in our cancan Ability class should be here
-# including our custom actions
-Shoulda::Matchers::ActiveModel::BeAbleToDoAnythingToMatcher.
-  actions = [
-    :read, :create, :update, :destroy, :manage, # standard
-    :reply_post,                                # posts
-    :leave,                                     # spaces
-    :fellows, :current, :select                # UsersController
-  ]
-
 ActionMailer::Base.delivery_method = :test
 ActionMailer::Base.perform_deliveries = true
 ActionMailer::Base.deliveries = []
@@ -56,5 +46,5 @@ RSpec.configure do |config|
 
   config.include Devise::TestHelpers, :type => :controller
   config.extend ControllerMacros, :type => :controller
-  config.include Helpers
+  config.extend Helpers::ClassMethods
 end

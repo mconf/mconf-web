@@ -20,6 +20,8 @@ describe Space do
   }
 
   describe "abilities" do
+    set_custom_ability_actions([:leave])
+
     subject { ability }
     let(:ability) { Abilities.ability_for(user) }
     let(:target) { FactoryGirl.create(:space) }

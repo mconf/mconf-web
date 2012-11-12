@@ -196,4 +196,205 @@ describe UsersController do
     end
   end
 
+  describe "abilities" do
+
+    context "for a logged user" do
+      login_user
+
+      describe "cannot access #new" do
+        it {
+          expect { get :new }.to raise_error(CanCan::AccessDenied)
+        }
+      end
+
+      describe "cannot access #create" do
+        it {
+          expect { post :new }.to raise_error(CanCan::AccessDenied)
+        }
+      end
+
+      describe "can access #index" do
+        let(:space) { FactoryGirl.create(:space) }
+        before(:each) { get :index, :space_id => space.to_param }
+        it { should respond_with(:success) }
+      end
+
+      describe "can access #show for himself" do
+        before(:each) { get :show, :id => @user.to_param }
+        it { should respond_with(:success) }
+      end
+
+      describe "can access #show for other users" do
+        before(:each) { get :show, :id => FactoryGirl.create(:user).to_param }
+        it { should respond_with(:success) }
+      end
+
+      describe "can access #edit himself" do
+        before(:each) { get :edit, :id => @user.to_param }
+        it { should respond_with(:success) }
+      end
+
+      describe "cannot access #edit for other users" do
+        it {
+          expect {
+            get :edit, :id => FactoryGirl.create(:user).to_param
+          }.to raise_error(CanCan::AccessDenied)
+        }
+      end
+
+      describe "can access #update" do
+        before(:each) { post :edit, :id => @user.to_param }
+        it { should respond_with(:success) }
+      end
+
+      describe "can access #edit_bbb_room" do
+        before(:each) { get :edit_bbb_room, :id => @user.to_param }
+        it { should respond_with(:success) }
+      end
+
+      describe "can access #destroy" do
+        before(:each) { delete :destroy, :id => @user.to_param }
+        it { should respond_with(:redirect) }
+      end
+
+      describe "cannot access #enable" do
+        it {
+          expect {
+            post :enable, :id => @user.to_param
+          }.to raise_error(CanCan::AccessDenied)
+        }
+      end
+
+      describe "can access #current.json" do
+        before(:each) { get :current, :format => :json }
+        it { should respond_with(:success) }
+      end
+
+      describe "can access #current.xml" do
+        before(:each) { get :current, :format => :xml }
+        it { should respond_with(:success) }
+      end
+
+      describe "can access #select.json" do
+        before(:each) { get :select, :format => :json }
+        it { should respond_with(:success) }
+      end
+
+      describe "can access #fellows.json" do
+        before(:each) { get :fellows, :format => :json }
+        it { should respond_with(:success) }
+      end
+    end
+
+    context "for an anonymous user" do
+      let(:user) { FactoryGirl.create(:user) }
+
+      describe "can access #index" do
+        let(:space) { FactoryGirl.create(:space) }
+        before(:each) { get :index, :space_id => space.to_param }
+        it { should respond_with(:success) }
+      end
+
+      describe "can access #show" do
+        before(:each) { get :show, :id => user.to_param }
+        it { should respond_with(:success) }
+      end
+
+      [:edit, :edit_bbb_room].each do |action|
+        describe "cannot access ##{action}" do
+          it {
+            expect {
+              get action, :id => user.to_param
+            }.to raise_error(CanCan::AccessDenied)
+          }
+        end
+      end
+
+      [:update, :destroy, :enable].each do |action|
+        describe "cannot access ##{action}" do
+          it {
+            expect {
+              post action, :id => user.to_param
+            }.to raise_error(CanCan::AccessDenied)
+          }
+        end
+      end
+    end
+
+    context "for an anonymous user" do
+      let(:user) { FactoryGirl.create(:user) }
+
+      describe "can access #index" do
+        let(:space) { FactoryGirl.create(:space) }
+        before(:each) { get :index, :space_id => space.to_param }
+        it { should respond_with(:success) }
+      end
+
+      describe "can access #show" do
+        before(:each) { get :show, :id => user.to_param }
+        it { should respond_with(:success) }
+      end
+
+      [:new, :edit, :edit_bbb_room].each do |action|
+        describe "cannot access ##{action}" do
+          it {
+            expect {
+              get action, :id => user.to_param
+            }.to raise_error(CanCan::AccessDenied)
+          }
+        end
+      end
+
+      [:create, :update, :destroy, :enable].each do |action|
+        describe "cannot access ##{action}" do
+          it {
+            expect {
+              post action, :id => user.to_param
+            }.to raise_error(CanCan::AccessDenied)
+          }
+        end
+      end
+    end
+
+    context "for a superuser" do
+      let(:another_user) { FactoryGirl.create(:superuser) }
+      login_admin
+
+      describe "can access #index" do
+        let(:space) { FactoryGirl.create(:space) }
+        before(:each) { get :index, :space_id => space.to_param }
+        it { should respond_with(:success) }
+      end
+
+      [:show, :edit, :edit_bbb_room].each do |action|
+        describe "can access ##{action} for himself" do
+          before(:each) { get action, :id => @user.to_param }
+          it { should respond_with(:success) }
+        end
+      end
+
+      [:show, :edit, :edit_bbb_room].each do |action|
+        describe "can access ##{action} for other users" do
+          before(:each) { get action, :id => another_user.to_param }
+          it { should respond_with(:success) }
+        end
+      end
+
+      [:update, :destroy, :enable].each do |action|
+        describe "can access ##{action} for himself" do
+          before(:each) { post action, :id => @user.to_param, :user => {} }
+          it { should respond_with(:redirect) }
+        end
+      end
+
+      [:update, :destroy, :enable].each do |action|
+        describe "can access ##{action} for other users" do
+          before(:each) { post action, :id => another_user.to_param, :user => {} }
+          it { should respond_with(:redirect) }
+        end
+      end
+    end
+
+  end
+
 end

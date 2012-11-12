@@ -1,4 +1,6 @@
 module ControllerMacros
+
+  # Creates a new admin user and logs him in
   def login_admin
     before(:each) do
       @request.env["devise.mapping"] = Devise.mappings[:user]
@@ -8,6 +10,7 @@ module ControllerMacros
     end
   end
 
+  # Creates a new normal user and logs him in
   def login_user
     before(:each) do
       @request.env["devise.mapping"] = Devise.mappings[:user]
@@ -16,4 +19,5 @@ module ControllerMacros
       @user
     end
   end
+
 end

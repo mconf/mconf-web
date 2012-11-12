@@ -24,6 +24,8 @@ module Shoulda
       class BeAbleToDoAnythingToMatcher < ValidationMatcher # :nodoc:
         cattr_accessor 'actions'
         @@actions = [:read, :update, :create, :destroy, :manage]
+        cattr_accessor 'custom_actions'
+        @@custom_actions = []
 
         def initialize(target)
           @target = target
@@ -38,7 +40,8 @@ module Shoulda
         def matches?(subject)
           @subject = subject
 
-          @can = @@actions.select {|a| subject.can?(a, @target)}
+          actions = @@actions + @@custom_actions
+          @can = actions.select {|a| subject.can?(a, @target)}
 
           # returning false means should_not is successful
           !(@can.sort == @exceptions.sort)

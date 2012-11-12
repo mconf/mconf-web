@@ -21,14 +21,6 @@ class UsersController < ApplicationController
 
   def index
     @users = space.users.sort {|x,y| x.name <=> y.name }
-    #@groups = @space.groups.all(:order => "name ASC")
-    #@users_without_group = @users.select{|u| u.groups.select{|g| g.space==@space}.empty?}
-    #if params[:edit_group]
-    #  @editing_group = @space.groups.find(params[:edit_group])
-    #else
-    #  @editing_group = Group.new()
-    #end
-
     respond_to do |format|
       format.html { render :layout => 'spaces_show' }
     end
@@ -59,13 +51,17 @@ class UsersController < ApplicationController
   end
 
   def update
-    params[:user].delete(:username)
-    params[:user].delete(:email)
-    password_changed = params[:user].has_key?(:password) && !params[:user][:password].empty?
+    unless params[:user].nil?
+      params[:user].delete(:username)
+      params[:user].delete(:email)
+    end
+    password_changed =
+      !params[:user].nil? && params[:user].has_key?(:password) &&
+      !params[:user][:password].empty?
     updated = if password_changed
                 @user.update_with_password(params[:user])
               else
-                params[:user].delete(:current_password)
+                params[:user].delete(:current_password) unless params[:user].nil?
                 @user.update_without_password(params[:user])
               end
 
@@ -95,9 +91,6 @@ class UsersController < ApplicationController
     end
   end
 
-
-  # DELETE /users/1
-  # DELETE /users/1.xml
   def destroy
     user.disable
 
@@ -121,17 +114,12 @@ class UsersController < ApplicationController
 
     unless @user.disabled?
       flash[:notice] = t('user.error.enabled', :name => @user.username)
-      redirect_to request.referer
-      return
+    else
+      @user.enable
+      flash[:success] = t('user.enabled')
     end
-
-    @user.enable
-
-    flash[:success] = t('user.enabled')
     respond_to do |format|
-      format.html {
-          redirect_to manage_users_path
-      }
+      format.html { redirect_to manage_users_path }
     end
   end
 

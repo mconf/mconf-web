@@ -9,6 +9,8 @@ require "spec_helper"
 describe Post do
 
   describe "abilities" do
+    set_custom_ability_actions([:reply_post])
+
     subject { ability }
     let(:ability) { Abilities.ability_for(user) }
     let(:target) { FactoryGirl.create(:post) }
