@@ -196,8 +196,6 @@ Mconf::Application.routes.draw do
   # Statistics
   match '/statistics', :to => 'statistics#show', :as => 'show_statistics'
 
-  match '/reset_password/:reset_password_code', :to => 'users#reset_password', :as => 'reset_password'
-
   match 'get_file/:id', :to => 'machines#get_file', :as => 'get_file'
 
   # 'Hack' to show a custom 404 page.

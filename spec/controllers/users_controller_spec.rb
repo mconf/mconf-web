@@ -198,20 +198,11 @@ describe UsersController do
 
   describe "abilities" do
 
-    context "for a logged user" do
+    context "for a normal user:" do
+      let(:another_user) { FactoryGirl.create(:user) }
       login_user
 
-      describe "cannot access #new" do
-        it {
-          expect { get :new }.to raise_error(CanCan::AccessDenied)
-        }
-      end
-
-      describe "cannot access #create" do
-        it {
-          expect { post :new }.to raise_error(CanCan::AccessDenied)
-        }
-      end
+      # On the colletion
 
       describe "can access #index" do
         let(:space) { FactoryGirl.create(:space) }
@@ -219,181 +210,136 @@ describe UsersController do
         it { should respond_with(:success) }
       end
 
-      describe "can access #show for himself" do
-        before(:each) { get :show, :id => @user.to_param }
-        it { should respond_with(:success) }
-      end
-
-      describe "can access #show for other users" do
-        before(:each) { get :show, :id => FactoryGirl.create(:user).to_param }
-        it { should respond_with(:success) }
-      end
-
-      describe "can access #edit himself" do
-        before(:each) { get :edit, :id => @user.to_param }
-        it { should respond_with(:success) }
-      end
-
-      describe "cannot access #edit for other users" do
-        it {
-          expect {
-            get :edit, :id => FactoryGirl.create(:user).to_param
-          }.to raise_error(CanCan::AccessDenied)
-        }
-      end
-
-      describe "can access #update" do
-        before(:each) { post :edit, :id => @user.to_param }
-        it { should respond_with(:success) }
-      end
-
-      describe "can access #edit_bbb_room" do
-        before(:each) { get :edit_bbb_room, :id => @user.to_param }
-        it { should respond_with(:success) }
-      end
-
-      describe "can access #destroy" do
-        before(:each) { delete :destroy, :id => @user.to_param }
-        it { should respond_with(:redirect) }
-      end
-
-      describe "cannot access #enable" do
-        it {
-          expect {
-            post :enable, :id => @user.to_param
-          }.to raise_error(CanCan::AccessDenied)
-        }
-      end
-
-      describe "can access #current.json" do
-        before(:each) { get :current, :format => :json }
-        it { should respond_with(:success) }
+      [:current, :select].each do |action|
+        describe "can access ##{action}.json" do
+          let(:do_action) { get action, :format => :json }
+          it_should_behave_like "it can access an action"
+        end
       end
 
       describe "can access #current.xml" do
-        before(:each) { get :current, :format => :xml }
-        it { should respond_with(:success) }
+        let(:do_action) { get :current, :format => :xml }
+        it_should_behave_like "it can access an action"
       end
 
-      describe "can access #select.json" do
-        before(:each) { get :select, :format => :json }
-        it { should respond_with(:success) }
+      # On the user himself
+
+      [:show, :edit, :edit_bbb_room].each do |action|
+        describe "can access ##{action}" do
+          let(:do_action) { get action, :id => @user }
+          it_should_behave_like "it can access an action"
+        end
       end
 
-      describe "can access #fellows.json" do
-        before(:each) { get :fellows, :format => :json }
-        it { should respond_with(:success) }
+      describe "can access #update" do
+        let(:do_action) { post :edit, :id => @user }
+        it_should_behave_like "it can access an action"
       end
+
+      describe "can access #destroy" do
+        let(:do_action) { delete :destroy, :id => @user }
+        it_should_behave_like "it can access an action"
+      end
+
+      [:enable, :create].each do |action|
+        describe "cannot access ##{action}" do
+          let(:do_action) { post :enable, :id => @user }
+          it_should_behave_like "it cannot access an action"
+        end
+      end
+
+      # For other users
+
+      describe "can access #show for other users" do
+        let(:do_action) { get :show, :id => another_user }
+        it_should_behave_like "it can access an action"
+      end
+
+      [:new, :edit, :edit_bbb_room].each do |action|
+        describe "cannot access ##{action} for other users" do
+          let(:do_action) { get action, :id => another_user }
+          it_should_behave_like "it cannot access an action"
+        end
+      end
+
+      [:enable, :create, :update, :destroy].each do |action|
+        describe "cannot access ##{action}" do
+          let(:do_action) { post action, :id => another_user, :user => {} }
+          it_should_behave_like "it cannot access an action"
+        end
+      end
+
     end
 
-    context "for an anonymous user" do
+    context "for an anonymous user:" do
       let(:user) { FactoryGirl.create(:user) }
 
       describe "can access #index" do
         let(:space) { FactoryGirl.create(:space) }
-        before(:each) { get :index, :space_id => space.to_param }
-        it { should respond_with(:success) }
+        let(:do_action) { get :index, :space_id => space }
+        it_should_behave_like "it can access an action"
       end
 
       describe "can access #show" do
-        before(:each) { get :show, :id => user.to_param }
-        it { should respond_with(:success) }
+        let(:do_action) { get :show, :id => user }
+        it_should_behave_like "it can access an action"
       end
 
       [:edit, :edit_bbb_room].each do |action|
         describe "cannot access ##{action}" do
-          it {
-            expect {
-              get action, :id => user.to_param
-            }.to raise_error(CanCan::AccessDenied)
-          }
+          let(:do_action) { get action, :id => user }
+          it_should_behave_like "it cannot access an action"
         end
       end
 
       [:update, :destroy, :enable].each do |action|
         describe "cannot access ##{action}" do
-          it {
-            expect {
-              post action, :id => user.to_param
-            }.to raise_error(CanCan::AccessDenied)
-          }
+          let(:do_action) { post action, :id => user }
+          it_should_behave_like "it cannot access an action"
         end
       end
     end
 
-    context "for an anonymous user" do
-      let(:user) { FactoryGirl.create(:user) }
-
-      describe "can access #index" do
-        let(:space) { FactoryGirl.create(:space) }
-        before(:each) { get :index, :space_id => space.to_param }
-        it { should respond_with(:success) }
-      end
-
-      describe "can access #show" do
-        before(:each) { get :show, :id => user.to_param }
-        it { should respond_with(:success) }
-      end
-
-      [:new, :edit, :edit_bbb_room].each do |action|
-        describe "cannot access ##{action}" do
-          it {
-            expect {
-              get action, :id => user.to_param
-            }.to raise_error(CanCan::AccessDenied)
-          }
-        end
-      end
-
-      [:create, :update, :destroy, :enable].each do |action|
-        describe "cannot access ##{action}" do
-          it {
-            expect {
-              post action, :id => user.to_param
-            }.to raise_error(CanCan::AccessDenied)
-          }
-        end
-      end
-    end
-
-    context "for a superuser" do
-      let(:another_user) { FactoryGirl.create(:superuser) }
+    context "for a superuser:" do
+      let(:another_user) { FactoryGirl.create(:user) }
       login_admin
 
-      describe "can access #index" do
+      context "can access #index" do
         let(:space) { FactoryGirl.create(:space) }
-        before(:each) { get :index, :space_id => space.to_param }
-        it { should respond_with(:success) }
+        let(:do_action) { get :index, :space_id => space }
+        it_should_behave_like "it can access an action"
       end
 
       [:show, :edit, :edit_bbb_room].each do |action|
-        describe "can access ##{action} for himself" do
-          before(:each) { get action, :id => @user.to_param }
-          it { should respond_with(:success) }
+        describe "can access ##{action}" do
+          let(:do_action) { get action, :id => @user }
+          it_should_behave_like "it can access an action"
         end
       end
 
       [:show, :edit, :edit_bbb_room].each do |action|
         describe "can access ##{action} for other users" do
-          before(:each) { get action, :id => another_user.to_param }
-          it { should respond_with(:success) }
+          let(:do_action) { get action, :id => another_user }
+          it_should_behave_like "it can access an action"
         end
       end
 
       [:update, :destroy, :enable].each do |action|
-        describe "can access ##{action} for himself" do
-          before(:each) { post action, :id => @user.to_param, :user => {} }
-          it { should respond_with(:redirect) }
+        describe "can access ##{action}" do
+          let(:do_action) { post action, :id => @user.to_param, :user => {} }
+          it_should_behave_like "it can access an action"
         end
       end
 
       [:update, :destroy, :enable].each do |action|
         describe "can access ##{action} for other users" do
-          before(:each) { post action, :id => another_user.to_param, :user => {} }
-          it { should respond_with(:redirect) }
+          let(:do_action) { post action, :id => another_user.to_param, :user => {} }
+          it_should_behave_like "it can access an action"
         end
       end
     end
+
+    pending "for a disabled user:"
 
   end
 

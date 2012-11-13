@@ -32,8 +32,8 @@ module Abilities
     def initialize(user)
       # Users
       # Disabled users are only visible to superusers
-      can [:read, :fellows, :current, :select, :edit_bbb_room], User, :disabled => false
-      can [:update, :destroy], User, :id => user.id, :disabled => false
+      can [:read, :fellows, :current, :select], User, :disabled => false
+      can [:update, :destroy, :edit_bbb_room], User, :id => user.id, :disabled => false
 
       # User profiles
       can :read, Profile do |profile|

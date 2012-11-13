@@ -67,7 +67,7 @@ class ProfilesController < ApplicationController
   def hcard
     if @profile.nil?
       flash[:notice]= t('profile.must_create')
-      redirect_to new_space_user_profile_path(@space, :user_id=>current_user.id)
+      redirect_to new_user_profile_path(current_user)
     else
       render :partial=>'public_hcard'
       if can?(:read, @profile)
