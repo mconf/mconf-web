@@ -34,7 +34,7 @@ GIT
 
 GIT
   remote: git://github.com/mconf/permalink_fu.git
-  revision: a42f16a13ab1f7bf14256e57a8e0fe6c6f902bf9
+  revision: 2369a156c7b44910ae4e26fc82e1a6c219f70199
   specs:
     teambox-permalink_fu (1.0.1)
 
