@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120626180633) do
+ActiveRecord::Schema.define(:version => 20121129160346) do
 
   create_table "admissions", :force => true do |t|
     t.string   "type"
@@ -444,6 +444,8 @@ ActiveRecord::Schema.define(:version => 20120626180633) do
     t.string   "smtp_domain"
     t.string   "smtp_auth_type"
     t.string   "smtp_sender"
+    t.text     "shib_env_variables"
+    t.string   "shib_login_field"
   end
 
   create_table "source_importations", :force => true do |t|

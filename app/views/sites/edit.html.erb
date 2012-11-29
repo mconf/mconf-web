@@ -42,6 +42,14 @@
    style: 'mystyle'
   });
 
+ $('.tooltip_shib_env_variables').qtip({
+   content: '<%= escape_javascript(t('site.shib_env_variables_tip')) %>',
+   position: {adjust: { screen: true }},
+   show:  'mouseover',
+   hide: { when: 'mouseout', fixed: true },
+   style: 'mystyle'
+  });
+
  $('.tooltip_shib_email_field').qtip({
    content: '<%= escape_javascript(t('site.shib_email_field_tip')) %>',
    position: {adjust: { screen: true }},
@@ -52,6 +60,14 @@
 
  $('.tooltip_shib_name_field').qtip({
    content: '<%= escape_javascript(t('site.shib_name_field_tip')) %>',
+   position: {adjust: { screen: true }},
+   show:  'mouseover',
+   hide: { when: 'mouseout', fixed: true },
+   style: 'mystyle'
+  });
+
+ $('.tooltip_shib_login_field').qtip({
+   content: '<%= escape_javascript(t('site.shib_login_field_tip')) %>',
    position: {adjust: { screen: true }},
    show:  'mouseover',
    hide: { when: 'mouseout', fixed: true },
@@ -212,6 +228,12 @@
   </p>
 
   <p>
+    <%= f.label :shib_env_variables, t('site.shib_env_variables') %>
+    <%= f.text_area :shib_env_variables %>
+    <%= image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_shib_env_variables icon",:style=>"cursor:pointer").html_safe %>
+  </p>
+
+  <p>
     <%= f.label :shib_email_field, t('site.shib_email_field') %>
     <%= f.text_field :shib_email_field %>
     <%= image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_shib_email_field icon",:style=>"cursor:pointer").html_safe %>
@@ -221,6 +243,12 @@
     <%= f.label :shib_name_field, t('site.shib_name_field') %>
     <%= f.text_field :shib_name_field %>
     <%= image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_shib_name_field icon",:style=>"cursor:pointer").html_safe %>
+  </p>
+
+  <p>
+    <%= f.label :shib_login_field, t('site.shib_login_field') %>
+    <%= f.text_field :shib_login_field %>
+    <%= image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_shib_login_field icon",:style=>"cursor:pointer").html_safe %>
   </p>
 
   <div id="site_button" class="margin-up">

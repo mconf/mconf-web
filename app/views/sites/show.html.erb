@@ -111,6 +111,11 @@
   </p>
 
   <p>
+    <label><%= t('site.shib_env_variables') %>:</label>
+    <span class="value"><%= current_site.shib_env_variables %></span>
+  </p>
+
+  <p>
     <label><%= t('site.shib_email_field') %>:</label>
     <span class="value"><%= current_site.shib_email_field %></span>
   </p>
@@ -120,7 +125,12 @@
     <span class="value"><%= current_site.shib_name_field %></span>
   </p>
 
-  <div class="clearer"></div>
+  <p>
+    <label><%= t('site.shib_login_field') %>:</label>
+    <span class="value"><%= current_site.shib_login_field %></span>
+  </p>
+
+ <div class="clearer"></div>
 
   <div id="site_button" class="button_wrapper">
     <%= link_to ("<span>" + t('button.edit') + "</span>").html_safe, edit_site_path,:class => "basic_button blue_button"%>

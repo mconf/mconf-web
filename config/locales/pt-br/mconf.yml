@@ -1157,6 +1157,10 @@ pt-br:
     shib_email_field: "Campo Shibboleth para email"
     shib_email_field_tip: "Quando um usuário se autentica em provedor de serviços Shibboleth este campo será utilizado para obter o e-mail do usuário. Exemplo: Shib-inetOrgPerson-mail"
     shib_enabled: "Habilitar Shibboleth"
+    shib_env_variables: "Variáveis de ambiente Shibboleth"
+    shib_env_variables_tip: "O Shibboleth retorna um conjunto de variáveis de ambiente quando o usuário é autenticado. Todas as variáveis especificadas nesta lista serão lidas do Shibboleth e atribuídas como dados do usuário. Especifique cada variável em uma linha diferente. As comparações são \"case-insensitive\" e espaços são removidos, e você também pode utilizar expressões regulares. Se este campo estiver vazio todas variáveis que iniciam com \"Shib-\" serão utilizadas."
+    shib_login_field: "Campo Shibboleth para login"
+    shib_login_field_tip: "Quando um usuário se autentica em provedor de serviços Shibboleth este campo será utilizado para obter o login do usuário. Se não especificado, será usado o nome do usuário como seu login. Exemplo: Shib-inetOrgPerson-sn"
     shib_name_field: "Campo Shibboleth para nome"
     shib_name_field_tip: "Quando um usuário se autentica em provedor de serviços Shibboleth este campo será utilizado para obter o nome do usuário. Exemplo: Shib-inetOrgPerson-sn"
     signature: Assinatura
