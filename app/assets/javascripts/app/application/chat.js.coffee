@@ -35,6 +35,11 @@ Chat =
       Chat.insert_contact contact
       return
 
+    contact = $("<li id='" + "space-conference-mconf-chat-test-inf-ufrgs-br" + "' class='space_muc'><div class='roster-contact'>" +
+      "<div class='roster-name'>" + "Space" + "</div><div class='roster-jid hidden'>" + "space@conference.mconf-chat-test.inf.ufrgs.br" +
+      "</div></div></li>")
+    Chat.insert_contact contact
+
     Chat.connection.addHandler Chat.on_presence, null, "presence"
     Chat.connection.addHandler Chat.on_subscription_request, null, "presence", "subscribe"
     Chat.connection.addHandler Chat.on_unsubscribed_request, null, "presence", "unsubscribed"
@@ -61,6 +66,7 @@ Chat =
     return true
 
   on_presence: (presence) ->
+    console.log presence
     ptype = $(presence).attr 'type'
     if ptype isnt "subscribe" and ptype isnt "subscribed" and ptype isnt "unsubscribed"
       from = $(presence).attr 'from'
@@ -136,6 +142,39 @@ Chat =
           Chat.insert_contact $(contact_html)
     return true
 
+  on_group_message: (message) ->
+    full_jid = $(message).attr 'from'
+    jid = Strophe.getBareJidFromJid full_jid
+    jid_id = Chat.jid_to_id jid
+    name = $(message).find("nick").text()
+    body = $(message).find("body").text()
+
+    if body?
+      unless $('#chat-' + jid_id).size()
+        space_name = jid.split("@")[0]
+        Chat.insertGroupChatArea jid, jid_id, space_name
+
+      $('#chat-' + jid_id + ' #content-chat').show()
+      $('#chat-' + jid_id + ' .chat-input').focus()
+
+      $('#chat-' + jid_id + ' #content-chat #message-area .chat-messages .chat-event').remove()
+      if name is Chat.user_name
+        $('#chat-' + jid_id + ' #content-chat #message-area .chat-messages').append(
+          "<div class='chat-message'>" +
+          "<span class='chat-name me'>" + name +
+          " </span><span class='chat-text'>" +
+          "</span></div>")
+        $('#chat-' + jid_id + ' .chat-message:last .chat-text').append body
+      else
+        $('#chat-' + jid_id + ' #content-chat #message-area .chat-messages').append(
+          "<div class='chat-message'>" +
+          "<span class='chat-name'>" + name +
+          " </span><span class='chat-text'>" +
+          "</span></div>")
+        $('#chat-' + jid_id + ' .chat-message:last .chat-text').append body
+      Chat.scroll_chat jid_id
+    return true
+
   on_message: (message) ->
     full_jid = $(message).attr 'from'
     jid = Strophe.getBareJidFromJid full_jid
@@ -208,10 +247,11 @@ Chat =
     if div? then div.scrollTop = div.scrollHeight
 
   presence_value: (elem) ->
-    if elem.hasClass 'online' then 3 else
-      if elem.hasClass 'dnd' then  2 else
-        if elem.hasClass 'away' then 1 else
-          if elem.hasClass 'offline' then 0
+    if elem.hasClass 'online' then 4 else
+      if elem.hasClass 'dnd' then  3 else
+        if elem.hasClass 'away' then 2 else
+          if elem.hasClass 'space_muc' then 1 else
+            if elem.hasClass 'offline' then 0
 
   insert_contact: (elem) ->
     jid = elem.find('.roster-jid').text()
@@ -250,26 +290,51 @@ Chat =
     $('#chat-' + jid_id).data 'jid', jid
     $('#chat-' + jid_id + ' .chat-input').autosize()
 
+  insertGroupChatArea: (jid,jid_id,name) ->
+    $("#chat-bar").append(
+      "<div id='contact-chat' class='chat-align' style='width: 230px; height: 100%;'><div><div class='no-show' style='width: 225px; height: 100%; position: absolute;'>" +
+      "<div id='chat-" + jid_id + "' class='group-chat-area' style='position: absolute;'>" + "<div class='chat-area-title'><h3><ul><li class='none space_muc'><span class='ellipsis'>" + name +
+      "</span><img id='close-chat' src='/assets/chat/icons/close-chat.png' width='12' height='12' /></li></ul></h3></div>" +
+      "<div id='content-chat'><div style='border-bottom: solid 1px #DDD'><img id='bbb-chat-" + jid_id + "' src='/assets/icons/webcam.png' class='bbb-chat-icon'/></div>" +
+      "<div id='message-area'><div class='chat-messages' style='word-wrap: break-word;'></div><textarea class='chat-input'></textarea></div></div></div></div></div></div>")
+
+    $('#chat-' + jid_id).data 'jid', jid
+    $('#chat-' + jid_id + ' .chat-input').autosize()
+
+  member_list_ok: (iq) ->
+    console.log "member ok"
+    console.log iq
+
+  member_list_error: (iq) ->
+    console.log "member error"
+    console.log iq
+
+  creating_room_ok: (iq) ->
+    console.log "room ok"
+    console.log iq
+
+  creating_room_error: (iq) ->
+    console.log "room error"
+    console.log iq
+
   creating_room: (iq) ->
     console.log "sala"
     console.log iq
+    from = $(iq).attr 'from'
 
-    #iq = $iq({to: "teste@conference.mconf-chat-test.inf.ufrgs.br", type: "set"}).c("query", {xmlns: "http://jabber.org/protocol/muc#owner"}).c("x", {xmlns: "jabber:x:data", type: "submit"})
-    #  .c("field", {var: "FORM_TYPE"}).c('value').t("http://jabber.org/protocol/muc#roomconfig").up()
-    #  .c("field", {var: "muc#roomconfig_roomname"}).c('value').t("A Test room").up()
-    #  .c("field", {var: "muc#roomconfig_roomdesc"}).c('value').t("Sala de teste!!!").up()
-    #  .c("field", {var: "muc#roomconfig_"}).c('value').t("").up()
+    iq = $iq({to: from, type: "set"}).c("query", {xmlns: "http://jabber.org/protocol/muc#owner"}).c("x", {xmlns: "jabber:x:data", type: "submit"})
+      .c("field", {var: "FORM_TYPE"}).c('value').t('http://jabber.org/protocol/muc#roomconfig').up().up()
+      .c("field", {var: "muc#roomconfig_roomname"}).c('value').t('A Test for space room').up().up()
+      .c("field", {var: "muc#roomconfig_passwordprotectedroom"}).c('value').t('1').up().up()
+      .c("field", {var: "muc#roomconfig_roomsecret"}).c('value').t('teste').up().up()
+      .c("field", {var: "muc#roomconfig_allowvisitornickchange"}).c('value').t('0')
+
+    #console.log iq.toString()
+
+    Chat.connection.sendIQ iq, Chat.creating_room_ok, Chat.creating_room_error
 
     # Comando para entrar na sala "teste"
     #Chat.connection.send $pres({to: "teste@conference.mconf-chat-test.inf.ufrgs.br/"+Chat.user_name}).c('x', {xmlns: "http://jabber.org/protocol/muc"}),  Chat.entering_room, Chat.entering_room_error
-
-  entering_room: (pres) ->
-    console.log "room"
-    console.log pres
-
-  entering_room_error: (pres) ->
-    console.log "room error"
-    console.log pres
 
 $ ->
   # trigger to start the chat
@@ -303,6 +368,9 @@ $ ->
   $("#main-chat-area").on "click", "#contact-chat .no-show .chat-area .chat-area-title #close-chat", ->
     $(this).parents("#contact-chat").remove()
 
+  $("#main-chat-area").on "click", "#contact-chat .no-show .group-chat-area .chat-area-title #close-chat", ->
+    $(this).parents("#contact-chat").remove()
+
   $("#main-chat-area").on "click", "#main-chat #content-chat .roster-contact", ->
     jid = $(this).find(".roster-jid").text()
     name = $(this).find(".roster-name").text()
@@ -310,7 +378,14 @@ $ ->
     status = $("#" + jid_id).attr "class"
 
     unless $('#chat-' + jid_id).size()
-      Chat.insertChatArea jid, jid_id, status, name
+      if status is "space_muc"
+        name = jid.split("@")[0]
+        Chat.insertGroupChatArea jid, jid_id, name
+        iq = $iq({to: jid, type: "get"}).c("query", {xmlns: "http://jabber.org/protocol/muc#admin"}).c("item", {affiliation: "member"})
+        Chat.connection.sendIQ iq, Chat.member_list_ok, Chat.member_list_error
+        #Chat.connection.send $pres({to: jid}).c('x', {xmlns: "http://jabber.org/protocol/muc"}).c('history', {since: '1970-01-01T00:00:00Z'})
+      else
+        Chat.insertChatArea jid, jid_id, status, name
 
     $('#chat-' + jid_id + ' #content-chat').show()
     $('#chat-' + jid_id + ' .chat-input').focus()
@@ -359,6 +434,24 @@ $ ->
         Chat.connection.send notify
 
         $(this).parent().data 'composing', true
+
+  $("#main-chat-area").on "keypress", "#contact-chat .no-show .group-chat-area #content-chat #message-area .chat-input", (ev) ->
+    jid = $(this).parent().parent().parent().data 'jid'
+    name = $("#status").text()
+
+    if ev.which is 13 and $(this).val().length > 0
+      ev.preventDefault()
+      body = $(this).val()
+      message = $msg({to: jid, "type": "groupchat"})
+        .c('body').t(body).up()
+        .c('nick', {xmlns: "http://jabber.org/protocol/nick"}).t(name)
+
+      Chat.connection.send message
+
+      $(this).val('')
+      $(this).css "min-height","30px"
+      $(this).css "max-height","30px"
+      $(this).css "height","30px"
 
   $("#main-chat-area").on "click", "#contact-chat .no-show .chat-area #content-chat .bbb-chat-icon", ->
     jid = $(this).parent().parent().parent().data 'jid'
@@ -543,10 +636,17 @@ $(document).bind 'connected', ->
 
   Chat.connection.addHandler Chat.on_roster_changed, "jabber:iq:roster", "iq", "set"
   Chat.connection.addHandler Chat.on_message, null, "message", "chat"
+  Chat.connection.addHandler Chat.on_group_message, null, "message", "groupchat"
 
-  iq = $iq({to: 'teste@conference.mconf-chat-test.inf.ufrgs.br', type: 'get'}).c("query", {xmlns: "http://jabber.org/protocol/muc#owner"})
-  console.log "send owner request!"
-  Chat.connection.sendIQ iq, Chat.creating_room
+  # Comando para entrar na sala "salanova5"
+  pres = $pres({to: "space@conference.mconf-chat-test.inf.ufrgs.br/"+Chat.user_name}).c('x', {xmlns: "http://jabber.org/protocol/muc"}).c('password').t('teste')
+  Chat.connection.send pres
+
+  # COMANDO PARA CRIAR A SALA E CONFIGURAR ELA
+  #console.log "send creating request!"
+  #Chat.connection.send $pres({to: 'space@conference.mconf-chat-test.inf.ufrgs.br'}).c('x', {xmlns: 'http://jabber.org/protocol/muc'})
+  #iq = $iq({to: 'space@conference.mconf-chat-test.inf.ufrgs.br', type: 'get'}).c("query", {xmlns: "http://jabber.org/protocol/muc#owner"})
+  #Chat.connection.sendIQ iq, Chat.creating_room, Chat.creating_room_error
 
 $(document).bind 'disconnect', ->
   if Chat.connection

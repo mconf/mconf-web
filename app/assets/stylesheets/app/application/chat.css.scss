@@ -22,6 +22,14 @@
     visibility: visible;
   }
 
+  .group-chat-area{
+    border:1px #707070 solid;
+    background:#ffffff;
+    width: 100%;
+    bottom: 0;
+    visibility: visible;
+  }
+
   .chat-area-title {
     margin:0 0 0.40em;
     background: #303030;
@@ -43,7 +51,8 @@
     }
   }
 
-  .chat-area textarea {
+  .chat-area textarea,
+  .group-chat-area textarea {
     resize: none;
     overflow: hidden;
     margin-top: 10px;
@@ -111,6 +120,10 @@
 
   .offline {
     list-style-image: url(image_path("/assets/chat/icons/offline.png"));
+  }
+
+  .space_muc {
+    list-style-image: url(image_path("/assets/chat/icons/space_muc.png"));
   }
 
   .none {
