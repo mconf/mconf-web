@@ -66,46 +66,55 @@ Chat =
     return true
 
   on_presence: (presence) ->
-    console.log presence
-    ptype = $(presence).attr 'type'
-    if ptype isnt "subscribe" and ptype isnt "subscribed" and ptype isnt "unsubscribed"
+    if $(presence).find('x').attr('xmlns') is "http://jabber.org/protocol/muc#user"
+      console.log "presence MUC"
+      console.log presence
       from = $(presence).attr 'from'
       jid_id = Chat.jid_to_id from
+      status = $(presence).find('show').text()
+      jid_user = $(presence).find('x').find('item').attr 'jid'
+      jid_id_user = Chat.jid_to_id jid_user
 
-      if ptype isnt "error"
-        contact = $('#roster-area #' + jid_id)
-          .removeClass("online")
-          .removeClass("dnd")
-          .removeClass("away")
-          .removeClass("offline")
+    else
+      ptype = $(presence).attr 'type'
+      if ptype isnt "subscribe" and ptype isnt "subscribed" and ptype isnt "unsubscribed"
+        from = $(presence).attr 'from'
+        jid_id = Chat.jid_to_id from
 
-        $("#chat-"+jid_id+" .none")
-          .removeClass("online")
-          .removeClass("dnd")
-          .removeClass("away")
-          .removeClass("offline")
+        if ptype isnt "error"
+          contact = $('#roster-area #' + jid_id)
+            .removeClass("online")
+            .removeClass("dnd")
+            .removeClass("away")
+            .removeClass("offline")
 
-        if ptype is 'unavailable'
-          contact.addClass("offline")
-          $("#chat-"+jid_id+" .none").addClass "offline"
-        else
-          show = $(presence).find("show").text()
-          if show is "" or show is "chat" or show is "online"
-            contact.addClass("online")
-            $("#chat-"+jid_id+" .none").addClass "online"
+          $("#chat-"+jid_id+" .none")
+            .removeClass("online")
+            .removeClass("dnd")
+            .removeClass("away")
+            .removeClass("offline")
+
+          if ptype is 'unavailable'
+            contact.addClass("offline")
+            $("#chat-"+jid_id+" .none").addClass "offline"
           else
-            if show is "dnd"
-              contact.addClass "dnd"
-              $("#chat-"+jid_id+" .none").addClass "dnd"
+            show = $(presence).find("show").text()
+            if show is "" or show is "chat" or show is "online"
+              contact.addClass("online")
+              $("#chat-"+jid_id+" .none").addClass "online"
             else
-              if show is "away"
-                contact.addClass "away"
-                $("#chat-"+jid_id+" .none").addClass "away"
+              if show is "dnd"
+                contact.addClass "dnd"
+                $("#chat-"+jid_id+" .none").addClass "dnd"
+              else
+                if show is "away"
+                  contact.addClass "away"
+                  $("#chat-"+jid_id+" .none").addClass "away"
 
-      Chat.insert_contact contact
+        Chat.insert_contact contact
 
-      jid_id = Chat.jid_to_id from
-      $("#chat-" + jid_id).data "jid", Strophe.getBareJidFromJid from
+        jid_id = Chat.jid_to_id from
+        $("#chat-" + jid_id).data "jid", Strophe.getBareJidFromJid from
     return true
 
   on_vcard_temp: (iq) ->
@@ -295,15 +304,22 @@ Chat =
       "<div id='contact-chat' class='chat-align' style='width: 230px; height: 100%;'><div><div class='no-show' style='width: 225px; height: 100%; position: absolute;'>" +
       "<div id='chat-" + jid_id + "' class='group-chat-area' style='position: absolute;'>" + "<div class='chat-area-title'><h3><ul><li class='none space_muc'><span class='ellipsis'>" + name +
       "</span><img id='close-chat' src='/assets/chat/icons/close-chat.png' width='12' height='12' /></li></ul></h3></div>" +
-      "<div id='content-chat'><div style='border-bottom: solid 1px #DDD'><img id='bbb-chat-" + jid_id + "' src='/assets/icons/webcam.png' class='bbb-chat-icon'/></div>" +
+      "<div id='content-chat'><div id='members-online-" + jid_id + "' style='border-bottom: solid 1px #DDD;margin-bottom:5px;padding-bottom:5px;'></div><div style='border-bottom: solid 1px #DDD;'>" +
+      "<img id='bbb-chat-" + jid_id + "' src='/assets/icons/webcam.png' class='bbb-chat-icon'/>" + "<img id='show-members-" + jid_id + "' class='show-members-icon' src='/assets/chat/icons/members_online.png'/></div>" +
       "<div id='message-area'><div class='chat-messages' style='word-wrap: break-word;'></div><textarea class='chat-input'></textarea></div></div></div></div></div></div>")
 
     $('#chat-' + jid_id).data 'jid', jid
     $('#chat-' + jid_id + ' .chat-input').autosize()
 
   member_list_ok: (iq) ->
-    console.log "member ok"
-    console.log iq
+    jid_id = Chat.jid_to_id($(iq).attr('from'))
+    $("#members-online-"+jid_id).empty()
+
+    $(iq).find('item').each (index, element) =>
+      member_name = $(element).attr 'name'
+      $("#members-online-"+jid_id).append("<li class='online' style='margin-left:15px;'>" + member_name  + "</li>")
+
+    $("#members-online-"+jid_id).toggle(0)
 
   member_list_error: (iq) ->
     console.log "member error"
@@ -379,10 +395,9 @@ $ ->
 
     unless $('#chat-' + jid_id).size()
       if status is "space_muc"
+        console.log "entrei"
         name = jid.split("@")[0]
         Chat.insertGroupChatArea jid, jid_id, name
-        iq = $iq({to: jid, type: "get"}).c("query", {xmlns: "http://jabber.org/protocol/muc#admin"}).c("item", {affiliation: "member"})
-        Chat.connection.sendIQ iq, Chat.member_list_ok, Chat.member_list_error
         #Chat.connection.send $pres({to: jid}).c('x', {xmlns: "http://jabber.org/protocol/muc"}).c('history', {since: '1970-01-01T00:00:00Z'})
       else
         Chat.insertChatArea jid, jid_id, status, name
@@ -452,6 +467,16 @@ $ ->
       $(this).css "min-height","30px"
       $(this).css "max-height","30px"
       $(this).css "height","30px"
+
+  $("#main-chat-area").on "click", "#contact-chat .no-show .group-chat-area #content-chat .show-members-icon", ->
+    jid = $(this).parent().parent().parent().data 'jid'
+
+    jid_id = Chat.jid_to_id jid
+    if $("#members-online-"+jid_id).css('display') is 'none'
+      iq = $iq({to: jid, type: "get"}).c("query", {xmlns: "http://jabber.org/protocol/disco#items"})
+      Chat.connection.sendIQ iq, Chat.member_list_ok, Chat.member_list_error
+    else
+      $("#members-online-"+jid_id).toggle(0)
 
   $("#main-chat-area").on "click", "#contact-chat .no-show .chat-area #content-chat .bbb-chat-icon", ->
     jid = $(this).parent().parent().parent().data 'jid'
