@@ -17,6 +17,9 @@ Chat =
   jid_to_id: (jid) ->
     Strophe.getBareJidFromJid(jid).replace(/@/,"-").replace(/\./g, "-")
 
+  muc_jid_to_id: (jid) ->
+    jid.replace(/@/,"-").replace(/\./g, "-").replace(/\//g, "-").replace(/\ /g, "-")
+
   on_roster: (iq) ->
     $(iq).find('item').each (index, element) =>
       jid = $(element).attr 'jid'
@@ -67,14 +70,33 @@ Chat =
 
   on_presence: (presence) ->
     if $(presence).find('x').attr('xmlns') is "http://jabber.org/protocol/muc#user"
-      console.log "presence MUC"
-      console.log presence
+      ptype = $(presence).attr 'type'
       from = $(presence).attr 'from'
       jid_id = Chat.jid_to_id from
+      jid_id_user = Chat.muc_jid_to_id from
       status = $(presence).find('show').text()
-      jid_user = $(presence).find('x').find('item').attr 'jid'
-      jid_id_user = Chat.jid_to_id jid_user
 
+      if ptype is 'unavailable'
+        $("#members-online-" + jid_id + " #" + jid_id_user).remove()
+      else
+        if $("#members-online-" + jid_id + " #" + jid_id_user).length > 0
+          member = $("#members-online-" + jid_id + " #" + jid_id_user)
+            .removeClass("online")
+            .removeClass("dnd")
+            .removeClass("away")
+            .removeClass("offline")
+
+          if status is "" or show is "chat" or show is "online"
+            member.addClass "online"
+          else
+            member.addClass status
+        else
+          member_name = Strophe.getResourceFromJid(from)
+          member = $("<li id='" + jid_id_user + "' class='online' style='margin-left:15px;'>" +
+            "<div class='member-name'>" + member_name + "</div><div class='member-jid hidden'>" + from +
+            "</div></li>")
+
+        Chat.insert_members member
     else
       ptype = $(presence).attr 'type'
       if ptype isnt "subscribe" and ptype isnt "subscribed" and ptype isnt "unsubscribed"
@@ -251,6 +273,10 @@ Chat =
         Chat.scroll_chat jid_id
     return true
 
+  scroll_members: (jid_id) ->
+    div = $("#members-online-" + jid_id).get 0
+    if div? then div.scrollTop = div.scrollHeight
+
   scroll_chat: (jid_id) ->
     div = $("#chat-" + jid_id + " .chat-messages").get 0
     if div? then div.scrollTop = div.scrollHeight
@@ -288,6 +314,35 @@ Chat =
     else
       $('#roster-area ul').append elem
 
+  insert_members: (elem) ->
+    name = elem.find('.member-name').text()
+    pres = Chat.presence_value elem
+    jid_id_muc = Chat.jid_to_id(elem.find('.member-jid').text())
+    contacts = $('#members-online-' + jid_id_muc + ' li')
+
+    if contacts.size() > 0
+      inserted = false
+      contacts.each (index, element) =>
+        cmp_pres = Chat.presence_value $(element)
+        cmp_name = $(element).find('.member-name').text()
+
+        if pres > cmp_pres
+          $(element).before elem
+          inserted = true
+          return false
+        else
+          if pres is cmp_pres
+            if name < cmp_name
+              $(element).before elem
+              inserted = true
+              return false
+
+      if not inserted then $('#members-online-' + jid_id_muc).append elem
+    else
+      $('#members-online-' + jid_id_muc).append elem
+
+    Chat.scroll_members jid_id_muc
+
   insertChatArea: (jid,jid_id,status,name) ->
     $("#chat-bar").append(
       "<div id='contact-chat' class='chat-align' style='width: 230px; height: 100%;'><div><div class='no-show' style='width: 225px; height: 100%; position: absolute;'>" +
@@ -304,7 +359,7 @@ Chat =
       "<div id='contact-chat' class='chat-align' style='width: 230px; height: 100%;'><div><div class='no-show' style='width: 225px; height: 100%; position: absolute;'>" +
       "<div id='chat-" + jid_id + "' class='group-chat-area' style='position: absolute;'>" + "<div class='chat-area-title'><h3><ul><li class='none space_muc'><span class='ellipsis'>" + name +
       "</span><img id='close-chat' src='/assets/chat/icons/close-chat.png' width='12' height='12' /></li></ul></h3></div>" +
-      "<div id='content-chat'><div id='members-online-" + jid_id + "' style='border-bottom: solid 1px #DDD;margin-bottom:5px;padding-bottom:5px;'></div><div style='border-bottom: solid 1px #DDD;'>" +
+      "<div id='content-chat'><div id='members-online-" + jid_id + "' style='border-bottom: solid 1px #DDD;margin-bottom:5px;padding-bottom:5px;min-height:10px;max-height:65px;overflow:auto;' class='hide'></div><div style='border-bottom: solid 1px #DDD;'>" +
       "<img id='bbb-chat-" + jid_id + "' src='/assets/icons/webcam.png' class='bbb-chat-icon'/>" + "<img id='show-members-" + jid_id + "' class='show-members-icon' src='/assets/chat/icons/members_online.png'/></div>" +
       "<div id='message-area'><div class='chat-messages' style='word-wrap: break-word;'></div><textarea class='chat-input'></textarea></div></div></div></div></div></div>")
 
@@ -312,17 +367,33 @@ Chat =
     $('#chat-' + jid_id + ' .chat-input').autosize()
 
   member_list_ok: (iq) ->
-    jid_id = Chat.jid_to_id($(iq).attr('from'))
+    jid = $(iq).attr 'from'
+    jid_id = Chat.jid_to_id jid
     $("#members-online-"+jid_id).empty()
 
     $(iq).find('item').each (index, element) =>
+      member_jid = $(element).attr 'jid'
+      member_jid_id = Chat.muc_jid_to_id member_jid
       member_name = $(element).attr 'name'
-      $("#members-online-"+jid_id).append("<li class='online' style='margin-left:15px;'>" + member_name  + "</li>")
+
+      member = $("<li id='" + member_jid_id + "' class='online' style='margin-left:15px;'>" +
+        "<div class='member-name'>" + member_name + "</div><div class='member-jid hidden'>" + member_jid +
+        "</div></li>")
+
+      Chat.insert_members member
 
     $("#members-online-"+jid_id).toggle(0)
 
   member_list_error: (iq) ->
     console.log "member error"
+    console.log iq
+
+  disco_ok: (iq) ->
+    console.log "disco ok"
+    console.log iq
+
+  disco_fail: (iq) ->
+    console.log "disco error"
     console.log iq
 
   creating_room_ok: (iq) ->
@@ -341,6 +412,7 @@ Chat =
     iq = $iq({to: from, type: "set"}).c("query", {xmlns: "http://jabber.org/protocol/muc#owner"}).c("x", {xmlns: "jabber:x:data", type: "submit"})
       .c("field", {var: "FORM_TYPE"}).c('value').t('http://jabber.org/protocol/muc#roomconfig').up().up()
       .c("field", {var: "muc#roomconfig_roomname"}).c('value').t('A Test for space room').up().up()
+      .c("field", {var: "muc#roomconfig_persistentroom"}).c('value').t('0').up().up()
       .c("field", {var: "muc#roomconfig_passwordprotectedroom"}).c('value').t('1').up().up()
       .c("field", {var: "muc#roomconfig_roomsecret"}).c('value').t('teste').up().up()
       .c("field", {var: "muc#roomconfig_allowvisitornickchange"}).c('value').t('0')
@@ -395,10 +467,11 @@ $ ->
 
     unless $('#chat-' + jid_id).size()
       if status is "space_muc"
-        console.log "entrei"
         name = jid.split("@")[0]
         Chat.insertGroupChatArea jid, jid_id, name
-        #Chat.connection.send $pres({to: jid}).c('x', {xmlns: "http://jabber.org/protocol/muc"}).c('history', {since: '1970-01-01T00:00:00Z'})
+
+        iq = $iq({to: jid, type: "get"}).c("query", {xmlns: "http://jabber.org/protocol/disco#items"})
+        Chat.connection.sendIQ iq, Chat.member_list_ok, Chat.member_list_error
       else
         Chat.insertChatArea jid, jid_id, status, name
 
@@ -473,8 +546,9 @@ $ ->
 
     jid_id = Chat.jid_to_id jid
     if $("#members-online-"+jid_id).css('display') is 'none'
-      iq = $iq({to: jid, type: "get"}).c("query", {xmlns: "http://jabber.org/protocol/disco#items"})
-      Chat.connection.sendIQ iq, Chat.member_list_ok, Chat.member_list_error
+      $("#members-online-"+jid_id).toggle(0)
+      #iq = $iq({to: jid, type: "get"}).c("query", {xmlns: "http://jabber.org/protocol/disco#items"})
+      #Chat.connection.sendIQ iq, Chat.member_list_ok, Chat.member_list_error
     else
       $("#members-online-"+jid_id).toggle(0)
 
@@ -543,6 +617,10 @@ $ ->
             $.colorbox.close()
 
   $("#main-chat-area").on 'click', ".chat-align .no-show #main-chat #content-chat #bbb_invite", ->
+    iq = $iq({to: 'conference.mconf-chat-test.inf.ufrgs.br', type: 'get'}).c('query', {xmlns: 'http://jabber.org/protocol/disco#items'})
+    Chat.connection.sendIQ iq, Chat.disco_ok, Chat.disco_fail
+
+  $("#main-chat-area").on 'click', ".chat-align .no-show #main-chat #content-chat #bbb_invite1", ->
     $.colorbox
       html:"<div class='modal-title'><span>" + I18n.t("chat.invite.bbb")  + "</span></div><div class='modal-content'><label for='member_token'>" + I18n.t('chat.name.other') +
         "</label>" + "<input id='member_token' name='member_token' type='text' style='width:396px;' /><br>" +
@@ -664,13 +742,15 @@ $(document).bind 'connected', ->
   Chat.connection.addHandler Chat.on_group_message, null, "message", "groupchat"
 
   # Comando para entrar na sala "salanova5"
-  pres = $pres({to: "space@conference.mconf-chat-test.inf.ufrgs.br/"+Chat.user_name}).c('x', {xmlns: "http://jabber.org/protocol/muc"}).c('password').t('teste')
-  Chat.connection.send pres
+  #pres = $pres({to: "space@conference.mconf-chat-test.inf.ufrgs.br/"+Chat.user_name}).c('x', {xmlns: "http://jabber.org/protocol/muc"}).c('password').t('teste')
+  #Chat.connection.send pres
+
+  #iq = $iq({to: 'salanova5@conference.mconf-chat-test.inf.ufrgs.br', type: 'get'}).c("query", {xmlns: "http://jabber.org/protocol/disco#info"})
+  #Chat.connection.sendIQ iq, Chat.disco_ok, Chat.disco_fail
 
   # COMANDO PARA CRIAR A SALA E CONFIGURAR ELA
-  #console.log "send creating request!"
-  #Chat.connection.send $pres({to: 'space@conference.mconf-chat-test.inf.ufrgs.br'}).c('x', {xmlns: 'http://jabber.org/protocol/muc'})
-  #iq = $iq({to: 'space@conference.mconf-chat-test.inf.ufrgs.br', type: 'get'}).c("query", {xmlns: "http://jabber.org/protocol/muc#owner"})
+  #Chat.connection.send $pres({to: '@conference.mconf-chat-test.inf.ufrgs.br'}).c('x', {xmlns: 'http://jabber.org/protocol/muc'})
+  #iq = $iq({to: '@conference.mconf-chat-test.inf.ufrgs.br', type: 'get'}).c("query", {xmlns: "http://jabber.org/protocol/muc#owner"})
   #Chat.connection.sendIQ iq, Chat.creating_room, Chat.creating_room_error
 
 $(document).bind 'disconnect', ->
