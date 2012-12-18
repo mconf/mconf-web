@@ -411,11 +411,9 @@ Chat =
 
     iq = $iq({to: from, type: "set"}).c("query", {xmlns: "http://jabber.org/protocol/muc#owner"}).c("x", {xmlns: "jabber:x:data", type: "submit"})
       .c("field", {var: "FORM_TYPE"}).c('value').t('http://jabber.org/protocol/muc#roomconfig').up().up()
-      .c("field", {var: "muc#roomconfig_roomname"}).c('value').t('A Test for space room').up().up()
-      .c("field", {var: "muc#roomconfig_persistentroom"}).c('value').t('0').up().up()
+      .c("field", {var: "muc#roomconfig_roomname"}).c('value').t('Comunidade').up().up()
       .c("field", {var: "muc#roomconfig_passwordprotectedroom"}).c('value').t('1').up().up()
-      .c("field", {var: "muc#roomconfig_roomsecret"}).c('value').t('teste').up().up()
-      .c("field", {var: "muc#roomconfig_allowvisitornickchange"}).c('value').t('0')
+      .c("field", {var: "muc#roomconfig_roomsecret"}).c('value').t('teste1').up().up()
 
     #console.log iq.toString()
 
@@ -749,8 +747,8 @@ $(document).bind 'connected', ->
   #Chat.connection.sendIQ iq, Chat.disco_ok, Chat.disco_fail
 
   # COMANDO PARA CRIAR A SALA E CONFIGURAR ELA
-  #Chat.connection.send $pres({to: '@conference.mconf-chat-test.inf.ufrgs.br'}).c('x', {xmlns: 'http://jabber.org/protocol/muc'})
-  #iq = $iq({to: '@conference.mconf-chat-test.inf.ufrgs.br', type: 'get'}).c("query", {xmlns: "http://jabber.org/protocol/muc#owner"})
+  #Chat.connection.send $pres({to: 'comunidade1@conference.mconf-chat-test.inf.ufrgs.br'}).c('x', {xmlns: 'http://jabber.org/protocol/muc'})
+  #iq = $iq({to: 'comunidade1@conference.mconf-chat-test.inf.ufrgs.br', type: 'get'}).c("query", {xmlns: "http://jabber.org/protocol/muc#owner"})
   #Chat.connection.sendIQ iq, Chat.creating_room, Chat.creating_room_error
 
 $(document).bind 'disconnect', ->

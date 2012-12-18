@@ -5,6 +5,11 @@
 # This file is licensed under the Affero General Public License version
 # 3 or later. See the LICENSE file.
 
+require 'xmpp4r'
+require 'xmpp4r/muc'
+require 'xmpp4r/roster'
+require 'xmpp4r/client'
+
 class SpacesController < ApplicationController
   include ActionController::StationResources
 
@@ -94,11 +99,22 @@ class SpacesController < ApplicationController
     @space = Space.new(params[:space])
 
     if @space.save
-      # Aqui modificar para criar a sala permanente da comunidade
-      client = Jabber::Client.new(Jabber::JID.new(current_user.username+current_site.presence_domain))
+      jid = Jabber::JID.new(current_user.username+current_site.presence_domain)
+      client = Jabber::Client.new(jid)
       client.connect
       client.auth(current_user.encrypted_password)
-      # Termina aqui a criação da sala da comunidade
+      conference = current_site.presence_domain
+      conference[0..0] = "@conference."
+      muc = Jabber::MUC::MUCClient.new(client)
+      space_name = @space.name.tr(' @', '_').downcase
+      muc.join(space_name + conference + "/" + client.jid.node)
+      muc.configure(
+                    'muc#roomconfig_roomname' => @space.name,
+                    'muc#roomconfig_passwordprotectedroom' => '1',
+                    'muc#roomconfig_roomsecret' => 'teste1'
+      )
+      muc.exit
+      client.close
 
       respond_with @space do |format|
         flash[:success] = t('space.created')
