@@ -1,16 +1,16 @@
 #!/usr/bin/env ruby
 
 ROOT = File.expand_path(File.join(File.dirname(__FILE__), '..'))
-URL = "http://mygengo.com/string/p/mconf-web-1/export/all/"
+URL = "http://gengo.com/string/p/mconf-web-1/export/all/"
 TMP = "#{ROOT}/tmp/"
 BASE_LOCALE = "en"
 IGNORE_FILES = [ "_base.yml" ]
 
 puts "Downloading..."
-`curl #{URL} > #{TMP}/mygengo.zip`
+`curl #{URL} > #{TMP}/gengo.zip`
 puts "Extracting..."
-`unzip -o #{TMP}/mygengo.zip -d #{ROOT}/config/locales/`
-`rm #{TMP}/mygengo.zip`
+`unzip -o #{TMP}/gengo.zip -d #{ROOT}/config/locales/`
+`rm #{TMP}/gengo.zip`
 
 # Cleanup the BASE_LOCALE files to format them
 
