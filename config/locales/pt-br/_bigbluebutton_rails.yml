@@ -27,7 +27,7 @@ pt-br:
       bigbluebutton_room: "Sala de Webconferência"
       bigbluebutton_server: "Servidor de Webconferência"
   bigbluebutton_rails: 
-    bigbluebutton: "BigBlueButton"
+    bigbluebutton: BigBlueButton
     rooms: 
       errors: 
         auth: 

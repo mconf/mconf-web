@@ -49,6 +49,7 @@ fr:
       speakers: Haut-parleurs
       start_time: "Heure de début"
       title: Titre
+      upload_video: "La vidéo doit avoir une extension FLV."
       video: Enregistrement
     error: 
       omit_title: "Un produit doit être donnée à l'entrée du jour"
@@ -160,6 +161,8 @@ fr:
   edit_hours: "Modifier heures"
   edit_profile: "Modifier le profil"
   edit_your_profile: "Modifiez votre profil"
+  email: 
+    welcome: "Bienvenue sur %{sitename}"
   enable: Permettre
   enabled: Activé
   error: 
@@ -225,6 +228,7 @@ fr:
       presential: Réunion
     no_events: "Vous n'avez pas d'événements"
     none_coming: "Aucun événement à venir"
+    not_available: "Bientôt disponible"
     note: 
       participation: "participation Web sera disponible au moment de l'événement"
       streaming: "Vidéo streaming seront disponibles au moment de l'événement"
@@ -305,11 +309,15 @@ fr:
   find: 
     browse: Parcourir
   find_in: "Rechercher dans:"
+  footer: 
+    find_us: "Vous pouvez nous trouver sur"
   getting_started: "Mise en route!"
   group: 
     other: Groupes
   hcard: 
     not_found: "hCard pas trouvé"
+  header_global: 
+    welcome: "Bienvenue  %{user}"
   hello: Bonjour
   help: Aider
   help_createVC: 
@@ -658,23 +666,26 @@ fr:
     about: Sur
     add_user: 
       other: "Ajouter des utilisateurs à l'espace"
-    all: "Toutes les Parties"
-    allow_public_access: "Autoriser l'accès public?"
+    all: "Tous les espaces"
+    allow_public_access: "Autoriser l'accès public ?"
     clic: "Cliquez pour modifier ..."
     clic_logo: "Cliquez ici pour changer votre logo"
-    configuration: "configuration de l'espace"
+    configuration: "Configuration de l'espace"
     confirm: "Êtes-vous sûr de vouloir quitter cet espace?"
     create_own: "Créer un nouvel espace"
     created: "Espace créé avec succès"
     delete: "Supprimer l'espace"
-    deleted: "Space supprimé avec succès"
+    deleted: "Espace supprimé avec succès"
+    description: "Description de l'espace"
     description_none: "Une description espace doit être donné pour créer un nouvel espace"
     disable: "Désactiver l'espace"
-    disabled: "Space handicapés succès"
+    disabled: "Espace désactivé avec succès"
+    edit_description: "modifier la description"
+    edit_name: "modifier le nom"
     enable: "Activer l'espace"
-    enabled: "L'espace a permis avec succès"
+    enabled: "L'espace a été activé avec succès"
     error: 
-      enabled: "Space %{name} est déjà activé"
+      enabled: "L'espace %{name} est déjà activé"
     group_invitation: 
       button: "Inviter lists"
     is_private: "est un espace privé. Envoyer une jointure demande à l'administrateur de cet espace pour vous laisser"
