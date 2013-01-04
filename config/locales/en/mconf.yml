@@ -979,6 +979,7 @@ en:
     deleted: "Profile deleted successfully"
     description: 
       add: "Short bio"
+      message: "Write something about you"
     error: 
       exist: "Your profile already exists"
     header_title: "User profile"
@@ -989,6 +990,8 @@ en:
     public: "Public profile"
     public_description: "Anyone can access this information"
     updated: "Profile updated successfully"
+    url: 
+      add: "Add your website"
     visibility: Visibility
     visibility_description: "Choose who will be able to see your private profile"
     visibility_edit: "Edit your profile visibility"

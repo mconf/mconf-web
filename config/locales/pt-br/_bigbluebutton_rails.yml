@@ -29,6 +29,7 @@ pt-br:
   bigbluebutton_rails: 
     bigbluebutton: BigBlueButton
     rooms: 
+      default_welcome_msg: "Bem-vindo(a) à conferência <b>%{name}!</b><br/><br/>Para entrar na conferência de áudio a partir de um telefone SIP, disque %{voice_number}.<br/><br/>Se você precisa ajuda para usar esta aplicação <u><a href=\"http://www.bigbluebutton.org/videos/\">veja estes vídeos</a></u>."
       errors: 
         auth: 
           failure: "Falha de autenticação."
@@ -36,9 +37,11 @@ pt-br:
           wrong_params: "Parâmetros errados na sua requisição."
         external: 
           blank_meetingid: "Você deve especificar o meetingid da reunião que você deseja ingressar"
+          inexistent_meeting: "A reunião informada não existe neste servidor."
+          wrong_params: "Parâmetros errados na sua requisição."
         param_format: "você pode usar apenas letras, números e os símbolos \"-\" ou \"_\" (não no começo ou fim)"
         server: 
-          nil: "Sua sala deve ser associada a um servidor para executar esta operação."
+          not_set: "Sua sala deve estar associada a um servidor para executar esta operação."
       notice: 
         create: 
           failure: "Sua sala não pôde ser criada."

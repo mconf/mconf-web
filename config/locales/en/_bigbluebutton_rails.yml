@@ -29,6 +29,7 @@ en:
   bigbluebutton_rails: 
     bigbluebutton: BigBlueButton
     rooms: 
+      default_welcome_msg: "Welcome to the conference <b>%{name}!</b><br/><br/>To join the audio conference from a SIP phone, dial %{voice_number}.<br/><br/>If you need help using the conference client <u><a href=\"http://www.bigbluebutton.org/videos/\">check out these videos</a></u>."
       errors: 
         auth: 
           failure: "Authentication failure."
@@ -36,9 +37,11 @@ en:
           wrong_params: "Wrong params in your request."
         external: 
           blank_meetingid: "You must specify the meetingid of the meeting you want to join"
+          inexistent_meeting: "The meeting informed does not exists in the server."
+          wrong_params: "Wrong parameters in your request."
         param_format: "you can only use letters, numbers and the symbols \"-\" or \"_\" (not at the begin or end)"
         server: 
-          nil: "Your room must be associated to a server to execute this operation."
+          not_set: "Your room must be associated to a server to execute this operation."
       notice: 
         create: 
           failure: "Your room could not be created."
