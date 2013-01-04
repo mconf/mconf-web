@@ -14,13 +14,13 @@ pt-br:
     attributes: 
       spaces: 
         attendee_password: "Senha de Participante"
-        moderator_password: "Senha de Moderador"
+        moderator_password: "Senha do Moderador"
     errors: 
       messages: 
         missing: "não encontrado"
   address: Endereço
   admin: 
-    one: Admin
+    one: Administrador
     space: "Administração do %{spacename}"
   admission: 
     other: Admissões
@@ -156,12 +156,12 @@ pt-br:
     view_room_list: "Ver lista de salas"
     view_rooms: "Ver salas"
     view_server_list: "Ver lista de servidores"
-  body: Corpo
+  body: Texto
   button: 
     accept: Aceitar
     back_to_event: "Voltar ao evento"
     cancel: Cancelar
-    confirm: Confirm
+    confirm: Confirme
     create: Criar
     creating: "Criando evento..."
     edit: Editar
@@ -979,6 +979,7 @@ pt-br:
     deleted: "Perfil excluído com sucesso"
     description: 
       add: "Biografia resumida"
+      message: "Escreva algo sobre você"
     error: 
       exist: "Seu perfil já existe"
     header_title: "Perfil de usuário"
@@ -989,6 +990,8 @@ pt-br:
     public: "Perfil público"
     public_description: "Qualquer pessoa pode acessar esta informação"
     updated: "Perfil atualizado com sucesso"
+    url: 
+      add: "Adicione o seu site"
     visibility: Visibilidade
     visibility_description: "Escolha quem poderá ver o seu perfil privado"
     visibility_edit: "Edite a visibilidade do seu perfil"
@@ -997,7 +1000,7 @@ pt-br:
     visibility_nobody: "Ninguém pode ver o seu perfil privado."
     visibility_private_fellows: "Apenas os seus colegas em um espaço privado podem ver o seu perfil privado."
     visibility_public_fellows: "Apenas os seus colegas em um espaço público podem ver o seu perfil privado."
-  province: Província
+  province: Estado
   public: Público
   read_more: "Ler mais"
   received_message_more_machines: "Você recebeu uma mensagem de %{user} pedindo mais máquinas"
@@ -1159,6 +1162,10 @@ pt-br:
     shib_email_field: "Campo Shibboleth para email"
     shib_email_field_tip: "Quando um usuário se autentica em provedor de serviços Shibboleth este campo será utilizado para obter o e-mail do usuário. Exemplo: Shib-inetOrgPerson-mail"
     shib_enabled: "Habilitar Shibboleth"
+    shib_env_variables: "Variáveis de ambiente Shibboleth"
+    shib_env_variables_tip: "O Shibboleth retorna um conjunto de variáveis de ambiente quando o usuário é autenticado. Todas as variáveis especificadas nesta lista serão lidas do Shibboleth e atribuídas como dados do usuário. Especifique cada variável em uma linha diferente. As comparações são \"case-insensitive\" e espaços são removidos, e você também pode utilizar expressões regulares. Se este campo estiver vazio todas variáveis que iniciam com \"Shib-\" serão utilizadas."
+    shib_login_field: "Campo Shibboleth para login"
+    shib_login_field_tip: "Quando um usuário se autentica em provedor de serviços Shibboleth este campo será utilizado para obter o login do usuário. Se não especificado, será usado o nome do usuário como seu login. Exemplo: Shib-inetOrgPerson-sn"
     shib_name_field: "Campo Shibboleth para nome"
     shib_name_field_tip: "Quando um usuário se autentica em provedor de serviços Shibboleth este campo será utilizado para obter o nome do usuário. Exemplo: Shib-inetOrgPerson-sn"
     signature: Assinatura
@@ -1183,7 +1190,7 @@ pt-br:
     about: Sobre
     add_user: 
       other: "Adicionar usuários à comunidade"
-    all: "Todas comunidades"
+    all: Comunidades
     allow_public_access: "Permitir acesso público?"
     attendeePW: "editar senha de participante"
     clic: "Clique para editar..."
@@ -1272,7 +1279,7 @@ pt-br:
   statistics: 
     event_views: visualizações
     space_views: visualizações
-    views: visualizações
+    views: Visualizações
   street: Rua
   subject: Assunto
   summary: "Informações do vídeo"
@@ -1310,7 +1317,7 @@ pt-br:
   title_formal: 
     mr: Sr.
     mrs: Sra.
-    ms: Ms.
+    ms: Srta.
   to: para
   today: Hoje
   tooltip: 
@@ -1351,7 +1358,7 @@ pt-br:
   upcoming: Próximos
   update: Atualizar
   updated: Atualizados
-  updated_at: Atualizado
+  updated_at: "Atualizado em"
   updated_time_ago: "%{time} atrás"
   url: Website
   url_add: "Adicione seu site"

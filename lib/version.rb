@@ -1,5 +1,5 @@
 module Mconf
-  VERSION = "0.6".freeze
+  VERSION = "0.7".freeze
 
   # get the current git branch
   @@branch = nil

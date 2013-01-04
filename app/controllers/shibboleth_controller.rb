@@ -57,7 +57,9 @@ class ShibbolethController < ApplicationController
     # create one based on the info returned by shibboleth
     if params[:new_account]
       token = find_or_create_token()
-      token.user = create_account(shib_name_from_session(), shib_email_from_session())
+      token.user = create_account(shib_name_from_session(),
+                                  shib_email_from_session(),
+                                  shib_login_from_session())
       if token.user
         token.data = shib_data_from_session()
         token.save!
@@ -133,13 +135,32 @@ class ShibbolethController < ApplicationController
     end
   end
 
-  # stores any "Shib-" variable in the session
+  # Stores any shibboleth variable in the session
+  # Uses the variables defined in Site#shib_env_variables if any,
+  # otherwise use all variables that start with "shib-".
+  # Comparisons are case-insensitive and trimmed.
   def shib_vars_to_session
+
+    unless current_site.shib_env_variables.blank?
+      vars = current_site.shib_env_variables
+      vars = vars.split(/\r?\n/).map{ |s| s.strip().downcase() }
+      filter = vars.map{ |v| /^#{v}$/  }
+    else
+      filter = /^shib-/
+    end
+
     shib_data = {}
     request.env.each do |key, value|
-      shib_data[key] = value if key.to_s.downcase =~ /^shib-/
+      if filter.is_a?(Regexp)
+        shib_data[key] = value if key.to_s.downcase =~ /^shib-/
+      else
+        unless filter.select{ |f| key.to_s.downcase =~ f }.empty?
+          shib_data[key] = value
+        end
+      end
     end
     session[:shib_data] = shib_data
+
     shib_data
   end
 
@@ -163,6 +184,16 @@ class ShibbolethController < ApplicationController
     name
   end
 
+  # Returns the shibboleth login from the data stored in the session.
+  def shib_login_from_session
+    login = nil
+    if session[:shib_data]
+      login   = session[:shib_data][current_site.shib_login_field]
+      login ||= shib_name_from_session()
+    end
+    login
+  end
+
   # Returns the shibboleth data stored in the session.
   def shib_data_from_session
     session[:shib_data]
@@ -177,10 +208,10 @@ class ShibbolethController < ApplicationController
     token
   end
 
-  def create_account(name, email)
-    password = SecureRandom.hex(16)
+  def create_account(name, email, login)
     unless User.find_by_email(email)
-      user = User.create!(:login => name.clone, :email => email,
+      password = SecureRandom.hex(16)
+      user = User.create!(:login => login, :email => email,
                           :password => password, :password_confirmation => password)
       user.activate
       user.profile.update_attributes(:full_name => name)
@@ -198,15 +229,19 @@ class ShibbolethController < ApplicationController
     # FAKE TEST DATA
     request.env["Shib-Application-ID"] = "default"
     request.env["Shib-Session-ID"] = "09a612f952cds995e4a86ddd87fd9f2a"
-    request.env["Shib-Identity-Provider"] = "https://login.teste.ufrgs.br/idp/shibboleth"
+    request.env["Shib-Identity-Provider"] = "https://login.somewhere/idp/shibboleth"
     request.env["Shib-Authentication-Instant"] = "2011-09-21T19:11:58.039Z"
     request.env["Shib-Authentication-Method"] = "urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport"
     request.env["Shib-AuthnContext-Class"] = "urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport"
     request.env["Shib-brEduPerson-brEduAffiliationType"] = "student;position;faculty"
     request.env["Shib-eduPerson-eduPersonPrincipalName"] = "75a988943825d2871e1cfa75473ec0@ufrgs.br"
-    request.env["Shib-inetOrgPerson-cn"] = "JOAO DA SILVA"
-    request.env["Shib-inetOrgPerson-mail"] = "invalido@ufrgs.br"
-    request.env["Shib-inetOrgPerson-sn"] = "JOAO DA SILVA"
+    request.env["Shib-inetOrgPerson-cn"] = "Rick Astley"
+    request.env["Shib-inetOrgPerson-sn"] = "Rick Astley"
+    request.env["Shib-inetOrgPerson-mail"] = "nevergonnagiveyouup@rick.com"
+    request.env["cn"] = "Rick Astley"
+    request.env["mail"] = "nevergonnagiveyouup@rick.com"
+    request.env["ufrgsVinculo"] = "anything in here"
+    request.env["uid"] = "00000000000"
   end
 
 end

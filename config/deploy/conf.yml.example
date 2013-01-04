@@ -35,4 +35,4 @@ production:
   user: "mconf"
   repository: "git://github.com/mconf/mconf-web.git"
   scm: "git"
-  branch: "v0.6"
+  branch: "v0.7"

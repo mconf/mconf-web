@@ -65,11 +65,11 @@
                 <%= f.text_field :country %></div>
 
                 <h4 class="margin-up"><%= t('description') %></h4>
-                <div class="margin-up" id="profile_description"><label for="description"><%= "Write something about you" %></label>
+                <div class="margin-up" id="profile_description"><label for="description"><%= t('profile.description.message') %></label>
                 <%= f.text_area :description, :size => "34x7" %></div>
 
                 <h4><%= t('url') %></h4>
-                <div class="margin-up"><label for="url"><%= "Add your website" %></label>
+                <div class="margin-up"><label for="url"><%= t('profile.url.add') %></label>
                 <%= f.text_field :url%></div>
         </div>
 </div>

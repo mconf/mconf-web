@@ -1,0 +1,17 @@
+<VirtualHost *:80>
+
+  # Shows the maintenance page if it exists
+  ErrorDocument 503 /system/maintenance.html
+  RewriteEngine On
+  RewriteCond %{REQUEST_URI} !\.(css|gif|jpg|png)$
+  RewriteCond %{DOCUMENT_ROOT}/system/maintenance.html -f
+  RewriteCond %{SCRIPT_FILENAME} !maintenance.html
+  RewriteRule ^.*$  -  [redirect=503,last]
+
+  ServerName YOUR_HOST
+  DocumentRoot /YOUR_MCONF_WEB/public
+  <Directory /YOUR_MCONF_WEB/public>
+    AllowOverride all
+    Options -MultiViews
+  </Directory>
+</VirtualHost>

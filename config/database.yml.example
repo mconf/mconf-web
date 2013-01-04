@@ -1,21 +1,22 @@
-# sqlite3 for development and testing
-# mysql2 for production
+# mysql2 for all environments
 
 development:
-  adapter: sqlite3
-  database: db/development.sqlite3
-  pool: 5
-  timeout: 5000
+  adapter: mysql2
+  database: mconf_development         # mysql database name
+  username: mconf                     # mysql database user
+  password: secret-pass               # mysql database password
+  socket: /var/run/mysqld/mysqld.sock
 
 test:
-  adapter: sqlite3
-  database: db/test.sqlite3
-  pool: 5
-  timeout: 5000
+  adapter: mysql2
+  database: mconf_test                # mysql database name
+  username: mconf                     # mysql database user
+  password: secret-pass               # mysql database password
+  socket: /var/run/mysqld/mysqld.sock
 
 production:
   adapter: mysql2
   database: mconf_production           # MySQL database name
-  username: root                       # MySQL database user
-  password: mysecretpass               # MySQL database password
+  username: mconf                      # MySQL database user
+  password: secret-pass                # MySQL database password
   socket: /var/run/mysqld/mysqld.sock

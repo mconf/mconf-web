@@ -981,6 +981,7 @@ en:
     deleted: "Profile deleted successfully"
     description: 
       add: "Short bio"
+      message: "Write something about you"
     error: 
       exist: "Your profile already exists"
     header_title: "User profile"
@@ -991,6 +992,8 @@ en:
     public: "Public profile"
     public_description: "Anyone can access this information"
     updated: "Profile updated successfully"
+    url: 
+      add: "Add your website"
     visibility: Visibility
     visibility_description: "Choose who will be able to see your private profile"
     visibility_edit: "Edit your profile visibility"
@@ -1161,12 +1164,16 @@ en:
     shib_email_field: "Shibboleth field for email"
     shib_email_field_tip: "When a user authenticates in a Shibboleth service provider this field will be used to obtain the user's email. Example: Shib-inetOrgPerson-mail"
     shib_enabled: "Enable Shibboleth"
+    shib_env_variables: "Shibboleth environment variables"
+    shib_env_variables_tip: "Shibboleth returns a set of environment variables when the user authenticates. All the variables specified in this list will be fetched from the environment and set as Shibboleth variables for the user. Specify each variable in a different line. The comparisons are case-insensitive and the strings are trimmed, and you can also use regular expressions. If this field is empty all variables that start with \"Shib-\" will be fetched."
+    shib_login_field: "Shibboleth field for login"
+    shib_login_field_tip: "When a user authenticates in a Shibboleth service provider this field will be used to obtain the user's login. If not specified, will use the user's name as the login. Example: Shib-inetOrgPerson-sn"
     shib_name_field: "Shibboleth field for name"
     shib_name_field_tip: "When a user authenticates in a Shibboleth service provider this field will be used to obtain the user's name. Example: Shib-inetOrgPerson-sn"
     signature: Signature
-    smtp_auth_type: "STMP authentication type"
+    smtp_auth_type: "SMTP authentication type"
     smtp_auto_start_tls: "Auto start TLS in SMTP"
-    smtp_domain: "STMP domain"
+    smtp_domain: "SMTP domain"
     smtp_login: "SMTP login"
     smtp_login_tip: "The login email to your SMTP server."
     smtp_password: "SMTP password"
@@ -1174,7 +1181,7 @@ en:
     smtp_port: "SMTP port"
     smtp_sender: "SMTP sender"
     smtp_server: "SMTP server"
-    smtp_use_tls: "Use TLS in STMP"
+    smtp_use_tls: "Use TLS in SMTP"
     ssl: SSL
     ssl_tip: "With SSL enabled all the internal links (including pages, images, attachments) will use the protocol https instead of http"
   size: Size

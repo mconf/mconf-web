@@ -1,4 +1,4 @@
-/home/mconf/mconf-web/shared/log/production.log {
+/home/mconf/mconf-web/current/log/production.log {
          weekly
          size 20M
          copytruncate
@@ -8,7 +8,7 @@
          notifempty
 }
 
-/home/mconf/mconf-web/shared/log/*delayed_job*.log {
+/home/mconf/mconf-web/current/log/*delayed_job*.log {
          weekly
          size 50k
          copytruncate
