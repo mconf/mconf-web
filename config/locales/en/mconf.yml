@@ -238,6 +238,7 @@ en:
     add_new: "Add a new comment"
     by: "comment by %{author}"
     delete: "Delete comment"
+    not_spam: "Is %{element} not a spam?"
     edit: "Edit comment"
     new: "New comment"
     one: Comment
