@@ -12,7 +12,7 @@
           .spam_posts
             .group_links
               = link_to(image_tag("icons/cancel.png", :alt => "delete",:class=>"icon"), space_post_path(spam.space,spam), {:method => :delete, :class => 'delete_post_link', :title => t('comment.delete'), :confirm => t('delete.confirm', :element=> spam.title)})
-              = link_to(image_tag("icons/accept.png", :alt => "post",:class=>"icon"), space_post_path(spam.space,spam,:post => { :spam => false }), {:method => :put, :class => 'delete_post_link', :title => t('comment.delete'), :confirm => t('delete.confirm', :element=> spam.title)})
+              = link_to(image_tag("icons/accept.png", :alt => "post",:class=>"icon"), space_post_path(spam.space,spam,:post => { :spam => false }), {:method => :put, :class => 'delete_post_link', :title => t('comment.delete'), :confirm => t('comment.not_spam', :element=> spam.title)})
             .spam_title
               Post Title: 
               = link_to spam.title, space_post_path(spam.space, spam),:class=>"unified_posts"

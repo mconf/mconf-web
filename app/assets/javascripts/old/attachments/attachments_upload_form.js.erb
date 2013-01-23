@@ -1,0 +1,9 @@
+$(document).ready(function(){
+  if($("#upload_field").value != null){
+    $("#button_submit").show();
+  }
+});
+
+$("#upload_field").livequery("change", function(){
+    $("#button_submit").show();
+});

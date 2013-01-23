@@ -9,11 +9,20 @@
 class AttachmentsController < ApplicationController
   include ActionController::StationResources
 
-  #before_filter :space!
+  before_filter :space!
+  before_filter :webconf_room!
   load_and_authorize_resource :space
   load_and_authorize_resource :attachment, :through => :space
 
+  layout 'spaces_show'
+
   def index
+    # gon usage for making @space and other variables available to js
+    gon.clear
+    gon.space = @space
+    # TODO see better way to use paths with gon
+    gon.attachments_path = space_attachments_path(@space)
+    gon.form_auth_token = form_authenticity_token()
     attachments
     respond_to do |format|
       format.html

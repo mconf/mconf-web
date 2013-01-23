@@ -1,0 +1,12 @@
+%div{ :class => "grey_bar button_wrapper" }
+  #first_button_group.float_left
+    - if user_signed_in? && can?(:read,attachment)
+      = link_to ("<span>#{t('document.upload')}</span>").html_safe,new_space_attachment_path(@space),                 {:id=>"add_document_label_link",:class=>"repository_sidebar_action grey_button basic_button small_button"}
+    - else
+      =link_to ("<span>#{t('document.upload')}</span>").html_safe,'#',
+{:id=>"add_document_label_link",:class=>"repository_sidebar_action grey_button basic_button small_button disabled_button"}
+    .float_left
+      = link_to ("<span>#{t('repository.download')}</span>").html_safe,'#', {:id=>"multiple_download",:class=>"grey_button basic_button small_button disabled_button"}
+      = link_to ("<span>#{t('repository.remove')}</span>").html_safe,'#', {:id=>"multiple_delete",:class=>"grey_button basic_button small_button disabled_button"}
+    %span{ :id => "selected_info" }
+    .clearer
