@@ -1,0 +1,96 @@
+<%= content_for :search do  %>
+  <%= render :partial => 'search/form' %>
+<%end%>
+
+<%= render :partial => 'manage/menu' %>
+
+<div id="manage">
+
+  <p>
+    <label><%= BigbluebuttonRecording.human_attribute_name(:id) %>:</label>
+    <span class="value"><%= @recording.id %></span>
+  </p>
+
+  <p>
+    <label><%= BigbluebuttonRecording.human_attribute_name(:recordid) %>:</label>
+    <span class="value"><%= @recording.recordid %></span>
+  </p>
+
+  <p>
+    <label><%= BigbluebuttonRecording.human_attribute_name(:name) %>:</label>
+    <span class="value"><%= @recording.name %></span>
+  </p>
+
+  <p>
+    <label><%= BigbluebuttonRecording.human_attribute_name(:server_id) %>:</label>
+    <span class="value">
+      <%= @recording.server_id %>
+      <%= link_to('(view server)', bigbluebutton_server_path(@recording.server)) unless @recording.server.nil? %>
+    </span>
+  </p>
+
+  <p>
+    <label><%= BigbluebuttonRecording.human_attribute_name(:room_id) %>:</label>
+    <span class="value">
+      <%= @recording.room_id %>
+      <%= link_to('(view room)', bigbluebutton_room_path(@recording.room)) unless @recording.room.nil? %>
+    </span>
+  </p>
+
+  <p>
+    <label><%= BigbluebuttonRecording.human_attribute_name(:meetingid) %>:</label>
+    <span class="value"><%= @recording.meetingid %></span>
+  </p>
+
+  <p>
+    <label><%= BigbluebuttonRecording.human_attribute_name(:published) %>:</label>
+    <span class="value"><%= @recording.published %></span>
+  </p>
+
+  <p>
+    <label><%= BigbluebuttonRecording.human_attribute_name(:start_time) %>:</label>
+    <span class="value"><%= @recording.start_time %></span>
+  </p>
+
+  <p>
+    <label><%= BigbluebuttonRecording.human_attribute_name(:end_time) %>:</label>
+    <span class="value"><%= @recording.end_time %></span>
+  </p>
+
+  <p>
+    <label><%= BigbluebuttonRecording.human_attribute_name(:metadata) %>:</label>
+    <span class="value">
+      <% @recording.metadata.each do |metadata| %>
+        <%= metadata.attributes.except("id", "owner_id", "owner_type", "updated_at", "created_at") %>,
+      <% end %>
+    </span>
+  </p>
+
+  <p>
+    <label><%= BigbluebuttonRecording.human_attribute_name(:playback_formats) %>:</label>
+    <span class="value">
+      <% @recording.playback_formats.each do |format| %>
+        <%= format.attributes.except("id", "recording_id", "updated_at", "created_at") %>,
+      <% end %>
+    </span>
+  </p>
+
+  <p>
+    <label>Play:</label>
+    <span class="value">
+      <%= link_to t('bigbluebutton_rails.recordings.default'), play_bigbluebutton_recording_path(@recording) %>
+      <% @recording.playback_formats.each do |format| %>
+        <%= link_to format.format_type, play_bigbluebutton_recording_path(@recording, :type => format.format_type) %>
+      <% end %>
+    </span>
+  </p>
+
+  <br/><br/>
+  <%= link_to t('edit'), edit_bigbluebutton_recording_path(@recording), :class => 'basic_button medium_button blue_button' %>
+  <%= link_to t('bigbluebutton_rails.recordings.publish'), publish_bigbluebutton_recording_path(@recording), :confirm => 'Are you sure?', :method => :post, :class => 'basic_button medium_button blue_button' %>
+  <%= link_to t('bigbluebutton_rails.recordings.unpublish'), unpublish_bigbluebutton_recording_path(@recording), :confirm => 'Are you sure?', :method => :post, :class => 'basic_button medium_button blue_button' %>
+  <%= link_to t('destroy'), bigbluebutton_recording_path(@recording), :confirm => 'Are you sure?', :method => :delete, :class => 'basic_button medium_button blue_button' %>
+  <br/><br/>
+  <%= link_to t('back'), bigbluebutton_recordings_path, :class => 'basic_button medium_button blue_button' %>
+
+</div>

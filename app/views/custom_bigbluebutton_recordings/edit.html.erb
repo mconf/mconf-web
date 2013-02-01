@@ -1,0 +1,12 @@
+<%= content_for :search do  %>
+  <%= render :partial => 'search/form' %>
+<%end%>
+
+<%= render :partial => 'manage/menu' %>
+
+<div id="manage">
+  <%= render 'form' %>
+  <br/>
+  <%= link_to t('show'), bigbluebutton_recording_path(@recording), :class => 'basic_button blue_button' %>
+  <%= link_to t('back'), bigbluebutton_recordings_path, :class => 'basic_button blue_button' %>
+</div>

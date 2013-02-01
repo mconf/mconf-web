@@ -1,6 +1,10 @@
 Mconf::Application.routes.draw do
 
-  bigbluebutton_routes :default, :controllers => { :servers => 'custom_bigbluebutton_servers', :rooms => 'custom_bigbluebutton_rooms' }
+  bigbluebutton_routes :default, :controllers => {
+    :servers => 'custom_bigbluebutton_servers',
+    :rooms => 'custom_bigbluebutton_rooms',
+    :recordings => 'custom_bigbluebutton_recordings'
+  }
 
   get '/secure', :to => 'shibboleth#login', :as => "shib_login"
   get '/secure/info', :to => 'shibboleth#info', :as => "shib_info"

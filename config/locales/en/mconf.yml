@@ -127,7 +127,12 @@ en:
       role: Role
     new_room: "New room"
     new_server: "New server"
+    recordings: 
+      default: Default
+      publish: Publish
+      unpublish: Unpublish
     rooms: 
+      add_metadata: "Add metadata"
       external: 
         header: "This meeting was created from another application.<br/>You must provide a name and a password to join:"
       index: 
@@ -136,6 +141,7 @@ en:
         new_room: "New room"
       invite: Invite
       join_mobile: "Join mobile"
+      metadata_after_create: "Metadata can be only added after a room is created"
     servers: 
       activity: 
         activity: Activity
@@ -153,6 +159,12 @@ en:
         title: "Server activity monitor"
       index: 
         access_links: "Access links"
+      recordings: 
+        fetch: "Fetch recordings"
+        publish: "Publish recordings"
+        unpublish: "Unpublish recordings"
+    view_recording_list: "View recording list"
+    view_recordings: "View recordings"
     view_room_list: "View room list"
     view_rooms: "View rooms"
     view_server_list: "View server list"

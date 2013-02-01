@@ -1,6 +1,10 @@
+/*
+ * Used in bigbluebutton_servers/activity
+ */
+
 .bbbrails_meeting_description {
   padding: 5px;
-  margin-bottom: 20px;
+  margin-top: 20px;
 }
 
 .bbbrails_meeting_description span.running {
@@ -59,7 +63,6 @@
   padding: 3px;
 }
 
-
 /*
  * Used in bigbluebutton_servers/index
  */
@@ -109,6 +112,33 @@
   clear: both;
 }
 
+/*
+ * Used in bigbluebutton_recordings/index
+ */
+
+#bbbrails_recordings_list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+#bbbrails_recordings_links {
+  margin-bottom: 5px;
+  padding-bottom: 5px;
+}
+
+.bbbrails_recording {
+  margin-bottom: 15px;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  clear: both;
+}
+
+#bbbrails_recordings_link {
+  margin-bottom: 5px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #ddd;
+}
 
 /*
  * Used in bigbluebutton_servers/activity
