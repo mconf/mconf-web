@@ -26,7 +26,8 @@ GIT
 
 GIT
   remote: git://github.com/mconf/bigbluebutton_rails.git
-  revision: 9bc732c9d94845f5ab323fbd9dc9ce7e8925076b
+  revision: 6f35c9a4ad20259db1046af687ab1d32747dc658
+  branch: recordings
   specs:
     bigbluebutton_rails (1.2.0)
       bigbluebutton-api-ruby (~> 1.1.0)

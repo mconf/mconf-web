@@ -26,3 +26,8 @@ every :monday, :at => '2pm' do
   # send weekly digest emails
   runner "Mconf::DigestEmail.send_weekly_digest"
 end
+
+every 30.minutes do
+  # Sync the list of recordings
+  rake "bigbluebutton_rails:recordings:update"
+end
