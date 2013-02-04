@@ -60,14 +60,16 @@
   </p>
 </div>
 
-<div>
-  <p class="main_text">
-    <div class="people-connect-title">
-      <h3 style="clear: both">
-        <%= t('space.recordings.latest_recordings', :count => @recordings.count) %>
-        <%= link_to t('space.recordings.view_all'), recordings_space_path(@space), :class => 'title-options' %>
-      </h3>
-    </div>
-    <%= render :partial => 'recordings/recording_list', :locals => {:recordings => @recordings} %>
-  </p>
-</div>
+<% if @recordings.count > 0 %>
+  <div>
+    <p class="main_text">
+      <div class="people-connect-title">
+        <h3 style="clear: both">
+          <%= t('space.recordings.latest_recordings', :count => @recordings.count) %>
+          <%= link_to t('space.recordings.view_all'), recordings_space_path(@space), :class => 'title-options' %>
+        </h3>
+      </div>
+      <%= render :partial => 'recordings/recording_list', :locals => {:recordings => @recordings} %>
+    </p>
+  </div>
+<% end %>
