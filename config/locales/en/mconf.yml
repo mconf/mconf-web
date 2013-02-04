@@ -711,6 +711,14 @@ en:
     no_rooms: "You have no webconference rooms."
     not_running: "not running"
     one: home
+    recordings: 
+      duration: Duration
+      ended_at: "Ended at"
+      latest_recordings: "Your latest %{count} recordings"
+      started_at: "Started at"
+      playback: Playback
+      title: Recordings
+      view_all: "view all recordings..."
     running_with: 
       no_participants: "running with no participants"
       participants: 

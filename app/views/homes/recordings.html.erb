@@ -1,0 +1,10 @@
+<%= content_for :search do  %>
+  <%= render :partial => 'search/form' %>
+<%end%>
+
+<div id="webconference-rooms">
+  <div class="my-webconference-rooms">
+    <h3><%= t('home.recordings.title') %></h3>
+    <%= render :partial => 'recording_list', :locals => {:recordings => @recordings} %>
+  </div>
+</div>

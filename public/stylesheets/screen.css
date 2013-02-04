@@ -2812,3 +2812,54 @@ h3.dialog_title {
 .errorExplanation ul {
   list-style: none;
 }
+
+#user-recordings {
+  margin-top: 10px;
+}
+
+#webconference-rooms h4 {
+  color: #244974;
+  padding: 5px;
+  margin: 5px 0;
+}
+
+#webconference-rooms .recordings-view-all {
+  margin: 5px;
+  float: right;
+}
+
+#user-recordings .user-recording {
+  list-style-type: none;
+  margin: 0;
+}
+
+#user-recordings .user-recording-details {
+  width: 100%;
+  color: #666;
+  margin-left: 10px;
+  margin-top: 3px;
+}
+
+#user-recordings .user-recording .recording-name {
+  font-size: 12px;
+}
+
+#user-recordings .user-recording .thread-even {
+  background: #EAF5FC;
+}
+
+#user-recordings .user-recording li {
+  padding: 7px 10px;
+}
+
+#user-recordings .user-recordings .playback-link {
+  border-right: 1px solid #bbb;
+  padding-right: 4px;
+  margin-right: 4px;
+}
+
+#user-recordings .user-recordings .playback-link:last-child {
+  border-right: 0;
+  margin-right: 0;
+  padding-right: 0;
+}

@@ -31,8 +31,7 @@
   });
 
   $("#webconference-rooms .invite_url_button").livequery('click', function(event) {
-    id = $(this).attr('id').replace("invite_url_button-", "");
-    $("#invite_url-" + id).toggle('fast');
+    $("#invite_url").toggle('fast');
   });
 
   $("#new-webconf-room #private").livequery('click', function(event) {
@@ -49,55 +48,54 @@
 
 <% end %>
 
-
 <div id="webconference-rooms">
   <div class="my-webconference-rooms">
     <h3>
       <%= t('webconference.my_webconference') %>
     </h3>
     <div class="room_list">
-      <% if @bbb_rooms.empty? %>
+      <% if @room.nil? %>
         <span class="updated"><%= t('home.no_rooms') %></span>
       <% else %>
-        <ul>
-        <% button_id = 0 %>
-        <% @bbb_rooms.each do |room| %>
-          <li>
-            <%= link_to t('button.join'), join_bigbluebutton_room_path(room), :class => 'basic_button small_button orange_pale_button clean_popup' %>
-            <%= mobile_icon_link(join_mobile_bigbluebutton_room_path(room)) %>
-            <span class="room_name">
-              <%= room.name %>
-            </span>
-            <span class="updated">
-              <% if room.is_running? %>
-                <% if room.participant_count == 0 %>
-                  <% text = t('home.running_with.no_participants') %>
-                <% else %>
-                  <% text = t('home.running_with.participants', :count => room.participant_count) %>
-                <% end %>
+        <div>
+          <%= link_to t('button.join'), join_bigbluebutton_room_path(@room), :class => 'basic_button small_button orange_pale_button clean_popup' %>
+          <%= mobile_icon_link(join_mobile_bigbluebutton_room_path(@room)) %>
+          <span class="room_name">
+            <%= @room.name %>
+          </span>
+          <span class="updated">
+            <% if @room.is_running? %>
+              <% if @room.participant_count == 0 %>
+                <% text = t('home.running_with.no_participants') %>
               <% else %>
-                <% text = t('home.not_running') %>
+                <% text = t('home.running_with.participants', :count => @room.participant_count) %>
               <% end %>
-              <% text = "(" + text + ")" %>
-              <%= text %>
-            </span>
-            <span class="float_right">
-              <%= link_to t('button.invite'), inviteroom_invite_path(:type => "webconference", :room => room.to_param), :id => 'invite_bbb_link', :class => 'basic_button small_button pale_button'%>
-              <%= link_to t('home.view_invite_url'), '#', :id => "invite_url_button-#{button_id}", :class => 'basic_button small_button invite_url_button pale_button'%>
-              <%= link_to t('button.edit'), edit_bbb_room_user_path(current_user, :room => room.to_param), :id => "edit_bbb_room", :class => 'basic_button small_button pale_button' %>
-            </span>
-            <div class="invite_url url_share" id="invite_url-<%= button_id %>">
-              <span class="only_url"><%= t('home.invite_url') + ":" %> </span>
-              <span class="blue" id="invite_url_text-<%= button_id %>"><%= join_webconf_url(room) %></span>
-              <%= clippy(:id => "invite_url_text-#{button_id}", :bg_color => "#FFFFFF").html_safe %>
-            </div>
+            <% else %>
+              <% text = t('home.not_running') %>
+            <% end %>
+            <% text = "(" + text + ")" %>
+            <%= text %>
+          </span>
+          <span class="float_right">
+            <%= link_to t('button.invite'), inviteroom_invite_path(:type => "webconference", :room => @room.to_param), :id => 'invite_bbb_link', :class => 'basic_button small_button pale_button'%>
+            <%= link_to t('home.view_invite_url'), '#', :id => "invite_url_button", :class => 'basic_button small_button invite_url_button pale_button'%>
+            <%= link_to t('button.edit'), edit_bbb_room_user_path(current_user, :room => @room.to_param), :id => "edit_bbb_room", :class => 'basic_button small_button pale_button' %>
+          </span>
+          <div class="invite_url url_share" id="invite_url">
+            <span class="only_url"><%= t('home.invite_url') + ":" %> </span>
+            <span class="blue" id="invite_url_text"><%= join_webconf_url(@room) %></span>
+            <%= clippy(:id => "invite_url_text", :bg_color => "#FFFFFF").html_safe %>
+          </div>
+          <div class="clearer"></div>
 
-            <div class="clearer"></div>
-          </li>
+        </div>
 
-          <% button_id += 1 %>
-        <% end %>
-        </ul>
+        <h4><%= t('home.recordings.latest_recordings', :count => @recordings.count) %></h4>
+        <%= render :partial => 'recording_list', :locals => {:recordings => @recordings} %>
+        <a class="recordings-view-all" href="<%= recordings_home_path %>"><%= t('home.recordings.view_all') %></a>
+
+        <div class="clearer"></div>
+
       <% end %>
     </div>
   </div>
