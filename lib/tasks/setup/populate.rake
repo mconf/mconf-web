@@ -165,6 +165,7 @@ namespace :setup do
           room.logout_url = "/spaces/#{space.permalink}"
           room.external = false
           room.param = space.name.parameterize.downcase
+          room.uniqueid = "#{SecureRandom.hex(16)}-#{Time.now.to_i}"
         end
       end
     end
@@ -216,6 +217,44 @@ namespace :setup do
         end
       end
 
+    end
+
+    puts "* Create recordings and metadata for all webconference rooms"
+    BigbluebuttonRoom.all.each do |room|
+      BigbluebuttonRecording.populate 2..10 do |recording|
+        recording.room_id = room.id
+        recording.server_id = room.server.id
+        recording.recordid = "rec-#{SecureRandom.hex(16)}-#{Time.now.to_i}"
+        recording.meetingid = room.meetingid
+        recording.name = Populator.words(3..8).titleize
+        recording.published = true
+        recording.start_time = 5.months.ago..Time.now
+        recording.end_time = recording.start_time + rand(5).hours
+
+        # Recording metadata
+        BigbluebuttonMetadata.populate 2..6 do |meta|
+          meta.owner_id = recording.id
+          meta.owner_type = recording.class.to_s
+          meta.name = "#{Populator.words(1)}-#{meta.id}"
+          meta.content = Populator.words(2..8)
+        end
+
+        # Recording playback formats
+        BigbluebuttonPlaybackFormat.populate 1..3 do |format|
+          format.recording_id = recording.id
+          format.format_type = "#{Populator.words(1)}-#{format.id}"
+          format.url = "http://" + Faker::Internet.domain_name + "/playback/" + format.format_type
+          format.length = Populator.value_in_range(32..128)
+        end
+      end
+
+      # Room metadata
+      BigbluebuttonMetadata.populate 2..6 do |meta|
+        meta.owner_id = room.id
+        meta.owner_type = room.class.to_s
+        meta.name = "#{Populator.words(1)}-#{meta.id}"
+        meta.content = Populator.words(2..8)
+      end
     end
 
     Post.record_timestamps = false
