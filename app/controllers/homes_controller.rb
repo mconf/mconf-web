@@ -81,7 +81,7 @@ class HomesController < ApplicationController
   def recordings
     @room = current_user.bigbluebutton_room
     @recordings = @room.recordings.published().order("end_time DESC")
-    render :layout => "application_without_sidebar"
+    render "recordings/recordings", :layout => "application_without_sidebar"
   end
 
   private

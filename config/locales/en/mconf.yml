@@ -712,12 +712,7 @@ en:
     not_running: "not running"
     one: home
     recordings: 
-      duration: Duration
-      ended_at: "Ended at"
       latest_recordings: "Your latest %{count} recordings"
-      started_at: "Started at"
-      playback: Playback
-      title: Recordings
       view_all: "view all recordings..."
     running_with: 
       no_participants: "running with no participants"
@@ -1039,6 +1034,12 @@ en:
     warning_pause_recording: "Warning: this action will pause the recording. You will be able to continue with it in the future or publish it. <br/> Do you want to continue?"
     warning_publish_recording: "Warning: this action will publish the recording. In the future you will be able to edit it to cut the beggining and end of the resulting video but you won't be able to record this session again. <br/> Do you want to continue?"
     warning_start_recording: "Warning: this action will stop other recordings of this event in progress. <br/> Do you want to continue?"
+  recordings: 
+    duration: Duration
+    ended_at: "Ended at"
+    started_at: "Started at"
+    playback: Playback
+    title: Recordings
   register: 
     and_participate: "Register To Participate"
     and_participate_description: "To participate in the event you should register"
@@ -1278,6 +1279,9 @@ en:
     recording: 
       one: "Space video"
       other: "Space videos"
+    recordings: 
+      latest_recordings: "Latest %{count} recordings"
+      view_all: "view all recordings..."
     select: Spaces
     show_all: "Show all spaces"
     subscribed_to_none: "You are not subscribed to any space"

@@ -33,14 +33,14 @@
 <% end %>
 
 <div id="space_webconference_description">
-  <% status = @bbb_room.is_running? ? t('webconference.running')+"!" : t('webconference.not_running') %>
+  <% status = @room.is_running? ? t('webconference.running')+"!" : t('webconference.not_running') %>
   <%= t('webconference.space.description', :status => status).html_safe %>
 
   <div class="url_share">
     <div class="video_share">
       <span><%= t('webconference.space.share') %></span>
     </div>
-    <span class="only_url"><%= t('url_plain') %>: </span><span class="blue"><%= join_webconf_url(@bbb_room) %></span>
+    <span class="only_url"><%= t('url_plain') %>: </span><span class="blue"><%= join_webconf_url(@room) %></span>
     <% if logged_in? %>
       <div class="invite_button">
         <%= link_to t('button.invite'), inviteroom_invite_path(:type => "webconference", :room => space.bigbluebutton_room.to_param), :id => 'invite_bbb_link', :class => 'basic_button' %>
@@ -52,10 +52,22 @@
 <div>
   <p class="main_text">
     <div class="people-connect-title">
-      <h3 style="clear: both"><%=image_tag("icons/user.png")%> <%= t('webconference.title_people_conf') %> (<%= @bbb_room.participant_count %>)</h3>
+      <h3 style="clear: both"><%=image_tag("icons/user.png")%> <%= t('webconference.title_people_conf') %> (<%= @room.participant_count %>)</h3>
     </div>
     <% @bbb_attendees.each do |user| %>
       <div><%= render :partial => 'users/detailed_user', :object => user %></div>
     <% end %>
+  </p>
+</div>
+
+<div>
+  <p class="main_text">
+    <div class="people-connect-title">
+      <h3 style="clear: both">
+        <%= t('space.recordings.latest_recordings', :count => @recordings.count) %>
+        <%= link_to t('space.recordings.view_all'), recordings_space_path(@space), :class => 'title-options' %>
+      </h3>
+    </div>
+    <%= render :partial => 'recordings/recording_list', :locals => {:recordings => @recordings} %>
   </p>
 </div>

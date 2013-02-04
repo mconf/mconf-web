@@ -5,14 +5,14 @@
       <span class="recording-name"><%= recording.name %></span>
       <table class="user-recording-details">
         <tr>
-          <td style="width: 40%"><%= t('home.recordings.started_at') %>: <%= recording.start_time %></td>
+          <td style="width: 40%"><%= t('recordings.started_at') %>: <%= recording.start_time %></td>
           <td style="width: 20%">
-            <span title="<%= t('home.recordings.ended_at') %>: <%= recording.end_time %>">
-              <%= t('home.recordings.duration') %>: <%= Time.at(recording.end_time - recording.start_time).utc.strftime("%H:%M") %>
+            <span title="<%= t('recordings.ended_at') %>: <%= recording.end_time %>">
+              <%= t('recordings.duration') %>: <%= Time.at(recording.end_time - recording.start_time).utc.strftime("%H:%M") %>
             </span>
           </td>
           <td style="width: 40%">
-            <%= t('home.recordings.playback') %>:
+            <%= t('recordings.playback') %>:
             <% recording.playback_formats.each do |playback| %>
               <a href="<%= playback.url %>" class="playback-link">
                 <%= playback.format_type %>

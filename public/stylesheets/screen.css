@@ -2863,3 +2863,8 @@ h3.dialog_title {
   margin-right: 0;
   padding-right: 0;
 }
+
+h3 .title-options {
+  float: right;
+  font-weight: normal;
+}

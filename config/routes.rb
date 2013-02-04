@@ -55,6 +55,7 @@ Mconf::Application.routes.draw do
 
     member do
       post :enable
+      get :recordings
     end
 
     resources :users do
