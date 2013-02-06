@@ -110,8 +110,11 @@ class SpacesController < ApplicationController
       muc.join(space_name + conference + "/" + client.jid.node)
       muc.configure(
                     'muc#roomconfig_roomname' => @space.name,
-                    'muc#roomconfig_passwordprotectedroom' => '1',
-                    'muc#roomconfig_roomsecret' => 'teste1'
+                    'muc#roomconfig_passwordprotectedroom' => 1,
+                    'muc#roomconfig_roomsecret' => 'space_password',
+                    'muc#roomconfig_roomdesc' => @space.description,
+                    'muc#roomconfig_persistentroom' => 1
+
       )
       muc.exit
       client.close
