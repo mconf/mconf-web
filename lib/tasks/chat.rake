@@ -25,12 +25,11 @@ namespace :chat do
         conference = conference.gsub('@', "@conference.")
         muc = Jabber::MUC::MUCClient.new(client)
         puts "* Space name: " + space.name + " -- " + space.admins[0].full_name
-        space_name = space.name.tr(' @', '_').downcase
-        muc.join(space_name + conference + "/" + client.jid.node, "teste1")
+        muc.join(space.permalink + conference + "/" + client.jid.node, "newpassword")
         muc.configure({
-                        'muc#roomconfig_roomname' => space_name,
+                        'muc#roomconfig_roomname' => space.name,
                         'muc#roomconfig_passwordprotectedroom' => 1,
-                        'muc#roomconfig_roomsecret' => 'teste1',
+                        'muc#roomconfig_roomsecret' => 'newpassword',
                         'muc#roomconfig_roomdesc' => space.description,
                         'muc#roomconfig_persistentroom' => 1
                       })
