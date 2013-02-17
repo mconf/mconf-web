@@ -4,7 +4,7 @@
 
 <%= content_for :javascript do%>
    $('#timezone img.tooltip_timezone').qtip({
-   content: '<%=t("tooltip.timezone")%>',
+   content: '<%= escape_javascript(t("tooltip.timezone")) %>',
          position: {adjust: { screen: true }},
    show:  'mouseover',
    hide: { when: 'mouseout', fixed: true },
@@ -52,8 +52,3 @@
 
   <button type="submit" class="blue_button basic_button"><%=t('save') %></button>
 <% end -%>
-
-
-
-
-

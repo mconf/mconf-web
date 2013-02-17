@@ -7,14 +7,14 @@
 
 <%= content_for :javascript do%>
   <%= render :partial => 'repository_javascript.js' %>
-  
+
  $('#sidebar img.tooltip_doc_search').qtip({
-   content: '<%=t("tooltip.doc_search")%>',
+   content: '<%= escape_javascript(t("tooltip.doc_search")) %>',
 	 position: {adjust: { screen: true }},
    show:  'mouseover',
    hide: { when: 'mouseout', fixed: true },
    style: 'mystyle'
-  });  
+  });
 <% end %>
 
 <%= content_for :search do  %>
@@ -27,15 +27,15 @@
 		<div class="tag_filter_content">
 			<%= render :partial => 'mixed_filter' %>
 		</div>
-		
+
 		<%= render :partial => 'tag_filter' %>
 
 	</div>
-	
+
 	<%if attachment.errors.any?%>
 	  <%= render :partial => 'upload_form' %>
   <%else%>
-	  <div id="doc_action"></div>  
+	  <div id="doc_action"></div>
 	<%end%>
 <%end%>
 

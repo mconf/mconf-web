@@ -1,30 +1,30 @@
 <%= content_for :javascript do%>
 	//Add and rm tags functions
-	
+
 	$("#tag_filter").show();
 
   hide_table = function(){
     $("#doc_repository").parent().html("<%=escape_javascript(t('repository.loading'))%>");
   }
-	
+
 	tags_array = function(){
 		return $.map($("#attachment_tags_filter option.selected"), function(element){
 		  return element.value;
 		});
   };
-	
+
 	update_tags = function(tags){
 	  if($.deparam.querystring().tags != tags.join(",")){
       hide_table();
       window.location = $.param.querystring(window.location + "", "tags=" + tags.join(","));
     }
 	};
-	
+
 	add_tag = function (){
 	  var tags= tags_array();
 	  update_tags(tags);
 	};
-	
+
 	rm_tag = function (item){
 	  var tags = tags_array();
 		for (var i = 0; i < tags.length; i++) {
@@ -35,7 +35,7 @@
 		}
 	  update_tags(tags);
 	};
-		
+
 	$("#attachment_tags_filter").fcbkcomplete({
 	  cache: true,
 	  filter_case: false,
@@ -48,43 +48,43 @@
 	  onremove: rm_tag,
 	  onselect: add_tag
 	 });
-	 
+
 	 $(".add_tag_filter").click(function(){
 	   hide_table();
 	 });
-	 
+
 	 //Tag list functions
-	 
+
 	 collapse_tag_list = function(){
 	   $("#tag_abc_list").hide();
      $("#tag_used_list").hide();
 		 $("#tag_collapsed_list").show();
 	 }
-	 
+
 	 used_tag_list = function(){
      $("#tag_abc_list").hide();
      $("#tag_used_list").show();
      $("#tag_collapsed_list").hide();
    }
-	 
+
 	 abc_tag_list = function(){
      $("#tag_abc_list").show();
      $("#tag_used_list").hide();
      $("#tag_collapsed_list").hide();
    }
-	 
+
 	 $("a.tag_list_abc_order").click(function(){
 	   abc_tag_list();
 		 return false;
 	 });
-	 
+
 	 $("a.tag_list_used_order").click(function(){
      used_tag_list();
      return false;
    });
-   
+
  $('#tag_filter img.tooltip_tag_by').qtip({
-   content: '<%=t("tooltip.tag_by")%>',
+   content: '<%= escape_javascript(t("tooltip.tag_by")) %>',
 	 position: {adjust: { screen: true }},
    show:  'mouseover',
    hide: { when: 'mouseout', fixed: true },
@@ -100,12 +100,12 @@
 	    <%=options_for_fcbkcomplete(@attachments.map(&:tags).flatten.compact.uniq,:id,:name,@tags).html_safe%>
 	  </select>
 	</div>
-	
+
 	<div id="tag_used_list" class="tag_filter_content">
 		<span>
       <label class="bold"><%=t 'tags_by'%></label>
       <%=image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_tag_by",:style=>"cursor:pointer")%>
-      <label class="bold"><%=t 'popularity'%></label> | 
+      <label class="bold"><%=t 'popularity'%></label> |
       <%=link_to "#{t 'abc'}", "", :class => "tag_list_abc_order"%>
     </span>
 		<ul>
@@ -114,12 +114,12 @@
 	      <%end%>
 		</ul>
 	</div>
-	
+
 	<div id="tag_abc_list" class="tag_filter_content" style="display:none">
 	  <span>
       <label class="bold"><%=t 'tags_by'%></label>
       <%=image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_tag_by",:style=>"cursor:pointer")%>
-      <%=link_to "#{t 'popularity'}", "", :class => "tag_list_used_order"%> | 
+      <%=link_to "#{t 'popularity'}", "", :class => "tag_list_used_order"%> |
       <label class="bold"><%=t 'abc'%></label>
     </span>
       <ul>
@@ -128,7 +128,7 @@
         <%end%>
       </ul>
 	</div>
-	
+
 	<div id="tag_collapsed_list" style="display:none" class="tag_filter_content">
 		<span><label class="bold"><%=t 'tags_by'%> </label><%=link_to "#{t 'popularity'}", "", :class => "tag_list_used_order"%> | <%=link_to "#{t 'abc'}", "", :class => "tag_list_abc_order"%></span>
 	</div>

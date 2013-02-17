@@ -3,7 +3,7 @@
 <%= content_for :javascript do  %>
 
   $('#sidebar img.tooltip_invite_people').qtip({
-    content: '<%=t("tooltip.invite_people")%>',
+    content: '<%= escape_javascript(t("tooltip.invite_people")) %>',
     position: {adjust: { screen: true }},
     show:  'mouseover',
     hide: { when: 'mouseout', fixed: true },

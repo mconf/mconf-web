@@ -1,7 +1,7 @@
 <script type="text/javascript">
   $('#doc_action img.tooltip_upload_doc').livequery(function(){
     $(this).qtip({
-      content: '<%=t("tooltip.tag")%>',
+      content: '<%= escape_javascript(t("tooltip.tag")) %>',
       position: {adjust: { screen: true }},
       show:  'mouseover',
       hide: { when: 'mouseout', fixed: true },
@@ -14,7 +14,7 @@
       $("#button_submit").show();
     }
   });
-  
+
   $("#upload_field").livequery("change", function(){
       $("#button_submit").show();
   });
@@ -31,7 +31,7 @@
           </div>
         </div>
         <div class="new_doc_content">
-          <span class="bold"><%=t('tag.new')%> <%=image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_upload_doc icon",:style=>"cursor:pointer")%></h3></span>                 
+          <span class="bold"><%=t('tag.new')%> <%=image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_upload_doc icon",:style=>"cursor:pointer")%></h3></span>
           <div id=tags>
             <%= select(:attachment, :_tags, @space.tags.map{|u| u.name}, {}, {:multiple=>"multiple"})%>
           </div>
@@ -49,6 +49,6 @@
           </div>
         </div>
       <%end%>
-    </div>  
+    </div>
   </div>
 <%end%>
