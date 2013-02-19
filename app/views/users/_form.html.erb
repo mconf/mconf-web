@@ -29,7 +29,7 @@
   }
 
  $('img.tooltip_user_id').qtip({
-   content: '<%=t("tooltip.user_id")%>',
+   content: '<%= escape_javascript(t("tooltip.user_id")) %>',
    position: {adjust: { screen: true }},
    show:  'mouseover',
    hide: { when: 'mouseout', fixed: true },
@@ -37,7 +37,7 @@
   });
 
  $('img.tooltip_new_password').qtip({
-   content: '<%=t("user.new_password_tip")%>',
+   content: '<%= escape_javascript(t("user.new_password_tip")) %>',
    position: {adjust: { screen: true }},
    show:  'mouseover',
    hide: { when: 'mouseout', fixed: true },

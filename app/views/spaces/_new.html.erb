@@ -176,7 +176,7 @@ function cropImage (c){
 */
 
  $('#space_logo img.tooltip_update_logo').qtip({
-   content: '<%=t("tooltip.update_logo")%>',
+   content: '<%= escape_javascript(t("tooltip.update_logo")) %>',
          position: {adjust: { screen: true }},
    show:  'mouseover',
    hide: { when: 'mouseout', fixed: true },

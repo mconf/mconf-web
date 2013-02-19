@@ -26,7 +26,7 @@
   });
 
  $('#upload_vcard img.tooltip_vcard').qtip({
-   content: '<%=t("tooltip.vcard")%>',
+   content: '<%= escape_javascript(t("tooltip.vcard")) %>',
    show:  'mouseover',
    hide: { when: 'mouseout', fixed: true },
    style: 'mystyle'

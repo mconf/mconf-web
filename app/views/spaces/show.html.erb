@@ -30,7 +30,7 @@
   });
 
  $('#space_views img.tooltip_num_views').qtip({
-   content: '<%=t("tooltip.num_views")%>',
+   content: '<%= escape_javascript(t("tooltip.num_views")) %>',
          position: {adjust: { screen: true }},
    show:  'mouseover',
    hide: { when: 'mouseout', fixed: true },
@@ -38,7 +38,7 @@
   });
 
  $('#sidebar img.tooltip_admin').qtip({
-   content: '<%=t("tooltip.admin")%>',
+   content: '<%= escape_javascript(t("tooltip.admin")) %>',
          position: {adjust: { screen: true }},
    show:  'mouseover',
    hide: { when: 'mouseout', fixed: true },
@@ -46,7 +46,7 @@
   });
 
  $('#sidebar img.tooltip_upcoming').qtip({
-   content: '<%=t("tooltip.upcoming")%>',
+   content: '<%= escape_javascript(t("tooltip.upcoming")) %>',
          position: {adjust: { screen: true }},
    show:  'mouseover',
    hide: { when: 'mouseout', fixed: true },
@@ -54,7 +54,7 @@
   });
 
  $('#sidebar img.tooltip_leave_space').qtip({
-   content: '<%=t("tooltip.leave_space")%>',
+   content: '<%= escape_javascript(t("tooltip.leave_space")) %>',
          position: {adjust: { screen: true }},
    show:  'mouseover',
    hide: { when: 'mouseout', fixed: true },
@@ -62,7 +62,7 @@
   });
 
  $('#latest_news img.tooltip_latest_news').qtip({
-   content: '<%=t("tooltip.latest_news")%>',
+   content: '<%= escape_javascript(t("tooltip.latest_news")) %>',
          position: {adjust: { screen: true }},
    show:  'mouseover',
    hide: { when: 'mouseout', fixed: true },
@@ -70,7 +70,7 @@
   });
 
  $('.webconference-space-sidebar img.tooltip_bigbluebutton_space').qtip({
-   content: '<%=t("tooltip.bigbluebutton_space")%>',
+   content: '<%= escape_javascript(t("tooltip.bigbluebutton_space")) %>',
          position: {adjust: { screen: true }},
    show:  'mouseover',
    hide: { when: 'mouseout', fixed: true },
