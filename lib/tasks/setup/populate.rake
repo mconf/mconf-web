@@ -50,7 +50,7 @@ namespace :setup do
         user.create_bigbluebutton_room :owner => user,
                                        :server => BigbluebuttonServer.first,
                                        :param => user.login,
-                                       :name => user.profile.full_name
+                                       :name => user.login
       end
     end
 

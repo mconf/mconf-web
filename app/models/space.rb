@@ -30,6 +30,7 @@ class Space < ActiveRecord::Base
 
   has_one :bigbluebutton_room, :as => :owner, :dependent => :destroy
   after_update :update_bbb_room
+  after_create :create_bbb_room
 
   has_permalink :name, :permalink, :update => true
 
@@ -51,6 +52,9 @@ class Space < ActiveRecord::Base
   attr_accessor :rand_value
   attr_accessor :logo_rand
 
+  attr_accessor :_attendee_password
+  attr_accessor :_moderator_password
+
   # user.login and space.permalink should be unique
   validate :validate_unique_permalink_against_spaces
 
@@ -68,8 +72,21 @@ class Space < ActiveRecord::Base
 
   end
 
+  def create_bbb_room
+    create_bigbluebutton_room(:owner => self,
+                              :server => BigbluebuttonServer.first,
+                              :param => self.permalink,
+                              :name => self.permalink,
+                              :public => !self.public,
+                              :moderator_password => self._moderator_password,
+                              :attendee_password => self._attendee_password,
+                              :logout_url => "/feedback/webconf/")
+  end
+
   def update_bbb_room
-    bigbluebutton_room.update_attributes(:param => self.permalink, :name => self.name)
+    bigbluebutton_room.update_attributes(:param => self.permalink,
+                                         :name => self.permalink,
+                                         :public => !self.public)
   end
 
   def update_unique_permalink
