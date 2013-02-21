@@ -2206,7 +2206,6 @@ div.my-webconference-rooms h3 {
 div.my-webconference-rooms .room_name {
   color: #8B0000;
   font-weight: bold;
-  margin-left: 5px;
 }
 
 div.my-webconference-rooms span.black_c {
@@ -2215,6 +2214,19 @@ div.my-webconference-rooms span.black_c {
 
 div.my-webconference-rooms div.room_list {
   padding: 0 10px 10px 10px;
+}
+
+div.my-webconference-rooms div.room_list .basic_button {
+  float: left;
+  margin-top: 5px;
+  margin-right: 5px;
+}
+
+#start-webconf {
+  color: green;
+}
+#start-webconf:hover {
+  color: white;
 }
 
 div.my-webconference-rooms div.room_list ul {
@@ -2229,20 +2241,37 @@ div.my-webconference-rooms div.room_list li {
 }
 
 div.my-webconference-rooms div.room_list .invite_url {
-  float: right;
-  clear: right;
-  margin-top: 10px;
-
-  padding: 4px;
-  background:#f0f6f9;
-  border:1px solid #bdd8eb;
-  -moz-border-radius:3px;
-  -webkit-border-radius:3px;
-  display: none;
+  clear: both;
+  background: transparent;
+  margin: 0;
+  padding: 0;
 }
 
-div.my-webconference-rooms div.room_list .invite_url .title {
+div.my-webconference-rooms div.room_list .invite_url .only_url {
+  float: left;
+  margin-top: 5px;
+  margin-right: 5px;
+}
+
+div.my-webconference-rooms div.room_list .invite_url input {
   font-size: 12px;
+  border: 0;
+  background: transparent; //#f0f6f9;
+  border: 1px solid #ddd;
+  padding: 4px 8px;
+  -moz-border-radius:3px;
+  -webkit-border-radius:3px;
+  border-radius:3px;
+  float: left;
+}
+
+#dropdown-join-webconf .mobile_icon {
+  float: none;
+}
+
+#dropdown-join-webconf .mobile_icon img {
+  float: right;
+  margin-left: 6px;
 }
 
 #new_space_webconf_area {
@@ -2867,4 +2896,21 @@ h3.dialog_title {
 h3 .title-options {
   float: right;
   font-weight: normal;
+}
+
+.caret {
+  margin-top: 3px;
+  margin-left: 3px;
+  display: inline-block;
+  width: 0;
+  height: 0;
+  border-right: 4px solid transparent;
+  border-left: 4px solid transparent;
+  border-top: 4px solid black;
+  content: "";
+  vertical-align: top;
+}
+
+a.disabled {
+  color: #888 !important;
 }

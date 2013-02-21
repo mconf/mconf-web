@@ -706,7 +706,7 @@ en:
   his_message_reads_thus: "His message reads thus"
   home: 
     activity: "Recent activity..."
-    invite_url: "Invite URL"
+    invite_url: "URL"
     my: "My Home"
     no_rooms: "You have no webconference rooms."
     not_running: "not running"
@@ -719,7 +719,13 @@ en:
       participants: 
         one: "running with %{count} participant"
         other: "running with %{count} participants"
-    view_invite_url: "View Invite URL"
+    view_invite_url: "View URL"
+    webconf: 
+      configure: "Configure"
+      invite_people: "Invite other people"
+      join_from_mobile: "Join from a mobile device"
+      record: "Record"
+      start: "Start!"
   icalendar: 
     error_import: "An error ocurred while importing the iCalendar."
     import: "Import iCalendar"

@@ -692,7 +692,7 @@ pt-br:
   his_message_reads_thus: "Sua mensagem diz assim"
   home: 
     activity: "Atividade recente..."
-    invite_url: "URL para convites"
+    invite_url: "URL"
     my: "Página inicial"
     no_rooms: "Você não tem salas de webconferência."
     not_running: inativa
@@ -702,7 +702,13 @@ pt-br:
       participants: 
         one: "ativa com %{count} participante"
         other: "ativa com %{count} participantes"
-    view_invite_url: "Ver URL para convites"
+    view_invite_url: "Ver URL"
+    webconf: 
+      configure: "Configurar"
+      invite_people: "Convidar outras pessoas"
+      join_from_mobile: "Entrar com um dispositivo móvel"
+      record: "Gravar"
+      start: "Iniciar!"
   icalendar: 
     error_import: "Ocorreu um erro ao importar o iCalendar."
     import: "Importar iCalendar"
