@@ -19,14 +19,14 @@ GIT
 
 GIT
   remote: git://github.com/mconf/bigbluebutton-api-ruby.git
-  revision: 06e9e5a0a65e2871f7b7316310d0bb1d63c49e3d
+  revision: 8d0958a5d0796eed46e06f9f3bd77e6a64342c26
   specs:
-    bigbluebutton-api-ruby (1.1.1)
+    bigbluebutton-api-ruby (1.1.2)
       xml-simple (>= 1.1.1)
 
 GIT
   remote: git://github.com/mconf/bigbluebutton_rails.git
-  revision: dd507a5de805e1868437f630d1b93ee88b8e21b5
+  revision: 90e989ca044e611109d302ee6d6c045d7bfe22fc
   branch: recordings
   specs:
     bigbluebutton_rails (1.2.0)
@@ -138,13 +138,13 @@ GEM
     jquery-rails (1.0.9)
       railties (~> 3.0)
       thor (~> 0.14)
-    json (1.7.6)
+    json (1.7.7)
     mail (2.2.19)
       activesupport (>= 2.3.6)
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
-    mime-types (1.19)
+    mime-types (1.21)
     mysql2 (0.2.7)
     net-scp (1.0.4)
       net-ssh (>= 1.99.1)
@@ -163,7 +163,7 @@ GEM
     populator (1.0.0)
     prism (0.1.0)
       nokogiri
-    rack (1.2.7)
+    rack (1.2.8)
     rack-mount (0.6.14)
       rack (>= 1.0.0)
     rack-test (0.5.7)
@@ -184,7 +184,7 @@ GEM
       thor (~> 0.14.4)
     rake (0.8.7)
     rcov (0.9.9)
-    rdoc (3.12)
+    rdoc (3.12.1)
       json (~> 1.4)
     rspec (2.6.0)
       rspec-core (~> 2.6.0)
