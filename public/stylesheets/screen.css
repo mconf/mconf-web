@@ -2842,19 +2842,19 @@ h3.dialog_title {
   list-style: none;
 }
 
-#user-recordings {
-  margin-top: 10px;
-}
+
 
 #webconference-rooms h4 {
   color: #244974;
-  padding: 5px;
-  margin: 5px 0;
+  padding: 10px 5px;
+  margin: 10px 0 0 0;
+  border-top: 1px solid #eee;
 }
 
 #webconference-rooms .recordings-view-all {
   margin: 5px;
-  float: right;
+  font-weight: normal;
+  font-size: 10px;
 }
 
 #user-recordings .user-recording {
@@ -2865,7 +2865,6 @@ h3.dialog_title {
 #user-recordings .user-recording-details {
   width: 100%;
   color: #666;
-  margin-left: 10px;
   margin-top: 3px;
 }
 
