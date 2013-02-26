@@ -173,6 +173,7 @@ en:
     accept: Accept
     back_to_event: "Back to event"
     cancel: Cancel
+    click_to_edit: "Click to edit..."
     confirm: Confirm
     create: Create
     creating: "Creating event..."
@@ -189,6 +190,7 @@ en:
     post: Post
     publish: Publish
     remove: Remove
+    saving_dots: "Saving..."
     search: Search
     send: Send
     sending: Sending...

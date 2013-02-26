@@ -154,7 +154,11 @@ class UsersController < ApplicationController
         format.html {
           redirect_to(home_path(user))
         }
-        format.json { render :json => @user }
+        format.json {
+          render :json => @user.bigbluebutton_room.to_json(
+            :include => :metadata
+          )
+        }
       end
     else
       respond_to do |format|

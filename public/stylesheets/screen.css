@@ -2285,14 +2285,30 @@ div.my-webconference-rooms div.room_list .invite_url input {
   width: 20px;
 }
 
-#dropdown-join-webconf #recording-title {
+#dropdown-join-webconf .editable {
+  background: white;
   width: 260px;
 }
 
-#dropdown-join-webconf textarea {
-  width: 260px;
-  height: 50px;
-  resize: vertical;
+#dropdown-join-webconf #recording-title textarea {
+  width: 250px !important;
+  resize: none;
+}
+
+#dropdown-join-webconf #recording-description textarea {
+  width: 250px !important;
+  height: 50px !important;
+  resize: none;
+}
+
+#dropdown-join-webconf #recording-options button {
+  font-size: 11px;
+  padding: 3px 5px;
+  border-radius: 4px;
+  -moz-border-radius:0;
+  margin:0;
+  background:url("../images/buttons/grey-button.png") repeat-x scroll 0 4%;
+  border:1px solid #999999;
 }
 
 #dropdown-join-webconf #recording-options {
@@ -2950,4 +2966,15 @@ h3 .title-options {
 
 a.disabled {
   color: #888 !important;
+}
+
+.editable {
+  border: 1px solid #eee;
+  padding: 3px;
+  -webkit-border-radius:4px;-moz-border-radius:4px;border-radius:4px;
+}
+
+.editable:hover {
+  border-color: #A8C0D1;
+  cursor: pointer;
 }

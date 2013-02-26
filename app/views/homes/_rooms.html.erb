@@ -108,55 +108,51 @@
     });
   });
 
-  $("#recording-title").blur(function () {
-    var input = $(this);
-    if (input.val() == lastRecordingTitle)
-      return;
-    lastRecordingTitle = input.val();
-
-    blockStartWebconf();
-    blockRecordingOptions();
-    $.post("<%= user_path(current_user, :format => 'json') %>", {
-      _method: "put",
-      authenticity_token: "<%= form_authenticity_token() %>",
+  $("#recording-title").editable("<%= user_path(current_user, :format => 'json') %>", {
+    indicator: "<%= t('button.saving_dots') %>",
+    tooltip: "<%= t('button.click_to_edit') %>",
+    name: "bigbluebutton_room[metadata_attributes][<%= @room.metadata.index(metaTitle) %>][content]",
+    type: "textarea",
+    method: "PUT",
+    submit: "OK",
+    submitdata: {
       "bbb_room": 1,
-      "bigbluebutton_room[metadata_attributes][<%= @room.metadata.index(metaTitle) %>][content]": lastRecordingTitle,
       "bigbluebutton_room[metadata_attributes][<%= @room.metadata.index(metaTitle) %>][id]": <%= metaTitle.id %>
-    }).fail(function() {
-      // TODO: revert the title? show error?
-      unblockRecordingOptions();
-    }).success(function() {
-      unblockRecordingOptions();
-      unblockStartWebconf();
-    });
+    },
+    ajaxoptions: {
+      dataType: 'json',
+      success: function(result, status) {
+        $("#recording-title")[0].reset();
+        var idx = <%= @room.metadata.index(metaTitle) %>;
+        $("#recording-title").text(result["metadata"][idx]["content"]);
+      }
+    }
   });
 
-  $("#recording-description").blur(function () {
-    var input = $(this);
-    if (input.val() == lastRecordingDesc)
-      return;
-    lastRecordingDesc = input.val();
-
-    blockStartWebconf();
-    blockRecordingOptions();
-    $.post("<%= user_path(current_user, :format => 'json') %>", {
-      _method: "put",
-      authenticity_token: "<%= form_authenticity_token() %>",
+  $("#recording-description").editable("<%= user_path(current_user, :format => 'json') %>", {
+    indicator: "<%= t('button.saving_dots') %>",
+    tooltip: "<%= t('button.click_to_edit') %>",
+    name: "bigbluebutton_room[metadata_attributes][<%= @room.metadata.index(metaDesc) %>][content]",
+    type: "textarea",
+    method: "PUT",
+    submit: "OK",
+    submitdata: {
       "bbb_room": 1,
-      "bigbluebutton_room[metadata_attributes][<%= @room.metadata.index(metaDesc) %>][content]": lastRecordingDesc,
       "bigbluebutton_room[metadata_attributes][<%= @room.metadata.index(metaDesc) %>][id]": <%= metaDesc.id %>
-    }).fail(function() {
-      // TODO: revert the title? show error?
-      unblockRecordingOptions();
-    }).success(function() {
-      unblockRecordingOptions();
-      unblockStartWebconf();
-    });
+    },
+    ajaxoptions: {
+      dataType: 'json',
+      success: function(result, status) {
+        $("#recording-description")[0].reset();
+        var idx = <%= @room.metadata.index(metaDesc) %>;
+        $("#recording-description").text(result["metadata"][idx]["content"]);
+      }
+    }
   });
 
-  $("#recording-duration").keyup(function () {
-    this.value = this.value.replace(/[^0-9\.]/g,'');
-  });
+  <!-- $("#recording-duration").keyup(function () { -->
+  <!--   this.value = this.value.replace(/[^0-9\.]/g,''); -->
+  <!-- }); -->
 
 <% end %>
 
@@ -235,13 +231,11 @@
           <!-- </field> -->
           <div class="field">
             <span><%= t('home.webconf.recording_title') %></span>
-            <% meta = metaTitle.nil? ? "" : metaTitle.content %>
-            <%= text_field_tag 'recording-title', meta, :id => 'recording-title', :placeholder => t('home.webconf.recording_title_placeholder') %>
+            <div id="recording-title" class="editable"><%= metaTitle.nil? ? "" : metaTitle.content %></div>
           </field>
           <div class="field">
             <span><%= t('home.webconf.recording_description') %></span>
-            <% meta = metaDesc.nil? ? "" : metaDesc.content %>
-            <%= text_area_tag 'recording-description', meta, :placeholder => t('home.webconf.recording_description_placeholder') %>
+            <div id="recording-description" class="editable"><%= metaDesc.nil? ? "" : metaDesc.content %></div>
           </field>
         </div>
       </li>

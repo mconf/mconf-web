@@ -161,6 +161,7 @@ pt-br:
     accept: Aceitar
     back_to_event: "Voltar ao evento"
     cancel: Cancelar
+    click_to_edit: "Clique para editar..."
     confirm: Confirme
     create: Criar
     creating: "Criando evento..."
@@ -177,6 +178,7 @@ pt-br:
     post: Postar
     publish: Publicar
     remove: Remover
+    saving_dots: "Gravando..."
     search: Procurar
     send: Enviar
     sending: Enviando...
