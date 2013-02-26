@@ -221,6 +221,14 @@ namespace :setup do
 
     puts "* Create recordings and metadata for all webconference rooms"
     BigbluebuttonRoom.all.each do |room|
+
+      # Basic metadata that should always exist
+      title = room.metadata.where(:name => configatron.metadata.title).first
+      room.metadata.create(:name => configatron.metadata.title) if title.nil?
+      description = room.metadata.where(:name => configatron.metadata.description).first
+      room.metadata.create(:name => configatron.metadata.description) if description.nil?
+
+
       BigbluebuttonRecording.populate 2..10 do |recording|
         recording.room_id = room.id
         recording.server_id = room.server.id
@@ -232,7 +240,7 @@ namespace :setup do
         recording.end_time = recording.start_time + rand(5).hours
 
         # Recording metadata
-        BigbluebuttonMetadata.populate 2..6 do |meta|
+        BigbluebuttonMetadata.populate 1..3 do |meta|
           meta.owner_id = recording.id
           meta.owner_type = recording.class.to_s
           meta.name = "#{Populator.words(1)}-#{meta.id}"

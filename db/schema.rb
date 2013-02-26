@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130201132453) do
+ActiveRecord::Schema.define(:version => 20130226215041) do
 
   create_table "admissions", :force => true do |t|
     t.string   "type"
