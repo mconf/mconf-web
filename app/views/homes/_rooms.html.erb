@@ -1,10 +1,10 @@
-<% metaTitle = @room.metadata.all.select{ |m| m.name == "mconfweb-title" }.first %>
-<% metaDesc = @room.metadata.all.select{ |m| m.name == "mconfweb-description" }.first %>
+<% metaTitle = @room.metadata.all.select{ |m| m.name == configatron.metadata.title }.first %>
+<% metaDesc = @room.metadata.all.select{ |m| m.name == configatron.metadata.description }.first %>
 
 <%= content_for :javascript do  %>
 
-  var lastRecordingTitle = "<%= metaTitle.content %>";
-  var lastRecordingDesc = "<%= metaDesc.content %>";
+  var lastRecordingTitle = "<%= metaTitle ? metaTitle.content : "" %>";
+  var lastRecordingDesc = "<%= metaDesc ? metaDesc.content : "" %>";
 
   $("a#mobile_join").fancybox({
     'hideOnContentClick' : false,
@@ -117,13 +117,13 @@
     submit: "OK",
     submitdata: {
       "bbb_room": 1,
-      "bigbluebutton_room[metadata_attributes][<%= @room.metadata.index(metaTitle) %>][id]": <%= metaTitle.id %>
+      "bigbluebutton_room[metadata_attributes][<%= @room.metadata.index(metaTitle) %>][id]": <%= metaTitle ? metaTitle.id : "null" %>
     },
     ajaxoptions: {
       dataType: 'json',
       success: function(result, status) {
         $("#recording-title")[0].reset();
-        var idx = <%= @room.metadata.index(metaTitle) %>;
+        var idx = <%= @room.metadata.index(metaTitle) || 0 %>;
         $("#recording-title").text(result["metadata"][idx]["content"]);
       }
     }
@@ -138,13 +138,13 @@
     submit: "OK",
     submitdata: {
       "bbb_room": 1,
-      "bigbluebutton_room[metadata_attributes][<%= @room.metadata.index(metaDesc) %>][id]": <%= metaDesc.id %>
+      "bigbluebutton_room[metadata_attributes][<%= @room.metadata.index(metaDesc) %>][id]": <%= metaDesc ? metaDesc.id : "null" %>
     },
     ajaxoptions: {
       dataType: 'json',
       success: function(result, status) {
         $("#recording-description")[0].reset();
-        var idx = <%= @room.metadata.index(metaDesc) %>;
+        var idx = <%= @room.metadata.index(metaDesc) || 0 %>;
         $("#recording-description").text(result["metadata"][idx]["content"]);
       }
     }
