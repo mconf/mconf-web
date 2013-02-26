@@ -154,6 +154,7 @@ class UsersController < ApplicationController
         format.html {
           redirect_to(home_path(user))
         }
+        format.json { render :json => @user }
       end
     else
       respond_to do |format|

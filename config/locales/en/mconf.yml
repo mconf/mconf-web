@@ -725,6 +725,12 @@ en:
       invite_people: "Invite other people"
       join_from_mobile: "Join from a mobile device"
       record: "Record"
+      recording_description: "Description"
+      recording_description_placeholder: "A description for this recording"
+      recording_duration: "Duration"
+      recording_duration_units: "hours"
+      recording_title: "Title"
+      recording_title_placeholder: "A title for this recording"
       start: "Start!"
   icalendar: 
     error_import: "An error ocurred while importing the iCalendar."

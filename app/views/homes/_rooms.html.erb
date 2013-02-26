@@ -1,4 +1,10 @@
+<% metaTitle = @room.metadata.all.select{ |m| m.name == "mconfweb-title" }.first %>
+<% metaDesc = @room.metadata.all.select{ |m| m.name == "mconfweb-description" }.first %>
+
 <%= content_for :javascript do  %>
+
+  var lastRecordingTitle = "<%= metaTitle.content %>";
+  var lastRecordingDesc = "<%= metaDesc.content %>";
 
   $("a#mobile_join").fancybox({
     'hideOnContentClick' : false,
@@ -54,17 +60,102 @@
     $("#start-webconf").removeClass("disabled");
   }
 
+  blockRecordingOptions = function() {
+    $("#recording-options").find("input,textarea").attr("disabled", "disabled");
+  }
+
+  unblockRecordingOptions = function() {
+    $("#recording-options").find("input,textarea").attr("disabled", null);
+
+    // Sometimes the input is focused but the cursor is not being shown
+    if ($("#recording-description").is(":focus")) {
+      var input = $("#recording-description");
+      var v = input.val();
+      input.blur();
+      input.focus().val("").val(v);
+    }
+    if ($("#recording-title").is(":focus")) {
+      var input = $("#recording-title");
+      input.focus().val(input.val());
+    }
+  }
+
+  showHideRecordingOptions = function() {
+    if ($("#record-checkbox").is(":checked")) {
+      $("#recording-options").show();
+    } else {
+      $("#recording-options").hide();
+    }
+  }
+
   $("#record-checkbox").click(function () {
-    var val = $(this).is(":checked");
     var check = $(this);
     blockStartWebconf();
-    $.post("<%= bigbluebutton_room_path(@room, :format => 'json') %>", {
-      _method: "put", authenticity_token: "<%= form_authenticity_token() %>", 'bigbluebutton_room[record]': val
+    blockRecordingOptions();
+    $.post("<%= user_path(current_user, :format => 'json') %>", {
+      _method: "put",
+      authenticity_token: "<%= form_authenticity_token() %>",
+      "bbb_room": 1,
+      "bigbluebutton_room[record]": $(this).is(":checked")
     }).fail(function() {
       check.attr("checked", !check.attr("checked"));
+      unblockRecordingOptions();
+      showHideRecordingOptions();
     }).success(function() {
+      unblockRecordingOptions();
+      unblockStartWebconf();
+      showHideRecordingOptions();
+    });
+  });
+
+  $("#recording-title").blur(function () {
+    var input = $(this);
+    if (input.val() == lastRecordingTitle)
+      return;
+    lastRecordingTitle = input.val();
+
+    blockStartWebconf();
+    blockRecordingOptions();
+    $.post("<%= user_path(current_user, :format => 'json') %>", {
+      _method: "put",
+      authenticity_token: "<%= form_authenticity_token() %>",
+      "bbb_room": 1,
+      "bigbluebutton_room[metadata_attributes][<%= @room.metadata.index(metaTitle) %>][content]": lastRecordingTitle,
+      "bigbluebutton_room[metadata_attributes][<%= @room.metadata.index(metaTitle) %>][id]": <%= metaTitle.id %>
+    }).fail(function() {
+      // TODO: revert the title? show error?
+      unblockRecordingOptions();
+    }).success(function() {
+      unblockRecordingOptions();
       unblockStartWebconf();
     });
+  });
+
+  $("#recording-description").blur(function () {
+    var input = $(this);
+    if (input.val() == lastRecordingDesc)
+      return;
+    lastRecordingDesc = input.val();
+
+    blockStartWebconf();
+    blockRecordingOptions();
+    $.post("<%= user_path(current_user, :format => 'json') %>", {
+      _method: "put",
+      authenticity_token: "<%= form_authenticity_token() %>",
+      "bbb_room": 1,
+      "bigbluebutton_room[metadata_attributes][<%= @room.metadata.index(metaDesc) %>][content]": lastRecordingDesc,
+      "bigbluebutton_room[metadata_attributes][<%= @room.metadata.index(metaDesc) %>][id]": <%= metaDesc.id %>
+    }).fail(function() {
+      // TODO: revert the title? show error?
+      unblockRecordingOptions();
+    }).success(function() {
+      unblockRecordingOptions();
+      unblockStartWebconf();
+    });
+  });
+
+  $("#recording-duration").keyup(function () {
+    this.value = this.value.replace(/[^0-9\.]/g,'');
   });
 
 <% end %>
@@ -133,8 +224,27 @@
     <ul class="dropdown-menu">
       <li><label>
         <%= check_box_tag 'bigbluebutton_room[record]', t('home.webconf.record'), @room.record, :id => 'record-checkbox' %>
-        <%= t('home.webconf.record') %>
+        <span><%= t('home.webconf.record') %></span>
       </label></li>
+      <li>
+        <div id="recording-options" class="<%= 'offscreen' unless @room.record %>">
+          <!-- <div class="field"> -->
+          <!--   <span class="inline"><%= t('home.webconf.recording_duration') %></span> -->
+          <!--   <%= text_field_tag 'bigbluebutton_room[duration]', @room.duration, :id => 'recording-duration' %> -->
+          <!--   <%= t('home.webconf.recording_duration_units') %> -->
+          <!-- </field> -->
+          <div class="field">
+            <span><%= t('home.webconf.recording_title') %></span>
+            <% meta = metaTitle.nil? ? "" : metaTitle.content %>
+            <%= text_field_tag 'recording-title', meta, :id => 'recording-title', :placeholder => t('home.webconf.recording_title_placeholder') %>
+          </field>
+          <div class="field">
+            <span><%= t('home.webconf.recording_description') %></span>
+            <% meta = metaDesc.nil? ? "" : metaDesc.content %>
+            <%= text_area_tag 'recording-description', meta, :placeholder => t('home.webconf.recording_description_placeholder') %>
+          </field>
+        </div>
+      </li>
       <li class="dropdown-divider"></li>
         <li><%= link_to t('home.webconf.invite_people'), inviteroom_invite_path(:type => "webconference", :room => @room.to_param), :id => 'invite_bbb_link' %></li>
         <li>

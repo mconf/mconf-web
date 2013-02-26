@@ -708,6 +708,12 @@ pt-br:
       invite_people: "Convidar outras pessoas"
       join_from_mobile: "Entrar com um dispositivo móvel"
       record: "Gravar"
+      recording_description: "Descrição"
+      recording_description_placeholder: "Descrição para esta gravação"
+      recording_duration: "Duração"
+      recording_duration_units: "horas"
+      recording_title: "Título"
+      recording_title_placeholder: "Título para essa gravação"
       start: "Iniciar!"
   icalendar: 
     error_import: "Ocorreu um erro ao importar o iCalendar."

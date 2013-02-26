@@ -1,3 +1,6 @@
+input, textarea {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
 /* reset.css */
 html,body,div,span,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,code,del,dfn,em,img,q,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;font-weight:inherit;font-style:inherit;font-size:100%;font-family:inherit;vertical-align:baseline;}
 td{text-align:left;}
@@ -2265,6 +2268,10 @@ div.my-webconference-rooms div.room_list .invite_url input {
   float: left;
 }
 
+#dropdown-join-webconf {
+  width: 300px;
+}
+
 #dropdown-join-webconf .mobile_icon {
   float: none;
 }
@@ -2272,6 +2279,37 @@ div.my-webconference-rooms div.room_list .invite_url input {
 #dropdown-join-webconf .mobile_icon img {
   float: right;
   margin-left: 6px;
+}
+
+#dropdown-join-webconf #recording-duration {
+  width: 20px;
+}
+
+#dropdown-join-webconf #recording-title {
+  width: 260px;
+}
+
+#dropdown-join-webconf textarea {
+  width: 260px;
+  height: 50px;
+  resize: vertical;
+}
+
+#dropdown-join-webconf #recording-options {
+  padding: 8px 0 3px 15px;
+  color: #555;
+  background: #f6f6f6;
+  border-radius: 4px;
+}
+
+#dropdown-join-webconf #recording-options span {
+  display: block;
+}
+
+#dropdown-join-webconf #recording-options span.inline {
+  float: left;
+  margin-top: 4px;
+  padding-right: 5px;
 }
 
 #new_space_webconf_area {
