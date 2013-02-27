@@ -1,11 +1,19 @@
 <div id="user-recordings">
   <ul class="user-recording">
     <% recordings.each do |recording| %>
-      <% metaTitle = recording.metadata.all.select{ |m| m.name == configatron.metadata.title }.first %>
-      <% metaDesc = recording.metadata.all.select{ |m| m.name == configatron.metadata.description }.first %>
       <li class="<%= cycle('thread-even' , 'thread-odd') %>">
-        <span class="recording-name"><%= metaTitle.content %></span>:
-        <span class="recording-description"><%= metaDesc.content %></span>
+
+        <% metaTitle = recording.metadata.all.select{ |m| m.name == configatron.metadata.title }.first %>
+        <% metaDesc = recording.metadata.all.select{ |m| m.name == configatron.metadata.description }.first %>
+        <% if metaTitle.nil? %>
+          <span class="recording-name"><%= recording.name %></span>:
+        <% else %>
+          <span class="recording-name"><%= metaTitle.content %></span>:
+        <% end %>
+        <% unless metaDesc.nil? %>
+          <span class="recording-description"><%= metaDesc.content %></span>
+        <% end %>
+
         <table class="user-recording-details">
           <tr>
             <td style="width: 40%"><%= t('recordings.started_at') %>: <%= recording.start_time %></td>
