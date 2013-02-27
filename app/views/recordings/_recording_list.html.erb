@@ -16,10 +16,14 @@
             </td>
             <td style="width: 40%">
               <%= t('recordings.playback') %>:
-              <% recording.playback_formats.each do |playback| %>
-                <a href="<%= playback.url %>" class="playback-link">
-                  <%= playback.format_type %>
-                </a>
+              <% if recording.playback_formats.size > 0 %>
+                <% recording.playback_formats.each do |playback| %>
+                  <a href="<%= playback.url %>" class="playback-link">
+                    <%= playback.format_type %>
+                  </a>
+                <% end %>
+              <% else %>
+                <%= t('recordings.processing_dots') %>
               <% end %>
             </td>
           </tr>

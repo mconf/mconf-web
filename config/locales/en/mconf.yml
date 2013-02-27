@@ -1053,6 +1053,7 @@ en:
     ended_at: "Ended at"
     started_at: "Started at"
     playback: Playback
+    processing_dots: "Processing, please wait..."
     title: Recordings
   register: 
     and_participate: "Register To Participate"
