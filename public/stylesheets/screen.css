@@ -2924,6 +2924,11 @@ h3.dialog_title {
 
 #user-recordings .user-recording .recording-name {
   font-size: 12px;
+  color: black;
+}
+
+#user-recordings .user-recording .recording-description {
+  color: #666;
 }
 
 #user-recordings .user-recording .thread-even {

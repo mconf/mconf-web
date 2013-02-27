@@ -1,27 +1,30 @@
 <div id="user-recordings">
   <ul class="user-recording">
     <% recordings.each do |recording| %>
-    <li class="<%= cycle('thread-even' , 'thread-odd') %>">
-      <span class="recording-name"><%= recording.name %></span>
-      <table class="user-recording-details">
-        <tr>
-          <td style="width: 40%"><%= t('recordings.started_at') %>: <%= recording.start_time %></td>
-          <td style="width: 20%">
-            <span title="<%= t('recordings.ended_at') %>: <%= recording.end_time %>">
-              <%= t('recordings.duration') %>: <%= Time.at(recording.end_time - recording.start_time).utc.strftime("%H:%M") %>
-            </span>
-          </td>
-          <td style="width: 40%">
-            <%= t('recordings.playback') %>:
-            <% recording.playback_formats.each do |playback| %>
-              <a href="<%= playback.url %>" class="playback-link">
-                <%= playback.format_type %>
-              </a>
-            <% end %>
-          </td>
-        </tr>
-      </table>
-    </li>
+      <% metaTitle = recording.metadata.all.select{ |m| m.name == configatron.metadata.title }.first %>
+      <% metaDesc = recording.metadata.all.select{ |m| m.name == configatron.metadata.description }.first %>
+      <li class="<%= cycle('thread-even' , 'thread-odd') %>">
+        <span class="recording-name"><%= metaTitle.content %></span>:
+        <span class="recording-description"><%= metaDesc.content %></span>
+        <table class="user-recording-details">
+          <tr>
+            <td style="width: 40%"><%= t('recordings.started_at') %>: <%= recording.start_time %></td>
+            <td style="width: 20%">
+              <span title="<%= t('recordings.ended_at') %>: <%= recording.end_time %>">
+                <%= t('recordings.duration') %>: <%= Time.at(recording.end_time - recording.start_time).utc.strftime("%H:%M") %>
+              </span>
+            </td>
+            <td style="width: 40%">
+              <%= t('recordings.playback') %>:
+              <% recording.playback_formats.each do |playback| %>
+                <a href="<%= playback.url %>" class="playback-link">
+                  <%= playback.format_type %>
+                </a>
+              <% end %>
+            </td>
+          </tr>
+        </table>
+      </li>
     <% end %>
   </ul>
 </div>
