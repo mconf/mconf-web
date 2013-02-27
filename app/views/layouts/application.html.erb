@@ -13,6 +13,7 @@
     <%= stylesheet_link_tag "calendar", :media => "screen, projection" %>
     <%= stylesheet_link_tag "jquery.fancybox", :media => "screen, projection" %>
     <%= stylesheet_link_tag "jquery.jcrop", :media => "screen, projection" %>
+    <%= stylesheet_link_tag "jquery.dropdown", :media => "screen, projection" %>
     <%= stylesheet_link_tag "timeentry", :media => "screen, projection" %>
     <%= stylesheet_link_tag "print", :media => "print" %>
     <%= stylesheet_link_tag "token-input-facebook", :media => "screen, projection" %>
@@ -36,7 +37,7 @@
       }
     </script>
 
-    <%= javascript_include_tag 'jquery', 'rails.js', 'jquery.livequery', 'jquery.fancybox', 'jquery.easing', 'jquery-ui', 'jquery.form', 'application','jquery.qtip-1.0.0-rc3', 'jquery.tokeninput' %>
+    <%= javascript_include_tag 'jquery', 'rails.js', 'jquery.livequery', 'jquery.fancybox', 'jquery.easing', 'jquery-ui', 'jquery.form', 'application','jquery.qtip-1.0.0-rc3', 'jquery.tokeninput', 'jquery.dropdown', 'jquery.jeditable' %>
     <%= csrf_meta_tag %>
     <%= yield :headers %>
 
@@ -85,5 +86,7 @@
     </div>
 
     <%= render :partial => "layouts/analytics" %>
+
+    <%= yield(:bottom) if content_for?(:bottom) %>
   </body>
 </html>

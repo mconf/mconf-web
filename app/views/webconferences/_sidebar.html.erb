@@ -4,13 +4,17 @@
   <% join_link = invite_space_room_path(space, @room) %>
 <% end %>
 
-<%= link_to ("<span>" + t('button.join_webconference') + "</span>").html_safe, join_link, :class => 'big_button orange_button bigbluebutton_button clean_popup' %>
+<% if space.actors(:role => 'Admin').include?(current_user) %>
+  <%= link_to join_link, :class => 'big_button orange_button bigbluebutton_button space-webconference-join', :"data-dropdown" => "#dropdown-join-webconf" do %>
+    <span>
+      <%= t('button.join_webconference') %>
+      <i class="caret"></i>
+    </span>
+ <% end %>
+<% else %>
+  <%= link_to ("<span>" + t('button.join_webconference') + "</span>").html_safe, join_link, :class => 'big_button orange_button bigbluebutton_button space-webconference-join clean_popup' %>
+<% end %>
 
-<div class="clearer"></div>
-<br/>
-
-<% if logged_in? %>
-  <% ico = "<div class=\"webconference_join_mobile_ico\"></div>" %>
-  <%= link_to ("<span>" + ico + t('button.join_webconference_mobile') + "</span>").html_safe, join_mobile_space_room_path(space, @room),
-        :class => 'big_button orange_button bigbluebutton_button', :id => "join_mobile_button" %>
+<% if space.actors(:role => 'Admin').include?(current_user) %>
+  <%= render :partial => 'recordings/recording_start_links', :locals => { :resource => @room, :route => space_path(@space, :format => 'json') } %>
 <% end %>

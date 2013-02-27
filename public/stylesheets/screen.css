@@ -2142,6 +2142,10 @@ div.webconference-space-sidebar .more_info { font-size: 11px; color: #A8C0D1; }
 
 div.webconference-space-sidebar .content { text-align: left; }
 
+div.webconference-space-sidebar .join_button {
+  float: right;
+}
+
 div.webconf-rooms {
   margin-bottom: 10px;
   background: #FFFFFF;
@@ -2982,4 +2986,10 @@ a.disabled {
 .editable:hover {
   border-color: #A8C0D1;
   cursor: pointer;
+}
+
+.space-webconference-join .caret {
+  border-width: 5px;
+  border-top-color: white;
+  margin-top: 5px;
 }

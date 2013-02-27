@@ -83,7 +83,10 @@
     name : 'space[bigbluebutton_room_attributes][moderator_password]',
     onblur: 'ignore',
     width : 185,
-    submitdata : {authenticity_token: "<%=form_authenticity_token()%>"},
+    submitdata : {
+      authenticity_token: "<%=form_authenticity_token()%>",
+      "space[bigbluebutton_room_attributes][id]": <%= @space.bigbluebutton_room.id %>
+    },
     callback : function(value, settings) {
       $('#space_moderatorPW').hide();
       $('#edit_moderatorPW_icon').show();
@@ -108,7 +111,10 @@
     name : 'space[bigbluebutton_room_attributes][attendee_password]',
     onblur : 'ignore',
     width : 185,
-    submitdata : {authenticity_token: "<%=form_authenticity_token()%>"},
+    submitdata : {
+      authenticity_token: "<%=form_authenticity_token()%>",
+      "space[bigbluebutton_room_attributes][id]": <%= @space.bigbluebutton_room.id %>
+    },
     callback : function(value, settings) {
       $('#space_attendeePW').hide();
       $('#edit_attendeePW_icon').show();

@@ -1,0 +1,158 @@
+<% metaTitle = resource.metadata.all.select{ |m| m.name == configatron.metadata.title }.first %>
+<% metaDesc = resource.metadata.all.select{ |m| m.name == configatron.metadata.description }.first %>
+
+<%= content_for :javascript do  %>
+  $("a#mobile_join").fancybox({
+    'hideOnContentClick' : false,
+    'frameWidth': 250,
+    'frameHeight': 500
+  });
+
+  $("a#invite_bbb_link").fancybox({
+    'hideOnContentClick' : false,
+    'frameWidth' : 450,
+    'frameHeight' : 430
+  });
+
+  blockStartWebconf = function() {
+    $("#start-webconf").addClass("disabled");
+  }
+
+  unblockStartWebconf = function() {
+    $("#start-webconf").removeClass("disabled");
+  }
+
+  blockRecordingOptions = function() {
+    $("#recording-options").find("input,textarea").attr("disabled", "disabled");
+  }
+
+  unblockRecordingOptions = function() {
+    $("#recording-options").find("input,textarea").attr("disabled", null);
+
+    // Sometimes the input is focused but the cursor is not being shown
+    if ($("#recording-description").is(":focus")) {
+      var input = $("#recording-description");
+      var v = input.val();
+      input.blur();
+      input.focus().val("").val(v);
+    }
+    if ($("#recording-title").is(":focus")) {
+      var input = $("#recording-title");
+      input.focus().val(input.val());
+    }
+  }
+
+  showHideRecordingOptions = function() {
+    if ($("#record-checkbox").is(":checked")) {
+      $("#recording-options").show();
+    } else {
+      $("#recording-options").hide();
+    }
+  }
+
+  $("#record-checkbox").click(function () {
+    var check = $(this);
+    blockStartWebconf();
+    blockRecordingOptions();
+    $.post("<%= route %>", {
+      _method: "put",
+      authenticity_token: "<%= form_authenticity_token() %>",
+      "bbb_room": 1,
+      "bigbluebutton_room[record]": $(this).is(":checked")
+    }).fail(function() {
+      check.attr("checked", !check.attr("checked"));
+      unblockRecordingOptions();
+      showHideRecordingOptions();
+    }).success(function(data) {
+      check.attr("checked", data.record);
+      unblockRecordingOptions();
+      unblockStartWebconf();
+      showHideRecordingOptions();
+    });
+  });
+
+  $("#recording-title").editable("<%= route %>", {
+    indicator: "<%= t('button.saving_dots') %>",
+    tooltip: "<%= t('button.click_to_edit') %>",
+    name: "bigbluebutton_room[metadata_attributes][<%= resource.metadata.index(metaTitle) %>][content]",
+    type: "textarea",
+    method: "PUT",
+    submit: "OK",
+    submitdata: {
+      "bbb_room": 1,
+      "bigbluebutton_room[metadata_attributes][<%= resource.metadata.index(metaTitle) %>][id]": <%= metaTitle ? metaTitle.id : "null" %>
+    },
+    ajaxoptions: {
+      dataType: 'json',
+      success: function(result, status) {
+        $("#recording-title")[0].reset();
+        var idx = <%= resource.metadata.index(metaTitle) || 0 %>;
+        $("#recording-title").text(result["metadata"][idx]["content"]);
+      }
+    }
+  });
+
+  $("#recording-description").editable("<%= route %>", {
+    indicator: "<%= t('button.saving_dots') %>",
+    tooltip: "<%= t('button.click_to_edit') %>",
+    name: "bigbluebutton_room[metadata_attributes][<%= resource.metadata.index(metaDesc) %>][content]",
+    type: "textarea",
+    method: "PUT",
+    submit: "OK",
+    submitdata: {
+      "bbb_room": 1,
+      "bigbluebutton_room[metadata_attributes][<%= resource.metadata.index(metaDesc) %>][id]": <%= metaDesc ? metaDesc.id : "null" %>
+    },
+    ajaxoptions: {
+      dataType: 'json',
+      success: function(result, status) {
+        $("#recording-description")[0].reset();
+        var idx = <%= resource.metadata.index(metaDesc) || 0 %>;
+        $("#recording-description").text(result["metadata"][idx]["content"]);
+      }
+    }
+  });
+
+  <!-- $("#recording-duration").keyup(function () { -->
+  <!--   this.value = this.value.replace(/[^0-9\.]/g,''); -->
+  <!-- }); -->
+
+<% end %>
+
+<%= content_for :bottom do %>
+  </br>
+  <div id="dropdown-join-webconf" class="dropdown dropdown-tip dropdown-anchor-right">
+    <ul class="dropdown-menu">
+      <li><label>
+        <%= check_box_tag 'bigbluebutton_room[record]', t('home.webconf.record'), @room.record, :id => 'record-checkbox' %>
+        <span><%= t('home.webconf.record') %></span>
+      </label></li>
+      <li>
+        <div id="recording-options" class="<%= 'offscreen' unless @room.record %>">
+          <!-- <div class="field"> -->
+          <!--   <span class="inline"><%= t('home.webconf.recording_duration') %></span> -->
+          <!--   <%= text_field_tag 'bigbluebutton_room[duration]', @room.duration, :id => 'recording-duration' %> -->
+          <!--   <%= t('home.webconf.recording_duration_units') %> -->
+          <!-- </field> -->
+          <div class="field">
+            <span><%= t('home.webconf.recording_title') %></span>
+            <div id="recording-title" class="editable"><%= metaTitle.nil? ? "" : metaTitle.content %></div>
+          </field>
+          <div class="field">
+            <span><%= t('home.webconf.recording_description') %></span>
+            <div id="recording-description" class="editable"><%= metaDesc.nil? ? "" : metaDesc.content %></div>
+          </field>
+        </div>
+      </li>
+      <li class="dropdown-divider"></li>
+        <li><%= link_to t('home.webconf.invite_people'), inviteroom_invite_path(:type => "webconference", :room => @room.to_param), :id => 'invite_bbb_link' %></li>
+        <li>
+          <%= mobile_icon_link(join_mobile_bigbluebutton_room_path(@room), t('home.webconf.join_from_mobile')) %>
+        </li>
+      <li class="dropdown-divider"></li>
+      <li>
+        <%= link_to t('home.webconf.start'), join_bigbluebutton_room_path(@room), :class => "clean_popup", :id => "start-webconf" %>
+      </li>
+    </ul>
+  </div>
+<% end %>

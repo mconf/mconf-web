@@ -169,6 +169,8 @@ namespace :setup do
           room.external = false
           room.param = space.name.parameterize.downcase
           room.uniqueid = "#{SecureRandom.hex(16)}-#{Time.now.to_i}"
+          room.duration = 0
+          room.record = false
         end
       end
     end
