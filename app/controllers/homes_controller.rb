@@ -28,7 +28,7 @@ class HomesController < ApplicationController
   def show
     @server = BigbluebuttonServer.first
     @room = current_user.bigbluebutton_room
-    @recordings = @room.recordings.published().order("end_time DESC").last(3)
+    @recordings = @room.recordings.published().order("end_time DESC").first(3)
     begin
       @room.fetch_meeting_info
     rescue Exception
