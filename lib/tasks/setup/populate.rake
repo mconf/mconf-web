@@ -12,6 +12,9 @@ namespace :setup do
       users_without_admin = User.find_with_disabled(:all)
       users_without_admin.delete(User.find_by_superuser(true))
       users_without_admin.each(&:destroy)
+      rooms_without_admin = BigbluebuttonRoom.all
+      rooms_without_admin.delete(User.find_by_superuser(true).bigbluebutton_room)
+      rooms_without_admin.each(&:destroy)
     end
 
     puts "* Create Users (15)"
@@ -228,7 +231,6 @@ namespace :setup do
       description = room.metadata.where(:name => configatron.metadata.description).first
       room.metadata.create(:name => configatron.metadata.description) if description.nil?
 
-
       BigbluebuttonRecording.populate 2..10 do |recording|
         recording.room_id = room.id
         recording.server_id = room.server.id
@@ -253,6 +255,20 @@ namespace :setup do
           format.format_type = "#{Populator.words(1)}-#{format.id}"
           format.url = "http://" + Faker::Internet.domain_name + "/playback/" + format.format_type
           format.length = Populator.value_in_range(32..128)
+        end
+      end
+
+      # Basic metadata needed in all recordings
+      room.recordings.each do |recording|
+        title = recording.metadata.where(:name => configatron.metadata.title).first
+        if title.nil?
+          recording.metadata.create(:name => configatron.metadata.title,
+                                    :content => Populator.words(2..5).titleize)
+        end
+        description = recording.metadata.where(:name => configatron.metadata.description).first
+        if description.nil?
+          recording.metadata.create(:name => configatron.metadata.description,
+                                    :content => Populator.words(5..10).capitalize)
         end
       end
 
