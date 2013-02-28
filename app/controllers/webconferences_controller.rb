@@ -21,7 +21,7 @@ class WebconferencesController < ApplicationController
 
   def show
     @room = @space.bigbluebutton_room
-    @recordings = @room.recordings.published().order("end_time DESC").last(5)
+    @recordings = @room.recordings.published().order("end_time DESC").first(5)
     begin
       @room.fetch_meeting_info
     rescue Exception
