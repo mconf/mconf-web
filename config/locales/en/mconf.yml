@@ -1050,6 +1050,7 @@ en:
     warning_start_recording: "Warning: this action will stop other recordings of this event in progress. <br/> Do you want to continue?"
   recordings: 
     duration: Duration
+    created_by: "Created by"
     ended_at: "Ended at"
     started_at: "Started at"
     playback: Playback

@@ -2935,6 +2935,11 @@ h3.dialog_title {
   color: #666;
 }
 
+#user-recordings .user-recording .recording-author {
+  color: #666;
+  display: block;
+}
+
 #user-recordings .user-recording .thread-even {
   background: #EAF5FC;
 }

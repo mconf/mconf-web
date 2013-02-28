@@ -6,12 +6,12 @@
 $('a.clean_popup:not(.disabled)').live('click', function(e) {
   window.open($(this)[0].href, "_blank", "resizable=yes");
   e.preventDefault();
-  false;
+  return false;
 });
 
 $('a.disabled').live('click', function(e) {
   e.preventDefault();
-  false;
+  return false;
 });
 
 function changeInputTextType (id, type) {
@@ -24,7 +24,7 @@ jQuery.fn.submitWithAjax = function() {
   this.submit(function() {
     $.post(this.action, $(this).serialize(), null, "script");
     return false;
-  })
+  });
   return this;
 };
 
@@ -36,7 +36,7 @@ jQuery.fn.postsForm = function(route){
 	this.ajaxForm({
 		dataType: 'script',
 		success: function(data){
-			if (data == "") {
+			if (data === "") {
 				window.location = route;
 			}
 		}
