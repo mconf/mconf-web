@@ -84,7 +84,7 @@
             <%= t('home.recordings.latest_recordings', :count => @recordings.count) %>
             <a class="recordings-view-all" href="<%= recordings_home_path %>"><%= t('home.recordings.view_all') %></a>
           </h4>
-          <%= render :partial => 'recordings/recording_list', :locals => {:recordings => @recordings} %>
+          <%= render :partial => 'recordings/recording_list', :locals => {:recordings => @recordings, :show_authors => false} %>
           <div class="clearer"></div>
         <% end %>
 

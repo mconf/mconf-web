@@ -1,51 +1,62 @@
-<div id="user-recordings">
-  <ul class="user-recording">
+<% if not defined?(show_authors) %>
+  <% show_authors = true %>
+<% end %>
+
+<div id="recording-list">
+  <ul class="recording-item">
     <% recordings.each do |recording| %>
       <li class="<%= cycle('thread-even' , 'thread-odd') %>">
 
-        <% metaUser = recording.metadata.all.select{ |m| m.name == BigbluebuttonRails.metadata_user_id.to_s }.first %>
-        <% metaTitle = recording.metadata.all.select{ |m| m.name == configatron.metadata.title }.first %>
-        <% metaDesc = recording.metadata.all.select{ |m| m.name == configatron.metadata.description }.first %>
-        <% if metaTitle.nil? %>
-          <span class="recording-name"><%= recording.name %></span>:
-        <% else %>
-          <span class="recording-name"><%= metaTitle.content %></span>:
-        <% end %>
-        <% unless metaDesc.nil? %>
-          <span class="recording-description"><%= metaDesc.content %></span>
-        <% end %>
-        <% unless metaUser.nil? %>
-          <% user = User.find_by_id(metaUser.content) %>
-          <% unless user.nil? %>
-            <span class="recording-author">
-              <%= t('recordings.created_by') %>:
-              <%= link_to user.full_name, user_profile_path(user) %>
-            </span>
+        <div class="recording-field">
+          <% metaUser = recording.metadata.all.select{ |m| m.name == BigbluebuttonRails.metadata_user_id.to_s }.first %>
+          <% metaTitle = recording.metadata.all.select{ |m| m.name == configatron.metadata.title }.first %>
+          <% metaDesc = recording.metadata.all.select{ |m| m.name == configatron.metadata.description }.first %>
+          <% if metaTitle.nil? or metaTitle.content.blank? %>
+            <span class="recording-name"><%= t('recordings.no_title') %></span>:
+          <% else %>
+            <span class="recording-name"><%= metaTitle.content %></span>:
           <% end %>
-        <% end %>
-
-        <table class="user-recording-details">
-          <tr>
-            <td style="width: 40%"><%= t('recordings.started_at') %>: <%= recording.start_time %></td>
-            <td style="width: 20%">
-              <span title="<%= t('recordings.ended_at') %>: <%= recording.end_time %>">
-                <%= t('recordings.duration') %>: <%= Time.at(recording.end_time - recording.start_time).utc.strftime("%H:%M") %>
-              </span>
-            </td>
-            <td style="width: 40%">
-              <%= t('recordings.playback') %>:
-              <% if recording.playback_formats.size > 0 %>
-                <% recording.playback_formats.each do |playback| %>
-                  <a href="<%= playback.url %>" class="playback-link">
-                    <%= playback.format_type %>
-                  </a>
-                <% end %>
-              <% else %>
-                <%= t('recordings.processing_dots') %>
+          <% if metaDesc.nil? or metaDesc.content.blank? %>
+            <span class="recording-description"><%= t('recordings.no_description') %></span>
+          <% else %>
+            <span class="recording-description"><%= metaDesc.content %></span>
+          <% end %>
+        </div>
+        <div class="recording-details">
+          <%= t('recordings.playback') %>:
+          <% if recording.playback_formats.size > 0 %>
+            <% recording.playback_formats.each do |playback| %>
+              <a href="<%= playback.url %>" class="playback-link">
+                <%= image_tag "icons/16/play2.png", :class => "playback-icon" %>
+                <%= playback.format_type %>
+              </a>
+            <% end %>
+          <% else %>
+            <%= t('recordings.processing_dots') %>
+          <% end %>
+        </div>
+        <div class="recording-details">
+          <% if show_authors %>
+            <% unless metaUser.nil? %>
+              <% user = User.find_by_id(metaUser.content) %>
+              <% unless user.nil? %>
+                <span class="recording-author">
+                  <%= t('recordings.created_by') %>:
+                  <%= link_to user.full_name, user_profile_path(user) %>,
+                </span>
               <% end %>
-            </td>
-          </tr>
-        </table>
+            <% end %>
+          <% end %>
+          <span class="recording-date">
+            <%= t('recordings.started_at') %>: <%= recording.start_time %>,
+          </span>
+          <span class="recording-duration" title="<%= t('recordings.ended_at') %>: <%= recording.end_time %>">
+            <%= t('recordings.duration') %>:
+            <%= distance_of_time_in_words(recording.start_time, recording.end_time) %>
+          </span>
+        </div>
+        <div class="clearer"></div>
+
       </li>
     <% end %>
   </ul>

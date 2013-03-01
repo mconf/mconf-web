@@ -1052,6 +1052,8 @@ en:
     duration: Duration
     created_by: "Created by"
     ended_at: "Ended at"
+    no_description: "<no description>"
+    no_title: "<no title>"
     started_at: "Started at"
     playback: Playback
     processing_dots: "Processing, please wait..."

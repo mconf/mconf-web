@@ -2915,49 +2915,56 @@ h3.dialog_title {
   font-size: 10px;
 }
 
-#user-recordings .user-recording {
+#recording-list .recording-item {
   list-style-type: none;
   margin: 0;
 }
 
-#user-recordings .user-recording-details {
+#recording-list .recording-details {
   width: 100%;
   color: #666;
   margin-top: 3px;
 }
 
-#user-recordings .user-recording .recording-name {
+#recording-list .recording-item .recording-name {
   font-size: 12px;
   color: black;
 }
 
-#user-recordings .user-recording .recording-description {
-  color: #666;
+#recording-list .recording-item .recording-description {
+  color: #444;
 }
 
-#user-recordings .user-recording .recording-author {
-  color: #666;
+#recording-list .recording-item .recording-author {
+  float: left;
+  margin-right: 5px;
+}
+
+#recording-list .recording-item .recording-date,
+#recording-list .recording-item .recording-duration {
+  float: left;
+  margin-right: 5px;
+}
+
+#recording-list .recording-item .recording-field {
+  clear: both;
   display: block;
 }
-
-#user-recordings .user-recording .thread-even {
+#recording-list .recording-item .thread-even {
   background: #EAF5FC;
 }
 
-#user-recordings .user-recording li {
+#recording-list .recording-item li {
   padding: 7px 10px;
 }
 
-#user-recordings .user-recordings .playback-link {
-  border-right: 1px solid #bbb;
-  padding-right: 4px;
-  margin-right: 4px;
+#recording-list .recording-item .playback-link {
+  margin: 0 4px;
 }
 
-#user-recordings .user-recordings .playback-link:last-child {
-  border-right: 0;
-  margin-right: 0;
-  padding-right: 0;
+#recording-list .recording-item .playback-icon {
+  width: 10px;
+  height: 10px;
 }
 
 h3 .title-options {
