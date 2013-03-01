@@ -3,9 +3,6 @@
 
 <%= content_for :javascript do  %>
 
-  var lastRecordingTitle = "<%= metaTitle ? metaTitle.content : "" %>";
-  var lastRecordingDesc = "<%= metaDesc ? metaDesc.content : "" %>";
-
   $("a#edit_bbb_room").fancybox({
     'hideOnContentClick' : false,
     'frameWidth' : 450,

@@ -113,6 +113,22 @@
     }
   });
 
+  $("#recording-title").on("keypress input", function(e) {
+    if (e.keyCode == '13') {
+      e.preventDefault();
+    }
+    var newval = $("#recording-title textarea").val().replace(/^(\r\n)|(\n)/g,'');
+    $("#recording-title textarea").val(newval);
+  });
+
+  $("#recording-description").on("keypress input", function(e) {
+    if (e.keyCode == '13') {
+      e.preventDefault();
+    }
+    var newval = $("#recording-description textarea").val().replace(/^(\r\n)|(\n)/g,'');
+    $("#recording-description textarea").val(newval);
+  });
+
   <!-- $("#recording-duration").keyup(function () { -->
   <!--   this.value = this.value.replace(/[^0-9\.]/g,''); -->
   <!-- }); -->
