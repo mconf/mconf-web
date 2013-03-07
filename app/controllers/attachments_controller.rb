@@ -11,6 +11,7 @@ class AttachmentsController < ApplicationController
 
   before_filter :space!
   before_filter :webconf_room!
+  before_filter :except => [ :new, :edit ]
   load_and_authorize_resource :space
   load_and_authorize_resource :attachment, :through => :space
 
@@ -34,6 +35,22 @@ class AttachmentsController < ApplicationController
 
   def edit_tags
     @attachment = Attachment.find(params[:id])
+  end
+
+  def new
+    respond_to do |format|
+      format.html {
+        render :partial => "upload_form"
+      }
+    end
+  end
+
+  def edit
+    respond_to do |format|
+      format.html {
+        render :partial => "edit"
+      }
+    end
   end
 
   def delete_collection
