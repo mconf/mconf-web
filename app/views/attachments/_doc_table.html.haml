@@ -10,6 +10,7 @@
       - t.header :name, t('title')
       - t.header :author, t('author')
       - t.header :updated, t('updated')
+    - t.header :tags, t("post.one")+"/"+t("tag.other_capital")
     - t.header :actions, t('actions')
     - t.rows.each do |row, attachment, index|
       - row[:rel] = "event_#{attachment.event.id}" if attachment.event.present?
@@ -22,6 +23,11 @@
         - row.name           name.html_safe
         - row.author         link_to attachment.author.name, user_path(attachment.author)
         - row.updated        "<span title=\"#{l(attachment.updated_at, :format => :long)}\">#{l(attachment.updated_at.to_date)}</span>".html_safe
+        - tags = ""
+        - tags = tags + link_to("event", space_event_path(attachment.space, attachment.event), :class => "event_in_tags", :title => attachment.event.name) if attachment.event.present?
+        - tags = tags + link_to("post", space_post_path(attachment.space, attachment.post), :class => "post_in_tags", :title => attachment.post.title) if attachment.post.present?
+        - tags = tags + "#{interactive ? attachment.tags.map{|t| link_to(t.name,path_for_attachments({:add_tag=>t.id}), :class=> "add_tag_filter")}.join(", ") : attachment.tags.map{|t| t.name}.join(", ")}"
+        - row.tags           tags.html_safe
         - row.actions        table_actions(row, attachment, interactive)
       - else
         - name = ""
@@ -30,4 +36,9 @@
         - row.name           name.html_safe, :rel => (attachment.mime_type.present? ? attachment.mime_type.to_sym.to_s : "")
         - row.author         link_to attachment.author.name, user_path(attachment.author)
         - row.updated        "<span title=\"#{l(attachment.updated_at, :format => :long)}\">#{l(attachment.updated_at.to_date)}</span>".html_safe
+        - tags = ""
+        - tags = link_to("event", space_event_path(attachment.space, attachment.event), :class => "event_in_tags", :title => attachment.event.name).html_safe if attachment.event.present?
+        - tags = tags + (link_to("post", space_post_path(attachment.space, attachment.post), :class => "post_in_tags", :title => attachment.post.title)).html_safe if attachment.post.present?
+        - tags = tags + "#{interactive ? attachment.tags.map{|t| link_to(t.name,path_for_attachments({:add_tag=>t.id}), :class=> "add_tag_filter")}.join(", ") : attachment.tags.map{|t| t.name}.join(", ")}"
+        - row.tags           tags.html_safe
         - row.actions        table_actions(row, attachment, interactive)

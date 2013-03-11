@@ -35,6 +35,11 @@ class AttachmentsController < ApplicationController
 
   def edit_tags
     @attachment = Attachment.find(params[:id])
+    respond_to do |format|
+      format.html {
+        render :partial => "edit_tags_form"
+      }
+    end
   end
 
   def new
