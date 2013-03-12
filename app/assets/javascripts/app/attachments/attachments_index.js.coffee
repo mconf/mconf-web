@@ -16,17 +16,6 @@ $(document).ready ->
       color: "#F5DF51"
     , 3000
 
-  $("#attachment__tags").fcbkcomplete
-    cache: true
-    filter_case: false
-    filter_hide: true
-    firstselected: true
-    filter_selected: true
-    maxshownitems: 4
-    newel: true
-    complete_opts: true
-
-  
   # Action links
   $("a.repository_sidebar_action").livequery "click", ->
     if $(this).hasClass("disabled_button")
