@@ -19,18 +19,18 @@ GIT
 
 GIT
   remote: git://github.com/mconf/bigbluebutton-api-ruby.git
-  revision: aeba88dce4f05f773f14d643319b82768b65b3ee
+  revision: f1a0546b223360e8cc65349d5ebe0d446b4dfad0
   specs:
-    bigbluebutton-api-ruby (1.1.2)
+    bigbluebutton-api-ruby (1.2.0)
       xml-simple (>= 1.1.1)
 
 GIT
   remote: git://github.com/mconf/bigbluebutton_rails.git
-  revision: c420b80c9b1d29396399f2c68691fec58388958e
+  revision: 9db8aa55a2890a42d0855e1d098eaf16dc99e375
   branch: recordings
   specs:
     bigbluebutton_rails (1.2.0)
-      bigbluebutton-api-ruby (~> 1.1.0)
+      bigbluebutton-api-ruby (~> 1.2.0)
       rails (>= 3.0.0)
 
 GIT
