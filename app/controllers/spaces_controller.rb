@@ -298,7 +298,14 @@ class SpacesController < ApplicationController
   def recordings
     @room = @space.bigbluebutton_room
     @recordings = @room.recordings.published().order("end_time DESC")
-    render "recordings/recordings", :layout => "application_without_sidebar"
+    if params[:limit]
+      @recordings = @recordings.first(params[:limit].to_i)
+    end
+    if params[:partial]
+      render "recordings", :layout => false
+    else
+      render "recordings", :layout => "application_without_sidebar"
+    end
   end
 
   private

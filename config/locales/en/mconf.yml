@@ -1058,6 +1058,10 @@ en:
     playback: Playback
     processing_dots: "Processing, please wait..."
     title: Recordings
+    update_list: 
+      error: "Error updating recordings, please try again later."
+      success: "Recording list updated!"
+      updating: "Updating recording list"
   register: 
     and_participate: "Register To Participate"
     and_participate_description: "To participate in the event you should register"
