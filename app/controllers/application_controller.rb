@@ -124,7 +124,7 @@ class ApplicationController < ActionController::Base
   end
 
   # Locale as param
-  before_filter :set_vcc_locale
+  before_filter :set_current_locale
 
   def render_optional_error_file(status_code)
     if status_code == 403
