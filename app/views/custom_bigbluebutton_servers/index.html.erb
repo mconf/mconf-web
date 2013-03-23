@@ -24,11 +24,17 @@
 
       <label><%= t('bigbluebutton_rails.servers.index.access_links') %></label>
       <div class="value">
+        <%= link_to t('details'), bigbluebutton_server_path(server), :class => 'basic_button small_button blue_button' %>
         <%= link_to t('bigbluebutton_rails.view_rooms'), rooms_bigbluebutton_server_path(server), :class => 'basic_button small_button blue_button' %>
-        <%= link_to t('bigbluebutton_rails.view_recordings'), recordings_bigbluebutton_server_path(server), :class => 'basic_button small_button blue_button' %>
         <%= link_to t('bigbluebutton_rails.activity_monitor'), activity_bigbluebutton_server_path(server), :class => 'basic_button small_button blue_button' %>
         <%= link_to t('edit'), edit_bigbluebutton_server_path(server), :class => 'basic_button small_button blue_button' %>
         <%= link_to t('destroy'), bigbluebutton_server_path(server), :confirm => t('are_you_sure'), :method => :delete, :class => 'basic_button small_button blue_button' %>
+      </div>
+
+      <label><%= t('bigbluebutton_rails.servers.index.recording_links') %></label>
+      <div class="value">
+        <%= link_to t('bigbluebutton_rails.view_recordings'), recordings_bigbluebutton_server_path(server), :class => 'basic_button small_button blue_button' %>
+        <%= link_to t('bigbluebutton_rails.fetch_recordings'), fetch_recordings_bigbluebutton_server_path(server), :confirm => t('are_you_sure'), :method => :post, :class => 'basic_button small_button blue_button' %>
       </div>
 
       <div class="clearer"></div>

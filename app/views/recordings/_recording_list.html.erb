@@ -1,3 +1,13 @@
+<%= content_for :javascript do %>
+ $('.tooltip_unavailable').qtip({
+   content: '<%= escape_javascript(t('recordings.unavailable_tip')) %>',
+   position: {adjust: { screen: true }},
+   show:  'mouseover',
+   hide: { when: 'mouseout', fixed: true },
+   style: 'mystyle'
+  });
+<% end %>
+
 <% if not defined?(show_authors) %>
   <% show_authors = true %>
 <% end %>
@@ -24,15 +34,20 @@
         </div>
         <div class="recording-details">
           <%= t('recordings.playback') %>:
-          <% if recording.playback_formats.size > 0 %>
-            <% recording.playback_formats.each do |playback| %>
-              <a href="<%= playback.url %>" class="playback-link">
-                <%= image_tag "icons/16/play2.png", :class => "playback-icon" %>
-                <%= playback.format_type %>
-              </a>
-            <% end %>
+          <% unless recording.available %>
+            <%= t('recordings.unavailable') %>
+            <%= image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_unavailable icon",:style=>"cursor:pointer").html_safe %>
           <% else %>
-            <%= t('recordings.processing_dots') %>
+            <% if recording.playback_formats.size > 0 %>
+              <% recording.playback_formats.each do |playback| %>
+                <a href="<%= playback.url %>" class="playback-link">
+                  <%= image_tag "icons/16/play2.png", :class => "playback-icon" %>
+                  <%= playback.format_type %>
+                </a>
+              <% end %>
+            <% else %>
+              <%= t('recordings.processing_dots') %>
+            <% end %>
           <% end %>
         </div>
         <div class="recording-details">

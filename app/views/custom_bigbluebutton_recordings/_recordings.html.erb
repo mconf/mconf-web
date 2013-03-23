@@ -13,6 +13,7 @@
     <label><%= BigbluebuttonRecording.human_attribute_name(:server_id) %></label> <span class="value"><%= recording.server_id %> <%= link_to('(view server)', bigbluebutton_server_path(recording.server)) unless recording.server.nil? %></span>
     <label><%= BigbluebuttonRecording.human_attribute_name(:meetingid) %></label> <span class="value"><%= recording.meetingid %></span>
     <label><%= BigbluebuttonRecording.human_attribute_name(:published) %></label> <span class="value"><%= recording.published %></span>
+    <label><%= BigbluebuttonRecording.human_attribute_name(:available) %></label> <span class="value"><%= recording.available %></span>
     <label><%= BigbluebuttonRecording.human_attribute_name(:start_time) %></label> <span class="value"><%= recording.start_time %></span>
     <label><%= BigbluebuttonRecording.human_attribute_name(:end_time) %></label> <span class="value"><%= recording.end_time %></span>
 

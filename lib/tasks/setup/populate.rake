@@ -240,6 +240,7 @@ namespace :setup do
         recording.meetingid = room.meetingid
         recording.name = Populator.words(3..8).titleize
         recording.published = true
+        recording.available = true
         recording.start_time = 5.months.ago..Time.now
         recording.end_time = recording.start_time + rand(5).hours
 

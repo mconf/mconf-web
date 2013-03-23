@@ -125,6 +125,7 @@ en:
       id: ID
       name: Name
       role: Role
+    fetch_recordings: "Fetch recordings"
     new_room: "New room"
     new_server: "New server"
     recordings: 
@@ -159,6 +160,7 @@ en:
         title: "Server activity monitor"
       index: 
         access_links: "Access links"
+        recording_links: "Recordings"
       recordings: 
         fetch: "Fetch recordings"
         publish: "Publish recordings"
@@ -251,6 +253,7 @@ en:
   deny: "No"
   description: Description
   destroy: Destroy
+  details: Details
   disable: Disable
   disabled: Disabled
   document: 
@@ -1058,6 +1061,8 @@ en:
     playback: Playback
     processing_dots: "Processing, please wait..."
     title: Recordings
+    unavailable: "The recording is unavailable"
+    unavailable_tip: "This recording is not available anymore in the server where it was stored and so it can't be accessed."
     update_list: 
       error: "Error updating recordings, please try again later."
       success: "Recording list updated!"

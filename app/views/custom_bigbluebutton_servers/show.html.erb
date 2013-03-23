@@ -1,5 +1,13 @@
 <script type="text/javascript">
   $(document).ready(function() {
+    $("#fetch-recordings-input").keyup(function() {
+      var filters = $("#fetch-recordings-input").val();
+      var url = "<%= fetch_recordings_bigbluebutton_server_path(@server) %>";
+      if (filters.trim() != "") {
+        url = url + "?" + filters;
+      }
+      $("#fetch-recordings-link").attr("href", url);
+    });
     $("#publish-recordings-input").keyup(function() {
       var recordings = $("#publish-recordings-input").val();
       var url = "<%= publish_recordings_bigbluebutton_server_path(@server) %>";
@@ -59,14 +67,15 @@
   <br/><br/>
   <label>Recordings:</label>
   <div style="clear:both">
-    <%= link_to t('bigbluebutton_rails.servers.recordings.fetch'), fetch_recordings_bigbluebutton_server_path(@server), :confirm => 'Are you sure?', :method => :post %>
+    <%= text_field_tag 'fetch_recordings', '', :id => 'fetch-recordings-input', :size => 50, :placeholder => 'e.g. "meetings=meeting1,meeting2&meta_name=value"' %>
+    <%= link_to t('bigbluebutton_rails.servers.recordings.fetch'), fetch_recordings_bigbluebutton_server_path(@server), :confirm => 'Are you sure?', :method => :post, :id => 'fetch-recordings-link' %>
   </div>
   <div style="clear:both">
-    <%= text_field_tag t('bigbluebutton_rails.servers.recordings.publish'), '', :id => 'publish-recordings-input', :size => 10 %>
+    <%= text_field_tag t('bigbluebutton_rails.servers.recordings.publish'), '', :id => 'publish-recordings-input', :size => 10, :placeholder => 'e.g. "meeting1,meeting2"' %>
     <%= link_to 'Publish recordings', publish_recordings_bigbluebutton_server_path(@server), :confirm => 'Are you sure?', :method => :post, :id => 'publish-recordings-link' %>
   </div>
   <div style="clear:both">
-    <%= text_field_tag t('bigbluebutton_rails.servers.recordings.unpublish'), '', :id => 'unpublish-recordings-input', :size => 10 %>
+    <%= text_field_tag t('bigbluebutton_rails.servers.recordings.unpublish'), '', :id => 'unpublish-recordings-input', :size => 10, :placeholder => 'e.g. "meeting1,meeting2"' %>
     <%= link_to 'Unpublish recordings', unpublish_recordings_bigbluebutton_server_path(@server), :confirm => 'Are you sure?', :method => :post, :id => 'unpublish-recordings-link' %>
   </div>
 

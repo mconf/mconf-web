@@ -144,6 +144,7 @@ ActiveRecord::Schema.define(:version => 20130226215041) do
     t.boolean  "published",  :default => false
     t.datetime "start_time"
     t.datetime "end_time"
+    t.boolean  "available",  :default => true
     t.datetime "created_at"
     t.datetime "updated_at"
   end
