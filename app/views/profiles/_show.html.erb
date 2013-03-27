@@ -49,7 +49,7 @@
 <div class="profile_center">
   <div id="flash_div" class="success" style="display:none"></div>
   <% flash.each do |name, msg| %>
-    <div class="<%= name %>"><%= msg %></div>
+    <div class="<%= name %>"><%= msg.html_safe %></div>
   <% end %>
   <div class="title">
         <h3 class="item_title">
