@@ -140,7 +140,6 @@ class Notifier < ActionMailer::Base
     @jr = jr
     @space = jr.group
     @action = action
-    @replyto = "no-reply"
 
     create_default_mail(jr.candidate.locale)
   end
@@ -154,7 +153,6 @@ class Notifier < ActionMailer::Base
     @hash = user.activation_code
     @contact_email = Site.current.smtp_sender
     @signature  = Site.current.signature_in_html
-    @replyto = "no-reply"
 
     create_default_mail(user.locale)
   end
@@ -168,7 +166,6 @@ class Notifier < ActionMailer::Base
     @url  = "http://" + Site.current.domain + "/"
     @sitename  = Site.current.name
     @signature  = Site.current.signature_in_html
-    @replyto = "no-reply"
 
     create_default_mail(user.locale)
   end
@@ -182,7 +179,6 @@ class Notifier < ActionMailer::Base
     @contact_email = Site.current.smtp_sender
     @url  = "http://#{Site.current.domain}/reset_password/#{user.reset_password_code}"
     @signature  = Site.current.signature_in_html
-    @replyto = "no-reply"
 
     create_default_mail(user.locale)
   end
@@ -194,7 +190,6 @@ class Notifier < ActionMailer::Base
     @subject += I18n.t("password.reset_email", :sitename=>Site.current.name,:locale=>user.locale).html_safe
     @sitename  = Site.current.name
     @signature = Site.current.signature_in_html
-    @replyto = "no-reply"
 
     create_default_mail(user.locale)
   end
@@ -270,6 +265,7 @@ class Notifier < ActionMailer::Base
   def setup_email(recipients)
     @recipients = recipients
     @from = "#{ Site.current.name } <#{ Site.current.smtp_sender }>"
+    @replyto = @from
     @subject = I18n.t("vcc_mail_label").html_safe + " "
     @content_type ="text/html"
   end
