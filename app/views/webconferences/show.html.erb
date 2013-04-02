@@ -39,7 +39,9 @@
       window.setTimeout(function() {
         $("#update-recordings-success").hide();
       }, 5000);
-      $("#recording-list-wrapper").effect("highlight", { color: "#00ff00"}, 5000);
+      if ($("#recording-list-wrapper").is(":visible")) {
+        $("#recording-list-wrapper").effect("highlight", { color: "#00ff00"}, 5000);
+      }
     }
   }
 
@@ -54,8 +56,13 @@
     }).fail(function() {
       recListUpdateEnd(true);
     }).success(function(data) {
+      if (data.trim() != "") {
+        $("#recording-list-wrapper").show();
+        $("#recording-list-wrapper").html(data);
+      } else {
+        $("#recording-list-wrapper").hide();
+      }
       recListUpdateEnd(false);
-      $("#recording-list-wrapper").html(data);
     });
   });
 
@@ -97,34 +104,32 @@
   </p>
 </div>
 
-<% if @recordings.count > 0 %>
   <div>
-    <p class="main_text">
+    <div id="space-recordings-all">
       <div class="space-recordings">
         <h3 style="clear: both">
           <%= t('space.recordings.latest_recordings', :count => @recordings.count) %>
           <%= link_to t('space.recordings.view_all'), recordings_space_path(@space), :class => 'title-options' %>
 
-      <div id="update-recordings">
-        <div id="update-recordings-error">
-          <span><%= t("recordings.update_list.error") %></span>
-          <%= image_tag "icons/exclamation.png", :size => "16x16" %>
-        </div>
-        <div id="update-recordings-success">
-          <span><%= t("recordings.update_list.success") %></span>
-          <%= image_tag "icons/accept.png", :size => "16x16" %>
-        </div>
-        <div id="update-recordings-loading">
-          <span><%= t("recordings.update_list.updating") %></span>
-          <%= image_tag "icons/loading-16x16.gif", :size => "16x16" %>
-        </div>
-      </div>
+          <div id="update-recordings">
+            <div id="update-recordings-error">
+              <span><%= t("recordings.update_list.error") %></span>
+              <%= image_tag "icons/exclamation.png", :size => "16x16" %>
+            </div>
+            <div id="update-recordings-success">
+              <span><%= t("recordings.update_list.success") %></span>
+              <%= image_tag "icons/accept.png", :size => "16x16" %>
+            </div>
+            <div id="update-recordings-loading">
+              <span><%= t("recordings.update_list.updating") %></span>
+              <%= image_tag "icons/loading-16x16.gif", :size => "16x16" %>
+            </div>
+          </div>
 
         </h3>
       </div>
       <div id="recording-list-wrapper">
         <%= render :partial => 'recordings/recording_list', :locals => {:recordings => @recordings} %>
       </div>
-    </p>
+    </div>
   </div>
-<% end %>

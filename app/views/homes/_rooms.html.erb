@@ -66,7 +66,12 @@
       recListUpdateEnd(true);
     }).success(function(data) {
       recListUpdateEnd(false);
-      $("#recording-list-wrapper").html(data);
+      if (data.trim() != "") {
+        $("#recording-list-all").show();
+        $("#recording-list-wrapper").html(data);
+      } else {
+        $("#recording-list-all").hide();
+      }
     });
   });
 
@@ -89,6 +94,22 @@
         <% text = "(" + text + ")" %>
         <%= text %>
       </span>
+
+      <div id="update-recordings">
+        <div id="update-recordings-error">
+          <span><%= t("recordings.update_list.error") %></span>
+          <%= image_tag "icons/exclamation.png", :size => "16x16" %>
+        </div>
+        <div id="update-recordings-success">
+          <span><%= t("recordings.update_list.success") %></span>
+          <%= image_tag "icons/accept.png", :size => "16x16" %>
+        </div>
+        <div id="update-recordings-loading">
+          <span><%= t("recordings.update_list.updating") %></span>
+          <%= image_tag "icons/loading-16x16.gif", :size => "16x16" %>
+        </div>
+      </div>
+
     </h3>
     <div class="room_list">
       <% if @room.nil? %>
@@ -113,30 +134,18 @@
 
         </div>
 
-        <% if @recordings.count > 0 %>
-          <h4>
-            <%= t('home.recordings.latest_recordings', :count => @recordings.count) %>
-            <a class="recordings-view-all" href="<%= recordings_home_path %>"><%= t('home.recordings.view_all') %></a>
-            <div id="update-recordings">
-              <div id="update-recordings-error">
-                <span><%= t("recordings.update_list.error") %></span>
-                <%= image_tag "icons/exclamation.png", :size => "16x16" %>
-              </div>
-              <div id="update-recordings-success">
-                <span><%= t("recordings.update_list.success") %></span>
-                <%= image_tag "icons/accept.png", :size => "16x16" %>
-              </div>
-              <div id="update-recordings-loading">
-                <span><%= t("recordings.update_list.updating") %></span>
-                <%= image_tag "icons/loading-16x16.gif", :size => "16x16" %>
-              </div>
+        <div id="recording-list-all">
+          <% if @recordings.count > 0 %>
+            <h4>
+              <%= t('home.recordings.latest_recordings', :count => @recordings.count) %>
+              <a class="recordings-view-all" href="<%= recordings_home_path %>"><%= t('home.recordings.view_all') %></a>
+            </h4>
+            <div id="recording-list-wrapper">
+              <%= render :partial => 'recordings/recording_list', :locals => {:recordings => @recordings, :show_authors => false} %>
             </div>
-          </h4>
-          <div id="recording-list-wrapper">
-            <%= render :partial => 'recordings/recording_list', :locals => {:recordings => @recordings, :show_authors => false} %>
-          </div>
-          <div class="clearer"></div>
-        <% end %>
+            <div class="clearer"></div>
+          <% end %>
+        </div>
 
       <% end %>
     </div>

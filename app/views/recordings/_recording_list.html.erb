@@ -2,6 +2,8 @@
   <% show_authors = true %>
 <% end %>
 
+<% if recordings.count > 0 %>
+
 <div id="recording-list">
   <ul class="recording-item">
     <% recordings.each do |recording| %>
@@ -66,3 +68,5 @@
     <% end %>
   </ul>
 </div>
+
+<% end %>
