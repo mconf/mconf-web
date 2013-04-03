@@ -26,7 +26,7 @@
   });
 
  $('#upload_vcard img.tooltip_vcard').qtip({
-   content: '<%=t("tooltip.vcard")%>',
+   content: '<%= escape_javascript(t("tooltip.vcard")) %>',
    show:  'mouseover',
    hide: { when: 'mouseout', fixed: true },
    style: 'mystyle'
@@ -99,7 +99,7 @@
 <div id="flash_div" class="success" style="display:none"></div>
 
 <% flash.each do |name, msg| %>
-  <div class="<%= name %>"><%= msg %></div>
+  <div class="<%= name %>"><%= msg.html_safe %></div>
 <% end %>
 
 <%= error_messages_for :profile %>

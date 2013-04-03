@@ -202,6 +202,7 @@ class Notifier < ActionMailer::Base
     @subject += I18n.t("feedback.one").html_safe + " " + subject
     @text = body
     @user = email
+    @replyto = email
 
     create_default_mail(I18n.default_locale)
   end
@@ -211,9 +212,10 @@ class Notifier < ActionMailer::Base
     setup_email(Site.current.smtp_sender)
 
     @from = user.email
+    @replyto = user.email
     @subject += subject
-    @text = I18n.t("spam.item").html_safe + ": " + url + "<br/>"
-    @text += body
+    @text = I18n.t("spam.item").html_safe + ": " + url
+    @user_message = body
     @user = user.full_name
     @sitename  = Site.current.name
     @signature  = Site.current.signature_in_html
@@ -224,13 +226,16 @@ class Notifier < ActionMailer::Base
   def webconference_invite_email(params)
     setup_email(params[:email_receiver])
 
-    @sender = params[:user_name]
-    @room_name = params[:room_name]
-    @room_url = params[:room_url]
-    @mobile_url = params[:mobile_url]
-    @subject = params[:title]
-    @message = params[:body]
-    @signature  = Site.current.signature_in_html
+    I18n.with_locale(params[:locale]) do
+      @sender = params[:user_name]
+      @room_name = params[:room_name]
+      @room_url = params[:room_url]
+      @mobile_url = params[:mobile_url]
+      @subject = t('invite.title')
+      @message = params[:body]
+      @signature  = Site.current.signature_in_html
+      @replyto = params[:email_sender]
+    end
 
     create_default_mail(params[:locale])
   end
@@ -260,14 +265,14 @@ class Notifier < ActionMailer::Base
   def setup_email(recipients)
     @recipients = recipients
     @from = "#{ Site.current.name } <#{ Site.current.smtp_sender }>"
+    @replyto = @from
     @subject = I18n.t("vcc_mail_label").html_safe + " "
-    @sent_on = Time.now
     @content_type ="text/html"
   end
 
   def create_default_mail(locale)
     I18n.with_locale(locale) do
-      mail(:to => @recipients, :subject => @subject, :from => @from, :headers => @headers, "Reply-To" => @replyto)
+      mail(:to => @recipients, :subject => @subject, :from => @from, :headers => @headers, :reply_to => @replyto)
     end
   end
 

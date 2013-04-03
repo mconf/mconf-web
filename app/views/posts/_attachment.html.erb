@@ -1,7 +1,7 @@
 <script type="text/javascript">
  $('#newTag img.tooltip_new_tag').livequery(function(){
    $(this).qtip({
-    content: '<%=t("tooltip.tag")%>',
+    content: '<%= escape_javascript(t("tooltip.tag")) %>',
                 position: {adjust: { screen: true }},
     show:  'mouseover',
     hide: { when: 'mouseout', fixed: true },
@@ -14,7 +14,7 @@
   <%= f.file_field :uploaded_data, :class => "file file_1", :size => 14 %>
   <div id="newTag">
     <span>
-      <%=t('tag.new')%>: 
+      <%=t('tag.new')%>:
       <%=image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_new_tag icon",:style=>"cursor:pointer")%>
     </span>
   </div>

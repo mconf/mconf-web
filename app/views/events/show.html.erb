@@ -5,19 +5,19 @@
   <%= javascript_include_tag 'jquery.timeentry','jquery.mousewheel','jquery.filestyle', 'user_filter' %>
   <%= javascript_include_tag 'jquery.jeditable', 'jquery.wysiwyg', 'jquery.jeditable.wysiwyg', 'jquery.filestyle', 'jquery.fcbkcomplete' %>
 	<%= javascript_include_tag 'jquery.vcc' %>
-  <%= stylesheet_link_tag "fcbkcomplete", :media => "screen, projection" %> 
-  <%= stylesheet_link_tag "jquery.wysiwyg", :media => "screen, projection" %> 
+  <%= stylesheet_link_tag "fcbkcomplete", :media => "screen, projection" %>
+  <%= stylesheet_link_tag "jquery.wysiwyg", :media => "screen, projection" %>
 <%end%>
 
 <%= content_for :javascript do%>
   <%= render :partial => 'events_javascript.js' %>
  $('#event_views img.tooltip_num_views').qtip({
-   content: '<%=t("tooltip.num_views")%>',
+   content: '<%= escape_javascript(t("tooltip.num_views")) %>',
 	 position: {adjust: { screen: true }},
    show:  'mouseover',
    hide: { when: 'mouseout', fixed: true },
    style: 'mystyle'
-  });  
+  });
 <% end %>
 
 <%= content_for :sidebar do  %>
@@ -48,23 +48,23 @@
 	    <p class="note">
         <%= t('event.note.not_organizer_no_date').html_safe %>
       </p>
-	  <%end%>	
-	
+	  <%end%>
+
     <%if params[:edit_comment]%>
 	    <%= render(:partial => "posts/edit_post", :locals => { :post => Post.find(params[:edit_comment]) }) if @space.authorize?([:create, :content],:to => current_user) %>
     <%elsif params[:show_streaming] || params[:show_participation]%>
       <%=render :partial => "video_online"%>
 	    <%= render :partial => 'participants' %>
-    <%else%>	  
-      <%= render :partial => 'participants' %>	  
-    <%end%>  
-           
+    <%else%>
+      <%= render :partial => 'participants' %>
+    <%end%>
+
     <%if event.authorize?(:update, :to => current_user) %>
-      <%= 
-        #render :partial => "change_logo" 
+      <%=
+        #render :partial => "change_logo"
       %>
-      <%= 
-        #render :partial => "import_icalendar" 
+      <%=
+        #render :partial => "import_icalendar"
        %>
     <%end%>
 
@@ -73,9 +73,9 @@
       <span class="separated_5"><%=@event.unique_pageviews%></span><%=t('statistics.event_views')%>
       <%=image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_num_views icon",:style=>"cursor:pointer")%>
     </div>
-	
-  </div> 
-    
+
+  </div>
+
 <%end%>
 
 
@@ -91,16 +91,16 @@
 <!--
   <%if params[:new_invitations]%>
 	  <%=
-      #render :partial => 'new_invitations', :locals => {:checked_users => Array.new} 
+      #render :partial => 'new_invitations', :locals => {:checked_users => Array.new}
     %>
   <%elsif params[:notification]%>
     <%=
-      #render :partial => 'notification', :locals => {:checked_attendants => Array.new} 
+      #render :partial => 'notification', :locals => {:checked_attendants => Array.new}
     %>
   <%elsif params[:group_invitation]%>
     <%=
-      #render :partial => 'group_invitation' 
-    %>  
+      #render :partial => 'group_invitation'
+    %>
   <%elsif params[:show_repository]%>
     <%=
       #render :partial => "show_repository"
@@ -110,42 +110,42 @@
 	    <%=
         #render :partial => "external_streaming"
       %>
-		  <%= 
+		  <%=
         #render :partial => "connection_info"
       %>
 	  <%elsif params[:show_participation] && @event.is_in_person? %>
 	    <%=
         #render :partial => "external_participation"
       %>
-		  <%= 
+		  <%=
         #render :partial => "connection_info"
       %>
 	  <%elsif params[:show_streaming]%>
 	    <%=
         #render :partial => "cm_streaming"
         %>
-		  <%= 
+		  <%=
         #render :partial => "connection_info"
       %>
 	  <%elsif params[:show_participation]%>
 	    <%=
         #render :partial => "cm_participation"
       %>
-		  <%= 
+		  <%=
         #render :partial => "connection_info"
       %>
-		<%end%>  
+		<%end%>
   <%else%>
-    <%= 
-      #t('event.no_param') 
+    <%=
+      #t('event.no_param')
     %>
   <%end%>
 -->
- 
-  
+
+
 <%= content_for :javascript do%>
-  
-  //It is compulsory for this code to be here, because of a bug in the fcbkcomplete that if you apply it 
+
+  //It is compulsory for this code to be here, because of a bug in the fcbkcomplete that if you apply it
   //when the html is not shown it does not work properly, with will be set to 0px
   $("#speakers_name_edit").livequery(function () {
     $(this).fcbkcomplete({

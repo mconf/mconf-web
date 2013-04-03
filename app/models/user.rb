@@ -97,7 +97,7 @@ class User < ActiveRecord::Base
     create_bigbluebutton_room :owner => self,
                               :server => BigbluebuttonServer.first,
                               :param => self.login,
-                              :name => self._full_name,
+                              :name => self.login,
                               :logout_url => "/feedback/webconf/"
   end
 
