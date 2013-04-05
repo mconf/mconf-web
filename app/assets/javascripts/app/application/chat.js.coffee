@@ -12,6 +12,12 @@ Chat =
   password: null
   bbb_room_url: null
   requester_name: null
+  ##########OFFLINE###########
+  offline_jid_id: null
+  offline_name: null
+  offline_body: null
+  history_message: false
+  ############################
   list_of_pending_contacts: []
 
   jid_to_id: (jid) ->
@@ -32,16 +38,20 @@ Chat =
         Chat.connection.sendIQ iq
 
       contact = $("<li id='" + jid_id + "' class='offline'><div class='roster-contact'>" +
-        "<div class='roster-name'>" + name + "</div><div class='roster-jid hidden'>" + jid +
+        "<div class='roster-name ellipsis'>" + name + "</div><div class='roster-jid hidden'>" + jid +
          "</div></div></li>")
-
       Chat.insert_contact contact
       return
 
-    contact = $("<li id='" + "space-conference-mconf-chat-test-inf-ufrgs-br" + "' class='space_muc'><div class='roster-contact'>" +
-      "<div class='roster-name'>" + "Space" + "</div><div class='roster-jid hidden'>" + "space@conference.mconf-chat-test.inf.ufrgs.br" +
-      "</div></div></li>")
-    Chat.insert_contact contact
+    Chat.spaces.forEach (element) =>
+      space_jid = element.permalink + "@conference.mconf-chat-test.inf.ufrgs.br"
+      contact = $("<li id='" + element.permalink + "-conference-mconf-chat-test-inf-ufrgs-br" + "' class='space_muc'><div class='roster-contact'>" +
+        "<div class='roster-name ellipsis'>" + element.name + "</div><div class='roster-jid hidden'>" + space_jid +
+        "</div></div></li>")
+      Chat.insert_contact contact
+      # Comando para entrar em uma sala MUC
+      pres = $pres({to: space_jid+"/"+Chat.user_name}).c('x', {xmlns: "http://jabber.org/protocol/muc"}).c('password').t('newpassword')
+      Chat.connection.send pres
 
     Chat.connection.addHandler Chat.on_presence, null, "presence"
     Chat.connection.addHandler Chat.on_subscription_request, null, "presence", "subscribe"
@@ -99,7 +109,7 @@ Chat =
         Chat.insert_members member
     else
       ptype = $(presence).attr 'type'
-      if ptype isnt "subscribe" and ptype isnt "subscribed" and ptype isnt "unsubscribed"
+      if ptype isnt "subscribe" and ptype isnt "subscribed" and ptype isnt "unsubscribed" and $(presence).find('x').attr('xmlns') isnt "http://jabber.org/protocol/muc"
         from = $(presence).attr 'from'
         jid_id = Chat.jid_to_id from
 
@@ -134,7 +144,6 @@ Chat =
                   $("#chat-"+jid_id+" .none").addClass "away"
 
         Chat.insert_contact contact
-
         jid_id = Chat.jid_to_id from
         $("#chat-" + jid_id).data "jid", Strophe.getBareJidFromJid from
     return true
@@ -257,20 +266,29 @@ Chat =
         body = span
 
       if body?
+        Chat.history_message = false
         unless $('#chat-' + jid_id).size()
+          Chat.history_message = true
           Chat.insertChatArea jid, jid_id, status, name
 
         $('#chat-' + jid_id + ' #content-chat').show()
         $('#chat-' + jid_id + ' .chat-input').focus()
 
-        $('#chat-' + jid_id + ' #content-chat #message-area .chat-messages .chat-event').remove()
-        $('#chat-' + jid_id + ' #content-chat #message-area .chat-messages').append(
-          "<div class='chat-message'>" +
-          "<span class='chat-name'>" + name +
-          " </span><span class='chat-text'>" +
-          "</span></div>")
-        $('#chat-' + jid_id + ' .chat-message:last .chat-text').append body
-        Chat.scroll_chat jid_id
+        ######HISTORY######
+        if Chat.history_message
+          Chat.offline_jid_id = jid_id
+          Chat.offline_name = name
+          Chat.offline_body = body
+        ###################
+        else
+          $('#chat-' + jid_id + ' #content-chat #message-area .chat-messages .chat-event').remove()
+          $('#chat-' + jid_id + ' #content-chat #message-area .chat-messages').append(
+            "<div class='chat-message'>" +
+            "<span class='chat-name'>" + name +
+            " </span><span class='chat-text'>" +
+            "</span></div>")
+          $('#chat-' + jid_id + ' .chat-message:last .chat-text').append body
+          Chat.scroll_chat jid_id
     return true
 
   scroll_members: (jid_id) ->
@@ -353,6 +371,13 @@ Chat =
 
     $('#chat-' + jid_id).data 'jid', jid
     $('#chat-' + jid_id + ' .chat-input').autosize()
+    ######HISTORY######
+    iq = $iq({type: "get"})
+      .c("list", {xmlns: "http://www.xmpp.org/extensions/xep-0136.html#ns", with: jid})
+      .c("set", {xmlns: "http://jabber.org/protocol/rsm"})
+      .c("max").t("100")
+    Chat.connection.sendIQ iq, Chat.chat_history_list
+    ###################
 
   insertGroupChatArea: (jid,jid_id,name) ->
     $("#chat-bar").append(
@@ -365,6 +390,57 @@ Chat =
 
     $('#chat-' + jid_id).data 'jid', jid
     $('#chat-' + jid_id + ' .chat-input').autosize()
+
+  chat_history_list: (iq) ->
+    iq_aux = $iq({type: "get"})
+      .c("retrieve", {xmlns: "http://www.xmpp.org/extensions/xep-0136.html#ns", with: $(iq).find("chat").last().attr("with"), start: $(iq).find("chat").last().attr("start")})
+      .c("set", {xmlns: "http://jabber.org/protocol/rsm"})
+      .c("max").t("100")
+    Chat.connection.sendIQ iq_aux, Chat.chat_history
+
+  chat_history: (iq) ->
+    jid_id = Chat.jid_to_id $(iq).find("chat").attr("with")
+    name = $("#"+jid_id).find(".roster-name").text()
+    name_me = $("#status").text()
+
+    $(iq).find("chat").children().each (index, element) =>
+      if Chat.history_message and index > ($(iq).find("chat").children().size() - 3)
+        return false
+      else
+        if $(element).is("to")
+          $("#chat-" + jid_id).find('.chat-messages').append(
+            "<div class='chat-message'>" +
+            "<span class='history-name'>" + name_me +
+            " </span><span class='chat-text'>" + $(element).find("body").text() +
+            "</span></div>")
+          Chat.scroll_chat jid_id
+        if $(element).is("from")
+          $("#chat-" + jid_id).find('.chat-messages').append(
+            "<div class='chat-message'>" +
+            "<span class='history-name'>" + name +
+            " </span><span class='chat-text'>" + $(element).find("body").text() +
+            "</span></div>")
+          Chat.scroll_chat jid_id
+
+    $("#chat-" + jid_id).find('.chat-messages').append(
+      "<div class='chat-message border-history'></div>")
+    Chat.scroll_chat jid_id
+    Chat.print_offline_message true if Chat.history_message
+
+  print_offline_message: (bool) ->
+    if Chat.offline_jid_id?
+      $('#chat-' + Chat.offline_jid_id + ' #content-chat #message-area .chat-messages .chat-event').remove()
+      $('#chat-' + Chat.offline_jid_id + ' #content-chat #message-area .chat-messages').append(
+        "<div class='chat-message'>" +
+        "<span class='chat-name'>" + Chat.offline_name +
+        " </span><span class='chat-text'>" +
+        "</span></div>")
+      $('#chat-' + Chat.offline_jid_id + ' .chat-message:last .chat-text').append Chat.offline_body
+      Chat.scroll_chat Chat.offline_jid_id
+      Chat.history_message = false
+      Chat.offline_jid_id = null
+      Chat.offline_name = null
+      Chat.offline_body = null
 
   member_list_ok: (iq) ->
     jid = $(iq).attr 'from'
@@ -384,29 +460,7 @@ Chat =
 
     $("#members-online-"+jid_id).toggle(0)
 
-  member_list_error: (iq) ->
-    console.log "member error"
-    console.log iq
-
-  disco_ok: (iq) ->
-    console.log "disco ok"
-    console.log iq
-
-  disco_fail: (iq) ->
-    console.log "disco error"
-    console.log iq
-
-  creating_room_ok: (iq) ->
-    console.log "room ok"
-    console.log iq
-
-  creating_room_error: (iq) ->
-    console.log "room error"
-    console.log iq
-
   creating_room: (iq) ->
-    console.log "sala"
-    console.log iq
     from = $(iq).attr 'from'
 
     iq = $iq({to: from, type: "set"}).c("query", {xmlns: "http://jabber.org/protocol/muc#owner"}).c("x", {xmlns: "jabber:x:data", type: "submit"})
@@ -415,9 +469,7 @@ Chat =
       .c("field", {var: "muc#roomconfig_passwordprotectedroom"}).c('value').t('1').up().up()
       .c("field", {var: "muc#roomconfig_roomsecret"}).c('value').t('teste1').up().up()
 
-    #console.log iq.toString()
-
-    Chat.connection.sendIQ iq, Chat.creating_room_ok, Chat.creating_room_error
+    Chat.connection.sendIQ iq
 
     # Comando para entrar na sala "teste"
     #Chat.connection.send $pres({to: "teste@conference.mconf-chat-test.inf.ufrgs.br/"+Chat.user_name}).c('x', {xmlns: "http://jabber.org/protocol/muc"}),  Chat.entering_room, Chat.entering_room_error
@@ -432,6 +484,7 @@ $ ->
       name: name
       url: url
       xmpp_server: xmpp_server
+      spaces: spaces
 
   $("#main-chat-area").on "click", "#main-chat #content-chat li#status", ->
     $("#status_list").toggle(0)
@@ -465,11 +518,11 @@ $ ->
 
     unless $('#chat-' + jid_id).size()
       if status is "space_muc"
-        name = jid.split("@")[0]
+        name = name
         Chat.insertGroupChatArea jid, jid_id, name
 
         iq = $iq({to: jid, type: "get"}).c("query", {xmlns: "http://jabber.org/protocol/disco#items"})
-        Chat.connection.sendIQ iq, Chat.member_list_ok, Chat.member_list_error
+        Chat.connection.sendIQ iq, Chat.member_list_ok
       else
         Chat.insertChatArea jid, jid_id, status, name
 
@@ -546,7 +599,7 @@ $ ->
     if $("#members-online-"+jid_id).css('display') is 'none'
       $("#members-online-"+jid_id).toggle(0)
       #iq = $iq({to: jid, type: "get"}).c("query", {xmlns: "http://jabber.org/protocol/disco#items"})
-      #Chat.connection.sendIQ iq, Chat.member_list_ok, Chat.member_list_error
+      #Chat.connection.sendIQ iq, Chat.member_list_ok
     else
       $("#members-online-"+jid_id).toggle(0)
 
@@ -616,7 +669,7 @@ $ ->
 
   $("#main-chat-area").on 'click', ".chat-align .no-show #main-chat #content-chat #bbb_invite", ->
     iq = $iq({to: 'conference.mconf-chat-test.inf.ufrgs.br', type: 'get'}).c('query', {xmlns: 'http://jabber.org/protocol/disco#items'})
-    Chat.connection.sendIQ iq, Chat.disco_ok, Chat.disco_fail
+    Chat.connection.sendIQ iq
 
   $("#main-chat-area").on 'click', ".chat-align .no-show #main-chat #content-chat #bbb_invite1", ->
     $.colorbox
@@ -700,6 +753,7 @@ $(document).bind 'connect', (ev, data) ->
       Chat.login = data.login
       Chat.password = data.password
       Chat.bbb_room_url = data.url
+      Chat.spaces = data.spaces
       $("#status").removeClass("offline").addClass "online"
       $(document).trigger 'connected'
     else
@@ -739,17 +793,17 @@ $(document).bind 'connected', ->
   Chat.connection.addHandler Chat.on_message, null, "message", "chat"
   Chat.connection.addHandler Chat.on_group_message, null, "message", "groupchat"
 
-  # Comando para entrar na sala "salanova5"
-  #pres = $pres({to: "space@conference.mconf-chat-test.inf.ufrgs.br/"+Chat.user_name}).c('x', {xmlns: "http://jabber.org/protocol/muc"}).c('password').t('teste')
-  #Chat.connection.send pres
+  # Comando para entrar em uma sala MUC
+  # pres = $pres({to: "space@conference.mconf-chat-test.inf.ufrgs.br/"+Chat.user_name}).c('x', {xmlns: "http://jabber.org/protocol/muc"}).c('password').t('teste')
+  # Chat.connection.send pres
 
   #iq = $iq({to: 'salanova5@conference.mconf-chat-test.inf.ufrgs.br', type: 'get'}).c("query", {xmlns: "http://jabber.org/protocol/disco#info"})
-  #Chat.connection.sendIQ iq, Chat.disco_ok, Chat.disco_fail
+  #Chat.connection.sendIQ iq
 
   # COMANDO PARA CRIAR A SALA E CONFIGURAR ELA
   #Chat.connection.send $pres({to: 'comunidade1@conference.mconf-chat-test.inf.ufrgs.br'}).c('x', {xmlns: 'http://jabber.org/protocol/muc'})
   #iq = $iq({to: 'comunidade1@conference.mconf-chat-test.inf.ufrgs.br', type: 'get'}).c("query", {xmlns: "http://jabber.org/protocol/muc#owner"})
-  #Chat.connection.sendIQ iq, Chat.creating_room, Chat.creating_room_error
+  #Chat.connection.sendIQ iq, Chat.creating_room
 
 $(document).bind 'disconnect', ->
   if Chat.connection
@@ -800,7 +854,7 @@ $(document).bind 'change_status', (ev,data) ->
   else
     if data.status is "online" and not Chat.connection?
       $("#roster-area").removeClass()
-      $(document).trigger('connect',{login: data.login, password: data.password, name: data.name, url: data.url, domain: data.domain, xmpp_server: Chat.xmpp_server})
+      $(document).trigger('connect',{login: data.login, password: data.password, name: data.name, url: data.url, domain: data.domain, xmpp_server: Chat.xmpp_server, spaces: Chat.spaces})
       $("#chat_status_dnd").removeClass "hidden"
       $("#chat_status_away").removeClass "hidden"
     else
