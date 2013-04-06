@@ -165,7 +165,7 @@ describe SpacesController do
       room = space.bigbluebutton_room
 
       room.should_not be_nil
-      room.name.should == space.name
+      room.name.should == space.permalink
       room.owner_id.should == space.id
       room.owner_type.should == space.class.name
     end
