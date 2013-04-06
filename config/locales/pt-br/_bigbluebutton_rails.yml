@@ -32,6 +32,7 @@ pt-br:
       default_welcome_msg: "Bem-vindo(a) à conferência <b>%{name}!</b><br/><br/>Para entrar na conferência de áudio a partir de um telefone SIP, disque %{voice_number}.<br/><br/>Se você precisa ajuda para usar esta aplicação <u><a href=\"http://www.bigbluebutton.org/videos/\">veja estes vídeos</a></u>."
       errors: 
         auth: 
+          cannot_create: "Você não tem permissão para iniciar esta reunião."
           failure: "Falha de autenticação."
           not_running: "A reunião não está em andamento. Você deve aguardar por um moderador para ingressar."
           wrong_params: "Parâmetros errados na sua requisição."

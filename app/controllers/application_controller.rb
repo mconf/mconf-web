@@ -40,7 +40,7 @@ class ApplicationController < ActionController::Base
     @space ||= current_container(:type => :space, :path_ancestors => true)
   end
 
-  # overriding bigbluebutton_rails function
+  # Overrides 'bigbluebutton_user' in BigbluebuttonRails
   def bigbluebutton_user
     if current_user && current_user.is_a?(User)
       current_user
@@ -49,6 +49,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  # Overrides 'bigbluebutton_role' in BigbluebuttonRails
   def bigbluebutton_role(room)
     # TODO: temporary guest role that only exists in mconf-live
     guest_role = :attendee
@@ -95,6 +96,11 @@ class ApplicationController < ActionController::Base
         guest_role
       end
     end
+  end
+
+  # Overrides 'bigbluebutton_can_create?' in BigbluebuttonRails
+  def bigbluebutton_can_create?(room, role)
+    role == :moderator
   end
 
   # This method is the same as space, but raises error if no Space is found

@@ -76,6 +76,7 @@ en:
       default_welcome_msg: "Welcome to the conference <b>%{name}!</b><br/><br/>To join the audio conference from a SIP phone, dial %{voice_number}.<br/><br/>If you need help using the conference client <u><a href=\"http://www.bigbluebutton.org/videos/\">check out these videos</a></u>."
       errors: 
         auth: 
+          cannot_create: "You don't have permissions to start this meeting."
           failure: "Authentication failure."
           not_running: "The meeting is not running. You must wait for a moderator to join."
           wrong_params: "Wrong params in your request."
