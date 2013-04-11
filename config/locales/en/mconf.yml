@@ -1273,7 +1273,7 @@ en:
       check: "There was a problem marking the resource as spam"
     item: "This item has been reported as spam"
     report: "Report spam"
-    reported: "%{name} has reported spam in %{sitename}"
+    reported: "%{name} (%{email}) has reported spam in %{sitename}"
     valid: "This content is valid"
   sponsors: 
     prav: "Projetos em<br/>Áudio e Vídeo"

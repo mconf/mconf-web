@@ -1270,7 +1270,7 @@ pt-br:
       check: "Houve um problema marcando o recurso como spam"
     item: "Este artigo foi denunciado como spam"
     report: "Denunciar spam"
-    reported: "%{name} denunciou spam em %{sitename}"
+    reported: "%{name} (%{email}) denunciou spam em %{sitename}"
     valid: "Este conteúdo é válido"
   sponsors: 
     prav: "Projetos em<br/>Áudio e Vídeo"
