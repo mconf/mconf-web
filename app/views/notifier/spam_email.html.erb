@@ -1,6 +1,6 @@
 <html>
 <body>
-<%= t('spam.reported', :name => @user, :sitename => @sitename)%>.<br/><br/>
+<%= t('spam.reported', :name => @user, :email => @user.email, :sitename => @sitename)%>.<br/><br/>
 
 
 <%= @text %><br/><br/>

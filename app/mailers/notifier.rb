@@ -198,7 +198,6 @@ class Notifier < ActionMailer::Base
   def feedback_email(email, subject, body)
     setup_email(Site.current.smtp_sender)
 
-    @from = email
     @subject += I18n.t("feedback.one").html_safe + " " + subject
     @text = body
     @user = email
@@ -211,7 +210,6 @@ class Notifier < ActionMailer::Base
   def spam_email(user,subject, body, url)
     setup_email(Site.current.smtp_sender)
 
-    @from = user.email
     @replyto = user.email
     @subject += subject
     @text = I18n.t("spam.item").html_safe + ": " + url
