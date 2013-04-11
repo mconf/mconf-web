@@ -7,11 +7,9 @@
 <% @rooms.each do |room| %>
   <div id="bbbrails_rooms_list_item">
     <label><%= BigbluebuttonRoom.human_attribute_name(:id) %></label> <span class="value"><%= room.id %></span>
-    <label><%= BigbluebuttonRoom.human_attribute_name(:uniqueid) %></label> <span class="value"><%= room.uniqueid %></span>
     <label><%= BigbluebuttonRoom.human_attribute_name(:name) %></label> <span class="value"><%= room.name %></span>
     <label><%= BigbluebuttonRoom.human_attribute_name(:server_id) %></label> <span class="value"><%= room.server_id %></span>
     <label><%= BigbluebuttonRoom.human_attribute_name(:meetingid) %></label> <span class="value"><%= room.meetingid %></span>
-    <label><%= BigbluebuttonRoom.human_attribute_name(:randomize_meetingid) %></label> <span class="value"><%= room.randomize_meetingid %></span>
     <label><%= BigbluebuttonRoom.human_attribute_name(:private) %></label> <span class="value"><%= room.private %></span>
     <label><%= BigbluebuttonRoom.human_attribute_name(:attendee_password) %></label> <span class="value"><%= room.attendee_password %></span>
     <label><%= BigbluebuttonRoom.human_attribute_name(:moderator_password) %></label> <span class="value"><%= room.moderator_password %></span>

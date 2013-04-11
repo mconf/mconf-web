@@ -13,7 +13,6 @@ pt-br:
         name: Nome
         param: Identificador
         private: Privado
-        randomize_meetingid: "ID da reunião aleatório"
         server_id: "ID do Servidor"
         voice_bridge: "Voice Bridge"
         welcome_msg: "Mensagem de boas-vindas"

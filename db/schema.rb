@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130226215041) do
+ActiveRecord::Schema.define(:version => 20130411020409) do
 
   create_table "admissions", :force => true do |t|
     t.string   "type"
@@ -165,20 +165,17 @@ ActiveRecord::Schema.define(:version => 20130226215041) do
     t.string   "voice_bridge"
     t.string   "dial_number"
     t.integer  "max_participants"
-    t.boolean  "private",             :default => false
-    t.boolean  "randomize_meetingid", :default => true
+    t.boolean  "private",            :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "external",            :default => false
+    t.boolean  "external",           :default => false
     t.string   "param"
-    t.boolean  "record",              :default => false
-    t.integer  "duration",            :default => 0
-    t.string   "uniqueid",                               :null => false
+    t.boolean  "record",             :default => false
+    t.integer  "duration",           :default => 0
   end
 
   add_index "bigbluebutton_rooms", ["meetingid"], :name => "index_bigbluebutton_rooms_on_meetingid", :unique => true
   add_index "bigbluebutton_rooms", ["server_id"], :name => "index_bigbluebutton_rooms_on_server_id"
-  add_index "bigbluebutton_rooms", ["uniqueid"], :name => "index_bigbluebutton_rooms_on_uniqueid", :unique => true
   add_index "bigbluebutton_rooms", ["voice_bridge"], :name => "index_bigbluebutton_rooms_on_voice_bridge", :unique => true
 
   create_table "bigbluebutton_servers", :force => true do |t|

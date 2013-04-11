@@ -160,15 +160,13 @@ namespace :setup do
           room.owner_id = space.id
           room.owner_type = 'Space'
           room.name = space.name
-          room.meetingid = space.permalink
-          room.randomize_meetingid = false
+          room.meetingid = "#{SecureRandom.uuid}-#{Time.now.to_i}"
           room.attendee_password = "ap"
           room.moderator_password = "mp"
           room.private = !space.public
           room.logout_url = "/spaces/#{space.permalink}"
           room.external = false
           room.param = space.name.parameterize.downcase
-          room.uniqueid = "#{SecureRandom.hex(16)}-#{Time.now.to_i}"
           room.duration = 0
           room.record = false
         end
