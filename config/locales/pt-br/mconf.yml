@@ -709,6 +709,7 @@ pt-br:
       configure: "Configurar"
       invite_people: "Convidar outras pessoas"
       join_from_mobile: "Entrar com um dispositivo móvel"
+      no_recording_options: "A sala está em execução, não há opções de gravação disponíveis no momento. Você pode modificar as opções quando a sala está fechado."
       record: "Gravar"
       recording_description: "Descrição"
       recording_description_placeholder: "Descrição para esta gravação"
