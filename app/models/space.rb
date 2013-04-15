@@ -86,7 +86,7 @@ class Space < ActiveRecord::Base
   def update_bbb_room
     bigbluebutton_room.update_attributes(:param => self.permalink,
                                          :name => self.permalink,
-                                         :public => !self.public)
+                                         :private => !self.public)
   end
 
   def update_unique_permalink
