@@ -55,9 +55,9 @@
   }
 
   recListUpdateStart();
-  $.post("<%= fetch_recordings_bigbluebutton_room_path(@room) %>", {
+  $.post("<%= fetch_recordings_bigbluebutton_room_path(@room, :format => 'json') %>", {
     authenticity_token: "<%= form_authenticity_token() %>"
-  }).fail(function() {
+  }, null, "html").fail(function(e) {
     recListUpdateEnd(true);
   }).success(function(data) {
     $.get("<%= recordings_home_path(:partial => '1', :limit => 3) %>", {
