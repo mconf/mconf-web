@@ -98,7 +98,9 @@ class User < ActiveRecord::Base
                               :server => BigbluebuttonServer.first,
                               :param => self.login,
                               :name => self.login,
-                              :logout_url => "/feedback/webconf/"
+                              :logout_url => "/feedback/webconf/",
+                              :moderator_password => SecureRandom.hex(4),
+                              :attendee_password => SecureRandom.hex(4)
   end
 
   def update_bbb_room

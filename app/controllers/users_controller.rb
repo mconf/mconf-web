@@ -149,6 +149,7 @@ class UsersController < ApplicationController
   #this method updates a user
   def update
     if params[:bbb_room]
+      # TODO: treat possible errors
       user.bigbluebutton_room.update_attributes(params[:bigbluebutton_room])
       respond_to do |format|
         format.html {
@@ -180,7 +181,8 @@ class UsersController < ApplicationController
             else
                render :action => "edit"
               #redirect_to(space_user_path(@space, @user))
-            end }
+            end
+          }
           format.xml  { render :xml => @user.errors, :status => :unprocessable_entity }
           format.atom { render :xml => @user.errors.to_xml, :status => :not_acceptable }
         end
