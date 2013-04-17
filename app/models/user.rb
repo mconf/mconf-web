@@ -43,7 +43,6 @@ class User < ActiveRecord::Base
   #has_many :groups, :through => :memberships
 
   # exclusive and unique BBB Room for each user
-  before_create :assign_locale_from_site
   after_create :create_bbb_room
   after_update :update_bbb_room
   has_one :bigbluebutton_room, :as => :owner, :dependent => :destroy
@@ -100,10 +99,6 @@ class User < ActiveRecord::Base
                               :param => self.login,
                               :name => self.login,
                               :logout_url => "/feedback/webconf/"
-  end
-
-  def assign_locale_from_site
-    self.locale = Site.current.locale
   end
 
   def update_bbb_room
