@@ -125,9 +125,15 @@ pt-br:
       id: ID
       name: Nome
       role: Papel
+    fetch_recordings: "Buscar gravações"
     new_room: "Nova sala"
     new_server: "Novo servidor"
+    recordings: 
+      default: Padrão
+      publish: Publicar
+      unpublish: Ocultar
     rooms: 
+      add_metadata: "Adicionar metadados"
       external: 
         header: "Esta reunião foi criada por uma outra aplicação. <br/>Você deve fornecer um nome e uma senha para entrar:"
       index: 
@@ -136,6 +142,7 @@ pt-br:
         new_room: "Nova sala"
       invite: Convidar
       join_mobile: Entrar/móvel
+      metadata_after_create: "Metadados só podem ser adicionados após a sala ser criada"
     servers: 
       activity: 
         activity: Atividade
@@ -153,6 +160,13 @@ pt-br:
         title: "Monitor de atividades do servidor"
       index: 
         access_links: "Links de acesso"
+        recording_links: Gravações
+      recordings: 
+        fetch: "Buscar gravações"
+        publish: "Publicar gravações"
+        unpublish: "Ocultar gravações"
+    view_recording_list: "Ver lista de gravações"
+    view_recordings: "Ver gravações"
     view_room_list: "Ver lista de salas"
     view_rooms: "Ver salas"
     view_server_list: "Ver lista de servidores"
@@ -178,7 +192,7 @@ pt-br:
     post: Postar
     publish: Publicar
     remove: Remover
-    saving_dots: "Gravando..."
+    saving_dots: Gravando...
     search: Procurar
     send: Enviar
     sending: Enviando...
@@ -239,6 +253,7 @@ pt-br:
   deny: Não
   description: Descrição
   destroy: Destruir
+  details: Detalhes
   disable: Desabilitar
   disabled: Desabilitado
   document: 
@@ -694,11 +709,14 @@ pt-br:
   his_message_reads_thus: "Sua mensagem diz assim"
   home: 
     activity: "Atividade recente..."
-    invite_url: "URL"
+    invite_url: URL
     my: "Página inicial"
     no_rooms: "Você não tem salas de webconferência."
     not_running: inativa
     one: home
+    recordings: 
+      latest_recordings: "Suas últimas %{count} gravações"
+      view_all: "ver todas gravações..."
     running_with: 
       no_participants: "ativa sem participantes"
       participants: 
@@ -706,17 +724,17 @@ pt-br:
         other: "ativa com %{count} participantes"
     view_invite_url: "Ver URL"
     webconf: 
-      configure: "Configurar"
+      configure: Configurar
       invite_people: "Convidar outras pessoas"
-      join_from_mobile: "Entrar com um dispositivo móvel"
-      record: "Gravar"
-      recording_description: "Descrição"
-      recording_description_placeholder: "Descrição para esta gravação"
-      recording_duration: "Duração"
-      recording_duration_units: "horas"
-      recording_title: "Título"
-      recording_title_placeholder: "Título para essa gravação"
-      start: "Iniciar!"
+      join_from_mobile: "Entrar a partir de um dispositivo móvel"
+      record: Gravar
+      recording_description: Descrição
+      recording_description_placeholder: "Uma descrição para esta gravação"
+      recording_duration: Duração
+      recording_duration_units: horas
+      recording_title: Título
+      recording_title_placeholder: "Um título para esta gravação"
+      start: Iniciar!
   icalendar: 
     error_import: "Ocorreu um erro ao importar o iCalendar."
     import: "Importar iCalendar"
@@ -794,7 +812,7 @@ pt-br:
     email: "e-mail para %{email}"
     invitation_successfully: "Convite enviado com sucesso:"
     invitation_unsuccessfully: "Convite não pode ser enviado:"
-    message: "Você foi convidado por <b>%{sender}</b> (<a href=\"mailto:%{email_sender}\">%{email_sender}</a>)  para participar da webconferência <b>%{name}</b>.<br/><br/>Você pode participar acessando o endereço: <a href=\"%{invite_url}\">%{invite_url}</a><br/>Se você está em um cliente móvel, use este endereço: <a href=\"%{mobile_url}\">%{mobile_url}</a><br/><br/>Esta é a mensagem escrita por <b>%{sender}</b>:"
+    message: "Você foi convidado por <b>%{sender}</b> (<a href=\"mailto:%{email_sender}\">%{email_sender}</a>) para participar da webconferência <b>%{name}</b>.<br/><br/>Você pode participar acessando o endereço: <a href=\"%{invite_url}\">%{invite_url}</a><br/>Se você está em um cliente móvel, use este endereço: <a href=\"%{mobile_url}\">%{mobile_url}</a><br/><br/>Esta é a mensagem escrita por <b>%{sender}</b>:"
     title: "Convite para participar de uma webconferência"
     user_private_msg: "mensagem privada para o usuário %{user}"
   invite_people: 
@@ -848,7 +866,7 @@ pt-br:
     de: Deutsch
     en: English
     es: Español
-    fr: Fraçais
+    fr: Français
     pt-br: "Português (Brasil)"
   login: 
     email_or_login: "E-mail ou usuário"
@@ -877,7 +895,7 @@ pt-br:
       new: "Nova mensagem privada"
       none: "Não há mensagens"
       send: "Enviar uma mensagem privada"
-    reply: "Responder Ã  mensagem"
+    reply: "Responder à  mensagem"
     sent: 
       other: "Mensagens enviadas"
     special1: "A plataforma Mconf estará indisponível a partir de sexta-feira, 17 dezembro às 16:00 UTC, até sábado, 18-Dez 16:00 UTC. Desculpem o incómodo."
@@ -1031,6 +1049,22 @@ pt-br:
     warning_pause_recording: "Atenção: esta ação irá pausar a gravação. Você será capaz de continuar ela no futuro ou publicá-la. <br/> Você quer continuar?"
     warning_publish_recording: "Atenção: esta ação irá publicar a gravação. No futuro, você será capaz de editá-la para cortar o início e o fim do vídeo, mas você não será capaz de gravar a sessão novamente. <br/> Você quer continuar?"
     warning_start_recording: "Atenção: esta ação irá interromper outras gravações deste evento em andamento. <br/> Você quer continuar?"
+  recordings: 
+    created_by: "Criada por"
+    duration: Duração
+    ended_at: "Encerrada em"
+    no_description: "<sem descrição>"
+    no_title: "<sem título>"
+    playback: Reprodução
+    processing_dots: "Processando, por favor aguarde..."
+    started_at: "Iniciar em"
+    title: Gravações
+    unavailable: "A gravação está indisponível"
+    unavailable_tip: "Esta gravação não está mais disponível no servidor onde ela estava armazenada e então não pode ser acessada."
+    update_list: 
+      error: "Erro atualizando as gravações, favor tentar novamente mais tarde."
+      success: "Lista de gravações atualizada!"
+      updating: "Atualizando lista de gravações"
   register: 
     and_participate: "Registre-se Para Participar"
     and_participate_description: "Para participar do evento você deve registar-se"
@@ -1269,6 +1303,9 @@ pt-br:
     recording: 
       one: "Vídeo da comunidade"
       other: "Vídeos da comunidade"
+    recordings: 
+      latest_recordings: "Últimas %{count} gravações"
+      view_all: "ver todas gravações..."
     select: Comunidades
     show_all: "Mostrar todas as comunidades"
     subscribed_to_none: "Você não está inscrito em nenhuma comunidade"

@@ -1,4 +1,4 @@
----
+--- 
 en: 
   activerecord: 
     attributes: 
@@ -52,23 +52,23 @@ en:
   bigbluebutton_rails: 
     bigbluebutton: BigBlueButton
     metadata: 
-      errors:
+      errors: 
         name_format: "can only use letters, numbers and the symbols \"-\" or \"_\", but only letters at the beginning"
     recordings: 
-      errors:
-        check_for_server:
+      errors: 
+        check_for_server: 
           no_server: "There's no server associated with this recording."
-        play:
+        play: 
           no_format: "There's no playback url specified for this recording."
-      notice:
-        destroy:
+      notice: 
+        destroy: 
           success: "Your recording was successfully destroyed."
           success_with_bbb_error: "The recording was successfully destroyed but it wasn't deleted from the webconference server (\"%{error}\")"
-        publish:
+        publish: 
           success: "Your recording was successfully published."
-        unpublish:
+        unpublish: 
           success: "Your recording was successfully unpublished."
-        update:
+        update: 
           success: "Your recording was successfully updated."
     rooms: 
       default_welcome_msg: "Welcome to the conference <b>%{name}!</b><br/><br/>To join the audio conference from a SIP phone, dial %{voice_number}.<br/><br/>If you need help using the conference client <u><a href=\"http://www.bigbluebutton.org/videos/\">check out these videos</a></u>."

@@ -160,7 +160,7 @@ en:
         title: "Server activity monitor"
       index: 
         access_links: "Access links"
-        recording_links: "Recordings"
+        recording_links: Recordings
       recordings: 
         fetch: "Fetch recordings"
         publish: "Publish recordings"
@@ -192,7 +192,7 @@ en:
     post: Post
     publish: Publish
     remove: Remove
-    saving_dots: "Saving..."
+    saving_dots: Saving...
     search: Search
     send: Send
     sending: Sending...
@@ -711,7 +711,7 @@ en:
   his_message_reads_thus: "His message reads thus"
   home: 
     activity: "Recent activity..."
-    invite_url: "URL"
+    invite_url: URL
     my: "My Home"
     no_rooms: "You have no webconference rooms."
     not_running: "not running"
@@ -726,17 +726,17 @@ en:
         other: "running with %{count} participants"
     view_invite_url: "View URL"
     webconf: 
-      configure: "Configure"
+      configure: Configure
       invite_people: "Invite other people"
       join_from_mobile: "Join from a mobile device"
-      record: "Record"
-      recording_description: "Description"
+      record: Record
+      recording_description: Description
       recording_description_placeholder: "A description for this recording"
-      recording_duration: "Duration"
-      recording_duration_units: "hours"
-      recording_title: "Title"
+      recording_duration: Duration
+      recording_duration_units: hours
+      recording_title: Title
       recording_title_placeholder: "A title for this recording"
-      start: "Start!"
+      start: Start!
   icalendar: 
     error_import: "An error ocurred while importing the iCalendar."
     import: "Import iCalendar"
@@ -1052,14 +1052,14 @@ en:
     warning_publish_recording: "Warning: this action will publish the recording. In the future you will be able to edit it to cut the beggining and end of the resulting video but you won't be able to record this session again. <br/> Do you want to continue?"
     warning_start_recording: "Warning: this action will stop other recordings of this event in progress. <br/> Do you want to continue?"
   recordings: 
-    duration: Duration
     created_by: "Created by"
+    duration: Duration
     ended_at: "Ended at"
     no_description: "<no description>"
     no_title: "<no title>"
-    started_at: "Started at"
     playback: Playback
     processing_dots: "Processing, please wait..."
+    started_at: "Started at"
     title: Recordings
     unavailable: "The recording is unavailable"
     unavailable_tip: "This recording is not available anymore in the server where it was stored and so it can't be accessed."

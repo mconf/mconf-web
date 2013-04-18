@@ -2,17 +2,38 @@
 pt-br: 
   activerecord: 
     attributes: 
+      bigbluebutton_metadata: 
+        content: Conteúdo
+        name: Nome
+        owner: Dono
+      bigbluebutton_playback_format: 
+        format_type: Tipo
+        length: Tamanho
+        url: URL
+      bigbluebutton_recording: 
+        end_time: "Tempo de Finalização"
+        meetingid: "ID da Reunião"
+        metadata: Metadados
+        name: Nome
+        published: Publicada
+        recordid: "ID da Gravação"
+        room_id: "ID da Sala"
+        server_id: "ID do Servidor"
+        start_time: "Tempo de Inicialização"
       bigbluebutton_room: 
         attendee_password: "Senha de Participante"
         dial_number: "Número de discagem"
+        duration: Duração
         external: "Criada externamente"
         logout_url: "URL de saída"
         max_participants: "Número Máximo de Participantes"
         meetingid: "ID da Reunião"
+        metadata: Metadados
         moderator_password: "Senha de Moderador"
         name: Nome
         param: Identificador
         private: Privado
+        record: Gravar
         server_id: "ID do Servidor"
         voice_bridge: "Voice Bridge"
         welcome_msg: "Mensagem de boas-vindas"
@@ -23,31 +44,52 @@ pt-br:
         url: URL
         version: Versão
     models: 
+      bigbluebutton_metadata: "Metadado de Gravação da Webconferência"
+      bigbluebutton_playback_format: "Formato de Reprodução de Webconferência"
+      bigbluebutton_recording: "Gravação de Webconferência"
       bigbluebutton_room: "Sala de Webconferência"
       bigbluebutton_server: "Servidor de Webconferência"
   bigbluebutton_rails: 
     bigbluebutton: BigBlueButton
+    metadata: 
+      errors: 
+        name_format: "pode utilizar apenas letras, números e os símbolos \"-\" ou \"_\", mas apenas letras no início"
+    recordings: 
+      errors: 
+        check_for_server: 
+          no_server: "Não há um servidor associado a esta gravação"
+        play: 
+          no_format: "Não há URL de playback para esta gravação"
+      notice: 
+        destroy: 
+          success: "Sua gravação foi destruída com sucesso."
+          success_with_bbb_error: "A gravação foi destruída com sucesso mas não foi removida do servidor de webconferência (\"%{error}\")"
+        publish: 
+          success: "Sua gravação foi publicada com sucesso."
+        unpublish: 
+          success: "Sua gravação foi ocultada com sucesso."
+        update: 
+          success: "Sua gravação foi atualizada com sucesso."
     rooms: 
       default_welcome_msg: "Bem-vindo(a) à conferência <b>%{name}!</b><br/><br/>Para entrar na conferência de áudio a partir de um telefone SIP, disque %{voice_number}.<br/><br/>Se você precisa ajuda para usar esta aplicação <u><a href=\"http://www.bigbluebutton.org/videos/\">veja estes vídeos</a></u>."
       errors: 
         auth: 
-          cannot_create: "Você não tem permissão para iniciar esta reunião."
+          cannot_create: "Você não tem permissões para iniciar esta reunião."
           failure: "Falha de autenticação."
           not_running: "A reunião não está em andamento. Você deve aguardar por um moderador para ingressar."
           wrong_params: "Parâmetros errados na sua requisição."
         external: 
           blank_meetingid: "Você deve especificar o meetingid da reunião que você deseja ingressar"
-          inexistent_meeting: "A reunião informada não existe neste servidor."
-          wrong_params: "Parâmetros errados na sua requisição."
         param_format: "você pode usar apenas letras, números e os símbolos \"-\" ou \"_\" (não no começo ou fim)"
         server: 
-          not_set: "Sua sala deve estar associada a um servidor para executar esta operação."
+          nil: "Sua sala deve ser associada a um servidor para executar esta operação."
       notice: 
         create: 
           failure: "Sua sala não pôde ser criada."
           success: "Sua sala foi criada com sucesso."
         destroy: 
           success: "A reunião foi destruída com sucesso."
+          success_with_bbb_error: "A sala foi destruída com sucesso mas a reunião não foi finalizada no servidor de webconferência (\"%{error}\")"
         end: 
           not_running: "A reunião não pôde ser finalizada pois não está em andamento."
           success: "A reunião foi finalizada com sucesso."
@@ -61,5 +103,11 @@ pt-br:
       notice: 
         create: 
           success: "Seu servidor foi criado com sucesso."
+        fetch_recordings: 
+          success: "A lista de gravações foi atualizada com sucesso."
+        publish_recordings: 
+          success: "Suas gravações foram publicadas com sucesso."
+        unpublish_recordings: 
+          success: "Suas gravações foram ocultadas com sucesso."
         update: 
           success: "Seu servidor foi atualizado."
