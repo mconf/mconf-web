@@ -729,7 +729,7 @@ en:
       configure: Configure
       invite_people: "Invite other people"
       join_from_mobile: "Join from a mobile device"
-      no_recording_options: "The room is running, no recording options currently available. You can modify the options when room is closed."
+      no_recording_options: "A meeting is running, the recording options are not currently available."
       record: Record
       recording_description: Description
       recording_description_placeholder: "A description for this recording"

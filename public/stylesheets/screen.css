@@ -2281,10 +2281,9 @@ div.webconf-rooms #new_room_private_area input[type=text] {
 }
 
 #dropdown-join-webconf #no-recording-options span{
-  color: rgb(201, 187, 187);
   display: block;
   padding: 3px 15px;
-  text-align: justify;
+  text-align: center;
 }
 
 #dropdown-join-webconf #recording-duration {
@@ -3030,7 +3029,7 @@ a.disabled {
   -webkit-border-radius:4px;-moz-border-radius:4px;border-radius:4px;
 }
 
-.editable:hover {
+.editable:not(.disabled):hover {
   border-color: #A8C0D1;
   cursor: pointer;
 }

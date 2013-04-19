@@ -133,12 +133,23 @@
   <!--   this.value = this.value.replace(/[^0-9\.]/g,''); -->
   <!-- }); -->
 
-  $(document).ready(function() {
-    if (<%= @room.is_running?  %>) {
+  checkRecordingOptions = function(force) {
+    if (force || <%= @room.is_running? %>) {
       $("#record-checkbox").attr("disabled", "disabled");
+      $("#recording-title").addClass("disabled");
       $("#recording-title").unbind("click");
       $("#recording-description").unbind("click");
+      $("#recording-description").addClass("disabled");
+      $("#no-recording-options").show();
     }
+  }
+
+  $("#start-webconf").on("click", function() {
+    checkRecordingOptions(true);
+  });
+
+  $(document).ready(function() {
+    checkRecordingOptions();
   });
 
 <% end %>
@@ -150,7 +161,7 @@
       <% if current_user.can_record_meeting?(@room) %>
       <div id="recording-options-list">
         <li id="no-recording-options" class="<%= 'hide' unless @room.is_running? %>" >
-          <span><%= t('home.webconf.no_recording_options') %></span>
+          <span class="red"><%= t('home.webconf.no_recording_options') %></span>
         </li>
         <li><label>
           <%= check_box_tag 'bigbluebutton_room[record]', t('home.webconf.record'), @room.record, :id => 'record-checkbox' %>
