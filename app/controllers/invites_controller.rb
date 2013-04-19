@@ -150,7 +150,7 @@ class InvitesController < ApplicationController
         for receiver in params[:invite][:members_tokens].split(",")
           user = User.find(receiver)
           msg_email[:receiver] = user.email
-          msg_email[:locale] = user.locale
+          msg_email[:user] = user
           Notifier.delay.event_invitation_email(msg_email)
 
           if success.size == 0
@@ -165,7 +165,7 @@ class InvitesController < ApplicationController
       if params[:invite][:email_tokens].size != 0
         for receiver in params[:invite][:email_tokens].split(/;|,/)
           msg_email[:receiver] = receiver
-          msg_email[:locale] = current_site.locale
+          msg_email[:user] = nil
           Notifier.delay.event_invitation_email(msg_email)
 
           if (receiver =~ /^[-a-z0-9_+\.]+\@([-a-z0-9]+\.)+[a-z0-9]{2,4}$/i)
