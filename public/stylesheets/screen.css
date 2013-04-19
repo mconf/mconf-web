@@ -2280,6 +2280,13 @@ div.webconf-rooms #new_room_private_area input[type=text] {
   margin-left: 6px;
 }
 
+#dropdown-join-webconf #no-recording-options span{
+  color: rgb(201, 187, 187);
+  display: block;
+  padding: 3px 15px;
+  text-align: justify;
+}
+
 #dropdown-join-webconf #recording-duration {
   width: 20px;
 }

@@ -133,6 +133,14 @@
   <!--   this.value = this.value.replace(/[^0-9\.]/g,''); -->
   <!-- }); -->
 
+  $(document).ready(function() {
+    if (<%= @room.is_running?  %>) {
+      $("#record-checkbox").attr("disabled", "disabled");
+      $("#recording-title").unbind("click");
+      $("#recording-description").unbind("click");
+    }
+  });
+
 <% end %>
 
 <%= content_for :bottom do %>
@@ -140,6 +148,10 @@
   <div id="dropdown-join-webconf" class="dropdown dropdown-tip dropdown-anchor-right">
     <ul class="dropdown-menu">
       <% if current_user.can_record_meeting?(@room) %>
+      <div id="recording-options-list">
+        <li id="no-recording-options" class="<%= 'hide' unless @room.is_running? %>" >
+          <span><%= t('home.webconf.no_recording_options') %></span>
+        </li>
         <li><label>
           <%= check_box_tag 'bigbluebutton_room[record]', t('home.webconf.record'), @room.record, :id => 'record-checkbox' %>
           <span><%= t('home.webconf.record') %></span>
@@ -154,14 +166,15 @@
             <div class="field">
               <span><%= t('home.webconf.recording_title') %></span>
               <div id="recording-title" class="editable"><%= metaTitle.nil? ? "" : metaTitle.content %></div>
-            </field>
+           </div>
             <div class="field">
               <span><%= t('home.webconf.recording_description') %></span>
               <div id="recording-description" class="editable"><%= metaDesc.nil? ? "" : metaDesc.content %></div>
-            </field>
+            </div>
           </div>
         </li>
         <li class="dropdown-divider"></li>
+      </div>
       <% end %>
       <li><%= link_to t('home.webconf.invite_people'), inviteroom_invite_path(:type => "webconference", :room => @room.to_param), :id => 'invite_bbb_link' %></li>
       <li>
