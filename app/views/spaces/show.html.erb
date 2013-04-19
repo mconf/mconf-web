@@ -102,16 +102,10 @@
       <div class="float_right more_info"><%= link_to t('more'), space_webconference_path(space) %></div>
     </h3>
     <div class="float_right">
-
-      <% if space.actors(:role => 'Admin').include?(current_user) %>
         <%= link_to "#", :class => 'basic_button small_button orange_pale_button join_button', :"data-dropdown" => "#dropdown-join-webconf" do %>
           <%= t('button.join') %>
           <span class="caret"></span>
         <% end %>
-      <% else %>
-        <%= link_to ("<span>" + t('button.join') + "</span>").html_safe, webconf_join_link, :class => 'basic_button small_button orange_pale_button join_button clean_popup' %>
-      <% end %>
-
     </div>
     <div class="content">
       <% if @room.is_running? %>
@@ -279,6 +273,4 @@
 
 <div id="lightbox_content" style="display:none"></div>
 
-<% if space.actors(:role => 'Admin').include?(current_user) %>
   <%= render :partial => 'recordings/recording_start_links', :locals => { :resource => @room, :route => space_path(@space, :format => 'json') } %>
-<% end %>
