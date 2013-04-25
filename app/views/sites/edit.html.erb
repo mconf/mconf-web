@@ -251,6 +251,11 @@
     <%= image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_shib_login_field icon",:style=>"cursor:pointer").html_safe %>
   </p>
 
+  <p>
+    <%= f.label :timezone, t('site.timezone') %>
+    <%= f.time_zone_select :timezone, nil %>
+  </p>
+
   <div id="site_button" class="margin-up">
         <button type="submit" class="basic_button blue_button"><%=t("button.update")%></button>
   </div>
