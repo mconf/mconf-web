@@ -110,7 +110,7 @@ class InvitesController < ApplicationController
             if error.size == 0
               error = t('invite.invitation_unsuccessfully') << " " <<  t('invite.email', :email => receiver) << " " << t('invite.bad_format')
             else
-              error << ", " <<  t('invite.email', :email => receiver) << " " << t('invite.wrong_formatted')
+              error << ", " <<  t('invite.email', :email => receiver) << " " << t('invite.bad_format')
             end
           end
         end
@@ -178,7 +178,7 @@ class InvitesController < ApplicationController
             if error.size == 0
               error = t('invite.invitation_unsuccessfully') << " " <<  t('invite.email', :email => receiver) << " " << t('invite.bad_format')
             else
-              error << ", " <<  t('invite.email', :email => receiver) << " " << t('invite.wrong_formatted')
+              error << ", " <<  t('invite.email', :email => receiver) << " " << t('invite.bad_format')
             end
           end
         end
