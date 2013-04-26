@@ -857,6 +857,9 @@ en:
     one: "%{count} member"
     other: "%{count} members"
   message: 
+    created: "Message sent successfully"
+    error:
+      create: "Error sending private message"
     incoming: 
       other: "Incoming messages"
     private: 
