@@ -118,8 +118,11 @@ class ApplicationController < ActionController::Base
   def set_time_zone
     if current_user && current_user.is_a?(User) && current_user.timezone
       Time.zone = current_user.timezone
-    else
+    elsif current_site && current_site.timezone
       Time.zone = current_site.timezone
+    else
+      # If everything fails defaults to UTC
+      Time.zone = "UTC"
     end
   end
 

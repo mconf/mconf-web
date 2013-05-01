@@ -71,6 +71,11 @@
   </p>
 
   <p>
+    <label><%= t('site.timezone') %>:</label>
+    <span class="value"><%= current_site.timezone %></span>
+  </p>
+
+  <p>
     <label><%= t('site.signature') %>:</label>
     <span class="value"><%= current_site.signature_in_html %></span>
   </p>
@@ -128,11 +133,6 @@
   <p>
     <label><%= t('site.shib_login_field') %>:</label>
     <span class="value"><%= current_site.shib_login_field %></span>
-  </p>
-
-  <p>
-    <label><%= t('site.timezone') %>:</label>
-    <span class="value"><%= current_site.timezone %></span>
   </p>
 
  <div class="clearer"></div>
