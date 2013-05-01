@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121129160346) do
+ActiveRecord::Schema.define(:version => 20130425154344) do
 
   create_table "admissions", :force => true do |t|
     t.string   "type"
@@ -117,6 +117,41 @@ ActiveRecord::Schema.define(:version => 20121129160346) do
   add_index "attachments", ["version_child_id"], :name => "index_attachments_on_version_child_id"
   add_index "attachments", ["version_family_id"], :name => "index_attachments_on_version_family_id"
 
+  create_table "bigbluebutton_metadata", :force => true do |t|
+    t.integer  "owner_id"
+    t.string   "owner_type"
+    t.string   "name"
+    t.text     "content"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "bigbluebutton_playback_formats", :force => true do |t|
+    t.integer  "recording_id"
+    t.string   "format_type"
+    t.string   "url"
+    t.integer  "length"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "bigbluebutton_recordings", :force => true do |t|
+    t.integer  "server_id"
+    t.integer  "room_id"
+    t.string   "recordid"
+    t.string   "meetingid"
+    t.string   "name"
+    t.boolean  "published",  :default => false
+    t.datetime "start_time"
+    t.datetime "end_time"
+    t.boolean  "available",  :default => true
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "bigbluebutton_recordings", ["recordid"], :name => "index_bigbluebutton_recordings_on_recordid", :unique => true
+  add_index "bigbluebutton_recordings", ["room_id"], :name => "index_bigbluebutton_recordings_on_room_id"
+
   create_table "bigbluebutton_rooms", :force => true do |t|
     t.integer  "server_id"
     t.integer  "owner_id"
@@ -136,10 +171,14 @@ ActiveRecord::Schema.define(:version => 20121129160346) do
     t.datetime "updated_at"
     t.boolean  "external",            :default => false
     t.string   "param"
+    t.boolean  "record",              :default => false
+    t.integer  "duration",            :default => 0
+    t.string   "uniqueid",                               :null => false
   end
 
   add_index "bigbluebutton_rooms", ["meetingid"], :name => "index_bigbluebutton_rooms_on_meetingid", :unique => true
   add_index "bigbluebutton_rooms", ["server_id"], :name => "index_bigbluebutton_rooms_on_server_id"
+  add_index "bigbluebutton_rooms", ["uniqueid"], :name => "index_bigbluebutton_rooms_on_uniqueid", :unique => true
   add_index "bigbluebutton_rooms", ["voice_bridge"], :name => "index_bigbluebutton_rooms_on_voice_bridge", :unique => true
 
   create_table "bigbluebutton_servers", :force => true do |t|
@@ -446,6 +485,7 @@ ActiveRecord::Schema.define(:version => 20121129160346) do
     t.string   "smtp_sender"
     t.text     "shib_env_variables"
     t.string   "shib_login_field"
+    t.string   "timezone",                       :default => "Brasilia"
   end
 
   create_table "source_importations", :force => true do |t|
