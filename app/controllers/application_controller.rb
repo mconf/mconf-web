@@ -133,9 +133,10 @@ class ApplicationController < ActionController::Base
 
   before_filter :set_time_zone
   def set_time_zone
-    if current_user && current_user.is_a?(User) && current_user.timezone
+    if current_user && current_user.is_a?(User) &&
+        current_user.timezone && !current_user.timezone.blank?
       Time.zone = current_user.timezone
-    elsif current_site && current_site.timezone
+    elsif current_site && current_site.timezone && !current_site.timezone.blank?
       Time.zone = current_site.timezone
     else
       # If everything fails defaults to UTC
