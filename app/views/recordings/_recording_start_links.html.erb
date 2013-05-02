@@ -158,7 +158,7 @@
   </br>
   <div id="dropdown-join-webconf" class="dropdown dropdown-tip dropdown-anchor-right">
     <ul class="dropdown-menu">
-      <% if current_user.can_record_meeting?(@room) %>
+      <% if current_user and current_user.respond_to?(:"can_record_meeting?") and current_user.can_record_meeting?(@room) %>
       <div id="recording-options-list">
         <li id="no-recording-options" class="<%= 'hide' unless @room.is_running? %>" >
           <span class="red"><%= t('home.webconf.no_recording_options') %></span>

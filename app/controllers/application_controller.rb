@@ -103,7 +103,9 @@ class ApplicationController < ActionController::Base
     if role == :moderator
       # if the user cannot record but is a moderator (so he can start the meeting)
       # we make sure the 'record' flag is set to false
-      unless bigbluebutton_user.can_record_meeting?(room, role)
+      if bigbluebutton_user.nil? or not
+          bigbluebutton_user.respond_to?(:"can_record_meeting?") or not
+          bigbluebutton_user.can_record_meeting?(room, role)
         room.update_attributes(:record => false)
       end
       true
