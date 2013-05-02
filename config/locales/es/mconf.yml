@@ -562,6 +562,9 @@ es:
   manage: Administrar
   mandatory_field: "Campo obligatorio"
   message: 
+    created: "Mensaje enviado con éxito"
+    error:
+      create: "Error al enviar el mensaje privado"
     incoming: 
       other: "Buzón de entrada"
     private: 

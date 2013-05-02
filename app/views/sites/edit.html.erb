@@ -183,6 +183,11 @@
   </p>
 
   <p>
+    <%= f.label :timezone, t('site.timezone') %>
+    <%= f.time_zone_select :timezone, nil %>
+  </p>
+
+  <p>
     <%= f.label :signature, t('site.signature') %>
     <%= f.text_area :signature %>
   </p>

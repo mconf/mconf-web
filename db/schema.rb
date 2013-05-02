@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130411020409) do
+ActiveRecord::Schema.define(:version => 20130425154344) do
 
   create_table "admissions", :force => true do |t|
     t.string   "type"
@@ -482,6 +482,7 @@ ActiveRecord::Schema.define(:version => 20130411020409) do
     t.string   "smtp_sender"
     t.text     "shib_env_variables"
     t.string   "shib_login_field"
+    t.string   "timezone",                       :default => "UTC"
   end
 
   create_table "source_importations", :force => true do |t|
