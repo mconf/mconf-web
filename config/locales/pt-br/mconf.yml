@@ -855,6 +855,9 @@ pt-br:
     one: "%{count} membro"
     other: "%{count} membros"
   message: 
+    created: "Mensagem enviada com sucesso"
+    error:
+      create: "Erro ao enviar mensagem privada"
     incoming: 
       other: "Mensagens recebidas"
     private: 
