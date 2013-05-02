@@ -59,30 +59,32 @@ class ApplicationController < ActionController::Base
 
     unless bigbluebutton_user.nil?
 
-      # user rooms
-      if room.owner_type == "User"
-        if room.owner.id == current_user.id
-          # only the owner is moderator
-          :moderator
-        else
-          if room.private
-            :password # ask for a password if room is private
+      if room.owner
+        # user rooms
+        if room.owner_type == "User"
+          if room.owner.id == current_user.id
+            # only the owner is moderator
+            :moderator
           else
-            guest_role
+            if room.private
+              :password # ask for a password if room is private
+            else
+              guest_role
+            end
           end
-        end
 
-      # space rooms
-      elsif room.owner_type == "Space"
-        space = Space.find(room.owner.id)
-        if space.users.include?(current_user)
-          # space members are moderators
-          :moderator
-        else
-          if room.private
-            :password
+        # space rooms
+        elsif room.owner_type == "Space"
+          space = Space.find(room.owner.id)
+          if space.users.include?(current_user)
+            # space members are moderators
+            :moderator
           else
-            guest_role
+            if room.private
+              :password
+            else
+              guest_role
+            end
           end
         end
       end
