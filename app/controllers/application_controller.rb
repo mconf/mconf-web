@@ -57,34 +57,37 @@ class ApplicationController < ActionController::Base
       guest_role = :guest
     end
 
+    # after disable a user or a space the owner of the room is set to nil by station, because that, we check if the owner is present to continue with the verification
+    unless room.owner
+      return nil
+    end
+
     unless bigbluebutton_user.nil?
 
-      if room.owner
-        # user rooms
-        if room.owner_type == "User"
-          if room.owner.id == current_user.id
-            # only the owner is moderator
-            :moderator
+      # user rooms
+      if room.owner_type == "User"
+        if room.owner.id == current_user.id
+          # only the owner is moderator
+          :moderator
+        else
+          if room.private
+            :password # ask for a password if room is private
           else
-            if room.private
-              :password # ask for a password if room is private
-            else
-              guest_role
-            end
+            guest_role
           end
+        end
 
-        # space rooms
-        elsif room.owner_type == "Space"
-          space = Space.find(room.owner.id)
-          if space.users.include?(current_user)
-            # space members are moderators
-            :moderator
+      # space rooms
+      elsif room.owner_type == "Space"
+        space = Space.find(room.owner.id)
+        if space.users.include?(current_user)
+          # space members are moderators
+          :moderator
+        else
+          if room.private
+            :password
           else
-            if room.private
-              :password
-            else
-              guest_role
-            end
+            guest_role
           end
         end
       end
