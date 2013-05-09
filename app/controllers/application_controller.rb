@@ -58,6 +58,12 @@ class ApplicationController < ActionController::Base
       guest_role = :guest
     end
 
+    # when a user or a space is disabled the owner of the room is nil (because when trying to find
+    # the user/room only the ones that are *not* disabled are returned) so we check if the owner is
+    # not present we assume the room cannot be accessed
+    # TODO: not the best solution, we should actually find a way to check if owner.disabled is true
+    return nil unless room.owner
+
     unless bigbluebutton_user.nil?
 
       # user rooms
