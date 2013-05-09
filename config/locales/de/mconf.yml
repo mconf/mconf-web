@@ -461,7 +461,7 @@ de:
   mandatory_field: "Mandatory field"
   message: 
     created: "Nachricht erfolgreich gesendet"
-    error:
+    error: 
       create: "Fehler beim Senden der Nachricht"
     incoming: 
       other: "Eingehende Nachrichten"

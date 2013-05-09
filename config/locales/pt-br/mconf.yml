@@ -771,7 +771,7 @@ pt-br:
     hide_all_users: "Ocultar todos os usuários"
     info_space: "Você pode encontrar mais informações sobre esta comunidade em <a href=\"%{space_url}\"> %{space_url} </a>"
     info_users: "Você pode ver a lista atual de usuários da comunidade em <a href=\"%{users_url}\"> %{users_url} </a>"
-    introducer: Introdutor
+    introducer: Anfitrião
     label: "Personalize a sua mensagem de convite"
     legend: 
       URL: "'URL' será substituído na mensagem pela URL do convite."
@@ -889,7 +889,7 @@ pt-br:
     other: "%{count} membros"
   message: 
     created: "Mensagem enviada com sucesso"
-    error:
+    error: 
       create: "Erro ao enviar mensagem privada"
     incoming: 
       other: "Mensagens recebidas"

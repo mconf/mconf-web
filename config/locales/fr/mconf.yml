@@ -491,7 +491,7 @@ fr:
   logout: "Sortir %{user}"
   message: 
     created: "Message envoyé avec succès"
-    error:
+    error: 
       create: "Erreur d'envoi d'un message privé"
     incoming: 
       other: "Les messages entrants"

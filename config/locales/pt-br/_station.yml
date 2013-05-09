@@ -8,7 +8,7 @@ pt-br:
     other: Ações
   admission: 
     errors: 
-      candidate_equals_introducer: "Candidato e introdutor não podem ser a mesma pessoa. (Você provavelmente deve sair da aplicação.)"
+      candidate_equals_introducer: "Candidato e anfitrião não podem ser a mesma pessoa. (Você provavelmente deve sair da aplicação.)"
       candidate_has_role: "já possui um papel"
   agent: 
     authentication: 

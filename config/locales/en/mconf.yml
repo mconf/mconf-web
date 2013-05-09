@@ -891,7 +891,7 @@ en:
     other: "%{count} members"
   message: 
     created: "Message sent successfully"
-    error:
+    error: 
       create: "Error sending private message"
     incoming: 
       other: "Incoming messages"
@@ -1234,7 +1234,7 @@ en:
     smtp_use_tls: "Use TLS in SMTP"
     ssl: SSL
     ssl_tip: "With SSL enabled all the internal links (including pages, images, attachments) will use the protocol https instead of http"
-    timezone: "Timezone"
+    timezone: Timezone
   size: Size
   skype: Skype
   source: 
