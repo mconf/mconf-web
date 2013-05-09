@@ -186,7 +186,7 @@ class SpacesController < ApplicationController
         }
       end
     else
-      if params[:space][:bigbluebutton_room_attributes].blank?
+      unless params[:space][:bigbluebutton_room_attributes].blank?
         params[:space][:bigbluebutton_room_attributes][:id] = @space.bigbluebutton_room.id
       end
       if @space.update_attributes(params[:space])
