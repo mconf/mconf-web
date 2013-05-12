@@ -9,11 +9,21 @@
 class AttachmentsController < ApplicationController
   include ActionController::StationResources
 
-  #before_filter :space!
+  before_filter :space!
+  before_filter :webconf_room!
+  before_filter :except => [ :new, :edit ]
   load_and_authorize_resource :space
   load_and_authorize_resource :attachment, :through => :space
 
+  layout 'spaces_show'
+
   def index
+    # gon usage for making @space and other variables available to js
+    gon.clear
+    gon.space = @space
+    # TODO see better way to use paths with gon
+    gon.attachments_path = space_attachments_path(@space)
+    gon.form_auth_token = form_authenticity_token()
     attachments
     respond_to do |format|
       format.html
@@ -25,6 +35,27 @@ class AttachmentsController < ApplicationController
 
   def edit_tags
     @attachment = Attachment.find(params[:id])
+    respond_to do |format|
+      format.html {
+        render :partial => "edit_tags_form"
+      }
+    end
+  end
+
+  def new
+    respond_to do |format|
+      format.html {
+        render :partial => "upload_form"
+      }
+    end
+  end
+
+  def edit
+    respond_to do |format|
+      format.html {
+        render :partial => "edit"
+      }
+    end
   end
 
   def delete_collection

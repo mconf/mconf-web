@@ -1,0 +1,38 @@
+/ TODO: REMOVE JS CODE FROM HERE
+:javascript
+  $("#attachment__tags").fcbkcomplete({
+    cache: true,
+    filter_case: false,
+    filter_hide: false,
+    firstselected: true,
+    filter_selected: true,
+    maxshownitems: 4,
+    newel: true
+  });
+- if can?(:create_attachment, @space)
+  #doc_action
+    #add_new_doc
+      %h1{ :class => "blue" }
+        = t("document.upload")
+      = form_for(prepare_for_form(@attachment || Attachment.new), :html => { :multipart => true }) do |f|
+        .new_doc_content
+          #cabinet
+            = f.file_field :uploaded_data, :id => "upload_field", :class => "file_1", :size => "15"
+        .new_doc_content
+          %span{ :class => "bold" }
+            = t("tag.new")
+            = image_tag("icons/help.png",:title=>t("tooltip.tag"),:size=>"16x16",:class=>"icon tooltipped upwards",:style=>"cursor:pointer")
+          #tags
+            = select(:attachment, :_tags, @space.tags.map{ |u| u.name }, {}, {:multiple => "multiple"})
+        .new_doc_content
+          %span{ :class => "bold" }
+            = check_box_tag "add_post", "with_post", attachment.post_title.present? || attachment.post_text.present?
+            = t('attachment.upload_with_post')
+          #with_post{ :style => ("display:none" if !(attachment.post_title.present? || attachment.post_text.present?)) }
+            = f.label :post_title, t('title')
+            = f.text_field :post_title
+            = f.label :post_text, t('text')
+            = f.text_area :post_text, :rows => 5, :cols=>25
+          #button_submit.margin_up{ :style => "display:none" }
+            %button{ :type => "submit", :class => "btn btn-small dark-gray-hover" }
+              = t('button.upload')

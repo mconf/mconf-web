@@ -16,6 +16,7 @@ group :assets do
   gem 'compass', '~> 0.13.alpha'
 end
 
+gem 'gon', '3.0.5'
 gem 'mysql2', '~> 0.3.0'
 gem 'rake'
 gem 'jquery-rails'
