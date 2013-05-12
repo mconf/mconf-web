@@ -183,6 +183,9 @@ GEM
       activesupport (>= 2.2.0)
       crack (>= 0.1.6)
     god (0.12.1)
+    gon (3.0.5)
+      actionpack (>= 2.3.0)
+      json
     haml (3.1.7)
     highline (1.6.18)
     hike (1.2.1)
@@ -365,6 +368,7 @@ DEPENDENCIES
   galetahub-simple_captcha
   garb
   god (= 0.12.1)
+  gon (= 3.0.5)
   haml
   hpricot
   htmlentities
