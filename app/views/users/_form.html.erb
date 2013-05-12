@@ -7,7 +7,7 @@
 
     // remove accents, swap ñ for n, etc
     var from = "ãàáäâẽèéëêĩìíïîõòóöôũùúüûñçć·/_,:;!";
-    var to   = "aaaaaeeeeeiiiiiooooouuuuuncc-------";
+    var to = "aaaaaeeeeeiiiiiooooouuuuuncc-------";
     for (var i=0, l=from.length ; i<l ; i++) {
       str = str.replace(new RegExp(from.charAt(i), 'g'), to.charAt(i));
     }
@@ -31,7 +31,7 @@
  $('img.tooltip_user_id').qtip({
    content: '<%= escape_javascript(t("tooltip.user_id")) %>',
    position: {adjust: { screen: true }},
-   show:  'mouseover',
+   show: 'mouseover',
    hide: { when: 'mouseout', fixed: true },
    style: 'mystyle'
   });
@@ -39,7 +39,7 @@
  $('img.tooltip_new_password').qtip({
    content: '<%= escape_javascript(t("user.new_password_tip")) %>',
    position: {adjust: { screen: true }},
-   show:  'mouseover',
+   show: 'mouseover',
    hide: { when: 'mouseout', fixed: true },
    style: 'mystyle'
   });
@@ -72,29 +72,38 @@
   <% end %>
 <% end %>
 
-<div><label for="email"><%=t('user.email')%></label><br/>
 <% if f.object.new_record? %>
-  <%= f.text_field :email, :size => 30 %>
+  <div><label for="email"><%=t('user.email') + "*"%></label><br/>
+  <%= f.text_field :email, :size => 30, :required => "required" %>
 <% else %>
+  <div><label for="email"><%=t('user.email')%></label><br/>
   <%= text_field_tag 'name', @user.email, :disabled => true, :size => 30 %>
 <% end %>
 </div>
 
 <% if f.object.new_record? # User is not registered yet, ask for a full_name %>
   <div>
-    <label for="full_name"><%=t('user.full_name')%></label><br/>
-    <%= f.text_field :_full_name %>
+    <label for="full_name"><%=t('user.full_name') + "*"%></label><br/>
+    <%= f.text_field :_full_name, :required => "required" %>
+  </div>
+  <div id="userid">
+    <label for="login"><%=t('user.id') + "*"%></label><br/>
+    <%= f.text_field :login, :required => "required" %> <%=image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_user_id icon",:style=>"cursor:pointer")%>
+    <div id="webconf-room-link">
+      <span><%= t("user.your_webconf_room_is") %> </span>
+      <span class="link"></span>
+    </div>
+  </div>
+<% else %>
+  <div id="userid">
+    <label for="login"><%=t('user.id')%></label><br/>
+    <%= f.text_field :login %> <%=image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_user_id icon",:style=>"cursor:pointer")%>
+    <div id="webconf-room-link">
+      <span><%= t("user.your_webconf_room_is") %> </span>
+      <span class="link"></span>
+    </div>
   </div>
 <% end -%>
-
-<div id="userid">
-  <label for="login"><%=t('user.id')%></label><br/>
-  <%= f.text_field :login %> <%=image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_user_id icon",:style=>"cursor:pointer")%>
-  <div id="webconf-room-link">
-    <span><%= t("user.your_webconf_room_is") %> </span>
-    <span class="link"></span>
-  </div>
-</div>
 
 <% if f.object.needs_password? -%>
   <% if logged_in? %>
@@ -108,12 +117,12 @@
     </div>
   <% else %>
     <div>
-      <label for="password"><%=t('user.password')%></label><br/>
-      <%= f.password_field :password %>
+      <label for="password"><%=t('user.password') + "*"%></label><br/>
+      <%= f.password_field :password, :required => "required" %>
     </div>
     <div>
-      <div><label for="password_confirmation"><%=t('user.password_confirmation')%></label><br/>
-      <%= f.password_field :password_confirmation%></div>
+      <div><label for="password_confirmation"><%=t('user.password_confirmation') + "*"%></label><br/>
+      <%= f.password_field :password_confirmation, :required => "required"%></div>
     </div>
   <% end %>
 <% end -%>
