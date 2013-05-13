@@ -552,6 +552,8 @@ es:
     es: Español
     fr: Français
     pt-br: "Português (Brasil)"
+  login:
+    "Entrar"
   login_or_register: "Entrar / Registro"
   login_request: "Necesita estar conectado para"
   logo: 
@@ -682,6 +684,7 @@ es:
   recent: 
     activity: "Actividad reciente"
   register: 
+    register: "Registro"
     and_participate: "Registrarse Para Participar"
     and_participate_description: "Para participar en el evento debes registrarte"
     and_participate_description_with_login: "Para participar en el evento debes registrarte o <a href=%{url}>hacer login</a>"
