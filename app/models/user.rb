@@ -32,7 +32,7 @@ class User < ActiveRecord::Base
   acts_as_stage
   acts_as_taggable :container => false
   acts_as_resource :param => :login
-  validates :login, :uniqueness => true
+  validates :login, :uniqueness => true, :length => { :minimum => 1 }
 
   has_one :profile, :dependent => :destroy
   has_many :events, :as => :author
