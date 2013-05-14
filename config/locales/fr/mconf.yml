@@ -483,8 +483,6 @@ fr:
     es: Español
     fr: Français
     pt-br: "Português (Brasil)"
-  login:
-    login: "Connexion"
   login_or_register: "Connexion / S'inscrire"
   login_request: "Vous devez être connecté pour"
   logo: 
@@ -594,7 +592,6 @@ fr:
   recent: 
     activity: "L'activité récente"
   register: 
-    register: "S'inscrire"
     confirmation: "Après enregistrement, vous recevrez une confirmation par email avec le lien pour activer votre compte"
     one: S'inscrire
     thank_you: "Bienvenue et merci pour l'enregistrement dans %{sitename}"

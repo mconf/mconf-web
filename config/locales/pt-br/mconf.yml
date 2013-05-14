@@ -870,7 +870,6 @@ pt-br:
     fr: Français
     pt-br: "Português (Brasil)"
   login: 
-    login: "Login"
     email_or_login: "E-mail ou usuário"
     one: Login
     password: Senha
@@ -1071,7 +1070,6 @@ pt-br:
       success: "Lista de gravações atualizada!"
       updating: "Atualizando lista de gravações"
   register: 
-    register: "Registre-se"
     and_participate: "Registre-se Para Participar"
     and_participate_description: "Para participar do evento você deve registar-se"
     and_participate_description_with_login: "Para participar do evento você deve efetuar o registro ou o <a href=%{url}>login</a"
