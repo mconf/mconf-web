@@ -872,6 +872,7 @@ en:
     fr: Fraçais
     pt-br: "Português (Brasil)"
   login: 
+    login: "Login"
     email_or_login: "Email or username"
     one: Login
     password: Password
@@ -1072,6 +1073,7 @@ en:
       success: "Recording list updated!"
       updating: "Updating recording list"
   register: 
+    register: "Register"
     and_participate: "Register To Participate"
     and_participate_description: "To participate in the event you should register"
     and_participate_description_with_login: "To participate in the event you should register or <a href=%{url}>login</a>"

@@ -451,6 +451,8 @@ de:
     es: Español
     fr: Français
     pt-br: "Português (Brasil)"
+  login:
+    login: "Anmelden"
   login_or_register: "Anmelden / Registrieren"
   login_request: "Du musst eingeloggt sein, um"
   logo: 
@@ -567,6 +569,7 @@ de:
   recent: 
     activity: "Aktuelle Tätigkeit"
   register: 
+    register: "Registrieren"
     confirmation: "Nach der Registrierung erhalten Sie eine Bestätigung per Email mit dem Link zur Aktivierung Ihres Kontos"
     thank_you: "Willkommen und vielen Dank für die Registrierung in %{sitename}"
   register_as_admin: "Registrieren Sie sich als admin"
