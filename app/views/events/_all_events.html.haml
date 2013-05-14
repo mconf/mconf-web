@@ -1,4 +1,4 @@
-#events_content
+#events-all
   %h3
     = t('event.upcoming.other')
   - if @first_upcoming_events.empty?
@@ -7,16 +7,16 @@
   - else
     - for event in @first_upcoming_events
       = render :partial => event
-    .group_links
+    .more-events-links
       = link_to t('event.upcoming.show'), space_events_path(@space, :show => "upcoming_events"), :class => 'upcoming_link event_navigation'
+
   %h3
     = t('event.past.other')
-
   - if @last_past_events.empty?
     %p.main_text
       = t('event.past.none')
   - else
     - for event in @last_past_events
       = render :partial => event
-    .group_links
+    .more-events-links
       = link_to t('event.past.show'), space_events_path(@space, :show => "past_events"), :class => 'past_link event_navigation'

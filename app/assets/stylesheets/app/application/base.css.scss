@@ -700,6 +700,18 @@ ul#navbar-right-links {
 
   .help-icon { float: right; }
   .info-icon { float: right; }
+
+  /* To make buttons that ocuppy all width in the sidebar, usualy at the top,
+     look a bit better */
+  .btn-block-wrapper {
+    padding: 0 5px;
+    margin-bottom: 10px;
+    @include mconf-clearfix;
+
+    .btn-block {
+      float: left;
+    }
+  }
 }
 
 #content-middle {
@@ -870,6 +882,36 @@ ul#navbar-right-links {
   }
 }
 
+/* To emphasize events that are hapenning now. Used in the pages that show events
+   and in spaces. */
+.events-hapenning-now {
+  background: $alert-bg;
+  padding: 0;
+  border: 1px solid darken($alert-bg, 15);
+  @include border-radius(4px);
+  /* @include box-shadow(2px 3px 3px rgba(0, 0, 0, 0.1)); */
+  margin-right: 3px;
+
+  .current-event {
+    margin-top: 10px;
+    @include mconf-clearfix;
+    clear: both;
+
+    .event-title {
+      float: left;
+      font-size: $font-medium;
+      font-weight: bold;
+      img { margin-right: 5px; }
+    }
+
+    .event-date {
+      float: left;
+      margin: 2px 0 0 10px;
+      color: #777;
+      font-style: italic;
+    }
+  }
+}
 
 
 /*

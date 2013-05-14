@@ -1,23 +1,8 @@
-%div.thread{ :class => "#{event.is_happening_now? ? 'single_event current_single_event' : 'single_event'}" }
-  %p
-    %h2
-      = @event.title
+.thread{ :class => "#{event.is_happening_now? ? 'single_event current_single_event' : 'single_event'}" }
+  %h2
+    = @event.title
   .logo-in-thread
-    .event_image
-      - if @event.logo
-        .event_logo
-          = logo(@event.logo, { :size => 64 }).html_safe
-      - elsif @event.has_date?
-        .event_date_image
-          .event_day
-            = sanitize(event.start_date.strftime("%d"))
-          .event_month
-            = localize(event.start_date, :format => "%b")
-          .event_hour
-            = event.get_formatted_hour
-      - else
-        .event_date_image
-          .event_day
+    = render :partial => "event_logo", :locals => { :event => @event }
 
   .thread_content{ :id => "parent_event_#{@event.id}" }
     %ul.thread-action-links.visible-on-hover{ :"data-hover-tracked" => "parent_event_#{@event.id}" }

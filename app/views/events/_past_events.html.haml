@@ -1,11 +1,10 @@
-#events_content
+#events-past
   %h3= t('event.past.other')
-  #past-events-men
-    #order
-      - if params[:order_by_time]
-        = link_to image_tag("icons/16/arrow-down.png",:class=>"icon") + "order DESC", space_events_path(@space, :show => params[:show], :day => params[:day])
-      - else
-        = link_to image_tag("icons/16/arrow-up.png",:class=>"icon") + "order ASC", space_events_path(@space, :show => params[:show], :day => params[:day], :order_by_time => "ASC")
+  #past-events-menu
+    - if params[:order_by_time]
+      = link_to image_tag("icons/16/arrow-down.png",:class=>"icon") + "order DESC", space_events_path(@space, :show => params[:show], :day => params[:day])
+    - else
+      = link_to image_tag("icons/16/arrow-up.png",:class=>"icon") + "order ASC", space_events_path(@space, :show => params[:show], :day => params[:day], :order_by_time => "ASC")
   %div
     - if params[:day] == 'yesterday'
       = render :partial => 'events_group', :locals => {:events_group => @today_and_yesterday_paginate_events, :message => t("event.past.today")}

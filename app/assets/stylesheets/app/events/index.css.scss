@@ -2,13 +2,12 @@
 
 body.events.index {
 
-  .group_links {
+  #events-filters {
     float: right;
   }
 
-  #new_event {
-    margin-bottom: 10px;
-    text-align: center;
+  .more-events-links {
+    float: right;
   }
 
 }

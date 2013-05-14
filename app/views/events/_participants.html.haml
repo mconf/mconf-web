@@ -79,7 +79,7 @@
           = link_to t('photos_view_arrows'), space_event_path(@space,@event), :class => "less_no_assistants"
 
   #no_responding
-    - if current_user.superuser? or @space.role_for?(current_user, :name => 'Admin') or can?(:update, @event)
+    - if current_user and (current_user.superuser? or @space.role_for?(current_user, :name => 'Admin') or can?(:update, @event))
       #no_responding_lite{ :class => "#{'hide' if params[:all_no_responding] or params[:list_no_responding]}" }
         - if !@not_responding_candidates.empty? or !@not_responding_emails.empty?
           %h5= t('user.not_confirmed')

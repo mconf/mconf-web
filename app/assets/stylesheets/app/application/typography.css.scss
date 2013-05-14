@@ -42,6 +42,12 @@ h5 {
   margin-bottom: 0.75em;
 }
 
+h1, h2, h3, h4, h5 {
+  &.emphasized {
+    color: $red !important;
+  }
+}
+
 blockquote {
   margin: 1.5em;
   color: #666;

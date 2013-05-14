@@ -1,4 +1,21 @@
-/*
- *= require ../../../../../vendor/assets/stylesheets/jquery/jquery.wysiwyg
+/* TODO: review if we really need it
  *= require ../../../../../vendor/assets/stylesheets/fcbkcomplete
  */
+
+@import "app/events/event_logo";
+
+body.events {
+
+  #events-upcoming, #events-all, #events-past, #events-current {
+    clear: both;
+  }
+
+  #past-events-menu {
+    float: right;
+  }
+
+  .event_options {
+    text-align: center;
+  }
+
+}

@@ -12,10 +12,10 @@ require 'vpim/duration'
 class EventsController < ApplicationController
   # Include basic Resource methods
   # See documentation: ActionController::StationResources
-
-  layout "events_show"
   include ActionController::StationResources
   include SpamControllerModule
+
+  layout "spaces_show"
 
   #before_filter :space!
   before_filter :event, :only => [ :show, :edit, :update, :destroy ]
