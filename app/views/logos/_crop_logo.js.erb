@@ -12,10 +12,10 @@ $("#<%= form_id %> input[type=image]").click(function(){
 });
 
 logo_crop_form.ajaxForm(function(data) {
-
   $("#<%= container_id %>").append("<a id=\"logo_crop_submit_anchor\" href=\"#<%= container_id %>_content\"></a>");
   $("#<%= container_id %>").append("<div id=\"<%= container_id %>_content\">" + data + "</div>");
-  $("#<%= container_id %>_content").width($("#croplogo").attr('width') + 20);
+  // croplogo is undefined
+  //$("#<%= container_id %>_content").width($("#croplogo").attr('width') + 20);
 
   $("#logo_crop_submit_anchor").fancybox({
     'hideOnContentClick' : false,
