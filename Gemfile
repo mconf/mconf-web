@@ -46,6 +46,7 @@ group :development do
   gem 'rvm-capistrano'
   gem 'capistrano-ext'
   gem 'translate-rails3', :require => 'translate', :git => 'git://github.com/mconf/translate.git'
+  gem 'spork-rails'
 end
 
 group :development, :test do
