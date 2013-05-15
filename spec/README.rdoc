@@ -1,0 +1,115 @@
+= Mconf-Web Testing
+
+Mconf-Web uses the rspec framework for automated tests.
+
+== Running the tests
+
+To run the tests, first you need to set up your development environment. Then you can run the tests with:
+
+    bundle exec rake
+
+This command will erase your entire test database, populate it with the seed data (see db/seeds.rb) and run all tests. It might take some time, but it runs the complete suite of tests to assure that everything is working properly.
+
+Alternatively, you can set up the test database and run single tests to speed up the development.
+
+Run the following command to set up a test database and populate it with the seed data:
+
+    RAILS_ENV=test bundle exec rake setup:db
+
+Then run the tests using the rspec command. The first argument you need to pass to this command is the folder that contains the test files or the files you want to run. You can also specify a single line in a file to run a single test or a block of tests inside a scope.
+
+    bundle exec rspec spec/                            # run all spec inside the folder spec/
+    bundle exec rspec spec/controllers/                # run all spec inside the folder spec/controllers/
+    bundle exec rspec spec/models/space_spec.rb        # run all specs in space_spec.rb
+    bundle exec rspec spec/models/space_spec.rb -l 40  # run the spec in the line 40 of space_spec.rb
+
+Run rspec --help for more details.
+
+It is important to run rspec with bundle exec so that the tests will run using the correct gem environment .
+
+== Running only a few tests with tags
+
+When working on specific parts of the code you can save time by running only some tests pertinent to this part. Tag
+this tests like this:
+
+  # tests for a controller method named "current"
+  describe "#current", :current => true do
+    ...
+  end
+
+That way you can run only the tests inside this block with, for example:
+
+    bundle exec rspec -t current spec/controllers/users_controller_spec.rb
+
+== Speeding up tests with Spork
+
+You can speed up your tests using the `spork-rails` gem. After installing it with `bundle install` you should run, inside the project root:
+
+    bundle exec spork
+
+Leave this terminal be, and in another command prompt run the tests with the `-X` option, for example:
+
+    bundle exec rspec -X spec/
+
+Read the file `spec/spec_helper.rb` to learn in details how this gem works.
+
+=== Speed comparisson
+
+A simple run of 2 small tests. Without spork:
+
+    time bundle exec rspec spec/controllers/users_controller_spec.rb -t show
+
+    Finished in 0.70588 seconds
+    2 examples, 0 failures
+
+    real    0m24.149s
+    user    0m22.685s
+    sys     0m1.332s
+
+With spork:
+
+    time bundle exec rspec -X spec/controllers/users_controller_spec.rb -t show
+
+    Finished in 0.84244 seconds
+    2 examples, 0 failures
+
+    real    0m2.744s
+    user    0m1.224s
+    sys     0m0.084s
+
+== Testing migrations
+
+We only test migrations that need to alter data in the DB. Simple migrations don't need to be tested.
+
+We use yaml_db to get the server data and add it to the local database. The test should apply the migration and test if the data was correctly migrated. The server dump should be in the same version of your current database.
+
+This is a normal workflow to test a migration named "20110101010022_my_migration". The previous migration is the version 20110101010011. The test will only check if the database state is as it should be after the migration.
+
+    # rollback to the previous version
+    bundle exec rake db:migrate RAILS_ENV=test VERSION=20110101010011
+
+    # dump the database and download it
+    # then load the data in your test DB
+    cap production db:pull
+    bundle exec rake db:data:load RAILS_ENV=test
+
+    # if you need to edit your database to add data that should be tested, do it now
+    # and then store the data so that you can load it later to run the test again
+    bundle exec rake db:data:dump
+
+    # migrate to the target version, the migration tested
+    bundle exec rake db:migrate RAILS_ENV=test VERSION=20110101010022
+
+    # run the test that will check if the DB is consistent after being migrated
+    bundle exec rspec spec/migrations/my_migration_spec.rb
+
+Also, tag your test with "migration_real":
+
+    context "using real data", :migration_real => true do
+      ...
+    end
+
+Note: Comment the following lines in your spec_helper.rb or your test will not run. We still have to find a better solution for this.
+
+    config.filter_run_excluding :migration => true
+    config.run_all_when_everything_filtered = true
