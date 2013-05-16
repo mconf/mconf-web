@@ -9,7 +9,27 @@ require "spec_helper"
 describe UsersController do
   render_views
 
-  describe "#current" do
+  describe "#show", :show => true do
+    it "should display a 404 for inexisting users" do
+      get :show, :id => "inexisting_user"
+      response.response_code.should == 404
+    end
+
+    it "should display a 404 for empty username" do
+      get :show, :id => ""
+      response.response_code.should == 404
+    end
+
+    login_user
+
+    it "should return OK status for existing user" do
+      get :show, :id => @user.username
+      response.response_code.should == 200
+    end
+
+  end
+
+  describe "#current", :current => true do
     context ".json" do
       context "when there's a user logged" do
         login_user
@@ -74,7 +94,7 @@ describe UsersController do
 
   end
 
-  describe "#select" do
+  describe "#select", :select => true do
     context ".json" do
       context "when there's a user logged" do
         login_user
@@ -143,7 +163,7 @@ describe UsersController do
     end
   end
 
-  describe "#fellows" do
+  describe "#fellows", :fellows => true do
     context ".json" do
       context "when there's a user logged" do
         login_user
@@ -196,7 +216,7 @@ describe UsersController do
     end
   end
 
-  describe "abilities" do
+  describe "abilities", :abilities => true do
 
     context "for a normal user:" do
       let(:another_user) { FactoryGirl.create(:user) }
