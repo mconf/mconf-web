@@ -1233,6 +1233,8 @@ pt-br:
     ssl: SSL
     ssl_tip: "Com SSL habilitado todos os links internos (incluindo páginas, imagens, anexos) utilizarão o protocolo https ao invés de http"
     timezone: "Fuso horário"
+    external_help: "Página de Ajuda/FAQ Externa"
+    external_help_tip: "Insira a url para o site externo que contem a página de Ajuda/FAQ. Deve conter 'http://'."
   size: Tamanho
   skype: Skype
   source: 
