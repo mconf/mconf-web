@@ -105,6 +105,15 @@
       changeInputTextType("#current_site_smtp_password", 'password');
     }
   });
+
+ $('.site_external_help').qtip({
+   content: '<%= escape_javascript(t('site.external_help_tip')) %>',
+   position: {adjust: { screen: true }},
+   show:  'mouseover',
+   hide: { when: 'mouseout', fixed: true },
+   style: 'mystyle'
+  });
+
 <% end %>
 
 
@@ -254,6 +263,12 @@
     <%= f.label :shib_login_field, t('site.shib_login_field') %>
     <%= f.text_field :shib_login_field %>
     <%= image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_shib_login_field icon",:style=>"cursor:pointer").html_safe %>
+  </p>
+
+  <p>
+    <%= f.label :external_help, t('site.external_help') %>
+    <%= f.text_field :external_help %>
+    <%= image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"site_external_help icon",:style=>"cursor:pointer").html_safe %>
   </p>
 
   <div id="site_button" class="margin-up">
