@@ -177,6 +177,8 @@ GEM
       activesupport (= 3.0.20)
       bundler (~> 1.0)
       railties (= 3.0.20)
+    rails-footnotes (3.7.9)
+      rails (>= 3.0.0)
     railties (3.0.20)
       actionpack (= 3.0.20)
       activesupport (= 3.0.20)
@@ -269,6 +271,7 @@ DEPENDENCIES
   populator
   prism
   rails (~> 3.0.3)
+  rails-footnotes
   rake (= 0.8.7)
   rcov
   rmagick!
