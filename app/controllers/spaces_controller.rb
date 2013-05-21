@@ -18,6 +18,18 @@ class SpacesController < ApplicationController
   respond_to :js, :only => [:index, :show]
   respond_to :html, :only => [:new, :edit, :index, :show]
 
+  # User trying to access a space not owned or joined by him
+  rescue_from CanCan::AccessDenied do |exception|
+
+    if @current_ability.kind_of? Abilities::MemberAbility
+      flash[:error] = t("space.access_forbidden")
+      redirect_to spaces_path, :status => 403
+    else
+      flash[:error] = t("join_request.message_title")
+      redirect_to new_space_join_request_path :space_id => params[:id]
+    end
+  end
+
   def index
     #if params[:space_id] && params[:space_id] != "all" && params[:space_id] !="my" && params[:space_id] !=""
     #  redirect_to space_path(Space.find_by_permalink(params[:space_id]))

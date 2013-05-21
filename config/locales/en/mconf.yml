@@ -1090,6 +1090,7 @@ en:
   skype: Skype
   space: 
     about: About
+    access_forbidden: "This operation is only available to the space's administrator"
     add_user: 
       other: "Add users to the space"
     add_user_other: ""

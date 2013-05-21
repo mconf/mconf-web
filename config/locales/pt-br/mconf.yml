@@ -1053,6 +1053,7 @@ pt-br:
     other: RSS/Atom
   space:
     about: Sobre
+    access_forbidden: "Esta função só está disponível para o administrador do espaço"
     add_user:
       other: "Adicionar usuários à comunidade"
     all: "Todas comunidades"
