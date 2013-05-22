@@ -144,6 +144,12 @@ module ApplicationHelper
     "#{Site.current.domain_with_protocol}/webconf/"
   end
 
+  def options_for_tooltip(title, options={})
+     options.merge!(:title => title,
+                    :class => "tooltipped " + (options[:class] || ""),
+                    :"data-placement" => options[:"data-placement"] || "top")
+  end
+
   # TODO: All the code below should be reviewed
 
   def options_for_select_with_class_selected(container, selected = nil)
