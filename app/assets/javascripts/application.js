@@ -11,7 +11,7 @@
 //= require jquery/jquery.dialog2.helpers
 //= require i18n/translations
 //= require strophe
-//= require bootstrap
+
 
 // TODO: These jquery plugins are probably not used anymore
 //= require jquery/jquery.livequery
@@ -22,3 +22,4 @@
 // 'base' HAS to be the first one included
 //= require ./app/application/base
 //= require_tree ./app/application/
+//= require bootstrap

@@ -57,7 +57,7 @@ module IconsHelper
   end
 
   # Default icon to news
-  def news_icon(title, options={})
+  def news_icon(title="", options={})
     icon_constructor title, "news-icon", "icons/newspaper.png", options
   end
 

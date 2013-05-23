@@ -22,7 +22,7 @@
 
     #webconf-room-status{:"data-url" => running_bigbluebutton_room_url(@room, :format => 'json')}
       = t("custom_bigbluebutton_rooms.invite.status")
-      .label.tooltipped.upwards.status{:title => t("custom_bigbluebutton_rooms.invite.refresh")}
+      .label.status{options_for_tooltip(t("custom_bigbluebutton_rooms.invite.refresh"))}
         = t('custom_bigbluebutton_rooms.invite.unknown')
 
     #webconf-room-type
