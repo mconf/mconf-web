@@ -22,94 +22,76 @@ module IconsHelper
 
   # Default icon that shows a tooltip with help about something
   def help_icon(title, options={})
-    cls = "help-icon tooltipped upwards "
-    options[:class] = options.has_key?(:class) ? cls + options[:class] : cls
-    options.merge!(:title => title)
-    content_tag :div, nil, options
+    icon_constructor title, "help-icon", nil, options
   end
 
   # Help icon but using a text instead of an image
   def text_help_icon(title, options={})
-    cls = "text-help-icon tooltipped upwards "
-    options[:class] = options.has_key?(:class) ? cls + options[:class] : cls
-    options.merge!(:title => title)
-    content_tag :span, "(?)", options
+    text_icon_constructor title, "text-help-icon", "(?)", options
   end
 
   # Default icon that shows a tooltip with information about something
   def info_icon(title, options={})
-    cls = "info-icon tooltipped upwards "
-    options[:class] = options.has_key?(:class) ? cls + options[:class] : cls
-    options.merge!(:title => title)
-    content_tag :div, nil, options
+    icon_constructor title, "info-icon", nil, options
   end
 
   # Default icon to a feed (rss)
   def feed_icon(options={})
-    cls = "feed-icon tooltipped upwards "
-    options[:class] = options.has_key?(:class) ? cls + options[:class] : cls
     options.merge!(:alt => t('RSS'), :title => t('RSS'))
-    content_tag :div, nil, options
+    icon_constructor t('RSS'), "feed-icon", nil, options
   end
 
   # Default icon to an attachment
   def attachment_icon(title, options={})
-    cls = "attachment-icon "
-    options[:class] = options.has_key?(:class) ? cls + options[:class] : cls
-    icon_constructor title, "icons/attach.png", options
+    icon_constructor title, "attachment-icon", "icons/attach.png", options
   end
 
   # Default icon to a comment
   def comment_icon(title, options={})
-    cls = "comment-icon "
-    options[:class] = options.has_key?(:class) ? cls + options[:class] : cls
-    icon_constructor title, "icons/comments.png", options
+    icon_constructor title, "comment-icon", "icons/comments.png", options
   end
 
   # Default icon to an event
   def event_icon(title, options={})
-    cls = "event-icon "
-    options[:class] = options.has_key?(:class) ? cls + options[:class] : cls
-    icon_constructor title, "icons/date.png", options
+    icon_constructor title, "event-icon", "icons/date.png", options
   end
 
   # Default icon to news
   def news_icon(title, options={})
-    cls = "news-icon "
-    options[:class] = options.has_key?(:class) ? cls + options[:class] : cls
-    icon_constructor title, "icons/newspaper.png", options
+    icon_constructor title, "news-icon", "icons/newspaper.png", options
   end
 
   # Admin red label/icon
   # Usually shown on top of an avatar.
   def superuser_icon(options={})
-    cls = "superuser-icon label label-important "
-    options[:class] = options.has_key?(:class) ? cls + options[:class] : cls
-    content_tag :span, t('admin.one'), options
+    text_icon_constructor "", "superuser-icon label label-important", t('admin.one'), options
   end
 
   # Conference "in progress" icon.
   def in_progress_icon(options={})
-    cls = "in-progress-icon "
-    options[:class] = options.has_key?(:class) ? cls + options[:class] : cls
-    content_tag :div, nil, options
+    icon_constructor "" , "in-progress-icon", nil, options
   end
 
   # Spam icon.
   def spam_icon(options={})
-    cls = "spam-icon tooltipped upwards "
-    options[:class] = options.has_key?(:class) ? cls + options[:class] : cls
-    options[:title] = t("spam.item")
-    content_tag :div, nil, options
+    icon_constructor t("spam.item"), "spam-icon", nil, options
   end
 
   private
 
   # Base method for most of the methods above
-  def icon_constructor(title, img, options={})
-    options[:class] += " tooltipped upwards"
-    options.merge!(:alt => title, :title => title)
-    image_tag img, options
+  def icon_constructor(title, cls=nil, img=nil, options={})
+    options[:class] = options.has_key?(:class) ? cls + " " + options[:class] : cls
+    options = options_for_tooltip(title, options)
+    if (img)
+      image_tag img, options
+    else
+      content_tag :div, nil, options
+    end
   end
 
+  def text_icon_constructor(title, cls=nil, text=nil, options={})
+    options[:class] = options.has_key?(:class) ? cls + options[:class] : cls
+    content_tag :span, text, options_for_tooltip(title, options)
+  end
 end
