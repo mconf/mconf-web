@@ -96,11 +96,12 @@ class InvitesController < ApplicationController
       end
 
       if params[:invite][:email_tokens].size != 0
-        for receiver in params[:invite][:email_tokens].split(/;|,/)
-          priv_email[:email_receiver] = receiver
-          priv_email[:email_sender] = current_user.email
-          Notifier.delay.webconference_invite_email(priv_email)
+        for receiver in params[:invite][:email_tokens].split(/[;, ]/).reject(&:blank?)
+          receiver.strip!
           if (receiver =~ /^[-a-z0-9_+\.]+\@([-a-z0-9]+\.)+[a-z0-9]{2,4}$/i)
+            priv_email[:email_receiver] = receiver
+            priv_email[:email_sender] = current_user.email
+            Notifier.delay.webconference_invite_email(priv_email)
             if success.size == 0
               success = t('invite.invitation_successfully') << " " << t('invite.email', :email => receiver)
             else
@@ -110,7 +111,7 @@ class InvitesController < ApplicationController
             if error.size == 0
               error = t('invite.invitation_unsuccessfully') << " " <<  t('invite.email', :email => receiver) << " " << t('invite.bad_format')
             else
-              error << ", " <<  t('invite.email', :email => receiver) << " " << t('invite.wrong_formatted')
+              error << ", " <<  t('invite.email', :email => receiver) << " " << t('invite.bad_format')
             end
           end
         end
