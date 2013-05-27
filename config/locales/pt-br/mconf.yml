@@ -1235,6 +1235,10 @@ pt-br:
     timezone: "Fuso horário"
     external_help: "Página de Ajuda/FAQ Externa"
     external_help_tip: "Insira a url para o site externo que contem a página de Ajuda/FAQ. Deve conter 'http://'."
+    recaptcha_private_key: "Chave Privada do reCaptcha"    
+    recaptcha_private_key_tip: "Insira aqui sua chave privada obtida no site do reCaptcha."
+    recaptcha_public_key: "Chave Pública do reCaptcha"
+    recaptcha_public_key_tip: "Insira aqui sua chave pública obtida no site do reCaptcha."
   size: Tamanho
   skype: Skype
   source: 
