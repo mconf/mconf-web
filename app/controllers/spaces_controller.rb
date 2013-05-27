@@ -20,13 +20,14 @@ class SpacesController < ApplicationController
 
   # User trying to access a space not owned or joined by him
   rescue_from CanCan::AccessDenied do |exception|
-
-    if @current_ability.kind_of? Abilities::MemberAbility
-      flash[:error] = t("space.access_forbidden")
-      redirect_to spaces_path, :status => 403
-    else
+    if user_signed_in? and not [:destroy, :update].include?(exception.action)
+      # Normal actions trigger a redirect to ask for membership
       flash[:error] = t("join_request.message_title")
       redirect_to new_space_join_request_path :space_id => params[:id]
+    else
+      # Logged out users or destructive actions are redirect to the 403 error
+      flash[:error] = t("space.access_forbidden")
+      render :template => "/errors/error_403", :status => 403, :layout => "error"
     end
   end
 
