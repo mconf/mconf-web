@@ -68,11 +68,6 @@ body.spaces.index {
   #public-spaces, #private-spaces {
 
     .space-item {
-      float: left;
-      padding: 2px;
-      margin: 5px;
-      border: 1px solid #ccc;
-      height: 64px;
       @include border-radius(2px);
 
       &.selected {
@@ -85,6 +80,17 @@ body.spaces.index {
         height: 64px;
         width: 84px;
       }
+    }
+
+    .space-item.list {
+    }
+
+    .space-item.thumbnail {
+       float: left;
+       padding: 2px;
+       margin: 5px;
+       border: 1px solid #ccc;
+       height: 64px;
     }
 
   }
