@@ -1210,6 +1210,8 @@ en:
     timezone: "Timezone"
     external_help: "External Help/FAQ Page"
     external_help_tip: "Insert the url for the external site that contains the Help/FAQ page. Must contain 'http://'."
+    use_recaptcha: "Use reCaptcha"
+    use_recaptcha_tip: "Enable the checkbox if you want to use reCaptcha on user registration. Need private and public keys in order to work."
     recaptcha_private_key: "reCaptcha's Private Key"
     recaptcha_private_key_tip: "Insert here your private key that reCaptcha's website gave to you."
     recaptcha_public_key: "reCaptcha's Public Key"

@@ -1235,6 +1235,8 @@ pt-br:
     timezone: "Fuso horário"
     external_help: "Página de Ajuda/FAQ Externa"
     external_help_tip: "Insira a url para o site externo que contem a página de Ajuda/FAQ. Deve conter 'http://'."
+    use_recaptcha: "Utilizar reCaptcha"
+    use_recaptcha_tip: "Clique no checkbox para utilizar o reCaptcha no registro de usuários. É necessário que você insira a chave pública e a privada para seu funcionamento correto."
     recaptcha_private_key: "Chave Privada do reCaptcha"    
     recaptcha_private_key_tip: "Insira aqui sua chave privada obtida no site do reCaptcha."
     recaptcha_public_key: "Chave Pública do reCaptcha"

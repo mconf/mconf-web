@@ -9,8 +9,9 @@
       <%= render :partial => 'form', :locals => { :f => f } %>
 
       <%= f.text_field :special_event_id, :style => 'display:none' %>
-      <%= recaptcha_tags :display => {:theme => "clean"}, :public_key => current_site.recaptcha_public_key %>
-
+      <% if current_site.use_recaptcha? %>
+        <%= recaptcha_tags :display => {:theme => "clean"}, :public_key => current_site.recaptcha_public_key %>
+      <% end %>
       <div class="button">
         <button type="submit" class="basic_button blue_button"><%=t("button.accept")%></button>
         <span>

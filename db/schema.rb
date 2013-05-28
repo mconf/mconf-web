@@ -486,6 +486,7 @@ ActiveRecord::Schema.define(:version => 20130425154366) do
     t.string   "external_help"
     t.string   "recaptcha_private_key"
     t.string   "recaptcha_public_key"
+    t.boolean "use_recaptcha",                   :default => false
   end
 
   create_table "source_importations", :force => true do |t|
