@@ -6,16 +6,16 @@
 
 #tag_filter{ :style => "display:none" }
   .tag_filter_content
-    %label{ :class => "bold" }
+    %label
       =@tags.present? ? t('tag.selected', :count => @tags.size) : t('tag.filter')
     %select{ :id => "attachment_tags_filter", :multiple => "multiple", :name => "tags[]" }
       = options_for_fcbkcomplete(@attachments.map(&:tags).flatten.compact.uniq,:id,:name,@tags).html_safe
   #tag_used_list.tag_filter_content
     %span
-      %label{ :class => "bold" }
+      %label
         = t("popularity")
-      = help_icon(t("tooltip.tag_by"),:size=>"16x16" ,:style=>"cursor:pointer")
-      %label{ :class => "bold" }
+      = help_icon(t("tooltip.tag_by"))
+      %label
         = t("popularity")
       |
       =link_to "#{t 'abc'}", "", :class => "tag_list_abc_order"
@@ -25,12 +25,12 @@
           =link_to "#{t[:tag].name}(#{t[:count]})", path_for_attachments({:add_tag => t[:tag].id}), :class => "add_tag_filter"
   #tag_abc_list.tag_filter_content{ :style => "display:none" }
     %span
-      %label{ :class => "bold" }
+      %label
         = t('tags_by')
-      = help_icon(t("tooltip.tag_by"), :size=>"16x16", :style=>"cursor:pointer")
+      = help_icon(t("tooltip.tag_by"))
       =link_to "#{t 'popularity'}", "", :class => "tag_list_used_order"
       |
-      %label{ :class => "bold" }
+      %label
         = t("abc")
     %ul
       - tag_count(@attachments, @tags, :order => "abc").each do |t|
@@ -38,7 +38,7 @@
           = link_to "#{t[:tag].name}(#{t[:count]})", path_for_attachments({:add_tag => t[:tag].id}), :class => "add_tag_filter"
   #tag_collapsed_list.tag_filter_content{ :style => "display:none" }
     %span
-      %label{ :class => "bold" }
+      %label
         =t 'tags_by'
       = link_to "#{t 'popularity'}", "", :class => "tag_list_used_order"
       |
