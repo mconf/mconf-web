@@ -14,7 +14,7 @@
     %span
       %label{ :class => "bold" }
         = t("popularity")
-      =image_tag("icons/help.png",:title=>t("tooltip.tag_by"),:size=>"16x16",:class=>"tooltipped upwards",:style=>"cursor:pointer")
+      = help_icon(t("tooltip.tag_by"),:size=>"16x16" ,:style=>"cursor:pointer")
       %label{ :class => "bold" }
         = t("popularity")
       |
@@ -27,7 +27,7 @@
     %span
       %label{ :class => "bold" }
         = t('tags_by')
-      =image_tag("icons/help.png",:title=>t("tooltip.tag_by"),:size=>"16x16",:class=>"tooltipped upwards",:style=>"cursor:pointer")
+      = help_icon(t("tooltip.tag_by"), :size=>"16x16", :style=>"cursor:pointer")
       =link_to "#{t 'popularity'}", "", :class => "tag_list_used_order"
       |
       %label{ :class => "bold" }

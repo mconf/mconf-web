@@ -1,5 +1,14 @@
-jQuery ->
-  $("a[rel=popover]").popover()
-  # TODO: start using bootstrap tooltips
-  #$(".tooltip").tooltip()
-  #$("a[rel=tooltip]").tooltip()
+class mconf.Tooltip
+
+  @bind: ->
+    $("a[rel=popover]").popover()
+    $(".tooltip").tooltip()
+    $(".tooltipped").tooltip()
+    $("a[rel=tooltip]").tooltip()
+
+class mconf.Resources
+  @bind: ->
+    mconf.Tooltip.bind()
+
+$ ->
+  mconf.Resources.bind()

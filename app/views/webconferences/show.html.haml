@@ -25,7 +25,7 @@
       = label_tag 'invite-url-text', t('webconference.space.share.url')
       = text_field_tag 'invite-url-text', join_webconf_url(@webconf_room), :readonly => true
       - if user_signed_in?
-        = link_to t('button.invite'), inviteroom_invite_path(:type => "webconference", :room => space.bigbluebutton_room.to_param), :title => t('home.webconference.invite_tooltip'), :class => 'btn open-modal tooltipped upwards'
+        = link_to t('button.invite'), inviteroom_invite_path(:type => "webconference", :room => space.bigbluebutton_room.to_param), options_for_tooltip(t('home.webconference.invite_tooltip'), :class => 'btn open-modal')
 
 .content-block
   .content-block-header

@@ -30,7 +30,7 @@ class mconf.Modal
     $(document).on "dialog2.opened", $(options.element), ->
       $(options.element).trigger("modal-opened")
     $(document).on "dialog2.after-update-markup", $(options.element), ->
-      mconf.Tooltip.bind() # bind tooltips
+      mconf.Resources.bind() # bind tooltips
 
     el.dialog2(localOptions)
 

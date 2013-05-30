@@ -2,7 +2,6 @@
  * Vendored stylesheets
  *= require ./bootstrap_and_overrides
  *= require ../../../vendor/assets/stylesheets/jquery/jquery.Jcrop
- *= require ../../../vendor/assets/stylesheets/jquery/jquery.qtip.2.0.0pre
  *= require ../../../vendor/assets/stylesheets/jquery/jquery.noty
  *= require ../../../vendor/assets/stylesheets/jquery/jquery.dialog2
  *= require ../../../vendor/assets/stylesheets/token-input-facebook

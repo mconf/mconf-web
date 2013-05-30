@@ -41,7 +41,7 @@
   .content-block-middle.clearfix
     - @public_spaces.each do |space|
       %div{:class => "space-item #{@user_spaces.include?(space) ? 'my-space' : 'not-my-space'}", :name => space.permalink}
-        = link_logo(space, :size => 'h64', :title => sanitize(space.name), :class => 'tooltipped-label downwards').html_safe
+        = link_logo(space, options_for_tooltip(sanitize(space.name), :size => 'h64', :"data-placement" => 'bottom')).html_safe
 
 #private-spaces.content-block
   .content-block-header
@@ -50,7 +50,7 @@
     - @private_spaces.each do |space|
       - if can?(:read, space)
         %div{:class => "space-item #{@user_spaces.include?(space) ? 'my-space' : 'not-my-space'}", :name => space.permalink}
-          = link_logo(space, :size => 'h64', :title => sanitize(space.name), :class => 'tooltipped-label downwards').html_safe
+          = link_logo(space, options_for_tooltip(sanitize(space.name), :size => 'h64', :"data-placement" => 'bottom')).html_safe
       - else
         .space-item.not-my-space{:name => space.permalink}
-          = link_logo(space, :size => 'h64', :url => new_space_join_request_path(space), :title => sanitize(space.name), :class => 'tooltipped-label downwards').html_safe
+          = link_logo(space, options_for_tooltip(sanitize(space.name), :size => 'h64', :url => new_space_join_request_path(space))).html_safe

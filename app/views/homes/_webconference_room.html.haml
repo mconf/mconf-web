@@ -29,6 +29,6 @@
       = text_field_tag 'invite-url-text', join_webconf_url(@room), :readonly => true
     %ul.action-buttons
       - if @room.is_running?
-        %li= link_to t('home.webconference.end'), end_bigbluebutton_room_path(current_user.bigbluebutton_room, :redir_url => home_path), :title => t('home.webconference.end_tooltip'), :confirm => t('are_you_sure'), :class => 'danger-text tooltipped upwards'
-      %li= link_to t('configurations'), edit_bbb_room_user_path(current_user), :title => t('home.webconference.config_tooltip'), :class => 'open-modal tooltipped upwards'
-      %li= link_to t('home.webconference.invite'), inviteroom_invite_path(:type => "webconference", :room => @room.to_param), :title => t('home.webconference.invite_tooltip'), :class => 'open-modal tooltipped upwards'
+        %li= link_to t('home.webconference.end'), end_bigbluebutton_room_path(current_user.bigbluebutton_room, :redir_url => home_path), options_for_tooltip(t('home.webconference.end_tooltip'), :confirm => t('are_you_sure'), :class => 'danger-text')
+      %li= link_to t('configurations'), edit_bbb_room_user_path(current_user), options_for_tooltip(t('home.webconference.config_tooltip'), :class => 'open-modal')
+      %li= link_to t('home.webconference.invite'), inviteroom_invite_path(:type => "webconference", :room => @room.to_param), options_for_tooltip( t('home.webconference.invite_tooltip'), :class => 'open-modal')
