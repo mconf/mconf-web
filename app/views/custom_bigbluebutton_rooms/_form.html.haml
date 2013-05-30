@@ -1,13 +1,15 @@
+-# TODO: metadata fields
+
 - if @room.new_record?
   - url = bigbluebutton_rooms_path
 - else
   - url = bigbluebutton_room_path(@room)
 
 = simple_form_for @room, :url => url, :html => { :class => 'form-inline' } do |f|
+  = f.input :id, :required => false, :disabled => true
+  = f.input :server_id, :required => false
   = f.input :name, :required => false
   = f.input :meetingid, :required => false
-  = f.input :server_id, :required => false
-  = f.input :randomize_meetingid, :required => false, :as => :boolean
   = f.input :private, :required => false, :as => :boolean
   = f.input :attendee_password, :required => false
   = f.input :moderator_password, :required => false
@@ -17,5 +19,7 @@
   = f.input :voice_bridge, :required => false
   = f.input :max_participants, :required => false
   = f.input :external, :required => false, :as => :boolean
+  = f.input :record, :required => false
+  = f.input :duration, :required => false
   = f.input :param, :required => false
   = f.button :submit, t('save'), :class => 'btn'

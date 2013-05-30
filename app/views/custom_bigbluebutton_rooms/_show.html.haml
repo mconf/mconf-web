@@ -1,9 +1,9 @@
 .webconf-room{:class => "#{cycle("thread-even" , "thread-odd")}"}
   = simple_form_for room, :html => { :class => 'form-inline' } do |f|
+    = f.input :id, :required => false, :disabled => true
+    = f.input :server_id, :required => false, :disabled => true
     = f.input :name, :required => false, :disabled => true
     = f.input :meetingid, :required => false, :disabled => true
-    = f.input :server_id, :required => false, :disabled => true
-    = f.input :randomize_meetingid, :required => false, :as => :boolean, :disabled => true
     = f.input :private, :required => false, :as => :boolean, :disabled => true
     = f.input :attendee_password, :required => false, :disabled => true
     = f.input :moderator_password, :required => false, :disabled => true
@@ -13,7 +13,12 @@
     = f.input :voice_bridge, :required => false, :disabled => true
     = f.input :max_participants, :required => false, :disabled => true
     = f.input :external, :required => false, :as => :boolean, :disabled => true
+    = f.input :record, :required => false, :disabled => true
+    = f.input :duration, :required => false, :disabled => true
     = f.input :param, :required => false, :disabled => true
+    %label= BigbluebuttonRoom.human_attribute_name(:metadata)
+    - room.metadata.each do |metadata|
+      = metadata.attributes.except("id", "owner_id", "owner_type", "updated_at", "created_at")
 
   .room-links
     %label= t('bigbluebutton_rails.servers.index.access_links')

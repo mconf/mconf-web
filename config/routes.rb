@@ -30,7 +30,11 @@ Mconf::Application.routes.draw do
   end
 
   # bigbluebutton_rails default routes
-  bigbluebutton_routes :default, :controllers => { :servers => 'custom_bigbluebutton_servers', :rooms => 'custom_bigbluebutton_rooms' }
+  bigbluebutton_routes :default, :controllers => {
+    :servers => 'custom_bigbluebutton_servers',
+    :rooms => 'custom_bigbluebutton_rooms',
+    :recordings => 'custom_bigbluebutton_recordings'
+  }
 
   # FIXME: Temporary, this should probably be done by bigbluebutton_rails
   match '/webconf/:id', :to => 'custom_bigbluebutton_rooms#invite',

@@ -1,62 +1,116 @@
---- 
-en: 
-  activerecord: 
-    attributes: 
-      bigbluebutton_room: 
+---
+en:
+  activerecord:
+    attributes:
+      bigbluebutton_metadata:
+        content: Content
+        name: Name
+        owner: Owner
+      bigbluebutton_playback_format:
+        format_type: Type
+        length: Length
+        url: URL
+      bigbluebutton_recording:
+        end_time: "End Time"
+        meetingid: "Meeting ID"
+        metadata: Metadata
+        name: Name
+        published: Published
+        recordid: "Record ID"
+        room_id: "Room ID"
+        server_id: "Server ID"
+        start_time: "Start Time"
+      bigbluebutton_room:
         attendee_password: "Attendee Password"
         dial_number: "Dial Number"
-        external: "Externally created"
+        duration: Duration
+        external: "Externally Created"
         logout_url: "Logout URL"
         max_participants: "Maximum Number of Participants"
         meetingid: "Meeting ID"
+        metadata: Metadata
         moderator_password: "Moderator Password"
         name: Name
         param: "String ID"
         private: Private
-        randomize_meetingid: "Randomize Meeting ID"
+        record: Record
         server_id: "Server ID"
         voice_bridge: "Voice Bridge"
         welcome_msg: "Welcome Message"
-      bigbluebutton_server: 
+      bigbluebutton_server:
         name: Name
         param: "String ID"
         salt: "Security Salt"
         url: URL
         version: Version
-    models: 
+    models:
+      bigbluebutton_metadata: "BigBlueButton Recording Metadata"
+      bigbluebutton_playback_format: "BigBlueButton Recording Playback Format"
+      bigbluebutton_recording: "BigBlueButton Recording"
       bigbluebutton_room: "BigBlueButton Room"
       bigbluebutton_server: "BigBlueButton Server"
-  bigbluebutton_rails: 
+  bigbluebutton_rails:
     bigbluebutton: BigBlueButton
-    rooms: 
-      errors: 
-        auth: 
+    metadata:
+      errors:
+        name_format: "can only use letters, numbers and the symbols \"-\" or \"_\", but only letters at the beginning"
+    recordings:
+      errors:
+        check_for_server:
+          no_server: "There's no server associated with this recording."
+        play:
+          no_format: "There's no playback url specified for this recording."
+      notice:
+        destroy:
+          success: "Your recording was successfully destroyed."
+          success_with_bbb_error: "The recording was successfully destroyed but it wasn't deleted from the webconference server (\"%{error}\")"
+        publish:
+          success: "Your recording was successfully published."
+        unpublish:
+          success: "Your recording was successfully unpublished."
+        update:
+          success: "Your recording was successfully updated."
+    rooms:
+      errors:
+        auth:
+          cannot_create: "You don't have permissions to start this meeting."
           failure: "Authentication failure."
           not_running: "The meeting is not running. You must wait for a moderator to join."
           wrong_params: "Wrong params in your request."
-        external: 
+        external:
           blank_meetingid: "You must specify the meetingid of the meeting you want to join"
-        param_format: "you can only use letters, numbers and the symbols \"-\" or \"_\" (not at the begin or end)"
-        server: 
+        fetch_recordings:
+          no_server: "There's no server associated with this room."
+        param_format: "can only use letters, numbers and the symbols \"-\" or \"_\" (not at the begin or end)"
+        server:
           nil: "Your room must be associated to a server to execute this operation."
-      notice: 
-        create: 
+      notice:
+        create:
           failure: "Your room could not be created."
           success: "Your room was successfully created."
-        destroy: 
-          success: "The meeting was successfully destroyed."
-        end: 
+        destroy:
+          success: "The room was successfully destroyed."
+          success_with_bbb_error: "The room was successfully destroyed but the meeting wasn't ended in the webconference server (\"%{error}\")"
+        end:
           not_running: "The meeting could not be ended because it is not running."
           success: "The meeting was successfully ended."
-        update: 
+        fetch_recordings:
+          success: "The list of recordings for this room was successfully updated."
+        update:
           failure: "Your room could not be updated."
           success: "Your room was successfully updated."
-    servers: 
-      errors: 
+    servers:
+      errors:
         param_format: "you can only use letters, numbers and the symbols \"-\" or \"_\" (not at the begin or end)"
         url_format: "should use the pattern http://<server>/bigbluebutton/api"
-      notice: 
-        create: 
+      notice:
+        create:
           success: "Your server was successfully created."
-        update: 
+        fetch_recordings:
+          success: "The list of recordings was successfully updated."
+        publish_recordings:
+          success: "Your recordings were successfully published."
+        unpublish_recordings:
+          success: "Your recordings were successfully unpublished."
+        update:
           success: "Your server was successfully updated."

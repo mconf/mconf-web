@@ -27,6 +27,9 @@ namespace :db do
       users_without_admin = User.find_with_disabled(:all)
       users_without_admin.delete(User.find_by_superuser(true))
       users_without_admin.each(&:destroy)
+      rooms_without_admin = BigbluebuttonRoom.all
+      rooms_without_admin.delete(User.find_by_superuser(true).bigbluebutton_room)
+      rooms_without_admin.each(&:destroy)
     end
 
     puts "* Create users (15)"
@@ -92,7 +95,7 @@ namespace :db do
     Space.populate 10 do |space|
       begin
         name = Populator.words(1..3).capitalize
-      end until Space.find_by_name(name).nil?
+      end until Space.find_by_name(name).nil? and name.length >= 3
       space.name = name
       space.description = Populator.sentences(1..3)
       space.public = [ true, false ]
@@ -147,14 +150,15 @@ namespace :db do
           room.owner_id = space.id
           room.owner_type = 'Space'
           room.name = space.name
-          room.meetingid = space.permalink
-          room.randomize_meetingid = false
+          room.meetingid = "#{SecureRandom.hex(16)}-#{Time.now.to_i}"
           room.attendee_password = "ap"
           room.moderator_password = "mp"
           room.private = !space.public
           room.logout_url = "/feedback/webconf"
           room.external = false
           room.param = space.name.parameterize.downcase
+          room.duration = 0
+          room.record = false
         end
       end
     end
@@ -214,9 +218,72 @@ namespace :db do
 
     end
 
+    puts "* Create recordings and metadata for all webconference rooms"
+    BigbluebuttonRoom.all.each do |room|
+
+      # Basic metadata that should always exist
+      # TODO: get the metadata keys from a configuration file
+      # TODO: get the values from a configuration file
+      title = room.metadata.where(:name => "mconfweb-title").first
+      room.metadata.create(:name => "mconfweb-title") if title.nil?
+      description = room.metadata.where(:name => "mconfweb-description").first
+      room.metadata.create(:name => "mconfweb-description") if description.nil?
+
+      BigbluebuttonRecording.populate 2..10 do |recording|
+        recording.room_id = room.id
+        recording.server_id = room.server.id
+        recording.recordid = "rec-#{SecureRandom.hex(16)}-#{Time.now.to_i}"
+        recording.meetingid = room.meetingid
+        recording.name = Populator.words(3..8).titleize
+        recording.published = true
+        recording.available = true
+        recording.start_time = 5.months.ago..Time.now
+        recording.end_time = recording.start_time + rand(5).hours
+
+        # Recording metadata
+        BigbluebuttonMetadata.populate 1..3 do |meta|
+          meta.owner_id = recording.id
+          meta.owner_type = recording.class.to_s
+          meta.name = "#{Populator.words(1)}-#{meta.id}"
+          meta.content = Populator.words(2..8)
+        end
+
+        # Recording playback formats
+        BigbluebuttonPlaybackFormat.populate 1..3 do |format|
+          format.recording_id = recording.id
+          format.format_type = "#{Populator.words(1)}-#{format.id}"
+          format.url = "http://" + Faker::Internet.domain_name + "/playback/" + format.format_type
+          format.length = Populator.value_in_range(32..128)
+        end
+      end
+
+      # Basic metadata needed in all recordings
+      room.recordings.each do |recording|
+        # TODO: get the metadata keys from a configuration file
+        title = recording.metadata.where(:name => "mconfweb-title").first
+        if title.nil?
+          recording.metadata.create(:name => "mconfweb-title",
+                                    :content => Populator.words(2..5).titleize)
+        end
+        description = recording.metadata.where(:name => "mconfweb-description").first
+        if description.nil?
+          recording.metadata.create(:name => "mconfweb-description",
+                                    :content => Populator.words(5..10).capitalize)
+        end
+      end
+
+      # Room metadata
+      BigbluebuttonMetadata.populate 2..6 do |meta|
+        meta.owner_id = room.id
+        meta.owner_type = room.class.to_s
+        meta.name = "#{Populator.words(1)}-#{meta.id}"
+        meta.content = Populator.words(2..8)
+      end
+    end
+
     Post.record_timestamps = false
 
-    # Posts.parent_id
+    puts "* Create statistics and last details for spaces"
     Space.all.each do |space|
       Statistic.populate 1 do |statistic|
         statistic.url = "/spaces/" + space.permalink
