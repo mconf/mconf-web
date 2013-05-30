@@ -9,6 +9,26 @@ require "spec_helper"
 describe UsersController do
   render_views
 
+  describe "#show" do
+    it "should display a 404 for inexisting users" do
+      get :show, :id => "inexisting_user"
+      response.response_code.should == 404
+    end
+
+    it "should display a 404 for empty username" do
+      get :show, :id => ""
+      response.response_code.should == 404
+    end
+
+    login_user
+
+    it "should return OK status for existing user" do
+      get :show, :id => @user.username
+      response.response_code.should == 200
+    end
+
+  end
+
   describe "#current" do
     context ".json" do
       context "when there's a user logged" do
