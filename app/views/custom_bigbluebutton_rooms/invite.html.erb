@@ -25,42 +25,51 @@ $(document).ready(function(){
 });
 
 </script>
-
-<div id="rooms_invitation">
-
+<div id="identification">
   <div class="title">
-    <span><%= t('rooms.invite.msg1') %><%= @room.name %></span>
-    <p class="status"><%= t('rooms.invite.status') %><span id="meeting_status">-</span> (<a href="javascript:ajax_request();"><%= t('rooms.refresh') %></a>)</p>
+    <span><%= t('rooms.identification.title', :room => @room.name).html_safe %></span>
   </div>
 
-  <div class="bbbrails_invite_device_type">
-    <% if params[:mobile] %>
-      <%= t('rooms.invite.join_from_mobile', :url => invite_bigbluebutton_room_path(@room)).html_safe %>
-    <% else %>
-      <%= t('rooms.invite.join_from_desktop', :url => invite_bigbluebutton_room_path(@room, :mobile => true)).html_safe %>
-    <% end %>
-  </div>
-
-  <%= form_tag join_bigbluebutton_room_path(@room, :mobile => params[:mobile]) do %>
-
-    <div class="field">
-      <%= t('rooms.invite.name') %><br />
-      <% if bigbluebutton_user.nil? %>
-        <%= text_field_tag "user[name]", "", :size => 30 %>
-      <% else %>
-        <%= text_field_tag "user[name]", bigbluebutton_user.name, :size => 30, :readonly => true, :disabled => true %>
-      <% end %>
-    </div>
-
-    <% if @user_role == :password %>
+  <div id="body">
+    <div id="left">
+      <div class="title"><%= t('rooms.identification.member') %></div>
       <div class="field">
-      <%= t('rooms.invite.password') %><br />
-        <%= password_field_tag "user[password]", "", :size => 30 %>
+        <%= form_tag session_url(:protocol => current_site.protocol), :class => "login_form" do -%>
+        <div>
+          <label for="login"><%= t('login.email_or_login') %></label><br/>
+          <%= text_field_tag 'login', params[:login] %>
+        </div>
+        <div>
+          <label for="password"><%= t('login.password') %></label><br/>
+          <%= password_field_tag 'password' %>
+        </div>
+        <div class="button">
+          <button type="submit" class="basic_button blue_button"><%=t("login.one")%></button>
+        </div>
+        <% end -%>
+        <% if current_site.shib_enabled? %>
+        <br>
+        <div id="shib-login">
+          <span><%= t('cafe.login_page.description_small').html_safe %></span>
+          <div class="image">
+            <%= link_to(image_tag("logos/cafe-logo-small.jpg"), shib_login_path) %>
+            <br>
+            <%= link_to(t('cafe.login_page.click_here_to_login'), shib_login_path, :id => "shib_login") %>
+          </div>
+        </div>
+        <% end %>
       </div>
-    <% end %>
-    <div class="submit_area">
-      <button type="submit" class="basic_button medium_button orange_pale_button"><%=t('join')%></button>
     </div>
-  <% end %>
-
+    <div id="right">
+      <div class="title"><%= t('rooms.identification.not_member') %></div>
+      <div class="field">
+        <%= t('rooms.invite.name') %><br />
+        <%= text_field_tag "person[nickname]", "", :size => 30 %>
+      </div>
+      <br><br><br><br>
+      <div class="submit_area">
+        <button type="submit" class="basic_button blue_button"><%=t('rooms.identification.next')%></button>
+      </div>
+    </div>
+  </div>
 </div>

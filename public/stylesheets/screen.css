@@ -2393,6 +2393,103 @@ div.webconf-rooms #new_room_private_area input[type=text] {
 div#manage_rooms p {clear:both;padding:8px 9px 9px 9px;margin:0;}
 div#manage_rooms color{color:#244974;}
 
+#identification .room_title {
+  font-weight: normal;
+}
+
+#identification #body {
+  margin-top:20px;
+}
+
+#identification #body #left {
+  border-right-color:rgb(177,200,212);
+  margin-right:10px;
+  padding-right:0px;
+  width: 449px;
+}
+
+#identification #body #left .field {
+  margin-left: 80px;
+}
+
+#identification #body #left input {
+  width: 210px;
+}
+
+#identification #body #left .field #shib-login{
+  padding-right: 108px;
+  text-align: center;
+}
+
+#identification #body #right {
+  width: 450px;
+}
+
+#identification #body #right .field {
+  margin-left: 110px;
+}
+
+#identification #body #right .submit_area {
+  margin-right: 110px;
+}
+
+#identification #body #right input {
+  width: 210px;
+}
+
+#identification #body .title{
+  background: none;
+  border-bottom: none;
+  font-family: inherit;
+  font-size: 1.1666em;
+  font-weight: bold;
+  line-height: 1.2857;
+  padding: 12px 9px;
+  text-align: center;
+}
+
+#identification .title, #rooms_join .title {
+  font-family:Trebuchet;
+  font-size:1.1666em;
+  line-height:1.2857;
+  font-weight:bold;
+  padding:12px 9px;
+  border-bottom:1px #fefefe solid;
+  background:#c0dceb;
+  text-align: left;
+}
+
+#identification .title .status {
+  font-family:Trebuchet;
+  font-size:0.9em;
+  line-height:1;
+  font-weight:normal;
+  margin: 0;
+  padding: 0;
+}
+
+#identification .field {
+  padding: 5px;
+  margin-top: 5px;
+}
+
+#identification .submit_area {
+  float: right;
+  margin-top: -40px;
+}
+
+#identification .obs, #identification .obs2 {
+  font-size:0.9em;
+  line-height:1;
+  font-weight:normal;
+  color: #666;
+}
+
+#identification .obs2 {
+  color:#244974;
+  font-style: italic;
+}
+
 #rooms_invitation .title, #rooms_join .title {
   font-family:Trebuchet;font-size:1.1666em;line-height:1.2857;font-weight:bold;
   padding:12px 9px;border-bottom:1px #fefefe solid;background:#c0dceb;

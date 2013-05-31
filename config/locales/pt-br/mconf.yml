@@ -203,6 +203,7 @@ pt-br:
     login_page: 
       click_here_to_login: "clique aqui para entrar"
       description: "Teste experimental de acesso ao Mconf via Federação CAFe"
+      description_small: "ou você pode logar usando a federação CAFe"
       more_about_cafe: "Leia mais sobre a CAFe"
     login_tip: "O Mconf é um serviço experimental na federação CAFe. Clique neste botão para logar utilizando a federação."
   calendar: 
@@ -1118,6 +1119,11 @@ pt-br:
   rooms: 
     form: 
       msg1: " impossibilitaram esta sala de ser salva:"
+    identification:
+      title: "Você está acessando a sala <span class='room_title'>%{room}</span>, identifique-se"
+      member: "Eu já sou membro do Mconf"
+      next: "Avançar"
+      not_member: "Eu não sou membro do Mconf ainda"
     invite: 
       join_from_desktop: "Nesta página você pode entrar na conferência a partir de um <b>computador desktop</b>. Para entrar usando um dispositivo móvel, <a href=\"%{url}\">clique aqui</a>."
       join_from_mobile: "Nesta página você pode entrar na conferência a partir de um <b>dispositivo móvel</b>. Para entrar usando um computador desktop, <a href=\"%{url}\">clique aqui</a>."
