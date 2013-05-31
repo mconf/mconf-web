@@ -10,23 +10,11 @@ describe SpacesController do
 
   render_views
 
-  before(:each) do
-    # the superuser
-    @superuser = FactoryGirl.create(:superuser)
-
-    # # private spaces
-    @private_space = FactoryGirl.create(:private_space)
-    @user = FactoryGirl.create(:user)
-    # @invited = FactoryGirl.create(:invited_performance, :stage => @private_space).agent
-
-    @private_space2 = FactoryGirl.create(:private_space)
-
-    # a public space
-    @public_space = FactoryGirl.create(:public_space)
-  end
-
-  describe "A Superadmin", :super_admin => true do
+  describe "a superadmin", :super_admin => true do
     before(:each) do
+      @superuser = FactoryGirl.create(:superuser)
+      @private_space = FactoryGirl.create(:private_space)
+      @public_space = FactoryGirl.create(:public_space)
       sign_in @superuser
     end
 
@@ -37,62 +25,79 @@ describe SpacesController do
       space = Space.find_by_name(valid_attributes[:name])
       response.should redirect_to(space_path(space))
     end
-    it "should be able to see public spaces " do
+
+    it "should be able to see public spaces" do
       get :show, :id => @public_space.to_param
       assert_response 200
       response.should render_template("spaces/show")
     end
+
     it "should be able to delete a public space" do
       delete :destroy , :id => @public_space.to_param
       assert_response 302
       response.should redirect_to(spaces_url)
     end
-    it "should be able to see  private spaces" do
+
+    pending "should be able to update a public space"
+
+    it "should be able to see private spaces" do
       get :show, :id => @private_space.to_param
       assert_response 200
       response.should render_template("spaces/show")
     end
-    it "should be able to delete a private  space" do
+
+    it "should be able to delete a private space" do
       delete :destroy , :id => @private_space.to_param
       assert_response 302
       response.should redirect_to(spaces_url)
     end
+
+    pending "should be able to update a private space"
   end
 
-  describe "The admin of a space", :space_admin => true do
+  describe "the admin of a space", :space_admin => true do
     before(:each) do
+      @user = FactoryGirl.create(:user)
+      @private_space = FactoryGirl.create(:private_space)
+      @private_space.add_member!(@user, 'Admin')
+      @private_space2 = FactoryGirl.create(:private_space)
       sign_in @user
-      @private_space2.add_member!(@user, 'Admin')
     end
 
-    it "should be authorized to access his own space" do
-      get :show, :id => @private_space2.to_param
+    it "should be authorized to access the space" do
+      get :show, :id => @private_space.to_param
       assert_response 200
     end
 
-    it "should be able to delete his own space" do
+    it "should be able to delete the space" do
       expect {
-      delete :destroy , :id => @private_space2
+        delete :destroy, :id => @private_space
       }.to change { Space.count }.by(-1)
       assert_response 302
       response.should redirect_to(spaces_url)
     end
 
-    it "should NOT be able to delete other spaces if he isn't the admin" do
-      delete :destroy, :id => @private_space.to_param
+    pending "should be able to update the space"
+
+    it "should not be able to delete spaces he's not a member of" do
+      delete :destroy, :id => @private_space2.to_param
       assert_response 403
     end
   end
 
-  describe "A logged user", :logged_user => true do
+  describe "a logged user", :logged_user => true do
     before(:each) do
-      sign_in @user
+      @user = FactoryGirl.create(:user)
+      @private_space = FactoryGirl.create(:private_space)
       @private_space.add_member!(@user)
+      @private_space2 = FactoryGirl.create(:private_space)
+      @public_space = FactoryGirl.create(:public_space)
+      sign_in @user
     end
 
     it "should be able to create a new space" do
       valid_attributes = FactoryGirl.attributes_for(:public_space)
-      post :create, :space=> valid_attributes
+      post :create, :space => valid_attributes
       assert_response 302
       space = Space.find_by_name(valid_attributes[:name])
       response.should redirect_to(space_path(space))
@@ -110,20 +115,24 @@ describe SpacesController do
       response.should render_template("spaces/show")
     end
 
-    it "should NOT be able to see private spaces if he isn't joined to them" do
+    it "should NOT be able to see private spaces if he is not a member" do
       get :show, :id => @private_space2.to_param
       assert_response 302
       response.should redirect_to new_space_join_request_path(:space_id => @private_space2)
     end
 
-    it "should NOT be able to delete anyone's space " do
+    it "should NOT be able to delete anyone's space" do
       delete :destroy, :id => @private_space2.to_param
       assert_response 403
     end
+
+    pending "should not be able to update a space he's not a member of"
+    pending "should not be able to destroy a space he's not a member of"
+    pending "should not be able to update a space he's a member of but not admin"
+    pending "should not be able to destroy a space he's a member of but not admin"
   end
 
-  # TODO
-  # Redo these tests
+  # TODO: Redo these tests
   # describe "A invited user" do
   #   login_user
 
@@ -146,29 +155,35 @@ describe SpacesController do
 
   # end
 
-  describe "A NOT logged user", :not_logged_user => true do
+  describe "an anonymous user", :anonymous_user => true do
+    before(:each) do
+      @public_space = FactoryGirl.create(:public_space)
+    end
+
     it "should be able to see public spaces" do
       get :show, :id => @public_space.to_param
       assert_response 200
       response.should render_template("spaces/show")
     end
 
-    it "should NOT be able to see private spaces" do
+    it "should not be able to see private spaces" do
       private_space3 = FactoryGirl.create(:private_space)
       get :show, :id => private_space3.to_param
       assert_response 403
     end
 
-    it "should NOT be able to delete a space" do
+    it "should not be able to delete a space" do
       delete :destroy, :id => @public_space.to_param
       assert_response 403
     end
+
+    pending "should not be able to update a space"
   end
 
-  describe "a space#bigbluebutton_room is", :bbb_room => true do
+  describe :bbb_room => true do
     login_admin
 
-    it "created when the space is created" do
+    it "creates #bigbluebutton_room when the space is created" do
       expect {
         post :create, :space => FactoryGirl.attributes_for(:public_space)
       }.to change{ BigbluebuttonRoom.count }.by(1)
@@ -176,9 +191,9 @@ describe SpacesController do
       room = space.bigbluebutton_room
 
       room.should_not be_nil
-      room.name.should == space.name
-      room.owner_id.should == space.id
-      room.owner_type.should == space.class.name
+      room.name.should eql(space.name)
+      room.owner_id.should eql(space.id)
+      room.owner_type.should eql(space.class.name)
     end
 
     # ps: the room is destroyed when the space (the model) is destroyed
