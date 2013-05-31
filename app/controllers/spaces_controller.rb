@@ -18,6 +18,19 @@ class SpacesController < ApplicationController
   respond_to :js, :only => [:index, :show]
   respond_to :html, :only => [:new, :edit, :index, :show]
 
+  # User trying to access a space not owned or joined by him
+  rescue_from CanCan::AccessDenied do |exception|
+    if user_signed_in? and not [:destroy, :update].include?(exception.action)
+      # Normal actions trigger a redirect to ask for membership
+      flash[:error] = t("join_request.message_title")
+      redirect_to new_space_join_request_path :space_id => params[:id]
+    else
+      # Logged out users or destructive actions are redirect to the 403 error
+      flash[:error] = t("space.access_forbidden")
+      render :template => "/errors/error_403", :status => 403, :layout => "error"
+    end
+  end
+
   def index
     #if params[:space_id] && params[:space_id] != "all" && params[:space_id] !="my" && params[:space_id] !=""
     #  redirect_to space_path(Space.find_by_permalink(params[:space_id]))

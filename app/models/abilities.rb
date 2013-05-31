@@ -5,6 +5,7 @@
 # 3 or later. See the LICENSE file.
 
 # Based on https://gist.github.com/3729390/
+
 module Abilities
 
   def self.ability_for(user)
@@ -67,7 +68,9 @@ module Abilities
       can [:read, :leave], Space do |space|
         space.users.include?(user)
       end
-      can :update, Space do |space|
+
+      # Only the admin can destroy or update information on a space
+      can [:destroy, :update], Space do |space|
         space.admins.include?(user)
       end
 

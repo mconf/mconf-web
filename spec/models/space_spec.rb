@@ -50,7 +50,7 @@ describe Space do
 
       context "that's an admin of the space" do
         before { target.add_member!(user, "Admin") }
-        it { should_not be_able_to_do_anything_to(target).except([:read, :create, :leave, :update]) }
+        it { should_not be_able_to_do_anything_to(target).except([:read, :create, :leave, :update, :destroy]) }
       end
 
       context "that's not a member of the private space" do
