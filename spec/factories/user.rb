@@ -5,9 +5,14 @@
 # 3 or later. See the LICENSE file.
 
 FactoryGirl.define do
+
+  sequence(:email) { |n| Forgery::Internet.unique_email_address(n) }
+  sequence(:username) { |n| Forgery::Internet.unique_user_name(n) }
+  sequence(:timezone) { |n| Forgery::Time.zone }
+
   factory :user do |u|
-    u.sequence(:username) { |n| Forgery::Internet.unique_user_name(n) }
-    u.sequence(:email) { |n| Forgery::Internet.unique_email_address(n) }
+    u.username
+    u.email
     u.sequence(:_full_name) { |n| Forgery::Name.unique_full_name(n) }
     u.association :bigbluebutton_room
     u.association :profile
@@ -28,4 +33,6 @@ FactoryGirl.define do
 
   # factory :author, :parent => :user do |a|
   # end
+
 end
+
