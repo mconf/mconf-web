@@ -15,6 +15,9 @@ class UsersController < ApplicationController
 
   load_and_authorize_resource
 
+  # Rescue username not found rendering a 404
+  rescue_from ActiveRecord::RecordNotFound, :with => :render_404
+
   respond_to :html, :except => [:select, :current, :fellows]
   respond_to :js, :only => [:select, :current, :fellows]
   respond_to :xml, :only => [:current]

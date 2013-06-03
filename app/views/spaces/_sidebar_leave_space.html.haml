@@ -1,7 +1,6 @@
 #sidebar-leave-space
   - link = leave_space_path(@space)
   - params = { :method => :post,
-               :title => t("tooltip.leave_space"),
                :confirm => t('space.confirm'),
-               :class => 'tooltipped upwards btn btn-mini btn-danger'}
-  = link_to t('space.leave.leave_this_space'), link, params
+               :class => 'btn btn-mini btn-danger'}
+  = link_to t('space.leave.leave_this_space'), link, options_for_tooltip(t("tooltip.leave_space"), params)

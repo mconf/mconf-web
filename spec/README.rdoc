@@ -27,20 +27,6 @@ Run rspec --help for more details.
 
 It is important to run rspec with bundle exec so that the tests will run using the correct gem environment .
 
-== Running only a few tests with tags
-
-When working on specific parts of the code you can save time by running only some tests pertinent to this part. Tag
-this tests like this:
-
-  # tests for a controller method named "current"
-  describe "#current", :current => true do
-    ...
-  end
-
-That way you can run only the tests inside this block with, for example:
-
-    bundle exec rspec -t current spec/controllers/users_controller_spec.rb
-
 == Speeding up tests with Spork
 
 You can speed up your tests using the `spork-rails` gem. After installing it with `bundle install` you should run, inside the project root:

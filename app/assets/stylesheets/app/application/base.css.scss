@@ -782,8 +782,14 @@ ul#navbar-right-links {
     h3 { float: left; margin: -3px 4px 0 4px; }
   }
 
-  .help-icon { float: left; }
-  .info-icon { float: left; }
+  .help-icon {
+    float: left;
+    margin: 3px 5px 0 0;
+  }
+  .info-icon {
+    float: left;
+    margin: 3px 5px 0 0;
+  }
 
   .loading-icon { float: right; } // TODO: temporary, this may become default in _base
 }

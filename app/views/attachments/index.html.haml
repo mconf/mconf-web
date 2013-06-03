@@ -14,7 +14,7 @@
   .tag_filter_content
     %h3{ :class => "blue" }
       = t('repository.search')
-      = image_tag('icons/help.png', :title => t('tooltip.doc_search'), :size => "16x16", :class => "icon tooltipped upwards", :style => "cursor:pointer")
+      = help_icon t('tooltip.doc_search')
   = render :partial => 'mixed_filter'
   = render :partial => 'multiple_actions'
   = render :partial => 'doc_table'
