@@ -196,6 +196,90 @@ describe UsersController do
     end
   end
 
+  describe "#update" do
+
+    context "attributes that the user can't update" do
+
+      context "trying to update username" do
+
+        before(:each) do
+          @user = FactoryGirl.create(:user)
+          sign_in @user
+
+          @old_username = @user.username
+          @new_username = FactoryGirl.generate(:username)
+
+          put :update, :id => @user.id, :user => { :username => @new_username }
+        end
+
+        it { response.status.should == 302 }
+        it { response.should redirect_to edit_user_path(@user) }
+        it { @user.username.should_not == @new_username }
+        it { @user.username.should == @old_username }
+      end
+
+      context "trying to update email" do
+        before(:each) do
+          @user = FactoryGirl.create(:user)
+          sign_in @user
+
+          @old_email = @user.email
+          @new_email = FactoryGirl.generate(:email)
+
+          put :update, :id => @user.id, :user => { :email => @new_email }
+          @user.reload
+        end
+
+        it { response.status.should == 302 }
+        it { response.should redirect_to edit_user_path(@user) }
+        it { @user.email.should_not == @new_email }
+        it { @user.email.should == @old_email }
+      end
+    end
+
+    context "attributes that the user can update" do
+      context "trying to update timezone" do
+
+        before(:each) do
+          @user = FactoryGirl.create(:user)
+          sign_in @user
+
+          @old_tz = @user.timezone
+          @new_tz = FactoryGirl.generate(:timezone)
+
+          put :update, :id => @user.id, :user => { :timezone => @new_tz }
+          @user.reload
+        end
+
+        it { response.status.should == 302 }
+        it { response.should redirect_to edit_user_path(@user) }
+        it { @user.timezone.should_not == @old_tz }
+        it { @user.timezone.should == @new_tz }
+      end
+
+      context "trying to update notifications" do
+
+        before(:each) do
+          @user = FactoryGirl.create(:user)
+          sign_in @user
+
+          @old_not = @user.notification
+          @new_not = @user.notification == User::RECEIVE_DIGEST_DAILY ? User::RECEIVE_DIGEST_WEEKLY : User::RECEIVE_DIGEST_DAILY
+
+          put :update, :id => @user.id, :user => { :notification => @new_not }
+          @user.reload
+        end
+
+        it { response.status.should == 302 }
+        it { response.should redirect_to edit_user_path(@user) }
+        it { @user.notification.should_not == @old_not }
+        it { @user.notification.should == @new_not }
+      end
+
+    end
+
+  end
+
   describe "abilities" do
 
     context "for a normal user:" do
@@ -340,6 +424,7 @@ describe UsersController do
     end
 
     pending "for a disabled user:"
+    pending "for showing public email in profile"
 
   end
 
