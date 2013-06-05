@@ -1103,7 +1103,7 @@ en:
       title: "You are accessing the room <span class='room_title'>%{room}</span>"
     invite: 
       click_to_select: "<a href=\"%{url}\">Click here to select</a>"
-      cod_room: "Room Access Code:"
+      cod_room: "Room Access Key:"
       desktop: "Select this option to join from a <em>desktop computer</em>."
       join_from_desktop: "In this page you can join the conference from a <b>desktop</b>. To join from a mobile device <a href=\"%{url}\">click here</a>."
       join_from_mobile: "In this page you can join the conference from a <b>mobile device</b>. To join from a desktop <a href=\"%{url}\">click here</a>."
