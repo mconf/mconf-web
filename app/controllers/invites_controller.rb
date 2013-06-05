@@ -14,9 +14,9 @@ class InvitesController < ApplicationController
     end
 
     tags = []
-    members = Profile.where("full_name like ?", "%#{params[:q]}%").select(['full_name', 'id']).limit(10)
+    members = Profile.where("full_name like ?", "%#{params[:q]}%").select(['full_name', 'user_id']).limit(10)
     members.each do |f|
-      tags.push("id"=>f.id, "name"=>f.full_name)
+      tags.push("id"=>f.user_id, "name"=>f.full_name)
     end
 
     respond_to do |format|
