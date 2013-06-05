@@ -57,6 +57,8 @@ class SessionsController
     if current_user.superuser == true && Site.current.new_record?
       flash[:notice] = t('session.error.fill')
       edit_site_path
+    elsif params[:url]
+      params[:url]
     else
       session[:return_to] ? session[:return_to] : home_path
     end

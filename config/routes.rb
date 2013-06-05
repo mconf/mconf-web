@@ -11,7 +11,7 @@ Mconf::Application.routes.draw do
   post '/secure/associate', :to => 'shibboleth#associate', :as => "shib_associate"
 
   # FIXME: Temporary, this should probably be done by bigbluebutton_rails
-  match '/webconf/:id', :to => 'custom_bigbluebutton_rooms#invite',
+  match '/webconf/:id', :to => 'custom_bigbluebutton_rooms#identification_webconf',
                         :as => "join_webconf"
 
   #Translate::Routes.translation_ui(map) if RAILS_ENV != "production"

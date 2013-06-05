@@ -1124,15 +1124,22 @@ pt-br:
       member: "Eu já sou membro do Mconf"
       next: "Avançar"
       not_member: "Eu não sou membro do Mconf ainda"
+    identified:
+      title: "Você está acessando a sala <span class='room_title'>%{room}</span>"
     invite: 
+      click_to_select: "<a href=\"%{url}\">Clique aqui para selecionar</a>"
+      cod_room: "Código de Acesso à Sala:"
+      desktop: "Selecione esta opção para acessar de um <em>computador</em>."
       join_from_desktop: "Nesta página você pode entrar na conferência a partir de um <b>computador desktop</b>. Para entrar usando um dispositivo móvel, <a href=\"%{url}\">clique aqui</a>."
       join_from_mobile: "Nesta página você pode entrar na conferência a partir de um <b>dispositivo móvel</b>. Para entrar usando um computador desktop, <a href=\"%{url}\">clique aqui</a>."
+      mobile: "Selecione esta opção para acessar de um <em>dispositivo móvel</em>."
       msg1: "Convite para a reunião "
       name: "Nome:"
       name_enter: "Insira seu nome"
       password: "Senha:"
       password_filled: "Esta sala é pública. A senha foi preenchida automaticamente."
       password_role: "Digite a senha de moderador ou participante."
+      selected: "selecionado"
       status: "Status da reunião: "
     join: 
       msg1: "Esta reunião ainda não começou, espere pelo moderador."

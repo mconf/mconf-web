@@ -1,0 +1,50 @@
+<div id="identification">
+  <div class="title">
+    <span><%= t('rooms.identification.title', :room => @room.name).html_safe %></span>
+  </div>
+
+  <div id="body">
+    <div id="left">
+      <div class="title"><%= t('rooms.identification.member') %></div>
+      <div class="field">
+        <%= form_tag session_url(:protocol => current_site.protocol, :url => invite_bigbluebutton_room_path(@room)), :class => "login_form" do -%>
+        <div>
+          <label for="login"><%= t('login.email_or_login') %></label><br/>
+          <%= text_field_tag 'login', params[:login] %>
+        </div>
+        <div>
+          <label for="password"><%= t('login.password') %></label><br/>
+          <%= password_field_tag 'password' %>
+        </div>
+        <div class="button">
+          <button type="submit" class="basic_button blue_button"><%=t("login.one")%></button>
+        </div>
+        <% end -%>
+        <% if current_site.shib_enabled? %>
+        <br>
+        <div id="shib-login">
+          <span><%= t('cafe.login_page.description_small').html_safe %></span>
+          <div class="image">
+            <%= link_to(image_tag("logos/cafe-logo-small.jpg"), shib_login_path) %>
+            <br>
+            <%= link_to(t('cafe.login_page.click_here_to_login'), shib_login_path, :id => "shib_login") %>
+          </div>
+        </div>
+        <% end %>
+      </div>
+    </div>
+    <div id="right">
+      <div class="title"><%= t('rooms.identification.not_member') %></div>
+      <div class="field">
+        <%= form_tag(invite_bigbluebutton_room_path(@room), :method => 'get') do -%>
+        <%= t('rooms.invite.name') %><br />
+        <%= text_field_tag "user[name]", "", :size => 30 %>
+      </div>
+      <br><br><br><br>
+      <div class="submit_area">
+        <button type="submit" class="basic_button blue_button"><%=t('rooms.identification.next')%></button>
+      </div>
+      <% end -%>
+    </div>
+  </div>
+</div>
