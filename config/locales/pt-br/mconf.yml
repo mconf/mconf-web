@@ -1128,7 +1128,7 @@ pt-br:
       title: "Você está acessando a sala <span class='room_title'>%{room}</span>"
     invite: 
       click_to_select: "<a href=\"%{url}\">Clique aqui para selecionar</a>"
-      cod_room: "Código de Acesso à Sala:"
+      cod_room: "Chave de Acesso à Sala:"
       desktop: "Selecione esta opção para acessar de um <em>computador</em>."
       join_from_desktop: "Nesta página você pode entrar na conferência a partir de um <b>computador desktop</b>. Para entrar usando um dispositivo móvel, <a href=\"%{url}\">clique aqui</a>."
       join_from_mobile: "Nesta página você pode entrar na conferência a partir de um <b>dispositivo móvel</b>. Para entrar usando um computador desktop, <a href=\"%{url}\">clique aqui</a>."
