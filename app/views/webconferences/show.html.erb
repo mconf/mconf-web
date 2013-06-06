@@ -45,16 +45,12 @@
     }
   }
 
-  recListUpdateStart();
-  $.post("<%= fetch_recordings_bigbluebutton_room_path(@room, :format => 'json') %>", {
-    authenticity_token: "<%= form_authenticity_token() %>"
-  }, null, "html").fail(function() {
-    recListUpdateEnd(true);
-  }).success(function(data) {
+  populateList = function(showMessage) {
     $.get("<%= recordings_space_path(@space, :partial => '1', :limit => 3) %>", {
       authenticity_token: "<%= form_authenticity_token() %>"
     }).fail(function() {
-      recListUpdateEnd(true);
+      if (showMessage == true)
+        recListUpdateEnd(true);
     }).success(function(data) {
       if (data.trim() != "") {
         $("#recording-list-wrapper").show();
@@ -62,10 +58,23 @@
       } else {
         $("#recording-list-wrapper").hide();
       }
-      recListUpdateEnd(false);
+      if (showMessage == true)
+        recListUpdateEnd(false);
     });
-  });
-
+  }
+  
+  <% if logged_in? %>
+    recListUpdateStart();
+    $.post("<%= fetch_recordings_bigbluebutton_room_path(@room, :format => 'json') %>", {
+      authenticity_token: "<%= form_authenticity_token() %>"
+    }, null, "html").fail(function() {
+      recListUpdateEnd(true);
+    }).success(function(data) {
+      populateList(true);
+    });
+  <% else %>
+    populateList(false);
+  <% end %>
 <% end %>
 
 <%= content_for :search do  %>
