@@ -1246,6 +1246,8 @@ pt-br:
     all: Comunidades
     allow_public_access: "Permitir acesso público?"
     attendeePW: "editar senha de participante"
+    change_name: "Ok"
+    change_name_warning: "Renomear uma comunidade vai invalidar links gerados previamente para ela. Tem certeza?"
     clic: "Clique para editar..."
     clic_logo: "Clique para mudar o seu logotipo"
     configuration: "Configurações da comunidade"

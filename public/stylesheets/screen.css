@@ -3048,3 +3048,11 @@ a.disabled {
   font-size: 11px;
   margin-left: 5px;
 }
+
+#button-rename-space {
+  background: url("../images/buttons/boton-generico1.png") repeat-x scroll 0 0 #275B8A;
+  border: 1px solid #244974;
+  color: #FFFFFF;
+  font-size: 95%;
+  line-height: 135%;
+}

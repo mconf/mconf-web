@@ -197,7 +197,8 @@ class SpacesController < ApplicationController
         respond_to do |format|
           format.html {
             flash[:success] = t('space.updated')
-            redirect_to request.referer
+            # When space changes name, redirect to the new address
+            redirect_to edit_space_path :id => @space.permalink
           }
           format.atom { head :ok }
           format.js{

@@ -1222,6 +1222,8 @@ en:
     all: "All spaces"
     allow_public_access: "Allow public access?"
     attendeePW: "edit attendee password"
+    change_name: "Ok"
+    change_name_warning: "Renaming a space will invalidate links previously pointing to it. Are you sure?"
     clic: "Click to edit..."
     clic_logo: "Click to change your logo"
     configuration: "Space configuration"

@@ -17,33 +17,8 @@
     }
   });
 
-
   $("#nonjavascript_form").remove();
   $("#jedit_form").show();
-
-  edit_name = function(){
-    $('#space_name').click();
-    $('#edit_name_icon').hide();
-  };
-
-  $('#space_name').editable(function(value, settings){
-    $.post("<%=space_path(@space, :format => 'js')%>",{
-      _method: "put", authenticity_token: "<%=form_authenticity_token()%>", 'space[name]': value
-    }, function(data){
-        eval(data);
-        return(data);
-      });
-  },
-  {
-    cancel    : '<%= t('cancel')%>',
-    onblur    : 'ignore',
-    submit    : '<%= t('ok')%>',
-    tooltip   : '<%= t('space.clic')%>',
-    width : 185,
-    onreset : function() {
-      $('#edit_name_icon').show();
-    }
-  });
 
   edit_description = function(){
     $('#space_description').click();
@@ -201,15 +176,16 @@
   <%end%>
 </div>
 
+<%= form_for :space, :url => space_path(@space), :html => { :method => 'put'} do |f| %>
+    <%= f.label :name, :class => 'bold' %>
+    <%= f.text_field :name %>
+    <%= f.submit t('space.change_name'), :confirm => t('space.change_name_warning'), :id => "button-rename-space" %>
+<% end %>
+
+<br>
+
 <div id="jedit_form" style="display:none">
   <ul>
-    <li>
-      <div>
-        <label for="name" class="bold"><%=t('name.one')%>:</label>
-        <span id="space_name"><%=@space.name%></span>
-        <%= link_to_function image_tag("icons/pencil.png", :alt => t('edit'),:title=>t('space.edit_name'), :class=>"icon" ), "edit_name()", :id => "edit_name_icon"%>
-      </div>
-    </li>
     <li>
       <div>
         <label for="description" class="bold"><%=t('description')%>:</label><br/>
@@ -263,6 +239,7 @@
 
     <li><%= link_to t('space.delete'), space_path(@space), :confirm => t('are_you_sure'), :method => :delete,:title => t('space.delete'), :class=>"bold" %></li>
   </ul>
+</div>
 </div>
 
 <div id="for_lightbox" style="display:none"></div>
