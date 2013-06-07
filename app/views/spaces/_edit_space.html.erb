@@ -176,16 +176,17 @@
   <%end%>
 </div>
 
-<%= form_for :space, :url => space_path(@space), :html => { :method => 'put'} do |f| %>
-    <%= f.label :name, :class => 'bold' %>
-    <%= f.text_field :name %>
-    <%= f.submit t('space.change_name'), :confirm => t('space.change_name_warning'), :id => "button-rename-space" %>
-<% end %>
-
 <br>
 
 <div id="jedit_form" style="display:none">
   <ul>
+    <li>
+      <%= form_for :space, :url => space_path(@space), :html => { :method => 'put', :class => 'space-name-form' } do |f| %>
+        <%= f.label :name, :class => 'bold' %>
+        <%= f.text_field :name %>
+        <%= f.submit t('space.change_name'), :confirm => t('space.change_name_warning'), :id => "button-rename-space", :class => "basic_button blue_button" %>
+      <% end %>
+    </li>
     <li>
       <div>
         <label for="description" class="bold"><%=t('description')%>:</label><br/>

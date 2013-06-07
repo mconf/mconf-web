@@ -772,7 +772,6 @@ p.newAttach1,p.newAttach2{
   border-right:1px solid #8FBDDE;}
 /*admin*/
 #sidebar #space-conf{width:218px;}
-#sidebar #space-conf div{padding-bottom:0.75em;}
 .news-wrapper,.source{position:relative;/*border-bottom:1px #ccc solid;*/padding:0 3px 8px 6px;}
 .source-title{padding:0 0.5em;}
 .news-title h3{margin-bottom:0.333em;}
@@ -3055,4 +3054,24 @@ a.disabled {
   color: #FFFFFF;
   font-size: 95%;
   line-height: 135%;
+}
+
+#sidebar #space-conf input[type=checkbox] {
+  margin: 0 5px;
+}
+
+#sidebar #space-conf li {
+  margin-bottom: 10px;
+}
+
+#sidebar #space-conf .space-name-form label {
+  display: block;
+}
+
+#sidebar #space-conf .space-name-form input[type=text] {
+  width: 70%;
+}
+
+#sidebar #space-conf .space-name-form input[type=submit] {
+  margin-top: 0;
 }
