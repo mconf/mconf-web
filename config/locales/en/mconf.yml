@@ -1012,6 +1012,10 @@ en:
   province: Province
   public: Public
   read_more: "Read more"
+  recaptcha: 
+    errors: 
+      recaptcha_unavailable: "Oops, we failed to validate your word verification response (captcha). Please try again."
+      verification_failed: "Word verification response (captcha) is incorrect, please try again."
   received_message_more_machines: "You have received a message from %{user} asking for more machines"
   recent: 
     activity: "Recent activity"
@@ -1167,8 +1171,6 @@ en:
   show_advanced_editor: "Show advanced editor"
   show_list_version_arrows: "show list version >>"
   show_question: Show?
-  simple_captcha: 
-    label: "Insert here the text from the image"
   site: 
     analytics_code: "Analytics Code"
     analytics_code_tip: "Code for your Google Analytics account. Leave it blank to disable. Example: \"UA-12345678-9\""

@@ -18,8 +18,6 @@
 
 require 'digest/sha1'
 class User < ActiveRecord::Base
-  apply_simple_captcha
-
   # LoginAndPassword Authentication:
   acts_as_agent :activation => true,
                 :openid_server => true
@@ -48,7 +46,6 @@ class User < ActiveRecord::Base
   has_one :bigbluebutton_room, :as => :owner, :dependent => :destroy
   accepts_nested_attributes_for :bigbluebutton_room
 
-  attr_accessible :captcha, :captcha_key, :authenticate_with_captcha
   attr_accessible :machine_ids
   attr_accessible :timezone
   attr_accessible :expanded_post

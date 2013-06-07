@@ -5,12 +5,6 @@ GIT
     table_helper (0.2.2)
 
 GIT
-  remote: git://github.com/galetahub/simple-captcha.git
-  revision: b8493942e9a9bb58c58712fa21d41963330da6aa
-  specs:
-    simple_captcha (0.1.1)
-
-GIT
   remote: git://github.com/mconf/attachment_fu.git
   revision: 828ea99a2b6f101f63b5faac7068d2b4ad731e56
   specs:
@@ -283,7 +277,6 @@ DEPENDENCIES
   rubyzip
   rvm-capistrano
   shoulda-matchers
-  simple_captcha!
   spork-rails
   sqlite3-ruby
   table_helper!

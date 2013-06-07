@@ -220,9 +220,6 @@ Mconf::Application.routes.draw do
   match ':locale/:controller/:action/:id'
   match 'locale/set/:id', :to => 'locale#set', :as => 'set'
 
-  # simple_captcha controller
-  #match '/simple_captcha(/:id)', :to => 'simple_captcha#show'
-
   # root
   root :to => 'frontpage#index'
   #match 'perf_indicator', :to => 'frontpage#performance', :as => 'perf_indicator'

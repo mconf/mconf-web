@@ -21,7 +21,6 @@
 
 class ApplicationController < ActionController::Base
   # Be sure to include AuthenticationSystem in Application Controller instead
-  include SimpleCaptcha::ControllerHelpers
   include LocaleControllerModule
 
 #  alias_method :rescue_action_locally, :rescue_action_in_public

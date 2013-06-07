@@ -21,7 +21,6 @@ gem 'nokogiri', '1.4.1'
 gem 'prism'
 gem 'rubyzip' # TODO: see rubyzip2
 gem 'garb'
-gem 'simple_captcha', :git => 'git://github.com/galetahub/simple-captcha.git'
 gem 'rmagick', :git => 'git://github.com/rmagick/rmagick.git', :require => false
 gem 'fckeditor'
 gem 'dynamic_form'

@@ -1068,8 +1068,6 @@ es:
   show_advanced_editor: "Mostrar editor avanzado"
   show_list_version_arrows: "Mostrar versión en forma de lista >>"
   show_question: ¿Mostrar?
-  simple_captcha: 
-    label: "Ingrese aquí el texto de la imágen"
   site: 
     analytics_code: "Código de Analytics"
     analytics_code_tip: "Código de su cuenta Google Analytics. Dejar en blanco si no lo usa. Ejemplo: \"UA-12345678-9\""

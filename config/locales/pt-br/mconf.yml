@@ -1037,6 +1037,10 @@ pt-br:
   province: Estado
   public: Público
   read_more: "Ler mais"
+  recaptcha: 
+    errors: 
+      recaptcha_unavailable: "Oops, falhamos em validar sua resposta à validação de palavras (captcha). Por favor tente novamente."
+      verification_failed: "Sua resposta para a verificação de palavras (captcha) está incorreta, por favor tente novamente."
   received_message_more_machines: "Você recebeu uma mensagem de %{user} pedindo mais máquinas"
   recent: 
     activity: "Atividades recentes"
@@ -1192,8 +1196,6 @@ pt-br:
   show_advanced_editor: "Exibir editor avançado"
   show_list_version_arrows: "exibir versão em lista >>"
   show_question: Exibir?
-  simple_captcha: 
-    label: "Insira aqui o texto da imagem"
   site: 
     analytics_code: "Código do Google Analytics"
     analytics_code_tip: "Código para sua conta do Google Analytics. Deixe em branco para desabilitar. Exemplo: \"UA-12345678-9\""

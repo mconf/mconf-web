@@ -119,27 +119,6 @@ class SpacesController < ApplicationController
   # POST /spaces.atom
   # {"space"=>{"name"=>"test space", "public"=>"1", "description"=>"<p>this is the description of the space</p>"}
   def create
-    unless logged_in?
-      if params[:register]
-        cookies.delete :auth_token
-        @user = User.new(params[:user])
-        unless @user.save_with_captcha
-          message = ""
-          @user.errors.full_messages.each {|msg| message += msg + "  <br/>"}
-          flash[:error] = message
-          render :action => :new, :layout => "frontpage"
-          return
-        end
-      end
-
-      self.current_agent = User.authenticate_with_login_and_password(params[:user][:email], params[:user][:password])
-      unless logged_in?
-          flash[:error] = t('error.credentials')
-          render :action => :new, :layout => "frontpage"
-          return
-      end
-    end
-
     params[:space][:repository] = 1;
 
     @space = Space.new(params[:space])

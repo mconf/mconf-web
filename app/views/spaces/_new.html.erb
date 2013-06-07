@@ -242,12 +242,6 @@ function cropImage (c){
           <li><%=link_to t('register.one'), new_space_path(:register => true), :id => "create_and_register_link", :class=>"#{'selected' if params[:register]}"%></li>
         </ul>
       </div>
-
-      <%if params[:register]%>
-      <%= render :partial => 'register_fields' %>
-      <%else%>
-      <%= render :partial => 'login_fields' %>
-      <%end%>
     </div>
 
     <div id="right">

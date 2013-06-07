@@ -3075,3 +3075,7 @@ a.disabled {
 #sidebar #space-conf .space-name-form input[type=submit] {
   margin-top: 0;
 }
+
+.recaptcha_error {
+  display: none;
+}
