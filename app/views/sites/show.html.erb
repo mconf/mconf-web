@@ -140,6 +140,21 @@
     <span class="value"><%= current_site.external_help %></span>
   </p>
 
+  <p>
+    <label><%= t('site.use_recaptcha') %>:</label>
+    <span class="value"><%= current_site.use_recaptcha %></span>
+  </p>  
+
+  <p>
+    <label><%= t('site.recaptcha_public_key') %>:</label>
+    <span class="value"><%= current_site.recaptcha_public_key %></span>
+  </p>
+
+  <p>
+    <label><%= t('site.recaptcha_private_key') %>:</label>
+    <span class="value"><%= current_site.recaptcha_private_key %></span>
+  </p>
+
  <div class="clearer"></div>
 
   <div id="site_button" class="button_wrapper">

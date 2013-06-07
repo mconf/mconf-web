@@ -114,6 +114,30 @@
    style: 'mystyle'
   });
 
+ $('.site_use_recaptcha').qtip({
+   content: '<%= escape_javascript(t('site.use_recaptcha_tip')) %>',
+   position: {adjust: { screen: true }},
+   show:  'mouseover',
+   hide: { when: 'mouseout', fixed: true },
+   style: 'mystyle'
+  });
+
+ $('.site_recaptcha_private_key').qtip({
+   content: '<%= escape_javascript(t('site.recaptcha_private_key_tip')) %>',
+   position: {adjust: { screen: true }},
+   show:  'mouseover',
+   hide: { when: 'mouseout', fixed: true },
+   style: 'mystyle'
+  });
+
+ $('.site_recaptcha_public_key').qtip({
+   content: '<%= escape_javascript(t('site.recaptcha_public_key_tip')) %>',
+   position: {adjust: { screen: true }},
+   show:  'mouseover',
+   hide: { when: 'mouseout', fixed: true },
+   style: 'mystyle'
+  });
+
 <% end %>
 
 
@@ -269,6 +293,24 @@
     <%= f.label :external_help, t('site.external_help') %>
     <%= f.text_field :external_help %>
     <%= image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"site_external_help icon",:style=>"cursor:pointer").html_safe %>
+  </p>
+
+  <p>
+    <%= f.label :use_recaptcha, t('site.use_recaptcha') %>
+    <%= f.check_box :use_recaptcha %>
+    <%= image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"site_use_recaptcha icon",:style=>"cursor:pointer").html_safe %>
+  </p>
+
+  <p>
+    <%= f.label :recaptcha_public_key, t('site.recaptcha_public_key') %>
+    <%= f.text_field :recaptcha_public_key %>
+    <%= image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"site_recaptcha_public_key icon",:style=>"cursor:pointer").html_safe %>
+  </p>
+
+  <p>
+    <%= f.label :recaptcha_private_key, t('site.recaptcha_private_key') %>
+    <%= f.text_field :recaptcha_private_key %>
+    <%= image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"site_recaptcha_private_key icon",:style=>"cursor:pointer").html_safe %>
   </p>
 
   <div id="site_button" class="margin-up">

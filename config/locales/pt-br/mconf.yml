@@ -1235,6 +1235,12 @@ pt-br:
     ssl: SSL
     ssl_tip: "Com SSL habilitado todos os links internos (incluindo páginas, imagens, anexos) utilizarão o protocolo https ao invés de http"
     timezone: "Fuso horário"
+    use_recaptcha: "Utilizar reCaptcha"
+    use_recaptcha_tip: "Clique no checkbox para utilizar o reCaptcha no registro de usuários. É necessário que você insira a chave pública e a privada para seu funcionamento correto."
+    recaptcha_private_key: "Chave Privada do reCaptcha"    
+    recaptcha_private_key_tip: "Insira aqui sua chave privada obtida no site do reCaptcha."
+    recaptcha_public_key: "Chave Pública do reCaptcha"
+    recaptcha_public_key_tip: "Insira aqui sua chave pública obtida no site do reCaptcha."
   size: Tamanho
   skype: Skype
   source: 

@@ -101,9 +101,8 @@ class UsersController < ApplicationController
     # uncomment at your own risk
     # reset_session
     user.openid_identifier = session[:openid_identifier]
-
     respond_to do |format|
-      if user.save_with_captcha
+      if (current_site.use_recaptcha? && verify_recaptcha(:model => user, :private_key => current_site.recaptcha_private_key) && user.save) || (!current_site.use_recaptcha? && user.save)
         user.tag_with(params[:tags]) if params[:tags]
         self.current_agent = user
         flash[:notice] = t('user.registered')

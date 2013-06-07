@@ -1209,7 +1209,13 @@ en:
     smtp_use_tls: "Use TLS in SMTP"
     ssl: SSL
     ssl_tip: "With SSL enabled all the internal links (including pages, images, attachments) will use the protocol https instead of http"
-    timezone: Timezone
+    timezone: "Timezone"
+    use_recaptcha: "Use reCaptcha"
+    use_recaptcha_tip: "Enable the checkbox if you want to use reCaptcha on user registration. Need private and public keys in order to work."
+    recaptcha_private_key: "reCaptcha's Private Key"
+    recaptcha_private_key_tip: "Insert here your private key that reCaptcha's website gave to you."
+    recaptcha_public_key: "reCaptcha's Public Key"
+    recaptcha_public_key_tip: "Insert here your public key that reCaptcha's website gave to you."
   size: Size
   skype: Skype
   source: 
