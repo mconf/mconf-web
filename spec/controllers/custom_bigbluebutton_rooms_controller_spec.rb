@@ -7,8 +7,11 @@ describe CustomBigbluebuttonRoomsController do
   context "checks access permissions for a(n)" do
     render_views false
     let(:room) { Factory.create(:bigbluebutton_room) }
-    let(:hash_with_server) { { :server_id => room.server.id } }
     let(:hash) { hash_with_server.merge!(:id => room.to_param) }
+    let(:hash_with_server) { { :server_id => room.server.id } }
+    let(:hash_with_user_name) { hash_with_server.merge!(:id => room.to_param, :user => { :name => "Teste" }) }
+    let(:hash_with_blank_user_name) { hash_with_server.merge!(:id => room.to_param, :user => { :name => "" }) }
+    let(:hash_with_incomplete_user_name) { hash_with_server.merge!(:id => room.to_param, :user => { }) }
 
     context "superuser" do
       before(:each) { login_as(Factory.create(:superuser)) }
@@ -22,6 +25,7 @@ describe CustomBigbluebuttonRoomsController do
       it { should_not deny_access_to(:join, hash) }
       it { should_not deny_access_to(:join, hash).via(:post) }
       it { should_not deny_access_to(:invite, hash) }
+      it { should_not deny_access_to(:identification_webconf, hash) }
       it { should_not deny_access_to(:external, hash_with_server) }
       it { should_not deny_access_to(:external, hash_with_server).via(:post) }
       it { should_not deny_access_to(:end, hash) }
@@ -43,6 +47,7 @@ describe CustomBigbluebuttonRoomsController do
       it { should_not deny_access_to(:join, hash) }
       it { should_not deny_access_to(:join, hash).via(:post) }
       it { should_not deny_access_to(:invite, hash) }
+      it { should_not deny_access_to(:identification_webconf, hash) }
       it { should_not deny_access_to(:end, hash) }
       it { should_not deny_access_to(:join_mobile, hash) }
       it { should_not deny_access_to(:running, hash) }
@@ -59,11 +64,18 @@ describe CustomBigbluebuttonRoomsController do
       it { should deny_access_to(:join, hash).using_code(:redirect) }
       it { should deny_access_to(:end, hash).using_code(:redirect) }
       it { should deny_access_to(:join_mobile, hash).using_code(:redirect) }
+      it { should deny_access_to(:invite, hash).using_code(:redirect) }
       it { should_not deny_access_to(:external, hash_with_server) }
       it { should_not deny_access_to(:external, hash_with_server).via(:post) }
       it { should_not deny_access_to(:join, hash).via(:post) }
-      it { should_not deny_access_to(:invite, hash) }
+      it { should_not deny_access_to(:identification_webconf, hash) }
       it { should_not deny_access_to(:running, hash) }
+    end
+
+    context "anonymous user with a user name assigned" do
+      it { should deny_access_to(:invite, hash_with_blank_user_name).using_code(:redirect) }
+      it { should deny_access_to(:invite, hash_with_incomplete_user_name).using_code(:redirect) }
+      it { should_not deny_access_to(:invite, hash_with_user_name).using_code(:redirect) }
     end
 
   end
