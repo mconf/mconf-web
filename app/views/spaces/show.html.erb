@@ -102,9 +102,15 @@
       <div class="float_right more_info"><%= link_to t('more'), space_webconference_path(space) %></div>
     </h3>
     <div class="float_right">
-        <%= link_to "#", :class => 'basic_button small_button orange_pale_button join_button', :"data-dropdown" => "#dropdown-join-webconf" do %>
-          <%= t('button.join') %>
-          <span class="caret"></span>
+        <% if logged_in? %>
+          <%= link_to "#", :class => 'basic_button small_button orange_pale_button join_button', :"data-dropdown" => "#dropdown-join-webconf" do %>
+            <%= t('button.join') %>
+            <span class="caret"></span>
+          <% end %>
+        <% else %>
+          <%= link_to join_webconf_path(@room), :class => 'basic_button small_button orange_pale_button join_button' do %>
+            <%= t('home.webconf.start') %>
+          <% end %>
         <% end %>
     </div>
     <div class="content">

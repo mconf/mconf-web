@@ -4,10 +4,18 @@
   <% join_link = invite_space_room_path(space, @room) %>
 <% end %>
 
-<%= link_to join_link, :class => 'big_button orange_button bigbluebutton_button space-webconference-join', :"data-dropdown" => "#dropdown-join-webconf" do %>
-  <span>
-    <%= t('button.join_webconference') %>
-    <i class="caret"></i>
-  </span>
+<% if logged_in? %>
+  <%= link_to join_link, :class => 'big_button orange_button bigbluebutton_button space-webconference-join', :"data-dropdown" => "#dropdown-join-webconf" do %>
+    <span>
+      <%= t('button.join_webconference') %>
+      <i class="caret"></i>
+    </span>
+  <% end %>
+  <%= render :partial => 'recordings/recording_start_links', :locals => { :resource => @room, :route => space_path(@space, :format => 'json') } %>
+<% else %>
+  <%= link_to join_webconf_path(@room), :class => 'big_button orange_button bigbluebutton_button space-webconference-join' do %>
+    <span>
+      <%= t('home.webconf.start') %>
+    </span>
+  <% end %>
 <% end %>
-<%= render :partial => 'recordings/recording_start_links', :locals => { :resource => @room, :route => space_path(@space, :format => 'json') } %>
