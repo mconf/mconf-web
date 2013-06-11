@@ -725,6 +725,8 @@ pt-br:
     view_invite_url: "Ver URL"
     webconf: 
       configure: Configurar
+      end: "Parar a sala!"
+      enter: "Entrar na sala!"
       invite_people: "Convidar outras pessoas"
       join_from_mobile: "Entrar a partir de um dispositivo móvel"
       no_recording_options: "A sala está em execução, as opções de gravação não estão disponíveis no momento."
@@ -735,7 +737,7 @@ pt-br:
       recording_duration_units: horas
       recording_title: Título
       recording_title_placeholder: "Um título para esta gravação"
-      start: Iniciar!
+      start: "Iniciar a sala!"
   icalendar: 
     error_import: "Ocorreu um erro ao importar o iCalendar."
     import: "Importar iCalendar"

@@ -141,10 +141,12 @@
       $("#recording-description").unbind("click");
       $("#recording-description").addClass("disabled");
       $("#no-recording-options").show();
+      $("#closed_room").hide();
+      $("#opened_room").show();
     }
   }
 
-  $("#start-webconf").on("click", function() {
+  $("#closed_room #start-webconf").on("click", function() {
     checkRecordingOptions(true);
   });
 
@@ -192,9 +194,17 @@
         <%= mobile_icon_link(join_mobile_bigbluebutton_room_path(@room), t('home.webconf.join_from_mobile')) %>
       </li>
       <li class="dropdown-divider"></li>
-      <li>
-        <%= link_to t('home.webconf.start'), join_bigbluebutton_room_path(@room), :class => "clean_popup", :id => "start-webconf" %>
-      </li>
+      <div id="opened_room" class="<%= 'hide' if !@room.is_running? %>">
+        <li>
+          <%= link_to t('home.webconf.end'), end_bigbluebutton_room_path(@room, :redir_url => request.fullpath), :id => "end-webconf", :confirm => t('are_you_sure') %>
+          <%= link_to t('home.webconf.enter'), join_bigbluebutton_room_path(@room), :class => "clean_popup", :id => "start-webconf" %>
+        </li>
+      </div>
+      <div id="closed_room" class="<%= 'hide' if @room.is_running? %>">
+        <li>
+          <%= link_to t('home.webconf.start'), join_bigbluebutton_room_path(@room), :class => "clean_popup", :id => "start-webconf" %>
+        </li>
+      </div>
     </ul>
   </div>
 <% end %>

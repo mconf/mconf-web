@@ -2228,6 +2228,10 @@ div.webconf-rooms #new_room_private_area input[type=text] {
   margin-right: 5px;
 }
 
+#end-webconf {
+  color: rgb(224, 58, 58);
+  text-decoration: underline;
+}
 #start-webconf {
   color: green;
 }
