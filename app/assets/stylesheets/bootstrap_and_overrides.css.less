@@ -6,18 +6,17 @@
 @iconWhiteSpritePath: asset-path("twitter/bootstrap/glyphicons-halflings-white");
 
 // Set the Font Awesome (Font Awesome is default. You can disable by commenting below lines)
-// Note: If you use asset_path() here, your compiled boostrap_and_overrides.css will not
-//       have the proper paths. So for now we use the absolute path.
-@fontAwesomeEotPath: asset-path("fontawesome-webfont.eot");
-@fontAwesomeWoffPath: asset-path("fontawesome-webfont.woff");
-@fontAwesomeTtfPath: asset-path("fontawesome-webfont.ttf");
-@fontAwesomeSvgPath: asset-path("fontawesome-webfont.svg");
+@fontAwesomeEotPath: asset-url("fontawesome-webfont.eot");
+@fontAwesomeEotPath_iefix: asset-url("fontawesome-webfont.eot#iefix");
+@fontAwesomeWoffPath: asset-url("fontawesome-webfont.woff");
+@fontAwesomeTtfPath: asset-url("fontawesome-webfont.ttf");
+@fontAwesomeSvgPath: asset-url("fontawesome-webfont.svg#fontawesomeregular");
 
 // Font Awesome
-@import "fontawesome";
+@import "fontawesome/font-awesome";
 
 // Glyphicons
-@import "twitter/bootstrap/sprites.less";
+//@import "twitter/bootstrap/sprites.less";
 
 // Your custom LESS stylesheets goes here
 //
@@ -27,6 +26,8 @@
 // If you'd like to override bootstrap's own variables, you can do so here as well
 // See http://twitter.github.com/bootstrap/customize.html#variables for their names and documentation
 //
+// Example:
+// @linkColor: #ff0000;
 
 // We customize here exactly what's customized in mconf/bootstrap
 // See what's changed from bootstrap's defaults at:
