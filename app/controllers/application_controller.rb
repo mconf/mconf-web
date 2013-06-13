@@ -135,7 +135,16 @@ class ApplicationController < ActionController::Base
 
   # Overrides 'bigbluebutton_can_create?' in BigbluebuttonRails
   def bigbluebutton_can_create?(room, role)
-    if role == :moderator
+    can_create = false
+    if (room.owner_type == "User" && room.owner.id == current_user.id)
+      can_create = true
+    elsif (room.owner_type == "Space")
+      space = Space.find(room.owner.id)
+      if space.users.include?(current_user)
+        can_create = true
+      end
+    end
+    if can_create
       # if the user cannot record but is a moderator (so he can start the meeting)
       # we make sure the 'record' flag is set to false
       if bigbluebutton_user.nil? or not
