@@ -1314,6 +1314,10 @@ pt-br:
     people_in_conference: 
       one: "%{count} participant in the room."
       other: "%{count} participant in the room."
+    performances:
+      user: Membro
+      admin: Administrador
+      invited: Convidado
     possesion: "Minhas Comunidades"
     private: "Comunidades privadas"
     public: 

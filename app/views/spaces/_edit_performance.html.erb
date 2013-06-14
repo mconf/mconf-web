@@ -75,7 +75,7 @@
     <li><%= "#{link_to image_tag("icons/email.png", :title=>t('private_message.send'), :alt=>t('private_message.send'), :class=>"icon"), new_user_message_path(:user_id => current_user.to_param, :receiver => user.id), :id => 'new_private_message_link'}".html_safe %></li>
     <li><%= link_to image_tag("icons/cancel.png", :alt => t('user.delete_from_space'),:class=>"icon" ), space_performance_path(@space, performance), :confirm => t('are_you_sure'), :method => :delete,:title => t('user.delete_from_space') %></li>
   </ul>
-  
+
   <div>
     <%= raw(link_logo(user, :size => 32, :url => user_path(user), :title=>user.name)) %>
   </div>
@@ -92,11 +92,12 @@
           <%if @space.is_last_admin?(user)%>
             Admin
           <%else%>
-            <%=select "performance", "role_id", @roles.collect {|p| [ p.name, p.id ]}, {:selected => performance.role_id}, {:id => "role_select_#{performance.id}",:class=>"small-font"} %>
-          <%end%>             
+            <% role_name_id = @roles.collect {|p| [ t("space.performances.#{p.name.underscore}"), p.id ]} %>
+            <%=select "performance", "role_id", role_name_id, {:selected => performance.role_id}, {:id => "role_select_#{performance.id}",:class=>"small-font"} %>
+          <%end%>
         </li>
       </ul>
       <%= submit_tag t('update'), :id=> "update_button_#{performance.id}"%> 
     <% end %>
-  </div>        
+  </div>
 </div>
