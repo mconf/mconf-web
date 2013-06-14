@@ -148,6 +148,7 @@
 
   $("#closed_room #start-webconf").on("click", function() {
     checkRecordingOptions(true);
+    $("#dropdown-join-webconf").hide();
   });
 
   $(document).ready(function() {
@@ -163,7 +164,7 @@
       <% if current_user and current_user.respond_to?(:"can_record_meeting?") and current_user.can_record_meeting?(@room) %>
       <div id="recording-options-list">
         <li id="no-recording-options" class="<%= 'hide' unless @room.is_running? %>" >
-          <span class="red"><%= t('home.webconf.no_recording_options') %></span>
+          <span><%= t('home.webconf.no_recording_options') %></span>
         </li>
         <li><label>
           <%= check_box_tag 'bigbluebutton_room[record]', t('home.webconf.record'), @room.record, :id => 'record-checkbox' %>

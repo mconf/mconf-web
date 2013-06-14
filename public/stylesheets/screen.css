@@ -2230,8 +2230,11 @@ div.webconf-rooms #new_room_private_area input[type=text] {
 
 #end-webconf {
   color: rgb(224, 58, 58);
-  text-decoration: underline;
 }
+#end-webconf:hover {
+  color: white;
+}
+
 #start-webconf {
   color: green;
 }
@@ -2285,8 +2288,9 @@ div.webconf-rooms #new_room_private_area input[type=text] {
 
 #dropdown-join-webconf #no-recording-options span{
   display: block;
-  padding: 3px 15px;
+  padding: 5px 15px;
   text-align: center;
+  color: rgb(224, 58, 58);
 }
 
 #dropdown-join-webconf #recording-duration {

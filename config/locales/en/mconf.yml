@@ -700,8 +700,8 @@ en:
     view_invite_url: "View URL"
     webconf: 
       configure: Configure
-      end: "Stop the room!"
-      enter: "Enter the room!"
+      end: "Stop the room"
+      enter: "Enter the room"
       invite_people: "Invite other people"
       join_from_mobile: "Join from a mobile device"
       no_recording_options: "A meeting is running, the recording options are not currently available."
@@ -712,7 +712,7 @@ en:
       recording_duration_units: hours
       recording_title: Title
       recording_title_placeholder: "A title for this recording"
-      start: "Start the room!"
+      start: "Start the room"
   icalendar: 
     error_import: "An error ocurred while importing the iCalendar."
     import: "Import iCalendar"
