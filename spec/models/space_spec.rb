@@ -19,6 +19,17 @@ describe Space do
     should validate_uniqueness_of(:name)
   }
 
+  describe "#bigbluebutton_room" do
+    pending "is created when the space is created"
+    pending "is created as public is the space is public"
+    pending "is created as private is the space is private"
+  end
+
+  describe "#update" do
+    pending "when the space is made to public, the webconf room is made public"
+    pending "when the space is made to private, the webconf room is made private"
+  end
+
   describe "abilities" do
     set_custom_ability_actions([:leave])
 
