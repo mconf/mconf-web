@@ -35,6 +35,8 @@ class SessionsController
       return
     end
 
+    store_location(params[:return_to])
+
     # See ActionController::Sessions#authentication_methods_chain
     authentication_methods_chain(:new)
 
@@ -56,7 +58,7 @@ class SessionsController
       flash[:notice] = t('session.error.fill')
       edit_site_path
     else
-      home_path
+      session[:return_to] ? session[:return_to] : home_path
     end
   end
 

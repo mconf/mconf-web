@@ -19,34 +19,72 @@ describe SessionsController do
         user_attributes = Factory.attributes_for(:user)
         @user = User.create(user_attributes)
         @user.activate
-        @credentials = user_attributes.reject{ |k, v| 
+        @credentials = user_attributes.reject{ |k, v|
           ! [ :login, :password ].include?(k)
         }
       end
 
       it 'should validate user and redirect to home with chat' do
         post :create, @credentials
-        
+
         assert controller.current_user == @user
         response.should redirect_to(home_path)
       end
     end
-    
+
     describe 'with valid login and password of user without chat' do
       before do
         user_attributes = Factory.attributes_for(:user_without_chat)
         @user = User.create(user_attributes)
         @user.activate
-        @credentials = user_attributes.reject{ |k, v| 
+        @credentials = user_attributes.reject{ |k, v|
           ! [ :login, :password ].include?(k)
         }
       end
 
       it 'should validate user and redirect to home without chat' do
         post :create, @credentials
-        
+
         assert controller.current_user == @user
         response.should redirect_to(home_path)
+      end
+    end
+
+    describe 'with valid login and password of user with params return_to and chat' do
+      before do
+        user_attributes = Factory.attributes_for(:user)
+        @user = User.create(user_attributes)
+        @user.activate
+        @credentials = user_attributes.reject{ |k, v|
+          ! [ :login, :password ].include?(k)
+        }
+        @public_space = Factory(:public_space)
+      end
+
+      it 'should validate user and redirect to the path, in params return_to, with chat' do
+        post :create, @credentials, :return_to => space_path(@public_space)
+
+        assert controller.current_user == @user
+        response.should redirect_to(space_path(@public_space))
+      end
+    end
+
+    describe 'with valid login and password of user with params return_to and without chat' do
+      before do
+        user_attributes = Factory.attributes_for(:user_without_chat)
+        @user = User.create(user_attributes)
+        @user.activate
+        @credentials = user_attributes.reject{ |k, v|
+          ! [ :login, :password ].include?(k)
+        }
+        @public_space = Factory(:public_space)
+      end
+
+      it 'should validate user and redirect to the path, in params return_to, without chat' do
+        post :create, @credentials, :return_to => space_path(@public_space)
+
+        assert controller.current_user == @user
+        response.should redirect_to(space_path(@public_space))
       end
     end
 
@@ -57,7 +95,7 @@ describe SessionsController do
 
       it 'should NOT validate user' do
         post :create, @credentials
-        
+
         controller.current_user.should be(Anonymous.current)
         assert_response 200
         response.should render_template('new')
@@ -95,4 +133,3 @@ describe SessionsController do
     end
   end
 end
-
