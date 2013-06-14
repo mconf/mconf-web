@@ -24,6 +24,7 @@ class JoinRequestsController
 
   def new
     if space.users.include?(current_agent)
+      flash[:notice] = t('join_request.joined')
       redirect_to space
       return
     end
