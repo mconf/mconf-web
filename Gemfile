@@ -65,9 +65,6 @@ gem 'table_helper', :git => 'git://github.com/eeng/table_helper.git'
 
 group :development do
   gem 'debugger'
-  gem 'capistrano', '~> 2.13'
-  gem 'rvm-capistrano'
-  gem 'capistrano-ext'
   gem 'translate-rails3', :require => 'translate', :git => 'git://github.com/mconf/translate.git'
   gem 'spork-rails'
   gem 'rails-footnotes'
