@@ -83,14 +83,6 @@ GEM
       mime-types
       xml-simple
     builder (2.1.2)
-    capistrano (2.6.0)
-      highline
-      net-scp (>= 1.0.0)
-      net-sftp (>= 2.0.0)
-      net-ssh (>= 2.0.14)
-      net-ssh-gateway (>= 1.1.0)
-    capistrano-ext (1.2.1)
-      capistrano (>= 1.0.0)
     chronic (0.9.1)
     ci_reporter (1.6.4)
       builder (>= 2.1.2)
@@ -122,7 +114,6 @@ GEM
       activesupport (>= 2.2.0)
       crack (>= 0.1.6)
     god (0.12.1)
-    highline (1.6.2)
     hoe (2.9.4)
       rake (>= 0.8.7)
     hpricot (0.8.4)
@@ -141,13 +132,6 @@ GEM
       treetop (~> 1.4.8)
     mime-types (1.21)
     mysql2 (0.2.7)
-    net-scp (1.0.4)
-      net-ssh (>= 1.99.1)
-    net-sftp (2.0.5)
-      net-ssh (>= 2.0.9)
-    net-ssh (2.1.4)
-    net-ssh-gateway (1.1.0)
-      net-ssh (>= 1.99.1)
     nokogiri (1.4.1)
     passenger (3.0.11)
       daemon_controller (>= 0.2.5)
@@ -201,8 +185,6 @@ GEM
     ruby-openid (2.1.8)
     ruby-progressbar (0.0.10)
     rubyzip (0.9.4)
-    rvm-capistrano (1.1.0)
-      capistrano (>= 2.0.0)
     shoulda-matchers (1.0.0.beta2)
     simple-rss (1.2.3)
     spork (1.0.0rc3)
@@ -240,8 +222,6 @@ DEPENDENCIES
   attachment_fu!
   bigbluebutton-api-ruby!
   bigbluebutton_rails!
-  capistrano (~> 2.5)
-  capistrano-ext
   chronic
   ci_reporter
   configatron
@@ -275,7 +255,6 @@ DEPENDENCIES
   rspec-rails (~> 2.5)
   ruby-openid
   rubyzip
-  rvm-capistrano
   shoulda-matchers
   spork-rails
   sqlite3-ruby
