@@ -23,19 +23,19 @@ module AttachmentsHelper
     html << if interactive && attachment.current_version? && can?(:update, attachment)
               link_to(image_tag("icons/new_version_doc20.png", :title=> t('version.new'), :class=>"icon"), edit_space_attachment_path(attachment.space, attachment, :format => "html"), :class => "open-modal")
             else
-              image_tag("icons/new_version_doc20.png", :title=> t('login_request'), :class=>"icon fade")
+              image_tag("icons/new_version_doc20.png", :title=> "#{t('login_request')} #{t('version.new')}", :class=>"icon fade")
             end
     html << if interactive && can?(:update, attachment)
               attachment.tags.size>0 ? (link_to(image_tag("icons/pencil.png", :title=> t('tag.edit'),:class=>"icon"),edit_tags_space_attachment_path(attachment.space, attachment), :class=>"repository_sidebar_action no-dot open-modal")) : (link_to(image_tag('icons/add_tag20.png', :title => t('tag.add'),:class=>"icon"), edit_tags_space_attachment_path(@space, attachment), :class=>"repository_sidebar_action no-dot open-modal"))
             else
-              image_tag("icons/pencil.png", :title=>t('login_request' + 'tag.edit'),:class=>"icon fade")
+              image_tag("icons/pencil.png", :title=> "#{t('login_request')} #{t('tag.edit')}",:class=>"icon fade")
             end
 
     if can?(:destroy, attachment)
       html << link_to(image_tag("icons/cancel.png", :title => t('delete.one'), :class =>"icon can_delete"), space_attachment_path(attachment.space,attachment), {:method => :delete, :confirm => t('delete.confirm', :element => t('attachment.one'))}, :class=>"no-dot")
       row[:class] += " can_delete"
     else
-      html <<  image_tag("icons/cancel.png", :title => t('delete.one'), :class =>"icon fade")
+      html <<  image_tag("icons/cancel.png", :title => "#{t('login_request')} #{t('delete.one')}", :class =>"icon fade")
     end
 
     html.html_safe
