@@ -182,7 +182,7 @@ GEM
       activesupport (~> 3.0)
       railties (~> 3.0)
       rspec (~> 2.6.0)
-    ruby-openid (2.1.8)
+    ruby-openid (2.2.3)
     ruby-progressbar (0.0.10)
     rubyzip (0.9.4)
     shoulda-matchers (1.0.0.beta2)
