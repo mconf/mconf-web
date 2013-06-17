@@ -103,6 +103,7 @@ class User < ActiveRecord::Base
   def update_bbb_room
     if self.login_changed?
       bigbluebutton_room[:param] = self.login
+      bigbluebutton_room[:name] = self.login
     end
   end
 
