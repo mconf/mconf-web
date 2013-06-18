@@ -12,3 +12,13 @@ Factory.define :bigbluebutton_room do |r|
   r.record false
   r.duration 0
 end
+
+Factory.define :bigbluebutton_private_room, :parent => :bigbluebutton_room do |r|
+  r.attendee_password { |n| "#{n}" }
+  r.moderator_password { |n| "#{n}" }
+  r.private true
+end
+
+Factory.define :bigbluebutton_public_room, :parent => :bigbluebutton_room do |r|
+  r.private false
+end
