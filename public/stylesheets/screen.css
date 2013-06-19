@@ -2395,40 +2395,65 @@ div#manage_rooms color{color:#244974;}
 
 #webconf-room-device-type {
   width: 95%;
-  margin-top: 35px;
+  margin-top: 15px;
 }
 
 #webconf-room-device-type .active {
-  background-color: #e1eef5
+  background-color: #e1eef5;
 }
 
 #webconf-room-device-type .invite-desktop {
   text-align: left;
-  margin: 10px 0;
-  padding: 10px;
-  border: 1px solid $transparent;
+  margin: 20px 0;
+  padding: 10px 15px;
+  border: 1px solid white;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+#webconf-room-device-type .invite-desktop.active {
+  cursor: auto;
+}
+#webconf-room-device-type .invite-desktop:hover {
+  border: 1px solid #9ec2d5;
+}
+#webconf-room-device-type .invite-desktop.active:hover {
+  border: 1px solid white;
 }
 
 #webconf-room-device-type .invite-mobile {
   text-align: left;
-  margin: 10px 0;
-  padding: 10px;
-  border: 1px solid $transparent;
+  margin: 20px 0;
+  padding: 10px 15px;
+  border: 1px solid white;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+#webconf-room-device-type .invite-mobile:hover {
+  border: 1px solid #9ec2d5;
+}
+#webconf-room-device-type .invite-mobile.active {
+  cursor: auto;
+}
+#webconf-room-device-type .invite-mobile.active:hover {
+  border: 1px solid white;
 }
 
 #webconf-room-device-type .invite-desktop .description {
   background: url('../images/webconf/desktop.png') right center no-repeat;
   min-height: 50px;
   position: relative;
-  padding-right: 70px;
+  padding-right: 60px;
 }
 
 #webconf-room-device-type .invite-desktop .description .text {
-  margin-top: 10px;
+  margin-top: 15px;
   float: left;
-  em { font-weight: bold; font-style: normal; }
-  a { display: block; }
 }
+#webconf-room-device-type .invite-desktop .description .text em { font-weight: bold; font-style: normal; }
 
 #webconf-room-device-type .invite-desktop .description .selected {
   position: absolute;
@@ -2453,14 +2478,31 @@ div#manage_rooms color{color:#244974;}
   background: url('../images/webconf/mobile.png') 95% center no-repeat;
   min-height: 50px;
   position: relative;
-  padding-right: 70px;
+  padding-right: 60px;
+}
+#webconf-room-device-type .invite-mobile.active .description {
+  padding-right: 0;
+  background: none;
 }
 
 #webconf-room-device-type .invite-mobile .description .text {
-  margin-top: 10px;
+  margin-top: 0;
   float: left;
-  em { font-weight: bold; font-style: normal; }
-  a { display: block; }
+}
+#webconf-room-device-type .invite-mobile .description .text em { font-weight: bold; font-style: normal; }
+#webconf-room-device-type .invite-mobile .description .text-details {
+  margin-top: 3px;
+  font-size: 11px;
+  color: #666;
+  font-style: italic;
+}
+#webconf-room-device-type .invite-mobile.active .description .text {
+  margin-top: 10px;
+}
+
+#webconf-room-device-type .invite-mobile.active .mobile-image {
+  float: right;
+  margin-top: 2px;
 }
 
 #webconf-room-device-type .invite-mobile .description .selected {
@@ -2520,6 +2562,11 @@ div#manage_rooms color{color:#244974;}
 
 #identification #left .submit_area {
   padding-right: 140px;
+}
+
+#identification #left .submit_area button {
+  min-width: 80px;
+  width: 80px;
 }
 
 #identification #body #right {

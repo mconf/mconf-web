@@ -1127,12 +1127,16 @@ pt-br:
     identified:
       title: "Você está acessando a sala <span class='room_title'>%{room}</span>"
     invite: 
-      click_to_select: "<a href=\"%{url}\">Clique aqui para selecionar</a>"
       cod_room: "Chave de Acesso à Sala:"
       desktop: "Selecione esta opção para acessar de um <em>computador</em>."
+      desktop_selected: "Accesso a partir de um <em>computador</em>."
       join_from_desktop: "Nesta página você pode entrar na conferência a partir de um <b>computador desktop</b>. Para entrar usando um dispositivo móvel, <a href=\"%{url}\">clique aqui</a>."
       join_from_mobile: "Nesta página você pode entrar na conferência a partir de um <b>dispositivo móvel</b>. Para entrar usando um computador desktop, <a href=\"%{url}\">clique aqui</a>."
       mobile: "Selecione esta opção para acessar de um <em>dispositivo móvel</em>."
+      mobile_details: "Disponível em dispositivos com Android. Você precisa instalar a aplicação <a href=\"%{url}\">Mconf-Mobile</a> para utilizar esta opção!"
+      mobile_selected: "Acesso a partir de um <em>dispositivo móvel</em>."
+      mobile_selected_details: "Disponível apenas para dispositivos Android."
+      mobile_download: "Clique aqui para fazer o download do Mconf-Mobile."
       msg1: "Convite para a reunião "
       name: "Nome:"
       name_enter: "Insira seu nome"

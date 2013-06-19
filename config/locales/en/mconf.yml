@@ -1102,12 +1102,16 @@ en:
     identified:
       title: "You are accessing the room <span class='room_title'>%{room}</span>"
     invite: 
-      click_to_select: "<a href=\"%{url}\">Click here to select</a>"
       cod_room: "Room Access Key:"
       desktop: "Select this option to join from a <em>desktop computer</em>."
+      desktop_selected: "Access from a <em>desktop computer</em>."
       join_from_desktop: "In this page you can join the conference from a <b>desktop</b>. To join from a mobile device <a href=\"%{url}\">click here</a>."
       join_from_mobile: "In this page you can join the conference from a <b>mobile device</b>. To join from a desktop <a href=\"%{url}\">click here</a>."
       mobile: "Select this option to join from a <em>mobile device</em>."
+      mobile_details: "Available for Android devices. You have to install the application <a href=\"%{url}\">Mconf-Mobile</a> to use this option!"
+      mobile_selected: "Access from a <em>mobile device</em>."
+      mobile_selected_details: "Available for Android devices only."
+      mobile_download: "Click here to download Mconf-Mobile."
       msg1: "Invitation to the meeting "
       name: "Name:"
       name_enter: "Enter your name."
