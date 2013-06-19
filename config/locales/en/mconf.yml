@@ -1290,6 +1290,10 @@ en:
     people_in_conference: 
       one: "%{count} participant in the room."
       other: "%{count} participant in the room."
+    performances:
+      user: Member
+      admin: Administrator
+      invited: Invited
     possesion: "My Spaces"
     private: "Private spaces"
     public: 
