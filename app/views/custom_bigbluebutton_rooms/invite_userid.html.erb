@@ -16,12 +16,12 @@
           <label for="password"><%= t('login.password') %></label><br/>
           <%= password_field_tag 'password' %>
         </div>
-        <div class="button">
+      </div>
+        <div class="submit_area">
           <button type="submit" class="basic_button blue_button"><%=t("login.one")%></button>
         </div>
-        <% end -%>
-        <% if current_site.shib_enabled? %>
-        <br>
+      <% end -%>
+      <% if current_site.shib_enabled? %>
         <div id="shib-login">
           <span><%= t('cafe.login_page.description_small').html_safe %></span>
           <div class="image">
@@ -30,8 +30,7 @@
             <%= link_to(t('cafe.login_page.click_here_to_login'), shib_login_path, :id => "shib_login") %>
           </div>
         </div>
-        <% end %>
-      </div>
+      <% end %>
     </div>
     <div id="right">
       <div class="title"><%= t('rooms.identification.not_member') %></div>
@@ -40,7 +39,6 @@
         <%= t('rooms.invite.name') %><br />
         <%= text_field_tag "user[name]", "", :size => 30 %>
       </div>
-      <br><br><br><br>
       <div class="submit_area">
         <button type="submit" class="basic_button blue_button"><%=t('rooms.identification.next')%></button>
       </div>

@@ -2548,25 +2548,27 @@ div#manage_rooms color{color:#244974;}
 }
 
 #identification #body #left .field {
-  margin-left: 80px;
+  margin-left: 100px;
 }
 
 #identification #body #left input {
   width: 210px;
 }
 
-#identification #body #left .field #shib-login{
-  padding-right: 108px;
+#identification #shib-login {
   text-align: center;
+  clear: both;
+  padding-top: 15px;
 }
 
 #identification #left .submit_area {
-  padding-right: 140px;
+  padding-right: 120px;
 }
 
 #identification #left .submit_area button {
   min-width: 80px;
   width: 80px;
+  float: right;
 }
 
 #identification #body #right {
@@ -2579,6 +2581,12 @@ div#manage_rooms color{color:#244974;}
 
 #identification #body #right .submit_area {
   margin-right: 110px;
+}
+
+#identification #body #right .submit_area button {
+  min-width: 80px;
+  width: 80px;
+  float: right;
 }
 
 #identification #body #right input {
@@ -2630,11 +2638,6 @@ div#manage_rooms color{color:#244974;}
 #identification .field {
   padding: 5px;
   margin-top: 5px;
-}
-
-#identification .submit_area {
-  float: right;
-  margin-top: -40px;
 }
 
 #identification .obs, #identification .obs2 {
