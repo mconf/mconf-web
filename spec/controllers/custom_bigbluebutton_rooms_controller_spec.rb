@@ -72,7 +72,12 @@ describe CustomBigbluebuttonRoomsController do
 
   context "#invite_userid" do
     let(:room) { Factory.create(:bigbluebutton_room, :private => false) }
-    let(:hash) { { :server_id => room.server.id, :id => room.to_param } }
+    let(:hash) { { :server_id => room.server.to_param, :id => room.to_param } }
+
+    context do
+      before(:each) { get :invite_userid, hash }
+      it { should render_with_layout("application_without_sidebar") }
+    end
 
     context "redirects to #invite" do
       let(:user) { Factory(:user) }
@@ -92,7 +97,17 @@ describe CustomBigbluebuttonRoomsController do
 
   context "#invite" do
     let(:room) { Factory.create(:bigbluebutton_room) }
-    let(:hash) { { :server_id => room.server.id, :id => room.to_param } }
+    let(:hash) { { :server_id => room.server.to_param, :id => room.to_param } }
+
+    context do
+      let(:hash) { { :server_id => room.server.to_param, :id => room.to_param } }
+      before { controller.should_receive(:bigbluebutton_role) { :password } }
+      before(:each) {
+        login_as(Factory.create(:superuser))
+        get :invite, hash
+      }
+      it { should render_with_layout("application_without_sidebar") }
+    end
 
     context "redirects to #invite_userid" do
       it "when the user name is not specified" do
@@ -111,5 +126,114 @@ describe CustomBigbluebuttonRoomsController do
       end
     end
   end
+
+  context "#auth" do
+    # renders a view when unauthorized
+    let(:user) { Factory.create(:user) }
+    let(:room) { Factory.create(:bigbluebutton_room, :private => false) }
+    before {
+      request.env["HTTP_REFERER"] = "/any"
+      controller.should_receive(:bigbluebutton_role) { :password }
+    }
+    before(:each) {
+      login_as(user)
+      post :auth, :id => room.to_param, :user => { }
+    }
+    it { should render_template(:invite) }
+    it { should render_with_layout("application_without_sidebar") }
+  end
+
+  context "#index" do
+    before(:each) { login_as(Factory.create(:superuser)) }
+    before(:each) { get :index }
+    it { should render_template(:index) }
+    it { should render_with_layout("application") }
+  end
+
+  describe "#show" do
+    let(:room) { Factory.create(:bigbluebutton_room) }
+    before(:each) { login_as(Factory.create(:superuser)) }
+    before(:each) { get :show, :id => room.to_param }
+    it { should render_template(:show) }
+    it { should render_with_layout("application") }
+  end
+
+  describe "#new" do
+    before(:each) { login_as(Factory.create(:superuser)) }
+    before(:each) { get :new }
+    it { should render_template(:new) }
+    it { should render_with_layout("application") }
+  end
+
+  describe "#edit" do
+    let(:room) { Factory.create(:bigbluebutton_room) }
+    before(:each) { login_as(Factory.create(:superuser)) }
+    before(:each) { get :edit, :id => room.to_param }
+    it { should render_template(:edit) }
+    it { should render_with_layout("application") }
+  end
+
+  describe "#join_mobile" do
+    let(:room) { Factory.create(:bigbluebutton_room) }
+    before(:each) { login_as(Factory.create(:superuser)) }
+    before(:each) { get :join_mobile, :id => room.to_param }
+    it { should render_template(:join_mobile) }
+    it { should_not render_with_layout() }
+  end
+
+  describe "#create" do
+    # renders a view on error on save
+    let(:new_room) { Factory.build(:bigbluebutton_room) }
+    before(:each) { login_as(Factory.create(:superuser)) }
+    before :each do
+      new_room.name = nil # invalid
+      post :create, :bigbluebutton_room => new_room.attributes
+    end
+    it { should render_template(:new) }
+    it { should render_with_layout("application") }
+  end
+
+  describe "#update" do
+    # renders a view on error on save
+    let(:room) { Factory.create(:bigbluebutton_room) }
+    let(:new_room) { Factory.build(:bigbluebutton_room) }
+    before(:each) { login_as(Factory.create(:superuser)) }
+    before(:each) {
+      new_room.name = nil # invalid
+      put :update, :id => room.to_param, :bigbluebutton_room => new_room.attributes
+    }
+    it { should render_template(:edit) }
+    it { should render_with_layout("application") }
+  end
+
+  describe "#running" do
+    # renders json only
+    let(:room) { Factory.create(:bigbluebutton_room) }
+    before(:each) { login_as(Factory.create(:superuser)) }
+    before(:each) { get :running, :id => room.to_param }
+    it { should respond_with(:success) }
+    it { should_not render_with_layout() }
+  end
+
+  describe "#external" do
+    let(:server) { Factory.create(:bigbluebutton_server) }
+    before(:each) { login_as(Factory.create(:superuser)) }
+    before(:each) { get :external, :meeting => "my-meeting-id", :server_id => server.id }
+    it { should render_template(:external) }
+    it { should render_with_layout("application") }
+  end
+
+  describe "#external_auth" do
+    pending "render with layout application"
+  end
+
+  # TODO: this view is not in the application yet, only in the gem
+  # describe "#recordings" do
+  #   let(:room) { Factory.create(:bigbluebutton_room) }
+  #   before(:each) { login_as(Factory.create(:superuser)) }
+  #   before(:each) { get :recordings, :id => room.to_param }
+  #   it { should render_template(:recordings) }
+  #   it { should render_with_layout("application") }
+  # end
 
 end
