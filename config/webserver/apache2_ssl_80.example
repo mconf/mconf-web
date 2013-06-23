@@ -1,6 +1,6 @@
 NameVirtualHost *
 <VirtualHost *>
-        ServerName              YOUR_IP
+        ServerName              YOUR_HOST
         ServerSignature Off
 
         # SSL Redirect

@@ -1,4 +1,10 @@
-<VirtualHost *:80>
+<VirtualHost YOUR_IP:443>
+  ServerName      YOUR_HOST
+  ServerSignature Off
+
+  SSLEngine               on
+  SSLCertificateFile      /etc/ssl/certs/YOUR_CERT.crt
+  SSLCertificateKeyFile   /etc/ssl/private/YOUR_CERT.key
 
   # Shows the maintenance page if it exists
   ErrorDocument 503 /system/maintenance.html
@@ -8,10 +14,10 @@
   RewriteCond %{SCRIPT_FILENAME} !maintenance.html
   RewriteRule ^.*$  -  [redirect=503,last]
 
-  ServerName www.yourhost.com
-  DocumentRoot /somewhere/public
-  <Directory /somewhere/public>
+  DocumentRoot /YOUR_MCONF_WEB/public
+  <Directory /YOUR_MCONF_WEB/public>
     AllowOverride all
     Options -MultiViews
   </Directory>
+
 </VirtualHost>
