@@ -25,7 +25,7 @@ pt-br:
         missing: "não encontrado"
   address: Endereço
   admin:
-    one: Admin
+    one: Administrador
     space: "Administração do %{spacename}"
   admission:
     other: Admissões
@@ -157,12 +157,12 @@ pt-br:
     view_room_list: "Ver lista de salas"
     view_rooms: "Ver salas"
     view_server_list: "Ver lista de servidores"
-  body: Corpo
+  body: Texto
   button:
     accept: Aceitar
     back_to_event: "Voltar ao evento"
     cancel: Cancelar
-    confirm: Confirm
+    confirm: Confirme
     create: Criar
     creating: "Criando evento..."
     edit: Editar
@@ -883,6 +883,9 @@ pt-br:
     deleted: "Perfil excluído com sucesso"
     description:
       add: "Biografia resumida"
+    edit: 
+      description: "Escreva algo sobre você"
+      url: "Seu website"
     error:
       exist: "Seu perfil já existe"
     header_title: "Perfil de usuário"
@@ -901,7 +904,7 @@ pt-br:
     visibility_nobody: "Ninguém pode ver o seu perfil privado."
     visibility_private_fellows: "Apenas os seus colegas em um espaço privado podem ver o seu perfil privado."
     visibility_public_fellows: "Apenas os seus colegas em um espaço público podem ver o seu perfil privado."
-  province: Província
+  province: Estado
   public: Público
   read_more: "Ler mais"
   received_message_more_machines: "Você recebeu uma mensagem de %{user} pedindo mais máquinas"
@@ -1056,7 +1059,7 @@ pt-br:
     access_forbidden: "Esta função só está disponível para membros da comunidade"
     add_user:
       other: "Adicionar usuários à comunidade"
-    all: "Todas comunidades"
+    all: "Comunidades"
     allow_public_access: "Permitir acesso público?"
     attendeePW: "editar senha de participante"
     clic: "Clique para editar..."
@@ -1124,7 +1127,7 @@ pt-br:
     show: "Mostrar comunidades:"
     show_all: "Mostrar todas as comunidades"
     statistics:
-      views: "visualizações"
+      views: "Visualizações"
     subscribed_to_none: "Você não está inscrito em nenhuma comunidade"
     update_logo: "Atualizar logo"
     updated: "Comunidade atualizada com sucesso"
@@ -1192,7 +1195,7 @@ pt-br:
   title_formal:
     mr: Sr.
     mrs: Sra.
-    ms: Ms.
+    ms: Srta.
   to: para
   today: Hoje
   tooltip:
@@ -1232,7 +1235,7 @@ pt-br:
   upcoming: Próximos
   update: Atualizar
   updated: Atualizados
-  updated_at: Atualizado
+  updated_at: "Atualizado em"
   updated_time_ago: "%{time} atrás"
   url: Website
   url_add: "Adicione seu site"
