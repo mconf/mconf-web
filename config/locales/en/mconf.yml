@@ -78,6 +78,7 @@ en:
     add: "Add attachment"
     delete: "Delete attachment"
     deleted: "Attachment successfully deleted"
+    created: "Attachment successfully uploaded"
     error: 
       not_deleted: "%{file} not deleted correctly. "
       not_permission: "%{user} cannot delete %{file}. "

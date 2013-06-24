@@ -78,6 +78,7 @@ pt-br:
     add: "Adicionar anexo"
     delete: "Remover anexo"
     deleted: "Anexo removido com sucesso"
+    created: "Anexo criado com sucesso"
     error: 
       not_deleted: "%{file} não removido corretamente."
       not_permission: "%{user} não pode remover o arquivo %{file}"
