@@ -771,6 +771,10 @@ en:
   logout: Logout
   manage: Manage
   mandatory_field: "Mandatory field"
+  message: 
+    created: "Message sent successfully"
+    error:
+      create: "Error sending private message"
   mconf: Mconf
   members: 
     one: "%{count} member"

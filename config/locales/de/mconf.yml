@@ -372,6 +372,9 @@ de:
   manage: Verwalten
   mandatory_field: "Mandatory field"
   message: 
+    created: "Nachricht erfolgreich gesendet"
+    error:
+      create: "Fehler beim Senden der Nachricht"
     incoming: 
       other: "Eingehende Nachrichten"
     private: 
