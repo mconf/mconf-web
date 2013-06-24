@@ -117,11 +117,16 @@ class User < ActiveRecord::Base
   end
 
   def create_webconf_room
-    create_bigbluebutton_room :owner => self,
-                              :server => BigbluebuttonServer.first,
-                              :param => self.username,
-                              :name => self.username,
-                              :logout_url => "/feedback/webconf/"
+    params = {
+      :owner => self,
+      :server => BigbluebuttonServer.first,
+      :param => self.username,
+      :name => self.username,
+      :logout_url => "/feedback/webconf/",
+      :moderator_password => SecureRandom.hex(4),
+      :attendee_password => SecureRandom.hex(4)
+    }
+    create_bigbluebutton_room(params)
   end
 
   def update_webconf_room

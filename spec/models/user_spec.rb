@@ -51,6 +51,13 @@ describe User do
       user.bigbluebutton_room.logout_url.should eql("/feedback/webconf/")
     end
 
+    it "has random passwords set" do
+      user.bigbluebutton_room.attendee_password.should_not be_blank
+      user.bigbluebutton_room.attendee_password.length.should be(8)
+      user.bigbluebutton_room.moderator_password.should_not be_blank
+      user.bigbluebutton_room.moderator_password.length.should be(8)
+    end
+
     pending "has the server as the first server existent"
   end
 
