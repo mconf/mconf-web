@@ -1086,6 +1086,7 @@ en:
     smtp_use_tls: Use TLS in STMP
     ssl: SSL
     ssl_tip: "With SSL enabled all the internal links (including pages, images, attachments) will use the protocol https instead of http"
+    timezone: "Timezone"
   size: Size
   skype: Skype
   space: 

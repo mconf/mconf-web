@@ -138,7 +138,7 @@ class ApplicationController < ActionController::Base
     if current_user && current_user.is_a?(User) && current_user.timezone && !current_user.timezone.empty?
       Time.zone = current_user.timezone
     else
-      Time.zone = 'Madrid'
+      Time.zone = current_site.timezone
     end
   end
 

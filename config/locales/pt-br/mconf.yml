@@ -1050,6 +1050,7 @@ pt-br:
     smtp_use_tls: Usar TLS no STMP
     ssl: SSL
     ssl_tip: "Com SSL habilitado todos os links internos (incluindo páginas, imagens, anexos) utilizarão o protocolo https ao invés de http"
+    timezone: "Fuso horário"
   size: Tamanho
   skype: Skype
   source:

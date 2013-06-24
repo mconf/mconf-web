@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130530203126) do
+ActiveRecord::Schema.define(:version => 20130623203126) do
 
   create_table "admissions", :force => true do |t|
     t.string   "type"
@@ -390,6 +390,7 @@ ActiveRecord::Schema.define(:version => 20130530203126) do
     t.string   "smtp_domain"
     t.string   "smtp_auth_type"
     t.string   "smtp_sender"
+    t.string   "timezone",                       :default => "Brasilia"
   end
 
   create_table "spaces", :force => true do |t|

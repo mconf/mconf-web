@@ -11,6 +11,7 @@
       = f.input :description, :label => t('site.description'), :as => :text, :input_html => { :rows => 5 }
       = f.input :domain, :label => t('site.domain')
       = f.input :locale, :label => t('site.locale'), :collection => I18n.available_locales
+      = f.input :timezone, :label => t('site.timezone'), :as => :time_zone
       = f.input :signature, :label => t('site.signature'), :as => :text, :input_html => { :rows => 5 }
       = f.input :ssl, :label => t('site.ssl'), :as => :boolean, :hint => t('site.ssl_tip')
       = f.input :feedback_url, :label => t('site.feedback_url'), :hint => t('site.feedback_url_tip', :default_url => webconf_feedback_index_path)
