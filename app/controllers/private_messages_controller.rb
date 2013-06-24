@@ -16,9 +16,9 @@
 # along with VCC.  If not, see <http://www.gnu.org/licenses/>.
 
 class PrivateMessagesController < ApplicationController
-  
+
   before_filter :private_message, :only => [:show, :edit, :update, :destroy]
-  
+
   authorization_filter [ :manage, :message ], :user, :except => [ :show ]
   authorization_filter :read, :private_message, :only => [ :show ]
   authorization_filter [ :forbidden_edit, :message ], :user, :only => [ :edit ]
@@ -26,7 +26,7 @@ class PrivateMessagesController < ApplicationController
   def index
     if params[:sent_messages]
       @private_messages = PrivateMessage.sent(user).paginate(:page => params[:page], :per_page => 10)
-    else  
+    else
       @private_messages = PrivateMessage.inbox(user).paginate(:page => params[:page], :per_page => 10)
     end
     
@@ -43,11 +43,10 @@ class PrivateMessagesController < ApplicationController
       @show_message.checked = true
       @show_message.save
     end
-    
+
   end
 
   def new
-       
     @private_message = PrivateMessage.new
 
     respond_to do |format|
@@ -89,10 +88,10 @@ class PrivateMessagesController < ApplicationController
           format.xml  { render :xml => @fail_messages.map{|m| m.errors}, :status => :unprocessable_entity }
         end
       end
-    else  
+    else
       params[:private_message][:sender_id] = user.id
       @private_message = PrivateMessage.new(params[:private_message])
-  
+
       respond_to do |format|
         if @private_message.save
           flash[:success] = t('message.created')
@@ -107,7 +106,6 @@ class PrivateMessagesController < ApplicationController
   end
 
   def update
-
     respond_to do |format|
       if @success_update = @private_message.update_attributes(params[:private_message])
         format.html { redirect_to(@private_message) }
