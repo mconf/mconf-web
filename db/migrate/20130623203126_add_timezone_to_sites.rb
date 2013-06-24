@@ -1,6 +1,6 @@
 class AddTimezoneToSites < ActiveRecord::Migration
   def self.up
-    add_column :sites, :timezone, :string, :default => 'Brasilia'
+    add_column :sites, :timezone, :string, :default => "UTC"
   end
 
   def self.down

@@ -390,7 +390,7 @@ ActiveRecord::Schema.define(:version => 20130623203126) do
     t.string   "smtp_domain"
     t.string   "smtp_auth_type"
     t.string   "smtp_sender"
-    t.string   "timezone",                       :default => "Brasilia"
+    t.string   "timezone",                       :default => "UTC"
   end
 
   create_table "spaces", :force => true do |t|
