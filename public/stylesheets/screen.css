@@ -2864,11 +2864,19 @@ h3.dialog_title {
 
 #webconference_join_mobile_dialog {
   text-align: center;
-  width: 250px;
+  width: 450px;
 }
 
-#webconference_join_mobile_dialog img {
-  border:1px solid #ccc;
+#webconference_join_mobile_dialog .join-options {
+  float: left;
+  width: 250px;
+  padding: 5px;
+}
+
+#webconference_join_mobile_dialog img.qrcode {
+  border: 1px solid #ccc;
+  width: 150px;
+  height: 150px;
 }
 
 .webconference_join_mobile_ico {
@@ -2876,6 +2884,20 @@ h3.dialog_title {
   height: 16px;
   float: left;
   background: url('../images/icons/cellphone.png') center left no-repeat;
+}
+
+#webconference_join_mobile_dialog .download-mobile {
+  float: right;
+  width: 150px;
+  background: #f6f6f6;
+  padding: 60px 10px 0 10px;
+  border-left: 1px solid #ddd;
+  height: 240px;
+}
+
+#webconference_join_mobile_dialog .download-mobile span {
+  display: block;
+  margin-bottom: 10px;
 }
 
 .jcrop-holder {
