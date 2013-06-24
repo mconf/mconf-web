@@ -37,7 +37,7 @@ class User < ActiveRecord::Base
   validates :username, :uniqueness => { :case_sensitive => false },
                        :presence => true,
                        :format => /^[A-Za-z0-9\-_]*$/,
-                       :length => { :minimum => 3 }
+                       :length => { :minimum => 1 }
   extend FriendlyId
   friendly_id :username
 
@@ -91,6 +91,7 @@ class User < ActiveRecord::Base
 
   # BigbluebuttonRoom requires an identifier with 3 chars generated from :name
   # So we'll require :_full_name and :username to have length >= 3
+  # TODO: review, see issue #737
   validates :_full_name, :presence => true, :length => { :minimum => 3 }, :on => :create
 
   after_create :create_webconf_room
