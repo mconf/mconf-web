@@ -120,13 +120,17 @@ class User < ActiveRecord::Base
     create_bigbluebutton_room :owner => self,
                               :server => BigbluebuttonServer.first,
                               :param => self.username,
-                              :name => self._full_name,
+                              :name => self.username,
                               :logout_url => "/feedback/webconf/"
   end
 
   def update_webconf_room
     if self.username_changed?
-      bigbluebutton_room[:param] = self.username
+      params = {
+        :param => self.username,
+        :name => self.username
+      }
+      bigbluebutton_room.update_attributes(params)
     end
   end
 

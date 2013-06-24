@@ -20,14 +20,61 @@ describe Space do
   }
 
   describe "#bigbluebutton_room" do
-    pending "is created when the space is created"
-    pending "is created as public is the space is public"
-    pending "is created as private is the space is private"
+    let(:space) { FactoryGirl.create(:space) }
+    it { should have_one(:bigbluebutton_room).dependent(:destroy) }
+    it { should accept_nested_attributes_for(:bigbluebutton_room) }
+
+    it "is created when the space is created" do
+      space.bigbluebutton_room.should_not be_nil
+      space.bigbluebutton_room.should be_an_instance_of(BigbluebuttonRoom)
+    end
+
+    it "has the space as owner" do
+      space.bigbluebutton_room.owner.should be(space)
+    end
+
+    it "has param and name equal the space's permalink" do
+      space.bigbluebutton_room.param.should eql(space.permalink)
+      space.bigbluebutton_room.name.should eql(space.permalink)
+    end
+
+    it "has the default logout url" do
+      space.bigbluebutton_room.logout_url.should eql("/feedback/webconf/")
+    end
+
+    it "has passwords as set in the temporary attributes in the space" do
+      params = {
+        :_moderator_password => "random-moderator-password",
+        :_attendee_password => "random-attendee-password"
+      }
+      space = FactoryGirl.create(:space, params)
+      space.bigbluebutton_room.moderator_password.should eql(space._moderator_password)
+      space.bigbluebutton_room.attendee_password.should eql(space._attendee_password)
+    end
+
+    it "is created as public is the space is public" do
+      space.update_attribute(:public, true)
+      space.bigbluebutton_room.private.should be_false
+    end
+
+    it "is created as private is the space is private" do
+      space.update_attribute(:public, false)
+      space.bigbluebutton_room.private.should be_true
+    end
+
+    pending "has the server as the first server existent"
   end
 
   describe "#update" do
-    pending "when the space is made to public, the webconf room is made public"
-    pending "when the space is made to private, the webconf room is made private"
+
+    context "updates the webconf room" do
+      let(:space) { FactoryGirl.create(:space, :name => "Old Name", :public => true) }
+      before(:each) { space.update_attributes(:name => "New Name", :public => false) }
+      it { space.bigbluebutton_room.param.should be(space.permalink) }
+      it { space.bigbluebutton_room.name.should be(space.permalink) }
+      it { space.bigbluebutton_room.private.should be(true) }
+    end
+
   end
 
   describe "abilities" do

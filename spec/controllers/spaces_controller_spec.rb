@@ -180,23 +180,4 @@ describe SpacesController do
     pending "should not be able to update a space"
   end
 
-  describe :bbb_room => true do
-    login_admin
-
-    it "creates #bigbluebutton_room when the space is created" do
-      expect {
-        post :create, :space => FactoryGirl.attributes_for(:public_space)
-      }.to change{ BigbluebuttonRoom.count }.by(1)
-      space = Space.last
-      room = space.bigbluebutton_room
-
-      room.should_not be_nil
-      room.name.should eql(space.name)
-      room.owner_id.should eql(space.id)
-      room.owner_type.should eql(space.class.name)
-    end
-
-    # ps: the room is destroyed when the space (the model) is destroyed
-  end
-
 end

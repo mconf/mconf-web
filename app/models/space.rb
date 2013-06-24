@@ -42,17 +42,42 @@ class Space < ActiveRecord::Base
   attr_accessor :rand_value
   attr_accessor :logo_rand
 
+  # temporary attrs to set in the webconf room when the model is created
+  attr_accessor :_attendee_password
+  attr_accessor :_moderator_password
+
   default_scope :conditions => { :disabled => false }
 
   before_validation :update_logo
   after_validation :logo_mi
   after_validation :check_permalink
   after_update :update_webconf_room
+  after_create :create_webconf_room
 
-  # Update the webconf room after updating the space
+  # Creates the webconf room after the space is created
+  def create_webconf_room
+    params = {
+      :owner => self,
+      :server => BigbluebuttonServer.first,
+      :param => self.permalink,
+      :name => self.permalink,
+      :private => !self.public,
+      :moderator_password => self._moderator_password || SecureRandom.hex(4),
+      :attendee_password => self._attendee_password || SecureRandom.hex(4),
+      :logout_url => "/feedback/webconf/"
+    }
+    create_bigbluebutton_room(params)
+  end
+
+  # Updates the webconf room after updating the space
   def update_webconf_room
     if self.bigbluebutton_room
-      bigbluebutton_room.update_attributes(:param => self.permalink, :name => self.name)
+      params = {
+        :param => self.permalink,
+        :name => self.permalink,
+        :private => !self.public
+      }
+      bigbluebutton_room.update_attributes(params)
     end
   end
 

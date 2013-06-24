@@ -15,25 +15,54 @@ describe User do
   it { should validate_presence_of(:email) }
   it { should validate_presence_of(:username) }
 
-  it "should create the user's profile after creating the user" do
-    user = FactoryGirl.create(:user)
-    user.profile.should_not be_nil
-    user.profile.should be_an_instance_of(Profile)
-  end
-
   [ :receive_digest ].each do |attribute|
     it { should allow_mass_assignment_of(attribute) }
   end
 
+  describe "#profile" do
+    let(:user) { FactoryGirl.create(:user) }
+
+    it "is created when the user is created" do
+      user.profile.should_not be_nil
+      user.profile.should be_an_instance_of(Profile)
+    end
+  end
+
   describe "#bigbluebutton_room" do
+    let(:user) { FactoryGirl.create(:user) }
     it { should have_one(:bigbluebutton_room).dependent(:destroy) }
     it { should accept_nested_attributes_for(:bigbluebutton_room) }
 
-    it "should be created after creating the user" do
-      user = FactoryGirl.create(:user)
+    it "is created when the user is created" do
       user.bigbluebutton_room.should_not be_nil
       user.bigbluebutton_room.should be_an_instance_of(BigbluebuttonRoom)
     end
+
+    it "has the user as owner" do
+      user.bigbluebutton_room.owner.should be(user)
+    end
+
+    it "has param and name equal the user's username" do
+      user.bigbluebutton_room.param.should eql(user.username)
+      user.bigbluebutton_room.name.should eql(user.username)
+    end
+
+    it "has the default logout url" do
+      user.bigbluebutton_room.logout_url.should eql("/feedback/webconf/")
+    end
+
+    pending "has the server as the first server existent"
+  end
+
+  describe "#update" do
+
+    context "updates the webconf room" do
+      let(:user) { FactoryGirl.create(:user, :username => "old-user-name") }
+      before(:each) { user.update_attributes(:username => "new-user-name") }
+      it { user.bigbluebutton_room.param.should be(user.username) }
+      it { user.bigbluebutton_room.name.should be(user.username) }
+    end
+
   end
 
   describe "#accessible_rooms" do

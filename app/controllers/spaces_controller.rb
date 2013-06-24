@@ -96,13 +96,8 @@ class SpacesController < ApplicationController
   end
 
   def create
-    # TODO: this shouldn't be here
+    # TODO: this shouldn't be here, can be in the model
     params[:space][:repository] = 1;
-    params[:space][:bigbluebutton_room_attributes] ||= {}
-    params[:space][:bigbluebutton_room_attributes][:name] = params[:space][:name]
-    params[:space][:bigbluebutton_room_attributes][:private] = !ActiveRecord::ConnectionAdapters::Column.value_to_boolean(params[:space][:public])
-    params[:space][:bigbluebutton_room_attributes][:server] = BigbluebuttonServer.first # TODO temporary
-    params[:space][:bigbluebutton_room_attributes][:logout_url] = "/feedback/webconf/"
 
     @space = Space.new(params[:space])
 
