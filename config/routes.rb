@@ -193,10 +193,6 @@ Mconf::Application.routes.draw do
   # root
   root :to => 'frontpage#show'
 
-  # FAQ
-  match 'help', :to => 'faq#show', :as => 'help'
-  match 'faq', :to => 'faq#show', :as => 'faq'
-
   # Statistics
   match '/statistics', :to => 'statistics#show', :as => 'show_statistics'
 

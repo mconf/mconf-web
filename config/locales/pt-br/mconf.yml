@@ -529,33 +529,6 @@ pt-br:
     instructions: "Clique Enviar para cada convite que você deseja enviar, e clique Finalizar quando você concluir."
     sent: "Convites enviados com sucesso"
     will_invite: "Pessoas que você irá convidar?"
-  faq:
-    faq0:
-      answer: "Este FAQ, como todo este website, é baseado no Global Plaza. Se você não achou a resposta que você estava procurando, talvez você possa achar no <a href=\"http://globalplaza.org/faq\">Global Plaza FAQ</a>."
-      question: "Sobre esse FAQ"
-    faq1:
-      answer: "Mconf é um projeto em código aberto que tem como objetivo fornecer um sistema de webconferência com a capacidade de interagir de forma transparente entre computadores e dispositivos móveis.<br><br>Este site que você se encontra é chamado Mconf-Web, uma aplicação web que gerencia as webconferências do Mconf. O Mconf-Web é construido com base no <a href=\"http://globalplaza.org\">Global Plaza</a> que é (como falado em seu próprio site): \"um espaço para colaboração, um ponto de encontro para profissionais, onde eles podem compartilhar documentos e vídeos, organizar e participar de videoconferências, em um moderno ambiente web\".<br><br>Você pode achar mais sobre o Mconf e o Mconf-Web nos seguintes sites:<ul><li>Página do nosso projeto: <a href=\"http://www.inf.ufrgs.br/prav/gtmconf\">http://www.inf.ufrgs.br/prav/gtmconf</a></li><li>Nossa página do Google Code, com acompanhamento de problemas e documentação (wiki): <a href=\"http://code.google.com/p/mconf\">http://code.google.com/p/mconf</a></li><li>Nosso usuário do GitHub, onde todo nosso código está hospedado: <a href=\"https://github.com/mconf\">https://github.com/mconf</a></li></ul>"
-      question: "O que é Mconf?"
-    faq2:
-      answer: "Para começar a colaborar no Mconf você só precisa se <a href=\"http://mconf.inf.ufrgs.br/signup\">registrar</a>. Deste modo você será capaz de criar comunidades, adicionar documentos e participar de reuniões. Verificando as páginas de ajuda do Mconf é um bom ponto de partida para encontrar seu caminho.<br><br>De graça? Sim, você pode usar este servidor de graça, mas esteja ciente que este é um servidor de teste e nós não garantimos que ele estará rodando 100% do tempo (embora ele provavelmente estará próximo a isso)."
-      question: "Como eu posso entrar e participar da comunidade? É de graça?"
-    faq3:
-      answer: "Uma <b>comunidade</b> é a unidade básica de colaboração no Mconf. Como você pode imaginar, é um ambiente onde as pessoas com algum interesse em comum podem interagir. Essa interação pode ocorrer de várias maneiras: usando o repositório de documentos, organizando eventos, participando de webconferências entre outros. O Mconf fornece as facilidades para se fazer isso e muito mais. Você só precisa decidir quem convidar para sua comunidade e se esta comunidade será pública ou privada.<br><br><b>Comunidade Pública</b> é visível para todo mundo, até para visitantes que não possuem cadastro no Mconf. Mas, mesmo que todos possam vê-la, somente pessoas autorizadas podem fazer alterações na comunidade (criar eventos e postar mensagens, por exemplo).<br><br><b>Comunidade Privada</b> só é visível para pessoas autorizadas. Você pode criar uma comunidade privada e somente dar acesso para seus amigos ou pessoas do seu ambiente de trabalho, por exemplo. Ninguém de fora da comunidade podera ver as atividades de dentro da comunidade (mas eles iram saber que a comunidade existe)."
-      question: "Comunidades? Quais comunidades? O que são comunidades?"
-    faq4:
-      answer: "Mconf é um site gira em torno de webconferência e, como tal, nossa meta está em simplificar o esforço apra organizá-las. Por baixo, o Mconf utiliza uma versão costumizada do <a href=\"http://bigbluebutton.org\">BigBlueButton</a> como sistema de webconferência, e o Mconf-Web permite que você crie e gerencie suas próprias webconferências."
-      question: "Você mencionou... webconferência?"
-    faq5:
-      answer: "Existem basicamente dois tipos de webconferência no Mconf.<br><br>Quando um usuário se registra neste site, ele/ela automaticamente recebe uma sala de webconferência (<b>Sala do usuário</b>). Esta sala pode ser compartilhada com qualquer um que o usuário gostaria de realizar uma conferência, até mesmo com pessoas que não possuem conta no Mconf. O dono da sala é sempre o moderador da conferência, enquanto os outros participants possuem privilégios limitados de atendente.<br><br>A sala do usuário é por padrão pública, assim qualquer pessoa com o endereço da sala pode acessá-la. Mas pode ser privada e vocÊ pode até mesmo definir uma senha para ela (nota: isto ainda está sendo desenvolvido).<br><br>O outro tipo de webconferência acontece dentro de uma comunidade. Cada comunidade criada no Mconf possui uma sala de webconferência associada (<b>Sala da comunidade</b>). Se a comunidade for pública, a sala será pública. Caso contrário, a sala será privada e uma senha será associada a ela.<br><br>Como comunidades públicas, a salas de comunidades públicas podem ser acessadas por qualquer um, mas somente os membros da comundiade terão privilégios de moderador. Da mesma forma, salas de comunidades privadas só serão acessíveis pelos membros da comunidade."
-      question: "Ok, mas como eu posso criar uma webconferência?"
-    faq6:
-      answer: "A partir de agora, nos damos suporte para as seguintes línguas: <b>Inglês</b> e <b>Português (Brasil)</b>. No entanto, também temos o Mconf-Web parcialmente disponível nos idiomas <b>Espanhol</b>,<b>Francês</b> e <b>Alemão</b>. Para selecionar entre eles é só usar o link \"Idioma\" no topo de qualquer página. Estamos constantemente melhorando a internacionalização, e se você acha que pode nos dar uma mão, porfavor <a href=\"http://mconf.inf.ufrgs.br/feedback/new\">contate a gente</a> ou <a href=\"http://code.google.com/p/mconf/wiki/MconfWebLocalization\">de uma olhada em nossa wiki</a>, que contém algumas instruções sobre como traduzir este site."
-      question: "Eu sou Espanhol/Francês/Alemão/Brasileiro ... Mconf é traduzido para a minha língua?"
-    faq7:
-      answer: "Wow! Estamos muito contentes que você está interessado em dar a sua contribuição para o Mconf. Então, como você pode contribuir?<br><br>Primeiramente, de uma olhada em nossa <a href=\"http://code.google.com/p/mconf\">página do Google Code</a>, onde você pode encontrar o sistema de acompanhamento de tarefas com todas as tarefas atualmente em desenvolvimento e também toda nossa documentação (wiki). Após isso, se você quiser entrar em contato conosco, registre-se em <a href=\"http://groups.google.com/group/mconf-dev\">nossa lista de emails</a> e mande para nós uma mensagem.<br><br>Há muitas coisas que você pode fazer. Você pode ajudar a resolver um bug, talvez? Ou, se você não for um desenvolvedor, talvez você pode instalar Mconf e fornecer algum feedback? Você também pode ajudar com a tradução se você falar outras línguas. Vamos apreciar todos os comentários e sugestões, fique à vontade para interagir conosco."
-      question: "Eu tenho boas ideias para o seu site. Você aceita sugestões? Como posso contribuir para o desenvolvimento?"
-    header_title: FAQ
-    title: "Perguntas Frequentes"
   fax: Fax
   feedback:
     email: "%{email} enviou o seguinte feedback:"
@@ -1030,6 +1003,8 @@ pt-br:
     exception_notifications_email_tip: "Use espaços, vírgulas ou ponto-e-vírgulas para separar diferentes e-mails."
     exception_notifications_prefix: "Prefixo no assunto dos e-mails de depuração"
     exception_notifications_tip: "Enviar e-mails de depuração sempre que ocorrer um erro grave na aplicação"
+    external_help: "Página de ajuda/FAQ external"
+    external_help_tip: "Insira a url para o site externo que contem a página de ajuda/FAQ. Use a URL completa, incluindo o protocolo (e.g. 'http://server.com'.)"
     feedback_url: "Feedback URL"
     feedback_url_tip: "Os usuários serão redirecionados para esta URL quando eles sairem de uma conferência. Se o campo ficar em branco, eles serão redirecionados para '%{default_url}'"
     locale: Idioma
@@ -1054,6 +1029,8 @@ pt-br:
     ssl: SSL
     ssl_tip: "Com SSL habilitado todos os links internos (incluindo páginas, imagens, anexos) utilizarão o protocolo https ao invés de http"
     timezone: "Fuso horário"
+    external_help: "Página de Ajuda/FAQ Externa"
+    external_help_tip: "Insira a url para o site externo que contem a página de Ajuda/FAQ. Deve conter 'http://'."
   size: Tamanho
   skype: Skype
   source:
