@@ -57,7 +57,7 @@ class SpacesController < ApplicationController
     respond_with @spaces do |format|
       format.html { render :index }
       format.js {
-        json = @spaces.to_json(:methods => :user_count, :include => { :logo => {  :only => [:height, :width], :methods => :logo_image_path } })
+        json = @spaces.to_json(space_to_json_hash)
         render :json => json, :callback => params[:callback]
       }
       format.xml { render :xml => @public_spaces }
@@ -75,7 +75,13 @@ class SpacesController < ApplicationController
     @upcoming_events = @space.events.order("start_date ASC").all.select{ |e| e.start_date && e.start_date.future? }.first(5)
     @permission = Permission.where(:user_id => current_user, :subject_id => @space, :subject_type => 'Space').first
     @current_events = (Event.in(@space).all :order => "start_date ASC").select{|e| e.start_date && !e.start_date.future? && e.end_date.future?}
-    render :layout => 'spaces_show'
+    respond_to do |format|
+      format.html { render :layout => 'spaces_show' }
+      format.js {
+        json = @space.to_json(space_to_json_hash)
+        render :json => json, :callback => params[:callback]
+      }
+    end
   end
 
   def new
@@ -218,5 +224,9 @@ class SpacesController < ApplicationController
     else
       @space ||= Space.find_with_param(params[:id])
     end
+  end
+
+  def space_to_json_hash
+    { :methods => :user_count, :include => {:logo => { :only => [:height, :width], :methods => :logo_image_path } } }
   end
 end
