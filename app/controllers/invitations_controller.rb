@@ -7,7 +7,8 @@
 
 class InvitationsController < ApplicationController
   # TODO: permissions
-  #authorization_filter :forbidden, :invitation, :only => [ :index ]
+  #authorization_filter :forbidden, :invitation, :only => [:index]
+  #before_filter :authentication_required, :only => [:show]
 
   #-#-# from station
 
