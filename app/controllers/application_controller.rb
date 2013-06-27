@@ -20,6 +20,9 @@
 # Likewse, all the methods added will be available for all controllers.
 
 class ApplicationController < ActionController::Base
+  class ActionController::Authorization::NotAuthorized < StandardError
+  end
+
   # Be sure to include AuthenticationSystem in Application Controller instead
   include LocaleControllerModule
 
@@ -33,6 +36,10 @@ class ApplicationController < ActionController::Base
 
   # Don't log passwords
   config.filter_parameter :password, :password_confirmation
+
+  rescue_from ActionController::Authorization::NotAuthorized do |exception|
+    redirect_to(new_space_join_request_url(Space.find_by_permalink(params[:id])))
+  end
 
   # This method calls one from the plugin, to get the Space from params or session
   def space
