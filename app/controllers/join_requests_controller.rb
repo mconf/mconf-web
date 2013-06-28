@@ -9,6 +9,10 @@ class JoinRequestsController < ApplicationController
   before_filter :space!
 
   def new
+    if space.users.include?(current_agent)
+      redirect_to space
+      return
+    end
     respond_to do |format|
       format.html{
         if request.xhr?
