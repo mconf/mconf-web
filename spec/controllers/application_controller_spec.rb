@@ -6,41 +6,55 @@ describe ApplicationController do
 
   render_views
 
-  describe "Rooms with owner type = User" do
+  describe "#bigbluebutton_can_create?" do
 
-    before(:each) do
-      @user_owner = Factory(:user)
-      @bbb_room_user_private = Factory(:bigbluebutton_room, :owner_id => @user_owner.id, :owner_type => "User" )
+    context "for user rooms" do
+      let(:user) { Factory(:user) }
+
+      it "returns false if user is not the owner of the room" do
+        another_user = Factory(:user)
+        login_as(another_user)
+        controller.bigbluebutton_can_create?(user.bigbluebutton_room, nil).should be_false
+      end
+
+      it "returns true if user is the owner of the room" do
+        login_as(user)
+        controller.bigbluebutton_can_create?(user.bigbluebutton_room, nil).should be_true
+      end
     end
 
-    it "should return false because the user can't create the room" do
-      @user_guest = Factory(:user)
-      login_as @user_guest
-      (controller.bigbluebutton_can_create? @bbb_room_user_private, nil).should be_false
+    context "for space rooms" do
+      let(:private_space) { Factory(:private_space) }
+      let(:public_space) { Factory(:public_space) }
+
+      context "when the space is private" do
+        it "returns false if the user doesn't belong to the space" do
+          user = Factory(:user)
+          login_as(user)
+          controller.bigbluebutton_can_create?(private_space.bigbluebutton_room, nil).should be_false
+        end
+
+        it "returns true if the user belongs to the space" do
+          user = Factory(:admin_performance, :stage => private_space).agent
+          login_as(user)
+          controller.bigbluebutton_can_create?(private_space.bigbluebutton_room, nil).should be_true
+        end
+      end
+
+      context "when the space is public" do
+        it "returns false if the user doesn't belong to the space" do
+          user = Factory(:user)
+          login_as(user)
+          controller.bigbluebutton_can_create?(public_space.bigbluebutton_room, nil).should be_false
+        end
+
+        it "returns true if the user belongs to the space" do
+          user = Factory(:admin_performance, :stage => public_space).agent
+          login_as(user)
+          controller.bigbluebutton_can_create?(public_space.bigbluebutton_room, nil).should be_true
+        end
+      end
     end
-    it "should return true because the user is the owner of the room" do
-      login_as @user_owner
-      (controller.bigbluebutton_can_create? @bbb_room_user_private, nil).should be_true
-    end
+
   end
-
-  describe "Rooms with owner type = Space" do
-
-    before(:each) do
-      @private_space = Factory(:private_space)
-      @bbb_room_space_private = Factory(:bigbluebutton_room, :owner_id => @private_space.id, :owner_type => "Space" )
-    end
-
-    it "should return false because the user can't create the room (doesn't belong to the space)" do
-      @user_not_in_space = Factory(:user)
-      login_as @user_not_in_space
-      (controller.bigbluebutton_can_create? @bbb_room_space_private, nil).should be_false
-    end
-    it "should return true because the user belongs to the space" do
-      @user_in_space = Factory(:admin_performance, :stage => @private_space).agent
-      login_as @user_in_space
-      (controller.bigbluebutton_can_create? @bbb_room_space_private, nil).should be_true
-    end
-  end
-  
 end
