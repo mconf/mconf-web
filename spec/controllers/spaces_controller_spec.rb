@@ -108,14 +108,26 @@ describe SpacesController do
     end
   end
 
-  describe "A invited user" do
+  describe "An invited user" do
     before(:each) do
       login_as(@invited)
     end
+
     it "should be able to see public spaces" do
       get :show, :id => @public_space.to_param
       assert_response 200
       response.should render_template("spaces/show")
+    end
+
+    it "should be able to see spaces where he's invited" do
+      get :show, :id => @private_space.to_param
+      assert_response 200
+      response.should render_template("spaces/show")
+    end
+
+    it "should not be able to see spaces where he's not invited" do
+      get :show, :id => @private_space2.to_param
+      assert_response 403
     end
 
     it "should NOT be able to delete anyone's space " do
@@ -128,6 +140,8 @@ describe SpacesController do
       post :create, :space=> valid_attributes
       assert_response 302
     end
+
+    pending "should NOT be able to open the conference room"
 
   end
 

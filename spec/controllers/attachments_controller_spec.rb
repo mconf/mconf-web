@@ -73,6 +73,17 @@ describe AttachmentsController do
       @attachment = Factory(:attachment,:space => @private_space_with_repository,:author => @admin2)
       put :update, :space_id => @private_space_with_repository.to_param, :id=>@attachment.id ,:attachment => Factory.attributes_for(:attachment)
     end
+
+    it"should not be able to create a new version of an attachment in a private space if he's invited to it"do
+      @private_space_with_repository = Factory(:private_space_with_repository)
+      @invited2 = Factory(:invited_performance, :stage => @private_space_with_repository).agent
+      login_as(@invited)
+
+      @attachment = Factory(:attachment,:space => @private_space_with_repository,:author => @invited2)
+      put :update, :space_id => @private_space_with_repository.to_param, :id=>@attachment.id ,:attachment => Factory.attributes_for(:attachment)
+      assert_response 403
+    end
+
   end
 
   describe "A not logged user" do
