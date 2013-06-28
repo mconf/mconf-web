@@ -20,9 +20,6 @@
 # Likewse, all the methods added will be available for all controllers.
 
 class ApplicationController < ActionController::Base
-  class ActionController::Authorization::NotAuthorized < StandardError
-  end
-
   # Be sure to include AuthenticationSystem in Application Controller instead
   include LocaleControllerModule
 
@@ -37,8 +34,34 @@ class ApplicationController < ActionController::Base
   # Don't log passwords
   config.filter_parameter :password, :password_confirmation
 
-  rescue_from ActionController::Authorization::NotAuthorized do |exception|
-    redirect_to(new_space_join_request_url(Space.find_by_permalink(params[:id])))
+  # When the user is not authorized to perform an action
+  rescue_from Station::NotAuthorized do |exception|
+
+    # A user trying to view something in a space he doesn't have access will
+    # redirect him to the join request page. But only when trying to view something.
+    if params[:action] == "show" or params[:action] == "index"
+      if params[:space_id]
+        space = Space.find_by_permalink(params[:space_id])
+      elsif params[:controller] == "spaces"
+        space = Space.find_by_permalink(params[:id])
+      end
+    end
+
+    if space
+      redirect_to(new_space_join_request_url(space))
+    else
+      respond_to do |format|
+        format.all do
+          render :text => 'Forbidden',
+                 :status => 403
+        end
+
+        format.html do
+          render(:file => "#{Rails.root.to_s}/public/403.html",
+                 :status => 403)
+        end
+      end
+    end
   end
 
   # This method calls one from the plugin, to get the Space from params or session

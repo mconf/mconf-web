@@ -31,7 +31,8 @@ describe AttachmentsController do
     it "should not be able to see space repository if it is not enabled" do
       login_as(@admin)
       get :index, :space_id => @private_space.to_param
-      assert_response 403
+      assert_response 302
+      response.should redirect_to(new_space_join_request_url(@private_space))
     end
     it "should be able to see space repository if it is enabled" do
       login_as(@admin2)

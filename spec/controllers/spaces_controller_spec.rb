@@ -99,8 +99,8 @@ describe SpacesController do
     end
     it "should NOT be able to see private spaces if he isn't joined to them" do
       get :show, :id => @private_space2.to_param, :user_id => @user.id
-      assert_response 403
-
+      assert_response 302
+      response.should redirect_to(new_space_join_request_url(@private_space2))
     end
     it "should NOT be able to delete anyone's space " do
       delete :destroy, :id => @private_space.to_param, :user_id => @user.id
