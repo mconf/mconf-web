@@ -87,7 +87,8 @@ $(document).ready(function() {
           <%if @space.is_last_admin?(user)%>
             <%= t("admin.one") %>
           <%else%>
-            <%=select "permission", "role_id", @roles.collect {|p| [ p.name, p.id ]}, {:selected => permission.role_id}, {:id => "role_select_#{permission.id}",:class=>"small-font"} %>
+            <% role_name_id = @roles.collect {|p| [ t("space.performances.#{p.name.underscore}"), p.id ]} %>
+            <%=select "performance", "role_id", role_name_id, {:selected => performance.role_id}, {:id => "role_select_#{performance.id}",:class=>"small-font"} %>
           <%end%>
         </li>
       </ul>
