@@ -177,7 +177,7 @@ describe CustomBigbluebuttonRoomsController do
           server.api.stub(:is_meeting_running?) { false }
         end
         before(:each) { post :auth, :id => room.to_param, :user => { :password => room.moderator_password, :name => "Any Name" } }
-        # it { should respond_with(:unauthorized) } # TODO: will change soon in the gem so can be uncommented
+        it { should respond_with(:unauthorized) }
         it { should render_template(:invite) }
         it { should set_the_flash.to(I18n.t('bigbluebutton_rails.rooms.errors.auth.cannot_create')) }
       end
