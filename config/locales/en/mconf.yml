@@ -253,21 +253,41 @@ en:
   crop_image: 
     description: "Select a part of the image to crop"
     title: "Crop image"
-  custom_bigbluebutton_rooms:
-    important: Important 
+  custom_bigbluebutton_rooms: 
+    important: Important
     invite: 
-      click_to_select: "Click here to select"
-      desktop: "Select this option to join from a <em>desktop computer</em>."
-      mobile: "Select this option to join from a <em>mobile device</em>."
+      desktop: 
+        not_selected: "Select this options to access from a <em>desktop computer</em>."
+        selected: "Access from a <em>desktop computer</em>."
+      field_name: "Your full name"
+      field_password: "Access key for this room"
+      mobile: 
+        details: "Available for Android devices. You have to install the application <a href=\"%{url}\">Mconf-Mobile</a> to use this option!"
+        details_short: "Available for Android devices only."
+        download: "Click here to download Mconf-Mobile."
+        not_selected: "Select this options to access from a <em>mobile device</em>."
+        selected: "Access from a <em>mobile device</em>."
       not_running: "not running"
       refresh: "This information is updated automatically"
-      room_type_private: "This is a <em>private</em> web conference, fill the fields below to join it."
-      room_type_public: "This is a <em>public</em> web conference, fill the fields below to join it."
+      room_type_private: "This is a <em>private</em> web conference, enter the access key below to join it."
+      room_type_public: "This is a <em>public</em> web conference, click the button below to join it."
       running: "running!"
       selected: "selected"
       status: "The meeting currently is"
-      title: "Join: %{name}"
-      unknown: "unknown"
+      status_unknown: "unknown"
+      title: "Join the room: <em>%{name}</em>"
+    invite_userid: 
+      member: 
+        email_or_username: "Email or username"
+        password: "Password"
+        shibboleth: 
+          click_here: "Or click here to use the federated login"
+        title: "I'm a member of this website"
+      non_member: 
+        name: "Your full name"
+        next: "Next"
+        title: "I don't have an account, I will join this room as a guest"
+      title: "Join the room: <em>%{name}</em>"
   date: 
     at: at
     start: "Start date"

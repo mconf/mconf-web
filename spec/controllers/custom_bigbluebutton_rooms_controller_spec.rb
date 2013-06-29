@@ -9,10 +9,10 @@ require "spec_helper"
 describe CustomBigbluebuttonRoomsController do
   render_views
 
-  context "checks access permissions for" do
+  describe "abilities" do
     render_views false
 
-    context "a superuser" do
+    context "for a superuser" do
       let(:user) { FactoryGirl.create(:superuser) }
       let(:hash_with_server) { { :server_id => room.server.id } }
       let(:hash) { hash_with_server.merge!(:id => room.to_param) }
@@ -32,6 +32,7 @@ describe CustomBigbluebuttonRoomsController do
         it { should_not deny_access_to(:join, hash) }
         it { should_not deny_access_to(:auth, hash).via(:post) }
         it { should_not deny_access_to(:invite, hash) }
+        it { should_not deny_access_to(:invite_userid, hash) }
         it { should_not deny_access_to(:external, hash_with_server) }
         it { should_not deny_access_to(:external_auth, hash_with_server).via(:post) }
         it { should_not deny_access_to(:end, hash) }
@@ -78,7 +79,7 @@ describe CustomBigbluebuttonRoomsController do
       end
     end
 
-    context "a normal user" do
+    context "for a normal user" do
       let(:user) { FactoryGirl.create(:user) }
       let(:hash_with_server) { { :server_id => room.server.id } }
       let(:hash) { hash_with_server.merge!(:id => room.to_param) }
@@ -97,6 +98,7 @@ describe CustomBigbluebuttonRoomsController do
         it { should_not deny_access_to(:join, hash) }
         it { should_not deny_access_to(:auth, hash).via(:post) }
         it { should_not deny_access_to(:invite, hash) }
+        it { should_not deny_access_to(:invite_userid, hash) }
         it { should_not deny_access_to(:external, hash_with_server) }
         it { should_not deny_access_to(:external_auth, hash_with_server).via(:post) }
         it { should_not deny_access_to(:end, hash) }
@@ -115,6 +117,7 @@ describe CustomBigbluebuttonRoomsController do
         it { should_not deny_access_to(:join, hash) }
         it { should_not deny_access_to(:auth, hash).via(:post) }
         it { should_not deny_access_to(:invite, hash) }
+        it { should_not deny_access_to(:invite_userid, hash) }
         it { should deny_access_to(:end, hash) }
         it { should_not deny_access_to(:join_mobile, hash) }
         it { should_not deny_access_to(:running, hash) }
@@ -135,6 +138,7 @@ describe CustomBigbluebuttonRoomsController do
           it { should_not deny_access_to(:join, hash) }
           it { should_not deny_access_to(:auth, hash).via(:post) }
           it { should_not deny_access_to(:invite, hash) }
+          it { should_not deny_access_to(:invite_userid, hash) }
           it { should_not deny_access_to(:end, hash) }
           it { should_not deny_access_to(:join_mobile, hash) }
           it { should_not deny_access_to(:running, hash) }
@@ -150,6 +154,7 @@ describe CustomBigbluebuttonRoomsController do
           it { should_not deny_access_to(:join, hash) }
           it { should_not deny_access_to(:auth, hash).via(:post) }
           it { should_not deny_access_to(:invite, hash) }
+          it { should_not deny_access_to(:invite_userid, hash) }
           it { should deny_access_to(:end, hash) }
           it { should_not deny_access_to(:join_mobile, hash) }
           it { should_not deny_access_to(:running, hash) }
@@ -171,6 +176,7 @@ describe CustomBigbluebuttonRoomsController do
           it { should_not deny_access_to(:join, hash) }
           it { should_not deny_access_to(:auth, hash).via(:post) }
           it { should_not deny_access_to(:invite, hash) }
+          it { should_not deny_access_to(:invite_userid, hash) }
           it { should_not deny_access_to(:end, hash) }
           it { should_not deny_access_to(:join_mobile, hash) }
           it { should_not deny_access_to(:running, hash) }
@@ -186,6 +192,7 @@ describe CustomBigbluebuttonRoomsController do
           it { should_not deny_access_to(:join, hash) }
           it { should_not deny_access_to(:auth, hash).via(:post) }
           it { should_not deny_access_to(:invite, hash) }
+          it { should_not deny_access_to(:invite_userid, hash) }
           it { should deny_access_to(:end, hash) }
           it { should_not deny_access_to(:join_mobile, hash) }
           it { should_not deny_access_to(:running, hash) }
@@ -194,7 +201,7 @@ describe CustomBigbluebuttonRoomsController do
 
     end
 
-    context "an anonymous user" do
+    context "for an anonymous user" do
       let(:hash_with_server) { { :server_id => room.server.id } }
       let(:hash) { hash_with_server.merge!(:id => room.to_param) }
 
@@ -212,6 +219,7 @@ describe CustomBigbluebuttonRoomsController do
         it { should deny_access_to(:join, hash).using_code(:redirect) }
         it { should_not deny_access_to(:auth, hash).via(:post).using_code(:redirect) }
         it { should_not deny_access_to(:invite, hash) }
+        it { should_not deny_access_to(:invite_userid, hash) }
         it { should deny_access_to(:external, hash_with_server).using_code(:redirect) }
         it { should deny_access_to(:external_auth, hash_with_server).via(:post).using_code(:redirect) }
         it { should deny_access_to(:end, hash).using_code(:redirect) }
@@ -238,6 +246,198 @@ describe CustomBigbluebuttonRoomsController do
     end
   end
 
-  pending "uses the layout 'application' except for #join_mobile"
-  pending "#join_mobile uses no layout"
+  describe "#invite_userid" do
+    context "template and layout" do
+      let(:room) { FactoryGirl.create(:bigbluebutton_room, :private => false) }
+      let(:hash) { { :server_id => room.server.to_param, :id => room.to_param } }
+
+      context "template" do
+        before(:each) { get :invite_userid, hash }
+        it { should render_with_layout("no_sidebar") }
+      end
+
+      context "redirects to #invite" do
+        let(:user) { FactoryGirl.create(:user) }
+
+        it "when there is a user logged" do
+          login_as(user)
+          get :invite_userid, hash
+          response.should redirect_to(invite_bigbluebutton_room_path(room))
+        end
+
+        it "when the user name is specified" do
+          get :invite_userid, hash.merge(:user => { :name => "My User" })
+          response.should redirect_to(invite_bigbluebutton_room_path(room, :user => { :name => "My User" }))
+        end
+      end
+    end
+  end
+
+  describe "#invite" do
+    context "template and layout" do
+      let(:room) { FactoryGirl.create(:bigbluebutton_room) }
+      let(:hash) { { :server_id => room.server.to_param, :id => room.to_param } }
+
+      context "template" do
+        let(:hash) { { :server_id => room.server.to_param, :id => room.to_param } }
+        before { controller.should_receive(:bigbluebutton_role) { :password } }
+        before(:each) {
+          login_as(FactoryGirl.create(:superuser))
+          get :invite, hash
+        }
+        it { should render_with_layout("no_sidebar") }
+      end
+
+      context "redirects to #invite_userid" do
+        it "when the user name is not specified" do
+          get :invite, hash
+          response.should redirect_to(join_webconf_path(room))
+        end
+
+        it "when the user name is empty" do
+          get :invite, hash.merge(:user => { :name => {} })
+          response.should redirect_to(join_webconf_path(room))
+        end
+
+        it "when the user name is blank" do
+          get :invite, hash.merge(:user => { :name => "" })
+          response.should redirect_to(join_webconf_path(room))
+        end
+      end
+    end
+  end
+
+  describe "#auth" do
+    context "template and layout" do
+      # renders a view only when unauthorized
+      let(:user) { FactoryGirl.create(:user) }
+      let(:room) { FactoryGirl.create(:bigbluebutton_room, :private => false) }
+      before {
+        request.env["HTTP_REFERER"] = "/any"
+        controller.should_receive(:bigbluebutton_role) { :password }
+      }
+      before(:each) {
+        login_as(user)
+        post :auth, :id => room.to_param, :user => { }
+      }
+      it { should render_template(:invite) }
+      it { should render_with_layout("no_sidebar") }
+    end
+  end
+
+  describe "#index" do
+    context "template and layout" do
+      before(:each) { login_as(FactoryGirl.create(:superuser)) }
+      before(:each) { get :index }
+      it { should render_template(:index) }
+      it { should render_with_layout("application") }
+    end
+  end
+
+  describe "#show" do
+    context "template and layout" do
+      let(:room) { FactoryGirl.create(:bigbluebutton_room) }
+      before(:each) { login_as(FactoryGirl.create(:superuser)) }
+      before(:each) { get :show, :id => room.to_param }
+      it { should render_template(:show) }
+      it { should render_with_layout("application") }
+    end
+  end
+
+  describe "#new" do
+    context "template and layout" do
+      before(:each) { login_as(FactoryGirl.create(:superuser)) }
+      before(:each) { get :new }
+      it { should render_template(:new) }
+      it { should render_with_layout("application") }
+    end
+  end
+
+  describe "#edit" do
+    context "template and layout" do
+      let(:room) { FactoryGirl.create(:bigbluebutton_room) }
+      before(:each) { login_as(FactoryGirl.create(:superuser)) }
+      before(:each) { get :edit, :id => room.to_param }
+      it { should render_template(:edit) }
+      it { should render_with_layout("application") }
+    end
+  end
+
+  describe "#join_mobile" do
+    context "template and layout" do
+      let(:room) { FactoryGirl.create(:bigbluebutton_room) }
+      before(:each) { login_as(FactoryGirl.create(:superuser)) }
+      before(:each) { get :join_mobile, :id => room.to_param }
+      it { should render_template(:join_mobile) }
+      it { should_not render_with_layout() }
+    end
+  end
+
+  describe "#create" do
+    context "template and layout" do
+      # renders a view only on error on save
+      let(:attrs) { FactoryGirl.attributes_for(:bigbluebutton_room) }
+      before(:each) { login_as(FactoryGirl.create(:superuser)) }
+      before :each do
+        attrs[:name] = nil # invalidate it
+        post :create, :bigbluebutton_room => attrs
+      end
+      it { should render_template(:new) }
+      it { should render_with_layout("application") }
+    end
+  end
+
+  describe "#update" do
+    context "template and layout" do
+      # renders a view only on error on save
+      let(:room) { FactoryGirl.create(:bigbluebutton_room) }
+      let(:attrs) { FactoryGirl.attributes_for(:bigbluebutton_room) }
+      before(:each) { login_as(FactoryGirl.create(:superuser)) }
+      before(:each) {
+        attrs[:name] = nil # invalidate it
+        put :update, :id => room.to_param, :bigbluebutton_room => attrs
+      }
+      it { should render_template(:edit) }
+      it { should render_with_layout("application") }
+    end
+  end
+
+  describe "#running" do
+    context "template and layout" do
+      # renders json only
+      let(:room) { FactoryGirl.create(:bigbluebutton_room) }
+      before(:each) { login_as(FactoryGirl.create(:superuser)) }
+      before(:each) { get :running, :id => room.to_param }
+      it { should respond_with(:success) }
+      it { should_not render_with_layout() }
+    end
+  end
+
+  describe "#external" do
+    context "template and layout" do
+      let(:server) { FactoryGirl.create(:bigbluebutton_server) }
+      before(:each) { login_as(FactoryGirl.create(:superuser)) }
+      before(:each) { get :external, :meeting => "my-meeting-id", :server_id => server.id }
+      it { should render_template(:external) }
+      it { should render_with_layout("application") }
+    end
+  end
+
+  describe "#external_auth" do
+    context "template and layout" do
+      pending "render with layout application"
+    end
+  end
+
+  # TODO: this view is not in the application yet, only in the gem
+  # describe "#recordings" do
+  #   context "template and layout" do
+  #     let(:room) { FactoryGirl.create(:bigbluebutton_room) }
+  #     before(:each) { login_as(FactoryGirl.create(:superuser)) }
+  #     before(:each) { get :recordings, :id => room.to_param }
+  #     it { should render_template(:recordings) }
+  #     it { should render_with_layout("application") }
+  #   end
+  # end
+
 end

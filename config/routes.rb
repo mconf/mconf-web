@@ -37,7 +37,7 @@ Mconf::Application.routes.draw do
   }
 
   # FIXME: Temporary, this should probably be done by bigbluebutton_rails
-  match '/webconf/:id', :to => 'custom_bigbluebutton_rooms#invite',
+  match '/webconf/:id', :to => 'custom_bigbluebutton_rooms#invite_userid',
                         :as => "join_webconf"
 
   # shibboleth controller

@@ -246,9 +246,17 @@ pt-br:
   custom_bigbluebutton_rooms: 
     important: Importante
     invite: 
-      click_to_select: "Clique aqui para selecionar"
-      desktop: "Selecione esta opção para acessar de um <em>computador</em>."
-      mobile: "Selecione esta opção para acessar de um <em>dispositivo móvel</em>."
+      desktop: 
+        not_selected: "Selecione esta opção para acessar de um <em>computador</em>."
+        selected: "Acesso a partir de um <em>computador</em>."
+      field_name: "Seu nome"
+      field_password: "Chave de acesso desta sala"
+      mobile: 
+        details: "Disponível em dispositivos com Android. Você precisa instalar a aplicação <a href=\"%{url}\">Mconf-Mobile</a> para utilizar esta opção!"
+        details_short: "Disponível apenas para dispositivos Android."
+        download: "Clique aqui para fazer o download do Mconf-Mobile."
+        not_selected: "Selecione esta opção para acessar de um <em>dispositivo móvel</em>."
+        selected: "Acesso a partir de um <em>dispositivo móvel</em>."
       not_running: "não iniciada"
       refresh: "Esta informação é atualizada automaticamente"
       room_type_private: "Esta é uma conferência <em>privada</em>, preencha os campos abaixo para entrar."
@@ -256,8 +264,20 @@ pt-br:
       running: "em andamento!"
       selected: "selecionado"
       status: "O estado atual da reunião é"
-      title: "Entrar em: %{name}"
+      title: "Acessar sala: <em>%{name}</em>"
       unknown: "desconhecido"
+    invite_userid: 
+      member: 
+        email_or_username: "E-mail ou nome de usuário"
+        password: "Senha"
+        shibboleth: 
+          click_here: "Ou clique aqui para usar o acesso federado"
+        title: "Eu sou um membro deste site"
+      non_member: 
+        name: "Seu nome completo"
+        next: "Próximo"
+        title: "Eu não possuo uma conta, quero entrar como convidado"
+      title: "Acessar sala: <em>%{name}</em>"
   date:
     at: em
     start: "Data inicial"

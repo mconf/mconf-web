@@ -4,13 +4,92 @@
 body.custom_bigbluebutton_rooms.invite,
 body.custom_bigbluebutton_rooms.auth {
 
-  // no sidebar
-  #sidebar { width: 0; display: none; }
-  #content-middle { width: 100% !important; }
-
   #webconf-room-invite {
     @include mconf-clearfix;
+    padding: 30px 0;
     min-height: 200px;
+  }
+
+  #webconf-room-join {
+    float: left;
+    width: 50%;
+    margin: 0;
+    padding: 0;
+  }
+
+  #webconf-room-device-type {
+    float: right;
+    width: 50%;
+    margin: 0;
+    padding: 0;
+    margin-top: 10px;
+
+    .invite-desktop, .invite-mobile {
+      text-align: left;
+      margin: 20px;
+      padding: 15px;
+      border: 1px solid $transparent;
+      cursor: pointer;
+
+      .description {
+        min-height: 55px;
+        position: relative;
+        padding-right: 70px;
+
+        .text {
+          float: left;
+          em { font-weight: bold; font-style: normal; }
+        }
+
+        .text-details {
+          margin-top: 5px;
+          color: #666;
+        }
+
+        .selected-label {
+          position: absolute;
+          left: 0;
+          top: -25px;
+        }
+      }
+
+      .mobile-image {
+        float: right;
+      }
+
+      &:hover {
+        background-color: #f6f6f6;
+      }
+
+      &.active {
+        cursor: auto;
+        background-color: $alert-bg;
+        border-top: 1px solid #9ec2d5;
+        border-bottom: 1px solid #9ec2d5;
+      }
+    }
+
+    .invite-desktop {
+      .description {
+        background: url(image_path('webconf/desktop.png')) right center no-repeat;
+      }
+      &.active .description .text {
+        margin-top: 15px;
+      }
+    }
+
+    .invite-mobile {
+      .description {
+        background: url(image_path('webconf/mobile.png')) 95% center no-repeat;
+      }
+      &.active .description {
+        background: none;
+        padding: 0;
+      }
+      &.active .description .text {
+        margin-top: 5px;
+      }
+    }
   }
 
   #webconf-room-status {
@@ -26,66 +105,32 @@ body.custom_bigbluebutton_rooms.auth {
     }
   }
 
-  #webconf-room-type {
-    margin-bottom: 20px;
-    font-size: $font-medium;
-    text-align: center;
+  #webconf-room-password {
 
-    em {
-      font-style: normal;
-      font-weight: bold;
+    .room-type {
+      text-align: center;
+      font-size: $font-medium;
+
+      em {
+        font-style: normal;
+        font-weight: bold;
+      }
     }
-  }
-
-  #webconf-room-join {
-    float: left;
-    width: 50%;
-    text-align: center;
 
     form {
-      width: 80%;
-    }
-  }
+      clear: both;
+      margin: 20px 100px 0 0;
+      width: 60%;
+      float: right;
 
-  #webconf-room-device-type {
-    float: right;
-    width: 45%;
-    margin-top: 10px;
-
-    .invite-desktop, .invite-mobile {
-      text-align: left;
-      margin: 10px 0;
-      padding: 10px;
-      @include border-radius(4px);
-      border: 1px solid $transparent;
-
-      .description {
-        min-height: 50px;
-        position: relative;
-        padding-right: 70px;
-
-        .text {
-          margin-top: 10px;
-          float: left;
-          em { font-weight: bold; font-style: normal; }
-          a { display: block; }
-        }
-
-        .selected {
-          position: absolute;
-          left: 0;
-          top: -20px;
-        }
+      input[type=text], input[type=password] {
+        width: 95%;
       }
 
-      &.invite-desktop .description {
-        background: url(image_path('webconf/desktop.png')) right center no-repeat;
-      }
-      &.invite-mobile .description {
-        background: url(image_path('webconf/mobile.png')) 95% center no-repeat;
-      }
-      &.active {
-        background-color: $alert-bg;
+      input[type=submit] {
+        padding-left: 20px;
+        padding-right: 20px;
+        float: right;
       }
     }
   }
