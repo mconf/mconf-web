@@ -1,11 +1,11 @@
-= content_tag(:div, :name => space.permalink, :class => "thread #{cycle("thread-even" , "thread-odd")} space-item #{@user_spaces.include?(space) ? 'my-space' : 'not-my-space'}") do
-  - if space.nil?
-    %p= t('space.none_to_show')
-  - else
+- unless space.nil?
+  = content_tag(:div, :name => space.permalink, :class => "thread thread-space #{cycle("thread-even" , "thread-odd")} space-item #{@user_spaces.include?(space) ? 'my-space' : 'not-my-space'}") do
     .logo-in-thread
-      = link_logo(space, options_for_tooltip(sanitize(space.name), :size => 'h64', :"data-placement" => 'bottom')).html_safe
+      = link_logo(space, options_for_tooltip(sanitize(space.name), :size => 'h48', :"data-placement" => 'bottom')).html_safe
 
     .thread-content
+      - if space.users.include?(current_user)
+        %span.is_member= t('.user_is_member')
       .thread-title
         %h3
           = link_to sanitize(space.name), space_path(space)

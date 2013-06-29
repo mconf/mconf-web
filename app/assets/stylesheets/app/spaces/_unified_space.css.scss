@@ -1,0 +1,23 @@
+@import "compass/css3";
+@import "definitions";
+
+.thread-space {
+
+  .thread-content {
+    .is_member {
+      max-width: 120px;
+      text-align: center;
+      color: #509F00;
+      float: right;
+      font-style: normal;
+      margin: 10px;
+    }
+  }
+
+  .thread-title {
+    h3 {
+      margin-top: 3px;
+    }
+  }
+
+}

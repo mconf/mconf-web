@@ -1175,6 +1175,13 @@ en:
     subscribed_to_none: "You are not subscribed to any space"
     update_logo: "Update logo"
     updated: "Space updated successfully"
+  spaces: 
+    index: 
+      list_format: 
+        list: "Show as a list"
+        thumbnails: "Show as thumbnails"
+    unified_space: 
+      user_is_member: "You're a member of this space"
   spam: 
     created: "A reporting spam e-mail has been successfully sent to the admin. Thank you"
     default: spam

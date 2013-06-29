@@ -23,7 +23,9 @@ class SpacesController < ApplicationController
     #  redirect_to space_path(Space.find_by_permalink(params[:space_id]))
     #  return
     #end
-    @view = params[:view] || 'list'
+    if params[:view].nil? or params[:view] != "thumbnails"
+      params[:view] = "list"
+    end
     @spaces = Space.order('name ASC').all
     @private_spaces = @spaces.select{|s| !s.public?}
     @public_spaces = @spaces.select{|s| s.public?}
