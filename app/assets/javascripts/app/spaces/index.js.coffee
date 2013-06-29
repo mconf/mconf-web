@@ -36,7 +36,6 @@ $ ->
       # remove all 'selected' classes and adds only to the selected div
       $("div.space-item.selected").removeClass("selected")
       $(this).addClass("selected")
-      console.log $(this).html()
 
       # updates the position of the description div
       $("#space-description-wrapper").sticky("update")
