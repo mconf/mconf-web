@@ -39,7 +39,7 @@ class ApplicationController < ActionController::Base
 
     # A user trying to view something in a space he doesn't have access will
     # redirect him to the join request page. But only when trying to view something.
-    if params[:action] == "show" or params[:action] == "index"
+    if params[:action] == "show" or params[:action] == "index" or params[:action] == "recordings"
       if params[:space_id]
         space = Space.find_by_permalink(params[:space_id])
       elsif params[:controller] == "spaces"
