@@ -1,0 +1,66 @@
+@import "definitions";
+@import "compass/css3";
+
+body.custom_bigbluebutton_rooms.invite,
+body.custom_bigbluebutton_rooms.invite_userid,
+body.custom_bigbluebutton_rooms.auth {
+
+  #webconf-room-invite-header {
+    text-align: center;
+    @include border-radius(4px);
+    background-color: $alert-bg;
+    font-size: $font-medium;
+    padding: 10px;
+
+    .room-type {
+      text-align: center;
+
+      em {
+        font-style: normal;
+        font-weight: bold;
+      }
+    }
+
+    .room-status {
+      text-align: center;
+
+      .label {
+        display: inline-block;
+      }
+      .refresh {
+        float: right;
+      }
+    }
+
+    .steps {
+      float: right;
+      margin-top: 5px;
+
+      .text {
+        float: left;
+        margin-top: 5px;
+        margin-right: 5px;
+      }
+
+      .step {
+        float: left;
+        margin: 0 5px;
+        font-size: $font-big;
+        color: #666;
+        font-weight: bold;
+        background: white;
+        width: 40px;
+        padding: 4px 0;
+        @include border-radius(4px);
+        display: block;
+
+        &.active {
+          background: $alert-info-font;
+          color: white;
+        }
+      }
+    }
+
+  }
+
+}

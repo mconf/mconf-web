@@ -1,20 +1,21 @@
 = render_page_title t(".title", :name => @room.name).html_safe
 
+= render :partial => "invite_header", :locals => { :page => 1 }
+
 #webconf-room-userid
 
   #webconf-room-userid-member
     .container
-      .colored-box
-        %h3.title= t(".member.title")
+      %h3.title= t(".member.title")
 
-        -# TODO: redirect back here after login
-        = simple_form_for "user", :url => user_session_path do |f|
-          .input
-            %label= t(".member.email_or_username")
-            = text_field_tag "user[login]", "", :required => true, :autofocus => true
-            %label= t(".member.password")
-            = password_field_tag "user[password]", "", :required => true
-          = f.button :submit, t("login.one"), :class => "btn btn-primary"
+      -# TODO: redirect back here after login
+      = simple_form_for "user", :url => user_session_path do |f|
+        .input
+          %label= t(".member.email_or_username")
+          = text_field_tag "user[login]", "", :required => true, :autofocus => true
+          %label= t(".member.password")
+          = password_field_tag "user[password]", "", :required => true
+        = f.button :submit, t("login.one"), :class => "btn btn-primary"
 
       - if current_site.shib_enabled?
         .shibboleth-container
@@ -23,11 +24,10 @@
 
   #webconf-room-userid-non-member
     .container
-      .colored-box
-        %h3.title= t(".non_member.title")
+      %h3.title= t(".non_member.title")
 
-        = simple_form_for @room, :url => invite_bigbluebutton_room_path(@room), :method => "get" do |f|
-          .input
-            %label= t(".non_member.name")
-            = text_field_tag "user[name]", "", :required => true
-          = f.button :submit, t(".non_member.next"), :class => "btn btn-primary"
+      = simple_form_for @room, :url => invite_bigbluebutton_room_path(@room), :method => "get" do |f|
+        .input
+          %label= t(".non_member.name")
+          = text_field_tag "user[name]", "", :required => true
+        = f.button :submit, t(".non_member.next"), :class => "btn btn-primary"

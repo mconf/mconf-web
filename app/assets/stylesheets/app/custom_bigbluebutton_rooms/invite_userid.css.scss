@@ -1,6 +1,8 @@
 @import "definitions";
 @import "compass/css3";
 
+@import "app/custom_bigbluebutton_rooms/_invite_header";
+
 body.custom_bigbluebutton_rooms.invite_userid {
 
   #webconf-room-userid {
@@ -11,7 +13,7 @@ body.custom_bigbluebutton_rooms.invite_userid {
     #webconf-room-userid-member, #webconf-room-userid-non-member {
       margin: 0;
       padding: 0;
-      width: 50%;
+      width: 49%;
       float: left;
 
       .container {
@@ -25,16 +27,11 @@ body.custom_bigbluebutton_rooms.invite_userid {
           font-weight: bold;
         }
       }
-
-      .colored-box {
-        @include mconf-clearfix;
-        background: $alert-bg;
-        padding: 10px 20px 20px 20px;
-        @include border-radius(4px);
-      }
     }
 
     #webconf-room-userid-member {
+      border-right: 1px solid #ddd;
+
       .container {
         float: right;
       }
@@ -44,7 +41,7 @@ body.custom_bigbluebutton_rooms.invite_userid {
         clear: both;
         max-width: 300px;
         float: right;
-        margin: 25px 40px 0 0;
+        margin: 5px 40px 0 0;
         text-align: center;
 
         a { display: block; }

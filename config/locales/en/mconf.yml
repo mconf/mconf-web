@@ -267,15 +267,17 @@ en:
         download: "Click here to download Mconf-Mobile."
         not_selected: "Select this options to access from a <em>mobile device</em>."
         selected: "Access from a <em>mobile device</em>."
+      selected: "selected"
+      title: "Join the room: <em>%{name}</em>"
+    invite_header: 
       not_running: "not running"
       refresh: "This information is updated automatically"
-      room_type_private: "This is a <em>private</em> web conference, enter the access key below to join it."
-      room_type_public: "This is a <em>public</em> web conference, click the button below to join it."
+      room_type_private: "This is a <em>private</em> web conference room"
+      room_type_public: "This is a <em>public</em> web conference room"
       running: "running!"
-      selected: "selected"
       status: "The meeting currently is"
       status_unknown: "unknown"
-      title: "Join the room: <em>%{name}</em>"
+      steps: "steps:"
     invite_userid: 
       member: 
         email_or_username: "Email or username"

@@ -5,26 +5,20 @@
 - else
   - username = bigbluebutton_user.name
 
+= render :partial => "invite_header", :locals => { :page => 2 }
+
 #webconf-room-invite
 
   #webconf-room-join
 
-    #webconf-room-status{:"data-url" => running_bigbluebutton_room_url(@room, :format => "json")}
-      = t(".status")
-      .label.status{options_for_tooltip(t(".refresh"))}
-        = t(".status_unknown")
-
     #webconf-room-password
-      - if @room.private
-        .room-type= t(".room_type_private").html_safe
-      - else
-        .room-type= t(".room_type_public").html_safe
-
       = simple_form_for :bigbluebutton_room, :url => join_bigbluebutton_room_path(@room, :mobile => params[:mobile]) do |f|
         .input
           %label= t(".field_name")
           - unless username.blank?
-            = text_field_tag "user[name]", username, :readonly => true, :disabled => true
+            -# add this so it is submitted even if the input below is disabled
+            = hidden_field_tag "user[name]", username
+            = text_field_tag "", username, :readonly => true, :disabled => true
           - else
             = text_field_tag "user[name]", "", :autofocus => true
         - if @user_role == :password

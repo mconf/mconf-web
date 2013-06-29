@@ -1,6 +1,8 @@
 @import "definitions";
 @import "compass/css3";
 
+@import "app/custom_bigbluebutton_rooms/_invite_header";
+
 body.custom_bigbluebutton_rooms.invite,
 body.custom_bigbluebutton_rooms.auth {
 
@@ -58,12 +60,12 @@ body.custom_bigbluebutton_rooms.auth {
       }
 
       &:hover {
-        background-color: #f6f6f6;
+        background-color: $light-gray;
       }
 
       &.active {
         cursor: auto;
-        background-color: $alert-bg;
+        background-color: $light-gray;
         border-top: 1px solid #9ec2d5;
         border-bottom: 1px solid #9ec2d5;
       }
@@ -84,7 +86,7 @@ body.custom_bigbluebutton_rooms.auth {
       }
       &.active .description {
         background: none;
-        padding: 0;
+        padding: 5px 0 0 0;
       }
       &.active .description .text {
         margin-top: 5px;
@@ -93,7 +95,6 @@ body.custom_bigbluebutton_rooms.auth {
   }
 
   #webconf-room-status {
-    margin: 10px 0;
     font-size: $font-medium;
     text-align: center;
 

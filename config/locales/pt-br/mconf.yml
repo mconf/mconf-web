@@ -257,15 +257,17 @@ pt-br:
         download: "Clique aqui para fazer o download do Mconf-Mobile."
         not_selected: "Selecione esta opção para acessar de um <em>dispositivo móvel</em>."
         selected: "Acesso a partir de um <em>dispositivo móvel</em>."
+      selected: "selecionado"
+      title: "Acessar sala: <em>%{name}</em>"
+    invite_header: 
       not_running: "não iniciada"
       refresh: "Esta informação é atualizada automaticamente"
-      room_type_private: "Esta é uma conferência <em>privada</em>, preencha os campos abaixo para entrar."
-      room_type_public: "Esta é uma conferência <em>pública</em>, preencha os campos abaixo para entrar."
+      room_type_private: "Esta é uma conferência <em>privada</em>"
+      room_type_public: "Esta é uma conferência <em>pública</em>"
       running: "em andamento!"
-      selected: "selecionado"
       status: "O estado atual da reunião é"
-      title: "Acessar sala: <em>%{name}</em>"
-      unknown: "desconhecido"
+      status_unknown: "desconhecido"
+      steps: "etapas:"
     invite_userid: 
       member: 
         email_or_username: "E-mail ou nome de usuário"
