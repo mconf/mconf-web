@@ -56,7 +56,7 @@ Spork.prefork do
     config.run_all_when_everything_filtered = true
 
     config.include Devise::TestHelpers, :type => :controller
-    config.extend ControllerMacros, :type => :controller
+    config.include ControllerMacros, :type => :controller
     config.extend Helpers::ClassMethods
   end
 end

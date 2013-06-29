@@ -20,10 +20,8 @@ describe UsersController do
       response.response_code.should == 404
     end
 
-    login_user
-
     it "should return OK status for existing user" do
-      get :show, :id => @user.username
+      get :show, :id => FactoryGirl.create(:superuser).username
       response.response_code.should == 200
     end
 
@@ -32,17 +30,17 @@ describe UsersController do
   describe "#current" do
     context ".json" do
       context "when there's a user logged" do
-        login_user
-
+        let(:user) { FactoryGirl.create(:user) }
         before(:each) do
+          login_as(user)
           @expected = {
-            :id => @user.id, :username => @user.username, :name => @user.name
+            :id => user.id, :username => user.username, :name => user.name
           }
           get :current, :format => :json
         end
         it { should respond_with(:success) }
         it { should respond_with_content_type(:json) }
-        it { should assign_to(:user).with(@user) }
+        it { should assign_to(:user).with(user) }
         it { response.body.should == @expected.to_json }
       end
 
@@ -57,22 +55,22 @@ describe UsersController do
 
     context ".xml" do
       context "when there's a user logged" do
-        login_user
-
+        let(:user) { FactoryGirl.create(:user) }
         before(:each) do
+          login_as(user)
           @expected = {
-            :id => @user.id, :username => @user.username, :name => @user.name
+            :id => user.id, :username => user.username, :name => user.name
           }
           get :current, :format => :xml
         end
         it { should respond_with(:success) }
         it { should respond_with_content_type(:xml) }
-        it { should assign_to(:user).with(@user) }
+        it { should assign_to(:user).with(user) }
         it {
           assert_select "user" do
-            assert_select "id", {:count => 1, :text => @user.id}
-            assert_select "username", {:count => 1, :text => @user.username}
-            assert_select "name", {:count => 1, :text => @user.name}
+            assert_select "id", {:count => 1, :text => user.id}
+            assert_select "username", {:count => 1, :text => user.username}
+            assert_select "name", {:count => 1, :text => user.name}
           end
         }
       end
@@ -97,7 +95,9 @@ describe UsersController do
   describe "#select" do
     context ".json" do
       context "when there's a user logged" do
-        login_user
+        let(:user) { FactoryGirl.create(:user) }
+        before(:each) { login_as(user) }
+
         let(:expected) {
           @users.map do |u|
             { :id => u.id, :username => u.username, :name => u.name }
@@ -166,7 +166,9 @@ describe UsersController do
   describe "#fellows" do
     context ".json" do
       context "when there's a user logged" do
-        login_user
+        let(:user) { FactoryGirl.create(:user) }
+        before(:each) { login_as(user) }
+
         let(:expected) {
           @users.map do |u|
             { :id => u.id, :username => u.username, :name => u.name }
@@ -176,7 +178,7 @@ describe UsersController do
         context "uses User#fellows" do
           before do
             space = FactoryGirl.create(:space)
-            space.add_member! @user # created by login_user above
+            space.add_member! user
             @users = Helpers.create_fellows(2, space)
             subject.current_user.should_receive(:fellows).with(nil, nil).and_return(@users)
           end
@@ -190,7 +192,7 @@ describe UsersController do
         context "filters users by name" do
           before do
             space = FactoryGirl.create(:space)
-            space.add_member! @user # created by login_user above
+            space.add_member! user
             @users = Helpers.create_fellows(2, space)
             subject.current_user.should_receive(:fellows).with("test", nil).and_return(@users)
           end
@@ -202,7 +204,7 @@ describe UsersController do
         context "limits the users in the response" do
           before do
             space = FactoryGirl.create(:space)
-            space.add_member! @user # created by login_user above
+            space.add_member! user
             @users = Helpers.create_fellows(10, space)
             @users = @users.first(3)
             subject.current_user.should_receive(:fellows).with(nil, 3).and_return(@users)
@@ -304,7 +306,8 @@ describe UsersController do
 
     context "for a normal user:" do
       let(:another_user) { FactoryGirl.create(:user) }
-      login_user
+      let(:user) { FactoryGirl.create(:user) }
+      before(:each) { login_as(user) }
 
       # On the colletion
 
@@ -330,24 +333,24 @@ describe UsersController do
 
       [:show, :edit, :edit_bbb_room].each do |action|
         describe "can access ##{action}" do
-          let(:do_action) { get action, :id => @user }
+          let(:do_action) { get action, :id => user }
           it_should_behave_like "it can access an action"
         end
       end
 
       describe "can access #update" do
-        let(:do_action) { post :edit, :id => @user }
+        let(:do_action) { post :edit, :id => user }
         it_should_behave_like "it can access an action"
       end
 
       describe "can access #destroy" do
-        let(:do_action) { delete :destroy, :id => @user }
+        let(:do_action) { delete :destroy, :id => user }
         it_should_behave_like "it can access an action"
       end
 
       [:enable, :create].each do |action|
         describe "cannot access ##{action}" do
-          let(:do_action) { post :enable, :id => @user }
+          let(:do_action) { post :enable, :id => user }
           it_should_behave_like "it cannot access an action"
         end
       end
@@ -406,7 +409,8 @@ describe UsersController do
 
     context "for a superuser:" do
       let(:another_user) { FactoryGirl.create(:user) }
-      login_admin
+      let(:user) { FactoryGirl.create(:superuser) }
+      before(:each) { login_as(user) }
 
       context "can access #index" do
         let(:space) { FactoryGirl.create(:space) }
@@ -416,7 +420,7 @@ describe UsersController do
 
       [:show, :edit, :edit_bbb_room].each do |action|
         describe "can access ##{action}" do
-          let(:do_action) { get action, :id => @user }
+          let(:do_action) { get action, :id => user }
           it_should_behave_like "it can access an action"
         end
       end
@@ -430,7 +434,7 @@ describe UsersController do
 
       [:update, :destroy, :enable].each do |action|
         describe "can access ##{action}" do
-          let(:do_action) { post action, :id => @user.to_param, :user => {} }
+          let(:do_action) { post action, :id => user.to_param, :user => {} }
           it_should_behave_like "it can access an action"
         end
       end

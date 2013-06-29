@@ -56,21 +56,24 @@ module Shoulda # :nodoc
           begin
             @example_group.send(@method, @action, @params)
           rescue ActionView::MissingTemplate
+            RespondWithMatcher.new(@response_code).matches?(@controller)
+          rescue CanCan::AccessDenied
+            @response_code == :forbidden or @response_code == 403
+          else
+            RespondWithMatcher.new(@response_code).matches?(@controller)
           end
-
-          RespondWithMatcher.new(@response_code).matches?(@controller)
         end
 
         def description
-          "ensures #{@method} => :#{@action} is forbidden (403 or the code given by the user)"
+          "respond with '#{@response_code}' to #{@method} => :#{@action}"
         end
 
         def failure_message
-          "Expected #{@method} => :#{@action} to deny access with the response code '#{@response_code}' (returned #{@controller.response.code})"
+          "Expected #{@method} => :#{@action} to respond with the code '#{@response_code}' (returned #{@controller.response.code})"
         end
 
         def negative_failure_message
-          "Did not expected #{@method} => :#{@action} to deny access respond with the response code '#{@response_code}'"
+          "Did not expected #{@method} => :#{@action} to respond with the code '#{@response_code}'"
         end
 
       end

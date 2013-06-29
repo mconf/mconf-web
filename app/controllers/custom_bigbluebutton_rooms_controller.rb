@@ -5,10 +5,19 @@
 # 3 or later. See the LICENSE file.
 
 class CustomBigbluebuttonRoomsController < Bigbluebutton::RoomsController
+  # the exceptions are all used in the invitation page and should be accessible even to
+  # anonymous users
   before_filter :authenticate_user!,
-    :except => [:invite, :auth, :running, :external]
+    :except => [:invite, :invite_userid, :auth, :running]
+
+  # some routes are accessible to everyone, but some of them will do the authorization
+  # themselves (e.g. permissions for :join will change depending on the user and the target
+  # room)
+  load_resource :find_by => :param, :class => "BigbluebuttonRoom"
   authorize_resource :class => "BigbluebuttonRoom",
-    :except => [:invite, :auth, :running, :join, :end, :external, :join_mobile]
+    :except => [:invite, :invite_userid, :join, :auth, :join_mobile, :running,
+                :external, :external_auth]
+
   layout "application", :except => [:join_mobile]
   layout false, :only => [:join_mobile]
 end

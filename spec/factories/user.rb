@@ -30,9 +30,4 @@ FactoryGirl.define do
   factory :superuser, :parent => :user do |u|
     u.superuser true
   end
-
-  # factory :author, :parent => :user do |a|
-  # end
-
 end
-

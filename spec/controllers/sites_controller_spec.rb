@@ -23,7 +23,7 @@ describe SitesController do
     let(:site) { FactoryGirl.create(:site) }
 
     context "for a normal user:" do
-      login_user
+      before(:each) { login_as(FactoryGirl.create(:user)) }
 
       context "cannot access #show" do
         let(:do_action) { get :show, :id => site }
@@ -42,7 +42,7 @@ describe SitesController do
     end
 
     context "for a superuser:" do
-      login_admin
+      before(:each) { login_as(FactoryGirl.create(:superuser)) }
 
       context "can access #show" do
         let(:do_action) { get :show, :id => site }

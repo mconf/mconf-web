@@ -31,6 +31,23 @@ module Abilities
     include CanCan::Ability
 
     def initialize(user)
+      # Webconf rooms
+      # Not many things are done here, several authorization steps are done by the gem
+      # BigbluebuttonRails inside each action
+      can :end, BigbluebuttonRoom do |room|
+
+        # The same logic for which user can create which room, done at
+        # `ApplicationController#bigbluebutton_can_create?()``
+        response = false
+        if room.owner_type == "User" and room.owner_id == user.id
+          response = true
+        elsif room.owner_type == "Space"
+          space = Space.find(room.owner_id)
+          response = space.users.include?(user)
+        end
+        response
+      end
+
       # Users
       # Disabled users are only visible to superusers
       can [:read, :fellows, :current, :select], User, :disabled => false
