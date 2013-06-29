@@ -13,13 +13,6 @@ $ ->
       $("#space-filter-text").keyup()
       $("#space-filter-text").focus()
 
-    # function that filters the spaces being shown
-    filter_spaces = (filter_text) ->
-      $("div.space-item").each ->
-        if $(this).attr("name").toLowerCase().search(filter_text) >= 0
-          $(this).show()
-        else
-          $(this).hide()
 
     # filter the spaces being shown when the user types
     $("#space-filter-text").keyup ->
@@ -41,14 +34,23 @@ $ ->
       $(hovered).show()
 
       # remove all 'selected' classes and adds only to the selected div
-      $("div.space-item.selected").removeClass "selected"
-      $(this).addClass "selected"
+      $("div.space-item.selected").removeClass("selected")
+      $(this).addClass("selected")
+      console.log $(this).html()
 
       # updates the position of the description div
-      $("#space-description-wrapper").sticky 'update'
+      $("#space-description-wrapper").sticky("update")
 
     # move the space description in the sidebar to be always in
     # the visible space of the page when the page is scrolled
     $("#space-description-wrapper").sticky
       topSpacing: 20
       bottomSpacing: 250
+
+# function that filters the spaces being shown
+filter_spaces = (filter_text) ->
+  $("div.space-item").each ->
+    if $(this).attr("name").toLowerCase().search(filter_text) >= 0
+      $(this).show()
+    else
+      $(this).hide()

@@ -1,6 +1,8 @@
 @import "compass/css3";
 @import "definitions";
 
+@import "app/spaces/_unified_space";
+
 body.spaces.index {
 
   #content-middle {
@@ -9,7 +11,7 @@ body.spaces.index {
 
   #space-filter-wrapper {
     @include mconf-clearfix;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     padding: 10px 5px;
     background: $light-gray;
     @include border-radius(5px);
@@ -34,6 +36,11 @@ body.spaces.index {
     }
   }
 
+  #space-list-formats {
+    float: right;
+    margin-bottom: 10px;
+  }
+
   #space-description-wrapper {
     width: 230px;
 
@@ -45,6 +52,7 @@ body.spaces.index {
           background: $light-gray;
           width: 169px;
           height: 128px;
+          margin-bottom: 5px;
         }
       }
     }
@@ -67,7 +75,23 @@ body.spaces.index {
 
   #public-spaces, #private-spaces {
 
-    .space-item {
+    .space-item.list {
+      .thread {
+        padding-right: 5px;
+      }
+
+      &.selected .thread {
+        border-right: 5px solid $second-color;
+        padding-right: 0;
+      }
+
+      img {
+        width: 63px;
+        height: 48px;
+      }
+    }
+
+    .space-item.thumbnail {
       float: left;
       padding: 2px;
       margin: 5px;
@@ -75,15 +99,15 @@ body.spaces.index {
       height: 64px;
       @include border-radius(2px);
 
+      img {
+        width: 84px;
+        height: 64px;
+      }
+
       &.selected {
         border: 1px solid $second-color;
         background: lighten($second-color, 35);
         @include box-shadow(0 0 15px $second-color);
-      }
-
-      img {
-        height: 64px;
-        width: 84px;
       }
     }
 

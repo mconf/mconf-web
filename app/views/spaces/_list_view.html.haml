@@ -1,0 +1,19 @@
+#public-spaces.content-block
+  .content-block-header
+    %h3= t('space.public.other')
+  .content-block-middle.clearfix
+    - @public_spaces.each do |space|
+      %div{:class => "space-item list #{@user_spaces.include?(space) ? 'my-space' : 'not-my-space'}", :name => space.permalink}
+        = render "unified_space", :space => space
+
+#private-spaces.content-block
+  .content-block-header
+    %h3= t('space.private')
+  .content-block-middle.clearfix
+    - @private_spaces.each do |space|
+      - if can?(:read, space)
+        %div{:class => "space-item list #{@user_spaces.include?(space) ? 'my-space' : 'not-my-space'}", :name => space.permalink}
+          = render "unified_space", :space => space
+      - else
+        .space-item.not-my-space{:name => space.permalink}
+          = render "unified_space", :space => space, :space_url => new_space_join_request_path(space)

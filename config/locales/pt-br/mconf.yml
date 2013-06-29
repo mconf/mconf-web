@@ -1093,7 +1093,12 @@ pt-br:
       private: "<p>Por favor, note que a comunidade é privada, então você precisa ser um usuário cadastrado no Mconf para ser capaz de enviar um pedido de adesão e acesso à comunidade. Você pode se registrar aqui: <a href=\"%{register_url}\">%{register_url}</a></p>"
       subject: "%{username} convida você para a comunidade %{space}"
     index:
+      filters: 
+        all: "Todas"
+        filter: "Filtro:"
+        my_spaces: "Minhas comunidades"
       select_at_left: "Selecione uma comunidade ao lado para ver sua descrição aqui"
+      user_is_member: "Você é membro!"
     is_private: "é uma comunidade privado. Envie um pedido de adesão ao administrador desta comunidade para deixá-lo entrar"
     join: "Entrar na comunidade"
     join_invitation:
@@ -1138,6 +1143,13 @@ pt-br:
     subscribed_to_none: "Você não está inscrito em nenhuma comunidade"
     update_logo: "Atualizar logo"
     updated: "Comunidade atualizada com sucesso"
+  spaces: 
+    index: 
+      list_format: 
+        list: "Mostrar como lista"
+        thumbnails: "Mostrar como imagens"
+    unified_space: 
+      user_is_member: "Você é membro desta comunidade"
   spam:
     created: "Um e-mail de notificação de spam foi enviado com sucesso para o administrador. Obrigado"
     default: spam

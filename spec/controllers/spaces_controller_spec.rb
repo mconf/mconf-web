@@ -180,4 +180,10 @@ describe SpacesController do
     pending "should not be able to update a space"
   end
 
+  describe "#index" do
+    it "sets param[:view] to 'list' if not set"
+    it "sets param[:view] to 'list' if different than 'thumbnails'"
+    it "uses param[:view] as 'thumbanils' if already set to this value"
+  end
+
 end
