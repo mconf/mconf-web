@@ -16,7 +16,7 @@ class SessionLocalesController < ActionController::Base
       # Add locale to the user profile
       current_user.update_attribute(:locale, new_locale) if user_signed_in?
 
-      flash[:success] = t('locale.changed') + params[:new_locale]
+      flash[:success] = t('locale.changed', :locale => params[:new_locale]) + params[:new_locale]
     else
       flash[:error] = t('locale.error') + params[:new_locale]
     end
