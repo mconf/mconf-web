@@ -280,6 +280,11 @@ pt-br:
         next: "Próximo"
         title: "Eu não possuo uma conta, quero entrar como convidado"
       title: "Acessar sala: <em>%{name}</em>"
+    join_mobile: 
+      direct_link: "<b>Clique aqui</b> <br/> para entrar utilizando um dispositivo móvel"
+      scan_code: "Ou utilize o código abaixo:"
+      sip_number: "Para entrar na conferência de voz usando um cliente SIP, disque para <b>%{number}</b>."
+      title: "Acesso móvel à sala %{room}"
   date:
     at: em
     start: "Data inicial"
@@ -1352,11 +1357,6 @@ pt-br:
       other: "A conferência está ativa com %{count} participantes"
     invite_webconference: "Convidar pessoas para a conferência"
     join: Join
-    join_mobile:
-      direct_link: "<b>Clique aqui</b> <br/> para entrar utilizando um dispositivo móvel"
-      scan_code: "Ou faça a leitura do código abaixo:"
-      sip_number: "Para entrar na conferência de voz usando um cliente SIP, disque para <b>%{number}</b>."
-      title: "Acesso móvel à sala %{room}"
     my_webconference: "Minha sala de webconferência"
     new_webconference: "Nova sala de webconferência"
     nobody:

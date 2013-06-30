@@ -290,6 +290,11 @@ en:
         next: "Next"
         title: "I don't have an account, I will join this room as a guest"
       title: "Join the room: <em>%{name}</em>"
+    join_mobile: 
+      direct_link: "<b>Click here</b><br/>to join from a mobile device"
+      scan_code: "Or scan the code below:"
+      sip_number: "To join the voice conference from a SIP client, dial <b>%{number}</b>."
+      title: "Mobile access to %{room}"
   date: 
     at: at
     start: "Start date"
@@ -1411,11 +1416,6 @@ en:
       other: "The webconference is currently in progress with %{count} participants"
     invite_webconference: "Invite people to the webconference"
     join: Join
-    join_mobile: 
-      direct_link: "<b>Click here</b><br/>to join from a mobile device"
-      scan_code: "Or scan the code below:"
-      sip_number: "To join the voice conference from a SIP client, dial <b>%{number}</b>."
-      title: "Mobile access to %{room}"
     my_webconference: "My webconference room"
     new_webconference: "New webconference room"
     nobody: 

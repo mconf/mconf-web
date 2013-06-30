@@ -4,14 +4,35 @@
 #webconference-join-mobile-dialog {
   text-align: center;
 
+  .join-options {
+    background: #f6f6f6;
+    @include border-radius(4px);
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 15px;
+
+    .download-application {
+      margin-top: 5px;
+      img { margin-top: 5px; }
+      span { display: block; }
+    }
+  }
+
   .qr-code {
-    margin-top: 15px;
+    float: left;
+    margin-left: 10px;
+
     img {
-      border:1px solid #ccc;
+      width: 150px;
+      height: 150px;
+      border: 1px solid #ccc;
+      @include border-radius(4px);
     }
   }
 
   .sip-number {
-    margin-top: 15px;
+    max-width: 150px;
+    float: right;
+    margin-right: 10px;
   }
 }
