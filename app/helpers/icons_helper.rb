@@ -22,59 +22,65 @@ module IconsHelper
 
   # Default icon that shows a tooltip with help about something
   def help_icon(title, options={})
-    icon_constructor title, "help-icon", nil, options
+    icon_constructor title, "icon help-icon", nil, options
   end
 
   # Help icon but using a text instead of an image
   def text_help_icon(title, options={})
-    text_icon_constructor title, "text-help-icon", "(?)", options
+    text_icon_constructor title, "icon text-help-icon", "(?)", options
   end
 
   # Default icon that shows a tooltip with information about something
   def info_icon(title, options={})
-    icon_constructor title, "info-icon", nil, options
+    icon_constructor title, "icon info-icon", nil, options
   end
 
   # Default icon to a feed (rss)
   def feed_icon(options={})
     options.merge!(:alt => t('RSS'), :title => t('RSS'))
-    icon_constructor t('RSS'), "feed-icon", nil, options
+    icon_constructor t('RSS'), "icon feed-icon", nil, options
   end
 
   # Default icon to an attachment
   def attachment_icon(title, options={})
-    icon_constructor title, "attachment-icon", "icons/attach.png", options
+    icon_constructor title, "icon attachment-icon", "icons/attach.png", options
   end
 
   # Default icon to a comment
   def comment_icon(title, options={})
-    icon_constructor title, "comment-icon", "icons/comments.png", options
+    icon_constructor title, "icon comment-icon", "icons/comments.png", options
   end
 
   # Default icon to an event
   def event_icon(title, options={})
-    icon_constructor title, "event-icon", "icons/date.png", options
+    icon_constructor title, "icon event-icon", "icons/date.png", options
   end
 
   # Default icon to news
   def news_icon(title="", options={})
-    icon_constructor title, "news-icon", "icons/newspaper.png", options
+    icon_constructor title, "icon news-icon", "icons/newspaper.png", options
   end
 
   # Admin red label/icon
   # Usually shown on top of an avatar.
   def superuser_icon(options={})
-    text_icon_constructor "", "superuser-icon label label-important", t('admin.one'), options
+    text_icon_constructor "", "icon superuser-icon label label-important", t('admin.one'), options
   end
 
   # Conference "in progress" icon.
   def in_progress_icon(options={})
-    icon_constructor "" , "in-progress-icon", nil, options
+    icon_constructor "" , "icon in-progress-icon", nil, options
   end
 
   # Spam icon.
   def spam_icon(options={})
-    icon_constructor t("spam.item"), "spam-icon", nil, options
+    icon_constructor t("spam.item"), "icon spam-icon", nil, options
+  end
+
+  # Unread message icon.
+  def unread_message_icon(options={})
+    title = options[:title] || t("icons.unread_message")
+    icon_constructor title, "icon unread-message-icon", nil, options
   end
 
   private

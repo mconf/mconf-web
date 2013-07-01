@@ -2,18 +2,24 @@
 @import "definitions";
 
 body.private_messages.show {
-  .thread-content {
-    margin-left: 50px;
+
+  .message-body {
+    margin-top: 15px;
   }
-  #priv-msg { 
-    textarea { 
-      resize:vertical;
-      height: 200px; 
+
+  #private-message-reply {
+
+    textarea {
+      resize: vertical;
+      height: 200px;
     }
-    #private_message_title, #private_message_body {
+    input[type=text], textarea {
       width: 95%;
     }
+
   }
+
+  /* Larger sidebar with the form to reply to the message */
   $sidebar-width: 350px;
   #sidebar {
     width: $sidebar-width;

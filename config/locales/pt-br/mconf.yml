@@ -613,6 +613,9 @@ pt-br:
     report: "Relatório:"
     updated1: "Uma entrada de seu iCalendar já estava em sua agenda de eventos e foi atualizada."
     updatedn: "entradas de seu iCalendar já estavam em sua agenda de eventos e foram atualizadas."
+  icons: 
+    unread_message: "Mensage não lida!"
+    unread_message_by_receiver: "Esta mensagem ainda não foi lida pelo usuário que a recebeu"
   im: IM
   inbox:
     my: "Caixa de entrada (%{checked})"
@@ -805,6 +808,7 @@ pt-br:
   ok: OK
   older: "Mais velho"
   old_items: "Itens Antigos"
+  open: "Abrir"
   optional: Opcional
   or: ou
   organization: Organização
@@ -870,10 +874,6 @@ pt-br:
   previous: Anterior
   privacy: Privacidade
   private_message:
-    inbox: "Caixa de entrada"
-    sent: Enviadas
-    compose: "Escrever"
-    open: Abrir
     more:
       one: "e uma outra mensagem privada..."
       other: "e mais %{count} mensagens privadas..."
@@ -881,7 +881,21 @@ pt-br:
     other: "Mensagens Privadas"
     send: "Enviar mensagem privada"
     title: "Mensagens Privadas (%{count})"
-  private_messages: "Mensagens Privadas"
+  private_messages: 
+    index: 
+      title: "Mensagens Privadas"
+    menu: 
+      compose: "Escrever"
+      inbox: "Caixa de entrada"
+      sent: Enviadas
+    new: 
+      title: "Mensagens Privadas"
+    show: 
+      title: "Mensagens Privadas"
+    show_received: 
+      wrote: wrote
+    show_sent: 
+      wrote: wrote
   profile:
     deleted: "Perfil excluído com sucesso"
     description:

@@ -636,6 +636,9 @@ en:
     report: "Report: "
     updated1: "One entry of your iCalendar were already on your event agenda and were updated. "
     updatedn: " entries of your iCalendar were already on your event agenda and were updated. "
+  icons: 
+    unread_message: "Unread message!"
+    unread_message_by_receiver: "This message has not yet been read by the receiver"
   im: IM
   inbox: 
     my: "My Inbox (%{checked})"
@@ -832,6 +835,7 @@ en:
   ok: OK
   older: Older
   old_items: "Old Items"
+  open: Open
   optional: Optional
   or: or
   organization: Organization
@@ -901,10 +905,6 @@ en:
   previous: Previous
   privacy: Privacy
   private_message:
-    inbox: Inbox
-    sent: Sent 
-    compose: Compose
-    open: Open
     more: 
       one: "and one more private message..."
       other: "and more %{count} private messages..."
@@ -912,7 +912,21 @@ en:
     other: "Private Messages"
     send: "Send private message"
     title: "Private Messages (%{count})"
-  private_messages: "Private Messages"
+  private_messages: 
+    index: 
+      title: "Private Messages"
+    menu: 
+      compose: Compose
+      inbox: Inbox
+      sent: Sent
+    new: 
+      title: "Private Messages"
+    show: 
+      title: "Private Messages"
+    show_received: 
+      wrote: wrote
+    show_sent: 
+      wrote: wrote
   profile: 
     deleted: "Profile deleted successfully"
     description: 

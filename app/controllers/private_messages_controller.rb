@@ -10,18 +10,19 @@ class PrivateMessagesController < ApplicationController
   load_and_authorize_resource
 
   def index
-    if params[:sent_messages]
-      @private_messages = PrivateMessage.sent(user).paginate(:page => params[:page], :per_page => 10)
-    else  
-      @private_messages = PrivateMessage.inbox(user).paginate(:page => params[:page], :per_page => 10)
+    @page_size = 10
+    if params[:sent]
+      @private_messages = PrivateMessage.sent(user).paginate(:page => params[:page], :per_page => @page_size)
+    else
+      @private_messages = PrivateMessage.inbox(user).paginate(:page => params[:page], :per_page => @page_size)
     end
 
-    #search the name of the user when replying a message
+    # search the name of the user when replying a message
     if params[:reply_to]
       @previous_message = PrivateMessage.find(params[:reply_to])
       @receiver = User.find(@previous_message.sender_id)
     end
-  
+
     respond_to do |format|
       format.html { render :layout => "no_sidebar" }
       format.xml  { render :xml => @private_messages }
@@ -29,20 +30,20 @@ class PrivateMessagesController < ApplicationController
   end
 
   def show
-    @show_message = PrivateMessage.find(params[:id])
+    @message = PrivateMessage.find(params[:id])
     params[:page] ||= 1
-    @previous_message = @show_message #this is to the reply message partial
-    @receiver = User.find(@show_message.sender_id)
+    @previous_message = @message #this is to the reply message partial
+    @receiver = User.find(@message.sender_id)
     @previous_messages = WillPaginate::Collection.create(params[:page], 5) do |pager|
-      @previous_messages = PrivateMessage.previous(@show_message).reverse
+      @previous_messages = PrivateMessage.previous(@message).reverse
       pager.replace(@previous_messages[pager.offset, pager.per_page])
       unless pager.total_entries
-        pager.total_entries = @previous_messages.count 
+        pager.total_entries = @previous_messages.count
       end
     end
-    if @is_receiver = user.id == @show_message.receiver_id
-      @show_message.checked = true
-      @show_message.save
+    if @is_receiver = user.id == @message.receiver_id
+      @message.checked = true
+      @message.save
     end
   end
 
@@ -91,12 +92,12 @@ class PrivateMessagesController < ApplicationController
           format.xml  { render :xml => @fail_messages.map{|m| m.errors}, :status => :unprocessable_entity }
         end
       end
-    else  
+    else
       params[:private_message][:sender_id] = user.id
       @private_message = PrivateMessage.new(params[:private_message])
       if params[:private_message][:receiver_id]
         receiver = User.find(params[:private_message][:receiver_id])
-        @addressee << { "id" => receiver.id, "name" => receiver.name }  
+        @addressee << { "id" => receiver.id, "name" => receiver.name }
       end
       respond_to do |format|
         if @private_message.save
@@ -133,7 +134,7 @@ class PrivateMessagesController < ApplicationController
 
     respond_to do |format|
       if params[:private_message][:deleted_by_sender]
-        format.html { redirect_to(user_messages_path(user, :sent_messages=>true)) }
+        format.html { redirect_to(user_messages_path(user, :sent => true)) }
       else
         format.html { redirect_to(user_messages_path(user)) }
       end
@@ -146,7 +147,7 @@ class PrivateMessagesController < ApplicationController
   def user
     @user ||= User.find_with_param(params[:user_id])
   end
-  
+
   def private_message
     @private_message = PrivateMessage.find(params[:id])
   end

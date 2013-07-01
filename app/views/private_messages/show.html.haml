@@ -3,49 +3,51 @@
 - else
   - private_messages_menu_at :sent
 
-= render_page_title t('private_messages')
+- sender = User.find_with_disabled(@message.sender_id)
+
+= render_page_title t('.title')
 = render :partial => 'private_messages/menu'
 
 = content_for :sidebar do
-  = render :partial => "reply_private_message", :locals => { :reply_to => true, :previous_message => PrivateMessage.find(params[:id]) }
+  = render :partial => "reply_private_message", :locals => { :reply_to => true, :previous_message => PrivateMessage.find(@message) }
 
-
-%h3= sanitize(@show_message.title)
-
-
-- if @show_message.sender_id.present?
-  .private-messages.thread{:id => "parent-#{@show_message.id}"}
-    = link_logotype(User.find(@show_message.sender_id), :size => 96, :title => User.find(@show_message.sender_id).name).html_safe
+- if @message.sender_id.present?
+  .private-messages.thread{:id => "parent-#{@message.id}"}
     %ul.thread-action-links
       - if @is_receiver
-        %li
-          = link_to t('back_to_inbox'), user_messages_path(params[:user_id])
+        %li= link_to t('back_to_inbox').downcase, user_messages_path(current_user)
       - else
-        %li
-          = link_to t('back_to_sent'), user_messages_path(params[:user_id], :sent_messages => true )
-      - if @is_receiver && @show_message.sender_id.present?
-        %li
-          = link_to t('delete.one'), user_message_path(params[:user_id], @show_message, :private_message => {:deleted_by_receiver => true}), :confirm => t('delete.confirm', :element => @show_message.title), :method => :delete, :title => t('delete.one')
+        %li= link_to t('back_to_sent').downcase, user_messages_path(current_user, :sent => true)
+      - if @is_receiver && @message.sender_id.present?
+        %li= link_to t('remove').downcase, user_message_path(current_user, @message, :private_message => {:deleted_by_receiver => true}), :confirm => t('delete.confirm', :element => @message.title), :method => :delete, :title => t('remove')
       - else
-        %li
-          = link_to t('delete.one'), user_message_path(params[:user_id], @show_message, :private_message => {:deleted_by_sender => true}), :confirm => t('delete.confirm', :element => @show_message.title), :method => :delete, :title => t('delete.one')
+        %li= link_to t('remove').downcase, user_message_path(current_user, @message, :private_message => {:deleted_by_sender => true}), :confirm => t('delete.confirm', :element => @message.title), :method => :delete, :title => t('remove')
+    .logo-in-thread
+      - if sender.disabled?
+        = logo(sender, :size => 32)
+      - else
+        = raw(link_logo(sender,:size => 32, :url => user_path(sender), :title => sender.username))
+    .thread-content
+      .thread-title
+        - if @message.sender_id.present?
+          - if sender.disabled?
+            %span.thread-author= sender.name
+          - else
+            = link_to(sender.name, user_path(sender), :class => "thread-author")
+      .thread-text
+        = sanitize(@message.title)
 
-    %p
-      = sanitize(auto_link(simple_format(@show_message.body)))
+    .message-body
+      = sanitize(auto_link(simple_format(@message.body)))
 
- 
 - @previous_messages.each do |message|
   %div.private-messages.thread{:id => "parent-#{message.id}", :class => cycle('thread-odd', 'thread-even') }
     - if message.sender_id == current_user.id
-      = render :partial => "show_sent", :locals => { :private_message => message }
+      = render :partial => "show_sent", :locals => { :private_message => message, :target_user => current_user, :expanded => true }
     - else
-      = render :partial => "show_received", :locals => { :private_message => message }  
+      = render :partial => "show_received", :locals => { :private_message => message, :target_user => current_user, :expanded => true }
 - unless @previous_messages.empty?
   .content-block-footer
     = page_navigation_links @previous_messages
 
 .margin-up
-  - if @is_receiver
-    .btn= link_to t('back_to_inbox'), user_messages_path(params[:user_id])
-  - else
-    .btn= link_to t('back_to_sent'), user_messages_path(params[:user_id], :sent_messages => true )

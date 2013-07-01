@@ -81,6 +81,12 @@ form {
   height: 16px;
 }
 
+.unread-message-icon {
+  background: url(asset_path("icons/unread_message.png", image)) no-repeat bottom;
+  width: 16px;
+  height: 16px;
+}
+
 .webconf-join-mobile-link {
   span {
     padding-left: 20px;
@@ -146,9 +152,9 @@ form {
 
     h2 { margin-bottom: 0; }
 
-    .spam-icon {
+    .icon {
       display: inline-block;
-      margin-bottom: -3px;
+      margin-top: 2px;
       margin-right: 3px;
     }
   }
