@@ -104,6 +104,9 @@ en:
       other: " files selected"
     title: "Attachments (%{count})"
     upload_with_post: "Notify the upload with a message in the wall"
+  attachments:
+    doc_table:
+      no_attachments: "No attachments found"
   attendeePW: "Attendee Password"
   author: "Uploaded by"
   avatar: 

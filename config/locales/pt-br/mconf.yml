@@ -102,6 +102,9 @@ pt-br:
       other: "arquivos selecionados"
     title: "Anexos (%{count})"
     upload_with_post: "Notificar o envio com uma mensagem no mural"
+  attachments:
+    doc_table:
+      no_attachments: "Nenhum documento encontrado"
   attendeePW: "Senha de Participante"
   author: "Enviado por"
   avatar:
