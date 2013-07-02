@@ -90,10 +90,12 @@
         <li>
           <label for="admin"><%=t('role.one')%>: </label>
           <%if @space.is_last_admin?(user)%>
-            Admin
+            <%= t('space.performances.admin') %>
+            <%= image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_performances icon",:style=>"cursor:pointer") %>
           <%else%>
             <% role_name_id = @roles.collect {|p| [ t("space.performances.#{p.name.underscore}"), p.id ]} %>
-            <%=select "performance", "role_id", role_name_id, {:selected => performance.role_id}, {:id => "role_select_#{performance.id}",:class=>"small-font"} %>
+            <%= select "performance", "role_id", role_name_id, {:selected => performance.role_id}, {:id => "role_select_#{performance.id}",:class=>"small-font"} %>
+            <%= image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_performances icon",:style=>"cursor:pointer") %>
           <%end%>
         </li>
       </ul>

@@ -1,3 +1,43 @@
+<%= content_for :javascript do  %>
+
+ $('img.tooltip_user').qtip({
+   content: '<%= escape_javascript(t("space.performances.tooltips.user")) %>',
+         position: {adjust: { screen: true }},
+   show:  'mouseover',
+   hide: { when: 'mouseout', fixed: true },
+   style: 'mystyle'
+  });
+
+ $('img.tooltip_admin').qtip({
+   content: '<%= escape_javascript(t("space.performances.tooltips.admin")) %>',
+         position: {adjust: { screen: true }},
+   show:  'mouseover',
+   hide: { when: 'mouseout', fixed: true },
+   style: 'mystyle'
+  });
+
+ $('img.tooltip_invited').qtip({
+   content: '<%= escape_javascript(t("space.performances.tooltips.invited")) %>',
+         position: {adjust: { screen: true }},
+   show:  'mouseover',
+   hide: { when: 'mouseout', fixed: true },
+   style: 'mystyle'
+  });
+
+ $('img.tooltip_performances').qtip({
+   content: '<%= escape_javascript("<strong>#{t('space.performances.admin')}</strong>: #{t('space.performances.tooltips.admin')} <br>\
+                                    <strong>#{t('space.performances.user')}</strong>: #{t('space.performances.tooltips.user')} <br>\
+                                    <strong>#{t('space.performances.invited')}</strong>: #{t('space.performances.tooltips.invited')} <br>\
+                                    " ).html_safe %>',
+         position: {adjust: { screen: true }},
+   show:  'mouseover',
+   hide: { when: 'mouseout', fixed: true },
+   style: 'mystyle'
+  });
+
+<% end %>
+
+
 <% menu :admin %>
 
 <%= content_for :search do  %>
@@ -16,15 +56,14 @@
   #elsif params[:group_invitation]
 %>
   <%=
-    #render :partial => 'group_invitation' 
+    #render :partial => 'group_invitation'
   %>
 <%else%>
+  <!-- <h3><%= t('space.edit_performances') %> &nbsp; </h3> -->
   <div>
     <% for performance in @performances -%>
-      <%= render :partial => 'edit_performance', :locals => {:performance => performance, :user => performance.agent} %>    
+      <%= render :partial => 'edit_performance', :locals => {:performance => performance, :user => performance.agent} %>
     <% end -%>
-	<%= render :partial => 'precrop_logo' %>
-
-	
+    <%= render :partial => 'precrop_logo' %>
   </div>
 <%end%>

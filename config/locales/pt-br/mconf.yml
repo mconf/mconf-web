@@ -1336,13 +1336,18 @@ pt-br:
     name_none: "Um nome deve ser dado para criar uma nova comunidade"
     one: Comunidade
     other: Comunidades
-    people_in_conference: 
+    people_in_conference:
       one: "%{count} participant in the room."
       other: "%{count} participant in the room."
+    edit_performances: Editar permissões
     performances:
       user: Membro
       admin: Administrador
       invited: Convidado
+      tooltips:
+        admin: Administradores podem editar qualquer dado e permissões de membros na comunidade.
+        invited: Membros convidados podem ler conteúdo de um espaço, mas não podem criar eventos ou documentos.
+        user: Membros podem ler conteúdo, criar documentos, comentários e eventos.
     possesion: "Minhas Comunidades"
     private: "Comunidades privadas"
     public: 

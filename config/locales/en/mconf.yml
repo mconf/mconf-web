@@ -1311,13 +1311,18 @@ en:
     name_none: "A space name must be given to create a new space"
     one: Space
     other: Spaces
-    people_in_conference: 
+    people_in_conference:
       one: "%{count} participant in the room."
       other: "%{count} participant in the room."
+    edit_performances: Edit permissions
     performances:
       user: Member
       admin: Administrator
       invited: Invited
+      tooltips:
+        admin: Administrators can do everything and edit permissions on a space.
+        invited: Invited members can read all content from a space, but aren't able to create events or upload documents.
+        user: Regular members can read content, upload documents, create events and comments.
     possesion: "My Spaces"
     private: "Private spaces"
     public: 
