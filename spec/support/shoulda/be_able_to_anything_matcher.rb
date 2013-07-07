@@ -48,7 +48,11 @@ module Shoulda
         end
 
         def description
-          "ensure the subject can do anything to the target"
+          desc = "be able to do anything to the object"
+          unless @exceptions.empty?
+            desc += " expect #{@exceptions}"
+          end
+          desc
         end
 
         def failure_message

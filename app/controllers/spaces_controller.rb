@@ -68,16 +68,27 @@ class SpacesController < ApplicationController
   end
 
   def show
-    @news_position = (params[:news_position] ? params[:news_position].to_i : 0)
+    # news
+    @news_position = params[:news_position] ? params[:news_position].to_i : 0
     @news = @space.news.order("updated_at DESC").all
+    @news_position = @news.length-1 if @news_position >= @news.length
     @news_to_show = @news[@news_position]
-    @posts = @space.posts
-    @lastest_posts = @posts.not_events().where(:parent_id => nil).where('author_id is not null').order("updated_at DESC").first(3)
-    @lastest_users = @space.stage_permissions.sort {|x,y| y.created_at <=> x.created_at }.first(3).map{ |p| p.user }
-    @lastest_users.reject!{ |u| u.nil? }
+
+    # posts
+    posts = @space.posts
+    @latest_posts = posts.not_events().where(:parent_id => nil).where('author_id is not null').order("updated_at DESC").first(3)
+
+    # users
+    @latest_users = @space.stage_permissions.sort {|x,y| y.created_at <=> x.created_at }.first(3).map{ |p| p.user }
+    @latest_users.reject!{ |u| u.nil? }
+
+    # events
     @upcoming_events = @space.events.order("start_date ASC").all.select{ |e| e.start_date && e.start_date.future? }.first(5)
-    @permission = Permission.where(:user_id => current_user, :subject_id => @space, :subject_type => 'Space').first
     @current_events = (Event.in(@space).all :order => "start_date ASC").select{|e| e.start_date && !e.start_date.future? && e.end_date.future?}
+
+    # role of the current user
+    @permission = Permission.where(:user_id => current_user, :subject_id => @space, :subject_type => 'Space').first
+
     respond_to do |format|
       format.html { render :layout => 'spaces_show' }
       format.js {
@@ -177,7 +188,7 @@ class SpacesController < ApplicationController
           redirect_to manage_spaces_path
         else
           flash[:notice] = t('space.deleted')
-          redirect_to(spaces_url)
+          redirect_to(spaces_path)
         end
       }
     end

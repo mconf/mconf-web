@@ -5,10 +5,10 @@
       = link_to t('post.latest'), space_posts_path(@space)
 
   .content-block-middle
-    - if @lastest_posts.empty?
+    - if @latest_posts.empty?
       %span= t('post.none_recent')
     - else
-      - for post in @lastest_posts
+      - for post in @latest_posts
         .post-wrapper
           .logo-in-thread
             = link_logo(post.author, :size => 32, :url => user_path(post.author), :title => post.author.name).html_safe

@@ -7,6 +7,9 @@
 
 class Space < ActiveRecord::Base
 
+  # TODO: temporary, review
+  USER_ROLES = ["Admin", "User"]
+
   TMP_PATH = File.join(PathHelpers.images_full_path, "tmp")
 
   has_many :posts,  :dependent => :destroy

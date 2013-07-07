@@ -5,7 +5,7 @@
       = link_to t('user.recent_join'), space_users_path(@space)
 
   .content-block-middle
-    - for user in @lastest_users
+    - for user in @latest_users
       = render :partial => 'users/detailed_user', :locals => { :user => user }
 
   .content-block-footer
