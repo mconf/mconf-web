@@ -21,12 +21,14 @@ class HomesController < ApplicationController
     rescue BigBlueButton::BigBlueButtonException
     end
 
-    unless current_user.spaces.empty?
+    @user_spaces = current_user.spaces
+
+    unless @user_spaces.empty?
       @today_events = Event.
         within(DateTime.now.beginning_of_day, DateTime.now.end_of_day).
-        in(current_user.spaces).
+        in(@user_spaces).
         order("start_date ASC").all
-      @upcoming_events = Event.in(current_user.spaces).
+      @upcoming_events = Event.in(@user_spaces).
         where('end_date >= ?', DateTime.now.end_of_day).
         limit(5).order("start_date ASC").all
     end
@@ -36,7 +38,7 @@ class HomesController < ApplicationController
     @contents_per_page = params[:per_page] || 15
     @contents = params[:contents].present? ? params[:contents].split(",").map(&:to_sym) : Space.contents
     @all_contents = ActiveRecord::Content.paginate({ :page => params[:page], :per_page => @contents_per_page.to_i, :order => 'updated_at DESC' },
-                                                   { :containers => current_user.spaces, :contents => @contents} )
+                                                   { :containers => @user_spaces, :contents => @contents} )
     @private_messages = current_user.unread_private_messages
   end
 

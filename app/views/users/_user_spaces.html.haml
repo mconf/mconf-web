@@ -1,15 +1,18 @@
--# locals: user
+-# locals:
+-#  user (User)
+-#  spaces (array of Space)
 
-.content-block-middle.clearfix
-  - if user.spaces.empty?
-    %p.no-spaces
-      = t('home.no_spaces', :link => spaces_path).html_safe
-  - else
-    %ul.space-list
-      - user.spaces.each do |space|
-        %li
+- if spaces.empty?
+  %p
+    = t('home.no_spaces', :link => spaces_path).html_safe
+
+- else
+  .user-spaces
+    - spaces.each do |space|
+      %li.user-space-wrapper
+        .user-space
           .space-logo
-            - space_logo = logo(space, :size => "h32", :title => space.name).html_safe
+            - space_logo = logo(space, :size => "h96", :title => space.name).html_safe
             - if user.ability.can?(:read, space)
               = link_to space_path(space) do
                 = space_logo

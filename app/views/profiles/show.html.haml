@@ -25,4 +25,5 @@
     #users-user-spaces.content-block
       .content-block-header
         %h3= t('space.other')
-      = render 'users/user_spaces', :user => @user
+      .content-block-middle
+        = render 'users/user_spaces', :user => @user, :spaces => @user_spaces

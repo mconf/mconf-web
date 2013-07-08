@@ -32,10 +32,11 @@ class UsersController < ApplicationController
   def show
     user
 
-    if @user.spaces.size > 0
-      @recent_activity = ActiveRecord::Content.paginate({ :page=>params[:page], :per_page=>15, :order=>'updated_at DESC', :conditions => {:author_id => @user.id, :author_type => "User"} },{:containers => @user.spaces, :contents => [:posts, :events, :attachments]})
+    @user_spaces = @user.spaces
+    if @user_spaces.size > 0
+      @recent_activity = ActiveRecord::Content.paginate({ :page=>params[:page], :per_page=>15, :order=>'updated_at DESC', :conditions => {:author_id => @user.id, :author_type => "User"} },{:containers => @user_spaces, :contents => [:posts, :events, :attachments]})
     else
-      @recent_activity = ActiveRecord::Content.paginate({ :page=>params[:page], :per_page=>15, :order=>'updated_at DESC' },{:containers => @user.spaces, :contents => [:posts, :events, :attachments]})
+      @recent_activity = ActiveRecord::Content.paginate({ :page=>params[:page], :per_page=>15, :order=>'updated_at DESC' },{:containers => @user_spaces, :contents => [:posts, :events, :attachments]})
     end
 
     @profile = user.profile!

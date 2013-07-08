@@ -696,7 +696,7 @@ ul#navbar-right-links {
   }
 
   .toolbar {
-    margin-top: 10px;
+    margin-bottom: 10px;
     padding: 5px 10px;
     background: $light-gray;
     @include border-radius(4px);
@@ -786,6 +786,17 @@ ul#navbar-right-links {
   .content-block-header {
     img { float: left; }
     h3 { float: left; margin: -3px 4px 0 4px; }
+
+    .toolbar {
+      margin-right: 10px;
+      float: right;
+
+      a { margin-right: 10px; }
+    }
+
+    .icon {
+      margin-top: 0;
+    }
   }
 
   .help-icon {

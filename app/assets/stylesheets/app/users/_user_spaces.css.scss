@@ -1,37 +1,43 @@
 @import "compass/css3";
 @import "definitions";
 
-#users-user-spaces {
-  .no-spaces { text-align: center; }
+.user-spaces {
+  clear: both;
+  @include mconf-clearfix;
 
-  .space-list {
-    margin: 0;
+  .user-space-wrapper {
+    background: $light-gray;
+    padding: 5px;
+    margin: 10px 10px 0 0;
+    @include border-radius(4px);
+    @include mconf-clearfix;
+    float: left;
 
-    li {
-      text-align: left;
-      position: relative;
-      display: block;
-      margin-right: 5px;
-      margin-top: 10px;
-      float: left;
-      width: 170px;
-    }
+    .user-space {
+      border: 1px solid darken($light-gray, 12);
+      @include border-radius(4px);
+      background: white;
+      width: 120px;
+      text-align: center;
 
-    .space-logo {
-      @include logo-in-thread;
-      margin-top: 2px;
-    }
+      .space-logo {
+        background: darken($light-gray, 7);
+        padding: 10px;
 
-    .description-box {
-      float: left;
-      width: 110px;
-      overflow: hidden;
+        img {
+          @include border-radius(4px);
+          border: 1px solid darken($light-gray, 12);
+        }
+      }
 
-      .space-title {
-        font-weight: bold;
-        display: block;
-        white-space: nowrap;
+      .description-box {
+        margin: 5px;
         overflow: hidden;
+
+        .space-title {
+          display: block;
+          white-space: nowrap;
+        }
       }
     }
   }
