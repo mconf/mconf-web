@@ -22,9 +22,7 @@ class PrivateMessage < ActiveRecord::Base
 
   acts_as_resource :per_page => 10
 
-  validates_presence_of :receiver_id , :title, :body,
-                          :message => "must be specified"
-
+  validates_presence_of :receiver_id , :title, :body
   scope :inbox, lambda{ |user|
     user_id = case user
               when User

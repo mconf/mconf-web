@@ -10,14 +10,22 @@ pt-br:
   action: 
     other: Ações
   actions: Ações
-  activerecord: 
-    attributes: 
-      spaces: 
+  activerecord:
+    models:
+      private_message: Mensagem
+    attributes:
+      spaces:
         attendee_password: "Senha de Participante"
         moderator_password: "Senha do Moderador"
-    errors: 
-      messages: 
+      private_message:
+         title: Título
+         receiver_id: Destinatário
+         body: Corpo
+    errors:
+      messages:
+        blank: " deve ser incluido"
         missing: "não encontrado"
+
   address: Endereço
   admin: 
     one: Administrador

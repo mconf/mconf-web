@@ -18,19 +18,13 @@
 class PrivateMessagesController < ApplicationController
 
   before_filter :private_message, :only => [:show, :edit, :update, :destroy]
+  before_filter :fetch_private_messages, :only => [:index]
 
   authorization_filter [ :manage, :message ], :user, :except => [ :show ]
   authorization_filter :read, :private_message, :only => [ :show ]
   authorization_filter [ :forbidden_edit, :message ], :user, :only => [ :edit ]
 
   def index
-    if params[:sent_messages]
-      @private_messages = PrivateMessage.sent(user).paginate(:page => params[:page], :per_page => 10)
-    else
-      @private_messages = PrivateMessage.inbox(user).paginate(:page => params[:page], :per_page => 10)
-    end
-    
-
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @private_messages }
@@ -98,7 +92,9 @@ class PrivateMessagesController < ApplicationController
           format.html { redirect_to request.referer }
           format.xml  { render :xml => @private_message, :status => :created, :location => @private_message }
         else
-          format.html { render :action => "new" }
+          # We have to do this here to show the error messages, and also do the index logic
+          fetch_private_messages
+          format.html { render :action => "index" }
           format.xml  { render :xml => @private_message.errors, :status => :unprocessable_entity }
         end
       end
@@ -139,8 +135,17 @@ class PrivateMessagesController < ApplicationController
   def user
     @user ||= User.find_with_param(params[:user_id])
   end
-  
+
   def private_message
     @private_message = PrivateMessage.find(params[:id])
   end
+
+  def fetch_private_messages
+    if params[:sent_messages]
+      @private_messages = PrivateMessage.sent(user).paginate(:page => params[:page], :per_page => 10)
+    else
+      @private_messages = PrivateMessage.inbox(user).paginate(:page => params[:page], :per_page => 10)
+    end
+  end
+
 end
