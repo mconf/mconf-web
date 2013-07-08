@@ -10,15 +10,14 @@ class Space < ActiveRecord::Base
   # TODO: temporary, review
   USER_ROLES = ["Admin", "User"]
 
-  TMP_PATH = File.join(PathHelpers.images_full_path, "tmp")
-
-  has_many :posts,  :dependent => :destroy
+  has_many :posts, :dependent => :destroy
   has_many :events, :dependent => :destroy
   has_many :news, :dependent => :destroy
   has_many :attachments, :dependent => :destroy
-  has_many :tags, :dependent => :destroy, :as => :container
-  has_logo
   has_one :bigbluebutton_room, :as => :owner, :dependent => :destroy
+
+  has_logo
+
   extend FriendlyId
   friendly_id :name, :use => :slugged, :slug_column => :permalink
 
@@ -35,6 +34,7 @@ class Space < ActiveRecord::Base
   acts_as_container :contents => [ :news, :posts, :attachments, :events ]
   acts_as_stage
 
+  # TODO: review all accessors, if we still need them
   attr_accessor :invitation_ids
   attr_accessor :invitation_mails
   attr_accessor :invite_msg
@@ -85,7 +85,7 @@ class Space < ActiveRecord::Base
   end
 
   # Returns the next 'count' events (starting in the current date) in this space.
-  def upcoming_events(count)
+  def upcoming_events(count=5)
     self.events.upcoming.first(5)
   end
 
@@ -108,6 +108,8 @@ class Space < ActiveRecord::Base
     end
   end
 
+  scope :public, lambda { where(:public => true) }
+
   #-#-#
 
   after_save do |space|
@@ -129,18 +131,9 @@ class Space < ActiveRecord::Base
         i
       }.each(&:save)
     end
-=begin
-    if space.group_invitation_mails
-      space.group_invitation_mails.each { |mail|
-        Informer.deliver_space_group_invitation(space,mail)
-      }
-    end
-=end
   end
 
-
   def resize path, size
-
     f = File.open(path)
     img = Magick::Image.read(f).first
     if img.columns > img.rows && img.columns > size
@@ -152,9 +145,7 @@ class Space < ActiveRecord::Base
       f.close
       resized.write("png:" + path)
     end
-
   end
-
 
   def update_logo
     return unless @default_logo.present?
@@ -184,18 +175,11 @@ class Space < ActiveRecord::Base
     if @rand_value != nil
       final_path = FileUtils.rm_rf(tmp_path + "/#{@rand_value}")
     end
-
   end
 
   def logo_mi
     return unless @default_logo.present?
   end
-
-
-  scope :public, lambda {
-    where(:public => true)
-  }
-
 
   def self.find_with_disabled *args
     self.with_exclusive_scope { find(*args) }
