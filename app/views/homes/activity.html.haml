@@ -1,0 +1,4 @@
+= content_for :page_header do
+  = render :partial => "page_header"
+
+= render "users/recent_activity", :content => @all_contents, :paginate => true

@@ -14,15 +14,17 @@
     float: left;
 
     .user-space {
+      @include mconf-clearfix;
       border: 1px solid darken($light-gray, 12);
       @include border-radius(4px);
       background: white;
-      width: 120px;
       text-align: center;
 
       .space-logo {
         background: darken($light-gray, 7);
-        padding: 10px;
+        padding: 5px;
+        width: 70px;
+        float: left;
 
         img {
           @include border-radius(4px);
@@ -33,6 +35,8 @@
       .description-box {
         margin: 5px;
         overflow: hidden;
+        width: 120px;
+        float: left;
 
         .space-title {
           display: block;

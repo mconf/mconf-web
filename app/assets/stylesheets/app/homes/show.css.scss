@@ -8,7 +8,7 @@
 @import "app/invites/invite_room";
 @import "app/custom_bigbluebutton_rooms/join_mobile";
 
-body.homes.show {
+body.homes.show, body.homes.activity {
 
   $second-content-bg-color: darken($light-gray, 2);;
   $page-header-right-width: 500px;
@@ -144,21 +144,6 @@ body.homes.show {
         border: 0;
         padding: 5px 10px;
       }
-    }
-  }
-
-  #users-user-spaces {
-    .toolbar {
-      a {
-        display: block;
-      }
-      //.all-spaces {
-      //  float: left;
-      //}
-    }
-
-    .space-list li {
-      margin-top: 3px; // reduce a little bit the spacing
     }
   }
 

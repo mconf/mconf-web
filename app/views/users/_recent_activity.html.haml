@@ -1,4 +1,9 @@
--# locals: content, items_per_page
+- paginate = true if paginate.nil?
+
+-# locals:
+-#   content (array of models)
+-#   items_per_page (integer)
+-#   paginate (boolean)
 
 #users-recent-activity.content-block
 
@@ -21,25 +26,9 @@
     -#   = t('per_page')
 
   #users-recent-activity-content.content-block-middle
-    - if content.empty?
-      = t('recent_activity.empty')
-    - else
-      - for interval in intervals(content) do
-        - unless interval[:contents].empty?
-          %span.interval-title= interval[:name]
-        - interval[:contents].each do |item|
-          - case item
-          - when Post
-            = render "posts/unified_post", :thread => item.reload, :show_space => true
-          - when Event
-            = render "events/unified_event", :event => item.reload
-          - when News
-            = render "news/unified_news", :news => item.reload
-          - when Attachment
-            - item = item.reload
-            - if item.post.blank?
-              = render "attachments/unified_attachment", :attachment => item
-    -# TODO: use js to change the pages
-    - unless content.empty?
-      .content-block-footer
-        = page_navigation_links content
+    = render "users/recent_activity_content", :content => content, :paginate => paginate
+
+  -# TODO: use js to change the pages
+  - if not content.empty? and paginate
+    .content-block-footer
+      = page_navigation_links content

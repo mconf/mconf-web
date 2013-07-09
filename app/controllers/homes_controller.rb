@@ -11,6 +11,8 @@ class HomesController < ApplicationController
   respond_to :json, :only => [:user_rooms]
   respond_to :html, :except => [:user_rooms]
 
+  layout "no_sidebar", :only => :activity
+
   def index
   end
 
@@ -35,11 +37,25 @@ class HomesController < ApplicationController
 
     @update_act = params[:contents] ? true : false
 
-    @contents_per_page = params[:per_page] || 15
+    @contents_per_page = 3
+    @contents = params[:contents].present? ? params[:contents].split(",").map(&:to_sym) : Space.contents
+    @all_contents = ActiveRecord::Content.all({ :limit => @contents_per_page.to_i, :order => 'updated_at DESC' },
+                                              { :containers => @user_spaces, :contents => @contents} )
+    @private_messages = current_user.unread_private_messages
+  end
+
+  def activity
+    @room = current_user.bigbluebutton_room
+    begin
+      @room.fetch_meeting_info
+    rescue BigBlueButton::BigBlueButtonException
+    end
+    @user_spaces = current_user.spaces
+    @update_act = params[:contents] ? true : false
+    @contents_per_page = params[:per_page] || 20
     @contents = params[:contents].present? ? params[:contents].split(",").map(&:to_sym) : Space.contents
     @all_contents = ActiveRecord::Content.paginate({ :page => params[:page], :per_page => @contents_per_page.to_i, :order => 'updated_at DESC' },
                                                    { :containers => @user_spaces, :contents => @contents} )
-    @private_messages = current_user.unread_private_messages
   end
 
   # renders a json with the webconference rooms accessible to the current user

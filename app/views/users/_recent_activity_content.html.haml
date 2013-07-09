@@ -1,0 +1,25 @@
+- paginate = true if paginate.nil?
+
+-# locals:
+-#   content (array of models)
+-#   items_per_page (integer)
+-#   paginate (boolean)
+
+- if content.empty?
+  = t('recent_activity.empty')
+- else
+  - for interval in intervals(content) do
+    - unless interval[:contents].empty?
+      %span.interval-title= interval[:name]
+    - interval[:contents].each do |item|
+      - case item
+      - when Post
+        = render "posts/unified_post", :thread => item.reload, :show_space => true
+      - when Event
+        = render "events/unified_event", :event => item.reload
+      - when News
+        = render "news/unified_news", :news => item.reload
+      - when Attachment
+        - item = item.reload
+        - if item.post.blank?
+          = render "attachments/unified_attachment", :attachment => item

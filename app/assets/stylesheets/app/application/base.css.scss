@@ -334,7 +334,7 @@ form {
 /* Simplified version */
 #upper-footer-wrapper.simple-footer {
   background: none;
-  border: 0;;
+  border: 0;
   @include box-shadow(none);
 
   #upper-footer {
@@ -784,8 +784,9 @@ ul#navbar-right-links {
   }
 
   .content-block-header {
+    @include mconf-clearfix;
     img { float: left; }
-    h3 { float: left; margin: -3px 4px 0 4px; }
+    h3 { float: left; margin: 0 4px; }
 
     .toolbar {
       margin-right: 10px;
@@ -794,9 +795,6 @@ ul#navbar-right-links {
       a { margin-right: 10px; }
     }
 
-    .icon {
-      margin-top: 0;
-    }
   }
 
   .help-icon {

@@ -161,6 +161,7 @@ Mconf::Application.routes.draw do
   resource :home do
     member do
       get :user_rooms
+      get :activity
     end
   end
 

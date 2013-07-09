@@ -630,6 +630,11 @@ en:
           one: "Your webconference is in progress with %{count} participant!"
           other: "Your webconference is in progress with %{count} participants!"
       your_url: "Your URL"
+  homes:
+    show:
+      create_space: "Create a new space"
+      view_all_activity: "View all your activity"
+      view_all_spaces: "View all spaces"
   icalendar: 
     error_import: "An error ocurred while importing the iCalendar."
     import: "Import iCalendar"

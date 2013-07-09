@@ -607,6 +607,11 @@ pt-br:
         one: "ativa com %{count} participante"
         other: "ativa com %{count} participantes"
     view_invite_url: "Ver URL para convites"
+  homes:
+    show:
+      create_space: "Criar uma nova comunidade"
+      view_all_activity: "Ver todas suas atividades"
+      view_all_spaces: "Ver todas comunidades"
   icalendar:
     error_import: "Ocorreu um erro ao importar o iCalendar."
     import: "Importar iCalendar"
