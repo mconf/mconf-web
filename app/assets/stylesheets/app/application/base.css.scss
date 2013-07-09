@@ -126,7 +126,11 @@ form {
 // Unified style for threads: posts, news, attachments
 .thread {
   clear: both;
-  padding: 10px;
+  padding: 10px 5px 10px 10px;
+
+  &:hover {
+    border-right: 5px solid $second-color;
+  }
 
   .thread-content {
     margin-left: 60px;
@@ -170,8 +174,10 @@ form {
     padding: 0;
     @include mconf-clearfix;
     @include border-radius(4px);
-    border: 1px solid darken($alert-info-bg, 7);
-    background: lighten($alert-info-bg, 5);
+    background: #222;
+    opacity: 0.8;
+
+    a { @include link-colors(white, $link-color-hover, $link-color-active); }
 
     li {
       margin: 0;
@@ -415,6 +421,7 @@ ul#navbar-left-links {
 
     a { float: left; }
     &.last { border: 0; }
+    .label { margin-left: 3px; }
   }
 }
 

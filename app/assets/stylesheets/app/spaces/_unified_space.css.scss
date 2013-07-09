@@ -4,13 +4,14 @@
 .thread-space {
 
   .thread-content {
-    .is_member {
-      max-width: 120px;
+    .is-member {
+      font-size: $font-small;
       text-align: center;
-      color: #509F00;
       float: right;
-      font-style: normal;
+      font-weight: normal;
       margin: 10px;
+      background: #333;
+      opacity: 0.8;
     }
   }
 

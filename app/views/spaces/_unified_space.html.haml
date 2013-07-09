@@ -5,7 +5,7 @@
 
     .thread-content
       - if space.users.include?(current_user)
-        %span.is_member= t('.user_is_member')
+        %span.is-member.label= t('.user_is_member')
       .thread-title
         %h3
           = link_to sanitize(space.name), space_path(space)

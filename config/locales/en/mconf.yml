@@ -757,6 +757,9 @@ en:
   last_week: "Last week"
   latest_events: "Latest events"
   latest_news: "Latest news"
+  layouts:
+    application_navbar:
+      inbox: "Inbox"
   less: "less..."
   locale: 
     changed: "Application language changed to "
@@ -1218,7 +1221,7 @@ en:
       private: "private"
       public: "public"
     unified_space: 
-      user_is_member: "You're a member of this space"
+      user_is_member: "You're a member"
   spam: 
     created: "A reporting spam e-mail has been successfully sent to the admin. Thank you"
     default: spam

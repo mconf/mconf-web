@@ -733,6 +733,9 @@ pt-br:
   last_week: "Semana passada"
   latest_events: "Últimos eventos"
   latest_news: "Últimas notícias"
+  layouts:
+    application_navbar:
+      inbox: "Caixa de entrada"
   less: "menos..."
   locale:
     changed: "Idioma da aplicação alterado para "
@@ -1179,7 +1182,7 @@ pt-br:
       private: "privada"
       public: "pública"
     unified_space: 
-      user_is_member: "Você é membro desta comunidade"
+      user_is_member: "Você é um membro"
   spam:
     created: "Um e-mail de notificação de spam foi enviado com sucesso para o administrador. Obrigado"
     default: spam
