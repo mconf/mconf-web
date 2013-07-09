@@ -23,4 +23,13 @@
               = link_to first_words(space.name, 20), space_path(space), :title => space.name, :class => "space-title"
             - else
               %span{:title => space.name, :class => "space-title"}= first_words(space.name, 20)
-            %span.description= t('members', :count => space.actors.count)
+            .description
+              %span= t('members', :count => space.actors.count)
+              - if space.public
+                %span.visibility.public
+                  %i.icon-eye-open
+                  = t(".public")
+              - else
+                %span.visibility.private
+                  %i.icon-lock
+                  = t(".private")
