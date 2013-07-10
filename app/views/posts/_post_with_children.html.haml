@@ -1,4 +1,4 @@
-#post_with_children.thread
+.thread.thread-with-children
   .thread_content{:id => "parent-#{post.id}"}
     %ul.thread-action-links
       - if can?(:create, @space.posts.build)

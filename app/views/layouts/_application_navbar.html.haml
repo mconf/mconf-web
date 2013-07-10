@@ -5,22 +5,29 @@
 %ul#navbar-left-links
   - if user_signed_in?
     %li
-      = image_tag('icons/my-home-16x16.png', :size => '16x16', :class => 'icon')
-      = link_to t('home.my'), home_path
+      = link_to home_path do
+        %i.icon-home
+        = t('home.my')
     %li
       = link_to user_messages_path(current_user) do
         = t('.inbox')
         .label.label-info= current_user.unread_private_messages.size
     - if current_user.superuser?
       %li= link_to t('space.all'), spaces_path
-      %li.last= link_to t('manage'), site_path
+      %li.last.management-section
+        = link_to site_path do
+          %i.icon-asterisk
+          = t('manage')
     - else
       %li.last= link_to t('space.all'), spaces_path
 
 -# the right menu is not shown in the home page
 - if at_home?
   %ul#navbar-right-links
-    %li.last= link_to t('logout', :user => current_user.name), logout_path
+    %li.last
+      = link_to logout_path do
+        %i.icon-off
+        = t('logout', :user => current_user.name)
 - else
   %ul#navbar-right-links
     - if user_signed_in?

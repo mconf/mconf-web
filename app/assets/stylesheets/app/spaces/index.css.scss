@@ -82,7 +82,7 @@ body.spaces.index {
       }
 
       &.selected .thread {
-        border-right: 5px solid $second-color;
+        border-right: 5px solid #aaa;/* $second-color; */
         padding-right: 0;
       }
 
