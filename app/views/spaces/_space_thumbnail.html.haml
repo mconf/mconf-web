@@ -1,0 +1,28 @@
+-# locals:
+-#  space (Space)
+-#  user (User): target user, usually the current user
+
+.space-thumbnail-wrapper
+  .space-thumbnail
+    .space-logo
+      - space_logo = logo(space, :size => "h64", :title => space.name).html_safe
+      - if user.ability.can?(:read, space)
+        = link_to space_path(space) do
+          = space_logo
+      - else
+        = space_logo
+    .space-description
+      - if user.ability.can?(:read, space)
+        = link_to first_words(space.name, 20), space_path(space), :title => space.name, :class => "space-title"
+      - else
+        %span{:title => space.name, :class => "space-title"}= first_words(space.name, 20)
+      .description
+        %span= t('members', :count => space.actors.count)
+        - if space.public
+          %span.visibility.public
+            %i.icon-eye-open
+            = t(".public")
+        - else
+          %span.visibility.private
+            %i.icon-lock
+            = t(".private")

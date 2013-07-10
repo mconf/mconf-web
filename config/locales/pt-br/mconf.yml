@@ -1175,6 +1175,9 @@ pt-br:
       list_format: 
         list: "Mostrar como lista"
         thumbnails: "Mostrar como imagens"
+    space_thumbnail:
+      private: "privada"
+      public: "pública"
     unified_space: 
       user_is_member: "Você é membro desta comunidade"
   spam:
@@ -1360,10 +1363,6 @@ pt-br:
     updated: "Usuário atualizado com sucesso"
     vcc_email: "E-mail do usuário Mconf %{dir}"
     view_expanded_posts: "Mostrar mensagens no mural com a visão expandida por padrão"
-  users:
-    user_spaces:
-      private: "privada"
-      public: "pública"
   username: "Nome de usuário"
   vCard:
     corrupt: "O vCard que você enviou está corrompido ou é uma versão não suportada"

@@ -2,6 +2,7 @@
 @import "definitions";
 
 @import "app/spaces/_unified_space";
+@import "app/spaces/space_thumbnail";
 
 body.spaces.index {
 
@@ -75,7 +76,7 @@ body.spaces.index {
 
   #public-spaces, #private-spaces {
 
-    .space-item.list {
+    .space-item.space-list {
       .thread {
         padding-right: 5px;
       }
@@ -91,23 +92,22 @@ body.spaces.index {
       }
     }
 
-    .space-item.thumbnail {
-      float: left;
-      padding: 2px;
-      margin: 5px;
-      border: 1px solid #ccc;
-      height: 64px;
-      @include border-radius(2px);
+    .space-thumbnail-list {
+      margin: 0;
+      padding: 0;
+      clear: both;
+      @include mconf-clearfix;
 
-      img {
-        width: 84px;
-        height: 64px;
+      li {
+        margin: 0;
+        padding: 0;
       }
 
-      &.selected {
-        border: 1px solid $second-color;
-        background: lighten($second-color, 35);
-        @include box-shadow(0 0 15px $second-color);
+      .space-item.selected {
+        .space-thumbnail {
+          border-color: $second-color;
+          @include box-shadow(0 0 5px lighten($second-color, 10));
+        }
       }
     }
 
