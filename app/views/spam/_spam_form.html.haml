@@ -1,12 +1,15 @@
+-# locals:
+-#   url (string): URL to submit the form to
+
 #spam-report
   %h1= t('spam.report')
   #spam-message
-    = simple_form_for :spam, :url => spam_space_post_path(@space, @post), :html => { :class => "single-column" } do |f|
+    = simple_form_for :spam, :url => url, :html => { :class => "single-column" } do |f|
       .input
         %label{:for => "subject"}
           = t('subject')
         = text_field_tag "subject", t('spam.detected'), :disabled => true, :class => "string"
       = f.input :body, :label => t('comment.other'), :as => :text
       .form-actions
-        = f.button :submit, t('spam.report'), :class => "btn btn-primary"
+        = f.button :submit, t('spam.report'), :class => "btn btn-danger"
         = link_to t("cancel"), "#", :class => "btn close-dialog"

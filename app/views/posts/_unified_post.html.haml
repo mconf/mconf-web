@@ -16,7 +16,7 @@
       - if can?(:destroy, thread)
         %li= link_to t('remove').downcase, space_post_path(thread.space,thread), {:method => :delete, :title => t('delete.one'), :confirm => t('delete.confirm', :element => thread.title) }
       - if user_signed_in? and !thread.spam
-        %li= link_to t('spam.default').downcase, spam_lightbox_space_post_path(thread.space,thread), { :name => thread.id, :title => t('spam.report'), :class => "spam-report" }
+        %li= link_to t('spam.default').downcase, spam_report_space_post_path(thread.space,thread), { :name => thread.id, :title => t('spam.report'), :class => "spam-report" }
 
     .thread-title
       = comment_icon t('post.home.one', :space => thread.space.name)

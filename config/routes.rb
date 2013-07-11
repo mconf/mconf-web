@@ -76,8 +76,8 @@ Mconf::Application.routes.draw do
     resources :events do
 
       member do
-        post :spam
-        get :spam_lightbox
+        post :spam_report, :action => :spam_report_create
+        get :spam_report
       end
 
       collection do
@@ -99,8 +99,8 @@ Mconf::Application.routes.draw do
     resources :posts do
       member do
         get :reply_post
-        post :spam
-        get :spam_lightbox
+        post :spam_report, :action => :spam_report_create
+        get :spam_report
       end
     end
 

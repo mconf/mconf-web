@@ -8,7 +8,7 @@
 
 module SpamControllerModule
 
-  def spam
+  def spam_report_create
     @spam = resource
     @spam.update_attribute(:spam, true)
       if @spam.save
@@ -29,7 +29,7 @@ module SpamControllerModule
       end
   end
 
-  def spam_lightbox
+  def spam_report
     resource
     if request.xhr?
       render :layout => false
