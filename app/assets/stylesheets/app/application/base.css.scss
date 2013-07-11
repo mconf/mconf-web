@@ -141,6 +141,10 @@ form {
 
   .thread-content {
     margin-left: 60px;
+
+    &.thread-content-full {
+      margin-left: 0;
+    }
   }
 
   .thread-title {

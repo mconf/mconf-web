@@ -1,6 +1,7 @@
 .thread{ :class => "#{event.is_happening_now? ? 'single_event current_single_event' : 'single_event'}" }
   %h2
-    = @event.title
+    = spam_icon() if @event.spam
+    %span= @event.title
   .logo-in-thread
     = render :partial => "event_logo", :locals => { :event => @event }
 

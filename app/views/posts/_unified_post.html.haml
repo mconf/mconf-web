@@ -20,15 +20,15 @@
 
     .thread-title
       = comment_icon t('post.home.one', :space => thread.space.name)
+      = spam_icon() if thread.spam
       - if thread.author
         = link_to thread.author.name, user_path(thread.author), { :class => "thread-author" }
       = t('post.posted')
       = link_to first_words(thread.title, 30), space_post_path(thread.space, thread)
       - unless thread.children.empty?
-        %span{ :title => t('thread.comments', :children => thread.children.size)}
+        %span
           = "(" + t('thread.comments', :children => thread.children.size) + ")"
       %span.thread-updated-at= t('updated_time_ago', :time => time_ago_in_words(thread.updated_at))
-      = spam_icon() if thread.spam
 
     - if show_space
       .thread-title

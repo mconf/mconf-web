@@ -1,1 +1,8 @@
-@import "app/posts/thread";
+body.posts.show {
+  .thread-title {
+    .icon {
+      margin-top: 6px;
+      margin-right: 6px;
+    }
+  }
+}
