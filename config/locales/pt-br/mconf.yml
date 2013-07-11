@@ -1176,8 +1176,8 @@ pt-br:
   spaces: 
     index: 
       list_format: 
-        list: "Mostrar como lista"
-        thumbnails: "Mostrar como imagens"
+        list: "Lista"
+        thumbnails: "Miniaturas"
     space_thumbnail:
       private: "privada"
       public: "pública"

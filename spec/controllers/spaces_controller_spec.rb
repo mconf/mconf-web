@@ -188,9 +188,9 @@ describe SpacesController do
   end
 
   describe "#index" do
-    it "sets param[:view] to 'list' if not set"
-    it "sets param[:view] to 'list' if different than 'thumbnails'"
-    it "uses param[:view] as 'thumbanils' if already set to this value"
+    it "sets param[:view] to 'thumbnails' if not set"
+    it "sets param[:view] to 'thumbnails' if different than 'list'"
+    it "uses param[:view] as 'list' if already set to this value"
     # TODO: there's a lot more to test here
   end
 

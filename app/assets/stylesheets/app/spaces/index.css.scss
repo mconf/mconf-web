@@ -18,7 +18,7 @@ body.spaces.index {
     @include border-radius(5px);
     text-align: center;
 
-    .action-button {
+    .view-types {
       float: right;
       margin-top: 1px;
       margin-right: 10px;
@@ -31,15 +31,9 @@ body.spaces.index {
       #space-filter-text {
         border-left: 0;
         margin: 0;
-        margin-bottom: 1px;
         @include border-left-radius(0);
       }
     }
-  }
-
-  #space-list-formats {
-    float: right;
-    margin-bottom: 10px;
   }
 
   #space-description-wrapper {
@@ -82,7 +76,7 @@ body.spaces.index {
       }
 
       &.selected .thread {
-        border-right: 5px solid #aaa;/* $second-color; */
+        border-right: 5px solid #aaa;
         padding-right: 0;
       }
 

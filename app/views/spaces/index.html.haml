@@ -1,6 +1,14 @@
 = render_page_title t('space.all')
 
 = content_for :sidebar do
+
+  .sidebar-top-action-button
+    - if user_signed_in?
+      = link_to t('space.create_own'), new_space_path, :class => "btn btn-primary btn-large btn-block"
+    - else
+      = t('getting_started')
+      = link_to t('register.one'), register_path, :class => "btn btn-primary"
+
   = render_sidebar_content_block('space-description-wrapper') do
     .content-block-middle
       %p= t('space.index.select_at_left')
@@ -21,12 +29,12 @@
           = link_to t('more'), space_path(space)
 
 #space-filter-wrapper
-  .action-button
-    - if user_signed_in?
-      = link_to t('space.create_own'), new_space_path, :class => "btn btn-primary"
-    - else
-      = t('getting_started')
-      = link_to t('register.one'), register_path, :class => "btn btn-primary"
+  .view-types
+    .btn-group{ :"data-toggle" => "buttons-radio" }
+      = link_to spaces_path(:view => 'thumbnails'), :class => "tooltipped btn btn-small #{'active' if params[:view] == 'thumbnails'}" do
+        = t('.list_format.thumbnails')
+      = link_to spaces_path(:view => 'list'), :class => "tooltipped btn btn-small #{'active' if params[:view] == 'list'}" do
+        = t('.list_format.list')
 
   .btn-group{ :"data-toggle" => "buttons-radio" }
     = button_tag t('space.index.filters.all'), :id => "show-spaces-all", :class => "btn active"
@@ -35,12 +43,7 @@
     = button_tag t('space.index.filters.filter'), :id => "show-spaces-filter", :class => "btn"
     = text_field_tag 'space-filter-text', params[:filter], :placeholder => t('search.space.dots')
 
-#space-list-formats
-  .btn-group{ :"data-toggle" => "buttons-radio" }
-    = link_to t('.list_format.list'), spaces_path(:view => 'list'), :class => "btn btn-small #{'active' if params[:view] == 'list'}"
-    = link_to t('.list_format.thumbnails'), spaces_path(:view => 'thumbnails'), :class => "btn btn-small #{'active' if params[:view] == 'thumbnails'}"
-
-- if params[:view] == 'thumbnails'
-  = render "thumbnail_view"
-- else
+- if params[:view] == 'list'
   = render "list_view"
+- else
+  = render "thumbnail_view"

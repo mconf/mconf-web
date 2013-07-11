@@ -1215,8 +1215,8 @@ en:
   spaces: 
     index: 
       list_format: 
-        list: "Show as a list"
-        thumbnails: "Show as thumbnails"
+        list: "List"
+        thumbnails: "Thumbnails"
     space_thumbnail:
       private: "private"
       public: "public"

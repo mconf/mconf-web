@@ -106,18 +106,18 @@ form {
 
 .superuser-icon {
   position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  bottom: 3px;
+  left: 3px;
+  right: 3px;
   margin: 0 auto;
   width: auto;
   white-space: nowrap;
   text-align: center;
   overflow: hidden;
-  background: $alert-danger-bg;
   color: $alert-danger-font;
-  @include border-radius(4px, 0);
-  padding: 2px;
+  @include border-radius(4px);
+  background: white;
+  padding: 1px;
   font-size: $font-small;
 }
 
