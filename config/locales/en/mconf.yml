@@ -631,6 +631,8 @@ en:
           other: "Your webconference is in progress with %{count} participants!"
       your_url: "Your URL"
   homes:
+    page_header:
+      activity_list: "Activity list"
     show:
       create_space: "Create a new space"
       view_all_activity: "View all your activity"

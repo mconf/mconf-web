@@ -608,6 +608,8 @@ pt-br:
         other: "ativa com %{count} participantes"
     view_invite_url: "Ver URL para convites"
   homes:
+    page_header:
+      activity_list: "Lista de atividades"
     show:
       create_space: "Criar uma nova comunidade"
       view_all_activity: "Ver todas suas atividades"

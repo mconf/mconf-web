@@ -19,9 +19,9 @@
             %i.icon-wrench
             = t('account')
         %li
-          = link_to logout_path do
-            %i.icon-off
-            = t('logout', :user => current_user.name)
+          = link_to activity_home_path do
+            %i.icon-list
+            = t('.activity_list')
 
 .right-column
   = render :partial => "webconference_room"
