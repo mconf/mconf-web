@@ -105,6 +105,39 @@
       changeInputTextType("#current_site_smtp_password", 'password');
     }
   });
+
+ $('.site_external_help').qtip({
+   content: '<%= escape_javascript(t('site.external_help_tip')) %>',
+   position: {adjust: { screen: true }},
+   show:  'mouseover',
+   hide: { when: 'mouseout', fixed: true },
+   style: 'mystyle'
+  });
+
+ $('.site_use_recaptcha').qtip({
+   content: '<%= escape_javascript(t('site.use_recaptcha_tip')) %>',
+   position: {adjust: { screen: true }},
+   show:  'mouseover',
+   hide: { when: 'mouseout', fixed: true },
+   style: 'mystyle'
+  });
+
+ $('.site_recaptcha_private_key').qtip({
+   content: '<%= escape_javascript(t('site.recaptcha_private_key_tip')) %>',
+   position: {adjust: { screen: true }},
+   show:  'mouseover',
+   hide: { when: 'mouseout', fixed: true },
+   style: 'mystyle'
+  });
+
+ $('.site_recaptcha_public_key').qtip({
+   content: '<%= escape_javascript(t('site.recaptcha_public_key_tip')) %>',
+   position: {adjust: { screen: true }},
+   show:  'mouseover',
+   hide: { when: 'mouseout', fixed: true },
+   style: 'mystyle'
+  });
+
 <% end %>
 
 
@@ -183,6 +216,11 @@
   </p>
 
   <p>
+    <%= f.label :timezone, t('site.timezone') %>
+    <%= f.time_zone_select :timezone, nil %>
+  </p>
+
+  <p>
     <%= f.label :signature, t('site.signature') %>
     <%= f.text_area :signature %>
   </p>
@@ -249,6 +287,30 @@
     <%= f.label :shib_login_field, t('site.shib_login_field') %>
     <%= f.text_field :shib_login_field %>
     <%= image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_shib_login_field icon",:style=>"cursor:pointer").html_safe %>
+  </p>
+
+  <p>
+    <%= f.label :external_help, t('site.external_help') %>
+    <%= f.text_field :external_help %>
+    <%= image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"site_external_help icon",:style=>"cursor:pointer").html_safe %>
+  </p>
+
+  <p>
+    <%= f.label :use_recaptcha, t('site.use_recaptcha') %>
+    <%= f.check_box :use_recaptcha %>
+    <%= image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"site_use_recaptcha icon",:style=>"cursor:pointer").html_safe %>
+  </p>
+
+  <p>
+    <%= f.label :recaptcha_public_key, t('site.recaptcha_public_key') %>
+    <%= f.text_field :recaptcha_public_key %>
+    <%= image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"site_recaptcha_public_key icon",:style=>"cursor:pointer").html_safe %>
+  </p>
+
+  <p>
+    <%= f.label :recaptcha_private_key, t('site.recaptcha_private_key') %>
+    <%= f.text_field :recaptcha_private_key %>
+    <%= image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"site_recaptcha_private_key icon",:style=>"cursor:pointer").html_safe %>
   </p>
 
   <div id="site_button" class="margin-up">

@@ -4,62 +4,73 @@
 
 <div id="doc_table" class="main_text">
   <% interactive = interactive.nil? ? true : interactive %>
-  <%= collection_table(version_attachment(@attachments)) do |t|
-      if interactive
-        t.header :selector, check_box_tag("select_all_checkbox")
-        t.header :name, sortable_header(t('title'),'filename')
-        t.header :author, sortable_header(t('author'),'author')
-        t.header :updated, sortable_header(t('updated'),'updated_at')
-      else
-        t.header :name, t('title')
-        t.header :author, t('author')
-        t.header :updated, t('updated')
-      end
-      t.header :tags, t("post.one")+"/"+t("tag.other_capital")
-      t.header :actions, t('actions')
 
-      t.rows.each do |row, attachment, index|
-        row[:rel] = "event_#{attachment.event.id}" if attachment.event.present?
-        row.selector        check_box_tag(attachment.id, attachment.id, false, :class => "attachment_checkbox") if interactive
-        if expand_versions_to_array.include?(attachment.version_family_id) && attachment.version_family.size > 1
-          row[:class] += " version_expanded"
+  <% if @attachments.empty? %>
+    <table><tbody>
+      <tr><td>
+        <%= t('attachment.found.none') %>
+      </td></tr>
+    </tbody></table>
+  <% else %>
 
-          name = ""
-          name = link_to(image_tag("down.png"),path_for_attachments({:not_expanded => attachment.version_family_id}), :class => "table_params") if attachment.current_version?
-          name = "<span class=\"version_number\" title=\"#{t('version.one')} #{attachment.version}\">V#{attachment.version}</span> #{attachment_link(attachment)}".html_safe
-          row.name           name.html_safe
+    <%= collection_table(version_attachment(@attachments)) do |t|
 
-          row.author         link_to attachment.author.name, user_path(attachment.author)
-          row.updated        "<span title=\"#{l(attachment.updated_at, :format => :long)}\">#{l(attachment.updated_at.to_date)}</span>".html_safe
-
-          tags = ""
-          tags = tags + link_to("event", space_event_path(attachment.space, attachment.event), :class => "event_in_tags", :title => attachment.event.name) if attachment.event.present?
-          tags = tags + link_to("post", space_post_path(attachment.space, attachment.post), :class => "post_in_tags", :title => attachment.post.title) if attachment.post.present?
-          tags = tags + "#{interactive ? attachment.tags.map{|t| link_to(t.name,path_for_attachments({:add_tag=>t.id}), :class=> "add_tag_filter")}.join(", ") : attachment.tags.map{|t| t.name}.join(", ")}"
-          row.tags           tags.html_safe
-
-          row.actions        table_actions(row, attachment, interactive)
-
+        if interactive
+          t.header :selector, check_box_tag("select_all_checkbox")
+          t.header :name, sortable_header(t('title'),'filename')
+          t.header :author, sortable_header(t('author'),'author')
+          t.header :updated, sortable_header(t('updated'),'updated_at')
         else
+          t.header :name, t('title')
+          t.header :author, t('author')
+          t.header :updated, t('updated')
+        end
+        t.header :tags, t("post.one")+"/"+t("tag.other_capital")
+        t.header :actions, t('actions')
 
-          name = ""
-          name = link_to(image_tag("right.png"), path_for_attachments({:expanded => attachment.version_family_id}), :class => "table_params") if interactive && attachment.version_family.size > 1
-          name = name + attachment_link(attachment)
-          row.name           name.html_safe, :rel => (attachment.mime_type.present? ? attachment.mime_type.to_sym.to_s : "")
+        t.rows.each do |row, attachment, index|
+          row[:rel] = "event_#{attachment.event.id}" if attachment.event.present?
+          row.selector        check_box_tag(attachment.id, attachment.id, false, :class => "attachment_checkbox") if interactive
+          if expand_versions_to_array.include?(attachment.version_family_id) && attachment.version_family.size > 1
+            row[:class] += " version_expanded"
 
-          row.author         link_to attachment.author.name, user_path(attachment.author)
-          row.updated        "<span title=\"#{l(attachment.updated_at, :format => :long)}\">#{l(attachment.updated_at.to_date)}</span>".html_safe
+            name = ""
+            name = link_to(image_tag("down.png"),path_for_attachments({:not_expanded => attachment.version_family_id}), :class => "table_params") if attachment.current_version?
+            name = "<span class=\"version_number\" title=\"#{t('version.one')} #{attachment.version}\">V#{attachment.version}</span> #{attachment_link(attachment)}".html_safe
+            row.name           name.html_safe
 
-          tags = ""
-          tags = link_to("event", space_event_path(attachment.space, attachment.event), :class => "event_in_tags", :title => attachment.event.name).html_safe if attachment.event.present?
-          tags = tags + (link_to("post", space_post_path(attachment.space, attachment.post), :class => "post_in_tags", :title => attachment.post.title)).html_safe if attachment.post.present?
-          tags = tags + "#{interactive ? attachment.tags.map{|t| link_to(t.name,path_for_attachments({:add_tag=>t.id}), :class=> "add_tag_filter")}.join(", ") : attachment.tags.map{|t| t.name}.join(", ")}"
-          row.tags           tags.html_safe
+            row.author         link_to attachment.author.name, user_path(attachment.author)
+            row.updated        "<span title=\"#{l(attachment.updated_at, :format => :long)}\">#{l(attachment.updated_at.to_date)}</span>".html_safe
 
-          row.actions        table_actions(row, attachment, interactive)
+            tags = ""
+            tags = tags + link_to("event", space_event_path(attachment.space, attachment.event), :class => "event_in_tags", :title => attachment.event.name) if attachment.event.present?
+            tags = tags + link_to("post", space_post_path(attachment.space, attachment.post), :class => "post_in_tags", :title => attachment.post.title) if attachment.post.present?
+            tags = tags + "#{interactive ? attachment.tags.map{|t| link_to(t.name,path_for_attachments({:add_tag=>t.id}), :class=> "add_tag_filter")}.join(", ") : attachment.tags.map{|t| t.name}.join(", ")}"
+            row.tags           tags.html_safe
 
+            row.actions        table_actions(row, attachment, interactive)
+
+          else
+
+            name = ""
+            name = link_to(image_tag("right.png"), path_for_attachments({:expanded => attachment.version_family_id}), :class => "table_params") if interactive && attachment.version_family.size > 1
+            name = name + attachment_link(attachment)
+            row.name           name.html_safe, :rel => (attachment.mime_type.present? ? attachment.mime_type.to_sym.to_s : "")
+
+            row.author         link_to attachment.author.name, user_path(attachment.author)
+            row.updated        "<span title=\"#{l(attachment.updated_at, :format => :long)}\">#{l(attachment.updated_at.to_date)}</span>".html_safe
+
+            tags = ""
+            tags = link_to("event", space_event_path(attachment.space, attachment.event), :class => "event_in_tags", :title => attachment.event.name).html_safe if attachment.event.present?
+            tags = tags + (link_to("post", space_post_path(attachment.space, attachment.post), :class => "post_in_tags", :title => attachment.post.title)).html_safe if attachment.post.present?
+            tags = tags + "#{interactive ? attachment.tags.map{|t| link_to(t.name,path_for_attachments({:add_tag=>t.id}), :class=> "add_tag_filter")}.join(", ") : attachment.tags.map{|t| t.name}.join(", ")}"
+            row.tags           tags.html_safe
+
+            row.actions        table_actions(row, attachment, interactive)
+
+          end
         end
       end
-    end
-  %>
+    %>
+  <% end %>
 </div>

@@ -58,6 +58,7 @@ describe User do
         it {
           user3.update_attributes(:login => "user-name-bbb")
           user3.bigbluebutton_room.param.should eq("user-name-bbb")
+          user3.bigbluebutton_room.name.should eq("user-name-bbb")
         }
       end
 

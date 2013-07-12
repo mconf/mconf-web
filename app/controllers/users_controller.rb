@@ -101,9 +101,8 @@ class UsersController < ApplicationController
     # uncomment at your own risk
     # reset_session
     user.openid_identifier = session[:openid_identifier]
-
     respond_to do |format|
-      if user.save_with_captcha
+      if (current_site.use_recaptcha? && verify_recaptcha(:model => user, :private_key => current_site.recaptcha_private_key) && user.save) || (!current_site.use_recaptcha? && user.save)
         user.tag_with(params[:tags]) if params[:tags]
         self.current_agent = user
         flash[:notice] = t('user.registered')
@@ -149,10 +148,16 @@ class UsersController < ApplicationController
   #this method updates a user
   def update
     if params[:bbb_room]
+      # TODO: treat possible errors
       user.bigbluebutton_room.update_attributes(params[:bigbluebutton_room])
       respond_to do |format|
         format.html {
           redirect_to(home_path(user))
+        }
+        format.json {
+          render :json => @user.bigbluebutton_room.to_json(
+            :include => :metadata
+          )
         }
       end
     else
@@ -175,7 +180,8 @@ class UsersController < ApplicationController
             else
                render :action => "edit"
               #redirect_to(space_user_path(@space, @user))
-            end }
+            end
+          }
           format.xml  { render :xml => @user.errors, :status => :unprocessable_entity }
           format.atom { render :xml => @user.errors.to_xml, :status => :not_acceptable }
         end

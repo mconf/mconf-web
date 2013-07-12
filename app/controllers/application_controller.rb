@@ -21,7 +21,6 @@
 
 class ApplicationController < ActionController::Base
   # Be sure to include AuthenticationSystem in Application Controller instead
-  include SimpleCaptcha::ControllerHelpers
   include LocaleControllerModule
 
 #  alias_method :rescue_action_locally, :rescue_action_in_public
@@ -35,12 +34,42 @@ class ApplicationController < ActionController::Base
   # Don't log passwords
   config.filter_parameter :password, :password_confirmation
 
+  # When the user is not authorized to perform an action
+  rescue_from Station::NotAuthorized do |exception|
+
+    # A user trying to view something in a space he doesn't have access will
+    # redirect him to the join request page. But only when trying to view something.
+    if params[:action] == "show" or params[:action] == "index" or params[:action] == "recordings"
+      if params[:space_id]
+        space = Space.find_by_permalink(params[:space_id])
+      elsif params[:controller] == "spaces"
+        space = Space.find_by_permalink(params[:id])
+      end
+    end
+
+    if space
+      redirect_to(new_space_join_request_url(space))
+    else
+      respond_to do |format|
+        format.all do
+          render :text => 'Forbidden',
+                 :status => 403
+        end
+
+        format.html do
+          render(:file => "#{Rails.root.to_s}/public/403.html",
+                 :status => 403)
+        end
+      end
+    end
+  end
+
   # This method calls one from the plugin, to get the Space from params or session
   def space
     @space ||= current_container(:type => :space, :path_ancestors => true)
   end
 
-  # overriding bigbluebutton_rails function
+  # Overrides 'bigbluebutton_user' in BigbluebuttonRails
   def bigbluebutton_user
     if current_user && current_user.is_a?(User)
       current_user
@@ -49,6 +78,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  # Overrides 'bigbluebutton_role' in BigbluebuttonRails
   def bigbluebutton_role(room)
     # TODO: temporary guest role that only exists in mconf-live
     guest_role = :attendee
@@ -56,6 +86,12 @@ class ApplicationController < ActionController::Base
         BigbluebuttonRoom.guest_support
       guest_role = :guest
     end
+
+    # when a user or a space is disabled the owner of the room is nil (because when trying to find
+    # the user/room only the ones that are *not* disabled are returned) so we check if the owner is
+    # not present we assume the room cannot be accessed
+    # TODO: not the best solution, we should actually find a way to check if owner.disabled is true
+    return nil unless room.owner
 
     unless bigbluebutton_user.nil?
 
@@ -97,6 +133,31 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  # Overrides 'bigbluebutton_can_create?' in BigbluebuttonRails
+  def bigbluebutton_can_create?(room, role)
+    can_create = false
+    if (room.owner_type == "User" && room.owner.id == current_user.id)
+      can_create = true
+    elsif (room.owner_type == "Space")
+      space = Space.find(room.owner.id)
+      if space.users.include?(current_user)
+        can_create = true
+      end
+    end
+    if can_create
+      # if the user cannot record but is a moderator (so he can start the meeting)
+      # we make sure the 'record' flag is set to false
+      if bigbluebutton_user.nil? or not
+          bigbluebutton_user.respond_to?(:"can_record_meeting?") or not
+          bigbluebutton_user.can_record_meeting?(room, role)
+        room.update_attribute(:record, false)
+      end
+      true
+    else
+      false
+    end
+  end
+
   # This method is the same as space, but raises error if no Space is found
   def space!
     space || raise(ActiveRecord::RecordNotFound)
@@ -116,10 +177,14 @@ class ApplicationController < ActionController::Base
 
   before_filter :set_time_zone
   def set_time_zone
-    if current_user && current_user.is_a?(User) && current_user.timezone
+    if current_user && current_user.is_a?(User) &&
+        current_user.timezone && !current_user.timezone.blank?
       Time.zone = current_user.timezone
+    elsif current_site && current_site.timezone && !current_site.timezone.blank?
+      Time.zone = current_site.timezone
     else
-      Time.zone = 'Madrid'
+      # If everything fails defaults to UTC
+      Time.zone = "UTC"
     end
   end
 

@@ -10,14 +10,21 @@ pt-br:
   action: 
     other: Ações
   actions: Ações
-  activerecord: 
-    attributes: 
-      spaces: 
+  activerecord:
+    attributes:
+      private_message:
+         title: "Título"
+         receiver_id: "Destinatário"
+         body: "Texto"
+      spaces:
         attendee_password: "Senha de Participante"
         moderator_password: "Senha do Moderador"
-    errors: 
-      messages: 
+    errors:
+      messages:
+        blank: " deve ser incluido"
         missing: "não encontrado"
+    models:
+      private_message: "Mensagem"
   address: Endereço
   admin: 
     one: Administrador
@@ -78,6 +85,7 @@ pt-br:
     add: "Adicionar anexo"
     delete: "Remover anexo"
     deleted: "Anexo removido com sucesso"
+    created: "Anexo criado com sucesso"
     error: 
       not_deleted: "%{file} não removido corretamente."
       not_permission: "%{user} não pode remover o arquivo %{file}"
@@ -125,9 +133,15 @@ pt-br:
       id: ID
       name: Nome
       role: Papel
+    fetch_recordings: "Buscar gravações"
     new_room: "Nova sala"
     new_server: "Novo servidor"
+    recordings: 
+      default: Padrão
+      publish: Publicar
+      unpublish: Ocultar
     rooms: 
+      add_metadata: "Adicionar metadados"
       external: 
         header: "Esta reunião foi criada por uma outra aplicação. <br/>Você deve fornecer um nome e uma senha para entrar:"
       index: 
@@ -136,6 +150,7 @@ pt-br:
         new_room: "Nova sala"
       invite: Convidar
       join_mobile: Entrar/móvel
+      metadata_after_create: "Metadados só podem ser adicionados após a sala ser criada"
     servers: 
       activity: 
         activity: Atividade
@@ -153,6 +168,13 @@ pt-br:
         title: "Monitor de atividades do servidor"
       index: 
         access_links: "Links de acesso"
+        recording_links: Gravações
+      recordings: 
+        fetch: "Buscar gravações"
+        publish: "Publicar gravações"
+        unpublish: "Ocultar gravações"
+    view_recording_list: "Ver lista de gravações"
+    view_recordings: "Ver gravações"
     view_room_list: "Ver lista de salas"
     view_rooms: "Ver salas"
     view_server_list: "Ver lista de servidores"
@@ -161,6 +183,7 @@ pt-br:
     accept: Aceitar
     back_to_event: "Voltar ao evento"
     cancel: Cancelar
+    click_to_edit: "Clique para editar..."
     confirm: Confirme
     create: Criar
     creating: "Criando evento..."
@@ -177,6 +200,7 @@ pt-br:
     post: Postar
     publish: Publicar
     remove: Remover
+    saving_dots: Gravando...
     search: Procurar
     send: Enviar
     sending: Enviando...
@@ -187,6 +211,7 @@ pt-br:
     login_page: 
       click_here_to_login: "clique aqui para entrar"
       description: "Teste experimental de acesso ao Mconf via Federação CAFe"
+      description_small: "ou você pode logar usando a federação CAFe"
       more_about_cafe: "Leia mais sobre a CAFe"
       read_more: "leia mais..."
       terms_of_service: "Termos de serviço"
@@ -239,6 +264,7 @@ pt-br:
   deny: Não
   description: Descrição
   destroy: Destruir
+  details: Detalhes
   disable: Desabilitar
   disabled: Desabilitado
   document: 
@@ -694,17 +720,35 @@ pt-br:
   his_message_reads_thus: "Sua mensagem diz assim"
   home: 
     activity: "Atividade recente..."
-    invite_url: "URL para convites"
+    invite_url: URL
     my: "Página inicial"
     no_rooms: "Você não tem salas de webconferência."
     not_running: inativa
     one: home
+    recordings: 
+      latest_recordings: "Suas últimas %{count} gravações"
+      view_all: "ver todas gravações..."
     running_with: 
       no_participants: "ativa sem participantes"
       participants: 
         one: "ativa com %{count} participante"
         other: "ativa com %{count} participantes"
-    view_invite_url: "Ver URL para convites"
+    view_invite_url: "Ver URL"
+    webconf: 
+      configure: Configurar
+      end: "Parar a sala"
+      enter: "Entrar na sala"
+      invite_people: "Convidar outras pessoas"
+      join_from_mobile: "Entrar a partir de um dispositivo móvel"
+      no_recording_options: "A sala está em execução, as opções de gravação não estão disponíveis no momento."
+      record: Gravar
+      recording_description: Descrição
+      recording_description_placeholder: "Uma descrição para esta gravação"
+      recording_duration: Duração
+      recording_duration_units: horas
+      recording_title: Título
+      recording_title_placeholder: "Um título para esta gravação"
+      start: "Iniciar a sala"
   icalendar: 
     error_import: "Ocorreu um erro ao importar o iCalendar."
     import: "Importar iCalendar"
@@ -740,7 +784,7 @@ pt-br:
     hide_all_users: "Ocultar todos os usuários"
     info_space: "Você pode encontrar mais informações sobre esta comunidade em <a href=\"%{space_url}\"> %{space_url} </a>"
     info_users: "Você pode ver a lista atual de usuários da comunidade em <a href=\"%{users_url}\"> %{users_url} </a>"
-    introducer: Introdutor
+    introducer: Anfitrião
     label: "Personalize a sua mensagem de convite"
     legend: 
       URL: "'URL' será substituído na mensagem pela URL do convite."
@@ -782,7 +826,7 @@ pt-br:
     email: "e-mail para %{email}"
     invitation_successfully: "Convite enviado com sucesso:"
     invitation_unsuccessfully: "Convite não pode ser enviado:"
-    message: "Você foi convidado por <b>%{sender}</b> (<a href=\"mailto:%{email_sender}\">%{email_sender}</a>)  para participar da webconferência <b>%{name}</b>.<br/><br/>Você pode participar acessando o endereço: <a href=\"%{invite_url}\">%{invite_url}</a><br/>Se você está em um cliente móvel, use este endereço: <a href=\"%{mobile_url}\">%{mobile_url}</a><br/><br/>Esta é a mensagem escrita por <b>%{sender}</b>:"
+    message: "Você foi convidado por <b>%{sender}</b> (<a href=\"mailto:%{email_sender}\">%{email_sender}</a>) para participar da webconferência <b>%{name}</b>.<br/><br/>Você pode participar acessando o endereço: <a href=\"%{invite_url}\">%{invite_url}</a><br/>Se você está em um cliente móvel, use este endereço: <a href=\"%{mobile_url}\">%{mobile_url}</a><br/><br/>Esta é a mensagem escrita por <b>%{sender}</b>:"
     title: "Convite para participar de uma webconferência"
     user_private_msg: "mensagem privada para o usuário %{user}"
   invite_people: 
@@ -836,7 +880,7 @@ pt-br:
     de: Deutsch
     en: English
     es: Español
-    fr: Fraçais
+    fr: Français
     pt-br: "Português (Brasil)"
   login: 
     email_or_login: "E-mail ou usuário"
@@ -857,6 +901,9 @@ pt-br:
     one: "%{count} membro"
     other: "%{count} membros"
   message: 
+    created: "Mensagem enviada com sucesso"
+    error: 
+      create: "Erro ao enviar mensagem privada"
     incoming: 
       other: "Mensagens recebidas"
     private: 
@@ -865,7 +912,7 @@ pt-br:
       new: "Nova mensagem privada"
       none: "Não há mensagens"
       send: "Enviar uma mensagem privada"
-    reply: "Responder Ã  mensagem"
+    reply: "Responder à  mensagem"
     sent: 
       other: "Mensagens enviadas"
     special1: "A plataforma Mconf estará indisponível a partir de sexta-feira, 17 dezembro às 16:00 UTC, até sábado, 18-Dez 16:00 UTC. Desculpem o incómodo."
@@ -1003,6 +1050,10 @@ pt-br:
   province: Estado
   public: Público
   read_more: "Ler mais"
+  recaptcha: 
+    errors: 
+      recaptcha_unavailable: "Oops, falhamos em validar sua resposta à validação de palavras (captcha). Por favor tente novamente."
+      verification_failed: "Sua resposta para a verificação de palavras (captcha) está incorreta, por favor tente novamente."
   received_message_more_machines: "Você recebeu uma mensagem de %{user} pedindo mais máquinas"
   recent: 
     activity: "Atividades recentes"
@@ -1019,6 +1070,22 @@ pt-br:
     warning_pause_recording: "Atenção: esta ação irá pausar a gravação. Você será capaz de continuar ela no futuro ou publicá-la. <br/> Você quer continuar?"
     warning_publish_recording: "Atenção: esta ação irá publicar a gravação. No futuro, você será capaz de editá-la para cortar o início e o fim do vídeo, mas você não será capaz de gravar a sessão novamente. <br/> Você quer continuar?"
     warning_start_recording: "Atenção: esta ação irá interromper outras gravações deste evento em andamento. <br/> Você quer continuar?"
+  recordings: 
+    created_by: "Criada por"
+    duration: Duração
+    ended_at: "Encerrada em"
+    no_description: "<sem descrição>"
+    no_title: "<sem título>"
+    playback: Reprodução
+    processing_dots: "Processando, por favor aguarde..."
+    started_at: "Iniciar em"
+    title: Gravações
+    unavailable: "A gravação está indisponível"
+    unavailable_tip: "Esta gravação não está mais disponível no servidor onde ela estava armazenada e então não pode ser acessada."
+    update_list: 
+      error: "Erro atualizando as gravações, favor tentar novamente mais tarde."
+      success: "Lista de gravações atualizada!"
+      updating: "Atualizando lista de gravações"
   register: 
     and_participate: "Registre-se Para Participar"
     and_participate_description: "Para participar do evento você deve registar-se"
@@ -1062,15 +1129,31 @@ pt-br:
   rooms: 
     form: 
       msg1: " impossibilitaram esta sala de ser salva:"
+    identification:
+      title: "Você está acessando a sala <span class='room_title'>%{room}</span>, identifique-se"
+      member: "Eu já sou membro do Mconf"
+      next: "Avançar"
+      not_member: "Eu não sou membro do Mconf ainda"
+    identified:
+      title: "Você está acessando a sala <span class='room_title'>%{room}</span>"
     invite: 
+      cod_room: "Chave de Acesso à Sala:"
+      desktop: "Selecione esta opção para acessar de um <em>computador</em>."
+      desktop_selected: "Accesso a partir de um <em>computador</em>."
       join_from_desktop: "Nesta página você pode entrar na conferência a partir de um <b>computador desktop</b>. Para entrar usando um dispositivo móvel, <a href=\"%{url}\">clique aqui</a>."
       join_from_mobile: "Nesta página você pode entrar na conferência a partir de um <b>dispositivo móvel</b>. Para entrar usando um computador desktop, <a href=\"%{url}\">clique aqui</a>."
+      mobile: "Selecione esta opção para acessar de um <em>dispositivo móvel</em>."
+      mobile_details: "Disponível em dispositivos com Android. Você precisa instalar a aplicação <a href=\"%{url}\">Mconf-Mobile</a> para utilizar esta opção!"
+      mobile_selected: "Acesso a partir de um <em>dispositivo móvel</em>."
+      mobile_selected_details: "Disponível apenas para dispositivos Android."
+      mobile_download: "Clique aqui para fazer o download do Mconf-Mobile."
       msg1: "Convite para a reunião "
       name: "Nome:"
       name_enter: "Insira seu nome"
       password: "Senha:"
       password_filled: "Esta sala é pública. A senha foi preenchida automaticamente."
       password_role: "Digite a senha de moderador ou participante."
+      selected: "selecionado"
       status: "Status da reunião: "
     join: 
       msg1: "Esta reunião ainda não começou, espere pelo moderador."
@@ -1142,8 +1225,6 @@ pt-br:
   show_advanced_editor: "Exibir editor avançado"
   show_list_version_arrows: "exibir versão em lista >>"
   show_question: Exibir?
-  simple_captcha: 
-    label: "Insira aqui o texto da imagem"
   site: 
     analytics_code: "Código do Google Analytics"
     analytics_code_tip: "Código para sua conta do Google Analytics. Deixe em branco para desabilitar. Exemplo: \"UA-12345678-9\""
@@ -1155,6 +1236,8 @@ pt-br:
     exception_notifications_email_tip: "Use espaços, vírgulas ou ponto-e-vírgulas para separar diferentes e-mails."
     exception_notifications_prefix: "Prefixo no assunto dos e-mails de depuração"
     exception_notifications_tip: "Enviar e-mails de depuração sempre que ocorrer um erro grave na aplicação"
+    external_help: "Página de ajuda"
+    external_help_tip: "Insira a URL para uma página de ajuda ou FAQ. Deve iniciar com 'http://'."
     feedback_url: "Feedback URL"
     feedback_url_tip: "Os usuários serão redirecionados para esta URL quando eles sairem de uma conferência. Se o campo ficar em branco, eles serão redirecionados para '%{default_url}'"
     locale: Idioma
@@ -1182,6 +1265,13 @@ pt-br:
     smtp_use_tls: "Usar TLS no SMTP"
     ssl: SSL
     ssl_tip: "Com SSL habilitado todos os links internos (incluindo páginas, imagens, anexos) utilizarão o protocolo https ao invés de http"
+    timezone: "Fuso horário"
+    use_recaptcha: "Utilizar reCaptcha"
+    use_recaptcha_tip: "Clique no checkbox para utilizar o reCaptcha no registro de usuários. É necessário que você insira a chave pública e a privada para seu funcionamento correto."
+    recaptcha_private_key: "Chave Privada do reCaptcha"    
+    recaptcha_private_key_tip: "Insira aqui sua chave privada obtida no site do reCaptcha."
+    recaptcha_public_key: "Chave Pública do reCaptcha"
+    recaptcha_public_key_tip: "Insira aqui sua chave pública obtida no site do reCaptcha."
   size: Tamanho
   skype: Skype
   source: 
@@ -1193,6 +1283,8 @@ pt-br:
     all: Comunidades
     allow_public_access: "Permitir acesso público?"
     attendeePW: "editar senha de participante"
+    change_name: "Ok"
+    change_name_warning: "Renomear uma comunidade vai invalidar links gerados previamente para ela. Tem certeza?"
     clic: "Clique para editar..."
     clic_logo: "Clique para mudar o seu logotipo"
     configuration: "Configurações da comunidade"
@@ -1246,9 +1338,18 @@ pt-br:
     name_none: "Um nome deve ser dado para criar uma nova comunidade"
     one: Comunidade
     other: Comunidades
-    people_in_conference: 
+    people_in_conference:
       one: "%{count} participant in the room."
       other: "%{count} participant in the room."
+    edit_performances: Editar permissões
+    performances:
+      user: Membro
+      admin: Administrador
+      invited: Convidado
+      tooltips:
+        admin: "Administradores podem ler e editar qualquer conteúdo da comunidade e também utilizar as funcionalidades de administração, incluindo aceitar novos usuários e mudar o papel dos usuários."
+        invited: "Membros convidados podem ler todo o conteúdo de uma comunidade, mas não podem criar conteúdo (eventos, mensagens ou documentos)."
+        user: "Membros podem ler todo o conteúdo de uma comunidade e também criar conteúdo (enviar documentos, criar eventos e comentários)."
     possesion: "Minhas Comunidades"
     private: "Comunidades privadas"
     public: 
@@ -1257,6 +1358,9 @@ pt-br:
     recording: 
       one: "Vídeo da comunidade"
       other: "Vídeos da comunidade"
+    recordings: 
+      latest_recordings: "Últimas %{count} gravações"
+      view_all: "ver todas gravações..."
     select: Comunidades
     show_all: "Mostrar todas as comunidades"
     subscribed_to_none: "Você não está inscrito em nenhuma comunidade"

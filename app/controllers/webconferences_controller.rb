@@ -7,11 +7,11 @@ class WebconferencesController < ApplicationController
   authorization_filter [:delete, :content ], :space, :only => [ :destroy ]
 
   def index
-      if space.webconferences[0]
-        @display_entry = space.webconferences[0];
-      else
-        @display_entry = nil
-      end
+    if space.webconferences[0]
+      @display_entry = space.webconferences[0];
+    else
+      @display_entry = nil
+    end
 
     respond_to do |format|
       format.html
@@ -20,24 +20,23 @@ class WebconferencesController < ApplicationController
 
 
   def show
-
-    @bbb_room = BigbluebuttonRoom.where("owner_id = ? AND owner_type = ?", @space.id, @space.class.name).first
+    @room = @space.bigbluebutton_room
+    @recordings = @room.recordings.published().order("end_time DESC").first(3)
     begin
-      @bbb_room.fetch_meeting_info
+      @room.fetch_meeting_info
     rescue Exception
     end
 
     # FIXME Temporarily matching users by name, should use the userID
     @bbb_attendees = []
-    unless @bbb_room.attendees.nil?
-      @bbb_room.attendees.each do |attendee|
+    unless @room.attendees.nil?
+      @room.attendees.each do |attendee|
         profile = Profile.find(:all, :conditions => { "full_name" => attendee.full_name }).first
         unless profile.nil?
           @bbb_attendees << profile.user
         end
       end
     end
-
   end
 
 end

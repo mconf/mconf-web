@@ -7,6 +7,7 @@ describe FeedbackController do
     before {
       Site.should_receive(:current).at_least(:once).and_return(current_site)
       current_site.should_receive(:locale)
+      current_site.stub(:timezone).and_return("UTC")
     }
 
     context "redirects to the current site's feedback_url if set" do

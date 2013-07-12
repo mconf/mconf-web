@@ -1,3 +1,6 @@
+input, textarea {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
 /* reset.css */
 html,body,div,span,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,code,del,dfn,em,img,q,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;font-weight:inherit;font-style:inherit;font-size:100%;font-family:inherit;vertical-align:baseline;}
 td{text-align:left;}
@@ -303,7 +306,6 @@ h3.selector_title{color:#244974;margin-top:15px;}
 #menu li .selected:hover{background:white; color:#244974;}
 #menu li .admin:hover{background:white;color:#ffa903;}
 #wrapper{padding:10px 10px 10px 10px;background-color:#fff;overflow:hidden;}
-#wrapper_blue{padding:10px 10px 10px 10px;background-color:#E1EEF5;overflow:hidden;}
 
 /*users and groups*/
 div.group{padding-bottom:0.5em;margin-top:2px;}
@@ -770,7 +772,6 @@ p.newAttach1,p.newAttach2{
   border-right:1px solid #8FBDDE;}
 /*admin*/
 #sidebar #space-conf{width:218px;}
-#sidebar #space-conf div{padding-bottom:0.75em;}
 .news-wrapper,.source{position:relative;/*border-bottom:1px #ccc solid;*/padding:0 3px 8px 6px;}
 .source-title{padding:0 0.5em;}
 .news-title h3{margin-bottom:0.333em;}
@@ -2140,6 +2141,10 @@ div.webconference-space-sidebar .more_info { font-size: 11px; color: #A8C0D1; }
 
 div.webconference-space-sidebar .content { text-align: left; }
 
+div.webconference-space-sidebar .join_button {
+  float: right;
+}
+
 div.webconf-rooms {
   margin-bottom: 10px;
   background: #FFFFFF;
@@ -2193,57 +2198,146 @@ div.webconf-rooms #new_room_private_area input[type=text] {
   width: 180px;
 }
 
-div.my-webconference-rooms {
+#webconference-rooms {
   background: #FFFFFF;
 }
 
-div.my-webconference-rooms h3 {
+#webconference-rooms h3 {
   color: #244974;
   background: #BDD8EB none repeat scroll 0 0;
   border-bottom: 1px solid #A8C0D1;
   padding: 6px;
 }
 
-div.my-webconference-rooms .room_name {
+#webconference-rooms .room_name {
   color: #8B0000;
   font-weight: bold;
-  margin-left: 5px;
 }
 
-div.my-webconference-rooms span.black_c {
+#webconference-rooms span.black_c {
   color: #000000;
 }
 
-div.my-webconference-rooms div.room_list {
+#webconference-rooms div.room_list {
   padding: 0 10px 10px 10px;
 }
 
-div.my-webconference-rooms div.room_list ul {
+#webconference-rooms div.room_list .basic_button {
+  float: left;
+  margin-top: 5px;
+  margin-right: 5px;
+}
+
+#end-webconf {
+  color: rgb(224, 58, 58);
+}
+#end-webconf:hover {
+  color: white;
+}
+
+#start-webconf {
+  color: green;
+}
+#start-webconf:hover {
+  color: white;
+}
+
+#webconference-rooms div.room_list ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
 }
 
-div.my-webconference-rooms div.room_list li {
-  padding: 7px 0 0 0;
+#webconference-rooms div.room_list .invite_url {
   clear: both;
+  background: transparent;
+  margin: 0;
+  padding: 0;
 }
 
-div.my-webconference-rooms div.room_list .invite_url {
-  float: right;
-  clear: right;
-  margin-top: 10px;
+#webconference-rooms div.room_list .invite_url .only_url {
+  float: left;
+  margin-top: 5px;
+  margin-right: 5px;
+}
 
-  padding: 4px;
-  background:#f0f6f9;
-  border:1px solid #bdd8eb;
+#webconference-rooms div.room_list .invite_url input {
+  font-size: 12px;
+  border: 0;
+  background: transparent; //#f0f6f9;
+  border: 1px solid #ddd;
+  padding: 4px 8px;
   -moz-border-radius:3px;
   -webkit-border-radius:3px;
-  display: none;
+  border-radius:3px;
+  float: left;
 }
 
-div.my-webconference-rooms div.room_list .invite_url .title {
-  font-size: 12px;
+#dropdown-join-webconf {
+  width: 300px;
+}
+
+#dropdown-join-webconf .mobile_icon {
+  float: none;
+}
+
+#dropdown-join-webconf .mobile_icon img {
+  float: right;
+  margin-left: 6px;
+}
+
+#dropdown-join-webconf #no-recording-options span{
+  display: block;
+  padding: 5px 15px;
+  text-align: center;
+  color: rgb(224, 58, 58);
+}
+
+#dropdown-join-webconf #recording-duration {
+  width: 20px;
+}
+
+#dropdown-join-webconf .editable {
+  background: white;
+  width: 260px;
+}
+
+#dropdown-join-webconf #recording-title textarea {
+  width: 250px !important;
+  resize: none;
+}
+
+#dropdown-join-webconf #recording-description textarea {
+  width: 250px !important;
+  height: 50px !important;
+  resize: none;
+}
+
+#dropdown-join-webconf #recording-options button {
+  font-size: 11px;
+  padding: 3px 5px;
+  border-radius: 4px;
+  -moz-border-radius:0;
+  margin:0;
+  background:url("../images/buttons/grey-button.png") repeat-x scroll 0 4%;
+  border:1px solid #999999;
+}
+
+#dropdown-join-webconf #recording-options {
+  padding: 8px 0 3px 15px;
+  color: #555;
+  background: #f6f6f6;
+  border-radius: 4px;
+}
+
+#dropdown-join-webconf #recording-options span {
+  display: block;
+}
+
+#dropdown-join-webconf #recording-options span.inline {
+  float: left;
+  margin-top: 4px;
+  padding-right: 5px;
 }
 
 #new_space_webconf_area {
@@ -2298,6 +2392,265 @@ div.my-webconference-rooms div.room_list .invite_url .title {
 /*rooms*/
 div#manage_rooms p {clear:both;padding:8px 9px 9px 9px;margin:0;}
 div#manage_rooms color{color:#244974;}
+
+#webconf-room-device-type {
+  width: 95%;
+  margin-top: 15px;
+}
+
+#webconf-room-device-type .active {
+  background-color: #e1eef5;
+}
+
+#webconf-room-device-type .invite-desktop {
+  text-align: left;
+  margin: 20px 0;
+  padding: 10px 15px;
+  border: 1px solid white;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+#webconf-room-device-type .invite-desktop.active {
+  cursor: auto;
+}
+#webconf-room-device-type .invite-desktop:hover {
+  border: 1px solid #9ec2d5;
+}
+#webconf-room-device-type .invite-desktop.active:hover {
+  border: 1px solid white;
+}
+
+#webconf-room-device-type .invite-mobile {
+  text-align: left;
+  margin: 20px 0;
+  padding: 10px 15px;
+  border: 1px solid white;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+#webconf-room-device-type .invite-mobile:hover {
+  border: 1px solid #9ec2d5;
+}
+#webconf-room-device-type .invite-mobile.active {
+  cursor: auto;
+}
+#webconf-room-device-type .invite-mobile.active:hover {
+  border: 1px solid white;
+}
+
+#webconf-room-device-type .invite-desktop .description {
+  background: url('../images/webconf/desktop.png') right center no-repeat;
+  min-height: 50px;
+  position: relative;
+  padding-right: 60px;
+}
+
+#webconf-room-device-type .invite-desktop .description .text {
+  margin-top: 15px;
+  float: left;
+}
+#webconf-room-device-type .invite-desktop .description .text em { font-weight: bold; font-style: normal; }
+
+#webconf-room-device-type .invite-desktop .description .selected {
+  position: absolute;
+  left: 0;
+  top: -20px;
+  background-color: #3b6f9f;
+  display: inline-block;
+  padding: 2px 4px;
+  font-size: 11.844px;
+  font-weight: bold;
+  line-height: 14px;
+  color: #ffffff;
+  vertical-align: baseline;
+  white-space: nowrap;
+  text-shadow: 0 -1px 0 rgba(0,0,0,0.25);
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+}
+
+#webconf-room-device-type .invite-mobile .description {
+  background: url('../images/webconf/mobile.png') 95% center no-repeat;
+  min-height: 50px;
+  position: relative;
+  padding-right: 60px;
+}
+#webconf-room-device-type .invite-mobile.active .description {
+  padding-right: 0;
+  background: none;
+}
+
+#webconf-room-device-type .invite-mobile .description .text {
+  margin-top: 0;
+  float: left;
+}
+#webconf-room-device-type .invite-mobile .description .text em { font-weight: bold; font-style: normal; }
+#webconf-room-device-type .invite-mobile .description .text-details {
+  margin-top: 3px;
+  font-size: 11px;
+  color: #666;
+  font-style: italic;
+}
+#webconf-room-device-type .invite-mobile.active .description .text {
+  margin-top: 10px;
+}
+
+#webconf-room-device-type .invite-mobile.active .mobile-image {
+  float: right;
+  margin-top: 2px;
+}
+
+#webconf-room-device-type .invite-mobile .description .selected {
+  position: absolute;
+  left: 0;
+  top: -20px;
+  background-color: #3b6f9f;
+  display: inline-block;
+  padding: 2px 4px;
+  font-size: 11.844px;
+  font-weight: bold;
+  line-height: 14px;
+  color: #ffffff;
+  vertical-align: baseline;
+  white-space: nowrap;
+  text-shadow: 0 -1px 0 rgba(0,0,0,0.25);
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+}
+
+#identification .room_title {
+  font-weight: normal;
+}
+
+#identification #body {
+  margin-top:20px;
+}
+
+#identification #body p{
+  margin:0px;
+}
+
+#identification #body .no_border {
+  border: 0px;
+}
+
+#identification #body #left {
+  border-right-color:rgb(177,200,212);
+  margin-right:10px;
+  padding-right:0px;
+  width: 449px;
+}
+
+#identification #body #left .field {
+  margin-left: 100px;
+}
+
+#identification #body #left input {
+  width: 210px;
+}
+
+#identification #shib-login {
+  text-align: center;
+  clear: both;
+  padding-top: 15px;
+}
+
+#identification #left .submit_area {
+  padding-right: 120px;
+}
+
+#identification #left .submit_area button {
+  min-width: 80px;
+  width: 80px;
+  float: right;
+}
+
+#identification #body #right {
+  width: 450px;
+}
+
+#identification #body #right .field {
+  margin-left: 110px;
+}
+
+#identification #body #right .submit_area {
+  margin-right: 110px;
+}
+
+#identification #body #right .submit_area button {
+  min-width: 80px;
+  width: 80px;
+  float: right;
+}
+
+#identification #body #right input {
+  width: 210px;
+}
+
+#identification #body .title_join {
+  background: none;
+  border-bottom: none;
+  font-family: inherit;
+  font-size: 1.1666em;
+  line-height: 1.2857;
+  margin-left: 70px;
+  padding: 12px 9px;
+  text-align: justify;
+}
+
+#identification #body .title{
+  background: none;
+  border-bottom: none;
+  font-family: inherit;
+  font-size: 1.1666em;
+  font-weight: bold;
+  line-height: 1.2857;
+  padding: 12px 9px;
+  text-align: center;
+}
+
+#identification .title, #rooms_join .title {
+  font-family:Trebuchet;
+  font-size:1.1666em;
+  line-height:1.2857;
+  font-weight:bold;
+  padding:12px 9px;
+  border-bottom:1px #fefefe solid;
+  background:#c0dceb;
+  text-align: left;
+}
+
+#identification .title .status {
+  font-family:Trebuchet;
+  font-size:0.9em;
+  line-height:1;
+  font-weight:normal;
+  margin: 0;
+  padding: 0;
+}
+
+#identification .field {
+  padding: 5px;
+  margin-top: 5px;
+}
+
+#identification .obs, #identification .obs2 {
+  font-size:0.9em;
+  line-height:1;
+  font-weight:normal;
+  color: #666;
+}
+
+#identification .obs2 {
+  color:#244974;
+  font-style: italic;
+}
 
 #rooms_invitation .title, #rooms_join .title {
   font-family:Trebuchet;font-size:1.1666em;line-height:1.2857;font-weight:bold;
@@ -2511,11 +2864,19 @@ h3.dialog_title {
 
 #webconference_join_mobile_dialog {
   text-align: center;
-  width: 250px;
+  width: 450px;
 }
 
-#webconference_join_mobile_dialog img {
-  border:1px solid #ccc;
+#webconference_join_mobile_dialog .join-options {
+  float: left;
+  width: 250px;
+  padding: 5px;
+}
+
+#webconference_join_mobile_dialog img.qrcode {
+  border: 1px solid #ccc;
+  width: 150px;
+  height: 150px;
 }
 
 .webconference_join_mobile_ico {
@@ -2523,6 +2884,20 @@ h3.dialog_title {
   height: 16px;
   float: left;
   background: url('../images/icons/cellphone.png') center left no-repeat;
+}
+
+#webconference_join_mobile_dialog .download-mobile {
+  float: right;
+  width: 150px;
+  background: #f6f6f6;
+  padding: 60px 10px 0 10px;
+  border-left: 1px solid #ddd;
+  height: 240px;
+}
+
+#webconference_join_mobile_dialog .download-mobile span {
+  display: block;
+  margin-bottom: 10px;
 }
 
 .jcrop-holder {
@@ -2812,6 +3187,186 @@ h3.dialog_title {
 }
 .errorExplanation ul {
   list-style: none;
+}
+
+
+
+#webconference-rooms h4 {
+  color: #244974;
+  padding: 10px 5px;
+  margin: 10px 0 0 0;
+  border-top: 1px solid #eee;
+}
+
+#webconference-rooms .recordings-view-all {
+  margin: 5px;
+  font-weight: normal;
+  font-size: 10px;
+}
+
+#update-recordings {
+  margin: 3px 5px 0 0;
+  font-weight: normal;
+  font-size: 11px;
+  float: right;
+  height: 18px;
+}
+
+#update-recordings-loading, #update-recordings-error, #update-recordings-success {
+  float: left;
+  display: none;
+  color: #444;
+}
+
+#update-recordings-loading img, #update-recordings-error img, #update-recordings-success img {
+  float: left;
+  margin-left: 6px;
+  margin-top: -1px;
+}
+
+#update-recordings-loading span, #update-recordings-error span, #update-recordings-success span {
+  float: left;
+}
+
+#recording-list-wrapper {
+  padding: 2px;
+}
+
+#recording-list .recording-item {
+  list-style-type: none;
+  margin: 0;
+}
+
+#recording-list .recording-details {
+  width: 100%;
+  color: #666;
+  margin-top: 3px;
+}
+
+#recording-list .recording-item .recording-name {
+  font-size: 12px;
+  color: black;
+}
+
+#recording-list .recording-item .recording-description {
+  color: #444;
+}
+
+#recording-list .recording-item .recording-author {
+  float: left;
+  margin-right: 5px;
+}
+
+#recording-list .recording-item .recording-date,
+#recording-list .recording-item .recording-duration {
+  float: left;
+  margin-right: 5px;
+}
+
+#recording-list .recording-item .recording-field {
+  clear: both;
+  display: block;
+}
+
+#recording-list .recording-item .thread-odd {
+  background: #ffffff;
+}
+
+#recording-list .recording-item .thread-even {
+  background: #EAF5FC;
+}
+
+#recording-list .recording-item li {
+  padding: 7px 10px;
+}
+
+#recording-list .recording-item .playback-link {
+  margin: 0 4px;
+}
+
+#recording-list .recording-item .playback-icon {
+  width: 10px;
+  height: 10px;
+}
+
+h3 .title-options {
+  float: right;
+  font-weight: normal;
+}
+
+.caret {
+  margin-top: 3px;
+  margin-left: 3px;
+  display: inline-block;
+  width: 0;
+  height: 0;
+  border-right: 4px solid transparent;
+  border-left: 4px solid transparent;
+  border-top: 4px solid black;
+  content: "";
+  vertical-align: top;
+}
+
+a.disabled {
+  color: #888 !important;
+}
+
+.editable {
+  border: 1px solid #eee;
+  padding: 3px;
+  -webkit-border-radius:4px;-moz-border-radius:4px;border-radius:4px;
+}
+
+.editable:not(.disabled):hover {
+  border-color: #A8C0D1;
+  cursor: pointer;
+}
+
+.space-webconference-join .caret {
+  border-width: 5px;
+  border-top-color: white;
+  margin-top: 5px;
+}
+
+.space-recordings h3{color:#244974;background:#BDD8EB none repeat scroll 0 0;border-bottom:1px solid #A8C0D1;margin:0;padding:10px;}
+
+.space-recordings .title-options {
+  float: none;
+  font-weight: normal;
+  font-size: 11px;
+  margin-left: 5px;
+}
+
+#button-rename-space {
+  background: url("../images/buttons/boton-generico1.png") repeat-x scroll 0 0 #275B8A;
+  border: 1px solid #244974;
+  color: #FFFFFF;
+  font-size: 95%;
+  line-height: 135%;
+}
+
+#sidebar #space-conf input[type=checkbox] {
+  margin: 0 5px;
+}
+
+#sidebar #space-conf li {
+  margin-bottom: 10px;
+}
+
+#sidebar #space-conf .space-name-form label {
+  display: block;
+}
+
+#sidebar #space-conf .space-name-form input[type=text] {
+  width: 70%;
+}
+
+#sidebar #space-conf .space-name-form input[type=submit] {
+  margin-top: 0;
+}
+
+.recaptcha_error {
+  display: none;
 }
 
 #terms_draft {

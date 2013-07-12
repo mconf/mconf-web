@@ -99,8 +99,8 @@ describe SpacesController do
     end
     it "should NOT be able to see private spaces if he isn't joined to them" do
       get :show, :id => @private_space2.to_param, :user_id => @user.id
-      assert_response 403
-
+      assert_response 302
+      response.should redirect_to(new_space_join_request_url(@private_space2))
     end
     it "should NOT be able to delete anyone's space " do
       delete :destroy, :id => @private_space.to_param, :user_id => @user.id
@@ -108,14 +108,27 @@ describe SpacesController do
     end
   end
 
-  describe "A invited user" do
+  describe "An invited user" do
     before(:each) do
       login_as(@invited)
     end
+
     it "should be able to see public spaces" do
       get :show, :id => @public_space.to_param
       assert_response 200
       response.should render_template("spaces/show")
+    end
+
+    it "should be able to see spaces where he's invited" do
+      get :show, :id => @private_space.to_param
+      assert_response 200
+      response.should render_template("spaces/show")
+    end
+
+    it "should not be able to see spaces where he's not invited" do
+      get :show, :id => @private_space2.to_param
+      assert_response 302
+      response.should redirect_to(new_space_join_request_url(@private_space2))
     end
 
     it "should NOT be able to delete anyone's space " do
@@ -128,6 +141,8 @@ describe SpacesController do
       post :create, :space=> valid_attributes
       assert_response 302
     end
+
+    pending "should NOT be able to open the conference room"
 
   end
 
@@ -165,7 +180,7 @@ describe SpacesController do
       room = space.bigbluebutton_room
 
       room.should_not be_nil
-      room.name.should == space.name
+      room.name.should == space.permalink
       room.owner_id.should == space.id
       room.owner_type.should == space.class.name
     end

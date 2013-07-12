@@ -23,6 +23,11 @@ class JoinRequestsController
   before_filter :space!
 
   def new
+    if space.users.include?(current_agent)
+      flash[:notice] = t('join_request.joined')
+      redirect_to space
+      return
+    end
     respond_to do |format|
       format.html{
         if request.xhr?
@@ -33,49 +38,7 @@ class JoinRequestsController
   end
 
   def create
-  
-    unless authenticated?
-      unless params[:user]
-        respond_to do |format|
-          format.html {
-            render :action => 'new'
-          }
-          format.js
-        end
-        return
-      end
-
-      if params[:register]
-        cookies.delete :auth_token
-        @user = User.new(params[:user])
-        unless @user.save_with_captcha
-          message = ""
-          @user.errors.full_messages.each {|msg| message += msg + "  <br/> "}
-          flash[:error] = message
-          respond_to do |format|
-            format.html {
-              render :action => 'new'
-            }
-            format.js
-          end
-          return
-        end
-      end
-      self.current_agent = User.authenticate_with_login_and_password(params[:user][:email], params[:user][:password])
-      unless logged_in?
-        flash[:error] = t('error.credentials')
-        respond_to do |format|
-          format.html {
-            render :action => 'new'
-          }
-          format.js
-        end
-        return
-      end
-    end
-
     if space.users.include?(current_agent)
-      
       flash[:notice] = t('join_request.joined')
       if request.xhr?
         render :partial=> "redirect.js.erb", :locals => {:url => space_path(space)}
@@ -84,7 +47,7 @@ class JoinRequestsController
       end
       return
     end
-    
+
     @join_request = space.join_requests.new(params[:join_request])
     @join_request.candidate = current_user
 

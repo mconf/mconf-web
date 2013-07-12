@@ -4,8 +4,9 @@
   $(".message_link").livequery('click', function() {
     $(this).parents(".message_div").find("div.message_content").toggle();
     if ($(this).parents(".message_div").hasClass("new")){
-      var route = "/users/<%=params[:user_id]%>/messages/" + $(this).parents(".message_div").attr("id")
+      var route = "/users/<%=params[:user_id]%>/private_messages/" + $(this).parents(".message_div").attr("id")
       $.post(route, { _method: "put", authenticity_token: "<%=form_authenticity_token()%>", 'private_message[checked]': "true" },  function(data){eval(data);}, "script");
+      $(this).parents(".message_div").removeClass("new");
     }
   }); 
   
@@ -24,11 +25,12 @@
 
 <%= content_for :sidebar do  %>
   <%if params[:reply_to] %>
-          <%= render :partial => "reply_private_message", :locals => { :previous_message =>  PrivateMessage.find(params[:reply_to])}%>
-        <%else%>
-      <%= render :partial => "new_private_message", :locals => { :checked_users =>  Array.new}%>
-        <%end%>
+    <%= render :partial => "reply_private_message", :locals => { :previous_message =>  PrivateMessage.find(params[:reply_to])}%>
+    <%else%>
+      <%= render :partial => "new_private_message", :locals => { :checked_users =>  Array.new }%>
+    <%end%>
 <%end%>
+
 <div id="inbox-wrapper">
   <ul id="inbox">
          <li><%=link_to t('message.incoming.other') ,user_messages_path(params[:user_id]),:class=>"#{!params[:sent_messages] ? 'selected' : ''}"  %></li> 
@@ -47,10 +49,10 @@
           <table>
             <tbody>
               <tr>
-                                        <% if params[:sent_messages] %>
+                <% if params[:sent_messages] %>
                   <%@receiver = User.find_with_disabled(private_message.receiver_id) %>
-                              <td class="picture"><%= @receiver.disabled? ? logo(@receiver, :size => 32) : raw(link_logo(@receiver,:size=>32, :url => user_path(@receiver))) %></td>
-                                                <td class="name_date">
+                  <td class="picture"><%= @receiver.disabled? ? logo(@receiver, :size => 32) : raw(link_logo(@receiver,:size=>32, :url => user_path(@receiver))) %></td>
+                  <td class="name_date">
                     <span class="name"><%= @receiver.disabled? ? @receiver.name : link_to(@receiver.name, user_path(@receiver))%></span>
                     <span class="date"><%=((Time.now.to_date == private_message.created_at.to_date) ? time_ago_in_words(private_message.created_at) + " ago" : private_message.created_at.strftime("%d %b"))%></span>
                   </td> 
@@ -69,29 +71,28 @@
                   <%end%>
                 <% end%>
                 <td class="subject">
-                                                      <div>
-                    <span class="topic"><%= t('subject') %>: <%=link_to sanitize(private_message.title), user_message_path(params[:user_id], private_message), :class => "message_link"%></span>
-                                                        <!--<span><%= sanitize(private_message.body)%></span>-->                                                        
-                                                      </div>
+                    <div>
+                      <span class="topic"><%= t('subject') %>: <%=link_to sanitize(private_message.title), user_message_path(params[:user_id], private_message), :class => "message_link"%></span>
+                    </div>
                 </td>
                 <%if @sender.present?%>
                   <td class="reply"><%=link_to image_tag("icons/comments-add.png", :alt => t('reply') ), user_messages_path(params[:user_id], :reply_to => private_message), :title => t('reply') unless params[:sent_messages]%></td>
                 <%end%>
-                <%privatetitle = sanitize(private_message.title)%>
-                <% if params[:sent_messages] %>
-                  <td class="delete"><%= link_to image_tag("icons/cancel.png", :alt => t('delete.one') ), user_message_path(params[:user_id],private_message, :private_message => {:deleted_by_sender => true}), :confirm => t('delete.confirm', :element => privatetitle), :method => :delete,:title => t('delete.one') %></td>
-                            <%else%>
-                          <td class="delete"><%= link_to image_tag("icons/cancel.png", :alt => t('delete.one') ), user_message_path(params[:user_id],private_message, :private_message => {:deleted_by_receiver => true}), :confirm => t('delete.confirm', :element => privatetitle), :method => :delete,:title => t('delete.one') %></td>
-                            <%end%>
-                                </tr>
+                <% privatetitle = sanitize(private_message.title) %>
+                <% deleted_by = params[:sent_messages] ? :deleted_by_sender : :deleted_by_receiver %>
+
+                <td class="delete"><%= link_to image_tag("icons/cancel.png", :alt => t('delete.one') ), user_message_path(params[:user_id],private_message, :private_message => {deleted_by => true}), :confirm => t('delete.confirm', :element => privatetitle), :method => :delete, :title => t('delete.one') %>
+                </td>
+              </tr>
             </tbody>
           </table>
-                    </div>
+        </div>
+
         <div class="message_content" style="display:none;">
           <p><%= sanitize(auto_link(simple_format(private_message.body)))%></p>
         </div>
-                        
-                  </div> 
+
+      </div>
     <% end %>
     <%= will_paginate @private_messages %>
   <%end%>

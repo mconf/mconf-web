@@ -22,45 +22,101 @@ function ajax_request() {
 
 $(document).ready(function(){
   ajax_request();
+
+  $(".invite-desktop:not(.active)").on("click", function() {
+    window.location.href = $(this).attr("data-url");
+  });
+  $(".invite-mobile:not(.active)").on("click", function(e) {
+    if (!$(e.target).is("a")) {
+      window.location.href = $(this).attr("data-url");
+    }
+  });
 });
 
 </script>
 
-<div id="rooms_invitation">
-
+<div id="identification">
   <div class="title">
-    <span><%= t('rooms.invite.msg1') %><%= @room.name %></span>
-    <p class="status"><%= t('rooms.invite.status') %><span id="meeting_status">-</span> (<a href="javascript:ajax_request();"><%= t('rooms.refresh') %></a>)</p>
+    <span><%= t('rooms.identified.title', :room => @room.name).html_safe %></span>
   </div>
-
-  <div class="bbbrails_invite_device_type">
-    <% if params[:mobile] %>
-      <%= t('rooms.invite.join_from_mobile', :url => invite_bigbluebutton_room_path(@room)).html_safe %>
-    <% else %>
-      <%= t('rooms.invite.join_from_desktop', :url => invite_bigbluebutton_room_path(@room, :mobile => true)).html_safe %>
-    <% end %>
-  </div>
-
-  <%= form_tag join_bigbluebutton_room_path(@room, :mobile => params[:mobile]) do %>
-
-    <div class="field">
-      <%= t('rooms.invite.name') %><br />
-      <% if bigbluebutton_user.nil? %>
-        <%= text_field_tag "user[name]", "", :size => 30 %>
-      <% else %>
-        <%= text_field_tag "user[name]", bigbluebutton_user.name, :size => 30, :readonly => true, :disabled => true %>
+  <div id="body">
+    <div id="left" class="no_border">
+      <div class="title_join">
+        <p class="status"><%= t('rooms.invite.status') %><span id="meeting_status">-</span> (<a href="javascript:ajax_request();"><%= t('rooms.refresh') %></a>)</p>
+      </div>
+      <% unless params[:user].nil? %>
+        <% nickname = params[:user][:name] %>
       <% end %>
-    </div>
-
-    <% if @user_role == :password %>
+      <%= form_tag join_bigbluebutton_room_path(@room, :mobile => params[:mobile]) do %>
       <div class="field">
-      <%= t('rooms.invite.password') %><br />
+        <%= t('rooms.invite.name') %><br />
+        <% if bigbluebutton_user.nil? %>
+          <%= hidden_field_tag "user[name]", nickname, :size => 30, :readonly => true %>
+          <%= text_field_tag "nickname", nickname, :size => 30, :disabled => true, :readonly => true %>
+        <% else %>
+          <%= text_field_tag "user[name]", bigbluebutton_user.name, :size => 30, :readonly => true, :disabled => true %>
+        <% end %>
+      </div>
+      <% if @user_role == :password %>
+      <div class="field">
+        <%= t('rooms.invite.cod_room') %><br />
         <%= password_field_tag "user[password]", "", :size => 30 %>
       </div>
-    <% end %>
-    <div class="submit_area">
-      <button type="submit" class="basic_button medium_button orange_pale_button"><%=t('join')%></button>
+      <% end %>
+      <div class="submit_area">
+        <button type="submit" class="basic_button blue_button"><%=t('join')%></button>
+      </div>
+      <% end %>
     </div>
-  <% end %>
+    <div id="right">
+      <div id="webconf-room-device-type">
 
+        <div class="invite-desktop <%= params[:mobile] ? '' : 'active' %>" data-url="<%= invite_bigbluebutton_room_path(@room, :user => {:name => nickname}) %>">
+          <div class="description">
+            <% unless params[:mobile] %>
+              <div class="selected">
+                <%= t('rooms.invite.selected') %>
+              </div>
+              <div class="text">
+                <%= t('rooms.invite.desktop_selected').html_safe %><br>
+              </div>
+            <% else %>
+              <div class="text">
+                <%= t('rooms.invite.desktop').html_safe %><br>
+              </div>
+            <% end %>
+          </div>
+        </div>
+
+        <div class="invite-mobile <%= params[:mobile] ? 'active' : '' %>" data-url="<%= invite_bigbluebutton_room_path(@room, :user => {:name => nickname}, :mobile => true) %>">
+          <div class="description">
+            <% if params[:mobile] %>
+              <div class="selected">
+                <%= t('rooms.invite.selected') %>
+              </div>
+              <div class="text">
+                <%= t('rooms.invite.mobile_selected').html_safe %><br>
+                <div class="text-details">
+                  <%= t('rooms.invite.mobile_selected_details').html_safe %>
+                </div>
+              </div>
+              <div class="mobile-image">
+                <%= link_to mobile_google_play_link do %>
+                  <%= image_tag mobile_google_play_image, :alt => t('rooms.invite.mobile_download'), :title => t('rooms.invite.mobile_download') %>
+                <% end %>
+              </div>
+            <% else %>
+              <div class="text">
+                <%= t('rooms.invite.mobile').html_safe %><br>
+                <div class="text-details">
+                  <%= t('rooms.invite.mobile_details', :url => mobile_google_play_link).html_safe %>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
 </div>

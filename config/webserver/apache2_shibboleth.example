@@ -1,0 +1,11 @@
+# Add this to your application's configuration file, right before the closing
+# </VirtualHost> tag
+
+<LocationMatch "^/secure$">
+  AllowOverride all
+  AuthType shibboleth
+  ShibRequireSession On
+  require valid-user
+  Order allow,deny
+  allow from all
+</LocationMatch>

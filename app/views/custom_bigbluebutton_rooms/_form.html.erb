@@ -4,6 +4,45 @@
   <% url = bigbluebutton_room_path(@room) %>
 <% end %>
 
+<% # Add metadata inputs to the form %>
+<script type="text/javascript">
+  $(document).ready(function() {
+    $("#add-metadata").click(function(e) {
+      e.preventDefault();
+
+      var nextMetadataIndex = 0;
+      name = $("#metadata-container input:last-child").attr("name");
+      console.log(name);
+      if (name !== 'undefined') {
+        nextMetadataIndex = name.match(/\[.*\]\[(.*)\]\[.*\]$/)[1];
+        nextMetadataIndex = parseInt(nextMetadataIndex)  + 1;
+      }
+
+      name_label = $('<label></label>')
+        .attr("for", "bigbluebutton_room_metadata_attributes_" + nextMetadataIndex + "_name")
+        .text("<%= BigbluebuttonMetadata.human_attribute_name(:name) %>");
+      name_input = $('<input></input>')
+        .attr("id", "bigbluebutton_room_metadata_attributes_" + nextMetadataIndex + "_name")
+        .attr("name", "bigbluebutton_room[metadata_attributes][" + nextMetadataIndex + "][name]")
+        .attr("size", "30")
+        .attr("type", "text");
+      content_label = $('<label></label>')
+        .attr("for", "bigbluebutton_room_metadata_attributes_" + nextMetadataIndex + "_content")
+        .text("<%= BigbluebuttonMetadata.human_attribute_name(:content) %>");
+      content_input = $('<input></input>')
+        .attr("id", "bigbluebutton_room_metadata_attributes_" + nextMetadataIndex + "_content")
+        .attr("name", "bigbluebutton_room[metadata_attributes][" + nextMetadataIndex + "][content]")
+        .attr("size", "30")
+        .attr("type", "text");
+      $("#metadata-container").append(name_label);
+      $("#metadata-container").append(name_input);
+      $("#metadata-container").append(content_label);
+      $("#metadata-container").append(content_input);
+      return false;
+    });
+  });
+</script>
+
 <%= form_for @room, :url => url do |f| %>
   <% if @room.errors.any? %>
     <div id="error_explanation">
@@ -18,6 +57,10 @@
 
   <br/>
   <div class="field">
+    <%= f.label :id %><br />
+    <%= @room.id %>
+  </div>
+  <div class="field">
     <color><b><%= f.label :server_id %></b></color><br />
     <%= f.text_field :server_id %>
   </div>
@@ -28,10 +71,6 @@
   <div class="field">
     <color><b><%= f.label :meetingid %></b></color><br />
     <%= f.text_field :meetingid %>
-  </div>
-  <div class="field">
-    <color><b><%= f.label :randomize_meetingid %></b></color><br />
-    <%= f.check_box :randomize_meetingid %>
   </div>
   <div class="field">
     <color><b><%= f.label :private %></b></color><br />
@@ -73,6 +112,35 @@
     <color><b><%= f.label :param %></b></color><br />
     <%= f.text_field :param %>
   </div><br />
+  <div class="field">
+    <color><b><%= f.label :record %></b></color><br />
+    <%= f.check_box :record %>
+  </div>
+  <div class="field">
+    <color><b><%= f.label :duration %></b></color><br />
+    <%= f.text_field :duration %>
+  </div>
+  <br />
+  <div class="field" id="metadata-container">
+    <color><b><%= f.label :metadata %></b></color>
+    <% if @room.new_record? %>
+      <br /><%= t('bigbluebutton_rails.rooms.metadata_after_create') %>
+    <% else %>
+      <a href="#" id="add-metadata" class="basic_button small_button blue_button"><%= t('bigbluebutton_rails.rooms.add_metadata') %></a>
+      <br />
+      <br />
+      <%= f.fields_for :metadata do |metadata_form| %>
+        <%= metadata_form.label :name %>
+        <%= metadata_form.text_field :name %>
+        <%= metadata_form.label :content %>
+        <%= metadata_form.text_field :content %>
+        <%= metadata_form.check_box :_destroy %>
+        <span><%= t('destroy') %></span>
+        <br/>
+      <% end %>
+    <% end %>
+  </div>
+
   <div class="actions">
     <button type="submit" class="basic_button medium_button blue_button"><%=t('button.confirm')%></button>
   </div>

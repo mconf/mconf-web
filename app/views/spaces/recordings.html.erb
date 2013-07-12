@@ -1,0 +1,84 @@
+<% if params[:partial] %>
+  <%= render :partial => 'recordings/recording_list', :locals => {:recordings => @recordings} %>
+
+<% else %>
+
+  <%= content_for :javascript do  %>
+
+  recListUpdateStart = function() {
+    $("#update-recordings-loading").show();
+  }
+
+  recListUpdateEnd = function(error) {
+    $("#update-recordings-loading").hide();
+    if (error) {
+      $("#update-recordings-error").show();
+      window.setTimeout(function() {
+        $("#update-recordings-error").hide();
+      }, 5000);
+      $("#recording-list-wrapper").effect("highlight", { color: "#ff0000"}, 5000);
+    } else {
+      $("#update-recordings-success").show();
+      window.setTimeout(function() {
+        $("#update-recordings-success").hide();
+      }, 5000);
+      $("#recording-list-wrapper").effect("highlight", { color: "#00ff00"}, 5000);
+    }
+  }
+
+  populateList = function(showMessage) {
+    $.get("<%= recordings_space_path(:partial => '1') %>", {
+      authenticity_token: "<%= form_authenticity_token() %>"
+    }).fail(function() {
+      if (showMessage == true) {
+        recListUpdateEnd(true);
+      }
+    }).success(function(data) {
+      if (showMessage == true) {
+        recListUpdateEnd(false);
+        $("#recording-list-wrapper").html(data);
+      }
+    });
+  }
+
+  <% if logged_in? %>
+    recListUpdateStart();
+    $.post("<%= fetch_recordings_bigbluebutton_room_path(@room, :format => 'json') %>", {
+      authenticity_token: "<%= form_authenticity_token() %>"
+    }, null, "html").fail(function() {
+      recListUpdateEnd(true);
+    }).success(function(data) {
+      populateList(true);
+    });
+  <% else %>
+    populateList(false);
+  <% end %>
+
+  <% end %>
+
+  <%= content_for :search do  %>
+    <%= render :partial => 'search/form' %>
+  <%end%>
+  <div id="webconference-rooms">
+    <h3>
+      <%= t('recordings.title') %>
+      <div id="update-recordings">
+        <div id="update-recordings-error">
+          <span><%= t("recordings.update_list.error") %></span>
+          <%= image_tag "icons/exclamation.png", :size => "16x16" %>
+        </div>
+        <div id="update-recordings-success">
+          <span><%= t("recordings.update_list.success") %></span>
+          <%= image_tag "icons/accept.png", :size => "16x16" %>
+        </div>
+        <div id="update-recordings-loading">
+          <span><%= t("recordings.update_list.updating") %></span>
+          <%= image_tag "icons/loading-16x16.gif", :size => "16x16" %>
+        </div>
+      </div>
+    </h3>
+    <div id="recording-list-wrapper">
+      <%= render :partial => 'recordings/recording_list', :locals => {:recordings => @recordings} %>
+    </div>
+  </div>
+<% end %>

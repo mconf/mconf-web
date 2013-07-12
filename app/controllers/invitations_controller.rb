@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Copyright 2008-2010 Universidad Politécnica de Madrid and Agora Systems S.A.
 #
 # This file is part of VCC (Virtual Conference Center).
@@ -18,5 +19,6 @@
 require_dependency "#{ Rails.root.to_s }/vendor/plugins/station/app/controllers/invitations_controller"
 
 class InvitationsController
-  authorization_filter :forbidden, :invitation, :only => [ :index ]  
+  authorization_filter :forbidden, :invitation, :only => [:index]
+  before_filter :authentication_required, :only => [:show]
 end

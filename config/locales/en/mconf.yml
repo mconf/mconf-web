@@ -12,12 +12,18 @@ en:
   actions: Actions
   activerecord: 
     attributes: 
+      private_message:
+         title: "Title"
+         receiver_id: "Receiver"
+         body: "Body"
       spaces: 
         attendee_password: "Attendee Password"
         moderator_password: "Moderator Password"
     errors: 
       messages: 
         missing: "is missing"
+    models:
+      private_message: "Message"
   address: Address
   admin: 
     one: Admin
@@ -78,6 +84,7 @@ en:
     add: "Add attachment"
     delete: "Delete attachment"
     deleted: "Attachment successfully deleted"
+    created: "Attachment successfully uploaded"
     error: 
       not_deleted: "%{file} not deleted correctly. "
       not_permission: "%{user} cannot delete %{file}. "
@@ -125,9 +132,15 @@ en:
       id: ID
       name: Name
       role: Role
+    fetch_recordings: "Fetch recordings"
     new_room: "New room"
     new_server: "New server"
+    recordings: 
+      default: Default
+      publish: Publish
+      unpublish: Unpublish
     rooms: 
+      add_metadata: "Add metadata"
       external: 
         header: "This meeting was created from another application.<br/>You must provide a name and a password to join:"
       index: 
@@ -136,6 +149,7 @@ en:
         new_room: "New room"
       invite: Invite
       join_mobile: "Join mobile"
+      metadata_after_create: "Metadata can be only added after a room is created"
     servers: 
       activity: 
         activity: Activity
@@ -153,6 +167,13 @@ en:
         title: "Server activity monitor"
       index: 
         access_links: "Access links"
+        recording_links: Recordings
+      recordings: 
+        fetch: "Fetch recordings"
+        publish: "Publish recordings"
+        unpublish: "Unpublish recordings"
+    view_recording_list: "View recording list"
+    view_recordings: "View recordings"
     view_room_list: "View room list"
     view_rooms: "View rooms"
     view_server_list: "View server list"
@@ -161,6 +182,7 @@ en:
     accept: Accept
     back_to_event: "Back to event"
     cancel: Cancel
+    click_to_edit: "Click to edit..."
     confirm: Confirm
     create: Create
     creating: "Creating event..."
@@ -177,6 +199,7 @@ en:
     post: Post
     publish: Publish
     remove: Remove
+    saving_dots: Saving...
     search: Search
     send: Send
     sending: Sending...
@@ -187,6 +210,7 @@ en:
     login_page:
       click_here_to_login: "click here to log in"
       description: "Experimental test of access to Mconf using the federation CAFe"
+      description_small: "or you can log using the federation CAFe"
       more_about_cafe: "Learn more about CAFe"
       read_more: "read more..."
       terms_of_service: "Terms of service (in portuguese)"
@@ -239,6 +263,7 @@ en:
   deny: "No"
   description: Description
   destroy: Destroy
+  details: Details
   disable: Disable
   disabled: Disabled
   document: 
@@ -493,33 +518,6 @@ en:
     instructions: "Click Send for each invitation you want to send, and click Finish when you are done."
     sent: "Invitations sent successfully"
     will_invite: "People you will invite:"
-  faq: 
-    faq0: 
-      answer: "This FAQ, as this entire website, is based on Global Plaza. If you don’t find here the answer you’re looking for, maybe you can find it in the <a href=\"http://globalplaza.org/faq\">Global Plaza FAQ</a>."
-      question: "About this FAQ"
-    faq1: 
-      answer: "Mconf is an open source project that aims to provide a webconference system with the capability to interoperate transparently between desktop computers and mobile devices.<br><br>This website you're on is called Mconf-Web, the web application that manages the webconferences in Mconf. Mconf-Web is built on top of <a href=\"http://globalplaza.org\">Global Plaza</a> that is (as stated in it's own website): \"a space for collaboration, a meeting point for professionals, where they can share documents and videos and organize and participate in videoconferences, in a modern web environment\".<br><br>You can find more about Mconf and Mconf-Web in the following websites:<ul><li>Our project's page: <a href=\"http://www.inf.ufrgs.br/prav/gtmconf\">http://www.inf.ufrgs.br/prav/gtmconf</a></li><li>Our Google Code page, with issue tracking and documentation (wiki): <a href=\"http://code.google.com/p/mconf\">http://code.google.com/p/mconf</a></li><li>Our GitHub user, where all our code is hosted: <a href=\"https://github.com/mconf\">https://github.com/mconf</a></li></ul>"
-      question: "What is Mconf?"
-    faq2: 
-      answer: "To start collaborating in Mconf you only need to <a href=\"http://mconf.inf.ufrgs.br/signup\">register</a>. That way you will be able to create spaces, add documents and attend meetings. Checking Mconf help pages is a nice starting point to find your way.<br><br>Free? Yes, you can use this server for free, but be aware that this is a test server and we do not guarantee that it will be running 100% of the time (though it will probably be close to that)."
-      question: "How do I join and participate in the community? Is it free?"
-    faq3: 
-      answer: "A <b>space</b> is the basic unit of collaboration in Mconf. As you might guess, it is a place where people with a common interest can interact. That interaction can take place in a number of ways: using the document repository, organizing events, participating in webconferences, and others. And Mconf provides you with the facilities to do that, and much more. You only have to decide who to invite to your space, and if it will be public or private.<br><br><b>Public spaces</b> are viewable by anyone, even by visitors that do not have an account in Mconf. But, even though everyone can view it, only authorized people can alter it (create events and post messages, for example).<br><br><b>Private spaces</b> are only viewable by authorized people. You can create a private space and only give access to your friends or to people from your workplace, for example. Nobody else will be able to see the activity inside this space (but they will know that the space exists)."
-      question: "Spaces? What spaces? What the heck are spaces?"
-    faq4: 
-      answer: "Mconf is a site that revolves around webconferencing and, as such, our mind is in simplifying the effort to organize them. Underneath, Mconf uses Mconf-Live, a customized version of <a href=\"http://bigbluebutton.org\">BigBlueButton</a>, as the webconference system, and Mconf-Web allows you to create and manage your own webconferences."
-      question: "Did you mention… webconferences?"
-    faq5: 
-      answer: "There are basically two types of webconferences in Mconf.<br><br>When a user registers in this website, he/she automatically receives a webconference room (<b>user’s room</b>). This room can be shared with anyone the user would like to hold a conference with, even with people that do not have a Mconf account. The room’s owner is always the conference moderator, while the other participants have limited attendee privileges.<br><br>The user rooms are by default public, so anyone with the link to it will be able to access it. But it can be made private and you can even define a password to it (note: this is still a work in progress).<br><br>The other type of webconference happens inside a space. Every space created in Mconf has a webconference room associated (<b>space’s room</b>). If the space is public, the room is public. Otherwise, the room is private and there will be a password associated to it.<br><br>As public spaces, public space’s rooms can be accessed by anybody, but only the space’s members will have moderator privileges. Likewise, private space’s rooms will only be accessible by members of the space."
-      question: "Ok, but how can I create a webconference?"
-    faq6: 
-      answer: "As of now, we give support to the following languages: <b>English</b> and <b>Portuguese (Brazil)</b>. However, we also have Mconf-Web partially available in the languages <b>Spanish</b>, <b>French</b> and <b>German</b>. To select among them just use the link “Language” at the top of any page. We are constantly improving internationalization, and if you think you can lend us a hand, please <a href=\"http://mconf.inf.ufrgs.br/feedback/new\">contact us</a> or <a href=\"http://code.google.com/p/mconf/wiki/MconfWebLocalization\">take a look at our wiki</a>, that contains some instructions on how to translate this website."
-      question: "I am Spanish/French/German/Brazilian... Is Mconf translated to my language?"
-    faq7: 
-      answer: "You’re great! We are very glad you’re interested in giving your contribution to Mconf. So, how can you contribute?<br><br>First, take a look at our <a href=\"http://code.google.com/p/mconf\">Google Code page</a>, where you can find the issue tracking system with all tasks currently in development and also all our documentation (wiki). After that, if you want to contact us, register yourself in <a href=\"http://groups.google.com/group/mconf-dev\">our mailing list</a> and send us a message.<br><br>There are plenty of things you can do. You can help by solving a bug, maybe? Or, if you’re not a developer, maybe you can install Mconf and provide some feedback? You can also help with translations if you speak many languages. We will appreciate any comments and suggestions, feel free to interact with us."
-      question: "I have plenty of nice ideas for your site. Do you accept suggestions? How can I contribute to the development?"
-    header_title: FAQ
-    title: "Frequently Asked Questions"
   fax: Fax
   feedback: 
     email: "%{email} sent the following feedback:"
@@ -696,17 +694,35 @@ en:
   his_message_reads_thus: "His message reads thus"
   home: 
     activity: "Recent activity..."
-    invite_url: "Invite URL"
+    invite_url: URL
     my: "My Home"
     no_rooms: "You have no webconference rooms."
     not_running: "not running"
     one: home
+    recordings: 
+      latest_recordings: "Your latest %{count} recordings"
+      view_all: "view all recordings..."
     running_with: 
       no_participants: "running with no participants"
       participants: 
         one: "running with %{count} participant"
         other: "running with %{count} participants"
-    view_invite_url: "View Invite URL"
+    view_invite_url: "View URL"
+    webconf: 
+      configure: Configure
+      end: "Stop the room"
+      enter: "Enter the room"
+      invite_people: "Invite other people"
+      join_from_mobile: "Join from a mobile device"
+      no_recording_options: "A meeting is running, the recording options are not currently available."
+      record: Record
+      recording_description: Description
+      recording_description_placeholder: "A description for this recording"
+      recording_duration: Duration
+      recording_duration_units: hours
+      recording_title: Title
+      recording_title_placeholder: "A title for this recording"
+      start: "Start the room"
   icalendar: 
     error_import: "An error ocurred while importing the iCalendar."
     import: "Import iCalendar"
@@ -859,6 +875,9 @@ en:
     one: "%{count} member"
     other: "%{count} members"
   message: 
+    created: "Message sent successfully"
+    error: 
+      create: "Error sending private message"
     incoming: 
       other: "Incoming messages"
     private: 
@@ -1005,6 +1024,10 @@ en:
   province: Province
   public: Public
   read_more: "Read more"
+  recaptcha: 
+    errors: 
+      recaptcha_unavailable: "Oops, we failed to validate your word verification response (captcha). Please try again."
+      verification_failed: "Word verification response (captcha) is incorrect, please try again."
   received_message_more_machines: "You have received a message from %{user} asking for more machines"
   recent: 
     activity: "Recent activity"
@@ -1021,6 +1044,22 @@ en:
     warning_pause_recording: "Warning: this action will pause the recording. You will be able to continue with it in the future or publish it. <br/> Do you want to continue?"
     warning_publish_recording: "Warning: this action will publish the recording. In the future you will be able to edit it to cut the beggining and end of the resulting video but you won't be able to record this session again. <br/> Do you want to continue?"
     warning_start_recording: "Warning: this action will stop other recordings of this event in progress. <br/> Do you want to continue?"
+  recordings: 
+    created_by: "Created by"
+    duration: Duration
+    ended_at: "Ended at"
+    no_description: "<no description>"
+    no_title: "<no title>"
+    playback: Playback
+    processing_dots: "Processing, please wait..."
+    started_at: "Started at"
+    title: Recordings
+    unavailable: "The recording is unavailable"
+    unavailable_tip: "This recording is not available anymore in the server where it was stored and so it can't be accessed."
+    update_list: 
+      error: "Error updating recordings, please try again later."
+      success: "Recording list updated!"
+      updating: "Updating recording list"
   register: 
     and_participate: "Register To Participate"
     and_participate_description: "To participate in the event you should register"
@@ -1064,15 +1103,31 @@ en:
   rooms: 
     form: 
       msg1: " prohibited this room from being saved:"
+    identification:
+      title: "You are accessing the room <span class='room_title'>%{room}</span>, identify yourself"
+      member: "I'm already member of Mconf"
+      next: "Next"
+      not_member: "I'm not member of Mconf yet"
+    identified:
+      title: "You are accessing the room <span class='room_title'>%{room}</span>"
     invite: 
+      cod_room: "Room Access Key:"
+      desktop: "Select this option to join from a <em>desktop computer</em>."
+      desktop_selected: "Access from a <em>desktop computer</em>."
       join_from_desktop: "In this page you can join the conference from a <b>desktop</b>. To join from a mobile device <a href=\"%{url}\">click here</a>."
       join_from_mobile: "In this page you can join the conference from a <b>mobile device</b>. To join from a desktop <a href=\"%{url}\">click here</a>."
+      mobile: "Select this option to join from a <em>mobile device</em>."
+      mobile_details: "Available for Android devices. You have to install the application <a href=\"%{url}\">Mconf-Mobile</a> to use this option!"
+      mobile_selected: "Access from a <em>mobile device</em>."
+      mobile_selected_details: "Available for Android devices only."
+      mobile_download: "Click here to download Mconf-Mobile."
       msg1: "Invitation to the meeting "
       name: "Name:"
       name_enter: "Enter your name."
       password: "Password:"
       password_filled: "This room is public. The password was auto-filled with the attendee password."
       password_role: "Enter the attendee or moderator password."
+      selected: "selected"
       status: "Meeting status: "
     join: 
       msg1: "The meeting has not started yet, you must wait for the moderator to join."
@@ -1144,8 +1199,6 @@ en:
   show_advanced_editor: "Show advanced editor"
   show_list_version_arrows: "show list version >>"
   show_question: Show?
-  simple_captcha: 
-    label: "Insert here the text from the image"
   site: 
     analytics_code: "Analytics Code"
     analytics_code_tip: "Code for your Google Analytics account. Leave it blank to disable. Example: \"UA-12345678-9\""
@@ -1157,6 +1210,8 @@ en:
     exception_notifications_email_tip: "Use either spaces, commas or semi-colons to separate different emails."
     exception_notifications_prefix: "Debug emails subject prefix"
     exception_notifications_tip: "Send debugging emails whenever the application crashes"
+    external_help: "Help page"
+    external_help_tip: "Insert the URL of a help or FAQ page for this website. It must begin with 'http://'."
     feedback_url: "Feedback URL"
     feedback_url_tip: "The users will be redirected to this URL when they log out of a webconference. If not set they are redirected to '%{default_url}'"
     locale: Language
@@ -1184,6 +1239,13 @@ en:
     smtp_use_tls: "Use TLS in SMTP"
     ssl: SSL
     ssl_tip: "With SSL enabled all the internal links (including pages, images, attachments) will use the protocol https instead of http"
+    timezone: "Timezone"
+    use_recaptcha: "Use reCaptcha"
+    use_recaptcha_tip: "Enable the checkbox if you want to use reCaptcha on user registration. Need private and public keys in order to work."
+    recaptcha_private_key: "reCaptcha's Private Key"
+    recaptcha_private_key_tip: "Insert here your private key that reCaptcha's website gave to you."
+    recaptcha_public_key: "reCaptcha's Public Key"
+    recaptcha_public_key_tip: "Insert here your public key that reCaptcha's website gave to you."
   size: Size
   skype: Skype
   source: 
@@ -1196,6 +1258,8 @@ en:
     all: "All spaces"
     allow_public_access: "Allow public access?"
     attendeePW: "edit attendee password"
+    change_name: "Ok"
+    change_name_warning: "Renaming a space will invalidate links previously pointing to it. Are you sure?"
     clic: "Click to edit..."
     clic_logo: "Click to change your logo"
     configuration: "Space configuration"
@@ -1249,9 +1313,18 @@ en:
     name_none: "A space name must be given to create a new space"
     one: Space
     other: Spaces
-    people_in_conference: 
+    people_in_conference:
       one: "%{count} participant in the room."
       other: "%{count} participant in the room."
+    edit_performances: Edit permissions
+    performances:
+      user: Member
+      admin: Administrator
+      invited: Invited
+      tooltips:
+        admin: "Administrators can read and create any content in the space and can also use the administration features, including accepting new users and changing the role of users."
+        invited: "Invited members can read all content from a space, but aren't able to create content (events, messages or documents)."
+        user: "Regular members can read all content and create content (upload documents, create events and comments)."
     possesion: "My Spaces"
     private: "Private spaces"
     public: 
@@ -1260,6 +1333,9 @@ en:
     recording: 
       one: "Space video"
       other: "Space videos"
+    recordings: 
+      latest_recordings: "Latest %{count} recordings"
+      view_all: "view all recordings..."
     select: Spaces
     show_all: "Show all spaces"
     subscribed_to_none: "You are not subscribed to any space"

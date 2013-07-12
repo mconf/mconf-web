@@ -1,16 +1,21 @@
 <% if logged_in? %>
-  <% join_link = join_space_room_path(space, @bbb_room) %>
+  <% join_link = join_space_room_path(space, @room) %>
 <% else %>
-  <% join_link = invite_space_room_path(space, @bbb_room) %>
+  <% join_link = invite_space_room_path(space, @room) %>
 <% end %>
 
-<%= link_to ("<span>" + t('button.join_webconference') + "</span>").html_safe, join_link, :class => 'big_button orange_button bigbluebutton_button clean_popup' %>
-
-<div class="clearer"></div>
-<br/>
-
 <% if logged_in? %>
-  <% ico = "<div class=\"webconference_join_mobile_ico\"></div>" %>
-  <%= link_to ("<span>" + ico + t('button.join_webconference_mobile') + "</span>").html_safe, join_mobile_space_room_path(space, @bbb_room),
-        :class => 'big_button orange_button bigbluebutton_button', :id => "join_mobile_button" %>
+  <%= link_to join_link, :class => 'big_button orange_button bigbluebutton_button space-webconference-join', :"data-dropdown" => "#dropdown-join-webconf" do %>
+    <span>
+      <%= t('button.join_webconference') %>
+      <i class="caret"></i>
+    </span>
+  <% end %>
+  <%= render :partial => 'recordings/recording_start_links', :locals => { :resource => @room, :route => space_path(@space, :format => 'json') } %>
+<% else %>
+  <%= link_to join_webconf_path(@room), :class => 'big_button orange_button bigbluebutton_button space-webconference-join' do %>
+    <span>
+      <%= t('home.webconf.enter') %>
+    </span>
+  <% end %>
 <% end %>

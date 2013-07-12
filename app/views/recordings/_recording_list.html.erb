@@ -1,0 +1,72 @@
+<% if not defined?(show_authors) %>
+  <% show_authors = true %>
+<% end %>
+
+<% if recordings.count > 0 %>
+
+<div id="recording-list">
+  <ul class="recording-item">
+    <% recordings.each do |recording| %>
+      <li class="<%= cycle('thread-even' , 'thread-odd') %>">
+
+        <div class="recording-field">
+          <% metaUser = recording.metadata.all.select{ |m| m.name == BigbluebuttonRails.metadata_user_id.to_s }.first %>
+          <% metaTitle = recording.metadata.all.select{ |m| m.name == configatron.metadata.title }.first %>
+          <% metaDesc = recording.metadata.all.select{ |m| m.name == configatron.metadata.description }.first %>
+          <% if metaTitle.nil? or metaTitle.content.blank? %>
+            <span class="recording-name"><%= t('recordings.no_title') %></span>:
+          <% else %>
+            <span class="recording-name"><%= metaTitle.content %></span>:
+          <% end %>
+          <% if metaDesc.nil? or metaDesc.content.blank? %>
+            <span class="recording-description"><%= t('recordings.no_description') %></span>
+          <% else %>
+            <span class="recording-description"><%= metaDesc.content %></span>
+          <% end %>
+        </div>
+        <div class="recording-details">
+          <%= t('recordings.playback') %>:
+          <% unless recording.available %>
+            <%= t('recordings.unavailable') %>
+            <%= image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_unavailable icon",:style=>"cursor:pointer",:title => t('recordings.unavailable_tip')).html_safe %>
+          <% else %>
+            <% if recording.playback_formats.size > 0 %>
+              <% recording.playback_formats.each do |playback| %>
+                <a href="<%= playback.url %>" class="playback-link">
+                  <%= image_tag "icons/16/play2.png", :class => "playback-icon" %>
+                  <%= playback.format_type %>
+                </a>
+              <% end %>
+            <% else %>
+              <%= t('recordings.processing_dots') %>
+            <% end %>
+          <% end %>
+        </div>
+        <div class="recording-details">
+          <% if show_authors %>
+            <% unless metaUser.nil? %>
+              <% user = User.find_by_id(metaUser.content) %>
+              <% unless user.nil? %>
+                <span class="recording-author">
+                  <%= t('recordings.created_by') %>:
+                  <%= link_to user.full_name, user_profile_path(user) %>,
+                </span>
+              <% end %>
+            <% end %>
+          <% end %>
+          <span class="recording-date">
+            <%= t('recordings.started_at') %>: <%= recording.start_time %>,
+          </span>
+          <span class="recording-duration" title="<%= t('recordings.ended_at') %>: <%= recording.end_time %>">
+            <%= t('recordings.duration') %>:
+            <%= distance_of_time_in_words(recording.start_time, recording.end_time) %>
+          </span>
+        </div>
+        <div class="clearer"></div>
+
+      </li>
+    <% end %>
+  </ul>
+</div>
+
+<% end %>

@@ -4,13 +4,15 @@
     <ul>
       <li><span id="trade_mark"><%= t('mconf') %></span> <%= t('all_rights_reserved') %>.</li>
       <li>-</li>
-      <li>
-        <div id="support_select">
-          <%= link_to(image_tag("icons/help.png", :class=>"icon") + " " + t('help'), help_path) %>
-        </div>
-      </li>
-      <li>-</li>
-      <li><%= link_to(t('feedback.send_us'), new_feedback_path(), :id => "feedback_link" )%></li>
+      <% unless current_site.external_help.blank? %>
+        <li>
+          <div id="support_select">
+            <%= link_to(image_tag("icons/help.png", :class=>"icon") + " " + t('help'), current_site.external_help) %>
+          </div>
+        </li>
+        <li>-</li>
+      <% end %>
+      <li><%=link_to(t('feedback.send_us'), new_feedback_path(), :id => "feedback_link" )%></li>
     </ul>
   </div>
 

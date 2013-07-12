@@ -481,7 +481,7 @@ fr:
     de: Deutsch
     en: English
     es: Español
-    fr: Fraçais
+    fr: Français
     pt-br: "Português (Brasil)"
   login_or_register: "Connexion / S'inscrire"
   login_request: "Vous devez être connecté pour"
@@ -490,6 +490,9 @@ fr:
     empty: "Le logo est vide"
   logout: "Sortir %{user}"
   message: 
+    created: "Message envoyé avec succès"
+    error: 
+      create: "Erreur d'envoi d'un message privé"
     incoming: 
       other: "Les messages entrants"
     private: 

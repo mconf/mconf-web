@@ -1,2 +1,61 @@
 --- 
-es: {}
+es: 
+  activerecord: 
+    attributes: 
+      bigbluebutton_room: 
+        attendee_password: "Clave del participante"
+        dial_number: "Dial Number"
+        external: "Creada externamente"
+        logout_url: "URL de Desconexión"
+        max_participants: "Número máximo de participantes"
+        meetingid: "Identificador de reunión"
+        moderator_password: "Clave del moderador"
+        name: Nombre
+        param: Identificador
+        private: Privado
+        server_id: "Identificador de servidor"
+        voice_bridge: "Voice Bridge"
+        welcome_msg: "Mensaje de bienvenida"
+      bigbluebutton_server: 
+        name: Nombre
+        param: Identificador
+        salt: "String de seguridad"
+        url: URL
+        version: Versión
+    models: 
+      bigbluebutton_room: "Sala de conferencia web"
+      bigbluebutton_server: "Servidor de conferencia web"
+  bigbluebutton_rails: 
+    bigbluebutton: BigBlueButton
+    rooms: 
+      errors: 
+        auth: 
+          failure: "Error de autenticación."
+          not_running: "La reunión no está disponible aun. La reunión se habilitará una vez que ingrese el moderador."
+          wrong_params: "La solicitud contiene parámetros incorrectos."
+        external: 
+          blank_meetingid: "Debe especificar el identificador de la reunión a la que pretende ingresar"
+        param_format: "Sólo puede usar letras, números y los símbolos \"-\" o \"_\" (los que no pueden ir ni al principio ni al final)"
+        server: 
+          nil: "Para ejecutar esta operación, la sala debe estar asociada a un servidor."
+      notice: 
+        create: 
+          failure: "Su sala no pudo ser creada."
+          success: "Su sala ha sido creada."
+        destroy: 
+          success: "La reunión ha sido eliminada."
+        end: 
+          not_running: "La reunión no se pudo detener porque no se encuentra en ejecución."
+          success: "La reunión ha sido detenida."
+        update: 
+          failure: "Su sala no pudo ser actualizada."
+          success: "Su sala ha sido actualizada."
+    servers: 
+      errors: 
+        param_format: "Sólo puede usar letras, números y los símbolos \"-\" o \"_\" (los que no pueden ir ni al principio ni al final)"
+        url_format: "Debe usar el formato http://<server>/bigbluebutton/api"
+      notice: 
+        create: 
+          success: "Su servidor ha sido creado."
+        update: 
+          success: "Su servidor ha sido actualizado."

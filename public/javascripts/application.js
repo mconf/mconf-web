@@ -1,11 +1,17 @@
-/* jQuery.ajaxSetup({ 
+/* jQuery.ajaxSetup({
   'beforeSend': function(xhr) {xhr.setRequestHeader("Accept", "text/javascript")}
 })
 */
 
-$('a.clean_popup').live('click', function(e) {
+$('a.clean_popup:not(.disabled)').live('click', function(e) {
   window.open($(this)[0].href, "_blank", "resizable=yes");
   e.preventDefault();
+  return false;
+});
+
+$('a.disabled').live('click', function(e) {
+  e.preventDefault();
+  return false;
 });
 
 function changeInputTextType (id, type) {
@@ -18,7 +24,7 @@ jQuery.fn.submitWithAjax = function() {
   this.submit(function() {
     $.post(this.action, $(this).serialize(), null, "script");
     return false;
-  })
+  });
   return this;
 };
 
@@ -30,7 +36,7 @@ jQuery.fn.postsForm = function(route){
 	this.ajaxForm({
 		dataType: 'script',
 		success: function(data){
-			if (data == "") {
+			if (data === "") {
 				window.location = route;
 			}
 		}
@@ -54,12 +60,12 @@ jQuery.fn.ajaxLink = function(){
 /*
  *  Input files style
  */
- 
+
 style_file_input = function(){
   $("input[type=file]")
 	  .filter(function(index) {
       if ($(this).css("opacity") != "0") return true;
-    }).filestyle({ 
+    }).filestyle({
         image: "/images/buttons/browse.png",
         imageheight : 23,
         imagewidth : 63,
@@ -74,7 +80,7 @@ style_file_input = function(){
 setFullScreen = function(){
 
 	var windowHeight = window.innerHeight ? window.innerHeight : document.documentElement.clientHeight ? document.documentElement.clientHeight : document.body.clientHeight;
-          
+
   $("#header").hide();
   $("#selector").hide();
   $("#menu").hide();

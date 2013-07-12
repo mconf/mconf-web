@@ -492,16 +492,19 @@ describe PostsController do
         describe "trying to see" do
           it "everybody post." do
             get :index, :space_id => @current_space.to_param
-            assert_response 403
+            assert_response 302
+            response.should redirect_to(new_space_join_request_url(@current_space))
           end
 
           it "my post." do
             get :show, :space_id => @current_space.to_param, :id => @post_mine.to_param
-            assert_response 403
+            assert_response 302
+            response.should redirect_to(new_space_join_request_url(@current_space))
           end
           it "a post that isn't mine." do
             get :show, :space_id => @current_space.to_param, :id => @post_not_mine.to_param
-            assert_response 403
+            assert_response 302
+            response.should redirect_to(new_space_join_request_url(@current_space))
           end
         end
 
@@ -721,16 +724,19 @@ describe PostsController do
         describe "trying to see" do
           it "everybody post." do
             get :index, :space_id => @current_space.to_param
-            assert_response 403
+            assert_response 302
+            response.should redirect_to(new_space_join_request_url(@current_space))
           end
 
           it "my post." do
             get :show, :space_id => @current_space.to_param, :id => @post_mine.to_param
-            assert_response 403
+            assert_response 302
+            response.should redirect_to(new_space_join_request_url(@current_space))
           end
           it "a post that isn't mine." do
             get :show, :space_id => @current_space.to_param, :id => @post_not_mine.to_param
-            assert_response 403
+            assert_response 302
+            response.should redirect_to(new_space_join_request_url(@current_space))
           end
         end
 

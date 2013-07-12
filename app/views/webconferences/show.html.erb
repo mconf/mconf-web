@@ -22,6 +22,61 @@
     'frameHeight' : 500
   });
 
+  recListUpdateStart = function() {
+    $("#update-recordings-loading").show();
+  }
+
+  recListUpdateEnd = function(error) {
+    $("#update-recordings-loading").hide();
+    if (error) {
+      $("#update-recordings-error").show();
+      window.setTimeout(function() {
+        $("#update-recordings-error").hide();
+      }, 5000);
+      $("#recording-list-wrapper").effect("highlight", { color: "#ff0000"}, 5000);
+    } else {
+      $("#update-recordings-success").show();
+      window.setTimeout(function() {
+        $("#update-recordings-success").hide();
+      }, 5000);
+      if ($("#recording-list-wrapper").is(":visible")) {
+        $("#recording-list-wrapper").effect("highlight", { color: "#00ff00"}, 5000);
+      }
+    }
+  }
+
+  populateList = function(showMessage) {
+    $.get("<%= recordings_space_path(@space, :partial => '1', :limit => 3) %>", {
+      authenticity_token: "<%= form_authenticity_token() %>"
+    }).fail(function() {
+      if (showMessage == true) {
+        recListUpdateEnd(true);
+      }
+    }).success(function(data) {
+      if (data.trim() != "") {
+        $("#recording-list-wrapper").show();
+        $("#recording-list-wrapper").html(data);
+      } else {
+        $("#recording-list-wrapper").hide();
+      }
+      if (showMessage == true) {
+        recListUpdateEnd(false);
+      }
+    });
+  }
+
+  <% if logged_in? %>
+    recListUpdateStart();
+    $.post("<%= fetch_recordings_bigbluebutton_room_path(@room, :format => 'json') %>", {
+      authenticity_token: "<%= form_authenticity_token() %>"
+    }, null, "html").fail(function() {
+      recListUpdateEnd(true);
+    }).success(function(data) {
+      populateList(true);
+    });
+  <% else %>
+    populateList(false);
+  <% end %>
 <% end %>
 
 <%= content_for :search do  %>
@@ -33,14 +88,14 @@
 <% end %>
 
 <div id="space_webconference_description">
-  <% status = @bbb_room.is_running? ? t('webconference.running')+"!" : t('webconference.not_running') %>
+  <% status = @room.is_running? ? t('webconference.running')+"!" : t('webconference.not_running') %>
   <%= t('webconference.space.description', :status => status).html_safe %>
 
   <div class="url_share">
     <div class="video_share">
       <span><%= t('webconference.space.share') %></span>
     </div>
-    <span class="only_url"><%= t('url_plain') %>: </span><span class="blue"><%= join_webconf_url(@bbb_room) %></span>
+    <span class="only_url"><%= t('url_plain') %>: </span><span class="blue"><%= join_webconf_url(@room) %></span>
     <% if logged_in? %>
       <div class="invite_button">
         <%= link_to t('button.invite'), inviteroom_invite_path(:type => "webconference", :room => space.bigbluebutton_room.to_param), :id => 'invite_bbb_link', :class => 'basic_button' %>
@@ -52,10 +107,40 @@
 <div>
   <p class="main_text">
     <div class="people-connect-title">
-      <h3 style="clear: both"><%=image_tag("icons/user.png")%> <%= t('webconference.title_people_conf') %> (<%= @bbb_room.participant_count %>)</h3>
+      <h3 style="clear: both"><%=image_tag("icons/user.png")%> <%= t('webconference.title_people_conf') %> (<%= @room.participant_count %>)</h3>
     </div>
     <% @bbb_attendees.each do |user| %>
       <div><%= render :partial => 'users/detailed_user', :object => user %></div>
     <% end %>
   </p>
 </div>
+
+  <div>
+    <div id="space-recordings-all">
+      <div class="space-recordings">
+        <h3 style="clear: both">
+          <%= t('space.recordings.latest_recordings', :count => @recordings.count) %>
+          <%= link_to t('space.recordings.view_all'), recordings_space_path(@space), :class => 'title-options' %>
+
+          <div id="update-recordings">
+            <div id="update-recordings-error">
+              <span><%= t("recordings.update_list.error") %></span>
+              <%= image_tag "icons/exclamation.png", :size => "16x16" %>
+            </div>
+            <div id="update-recordings-success">
+              <span><%= t("recordings.update_list.success") %></span>
+              <%= image_tag "icons/accept.png", :size => "16x16" %>
+            </div>
+            <div id="update-recordings-loading">
+              <span><%= t("recordings.update_list.updating") %></span>
+              <%= image_tag "icons/loading-16x16.gif", :size => "16x16" %>
+            </div>
+          </div>
+
+        </h3>
+      </div>
+      <div id="recording-list-wrapper">
+        <%= render :partial => 'recordings/recording_list', :locals => {:recordings => @recordings} %>
+      </div>
+    </div>
+  </div>

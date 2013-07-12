@@ -3,6 +3,9 @@ require "spec_helper"
 describe Notifier do
 
   before(:each) do
+    @locale = :en
+    I18n.locale = @locale
+
     @space = Factory(:space)
     @event = Factory(:event)
     @admin = Factory(:admin_performance, :stage => @space).agent
@@ -10,7 +13,8 @@ describe Notifier do
     @unregistered_user_email = "unregistered@example.com"
 
     @admin.profile.update_attributes Factory.attributes_for(:profile)
-    @admin.update_attribute(:notification,User::NOTIFICATION_VIA_EMAIL)
+    @admin.update_attribute(:notification, User::NOTIFICATION_VIA_EMAIL)
+    @admin.update_attribute(:locale, @locale) # to send all emails in the same locale
     @registered_user.profile.update_attributes Factory.attributes_for(:profile)
     @registered_user.update_attribute(:notification,User::NOTIFICATION_VIA_EMAIL)
     @event.update_attribute(:space, @space)

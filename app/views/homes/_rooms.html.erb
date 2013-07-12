@@ -1,16 +1,7 @@
+<% metaTitle = @room.metadata.all.select{ |m| m.name == configatron.metadata.title }.first %>
+<% metaDesc = @room.metadata.all.select{ |m| m.name == configatron.metadata.description }.first %>
+
 <%= content_for :javascript do  %>
-
-  $("a#mobile_join").fancybox({
-    'hideOnContentClick' : false,
-    'frameWidth' : 250,
-    'frameHeight' : 500
-  });
-
-  $("a#invite_bbb_link").fancybox({
-    'hideOnContentClick' : false,
-    'frameWidth' : 450,
-    'frameHeight' : 430
-  });
 
   $("a#edit_bbb_room").fancybox({
     'hideOnContentClick' : false,
@@ -30,11 +21,6 @@
     }
   });
 
-  $("#webconference-rooms .invite_url_button").livequery('click', function(event) {
-    id = $(this).attr('id').replace("invite_url_button-", "");
-    $("#invite_url-" + id).toggle('fast');
-  });
-
   $("#new-webconf-room #private").livequery('click', function(event) {
     $('#new_room_private_area').toggle(0);
     if ($(this).is(':checked')) {
@@ -47,57 +33,120 @@
     }
   });
 
-<% end %>
+  recListUpdateStart = function() {
+    $("#update-recordings-loading").show();
+  }
 
+  recListUpdateEnd = function(error) {
+    $("#update-recordings-loading").hide();
+    if (error) {
+      $("#update-recordings-error").show();
+      window.setTimeout(function() {
+        $("#update-recordings-error").hide();
+      }, 5000);
+      $("#recording-list-wrapper").effect("highlight", { color: "#ff0000"}, 5000);
+    } else {
+      $("#update-recordings-success").show();
+      window.setTimeout(function() {
+        $("#update-recordings-success").hide();
+      }, 5000);
+      $("#recording-list-wrapper").effect("highlight", { color: "#00ff00"}, 5000);
+    }
+  }
+
+  recListUpdateStart();
+  $.post("<%= fetch_recordings_bigbluebutton_room_path(@room, :format => 'json') %>", {
+    authenticity_token: "<%= form_authenticity_token() %>"
+  }, null, "html").fail(function(e) {
+    recListUpdateEnd(true);
+  }).success(function(data) {
+    $.get("<%= recordings_home_path(:partial => '1', :limit => 3) %>", {
+      authenticity_token: "<%= form_authenticity_token() %>"
+    }).fail(function() {
+      recListUpdateEnd(true);
+    }).success(function(data) {
+      recListUpdateEnd(false);
+      if (data.trim() != "") {
+        $("#recording-list-all").show();
+        $("#recording-list-wrapper").html(data);
+      } else {
+        $("#recording-list-all").hide();
+      }
+    });
+  });
+
+<% end %>
 
 <div id="webconference-rooms">
   <div class="my-webconference-rooms">
     <h3>
       <%= t('webconference.my_webconference') %>
+      <span class="updated">
+        <% if @room.is_running? %>
+          <% if @room.participant_count == 0 %>
+            <% text = t('home.running_with.no_participants') %>
+          <% else %>
+            <% text = t('home.running_with.participants', :count => @room.participant_count) %>
+          <% end %>
+        <% else %>
+          <% text = t('home.not_running') %>
+        <% end %>
+        <% text = "(" + text + ")" %>
+        <%= text %>
+      </span>
+
+      <div id="update-recordings">
+        <div id="update-recordings-error">
+          <span><%= t("recordings.update_list.error") %></span>
+          <%= image_tag "icons/exclamation.png", :size => "16x16" %>
+        </div>
+        <div id="update-recordings-success">
+          <span><%= t("recordings.update_list.success") %></span>
+          <%= image_tag "icons/accept.png", :size => "16x16" %>
+        </div>
+        <div id="update-recordings-loading">
+          <span><%= t("recordings.update_list.updating") %></span>
+          <%= image_tag "icons/loading-16x16.gif", :size => "16x16" %>
+        </div>
+      </div>
+
     </h3>
     <div class="room_list">
-      <% if @bbb_rooms.empty? %>
+      <% if @room.nil? %>
         <span class="updated"><%= t('home.no_rooms') %></span>
       <% else %>
-        <ul>
-        <% button_id = 0 %>
-        <% @bbb_rooms.each do |room| %>
-          <li>
-            <%= link_to t('button.join'), join_bigbluebutton_room_path(room), :class => 'basic_button small_button orange_pale_button clean_popup' %>
-            <%= mobile_icon_link(join_mobile_bigbluebutton_room_path(room)) %>
-            <span class="room_name">
-              <%= room.name %>
-            </span>
-            <span class="updated">
-              <% if room.is_running? %>
-                <% if room.participant_count == 0 %>
-                  <% text = t('home.running_with.no_participants') %>
-                <% else %>
-                  <% text = t('home.running_with.participants', :count => room.participant_count) %>
-                <% end %>
-              <% else %>
-                <% text = t('home.not_running') %>
-              <% end %>
-              <% text = "(" + text + ")" %>
-              <%= text %>
-            </span>
-            <span class="float_right">
-              <%= link_to t('button.invite'), inviteroom_invite_path(:type => "webconference", :room => room.to_param), :id => 'invite_bbb_link', :class => 'basic_button small_button pale_button'%>
-              <%= link_to t('home.view_invite_url'), '#', :id => "invite_url_button-#{button_id}", :class => 'basic_button small_button invite_url_button pale_button'%>
-              <%= link_to t('button.edit'), edit_bbb_room_user_path(current_user, :room => room.to_param), :id => "edit_bbb_room", :class => 'basic_button small_button pale_button' %>
-            </span>
-            <div class="invite_url url_share" id="invite_url-<%= button_id %>">
-              <span class="only_url"><%= t('home.invite_url') + ":" %> </span>
-              <span class="blue" id="invite_url_text-<%= button_id %>"><%= join_webconf_url(room) %></span>
-              <%= clippy(:id => "invite_url_text-#{button_id}", :bg_color => "#FFFFFF").html_safe %>
+        <div>
+          <div class="invite_url url_share" id="invite_url">
+            <span class="only_url"><%= t('home.invite_url') + ":" %> </span>
+            <input id="invite_url_text" type="text" value="<%= join_webconf_url(@room) %>" disabled="disabled" />
+            <!-- <div class="clippy"> -->
+            <!--   <%= clippy(:id => "invite_url_text", :bg_color => "#FFFFFF").html_safe %> -->
+            <!-- </div> -->
+          </div>
+          <span class="float_right">
+            <%= link_to t('home.webconf.configure'), edit_bbb_room_user_path(current_user, :room => @room.to_param), :id => "edit_bbb_room", :class => 'basic_button small_button pale_button' %>
+            <%= link_to "#", :class => 'basic_button small_button orange_pale_button join_button', :"data-dropdown" => "#dropdown-join-webconf" do %>
+              <%= t('button.join') %>
+              <span class="caret"></span>
+            <% end %>
+          </span>
+          <div class="clearer"></div>
+
+        </div>
+
+        <div id="recording-list-all">
+          <% if @recordings.count > 0 %>
+            <h4>
+              <%= t('home.recordings.latest_recordings', :count => @recordings.count) %>
+              <a class="recordings-view-all" href="<%= recordings_home_path %>"><%= t('home.recordings.view_all') %></a>
+            </h4>
+            <div id="recording-list-wrapper">
+              <%= render :partial => 'recordings/recording_list', :locals => {:recordings => @recordings, :show_authors => false} %>
             </div>
-
             <div class="clearer"></div>
-          </li>
+          <% end %>
+        </div>
 
-          <% button_id += 1 %>
-        <% end %>
-        </ul>
       <% end %>
     </div>
   </div>
@@ -105,3 +154,5 @@
 
 <div id="success" class="hide">
 </div>
+
+<%= render :partial => 'recordings/recording_start_links', :locals => { :resource => @room, :route => user_path(current_user, :format => 'json') } %>

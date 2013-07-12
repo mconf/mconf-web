@@ -1,0 +1,68 @@
+<%= form_for @recording, :url => bigbluebutton_recording_path(@recording) do |f| %>
+  <% if @recording.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@recording.errors.count, "error") %>:</h2>
+      <ul>
+      <% @recording.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <br/>
+  <div class="field">
+    <%= f.label :id %><br />
+    <%= @recording.id %>
+  </div>
+  <div class="field">
+    <%= f.label :recordid %><br />
+    <%= f.text_field :recordid %>
+  </div>
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :room_id %><br />
+    <%= f.text_field :room_id, :disabled => "disabled" %>
+  </div>
+  <div class="field">
+    <%= f.label :server_id %><br />
+    <%= f.text_field :server_id, :disabled => "disabled" %>
+  </div>
+  <div class="field">
+    <%= f.label :published %><br />
+    <%= f.check_box :published %>
+  </div>
+  <div class="field">
+    <%= f.label :available %><br />
+    <%= f.check_box :available %>
+  </div>
+  <div class="field">
+    <%= f.label :start_time %><br />
+    <%= f.text_field :start_time %>
+  </div>
+  <div class="field">
+    <%= f.label :end_time %><br />
+    <%= f.text_field :end_time %>
+  </div>
+
+  <p>
+    <b><%= BigbluebuttonRecording.human_attribute_name(:metadata) %>:</b>
+    <% @recording.metadata.each do |metadata| %>
+      <%= metadata.attributes.except("id", "owner_id", "owner_type", "updated_at", "created_at") %>,
+    <% end %>
+  </p>
+
+  <p>
+    <b><%= BigbluebuttonRecording.human_attribute_name(:playback_formats) %>:</b>
+    <% @recording.playback_formats.each do |format| %>
+      <%= format.attributes.except("id", "recording_id", "updated_at", "created_at") %>,
+    <% end %>
+  </p>
+
+  <div class="actions">
+    <button type="submit" class="basic_button medium_button blue_button"><%=t('button.confirm')%></button>
+  </div>
+<% end %>

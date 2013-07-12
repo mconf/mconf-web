@@ -22,7 +22,7 @@ class SpacesController < ApplicationController
   before_filter :space
 
   authentication_filter :only => [:new, :create]
-  authorization_filter :read,   :space, :only => [:show]
+  authorization_filter :read,   :space, :only => [:show, :recordings]
   authorization_filter :update, :space, :only => [:edit, :update]
   authorization_filter :delete, :space, :only => [:destroy, :enable]
 
@@ -61,9 +61,9 @@ class SpacesController < ApplicationController
   # GET /spaces/1.xml
   # GET /spaces/1.atom
   def show
-    @bbb_room = BigbluebuttonRoom.where("owner_id = ? AND owner_type = ?", @space.id, @space.class.name).first
+    @room = BigbluebuttonRoom.where("owner_id = ? AND owner_type = ?", @space.id, @space.class.name).first
     begin
-      @bbb_room.fetch_meeting_info
+      @room.fetch_meeting_info
     rescue Exception
     end
 
@@ -119,27 +119,6 @@ class SpacesController < ApplicationController
   # POST /spaces.atom
   # {"space"=>{"name"=>"test space", "public"=>"1", "description"=>"<p>this is the description of the space</p>"}
   def create
-    unless logged_in?
-      if params[:register]
-        cookies.delete :auth_token
-        @user = User.new(params[:user])
-        unless @user.save_with_captcha
-          message = ""
-          @user.errors.full_messages.each {|msg| message += msg + "  <br/>"}
-          flash[:error] = message
-          render :action => :new, :layout => "frontpage"
-          return
-        end
-      end
-
-      self.current_agent = User.authenticate_with_login_and_password(params[:user][:email], params[:user][:password])
-      unless logged_in?
-          flash[:error] = t('error.credentials')
-          render :action => :new, :layout => "frontpage"
-          return
-      end
-    end
-
     params[:space][:repository] = 1;
 
     @space = Space.new(params[:space])
@@ -178,54 +157,53 @@ class SpacesController < ApplicationController
   # PUT /spaces/1.xml
   # PUT /spaces/1.atom
   def update
-    # TODO update bigbluebutton_room.private when room.public is updated
-    #unless params[:space][:public].blank?
-    #  params[:space][:bigbluebutton_room_attributes] = Hash.new if params[:space][:bigbluebutton_room_attributes].blank?
-    #  params[:space][:bigbluebutton_room_attributes][:private] = params[:space][:public] == "true" ? "false" : "true"
-    #end
-
-    unless params[:space][:bigbluebutton_room_attributes].blank?
-      params[:space][:bigbluebutton_room_attributes][:id] = @space.bigbluebutton_room.id
-    end
-
-    if @space.update_attributes(params[:space])
+    if params[:bbb_room]
+      # TODO: treat possible errors
+      @space.bigbluebutton_room.update_attributes(params[:bigbluebutton_room])
       respond_to do |format|
         format.html {
-          flash[:success] = t('space.updated')
           redirect_to request.referer
         }
-        format.atom { head :ok }
-        format.js{
-          if params[:space][:name] or params[:space][:description]
-
-            # to set the correct logout_url in the webconference room
-            # update_url = { :logout_url => space_url(@space) }
-            # @space.bigbluebutton_room.update_attributes(update_url)
-
-            @result = params[:space][:name] ? nil : params[:space][:description]
-            flash[:success] = t('space.updated')
-            render "result.js"
-          elsif !params[:space][:bigbluebutton_room_attributes].blank?
-            if params[:space][:bigbluebutton_room_attributes][:moderator_password] or params[:space][:bigbluebutton_room_attributes][:attendee_password]
-              @result = params[:space][:bigbluebutton_room_attributes][:moderator_password] ? params[:space][:bigbluebutton_room_attributes][:moderator_password] : params[:space][:bigbluebutton_room_attributes][:attendee_password]
-              flash[:success] = t('space.updated')
-              render "result.js"
-            end
-          else
-            render "update.js"
-          end
+        format.json {
+          render :json => @space.bigbluebutton_room.to_json(:include => :metadata)
         }
       end
     else
-      respond_to do |format|
-        flash[:error] = t('error.change')
-        format.js {
-        @result = "$(\"#admin_tabs\").before(\"<div class=\\\"error\\\">" + t('.error.not_valid') +  "</div>\")"
-        }
-        format.html {
-        redirect_to edit_space_path() }
-        format.xml  { render :xml => @space.errors, :status => :unprocessable_entity }
-        format.atom { render :xml => @space.errors.to_xml, :status => :not_acceptable }
+      unless params[:space][:bigbluebutton_room_attributes].blank?
+        params[:space][:bigbluebutton_room_attributes][:id] = @space.bigbluebutton_room.id
+      end
+      if @space.update_attributes(params[:space])
+        respond_to do |format|
+          format.html {
+            flash[:success] = t('space.updated')
+            # When space changes name, redirect to the new address
+            redirect_to edit_space_path :id => @space.permalink
+          }
+          format.atom { head :ok }
+          format.js{
+            if params[:space][:name] or params[:space][:description]
+              @result = params[:space][:name] ? nil : params[:space][:description]
+              flash[:success] = t('space.updated')
+              render "result.js"
+            elsif !params[:space][:bigbluebutton_room_attributes].blank?
+              if params[:space][:bigbluebutton_room_attributes][:moderator_password] or params[:space][:bigbluebutton_room_attributes][:attendee_password]
+                @result = params[:space][:bigbluebutton_room_attributes][:moderator_password] ? params[:space][:bigbluebutton_room_attributes][:moderator_password] : params[:space][:bigbluebutton_room_attributes][:attendee_password]
+                flash[:success] = t('space.updated')
+                render "result.js"
+              end
+            else
+              render "update.js"
+            end
+          }
+        end
+      else
+        respond_to do |format|
+          flash[:error] = @space.errors.full_messages.to_sentence
+          format.js { render :text => t('error.change') }
+          format.html { redirect_to edit_space_path() }
+          format.xml  { render :xml => @space.errors, :status => :unprocessable_entity }
+          format.atom { render :xml => @space.errors.to_xml, :status => :not_acceptable }
+        end
       end
     end
   end
@@ -276,6 +254,19 @@ class SpacesController < ApplicationController
       }
       format.xml  { head :ok }
       format.atom { head :ok }
+    end
+  end
+
+  def recordings
+    @room = @space.bigbluebutton_room
+    @recordings = @room.recordings.published().order("end_time DESC")
+    if params[:limit]
+      @recordings = @recordings.first(params[:limit].to_i)
+    end
+    if params[:partial]
+      render "recordings", :layout => false
+    else
+      render "recordings", :layout => "application_without_sidebar"
     end
   end
 

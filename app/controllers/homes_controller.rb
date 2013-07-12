@@ -27,12 +27,11 @@ class HomesController < ApplicationController
 
   def show
     @server = BigbluebuttonServer.first
-    @bbb_rooms = BigbluebuttonRoom.where("owner_id = ? AND owner_type = ?", current_user.id, current_user.class.name)
-    @bbb_rooms.each do |room|
-      begin
-       room.fetch_meeting_info
-      rescue Exception
-      end
+    @room = current_user.bigbluebutton_room
+    @recordings = @room.recordings.published().order("end_time DESC").first(3)
+    begin
+      @room.fetch_meeting_info
+    rescue Exception
     end
 
     if params[:update_rooms]
@@ -77,6 +76,19 @@ class HomesController < ApplicationController
       { :bigbluebutton_room => { :name => r.name, :join_path => link, :owner => owner_hash(r.owner) } }
     }
     render :json => mapped_array
+  end
+
+  def recordings
+    @room = current_user.bigbluebutton_room
+    @recordings = @room.recordings.published().order("end_time DESC")
+    if params[:limit]
+      @recordings = @recordings.first(params[:limit].to_i)
+    end
+    if params[:partial]
+      render "recordings", :layout => false
+    else
+      render "recordings", :layout => "application_without_sidebar"
+    end
   end
 
   private

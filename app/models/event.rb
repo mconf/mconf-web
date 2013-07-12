@@ -38,8 +38,7 @@ class Event < ActiveRecord::Base
   acts_as_stage
   acts_as_container :contents => [:agenda]
   alias_attribute :title, :name
-  validates_presence_of :name,
-                        :message => "must be specified"
+  validates_presence_of :name
 
   # Attributes for jQuery selectors
   attr_accessor :end_hour

@@ -21,7 +21,6 @@ gem 'nokogiri', '1.4.1'
 gem 'prism'
 gem 'rubyzip' # TODO: see rubyzip2
 gem 'garb'
-gem 'simple_captcha', :git => 'git://github.com/galetahub/simple-captcha.git'
 gem 'rmagick', :git => 'git://github.com/rmagick/rmagick.git', :require => false
 gem 'fckeditor'
 gem 'dynamic_form'
@@ -33,6 +32,8 @@ gem 'attachment_fu', :git => 'git://github.com/mconf/attachment_fu.git'
 gem 'yaml_db'
 gem 'delayed_job'
 gem 'whenever', :require => false
+gem 'configatron'
+gem "recaptcha", :require => "recaptcha/rails"
 
 gem 'mysql2', '~> 0.2.0' # must use 0.2.x releases in Rails <= 3.0.x
 
@@ -41,10 +42,9 @@ gem 'table_helper', :git => 'git://github.com/echen/table_helper.git'
 
 group :development do
   #gem 'ruby-debug19', :require => 'ruby-debug'
-  gem 'capistrano', '~> 2.5'
-  gem 'rvm-capistrano'
-  gem 'capistrano-ext'
   gem 'translate-rails3', :require => 'translate', :git => 'git://github.com/mconf/translate.git'
+  gem 'spork-rails'
+  gem 'rails-footnotes'
 end
 
 group :development, :test do

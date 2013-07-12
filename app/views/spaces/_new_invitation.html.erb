@@ -9,7 +9,7 @@
     </div>
     <%= form_for([@space], :html => { :multipart => true, :name => "invitation_edit_form"}) do |f| -%>
       <div id="selected_users">
-        <label for="selected_users" style="display: none;" class="label_izquierda bold"><%=t('invitation.will_invite')%>:</label>
+        <label for="selected_users" style="display: none;" class="bold"><%=t('invitation.will_invite')%>:</label>
       </div>
       <div id="user_filter" class="margin-up" style="display: none;">
         <label for="User filter" class="bold"><%= t('user.filter') %></label><br/>
@@ -30,19 +30,31 @@
       
       
       <div class="margin-up">
-        <label for="e-mails" class="label_izquierda bold"><%= t('user.invite_email') %> <%= t('email.commas') %>:</label>
+        <label for="e-mails" class="bold"><%= t('user.invite_email') %> <%= t('email.commas') %>:</label>
         <%= f.text_field :invitation_mails %>
       </div>
       
       <div class="margin-up">
-        <label class="label_izquierda bold"><%= t('invitation.role_label') %>:</label>
-        <%= f.select :invitations_role_id, Space.roles.map{|r| [ r.name, r.id ]}, {:selected=> Space.role("User").id },:class=>"small-font"%>
+        <label class="bold"><%= t('invitation.role_label') %>:</label>
+        <% role_name_id = @roles.collect {|p| [ t("space.performances.#{p.name.underscore}"), p.id, p.name.underscore ]} %>
+        <p>
+        <% role_name_id.each do |p| %>
+          <% if p[1] == Space.role("User").id %>
+            <%= f.radio_button :invitations_role_id, p[1], :checked => true %>
+          <% else %>
+            <%= f.radio_button :invitations_role_id, p[1] %>
+          <% end %>
+          <%= f.label p[0] %>
+          <%= image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_#{p[2]} icon",:style=>"cursor:pointer") %>
+          <br>
+        <% end %>
+        </p>
       </div>
 
       <%= f.text_field :inviter_id, :style => 'display:none', :value => current_user.id %>
 
       <div class="margin-up">
-        <label for="message" class="label_izquierda bold"><%= t('invitation.label') %>:</label>
+        <label for="message" class="bold"><%= t('invitation.label') %>:</label>
         <textarea style="display:none" id="invite_msg" name="space[invite_msg]"></textarea>
         <div class="grey_bar">
           <p><%= '\'' + t('name.one') + '\','%></p>

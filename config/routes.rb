@@ -1,13 +1,17 @@
 Mconf::Application.routes.draw do
 
-  bigbluebutton_routes :default, :controllers => { :servers => 'custom_bigbluebutton_servers', :rooms => 'custom_bigbluebutton_rooms' }
+  bigbluebutton_routes :default, :controllers => {
+    :servers => 'custom_bigbluebutton_servers',
+    :rooms => 'custom_bigbluebutton_rooms',
+    :recordings => 'custom_bigbluebutton_recordings'
+  }
 
   get '/secure', :to => 'shibboleth#login', :as => "shib_login"
   get '/secure/info', :to => 'shibboleth#info', :as => "shib_info"
   post '/secure/associate', :to => 'shibboleth#associate', :as => "shib_associate"
 
   # FIXME: Temporary, this should probably be done by bigbluebutton_rails
-  match '/webconf/:id', :to => 'custom_bigbluebutton_rooms#invite',
+  match '/webconf/:id', :to => 'custom_bigbluebutton_rooms#invite_userid',
                         :as => "join_webconf"
 
   #Translate::Routes.translation_ui(map) if RAILS_ENV != "production"
@@ -51,6 +55,7 @@ Mconf::Application.routes.draw do
 
     member do
       post :enable
+      get :recordings
     end
 
     resources :users do
@@ -188,6 +193,7 @@ Mconf::Application.routes.draw do
   resource :home do
     member do
       get :user_rooms
+      get :recordings
     end
   end
 
@@ -214,13 +220,8 @@ Mconf::Application.routes.draw do
   match ':locale/:controller/:action/:id'
   match 'locale/set/:id', :to => 'locale#set', :as => 'set'
 
-  # simple_captcha controller
-  #match '/simple_captcha(/:id)', :to => 'simple_captcha#show'
-
   # root
   root :to => 'frontpage#index'
-  match 'help(/:action)', :to => 'faq#index', :as => 'help'
-  match 'faq', :to => 'faq#index', :as => 'faq'
   #match 'perf_indicator', :to => 'frontpage#performance', :as => 'perf_indicator'
   #match 'about', :to => 'frontpage#about', :as => 'about' # TODO Create an about for Mconf
   match 'about/terms-cafe', :to => 'about#terms_cafe', :as => 'terms_cafe'

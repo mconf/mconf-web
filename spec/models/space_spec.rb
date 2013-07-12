@@ -118,7 +118,7 @@ describe Space do
     before { space.update_attributes(:name => "New Name") }
     it { space.permalink.should eq("new-name") }
     it { space.bigbluebutton_room.param.should == space.permalink }
-    it { space.bigbluebutton_room.name.should == space.name }
+    it { space.bigbluebutton_room.name.should == space.permalink }
   end
 
   describe "#permalink is unique" do

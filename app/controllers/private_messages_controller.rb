@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Copyright 2008-2010 Universidad Politécnica de Madrid and Agora Systems S.A.
 #
 # This file is part of VCC (Virtual Conference Center).
@@ -16,21 +17,15 @@
 # along with VCC.  If not, see <http://www.gnu.org/licenses/>.
 
 class PrivateMessagesController < ApplicationController
-  
+
   before_filter :private_message, :only => [:show, :edit, :update, :destroy]
-  
+  before_filter :fetch_private_messages, :only => [:index]
+
   authorization_filter [ :manage, :message ], :user, :except => [ :show ]
   authorization_filter :read, :private_message, :only => [ :show ]
   authorization_filter [ :forbidden_edit, :message ], :user, :only => [ :edit ]
 
   def index
-    if params[:sent_messages]
-      @private_messages = PrivateMessage.sent(user).paginate(:page => params[:page], :per_page => 10)
-    else  
-      @private_messages = PrivateMessage.inbox(user).paginate(:page => params[:page], :per_page => 10)
-    end
-    
-
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @private_messages }
@@ -43,11 +38,10 @@ class PrivateMessagesController < ApplicationController
       @show_message.checked = true
       @show_message.save
     end
-    
+
   end
 
   def new
-       
     @private_message = PrivateMessage.new
 
     respond_to do |format|
@@ -84,22 +78,23 @@ class PrivateMessagesController < ApplicationController
           format.html { redirect_to request.referer }
           format.xml  { render :xml => @success_messages, :status => :created, :location => @success_messages }
         else
-          flash[:error] = t('message.error.create')
+          flash[:error] = t('message.error.create') + ": " + private_message.errors.full_messages.to_sentence
           format.html { redirect_to request.referer }
           format.xml  { render :xml => @fail_messages.map{|m| m.errors}, :status => :unprocessable_entity }
         end
       end
-    else  
+    else
       params[:private_message][:sender_id] = user.id
       @private_message = PrivateMessage.new(params[:private_message])
-  
+
       respond_to do |format|
         if @private_message.save
           flash[:success] = t('message.created')
           format.html { redirect_to request.referer }
           format.xml  { render :xml => @private_message, :status => :created, :location => @private_message }
         else
-          format.html { render :action => "new" }
+          flash[:error] = t('message.error.create') + ": " + @private_message.errors.full_messages.to_sentence
+          format.html { redirect_to request.referer }
           format.xml  { render :xml => @private_message.errors, :status => :unprocessable_entity }
         end
       end
@@ -107,7 +102,6 @@ class PrivateMessagesController < ApplicationController
   end
 
   def update
-
     respond_to do |format|
       if @success_update = @private_message.update_attributes(params[:private_message])
         format.html { redirect_to(@private_message) }
@@ -141,8 +135,17 @@ class PrivateMessagesController < ApplicationController
   def user
     @user ||= User.find_with_param(params[:user_id])
   end
-  
+
   def private_message
     @private_message = PrivateMessage.find(params[:id])
   end
+
+  def fetch_private_messages
+    if params[:sent_messages]
+      @private_messages = PrivateMessage.sent(user).paginate(:page => params[:page], :per_page => 10)
+    else
+      @private_messages = PrivateMessage.inbox(user).paginate(:page => params[:page], :per_page => 10)
+    end
+  end
+
 end

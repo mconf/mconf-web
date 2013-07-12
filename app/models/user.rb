@@ -18,8 +18,6 @@
 
 require 'digest/sha1'
 class User < ActiveRecord::Base
-  apply_simple_captcha
-
   # LoginAndPassword Authentication:
   acts_as_agent :activation => true,
                 :openid_server => true
@@ -32,7 +30,7 @@ class User < ActiveRecord::Base
   acts_as_stage
   acts_as_taggable :container => false
   acts_as_resource :param => :login
-  validates :login, :uniqueness => true
+  validates :login, :uniqueness => true, :length => { :minimum => 1 }
 
   has_one :profile, :dependent => :destroy
   has_many :events, :as => :author
@@ -48,7 +46,6 @@ class User < ActiveRecord::Base
   has_one :bigbluebutton_room, :as => :owner, :dependent => :destroy
   accepts_nested_attributes_for :bigbluebutton_room
 
-  attr_accessible :captcha, :captcha_key, :authenticate_with_captcha
   attr_accessible :machine_ids
   attr_accessible :timezone
   attr_accessible :expanded_post
@@ -98,12 +95,15 @@ class User < ActiveRecord::Base
                               :server => BigbluebuttonServer.first,
                               :param => self.login,
                               :name => self.login,
-                              :logout_url => "/feedback/webconf/"
+                              :logout_url => "/feedback/webconf/",
+                              :moderator_password => SecureRandom.hex(4),
+                              :attendee_password => SecureRandom.hex(4)
   end
 
   def update_bbb_room
     if self.login_changed?
       bigbluebutton_room[:param] = self.login
+      bigbluebutton_room[:name] = self.login
     end
   end
 
@@ -290,6 +290,13 @@ class User < ActiveRecord::Base
     rooms += Space.public.map(&:bigbluebutton_room)
     rooms.uniq!
     rooms
+  end
+
+  # Returns whether this user can record a meeting in `room` or not after BigbluebuttonRails
+  # decided that the user's role in this room is `role`.
+  def can_record_meeting?(room=nil, role=nil)
+    # currently only superusers can record (any room)
+    superuser
   end
 
 end
