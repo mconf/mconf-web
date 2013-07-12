@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Copyright 2008-2010 Universidad Politécnica de Madrid and Agora Systems S.A.
 #
 # This file is part of VCC (Virtual Conference Center).
@@ -77,7 +78,7 @@ class PrivateMessagesController < ApplicationController
           format.html { redirect_to request.referer }
           format.xml  { render :xml => @success_messages, :status => :created, :location => @success_messages }
         else
-          flash[:error] = t('message.error.create')
+          flash[:error] = t('message.error.create') + ": " + private_message.errors.full_messages.to_sentence
           format.html { redirect_to request.referer }
           format.xml  { render :xml => @fail_messages.map{|m| m.errors}, :status => :unprocessable_entity }
         end
@@ -92,9 +93,8 @@ class PrivateMessagesController < ApplicationController
           format.html { redirect_to request.referer }
           format.xml  { render :xml => @private_message, :status => :created, :location => @private_message }
         else
-          # We have to do this here to show the error messages, and also do the index logic
-          fetch_private_messages
-          format.html { render :action => "index" }
+          flash[:error] = t('message.error.create') + ": " + @private_message.errors.full_messages.to_sentence
+          format.html { redirect_to request.referer }
           format.xml  { render :xml => @private_message.errors, :status => :unprocessable_entity }
         end
       end
