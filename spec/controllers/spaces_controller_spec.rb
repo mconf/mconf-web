@@ -127,7 +127,8 @@ describe SpacesController do
 
     it "should not be able to see spaces where he's not invited" do
       get :show, :id => @private_space2.to_param
-      assert_response 403
+      assert_response 302
+      response.should redirect_to(new_space_join_request_url(@private_space2))
     end
 
     it "should NOT be able to delete anyone's space " do
