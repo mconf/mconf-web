@@ -12,12 +12,18 @@ en:
   actions: Actions
   activerecord: 
     attributes: 
+      private_message:
+         title: "Title"
+         receiver_id: "Receiver"
+         body: "Body"
       spaces: 
         attendee_password: "Attendee Password"
         moderator_password: "Moderator Password"
     errors: 
       messages: 
         missing: "is missing"
+    models:
+      private_message: "Message"
   address: Address
   admin: 
     one: Admin
