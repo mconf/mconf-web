@@ -1320,9 +1320,9 @@ en:
       admin: Administrator
       invited: Invited
       tooltips:
-        admin: Administrators can do everything and edit permissions on a space.
-        invited: Invited members can read all content from a space, but aren't able to create events or upload documents.
-        user: Regular members can read content, upload documents, create events and comments.
+        admin: "Administrators can read and create any content in the space and can also use the administration features, including accepting new users and changing the role of users."
+        invited: "Invited members can read all content from a space, but aren't able to create content (events, messages or documents)."
+        user: "Regular members can read all content and create content (upload documents, create events and comments)."
     possesion: "My Spaces"
     private: "Private spaces"
     public: 

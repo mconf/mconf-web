@@ -1345,9 +1345,9 @@ pt-br:
       admin: Administrador
       invited: Convidado
       tooltips:
-        admin: Administradores podem editar qualquer dado e permissões de membros na comunidade.
-        invited: Membros convidados podem ler conteúdo de um espaço, mas não podem criar eventos ou documentos.
-        user: Membros podem ler conteúdo, criar documentos, comentários e eventos.
+        admin: "Administradores podem ler e editar qualquer conteúdo da comunidade e também utilizar as funcionalidades de administração, incluindo aceitar novos usuários e mudar o papel dos usuários."
+        invited: "Membros convidados podem ler todo o conteúdo de uma comunidade, mas não podem criar conteúdo (eventos, mensagens ou documentos)."
+        user: "Membros podem ler todo o conteúdo de uma comunidade e também criar conteúdo (enviar documentos, criar eventos e comentários)."
     possesion: "Minhas Comunidades"
     private: "Comunidades privadas"
     public: 
