@@ -39,7 +39,11 @@
         <% role_name_id = @roles.collect {|p| [ t("space.performances.#{p.name.underscore}"), p.id, p.name.underscore ]} %>
         <p>
         <% role_name_id.each do |p| %>
-          <%= f.radio_button :invitations_role_id, p[1] %>
+          <% if p[1] == Space.role("User").id %>
+            <%= f.radio_button :invitations_role_id, p[1], :checked => true %>
+          <% else %>
+            <%= f.radio_button :invitations_role_id, p[1] %>
+          <% end %>
           <%= f.label p[0] %>
           <%= image_tag("icons/help.png",:title=>"",:size=>"16x16",:class=>"tooltip_#{p[2]} icon",:style=>"cursor:pointer") %>
           <br>
