@@ -12,15 +12,15 @@
       %ul
         %li.last
           = link_to user_path(current_user) do
-            %i.icon-user
+            %i.icon.icon-user
             = t('profile.one')
         %li
           = link_to edit_user_path(current_user) do
-            %i.icon-wrench
+            %i.icon.icon-wrench
             = t('account')
         %li
           = link_to activity_home_path do
-            %i.icon-list
+            %i.icon.icon-list
             = t('.activity_list')
 
 .right-column

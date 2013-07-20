@@ -57,6 +57,7 @@ body.homes.show, body.homes.activity {
     .user-links {
       @include mconf-clearfix;
       margin-top: 5px;
+
       ul {
         margin: 0;
         li {
@@ -66,6 +67,8 @@ body.homes.show, body.homes.activity {
           padding: 5px 10px;
         }
       }
+
+      .icon { float: none; }
     }
   }
 

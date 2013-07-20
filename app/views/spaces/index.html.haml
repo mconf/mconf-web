@@ -37,10 +37,10 @@
         = t('.list_format.list')
 
   .btn-group{ :"data-toggle" => "buttons-radio" }
-    = button_tag t('space.index.filters.all'), :id => "show-spaces-all", :class => "btn active"
+    = button_tag t('space.index.filters.all'), :id => "show-spaces-all", :class => "btn active", :type => "button"
     - if user_signed_in?
-      = button_tag t('space.index.filters.my_spaces'), :id => "show-spaces-mine", :class => "btn"
-    = button_tag t('space.index.filters.filter'), :id => "show-spaces-filter", :class => "btn"
+      = button_tag t('space.index.filters.my_spaces'), :id => "show-spaces-mine", :class => "btn", :type => "button"
+    = button_tag t('space.index.filters.filter'), :id => "show-spaces-filter", :class => "btn", :type => "button"
     = text_field_tag 'space-filter-text', params[:filter], :placeholder => t('search.space.dots')
 
 - if params[:view] == 'list'

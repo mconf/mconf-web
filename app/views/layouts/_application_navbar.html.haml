@@ -6,7 +6,7 @@
   - if user_signed_in?
     %li
       = link_to home_path do
-        %i.icon-home
+        %i.icon.icon-home
         = t('home.my')
     %li
       = link_to user_messages_path(current_user) do
@@ -23,7 +23,7 @@
   %ul#navbar-right-links
     %li.last
       = link_to logout_path do
-        %i.icon-off
+        %i.icon.icon-off
         = t('logout', :user => current_user.name)
 - else
   %ul#navbar-right-links
