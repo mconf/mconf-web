@@ -262,9 +262,10 @@ form {
 #navbar-wrapper {
   margin: 0;
   padding: 0 10px;
-  background-color: $navbar-bg-color;
-  @include background(linear-gradient(top, lighten($navbar-bg-color, 10), $navbar-bg-color));
-  @include box-shadow(0 1px 3px rgba(0, 0, 0, 0.25), inset 0 -1px 0 rgba(0, 0, 0, 0.1));
+  $bg-normal: darken($green-logo, 3);
+  background: $bg-normal;
+  @include box-shadow(0 5px 11px rgba(0, 0, 0, 0.25));
+  @include background(linear-gradient(bottom, lighten($bg-normal, 2), $bg-normal));
 }
 
 #navbar {
