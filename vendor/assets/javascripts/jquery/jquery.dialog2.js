@@ -23,7 +23,7 @@
     /**
      * Dialog html markup
      */
-    var __DIALOG_HTML = "<div class='modal'>" + 
+    var __DIALOG_HTML = "<div class='modal' style=\"display: none;\">" + 
         "<div class='modal-header loading'>" +
         "<a href='#' class='close'></a>" + 
         "<span class='loader'></span><h3></h3>" + 
@@ -199,7 +199,7 @@
 
                 buttons.each(function() {
                     var button = $(this);
-                    var name = button.is("input") ? button.val() || button.attr("type") : button.text();
+                    var name = button.is("input") ? button.val() || button.attr("type") : button.html();
 
                     options.buttons[name] = {
                         primary: button.is("input[type=submit] .btn-primary"),
@@ -211,6 +211,7 @@
                             button.click();
 
                             if (button.is(".close-dialog")) {
+                            	event.preventDefault();
                                 dialog.close();
                             }
                         }
@@ -287,6 +288,7 @@
             // Focus first focusable element in dialog
             var focusable = dialog
                               .find("a, input:not([type=hidden]), .btn, select, textarea, button")
+                              .not("[tabindex='0']")
                               .filter(function() {
                                   return $(this).parents(".form-actions").length == 0;
                               }).eq(0);
@@ -366,7 +368,7 @@
             var footer = handle.siblings(".modal-footer");
 
             var button = $("<a href='#' class='btn'></a>")
-                                .text(name)
+                                .html(name)
                                 .click(function(event) {
                                     callback.apply(handle, [event]);
                                     event.preventDefault();

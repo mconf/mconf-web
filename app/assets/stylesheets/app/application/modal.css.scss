@@ -10,3 +10,10 @@
   width: 600px;
   left: 40%;
 }
+
+.modal.loading .modal-header .loader {
+  float: none;
+  height: 16px;
+  width: 16px;
+  background: no-repeat scroll url('/assets/icons/loading-16x16.gif') center center;
+}
