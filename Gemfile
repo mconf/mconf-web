@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '~> 3.2.0'
+gem 'rails', '3.2.11'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -39,7 +39,7 @@ gem 'friendly_id'
 gem 'station', :git => 'git://github.com/mconf/station.git', :branch => 'mweb-v2'
 gem 'devise'
 gem 'devise-encryptable' # TODO: only while we have old station users
-gem 'cancan'
+gem 'cancan', '~> 1.6.0'
 gem 'i18n-js', :git => "git://github.com/fnando/i18n-js.git", :branch => 'rewrite'
 gem 'rabl'
 gem 'yajl-ruby' # json parser for rabl

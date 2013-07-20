@@ -175,6 +175,10 @@ class User < ActiveRecord::Base
   end
 
   def self.find_with_disabled *args
+    self.with_exclusive_scope { find_by_username(*args) }
+  end
+
+  def self.find_by_id_with_disabled *args
     self.with_exclusive_scope { find(*args) }
   end
 

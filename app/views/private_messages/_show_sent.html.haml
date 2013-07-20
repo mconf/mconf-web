@@ -3,7 +3,7 @@
 -#   target_user (User): user that is reading the message
 -#   expanded (boolean)
 
-- receiver = User.find_with_disabled(private_message.receiver_id)
+- receiver = User.find_by_id_with_disabled(private_message.receiver_id)
 
 .logo-in-thread
   - if receiver.disabled?
@@ -22,7 +22,7 @@
     - unless private_message.checked
       = unread_message_icon({ :title => t("icons.unread_message_by_receiver") })
     - if expanded
-      - sender = User.find_with_disabled(private_message.sender_id)
+      - sender = User.find_by_id_with_disabled(private_message.sender_id)
       - if sender.disabled?
         %span.thread-author= sender.name
       - else

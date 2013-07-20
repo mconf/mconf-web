@@ -24,7 +24,7 @@ namespace :db do
       Statistic.destroy_all
       Permission.destroy_all
       Space.destroy_all
-      users_without_admin = User.find_with_disabled(:all)
+      users_without_admin = User.find_by_id_with_disabled(:all)
       users_without_admin.delete(User.find_by_superuser(true))
       users_without_admin.each(&:destroy)
       rooms_without_admin = BigbluebuttonRoom.all

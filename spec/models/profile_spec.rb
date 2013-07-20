@@ -37,7 +37,7 @@ describe Profile do
       let(:user) { target.user }
       context "regardless of the profile's visibility" do
         Profile::VISIBILITY.each do |visibility|
-          before { target.visibility = visibility }
+          before { target.visibility = Profile::VISIBILITY.index(visibility) }
           it { should be_able_to(:read, target) }
           it { should be_able_to(:update, target) }
         end
@@ -48,7 +48,7 @@ describe Profile do
       let(:user) { FactoryGirl.create(:superuser) }
       context "regardless of the profile's visibility" do
         Profile::VISIBILITY.each do |visibility|
-          before { target.visibility = visibility }
+          before { target.visibility = Profile::VISIBILITY.index(visibility) }
           it { should be_able_to(:manage, target) }
         end
       end

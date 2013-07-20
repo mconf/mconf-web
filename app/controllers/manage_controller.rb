@@ -9,7 +9,7 @@ class ManageController < ApplicationController
   authorize_resource :class => false
 
   def users
-    @users = User.find_with_disabled(:all,:order => "username")
+    @users = User.find_by_id_with_disabled(:all,:order => "username")
                  .paginate(:page => params[:page], :per_page => 20)
     render :layout => 'no_sidebar'
   end

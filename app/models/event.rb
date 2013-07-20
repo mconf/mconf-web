@@ -257,7 +257,7 @@ class Event < ActiveRecord::Base
 
   def author
     unless author_id.blank?
-      return User.find_with_disabled(author_id)
+      return User.find_by_id_with_disabled(author_id)
     else
       return nil
     end

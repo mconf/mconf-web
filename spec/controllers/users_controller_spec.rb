@@ -231,7 +231,7 @@ describe UsersController do
           @old_username = @user.username
           @new_username = FactoryGirl.generate(:username)
 
-          put :update, :id => @user.id, :user => { :username => @new_username }
+          put :update, :id => @user.to_param, :user => { :username => @new_username }
         end
 
         it { response.status.should == 302 }
@@ -248,7 +248,7 @@ describe UsersController do
           @old_email = @user.email
           @new_email = FactoryGirl.generate(:email)
 
-          put :update, :id => @user.id, :user => { :email => @new_email }
+          put :update, :id => @user.to_param, :user => { :email => @new_email }
           @user.reload
         end
 
@@ -269,7 +269,7 @@ describe UsersController do
           @old_tz = @user.timezone
           @new_tz = FactoryGirl.generate(:timezone)
 
-          put :update, :id => @user.id, :user => { :timezone => @new_tz }
+          put :update, :id => @user.to_param, :user => { :timezone => @new_tz }
           @user.reload
         end
 
@@ -288,7 +288,7 @@ describe UsersController do
           @old_not = @user.notification
           @new_not = @user.notification == User::RECEIVE_DIGEST_DAILY ? User::RECEIVE_DIGEST_WEEKLY : User::RECEIVE_DIGEST_DAILY
 
-          put :update, :id => @user.id, :user => { :notification => @new_not }
+          put :update, :id => @user.to_param, :user => { :notification => @new_not }
           @user.reload
         end
 

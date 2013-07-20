@@ -13,7 +13,7 @@ class UsersController < ApplicationController
   before_filter :space!, :only => [:index]
   before_filter :webconf_room!, :only => [:index]
 
-  load_and_authorize_resource
+  load_and_authorize_resource :find_by => :username
 
   # Rescue username not found rendering a 404
   rescue_from ActiveRecord::RecordNotFound, :with => :render_404

@@ -3,7 +3,7 @@
 - else
   - private_messages_menu_at :sent
 
-- sender = User.find_with_disabled(@message.sender_id)
+- sender = User.find_by_id_with_disabled(@message.sender_id)
 
 = render_page_title t('.title')
 = render :partial => 'private_messages/menu'

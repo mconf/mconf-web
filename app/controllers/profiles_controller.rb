@@ -8,7 +8,7 @@
 class ProfilesController < ApplicationController
   before_filter :unique_profile, :only => [:new, :create]
 
-  load_and_authorize_resource :user
+  load_and_authorize_resource :user, :find_by => :username
   load_and_authorize_resource :through => :user, :singleton => true
 
   # GET /profile
