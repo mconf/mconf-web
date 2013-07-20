@@ -1,7 +1,6 @@
 //= require jquery
 //= require jquery_ujs
 //= require twitter/bootstrap
-//= require jquery-ui
 //= require jquery/jquery.tokeninput
 //= require jquery/jquery.placeholder
 //= require jquery/jquery.noty
@@ -11,7 +10,6 @@
 //= require jquery/jquery.dialog2.helpers
 //= require i18n/translations
 //= require strophe
-
 
 // TODO: These jquery plugins are probably not used anymore
 //= require jquery/jquery.livequery

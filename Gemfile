@@ -43,7 +43,9 @@ gem 'cancan', '~> 1.6.0'
 gem 'i18n-js', :git => "git://github.com/fnando/i18n-js.git", :branch => 'rewrite'
 gem 'rabl'
 gem 'yajl-ruby' # json parser for rabl
-gem 'less-rails' # twitter-bootstrap-rails uses it
+
+# for bootstrap
+gem 'less-rails'
 gem 'twitter-bootstrap-rails'
 
 # TODO: Gems to review if we can remove/update
