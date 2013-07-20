@@ -65,8 +65,7 @@ module IconsHelper
   # Usually shown on top of an avatar.
   def superuser_label(options={})
     text = content_tag :i, nil, :class => "icon-asterisk"
-    text += t('admin.one')
-    text_icon_constructor "", "icon superuser-icon", text, options
+    text_icon_constructor t('admin.one'), "icon superuser-icon", text, options
   end
 
   # Conference "in progress" icon.
