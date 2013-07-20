@@ -14,7 +14,7 @@
   - selected = rand(@files.length)
 
   .left-column
-    = simple_form_for @space, :html => {:method => :post, :multipart => true}, :url => spaces_url do |f|
+    = simple_form_for @space, :html => {:method => :post, :multipart => true}, :url => spaces_path do |f|
       #new-space-basic-info
         = f.hidden_field "rand_value"
         = f.input :name, :label => t('name.one')
