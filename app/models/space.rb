@@ -14,6 +14,7 @@ class Space < ActiveRecord::Base
   has_many :events, :dependent => :destroy
   has_many :news, :dependent => :destroy
   has_many :attachments, :dependent => :destroy
+  has_many :tags, :dependent => :destroy, :as => :container
   has_one :bigbluebutton_room, :as => :owner, :dependent => :destroy
 
   has_logo
