@@ -25,7 +25,7 @@ $ ->
       $("#space-filter-text").focus()
 
     # hovering an space shows its description in the sidebar
-    $(".space-item").on "hover", ->
+    $(".space-item").hover ->
 
       # hide all descriptions and shows the selected
       hovered = "div#" + $(this).attr("name") + "-description"
