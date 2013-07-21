@@ -5,7 +5,7 @@
 # 3 or later. See the LICENSE file.
 
 class NewsController < ApplicationController
-  load_and_authorize_resource :space
+  load_and_authorize_resource :space, :find_by => :permalink
   load_and_authorize_resource :through => :space
 
   def create

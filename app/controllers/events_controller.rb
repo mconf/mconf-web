@@ -23,7 +23,7 @@ class EventsController < ApplicationController
   before_filter :webconf_room!
   before_filter :adapt_new_date, :only => [:create, :update]
 
-  load_and_authorize_resource :space
+  load_and_authorize_resource :space, :find_by => :permalink
   load_and_authorize_resource :through => :space
 
   # GET /events

@@ -12,7 +12,7 @@ class AttachmentsController < ApplicationController
   before_filter :space!
   before_filter :webconf_room!
   before_filter :except => [ :new, :edit ]
-  load_and_authorize_resource :space
+  load_and_authorize_resource :space, :find_by => :permalink
   load_and_authorize_resource :attachment, :through => :space
 
   layout 'spaces_show'
@@ -60,7 +60,7 @@ class AttachmentsController < ApplicationController
 
   def delete_collection
     if params[:attachment_ids].blank?
-      flash[:error] = "Malformed request"  
+      flash[:error] = "Malformed request"
       redirect_to space_attachments_path(@space)
     else
       attachments
@@ -82,7 +82,7 @@ class AttachmentsController < ApplicationController
       else
         flash[:error] = errors
       end
-      
+
       redirect_to space_attachments_path(@space)
     end
   end
@@ -101,14 +101,14 @@ class AttachmentsController < ApplicationController
       redirect_to [ space, Attachment.new ]
     end
   end
-  
+
   def after_update_with_success
     redirect_to [ space, Attachment.new ]
   end
 
   def after_create_with_errors
     flash[:error] =  @attachment.errors.to_xml
-    
+
     if @attachment.agenda_entry
       redirect_to(space_event_path(@space, @attachment.agenda_entry.event, :show_agenda=>true, :show_day => @attachment.agenda_entry.event_day))
     else
@@ -117,20 +117,20 @@ class AttachmentsController < ApplicationController
       flash.delete([:error])
     end
   end
- 
+
   def after_update_with_errors
     flash[:error] = @attachment.errors.to_xml
     attachments
     render :action => :index
     flash.delete([:error])
   end
-  
+
   def generate_and_send_zip
     require 'zip/zip'
     require 'zip/zipfilesystem'
-  
+
     t = Tempfile.new("#{@attachments.size}files-#{Time.now.to_f}.zip")
-    
+
     Zip::ZipOutputStream.open(t.path) do |zos|
       @attachments.each do |file|
         zos.put_next_entry(file.filename)
@@ -139,8 +139,8 @@ class AttachmentsController < ApplicationController
     end
 
     send_file t.path, :type => 'application/zip', :disposition => 'attachment', :filename => "#{@attachments.size} files from #{@space.name}.zip"
-    
+
     t.close
   end
-  
+
 end

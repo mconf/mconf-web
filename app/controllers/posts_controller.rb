@@ -18,7 +18,7 @@ class PostsController < ApplicationController
   before_filter :webconf_room!
   before_filter :post, :except => [ :index, :new, :create]
 
-  load_and_authorize_resource :space
+  load_and_authorize_resource :space, :find_by => :permalink
   load_and_authorize_resource :through => :space
   skip_load_resource :only => :index
 
