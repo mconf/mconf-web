@@ -86,14 +86,6 @@ module AttachmentsHelper
 
   end
 
-  def options_for_fcbkcomplete(collection,value,text,selected=nil)
-    html=""
-    collection.each do |t|
-      html << %(<option value="#{t.send(value)}"#{"class=selected" if selected.include?(t)}>#{t.send(text)}</option>)
-    end
-    html
-  end
-
   def attachment_link(attachment, show_filename = true)
     text = show_filename ? truncate(attachment.filename, :length => 28) : t('download_file')
     #link_to text, space_attachment_path(attachment.space,attachment, :format => :all), :title => "#{attachment.filename} (#{attachment.size/1024} kb)"

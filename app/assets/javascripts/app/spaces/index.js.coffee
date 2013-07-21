@@ -1,3 +1,4 @@
+# Used to keep elements in the sidebar always visible when the page is scrolled.
 #= require jquery/jquery.sticky
 
 $ ->

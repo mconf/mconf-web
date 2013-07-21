@@ -59,7 +59,6 @@ gem 'ci_reporter'
 gem 'nokogiri', '1.4.1'
 gem 'rubyzip' # TODO: see rubyzip2
 gem 'rmagick', :git => 'git://github.com/rmagick/rmagick.git', :require => false
-gem 'fckeditor'
 gem 'dynamic_form'
 gem 'prism'
 # not the official repo, but has fixes for rails 3
