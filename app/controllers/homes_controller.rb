@@ -28,9 +28,9 @@ class HomesController < ApplicationController
     unless @user_spaces.empty?
       @today_events = Event.
         within(DateTime.now.beginning_of_day, DateTime.now.end_of_day).
-        in(@user_spaces).
+        where(:space_id => @user_spaces).
         order("start_date ASC").all
-      @upcoming_events = Event.in(@user_spaces).
+      @upcoming_events = Event.where(:space_id => @user_spaces).
         where('end_date >= ?', DateTime.now.end_of_day).
         limit(5).order("start_date ASC").all
     end

@@ -5,7 +5,13 @@
 # This file is licensed under the Affero General Public License version
 # 3 or later. See the LICENSE file.
 
+require './lib/logo_helper'
+
 class Space < ActiveRecord::Base
+
+  # Functions to resize, crop, etc
+  # TODO: temporary, this will move out or be refactored
+  include LogoHelper
 
   # TODO: temporary, review
   USER_ROLES = ["Admin", "User"]
@@ -16,6 +22,25 @@ class Space < ActiveRecord::Base
   has_many :attachments, :dependent => :destroy
   has_many :tags, :dependent => :destroy, :as => :container
   has_one :bigbluebutton_room, :as => :owner, :dependent => :destroy
+
+  has_many :permissions, :foreign_key => "subject_id",
+           :conditions => { :permissions => {:subject_type => 'Space'} }
+
+  has_and_belongs_to_many :users, :join_table => :permissions,
+                          :foreign_key => "subject_id",
+                          :conditions => { :permissions => {:subject_type => 'Space'} }
+
+  has_and_belongs_to_many :admins, :join_table => :permissions,
+                          :class_name => "User", :foreign_key => "subject_id",
+                          :conditions => {
+                            :permissions => {
+                              :subject_type => 'Space',
+                              :role_id => Role.find_by_name('Admin')
+                            }
+                          }
+
+  has_many :join_requests, :foreign_key => "group_id",
+           :conditions => { :join_requests => {:group_type => 'Space'} }
 
   has_logo
 
@@ -33,7 +58,6 @@ class Space < ActiveRecord::Base
 
   acts_as_resource :param => :permalink
   acts_as_container :contents => [ :news, :posts, :attachments, :events ]
-  acts_as_stage
 
   # TODO: review all accessors, if we still need them
   attr_accessor :invitation_ids
@@ -43,6 +67,7 @@ class Space < ActiveRecord::Base
   attr_accessor :invitations_role_id
   attr_accessor :default_logo
   attr_accessor :text_logo
+
   attr_accessor :rand_value
   attr_accessor :logo_rand
 
@@ -53,10 +78,15 @@ class Space < ActiveRecord::Base
   default_scope :conditions => { :disabled => false }
 
   before_validation :update_logo
-  after_validation :logo_mi
   after_validation :check_permalink
   after_update :update_webconf_room
   after_create :create_webconf_room
+
+
+  # Finds all the valid user roles for a Space
+  def self.roles
+    Space::USER_ROLES.map { |r| Role.find_by_name(r) }
+  end
 
   # Creates the webconf room after the space is created
   def create_webconf_room
@@ -90,11 +120,6 @@ class Space < ActiveRecord::Base
     self.events.upcoming.first(5)
   end
 
-  # Returns all admins of this space.
-  def admins
-    self.actors(:role => 'Admin')
-  end
-
   # Return the number of unique pageviews for this space using the Statistic model.
   # Will throw an exception if the data in Statistic in incorrect.
   def unique_pageviews
@@ -111,95 +136,12 @@ class Space < ActiveRecord::Base
 
   scope :public, lambda { where(:public => true) }
 
-  #-#-#
-
-  after_save do |space|
-    if space.invitation_mails
-      mails_to_invite = space.invitation_mails.split(/[\r,]/).map(&:strip)
-      mails_to_invite.map { |email|
-        params =  {:role_id => space.invitations_role_id.to_s, :email => email, :comment => space.invite_msg}
-        i = space.invitations.build params
-        i.introducer = User.find(space.inviter_id)
-        i
-      }.each(&:save)
-    end
-    if space.invitation_ids
-      space.invitation_ids.map { |user_id|
-        user = User.find(user_id)
-        params = {:role_id => space.invitations_role_id.to_s, :email => user.email, :comment => space.invite_msg}
-        i = space.invitations.build params
-        i.introducer = User.find(space.inviter_id)
-        i
-      }.each(&:save)
-    end
-  end
-
-  def resize path, size
-    f = File.open(path)
-    img = Magick::Image.read(f).first
-    if img.columns > img.rows && img.columns > size
-      resized = img.resize(size.to_f/img.columns.to_f)
-      f.close
-      resized.write("png:" + path)
-    elsif img.rows > img.columns && img.rows > size
-      resized = img.resize(size.to_f/img.rows.to_f)
-      f.close
-      resized.write("png:" + path)
-    end
-  end
-
-  def update_logo
-    return unless @default_logo.present?
-    img_orig = Magick::Image.read(File.join(PathHelpers.images_full_path, @default_logo)).first
-    img_orig = img_orig.scale(337, 256)
-    images_path = PathHelpers.images_full_path
-    final_path = FileUtils.mkdir_p(File.join(images_path, "tmp/#{@rand_value}"))
-    img_orig.write(File.join(images_path, "tmp/#{@rand_value}/temp.jpg"))
-    original = File.open(File.join(images_path, "tmp/#{@rand_value}/temp.jpg"))
-
-    original_tmp = Tempfile.new("default_logo", "#{Rails.root.to_s}/tmp/")
-    original_tmp_io = open(original_tmp)
-    original_tmp_io.write(original.read)
-    filename = File.join(images_path, @default_logo)
-    (class << original_tmp_io; self; end;).class_eval do
-      define_method(:original_filename) { filename.split('/').last }
-      define_method(:content_type) { 'image/jpeg' }
-      define_method(:size) { File.size(filename) }
-    end
-
-    logo = { :media => original_tmp_io }
-    logo = self.build_logo(logo)
-
-    images_path = PathHelpers.images_full_path
-    tmp_path = File.join(images_path, "tmp")
-
-    if @rand_value != nil
-      final_path = FileUtils.rm_rf(tmp_path + "/#{@rand_value}")
-    end
-  end
-
-  def logo_mi
-    return unless @default_logo.present?
-  end
-
   def self.find_with_disabled *args
     self.with_exclusive_scope { find(*args) }
   end
 
   def self.find_with_disabled_and_param *args
     self.with_exclusive_scope { find_with_param(*args) }
-  end
-
-  def emailize_name
-    self.name.gsub(" ", "")
-  end
-
-  # Users that belong to this space
-  #
-  # Options:
-  # role:: Name of the role actors play in this space
-  def users(options = {})
-    actors(options)
   end
 
   def disable
@@ -210,25 +152,24 @@ class Space < ActiveRecord::Base
     self.update_attributes(:disabled => false, :name => "#{name.split(" DISABLED").first} RESTORED")
   end
 
+  # Basically checks to see if the given user is the only admin in this space
   def is_last_admin?(user)
-    admins = self.actors(:role => 'Admin')
-    if admins.length != 1 then
-      false
-    elsif admins.include?(user)
-      true
-    else
-      false
-    end
+    adm = self.admins
+    adm.length == 1 && adm.include?(user)
+  end
+
+  # Checks to see if 'user' jas the role 'options[:name]' in this space
+  def role_for? user, options ={}
+    p = permissions.find_by_user_id(user)
+    users.include?(user) && options[:name] == Role.find(p.role_id).name
+  end
+
+  def pending_join_requests
+    join_requests.where(:processed_at => nil)
   end
 
   def pending_join_requests_for?(user)
-    jrs = self.admissions.find(:all, :conditions => {:type => "JoinRequest", :candidate_type => user.class.to_s, :candidate_id => user.id})
-    jrs.each do |jr|
-      if !(jr.processed?)
-        return true
-      end
-    end
-    return false
+    pending_join_requests.where(:candidate_id => user).size > 0
   end
 
   # Add a `user` to this space with the role `role_name` (e.g. 'User', 'Admin').
@@ -250,7 +191,6 @@ class Space < ActiveRecord::Base
     elsif self.bigbluebutton_room and self.bigbluebutton_room.errors[:param].size > 0
       self.errors.add :name, I18n.t('activerecord.errors.messages.invalid_identifier', :id => self.bigbluebutton_room.param)
     end
-
   end
 
 end

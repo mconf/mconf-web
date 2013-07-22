@@ -75,16 +75,15 @@ class SpacesController < ApplicationController
     @news_to_show = @news[@news_position]
 
     # posts
-    posts = @space.posts
-    @latest_posts = posts.not_events().where(:parent_id => nil).where('author_id is not null').order("updated_at DESC").first(3)
+    posts = @space.posts.not_events
+    @latest_posts = posts.where(:parent_id => nil).where('author_id is not null').order("updated_at DESC").first(3)
 
     # users
-    @latest_users = @space.stage_permissions.sort {|x,y| y.created_at <=> x.created_at }.first(3).map{ |p| p.user }
-    @latest_users.reject!{ |u| u.nil? }
+    @latest_users = @space.users.order("permissions.created_at DESC").first(3)
 
     # events
-    @upcoming_events = @space.events.order("start_date ASC").all.select{ |e| e.start_date && e.start_date.future? }.first(5)
-    @current_events = (Event.in(@space).all :order => "start_date ASC").select{|e| e.start_date && !e.start_date.future? && e.end_date.future?}
+    @upcoming_events = @space.events.order("start_date ASC").select{|e| e.start_date && e.start_date.future? }.first(5)
+    @current_events = @space.events.order("start_date ASC").select{|e| e.start_date && !e.start_date.future? && e.end_date.future?}
 
     # role of the current user
     @permission = Permission.where(:user_id => current_user, :subject_id => @space, :subject_type => 'Space').first
@@ -107,8 +106,8 @@ class SpacesController < ApplicationController
   end
 
   def edit
-    # @users = @space.actors.sort {|x,y| x.name <=> y.name }
-    @permissions = space.stage_permissions.sort{
+    @users = @space.users.order("name ASC")
+    @permissions = space.permissions.sort{
       |x,y| x.user.name <=> y.user.name
     }
     @roles = Space.roles
@@ -124,7 +123,7 @@ class SpacesController < ApplicationController
     if @space.save
       respond_with @space do |format|
         flash[:success] = t('space.created')
-        @space.stage_permissions.create(:user => current_user, :role => Space.role('Admin'))
+        @space.add_member!(current_user, 'Admin')
         format.html { redirect_to :action => "show", :id => @space  }
       end
     else
@@ -210,7 +209,7 @@ class SpacesController < ApplicationController
   end
 
   def leave
-    permission = @space.stage_permissions.find_by_user_id(current_user)
+    permission = @space.permissions.find_by_user_id(current_user)
     if permission
       permission.destroy
       respond_to do |format|

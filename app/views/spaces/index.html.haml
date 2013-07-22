@@ -22,7 +22,7 @@
         %p.details
           - if space.users.include?(current_user)
             %span.is-member= t('space.index.user_is_member')
-          %span= t('space.member_count', :count => space.actors.count)
+          %span= t('space.member_count', :count => space.users.count)
           %span= t('space.post_count', :count => space.posts.count)
           %span= t('space.event_count', :count => space.events.count)
         %p.action-links

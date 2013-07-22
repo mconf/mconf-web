@@ -1,5 +1,5 @@
 - if @space && @space.id != nil
-  - member_or_superuser = (current_user && (@space.actors.include?(current_user) || current_user.superuser?))
+  - member_or_superuser = (current_user && (@space.users.include?(current_user) || current_user.superuser?))
   - if @space.public? || member_or_superuser
     = content_for :page_menu do
       %ul

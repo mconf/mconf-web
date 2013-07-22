@@ -17,7 +17,7 @@
       - else
         %span{:title => space.name, :class => "space-title"}= first_words(space.name, 20)
       .description
-        %span= t('members', :count => space.actors.count)
+        %span= t('members', :count => space.users.count)
         - if space.public
           %span.visibility.public
             %i.icon-eye-open

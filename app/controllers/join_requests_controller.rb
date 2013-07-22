@@ -7,119 +7,32 @@
 
 class JoinRequestsController < ApplicationController
   before_filter :space!
+  before_filter :already_joined?, :only => [:new, :create]
 
   def new
-    if space.users.include?(current_agent)
-      flash[:notice] = t('join_request.joined')
-      redirect_to space
-      return
-    end
-    respond_to do |format|
-      format.html{
-        if request.xhr?
-          render :layout => false
-        end
-      }
-    end
+    @join_request = space.join_requests.new
   end
 
   def create
-
-    # TODO: authentication
-    # unless authenticated?
-    #   unless params[:user]
-    #     respond_to do |format|
-    #       format.html {
-    #         render :action => 'new'
-    #       }
-    #       format.js
-    #     end
-    #     return
-    #   end
-
-    #   if params[:register]
-    #     cookies.delete :auth_token
-    #     @user = User.new(params[:user])
-    #     unless @user.save_with_captcha
-    #       message = ""
-    #       @user.errors.full_messages.each {|msg| message += msg + "  <br/> "}
-    #       flash[:error] = message
-    #       respond_to do |format|
-    #         format.html {
-    #           render :action => 'new'
-    #         }
-    #         format.js
-    #       end
-    #       return
-    #     end
-    #   end
-    #   self.current_agent = User.authenticate_with_login_and_password(params[:user][:email], params[:user][:password])
-    #   unless user_signed_in?
-    #     flash[:error] = t('error.credentials')
-    #     respond_to do |format|
-    #       format.html {
-    #         render :action => 'new'
-    #       }
-    #       format.js
-    #     end
-    #     return
-    #   end
-    # end
-
-    if space.users.include?(current_user)
-
-      flash[:notice] = t('join_request.joined')
-      if request.xhr?
-        render :partial => "redirect", :formats => [:js], :locals => {:url => space_path(space)}
-      else
-        redirect_to space
-      end
-      return
-    end
-
     @join_request = space.join_requests.new(params[:join_request])
     @join_request.candidate = current_user
+    @join_request.email = current_user.email
+    @join_request.request_type = 'request'
 
     if @join_request.save
       flash[:notice] = t('join_request.created')
     else
-
       flash[:error] = t('join_request.already_sent')
+      render :action => new
+      return
       # TODO: identify errors for better usability
       # flash[:error] << @join_request.errors.to_xml
     end
 
-    if request.xhr?
-      if space.public
-        render :partial => "redirect", :formats => [:js], :locals => {:url => space_path(space)}
-      else
-        render :partial => "redirect", :formats => [:js], :locals => {:url => spaces_path}
-      end
+    if space.public
+      redirect_to space_path(space)
     else
-      if space.public
-        redirect_to space_path(space)
-      else
-        redirect_to spaces_path
-      end
-    end
-  end
-
-  #-#-# from station
-
-  def create
-    @join_request = group.join_requests.build params[:join_request]
-    @join_request.candidate = current_user
-
-    respond_to do |format|
-      if @join_request.save
-        format.html {
-          flash[:notice] = t('join_request.created')
-          redirect_to(root_path)
-        }
-      else
-        flash[:error] = @join_requests.errors.to_xml
-        redirect_to request.referer
-      end
+      redirect_to spaces_path
     end
   end
 
@@ -152,6 +65,14 @@ class JoinRequestsController < ApplicationController
 
   def group
     @group ||= record_from_path(:acts_as => :stage)
+  end
+
+  def already_joined?
+    if space.users.include?(current_user)
+      flash[:notice] = t('join_request.joined')
+      redirect_to space
+      return
+    elsif space.join_request_for?(current_user)
   end
 
 end
