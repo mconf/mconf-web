@@ -429,6 +429,7 @@ ul#navbar-left-links {
     margin-top: 10px;
     margin-right: 10px;
     padding-right: 10px;
+
     border-right: 1px solid lighten($navbar-bg-color, 13);
 
     &.last { border: 0; }
@@ -716,7 +717,7 @@ ul#navbar-right-links {
   .sidebar-top-action-button {
     @include mconf-clearfix;
     text-align: center;
-    padding: 10px;
+    padding: 0 10px 10px 10px;
   }
 
   .toolbar {
@@ -803,7 +804,7 @@ ul#navbar-right-links {
   }
 
   .content-block-middle {
-    padding: 5px;
+    padding: 10px 5px;
     clear: both;
   }
 
@@ -813,7 +814,6 @@ ul#navbar-right-links {
     h3 { float: left; margin: 0 4px; }
 
     .toolbar {
-      margin-right: 10px;
       float: right;
 
       a { margin-right: 10px; }

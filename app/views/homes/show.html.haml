@@ -30,16 +30,19 @@
     %h3= t('home.my_spaces')
     = info_icon t('home.my_spaces_tooltip')
     .toolbar
-      = link_to t('.view_all_spaces'), spaces_path
-      = link_to t('.create_space'), new_space_path, :class => "btn btn-mini btn-primary"
+      = link_to new_space_path, :class => "btn btn-mini btn-primary" do
+        %i.icon-plus-sign.icon-white
+        = t('.create_space')
   .content-block-middle
     = render 'users/user_spaces', :user => current_user, :spaces => @user_spaces
+  .content-block-footer
+    = link_to t('.view_all_spaces'), spaces_path
 
 #users-recent-activity.content-block
   .content-block-header
     %h3= t('recent.activity')
     = info_icon t('recent_activity.tooltip')
-    .toolbar
-      = link_to t('.view_all_activity'), activity_home_path
   #users-recent-activity-content.content-block-middle
     = render "users/recent_activity_content", :content => @all_contents, :paginate => false
+  .content-block-footer
+    = link_to t('.view_all_activity'), activity_home_path

@@ -9,12 +9,21 @@
     @include border-radius(4px);
     border: 1px solid #ddd;
     padding: 10px;
-    margin-bottom: 15px;
+    margin: 20px 0;
 
     .download-application {
-      margin-top: 5px;
-      img { margin-top: 5px; }
-      span { display: block; }
+      @include mconf-clearfix;
+
+      .mobile-download-image {
+        float: left;
+      }
+
+      span {
+        text-align: left;
+        float: left;
+        max-width: 200px;
+        margin-left: 10px;
+      }
     }
   }
 

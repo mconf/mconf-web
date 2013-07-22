@@ -17,3 +17,15 @@
   width: 16px;
   background: no-repeat scroll url('/assets/icons/loading-16x16.gif') center center;
 }
+
+.modal-body {
+  overflow-x: hidden;
+
+  /* .form-actions is put inside a form inside the modal, but the lib
+     dialog2 will take it out and place it in the bottom bar of the modal.
+     In some browsers we need to hide it from the form so it won't take up space
+     and generate a useless scrollbar in the modal. */
+  .form-actions {
+    display: none;
+  }
+}

@@ -4,7 +4,7 @@
 .space-thumbnail-wrapper {
   background: $light-gray;
   padding: 5px;
-  margin: 10px 10px 0 0;
+  margin: 0px 10px 5px 0px;
   @include border-radius(4px);
   @include mconf-clearfix;
   float: left;
