@@ -56,8 +56,7 @@ class User < ActiveRecord::Base
 
   apply_simple_captcha
 
-  validates_presence_of  :email
-  validates_format_of :email, :with => /^[\w\d._%+-]+@[\w\d.-]+\.[\w]{2,}$/
+  validates :email, :presence => true, :email => true
 
   acts_as_stage
   acts_as_taggable :container => false

@@ -47,6 +47,7 @@ gem 'yajl-ruby' # json parser for rabl
 # for bootstrap
 gem 'less-rails'
 gem 'twitter-bootstrap-rails'
+gem 'valid_email'
 
 # TODO: Gems to review if we can remove/update
 gem 'galetahub-simple_captcha', :require => 'simple_captcha'
