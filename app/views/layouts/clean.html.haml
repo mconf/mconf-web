@@ -31,7 +31,9 @@
                 = yield :page_menu
       #content-wrapper
         = yield
-      = render :partial => "layouts/footer_simple"
+      #footer-pusher
+
+    = render :partial => "layouts/footer_simple"
 
     = render :partial => "layouts/analytics"
     = render :partial => "layouts/notifications"

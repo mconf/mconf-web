@@ -3,6 +3,8 @@
 @import "compass/typography";
 @import "definitions";
 
+@import "app/application/footer_simple";
+
 $navbar-height: auto;
 $login-box-width: 400px;
 $registration-box-width: $contents-width - $login-box-width - 40px;
@@ -134,13 +136,5 @@ $bg-normal: darken($green-logo, 3);
     text-align: right;
     margin: 0 20px 10px 0;
     color: $green-logo;
-  }
-}
-
-#upper-footer {
-  margin-top: 30px;
-
-  h3 {
-    border-bottom: 1px solid lighten($bg-normal, 4);
   }
 }

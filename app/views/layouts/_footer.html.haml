@@ -1,5 +1,5 @@
-#upper-footer-wrapper
-  #upper-footer
+#footer-wrapper
+  #footer
     #footer-logo
       = link_to current_site.name, "/", :class => 'title'
       %span= t('footer.copyright', :site => current_site.name)
@@ -17,9 +17,10 @@
         %li= link_to t('footer.gcode'), "http://code.google.com/p/mconf"
         %li= link_to t('footer.github'), "https://github.com/mconf"
     .link-group.footer-languages
-      = link_to 'http://code.google.com/p/mconf/wiki/MconfWebLocalization' do
-        = info_icon t('translate.help_us'), :class => 'help-translate-icon'
-      %h3= t('translate.change')
+      %h3
+        = link_to 'http://code.google.com/p/mconf/wiki/MconfWebLocalization' do
+          = info_icon t('translate.help_us'), :class => 'help-translate-icon'
+        = t('translate.change')
       - I18n.available_locales.each_slice(3) do |locales|
         %ul
           - locales.each do |locale|
@@ -37,11 +38,6 @@
         %li
           = image_tag("logos/prav_small.png")
           = link_to t('footer.sponsors.prav').html_safe, "http://www.inf.ufrgs.br/prav"
-
-#lower-footer-wrapper
-  #lower-footer
-    .version-info
-      = t('footer.built_on_top_of').html_safe
     .current-version
       = t('footer.current_version') + ": "
       = link_to github_link_to_revision(application_revision) do

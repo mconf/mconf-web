@@ -281,17 +281,16 @@ form {
   margin: 0;
 }
 
-#upper-footer-wrapper {
-  border-top: 1px solid darken($upper-footer-bg-color, 10);
-  border-bottom: 1px solid darken($upper-footer-bg-color, 10);
-  background: $upper-footer-bg-color;
+#footer-wrapper {
+  border-top: 1px solid darken($footer-bg-color, 10);
+  background: $footer-bg-color;
   color: #444;
   clear: both;
   padding: 10px 0;
   margin-top: 20px;
 }
 
-#upper-footer {
+#footer {
   @include mconf-clearfix;
   width: $contents-width;
   margin: 0 auto;
@@ -303,12 +302,12 @@ form {
   }
 
   h3 {
-    font-size: 12px;
+    font-size: $font-normal;
     color: #888;
     margin-bottom: 7px;
     font-weight: bold;
     padding-bottom: 3px;
-    border-bottom: 1px solid darken($upper-footer-bg-color, 8);
+    border-bottom: 1px solid darken($footer-bg-color, 8);
   }
 
   ul {
@@ -347,15 +346,20 @@ form {
     ul { float: left; margin-right: 20px; }
   }
 
+  .current-version {
+    clear: both;
+    text-align: right;
+    font-size: $font-small;
+  }
 }
 
 /* Simplified version */
-#upper-footer-wrapper.simple-footer {
+#footer-wrapper.simple-footer {
   background: none;
   border: 0;
   @include box-shadow(none);
 
-  #upper-footer {
+  #footer {
     h3 {
       float: left;
       border: 0;
@@ -392,23 +396,6 @@ form {
   }
 
   span { display: block; }
-}
-
-#lower-footer-wrapper {
-  padding: 10px 0;
-  background: $lower-footer-bg-color;
-}
-
-#lower-footer {
-  @include mconf-clearfix;
-  width: $contents-width;
-  margin: 0 auto;
-  color: #999;
-  font-size: $font-small;
-  a { @include link-colors(desaturate($link-color, 10), $link-color-hover, $link-color-active); }
-
-  .current-version { float: left; }
-  .version-info { float: right; }
 }
 
 ul#navbar-left-links {

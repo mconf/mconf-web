@@ -19,5 +19,6 @@
  *= require ./app/application/showable_password_input
  *= require ./app/application/tokeninput
  *= require ./app/application/chat
+ *= require ./app/application/footer
  *
  */
