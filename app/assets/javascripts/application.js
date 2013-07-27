@@ -1,6 +1,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require twitter/bootstrap
+//= require lodash
 
 // Use to search for models (e.g. users) dynamically.
 //= require jquery/jquery.tokeninput
