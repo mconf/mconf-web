@@ -3,14 +3,6 @@
 
 body.sites {
 
-  $sidebar-width: 100px;
-  #sidebar {
-    width: $sidebar-width;
-  }
-  #content-middle {
-    width: $contents-width - $sidebar-width - 20px; // less right-margin
-  }
-
   form {
     width: 100%;
   }
@@ -23,7 +15,7 @@ body.sites {
     display: none;
   }
 
-  $column-width: (($contents-width - $sidebar-width) / 2) - 30px;
+  $column-width: (($contents-width) / 2) - 30px;
   .right-column {
     float: right;
     width: $column-width;
@@ -33,10 +25,5 @@ body.sites {
     float: left;
     width: $column-width;
     padding-left: 2px; // so inputs' box-shadow aren't cut}
-  }
-
-  .affix {
-    width: $sidebar-width;
-    top: 20px;
   }
 }

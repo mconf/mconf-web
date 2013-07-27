@@ -16,5 +16,4 @@
       = f.input :title, :label => t('title'), :size => 25
       = f.input :body, :as => :text, :label => t('body')
       = f.hidden_field :parent_id, :value => @private_message.parent_id if @private_message
-      .margin-up
-        = f.button :submit, t('button.send'), :class => "btn"
+      = f.button :wrapped, :cancel => user_messages_path(current_user), :value => t("button.send")

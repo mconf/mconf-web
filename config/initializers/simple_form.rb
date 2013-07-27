@@ -4,6 +4,8 @@
 # This file is licensed under the Affero General Public License version
 # 3 or later. See the LICENSE file.
 
+require 'simple_form_extensions'
+
 # Use this setup block to configure all options available in SimpleForm.
 # See more examples at:
 # https://github.com/rafaelfranca/simple_form-bootstrap/blob/master/config/initializers/simple_form.rb

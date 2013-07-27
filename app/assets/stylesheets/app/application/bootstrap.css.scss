@@ -81,3 +81,19 @@ input[type="radio"], input[type="checkbox"] {
     @include border-bottom-radius(6px);
   }
 }
+
+.form-actions {
+  margin-top: 5px;
+  clear: both;
+  text-align: right;
+  padding: 10px;
+
+  a {
+    display: inline;
+  }
+
+  * {
+    margin-left: 4px;
+    margin-right: 4px;
+  }
+}

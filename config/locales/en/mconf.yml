@@ -1078,6 +1078,10 @@ en:
     label: "Insert here the text from the image"
     message: 
       user: "is incorrect"
+  simple_form:
+    buttons:
+      cancel: "Cancel"
+      or: "or"
   site: 
     analytics_code: "Analytics Code"
     analytics_code_tip: "Code for your Google Analytics account. Leave it blank to disable. Example: \"UA-12345678-9\""

@@ -8,6 +8,7 @@
 class SitesController < ApplicationController
   before_filter :authenticate_user!
   authorize_resource :class => false
+  layout "no_sidebar"
 
   def show
     @site = current_site

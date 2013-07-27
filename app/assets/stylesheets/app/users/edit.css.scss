@@ -1,5 +1,6 @@
 @import "definitions";
 @import "compass/css3";
+@import "compass/typography/links";
 
 body.users.edit, body.users.update {
 
@@ -34,8 +35,10 @@ body.users.edit, body.users.update {
   }
 
   #cancel-account {
+    margin-top: 15px;
     clear: both;
-    text-align: center;
+    @include danger-text;
+
     span { margin-right: 15px; }
   }
 
@@ -53,12 +56,6 @@ body.users.edit, body.users.update {
     span { display: block; }
 
     .more-information { float: right; }
-  }
-
-  form input[type=submit] {
-    float: right;
-    clear: both;
-    margin-top: 10px;
   }
 
 }

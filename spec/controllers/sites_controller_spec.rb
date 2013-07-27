@@ -19,6 +19,14 @@ describe SitesController do
     it { put :update, :id => site, :site => {'these' => 'params'} }
   end
 
+  describe "#show" do
+    it "uses the layout no_sidebar"
+  end
+
+  describe "#edit" do
+    it "uses the layout no_sidebar"
+  end
+
   describe "abilities" do
     let(:site) { FactoryGirl.create(:site) }
 

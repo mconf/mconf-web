@@ -9,5 +9,4 @@
   = render :partial => "edit_new_logo"
   = simple_form_for(:event, :url => space_events_path(@space), :html => { :multiple => "multiple", :autocomplete=>"off" }) do |f|
     = render :partial => "events_form", :locals => { :f => f }
-    = f.button :submit, t('button.create'), :class => 'btn btn-primary'
-    = link_to t('cancel'), space_events_path, :class => "btn", :confirm => t('are_you_sure')
+    = f.button :wrapped, :cancel => space_events_path, :value => t("button.create")

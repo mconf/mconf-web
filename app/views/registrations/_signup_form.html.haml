@@ -7,7 +7,7 @@
     = f.input_field :username
   = f.input :password, :label => t('user.password'), :required => true
   = f.input :password_confirmation, :label => t('user.password_confirmation'), :required => true
-  = f.button :submit, t('register.one'), :class => "btn"
+  = f.button :wrapped, :value => t("register.one")
 
   -# %div{ :class => @user.errors[:captcha].empty? ? 'captcha' : 'captcha field_with_errors' }
   -#   = show_simple_captcha(:object => :user)

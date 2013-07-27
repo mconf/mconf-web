@@ -1,9 +1,5 @@
 = render :partial => 'manage/menu'
 
-= content_for :sidebar do
-  .affix-top{ :"data-spy" => "affix", :"data-offset-top" => "160" }
-    = link_to t('save'), "#form-edit-site", :class => "btn btn-primary btn-block submit-form"
-
 #manage
   = simple_form_for @site, :url => site_path, :html => { :id => "form-edit-site", :method => :put, :multipart => true, :class => 'single-column' } do |f|
     .left-column
@@ -36,3 +32,4 @@
       = f.input :presence_domain, :label => t('site.chat_domain_field'), :hint => t('site.chat_domain_field_tip')
       = f.input :xmpp_server, :label => t('site.chat_server_field'), :hint => t('site.chat_server_field_tip')
       = f.input :external_help, :label => t('site.external_help'), :hint => t('site.external_help_tip')
+    = f.button :wrapped, :cancel => site_path, :value => t("save")

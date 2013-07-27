@@ -15,12 +15,6 @@ body.profiles.edit, body.profiles.update {
     width: $edit-area-width;
   }
 
-  input[type=submit] {
-    float: right;
-    clear: both;
-    margin-top: 10px;
-  }
-
   #edit-public-profile {
     @include mconf-clearfix;
     float: left;

@@ -1,3 +1,7 @@
+-# locals:
+-#   user (User): the user that owns the profile being edited
+-#   f (form): the form created with `simple_form_for`
+
 #edit-public-profile.left-column
 
   .content-block-header
@@ -47,4 +51,4 @@
     = f.input :mobile, :label => t('phone.mobile')
     = f.input :fax, :label => t('fax')
 
-= f.button :submit, t("save"), :class => "btn"
+= f.button :wrapped, :cancel => user_profile_path(user), :value => t("save")
