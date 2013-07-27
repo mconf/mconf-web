@@ -15,4 +15,6 @@ describe CustomBigbluebuttonServersController do
   describe "#sort_meetings" do
     pending "sort meetings by name alphabetically"
   end
+
+  # TODO: break down for every action and test the layout and view rendered
 end

@@ -1,5 +1,9 @@
 --- 
 en: 
+  _other:
+    edit: "Edit"
+    destroy: "Destroy"
+    details: "Details"
   GMT: GMT
   RSS: RSS
   abc: ABC
@@ -298,6 +302,17 @@ en:
       scan_code: "Or scan the code below:"
       sip_number: "To join the voice conference from a SIP client, dial <b>%{number}</b>."
       title: "Mobile access to %{room}"
+  custom_bigbluebutton_servers:
+    _other:
+      activity_monitor: "Activity monitor"
+      fetch_recordings: "Fetch recordings"
+      view_recordings: "View recordings"
+      view_rooms: "View rooms"
+    index:
+      table:
+        links: "Links"
+        server_name: "Server name"
+        url: "URL"
   date: 
     at: at
     start: "Start date"
@@ -764,6 +779,7 @@ en:
   layouts:
     application_navbar:
       inbox: "Inbox"
+      manage: "Manage"
   less: "less..."
   locale: 
     changed: "Application language changed to "
@@ -787,7 +803,18 @@ en:
     empty: "The logo is empty"
     no_image: "No image selected"
   logout: Logout
-  manage: Manage
+  manage:
+    menu:
+      general: "General"
+      new_room: "New room"
+      new_server: "New server"
+      spaces: "Spaces"
+      spam: "Spam"
+      title: "Site Management"
+      users: "Users"
+      view_recording_list: "View recording list"
+      view_room_list: "View room list"
+      webconf: "Web Conference"
   mandatory_field: "Mandatory field"
   message: 
     created: "Message sent successfully"

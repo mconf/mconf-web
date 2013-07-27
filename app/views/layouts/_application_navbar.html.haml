@@ -14,7 +14,7 @@
         .label.label-info= current_user.unread_private_messages.size
     - if current_user.superuser?
       %li= link_to t('space.all'), spaces_path
-      %li.last= link_to t('manage'), site_path
+      %li.last= link_to t('.manage'), site_path
     - else
       %li.last= link_to t('space.all'), spaces_path
 

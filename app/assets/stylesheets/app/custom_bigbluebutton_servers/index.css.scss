@@ -1,0 +1,29 @@
+@import "definitions";
+@import "compass/css3";
+
+body.custom_bigbluebutton_servers.index {
+
+  table.server-table {
+    text-align: left;
+    width: 100%;
+
+    .access-links {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+
+      li {
+        display: inline;
+        margin-right: 3px;
+        padding-right: 6px;
+        border-right: 1px solid #ddd;
+
+        &:last-child {
+          border: 0;
+        }
+      }
+    }
+
+  }
+
+}

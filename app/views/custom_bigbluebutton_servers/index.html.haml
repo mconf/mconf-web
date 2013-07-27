@@ -1,11 +1,23 @@
 = render :partial => 'manage/menu'
-= content_for :sidebar do
-  .affix-top{ :"data-spy" => "affix", :"data-offset-top" => "160" }
-    = link_to t('bigbluebutton_rails.view_room_list'), bigbluebutton_rooms_path, :class => 'btn btn-block'
-    = link_to t('bigbluebutton_rails.view_recording_list'), bigbluebutton_recordings_path, :class => 'btn btn-block'
-    = link_to t('bigbluebutton_rails.new_server'), new_bigbluebutton_server_path, :class => 'btn btn-block'
-    = link_to t('bigbluebutton_rails.new_room'), new_bigbluebutton_room_path, :class => 'btn btn-block'
 
 #manage
-  - @servers.each do |server|
-    = render 'custom_bigbluebutton_servers/show', :server => server
+  %table.server-table.table-striped.table-hover.table-condensed
+    %thead
+      %tr
+        %th= t('.table.server_name')
+        %th= t('.table.url')
+        %th= t('.table.links')
+    %tbody
+      - @servers.each do |server|
+        %tr
+          %td= link_to server.name, bigbluebutton_server_path(server)
+          %td= server.url
+          %td
+            %ul.access-links
+              %li= link_to t('_other.details'), bigbluebutton_server_path(server)
+              %li= link_to t('_other.edit'), edit_bigbluebutton_server_path(server)
+              %li= link_to t('_other.destroy'), bigbluebutton_server_path(server), confirm: t('are_you_sure'), method: :delete
+              %li= link_to t('custom_bigbluebutton_servers._other.view_rooms'), rooms_bigbluebutton_server_path(server)
+              %li= link_to t('custom_bigbluebutton_servers._other.activity_monitor'), activity_bigbluebutton_server_path(server)
+              %li= link_to t('custom_bigbluebutton_servers._other.view_recordings'), recordings_bigbluebutton_server_path(server)
+              %li= link_to t('custom_bigbluebutton_servers._other.fetch_recordings'), fetch_recordings_bigbluebutton_server_path(server), :confirm => t('are_you_sure'), :method => :post

@@ -1,4 +1,5 @@
 /*
  *= require ./app/custom_bigbluebutton_servers/_all
  *= require ./app/custom_bigbluebutton_servers/_activity
+ *= require ./app/custom_bigbluebutton_servers/index
  */
