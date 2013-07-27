@@ -1,17 +1,14 @@
 @import "compass/css3";
+@import "compass/typography/links";
 @import "definitions";
 
-$dropdown-border-color: #888;
-$dropdown-bg-color: #181818;
+$dropdown-border-color: #aaa;
+$dropdown-bg-color: white;
 
 // the container that has the link (.dropdown-toggle)
 // and the menu (.dropdown-menu)
 .dropdown {
   position: relative;
-  .caret {
-    margin-top: 8px;
-    margin-left: 2px;
-  }
 
   .dropdown-toggle { cursor: pointer; }
 
@@ -22,21 +19,6 @@ $dropdown-bg-color: #181818;
 
   // show the menu when the dropdown is open
   &.open .dropdown-menu { display: block; }
-}
-
-// icon next to the dropdown text (arrow/triangle)
-.caret {
-  display: inline-block;
-  width: 0;
-  height: 0;
-  text-indent: -99999px;
-  *text-indent: 0;
-  vertical-align: top;
-  border-left: 4px solid $transparent;
-  border-right: 4px solid $transparent;
-  border-top: 4px solid white;
-  @include opacity(0.5);
-  content: "\2193";
 }
 
 // the arrow in the top of the dropdown menu
@@ -73,16 +55,25 @@ $dropdown-bg-color: #181818;
 }
 
 // the menu itself
-.dropdown-menu {
+ul.dropdown-menu {
   margin: 0;
-  position: absolute;
-  display: none;
-  z-index: 999;
-  @include border-radius(4px);
-  @include box-shadow(0 5px 10px rgba(0, 0, 0, 0.2));
-  padding: 5px 10px;
-  border: 1px solid $dropdown-border-color;
-  background: $dropdown-bg-color;
+  padding: 0;
+
+  li {
+    margin: 0;
+    padding: 2px;
+    display: block;
+
+    a {
+      display: block;
+      padding: 6px 12px;
+
+      &:hover {
+        background: $light-gray;
+        @include link-colors(#808080, $link-color-hover, $link-color-active);
+      }
+    }
+  }
 
   &.arrow-left { @include dropdown-menu-arrow; }
   &.arrow-right { @include dropdown-menu-arrow(right); }
