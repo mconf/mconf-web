@@ -308,11 +308,36 @@ en:
       fetch_recordings: "Fetch recordings"
       view_recordings: "View recordings"
       view_rooms: "View rooms"
+    activity:
+      activity: "Server activity"
+      automatically_updated: "Automatically updated every 30 seconds"
+      information: "Server information"
+      title: "Server activity monitor"
+      updated: "Updated!"
+    edit:
+      editing_server: "Editing server '%{server}'"
     index:
+      list_of_servers: "List of all registered servers"
       table:
         links: "Links"
         server_name: "Server name"
         url: "URL"
+    new:
+      creating_new_server: "Creating a new server"
+    server_index_links:
+      new_room: "New room"
+      new_server: "New server"
+      view_recording_list: "View recording list"
+      view_room_list: "View room list"
+      view_server_list: "View server list"
+    show:
+      fetch_recordings_title: "Fetch recordings with parameters"
+      fetch_recordings_btn: "Fetch recordings"
+      publish_recordings_title: "Publish recordings"
+      publish_recordings_btn: "Publish recordings"
+      showing_server: "Showing server '%{server}'"
+      unpublish_recordings_title: "Unpublish recordings"
+      unpublish_recordings_btn: "Unpublish recordings"
   date: 
     at: at
     start: "Start date"
@@ -806,14 +831,10 @@ en:
   manage:
     menu:
       general: "General"
-      new_room: "New room"
-      new_server: "New server"
       spaces: "Spaces"
       spam: "Spam"
       title: "Site Management"
       users: "Users"
-      view_recording_list: "View recording list"
-      view_room_list: "View room list"
       webconf: "Web Conference"
   mandatory_field: "Mandatory field"
   message: 

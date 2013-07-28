@@ -12,11 +12,3 @@
       = link_to t('.spam'), manage_spam_path
     %li{ :class => "#{'selected' if params[:controller] == 'custom_bigbluebutton_servers' || params[:controller] == 'custom_bigbluebutton_rooms'}" }
       = link_to t('.webconf'), bigbluebutton_servers_path
-      .btn-group
-        %a.caret-container{ :href => "#", :"data-toggle" => "dropdown" }
-          %span.caret
-        %ul.dropdown-menu.arrow-left
-          %li= link_to t('.view_room_list'), bigbluebutton_rooms_path
-          %li= link_to t('.view_recording_list'), bigbluebutton_recordings_path
-          %li= link_to t('.new_server'), new_bigbluebutton_server_path
-          %li= link_to t('.new_room'), new_bigbluebutton_room_path

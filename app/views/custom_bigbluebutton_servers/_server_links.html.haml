@@ -1,0 +1,11 @@
+-# locals:
+-#   server (Server): the target server model
+
+%ul.nav.nav-tabs.nav-stacked.content-block-wrapper
+  %li= link_to t('_other.details'), bigbluebutton_server_path(server)
+  %li= link_to t('_other.edit'), edit_bigbluebutton_server_path(server)
+  %li= link_to t('_other.destroy'), bigbluebutton_server_path(server), :confirm => t('are_you_sure'), :method => :delete
+  %li= link_to t('custom_bigbluebutton_servers._other.view_rooms'), rooms_bigbluebutton_server_path(server)
+  %li= link_to t('custom_bigbluebutton_servers._other.activity_monitor'), activity_bigbluebutton_server_path(server)
+  %li= link_to t('custom_bigbluebutton_servers._other.view_recordings'), recordings_bigbluebutton_server_path(server)
+  %li= link_to t('custom_bigbluebutton_servers._other.fetch_recordings'), fetch_recordings_bigbluebutton_server_path(server), :confirm => t('are_you_sure'), :method => :post

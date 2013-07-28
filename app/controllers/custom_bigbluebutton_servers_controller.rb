@@ -8,17 +8,7 @@ class CustomBigbluebuttonServersController < Bigbluebutton::ServersController
   before_filter :authenticate_user!
   after_filter :sort_meetings, :only => [:activity]
   authorize_resource :class => "BigbluebuttonServer"
-
-  layout :determine_layout
-
-  def determine_layout
-    case params[:action].to_sym
-    when :index
-      "no_sidebar"
-    else
-      "application"
-    end
-  end
+  layout "application"
 
   def sort_meetings
     @server.meetings.sort{|m1,m2| m1.name <=> m2.name }

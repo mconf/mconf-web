@@ -1,4 +1,7 @@
 = render :partial => 'manage/menu'
 
-#manage
-  = render 'form'
+= content_for :sidebar do
+  = render 'custom_bigbluebutton_servers/server_index_links'
+
+%h3= t('.creating_new_server')
+= render 'custom_bigbluebutton_servers/form', :editing => true, :server => @server

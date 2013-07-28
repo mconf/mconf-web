@@ -1,18 +1,18 @@
-= simple_form_for @server, :html => { :class => 'form-inline' } do |f|
-  - if @server.errors.any?
-    #error_explanation
-      %h3
-        = pluralize(@server.errors.count, "error")
-        = t('servers.form.msg1')
-      %ul
-      - @server.errors.full_messages.each do |msg|
-        %li
-          = msg
+-# locals:
+-#   editing (boolean): allow editing of this form?
+-#   server (Server): the target server model
 
-  = f.input :id, :required => false, :disabled => true
-  = f.input :name, :required => false
-  = f.input :url, :required => false
-  = f.input :salt, :required => false
-  = f.input :version, :required => false
-  = f.input :param, :required => false
-  = f.button :submit, t("save"), :class => "btn"
+= simple_form_for server, :html => { :class => 'form-horizontal single-column' } do |f|
+  - if !editing
+    = f.input :id, :disabled => true
+  = f.input :name, :disabled => !editing
+  = f.input :url, :disabled => !editing
+  = f.input :salt, :disabled => !editing
+  = f.input :version, :disabled => !editing
+  = f.input :param, :disabled => !editing
+  - if editing
+    - if server.new_record?
+      - cancel_route = nil
+    - else
+      - cancel_route = bigbluebutton_server_path(server)
+    = f.button :wrapped, :cancel => cancel_route, :value => t("save")

@@ -1,5 +1,9 @@
 ---
 pt-br:
+  _other:
+    edit: "Editar"
+    destroy: "Remover"
+    details: "Detalhes"
   GMT: GMT
   RSS: RSS
   abc: ABC
@@ -288,6 +292,42 @@ pt-br:
       scan_code: "Ou utilize o código abaixo:"
       sip_number: "Para entrar na conferência de voz usando um cliente SIP, disque para <b>%{number}</b>."
       title: "Acesso móvel à sala %{room}"
+  custom_bigbluebutton_servers:
+    _other:
+      activity_monitor: "Monitor de atividades"
+      fetch_recordings: "Buscar gravações"
+      view_recordings: "Ver gravações"
+      view_rooms: "Ver salas"
+    activity:
+      activity: "Atividade do servidor"
+      automatically_updated: "Atualizado automaticamente a cada 30 segundos"
+      information: "Informações do servidor"
+      title: "Monitor de atividades do servidor"
+      updated: "Atualizado!"
+    edit:
+      editing_server: "Editando o servidor '%{server}'"
+    index:
+      list_of_servers: "Lista de todos os servidores registrados"
+      table:
+        links: "Links"
+        server_name: "Nome do servidor"
+        url: "URL"
+    new:
+      creating_new_server: "Criando um novo servidor"
+    server_index_links:
+      new_room: "Nova sala"
+      new_server: "Novo servidor"
+      view_recording_list: "Ver lista de grvações"
+      view_room_list: "Ver lista de salas"
+      view_server_list: "Ver lista de servidores"
+    show:
+      fetch_recordings_title: "Buscar gravações usando parâmetros"
+      fetch_recordings_btn: "Buscar gravações"
+      publish_recordings_title: "Publicar gravações"
+      publish_recordings_btn: "Publicar gravações"
+      showing_server: "Mostrando o servidor '%{server}'"
+      unpublish_recordings_title: "Despublicar gravações"
+      unpublish_recordings_btn: "Despublicar gravações"
   date:
     at: em
     start: "Data inicial"
@@ -762,7 +802,14 @@ pt-br:
     empty: "O logotipo está vazio"
     no_image: "Nenhuma imagem foi selecionada"
   logout: Sair
-  manage: Gerenciar
+  manage:
+    menu:
+      general: "Geral"
+      spaces: "Comunidades"
+      spam: "Spam"
+      title: "Gerenciamento do Site"
+      users: "Usuários"
+      webconf: "Webconferência"
   mandatory_field: "Campo obrigatório"
   mconf: Mconf
   members:

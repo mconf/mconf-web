@@ -1,23 +1,21 @@
 = render :partial => 'manage/menu'
 
-#manage
-  %table.server-table.table-striped.table-hover.table-condensed
-    %thead
+= content_for :sidebar do
+  = render 'custom_bigbluebutton_servers/server_index_links'
+
+%h1= t('.list_of_servers')
+%table.server-table.table-striped.table-hover.table-condensed
+  %thead
+    %tr
+      %th= t('.table.server_name')
+      %th= t('.table.url')
+      %th= t('.table.links')
+  %tbody
+    - @servers.each do |server|
       %tr
-        %th= t('.table.server_name')
-        %th= t('.table.url')
-        %th= t('.table.links')
-    %tbody
-      - @servers.each do |server|
-        %tr
-          %td= link_to server.name, bigbluebutton_server_path(server)
-          %td= server.url
-          %td
-            %ul.access-links
-              %li= link_to t('_other.details'), bigbluebutton_server_path(server)
-              %li= link_to t('_other.edit'), edit_bigbluebutton_server_path(server)
-              %li= link_to t('_other.destroy'), bigbluebutton_server_path(server), confirm: t('are_you_sure'), method: :delete
-              %li= link_to t('custom_bigbluebutton_servers._other.view_rooms'), rooms_bigbluebutton_server_path(server)
-              %li= link_to t('custom_bigbluebutton_servers._other.activity_monitor'), activity_bigbluebutton_server_path(server)
-              %li= link_to t('custom_bigbluebutton_servers._other.view_recordings'), recordings_bigbluebutton_server_path(server)
-              %li= link_to t('custom_bigbluebutton_servers._other.fetch_recordings'), fetch_recordings_bigbluebutton_server_path(server), :confirm => t('are_you_sure'), :method => :post
+        %td= link_to server.name, bigbluebutton_server_path(server)
+        %td= server.url
+        %td
+          %ul.access-links
+            %li= link_to t('_other.details'), bigbluebutton_server_path(server), :class => "btn btn-mini"
+            %li= link_to t('_other.edit'), edit_bigbluebutton_server_path(server), :class => "btn btn-mini"

@@ -2,31 +2,35 @@
 @import "definitions";
 
 body.custom_bigbluebutton_servers.activity {
-  .bbbrails_meeting_description {
-    width: 80%;
-    @include mconf-clearfix;
-  }
-  .links {
-    margin-top: 15px;
-    float: right;
-    width: 17%;
-    a { 
-      display: block;
+
+  .meeting-wrapper {
+    padding: 1px 10px;
+
+    .meeting-title .label {
+      float: right;
+      margin-top: 2px;
     }
+
+    .meeting-links {
+      float: right;
+      margin: 0 10px;
+      padding: 0;
+
+      li {
+        margin: 0;
+        padding: 0;
+      }
+    }
+
+    .meeting-time {
+      margin-top: 5px;
+      padding: 0 10px;
+    }
+
+    .meeting-attendees {
+      margin-top: 5px;
+      padding: 0 10px;
+    }
+
   }
-  h3.title {
-    float: left;
-  }
-  .header {
-    float: left;
-    margin-top: 12px;
-    padding-right:5px;
-  }
-  .status {
-    float: left;
-    margin-top:12px;
-  }
-  .thread {
-    min-height: 150px;
-  }  
 }

@@ -1,0 +1,18 @@
+@import "definitions";
+@import "compass/css3";
+
+body.custom_bigbluebutton_servers.show {
+
+  form {
+    margin-bottom: 20px;
+  }
+
+  .field {
+    margin-top: 10px;
+
+    input {
+      width: 50%;
+      margin: 0;
+    }
+  }
+}
