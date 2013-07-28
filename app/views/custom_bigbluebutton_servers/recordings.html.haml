@@ -1,4 +1,7 @@
 = render :partial => 'manage/menu'
 
-#manage
-  = render 'custom_bigbluebutton_recordings/recordings'
+= content_for :sidebar do
+  = render 'custom_bigbluebutton_servers/server_index_links'
+
+%h1= t('.list_of_recordings', :server => @server.name)
+= render 'custom_bigbluebutton_recordings/recordings', :recordings => @recordings

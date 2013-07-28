@@ -10,5 +10,6 @@
       = link_to t('.users'), manage_users_path
     %li{ :class => "#{'selected' if params[:controller] == 'manage' && params[:action] == 'spam'}" }
       = link_to t('.spam'), manage_spam_path
-    %li{ :class => "#{'selected' if params[:controller] == 'custom_bigbluebutton_servers' || params[:controller] == 'custom_bigbluebutton_rooms'}" }
+    - webconf_controllers = ['custom_bigbluebutton_servers', 'custom_bigbluebutton_rooms', 'custom_bigbluebutton_recordings']
+    %li{ :class => "#{'selected' if webconf_controllers.include?(params[:controller]) }" }
       = link_to t('.webconf'), bigbluebutton_servers_path

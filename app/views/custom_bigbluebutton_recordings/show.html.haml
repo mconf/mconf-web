@@ -1,0 +1,7 @@
+= render :partial => 'manage/menu'
+
+= content_for :sidebar do
+  = render 'custom_bigbluebutton_recordings/recording_links', :recording => @recording
+
+%h1= t('.showing_recording')
+= render 'custom_bigbluebutton_recordings/form', :editing => false, :recording => @recording

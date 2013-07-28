@@ -1,0 +1,45 @@
+@import "definitions";
+@import "compass/css3";
+
+body.custom_bigbluebutton_recordings {
+
+  #recording-metadata {
+    padding: 0 0 10px 0;
+    clear: both;
+
+    .recording-metadata-field {
+      margin-bottom: 7px;
+
+      label {
+        display: inline;
+        margin-right: 5px;
+      }
+
+      input[type=text] {
+        display: inline;
+        margin-right: 10px;
+      }
+    }
+  }
+
+  #recording-playback {
+    padding: 0 0 10px 0;
+    clear: both;
+
+    .recording-playback-field {
+      margin-bottom: 7px;
+
+      label {
+        display: inline;
+        margin-right: 5px;
+      }
+
+      input[type=text] {
+        display: inline;
+        margin-right: 10px;
+        max-width: 120px;
+      }
+    }
+  }
+
+}

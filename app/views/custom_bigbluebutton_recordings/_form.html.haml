@@ -1,0 +1,52 @@
+-# locals:
+-#   editing (boolean): allow editing of this form?
+-#   recording (Recording): the target bigbluebutton_recording model
+
+- if recording.new_record?
+  - url = bigbluebutton_recordings_path
+- else
+  - url = bigbluebutton_recording_path(recording)
+
+= simple_form_for recording, :url => url, :html => { :class => 'form-horizontal single-column' } do |f|
+  - if !editing
+    = f.input :id, :disabled => true
+  = f.input :recordid, :disabled => !editing
+  = f.input :name, :disabled => !editing
+  = f.input :server_id, :disabled => true
+  = f.input :room_id, :disabled => true
+  = f.input :published, :as => :boolean, :disabled => !editing
+  = f.input :available, :as => :boolean, :disabled => !editing
+  = f.input :start_time, :disabled => !editing
+  = f.input :end_time, :disabled => !editing
+
+  %label= BigbluebuttonRecording.human_attribute_name(:metadata)
+  #recording-metadata
+    - recording.metadata.each do |metadata|
+      .recording-metadata-field
+        %label= BigbluebuttonMetadata.human_attribute_name(:name)
+        = text_field_tag "metadata_name", metadata.name, :disabled => true
+        %label= BigbluebuttonMetadata.human_attribute_name(:content)
+        = text_field_tag "metadata_content", metadata.content, :disabled => true
+
+  %label= BigbluebuttonRecording.human_attribute_name(:playback_formats)
+  #recording-playback
+    - recording.playback_formats.each do |playback|
+      .recording-playback-field
+        %label= BigbluebuttonPlaybackFormat.human_attribute_name(:format_type)
+        = text_field_tag "playback_format_type", playback.format_type, :disabled => true
+        %label= BigbluebuttonPlaybackFormat.human_attribute_name(:url)
+        = text_field_tag "playback_url", playback.url, :disabled => true
+        %label= BigbluebuttonPlaybackFormat.human_attribute_name(:length)
+        = text_field_tag "playback_length", playback.length, :disabled => true
+
+  - if editing
+    - if recording.new_record?
+      - cancel_route = nil
+    - else
+      - cancel_route = bigbluebutton_recording_path(recording)
+    = f.button :wrapped, :cancel => cancel_route, :value => t("_other.save")
+
+  - else
+    - unless recording.new_record?
+      .form-actions
+        = link_to t('_other.edit'), edit_bigbluebutton_recording_path(recording), :class => "btn btn-primary"

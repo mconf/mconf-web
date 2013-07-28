@@ -1,0 +1,13 @@
+@import "definitions";
+@import "compass/css3";
+
+body.custom_bigbluebutton_recordings {
+
+  #sidebar .nav-playback-links {
+    .btn {
+      display: block;
+      margin-bottom: 5px;
+    }
+  }
+
+}

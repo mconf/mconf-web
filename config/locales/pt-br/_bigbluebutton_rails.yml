@@ -11,7 +11,7 @@ pt-br:
         length: Tamanho
         url: URL
       bigbluebutton_recording: 
-        end_time: "Tempo de Finalização"
+        end_time: "Horário de Fim"
         meetingid: "ID da Reunião"
         metadata: Metadados
         name: Nome
@@ -19,7 +19,7 @@ pt-br:
         recordid: "ID da Gravação"
         room_id: "ID da Sala"
         server_id: "ID do Servidor"
-        start_time: "Tempo de Inicialização"
+        start_time: "Horário de Início"
       bigbluebutton_room: 
         attendee_password: "Senha de Participante"
         dial_number: "Número de discagem"

@@ -6,7 +6,7 @@
 %h1= t('.showing_server', :server => @server.name)
 = render 'custom_bigbluebutton_servers/form', :editing => false, :server => @server
 
-%h3= "Recordings"
+%h3= t(".recordings")
 
 .field
   %label{ :for => "server-recordings-fetch" }= t(".fetch_recordings_title")

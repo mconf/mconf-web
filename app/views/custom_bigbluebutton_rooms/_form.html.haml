@@ -2,12 +2,12 @@
 -#   editing (boolean): allow editing of this form?
 -#   room (Room): the target bigbluebutton_room model
 
-- if @room.new_record?
+- if room.new_record?
   - url = bigbluebutton_rooms_path
 - else
-  - url = bigbluebutton_room_path(@room)
+  - url = bigbluebutton_room_path(room)
 
-= simple_form_for @room, :url => url, :html => { :class => 'form-horizontal single-column' } do |f|
+= simple_form_for room, :url => url, :html => { :class => 'form-horizontal single-column' } do |f|
   - if !editing
     = f.input :id, :disabled => true
   = f.input :server_id, :disabled => !editing
@@ -25,6 +25,7 @@
   = f.input :record, :disabled => !editing
   = f.input :duration, :disabled => !editing
   = f.input :param, :disabled => !editing
+
   - if editing
     - if room.new_record?
       - cancel_route = nil
@@ -43,6 +44,7 @@
             = metadata_form.check_box :_destroy
             = metadata_form.label :_destroy, t(".metadata.set_to_remove")
     = f.button :wrapped, :cancel => cancel_route, :value => t("_other.save")
+
   - else
     - unless room.new_record?
       %label= BigbluebuttonRoom.human_attribute_name(:metadata)

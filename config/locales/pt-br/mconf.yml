@@ -6,7 +6,9 @@ pt-br:
     edit: "Editar"
     end: "Finalizar"
     join: "Entrar"
+    publish: "Publicer"
     save: "Salvar"
+    unpublish: "Despublicar"
   GMT: GMT
   RSS: RSS
   abc: ABC
@@ -316,10 +318,25 @@ pt-br:
         room_name: "Nome da Sala"
     show:
       showing_room: "Mostrando a sala '%{room}'"
+  custom_bigbluebutton_recordings:
+    edit:
+      editing_recording: "Editando gravação"
+    show:
+      showing_recording: "Mostrando gravação"
+    index:
+      list_of_recordings: "Lista de todas gravações disponíveis"
+    recording_links:
+      playback_links: "Playbacks disponíveis"
+    recordings:
+      table:
+        links: "Links"
+        recordid: "Record ID"
+        room: "Room"
+        server: "Server"
   custom_bigbluebutton_servers:
     _other:
       activity_monitor: "Monitor de atividades"
-      fetch_recordings: "Buscar gravações"
+      fetch_recordings: "Atualizar gravações"
       new_server: "Novo servidor"
       view_recordings: "Ver gravações"
       view_rooms: "Ver salas"
@@ -339,19 +356,22 @@ pt-br:
         url: "URL"
     new:
       creating_new_server: "Criando um novo servidor"
+    recordings:
+      list_of_recordings: "Lista de todas gravações para o servidor '%{server}'"
     rooms:
       list_of_rooms: "Lista de todas as salas do servidor '%{server}'"
     server_index_links:
       new_room: "Nova sala"
       new_server: "Novo servidor"
-      view_recording_list: "Ver lista de grvações"
+      view_recording_list: "Ver lista de gravações"
       view_room_list: "Ver lista de salas"
       view_server_list: "Ver lista de servidores"
     show:
-      fetch_recordings_title: "Buscar gravações usando parâmetros"
-      fetch_recordings_btn: "Buscar gravações"
+      fetch_recordings_title: "Atualizar gravações usando parâmetros"
+      fetch_recordings_btn: "Atualizar gravações"
       publish_recordings_title: "Publicar gravações"
       publish_recordings_btn: "Publicar gravações"
+      recordings: "Gravações"
       showing_server: "Mostrando o servidor '%{server}'"
       unpublish_recordings_title: "Despublicar gravações"
       unpublish_recordings_btn: "Despublicar gravações"

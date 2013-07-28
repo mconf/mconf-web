@@ -87,12 +87,15 @@
       text-align: right;
     }
 
-    input.string, input.password, input.numeric, textarea, select,
+    input.string, input.password, input.numeric, textarea, select.string,
     ul.token-input-list-facebook {
       width: 97%
     }
     input.showable_password {
       width: 78%
+    }
+    select.datetime {
+      width: 13%;
     }
   }
 

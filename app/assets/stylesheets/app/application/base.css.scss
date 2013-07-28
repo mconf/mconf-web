@@ -730,6 +730,11 @@ ul#navbar-right-links {
       float: left;
     }
   }
+
+  /* navbars in the sidebar */
+  .nav {
+    width: $sidebar-width - 12px; // all width minus spaces and borders
+  }
 }
 
 #content-middle {

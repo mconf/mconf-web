@@ -5,7 +5,7 @@
       %th= t('.table.room_meetingid')
       %th= t('.table.links')
   %tbody
-    - @rooms.each do |room|
+    - rooms.each do |room|
       %tr
         %td= link_to room.name, bigbluebutton_room_path(room)
         %td= room.meetingid

@@ -6,7 +6,9 @@ en:
     edit: "Edit"
     end: "End"
     join: "Join"
+    publish: "Publish"
     save: "Save"
+    unpublish: "Unpublish"
   GMT: GMT
   RSS: RSS
   abc: ABC
@@ -326,6 +328,21 @@ en:
         room_name: "Room name"
     show:
       showing_room: "Showing room '%{room}'"
+  custom_bigbluebutton_recordings:
+    edit:
+      editing_recording: "Editing recording"
+    show:
+      showing_recording: "Showing recording"
+    index:
+      list_of_recordings: "List of all recordings available"
+    recording_links:
+      playback_links: "Playbacks available"
+    recordings:
+      table:
+        links: "Links"
+        recordid: "Record ID"
+        room: "Room"
+        server: "Server"
   custom_bigbluebutton_servers:
     _other:
       activity_monitor: "Activity monitor"
@@ -349,6 +366,8 @@ en:
         url: "URL"
     new:
       creating_new_server: "Creating a new server"
+    recordings:
+      list_of_recordings: "List of all recordings for the server '%{server}'"
     rooms:
       list_of_rooms: "List of all rooms for the server '%{server}'"
     server_index_links:
@@ -362,6 +381,7 @@ en:
       fetch_recordings_btn: "Fetch recordings"
       publish_recordings_title: "Publish recordings"
       publish_recordings_btn: "Publish recordings"
+      recordings: "Recordings"
       showing_server: "Showing server '%{server}'"
       unpublish_recordings_title: "Unpublish recordings"
       unpublish_recordings_btn: "Unpublish recordings"
