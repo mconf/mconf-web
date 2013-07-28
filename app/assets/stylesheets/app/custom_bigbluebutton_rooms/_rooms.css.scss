@@ -1,0 +1,31 @@
+@import "definitions";
+@import "compass/css3";
+
+body.custom_bigbluebutton_rooms.index,
+body.custom_bigbluebutton_servers.rooms {
+
+  table.room-table {
+    text-align: left;
+    width: 100%;
+
+    th:last-child {
+      text-align: right;
+      padding-right: 15px;
+    }
+
+    .access-links {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+
+      li {
+        display: inline;
+        margin-right: 3px;
+        padding-right: 6px;
+        float: right;
+      }
+    }
+
+  }
+
+}

@@ -1,4 +1,7 @@
 = render :partial => 'manage/menu'
 
-#manage
-  = render 'custom_bigbluebutton_rooms/show', :room => @room
+= content_for :sidebar do
+  = render 'custom_bigbluebutton_rooms/room_links', :room => @room
+
+%h1= t('.showing_room', :room => @room.name)
+= render 'custom_bigbluebutton_rooms/form', :editing => false, :room => @room

@@ -1,0 +1,14 @@
+<div class="room-metadata-field">
+  <label class="string required" for="bigbluebutton_room_metadata_attributes_{{id}}_name">
+    <abbr title="required">*</abbr>
+    {{label_name}}
+  </label>
+  <input id="bigbluebutton_room_metadata_attributes_{{id}}_name" name="bigbluebutton_room[metadata_attributes][{{id}}][name]" type="text">
+  <label class="text optional" for="bigbluebutton_room_metadata_attributes_{{id}}_content">
+    {{label_content}}
+  </label>
+  <input id="bigbluebutton_room_metadata_attributes_{{id}}_content" name="bigbluebutton_room[metadata_attributes][{{id}}][content]" type="text">
+  <button type="button" class="btn btn-mini btn-danger room-metadata-remove">
+    x
+  </buton>
+</div>

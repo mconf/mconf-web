@@ -1,6 +1,6 @@
 /*
- *= require ./app/custom_bigbluebutton_servers/_activity
  *= require ./app/custom_bigbluebutton_servers/activity
  *= require ./app/custom_bigbluebutton_servers/show
  *= require ./app/custom_bigbluebutton_servers/index
+ *= require ./app/custom_bigbluebutton_servers/rooms
  */

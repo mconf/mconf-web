@@ -1,0 +1,30 @@
+@import "definitions";
+@import "compass/css3";
+
+body.custom_bigbluebutton_rooms {
+
+  #room-metadata-add {
+    float: right;
+  }
+
+  #room-metadata {
+    padding: 10px 0;
+    clear: both;
+
+    .room-metadata-field {
+      margin-bottom: 7px;
+
+      label {
+        display: inline;
+        margin-right: 5px;
+      }
+
+      input[type=text] {
+        display: inline;
+        margin-right: 10px;
+      }
+    }
+
+  }
+
+}

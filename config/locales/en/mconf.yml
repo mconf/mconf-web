@@ -1,9 +1,12 @@
 --- 
 en: 
   _other:
-    edit: "Edit"
     destroy: "Destroy"
     details: "Details"
+    edit: "Edit"
+    end: "End"
+    join: "Join"
+    save: "Save"
   GMT: GMT
   RSS: RSS
   abc: ABC
@@ -261,6 +264,18 @@ en:
     description: "Select a part of the image to crop"
     title: "Crop image"
   custom_bigbluebutton_rooms: 
+    _other:
+      join_mobile: "Join from mobile"
+      invite: "Invite"
+      new_room: "New room"
+    edit:
+      editing_room: "Editing room '%{room}'"
+    form:
+      metadata:
+        add: "Add metadata"
+        set_to_remove: "Set to remove"
+    index:
+      list_of_rooms: "List of all registered rooms"
     important: Important
     invite: 
       desktop: 
@@ -302,10 +317,20 @@ en:
       scan_code: "Or scan the code below:"
       sip_number: "To join the voice conference from a SIP client, dial <b>%{number}</b>."
       title: "Mobile access to %{room}"
+    new:
+      creating_new_room: "Creating a new room"
+    rooms:
+      table:
+        links: "Links"
+        room_meetingid: "Meeting ID"
+        room_name: "Room name"
+    show:
+      showing_room: "Showing room '%{room}'"
   custom_bigbluebutton_servers:
     _other:
       activity_monitor: "Activity monitor"
       fetch_recordings: "Fetch recordings"
+      new_server: "New server"
       view_recordings: "View recordings"
       view_rooms: "View rooms"
     activity:
@@ -324,6 +349,8 @@ en:
         url: "URL"
     new:
       creating_new_server: "Creating a new server"
+    rooms:
+      list_of_rooms: "List of all rooms for the server '%{server}'"
     server_index_links:
       new_room: "New room"
       new_server: "New server"

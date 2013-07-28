@@ -369,8 +369,10 @@ describe CustomBigbluebuttonRoomsController do
       before(:each) { login_as(FactoryGirl.create(:superuser)) }
       before(:each) { get :join_mobile, :id => room.to_param }
       it { should render_template(:join_mobile) }
-      it { should_not render_with_layout() }
+      it { should render_with_layout("application") }
     end
+
+    it "should render without template if requested via xhr"
   end
 
   describe "#create" do

@@ -1,25 +1,57 @@
--# TODO: metadata fields
+-# locals:
+-#   editing (boolean): allow editing of this form?
+-#   room (Room): the target bigbluebutton_room model
 
 - if @room.new_record?
   - url = bigbluebutton_rooms_path
 - else
   - url = bigbluebutton_room_path(@room)
 
-= simple_form_for @room, :url => url, :html => { :class => 'form-inline' } do |f|
-  = f.input :id, :required => false, :disabled => true
-  = f.input :server_id, :required => false
-  = f.input :name, :required => false
-  = f.input :meetingid, :required => false
-  = f.input :private, :required => false, :as => :boolean
-  = f.input :attendee_password, :required => false
-  = f.input :moderator_password, :required => false
-  = f.input :welcome_msg, :required => false
-  = f.input :logout_url, :required => false
-  = f.input :dial_number, :required => false
-  = f.input :voice_bridge, :required => false
-  = f.input :max_participants, :required => false
-  = f.input :external, :required => false, :as => :boolean
-  = f.input :record, :required => false
-  = f.input :duration, :required => false
-  = f.input :param, :required => false
-  = f.button :submit, t('save'), :class => 'btn'
+= simple_form_for @room, :url => url, :html => { :class => 'form-horizontal single-column' } do |f|
+  - if !editing
+    = f.input :id, :disabled => true
+  = f.input :server_id, :disabled => !editing
+  = f.input :name, :disabled => !editing
+  = f.input :meetingid, :disabled => !editing
+  = f.input :private, :as => :boolean, :disabled => !editing
+  = f.input :attendee_password, :disabled => !editing
+  = f.input :moderator_password, :disabled => !editing
+  = f.input :welcome_msg, :disabled => !editing
+  = f.input :logout_url, :disabled => !editing
+  = f.input :dial_number, :disabled => !editing
+  = f.input :voice_bridge, :disabled => !editing
+  = f.input :max_participants, :disabled => !editing
+  = f.input :external, :as => :boolean, :disabled => !editing
+  = f.input :record, :disabled => !editing
+  = f.input :duration, :disabled => !editing
+  = f.input :param, :disabled => !editing
+  - if editing
+    - if room.new_record?
+      - cancel_route = nil
+    - else
+      - cancel_route = bigbluebutton_room_path(room)
+      %label
+        = BigbluebuttonRoom.human_attribute_name(:metadata)
+        %button.btn.btn-primary.btn-small#room-metadata-add= t(".metadata.add")
+      #room-metadata{ :"data-metadata-count" => room.metadata.count }
+        = f.simple_fields_for :metadata do |metadata_form|
+          .room-metadata-field
+            = metadata_form.label :name
+            = metadata_form.text_field :name
+            = metadata_form.label :content
+            = metadata_form.text_field :content
+            = metadata_form.check_box :_destroy
+            = metadata_form.label :_destroy, t(".metadata.set_to_remove")
+    = f.button :wrapped, :cancel => cancel_route, :value => t("_other.save")
+  - else
+    - unless room.new_record?
+      %label= BigbluebuttonRoom.human_attribute_name(:metadata)
+      #room-metadata{ :"data-metadata-count" => room.metadata.count }
+        = f.simple_fields_for :metadata do |metadata_form|
+          .room-metadata-field
+            = metadata_form.label :name
+            = metadata_form.text_field :name, :disabled => true
+            = metadata_form.label :content
+            = metadata_form.text_field :content, :disabled => true
+      .form-actions
+        = link_to t('_other.edit'), edit_bigbluebutton_room_path(room), :class => "btn btn-primary"

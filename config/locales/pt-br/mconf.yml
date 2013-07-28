@@ -1,9 +1,12 @@
 ---
 pt-br:
   _other:
-    edit: "Editar"
     destroy: "Remover"
     details: "Detalhes"
+    edit: "Editar"
+    end: "Finalizar"
+    join: "Entrar"
+    save: "Salvar"
   GMT: GMT
   RSS: RSS
   abc: ABC
@@ -251,6 +254,18 @@ pt-br:
   create_event: "Criar Evento"
   created_time_ago: "Criado %{time} atrás"
   custom_bigbluebutton_rooms: 
+    _other:
+      join_mobile: "Entrar em dispositivo móvel"
+      invite: "Convidar"
+      new_room: "Nova sala"
+    edit:
+      editing_room: "Editando a sala '%{room}'"
+    form:
+      metadata:
+        add: "Adicionar metadados"
+        set_to_remove: "Marcar para remover"
+    index:
+      list_of_rooms: "Lista de todas salas registradas"
     important: Importante
     invite: 
       desktop: 
@@ -292,10 +307,20 @@ pt-br:
       scan_code: "Ou utilize o código abaixo:"
       sip_number: "Para entrar na conferência de voz usando um cliente SIP, disque para <b>%{number}</b>."
       title: "Acesso móvel à sala %{room}"
+    new:
+      creating_new_room: "Criando uma nova sala"
+    rooms:
+      table:
+        links: "Links"
+        room_meetingid: "ID da Reunião"
+        room_name: "Nome da Sala"
+    show:
+      showing_room: "Mostrando a sala '%{room}'"
   custom_bigbluebutton_servers:
     _other:
       activity_monitor: "Monitor de atividades"
       fetch_recordings: "Buscar gravações"
+      new_server: "Novo servidor"
       view_recordings: "Ver gravações"
       view_rooms: "Ver salas"
     activity:
@@ -314,6 +339,8 @@ pt-br:
         url: "URL"
     new:
       creating_new_server: "Criando um novo servidor"
+    rooms:
+      list_of_rooms: "Lista de todas as salas do servidor '%{server}'"
     server_index_links:
       new_room: "Nova sala"
       new_server: "Novo servidor"

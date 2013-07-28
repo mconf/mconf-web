@@ -10,6 +10,7 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
   gem 'yui-compressor'
   gem 'compass-rails', '~> 1.0'
+  gem 'handlebars_assets'
 
   # TODO: remove when compass-rails is updated
   # This compass is here so we can have css3/animation

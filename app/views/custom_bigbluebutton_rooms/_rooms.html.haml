@@ -1,8 +1,15 @@
-= content_for :sidebar do
-  .affix-top{ :"data-spy" => "affix", :"data-offset-top" => "160" }
-    = link_to t('bigbluebutton_rails.view_server_list'), bigbluebutton_servers_path, :class => 'btn btn-block'
-    = link_to t('bigbluebutton_rails.view_recording_list'), bigbluebutton_recordings_path, :class => 'btn btn-block'
-    = link_to t('bigbluebutton_rails.new_room'), new_bigbluebutton_room_path, :class => 'btn btn-block'
-
-- @rooms.each do |room|
-  = render 'custom_bigbluebutton_rooms/show', :room => room
+%table.room-table.table-striped.table-hover.table-condensed
+  %thead
+    %tr
+      %th= t('.table.room_name')
+      %th= t('.table.room_meetingid')
+      %th= t('.table.links')
+  %tbody
+    - @rooms.each do |room|
+      %tr
+        %td= link_to room.name, bigbluebutton_room_path(room)
+        %td= room.meetingid
+        %td
+          %ul.access-links
+            %li= link_to t('_other.details'), bigbluebutton_room_path(room), :class => "btn btn-mini"
+            %li= link_to t('_other.edit'), edit_bigbluebutton_room_path(room), :class => "btn btn-mini"

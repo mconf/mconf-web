@@ -25,7 +25,13 @@ class CustomBigbluebuttonRoomsController < Bigbluebutton::RoomsController
 
   def determine_layout
     case params[:action].to_sym
-    when :join_mobile, :running
+    when :join_mobile
+      if request.xhr?
+        false
+      else
+        "application"
+      end
+    when :running
       false
     when :invite_userid, :invite, :auth
       "no_sidebar"

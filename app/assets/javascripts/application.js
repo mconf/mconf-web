@@ -2,6 +2,7 @@
 //= require jquery_ujs
 //= require twitter/bootstrap
 //= require lodash
+//= require handlebars.runtime
 
 // Use to search for models (e.g. users) dynamically.
 //= require jquery/jquery.tokeninput
@@ -38,4 +39,5 @@
 
 // 'base' HAS to be the first one included
 //= require ./app/application/base
+//= require_tree ./templates
 //= require_tree ./app/application/

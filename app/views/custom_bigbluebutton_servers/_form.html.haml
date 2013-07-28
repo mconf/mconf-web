@@ -1,6 +1,6 @@
 -# locals:
 -#   editing (boolean): allow editing of this form?
--#   server (Server): the target server model
+-#   server (Server): the target bigbluebutton_server model
 
 = simple_form_for server, :html => { :class => 'form-horizontal single-column' } do |f|
   - if !editing
@@ -15,4 +15,8 @@
       - cancel_route = nil
     - else
       - cancel_route = bigbluebutton_server_path(server)
-    = f.button :wrapped, :cancel => cancel_route, :value => t("save")
+    = f.button :wrapped, :cancel => cancel_route, :value => t("_other.save")
+  - else
+    - unless server.new_record?
+      .form-actions
+        = link_to t('_other.edit'), edit_bigbluebutton_server_path(server), :class => "btn btn-primary"

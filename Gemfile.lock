@@ -178,6 +178,10 @@ GEM
       actionpack (>= 2.3.0)
       json
     haml (3.1.7)
+    handlebars_assets (0.14.1)
+      execjs (>= 1.2.9)
+      sprockets (>= 2.0.3)
+      tilt
     hike (1.2.3)
     hpricot (0.8.4)
     htmlentities (4.3.1)
@@ -359,6 +363,7 @@ DEPENDENCIES
   god (= 0.12.1)
   gon (= 3.0.5)
   haml
+  handlebars_assets
   hpricot
   htmlentities
   httparty
