@@ -364,15 +364,20 @@ describe CustomBigbluebuttonRoomsController do
   end
 
   describe "#join_mobile" do
-    context "template and layout" do
-      let(:room) { FactoryGirl.create(:bigbluebutton_room) }
-      before(:each) { login_as(FactoryGirl.create(:superuser)) }
+    let(:room) { FactoryGirl.create(:bigbluebutton_room) }
+    before(:each) { login_as(FactoryGirl.create(:superuser)) }
+
+    context "template and layout for html requests" do
       before(:each) { get :join_mobile, :id => room.to_param }
       it { should render_template(:join_mobile) }
       it { should render_with_layout("application") }
     end
 
-    it "should render without template if requested via xhr"
+    context "template and layout for xhr requests" do
+      before(:each) { xhr :get, :join_mobile, :id => room.to_param }
+      it { should render_template(:join_mobile) }
+      it { should_not render_with_layout() }
+    end
   end
 
   describe "#create" do

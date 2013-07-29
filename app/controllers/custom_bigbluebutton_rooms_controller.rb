@@ -10,13 +10,7 @@ class CustomBigbluebuttonRoomsController < Bigbluebutton::RoomsController
   before_filter :authenticate_user!,
     :except => [:invite, :invite_userid, :auth, :running]
 
-  # some routes are accessible to everyone, but some of them will do the authorization
-  # themselves (e.g. permissions for :join will change depending on the user and the target
-  # room)
-  load_resource :find_by => :param, :class => "BigbluebuttonRoom"
-  authorize_resource :class => "BigbluebuttonRoom",
-    :except => [:invite, :invite_userid, :join, :auth, :join_mobile, :running,
-                :external, :external_auth]
+  load_and_authorize_resource :find_by => :param, :class => "BigbluebuttonRoom"
 
   before_filter :check_redirect_to_invite, :only => [:invite_userid]
   before_filter :check_redirect_to_invite_userid, :only => [:invite]

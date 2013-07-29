@@ -34,6 +34,8 @@ module Abilities
       # Webconf rooms
       # Not many things are done here, several authorization steps are done by the gem
       # BigbluebuttonRails inside each action
+      # TODO: the validation methods below are getting complicated and are very similar
+      #       to methods used in other places, move them to some common place.
       can :end, BigbluebuttonRoom do |room|
 
         # The same logic for which user can create which room, done at
@@ -44,6 +46,31 @@ module Abilities
         elsif room.owner_type == "Space"
           space = Space.find(room.owner_id)
           response = space.users.include?(user)
+        end
+        response
+      end
+
+      # some actions in rooms should be accessible to any logged user
+      # some of them will do the authorization themselves (e.g. permissions for :join
+      # will change depending on the user and the target room)
+      can [:invite, :invite_userid, :auth, :running,
+           :join, :external, :external_auth, :join_mobile], BigbluebuttonRoom
+
+      # a user can do these actions below in recordings of his own room or recordings of
+      # rooms of either public spaces or spaces he's a member of
+      can [:show, :play], BigbluebuttonRecording do |recording|
+        response = false
+        unless recording.room.nil?
+          if recording.room.owner_type == "User" and recording.room.owner_id == user.id
+            response = true
+          elsif recording.room.owner_type == "Space"
+            space = Space.find(recording.room.owner_id)
+            if space.public
+              response = true
+            else
+              response = space.users.include?(user)
+            end
+          end
         end
         response
       end
@@ -191,6 +218,9 @@ module Abilities
       can :read, News, :space => { :public => true }
       can :read, Event, :space => { :public => true }
       can :read, Attachment, :space => { :public => true, :repository => true }
+
+      # some actions in rooms should be accessible to anyone
+      can [:invite, :invite_userid, :auth, :running], BigbluebuttonRoom
     end
   end
 
