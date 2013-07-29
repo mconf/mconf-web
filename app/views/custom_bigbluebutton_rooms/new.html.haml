@@ -1,7 +1,7 @@
 = render :partial => 'manage/menu'
 
 = content_for :sidebar do
-  = render 'custom_bigbluebutton_servers/server_index_links'
+  = render 'shared/webconf_index_links'
 
 %h1= t('.creating_new_room')
 = render 'custom_bigbluebutton_rooms/form', :editing => true, :room => @room
