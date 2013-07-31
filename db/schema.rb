@@ -234,6 +234,19 @@ ActiveRecord::Schema.define(:version => 20130717195517) do
     t.string   "mailing_list"
   end
 
+  create_table "join_requests", :force => true do |t|
+    t.string   "request_type"
+    t.integer  "candidate_id"
+    t.integer  "introducer_id"
+    t.integer  "group_id"
+    t.string   "group_type"
+    t.string   "email"
+    t.boolean  "accepted"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+    t.datetime "processed_at"
+  end
+
   create_table "logos", :force => true do |t|
     t.string   "type"
     t.integer  "size"
@@ -259,19 +272,6 @@ ActiveRecord::Schema.define(:version => 20130717195517) do
   create_table "machines_users", :id => false, :force => true do |t|
     t.integer "user_id",    :null => false
     t.integer "machine_id", :null => false
-  end
-
-  create_table "membership_requests", :force => true do |t|
-    t.string   "type"
-    t.integer  "candidate_id"
-    t.integer  "introducer_id"
-    t.integer  "group_id"
-    t.string   "group_type"
-    t.string   "email"
-    t.boolean  "accepted"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
-    t.datetime "processed_at"
   end
 
   create_table "memberships", :force => true do |t|

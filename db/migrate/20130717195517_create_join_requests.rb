@@ -1,7 +1,7 @@
-class CreateMembershipRequests < ActiveRecord::Migration
+class CreateJoinRequests < ActiveRecord::Migration
   def change
-    create_table :membership_requests do |t|
-      t.string     :type
+    create_table :join_requests do |t|
+      t.string     :request_type
 
       t.integer    :candidate_id
       t.integer    :introducer_id
