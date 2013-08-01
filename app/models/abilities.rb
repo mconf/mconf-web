@@ -40,14 +40,27 @@ module Abilities
 
         # The same logic for which user can create which room, done at
         # `ApplicationController#bigbluebutton_can_create?()``
-        response = false
         if room.owner_type == "User" and room.owner_id == user.id
-          response = true
+          true
         elsif room.owner_type == "Space"
           space = Space.find(room.owner_id)
-          response = space.users.include?(user)
+          space.users.include?(user)
+        else
+          false
         end
-        response
+      end
+
+      can :user_edit, BigbluebuttonRoom do |room|
+        room.owner == user
+      end
+
+      can :space_show, BigbluebuttonRoom do |room|
+        if room.owner_type == "Space"
+          space = Space.find(room.owner_id)
+          space.public or space.users.include?(user)
+        else
+          false
+        end
       end
 
       # some actions in rooms should be accessible to any logged user
@@ -78,7 +91,7 @@ module Abilities
       # Users
       # Disabled users are only visible to superusers
       can [:read, :fellows, :current, :select], User, :disabled => false
-      can [:update, :destroy, :edit_bbb_room], User, :id => user.id, :disabled => false
+      can [:update, :destroy], User, :id => user.id, :disabled => false
 
       # User profiles
       can :read, Profile do |profile|

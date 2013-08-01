@@ -25,9 +25,12 @@ module Shoulda # :nodoc
       #   it { should_not allow_access_to(:create, { :id => @post }).via(:post) }
       #   it { should_not allow_access_to(:update, { :id => @post }).via(:put) }
       #
-      # Note: avoid using negation with the `redirecting_to` option, we will not work
-      #       as expected. Example:
-      #   it { should_not allow_access_to(:show).redirecting_to("/users/1") } # BAD!
+      # Notes:
+      #  * Avoid using negation with the `redirecting_to` option, we will not work
+      #    as expected. Example:
+      #      it { should_not allow_access_to(:show).redirecting_to("/users/1") } # BAD!
+      #  * The target action is stubbed, so if you're using CanCan's `authorize!` inside
+      #    the action, it will not work!
       def allow_access_to(action, params=nil)
         AllowAccessToMatcher.new(action, self, params)
       end

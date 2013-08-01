@@ -1,9 +1,9 @@
 -# To be shown in a modal window
 
-#edit-bbb-room
+#edit-webconference-room
   %h1= t('bbb_room.edit')
   = simple_form_for @room, :html => { :class => "single-column" } do |f|
-    = hidden_field_tag :redir_url, @redir_to
+    = hidden_field_tag :redir_url, @redirect_to
     = f.input :private, :label => t('bbb_room.private'), :hint => t('bigbluebutton_rails.rooms.private.tooltip')
     = f.input :moderator_password, :as => :showable_password, :label => t('bbb_room.moderatorPW')
     = f.input :attendee_password, :as => :showable_password, :label => t('bbb_room.attendeePW')

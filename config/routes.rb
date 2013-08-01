@@ -67,7 +67,8 @@ Mconf::Application.routes.draw do
 
   resources :spaces do
 
-    bigbluebutton_routes :room_matchers
+    bigbluebutton_routes :room_matchers # TODO: review
+    match '/webconference' => 'webconferences#space_show'
 
     member do
       post :enable
@@ -78,7 +79,6 @@ Mconf::Application.routes.draw do
       resource :profile, :except => [:new, :create]
     end
 
-    resource :webconference
     resources :readers
 
     resources :events do
@@ -143,10 +143,11 @@ Mconf::Application.routes.draw do
     end
     member do
       post :enable
-      get :edit_bbb_room
     end
 
-    resources :private_messages, :as => 'messages', :except => [:edit]
+    match '/webconference/edit' => 'webconferences#user_edit'
+
+    resources :private_messages, :except => [:edit], :as => 'messages'
     resource :profile, :except => [:new, :create] do
       resource :logo
     end

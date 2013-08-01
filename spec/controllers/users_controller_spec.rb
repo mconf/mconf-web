@@ -331,7 +331,7 @@ describe UsersController do
 
       # On the user himself
 
-      [:show, :edit, :edit_bbb_room].each do |action|
+      [:show, :edit].each do |action|
         describe "can access ##{action}" do
           let(:do_action) { get action, :id => user }
           it_should_behave_like "it can access an action"
@@ -362,7 +362,7 @@ describe UsersController do
         it_should_behave_like "it can access an action"
       end
 
-      [:edit, :edit_bbb_room].each do |action|
+      [:edit].each do |action|
         describe "cannot access ##{action} for other users" do
           let(:do_action) { get action, :id => another_user }
           it_should_behave_like "it cannot access an action"
@@ -392,7 +392,7 @@ describe UsersController do
         it_should_behave_like "it can access an action"
       end
 
-      [:edit, :edit_bbb_room].each do |action|
+      [:edit].each do |action|
         describe "cannot access ##{action}" do
           let(:do_action) { get action, :id => user }
           it_should_behave_like "it cannot access an action"
@@ -418,14 +418,14 @@ describe UsersController do
         it_should_behave_like "it can access an action"
       end
 
-      [:show, :edit, :edit_bbb_room].each do |action|
+      [:show, :edit].each do |action|
         describe "can access ##{action}" do
           let(:do_action) { get action, :id => user }
           it_should_behave_like "it can access an action"
         end
       end
 
-      [:show, :edit, :edit_bbb_room].each do |action|
+      [:show, :edit].each do |action|
         describe "can access ##{action} for other users" do
           let(:do_action) { get action, :id => another_user }
           it_should_behave_like "it can access an action"

@@ -77,20 +77,6 @@ class UsersController < ApplicationController
     end
   end
 
-  def edit_bbb_room
-    @room = current_user.bigbluebutton_room
-    @server = @room.server
-    @redir_to = home_path
-
-    respond_to do |format|
-      format.html{
-        if request.xhr?
-          render :layout => false
-        end
-      }
-    end
-  end
-
   def destroy
     @user.disable
 

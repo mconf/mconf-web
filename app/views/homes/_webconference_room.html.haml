@@ -30,5 +30,5 @@
     %ul.action-buttons
       - if @room.is_running?
         %li= link_to t('home.webconference.end'), end_bigbluebutton_room_path(current_user.bigbluebutton_room, :redir_url => home_path), options_for_tooltip(t('home.webconference.end_tooltip'), :confirm => t('are_you_sure'), :class => 'danger-text')
-      %li= link_to t('configurations'), edit_bbb_room_user_path(current_user), options_for_tooltip(t('home.webconference.config_tooltip'), :class => 'open-modal')
+      %li= link_to t('configurations'), user_webconference_edit_path(current_user), options_for_tooltip(t('home.webconference.config_tooltip'), :class => 'open-modal')
       %li= link_to t('home.webconference.invite'), inviteroom_invite_path(:type => "webconference", :room => @room.to_param), options_for_tooltip( t('home.webconference.invite_tooltip'), :class => 'open-modal')
