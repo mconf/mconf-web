@@ -4,8 +4,6 @@
 # This file is licensed under the Affero General Public License version
 # 3 or later. See the LICENSE file.
 
-# TODO: move :show to SpacesController#webconference
-
 # This controller contain some helper methods that add up to the methods
 # in CustomBigbluebuttonRoomsController. These methods are specific for dealing
 # with webconference rooms in Mconf-Web (that belong specifically to spaces and
@@ -17,8 +15,22 @@ class WebconferencesController < ApplicationController
   before_filter :find_room
   before_filter :authorize_room!
 
-  layout 'spaces_show', :only => [:space_show]
-  layout 'application', :only => [:user_edit]
+  layout :determine_layout
+
+  def determine_layout
+    case params[:action].to_sym
+    when :space_show
+      "spaces_show"
+    when :user_edit
+      if request.xhr?
+        false
+      else
+        "application"
+      end
+    else
+      "application"
+    end
+  end
 
   def space_show
     # FIXME Temporarily matching users by name, should use the userID
@@ -39,13 +51,6 @@ class WebconferencesController < ApplicationController
   # edit *everything* in a room. This one is a lot more restricted.
   def user_edit
     @redirect_to = home_path
-    respond_to do |format|
-      format.html {
-        if request.xhr?
-          render :layout => false
-        end
-      }
-    end
   end
 
   private

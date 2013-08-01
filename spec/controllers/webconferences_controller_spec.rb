@@ -93,7 +93,7 @@ describe WebconferencesController do
 
       context "in the room of a public space" do
         let(:space) { FactoryGirl.create(:space, :public => true) }
-        it { should_not allow_access_to(:space_show, hash_space) }
+        it { should allow_access_to(:space_show, hash_space) }
       end
 
       context "in the room of a private space" do
@@ -104,17 +104,35 @@ describe WebconferencesController do
   end
 
   describe "#space_show" do
-    it "assigns @space"
-    it "assigns @room"
+    let(:space) { FactoryGirl.create(:space, :public => true) }
+    let(:hash) { { :space_id => space.to_param } }
+    before(:each) { get :space_show, hash }
+
+    it { should render_template(:space_show) }
+    it { should render_with_layout("spaces_show") }
+    it { should assign_to(:space).with(space) }
+    it { should assign_to(:room).with(space.bigbluebutton_room) }
+
     it "assigns @webconf_attendees with the attendees"
-    it "uses the layout 'spaces_show'"
   end
 
   describe "#user_edit" do
-    it "assigns @room"
-    it "assigns @redirect_to"
-    it "uses the layout 'application'"
-    it "uses no layout if xhr"
+    let(:user) { FactoryGirl.create(:user) }
+    before(:each) { login_as(user) }
+
+    context "html request" do
+      before(:each) { get :user_edit, { :user_id => user.to_param } }
+      it { should render_template(:user_edit) }
+      it { should render_with_layout("application") }
+      it { should assign_to(:room).with(user.bigbluebutton_room) }
+      it { should assign_to(:redirect_to).with(home_path) }
+    end
+
+    context "xhr request" do
+      before(:each) { xhr :get, :user_edit, { :user_id => user.to_param } }
+      it { should render_template(:user_edit) }
+      it { should_not render_with_layout() }
+    end
   end
 
 end

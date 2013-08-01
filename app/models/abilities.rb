@@ -234,6 +234,15 @@ module Abilities
 
       # some actions in rooms should be accessible to anyone
       can [:invite, :invite_userid, :auth, :running], BigbluebuttonRoom
+
+      can :space_show, BigbluebuttonRoom do |room|
+        if room.owner_type == "Space"
+          space = Space.find(room.owner_id)
+          space.public
+        else
+          false
+        end
+      end
     end
   end
 
