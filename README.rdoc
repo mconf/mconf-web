@@ -1,6 +1,6 @@
 = Mconf-Web
 
-Mconf-Web is the web application that controls the access to the Mconf web conferencing system. It is currently a fork of VCC, an open source system that can be found {here}[https://github.com/ging/vcc].
+Mconf-Web is the web application that controls and provides access to the Mconf web conferencing system. It is currently a fork of VCC, an open source system that can be found {here}[https://github.com/ging/vcc].
 
 You can try out Mconf-Web using our free demo server at http://mconf.org.
 
@@ -8,12 +8,12 @@ Mconf-web is a web application that integrates with {BigBlueButton}[http://www.b
 
 * User authentication;
 * Permission control to access webconference rooms;
-* Follows a social network model (inherited from VCC) with spaces (communities) that have events;
-* Users have their own webconferences that they can share with other members or even invite non-members.
-* Each space also has a webconference room that its members can use to interact;
+* Follows a social network model with spaces (communities) that have events;
+* Users have their own web conferences that they can share with other members or even invite non-members;
+* Each space also has a web conference room that its members can use to interact;
 * Events can be used to schedule webconferences inside a space.
 
-<b>For more details {read our wiki}[http://code.google.com/p/mconf/wiki/MconfWeb]</b>.
+<b>For more details {read our wiki}[https://github.com/mconf/mconf-web/wiki]</b>.
 
 == License
 
@@ -22,5 +22,5 @@ This project is under the {AGPL version 3 license}[http://www.gnu.org/licenses/a
 == Links
 
 * {Mconf.org}[http://mconf.org]
-* {Mconf @ Google Code}[http://code.google.com/p/mconf]
 * {Mconf @ GitHub}[https://github.com/mconf]
+* {Mconf issue tracking}[http://dev.mconf.org]
