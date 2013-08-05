@@ -34,7 +34,7 @@ module SpacesHelper
       link_to t('space.join'), new_space_join_request_path(space), options
 
     # the user already requested to join the space
-    elsif space.pending_join_requests_for?(current_user)
+    elsif space.pending_join_request_for?(current_user)
       options[:class] = "#{options[:class]} disabled tooltipped upwards"
       options[:title] = t("space.join_pending")
       content_tag(:span, t('space.join'), options)

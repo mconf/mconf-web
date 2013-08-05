@@ -39,7 +39,7 @@ class JoinRequest < ActiveRecord::Base
 
   def candidate_is_not_introducer
     if candidate == introducer
-      errors.add_to_base I18n.t('admission.errors.candidate_equals_introducer')
+      errors.add(:base, I18n.t('admission.errors.candidate_equals_introducer'))
     end
   end
 end

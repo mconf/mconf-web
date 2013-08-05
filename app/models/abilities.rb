@@ -82,12 +82,14 @@ module Abilities
       # Spaces
       can :create, Space
       can :read, Space, :public => true
+      can :join_request_new, Space
+      can :join_request_create, Space
       can [:read, :leave], Space do |space|
         space.users.include?(user)
       end
 
       # Only the admin can destroy or update information on a space
-      can [:destroy, :update], Space do |space|
+      can [:destroy, :update, :join_request_update, :join_request_index], Space do |space|
         space.admins.include?(user)
       end
 

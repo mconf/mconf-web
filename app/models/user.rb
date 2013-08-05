@@ -52,8 +52,6 @@ class User < ActiveRecord::Base
 
 ###
 
-  acts_as_agent
-
   apply_simple_captcha
 
   validates :email, :presence => true, :email => true
@@ -62,7 +60,6 @@ class User < ActiveRecord::Base
                           :association_foreign_key => "subject_id",
                           :conditions => { :permissions => {:subject_type => 'Space'} }
 
-  acts_as_stage
   acts_as_taggable :container => false
   acts_as_resource :param => :username
 
@@ -157,24 +154,24 @@ class User < ActiveRecord::Base
   after_create do |user|
     user.create_profile :full_name => user._full_name
 
-    # Checking if we have to join the space and the event
-    if (! user.special_event.nil?)
-      Performance.create! :agent => user,
-                          :stage => user.special_event.space,
-                          :role  => Role.find_by_name("Invited")
+    # # Checking if we have to join the space and the event
+    # TODO, make this work again
+    # if (! user.special_event.nil?)
+    #   Performance.create! :agent => user,
+    #                       :stage => user.special_event.space,
+    #                       :role  => Role.find_by_name("Invited")
 
-      Performance.create! :agent => user,
-                          :stage => user.special_event,
-                          :role  => Role.find_by_name("Invitedevent")
+    #   Performance.create! :agent => user,
+    #                       :stage => user.special_event,
+    #                       :role  => Role.find_by_name("Invitedevent")
 
-      part_aux = Participant.new
-      part_aux.email = user.email
-      part_aux.user_id = user.id
-      part_aux.event_id = user.special_event.id
-      part_aux.attend = true
-      part_aux.save!
-    end
-
+    #   part_aux = Participant.new
+    #   part_aux.email = user.email
+    #   part_aux.user_id = user.id
+    #   part_aux.event_id = user.special_event.id
+    #   part_aux.attend = true
+    #   part_aux.save!
+    # end
   end
 
   def self.find_with_disabled *args
@@ -187,10 +184,6 @@ class User < ActiveRecord::Base
 
   def <=>(user)
     self.username <=> user.username
-  end
-
-  def spaces
-    stages.select{ |s| s.is_a?(Space) && !s.disabled? }.sort_by{ |s| s.name }
   end
 
   def other_public_spaces
@@ -222,11 +215,8 @@ class User < ActiveRecord::Base
     limit = limit || 5            # default to 5
     limit = 50 if limit.to_i > 50 # no more than 50
 
-    # ids of stages this user belongs to
-    ids = agent_permissions.where(:subject_type => "Space").map(&:subject_id)
-
     # ids of unique users that belong to the same stages
-    ids = Permission.where(:subject_id => ids).select(:user_id).uniq.map(&:user_id)
+    ids = Permission.where(:subject_id => self.spaces).select(:user_id).uniq.map(&:user_id)
 
     # filters and selects the users
     query = User.where(:id => ids).joins(:profile).where("users.id != ?", self.id)
@@ -239,7 +229,7 @@ class User < ActiveRecord::Base
   end
 
   def private_fellows
-    stages(:type => "Space").select{|x| x.public == false}.map(&:actors).flatten.compact.uniq.sort{ |x, y| x.name <=> y.name }
+    spaces.select{|x| x.public == false}.map(&:users).flatten.compact.uniq.sort{ |x, y| x.name <=> y.name }
   end
 
   def has_events_in_this_space?(space)

@@ -122,9 +122,14 @@ Mconf::Application.routes.draw do
 
     resources :admissions
     resources :invitations
-    resources :join_requests
     resources :news
   end
+
+  # Ugly, dry this up when we do this for the other kinds of invitations
+  get  'spaces/:id/join_requests', :to => 'spaces#join_request_index', :as => 'space_join_requests'
+  get  'spaces/:id/join_requests/new', :to => 'spaces#join_request_new', :as => 'new_space_join_request'
+  post 'spaces/:id/join_requests', :to => 'spaces#join_request_create', :as => 'create_space_join_request'
+  put  'spaces/:id/join_requests/:jr_id', :to => 'spaces#join_request_update', :as => 'update_space_join_request'
 
   resources :invitations do
     member do

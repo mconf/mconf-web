@@ -6,7 +6,7 @@
 # 3 or later. See the LICENSE file.
 
 class SpacesController < ApplicationController
-  include ActionController::StationResources
+  # include ActionController::StationResources
 
   before_filter :space
   before_filter :webconf_room!, :only => [:show, :edit]
@@ -20,10 +20,10 @@ class SpacesController < ApplicationController
 
   # User trying to access a space not owned or joined by him
   rescue_from CanCan::AccessDenied do |exception|
-    if user_signed_in? and not [:destroy, :update].include?(exception.action)
+    if user_signed_in? and not [:destroy, :update, :join_request_new].include?(exception.action)
       # Normal actions trigger a redirect to ask for membership
       flash[:error] = t("join_request.message_title")
-      redirect_to new_space_join_request_path :space_id => params[:id]
+      redirect_to new_space_join_request_path :id => params[:id]
     else
       # Logged out users or destructive actions are redirect to the 403 error
       flash[:error] = t("space.access_forbidden")
@@ -229,7 +229,70 @@ class SpacesController < ApplicationController
     end
   end
 
+  def join_request_index
+    respond_to { |format| format.html }
+  end
+
+  def join_request_new
+    @join_request = space.join_requests.new
+  end
+
+  def join_request_create
+    @join_request = space.join_requests.new(params[:join_request])
+    @join_request.candidate = current_user
+    @join_request.email = current_user.email
+    @join_request.request_type = 'request'
+
+    if @join_request.save
+      flash[:notice] = t('join_request.created')
+    else
+      flash[:error] = t('join_request.already_sent')
+      # TODO: identify errors for better usability
+      # flash[:error] << @join_request.errors.to_xml
+    end
+
+    if space.public
+      redirect_to space_path(space)
+    else
+      redirect_to spaces_path
+    end
+  end
+
+  def join_request_update
+    join_request.attributes = params[:join_request].except(:role)
+    join_request.introducer = current_user if join_request.recently_processed?
+
+    success = false
+    if join_request.accepted? && params[:join_request][:role] && join_request.group_type == 'Space'
+      role = Role.find(params[:join_request][:role])
+      space.add_member!(join_request.candidate, role.name)
+      success = space.save
+    elsif not join_request.accepted?
+      success = true
+    end
+
+    respond_to do |format|
+      if success && join_request.save
+        format.html {
+          flash[:success] = ( join_request.recently_processed? ?
+                            ( join_request.accepted? ? t('join_request.accepted') : t('join_request.discarded') ) :
+                            t('join_request.updated'))
+          redirect_to request.referer
+        }
+      else
+        format.html {
+          flash[:error] = join_request.errors.to_xml
+          redirect_to request.referer
+        }
+      end
+    end
+  end
+
   private
+
+  def join_request
+    @join_request ||= space.join_requests.find(params[:jr_id])
+  end
 
   def space
     if params[:action] == "enable"

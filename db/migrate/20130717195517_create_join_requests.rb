@@ -8,6 +8,8 @@ class CreateJoinRequests < ActiveRecord::Migration
 
       t.references :group, :polymorphic => true
 
+      t.string     :comment
+
       t.string     :email
       t.boolean    :accepted
 
