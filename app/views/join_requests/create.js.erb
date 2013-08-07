@@ -1,5 +1,0 @@
-$("#lightbox_content").children().remove();
-$("#lightbox_content").append("<%=escape_javascript(render :partial => "new", :formats => [:html]) %>");
-$("<a href=\"#lightbox_content\"></a>").colorbox({
-  'hideOnContentClick' : false
-}).click();
