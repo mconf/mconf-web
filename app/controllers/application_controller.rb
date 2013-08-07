@@ -34,9 +34,8 @@ class ApplicationController < ActionController::Base
     rescue_from CanCan::AccessDenied, :with => :render_403
   end
 
-  # This method calls one from the plugin, to get the Space from params or session
   def space
-    @space ||= current_container(:type => :space, :path_ancestors => true)
+    @space ||= Space.find_with_param(params[:space_id])
   end
 
   def current_ability
