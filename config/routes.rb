@@ -19,6 +19,14 @@
 
 Mconf::Application.routes.draw do
 
+  def resources_for_join_requests controller
+    singular = controller.to_s.singularize
+    get  "#{controller}/:id/join_requests", :to => "#{controller}#join_request_index", :as => "#{singular}_join_requests"
+    get  "#{controller}/:id/join_requests/new", :to => "#{controller}#join_request_new", :as => "new_#{singular}_join_request"
+    post "#{controller}/:id/join_requests", :to => "#{controller}#join_request_create", :as => "create_#{singular}_join_request"
+    put  "#{controller}/:id/join_requests/:jr_id", :to => "#{controller}#join_request_update", :as => "update_#{singular}_join_request"
+  end
+
   # devise
   controllers = { :sessions => "sessions", :registrations => "registrations" }
   paths = { :sign_in => "login", :sign_out => "logout", :sign_up => "signup" }
@@ -125,11 +133,7 @@ Mconf::Application.routes.draw do
     resources :news
   end
 
-  # Ugly, dry this up when we do this for the other kinds of invitations
-  get  'spaces/:id/join_requests', :to => 'spaces#join_request_index', :as => 'space_join_requests'
-  get  'spaces/:id/join_requests/new', :to => 'spaces#join_request_new', :as => 'new_space_join_request'
-  post 'spaces/:id/join_requests', :to => 'spaces#join_request_create', :as => 'create_space_join_request'
-  put  'spaces/:id/join_requests/:jr_id', :to => 'spaces#join_request_update', :as => 'update_space_join_request'
+  resources_for_join_requests :spaces
 
   resources :invitations do
     member do
