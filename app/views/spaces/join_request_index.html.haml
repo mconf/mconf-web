@@ -19,7 +19,7 @@
                   %label.main_text
                     = t('role.one')
                     \:
-                  = select "join_request", "role", Space.roles.map { |r| [ r.name, r.id ] },  :selected => Role.find_by_name("User").id , :class=> "main_text"
+                  = select "join_request", "role", Space.roles.map { |r| [ r.name, r.id ] },  :selected => default_role , :class=> "main_text"
                   = f.hidden_field :accepted, :value => true
                   = f.hidden_field :processed, :value => true
                   = f.submit "Accept",:class=>"main_text"

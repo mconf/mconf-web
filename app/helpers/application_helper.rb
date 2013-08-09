@@ -199,6 +199,10 @@ module ApplicationHelper
     escape_javascript generate_html(form_builder, method, options)
   end
 
+  # Every time a form needs to point a role as default (User, admin, guest, ...)
+  def default_role
+    Role.find_by_name("User").id
+  end
 
   private
 

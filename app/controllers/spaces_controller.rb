@@ -6,7 +6,6 @@
 # 3 or later. See the LICENSE file.
 
 class SpacesController < ApplicationController
-  # include ActionController::StationResources
 
   before_filter :space
   before_filter :webconf_room!, :only => [:show, :edit]

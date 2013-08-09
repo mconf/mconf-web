@@ -10,6 +10,8 @@ class CreateJoinRequests < ActiveRecord::Migration
 
       t.string     :comment
 
+      t.references :role
+
       t.string     :email
       t.boolean    :accepted
 

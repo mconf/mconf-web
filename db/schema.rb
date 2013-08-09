@@ -241,6 +241,7 @@ ActiveRecord::Schema.define(:version => 20130717195517) do
     t.integer  "group_id"
     t.string   "group_type"
     t.string   "comment"
+    t.integer  "role_id"
     t.string   "email"
     t.boolean  "accepted"
     t.datetime "created_at",    :null => false

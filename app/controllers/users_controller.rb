@@ -7,8 +7,6 @@
 
 require "digest/sha1"
 class UsersController < ApplicationController
-  include ActionController::StationResources
-  include ActionController::Agents
 
   before_filter :space!, :only => [:index]
   before_filter :webconf_room!, :only => [:index]
@@ -30,7 +28,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    user
+    @user = current_user
 
     @user_spaces = @user.spaces
     if @user_spaces.size > 0
@@ -39,7 +37,7 @@ class UsersController < ApplicationController
       @recent_activity = ActiveRecord::Content.paginate({ :page=>params[:page], :per_page=>15, :order=>'updated_at DESC' },{:containers => @user_spaces, :contents => [:posts, :events, :attachments]})
     end
 
-    @profile = user.profile!
+    @profile = @user.profile!
 
     respond_to do |format|
       format.html { render 'profiles/show' }
