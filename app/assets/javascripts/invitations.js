@@ -1,1 +1,1 @@
-//= require_tree ./old/invitations/
+//= require_tree ./app/invitations/
