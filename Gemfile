@@ -36,7 +36,7 @@ gem 'bigbluebutton_rails', :git => 'git://github.com/mconf/bigbluebutton_rails.g
 gem 'simple_form', '~> 2.0.0'
 gem 'acts_as_tree', :git => 'https://github.com/parasew/acts_as_tree.git'
 gem 'friendly_id'
-gem 'station', :git => 'git://github.com/mconf/station.git', :branch => 'mweb-v2'
+gem 'station', :git => 'git://github.com/mconf/station.git', :branch => 'mweb-v2-no-invitations'
 gem 'devise'
 gem 'devise-encryptable' # TODO: only while we have old station users
 gem 'cancan', '~> 1.6.0'
