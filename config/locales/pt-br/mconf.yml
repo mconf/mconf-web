@@ -714,6 +714,7 @@ pt-br:
   join_cam: Participar
   join_request:
     already_sent: "Você já pediu para participar desta comunidade"
+    sent: "Seu convite foi enviado"
     ask_subject: "%{candidate} quer participar de %{space}"
     asked_anonymous: "Alguém quer participar da comunidade %{space} administrado por você:"
     asked_anonymous_full: "Alguém quer participar da comunidade %{space} administrado por você: %{comment} <br/><br/><p>Para atender o pedido visite <a href=\"%{url}\">%{url}</a></p><p>Se você acredita que esta mensagem é um spam, por favor <a href=\"mailto:%{contact}\"> entre em contato </a> ou nos <a href=\"%{feedback}\"> envie uma mensagem.</a></p><p>%{signature}</p>"
@@ -722,6 +723,7 @@ pt-br:
     joined: "Você já é um membro da comunidade"
     label: "Personalize a sua mensagem de solicitação de adesão"
     message_title: "Enviar um pedido de adesão aos administradores da comunidade"
+    error: Ocorreu um erro ao processar essa admissão, tente novamente
     new:
       title: "Pedido de adesão na comunidade: %{space}"
     not_logged_in: "Você precisa estar logado para enviar um pedido de adesão"

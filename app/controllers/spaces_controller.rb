@@ -8,7 +8,7 @@
 class SpacesController < ApplicationController
 
   before_filter :space
-  before_filter :webconf_room!, :only => [:show, :edit]
+  before_filter :webconf_room!, :only => [:show, :edit, :join_request_new]
   before_filter :authenticate_user!, :only => [:new, :create]
 
   load_and_authorize_resource
@@ -233,28 +233,92 @@ class SpacesController < ApplicationController
   end
 
   def join_request_new
+
     @join_request = space.join_requests.new
+    @user_is_admin = space.role_for?(current_user, :name => 'Admin')
+
+    # If it's the admin inviting, list the invitable users
+    if @user_is_admin
+      @users = (User.all - space.users)
+      @checked_users = []
+    end
+
+    render :layout => 'spaces_show'
+
   end
 
   def join_request_create
-    @join_request = space.join_requests.new(params[:join_request])
-    @join_request.candidate = current_user
-    @join_request.email = current_user.email
-    @join_request.request_type = 'request'
 
-    if @join_request.save
-      flash[:notice] = t('join_request.created')
-    else
-      flash[:error] = t('join_request.already_sent')
-      # TODO: identify errors for better usability
-      # flash[:error] << @join_request.errors.to_xml
+    # If it's the admin creating a new request (inviting) for his space
+    if space.role_for?(current_user, :name => 'Admin')
+
+      @join_requests = []
+
+      @ids = params[:invitation_ids] || []
+      # Invite each of the users
+      @ids.each do |id|
+
+        jr = space.join_requests.new(params[:join_request])
+
+        user = User.find(id)
+        jr.candidate = user
+        jr.email = user.email
+        jr.request_type = 'invite'
+        jr.introducer = current_user
+
+        @join_requests << jr
+      end
+
+      emails = params[:invitation_mails].split(/[\s,;]/).select { |e| !e.empty? }
+      emails.each do |e|
+
+        jr = space.join_requests.new(params[:join_request])
+
+        user = User.find_by_email(e)
+        jr.candidate = user
+        jr.email = e
+        jr.request_type = 'invite'
+        jr.introducer = current_user
+
+        @join_requests << jr
+      end
+
+      errors = []
+      @join_requests.each { |jr| errors << [jr.email, jr.error_messages] if !jr.valid? }
+
+      if errors.empty?
+        @join_requests.each { |jr| jr.save(:validate => false) }
+        flash[:notice] = t('join_request.sent')
+      else
+        flash[:notice] = t('join_request.error')
+        puts errors.inspect
+      end
+
+      redirect_to new_space_join_request_path(space)
+
+    else # It's a common user asking for membership in a space
+
+      @join_request = space.join_requests.new(params[:join_request])
+      @join_request.candidate = current_user
+      @join_request.email = current_user.email
+      @join_request.request_type = 'request'
+
+      if @join_request.save
+        flash[:notice] = t('join_request.created')
+      else
+        flash[:error] = t('join_request.error')
+        # TODO: identify errors for better usability
+        # flash[:error] << @join_request.errors.to_xml
+      end
+
+      if space.public
+        redirect_to space_path(space)
+      else
+        redirect_to spaces_path
+      end
+
     end
 
-    if space.public
-      redirect_to space_path(space)
-    else
-      redirect_to spaces_path
-    end
   end
 
   def join_request_update

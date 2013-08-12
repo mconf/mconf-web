@@ -7,7 +7,7 @@
     <div id="invitations_title">
       <h3 class="blue"><%=t('invitation.message_title')%></h3>
     </div>
-    <%= simple_form_for([@space], :url => { :action => "join_request_create" }, :html => { :multipart => true, }) do |f| -%>
+    <%= simple_form_for(:join_request, :url => { :action => "join_request_create" }, :html => { :multipart => true, }) do |f| -%>
       <div id="selected_users">
         <label for="selected_users" style="display: none;" class="bold"><%=t('invitation.will_invite')%>:</label>
       </div>
@@ -21,30 +21,30 @@
       <a href="javascript:deselect_all_users()" id="deselect_all_users_link"><%=t('invitation.deselect_all_users')%></a>
 
       <div id="unselected_users">
-        <% for user in User.all -%>
+        <% for user in @users -%>
           <div class="user_checkbox">
-            <%= check_box_tag "space[invitation_ids][]", user.id, checked_users.include?(user.id.to_s) %><%= label("checkbox",sanitize(user.full_name))%><br />
+            <%= check_box_tag "invitation_ids[]", user.id, @checked_users.include?(user.id.to_s) %><%= label("checkbox",sanitize(user.full_name))%><br />
           </div>
         <%end%>
       </div>
 
       <div class="margin-up">
         <label for="e-mails" class="bold"><%= t('user.invite_email') %> <%= t('email.commas') %>:</label>
-        <%= f.text_field :invitation_mails %>
+        <%= text_field_tag :invitation_mails %>
       </div>
 
       <div class="margin-up">
         <label class="bold"><%= t('invitation.role_label') %>:</label>
-        <%= f.select :invitations_role_id, Space.roles.map {|r| [ r.name, r.id ]}, {:selected=> default_role },:class=>"small-font"%>
+        <%= select "join_request", "role_id", Space.roles.map { |r| [ r.name, r.id ] },  :selected => default_role , :class=> "main_text" %>
       </div>
 
       <div class="margin-up">
         <label for="message" class="bold"><%= t('invitation.label') %>:</label>
-        <textarea style="display:none" id="invite_msg" name="space[invite_msg]"></textarea>
+        <textarea style="display:none" id="invite_msg" name="invite_msg"></textarea>
         <div class="grey_bar">
           <p><%= '\'' + t('name.one') + '\','%></p>
           <b><%= t('invitation.to_space', :username => current_user.full_name, :space => @space.name) %>.</b><br/><br/>
-          <%= f.text_area :invite_msg, :placeholder => t('invitation.personal') %><br/>
+          <%= f.text_area :comment, :placeholder => t('invitation.personal') %><br/>
           <%= t('invitation.to_accept_space') %><br/>
           <%= t('invitation.info_space', :space_url => space_url(@space)).html_safe %><br/><br/>
           <%= t('email.kind_regards') %><br/><br/>

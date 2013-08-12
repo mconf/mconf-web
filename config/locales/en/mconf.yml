@@ -736,8 +736,9 @@ en:
   invited: Invited
   join: Join
   join_cam: Participate
-  join_request: 
+  join_request:
     already_sent: "You have already requested to join this space"
+    sent: "Your invitation has been sent"
     ask_subject: "%{candidate} wants to participate in %{space}"
     asked_anonymous: "Someone wants to participate in %{space} space administered by you:"
     asked_anonymous_full: "Someone wants to participate in %{space} space administered by you: %{comment} <br/><br/><p>To answer the request please visit <a href=\"%{url}\">%{url}</a></p><p>If you believe this message is a spam, please <a href=\"mailto:%{contact}\"> contact us </a> or send us <a href=\"%{feedback}\"> feedback.</a></p><p>%{signature}</p>"
@@ -746,6 +747,7 @@ en:
     joined: "You are already a member of the space"
     label: "Customise your join request message"
     message_title: "Send a join request to the administrators of the space"
+    error: Something went wrong when processing your request, try again
     new: 
       title: "Request to join the space: %{space}"
     not_logged_in: "You need to be logged in to send a join request"

@@ -1,32 +1,4 @@
-- if user_signed_in?
-  #lightbox-logo
-    %span
-      = image_tag("mconf_logo_small.png",:class=>"icon")
-      = t('join_request.new.title', :space => space.name)
-  - if !space.public?
-    %p.note
-      = space.name
-      = t('space.is_private')
-  #questions
-    #more_join_requests
-      %div
-        %h3.blue= t('join_request.message_title')
-      = simple_form_for(:join_request, :url => { :action => "join_request_create" }, :html => { :multipart => true }) do |f|
-        .margin-up
-          %label.bold{:for => "message"}
-            = t('join_request.label')
-            \:
-          .grey_bar
-            - if user_signed_in?
-              %p= t('join_request.ask_subject', :candidate => current_user.full_name, :space => @space.name).html_safe
-            - else  
-              %p= t('join_request.asked_anonymous', :space => @space.name)
-            = f.text_area :comment, :placeholder => t('join_request.personal')
-        .margin-up
-          %input#send_join_request_button.basic_button.blue_button{:type => "submit", :value => t("button.send")}
+- if @user_is_admin
+  = render :partial => 'new_invitation'
 - else
-  - if !space.public?
-    %p.note
-      = space.name
-      = t('space.is_private')
-  %p.note= t('join_request.not_logged_in')
+  = render :partial => 'new_join_request'
