@@ -1,64 +1,73 @@
-<%= content_for :headers do%>
-  <%= javascript_include_tag 'old/user_filter' %>
-<%end%>
+= content_for :headers do
+  = javascript_include_tag 'old/user_filter'
 
-<div id="questions">
-  <div id="more_invitations">
-    <div id="invitations_title">
-      <h3 class="blue"><%=t('invitation.message_title')%></h3>
-    </div>
-    <%= simple_form_for(:join_request, :url => { :action => "join_request_create" }, :html => { :multipart => true, }) do |f| -%>
-      <div id="selected_users">
-        <label for="selected_users" style="display: none;" class="bold"><%=t('invitation.will_invite')%>:</label>
-      </div>
-      <div id="user_filter" class="margin-up" style="display: none;">
-        <label for="User filter" class="bold"><%= t('user.filter') %></label><br/>
-        <%= text_field_tag :user_selector,'', :size => 25 %>
-      </div>
-      <a href="javascript:show_all_users()" id="show_all_users_link"><%=t('invitation.show_all_users')%></a>
-      <a href="javascript:hide_all_users()" id="hide_all_users_link"><%=t('invitation.hide_all_users')%></a>
-      <a href="javascript:select_all_users()" id="select_all_users_link"><%=t('invitation.select_all_users')%></a>
-      <a href="javascript:deselect_all_users()" id="deselect_all_users_link"><%=t('invitation.deselect_all_users')%></a>
+#questions
+  #more_invitations
+    #invitations_title
+      %h3.blue= t('invitation.message_title')
 
-      <div id="unselected_users">
-        <% for user in @users -%>
-          <div class="user_checkbox">
-            <%= check_box_tag "invitation_ids[]", user.id, @checked_users.include?(user.id.to_s) %><%= label("checkbox",sanitize(user.full_name))%><br />
-          </div>
-        <%end%>
-      </div>
+    = simple_form_for(:join_request, :url => { :action => "join_request_create" }, :html => { :multipart => true, }) do |f|
 
-      <div class="margin-up">
-        <label for="e-mails" class="bold"><%= t('user.invite_email') %> <%= t('email.commas') %>:</label>
-        <%= text_field_tag :invitation_mails %>
-      </div>
+      #selected_users
+        %label.bold{:for => "selected_users", :style => "display: none;"}
+          = t('invitation.will_invite')
+      #user_filter.margin-up{:style => "display: none;"}
+        %label.bold{:for => "User filter"}= t('user.filter')
+        %br/
+        = text_field_tag :user_selector,'', :size => 25
 
-      <div class="margin-up">
-        <label class="bold"><%= t('invitation.role_label') %>:</label>
-        <%= select "join_request", "role_id", Space.roles.map { |r| [ r.name, r.id ] },  :selected => default_role , :class=> "main_text" %>
-      </div>
+      %a#show_all_users_link{:href => "javascript:show_all_users()"}= t('invitation.show_all_users')
+      %a#hide_all_users_link{:href => "javascript:hide_all_users()"}= t('invitation.hide_all_users')
+      %a#select_all_users_link{:href => "javascript:select_all_users()"}= t('invitation.select_all_users')
+      %a#deselect_all_users_link{:href => "javascript:deselect_all_users()"}= t('invitation.deselect_all_users')
 
-      <div class="margin-up">
-        <label for="message" class="bold"><%= t('invitation.label') %>:</label>
-        <textarea style="display:none" id="invite_msg" name="invite_msg"></textarea>
-        <div class="grey_bar">
-          <p><%= '\'' + t('name.one') + '\','%></p>
-          <b><%= t('invitation.to_space', :username => current_user.full_name, :space => @space.name) %>.</b><br/><br/>
-          <%= f.text_area :comment, :placeholder => t('invitation.personal') %><br/>
-          <%= t('invitation.to_accept_space') %><br/>
-          <%= t('invitation.info_space', :space_url => space_url(@space)).html_safe %><br/><br/>
-          <%= t('email.kind_regards') %><br/><br/>
-          <%= current_user.full_name%><br/>
-          <%= current_user.email %><br/>
-          <%= current_user.organization%><br/>
-        </div>
-        <p>* <%= t('invitation.legend.name') %><br/>
-        * <%= t('invitation.legend.URL') %></p>
-      </div>
+      #unselected_users
+        - for user in @users
+          .user_checkbox
+            = check_box_tag "invitation_ids[]", user.id, @checked_users.include?(user.id.to_s)
+            = label("checkbox",sanitize(user.full_name))
+            %br/
 
-      <div class="margin-up">
-        <input type="submit" id="send_invitation_button" value="<%=t("button.send")%>" />
-      </div>
-    <% end %>
-  </div>
-</div>
+      .margin-up
+        %label.bold{:for => "e-mails"}
+          = t('user.invite_email')
+          = t('email.commas')
+          \:
+        = text_field_tag :invitation_mails
+
+      .margin-up
+        %label.bold
+          = t('invitation.role_label')
+        = select "join_request", "role_id", Space.roles.map { |r| [ r.name, r.id ] },  :selected => default_role , :class=> "main_text"
+
+      .margin-up
+        %label.bold{:for => "message"}
+          = t('invitation.label')
+
+        %textarea#invite_msg{:name => "invite_msg", :style => "display:none"}
+        .grey_bar
+          %p= '\'' + t('name.one') + '\','
+          %b
+            = t('invitation.to_space', :username => current_user.full_name, :space => @space.name)
+          %br/
+          = f.text_area :comment, :placeholder => t('invitation.personal')
+          %br/
+          = t('invitation.to_accept_space')
+          %br/
+          = t('invitation.info_space', :space_url => space_url(@space)).html_safe
+          %br/
+          = t('email.kind_regards')
+          %br/
+          = current_user.full_name
+          %br/
+          = current_user.email
+          %br/
+          = current_user.organization
+          %br/
+        %p
+          * #{t('invitation.legend.name')}
+          %br/
+          * #{t('invitation.legend.URL')}
+
+      .margin-up
+        %input#send_invitation_button{:type => "submit", :value => t("button.send")}/

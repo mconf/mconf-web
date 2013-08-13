@@ -269,7 +269,7 @@ class SpacesController < ApplicationController
         @join_requests << jr
       end
 
-      emails = params[:invitation_mails].split(/[\s,;]/).select { |e| !e.empty? }
+      emails = split_emails(params[:invitation_mails])
       emails.each do |e|
 
         jr = space.join_requests.new(params[:join_request])
@@ -291,7 +291,6 @@ class SpacesController < ApplicationController
         flash[:notice] = t('join_request.sent')
       else
         flash[:notice] = t('join_request.error')
-        puts errors.inspect
       end
 
       redirect_to new_space_join_request_path(space)

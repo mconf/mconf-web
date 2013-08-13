@@ -158,7 +158,7 @@ class Space < ActiveRecord::Base
     adm.length == 1 && adm.include?(user)
   end
 
-  # Checks to see if 'user' jas the role 'options[:name]' in this space
+  # Checks to see if 'user' has the role 'options[:name]' in this space
   def role_for? user, options ={}
     p = permissions.find_by_user_id(user)
     users.include?(user) && options[:name] == Role.find(p.role_id).name
