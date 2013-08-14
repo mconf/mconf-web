@@ -16,13 +16,17 @@
       window.setTimeout(function() {
         $("#update-recordings-error").hide();
       }, 5000);
-      $("#recording-list-wrapper").effect("highlight", { color: "#ff0000"}, 5000);
+      if ($("#recording-list-wrapper").children().length > 0) {
+        $("#recording-list-wrapper").effect("highlight", { color: "#ff0000"}, 5000);
+      }
     } else {
       $("#update-recordings-success").show();
       window.setTimeout(function() {
         $("#update-recordings-success").hide();
       }, 5000);
-      $("#recording-list-wrapper").effect("highlight", { color: "#00ff00"}, 5000);
+      if ($("#recording-list-wrapper").children().length > 0) {
+        $("#recording-list-wrapper").effect("highlight", { color: "#00ff00"}, 5000);
+      }
     }
   }
 
@@ -35,8 +39,8 @@
       }
     }).success(function(data) {
       if (showMessage == true) {
-        recListUpdateEnd(false);
         $("#recording-list-wrapper").html(data);
+        recListUpdateEnd(false);
       }
     });
   }
