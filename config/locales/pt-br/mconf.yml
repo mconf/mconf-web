@@ -213,8 +213,6 @@ pt-br:
       description: "Teste experimental de acesso ao Mconf via Federação CAFe"
       description_small: "ou você pode logar usando a federação CAFe"
       more_about_cafe: "Leia mais sobre a CAFe"
-      read_more: "leia mais..."
-      terms_of_service: "Termos de serviço"
     login_tip: "O Mconf é um serviço experimental na federação CAFe. Clique neste botão para logar utilizando a federação."
   calendar: 
     my: "Meu Calendário"
