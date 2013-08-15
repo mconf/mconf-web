@@ -7,20 +7,24 @@
 
 class Event < ActiveRecord::Base
   belongs_to :space
-  belongs_to :author, :polymorphic => true
+  belongs_to :author, :class_name => 'User'
+
   has_many :posts
   has_many :participants, :dependent => :destroy
   has_many :attachments, :dependent => :destroy
   has_one :agenda, :dependent => :destroy
 
+  has_many :invitations, :class_name => "JoinRequest", :foreign_key => "group_id",
+           :conditions => { :join_requests => {:group_type => 'Event'} }
+
   has_logo :class_name => "EventLogo"
+
   extend FriendlyId
   friendly_id :name, :use => :slugged, :slug_column => :permalink
 
   acts_as_resource :per_page => 10, :param => :permalink
   acts_as_content :reflection => :space
   acts_as_taggable
-  acts_as_stage
   acts_as_container :contents => [:agenda]
   alias_attribute :title, :name
   validates_presence_of :name
@@ -263,11 +267,9 @@ class Event < ActiveRecord::Base
     end
   end
 
-
   def videos
     self.agenda.agenda_entries.select{|ae| ae.past? & ae.recording?}
   end
-
 
   def space
     space_id.present? ?
@@ -275,11 +277,9 @@ class Event < ActiveRecord::Base
     nil
   end
 
-
   def organizers
     actors(:role => "Organizer")
   end
-
 
   #return the number of days of this event duration
   def days
@@ -296,7 +296,6 @@ class Event < ActiveRecord::Base
   #   self.update_attributes({:start_date => self.agenda.recalculate_start_time,
   #                           :end_date => self.agenda.recalculate_end_time})
   #end
-
 
   #method to know if any of the agenda_entry of the event has streaming
   def has_streaming?
@@ -324,7 +323,6 @@ class Event < ActiveRecord::Base
     end
   end
 
-
   #method to know everything about streaming
   def show_streaming?
     is_happening_now? || is_in_person?
@@ -344,7 +342,6 @@ class Event < ActiveRecord::Base
       return false
     end
   end
-
 
   #method to know if we show the recording box in the event to record the event
   def show_recording_box?
@@ -374,12 +371,10 @@ class Event < ActiveRecord::Base
     return has_date? && start_date.future?
   end
 
-
   #method to know if an event happens in the past
   def past?
     return has_date? && end_date.past?
   end
-
 
   def has_date?
     start_date
@@ -407,7 +402,6 @@ class Event < ActiveRecord::Base
     has_date? ? start_date.strftime("%H:%M") : I18n::t('date.undefined')
   end
 
-
   def is_in_person?
     vc_mode_sym == :in_person
   end
@@ -415,7 +409,6 @@ class Event < ActiveRecord::Base
   def is_virtual?
     ! is_in_person?
   end
-
 
   def to_xml(options = {})
     options[:indent] ||= 2
@@ -497,11 +490,9 @@ class Event < ActiveRecord::Base
     #File.open("#{Rails.root.to_s}/public/scorm/#{event.permalink}/imsmanifest.xml", "wb") { |f| f << myxml }
   end
 
-
   def self.identifier_for(title)
     Base64.b64encode(title).chomp.gsub(/\n/,'')
   end
-
 
   def self.remove_accents(str)
     accents = {

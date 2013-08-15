@@ -9,7 +9,6 @@
 #private message or email in this version
 class Informer
 
-
   def self.deliver_invitation(admission)
     if !admission.candidate || admission.candidate.notification == User::NOTIFICATION_VIA_EMAIL
        Notifier.delay.invitation_email(admission)
@@ -17,7 +16,6 @@ class Informer
        PrivateSender.invitation_message(admission)
      end
    end
-
 
    def self.deliver_event_invitation(admission)
      if !admission.candidate || admission.candidate.notification == User::NOTIFICATION_VIA_EMAIL

@@ -43,6 +43,10 @@ class ApplicationController < ActionController::Base
     email_string.split(/[\s,;]/).select { |e| !e.empty? }
   end
 
+  def valid_email? email
+    /^[-a-z0-9_+\.]+\@([-a-z0-9]+\.)+[a-z0-9]{2,4}$/i.match(email)
+  end
+
   def current_ability
     @current_ability ||= Abilities.ability_for(current_user)
   end

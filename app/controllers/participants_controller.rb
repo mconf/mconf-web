@@ -5,15 +5,14 @@
 # 3 or later. See the LICENSE file.
 
 class ParticipantsController < ApplicationController
-  
-  
+
   def create
 
     @participant = Participant.new(params[:participant])
     @participant.event_id = Event.find_by_permalink(params[:event_id]).id
     @participant.user = current_user
     @participant.email = current_user.email
-    if @participant.save    
+    if @participant.save
       respond_to do |format|
       format.html {
       flash[:success] = t('participant.created')
@@ -23,10 +22,10 @@ class ParticipantsController < ApplicationController
     end
   else
       flash[:error] = t('participant.error.create')
-      redirect_to request.referer    
+      redirect_to request.referer
   end
 end
-  
+
   def update
     @participant = Participant.find(params[:id])
     if @participant.update_attributes(params[:participant])
@@ -42,5 +41,5 @@ end
       redirect_to request.referer
     end
   end
-  
+
 end

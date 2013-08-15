@@ -9,12 +9,19 @@
 class Notifier < ActionMailer::Base
 
   def invitation_email(invitation)
+
     setup_email(invitation.email)
 
     @user = invitation.introducer
-    @subject += I18n.t("invitation.to_space",:space=>invitation.group.name,:username=>invitation.introducer.full_name,:locale=>@user.locale).html_safe
+    @space = Space.find(invitation.group_id)
+
+    @subject += I18n.t("invitation.to_space",
+      :space => @space.name,
+      :username => invitation.introducer.full_name,
+      :locale => @user.locale).html_safe
+
     @invitation = invitation
-    @space = invitation.group
+
     if invitation.candidate
       @name = invitation.candidate.full_name
     else
@@ -24,7 +31,6 @@ class Notifier < ActionMailer::Base
 
     create_default_mail(get_locale_from_user(@user))
   end
-
 
   def event_invitation_email(invitation)
     setup_email(invitation[:receiver])
