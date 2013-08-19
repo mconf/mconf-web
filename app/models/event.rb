@@ -6,16 +6,20 @@
 # 3 or later. See the LICENSE file.
 
 class Event < ActiveRecord::Base
+
   belongs_to :space
   belongs_to :author, :class_name => 'User'
 
-  has_many :posts
+  has_many :posts, :dependent => :destroy
   has_many :participants, :dependent => :destroy
   has_many :attachments, :dependent => :destroy
   has_one :agenda, :dependent => :destroy
 
   has_many :invitations, :class_name => "JoinRequest", :foreign_key => "group_id",
            :conditions => { :join_requests => {:group_type => 'Event'} }
+
+  has_many :permissions, :foreign_key => "subject_id",
+           :conditions => { :permissions => {:subject_type => 'Event'} }
 
   has_logo :class_name => "EventLogo"
 
@@ -90,12 +94,6 @@ class Event < ActiveRecord::Base
     end
   end
 
-  #  def update_date
-  #  if self.edit_date_action.eql?("move_event") || self.edit_date_action.eql?("start_date")
-  #    self.start_date(1i) = self.start_date
-  #  end
-  #end
-
   def event_validation
     if(self.end_date.to_date - self.start_date.to_date > MAX_DAYS)
       self.errors.add(:base, I18n.t('event.error.max_size_excedeed', :max_days => Event::MAX_DAYS))
@@ -158,12 +156,10 @@ class Event < ActiveRecord::Base
 
     logo = {}
     logo[:media] = original_tmp_io
-    #debugger
     logo = self.build_logo(logo)
 
     images_path = File.join(Rails.root.to_s, "public", "images")
     tmp_path = File.join(images_path, "tmp")
-    #debugger
 
     if @rand_value != nil
       final_path = FileUtils.rm_rf(tmp_path + "/#{@rand_value}")
@@ -195,7 +191,7 @@ class Event < ActiveRecord::Base
     #create a directory to save attachments
     FileUtils.mkdir_p("#{Rails.root.to_s}/attachments/conferences/#{event.permalink}")
     if event.author.present?
-      event.stage_permissions.create! :user => event.author, :role  => Event.role("Organizer")
+      add_organizer! event.author
     end
   end
 
@@ -252,7 +248,6 @@ class Event < ActiveRecord::Base
 
   end
 
-
   after_destroy do |event|
     FileUtils.rm_rf("#{Rails.root.to_s}/attachments/conferences/#{event.permalink}")
     FileUtils.rm_rf("#{Rails.root.to_s}/public/pdf/#{event.permalink}")
@@ -289,13 +284,6 @@ class Event < ActiveRecord::Base
       return 0
     end
   end
-
-  #method to syncronize event start and end time with their agenda real length
-  #we have to take into account the timezone, because we are saving the time in the database directly
-  #def syncronize_date
-  #   self.update_attributes({:start_date => self.agenda.recalculate_start_time,
-  #                           :end_date => self.agenda.recalculate_end_time})
-  #end
 
   #method to know if any of the agenda_entry of the event has streaming
   def has_streaming?
@@ -535,4 +523,15 @@ class Event < ActiveRecord::Base
       return corresponding_statistics.first.unique_pageviews
     end
   end
+
+  private
+
+  def add_organizer! user
+    p = Permission.new
+    p.user = user
+    p.subject = self
+    p.role = Role.find_by_name_and_stage_type('Organizer', 'Event')
+    p.save!
+  end
+
 end
