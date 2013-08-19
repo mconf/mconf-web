@@ -28,7 +28,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = current_user
+    #@user = current_user
 
     @user_spaces = @user.spaces
     if @user_spaces.size > 0

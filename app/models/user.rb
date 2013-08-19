@@ -60,6 +60,8 @@ class User < ActiveRecord::Base
                           :association_foreign_key => "subject_id",
                           :conditions => { :permissions => {:subject_type => 'Space'} }
 
+  has_many :permissions
+
   acts_as_taggable :container => false
   acts_as_resource :param => :username
 
@@ -196,7 +198,7 @@ class User < ActiveRecord::Base
 
   def disable
     self.update_attribute(:disabled,true)
-    self.agent_permissions.each(&:destroy)
+    self.permissions.each(&:destroy)
   end
 
   def enable
