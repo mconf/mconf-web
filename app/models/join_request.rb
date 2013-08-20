@@ -31,6 +31,14 @@ class JoinRequest < ActiveRecord::Base
     @processed.present?
   end
 
+  def event?
+    group_type == 'Event'
+  end
+
+  def space?
+    group_type == 'Space'
+  end
+
   private
 
   def processed

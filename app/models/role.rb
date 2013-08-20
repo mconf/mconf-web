@@ -6,8 +6,11 @@
 
 class Role < ActiveRecord::Base
   # TODO: permissions
-  # has_many :invitations
 
   has_many :permissions
   validates :name, :presence => true, :uniqueness => true
+
+  def self.default_role
+    Role.find_by_name("User")
+  end
 end

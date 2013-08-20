@@ -155,24 +155,43 @@ class User < ActiveRecord::Base
   after_create do |user|
     user.create_profile :full_name => user._full_name
 
-    # # Checking if we have to join the space and the event
-    # TODO, make this work again
-    # if (! user.special_event.nil?)
-    #   Performance.create! :agent => user,
-    #                       :stage => user.special_event.space,
-    #                       :role  => Role.find_by_name("Invited")
+    # If user joined for participating in an event,
+    # create a join request and add him to the space
+    if user.special_event_id
+      event = Event.find_by_id(user.special_event_id)
 
-    #   Performance.create! :agent => user,
-    #                       :stage => user.special_event,
-    #                       :role  => Role.find_by_name("Invitedevent")
+      if event && event.space.public
+        event.space.add_member!(user, Role.default_role.name)
 
-    #   part_aux = Participant.new
-    #   part_aux.email = user.email
-    #   part_aux.user_id = user.id
-    #   part_aux.event_id = user.special_event.id
-    #   part_aux.attend = true
-    #   part_aux.save!
-    # end
+        j = JoinRequest.create(
+          :email => user.email,
+          :request_type => 'request',
+          :group_type => 'Event',
+          :group_id => event.id,
+          :role_id => Role.default_role.id,
+          :comment => '-',
+          :candidate_id => user.id,
+          :accepted => true
+          )
+      end
+    end
+
+    # Checking if we have to join a space and/or event
+    invites = JoinRequest.where :email => user.email
+    invites.each do |invite|
+
+      if invite.event?
+        part_aux = Participant.new
+        part_aux.email = user.email
+        part_aux.user_id = user.id
+        part_aux.event_id = invite.group_id
+        part_aux.attend = true
+        part_aux.save!
+      elsif invite.space?
+        space.add_member!(user)
+      end
+    end
+
   end
 
   def self.find_with_disabled *args
@@ -235,21 +254,6 @@ class User < ActiveRecord::Base
 
   def has_events_in_this_space?(space)
     !events.select{|ev| ev.space==space}.empty?
-  end
-
-  def special_event
-
-    if (self.special_event_id.blank?)
-      nil
-    else
-      event_aux = Event.find(self.special_event_id)
-      # Only allow special_event_id for the quick registering way when the space of the event is public
-      if (event_aux.space.public)
-        event_aux
-      else
-        nil
-      end
-    end
   end
 
   # Returns an array with all the webconference rooms accessible to this user

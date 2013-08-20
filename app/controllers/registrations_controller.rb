@@ -8,6 +8,10 @@
 class RegistrationsController < Devise::RegistrationsController
   layout 'no_sidebar'
 
+  def new
+    @event_id = params[:user][:special_event_id] if params[:user]
+  end
+
   def edit
     redirect_to edit_user_path(current_user)
   end

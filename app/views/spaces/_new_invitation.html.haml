@@ -38,7 +38,7 @@
       .margin-up
         %label.bold
           = t('invitation.role_label')
-        = select "join_request", "role_id", Space.roles.map { |r| [ r.name, r.id ] },  :selected => default_role , :class=> "main_text"
+        = select "join_request", "role_id", Space.roles.map { |r| [ r.name, r.id ] },  :selected => default_role.id , :class=> "main_text"
 
       .margin-up
         %label.bold{:for => "message"}

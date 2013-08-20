@@ -201,7 +201,7 @@ module ApplicationHelper
 
   # Every time a form needs to point a role as default (User, admin, guest, ...)
   def default_role
-    Role.find_by_name("User").id
+    Role.default_role
   end
 
   private
