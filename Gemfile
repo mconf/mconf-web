@@ -43,6 +43,7 @@ gem 'cancan', '~> 1.6.0'
 gem 'i18n-js', :git => "git://github.com/fnando/i18n-js.git", :branch => 'rewrite'
 gem 'rabl'
 gem 'yajl-ruby' # json parser for rabl
+gem 'carrierwave'
 
 # for bootstrap
 gem 'less-rails'
@@ -58,7 +59,7 @@ gem 'httparty'
 gem 'ci_reporter'
 gem 'nokogiri', '1.4.1'
 gem 'rubyzip' # TODO: see rubyzip2
-gem 'rmagick', :git => 'git://github.com/rmagick/rmagick.git', :require => false
+gem 'rmagick'
 gem 'dynamic_form'
 gem 'prism'
 # not the official repo, but has fixes for rails 3

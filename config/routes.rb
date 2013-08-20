@@ -19,6 +19,8 @@
 
 Mconf::Application.routes.draw do
 
+  match "logo_images/crop", :to => 'logo_images#crop'
+
   # devise
   controllers = { :sessions => "sessions", :registrations => "registrations" }
   paths = { :sign_in => "login", :sign_out => "logout", :sign_up => "signup" }

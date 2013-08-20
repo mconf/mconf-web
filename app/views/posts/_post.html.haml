@@ -1,7 +1,8 @@
 - thread_class ||= nil
 .thread{:id => "parent-#{post.id}", :class => "#{thread_class}"}
   .logo-in-thread
-    = link_logo(post.author, :size => 32, :url => user_path(post.author), :title=>post.author.name).html_safe
+    = # link_logo(post.author, :size => 32, :url => user_path(post.author), :title=>post.author.name).html_safe # LOGO-REMOVED
+    = link_logo_image(:model => post.author, :size => '32', :title => post.author.name, :url => user_path(post.author)) if post.author
   .thread-content
     %ul.thread-action-links.visible-on-hover{ :"data-hover-tracked" => "parent-#{post.id}" }
       - if can?(:update, post)

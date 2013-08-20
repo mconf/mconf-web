@@ -6,19 +6,34 @@
 saveCropCoordinates = (crop) ->
   # TODO: restrict the search to the elements inside the form
   # where this event was triggered
-  $("input#crop_size_x").val crop.x
-  $("input#crop_size_y").val crop.y
-  $("input#crop_size_height").val crop.h
-  $("input#crop_size_width").val crop.w
+  $('#crop_x').val(crop.x)
+  $('#crop_y').val(crop.y)
+  $('#crop_w').val(crop.w)
+  $('#crop_h').val(crop.h)
 
 # Enables the crop in all 'cropable' elements in the document
 enableCropInImages = ->
   # TODO: set min, max and an initial area selected
   $("img.cropable").each ->
     $(this).Jcrop
-      onSelect: saveCropCoordinates,
-      onChange: saveCropCoordinates,
-      aspectRatio: parseFloat($(this).attr("data-crop-aspect-ratio"))
+      aspectRatio: 1
+      setSelect: [0, 0, 350, 350]
+      onSelect: update
+      onChange: update
+
+update = (coords) =>
+  $('#crop_x').val(coords.x)
+  $('#crop_y').val(coords.y)
+  $('#crop_w').val(coords.w)
+  $('#crop_h').val(coords.h)
+  updatePreview(coords)
+
+updatePreview = (coords) =>
+  $('#preview').css
+    width: Math.round(100/coords.w * $('#cropbox').width()) + 'px'
+    height: Math.round(100/coords.h * $('#cropbox').height()) + 'px'
+    marginLeft: '-' + Math.round(100/coords.w * coords.x) + 'px'
+    marginTop: '-' + Math.round(100/coords.h * coords.y) + 'px'
 
 # Makes the crop form be submitted with ajax
 bindAjaxToCropForm = ->
@@ -36,13 +51,15 @@ enableAjaxInCropForms = ->
   $("form.form-for-crop").each ->
     form = $(this)
     # when the user selects a file it automatically submits the form
-    $("input[type=file]", form).on "change", ->
+    $element = $("input[type=file]", form)
+    $element.on "change", ->
       form.ajaxSubmit (data) ->
-        mconf.Modal.showWindow({ html: data })
+        mconf.Modal.showWindow
+          data: data
+          element: $element
         enableCropInImages()
         bindAjaxToCropForm()
 
 # Triggers the associations...
 $ ->
   enableAjaxInCropForms()
-  enableCropInImages()

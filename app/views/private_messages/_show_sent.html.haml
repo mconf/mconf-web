@@ -7,9 +7,11 @@
 
 .logo-in-thread
   - if receiver.disabled?
-    = logo(receiver, :size => 32)
+    = # logo(receiver, :size => 32) # LOGO-REMOVED
+    = logo_image(:model => receiver, :size => '32')
   - else
-    = raw(link_logo(receiver, :size => 32, :url => user_path(receiver), :title => receiver.username))
+    = # raw(link_logo(receiver, :size => 32, :url => user_path(receiver), :title => receiver.username)) # LOGO-REMOVED
+    = raw(link_logo_image(:model => receiver, :size => '32', :url => user_path(receiver), :title => receiver.username)) # LOOK THIS TITLE
 
 .thread-content
   - unless expanded

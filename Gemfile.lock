@@ -50,12 +50,6 @@ GIT
       ya2yaml (~> 0.30)
 
 GIT
-  remote: git://github.com/rmagick/rmagick.git
-  revision: 4c3d6450483c3e761a1d3f9967b43c0a46d4763f
-  specs:
-    rmagick (0.0.0)
-
-GIT
   remote: https://github.com/parasew/acts_as_tree.git
   revision: ed52495d1671c99e1add582628403bf8104e9077
   specs:
@@ -104,6 +98,10 @@ GEM
     bcrypt-ruby (3.1.1)
     builder (3.0.4)
     cancan (1.6.10)
+    carrierwave (0.9.0)
+      activemodel (>= 3.2.0)
+      activesupport (>= 3.2.0)
+      json (>= 1.7)
     chronic (0.6.7)
     chunky_png (1.2.6)
     ci_reporter (1.6.4)
@@ -246,6 +244,7 @@ GEM
     rake (10.1.0)
     rdoc (3.12.2)
       json (~> 1.4)
+    rmagick (2.13.2)
     rspec (2.11.0)
       rspec-core (~> 2.11.0)
       rspec-expectations (~> 2.11.0)
@@ -332,6 +331,7 @@ DEPENDENCIES
   bigbluebutton-api-ruby!
   bigbluebutton_rails!
   cancan (~> 1.6.0)
+  carrierwave
   chronic
   ci_reporter
   coffee-rails (~> 3.2.0)
@@ -372,7 +372,7 @@ DEPENDENCIES
   rails-footnotes
   rails_autolink
   rake
-  rmagick!
+  rmagick
   rspec-instafail
   rspec-rails
   rubyzip

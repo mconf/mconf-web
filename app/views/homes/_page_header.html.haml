@@ -1,7 +1,8 @@
 .left-column
   #user-info
     .user-avatar
-      = logo(current_user, :size => "96", :title => current_user.name).html_safe
+      = # logo(current_user, :size => "96", :title => current_user.name).html_safe # LOGO-REMOVED
+      = logo_image(:model => current_user, :size => '96', :title => current_user.name)
       - if current_user.superuser?
         = superuser_label
     .user-data

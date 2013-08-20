@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130624203126) do
+ActiveRecord::Schema.define(:version => 20130808192713) do
 
   create_table "admissions", :force => true do |t|
     t.string   "type"
@@ -345,6 +345,7 @@ ActiveRecord::Schema.define(:version => 20130624203126) do
     t.string  "im"
     t.integer "visibility",   :default => 3
     t.string  "full_name"
+    t.string  "logo_image"
   end
 
   create_table "roles", :force => true do |t|
@@ -441,7 +442,7 @@ ActiveRecord::Schema.define(:version => 20130624203126) do
     t.boolean  "superuser",                            :default => false
     t.boolean  "disabled",                             :default => false
     t.datetime "confirmed_at"
-    t.string   "timezone"
+    t.string   "timezone",                             :default => "UTC"
     t.boolean  "expanded_post",                        :default => false
     t.integer  "notification",                         :default => 1
     t.string   "locale"

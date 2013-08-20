@@ -1,5 +1,7 @@
 .user.disabled
-  = raw link_logo(user, :size => 32, :url => user_path(user), :title => user.name)
+  = # raw link_logo(user, :size => 32, :url => user_path(user), :title => user.name) # LOGO-REMOVED
+  = raw link_logo_image(:model => user, :size => '32', :title => user.name, :url => user_path(user), :class => 'logo logo-user')
+
 
   %ul.group_links
     = link_to image_tag("icons/accept.png", :alt => t('enable'), :title => t('user.enable')), enable_user_path(user.id), :method => :post

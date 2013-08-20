@@ -199,6 +199,15 @@ module ApplicationHelper
     escape_javascript generate_html(form_builder, method, options)
   end
 
+  def logo_image(options = {})
+    path_no_image = "models/" + options[:size]  + "/user.png"
+    size = ("logo" + options[:size]).to_sym
+    options[:model].logo_image.present? ? image_tag(options[:model].logo_image_url(size), :class => options[:class], :title => options[:title]) : image_tag(path_no_image, :class => options[:class], :title => options[:title])
+  end
+
+  def link_logo_image(options = {})
+    link_to logo_image(options), options[:url], :class => options[:class]
+  end
 
   private
 
