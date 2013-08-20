@@ -12,10 +12,22 @@ describe User do
     FactoryGirl.build(:user).should be_valid
   end
 
+  it { should have_one(:profile).dependent(:destroy) }
+  it { should have_one(:bigbluebutton_room).dependent(:destroy) }
+
+  it { should have_and_belong_to_many(:spaces) }
+
+  it { should have_many(:permissions).dependent(:destroy) }
+  it { should have_many(:events) }
+  it { should have_many(:posts).dependent(:destroy) }
+  it { should have_many(:memberships).dependent(:destroy) }
+  it { should have_many(:participants).dependent(:destroy) }
+
   it { should validate_presence_of(:email) }
   it { should validate_presence_of(:username) }
 
-  [ :receive_digest ].each do |attribute|
+  [ :email, :password, :password_confirmation,
+    :remember_me, :login, :username, :receive_digest ].each do |attribute|
     it { should allow_mass_assignment_of(attribute) }
   end
 

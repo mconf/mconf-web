@@ -56,19 +56,18 @@ class User < ActiveRecord::Base
 
   validates :email, :presence => true, :email => true
 
+  acts_as_taggable :container => false
+  acts_as_resource :param => :username
+
   has_and_belongs_to_many :spaces, :join_table => :permissions,
                           :association_foreign_key => "subject_id",
                           :conditions => { :permissions => {:subject_type => 'Space'} }
 
-  has_many :permissions
-
-  acts_as_taggable :container => false
-  acts_as_resource :param => :username
-
+  has_many :permissions, :dependent => :destroy
   has_one :profile, :dependent => :destroy
   has_many :events, :as => :author
-  has_many :participants
-  has_many :posts, :as => :author
+  has_many :participants, :dependent => :destroy
+  has_many :posts, :as => :author, :dependent => :destroy
   has_many :memberships, :dependent => :destroy
   has_one :bigbluebutton_room, :as => :owner, :dependent => :destroy
 
