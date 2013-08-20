@@ -5,7 +5,7 @@
     %ul.space-thumbnail-list
       - @public_spaces.each do |space|
         %li{ :class => "space-item space-thumbnail #{@user_spaces.include?(space) ? 'my-space' : 'not-my-space'}", :name => space.permalink }
-          = render "spaces/space_thumbnail", :user => current_user, :space => space
+          = render "spaces/space_thumbnail", :space => space
 
 #private-spaces.content-block
   .content-block-header
@@ -14,4 +14,4 @@
     %ul.space-thumbnail-list
       - @private_spaces.each do |space|
         %li{ :class => "space-item space-thumbnail #{@user_spaces.include?(space) ? 'my-space' : 'not-my-space'}", :name => space.permalink }
-          = render "spaces/space_thumbnail", :user => current_user, :space => space
+          = render "spaces/space_thumbnail", :space => space
