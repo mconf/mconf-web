@@ -232,7 +232,6 @@ class Event < ActiveRecord::Base
     end
 
     if event.new_organizers.present?
-
       #first we delete the old ones if there were some (this is for the update operation that creates new permissions in the event)
       past_permissions = event.stage_permissions.find(:all, :conditions => {:role_id => Event.role("Organizer")})
       past_organizers = past_permissions.map(&:agent).map(&:username)
@@ -273,7 +272,7 @@ class Event < ActiveRecord::Base
   end
 
   def organizers
-    actors(:role => "Organizer")
+    permissions.where(:role_id => Role.find_by_name_and_stage_type('Organizer', 'Event')).map(&:user)
   end
 
   #return the number of days of this event duration

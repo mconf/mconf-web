@@ -1,7 +1,0 @@
-<h1><%= title %></h1>
-
-<%= sortable_list @invitations, Invitation %>
-
-<br />
-
-<%= link_to t('invitation.new'), polymorphic_path([ @stage, Invitation.new ], :action => :new) %>

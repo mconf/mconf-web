@@ -89,7 +89,7 @@ class InvitesController < ApplicationController
 
       if user != current_user
         msg[:receiver] = user
-        Notifier.event_notification_email(msg)
+        Notifier.delay.event_notification_email(msg)
       end
     end
 
@@ -148,7 +148,7 @@ class InvitesController < ApplicationController
         priv_email[:email_receiver] = user.email
         priv_email[:email_sender] = current_user.email
         priv_email[:locale] = get_user_locale(user, false)
-        Notifier.webconference_invite_email(priv_email)
+        Notifier.delay.webconference_invite_email(priv_email)
 
         if success.size == 0
           success = t('invite.invitation_successfully') << " " << t('invite.email', :email => user.email)
@@ -164,7 +164,7 @@ class InvitesController < ApplicationController
         if valid_email?(receiver)
           priv_email[:email_receiver] = receiver
           priv_email[:email_sender] = current_user.email
-          Notifier.webconference_invite_email(priv_email)
+          Notifier.delay.webconference_invite_email(priv_email)
 
           if success.size == 0
             success = t('invite.invitation_successfully') << " " << t('invite.email', :email => receiver)
@@ -216,7 +216,7 @@ class InvitesController < ApplicationController
         user = User.find(receiver)
         msg_email[:receiver] = user.email
         msg_email[:user] = user
-        Notifier.event_invitation_email(msg_email)
+        Notifier.delay.event_invitation_email(msg_email)
 
         if success.size == 0
           success = t('invite.invitation_successfully') << " " << t('invite.email', :email => user.email)
@@ -232,7 +232,7 @@ class InvitesController < ApplicationController
         if valid_email?(receiver)
           msg_email[:receiver] = receiver
           msg_email[:user] = nil
-          Notifier.event_invitation_email(msg_email)
+          Notifier.delay.event_invitation_email(msg_email)
 
           if success.size == 0
             success = t('invite.invitation_successfully') << " " << t('invite.email', :email => receiver)

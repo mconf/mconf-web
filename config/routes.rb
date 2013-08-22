@@ -94,7 +94,6 @@ Mconf::Application.routes.draw do
         get :remove_time
       end
 
-      resources :invitations
       resources :participants
 
       resource :logo, :controller => 'event_logos' do
@@ -128,21 +127,12 @@ Mconf::Application.routes.draw do
       end
     end
 
-    resources :admissions
-    resources :invitations
     resources :news
   end
 
   resources_for_join_requests :spaces
 
-  resources :invitations do
-    member do
-      get :accept
-    end
-  end
-
   resources :permissions
-  resources :admissions
   resources :memberships
 
   resources :users, :except => [:new, :create] do
