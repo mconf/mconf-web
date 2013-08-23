@@ -127,14 +127,18 @@ describe Mconf::DigestEmail do
         # events out of the search range
         FactoryGirl.create(:event, :space => space, :start_date => date_start - 1.hour, :end_date => date_start - 1.second)
         FactoryGirl.create(:event, :space => space, :start_date => date_end + 1.second, :end_date => date_end + 1.hour)
+
+        # Explicit time for the event to be updated
+        start_time = Time.now
+
         # events entirely within range
         @expected = []
-        @expected << FactoryGirl.create(:event, :space => space, :start_date => date_start, :end_date => date_start + 1.hour)
-        @expected << FactoryGirl.create(:event, :space => space, :start_date => date_start + 1.hour, :end_date => date_start + 2.hours)
-        @expected << FactoryGirl.create(:event, :space => space, :start_date => date_end - 1.hour, :end_date => date_end)
+        @expected << FactoryGirl.create(:event, :updated_at => start_time, :space => space, :start_date => date_start, :end_date => date_start + 1.hour)
+        @expected << FactoryGirl.create(:event, :updated_at => start_time + 1.minute, :space => space, :start_date => date_start + 1.hour, :end_date => date_start + 2.hours)
+        @expected << FactoryGirl.create(:event, :updated_at => start_time + 2.minute, :space => space, :start_date => date_end - 1.hour, :end_date => date_end)
         # events with only start or end within range
-        @expected << FactoryGirl.create(:event, :space => space, :start_date => date_start - 1.hour, :end_date => date_start + 1.hour)
-        @expected << FactoryGirl.create(:event, :space => space, :start_date => date_end - 1.hour, :end_date => date_end + 1.hour)
+        @expected << FactoryGirl.create(:event, :updated_at => start_time + 3.minute, :space => space, :start_date => date_start - 1.hour, :end_date => date_start + 1.hour)
+        @expected << FactoryGirl.create(:event, :updated_at => start_time + 4.minute, :space => space, :start_date => date_end - 1.hour, :end_date => date_end + 1.hour)
         @expected.sort_by!{ |p| p.updated_at }.reverse!
       end
       before(:each) { call_get_activity }
@@ -144,10 +148,14 @@ describe Mconf::DigestEmail do
     context "returns the unread messages in the inbox" do
       before do
         sender = FactoryGirl.create(:user)
+
+        # Time for the message to arrive
+        start_time = Time.now
+
         # unread messages for the target user
         @expected = []
-        @expected << FactoryGirl.create(:private_message, :receiver => user, :sender => sender)
-        @expected << FactoryGirl.create(:private_message, :receiver => user, :sender => sender)
+        @expected << FactoryGirl.create(:private_message, :created_at => start_time, :receiver => user, :sender => sender)
+        @expected << FactoryGirl.create(:private_message, :created_at => start_time + 1.minute, :receiver => user, :sender => sender)
         @expected.sort_by!{ |p| p.updated_at }.reverse!
         # read message
         FactoryGirl.create(:private_message, :receiver => user, :sender => sender, :checked => true)

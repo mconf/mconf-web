@@ -42,20 +42,4 @@ class PrivateMessage < ActiveRecord::Base
     previous
   }
 
-# Commented because it causes an error when a user is joining to a space and sends private messages to space admins
-
-#  def validate
-#    unless User.find(self.sender_id).fellows.include?(User.find(self.receiver_id))
-#      errors.add(:receiver_id, "Receiver and sender have to share one or more spaces.")
-#    end
-#  end
-
-
-# Couldnt be destroyed to mantain the thread history
-=begin
-  after_update :after_update_method
-  def after_update_method
-    self.destroy if self.deleted_by_sender && self.deleted_by_receiver
-  end
-=end
 end
