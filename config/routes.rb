@@ -74,7 +74,7 @@ Mconf::Application.routes.draw do
       post :leave
     end
 
-    resources :users do
+    resources :users do # TODO: do we really need this?
       resource :profile, :except => [:new, :create]
     end
 

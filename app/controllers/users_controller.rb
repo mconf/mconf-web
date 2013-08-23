@@ -28,8 +28,6 @@ class UsersController < ApplicationController
   end
 
   def show
-    #@user = current_user
-
     @user_spaces = @user.spaces
     if @user_spaces.size > 0
       @recent_activity = ActiveRecord::Content.paginate({ :page=>params[:page], :per_page=>15, :order=>'updated_at DESC', :conditions => {:author_id => @user.id, :author_type => "User"} },{:containers => @user_spaces, :contents => [:posts, :events, :attachments]})
@@ -94,7 +92,7 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    user.disable
+    @user.disable
 
     flash[:notice] = t('user.disabled', :username => @user.username)
 
