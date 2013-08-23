@@ -72,14 +72,8 @@ class EventsController < ApplicationController
     @comments = @event.posts.paginate(:page => params[:page],:per_page => 5)
 
     respond_to do |format|
-      if params[:step] == "3"
-        format.html { render "_invitations" } # TODO shouldn't need to use _ at "_invitations"
-      end
       format.html # show.html.erb
       format.xml{ render :xml => @event }
-      format.zip{
-        create_and_send_zip_file_for_scorm
-      }
     end
 
   end
@@ -315,44 +309,4 @@ class EventsController < ApplicationController
       end
   end
 
-
-  def create_and_send_zip_file_for_scorm
-    require 'zip/zip'
-    require 'zip/zipfilesystem'
-    if @video_entries.empty?
-      return
-    end
-    #if there is no video_entries we don't generate the scorm and return
-
-    if @event.scorm_needs_generate
-      t = File.open("#{Rails.root.to_s}/public/scorm/#{@event.permalink}.zip", 'w')
-      Zip::ZipOutputStream.open(t.path) do |zos|
-        @event.generate_scorm_manifest_in_zip(zos)
-
-        @video_entries.each do |entry|
-          @render = render_to_string :partial => "agenda_entries/scorm_show", :locals => {:entry=>entry}
-          #File.open("#{Rails.root.to_s}/public/scorm/#{@event.permalink}/#{Event.remove_accents(entry.title)}.html", "w") { |f| f.write @render }
-          zos.put_next_entry("#{Event.remove_accents(entry.title)}.html")
-          zos.print @render
-          entry.attachments.each do |file|
-            zos.put_next_entry(Event.remove_accents(file.filename))
-            zos.print IO.read(file.full_filename)
-          end
-        end
-        #in the end we include the css for the html files and the images
-        zos.put_next_entry("scorm.css")
-        zos.print IO.read("#{Rails.root.to_s}/app/assets/stylesheets/application/old/scorm.css")
-
-        zos.put_next_entry("mconf_logo_small.png")
-        zos.print IO.read("#{PathHelpers.images_full_path}/mconf_logo_small.png")
-
-        zos.put_next_entry("vcc-logo-transparente1.png")
-        zos.print IO.read("#{PathHelpers.images_full_path}/vcc-logo-transparente1.png")
-
-      end
-      t.close
-    end
-
-    send_file "#{Rails.root.to_s}/public/scorm/#{@event.permalink}.zip", :type => 'application/zip', :disposition => 'attachment', :filename => "#{@event.permalink}.zip"
-  end
 end

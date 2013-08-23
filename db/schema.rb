@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130822175748) do
+ActiveRecord::Schema.define(:version => 20130823182640) do
 
   create_table "agenda_dividers", :force => true do |t|
     t.integer  "agenda_id"
@@ -198,7 +198,6 @@ ActiveRecord::Schema.define(:version => 20130822175748) do
     t.boolean  "web_interface",           :default => false
     t.boolean  "sip_interface",           :default => false
     t.datetime "generate_pdf_at"
-    t.datetime "generate_scorm_at"
     t.integer  "web_bw"
     t.integer  "recording_bw"
     t.datetime "generate_pdf_small_at"
