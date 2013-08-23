@@ -5,6 +5,8 @@
 
 $focus-border-color: $second-color;
 $navbar-height: 35px;
+$navbar-font-color: #bbb;
+$navbar-font-color-hover: white;
 
 //
 // General tags
@@ -273,7 +275,7 @@ form {
   margin: 0 auto;
   padding: 0;
   height: $navbar-height;
-  color: #bbb;
+  color: $navbar-font-color;
 }
 
 #content-wrapper {
@@ -404,7 +406,7 @@ ul#navbar-left-links {
   margin: 0 10px;
 
   a {
-    @include link-colors(#bbb, white, white);
+    @include link-colors($navbar-font-color, $navbar-font-color-hover, $navbar-font-color-hover);
     &:hover {
       @include text-shadow(lighten($navbar-bg-color, 20) 0 0 1px);
     }
@@ -477,8 +479,11 @@ ul#navbar-right-links {
   .dropdown {
     &.open {
       background: darken($navbar-bg-color, 5);
+      .caret { border-top-color: $navbar-font-color-hover; }
     }
+
     .caret {
+      border-top-color: $navbar-font-color;
       margin-top: 11px;
       margin-right: 4px;
     }
@@ -580,7 +585,7 @@ ul#navbar-right-links {
   @include mconf-clearfix;
 
   .title {
-    @include link-colors(#bbb, white, white, #bbb);
+    @include link-colors($navbar-font-color, $navbar-font-color-hover, $navbar-font-color-hover, $navbar-font-color);
     font-size: 21px;
     float: left;
   }
