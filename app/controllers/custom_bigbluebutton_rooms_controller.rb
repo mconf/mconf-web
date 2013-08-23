@@ -10,7 +10,18 @@ class CustomBigbluebuttonRoomsController < Bigbluebutton::RoomsController
   before_filter :authenticate_user!,
     :except => [:invite, :invite_userid, :auth, :running]
 
-  load_and_authorize_resource :find_by => :param, :class => "BigbluebuttonRoom"
+  load_and_authorize_resource :find_by => :param, :class => "BigbluebuttonRoom", :except => :create
+
+  # TODO: cancan is not ready yet for strong_parameters, so if we call 'load_resource' on :create it
+  # will try to create the resource and will fail with ActiveModel::ForbiddenAttributes
+  # This should be solved in the future, so the block below (and the :except in the
+  # 'load_and_authorize_resource' call above) can be removed.
+  # See more at: https://github.com/ryanb/cancan/issues/835
+  before_filter :load_room_for_create, :only => :create
+  authorize_resource :find_by => :param, :class => "BigbluebuttonRoom", :only => :create
+  def load_room_for_create
+    @room = BigbluebuttonRoom.new(room_params)
+  end
 
   before_filter :check_redirect_to_invite, :only => [:invite_userid]
   before_filter :check_redirect_to_invite_userid, :only => [:invite]
@@ -48,6 +59,19 @@ class CustomBigbluebuttonRoomsController < Bigbluebutton::RoomsController
     # no user logged and no user set in the URL, go back to the identification step
     if !user_signed_in? and (params[:user].nil? or params[:user][:name].blank?)
       redirect_to join_webconf_path(@room)
+    end
+  end
+
+  protected
+
+  # Override the method used in Bigbluebutton::RoomsController to get the parameters the user is
+  # allowed to use on update/create. Normal users can only update a few of the parameters of a room.
+  def room_allowed_params
+    if current_user.superuser
+      super
+    else
+      [ :attendee_password, :moderator_password, :private, :record,
+        :metadata_attributes => [ :id, :name, :content, :_destroy, :owner_id ] ]
     end
   end
 end

@@ -397,9 +397,10 @@ describe CustomBigbluebuttonRoomsController do
   end
 
   describe "#update" do
+    let(:room) { FactoryGirl.create(:bigbluebutton_room) }
+
     context "template and layout" do
       # renders a view only on error on save
-      let(:room) { FactoryGirl.create(:bigbluebutton_room) }
       let(:attrs) { FactoryGirl.attributes_for(:bigbluebutton_room) }
       before(:each) { login_as(FactoryGirl.create(:superuser)) }
       before(:each) {
@@ -409,6 +410,52 @@ describe CustomBigbluebuttonRoomsController do
       it { should render_template(:edit) }
       it { should render_with_layout("application") }
     end
+
+    # TODO: we need rspec 2.14 for the tests below
+    #
+    # # This is an adapted copy of the same test done for this controller
+    # # action in BigbluebuttonRails
+    # context "params handling" do
+    #   let(:attrs) { FactoryGirl.attributes_for(:bigbluebutton_room) }
+    #   let(:params) { { :bigbluebutton_room => attrs } }
+
+    #   context "for a superuser" do
+    #     let(:allowed_params) {
+    #       [ :name, :server_id, :meetingid, :attendee_password, :moderator_password, :welcome_msg,
+    #         :private, :logout_url, :dial_number, :voice_bridge, :max_participants, :owner_id,
+    #         :owner_type, :external, :param, :record, :duration,
+    #         :metadata_attributes => [ :id, :name, :content, :_destroy, :owner_id ] ]
+    #     }
+    #     it {
+    #       # we just check that the rails method 'permit' is being called on the hash with the
+    #       # correct parameters
+    #       BigbluebuttonRoom.stub(:find_by_param).and_return(@room)
+    #       @room.stub(:update_attributes).and_return(true)
+    #       attrs.stub(:permit).and_return(attrs)
+    #       controller.stub(:params).and_return(params)
+
+    #       put :update, :id => room.to_param, :bigbluebutton_room => attrs
+    #       attrs.should have_received(:permit).with(*allowed_params)
+    #     }
+    #   end
+
+    #   context "for a normal user" do
+    #     let(:allowed_params) {
+    #       [ :name ]
+    #     }
+    #     it {
+    #       # we just check that the rails method 'permit' is being called on the hash with the
+    #       # correct parameters
+    #       BigbluebuttonRoom.stub(:find_by_param).and_return(@room)
+    #       @room.stub(:update_attributes).and_return(true)
+    #       attrs.stub(:permit).and_return(attrs)
+    #       controller.stub(:params).and_return(params)
+
+    #       put :update, :id => room.to_param, :bigbluebutton_room => attrs
+    #       attrs.should have_received(:permit).with(*allowed_params)
+    #     }
+    #   end
+    # end
   end
 
   describe "#running" do

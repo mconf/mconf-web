@@ -33,7 +33,7 @@ gem 'rails_autolink'
 gem 'whenever', :require => false
 gem 'garb'
 gem 'bigbluebutton-api-ruby', :git => 'git://github.com/mconf/bigbluebutton-api-ruby.git'
-gem 'bigbluebutton_rails', :git => 'git://github.com/mconf/bigbluebutton_rails.git'
+gem 'bigbluebutton_rails', :git => 'git://github.com/mconf/bigbluebutton_rails.git', :branch => 'strong_parameters'
 gem 'simple_form', '~> 2.0.0'
 gem 'acts_as_tree', :git => 'https://github.com/parasew/acts_as_tree.git'
 gem 'friendly_id'
@@ -44,6 +44,7 @@ gem 'cancan', '~> 1.6.0'
 gem 'i18n-js', :git => "git://github.com/fnando/i18n-js.git", :branch => 'rewrite'
 gem 'rabl'
 gem 'yajl-ruby' # json parser for rabl
+gem 'strong_parameters' # for bigbluebutton_rails
 
 # for bootstrap
 gem 'less-rails'
