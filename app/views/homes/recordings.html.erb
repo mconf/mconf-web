@@ -16,20 +16,24 @@
       window.setTimeout(function() {
         $("#update-recordings-error").hide();
       }, 5000);
-      $("#recording-list-wrapper").effect("highlight", { color: "#ff0000"}, 5000);
+      if ($("#recording-list-wrapper").children().length > 0) {
+        $("#recording-list-wrapper").effect("highlight", { color: "#ff0000"}, 5000);
+      }
     } else {
       $("#update-recordings-success").show();
       window.setTimeout(function() {
         $("#update-recordings-success").hide();
       }, 5000);
-      $("#recording-list-wrapper").effect("highlight", { color: "#00ff00"}, 5000);
+      if ($("#recording-list-wrapper").children().length > 0) {
+        $("#recording-list-wrapper").effect("highlight", { color: "#00ff00"}, 5000);
+      }
     }
   }
 
   recListUpdateStart();
-  $.post("<%= fetch_recordings_bigbluebutton_room_path(@room) %>", {
+  $.post("<%= fetch_recordings_bigbluebutton_room_path(@room, :format => 'json') %>", {
     authenticity_token: "<%= form_authenticity_token() %>"
-  }).fail(function() {
+  }, null, "html").fail(function(e) {
     recListUpdateEnd(true);
   }).success(function(data) {
     $.get("<%= recordings_home_path(:partial => '1') %>", {
@@ -37,8 +41,8 @@
     }).fail(function() {
       recListUpdateEnd(true);
     }).success(function(data) {
-      recListUpdateEnd(false);
       $("#recording-list-wrapper").html(data);
+      recListUpdateEnd(false);
     });
   });
 
