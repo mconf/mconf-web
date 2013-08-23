@@ -1,1 +1,1 @@
-//= require_tree ./old/users/
+//= require_tree ./app/users/

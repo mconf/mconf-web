@@ -1,1 +1,1 @@
-//= require_tree ./old/manage/
+//= require_tree ./app/manage/

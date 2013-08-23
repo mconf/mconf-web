@@ -1,1 +1,1 @@
-//= require_tree ./old/join_requests/
+//= require_tree ./app/join_requests/
