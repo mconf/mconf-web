@@ -1,0 +1,30 @@
+-# TODO: move the name of these metadata to a configuration file
+- meta_title = @room.metadata.all.select{ |m| m.name == "mconfweb-title" }.first
+- meta_description = @room.metadata.all.select{ |m| m.name == "mconfweb-description" }.first
+
+%h1= t('.title', :room => @room.name)
+
+#webconference-join-options-dialog
+
+  - form_url = bigbluebutton_room_path(@room, :format => 'json')
+
+  = simple_form_for @room, :url => form_url, :remote => true, :html => { :class => "single-column in-place-edit" } do |f|
+    = f.input :record, :label => t('.record.label'), :hint => t('.record.tooltip'), :input_html => { :class => "in-place-edit" }
+    = in_place_edit_indicators
+
+  = simple_form_for @room, :url => form_url, :remote => true, :html => { :class => "single-column in-place-edit" } do |f|
+    .input
+      = f.simple_fields_for :metadata, meta_title do |metadata_form|
+        = metadata_form.label :content, :label => t('.metadata.title')
+        = metadata_form.text_field :content, :class => "string in-place-edit"
+        = in_place_edit_indicators
+
+  = simple_form_for @room, :url => form_url, :remote => true, :html => { :class => "single-column in-place-edit" } do |f|
+    .input
+      = f.simple_fields_for :metadata, meta_description do |metadata_form|
+        = metadata_form.label :content, :label => t('.metadata.description')
+        = metadata_form.text_field :content, :class => "string in-place-edit"
+        = in_place_edit_indicators
+
+  .form-actions
+    = link_to t(".start"), join_bigbluebutton_room_path(@room), :class => "btn btn-primary"

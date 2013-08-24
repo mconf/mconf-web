@@ -34,12 +34,12 @@ module Abilities
       # Webconf rooms
       # Not many things are done here, several authorization steps are done by the gem
       # BigbluebuttonRails inside each action
+
       # TODO: the validation methods below are getting complicated and are very similar
       #       to methods used in other places, move them to some common place.
-      can :end, BigbluebuttonRoom do |room|
-
-        # The same logic for which user can create which room, done at
-        # `ApplicationController#bigbluebutton_can_create?()``
+      # The same logic for which user can create which room, done at
+      # `ApplicationController#bigbluebutton_can_create?()``
+      can [:end, :join_options], BigbluebuttonRoom do |room|
         if room.owner_type == "User" and room.owner_id == user.id
           true
         elsif room.owner_type == "Space"

@@ -15,6 +15,7 @@
  *= require ./app/application/notifications
  *= require ./app/application/tooltips
  *= require ./app/application/input-placeholder
+ *= require ./app/application/in_place_edit
  *= require ./app/application/modal
  *= require ./app/application/showable_password_input
  *= require ./app/application/tokeninput

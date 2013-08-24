@@ -96,6 +96,13 @@ form {
   }
 }
 
+.webconf-join-group {
+  // make the 'fast start' icon in the button a little smaller
+  i {
+    font-size: 9px !important;
+  }
+}
+
 // user logos in a thread with several snippets
 // e.g. list of posts, list of recent users, etc.
 .logo-in-thread {

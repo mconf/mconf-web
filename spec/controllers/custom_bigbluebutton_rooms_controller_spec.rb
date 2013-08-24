@@ -38,6 +38,7 @@ describe CustomBigbluebuttonRoomsController do
         it { should allow_access_to(:end, hash) }
         it { should allow_access_to(:join_mobile, hash) }
         it { should allow_access_to(:running, hash) }
+        it { should allow_access_to(:join_options, hash) }
       end
 
       context "in his room" do
@@ -104,6 +105,7 @@ describe CustomBigbluebuttonRoomsController do
         it { should allow_access_to(:end, hash) }
         it { should allow_access_to(:join_mobile, hash) }
         it { should allow_access_to(:running, hash) }
+        it { should allow_access_to(:join_options, hash) }
       end
 
       context "in another user's room" do
@@ -121,6 +123,7 @@ describe CustomBigbluebuttonRoomsController do
         it { should_not allow_access_to(:end, hash) }
         it { should allow_access_to(:join_mobile, hash) }
         it { should allow_access_to(:running, hash) }
+        it { should_not allow_access_to(:join_options, hash) }
       end
 
       context "in the room of public space" do
@@ -142,6 +145,7 @@ describe CustomBigbluebuttonRoomsController do
           it { should allow_access_to(:end, hash) }
           it { should allow_access_to(:join_mobile, hash) }
           it { should allow_access_to(:running, hash) }
+          it { should allow_access_to(:join_options, hash) }
         end
 
         context "he is not a member of" do
@@ -158,6 +162,7 @@ describe CustomBigbluebuttonRoomsController do
           it { should_not allow_access_to(:end, hash) }
           it { should allow_access_to(:join_mobile, hash) }
           it { should allow_access_to(:running, hash) }
+          it { should_not allow_access_to(:join_options, hash) }
         end
       end
 
@@ -180,6 +185,7 @@ describe CustomBigbluebuttonRoomsController do
           it { should allow_access_to(:end, hash) }
           it { should allow_access_to(:join_mobile, hash) }
           it { should allow_access_to(:running, hash) }
+          it { should allow_access_to(:join_options, hash) }
         end
 
         context "he is not a member of" do
@@ -196,6 +202,7 @@ describe CustomBigbluebuttonRoomsController do
           it { should_not allow_access_to(:end, hash) }
           it { should allow_access_to(:join_mobile, hash) }
           it { should allow_access_to(:running, hash) }
+          it { should_not allow_access_to(:join_options, hash) }
         end
       end
 
@@ -225,6 +232,7 @@ describe CustomBigbluebuttonRoomsController do
         it { should require_authentication_for(:end, hash) }
         it { should require_authentication_for(:join_mobile, hash) }
         it { should allow_access_to(:running, hash) }
+        it { should require_authentication_for(:join_options, hash) }
       end
 
       context "in a user room" do
@@ -378,6 +386,23 @@ describe CustomBigbluebuttonRoomsController do
     context "template and layout for xhr requests" do
       before(:each) { xhr :get, :join_mobile, :id => room.to_param }
       it { should render_template(:join_mobile) }
+      it { should_not render_with_layout() }
+    end
+  end
+
+  describe "#join_options" do
+    let(:room) { FactoryGirl.create(:bigbluebutton_room) }
+    before(:each) { login_as(FactoryGirl.create(:superuser)) }
+
+    context "template and layout for html requests" do
+      before(:each) { get :join_options, :id => room.to_param }
+      it { should render_template(:join_options) }
+      it { should render_with_layout("application") }
+    end
+
+    context "template and layout for xhr requests" do
+      before(:each) { xhr :get, :join_options, :id => room.to_param }
+      it { should render_template(:join_options) }
       it { should_not render_with_layout() }
     end
   end

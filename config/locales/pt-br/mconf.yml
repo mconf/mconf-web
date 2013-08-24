@@ -6,6 +6,9 @@ pt-br:
     edit: "Editar"
     end: "Finalizar"
     join: "Entrar"
+    in_place_edit:
+      error: "erro"
+      success: "gravado"
     publish: "Publicer"
     save: "Salvar"
     unpublish: "Despublicar"
@@ -275,6 +278,15 @@ pt-br:
       scan_code: "Ou utilize o código abaixo:"
       sip_number: "Para entrar na conferência de voz usando um cliente SIP, disque para <b>%{number}</b>."
       title: "Acesso móvel à sala %{room}"
+    join_options:
+      metadata:
+        description: "Título desta gravação"
+        title: "Descrição desta gravação"
+      record:
+        label: "Gravar reunião"
+        tooltip: "Marque para fazer com que as reuniões nesta sala sejam gravadas. Esta opção não pode ser modificada depois que a reunião está em execução!"
+      start: "Pronto, iniciar reunião!"
+      title: "Opções da reunião"
     new:
       creating_new_room: "Criando uma nova sala"
     rooms:
@@ -638,6 +650,7 @@ pt-br:
       view_all_spaces: "Ver todas comunidades"
     webconference_room:
       end: "Parar a reunião"
+      fast_start: "Início rápido usando as opções já configuradas"
       invite: "Convidar outras pessoas..."
       join: "Entrar na reunião!"
       options: "Opções"

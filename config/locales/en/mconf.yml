@@ -5,6 +5,9 @@ en:
     details: "Details"
     edit: "Edit"
     end: "End"
+    in_place_edit:
+      error: "error"
+      success: "saved"
     join: "Join"
     publish: "Publish"
     save: "Save"
@@ -285,6 +288,15 @@ en:
       scan_code: "Or scan the code below:"
       sip_number: "To join the voice conference from a SIP client, dial <b>%{number}</b>."
       title: "Mobile access to %{room}"
+    join_options:
+      metadata:
+        description: "Title for this recording"
+        title: "Description for this recording"
+      record:
+        label: "Record meeting"
+        tooltip: "Mark it to set this room to record its meetings. This can't be changed after the meeting is running!"
+      start: "Done, start the meeting!"
+      title: "Meeting options"
     new:
       creating_new_room: "Creating a new room"
     rooms:
@@ -661,6 +673,7 @@ en:
       view_all_spaces: "View all spaces"
     webconference_room:
       end: "Stop the meeting"
+      fast_start: "Fast start using the options already configured"
       invite: "Invite other people..."
       join: "Join the meeting!"
       options: "Options"

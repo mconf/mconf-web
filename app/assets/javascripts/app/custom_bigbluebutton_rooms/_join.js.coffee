@@ -1,10 +1,9 @@
 $(document).ready ->
   if isOnPage 'custom_bigbluebutton_rooms', 'join|auth'
-    ajax_request()
-    setInterval ajax_request(), 3000
-  
+    ajaxRequest()
+    setInterval ajaxRequest(), 3000
 
-ajax_request = ->
+ajaxRequest = ->
   url = $("#webconf-room-status").attr("data-url")
   $.ajax
     url: url
@@ -15,4 +14,4 @@ ajax_request = ->
 onSuccess = (data) ->
   if data.running is "true"
     window.location.reload()
-  setTimeout(ajax_request(), 3000)
+  setTimeout(ajaxRequest(), 3000)

@@ -43,10 +43,13 @@ Mconf::Application.routes.draw do
     :rooms => 'custom_bigbluebutton_rooms',
     :recordings => 'custom_bigbluebutton_recordings'
   }
-
-  # FIXME: Temporary, this should probably be done by bigbluebutton_rails
-  match '/webconf/:id', :to => 'custom_bigbluebutton_rooms#invite_userid',
-                        :as => "join_webconf"
+  match '/bigbluebutton/rooms/:id/join_options',
+    :to => 'custom_bigbluebutton_rooms#join_options',
+    :as => "join_options_bigbluebutton_room"
+  # shortcut route to join webconference rooms
+  match '/webconf/:id',
+    :to => 'custom_bigbluebutton_rooms#invite_userid',
+    :as => "join_webconf"
 
   # shibboleth controller
   match '/secure', :to => 'shibboleth#create', :as => "shibboleth"

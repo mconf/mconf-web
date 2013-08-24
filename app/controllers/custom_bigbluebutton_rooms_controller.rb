@@ -23,6 +23,7 @@ class CustomBigbluebuttonRoomsController < Bigbluebutton::RoomsController
     @room = BigbluebuttonRoom.new(room_params)
   end
 
+  # the logic of the 2-step joining process
   before_filter :check_redirect_to_invite, :only => [:invite_userid]
   before_filter :check_redirect_to_invite_userid, :only => [:invite]
 
@@ -30,7 +31,7 @@ class CustomBigbluebuttonRoomsController < Bigbluebutton::RoomsController
 
   def determine_layout
     case params[:action].to_sym
-    when :join_mobile
+    when :join_mobile, :join_options
       if request.xhr?
         false
       else
@@ -60,6 +61,9 @@ class CustomBigbluebuttonRoomsController < Bigbluebutton::RoomsController
     if !user_signed_in? and (params[:user].nil? or params[:user][:name].blank?)
       redirect_to join_webconf_path(@room)
     end
+  end
+
+  def join_options
   end
 
   protected

@@ -8,6 +8,7 @@
 # * `modal-before-configure`
 # * `modal-before-open`
 # * `modal-opened`
+# * `modal-after-update-markup`
 
 class mconf.Modal
 
@@ -30,7 +31,8 @@ class mconf.Modal
     $(document).on "dialog2.opened", $(options.element), ->
       $(options.element).trigger("modal-opened")
     $(document).on "dialog2.after-update-markup", $(options.element), ->
-      mconf.Resources.bind() # bind tooltips
+      mconf.Resources.bind() # bind tooltips and others
+      $(options.element).trigger("modal-after-update-markup")
 
     el.dialog2(localOptions)
 
