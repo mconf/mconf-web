@@ -102,14 +102,6 @@ module AttachmentsHelper
     params[:tags].present? ? params[:tags].split(",").map(&:to_i) : Array.new
   end
 
-  def tags_list tag_array
-    html = "<ul class=\"holder\">"
-    tag_array.each do |tag|
-      html << "<li class=\"w-cross\">#{tag.name}</li>"
-    end
-    html << "</ul>"
-  end
-
   def tag_count(elements, less=[], p={})
     order = p[:order] || "popularity"
 

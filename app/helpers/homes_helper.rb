@@ -12,7 +12,7 @@ module HomesHelper
     last_week = {:contents => contents.select{|x| x.updated_at > Date.today - 7 && x.updated_at < Date.yesterday - 1}, :name => t('last_week')}
     older = {:contents => contents.select{|x| x.updated_at < Date.today - 7}, :name => t('older')}
 
-    intervals = [today, yesterday, last_week, older]
+    [today, yesterday, last_week, older]
   end
 
   def path_for_home(p={})

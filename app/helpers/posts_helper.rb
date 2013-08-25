@@ -5,44 +5,9 @@
 # 3 or later. See the LICENSE file.
 
 module PostsHelper
-  def get_edit_route(comment)
-    if params[:action] == "show"
-      if !comment.attachments.empty?
-        if !comment.attachments.select{|a| a.image?}.empty?
-          space_post_path(comment.space, params[:id] ? params[:id] : comment.id,:edit => comment.id, :form => 'photos')
-        else
-          space_post_path(comment.space, params[:id] ? params[:id] : comment.id,:edit => comment.id, :form => 'docs')
-        end
-      else
-        space_post_path(comment.space, params[:id] ? params[:id] : comment.id,:edit => comment.id)
-      end
-    else
-      if !comment.attachments.empty?
-        if !comment.attachments.select{|a| a.image?}.empty?
-          space_posts_path(comment.space, :edit => comment.id, :form => 'photos')
-        else
-          space_posts_path(comment.space, :edit => comment.id, :form => 'docs')
-        end
-      else
-        space_posts_path(comment.space, :edit => comment.id)
-      end
-    end
-  end
-
-  def get_reply_route(post,form='')
-    if params[:action] == "show"
-      space_post_path(post.space, params[:id],:reply_to => post.id, :form => form)
-    else
-      space_posts_path(post.space, :reply_to => post.id, :form => form)
-    end
-  end
 
   def first_words(text, size)
     truncate(text, :length => size)
-  end
-
-  def thread_title(post)
-    post.parent_id.nil? ? post.title : post.parent.title
   end
 
   def thread(post)
@@ -68,10 +33,6 @@ module PostsHelper
 
   def get_older_posts(posts)
     posts.select{|x| x.updated_at < Date.today - 7}
-  end
-
-  def small_post_text_area(cont="")
-    text_area_tag "post[text]", cont, :class => "small_post_text"
   end
 
   #method to know if a thread or any of its comments has attachment/s

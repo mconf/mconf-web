@@ -5,7 +5,7 @@
 # 3 or later. See the LICENSE file.
 
 module PrivateMessagesHelper
-  
+
   # Stores the current tab in the menu
   def private_messages_menu_at(tab)
     @private_messages_menu_tab = tab

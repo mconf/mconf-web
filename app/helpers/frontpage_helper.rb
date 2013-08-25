@@ -7,6 +7,7 @@
 module FrontpageHelper
 
   # Methods needed to include devise's forms in the frontpage'
+  # TODO: they will be available in all pages, doesn't make much sense
   def resource_name
     :user
   end
