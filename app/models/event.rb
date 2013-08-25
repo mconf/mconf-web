@@ -32,29 +32,20 @@ class Event < ActiveRecord::Base
   validates_presence_of :name
 
   # Attributes for jQuery selectors
-  attr_accessor :end_hour
   attr_accessor :mails
   attr_accessor :ids
   attr_accessor :notification_ids
-  attr_accessor :group_invitation_mails
   attr_accessor :invite_msg
   attr_accessor :invit_introducer_id
   attr_accessor :notif_sender_id
-  attr_accessor :group_inv_sender_id
   attr_accessor :notify_msg
-  attr_accessor :group_invitation_msg
-  attr_accessor :external_streaming_url
-  attr_accessor :new_organizers
-  attr_accessor :invited_registered
-  attr_accessor :invited_unregistered
+  attr_accessor :edit_date_action
 
   # For logos
   attr_accessor :default_logo
   attr_accessor :text_logo
   attr_accessor :rand_value
   attr_accessor :logo_rand
-
-  attr_accessor :edit_date_action
 
   before_validation  :event_validation, :update_logo, :edit_date_actions
 
@@ -69,9 +60,6 @@ class Event < ActiveRecord::Base
   scope :upcoming, lambda {
     where("events.end_date > ? AND spaces.disabled = ?", Time.now, false).includes(:space).order("start_date")
   }
-
-  RECORDING_TYPE = [:automatic, :manual, :none]
-  EXTRA_TIME_FOR_EVENTS_WITH_MANUAL_REC = 1.hour
 
   def event_validation
     if(self.end_date.to_date - self.start_date.to_date > MAX_DAYS)
@@ -138,16 +126,8 @@ class Event < ActiveRecord::Base
 
   end
 
-  VC_MODE = [:in_person, :telemeeting, :teleconference, :teleclass]
-
-  # The vc_mode symbol of this event
-  def vc_mode_sym
-    VC_MODE[vc_mode]
-  end
-
   # Maximum number of consecutive days for the event
   MAX_DAYS = 5
-
 
   validate :validate_method
   def validate_method
@@ -191,36 +171,12 @@ class Event < ActiveRecord::Base
         end
       }
     end
-    if event.group_invitation_mails
-      if event.group_invitation_msg # TODO: not the best way to do it, see events/_group_invitation
-        event.group_invitation_msg = event.group_invitation_msg.html_safe
-      end
-      event.group_invitation_mails.split(',').each { |mail|
-        Informer.deliver_event_group_invitation(event,mail)
-      }
-    end
-
-    if event.new_organizers.present?
-      #first we delete the old ones if there were some (this is for the update operation that creates new permissions in the event)
-      past_permissions = event.stage_permissions.find(:all, :conditions => {:role_id => Event.role("Organizer")})
-      past_organizers = past_permissions.map(&:agent).map(&:username)
-
-      # we add those organizers that were not past organizers
-      (event.new_organizers - past_organizers).each do |login|
-        event.stage_permissions.create! :user => User.find_by_username(login), :role  => Event.role("Organizer")
-      end
-
-      # we remove those organizers that are not organizers any more
-      past_permissions.select{ |p| (past_organizers - event.new_organizers).include?(p.agent.username)}.map(&:destroy)
-    end
-
   end
 
   after_destroy do |event|
     FileUtils.rm_rf("#{Rails.root.to_s}/attachments/conferences/#{event.permalink}")
     FileUtils.rm_rf("#{Rails.root.to_s}/public/pdf/#{event.permalink}")
   end
-
 
   def author
     unless author_id.blank?
@@ -273,10 +229,6 @@ class Event < ActiveRecord::Base
     start_date
   end
 
-  def get_attachments
-    return Attachment.find_all_by_event_id(id)
-  end
-
   #method to get the starting date of an event in the correct format
   def get_formatted_date
     has_date? ?
@@ -295,14 +247,6 @@ class Event < ActiveRecord::Base
     has_date? ? start_date.strftime("%H:%M") : I18n::t('date.undefined')
   end
 
-  def is_in_person?
-    vc_mode_sym == :in_person
-  end
-
-  def is_virtual?
-    ! is_in_person?
-  end
-
   def to_xml(options = {})
     options[:indent] ||= 2
     xml = options[:builder] ||= Builder::XmlMarkup.new(:indent => options[:indent])
@@ -316,36 +260,6 @@ class Event < ActiveRecord::Base
       xml.permalink  self.permalink
       xml.name       self.name
     end
-  end
-
-  def self.identifier_for(title)
-    Base64.b64encode(title).chomp.gsub(/\n/,'')
-  end
-
-  def self.remove_accents(str)
-    accents = {
-      ['á','à','â','ä','ã'] => 'a',
-      ['Ã','Ä','Â','À'] => 'A',
-      ['é','è','ê','ë'] => 'e',
-      ['Ë','É','È','Ê'] => 'E',
-      ['í','ì','î','ï'] => 'i',
-      ['Î','Ì'] => 'I',
-      ['ó','ò','ô','ö','õ'] => 'o',
-      ['Õ','Ö','Ô','Ò','Ó'] => 'O',
-      ['ú','ù','û','ü'] => 'u',
-      ['Ú','Û','Ù','Ü'] => 'U',
-      ['ç'] => 'c', ['Ç'] => 'C',
-      ['ñ'] => 'n', ['Ñ'] => 'N'
-    }
-    accents.each do |ac,rep|
-      ac.each do |s|
-        str = str.gsub(s, rep)
-      end
-    end
-    str = str.gsub(/[^a-zA-Z0-9\. ]/,"")
-    str = str.gsub(/[ ]+/," ")
-    str = str.gsub(/ /,"-")
-    #str = str.downcase
   end
 
   def unique_pageviews

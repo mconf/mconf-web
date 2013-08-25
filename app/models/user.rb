@@ -76,7 +76,7 @@ class User < ActiveRecord::Base
   # TODO: see JoinRequestsController#create L50
   attr_accessible :created_at, :updated_at, :activated_at, :disabled
   attr_accessible :captcha, :captcha_key, :authenticate_with_captcha
-  attr_accessible :email2, :email3, :machine_ids
+  attr_accessible :email2, :email3
   attr_accessible :timezone
   attr_accessible :expanded_post
   attr_accessible :notification

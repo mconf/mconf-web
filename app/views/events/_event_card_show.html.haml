@@ -33,16 +33,6 @@
             - else
               = ","
             = link_to(highlight(org.name,@query),user_path(org),:class=>"unified_user")
-        .main_text.logo_padding
-          - if @event.web_interface?
-            - if isfirst
-              - isfirst=false
-            - else
-              = ","
-            - unless @event.is_happening_now? || (@event.is_in_person? && !@event.past?)
-              = t('event.view_participation')
-            - else
-              = link_to t('event.view_participation'), space_event_path(@space, @event, :show_participation => true)
 
     .thread-text
       %p

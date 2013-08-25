@@ -168,7 +168,6 @@ de:
     none_coming: "Keine Termine"
     note: 
       participation: "Web Beteiligung wird zum Zeitpunkt der Veranstaltung zur Verfügung"
-      streaming: "Video-Streaming wird zum Zeitpunkt der Veranstaltung zur Verfügung"
     notification: 
       attendant: 
         filter: Attendant-Filter
@@ -206,14 +205,6 @@ de:
     spam: "Spam in Veranstaltungen"
     start: Start-Ereignis
     started: "Start erfolgreich Anfrage senden"
-    streaming: 
-      add: "Fügen Sie ein."
-      no_at_events: "Kein Streaming an den Sitzungen"
-      none: "Niemand hat eine Streaming-URL gepostet"
-      notice: "People will need access rights to this space to see this videos"
-      now: "Event Streaming"
-      title: Streaming-Sitzung
-      will_be_available: "Das Streaming wird während der Veranstaltung zur Verfügung"
     to: Zu
     today: "Heute Veranstaltungen"
     today_and_yesterday: "Heute und gestern (%{size})"
@@ -229,7 +220,6 @@ de:
       show: "Alle kommenden Veranstaltungen"
       today: "Es sind keine Termine für heute"
     updated: "Event erfolgreich aktualisiert"
-    video_part: "Web Beteiligung"
     view_participation: Teilnahme
     will_attend: "Planen Sie, zu diesem Event teilnehmen?"
     within_7_days: "Innerhalb von 7 Tagen (%{size})"
@@ -500,8 +490,6 @@ de:
     delete: "Löschen Space"
     deleted: "Space erfolgreich entfernt"
     description_none: "Ein Raum muss Beschreibung gegeben, um einen neuen Raum zu schaffen"
-    group_invitation: 
-      button: "Liste einladen"
     is_private: "ist ein privater Raum. Senden Sie eine Anfrage anzuschließen an den Administrator dieser Raum in Ihrem lassen"
     join: "Join this space"
     join_invitation: 

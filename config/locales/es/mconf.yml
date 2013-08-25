@@ -194,8 +194,6 @@ es:
       omit_date: "El evento necesita horas de inicio y fin"
       too_short: "El evento es demasiado corto, debe durar al menos 15 minutos"
     future: "Evento futuro"
-    group_invitation: 
-      subject: "%{username} invites you to event %{eventname} in space %{space}"
     has: "Este evento se ha"
     help: 
       create: "Crear un evento simple en tres pasos:"
@@ -227,7 +225,6 @@ es:
       not_organizer_before: "Este evento ocurrirá el %{date}, ahora puedes confirmar tu asistencia y leer el programa"
       not_organizer_during: "Este evento está ocurriendo ahora, lo puedes seguir por el streaming o participar con el cliente flash y el chat"
       participation: "La participación web estará disponible en el momento del evento"
-      streaming: "El streaming estará disponible en el momento del evento"
     notification: 
       attendant: 
         filter: "Filtro de asistentes"
@@ -263,8 +260,6 @@ es:
       show: "Mostrar todos los eventos antiguos"
       today: "No hay eventos de ayer ni de hoy."
     recording: 
-      cloud: Videos!
-      cloud_back: "Back to program"
       share: Compartir
     repository: 
       enabled: "Habilitar el repositorio de decumentos"
@@ -273,14 +268,6 @@ es:
     spam: "Spam en los eventos"
     start: "Reiniciar evento"
     started: "Solicitud de comienzo enviada con éxito"
-    streaming: 
-      add: "Añadir una."
-      no_at_events: "Sin streaming en las reuniones"
-      none: "Nadie ha publicado ninguna url de streaming"
-      notice: "Los usuarios necesitarán derechos de acceso para ver este contenido"
-      now: "Streaming de eventos"
-      title: "Sesión de streaming"
-      will_be_available: "El streaming estará disponible durante el evento"
     time: 
       end: Fin
       start: Inicio
@@ -300,11 +287,7 @@ es:
       show: "Mostrar todos los eventos por celebrarse"
       today: "No hay eventos para hoy"
     updated: "El evento se ha actualizado correctamente"
-    video_part: "Participación web"
     view_participation: "Participación Web"
-    view_recordings: Grabaciones
-    view_related_rec: "Ver en la lista de videos"
-    view_streaming: Streaming
     will_attend: "¿Quiere asistir a este evento?"
     within_7_days: "Dentro de 7 días (%{size})"
     within_a_month: "Dentro de un mes (%{size})"
@@ -551,7 +534,6 @@ es:
     and_participate: "Registrarse Para Participar"
     and_participate_description: "Para participar en el evento debes registrarte"
     and_participate_description_with_login: "Para participar en el evento debes registrarte o <a href=%{url}>hacer login</a>"
-    back_to_streaming: "atras al streaming"
     confirmation: "Después de registrarse, recibirá un email de confirmación con el enlace para activar tu cuenta"
     one: Registro
     or_choose: "o puedes ir"
@@ -633,11 +615,6 @@ es:
     enabled: "Espacio habilitado correctamente."
     error: 
       enabled: "Espacio %{name} ya está habilitado"
-    group_invitation: 
-      button: "Invitar lista de correo"
-      message_title: "Invite a listas de correo para que se unan a su espacio"
-      private: "<p>El espacio es privado; necesita ser usuario registrado de GlobalPlaza para poder solicitar unirse y acceder al espacio. Puede registrarse aquí: <a href=\"%{register_url}\">%{register_url}</a></p>"
-      subject: "%{username} le invita al espacio %{space}"
     is_private: "es un espacio privado. Envíe una solicitud de participación al administrador del espacio"
     join: "Únete a este espacio"
     join_invitation: 

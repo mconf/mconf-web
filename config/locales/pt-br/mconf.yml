@@ -426,7 +426,6 @@ pt-br:
           name: "Em pessoa"
       manual_conf: "Configuração manual"
       title: "Criar novo evento"
-      video_streaming: "Streaming de vídeo"
     created: "Evento criado com sucesso"
     deleted: "Evento excluído com sucesso"
     description:
@@ -450,8 +449,6 @@ pt-br:
       omit_date: "O evento precisa uma data inicial e uma data final"
       too_short: "O evento é muito curto, ele deve ter pelo menos 15 minutos"
     future: "Evento Futuro"
-    group_invitation:
-      subject: "%{username} convida você para o evento %{eventname} na comunidade %{space}"
     has: "Este evento tem"
     help:
       create: "Crie o seu evento simples em três etapas:"
@@ -486,7 +483,6 @@ pt-br:
       meeting: "Encontro Virtual"
       presential: Reunião
       type: "Tipo de evento"
-      vcoptions: "Opções de videoconferência"
     no_events: "Você não tem eventos"
     none_coming: "Não há eventos próximos"
     not_available: "Disponível em breve"
@@ -496,7 +492,6 @@ pt-br:
       not_organizer_during: "Este evento está acontecendo agora, você pode segui-lo com o streaming ou participar com o cliente de bate-papo e o cliente flash"
       not_organizer_no_date: "Este evento ainda não tem data. Você pode confirmar sua assintance agora e voltar mais tarde para ler o programa"
       participation: "A participação Web estará disponível no momento do evento"
-      streaming: "O streaming de vídeo estará disponível no momento do evento"
     notification:
       attendant:
         filter: "Filtro de participantes"
@@ -535,8 +530,6 @@ pt-br:
       show: "Mostrar todos os eventos antigos"
       today: "Não existem eventos para ontem nem hoje."
     recording:
-      cloud: Vídeos!
-      cloud_back: "Voltar ao programa"
       insert: Inserir
       recorded: "Eventos gravados"
       share: Compartilhe
@@ -556,15 +549,6 @@ pt-br:
       title1: "Estatísticas do evento \"%{event}\""
       title2: "Mapa de conexões do evento \"%{event}\""
       view: "Ver estatísticas"
-    streaming:
-      add: "Acrescentar um."
-      back: "Voltar para o streaming"
-      no_at_events: "Sem streaming nas reuniões"
-      none: "Ninguém postou uma URL para streaming"
-      notice: "As pessoas vão precisar de direitos de acesso a esta comunidade para ver este conteúdo"
-      now: "Streaming do evento"
-      title: "Sessão de streaming"
-      will_be_available: "O streaming estará disponível durante o evento"
     time:
       end: Fim
       start: Início
@@ -586,11 +570,7 @@ pt-br:
       show: "Mostrar todos os eventos programados"
       today: "Não há eventos para hoje"
     updated: "Evento atualizado com sucesso"
-    video_part: "Participação Web"
     view_participation: "Participação Web"
-    view_recordings: "Gravação de vídeo"
-    view_related_rec: "Ver na lista de vídeos"
-    view_streaming: Streaming
     will_attend: "Você pretende participar deste evento?"
     within_7_days: "Dentro de 7 dias (%{size})"
     within_a_month: "Dentro de um mês (%{size})"
@@ -988,15 +968,10 @@ pt-br:
     button_start: "Iniciar gravação"
     manual: Manual
     none: Nenhum
-    warning_continue_recording: "Atenção: esta ação irá interromper outras gravações deste evento em andamento. <br/> Você quer continuar?"
-    warning_pause_recording: "Atenção: esta ação irá pausar a gravação. Você será capaz de continuar ela no futuro ou publicá-la. <br/> Você quer continuar?"
-    warning_publish_recording: "Atenção: esta ação irá publicar a gravação. No futuro, você será capaz de editá-la para cortar o início e o fim do vídeo, mas você não será capaz de gravar a sessão novamente. <br/> Você quer continuar?"
-    warning_start_recording: "Atenção: esta ação irá interromper outras gravações deste evento em andamento. <br/> Você quer continuar?"
   register:
     and_participate: "Registre-se Para Participar"
     and_participate_description: "Para participar do evento você deve registar-se"
     and_participate_description_with_login: "Para participar do evento você deve efetuar o registro ou o <a href=%{url}>login</a"
-    back_to_streaming: "voltar para streaming"
     confirmation: "Após o registro você receberá uma confirmação por email com o link para ativar a sua conta"
     one: Registre-se
     or_choose: "ou você pode ir"
@@ -1165,11 +1140,6 @@ pt-br:
     enabled: "Comunidade habilitada com sucesso"
     error:
       enabled: "Comunidade %{name} já está habilitada"
-    group_invitation:
-      button: "Convide listas de e-mail"
-      message_title: "Convide listas de e-mail para participar da sua comunidade"
-      private: "<p>Por favor, note que a comunidade é privada, então você precisa ser um usuário cadastrado no Mconf para ser capaz de enviar um pedido de adesão e acesso à comunidade. Você pode se registrar aqui: <a href=\"%{register_url}\">%{register_url}</a></p>"
-      subject: "%{username} convida você para a comunidade %{space}"
     index:
       filters: 
         all: "Todas"
@@ -1303,7 +1273,6 @@ pt-br:
     advanced_editor: "Este editor permite que você: veja o código html; modifique o estilo e tamanho da fonte, cor de texto e alinhamento do texto; insira/edite links; adicione anexos e tags"
     bigbluebutton_space: "Esta é uma sala de webconferência pública para esta comunidade. Apenas membros desta comunidade podem acessar a sala."
     doc_search: "Use os campos deste lado para filtrar e atualizar a tabela de documentos com seus resultados da pesquisa"
-    embed_help: "Pode ser preenchido com código HTML para inserir um vídeo"
     event_logo: "Você pode enviar o seu próprio logotipo, criar um logotipo de texto ou selecionar uma imagem da galeria"
     insert: "Use este código para inserir este vídeo em seu blog ou página web."
     invite_people: "Invite people to this Webconference."
@@ -1315,7 +1284,6 @@ pt-br:
     public_profile: "Qualquer pessoa pode acessar esta informação"
     public_space: "Comunidades colaborativas podem ser públicas, para que qualquer pessoa possa ver o que acontece nelas, ou privadas, onde apenas os membros têm acesso às atividades da comunidade"
     share: "Esta é a url para compartilhar este vídeo com os seus colegas"
-    space_video: "Este filtro permitirá que você selecione apenas os vídeos de um evento específico"
     tag: "Tags são palavras-chave ou termos associados com o conteúdo que são utilizadas para localizar e filtrar as informações. Pressione enter para confirmar cada tag."
     tag_by: "Tags são palavras que descrevem os documentos. Use este link para ordená-las por popularidade ou por ordem alfabética. Em seguida, clique nelas para ver os documentos relacionados."
     timezone: "Ao selecionar o seu fuso horário não haverá equívoco ao criar eventos com pessoas de outros países"

@@ -23,11 +23,7 @@ class LogosController < ApplicationController
       for i in 1..4
         create_auto_logo params[:text], i, params[:event_logo].present?
       end
-      if params[:event_logo].present?
-        render :template => "events/_generate_text_logos", :layout => false
-      else
-        render :template => "spaces/_generate_text_logos", :layout => false
-      end
+      render :template => "spaces/_generate_text_logos", :layout => false
    end
 
    if params[:upload]

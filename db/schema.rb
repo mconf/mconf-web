@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130824002328) do
+ActiveRecord::Schema.define(:version => 20130824014312) do
 
   create_table "attachments", :force => true do |t|
     t.string   "type"
@@ -133,13 +133,7 @@ ActiveRecord::Schema.define(:version => 20130824002328) do
     t.string   "place"
     t.datetime "start_date"
     t.datetime "end_date"
-    t.integer  "machine_id"
-    t.string   "colour",                  :default => ""
-    t.string   "repeat"
-    t.integer  "at_job"
     t.integer  "parent_id"
-    t.boolean  "character"
-    t.boolean  "public_read"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "space_id"
@@ -148,19 +142,8 @@ ActiveRecord::Schema.define(:version => 20130824002328) do
     t.boolean  "spam",                    :default => false
     t.text     "notes"
     t.text     "location"
-    t.text     "other_streaming_url"
     t.string   "permalink"
-    t.integer  "vc_mode",                 :default => 0
     t.text     "other_participation_url"
-    t.boolean  "web_interface",           :default => false
-    t.boolean  "sip_interface",           :default => false
-    t.datetime "generate_pdf_at"
-    t.integer  "web_bw"
-    t.integer  "recording_bw"
-    t.datetime "generate_pdf_small_at"
-    t.boolean  "streaming_by_default",    :default => true
-    t.boolean  "manual_configuration",    :default => false
-    t.integer  "recording_type",          :default => 0
   end
 
   create_table "join_requests", :force => true do |t|

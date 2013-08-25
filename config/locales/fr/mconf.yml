@@ -192,7 +192,6 @@ fr:
     none_coming: "Aucun événement à venir"
     note: 
       participation: "participation Web sera disponible au moment de l'événement"
-      streaming: "Vidéo streaming seront disponibles au moment de l'événement"
     notification: 
       attendant: 
         filter: "Surveillance du filtre"
@@ -227,12 +226,6 @@ fr:
     spam: "Spam dans les événements"
     start: "Premier événement"
     started: "demande Start envoyer avec succès"
-    streaming: 
-      add: "Ajouter une."
-      no_at_events: "Non Streaming lors des réunions"
-      none: "Personne n'a affiché aucune url streaming"
-      now: "Événement Streaming"
-      will_be_available: "Le streaming sera disponible pendant l'événement"
     today: "Les événements d'aujourd'hui"
     today_and_yesterday: "Hier et aujourd'hui (%{size})"
     tomorrow: "Demain événements"
@@ -248,7 +241,6 @@ fr:
       show: "Voir tous les événements à venir"
       today: "Il n'y a pas d'événements d'aujourd'hui"
     updated: "Événement mis à jour avec succès"
-    view_recordings: Enregistrements
     will_attend: "Prévoyez-vous assister à cet événement?"
     within_7_days: "Dans les 7 jours (%{size})"
     within_a_month: "Moins d'un mois (%{size})"
@@ -522,8 +514,6 @@ fr:
     enabled: "L'espace a permis avec succès"
     error: 
       enabled: "Space %{name} est déjà activé"
-    group_invitation: 
-      button: "Inviter lists"
     is_private: "est un espace privé. Envoyer une jointure demande à l'administrateur de cet espace pour vous laisser"
     join: "Joignez-vous à cet espace"
     join_invitation: 

@@ -436,7 +436,6 @@ en:
           name: "In person"
       manual_conf: "Manual configuration"
       title: "Create new event"
-      video_streaming: "Video streaming"
     created: "Event created successfully"
     deleted: "Event deleted successfully"
     description: 
@@ -459,8 +458,6 @@ en:
       omit_date: "The event needs start date and end date "
       too_short: "Event is too short, it must be at least 15 minutes long"
     future: "Future Event"
-    group_invitation: 
-      subject: "%{username} invites you to event %{eventname} in space %{space}"
     has: "This event has"
     help: 
       create: "Create your simple event in three steps:"
@@ -496,7 +493,6 @@ en:
       meeting: "Virtual Meeting"
       presential: Meeting
       type: "Event type"
-      vcoptions: "Videoconference options"
     no_events: "No events to show"
     none_coming: "No coming events"
     not_available: "Available soon"
@@ -506,7 +502,6 @@ en:
       not_organizer_during: "This event is happening now, you can follow it with the streaming or participate with the chat and the flash client"
       not_organizer_no_date: "This event still have no date. You can confirm your assintance now and come back later to read the program"
       participation: "Web participation will be available at the time of the event"
-      streaming: "Video streaming will be available at the time of the event"
     notification: 
       attendant: 
         filter: "Attendant filter"
@@ -545,8 +540,6 @@ en:
       show: "Show all old events"
       today: "No events for yesterday nor today."
     recording: 
-      cloud: Videos!
-      cloud_back: "Back to program"
       insert: Insert
       recorded: "Recorded events"
       share: Share
@@ -561,15 +554,6 @@ en:
     stats: 
       message1: "This page show the stats of the web connections to the event."
       title1: "Statistics of the event \"%{event}\""
-    streaming: 
-      add: "Add one."
-      back: "Back to streaming"
-      no_at_events: "No Streaming at meetings"
-      none: "No one has posted any streaming url"
-      notice: "People will need access rights to this space to see this content"
-      now: "Event Streaming"
-      title: "Streaming session"
-      will_be_available: "The streaming will be available during the event"
     time: 
       end: End
       start: Start
@@ -591,11 +575,7 @@ en:
       show: "Show all upcoming events"
       today: "There are no events for today"
     updated: "Event updated successfully"
-    video_part: "Web participation"
     view_participation: "Web Participation"
-    view_recordings: "Video Recording"
-    view_related_rec: "View on video list"
-    view_streaming: Streaming
     will_attend: "Do you plan to attend this event?"
     within_7_days: "Within 7 days (%{size})"
     within_a_month: "Within a month (%{size})"
@@ -1023,15 +1003,10 @@ en:
     button_start: "Start recording"
     manual: Manual
     none: None
-    warning_continue_recording: "Warning: this action will stop other recordings of this event in progress. <br/> Do you want to continue?"
-    warning_pause_recording: "Warning: this action will pause the recording. You will be able to continue with it in the future or publish it. <br/> Do you want to continue?"
-    warning_publish_recording: "Warning: this action will publish the recording. In the future you will be able to edit it to cut the beggining and end of the resulting video but you won't be able to record this session again. <br/> Do you want to continue?"
-    warning_start_recording: "Warning: this action will stop other recordings of this event in progress. <br/> Do you want to continue?"
   register: 
     and_participate: "Register To Participate"
     and_participate_description: "To participate in the event you should register"
     and_participate_description_with_login: "To participate in the event you should register or <a href=%{url}>login</a>"
-    back_to_streaming: "back to streaming"
     confirmation: "After registering you will receive an email confirmation with the link to activate your account"
     one: Register
     or_choose: "or you can go"
@@ -1205,11 +1180,6 @@ en:
     error: 
       enabled: "Space %{name} is already enabled"
     event_count: "%{count} events"
-    group_invitation: 
-      button: "Invite mailing lists"
-      message_title: "Invite mailing lists to join your space"
-      private: "<p>Please note that the space is private, so you need to be a registered user of the Virtual Conference Center to be able to send a join request and access the space. You can register here: <a href=\"%{register_url}\">%{register_url}</a></p>"
-      subject: "%{username} invites you to space %{space}"
     index: 
       filters: 
         all: "All spaces"
@@ -1351,7 +1321,6 @@ en:
     advanced_editor: "This editor allows you to: view source html; change the font style, font size, text color and alignment of the text; insert/edit links; add attachments and tags"
     bigbluebutton_space: "This is a public BigBlueButton webconference room for this space. Only members of this space can access the room."
     doc_search: "Use the fields in this side to filter and update the docs table with your search results"
-    embed_help: "Can be filled with HTML code to embed a video"
     event_logo: "You can update your own logo, create a text logo or select an image from the gallery"
     insert: "Use this code to insert this video in your blog or web page."
     invite_people: "Invite people to this Webconference."
@@ -1363,7 +1332,6 @@ en:
     public_profile: "Anyone can access this information"
     public_space: "Collaborative spaces can be public, for anybody to watch what happens in them, or private, where members only have access to the activities of the space"
     share: "This is the url to share this video with your colleagues"
-    space_video: "This filter will allow you to select only the videos of one specific event"
     tag: "Tags are keywords or terms associate with content used to find and filter information. Press enter to confirm each tag."
     tag_by: "Tags are words that describe the documents. Use this links to order them by popularity or alphabetically. Then click on them to see the related documents."
     timezone: "By selecting your time-zone there will be no misunderstanding when creating events with people from other countries"

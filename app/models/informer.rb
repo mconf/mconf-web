@@ -41,14 +41,6 @@ class Informer
      end
    end
 
-   def self.deliver_space_group_invitation(space,mail)
-     Notifier.delay.space_group_invitation_email(space,mail)
-   end
-
-   def self.deliver_event_group_invitation(event,mail)
-     Notifier.delay.event_group_invitation_email(event,mail)
-   end
-
    def self.deliver_join_request(admission)
      #in this case the deliver is to the admins of the space so we have to decide
      #whether using a Private Message or an Email depending on their profile

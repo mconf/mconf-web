@@ -29,9 +29,6 @@ describe Event do
   it "acts_as_taggable"
   it "acts_as_content"
 
-  it { should respond_to(:end_hour) }
-  it { should respond_to(:"end_hour=") }
-
   it { should respond_to(:mails) }
   it { should respond_to(:"mails=") }
 
@@ -40,9 +37,6 @@ describe Event do
 
   it { should respond_to(:notification_ids) }
   it { should respond_to(:"notification_ids=") }
-
-  it { should respond_to(:group_invitation_mails) }
-  it { should respond_to(:"group_invitation_mails=") }
 
   it { should respond_to(:invite_msg) }
   it { should respond_to(:"invite_msg=") }
@@ -53,26 +47,8 @@ describe Event do
   it { should respond_to(:notif_sender_id) }
   it { should respond_to(:"notif_sender_id=") }
 
-  it { should respond_to(:group_inv_sender_id) }
-  it { should respond_to(:"group_inv_sender_id=") }
-
   it { should respond_to(:notify_msg) }
   it { should respond_to(:"notify_msg=") }
-
-  it { should respond_to(:group_invitation_msg) }
-  it { should respond_to(:"group_invitation_msg=") }
-
-  it { should respond_to(:external_streaming_url) }
-  it { should respond_to(:"external_streaming_url=") }
-
-  it { should respond_to(:new_organizers) }
-  it { should respond_to(:"new_organizers=") }
-
-  it { should respond_to(:invited_registered) }
-  it { should respond_to(:"invited_registered=") }
-
-  it { should respond_to(:invited_unregistered) }
-  it { should respond_to(:"invited_unregistered=") }
 
   it { should respond_to(:edit_date_action) }
   it { should respond_to(:"edit_date_action=") }
@@ -143,5 +119,3 @@ describe Event do
   end
 
 end
-
-
