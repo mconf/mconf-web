@@ -9,6 +9,9 @@ pt-br:
     publish: "Publicer"
     save: "Salvar"
     unpublish: "Despublicar"
+    webconference:
+      join_mobile: "Entrar de um dispositivo móvel..."
+      join_mobile_short: "Entrar/móvel"
   GMT: GMT
   RSS: RSS
   abc: ABC
@@ -268,7 +271,7 @@ pt-br:
         title: "Eu não possuo uma conta, quero entrar como convidado"
       title: "Acessar sala: <em>%{name}</em>"
     join_mobile: 
-      direct_link: "<b>Clique aqui</b> <br/> para entrar utilizando um dispositivo móvel"
+      direct_link: "<b>Clique aqui</b> para entrar de um dispositivo móvel"
       scan_code: "Ou utilize o código abaixo:"
       sip_number: "Para entrar na conferência de voz usando um cliente SIP, disque para <b>%{number}</b>."
       title: "Acesso móvel à sala %{room}"
@@ -633,6 +636,13 @@ pt-br:
       create_space: "Criar uma nova comunidade"
       view_all_activity: "Ver todas suas atividades"
       view_all_spaces: "Ver todas comunidades"
+    webconference_room:
+      end: "Parar a reunião"
+      invite: "Convidar outras pessoas..."
+      join: "Entrar na reunião!"
+      options: "Opções"
+      preferences: "Preferências..."
+      start: "Começar uma nova reunião"
   icons: 
     unread_message: "Mensage não lida!"
     unread_message_by_receiver: "Esta mensagem ainda não foi lida pelo usuário que a recebeu"
@@ -1196,6 +1206,9 @@ pt-br:
       list_format: 
         list: "Lista"
         thumbnails: "Miniaturas"
+    sidebar:
+      webconference_join: "Entrar"
+      webconference_start: "Iniciar"
     space_thumbnail:
       private: "privada"
       public: "pública"
@@ -1413,6 +1426,9 @@ pt-br:
       see_more: "saiba mais"
       share: Compartilhar
     title_people_conf: "Pessoas na sala"
+  webconferences:
+    space_show:
+      invite: "Convidar outras pessoas"
   when: Quando
   where: Onde
   yesterday: Ontem

@@ -56,17 +56,10 @@ $dropdown-bg-color: white;
 
 // the menu itself
 ul.dropdown-menu {
-  margin: 0;
-  padding: 0;
 
-  li {
-    margin: 0;
-    padding: 2px;
-    display: block;
-
+  > li:not(.divider) {
     a {
-      display: block;
-      padding: 6px 12px;
+      padding: 6px 14px;
 
       &:hover {
         background: $light-gray;
@@ -75,6 +68,6 @@ ul.dropdown-menu {
     }
   }
 
-  &.arrow-left { @include dropdown-menu-arrow; }
-  &.arrow-right { @include dropdown-menu-arrow(right); }
+  /* &.arrow-left { @include dropdown-menu-arrow; } */
+  /* &.arrow-right { @include dropdown-menu-arrow(right); } */
 }

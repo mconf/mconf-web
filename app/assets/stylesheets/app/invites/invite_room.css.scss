@@ -8,10 +8,10 @@
     border: 1px solid #ddd;
     @include border-radius(3px);
     padding: 10px;
-    text-align: center;
 
     input {
-      width: 90%;
+      cursor: text;
+      width: 95%;
       background: white;
       color: #444;
       margin: 0;

@@ -36,12 +36,13 @@ body.webconferences.space_show {
 
       label {
         float: left;
-        margin-top: 5px;
-        margin-right: 10px;
+        margin: 8px 10px 0 0;
       }
+
       input[type=text] {
+        cursor: text;
         float: left;
-        width: 400px;
+        width: 360px;
         margin: 0;
         margin-right: 10px;
         background: $site-bg-color;

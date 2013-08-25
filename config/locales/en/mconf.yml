@@ -9,6 +9,9 @@ en:
     publish: "Publish"
     save: "Save"
     unpublish: "Unpublish"
+    webconference:
+      join_mobile: "Join from a mobile device..."
+      join_mobile_short: "Join/mobile"
   GMT: GMT
   RSS: RSS
   abc: ABC
@@ -278,7 +281,7 @@ en:
         title: "I don't have an account, I will join this room as a guest"
       title: "Join the room: <em>%{name}</em>"
     join_mobile: 
-      direct_link: "<b>Click here</b><br/>to join from a mobile device"
+      direct_link: "<b>Click here</b> to join from a mobile device"
       scan_code: "Or scan the code below:"
       sip_number: "To join the voice conference from a SIP client, dial <b>%{number}</b>."
       title: "Mobile access to %{room}"
@@ -656,6 +659,13 @@ en:
       create_space: "Create a new space"
       view_all_activity: "View all your activity"
       view_all_spaces: "View all spaces"
+    webconference_room:
+      end: "Stop the meeting"
+      invite: "Invite other people..."
+      join: "Join the meeting!"
+      options: "Options"
+      preferences: "Preferences..."
+      start: "Start a new meeting"
   icons: 
     unread_message: "Unread message!"
     unread_message_by_receiver: "This message has not yet been read by the receiver"
@@ -1240,6 +1250,9 @@ en:
       list_format: 
         list: "List"
         thumbnails: "Thumbnails"
+    sidebar:
+      webconference_join: "Join it"
+      webconference_start: "Start it"
     space_thumbnail:
       private: "private"
       public: "public"
@@ -1483,6 +1496,9 @@ en:
         url: "Webconference URL"
     start_now: "Start now!"
     title_people_conf: "People in the room"
+  webconferences:
+    space_show:
+      invite: "Invite other people"
   when: When
   where: Where
   yesterday: Yesterday

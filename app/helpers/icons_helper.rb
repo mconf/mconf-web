@@ -6,20 +6,6 @@
 
 module IconsHelper
 
-  # Default link to open the popup to join a webconference using a mobile device
-  # If url is nil, renders a disabled button
-  def webconf_mobile_icon_link(url)
-    cls = 'webconf-join-mobile-link btn btn-small dark-gray-hover'
-    unless url
-      url = '#'
-      cls += ' disabled login-to-enable'
-    end
-
-    link_to url, :class => cls  do
-      content_tag :span, t('bigbluebutton_rails.rooms.join_mobile')
-    end
-  end
-
   # Default icon that shows a tooltip with help about something
   def help_icon(title, options={})
     icon_constructor title, "icon help-icon", nil, options

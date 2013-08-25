@@ -15,14 +15,13 @@
       @include mconf-clearfix;
 
       .mobile-download-image {
-        float: left;
+        text-align: center;
       }
 
       span {
-        text-align: left;
-        float: left;
-        max-width: 200px;
-        margin-left: 10px;
+        display: block;
+        text-align: center;
+        margin-bottom: 5px;
       }
     }
   }

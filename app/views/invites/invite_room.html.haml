@@ -22,7 +22,7 @@
   - if @type == "webconference"
     .header
       %label= t('home.invite_url')
-      = text_field_tag "room_invite_url", join_webconf_url(@room), :disabled => true
+      = text_field_tag "room_invite_url", join_webconf_url(@room), :readonly => true
 
   = simple_form_for :invite, :url => sendinvite_invite_path, :html => { :class => 'single-column' } do |f|
     = f.hidden_field :type, :value => @type
@@ -30,7 +30,7 @@
     .section-header
       = help_icon t('invite_people.names_tip')
       = t('invite_people.mconf_users')
-    = f.text_field :members_tokens
+    = f.text_field :members_tokens, :autofocus => true
     = t('invite_people.notify_by') + ': '
     = f.check_box :im_check, :checked => 'checked'
     = t('invite_people.internal_message')

@@ -20,7 +20,8 @@
           - else
             - webconf_join_link = invite_space_room_path(@space, @webconf_room)
           - btn_class = @webconf_room.is_running? ? "btn-success" : "btn-primary"
-          = link_to t('button.join'), webconf_join_link, :class => "btn btn-small webconf-start-link #{btn_class}"
+          - join_text = @webconf_room.is_running? ? t('.webconference_join') : t('.webconference_start')
+          = link_to join_text, webconf_join_link, :class => "btn webconf-start-link #{btn_class}"
           - if user_signed_in?
             = webconf_mobile_icon_link(join_mobile_space_room_path(@space, @webconf_room))
           - else

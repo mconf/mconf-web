@@ -4,9 +4,9 @@
   = link_to t('.direct_link').html_safe, @join_url, :class => "btn btn-primary btn-block btn-large"
   .join-options
     .download-application
+      %span= t('custom_bigbluebutton_rooms.invite.mobile.details', :url => mobile_google_play_link).html_safe
       = link_to mobile_google_play_link, :class => "mobile-download-image" do
         = image_tag mobile_google_play_image, :alt => t('custom_bigbluebutton_rooms.invite.mobile.download'), :title => t('custom_bigbluebutton_rooms.invite.mobile.download')
-      %span= t('custom_bigbluebutton_rooms.invite.mobile.details', :url => mobile_google_play_link).html_safe
 
   .qr-code
     %label= t('.scan_code')

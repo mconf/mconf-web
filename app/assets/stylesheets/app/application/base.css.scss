@@ -89,9 +89,9 @@ form {
   height: 16px;
 }
 
-.webconf-join-mobile-link {
+.webconf-join-mobile-link:not(.no-icon) {
   span {
-    padding-left: 20px;
+    padding-left: 12px;
     background: url(asset_path('icons/mobile-gray-16x16.png', image)) bottom left no-repeat;
   }
 }
@@ -710,6 +710,12 @@ ul#navbar-right-links {
     @include mconf-clearfix;
     text-align: center;
     padding: 0 10px 10px 10px;
+
+    /* reduce the buttons a bit */
+    .btn-large {
+      padding-top: 7px;
+      padding-bottom: 7px;
+    }
   }
 
   .toolbar {
