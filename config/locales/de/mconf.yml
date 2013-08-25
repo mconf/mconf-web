@@ -16,36 +16,6 @@ de:
         missing: fehlt
   address: Adresse
   advanced: Fortgeschritten
-  agenda: 
-    del_entry: Löschen
-    divider: 
-      edit: "Edit Divider"
-      error: 
-        coinciding_times: "Es gibt einen Konflikt mit dem Zeitpunkt der neuen Teiler und bestehende Agenda-Einträge oder Trennwände"
-        date_out_of_event: "Das Datum des Teilers überschreitet die maximale Dauer der Veranstaltung: Tag %{max_days}"
-        past_times: "Diese Art der Veranstaltung können nicht vergangenen Zeiten"
-      new: "New Agenda divider"
-      start_time: Startzeit
-      title: Titel
-    entry: 
-      description: Beschreibung
-      duration: Dauer
-      embedded_video: "Embed-Video für den Eintrag"
-      error: 
-        attribute_unchangeable: "Sie haben versucht, eine unveränderliche Attribut für diese Sitzung ändern"
-        coinciding_times: "Es gibt einen Konflikt mit dem Zeitpunkt der neuen Agenda-Eintrag und bestehende Agenda-Einträge oder Trennwände"
-        delete: "Fehler beim Löschen der Tagung in abgelegenen Videokonferenz-System"
-        disordered_times: "Die Startzeit muss vor der Endzeit"
-        past_times: "Die Startzeit der Sitzung muss %{min_date} oder später werden"
-      new: "Neue Agenda-Eintrag"
-      options: 
-        streaming: "Video streaming"
-      speakers: Referenten
-      start_time: Startzeit
-      title: Titel
-    error: 
-      omit_title: "Ein Titel muss für die Agenda-Eintrag angegeben werden"
-    upload_file: "Upload File"
   agent: 
     authentication: 
       confirm_password: "Kennwort bestätigen"
@@ -232,7 +202,6 @@ de:
     recording: 
       share: Anteil
     repository: 
-      help: "Dieses Document Repository zeigen die Dokumente in den Sitzungen der Veranstaltung Tagesordnung hochgeladen"
       title: "Dokumente zur Veranstaltung"
     spam: "Spam in Veranstaltungen"
     start: Start-Ereignis
@@ -251,7 +220,6 @@ de:
     tomorrow: "Tomorrow Veranstaltungen"
     undated: 
       show: "Alle Veranstaltungen undatierten"
-      title: "Events ohne Agenda definiert"
     upcoming: 
       all: "Alle anstehenden (%{size})"
       next_month: "Es sind keine Termine für den nächsten Monat"
@@ -290,15 +258,6 @@ de:
   home: 
     activity: "Letzte Aktivität ..."
     my: "My Home"
-  icalendar: 
-    error_import: "Ein Fehler ist beim Importieren der iCalendar."
-    import: "ICalendar Import"
-    importMessage1: Insgesamt
-    importMessage2: "wurden von Ihrem iCalendar lesen."
-    importMessage3: "von ihnen wurden gerettet oder korrekt aktualisiert."
-    report: "Bericht:"
-    updated1: "Ein Eintrag Ihrer iCalendar waren schon auf Ihre Veranstaltung Tagesordnung und wurden aktualisiert."
-    updatedn: "Einträge Ihres iCalendar waren schon auf Ihre Veranstaltung Tagesordnung und wurden aktualisiert."
   im: IM
   information: 
     information1: "Dies sind die Bereiche gehören Sie zu"

@@ -11,49 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130823182640) do
-
-  create_table "agenda_dividers", :force => true do |t|
-    t.integer  "agenda_id"
-    t.string   "title"
-    t.datetime "start_time"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-    t.datetime "end_time"
-  end
-
-  create_table "agenda_entries", :force => true do |t|
-    t.integer  "agenda_id"
-    t.string   "title"
-    t.text     "description"
-    t.string   "speakers"
-    t.datetime "start_time"
-    t.datetime "end_time"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
-    t.text     "embedded_video"
-    t.text     "video_thumbnail"
-    t.text     "uid"
-    t.text     "divider"
-    t.integer  "video_type"
-  end
-
-  create_table "agenda_record_entries", :force => true do |t|
-    t.integer  "agenda_id"
-    t.string   "title"
-    t.datetime "start_time"
-    t.datetime "end_time"
-    t.boolean  "record"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  create_table "agendas", :force => true do |t|
-    t.integer  "event_id"
-    t.datetime "created_at",                 :null => false
-    t.datetime "updated_at",                 :null => false
-    t.integer  "slot",       :default => 15
-  end
+ActiveRecord::Schema.define(:version => 20130824002328) do
 
   create_table "attachments", :force => true do |t|
     t.string   "type"
@@ -71,7 +29,6 @@ ActiveRecord::Schema.define(:version => 20130823182640) do
     t.integer  "event_id"
     t.integer  "author_id"
     t.string   "author_type"
-    t.integer  "agenda_entry_id"
     t.integer  "version_child_id"
     t.integer  "version_family_id"
   end
@@ -377,7 +334,7 @@ ActiveRecord::Schema.define(:version => 20130823182640) do
     t.string   "smtp_domain"
     t.string   "smtp_auth_type"
     t.string   "smtp_sender"
-    t.string   "timezone",                       :default => "UTC"
+    t.string   "timezone",                       :default => "Brasilia"
     t.string   "external_help"
   end
 
@@ -428,7 +385,7 @@ ActiveRecord::Schema.define(:version => 20130823182640) do
     t.boolean  "superuser",                            :default => false
     t.boolean  "disabled",                             :default => false
     t.datetime "confirmed_at"
-    t.string   "timezone",                             :default => "UTC"
+    t.string   "timezone"
     t.boolean  "expanded_post",                        :default => false
     t.integer  "notification",                         :default => 1
     t.string   "locale"

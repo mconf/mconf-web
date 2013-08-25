@@ -122,12 +122,6 @@ namespace :db do
         event.start_date = event.created_at..1.years.since(Time.now)
         event.end_date = 2.hours.since(event.start_date)..2.days.since(event.start_date)
         event.vc_mode = Event::VC_MODE.index(:in_person)
-
-        Agenda.populate 1 do |agenda|
-          agenda.event_id = event.id
-          agenda.created_at = event.created_at..Time.now
-          agenda.updated_at = agenda.created_at..Time.now
-        end
       end
 
       News.populate 2..10 do |news|

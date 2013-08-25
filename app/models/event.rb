@@ -13,7 +13,6 @@ class Event < ActiveRecord::Base
   has_many :posts, :dependent => :destroy
   has_many :participants, :dependent => :destroy
   has_many :attachments, :dependent => :destroy
-  has_one :agenda, :dependent => :destroy
 
   has_many :invitations, :class_name => "JoinRequest", :foreign_key => "group_id",
            :conditions => { :join_requests => {:group_type => 'Event'} }
@@ -29,7 +28,6 @@ class Event < ActiveRecord::Base
   acts_as_resource :per_page => 10, :param => :permalink
   acts_as_content :reflection => :space
   acts_as_taggable
-  acts_as_container :contents => [:agenda]
   alias_attribute :title, :name
   validates_presence_of :name
 
@@ -60,8 +58,6 @@ class Event < ActiveRecord::Base
 
   before_validation  :event_validation, :update_logo, :edit_date_actions
 
-  after_save :update_agenda_entries
-
   def self.within(from, to)
     where("(start_date >= ? AND start_date <= ?) OR (end_date >= ? AND end_date <= ?)", from, to, from, to)
   end
@@ -77,23 +73,6 @@ class Event < ActiveRecord::Base
   RECORDING_TYPE = [:automatic, :manual, :none]
   EXTRA_TIME_FOR_EVENTS_WITH_MANUAL_REC = 1.hour
 
-  def agenda_entries
-    self.agenda.agenda_entries
-  end
-
-  def update_agenda_entries
-    if self.edit_date_action.eql?("move_event")||self.edit_date_action.eql?("start_date")
-      agenda_entries.each do |agenda_entry|
-        agenda_entry.date_update_action = self.edit_date_action
-        if self.edit_date_action.eql?("move_event")
-          agenda_entry.start_time = agenda_entry.start_time + @relative_time
-          agenda_entry.end_time = agenda_entry.end_time + @relative_time
-        end
-        agenda_entry.save
-      end
-    end
-  end
-
   def event_validation
     if(self.end_date.to_date - self.start_date.to_date > MAX_DAYS)
       self.errors.add(:base, I18n.t('event.error.max_size_excedeed', :max_days => Event::MAX_DAYS))
@@ -107,14 +86,6 @@ class Event < ActiveRecord::Base
 
   def edit_date_actions
     if !self.edit_date_action.nil?
-      if !self.edit_date_action.eql?("move_event")
-        agenda_entries.each do |agenda_entry|
-          if (agenda_entry.start_time < self.start_date) or (agenda_entry.end_time > self.end_date)
-            self.errors.add(:base, I18n.t('event.move.out_date', :agenda_entry => agenda_entry.title))
-            return false
-          end
-        end
-      end
       if self.edit_date_action.eql?("move_event") and self.start_date_changed?
         #@relative_time = self.start_date - self.start_date_was
         #self.end_date = self.end_date + @relative_time
@@ -186,8 +157,6 @@ class Event < ActiveRecord::Base
   end
 
   after_create do |event|
-    #create an empty agenda
-    event.agenda = Agenda.create
     #create a directory to save attachments
     FileUtils.mkdir_p("#{Rails.root.to_s}/attachments/conferences/#{event.permalink}")
     if event.author.present?
@@ -261,10 +230,6 @@ class Event < ActiveRecord::Base
     end
   end
 
-  def videos
-    self.agenda.agenda_entries.select{|ae| ae.past? & ae.recording?}
-  end
-
   def space
     space_id.present? ?
     Space.find_with_disabled(space_id) :
@@ -284,42 +249,6 @@ class Event < ActiveRecord::Base
     end
   end
 
-  #method to know if any of the agenda_entry of the event has streaming
-  def has_streaming?
-    if is_in_person?
-      if other_streaming_url== nil || other_streaming_url==""
-        return false
-      else
-        return true
-      end
-    else
-      false
-    end
-  end
-
-  #method to know if any of the agenda_entry of the event has streaming
-  def has_participation?
-    if is_in_person?
-      if other_participation_url== nil || other_participation_url==""
-        return false
-      else
-        return true
-      end
-    else
-      false
-    end
-  end
-
-  #method to know everything about streaming
-  def show_streaming?
-    is_happening_now? || is_in_person?
-  end
-
-  #method to know if we need to paint the participation button
-  def show_participation?
-    is_happening_now? || is_in_person?
-  end
-
   #method to know if this event is happening now
   def is_happening_now?
     #first we check if start date is past and end date is future
@@ -328,29 +257,6 @@ class Event < ActiveRecord::Base
     else
       return false
     end
-  end
-
-  #method to know if we show the recording box in the event to record the event
-  def show_recording_box?
-    if is_happening_now?
-      return true
-    end
-  end
-
-  #method to know if this event has any session now
-  def has_session_now?
-    get_session_now
-  end
-
-  def get_session_now
-    #first we check if start date is past and end date is future
-    if is_happening_now?
-      #now we check the sessions
-      agenda.agenda_entries.each do |entry|
-        return entry if entry.start_time.past? && entry.end_time.future?
-      end
-    end
-    return nil
   end
 
   #method to know if an event happens in the future

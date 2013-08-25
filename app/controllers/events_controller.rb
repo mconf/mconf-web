@@ -5,10 +5,6 @@
 # This file is licensed under the Affero General Public License version
 # 3 or later. See the LICENSE file.
 
-require 'vpim/icalendar'
-require 'vpim/vevent'
-require 'vpim/duration'
-
 class EventsController < ApplicationController
   # Include basic Resource methods
   # See documentation: ActionController::StationResources
@@ -64,7 +60,6 @@ class EventsController < ApplicationController
     @no_assistants = @event.participants.select{|p| p.attend != true}
     @not_responding_candidates = @event.invitations.select{|e| !e.candidate.nil? && !e.processed?}
     @not_responding_emails = @event.invitations.select{|e| e.candidate.nil? && !e.processed?}
-    @agenda_entry = AgendaEntry.new
 
     #For event repository
     @attachments,@tags = Attachment.repository_attachments(@event, params)
@@ -140,39 +135,10 @@ class EventsController < ApplicationController
         @event.tag_with(params[:tags]) if params[:tags] #pone las tags a la entrada asociada al evento
         flash[:success] = t('event.updated')
         format.html {
-          #if (params[:event][:invited_unregistered]).blank? && (params[:event][:invited_registered]).blank?
-          #  if params[:in_steps]
-          #    redirect_to edit_space_event_agenda_path(space, @event, :in_steps=>params[:in_steps])
-          #  else
-          #    redirect_to edit_space_event_agenda_path(space, @event)
-          #  end
-          #else
-          #  flash[:success] = t('event_invitation.sent')
-          #  if params[:in_steps]
-          #    if params[:event][:invited_registered]
-          #      redirect_to space_event_path(@space, @event, :in_steps=>params[:in_steps], :step=>"3", :invited_registered=>true)
-          #    elsif params[:event][:invited_unregistered]
-          #      redirect_to space_event_path(@space, @event, :in_steps=>params[:in_steps], :step=>"3", :invited_unregistered=>true)
-          #    else
-          #      redirect_to space_event_path(@space, @event, :in_steps=>params[:in_steps], :step=>"3")
-          #    end
-          #  else
-          #    if params[:event][:invited_registered]
-          #      redirect_to space_event_path(@space, @event, :in_steps=>false, :step=>"3", :invited_registered=>true)
-          #    elsif params[:event][:invited_unregistered]
-          #      redirect_to space_event_path(@space, @event, :in_steps=>false, :step=>"3", :invited_unregistered=>true)
-          #    else
-          #      redirect_to space_event_path(@space, @event, :in_steps=>false, :step=>"3")
-          #    end
-          #  end
-          #end
           redirect_to space_event_path(@space, @event)
         }
         format.xml  { head :ok }
         format.js{
-          #if params[:event][:other_streaming_url]
-          #  @result = params[:event][:other_streaming_url]
-          #end
           if params[:event][:other_participation_url]
             @result = params[:event][:other_participation_url]
           end
@@ -224,21 +190,7 @@ class EventsController < ApplicationController
     @future_events = @events.select{|e| e.start_date.future?}
     @past_events = @events.select{|e| e.start_date.past?}.sort!{|x,y| y.start_date <=> x.start_date} #Los eventos pasados van en otro inversos
   end
-=begin
-  def export_ical
-      calen = Vpim::Icalendar.create2
-      calen.add_event do |e|
-        e.dtstart @event.start_date
-        e.dtend   @event.end_date
-        e.description @event.description
-        e.summary   @event.name
-        e.set_text('LOCATION', @event.place)
-      end
-      icsfile = calen.encode
-      send_data icsfile, :filename => "#{@event.name}.ics"
 
-  end
-=end
   def events
       @events = (Event.in(@space).all :order => "start_date ASC")
 

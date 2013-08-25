@@ -40,43 +40,6 @@ pt-br:
     other: Admissões
   advanced: Avançado
   advanced_editor: "Editor avançado"
-  agenda:
-    del_entry: Remover
-    divider:
-      edit: "Editar Divisor"
-      error:
-        coinciding_times: "Há um conflito entre o horário do novo divisor e entradas ou divisores existentes"
-        date_out_of_event: "A data do divisor excede a duração máxima do evento: %{max_days} dias"
-        past_times: "Este tipo de evento não pode ter períodos no passado"
-      new: "Novo divisor de agenda"
-      one: Divisor
-      start_time: "Horário inicial"
-      title: Título
-    edit: "Editar agenda"
-    entry:
-      description: Descrição
-      documents: "Documentos relacionados"
-      duration: Duração
-      edit: "Editar item da sessão"
-      embedded_video: "Embutir vídeo na entrada"
-      error:
-        attribute_unchangeable: "Você tentou modificar um atributo não modificável para esta sessão"
-        coinciding_times: "Há um conflito entre o horário da nova entrada da agenda e entradas ou divisores existentes"
-        delete: "Erro removendo sessão no sistema remoto de videoconferência"
-        disordered_times: "O horário inicial deve ser menor que o horário final"
-        out_of_event: "Parte do horário da sessão está fora dos limites do evento"
-        past_times: "O horário inicial da sessão deve ser %{min_data} ou posterior"
-      label_title_video_type: "Gravação de vídeo"
-      new: "Nova entrada na agenda"
-      options:
-        streaming: "Streaming de vídeo"
-      speakers: Palestrantes
-      start_time: "Horário inicial"
-      title: Título
-      upload_video: "O vídeo deve ter extensão FLV."
-    error:
-      omit_title: "Um título deve ser dado para a entrada da agenda"
-    upload_file: "Enviar Arquivo"
   agent:
     authentication:
       confirm_password: "Confirme a senha"
@@ -440,8 +403,6 @@ pt-br:
     other: Erros
     vcc_warning: "Aviso geral:"
   event:
-    agenda:
-      see: "Ver na agenda"
     assistance_title: Participação
     assistants_none: "Ninguém confirmou ainda"
     basic_info: "Introduzir informação básica"
@@ -518,7 +479,6 @@ pt-br:
       change_event_start_date_div: "<b>Alterar a data final do evento:</b> Esta opção permite expandir o horário do evento movendo o horário inicial. Esta mudança afetará somente para o horário inicial do evento e nada mais (as sessões permanecerão com mesmo horário). Use esta opção se você precisar de mais tempo antes do horário inicial do seu evento."
       change_start_date: "Alterar data de início do evento"
       no_change: "Nenhuma mudança"
-      out_date: "A entrada de agenda com título \"%{agenda_entry}\" estará fora do evento e isso não é permitido. Mova ou edite as suas sessões para permitir que essa alteração seja feita."
     new:
       basic: "Informações básicas"
       conference: "Congresso Virtual"
@@ -582,7 +542,6 @@ pt-br:
       share: Compartilhe
     repository:
       enabled: "Ativar repositório de documentos"
-      help: "Este repositório apresenta os documentos carregados nas sessões da agenda do evento"
       title: "Documentos de evento"
     spam: "Spam em eventos"
     start: "Reinicie o evento"
@@ -616,7 +575,6 @@ pt-br:
     tomorrow: "Eventos de amanhã"
     undated:
       show: "Mostrar todos os eventos sem data"
-      title: "Eventos sem agenda definida"
     upcoming:
       all: "Todos os programados (%{size})"
       my_other: "Meus próximos events"
@@ -695,15 +653,6 @@ pt-br:
       create_space: "Criar uma nova comunidade"
       view_all_activity: "Ver todas suas atividades"
       view_all_spaces: "Ver todas comunidades"
-  icalendar:
-    error_import: "Ocorreu um erro ao importar o iCalendar."
-    import: "Importar iCalendar"
-    importMessage1: "Um total de"
-    importMessage2: "foram lidos a partir do seu iCalendar."
-    importMessage3: "deles foram salvos ou atualizados corretamente."
-    report: "Relatório:"
-    updated1: "Uma entrada de seu iCalendar já estava em sua agenda de eventos e foi atualizada."
-    updatedn: "entradas de seu iCalendar já estavam em sua agenda de eventos e foram atualizadas."
   icons: 
     unread_message: "Mensage não lida!"
     unread_message_by_receiver: "Esta mensagem ainda não foi lida pelo usuário que a recebeu"
@@ -1356,7 +1305,6 @@ pt-br:
     doc_search: "Use os campos deste lado para filtrar e atualizar a tabela de documentos com seus resultados da pesquisa"
     embed_help: "Pode ser preenchido com código HTML para inserir um vídeo"
     event_logo: "Você pode enviar o seu próprio logotipo, criar um logotipo de texto ou selecionar uma imagem da galeria"
-    inperson: "O tipo Em-pessoa é basicamente projetado para atender às reuniões físicas ou offline para as quais você não precisa gravação ou streaming de vídeo, mas, apesar disso, gostaria de ter funcionalidades que tornam o tratamento de uma reunião mais simples - como criar e modificar uma agenda que as pessoas possam consultar ou importar em seu calendário. Além disso, você pode querer fornecer os documentos necessários para a reunião ou posteriormente compartilhar fotos tiradas durante a reunião."
     insert: "Use este código para inserir este vídeo em seu blog ou página web."
     invite_people: "Invite people to this Webconference."
     latest_news: "Esta seção mostra a notícia de que os administradores enviam para todas as pessoas nesta comunidade"

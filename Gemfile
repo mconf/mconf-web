@@ -46,6 +46,9 @@ gem 'rabl'
 gem 'yajl-ruby' # json parser for rabl
 gem 'strong_parameters' # for bigbluebutton_rails
 
+# Used on Profile to generate a vcard
+gem 'vpim' # TODO: very old, last update on 2009
+
 # for bootstrap
 gem 'less-rails'
 gem 'twitter-bootstrap-rails'
@@ -54,7 +57,6 @@ gem 'valid_email'
 # TODO: Gems to review if we can remove/update
 gem 'galetahub-simple_captcha', :require => 'simple_captcha'
 gem 'attachment_fu', :git => 'git://github.com/mconf/attachment_fu.git'
-gem 'vpim' # vcard and icalendar
 gem 'hpricot'
 gem 'feed-normalizer'
 gem 'httparty'

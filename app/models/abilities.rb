@@ -200,16 +200,8 @@ module Abilities
       # end
 
       # TODO
-      # # AgendaEntry
-      # authorization_delegate(:event,:as => :content)
-      # authorization_delegate(:space,:as => :content)
-      # # Agenda
-      # authorization_delegate(:space,:as => :content)
       # # Permission
       # authorization_delegate(:stage)
-      # # AgendaDivider
-      # authorization_delegate(:event,:as => :content)
-      # authorization_delegate(:space,:as => :content)
     end
   end
 

@@ -22,40 +22,6 @@ es:
     other: Admisiones
   advanced: Avanzada
   advanced_editor: "Editor avanzado"
-  agenda: 
-    del_entry: Borrar
-    divider: 
-      edit: "Editar divisor"
-      error: 
-        coinciding_times: "Hay un conflicto entre la hora del nuevo divisor y las entradas de agenda o divisores ya existentes"
-        date_out_of_event: "La fecha del divisor excede la máxima duración del evento: %{max_days} días"
-        past_times: "Este tipo de evento no puede tener fechas en el pasado"
-      new: "Nuevo divisor de agenda"
-      one: Divisor
-      start_time: "Hora de inicio"
-      title: Título
-    entry: 
-      description: Descripción
-      duration: Duración
-      edit: "Editar elemento de la sesi\\xC3\\xB3n"
-      embedded_video: "Embeber vídeo en la entrada"
-      error: 
-        attribute_unchangeable: "Ha intentado cambiar un atributo inalterable de esta sesión"
-        coinciding_times: "Hay un conflicto entre la hora de la nueva entrada en la agenda, y entradas o divisores ya existentes"
-        delete: "Error al eliminar la sesión en el sistema de videoconferencia"
-        disordered_times: "La hora de inicio debe ser anterior a la hora de finalización"
-        out_of_event: "Parte de la sesi\\xC3\\xB3n cae fuera de los límites del evento"
-        past_times: "La hora de inicio de la sesión debe ser %{min_date} o más tarde"
-      new: "Nueva entrada en la agenda"
-      options: 
-        streaming: "Grabación de streaming"
-      speakers: Intervienen
-      start_time: "Hora de inicio"
-      title: Título
-      upload_video: "El video debe tener la extensión FLV."
-    error: 
-      omit_title: "Debe darse título a la entrada de la agenda"
-    upload_file: "Subir Archivo"
   agent: 
     authentication: 
       confirm_password: "Confirme la contraseña"
@@ -250,7 +216,6 @@ es:
       change_event_start_date_div: "<b>Cambiar fecha de inicio del evento:</b> Esta opción le permite cambiar la duración de su evento moviendo la fecha de inicio. Este cambio solo afectará a la fecha de inicio del evento, no afectará a la hora de inicio de las sesiones y no cambiará nada más (las sesiones mantendrán el mismo horario). Usa esta opción solo si necesita más tiempo antes de la fecha actual de inicio de su evento."
       change_start_date: "Cambiar fecha de inicio del evento"
       no_change: "Sin cambios"
-      out_date: "La sesión con título \"%{agenda_entry}\" estará fuera del evento y eso no está permitido. Mueva o edite sus sesiones para permitir que este cambio se realice."
     new: 
       conference: "Congreso virtual"
       meeting: "Reunión virtual"
@@ -325,7 +290,6 @@ es:
     tomorrow: "Eventos de mañana"
     undated: 
       show: "Mostrar todos los eventos sin fecha"
-      title: "Eventos sin agenda definida"
     upcoming: 
       all: "Todos los eventos por celebrarse (%{size})"
       next_month: "No hay eventos para el próximo mes"
@@ -373,15 +337,6 @@ es:
     activity: "Actividad reciente..."
     my: Inicio
     one: Inicio
-  icalendar: 
-    error_import: "Se produjo un error al importar el iCalendar."
-    import: "Importar de iCalendar"
-    importMessage1: "Un total de"
-    importMessage2: "se leyeron desde su iCalendar."
-    importMessage3: "de ellos se salvaron o actualizaron correctamente."
-    report: "Informe:"
-    updated1: "Una entrada de su iCalendar ya figuraba en la agenda del evento y se ha actualizado."
-    updatedn: "entradas de su iCalendar ya figuraban en la agenda del evento y se han actualizado."
   im: "Mensajería Instantánea"
   inbox: 
     my: "Mis mensajes (%{checked})"

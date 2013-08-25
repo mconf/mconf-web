@@ -29,10 +29,7 @@
 
 = render :partial => "event_card_show"
 
-- if params[:show_streaming] || params[:show_participation]
-  = render :partial => 'participants'
-- else
-  = render :partial => 'participants'
+= render :partial => "participants"
 
 - if can?(:update, event)
   = render :partial => "actions"

@@ -14,8 +14,6 @@ class Attachment < ActiveRecord::Base
   belongs_to :space
   belongs_to :event
   belongs_to :author, :polymorphic => true
-  belongs_to :agenda_entry
-
 
   has_attachment :max_size => 1000.megabyte,
                  :path_prefix => 'attachments',
@@ -81,14 +79,6 @@ class Attachment < ActiveRecord::Base
 
   public
 
-  before_validation do |attachment|
-
-    if attachment.agenda_entry_id
-      attachment.event = AgendaEntry.find(attachment.agenda_entry_id).event
-    end
-
-  end
-
   after_validation do |attachment|
     # Replace 4 missing file errors with a unique, more descriptive error
     missing_file_errors = {
@@ -124,12 +114,6 @@ class Attachment < ActiveRecord::Base
       end
     end
 
-    if attachment.agenda_entry   #if the attachment belongs to an agenda_entry, we create the hard link
-      unless File.exist?("#{Rails.root.to_s}/attachments/conferences/#{attachment.event.permalink}/#{attachment.agenda_entry.title.gsub(" ","_")}/#{attachment.filename}")
-        FileUtils.mkdir_p("#{Rails.root.to_s}/attachments/conferences/#{attachment.event.permalink}/#{attachment.agenda_entry.title.gsub(" ","_")}")
-        FileUtils.ln(attachment.full_filename, "#{Rails.root.to_s}/attachments/conferences/#{attachment.event.permalink}/#{attachment.agenda_entry.title.gsub(" ","_")}/#{attachment.filename}")
-      end
-    end
   end
 
   after_save do |attachment|
@@ -152,11 +136,6 @@ class Attachment < ActiveRecord::Base
       end
     end
 
-    if attachment.agenda_entry   #if the attachment belongs to an agenda_entry, we delete the hard link
-      if File.exist?("#{Rails.root.to_s}/attachments/conferences/#{attachment.event.permalink}/#{attachment.agenda_entry.title.gsub(" ","_")}/#{attachment.filename}")
-        FileUtils.rm_rf("#{Rails.root.to_s}/attachments/conferences/#{attachment.event.permalink}/#{attachment.agenda_entry.title.gsub(" ","_")}/#{attachment.filename}")
-      end
-    end
   end
 
   def thumbnail_size

@@ -22,36 +22,6 @@ fr:
     other: Admissions
   advanced: Avancé
   advanced_editor: "Éditeur avancé"
-  agenda: 
-    del_entry: Effacer
-    divider: 
-      edit: "Modifier Divider"
-      error: 
-        coinciding_times: "Il ya un conflit avec le moment de la séparation et de nouvelles entrées ou des diviseurs de l'ordre du jour en vigueur"
-        date_out_of_event: "La date de la séparation dépasse la durée maximale de l'événement: les jours %{max_days}"
-        past_times: "Ce type d'événement ne peut pas avoir passé"
-      new: "diviseur de l'ordre du jour Nouveau"
-      one: Divider
-      start_time: "Heure de début"
-      title: Titre
-    entry: 
-      edit: "Edit session item"
-      embedded_video: "Intégrer la vidéo à l'entrée"
-      error: 
-        attribute_unchangeable: "Vous avez essayé de changer un attribut immuable de cette session"
-        coinciding_times: "Il ya un conflit avec le moment de l'entrée nouvel ordre du jour et les entrées de l'ordre du jour en vigueur ou des diviseurs"
-        delete: "Erreur de suppression de session de système de visioconférence à distance"
-        disordered_times: "L'heure de début doit être antérieure à l'heure de fin"
-        past_times: "L'heure de début de la session doit être %{min_date} ou plus tard"
-      new: "entrée nouvel agenda"
-      options: 
-        streaming: "Video streaming"
-      speakers: Haut-parleurs
-      start_time: "Heure de début"
-      title: Titre
-    error: 
-      omit_title: "Un produit doit être donnée à l'entrée du jour"
-    upload_file: "Upload File"
   agent: 
     authentication: 
       confirm_password: "Confirmer Mot de passe"
@@ -253,7 +223,6 @@ fr:
       today: "Aucune manifestation d'hier, ni aujourd'hui."
     repository: 
       enabled: "Activer référentiel de documents?"
-      help: "Ce référentiel montrent les documents téléchargés dans les sessions de l'ordre du jour événement"
       title: "documents de l'événement"
     spam: "Spam dans les événements"
     start: "Premier événement"
@@ -269,7 +238,6 @@ fr:
     tomorrow: "Demain événements"
     undated: 
       show: "Afficher tous les événements sans date"
-      title: "Evénements sans ordre du jour défini"
     upcoming: 
       all: "Tous à venir (%{size})"
       next_month: "Il n'y a aucun événement pour le mois prochain"
@@ -310,14 +278,6 @@ fr:
     activity: "Activité récente ..."
     my: "Ma page d'accueil"
     one: maison
-  icalendar: 
-    error_import: "Une erreur s'est produite lors de l'importation du iCalendar."
-    importMessage1: "Un total de"
-    importMessage2: "ont été lus à partir de votre iCalendar."
-    importMessage3: "d'entre eux ont été sauvés ou mis à jour correctement."
-    report: "Rapport:"
-    updated1: "Une entrée de votre iCalendar étaient déjà sur votre agenda l'événement et ont été mis à jour."
-    updatedn: "entrées de votre iCalendar étaient déjà sur votre agenda événement et ont été mis à jour."
   im: IM
   inbox: 
     my: "Ma boîte de réception (((vérifier)))"

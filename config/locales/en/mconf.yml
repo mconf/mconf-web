@@ -41,43 +41,6 @@ en:
     other: Admissions
   advanced: Advanced
   advanced_editor: "Advanced editor"
-  agenda: 
-    del_entry: Delete
-    divider: 
-      edit: "Edit Divider"
-      error: 
-        coinciding_times: "There is a conflict with the time of the new divider and existing agenda entries or dividers"
-        date_out_of_event: "The date of the divider exceeds the maximum duration of the event: %{max_days} days"
-        past_times: "This type of event cannot have past times"
-      new: "New agenda divider"
-      one: Divider
-      start_time: "Start time"
-      title: Title
-    edit: "Edit agenda"
-    entry: 
-      description: Description
-      documents: "Related documents"
-      duration: Duration
-      edit: "Edit session item"
-      embedded_video: "Embed video for the entry"
-      error: 
-        attribute_unchangeable: "You have tried to change an unchangeable attribute for this session"
-        coinciding_times: "There is a conflict with the time of the new agenda entry and existing agenda entries or dividers"
-        delete: "Error deleting session in remote videoconference system"
-        disordered_times: "The start time must be previous to the end time"
-        out_of_event: "Part of the session time falls out of the event limits"
-        past_times: "The start time of the session must be %{min_date} or later"
-      label_title_video_type: "Video recording"
-      new: "New agenda entry"
-      options: 
-        streaming: "Video streaming"
-      speakers: Speakers
-      start_time: "Start time"
-      title: Title
-      upload_video: "The video must have the extension FLV."
-    error: 
-      omit_title: "A title must be given for the agenda entry"
-    upload_file: "Upload File"
   agent: 
     authentication: 
       confirm_password: "Confirm Password"
@@ -450,8 +413,6 @@ en:
     other: Errors
     vcc_warning: "Warning:"
   event: 
-    agenda: 
-      see: "See on agenda"
     assistance_title: Participation
     assistants_none: "Nobody has confirmed yet"
     basic_info: "Introduce basic information"
@@ -528,7 +489,6 @@ en:
       change_event_start_date_div: "<b>Change event start date:</b> This option lets you expand you event time by moving the start time. This change will only affect to the event start time and won't change anything more (the sessions will remain in the same time). Use this option if you need more time before you current event star time."
       change_start_date: "Change event start date"
       no_change: "No change"
-      out_date: "The agenda entry which title is \"%{agenda_entry}\" will be out of the event and it's not allowed. Move or edit your sessions to allow this change to be done."
     new: 
       basic: "Basic information"
       conference: "Virtual Congress"
@@ -592,7 +552,6 @@ en:
       share: Share
     repository: 
       enabled: "Enable document repository"
-      help: "This repository shows the documents uploaded in the sessions of the event agenda"
       title: "Event documents"
     spam: "Spam in events"
     start: "Restart event"
@@ -621,7 +580,6 @@ en:
     tomorrow: "Tomorrow events"
     undated: 
       show: "Show all undated events"
-      title: "Events without agenda defined"
     upcoming: 
       all: "All upcoming (%{size})"
       my_other: "My upcoming events"
@@ -718,15 +676,6 @@ en:
       create_space: "Create a new space"
       view_all_activity: "View all your activity"
       view_all_spaces: "View all spaces"
-  icalendar: 
-    error_import: "An error ocurred while importing the iCalendar."
-    import: "Import iCalendar"
-    importMessage1: "A total of "
-    importMessage2: " were read from your iCalendar."
-    importMessage3: " of them were saved or updated correctly."
-    report: "Report: "
-    updated1: "One entry of your iCalendar were already on your event agenda and were updated. "
-    updatedn: " entries of your iCalendar were already on your event agenda and were updated. "
   icons: 
     unread_message: "Unread message!"
     unread_message_by_receiver: "This message has not yet been read by the receiver"
@@ -1404,7 +1353,6 @@ en:
     doc_search: "Use the fields in this side to filter and update the docs table with your search results"
     embed_help: "Can be filled with HTML code to embed a video"
     event_logo: "You can update your own logo, create a text logo or select an image from the gallery"
-    inperson: "The In-person type is basically designed to suit physical meetings or offline meetings for which you won't need video recording or streaming but would nevertheless prefer to have features that make handling a meeting simpler - like creating and modifying an agenda that people can consult or import in their calendar. Also, you might wnat to provide documents needed for the meeting or later share pictures taken at the meeting."
     insert: "Use this code to insert this video in your blog or web page."
     invite_people: "Invite people to this Webconference."
     latest_news: "This section shows the piece of news that the administrators send to all the people in this space"

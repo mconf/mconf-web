@@ -95,11 +95,7 @@ class AttachmentsController < ApplicationController
 
   # Redirect to spaces/:permalink/attachments if new attachment is created
   def after_create_with_success
-    if @attachment.agenda_entry
-      redirect_to(space_event_path(@space, @attachment.agenda_entry.event, :show_agenda=>true, :show_day => @attachment.agenda_entry.event_day))
-    else
-      redirect_to [ space, Attachment.new ]
-    end
+    redirect_to [ space, Attachment.new ]
   end
 
   def after_update_with_success
@@ -108,14 +104,9 @@ class AttachmentsController < ApplicationController
 
   def after_create_with_errors
     flash[:error] =  @attachment.errors.to_xml
-
-    if @attachment.agenda_entry
-      redirect_to(space_event_path(@space, @attachment.agenda_entry.event, :show_agenda=>true, :show_day => @attachment.agenda_entry.event_day))
-    else
-      attachments
-      render :action => :index
-      flash.delete([:error])
-    end
+    attachments
+    render :action => :index
+    flash.delete([:error])
   end
 
   def after_update_with_errors

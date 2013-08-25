@@ -43,15 +43,6 @@
               = t('event.view_participation')
             - else
               = link_to t('event.view_participation'), space_event_path(@space, @event, :show_participation => true)
-          - if @event.agenda.has_past_session_with_video?
-            - if isfirst
-              - isfirst=false
-            - else
-              = ","
-            = link_to t('event.view_recordings'), space_event_path(@space, @event, :show_video => @event.agenda.first_video_entry_id)
-          - elsif @event.agenda.has_entries_with_video?
-            = ","
-            = t('event.view_recordings')
 
     .thread-text
       %p
