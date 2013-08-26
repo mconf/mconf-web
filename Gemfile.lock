@@ -218,6 +218,11 @@ GEM
     populator (1.0.0)
     prism (0.1.0)
       nokogiri
+    public_activity (1.4.0)
+      actionpack (>= 3.0.0)
+      activerecord (>= 3.0)
+      i18n (>= 0.5.0)
+      railties (>= 3.0.0)
     rabl (0.7.1)
       activesupport (>= 2.3.14)
       multi_json (~> 1.0)
@@ -381,6 +386,7 @@ DEPENDENCIES
   passenger (= 3.0.17)
   populator
   prism
+  public_activity
   rabl
   rails (= 3.2.11)
   rails-footnotes

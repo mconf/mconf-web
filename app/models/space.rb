@@ -7,6 +7,8 @@
 
 class Space < ActiveRecord::Base
 
+  include PublicActivity::Common
+
   # TODO: temporary, review
   USER_ROLES = ["Admin", "User"]
 

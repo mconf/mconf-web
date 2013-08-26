@@ -26,7 +26,11 @@
     -#   = t('per_page')
 
   #users-recent-activity-content.content-block-middle
-    = render "users/recent_activity_content", :content => content, :paginate => paginate
+    - for activity in @recent_activities
+      .activity{ :id => activity.trackable_type.downcase }
+        = link_to activity.owner.name, activity.owner if activity.owner
+        = activity.key
+        = activity.parameters[:name]
 
   -# TODO: use js to change the pages
   - if not content.empty? and paginate

@@ -125,6 +125,11 @@ class SpacesController < ApplicationController
         @space.add_member!(current_user, 'Admin')
         format.html { redirect_to :action => "show", :id => @space  }
       end
+
+      # public activity
+      @space.create_activity :create, :owner => current_user,
+        :parameters => { :name => @space.name }
+
     else
       respond_with @space do |format|
         format.html { render :action => :new, :layout => "no_sidebar" }
@@ -165,6 +170,11 @@ class SpacesController < ApplicationController
           end
         }
       end
+
+      # public activity
+      @space.create_activity :update, :owner => current_user,
+        :parameters => { :name => @space.name }
+
     else
       respond_to do |format|
         flash[:error] = t('error.change')
@@ -220,7 +230,12 @@ class SpacesController < ApplicationController
             redirect_to root_path
           end
         }
+
+      # public activity
+      @space.create_activity :leave, :owner => current_user,
+        :parameters => { :name => @space.name }
       end
+
     else
       respond_to do |format|
         format.html { redirect_to space_path(@space) }
@@ -324,23 +339,24 @@ class SpacesController < ApplicationController
     join_request.attributes = params[:join_request].except(:role)
     join_request.introducer = current_user if join_request.recently_processed?
 
-    success = false
-    if join_request.accepted? && params[:join_request][:role] && join_request.group_type == 'Space'
-      role = Role.find(params[:join_request][:role])
-      space.add_member!(join_request.candidate, role.name)
-      success = space.save
-    elsif not join_request.accepted?
-      success = true
-    end
-
     respond_to do |format|
-      if success && join_request.save
+      if join_request.save
         format.html {
           flash[:success] = ( join_request.recently_processed? ?
                             ( join_request.accepted? ? t('join_request.accepted') : t('join_request.discarded') ) :
                             t('join_request.updated'))
           redirect_to request.referer
         }
+
+      if join_request.accepted?
+        role = Role.find(params[:join_request][:role])
+        space.add_member!(join_request.candidate, role.name)
+        success = space.save
+
+        @space.create_activity :join, :owner => join_request.candidate,
+          :parameters => { :name => @space.name }
+      end
+
       else
         format.html {
           flash[:error] = join_request.errors.to_xml

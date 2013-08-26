@@ -29,12 +29,8 @@ class UsersController < ApplicationController
 
   def show
     @user_spaces = @user.spaces
-    if @user_spaces.size > 0
-      # TODO: :author_id => @user.username doesn't fell right for me, but it's work right now
-      @recent_activity = ActiveRecord::Content.paginate({ :page=>params[:page], :per_page=>15, :order=>'updated_at DESC', :conditions => {:author_id => @user.username, :author_type => "User"} },{:containers => @user_spaces, :contents => [:posts, :events, :attachments]})
-    else
-      @recent_activity = ActiveRecord::Content.paginate({ :page=>params[:page], :per_page=>15, :order=>'updated_at DESC' },{:containers => @user_spaces, :contents => [:posts, :events, :attachments]})
-    end
+
+    @recent_activities = RecentActivity.where(:owner_id => @user.id).page(params[:page])
 
     @profile = @user.profile!
 

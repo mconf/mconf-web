@@ -54,6 +54,8 @@ gem 'carrierwave'
 # for bootstrap
 gem 'less-rails'
 gem 'twitter-bootstrap-rails'
+
+gem 'public_activity'
 gem 'valid_email'
 
 # TODO: Gems to review if we can remove/update
