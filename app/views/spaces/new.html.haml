@@ -5,7 +5,6 @@
   .left-column
     = simple_form_for @space, :html => {:method => :post, :multipart => true}, :url => spaces_path do |f|
       #new-space-basic-info
-        = f.hidden_field "rand_value"
         = f.input :name, :label => t('name.one')
         = f.input :description, :as => :text, :label => t('description')
         = f.input :public, :hint => t("tooltip.public_space")
