@@ -916,6 +916,7 @@ en:
   post: 
     created: "Message posted!"
     deleted: "Comment %{postname} has been deleted"
+    reply: "in reply to"
     home: 
       one: "Message in space %{space}"
     latest: "Latest messages"

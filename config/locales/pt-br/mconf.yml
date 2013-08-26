@@ -884,6 +884,7 @@ pt-br:
   popularity: Popularidade
   post:
     deleted: "Comentário %{postname} foi excluído"
+    reply: "em resposta a"
     home:
       one: "Mensagem na comunidade %{space}"
     latest: "Últimas mensagens"
