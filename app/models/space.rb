@@ -5,13 +5,7 @@
 # This file is licensed under the Affero General Public License version
 # 3 or later. See the LICENSE file.
 
-require './lib/logo_helper'
-
 class Space < ActiveRecord::Base
-
-  # Functions to resize, crop, etc
-  # TODO: temporary, this will move out or be refactored
-  include LogoHelper
 
   # TODO: temporary, review
   USER_ROLES = ["Admin", "User"]
