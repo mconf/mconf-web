@@ -24,11 +24,9 @@
         %li= link_to t('remove').downcase, user_message_path(current_user, @message, :private_message => {:deleted_by_sender => true}), :confirm => t('delete.confirm', :element => @message.title), :method => :delete, :title => t('remove')
     .logo-in-thread
       - if sender.disabled?
-        = # logo(sender, :size => 32) # LOGO-REMOVED
         = logo_image(sender, :size => '32')
       - else
-        = # raw(link_logo(sender,:size => 32, :url => user_path(sender), :title => sender.username)) # LOGO-REMOVED
-        = raw(link_logo_image(sender,:size => '32', :url => user_path(sender), :title => sender.username)) # LOOK THIS TITLE
+        = raw(link_logo_image(sender,:size => '32', :url => user_path(sender), :title => sender.username))
     .thread-content
       .thread-title
         - if @message.sender_id.present?

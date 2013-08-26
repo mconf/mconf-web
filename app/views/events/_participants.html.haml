@@ -31,7 +31,6 @@
         %h5= t('user.assist')
         - for participant in @assistants.first(12)
           = link_logo_image(participant.user, :size => '32', :title => participant.user.name, :url => user_path(participant.user))
-          = # link_to logo(participant.user, {:size=>32, :title=> participant.user.name }).html_safe, user_path(participant.user) # LOGO-REMOVED
         .links
           = link_to t('show_list_version_arrows'), space_event_path(@space,@event, :list_assistants => true),:class => "list_assistants"
           = link_to t('more_arrows'), space_event_path(@space,@event, :all_assistants => true),:class => "more_assistants" if @assistants.size > 6
@@ -39,7 +38,6 @@
         %h5= t('user.assist')
         - for participant in @assistants
           = link_logo_image(participant.user, :size => '32', :title => participant.user.name, :url => user_path(participant.user))
-          = # link_to logo(participant.user, {:size=>32, :title=> participant.user.name }).html_safe, user_path(participant.user) # LOGO-REMOVED
         .links
           = link_to t('show_list_version_arrows'), space_event_path(@space,@event, :list_assistants => true),:class => "list_assistants"
           = link_to t('collapse_arrows'), space_event_path(@space,@event), :class => "less_assistants"
@@ -58,7 +56,6 @@
         - for participant in @no_assistants.first(12)
           - if participant.user
             = link_logo_image(participant.user, :size => '32', :title => participant.user.name, :url => user_path(participant.user))
-            = # link_to logo(participant.user, {:size=>32, :title=> participant.user.name }).html_safe, user_path(participant.user) # LOGO-REMOVED
           - else
             = image_tag("avatars/undefined.png", :title=> participant.email )
         .links
@@ -69,7 +66,6 @@
         %h5= t('user.not_assist')
         - for participant in @assistants
           = link_logo_image(participant.user, :size => '32', :title => participant.user.name, :url => user_path(participant.user))
-          = # link_to logo(participant.user, {:size=>32, :title=> participant.user.name }).html_safe, user_path(participant.user) # LOGO-REMOVED
         .links
           = link_to t('show_list_version_arrows'), space_event_path(@space,@event, :list_no_assistants => true), :class => "list_no_assistants"
           = link_to t('collapse_arrows'), space_event_path(@space,@event), :class => "less_no_assistants"
@@ -90,7 +86,6 @@
         - if !@not_responding_candidates.empty?
           - for event_inv in @not_responding_candidates.first(6)
             = link_logo_image(event_inv.candidate, :size => '32', :title => event_inv.candidate.name, :url => user_path(event_inv.candidate))
-            = # link_to logo(event_inv.candidate, {:size=>32, :title=> event_inv.candidate.name }).html_safe, user_path(event_inv.candidate) # LOGO-REMOVED
         - if !@not_responding_emails.empty? and @not_responding_candidates.size < 5
           - for event_inv in @not_responding_emails.first(6 -@not_responding_candidates.size)
             = image_tag("avatars/undefined.png", :title=> event_inv.email )
@@ -105,7 +100,6 @@
         - if !@not_responding_candidates.empty?
           - for event_inv in @not_responding_candidates
             = link_logo_image(event_inv.candidate, :size => '32', :title => event_inv.candidate.name, :url => user_path(event_inv.candidate))
-            = # link_to logo(event_inv.candidate, {:size=>32, :title=> event_inv.candidate.name }).html_safe, user_path(event_inv.candidate) # LOGO-REMOVED
         - if !@not_responding_emails.empty?
           - for event_inv in @not_responding_emails
             = image_tag("avatars/undefined.png", :title=> event_inv.email )

@@ -11,7 +11,6 @@
     <div class="reqs <%='last' if (jr==last_request)%>">
       <div class="reqs-item">
         <div class="invitation-logo">
-          <!-- <%= raw(link_logo(jr.candidate, :url => user_path(jr.candidate),:size=>32, :title=>jr.candidate.name)) %> LOGO-REMOVED  -->
           <%= raw(link_logo_image(jr.candidate, :size => '32', :title => jr.candidate.name, :url => user_path(jr.candidate))) %>
         </div>
         <div class="invitation-content">

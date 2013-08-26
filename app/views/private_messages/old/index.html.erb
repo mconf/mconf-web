@@ -51,7 +51,6 @@ $(document).ready(function() {
               <tr>
                                         <% if params[:sent_messages] %>
                   <%@receiver = User.find_with_disabled(private_message.receiver_id) %>
-                              <!-- <td class="picture"><%= @receiver.disabled? ? logo(@receiver, :size => 32) : raw(link_logo(@receiver,:size=>32, :url => user_path(@receiver))) %></td> LOGO-REMOVED -->
                               <td class="picture"><%= @receiver.disabled? ? logo_image(@receiver, :size => '32') : raw(link_logo_image(@receiver.profile, :size => '32', :url => user_path(@receiver))) %></td>
                                                 <td class="name_date">
                     <span class="name"><%= @receiver.disabled? ? @receiver.name : link_to(@receiver.name, user_path(@receiver))%></span>
@@ -60,7 +59,6 @@ $(document).ready(function() {
                 <% else%>
                   <%if private_message.sender_id.present?%>
                     <%@sender = User.find_with_disabled(private_message.sender_id)%>
-                    <!-- <td class="picture"><%= @sender.disabled? ? logo(@sender, :size => 32) : raw(link_logo(@sender,:size=>32, :url => user_path(@sender), :title=>@sender.username)) %></td> LOGO-REMOVED -->
                     <td class="picture"><%= @sender.disabled? ? logo_image(@sender, :size => '32') : raw(link_logo_image(@sender.profile, :size => '32', :url => user_path(@sender), :title => @sender.username)) %></td>
                     <td class="name_date">
                       <span class="name"><%=@sender.disabled? ? @sender.name : link_to(@sender.name, user_path(@sender))%></span>

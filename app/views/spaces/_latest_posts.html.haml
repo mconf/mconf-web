@@ -11,7 +11,6 @@
       - for post in @latest_posts
         .post-wrapper
           .logo-in-thread
-            = # link_logo(post.author, :size => 32, :url => user_path(post.author), :title => post.author.name).html_safe # LOGO-REMOVED
             = link_logo_image(post.author, :size => '32', :url => user_path(post.author), :title => post.author.name) if post.author
           .post-title-wrapper
             = link_to(first_words(post.title, 40), space_post_path(@space, post), :class => 'post-title')

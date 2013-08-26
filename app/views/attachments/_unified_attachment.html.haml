@@ -1,7 +1,6 @@
 = div_for(attachment, :class => "thread thread-attachment #{cycle("thread-even" , "thread-odd")}") do
 
   .logo-in-thread
-    = # link_logo(attachment.space, :size => 'w48', :url => space_path(attachment.space), :title => attachment.space.name).html_safe # LOGO-REMOVED
     = link_logo_image(attachment.space, :size => '80x60', :url => space_path(attachment.space), :title => attachment.space.name)
 
   .thread-content

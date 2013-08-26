@@ -1,6 +1,5 @@
 - if space && space.id != nil
   .current-page-logo
-    = # logo(space, :size => "h64", :title => space.name).html_safe # LOGO-REMOVED
     = logo_image(space, :size => "80x60", :title => space.name)
   .current-page-title
     - if space.name.size > 30

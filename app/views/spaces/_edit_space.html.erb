@@ -186,7 +186,6 @@ $(document).ready(function() {
     <li>
       <div id="logo_preview">
         <label for="public" class="bold"><%=t('space.clic_logo')%>:</label>
-        <!-- <%= link_to_function logo(@space, :size => 'h128').html_safe, "edit_logo_fun()", :id => "edit_logo"%>  # LOGO-REMOVED -->
         <%= link_to_function logo_image(@space, :size => '160x128'), "edit_logo_fun()", :id => "edit_logo"%>
       </div>
 

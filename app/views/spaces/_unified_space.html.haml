@@ -1,7 +1,6 @@
 - unless space.nil?
   = content_tag(:div, :name => space.permalink, :class => "thread thread-space #{cycle("thread-even" , "thread-odd")} space-item #{@user_spaces.include?(space) ? 'my-space' : 'not-my-space'}") do
     .logo-in-thread
-      = # link_logo(space, options_for_tooltip(sanitize(space.name), :size => 'h48', :"data-placement" => 'bottom')).html_safe # LOGO-REMOVED
       = link_logo_image(space, options_for_tooltip(sanitize(space.name), :size => '80x60', :"data-placement" => 'bottom'))
 
     .thread-content
