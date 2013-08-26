@@ -1,7 +1,7 @@
 = div_for(event, :class => "thread thread-event #{cycle("thread-even" , "thread-odd")}") do
 
   .logo-in-thread
-    = link_logo(event.space, :size => 'w48', :url => space_path(event.space), :title => event.space.name).html_safe
+    = link_logo_image(event.space, :size => '80x60', :url => space_path(event.space), :title => event.space.name)
 
   .thread-content
 

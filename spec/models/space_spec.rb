@@ -55,17 +55,8 @@ describe Space do
   it { should respond_to(:invitations_role_id) }
   it { should respond_to(:"invitations_role_id=") }
 
-  it { should respond_to(:default_logo) }
-  it { should respond_to(:"default_logo=") }
-
-  it { should respond_to(:text_logo) }
-  it { should respond_to(:"text_logo=") }
-
-  it { should respond_to(:rand_value) }
-  it { should respond_to(:"rand_value=") }
-
-  it { should respond_to(:logo_rand) }
-  it { should respond_to(:"logo_rand=") }
+  # it { should respond_to(:default_logo) }
+  # it { should respond_to(:"default_logo=") }
 
   it { should respond_to(:_attendee_password) }
   it { should respond_to(:"_attendee_password=") }

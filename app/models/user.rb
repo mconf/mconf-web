@@ -141,7 +141,7 @@ class User < ActiveRecord::Base
     end
   end
 
-  delegate :full_name, :logo, :organization, :city, :country, :to => :profile!
+  delegate :full_name, :logo, :organization, :city, :country, :logo_image, :logo_image_url, :to => :profile!
   alias_attribute :name, :full_name
   alias_attribute :title, :full_name
   alias_attribute :permalink, :username

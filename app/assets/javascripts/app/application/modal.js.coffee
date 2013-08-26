@@ -22,6 +22,7 @@ class mconf.Modal
       delete options.target
     else
       el = $("<div/>")
+      el.append(options.data) if options.data?
     jQuery.extend localOptions, options
 
     # events

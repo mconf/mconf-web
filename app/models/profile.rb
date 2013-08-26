@@ -11,11 +11,20 @@ require 'prism'
 class Profile < ActiveRecord::Base
   attr_accessor :vcard
 
+  attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
+  mount_uploader :logo_image, LogoImageUploader
+
+  after_create :crop_avatar
+  after_update :crop_avatar
+
+  def crop_avatar
+    logo_image.recreate_versions! if crop_x.present?
+  end
+
   belongs_to :user
   accepts_nested_attributes_for :user
 
   acts_as_taggable :container => false
-  has_logo :class_name => "Avatar"
 
   # The order implies inclusion: everybody > members > public_fellows > private_fellows
   VISIBILITY = [:everybody, :members, :public_fellows, :private_fellows, :nobody]

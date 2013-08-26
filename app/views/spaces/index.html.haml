@@ -15,7 +15,7 @@
     - @spaces.each do |space|
       .content-block-middle{:id => "#{space.permalink}-description", :style => "display:none;"}
         .space-logo
-          = link_logo(space, :size => 'h128', :title => sanitize(space.name)).html_safe
+          = link_logo_image(space, :size => '160x128', :title => sanitize(space.name))
         = link_to space_path(space) do
           %h3= sanitize(space.name)
         %p.description= sanitize(space.description)

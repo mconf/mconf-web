@@ -315,8 +315,8 @@
 
     var boundx = $img.width(),
         boundy = $img.height(),
-        
-        
+
+
         $div = $('<div />').width(boundx).height(boundy).addClass(cssClass('holder')).css({
         position: 'relative',
         backgroundColor: options.bgColor
@@ -330,21 +330,21 @@
     var $img2 = $('<img />')
         .attr('src', $img.attr('src')).css(img_css).width(boundx).height(boundy),
 
-        $img_holder = $('<div />') 
+        $img_holder = $('<div />')
         .width(pct(100)).height(pct(100)).css({
           zIndex: 310,
           position: 'absolute',
           overflow: 'hidden'
         }).append($img2),
 
-        $hdl_holder = $('<div />') 
-        .width(pct(100)).height(pct(100)).css('zIndex', 320), 
+        $hdl_holder = $('<div />')
+        .width(pct(100)).height(pct(100)).css('zIndex', 320),
 
-        $sel = $('<div />') 
+        $sel = $('<div />')
         .css({
           position: 'absolute',
           zIndex: 300
-        }).insertBefore($img).append($img_holder, $hdl_holder); 
+        }).insertBefore($img).append($img_holder, $hdl_holder);
 
     if (ie6mode) {
       $sel.css({
@@ -370,7 +370,7 @@
     // }}}
     // }}}
     // Internal Modules {{{
-    // Touch Module {{{ 
+    // Touch Module {{{
     var Touch = (function () {
       // Touch support detection function adapted (under MIT License)
       // from code by Jeffrey Sambells - http://github.com/iamamused/
@@ -506,8 +506,8 @@
         // This function could use some optimization I think...
         var aspect = options.aspectRatio,
             min_x = options.minSize[0] / xscale,
-            
-            
+
+
             //min_y = options.minSize[1]/yscale,
             max_x = options.maxSize[0] / xscale,
             max_y = options.maxSize[1] / yscale,
@@ -887,9 +887,9 @@
         moveto(c.x, c.y);
 
 /*
-			options.drawBorders &&
-				borders.right.css({ left: px(c.w-1) }) &&
-					borders.bottom.css({ top: px(c.h-1) });
+                        options.drawBorders &&
+                                borders.right.css({ left: px(c.w-1) }) &&
+                                        borders.bottom.css({ top: px(c.h-1) });
       */
 
         if (seehandles) {
@@ -952,7 +952,7 @@
       {
         seehandles = false;
         $hdl_holder.hide();
-      } 
+      }
       //}}}
       function animMode(v) //{{{
       {
@@ -961,13 +961,13 @@
         } else {
           enableHandles();
         }
-      } 
+      }
       //}}}
       function done() //{{{
       {
         animMode(false);
         refresh();
-      } 
+      }
       //}}}
       /* Insert draggable elements {{{*/
 
@@ -997,7 +997,7 @@
         createHandles(['sw', 'nw', 'ne', 'se']);
       }
 
-      
+
       //}}}
 
       var $track = newTracker().mousedown(createDragger('move')).css({
@@ -1034,7 +1034,7 @@
         done: done
       };
     }());
-    
+
     //}}}
     // Tracker Module {{{
     var Tracker = (function () {
@@ -1052,7 +1052,7 @@
             .bind('mousemove',trackMove)
             .bind('mouseup',trackUp);
         }
-      } 
+      }
       //}}}
       function toBack() //{{{
       {
@@ -1064,13 +1064,13 @@
             .unbind('mousemove', trackMove)
             .unbind('mouseup', trackUp);
         }
-      } 
+      }
       //}}}
       function trackMove(e) //{{{
       {
         onMove(mouseAbs(e));
         return false;
-      } 
+      }
       //}}}
       function trackUp(e) //{{{
       {
@@ -1598,3 +1598,67 @@
 
   // }}}
 }(jQuery));
+
+// Limit scope pollution from any deprecated API
+(function() {
+
+    var matched, browser;
+
+// Use of jQuery.browser is frowned upon.
+// More details: http://api.jquery.com/jQuery.browser
+// jQuery.uaMatch maintained for back-compat
+    jQuery.uaMatch = function( ua ) {
+        ua = ua.toLowerCase();
+
+        var match = /(chrome)[ \/]([\w.]+)/.exec( ua ) ||
+            /(webkit)[ \/]([\w.]+)/.exec( ua ) ||
+            /(opera)(?:.*version|)[ \/]([\w.]+)/.exec( ua ) ||
+            /(msie) ([\w.]+)/.exec( ua ) ||
+            ua.indexOf("compatible") < 0 && /(mozilla)(?:.*? rv:([\w.]+)|)/.exec( ua ) ||
+            [];
+
+        return {
+            browser: match[ 1 ] || "",
+            version: match[ 2 ] || "0"
+        };
+    };
+
+    matched = jQuery.uaMatch( navigator.userAgent );
+    browser = {};
+
+    if ( matched.browser ) {
+        browser[ matched.browser ] = true;
+        browser.version = matched.version;
+    }
+
+// Chrome is Webkit, but Webkit is also Safari.
+    if ( browser.chrome ) {
+        browser.webkit = true;
+    } else if ( browser.webkit ) {
+        browser.safari = true;
+    }
+
+    jQuery.browser = browser;
+
+    jQuery.sub = function() {
+        function jQuerySub( selector, context ) {
+            return new jQuerySub.fn.init( selector, context );
+        }
+        jQuery.extend( true, jQuerySub, this );
+        jQuerySub.superclass = this;
+        jQuerySub.fn = jQuerySub.prototype = this();
+        jQuerySub.fn.constructor = jQuerySub;
+        jQuerySub.sub = this.sub;
+        jQuerySub.fn.init = function init( selector, context ) {
+            if ( context && context instanceof jQuery && !(context instanceof jQuerySub) ) {
+                context = jQuerySub( context );
+            }
+
+            return jQuery.fn.init.call( this, selector, context, rootjQuerySub );
+        };
+        jQuerySub.fn.init.prototype = jQuerySub.fn;
+        var rootjQuerySub = jQuerySub(document);
+        return jQuerySub;
+    };
+
+})();

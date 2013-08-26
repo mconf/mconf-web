@@ -27,6 +27,8 @@ Mconf::Application.routes.draw do
     put  "#{controller}/:id/join_requests/:jr_id", :to => "#{controller}#join_request_update", :as => "update_#{singular}_join_request"
   end
 
+  match "logo_images/crop", :to => 'logo_images#crop'
+
   # devise
   controllers = { :sessions => "sessions", :registrations => "registrations" }
   paths = { :sign_in => "login", :sign_out => "logout", :sign_up => "signup" }
@@ -51,12 +53,6 @@ Mconf::Application.routes.draw do
   # shibboleth controller
   match '/secure', :to => 'shibboleth#create', :as => "shibboleth"
   match '/secure/info', :to => 'shibboleth#info', :as => "shibboleth_info"
-
-  resources :logos do
-    collection do
-      post :new
-    end
-  end
 
   resources :machines do
     collection do
@@ -95,12 +91,6 @@ Mconf::Application.routes.draw do
       end
 
       resources :participants
-
-      resource :logo, :controller => 'event_logos' do
-        member do
-          post :precrop
-        end
-      end
     end
 
     resources :posts do
@@ -120,12 +110,6 @@ Mconf::Application.routes.draw do
     end
 
     resources :entries
-    resource :logo do
-      member do
-        post :new
-        post :precrop
-      end
-    end
 
     resources :news
   end
@@ -148,9 +132,8 @@ Mconf::Application.routes.draw do
     match '/webconference/edit' => 'webconferences#user_edit'
 
     resources :private_messages, :except => [:edit], :as => 'messages'
-    resource :profile, :except => [:new, :create] do
-      resource :logo
-    end
+    resource :profile, :except => [:new, :create]
+
     resource :avatar do
       member do
         post :precrop
