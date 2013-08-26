@@ -19,6 +19,16 @@ class Space < ActiveRecord::Base
 
   has_logo
 
+  attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
+  mount_uploader :logo_image, LogoImageUploader
+
+  after_create :crop_avatar
+  after_update :crop_avatar
+
+  def crop_avatar
+    logo_image.recreate_versions! if crop_x.present?
+  end
+
   extend FriendlyId
   friendly_id :name, :use => :slugged, :slug_column => :permalink
 

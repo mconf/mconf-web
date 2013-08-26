@@ -4,7 +4,8 @@
 
   - else
     .logo-in-thread
-      = link_logo(news.space, :size => 'w48', :url => space_path(news.space), :title => news.space.name).html_safe
+      = # link_logo(news.space, :size => 'w48', :url => space_path(news.space), :title => news.space.name).html_safe #LOGO-REMOVED
+      = link_logo_image(news.space, :size => '80x60', :url => space_path(news.space), :title => news.space.name)
 
     .thread-content
 

@@ -41,8 +41,12 @@ bindAjaxToCropForm = ->
     success: (data) ->
       $(document).trigger "crop-form-success", data
       mconf.Modal.closeWindows();
+      $('#logo_image').empty()
+      $('#logo_image').html($(data).find('#logo_image'))
+      $("form.form-for-crop").resetForm()
     error: () ->
       $(document).trigger "crop-form-error"
+      $("form.form-for-crop").resetForm()
 
 # All forms with '.form-for-crop' will be associated with the crop
 # functionality. The contents returned after the form is submitted are

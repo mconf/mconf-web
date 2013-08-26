@@ -12,7 +12,7 @@
       <div class="reqs-item">
         <div class="invitation-logo">
           <!-- <%= raw(link_logo(jr.candidate, :url => user_path(jr.candidate),:size=>32, :title=>jr.candidate.name)) %> LOGO-REMOVED  -->
-          <%= raw(link_logo_image(:model => jr.candidate, :size => '32', :title => jr.candidate.name, :url => user_path(jr.candidate))) %>
+          <%= raw(link_logo_image(jr.candidate, :size => '32', :title => jr.candidate.name, :url => user_path(jr.candidate))) %>
         </div>
         <div class="invitation-content">
           <span class="unified_user"><%=link_to(sanitize(jr.candidate.name),user_path(jr.candidate),:class=>"unified_user")%></span>

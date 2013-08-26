@@ -16,29 +16,14 @@ class LogoImageUploader < CarrierWave::Uploader::Base
     resize_to_limit(350,350)
   end
 
-  version :thumb do
-    process :crop
-    resize_to_fill(100,100)
-  end
-
-  version :logo22 do
-    process :crop
-    resize_to_fill(22,22)
-  end
-
   version :logo32 do
     process :crop
     resize_to_fill(32,32)
   end
 
-  version :logo64 do
+  version :logo80x60 do
     process :crop
-    resize_to_fill(64,64)
-  end
-
-  version :logo96 do
-    process :crop
-    resize_to_fill(96,96)
+    resize_to_fill(80,60)
   end
 
   version :logo128 do
@@ -46,9 +31,9 @@ class LogoImageUploader < CarrierWave::Uploader::Base
     resize_to_fill(128,128)
   end
 
-  version :avatar do
+  version :logo160x128 do
     process :crop
-    resize_to_fill(128,128)
+    resize_to_fill(160,128)
   end
 
   def crop

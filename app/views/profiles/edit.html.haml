@@ -6,7 +6,8 @@
       %li
         = link_to "View your profile", user_profile_path(current_user)
     = # logo(@user, :size => '128', :class => 'profile-logo').html_safe # LOGO-REMOVED
-    = logo_image(:model => @profile, :size => '128', :class => 'profile-logo')
+    #logo_image
+      = logo_image(@profile, :size => '128', :class => 'profile-logo')
     %ul
       %li
         = simple_form_for @profile, :url => user_profile_path(@user), :html => { :multipart => true, :class => 'form-for-crop' } do |f|

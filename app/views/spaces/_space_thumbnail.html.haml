@@ -5,7 +5,8 @@
 .space-thumbnail-wrapper
   .space-thumbnail
     .space-logo
-      - space_logo = logo(space, :size => "h64", :title => space.name).html_safe
+      - # space_logo = logo(space, :size => "h64", :title => space.name).html_safe # LOGO-REMOVED
+      - space_logo = logo_image(space, :size => "80x60", :title => space.name)
       - if user.ability.can?(:read, space)
         = link_to space_path(space) do
           = space_logo

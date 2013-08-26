@@ -8,9 +8,8 @@
   .jcrop
     = image_tag @model.logo_image_url(:large), :id => "preview"
 
-= form_for @model, :url => @url do |f|
+= form_for @model, :url => @url, :html => { :id => 'crop-form' } do |f|
   - %w[x y w h].each do |attribute|
     = f.hidden_field "crop_#{attribute}", :id => "crop_#{attribute}"
-  .actions
-    %br
+  .form-actions
     = f.submit "Crop"

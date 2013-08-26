@@ -73,7 +73,7 @@ $(document).ready(function() {
 
   <div>
     <!-- <%= raw(link_logo(user, :size => 32, :url => user_path(user), :title=>user.name)) %> LOGO-REMOVED -->
-    <%= raw(link_logo_image(:model => user, :size => '32', :url => user_path(user), :title => user.name)) %>
+    <%= raw(link_logo_image(user, :size => '32', :url => user_path(user), :title => user.name)) %>
   </div>
 
   <div class="user_data">

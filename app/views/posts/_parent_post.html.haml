@@ -1,7 +1,7 @@
 - if @show_view
   .parent-post-logo
     = # link_logo(post.author, :size => 32, :url => user_path(post.author), :title=>post.author.name).html_safe # LOGO-REMOVED
-    = link_logo_image(:model => post.author, :size => '32', :title => post.author.name, :url => user_path(post.author)) if post.author
+    = link_logo_image(post.author, :size => '32', :title => post.author.name, :url => user_path(post.author)) if post.author
 
 .post-content
   %ul

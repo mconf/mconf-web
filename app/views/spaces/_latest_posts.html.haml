@@ -12,12 +12,12 @@
         .post-wrapper
           .logo-in-thread
             = # link_logo(post.author, :size => 32, :url => user_path(post.author), :title => post.author.name).html_safe # LOGO-REMOVED
-            = link_logo_image(:model=> post.author, :size => '32', :url => user_path(post.author), :title => post.author.name) if post.author
+            = link_logo_image(post.author, :size => '32', :url => user_path(post.author), :title => post.author.name) if post.author
           .post-title-wrapper
             = link_to(first_words(post.title, 40), space_post_path(@space, post), :class => 'post-title')
             = attachment_icon(attachment_name(post)) if has_attachments(post)
             %span= t('by')
-            = link_to(post.author.name, user_path(post.author), :class => 'post-author')
+            = link_to(post.author.name, user_path(post.author), :class => 'post-author') if post.author
             %span.updated-at= t('updated_time_ago', :time => time_ago_in_words(post.updated_at))
           .post-text
             = first_words(strip_tags(post.text), 100)
