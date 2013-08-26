@@ -17,8 +17,6 @@ class Space < ActiveRecord::Base
   has_many :tags, :dependent => :destroy, :as => :container
   has_one :bigbluebutton_room, :as => :owner, :dependent => :destroy
 
-  has_logo
-
   attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
   mount_uploader :logo_image, LogoImageUploader
 
@@ -51,10 +49,6 @@ class Space < ActiveRecord::Base
   attr_accessor :invite_msg
   attr_accessor :inviter_id
   attr_accessor :invitations_role_id
-  attr_accessor :default_logo
-  attr_accessor :text_logo
-  attr_accessor :rand_value
-  attr_accessor :logo_rand
 
   # temporary attrs to set in the webconf room when the model is created
   attr_accessor :_attendee_password
@@ -62,8 +56,6 @@ class Space < ActiveRecord::Base
 
   default_scope :conditions => { :disabled => false }
 
-  before_validation :update_logo
-  after_validation :logo_mi
   after_validation :check_permalink
   after_update :update_webconf_room
   after_create :create_webconf_room
@@ -156,40 +148,6 @@ class Space < ActiveRecord::Base
       f.close
       resized.write("png:" + path)
     end
-  end
-
-  def update_logo
-    return unless @default_logo.present?
-    img_orig = Magick::Image.read(File.join(PathHelpers.images_full_path, @default_logo)).first
-    img_orig = img_orig.scale(337, 256)
-    images_path = PathHelpers.images_full_path
-    final_path = FileUtils.mkdir_p(File.join(images_path, "tmp/#{@rand_value}"))
-    img_orig.write(File.join(images_path, "tmp/#{@rand_value}/temp.jpg"))
-    original = File.open(File.join(images_path, "tmp/#{@rand_value}/temp.jpg"))
-
-    original_tmp = Tempfile.new("default_logo", "#{Rails.root.to_s}/tmp/")
-    original_tmp_io = open(original_tmp)
-    original_tmp_io.write(original.read)
-    filename = File.join(images_path, @default_logo)
-    (class << original_tmp_io; self; end;).class_eval do
-      define_method(:original_filename) { filename.split('/').last }
-      define_method(:content_type) { 'image/jpeg' }
-      define_method(:size) { File.size(filename) }
-    end
-
-    logo = { :media => original_tmp_io }
-    logo = self.build_logo(logo)
-
-    images_path = PathHelpers.images_full_path
-    tmp_path = File.join(images_path, "tmp")
-
-    if @rand_value != nil
-      final_path = FileUtils.rm_rf(tmp_path + "/#{@rand_value}")
-    end
-  end
-
-  def logo_mi
-    return unless @default_logo.present?
   end
 
   def self.find_with_disabled *args

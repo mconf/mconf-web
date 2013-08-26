@@ -3,12 +3,7 @@
   = render :partial => 'spaces/menu'
 - atom_link_header(space, Event.new, :title => "#{ t 'event.other' } - #{ space.name }")
 
-- @files = Dir.entries("app/assets/images/default_event_logos/")
-- @files.delete(".")
-- @files.delete("..")
-
 #events-edit
-  = render :partial => "edit_new_logo"
   = simple_form_for(:event, :url => space_event_path(@space, @event), :html => {:method => :put, :multiple => "multiple", :autocomplete=>"off" }) do |f|
     = render :partial => "events_form", :locals => { :f => f }
     = f.button :submit, t('button.edit'), :class => 'btn btn-primary'

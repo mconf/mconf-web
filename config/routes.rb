@@ -46,12 +46,6 @@ Mconf::Application.routes.draw do
   match '/secure', :to => 'shibboleth#create', :as => "shibboleth"
   match '/secure/info', :to => 'shibboleth#info', :as => "shibboleth_info"
 
-  resources :logos do
-    collection do
-      post :new
-    end
-  end
-
   resources :machines do
     collection do
       get :contact_mail
@@ -90,12 +84,6 @@ Mconf::Application.routes.draw do
 
       resources :invitations
       resources :participants
-
-      resource :logo, :controller => 'event_logos' do
-        member do
-          post :precrop
-        end
-      end
     end
 
     resources :posts do
@@ -115,12 +103,6 @@ Mconf::Application.routes.draw do
     end
 
     resources :entries
-    resource :logo do
-      member do
-        post :new
-        post :precrop
-      end
-    end
 
     resources :admissions
     resources :invitations
@@ -150,9 +132,7 @@ Mconf::Application.routes.draw do
     end
 
     resources :private_messages, :as => 'messages', :except => [:edit]
-    resource :profile, :except => [:new, :create] do
-      resource :logo
-    end
+    resource :profile, :except => [:new, :create]
     resource :avatar do
       member do
         post :precrop
