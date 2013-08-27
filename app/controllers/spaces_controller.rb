@@ -120,15 +120,17 @@ class SpacesController < ApplicationController
     @space = Space.new(params[:space])
 
     if @space.save
+
       respond_with @space do |format|
         flash[:success] = t('space.created')
         @space.add_member!(current_user, 'Admin')
         format.html { redirect_to :action => "show", :id => @space  }
       end
 
-      # public activity
-      @space.create_activity :create, :owner => current_user,
-        :parameters => { :name => @space.name }
+      @space.create_activity :create, :owner => @space,
+        :parameters => { :user_id => current_user.id,
+                         :username => current_user.name
+                       }
 
     else
       respond_with @space do |format|
@@ -171,9 +173,10 @@ class SpacesController < ApplicationController
         }
       end
 
-      # public activity
-      @space.create_activity :update, :owner => current_user,
-        :parameters => { :name => @space.name }
+      @space.create_activity :update, :owner => @space,
+        :parameters => { :user_id => current_user.id,
+                         :username => current_user.fullname
+                       }
 
     else
       respond_to do |format|
@@ -219,6 +222,7 @@ class SpacesController < ApplicationController
 
   def leave
     permission = @space.permissions.find_by_user_id(current_user)
+
     if permission
       permission.destroy
       respond_to do |format|
@@ -230,11 +234,12 @@ class SpacesController < ApplicationController
             redirect_to root_path
           end
         }
-
-      # public activity
-      @space.create_activity :leave, :owner => current_user,
-        :parameters => { :name => @space.name }
       end
+
+      @space.create_activity :leave, :owner => @space,
+        :parameters => { :user_id => current_user.id,
+                         :username => current_user.fullname
+                       }
 
     else
       respond_to do |format|
@@ -353,8 +358,11 @@ class SpacesController < ApplicationController
         space.add_member!(join_request.candidate, role.name)
         success = space.save
 
-        @space.create_activity :join, :owner => join_request.candidate,
-          :parameters => { :name => @space.name }
+        @space.create_activity :join, :owner => @space,
+          :parameters => { :user_id => current_user.id,
+                           :username => current_user.fullname
+                         }
+
       end
 
       else

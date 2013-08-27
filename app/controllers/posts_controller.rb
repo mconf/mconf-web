@@ -54,10 +54,11 @@ class PostsController < ApplicationController
         flash[:success] = t('post.created')
         format.html { redirect_to request.referer }
 
-        @post.create_activity :create, :owner => @post.author,
+        @post.create_activity :create, :owner => @space,
           :parameters => {
             :title => @post.title,
-            :space_name => @post.space.name
+            :username => @post.author.name,
+            :user_id  => @post.author.id
           }
       else
         flash[:error] = t('post.error.create')
@@ -77,11 +78,12 @@ class PostsController < ApplicationController
           }
       end
 
-      @post.create_activity :update, :owner => current_user,
-        :parameters => {
-          :title => @post.title,
-          :space_name => @post.space.name
-        }
+      @post.create_activity :update, :owner => @space,
+          :parameters => {
+            :title => @post.title,
+            :username => @post.author.name,
+            :user_id  => @post.author.id
+          }
 
     else
       flash[:error] = t('post.error.update')
@@ -96,8 +98,12 @@ class PostsController < ApplicationController
       }
     end
 
-    @post.create_activity :reply, :owner => current_user,
-      :parameters => {:title => @post.title, :space_name => @post.space.name }
+    @post.create_activity :reply, :owner => @space,
+          :parameters => {
+            :title => @post.title,
+            :username => @post.author.name,
+            :user_id  => @post.author.id
+          }
   end
 
   def edit
