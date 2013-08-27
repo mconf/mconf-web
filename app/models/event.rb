@@ -78,13 +78,6 @@ class Event < ActiveRecord::Base
     end
   end
 
-  VC_MODE = [:in_person, :telemeeting, :teleconference, :teleclass]
-
-  # The vc_mode symbol of this event
-  def vc_mode_sym
-    VC_MODE[vc_mode]
-  end
-
   # Maximum number of consecutive days for the event
   MAX_DAYS = 5
 
