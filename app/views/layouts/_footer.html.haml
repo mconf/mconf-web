@@ -21,7 +21,7 @@
         = link_to 'http://code.google.com/p/mconf/wiki/MconfWebLocalization' do
           = info_icon t('translate.help_us'), :class => 'help-translate-icon'
         = t('translate.change')
-      - I18n.available_locales.each_slice(3) do |locales|
+      - available_locales.each_slice(3) do |locales|
         %ul
           - locales.each do |locale|
             %li

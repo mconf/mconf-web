@@ -189,6 +189,13 @@ module ApplicationHelper
     Role.default_role
   end
 
+  # Returns a list of locales available in the application.
+  # We can't use `I18n.available_locales` because it returns all locales available including the
+  # ones included by gems, so if a gem has any locale the application doesn't it would show up.
+  def available_locales
+    [:en, :"pt-br"]
+  end
+
   private
 
   # Based on http://www.igvita.com/2007/03/15/block-helpers-and-dry-views-in-rails/
