@@ -20,22 +20,45 @@ class ParticipantsController < ApplicationController
       }
       format.js
     end
+
+    attend = @participant.attend? ? :attend : :not_attend
+
+    @participant.event.create_activity attend, :owner => @participant.event.space,
+      :parameters => { :user_id => current_user.id,
+                       :username => current_user.name,
+                       :name => @participant.event.name
+                     }
+
   else
       flash[:error] = t('participant.error.create')
       redirect_to request.referer
   end
+
 end
 
   def update
     @participant = Participant.find(params[:id])
+
+    old_attend = @participant.attend?
+
     if @participant.update_attributes(params[:participant])
       respond_to do |format|
-      format.html {
-      flash[:success] = t('participant.created')
-      redirect_to request.referer
-      }
-
+        format.html {
+          flash[:success] = t('participant.created')
+          redirect_to request.referer
+        }
       end
+
+      if old_attend != @participant.attend?
+        attend = @participant.attend? ? :attend : :not_attend
+
+        @participant.event.create_activity attend, :owner => @participant.event.space,
+          :parameters => { :user_id => @participant.user_id,
+                           :username => @participant.user.name,
+                           :name => @participant.event.name
+                         }
+      end
+
     else
       flash[:error] = t('participant.error.create')
       redirect_to request.referer

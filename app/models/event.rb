@@ -7,6 +7,8 @@
 
 class Event < ActiveRecord::Base
 
+  include PublicActivity::Common
+
   belongs_to :space
   belongs_to :author, :class_name => 'User'
 
@@ -23,8 +25,6 @@ class Event < ActiveRecord::Base
   extend FriendlyId
   friendly_id :name, :use => :slugged, :slug_column => :permalink
 
-  acts_as_resource :per_page => 10, :param => :permalink
-  acts_as_content :reflection => :space
   acts_as_taggable
   alias_attribute :title, :name
   validates_presence_of :name

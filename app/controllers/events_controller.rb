@@ -6,29 +6,20 @@
 # 3 or later. See the LICENSE file.
 
 class EventsController < ApplicationController
-  # Include basic Resource methods
-  # See documentation: ActionController::StationResources
-  include ActionController::StationResources
+
   include SpamControllerModule
 
   layout "spaces_show"
 
-  #before_filter :space!
-  before_filter :event, :only => [ :show, :edit, :update, :destroy ]
-  before_filter :space!
+  load_and_authorize_resource :space, :find_by => :permalink
+  load_and_authorize_resource :through => :space, :find_by => :permalink
+
   before_filter :webconf_room!
   before_filter :adapt_new_date, :only => [:create, :update]
-
-  load_and_authorize_resource :space, :find_by => :permalink
-  load_and_authorize_resource :through => :space
 
   # GET /events
   # GET /events.xml
   def index
-    # AtomPub feeds are ordered by updated_at
-    if request.format == Mime::ATOM
-      params[:order], params[:direction] = "updated_at", "DESC"
-    end
     events
 
     respond_to do |format|
@@ -79,7 +70,6 @@ class EventsController < ApplicationController
 
   # GET /events/1/edit
   def edit
-    #debugger
     @invited_candidates = @event.invitations.select{|e| !e.candidate.nil?}
     @invited_emails = @event.invitations.select{|e| e.candidate.nil?}
     respond_to do |format|
@@ -92,7 +82,8 @@ class EventsController < ApplicationController
   def create
     @event = Event.new(params[:event])
     @event.author = current_user
-    @event.container = space
+    @space = Space.find_by_permalink(params[:space_id])
+    @event.space = @space
 
     respond_to do |format|
       if @event.save
@@ -101,6 +92,13 @@ class EventsController < ApplicationController
           redirect_to space_events_path(@space)
         }
         format.xml  { render :xml => @event, :status => :created, :location => @event }
+
+        @event.create_activity :create, :owner => @space,
+          :parameters => { :user_id => current_user.id,
+                           :username => current_user.name,
+                           :name => @event.name
+                         }
+
       else
         format.html {
           message = ""
@@ -140,6 +138,13 @@ class EventsController < ApplicationController
             @description=true
           end
         }
+
+        @event.create_activity :update, :owner => @space,
+          :parameters => { :user_id => current_user.id,
+                           :username => current_user.name,
+                           :name => @event.name
+                         }
+
       else
         format.html { message = ""
         @event.errors.full_messages.each {|msg| message += msg + "  <br/>"}
@@ -185,7 +190,7 @@ class EventsController < ApplicationController
   end
 
   def events
-      @events = (Event.in(@space).all :order => "start_date ASC")
+      @events = (@space.events :order => "start_date ASC")
 
       #Current events
       @current_events = @events.select{|e| e.is_happening_now?}
