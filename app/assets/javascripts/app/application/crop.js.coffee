@@ -3,6 +3,29 @@
 # The form must have a input[type=file] in it and optionally a link
 # with :"data-open-file" => true to trigger the "browse files" window.
 
+class mconf.Crop
+
+  # All forms with '.form-for-crop' will be associated with the crop
+  # functionality. The contents returned after the form is submitted are
+  # shown in a modal window and the image in it can be cropped.
+  @bind: ->
+    $("form.form-for-crop").each ->
+      form = $(this)
+      # when the user selects a file it automatically submits the form
+      $element = $("input[type=file]", form)
+      $element.off "change.mconfCrop"
+      $element.on "change.mconfCrop", ->
+        form.ajaxSubmit (data) ->
+          mconf.Modal.showWindow
+            data: data
+            element: $element
+          enableCropInImages()
+          bindAjaxToCropForm()
+
+$ ->
+  mconf.Crop.bind()
+
+
 saveCropCoordinates = (crop) ->
   # TODO: restrict the search to the elements inside the form
   # where this event was triggered
@@ -13,7 +36,6 @@ saveCropCoordinates = (crop) ->
 
 # Enables the crop in all 'cropable' elements in the document
 enableCropInImages = ->
-  # TODO: set min, max and an initial area selected
   $("img.cropable").each ->
     $(this).Jcrop
       aspectRatio: 1
@@ -47,23 +69,3 @@ bindAjaxToCropForm = ->
     error: () ->
       $(document).trigger "crop-form-error"
       $("form.form-for-crop").resetForm()
-
-# All forms with '.form-for-crop' will be associated with the crop
-# functionality. The contents returned after the form is submitted are
-# shown in a modal window and the image in it can be cropped.
-enableAjaxInCropForms = ->
-  $("form.form-for-crop").each ->
-    form = $(this)
-    # when the user selects a file it automatically submits the form
-    $element = $("input[type=file]", form)
-    $element.on "change", ->
-      form.ajaxSubmit (data) ->
-        mconf.Modal.showWindow
-          data: data
-          element: $element
-        enableCropInImages()
-        bindAjaxToCropForm()
-
-# Triggers the associations...
-$ ->
-  enableAjaxInCropForms()
