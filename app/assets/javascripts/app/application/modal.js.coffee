@@ -34,6 +34,8 @@ class mconf.Modal
     $(document).on "dialog2.after-update-markup", $(options.element), ->
       mconf.Resources.bind() # bind resources to the new modal
       $(options.element).trigger("modal-after-update-markup")
+    $(document).on "dialog2.closed", $(options.element), ->
+      $(options.element).trigger("modal-closed")
 
     el.dialog2(localOptions)
 

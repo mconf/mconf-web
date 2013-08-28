@@ -14,6 +14,11 @@
 #   = simple_form_for resource, :url => my_url_path, :remote => true, :html => { :class => "in-place-edit" } do |f|
 #     = f.input :record, :as => :boolean, :input_html => { :class => "in-place-edit" }
 #     = in_place_edit_indicators
+#
+# Triggers the following events on the target input:
+# * `in-place-edit-submitting`: when it's about to submit the form
+# * `in-place-edit-success`: when the ajax request was successful
+# * `in-place-edit-error`: when the ajax request failed
 
 # local configuration variables
 classForInProgress = "in-progress"
@@ -35,6 +40,7 @@ class mconf.InPlaceEdit
         $target.on "change.#{namespace}", ->
           $form.removeClass(classForSuccess)
           $form.addClass(classForInProgress)
+          $target.trigger("in-place-edit-submitting")
           $form.submit()
 
       else if $target.attr("type") is "text"
@@ -48,6 +54,7 @@ class mconf.InPlaceEdit
             $target.attr("data-in-place-edit-before", $target.val())
             $form.removeClass(classForSuccess)
             $form.addClass(classForInProgress)
+            $target.trigger("in-place-edit-submitting")
             $form.submit()
 
       # listen for success or error when the form is submitted
@@ -55,10 +62,12 @@ class mconf.InPlaceEdit
       $form.on "ajax:success.#{namespace}", (evt, data, status, xhr) ->
         $form.removeClass(classForInProgress)
         $form.addClass(classForSuccess)
+        $target.trigger("in-place-edit-success")
       $form.off "ajax:error.#{namespace}"
       $form.on "ajax:error.#{namespace}", (evt, data, status, xhr) ->
         $form.removeClass(classForInProgress)
         $form.addClass(classForError)
+        $target.trigger("in-place-edit-error")
 
 $ ->
   mconf.InPlaceEdit.bind()

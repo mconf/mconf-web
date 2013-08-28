@@ -6,10 +6,7 @@
 
 module InPlaceEditHelper
 
-  def in_place_edit_indicators(error_msg=nil, success_msg=nil)
-    error_msg ||= I18n.t("_other.in_place_edit.error")
-    success_msg ||= I18n.t("_other.in_place_edit.success")
-
+  def in_place_edit_indicators(error_msg="", success_msg="")
     s1 = content_tag :span, "", :class => "in-place-edit-indicator in-progress"
     s2 = content_tag :span, "error", :class => "in-place-edit-indicator error" do
       content_tag(:i, "", :class => "icon-remove") +

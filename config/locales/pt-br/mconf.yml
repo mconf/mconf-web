@@ -280,8 +280,8 @@ pt-br:
       title: "Acesso móvel à sala %{room}"
     join_options:
       metadata:
-        description: "Título desta gravação"
-        title: "Descrição desta gravação"
+        description: "Descrição para esta reunião"
+        title: "Título para esta reunião"
       record:
         label: "Gravar reunião"
         tooltip: "Marque para fazer com que as reuniões nesta sala sejam gravadas. Esta opção não pode ser modificada depois que a reunião está em execução!"

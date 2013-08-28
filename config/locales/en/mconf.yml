@@ -289,9 +289,9 @@ en:
       sip_number: "To join the voice conference from a SIP client, dial <b>%{number}</b>."
       title: "Mobile access to %{room}"
     join_options:
-      metadata:
-        description: "Title for this recording"
-        title: "Description for this recording"
+      metadata: 
+        description: "Description for this meeting"
+        title: "Title for this meeting"
       record:
         label: "Record meeting"
         tooltip: "Mark it to set this room to record its meetings. This can't be changed after the meeting is running!"
