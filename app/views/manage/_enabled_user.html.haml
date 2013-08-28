@@ -1,6 +1,6 @@
 / <div class="user enabled role_#{Site.current.role_for(user).name}">
 .user.enabled
-  = raw link_logo(user, :size => 32, :url => user_path(user), :title => user.name)
+  = raw link_logo_image(user, :size => '32', :title => user.name, :url => user_path(user), :class => 'logo logo-user')
 
   %ul.group_links
     = link_to (edit_user_path(user)) do

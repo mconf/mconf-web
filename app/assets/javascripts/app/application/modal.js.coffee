@@ -23,6 +23,7 @@ class mconf.Modal
       delete options.target
     else
       el = $("<div/>")
+      el.append(options.data) if options.data?
     jQuery.extend localOptions, options
 
     # events
@@ -31,7 +32,7 @@ class mconf.Modal
     $(document).on "dialog2.opened", $(options.element), ->
       $(options.element).trigger("modal-opened")
     $(document).on "dialog2.after-update-markup", $(options.element), ->
-      mconf.Resources.bind() # bind tooltips and others
+      mconf.Resources.bind() # bind resources to the new modal
       $(options.element).trigger("modal-after-update-markup")
 
     el.dialog2(localOptions)
@@ -41,7 +42,7 @@ class mconf.Modal
     $(".modal > .modal-body.opened").dialog2("close")
 
   # Links a <a> to be opened with a modal window.
-  # Used internally only.
+  # Used internally (in this file) only.
   @bind: (event) ->
     event.preventDefault()
     options = {}

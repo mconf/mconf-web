@@ -20,8 +20,6 @@ class Event < ActiveRecord::Base
   has_many :permissions, :foreign_key => "subject_id",
            :conditions => { :permissions => {:subject_type => 'Event'} }
 
-  has_logo :class_name => "EventLogo"
-
   extend FriendlyId
   friendly_id :name, :use => :slugged, :slug_column => :permalink
 
@@ -41,13 +39,7 @@ class Event < ActiveRecord::Base
   attr_accessor :notify_msg
   attr_accessor :edit_date_action
 
-  # For logos
-  attr_accessor :default_logo
-  attr_accessor :text_logo
-  attr_accessor :rand_value
-  attr_accessor :logo_rand
-
-  before_validation  :event_validation, :update_logo, :edit_date_actions
+  before_validation  :event_validation, :edit_date_actions
 
   def self.within(from, to)
     where("(start_date >= ? AND start_date <= ?) OR (end_date >= ? AND end_date <= ?)", from, to, from, to)
@@ -84,46 +76,6 @@ class Event < ActiveRecord::Base
         @relative_time = 0
       end
     end
-  end
-
-  def update_logo
-    return unless (@default_logo.present? and  !@default_logo.eql?(""))
-    if @default_logo.present? and  @default_logo.eql?("use_date_logo")
-      if logo = self.logo
-        logo.destroy
-      end
-      self.logo = nil
-      return true
-    end
-    img_orig = Magick::Image.read(File.join(PathHelpers.images_full_path, @default_logo)).first
-    img_orig = img_orig.scale(256, 256)
-    images_path = PathHelpers.images_full_path
-    final_path = FileUtils.mkdir_p(File.join(images_path, "tmp/#{@rand_value}"))
-    img_orig.write(File.join(images_path, "tmp/#{@rand_value}/temp.jpg"))
-    original = File.open(File.join(images_path, "tmp/#{@rand_value}/temp.jpg"))
-    # TODO check, was using UploadedTempfile
-    #original_tmp = ActionDispatch::Http::UploadedFile.open("default_logo")
-    original_tmp = Tempfile.new("default_logo", "#{ Rails.root.to_s}/tmp/")
-    original_tmp.write(original.read)
-    original_tmp_io = open(original_tmp)
-    filename = File.join(images_path, @default_logo)
-    (class << original_tmp_io; self; end;).class_eval do
-      define_method(:original_filename) { filename.split('/').last }
-      define_method(:content_type) { 'image/jpeg' }
-      define_method(:size) { File.size(filename) }
-    end
-
-    logo = {}
-    logo[:media] = original_tmp_io
-    logo = self.build_logo(logo)
-
-    images_path = File.join(Rails.root.to_s, "public", "images")
-    tmp_path = File.join(images_path, "tmp")
-
-    if @rand_value != nil
-      final_path = FileUtils.rm_rf(tmp_path + "/#{@rand_value}")
-    end
-
   end
 
   # Maximum number of consecutive days for the event

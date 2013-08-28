@@ -14,8 +14,14 @@
 
 class mconf.SelectableButtons
 
+  @bind: ->
+    $(".selectable-buttons a").off "click.mconfSelectableButtons"
+    $(".selectable-buttons a").on "click.mconfSelectableButtons", (e) ->
+      e.preventDefault()
+      mconf.SelectableButtons.change $(this)
+
   # Function to change the currently selected button/tab
-  @change: (target) ->
+  @change: ($target) ->
 
     # deselect the current button/tab
     $("div.selectable-buttons-target > div").hide()
@@ -23,14 +29,11 @@ class mconf.SelectableButtons
       $(this).removeClass("active")
 
     # select the target button/tab
-    target.addClass("active")
-    $(target.attr("href")).show()
+    $target.addClass("active")
+    $($target.attr("href")).show()
 
 $ ->
-
   # to hide the panels at startup
-  mconf.SelectableButtons.change $(".selectable-buttons a.active")
+  mconf.SelectableButtons.change($(".selectable-buttons a.active"))
 
-  $(".selectable-buttons a").on "click", (e) ->
-    e.preventDefault()
-    mconf.SelectableButtons.change $(this)
+  mconf.SelectableButtons.bind()

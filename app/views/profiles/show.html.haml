@@ -6,7 +6,8 @@
 
 = content_for :sidebar do
   #profile-in-sidebar
-    = logo(@user, :size => '128', :class => 'profile-logo').html_safe
+    #logo_image
+      = logo_image(@user, :size => '128', :class => 'profile-logo')
     %ul
       - if can?(:update, @profile)
         %li= link_to t('edit_profile'), edit_user_profile_path(@user)

@@ -5,13 +5,7 @@
 # This file is licensed under the Affero General Public License version
 # 3 or later. See the LICENSE file.
 
-require './lib/logo_helper'
-
 class Space < ActiveRecord::Base
-
-  # Functions to resize, crop, etc
-  # TODO: temporary, this will move out or be refactored
-  include LogoHelper
 
   # TODO: temporary, review
   USER_ROLES = ["Admin", "User"]
@@ -42,7 +36,15 @@ class Space < ActiveRecord::Base
   has_many :join_requests, :foreign_key => "group_id",
            :conditions => { :join_requests => {:group_type => 'Space'} }
 
-  has_logo
+  attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
+  mount_uploader :logo_image, LogoImageUploader
+
+  after_create :crop_avatar
+  after_update :crop_avatar
+
+  def crop_avatar
+    logo_image.recreate_versions! if crop_x.present?
+  end
 
   extend FriendlyId
   friendly_id :name, :use => :slugged, :slug_column => :permalink
@@ -65,11 +67,6 @@ class Space < ActiveRecord::Base
   attr_accessor :invite_msg
   attr_accessor :inviter_id
   attr_accessor :invitations_role_id
-  attr_accessor :default_logo
-  attr_accessor :text_logo
-
-  attr_accessor :rand_value
-  attr_accessor :logo_rand
 
   # temporary attrs to set in the webconf room when the model is created
   attr_accessor :_attendee_password
@@ -77,7 +74,6 @@ class Space < ActiveRecord::Base
 
   default_scope :conditions => { :disabled => false }
 
-  before_validation :update_logo
   after_validation :check_permalink
   after_update :update_webconf_room
   after_create :create_webconf_room
@@ -135,6 +131,8 @@ class Space < ActiveRecord::Base
   end
 
   scope :public, lambda { where(:public => true) }
+
+  #-#-#
 
   def self.find_with_disabled *args
     self.with_exclusive_scope { find(*args) }

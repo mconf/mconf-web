@@ -803,10 +803,7 @@ en:
     changed: "Application language changed to "
     error: "Unable to change application language to "
   locales: 
-    de: Deutsch
     en: English
-    es: Español
-    fr: Fraçais
     pt-br: "Português (Brasil)"
   login: 
     email_or_login: "Email or username"

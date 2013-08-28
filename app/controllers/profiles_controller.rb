@@ -34,9 +34,13 @@ class ProfilesController < ApplicationController
   def update
     respond_to do |format|
       if @profile.update_attributes(params[:profile])
-        flash[:notice] = t('profile.updated')
-        format.html { redirect_to user_path(@user) }
-        format.xml  { head :ok }
+        if params[:profile][:logo_image].present?
+          format.html { redirect_to logo_images_crop_path(:model_type => 'user', :model_id => @user) }
+        else
+          flash[:notice] = t('profile.updated')
+          format.html { redirect_to user_path(@user) }
+          format.xml  { head :ok }
+        end
       else
         format.html { render :action => "edit" }
         format.xml  { render :xml => @profile.errors, :status => :unprocessable_entity }

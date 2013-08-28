@@ -19,6 +19,7 @@
  *= require ./app/application/modal
  *= require ./app/application/showable_password_input
  *= require ./app/application/tokeninput
+ *= require ./app/application/logo_images
  *= require ./app/application/chat
  *= require ./app/application/footer
  *

@@ -5,12 +5,13 @@
     %ul
       %li
         = link_to "View your profile", user_profile_path(current_user)
-    = logo(@user, :size => '128', :class => 'profile-logo').html_safe
+    #logo_image
+      = logo_image(@profile, :size => '128', :class => 'profile-logo')
     %ul
       %li
-        = simple_form_for @profile.logo || Avatar.new, :url => precrop_user_avatar_path(@profile.user), :html => { :multipart => true, :method => :post, :class => 'form-for-crop' } do |f|
-          = link_to t('change_pic'), '#avatar_media', :"data-open-file" => true
-          = f.input :media, :as => :file
+        = simple_form_for @profile, :url => user_profile_path(@user), :html => { :multipart => true, :class => 'form-for-crop' } do |f|
+          = link_to t('change_pic'), '#profile_logo_image', :"data-open-file" => true
+          = f.input :logo_image, :as => :file
       %li
         = simple_form_for @profile, :url => user_profile_path(@user), :html => { :multipart => true, :method => :put } do |f|
           = link_to t('vCard.use'), '#profile_vcard', :"data-open-file" => true

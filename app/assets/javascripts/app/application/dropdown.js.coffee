@@ -1,3 +1,7 @@
-# bootstraps the dropdowns, using twitter's bootstrap lib
+# Dropdown menus, using twitter's bootstrap lib
+class mconf.Dropdown
+  @bind: ->
+    $('.dropdown-toggle').dropdown()
+
 $ ->
-  $('.dropdown-toggle').dropdown()
+  mconf.Dropdown.bind()

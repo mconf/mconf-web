@@ -25,3 +25,4 @@ doc/app/*
 .sass-cache/
 config/analytics_conf.yml
 public/assets/*
+public/uploads/*
