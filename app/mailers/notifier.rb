@@ -267,7 +267,7 @@ class Notifier < ActionMailer::Base
 
   # TODO: method also defined in LocaleControllerModule, should be moved to a common file/class
   def is_locale_available?(locale)
-    I18n.available_locales.include?(locale.to_sym)
+    configatron.i18n.default_locales.include?(locale.to_sym)
   end
 
 end

@@ -190,10 +190,8 @@ module ApplicationHelper
   end
 
   # Returns a list of locales available in the application.
-  # We can't use `I18n.available_locales` because it returns all locales available including the
-  # ones included by gems, so if a gem has any locale the application doesn't it would show up.
   def available_locales
-    [:en, :"pt-br"]
+    configatron.i18n.default_locales
   end
 
   private
