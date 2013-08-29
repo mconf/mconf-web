@@ -281,6 +281,7 @@ pt-br:
       sip_number: "Para entrar na conferência de voz usando um cliente SIP, disque para <b>%{number}</b>."
       title: "Acesso móvel à sala %{room}"
     join_options:
+      alert_webconf_running: "Uma reunião está atualmente em progresso nesta sala. As opções que você configurar aqui não afetarão a reunião atual, apenas reuniões futuras nesta sala!"
       metadata:
         description: "Descrição para esta reunião"
         title: "Título para esta reunião"

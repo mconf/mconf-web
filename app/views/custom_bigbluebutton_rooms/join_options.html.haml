@@ -5,6 +5,9 @@
 
 #webconference-join-options-dialog
 
+  - if @room.is_running?
+    .alert.alert-danger= t('.alert_webconf_running')
+
   - form_url = bigbluebutton_room_path(@room, :format => 'json')
 
   = simple_form_for @room, :url => form_url, :remote => true, :html => { :class => "single-column in-place-edit" } do |f|
@@ -26,4 +29,5 @@
         = in_place_edit_indicators
 
   .form-actions
-    = link_to t(".start"), join_bigbluebutton_room_path(@room), :class => "btn btn-primary"
+    - cls = @room.is_running? ? "disabled" : ""
+    = link_to t(".start"), join_bigbluebutton_room_path(@room), :class => "btn btn-primary #{cls}"

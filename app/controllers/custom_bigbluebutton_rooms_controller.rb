@@ -64,6 +64,10 @@ class CustomBigbluebuttonRoomsController < Bigbluebutton::RoomsController
   end
 
   def join_options
+    begin
+      @room.fetch_is_running?
+    rescue BigBlueButton::BigBlueButtonException
+    end
   end
 
   protected

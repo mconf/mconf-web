@@ -101,3 +101,19 @@ input[type="radio"], input[type="checkbox"] {
 .nav-tabs li a {
   background: white;
 }
+
+.alert {
+  padding: 10px;
+  border-left-width: 5px;
+  border-right-width: 0;
+  border-top-width: 0;
+  border-bottom-width: 0;
+  @include border-radius(0);
+  @include text-shadow(none);
+
+  &.alert-gray {
+    background: $alert-gray-bg;
+    border-color: darken($alert-gray-bg, 10);
+    color: $alert-gray-font;
+  }
+}

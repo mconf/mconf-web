@@ -14,8 +14,8 @@
   .content-block-header
     %h3= t('.webconference.share.header')
   .content-block-middle
-    = t('.webconference.share.description')
-    .share-url
+    %span= t('.webconference.share.description')
+    .share-url.alert.alert-gray
       = label_tag 'invite-url-text', t('.webconference.share.url')
       = text_field_tag 'invite-url-text', join_webconf_url(@webconf_room), :readonly => true
       - if user_signed_in?

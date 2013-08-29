@@ -27,9 +27,6 @@ body.webconferences.space_show {
     .share-url {
       margin-top: 10px;
       @include mconf-clearfix;
-      background: $light-gray;
-      padding: 10px;
-      @include border-radius(4px);
 
       label {
         float: left;

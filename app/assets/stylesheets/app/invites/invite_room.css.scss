@@ -3,12 +3,7 @@
 
 #webconference-invite {
 
-  .header {
-    background: #eee;
-    border: 1px solid #ddd;
-    @include border-radius(3px);
-    padding: 10px;
-
+  .alert.alert-gray {
     input {
       cursor: text;
       width: 95%;

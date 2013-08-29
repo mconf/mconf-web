@@ -20,7 +20,7 @@
 
 #webconference-invite
   - if @type == "webconference"
-    .header
+    .alert.alert-gray
       %label= t('home.invite_url')
       = text_field_tag "room_invite_url", join_webconf_url(@room), :readonly => true
 
