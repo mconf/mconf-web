@@ -49,7 +49,12 @@ gem 'strong_parameters' # for bigbluebutton_rails
 # Used on Profile to generate a vcard
 gem 'vpim' # TODO: very old, last update on 2009
 
+# for logos
 gem 'carrierwave'
+gem 'rmagick'
+
+# global configurations
+gem 'configatron', '~> 2.13'
 
 # for bootstrap
 gem 'less-rails'
@@ -65,7 +70,6 @@ gem 'httparty'
 gem 'ci_reporter'
 gem 'nokogiri', '1.4.1'
 gem 'rubyzip' # TODO: see rubyzip2
-gem 'rmagick'
 gem 'dynamic_form'
 gem 'prism'
 # not the official repo, but has fixes for rails 3

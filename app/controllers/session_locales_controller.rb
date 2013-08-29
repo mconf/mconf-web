@@ -10,7 +10,7 @@ class SessionLocalesController < ActionController::Base
   def create
     new_locale = params[:new_locale].to_sym
 
-    if I18n.available_locales.include?(new_locale)
+    if configatron.i18n.default_locales.include?(new_locale)
       # Add locale to the session
       session[:locale] =  new_locale
       # Add locale to the user profile

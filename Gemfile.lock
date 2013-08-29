@@ -123,6 +123,8 @@ GEM
       sass (~> 3.2.0.alpha.93)
     compass-rails (1.0.3)
       compass (>= 0.12.2, < 0.14)
+    configatron (2.13.0)
+      yamler (>= 0.1.0)
     crack (0.1.8)
     daemon_controller (1.0.0)
     daemons (1.1.4)
@@ -332,6 +334,7 @@ GEM
     ya2yaml (0.30)
     yajl-ruby (1.1.0)
     yaml_db (0.2.3)
+    yamler (0.1.0)
     yui-compressor (0.9.6)
       POpen4 (>= 0.1.4)
 
@@ -350,6 +353,7 @@ DEPENDENCIES
   coffee-rails (~> 3.2.0)
   compass (~> 0.13.alpha)
   compass-rails (~> 1.0)
+  configatron (~> 2.13)
   daemons
   debugger
   delayed_job (~> 3.0.0)

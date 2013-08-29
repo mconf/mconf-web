@@ -14,6 +14,7 @@ class mconf.Resources
   # Binds all resources we need to bind when content is added to the page (e.g. a modal
   # is opened).
   @bind: ->
+    mconf.Base.bind()
     mconf.Tooltip.bind()
     mconf.InPlaceEdit.bind()
     mconf.Crop.bind()

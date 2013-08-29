@@ -34,6 +34,6 @@ module LocaleControllerModule
 
   # Returns true if the locale is available.
   def locale_available?(locale)
-    I18n.available_locales.include?(locale.to_sym)
+    configatron.i18n.default_locales.include?(locale.to_sym)
   end
 end

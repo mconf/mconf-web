@@ -7,7 +7,7 @@
     .link-group.languages
       %h3= t('translate.change')
       %ul
-        - for locale in (I18n.available_locales)
+        - available_locales.each do |locale|
           %li
             - flag = image_tag("flags/" + locale.to_s + ".png", :title => locale.to_s)
             - text = t('locales.' + locale.to_s)

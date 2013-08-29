@@ -4,6 +4,13 @@
   cursor: pointer;
 }
 
+/* without this some tooltips will be shown in a single line, and if its
+   text is too big it won't show the entire text.  */
+.tooltip-inner {
+  white-space: normal;
+  min-width: 150px;
+}
+
 .ui-tooltip-mconf {
   z-index: 9999;
   font-weight: normal;
