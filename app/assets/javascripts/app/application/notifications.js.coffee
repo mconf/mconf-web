@@ -16,22 +16,36 @@ class mconf.Notification
 
   @bind: ->
     $("div[name='error'], div[name='alert']", "#notification-flashs").each ->
-      opts = $.extend {}, defaultOpts,
-        text: $(this).text()
-        type: 'error'
-        force: true
-        timeout: false
-      noty opts
+      showNotification(this, "error")
     $("#notification-flashs > div[name='success']").each ->
-      opts = $.extend {}, defaultOpts,
-        text: $(this).text()
-        type: 'success'
-      noty opts
+      showNotification(this, "success")
     $("#notification-flashs > div[name='notice']").each ->
-      opts = $.extend {}, defaultOpts,
-        text: $(this).text()
-        type: 'alert'
-      noty opts
+      showNotification(this, "notice")
+
+showNotification = (target, type) ->
+  $target = $(target)
+
+  unless $target.attr("data-notification-shown") is "1"
+    $target.attr("data-notification-shown", "1")
+
+    opts = {}
+    switch type
+      when "success"
+        opts = $.extend {}, defaultOpts,
+          text: $target.text()
+          type: 'success'
+      when "error"
+        opts = $.extend {}, defaultOpts,
+          text: $target.text()
+          type: 'error'
+          force: true
+          timeout: false
+      else
+        opts = $.extend {}, defaultOpts,
+          text: $target.text()
+          type: 'alert'
+
+    noty(opts)
 
 $ ->
   mconf.Notification.bind()
