@@ -1,6 +1,5 @@
--# TODO: move the name of these metadata to a configuration file
-- meta_title = @room.metadata.all.select{ |m| m.name == "mconfweb-title" }.first
-- meta_description = @room.metadata.all.select{ |m| m.name == "mconfweb-description" }.first
+- meta_title = get_room_metadata(@room, configatron.webconf.metadata.title)
+- meta_description = get_room_metadata(@room, configatron.webconf.metadata.description)
 
 %h1= t('.title', :room => @room.name)
 
