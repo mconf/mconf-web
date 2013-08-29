@@ -58,4 +58,11 @@ describe ApplicationController do
     it "if current_user is not an instance of User returns nil"
   end
 
+  describe "#bigbluebutton_can_create?" do
+    it "if there's no user logged returns false"
+    it "if there's user logged returns current_user.can_create_meeting?"
+    it "if the user can create the room but cannot record, sets the record flag to false"
+    it "if the user can create the room and can record, leaves the record flag as it was before"
+  end
+
 end

@@ -2,6 +2,7 @@
 @import "definitions";
 
 @import "app/custom_bigbluebutton_rooms/join_mobile";
+@import "app/invites/invite_room";
 
 // TODO: this is shown in too many pages, maybe the #space-sidebar selector
 // is enough, so the body selectors are not really necessary here
@@ -44,15 +45,6 @@
       .buttons {
         text-align: center;
         margin: 15px 0;
-
-        .webconf-start-link {
-          float: left;
-          width: 30%;
-        }
-        .webconf-join-mobile-link {
-          float: right;
-          width: 40%;
-        }
       }
 
       .in-progress-icon {

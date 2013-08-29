@@ -5,16 +5,16 @@ pt-br:
     details: "Detalhes"
     edit: "Editar"
     end: "Finalizar"
-    join: "Entrar"
     in_place_edit:
       error: "erro"
       success: "gravado"
-    publish: "Publicer"
+    join: "Entrar"
+    login_to_enable: "Você precisa estar logado para acessar esta opção"
+    publish: "Publicar"
     save: "Salvar"
     unpublish: "Despublicar"
     webconference:
-      join_mobile: "Entrar de um dispositivo móvel..."
-      join_mobile_short: "Entrar/móvel"
+      not_allowed_to_create: "Você não tem permissão para criar reuniões nesta sala"
   GMT: GMT
   RSS: RSS
   abc: ABC
@@ -653,6 +653,7 @@ pt-br:
       fast_start: "Início rápido usando as opções já configuradas"
       invite: "Convidar outras pessoas..."
       join: "Entrar na reunião!"
+      join_mobile_full: "Entrar a partir de um dispositivo móvel..."
       options: "Opções"
       preferences: "Preferências..."
       start: "Começar uma nova reunião"
@@ -1219,6 +1220,16 @@ pt-br:
     sidebar:
       webconference_join: "Entrar"
       webconference_start: "Iniciar"
+    sidebar_webconf_buttons:
+      end: "Parar a reunião"
+      fast_start: "Início rápido usando as opções já configuradas"
+      invite: "Convidar outras pessoas..."
+      join: "Entrar!"
+      join_mobile: "Entrar/móvel"
+      join_mobile_full: "Entrar a partir de um dispositivo móvel..."
+      options: "Opções"
+      preferences: "Preferências..."
+      start: "Iniciar"
     space_thumbnail:
       private: "privada"
       public: "pública"

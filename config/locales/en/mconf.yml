@@ -9,12 +9,12 @@ en:
       error: "error"
       success: "saved"
     join: "Join"
+    login_to_enable: "You need to be logged in to perform this action"
     publish: "Publish"
     save: "Save"
     unpublish: "Unpublish"
     webconference:
-      join_mobile: "Join from a mobile device..."
-      join_mobile_short: "Join/mobile"
+      not_allowed_to_create: "You are not allowed to create meetings in this room"
   GMT: GMT
   RSS: RSS
   abc: ABC
@@ -676,6 +676,7 @@ en:
       fast_start: "Fast start using the options already configured"
       invite: "Invite other people..."
       join: "Join the meeting!"
+      join_mobile_full: "Join from a mobile device..."
       options: "Options"
       preferences: "Preferences..."
       start: "Start a new meeting"
@@ -1263,6 +1264,16 @@ en:
     sidebar:
       webconference_join: "Join it"
       webconference_start: "Start it"
+    sidebar_webconf_buttons:
+      end: "Stop the meeting"
+      fast_start: "Fast start using the options already configured"
+      invite: "Invite other people..."
+      join: "Join now!"
+      join_mobile: "Join/mobile"
+      join_mobile_full: "Join from a mobile device..."
+      options: "Options"
+      preferences: "Preferences..."
+      start: "Start"
     space_thumbnail:
       private: "private"
       public: "public"

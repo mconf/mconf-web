@@ -119,7 +119,24 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def bigbluebutton_can_create?(room, role)
+    can_create = current_user ? current_user.can_create_meeting?(room) : false
+    if can_create
+      # if the user can create the meeting but cannot record, we make sure the
+      # record flag is not set before the room is created
+      if bigbluebutton_user.nil? or not
+          bigbluebutton_user.respond_to?(:"can_record_meeting?") or not
+          bigbluebutton_user.can_record_meeting?(room, role)
+        room.update_attribute(:record, false)
+      end
+      true
+    else
+      false
+    end
+  end
+
   # This method is the same as space, but raises error if no Space is found
+  # TODO: do we really need this now cancan loads the resources?
   def space!
     space || raise(ActiveRecord::RecordNotFound)
   end

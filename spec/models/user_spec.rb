@@ -73,7 +73,7 @@ describe User do
     pending "has the server as the first server existent"
   end
 
-  describe "#update" do
+  describe "on update" do
 
     context "updates the webconf room" do
       let(:user) { FactoryGirl.create(:user, :username => "old-user-name") }
@@ -226,6 +226,48 @@ describe User do
         Helpers.create_fellows(60, space)
       end
       it { subject.length.should == 50 }
+    end
+  end
+
+  describe "#can_create_meeting?" do
+    let(:user) { FactoryGirl.create(:user) }
+    let(:another_user) { FactoryGirl.create(:user) }
+
+    context "for a user room" do
+      context "that belongs to the target user" do
+        let(:room) { FactoryGirl.create(:bigbluebutton_room, :owner => user) }
+        it { user.can_create_meeting?(room).should be_true }
+      end
+
+      context "that belongs to another user" do
+        let(:room) { FactoryGirl.create(:bigbluebutton_room, :owner => another_user) }
+        it { user.can_create_meeting?(room).should be_false }
+      end
+    end
+
+    context "for a space room" do
+      let(:space) { FactoryGirl.create(:space) }
+
+      context "of a space the user belongs to" do
+        let(:room) { FactoryGirl.create(:bigbluebutton_room, :owner => space) }
+        before(:each) { space.add_member!(user) }
+        it { user.can_create_meeting?(room).should be_true }
+      end
+
+      context "of a space the user doesn't belong to" do
+        let(:room) { FactoryGirl.create(:bigbluebutton_room, :owner => space) }
+        it { user.can_create_meeting?(room).should be_false }
+      end
+    end
+
+    context "for a room without owner" do
+      let(:room) { FactoryGirl.create(:bigbluebutton_room, :owner => nil) }
+      it { user.can_create_meeting?(room).should be_false }
+    end
+
+    context "for a room with an invalid owner_type" do
+      let(:room) { FactoryGirl.create(:bigbluebutton_room, :owner_type => "invalid type") }
+      it { user.can_create_meeting?(room).should be_false }
     end
   end
 

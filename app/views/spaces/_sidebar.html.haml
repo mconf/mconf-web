@@ -8,24 +8,15 @@
         = in_progress_icon if @webconf_room.is_running?
         %h3= t('webconference.one')
         = help_icon t("tooltip.bigbluebutton_space"), :class => 'leftwards'
-      .content-block-middle.clearfix
+      .content-block-middle
         .description
           - if @webconf_room.is_running?
             %span= t('webconference.currently_running', :count => @webconf_room.participant_count)
           - else
             %span= t('webconference.nobody.one_line')
         .buttons
-          - if user_signed_in?
-            - webconf_join_link = join_space_room_path(@space, @webconf_room)
-          - else
-            - webconf_join_link = invite_space_room_path(@space, @webconf_room)
-          - btn_class = @webconf_room.is_running? ? "btn-success" : "btn-primary"
-          - join_text = @webconf_room.is_running? ? t('.webconference_join') : t('.webconference_start')
-          = link_to join_text, webconf_join_link, :class => "btn webconf-start-link #{btn_class}"
-          - if user_signed_in?
-            = webconf_mobile_icon_link(join_mobile_space_room_path(@space, @webconf_room))
-          - else
-            = webconf_mobile_icon_link(false)
+          = render 'spaces/sidebar_webconf_buttons', :room => @webconf_room
+
       .content-block-footer
         = link_to t('view_more'), space_webconference_path(@space)
 

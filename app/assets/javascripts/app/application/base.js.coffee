@@ -21,7 +21,13 @@ $ ->
 
   # Add a title and tooltip to elements that can only be used by a logged user
   $(".login-to-enable").each (idx) ->
-    $(this).attr("title", "You need to be logged in") # TODO: get from i18n
+    $(this).attr("title", I18n.t("_other.login_to_enable"))
+    $(this).addClass("tooltipped")
+    $(this).addClass("upwards")
+
+  # Add a title and tooltip to elements that can only be used by a logged user
+  $(".webconf-not-allowed-create").each (idx) ->
+    $(this).attr("title", I18n.t("_other.webconference.not_allowed_to_create"))
     $(this).addClass("tooltipped")
     $(this).addClass("upwards")
 
