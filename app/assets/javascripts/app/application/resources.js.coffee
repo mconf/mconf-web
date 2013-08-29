@@ -6,6 +6,7 @@
 #
 class mconf.Resources
   @bind: ->
+    mconf.Base.bind()
     mconf.Tooltip.bind()
     mconf.Crop.bind()
     mconf.Dropdown.bind()
