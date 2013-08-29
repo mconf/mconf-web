@@ -15,6 +15,8 @@ en:
     unpublish: "Unpublish"
     webconference:
       not_allowed_to_create: "You are not allowed to create meetings in this room"
+      not_running: "not running"
+      running: running
   GMT: GMT
   RSS: RSS
   abc: ABC
@@ -1262,6 +1264,12 @@ en:
         list: "List"
         thumbnails: "Thumbnails"
     sidebar:
+      webconference:
+        attendees:
+          nobody: "There is nobody currently in the room."
+        currently_running:
+          one: "The webconference is currently in progress with %{count} participant"
+          other: "The webconference is currently in progress with %{count} participants"
       webconference_join: "Join it"
       webconference_start: "Start it"
     sidebar_webconf_buttons:
@@ -1353,7 +1361,6 @@ en:
   tooltip: 
     admin: "This section shows the people that have administrator rights in this space"
     advanced_editor: "This editor allows you to: view source html; change the font style, font size, text color and alignment of the text; insert/edit links; add attachments and tags"
-    bigbluebutton_space: "This is a public BigBlueButton webconference room for this space. Only members of this space can access the room."
     doc_search: "Use the fields in this side to filter and update the docs table with your search results"
     event_logo: "You can update your own logo, create a text logo or select an image from the gallery"
     insert: "Use this code to insert this video in your blog or web page."
@@ -1493,33 +1500,31 @@ en:
   view: "View"
   view_more: "View more"
   webconference: 
-    currently_running: 
-      one: "The webconference is currently in progress with %{count} participant"
-      other: "The webconference is currently in progress with %{count} participants"
     invite_webconference: "Invite people to the webconference"
     join: Join
     my_webconference: "My webconference room"
     new_webconference: "New webconference room"
-    nobody: 
-      one_line: "There is nobody currently in the room."
     not_running: "not running"
     one: Webconference
     running: running
     space: 
-      access: 
-        description: "The webconference room associated with this space is currently: <b>%{status}</b> <br/> Click in the button at the top of the sidebar to join the webconference."
-        header: "Webconference access"
       join_now: "Join now"
       see_more: "see more"
-      share: 
-        description: "You can invite people to this webconference by sharing the link below or clicking in the \"invite\" button."
-        header: Share
-        url: "Webconference URL"
     start_now: "Start now!"
-    title_people_conf: "People in the room"
   webconferences:
     space_show:
       invite: "Invite other people"
+      webconference:
+        attendees:
+          nobody: "There is nobody currently in the room."
+          people_in_the_room: "People in the room"
+        description:
+          header: "Webconference access"
+          text: "The webconference room associated with this space is currently: <em>%{status}</em> <br/> Use the buttons in the sidebar at the right to join the webconference."
+        share:
+          description: "You can invite people to this webconference by sharing the link below or clicking in the button besides it."
+          header: Share
+          url: "Webconference URL"
   when: When
   where: Where
   yesterday: Yesterday

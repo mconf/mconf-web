@@ -41,3 +41,4 @@
 //= require ./app/application/base
 //= require_tree ./templates
 //= require_tree ./app/application/
+//= require_tree ./app/_all/

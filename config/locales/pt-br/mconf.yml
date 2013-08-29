@@ -15,6 +15,8 @@ pt-br:
     unpublish: "Despublicar"
     webconference:
       not_allowed_to_create: "Você não tem permissão para criar reuniões nesta sala"
+      not_running: "não iniciada"
+      running: "em andamento"
   GMT: GMT
   RSS: RSS
   abc: ABC
@@ -1218,6 +1220,12 @@ pt-br:
         list: "Lista"
         thumbnails: "Miniaturas"
     sidebar:
+      webconference:
+        attendees:
+          nobody: "Não há ninguém na sala."
+        currently_running:
+          one: "A conferência está ativa com %{count} participante"
+          other: "A conferência está ativa com %{count} participantes"
       webconference_join: "Entrar"
       webconference_start: "Iniciar"
     sidebar_webconf_buttons:
@@ -1305,7 +1313,6 @@ pt-br:
   tooltip:
     admin: "Esta seção mostra as pessoas que têm direitos de administrador nesta comunidade"
     advanced_editor: "Este editor permite que você: veja o código html; modifique o estilo e tamanho da fonte, cor de texto e alinhamento do texto; insira/edite links; adicione anexos e tags"
-    bigbluebutton_space: "Esta é uma sala de webconferência pública para esta comunidade. Apenas membros desta comunidade podem acessar a sala."
     doc_search: "Use os campos deste lado para filtrar e atualizar a tabela de documentos com seus resultados da pesquisa"
     event_logo: "Você pode enviar o seu próprio logotipo, criar um logotipo de texto ou selecionar uma imagem da galeria"
     insert: "Use este código para inserir este vídeo em seu blog ou página web."
@@ -1429,27 +1436,30 @@ pt-br:
     new: "Nova versão"
     one: Versão
   webconference:
-    currently_running:
-      one: "A conferência está ativa com %{count} participante"
-      other: "A conferência está ativa com %{count} participantes"
     invite_webconference: "Convidar pessoas para a conferência"
     join: Join
     my_webconference: "Minha sala de webconferência"
     new_webconference: "Nova sala de webconferência"
-    nobody:
-      one_line: "Não há ninguém na sala."
     not_running: inativa
     one: Webconferência
     running: ativa
     space:
-      description: "A sala de webconferência associada a esta comunidade está atualmente: <b>%{status}</b> <br/> Clique no botão no topo da barra lateral para ingressar na webconferência. <br/> Você também pode compartilhar o link abaixo (ou clicar em \"convidar\") para convidar outras pessoas."
-      join_now: "participe agora"
       see_more: "saiba mais"
       share: Compartilhar
-    title_people_conf: "Pessoas na sala"
   webconferences:
     space_show:
       invite: "Convidar outras pessoas"
+      webconference:
+        attendees:
+          nobody: "Não há ninguém na sala."
+          people_in_the_room: "Pessoas na sala"
+        description:
+          header: "Acesso à webconferência"
+          text: "A sala de webconferência associada com esta comunidade está no momento: <em>%{status}</em> <br/> Use os botões na barra lateral à direita para entrar na conferência."
+        share:
+          description: "Você pode convidar pessoas para esta webconferência utilizando o endereço abaixo ou clicando no botão de compartilhar ao lado."
+          header: Compartilhar
+          url: "Endereço da sala"
   when: Quando
   where: Onde
   yesterday: Ontem

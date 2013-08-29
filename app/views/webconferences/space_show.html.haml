@@ -3,19 +3,20 @@
 
 #webconference-description.content-block
   .content-block-header
-    %h3= t('webconference.space.access.header')
+    %h3= t('.webconference.description.header')
   .content-block-middle
-    .description-text
-      - status = @webconf_room.is_running? ? t('webconference.running') : t('webconference.not_running')
-      = t('webconference.space.access.description', :status => status).html_safe
+    - cls = @webconf_room.is_running? ? "running" : "not-running"
+    .description-text{ :class => cls }
+      - status = @webconf_room.is_running? ? t('_other.webconference.running') : t('_other.webconference.not_running')
+      = t('.webconference.description.text', :status => status).html_safe
 
 #webconference-share.content-block
   .content-block-header
-    %h3= t('webconference.space.share.header')
+    %h3= t('.webconference.share.header')
   .content-block-middle
-    = t('webconference.space.share.description')
+    = t('.webconference.share.description')
     .share-url
-      = label_tag 'invite-url-text', t('webconference.space.share.url')
+      = label_tag 'invite-url-text', t('.webconference.share.url')
       = text_field_tag 'invite-url-text', join_webconf_url(@webconf_room), :readonly => true
       - if user_signed_in?
         = link_to t('.invite'), inviteroom_invite_path(:type => "webconference", :room => space.bigbluebutton_room.to_param), options_for_tooltip(t('home.webconference.invite_tooltip'), :class => 'btn open-modal')
@@ -24,11 +25,11 @@
   .content-block-header
     = image_tag("icons/user.png")
     %h3
-      = t('webconference.title_people_conf')
+      = t('.webconference.attendees.people_in_the_room')
       = "(#{@webconf_room.participant_count})"
   .content-block-middle
     - if @webconf_attendees.count == 0
-      = t('webconference.nobody.one_line')
+      = t('.webconference.attendees.nobody')
     - else
       - @webconf_attendees.each do |user|
         = render :partial => 'users/detailed_user', :locals => { :user => user }

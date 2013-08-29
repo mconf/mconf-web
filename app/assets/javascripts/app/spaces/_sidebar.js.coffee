@@ -1,19 +1,27 @@
 #= require "../custom_bigbluebutton_rooms/_join_options"
 
-$ ->
-  if isOnPage 'homes', 'show'
+mconf.Spaces or= {}
 
-    # Almost the same that is done in spaces/_sidebar
+# Javascript for the sidebar show in all spaces, in several pages.
+# Almost the same that is done in homes/show
+class mconf.Spaces.Sidebar
+
+  @bind: ->
+    @unbind()
 
     # set to rebind JoinOptions when the resources are rebound
     mconf.Resources.addToBind ->
       mconf.CustomBigbluebuttonRooms.JoinOptions.bind()
 
     # check the inputs for the first time when the modal is opened
-    $(document).on "modal-after-update-markup", ->
+    $(document).on "modal-after-update-markup.mconfSpacesSidebar", ->
       mconf.CustomBigbluebuttonRooms.JoinOptions.verifyInputs()
 
     # this modal binds some things in the modal using "global" selectors such as ".modal"
     # so we make sure we unbind everything when the modal is closed
-    $("#webconference-room .webconf-join-group").on "modal-closed", ->
+    $("#sidebar-webconference .webconf-join-group .open-modal").on "modal-closed.mconfSpacesSidebar", ->
       mconf.CustomBigbluebuttonRooms.JoinOptions.unbind()
+
+  @unbind: ->
+    $(document).off "modal-after-update-markup.mconfSpacesSidebar"
+    $("#sidebar-webconference .webconf-join-group .open-modal").off "modal-closed.mconfSpacesSidebar"

@@ -7,13 +7,12 @@
       .content-block-header
         = in_progress_icon if @webconf_room.is_running?
         %h3= t('webconference.one')
-        = help_icon t("tooltip.bigbluebutton_space"), :class => 'leftwards'
       .content-block-middle
         .description
           - if @webconf_room.is_running?
-            %span= t('webconference.currently_running', :count => @webconf_room.participant_count)
+            %span= t('.webconference.currently_running', :count => @webconf_room.participant_count)
           - else
-            %span= t('webconference.nobody.one_line')
+            %span= t('.webconference.attendees.nobody')
         .buttons
           = render 'spaces/sidebar_webconf_buttons', :room => @webconf_room
 

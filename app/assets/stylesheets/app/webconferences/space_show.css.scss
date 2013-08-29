@@ -7,22 +7,19 @@
 body.webconferences.space_show {
 
   #webconference-description {
-    /*
-     * .join-links {
-     *   float: left;
-     *   width: 200px;
-     *   text-align: center;
-     *
-     *   .btn {
-     *     width: 160px;
-     *     margin-bottom: 5px;
-     *   }
-     * }
-     *
-     * .description-text {
-     *   margin-left: 210px;
-     * }
-     */
+    .running {
+      em {
+        color: $green;
+        font-weight: bold;
+      }
+    }
+
+    .not-running {
+      em {
+        color: $red;
+        font-weight: bold;
+      }
+    }
   }
 
   #webconference-share {

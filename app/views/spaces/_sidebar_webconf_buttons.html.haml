@@ -15,8 +15,10 @@
   - btn_class = running ? "btn-success" : "btn-primary"
 
   - if can_create
-    = link_to join_text, join_options_bigbluebutton_room_path(room), :class => "btn open-modal #{btn_class}"
-    - unless running
+    - if running
+      = link_to join_text, join_bigbluebutton_room_path(room), :class => "btn open-modal #{btn_class}"
+    - else
+      = link_to join_text, join_options_bigbluebutton_room_path(room), :class => "btn open-modal #{btn_class}"
       = link_to join_bigbluebutton_room_path(room), options_for_tooltip(t(".fast_start"), :class => "btn btn-primary webconf-start-link") do
         %i.icon-share-alt
 
@@ -40,6 +42,7 @@
         = link_to join_mobile_bigbluebutton_room_path(room), :class => "webconf-join-mobile-link no-icon" do
           %span= t('.join_mobile_full')
       %li= link_to t('.invite'), inviteroom_invite_path(:type => "webconference", :room => room.to_param), :class => 'open-modal'
+      %li= link_to t('.preferences'), join_options_bigbluebutton_room_path(room), :class => "open-modal"
 
   - else
     -# anonymous or non members
