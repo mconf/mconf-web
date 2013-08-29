@@ -1515,6 +1515,7 @@ en:
   webconferences:
     space_show:
       invite: "Invite other people"
+      end: "Stop the meeting"
       webconference:
         attendees:
           nobody: "There is nobody currently in the room."
@@ -1523,7 +1524,7 @@ en:
           header: "Webconference access"
           text: "The webconference room associated with this space is currently: <em>%{status}</em> <br/> Use the buttons in the sidebar at the right to join the webconference."
         share:
-          description: "You can invite people to this webconference by sharing the link below or clicking in the button besides it."
+          description: "You can invite people to this webconference by sharing the link below:"
           header: Share
           url: "Webconference URL"
   when: When

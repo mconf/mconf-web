@@ -6,7 +6,7 @@
 -# so that are several possible combinations. Be careful changing it!
 -# TODO: integration tests for this view would be incredibly useful
 
-- can_create = user_signed_in? && current_user.can_create_meeting?(room)
+- can_create = user_signed_in? && can?(:create_meeting, room)
 - running = room.is_running?
 
 -# join button

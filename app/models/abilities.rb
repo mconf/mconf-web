@@ -35,19 +35,11 @@ module Abilities
       # Not many things are done here, several authorization steps are done by the gem
       # BigbluebuttonRails inside each action
 
-      # TODO: the validation methods below are getting complicated and are very similar
-      #       to methods used in other places, move them to some common place.
       # The same logic for which user can create which room, done at
-      # `ApplicationController#bigbluebutton_can_create?()``
-      can [:end, :join_options], BigbluebuttonRoom do |room|
-        if room.owner_type == "User" and room.owner_id == user.id
-          true
-        elsif room.owner_type == "Space"
-          space = Space.find(room.owner_id)
-          space.users.include?(user)
-        else
-          false
-        end
+      # `user#can_can_meeting?()`
+      # :create_meeting is a custom name, not an action that exists in the controller
+      can [:create_meeting, :end, :join_options], BigbluebuttonRoom do |room|
+        user.can_create_meeting?(room)
       end
 
       can :user_edit, BigbluebuttonRoom do |room|

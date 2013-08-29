@@ -1450,6 +1450,7 @@ pt-br:
   webconferences:
     space_show:
       invite: "Convidar outras pessoas"
+      end: "Parar a reunião"
       webconference:
         attendees:
           nobody: "Não há ninguém na sala."
@@ -1458,7 +1459,7 @@ pt-br:
           header: "Acesso à webconferência"
           text: "A sala de webconferência associada com esta comunidade está no momento: <em>%{status}</em> <br/> Use os botões na barra lateral à direita para entrar na conferência."
         share:
-          description: "Você pode convidar pessoas para esta webconferência utilizando o endereço abaixo ou clicando no botão de compartilhar ao lado."
+          description: "Você pode convidar pessoas para esta webconferência utilizando o endereço abaixo:"
           header: Compartilhar
           url: "Endereço da sala"
   when: Quando
