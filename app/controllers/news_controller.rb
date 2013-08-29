@@ -10,8 +10,7 @@ class NewsController < ApplicationController
   load_and_authorize_resource :through => :space
 
   def create
-    @news = News.new(params[:news])
-    @news.space = @space
+    @news = @space.news.build(params[:news])
 
     respond_to do |format|
       if @news.save
@@ -32,30 +31,32 @@ class NewsController < ApplicationController
   end
 
   def index
-    @news = @space.news.find(:all, :order => "updated_at DESC")
-    @edit_news = @news.select{|n| n.id == params[:edit_news].to_i} if params[:edit_news]
-     respond_to do |format|
-      format.html{
-      }
-     end
+    @all_news = @space.news.order("updated_at DESC")
+    @news = @space.news.new
+
+    respond_to do |format|
+       format.html {}
+    end
   end
 
   def show
-    @news = News.find(params[:id])
-     respond_to do |format|
-      format.html{
-      }
-     end
+    @news = @space.news.find(params[:id])
+
+    respond_to do |format|
+      format.html {}
+    end
   end
 
   def destroy
     news = @space.news.find(params[:id])
+
     if news.destroy
-    respond_to do |format|
-      format.html {
-        flash[:success] = t('news.deleted')
-        redirect_to request.referer
-      }
+
+      respond_to do |format|
+        format.html {
+          flash[:success] = t('news.deleted')
+          redirect_to request.referer
+        }
       end
     else
       flash[:error] = t('news.error.delete')
@@ -64,26 +65,24 @@ class NewsController < ApplicationController
   end
 
   def edit
+    @news = @space.news.find(params[:id])
     respond_to do |format|
       format.html {
-        @edit_news = @space.news.find(params[:id])
-        if request.xhr?
-          render "edit_news_big", :layout => false
-        else
-          render "edit_news_big"
-        end
+        render :layout => false if request.xhr?
       }
     end
   end
 
   def update
     @news = @space.news.find(params[:id])
+
     if @news.update_attributes(params[:news])
       respond_to do |format|
-      format.html {
-      flash[:success] = t('news.updated')
-        redirect_to space_news_index_path(@space)
-      }
+        format.html {
+          flash[:success] = t('news.updated')
+          redirect_to space_news_index_path(@space)
+        }
+      end
 
       @news.create_activity :update, :owner => @space,
         :parameters => { :user_id => current_user.id,
@@ -91,7 +90,6 @@ class NewsController < ApplicationController
                          :name => @news.title
                        }
 
-      end
     else
       flash[:error] = t('news.error.update')
       redirect_to space_news_index_path(@space)
@@ -100,13 +98,10 @@ class NewsController < ApplicationController
 
   def new
       respond_to do |format|
-      format.html {
-        if request.xhr?
-          render "create_news_big", :layout => false
-        else
-          render "create_news_big"
-        end
-      }
-    end
+        format.html {
+          render :layout => false if request.xhr?
+        }
+      end
   end
+
 end

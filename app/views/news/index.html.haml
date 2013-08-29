@@ -2,25 +2,9 @@
 = render :partial => 'spaces/menu'
 
 = content_for :sidebar do
-  - if params[:edit_news]
-    = render :partial => 'edit_news'
-  - else
-    = render :partial => 'create_news'
+  = render :partial => "form"
+
 = render :partial => 'spaces/admin_tabs'
 
-- for news in @news
-  .news-wrapper
-    .news-title
-      - newstitle = sanitize(first_words(news.title,50))
-      %ul.group_links
-        %li= link_to edit_icon(:class => "edit_news_link"), edit_space_news_path(@space, @news) if can?(:update, news)
-
-        %li= link_to delete_icon, space_news_path(@space, @news), {:method => :delete, :confirm => t('delete.confirm', :element => newstitle) } if can?(:destroy, news)
-
-      %h3.main_text
-        = t('title')
-        \:
-        %span.unified_news= newstitle
-
-    .news-content
-      %p.main_text= sanitize(news.text)
+- for news in @all_news
+  = render 'unified_news', :news => news
