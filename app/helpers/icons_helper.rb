@@ -41,6 +41,14 @@ module IconsHelper
     icon_constructor t('RSS'), "icon feed-icon", nil, options
   end
 
+  def edit_icon(options={})
+    icon_constructor t('edit'), "icon edit-icon", "icons/pencil.png", options
+  end
+
+  def delete_icon(options={})
+    icon_constructor t('delete.one'), "icon delete-icon", "icons/cancel.png", options
+  end
+
   # Default icon to an attachment
   def attachment_icon(title, options={})
     icon_constructor title, "icon attachment-icon", "icons/attach.png", options

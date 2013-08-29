@@ -5,6 +5,7 @@
 # 3 or later. See the LICENSE file.
 
 class NewsController < ApplicationController
+
   load_and_authorize_resource :space, :find_by => :permalink
   load_and_authorize_resource :through => :space
 
@@ -16,6 +17,13 @@ class NewsController < ApplicationController
       if @news.save
         flash[:success] = t('news.created')
         format.html { redirect_to request.referer }
+
+        @news.create_activity :create, :owner => @space,
+          :parameters => { :user_id => current_user.id,
+                           :username => current_user.name,
+                           :name => @news.title
+                         }
+
       else
         flash[:error] = t('news.error.create')
         format.html { redirect_to request.referer }
@@ -29,7 +37,6 @@ class NewsController < ApplicationController
      respond_to do |format|
       format.html{
       }
-      format.atom
      end
   end
 
@@ -59,23 +66,12 @@ class NewsController < ApplicationController
   def edit
     respond_to do |format|
       format.html {
-        if params[:big]
-          @edit_news = @space.news.find(params[:id])
-          if request.xhr?
-            render "edit_news_big", :layout => false
-          else
-            render "edit_news_big"
-          end
+        @edit_news = @space.news.find(params[:id])
+        if request.xhr?
+          render "edit_news_big", :layout => false
         else
-          if request.xhr?
-            @edit_news = @space.news.find(params[:id])
-            render :partial => 'edit_news'
-          else
-            redirect_to space_news_index_path(@space, :edit_news => params[:id])
-          end
+          render "edit_news_big"
         end
-      }
-      format.js {
       }
     end
   end
@@ -88,6 +84,13 @@ class NewsController < ApplicationController
       flash[:success] = t('news.updated')
         redirect_to space_news_index_path(@space)
       }
+
+      @news.create_activity :update, :owner => @space,
+        :parameters => { :user_id => current_user.id,
+                         :username => current_user.name,
+                         :name => @news.title
+                       }
+
       end
     else
       flash[:error] = t('news.error.update')
