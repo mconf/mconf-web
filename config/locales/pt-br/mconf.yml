@@ -6,22 +6,27 @@ pt-br:
       update_html: atualizou os dados da comunidade
       join_html: tornou-se um membro da comunidade
       leave_html: deixou de ser um membro da comunidade
+      deleted: uma comunidade que não existe mais
     news:
       create_html: publicou a notícia %{name} em
       update_html: atualizou a notícia %{name} em
+      deleted: que não existe mais
     post:
       create_html: criou a postagem %{name} em
       update_html: atualizou a postagem %{name} em
       reply_html: respondeu à postagem %{name} em
+      deleted: que não existe mais
     event:
       create_html: criou o evento %{name} em
       attend_html: estará presente no evento %{name} de
       not_attend_html: não estará presente no evento %{name} de
       update_html: atualizou as informações de %{name} em
+      deleted: que não existe mais
     attachment:
       create_html: criou o anexo %{name} em
       delete_html: removou o anexo %{name} de
       update_html: atualizou o anexo %{name} de
+      deleted: que não existe mais
   _other:
     destroy: "Remover"
     details: "Detalhes"
