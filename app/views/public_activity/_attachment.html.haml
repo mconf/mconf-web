@@ -1,0 +1,8 @@
+.thread-content
+  .thread-text
+    = link_to activity.parameters[:username], user_path(activity.parameters[:user_id])
+    = activity_translate(activity.key, :name => link_to(activity.parameters[:name].to_s, activity.trackable))
+    = link_to activity.owner.name, space_path(activity.owner)
+
+    = t('date.at')
+    %span.thread-updated-at= t('updated_time_ago', :time => time_ago_in_words(activity.updated_at))

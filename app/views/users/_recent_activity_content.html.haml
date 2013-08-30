@@ -8,6 +8,5 @@
 -# To be prettyfied and completed soon
 - for activity in content
   .activity{ :id => activity.trackable_type.downcase }
-    = link_to activity.owner.name, activity.owner if activity.owner
-    = activity.key
-    = activity.parameters[:name]
+    = activity.trackable_type.downcase
+    = render :partial => "public_activity/#{activity.trackable_type.downcase}", :locals => { :activity => activity }

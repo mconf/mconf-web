@@ -30,9 +30,9 @@ class PostsController < ApplicationController
 
   def show
     if params[:last_page]
-      post_comments(post, {:last => true})
+      post_comments(@post, {:last => true})
     else
-      post_comments(post)
+      post_comments(@post)
     end
 
     respond_to do |format|
@@ -54,12 +54,14 @@ class PostsController < ApplicationController
         flash[:success] = t('post.created')
         format.html { redirect_to request.referer }
 
-        @post.create_activity :create, :owner => @space,
-          :parameters => {
-            :title => @post.title,
-            :username => @post.author.name,
-            :user_id  => @post.author.id
-          }
+        # Don't log as created posts which are replies
+        unless @post.parent
+          @post.create_activity :create, :owner => @space,
+            :parameters => {
+              :username => @post.author.name,
+              :user_id  => @post.author.id
+            }
+        end
       else
         flash[:error] = t('post.error.create')
         format.html { redirect_to request.referer }
@@ -80,7 +82,6 @@ class PostsController < ApplicationController
 
       @post.create_activity :update, :owner => @space,
           :parameters => {
-            :title => @post.title,
             :username => @post.author.name,
             :user_id  => @post.author.id
           }
@@ -100,9 +101,8 @@ class PostsController < ApplicationController
 
     @post.create_activity :reply, :owner => @space,
           :parameters => {
-            :title => @post.title,
-            :username => @post.author.name,
-            :user_id  => @post.author.id
+            :username => current_user.name,
+            :user_id  => current_user.id
           }
   end
 
