@@ -19,7 +19,7 @@
     .link-group.footer-languages
       %h3
         = link_to 'https://github.com/mconf/mconf-web/wiki/Mconf-Web-Localization' do
-          = info_icon t('translate.help_us'), :class => 'help-translate-icon'
+          = icon_info t('translate.help_us'), :class => 'help-translate-icon'
         = t('translate.change')
       - available_locales.each_slice(3) do |locales|
         %ul

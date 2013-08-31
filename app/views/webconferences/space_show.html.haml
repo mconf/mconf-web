@@ -18,6 +18,7 @@
 
 #webconference-share.content-block
   .content-block-header
+    = icon_share()
     %h3= t('webconference.space.share.header')
   .content-block-middle
     = t('webconference.space.share.description')
@@ -29,7 +30,7 @@
 
 .content-block
   .content-block-header
-    = image_tag("icons/user.png")
+    = icon_users()
     %h3
       = t('webconference.title_people_conf')
       = "(#{@webconf_room.participant_count})"

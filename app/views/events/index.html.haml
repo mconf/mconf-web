@@ -14,7 +14,6 @@
   - if can?(:create_event, @space)
     #events-toolbar
       = link_to new_space_event_path, :class => "btn btn-primary btn-small" do
-        %i.icon-plus-sign.icon-white
         = t('event.create.title')
 
   - unless @current_events.empty?

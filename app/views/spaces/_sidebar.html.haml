@@ -5,9 +5,9 @@
 
     = render_sidebar_content_block('sidebar-webconference', :active => @webconf_room.is_running?) do
       .content-block-header
-        = in_progress_icon if @webconf_room.is_running?
+        = icon_in_progress if @webconf_room.is_running?
         %h3= t('webconference.one')
-        = help_icon t("tooltip.bigbluebutton_space"), :class => 'leftwards'
+        = icon_help t("tooltip.bigbluebutton_space"), :class => 'leftwards'
       .content-block-middle.clearfix
         .description
           - if @webconf_room.is_running?
@@ -32,20 +32,20 @@
       .content-block-header
         %h3
           = link_to t('event.upcoming.other'), space_events_path(@space)
-        = help_icon t("tooltip.upcoming"), :class => 'leftwards'
-        = image_tag("icons/date.png")
+        = icon_help t("tooltip.upcoming"), :class => 'leftwards'
+        = icon_event()
       .content-block-middle
         %span.event-timezone
           = "(#{t('timezone.one')}: GMT#{Time.zone.formatted_offset})"
         = render 'events/sidebar_events_simple', :events => @space.upcoming_events(5)
       .content-block-footer
-        = link_to feed_icon, space_events_path(@space, :format => :atom)
+        = link_to icon_feed, space_events_path(@space, :format => :atom)
         = link_to(t('read_more'), space_events_path(@space))
 
     = render_sidebar_content_block("sidebar-space-admins") do
       .content-block-header
         %h3= t('user.administrators')
-        = help_icon t("tooltip.admin"), :class => 'leftwards'
+        = icon_help t("tooltip.admin"), :class => 'leftwards'
       .content-block-middle
         - @space.admins.each do |user|
           = render :partial => 'users/simple_user', :locals => { :user => user }
@@ -53,7 +53,7 @@
     = render_sidebar_content_block('sidebar-pageviews') do
       %span.value= @space.unique_pageviews
       %span= t('space.statistics.views')
-      = help_icon t("tooltip.num_views"), :class => 'leftwards'
+      = icon_help t("tooltip.num_views"), :class => 'leftwards'
 
     - if user_signed_in? && @space.users.include?(current_user) && !(@space.is_last_admin?(current_user))
       = render :partial => 'spaces/sidebar_leave_space'

@@ -14,8 +14,8 @@
         %li= link_to t('spam.default').downcase, spam_report_space_event_path(event.space,event), { :name => event.id, :title => t('spam.report'), :class => "spam-report" }
 
     .thread-title
-      = event_icon t('event.home.one', :space => event.space.name)
-      = spam_icon() if event.spam
+      = icon_event t('event.home.one', :space => event.space.name)
+      = icon_spam() if event.spam
       = link_to sanitize(highlight(event.title, params[:query])), space_event_path(event.space, event)
       %span.thread-updated-at= t('updated_time_ago', :time => sanitize(time_ago_in_words(event.updated_at)))
 

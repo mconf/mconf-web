@@ -3,4 +3,4 @@
     %p
       = space.name
   .links
-    = link_to image_tag("icons/accept.png", :alt => t('enable'), :title => t('space.enable')), enable_space_path(space), :method => :post
+    = link_to icon_confirm(:alt => t('enable'), :title => t('space.enable')), enable_space_path(space), :method => :post

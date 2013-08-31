@@ -19,9 +19,9 @@
         %span= t('members', :count => space.users.count)
         - if space.public
           %span.visibility.public
-            %i.icon-eye-open
+            = icon_space_public()
             = t(".public")
         - else
           %span.visibility.private
-            %i.icon-lock
+            = icon_space_private()
             = t(".private")

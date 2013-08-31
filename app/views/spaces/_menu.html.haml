@@ -18,5 +18,5 @@
             = link_to t('repository.one').capitalize, space_attachments_path(@space)
         - if user_signed_in?
           - if @space.role_for?(current_user, :name => 'Admin') || current_user.superuser?
-            %li{ spaces_menu_select_if(:admin, :class => "admin danger-text") }
-              = link_to t('admin.one').capitalize, edit_space_path(@space)
+            %li{ spaces_menu_select_if(:admin) }
+              = link_to t('admin.one').capitalize, edit_space_path(@space), :class => "admin danger-text"

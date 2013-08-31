@@ -20,7 +20,7 @@
 
   .thread-title
     - unless private_message.checked
-      = unread_message_icon({ :title => t("icons.unread_message_by_receiver") })
+      = icon_unread_message({ :title => t("icons.unread_message_by_receiver") })
     - if expanded
       - sender = User.find_by_id_with_disabled(private_message.sender_id)
       - if sender.disabled?

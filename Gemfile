@@ -32,8 +32,6 @@ gem 'daemons' # for delayed_job
 gem 'rails_autolink'
 gem 'whenever', :require => false
 gem 'garb'
-gem 'bigbluebutton-api-ruby', :git => 'git://github.com/mconf/bigbluebutton-api-ruby.git'
-gem 'bigbluebutton_rails', :git => 'git://github.com/mconf/bigbluebutton_rails.git', :branch => 'strong_parameters'
 gem 'simple_form', '~> 2.0.0'
 gem 'acts_as_tree', :git => 'https://github.com/parasew/acts_as_tree.git'
 gem 'friendly_id'
@@ -44,6 +42,11 @@ gem 'cancan', '~> 1.6.0'
 gem 'i18n-js', :git => "git://github.com/fnando/i18n-js.git", :branch => 'rewrite'
 gem 'rabl'
 gem 'yajl-ruby' # json parser for rabl
+gem 'valid_email'
+
+# BigBlueButton integration
+gem 'bigbluebutton-api-ruby', :git => 'git://github.com/mconf/bigbluebutton-api-ruby.git'
+gem 'bigbluebutton_rails', :git => 'git://github.com/mconf/bigbluebutton_rails.git', :branch => 'strong_parameters'
 gem 'strong_parameters' # for bigbluebutton_rails
 
 # Used on Profile to generate a vcard
@@ -59,7 +62,9 @@ gem 'configatron', '~> 2.13'
 # for bootstrap
 gem 'less-rails'
 gem 'twitter-bootstrap-rails'
-gem 'valid_email'
+
+# font-awesome (recommended to be here, not in the assets group)
+gem 'font-awesome-rails'
 
 # TODO: Gems to review if we can remove/update
 gem 'galetahub-simple_captcha', :require => 'simple_captcha'

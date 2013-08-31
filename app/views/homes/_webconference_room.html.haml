@@ -3,7 +3,7 @@
 
   .header
     - if @room.is_running?
-      = in_progress_icon
+      = icon_in_progress
     %h3
       - if @room.is_running?
         - if @room.participant_count == 0

@@ -28,7 +28,7 @@
         - if expand_versions_to_array.include?(attachment.version_family_id) && attachment.version_family.size > 1
           - row[:class] += " version_expanded"
           - name = ""
-          - name = link_to(image_tag("down.png"),path_for_attachments({:not_expanded => attachment.version_family_id}), :class => "table_params") if attachment.current_version?
+          - name = link_to(icon_download(),path_for_attachments({:not_expanded => attachment.version_family_id}), :class => "table_params") if attachment.current_version?
           - name = "<span class=\"version_number\" title=\"#{t('version.one')} #{attachment.version}\">V#{attachment.version}</span> #{attachment_link(attachment)}".html_safe
           - row.name           name.html_safe
           - row.author         link_to attachment.author.name, user_path(attachment.author)

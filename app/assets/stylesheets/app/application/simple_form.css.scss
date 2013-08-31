@@ -61,10 +61,11 @@
     &.field_with_hint {
       &:hover, &:focus { color: darken($alert-info-font, 20); }
       cursor: pointer;
-      background: url("/assets/icons/help-16x16.png") no-repeat left top;
-      background-position: -16px 0;
+      background: url("/assets/icons/help-14x14.png") no-repeat left top;
+      background-width: 12px;
+      background-height: 12px;
       label {
-        margin-left: 20px;
+        margin-left: 18px;
       }
     }
   }

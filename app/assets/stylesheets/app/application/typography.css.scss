@@ -107,5 +107,6 @@ ul, ol {
 a {
   @include link-colors($link-color, $link-color-hover, $link-color-active);
   text-decoration: none;
-  &:hover { text-decoration: none; }
+  &:hover, &:active, &:focus { text-decoration: none; }
+  &:focus { color: lighten($link-color-active, 7); }
 }

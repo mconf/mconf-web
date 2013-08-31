@@ -38,9 +38,20 @@
       .visibility {
         font-size: $font-small;
         display: block;
+        color: #666;
 
-        &.public { color: $alert-success-font };
-        &.private { color: $alert-danger-font };
+        &.public {
+          .icon-awesome { color: $alert-success-font; }
+        }
+        &.private {
+          .icon-awesome { color: $alert-danger-font; }
+        }
+
+        .icon-awesome {
+          float: none;
+          font-size: $font-small;
+          margin-right: 2px;
+        }
       }
 
       .space-title {

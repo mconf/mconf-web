@@ -22,7 +22,7 @@
         .new_doc_content
           %span
             = t("tag.new")
-            = help_icon t("tooltip.tag")
+            = icon_help t("tooltip.tag")
           #tags
             = select(:attachment, :_tags, @space.tags.map{ |u| u.name }, {}, {:multiple => "multiple"})
         .new_doc_content

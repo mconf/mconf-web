@@ -12,9 +12,9 @@
         %li= link_to t('spam.default').downcase, spam_report_space_post_path(post.space,post), { :name => post.id, :title => t('spam.report'), :class => "spam-report" }
 
     .thread-title
-      = comment_icon t('post.home.one', :space => post.space.name)
+      = icon_comment t('post.home.one', :space => post.space.name)
       - if post.author
         = link_to post.author.name, user_path(post.author), { :class => "thread-author" }
-      = spam_icon() if post.spam
+      = icon_spam() if post.spam
     .thread-text
       %p= post.text
