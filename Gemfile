@@ -57,7 +57,8 @@ gem 'carrierwave'
 gem 'rmagick'
 
 # global configurations
-gem 'configatron', '~> 2.13'
+# TODO: update to the stable version when out
+gem 'configatron', '~> 3.0.0.rc1'
 
 # for bootstrap
 gem 'less-rails'

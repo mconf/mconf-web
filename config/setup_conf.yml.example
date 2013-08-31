@@ -1,90 +1,65 @@
-# Note: DO NOT modify this file, it specifies default values that will be used if you don't
-# override them in the actual configuration file.
+# Setup configurations
+# The values defined here will be used to create the seed data on the database (see db/seeds.rb).
+# The section 'default' contain the configurations for all environments (development, test,
+# production). If you need you can define specific sections for the environments you want,
+# and these configurations will override the ones in the default section.
 
-# Default configurations
-# The values defined here will be used as default for all environments (development, test,
-# production). You can also define specific configurations for each environment to override
-# the defaults. To do that, copy the parameters you want to override and paste them inside
-# the environment you want. These environments are commented in the end of this file.
+# Almost everyting you setup here can be configured later on from the application's
+# web interface!
+
 default:
 
-  # Admin account
-  # You can change the password after the initial setup from within the application.
-  admin_username: "admin"                          # Admin user login (e.g. mconf)
-  admin_fullname: "Mconf Admin"                    # Admin user full name
-  admin_email: "admin@default.com"                 # Admin user email
-  admin_password: "admin"                          # Admin user password
+  # The first admin you will use to login and setup the application.
+  # You can set any attribute from the model User here.
+  # You can change everything, except the email, from within the application later on.
+  admin:
+    username: "admin"
+    email: "admin@default.com"
+    password: "admin"
+    # If you want to set attributes in the user's profile, do it below
+    profile_attributes:
+      full_name: "Mconf Admin"
 
-  # BigBlueButton default server configuration
-  # This server will be your first and default server
-  bbb_server_name: "Default Server"                                 # BBB server name
-  bbb_server_url: "http://my-development-server/bigbluebutton/api"  # BBB server url in the format http://<server>/bigbluebutton/api
-  bbb_server_salt: "my-secret-salt"                                 # BBB server salt
-  bbb_server_version: "0.7"                                         # BBB version
+  # The first, only and default Site model with general configurations for the website.
+  # You can set any attribute from the model Site here.
+  # If not specified, the SMTP configurations will default to a Gmail account.
+  site:
+    name: "Mconf"
+    description: "Mconf Website"
+    smtp_login: "my-email@server.com"
+    smtp_password: "my-password"
+    locale: "en"
+    domain: "localhost"
+    signature: "Mconf"
+    ssl: false
 
-  # Website default configuration
-  # The information will be used to create the Site object, that defines your website.
-  # They can be altered after the initial setup using the management area in the application.
-  site_name: "Mconf"                              # Website name
-  site_description: "Mconf Website"               # Website description
-  site_locale: "en"                               # This will be the default locale for the application
-  site_domain: "localhost"                        # Your server's IP or name address
-  site_signature: "Mconf"                         # To sign emails
-  site_feedback_url: ""                           # URL to be opened when a user logs out of a conference
-  site_analytics_code: ""                         # Google Analytics tracking code. Leave it empty to disable. Use the format: "UA-12345678-9".
-
-  # With SSL enabled all internal links (images, pages, attachments) will use the protocol
-  # HTTPS instead of HTTP
-  site_ssl: "false"                               # Change to "true" to enable.
-
-  # Basic configurations for SMTP. Defaults to Gmail, unless you configure the
-  # rest of the data in the manage page.
-  site_smtp_login: "my-email@server.com"         # SMTP login
-  site_smtp_password: "my-password"              # SMTP password
-
-  # Notifies when an exception occurs. The feature is disabled by default.
-  # This will only work in the PRODUCTION environment. To enable it change the property
-  # below to "true".
-  site_exception_notifications: "false"                         # Change to "true" to enable
-  site_exception_notifications_prefix: "[Mconf-Web Error]"      # Prefix added in the email subject
-  # Emails that should receive the notification. Use a space, comma of semi-colon to separate multiple emails.
-  # Example: "my-email@server.com my-email2@server.com email3@server2.com"
-  site_exception_notifications_recipients: ""
-
-  # Enable or disable login using Shibboleth.
-  site_shibboleth: "false"                                       # Change to "true" to enable
-  site_shibboleth_email_field: "Shib-inetOrgPerson-mail"         # Field used to obtain the user's email
-  site_shibboleth_name_field: "Shib-inetOrgPerson-sn"            # Field used to obtain the user's name
+  # The first and default webconference server.
+  # You can set any attribute from the model BigbluebuttonServer here.
+  webconf_server:
+    name: "Default Server"
+    url: "http://my-development-server/bigbluebutton/api"
+    salt: "my-secret-salt"
+    version: "0.8"
 
 # Configurations for each environment
 # You can find below the sections for each environment available.
 # Uncomment the lines from one of them to define specific configurations for that environment.
-# You can copy any of the parameters from the default section and override them here.
-# Remember to copy the entire sections: if you want to override "site_smtp_login" and
-# "admin_username", you must do something like:
-#
-# development:
-#   site_smtp_login: "override the SMTP login"
-#   admin_username: "my-special-admin"
-#
-# Also remember to maintain the file indented with 2 spaces. The YML file must be well
-# formatted to be valid.
+# You can use any of the parameters from the default section and here as well.
 
 # Development configurations
-#development:
-#  bbb_server_url: "http://dev-server/bigbluebutton/api"
-#  bbb_server_salt: "dev-server-salt"
-#  bbb_server_version: "0.7"
+# development:
+#   webconf_server:
+#     name: "Any other server"
+#     url: "http://my-other-server/bigbluebutton/api"
+#     salt: "my-secret-salt"
+#     version: "0.8"
 
 # Production configurations
-#production:
-#  bbb_server_url: "http://production-server/bigbluebutton/api"
-#  bbb_server_salt: "production-server-salt"
-#  bbb_server_version: "0.7"
-#  analytics_code: ""
+# production:
+#   admin:
+#     ...
 
 # Test configurations
-#test:
-#  bbb_server_url: "http://test-server/bigbluebutton/api"
-#  bbb_server_salt: "test-server-salt"
-#  bbb_server_version: "0.7"
+# test:
+#   admin:
+#     ...
