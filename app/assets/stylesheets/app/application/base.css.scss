@@ -32,63 +32,6 @@ form {
 // Components used site-wide, in any layout
 //
 
-.icon {
-  width: 16px;
-  height: 16px;
-  float: left;
-  margin-right: 3px;
-}
-
-.help-icon {
-  float: right;
-  cursor: pointer;
-  background: url(asset_path("icons/help-16x16.png", image)) no-repeat 0 0;
-  width: 16px;
-  height: 16px;
-  &:hover { background-position: -16px 0; }
-}
-
-.text-help-icon {
-  font-size: $font-small;
-  color: $h-font-color;
-  &:hover { font-weight: bold; }
-}
-
-.info-icon {
-  float: right;
-  cursor: pointer;
-  background: url(asset_path("icons/information-16x16.png", image)) no-repeat 0 0;
-  width: 16px;
-  height: 16px;
-  &:hover { background-position: -16px 0; }
-}
-
-.feed-icon {
-  float: left;
-  cursor: pointer;
-  background: url(asset_path("icons/feed.png", image)) no-repeat bottom;
-  width: 16px;
-  height: 16px;
-}
-
-.in-progress-icon {
-  background: url(asset_path("icons/in-progress-green-16x16.gif", image)) no-repeat bottom;
-  width: 16px;
-  height: 16px;
-}
-
-.spam-icon {
-  background: url(asset_path("icons/spam.png", image)) no-repeat bottom;
-  width: 16px;
-  height: 16px;
-}
-
-.unread-message-icon {
-  background: url(asset_path("icons/unread_message.png", image)) no-repeat bottom;
-  width: 16px;
-  height: 16px;
-}
-
 .webconf-join-mobile-link:not(.no-icon) {
   span {
     padding-left: 12px;
@@ -111,23 +54,6 @@ form {
 
 .clearfix {
   @include mconf-clearfix; // in _definitions
-}
-
-.superuser-icon {
-  position: absolute;
-  bottom: 3px;
-  left: 3px;
-  margin: 0 auto;
-  width: auto;
-  white-space: nowrap;
-  text-align: center;
-  overflow: hidden;
-  @include border-radius(4px);
-  padding: 0 4px;
-  font-size: $font-small;
-  background-color: rgb(185, 74, 72);
-  color: white;
-  @include text-shadow(0px -1px 0px rgba(0, 0, 0, 0.25));
 }
 
 .danger-text {
@@ -162,25 +88,24 @@ form {
     overflow: hidden;
 
     a {
-      background-color: #eee;
-      padding: 1px 4px 2px;
-      vertical-align: middle;
       white-space: nowrap;
       @include border-radius(3px);
+      background: $light-gray;
+      border: 1px solid darken($light-gray, 5);
+      padding: 0 4px;
 
       &:hover {
-        background: #d6d6d6;
-        color: #444;
+        background: darken($light-gray, 5);
+        color: #666;
+        border-color: darken($light-gray, 10);
+      }
+
+      &:focus {
+        border-color: $link-color-active;
       }
     }
 
     h2 { margin-bottom: 0; }
-
-    .icon {
-      display: inline-block;
-      margin-top: 2px;
-      margin-right: 3px;
-    }
   }
 
   .thread-updated-at {
@@ -221,7 +146,15 @@ form {
 // Classes outside .thread so that they can be used anywhere to
 // cycle background colors
 .thread-even { background: $transparent; }
-.thread-odd { background: $light-gray; }
+.thread-odd {
+  background: $light-gray;
+
+  .thread-title a {
+    background: darken($light-gray, 5);
+    border-color: 1px solid darken($light-gray, 10);
+    &:hover { border-color: darken($light-gray, 15); }
+  }
+}
 
 
 // Blocks that can be automatically expanded/collapsed
@@ -305,6 +238,7 @@ form {
   margin: 0 auto;
   padding: 0;
   color: #666;
+
   a {
     @include link-colors($link-color, $link-color-hover, $link-color-active);
     text-decoration: none;
@@ -351,8 +285,8 @@ form {
 
   .footer-languages {
     img { margin-top: -4px; }
-    img.help-translate-icon { float: right; }
     ul { float: left; margin-right: 20px; }
+    .icon-awesome { float: right; }
   }
 
   .current-version {
@@ -412,11 +346,15 @@ ul#navbar-left-links {
   float: left;
   margin: 0 10px;
 
-  a {
+  a, .icon-awesome {
     @include link-colors($navbar-font-color, $navbar-font-color-hover, $navbar-font-color-hover);
     &:hover {
       @include text-shadow(lighten($navbar-bg-color, 20) 0 0 1px);
     }
+  }
+
+  .icon-awesome {
+    margin: 2px 5px 0px 0px;
   }
 
   li {
@@ -426,13 +364,7 @@ ul#navbar-left-links {
     margin-right: 10px;
     padding-right: 10px;
 
-    border-right: 1px solid lighten($navbar-bg-color, 13);
-
-    &.last { border: 0; }
-
     .label { margin-left: 3px; }
-
-    .icon { float: none; }
   }
 }
 
@@ -709,7 +641,6 @@ ul#navbar-right-links {
 
   .content-block-header {
     @include mconf-clearfix;
-    img { float: right; margin-left: 3px; }
     h3 { float: left; }
   }
 
@@ -733,9 +664,6 @@ ul#navbar-right-links {
     clear: both;
     text-align: center;
   }
-
-  .help-icon { float: right; }
-  .info-icon { float: right; }
 
   /* To make buttons that ocuppy all width in the sidebar, usualy at the top,
      look a bit better */
@@ -830,17 +758,6 @@ ul#navbar-right-links {
     }
 
   }
-
-  .help-icon {
-    float: left;
-    margin: 3px 5px 0 0;
-  }
-  .info-icon {
-    float: left;
-    margin: 3px 5px 0 0;
-  }
-
-  .loading-icon { float: right; } // TODO: temporary, this may become default in _base
 }
 
 #page-menu {

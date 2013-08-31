@@ -18,8 +18,8 @@
         %li= link_to t('spam.default').downcase, spam_report_space_post_path(thread.space,thread), { :name => thread.id, :title => t('spam.report'), :class => "spam-report" }
 
     .thread-title
-      = comment_icon t('post.home.one', :space => thread.space.name)
-      = spam_icon() if thread.spam
+      = icon_comments t('post.home.one', :space => thread.space.name)
+      = icon_spam() if thread.spam
       - if thread.author
         = link_to thread.author.name, user_path(thread.author), { :class => "thread-author" }
       = t('post.posted')
@@ -34,7 +34,7 @@
         = t('date.at')
         = link_to thread.space.name, space_path(thread.space)
         - if thread.attachments.any?
-          = attachment_icon thread.attachments.first.filename
+          = icon_attachment thread.attachments.first.filename
 
     .thread-text
       .block-collapsed

@@ -20,7 +20,7 @@
     %label= t('home.webconference.your_url')
     = text_field_tag 'invite-url-text', join_webconf_url(@room), :readonly => true
     - if running
-      = in_progress_icon
+      = icon_in_progress
 
   %ul.action-buttons
     %li

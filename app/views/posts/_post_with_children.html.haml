@@ -11,8 +11,8 @@
         %li= link_to t('spam.default').downcase, spam_report_space_post_path(@space,post), { :name => post.id, :title => t('spam.report'), :class => "spam-report" }
     .thread-title
       %h2
-        = image_tag("icons/comments.png", :class => "icon")
-        = spam_icon() if post.spam
+        = icon_comments()
+        = icon_spam() if post.spam
         %span= @post.title
     .thread-text
       = render :partial => "posts/parent_post" , :locals => { :post =>  @post, :selected_post => false}

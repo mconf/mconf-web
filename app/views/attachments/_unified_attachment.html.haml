@@ -10,7 +10,7 @@
         %li= link_to t('remove').downcase, space_attachment_path(attachment.space, attachment), {:method => :delete, :title => t('delete.one'), :confirm => t('delete.confirm', :element => attachment.filename) }
 
     .thread-title
-      = attachment_icon t('attachment.home.one', :space => attachment.space.name)
+      = icon_attachment t('attachment.home.one', :space => attachment.space.name)
       = link_to sanitize(attachment.filename), space_attachment_path(attachment.space, attachment, :format => attachment.format!)
       %span.thread-updated-at= t('created_time_ago', :time => sanitize(time_ago_in_words(attachment.created_at)))
 

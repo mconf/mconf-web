@@ -10,7 +10,7 @@
 
 body.homes.show, body.homes.activity {
 
-  $second-content-bg-color: darken($light-gray, 2);;
+  $second-content-bg-color: darken($light-gray, 2);
   $page-header-right-width: 500px;
 
   #page-header {
@@ -29,6 +29,7 @@ body.homes.show, body.homes.activity {
   }
 
   #user-info {
+
     .user-avatar {
       position: relative;
       float: left;
@@ -37,11 +38,25 @@ body.homes.show, body.homes.activity {
       height: 96px;
       width: 96px;
       @include border-radius(3px);
+
+      .icon-awesome.icon-mconf-superuser {
+        position: absolute;
+        bottom: 3px;
+        left: 3px;
+        font-size: 14px;
+        width: 18px;
+        height: 18px;
+        color: white;
+        background: lighten($red, 10);
+        padding: 3px 1px 0px 3px;
+        @include border-radius(4px);
+      }
     }
 
     .user-data {
       @include mconf-clearfix;
-      padding-left: 7px;
+      padding-left: 10px;
+
       a, span {
         display: block;
         margin-bottom: 3px;
@@ -51,19 +66,24 @@ body.homes.show, body.homes.activity {
         font-size: $font-big;
         font-weight: bold;
       }
+
+      .user-email, .user-organization {
+        min-height: $font-big + 2px;
+      }
     }
 
     .user-links {
       @include mconf-clearfix;
       margin-top: 5px;
+      padding-left: 5px;
 
       ul {
         margin: 0;
+
         li {
           float: left;
-          margin: 0;
           border: 0;
-          padding: 5px 10px;
+          padding: 0 10px;
         }
       }
 

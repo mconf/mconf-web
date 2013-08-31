@@ -28,7 +28,7 @@
     = f.hidden_field :type, :value => @type
 
     .section-header
-      = help_icon t('invite_people.names_tip')
+      = icon_help t('invite_people.names_tip')
       = t('invite_people.mconf_users')
     = f.text_field :members_tokens, :autofocus => true
     = t('invite_people.notify_by') + ': '
@@ -38,7 +38,7 @@
     = t('invite_people.email.one')
 
     .section-header
-      = help_icon t('invite_people.emails_tip')
+      = icon_help t('invite_people.emails_tip')
       = t('invite_people.other_people')
     = f.text_field :email_tokens, :size => 76, :class => 'string', :placeholder => t('invite_people.email.other')
 

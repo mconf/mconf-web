@@ -3,24 +3,24 @@
     .user-avatar
       = logo_image(current_user, :size => '128', :title => current_user.name)
       - if current_user.superuser?
-        = superuser_label
+        = icon_superuser(:title => t('admin.one'))
     .user-data
       %span.user-name= current_user.name
       %span.user-email= current_user.email
-      %span= current_user.profile.organization unless current_user.profile.organization.nil?
+      %span.user-organization= current_user.profile.organization
     .user-links
       %ul
         %li.last
           = link_to user_path(current_user) do
-            %i.icon.icon-user
+            = icon_profile()
             = t('profile.one')
         %li
           = link_to edit_user_path(current_user) do
-            %i.icon.icon-wrench
+            = icon_account()
             = t('account')
         %li
           = link_to activity_home_path do
-            %i.icon.icon-list
+            = icon_activity()
             = t('.activity_list')
 
 .right-column

@@ -20,7 +20,7 @@
 
   .thread-title
     - unless private_message.checked
-      = unread_message_icon()
+      = icon_unread_message()
     - if private_message.sender_id.present?
       - if sender.disabled?
         %span.thread-author= sender.name

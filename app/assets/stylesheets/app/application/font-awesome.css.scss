@@ -1,0 +1,142 @@
+/*
+ * Styles related to font-awesome.
+ */
+
+@import "compass/css3";
+@import "compass/typography/links";
+@import "definitions";
+
+$default-icon-color: #888; /* lighten($green-logo, 10); */
+
+.icon-awesome {
+  margin: 2px 5px 0 0;
+  font-size: 14px;
+  width: 14px;
+  height: 14px;
+  float: left;
+  color: $default-icon-color;
+  cursor: normal;
+
+  &.icon-white {
+    color: white;
+  }
+}
+
+h2 .icon-awesome {
+  font-size: 16px;
+  width: 16px;
+  height: 16px;
+}
+
+a .icon-awesome {
+  cursor: pointer;
+  &:hover { color: $link-color-hover; }
+  &:active { color: $link-color-active; }
+}
+
+
+/* The position of the icons changes slightly depending on where it is placed.
+   Below we set this positions. */
+
+.btn .icon-awesome {
+  margin: 3px 5px 0 0;
+}
+
+.btn.btn-small, .btn.btn-mini {
+  .icon-awesome {
+    margin: 3px 5px 0 0;
+    font-size: 12px;
+    width: 12px;
+    height: 12px;
+  }
+}
+
+.thread .thread-title {
+  .icon-awesome {
+    margin: 1px 5px 0px 0px;
+  }
+
+  h2 .icon-awesome {
+    margin: 7px 5px 0 0;
+  }
+}
+
+#sidebar, .sidebar {
+  .content-block-header .icon-awesome { float: right; }
+}
+
+#content-middle .content-block-header {
+  .icon-awesome {
+    float: left;
+    margin: 4px 5px 0 5px;
+  }
+  .btn .icon-awesome {
+    margin: 3px 5px 0 0;
+  }
+}
+
+
+/* Some icons have a specific color, set below. */
+
+.icon-mconf-event {}
+
+.icon-mconf-rss {
+  color: $orange;
+}
+
+.icon-mconf-help, .icon-mconf-info {
+  color: lighten($default-icon-color, 10);
+  &:hover { color: lighten($blue, 20); }
+}
+
+.icon-mconf-spam {
+  color: $red;
+}
+
+.icon-mconf-superuser {
+  color: $red;
+}
+
+.icon-mconf-in-progress, .icon-mconf-loading {
+  color: $green;
+}
+
+.icon-mconf-delete {
+  color: $red;
+}
+
+.icon-mconf-confirm {
+  color: $green;
+}
+
+.icon-mconf-new-tag {
+  color: $yellow;
+}
+
+.icon-mconf-download {
+  color: $blue;
+}
+
+.icon-mconf-attachment-new-version {
+  color: $green;
+}
+
+.icon-mconf-message {
+  &.active {
+    color: $alert-danger-font;
+  }
+}
+
+.icon-mconf-home {}
+.icon-mconf-logout {}
+.icon-mconf-logout {}
+.icon-mconf-account {}
+.icon-mconf-activity {}
+.icon-mconf-comments {}
+.icon-mconf-attachment {}
+.icon-mconf-news {}
+.icon-mconf-users {}
+.icon-mconf-edit {}
+.icon-mconf-share {}
+.icon-mconf-space-public {}
+.icon-mconf-space-private {}

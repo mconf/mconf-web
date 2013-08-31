@@ -69,12 +69,10 @@ class mconf.Base
     # by the id in the 'data-hover-tracked' attribute is hovered. Ex:
     # <div class="visible-on-hover" data-hover-tracked="event_123"></div>
     $('.visible-on-hover').each ->
-      target = $(this)
-      tracked = $("#" + $(this).attr("data-hover-tracked"))
-      tracked.on "hover.mconfBase", (e) ->
-        target.show()
-      , (e) ->
-        target.hide()
+      $target = $(this)
+      $tracked = $("#" + $(this).attr("data-hover-tracked"))
+      $tracked.on "mouseenter.mconfBase", (e) -> $target.show()
+      $tracked.on "mouseleave.mconfBase", (e) -> $target.hide()
 
     # Links with 'data-open-file' will trigger a click
     # in the input[type=file] element pointed by 'href'
@@ -94,9 +92,9 @@ class mconf.Base
     $('a.link-to-expand').off "click.mconfBase"
     $('a.link-to-collapse').off "click.mconfBase"
     $('.visible-on-hover').each ->
-      target = $(this)
-      tracked = $("#" + $(this).attr("data-hover-tracked"))
-      tracked.off "hover.mconfBase"
+      $tracked = $("#" + $(this).attr("data-hover-tracked"))
+      $tracked.off "mouseenter.mconfBase"
+      $tracked.off "mouseleave.mconfBase"
     $("a[data-open-file]").off "click.mconfBase"
     $("a.submit-form, button.submit-form").off "click.mconfBase"
 

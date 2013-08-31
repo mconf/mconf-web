@@ -1,9 +1,9 @@
 #latest-news.content-block
   .content-block-header
-    = news_icon
+    = icon_news
     %h3= t('latest_news')
-    = help_icon t("tooltip.latest_news")
-    = image_tag('icons/loading-16x16.gif', :class => 'loading-icon') # TODO: move to helper
+    = icon_help t("tooltip.latest_news")
+    = icon_loading()
   .content-block-middle
     .news-title.clearfix
       %h4

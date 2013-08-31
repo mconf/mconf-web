@@ -9,12 +9,13 @@
       - unread_msgs = current_user.unread_private_messages.size
       .content-block-header
         = link_to t('inbox.unread_text', :count => unread_msgs), user_messages_path(current_user)
-        = image_tag("icons/email.png", :class => "icon")
+        - cls = unread_msgs > 0 ? "active"  : ""
+        = icon_message(:class => cls)
 
   -# Upcoming events
   = render_sidebar_content_block('sidebar-upcoming-events') do
     .content-block-header
-      = image_tag("icons/date.png")
+      = icon_event()
       %h3= t('calendar.my')
     .toolbar
       %span.event-timezone
@@ -28,10 +29,9 @@
 #user-space-list.content-block
   .content-block-header
     %h3= t('home.my_spaces')
-    = info_icon t('home.my_spaces_tooltip')
+    = icon_info t('home.my_spaces_tooltip')
     .toolbar
       = link_to new_space_path, :class => "btn btn-mini btn-primary" do
-        %i.icon-plus-sign.icon-white
         = t('.create_space')
   .content-block-middle
     = render 'users/user_spaces', :user => current_user, :spaces => @user_spaces
@@ -41,7 +41,7 @@
 #users-recent-activity.content-block
   .content-block-header
     %h3= t('recent.activity')
-    = info_icon t('recent_activity.tooltip')
+    = icon_info t('recent_activity.tooltip')
   #users-recent-activity-content.content-block-middle
     = render "users/recent_activity_content", :content => @all_contents, :paginate => false
   .content-block-footer

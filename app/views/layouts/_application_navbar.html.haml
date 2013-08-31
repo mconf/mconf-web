@@ -6,24 +6,26 @@
   - if user_signed_in?
     %li
       = link_to home_path do
-        %i.icon.icon-home
+        = icon_home()
         = t('home.my')
     %li
       = link_to user_messages_path(current_user) do
         = t('.inbox')
-        .label.label-info= current_user.unread_private_messages.size
+        - if current_user.unread_private_messages.size > 0
+          .label.label-important= current_user.unread_private_messages.size
+    %li= link_to t('space.all'), spaces_path
     - if current_user.superuser?
-      %li= link_to t('space.all'), spaces_path
-      %li.last= link_to t('.manage'), site_path
-    - else
-      %li.last= link_to t('space.all'), spaces_path
+      %li
+        = link_to site_path do
+          = icon_superuser()
+          = t('.manage')
 
 -# the right menu is not shown in the home page
 - if at_home?
   %ul#navbar-right-links
     %li.last
       = link_to logout_path do
-        %i.icon.icon-off
+        = icon_logout()
         = t('logout', :user => current_user.name)
 - else
   %ul#navbar-right-links

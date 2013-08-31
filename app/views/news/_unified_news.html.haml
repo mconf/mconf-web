@@ -9,7 +9,7 @@
     .thread-content
 
       .thread-title
-        = news_icon t('news.item_in_home', :space => news.space.name)
+        = icon_news t('news.item_in_home', :space => news.space.name)
         = link_to sanitize(news.title), space_path(news.space)
         = t('date.at')
         = link_to news.space.name, space_path(news.space)

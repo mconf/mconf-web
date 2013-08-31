@@ -1,8 +1,8 @@
 $ ->
   if isOnPage 'spaces', 'show'
 
-    hideLoading = -> $("#latest-news .loading-icon").hide()
-    showLoading = -> $("#latest-news .loading-icon").show()
+    hideLoading = -> $("#latest-news .icon-mconf-loading").hide()
+    showLoading = -> $("#latest-news .icon-mconf-loading").show()
 
     # TODO: make this generic, to be used in any ajax request
     hideLoading()

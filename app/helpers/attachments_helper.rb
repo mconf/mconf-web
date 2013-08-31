@@ -16,26 +16,26 @@ module AttachmentsHelper
     html=""
 
     html << if can?(:read, attachment)
-              link_to(image_tag("icons/download_doc20.png", :title => t('download'),:class=>"icon"), space_attachment_path(attachment.space,attachment, :format => attachment.format!), :class=>"no-dot")
+              link_to(icon_download(:title => t('download'),:class=>"icon"), space_attachment_path(attachment.space,attachment, :format => attachment.format!), :class=>"no-dot")
           else
-              image_tag("icons/download_doc20.png", :title => t('login_request' + 'download'),:class=>"icon fade")
+              icon_download(:title => t('login_request' + 'download'),:class=>"icon fade")
             end
     html << if interactive && attachment.current_version? && can?(:update, attachment)
-              link_to(image_tag("icons/new_version_doc20.png", :title=> t('version.new'), :class=>"icon"), edit_space_attachment_path(attachment.space, attachment, :format => "html"), :class => "open-modal")
+              link_to(icon_attachment_new_version(:title=> t('version.new'), :class=>"icon"), edit_space_attachment_path(attachment.space, attachment, :format => "html"), :class => "open-modal")
             else
-              image_tag("icons/new_version_doc20.png", :title=> "#{t('login_request')} #{t('version.new')}", :class=>"icon fade")
+              icon_attachment_new_version(:title=> "#{t('login_request')} #{t('version.new')}", :class=>"icon fade")
             end
     html << if interactive && can?(:update, attachment)
-              attachment.tags.size>0 ? (link_to(image_tag("icons/pencil.png", :title=> t('tag.edit'),:class=>"icon"),edit_tags_space_attachment_path(attachment.space, attachment), :class=>"repository_sidebar_action no-dot open-modal")) : (link_to(image_tag('icons/add_tag20.png', :title => t('tag.add'),:class=>"icon"), edit_tags_space_attachment_path(@space, attachment), :class=>"repository_sidebar_action no-dot open-modal"))
+              attachment.tags.size>0 ? (link_to(icon_edit(:title=> t('tag.edit'),:class=>"icon"),edit_tags_space_attachment_path(attachment.space, attachment), :class=>"repository_sidebar_action no-dot open-modal")) : (link_to(icon_new_tag(:title => t('tag.add'),:class=>"icon"), edit_tags_space_attachment_path(@space, attachment), :class=>"repository_sidebar_action no-dot open-modal"))
             else
-              image_tag("icons/pencil.png", :title=> "#{t('login_request')} #{t('tag.edit')}",:class=>"icon fade")
+              icon_edit(:title=> "#{t('login_request')} #{t('tag.edit')}",:class=>"icon fade")
             end
 
     if can?(:destroy, attachment)
-      html << link_to(image_tag("icons/cancel.png", :title => t('delete.one'), :class =>"icon can_delete"), space_attachment_path(attachment.space,attachment), {:method => :delete, :confirm => t('delete.confirm', :element => t('attachment.one'))}, :class=>"no-dot")
+      html << link_to(icon_delete(:title => t('delete.one'), :class =>"icon can_delete"), space_attachment_path(attachment.space,attachment), {:method => :delete, :confirm => t('delete.confirm', :element => t('attachment.one'))}, :class=>"no-dot")
       row[:class] += " can_delete"
     else
-      html <<  image_tag("icons/cancel.png", :title => "#{t('login_request')} #{t('delete.one')}", :class =>"icon fade")
+      html <<  icon_delete(:title => "#{t('login_request')} #{t('delete.one')}", :class =>"icon fade")
     end
 
     html.html_safe
