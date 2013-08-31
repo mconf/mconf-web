@@ -161,7 +161,6 @@ namespace :db do
     logos.delete(".")
     logos.delete("..")
     Space.all.each do |space|
-      space.default_logo = "default_space_logos/" + logos[rand(logos.length)].to_s
       begin
         space.save
       rescue
