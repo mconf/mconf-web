@@ -160,7 +160,15 @@ class User < ActiveRecord::Base
 
   # Full location: city + country
   def location
-    [ self.city, self.country ].join(', ')
+    if !self.city.blank? && !self.country.blank?
+      [ self.city, self.country ].join(', ')
+    elsif !self.city.blank?
+      self.city
+    elsif !self.country.blank?
+      self.country
+    else
+      ""
+    end
   end
 
 

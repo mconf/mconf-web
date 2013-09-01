@@ -37,4 +37,4 @@
       = t('.webconference.attendees.nobody')
     - else
       - @webconf_attendees.each do |user|
-        = render :partial => 'users/detailed_user', :locals => { :user => user }
+        = render :partial => 'users/simple_user', :locals => { :user => user }

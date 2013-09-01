@@ -139,6 +139,10 @@ module IconsHelper
     icon_constructor nil, "icon-awesome icon-eye-open icon-mconf-space-public", options
   end
 
+  def icon_webconf_start(options={})
+    icon_constructor nil, "icon-awesome icon-chevron-sign-right icon-mconf-webconf-start", options
+  end
+
   private
 
   # Base method for most of the methods above

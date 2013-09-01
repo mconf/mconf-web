@@ -8,6 +8,7 @@ $font-big: 16px;
 $font-gigantic: 28px;
 $font-section-title: 32px;
 $font-color: #333;
+$font-color-gray: #888;
 
 // standard colors
 $green: #508817;
@@ -80,12 +81,16 @@ $z-index-tooltip: 999999;
 
     // default dimensions for logos inside threads
     &.logo-space {
-      height: 36px;
-      width: 48px;
+      width: 40px;
+      height: 30px;
     }
     &.logo-user {
-      height: 32px;
       width: 32px;
+      height: 32px;
+    }
+    &.logo-user-big {
+      width: 48px;
+      height: 48px;
     }
   }
 }

@@ -20,7 +20,7 @@
     - else
       = link_to join_text, join_options_bigbluebutton_room_path(room), :class => "btn open-modal #{btn_class}"
       = link_to join_bigbluebutton_room_path(room), options_for_tooltip(t(".fast_start"), :class => "btn btn-primary webconf-start-link") do
-        %i.icon-share-alt
+        = icon_webconf_start()
 
   - else
     -# anonymous or non members

@@ -1489,6 +1489,9 @@ en:
     updated: "User updated successfully"
     vcc_email: "Mconf user e-mail %{dir}"
     view_expanded_posts: "Show messages in wall with the expanded view by default"
+  users:
+    detailed_user:
+      from: "From:"
   username: Username
   vCard: 
     corrupt: "The vCard you sent is corrupted or is a non-supported version"

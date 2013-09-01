@@ -35,7 +35,7 @@
         -# small user information in the navbar
         .user-info.dropdown-toggle{ :"data-toggle" => "dropdown" }
           .user-avatar
-            = link_logo_image(current_user, :size => '32', :url => user_path(current_user), :title => current_user.name)
+            = link_logo_image(current_user, :size => '32', :url => user_path(current_user), :title => current_user.name, :class => "logo-user")
           %span.user-name= current_user.name
           %b.caret
 
@@ -43,7 +43,7 @@
         .dropdown-menu.arrow-right
           .user-info-big
             .user-avatar
-              = link_logo_image(current_user, :size => '128', :url => user_path(current_user), :title => current_user.name)
+              = link_logo_image(current_user, :size => '128', :url => user_path(current_user), :title => current_user.name, :class => "logo-user")
             .user-data
               = link_to(current_user.name, user_path(current_user))
               = link_to(current_user.email, "mailto: #{current_user.email}")

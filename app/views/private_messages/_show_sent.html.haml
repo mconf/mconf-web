@@ -7,9 +7,9 @@
 
 .logo-in-thread
   - if receiver.disabled?
-    = logo_image(receiver, :size => '32')
+    = logo_image(receiver, :size => '32', :class => "logo logo-user")
   - else
-    = raw(link_logo_image(receiver, :size => '32', :url => user_path(receiver), :title => receiver.username))
+    = raw(link_logo_image(receiver, :size => '32', :url => user_path(receiver), :title => receiver.username, :class => "logo logo-user"))
 
 .thread-content
   - unless expanded

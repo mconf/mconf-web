@@ -638,7 +638,7 @@ pt-br:
     view_invite_url: "Ver URL para convites"
   homes:
     page_header:
-      activity_list: "Lista de atividades"
+      activity_list: "Atividades recentes"
     show:
       create_space: "Criar uma nova comunidade"
       view_all_activity: "Ver todas suas atividades"
@@ -1437,6 +1437,9 @@ pt-br:
     updated: "Usuário atualizado com sucesso"
     vcc_email: "E-mail do usuário Mconf %{dir}"
     view_expanded_posts: "Mostrar mensagens no mural com a visão expandida por padrão"
+  users:
+    detailed_user:
+      from: "De:"
   username: "Nome de usuário"
   vCard:
     corrupt: "O vCard que você enviou está corrompido ou é uma versão não suportada"

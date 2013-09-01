@@ -40,9 +40,17 @@ form {
 }
 
 .webconf-join-group {
-  // make the 'fast start' icon in the button a little smaller
-  i {
-    font-size: 9px !important;
+  // adjust make the 'fast start' icon
+  .btn i.icon-awesome {
+    float: none;
+    margin: 0;
+    padding: 0;
+    font-size: 12px;
+    color: white;
+    &:hover { color: white; }
+  }
+  .btn-small i.icon-awesome {
+    font-size: 11px;
   }
 }
 
@@ -182,9 +190,10 @@ form {
   &.user-detailed {
     .user-text { float: left; }
     .user-divider { float: left; margin-left: 5px; margin-right: 5px; color: $gray; }
-    .user-name { float: left; }
-    .user-mail { float: left; }
-    .user-organization { float: left; clear: left; }
+    .user-name { display: block; clear: both; }
+    .user-mail { display: block; clear: both; }
+    .user-info-prefix { color: $font-color-gray; float: left; margin-right: 5px; }
+    .user-organization { float: left; }
     .user-location { float: left; }
   }
 }
@@ -354,7 +363,8 @@ ul#navbar-left-links {
   }
 
   .icon-awesome {
-    margin: 2px 5px 0px 0px;
+    margin: 3px 3px 0px 0px;
+    font-size: $font-normal;
   }
 
   li {
@@ -541,7 +551,7 @@ ul#navbar-right-links {
   margin: 0 auto;
   @include mconf-clearfix;
   overflow: visible;
-  padding: 20px 0 15px 0;
+  padding: 10px 0 7px 0;
   clear: both;
 
   h1 {
@@ -761,8 +771,8 @@ ul#navbar-right-links {
 }
 
 #page-menu {
-  margin-bottom: -17px; // #page-header's bottom margin
-  padding-top: 20px;
+  margin-bottom: -8px; // #page-header's bottom margin
+  padding-top: 10px;
   clear: both;
 
   > ul {
@@ -771,7 +781,7 @@ ul#navbar-right-links {
     > li {
       display: inline-block;
       margin-left: 10px;
-      padding: 5px 10px;
+      padding: 5px 10px 3px 10px;
       font-weight: bold;
       font-size: $font-medium;
 
