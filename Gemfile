@@ -58,7 +58,7 @@ gem 'rmagick'
 
 # global configurations
 # TODO: update to the stable version when out
-gem 'configatron', '~> 3.0.0.rc1'
+gem 'configatron', '~> 2.13.0'
 
 # for bootstrap
 gem 'less-rails'
