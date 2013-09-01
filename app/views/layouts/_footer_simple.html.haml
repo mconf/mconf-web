@@ -3,9 +3,9 @@
     .link-group
       #footer-logo.link-group
         = link_to current_site.name, "/", :class => 'title'
-        %span= t('footer.copyright', :site => current_site.name)
+        %span= t('.copyright', :site => current_site.name)
     .link-group.languages
-      %h3= t('translate.change')
+      %h3= t('.translate.change')
       %ul
         - available_locales.each do |locale|
           %li

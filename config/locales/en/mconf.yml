@@ -615,23 +615,6 @@ en:
   find: 
     browse: Browse
   find_in: "Find in:"
-  footer: 
-    built_on_top_of: "This website is based on <a href=\"https://github.com/ging/vcc\">VCC</a> (Global Plaza)"
-    copyright: "© 2010-2012 %{site}."
-    current_version: "Current version"
-    find_us: "Find more about Mconf"
-    gcode: "Google Code"
-    github: GitHub
-    links: 
-      feedback: "Send feedback"
-      help: Help
-      statistics: Statistics
-      title: Links
-    sponsors: 
-      prav: "Projetos em<br/>Áudio e Vídeo"
-      rnp: "Rede Nacional de<br/>Ensino e Pesquisa"
-      title: Sponsors
-    website: "Project website"
   frontpage: 
     headline: "A global scalable opensource multiconference system for web and mobile devices"
   from: From
@@ -802,6 +785,30 @@ en:
     application_navbar:
       inbox: "Inbox"
       manage: "Manage"
+    footer:
+      copyright: "© 2010-2013 %{site}."
+      current_version: "Current version"
+      find_us: "Find more about Mconf"
+      github: GitHub
+      issues: "Issue tracker"
+      links:
+        feedback: "Send feedback"
+        help: Help
+        statistics: Statistics
+        title: Links
+      project_website: "Project website"
+      sponsors:
+        prav: "Projetos em<br/>Áudio e Vídeo"
+        rnp: "Rede Nacional de<br/>Ensino e Pesquisa"
+        title: Sponsors
+      translate:
+        change: "Switch language"
+        help_us: "Want this site in your language? Click to see how to help us translate it!"
+      wiki: "Wiki"
+    footer_simple:
+      copyright: "© 2010-2013 %{site}."
+      translate:
+        change: "Switch language"
   less: "less..."
   locale: 
     changed: "Application language changed to "
@@ -1384,9 +1391,6 @@ en:
     vclass: "The virtual class type is the perfect way to organise classes, conferences and seminars, where the teacher assumes a prominent role."
     vcongress: "The  Virtual congress type is very similar to the virtual meeting but geared for larger events, both in size and complexity. Usually, this type requires the support of an onsite operator."
     vmeeting: "The Virtual meeting type is suited for online meetings or physical meetings with a strong virtual component, meaning that both local and remote participants will have the opportunity to communicate interactively."
-  translate: 
-    change: "Switch language"
-    help_us: "Want this site in your language? Click to see how to help us translate it!"
   type: Type
   undated: Undated
   unknown_content: "Unknown content %{content}"
