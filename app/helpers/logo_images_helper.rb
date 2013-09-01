@@ -13,6 +13,7 @@ module LogoImagesHelper
   end
 
   def link_logo_image(resource, options = {})
+    options[:url] ||= resource # url defaults to the resource's show
     link_to logo_image(resource, options), options[:url], :class => options[:class], :id => options[:id]
   end
 

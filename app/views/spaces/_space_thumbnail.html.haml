@@ -5,13 +5,14 @@
   .space-thumbnail
     .space-logo
       - space_logo = logo_image(space, :size => "80x60", :title => space.name)
-      - if can?(:read, space)
+      -# note: can't be can?(:read, space) because we want the link even for non-members
+      - if user_signed_in? || space.public
         = link_to space_path(space) do
           = space_logo
       - else
         = space_logo
     .space-description
-      - if can?(:read, space)
+      - if user_signed_in? || space.public
         = link_to first_words(space.name, 20), space_path(space), :title => space.name, :class => "space-title"
       - else
         %span{:title => space.name, :class => "space-title"}= first_words(space.name, 20)

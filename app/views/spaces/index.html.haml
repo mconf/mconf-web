@@ -6,17 +6,23 @@
     - if user_signed_in?
       = link_to t('space.create_own'), new_space_path, :class => "btn btn-primary btn-large btn-block"
     - else
-      = t('getting_started')
-      = link_to t('register.one'), register_path, :class => "btn btn-primary"
+      = link_to t('register.one'), register_path, :class => "btn btn-success btn-large btn-block"
 
   = render_sidebar_content_block('space-description-wrapper') do
     .content-block-middle
       %p= t('space.index.select_at_left')
     - @spaces.each do |space|
+      - has_access = user_signed_in? || space.public
       .content-block-middle{:id => "#{space.permalink}-description", :style => "display:none;"}
         .space-logo
-          = link_logo_image(space, :size => '160x128', :title => sanitize(space.name))
-        = link_to space_path(space) do
+          - if has_access
+            = link_logo_image(space, :size => '160x128', :title => sanitize(space.name))
+          - else
+            = logo_image(space, :size => '160x128', :title => sanitize(space.name))
+        - if has_access
+          = link_to space_path(space) do
+            %h3= sanitize(space.name)
+        - else
           %h3= sanitize(space.name)
         %p.description= sanitize(space.description)
         %p.details
@@ -25,8 +31,9 @@
           %span= t('space.member_count', :count => space.users.count)
           %span= t('space.post_count', :count => space.posts.count)
           %span= t('space.event_count', :count => space.events.count)
-        %p.action-links
-          = link_to t('more'), space_path(space)
+        - if has_access
+          %p.action-links
+            = link_to t('more'), space_path(space)
 
 #space-filter-wrapper
   .view-types
