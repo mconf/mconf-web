@@ -42,8 +42,7 @@ class PrivateMessagesController < ApplicationController
       end
     end
     if @is_receiver = user.id == @message.receiver_id
-      @message.checked = true
-      @message.save
+      @message.update_attributes(:checked => true)
     end
   end
 
@@ -58,16 +57,13 @@ class PrivateMessagesController < ApplicationController
     end
   end
 
-  # GET /private_messages/1/edit
-  #def edit
-  #end
-
+  # TODO: too big, probably can be reduced
   def create
     receivers = []
     if params[:private_message][:users_tokens]
       receivers = params[:private_message][:users_tokens].split(",")
     end
-    @addressee = receivers.map {|receiver| { "id" => receiver.to_i, "name" => User.find(receiver).name} }
+    @receivers = receivers.map {|receiver| { "id" => receiver.to_i, "name" => User.find(receiver).name} }
     unless receivers.empty?
       @success_messages = Array.new
       @fail_messages = Array.new
@@ -97,7 +93,7 @@ class PrivateMessagesController < ApplicationController
       @private_message = PrivateMessage.new(params[:private_message])
       if params[:private_message][:receiver_id]
         receiver = User.find(params[:private_message][:receiver_id])
-        @addressee << { "id" => receiver.id, "name" => receiver.name }
+        @receivers << { "id" => receiver.id, "name" => receiver.name }
       end
       respond_to do |format|
         if @private_message.save
@@ -113,22 +109,15 @@ class PrivateMessagesController < ApplicationController
   end
 
   def update
-
     respond_to do |format|
       if @private_message.update_attributes(params[:private_message])
         format.html { redirect_to(@private_message) }
-        format.xml  { head :ok }
-        format.js
       else
         format.html { render :action => "edit" }
-        format.xml  { render :xml => @private_message.errors, :status => :unprocessable_entity }
-        format.js
       end
     end
   end
 
-  # DELETE /private_messages/1
-  # DELETE /private_messages/1.xml
   def destroy
     @private_message.update_attributes(params[:private_message])
 
