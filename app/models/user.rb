@@ -80,7 +80,6 @@ class User < ActiveRecord::Base
   has_many :events, :as => :author
   has_many :participants, :dependent => :destroy
   has_many :posts, :as => :author, :dependent => :destroy
-  has_many :memberships, :dependent => :destroy
   has_one :bigbluebutton_room, :as => :owner, :dependent => :destroy
 
   accepts_nested_attributes_for :bigbluebutton_room
