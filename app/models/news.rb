@@ -6,10 +6,9 @@
 # 3 or later. See the LICENSE file.
 
 class News < ActiveRecord::Base
+  include PublicActivity::Common
+
   belongs_to :space
 
   validates_presence_of :title, :text, :space_id
-
-  acts_as_resource
-  acts_as_content :reflection => :space
 end

@@ -1,9 +1,9 @@
 #post-reply
   %h1
     = t("reply_to")
-    = post.title
+    = @post.title
   #post-message
-    = simple_form_for(prepare_for_form(Post.new, :parent_id => @post.id), :html => { :multipart => true, :class => "single-column" }) do |f|
+    = simple_form_for([@space,prepare_for_form(Post.new, :parent_id => @post.id)], :html => { :multipart => true, :class => "single-column" }) do |f|
       = f.hidden_field :parent_id
       = f.input :text
       .form-actions

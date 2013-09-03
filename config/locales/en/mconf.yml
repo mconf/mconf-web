@@ -1,5 +1,32 @@
 --- 
 en: 
+  activities:
+    space:
+      create_html: created a new space
+      update_html: updated info on space
+      join_html: has joined
+      leave_html: has left
+      deleted: a space that has since been deleted
+    news:
+      create_html: published %{name} on
+      update_html: updated %{name} on
+      deleted: some news that have since been deleted
+    post:
+      create_html: posted %{name} on
+      update_html: updated the post %{name} on
+      reply_html: replied to %{name} on
+      deleted: a post that has since been deleted
+    event:
+      create_html: created the event %{name} on
+      attend_html: will attend to %{name} on
+      not_attend_html: will not attend to %{name} on
+      update_html: updated the info on event %{name} on
+      deleted: an event that has since been deleted
+    attachment:
+      create_html: created the attachment %{name} on
+      delete_html: removed attachment %{name} from
+      update_html: uploaded a new version of %{name} to
+      deleted: an attacment that has since been deleted
   _other:
     destroy: "Destroy"
     details: "Details"
@@ -947,6 +974,7 @@ en:
   post: 
     created: "Message posted!"
     deleted: "Comment %{postname} has been deleted"
+    reply: "in reply to"
     home: 
       one: "Message in space %{space}"
     latest: "Latest messages"

@@ -26,7 +26,8 @@
     -#   = t('per_page')
 
   #users-recent-activity-content.content-block-middle
-    = render "users/recent_activity_content", :content => content, :paginate => paginate
+    = render "users/recent_activity_content", :content => content, :paginate => false
+
 
   -# TODO: use js to change the pages
   - if not content.empty? and paginate

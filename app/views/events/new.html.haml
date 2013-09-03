@@ -4,6 +4,6 @@
 - atom_link_header(space, Event.new, :title => "#{t('event.other')} - #{space.name}")
 
 #events-show
-  = simple_form_for(:event, :url => space_events_path(@space), :html => { :multiple => "multiple", :autocomplete=>"off" }) do |f|
+  = simple_form_for([@space, @event]) do |f|
     = render :partial => "events_form", :locals => { :f => f }
     = f.button :wrapped, :cancel => space_events_path, :value => t("button.create")

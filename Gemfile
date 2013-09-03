@@ -43,6 +43,7 @@ gem 'i18n-js', :git => "git://github.com/fnando/i18n-js.git", :branch => 'rewrit
 gem 'rabl'
 gem 'yajl-ruby' # json parser for rabl
 gem 'valid_email'
+gem 'public_activity'
 
 # BigBlueButton integration
 gem 'bigbluebutton-api-ruby', :git => 'git://github.com/mconf/bigbluebutton-api-ruby.git'

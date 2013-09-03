@@ -1,0 +1,10 @@
+- spaces_menu_at :admin
+= render :partial => 'spaces/menu'
+
+= content_for :sidebar do
+  = render :partial => "form"
+
+= render :partial => 'spaces/admin_tabs'
+
+- for news in @all_news
+  = render 'unified_news', :news => news

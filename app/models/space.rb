@@ -7,6 +7,8 @@
 
 class Space < ActiveRecord::Base
 
+  include PublicActivity::Common
+
   # TODO: temporary, review
   USER_ROLES = ["Admin", "User"]
 
@@ -59,7 +61,6 @@ class Space < ActiveRecord::Base
   validates :permalink, :presence => true, :length => { :minimum => 3 }
 
   acts_as_resource :param => :permalink
-  acts_as_container :contents => [ :news, :posts, :attachments, :events ]
 
   # TODO: review all accessors, if we still need them
   attr_accessor :invitation_ids

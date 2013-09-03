@@ -6,6 +6,9 @@
 # 3 or later. See the LICENSE file.
 
 class Post < ActiveRecord::Base
+
+  include PublicActivity::Common
+
   belongs_to :space
   belongs_to :author, :polymorphic => true
   has_many :post_attachments, :dependent => :destroy
@@ -15,10 +18,8 @@ class Post < ActiveRecord::Base
 
   accepts_nested_attributes_for :attachments, :allow_destroy => true
 
-  acts_as_resource :per_page => 10
-  acts_as_content :reflection => :space
   acts_as_taggable
-  #TODO Rails 3. Conflicts with station inquirer ("ORDER BY clause should come after UNION not before: SELECT  * FROM")
+
   acts_as_tree #:order => 'updated_at ASC'
 
   scope :public, lambda { |arg|

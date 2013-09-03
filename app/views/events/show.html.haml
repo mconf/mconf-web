@@ -3,10 +3,10 @@
   = render :partial => 'spaces/menu'
 - atom_link_header(space, Event.new, :title => "#{ t 'event.other' } - #{ space.name }")
 
-- if event.is_happening_now?
+- if @event.is_happening_now?
   .events-hapenning-now.content-block-middle.clearfix
     %p= t('event.note.not_organizer_during').html_safe
-- elsif event.past?
+- elsif @event.past?
   .content-block-middle.clearfix
     %p= t('event.note.not_organizer_after', :date => @event.start_date.strftime("%d %b %Y")).html_safe
 - elsif  @event.start_date
@@ -20,5 +20,5 @@
 
 = render :partial => "participants"
 
-- if can?(:update, event)
+- if can?(:update, @event)
   = render :partial => "actions"

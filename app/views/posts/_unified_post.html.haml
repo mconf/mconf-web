@@ -24,7 +24,11 @@
       - if thread.author
         = link_to thread.author.name, user_path(thread.author), { :class => "thread-author" }
       = t('post.posted')
-      = link_to first_words(thread.title, 30), space_post_path(thread.space, thread)
+      - if thread.parent
+        = t('post.reply')
+        = link_to first_words(thread.parent.title, 30), space_post_path(thread.parent.space, thread)
+      - else
+        = link_to first_words(thread.title, 30), space_post_path(thread.space, thread)
       - unless thread.children.empty?
         %span
           = "(" + t('thread.comments', :children => thread.children.size) + ")"

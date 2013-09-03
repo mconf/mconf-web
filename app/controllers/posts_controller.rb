@@ -6,9 +6,7 @@
 # 3 or later. See the LICENSE file.
 
 class PostsController < ApplicationController
-  # Include basic Resource methods
-  # See documentation: ActionController::StationResources
-  include ActionController::StationResources
+
   include SpamControllerModule
 
   layout "spaces_show"
@@ -16,35 +14,81 @@ class PostsController < ApplicationController
   # Posts needs a Space. It will respond 404 if no space if found
   before_filter :space!
   before_filter :webconf_room!
-  before_filter :post, :except => [ :index, :new, :create]
+  before_filter :get_posts, :only => [:index]
 
   load_and_authorize_resource :space, :find_by => :permalink
   load_and_authorize_resource :through => :space
   skip_load_resource :only => :index
 
   def index
-    # AtomPub feeds are ordered by updated_at
-    if request.format == Mime::ATOM
-      params[:order], params[:direction] = "updated_at", "DESC"
-    end
-
-    get_posts
+    @post = Post.new
 
     respond_to do |format|
       format.html
-      format.atom
     end
   end
 
   def show
     if params[:last_page]
-      post_comments(post, {:last => true})
+      post_comments(@post, {:last => true})
     else
-      post_comments(post)
+      post_comments(@post)
     end
 
     respond_to do |format|
       format.html
+    end
+  end
+
+  def new
+    @post = Post.new
+  end
+
+  def create
+    @post = Post.new(params[:post])
+    @post.space = @space
+    @post.author = current_user
+
+    respond_to do |format|
+      if @post.save
+        flash[:success] = t('post.created')
+        format.html { redirect_to request.referer }
+
+        # Don't log as created posts which are replies
+        unless @post.parent
+          @post.create_activity :create, :owner => @space,
+            :parameters => {
+              :username => @post.author.name,
+              :user_id  => @post.author.id
+            }
+        end
+      else
+        flash[:error] = t('post.error.create')
+        format.html { redirect_to request.referer }
+      end
+    end
+
+  end
+
+  def update
+    @post = @space.posts.find(params[:id])
+      if @post.update_attributes(params[:post])
+        respond_to do |format|
+          format.html {
+            flash[:success] = t('post.updated')
+            redirect_to space_posts_index_path(@space)
+          }
+      end
+
+      @post.create_activity :update, :owner => @space,
+          :parameters => {
+            :username => @post.author.name,
+            :user_id  => @post.author.id
+          }
+
+    else
+      flash[:error] = t('post.error.update')
+      redirect_to space_posts_index_path(@space)
     end
   end
 
@@ -54,6 +98,12 @@ class PostsController < ApplicationController
         render :partial => "reply_post"
       }
     end
+
+    @post.create_activity :reply, :owner => @space,
+          :parameters => {
+            :username => current_user.name,
+            :user_id  => current_user.id
+          }
   end
 
   def edit
@@ -87,7 +137,7 @@ class PostsController < ApplicationController
 
   def get_posts
     per_page = params[:extended] ? 6 : 15
-    @posts = Post.roots.in(@space).not_events()
+    @posts = @space.posts
       .order("updated_at DESC")
       .paginate(:page => params[:page], :per_page => per_page)
   end

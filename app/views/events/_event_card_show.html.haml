@@ -1,4 +1,4 @@
-.thread{ :class => "#{event.is_happening_now? ? 'single_event current_single_event' : 'single_event'}" }
+.thread{ :class => "#{@event.is_happening_now? ? 'single_event current_single_event' : 'single_event'}" }
   %h2
     = icon_spam() if @event.spam
     %span= @event.title
@@ -11,7 +11,7 @@
         %li= link_to t('edit').downcase, edit_space_event_path(@event.space, @event), { :name => @event.id, :title => t('edit'), :id => "event-edit" }
       - if can?(:destroy, @event) && !@event.is_happening_now?
         %li= link_to t('remove').downcase, space_event_path(@event.space, @event), {:method => :delete, :title => t('delete.one'), :confirm => t('delete.confirm', :element => @event.title) }
-      - if user_signed_in? && event.spam != true
+      - if user_signed_in? && @event.spam != true
         %li= link_to t('spam.default').downcase, spam_report_space_event_path(@event.space,@event), { :name => @event.id, :title => t('spam.report'), :id => "spam-lightbox" }
     .thread-title
       %p
@@ -20,14 +20,14 @@
       .main_date.logo_padding
         = t('when')
         = @event.get_formatted_date
-      - if event.location
+      - if @event.location
         .main_text.logo_padding
           = t('where')
           = sanitize(@event.location)
         .main_text.logo_padding
           = t('organizer')
           - isfirst=true
-          - event.organizers.each do |org|
+          - @event.organizers.each do |org|
             - if isfirst
               - isfirst=false
             - else

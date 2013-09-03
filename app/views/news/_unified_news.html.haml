@@ -25,3 +25,7 @@
           .block-expanded
             = sanitize(auto_link(news.text))
             = link_to t("collapse_arrows"), "news_#{news.id}", :class => 'link-to-collapse'
+
+      .thread-edit
+        = link_to icon_edit(:class => "edit_news_link"), edit_space_news_path(@space, news), :class => 'open-modal' if can?(:update, news)
+        = link_to icon_delete, space_news_path(@space, news), {:method => :delete, :confirm => t('delete.confirm', :element => news.title) } if can?(:destroy, news)

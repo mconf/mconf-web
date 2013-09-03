@@ -38,9 +38,11 @@ class HomesController < ApplicationController
     @update_act = params[:contents] ? true : false
 
     @contents_per_page = 5
-    @contents = params[:contents].present? ? params[:contents].split(",").map(&:to_sym) : Space.contents
-    @all_contents = ActiveRecord::Content.all({ :limit => @contents_per_page.to_i, :order => 'updated_at DESC' },
-                                              { :containers => @user_spaces, :contents => @contents} )
+
+    @all_contents = RecentActivity.where(:owner_id => current_user.spaces, :owner_type => 'Space')
+      .limit(@contents_per_page)
+      .order('updated_at DESC')
+
     @private_messages = current_user.unread_private_messages
   end
 
@@ -53,9 +55,8 @@ class HomesController < ApplicationController
     @user_spaces = current_user.spaces
     @update_act = params[:contents] ? true : false
     @contents_per_page = params[:per_page] || 20
-    @contents = params[:contents].present? ? params[:contents].split(",").map(&:to_sym) : Space.contents
-    @all_contents = ActiveRecord::Content.paginate({ :page => params[:page], :per_page => @contents_per_page.to_i, :order => 'updated_at DESC' },
-                                                   { :containers => @user_spaces, :contents => @contents} )
+    @all_contents = RecentActivity.where(:owner_id => current_user.spaces, :owner_type => 'Space')
+      .paginate(:page => params[:page], :per_page => @contents_per_page.to_i, :order => 'updated_at DESC')
   end
 
   # renders a json with the webconference rooms accessible to the current user

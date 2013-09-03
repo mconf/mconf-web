@@ -1,8 +1,8 @@
 #post-edit
   %h1= t('thread.edit')
   #post-message
-    = simple_form_for(prepare_for_form(post), :html => { :multipart => true, :class => "single-column" }) do |f|
-      - unless post.parent_id?
+    = simple_form_for([@space, prepare_for_form(@post)], :html => { :multipart => true, :class => "single-column" }) do |f|
+      - unless @post.parent_id?
         = f.input :title, :label => t('title')
       = f.input :text, :label => t('post.one'), :as => :text
       .form-actions

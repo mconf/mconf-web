@@ -1,5 +1,32 @@
 ---
 pt-br:
+  activities:
+    space:
+      create_html: criou a nova comunidade
+      update_html: atualizou os dados da comunidade
+      join_html: tornou-se um membro da comunidade
+      leave_html: deixou de ser um membro da comunidade
+      deleted: uma comunidade que não existe mais
+    news:
+      create_html: publicou a notícia %{name} em
+      update_html: atualizou a notícia %{name} em
+      deleted: que não existe mais
+    post:
+      create_html: criou a postagem %{name} em
+      update_html: atualizou a postagem %{name} em
+      reply_html: respondeu à postagem %{name} em
+      deleted: que não existe mais
+    event:
+      create_html: criou o evento %{name} em
+      attend_html: estará presente no evento %{name} de
+      not_attend_html: não estará presente no evento %{name} de
+      update_html: atualizou as informações de %{name} em
+      deleted: que não existe mais
+    attachment:
+      create_html: criou o anexo %{name} em
+      delete_html: removou o anexo %{name} de
+      update_html: atualizou o anexo %{name} de
+      deleted: que não existe mais
   _other:
     destroy: "Remover"
     details: "Detalhes"
@@ -924,6 +951,7 @@ pt-br:
   popularity: Popularidade
   post:
     deleted: "Comentário %{postname} foi excluído"
+    reply: "em resposta a"
     home:
       one: "Mensagem na comunidade %{space}"
     latest: "Últimas mensagens"
@@ -1336,7 +1364,7 @@ pt-br:
     invite_people: "Invite people to this Webconference."
     latest_news: "Esta seção mostra a notícia de que os administradores enviam para todas as pessoas nesta comunidade"
     leave_space: "Este link permitirá que você a abandone esta comunidade definitivamente"
-    news_item: "Você pode publicar uma notícia curta em casa"
+    news_item: "Você pode publicar uma notícia para aparecer na página inicial da comunidade"
     num_views: "Este número representa as vistas únicas para essa página"
     private_profile: "Esta informação só é visível para as pessoas que você escolher quando você editar seu perfil"
     public_profile: "Qualquer pessoa pode acessar esta informação"
