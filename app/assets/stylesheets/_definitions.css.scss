@@ -74,6 +74,7 @@ $z-index-tooltip: 999999;
   margin-right: 5px;
 
   img.logo {
+    margin: 2px 0;
     padding: 2px;
     border: 1px solid #ddd;
     @include border-radius(2px);

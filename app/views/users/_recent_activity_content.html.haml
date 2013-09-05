@@ -5,8 +5,11 @@
 -#   items_per_page (integer)
 -#   paginate (boolean)
 
--# To be prettyfied and completed soon
 - for activity in content
-  .activity{ :id => activity.trackable_type.downcase }
-    = activity.trackable_type.downcase
-    = render :partial => "public_activity/#{activity.trackable_type.downcase}", :locals => { :activity => activity }
+  - classes = "thread thread-#{activity.trackable_type.downcase} #{cycle('thread-even' , 'thread-odd')}"
+  - if activity.trackable.nil?
+    .removed-object{ :class => classes }
+      = render :partial => "public_activity/#{activity.trackable_type.downcase}", :locals => { :activity => activity }
+  - else
+    = div_for(activity.trackable, :class => classes) do
+      = render :partial => "public_activity/#{activity.trackable_type.downcase}", :locals => { :activity => activity }

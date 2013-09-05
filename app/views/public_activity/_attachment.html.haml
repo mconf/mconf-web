@@ -1,8 +1,14 @@
+-# Locals:
+-#   activity (RecentActivity)
+
+.logo-in-thread
+  = link_logo_image(activity.trackable, :size => '80x60', :url => space_path(activity.trackable), :class => 'logo logo-space')
+
 .thread-content
-  .thread-text
+  .thread-updated-at= t('updated_time_ago', :time => time_ago_in_words(activity.updated_at))
+
+  .thread-title
+    = icon_attachment
     = link_to activity.parameters[:username], user_path(activity.parameters[:user_id])
     = activity_translate(activity.key, :name => link_to_trackable(activity.trackable, activity.trackable_type))
     = link_to_trackable activity.owner, activity.owner_type
-
-    = t('date.at')
-    %span.thread-updated-at= t('updated_time_ago', :time => time_ago_in_words(activity.updated_at))

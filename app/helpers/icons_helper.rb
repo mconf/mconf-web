@@ -26,7 +26,7 @@ module IconsHelper
     icon_constructor title, "icon-awesome icon-paper-clip iconf-mconf-attachment", options
   end
 
-  def icon_comment(title, options={})
+  def icon_comment(title=nil, options={})
     icon_constructor title, "icon-awesome icon-comment icon-mconf-comments", options
   end
 
@@ -38,7 +38,7 @@ module IconsHelper
     icon_constructor title, "icon-awesome icon-calendar icon-mconf-event", options
   end
 
-  def icon_news(title="", options={})
+  def icon_news(title=nil, options={})
     icon_constructor title, "icon-awesome icon-bullhorn icon-mconf-news", options
   end
 

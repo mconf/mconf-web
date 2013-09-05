@@ -12,7 +12,7 @@ en:
       update_html: updated %{name} on
       deleted: some news that have since been deleted
     post:
-      create_html: posted %{name} on
+      create_html: created %{name} on
       update_html: updated the post %{name} on
       reply_html: replied to %{name} on
       deleted: a post that has since been deleted

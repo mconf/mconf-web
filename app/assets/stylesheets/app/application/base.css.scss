@@ -75,7 +75,8 @@ form {
 // Unified style for threads: posts, news, attachments
 .thread {
   clear: both;
-  padding: 10px;
+  padding: 6px;
+  @include mconf-clearfix;
 
   &:not(.thread-with-children):hover {
     border-right: 5px solid #aaa;/* $second-color; */
@@ -83,7 +84,7 @@ form {
   }
 
   .thread-content {
-    margin-left: 60px;
+    margin-left: 55px;
 
     &.thread-content-full {
       margin-left: 0;
@@ -119,6 +120,7 @@ form {
   .thread-updated-at {
     color: #666;
     font-size: $font-small;
+    padding: 2px 0;
   }
 
   .thread-action-links {
