@@ -184,6 +184,10 @@ class Space < ActiveRecord::Base
     p.save!
   end
 
+  def new_activity key, user
+    create_activity key, :owner => self, :parameters => { :user_id => user.id, :username => user.name }
+  end
+
   private
 
   # Checks whether there an error in :permalink or :bigbluebutton_room.param.
