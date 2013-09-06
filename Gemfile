@@ -32,7 +32,7 @@ gem 'daemons' # for delayed_job
 gem 'rails_autolink'
 gem 'whenever', :require => false
 gem 'garb'
-gem 'simple_form', '~> 2.0.0'
+gem 'simple_form', '~> 2.1.0'
 gem 'acts_as_tree', :git => 'https://github.com/parasew/acts_as_tree.git'
 gem 'friendly_id'
 gem 'station', :git => 'git://github.com/mconf/station.git', :branch => 'mweb-v2-no-invitations'
