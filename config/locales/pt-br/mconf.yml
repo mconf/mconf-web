@@ -1407,6 +1407,8 @@ pt-br:
     disable: "Desabilitar usuário"
     disabled: "Usuário %{username} desabilitado"
     edit:
+      click_to_edit_profile: "Clique aqui para editar o seu perfil"
+      did_not_find_info: "Não encontrou a informação que estava procurando?"
       federated:
         restrictions: "Você não poderá editar alguns dados como seu e-mail e senha."
         see_your_data: "Veja seus dados..."
