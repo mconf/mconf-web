@@ -24,6 +24,7 @@ namespace :db do
       Statistic.destroy_all
       Permission.destroy_all
       Space.destroy_all
+      RecentActivity.destroy_all
       users_without_admin = User.find_by_id_with_disabled(:all)
       users_without_admin.delete(User.find_by_superuser(true))
       users_without_admin.each(&:destroy)
@@ -294,10 +295,33 @@ namespace :db do
         posts << post
       end
 
-      # Author
+      # Space created recent activity
+      space.new_activity :create, space.admins.first
+
+      # Author and recent_activity for posts/events
       ( space.posts + space.events ).each do |item|
         item.author = space.users[rand(space.users.length)]
         item.save(:validate => false)
+
+        item.new_activity :create, item.author
+      end
+
+      # Event participants activity
+      space.events.each do |event|
+        event.participants.each do |part|
+          attend = part.attend? ? :attend : :not_attend
+          event.new_activity attend, part.user
+        end
+      end
+
+      # News activity
+      space.news.each do |news|
+        news.new_activity :create, space.admins[rand(space.admins.length)]
+      end
+
+      # Attachment activity
+      space.attachments.each do |att|
+        att.new_activity :create, space.users[rand(space.users.length)]
       end
 
     end
