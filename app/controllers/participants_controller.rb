@@ -6,6 +6,13 @@
 
 class ParticipantsController < ApplicationController
 
+  after_filter :only => [:create, :update] do
+    if !@old_attend.nil? && @old_attend != @participant.attend
+      attend = @participant.attend? ? :attend : :not_attend
+      @participant.event.new_activity attend, current_user unless @participant.errors.any?
+    end
+  end
+
   def create
 
     @participant = Participant.new(params[:participant])
@@ -20,15 +27,6 @@ class ParticipantsController < ApplicationController
       }
       format.js
     end
-
-    attend = @participant.attend? ? :attend : :not_attend
-
-    @participant.event.create_activity attend, :owner => @participant.event.space,
-      :parameters => { :user_id => current_user.id,
-                       :username => current_user.name,
-                       :name => @participant.event.name
-                     }
-
   else
       flash[:error] = t('participant.error.create')
       redirect_to request.referer
@@ -39,7 +37,7 @@ end
   def update
     @participant = Participant.find(params[:id])
 
-    old_attend = @participant.attend?
+    @old_attend = @participant.attend?
 
     if @participant.update_attributes(params[:participant])
       respond_to do |format|
@@ -47,16 +45,6 @@ end
           flash[:success] = t('participant.created')
           redirect_to request.referer
         }
-      end
-
-      if old_attend != @participant.attend?
-        attend = @participant.attend? ? :attend : :not_attend
-
-        @participant.event.create_activity attend, :owner => @participant.event.space,
-          :parameters => { :user_id => @participant.user_id,
-                           :username => @participant.user.name,
-                           :name => @participant.event.name
-                         }
       end
 
     else

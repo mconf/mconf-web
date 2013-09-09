@@ -17,6 +17,10 @@ class EventsController < ApplicationController
   before_filter :webconf_room!
   before_filter :adapt_new_date, :only => [:create, :update]
 
+  after_filter :only => [:create, :update] do
+    @event.new_activity params[:action], current_user unless @event.errors.any?
+  end
+
   # GET /events
   # GET /events.xml
   def index
@@ -92,13 +96,6 @@ class EventsController < ApplicationController
           redirect_to space_events_path(@space)
         }
         format.xml  { render :xml => @event, :status => :created, :location => @event }
-
-        @event.create_activity :create, :owner => @space,
-          :parameters => { :user_id => current_user.id,
-                           :username => current_user.name,
-                           :name => @event.name
-                         }
-
       else
         format.html {
           message = ""
@@ -138,13 +135,6 @@ class EventsController < ApplicationController
             @description=true
           end
         }
-
-        @event.create_activity :update, :owner => @space,
-          :parameters => { :user_id => current_user.id,
-                           :username => current_user.name,
-                           :name => @event.name
-                         }
-
       else
         format.html { message = ""
         @event.errors.full_messages.each {|msg| message += msg + "  <br/>"}

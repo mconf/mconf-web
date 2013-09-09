@@ -230,6 +230,10 @@ class Event < ActiveRecord::Base
     end
   end
 
+  def new_activity key, user
+    create_activity key, :owner => space, :parameters => { :user_id => user.id, :username => user.name }
+  end
+
   private
 
   def add_organizer! user
