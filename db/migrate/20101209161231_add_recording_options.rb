@@ -1,6 +1,6 @@
 class AddRecordingOptions < ActiveRecord::Migration
   def self.up
-    add_column :events, :recording_type, :integer, :default => Event::RECORDING_TYPE.index(:automatic)
+    add_column :events, :recording_type, :integer, :default => 0 # Event::RECORDING_TYPE.index(:automatic)
     remove_column :events, :recording_by_default
   end
 
