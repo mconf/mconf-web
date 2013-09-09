@@ -45,6 +45,10 @@ class Post < ActiveRecord::Base
     post.parent.try(:touch)
   end
 
+  def post_title
+    title || parent.title
+  end
+
   def author
     case author_type
     when User
@@ -71,4 +75,9 @@ class Post < ActiveRecord::Base
   def self.last_news(space)
     return Post.not_events().find(:all, :conditions => {:space_id => space, :parent_id => nil}, :order => "updated_at DESC", :limit => 4)
   end
+
+  def new_activity key, user
+    create_activity key, :owner => space, :parameters => { :username => user.name, :user_id  => user.id}
+  end
+
 end

@@ -16,6 +16,14 @@ class PostsController < ApplicationController
   before_filter :webconf_room!
   before_filter :get_posts, :only => [:index]
 
+  after_filter :only => [:update] do
+    @post.new_activity :update, current_user unless @post.errors.any?
+  end
+
+  after_filter :only => [:create] do
+    @post.new_activity (@post.parent.nil? ? :create : :reply), current_user unless @post.errors.any?
+  end
+
   load_and_authorize_resource :space, :find_by => :permalink
   load_and_authorize_resource :through => :space
   skip_load_resource :only => :index
@@ -53,15 +61,6 @@ class PostsController < ApplicationController
       if @post.save
         flash[:success] = t('post.created')
         format.html { redirect_to request.referer }
-
-        # Don't log as created posts which are replies
-        unless @post.parent
-          @post.create_activity :create, :owner => @space,
-            :parameters => {
-              :username => @post.author.name,
-              :user_id  => @post.author.id
-            }
-        end
       else
         flash[:error] = t('post.error.create')
         format.html { redirect_to request.referer }
@@ -80,12 +79,6 @@ class PostsController < ApplicationController
           }
       end
 
-      @post.create_activity :update, :owner => @space,
-          :parameters => {
-            :username => @post.author.name,
-            :user_id  => @post.author.id
-          }
-
     else
       flash[:error] = t('post.error.update')
       redirect_to space_posts_index_path(@space)
@@ -98,12 +91,6 @@ class PostsController < ApplicationController
         render :partial => "reply_post"
       }
     end
-
-    @post.create_activity :reply, :owner => @space,
-          :parameters => {
-            :username => current_user.name,
-            :user_id  => current_user.id
-          }
   end
 
   def edit
