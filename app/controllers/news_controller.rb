@@ -9,6 +9,10 @@ class NewsController < ApplicationController
   load_and_authorize_resource :space, :find_by => :permalink
   load_and_authorize_resource :through => :space
 
+  after_filter :only => [:create, :update] do
+    @news.new_activity params[:action], current_user unless @news.errors.any?
+  end
+
   def create
     @news = @space.news.build(params[:news])
 
@@ -16,13 +20,6 @@ class NewsController < ApplicationController
       if @news.save
         flash[:success] = t('news.created')
         format.html { redirect_to request.referer }
-
-        @news.create_activity :create, :owner => @space,
-          :parameters => { :user_id => current_user.id,
-                           :username => current_user.name,
-                           :name => @news.title
-                         }
-
       else
         flash[:error] = t('news.error.create')
         format.html { redirect_to request.referer }
@@ -83,13 +80,6 @@ class NewsController < ApplicationController
           redirect_to space_news_index_path(@space)
         }
       end
-
-      @news.create_activity :update, :owner => @space,
-        :parameters => { :user_id => current_user.id,
-                         :username => current_user.name,
-                         :name => @news.title
-                       }
-
     else
       flash[:error] = t('news.error.update')
       redirect_to space_news_index_path(@space)
