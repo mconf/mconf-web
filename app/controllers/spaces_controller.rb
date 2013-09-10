@@ -7,11 +7,11 @@
 
 class SpacesController < ApplicationController
 
-  before_filter :space
-  before_filter :webconf_room!, :only => [:show, :edit, :join_request_new]
   before_filter :authenticate_user!, :only => [:new, :create]
 
-  load_and_authorize_resource
+  load_and_authorize_resource :find_by => :permalink
+
+  before_filter :webconf_room!, :only => [:show, :edit, :join_request_new, :user_permissions]
 
   # TODO: cleanup the other actions adding respond_to blocks here
   respond_to :js, :only => [:index, :show]
@@ -105,11 +105,6 @@ class SpacesController < ApplicationController
   end
 
   def edit
-    @users = @space.users.order("name ASC")
-    @permissions = space.permissions.sort{
-      |x,y| x.user.name <=> y.user.name
-    }
-    @roles = Space.roles
     render :layout => 'spaces_show'
   end
 
@@ -150,41 +145,27 @@ class SpacesController < ApplicationController
       params[:space][:bigbluebutton_room_attributes][:id] = @space.bigbluebutton_room.id
     end
 
-    if @space.update_attributes(params[:space])
+    if @space.update_attributes(space_params)
       respond_to do |format|
-        format.html {
-          flash[:success] = t('space.updated')
-          redirect_to request.referer
-        }
-        format.js {
-          if params[:space][:name] or params[:space][:description]
-            @result = params[:space][:name] ? nil : params[:space][:description]
+        puts params.inspect
+        if params[:space][:logo_image].present?
+          format.html { redirect_to logo_images_crop_path(:model_type => 'space', :model_id => @space) }
+        else
+          format.html {
             flash[:success] = t('space.updated')
-            render "result", :formats => [:js]
-          elsif !params[:space][:bigbluebutton_room_attributes].blank?
-            if params[:space][:bigbluebutton_room_attributes][:moderator_password] or params[:space][:bigbluebutton_room_attributes][:attendee_password]
-              @result = params[:space][:bigbluebutton_room_attributes][:moderator_password] ? params[:space][:bigbluebutton_room_attributes][:moderator_password] : params[:space][:bigbluebutton_room_attributes][:attendee_password]
-              flash[:success] = t('space.updated')
-              render "result", :formats => [:js]
-            end
-          else
-            render "update", :formats => [:js]
-          end
-        }
+            redirect_to edit_space_path(@space)
+          }
+        end
       end
 
       @space.create_activity :update, :owner => @space,
-        :parameters => { :user_id => current_user.id,
-                         :username => current_user.fullname
-                       }
-
+      :parameters => { :user_id => current_user.id,
+                       :username => current_user.full_name
+                     }
     else
       respond_to do |format|
         flash[:error] = t('error.change')
-        format.js {
-          @result = "$(\"#admin_tabs\").before(\"<div class=\\\"error\\\">" + t('.error.not_valid') +  "</div>\")"
-        }
-        format.html { redirect_to edit_space_path }
+        format.html { redirect_to edit_space_path(@space) }
       end
     end
   end
@@ -203,6 +184,15 @@ class SpacesController < ApplicationController
         end
       }
     end
+  end
+
+  def user_permissions
+    @users = @space.users.order("name ASC")
+    @permissions = space.permissions.sort{
+      |x,y| x.user.name <=> y.user.name
+    }
+    @roles = Space.roles
+    render :layout => 'spaces_show'
   end
 
   def enable
@@ -390,5 +380,17 @@ class SpacesController < ApplicationController
 
   def space_to_json_hash
     { :methods => :user_count, :include => {:logo => { :only => [:height, :width], :methods => :logo_image_path } } }
+  end
+
+  def space_params
+    unless params[:space].nil?
+      params[:space].permit(*space_allowed_params)
+    else
+      []
+    end
+  end
+
+  def space_allowed_params
+    [ :name, :description, :logo_image, :public, :permalink, :crop_x, :crop_y, :crop_w, :crop_h, :bigbluebutton_room_attributes => [ :id, :attendee_password, :moderator_password] ]
   end
 end

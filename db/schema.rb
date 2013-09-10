@@ -178,22 +178,6 @@ ActiveRecord::Schema.define(:version => 20130903173529) do
     t.datetime "processed_at"
   end
 
-  create_table "logos", :force => true do |t|
-    t.string   "type"
-    t.integer  "size"
-    t.string   "content_type"
-    t.string   "filename"
-    t.integer  "height"
-    t.integer  "width"
-    t.integer  "parent_id"
-    t.string   "thumbnail"
-    t.integer  "db_file_id"
-    t.string   "logoable_type"
-    t.integer  "logoable_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "news", :force => true do |t|
     t.string   "title"
     t.text     "text"

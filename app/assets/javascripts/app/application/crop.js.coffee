@@ -38,7 +38,7 @@ saveCropCoordinates = (crop) ->
 enableCropInImages = ->
   $("img.cropable").each ->
     $(this).Jcrop
-      aspectRatio: 1
+      aspectRatio: $("#aspect_ratio").text()
       setSelect: [0, 0, 350, 350]
       onSelect: update
       onChange: update
@@ -52,9 +52,9 @@ update = (coords) =>
 
 updatePreview = (coords) =>
   $('#preview').css
-    width: Math.round(100/coords.w * $('#cropbox').width()) + 'px'
+    width: Math.round($("#width").text()/coords.w * $('#cropbox').width()) + 'px'
     height: Math.round(100/coords.h * $('#cropbox').height()) + 'px'
-    marginLeft: '-' + Math.round(100/coords.w * coords.x) + 'px'
+    marginLeft: '-' + Math.round($("#width").text()/coords.w * coords.x) + 'px'
     marginTop: '-' + Math.round(100/coords.h * coords.y) + 'px'
 
 # Makes the crop form be submitted with ajax
@@ -64,8 +64,12 @@ bindAjaxToCropForm = ->
       $(document).trigger "crop-form-success", data
       mconf.Modal.closeWindows();
       $('#logo_image').empty()
-      $('#logo_image').html($(data).find('#logo_image'))
+      $('#logo_image').html($(data).find('#logo_image').find("img"))
+      $('#notification-flashs').html('<div name="success" data-notification-shown="0">' + I18n.t('logo.created') + '</div>')
       $("form.form-for-crop").resetForm()
+      mconf.Notification.bind()
     error: () ->
       $(document).trigger "crop-form-error"
+      $('#notification-flashs').html('<div name="error" data-notification-shown="0">' + I18n.t('logo.error') + '</div>')
       $("form.form-for-crop").resetForm()
+      mconf.Notification.bind()

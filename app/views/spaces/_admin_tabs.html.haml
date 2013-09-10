@@ -3,4 +3,4 @@
   .float-right
     = link_to t('invitation.title'), new_space_join_request_path(@space), {:class=>"btn",:title => t('invitation.add_more')}
     = link_to t('admission.other'), space_join_requests_path(@space), :class => "btn"
-    = link_to t('user.other'), edit_space_path(@space), :class => "btn"
+    = link_to t('user.other'), user_permissions_space_path(@space), :class => "btn"

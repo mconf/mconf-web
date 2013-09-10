@@ -4,7 +4,7 @@
 .space-thumbnail-wrapper
   .space-thumbnail
     .space-logo
-      - space_logo = logo_image(space, :size => "80x60", :title => space.name)
+      - space_logo = logo_image(space, :size => "84x64", :title => space.name)
       -# note: can't be can?(:read, space) because we want the link even for non-members
       - if user_signed_in? || space.public
         = link_to space_path(space) do

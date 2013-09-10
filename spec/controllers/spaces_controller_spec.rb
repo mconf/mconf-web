@@ -30,6 +30,7 @@ describe SpacesController do
         context "he is not a member of" do
           it { should allow_access_to(:show, hash) }
           it { should allow_access_to(:edit, hash) }
+          it { should allow_access_to(:user_permissions, hash) }
           it { should allow_access_to(:update, hash_with_attrs).via(:post) }
           it { should allow_access_to(:destroy, hash_with_attrs).via(:delete) }
           it { should allow_access_to(:enable, hash_with_attrs).via(:post) }
@@ -42,6 +43,7 @@ describe SpacesController do
               before(:each) { target.add_member!(user, role) }
               it { should allow_access_to(:show, hash) }
               it { should allow_access_to(:edit, hash) }
+              it { should allow_access_to(:user_permissions, hash) }
               it { should allow_access_to(:update, hash_with_attrs).via(:post) }
               it { should allow_access_to(:destroy, hash_with_attrs).via(:delete) }
               it { should allow_access_to(:enable, hash_with_attrs).via(:post) }
@@ -57,6 +59,7 @@ describe SpacesController do
         context "he is not a member of" do
           it { should allow_access_to(:show, hash) }
           it { should allow_access_to(:edit, hash) }
+          it { should allow_access_to(:user_permissions, hash) }
           it { should allow_access_to(:update, hash_with_attrs).via(:post) }
           it { should allow_access_to(:destroy, hash_with_attrs).via(:delete) }
           it { should allow_access_to(:enable, hash_with_attrs).via(:post) }
@@ -69,6 +72,7 @@ describe SpacesController do
               before(:each) { target.add_member!(user, role) }
               it { should allow_access_to(:show, hash) }
               it { should allow_access_to(:edit, hash) }
+              it { should allow_access_to(:user_permissions, hash) }
               it { should allow_access_to(:update, hash_with_attrs).via(:post) }
               it { should allow_access_to(:destroy, hash_with_attrs).via(:delete) }
               it { should allow_access_to(:enable, hash_with_attrs).via(:post) }
@@ -94,6 +98,7 @@ describe SpacesController do
         context "he is not a member of" do
           it { should allow_access_to(:show, hash) }
           it { should_not allow_access_to(:edit, hash) }
+          it { should_not allow_access_to(:user_permissions, hash) }
           it { should_not allow_access_to(:update, hash_with_attrs).via(:post) }
           it { should_not allow_access_to(:destroy, hash_with_attrs).via(:delete) }
           it { should_not allow_access_to(:enable, hash_with_attrs).via(:post) }
@@ -105,6 +110,7 @@ describe SpacesController do
             before(:each) { target.add_member!(user, "Admin") }
             it { should allow_access_to(:show, hash) }
             it { should allow_access_to(:edit, hash) }
+            it { should allow_access_to(:user_permissions, hash) }
             it { should allow_access_to(:update, hash_with_attrs).via(:post) }
             it { should allow_access_to(:destroy, hash_with_attrs).via(:delete) }
             it { should_not allow_access_to(:enable, hash_with_attrs).via(:post) }
@@ -115,6 +121,7 @@ describe SpacesController do
             before(:each) { target.add_member!(user, "User") }
             it { should allow_access_to(:show, hash) }
             it { should_not allow_access_to(:edit, hash) }
+            it { should_not allow_access_to(:user_permissions, hash) }
             it { should_not allow_access_to(:update, hash_with_attrs).via(:post) }
             it { should_not allow_access_to(:destroy, hash_with_attrs).via(:delete) }
             it { should_not allow_access_to(:enable, hash_with_attrs).via(:post) }
@@ -139,6 +146,7 @@ describe SpacesController do
             before(:each) { target.add_member!(user, "Admin") }
             it { should allow_access_to(:show, hash) }
             it { should allow_access_to(:edit, hash) }
+            it { should allow_access_to(:user_permissions, hash) }
             it { should allow_access_to(:update, hash_with_attrs).via(:post) }
             it { should allow_access_to(:destroy, hash_with_attrs).via(:delete) }
             it { should_not allow_access_to(:enable, hash_with_attrs).via(:post) }
@@ -149,6 +157,7 @@ describe SpacesController do
             before(:each) { target.add_member!(user, "User") }
             it { should allow_access_to(:show, hash) }
             it { should_not allow_access_to(:edit, hash) }
+            it { should_not allow_access_to(:user_permissions, hash) }
             it { should_not allow_access_to(:update, hash_with_attrs).via(:post) }
             it { should_not allow_access_to(:destroy, hash_with_attrs).via(:delete) }
             it { should_not allow_access_to(:enable, hash_with_attrs).via(:post) }
@@ -168,6 +177,7 @@ describe SpacesController do
         let(:target) { FactoryGirl.create(:public_space) }
         it { should allow_access_to(:show, hash) }
         it { should_not allow_access_to(:edit, hash) }
+        it { should_not allow_access_to(:user_permissions, hash) }
         it { should_not allow_access_to(:update, hash_with_attrs).via(:post) }
         it { should_not allow_access_to(:destroy, hash_with_attrs).via(:delete) }
         it { should_not allow_access_to(:enable, hash_with_attrs).via(:post) }
@@ -178,6 +188,7 @@ describe SpacesController do
         let(:target) { FactoryGirl.create(:private_space) }
         it { should_not allow_access_to(:show, hash) }
         it { should_not allow_access_to(:edit, hash) }
+        it { should_not allow_access_to(:user_permissions, hash) }
         it { should_not allow_access_to(:update, hash_with_attrs).via(:post) }
         it { should_not allow_access_to(:destroy, hash_with_attrs).via(:delete) }
         it { should_not allow_access_to(:enable, hash_with_attrs).via(:post) }

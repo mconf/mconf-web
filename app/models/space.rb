@@ -38,19 +38,11 @@ class Space < ActiveRecord::Base
   has_many :join_requests, :foreign_key => "group_id",
            :conditions => { :join_requests => {:group_type => 'Space'} }
 
-  attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
-  mount_uploader :logo_image, LogoImageUploader
-
-  after_create :crop_avatar
-  after_update :crop_avatar
-
-  def crop_avatar
-    logo_image.recreate_versions! if crop_x.present?
-  end
-
   extend FriendlyId
   friendly_id :name, :use => :slugged, :slug_column => :permalink
 
+
+  attr_accessible :bigbluebutton_room_attributes
   accepts_nested_attributes_for :bigbluebutton_room
 
   validates :description, :presence => true
@@ -78,6 +70,17 @@ class Space < ActiveRecord::Base
   after_validation :check_permalink
   after_update :update_webconf_room
   after_create :create_webconf_room
+
+  # Attrs for space logos
+  attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
+  mount_uploader :logo_image, LogoImageUploader
+
+  after_create :crop_logo
+  after_update :crop_logo
+
+  def crop_logo
+    logo_image.recreate_versions! if crop_x.present?
+  end
 
 
   # Finds all the valid user roles for a Space

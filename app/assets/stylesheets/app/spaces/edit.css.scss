@@ -1,0 +1,44 @@
+@import "definitions";
+@import "compass/css3";
+
+body.spaces.edit {
+
+  $column-width: ($contents-width / 2) - 20px;
+
+  #content-middle {
+    position: relative;
+  }
+
+  .left-column {
+    width: 425px;
+  }
+
+  .right-column {
+    margin-right: 50px;
+    position: absolute;
+    right: 0;
+    z-index: 10;
+  }
+
+  #new-space-basic-info {
+    input[type=text], textarea {
+      width: 98%;
+    }
+  }
+
+  #change_logo {
+    width: 164px;
+    text-align: center;
+    .input.file.optional {
+      display: none;
+    }
+  }
+
+  #logo_image {
+    border: 1px #ccc solid;
+    padding: 1px;
+    height: 128px;
+    width: 168px;
+  }
+
+}

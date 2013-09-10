@@ -2,7 +2,7 @@
 
 #create-space
 
-  .left-column
+  .centralized-column
     = simple_form_for @space, :html => {:method => :post, :multipart => true}, :url => spaces_path do |f|
       #new-space-basic-info
         = f.input :name, :label => t('name.one')

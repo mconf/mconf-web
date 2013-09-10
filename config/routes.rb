@@ -72,6 +72,7 @@ Mconf::Application.routes.draw do
     member do
       post :enable
       post :leave
+      get :user_permissions
     end
 
     resources :users do # TODO: do we really need this?
