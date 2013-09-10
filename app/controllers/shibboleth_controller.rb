@@ -187,7 +187,7 @@ class ShibbolethController < ApplicationController
     logger.info "Shibboleth: couldn't get email from session, " +
       "trying field #{current_site.shib_email_field} " +
       "in #{session[:shib_data].inspect}" if email.nil?
-    email
+    email.clone
   end
 
   # Returns the shibboleth user name from the data stored in the session.
@@ -200,7 +200,7 @@ class ShibbolethController < ApplicationController
     logger.info "Shibboleth: couldn't get name from session, " +
       "trying field #{current_site.shib_name_field} " +
       "in #{session[:shib_data].inspect}" if name.nil?
-    name
+    name.clone
   end
 
   # Returns the shibboleth login from the data stored in the session.
@@ -213,7 +213,7 @@ class ShibbolethController < ApplicationController
     logger.info "Shibboleth: couldn't get login from session, " +
       "trying field #{current_site.shib_login_field} " +
       "in #{session[:shib_data].inspect}" if login.nil?
-    login
+    login.clone
   end
 
   # Returns the shibboleth data stored in the session.
@@ -232,6 +232,11 @@ class ShibbolethController < ApplicationController
 
   def create_account(name, email, login)
     unless User.find_by_email(email)
+      # TODO: if the user is disabled he won't be found and the create below will fail
+
+      logger.info "Shibboleth: creating a new account with name: #{name}, " +
+        "email: #{email}, login: #{login}"
+
       password = SecureRandom.hex(16)
       user = User.create!(:login => login, :email => email,
                           :password => password, :password_confirmation => password)
