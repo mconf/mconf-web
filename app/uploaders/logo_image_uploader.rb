@@ -11,6 +11,10 @@ class LogoImageUploader < CarrierWave::Uploader::Base
     "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
   end
 
+  def extension_white_list
+    %w(jpg jpeg png svg tif)
+  end
+
   # Create different versions of your uploaded files:
   version :large do
     resize_to_limit(350,350)
@@ -21,9 +25,9 @@ class LogoImageUploader < CarrierWave::Uploader::Base
     resize_to_fill(32,32)
   end
 
-  version :logo80x60 do
+  version :logo84x64 do
     process :crop
-    resize_to_fill(80,60)
+    resize_to_fill(84,64)
   end
 
   version :logo128 do
@@ -31,9 +35,9 @@ class LogoImageUploader < CarrierWave::Uploader::Base
     resize_to_fill(128,128)
   end
 
-  version :logo160x128 do
+  version :logo168x128 do
     process :crop
-    resize_to_fill(160,128)
+    resize_to_fill(168,128)
   end
 
   def crop

@@ -15,6 +15,11 @@ body.spaces.new, body.spaces.create {
     width: $column-width - 20px;
   }
 
+  .centralized-column {
+    display: table;
+    margin: 0 auto;
+    width: 600px
+  }
 
   #new-space-basic-info {
     input[type=text], textarea {

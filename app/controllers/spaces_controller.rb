@@ -7,9 +7,12 @@
 
 class SpacesController < ApplicationController
 
-  before_filter :space
-  before_filter :webconf_room!, :only => [:show, :edit, :join_request_new]
+
   before_filter :authenticate_user!, :only => [:new, :create]
+
+  load_and_authorize_resource :find_by => :permalink
+
+  before_filter :webconf_room!, :only => [:show, :edit, :join_request_new, :user_permissions]
 
   # Create recent activity
   after_filter :only => [:create, :update, :leave] do
@@ -137,6 +140,11 @@ class SpacesController < ApplicationController
         format.html { redirect_to :action => "show", :id => @space  }
       end
 
+      @space.create_activity :create, :owner => @space,
+        :parameters => { :user_id => current_user.id,
+                         :username => current_user.name
+                       }
+
     else
       respond_with @space do |format|
         format.html { render :action => :new, :layout => "no_sidebar" }
@@ -177,6 +185,11 @@ class SpacesController < ApplicationController
           end
         }
       end
+
+      @space.create_activity :update, :owner => @space,
+        :parameters => { :user_id => current_user.id,
+                         :username => current_user.fullname
+                       }
 
     else
       respond_to do |format|
@@ -235,6 +248,11 @@ class SpacesController < ApplicationController
           end
         }
       end
+
+      @space.create_activity :leave, :owner => @space,
+        :parameters => { :user_id => current_user.id,
+                         :username => current_user.fullname
+                       }
 
     else
       respond_to do |format|
@@ -352,6 +370,12 @@ class SpacesController < ApplicationController
         role = Role.find(params[:join_request][:role])
         space.add_member!(join_request.candidate, role.name)
         success = space.save
+
+        @space.create_activity :join, :owner => @space,
+          :parameters => { :user_id => current_user.id,
+                           :username => current_user.fullname
+                         }
+
       end
 
       else

@@ -1,10 +1,10 @@
-%h1= 'Crop Avatar'
+%h1= @page
 
 .jcrop
   = image_tag @model.logo_image_url(:large), :id => "cropbox", :class => "cropable"
 
 %h4= 'Preview'
-#image_tag{ :style => "width:100px; height:100px; overflow:hidden" }
+#image_tag{ :style => "width:#{@width.to_i}px; height:100px; overflow:hidden" }
   .jcrop
     = image_tag @model.logo_image_url(:large), :id => "preview"
 
@@ -13,3 +13,9 @@
     = f.hidden_field "crop_#{attribute}", :id => "crop_#{attribute}"
   .form-actions
     = f.submit "Crop"
+
+#more-infos.hide
+  #aspect_ratio
+    = @aspect_ratio
+  #width
+    = @width

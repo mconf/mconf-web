@@ -854,7 +854,9 @@ en:
     created: "Logo uploaded successfully"
     crop: "Crop space logo"
     empty: "The logo is empty"
+    error: "Error on uploading the logo"
     no_image: "No image selected"
+    updated: "Logo updated successfully"
   logout: Logout
   manage:
     menu:

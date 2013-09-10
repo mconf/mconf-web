@@ -837,6 +837,7 @@ pt-br:
     created: "Logotipo enviado com sucesso"
     crop: "Cortar logotipo da comunidade"
     empty: "O logotipo está vazio"
+    error: "Erro ao enviar o logotipo"
     no_image: "Nenhuma imagem foi selecionada"
   logout: Sair
   manage:
