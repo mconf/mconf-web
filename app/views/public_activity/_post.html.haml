@@ -2,7 +2,7 @@
 -#   activity (RecentActivity)
 
 .logo-in-thread
-  = link_logo_image(activity.owner, :size => '80x60', :url => space_path(activity.owner), :class => 'logo logo-space')
+  = link_logo_image(activity.owner, :size => '84x64', :url => space_path(activity.owner), :class => 'logo logo-space')
 
 .thread-content
   .thread-updated-at= t('updated_time_ago', :time => time_ago_in_words(activity.updated_at))
