@@ -187,6 +187,7 @@ class ShibbolethController < ApplicationController
     logger.info "Shibboleth: couldn't get email from session, " +
       "trying field #{current_site.shib_email_field} " +
       "in #{session[:shib_data].inspect}" if email.nil?
+    email = email.clone unless email.nil?
     email.clone
   end
 
@@ -200,6 +201,7 @@ class ShibbolethController < ApplicationController
     logger.info "Shibboleth: couldn't get name from session, " +
       "trying field #{current_site.shib_name_field} " +
       "in #{session[:shib_data].inspect}" if name.nil?
+    name = name.clone unless name.nil?
     name.clone
   end
 
@@ -213,6 +215,7 @@ class ShibbolethController < ApplicationController
     logger.info "Shibboleth: couldn't get login from session, " +
       "trying field #{current_site.shib_login_field} " +
       "in #{session[:shib_data].inspect}" if login.nil?
+    login = login.clone unless login.nil?
     login.clone
   end
 
