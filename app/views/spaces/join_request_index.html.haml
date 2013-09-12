@@ -11,7 +11,7 @@
         %div{:class => "reqs #{'last' if (jr==last_request)}"}
           .reqs-item
             .invitation-logo
-              = raw(link_logo(jr.candidate, :url => user_path(jr.candidate),:size=>32, :title=>jr.candidate.name))
+              = raw(link_logo_image(jr.candidate, :size => '32', :url => user_path(jr.candidate), :title => jr.candidate.name, :class => "logo logo-user"))
             .invitation-content
               %span.unified_user= link_to(sanitize(jr.candidate.name),user_path(jr.candidate),:class=>"unified_user")
               .float
