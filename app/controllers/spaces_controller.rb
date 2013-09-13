@@ -9,6 +9,16 @@ class SpacesController < ApplicationController
 
   before_filter :authenticate_user!, :only => [:new, :create]
 
+  # Create recent activity
+  after_filter :only => [:create, :update, :leave] do
+    @space.new_activity params[:action], current_user unless @space.errors.any?
+  end
+
+  # Recent activity for join requests
+  after_filter :only => [:join_request_update] do
+    @space.new_activity :join, current_user unless @join_request.errors.any? || !@join_request.accepted?
+  end
+
   load_and_authorize_resource :find_by => :permalink
 
   before_filter :webconf_room!, :only => [:show, :edit, :join_request_new, :user_permissions]
