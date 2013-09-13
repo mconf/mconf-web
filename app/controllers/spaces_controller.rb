@@ -7,24 +7,11 @@
 
 class SpacesController < ApplicationController
 
-
   before_filter :authenticate_user!, :only => [:new, :create]
 
   load_and_authorize_resource :find_by => :permalink
 
   before_filter :webconf_room!, :only => [:show, :edit, :join_request_new, :user_permissions]
-
-  # Create recent activity
-  after_filter :only => [:create, :update, :leave] do
-    @space.new_activity params[:action], current_user unless @space.errors.any?
-  end
-
-  # Recent activity for join requests
-  after_filter :only => [:join_request_update] do
-    @space.new_activity :join, current_user unless @join_request.errors.any? || !@join_request.accepted?
-  end
-
-  load_and_authorize_resource
 
   # TODO: cleanup the other actions adding respond_to blocks here
   respond_to :js, :only => [:index, :show]
@@ -118,11 +105,6 @@ class SpacesController < ApplicationController
   end
 
   def edit
-    @users = @space.users.order("name ASC")
-    @permissions = space.permissions.sort{
-      |x,y| x.user.name <=> y.user.name
-    }
-    @roles = Space.roles
     render :layout => 'spaces_show'
   end
 
@@ -133,18 +115,11 @@ class SpacesController < ApplicationController
     @space = Space.new(params[:space])
 
     if @space.save
-
       respond_with @space do |format|
         flash[:success] = t('space.created')
         @space.add_member!(current_user, 'Admin')
         format.html { redirect_to :action => "show", :id => @space  }
       end
-
-      @space.create_activity :create, :owner => @space,
-        :parameters => { :user_id => current_user.id,
-                         :username => current_user.name
-                       }
-
     else
       respond_with @space do |format|
         format.html { render :action => :new, :layout => "no_sidebar" }
@@ -163,41 +138,22 @@ class SpacesController < ApplicationController
       params[:space][:bigbluebutton_room_attributes][:id] = @space.bigbluebutton_room.id
     end
 
-    if @space.update_attributes(params[:space])
+    if @space.update_attributes(space_params)
       respond_to do |format|
-        format.html {
-          flash[:success] = t('space.updated')
-          redirect_to request.referer
-        }
-        format.js {
-          if params[:space][:name] or params[:space][:description]
-            @result = params[:space][:name] ? nil : params[:space][:description]
+        puts params.inspect
+        if params[:space][:logo_image].present?
+          format.html { redirect_to logo_images_crop_path(:model_type => 'space', :model_id => @space) }
+        else
+          format.html {
             flash[:success] = t('space.updated')
-            render "result", :formats => [:js]
-          elsif !params[:space][:bigbluebutton_room_attributes].blank?
-            if params[:space][:bigbluebutton_room_attributes][:moderator_password] or params[:space][:bigbluebutton_room_attributes][:attendee_password]
-              @result = params[:space][:bigbluebutton_room_attributes][:moderator_password] ? params[:space][:bigbluebutton_room_attributes][:moderator_password] : params[:space][:bigbluebutton_room_attributes][:attendee_password]
-              flash[:success] = t('space.updated')
-              render "result", :formats => [:js]
-            end
-          else
-            render "update", :formats => [:js]
-          end
-        }
+            redirect_to edit_space_path(@space)
+          }
+        end
       end
-
-      @space.create_activity :update, :owner => @space,
-        :parameters => { :user_id => current_user.id,
-                         :username => current_user.fullname
-                       }
-
     else
       respond_to do |format|
         flash[:error] = t('error.change')
-        format.js {
-          @result = "$(\"#admin_tabs\").before(\"<div class=\\\"error\\\">" + t('.error.not_valid') +  "</div>\")"
-        }
-        format.html { redirect_to edit_space_path }
+        format.html { redirect_to edit_space_path(@space) }
       end
     end
   end
@@ -216,6 +172,15 @@ class SpacesController < ApplicationController
         end
       }
     end
+  end
+
+  def user_permissions
+    @users = @space.users.order("name ASC")
+    @permissions = space.permissions.sort{
+      |x,y| x.user.name <=> y.user.name
+    }
+    @roles = Space.roles
+    render :layout => 'spaces_show'
   end
 
   def enable
@@ -248,12 +213,6 @@ class SpacesController < ApplicationController
           end
         }
       end
-
-      @space.create_activity :leave, :owner => @space,
-        :parameters => { :user_id => current_user.id,
-                         :username => current_user.fullname
-                       }
-
     else
       respond_to do |format|
         format.html { redirect_to space_path(@space) }
@@ -365,19 +324,11 @@ class SpacesController < ApplicationController
                             t('join_request.updated'))
           redirect_to request.referer
         }
-
-      if join_request.accepted?
-        role = Role.find(params[:join_request][:role])
-        space.add_member!(join_request.candidate, role.name)
-        success = space.save
-
-        @space.create_activity :join, :owner => @space,
-          :parameters => { :user_id => current_user.id,
-                           :username => current_user.fullname
-                         }
-
-      end
-
+        if join_request.accepted?
+          role = Role.find(params[:join_request][:role])
+          space.add_member!(join_request.candidate, role.name)
+          success = space.save
+        end
       else
         format.html {
           flash[:error] = join_request.errors.to_xml
@@ -403,5 +354,17 @@ class SpacesController < ApplicationController
 
   def space_to_json_hash
     { :methods => :user_count, :include => {:logo => { :only => [:height, :width], :methods => :logo_image_path } } }
+  end
+
+  def space_params
+    unless params[:space].nil?
+      params[:space].permit(*space_allowed_params)
+    else
+      []
+    end
+  end
+
+  def space_allowed_params
+    [ :name, :description, :logo_image, :public, :permalink, :crop_x, :crop_y, :crop_w, :crop_h, :bigbluebutton_room_attributes => [ :id, :attendee_password, :moderator_password] ]
   end
 end
