@@ -157,20 +157,6 @@ namespace :db do
       end
     end
 
-    puts "* Create spaces: logos"
-    logos = Dir.entries(File.join(PathHelpers.images_full_path, "default_space_logos"))
-    logos.delete(".")
-    logos.delete("..")
-    Space.all.each do |space|
-      begin
-        space.save
-      rescue
-        # TODO: ignoring the error:
-        # "no decode delegate for this image format ..."
-        puts "- warn: failed to create a logo for #{space.name}"
-      end
-    end
-
     puts "* Create spaces: adding users"
     Space.all.each do |space|
       role_ids = Role.find_all_by_stage_type('Space').map(&:id)
