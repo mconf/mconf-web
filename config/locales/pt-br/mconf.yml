@@ -1261,6 +1261,12 @@ pt-br:
     update_logo: "Atualizar logo"
     updated: "Comunidade atualizada com sucesso"
   spaces: 
+    admin_tabs:
+      admissions: "Admissões"
+      general_options: "Opções gerais"
+      invite: "Convidar pessoas"
+      news: "Notícias"
+      users: "Usuários"
     index: 
       list_format: 
         list: "Lista"

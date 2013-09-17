@@ -1,10 +1,9 @@
-#space-conf
-  %h3.center
-    = t('space.configuration')
+#edit-space
+  %h3= t('space.configuration')
 
 .right-column
   #logo_image
-    = logo_image(@space, :size => '168x128', :class => 'profile-logo')
+    = logo_image(@space, :size => '168x128', :class => 'logo')
   #change_logo
     = simple_form_for @space, :url => space_path, :html => { :multipart => true, :class => 'form-for-crop' } do |f|
       = link_to t('change_pic'), '#space_logo_image', :"data-open-file" => true

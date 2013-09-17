@@ -3,8 +3,7 @@
 
 body.spaces.edit {
 
-  $column-width: ($contents-width / 2) - 20px;
-
+  // need this because the right column has an absolute position, see below
   #content-middle {
     position: relative;
   }
@@ -14,10 +13,9 @@ body.spaces.edit {
   }
 
   .right-column {
-    margin-right: 50px;
     position: absolute;
-    right: 0;
-    z-index: 10;
+    right: 50px;
+    z-index: $z-index-navbar;
   }
 
   #new-space-basic-info {
@@ -26,8 +24,11 @@ body.spaces.edit {
     }
   }
 
+  #edit-space {
+    clear: both;
+  }
+
   #change_logo {
-    width: 164px;
     text-align: center;
     .input.file.optional {
       display: none;
@@ -35,10 +36,11 @@ body.spaces.edit {
   }
 
   #logo_image {
-    border: 1px #ccc solid;
-    padding: 1px;
-    height: 128px;
-    width: 168px;
+    @include logo-in-thread; // in _definitions
+    img {
+      height: 128px;
+      width: 168px;
+    }
   }
 
 }

@@ -39,6 +39,19 @@ module SpacesHelper
     end
   end
 
+  # Stores the current tab in the menu in the administration pages of a space
+  def spaces_admin_menu_at(tab)
+    @spaces_admin_menu_tab = tab
+  end
+
+  # Selects the tab if it is the current tab in the administration menu for spaces
+  def spaces_admin_menu_select_if(tab, options={})
+    old_class = options[:class] || ''
+    @spaces_admin_menu_tab == tab ?
+      options.update({ :class => "#{old_class} active" }) :
+      options
+  end
+
   # TODO: check the methods below
 
   def max_word_length text

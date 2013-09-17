@@ -1297,6 +1297,12 @@ en:
     update_logo: "Update logo"
     updated: "Space updated successfully"
   spaces: 
+    admin_tabs:
+      admissions: "Admissions"
+      general_options: "General options"
+      invite: "Invite people"
+      news: "News"
+      users: "Users"
     index: 
       list_format: 
         list: "List"

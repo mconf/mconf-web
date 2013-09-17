@@ -4,6 +4,7 @@
 = content_for :sidebar do
   = render :partial => "form"
 
+- spaces_admin_menu_at :news
 = render :partial => 'spaces/admin_tabs'
 
 - for news in @all_news
