@@ -6,7 +6,7 @@
 
 = content_for :sidebar do
   #profile-in-sidebar
-    #logo_image
+    #edit-profile-current-logo
       = logo_image(@user, :size => '128', :class => 'profile-logo')
     %ul
       - if can?(:update, @profile)

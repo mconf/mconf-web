@@ -1,4 +1,3 @@
----
 pt-br:
   simple_form:
     "yes": 'Sim'
@@ -11,15 +10,11 @@ pt-br:
       # html: '<abbr title="required">*</abbr>'
     error_notification:
       default_message: "Erros foram encontrados, por favor revise:"
-    # Labels and hints examples
-    # labels:
-    #   password: 'Password'
-    #   user:
-    #     new:
-    #       email: 'E-mail para efetuar o sign in.'
-    #     edit:
-    #       email: 'E-mail.'
-    # hints:
-    #   username: 'User name to sign in.'
-    #   password: 'No special characters, please.'
 
+    buttons:
+      cancel: "Cancelar"
+      or: "ou"
+    hints:
+      space:
+        public: "Comunidades colaborativas podem ser públicas, para que qualquer pessoa possa ver o que acontece nelas, ou privadas, onde apenas os membros têm acesso às atividades da comunidade"
+    # labels:

@@ -3,6 +3,10 @@
 
 body.spaces.edit {
 
+  #edit-space {
+    clear: both;
+  }
+
   // need this because the right column has an absolute position, see below
   #content-middle {
     position: relative;
@@ -10,32 +14,26 @@ body.spaces.edit {
 
   .left-column {
     width: 425px;
+
+    #space_name, #space_description {
+      width: 98%;
+    }
   }
 
   .right-column {
     position: absolute;
     right: 50px;
     z-index: $z-index-navbar;
-  }
 
-  #new-space-basic-info {
-    input[type=text], textarea {
-      width: 98%;
+    form {
+      text-align: center;
+      .input.file.optional {
+        display: none;
+      }
     }
   }
 
-  #edit-space {
-    clear: both;
-  }
-
-  #change_logo {
-    text-align: center;
-    .input.file.optional {
-      display: none;
-    }
-  }
-
-  #logo_image {
+  #edit-space-current-logo {
     @include logo-in-thread; // in _definitions
     img {
       height: 128px;

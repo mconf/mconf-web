@@ -858,28 +858,6 @@ ul#navbar-right-links {
   }
 }
 
-// Container area in the window to crop an image
-// See views/logos/precrop
-#crop-image-wrapper {
-  text-align: center;
-  @include mconf-clearfix;
-
-  // to centralize the image to be cropped with Jcrop
-  .jcrop-holder {
-    margin: 0 auto;
-    border: 2px solid darken($light-gray, 10);
-  }
-
-  .description {
-    display: block;
-    margin-bottom: 10px;
-  }
-
-  input[type=submit] {
-    float: none;
-  }
-}
-
 /* To emphasize events that are hapenning now. Used in the pages that show events
    and in spaces. */
 .events-hapenning-now {

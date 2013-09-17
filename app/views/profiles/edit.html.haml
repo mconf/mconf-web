@@ -1,23 +1,23 @@
-= render_page_title t('edit_your_profile')
+= render_page_title t('.edit_your_profile')
 
 = content_for :sidebar do
   #profile-in-sidebar
     %ul
       %li
-        = link_to "View your profile", user_profile_path(current_user)
-    #logo_image
-      = logo_image(@user, :size => '128', :class => 'profile-logo')
+        = link_to t('.view_your_profile'), user_profile_path(current_user)
+    #edit-profile-current-logo
+      = logo_image(@user, :size => '128', :class => 'profile-logo logo')
     %ul
       %li
-        = simple_form_for @profile, :url => user_profile_path(@user), :html => { :multipart => true, :class => 'form-for-crop' } do |f|
-          = link_to t('change_pic'), '#profile_logo_image', :"data-open-file" => true
-          = f.input :logo_image, :as => :file
+        = simple_form_for @profile, :url => user_profile_path(@user), :html => { :multipart => true, :class => 'form-for-crop', :'data-crop-target-image' => '#edit-profile-current-logo' } do |f|
+          = link_to t('.change_pic'), '#profile_logo_image', :"data-open-file" => true
+          = f.input :logo_image, :as => :file, :id => 'profile_logo_image'
       %li
         = simple_form_for @profile, :url => user_profile_path(@user), :html => { :multipart => true, :method => :put } do |f|
           = link_to t('vCard.use'), '#profile_vcard', :"data-open-file" => true
           = icon_help t("tooltip.vcard")
-          = f.input :vcard, :as => :file
+          = f.input :vcard, :as => :file, :id => 'profile_vcard'
       %li= link_to t('vCard.export'), user_profile_path(@user, :format => "vcf")
 
-= simple_form_for @profile, :url => user_profile_path(@user), :html => {:multipart => true, :class => 'single-column'} do |f|
+= simple_form_for @profile, :url => user_profile_path(@user), :html => { :multipart => true, :class => 'single-column' } do |f|
   = render :partial => 'form', :locals => { :f => f, :user => @user }

@@ -39,6 +39,7 @@ en:
     login_to_enable: "You need to be logged in to perform this action"
     publish: "Publish"
     save: "Save"
+    update: "Update"
     unpublish: "Unpublish"
     webconference:
       not_allowed_to_create: "You are not allowed to create meetings in this room"
@@ -54,11 +55,14 @@ en:
   action: 
     other: Actions
   actions: Actions
-  activerecord: 
-    attributes: 
-      spaces: 
-        attendee_password: "Attendee Password"
-        moderator_password: "Moderator Password"
+  activerecord:
+    attributes:
+      space:
+        attendee_password: "Attendee password"
+        description: "Descrição"
+        moderator_password: "Moderator password"
+        name: "Name"
+        public: "Public"
     errors:
       models:
         private_message: 
@@ -205,7 +209,6 @@ en:
   cancel: Cancel
   caption: 
     add: "Add a caption"
-  change_pic: "Change picture"
   chat: 
     connecting_error_message: "Error while connecting"
     connecting_message: "Connecting to event chat..."
@@ -410,7 +413,6 @@ en:
   edit: Edit
   edit_hours: "Edit hours"
   edit_profile: "Edit profile"
-  edit_your_profile: "Edit your profile"
   email: 
     account_activated: "Your account at %{sitename} has been activated successfully."
     commas: "Separated by commas"
@@ -857,6 +859,10 @@ en:
     error: "Error on uploading the logo"
     no_image: "No image selected"
     updated: "Logo updated successfully"
+  logo_images:
+    crop:
+      crop_it: "Crop it!"
+      preview: "Preview"
   logout: Logout
   manage:
     menu:
@@ -1046,6 +1052,11 @@ en:
     visibility_nobody: "Nobody can see your private profile."
     visibility_private_fellows: "Only your partners in a private space can see your private profile."
     visibility_public_fellows: "Only your partners in a public or private space can see your private profile."
+  profiles:
+    edit:
+      change_pic: "Change your picture"
+      edit_your_profile: "Edit your profile"
+      view_your_profile: "View your profile"
   province: Province
   public: Public
   read_more: "Read more"
@@ -1161,10 +1172,6 @@ en:
     label: "Insert here the text from the image"
     message: 
       user: "is incorrect"
-  simple_form:
-    buttons:
-      cancel: "Cancel"
-      or: "or"
   site: 
     analytics_code: "Analytics Code"
     analytics_code_tip: "Code for your Google Analytics account. Leave it blank to disable. Example: \"UA-12345678-9\""
@@ -1222,8 +1229,6 @@ en:
     clic_logo: "Click to change your logo"
     configuration: "Space configuration"
     confirm: "Are you sure you want to leave this space?"
-    create: 
-      webconf_options: "Webconference room options"
     create_own: "Create new space"
     created: "Space created successfully"
     delete: "Delete Space"
@@ -1303,6 +1308,9 @@ en:
       invite: "Invite people"
       news: "News"
       users: "Users"
+    edit_space:
+      change_logo: "Change picture"
+      webconf_options: "Webconference room options"
     index: 
       list_format: 
         list: "List"

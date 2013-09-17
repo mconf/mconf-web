@@ -1,8 +1,9 @@
-# To make a form to select an image to be cropped, point the form
-# to a "precrop" action and add :class => 'form-for-crop' to it.
-# The form must have a input[type=file] in it and optionally a link
-# with :"data-open-file" => true to trigger the "browse files" window.
-
+# To make a form to select an image to be cropped, point the form to a "precrop" action and
+# add :class => 'form-for-crop' to it.
+# The form must have a input[type=file] in it and optionally a link with :"data-open-file" => true
+# (see `base.js.coffee`) to trigger the "browse files" window.
+# The "precrop" action should render the cropping view containing an expected set of tags,
+# see `logo_images/crop.html.haml` for an example.
 class mconf.Crop
 
   # All forms with '.form-for-crop' will be associated with the crop
@@ -10,66 +11,76 @@ class mconf.Crop
   # shown in a modal window and the image in it can be cropped.
   @bind: ->
     $("form.form-for-crop").each ->
-      form = $(this)
+      selectFileForm = $(this)
       # when the user selects a file it automatically submits the form
-      $element = $("input[type=file]", form)
+      $element = $("input[type=file]", selectFileForm)
       $element.off "change.mconfCrop"
       $element.on "change.mconfCrop", ->
-        form.ajaxSubmit (data) ->
+        selectFileForm.ajaxSubmit (data) ->
+
+          # setup calls to bindings when the modal is shown
+          selectFileForm.on "modal-after-update-markup", ->
+            cropForm = $("#crop-modal form")
+            cropModal = $("#crop-modal")
+            unless cropForm.attr("data-crop-set") is "1"
+              enableCropInImages(cropModal)
+              bindAjaxToCropForm(selectFileForm, cropForm)
+              cropForm.attr("data-crop-set", 1) # prevent it from running more than once
+
+          # show the modal
           mconf.Modal.showWindow
             data: data
-            element: $element
-          enableCropInImages()
-          bindAjaxToCropForm()
-
-$ ->
-  mconf.Crop.bind()
-
-
-saveCropCoordinates = (crop) ->
-  # TODO: restrict the search to the elements inside the form
-  # where this event was triggered
-  $('#crop_x').val(crop.x)
-  $('#crop_y').val(crop.y)
-  $('#crop_w').val(crop.w)
-  $('#crop_h').val(crop.h)
+            element: selectFileForm
 
 # Enables the crop in all 'cropable' elements in the document
-enableCropInImages = ->
-  $("img.cropable").each ->
-    $(this).Jcrop
-      aspectRatio: $("#aspect_ratio").text()
+enableCropInImages = (cropModal) ->
+  $("img.cropable", cropModal).each ->
+    image = this
+    $(image).Jcrop
+      aspectRatio: $(image).attr('data-crop-aspect-ratio')
       setSelect: [0, 0, 350, 350]
-      onSelect: update
-      onChange: update
+      onSelect: (coords) -> update(cropModal, image, coords)
+      onChange: (coords) -> update(cropModal, image, coords)
 
-update = (coords) =>
-  $('#crop_x').val(coords.x)
-  $('#crop_y').val(coords.y)
-  $('#crop_w').val(coords.w)
-  $('#crop_h').val(coords.h)
-  updatePreview(coords)
+# Updates the attributes in the page using the coordinates set by Jcrop.
+# `image` is the image that's being cropped and `coords` the coordinates set by Jcrop over
+# this image.
+update = (cropModal, image, coords) ->
+  $('.crop-x', cropModal).val(coords.x)
+  $('.crop-y', cropModal).val(coords.y)
+  $('.crop-w', cropModal).val(coords.w)
+  $('.crop-h', cropModal).val(coords.h)
+  updatePreview(cropModal, image, coords)
 
-updatePreview = (coords) =>
-  $('#preview').css
-    width: Math.round($("#width").text()/coords.w * $('#cropbox').width()) + 'px'
-    height: Math.round(100/coords.h * $('#cropbox').height()) + 'px'
-    marginLeft: '-' + Math.round($("#width").text()/coords.w * coords.x) + 'px'
+updatePreview = (cropModal, image, coords) ->
+  cropWidth = $(image).attr("data-crop-width")
+  $('.crop-preview', cropModal).css
+    width: Math.round(cropWidth/coords.w * $(image).width()) + 'px'
+    height: Math.round(100/coords.h * $(image).height()) + 'px'
+    marginLeft: '-' + Math.round(cropWidth/coords.w * coords.x) + 'px'
     marginTop: '-' + Math.round(100/coords.h * coords.y) + 'px'
 
 # Makes the crop form be submitted with ajax
-bindAjaxToCropForm = ->
-  $('#crop-form').ajaxForm
+# TODO: this is submitting the form, getting an html response and updating only a piece
+#   of the html, would be better if was a json request
+bindAjaxToCropForm = (selectFileForm, cropForm) ->
+  $(cropForm).ajaxForm
     success: (data) ->
+      mconf.Modal.closeWindows()
+      $("form.form-for-crop").resetForm()
+      updateTargetImage(selectFileForm.attr('data-crop-target-image'), data)
+      mconf.Notification.add("success", I18n.t('logo.created'))
+      mconf.Notification.bind()
       $(document).trigger "crop-form-success", data
-      mconf.Modal.closeWindows();
-      $('#logo_image').empty()
-      $('#logo_image').html($(data).find('#logo_image').find("img"))
-      $('#notification-flashs').html('<div name="success" data-notification-shown="0">' + I18n.t('logo.created') + '</div>')
-      $("form.form-for-crop").resetForm()
-      mconf.Notification.bind()
     error: () ->
-      $(document).trigger "crop-form-error"
-      $('#notification-flashs').html('<div name="error" data-notification-shown="0">' + I18n.t('logo.error') + '</div>')
       $("form.form-for-crop").resetForm()
+      mconf.Notification.add("error", I18n.t('logo.error'))
       mconf.Notification.bind()
+      $(document).trigger "crop-form-error"
+
+updateTargetImage = (targetId, data) ->
+  $(targetId).empty()
+  $(targetId).html($(data).find(targetId).find("img"))
+
+$ ->
+  mconf.Crop.bind()

@@ -39,6 +39,7 @@ pt-br:
     login_to_enable: "Você precisa estar logado para acessar esta opção"
     publish: "Publicar"
     save: "Salvar"
+    update: "Atualizar"
     unpublish: "Despublicar"
     webconference:
       not_allowed_to_create: "Você não tem permissão para criar reuniões nesta sala"
@@ -56,9 +57,12 @@ pt-br:
   actions: Ações
   activerecord:
     attributes:
-      spaces:
-        attendee_password: "Senha de Participante"
-        moderator_password: "Senha de Moderador"
+      space:
+        attendee_password: "Senha de participante"
+        description: "Descrição"
+        moderator_password: "Senha de moderador"
+        name: "Nome"
+        public: "Pública"
     errors:
       models:
         private_message: 
@@ -201,7 +205,6 @@ pt-br:
   cancel: Cancelar
   caption:
     add: "Adicionar legenda"
-  change_pic: "Modificar imagem"
   chat:
     add: "Adicionar Usuário"
     connecting_error_message: "Erro conectando"
@@ -400,7 +403,6 @@ pt-br:
   edit: Editar
   edit_hours: "Editar horas"
   edit_profile: "Editar perfil"
-  edit_your_profile: "Editar seu perfil"
   email:
     account_activated: "Sua conta em %{sitename} foi ativada com sucesso."
     commas: "Separado por vírgulas"
@@ -839,6 +841,10 @@ pt-br:
     empty: "O logotipo está vazio"
     error: "Erro ao enviar o logotipo"
     no_image: "Nenhuma imagem foi selecionada"
+  logo_images:
+    crop:
+      crop_it: "Cortar!"
+      preview: "Pré-visualização"
   logout: Sair
   manage:
     menu:
@@ -1022,6 +1028,11 @@ pt-br:
     visibility_nobody: "Ninguém pode ver o seu perfil privado."
     visibility_private_fellows: "Apenas os seus colegas em um espaço privado podem ver o seu perfil privado."
     visibility_public_fellows: "Apenas os seus colegas em um espaço público podem ver o seu perfil privado."
+  profiles:
+    edit:
+      change_pic: "Mudar sua foto"
+      edit_your_profile: "Editar o seu perfil"
+      view_your_profile: "Visualizar o seu perfil"
   province: Estado
   public: Público
   read_more: "Ler mais"
@@ -1191,8 +1202,6 @@ pt-br:
     clic_logo: "Clique para mudar o seu logotipo"
     configuration: "Configurações da comunidade"
     confirm: "Tem certeza que quer deixar esta comunidade?"
-    create:
-      webconf_options: "Opções para a sala de webconferência"
     create_own: "Criar nova comunidade"
     created: "Comunidade criada com sucesso"
     delete: "Excluir Comunidade"
@@ -1267,6 +1276,9 @@ pt-br:
       invite: "Convidar pessoas"
       news: "Notícias"
       users: "Usuários"
+    edit_space:
+      change_logo: "Mudar imagem"
+      webconf_options: "Opções da sala de webconferência"
     index: 
       list_format: 
         list: "Lista"
@@ -1375,7 +1387,6 @@ pt-br:
     num_views: "Este número representa as vistas únicas para essa página"
     private_profile: "Esta informação só é visível para as pessoas que você escolher quando você editar seu perfil"
     public_profile: "Qualquer pessoa pode acessar esta informação"
-    public_space: "Comunidades colaborativas podem ser públicas, para que qualquer pessoa possa ver o que acontece nelas, ou privadas, onde apenas os membros têm acesso às atividades da comunidade"
     share: "Esta é a url para compartilhar este vídeo com os seus colegas"
     tag: "Tags são palavras-chave ou termos associados com o conteúdo que são utilizadas para localizar e filtrar as informações. Pressione enter para confirmar cada tag."
     tag_by: "Tags são palavras que descrevem os documentos. Use este link para ordená-las por popularidade ou por ordem alfabética. Em seguida, clique nelas para ver os documentos relacionados."

@@ -1,1 +1,22 @@
-.jcrop img { max-width: none; }
+@import "compass/css3";
+@import "definitions";
+
+#crop-modal {
+
+  .jcrop-wrapper {
+    float: left;
+    border: 1px solid darken($light-gray, 10);
+    padding: 1px;
+    clear: both;
+
+    img {
+      max-width: none;
+    }
+  }
+
+  .preview {
+    clear: both;
+    font-weight: bold;
+    padding: 10px 0 5px 0;
+  }
+}

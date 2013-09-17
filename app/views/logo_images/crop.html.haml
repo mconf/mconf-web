@@ -1,21 +1,19 @@
-%h1= @page
+#crop-modal
 
-.jcrop
-  = image_tag @model.logo_image_url(:large), :id => "cropbox", :class => "cropable"
+  %h1= @page
 
-%h4= 'Preview'
-#image_tag{ :style => "width:#{@width.to_i}px; height:100px; overflow:hidden" }
-  .jcrop
-    = image_tag @model.logo_image_url(:large), :id => "preview"
+  .jcrop-wrapper
+    = image_tag @model.logo_image_url(:large), :class => 'cropable',
+        :'data-crop-width' => @width, :'data-crop-aspect-ratio' => @aspect_ratio
 
-= form_for @model, :url => @url, :html => { :id => 'crop-form' } do |f|
-  - %w[x y w h].each do |attribute|
-    = f.hidden_field "crop_#{attribute}", :id => "crop_#{attribute}"
-  .form-actions
-    = f.submit "Crop"
+  .preview
+    .preview-title= t('.preview')
+    -# TODO: can't this style be in the css? or part of it?
+    .jcrop-wrapper{ :style => "width:#{@width.to_i}px; height:100px; overflow:hidden" }
+      = image_tag @model.logo_image_url(:large), :class => 'crop-preview'
 
-#more-infos.hide
-  #aspect_ratio
-    = @aspect_ratio
-  #width
-    = @width
+  = form_for @model, :url => @url do |f|
+    - %w[x y w h].each do |attribute|
+      = f.hidden_field "crop_#{attribute}", :class => "crop-#{attribute}"
+    .form-actions
+      = f.submit t('.crop_it'), :class => 'btn btn-primary'

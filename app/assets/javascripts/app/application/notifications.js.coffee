@@ -22,6 +22,17 @@ class mconf.Notification
     $("#notification-flashs > div[name='notice']").each ->
       showNotification(this, "notice")
 
+  # Adds a new notification of type `type` to the page.
+  # `type` can be "success", "error", or "notice".
+  # `text` is the message included inside the notification.
+  # The notification is only added to the page but will *not* be displayed. To do so,
+  # call `mconf.Notification.bind()`.
+  @add: (type, text) ->
+    notification = $("<div></div>")
+    notification.attr("name", type)
+    notification.html(text)
+    $('#notification-flashs').append(notification)
+
 showNotification = (target, type) ->
   $target = $(target)
 

@@ -1,6 +1,8 @@
 $ ->
+  if isOnPage 'spaces', 'edit'
+    updatePasswords($('input#space_public').is(':checked'))
+    $('input#space_public').on 'click', -> updatePasswords($(this).is(':checked'))
 
-  $("#edit-space-basic-info input#space_public").on 'click', ->
-    $("#edit-space-webconf-area").toggle(! $(this).is(':checked'))
-    $("#space_bigbluebutton_room_attributes_attendee_password").prop("disabled", $(this).is(':checked'))
-    $("#space_bigbluebutton_room_attributes_moderator_password").prop("disabled", $(this).is(':checked'))
+updatePasswords = (checked) ->
+  $('#space_bigbluebutton_room_attributes_attendee_password').prop('disabled', checked)
+  $('#space_bigbluebutton_room_attributes_moderator_password').prop('disabled', checked)
