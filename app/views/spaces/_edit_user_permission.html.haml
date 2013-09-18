@@ -1,9 +1,11 @@
 .user
   %ul.group_links
     %li
-      = link_to image_tag("icons/email.png", :title=>t('private_message.send'), :alt=>t('private_message.send'), :class=>"icon"), new_user_message_path(:user_id => current_user.to_param, :receiver => user.id), :class => 'open-modal'
+      = link_to new_user_message_path(:user_id => current_user.to_param, :receiver => user.id), :class => 'open-modal' do
+        = icon_message
     %li
-      = link_to image_tag("icons/cancel.png", :alt => t('user.delete_from_space'),:class=>"icon" ), permission_path(permission), :confirm => t('are_you_sure'), :method => :delete,:title => t('user.delete_from_space')
+      = link_to permission_path(permission), options_for_tooltip(t('user.delete_from_space'), :confirm => t('are_you_sure'), :method => :delete) do
+        = icon_delete
 
   %div
     = raw(link_logo_image(user, :size => '32', :url => user_path(user), :title => user.name))

@@ -6,13 +6,6 @@
 
 module AttachmentsHelper
   def table_actions(row, attachment, interactive)
-    #html = ""
-    #html << link_to(image_tag("icons/cancel.png", :alt => t('delete'),:class=>"icon"), space_attachment_path(@space,attachment, :version => attachment.version), {:method => :delete, :title => t('attachment.delete'), :confirm => t('delete.confirm', :element => t('attachment.one'))}) if can?(:destroy, attachment)
-    #html << link_to("NV")
-    #html << link_to(image_tag("icons/comment.png", :alt => t('post.one'),:class=>"icon"), space_post_path(@space,attachment.post)) if attachment.post.present?
-    #html << link_to(image_tag("icons/date.png", :alt => t('date.one'),:class=>"icon"), space_event_path(@space,attachment.event)) if attachment.event.present?
-    #html
-
     html=""
 
     html << if can?(:read, attachment)

@@ -32,13 +32,6 @@ form {
 // Components used site-wide, in any layout
 //
 
-.webconf-join-mobile-link:not(.no-icon) {
-  span {
-    padding-left: 12px;
-    background: url(asset_path('icons/mobile-gray-16x16.png', image)) bottom left no-repeat;
-  }
-}
-
 .webconf-join-group {
   // adjust make the 'fast start' icon
   .btn i.icon-awesome {
