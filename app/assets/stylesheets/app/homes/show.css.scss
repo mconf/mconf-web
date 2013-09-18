@@ -38,6 +38,7 @@ body.homes.show, body.homes.activity {
       height: 96px;
       width: 96px;
       @include border-radius(3px);
+      overflow: hidden; // for when the image is not found
 
       .icon-awesome.icon-mconf-superuser {
         position: absolute;

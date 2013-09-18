@@ -7,6 +7,10 @@
   @include border-radius(4px);
   padding: 20px 5px;
 
+  #edit-profile-current-logo {
+    overflow: hidden; // for when the image is not found
+  }
+
   .profile-logo {
     margin: 5px;
     border: 1px solid darken($light-gray, 10);

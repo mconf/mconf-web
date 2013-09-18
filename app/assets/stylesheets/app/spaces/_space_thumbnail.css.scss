@@ -20,6 +20,7 @@
       padding: 4px;
       width: 80px;
       float: left;
+      overflow: hidden; // for when the image is not found
 
       img {
         @include border-radius(4px);

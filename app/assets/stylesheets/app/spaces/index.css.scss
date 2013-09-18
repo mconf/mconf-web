@@ -43,6 +43,8 @@ body.spaces.index {
     .content-block-middle {
       .space-logo {
         text-align: center;
+        overflow: hidden; // for when the image is not found
+
         img {
           padding: 20px;
           background: $light-gray;

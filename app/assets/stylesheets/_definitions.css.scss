@@ -94,6 +94,13 @@ $z-index-tooltip: 999999;
       height: 48px;
     }
   }
+
+  // when images are not found, firefox shows the alternative text and doesn't respect the
+  // width and height of the image, so we make it float and hide the overflowing text.
+  overflow: hidden;
+  img:-moz-broken {
+    float: left;
+  }
 }
 
 @mixin mconf-clearfix {
