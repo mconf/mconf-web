@@ -16,10 +16,16 @@ class mconf.Crop
       $element = $("input[type=file]", selectFileForm)
       $element.off "change.mconfCrop"
       $element.on "change.mconfCrop", ->
+
+        # Note: can't use rails' `:remote => true`  here because it's a multipart form (submits
+        # files), so the best way we have to do it is using ajaxForm/ajaxSubmit.
+
+        # TODO: what if the upload fails?
         selectFileForm.ajaxSubmit (data) ->
 
           # setup calls to bindings when the modal is shown
-          selectFileForm.on "modal-after-update-markup", ->
+          selectFileForm.off "modal-after-update-markup.mconfCrop", ->
+          selectFileForm.on "modal-after-update-markup.mconfCrop", ->
             cropForm = $("#crop-modal form")
             cropModal = $("#crop-modal")
             unless cropForm.attr("data-crop-set") is "1"
