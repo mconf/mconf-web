@@ -34,11 +34,16 @@ body.homes.show, body.homes.activity {
       position: relative;
       float: left;
       border: 1px solid darken($light-gray, 20);
+      @include border-radius(3px);
       padding: 3px;
       height: 96px;
       width: 96px;
-      @include border-radius(3px);
-      overflow: hidden; // for when the image is not found
+      @include broken-img-parent;
+
+      img {
+        width: 96px;
+        height: 96px;
+      }
 
       .icon-awesome.icon-mconf-superuser {
         position: absolute;

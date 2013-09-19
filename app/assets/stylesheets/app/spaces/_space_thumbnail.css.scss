@@ -18,9 +18,10 @@
     .space-logo {
       background: darken($light-gray, 7);
       padding: 4px;
-      width: 80px;
       float: left;
-      overflow: hidden; // for when the image is not found
+      width: 80px;
+      height: 63px;
+      @include broken-img-parent;
 
       img {
         @include border-radius(4px);

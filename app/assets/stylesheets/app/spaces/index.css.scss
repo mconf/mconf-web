@@ -41,9 +41,9 @@ body.spaces.index {
     width: 230px;
 
     .content-block-middle {
-      .space-logo {
+      .space-logo-wrapper {
         text-align: center;
-        overflow: hidden; // for when the image is not found
+        @include broken-img-parent;
 
         img {
           padding: 20px;

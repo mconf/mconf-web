@@ -8,7 +8,7 @@
   padding: 20px 5px;
 
   #edit-profile-current-logo {
-    overflow: hidden; // for when the image is not found
+    @include broken-img-parent(none);
   }
 
   .profile-logo {

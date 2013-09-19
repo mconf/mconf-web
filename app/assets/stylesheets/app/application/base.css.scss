@@ -408,7 +408,7 @@ ul#navbar-right-links {
       height: 22px;
       width: 22px;
       @include border-radius(3px);
-      overflow: hidden; // for when the image is not found
+      @include broken-img-parent;
 
       img.logo-user {
         height: 22px;
@@ -484,7 +484,7 @@ ul#navbar-right-links {
       height: 64px;
       width: 64px;
       @include border-radius(3px);
-      overflow: hidden; // for when the image is not found
+      @include broken-img-parent;
 
       img.logo-user {
         height: 64px;
@@ -561,12 +561,12 @@ ul#navbar-right-links {
     padding: 1px;
     width: 84px;
     height: 64px;
-    overflow: hidden; // for when the image is not found
+    @include broken-img-parent;
 
     &.clean { border: 0; }
 
     // default size for spaces logos
-    img.logo-space {
+    img {
       width: 84px;
       height: 64px;
     }

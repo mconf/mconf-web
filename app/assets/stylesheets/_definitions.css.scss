@@ -67,6 +67,23 @@ $z-index-navbar: 100;
 $z-index-dialog: 200;
 $z-index-tooltip: 999999;
 
+// In some browsers (e.g. firefox) when an image is not found it is replaced by the alternative
+// text set to it, and the dimensions of the image won't respect the width/height set by the css.
+// This might break the layout in some cases.
+// So, if an element might have a broken image inside it, it can include this mixin to deal with it.
+// The image will still be replaced by the text, but it shouldn't break the layout anymore.
+// In some cases the element that includes this might also have to specify its own width and height.
+@mixin broken-img-parent($float:left) {
+  overflow: hidden;
+
+  img:-moz-broken {
+    float: $float;
+    font-size: 8px;
+    word-wrap: break-word;
+    background: white;
+  }
+}
+
 // user logos in a thread with several snippets
 // e.g. list of posts, list of recent users, etc.
 @mixin logo-in-thread {
@@ -95,12 +112,7 @@ $z-index-tooltip: 999999;
     }
   }
 
-  // when images are not found, firefox shows the alternative text and doesn't respect the
-  // width and height of the image, so we make it float and hide the overflowing text.
-  overflow: hidden;
-  img:-moz-broken {
-    float: left;
-  }
+  @include broken-img-parent;
 }
 
 @mixin mconf-clearfix {
