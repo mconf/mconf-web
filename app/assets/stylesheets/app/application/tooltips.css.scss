@@ -6,13 +6,10 @@
 }
 
 /* Without this some tooltips will be shown in a single line, and if its
-   text is too big it won't show the entire text. Also, when inside another element
-   they shouldn't take the text format of that element.  */
+   text is too big it won't show the entire text. */
 .tooltip-inner {
   white-space: normal;
-  min-width: 150px;
   font-weight: normal;
-  @include text-shadow(none);
 }
 
 .ui-tooltip-mconf {
