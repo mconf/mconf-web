@@ -1,15 +1,21 @@
 require 'spec_helper'
 
-# Specs in this file have access to a helper object that includes
-# the LogoImagesHelper. For example:
-#
-# describe LogoImagesHelper do
-#   describe "string concat" do
-#     it "concats two strings with spaces" do
-#       helper.concat_strings("this","that").should == "this that"
-#     end
-#   end
-# end
 describe LogoImagesHelper do
-  pending "add some examples to (or delete) #{__FILE__}"
+
+  describe "#logo_image" do
+    context "for a user" do
+      it "adds an image tag with the logo of a user"
+      it "if size is > 32 uses the logo 128 for users"
+      it "if the user has no logo sets the default logo"
+    end
+    context "for a space" do
+      it "adds an image tag with the logo of a space"
+      it "if the space has no logo sets the default logo"
+    end
+  end
+
+  describe "#link_logo_image" do
+    it "adds the logo from #logo_image inside an <a>"
+  end
+
 end
