@@ -60,7 +60,7 @@ body.spaces.index {
       color: #888;
       span { display: block; }
       .is-member {
-        color: #509F00;
+        color: $green;
         float: right;
         font-style: normal;
       }
@@ -75,17 +75,14 @@ body.spaces.index {
 
     .space-item.space-list {
       .thread {
+        margin-top: 5px;
+        margin-bottom: 5px;
         padding-right: 5px;
       }
 
       &.selected .thread {
         border-right: 5px solid #aaa;
         padding-right: 0;
-      }
-
-      img {
-        width: 63px;
-        height: 48px;
       }
     }
 

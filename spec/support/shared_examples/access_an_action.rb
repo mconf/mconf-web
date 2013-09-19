@@ -1,6 +1,6 @@
 # Verifies that the action to be called can NOT be accessed.
 # Arguments:
-#   do_action    # the action to be called
+#   do_action: the action to be called
 #
 # Example:
 #   let(:do_action) { get :show, :id => site }

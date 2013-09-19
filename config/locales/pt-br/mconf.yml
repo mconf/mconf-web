@@ -28,6 +28,7 @@ pt-br:
       update_html: atualizou o anexo %{name} de
       deleted: que não existe mais
   _other:
+    create: "Criar"
     destroy: "Remover"
     details: "Detalhes"
     edit: "Editar"
@@ -1202,7 +1203,6 @@ pt-br:
     clic_logo: "Clique para mudar o seu logotipo"
     configuration: "Configurações da comunidade"
     confirm: "Tem certeza que quer deixar esta comunidade?"
-    create_own: "Criar nova comunidade"
     created: "Comunidade criada com sucesso"
     delete: "Excluir Comunidade"
     deleted: "Comunidade removida com sucesso"
@@ -1280,9 +1280,16 @@ pt-br:
       change_logo: "Mudar imagem"
       webconf_options: "Opções da sala de webconferência"
     index: 
+      create_new_space: "Criar uma comunidade"
       list_format: 
         list: "Lista"
         thumbnails: "Miniaturas"
+    new:
+      private: "Privada"
+      public: "Pública"
+      spaces_examples:
+        title: "Exemplos de comunidades:"
+      title: "Criar uma nova comunidade"
     sidebar:
       webconference:
         attendees:
@@ -1303,10 +1310,10 @@ pt-br:
       preferences: "Preferências..."
       start: "Iniciar"
     space_thumbnail:
-      private: "privada"
-      public: "pública"
+      private: "Privada"
+      public: "Pública"
     unified_space: 
-      user_is_member: "Você é um membro"
+      user_is_member: "Você é membro desta comunidade"
   spam:
     created: "Um e-mail de notificação de spam foi enviado com sucesso para o administrador. Obrigado"
     default: spam

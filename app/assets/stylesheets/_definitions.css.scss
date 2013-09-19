@@ -11,7 +11,7 @@ $font-color: #333;
 $font-color-gray: #888;
 
 // standard colors
-$green: #508817;
+$green: #509F00;
 $blue: #005fca;
 $red: #C23321;
 $orange: #C47322;
@@ -130,4 +130,23 @@ $z-index-tooltip: 999999;
 @mixin danger-text {
   color: $red;
   @include link-colors($red, lighten($red, 10), darken($red, 10));
+}
+
+@mixin space-visibility {
+  font-size: $font-small;
+  display: block;
+  color: #666;
+
+  &.public {
+    .icon-awesome { color: $alert-success-font; }
+  }
+  &.private {
+    .icon-awesome { color: $alert-danger-font; }
+  }
+
+  .icon-awesome {
+    float: none;
+    font-size: $font-small;
+    margin-right: 2px;
+  }
 }

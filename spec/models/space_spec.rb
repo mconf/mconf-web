@@ -13,17 +13,14 @@ describe Space do
     FactoryGirl.build(:space).should be_valid
   end
 
-  it { should validate_presence_of(:description) }
-
-  it { should validate_presence_of(:name) }
-  it {
-    space
-    should validate_uniqueness_of(:name)
-  }
-  it { should ensure_length_of(:name).is_at_least(3) }
-
-  it { should validate_presence_of(:permalink) }
-  # it { should ensure_length_of(:permalink).is_at_least(3) }
+  describe "initializes with default values" do
+    it("should be false by default") { Space.new.repository.should be_false }
+    it("should be true if set to") { Space.new(:repository => true).repository.should be_true }
+    it("should be false by default") { Space.new.public.should be_false }
+    it("should be true if set to") { Space.new(:public => true).public.should be_true }
+    it("should be false by default") { Space.new.disabled.should be_false }
+    it("should be true if set to") { Space.new(:disabled => true).disabled.should be_true }
+  end
 
   it { should have_many(:posts).dependent(:destroy) }
   it { should have_many(:events).dependent(:destroy) }
@@ -35,10 +32,26 @@ describe Space do
   it { space.bigbluebutton_room.owner.should be(space) } # :as => :owner
   it { should accept_nested_attributes_for(:bigbluebutton_room) }
 
+  it "has many permissions"
+  it "has and belongs to many users"
+  it "has and belongs to many admins" # there's a partial test for #admins below
+  it "has many join requests"
+
+  it { should validate_presence_of(:description) }
+
+  it { should validate_presence_of(:name) }
+  it {
+    space # needed for the call below
+    should validate_uniqueness_of(:name)
+  }
+  it { should ensure_length_of(:name).is_at_least(3) }
+
+  it { should validate_presence_of(:permalink) }
+  #it { should ensure_length_of(:permalink).is_at_least(3) }
+
   it "acts_as_resource"
   it "acts_as_container"
   it "acts_as_stage"
-  it "default_scope :conditions"
 
   it { should respond_to(:invitation_ids) }
   it { should respond_to(:"invitation_ids=") }
@@ -55,20 +68,74 @@ describe Space do
   it { should respond_to(:invitations_role_id) }
   it { should respond_to(:"invitations_role_id=") }
 
-  # it { should respond_to(:default_logo) }
-  # it { should respond_to(:"default_logo=") }
+  it { should respond_to(:crop_x) }
+  it { should respond_to(:"crop_x=") }
+  it { should respond_to(:crop_y) }
+  it { should respond_to(:"crop_y=") }
+  it { should respond_to(:crop_w) }
+  it { should respond_to(:"crop_w=") }
+  it { should respond_to(:crop_h) }
+  it { should respond_to(:"crop_h=") }
+  it "mount_uploader :logo_image"
+  it "calls :crop_logo on after_create"
+  it "calls :crop_logo on after_update"
 
-  it { should respond_to(:_attendee_password) }
-  it { should respond_to(:"_attendee_password=") }
+  it "default_scope :conditions"
 
-  it { should respond_to(:_moderator_password) }
-  it { should respond_to(:"_moderator_password=") }
+  describe ".public" do
+    context "returns the admins of the space" do
+      before {
+        @public1 = FactoryGirl.create(:public_space)
+        @public2 = FactoryGirl.create(:public_space)
+        another = FactoryGirl.create(:private_space)
+      }
+      it { Space.public.length.should be(2) }
+      it { Space.public.should include(@public1) }
+      it { Space.public.should include(@public2) }
+    end
+  end
 
   describe "::USER_ROLES" do
     it { Space::USER_ROLES.length.should be(2) }
     it { Space::USER_ROLES.should include("Admin") }
     it { Space::USER_ROLES.should include("User") }
   end
+
+  describe "#upcoming_events" do
+    context "returns the n upcoming events" do
+      before {
+        e1 = FactoryGirl.create(:event, :space => space, :start_date => Time.now - 5.hours, :end_date => Time.now - 4.hours)
+        e2 = FactoryGirl.create(:event, :space => space, :start_date => Time.now + 2.hour, :end_date => Time.now + 3.hours)
+        e3 = FactoryGirl.create(:event, :space => space, :start_date => Time.now + 3.hour, :end_date => Time.now + 4.hours)
+        e4 = FactoryGirl.create(:event, :space => space, :start_date => Time.now + 1.hour, :end_date => Time.now + 2.hours)
+        @expected = [e4, e2, e3]
+      }
+      it { space.upcoming_events(3).should eq(@expected) }
+    end
+
+    context "defaults to 5 events" do
+      before {
+        6.times { FactoryGirl.create(:event, :space => space, :start_date => Time.now + 1.hour, :end_date => Time.now + 2.hours) }
+      }
+      it { space.upcoming_events.length.should be(5) }
+    end
+  end
+
+  describe "#unique_pageviews" do
+    it("if there are no stats returns 0") {
+      space.unique_pageviews.should be(0)
+    }
+    it "returns the unique pageviews for the target space"
+    it "throws an exception if the statistics are wrong"
+  end
+
+  describe "#add_member!" do
+    it "adds the user as a member with the selected role"
+    it "defaults the role to 'User'"
+    it "doesn't add the user if he's already a member"
+  end
+
+  it "new_activity"
 
   describe "#create_webconf_room" do
 
@@ -93,23 +160,13 @@ describe Space do
         space.bigbluebutton_room.logout_url.should eql("/feedback/webconf/")
       end
 
-      it "with passwords as set in the temporary attributes in the space" do
-        params = {
-          :_moderator_password => "random-moderator-password",
-          :_attendee_password => "random-attendee-password"
-        }
-        space = FactoryGirl.create(:space, params)
-        space.bigbluebutton_room.moderator_password.should eql(space._moderator_password)
-        space.bigbluebutton_room.attendee_password.should eql(space._attendee_password)
-      end
-
       it "as public is the space is public" do
-        space.update_attribute(:public, true)
+        space = FactoryGirl.create(:space, :public => true)
         space.bigbluebutton_room.private.should be_false
       end
 
       it "as private is the space is private" do
-        space.update_attribute(:public, false)
+        space = FactoryGirl.create(:space, :public => false)
         space.bigbluebutton_room.private.should be_true
       end
 
@@ -125,29 +182,19 @@ describe Space do
       it { space.bigbluebutton_room.name.should be(space.permalink) }
       it { space.bigbluebutton_room.private.should be(true) }
     end
+
+    it "updates to public when the space is made public" do
+      space.update_attribute(:public, true)
+      space.bigbluebutton_room.private.should be_false
+    end
+
+    it "updates to private when the space is made public" do
+      space.update_attribute(:public, false)
+      space.bigbluebutton_room.private.should be_true
+    end
   end
 
   it "#check_permalink"
-
-  describe "#upcoming_events" do
-    context "returns the n upcoming events" do
-      before {
-        e1 = FactoryGirl.create(:event, :space => space, :start_date => Time.now - 5.hours, :end_date => Time.now - 4.hours)
-        e2 = FactoryGirl.create(:event, :space => space, :start_date => Time.now + 2.hour, :end_date => Time.now + 3.hours)
-        e3 = FactoryGirl.create(:event, :space => space, :start_date => Time.now + 3.hour, :end_date => Time.now + 4.hours)
-        e4 = FactoryGirl.create(:event, :space => space, :start_date => Time.now + 1.hour, :end_date => Time.now + 2.hours)
-        @expected = [e4, e2, e3]
-      }
-      it { space.upcoming_events(3).should eq(@expected) }
-    end
-
-    context "defaults to 5 events" do
-      before {
-        6.times { FactoryGirl.create(:event, :space => space, :start_date => Time.now + 1.hour, :end_date => Time.now + 2.hours) }
-      }
-      it { space.upcoming_events.length.should be(5) }
-    end
-  end
 
   describe "#admins" do
     context "returns the admins of the space" do
@@ -163,33 +210,6 @@ describe Space do
       it { space.admins.should include(@u1) }
       it { space.admins.should include(@u2) }
     end
-  end
-
-  describe "#unique_pageviews" do
-    it("if there are no stats returns 0") {
-      space.unique_pageviews.should be(0)
-    }
-    it "returns the unique pageviews for the target space"
-    it "throws an exception if the statistics are wrong"
-  end
-
-  describe ".public" do
-    context "returns the admins of the space" do
-      before {
-        @public1 = FactoryGirl.create(:public_space)
-        @public2 = FactoryGirl.create(:public_space)
-        another = FactoryGirl.create(:private_space)
-      }
-      it { Space.public.length.should be(2) }
-      it { Space.public.should include(@public1) }
-      it { Space.public.should include(@public2) }
-    end
-  end
-
-  describe "#add_member!" do
-    it "adds the user as a member with the selected role"
-    it "defaults the role to 'User'"
-    it "doesn't add the user if he's already a member"
   end
 
   describe "abilities" do

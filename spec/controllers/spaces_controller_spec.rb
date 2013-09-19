@@ -12,6 +12,8 @@ describe SpacesController do
   describe "abilities" do
     render_views(false)
 
+    it "permissions for join requests"
+
     let(:hash) { { :id => target.to_param } }
     let(:attrs) { FactoryGirl.attributes_for(:space) }
     let(:hash_with_attrs) { hash.merge!(:space => attrs) }
@@ -327,11 +329,107 @@ describe SpacesController do
     it "responds with the correct json"
   end
 
-  it "#new"
-  it "#edit"
-  it "#create"
+  describe "#new" do
+    let(:user) { FactoryGirl.create(:superuser) }
+    before(:each) { sign_in(user) }
+
+    context "template and view" do
+      before(:each) { get :new }
+      it { should render_with_layout("application") }
+      it { should render_template("spaces/new") }
+    end
+
+    context "assigns @space" do
+      before(:each) { get :new }
+      it { should assign_to(:space).with(instance_of(Space)) }
+    end
+
+    context do
+      let(:do_action) { get :new }
+      it_behaves_like "assigns @spaces_examples"
+    end
+  end
+
+  describe "#create" do
+    let(:user) { FactoryGirl.create(:superuser) }
+    before(:each) { sign_in(user) }
+
+    context "with valid attributes" do
+      describe "creates the new space with the correct attributes" do
+        let(:space) { FactoryGirl.build(:space) }
+
+        before(:each) {
+          expect {
+            post :create, :space => space.attributes
+          }.to change(Space, :count).by(1)
+        }
+
+        # TODO: for some reason the matcher is not found, maybe we just need to update rspec and other gems
+        pending { Space.last.should have_same_attibutes_as(space) }
+      end
+
+      context "redirects to the new space" do
+        before(:each) { post :create, :space => FactoryGirl.attributes_for(:space) }
+        it { should redirect_to(space_path(Space.last)) }
+      end
+
+      describe "assigns @space with the new space" do
+        before(:each) { post :create, :space => FactoryGirl.attributes_for(:space) }
+        it { should assign_to(:space).with(Space.last) }
+      end
+
+      describe "sets the flash with a success message" do
+        before(:each) { post :create, :space => FactoryGirl.attributes_for(:space) }
+        it { should set_the_flash.to(I18n.t('space.created')) }
+      end
+
+      describe "adds the user as an admin in the space" do
+        before(:each) { post :create, :space => FactoryGirl.attributes_for(:space) }
+        it { Space.last.admins.should include(user) }
+      end
+    end
+
+    context "with invalid attributes" do
+      let(:invalid_attributes) { FactoryGirl.attributes_for(:space, :name => nil) }
+
+      it "assigns @space with the new space"
+
+      describe "renders the view spaces/new" do
+        before(:each) { post :create, :space => invalid_attributes }
+        it { should render_with_layout("application") }
+        it { should render_template("spaces/new") }
+      end
+
+      context do
+        let(:do_action) { post :create, :space => invalid_attributes }
+        it_behaves_like "assigns @spaces_examples"
+      end
+    end
+  end
+
+  describe "#edit" do
+    let(:space) { FactoryGirl.create(:space) }
+    let(:user) { FactoryGirl.create(:superuser) }
+    before(:each) { sign_in(user) }
+
+    context "template and view" do
+      before(:each) { get :edit, :id => space.to_param }
+      it { should render_with_layout("spaces_show") }
+      it { should render_template("spaces/edit") }
+    end
+
+    describe "assigns @space with the target space" do
+      before(:each) { get :edit, :id => space.to_param }
+      it { should assign_to(:space).with(space) }
+    end
+  end
+
   it "#update"
   it "#destroy"
   it "#enable"
   it "#leave"
+  it "#join_request_index"
+  it "#join_request_new"
+  it "#join_request_create"
+  it "#join_request_update"
 end

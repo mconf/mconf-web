@@ -28,6 +28,7 @@ en:
       update_html: uploaded a new version of %{name} to
       deleted: an attacment that has since been deleted
   _other:
+    create: "Create"
     destroy: "Destroy"
     details: "Details"
     edit: "Edit"
@@ -1229,7 +1230,6 @@ en:
     clic_logo: "Click to change your logo"
     configuration: "Space configuration"
     confirm: "Are you sure you want to leave this space?"
-    create_own: "Create new space"
     created: "Space created successfully"
     delete: "Delete Space"
     deleted: "Space removed successfully"
@@ -1312,9 +1312,16 @@ en:
       change_logo: "Change picture"
       webconf_options: "Webconference room options"
     index: 
+      create_new_space: "Create a new space"
       list_format: 
         list: "List"
         thumbnails: "Thumbnails"
+    new:
+      private: "Private"
+      public: "Public"
+      spaces_examples:
+        title: "Examples of spaces:"
+      title: "Create a new space"
     sidebar:
       webconference:
         attendees:
@@ -1335,10 +1342,10 @@ en:
       preferences: "Preferences..."
       start: "Start"
     space_thumbnail:
-      private: "private"
-      public: "public"
+      private: "Private"
+      public: "Public"
     unified_space: 
-      user_is_member: "You're a member"
+      user_is_member: "You are a member of this space"
   spam: 
     created: "A reporting spam e-mail has been successfully sent to the admin. Thank you"
     default: spam

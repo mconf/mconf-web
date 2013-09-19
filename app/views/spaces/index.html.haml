@@ -4,7 +4,7 @@
 
   .sidebar-top-action-button
     - if user_signed_in?
-      = link_to t('space.create_own'), new_space_path, :class => "btn btn-primary btn-large btn-block"
+      = link_to t('.create_new_space'), new_space_path, :class => "btn btn-primary btn-large btn-block"
     - else
       = link_to t('register.one'), register_path, :class => "btn btn-success btn-large btn-block"
 

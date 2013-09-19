@@ -23,6 +23,8 @@ class SpacesController < ApplicationController
 
   before_filter :webconf_room!, :only => [:show, :edit, :join_request_new, :user_permissions]
 
+  before_filter :load_spaces_examples, :only => [:new, :create]
+
   # TODO: cleanup the other actions adding respond_to blocks here
   respond_to :js, :only => [:index, :show]
   respond_to :html, :only => [:new, :edit, :index, :show]
@@ -108,9 +110,27 @@ class SpacesController < ApplicationController
 
   def new
     @space = Space.new
-    @space.build_bigbluebutton_room
     respond_with @space do |format|
-      format.html { render :layout => 'no_sidebar' }
+      format.html { render :layout => 'application' }
+    end
+  end
+
+  def create
+    @space = Space.new(params[:space])
+
+    if @space.save
+      respond_with @space do |format|
+
+        # the user that created the space is always an admin
+        @space.add_member!(current_user, 'Admin')
+
+        flash[:success] = t('space.created')
+        format.html { redirect_to :action => "show", :id => @space  }
+      end
+    else
+      respond_with @space do |format|
+        format.html { render :new, :layout => "application" }
+      end
     end
   end
 
@@ -118,39 +138,13 @@ class SpacesController < ApplicationController
     render :layout => 'spaces_show'
   end
 
-  def create
-    # TODO: this shouldn't be here, can be in the model
-    params[:space][:repository] = 1;
-
-    @space = Space.new(params[:space])
-
-    if @space.save
-      respond_with @space do |format|
-        flash[:success] = t('space.created')
-        @space.add_member!(current_user, 'Admin')
-        format.html { redirect_to :action => "show", :id => @space  }
-      end
-    else
-      respond_with @space do |format|
-        format.html { render :action => :new, :layout => "no_sidebar" }
-      end
-    end
-  end
-
   def update
-    # TODO update bigbluebutton_room.private when room.public is updated
-    #unless params[:space][:public].blank?
-    #  params[:space][:bigbluebutton_room_attributes] = Hash.new if params[:space][:bigbluebutton_room_attributes].blank?
-    #  params[:space][:bigbluebutton_room_attributes][:private] = params[:space][:public] == "true" ? "false" : "true"
-    #end
-
     unless params[:space][:bigbluebutton_room_attributes].blank?
       params[:space][:bigbluebutton_room_attributes][:id] = @space.bigbluebutton_room.id
     end
 
     if @space.update_attributes(space_params)
       respond_to do |format|
-        puts params.inspect
         if params[:space][:logo_image].present?
           format.html { redirect_to logo_images_crop_path(:model_type => 'space', :model_id => @space) }
         else
@@ -235,7 +229,6 @@ class SpacesController < ApplicationController
   end
 
   def join_request_new
-
     @join_request = space.join_requests.new
     @user_is_admin = space.role_for?(current_user, :name => 'Admin')
 
@@ -246,7 +239,6 @@ class SpacesController < ApplicationController
     end
 
     render :layout => 'spaces_show'
-
   end
 
   def join_request_create
@@ -364,6 +356,11 @@ class SpacesController < ApplicationController
 
   def space_to_json_hash
     { :methods => :user_count, :include => {:logo => { :only => [:height, :width], :methods => :logo_image_path } } }
+  end
+
+  def load_spaces_examples
+    # TODO: RAND() is specific for mysql
+    @spaces_examples = Space.order('RAND()').limit(3)
   end
 
   def space_params

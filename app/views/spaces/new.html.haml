@@ -1,11 +1,30 @@
-= render_page_title t('space.create_own')
+= render_page_title t('.title')
 
-#create-space
+= content_for :sidebar do
+  - if @spaces_examples.count > 0
+    %h3= t(".spaces_examples.title")
+  - @spaces_examples.each do |space|
+    = render_sidebar_content_block do
+      .content-block-middle
+        .space-logo
+          = link_logo_image(space, options_for_tooltip(sanitize(space.name), :size => '84x64', :"data-placement" => 'bottom', :class => "logo logo-space"))
+        %h3= link_to sanitize(space.name), space_path(space)
+        %span.description= sanitize(auto_link(first_words(space.description, 150)))
+      .content-block-footer
+        - if space.public
+          %span.visibility.public
+            = icon_space_public()
+            = t(".public")
+        - else
+          %span.visibility.private
+            = icon_space_private()
+            = t(".private")
 
-  .centralized-column
-    = simple_form_for @space, :html => {:method => :post, :multipart => true}, :url => spaces_path do |f|
-      #new-space-basic-info
-        = f.input :name, :label => t('name.one')
-        = f.input :description, :as => :text, :label => t('description')
-        = f.input :public, :hint => t("tooltip.public_space")
-      = f.button :wrapped, :cancel => spaces_path, :value => t("button.create")
+#space-new
+
+  = simple_form_for @space, :html => { :method => :post }, :url => spaces_path do |f|
+    #new-space-basic-info
+      = f.input :name, :autofocus => true
+      = f.input :description, :as => :text
+      = f.input :public
+    = f.button :wrapped, :value => t("_other.create")

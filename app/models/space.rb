@@ -38,21 +38,24 @@ class Space < ActiveRecord::Base
   has_many :join_requests, :foreign_key => "group_id",
            :conditions => { :join_requests => {:group_type => 'Space'} }
 
-  extend FriendlyId
-  friendly_id :name, :use => :slugged, :slug_column => :permalink
-
-
+  # for the associated BigbluebuttonRoom
   attr_accessible :bigbluebutton_room_attributes
   accepts_nested_attributes_for :bigbluebutton_room
+  after_update :update_webconf_room
+  after_create :create_webconf_room
 
   validates :description, :presence => true
 
   # BigbluebuttonRoom requires an identifier with 3 chars generated from :name
-  # So we'll require :name and :permalink to have length >= 3
+  # so we'll require :name and :permalink to have length >= 3
   validates :name, :presence => true, :uniqueness => true, :length => { :minimum => 3 }
   validates :permalink, :presence => true, :length => { :minimum => 3 }
 
+  # the friendly name / slug for the space
+  extend FriendlyId
+  friendly_id :name, :use => :slugged, :slug_column => :permalink
   acts_as_resource :param => :permalink
+  after_validation :check_permalink
 
   # TODO: review all accessors, if we still need them
   attr_accessor :invitation_ids
@@ -61,58 +64,19 @@ class Space < ActiveRecord::Base
   attr_accessor :inviter_id
   attr_accessor :invitations_role_id
 
-  # temporary attrs to set in the webconf room when the model is created
-  attr_accessor :_attendee_password
-  attr_accessor :_moderator_password
-
-  default_scope :conditions => { :disabled => false }
-
-  after_validation :check_permalink
-  after_update :update_webconf_room
-  after_create :create_webconf_room
-
-  # Attrs for space logos
+  # attrs and methods for space logos
   attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
   mount_uploader :logo_image, LogoImageUploader
-
   after_create :crop_logo
   after_update :crop_logo
 
-  def crop_logo
-    logo_image.recreate_versions! if crop_x.present?
-  end
+  default_scope :conditions => { :disabled => false }
 
+  scope :public, lambda { where(:public => true) }
 
   # Finds all the valid user roles for a Space
   def self.roles
     Space::USER_ROLES.map { |r| Role.find_by_name(r) }
-  end
-
-  # Creates the webconf room after the space is created
-  def create_webconf_room
-    params = {
-      :owner => self,
-      :server => BigbluebuttonServer.first,
-      :param => self.permalink,
-      :name => self.permalink,
-      :private => !self.public,
-      :moderator_password => self._moderator_password || SecureRandom.hex(4),
-      :attendee_password => self._attendee_password || SecureRandom.hex(4),
-      :logout_url => "/feedback/webconf/"
-    }
-    create_bigbluebutton_room(params)
-  end
-
-  # Updates the webconf room after updating the space
-  def update_webconf_room
-    if self.bigbluebutton_room
-      params = {
-        :param => self.permalink,
-        :name => self.permalink,
-        :private => !self.public
-      }
-      bigbluebutton_room.update_attributes(params)
-    end
   end
 
   # Returns the next 'count' events (starting in the current date) in this space.
@@ -134,9 +98,21 @@ class Space < ActiveRecord::Base
     end
   end
 
-  scope :public, lambda { where(:public => true) }
+  # Add a `user` to this space with the role `role_name` (e.g. 'User', 'Admin').
+  def add_member!(user, role_name='User')
+    p = Permission.new
+    p.user = user
+    p.subject = self
+    p.role = Role.find_by_name_and_stage_type(role_name, 'Space')
+    p.save!
+  end
 
-  #-#-#
+  def new_activity key, user
+    create_activity key, :owner => self, :parameters => { :user_id => user.id, :username => user.name }
+  end
+
+
+  # TODO: review all public methods below
 
   def self.find_with_disabled *args
     self.with_exclusive_scope { find(*args) }
@@ -178,20 +154,34 @@ class Space < ActiveRecord::Base
     pending_join_requests.where(:candidate_id => user).size > 0
   end
 
-  # Add a `user` to this space with the role `role_name` (e.g. 'User', 'Admin').
-  def add_member!(user, role_name='User')
-    p = Permission.new
-    p.user = user
-    p.subject = self
-    p.role = Role.find_by_name_and_stage_type(role_name, 'Space')
-    p.save!
-  end
-
-  def new_activity key, user
-    create_activity key, :owner => self, :parameters => { :user_id => user.id, :username => user.name }
-  end
-
   private
+
+  # Creates the webconf room after the space is created
+  def create_webconf_room
+    params = {
+      :owner => self,
+      :server => BigbluebuttonServer.first,
+      :param => self.permalink,
+      :name => self.permalink,
+      :private => !self.public,
+      :moderator_password => SecureRandom.hex(4),
+      :attendee_password => SecureRandom.hex(4),
+      :logout_url => "/feedback/webconf/"
+    }
+    create_bigbluebutton_room(params)
+  end
+
+  # Updates the webconf room after updating the space
+  def update_webconf_room
+    if self.bigbluebutton_room
+      params = {
+        :param => self.permalink,
+        :name => self.permalink,
+        :private => !self.public
+      }
+      bigbluebutton_room.update_attributes(params)
+    end
+  end
 
   # Checks whether there an error in :permalink or :bigbluebutton_room.param.
   # If there is, set the error in :name to be shown in the views.
@@ -201,6 +191,10 @@ class Space < ActiveRecord::Base
     elsif self.bigbluebutton_room and self.bigbluebutton_room.errors[:param].size > 0
       self.errors.add :name, I18n.t('activerecord.errors.messages.invalid_identifier', :id => self.bigbluebutton_room.param)
     end
+  end
+
+  def crop_logo
+    logo_image.recreate_versions! if crop_x.present?
   end
 
 end

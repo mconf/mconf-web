@@ -37,22 +37,7 @@
       float: left;
 
       .visibility {
-        font-size: $font-small;
-        display: block;
-        color: #666;
-
-        &.public {
-          .icon-awesome { color: $alert-success-font; }
-        }
-        &.private {
-          .icon-awesome { color: $alert-danger-font; }
-        }
-
-        .icon-awesome {
-          float: none;
-          font-size: $font-small;
-          margin-right: 2px;
-        }
+        @include space-visibility; // in _definitions
       }
 
       .space-title {
