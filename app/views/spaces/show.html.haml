@@ -2,13 +2,12 @@
 = render :partial => 'spaces/menu'
 
 - unless @current_events.empty?
-  #current-events.content-block
+  #events-current.content-block.event-block.events-hapenning-now
     .content-block-header
-      %h3= t('event.now')
+      %h3= t('.events_now')
     .content-block-middle
       - for event in @current_events do
-        .events-hapenning-now
-          = render :partial => "events/event", :locals => { :event => event }
+        = render :partial => "events/event", :locals => { :event => event }
 
 .content-block
   .content-block-header

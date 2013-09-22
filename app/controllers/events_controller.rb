@@ -44,8 +44,8 @@ class EventsController < ApplicationController
   # GET /events/1
   # GET /events/1.xml
   def show
-    @assistants =  @event.participants.select{|p| p.attend == true}
-    @no_assistants = @event.participants.select{|p| p.attend != true}
+    @attendees =  @event.participants.select{ |p| p.attend }
+    @not_attendees = @event.participants.select{ |p| !p.attend }
     @not_responding_candidates = @event.invitations.select{|e| !e.candidate.nil? && !e.processed?}
     @not_responding_emails = @event.invitations.select{|e| e.candidate.nil? && !e.processed?}
 

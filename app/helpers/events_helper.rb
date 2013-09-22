@@ -6,12 +6,12 @@
 
 module EventsHelper
 
-  def get_user_state(event,event_user)
-    event.participants.select {|p| p.user == event_user}.first.attend
+  def will_user_participate?(event, user)
+    event.participants.select { |p| p.user == user }.first.attend
   end
 
-  def get_participant(event,event_user)
-    event.participants.select {|p| p.user == event_user}.first
+  def get_participant(event, user)
+    event.participants.select { |p| p.user == user }.first
   end
 
 end

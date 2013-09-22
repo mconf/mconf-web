@@ -1,30 +1,35 @@
-= div_for(event) do
-  .thread{:class => "#{event.is_happening_now? ? 'single_event current_single_event' : 'single_event'} #{cycle("thread-even" , "thread-odd")}", :id => "parent_event_#{event.id}"}
+-# Locals
+-#  event (Event)
 
-    .logo-in-thread
-      = render :partial => "events/event_logo", :locals => { :event => event }
+.thread{:class => "#{cycle("thread-even" , "thread-odd")}", :id => "parent_event_#{event.id}"}
 
-    .thread-content
-      %ul.thread-action-links.visible-on-hover{ :"data-hover-tracked" => "parent_event_#{event.id}" }
-        - if can?(:update, event)
-          %li= link_to t('edit').downcase, edit_space_event_path(event.space, event), { :name => event.id, :title => t('edit'), :id => "event-edit" }
-        - if can?(:destroy, event) && !event.is_happening_now?
-          %li= link_to t('remove').downcase, space_event_path(event.space, event), {:method => :delete, :title => t('delete.one'), :confirm => t('delete.confirm', :element => event.title) }
-        - if user_signed_in? && event.spam != true
-          %li= link_to t('spam.default').downcase, spam_report_space_event_path(event.space,event), { :name => event.id, :title => t('spam.report'), :id => "spam-lightbox" }
-      .thread-title
-        = link_to sanitize(highlight(event.title,params[:query])), space_event_path(event.space, event), :class=>"unified_event"
-      .thread-text
-        %ul
-          %li.main_text
-            = t('when')
-            %span.main_date
-              = event.get_formatted_date
-          - if event.location
-            %li.main_text
-              = t('where')
-              = sanitize(event.location)
-          %li.main_text
-            = t('organizer')
-            - event.organizers.each do |org|
-              = link_to(highlight(org.name,params[:query]),user_path(org), :class=>"unified_user")
+  .logo-in-thread
+    = render :partial => "events/event_logo", :locals => { :event => event }
+
+  .thread-content
+
+    %ul.thread-action-links.visible-on-hover{ :"data-hover-tracked" => "parent_event_#{event.id}" }
+      - if can?(:update, event)
+        %li= link_to t('edit').downcase, edit_space_event_path(event.space, event), { :name => event.id, :title => t('edit') }
+      - if can?(:destroy, event)
+        %li= link_to t('remove').downcase, space_event_path(event.space, event), { :method => :delete, :title => t('delete.one'), :confirm => t('delete.confirm', :element => event.title) }
+      - if user_signed_in? && !event.spam
+        %li= link_to t('spam.default').downcase, spam_report_space_event_path(event.space,event), { :name => event.id, :title => t('spam.report') }
+
+    .thread-title
+      = link_to sanitize(event.title), space_event_path(event.space, event)
+
+    .thread-text
+      .event-description-date
+        = t('.when') + ':'
+        = event.get_formatted_date
+        - unless event.location.blank?
+          .event-description-location
+            = t('.where') + ':'
+            = sanitize(event.location)
+        .event-description-organizer
+          = t('.organizers') + ':'
+          - orgs = []
+          - event.organizers.each do |org|
+            - orgs.push link_to org.name, user_path(org)
+          = orgs.join(', ').html_safe

@@ -1,4 +1,4 @@
-.thread.thread-with-children
+.thread.thread-no-hover
   .thread-content.thread-content-full{:id => "parent-#{@post.id}"}
     %ul.thread-action-links
       - if can?(:create, @space.posts.build)

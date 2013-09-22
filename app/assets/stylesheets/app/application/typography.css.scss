@@ -42,6 +42,12 @@ h3 {
   font-size: 1.4em;
   line-height: 1.3846;
 }
+h4 {
+  @include headers_base;
+  font-size: 1.2em;
+  line-height: 1.25;
+  color: lighten($font-color, 15);
+}
 h5 {
   @include headers_base;
   font-size: 0.9166em;

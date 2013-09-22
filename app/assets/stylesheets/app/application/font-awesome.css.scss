@@ -75,10 +75,17 @@ a .icon-awesome {
   }
 }
 
+/* Force the color on all icons when inside components that have a darker background. */
+
+.btn-success, .btn-danger, .btn-error, .btn-info {
+  .icon-awesome {
+    color: white;
+  }
+}
+
 
 /* Some icons have a specific color, set below. */
-
-.icon-mconf-event {}
+/* Some have nothing inside, but are kept here as a reference to all the icons we have. */
 
 .icon-mconf-rss {
   color: $orange;
@@ -131,6 +138,7 @@ a .icon-awesome {
   color: $blue;
 }
 
+.icon-mconf-event {}
 .icon-mconf-home {}
 .icon-mconf-logout {}
 .icon-mconf-logout {}
@@ -144,3 +152,8 @@ a .icon-awesome {
 .icon-mconf-share {}
 .icon-mconf-space-public {}
 .icon-mconf-space-private {}
+.icon-mconf-order-number-asc {}
+.icon-mconf-order-number-desc {}
+.icon-mconf-check {}
+.icon-mconf-list {}
+.icon-mconf-picture {}

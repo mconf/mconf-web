@@ -1,22 +1,30 @@
 #events-all
-  %h3
-    = t('event.upcoming.other')
-  - if @first_upcoming_events.empty?
-    %p.main_text
-      = t('event.upcoming.none')
-  - else
-    - for event in @first_upcoming_events
-      = render :partial => event
-    .more-events-links
-      = link_to t('event.upcoming.show'), space_events_path(@space, :show => "upcoming_events"), :class => 'upcoming_link event_navigation'
 
-  %h3
-    = t('event.past.other')
-  - if @last_past_events.empty?
-    %p.main_text
-      = t('event.past.none')
-  - else
-    - for event in @last_past_events
-      = render :partial => event
-    .more-events-links
-      = link_to t('event.past.show'), space_events_path(@space, :show => "past_events"), :class => 'past_link event_navigation'
+  .content-block-wrapper.event-block
+    .content-block-header
+      %h3= t('.upcoming')
+
+    - if @first_upcoming_events.empty?
+      .content-block-middle
+        %span= t('.none_upcoming')
+    - else
+      .content-block-middle
+        - for event in @first_upcoming_events
+          = render :partial => event
+      .content-block-footer
+        = link_to t('.all_upcoming'), space_events_path(@space, :show => "upcoming_events"), :class => 'upcoming_link event_navigation'
+
+  .content-block-wrapper.event-block
+    .content-block-header
+      %h3= t('.past')
+
+    - if @last_past_events.empty?
+      .content-block-middle
+        %span= t('.none_past')
+    - else
+      - reset_cycle
+      .content-block-middle
+        - for event in @last_past_events
+          = render :partial => event
+      .content-block-footer
+        = link_to t('.all_past'), space_events_path(@space, :show => "past_events"), :class => 'past_link event_navigation'

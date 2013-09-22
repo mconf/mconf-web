@@ -1,12 +1,11 @@
-%a.event-image{:href => "#{space_event_path(event.space, event)}"}
-  .event-image
-    - if event.has_date?
-      .event-image-date
-        .event-image-day
-          = sanitize(event.start_date.strftime("%d"))
-        .event-image-month
-          = localize(event.start_date, :format => "%b")
-        .event-image-hour
-          = event.get_formatted_hour
-    - else
-      .event-image-date
+= link_to space_event_path(event.space, event), :class => 'event-image' do
+  - if event.has_date?
+    .event-image-date
+      .event-image-day
+        = sanitize(event.start_date.strftime("%d"))
+      .event-image-month
+        = localize(event.start_date, :format => "%b")
+      .event-image-hour
+        = event.get_formatted_hour
+  - else
+    .event-image-date

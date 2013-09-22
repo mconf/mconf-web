@@ -147,6 +147,26 @@ module IconsHelper
     icon_constructor nil, "icon-awesome icon-mobile-phone icon-mconf-mobile", options
   end
 
+  def icon_order_number_asc(options={})
+    icon_constructor nil, "icon-awesome icon-sort-by-order icon-mconf-order-number-asc", options
+  end
+
+  def icon_order_number_desc(options={})
+    icon_constructor nil, "icon-awesome icon-sort-by-order-alt icon-mconf-order-number-desc", options
+  end
+
+  def icon_check(options={})
+    icon_constructor nil, "icon-awesome icon-check icon-mconf-check", options
+  end
+
+  def icon_list(options={})
+    icon_constructor nil, "icon-awesome icon-list icon-mconf-list", options
+  end
+
+  def icon_picture(options={})
+    icon_constructor nil, "icon-awesome icon-picture icon-mconf-picture", options
+  end
+
   private
 
   # Base method for most of the methods above

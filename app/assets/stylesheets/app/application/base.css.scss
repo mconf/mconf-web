@@ -71,8 +71,8 @@ form {
   padding: 6px;
   @include mconf-clearfix;
 
-  &:not(.thread-with-children):hover {
-    border-right: 5px solid #aaa;/* $second-color; */
+  &:not(.thread-no-hover):hover {
+    border-right: 5px solid #aaa;
     padding-right: 5px;
   }
 
@@ -114,6 +114,7 @@ form {
     color: #666;
     font-size: $font-small;
     padding: 2px 0;
+    font-weight: normal;
   }
 
   .thread-action-links {
@@ -616,6 +617,7 @@ ul#navbar-right-links {
     @include border-radius(5px);
     background: $light-gray;
     margin-bottom: 10px;
+    clear: both;
 
     &.active {
       background: darken($alert-success-bg, 5);
@@ -718,7 +720,7 @@ ul#navbar-right-links {
 
   .content-block {
     clear: both;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
   }
 
   .content-block-footer {
@@ -855,34 +857,16 @@ ul#navbar-right-links {
   }
 }
 
-/* To emphasize events that are hapenning now. Used in the pages that show events
-   and in spaces. */
+// To emphasize events that are hapenning now. Used in the pages that show events
+// and in spaces.
 .events-hapenning-now {
-  background: $alert-bg;
-  padding: 0;
-  border: 1px solid darken($alert-bg, 15);
-  @include border-radius(4px);
-  /* @include box-shadow(2px 3px 3px rgba(0, 0, 0, 0.1)); */
-  margin-right: 3px;
+  .thread {
+    background: $light-gray;
+    border-left: 5px solid #75b12e;
+  }
 
-  .current-event {
-    margin-top: 10px;
-    @include mconf-clearfix;
-    clear: both;
-
-    .event-title {
-      float: left;
-      font-size: $font-medium;
-      font-weight: bold;
-      img { margin-right: 5px; }
-    }
-
-    .event-date {
-      float: left;
-      margin: 2px 0 0 10px;
-      color: #777;
-      font-style: italic;
-    }
+  .event-image-date {
+    color: darken(#75b12e, 10);
   }
 }
 

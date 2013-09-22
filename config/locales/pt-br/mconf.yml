@@ -38,10 +38,12 @@ pt-br:
       success: "gravado"
     join: "Entrar"
     login_to_enable: "Você precisa estar logado para acessar esta opção"
+    no_: "Não"
     publish: "Publicar"
     save: "Salvar"
     update: "Atualizar"
     unpublish: "Despublicar"
+    yes_: "Sim"
     webconference:
       not_allowed_to_create: "Você não tem permissão para criar reuniões nesta sala"
       not_running: "não iniciada"
@@ -58,6 +60,12 @@ pt-br:
   actions: Ações
   activerecord:
     attributes:
+      event:
+        description: "Descrição"
+        end_date: "Data e horário de fim"
+        location: "Localização"
+        name: "Nome"
+        start_date: "Data e horário de início"
       space:
         attendee_password: "Senha de participante"
         description: "Descrição"
@@ -66,12 +74,15 @@ pt-br:
         public: "Pública"
     errors:
       models:
-        private_message: 
+        private_message:
           attributes:
             users_tokens:
               accepted: "deve escolher ao menos um destinatário"
       messages:
         missing: "não encontrado"
+    models:
+      event: "Evento"
+      space: "Comunidade"
   address: Endereço
   admin:
     one: Administrador
@@ -451,29 +462,7 @@ pt-br:
     other: Erros
     vcc_warning: "Aviso geral:"
   event:
-    assistance_title: Participação
-    assistants_none: "Ninguém confirmou ainda"
     basic_info: "Introduzir informação básica"
-    cancel:
-      lose: "Todos os dados serão perdidos. Você tem certeza?"
-      stop: "Você tem certeza que deseja parar a edição?"
-    connection:
-      info: "Informação de conexão para este evento"
-      sip: "Proxy SIP"
-      wait: "Esta informação estará disponível durante o evento"
-    create:
-      advanced_conf: "Configurações avançadas"
-      info:
-        class:
-          name: "Classe Virtual"
-        conference:
-          name: "Congresso Virtual"
-        meeting:
-          name: "Reunião Virtual"
-        presential:
-          name: "Em pessoa"
-      manual_conf: "Configuração manual"
-      title: "Criar novo evento"
     created: "Evento criado com sucesso"
     deleted: "Evento excluído com sucesso"
     description:
@@ -481,13 +470,6 @@ pt-br:
       edit: "Editar descrição"
       none: "Ninguém escrever uma descrição ainda."
     edit: "Editar informações básicas do evento"
-    edit_data: "Alterar a data do evento"
-    embed: Embarcar
-    enable:
-      participation: "Modos de participação"
-      recbw: "Qualidade de gravação"
-      sip: "Habilitar SIP"
-      webbw: "Flash Bandwidth"
     error:
       date_past: "Data inicial não pode ser no passado"
       dates: "Data final deve ser após a data inicial"
@@ -496,11 +478,6 @@ pt-br:
       max_size_excedeed: "A duração máxima do evento é %{max_days} dias e não pode ser excedida"
       omit_date: "O evento precisa uma data inicial e uma data final"
       too_short: "O evento é muito curto, ele deve ter pelo menos 15 minutos"
-    future: "Evento Futuro"
-    has: "Este evento tem"
-    help:
-      create: "Crie o seu evento simples em três etapas:"
-      edit: "Editar seu evento"
     home:
       one: "Evento na comunidade %{space}"
     invite_event: "Convide pessoas para o evento %{event_name}"
@@ -509,37 +486,10 @@ pt-br:
     last_7_days: "Últimos 7 dias (%{size})"
     last_month: "Mês passado (%{size})"
     location: Localização
-    logo:
-      created: "Logotipo do evento criado com sucesso"
-      crop: "Selecione a parte da imagem para recortar"
-      new: "Adicionar uma imagem para o seu evento"
-      select: "Mudar seu logotipo"
     more:
       one: "e mais um evento..."
       other: "e mais %{count} eventos..."
-    move:
-      change_date: "<b>Alterar a Data do Evento:</b> Essa opção permite que você altere a data do seu evento. Você pode alterar a data inicial, data final ou as duas."
-      change_end_date: "Alterar a data final do evento"
-      change_event_end_date_div: "<b>Alterar a data final do evento:</b> Esta opção permite expandir o horário do evento movendo o horário final. Esta mudança afetará somente para o horário final do evento e nada mais (as sessões permanecerão com mesmo horário). Use esta opção se você precisar de mais tempo após o horário final do seu evento."
-      change_event_start_date_div: "<b>Alterar a data final do evento:</b> Esta opção permite expandir o horário do evento movendo o horário inicial. Esta mudança afetará somente para o horário inicial do evento e nada mais (as sessões permanecerão com mesmo horário). Use esta opção se você precisar de mais tempo antes do horário inicial do seu evento."
-      change_start_date: "Alterar data de início do evento"
-      no_change: "Nenhuma mudança"
-    new:
-      basic: "Informações básicas"
-      conference: "Congresso Virtual"
-      date: Data
-      meeting: "Encontro Virtual"
-      presential: Reunião
-      type: "Tipo de evento"
     no_events: "Você não tem eventos"
-    none_coming: "Não há eventos próximos"
-    not_available: "Disponível em breve"
-    note:
-      not_organizer_after: "Este evento aconteceu em %{date}, agora você pode desfrutar do programa do evento e das gravações"
-      not_organizer_before: "Este evento acontecerá em %{date}, você pode agora confirmar a sua participação e ler o programa"
-      not_organizer_during: "Este evento está acontecendo agora, você pode segui-lo com o streaming ou participar com o cliente de bate-papo e o cliente flash"
-      not_organizer_no_date: "Este evento ainda não tem data. Você pode confirmar sua assintance agora e voltar mais tarde para ler o programa"
-      participation: "A participação Web estará disponível no momento do evento"
     notification:
       attendant:
         filter: "Filtro de participantes"
@@ -561,45 +511,17 @@ pt-br:
     notification_message: "<p> %{name}, </p><p> Quanto o <b> %{event_name} na comunidade %{space}</b> em %{event_date}. </p><p> Você pode encontrar mais informações sobre este evento em <a href=\"%{event_url}\">%{event_url}</a> </p><p> Atenciosamente,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>"
     notification_successfully: "Notificação enviada a todos com sucesso."
     notification_title: "%{username} enviou uma notificação para informá-lo sobre o evento %{eventname} na comunidade %{space}"
-    now: "Eventos acontecendo agora"
     one: Evento
     online: Webconferência
     other: Eventos
     participation:
       add: "Adicionar um."
       none: "Ninguém postou qualquer URL de participação."
-    past:
-      all: "Todos passados (%{size})"
-      last_month: "Não há eventos para o mês passado."
-      last_week: "Não há eventos para a semana passada."
-      none: "Não há eventos passados"
-      one: "Evento passado"
-      other: "Eventos passados"
-      show: "Mostrar todos os eventos antigos"
-      today: "Não existem eventos para ontem nem hoje."
-    recording:
-      insert: Inserir
-      recorded: "Eventos gravados"
-      share: Compartilhe
-    repository:
-      enabled: "Ativar repositório de documentos"
-      title: "Documentos de evento"
     spam: "Spam em eventos"
     start: "Reinicie o evento"
-    started: "pedido Iniciar enviar com êxito"
     statistics:
       views: "visualizações"
       space-views: "visualizações"
-    stats:
-      map: "Ver mapa"
-      message1: "Esta página mostra as estatísticas das conexões Web para o evento."
-      message2: "Esta página mostra o mapa das conexões Web para o evento."
-      title1: "Estatísticas do evento \"%{event}\""
-      title2: "Mapa de conexões do evento \"%{event}\""
-      view: "Ver estatísticas"
-    time:
-      end: Fim
-      start: Início
     title: "Eventos (%{count})"
     to: Para
     today: "Eventos de hoje"
@@ -607,25 +529,53 @@ pt-br:
     tomorrow: "Eventos de amanhã"
     undated:
       show: "Mostrar todos os eventos sem data"
-    upcoming:
-      all: "Todos os programados (%{size})"
-      my_other: "Meus próximos events"
-      next_month: "Não há eventos para o próximo mês"
-      next_week: "Não há eventos para a próxima semana"
-      none: "Não há eventos programados"
-      other: "Próximos eventos"
-      other_all: "Outros eventos programados"
-      show: "Mostrar todos os eventos programados"
-      today: "Não há eventos para hoje"
     updated: "Evento atualizado com sucesso"
-    view_participation: "Participação Web"
-    will_attend: "Você pretende participar deste evento?"
-    within_7_days: "Dentro de 7 dias (%{size})"
-    within_a_month: "Dentro de um mês (%{size})"
   event_invitation:
     instructions: "Clique Enviar para cada convite que você deseja enviar, e clique Finalizar quando você concluir."
     sent: "Convites enviados com sucesso"
     will_invite: "Pessoas que você irá convidar?"
+  events:
+    all_events:
+      all_upcoming: "Ver todos eventos ainda não aconteceram"
+      all_past: "Ver todos eventos que já passaram"
+      none_upcoming: "Nenhum evento no futuro"
+      none_past: "Nenhum evento passado"
+      past: "Eventos passados"
+      upcoming: "Eventos futuros"
+    event:
+      organizers: "Organizadores"
+      when: "Quando"
+      where: "Onde"
+    event_card:
+      organizers: "Organizadores"
+      when: "Quando"
+      where: "Onde"
+    index:
+      create_event: "Criar um novo evento"
+      events_now: "Contecendo agora!"
+    participants:
+      attending: "Confirmaram que participarão"
+      none_attending: "Ninguém confirmou ainda"
+      not_attending: "Confirmaram que não participarão"
+      title: "Participantes"
+      view_as_list: "ver como uma lista de nomes"
+      view_as_thumbs: "ver como imagens"
+      will_attend: "Você participará deste evento?"
+    past_events:
+      last_month: "Nenhum evento no último mês"
+      last_week: "Nenhum evento na última semana"
+      none: "Nenhum evento passado"
+      order_asc: "Mostrar eventos antigos no topo"
+      order_by: "Ordenar por"
+      order_desc: "Mostrar eventos novos no topo"
+      title: "Eventos passados"
+      today: "Nenhum evento para ontem ou hoje"
+    upcoming_events:
+      next_month: "Não existem eventos para o próximo mês"
+      next_week: "Não existem eventos para a próxima semana"
+      none: "Nenhum evento no futuro"
+      title: "Próximos eventos"
+      today: "Não existem eventos para hoje"
   fax: Fax
   feedback:
     email: "%{email} enviou o seguinte feedback:"
@@ -953,7 +903,6 @@ pt-br:
     one: Telefone
     plural: Telefones
   phone_optional: "Telefone (opcional)"
-  photos_view_arrows: "ver fotos >>"
   place: Local
   please: "Por favor"
   popularity: Popularidade
@@ -1290,7 +1239,10 @@ pt-br:
       spaces_examples:
         title: "Exemplos de comunidades:"
       title: "Criar uma nova comunidade"
+    show:
+      events_now: "Events hapenning now!"
     sidebar:
+      upcoming_events: "Próximos eventos"
       webconference:
         attendees:
           nobody: "Não há ninguém na sala."

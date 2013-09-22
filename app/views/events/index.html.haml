@@ -14,19 +14,21 @@
   - if can?(:create_event, @space)
     #events-toolbar
       = link_to new_space_event_path, :class => "btn btn-primary btn-small" do
-        = t('event.create.title')
-
-  - unless @current_events.empty?
-    #events-current
-      %h3
-        = t('now_exclamation')
-      - for event in @current_events
-        .events-hapenning-now
-          = render :partial => "event", :locals => { :event => event }
+        = t('.create_event')
 
   - if params[:show] == 'past_events'
     = render :partial => 'past_events'
+
   - elsif params[:show] == 'upcoming_events'
     = render :partial => 'upcoming_events'
+
   - else
+    - unless @current_events.empty?
+      #events-current.content-block.events-hapenning-now
+        .content-block-header
+          %h3= t('.events_now')
+        .content-block-middle
+          - for event in @current_events
+            = render :partial => "event", :locals => { :event => event }
+
     = render :partial => 'all_events'

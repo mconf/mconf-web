@@ -1,0 +1,21 @@
+// prevent these rules from being applied to other pages other than the ones below on events
+body.events.new, body.events.edit {
+
+  form .input {
+    input {
+      width: 95%;
+    }
+
+    textarea {
+      width: 95%;
+      height: 100px;
+      resize: vertical;
+      max-height: none;
+    }
+
+    select {
+      width: 15%;
+    }
+  }
+
+}

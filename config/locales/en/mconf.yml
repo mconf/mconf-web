@@ -38,10 +38,12 @@ en:
       success: "saved"
     join: "Join"
     login_to_enable: "You need to be logged in to perform this action"
+    no_: "No"
     publish: "Publish"
     save: "Save"
     update: "Update"
     unpublish: "Unpublish"
+    yes_: "Yes"
     webconference:
       not_allowed_to_create: "You are not allowed to create meetings in this room"
       not_running: "not running"
@@ -58,6 +60,12 @@ en:
   actions: Actions
   activerecord:
     attributes:
+      event:
+        description: "Description"
+        end_date: "Date and time when it ends"
+        location: "Location"
+        name: "Name"
+        start_date: "Date and time when it starts"
       space:
         attendee_password: "Attendee password"
         description: "Descrição"
@@ -66,13 +74,16 @@ en:
         public: "Public"
     errors:
       models:
-        private_message: 
+        private_message:
           attributes:
             users_tokens:
               accepted: "must choose at least one receiver" 
       messages: 
         invalid_identifier: "generates an invalid identifier: \"%{id}\""
         missing: "is missing"
+    models:
+      event: "Event"
+      space: "Space"
   address: Address
   admin: 
     one: Admin
@@ -461,29 +472,7 @@ en:
     other: Errors
     vcc_warning: "Warning:"
   event: 
-    assistance_title: Participation
-    assistants_none: "Nobody has confirmed yet"
     basic_info: "Introduce basic information"
-    cancel: 
-      lose: "All data will be lost. Are you sure?"
-      stop: "Are you sure that you want to stop editing?"
-    connection: 
-      info: "Connection info for this event"
-      sip: "Proxy SIP"
-      wait: "This info will be available during the event"
-    create: 
-      advanced_conf: "Advanced configuration"
-      info: 
-        class: 
-          name: "Virtual Class"
-        conference: 
-          name: "Virtual Congress"
-        meeting: 
-          name: "Virtual Meeting"
-        presential: 
-          name: "In person"
-      manual_conf: "Manual configuration"
-      title: "Create new event"
     created: "Event created successfully"
     deleted: "Event deleted successfully"
     description: 
@@ -491,13 +480,6 @@ en:
       edit: "Edit description"
       none: "No one has written a description yet."
     edit: "Edit event basic info"
-    edit_data: "Change event date"
-    embed: Embed
-    enable: 
-      participation: "Participation modes"
-      recbw: "Recording Quality"
-      sip: "Enable SIP"
-      webbw: "Flash Bandwidth"
     error: 
       date_past: "Start date could not be past"
       dates: "End date must be after start date"
@@ -505,12 +487,6 @@ en:
       max_size_excedeed: "The maximum duration of the event is %{max_days} days and can't be excedeed"
       omit_date: "The event needs start date and end date "
       too_short: "Event is too short, it must be at least 15 minutes long"
-    future: "Future Event"
-    has: "This event has"
-    help: 
-      create: "Create your simple event in three steps:"
-      define3: ""
-      edit: "Edit your event"
     home: 
       one: "Event in the space %{space}"
     invite_event: "Invite people to the event %{event_name}"
@@ -519,37 +495,10 @@ en:
     last_7_days: "Last 7 days (%{size})"
     last_month: "Last month (%{size})"
     location: Location
-    logo: 
-      created: "Event logo successfully created"
-      crop: "Select what part of the image to crop"
-      new: "Add a picture for your event"
-      select: "Change your logo"
     more: 
       one: "and one more event..."
       other: "and more %{count} events..."
-    move: 
-      change_date: "<b>Change Event Date:</b> This option lets you change your event date. You can choose a new start or end time."
-      change_end_date: "Change event end date"
-      change_event_end_date_div: "<b>Change event end date:</b> This option lets you expand you event time by moving the end time. This change will only affect to the event end time and won't change anything more (the sessions will remain in the same time). Use this option if you need more time after you current event end time."
-      change_event_start_date_div: "<b>Change event start date:</b> This option lets you expand you event time by moving the start time. This change will only affect to the event start time and won't change anything more (the sessions will remain in the same time). Use this option if you need more time before you current event star time."
-      change_start_date: "Change event start date"
-      no_change: "No change"
-    new: 
-      basic: "Basic information"
-      conference: "Virtual Congress"
-      date: Date
-      meeting: "Virtual Meeting"
-      presential: Meeting
-      type: "Event type"
     no_events: "No events to show"
-    none_coming: "No coming events"
-    not_available: "Available soon"
-    note: 
-      not_organizer_after: "This event happened on %{date}, now you can enjoy the event program and recordings"
-      not_organizer_before: "This event will take place on %{date}, you can now confirm your assistance and read the program"
-      not_organizer_during: "This event is happening now, you can follow it with the streaming or participate with the chat and the flash client"
-      not_organizer_no_date: "This event still have no date. You can confirm your assintance now and come back later to read the program"
-      participation: "Web participation will be available at the time of the event"
     notification: 
       attendant: 
         filter: "Attendant filter"
@@ -571,40 +520,16 @@ en:
     notification_message: "<p>%{name},</p><p>Regarding the <b>event %{event_name} in space %{space}</b> on %{event_date}.</p><p>You can find more information about this event in <a href=\"%{event_url}\">%{event_url}</a></p><p>Kind regards,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>"
     notification_successfully: "Notification sent to all successfully."
     notification_title: "%{username} has sent a notification to you about event %{eventname} in space %{space}"
-    now: "Events hapenning now"
     one: Event
     online: WebConference
     other: Events
     participation: 
       add: "Add one."
       none: "No one has posted any participation url."
-    past: 
-      all: "All past (%{size})"
-      last_month: "No events for last month."
-      last_week: "No events for last week."
-      none: "No past events"
-      one: "Past Event"
-      other: "Past events"
-      show: "Show all old events"
-      today: "No events for yesterday nor today."
-    recording: 
-      insert: Insert
-      recorded: "Recorded events"
-      share: Share
-    repository: 
-      enabled: "Enable document repository"
-      title: "Event documents"
     spam: "Spam in events"
     start: "Restart event"
-    started: "Start request send successfully"
     statistics:
       views: "views"
-    stats: 
-      message1: "This page show the stats of the web connections to the event."
-      title1: "Statistics of the event \"%{event}\""
-    time: 
-      end: End
-      start: Start
     title: "Events (%{count})"
     to: To
     today: "Today events"
@@ -612,25 +537,53 @@ en:
     tomorrow: "Tomorrow events"
     undated: 
       show: "Show all undated events"
-    upcoming: 
-      all: "All upcoming (%{size})"
-      my_other: "My upcoming events"
-      next_month: "There are no events for next month"
-      next_week: "There are no events for next week"
-      none: "No upcoming events"
-      other: "Upcoming events"
-      other_all: "Other upcoming events"
-      show: "Show all upcoming events"
-      today: "There are no events for today"
     updated: "Event updated successfully"
-    view_participation: "Web Participation"
-    will_attend: "Do you plan to attend this event?"
-    within_7_days: "Within 7 days (%{size})"
-    within_a_month: "Within a month (%{size})"
   event_invitation: 
     instructions: "Click Send for each invitation you want to send, and click Finish when you are done."
     sent: "Invitations sent successfully"
     will_invite: "People you will invite:"
+  events:
+    all_events:
+      all_upcoming: "View all upcoming events"
+      all_past: "View all past events"
+      none_upcoming: "No upcoming events"
+      none_past: "No past events"
+      past: "Past events"
+      upcoming: "Upcoming events"
+    event:
+      organizers: "Organizers"
+      when: "When"
+      where: "Where"
+    event_card:
+      organizers: "Organizers"
+      when: "When"
+      where: "Where"
+    index:
+      create_event: "Create a new event"
+      events_now: "Hapenning now!"
+    participants:
+      attending: "Confirmed that will attend"
+      none_attending: "Nobody has confirmed yet"
+      not_attending: "Confirmed that will not attend"
+      title: "Participants"
+      view_as_list: "view as a list of names"
+      view_as_thumbs: "view as pictures"
+      will_attend: "Will you attend this event?"
+    past_events:
+      last_month: "No events for last month"
+      last_week: "No events for last week"
+      none: "No past events"
+      order_asc: "Show older events at the top"
+      order_by: "Order by"
+      order_desc: "Show newer events at the top"
+      title: "Past events"
+      today: "No events for yesterday nor today"
+    upcoming_events:
+      next_month: "There are no events for the next month"
+      next_week: "There are no events for the next week"
+      none: "No upcoming events"
+      title: "Upcoming events"
+      today: "There are no events for today"
   fax: Fax
   feedback: 
     email: "%{email} sent the following feedback:"
@@ -976,7 +929,6 @@ en:
     one: Phone
     plural: Telephones
   phone_optional: "Phone (optional)"
-  photos_view_arrows: "pictures view >>"
   place: Place
   please: Please
   popularity: Popularity
@@ -1322,7 +1274,10 @@ en:
       spaces_examples:
         title: "Examples of spaces:"
       title: "Create a new space"
+    show:
+      events_now: "Events hapenning now!"
     sidebar:
+      upcoming_events: "Upcoming events"
       webconference:
         attendees:
           nobody: "There is nobody currently in the room."

@@ -22,7 +22,7 @@
     = render_sidebar_content_block('sidebar-upcoming-events') do
       .content-block-header
         %h3
-          = link_to t('event.upcoming.other'), space_events_path(@space)
+          = link_to t('.upcoming_events'), space_events_path(@space)
         = icon_help t("tooltip.upcoming"), :class => 'leftwards'
         = icon_event()
       .content-block-middle
