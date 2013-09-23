@@ -3,9 +3,12 @@
 # The section 'default' contain the configurations for all environments (development, test,
 # production). If you need you can define specific sections for the environments you want,
 # and these configurations will override the ones in the default section.
-
+#
 # Almost everyting you setup here can be configured later on from the application's
 # web interface!
+#
+# The parameters that are not commented in the default section are *mandatory*!
+# Without any of them your application might not behave appropriately.
 
 default:
 
@@ -16,25 +19,26 @@ default:
     username: "admin"
     email: "admin@default.com"
     password: "admin"
-    # If you want to set attributes in the user's profile, do it below
-    profile_attributes:
-      full_name: "Mconf Admin"
+    # If you want to set attributes in the user's profile, do as done below
+    # profile_attributes:
+    #   full_name: "Mconf Admin"
 
   # The first, only and default Site model with general configurations for the website.
   # You can set any attribute from the model Site here.
   # If not specified, the SMTP configurations will default to a Gmail account.
   site:
     name: "Mconf"
-    description: "Mconf Website"
-    smtp_login: "my-email@server.com"
-    smtp_password: "my-password"
-    locale: "en"
-    domain: "localhost"
-    signature: "Mconf"
-    ssl: false
+    # description: "Mconf Website"
+    # smtp_login: "my-email@server.com"
+    # smtp_password: "my-password"
+    # locale: "en"
+    # domain: "localhost"
+    # signature: "Mconf"
+    # ssl: false
 
   # The first and default webconference server.
   # You can set any attribute from the model BigbluebuttonServer here.
+  # Note: set these parameters even if you don't have a server yet, you can edit it later on.
   webconf_server:
     name: "Default Server"
     url: "http://my-development-server/bigbluebutton/api"
