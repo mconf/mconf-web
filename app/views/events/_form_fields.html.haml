@@ -1,5 +1,8 @@
 = f.input :name, :autofocus => true
 = f.input :description, :as => :text
 = f.input :location, :as => :string
+
+.alert.alert-gray
+  = t('.timezone_notice', :timezone => Time.zone.formatted_offset)
 = f.input :start_date, :as => :datetime, :start_year => Time.zone.now.year, :order => [:day, :month, :year]
 = f.input :end_date, :as => :datetime, :start_year => Time.zone.now.year, :order => [:day, :month, :year]

@@ -553,6 +553,8 @@ pt-br:
       invite: "Convidar pessoas"
       notify_attendees: "Notificar participantes confirmados"
       title: "Convites"
+    form_fields:
+      timezone_notice: "Você está usando o fuso horário GMT%{timezone}. Atribua as datas abaixo neste fuso horário."
     index:
       create_event: "Criar um novo evento"
       events_now: "Contecendo agora!"

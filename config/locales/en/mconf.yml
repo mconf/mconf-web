@@ -561,6 +561,8 @@ en:
       organizers: "Organizers"
       when: "When"
       where: "Where"
+    form_fields:
+      timezone_notice: "You are using the timezone GMT%{timezone}. Set the dates below using this timezone."
     index:
       create_event: "Create a new event"
       events_now: "Hapenning now!"
