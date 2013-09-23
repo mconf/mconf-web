@@ -72,6 +72,7 @@ en:
         moderator_password: "Moderator password"
         name: "Name"
         public: "Public"
+        repository: "Document repository"
     errors:
       models:
         private_message:
@@ -1275,8 +1276,12 @@ en:
       invite: "Invite people"
       news: "News"
       users: "Users"
-    edit_space:
+    edit:
       change_logo: "Change picture"
+      delete_space: "Remove this space?"
+      other_options: "Other options"
+      public: "Make this a public space"
+      yes_delete: "Yes, remove it!"
       webconf_options: "Webconference room options"
     index: 
       create_new_space: "Create a new space"

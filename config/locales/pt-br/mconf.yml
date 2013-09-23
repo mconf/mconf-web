@@ -72,6 +72,7 @@ pt-br:
         moderator_password: "Senha de moderador"
         name: "Nome"
         public: "Pública"
+        repository: "Repositório de documentos"
     errors:
       models:
         private_message:
@@ -1240,8 +1241,12 @@ pt-br:
       invite: "Convidar pessoas"
       news: "Notícias"
       users: "Usuários"
-    edit_space:
+    edit:
       change_logo: "Mudar imagem"
+      delete_space: "Remover esta comunidade?"
+      other_options: "Outras opções"
+      public: "Tornar esta comunidade pública"
+      yes_delete: "Sim, remova!"
       webconf_options: "Opções da sala de webconferência"
     index: 
       create_new_space: "Criar uma comunidade"

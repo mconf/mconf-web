@@ -372,6 +372,9 @@ class SpacesController < ApplicationController
   end
 
   def space_allowed_params
-    [ :name, :description, :logo_image, :public, :permalink, :crop_x, :crop_y, :crop_w, :crop_h, :bigbluebutton_room_attributes => [ :id, :attendee_password, :moderator_password] ]
+    [ :name, :description, :logo_image, :public, :permalink, :repository,
+      :crop_x, :crop_y, :crop_w, :crop_h,
+      :bigbluebutton_room_attributes =>
+        [ :id, :attendee_password, :moderator_password ] ]
   end
 end

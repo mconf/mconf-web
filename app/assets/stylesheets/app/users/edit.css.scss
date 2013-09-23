@@ -34,14 +34,6 @@ body.users.edit, body.users.update {
     @include mconf-clearfix;
   }
 
-  #cancel-account {
-    margin-top: 15px;
-    clear: both;
-    @include danger-text;
-
-    span { margin-right: 15px; }
-  }
-
   #user-federated-info {
     margin-bottom: 15px;
     padding: 10px;
