@@ -779,6 +779,9 @@ pt-br:
       copyright: "© 2010-2013 %{site}."
       translate:
         change: "Mudar a linguagem"
+    spaces_page_title:
+      private: "Comunidade privada"
+      public: "Comunidade pública"
   less: "menos..."
   locale:
     changed: "Idioma da aplicação alterado para "

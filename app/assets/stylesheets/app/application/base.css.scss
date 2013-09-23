@@ -576,17 +576,33 @@ ul#navbar-right-links {
   .current-page-title {
     float: left;
     margin-left: 10px;
-    margin-top: 14px;
+    margin-top: 20px;
     font-size: $font-section-title;
+    line-height: $font-section-title;
     font-weight: bold;
     @include text-shadow(darken($site-bg-color, 10) 1px 1px 10px);
     color: $page-title-color;
 
+    // minus the logo and some padding/margin
+    max-width: $contents-width - 120px;
+
     a { @include link-colors($page-title-color, $link-color-hover, $link-color-active); }
 
+    // when the title is too big the font is reduced a bit
     .small-title {
       font-size: $font-section-title - 10px;
       margin-top: 5px;
+    }
+
+    // some tweaks for the titles in pages of spaces
+    &.space-page {
+      margin-top: 8px;
+
+      // the text that shows the visibility of spaces
+      .space-visibility {
+        @include space-visibility;
+        font-weight: normal;
+      }
     }
   }
 

@@ -798,6 +798,9 @@ en:
       copyright: "© 2010-2013 %{site}."
       translate:
         change: "Switch language"
+    spaces_page_title:
+      private: "Private space"
+      public: "Public space"
   less: "less..."
   locale: 
     changed: "Application language changed to "
