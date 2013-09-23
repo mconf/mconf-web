@@ -219,15 +219,13 @@ describe SpacesController do
       should respond_with(:success)
     }
 
-    it {
-      get :show, :id => target.to_param
-      should render_template("spaces/show")
-    }
+    context "layout and view" do
+      before(:each) { get :show, :id => target.to_param }
+      it { should render_template("spaces/show") }
+      it { should render_with_layout("spaces_show") }
+    end
 
-    it {
-      get :show, :id => target.to_param
-      should render_with_layout("spaces_show")
-    }
+    it "assigns @space"
 
     context "assigns @news_position" do
       before {
@@ -333,18 +331,18 @@ describe SpacesController do
     let(:user) { FactoryGirl.create(:superuser) }
     before(:each) { sign_in(user) }
 
+    before(:each) { get :new }
+
     context "template and view" do
-      before(:each) { get :new }
       it { should render_with_layout("application") }
       it { should render_template("spaces/new") }
     end
 
-    context "assigns @space" do
-      before(:each) { get :new }
-      it { should assign_to(:space).with(instance_of(Space)) }
+    it "assigns @space" do
+      should assign_to(:space).with(instance_of(Space))
     end
 
-    context do
+    context "for @spaces_examples" do
       let(:do_action) { get :new }
       it_behaves_like "assigns @spaces_examples"
     end
@@ -355,9 +353,9 @@ describe SpacesController do
     before(:each) { sign_in(user) }
 
     context "with valid attributes" do
-      describe "creates the new space with the correct attributes" do
-        let(:space) { FactoryGirl.build(:space) }
+      let(:space) { FactoryGirl.build(:space) }
 
+      describe "creates the new space with the correct attributes" do
         before(:each) {
           expect {
             post :create, :space => space.attributes
@@ -369,24 +367,26 @@ describe SpacesController do
       end
 
       context "redirects to the new space" do
-        before(:each) { post :create, :space => FactoryGirl.attributes_for(:space) }
+        before(:each) { post :create, :space => space.attributes }
         it { should redirect_to(space_path(Space.last)) }
       end
 
       describe "assigns @space with the new space" do
-        before(:each) { post :create, :space => FactoryGirl.attributes_for(:space) }
+        before(:each) { post :create, :space => space.attributes }
         it { should assign_to(:space).with(Space.last) }
       end
 
       describe "sets the flash with a success message" do
-        before(:each) { post :create, :space => FactoryGirl.attributes_for(:space) }
+        before(:each) { post :create, :space => space.attributes }
         it { should set_the_flash.to(I18n.t('space.created')) }
       end
 
       describe "adds the user as an admin in the space" do
-        before(:each) { post :create, :space => FactoryGirl.attributes_for(:space) }
+        before(:each) { post :create, :space => space.attributes }
         it { Space.last.admins.should include(user) }
       end
+
+      it "creates a new activity for the space created"
     end
 
     context "with invalid attributes" do
@@ -394,7 +394,7 @@ describe SpacesController do
 
       it "assigns @space with the new space"
 
-      describe "renders the view spaces/new" do
+      describe "renders the view spaces/new with the correct layout" do
         before(:each) { post :create, :space => invalid_attributes }
         it { should render_with_layout("application") }
         it { should render_template("spaces/new") }
@@ -404,6 +404,8 @@ describe SpacesController do
         let(:do_action) { post :create, :space => invalid_attributes }
         it_behaves_like "assigns @spaces_examples"
       end
+
+      it "does not create a new activity for the space that failed to be created"
     end
   end
 
@@ -412,15 +414,15 @@ describe SpacesController do
     let(:user) { FactoryGirl.create(:superuser) }
     before(:each) { sign_in(user) }
 
+    before(:each) { get :edit, :id => space.to_param }
+
     context "template and view" do
-      before(:each) { get :edit, :id => space.to_param }
       it { should render_with_layout("spaces_show") }
       it { should render_template("spaces/edit") }
     end
 
-    describe "assigns @space with the target space" do
-      before(:each) { get :edit, :id => space.to_param }
-      it { should assign_to(:space).with(space) }
+    it "assigns @space" do
+      should assign_to(:space).with(space)
     end
   end
 

@@ -21,9 +21,9 @@
       %span.event-timezone
         (#{t('timezone.one')}: GMT#{Time.zone.formatted_offset})
     .content-block-middle
-      %span.event-category= t('today')
+      %span.event-category= t('.events.today')
       = render 'events/sidebar_events_simple', :events => @today_events
-      %span.event-category= t('event.upcoming.my_other')
+      %span.event-category= t('.events.other')
       = render 'events/sidebar_events_simple', :events => @upcoming_events
 
 #user-space-list.content-block

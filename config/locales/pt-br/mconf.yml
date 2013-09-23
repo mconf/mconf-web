@@ -493,7 +493,6 @@ pt-br:
     notification:
       attendant:
         filter: "Filtro de participantes"
-      button: "Notificar participantes confirmados"
       deselect_all_attendants: "Desmarcar todos os participantes"
       hide_all_attendants: "Ocultar todos os participantes"
       label: "Personalize a sua mensagem de notificação"
@@ -536,8 +535,8 @@ pt-br:
     will_invite: "Pessoas que você irá convidar?"
   events:
     all_events:
-      all_upcoming: "Ver todos eventos ainda não aconteceram"
-      all_past: "Ver todos eventos que já passaram"
+      all_upcoming: "Ver todos eventos futuros"
+      all_past: "Ver todos eventos passados"
       none_upcoming: "Nenhum evento no futuro"
       none_past: "Nenhum evento passado"
       past: "Eventos passados"
@@ -550,11 +549,15 @@ pt-br:
       organizers: "Organizadores"
       when: "Quando"
       where: "Onde"
+    event_invitations:
+      invite: "Convidar pessoas"
+      notify_attendees: "Notificar participantes confirmados"
+      title: "Convites"
     index:
       create_event: "Criar um novo evento"
       events_now: "Contecendo agora!"
     participants:
-      attending: "Confirmaram que participarão"
+      attending: "Participantes confirmados"
       none_attending: "Ninguém confirmou ainda"
       not_attending: "Confirmaram que não participarão"
       title: "Participantes"
@@ -621,6 +624,9 @@ pt-br:
       activity_list: "Atividades recentes"
     show:
       create_space: "Criar uma nova comunidade"
+      events:
+        other: "Outros"
+        today: "Hoje"
       view_all_activity: "Ver todas suas atividades"
       view_all_spaces: "Ver todas comunidades"
     webconference_room:

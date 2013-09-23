@@ -144,8 +144,8 @@ module Abilities
       end
 
       # Events
-      # TODO: there are some :create_event's still in the code, remove them
-      # TODO: maybe space admins should be able to alter events
+      # TODO: maybe space admins should be able to alter events they did not create but that
+      #   are in their spaces
       can :read, Event, :space => { :public => true }
       can [:read, :create], Event do |event|
         event.space.users.include?(user)

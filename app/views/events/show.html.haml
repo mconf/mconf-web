@@ -10,6 +10,6 @@
   = render :partial => "event_card", :locals => { :event => @event }
 
 - if can?(:update, @event)
-  = render :partial => "actions"
+  = render :partial => "event_invitations", :locals => { :event => @event }
 
 = render :partial => "participants"

@@ -1,14 +1,5 @@
 #events-upcoming.content-block
-
   .content-block-header
     %h3= t('.title')
-
   .content-block-middle
-    - if params[:day] == 'today'
-      = render :partial => 'events_group', :locals => {:events_group => @today_paginate_events, :message => t(".today")}
-    - elsif params[:day] == 'next_week'
-      = render :partial => 'events_group', :locals => {:events_group => @next_week_paginate_events, :message => t(".next_week")}
-    - elsif params[:day] == 'next_month'
-      = render :partial => 'events_group', :locals => {:events_group => @next_month_paginate_events, :message => t(".next_month")}
-    - else
-      = render :partial => 'events_group', :locals => {:events_group => @all_upcoming_paginate_events, :message => t(".none")}
+    = render :partial => 'events_group', :locals => {:events_group => @upcoming_events, :message => t(".none")}

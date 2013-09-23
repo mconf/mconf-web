@@ -12,8 +12,10 @@ class Event < ActiveRecord::Base
   belongs_to :space
   belongs_to :author, :class_name => 'User'
 
-  has_many :posts, :dependent => :destroy
   has_many :participants, :dependent => :destroy
+
+  # TODO: posts and attachments are not used in events anymore
+  has_many :posts, :dependent => :destroy
   has_many :attachments, :dependent => :destroy
 
   has_many :invitations, :class_name => "JoinRequest", :foreign_key => "group_id",

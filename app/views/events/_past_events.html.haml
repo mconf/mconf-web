@@ -1,23 +1,15 @@
 #events-past.content-block
 
   .content-block-header
+    %h3= t('.title')
     #events-past-menu
       %span= t('.order_by') + ':'
-      - if params[:order_by_time]
-        = link_to space_events_path(@space, :show => params[:show], :day => params[:day]), options_for_tooltip(t('.order_desc')) do
-          = icon_order_number_desc
-      - else
-        = link_to space_events_path(@space, :show => params[:show], :day => params[:day], :order_by_time => "ASC"), options_for_tooltip(t('.order_asc')) do
-          = icon_order_number_asc
-
-    %h3= t('.title')
+      - options = options_for_tooltip(t('.order_asc'), :class => params[:order_by_time] != "DESC" ? 'selected-ordering' : '')
+      = link_to space_events_path(@space, :show => params[:show], :day => params[:day]), options do
+        = icon_order_number_asc
+      - options = options_for_tooltip(t('.order_desc'), :class => params[:order_by_time] == "DESC" ? 'selected-ordering' : '')
+      = link_to space_events_path(@space, :show => params[:show], :day => params[:day], :order_by_time => "DESC"), options do
+        = icon_order_number_desc
 
   .content-block-middle
-    - if params[:day] == 'yesterday'
-      = render :partial => 'events_group', :locals => {:events_group => @today_and_yesterday_paginate_events, :message => t(".today")}
-    - elsif params[:day] == 'last_week'
-      = render :partial => 'events_group', :locals => {:events_group => @last_week_paginate_events, :message => t(".last_week")}
-    - elsif params[:day] == 'last_month'
-      = render :partial => 'events_group', :locals => {:events_group => @last_month_paginate_events, :message => t(".last_month")}
-    - else
-      = render :partial => 'events_group', :locals => {:events_group => @all_past_paginate_events, :message => t(".none")}
+    = render :partial => 'events_group', :locals => { :events_group => @past_events, :message => t(".none") }

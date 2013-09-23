@@ -51,28 +51,29 @@
             - list.push link_to(participant.user.name, user_path(participant.user))
           = list.join(', ').html_safe
 
-  #events-participants-not-attending
-    .subtitle
-      %h4= t('.not_attending') + ':'
-      .view-as-links
-        - unless params[:list_not_attendees]
-          = link_to space_event_path(@space, @event, :list_not_attendees => true) do
-            = icon_list
-            = t('.view_as_list')
-        - else
-          = link_to space_event_path(@space, @event) do
-            = icon_picture
-            = t('.view_as_thumbs')
+  - if @not_attendees.count > 0
+    #events-participants-not-attending
+      .subtitle
+        %h4= t('.not_attending') + ':'
+        .view-as-links
+          - unless params[:list_not_attendees]
+            = link_to space_event_path(@space, @event, :list_not_attendees => true) do
+              = icon_list
+              = t('.view_as_list')
+          - else
+            = link_to space_event_path(@space, @event) do
+              = icon_picture
+              = t('.view_as_thumbs')
 
-    - unless @not_attendees.empty?
-      - unless params[:list_not_attendees]
-        .attendee-thumbs
-          .thread.thread-no-hover
+      - unless @not_attendees.empty?
+        - unless params[:list_not_attendees]
+          .attendee-thumbs
+            .thread.thread-no-hover
+              - for participant in @not_attendees
+                = link_logo_image(participant.user, options_for_tooltip(participant.user.name, :size => '32', :url => user_path(participant.user), :class => 'logo logo-in-thread'))
+        - else
+          .attendee-list
+            - list = []
             - for participant in @not_attendees
-              = link_logo_image(participant.user, options_for_tooltip(participant.user.name, :size => '32', :url => user_path(participant.user), :class => 'logo logo-in-thread'))
-      - else
-        .attendee-list
-          - list = []
-          - for participant in @not_attendees
-            - list.push link_to(participant.user.name, user_path(participant.user))
-          = list.join(', ').html_safe
+              - list.push link_to(participant.user.name, user_path(participant.user))
+            = list.join(', ').html_safe

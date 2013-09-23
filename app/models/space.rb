@@ -99,6 +99,8 @@ class Space < ActiveRecord::Base
   end
 
   # Add a `user` to this space with the role `role_name` (e.g. 'User', 'Admin').
+  # TODO: if a user has a pending request to join the space it will still be there after if this
+  #  method is used, should we check this here?
   def add_member!(user, role_name='User')
     p = Permission.new
     p.user = user

@@ -141,6 +141,7 @@ class ApplicationController < ActionController::Base
     space || raise(ActiveRecord::RecordNotFound)
   end
 
+  # TODO: review, we shouldn't need this with cancan loading the resources
   helper_method :space, :space!
 
   def webconf_room!

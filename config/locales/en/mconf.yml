@@ -502,7 +502,6 @@ en:
     notification: 
       attendant: 
         filter: "Attendant filter"
-      button: "Notify confirmed attendants"
       deselect_all_attendants: "Deselect all attendants"
       hide_all_attendants: "Hide all attendants"
       label: "Customise your notification message"
@@ -554,6 +553,10 @@ en:
       organizers: "Organizers"
       when: "When"
       where: "Where"
+    event_invitations:
+      invite: "Invite people"
+      notify_attendees: "Notify confirmed attendees"
+      title: "Invitations"
     event_card:
       organizers: "Organizers"
       when: "When"
@@ -562,7 +565,7 @@ en:
       create_event: "Create a new event"
       events_now: "Hapenning now!"
     participants:
-      attending: "Confirmed that will attend"
+      attending: "Confirmed attendees"
       none_attending: "Nobody has confirmed yet"
       not_attending: "Confirmed that will not attend"
       title: "Participants"
@@ -638,6 +641,9 @@ en:
       activity_list: "Activity list"
     show:
       create_space: "Create a new space"
+      events:
+        other: "Other"
+        today: "Today"
       view_all_activity: "View all your activity"
       view_all_spaces: "View all spaces"
     webconference_room:
