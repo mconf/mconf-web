@@ -20,9 +20,7 @@ describe Event do
   # it { should validate_presence_of(:name) }
   # it { should validate_presence_of(:permalink) }
 
-  it { should have_many(:posts).dependent(:destroy) }
   it { should have_many(:participants).dependent(:destroy) }
-  it { should have_many(:attachments).dependent(:destroy) }
 
   it "acts_as_resource"
   it "acts_as_container"
@@ -52,6 +50,25 @@ describe Event do
 
   it { should respond_to(:edit_date_action) }
   it { should respond_to(:"edit_date_action=") }
+
+  it "#set_author_as_organizer"
+  it "sets the author as organizer when the event is saved"
+  it "doesn't set the author as organizer twice when the event is saved"
+
+  describe ".within" do
+    let(:today) { Time.now }
+
+    before(:each) do
+      e1 = FactoryGirl.create(:event, #:author => user, :space => space,
+                              :start_date => today + 1.day, :end_date => today + 3.day)
+      e2 = FactoryGirl.create(:event, #:author => user, :space => space,
+                              :start_date => today, :end_date => today + 2.day)
+    end
+
+    it { Event.within(today, today + 2.day).should_not be_empty }
+    it { Event.within(today + 1.day, today + 2.day).should_not be_empty }
+    it { Event.within(today + 4.day, today + 5.day).should be_empty }
+  end
 
   describe "abilities" do
     subject { ability }
@@ -101,21 +118,6 @@ describe Event do
       let(:user) { FactoryGirl.create(:superuser) }
       it { should be_able_to(:manage, target) }
     end
-  end
-
-  describe "#self.within" do
-    let(:today) { Time.now }
-
-    before(:each) do
-      e1 = FactoryGirl.create(:event, #:author => user, :space => space,
-        :start_date => today + 1.day, :end_date => today + 3.day)
-      e2 = FactoryGirl.create(:event, #:author => user, :space => space,
-        :start_date => today, :end_date => today + 2.day)
-    end
-
-    it { Event.within(today, today + 2.day).should_not be_empty }
-    it { Event.within(today + 1.day, today + 2.day).should_not be_empty }
-    it { Event.within(today + 4.day, today + 5.day).should be_empty }
   end
 
 end

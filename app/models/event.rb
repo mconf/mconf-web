@@ -14,10 +14,6 @@ class Event < ActiveRecord::Base
 
   has_many :participants, :dependent => :destroy
 
-  # TODO: posts and attachments are not used in events anymore
-  has_many :posts, :dependent => :destroy
-  has_many :attachments, :dependent => :destroy
-
   has_many :invitations, :class_name => "JoinRequest", :foreign_key => "group_id",
            :conditions => { :join_requests => {:group_type => 'Event'} }
 
@@ -42,6 +38,8 @@ class Event < ActiveRecord::Base
   attr_accessor :edit_date_action
 
   before_validation  :event_validation, :edit_date_actions
+
+  after_save :set_author_as_organizer
 
   def self.within(from, to)
     where("(start_date >= ? AND start_date <= ?) OR (end_date >= ? AND end_date <= ?)", from, to, from, to)
@@ -90,14 +88,6 @@ class Event < ActiveRecord::Base
     end
   end
 
-  after_create do |event|
-    #create a directory to save attachments
-    FileUtils.mkdir_p("#{Rails.root.to_s}/attachments/conferences/#{event.permalink}")
-    if event.author.present?
-      add_organizer! event.author
-    end
-  end
-
   after_save do |event|
     if event.mails
       mails_to_invite = event.mails.split(/[\r,]/).map(&:strip)
@@ -127,11 +117,6 @@ class Event < ActiveRecord::Base
     end
   end
 
-  after_destroy do |event|
-    FileUtils.rm_rf("#{Rails.root.to_s}/attachments/conferences/#{event.permalink}")
-    FileUtils.rm_rf("#{Rails.root.to_s}/public/pdf/#{event.permalink}")
-  end
-
   def author
     unless author_id.blank?
       return User.find_by_id_with_disabled(author_id)
@@ -142,8 +127,8 @@ class Event < ActiveRecord::Base
 
   def space
     space_id.present? ?
-    Space.find_with_disabled(space_id) :
-    nil
+      Space.find_with_disabled(space_id) :
+      nil
   end
 
   def organizers
@@ -184,36 +169,29 @@ class Event < ActiveRecord::Base
   end
 
   #method to get the starting date of an event in the correct format
-  def get_formatted_date
-    has_date? ?
-    I18n::localize(start_date, :format => "%A, %d %b %Y #{I18n::translate('date.at')} %H:%M. #{get_formatted_timezone}") :
-    I18n::t('date.undefined')
+  def get_formatted_date(date=nil)
+    if date.nil?
+      has_date? ?
+        I18n::localize(start_date, :format => "%A, %d %b %Y, %H:%M (#{get_formatted_timezone})") :
+        I18n::t('date.undefined')
+    else
+      I18n::localize(date, :format => "%A, %d %b %Y, %H:%M (#{get_formatted_timezone(date)})")
+    end
   end
 
-  def get_formatted_timezone
-    has_date? ?
-      "#{I18n::t('timezone.one')}: #{Time.zone.name} (#{start_date.zone}, GMT #{start_date.formatted_offset})" :
-    I18n::t('date.undefined')
+  def get_formatted_timezone(date=nil)
+    if date.nil?
+      has_date? ?
+        "GMT#{start_date.formatted_offset}" :
+        I18n::t('date.undefined')
+    else
+      "GMT#{date.formatted_offset}"
+    end
   end
 
   #method to get the starting hour of an event in the correct format
   def get_formatted_hour
     has_date? ? start_date.strftime("%H:%M") : I18n::t('date.undefined')
-  end
-
-  def to_xml(options = {})
-    options[:indent] ||= 2
-    xml = options[:builder] ||= Builder::XmlMarkup.new(:indent => options[:indent])
-    xml.instruct! unless options[:skip_instruct]
-    xml.event do
-      xml.id         self.id
-      xml.public     self.space.public?, :type => "boolean"
-      xml.start_date self.start_date,    :type => "datetime"
-      xml.end_date   self.end_date,      :type => "datetime"
-      xml.place      self.place
-      xml.permalink  self.permalink
-      xml.name       self.name
-    end
   end
 
   def unique_pageviews
@@ -236,7 +214,7 @@ class Event < ActiveRecord::Base
     create_activity key, :owner => space, :parameters => { :user_id => user.id, :username => user.name }
   end
 
-  private
+  protected
 
   def add_organizer! user
     p = Permission.new
@@ -244,6 +222,12 @@ class Event < ActiveRecord::Base
     p.subject = self
     p.role = Role.find_by_name_and_stage_type('Organizer', 'Event')
     p.save!
+  end
+
+  def set_author_as_organizer
+    unless self.organizers.include?(self.author)
+      add_organizer! self.author
+    end
   end
 
 end
