@@ -558,8 +558,12 @@ en:
       notify_attendees: "Notify confirmed attendees"
       title: "Invitations"
     event_card:
+      description_title: "Event description"
+      ends_at: "Ends at"
+      no_description: "No description informed for this event."
       organizers: "Organizers"
-      when: "When"
+      organizers_empty: "No organizer informed for this event."
+      starts_at: "Starts at"
       where: "Where"
     form_fields:
       timezone_notice: "You are using the timezone GMT%{timezone}. Set the dates below using this timezone."

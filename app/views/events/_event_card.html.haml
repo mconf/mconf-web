@@ -33,14 +33,20 @@
           .thread-updated-at
             = t('created_time_ago', :time => sanitize(time_ago_in_words(event.created_at)))
           .event-description-date
-            = t('.when') + ':'
+            = t('.starts_at') + ':'
             = event.get_formatted_date
-            - unless event.location.blank?
-              .event-description-location
-                = t('.where') + ':'
-                = sanitize(event.location)
-            .event-description-organizer
-              = t('.organizers') + ':'
+          .event-description-date
+            = t('.ends_at') + ':'
+            = event.get_formatted_date(event.end_date)
+          - unless event.location.blank?
+            .event-description-location
+              = t('.where') + ':'
+              = sanitize(event.location)
+          .event-description-organizer
+            = t('.organizers') + ':'
+            - if event.organizers.empty?
+              = t('.organizers_empty')
+            - else
               - orgs = []
               - event.organizers.each do |org|
                 - orgs.push link_to org.name, user_path(org)
@@ -48,6 +54,9 @@
 
 .content-block
   .content-block-header
-    %h3= "Event description"
+    %h3= t('.description_title')
   .content-block-middle
-    = simple_format(event.description)
+    - if event.description.blank?
+      = t('.no_description')
+    - else
+      = simple_format(event.description)

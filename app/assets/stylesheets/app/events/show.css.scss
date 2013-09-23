@@ -3,6 +3,12 @@
 
 body.events.show {
 
+  .events-hapenning-now {
+    .thread-text {
+      margin-left: 70px; // the width of the logo
+    }
+  }
+
   #events-participants-confirm {
     text-align: center;
     background: $light-gray;

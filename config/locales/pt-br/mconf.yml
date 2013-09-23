@@ -546,8 +546,12 @@ pt-br:
       when: "Quando"
       where: "Onde"
     event_card:
+      description_title: "Descrição do evento"
+      ends_at: "Acaba em"
+      no_description: "Nenhuma descrição foi informada para este evento."
       organizers: "Organizadores"
-      when: "Quando"
+      organizers_empty: "Nenhum organizador informado para este evento."
+      starts_at: "Inicia em"
       where: "Onde"
     event_invitations:
       invite: "Convidar pessoas"
