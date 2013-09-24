@@ -13,7 +13,7 @@ class mconf.Base
 
     # Links to open the webconference
     # Open it in a new borderless window
-    $("a.webconf-start-link:not(.disabled)").on "click.mconfBase", (e) ->
+    $("a.webconf-join-link:not(.disabled)").on "click.mconfBase", (e) ->
       window.open $(this)[0].href, "_blank", "resizable=yes"
       e.preventDefault()
       true # so it continues to the next callbacks, if any
@@ -88,7 +88,7 @@ class mconf.Base
       $($(this).attr("href")).submit()
 
   @unbind: ->
-    $("a.webconf-start-link:not(.disabled)").off "click.mconfBase"
+    $("a.webconf-join-link:not(.disabled)").off "click.mconfBase"
     $("a.disabled").off "click.mconfBase"
     $('a.link-to-expand').off "click.mconfBase"
     $('a.link-to-collapse').off "click.mconfBase"

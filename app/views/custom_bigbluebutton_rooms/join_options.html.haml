@@ -34,4 +34,4 @@
 
   .modal-footer.form-actions
     - cls = @room.is_running? ? "disabled" : ""
-    = link_to t(".start"), join_bigbluebutton_room_path(@room), :class => "btn btn-primary #{cls} webconf-start-link close-dialog"
+    = link_to t(".start"), join_bigbluebutton_room_path(@room), :class => "btn btn-primary #{cls} webconf-join-link close-dialog"
