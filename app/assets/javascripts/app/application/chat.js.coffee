@@ -379,7 +379,7 @@ $ ->
           "</div>" +
         "</div>"
       )
-  $("#main-chat-area").on "modal-opened", "#chat-add-user", ->
+  $("#main-chat-area").on "modal-shown", "#chat-add-user", ->
     jid = []
     name = []
     $("#member_token").tokenInput '/users/select.json',
@@ -425,7 +425,7 @@ $ ->
           "</div>" +
         "</div>"
       )
-  $("#main-chat-area").on "modal-opened", "#chat-webconf-invite", ->
+  $("#main-chat-area").on "modal-shown", "#chat-webconf-invite", ->
     jid = []
     $("#member_token").tokenInput '/users/select.json',
       crossDomain: false
@@ -470,7 +470,7 @@ $ ->
                "</div></div>"
      html += "</div></div>"
      $("#main-chat-area").append(html)
-  $("#main-chat-area").on "modal-opened", "#chat-friend-requests", ->
+  $("#main-chat-area").on "modal-shown", "#chat-friend-requests", ->
     $(document).on "click", "#chat-friend-requests-modal .friend-request-approve", ->
       name = $(this).parent().data('name')
       jid = $(this).parent().data('jid')

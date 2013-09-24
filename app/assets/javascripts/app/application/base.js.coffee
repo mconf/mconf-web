@@ -16,11 +16,12 @@ class mconf.Base
     $("a.webconf-start-link:not(.disabled)").on "click.mconfBase", (e) ->
       window.open $(this)[0].href, "_blank", "resizable=yes"
       e.preventDefault()
+      true # so it continues to the next callbacks, if any
 
     # Disable the click in any link with the 'disabled' class
     $("a.disabled").on "click.mconfBase", (e) ->
-      false
       e.preventDefault()
+      true # so it continues to the next callbacks, if any
 
     # Add a title and tooltip to elements that can only be used by a logged user
     $(".login-to-enable").each ->

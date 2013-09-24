@@ -1,77 +1,136 @@
-# Use the class 'open-modal' in a <a> to open as modal.
-# If 'href' is a link, it will be executed (ajax) and the content
-# will be renderd in the modal. If the 'href' points to an id
-# (e.g. #my-element), the element's content will be displayed inside
-# the modal window.
+# This class contains all functionally to abstract bootstrap's modal and whatever
+# other libraries are used for modal windows.
+#
+# Use the class 'open-modal' in a `<a>` tag to open its content in a modal.
+# If the `href` is a link, it will be loaded (ajax) and the content will be rendered
+# in the modal. If the `href` points to an id (e.g. #my-element), the element's content
+# will be displayed as a modal window.
+# To view more options see `mconf.Modal.showWindow()`.
+#
+# Modals have a default width set by bootstrap. To set a different width, set `data-modal-width`
+# in your element. The values accepted are:
+# * `small`: Adds a css class to force the modal to be smaller/narrower
 #
 # Triggers the events:
-# * `modal-before-configure`
-# * `modal-before-open`
-# * `modal-opened`
-# * `modal-after-update-markup`
-
+# * `modal-before-configure`: First event triggered when the modal starts being configured.
+# * `modal-open`: From bootstrap, triggered immediately after `show` is called.
+# * `modal-opened`: From bootstrap, triggered after the modal is loaded and shown.
+# * `modal-hide`: From bootstrap, triggered immediately after `hide` is called.
+# * `modal-hidden`: From bootstrap, triggered after the modal is closed.
+#
 class mconf.Modal
 
   # Shows the modal window using the options in 'options'
+  # Options accepted:
+  # * `element`: The element that generated the event (i.e. the link or button that was clicked).
+  # * `target`: The target modal that will be opened. Can be a selector to an element already in
+  #   the page (e.g. '#my-modal') or a link to a URL that will be loaded to get the modal content.
+  # * `data`: Can be used to pass the content that should be shown in the modal via javascript. To
+  #   use it, leave `target` as `null` and set `data` with the string containing the HTML to be
+  #   shown.
   @showWindow: (options) ->
-    localOptions = {}
-    #   backdrop: true
-    #   keyboard: true
-    # jQuery.extend localOptions, options
-    if options.target?
-      el = $(options.target)
-      delete options.target
+    localOptions =
+      show: true
+      replace: true
+      keyboard: true  # Closes the modal when escape key is pressed
+      # maxHeight: 0.7 * $(window).height()
+      # modalOverflow: true
+
+    # show the loading bar
+    $("body").modalmanager("loading")
+
+    # if target is a url, the content will be loaded from it
+    href = options.target
+    if href? and href[0] is "#" and $(href)?
+      isRemote = false
+      $modal = $(options.target)
+
+    # not an url, assumes it is the selector to the element that has the content
+    # for the modal or there is content set in options.data
     else
-      el = $("<div/>")
-      el.append(options.data) if options.data?
+      $modal = $("<div/>")
+      $modal.addClass('modal')
+      if options.data?
+        isRemote = false
+        $modal.append(options.data)
+      else
+        isRemote = true
+
+    # need to add this so the keyboard shortcuts (ESC mainly) will work as the modal is opened
+    # see more about it at https://github.com/twbs/bootstrap/issues/4663
+    $modal.attr("tabindex", -1)
+
+    # if the user wants a different width for the modal, add the proper css class
+    modalWidth = $(options.element).attr("data-modal-width")
+    switch modalWidth
+      when "small"
+        $modal.addClass("modal-small")
+
+    # set up the events
+    $modal.on "show", ->
+      $(options.element).trigger("modal-show")
+    $modal.on "shown", ->
+      $modal.modal("layout")
+      $("body").modalmanager("removeLoading")
+      mconf.Resources.bind() # bind resources to the new modal
+      $("[autofocus]", $modal).focus()
+      $(options.element).trigger("modal-shown")
+    $modal.on "hide", ->
+      $(options.element).trigger("modal-hide")
+    $modal.on "hidden", ->
+      $(options.element).trigger("modal-hidden")
+
     jQuery.extend localOptions, options
 
-    # events
-    $(document).on "dialog2.before-open", $(options.element), ->
-      $(options.element).trigger("modal-before-open")
-    $(document).on "dialog2.opened", $(options.element), ->
-      $(options.element).trigger("modal-opened")
-    $(document).on "dialog2.after-update-markup", $(options.element), ->
-      mconf.Resources.bind() # bind resources to the new modal
-      $(options.element).trigger("modal-after-update-markup")
-    $(document).on "dialog2.closed", $(options.element), ->
-      $(options.element).trigger("modal-closed")
+    # if its a link, load the content and then show it
+    if isRemote
+      $modal.load options.target, "", ->
+        $modal.modal(localOptions)
 
-    el.dialog2(localOptions)
-
-  # Global method to close all modal windows open
-  @closeWindows: ->
-    $(".modal > .modal-body.opened").dialog2("close")
-
-  # Links a <a> to be opened with a modal window.
-  # Used internally (in this file) only.
-  @bind: (event) ->
-    event.preventDefault()
-    options = {}
-
-    options.element = event.target # who generated the event
-    $(options.element).trigger("modal-before-configure")
-
-    # check whether we should show content that's already in the page
-    href = $(this).attr("href")
-    if href? and href[0] is "#" and $(href)?
-      options.target = href
-
-    # otherwise we render the content returned by the url
+    # not a link, simply show the content
     else
-      options.content = href
+      $modal.modal(localOptions)
 
-    mconf.Modal.showWindow options
+  # Close all modal modal windows
+  @closeWindows: ->
+    $(".modal").modal("hide")
+
+  @unbind: ->
+    $("a.open-modal:not(.disabled)").off "click.mconfModal"
+    $("a.webconf-join-mobile-link:not(.disabled)").off "click.mconfModal"
+    $("a.spam-report:not(.disabled)").off "click.mconfModal"
+
+  @bind: ->
+    @unbind()
+
+    # General links to open with a modal window
+    $("a.open-modal:not(.disabled)").on "click.mconfModal", bindAndOpen
+
+    # Links to open the window to join a webconference from a mobile device
+    $("a.webconf-join-mobile-link:not(.disabled)").on "click.mconfModal", bindAndOpen
+
+    # Links to report a spam are also in a modal
+    $("a.spam-report:not(.disabled)").on "click.mconfModal", bindAndOpen
+
+    # For elements with the class .close-dialog we add attributes so that bootstrap will make
+    # them close the modal automatically
+    $(".modal .close-dialog").attr("data-dismiss", "modal")
 
 $ ->
-  # General links to open with a modal window
-  openModal = "a.open-modal:not(.disabled)"
-  $(document).on "click", openModal, mconf.Modal.bind
+  mconf.Modal.bind()
 
-  # Links to open the window to join a webconference from a mobile device
-  joinMobile = "a.webconf-join-mobile-link:not(.disabled)"
-  $(document).on "click", joinMobile, mconf.Modal.bind
+# Method called when an <a> is clicked to be opened in a modal window.
+# Used internally (in this file) only.
+bindAndOpen = (event) ->
+  event.preventDefault()
+  options = {}
 
-  # Links to report a spam are also in a modal
-  spam = "a.spam-report:not(.disabled)"
-  $(document).on "click", spam, mconf.Modal.bind
+  # element that generated the event
+  # if it's a span inside an anchor, we want the anchor, so `currentTarget` is better than `target`
+  options.element = event.currentTarget
+
+  options.target = $(this).attr("href")
+
+  $(options.element).trigger("modal-before-configure")
+
+  mconf.Modal.showWindow options

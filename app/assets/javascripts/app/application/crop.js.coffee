@@ -24,8 +24,8 @@ class mconf.Crop
         selectFileForm.ajaxSubmit (data) ->
 
           # setup calls to bindings when the modal is shown
-          selectFileForm.off "modal-after-update-markup.mconfCrop", ->
-          selectFileForm.on "modal-after-update-markup.mconfCrop", ->
+          selectFileForm.off "modal-shown.mconfCrop", ->
+          selectFileForm.on "modal-shown.mconfCrop", ->
             cropForm = $("#crop-modal form")
             cropModal = $("#crop-modal")
             unless cropForm.attr("data-crop-set") is "1"

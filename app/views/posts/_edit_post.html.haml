@@ -1,10 +1,14 @@
 #post-edit
-  %h1= t('thread.edit')
+  .modal-header
+    = modal_close_button
+    %h3= t('thread.edit')
+
   #post-message
     = simple_form_for([@space, prepare_for_form(@post)], :html => { :multipart => true, :class => "single-column" }) do |f|
-      - unless @post.parent_id?
-        = f.input :title, :label => t('title')
-      = f.input :text, :label => t('post.one'), :as => :text
-      .form-actions
+      .modal-body
+        - unless @post.parent_id?
+          = f.input :title, :label => t('title')
+        = f.input :text, :label => t('post.one'), :as => :text
+      .modal-footer.form-actions
         = f.button :submit, t("save"), :class => "btn btn-primary"
         = link_to t("cancel"), "#", :class => "btn close-dialog"

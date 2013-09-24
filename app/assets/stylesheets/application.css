@@ -3,7 +3,7 @@
  *= require ./bootstrap_and_overrides
  *= require ../../../vendor/assets/stylesheets/jquery/jquery.Jcrop
  *= require ../../../vendor/assets/stylesheets/jquery/jquery.noty
- *= require ../../../vendor/assets/stylesheets/jquery/jquery.dialog2
+ *= require ../../../vendor/assets/stylesheets/bootstrap/bootstrap-modal
  *= require ../../../vendor/assets/stylesheets/token-input-facebook
  *= require font-awesome
  *

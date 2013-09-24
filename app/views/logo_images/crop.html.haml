@@ -1,19 +1,22 @@
 #crop-modal
+  .modal-header
+    = modal_close_button
+    %h3= @page
 
-  %h1= @page
+  .modal-body
 
-  .jcrop-wrapper
-    = image_tag @model.logo_image_url(:large), :class => 'cropable',
-        :'data-crop-width' => @width, :'data-crop-aspect-ratio' => @aspect_ratio
+    .jcrop-wrapper
+      = image_tag @model.logo_image_url(:large), :class => 'cropable',
+          :'data-crop-width' => @width, :'data-crop-aspect-ratio' => @aspect_ratio
 
-  .preview
-    .preview-title= t('.preview')
-    -# TODO: can't this style be in the css? or part of it?
-    .jcrop-wrapper{ :style => "width:#{@width.to_i}px; height:100px; overflow:hidden" }
-      = image_tag @model.logo_image_url(:large), :class => 'crop-preview'
+    .preview
+      .preview-title= t('.preview')
+      -# TODO: can't this style be in the css? or part of it?
+      .jcrop-wrapper{ :style => "width:#{@width.to_i}px; height:100px; overflow:hidden" }
+        = image_tag @model.logo_image_url(:large), :class => 'crop-preview'
 
-  = form_for @model, :url => @url do |f|
-    - %w[x y w h].each do |attribute|
-      = f.hidden_field "crop_#{attribute}", :class => "crop-#{attribute}"
-    .form-actions
+  .modal-footer.form-actions
+    = form_for @model, :url => @url do |f|
+      - %w[x y w h].each do |attribute|
+        = f.hidden_field "crop_#{attribute}", :class => "crop-#{attribute}"
       = f.submit t('.crop_it'), :class => 'btn btn-primary'

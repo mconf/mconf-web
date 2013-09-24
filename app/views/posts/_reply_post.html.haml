@@ -1,11 +1,16 @@
 #post-reply
-  %h1
-    = t("reply_to")
-    = @post.title
+
+  .modal-header
+    %h3
+      = modal_close_button
+      = t("reply_to")
+      = @post.title
+
   #post-message
     = simple_form_for([@space,prepare_for_form(Post.new, :parent_id => @post.id)], :html => { :multipart => true, :class => "single-column" }) do |f|
-      = f.hidden_field :parent_id
-      = f.input :text
-      .form-actions
+      .modal-body
+        = f.hidden_field :parent_id
+        = f.input :text
+      .modal-footer.form-actions
         = f.button :submit, t("button.post"), :class => "btn btn-primary"
         = link_to t("cancel"), "#", :class => "btn close-dialog"

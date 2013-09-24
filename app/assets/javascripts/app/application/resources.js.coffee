@@ -22,6 +22,7 @@ class mconf.Resources
     mconf.Notification.bind()
     mconf.SelectableButtons.bind()
     mconf.ShowablePassword.bind()
+    mconf.Modal.bind()
     for method in temporaryBinds
       method.call()
 

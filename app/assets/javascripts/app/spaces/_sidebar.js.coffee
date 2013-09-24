@@ -14,14 +14,14 @@ class mconf.Spaces.Sidebar
       mconf.CustomBigbluebuttonRooms.JoinOptions.bind()
 
     # check the inputs for the first time when the modal is opened
-    $(document).on "modal-after-update-markup.mconfSpacesSidebar", ->
+    $(document).on "modal-shown.mconfSpacesSidebar", ->
       mconf.CustomBigbluebuttonRooms.JoinOptions.verifyInputs()
 
     # this modal binds some things in the modal using "global" selectors such as ".modal"
     # so we make sure we unbind everything when the modal is closed
-    $("#sidebar-webconference .webconf-join-group .open-modal").on "modal-closed.mconfSpacesSidebar", ->
+    $("#sidebar-webconference .webconf-join-group .open-modal").on "modal-hidden.mconfSpacesSidebar", ->
       mconf.CustomBigbluebuttonRooms.JoinOptions.unbind()
 
   @unbind: ->
-    $(document).off "modal-after-update-markup.mconfSpacesSidebar"
-    $("#sidebar-webconference .webconf-join-group .open-modal").off "modal-closed.mconfSpacesSidebar"
+    $(document).off "modal-shown.mconfSpacesSidebar"
+    $("#sidebar-webconference .webconf-join-group .open-modal").off "modal-hidden.mconfSpacesSidebar"

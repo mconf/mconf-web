@@ -1,33 +1,37 @@
 - meta_title = get_room_metadata(@room, configatron.webconf.metadata.title)
 - meta_description = get_room_metadata(@room, configatron.webconf.metadata.description)
 
-%h1= t('.title', :room => @room.name)
-
 #webconference-join-options-dialog
 
-  - if @room.is_running?
-    .alert.alert-danger= t('.alert_webconf_running')
+  .modal-header
+    = modal_close_button
+    %h3= t('.title', :room => @room.name)
 
-  - form_url = bigbluebutton_room_path(@room, :format => 'json')
+  .modal-body
 
-  = simple_form_for @room, :url => form_url, :remote => true, :html => { :class => "single-column in-place-edit" } do |f|
-    = f.input :record, :label => t('.record.label'), :hint => t('.record.tooltip'), :input_html => { :class => "in-place-edit" }
-    = in_place_edit_indicators
+    - if @room.is_running?
+      .alert.alert-danger= t('.alert_webconf_running')
 
-  = simple_form_for @room, :url => form_url, :remote => true, :html => { :class => "single-column in-place-edit" } do |f|
-    .input
-      = f.simple_fields_for :metadata, meta_title do |metadata_form|
-        = metadata_form.label :content, :label => t('.metadata.title')
-        = metadata_form.text_field :content, :class => "string in-place-edit"
-        = in_place_edit_indicators
+    - form_url = bigbluebutton_room_path(@room, :format => 'json')
 
-  = simple_form_for @room, :url => form_url, :remote => true, :html => { :class => "single-column in-place-edit" } do |f|
-    .input
-      = f.simple_fields_for :metadata, meta_description do |metadata_form|
-        = metadata_form.label :content, :label => t('.metadata.description')
-        = metadata_form.text_field :content, :class => "string in-place-edit"
-        = in_place_edit_indicators
+    = simple_form_for @room, :url => form_url, :remote => true, :html => { :class => "single-column in-place-edit" } do |f|
+      = f.input :record, :label => t('.record.label'), :hint => t('.record.tooltip'), :input_html => { :class => "in-place-edit" }
+      = in_place_edit_indicators
 
-  .form-actions
+    = simple_form_for @room, :url => form_url, :remote => true, :html => { :class => "single-column in-place-edit" } do |f|
+      .input
+        = f.simple_fields_for :metadata, meta_title do |metadata_form|
+          = metadata_form.label :content, :label => t('.metadata.title')
+          = metadata_form.text_field :content, :class => "string in-place-edit"
+          = in_place_edit_indicators
+
+    = simple_form_for @room, :url => form_url, :remote => true, :html => { :class => "single-column in-place-edit" } do |f|
+      .input
+        = f.simple_fields_for :metadata, meta_description do |metadata_form|
+          = metadata_form.label :content, :label => t('.metadata.description')
+          = metadata_form.text_field :content, :class => "string in-place-edit"
+          = in_place_edit_indicators
+
+  .modal-footer.form-actions
     - cls = @room.is_running? ? "disabled" : ""
-    = link_to t(".start"), join_bigbluebutton_room_path(@room), :class => "btn btn-primary #{cls}"
+    = link_to t(".start"), join_bigbluebutton_room_path(@room), :class => "btn btn-primary #{cls} webconf-start-link close-dialog"

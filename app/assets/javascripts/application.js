@@ -21,8 +21,8 @@
 //= require jquery/jquery.autosize
 
 // For modals.
-//= require jquery/jquery.dialog2
-//= require jquery/jquery.dialog2.helpers
+//= require bootstrap/bootstrap-modal
+//= require bootstrap/bootstrap-modalmanager
 
 // Used in crop, modals and possibly other places. Grep for `ajaxForm`
 // and `ajaxSubmit`.

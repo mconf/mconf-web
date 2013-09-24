@@ -12,42 +12,47 @@
     });
   });
 
-%h1
-  - if @type == "webconference"
-    = t('webconference.invite_webconference')
-  - elsif @type == "event"
-    = t('event.invite_event', :event_name => @event.name)
-
 #webconference-invite
-  - if @type == "webconference"
-    .alert.alert-gray
-      %label= t('home.invite_url')
-      = text_field_tag "room_invite_url", join_webconf_url(@room), :readonly => true
+
+  .modal-header
+    = modal_close_button
+    - if @type == "webconference"
+      %h3= t('webconference.invite_webconference')
+    - elsif @type == "event"
+      %h3= t('event.invite_event', :event_name => @event.name)
 
   = simple_form_for :invite, :url => sendinvite_invite_path, :html => { :class => 'single-column' } do |f|
-    = f.hidden_field :type, :value => @type
 
-    .section-header
-      = icon_help t('invite_people.names_tip')
-      = t('invite_people.mconf_users')
-    = f.text_field :members_tokens, :autofocus => true
-    = t('invite_people.notify_by') + ': '
-    = f.check_box :im_check, :checked => 'checked'
-    = t('invite_people.internal_message')
-    = f.check_box :email_check, :checked => 'checked'
-    = t('invite_people.email.one')
+    .modal-body
+      - if @type == "webconference"
+        .alert.alert-gray
+          %label= t('home.invite_url')
+          = text_field_tag "room_invite_url", join_webconf_url(@room), :readonly => true
 
-    .section-header
-      = icon_help t('invite_people.emails_tip')
-      = t('invite_people.other_people')
-    = f.text_field :email_tokens, :size => 76, :class => 'string', :placeholder => t('invite_people.email.other')
+      = f.hidden_field :type, :value => @type
 
-    - if @type != "event"
-      = f.text_area :message, :id=> "text_message", :placeholder => t('invite_people.message')
-    - if @type == "webconference"
-      = f.hidden_field :room_name, :value => @room.name
-      = f.hidden_field :room_url, :value => join_webconf_url(@room)
-    - elsif @type == "event"
-      = f.hidden_field :event_id, :value => @event.id
-    .form-actions
+      .section-header
+        = icon_help t('invite_people.names_tip')
+        = t('invite_people.mconf_users')
+      = f.text_field :members_tokens, :autofocus => true
+      = t('invite_people.notify_by') + ': '
+      = f.check_box :im_check, :checked => 'checked'
+      = t('invite_people.internal_message')
+      = f.check_box :email_check, :checked => 'checked'
+      = t('invite_people.email.one')
+
+      .section-header
+        = icon_help t('invite_people.emails_tip')
+        = t('invite_people.other_people')
+      = f.text_field :email_tokens, :size => 76, :class => 'string', :placeholder => t('invite_people.email.other')
+
+      - if @type != "event"
+        = f.text_area :message, :id=> "text_message", :placeholder => t('invite_people.message')
+      - if @type == "webconference"
+        = f.hidden_field :room_name, :value => @room.name
+        = f.hidden_field :room_url, :value => join_webconf_url(@room)
+      - elsif @type == "event"
+        = f.hidden_field :event_id, :value => @event.id
+
+    .modal-footer.form-actions
       = f.button :submit, t('invite_people.send_invitations'), :class => "btn btn-primary"

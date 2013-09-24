@@ -17,7 +17,7 @@
       = link_to t('.join'), join_bigbluebutton_room_path(room), :class => "btn open-modal btn-success"
       = link_to t('.end'), join_bigbluebutton_room_path(room), options_for_tooltip(t('.end_tooltip'), :confirm => t('are_you_sure'), :class => 'btn btn-danger')
     - else
-      = link_to t('.start'), join_options_bigbluebutton_room_path(room), :class => "btn open-modal btn-primary"
+      = link_to t('.start'), join_options_bigbluebutton_room_path(room), :class => "btn open-modal btn-primary", :'data-modal-width' => 'small'
       = link_to join_bigbluebutton_room_path(room), options_for_tooltip(t(".fast_start"), :class => "btn btn-primary webconf-start-link") do
         = icon_webconf_start()
 
@@ -38,10 +38,11 @@
       .caret
     %ul.dropdown-menu.pull-right
       %li
-        = link_to join_mobile_bigbluebutton_room_path(room), :class => "webconf-join-mobile-link" do
+        = link_to join_mobile_bigbluebutton_room_path(room), :class => "webconf-join-mobile-link", :'data-modal-width' => 'small' do
           %span= t('.join_mobile_full')
+      %li.divider
       %li= link_to t('.invite'), inviteroom_invite_path(:type => "webconference", :room => room.to_param), :class => 'open-modal'
-      %li= link_to t('.preferences'), join_options_bigbluebutton_room_path(room), :class => "open-modal"
+      %li= link_to t('.preferences'), join_options_bigbluebutton_room_path(room), :class => "open-modal", :'data-modal-width' => 'small'
 
   - else
     -# anonymous or non members see only the button to join from mobile
@@ -52,5 +53,5 @@
       = link_to "#", :class => "btn webconf-join-mobile-link disabled webconf-not-allowed-create" do
         %span= t('.join_mobile')
     - else
-      = link_to join_mobile_space_room_path(@space, @webconf_room), :class => "btn webconf-join-mobile-link" do
+      = link_to join_mobile_space_room_path(@space, @webconf_room), :class => "btn webconf-join-mobile-link", :'data-modal-width' => 'small' do
         %span= t('.join_mobile')
