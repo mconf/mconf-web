@@ -18,6 +18,7 @@ group :assets do
   gem 'select2-rails'
 end
 
+gem 'net-ldap'
 gem 'gon', '3.0.5'
 gem 'mysql2', '~> 0.3.0'
 gem 'rake'

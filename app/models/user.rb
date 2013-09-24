@@ -82,6 +82,7 @@ class User < ActiveRecord::Base
   has_many :participants, :dependent => :destroy
   has_many :posts, :as => :author, :dependent => :destroy
   has_one :bigbluebutton_room, :as => :owner, :dependent => :destroy
+  has_one :ldap_token, :dependent => :destroy
 
   accepts_nested_attributes_for :bigbluebutton_room
 
