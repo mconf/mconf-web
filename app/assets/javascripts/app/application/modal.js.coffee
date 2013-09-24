@@ -28,6 +28,7 @@ class mconf.Modal
   # * `data`: Can be used to pass the content that should be shown in the modal via javascript. To
   #   use it, leave `target` as `null` and set `data` with the string containing the HTML to be
   #   shown.
+  # * `modalWidth`: To force the modal to assume a different width. Accepted values: "small".
   @showWindow: (options) ->
     localOptions =
       show: true
@@ -61,7 +62,7 @@ class mconf.Modal
     $modal.attr("tabindex", -1)
 
     # if the user wants a different width for the modal, add the proper css class
-    modalWidth = $(options.element).attr("data-modal-width")
+    modalWidth = $(options.element).attr("data-modal-width") || options.modalWidth
     switch modalWidth
       when "small"
         $modal.addClass("modal-small")

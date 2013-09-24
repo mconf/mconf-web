@@ -27,6 +27,11 @@ en:
       delete_html: removed attachment %{name} from
       update_html: uploaded a new version of %{name} to
       deleted: an attacment that has since been deleted
+  _js:
+    confirmation_dialog:
+      cancel: "Cancel"
+      confirm: "OK"
+      title: "Confirmation"
   _other:
     create: "Create"
     destroy: "Destroy"

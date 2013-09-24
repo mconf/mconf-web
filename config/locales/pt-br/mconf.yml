@@ -27,6 +27,11 @@ pt-br:
       delete_html: removou o anexo %{name} de
       update_html: atualizou o anexo %{name} de
       deleted: que não existe mais
+  _js:
+    confirmation_dialog:
+      cancel: "Cancelar"
+      confirm: "OK"
+      title: "Confirmação"
   _other:
     create: "Criar"
     destroy: "Remover"
