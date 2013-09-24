@@ -620,11 +620,6 @@ pt-br:
     no_rooms: "Você não tem salas de webconferência."
     not_running: inativa
     one: home
-    running_with:
-      no_participants: "ativa sem participantes"
-      participants:
-        one: "ativa com %{count} participante"
-        other: "ativa com %{count} participantes"
     view_invite_url: "Ver URL para convites"
   homes:
     page_header:
@@ -638,13 +633,21 @@ pt-br:
       view_all_spaces: "Ver todas comunidades"
     webconference_room:
       end: "Parar a reunião"
+      end_tooltip: "Esta ação vai finalizar a reunião em andamento!"
       fast_start: "Início rápido usando as opções já configuradas"
       invite: "Convidar outras pessoas..."
       join: "Entrar na reunião!"
       join_mobile_full: "Entrar a partir de um dispositivo móvel..."
+      not_running: "Nenhuma reunião em andamento."
       options: "Opções"
       preferences: "Preferências..."
+      running_with:
+        no_participants: "Existe uma reunião em andamento sem usuários."
+        participants:
+          one: "Há uma reunião em andamento com %{count} usuário!"
+          other: "Há uma reunião em andamento com %{count} usuários!"
       start: "Começar uma nova reunião"
+      your_url: "Seu endereço"
   icons: 
     unread_message: "Mensage não lida!"
     unread_message_by_receiver: "Esta mensagem ainda não foi lida pelo usuário que a recebeu"
@@ -1272,7 +1275,8 @@ pt-br:
       webconference_join: "Entrar"
       webconference_start: "Iniciar"
     sidebar_webconf_buttons:
-      end: "Parar a reunião"
+      end: "Finalizar"
+      end_tooltip: "Esta ação vai finalizar a reunião em andamento!"
       fast_start: "Início rápido usando as opções já configuradas"
       invite: "Convidar outras pessoas..."
       join: "Entrar!"

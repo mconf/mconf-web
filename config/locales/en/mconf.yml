@@ -630,19 +630,6 @@ en:
     no_spaces: "You not belong to any spaces. You can see the spaces available <a href=\"%{link}\">here</a>."
     one: home
     view_invite_url: "View Invite URL"
-    webconference: 
-      config_tooltip: "Change the configurations of your web conference room"
-      end: "Stop the meeting"
-      end_tooltip: "This action will end the current conference!"
-      invite: "Invite people"
-      invite_tooltip: "Invite people to join your conference"
-      not_running: "Your webconference is not in progress."
-      running_with: 
-        no_participants: "Your webconference is in progress with no participants."
-        participants: 
-          one: "Your webconference is in progress with %{count} participant!"
-          other: "Your webconference is in progress with %{count} participants!"
-      your_url: "Your URL"
   homes:
     page_header:
       activity_list: "Activity list"
@@ -655,13 +642,21 @@ en:
       view_all_spaces: "View all spaces"
     webconference_room:
       end: "Stop the meeting"
+      end_tooltip: "This action will end the current conference!"
       fast_start: "Fast start using the options already configured"
       invite: "Invite other people..."
       join: "Join the meeting!"
       join_mobile_full: "Join from a mobile device..."
+      not_running: "Your webconference is not in progress."
       options: "Options"
       preferences: "Preferences..."
+      running_with:
+        no_participants: "Your webconference is in progress with no participants."
+        participants:
+          one: "Your webconference is in progress with %{count} participant!"
+          other: "Your webconference is in progress with %{count} participants!"
       start: "Start a new meeting"
+      your_url: "Your URL"
   icons: 
     unread_message: "Unread message!"
     unread_message_by_receiver: "This message has not yet been read by the receiver"
@@ -1307,7 +1302,8 @@ en:
       webconference_join: "Join it"
       webconference_start: "Start it"
     sidebar_webconf_buttons:
-      end: "Stop the meeting"
+      end: "Stop it"
+      end_tooltip: "This action will end the current conference!"
       fast_start: "Fast start using the options already configured"
       invite: "Invite other people..."
       join: "Join now!"

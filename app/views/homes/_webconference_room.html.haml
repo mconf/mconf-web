@@ -7,17 +7,17 @@
     %h3
       - if running
         - if @room.participant_count == 0
-          - status = t('home.webconference.running_with.no_participants')
+          - status = t('.running_with.no_participants')
         - else
-          - status = t('home.webconference.running_with.participants', :count => @room.participant_count)
+          - status = t('.running_with.participants', :count => @room.participant_count)
       - else
-        - status = t('home.webconference.not_running')
+        - status = t('.not_running')
       = status.capitalize
 
   .invite-url
     -#.clippy
     -#  = clippy(:id => "invite-url-text", :bg_color => "#FFFFFF").html_safe
-    %label= t('home.webconference.your_url')
+    %label= t('.your_url')
     = text_field_tag 'invite-url-text', join_webconf_url(@room), :readonly => true
     - if running
       = icon_in_progress
@@ -31,8 +31,8 @@
         - unless running
           = link_to join_bigbluebutton_room_path(@room), options_for_tooltip(t(".fast_start"), :class => "btn btn-small btn-primary webconf-start-link") do
             = icon_webconf_start
-    - if running
-      %li= link_to t('.end'), end_bigbluebutton_room_path(current_user.bigbluebutton_room, :redir_url => home_path), options_for_tooltip(t('home.webconference.end_tooltip'), :confirm => t('are_you_sure'), :class => 'btn btn-small btn-danger')
+        - else
+          = link_to t('.end'), end_bigbluebutton_room_path(current_user.bigbluebutton_room, :redir_url => home_path), options_for_tooltip(t('.end_tooltip'), :confirm => t('are_you_sure'), :class => 'btn btn-small btn-danger')
     %li
       .btn-group
         .btn.btn-small.dropdown-toggle{ :"data-toggle" => "dropdown", :href => "#" }
