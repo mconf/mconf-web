@@ -46,6 +46,10 @@ en:
     no_: "No"
     publish: "Publish"
     save: "Save"
+    spam:
+      title: "Spam"
+      tooltip: "Report this item as a spam"
+      icon_tooltip: "This item has been reported as spam and is being evaluated by the administrators"
     update: "Update"
     unpublish: "Unpublish"
     yes_: "Yes"
@@ -268,8 +272,6 @@ en:
     add: "Add a comment"
     add_new: "Add a new comment"
     by: "comment by %{author}"
-    delete: "Delete comment"
-    not_spam: "Is %{element} not a spam?"
     edit: "Edit comment"
     new: "New comment"
     one: Comment
@@ -842,6 +844,20 @@ en:
       title: "Site Management"
       users: "Users"
       webconf: "Web Conference"
+    spam:
+      event:
+        delete_confirmation: "Remove this event permanently?"
+        delete_tooltip: "This event is a spam, remove it"
+        not_spam_confirmation: "Confirm that this event is not a spam?"
+        not_spam_tooltip: "This event is not a spam"
+        title: "Events marked as spam"
+      no_spam: "No spam reported"
+      post:
+        delete_confirmation: "Remove this post permanently?"
+        delete_tooltip: "This post is a spam, remove it"
+        not_spam_confirmation: "Confirm that this post is not a spam?"
+        not_spam_tooltip: "This post is not a spam"
+        title: "Posts marked as spam"
   mandatory_field: "Mandatory field"
   message: 
     created: "Message sent successfully"
@@ -1322,16 +1338,10 @@ en:
       public: "Public"
     unified_space: 
       user_is_member: "You are a member of this space"
-  spam: 
-    created: "A reporting spam e-mail has been successfully sent to the admin. Thank you"
-    default: spam
-    detected: "New spam detected"
-    error: 
-      check: "There was a problem marking the resource as spam"
-    item: "This item has been reported as spam and is being evaluated by the administrators"
-    report: "Report spam"
-    reported: "%{name} (%{email}) has reported spam in %{sitename}"
-    valid: "This content is valid"
+  spam:
+    spam_report_create:
+      error: "Sorry, but there was a problem marking this item as spam"
+      success: "The item was marked as a spam! It will be checked by the administrators"
   sponsors: 
     prav: "Projetos em<br/>Áudio e Vídeo"
     rnp: "Rede Nacional de<br/>Ensino e Pesquisa"
@@ -1373,7 +1383,7 @@ en:
     add: "Post message to wall"
     comments: "%{children} comments"
     compact_view: "Switch to compact view"
-    deleted: "Message (with its comments) has been deleted"
+    deleted: "The post (with its comments) has been deleted"
     edit: "Edit message"
     extended_view: "Switch to extended view"
     or_add_new: "or create a new message"

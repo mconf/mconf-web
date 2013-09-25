@@ -58,7 +58,7 @@ module IconsHelper
   end
 
   def icon_spam(options={})
-    icon_constructor t("spam.item"), "icon-awesome icon-warning-sign icon-mconf-spam", options
+    icon_constructor t("_other.spam.tooltip"), "icon-awesome icon-warning-sign icon-mconf-spam", options
   end
 
   def icon_message(options={})

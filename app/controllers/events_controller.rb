@@ -6,7 +6,7 @@
 # 3 or later. See the LICENSE file.
 
 class EventsController < ApplicationController
-  # TODO: review
+
   include SpamControllerModule
 
   layout "spaces_show"
@@ -91,6 +91,10 @@ class EventsController < ApplicationController
   end
 
   private
+
+  def resource_for_spam
+    @event
+  end
 
   # TODO: all the events are being filtered by software, this all can be done directly in the db
   def assign_events

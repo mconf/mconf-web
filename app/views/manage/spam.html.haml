@@ -1,24 +1,34 @@
 = render :partial => 'menu'
 
 #manage
-  #spam
-    - if @spam_posts.empty? && @spam_events.empty?
-      %p{:class=>"main_text"}
-        = t("spam.report")
-    - else
-      - if !@spam_posts.empty?
-        %h3 Spam in Posts
-        - for spam in @spam_posts
-          .spam_posts
-            .group_links
-              = link_to(icon_delete(), space_post_path(spam.space,spam), {:method => :delete, :class => 'delete_post_link', :title => t('comment.delete'), :confirm => t('delete.confirm', :element=> spam.title)})
-              = link_to(icon_confirm(), space_post_path(spam.space,spam,:post => { :spam => false }), {:method => :put, :class => 'delete_post_link', :title => t('comment.delete'), :confirm => t('comment.not_spam', :element=> spam.title)})
-            .spam_title
-              Post Title:
-              = link_to spam.title, space_post_path(spam.space, spam),:class=>"unified_posts"
-      - if !@spam_events.empty?
-        %h3= t('event.spam')
-        - for spam in @spam_events
-          .spam_posts
-            Event Title:
-            = link_to spam.title, space_event_path(spam.space, spam),:class=>"unified_event"
+  .content-block
+    .content-block-header
+      %h3= t('.post.title')
+    .content-block-middle
+      - if @spam_posts.empty?
+        = t('.no_spam')
+      - else
+        - for post in @spam_posts
+          .spam-item
+            .spam-buttons
+              -# TODO: these actions should redirect to /manage/spam
+              = link_to icon_confirm, space_post_path(post.space, post, :post => { :spam => false }), options_for_tooltip(t('.post.not_spam_tooltip'), :method => :put, :confirm => t('.post.not_spam_confirmation'))
+              = link_to icon_delete, space_post_path(post.space, post), options_for_tooltip(t('.post.not_spam_tooltip'), :method => :delete, :confirm => t('.post.delete_confirmation'))
+            .spam-body
+              = render :partial => 'posts/unified_post' , :locals => { :thread => post }
+
+  .content-block
+    .content-block-header
+      %h3= t('.event.title')
+    .content-block-middle
+      - if @spam_events.empty?
+        = t('.no_spam')
+      - else
+        - for event in @spam_events
+          .spam-item
+            .spam-buttons
+              -# TODO: these actions should redirect to /manage/spam
+              = link_to icon_confirm, space_event_path(event.space, event, :event => { :spam => false }), options_for_tooltip(t('.event.not_spam_tooltip'), :method => :put, :confirm => t('.event.not_spam_confirmation'))
+              = link_to icon_delete, space_event_path(event.space, event), options_for_tooltip(t('.event.not_spam_tooltip'), :method => :delete, :confirm => t('.event.delete_confirmation'))
+            .spam-body
+              = render :partial => 'events/event', :locals => { :event => event }

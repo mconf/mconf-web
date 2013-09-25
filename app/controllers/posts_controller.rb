@@ -13,8 +13,10 @@ class PostsController < ApplicationController
 
   # Posts needs a Space. It will respond 404 if no space if found
   before_filter :space!
-  before_filter :webconf_room!
   before_filter :get_posts, :only => [:index]
+
+  # need it to show info in the sidebar
+  before_filter :webconf_room!
 
   after_filter :only => [:update] do
     @post.new_activity :update, current_user unless @post.errors.any?
@@ -70,26 +72,16 @@ class PostsController < ApplicationController
   end
 
   def update
-    @post = @space.posts.find(params[:id])
-      if @post.update_attributes(params[:post])
-        respond_to do |format|
-          format.html {
-            flash[:success] = t('post.updated')
-            redirect_to space_posts_index_path(@space)
-          }
+    if @post.update_attributes(params[:post])
+      respond_to do |format|
+        format.html {
+          flash[:success] = t('post.updated')
+          redirect_to space_posts_path(@space)
+        }
       end
-
     else
       flash[:error] = t('post.error.update')
-      redirect_to space_posts_index_path(@space)
-    end
-  end
-
-  def reply_post
-    respond_to do |format|
-      format.html {
-        render :partial => "reply_post"
-      }
+      redirect_to space_posts_path(@space)
     end
   end
 
@@ -120,6 +112,14 @@ class PostsController < ApplicationController
     end
   end
 
+  def reply_post
+    respond_to do |format|
+      format.html {
+        render :partial => "reply_post"
+      }
+    end
+  end
+
   private
 
   def get_posts
@@ -136,6 +136,10 @@ class PostsController < ApplicationController
     page = nil if page == 0
 
     @posts ||= total_posts.paginate(:page => page, :per_page => per_page)
+  end
+
+  def resource_for_spam
+    @post
   end
 
   # TODO: these error/success methods were not properly tested

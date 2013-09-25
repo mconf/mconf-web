@@ -46,6 +46,10 @@ pt-br:
     no_: "Não"
     publish: "Publicar"
     save: "Salvar"
+    spam:
+      title: "Spam"
+      tooltip: "Reportar este artigo como spam"
+      icon_tooltip: "Este artigo foi denunciado como spam e está sendo avaliado pelos administradores"
     update: "Atualizar"
     unpublish: "Despublicar"
     yes_: "Sim"
@@ -829,6 +833,20 @@ pt-br:
       title: "Gerenciamento do Site"
       users: "Usuários"
       webconf: "Webconferência"
+    spam:
+      event:
+        delete_confirmation: "Remover este evento permanentemente?"
+        delete_tooltip: "Este evento é um spam, removê-lo"
+        not_spam_confirmation: "Este evento realmente não é um spam?"
+        not_spam_tooltip: "Este evento não é um spam"
+        title: "Eventos denunciados como spam"
+      no_spam: "Nenhum spam denunciado"
+      post:
+        delete_confirmation: "Remover esta mensagem permanentemente?"
+        delete_tooltip: "Esta mensage é um spam, removê-la"
+        not_spam_confirmation: "Esta mensagem realmente não é um spam?"
+        not_spam_tooltip: "Esta mensagem não é um spam"
+        title: "Mensagens denunciadas como spam"
   mandatory_field: "Campo obrigatório"
   mconf: Mconf
   members:
@@ -1296,15 +1314,9 @@ pt-br:
     unified_space: 
       user_is_member: "Você é membro desta comunidade"
   spam:
-    created: "Um e-mail de notificação de spam foi enviado com sucesso para o administrador. Obrigado"
-    default: spam
-    detected: "Novo spam detectado"
-    error:
-      check: "Houve um problema marcando o recurso como spam"
-    item: "Este artigo foi denunciado como spam e está sendo avaliado pelos administradores"
-    report: "Denunciar spam"
-    reported: "%{name} (%{email}) denunciou spam em %{sitename}"
-    valid: "Este conteúdo é válido"
+    spam_report_create:
+      error: "Desculpe, mas ocorreu um erro ao marcar este artigo como spam"
+      success: "Artigo marcado como spam! Ele será verificado pelos administradores"
   sponsors:
     prav: "Projetos em<br/>Áudio e Vídeo"
     rnp: "Rede Nacional de<br/>Ensino e Pesquisa"

@@ -24,7 +24,7 @@
           - if can?(:destroy, event)
             %li= link_to t('remove').downcase, space_event_path(event.space, event), { :method => :delete, :title => t('delete.one'), :confirm => t('delete.confirm', :element => event.title) }
           - if user_signed_in? && event.spam != true
-            %li= link_to t('spam.default').downcase, spam_report_space_event_path(event.space,event), { :name => event.id, :title => t('spam.report') }
+            %li= link_to t('_other.spam.title').downcase, spam_report_space_event_path(event.space, event), options_for_tooltip(t('_other.spam.tooltip'), :method => :post, :confirm => t('are_you_sure'))
 
         .logo-in-thread
           = render :partial => "event_logo", :locals => { :event => event }

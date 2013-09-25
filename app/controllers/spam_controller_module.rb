@@ -9,30 +9,22 @@
 module SpamControllerModule
 
   def spam_report_create
-    @spam = resource
+    @spam = resource_for_spam
     @spam.update_attribute(:spam, true)
-      if @spam.save
-        Notifier.delay.spam_email(current_user,t('spam.detected'), params[:body], polymorphic_url(@spam))
-        respond_to do |format|
-          format.html {
-            flash[:success] = t('spam.created')
-            redirect_to request.referer
-          }
-        end
-      else
-        respond_to do |format|
-          format.html {
-            flash[:error] = t('spam.error.check')
-            render :action => "new"
-          }
-        end
+    if @spam.save
+      respond_to do |format|
+        format.html {
+          flash[:success] = t('spam.spam_report_create.success')
+          redirect_to request.referer
+        }
       end
-  end
-
-  def spam_report
-    resource
-    if request.xhr?
-      render :layout => false
+    else
+      respond_to do |format|
+        format.html {
+          flash[:error] = t('spam.spam_report_create.error')
+          render :action => "new"
+        }
+      end
     end
   end
 

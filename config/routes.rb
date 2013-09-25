@@ -85,7 +85,6 @@ Mconf::Application.routes.draw do
 
       member do
         post :spam_report, :action => :spam_report_create
-        get :spam_report
       end
 
       collection do
@@ -101,7 +100,6 @@ Mconf::Application.routes.draw do
       member do
         get :reply_post
         post :spam_report, :action => :spam_report_create
-        get :spam_report
       end
     end
 

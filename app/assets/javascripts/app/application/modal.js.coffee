@@ -99,7 +99,6 @@ class mconf.Modal
   @unbind: ->
     $("a.open-modal:not(.disabled)").off "click.mconfModal"
     $("a.webconf-join-mobile-link:not(.disabled)").off "click.mconfModal"
-    $("a.spam-report:not(.disabled)").off "click.mconfModal"
 
   @bind: ->
     @unbind()
@@ -109,9 +108,6 @@ class mconf.Modal
 
     # Links to open the window to join a webconference from a mobile device
     $("a.webconf-join-mobile-link:not(.disabled)").on "click.mconfModal", bindAndOpen
-
-    # Links to report a spam are also in a modal
-    $("a.spam-report:not(.disabled)").on "click.mconfModal", bindAndOpen
 
     # For elements with the class .close-dialog we add attributes so that bootstrap will make
     # them close the modal automatically

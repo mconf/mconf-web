@@ -214,6 +214,10 @@ describe EventsController do
 
   it "#destroy"
 
+  describe "include SpamControllerModule" do
+    it "#spam_report_create"
+  end
+
   describe "abilities" do
     render_views(false)
 

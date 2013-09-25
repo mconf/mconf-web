@@ -1,23 +1,30 @@
 @import "definitions";
 @import "compass/css3";
+@import "compass/typography/links";
+
+@import "app/events/event_logo";
 
 body.manage.spam {
 
-  .spam_posts, .spam_events {
-    border-bottom: solid 1px #ccc;
-    padding-top: 5px;
-    height: 40px;
+  .spam-item {
+    @include mconf-clearfix;
+    clear: both;
   }
 
-  .spam_title {
-    height: 40px;
+  .spam-body {
     float: left;
-    padding-top: 5px;
+    width: $contents-width - 80px;
   }
 
-  .group_links {
+  .spam-buttons {
     float: right;
-    padding-top: 8px;
+    width: 60px;
+    padding-left: 10px;
+  }
+
+  // hide event dates, make the view a bit simpler
+  .event-image {
+    display: none;
   }
 
 }

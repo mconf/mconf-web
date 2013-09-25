@@ -179,21 +179,6 @@ class Notifier < ActionMailer::Base
     create_default_mail(I18n.default_locale)
   end
 
-  #this method is used when a user has sent feedback to the admin.
-  def spam_email(user,subject, body, url)
-    setup_email(Site.current.smtp_sender)
-
-    @replyto = user.email
-    @subject += subject
-    @text = I18n.t("spam.item").html_safe + ": " + url
-    @user_message = body
-    @user = user.full_name
-    @sitename  = Site.current.name
-    @signature  = Site.current.signature_in_html
-
-    create_default_mail(I18n.default_locale)
-  end
-
   def webconference_invite_email(params)
     setup_email(params[:email_receiver])
 

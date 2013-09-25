@@ -109,6 +109,7 @@ namespace :db do
         post.spam = false
         post.created_at = @created_at_start..Time.now
         post.updated_at = post.created_at..Time.now
+        post.spam = rand(0) > 0.9 # ~10% marked as spam
       end
 
       puts "* Create spaces: events for \"#{space.name}\" (5..10)"
@@ -124,6 +125,7 @@ namespace :db do
         event.start_date = event.created_at..1.years.since(Time.now)
         event.end_date = 2.hours.since(event.start_date)..2.days.since(event.start_date)
         event.author_id = available_users.delete_at((rand * available_users.size).to_i)
+        event.spam = rand(0) > 0.9 # ~10% marked as spam
       end
 
       News.populate 2..10 do |news|
