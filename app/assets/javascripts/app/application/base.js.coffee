@@ -19,7 +19,7 @@ class mconf.Base
       true # so it continues to the next callbacks, if any
 
     # Disable the click in any link with the 'disabled' class
-    $("a.disabled").on "click.mconfBase", (e) ->
+    $(".disabled").on "click.mconfBase", (e) ->
       e.preventDefault()
       true # so it continues to the next callbacks, if any
 
@@ -89,7 +89,7 @@ class mconf.Base
 
   @unbind: ->
     $("a.webconf-join-link:not(.disabled)").off "click.mconfBase"
-    $("a.disabled").off "click.mconfBase"
+    $(".disabled").off "click.mconfBase"
     $('a.link-to-expand').off "click.mconfBase"
     $('a.link-to-collapse').off "click.mconfBase"
     $('.visible-on-hover').each ->
