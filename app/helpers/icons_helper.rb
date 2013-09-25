@@ -27,7 +27,7 @@ module IconsHelper
   end
 
   def icon_comment(title=nil, options={})
-    icon_constructor title, "icon-awesome icon-comment icon-mconf-comments", options
+    icon_constructor title, "icon-awesome icon-comment icon-mconf-comment", options
   end
 
   def icon_comments(title=nil, options={})

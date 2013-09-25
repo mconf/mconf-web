@@ -18,4 +18,8 @@ en:
       space:
         public: "Collaborative spaces can be public, for anybody to watch what happens in them, or private, where members only have access to the activities of the space"
         repository: "The document repository is a place where users of this space can upload and share documents of any type"
+    placeholders:
+      post:
+        text: "Message body"
+        title: "Post a new message..."
     # labels:

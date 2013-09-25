@@ -39,11 +39,13 @@ a .icon-awesome {
    Below we set this positions. */
 
 .btn .icon-awesome {
+  float: none;
   margin: 3px 5px 0 0;
 }
 
 .btn.btn-small, .btn.btn-mini {
   .icon-awesome {
+    float: none;
     margin: 3px 5px 0 0;
     font-size: 12px;
     width: 12px;
@@ -77,7 +79,7 @@ a .icon-awesome {
 
 /* Force the color on all icons when inside components that have a darker background. */
 
-.btn-success, .btn-danger, .btn-error, .btn-info {
+.btn-primary, .btn-success, .btn-danger, .btn-error, .btn-info {
   .icon-awesome {
     color: white;
   }
@@ -144,6 +146,7 @@ a .icon-awesome {
 .icon-mconf-logout {}
 .icon-mconf-account {}
 .icon-mconf-activity {}
+.icon-mconf-comment {}
 .icon-mconf-comments {}
 .icon-mconf-attachment {}
 .icon-mconf-news {}

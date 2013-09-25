@@ -1,7 +1,10 @@
 #new-post
-  = form_for([@space, @post], :html => { :multipart => true }) do |f|
-    = f.text_field :title, :placeholder => t('post.new_post')
-    #new-post-text
-      = f.text_area :text
-      %button#new-post-submit.btn.btn-small{:type => 'submit'}
-        = t("button.send")
+  = simple_form_for [@space, @post], :class => 'single-column' do |f|
+    = f.input :title, :label => false, :wrapper => :append do
+      = f.input_field :title
+      = content_tag :span, icon_comment, :class => "add-on"
+    .additional-controls
+      = f.input :text, :label => false, :as => :text
+      .form-buttons
+        = f.button :submit, t("_other.send"), :class => "btn btn-primary"
+        = link_to t("_other.cancel"), '', :class => "link-cancel"

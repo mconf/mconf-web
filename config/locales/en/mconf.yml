@@ -33,6 +33,7 @@ en:
       confirm: "OK"
       title: "Confirmation"
   _other:
+    cancel: "Cancel"
     create: "Create"
     destroy: "Destroy"
     details: "Details"
@@ -46,6 +47,7 @@ en:
     no_: "No"
     publish: "Publish"
     save: "Save"
+    send: "Send"
     spam:
       title: "Spam"
       tooltip: "Report this item as a spam"
@@ -974,7 +976,6 @@ en:
     more: 
       one: "and one more message..."
       other: "and more %{count} messages..."
-    new_post: "Post a new message..."
     none_created: "No message created"
     none_recent: "There are no recent messages"
     one: Message

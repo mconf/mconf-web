@@ -33,6 +33,7 @@ pt-br:
       confirm: "OK"
       title: "Confirmação"
   _other:
+    cancel: "Cancelar"
     create: "Criar"
     destroy: "Remover"
     details: "Detalhes"
@@ -46,6 +47,7 @@ pt-br:
     no_: "Não"
     publish: "Publicar"
     save: "Salvar"
+    send: "Enviar"
     spam:
       title: "Spam"
       tooltip: "Reportar este artigo como spam"
@@ -957,7 +959,6 @@ pt-br:
     more:
       one: "e uma outra mensagem..."
       other: "e mais %{count} mensagens..."
-    new_post: "Postar uma mensagem..."
     none_created: "Nenhuma mensagem criada"
     none_recent: "Não há mensagens recentes"
     one: Mensagem

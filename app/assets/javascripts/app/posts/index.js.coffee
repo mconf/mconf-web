@@ -1,12 +1,21 @@
 $ ->
   if isOnPage 'posts', 'index'
 
-    $("#new-post-submit").on 'click', ->
-      $(this).data 'clicked', true
+    # focusing any of the elements should make sure the controls are shown
+    $('input[type=text], textarea, input[type=submit]', '#new-post').on 'focus click', ->
+      showControls()
 
-    $("#post_title").on 'click', ->
-      $("#new-post-text").show 0
+    # button to close/hide the inputs
+    $('.link-cancel', '#new-post').on 'click', ->
+      hideControls()
 
-    $(document).on 'click', ->
-      unless $("#post_title").is(":focus") or $("#post_text").is(":focus") or $("#new-post-submit").data("clicked")
-        $("#new-post-text").hide 0
+    # ESC anywhere inside this div means 'close it'
+    $('#new-post').on 'keyup', (e) ->
+      if e.keyCode is 27 # ESC key
+        hideControls()
+
+showControls = ->
+  $('#new-post').addClass('active')
+
+hideControls = ->
+  $('#new-post').removeClass('active')

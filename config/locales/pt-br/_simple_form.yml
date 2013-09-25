@@ -18,4 +18,8 @@ pt-br:
       space:
         public: "Comunidades colaborativas podem ser públicas, para que qualquer pessoa possa ver o que acontece nelas, ou privadas, onde apenas os membros têm acesso às atividades da comunidade"
         repository: "O repositório de documentos é um espaço onde os usuários deste espaço podem compartilhar documentos de qualquer tipo"
+    placeholders:
+      post:
+        text: "Texto da mensagem"
+        title: "Adicionar uma mensagem..."
     # labels:
