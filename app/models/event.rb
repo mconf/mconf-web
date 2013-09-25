@@ -225,7 +225,7 @@ class Event < ActiveRecord::Base
   end
 
   def set_author_as_organizer
-    unless self.organizers.include?(self.author)
+    unless self.organizers.include?(self.author) or self.author.nil?
       add_organizer! self.author
     end
   end

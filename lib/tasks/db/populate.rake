@@ -112,6 +112,7 @@ namespace :db do
       end
 
       puts "* Create spaces: events for \"#{space.name}\" (5..10)"
+      available_users = User.all.dup
       Event.populate 5..10 do |event|
         event.space_id = space.id
         event.name = Populator.words(1..3).titleize
@@ -122,6 +123,7 @@ namespace :db do
         event.updated_at = event.created_at..Time.now
         event.start_date = event.created_at..1.years.since(Time.now)
         event.end_date = 2.hours.since(event.start_date)..2.days.since(event.start_date)
+        event.author_id = available_users.delete_at((rand * available_users.size).to_i)
       end
 
       News.populate 2..10 do |news|
@@ -133,8 +135,8 @@ namespace :db do
       end
     end
 
-    Space.find_each(&:save) # to generate #permalink
-    Event.find_each(&:save) # to generate #permalink
+    Space.find_each(&:save!) # to generate the permalink
+    Event.find_each(&:save!) # to generate the permalink
 
     puts "* Create spaces: webconference rooms"
     Space.all.each do |space|

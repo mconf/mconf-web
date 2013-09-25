@@ -54,6 +54,7 @@ describe Event do
   it "#set_author_as_organizer"
   it "sets the author as organizer when the event is saved"
   it "doesn't set the author as organizer twice when the event is saved"
+  it "doesn't set the author as organizer if there's no author set"
 
   describe ".within" do
     let(:today) { Time.now }
