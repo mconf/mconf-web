@@ -29,5 +29,5 @@
           %h3= t('.events_now')
         .content-block-middle
           - for event in @current_events
-            = render :partial => "event", :locals => { :event => event }
+            = render :partial => "unified_event", :locals => { :event => event }
     = render :partial => 'all_events'

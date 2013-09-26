@@ -559,10 +559,6 @@ en:
       none_past: "No past events"
       past: "Past events"
       upcoming: "Upcoming events"
-    event:
-      organizers: "Organizers"
-      when: "When"
-      where: "Where"
     event_invitations:
       invite: "Invite people"
       notify_attendees: "Notify confirmed attendees"
@@ -597,6 +593,10 @@ en:
       order_desc: "Show newer events at the top"
       title: "Past events"
       today: "No events for yesterday nor today"
+    unified_event:
+      organizers: "Organizers"
+      when: "When"
+      where: "Where"
     upcoming_events:
       next_month: "There are no events for the next month"
       next_week: "There are no events for the next week"

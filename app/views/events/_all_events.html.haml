@@ -1,6 +1,6 @@
 #events-all
 
-  .content-block-wrapper.event-block
+  .content-block.event-block
     .content-block-header
       %h3= t('.upcoming')
 
@@ -10,11 +10,11 @@
     - else
       .content-block-middle
         - for event in @first_upcoming_events
-          = render :partial => event
+          = render :partial => 'unified_event', :locals => { :event => event }
       .content-block-footer
         = link_to t('.all_upcoming'), space_events_path(@space, :show => "upcoming_events"), :class => 'upcoming_link event_navigation'
 
-  .content-block-wrapper.event-block
+  .content-block.event-block
     .content-block-header
       %h3= t('.past')
 
@@ -25,6 +25,6 @@
       - reset_cycle
       .content-block-middle
         - for event in @last_past_events
-          = render :partial => event
+          = render :partial => 'unified_event', :locals => { :event => event }
       .content-block-footer
         = link_to t('.all_past'), space_events_path(@space, :show => "past_events"), :class => 'past_link event_navigation'

@@ -2,7 +2,7 @@
   %h3= t('.title')
 
 .content-block-middle
-  - if user_signed_in?
+  - if user_signed_in? && can?(:read, @space) && !@event.past?
     #events-participants-confirm
       - if @event.participants.map(&:user).include?(current_user)
         %span= t('.will_attend')
@@ -19,10 +19,9 @@
             = icon_check
             = t('_other.no_')
       - else
-        - if user_signed_in? && can?(:read, @space) && !@event.past?
-          %span= t('.will_attend')
-          = link_to t('_other.yes_'), space_event_participants_path(@space, @event, :participant => { :attend => true }), :method => :post, :class => "btn"
-          = link_to t('_other.no_'), space_event_participants_path(@space, @event, :participant => { :attend => false }), :method => :post, :class => "btn"
+        %span= t('.will_attend')
+        = link_to t('_other.yes_'), space_event_participants_path(@space, @event, :participant => { :attend => true }), :method => :post, :class => "btn"
+        = link_to t('_other.no_'), space_event_participants_path(@space, @event, :participant => { :attend => false }), :method => :post, :class => "btn"
 
   #events-participants-attending
     .subtitle

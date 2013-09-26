@@ -7,6 +7,6 @@
     %p= message
   - else
     - for event in events_group
-      = render :partial => "event", :locals => { :event => event }
+      = render :partial => "events/unified_event", :locals => { :event => event }
     .content-block-footer
       = page_navigation_links events_group

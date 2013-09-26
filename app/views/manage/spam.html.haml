@@ -31,4 +31,4 @@
               = link_to icon_confirm, space_event_path(event.space, event, :event => { :spam => false }), options_for_tooltip(t('.event.not_spam_tooltip'), :method => :put, :confirm => t('.event.not_spam_confirmation'))
               = link_to icon_delete, space_event_path(event.space, event), options_for_tooltip(t('.event.not_spam_tooltip'), :method => :delete, :confirm => t('.event.delete_confirmation'))
             .spam-body
-              = render :partial => 'events/event', :locals => { :event => event }
+              = render :partial => 'events/unified_event', :locals => { :event => event }

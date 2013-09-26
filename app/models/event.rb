@@ -7,6 +7,8 @@
 
 class Event < ActiveRecord::Base
 
+  # TODO: this model has columns in the db that are not being used
+
   include PublicActivity::Common
 
   belongs_to :space

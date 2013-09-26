@@ -553,10 +553,6 @@ pt-br:
       none_past: "Nenhum evento passado"
       past: "Eventos passados"
       upcoming: "Eventos futuros"
-    event:
-      organizers: "Organizadores"
-      when: "Quando"
-      where: "Onde"
     event_card:
       description_title: "Descrição do evento"
       ends_at: "Acaba em"
@@ -591,6 +587,10 @@ pt-br:
       order_desc: "Mostrar eventos novos no topo"
       title: "Eventos passados"
       today: "Nenhum evento para ontem ou hoje"
+    unified_event:
+      organizers: "Organizadores"
+      when: "Quando"
+      where: "Onde"
     upcoming_events:
       next_month: "Não existem eventos para o próximo mês"
       next_week: "Não existem eventos para a próxima semana"
