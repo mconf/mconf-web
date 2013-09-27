@@ -28,6 +28,8 @@
 // and `ajaxSubmit`.
 //= require jquery/jquery.form
 
+//= require select2
+
 // Use for XMPP in the chat.
 //= require strophe
 

@@ -4,7 +4,6 @@
  *= require ../../../vendor/assets/stylesheets/jquery/jquery.Jcrop
  *= require ../../../vendor/assets/stylesheets/jquery/jquery.noty
  *= require ../../../vendor/assets/stylesheets/bootstrap/bootstrap-modal
- *= require ../../../vendor/assets/stylesheets/token-input-facebook
  *= require font-awesome
  *
  * Note: the order matters!
@@ -24,5 +23,6 @@
  *= require ./app/application/logo_images
  *= require ./app/application/chat
  *= require ./app/application/footer
+ *= require select2
  *
  */

@@ -15,6 +15,7 @@ group :assets do
   # TODO: remove when compass-rails is updated
   # This compass is here so we can have css3/animation
   gem 'compass', '~> 0.13.alpha'
+  gem 'select2-rails'
 end
 
 gem 'gon', '3.0.5'
