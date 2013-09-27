@@ -35,21 +35,25 @@ class BigbluebuttonRailsTo130 < ActiveRecord::Migration
     change_table(:bigbluebutton_rooms) do |t|
       t.boolean :record, :default => false
       t.integer :duration, :default => 0
+      t.string :uniqueid, :null => false
     end
-
-    remove_column :bigbluebutton_rooms, :randomize_meetingid
+    # Ensure all rooms will have :uniqueid set
+    BigbluebuttonRoom.all.each_with_index do |room, i|
+      room.uniqueid = "#{SecureRandom.hex(16)}-#{Time.now.to_i}#{i}"
+      room.save(:validate => false)
+    end
+    add_index :bigbluebutton_rooms, :uniqueid, :unique => true
   end
 
   def self.down
-    add_column :bigbluebutton_rooms, :randomize_meetingid, :boolean, :default => true
+    remove_index :bigbluebutton_rooms, :uniqueid
     change_table(:bigbluebutton_rooms) do |t|
       t.remove :record
       t.remove :duration
+      t.remove :uniqueid
     end
     drop_table :bigbluebutton_playback_formats
     drop_table :bigbluebutton_metadata
-    remove_index :bigbluebutton_recordings, :room_id
-    remove_index :bigbluebutton_recordings, :recordid
     drop_table :bigbluebutton_recordings
   end
 end

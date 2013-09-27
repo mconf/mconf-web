@@ -291,8 +291,6 @@ ActiveRecord::Schema.define(:version => 20130903173529) do
     t.string   "exception_notifications_prefix"
     t.string   "smtp_password"
     t.string   "analytics_code"
-    t.boolean  "chat_enabled",                   :default => false
-    t.string   "xmpp_server"
     t.boolean  "smtp_auto_tls"
     t.string   "smtp_server"
     t.integer  "smtp_port"
@@ -300,6 +298,8 @@ ActiveRecord::Schema.define(:version => 20130903173529) do
     t.string   "smtp_domain"
     t.string   "smtp_auth_type"
     t.string   "smtp_sender"
+    t.boolean  "chat_enabled",                   :default => false
+    t.string   "xmpp_server"
     t.string   "timezone",                       :default => "UTC"
     t.string   "external_help"
   end
