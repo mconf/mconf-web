@@ -5,13 +5,31 @@
 # This file is licensed under the Affero General Public License version
 # 3 or later. See the LICENSE file.
 
+# This controller includes actions that are specific for the current user and shouldn't be
+# accessed by anybody else.
 class HomesController < ApplicationController
 
   before_filter :authenticate_user!
   respond_to :json, :only => [:user_rooms]
   respond_to :html, :except => [:user_rooms]
 
-  layout "no_sidebar", :only => :activity
+  layout :determine_layout
+
+  def determine_layout
+    case params[:action].to_sym
+    when :activity
+      "no_sidebar"
+    when :webconference_edit
+      false
+      if request.xhr?
+        false
+      else
+        "application"
+      end
+    else
+      "application"
+    end
+  end
 
   def index
   end
@@ -24,7 +42,6 @@ class HomesController < ApplicationController
     end
 
     @user_spaces = current_user.spaces
-
     unless @user_spaces.empty?
       @today_events = Event.
         within(DateTime.now.beginning_of_day, DateTime.now.end_of_day).
@@ -59,8 +76,8 @@ class HomesController < ApplicationController
       .paginate(:page => params[:page], :per_page => @contents_per_page.to_i, :order => 'updated_at DESC')
   end
 
-  # renders a json with the webconference rooms accessible to the current user
-  # response example:
+  # Renders a json with the webconference rooms accessible to the current user
+  # Response example:
   #
   # [
   #   { "bigbluebutton_room":
@@ -74,6 +91,7 @@ class HomesController < ApplicationController
   # "owner":{ "type":"User", "id":1 }
   # "owner":{ "type":"Space", "id":1, "name":"Space's name", "public":true }
   #
+  # Note: this route exists so the mobile client can get the rooms available for the user
   def user_rooms
     array = current_user.accessible_rooms || []
     mapped_array = array.map{ |r|
@@ -81,6 +99,14 @@ class HomesController < ApplicationController
       { :bigbluebutton_room => { :name => r.name, :join_path => link, :owner => owner_hash(r.owner) } }
     }
     render :json => mapped_array
+  end
+
+  # Called by users to edit a webconference room. It's different from the
+  # standard CustomBigbluebuttonRoomsController#edit, that allows an admin to
+  # edit *everything* in a room. This one is a lot more restricted.
+  def webconference_edit
+    @room = current_user.bigbluebutton_room
+    @redirect_to = home_path
   end
 
   private

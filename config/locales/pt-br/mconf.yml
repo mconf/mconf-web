@@ -1314,6 +1314,21 @@ pt-br:
       public: "Pública"
     unified_space: 
       user_is_member: "Você é membro desta comunidade"
+    webconference:
+      invite: "Convidar outras pessoas"
+      end: "Parar a reunião"
+      end_tooltip: "This action will end the current conference!"
+      webconference:
+        attendees:
+          nobody: "Não há ninguém na sala."
+          people_in_the_room: "Pessoas na sala"
+        description:
+          header: "Acesso à webconferência"
+          text: "A sala de webconferência associada com esta comunidade está no momento: <em>%{status}</em> <br/> Use os botões na barra lateral à direita para entrar na conferência."
+        share:
+          description: "Você pode convidar pessoas para esta webconferência utilizando o endereço abaixo:"
+          header: Compartilhar
+          url: "Endereço da sala"
   spam:
     spam_report_create:
       error: "Desculpe, mas ocorreu um erro ao marcar este artigo como spam"
@@ -1513,21 +1528,6 @@ pt-br:
     space:
       see_more: "saiba mais"
       share: Compartilhar
-  webconferences:
-    space_show:
-      invite: "Convidar outras pessoas"
-      end: "Parar a reunião"
-      webconference:
-        attendees:
-          nobody: "Não há ninguém na sala."
-          people_in_the_room: "Pessoas na sala"
-        description:
-          header: "Acesso à webconferência"
-          text: "A sala de webconferência associada com esta comunidade está no momento: <em>%{status}</em> <br/> Use os botões na barra lateral à direita para entrar na conferência."
-        share:
-          description: "Você pode convidar pessoas para esta webconferência utilizando o endereço abaixo:"
-          header: Compartilhar
-          url: "Endereço da sala"
   when: Quando
   where: Onde
   yesterday: Ontem

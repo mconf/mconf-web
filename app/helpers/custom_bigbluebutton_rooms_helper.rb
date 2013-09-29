@@ -1,6 +1,6 @@
 require 'version'
 
-module WebconferenceHelper
+module CustomBigbluebuttonRoomsHelper
 
   def mobile_google_play_link
     "https://play.google.com/store/apps/details?id=org.mconf.android.mconfmobile"

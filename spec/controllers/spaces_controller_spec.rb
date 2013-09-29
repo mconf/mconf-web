@@ -26,30 +26,31 @@ describe SpacesController do
       it { should allow_access_to(:new) }
       it { should allow_access_to(:create).via(:post) }
 
+      # the permissions are always the same, doesn't matter the type of room, so
+      # we have them all in this common method
+      shared_examples_for "a superuser accessing a webconf room in SpacesController" do
+        it { should allow_access_to(:show, hash) }
+        it { should allow_access_to(:edit, hash) }
+        it { should allow_access_to(:user_permissions, hash) }
+        it { should allow_access_to(:update, hash_with_attrs).via(:post) }
+        it { should allow_access_to(:destroy, hash_with_attrs).via(:delete) }
+        it { should allow_access_to(:enable, hash_with_attrs).via(:post) }
+        it { should allow_access_to(:leave, hash_with_attrs).via(:post) }
+        it { should allow_access_to(:webconference, hash) }
+      end
+
       context "in a public space" do
         let(:target) { FactoryGirl.create(:public_space) }
 
         context "he is not a member of" do
-          it { should allow_access_to(:show, hash) }
-          it { should allow_access_to(:edit, hash) }
-          it { should allow_access_to(:user_permissions, hash) }
-          it { should allow_access_to(:update, hash_with_attrs).via(:post) }
-          it { should allow_access_to(:destroy, hash_with_attrs).via(:delete) }
-          it { should allow_access_to(:enable, hash_with_attrs).via(:post) }
-          it { should allow_access_to(:leave, hash_with_attrs).via(:post) }
+          it_should_behave_like "a superuser accessing a webconf room in SpacesController"
         end
 
         context "he is a member of" do
           Space::USER_ROLES.each do |role|
             context "with the role '#{role}'" do
               before(:each) { target.add_member!(user, role) }
-              it { should allow_access_to(:show, hash) }
-              it { should allow_access_to(:edit, hash) }
-              it { should allow_access_to(:user_permissions, hash) }
-              it { should allow_access_to(:update, hash_with_attrs).via(:post) }
-              it { should allow_access_to(:destroy, hash_with_attrs).via(:delete) }
-              it { should allow_access_to(:enable, hash_with_attrs).via(:post) }
-              it { should allow_access_to(:leave, hash_with_attrs).via(:post) }
+              it_should_behave_like "a superuser accessing a webconf room in SpacesController"
             end
           end
         end
@@ -59,26 +60,14 @@ describe SpacesController do
         let(:target) { FactoryGirl.create(:private_space) }
 
         context "he is not a member of" do
-          it { should allow_access_to(:show, hash) }
-          it { should allow_access_to(:edit, hash) }
-          it { should allow_access_to(:user_permissions, hash) }
-          it { should allow_access_to(:update, hash_with_attrs).via(:post) }
-          it { should allow_access_to(:destroy, hash_with_attrs).via(:delete) }
-          it { should allow_access_to(:enable, hash_with_attrs).via(:post) }
-          it { should allow_access_to(:leave, hash_with_attrs).via(:post) }
+          it_should_behave_like "a superuser accessing a webconf room in SpacesController"
         end
 
         context "he is a member of" do
           Space::USER_ROLES.each do |role|
             context "with the role '#{role}'" do
               before(:each) { target.add_member!(user, role) }
-              it { should allow_access_to(:show, hash) }
-              it { should allow_access_to(:edit, hash) }
-              it { should allow_access_to(:user_permissions, hash) }
-              it { should allow_access_to(:update, hash_with_attrs).via(:post) }
-              it { should allow_access_to(:destroy, hash_with_attrs).via(:delete) }
-              it { should allow_access_to(:enable, hash_with_attrs).via(:post) }
-              it { should allow_access_to(:leave, hash_with_attrs).via(:post) }
+              it_should_behave_like "a superuser accessing a webconf room in SpacesController"
             end
           end
         end
@@ -105,6 +94,7 @@ describe SpacesController do
           it { should_not allow_access_to(:destroy, hash_with_attrs).via(:delete) }
           it { should_not allow_access_to(:enable, hash_with_attrs).via(:post) }
           it { should_not allow_access_to(:leave, hash_with_attrs).via(:post) }
+          it { should allow_access_to(:webconference, hash) }
         end
 
         context "he is a member of" do
@@ -117,6 +107,7 @@ describe SpacesController do
             it { should allow_access_to(:destroy, hash_with_attrs).via(:delete) }
             it { should_not allow_access_to(:enable, hash_with_attrs).via(:post) }
             it { should allow_access_to(:leave, hash_with_attrs).via(:post) }
+            it { should allow_access_to(:webconference, hash) }
           end
 
           context "with the role 'User'" do
@@ -128,6 +119,7 @@ describe SpacesController do
             it { should_not allow_access_to(:destroy, hash_with_attrs).via(:delete) }
             it { should_not allow_access_to(:enable, hash_with_attrs).via(:post) }
             it { should allow_access_to(:leave, hash_with_attrs).via(:post) }
+            it { should allow_access_to(:webconference, hash) }
           end
         end
       end
@@ -141,6 +133,7 @@ describe SpacesController do
           it { should_not allow_access_to(:destroy, hash_with_attrs).via(:delete) }
           it { should_not allow_access_to(:enable, hash_with_attrs).via(:post) }
           it { should_not allow_access_to(:leave, hash_with_attrs).via(:post) }
+          it { should_not allow_access_to(:webconference, hash) }
         end
 
         context "he is a member of" do
@@ -153,6 +146,7 @@ describe SpacesController do
             it { should allow_access_to(:destroy, hash_with_attrs).via(:delete) }
             it { should_not allow_access_to(:enable, hash_with_attrs).via(:post) }
             it { should allow_access_to(:leave, hash_with_attrs).via(:post) }
+            it { should allow_access_to(:webconference, hash) }
           end
 
           context "with the role 'User'" do
@@ -164,6 +158,7 @@ describe SpacesController do
             it { should_not allow_access_to(:destroy, hash_with_attrs).via(:delete) }
             it { should_not allow_access_to(:enable, hash_with_attrs).via(:post) }
             it { should allow_access_to(:leave, hash_with_attrs).via(:post) }
+            it { should allow_access_to(:webconference, hash) }
           end
         end
       end
@@ -184,6 +179,7 @@ describe SpacesController do
         it { should_not allow_access_to(:destroy, hash_with_attrs).via(:delete) }
         it { should_not allow_access_to(:enable, hash_with_attrs).via(:post) }
         it { should_not allow_access_to(:leave, hash_with_attrs).via(:post) }
+        it { should allow_access_to(:webconference, hash) }
       end
 
       context "in a private space" do
@@ -195,6 +191,7 @@ describe SpacesController do
         it { should_not allow_access_to(:destroy, hash_with_attrs).via(:delete) }
         it { should_not allow_access_to(:enable, hash_with_attrs).via(:post) }
         it { should_not allow_access_to(:leave, hash_with_attrs).via(:post) }
+        it { should_not allow_access_to(:webconference, hash) }
       end
     end
 
@@ -430,6 +427,22 @@ describe SpacesController do
   it "#destroy"
   it "#enable"
   it "#leave"
+
+  describe "#webconference" do
+    let(:space) { FactoryGirl.create(:space) }
+    let(:user) { FactoryGirl.create(:superuser) }
+    before(:each) { sign_in(user) }
+
+    before(:each) { get :webconference, :id => space.to_param }
+
+    it { should render_template(:webconference) }
+    it { should render_with_layout("spaces_show") }
+    it { should assign_to(:space).with(space) }
+    it { should assign_to(:webconf_room).with(space.bigbluebutton_room) }
+
+    it "assigns @webconf_attendees with the attendees"
+  end
+
   it "#join_request_index"
   it "#join_request_new"
   it "#join_request_create"

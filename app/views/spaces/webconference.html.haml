@@ -7,7 +7,7 @@
   .content-block-middle
     - if @webconf_room.is_running? && can?(:end, @webconf_room)
       .end-meeting
-        = link_to t('.end'), end_bigbluebutton_room_path(@webconf_room, :redir_url => home_path), options_for_tooltip(t('home.webconference.end_tooltip'), :confirm => t('are_you_sure'), :class => 'btn btn-small btn-danger')
+        = link_to t('.end'), end_bigbluebutton_room_path(@webconf_room, :redir_url => home_path), options_for_tooltip(t('.end_tooltip'), :confirm => t('are_you_sure'), :class => 'btn btn-small btn-danger')
 
     - cls = @webconf_room.is_running? ? "running" : "not-running"
     .description-text{ :class => cls }
@@ -24,7 +24,7 @@
       = label_tag 'invite-url-text', t('.webconference.share.url')
       = text_field_tag 'invite-url-text', join_webconf_url(@webconf_room), :readonly => true
       - if can?(:create_meeting, @webconf_room)
-        = link_to t('.invite'), inviteroom_invite_path(:type => "webconference", :room => space.bigbluebutton_room.to_param), options_for_tooltip(t('home.webconference.invite_tooltip'), :class => 'btn open-modal')
+        = link_to t('.invite'), inviteroom_invite_path(:type => "webconference", :room => space.bigbluebutton_room.to_param), :class => 'btn open-modal'
 
 .content-block
   .content-block-header

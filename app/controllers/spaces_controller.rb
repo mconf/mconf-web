@@ -21,7 +21,7 @@ class SpacesController < ApplicationController
 
   load_and_authorize_resource :find_by => :permalink
 
-  before_filter :webconf_room!, :only => [:show, :edit, :join_request_new, :user_permissions]
+  before_filter :webconf_room!, :only => [:show, :edit, :join_request_new, :user_permissions, :webconference]
 
   before_filter :load_spaces_examples, :only => [:new, :create]
 
@@ -222,6 +222,24 @@ class SpacesController < ApplicationController
         format.html { redirect_to space_path(@space) }
       end
     end
+  end
+
+  # Action used to show a webconference room of a space
+  # This action is here and not in CustomBigbluebuttonRoomsController because it seems out of place
+  # there, the before_filters and other methods don't really match. It's more related to spaces then
+  # to webconference rooms.
+  def webconference
+    # FIXME: Temporarily matching users by name, should use the userID
+    @webconf_attendees = []
+    unless @webconf_room.attendees.nil?
+      @webconf_room.attendees.each do |attendee|
+        profile = Profile.find(:all, :conditions => { "full_name" => attendee.full_name }).first
+        unless profile.nil?
+          @webconf_attendees << profile.user
+        end
+      end
+    end
+    render :layout => 'spaces_show'
   end
 
   def join_request_index

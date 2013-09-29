@@ -6,7 +6,7 @@
         %li{ spaces_menu_select_if(:home) }
           = link_to t('home.one').capitalize, space_path(@space)
         %li{ spaces_menu_select_if(:webconference) }
-          = link_to t('webconference.one').capitalize, space_webconference_path(@space)
+          = link_to t('webconference.one').capitalize, webconference_space_path(@space)
         %li{ spaces_menu_select_if(:posts) }
           = link_to t('post.wall').capitalize, space_posts_path(@space)
         %li{ spaces_menu_select_if(:events) }

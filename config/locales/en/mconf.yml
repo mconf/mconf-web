@@ -1339,6 +1339,21 @@ en:
       public: "Public"
     unified_space: 
       user_is_member: "You are a member of this space"
+    webconference:
+      end: "Stop the meeting"
+      end_tooltip: "This action will end the current conference!"
+      invite: "Invite other people"
+      webconference:
+        attendees:
+          nobody: "There is nobody currently in the room."
+          people_in_the_room: "People in the room"
+        description:
+          header: "Webconference access"
+          text: "The webconference room associated with this space is currently: <em>%{status}</em> <br/> Use the buttons in the sidebar at the right to join the webconference."
+        share:
+          description: "You can invite people to this webconference by sharing the link below:"
+          header: Share
+          url: "Webconference URL"
   spam:
     spam_report_create:
       error: "Sorry, but there was a problem marking this item as spam"
@@ -1557,21 +1572,6 @@ en:
       join_now: "Join now"
       see_more: "see more"
     start_now: "Start now!"
-  webconferences:
-    space_show:
-      invite: "Invite other people"
-      end: "Stop the meeting"
-      webconference:
-        attendees:
-          nobody: "There is nobody currently in the room."
-          people_in_the_room: "People in the room"
-        description:
-          header: "Webconference access"
-          text: "The webconference room associated with this space is currently: <em>%{status}</em> <br/> Use the buttons in the sidebar at the right to join the webconference."
-        share:
-          description: "You can invite people to this webconference by sharing the link below:"
-          header: Share
-          url: "Webconference URL"
   when: When
   where: Where
   yesterday: Yesterday

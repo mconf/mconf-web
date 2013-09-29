@@ -42,19 +42,6 @@ module Abilities
         user.can_create_meeting?(room)
       end
 
-      can :user_edit, BigbluebuttonRoom do |room|
-        room.owner == user
-      end
-
-      can :space_show, BigbluebuttonRoom do |room|
-        if room.owner_type == "Space"
-          space = Space.find(room.owner_id)
-          space.public or space.users.include?(user)
-        else
-          false
-        end
-      end
-
       # some actions in rooms should be accessible to any logged user
       # some of them will do the authorization themselves (e.g. permissions for :join
       # will change depending on the user and the target room)
@@ -66,7 +53,7 @@ module Abilities
       can [:show, :play], BigbluebuttonRecording do |recording|
         response = false
         unless recording.room.nil?
-          if recording.room.owner_type == "User" and recording.room.owner_id == user.id
+          if recording.room.owner_type == "User" && recording.room.owner_id == user.id
             response = true
           elsif recording.room.owner_type == "Space"
             space = Space.find(recording.room.owner_id)
@@ -113,10 +100,10 @@ module Abilities
 
       # Spaces
       can :create, Space
-      can :read, Space, :public => true
+      can [:read, :webconference], Space, :public => true
       can :join_request_new, Space
       can :join_request_create, Space
-      can [:read, :leave], Space do |space|
+      can [:read, :webconference, :leave], Space do |space|
         space.users.include?(user)
       end
 
@@ -210,7 +197,7 @@ module Abilities
         end
       end
       can [:read, :current], User, :disabled => false
-      can :read, Space, :public => true
+      can [:read, :webconference], Space, :public => true
       can :read, Post, :space => { :public => true }
       can :read, News, :space => { :public => true }
       can :read, Event, :space => { :public => true }
@@ -218,15 +205,6 @@ module Abilities
 
       # some actions in rooms should be accessible to anyone
       can [:invite, :invite_userid, :auth, :running], BigbluebuttonRoom
-
-      can :space_show, BigbluebuttonRoom do |room|
-        if room.owner_type == "Space"
-          space = Space.find(room.owner_id)
-          space.public
-        else
-          false
-        end
-      end
     end
   end
 

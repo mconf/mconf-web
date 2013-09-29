@@ -43,4 +43,4 @@
               %span= t('.join_mobile_full')
           %li.divider
           %li= link_to t('.invite'), inviteroom_invite_path(:type => "webconference", :room => @room.to_param), :class => 'open-modal'
-          %li= link_to t('.preferences'), user_webconference_edit_path(current_user), :class => 'open-modal', :'data-modal-width' => 'small'
+          %li= link_to t('.preferences'), webconference_edit_home_path, :class => 'open-modal', :'data-modal-width' => 'small'

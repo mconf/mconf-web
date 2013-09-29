@@ -45,6 +45,7 @@ Mconf::Application.routes.draw do
     :rooms => 'custom_bigbluebutton_rooms',
     :recordings => 'custom_bigbluebutton_recordings'
   }
+  # register a few custom routes that were added to this controller
   match '/bigbluebutton/rooms/:id/join_options',
     :to => 'custom_bigbluebutton_rooms#join_options',
     :as => "join_options_bigbluebutton_room"
@@ -67,12 +68,12 @@ Mconf::Application.routes.draw do
   resources :spaces do
 
     bigbluebutton_routes :room_matchers # TODO: review
-    match '/webconference' => 'webconferences#space_show'
 
     member do
       post :enable
       post :leave
       get :user_permissions
+      get :webconference
     end
 
     resources :users do # TODO: do we really need this?
@@ -131,8 +132,6 @@ Mconf::Application.routes.draw do
       post :enable
     end
 
-    match '/webconference/edit' => 'webconferences#user_edit'
-
     resources :private_messages, :except => [:edit], :as => 'messages'
     resource :profile, :except => [:new, :create]
 
@@ -148,6 +147,7 @@ Mconf::Application.routes.draw do
       get :user_rooms
       get :activity
     end
+    match '/webconference/edit', :to => 'homes#webconference_edit', :as => "webconference_edit"
   end
 
   resource :invite do

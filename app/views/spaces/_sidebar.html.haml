@@ -17,7 +17,7 @@
           = render 'spaces/sidebar_webconf_buttons', :room => @webconf_room
 
       .content-block-footer
-        = link_to t('view_more'), space_webconference_path(@space)
+        = link_to t('view_more'), webconference_space_path(@space)
 
     = render_sidebar_content_block('sidebar-upcoming-events') do
       .content-block-header

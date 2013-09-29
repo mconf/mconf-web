@@ -15,7 +15,7 @@ describe CustomBigbluebuttonRoomsController do
     context "for a superuser", :user => "superuser" do
       let(:user) { FactoryGirl.create(:superuser) }
       let(:hash_with_server) { { :server_id => room.server.id } }
-      let(:hash) { hash_with_server.merge!(:id => room.to_param) }
+      let(:hash) { { :id => room.to_param } }
       before(:each) { login_as(user) }
 
       it { should allow_access_to(:index) }
@@ -24,7 +24,7 @@ describe CustomBigbluebuttonRoomsController do
 
       # the permissions are always the same, doesn't matter the type of room, so
       # we have them all in this common method
-      shared_examples_for "a superuser accessing any webconf room" do
+      shared_examples_for "a superuser accessing a webconf room in CustomBigbluebuttonRoomsController" do
         it { should allow_access_to(:show, hash) }
         it { should allow_access_to(:edit, hash) }
         it { should allow_access_to(:update, hash).via(:put) }
@@ -43,12 +43,12 @@ describe CustomBigbluebuttonRoomsController do
 
       context "in his room" do
         let(:room) { user.bigbluebutton_room }
-        it_should_behave_like "a superuser accessing any webconf room"
+        it_should_behave_like "a superuser accessing a webconf room in CustomBigbluebuttonRoomsController"
       end
 
       context "in another user's room" do
         let(:room) { FactoryGirl.create(:superuser).bigbluebutton_room }
-        it_should_behave_like "a superuser accessing any webconf room"
+        it_should_behave_like "a superuser accessing a webconf room in CustomBigbluebuttonRoomsController"
       end
 
       context "in the room of public space" do
@@ -57,11 +57,11 @@ describe CustomBigbluebuttonRoomsController do
 
         context "he is a member of" do
           before { space.add_member!(user) }
-          it_should_behave_like "a superuser accessing any webconf room"
+          it_should_behave_like "a superuser accessing a webconf room in CustomBigbluebuttonRoomsController"
         end
 
         context "he is not a member of" do
-          it_should_behave_like "a superuser accessing any webconf room"
+          it_should_behave_like "a superuser accessing a webconf room in CustomBigbluebuttonRoomsController"
         end
       end
 
@@ -71,11 +71,11 @@ describe CustomBigbluebuttonRoomsController do
 
         context "he is a member of" do
           before { space.add_member!(user) }
-          it_should_behave_like "a superuser accessing any webconf room"
+          it_should_behave_like "a superuser accessing a webconf room in CustomBigbluebuttonRoomsController"
         end
 
         context "he is not a member of" do
-          it_should_behave_like "a superuser accessing any webconf room"
+          it_should_behave_like "a superuser accessing a webconf room in CustomBigbluebuttonRoomsController"
         end
       end
     end
@@ -83,7 +83,7 @@ describe CustomBigbluebuttonRoomsController do
     context "for a normal user", :user => "normal" do
       let(:user) { FactoryGirl.create(:user) }
       let(:hash_with_server) { { :server_id => room.server.id } }
-      let(:hash) { hash_with_server.merge!(:id => room.to_param) }
+      let(:hash) { { :id => room.to_param } }
       before(:each) { login_as(user) }
 
       it { should_not allow_access_to(:index) }
@@ -210,7 +210,7 @@ describe CustomBigbluebuttonRoomsController do
 
     context "for an anonymous user", :user => "anonymous" do
       let(:hash_with_server) { { :server_id => room.server.id } }
-      let(:hash) { hash_with_server.merge!(:id => room.to_param) }
+      let(:hash) { { :id => room.to_param } }
 
       it { should require_authentication_for(:index) }
       it { should require_authentication_for(:new) }
@@ -390,23 +390,6 @@ describe CustomBigbluebuttonRoomsController do
     end
   end
 
-  describe "#join_options" do
-    let(:room) { FactoryGirl.create(:bigbluebutton_room) }
-    before(:each) { login_as(FactoryGirl.create(:superuser)) }
-
-    context "template and layout for html requests" do
-      before(:each) { get :join_options, :id => room.to_param }
-      it { should render_template(:join_options) }
-      it { should render_with_layout("application") }
-    end
-
-    context "template and layout for xhr requests" do
-      before(:each) { xhr :get, :join_options, :id => room.to_param }
-      it { should render_template(:join_options) }
-      it { should_not render_with_layout() }
-    end
-  end
-
   describe "#create" do
     context "template and layout" do
       # renders a view only on error on save
@@ -520,5 +503,22 @@ describe CustomBigbluebuttonRoomsController do
   #     it { should render_with_layout("application") }
   #   end
   # end
+
+  describe "#join_options" do
+    let(:room) { FactoryGirl.create(:bigbluebutton_room) }
+    before(:each) { login_as(FactoryGirl.create(:superuser)) }
+
+    context "template and layout for html requests" do
+      before(:each) { get :join_options, :id => room.to_param }
+      it { should render_template(:join_options) }
+      it { should render_with_layout("application") }
+    end
+
+    context "template and layout for xhr requests" do
+      before(:each) { xhr :get, :join_options, :id => room.to_param }
+      it { should render_template(:join_options) }
+      it { should_not render_with_layout() }
+    end
+  end
 
 end

@@ -18,7 +18,6 @@ describe UsersController do
     it { should route(:get, "/users/u1/edit").to(:action => :edit, :id => "u1") }
     it { should route(:put, "/users/u1").to(:action => :update, :id => "u1") }
     it { should route(:delete, "/users/u1").to(:action => :destroy, :id => "u1") }
-    it { should route(:get, "/users/u1/webconference/edit").to(:controller => :webconferences, :action => :user_edit, :user_id => "u1") }
     it { should route(:post, "/users/u1/enable").to(:action => :enable, :id => "u1") }
     it { should_not route(:get, "/users/new").to(:action => :new) }
     it { should_not route(:post, "/users").to(:action => :create) }
