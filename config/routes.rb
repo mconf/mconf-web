@@ -58,13 +58,6 @@ Mconf::Application.routes.draw do
   match '/secure', :to => 'shibboleth#create', :as => "shibboleth"
   match '/secure/info', :to => 'shibboleth#info', :as => "shibboleth_info"
 
-  resources :machines do
-    collection do
-      get :contact_mail
-      get :my_mailer
-    end
-  end
-
   resources :spaces do
 
     bigbluebutton_routes :room_matchers # TODO: review
@@ -180,8 +173,6 @@ Mconf::Application.routes.draw do
 
   # Statistics
   match '/statistics', :to => 'statistics#show', :as => 'show_statistics'
-
-  match 'get_file/:id', :to => 'machines#get_file', :as => 'get_file'
 
   # 'Hack' to show a custom 404 page.
   # See more at http://blog.igodigital.com/blog/notes-on-cyber-weekend-targeted-email-campaigns/custom-error-handling-in-rails-303

@@ -1029,7 +1029,6 @@ pt-br:
   province: Estado
   public: Público
   read_more: "Ler mais"
-  received_message_more_machines: "Você recebeu uma mensagem de %{user} pedindo mais máquinas"
   recent:
     activity: "Atividades recentes"
   recording:

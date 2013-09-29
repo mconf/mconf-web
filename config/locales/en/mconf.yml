@@ -1046,7 +1046,6 @@ en:
   province: Province
   public: Public
   read_more: "Read more"
-  received_message_more_machines: "You have received a message from %{user} asking for more machines"
   recent: 
     activity: "Recent activity"
   recent_activity: 
