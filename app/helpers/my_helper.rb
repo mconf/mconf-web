@@ -4,7 +4,7 @@
 # This file is licensed under the Affero General Public License version
 # 3 or later. See the LICENSE file.
 
-module HomesHelper
+module MyHelper
 
   def intervals(contents)
     today = {:contents => contents.select{|x| x.updated_at > Date.yesterday}, :name => t('today')}

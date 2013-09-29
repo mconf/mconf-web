@@ -25,7 +25,7 @@ describe FrontpageController do
 
     it "should redirect to home" do
       get :show
-      response.should redirect_to(home_path)
+      response.should redirect_to(my_home_path)
     end
   end
 end

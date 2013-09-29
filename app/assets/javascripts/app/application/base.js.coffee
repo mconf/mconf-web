@@ -110,7 +110,7 @@ $ ->
 # Returns true if we're currently in the view 'action' inside 'controller'
 # If 'action' is empty, will check only for the controller
 # Ex:
-#   isOnPage 'homes', 'show'
+#   isOnPage 'my', 'home'
 #   isOnPage 'spaces', 'new|create'
 #   isOnPage 'events'
 window.isOnPage = (controller, action='') ->

@@ -1,7 +1,7 @@
 #= require "../custom_bigbluebutton_rooms/_join_options"
 
 $ ->
-  if isOnPage 'homes', 'show'
+  if isOnPage 'my', 'home'
 
     # Almost the same that is done in spaces/_sidebar
 

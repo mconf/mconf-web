@@ -6,12 +6,12 @@
 # 3 or later. See the LICENSE file.
 
 # This controller includes actions that are specific for the current user and shouldn't be
-# accessed by anybody else.
-class HomesController < ApplicationController
+# accessed by anybody else (e.g. home, recordings, activity, etc).
+class MyController < ApplicationController
 
   before_filter :authenticate_user!
-  respond_to :json, :only => [:user_rooms]
-  respond_to :html, :except => [:user_rooms]
+  respond_to :json, :only => [:rooms]
+  respond_to :html, :except => [:rooms]
 
   layout :determine_layout
 
@@ -31,10 +31,7 @@ class HomesController < ApplicationController
     end
   end
 
-  def index
-  end
-
-  def show
+  def home
     @room = current_user.bigbluebutton_room
     begin
       @room.fetch_meeting_info
@@ -92,7 +89,7 @@ class HomesController < ApplicationController
   # "owner":{ "type":"Space", "id":1, "name":"Space's name", "public":true }
   #
   # Note: this route exists so the mobile client can get the rooms available for the user
-  def user_rooms
+  def rooms
     array = current_user.accessible_rooms || []
     mapped_array = array.map{ |r|
       link = join_bigbluebutton_room_path(r, :mobile => '1')
@@ -106,7 +103,7 @@ class HomesController < ApplicationController
   # edit *everything* in a room. This one is a lot more restricted.
   def webconference_edit
     @room = current_user.bigbluebutton_room
-    @redirect_to = home_path
+    @redirect_to = my_home_path
   end
 
   private

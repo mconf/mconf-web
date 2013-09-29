@@ -8,7 +8,7 @@
 @import "app/invites/invite_room";
 @import "app/custom_bigbluebutton_rooms/join_mobile";
 
-body.homes.show, body.homes.activity {
+body.my.home, body.my.activity {
 
   $second-content-bg-color: darken($light-gray, 2);
   $page-header-right-width: 500px;

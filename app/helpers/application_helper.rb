@@ -134,7 +134,7 @@ module ApplicationHelper
 
   # Checks if the current page is the user's home page
   def at_home?
-    params[:controller] == 'homes' && params[:action] == 'show'
+    params[:controller] == 'my' && params[:action] == 'home'
   end
 
   # Returns the url prefix used to identify a webconf room

@@ -45,4 +45,4 @@
   #users-recent-activity-content.content-block-middle
     = render "users/recent_activity_content", :content => @all_contents, :paginate => false
   .content-block-footer
-    = link_to t('.view_all_activity'), activity_home_path
+    = link_to t('.view_all_activity'), my_activity_path

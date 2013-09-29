@@ -3,7 +3,7 @@
 mconf.Spaces or= {}
 
 # Javascript for the sidebar show in all spaces, in several pages.
-# Almost the same that is done in homes/show
+# Almost the same that is done in my/home
 class mconf.Spaces.Sidebar
 
   @bind: ->

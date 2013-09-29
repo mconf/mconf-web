@@ -142,13 +142,12 @@ Mconf::Application.routes.draw do
     end
   end
 
-  resource :home do
-    member do
-      get :user_rooms
-      get :activity
-    end
-    match '/webconference/edit', :to => 'homes#webconference_edit', :as => "webconference_edit"
-  end
+  # routes under /my
+  # using `match` instead of `resource` to specify better route helper names
+  match '/my/home', :to => 'my#home', :as => "my_home"
+  match '/my/rooms', :to => 'my#rooms', :as => "my_romos"
+  match '/my/activity', :to => 'my#activity', :as => "my_activity"
+  match '/my/webconference/edit', :to => 'my#webconference_edit', :as => "my_webconference_edit"
 
   resource :invite do
     member do

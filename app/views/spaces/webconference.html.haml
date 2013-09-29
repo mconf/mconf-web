@@ -7,7 +7,7 @@
   .content-block-middle
     - if @webconf_room.is_running? && can?(:end, @webconf_room)
       .end-meeting
-        = link_to t('.end'), end_bigbluebutton_room_path(@webconf_room, :redir_url => home_path), options_for_tooltip(t('.end_tooltip'), :confirm => t('are_you_sure'), :class => 'btn btn-small btn-danger')
+        = link_to t('.end'), end_bigbluebutton_room_path(@webconf_room, :redir_url => my_home_path), options_for_tooltip(t('.end_tooltip'), :confirm => t('are_you_sure'), :class => 'btn btn-small btn-danger')
 
     - cls = @webconf_room.is_running? ? "running" : "not-running"
     .description-text{ :class => cls }

@@ -34,7 +34,7 @@ describe SessionsController do
         post :create, { :session => @credentials }
 
         assert controller.current_user == @user
-        response.should redirect_to(home_path)
+        response.should redirect_to(my_home_path)
       end
     end
 

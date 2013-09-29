@@ -6,12 +6,12 @@
 
 require "spec_helper"
 
-describe HomesController do
+describe MyController do
   render_views
 
   it "#show"
   it "#activity"
-  it "#user_rooms"
+  it "#rooms"
 
   describe "#webconference_edit" do
     let(:user) { FactoryGirl.create(:user) }
@@ -22,7 +22,7 @@ describe HomesController do
       it { should render_template(:webconference_edit) }
       it { should render_with_layout("application") }
       it { should assign_to(:room).with(user.bigbluebutton_room) }
-      it { should assign_to(:redirect_to).with(home_path) }
+      it { should assign_to(:redirect_to).with(my_home_path) }
     end
 
     context "xhr request" do
