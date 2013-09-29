@@ -25,6 +25,7 @@ namespace :db do
       Permission.destroy_all
       Space.destroy_all
       RecentActivity.destroy_all
+      BigbluebuttonRecording.destroy_all
       users_without_admin = User.find_by_id_with_disabled(:all)
       users_without_admin.delete(User.find_by_superuser(true))
       users_without_admin.each(&:destroy)
@@ -204,13 +205,13 @@ namespace :db do
     puts "* Create recordings and metadata for all webconference rooms"
     BigbluebuttonRoom.all.each do |room|
 
-      # Basic metadata that should always exist
-      # TODO: get the metadata keys from a configuration file
-      # TODO: get the values from a configuration file
-      title = room.metadata.where(:name => "mconfweb-title").first
-      room.metadata.create(:name => "mconfweb-title") if title.nil?
-      description = room.metadata.where(:name => "mconfweb-description").first
-      room.metadata.create(:name => "mconfweb-description") if description.nil?
+      # Basic metadata that should always exist in a room
+      title = room.metadata.where(:name => configatron.webconf.metadata.title).first
+      room.metadata.create(:name => configatron.webconf.metadata.title,
+                           :content => Populator.words(2..5).titleize) if title.nil?
+      description = room.metadata.where(:name => configatron.webconf.metadata.description).first
+      room.metadata.create(:name => configatron.webconf.metadata.description,
+                           :content => Populator.words(5..10).titleize) if description.nil?
 
       BigbluebuttonRecording.populate 2..10 do |recording|
         recording.room_id = room.id
@@ -224,7 +225,7 @@ namespace :db do
         recording.end_time = recording.start_time + rand(5).hours
 
         # Recording metadata
-        BigbluebuttonMetadata.populate 1..3 do |meta|
+        BigbluebuttonMetadata.populate 0..3 do |meta|
           meta.owner_id = recording.id
           meta.owner_type = recording.class.to_s
           meta.name = "#{Populator.words(1)}-#{meta.id}"
@@ -232,7 +233,8 @@ namespace :db do
         end
 
         # Recording playback formats
-        BigbluebuttonPlaybackFormat.populate 1..3 do |format|
+        # Note: make a few without playback formats, meaning that the recording is still being processed
+        BigbluebuttonPlaybackFormat.populate 0..3 do |format|
           format.recording_id = recording.id
           format.format_type = "#{Populator.words(1)}-#{format.id}"
           format.url = "http://" + Faker::Internet.domain_name + "/playback/" + format.format_type
@@ -242,16 +244,27 @@ namespace :db do
 
       # Basic metadata needed in all recordings
       room.recordings.each do |recording|
-        # TODO: get the metadata keys from a configuration file
-        title = recording.metadata.where(:name => "mconfweb-title").first
+        title = recording.metadata.where(:name => configatron.webconf.metadata.title).first
         if title.nil?
-          recording.metadata.create(:name => "mconfweb-title",
+          recording.metadata.create(:name => configatron.webconf.metadata.title,
                                     :content => Populator.words(2..5).titleize)
         end
-        description = recording.metadata.where(:name => "mconfweb-description").first
+        description = recording.metadata.where(:name => configatron.webconf.metadata.description).first
         if description.nil?
-          recording.metadata.create(:name => "mconfweb-description",
+          recording.metadata.create(:name => configatron.webconf.metadata.description,
                                     :content => Populator.words(5..10).capitalize)
+        end
+        user_id = recording.metadata.where(:name => BigbluebuttonRails.metadata_user_id.to_s).first
+        if user_id.nil?
+          if recording.room.owner_type == 'User'
+            user = recording.room.owner
+            recording.metadata.create(:name => BigbluebuttonRails.metadata_user_id.to_s,
+                                      :content => user.id)
+          else
+            space = recording.room.owner
+            recording.metadata.create(:name => BigbluebuttonRails.metadata_user_id.to_s,
+                                      :content => space.users[rand(space.users.length)])
+          end
         end
       end
 

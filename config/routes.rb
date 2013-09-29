@@ -141,6 +141,7 @@ Mconf::Application.routes.draw do
   match '/my/rooms', :to => 'my#rooms', :as => "my_romos"
   match '/my/activity', :to => 'my#activity', :as => "my_activity"
   match '/my/webconference/edit', :to => 'my#webconference_edit', :as => "my_webconference_edit"
+  match '/my/webconference/recordings', :to => 'my#webconference_recordings', :as => "my_webconference_recordings"
 
   resource :invite do
     member do

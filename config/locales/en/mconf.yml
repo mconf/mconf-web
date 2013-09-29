@@ -873,6 +873,21 @@ en:
         today: "Today"
       view_all_activity: "View all your activity"
       view_all_spaces: "View all spaces"
+    recording_list:
+      created: "Created"
+      created_by: "Created by"
+      duration: "Duration"
+      no_description: "<no description specified>"
+      no_recordings: "Your web conference room has no recordings yet"
+      no_title: "<no title specified>"
+      playback: "Playback links"
+      processing_dots: "Processing, please wait..."
+      processing_tip: "This recording was found in one of the servers but is still being processed. When the processing finishes the links for playback will be available here."
+      started_at: "Started at"
+      unavailable: "The recording is unavailable"
+      unavailable_tip: "This recording is not available anymore in the server where it was stored and so it can't be accessed. This can be a temporary problem, check again later to see if it's available."
+    webconference_recordings:
+      title: "Recordings from my webconference room"
     webconference_room:
       end: "Stop the meeting"
       end_tooltip: "This action will end the current conference!"
@@ -883,6 +898,7 @@ en:
       not_running: "Your webconference is not in progress."
       options: "Options"
       preferences: "Preferences..."
+      recordings: "View available recordings"
       running_with:
         no_participants: "Your webconference is in progress with no participants."
         participants:

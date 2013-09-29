@@ -44,3 +44,5 @@
           %li.divider
           %li= link_to t('.invite'), inviteroom_invite_path(:type => "webconference", :room => @room.to_param), :class => 'open-modal'
           %li= link_to t('.preferences'), my_webconference_edit_path, :class => 'open-modal', :'data-modal-width' => 'small'
+          %li.divider
+          %li= link_to t('.recordings'), my_webconference_recordings_path

@@ -1,0 +1,52 @@
+@import "compass/css3";
+@import "definitions";
+
+#recording-list {
+
+  .recording-title {
+    font-weight: bold;
+  }
+
+  .thread {
+    i {
+      float: none;
+      margin: 0 3px 0 0;
+      font-size: $font-normal;
+    }
+
+    .recording-details {
+      margin: 3px 0;
+    }
+
+    .recording-date, .recording-duration {
+      display: inline-block;
+    }
+    .recording-duration {
+      padding-left: 3px;
+    }
+
+    .playback-link {
+      white-space: nowrap;
+      @include border-radius(3px);
+      background: $light-gray;
+      border: 1px solid darken($light-gray, 5);
+      padding: 0 5px;
+    }
+
+    &.thread-odd {
+      .playback-link {
+        background: darken($light-gray, 5);
+        border-color: 1px solid darken($light-gray, 10);
+      }
+    }
+
+    .playback-unavailable {
+      color: $red;
+    }
+
+    .playback-processing {
+      color: darken($yellow, 10);
+    }
+  }
+
+}

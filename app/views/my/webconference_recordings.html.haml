@@ -1,0 +1,8 @@
+= content_for :page_header do
+  = render :partial => "page_header"
+
+#my-webconference-recordings.content-block
+  .content-block-header
+    %h3= t('.title')
+  #recording-list-wrapper.content-block-middle
+    = render :partial => 'my/recording_list', :locals => { :recordings => @recordings, :show_authors => false }

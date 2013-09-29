@@ -76,6 +76,12 @@ form {
     padding-right: 5px;
   }
 
+  &.thread-no-logo {
+    .thread-content {
+      margin-left: 0;
+    }
+  }
+
   .thread-content {
     margin-left: 55px;
 

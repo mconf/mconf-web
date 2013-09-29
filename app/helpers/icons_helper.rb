@@ -167,6 +167,18 @@ module IconsHelper
     icon_constructor nil, "icon-awesome icon-picture icon-mconf-picture", options
   end
 
+  def icon_playback(options={})
+    icon_constructor nil, "icon-awesome icon-play-sign icon-mconf-playback", options
+  end
+
+  def icon_date(options={})
+    icon_constructor nil, "icon-awesome icon-calendar-empty icon-mconf-date", options
+  end
+
+  def icon_user(options={})
+    icon_constructor nil, "icon-awesome icon-user icon-mconf-user", options
+  end
+
   private
 
   # Base method for most of the methods above

@@ -15,5 +15,6 @@ describe MyController do
     it { should_not route(:get, "/my/rooms.html").to(:action => :rooms) }
     it { should route(:get, "/my/activity").to(:action => :activity) }
     it { should route(:get, "/my/webconference/edit").to(:action => :webconference_edit) }
+    it { should route(:get, "/my/webconference/recordings").to(:action => :webconference_recordings) }
   end
 end

@@ -13,6 +13,8 @@ class MyController < ApplicationController
   respond_to :json, :only => [:rooms]
   respond_to :html, :except => [:rooms]
 
+  before_filter :prepare_user_room, :only => [:home, :activity, :webconference_recordings]
+
   layout :determine_layout
 
   def determine_layout
@@ -26,18 +28,18 @@ class MyController < ApplicationController
       else
         "application"
       end
+    when :webconference_recordings
+      if params[:partial]
+        false
+      else
+        "no_sidebar"
+      end
     else
       "application"
     end
   end
 
   def home
-    @room = current_user.bigbluebutton_room
-    begin
-      @room.fetch_meeting_info
-    rescue BigBlueButton::BigBlueButtonException
-    end
-
     @user_spaces = current_user.spaces
     unless @user_spaces.empty?
       @today_events = Event.
@@ -49,10 +51,7 @@ class MyController < ApplicationController
         limit(5).order("start_date ASC").all
     end
 
-    @update_act = params[:contents] ? true : false
-
     @contents_per_page = 5
-
     @all_contents = RecentActivity.where(:owner_id => current_user.spaces, :owner_type => 'Space')
       .limit(@contents_per_page)
       .order('updated_at DESC')
@@ -61,13 +60,6 @@ class MyController < ApplicationController
   end
 
   def activity
-    @room = current_user.bigbluebutton_room
-    begin
-      @room.fetch_meeting_info
-    rescue BigBlueButton::BigBlueButtonException
-    end
-    @user_spaces = current_user.spaces
-    @update_act = params[:contents] ? true : false
     @contents_per_page = params[:per_page] || 20
     @all_contents = RecentActivity.where(:owner_id => current_user.spaces, :owner_type => 'Space')
       .paginate(:page => params[:page], :per_page => @contents_per_page.to_i, :order => 'updated_at DESC')
@@ -106,7 +98,24 @@ class MyController < ApplicationController
     @redirect_to = my_home_path
   end
 
+  # List of recordings for the current user's web conference room.
+  def webconference_recordings
+    @room = current_user.bigbluebutton_room
+    @recordings = @room.recordings.published().order("end_time DESC")
+    if params[:limit]
+      @recordings = @recordings.first(params[:limit].to_i)
+    end
+  end
+
   private
+
+  def prepare_user_room
+    @room = current_user.bigbluebutton_room
+    begin
+      @room.fetch_meeting_info
+    rescue BigBlueButton::BigBlueButtonException
+    end
+  end
 
   def owner_hash(owner)
     if owner.nil?

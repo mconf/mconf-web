@@ -860,6 +860,21 @@ pt-br:
         today: "Hoje"
       view_all_activity: "Ver todas suas atividades"
       view_all_spaces: "Ver todas comunidades"
+    recording_list:
+      created: "Criada"
+      created_by: "Criada por"
+      duration: "Duração"
+      no_description: "<nenhuma descrição especificada>"
+      no_recordings: "Sua sala de webconferência ainda não possui gravações"
+      no_title: "<nenhum título especificado>"
+      playback: "Links para reprodução"
+      processing_dots: "Processando, por favor aguarde..."
+      processing_tip: "Esta gravação foi encontrada em um dos servidores mas ainda está sendo processada. Quando o processamento acabar, os links para reprodução serão disponibilizados aqui."
+      started_at: "Iniciou em"
+      unavailable: "Esta gravação não está disponível"
+      unavailable_tip: "Esta gravação não está mais disponível no servidor onde ela estava armazenada e então não pode ser acessada."
+    webconference_recordings:
+      title: "Gravações da minha sala de webconferência"
     webconference_room:
       end: "Parar a reunião"
       end_tooltip: "Esta ação vai finalizar a reunião em andamento!"
@@ -870,6 +885,7 @@ pt-br:
       not_running: "Nenhuma reunião em andamento."
       options: "Opções"
       preferences: "Preferências..."
+      recordings: "Ver gravações disponíveis"
       running_with:
         no_participants: "Existe uma reunião em andamento sem usuários."
         participants:
