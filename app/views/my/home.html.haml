@@ -8,7 +8,7 @@
     = render_sidebar_content_block('sidebar-inbox') do
       - unread_msgs = current_user.unread_private_messages.size
       .content-block-header
-        = link_to t('inbox.unread_text', :count => unread_msgs), user_messages_path(current_user)
+        = link_to t('inbox.unread_text', :count => unread_msgs), my_messages_path
         - cls = unread_msgs > 0 ? "active"  : ""
         = icon_message(:class => cls)
 

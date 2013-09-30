@@ -9,7 +9,7 @@
         = icon_home()
         = t('home.my')
     %li
-      = link_to user_messages_path(current_user) do
+      = link_to my_messages_path do
         = t('.inbox')
         - if current_user.unread_private_messages.size > 0
           .label.label-important= current_user.unread_private_messages.size

@@ -125,7 +125,6 @@ Mconf::Application.routes.draw do
       post :enable
     end
 
-    resources :private_messages, :except => [:edit], :as => 'messages'
     resource :profile, :except => [:new, :create]
 
     resource :avatar do
@@ -135,13 +134,15 @@ Mconf::Application.routes.draw do
     end
   end
 
-  # routes under /my
-  # using `match` instead of `resource` to specify better route helper names
-  match '/my/home', :to => 'my#home', :as => "my_home"
-  match '/my/rooms', :to => 'my#rooms', :as => "my_romos"
-  match '/my/activity', :to => 'my#activity', :as => "my_activity"
-  match '/my/webconference/edit', :to => 'my#webconference_edit', :as => "my_webconference_edit"
-  match '/my/webconference/recordings', :to => 'my#webconference_recordings', :as => "my_webconference_recordings"
+  # Routes under /my, specific for the current user
+  scope 'my' do
+    match '/home', :to => 'my#home', :as => 'my_home'
+    match '/rooms', :to => 'my#rooms', :as => 'my_rooms'
+    match '/activity', :to => 'my#activity', :as => 'my_activity'
+    match '/webconference/edit', :to => 'my#webconference_edit', :as => 'my_webconference_edit'
+    match '/webconference/recordings', :to => 'my#webconference_recordings', :as => 'my_webconference_recordings'
+    resources :messages, :controller => :private_messages, :except => [:edit], :as => 'my_messages'
+  end
 
   resource :invite do
     member do

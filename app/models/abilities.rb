@@ -92,10 +92,10 @@ module Abilities
       # Private messages
       can :create, PrivateMessage
       can :read, PrivateMessage do |message|
-        message.sender_id == user.id or message.receiver_id == user.id
+        [message.sender_id, message.receiver_id].include?(user.id)
       end
       can :destroy, PrivateMessage do |message|
-        message.sender_id == user.id or message.receiver_id == user.id
+        [message.sender_id, message.receiver_id].include?(user.id)
       end
 
       # Spaces

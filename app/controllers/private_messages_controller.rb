@@ -123,9 +123,9 @@ class PrivateMessagesController < ApplicationController
 
     respond_to do |format|
       if params[:private_message][:deleted_by_sender]
-        format.html { redirect_to(user_messages_path(user, :sent => true)) }
+        format.html { redirect_to(my_messages_path(:sent => true)) }
       else
-        format.html { redirect_to(user_messages_path(user)) }
+        format.html { redirect_to(my_messages_path) }
       end
       format.xml  { head :ok }
     end
@@ -134,7 +134,7 @@ class PrivateMessagesController < ApplicationController
   private
 
   def user
-    @user ||= User.find_with_param(params[:user_id])
+    @user = current_user
   end
 
   def private_message
