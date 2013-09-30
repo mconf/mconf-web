@@ -888,6 +888,10 @@ en:
       unavailable_tip: "This recording is not available anymore in the server where it was stored and so it can't be accessed. This can be a temporary problem, check again later to see if it's available."
     webconference_recordings:
       title: "Recordings from my webconference room"
+      update_recordings:
+        error: "Error updating your recording list, plase try again later"
+        success: "Recording list updated!"
+        updating: "Updating your list of recordings..."
     webconference_room:
       end: "Stop the meeting"
       end_tooltip: "This action will end the current conference!"

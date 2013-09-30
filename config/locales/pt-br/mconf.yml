@@ -875,6 +875,10 @@ pt-br:
       unavailable_tip: "Esta gravação não está mais disponível no servidor onde ela estava armazenada e então não pode ser acessada."
     webconference_recordings:
       title: "Gravações da minha sala de webconferência"
+      update_recordings:
+        error: "Erro atualizando sua lista de gravações, tente novamente mais tarde"
+        success: "Lista de gravações atualizada!"
+        updating: "Atualizando sua lista de gravações..."
     webconference_room:
       end: "Parar a reunião"
       end_tooltip: "Esta ação vai finalizar a reunião em andamento!"

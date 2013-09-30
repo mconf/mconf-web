@@ -1,5 +1,3 @@
-#= require "../custom_bigbluebutton_rooms/_join_options"
-
 $ ->
   if isOnPage 'my', 'home'
 

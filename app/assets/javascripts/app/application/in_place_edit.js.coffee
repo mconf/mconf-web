@@ -64,7 +64,7 @@ class mconf.InPlaceEdit
         $form.addClass(classForSuccess)
         $target.trigger("in-place-edit-success")
       $form.off "ajax:error.#{namespace}"
-      $form.on "ajax:error.#{namespace}", (evt, data, status, xhr) ->
+      $form.on "ajax:error.#{namespace}", (evt, xhr, status) ->
         $form.removeClass(classForInProgress)
         $form.addClass(classForError)
         $target.trigger("in-place-edit-error")

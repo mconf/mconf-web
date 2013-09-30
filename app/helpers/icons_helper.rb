@@ -179,6 +179,14 @@ module IconsHelper
     icon_constructor nil, "icon-awesome icon-user icon-mconf-user", options
   end
 
+  def icon_error(options={})
+    icon_constructor nil, "icon-awesome icon-meh icon-mconf-error", options
+  end
+
+  def icon_success(options={})
+    icon_constructor nil, "icon-awesome icon-ok icon-mconf-success", options
+  end
+
   private
 
   # Base method for most of the methods above
