@@ -10,11 +10,11 @@ describe MyController do
   include Shoulda::Matchers::ActionController
 
   describe "routing" do
-    it { should route(:get, "/my/home").to(:action => :home) }
-    it { should route(:get, "/my/rooms.json").to(:action => :rooms, :format => :json) }
-    it { should_not route(:get, "/my/rooms.html").to(:action => :rooms) }
-    it { should route(:get, "/my/activity").to(:action => :activity) }
-    it { should route(:get, "/my/webconference/edit").to(:action => :webconference_edit) }
-    it { should route(:get, "/my/webconference/recordings").to(:action => :webconference_recordings) }
+    it { should route(:get, "/home").to(:action => :home) }
+    it { should route(:get, "/rooms.json").to(:action => :rooms, :format => :json) }
+    it { should_not route(:get, "/rooms.html").to(:action => :rooms) }
+    it { should route(:get, "/activity").to(:action => :activity) }
+    it { should route(:get, "/room/edit").to(:action => :room_edit) }
+    it { should route(:get, "/room/recordings").to(:action => :room_recordings) }
   end
 end

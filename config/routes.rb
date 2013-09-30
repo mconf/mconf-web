@@ -134,15 +134,14 @@ Mconf::Application.routes.draw do
     end
   end
 
-  # Routes under /my, specific for the current user
-  scope 'my' do
-    match '/home', :to => 'my#home', :as => 'my_home'
-    match '/rooms', :to => 'my#rooms', :as => 'my_rooms'
-    match '/activity', :to => 'my#activity', :as => 'my_activity'
-    match '/webconference/edit', :to => 'my#webconference_edit', :as => 'my_webconference_edit'
-    match '/webconference/recordings', :to => 'my#webconference_recordings', :as => 'my_webconference_recordings'
-    resources :messages, :controller => :private_messages, :except => [:edit], :as => 'my_messages'
-  end
+  # Routes specific for the current user
+  match '/home', :to => 'my#home', :as => 'home'
+  match '/rooms', :to => 'my#rooms', :as => 'rooms'
+  match '/activity', :to => 'my#activity', :as => 'activity'
+  match '/room/edit', :to => 'my#room_edit', :as => 'room_edit'
+  match '/room/recordings', :to => 'my#room_recordings', :as => 'room_recordings'
+
+  resources :messages, :controller => :private_messages, :except => [:edit]
 
   resource :invite do
     member do

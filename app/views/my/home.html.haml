@@ -8,7 +8,7 @@
     = render_sidebar_content_block('sidebar-inbox') do
       - unread_msgs = current_user.unread_private_messages.size
       .content-block-header
-        = link_to t('inbox.unread_text', :count => unread_msgs), my_messages_path
+        = link_to t('inbox.unread_text', :count => unread_msgs), messages_path
         - cls = unread_msgs > 0 ? "active"  : ""
         = icon_message(:class => cls)
 
@@ -45,4 +45,4 @@
   #users-recent-activity-content.content-block-middle
     = render "users/recent_activity_content", :content => @all_contents, :paginate => false
   .content-block-footer
-    = link_to t('.view_all_activity'), my_activity_path
+    = link_to t('.view_all_activity'), activity_path

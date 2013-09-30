@@ -873,7 +873,7 @@ pt-br:
       started_at: "Iniciou em"
       unavailable: "Esta gravação não está disponível"
       unavailable_tip: "Esta gravação não está mais disponível no servidor onde ela estava armazenada e então não pode ser acessada."
-    webconference_recordings:
+    room_recordings:
       title: "Gravações da minha sala de webconferência"
       update_recordings:
         error: "Erro atualizando sua lista de gravações, tente novamente mais tarde"

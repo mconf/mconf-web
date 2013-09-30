@@ -14,9 +14,9 @@
 .thread-content
   - unless expanded
     %ul.thread-action-links.visible-on-hover{ :"data-hover-tracked" => "parent-#{private_message.id}" }
-      %li= link_to t('open').downcase, my_message_path(private_message)
+      %li= link_to t('open').downcase, message_path(private_message)
       - privatetitle = sanitize(private_message.title)
-      %li= link_to t('remove').downcase, my_message_path(private_message, :private_message => {:deleted_by_receiver => true}), :confirm => t('delete.confirm', :element => privatetitle), :method => :delete, :title => t('delete.one')
+      %li= link_to t('remove').downcase, message_path(private_message, :private_message => {:deleted_by_receiver => true}), :confirm => t('delete.confirm', :element => privatetitle), :method => :delete, :title => t('delete.one')
 
   .thread-title
     - unless private_message.checked
@@ -30,7 +30,7 @@
     - if expanded
       = sanitize(private_message.title)
     - else
-      = link_to sanitize(private_message.title), my_message_path(private_message)
+      = link_to sanitize(private_message.title), message_path(private_message)
     %span.thread-updated-at
       - if Time.now.to_date == private_message.created_at.to_date
         = time_ago_in_words(private_message.created_at)

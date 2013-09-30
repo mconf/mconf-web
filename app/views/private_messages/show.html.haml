@@ -15,13 +15,13 @@
   .private-messages.thread{:id => "parent-#{@message.id}"}
     %ul.thread-action-links
       - if @is_receiver
-        %li= link_to t('back_to_inbox').downcase, my_messages_path
+        %li= link_to t('back_to_inbox').downcase, messages_path
       - else
-        %li= link_to t('back_to_sent').downcase, my_messages_path(:sent => true)
+        %li= link_to t('back_to_sent').downcase, messages_path(:sent => true)
       - if @is_receiver && @message.sender_id.present?
-        %li= link_to t('remove').downcase, my_message_path(@message, :private_message => {:deleted_by_receiver => true}), :confirm => t('delete.confirm', :element => @message.title), :method => :delete, :title => t('remove')
+        %li= link_to t('remove').downcase, message_path(@message, :private_message => {:deleted_by_receiver => true}), :confirm => t('delete.confirm', :element => @message.title), :method => :delete, :title => t('remove')
       - else
-        %li= link_to t('remove').downcase, my_message_path(@message, :private_message => {:deleted_by_sender => true}), :confirm => t('delete.confirm', :element => @message.title), :method => :delete, :title => t('remove')
+        %li= link_to t('remove').downcase, message_path(@message, :private_message => {:deleted_by_sender => true}), :confirm => t('delete.confirm', :element => @message.title), :method => :delete, :title => t('remove')
     .logo-in-thread
       - if sender.disabled?
         = logo_image(sender, :size => '48', :class => "logo logo-user-big")

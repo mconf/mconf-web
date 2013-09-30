@@ -56,7 +56,7 @@ class ShibbolethController < ApplicationController
 
     # login and go to home
     sign_in user, :bypass => true
-    redirect_to my_home_path
+    redirect_to home_path
   end
 
   def info

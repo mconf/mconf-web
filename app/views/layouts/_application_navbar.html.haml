@@ -1,15 +1,15 @@
 #main-logo
-  - url = user_signed_in? ? my_home_path : root_path
+  - url = user_signed_in? ? home_path : root_path
   %a.title{:href => url}= current_site.name
 
 %ul#navbar-left-links
   - if user_signed_in?
     %li
-      = link_to my_home_path do
+      = link_to home_path do
         = icon_home()
         = t('home.my')
     %li
-      = link_to my_messages_path do
+      = link_to messages_path do
         = t('.inbox')
         - if current_user.unread_private_messages.size > 0
           .label.label-important= current_user.unread_private_messages.size
