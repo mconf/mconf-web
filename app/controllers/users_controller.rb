@@ -111,11 +111,13 @@ class UsersController < ApplicationController
     name = params[:q]
     limit = params[:limit] || 5   # default to 5
     limit = 50 if limit.to_i > 50 # no more than 50
-    @users = if name.nil?
-               User.joins(:profile).limit(limit).all
-             else
-               User.joins(:profile).where("profiles.full_name like ?", "%#{name}%").limit(limit)
-             end
+    if name.nil?
+      @users = User.joins(:profile).limit(limit).all
+    else
+      @users = User.joins(:profile)
+        .where("profiles.full_name like ? OR users.username like ?", "%#{name}%", "%#{name}%")
+        .limit(limit)
+    end
 
     respond_with @users do |format|
       format.json

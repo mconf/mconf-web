@@ -1,3 +1,3 @@
 object @users => :users
-attributes :id, :username
-attribute :name => :text
+attributes :id, :username, :name
+node(:text) { |user| "#{user.name} (#{user.username})" }

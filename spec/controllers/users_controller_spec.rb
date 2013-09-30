@@ -59,7 +59,8 @@ describe UsersController do
         before(:each) do
           login_as(user)
           @expected = {
-            :id => user.id, :username => user.username, :name => user.name
+            :id => user.id, :username => user.username,
+            :name => user.name, :text => "#{user.name} (#{user.username})"
           }
           get :current, :format => :xml
         end
@@ -100,7 +101,8 @@ describe UsersController do
 
         let(:expected) {
           @users.map do |u|
-            { :id => u.id, :username => u.username, :name => u.name }
+            { :id => u.id, :username => u.username,
+              :name => u.name, :text => "#{u.name} (#{u.username})" }
           end
         }
 
@@ -171,7 +173,8 @@ describe UsersController do
 
         let(:expected) {
           @users.map do |u|
-            { :id => u.id, :username => u.username, :name => u.name }
+            { :id => u.id, :username => u.username,
+              :name => u.name, :text => "#{u.name} (#{u.username})" }
           end
         }
 
