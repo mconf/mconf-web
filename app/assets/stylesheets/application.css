@@ -5,6 +5,7 @@
  *= require ../../../vendor/assets/stylesheets/jquery/jquery.noty
  *= require ../../../vendor/assets/stylesheets/bootstrap/bootstrap-modal
  *= require font-awesome
+ *= require select2
  *
  * Note: the order matters!
  *= require ./app/application/typography
@@ -19,10 +20,8 @@
  *= require ./app/application/in_place_edit
  *= require ./app/application/modal
  *= require ./app/application/showable_password_input
- *= require ./app/application/tokeninput
  *= require ./app/application/logo_images
  *= require ./app/application/chat
  *= require ./app/application/footer
- *= require select2
  *
  */

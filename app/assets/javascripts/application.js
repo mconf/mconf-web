@@ -5,7 +5,7 @@
 //= require handlebars.runtime
 
 // Use to search for models (e.g. users) dynamically.
-//= require jquery/jquery.tokeninput
+//= require select2
 
 // To use placeholders in inputs in browsers that do not support it
 // natively yet.
@@ -27,8 +27,6 @@
 // Used in crop, modals and possibly other places. Grep for `ajaxForm`
 // and `ajaxSubmit`.
 //= require jquery/jquery.form
-
-//= require select2
 
 // Use for XMPP in the chat.
 //= require strophe
