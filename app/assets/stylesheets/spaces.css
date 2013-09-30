@@ -3,4 +3,5 @@
  *= require ./app/spaces/new
  *= require ./app/spaces/show
  *= require ./app/spaces/edit
+ *= require ./app/spaces/user_permissions
  */

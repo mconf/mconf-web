@@ -14,14 +14,9 @@ class SpacesController < ApplicationController
     @space.new_activity params[:action], current_user unless @space.errors.any?
   end
 
-  # Recent activity for join requests
-  after_filter :only => [:join_request_update] do
-    @space.new_activity :join, current_user unless @join_request.errors.any? || !@join_request.accepted?
-  end
-
   load_and_authorize_resource :find_by => :permalink
 
-  before_filter :webconf_room!, :only => [:show, :edit, :join_request_new, :user_permissions]
+  before_filter :webconf_room!, :only => [:show, :edit, :user_permissions]
 
   # TODO: cleanup the other actions adding respond_to blocks here
   respond_to :js, :only => [:index, :show]
@@ -29,10 +24,10 @@ class SpacesController < ApplicationController
 
   # User trying to access a space not owned or joined by him
   rescue_from CanCan::AccessDenied do |exception|
-    if user_signed_in? and not [:destroy, :update, :join_request_new].include?(exception.action)
+    if user_signed_in? and not [:destroy, :update].include?(exception.action)
       # Normal actions trigger a redirect to ask for membership
       flash[:error] = t("join_request.message_title")
-      redirect_to new_space_join_request_path :id => params[:id]
+      redirect_to new_space_join_request_path :space_id => params[:id]
     else
       # Logged out users or destructive actions are redirect to the 403 error
       flash[:error] = t("space.access_forbidden")
@@ -150,7 +145,6 @@ class SpacesController < ApplicationController
 
     if @space.update_attributes(space_params)
       respond_to do |format|
-        puts params.inspect
         if params[:space][:logo_image].present?
           format.html { redirect_to logo_images_crop_path(:model_type => 'space', :model_id => @space) }
         else
@@ -230,129 +224,7 @@ class SpacesController < ApplicationController
     end
   end
 
-  def join_request_index
-    respond_to { |format| format.html }
-  end
-
-  def join_request_new
-
-    @join_request = space.join_requests.new
-    @user_is_admin = space.role_for?(current_user, :name => 'Admin')
-
-    # If it's the admin inviting, list the invitable users
-    if @user_is_admin
-      @users = (User.all - space.users)
-      @checked_users = []
-    end
-
-    render :layout => 'spaces_show'
-
-  end
-
-  def join_request_create
-
-    # If it's the admin creating a new request (inviting) for his space
-    if space.role_for?(current_user, :name => 'Admin')
-
-      @join_requests = []
-
-      @ids = params[:invitation_ids] || []
-      # Invite each of the users
-      @ids.each do |id|
-
-        jr = space.join_requests.new(params[:join_request])
-
-        user = User.find(id)
-        jr.candidate = user
-        jr.email = user.email
-        jr.request_type = 'invite'
-        jr.introducer = current_user
-
-        @join_requests << jr
-      end
-
-      emails = split_emails(params[:invitation_mails])
-      emails.each do |e|
-
-        jr = space.join_requests.new(params[:join_request])
-
-        user = User.find_by_email(e)
-        jr.candidate = user
-        jr.email = e
-        jr.request_type = 'invite'
-        jr.introducer = current_user
-
-        @join_requests << jr
-      end
-
-      errors = []
-      @join_requests.each { |jr| errors << [jr.email, jr.error_messages] if !jr.valid? }
-
-      if errors.empty?
-        @join_requests.each { |jr| jr.save(:validate => false) }
-        flash[:notice] = t('join_request.sent')
-      else
-        flash[:notice] = t('join_request.error')
-      end
-
-      redirect_to new_space_join_request_path(space)
-
-    else # It's a common user asking for membership in a space
-
-      @join_request = space.join_requests.new(params[:join_request])
-      @join_request.candidate = current_user
-      @join_request.email = current_user.email
-      @join_request.request_type = 'request'
-
-      if @join_request.save
-        flash[:notice] = t('join_request.created')
-      else
-        flash[:error] = t('join_request.error')
-        # TODO: identify errors for better usability
-        # flash[:error] << @join_request.errors.to_xml
-      end
-
-      if space.public
-        redirect_to space_path(space)
-      else
-        redirect_to spaces_path
-      end
-
-    end
-
-  end
-
-  def join_request_update
-    join_request.attributes = params[:join_request].except(:role)
-    join_request.introducer = current_user if join_request.recently_processed?
-
-    respond_to do |format|
-      if join_request.save
-        format.html {
-          flash[:success] = ( join_request.recently_processed? ?
-                            ( join_request.accepted? ? t('join_request.accepted') : t('join_request.discarded') ) :
-                            t('join_request.updated'))
-          redirect_to request.referer
-        }
-        if join_request.accepted?
-          role = Role.find(params[:join_request][:role])
-          space.add_member!(join_request.candidate, role.name)
-          success = space.save
-        end
-      else
-        format.html {
-          flash[:error] = join_request.errors.to_xml
-          redirect_to request.referer
-        }
-      end
-    end
-  end
-
   private
-
-  def join_request
-    @join_request ||= space.join_requests.find(params[:jr_id])
-  end
 
   def space
     if params[:action] == "enable"

@@ -19,14 +19,6 @@
 
 Mconf::Application.routes.draw do
 
-  def resources_for_join_requests controller
-    singular = controller.to_s.singularize
-    get  "#{controller}/:id/join_requests", :to => "#{controller}#join_request_index", :as => "#{singular}_join_requests"
-    get  "#{controller}/:id/join_requests/new", :to => "#{controller}#join_request_new", :as => "new_#{singular}_join_request"
-    post "#{controller}/:id/join_requests", :to => "#{controller}#join_request_create", :as => "create_#{singular}_join_request"
-    put  "#{controller}/:id/join_requests/:jr_id", :to => "#{controller}#join_request_update", :as => "update_#{singular}_join_request"
-  end
-
   match "logo_images/crop", :to => 'logo_images#crop'
 
   # devise
@@ -65,6 +57,8 @@ Mconf::Application.routes.draw do
   end
 
   resources :spaces do
+
+    resources :join_requests
 
     bigbluebutton_routes :room_matchers # TODO: review
     match '/webconference' => 'webconferences#space_show'
@@ -117,8 +111,6 @@ Mconf::Application.routes.draw do
 
     resources :news
   end
-
-  resources_for_join_requests :spaces
 
   resources :permissions
   resources :memberships

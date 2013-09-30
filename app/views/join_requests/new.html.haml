@@ -1,0 +1,11 @@
+- if @user_is_admin
+  - spaces_menu_at :admin
+  = render :partial => 'spaces/menu'
+
+  -# TODO: add the standard sidebar
+
+  - spaces_admin_menu_at :invite
+  = render :partial => 'spaces/admin_tabs'
+  = render :partial => 'new_invitation'
+- else
+  = render :partial => 'new_join_request'

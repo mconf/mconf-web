@@ -3,7 +3,7 @@
     #invitations_title
       %h3.blue= t('invitation.message_title')
 
-    = simple_form_for(:join_request, :url => { :action => "join_request_create" }, :html => { :multipart => true, }) do |f|
+    = simple_form_for(:join_request, :url => space_join_requests_path, :html => { :multipart => true, }) do |f|
 
       #selected_users
         %label.bold{:for => "selected_users", :style => "display: none;"}
