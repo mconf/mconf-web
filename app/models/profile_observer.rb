@@ -4,7 +4,7 @@
 # This file is licensed under the Affero General Public License version
 # 3 or later. See the LICENSE file.
 
-class BigbluebuttonRoomsObserver < ActiveRecord::Observer
+class ProfileObserver < ActiveRecord::Observer
   observe :profile
 
   def after_update(profile)
