@@ -67,6 +67,7 @@ Mconf::Application.routes.draw do
       post :leave
       get :user_permissions
       get :webconference
+      get :recordings
     end
 
     resources :users do # TODO: do we really need this?

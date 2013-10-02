@@ -864,19 +864,6 @@ pt-br:
         today: "Hoje"
       view_all_activity: "Ver todas suas atividades"
       view_all_spaces: "Ver todas comunidades"
-    recording_list:
-      created: "Criada"
-      created_by: "Criada por"
-      duration: "Duração"
-      no_description: "<nenhuma descrição especificada>"
-      no_recordings: "Sua sala de webconferência ainda não possui gravações"
-      no_title: "<nenhum título especificado>"
-      playback: "Links para reprodução"
-      processing_dots: "Processando, por favor aguarde..."
-      processing_tip: "Esta gravação foi encontrada em um dos servidores mas ainda está sendo processada. Quando o processamento acabar, os links para reprodução serão disponibilizados aqui."
-      started_at: "Iniciou em"
-      unavailable: "Esta gravação não está disponível"
-      unavailable_tip: "Esta gravação não está mais disponível no servidor onde ela estava armazenada e então não pode ser acessada."
     room_recordings:
       title: "Gravações da minha sala de webconferência"
       update_recordings:
@@ -1138,6 +1125,19 @@ pt-br:
       fill: "Por favor preencha estes dados"
     one: Sessão
   shared:
+    recording_list:
+      created: "Criada"
+      created_by: "Criada por"
+      duration: "Duração"
+      no_description: "<nenhuma descrição especificada>"
+      no_recordings: "Sua sala de webconferência ainda não possui gravações"
+      no_title: "<nenhum título especificado>"
+      playback: "Links para reprodução"
+      processing_dots: "Processando, por favor aguarde..."
+      processing_tip: "Esta gravação foi encontrada em um dos servidores mas ainda está sendo processada. Quando o processamento acabar, os links para reprodução serão disponibilizados aqui."
+      started_at: "Iniciou em"
+      unavailable: "Esta gravação não está disponível"
+      unavailable_tip: "Esta gravação não está mais disponível no servidor onde ela estava armazenada e então não pode ser acessada."
     webconf_index_links:
       new_room: "Nova sala"
       new_server: "Novo servidor"
@@ -1309,6 +1309,12 @@ pt-br:
       spaces_examples:
         title: "Exemplos de comunidades:"
       title: "Criar uma nova comunidade"
+    recordings:
+      title: "Gravações desta comunidade"
+      update_recordings:
+        error: "Erro atualizando sua lista de gravações, tente novamente mais tarde"
+        success: "Lista de gravações atualizada!"
+        updating: "Atualizando sua lista de gravações..."
     show:
       events_now: "Events hapenning now!"
     sidebar:
@@ -1352,6 +1358,9 @@ pt-br:
           description: "Você pode convidar pessoas para esta webconferência utilizando o endereço abaixo:"
           header: Compartilhar
           url: "Endereço da sala"
+    webconference_tabs:
+      access: "Acesso à webconferência"
+      recordings: "Lista de gravações"
   spam:
     spam_report_create:
       error: "Desculpe, mas ocorreu um erro ao marcar este artigo como spam"

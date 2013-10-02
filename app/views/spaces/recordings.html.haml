@@ -1,0 +1,32 @@
+- if params[:partial]
+  = render :partial => 'shared/recording_list', :locals => { :recordings => @recordings, :show_authors => true }
+
+- else
+
+  - spaces_menu_at :webconference
+  = render :partial => 'spaces/menu'
+
+  - spaces_webconference_menu_at :recordings
+  = render :partial => 'webconference_tabs'
+
+  #space-recordings.content-block
+    .content-block-header
+      %h3= t('.title')
+
+      -# a form to trigger the method that will fetch the recordings in the webconf server
+      -# TODO: setting data-type to html because bigbluebutton_rails is not returning a proper json on success
+      = form_tag fetch_recordings_bigbluebutton_room_path(@webconf_room, :format => 'json'), :method => :post, :remote => true, :id => 'space-recordings-fetch', 'data-type' => 'html' do
+        #space-recordings-error
+          %span= t(".update_recordings.error")
+          = icon_error
+        #space-recordings-success
+          %span= t(".update_recordings.success")
+          = icon_success
+        #space-recordings-loading
+          %span= t(".update_recordings.updating")
+          = icon_in_progress
+      -# a form to get the html with the list of recordings after the list is updated
+      = form_tag recordings_space_path(@webconf_room, :partial => true), :method => :get, :remote => true, :id => 'space-recordings-update'
+
+    #space-recordings-list-wrapper.content-block-middle
+      = render :partial => 'shared/recording_list', :locals => { :recordings => @recordings, :show_authors => true }

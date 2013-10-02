@@ -9,19 +9,11 @@ class SpacesController < ApplicationController
 
   before_filter :authenticate_user!, :only => [:new, :create]
 
-  # Create recent activity
-  after_filter :only => [:create, :update, :leave] do
-    @space.new_activity params[:action], current_user unless @space.errors.any?
-  end
-
-  # Recent activity for join requests
-  after_filter :only => [:join_request_update] do
-    @space.new_activity :join, current_user unless @join_request.errors.any? || !@join_request.accepted?
-  end
-
   load_and_authorize_resource :find_by => :permalink
 
-  before_filter :webconf_room!, :only => [:show, :edit, :join_request_new, :user_permissions, :webconference]
+  # all actions that render the sidebar
+  before_filter :webconf_room!,
+    :only => [:show, :edit, :join_request_new, :user_permissions, :webconference, :recordings]
 
   before_filter :load_spaces_examples, :only => [:new, :create]
 
@@ -40,6 +32,16 @@ class SpacesController < ApplicationController
       flash[:error] = t("space.access_forbidden")
       render :template => "/errors/error_403", :status => 403, :layout => "error"
     end
+  end
+
+  # Create recent activity
+  after_filter :only => [:create, :update, :leave] do
+    @space.new_activity params[:action], current_user unless @space.errors.any?
+  end
+
+  # Recent activity for join requests
+  after_filter :only => [:join_request_update] do
+    @space.new_activity :join, current_user unless @join_request.errors.any? || !@join_request.accepted?
   end
 
   def index
@@ -240,6 +242,22 @@ class SpacesController < ApplicationController
       end
     end
     render :layout => 'spaces_show'
+  end
+
+  # Action used to show the recordings of a space
+  # This action is here and not in CustomBigbluebuttonRoomsController because it seems out of place
+  # there, the before_filters and other methods don't really match. It's more related to spaces then
+  # to webconference rooms.
+  def recordings
+    @recordings = @webconf_room.recordings.published().order("end_time DESC")
+    if params[:limit]
+      @recordings = @recordings.first(params[:limit].to_i)
+    end
+    if params[:partial]
+      render :layout => false
+    else
+      render :layout => 'spaces_show'
+    end
   end
 
   def join_request_index

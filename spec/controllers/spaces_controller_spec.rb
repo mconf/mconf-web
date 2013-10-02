@@ -37,6 +37,7 @@ describe SpacesController do
         it { should allow_access_to(:enable, hash_with_attrs).via(:post) }
         it { should allow_access_to(:leave, hash_with_attrs).via(:post) }
         it { should allow_access_to(:webconference, hash) }
+        it { should allow_access_to(:recordings, hash) }
       end
 
       context "in a public space" do
@@ -95,6 +96,7 @@ describe SpacesController do
           it { should_not allow_access_to(:enable, hash_with_attrs).via(:post) }
           it { should_not allow_access_to(:leave, hash_with_attrs).via(:post) }
           it { should allow_access_to(:webconference, hash) }
+          it { should allow_access_to(:recordings, hash) }
         end
 
         context "he is a member of" do
@@ -108,6 +110,7 @@ describe SpacesController do
             it { should_not allow_access_to(:enable, hash_with_attrs).via(:post) }
             it { should allow_access_to(:leave, hash_with_attrs).via(:post) }
             it { should allow_access_to(:webconference, hash) }
+            it { should allow_access_to(:recordings, hash) }
           end
 
           context "with the role 'User'" do
@@ -120,6 +123,7 @@ describe SpacesController do
             it { should_not allow_access_to(:enable, hash_with_attrs).via(:post) }
             it { should allow_access_to(:leave, hash_with_attrs).via(:post) }
             it { should allow_access_to(:webconference, hash) }
+            it { should allow_access_to(:recordings, hash) }
           end
         end
       end
@@ -134,6 +138,7 @@ describe SpacesController do
           it { should_not allow_access_to(:enable, hash_with_attrs).via(:post) }
           it { should_not allow_access_to(:leave, hash_with_attrs).via(:post) }
           it { should_not allow_access_to(:webconference, hash) }
+          it { should_not allow_access_to(:recordings, hash) }
         end
 
         context "he is a member of" do
@@ -147,6 +152,7 @@ describe SpacesController do
             it { should_not allow_access_to(:enable, hash_with_attrs).via(:post) }
             it { should allow_access_to(:leave, hash_with_attrs).via(:post) }
             it { should allow_access_to(:webconference, hash) }
+            it { should allow_access_to(:recordings, hash) }
           end
 
           context "with the role 'User'" do
@@ -159,6 +165,7 @@ describe SpacesController do
             it { should_not allow_access_to(:enable, hash_with_attrs).via(:post) }
             it { should allow_access_to(:leave, hash_with_attrs).via(:post) }
             it { should allow_access_to(:webconference, hash) }
+            it { should allow_access_to(:recordings, hash) }
           end
         end
       end
@@ -180,6 +187,7 @@ describe SpacesController do
         it { should_not allow_access_to(:enable, hash_with_attrs).via(:post) }
         it { should_not allow_access_to(:leave, hash_with_attrs).via(:post) }
         it { should allow_access_to(:webconference, hash) }
+        it { should allow_access_to(:recordings, hash) }
       end
 
       context "in a private space" do
@@ -192,6 +200,7 @@ describe SpacesController do
         it { should_not allow_access_to(:enable, hash_with_attrs).via(:post) }
         it { should_not allow_access_to(:leave, hash_with_attrs).via(:post) }
         it { should_not allow_access_to(:webconference, hash) }
+        it { should_not allow_access_to(:recordings, hash) }
       end
     end
 
@@ -441,6 +450,87 @@ describe SpacesController do
     it { should assign_to(:webconf_room).with(space.bigbluebutton_room) }
 
     it "assigns @webconf_attendees with the attendees"
+  end
+
+  describe "#recordings" do
+    let(:space) { FactoryGirl.create(:space) }
+    let(:user) { FactoryGirl.create(:superuser) }
+    before(:each) { login_as(user) }
+
+    context "html full request" do
+      before(:each) { get :recordings, :id => space.to_param }
+      it { should render_template(:recordings) }
+      it { should render_with_layout("spaces_show") }
+      it { should assign_to(:webconf_room).with(space.bigbluebutton_room) }
+      context "assigns @recordings" do
+      end
+
+      context "assigns @recordings" do
+        context "doesn't include recordings from rooms of other owners" do
+          before :each do
+            FactoryGirl.create(:bigbluebutton_recording, :room => FactoryGirl.create(:bigbluebutton_room), :published => true)
+          end
+          it { should assign_to(:recordings).with([]) }
+        end
+
+        context "doesn't include recordings that are not published" do
+          before :each do
+            FactoryGirl.create(:bigbluebutton_recording, :room => space.bigbluebutton_room, :published => false)
+          end
+          it { should assign_to(:recordings).with([]) }
+        end
+
+        context "includes recordings that are not available" do
+          before :each do
+            @recording = FactoryGirl.create(:bigbluebutton_recording, :room => space.bigbluebutton_room, :published => true,
+                                            :available => false)
+          end
+          it { should assign_to(:recordings).with([@recording]) }
+        end
+
+        context "order recordings by end_time DESC" do
+          before :each do
+            r1 = FactoryGirl.create(:bigbluebutton_recording, :room => space.bigbluebutton_room, :published => true,
+                                    :end_time => DateTime.now)
+            r2 = FactoryGirl.create(:bigbluebutton_recording, :room => space.bigbluebutton_room, :published => true,
+                                    :end_time => DateTime.now - 2.days)
+            r3 = FactoryGirl.create(:bigbluebutton_recording, :room => space.bigbluebutton_room, :published => true,
+                                    :end_time => DateTime.now - 1.hour)
+            @expected_recordings = [r1, r3, r2]
+          end
+          it { should assign_to(:recordings).with(@expected_recordings) }
+        end
+      end
+    end
+
+    context "if params[:limit] is set" do
+      describe "limits the number of recordings assigned to @recordings" do
+        before :each do
+          @r1 = FactoryGirl.create(:bigbluebutton_recording, :room => space.bigbluebutton_room, :published => true,
+                                   :end_time => DateTime.now)
+          @r2 = FactoryGirl.create(:bigbluebutton_recording, :room => space.bigbluebutton_room, :published => true,
+                                   :end_time => DateTime.now - 1.hour)
+          @r3 = FactoryGirl.create(:bigbluebutton_recording, :room => space.bigbluebutton_room, :published => true,
+                                   :end_time => DateTime.now - 2.hours)
+          @r4 = FactoryGirl.create(:bigbluebutton_recording, :room => space.bigbluebutton_room, :published => true,
+                                   :end_time => DateTime.now - 3.hours)
+          @r5 = FactoryGirl.create(:bigbluebutton_recording, :room => space.bigbluebutton_room, :published => true,
+                                   :end_time => DateTime.now - 4.hours)
+        end
+        before(:each) { get :recordings, :id => space.to_param, :limit => 3 }
+        it { assigns(:recordings).count.should be(3) }
+        it { assigns(:recordings).should include(@r1) }
+        it { assigns(:recordings).should include(@r2) }
+        it { assigns(:recordings).should include(@r3) }
+      end
+    end
+
+    context "if params[:partial] is set" do
+      before(:each) { get :recordings, :id => space.to_param, :partial => true }
+      it { should render_template(:recordings) }
+      it { should_not render_with_layout }
+    end
+
   end
 
   it "#join_request_index"

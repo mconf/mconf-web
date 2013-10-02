@@ -44,11 +44,24 @@ module SpacesHelper
     @spaces_admin_menu_tab = tab
   end
 
-  # Selects the tab if it is the current tab in the administration menu for spaces
+  # Selects the tab if it is the current tab in the administration menu of a spaces
   def spaces_admin_menu_select_if(tab, options={})
     old_class = options[:class] || ''
     @spaces_admin_menu_tab == tab ?
       options.update({ :class => "#{old_class} active" }) :
+      options
+  end
+
+  # Stores the current tab in the menu in the webconference pages of a space
+  def spaces_webconference_menu_at(tab)
+    @spaces_webconference_menu_tab = tab
+  end
+
+  # Selects the tab if it is the current tab in the webconference pages of a space
+  def spaces_webconference_menu_select_if(tab, options={})
+    old_class = options[:class] || ''
+    @spaces_webconference_menu_tab == tab ?
+    options.update({ :class => "#{old_class} active" }) :
       options
   end
 

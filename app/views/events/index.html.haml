@@ -5,7 +5,7 @@
 
 #events-wrapper
 
-  #events-filters
+  #events-filters.page-tabs
     .btn-group{ :"data-toggle" => "buttons-radio" }
       = link_to t('all'), space_events_path(@space, :show => "all"), :id => 'all_link', :class => "btn btn-small #{'active' if params[:show] == 'all' or !params[:show]}"
       = link_to t('upcoming'), space_events_path(@space, :show => "upcoming_events"), :class => "btn btn-small #{'active' if params[:show] == 'upcoming_events'}"

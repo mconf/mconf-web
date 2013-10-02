@@ -1,13 +1,13 @@
-# What is done here is almost duplicated at spaces/recordings.js.coffee
+# What is done here is almost duplicated at my/room_recordings.js.coffee
 # The ids are slightly different, so we didn't make this a partial. But whatever is
-# done here might have to be done at spaces/recordings.js.coffee as well.
+# done here might have to be done at my/room_recordings.js.coffee as well.
 
 $ ->
-  if isOnPage 'my', 'room_recordings'
+  if isOnPage 'spaces', 'recordings'
 
     # make a request to fetch the recordings from the webconf server and update
     # the internal db
-    $form = $('#my-webconference-recordings-fetch')
+    $form = $('#space-recordings-fetch')
     $form.on "ajax:success", (evt, data, status, xhr) ->
       submitFormUpdate()
     $form.on "ajax:error", (evt, xhr, status) ->
@@ -19,9 +19,9 @@ $ ->
 # Submits a form to request an updated list of recordings, and uses the response
 # to replace the html in the page.
 submitFormUpdate = ->
-  $form = $('#my-webconference-recordings-update')
+  $form = $('#space-recordings-update')
   $form.on "ajax:success", (evt, data, status, xhr) ->
-    $('#my-webconference-recordings-list-wrapper').html(data)
+    $('#space-recordings-list-wrapper').html(data)
     mconf.Resources.bind() # for the new content added
     showStatus('success')
   $form.on "ajax:error", (evt, xhr, status) ->
@@ -31,10 +31,10 @@ submitFormUpdate = ->
 
 # Shows the target status message and hides all the others.
 showStatus = (status) ->
-  $('#my-webconference-recordings-fetch').children().hide()
-  $("#my-webconference-recordings-#{status}").show()
+  $('#space-recordings-fetch').children().hide()
+  $("#space-recordings-#{status}").show()
   window.setTimeout ->
-    $("#my-webconference-recordings-#{status}").hide()
+    $("#space-recordings-#{status}").hide()
   , 10000
 
 # Show a notification with the error that occurred in the request `xhr`.

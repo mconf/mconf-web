@@ -1,6 +1,9 @@
 - spaces_menu_at :webconference
 = render :partial => 'spaces/menu'
 
+- spaces_webconference_menu_at :access
+= render :partial => 'webconference_tabs'
+
 #webconference-description.content-block
   .content-block-header
     %h3= t('.webconference.description.header')

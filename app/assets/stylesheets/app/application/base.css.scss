@@ -845,6 +845,13 @@ ul#navbar-right-links {
   }
 }
 
+// A list of tabs inside of a page
+#content .page-tabs {
+  float: left;
+  clear: both;
+  margin-bottom: 15px;
+}
+
 // the upcoming events are shown in spaces/show and my/home
 #sidebar-upcoming-events {
   .event-timezone {

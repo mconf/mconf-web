@@ -100,10 +100,10 @@ module Abilities
 
       # Spaces
       can :create, Space
-      can [:read, :webconference], Space, :public => true
+      can [:read, :webconference, :recordings], Space, :public => true
       can :join_request_new, Space
       can :join_request_create, Space
-      can [:read, :webconference, :leave], Space do |space|
+      can [:read, :webconference, :recordings, :leave], Space do |space|
         space.users.include?(user)
       end
 
@@ -197,7 +197,7 @@ module Abilities
         end
       end
       can [:read, :current], User, :disabled => false
-      can [:read, :webconference], Space, :public => true
+      can [:read, :webconference, :recordings], Space, :public => true
       can :read, Post, :space => { :public => true }
       can :read, News, :space => { :public => true }
       can :read, Event, :space => { :public => true }
