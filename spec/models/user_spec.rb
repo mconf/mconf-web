@@ -270,6 +270,26 @@ describe User do
     end
   end
 
+  describe "#can_record_meeting?" do
+    let(:another_user) { FactoryGirl.create(:user) }
+
+    context "always true for a superuser" do
+      let(:user) { FactoryGirl.create(:superuser) }
+
+      it { user.can_record_meeting?.should be_true }
+      it { user.can_record_meeting?(user.bigbluebutton_room).should be_true }
+      it { user.can_record_meeting?(another_user.bigbluebutton_room).should be_true }
+    end
+
+    context "always false for normal users" do
+      let(:user) { FactoryGirl.create(:user) }
+
+      it { user.can_record_meeting?.should be_false }
+      it { user.can_record_meeting?(user.bigbluebutton_room).should be_false }
+      it { user.can_record_meeting?(another_user.bigbluebutton_room).should be_false }
+    end
+  end
+
   describe "abilities" do
     set_custom_ability_actions([:fellows, :current, :select])
 

@@ -62,6 +62,13 @@ class User < ActiveRecord::Base
     end
   end
 
+  # Returns whether this user can record a meeting in `room` or not after BigbluebuttonRails
+  # decided that the user's role in this room is `role`.
+  def can_record_meeting?(room=nil, role=nil)
+    # currently only superusers can record (any room)
+    superuser
+  end
+
 ###
 
   apply_simple_captcha

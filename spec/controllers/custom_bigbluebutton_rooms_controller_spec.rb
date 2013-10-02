@@ -505,19 +505,38 @@ describe CustomBigbluebuttonRoomsController do
   # end
 
   describe "#join_options" do
-    let(:room) { FactoryGirl.create(:bigbluebutton_room) }
-    before(:each) { login_as(FactoryGirl.create(:superuser)) }
+    let(:user) { FactoryGirl.create(:user) }
+    let(:room) { user.bigbluebutton_room }
+    before(:each) { login_as(user) }
 
-    context "template and layout for html requests" do
+    context "if the user can't record meetings in this room" do
+      before {
+        # use this instead of sign_in() otherwise the mocks below won't be triggered
+        controller.stub(:current_user) { user }
+        user.should_receive(:can_record_meeting?).and_return(false)
+      }
       before(:each) { get :join_options, :id => room.to_param }
-      it { should render_template(:join_options) }
-      it { should render_with_layout("application") }
+      it { should redirect_to(join_bigbluebutton_room_path(room)) }
     end
 
-    context "template and layout for xhr requests" do
-      before(:each) { xhr :get, :join_options, :id => room.to_param }
-      it { should render_template(:join_options) }
-      it { should_not render_with_layout() }
+    context "if the user can record meetings in this room" do
+      before {
+        # use this instead of sign_in() otherwise the mocks below won't be triggered
+        controller.stub(:current_user) { user }
+        user.should_receive(:can_record_meeting?).and_return(true)
+      }
+
+      context "template and layout for html requests" do
+        before(:each) { get :join_options, :id => room.to_param }
+        it { should render_template(:join_options) }
+        it { should render_with_layout("application") }
+      end
+
+      context "template and layout for xhr requests" do
+        before(:each) { xhr :get, :join_options, :id => room.to_param }
+        it { should render_template(:join_options) }
+        it { should_not render_with_layout() }
+      end
     end
   end
 

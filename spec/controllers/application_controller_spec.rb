@@ -6,6 +6,9 @@
 
 require "spec_helper"
 
+# most of the tests here use anonymous controllers, see:
+# https://www.relishapp.com/rspec/rspec-rails/docs/controller-specs/anonymous-controller
+
 describe ApplicationController do
 
   describe "#set_time_zone" do
@@ -59,10 +62,75 @@ describe ApplicationController do
   end
 
   describe "#bigbluebutton_can_create?" do
-    it "if there's no user logged returns false"
-    it "if there's user logged returns current_user.can_create_meeting?"
-    it "if the user can create the room but cannot record, sets the record flag to false"
-    it "if the user can create the room and can record, leaves the record flag as it was before"
+    controller do
+      def index
+        room = BigbluebuttonRoom.find_by_id(params[:room_id])
+        @result = bigbluebutton_can_create?(room, params[:role])
+        render :nothing => true
+      end
+    end
+
+    context "if there's no user logged returns false" do
+      let(:room) { FactoryGirl.create(:bigbluebutton_room) }
+      before(:each) { get :index, :room_id => room.id, :role => :moderator }
+      it { assigns(:result).should be_false }
+    end
+
+    context "if there's user logged" do
+      let(:user) { FactoryGirl.create(:user) }
+      let(:room) { FactoryGirl.create(:bigbluebutton_room) }
+      before {
+        # use this instead of sign_in() otherwise the mocks below won't be triggered
+        controller.stub(:current_user) { user }
+      }
+
+      context "returns current_user.can_create_meeting?" do
+        context "when true" do
+          before { user.should_receive(:can_create_meeting?).and_return(true) }
+          before(:each) { get :index, :room_id => room.id, :role => :moderator }
+          it { assigns(:result).should be_true }
+        end
+
+        context "when false" do
+          before { user.should_receive(:can_create_meeting?).and_return(false) }
+          before(:each) { get :index, :room_id => room.id, :role => :moderator }
+          it { assigns(:result).should be_false }
+        end
+      end
+
+      context "if the user cannot record, sets the record flag to false" do
+        before {
+          user.should_receive(:can_create_meeting?).and_return(true)
+          user.should_receive(:can_record_meeting?).and_return(false)
+          BigbluebuttonRoom.stub(:find_by_id).and_return(room)
+        }
+        before(:each) {
+          room.should_receive(:update_attribute).with(:record, false) # here's the validation
+          get :index, :room_id => room.id, :role => :moderator
+        }
+        it { assigns(:result).should be_true }
+      end
+
+      context "if the user can record, leaves the record flag as it was before" do
+
+        [false, true].each do |value|
+          context "when it was #{value}" do
+            before {
+              room.update_attribute(:record, value) # initial value
+              user.should_receive(:can_create_meeting?).and_return(true)
+              user.should_receive(:can_record_meeting?).and_return(true)
+              BigbluebuttonRoom.stub(:find_by_id).and_return(room)
+            }
+            before(:each) {
+              room.should_not_receive(:update_attribute).with(:record, false)
+              get :index, :room_id => room.id, :role => :moderator
+            }
+            it { room.record.should be(value) }
+          end
+        end
+      end
+
+    end
   end
 
 end
