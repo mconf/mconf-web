@@ -282,9 +282,11 @@ pt-br:
   created_time_ago: "Criado %{time} atrás"
   custom_bigbluebutton_rooms: 
     _other:
-      join_mobile: "Entrar em dispositivo móvel"
+      fetch_recordings: "Buscar gravações"
       invite: "Convidar"
+      join_mobile: "Entrar em dispositivo móvel"
       new_room: "Nova sala"
+      view_recordings: "Ver gravações"
     edit:
       editing_room: "Editando a sala '%{room}'"
     form:
@@ -346,6 +348,8 @@ pt-br:
       title: "Opções da reunião"
     new:
       creating_new_room: "Criando uma nova sala"
+    recordings:
+      list_of_recordings: "Lista de todas gravações para a sala '%{room}'"
     rooms:
       table:
         links: "Links"
@@ -371,7 +375,7 @@ pt-br:
   custom_bigbluebutton_servers:
     _other:
       activity_monitor: "Monitor de atividades"
-      fetch_recordings: "Atualizar gravações"
+      fetch_recordings: "Buscar gravações"
       new_server: "Novo servidor"
       view_recordings: "Ver gravações"
       view_rooms: "Ver salas"

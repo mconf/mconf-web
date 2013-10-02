@@ -6,4 +6,5 @@
  *= require ./app/custom_bigbluebutton_rooms/join_mobile
  *= require ./app/custom_bigbluebutton_rooms/edit
  *= require ./app/custom_bigbluebutton_rooms/show
+ *= require ./app/custom_bigbluebutton_rooms/recordings
  */

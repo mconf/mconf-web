@@ -290,9 +290,11 @@ en:
     title: "Crop image"
   custom_bigbluebutton_rooms: 
     _other:
-      join_mobile: "Join from mobile"
+      fetch_recordings: "Fetch recordings"
       invite: "Invite"
+      join_mobile: "Join from mobile"
       new_room: "New room"
+      view_recordings: "View recordings"
     edit:
       editing_room: "Editing room '%{room}'"
     form:
@@ -354,6 +356,8 @@ en:
       title: "Meeting options"
     new:
       creating_new_room: "Creating a new room"
+    recordings:
+      list_of_recordings: "List of all recordings for the room '%{room}'"
     rooms:
       table:
         links: "Links"

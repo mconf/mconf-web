@@ -4,9 +4,11 @@
 %ul.nav.nav-tabs.nav-stacked.content-block-wrapper
   %li= link_to t('custom_bigbluebutton_rooms._other.new_room'), new_bigbluebutton_room_path
   %li= link_to t('_other.details'), bigbluebutton_room_path(room)
+  %li= link_to t('custom_bigbluebutton_rooms._other.view_recordings'), recordings_bigbluebutton_room_path(room)
+  %li= link_to t('custom_bigbluebutton_rooms._other.fetch_recordings'), fetch_recordings_bigbluebutton_room_path(room), :confirm => t('are_you_sure'), :method => :post
   %li= link_to t('_other.edit'), edit_bigbluebutton_room_path(room)
-  %li= link_to t('_other.destroy'), bigbluebutton_room_path(room), :confirm => t('are_you_sure'), :method => :delete
-  %li= link_to t('_other.end'), end_bigbluebutton_room_path(room), :confirm => t('are_you_sure')
   %li= link_to t('_other.join'), join_bigbluebutton_room_path(room)
   %li= link_to t('custom_bigbluebutton_rooms._other.join_mobile'), join_mobile_bigbluebutton_room_path(room)
   %li= link_to t('custom_bigbluebutton_rooms._other.invite'), invite_bigbluebutton_room_path(room)
+  %li= link_to t('_other.end'), end_bigbluebutton_room_path(room), :confirm => t('are_you_sure')
+  %li= link_to t('_other.destroy'), bigbluebutton_room_path(room), :confirm => t('are_you_sure'), :method => :delete
