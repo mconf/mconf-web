@@ -51,6 +51,8 @@ class User < ActiveRecord::Base
   end
 
   # Returns whether the user can create meetings in the `room`.
+  # Can create if he's the owner or if he belongs to the space (with any role) that owns
+  # the room.
   def can_create_meeting?(room)
     if (room.owner_type == "User" && room.owner.id == self.id)
       true

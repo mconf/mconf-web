@@ -37,8 +37,8 @@ module Abilities
 
       # The same logic for which user can create which room, done at
       # `user#can_can_meeting?()`
-      # :create_meeting is a custom name, not an action that exists in the controller
-      can [:create_meeting, :end, :join_options], BigbluebuttonRoom do |room|
+      # `:create_meeting` is a custom name, not an action that exists in the controller
+      can [:end, :join_options, :create_meeting, :fetch_recordings], BigbluebuttonRoom do |room|
         user.can_create_meeting?(room)
       end
 

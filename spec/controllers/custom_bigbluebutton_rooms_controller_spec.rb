@@ -9,251 +9,6 @@ require "spec_helper"
 describe CustomBigbluebuttonRoomsController do
   render_views
 
-  describe "abilities" do
-    render_views(false)
-
-    context "for a superuser", :user => "superuser" do
-      let(:user) { FactoryGirl.create(:superuser) }
-      let(:hash_with_server) { { :server_id => room.server.id } }
-      let(:hash) { { :id => room.to_param } }
-      before(:each) { login_as(user) }
-
-      it { should allow_access_to(:index) }
-      it { should allow_access_to(:new) }
-      it { should allow_access_to(:create).via(:post) }
-
-      # the permissions are always the same, doesn't matter the type of room, so
-      # we have them all in this common method
-      shared_examples_for "a superuser accessing a webconf room in CustomBigbluebuttonRoomsController" do
-        it { should allow_access_to(:show, hash) }
-        it { should allow_access_to(:edit, hash) }
-        it { should allow_access_to(:update, hash).via(:put) }
-        it { should allow_access_to(:destroy, hash).via(:delete) }
-        it { should allow_access_to(:join, hash) }
-        it { should allow_access_to(:auth, hash).via(:post) }
-        it { should allow_access_to(:invite, hash) }
-        it { should allow_access_to(:invite_userid, hash).redirecting_to(invite_bigbluebutton_room_path(room)) }
-        it { should allow_access_to(:external, hash_with_server) }
-        it { should allow_access_to(:external_auth, hash_with_server).via(:post) }
-        it { should allow_access_to(:end, hash) }
-        it { should allow_access_to(:join_mobile, hash) }
-        it { should allow_access_to(:running, hash) }
-        it { should allow_access_to(:join_options, hash) }
-      end
-
-      context "in his room" do
-        let(:room) { user.bigbluebutton_room }
-        it_should_behave_like "a superuser accessing a webconf room in CustomBigbluebuttonRoomsController"
-      end
-
-      context "in another user's room" do
-        let(:room) { FactoryGirl.create(:superuser).bigbluebutton_room }
-        it_should_behave_like "a superuser accessing a webconf room in CustomBigbluebuttonRoomsController"
-      end
-
-      context "in the room of public space" do
-        let(:space) { FactoryGirl.create(:space, :public => true) }
-        let(:room) { space.bigbluebutton_room }
-
-        context "he is a member of" do
-          before { space.add_member!(user) }
-          it_should_behave_like "a superuser accessing a webconf room in CustomBigbluebuttonRoomsController"
-        end
-
-        context "he is not a member of" do
-          it_should_behave_like "a superuser accessing a webconf room in CustomBigbluebuttonRoomsController"
-        end
-      end
-
-      context "in the room of private space" do
-        let(:space) { FactoryGirl.create(:space, :public => false) }
-        let(:room) { space.bigbluebutton_room }
-
-        context "he is a member of" do
-          before { space.add_member!(user) }
-          it_should_behave_like "a superuser accessing a webconf room in CustomBigbluebuttonRoomsController"
-        end
-
-        context "he is not a member of" do
-          it_should_behave_like "a superuser accessing a webconf room in CustomBigbluebuttonRoomsController"
-        end
-      end
-    end
-
-    context "for a normal user", :user => "normal" do
-      let(:user) { FactoryGirl.create(:user) }
-      let(:hash_with_server) { { :server_id => room.server.id } }
-      let(:hash) { { :id => room.to_param } }
-      before(:each) { login_as(user) }
-
-      it { should_not allow_access_to(:index) }
-      it { should_not allow_access_to(:new) }
-      it { should_not allow_access_to(:create).via(:post) }
-
-      context "in his room" do
-        let(:room) { user.bigbluebutton_room }
-        it { should_not allow_access_to(:show, hash) }
-        it { should_not allow_access_to(:edit, hash) }
-        it { should_not allow_access_to(:update, hash).via(:put) }
-        it { should_not allow_access_to(:destroy, hash).via(:delete) }
-        it { should allow_access_to(:join, hash) }
-        it { should allow_access_to(:auth, hash).via(:post) }
-        it { should allow_access_to(:invite, hash) }
-        it { should allow_access_to(:invite_userid, hash).redirecting_to(invite_bigbluebutton_room_path(room)) }
-        it { should allow_access_to(:external, hash_with_server) }
-        it { should allow_access_to(:external_auth, hash_with_server).via(:post) }
-        it { should allow_access_to(:end, hash) }
-        it { should allow_access_to(:join_mobile, hash) }
-        it { should allow_access_to(:running, hash) }
-        it { should allow_access_to(:join_options, hash) }
-      end
-
-      context "in another user's room" do
-        let(:room) { FactoryGirl.create(:superuser).bigbluebutton_room }
-        it { should_not allow_access_to(:show, hash) }
-        it { should_not allow_access_to(:edit, hash) }
-        it { should_not allow_access_to(:update, hash).via(:put) }
-        it { should_not allow_access_to(:destroy, hash).via(:delete) }
-        it { should allow_access_to(:external, hash_with_server) }
-        it { should allow_access_to(:external_auth, hash_with_server).via(:post) }
-        it { should allow_access_to(:join, hash) }
-        it { should allow_access_to(:auth, hash).via(:post) }
-        it { should allow_access_to(:invite, hash) }
-        it { should allow_access_to(:invite_userid, hash).redirecting_to(invite_bigbluebutton_room_path(room)) }
-        it { should_not allow_access_to(:end, hash) }
-        it { should allow_access_to(:join_mobile, hash) }
-        it { should allow_access_to(:running, hash) }
-        it { should_not allow_access_to(:join_options, hash) }
-      end
-
-      context "in the room of public space" do
-        let(:space) { FactoryGirl.create(:space, :public => true) }
-        let(:room) { space.bigbluebutton_room }
-
-        context "he is a member of" do
-          before { space.add_member!(user) }
-          it { should_not allow_access_to(:show, hash) }
-          it { should_not allow_access_to(:edit, hash) }
-          it { should_not allow_access_to(:update, hash).via(:put) }
-          it { should_not allow_access_to(:destroy, hash).via(:delete) }
-          it { should allow_access_to(:external, hash_with_server) }
-          it { should allow_access_to(:external_auth, hash_with_server).via(:post) }
-          it { should allow_access_to(:join, hash) }
-          it { should allow_access_to(:auth, hash).via(:post) }
-          it { should allow_access_to(:invite, hash) }
-          it { should allow_access_to(:invite_userid, hash).redirecting_to(invite_bigbluebutton_room_path(room)) }
-          it { should allow_access_to(:end, hash) }
-          it { should allow_access_to(:join_mobile, hash) }
-          it { should allow_access_to(:running, hash) }
-          it { should allow_access_to(:join_options, hash) }
-        end
-
-        context "he is not a member of" do
-          it { should_not allow_access_to(:show, hash) }
-          it { should_not allow_access_to(:edit, hash) }
-          it { should_not allow_access_to(:update, hash).via(:put) }
-          it { should_not allow_access_to(:destroy, hash).via(:delete) }
-          it { should allow_access_to(:external, hash_with_server) }
-          it { should allow_access_to(:external_auth, hash_with_server).via(:post) }
-          it { should allow_access_to(:join, hash) }
-          it { should allow_access_to(:auth, hash).via(:post) }
-          it { should allow_access_to(:invite, hash) }
-          it { should allow_access_to(:invite_userid, hash).redirecting_to(invite_bigbluebutton_room_path(room)) }
-          it { should_not allow_access_to(:end, hash) }
-          it { should allow_access_to(:join_mobile, hash) }
-          it { should allow_access_to(:running, hash) }
-          it { should_not allow_access_to(:join_options, hash) }
-        end
-      end
-
-      context "in the room of private space" do
-        let(:space) { FactoryGirl.create(:space, :public => false) }
-        let(:room) { space.bigbluebutton_room }
-
-        context "he is a member of" do
-          before { space.add_member!(user) }
-          it { should_not allow_access_to(:show, hash) }
-          it { should_not allow_access_to(:edit, hash) }
-          it { should_not allow_access_to(:update, hash).via(:put) }
-          it { should_not allow_access_to(:destroy, hash).via(:delete) }
-          it { should allow_access_to(:external, hash_with_server) }
-          it { should allow_access_to(:external_auth, hash_with_server).via(:post) }
-          it { should allow_access_to(:join, hash) }
-          it { should allow_access_to(:auth, hash).via(:post) }
-          it { should allow_access_to(:invite, hash) }
-          it { should allow_access_to(:invite_userid, hash).redirecting_to(invite_bigbluebutton_room_path(room)) }
-          it { should allow_access_to(:end, hash) }
-          it { should allow_access_to(:join_mobile, hash) }
-          it { should allow_access_to(:running, hash) }
-          it { should allow_access_to(:join_options, hash) }
-        end
-
-        context "he is not a member of" do
-          it { should_not allow_access_to(:show, hash) }
-          it { should_not allow_access_to(:edit, hash) }
-          it { should_not allow_access_to(:update, hash).via(:put) }
-          it { should_not allow_access_to(:destroy, hash).via(:delete) }
-          it { should allow_access_to(:external, hash_with_server) }
-          it { should allow_access_to(:external_auth, hash_with_server).via(:post) }
-          it { should allow_access_to(:join, hash) }
-          it { should allow_access_to(:auth, hash).via(:post) }
-          it { should allow_access_to(:invite, hash) }
-          it { should allow_access_to(:invite_userid, hash).redirecting_to(invite_bigbluebutton_room_path(room)) }
-          it { should_not allow_access_to(:end, hash) }
-          it { should allow_access_to(:join_mobile, hash) }
-          it { should allow_access_to(:running, hash) }
-          it { should_not allow_access_to(:join_options, hash) }
-        end
-      end
-
-    end
-
-    context "for an anonymous user", :user => "anonymous" do
-      let(:hash_with_server) { { :server_id => room.server.id } }
-      let(:hash) { { :id => room.to_param } }
-
-      it { should require_authentication_for(:index) }
-      it { should require_authentication_for(:new) }
-      it { should require_authentication_for(:create).via(:post) }
-
-      # the permissions are always the same, doesn't matter the type of room, so
-      # we have them all in this common method
-      shared_examples_for "an anonymous user accessing any webconf room" do
-        it { should require_authentication_for(:show, hash) }
-        it { should require_authentication_for(:edit, hash) }
-        it { should require_authentication_for(:update, hash).via(:put) }
-        it { should require_authentication_for(:destroy, hash).via(:delete) }
-        it { should require_authentication_for(:join, hash) }
-        it { should allow_access_to(:auth, hash).via(:post) }
-        it { should allow_access_to(:invite, hash).redirecting_to(join_webconf_path(room)) }
-        it { should allow_access_to(:invite_userid, hash) }
-        it { should require_authentication_for(:external, hash_with_server) }
-        it { should require_authentication_for(:external_auth, hash_with_server).via(:post) }
-        it { should require_authentication_for(:end, hash) }
-        it { should require_authentication_for(:join_mobile, hash) }
-        it { should allow_access_to(:running, hash) }
-        it { should require_authentication_for(:join_options, hash) }
-      end
-
-      context "in a user room" do
-        let(:room) { FactoryGirl.create(:superuser).bigbluebutton_room }
-        it_should_behave_like "an anonymous user accessing any webconf room"
-      end
-
-      context "in the room of public space" do
-        let(:space) { FactoryGirl.create(:space, :public => true) }
-        let(:room) { space.bigbluebutton_room }
-        it_should_behave_like "an anonymous user accessing any webconf room"
-      end
-
-      context "in the room of private space" do
-        let(:space) { FactoryGirl.create(:space, :public => false) }
-        let(:room) { space.bigbluebutton_room }
-        it_should_behave_like "an anonymous user accessing any webconf room"
-      end
-    end
-  end
-
   describe "#invite_userid" do
     context "template and layout" do
       let(:room) { FactoryGirl.create(:bigbluebutton_room, :private => false) }
@@ -332,6 +87,47 @@ describe CustomBigbluebuttonRoomsController do
       }
       it { should render_template(:invite) }
       it { should render_with_layout("no_sidebar") }
+    end
+
+    # to make sure a user can't create a meeting in a room simply by submitting the
+    # moderator password; he needs permissions on the room as well
+    context "when submitting the moderator password" do
+      let(:user) { FactoryGirl.create(:user) }
+      let(:room) { user.bigbluebutton_room }
+      let(:server) { room.server }
+
+      context "creates the room if the current user is the owner" do
+        before :each do
+          login_as(user)
+          request.env["HTTP_REFERER"] = "/any"
+          BigbluebuttonRoom.stub(:find_by_param) { room }
+
+          # to guide the behavior of #auth, copied from the tests in BigbluebuttonRails
+          room.should_receive(:fetch_is_running?)
+          room.should_receive(:is_running?).and_return(false)
+          room.should_receive(:create_meeting).with(user.name, user.id, anything)
+          room.should_receive(:join_url).and_return("http://test.com/attendee/join")
+        end
+        before(:each) { post :auth, :id => room.to_param, :user => { :password => room.moderator_password, :name => "Any Name" } }
+        it { should respond_with(:redirect) }
+        it { should redirect_to("http://test.com/attendee/join") }
+      end
+
+      context "doesn't create the room if the current user is not the owner" do
+        before :each do
+          another_user = FactoryGirl.create(:user)
+          login_as(another_user)
+          request.env["HTTP_REFERER"] = "/any"
+          BigbluebuttonRoom.stub(:find_by_param) { room }
+
+          # to guide the behavior of #auth, copied from the tests in BigbluebuttonRails
+          server.api.stub(:is_meeting_running?) { false }
+        end
+        before(:each) { post :auth, :id => room.to_param, :user => { :password => room.moderator_password, :name => "Any Name" } }
+        it { should respond_with(:unauthorized) }
+        it { should render_template(:invite) }
+        it { should set_the_flash.to(I18n.t('bigbluebutton_rails.rooms.errors.auth.cannot_create')) }
+      end
     end
   end
 
@@ -536,6 +332,259 @@ describe CustomBigbluebuttonRoomsController do
         before(:each) { xhr :get, :join_options, :id => room.to_param }
         it { should render_template(:join_options) }
         it { should_not render_with_layout() }
+      end
+    end
+  end
+
+  describe "abilities" do
+    render_views(false)
+
+    context "for a superuser", :user => "superuser" do
+      let(:user) { FactoryGirl.create(:superuser) }
+      let(:hash_with_server) { { :server_id => room.server.id } }
+      let(:hash) { { :id => room.to_param } }
+      before(:each) { login_as(user) }
+
+      it { should allow_access_to(:index) }
+      it { should allow_access_to(:new) }
+      it { should allow_access_to(:create).via(:post) }
+
+      # the permissions are always the same, doesn't matter the type of room, so
+      # we have them all in this common method
+      shared_examples_for "a superuser accessing a webconf room in CustomBigbluebuttonRoomsController" do
+        it { should allow_access_to(:show, hash) }
+        it { should allow_access_to(:edit, hash) }
+        it { should allow_access_to(:update, hash).via(:put) }
+        it { should allow_access_to(:destroy, hash).via(:delete) }
+        it { should allow_access_to(:join, hash) }
+        it { should allow_access_to(:auth, hash).via(:post) }
+        it { should allow_access_to(:invite, hash) }
+        it { should allow_access_to(:invite_userid, hash).redirecting_to(invite_bigbluebutton_room_path(room)) }
+        it { should allow_access_to(:external, hash_with_server) }
+        it { should allow_access_to(:external_auth, hash_with_server).via(:post) }
+        it { should allow_access_to(:end, hash) }
+        it { should allow_access_to(:join_mobile, hash) }
+        it { should allow_access_to(:running, hash) }
+        it { should allow_access_to(:join_options, hash) }
+        it { should allow_access_to(:fetch_recordings, hash) }
+      end
+
+      context "in his room" do
+        let(:room) { user.bigbluebutton_room }
+        it_should_behave_like "a superuser accessing a webconf room in CustomBigbluebuttonRoomsController"
+      end
+
+      context "in another user's room" do
+        let(:room) { FactoryGirl.create(:superuser).bigbluebutton_room }
+        it_should_behave_like "a superuser accessing a webconf room in CustomBigbluebuttonRoomsController"
+      end
+
+      context "in the room of public space" do
+        let(:space) { FactoryGirl.create(:space, :public => true) }
+        let(:room) { space.bigbluebutton_room }
+
+        context "he is a member of" do
+          before { space.add_member!(user) }
+          it_should_behave_like "a superuser accessing a webconf room in CustomBigbluebuttonRoomsController"
+        end
+
+        context "he is not a member of" do
+          it_should_behave_like "a superuser accessing a webconf room in CustomBigbluebuttonRoomsController"
+        end
+      end
+
+      context "in the room of private space" do
+        let(:space) { FactoryGirl.create(:space, :public => false) }
+        let(:room) { space.bigbluebutton_room }
+
+        context "he is a member of" do
+          before { space.add_member!(user) }
+          it_should_behave_like "a superuser accessing a webconf room in CustomBigbluebuttonRoomsController"
+        end
+
+        context "he is not a member of" do
+          it_should_behave_like "a superuser accessing a webconf room in CustomBigbluebuttonRoomsController"
+        end
+      end
+    end
+
+    context "for a normal user", :user => "normal" do
+      let(:user) { FactoryGirl.create(:user) }
+      let(:hash_with_server) { { :server_id => room.server.id } }
+      let(:hash) { { :id => room.to_param } }
+      before(:each) { login_as(user) }
+
+      it { should_not allow_access_to(:index) }
+      it { should_not allow_access_to(:new) }
+      it { should_not allow_access_to(:create).via(:post) }
+
+      context "in his room" do
+        let(:room) { user.bigbluebutton_room }
+        it { should_not allow_access_to(:show, hash) }
+        it { should_not allow_access_to(:edit, hash) }
+        it { should_not allow_access_to(:update, hash).via(:put) }
+        it { should_not allow_access_to(:destroy, hash).via(:delete) }
+        it { should allow_access_to(:join, hash) }
+        it { should allow_access_to(:auth, hash).via(:post) }
+        it { should allow_access_to(:invite, hash) }
+        it { should allow_access_to(:invite_userid, hash).redirecting_to(invite_bigbluebutton_room_path(room)) }
+        it { should allow_access_to(:external, hash_with_server) }
+        it { should allow_access_to(:external_auth, hash_with_server).via(:post) }
+        it { should allow_access_to(:end, hash) }
+        it { should allow_access_to(:join_mobile, hash) }
+        it { should allow_access_to(:running, hash) }
+        it { should allow_access_to(:join_options, hash) }
+        it { should allow_access_to(:fetch_recordings, hash) }
+      end
+
+      context "in another user's room" do
+        let(:room) { FactoryGirl.create(:superuser).bigbluebutton_room }
+        it { should_not allow_access_to(:show, hash) }
+        it { should_not allow_access_to(:edit, hash) }
+        it { should_not allow_access_to(:update, hash).via(:put) }
+        it { should_not allow_access_to(:destroy, hash).via(:delete) }
+        it { should allow_access_to(:external, hash_with_server) }
+        it { should allow_access_to(:external_auth, hash_with_server).via(:post) }
+        it { should allow_access_to(:join, hash) }
+        it { should allow_access_to(:auth, hash).via(:post) }
+        it { should allow_access_to(:invite, hash) }
+        it { should allow_access_to(:invite_userid, hash).redirecting_to(invite_bigbluebutton_room_path(room)) }
+        it { should_not allow_access_to(:end, hash) }
+        it { should allow_access_to(:join_mobile, hash) }
+        it { should allow_access_to(:running, hash) }
+        it { should_not allow_access_to(:join_options, hash) }
+        it { should_not allow_access_to(:fetch_recordings, hash) }
+      end
+
+      context "in the room of public space" do
+        let(:space) { FactoryGirl.create(:space, :public => true) }
+        let(:room) { space.bigbluebutton_room }
+
+        context "he is a member of" do
+          before { space.add_member!(user) }
+          it { should_not allow_access_to(:show, hash) }
+          it { should_not allow_access_to(:edit, hash) }
+          it { should_not allow_access_to(:update, hash).via(:put) }
+          it { should_not allow_access_to(:destroy, hash).via(:delete) }
+          it { should allow_access_to(:external, hash_with_server) }
+          it { should allow_access_to(:external_auth, hash_with_server).via(:post) }
+          it { should allow_access_to(:join, hash) }
+          it { should allow_access_to(:auth, hash).via(:post) }
+          it { should allow_access_to(:invite, hash) }
+          it { should allow_access_to(:invite_userid, hash).redirecting_to(invite_bigbluebutton_room_path(room)) }
+          it { should allow_access_to(:end, hash) }
+          it { should allow_access_to(:join_mobile, hash) }
+          it { should allow_access_to(:running, hash) }
+          it { should allow_access_to(:join_options, hash) }
+          it { should allow_access_to(:fetch_recordings, hash) }
+        end
+
+        context "he is not a member of" do
+          it { should_not allow_access_to(:show, hash) }
+          it { should_not allow_access_to(:edit, hash) }
+          it { should_not allow_access_to(:update, hash).via(:put) }
+          it { should_not allow_access_to(:destroy, hash).via(:delete) }
+          it { should allow_access_to(:external, hash_with_server) }
+          it { should allow_access_to(:external_auth, hash_with_server).via(:post) }
+          it { should allow_access_to(:join, hash) }
+          it { should allow_access_to(:auth, hash).via(:post) }
+          it { should allow_access_to(:invite, hash) }
+          it { should allow_access_to(:invite_userid, hash).redirecting_to(invite_bigbluebutton_room_path(room)) }
+          it { should_not allow_access_to(:end, hash) }
+          it { should allow_access_to(:join_mobile, hash) }
+          it { should allow_access_to(:running, hash) }
+          it { should_not allow_access_to(:join_options, hash) }
+          it { should_not allow_access_to(:fetch_recordings, hash) }
+        end
+      end
+
+      context "in the room of private space" do
+        let(:space) { FactoryGirl.create(:space, :public => false) }
+        let(:room) { space.bigbluebutton_room }
+
+        context "he is a member of" do
+          before { space.add_member!(user) }
+          it { should_not allow_access_to(:show, hash) }
+          it { should_not allow_access_to(:edit, hash) }
+          it { should_not allow_access_to(:update, hash).via(:put) }
+          it { should_not allow_access_to(:destroy, hash).via(:delete) }
+          it { should allow_access_to(:external, hash_with_server) }
+          it { should allow_access_to(:external_auth, hash_with_server).via(:post) }
+          it { should allow_access_to(:join, hash) }
+          it { should allow_access_to(:auth, hash).via(:post) }
+          it { should allow_access_to(:invite, hash) }
+          it { should allow_access_to(:invite_userid, hash).redirecting_to(invite_bigbluebutton_room_path(room)) }
+          it { should allow_access_to(:end, hash) }
+          it { should allow_access_to(:join_mobile, hash) }
+          it { should allow_access_to(:running, hash) }
+          it { should allow_access_to(:join_options, hash) }
+          it { should allow_access_to(:fetch_recordings, hash) }
+        end
+
+        context "he is not a member of" do
+          it { should_not allow_access_to(:show, hash) }
+          it { should_not allow_access_to(:edit, hash) }
+          it { should_not allow_access_to(:update, hash).via(:put) }
+          it { should_not allow_access_to(:destroy, hash).via(:delete) }
+          it { should allow_access_to(:external, hash_with_server) }
+          it { should allow_access_to(:external_auth, hash_with_server).via(:post) }
+          it { should allow_access_to(:join, hash) }
+          it { should allow_access_to(:auth, hash).via(:post) }
+          it { should allow_access_to(:invite, hash) }
+          it { should allow_access_to(:invite_userid, hash).redirecting_to(invite_bigbluebutton_room_path(room)) }
+          it { should_not allow_access_to(:end, hash) }
+          it { should allow_access_to(:join_mobile, hash) }
+          it { should allow_access_to(:running, hash) }
+          it { should_not allow_access_to(:join_options, hash) }
+          it { should_not allow_access_to(:fetch_recordings, hash) }
+        end
+      end
+
+    end
+
+    context "for an anonymous user", :user => "anonymous" do
+      let(:hash_with_server) { { :server_id => room.server.id } }
+      let(:hash) { { :id => room.to_param } }
+
+      it { should require_authentication_for(:index) }
+      it { should require_authentication_for(:new) }
+      it { should require_authentication_for(:create).via(:post) }
+
+      # the permissions are always the same, doesn't matter the type of room, so
+      # we have them all in this common method
+      shared_examples_for "an anonymous user accessing any webconf room" do
+        it { should require_authentication_for(:show, hash) }
+        it { should require_authentication_for(:edit, hash) }
+        it { should require_authentication_for(:update, hash).via(:put) }
+        it { should require_authentication_for(:destroy, hash).via(:delete) }
+        it { should require_authentication_for(:join, hash) }
+        it { should allow_access_to(:auth, hash).via(:post) }
+        it { should allow_access_to(:invite, hash).redirecting_to(join_webconf_path(room)) }
+        it { should allow_access_to(:invite_userid, hash) }
+        it { should require_authentication_for(:external, hash_with_server) }
+        it { should require_authentication_for(:external_auth, hash_with_server).via(:post) }
+        it { should require_authentication_for(:end, hash) }
+        it { should require_authentication_for(:join_mobile, hash) }
+        it { should allow_access_to(:running, hash) }
+        it { should require_authentication_for(:join_options, hash) }
+        it { should_not allow_access_to(:fetch_recordings, hash) }
+      end
+
+      context "in a user room" do
+        let(:room) { FactoryGirl.create(:superuser).bigbluebutton_room }
+        it_should_behave_like "an anonymous user accessing any webconf room"
+      end
+
+      context "in the room of public space" do
+        let(:space) { FactoryGirl.create(:space, :public => true) }
+        let(:room) { space.bigbluebutton_room }
+        it_should_behave_like "an anonymous user accessing any webconf room"
+      end
+
+      context "in the room of private space" do
+        let(:space) { FactoryGirl.create(:space, :public => false) }
+        let(:room) { space.bigbluebutton_room }
+        it_should_behave_like "an anonymous user accessing any webconf room"
       end
     end
   end

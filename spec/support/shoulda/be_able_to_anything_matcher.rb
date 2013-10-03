@@ -50,13 +50,13 @@ module Shoulda
         def description
           desc = "be able to do anything to the object"
           unless @exceptions.empty?
-            desc += " expect #{@exceptions}"
+            desc += " except #{@exceptions}"
           end
           desc
         end
 
         def failure_message
-          "Don't use this matcher with 'should'. You might use replace it by 'be_able_to(:manage, target)'"
+          "Don't use this matcher with 'should'. You might have to replace it by 'be_able_to(:manage, target)'"
         end
 
         def negative_failure_message
