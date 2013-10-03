@@ -66,7 +66,8 @@ class CustomBigbluebuttonRoomsController < Bigbluebutton::RoomsController
   def join_options
     # don't let the user access this dialog if he can't record meetings
     # an extra protection, since the views that point to this route filter this as well
-    if current_user.can_record_meeting?(@room)
+    ability = Abilities.ability_for(current_user)
+    if ability.can?(:record_meeting, @room)
       begin
         @room.fetch_is_running?
       rescue BigBlueButton::BigBlueButtonException

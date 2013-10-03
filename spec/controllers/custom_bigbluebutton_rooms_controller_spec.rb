@@ -11,7 +11,7 @@ describe CustomBigbluebuttonRoomsController do
 
   describe "#invite_userid" do
     context "template and layout" do
-      let(:room) { FactoryGirl.create(:bigbluebutton_room, :private => false) }
+      let(:room) { FactoryGirl.create(:bigbluebutton_room, :owner => FactoryGirl.create(:user)) }
       let(:hash) { { :server_id => room.server.to_param, :id => room.to_param } }
 
       context "template" do
@@ -39,7 +39,7 @@ describe CustomBigbluebuttonRoomsController do
 
   describe "#invite" do
     context "template and layout" do
-      let(:room) { FactoryGirl.create(:bigbluebutton_room) }
+      let(:room) { FactoryGirl.create(:bigbluebutton_room, :owner => FactoryGirl.create(:user)) }
       let(:hash) { { :server_id => room.server.to_param, :id => room.to_param } }
 
       context "template" do
@@ -305,22 +305,21 @@ describe CustomBigbluebuttonRoomsController do
     let(:room) { user.bigbluebutton_room }
     before(:each) { login_as(user) }
 
+    before {
+      # a custom ability to control what the user can do
+      @ability = Object.new
+      @ability.extend(CanCan::Ability)
+      @ability.can :join_options, room
+      Abilities.stub(:ability_for).and_return(@ability)
+    }
+
     context "if the user can't record meetings in this room" do
-      before {
-        # use this instead of sign_in() otherwise the mocks below won't be triggered
-        controller.stub(:current_user) { user }
-        user.should_receive(:can_record_meeting?).and_return(false)
-      }
       before(:each) { get :join_options, :id => room.to_param }
       it { should redirect_to(join_bigbluebutton_room_path(room)) }
     end
 
     context "if the user can record meetings in this room" do
-      before {
-        # use this instead of sign_in() otherwise the mocks below won't be triggered
-        controller.stub(:current_user) { user }
-        user.should_receive(:can_record_meeting?).and_return(true)
-      }
+      before(:each) { @ability.can :record_meeting, room }
 
       context "template and layout for html requests" do
         before(:each) { get :join_options, :id => room.to_param }

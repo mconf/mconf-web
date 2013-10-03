@@ -35,11 +35,18 @@ module Abilities
       # Not many things are done here, several authorization steps are done by the gem
       # BigbluebuttonRails inside each action
 
-      # The same logic for which user can create which room, done at
-      # `user#can_can_meeting?()`
+      # Can do the actions below if he's the owner or if he belongs to the space (with any role)
+      # that owns the room.
       # `:create_meeting` is a custom name, not an action that exists in the controller
       can [:end, :join_options, :create_meeting, :fetch_recordings], BigbluebuttonRoom do |room|
-        user.can_create_meeting?(room)
+        if (room.owner_type == "User" && room.owner.id == user.id)
+          true
+        elsif (room.owner_type == "Space")
+          space = Space.find(room.owner.id)
+          space.users.include?(user)
+        else
+          false
+        end
       end
 
       # some actions in rooms should be accessible to any logged user
@@ -216,7 +223,10 @@ module Abilities
       end
 
       # some actions in rooms should be accessible to anyone
-      can [:invite, :invite_userid, :auth, :running], BigbluebuttonRoom
+      can [:invite, :invite_userid, :auth, :running], BigbluebuttonRoom do |room|
+        # filters invalid rooms only
+        room.owner_type == "User" || room.owner_type == "Space"
+      end
     end
   end
 

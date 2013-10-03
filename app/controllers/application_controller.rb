@@ -119,16 +119,14 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  # This method is called from BigbluebuttonRails
   def bigbluebutton_can_create?(room, role)
-    can_create = current_user ? current_user.can_create_meeting?(room) : false
+    ability = Abilities.ability_for(current_user)
+    can_create = ability.can?(:create_meeting, room)
     if can_create
       # if the user can create the meeting but cannot record, we make sure the
       # record flag is not set before the room is created
-      if bigbluebutton_user.nil? or not
-          bigbluebutton_user.respond_to?(:"can_record_meeting?") or not
-          bigbluebutton_user.can_record_meeting?(room, role)
-        room.update_attribute(:record, false)
-      end
+      room.update_attribute(:record, false) unless ability.can?(:record_meeting, room)
       true
     else
       false

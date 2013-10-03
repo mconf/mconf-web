@@ -18,7 +18,7 @@
       = link_to t('.end'), end_bigbluebutton_room_path(room, :redir_url => space_path(room.owner)), options_for_tooltip(t('.end_tooltip'), :confirm => t('are_you_sure'), :class => 'btn btn-danger')
     - else
       -# only show the options dialog if the user can record
-      - if current_user.can_record_meeting?(@room)
+      - if can?(:record_meeting, room)
         = link_to t('.start'), join_options_bigbluebutton_room_path(room), :class => "btn open-modal btn-primary", :'data-modal-width' => 'small'
         = link_to join_bigbluebutton_room_path(room), options_for_tooltip(t(".fast_start"), :class => "btn btn-primary webconf-join-link") do
           = icon_webconf_start()

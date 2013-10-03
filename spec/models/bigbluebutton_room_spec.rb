@@ -13,7 +13,7 @@ describe BigbluebuttonRoom do
   describe "abilities" do
     set_custom_ability_actions([:end, :join_options, :create_meeting, :fetch_recordings,
                                 :invite, :invite_userid, :auth, :running, :join, :external,
-                                :external_auth, :join_mobile])
+                                :external_auth, :join_mobile, :record_meeting])
 
     subject { ability }
     let(:user) { nil }
@@ -59,6 +59,16 @@ describe BigbluebuttonRoom do
           before { space.add_member!(user) }
           it { should be_able_to(:manage, target) }
         end
+      end
+
+      context "for a room without owner" do
+        let(:target) { FactoryGirl.create(:bigbluebutton_room, :owner => nil) }
+        it { should be_able_to(:manage, target) }
+      end
+
+      context "for a room with an invalid owner_type" do
+        let(:target) { FactoryGirl.create(:bigbluebutton_room, :owner_type => "invalid type") }
+        it { should be_able_to(:manage, target) }
       end
     end
 
@@ -118,6 +128,20 @@ describe BigbluebuttonRoom do
           it { should_not be_able_to_do_anything_to(target).except(allowed) }
         end
       end
+
+      context "for a room without owner" do
+        let(:target) { FactoryGirl.create(:bigbluebutton_room, :owner => nil) }
+        let(:allowed) { [:invite, :invite_userid, :auth, :running, :join, :external,
+                         :external_auth, :join_mobile] }
+        it { should_not be_able_to_do_anything_to(target).except(allowed) }
+      end
+
+      context "for a room with an invalid owner_type" do
+        let(:target) { FactoryGirl.create(:bigbluebutton_room, :owner_type => "invalid type") }
+        let(:allowed) { [:invite, :invite_userid, :auth, :running, :join, :external,
+                         :external_auth, :join_mobile] }
+        it { should_not be_able_to_do_anything_to(target).except(allowed) }
+      end
     end
 
     context "an anonymous user", :user => "anonymous" do
@@ -139,6 +163,16 @@ describe BigbluebuttonRoom do
         let(:target) { space.bigbluebutton_room }
         let(:allowed) { [:invite, :invite_userid, :auth, :running] }
         it { should_not be_able_to_do_anything_to(target).except(allowed) }
+      end
+
+      context "for a room without owner" do
+        let(:target) { FactoryGirl.create(:bigbluebutton_room, :owner => nil) }
+        it { should_not be_able_to_do_anything_to(target) }
+      end
+
+      context "for a room with an invalid owner_type" do
+        let(:target) { FactoryGirl.create(:bigbluebutton_room, :owner_type => "invalid type") }
+        it { should_not be_able_to_do_anything_to(target) }
       end
     end
 

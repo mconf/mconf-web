@@ -228,68 +228,6 @@ describe User do
     end
   end
 
-  describe "#can_create_meeting?" do
-    let(:user) { FactoryGirl.create(:user) }
-    let(:another_user) { FactoryGirl.create(:user) }
-
-    context "for a user room" do
-      context "that belongs to the target user" do
-        let(:room) { FactoryGirl.create(:bigbluebutton_room, :owner => user) }
-        it { user.can_create_meeting?(room).should be_true }
-      end
-
-      context "that belongs to another user" do
-        let(:room) { FactoryGirl.create(:bigbluebutton_room, :owner => another_user) }
-        it { user.can_create_meeting?(room).should be_false }
-      end
-    end
-
-    context "for a space room" do
-      let(:space) { FactoryGirl.create(:space) }
-
-      context "of a space the user belongs to" do
-        let(:room) { FactoryGirl.create(:bigbluebutton_room, :owner => space) }
-        before(:each) { space.add_member!(user) }
-        it { user.can_create_meeting?(room).should be_true }
-      end
-
-      context "of a space the user doesn't belong to" do
-        let(:room) { FactoryGirl.create(:bigbluebutton_room, :owner => space) }
-        it { user.can_create_meeting?(room).should be_false }
-      end
-    end
-
-    context "for a room without owner" do
-      let(:room) { FactoryGirl.create(:bigbluebutton_room, :owner => nil) }
-      it { user.can_create_meeting?(room).should be_false }
-    end
-
-    context "for a room with an invalid owner_type" do
-      let(:room) { FactoryGirl.create(:bigbluebutton_room, :owner_type => "invalid type") }
-      it { user.can_create_meeting?(room).should be_false }
-    end
-  end
-
-  describe "#can_record_meeting?" do
-    let(:another_user) { FactoryGirl.create(:user) }
-
-    context "always true for a superuser" do
-      let(:user) { FactoryGirl.create(:superuser) }
-
-      it { user.can_record_meeting?.should be_true }
-      it { user.can_record_meeting?(user.bigbluebutton_room).should be_true }
-      it { user.can_record_meeting?(another_user.bigbluebutton_room).should be_true }
-    end
-
-    context "always false for normal users" do
-      let(:user) { FactoryGirl.create(:user) }
-
-      it { user.can_record_meeting?.should be_false }
-      it { user.can_record_meeting?(user.bigbluebutton_room).should be_false }
-      it { user.can_record_meeting?(another_user.bigbluebutton_room).should be_false }
-    end
-  end
-
   describe "abilities" do
     set_custom_ability_actions([:fellows, :current, :select])
 

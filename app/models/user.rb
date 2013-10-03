@@ -50,27 +50,6 @@ class User < ActiveRecord::Base
     self.new_record?
   end
 
-  # Returns whether the user can create meetings in the `room`.
-  # Can create if he's the owner or if he belongs to the space (with any role) that owns
-  # the room.
-  def can_create_meeting?(room)
-    if (room.owner_type == "User" && room.owner.id == self.id)
-      true
-    elsif (room.owner_type == "Space")
-      space = Space.find(room.owner.id)
-      space.users.include?(self)
-    else
-      false
-    end
-  end
-
-  # Returns whether this user can record a meeting in `room` or not after BigbluebuttonRails
-  # decided that the user's role in this room is `role`.
-  def can_record_meeting?(room=nil, role=nil)
-    # currently only superusers can record (any room)
-    superuser
-  end
-
 ###
 
   apply_simple_captcha

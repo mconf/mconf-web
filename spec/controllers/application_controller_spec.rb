@@ -80,28 +80,29 @@ describe ApplicationController do
       let(:user) { FactoryGirl.create(:user) }
       let(:room) { FactoryGirl.create(:bigbluebutton_room) }
       before {
-        # use this instead of sign_in() otherwise the mocks below won't be triggered
-        controller.stub(:current_user) { user }
+        # a custom ability to control what the user can do
+        @ability = Object.new
+        @ability.extend(CanCan::Ability)
+        Abilities.stub(:ability_for).and_return(@ability)
       }
 
-      context "returns current_user.can_create_meeting?" do
-        context "when true" do
-          before { user.should_receive(:can_create_meeting?).and_return(true) }
-          before(:each) { get :index, :room_id => room.id, :role => :moderator }
-          it { assigns(:result).should be_true }
-        end
+      context "returns can?(:create_meeting)" do
 
         context "when false" do
-          before { user.should_receive(:can_create_meeting?).and_return(false) }
           before(:each) { get :index, :room_id => room.id, :role => :moderator }
           it { assigns(:result).should be_false }
+        end
+
+        context "when true" do
+          before { @ability.can :create_meeting, room }
+          before(:each) { get :index, :room_id => room.id, :role => :moderator }
+          it { assigns(:result).should be_true }
         end
       end
 
       context "if the user cannot record, sets the record flag to false" do
         before {
-          user.should_receive(:can_create_meeting?).and_return(true)
-          user.should_receive(:can_record_meeting?).and_return(false)
+          @ability.can :create_meeting, room
           BigbluebuttonRoom.stub(:find_by_id).and_return(room)
         }
         before(:each) {
@@ -117,8 +118,8 @@ describe ApplicationController do
           context "when it was #{value}" do
             before {
               room.update_attribute(:record, value) # initial value
-              user.should_receive(:can_create_meeting?).and_return(true)
-              user.should_receive(:can_record_meeting?).and_return(true)
+              @ability.can :create_meeting, room
+              @ability.can :record_meeting, room
               BigbluebuttonRoom.stub(:find_by_id).and_return(room)
             }
             before(:each) {
