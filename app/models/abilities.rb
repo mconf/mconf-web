@@ -203,6 +203,18 @@ module Abilities
       can :read, Event, :space => { :public => true }
       can :read, Attachment, :space => { :public => true, :repository => true }
 
+      # Recordings of public spaces are available to everyone
+      can [:show, :play], BigbluebuttonRecording do |recording|
+        response = false
+        unless recording.room.nil?
+          if recording.room.owner_type == "Space"
+            space = Space.find(recording.room.owner_id)
+            response = space.public
+          end
+        end
+        response
+      end
+
       # some actions in rooms should be accessible to anyone
       can [:invite, :invite_userid, :auth, :running], BigbluebuttonRoom
     end

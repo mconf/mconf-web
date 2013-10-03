@@ -117,7 +117,8 @@ describe BigbluebuttonRecording do
       context "in a public space" do
         let(:space) { FactoryGirl.create(:space, :public => true) }
         let(:target) { FactoryGirl.create(:bigbluebutton_recording, :room => space.bigbluebutton_room) }
-        it { should_not be_able_to_do_anything_to(target) }
+        let(:allowed) { [:show, :play] }
+        it { should_not be_able_to_do_anything_to(target).except(allowed) }
       end
 
       context "in a private space" do
