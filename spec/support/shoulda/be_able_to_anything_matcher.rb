@@ -10,9 +10,32 @@
 # does not guarantee that a user cannot to anything, only that he
 # cannot :manage the target (but he could be able to :read it, for instance).
 # Only makes send when used with "should_not".
+#
 # Examples:
 #   it { should_not be_able_to_do_anything_to(object) }
 #   it { should_not be_able_to_do_anything_to(object).except(:read) }
+#
+# If your target object has custom actions, you have to set them first, otherwise
+# they won't be considered! You can do something like this in your :
+#
+#   module Helpers
+#     module ClassMethods
+#       # Sets the custom actions that should also be checked by
+#       # the matcher BeAbleToDoAnythingToMatcher
+#       def set_custom_ability_actions(actions)
+#         before(:each) do
+#           Shoulda::Matchers::ActiveModel::BeAbleToDoAnythingToMatcher.custom_actions = actions
+#         end
+#       end
+#     end
+#   end
+#
+#   # in your `spec_helper.rb`:
+#   config.extend Helpers::ClassMethods
+#
+#   # in your specs:
+#   set_custom_ability_actions([:play, :other_custom_action])
+#
 module Shoulda
   module Matchers
     module ActiveModel # :nodoc
@@ -22,8 +45,12 @@ module Shoulda
       end
 
       class BeAbleToDoAnythingToMatcher < ValidationMatcher # :nodoc:
+
+        # all RESTful actions in Rails plus the aliases defined by CanCan,
+        # see https://github.com/ryanb/cancan/wiki/Action-Aliases
         cattr_accessor 'actions'
-        @@actions = [:read, :update, :create, :destroy, :manage]
+        @@actions = [:read, :update, :create, :destroy, :manage, :show, :index, :edit, :new]
+
         cattr_accessor 'custom_actions'
         @@custom_actions = []
 
@@ -42,6 +69,11 @@ module Shoulda
 
           actions = @@actions + @@custom_actions
           @can = actions.select {|a| subject.can?(a, @target)}
+
+          # expand default aliases defined by cancan
+          @exceptions.push(:show, :index) if @exceptions.include?(:read)
+          @exceptions.push(:edit) if @exceptions.include?(:update)
+          @exceptions.push(:new) if @exceptions.include?(:create)
 
           # returning false means should_not is successful
           !(@can.sort == @exceptions.sort)
