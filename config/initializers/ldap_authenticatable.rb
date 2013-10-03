@@ -5,85 +5,116 @@ module Devise
   module Strategies
     class LdapAuthenticatable < Authenticatable
       def authenticate!
-	puts "ENTROU NA FUNCAO DO DEVISE LDAP"
-        if params[:user]
-          ldap_user = ldap_data
-          ldap = Net::LDAP.new(:host => "200.143.193.85", :port => 636, :encryption => :simple_tls)
-#         ldap = Net::LDAP.new
-#          ldap.host = "200.143.193.85" 
-#          ldap.port = 636
-#         ldap.port = 389
-#         ldap.host = ldap_user[:host]
-#         ldap.port = ldap_user[:port]
-#         ldap.auth ldap_user[:user], ldap_user[:password] 
-	  ldap.auth "uid=app.ufrgs.w,ou=APLICACOES,dc=homolog,dc=rnp", "EYedFNFp"
-          treebase = "ou=UFRGS,ou=RNP,dc=homolog,dc=rnp"
-          user_dn = 'uid=' + login + ',' + treebase
+        if params[:user] and ldap_enabled?
+          ldap_server = ldap_from_site
+          ldap = ldap_connection(ldap_server)
+          ldap.auth ldap_server.ldap_user, ldap_server.ldap_user_password
+          # Tries to bind to the ldap server
           if ldap.bind
-            puts "Binded with the server succesfully"
-            ops = [ [:replace, :sn, ["mudei_o_sn_pelo_ldap_autenthicatable"]]]
-            ldap.modify :dn => user_dn, :operations => ops
-            puts "resultado do modify:" + ldap.get_operation_result.inspect
+            # Tries to authenticate the user to the ldap server
+            ldap_user = ldap.bind_as(:base => ldap_server.ldap_user_treebase, :filter => ldap_filter(ldap_server), :password => password)
+            if ldap_user
+              # Login or create the account
+              user = login_or_create_user(ldap_user,ldap_server)
+              # Says to devise that the user account was found and follow on with login
+              success!(user)
+              flash[:notice] = "Succesfully authenticated with user: " + login
+            else
+              fail(:invalid_login)
+              flash[:error] = "The user login or password is wrong!"
+            end
           else
-            puts "Did not bind with the ldap server"
-            puts "reason:" + ldap.get_operation_result.inspect
+            fail(:invalid_login)
+            flash[:error] = "Could not bind to the ldap server, check the ldap_user and ldap_user_password!"
           end
-
-          #search of the user (not necessary)
-          filter = Net::LDAP::Filter.eq("uid", login)
-          attrs = ["mail","cn","sn", "objectclass", "userPassword"]
-          result = ldap.search(:base => treebase, :filter => filter, :attributes => attrs)
-          puts "search_result:" + result.inspect
-
-          #bind of the user
-          filter = Net::LDAP::Filter.eq("mail", "teste123@teste123.mail.com")
-          result = ldap.bind_as(:base => treebase, :filter => filter, :password => password)
-          if result
-	    puts "Authenticated #{result.first.dn}"
-            puts "result: " + result.inspect
-          else
-            puts "Authentication failed!"
-            puts "results:" + ldap.get_operation_result.inspect
-            puts "params[:user]:" + params[:user].inspect
-            puts "password:" + password.inspect
-            puts "filter:" + filter.inspect
-          end
-          #puts "user_data:" + user_data.inspect
-          #puts "params[:user]:" + params[:user].inspect
-          #puts "resultado do search: " + ldap.get_operation_result.inspect
-          #puts "o que encontrou (usuario):" + result.inspect
-          #ldap.auth "uid=teste123. " + treebase, hash_password(password, salt) 
-          #if ldap.bind
-          #puts "bindou com o usuario uid=teste123"
-          #else
-          #puts "nao bindou com o usuario uid=teste123"
-          #puts "resultado:" + ldap.get_operation_result.inspect
-          #end
-          #user = User.find_or_create_by_email(user_data)
-          #success!(user)
+        elsif not ldap_enabled?
+          fail(:invalid_login)
+          flash[:error] = "Ldap is not enabled on the Mconf Portal!"
         else
           fail(:invalid_login)
+          flash[:error] = "Login or password is missing!"
         end
       end
 
-      def ldap_data
-	
-      end
-     
+       # Returns the login provided by user 
       def login
         params[:user][:login]
       end
 
-      def email
-        params[:user][:email]
-      end
-
+      # Returns the password provided by user
       def password
         params[:user][:password]
       end
 
-      def user_data
-        {:email => email, :password => password, :password_confirmation => password}
+      # Returns the current Site so we can get the ldap variables
+      def ldap_from_site
+        Site.current
+      end
+
+      # Returns the filter to bind the user
+      def ldap_filter(ldap)
+        Net::LDAP::Filter.eq(ldap.ldap_username_field, login)
+      end
+
+     # Returns true if the ldap is enabled in Mconf Portal
+      def ldap_enabled?
+        if ldap_from_site.ldap_enabled?
+          return true
+        else
+          return false
+        end
+      end
+
+      # Creates the ldap variable to connect to ldap server
+      # port 636 means LDAPS, so whe use encryption (simple_tls)
+      # else there is no security (usually port 389)
+      def ldap_connection(ldap)
+        if ldap.ldap_port == 636
+          Net::LDAP.new(:host => ldap.ldap_host, :port => ldap.ldap_port, :encryption => :simple_tls)
+        else
+          Net::LDAP.new(:host => ldap.ldap_host, :port => ldap.ldap_port)
+        end
+      end
+
+      # Login a ldap_user using his ldap information
+      # or create the account if this is his first login
+      # return the user (new or existing) 
+      def login_or_create_user(ldap_user, ldap)
+        # the fields that define the name and email are configurable in the Site model
+        ldap_name = ldap_user.first[ldap.ldap_name_field].first || ldap_user.first.cn
+        ldap_email = ldap_user.first[ldap.ldap_email_field].first || ldap_user.first.mail
+        # uses the ldap email to check if the user already has an account
+        token = find_or_create_token(ldap_email)
+        token.user = create_account(ldap_email,ldap_name)
+        token.save!
+        token.user
+      end
+
+      # Searches for a LdapToken using the user email as identifier
+      # Creates one token if none is found
+      def find_or_create_token(id)
+        token = LdapToken.find_by_identifier(id)
+        token = create_token(id) if token.nil?
+        token       
+      end
+
+      # Create the ldaptoken using the user email as identifier
+      def create_token(id)
+        LdapToken.create!(:identifier => id)
+      end
+
+      # Create the user account if there is no user with the email provided by ldap
+      # Or returns the existing account with the email 
+      def create_account(id,name)
+        unless User.find_by_email(id)
+          pw = SecureRandom.hex(16)
+          user = User.create!(:username => name, :login => login, :email => id, :password => pw, :password_confirmation => pw, :_full_name => name)
+          user.profile.update_attributes(:full_name => name)
+          user.skip_confirmation!
+          user
+        else
+          User.find_by_email(id)
+        end
       end
 
     end
