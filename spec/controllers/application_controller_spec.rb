@@ -76,7 +76,7 @@ describe ApplicationController do
       it { assigns(:result).should be_false }
     end
 
-    context "if there's user logged" do
+    context "if there's a user logged" do
       let(:user) { FactoryGirl.create(:user) }
       let(:room) { FactoryGirl.create(:bigbluebutton_room) }
       before {
@@ -87,7 +87,6 @@ describe ApplicationController do
       }
 
       context "returns can?(:create_meeting)" do
-
         context "when false" do
           before(:each) { get :index, :room_id => room.id, :role => :moderator }
           it { assigns(:result).should be_false }
@@ -100,33 +99,59 @@ describe ApplicationController do
         end
       end
 
-      context "if the user cannot record, sets the record flag to false" do
-        before {
-          @ability.can :create_meeting, room
-          BigbluebuttonRoom.stub(:find_by_id).and_return(room)
-        }
-        before(:each) {
-          room.should_receive(:update_attribute).with(:record, false) # here's the validation
-          get :index, :room_id => room.id, :role => :moderator
-        }
-        it { assigns(:result).should be_true }
+      context "when the flag 'auto record flag' is set in the site" do
+        before { Site.current.update_attributes(:webconf_auto_record => true) }
+
+        context "if the user cannot record, automatically sets the record flag to false" do
+          before {
+            room.update_attributes(:record => true)
+            @ability.can :create_meeting, room
+            BigbluebuttonRoom.stub(:find_by_id).and_return(room)
+          }
+          before(:each) { get :index, :room_id => room.id, :role => :moderator }
+          it { room.record.should be_false }
+        end
+
+        context "if the user can record, automatically sets the record flag to true" do
+          before {
+            room.update_attributes(:record => false)
+            @ability.can :create_meeting, room
+            @ability.can :record_meeting, room
+            BigbluebuttonRoom.stub(:find_by_id).and_return(room)
+          }
+          before(:each) { get :index, :room_id => room.id, :role => :moderator }
+          it { room.record.should be_true }
+        end
       end
 
-      context "if the user can record, leaves the record flag as it was before" do
+      context "when the flag 'auto record flag' is not set in the site" do
+        before { Site.current.update_attributes(:webconf_auto_record => false) }
 
-        [false, true].each do |value|
-          context "when it was #{value}" do
-            before {
-              room.update_attribute(:record, value) # initial value
-              @ability.can :create_meeting, room
-              @ability.can :record_meeting, room
-              BigbluebuttonRoom.stub(:find_by_id).and_return(room)
-            }
-            before(:each) {
-              room.should_not_receive(:update_attribute).with(:record, false)
-              get :index, :room_id => room.id, :role => :moderator
-            }
-            it { room.record.should be(value) }
+        context "if the user cannot record, sets the record flag to false" do
+          before {
+            room.update_attributes(:record => true)
+            @ability.can :create_meeting, room
+            BigbluebuttonRoom.stub(:find_by_id).and_return(room)
+          }
+          before(:each) { get :index, :room_id => room.id, :role => :moderator }
+          it { room.record.should be_false }
+        end
+
+        context "if the user can record, leaves the record flag as it was before" do
+          [false, true].each do |value|
+            context "when it was #{value}" do
+              before {
+                room.update_attributes(:record => value) # initial value
+                @ability.can :create_meeting, room
+                @ability.can :record_meeting, room
+                BigbluebuttonRoom.stub(:find_by_id).and_return(room)
+              }
+              before(:each) {
+                room.should_not_receive(:update_attribute).with(:record, false)
+                get :index, :room_id => room.id, :role => :moderator
+              }
+              it { room.record.should be(value) }
+            end
           end
         end
       end

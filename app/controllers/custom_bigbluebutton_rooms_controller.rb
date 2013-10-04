@@ -65,9 +65,10 @@ class CustomBigbluebuttonRoomsController < Bigbluebutton::RoomsController
 
   def join_options
     # don't let the user access this dialog if he can't record meetings
+    # or if the feature to automatically set the record flag is disabled in the site
     # an extra protection, since the views that point to this route filter this as well
     ability = Abilities.ability_for(current_user)
-    if ability.can?(:record_meeting, @room)
+    if ability.can?(:record_meeting, @room) && !Site.current.webconf_auto_record
       begin
         @room.fetch_is_running?
       rescue BigBlueButton::BigBlueButtonException

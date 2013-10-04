@@ -321,16 +321,26 @@ describe CustomBigbluebuttonRoomsController do
     context "if the user can record meetings in this room" do
       before(:each) { @ability.can :record_meeting, room }
 
-      context "template and layout for html requests" do
+      context "if the flag 'auto record flag' is set in the site" do
+        before { Site.current.update_attributes(:webconf_auto_record => true) }
         before(:each) { get :join_options, :id => room.to_param }
-        it { should render_template(:join_options) }
-        it { should render_with_layout("application") }
+        it { should redirect_to(join_bigbluebutton_room_path(room)) }
       end
 
-      context "template and layout for xhr requests" do
-        before(:each) { xhr :get, :join_options, :id => room.to_param }
-        it { should render_template(:join_options) }
-        it { should_not render_with_layout() }
+      context "if the flag 'auto record flag' is not set in the site" do
+        before { Site.current.update_attributes(:webconf_auto_record => false) }
+
+        context "template and layout for html requests" do
+          before(:each) { get :join_options, :id => room.to_param }
+          it { should render_template(:join_options) }
+          it { should render_with_layout("application") }
+        end
+
+        context "template and layout for xhr requests" do
+          before(:each) { xhr :get, :join_options, :id => room.to_param }
+          it { should render_template(:join_options) }
+          it { should_not render_with_layout() }
+        end
       end
     end
   end

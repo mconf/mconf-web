@@ -123,14 +123,27 @@ class ApplicationController < ActionController::Base
   def bigbluebutton_can_create?(room, role)
     ability = Abilities.ability_for(current_user)
     can_create = ability.can?(:create_meeting, room)
+
+    # if the user can create the meeting we have to check whether the record flag will be
+    # set or not
+    # TODO: this would be better if it was possible to send this flag in the create call to
+    #   BigbluebuttonRails, not by changing the attribute in the db.
     if can_create
-      # if the user can create the meeting but cannot record, we make sure the
-      # record flag is not set before the room is created
-      room.update_attribute(:record, false) unless ability.can?(:record_meeting, room)
-      true
-    else
-      false
+      can_record = ability.can?(:record_meeting, room)
+
+      # with this option set, we always set record the flag according to the user's permissions
+      if Site.current.webconf_auto_record
+        room.update_attribute(:record, can_record)
+
+      # in this case the user has to set or unset the recording flag himself, so we just make
+      # sure that if he can't record the flag is unset, otherwise leave it as it is
+      else
+        room.update_attribute(:record, false) unless can_record
+      end
+
     end
+
+    can_create
   end
 
   # This method is the same as space, but raises error if no Space is found
