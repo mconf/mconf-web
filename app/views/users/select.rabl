@@ -1,2 +1,3 @@
 object @users => :users
-attributes :id, :username, :name
+attributes :id, :username
+attributes :name => :text

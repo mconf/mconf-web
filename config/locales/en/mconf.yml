@@ -1307,6 +1307,7 @@ en:
       list_format: 
         list: "List"
         thumbnails: "Thumbnails"
+    news: "Space news"
     sidebar:
       webconference:
         attendees:
@@ -1331,6 +1332,7 @@ en:
       public: "public"
     unified_space: 
       user_is_member: "You're a member"
+    users: "Users in this space"
   spam: 
     created: "A reporting spam e-mail has been successfully sent to the admin. Thank you"
     default: spam

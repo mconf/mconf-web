@@ -1,5 +1,5 @@
 #admission
-  %h3= t('join_request.pending.other')
+  %h1= t('join_request.pending.other')
   - if @space.pending_join_requests.any?
     - @space.pending_join_requests.each do |jr|
       - unless jr.candidate.nil? || jr.candidate.disabled
@@ -22,7 +22,7 @@
                   = f.submit "Deny", :class => "btn btn-small btn-deny"
   - else
     %p.main_text= t('join_request.not_pending.other')
-  %h3= t('invitation.pending.other')
+  %h1= t('invitation.pending.other')
   - if @space.pending_invitations.any?
     = render :partial => 'invitation', :collection => @space.pending_invitations
   - else

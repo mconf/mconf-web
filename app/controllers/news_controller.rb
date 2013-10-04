@@ -9,6 +9,8 @@ class NewsController < ApplicationController
   load_and_authorize_resource :space, :find_by => :permalink
   load_and_authorize_resource :through => :space
 
+  before_filter :webconf_room!, :only => [:index]
+
   after_filter :only => [:create, :update] do
     @news.new_activity params[:action], current_user unless @news.errors.any?
   end
@@ -31,9 +33,7 @@ class NewsController < ApplicationController
     @all_news = @space.news.order("updated_at DESC")
     @news = @space.news.new
 
-    respond_to do |format|
-       format.html {}
-    end
+    render :layout => 'spaces_show'
   end
 
   def show

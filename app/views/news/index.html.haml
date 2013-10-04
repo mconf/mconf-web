@@ -1,11 +1,15 @@
 - spaces_menu_at :admin
 = render :partial => 'spaces/menu'
 
-= content_for :sidebar do
-  = render :partial => "form"
-
 - spaces_admin_menu_at :news
 = render :partial => 'spaces/admin_tabs'
 
+- if can?(:create_event, @space)
+  #news-toolbar
+    = link_to new_space_news_path(@space), :class => "btn btn-primary btn-small open-modal" do
+      = t('news.publish_home')
+
+#space-news
+  %h1= t('spaces.news')
 - for news in @all_news
   = render 'unified_news', :news => news

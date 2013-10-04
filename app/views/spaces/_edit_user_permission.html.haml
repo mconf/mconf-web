@@ -5,7 +5,8 @@
         = link_logo_image(user, :size => '32', :url => user_path(user), :title => user.name, :class => "logo logo-user")
       .thread-content
         %ul.thread-action-links.visible-on-hover{ :"data-hover-tracked" => "user_#{permission.user_id}" }
-          %li= link_to t('private_message.send').downcase, new_user_message_path(:user_id => current_user.to_param, :receiver => user.id), :title => t('private_message.send')
+          - if user != current_user
+            %li= link_to t('private_message.send').downcase, new_user_message_path(:user_id => current_user.to_param, :receiver => user.id), { :title => t('private_message.send'), :class => 'open-modal' }
           %li= link_to t('remove').downcase, permission_path(permission), :confirm => t('delete.confirm', :element => user.name), :method => :delete, :title => t('user.delete_from_space')
         .thread-title
           = link_to(sanitize(user.name),user_path(user),:class=>"unified_user")

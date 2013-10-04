@@ -1,0 +1,13 @@
+%h1= t('message.private.send')
+
+= simple_form_for @private_message, :url => user_messages_path(current_user), :html => { :class => 'single-column' } do |f|
+  - unless @receiver
+    = f.input :users_tokens, :label => t('message.to'), :required => true
+  - else
+    = f.hidden_field :receiver_id, :value => @receiver.id
+  %span{:data => { :pre => @receivers.to_json }, :id => "private-message-prepopulate"}
+    %div{:style => "clear: both;"}
+      = f.input :title, :label => t('title')
+      = f.input :body, :as => :text, :label => t('body')
+      = f.hidden_field :parent_id, :value => @private_message.parent_id if @private_message
+      = f.button :wrapped, :cancel => user_messages_path(current_user), :value => t("button.send")

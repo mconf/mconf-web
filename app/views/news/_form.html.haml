@@ -1,16 +1,9 @@
-#news_sidebar
-  %h3
-    = icon_help t("tooltip.news_item")
-    = t('news.publish_home')
+%h1= t('news.publish_home')
 
-  = simple_form_for([@space, @news]) do |f|
-    %label{:for => "title"}
-      = t('title')
-    = f.text_field :title
-
-    %label{:for => "text"}
-      = t('body')
-    = f.text_area :text
-
-    .margin-up
-      = f.submit :value => t('button.publish')
+= simple_form_for([@space, @news]) do |f|
+  %label= t('title')
+  = f.text_field :title
+  %label= t('body')
+  = f.text_area :text, :rows => 10
+  .form-actions
+    = f.submit :value => t('button.publish')

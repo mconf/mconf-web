@@ -36,41 +36,19 @@ class JoinRequestsController < ApplicationController
   def create
     # If it's the admin creating a new request (inviting) for his space
     if space.role_for?(current_user, :name => 'Admin')
-
       @join_requests = []
-
-      @ids = params[:invitation_ids] || []
-      # Invite each of the users
+      @ids = params[:candidates].split ',' || []
       @ids.each do |id|
-
         jr = space.join_requests.new(params[:join_request])
-
         user = User.find(id)
         jr.candidate = user
         jr.email = user.email
         jr.request_type = 'invite'
         jr.introducer = current_user
-
         @join_requests << jr
       end
-
-      emails = split_emails(params[:invitation_mails])
-      emails.each do |e|
-
-        jr = space.join_requests.new(params[:join_request])
-
-        user = User.find_by_email(e)
-        jr.candidate = user
-        jr.email = e
-        jr.request_type = 'invite'
-        jr.introducer = current_user
-
-        @join_requests << jr
-      end
-
       errors = []
       @join_requests.each { |jr| errors << [jr.email, jr.error_messages] if !jr.valid? }
-
       if errors.empty?
         @join_requests.each { |jr| jr.save(:validate => false) }
         flash[:notice] = t('join_request.sent')
@@ -79,7 +57,6 @@ class JoinRequestsController < ApplicationController
       end
 
       redirect_to new_space_join_request_path(space)
-
     else # It's a common user asking for membership in a space
 
       @join_request = space.join_requests.new(params[:join_request])
