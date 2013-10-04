@@ -11,25 +11,27 @@
   - else
     - recordings.each do |recording|
       - metaUser = recording.metadata.all.select{ |m| m.name == BigbluebuttonRails.metadata_user_id.to_s }.first
-      - metaTitle = recording.metadata.all.select{ |m| m.name == configatron.webconf.metadata.title }.first
-      - metaDesc = recording.metadata.all.select{ |m| m.name == configatron.webconf.metadata.description }.first
 
-      .thread.thread-no-hover.thread-no-logo{:class => cycle('thread-even' , 'thread-odd')}
-
-        .thread-title.recording-field
-          .thread-updated-at
-            = t('.created')
-            = t('updated_time_ago', :time => time_ago_in_words(recording.updated_at))
-          - if metaTitle.nil? or metaTitle.content.blank?
-            %span.recording-title= t('.no_title') + ':'
-          - else
-            %span.recording-title= metaTitle.content + ':'
-          - if metaDesc.nil? or metaDesc.content.blank?
-            %span.recording-description= t('.no_description')
-          - else
-            %span.recording-description= metaDesc.content
+      .thread.thread-no-logo{:class => cycle('thread-even' , 'thread-odd'), :id => "rec-#{recording.id}"}
 
         .thread-content
+
+          %ul.thread-action-links.visible-on-hover{ :"data-hover-tracked" => "rec-#{recording.id}" }
+            - if recording.room.owner_type == "User"
+              - if can?(:user_edit, recording)
+                %li= link_to t('_other.edit').downcase, edit_my_recording_path(recording), :class => "open-modal"
+            - else
+              - if can?(:space_edit, recording)
+                %li= link_to t('_other.edit').downcase, space_edit_recording_path(recording.room.owner, recording), :class => "open-modal"
+
+          .thread-title
+            .thread-updated-at
+              = t('.created')
+              = t('updated_time_ago', :time => time_ago_in_words(recording.created_at))
+            - if recording.description.blank?
+              %span.recording-description= t('.no_description')
+            - else
+              %span.recording-description= recording.description
 
           .recording-details
             .recording-date

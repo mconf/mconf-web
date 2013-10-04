@@ -430,8 +430,8 @@ describe CustomBigbluebuttonRoomsController do
       context "in his room" do
         let(:room) { user.bigbluebutton_room }
         it { should_not allow_access_to(:show, hash) }
-        it { should_not allow_access_to(:edit, hash) }
-        it { should_not allow_access_to(:update, hash).via(:put) }
+        it { should allow_access_to(:edit, hash) }
+        it { should allow_access_to(:update, hash).via(:put) }
         it { should_not allow_access_to(:destroy, hash).via(:delete) }
         it { should allow_access_to(:join, hash) }
         it { should allow_access_to(:auth, hash).via(:post) }

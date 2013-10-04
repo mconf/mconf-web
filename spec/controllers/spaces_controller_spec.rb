@@ -17,6 +17,7 @@ describe SpacesController do
     let(:hash) { { :id => target.to_param } }
     let(:attrs) { FactoryGirl.attributes_for(:space) }
     let(:hash_with_attrs) { hash.merge!(:space => attrs) }
+    let(:hash_recording) { { :space_id => target.to_param, :id => recording.recordid } }
 
     context "for a superuser", :user => "superuser" do
       let(:user) { FactoryGirl.create(:superuser) }
@@ -38,10 +39,12 @@ describe SpacesController do
         it { should allow_access_to(:leave, hash_with_attrs).via(:post) }
         it { should allow_access_to(:webconference, hash) }
         it { should allow_access_to(:recordings, hash) }
+        it { should allow_access_to(:edit_recording, hash_recording) }
       end
 
       context "in a public space" do
         let(:target) { FactoryGirl.create(:public_space) }
+        let(:recording) { FactoryGirl.create(:bigbluebutton_recording, :room => target.bigbluebutton_room) }
 
         context "he is not a member of" do
           it_should_behave_like "a superuser accessing a webconf room in SpacesController"
@@ -59,6 +62,7 @@ describe SpacesController do
 
       context "in a private space" do
         let(:target) { FactoryGirl.create(:private_space) }
+        let(:recording) { FactoryGirl.create(:bigbluebutton_recording, :room => target.bigbluebutton_room) }
 
         context "he is not a member of" do
           it_should_behave_like "a superuser accessing a webconf room in SpacesController"
@@ -86,6 +90,7 @@ describe SpacesController do
 
       context "in a public space" do
         let(:target) { FactoryGirl.create(:public_space) }
+        let(:recording) { FactoryGirl.create(:bigbluebutton_recording, :room => target.bigbluebutton_room) }
 
         context "he is not a member of" do
           it { should allow_access_to(:show, hash) }
@@ -111,6 +116,7 @@ describe SpacesController do
             it { should allow_access_to(:leave, hash_with_attrs).via(:post) }
             it { should allow_access_to(:webconference, hash) }
             it { should allow_access_to(:recordings, hash) }
+            it { should allow_access_to(:edit_recording, hash_recording) }
           end
 
           context "with the role 'User'" do
@@ -130,6 +136,7 @@ describe SpacesController do
 
       context "in a private space" do
         let(:target) { FactoryGirl.create(:private_space) }
+        let(:recording) { FactoryGirl.create(:bigbluebutton_recording, :room => target.bigbluebutton_room) }
 
         context "he is not a member of" do
           it { should_not allow_access_to(:show, hash) }
@@ -153,6 +160,7 @@ describe SpacesController do
             it { should allow_access_to(:leave, hash_with_attrs).via(:post) }
             it { should allow_access_to(:webconference, hash) }
             it { should allow_access_to(:recordings, hash) }
+            it { should allow_access_to(:edit_recording, hash_recording) }
           end
 
           context "with the role 'User'" do
@@ -531,6 +539,32 @@ describe SpacesController do
       it { should_not render_with_layout }
     end
 
+  end
+
+  describe "#recording_edit" do
+    let(:user) { FactoryGirl.create(:user) }
+    let(:space) { FactoryGirl.create(:space) }
+    let(:recording) { FactoryGirl.create(:bigbluebutton_recording, :room => space.bigbluebutton_room) }
+    before(:each) {
+      space.add_member! user, "Admin"
+      login_as(user)
+    }
+
+    context "html request" do
+      before(:each) { get :edit_recording, :space_id => space.to_param, :id => recording.to_param }
+      it { should render_template(:edit_recording) }
+      it { should render_with_layout("spaces_show") }
+      it { should assign_to(:space).with(space) }
+      it { should assign_to(:recording).with(recording) }
+      it { should assign_to(:webconf_room).with(space.bigbluebutton_room) }
+      it { should assign_to(:redirect_to).with(recordings_space_path(space.to_param)) }
+    end
+
+    context "xhr request" do
+      before(:each) { xhr :get, :edit_recording, :space_id => space.to_param, :id => recording.to_param }
+      it { should render_template(:edit_recording) }
+      it { should_not render_with_layout }
+    end
   end
 
   it "#join_request_index"

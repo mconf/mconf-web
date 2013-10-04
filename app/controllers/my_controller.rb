@@ -22,7 +22,6 @@ class MyController < ApplicationController
     when :activity
       "no_sidebar"
     when :room_edit
-      false
       if request.xhr?
         false
       else
@@ -33,6 +32,12 @@ class MyController < ApplicationController
         false
       else
         "no_sidebar"
+      end
+    when :edit_recording
+      if request.xhr?
+        false
+      else
+        "application"
       end
     else
       "application"
@@ -105,6 +110,13 @@ class MyController < ApplicationController
     if params[:limit]
       @recordings = @recordings.first(params[:limit].to_i)
     end
+  end
+
+  # Page to edit a recording.
+  def edit_recording
+    @redirect_to = room_recordings_path # TODO: not working, no support on bbb_rails
+    @recording = BigbluebuttonRecording.find_by_recordid(params[:id])
+    authorize! :user_edit, @recording
   end
 
   private

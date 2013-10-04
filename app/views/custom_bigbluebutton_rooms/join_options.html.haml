@@ -1,6 +1,3 @@
-- meta_title = get_room_metadata(@room, configatron.webconf.metadata.title)
-- meta_description = get_room_metadata(@room, configatron.webconf.metadata.description)
-
 #webconference-join-options-dialog
 
   .modal-header
@@ -17,20 +14,6 @@
     = simple_form_for @room, :url => form_url, :remote => true, :html => { :class => "single-column in-place-edit" } do |f|
       = f.input :record, :label => t('.record.label'), :hint => t('.record.tooltip'), :input_html => { :class => "in-place-edit" }
       = in_place_edit_indicators
-
-    = simple_form_for @room, :url => form_url, :remote => true, :html => { :class => "single-column in-place-edit" } do |f|
-      .input
-        = f.simple_fields_for :metadata, meta_title do |metadata_form|
-          = metadata_form.label :content, :label => t('.metadata.title')
-          = metadata_form.text_field :content, :class => "string in-place-edit"
-          = in_place_edit_indicators
-
-    = simple_form_for @room, :url => form_url, :remote => true, :html => { :class => "single-column in-place-edit" } do |f|
-      .input
-        = f.simple_fields_for :metadata, meta_description do |metadata_form|
-          = metadata_form.label :content, :label => t('.metadata.description')
-          = metadata_form.text_field :content, :class => "string in-place-edit"
-          = in_place_edit_indicators
 
   .modal-footer.form-actions
     - cls = @room.is_running? ? "disabled" : ""

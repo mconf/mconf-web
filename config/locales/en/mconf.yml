@@ -907,6 +907,8 @@ en:
         today: "Today"
       view_all_activity: "View all your activity"
       view_all_spaces: "View all spaces"
+    edit_recording:
+      title: "Edit your recording"
     room_recordings:
       title: "Recordings from my webconference room"
       update_recordings:
@@ -1311,6 +1313,8 @@ en:
       public: "Make this a public space"
       yes_delete: "Yes, remove it!"
       webconf_options: "Webconference room options"
+    edit_recording:
+      title: "Edit your recording"
     index: 
       create_new_space: "Create a new space"
       list_format: 

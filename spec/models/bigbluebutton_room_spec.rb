@@ -79,7 +79,7 @@ describe BigbluebuttonRoom do
         let(:target) { user.bigbluebutton_room }
         let(:allowed) { [:end, :join_options, :create_meeting, :fetch_recordings,
                          :invite, :invite_userid, :auth, :running, :join, :external,
-                         :external_auth, :join_mobile] }
+                         :external_auth, :join_mobile, :update] }
         it { should_not be_able_to_do_anything_to(target).except(allowed) }
       end
 

@@ -1,10 +1,10 @@
 class EnsureRoomMetadataExists < ActiveRecord::Migration
   def self.up
     BigbluebuttonRoom.all.each do |room|
-      title = room.metadata.where(:name => configatron.metadata.title).first
-      room.metadata.create(:name => configatron.metadata.title) if title.nil?
-      description = room.metadata.where(:name => configatron.metadata.description).first
-      room.metadata.create(:name => configatron.metadata.description) if description.nil?
+      title = room.metadata.where(:name => 'mconfweb-title').first
+      room.metadata.create(:name => 'mconfweb-title') if title.nil?
+      description = room.metadata.where(:name => 'mconfweb-description').first
+      room.metadata.create(:name => 'mconfweb-description') if description.nil?
     end
   end
 

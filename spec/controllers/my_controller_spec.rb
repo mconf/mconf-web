@@ -111,4 +111,26 @@ describe MyController do
     end
   end
 
+  describe "#recording_edit" do
+    let(:user) { FactoryGirl.create(:user) }
+    let(:recording) { FactoryGirl.create(:bigbluebutton_recording, :room => user.bigbluebutton_room) }
+    before(:each) { login_as(user) }
+
+    context "html request" do
+      before(:each) { get :edit_recording, :id => recording.to_param }
+      it { should render_template(:edit_recording) }
+      it { should render_with_layout("application") }
+      it { should assign_to(:recording).with(recording) }
+      it { should assign_to(:redirect_to).with(room_recordings_path) }
+    end
+
+    context "xhr request" do
+      before(:each) { xhr :get, :edit_recording, :id => recording.to_param }
+      it { should render_template(:edit_recording) }
+      it { should_not render_with_layout }
+    end
+  end
+
+  it "abilities"
+
 end

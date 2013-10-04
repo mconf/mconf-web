@@ -49,6 +49,12 @@ module Abilities
         end
       end
 
+      # Currently only user rooms can be updated
+      # TODO: this is allowing the user to access :edit as well, but shouldn't
+      can [:update], BigbluebuttonRoom do |room|
+        room.owner_type == "User" && room.owner.id == user.id
+      end
+
       # some actions in rooms should be accessible to any logged user
       # some of them will do the authorization themselves (e.g. permissions for :join
       # will change depending on the user and the target room)
@@ -57,6 +63,7 @@ module Abilities
 
       # a user can do these actions below in recordings of his own room or recordings of
       # rooms of either public spaces or spaces he's a member of
+      # TODO: this is allowing the user to access the show page as well, but shouldn't
       can [:show, :play], BigbluebuttonRecording do |recording|
         response = false
         unless recording.room.nil?
@@ -69,6 +76,44 @@ module Abilities
             else
               response = space.users.include?(user)
             end
+          end
+        end
+        response
+      end
+
+      # a user can edit his recordings and recordings in spaces where he's an admin
+      # TODO: this is allowing the user to access :edit as well, but shouldn't
+      can [:update], BigbluebuttonRecording do |recording|
+        response = false
+        unless recording.room.nil?
+          if recording.room.owner_type == "User" && recording.room.owner_id == user.id
+            response = true
+          elsif recording.room.owner_type == "Space"
+            space = Space.find(recording.room.owner_id)
+            response = space.admins.include?(user)
+          end
+        end
+        response
+      end
+
+      # a user can edit his recordings
+      can [:user_edit], BigbluebuttonRecording do |recording|
+        response = false
+        unless recording.room.nil?
+          if recording.room.owner_type == "User" && recording.room.owner_id == user.id
+            response = true
+          end
+        end
+        response
+      end
+
+      # admins can edit recordings in their spaces
+      can [:space_edit], BigbluebuttonRecording do |recording|
+        response = false
+        unless recording.room.nil?
+          if recording.room.owner_type == "Space"
+            space = Space.find(recording.room.owner_id)
+            response = space.admins.include?(user)
           end
         end
         response

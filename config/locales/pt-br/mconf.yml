@@ -894,6 +894,8 @@ pt-br:
         today: "Hoje"
       view_all_activity: "Ver todas suas atividades"
       view_all_spaces: "Ver todas comunidades"
+    edit_recording:
+      title: "Editar sua gravação"
     room_recordings:
       title: "Gravações da minha sala de webconferência"
       update_recordings:
@@ -1284,6 +1286,8 @@ pt-br:
       public: "Tornar esta comunidade pública"
       yes_delete: "Sim, remova!"
       webconf_options: "Opções da sala de webconferência"
+    edit_recording:
+      title: "Editar sua gravação"
     index: 
       create_new_space: "Criar uma comunidade"
       list_format: 

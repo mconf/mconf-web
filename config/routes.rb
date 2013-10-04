@@ -69,6 +69,7 @@ Mconf::Application.routes.draw do
       get :webconference
       get :recordings
     end
+    match '/recordings/:id/edit', :to => 'spaces#edit_recording', :as => 'edit_recording'
 
     resources :users do # TODO: do we really need this?
       resource :profile, :except => [:new, :create]
@@ -141,6 +142,7 @@ Mconf::Application.routes.draw do
   match '/activity', :to => 'my#activity', :as => 'activity'
   match '/room/edit', :to => 'my#room_edit', :as => 'room_edit'
   match '/room/recordings', :to => 'my#room_recordings', :as => 'room_recordings'
+  match '/recordings/:id/edit', :to => 'my#edit_recording', :as => 'edit_my_recording'
 
   resources :messages, :controller => :private_messages, :except => [:edit]
 

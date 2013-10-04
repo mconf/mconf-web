@@ -93,8 +93,6 @@ describe CustomBigbluebuttonRecordingsController do
 
       # most of the permissions are the same for any room
       shared_examples_for "a normal user accessing any webconf recording" do
-        it { should_not allow_access_to(:edit, hash) }
-        it { should_not allow_access_to(:update, hash).via(:put) }
         it { should_not allow_access_to(:destroy, hash).via(:delete) }
         it { should_not allow_access_to(:publish, hash).via(:post) }
         it { should_not allow_access_to(:unpublish, hash).via(:post) }

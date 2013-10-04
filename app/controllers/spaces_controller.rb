@@ -9,11 +9,13 @@ class SpacesController < ApplicationController
 
   before_filter :authenticate_user!, :only => [:new, :create]
 
-  load_and_authorize_resource :find_by => :permalink
+  load_and_authorize_resource :find_by => :permalink, :except => [:edit_recording]
+  load_resource :find_by => :permalink, :parent => true, :only => [:edit_recording]
 
   # all actions that render the sidebar
   before_filter :webconf_room!,
-    :only => [:show, :edit, :join_request_new, :user_permissions, :webconference, :recordings]
+    :only => [:show, :edit, :join_request_new, :user_permissions, :webconference,
+              :recordings, :edit_recording]
 
   before_filter :load_spaces_examples, :only => [:new, :create]
 
@@ -257,6 +259,19 @@ class SpacesController < ApplicationController
       render :layout => false
     else
       render :layout => 'spaces_show'
+    end
+  end
+
+  # Page to edit a recording.
+  def edit_recording
+    # @space = Space.find_by_permalink(params[:space_id])
+    @redirect_to = recordings_space_path(@space.to_param) # TODO: not working, no support on bbb_rails
+    @recording = BigbluebuttonRecording.find_by_recordid(params[:id])
+    authorize! :space_edit, @recording
+    if request.xhr?
+      render :layout => false
+    else
+      render :layout => "spaces_show"
     end
   end
 

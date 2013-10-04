@@ -11,7 +11,7 @@ describe BigbluebuttonRecording do
   # This is a model from BigbluebuttonRails, but we have permissions set in cancan for it,
   # so we test them here.
   describe "abilities" do
-    set_custom_ability_actions([:play])
+    set_custom_ability_actions([:play, :user_edit, :space_edit])
 
     subject { ability }
     let(:user) { nil }
@@ -65,7 +65,7 @@ describe BigbluebuttonRecording do
 
       context "in his own room" do
         let(:target) { FactoryGirl.create(:bigbluebutton_recording, :room => user.bigbluebutton_room) }
-        let(:allowed) { [:show, :play] }
+        let(:allowed) { [:show, :play, :update, :user_edit] }
         it { should_not be_able_to_do_anything_to(target).except(allowed) }
       end
 
@@ -85,9 +85,17 @@ describe BigbluebuttonRecording do
         end
 
         context "he belongs to" do
-          before { space.add_member!(user) }
-          let(:allowed) { [:show, :play] }
-          it { should_not be_able_to_do_anything_to(target).except(allowed) }
+          context "as a normal user" do
+            before { space.add_member!(user) }
+            let(:allowed) { [:show, :play] }
+            it { should_not be_able_to_do_anything_to(target).except(allowed) }
+          end
+
+          context "as an admin" do
+            before { space.add_member!(user, 'Admin') }
+            let(:allowed) { [:show, :play, :update, :space_edit] }
+            it { should_not be_able_to_do_anything_to(target).except(allowed) }
+          end
         end
       end
 
@@ -100,9 +108,17 @@ describe BigbluebuttonRecording do
         end
 
         context "he belongs to" do
-          before { space.add_member!(user) }
-          let(:allowed) { [:show, :play] }
-          it { should_not be_able_to_do_anything_to(target).except(allowed) }
+          context "as a normal user" do
+            before { space.add_member!(user) }
+            let(:allowed) { [:show, :play] }
+            it { should_not be_able_to_do_anything_to(target).except(allowed) }
+          end
+
+          context "as an admin" do
+            before { space.add_member!(user, 'Admin') }
+            let(:allowed) { [:show, :play, :update, :space_edit] }
+            it { should_not be_able_to_do_anything_to(target).except(allowed) }
+          end
         end
       end
     end

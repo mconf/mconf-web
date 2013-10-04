@@ -205,24 +205,17 @@ namespace :db do
     puts "* Create recordings and metadata for all webconference rooms"
     BigbluebuttonRoom.all.each do |room|
 
-      # Basic metadata that should always exist in a room
-      title = room.metadata.where(:name => configatron.webconf.metadata.title).first
-      room.metadata.create(:name => configatron.webconf.metadata.title,
-                           :content => Populator.words(2..5).titleize) if title.nil?
-      description = room.metadata.where(:name => configatron.webconf.metadata.description).first
-      room.metadata.create(:name => configatron.webconf.metadata.description,
-                           :content => Populator.words(5..10).titleize) if description.nil?
-
       BigbluebuttonRecording.populate 2..10 do |recording|
         recording.room_id = room.id
         recording.server_id = room.server.id
         recording.recordid = "rec-#{SecureRandom.hex(16)}-#{Time.now.to_i}"
         recording.meetingid = room.meetingid
-        recording.name = Populator.words(3..8).titleize
+        recording.name = Populator.words(3..5).titleize
         recording.published = true
         recording.available = true
         recording.start_time = 5.months.ago..Time.now
         recording.end_time = recording.start_time + rand(5).hours
+        recording.description = Populator.words(5..8)
 
         # Recording metadata
         BigbluebuttonMetadata.populate 0..3 do |meta|
@@ -244,16 +237,7 @@ namespace :db do
 
       # Basic metadata needed in all recordings
       room.recordings.each do |recording|
-        title = recording.metadata.where(:name => configatron.webconf.metadata.title).first
-        if title.nil?
-          recording.metadata.create(:name => configatron.webconf.metadata.title,
-                                    :content => Populator.words(2..5).titleize)
-        end
-        description = recording.metadata.where(:name => configatron.webconf.metadata.description).first
-        if description.nil?
-          recording.metadata.create(:name => configatron.webconf.metadata.description,
-                                    :content => Populator.words(5..10).capitalize)
-        end
+        # this is created by BigbluebuttonRails normally
         user_id = recording.metadata.where(:name => BigbluebuttonRails.metadata_user_id.to_s).first
         if user_id.nil?
           if recording.room.owner_type == 'User'
