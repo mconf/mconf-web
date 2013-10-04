@@ -120,7 +120,7 @@ class User < ActiveRecord::Base
   def create_webconf_room
     params = {
       :owner => self,
-      :server => BigbluebuttonServer.first,
+      :server => BigbluebuttonServer.default,
       :param => self.username,
       :name => self.username,
       :logout_url => "/feedback/webconf/",

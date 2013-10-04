@@ -66,7 +66,7 @@ namespace :db do
     User.all.each do |user|
       if user.bigbluebutton_room.nil?
         user.create_bigbluebutton_room :owner => user,
-                                       :server => BigbluebuttonServer.first,
+                                       :server => BigbluebuttonServer.default,
                                        :param => user.username,
                                        :name => user.login
       end
@@ -145,7 +145,7 @@ namespace :db do
     Space.all.each do |space|
       if space.bigbluebutton_room.nil?
         BigbluebuttonRoom.populate 1 do |room|
-          room.server_id = BigbluebuttonServer.first.id
+          room.server_id = BigbluebuttonServer.default.id
           room.owner_id = space.id
           room.owner_type = 'Space'
           room.name = space.name

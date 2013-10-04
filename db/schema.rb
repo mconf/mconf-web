@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130903173529) do
+ActiveRecord::Schema.define(:version => 20131003192202) do
 
   create_table "activities", :force => true do |t|
     t.integer  "trackable_id"
@@ -302,6 +302,7 @@ ActiveRecord::Schema.define(:version => 20130903173529) do
     t.string   "xmpp_server"
     t.string   "timezone",                       :default => "UTC"
     t.string   "external_help"
+    t.boolean  "webconf_auto_record",            :default => false
   end
 
   create_table "spaces", :force => true do |t|

@@ -77,6 +77,36 @@ en:
         location: "Location"
         name: "Name"
         start_date: "Date and time when it starts"
+      site:
+        analytics_code: "Analytics Code"
+        chat_enabled: "Enable Chat"
+        description: "Description"
+        domain: "Application domain"
+        exception_notifications: "Send email on error"
+        exception_notifications_email: "Debug emails recipients"
+        exception_notifications_prefix: "Debug emails subject prefix"
+        external_help: "External help/FAQ page"
+        feedback_url: "Feedback URL"
+        locale: "Language"
+        name: "Name"
+        presence_domain: "XMPP Chat Domain"
+        signature: "Signature"
+        shib_enabled: "Enable Shibboleth"
+        shib_email_field: "Shibboleth field for email"
+        shib_name_field: "Shibboleth field for name"
+        smtp_auth_type: "STMP authentication type"
+        smtp_auto_tls: "Auto STARTTLS"
+        smtp_domain: "STMP domain"
+        smtp_login: "SMTP login"
+        smtp_password: "SMTP password"
+        smtp_port: "SMTP port"
+        smtp_sender: "SMTP sender"
+        smtp_server: "SMTP server"
+        smtp_use_tls: "Use TLS in STMP"
+        ssl: "SSL"
+        timezone: "Timezone"
+        xmpp_server: "XMPP Server Address"
+        webconf_auto_record: "Automatically set the recording flag when creating a web conference"
       space:
         attendee_password: "Attendee password"
         description: "Descrição"
@@ -1181,48 +1211,6 @@ en:
     label: "Insert here the text from the image"
     message: 
       user: "is incorrect"
-  site: 
-    analytics_code: "Analytics Code"
-    analytics_code_tip: "Code for your Google Analytics account. Leave it blank to disable. Example: \"UA-12345678-9\""
-    chat_enabled: "Enable Chat"
-    chat_domain_field: "XMPP Chat Domain"
-    chat_domain_field_tip: "Domain used to identify the XMPP server."
-    chat_server_field: "XMPP Server Address"
-    chat_server_field_tip: "Address where's located the XMPP server."
-    default: site
-    description: Description
-    domain: "Application Domain"
-    exception_notifications: "Send email on error"
-    exception_notifications_email: "Debug emails recipients"
-    exception_notifications_email_tip: "Use either spaces, commas or semi-colons to separate different emails."
-    exception_notifications_prefix: "Debug emails subject prefix"
-    exception_notifications_tip: "Send debugging emails whenever the application crashes"
-    external_help: "External help/FAQ page"
-    external_help_tip: "Insert the URL for an external site that contains the help/FAQ page. Include the entire URL, including the protocol (e.g. 'http://server.com'.)"
-    feedback_url: "Feedback URL"
-    feedback_url_tip: "The users will be redirected to this URL when they log out of a webconference. If not set they are redirected to '%{default_url}'"
-    locale: Language
-    name: Name
-    shib_email_field: "Shibboleth field for email"
-    shib_email_field_tip: "When a user authenticates in a Shibboleth service provider this field will be used to obtain the user's email. Example: Shib-inetOrgPerson-mail"
-    shib_enabled: "Enable Shibboleth"
-    shib_name_field: "Shibboleth field for name"
-    shib_name_field_tip: "When a user authenticates in a Shibboleth service provider this field will be used to obtain the user's name. Example: Shib-inetOrgPerson-sn"
-    signature: Signature
-    smtp_auth_type: STMP authentication type
-    smtp_auto_tls: Auto start TLS in SMTP
-    smtp_domain: STMP domain
-    smtp_login: SMTP login
-    smtp_login_tip: "The login email to your SMTP server."
-    smtp_password: SMTP password
-    smtp_password_tip: "The password for your email account in your SMTP server."
-    smtp_port: SMTP port
-    smtp_sender: SMTP sender
-    smtp_server: SMTP server
-    smtp_use_tls: Use TLS in STMP
-    ssl: SSL
-    ssl_tip: "With SSL enabled all the internal links (including pages, images, attachments) will use the protocol https instead of http"
-    timezone: "Timezone"
   size: Size
   skype: Skype
   space: 
