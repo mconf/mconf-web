@@ -11,6 +11,7 @@ en:
         length: Length
         url: URL
       bigbluebutton_recording:
+        description: "Description"
         end_time: "End Time"
         meetingid: "Meeting ID"
         metadata: Metadata

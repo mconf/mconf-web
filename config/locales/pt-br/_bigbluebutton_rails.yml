@@ -11,6 +11,7 @@ pt-br:
         length: Tamanho
         url: URL
       bigbluebutton_recording: 
+        description: "Descrição"
         end_time: "Horário de Fim"
         meetingid: "ID da Reunião"
         metadata: Metadados
