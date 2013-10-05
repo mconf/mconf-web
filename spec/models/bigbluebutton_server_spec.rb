@@ -10,7 +10,7 @@ describe BigbluebuttonServer do
 
   # This is a model from BigbluebuttonRails, but we have permissions set in cancan for it,
   # so we test them here.
-  describe "abilities" do
+  describe "abilities", :abilities => true do
     subject { ability }
     let(:user) { nil }
     let(:ability) { Abilities.ability_for(user) }

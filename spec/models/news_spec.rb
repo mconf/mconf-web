@@ -8,7 +8,7 @@ require "spec_helper"
 
 describe News do
 
-  describe "abilities" do
+  describe "abilities", :abilities => true do
     subject { ability }
     let(:ability) { Abilities.ability_for(user) }
     let(:target) { FactoryGirl.create(:news) }

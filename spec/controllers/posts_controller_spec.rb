@@ -22,7 +22,7 @@ describe PostsController do
     it "#spam_report_create"
   end
 
-  describe "abilities" do
+  describe "abilities", :abilities => true do
     it "abilities"
   end
 end

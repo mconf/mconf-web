@@ -12,56 +12,58 @@
     - recordings.each do |recording|
       - metaUser = recording.metadata.all.select{ |m| m.name == BigbluebuttonRails.metadata_user_id.to_s }.first
 
-      .thread.thread-no-logo{:class => cycle('thread-even' , 'thread-odd'), :id => "rec-#{recording.id}"}
+      - action = recording.room.owner_type == "User" ? :user_show : :space_show
+      - if can?(action, recording)
 
-        .thread-content
+        .thread.thread-no-logo{:class => cycle('thread-even' , 'thread-odd'), :id => "rec-#{recording.id}"}
+          .thread-content
 
-          %ul.thread-action-links.visible-on-hover{ :"data-hover-tracked" => "rec-#{recording.id}" }
-            - if recording.room.owner_type == "User"
-              - if can?(:user_edit, recording)
-                %li= link_to t('_other.edit').downcase, edit_my_recording_path(recording), :class => "open-modal"
-            - else
-              - if can?(:space_edit, recording)
-                %li= link_to t('_other.edit').downcase, space_edit_recording_path(recording.room.owner, recording), :class => "open-modal"
-
-          .thread-title
-            .thread-updated-at
-              = t('.created')
-              = t('updated_time_ago', :time => time_ago_in_words(recording.created_at))
-            - if recording.description.blank?
-              %span.recording-description= t('.no_description')
-            - else
-              %span.recording-description= recording.description
-
-          .recording-details
-            .recording-date
-              = icon_date
-              = t('.started_at') + ": #{recording.start_time};"
-            .recording-duration{:title => "#{t('.ended_at')}: #{recording.end_time}"}
-              = t('.duration') + ':'
-              - unless recording.start_time.nil? || recording.end_time.nil?
-                = distance_of_time_in_words(recording.start_time, recording.end_time)
-
-          .recording-details
-            - if show_authors
-              - unless metaUser.nil?
-                - user = User.find_by_id(metaUser.content)
-                - unless user.nil?
-                  .recording-author
-                    = icon_user
-                    = t('.created_by') + ':'
-                    = link_to user.full_name, user_profile_path(user)
-
-          .recording-details
-            = icon_playback
-            = t('.playback') + ':'
-            - unless recording.available
-              %span.playback-unavailable= t('.unavailable')
-              = icon_help(t('.unavailable_tip'))
-            - else
-              - if recording.playback_formats.size > 0
-                - recording.playback_formats.each do |playback|
-                  = link_to playback.format_type, playback.url, :class => 'playback-link'
+            %ul.thread-action-links.visible-on-hover{ :"data-hover-tracked" => "rec-#{recording.id}" }
+              - if recording.room.owner_type == "User"
+                - if can?(:user_edit, recording)
+                  %li= link_to t('_other.edit').downcase, edit_my_recording_path(recording), :class => "open-modal"
               - else
-                %span.playback-processing= t('.processing_dots')
-                = icon_help(t('.processing_tip'))
+                - if can?(:space_edit, recording)
+                  %li= link_to t('_other.edit').downcase, space_edit_recording_path(recording.room.owner, recording), :class => "open-modal"
+
+            .thread-title
+              .thread-updated-at
+                = t('.created')
+                = t('updated_time_ago', :time => time_ago_in_words(recording.created_at))
+              - if recording.description.blank?
+                %span.recording-description= t('.no_description')
+              - else
+                %span.recording-description= recording.description
+
+            .recording-details
+              .recording-date
+                = icon_date
+                = t('.started_at') + ": #{recording.start_time};"
+              .recording-duration{:title => "#{t('.ended_at')}: #{recording.end_time}"}
+                = t('.duration') + ':'
+                - unless recording.start_time.nil? || recording.end_time.nil?
+                  = distance_of_time_in_words(recording.start_time, recording.end_time)
+
+            .recording-details
+              - if show_authors
+                - unless metaUser.nil?
+                  - user = User.find_by_id(metaUser.content)
+                  - unless user.nil?
+                    .recording-author
+                      = icon_user
+                      = t('.created_by') + ':'
+                      = link_to user.full_name, user_profile_path(user)
+
+            .recording-details
+              = icon_playback
+              = t('.playback') + ':'
+              - unless recording.available
+                %span.playback-unavailable= t('.unavailable')
+                = icon_help(t('.unavailable_tip'))
+              - else
+                - if recording.playback_formats.size > 0
+                  - recording.playback_formats.each do |playback|
+                    = link_to playback.format_type, playback.url, :class => 'playback-link'
+                - else
+                  %span.playback-processing= t('.processing_dots')
+                  = icon_help(t('.processing_tip'))

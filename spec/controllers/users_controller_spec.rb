@@ -305,7 +305,7 @@ describe UsersController do
 
   end
 
-  describe "abilities" do
+  describe "abilities", :abilities => true do
 
     context "for a normal user:" do
       let(:another_user) { FactoryGirl.create(:user) }

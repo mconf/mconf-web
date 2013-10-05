@@ -71,14 +71,14 @@ describe Event do
     it { Event.within(today + 4.day, today + 5.day).should be_empty }
   end
 
-  describe "abilities" do
+  describe "abilities", :abilities => true do
     subject { ability }
     let(:ability) { Abilities.ability_for(user) }
     let(:target) { FactoryGirl.create(:event) }
 
     context "when is the event author" do
       let(:user) { target.author }
-      it { should_not be_able_to_do_anything_to(target).except([:read, :update, :destroy]) }
+      it { should_not be_able_to_do_anything_to(target).except([:read, :edit, :update, :destroy]) }
     end
 
     context "when is an anonymous user" do

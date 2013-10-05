@@ -10,7 +10,7 @@ describe BigbluebuttonRoom do
 
   # This is a model from BigbluebuttonRails, but we have permissions set in cancan for it,
   # so we test them here.
-  describe "abilities" do
+  describe "abilities", :abilities => true do
     set_custom_ability_actions([:end, :join_options, :create_meeting, :fetch_recordings,
                                 :invite, :invite_userid, :auth, :running, :join, :external,
                                 :external_auth, :join_mobile, :record_meeting])

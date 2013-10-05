@@ -27,7 +27,7 @@ describe SitesController do
     it "uses the layout no_sidebar"
   end
 
-  describe "abilities" do
+  describe "abilities", :abilities => true do
     let(:site) { FactoryGirl.create(:site) }
 
     context "for a normal user:" do

@@ -212,7 +212,7 @@ describe Space do
     end
   end
 
-  describe "abilities" do
+  describe "abilities", :abilities => true do
     set_custom_ability_actions([:leave, :enable, :webconference])
 
     subject { ability }
@@ -275,7 +275,7 @@ describe Space do
         context "he is a member of" do
           context "with the role 'Admin'" do
             before { target.add_member!(user, "Admin") }
-            it { should_not be_able_to_do_anything_to(target).except([:read, :webconference, :create, :leave, :update, :destroy]) }
+            it { should_not be_able_to_do_anything_to(target).except([:read, :webconference, :create, :leave, :edit, :update, :destroy]) }
           end
 
           context "with the role 'User'" do
@@ -295,7 +295,7 @@ describe Space do
         context "he is a member of" do
           context "with the role 'Admin'" do
             before { target.add_member!(user, "Admin") }
-            it { should_not be_able_to_do_anything_to(target).except([:read, :webconference, :create, :leave, :update, :destroy]) }
+            it { should_not be_able_to_do_anything_to(target).except([:read, :webconference, :create, :leave, :edit, :update, :destroy]) }
           end
 
           context "with the role 'User'" do

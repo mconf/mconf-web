@@ -8,7 +8,7 @@ require "spec_helper"
 
 describe Permission do
 
-  describe "abilities" do
+  describe "abilities", :abilities => true do
     subject { ability }
     let(:ability) { Abilities.ability_for(user) }
 
@@ -65,7 +65,7 @@ describe Permission do
           end
         }
         let(:ability_check) {
-          should_not be_able_to_do_anything_to(target).except([:read, :update])
+          should_not be_able_to_do_anything_to(target).except([:read, :edit, :update])
         }
         it_should_behave_like "for all permission types"
       end

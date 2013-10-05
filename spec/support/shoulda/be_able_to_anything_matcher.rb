@@ -72,8 +72,9 @@ module Shoulda
 
           # expand default aliases defined by cancan
           @exceptions.push(:show, :index) if @exceptions.include?(:read)
-          @exceptions.push(:edit) if @exceptions.include?(:update)
           @exceptions.push(:new) if @exceptions.include?(:create)
+          # this aliases is standard in cancan, but we removed it on mconf-web
+          # @exceptions.push(:edit) if @exceptions.include?(:update)
 
           # returning false means should_not is successful
           !(@can.sort == @exceptions.sort)

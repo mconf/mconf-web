@@ -9,7 +9,7 @@ require "spec_helper"
 describe CustomBigbluebuttonRecordingsController do
   render_views
 
-  describe "abilities" do
+  describe "abilities", :abilities => true do
     render_views(false)
 
     context "for a superuser", :user => "superuser" do
@@ -104,7 +104,6 @@ describe CustomBigbluebuttonRecordingsController do
           FactoryGirl.create(:bigbluebutton_recording, :room => room)
         }
         it_should_behave_like "a normal user accessing any webconf recording"
-        it { should allow_access_to(:show, hash) }
         it { should allow_access_to(:play, hash) }
       end
 
@@ -128,13 +127,11 @@ describe CustomBigbluebuttonRecordingsController do
         context "he is a member of" do
           before { space.add_member!(user) }
           it_should_behave_like "a normal user accessing any webconf recording"
-          it { should allow_access_to(:show, hash) }
           it { should allow_access_to(:play, hash) }
         end
 
         context "he is not a member of" do
           it_should_behave_like "a normal user accessing any webconf recording"
-          it { should allow_access_to(:show, hash) }
           it { should allow_access_to(:play, hash) }
         end
       end
@@ -149,13 +146,11 @@ describe CustomBigbluebuttonRecordingsController do
         context "he is a member of" do
           before { space.add_member!(user) }
           it_should_behave_like "a normal user accessing any webconf recording"
-          it { should allow_access_to(:show, hash) }
           it { should allow_access_to(:play, hash) }
         end
 
         context "he is not a member of" do
           it_should_behave_like "a normal user accessing any webconf recording"
-          it { should_not allow_access_to(:show, hash) }
           it { should_not allow_access_to(:play, hash) }
         end
       end

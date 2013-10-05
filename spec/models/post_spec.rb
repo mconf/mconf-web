@@ -8,7 +8,7 @@ require "spec_helper"
 
 describe Post do
 
-  describe "abilities" do
+  describe "abilities", :abilities => true do
     set_custom_ability_actions([:reply_post])
 
     subject { ability }
@@ -17,7 +17,7 @@ describe Post do
 
     context "when is the post author" do
       let(:user) { target.author }
-      it { should_not be_able_to_do_anything_to(target).except([:read, :reply_post, :update, :destroy]) }
+      it { should_not be_able_to_do_anything_to(target).except([:read, :reply_post, :edit, :update, :destroy]) }
     end
 
     context "when is an anonymous user" do

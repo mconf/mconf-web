@@ -17,7 +17,7 @@ describe CustomBigbluebuttonServersController do
     pending "calls before filter #sort_meetings"
   end
 
-  describe "abilities" do
+  describe "abilities", :abilities => true do
     render_views(false)
     let(:server) { FactoryGirl.create(:bigbluebutton_server) }
 

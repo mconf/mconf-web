@@ -218,7 +218,7 @@ describe EventsController do
     it "#spam_report_create"
   end
 
-  describe "abilities" do
+  describe "abilities", :abilities => true do
     render_views(false)
 
     let(:attrs) { FactoryGirl.attributes_for(:event) }

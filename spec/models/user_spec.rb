@@ -228,7 +228,7 @@ describe User do
     end
   end
 
-  describe "abilities" do
+  describe "abilities", :abilities => true do
     set_custom_ability_actions([:fellows, :current, :select])
 
     subject { ability }
@@ -238,7 +238,7 @@ describe User do
     context "when is the user himself" do
       let(:user) { target }
       it {
-        allowed = [:read, :update, :destroy, :fellows, :current, :select]
+        allowed = [:read, :edit, :update, :destroy, :fellows, :current, :select]
         should_not be_able_to_do_anything_to(target).except(allowed)
       }
 
