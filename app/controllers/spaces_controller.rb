@@ -265,7 +265,7 @@ class SpacesController < ApplicationController
   # Page to edit a recording.
   def edit_recording
     # @space = Space.find_by_permalink(params[:space_id])
-    @redirect_to = recordings_space_path(@space.to_param) # TODO: not working, no support on bbb_rails
+    @redir_url = recordings_space_path(@space.to_param) # TODO: not working, no support on bbb_rails
     @recording = BigbluebuttonRecording.find_by_recordid(params[:id])
     authorize! :space_edit, @recording
     if request.xhr?

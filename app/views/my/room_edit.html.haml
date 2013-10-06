@@ -6,7 +6,7 @@
 
   = simple_form_for @room, :html => { :class => "single-column" } do |f|
     .modal-body
-      = hidden_field_tag :redir_url, @redirect_to
+      = hidden_field_tag :redir_url, @redir_url
       = f.input :private, :label => t('bbb_room.private'), :hint => t('bigbluebutton_rails.rooms.private.tooltip')
       = f.input :moderator_password, :as => :showable_password, :label => t('bbb_room.moderatorPW')
       = f.input :attendee_password, :as => :showable_password, :label => t('bbb_room.attendeePW')

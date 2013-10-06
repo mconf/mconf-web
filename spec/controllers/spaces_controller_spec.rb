@@ -352,7 +352,7 @@ describe SpacesController do
       it { should assign_to(:space).with(space) }
       it { should assign_to(:recording).with(recording) }
       it { should assign_to(:webconf_room).with(space.bigbluebutton_room) }
-      it { should assign_to(:redirect_to).with(recordings_space_path(space.to_param)) }
+      it { should assign_to(:redir_url).with(recordings_space_path(space.to_param)) }
     end
 
     context "xhr request" do

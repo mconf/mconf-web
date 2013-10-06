@@ -100,7 +100,7 @@ class MyController < ApplicationController
   # edit *everything* in a room. This one is a lot more restricted.
   def room_edit
     @room = current_user.bigbluebutton_room
-    @redirect_to = home_path
+    @redir_url = home_path
   end
 
   # List of recordings for the current user's web conference room.
@@ -114,7 +114,7 @@ class MyController < ApplicationController
 
   # Page to edit a recording.
   def edit_recording
-    @redirect_to = room_recordings_path # TODO: not working, no support on bbb_rails
+    @redir_url = room_recordings_path # TODO: not working, no support on bbb_rails
     @recording = BigbluebuttonRecording.find_by_recordid(params[:id])
     authorize! :user_edit, @recording
   end

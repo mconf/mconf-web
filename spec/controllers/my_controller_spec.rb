@@ -23,7 +23,7 @@ describe MyController do
       it { should render_with_layout("application") }
       it { should assign_to(:room).with(user.bigbluebutton_room) }
       it "calls @room.get_meeting_info"
-      it { should assign_to(:redirect_to).with(home_path) }
+      it { should assign_to(:redir_url).with(home_path) }
     end
 
     context "xhr request" do
@@ -121,7 +121,7 @@ describe MyController do
       it { should render_template(:edit_recording) }
       it { should render_with_layout("application") }
       it { should assign_to(:recording).with(recording) }
-      it { should assign_to(:redirect_to).with(room_recordings_path) }
+      it { should assign_to(:redir_url).with(room_recordings_path) }
     end
 
     context "xhr request" do
