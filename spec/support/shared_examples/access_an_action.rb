@@ -15,7 +15,7 @@ end
 #   do_action    # the action to be called
 #
 shared_examples_for "it can access an action" do
-  it { expect { do_action }.to_not raise_error(CanCan::AccessDenied) }
+  it { expect { do_action }.to_not raise_error }
   context do
     before(:each) { do_action }
     it { [200, 302].should include(response.response_code) }

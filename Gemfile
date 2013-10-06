@@ -91,15 +91,13 @@ group :development do
 end
 
 group :development, :test do
-  gem 'rspec-rails'
+  gem 'rspec-rails', '~> 2.14'
   gem 'populator'
   gem 'ffaker'
   gem 'forgery'
   gem 'factory_girl_rails'
   gem 'sqlite3'
   gem 'webrat'
-  gem 'rspec-instafail'
-  gem 'fuubar'
   gem 'shoulda-matchers'
   gem 'htmlentities'
   gem 'turn', '0.8.2', :require => false # TODO: why 0.8.2?
