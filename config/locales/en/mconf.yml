@@ -909,7 +909,7 @@ en:
       view_all_spaces: "View all spaces"
     edit_recording:
       title: "Edit your recording"
-    room_recordings:
+    recordings:
       title: "Recordings from my webconference room"
       update_recordings:
         error: "Error updating your recording list, plase try again later"

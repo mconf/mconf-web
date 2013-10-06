@@ -13,7 +13,7 @@ class MyController < ApplicationController
   respond_to :json, :only => [:rooms]
   respond_to :html, :except => [:rooms]
 
-  before_filter :prepare_user_room, :only => [:home, :activity, :room_recordings]
+  before_filter :prepare_user_room, :only => [:home, :activity, :recordings]
 
   layout :determine_layout
 
@@ -21,13 +21,13 @@ class MyController < ApplicationController
     case params[:action].to_sym
     when :activity
       "no_sidebar"
-    when :room_edit
+    when :edit_room
       if request.xhr?
         false
       else
         "application"
       end
-    when :room_recordings
+    when :recordings
       if params[:partial]
         false
       else
@@ -98,13 +98,13 @@ class MyController < ApplicationController
   # Called by users to edit a webconference room. It's different from the
   # standard CustomBigbluebuttonRoomsController#edit, that allows an admin to
   # edit *everything* in a room. This one is a lot more restricted.
-  def room_edit
+  def edit_room
     @room = current_user.bigbluebutton_room
-    @redir_url = home_path
+    @redir_url = my_home_path
   end
 
   # List of recordings for the current user's web conference room.
-  def room_recordings
+  def recordings
     @room = current_user.bigbluebutton_room
     @recordings = @room.recordings.published().order("end_time DESC")
     if params[:limit]
@@ -114,7 +114,7 @@ class MyController < ApplicationController
 
   # Page to edit a recording.
   def edit_recording
-    @redir_url = room_recordings_path # TODO: not working, no support on bbb_rails
+    @redir_url = my_recordings_path # TODO: not working, no support on bbb_rails
     @recording = BigbluebuttonRecording.find_by_recordid(params[:id])
     authorize! :user_edit, @recording
   end

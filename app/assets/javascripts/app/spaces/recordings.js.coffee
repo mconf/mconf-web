@@ -1,6 +1,6 @@
-# What is done here is almost duplicated at my/room_recordings.js.coffee
+# What is done here is almost duplicated at my/recordings.js.coffee
 # The ids are slightly different, so we didn't make this a partial. But whatever is
-# done here might have to be done at my/room_recordings.js.coffee as well.
+# done here might have to be done at my/recordings.js.coffee as well.
 
 $ ->
   if isOnPage 'spaces', 'recordings'
@@ -43,7 +43,7 @@ showErrorNotification = (xhr) ->
     response = JSON.parse(xhr.responseText)
     if response?.message?
       # for now just print it in the console
-      msg = I18n.t("my.room_recordings.update_recordings.error") + ': ' + response.message
+      msg = I18n.t("my.recordings.update_recordings.error") + ': ' + response.message
       console.log msg
       # TODO: we could show a real notification to the user, but not sure this is the kind of
       #   error the user should see

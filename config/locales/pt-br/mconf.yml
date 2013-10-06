@@ -896,7 +896,7 @@ pt-br:
       view_all_spaces: "Ver todas comunidades"
     edit_recording:
       title: "Editar sua gravação"
-    room_recordings:
+    recordings:
       title: "Gravações da minha sala de webconferência"
       update_recordings:
         error: "Erro atualizando sua lista de gravações, tente novamente mais tarde"

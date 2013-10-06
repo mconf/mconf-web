@@ -137,11 +137,11 @@ Mconf::Application.routes.draw do
   end
 
   # Routes specific for the current user
-  match '/home', :to => 'my#home', :as => 'home'
-  match '/rooms', :to => 'my#rooms', :as => 'rooms'
-  match '/activity', :to => 'my#activity', :as => 'activity'
-  match '/room/edit', :to => 'my#room_edit', :as => 'room_edit'
-  match '/room/recordings', :to => 'my#room_recordings', :as => 'room_recordings'
+  match '/home', :to => 'my#home', :as => 'my_home'
+  match '/activity', :to => 'my#activity', :as => 'my_activity'
+  match '/rooms', :to => 'my#rooms', :as => 'my_rooms'
+  match '/room/edit', :to => 'my#edit_room', :as => 'edit_my_room'
+  match '/recordings', :to => 'my#recordings', :as => 'my_recordings'
   match '/recordings/:id/edit', :to => 'my#edit_recording', :as => 'edit_my_recording'
 
   resources :messages, :controller => :private_messages, :except => [:edit]

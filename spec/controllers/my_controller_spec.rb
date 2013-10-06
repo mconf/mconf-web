@@ -13,33 +13,33 @@ describe MyController do
   it "#activity"
   it "#rooms"
 
-  describe "#room_edit" do
+  describe "#edit_room" do
     let(:user) { FactoryGirl.create(:user) }
     before(:each) { login_as(user) }
 
     context "html request" do
-      before(:each) { get :room_edit }
-      it { should render_template(:room_edit) }
+      before(:each) { get :edit_room }
+      it { should render_template(:edit_room) }
       it { should render_with_layout("application") }
       it { should assign_to(:room).with(user.bigbluebutton_room) }
       it "calls @room.get_meeting_info"
-      it { should assign_to(:redir_url).with(home_path) }
+      it { should assign_to(:redir_url).with(my_home_path) }
     end
 
     context "xhr request" do
-      before(:each) { xhr :get, :room_edit }
-      it { should render_template(:room_edit) }
+      before(:each) { xhr :get, :edit_room }
+      it { should render_template(:edit_room) }
       it { should_not render_with_layout }
     end
   end
 
-  describe "#room_recordings" do
+  describe "#recordings" do
     let(:user) { FactoryGirl.create(:user) }
     before(:each) { login_as(user) }
 
     context "html full request" do
-      before(:each) { get :room_recordings }
-      it { should render_template(:room_recordings) }
+      before(:each) { get :recordings }
+      it { should render_template(:recordings) }
       it { should render_with_layout("no_sidebar") }
       it { should assign_to(:room).with(user.bigbluebutton_room) }
       it "calls @room.get_meeting_info"
@@ -96,7 +96,7 @@ describe MyController do
           @r5 = FactoryGirl.create(:bigbluebutton_recording, :room => user.bigbluebutton_room, :published => true,
                                    :end_time => DateTime.now - 4.hours)
         end
-        before(:each) { get :room_recordings, :limit => 3 }
+        before(:each) { get :recordings, :limit => 3 }
         it { assigns(:recordings).count.should be(3) }
         it { assigns(:recordings).should include(@r1) }
         it { assigns(:recordings).should include(@r2) }
@@ -105,8 +105,8 @@ describe MyController do
     end
 
     context "if params[:partial] is set" do
-      before(:each) { get :room_recordings, :partial => true }
-      it { should render_template(:room_recordings) }
+      before(:each) { get :recordings, :partial => true }
+      it { should render_template(:recordings) }
       it { should_not render_with_layout }
     end
   end
@@ -121,7 +121,7 @@ describe MyController do
       it { should render_template(:edit_recording) }
       it { should render_with_layout("application") }
       it { should assign_to(:recording).with(recording) }
-      it { should assign_to(:redir_url).with(room_recordings_path) }
+      it { should assign_to(:redir_url).with(my_recordings_path) }
     end
 
     context "xhr request" do

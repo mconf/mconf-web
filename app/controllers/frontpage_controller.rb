@@ -27,7 +27,7 @@ class FrontpageController < ApplicationController
 
    respond_to do |format|
       if user_signed_in?
-        format.html { redirect_to home_path }
+        format.html { redirect_to my_home_path }
       else
         format.html
       end
