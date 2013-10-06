@@ -9,6 +9,53 @@ require "spec_helper"
 describe CustomBigbluebuttonRecordingsController do
   render_views
 
+  describe "#update" do
+    let(:recording) { FactoryGirl.create(:bigbluebutton_recording) }
+
+    # TODO: we need rspec 2.14 for the tests below
+    #
+    # # This is an adapted copy of the same test done for this controller
+    # # action in BigbluebuttonRails
+    # context "params handling" do
+    #   let(:attrs) { FactoryGirl.attributes_for(:bigbluebutton_recording) }
+    #   let(:params) { { :bigbluebutton_recording => attrs } }
+
+    #   context "for a superuser" do
+    #     let(:allowed_params) {
+    #       [ :recordid, :meetingid, :name, :published, :start_time, :end_time, :available, :description ]
+    #     }
+    #     it {
+    #       # we just check that the rails method 'permit' is being called on the hash with the
+    #       # correct parameters
+    #       BigbluebuttonRecording.stub(:find_by_recordid).and_return(recording)
+    #       recording.stub(:update_attributes).and_return(true)
+    #       attrs.stub(:permit).and_return(attrs)
+    #       controller.stub(:params).and_return(params)
+
+    #       put :update, :id => recording.to_param, :bigbluebutton_recording => attrs
+    #       attrs.should have_received(:permit).with(*allowed_params)
+    #     }
+    #   end
+
+    #   context "for a normal user" do
+    #     let(:allowed_params) {
+    #       [ :description ]
+    #     }
+    #     it {
+    #       # we just check that the rails method 'permit' is being called on the hash with the
+    #       # correct parameters
+    #       BigbluebuttonRecording.stub(:find_by_param).and_return(recording)
+    #       recording.stub(:update_attributes).and_return(true)
+    #       attrs.stub(:permit).and_return(attrs)
+    #       controller.stub(:params).and_return(params)
+
+    #       put :update, :id => recording.to_param, :bigbluebutton_recording => attrs
+    #       attrs.should have_received(:permit).with(*allowed_params)
+    #     }
+    #   end
+    # end
+  end
+
   describe "abilities", :abilities => true do
     render_views(false)
 
