@@ -31,6 +31,8 @@ class ShibbolethController < ApplicationController
   # The application should only reach this point after authenticating using Shibboleth
   # The authentication is currently made with the Apache module mod_shib
   def login
+    test_data()
+
     shib_vars_to_session()
     return unless check_shib_information()
 
@@ -188,7 +190,7 @@ class ShibbolethController < ApplicationController
       "trying field #{current_site.shib_email_field} " +
       "in #{session[:shib_data].inspect}" if email.nil?
     email = email.clone unless email.nil?
-    email.clone
+    email
   end
 
   # Returns the shibboleth user name from the data stored in the session.
@@ -202,7 +204,7 @@ class ShibbolethController < ApplicationController
       "trying field #{current_site.shib_name_field} " +
       "in #{session[:shib_data].inspect}" if name.nil?
     name = name.clone unless name.nil?
-    name.clone
+    name
   end
 
   # Returns the shibboleth login from the data stored in the session.
@@ -216,7 +218,7 @@ class ShibbolethController < ApplicationController
       "trying field #{current_site.shib_login_field} " +
       "in #{session[:shib_data].inspect}" if login.nil?
     login = login.clone unless login.nil?
-    login.clone
+    login
   end
 
   # Returns the shibboleth data stored in the session.
@@ -267,9 +269,9 @@ class ShibbolethController < ApplicationController
     request.env["Shib-eduPerson-eduPersonPrincipalName"] = "75a988943825d2871e1cfa75473ec0@ufrgs.br"
     request.env["Shib-inetOrgPerson-cn"] = "Rick Astley"
     request.env["Shib-inetOrgPerson-sn"] = "Rick Astley"
-    request.env["Shib-inetOrgPerson-mail"] = "nevergonnagiveyouup@rick.com"
+    #request.env["Shib-inetOrgPerson-mail"] = "nevergonnagiveyouup@rick.com"
     request.env["cn"] = "Rick Astley"
-    request.env["mail"] = "nevergonnagiveyouup@rick.com"
+    #request.env["mail"] = "nevergonnagiveyouup@rick.com"
     request.env["ufrgsVinculo"] = "anything in here"
     request.env["uid"] = "00000000000"
   end
