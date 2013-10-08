@@ -1,0 +1,32 @@
+@import "definitions";
+@import "compass/css3";
+
+body.join_requests.new {
+
+  .select2-choices {
+    width: 720px;
+  }
+
+  select, input, .label {
+    vertical-align: baseline;
+  }
+
+  .field  {
+    margin-top: 15px;
+  }
+
+  label {
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+
+  textarea {
+    resize: none;
+    width: 98%;
+  }
+
+  select {
+    width: auto;
+  }
+
+}

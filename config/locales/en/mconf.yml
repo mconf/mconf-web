@@ -1334,6 +1334,7 @@ en:
         updating: "Updating your list of recordings..."
     show:
       events_now: "Events hapenning now!"
+    news: "Space news"
     sidebar:
       upcoming_events: "Upcoming events"
       webconference:
@@ -1358,8 +1359,9 @@ en:
     space_thumbnail:
       private: "Private"
       public: "Public"
-    unified_space: 
+    unified_space:
       user_is_member: "You are a member of this space"
+    users: "Users in this space"
     webconference:
       end: "Stop the meeting"
       end_tooltip: "This action will end the current conference!"
@@ -1382,6 +1384,16 @@ en:
     spam_report_create:
       error: "Sorry, but there was a problem marking this item as spam"
       success: "The item was marked as a spam! It will be checked by the administrators"
+      user_is_member: "You're a member"
+    created: "A reporting spam e-mail has been successfully sent to the admin. Thank you"
+    default: spam
+    detected: "New spam detected"
+    error: 
+      check: "There was a problem marking the resource as spam"
+    item: "This item has been reported as spam and is being evaluated by the administrators"
+    report: "Report spam"
+    reported: "%{name} (%{email}) has reported spam in %{sitename}"
+    valid: "This content is valid"
   sponsors: 
     prav: "Projetos em<br/>Áudio e Vídeo"
     rnp: "Rede Nacional de<br/>Ensino e Pesquisa"

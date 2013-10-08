@@ -1,0 +1,36 @@
+@import "definitions";
+@import "compass/css3";
+
+body.join_requests.index {
+
+  #admission {
+    clear: both;
+  }
+
+  .btn-deny {
+    margin-top: 4px;
+  }
+
+  .first-form {
+    float: left;
+    margin-right: 3px;
+    z-index: 1;
+  }
+
+  .join_request input {
+    width: 40px;
+  }
+
+  select, input, .label {
+    vertical-align: baseline;
+  }
+
+  select {
+    width: auto;
+  }
+
+  .thread-text {
+    margin-top: 10px;
+  }
+
+}

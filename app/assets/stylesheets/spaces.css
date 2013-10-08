@@ -5,4 +5,5 @@
  *= require ./app/spaces/edit
  *= require ./app/spaces/webconference
  *= require ./app/spaces/recordings
+ *= require ./app/spaces/user_permissions
  */

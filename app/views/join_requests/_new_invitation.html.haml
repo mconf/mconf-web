@@ -1,0 +1,17 @@
+%h1= t('invitation.message_title')
+
+= simple_form_for(:join_request, :url => space_join_requests_path, :html => { :multipart => true, }) do |f|
+  .field
+    %label
+      = t('user.filter')
+    = hidden_field_tag :candidates, '', autofocus: true
+  .field
+    .label
+      = t('invitation.role_label')
+    = select "join_request", "role_id", Space.roles.map { |r| [ r.name, r.id ] },  :selected => default_role.id , :class=> "main_text"
+  .field
+    %label
+      = t('invitation.label')
+    = f.text_area :comment, :placeholder => t('invitation.personal'), :rows => 5
+
+  = f.button :wrapped, :value => t("button.send")#, :class => "btn btn-small"

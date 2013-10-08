@@ -4,5 +4,7 @@
 - spaces_admin_menu_at :users
 = render :partial => 'admin_tabs'
 
-- for permission in @permissions
-  = render :partial => 'edit_user_permission', :locals => {:permission => permission, :user => permission.user}
+#user-permission
+  %h1= t('spaces.users')
+  - for permission in @permissions
+    = render :partial => 'edit_user_permission', :locals => {:permission => permission, :user => permission.user}

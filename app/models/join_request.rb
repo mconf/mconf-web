@@ -1,6 +1,7 @@
 class JoinRequest < ActiveRecord::Base
   belongs_to :candidate, :class_name => "User", :foreign_key => 'candidate_id'
   belongs_to :introducer, :class_name => "User", :foreign_key => 'introducer_id'
+  belongs_to :space
 
   has_one :role
 
@@ -29,6 +30,10 @@ class JoinRequest < ActiveRecord::Base
   # Has this Admission been recently processed? (typically in this request)
   def recently_processed?
     @processed.present?
+  end
+
+  def role
+    Role.find_by_id(self.role_id).name
   end
 
   def event?

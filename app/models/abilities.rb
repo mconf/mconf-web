@@ -87,9 +87,13 @@ module Abilities
         space.users.include?(user)
       end
       # Only the admin can destroy or update information on a space
-      can [:destroy, :edit, :update, :join_request_update, :join_request_index, :user_permissions], Space do |space|
+      can [:destroy, :edit, :update, :user_permissions], Space do |space|
         space.admins.include?(user)
       end
+
+      # Join Requests
+      can :new, JoinRequest
+      can :create, JoinRequest
 
       # Posts
       # TODO: maybe space admins should be able to alter posts

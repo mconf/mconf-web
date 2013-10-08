@@ -11,7 +11,7 @@
     #more_join_requests
       %div
         %h3.blue= t('join_request.message_title')
-      = simple_form_for(:join_request, :url => { :action => "join_request_create" }, :html => { :multipart => true }) do |f|
+      = simple_form_for(:join_request, :url => space_join_requests_path(space), :html => { :multipart => true }) do |f|
         .margin-up
           %label.bold{:for => "message"}
             = t('join_request.label')

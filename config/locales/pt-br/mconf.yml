@@ -1305,8 +1305,9 @@ pt-br:
         error: "Erro atualizando sua lista de gravações, tente novamente mais tarde"
         success: "Lista de gravações atualizada!"
         updating: "Atualizando sua lista de gravações..."
+    news: "Notícias da comunidade"
     show:
-      events_now: "Events hapenning now!"
+      events_now: "Eventos acontecendo agora!"
     sidebar:
       upcoming_events: "Próximos eventos"
       webconference:
@@ -1333,6 +1334,7 @@ pt-br:
       public: "Pública"
     unified_space: 
       user_is_member: "Você é membro desta comunidade"
+    users: "Usuários nesta comunidade"
     webconference:
       invite: "Convidar outras pessoas"
       end: "Parar a reunião"
@@ -1351,6 +1353,7 @@ pt-br:
     webconference_tabs:
       access: "Acesso à webconferência"
       recordings: "Lista de gravações"
+      user_is_member: "Você é um membro"
   spam:
     spam_report_create:
       error: "Desculpe, mas ocorreu um erro ao marcar este artigo como spam"

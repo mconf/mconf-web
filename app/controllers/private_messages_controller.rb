@@ -51,9 +51,13 @@ class PrivateMessagesController < ApplicationController
     if params[:receiver]
       @receiver = User.find(params[:receiver])
     end
-    respond_to do |format|
-      format.html { render :layout => "no_sidebar" }
-      format.xml  { render :xml => @private_message }
+    if request.xhr?
+      render :partial => 'form'
+    else
+      respond_to do |format|
+        format.html { render :layout => "no_sidebar" }
+        format.xml  { render :xml => @private_message }
+      end
     end
   end
 
