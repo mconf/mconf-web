@@ -1177,15 +1177,13 @@ pt-br:
       view_room_list: "Ver lista de salas"
       view_server_list: "Ver lista de servidores"
   shibboleth:
-    create:
+    create_association:
       account_created: "Uma nova conta com uma senha aleatória foi criada para você e conectada a sua conta federada. Ambas as contas podem ser usadas para entrar neste site. Você não precisará da sua senha do Mconf para logar usando a federação, mas se deseja modificar sua senha <a href=\"%{url}\">clique aqui</a>."
+      error_saving_user: "Não foi possível criar seu usuário. Os errors encontrados foram: %{errors}"
+      existent_account: "Já existe um usuário cadastrado com seu e-mail ('%{email}'). Se foi você que criou este usuário, você deveria associá-lo à sua conta federada. Se o usuário não é seu, por favor contate um administrador para resolver o problema."
+      invalid_parameters: "Your request was invalid, please try again."
     login:
       not_enough_data: "Houve um erro tentando acessar suas informações através da federação. Por favor contate um administrador para resolver o problema."
-    need_activation:
-      activation_email: "Se você não recebeu o e-mail de ativação, <a href=\"%{url}\">clique aqui</a> para solicitar o reenvio."
-      message: "Aparentemente você já possui uma conta neste site mas ela ainda não esta ativada.<br/> Sua conta federada será ligada a esta conta, mas antes você precisa ativá-la."
-      password_email: "Se você esqueceu sua senha, <a href=\"%{url}\">clique aqui</a>."
-      title: "Olá, %{name}"
   show: Exibir
   show_advanced_editor: "Exibir editor avançado"
   show_list_version_arrows: "exibir versão em lista >>"

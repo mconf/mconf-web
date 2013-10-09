@@ -1,6 +1,6 @@
 %h3= t('other_options')
 %ul
-  %li= link_to t('cafe.login'), shibboleth_login_path
+  %li= link_to t('cafe.login'), shibboleth_path
   - if controller_name != 'sessions'
     %li= link_to t('login.one'), login_path
   - if devise_mapping.registerable? && controller_name != 'registrations'

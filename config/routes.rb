@@ -55,8 +55,9 @@ Mconf::Application.routes.draw do
     :as => "join_webconf"
 
   # shibboleth controller
-  match '/secure', :to => 'shibboleth#login', :as => "shibboleth_login"
+  match '/secure', :to => 'shibboleth#login', :as => "shibboleth"
   match '/secure/info', :to => 'shibboleth#info', :as => "shibboleth_info"
+  post '/secure/associate', :to => 'shibboleth#create_association', :as => "shib_create_association"
 
   resources :spaces do
 

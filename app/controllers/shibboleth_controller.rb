@@ -27,45 +27,79 @@ class ShibbolethController < ApplicationController
     unless shib.has_basic_info
        "Shibboleth: couldn't basic user information from session, " +
         "searching fields #{shib.basic_info_fields.inspect} " +
-        "in: #{session.has_key?(:shib_data) ? session[:shib_data].inspect : nil}"
+        "in: #{shib.get_data.inspect}"
       flash[:error] = t("shibboleth.login.not_enough_data")
       render 'error'
     else
+      token = shib.find_token()
 
-      # the fields that define the name and email are configurable in the Site model
-      shib_name = shib.get_name
-      shib_email = shib.get_email
+      # there's a token with a user associated, logs the user in
+      unless token.nil? || token.user.nil?
+        logger.info "Shibboleth: logging in the user #{token.user.inspect}"
+        sign_in token.user # TODO: review if we need `:bypass => true`
+        # TODO: review `flash.keep :success`
+        redirect_to my_home_path
 
-      # uses the fed email to check if the user already has an account
-      user = User.find_by_email(shib_email)
-
-      # the user already has an account but it was not activated yet
-      if user and !user.active?
-        @user = user
-        render "need_activation"
-        return
+      # no token means the user has no association yet, render a page to do it
+      else
+        logger.info "Shibboleth: first access for this user, rendering the association page"
+        respond_to do |format|
+          format.html
+        end
       end
-
-      # the fed user has no account yet
-      # create one based on the info returned by shibboleth
-      if user.nil?
-        password = SecureRandom.hex(16)
-        user = User.create!(:username => shib_name.clone, :email => shib_email,
-                            :password => password, :password_confirmation => password)
-        user.activate
-        user.profile.update_attributes(:full_name => shib_name)
-        flash[:notice] = t('shibboleth.create.account_created', :url => new_user_password_path)
-      end
-
-      # login and go to home
-      sign_in user, :bypass => true
-      redirect_to my_home_path
-
     end
   end
 
+  # Associates the current shib user with an existing user or
+  # a new user account (created here as well).
+  def create_association
+    # TODO: check if the session is before proceeding
+
+    shib = Mconf::Shibboleth.new(session)
+
+    # The federated user has no account yet, create one based on the info returned by
+    # shibboleth
+    if params[:new_account]
+      associate_with_new_account(shib)
+      redirect_to shibboleth_path
+
+    # Associate the shib user with an existing user account
+    # TODO: this entire block has to be reviewed and tested
+    elsif params[:existing_account]
+
+      # params[:scope] = :user
+      # warden.authenticate!(params)
+      #authenticate_user!
+      user = User.find_first_by_auth_conditions(params[:user])
+      valid = user.valid_password?(params[:user][:password]) unless user.nil?
+
+      if user.nil? or !valid
+        logger.info "Shibboleth: invalid user or password #{user.inspect}"
+        flash[:error] = t("shibboleth.create.invalid_credentials")
+      elsif user.disabled
+        logger.info "Shibboleth: attempt to associate with a disabled user #{user.inspect}"
+        flash[:error] = t("shibboleth.create.invalid_credentials")
+      else !user.disabled
+        logger.info "Shibboleth: shib user associated to a valid user #{user.inspect}"
+        token = shib.find_or_create_token()
+        token.user = user
+        token.data = shib.get_data()
+        token.save! # TODO: what if it fails
+        flash[:success] = t("shibboleth.create.account_associated", :login => user.login)
+      end
+
+      redirect_to shibboleth_path
+
+    # invalid request
+    else
+      flash[:notice] = t('shibboleth.create_association.invalid_parameters')
+      redirect_to shibboleth_path
+    end
+
+  end
+
   def info
-    @data = session[:shib_data] if session.has_key?(:shib_data)
+    @data = Mconf::Shibboleth.new(session).get_data
     render :layout => false
   end
 
@@ -89,6 +123,35 @@ class ShibbolethController < ApplicationController
       false
     else
       true
+    end
+  end
+
+  # When the user selected to create a new account for his shibboleth login.
+  def associate_with_new_account(shib)
+    token = shib.find_or_create_token()
+
+    # if there's already a user and an association, we don't need to do anything, just
+    # return and, when the user is redirected back to #login, the token will be checked again
+    if token.user.nil?
+
+      token.user = shib.create_user
+      unless token.user.nil?
+        if token.user.errors.empty?
+          logger.info "Shibboleth: created a new account: #{token.user.inspect}"
+          token.data = shib.get_data()
+          token.save! # TODO: what if it fails
+          flash[:success] = t('shibboleth.create_association.account_created', :url => new_user_password_path)
+        else
+          token.destroy
+          logger.info "Shibboleth: error saving the new user created: #{token.user.errors.full_messages}"
+          # TODO: this error should give the user more information about what he should do next
+          flash[:error] = t('shibboleth.create_association.error_saving_user', :errors => token.user.errors.full_messages.join(', '))
+        end
+      else
+        token.destroy
+        logger.info "Shibboleth: there's already a user with this email #{shib.get_email}"
+        flash[:error] = t('shibboleth.create_association.existent_account', :email => shib.get_email)
+      end
     end
   end
 

@@ -243,4 +243,74 @@ describe Mconf::Shibboleth do
 
   end
 
+  describe "#basic_info_fields" do
+    let(:shibboleth) { Mconf::Shibboleth.new({}) }
+
+    context "returns the attributes for name and email set in the site (if set)" do
+      before {
+        Site.current.update_attributes(:shib_email_field => 'email', :shib_name_field => 'name')
+      }
+      it { shibboleth.basic_info_fields.should eq(['email', 'name']) }
+    end
+
+    context "returns the standard attributes for name and email if no set in the site" do
+      before {
+        Site.current.update_attributes(:shib_email_field => nil, :shib_name_field => nil)
+      }
+      it { shibboleth.basic_info_fields.should eq(['Shib-inetOrgPerson-mail', 'Shib-inetOrgPerson-cn']) }
+    end
+  end
+
+  describe "#find_token" do
+    let(:shibboleth) { Mconf::Shibboleth.new({}) }
+    let(:user) { FactoryGirl.create(:user) }
+
+    context "returns the token using the information in the session" do
+      before {
+        ShibToken.create!(:identifier => 'any@email.com', :user => user)
+        shibboleth.should_receive(:get_email).and_return('any@email.com')
+      }
+      subject { shibboleth.find_token }
+      it { subject.identifier.should eq('any@email.com') }
+      it { subject.user.should eq(user) }
+    end
+
+    context "returns nil of there's no token" do
+      before {
+        shibboleth.should_receive(:get_email).and_return('any@email.com')
+      }
+      subject { shibboleth.find_token }
+      it { subject.should be_nil }
+    end
+  end
+
+  describe "#find_or_create_token" do
+    let(:shibboleth) { Mconf::Shibboleth.new({}) }
+    let(:user) { FactoryGirl.create(:user) }
+
+    context "returns the token using the information in the session" do
+      before {
+        shibboleth.should_receive(:get_email).at_least(:once).and_return('any@email.com')
+      }
+      subject { shibboleth.find_or_create_token }
+      it { subject.should eq(ShibToken.find_by_identifier('any@email.com')) }
+    end
+
+    context "creates the token if there's no token yet" do
+      before {
+        shibboleth.should_receive(:get_email).at_least(:once).and_return('any@email.com')
+      }
+      subject { shibboleth.find_or_create_token }
+      it { subject.should_not be_nil }
+      it { subject.identifier.should eq('any@email.com') }
+      it { subject.user.should be_nil }
+    end
+  end
+
+  describe "#create_user" do
+    it "creates the user with the correct information"
+    it "returns nil if there's already a user with the target email"
+    it "returns the user with errors set in it if the call to `save` generated errors"
+  end
+
 end
