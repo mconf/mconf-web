@@ -15,6 +15,15 @@
     = f.input :shib_enabled, :as => :boolean, :disabled => true
     = f.input :shib_email_field, :disabled => true
     = f.input :shib_name_field, :disabled => true
+    = f.input :ldap_enabled, :label => t('site.ldap_enabled'), :disabled => true
+    = f.input :ldap_host, :label => t('site.ldap_host'), :disabled => true
+    = f.input :ldap_port, :label => t('site.ldap_port'), :disabled => true
+    = f.input :ldap_user, :label => t('site.ldap_user'), :disabled => true
+    = f.input :ldap_user_password, :label => t('site.ldap_user_password'), :disabled => true
+    = f.input :ldap_user_treebase, :label => t('site.ldap_user_treebase'), :disabled => true
+    = f.input :ldap_username_field, :label => t('site.ldap_username_field'), :disabled => true
+    = f.input :ldap_email_field, :label => t('site.ldap_email_field'), :disabled => true
+    = f.input :ldap_name_field, :label => t('site.ldap_name_field'), :disabled => true
   .right-column
     = f.input :smtp_login, :disabled => true
     = f.input :smtp_password, :disabled => true

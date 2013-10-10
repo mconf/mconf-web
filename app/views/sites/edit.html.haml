@@ -15,6 +15,15 @@
     = f.input :shib_enabled, :as => :boolean
     = f.input :shib_email_field
     = f.input :shib_name_field
+    = f.input :ldap_enabled, :label => t('site.ldap_enabled'), :as => :boolean
+    = f.input :ldap_host, :label => t('site.ldap_host'), :hint => t('site.ldap_host_tip')
+    = f.input :ldap_port, :label => t('site.ldap_port'), :hint => t('site.ldap_port_tip')
+    = f.input :ldap_user, :label => t('site.ldap_user'), :hint => t('site.ldap_user_tip')
+    = f.input :ldap_user_password, :label => t('site.ldap_user_password'), :as => :showable_password, :hint => t('site.ldap_user_password_tip')
+    = f.input :ldap_user_treebase, :label => t('site.ldap_user_treebase'), :hint => t('site.ldap_user_treebase_tip')
+    = f.input :ldap_username_field, :label => t('site.ldap_username_field'), :hint => t('site.ldap_username_field_tip')
+    = f.input :ldap_email_field, :label => t('site.ldap_email_field'), :hint => t('site.ldap_email_field_tip')
+    = f.input :ldap_name_field, :label => t('site.ldap_name_field'), :hint => t('site.ldap_name_field_tip')
   .right-column
     = f.input :smtp_login
     = f.input :smtp_password, :as => :showable_password

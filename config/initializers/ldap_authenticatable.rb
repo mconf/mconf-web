@@ -5,7 +5,7 @@ module Devise
   module Strategies
     class LdapAuthenticatable < Authenticatable
       def authenticate!
-        if params[:user] and ldap_enabled?
+        if params[:user] and params[:ldap_auth] and ldap_enabled?
           ldap_server = ldap_from_site
           ldap = ldap_connection(ldap_server)
           ldap.auth ldap_server.ldap_user, ldap_server.ldap_user_password
@@ -18,21 +18,23 @@ module Devise
               user = login_or_create_user(ldap_user,ldap_server)
               # Says to devise that the user account was found and follow on with login
               success!(user)
-              flash[:notice] = "Succesfully authenticated with user: " + login
+              flash[:notice] = I18n.t('ldap.user.valid_login', :login => login)
             else
               fail(:invalid_login)
-              flash[:error] = "The user login or password is wrong!"
+              flash[:error] = I18n.t('ldap.user.invalid_login')
             end
           else
             fail(:invalid_login)
-            flash[:error] = "Could not bind to the ldap server, check the ldap_user and ldap_user_password!"
+            flash[:error] = I18n.t('ldap.server.invalid_bind')
           end
         elsif not ldap_enabled?
           fail(:invalid_login)
-          flash[:error] = "Ldap is not enabled on the Mconf Portal!"
+          flash[:error] = I18n.t('ldap.site.enabled')
+        elsif not params[:ldap_auth]
+          fail(:invalid_login)
         else
           fail(:invalid_login)
-          flash[:error] = "Login or password is missing!"
+          flash[:error] = I18n.t('ldap.user.missing_login')
         end
       end
 
@@ -81,8 +83,8 @@ module Devise
       # return the user (new or existing) 
       def login_or_create_user(ldap_user, ldap)
         # the fields that define the name and email are configurable in the Site model
-        ldap_name = ldap_user.first[ldap.ldap_name_field].first || ldap_user.first.cn
-        ldap_email = ldap_user.first[ldap.ldap_email_field].first || ldap_user.first.mail
+        ldap_name = ldap_user.first[ldap.ldap_name_field].first if ldap_user.first[ldap.ldap_name_field] || ldap_user.first.cn
+        ldap_email = ldap_user.first[ldap.ldap_email_field].first if ldap_user.first[ldap.ldap_email_field] || ldap_user.first.mail
         # uses the ldap email to check if the user already has an account
         token = find_or_create_token(ldap_email)
         token.user = create_account(ldap_email,ldap_name)

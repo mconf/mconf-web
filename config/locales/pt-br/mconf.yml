@@ -840,6 +840,17 @@ pt-br:
     spaces_page_title:
       private: "Comunidade privada"
       public: "Comunidade pública"
+  ldap:
+    server:
+      invalid_bind: "Não foi possível conectar ao servidor ldap, verifique a configuração do ldap na administração do portal!"
+    site:
+      enabled: "Ldap não esta habilitado na administração do portal!"
+    user:
+      invalid_login: "Nome do usuário ou palavra-passe está errado(a)!"
+      missing_login: "Nome do usuário ou palavra-passe está faltando!"
+      valid_login: "Sucesso na autenticação com usuário: \"%{login}\"!"
+    checkbox:
+      label: "Autenticar via ldap"
   less: "menos..."
   locale:
     changed: "Idioma da aplicação alterado para "
@@ -1242,6 +1253,26 @@ pt-br:
   show_question: Exibir?
   simple_captcha:
     label: "Insira aqui o texto da imagem"
+  site:
+    ldap_enabled: "Habilitar Autenticacao via Ldap"
+    ldap_host: "IP/NOME do servidor LDAP"
+    ldap_host_tip: "Insira o IP ou nome do servidor LDAP. Exemplo: 200.243.24.225 ou ldapserver.rnp.com.br"
+    ldap_port: "PORTA do servidor LDAP"
+    ldap_port_tip: "Insira a PORTA que será utilizada para conectar ao servidor LDAP (para conexão LDAPS, a porta é a 636)"
+    ldap_user: "DN completo para usuario do LDAP"
+    ldap_user_tip: "Insira o DN (Distinguished Name) completo do usuário que irá acessar o servidor LDAP"
+    ldap_user_password: "Senha do usuario do LDAP"
+    ldap_user_password_tip: "Insira a senha para o usuário que irá acessar o servidor LDAP"
+    ldap_user_treebase: "DN completo para arvore dos usuarios"
+    ldap_user_treebase_tip: "Isto especifica o ramo do LDAP (DN) onde os usuários que serão autenticados estão"
+    ldap_username_field: "Campo de login do usuario do LDAP"
+    ldap_username_field_tip: "Isto especifica qual atributo do usuário LDAP iremos comparar com o login(nome de usuario) fornecido. Exemplo: uid"
+    ldap_email_field: "Campo de email do usuario do LDAP"
+    ldap_email_field_tip: "Isto especifica qual atributo do usuário LDAP iremos utilizar para buscar o seu email. Exemplo: mail"
+    ldap_name_field: "Campo do nome do usuario do LDAP"
+    ldap_name_field_tip: "Isto especifica qual atributo do usuário LDAP iremos utilizar para buscar o seu nome. Exemplo: cn"
+    ldap_env_variables: "Variaveis extras do LDAP"
+    ldap_env_variables_tip: ""
   size: Tamanho
   skype: Skype
   source:
