@@ -719,7 +719,6 @@ en:
       other: "There are no pending invitations"
     pending: 
       other: "Pending invitations"
-    personal: "Personal message"
     rejoin_space: "If you would like to request membership again please go to <a href=\"%{space_url}\"> %{space_url} </a>"
     role_label: "Role for the invited people"
     select_all_users: "Select all users"
