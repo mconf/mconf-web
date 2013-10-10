@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # This file is part of Mconf-Web, a web application that provides access
 # to the Mconf webconferencing system. Copyright (C) 2010-2012 Mconf
 #
@@ -243,6 +244,53 @@ describe Mconf::Shibboleth do
 
   end
 
+  describe "#get_login" do
+    context "returns nil if there's no shib data in the session" do
+      let(:shibboleth) { Mconf::Shibboleth.new({}) }
+      subject { shibboleth.get_login }
+      it { should be_nil }
+    end
+
+    context "when there's shib data in the session" do
+      let(:shibboleth) { Mconf::Shibboleth.new(session) }
+
+      context "returns the login pointed by the site's 'shib_login_field'" do
+        let(:session) { { :shib_data => { 'login' => 'my-login' } } }
+        subject { shibboleth.get_login }
+        before {
+          Site.current.update_attributes(:shib_login_field => 'login')
+        }
+        it { should eq('my-login') }
+      end
+
+      context "if 'shib_login_field' is not set, uses the name" do
+        let(:session) { { :shib_data => { 'name' => 'my-name' } } }
+        subject { shibboleth.get_login }
+        before {
+          Site.current.update_attributes(:shib_login_field => nil)
+          Site.current.update_attributes(:shib_name_field => 'name')
+        }
+        it { should eq('my-name') }
+      end
+
+      # see issue #973
+      context "clones the result string to prevent it from being modified" do
+        let(:original) { 'my-login' }
+        let(:session) { { :shib_data => { 'login' => original } } }
+        before {
+          Site.current.update_attributes(:shib_login_field => 'login')
+          @subject = shibboleth.get_login
+
+          # something that would alter the string pointed by it
+          @subject.gsub!(/my-login/, 'altered-login')
+        }
+        it { @subject.should eq('altered-login') }
+        it { original.should eq('my-login') }
+      end
+    end
+
+  end
+
   describe "#basic_info_fields" do
     let(:shibboleth) { Mconf::Shibboleth.new({}) }
 
@@ -308,9 +356,62 @@ describe Mconf::Shibboleth do
   end
 
   describe "#create_user" do
-    it "creates the user with the correct information"
-    it "returns nil if there's already a user with the target email"
-    it "returns the user with errors set in it if the call to `save` generated errors"
+    let(:shibboleth) { Mconf::Shibboleth.new({}) }
+
+    context "creates a new user" do
+      before {
+        shibboleth.should_receive(:get_email).and_return('any@email.com')
+        shibboleth.should_receive(:get_login).and_return('any-login')
+        shibboleth.should_receive(:get_name).and_return('Any Name')
+        User.should_receive(:find_by_email).and_return(nil)
+      }
+      before(:each) {
+        expect { @subject = shibboleth.create_user }.to change{ User.count }.by(1)
+      }
+      it { @subject.should eq(User.last) }
+      it("validates the email") { @subject.email.should eq('any@email.com') }
+      it("validates the username") { @subject.username.should eq('any-login') }
+      it("validates the full name") { @subject.full_name.should eq('Any Name') }
+      it("password should be set") { @subject.password.should_not be_nil }
+      it("password should be long") { @subject.password.length.should be(32) }
+      it("should be confirmed") { @subject.confirmed_at.should_not be_nil }
+      it("should not be disabled") { @subject.disabled.should be_false }
+      it("should not be a superuser") { @subject.superuser.should be_false }
+    end
+
+    context "parameterizes the login" do
+      before {
+        shibboleth.should_receive(:get_email).and_return('any@email.com')
+        shibboleth.should_receive(:get_login).and_return('My Login Áàéë (test)')
+        shibboleth.should_receive(:get_name).and_return('Any Name')
+        User.should_receive(:find_by_email).and_return(nil)
+      }
+      subject { shibboleth.create_user }
+      it { subject.username.should eq('my-login-aaee-test') }
+    end
+
+    context "returns nil if there's already a user with the target email" do
+      let(:user) { FactoryGirl.create(:user) }
+      before {
+        User.should_receive(:find_by_email).and_return(user)
+      }
+      subject { shibboleth.create_user }
+      it { subject.should be_nil }
+    end
+
+    context "returns the user with errors set in it if the call to `save` generated errors" do
+      let(:user) { FactoryGirl.create(:user) }
+      before {
+        User.should_receive(:find_by_email).and_return(nil)
+      }
+      subject { shibboleth.create_user }
+      it("should return the user") { subject.should_not be_nil }
+      it("user should not be saved") { subject.new_record?.should be_true }
+      it("user should not be valid") { subject.valid?.should be_false }
+      it("expects errors on :email") { subject.errors.should have_key(:email) }
+      it("expects errors on :username") { subject.errors.should have_key(:username) }
+      it("expects errors on :_full_name") { subject.errors.should have_key(:_full_name) }
+    end
   end
 
 end

@@ -57,7 +57,7 @@ Mconf::Application.routes.draw do
   # shibboleth controller
   match '/secure', :to => 'shibboleth#login', :as => "shibboleth"
   match '/secure/info', :to => 'shibboleth#info', :as => "shibboleth_info"
-  post '/secure/associate', :to => 'shibboleth#create_association', :as => "shib_create_association"
+  post '/secure/associate', :to => 'shibboleth#create_association', :as => "shibboleth_create_association"
 
   resources :spaces do
 

@@ -1197,13 +1197,33 @@ en:
       view_room_list: "View room list"
       view_server_list: "View server list"
   shibboleth: 
+    associate:
+      existent_account:
+        email_or_login: "Email or username"
+        link_to_this_account: "Link to this account"
+        password: "Password"
+        title: "If you already have an account on this website, you can link your federated account to it. Whenever you use the federation to log in, you will be using your website account linked here. You can then log in via federation or via the standard login in this website."
+      new_account:
+        create_new_account: "Create a new account"
+        title: "If you don't have an account on this website yet, click in the button below to automatically create a new one using your account information provided by the federation."
+      page_title: "Login via federation"
+      title: "Your federated account is not yet associated to any account on this site. Select one of the options below:"
+    attribute_error:
+      informed:
+        no_attrs: "No attributes were informed"
+        title: "Attributes informed by the federation"
+      message: "There was an error trying to access your information from the federation. Please contact an administrator to solve the problem and provide the information below."
+      page_title: "Error trying to access the federation"
+      required:
+        no_attrs: "No attributes are required"
+        title: "Attributes required by this site"
     create_association:
-      account_created: "A new account with a random password was created for you and linked to your federated account. Both accounts can be used to log in this website. You won't need the Mconf password to login using the federation, but you can change your password go to the <a href=\"%{url}\">forgot password page</a>."
+      account_associated: "Your account '%{email}' was associated to your federated account! You can now log to this account in using either your credentials on this website or your federated account."
+      account_created: "A new account with a random password was created for you and linked to your federated account. Both accounts can be used to log in this website. You won't need the password we generate to log in using the federation, but if you want you can change it in the <a href=\"%{url}\">forgot password page</a>."
       error_saving_user: "It was not possible to create your new user. The errors encountered were: %{errors}"
       existent_account: "There is already a user with your email ('%{email}'). If this user was created by you, you should associate it with your federated account. If the user is not yours, please contact an adminstrator to solve the problem."
+      invalid_credentials: "Wrong username, email or password. Please try again."
       invalid_parameters: "Your request was invalid, please try again."
-    login:
-      not_enough_data: "There was an error trying to access your information from the federation. Please contact an administrator to solve the problem."
     your_data: "Your data from the federation"
   show: Show
   show_advanced_editor: "Show advanced editor"

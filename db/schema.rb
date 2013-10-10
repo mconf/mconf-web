@@ -312,11 +312,11 @@ ActiveRecord::Schema.define(:version => 20131004150321) do
     t.string   "smtp_sender"
     t.boolean  "chat_enabled",                   :default => false
     t.string   "xmpp_server"
-    t.text     "shib_env_variables"
-    t.string   "shib_login_field"
     t.string   "timezone",                       :default => "UTC"
     t.string   "external_help"
     t.boolean  "webconf_auto_record",            :default => false
+    t.text     "shib_env_variables"
+    t.string   "shib_login_field"
   end
 
   create_table "spaces", :force => true do |t|

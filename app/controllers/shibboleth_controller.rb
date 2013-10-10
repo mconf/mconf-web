@@ -28,24 +28,23 @@ class ShibbolethController < ApplicationController
        "Shibboleth: couldn't basic user information from session, " +
         "searching fields #{shib.basic_info_fields.inspect} " +
         "in: #{shib.get_data.inspect}"
-      flash[:error] = t("shibboleth.login.not_enough_data")
-      render 'error'
+      @attrs_required = shib.basic_info_fields
+      @attrs_informed = shib.get_data
+      render :attribute_error
     else
       token = shib.find_token()
 
       # there's a token with a user associated, logs the user in
       unless token.nil? || token.user.nil?
         logger.info "Shibboleth: logging in the user #{token.user.inspect}"
-        sign_in token.user # TODO: review if we need `:bypass => true`
-        # TODO: review `flash.keep :success`
+        sign_in token.user
+        flash.keep # keep the message set before by #create_association
         redirect_to my_home_path
 
       # no token means the user has no association yet, render a page to do it
       else
         logger.info "Shibboleth: first access for this user, rendering the association page"
-        respond_to do |format|
-          format.html
-        end
+        render :associate
       end
     end
   end
@@ -53,7 +52,7 @@ class ShibbolethController < ApplicationController
   # Associates the current shib user with an existing user or
   # a new user account (created here as well).
   def create_association
-    # TODO: check if the session is before proceeding
+    # TODO: check if the session is ok before proceeding
 
     shib = Mconf::Shibboleth.new(session)
 
@@ -61,41 +60,18 @@ class ShibbolethController < ApplicationController
     # shibboleth
     if params[:new_account]
       associate_with_new_account(shib)
-      redirect_to shibboleth_path
 
     # Associate the shib user with an existing user account
     # TODO: this entire block has to be reviewed and tested
-    elsif params[:existing_account]
-
-      # params[:scope] = :user
-      # warden.authenticate!(params)
-      #authenticate_user!
-      user = User.find_first_by_auth_conditions(params[:user])
-      valid = user.valid_password?(params[:user][:password]) unless user.nil?
-
-      if user.nil? or !valid
-        logger.info "Shibboleth: invalid user or password #{user.inspect}"
-        flash[:error] = t("shibboleth.create.invalid_credentials")
-      elsif user.disabled
-        logger.info "Shibboleth: attempt to associate with a disabled user #{user.inspect}"
-        flash[:error] = t("shibboleth.create.invalid_credentials")
-      else !user.disabled
-        logger.info "Shibboleth: shib user associated to a valid user #{user.inspect}"
-        token = shib.find_or_create_token()
-        token.user = user
-        token.data = shib.get_data()
-        token.save! # TODO: what if it fails
-        flash[:success] = t("shibboleth.create.account_associated", :login => user.login)
-      end
-
-      redirect_to shibboleth_path
+    elsif params[:existent_account]
+      associate_with_existent_account(shib)
 
     # invalid request
     else
       flash[:notice] = t('shibboleth.create_association.invalid_parameters')
-      redirect_to shibboleth_path
     end
 
+    redirect_to shibboleth_path
   end
 
   def info
@@ -155,4 +131,55 @@ class ShibbolethController < ApplicationController
     end
   end
 
+  # When the user selected to associate his shibboleth login with an account that already
+  # exists.
+  def associate_with_existent_account(shib)
+
+    # try to authenticate the user with his login and password
+    valid = false
+    if params.has_key?(:user)
+      # rejects anything but login and password to prevent errors
+      password = params[:user][:password]
+      params[:user].reject!{ |k, v| k.to_sym != :login }
+      user = User.find_first_by_auth_conditions(params[:user])
+      valid = user.valid_password?(password) unless user.nil?
+    end
+
+    # the user doesn't exist or the authentication was invalid (wrong username/password)
+    if user.nil? or !valid
+      logger.info "Shibboleth: invalid user or password #{user.inspect}"
+      flash[:error] = t("shibboleth.create_association.invalid_credentials")
+
+    # got the user and authenticated, but the user is disabled, can't let him be used
+    elsif user.disabled
+      logger.info "Shibboleth: attempt to associate with a disabled user #{user.inspect}"
+      # don't need to tell the user the account is disabled, pretend it doesn't exist
+      flash[:error] = t("shibboleth.create_association.invalid_credentials")
+
+    # got the user and authenticated, everything ok
+    else
+      logger.info "Shibboleth: shib user associated to a valid user #{user.inspect}"
+      token = shib.find_or_create_token()
+      token.user = user
+      token.data = shib.get_data()
+      token.save! # TODO: what if it fails
+      flash[:success] = t("shibboleth.create_association.account_associated", :email => user.email)
+    end
+
+  end
+
+  # Adds fake test data to the environment to test shibboleth in development.
+  def test_data
+    request.env["Shib-Application-ID"] = "default"
+    request.env["Shib-Session-ID"] = "09a612f952cds995e4a86ddd87fd9f2a"
+    request.env["Shib-Identity-Provider"] = "https://login.somewhere/idp/shibboleth"
+    request.env["Shib-Authentication-Instant"] = "2011-09-21T19:11:58.039Z"
+    request.env["Shib-Authentication-Method"] = "urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport"
+    request.env["Shib-AuthnContext-Class"] = "urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport"
+    request.env["Shib-brEduPerson-brEduAffiliationType"] = "student;position;faculty"
+    request.env["Shib-eduPerson-eduPersonPrincipalName"] = "75a988943825d2871e1cfa75473ec0@ufrgs.br"
+    request.env["Shib-inetOrgPerson-cn"] = "Rick Astley"
+    request.env["Shib-inetOrgPerson-sn"] = "Rick Astley"
+    request.env["Shib-inetOrgPerson-mail"] = "nevergonnagiveyouup@rick.com"
+  end
 end

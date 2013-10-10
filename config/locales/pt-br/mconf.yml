@@ -1177,13 +1177,33 @@ pt-br:
       view_room_list: "Ver lista de salas"
       view_server_list: "Ver lista de servidores"
   shibboleth:
+    associate:
+      existent_account:
+        email_or_login: "E-mail ou nome de usuário"
+        link_to_this_account: "Associar a esta conta"
+        password: "Senha"
+        title: "Se você já possui uma conta neste site, você pode associar ela à sua conta federada. Quando você usar a federação para entrar neste site, você estará acessando a conta deste website que você associar aqui. Você poderá entrar no site tanto com a federação quanto diretamente com sua conta deste site."
+      new_account:
+        create_new_account: "Criar uma nova conta"
+        title: "Se você ainda não tem uma conta neste site, clique no botão abaixo para automaticamente criar uma nova usando as informações fornecidas pela federação."
+      page_title: "Login via federação"
+      title: "Sua conta na federação ainda não está associada a nenhuma conta neste site. Selecione uma das opções abaixo:"
+    attribute_error:
+      informed:
+        no_attrs: "Nenhum atributo foi informado"
+        title: "Atributos informados pela federação"
+      message: "Houve um erro tentando acessar suas informações através da federação. Por favor contate um administrador para resolver o problema e informe os dados abaixo."
+      page_title: "Erro tentando acessar a federação"
+      required:
+        no_attrs: "Nenhum atributo é requerido"
+        title: "Atributos requeridos por este site"
     create_association:
-      account_created: "Uma nova conta com uma senha aleatória foi criada para você e conectada a sua conta federada. Ambas as contas podem ser usadas para entrar neste site. Você não precisará da sua senha do Mconf para logar usando a federação, mas se deseja modificar sua senha <a href=\"%{url}\">clique aqui</a>."
+      account_associated: "Sua conta '%{email}' foi associada à sua conta federada! Você agora pode acessar esta conta tanto através da federação quando através de suas credenciais neste site."
+      account_created: "Uma nova conta com uma senha aleatória foi criada para você e conectada a sua conta federada. Ambas as contas podem ser usadas para entrar neste site. Você não precisará da senha que foi gerada para entrar neste site usando a federação, mas se deseja modificar sua senha <a href=\"%{url}\">clique aqui</a>."
       error_saving_user: "Não foi possível criar seu usuário. Os errors encontrados foram: %{errors}"
       existent_account: "Já existe um usuário cadastrado com seu e-mail ('%{email}'). Se foi você que criou este usuário, você deveria associá-lo à sua conta federada. Se o usuário não é seu, por favor contate um administrador para resolver o problema."
+      invalid_credentials: "Conta ou senha inválida. Por favor, tente novamente."
       invalid_parameters: "Your request was invalid, please try again."
-    login:
-      not_enough_data: "Houve um erro tentando acessar suas informações através da federação. Por favor contate um administrador para resolver o problema."
   show: Exibir
   show_advanced_editor: "Exibir editor avançado"
   show_list_version_arrows: "exibir versão em lista >>"

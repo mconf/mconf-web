@@ -70,6 +70,17 @@ module Mconf
       result
     end
 
+    # Returns the login of the user stored in the session, if any.
+    def get_login
+      result = nil
+      if @session[ENV_KEY]
+        result   = @session[ENV_KEY][Site.current.shib_login_field]
+        result ||= get_name # uses the name by default
+        result = result.clone unless result.nil?
+      end
+      result
+    end
+
     # Returns all the shibboleth data stored in the session.
     def get_data
       @session[ENV_KEY]
@@ -95,12 +106,17 @@ module Mconf
       token
     end
 
-    # TODO: copied from master, needs to be refactored and tested
-    # TODO: get the login from session/env vars
+    # Creates a new user using the information stored in the session. Will only create
+    # the user if there's no user already registered with the target email.
+    # Returns nil if there's already a user with the target email or the User created
+    # otherwise. The User returned might have errors if the call to `save` failed.
+    # Expects that at least the email and email will be set in the session!
     def create_user
       password = SecureRandom.hex(16)
+      login = get_login
+      login = login.parameterize unless login.nil?
       params = {
-        :username => get_name.parameterize, :email => get_email,
+        :username => login, :email => get_email,
         :password => password, :password_confirmation => password,
         :_full_name => get_name
       }
