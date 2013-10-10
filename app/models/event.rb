@@ -25,7 +25,6 @@ class Event < ActiveRecord::Base
   extend FriendlyId
   friendly_id :name, :use => :slugged, :slug_column => :permalink
 
-  acts_as_taggable
   alias_attribute :title, :name
   validates_presence_of :name
 
