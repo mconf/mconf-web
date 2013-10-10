@@ -51,9 +51,9 @@ class JoinRequestsController < ApplicationController
       @join_requests.each { |jr| errors << [jr.email, jr.error_messages] if !jr.valid? }
       if errors.empty?
         @join_requests.each { |jr| jr.save(:validate => false) }
-        flash[:notice] = t('join_request.sent')
+        flash[:notice] = t('join_requests.create.sent')
       else
-        flash[:notice] = t('join_request.error')
+        flash[:notice] = t('join_requests.create.error')
       end
 
       redirect_to new_space_join_request_path(space)
@@ -65,9 +65,9 @@ class JoinRequestsController < ApplicationController
       @join_request.request_type = 'request'
 
       if @join_request.save
-        flash[:notice] = t('join_request.created')
+        flash[:notice] = t('join_requests.create.created')
       else
-        flash[:error] = t('join_request.error')
+        flash[:error] = t('join_requests.create.error')
         # TODO: identify errors for better usability
         # flash[:error] << @join_request.errors.to_xml
       end
@@ -90,8 +90,9 @@ class JoinRequestsController < ApplicationController
       if join_request.save
         format.html {
           flash[:success] = ( join_request.recently_processed? ?
-                            ( join_request.accepted? ? t('join_request.accepted') : t('join_request.discarded') ) :
-                            t('join_request.updated'))
+                            ( join_request.accepted? ? t('join_requests.update.accepted') :
+                            t('join_requests.update.discarded') ) :
+                            t('join_requests.update.updated'))
           redirect_to request.referer
         }
         if join_request.accepted?
