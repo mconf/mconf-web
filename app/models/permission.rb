@@ -17,17 +17,4 @@ class Permission < ActiveRecord::Base
 
   attr_accessible :role_id, :user_id
   attr_accessible :role, :subject, :user
-
-  # TODO: permissions
-  # def title
-  #   objective ?
-  #     I18n.t(action, :scope => objective.underscore, :count => :other) :
-  #     I18n.t(action)
-  # end
-  # def <=>(other)
-  #   title <=> other.title
-  # end
-  # def to_array
-  #   [action, objective].compact.map(&:to_sym)
-  # end
 end

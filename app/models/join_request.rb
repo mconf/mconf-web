@@ -1,7 +1,19 @@
+# This file is part of Mconf-Web, a web application that provides access
+# to the Mconf webconferencing system. Copyright (C) 2010-2012 Mconf
+#
+# This file is licensed under the Affero General Public License version
+# 3 or later. See the LICENSE file.
+
 class JoinRequest < ActiveRecord::Base
+
+  # the user that is being invited
   belongs_to :candidate, :class_name => "User", :foreign_key => 'candidate_id'
+
+  # the person that is inviting
   belongs_to :introducer, :class_name => "User", :foreign_key => 'introducer_id'
-  belongs_to :space
+
+  # the container (event, space)
+  belongs_to :group, :polymorphic => true
 
   has_one :role
 
@@ -11,7 +23,7 @@ class JoinRequest < ActiveRecord::Base
   validates :request_type, :presence => true
 
   attr_writer :processed
-  before_save :processed
+  before_save :set_processed_at
 
   validates_uniqueness_of :candidate_id,
                           :scope => [ :group_id, :group_type, :processed_at ],
@@ -46,7 +58,7 @@ class JoinRequest < ActiveRecord::Base
 
   private
 
-  def processed
+  def set_processed_at
     @processed && self.processed_at = Time.now.utc
   end
 
