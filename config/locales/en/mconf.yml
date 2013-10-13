@@ -460,6 +460,16 @@ en:
   deny: "No"
   description: Description
   destroy: Destroy
+  devise:
+    shared:
+      links:
+        login:
+          default: "Sign in to your account"
+          federation: "Login via federation"
+        lost_password: "Lost your password?"
+        other_options: "Other options"
+        register: "Create a new account"
+        resend_confirmation_email: "Resend confirmation email"
   disable: Disable
   disabled: Disabled
   document: 
@@ -651,8 +661,16 @@ en:
   find: 
     browse: Browse
   find_in: "Find in:"
-  frontpage: 
-    headline: "A global scalable opensource multiconference system for web and mobile devices"
+  frontpage:
+    show:
+      headline: "A global scalable opensource multiconference system for web and mobile devices"
+      login:
+        federation: "Login via federation"
+        lost_password: "Lost your password?"
+        title: "Sign in to your account"
+        resend_confirmation_email: "Resend confirmation email"
+      register:
+        title: "Create a new account"
   from: From
   getting_started: "Getting started!"
   group: 
@@ -971,7 +989,6 @@ en:
   organization: Organization
   organizer: Organisers
   other: Other
-  other_options: "Other options"
   participant: 
     created: "Your attendance information has been updated successfully"
     error: 
@@ -1196,7 +1213,7 @@ en:
       view_recording_list: "View recording list"
       view_room_list: "View room list"
       view_server_list: "View server list"
-  shibboleth: 
+  shibboleth:
     associate:
       existent_account:
         email_or_login: "Email or username"
@@ -1224,7 +1241,8 @@ en:
       existent_account: "There is already a user with your email ('%{email}'). If this user was created by you, you should associate it with your federated account. If the user is not yours, please contact an adminstrator to solve the problem."
       invalid_credentials: "Wrong username, email or password. Please try again."
       invalid_parameters: "Your request was invalid, please try again."
-    your_data: "Your data from the federation"
+    info:
+      title: "Your data from the federation"
   show: Show
   show_advanced_editor: "Show advanced editor"
   show_list_version_arrows: "show list version >>"
@@ -1520,11 +1538,6 @@ en:
       change_password: "Change your password"
       click_to_edit_profile: "Click here to edit your profile"
       did_not_find_info: "Didn't find the information you were looking for?"
-      federated: 
-        restrictions: "You will not be able to edit some data such as your e-mail and password."
-        see_your_data: "See your data..."
-        title: "You are logged using a federation!"
-        your_idp: "Your identity provider is: %{idp}"
       make_admin: "Make this user an administrator of this website"
       other_options: "Other options"
       password:
@@ -1589,6 +1602,11 @@ en:
   users:
     detailed_user:
       from: "From:"
+    edit:
+      federated:
+        see_your_data: "Click here to see your data that the federation shared with this website"
+        title: "You are signed in using a federation!"
+        your_idp: "Your identity provider is: %{idp}"
   username: Username
   vCard: 
     corrupt: "The vCard you sent is corrupted or is a non-supported version"

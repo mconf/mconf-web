@@ -452,6 +452,16 @@ pt-br:
   deny: Não
   description: Descrição
   destroy: Destruir
+  devise:
+    shared:
+      links:
+        login:
+          default: "Acessar a sua conta"
+          federation: "Acesso via federação"
+        lost_password: "Esqueceu sua senha?"
+        other_options: "Outras opções"
+        register: "Criar uma nova conta"
+        resend_confirmation_email: "Reenviar e-mail de confirmação"
   disable: Desabilitar
   disabled: Desabilitado
   document:
@@ -645,8 +655,16 @@ pt-br:
   find:
     browse: Navegar
   find_in: "Pesquisar em:"
-  frontpage: 
-    headline: "Um sistema global e escalável de código aberto para multiconferência web e em dispositivos móveis"
+  frontpage:
+    show:
+      headline: "Um sistema global e escalável de código aberto para multiconferência web e em dispositivos móveis"
+      login:
+        federation: "Acesso via federação"
+        lost_password: "Esqueceu a sua senha?"
+        title: "Acessar a sua conta"
+        resend_confirmation_email: "Reenviar e-mail de confirmação"
+      register:
+        title: "Create a new account"
   from: De
   getting_started: Começando!
   group:
@@ -1204,6 +1222,8 @@ pt-br:
       existent_account: "Já existe um usuário cadastrado com seu e-mail ('%{email}'). Se foi você que criou este usuário, você deveria associá-lo à sua conta federada. Se o usuário não é seu, por favor contate um administrador para resolver o problema."
       invalid_credentials: "Conta ou senha inválida. Por favor, tente novamente."
       invalid_parameters: "Your request was invalid, please try again."
+    info:
+      title: "Seus dados obtidos pela federação"
   show: Exibir
   show_advanced_editor: "Exibir editor avançado"
   show_list_version_arrows: "exibir versão em lista >>"
@@ -1485,11 +1505,6 @@ pt-br:
     edit:
       click_to_edit_profile: "Clique aqui para editar o seu perfil"
       did_not_find_info: "Não encontrou a informação que estava procurando?"
-      federated:
-        restrictions: "Você não poderá editar alguns dados como seu e-mail e senha."
-        see_your_data: "Veja seus dados..."
-        title: "Você está logado utilizando uma federação!"
-        your_idp: "O seu provedor de identidade é: %{idp}"
     edit_account: "Editar sua conta"
     email: E-mail
     email_used_to_create_account: "Digite o endereço de e-mail que você usou para criar a sua conta"
@@ -1546,6 +1561,11 @@ pt-br:
   users:
     detailed_user:
       from: "De:"
+    edit:
+      federated:
+        see_your_data: "Clique para ver os seus dados que foram compartilhados com este site pela federação"
+        title: "Você acessou este site através de uma federação!"
+        your_idp: "O seu provedor de identidade é: %{idp}"
   username: "Nome de usuário"
   vCard:
     corrupt: "O vCard que você enviou está corrompido ou é uma versão não suportada"

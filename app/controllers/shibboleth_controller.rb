@@ -14,8 +14,8 @@ class ShibbolethController < ApplicationController
   respond_to :html
   layout 'no_sidebar'
 
-  before_filter :check_shib_enabled
-  before_filter :check_current_user
+  before_filter :check_shib_enabled, :except => [:info]
+  before_filter :check_current_user, :except => [:info]
 
   # Log in a user using his shibboleth information
   # The application should only reach this point after authenticating using Shibboleth
@@ -62,7 +62,6 @@ class ShibbolethController < ApplicationController
       associate_with_new_account(shib)
 
     # Associate the shib user with an existing user account
-    # TODO: this entire block has to be reviewed and tested
     elsif params[:existent_account]
       associate_with_existent_account(shib)
 

@@ -180,6 +180,12 @@ describe Mconf::Shibboleth do
         it { should eq('my-email@anything') }
       end
 
+      context "returns nil if the email is not set" do
+        let(:session) { { :shib_data => { } } }
+        subject { shibboleth.get_email }
+        it { should be_nil }
+      end
+
       # see issue #973
       context "clones the result string to prevent it from being modified" do
         let(:original) { 'my-email@anything' }
@@ -224,6 +230,12 @@ describe Mconf::Shibboleth do
           Site.current.update_attributes(:shib_name_field => nil)
         }
         it { should eq('my-name') }
+      end
+
+      context "returns nil if the name is not set" do
+        let(:session) { { :shib_data => { } } }
+        subject { shibboleth.get_name }
+        it { should be_nil }
       end
 
       # see issue #973
@@ -273,6 +285,12 @@ describe Mconf::Shibboleth do
         it { should eq('my-name') }
       end
 
+      context "returns nil if the login is not set" do
+        let(:session) { { :shib_data => { } } }
+        subject { shibboleth.get_login }
+        it { should be_nil }
+      end
+
       # see issue #973
       context "clones the result string to prevent it from being modified" do
         let(:original) { 'my-login' }
@@ -289,6 +307,79 @@ describe Mconf::Shibboleth do
       end
     end
 
+  end
+
+  describe "#get_identity_provider" do
+    context "returns nil if there's no shib data in the session" do
+      let(:shibboleth) { Mconf::Shibboleth.new({}) }
+      subject { shibboleth.get_identity_provider }
+      it { should be_nil }
+    end
+
+    context "when there's shib data in the session" do
+      let(:shibboleth) { Mconf::Shibboleth.new(session) }
+
+      context "returns the identity provider using a default key" do
+        let(:session) { { :shib_data => { 'Shib-Identity-Provider' => 'my-idp' } } }
+        subject { shibboleth.get_identity_provider }
+        it { should eq('my-idp') }
+      end
+
+      context "returns nil if the identity provider is not set" do
+        let(:session) { { :shib_data => { } } }
+        subject { shibboleth.get_identity_provider }
+        it { should be_nil }
+      end
+
+      # see issue #973
+      context "clones the result string to prevent it from being modified" do
+        let(:original) { 'my-idp' }
+        let(:session) { { :shib_data => { 'Shib-Identity-Provider' => original } } }
+        before {
+          @subject = shibboleth.get_identity_provider
+
+          # something that would alter the string pointed by it
+          @subject.gsub!(/my-idp/, 'altered-idp')
+        }
+        it { @subject.should eq('altered-idp') }
+        it { original.should eq('my-idp') }
+      end
+    end
+  end
+
+  describe "#get_data" do
+    context "returns nil if there's no shib data in the session" do
+      let(:shibboleth) { Mconf::Shibboleth.new({}) }
+      subject { shibboleth.get_data }
+      it { should be_nil }
+    end
+
+    context "returns the data when there's shib data in the session" do
+      let(:session) { { :shib_data => { 'first' => 'any', 'second' => 'other' } } }
+      let(:shibboleth) { Mconf::Shibboleth.new(session) }
+      subject { shibboleth.get_data }
+      it { should eq(session[:shib_data]) }
+    end
+  end
+
+  describe "#signed_in?" do
+    context "if the session is not defined" do
+      let(:shibboleth) { Mconf::Shibboleth.new(nil) }
+      subject { shibboleth.signed_in? }
+      it { should be_false }
+    end
+
+    context "if the session has no :shib_data key" do
+      let(:shibboleth) { Mconf::Shibboleth.new({}) }
+      subject { shibboleth.signed_in? }
+      it { should be_false }
+    end
+
+    context "if the session has :shib_data key" do
+      let(:shibboleth) { Mconf::Shibboleth.new({ :shib_data => {} }) }
+      subject { shibboleth.signed_in? }
+      it { should be_true }
+    end
   end
 
   describe "#basic_info_fields" do

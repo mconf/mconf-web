@@ -51,7 +51,7 @@ module Mconf
     # Returns the email stored in the session, if any.
     def get_email
       result = nil
-      if @session[ENV_KEY]
+      if @session.has_key?(ENV_KEY)
         result   = @session[ENV_KEY][Site.current.shib_email_field]
         result ||= @session[ENV_KEY]["Shib-inetOrgPerson-mail"]
         result = result.clone unless result.nil?
@@ -62,7 +62,7 @@ module Mconf
     # Returns the name of the user stored in the session, if any.
     def get_name
       result = nil
-      if @session[ENV_KEY]
+      if @session.has_key?(ENV_KEY)
         result   = @session[ENV_KEY][Site.current.shib_name_field]
         result ||= @session[ENV_KEY]["Shib-inetOrgPerson-cn"]
         result = result.clone unless result.nil?
@@ -73,9 +73,20 @@ module Mconf
     # Returns the login of the user stored in the session, if any.
     def get_login
       result = nil
-      if @session[ENV_KEY]
+      if @session.has_key?(ENV_KEY)
         result   = @session[ENV_KEY][Site.current.shib_login_field]
         result ||= get_name # uses the name by default
+        result = result.clone unless result.nil?
+      end
+      result
+    end
+
+    # Returns the shibboleth provider of the user stored in the session, if any.
+    def get_identity_provider
+      result = nil
+      if @session.has_key?(ENV_KEY)
+        # TODO: is this really the key normally used for the identity provider
+        result = @session[ENV_KEY]['Shib-Identity-Provider']
         result = result.clone unless result.nil?
       end
       result
@@ -84,6 +95,11 @@ module Mconf
     # Returns all the shibboleth data stored in the session.
     def get_data
       @session[ENV_KEY]
+    end
+
+    # Returns whether the user is signed in via federation or not.
+    def signed_in?
+      !@session.nil? && @session.has_key?(ENV_KEY)
     end
 
     # Returns the name of the attributes used to get the basic user information from the
