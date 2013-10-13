@@ -1,0 +1,20 @@
+= render_page_title t('.page_title')
+
+#shibboleth-associate
+  %h3= t('.title')
+
+  #shibboleth-existent-account
+    .alert.alert-gray= t('.existent_account.title')
+    .shibboleth-block
+      = simple_form_for :user, :url => shibboleth_create_association_path, :html => { :class => 'single-column' } do |f|
+        = hidden_field_tag 'existent_account', '1'
+        = f.input :login, :input_html => { :value => params[:login] }
+        = f.input :password, :input_html => { :value => params[:password] }
+        = f.button :wrapped, :value => t('.existent_account.link_to_this_account')
+
+  #shibboleth-new-account
+    .alert.alert-gray= t('.new_account.title')
+    .shibboleth-block
+      = simple_form_for :user, :url => shibboleth_create_association_path do |f|
+        = hidden_field_tag 'new_account', '1'
+        = f.submit t('.new_account.create_new_account'), :class => 'btn btn-primary btn-block'

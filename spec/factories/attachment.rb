@@ -4,7 +4,7 @@
 # This file is licensed under the Affero General Public License version
 # 3 or later. See the LICENSE file.
 
-include ActionDispatch::TestProcess
+# include ActionDispatch::TestProcess
 
 FactoryGirl.define do
   factory :attachment do |a|

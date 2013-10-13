@@ -3,16 +3,17 @@
   = link_to t('user.edit.click_to_edit_profile'), edit_user_profile_path(current_user)
 = render_page_title t('user.edit_account')
 
--# - if user_signed_in? and @shib_user
--#   #user-federated-info
--#     .more-information= link_to t('user.edit.federated.see_your_data'), shibboleth_info_path, :class => 'open-modal'
--#     %span.title= t('user.edit.federated.title')
--#     %span= t('user.edit.federated.your_idp', :idp => @shib_provider)
--#     %span= t('user.edit.federated.restrictions')
+- if current_user == @user && user_signed_in_via_federation?
+  #user-federated-info.alert.alert-gray
+    %span.title= t('.federated.title')
+    - unless @shib_provider.blank?
+      %span= t('.federated.your_idp', :idp => @shib_provider)
+    = link_to t('.federated.see_your_data'), shibboleth_info_path, :class => 'open-modal'
 
 = simple_form_for @user, :url => user_path(@user), :html => {:method => :put, :class => 'single-column'} do |f|
 
   .left-column
+
     #account-info
       %h3= t('user.edit.account_info')
       = f.input :email, :label => t('user.email'), :required => false, :disabled => true

@@ -21,10 +21,42 @@ describe UsersController do
     end
 
     it "should return OK status for existing user" do
-      get :show, :id => FactoryGirl.create(:superuser).username
+      get :show, :id => FactoryGirl.create(:superuser).to_param
       response.response_code.should == 200
     end
+  end
 
+  describe "#edit" do
+    let(:user) { FactoryGirl.create(:user) }
+
+    context "template and layout" do
+      before(:each) { sign_in(user) }
+      before(:each) { get :edit, :id => user.to_param }
+      it { should render_template('edit') }
+      it { should render_with_layout('no_sidebar') }
+    end
+
+    context "if the user is editing himself" do
+      before {
+        Mconf::Shibboleth.any_instance.should_receive(:get_identity_provider).and_return('idp')
+      }
+      before(:each) {
+        sign_in(user)
+        get :edit, :id => user.to_param
+      }
+      it { should assign_to(:shib_provider).with('idp') }
+    end
+
+    context "an admin editing another user" do
+      before {
+        Mconf::Shibboleth.any_instance.should_not_receive(:get_identity_provider)
+      }
+      before(:each) {
+        sign_in(FactoryGirl.create(:superuser))
+        get :edit, :id => user.to_param
+      }
+      it { should_not assign_to(:shib_provider) }
+    end
   end
 
   describe "#current" do

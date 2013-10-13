@@ -5,62 +5,180 @@
 # This file is licensed under the Affero General Public License version
 # 3 or later. See the LICENSE file.
 
-require "uri"
-require "net/http"
+require 'uri'
+require 'net/http'
+require 'mconf/shibboleth'
 
 class ShibbolethController < ApplicationController
 
   respond_to :html
-  layout false
+  layout 'no_sidebar'
+
+  before_filter :check_shib_enabled, :except => [:info]
+  before_filter :check_current_user, :except => [:info]
 
   # Log in a user using his shibboleth information
   # The application should only reach this point after authenticating using Shibboleth
   # The authentication is currently made with the Apache module mod_shib
-  def create
-    unless current_site.shib_enabled?
-      redirect_to login_path
-      return
+  def login
+    shib = Mconf::Shibboleth.new(session)
+    shib.save_to_session(request.env, Site.current.shib_env_variables)
+
+    unless shib.has_basic_info
+       "Shibboleth: couldn't basic user information from session, " +
+        "searching fields #{shib.basic_info_fields.inspect} " +
+        "in: #{shib.get_data.inspect}"
+      @attrs_required = shib.basic_info_fields
+      @attrs_informed = shib.get_data
+      render :attribute_error
+    else
+      token = shib.find_token()
+
+      # there's a token with a user associated, logs the user in
+      unless token.nil? || token.user.nil?
+        logger.info "Shibboleth: logging in the user #{token.user.inspect}"
+        sign_in token.user
+        flash.keep # keep the message set before by #create_association
+        redirect_to my_home_path
+
+      # no token means the user has no association yet, render a page to do it
+      else
+        logger.info "Shibboleth: first access for this user, rendering the association page"
+        render :associate
+      end
+    end
+  end
+
+  # Associates the current shib user with an existing user or
+  # a new user account (created here as well).
+  def create_association
+    # TODO: check if the session is ok before proceeding
+
+    shib = Mconf::Shibboleth.new(session)
+
+    # The federated user has no account yet, create one based on the info returned by
+    # shibboleth
+    if params[:new_account]
+      associate_with_new_account(shib)
+
+    # Associate the shib user with an existing user account
+    elsif params[:existent_account]
+      associate_with_existent_account(shib)
+
+    # invalid request
+    else
+      flash[:notice] = t('shibboleth.create_association.invalid_parameters')
     end
 
-    # stores any "Shib-" variable in the session
-    shib_data = {}
-    request.env.each do |key, value|
-      shib_data[key] = value if key.to_s.downcase =~ /^shib-/
-    end
-    session[:shib_data] = shib_data
-
-    # the fields that define the name and email are configurable in the Site model
-    shib_name = request.env[current_site.shib_name_field] || request.env["Shib-inetOrgPerson-cn"]
-    shib_email = request.env[current_site.shib_email_field] || request.env["Shib-inetOrgPerson-mail"]
-
-    # uses the fed email to check if the user already has an account
-    user = User.find_by_email(shib_email)
-
-    # the user already has an account but it was not activated yet
-    if user and !user.active?
-      @user = user
-      render "need_activation"
-      return
-    end
-
-    # the fed user has no account yet
-    # create one based on the info returned by shibboleth
-    if user.nil?
-      password = SecureRandom.hex(16)
-      user = User.create!(:username => shib_name.clone, :email => shib_email,
-                          :password => password, :password_confirmation => password)
-      user.activate
-      user.profile.update_attributes(:full_name => shib_name)
-      flash[:notice] = t('shibboleth.create.account_created', :url => new_user_password_path)
-    end
-
-    # login and go to home
-    sign_in user, :bypass => true
-    redirect_to my_home_path
+    redirect_to shibboleth_path
   end
 
   def info
-    @data = session[:shib_data] if session.has_key?(:shib_data)
+    @data = Mconf::Shibboleth.new(session).get_data
+    render :layout => false
   end
 
+  private
+
+  # Checks if shibboleth is enabled in the current site.
+  def check_shib_enabled
+    unless current_site.shib_enabled
+      logger.info "Shibboleth: tried to access but shibboleth is disabled"
+      redirect_to login_path
+      false
+    else
+      true
+    end
+  end
+
+  # If there's a current user redirects to home.
+  def check_current_user
+    if user_signed_in?
+      redirect_to my_home_path
+      false
+    else
+      true
+    end
+  end
+
+  # When the user selected to create a new account for his shibboleth login.
+  def associate_with_new_account(shib)
+    token = shib.find_or_create_token()
+
+    # if there's already a user and an association, we don't need to do anything, just
+    # return and, when the user is redirected back to #login, the token will be checked again
+    if token.user.nil?
+
+      token.user = shib.create_user
+      unless token.user.nil?
+        if token.user.errors.empty?
+          logger.info "Shibboleth: created a new account: #{token.user.inspect}"
+          token.data = shib.get_data()
+          token.save! # TODO: what if it fails
+          flash[:success] = t('shibboleth.create_association.account_created', :url => new_user_password_path)
+        else
+          token.destroy
+          logger.info "Shibboleth: error saving the new user created: #{token.user.errors.full_messages}"
+          # TODO: this error should give the user more information about what he should do next
+          flash[:error] = t('shibboleth.create_association.error_saving_user', :errors => token.user.errors.full_messages.join(', '))
+        end
+      else
+        token.destroy
+        logger.info "Shibboleth: there's already a user with this email #{shib.get_email}"
+        flash[:error] = t('shibboleth.create_association.existent_account', :email => shib.get_email)
+      end
+    end
+  end
+
+  # When the user selected to associate his shibboleth login with an account that already
+  # exists.
+  def associate_with_existent_account(shib)
+
+    # try to authenticate the user with his login and password
+    valid = false
+    if params.has_key?(:user)
+      # rejects anything but login and password to prevent errors
+      password = params[:user][:password]
+      params[:user].reject!{ |k, v| k.to_sym != :login }
+      user = User.find_first_by_auth_conditions(params[:user])
+      valid = user.valid_password?(password) unless user.nil?
+    end
+
+    # the user doesn't exist or the authentication was invalid (wrong username/password)
+    if user.nil? or !valid
+      logger.info "Shibboleth: invalid user or password #{user.inspect}"
+      flash[:error] = t("shibboleth.create_association.invalid_credentials")
+
+    # got the user and authenticated, but the user is disabled, can't let him be used
+    elsif user.disabled
+      logger.info "Shibboleth: attempt to associate with a disabled user #{user.inspect}"
+      # don't need to tell the user the account is disabled, pretend it doesn't exist
+      flash[:error] = t("shibboleth.create_association.invalid_credentials")
+
+    # got the user and authenticated, everything ok
+    else
+      logger.info "Shibboleth: shib user associated to a valid user #{user.inspect}"
+      token = shib.find_or_create_token()
+      token.user = user
+      token.data = shib.get_data()
+      token.save! # TODO: what if it fails
+      flash[:success] = t("shibboleth.create_association.account_associated", :email => user.email)
+    end
+
+  end
+
+  # Adds fake test data to the environment to test shibboleth in development.
+  def test_data
+    request.env["Shib-Application-ID"] = "default"
+    request.env["Shib-Session-ID"] = "09a612f952cds995e4a86ddd87fd9f2a"
+    request.env["Shib-Identity-Provider"] = "https://login.somewhere/idp/shibboleth"
+    request.env["Shib-Authentication-Instant"] = "2011-09-21T19:11:58.039Z"
+    request.env["Shib-Authentication-Method"] = "urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport"
+    request.env["Shib-AuthnContext-Class"] = "urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport"
+    request.env["Shib-brEduPerson-brEduAffiliationType"] = "student;position;faculty"
+    request.env["Shib-eduPerson-eduPersonPrincipalName"] = "75a988943825d2871e1cfa75473ec0@ufrgs.br"
+    request.env["Shib-inetOrgPerson-cn"] = "Rick Astley"
+    request.env["Shib-inetOrgPerson-sn"] = "Rick Astley"
+    request.env["Shib-inetOrgPerson-mail"] = "nevergonnagiveyouup@rick.com"
+  end
 end

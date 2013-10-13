@@ -1,8 +1,11 @@
-.modal-title
-  = t('shibboleth.your_data')
-.modal-content
-  %ul
+#shibboleth-info
+
+  .modal-header
+    = modal_close_button
+    %h3= t('.title')
+
+  .modal-body
     - @data.each do |key,value|
-      %li
-        %label= key + ":"
+      .input
+        %h5= key + ":"
         %span= value

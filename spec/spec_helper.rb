@@ -59,6 +59,13 @@ Spork.prefork do
     config.include ControllerMacros, :type => :controller
     config.extend Helpers::ClassMethods
   end
+
+  # Note: this was being included directly in the factories that need `fixture_file_upload`, but
+  # was causing errors in some other tests, so now it's done here. See more at:
+  # stackoverflow.com/questions/13673639/accessing-session-from-a-helper-spec-in-rspec#answer-13697474
+  FactoryGirl::SyntaxRunner.class_eval do
+    include ActionDispatch::TestProcess
+  end
 end
 
 Spork.each_run do
