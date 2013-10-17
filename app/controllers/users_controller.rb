@@ -29,20 +29,17 @@ class UsersController < ApplicationController
 
   def show
     @user_spaces = @user.spaces
-
     @recent_activities = RecentActivity.where(:owner_id => @user.id).page(params[:page])
-
     @profile = @user.profile!
-
     respond_to do |format|
       format.html { render 'profiles/show' }
     end
   end
 
   def edit
-    if current_user == @user # User editing himself
-      @shib_user = session.has_key?(:shib_data)
-      @shib_provider = session[:shib_data]["Shib-Identity-Provider"] if @shib_user
+    if current_user == @user # user editing himself
+      shib = Mconf::Shibboleth.new(session)
+      @shib_provider = shib.get_identity_provider
     end
     render :layout => 'no_sidebar'
   end

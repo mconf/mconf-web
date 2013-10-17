@@ -362,15 +362,8 @@ describe SpacesController do
     end
   end
 
-  it "#join_request_index"
-  it "#join_request_new"
-  it "#join_request_create"
-  it "#join_request_update"
-
   describe "abilities", :abilities => true do
     render_views(false)
-
-    it "permissions for join requests"
 
     let(:hash) { { :id => target.to_param } }
     let(:attrs) { FactoryGirl.attributes_for(:space) }

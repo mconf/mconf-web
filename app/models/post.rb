@@ -18,8 +18,6 @@ class Post < ActiveRecord::Base
 
   accepts_nested_attributes_for :attachments, :allow_destroy => true
 
-  acts_as_taggable
-
   acts_as_tree #:order => 'updated_at ASC'
 
   scope :public, lambda { |arg|

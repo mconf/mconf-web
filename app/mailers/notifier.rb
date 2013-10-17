@@ -97,7 +97,7 @@ class Notifier < ActionMailer::Base
   def join_request_email(jr,receiver)
     setup_email(receiver.email)
 
-    @subject += I18n.t("join_request.ask_subject", :candidate => jr.candidate.name, :space => jr.group.name, :locale=>receiver.locale)
+    @subject += I18n.t("join_requests.ask_subject", :candidate => jr.candidate.name, :space => jr.group.name, :locale=>receiver.locale)
     @join_request = jr
     @signature  = Site.current.signature_in_html
     @replyto = jr.candidate.email

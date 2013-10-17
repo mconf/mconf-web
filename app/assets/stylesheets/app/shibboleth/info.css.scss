@@ -1,0 +1,14 @@
+@import "definitions";
+@import "compass/css3";
+
+// the view is called in a modal in users/edit
+body.users.edit {
+
+  #shibboleth-info {
+    h5 {
+      display: inline-block;
+      margin: 3px 0;
+    }
+  }
+
+}

@@ -44,7 +44,7 @@ class PrivateSender
   
   
   def self.join_request_message(jr,receiver)
-    m = PrivateMessage.new :title => I18n.t("join_request.ask_subject", :candidate => jr.candidate.name, :space => jr.group.name),
+    m = PrivateMessage.new :title => I18n.t("join_requests.ask_subject", :candidate => jr.candidate.name, :space => jr.group.name),
       :body => jr.comment
     m.receiver = receiver
     m.save!

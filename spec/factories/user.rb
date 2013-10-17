@@ -5,11 +5,6 @@
 # 3 or later. See the LICENSE file.
 
 FactoryGirl.define do
-
-  sequence(:email) { |n| Forgery::Internet.unique_email_address(n) }
-  sequence(:username) { |n| Forgery::Internet.unique_user_name(n) }
-  sequence(:timezone) { |n| Forgery::Time.zone }
-
   factory :user do |u|
     u.username
     u.email

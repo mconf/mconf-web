@@ -36,4 +36,6 @@ en:
       post:
         text: "Message body"
         title: "Post a new message..."
+      join_request:
+        comment: "Personal message"
     # labels:

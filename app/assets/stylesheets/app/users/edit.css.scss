@@ -2,6 +2,8 @@
 @import "compass/css3";
 @import "compass/typography/links";
 
+@import "app/shibboleth/info";
+
 body.users.edit, body.users.update {
 
   $column-width: ($contents-width / 2) - 20px;
@@ -35,19 +37,12 @@ body.users.edit, body.users.update {
   }
 
   #user-federated-info {
-    margin-bottom: 15px;
-    padding: 10px;
-    background: $alert-info-bg;
-    @include border-radius(5px);
-
     span.title {
-      font-size: 12px;
+      font-size: $font-medium;
       font-weight: bold;
+      margin-bottom: 5px;
     }
-
     span { display: block; }
-
-    .more-information { float: right; }
   }
 
 }

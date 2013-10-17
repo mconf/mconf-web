@@ -27,7 +27,7 @@ class SpacesController < ApplicationController
   rescue_from CanCan::AccessDenied do |exception|
     if user_signed_in? and not [:destroy, :update].include?(exception.action)
       # Normal actions trigger a redirect to ask for membership
-      flash[:error] = t("join_request.message_title")
+      flash[:error] = t("join_requests.new_join_request.message_title")
       redirect_to new_space_join_request_path :space_id => params[:id]
     else
       # Logged out users or destructive actions are redirect to the 403 error

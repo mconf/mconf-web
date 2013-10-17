@@ -16,45 +16,74 @@ describe News do
     context "when is an anonymous user" do
       let(:user) { User.new }
 
-      context "and the news is in a public space" do
+      context "in a public space" do
         before { target.space.update_attributes(:public => true) }
-        it { should_not be_able_to_do_anything_to(target).except(:read) }
+        it { should_not be_able_to_do_anything_to(target).except(:show) }
       end
 
-      context "and the news is in a private space" do
+      context "in a private space" do
         before { target.space.update_attributes(:public => false) }
         it { should_not be_able_to_do_anything_to(target) }
-      end
-
-      context "trying to create a news" do
-        let(:space) { FactoryGirl.create(:space) }
-        it { should_not be_able_to(:create, space.posts.build) }
       end
     end
 
     context "when is a registered user" do
       let(:user) { FactoryGirl.create(:user) }
 
-      context "that's a member of the space the news is in" do
-        before { target.space.add_member!(user) }
-        it { should_not be_able_to_do_anything_to(target).except(:read) }
-      end
-
-      context "that's not a member of the private space the news is in" do
-        before { target.space.update_attributes(:public => false) }
-        it { should_not be_able_to_do_anything_to(target) }
-      end
-
-      context "that's not a member of the public space the news is in" do
+      context "in a public space" do
         before { target.space.update_attributes(:public => true) }
-        it { should_not be_able_to_do_anything_to(target).except(:read) }
+
+        context "he is not a member of" do
+          it { should_not be_able_to_do_anything_to(target).except(:show) }
+        end
+
+        context "he is a member of" do
+          context "with the role 'Admin'" do
+            before { target.space.add_member!(user, "Admin") }
+            it { should be_able_to(:manage, target) }
+          end
+
+          context "with the role 'User'" do
+            before { target.space.add_member!(user, "User") }
+            it { should_not be_able_to_do_anything_to(target).except(:show) }
+          end
+        end
+      end
+
+      context "in a private space" do
+        before { target.space.update_attributes(:public => false) }
+
+        context "he is not a member of" do
+          it { should_not be_able_to_do_anything_to(target) }
+        end
+
+        context "he is a member of" do
+          context "with the role 'Admin'" do
+            before { target.space.add_member!(user, "Admin") }
+            it { should be_able_to(:manage, target) }
+          end
+
+          context "with the role 'User'" do
+            before { target.space.add_member!(user, "User") }
+            it { should_not be_able_to_do_anything_to(target).except(:show) }
+          end
+        end
       end
     end
 
     context "when is a superuser" do
       let(:user) { FactoryGirl.create(:superuser) }
-      it { should be_able_to(:manage, target) }
-    end
 
+      context "in a public space" do
+        before { target.space.update_attributes(:public => true) }
+        it { should be_able_to(:manage, target) }
+      end
+
+      context "in a private space" do
+        before { target.space.update_attributes(:public => false) }
+        it { should be_able_to(:manage, target) }
+      end
+    end
   end
+
 end

@@ -1,0 +1,32 @@
+@import "definitions";
+@import "compass/css3";
+
+// the view is called 'associate' but the action is 'login'
+body.shibboleth.login {
+
+  $column-width: $contents-width / 2 - 40px;
+  $block-width: $contents-width / 3;
+
+  #shibboleth-existent-account {
+    float: left;
+    margin-top: 20px;
+    width: $column-width;
+
+    .shibboleth-block {
+      width: $block-width;
+      margin-left: ($column-width - $block-width) / 2;
+    }
+  }
+
+  #shibboleth-new-account {
+    width: $column-width;
+    float: right;
+    margin-top: 20px;
+
+    .shibboleth-block {
+      width: $block-width;
+      margin-left: ($column-width - $block-width) / 2;
+    }
+  }
+
+}

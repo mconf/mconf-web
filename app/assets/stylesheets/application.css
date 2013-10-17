@@ -5,7 +5,6 @@
  *= require ../../../vendor/assets/stylesheets/jquery/jquery.noty
  *= require ../../../vendor/assets/stylesheets/bootstrap/bootstrap-modal
  *= require font-awesome
- *= require select2
  *
  * Note: the order matters!
  *= require ./app/application/typography

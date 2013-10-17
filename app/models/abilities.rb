@@ -81,8 +81,6 @@ module Abilities
       # Spaces
       can :create, Space
       can [:read, :webconference, :recordings], Space, :public => true
-      can :join_request_new, Space
-      can :join_request_create, Space
       can [:read, :webconference, :recordings, :leave], Space do |space|
         space.users.include?(user)
       end
@@ -92,8 +90,27 @@ module Abilities
       end
 
       # Join Requests
-      can :new, JoinRequest
-      can :create, JoinRequest
+      # users can create unless they are already in the target space
+      # TODO: make this for events also
+      can :create, JoinRequest do |jr|
+        group = jr.group
+        if !group.nil? and group.is_a?(Space)
+          !group.users.include?(user)
+        else
+          false
+        end
+      end
+      # space admins and users that created the join request can destroy it
+      # TODO: make this for events also
+      can :destroy, JoinRequest do |jr|
+        group = jr.group
+        if !group.nil? and group.is_a?(Space)
+          group.admins.include?(user) or
+            (!jr.introducer.nil? && jr.introducer == user)
+        else
+          false
+        end
+      end
 
       # Posts
       # TODO: maybe space admins should be able to alter posts
@@ -105,8 +122,9 @@ module Abilities
 
       # News
       # Only admins can create/alter news, the rest can only read
-      can :read, News, :space => { :public => true }
-      can :read, News do |news|
+      # note: :show because :index is only for space admins
+      can :show, News, :space => { :public => true }
+      can :show, News do |news|
         news.space.users.include?(user)
       end
       can :manage, News do |news|
@@ -286,7 +304,7 @@ module Abilities
       can [:read, :current], User, :disabled => false
       can [:read, :webconference, :recordings], Space, :public => true
       can :read, Post, :space => { :public => true }
-      can :read, News, :space => { :public => true }
+      can :show, News, :space => { :public => true }
       can :read, Event, :space => { :public => true }
       can :read, Attachment, :space => { :public => true, :repository => true }
     end

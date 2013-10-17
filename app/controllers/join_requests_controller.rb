@@ -7,6 +7,8 @@
 
 class JoinRequestsController < ApplicationController
 
+  # TODO: use `@space` and not `space`
+
   # Recent activity for join requests
   after_filter :only => [:update] do
     @space.new_activity :join, current_user unless @join_request.errors.any? || !@join_request.accepted?
@@ -17,8 +19,27 @@ class JoinRequestsController < ApplicationController
 
   before_filter :webconf_room!, :only => [:new, :index]
 
+  respond_to :html
+
+  layout :determine_layout
+
+  def determine_layout
+    case params[:action].to_sym
+    when :index
+      "spaces_show"
+    when :new
+      if space.role_for?(current_user, :name => 'Admin')
+        "spaces_show"
+      else
+        "application"
+      end
+    else
+      "spaces_show"
+    end
+  end
+
+
   def index
-    render :layout => 'spaces_show'
   end
 
   def new
@@ -28,11 +49,10 @@ class JoinRequestsController < ApplicationController
     # If it's the admin inviting, list the invitable users
     if @user_is_admin
       @users = (User.all - space.users)
-      @checked_users = []
-      render :layout => 'spaces_show'
     end
   end
 
+  # TODO: most of what's here could probably be in helper methods in the model
   def create
     # If it's the admin creating a new request (inviting) for his space
     if space.role_for?(current_user, :name => 'Admin')
@@ -51,9 +71,9 @@ class JoinRequestsController < ApplicationController
       @join_requests.each { |jr| errors << [jr.email, jr.error_messages] if !jr.valid? }
       if errors.empty?
         @join_requests.each { |jr| jr.save(:validate => false) }
-        flash[:notice] = t('join_request.sent')
+        flash[:notice] = t('join_requests.create.sent')
       else
-        flash[:notice] = t('join_request.error')
+        flash[:notice] = t('join_requests.create.error')
       end
 
       redirect_to new_space_join_request_path(space)
@@ -65,9 +85,9 @@ class JoinRequestsController < ApplicationController
       @join_request.request_type = 'request'
 
       if @join_request.save
-        flash[:notice] = t('join_request.created')
+        flash[:notice] = t('join_requests.create.created')
       else
-        flash[:error] = t('join_request.error')
+        flash[:error] = t('join_requests.create.error')
         # TODO: identify errors for better usability
         # flash[:error] << @join_request.errors.to_xml
       end
@@ -90,11 +110,13 @@ class JoinRequestsController < ApplicationController
       if join_request.save
         format.html {
           flash[:success] = ( join_request.recently_processed? ?
-                            ( join_request.accepted? ? t('join_request.accepted') : t('join_request.discarded') ) :
-                            t('join_request.updated'))
+                            ( join_request.accepted? ? t('join_requests.update.accepted') :
+                            t('join_requests.update.discarded') ) :
+                            t('join_requests.update.updated'))
           redirect_to request.referer
         }
         if join_request.accepted?
+          # TODO: this could be moved to the model
           role = Role.find(params[:join_request][:role_id])
           space.add_member!(join_request.candidate, role.name)
           success = space.save
@@ -120,6 +142,7 @@ class JoinRequestsController < ApplicationController
 
   private
 
+  # TODO: is this really necessary?
   def join_request
     @join_request ||= @space.join_requests.find(params[:id])
   end

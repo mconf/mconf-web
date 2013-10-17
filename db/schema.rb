@@ -263,6 +263,17 @@ ActiveRecord::Schema.define(:version => 20131004150321) do
     t.string "stage_type"
   end
 
+  create_table "shib_tokens", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "identifier"
+    t.text     "data"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "shib_tokens", ["identifier"], :name => "index_shib_tokens_on_identifier", :unique => true
+  add_index "shib_tokens", ["user_id"], :name => "index_shib_tokens_on_user_id", :unique => true
+
   create_table "simple_captcha_data", :force => true do |t|
     t.string   "key",        :limit => 40
     t.string   "value",      :limit => 6
@@ -304,6 +315,8 @@ ActiveRecord::Schema.define(:version => 20131004150321) do
     t.string   "timezone",                       :default => "UTC"
     t.string   "external_help"
     t.boolean  "webconf_auto_record",            :default => false
+    t.text     "shib_env_variables"
+    t.string   "shib_login_field"
   end
 
   create_table "spaces", :force => true do |t|

@@ -150,7 +150,14 @@ module ApplicationHelper
                     :"data-placement" => options[:"data-placement"] || "top")
   end
 
+  def user_signed_in_via_federation?
+    shib = Mconf::Shibboleth.new(session)
+    user_signed_in? && shib.signed_in?
+  end
+
+  #
   # TODO: All the code below should be reviewed
+  #
 
   def options_for_select_with_class_selected(container, selected = nil)
     container = container.to_a if Hash === container
