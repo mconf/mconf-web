@@ -9,7 +9,7 @@
 
     .thread-content
       .thread-title
-        - if is_member
+        - if is_member and !params[:my_spaces]
           %span.is-member= t('.user_is_member')
         %span
           = link_to sanitize(space.name), space_path(space)

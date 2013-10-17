@@ -28,6 +28,11 @@ body.spaces.index {
       margin-left: 15px;
       float: left;
 
+      .select2-default {
+        border-radius: 0px;
+        height: 28px;
+      }
+
       #space-filter-text {
         border-left: 0;
         margin: 0;
@@ -70,7 +75,7 @@ body.spaces.index {
     }
   }
 
-  #public-spaces, #private-spaces {
+  #spaces {
 
     .space-item.space-list {
       .thread {

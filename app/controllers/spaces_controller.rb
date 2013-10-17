@@ -54,12 +54,11 @@ class SpacesController < ApplicationController
     if params[:view].nil? or params[:view] != "list"
       params[:view] = "thumbnails"
     end
-    @spaces = Space.order('name ASC').all
-    @private_spaces = @spaces.select{|s| !s.public?}
-    @public_spaces = @spaces.select{|s| s.public?}
+    spaces = Space.order('name ASC').all
+    @spaces = spaces.paginate(:page => params[:page], :per_page => 18)
 
     if user_signed_in? && current_user.spaces.any?
-      @user_spaces = current_user.spaces
+      @user_spaces = current_user.spaces.paginate(:page => params[:page], :per_page => 18)
     else
       @user_spaces = []
     end
@@ -272,6 +271,22 @@ class SpacesController < ApplicationController
       render :layout => false
     else
       render :layout => "spaces_show"
+    end
+  end
+
+  # Finds spaces by name (params[:q]) and returns a list of selected attributes
+  def select
+    name = params[:q]
+    limit = params[:limit] || 5   # default to 5
+    limit = 50 if limit.to_i > 50 # no more than 50
+    if name.nil?
+      @spaces = Space.limit(limit).all
+    else
+      @spaces = Space.where("name like ? ", "%#{name}%").limit(limit)
+    end
+
+    respond_with @spaces do |format|
+      format.json
     end
   end
 

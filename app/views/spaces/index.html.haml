@@ -1,5 +1,7 @@
 = render_page_title t('space.all')
 
+- @objects = params[:my_spaces] ? @user_spaces : @spaces
+
 = content_for :sidebar do
 
   .sidebar-top-action-button
@@ -11,7 +13,7 @@
   = render_sidebar_content_block('space-description-wrapper') do
     .content-block-middle
       %p= t('space.index.select_at_left')
-    - @spaces.each do |space|
+    - @objects.each do |space|
       - has_access = user_signed_in? || space.public
       .content-block-middle{:id => "#{space.permalink}-description", :style => "display:none;"}
         .space-logo-wrapper
@@ -40,17 +42,23 @@
     .btn-group{ :"data-toggle" => "buttons-radio" }
       = link_to spaces_path(:view => 'thumbnails'), :class => "tooltipped btn btn-small #{'active' if params[:view] == 'thumbnails'}" do
         = t('.list_format.thumbnails')
-      = link_to spaces_path(:view => 'list'), :class => "tooltipped btn btn-small #{'active' if params[:view] == 'list'}" do
+      = link_to spaces_path(:view => 'list', :my_spaces => params[:my_spaces]), :class => "tooltipped btn btn-small #{'active' if params[:view] == 'list'}" do
         = t('.list_format.list')
 
   .btn-group{ :"data-toggle" => "buttons-radio" }
-    = button_tag t('space.index.filters.all'), :id => "show-spaces-all", :class => "btn active", :type => "button"
+    = link_to spaces_path(:view => params[:view]), :id => "show-spaces-all", :class => "btn #{'active' unless params[:my_spaces]}", :type => "button" do
+      = t('space.index.filters.all')
     - if user_signed_in?
-      = button_tag t('space.index.filters.my_spaces'), :id => "show-spaces-mine", :class => "btn", :type => "button"
+      = link_to spaces_path(:view => params[:view], :my_spaces => true), :id => "show-spaces-mine", :class => "btn #{'active' if params[:my_spaces]}", :type => "button" do
+        = t('space.index.filters.my_spaces')
     = button_tag t('space.index.filters.filter'), :id => "show-spaces-filter", :class => "btn", :type => "button"
-    = text_field_tag 'space-filter-text', params[:filter], :placeholder => t('search.space.dots')
+    = #text_field_tag 'space-filter-text', params[:filter], :placeholder => t('search.space.dots')
+    = hidden_field_tag :space_filter_text
 
 - if params[:view] == 'list'
   = render "list_view"
 - else
   = render "thumbnail_view"
+
+.content-block-footer
+  = page_navigation_links @objects
