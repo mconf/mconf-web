@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131004150321) do
+ActiveRecord::Schema.define(:version => 20131019000553) do
 
   create_table "activities", :force => true do |t|
     t.integer  "trackable_id"
@@ -53,6 +53,20 @@ ActiveRecord::Schema.define(:version => 20131004150321) do
   add_index "attachments", ["version_child_id"], :name => "index_attachments_on_version_child_id"
   add_index "attachments", ["version_family_id"], :name => "index_attachments_on_version_family_id"
 
+  create_table "bigbluebutton_meetings", :force => true do |t|
+    t.integer  "server_id"
+    t.integer  "room_id"
+    t.string   "meetingid"
+    t.string   "name"
+    t.datetime "start_time"
+    t.boolean  "running",    :default => false
+    t.boolean  "record",     :default => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
+  end
+
+  add_index "bigbluebutton_meetings", ["meetingid", "start_time"], :name => "index_bigbluebutton_meetings_on_meetingid_and_start_time", :unique => true
+
   create_table "bigbluebutton_metadata", :force => true do |t|
     t.integer  "owner_id"
     t.string   "owner_type"
@@ -84,6 +98,7 @@ ActiveRecord::Schema.define(:version => 20131004150321) do
     t.datetime "created_at",                     :null => false
     t.datetime "updated_at",                     :null => false
     t.string   "description"
+    t.integer  "meeting_id"
   end
 
   add_index "bigbluebutton_recordings", ["recordid"], :name => "index_bigbluebutton_recordings_on_recordid", :unique => true

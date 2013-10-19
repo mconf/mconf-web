@@ -48,8 +48,9 @@ gem 'public_activity'
 
 # BigBlueButton integration
 gem 'bigbluebutton-api-ruby', :git => 'git://github.com/mconf/bigbluebutton-api-ruby.git'
-gem 'bigbluebutton_rails', :git => 'git://github.com/mconf/bigbluebutton_rails.git', :branch => 'strong_parameters'
+gem 'bigbluebutton_rails', :git => 'git://github.com/mconf/bigbluebutton_rails.git', :branch => 'branch-v1.4.0'
 gem 'strong_parameters' # for bigbluebutton_rails
+gem 'resque' # for bigbluebutton_rails
 
 # Used on Profile to generate a vcard
 gem 'vpim' # TODO: very old, last update on 2009
