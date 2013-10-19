@@ -1,3 +1,9 @@
+# This file is part of Mconf-Web, a web application that provides access
+# to the Mconf webconferencing system. Copyright (C) 2010-2012 Mconf
+#
+# This file is licensed under the Affero General Public License version
+# 3 or later. See the LICENSE file.
+
 require 'spec_helper'
 
 include Devise::TestHelpers
@@ -128,6 +134,10 @@ describe ApplicationHelper do
       }
       it { user_signed_in_via_federation?.should be_false }
     end
+  end
+
+  describe "#format_date" do
+    it "returns the date formatted to show in a view"
   end
 
 end

@@ -33,3 +33,7 @@ BigbluebuttonServer.instance_eval do
   end
 
 end
+
+BigbluebuttonMeeting.instance_eval do
+  include PublicActivity::Common
+end

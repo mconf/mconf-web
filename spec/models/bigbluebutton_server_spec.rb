@@ -8,6 +8,15 @@ require "spec_helper"
 
 describe BigbluebuttonServer do
 
+  describe "from initializers/bigbluebutton_rails" do
+    context "should have a method .default" do
+      it { BigbluebuttonServer.should respond_to(:default) }
+      it("returns the first server") {
+        BigbluebuttonServer.default.should eq(BigbluebuttonServer.first)
+      }
+    end
+  end
+
   # This is a model from BigbluebuttonRails, but we have permissions set in cancan for it,
   # so we test them here.
   describe "abilities", :abilities => true do

@@ -1,6 +1,12 @@
 ---
 pt-br:
   activities:
+    bigbluebutton_meeting:
+      deleted_html: "Uma reunião foi iniciada mas suas informações foram removidas"
+      user:
+        create_html: "Uma reunião foi iniciada na sala do usuário %{owner} em %{time}"
+      space:
+        create_html: "Uma reunião foi iniciada na comunidade %{owner} em %{time}"
     space:
       create_html: criou a nova comunidade
       update_html: atualizou os dados da comunidade

@@ -29,7 +29,7 @@ class UsersController < ApplicationController
 
   def show
     @user_spaces = @user.spaces
-    @recent_activities = RecentActivity.where(:owner_id => @user.id).page(params[:page])
+    @recent_activities = @user.all_activity.page(params[:page])
     @profile = @user.profile!
     respond_to do |format|
       format.html { render 'profiles/show' }

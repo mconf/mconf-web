@@ -1,6 +1,12 @@
 --- 
 en: 
   activities:
+    bigbluebutton_meeting:
+      deleted_html: "A meeting was started but its information has been deleted"
+      user:
+        create_html: "A meeting was started on the room of the user %{owner} at %{time}"
+      space:
+        create_html: "A meeting was started on the space %{owner} at %{time}"
     space:
       create_html: created a new space
       update_html: updated info on space

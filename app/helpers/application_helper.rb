@@ -155,6 +155,12 @@ module ApplicationHelper
     user_signed_in? && shib.signed_in?
   end
 
+  # Formats a date object to be shown in a view
+  # TODO: change the format according to the language?
+  def format_date(date)
+    date.to_formatted_s(:long)
+  end
+
   #
   # TODO: All the code below should be reviewed
   #

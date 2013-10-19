@@ -50,6 +50,20 @@ class User < ActiveRecord::Base
     self.new_record?
   end
 
+  # Returns a query with all the activity related to this user: activities in his spaces and
+  # web conference rooms
+  def all_activity
+    user_room = self.bigbluebutton_room
+    spaces = self.spaces
+    space_rooms = spaces.map{ |s| s.bigbluebutton_room.id }
+
+    t = RecentActivity.arel_table
+    in_spaces = t[:owner_id].in(spaces.map(&:id)).and(t[:owner_type].eq('Space'))
+    in_room = t[:owner_id].in(user_room.id).and(t[:owner_type].eq('BigbluebuttonRoom'))
+    in_space_rooms = t[:owner_id].in(space_rooms).and(t[:owner_type].eq('BigbluebuttonRoom'))
+    RecentActivity.where(in_spaces.or(in_room).or(in_space_rooms))
+  end
+
 ###
 
   apply_simple_captcha

@@ -57,16 +57,15 @@ class MyController < ApplicationController
     end
 
     @contents_per_page = 5
-    @all_contents = RecentActivity.where(:owner_id => current_user.spaces, :owner_type => 'Space')
-      .limit(@contents_per_page)
-      .order('updated_at DESC')
+    @all_contents = current_user.all_activity.limit(@contents_per_page).order('updated_at DESC')
 
     @private_messages = current_user.unread_private_messages
   end
 
   def activity
     @contents_per_page = params[:per_page] || 20
-    @all_contents = RecentActivity.where(:owner_id => current_user.spaces, :owner_type => 'Space')
+
+    @all_contents = current_user.all_activity
       .paginate(:page => params[:page], :per_page => @contents_per_page.to_i, :order => 'updated_at DESC')
   end
 

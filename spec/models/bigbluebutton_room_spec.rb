@@ -8,6 +8,14 @@ require "spec_helper"
 
 describe BigbluebuttonRoom do
 
+  describe "from initializers/bigbluebutton_rails" do
+    it("should have a method .guest_support") {
+      BigbluebuttonRoom.should respond_to(:guest_support)
+    }
+
+    it "overrides #join_url with guest support"
+  end
+
   # This is a model from BigbluebuttonRails, but we have permissions set in cancan for it,
   # so we test them here.
   describe "abilities", :abilities => true do

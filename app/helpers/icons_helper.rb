@@ -187,6 +187,10 @@ module IconsHelper
     icon_constructor nil, "icon-awesome icon-ok icon-mconf-success", options
   end
 
+  def icon_meeting(options={})
+    icon_constructor nil, "icon-awesome icon-headphones icon-mconf-meeting", options
+  end
+
   private
 
   # Base method for most of the methods above

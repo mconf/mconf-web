@@ -120,6 +120,55 @@ describe User do
     end
   end
 
+  describe "#all_activity" do
+    let(:user) { FactoryGirl.create(:user) }
+
+    context "returns the activities in his room" do
+      let(:another_user) { FactoryGirl.create(:user) }
+      before do
+        @activity1 = RecentActivity.create(:owner => user.bigbluebutton_room)
+        @activity2 = RecentActivity.create(:owner => another_user.bigbluebutton_room)
+      end
+      subject { user.all_activity }
+      it { subject.length.should be(1) }
+      it { subject[0].should eq(@activity1) }
+    end
+
+    context "returns the activities in his spaces" do
+      let(:space1) { FactoryGirl.create(:space) }
+      let(:space2) { FactoryGirl.create(:space) }
+      let(:space3) { FactoryGirl.create(:space) }
+      before do
+        space1.add_member!(user, 'User')
+        space2.add_member!(user, 'Admin')
+        @activity1 = RecentActivity.create(:owner => space1)
+        @activity2 = RecentActivity.create(:owner => space2)
+        @activity3 = RecentActivity.create(:owner => space3)
+      end
+      subject { user.all_activity }
+      it { subject.length.should be(2) }
+      it { subject[0].should eq(@activity1) }
+      it { subject[1].should eq(@activity2) }
+    end
+
+    context "returns the activities in the rooms of his spaces" do
+      let(:space1) { FactoryGirl.create(:space) }
+      let(:space2) { FactoryGirl.create(:space) }
+      let(:space3) { FactoryGirl.create(:space) }
+      before do
+        space1.add_member!(user, 'User')
+        space2.add_member!(user, 'Admin')
+        @activity1 = RecentActivity.create(:owner => space1.bigbluebutton_room)
+        @activity2 = RecentActivity.create(:owner => space2.bigbluebutton_room)
+        @activity3 = RecentActivity.create(:owner => space3.bigbluebutton_room)
+      end
+      subject { user.all_activity }
+      it { subject.length.should be(2) }
+      it { subject[0].should eq(@activity1) }
+      it { subject[1].should eq(@activity2) }
+    end
+  end
+
   describe "#fellows" do
     context "returns the fellows of the current user" do
       let(:user) { FactoryGirl.create(:user) }
