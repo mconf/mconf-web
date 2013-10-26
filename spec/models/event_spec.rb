@@ -79,17 +79,19 @@ describe Event do
     end
 
     it "should not allow to create events with a duration less than 15 minutes" do
-      event = Event.new(:name => "Win Event", :start_date => Time.now,:end_date => Time.now + 900)
+      now = Time.now
+      event = Event.new(:name => "Win Event", :start_date => now.to_datetime,:end_date => (now + 900).to_datetime)
       event.should be_valid
-      event = Event.new(:name => "Fail Event", :start_date => Time.now,:end_date => Time.now + 899)
+      event = Event.new(:name => "Fail Event", :start_date => now.to_datetime,:end_date => (now + 899).to_datetime)
       event.should_not be_valid
       event.errors[:base].should include(I18n.t('event.error.too_short'))
     end
 
     it "should not allow to create events with a duration more than 5 days" do
-      event = Event.new(:name => "Win Event", :start_date => Time.now,:end_date => Time.now + 5.days)
+      now = Time.now
+      event = Event.new(:name => "Win Event", :start_date => now.to_datetime,:end_date => (now + 5.days).to_datetime)
       event.should be_valid
-      event = Event.new(:name => "Fail Event", :start_date => Time.now,:end_date => Time.now + 6.days)
+      event = Event.new(:name => "Fail Event", :start_date => now.to_datetime,:end_date => (now + 6.days).to_datetime)
       event.should_not be_valid
       event.errors[:base].should include(I18n.t('event.error.max_size_excedeed', :max_days => Event::MAX_DAYS))
     end
