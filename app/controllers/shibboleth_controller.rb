@@ -31,8 +31,6 @@ class ShibbolethController < ApplicationController
   # The application should only reach this point after authenticating using Shibboleth
   # The authentication is currently made with the Apache module mod_shib
   def login
-    test_data()
-
     shib_vars_to_session()
     return unless check_shib_information()
 
@@ -258,22 +256,24 @@ class ShibbolethController < ApplicationController
   end
 
   def test_data
-    # FAKE TEST DATA
-    request.env["Shib-Application-ID"] = "default"
-    request.env["Shib-Session-ID"] = "09a612f952cds995e4a86ddd87fd9f2a"
-    request.env["Shib-Identity-Provider"] = "https://login.somewhere/idp/shibboleth"
-    request.env["Shib-Authentication-Instant"] = "2011-09-21T19:11:58.039Z"
-    request.env["Shib-Authentication-Method"] = "urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport"
-    request.env["Shib-AuthnContext-Class"] = "urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport"
-    request.env["Shib-brEduPerson-brEduAffiliationType"] = "student;position;faculty"
-    request.env["Shib-eduPerson-eduPersonPrincipalName"] = "75a988943825d2871e1cfa75473ec0@ufrgs.br"
-    request.env["Shib-inetOrgPerson-cn"] = "Rick Astley"
-    request.env["Shib-inetOrgPerson-sn"] = "Rick Astley"
-    #request.env["Shib-inetOrgPerson-mail"] = "nevergonnagiveyouup@rick.com"
-    request.env["cn"] = "Rick Astley"
-    #request.env["mail"] = "nevergonnagiveyouup@rick.com"
-    request.env["ufrgsVinculo"] = "anything in here"
-    request.env["uid"] = "00000000000"
+    if Rails.env == "development"
+      # FAKE TEST DATA
+      request.env["Shib-Application-ID"] = "default"
+      request.env["Shib-Session-ID"] = "09a612f952cds995e4a86ddd87fd9f2a"
+      request.env["Shib-Identity-Provider"] = "https://login.somewhere/idp/shibboleth"
+      request.env["Shib-Authentication-Instant"] = "2011-09-21T19:11:58.039Z"
+      request.env["Shib-Authentication-Method"] = "urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport"
+      request.env["Shib-AuthnContext-Class"] = "urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport"
+      request.env["Shib-brEduPerson-brEduAffiliationType"] = "student;position;faculty"
+      request.env["Shib-eduPerson-eduPersonPrincipalName"] = "75a988943825d2871e1cfa75473ec0@ufrgs.br"
+      request.env["Shib-inetOrgPerson-cn"] = "Rick Astley"
+      request.env["Shib-inetOrgPerson-sn"] = "Rick Astley"
+      request.env["Shib-inetOrgPerson-mail"] = "nevergonnagiveyouup@rick.com"
+      request.env["cn"] = "Rick Astley"
+      request.env["mail"] = "nevergonnagiveyouup@rick.com"
+      request.env["ufrgsVinculo"] = "anything in here"
+      request.env["uid"] = "00000000000"
+    end
   end
 
 end
