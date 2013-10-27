@@ -9,6 +9,9 @@
 
   .thread-title
     = icon_create
-    = link_to activity.parameters[:username], user_path(activity.parameters[:user_id])
+    - if activity.parameters.has_key?(:username) and activity.parameters.has_key?(:user_id)
+      = link_to activity.parameters[:username], user_path(activity.parameters[:user_id])
+    - else
+      = activity_translate('other.someone')
     = activity_translate(activity.key)
     = link_to_trackable activity.trackable, activity.trackable_type

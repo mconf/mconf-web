@@ -1,38 +1,40 @@
 ---
 pt-br:
   activities:
+    attachment:
+      create_html: enviou o arquivo %{name} na comunidade
+      delete_html: removou o arquivo %{name} na comunidade
+      update_html: atualizou o arquivo %{name} na comunidade
+      deleted: que não existe mais
     bigbluebutton_meeting:
       deleted_html: "Uma reunião aconteceu mas suas informações foram desde então removidas"
       user:
         create_html: "Uma reunião foi iniciada na sala do usuário %{owner} em %{time}"
       space:
         create_html: "Uma reunião foi iniciada na comunidade %{owner} em %{time}"
-    space:
-      create_html: criou a comunidade
-      update_html: atualizou os dados da comunidade
-      join_html: tornou-se um membro da comunidade
-      leave_html: deixou de ser um membro da comunidade
-      deleted: uma comunidade que não existe mais
-    news:
-      create_html: publicou a notícia %{name} na comunidade
-      update_html: atualizou a notícia %{name} na comunidade
-      deleted: que não existe mais
-    post:
-      create_html: enviou a mensagem %{name} na comunidade
-      update_html: atualizou a mensagem %{name} na comunidade
-      reply_html: respondeu à mensagem %{name} na comunidae
-      deleted: que não existe mais
     event:
       create_html: criou o evento %{name} na comunidade
       attend_html: participará do evento %{name} da comunidade
       not_attend_html: não participará do evento %{name} da comunidade
       update_html: atualizou as informações do event %{name} da comunidade
       deleted: que não existe mais
-    attachment:
-      create_html: enviou o arquivo %{name} na comunidade
-      delete_html: removou o arquivo %{name} na comunidade
-      update_html: atualizou o arquivo %{name} na comunidade
+    news:
+      create_html: publicou a notícia %{name} na comunidade
+      update_html: atualizou a notícia %{name} na comunidade
       deleted: que não existe mais
+    other:
+      someone_html: "Um usuário"
+    post:
+      create_html: enviou a mensagem %{name} na comunidade
+      update_html: atualizou a mensagem %{name} na comunidade
+      reply_html: respondeu à mensagem %{name} na comunidae
+      deleted: que não existe mais
+    space:
+      create_html: criou a comunidade
+      update_html: atualizou os dados da comunidade
+      join_html: tornou-se um membro da comunidade
+      leave_html: deixou de ser um membro da comunidade
+      deleted: uma comunidade que não existe mais
   _js:
     confirmation_dialog:
       cancel: "Cancelar"
