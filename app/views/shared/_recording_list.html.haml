@@ -30,40 +30,27 @@
               .thread-updated-at
                 = t('.created')
                 = t('updated_time_ago', :time => time_ago_in_words(recording.created_at))
+              = icon_recording
               - if recording.description.blank?
                 %span.recording-description= t('.no_description')
               - else
                 %span.recording-description= recording.description
 
-            .recording-details
+            .thread-subtitle
               .recording-date
-                = icon_date
-                = t('.started_at') + ": #{recording.start_time};"
-              .recording-duration{:title => "#{t('.ended_at')}: #{recording.end_time}"}
-                = t('.duration') + ':'
-                - unless recording.start_time.nil? || recording.end_time.nil?
-                  = distance_of_time_in_words(recording.start_time, recording.end_time)
+                = t('.started_at') + ": #{recording.start_time}"
 
-            .recording-details
-              - if show_authors
+            .thread-subtitle
+              = render :partial => 'shared/recording_duration', :locals => { :recording => recording }
+
+            - if show_authors
+              .thread-subtitle
                 - unless metaUser.nil?
                   - user = User.find_by_id(metaUser.content)
                   - unless user.nil?
                     .recording-author
-                      = icon_user
                       = t('.created_by') + ':'
                       = link_to user.full_name, user_profile_path(user)
 
-            .recording-details
-              = icon_playback
-              = t('.playback') + ':'
-              - unless recording.available
-                %span.playback-unavailable= t('.unavailable')
-                = icon_help(t('.unavailable_tip'))
-              - else
-                - if recording.playback_formats.size > 0
-                  - recording.playback_formats.each do |playback|
-                    = link_to playback.format_type, playback.url, :class => 'playback-link'
-                - else
-                  %span.playback-processing= t('.processing_dots')
-                  = icon_help(t('.processing_tip'))
+            .thread-subtitle
+              = render :partial => 'shared/recording_playback', :locals => { :recording => recording }

@@ -2,7 +2,7 @@
 en: 
   activities:
     bigbluebutton_meeting:
-      deleted_html: "A meeting was started but its information has been deleted"
+      deleted_html: "A meeting has happened but its information have since been deleted"
       user:
         create_html: "A meeting was started on the room of the user %{owner} at %{time}"
       space:
@@ -1205,17 +1205,20 @@ en:
       fill: "Please fill in this data"
     one: Session
   shared:
+    recording_duration:
+      duration: "Duration"
+      ended_at: "Ended at"
     recording_list:
       created: "Created"
       created_by: "Created by"
-      duration: "Duration"
       no_description: "<no description specified>"
       no_recordings: "Your web conference room has no recordings yet"
       no_title: "<no title specified>"
+      started_at: "Started at"
+    recording_playback:
       playback: "Playback links"
       processing_dots: "Processing, please wait..."
       processing_tip: "This recording was found in one of the servers but is still being processed. When the processing finishes the links for playback will be available here."
-      started_at: "Started at"
       unavailable: "The recording is unavailable"
       unavailable_tip: "This recording is not available anymore in the server where it was stored and so it can't be accessed. This can be a temporary problem, check again later to see if it's available."
     webconf_index_links:

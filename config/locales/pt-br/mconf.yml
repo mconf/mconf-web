@@ -2,7 +2,7 @@
 pt-br:
   activities:
     bigbluebutton_meeting:
-      deleted_html: "Uma reunião foi iniciada mas suas informações foram removidas"
+      deleted_html: "Uma reunião aconteceu mas suas informações foram desde então removidas"
       user:
         create_html: "Uma reunião foi iniciada na sala do usuário %{owner} em %{time}"
       space:
@@ -1182,17 +1182,20 @@ pt-br:
       fill: "Por favor preencha estes dados"
     one: Sessão
   shared:
+    recording_duration:
+      duration: "Duração"
+      ended_at: "Finalizada em"
     recording_list:
       created: "Criada"
       created_by: "Criada por"
-      duration: "Duração"
       no_description: "<nenhuma descrição especificada>"
       no_recordings: "Sua sala de webconferência ainda não possui gravações"
       no_title: "<nenhum título especificado>"
+      started_at: "Iniciou em"
+    recording_playback:
       playback: "Links para reprodução"
       processing_dots: "Processando, por favor aguarde..."
       processing_tip: "Esta gravação foi encontrada em um dos servidores mas ainda está sendo processada. Quando o processamento acabar, os links para reprodução serão disponibilizados aqui."
-      started_at: "Iniciou em"
       unavailable: "Esta gravação não está disponível"
       unavailable_tip: "Esta gravação não está mais disponível no servidor onde ela estava armazenada e então não pode ser acessada."
     webconf_index_links:

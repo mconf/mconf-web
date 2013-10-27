@@ -1,52 +1,42 @@
 @import "compass/css3";
 @import "definitions";
 
-#my-webconference-recordings-list {
+// leave the styles here unscoped so they can be reused
+// TODO: maybe this should be defined in base.css.scss?
 
-  .recording-description {
-    font-weight: bold;
+.recording-description {
+  font-weight: bold;
+}
+
+.thread {
+
+  .recording-date, .recording-duration {
+    display: inline-block;
+  }
+  .recording-duration {
+    padding-left: 3px;
   }
 
-  .thread {
-    i {
-      float: none;
-      margin: 0 3px 0 0;
-      font-size: $font-normal;
-    }
+  .playback-link {
+    white-space: nowrap;
+    @include border-radius(3px);
+    background: $light-gray;
+    border: 1px solid darken($light-gray, 5);
+    padding: 0 5px;
+  }
 
-    .recording-details {
-      margin: 3px 0;
-    }
-
-    .recording-date, .recording-duration {
-      display: inline-block;
-    }
-    .recording-duration {
-      padding-left: 3px;
-    }
-
+  &.thread-odd {
     .playback-link {
-      white-space: nowrap;
-      @include border-radius(3px);
-      background: $light-gray;
-      border: 1px solid darken($light-gray, 5);
-      padding: 0 5px;
-    }
-
-    &.thread-odd {
-      .playback-link {
-        background: darken($light-gray, 5);
-        border-color: 1px solid darken($light-gray, 10);
-      }
-    }
-
-    .playback-unavailable {
-      color: $red;
-    }
-
-    .playback-processing {
-      color: darken($yellow, 10);
+      background: darken($light-gray, 5);
+      border-color: 1px solid darken($light-gray, 10);
     }
   }
 
+  .playback-unavailable {
+    color: mix($link-color, #888, 70%); // a grayer link
+  }
+
+  .playback-processing {
+    color: darken($yellow, 10);
+  }
 }

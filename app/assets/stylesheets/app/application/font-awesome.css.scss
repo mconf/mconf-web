@@ -7,6 +7,7 @@
 @import "definitions";
 
 $default-icon-color: #888; /* lighten($green-logo, 10); */
+$light-icon-color: #aaa;
 
 .icon-awesome {
   margin: 2px 5px 0 0;
@@ -148,6 +149,18 @@ a .icon-awesome {
   color: $red;
 }
 
+.icon-mconf-nested-child {
+  color: #bbb;
+}
+
+.icon-mconf-recording {
+  color: $light-icon-color;
+}
+
+.icon-mconf-meeting {
+  color: $light-icon-color;
+}
+
 .icon-mconf-event {}
 .icon-mconf-home {}
 .icon-mconf-logout {}
@@ -171,4 +184,3 @@ a .icon-awesome {
 .icon-mconf-playback {}
 .icon-mconf-date {}
 .icon-mconf-user {}
-.icon-mconf-meeting {}

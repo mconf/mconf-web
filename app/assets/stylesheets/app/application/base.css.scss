@@ -90,7 +90,7 @@ form {
     }
   }
 
-  .thread-title {
+  .thread-title, .thread-subtitle {
     margin-bottom: 5px;
     white-space: nowrap;
     overflow: hidden;
@@ -114,6 +114,19 @@ form {
     }
 
     h2 { margin-bottom: 0; }
+  }
+
+  .thread-subtitle {
+    margin: 2px 0;
+
+    i {
+      margin: 0px 3px 0px 0px;
+      float: none;
+    }
+
+    &.thread-subtitle-nested {
+      margin-left: 6px;
+    }
   }
 
   .thread-updated-at {
@@ -199,7 +212,6 @@ form {
     .user-location { float: left; }
   }
 }
-
 
 //
 // Page containers, redefined in the layouts

@@ -8,6 +8,10 @@
 @import "app/invites/invite_room";
 @import "app/custom_bigbluebutton_rooms/join_mobile";
 
+// home and activity use some partials to show information of recordings, and they include
+// some styles defined in the partial below
+@import "app/shared/recording_list";
+
 body.my.home, body.my.activity, body.my.recordings {
 
   $second-content-bg-color: darken($light-gray, 2);

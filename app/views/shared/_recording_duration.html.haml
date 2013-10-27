@@ -1,0 +1,4 @@
+%span= t('.duration') + ':'
+.recording-duration{:title => "#{t('.ended_at')}: #{recording.end_time}"}
+  - unless recording.start_time.nil? || recording.end_time.nil?
+    = distance_of_time_in_words(recording.start_time, recording.end_time)

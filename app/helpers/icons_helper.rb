@@ -188,7 +188,15 @@ module IconsHelper
   end
 
   def icon_meeting(options={})
-    icon_constructor nil, "icon-awesome icon-headphones icon-mconf-meeting", options
+    icon_constructor nil, "icon-awesome icon-facetime-video icon-mconf-meeting", options
+  end
+
+  def icon_recording(options={})
+    icon_constructor nil, "icon-awesome icon-youtube-play icon-mconf-recording", options
+  end
+
+  def icon_nested_child(options={})
+    icon_constructor nil, "icon-awesome icon-level-up icon-rotate-90 icon-mconf-nested-child", options
   end
 
   private

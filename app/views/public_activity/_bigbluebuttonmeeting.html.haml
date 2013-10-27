@@ -5,7 +5,9 @@
 
 .logo-in-thread
 
-  - unless meeting.nil?
+  - if meeting.nil?
+    = logo_image_removed(:size => '84x64')
+  - else
     - if meeting.room.owner_type == 'User'
       = link_logo_image(meeting.room.owner, :size => '84x64', :url => user_path(meeting.room.owner), :class => 'logo logo-user')
     - elsif meeting.room.owner_type == 'Space'
@@ -23,3 +25,12 @@
         = activity_translate('bigbluebutton_meeting.space.create', :owner => link_to_trackable(meeting, activity.trackable_type), :time => format_date(meeting.start_time))
     - else
       = activity_translate('bigbluebutton_meeting.deleted')
+
+  - unless meeting.nil? or meeting.recording.nil?
+    - recording = meeting.recording
+    .thread-subtitle.thread-subtitle-nested
+      = icon_nested_child
+      = render :partial => 'shared/recording_playback', :locals => { :recording => recording }
+    .thread-subtitle.thread-subtitle-nested
+      = icon_nested_child
+      = render :partial => 'shared/recording_duration', :locals => { :recording => recording }

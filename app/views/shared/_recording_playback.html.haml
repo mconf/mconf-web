@@ -1,0 +1,12 @@
+%span= t('.playback') + ':'
+- unless recording.available
+  %span.playback-unavailable= t('.unavailable')
+  = icon_help(t('.unavailable_tip'))
+- else
+  - if recording.playback_formats.size > 0
+    = icon_playback
+    - recording.playback_formats.each do |playback|
+      = link_to playback.format_type, playback.url, :class => 'playback-link'
+  - else
+    %span.playback-processing= t('.processing_dots')
+    = icon_help(t('.processing_tip'))

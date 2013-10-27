@@ -21,4 +21,9 @@ module LogoImagesHelper
     end
   end
 
+  def logo_image_removed(options = {})
+    options[:class] = options.has_key?(:class) ? "#{options[:class]} logo logo-removed" : 'logo logo-removed'
+    image_tag("icons/image_removed.png", :class => options[:class], :title => options[:title], :size => options[:size])
+  end
+
 end

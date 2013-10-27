@@ -24,4 +24,8 @@ describe LogoImagesHelper do
     it "adds the logo from #logo_image inside an <a>"
   end
 
+  describe "#logo_image_removed" do
+    it "adds the standard logo for some object that was removed"
+  end
+
 end
