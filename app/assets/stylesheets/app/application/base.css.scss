@@ -90,10 +90,10 @@ form {
     }
   }
 
-  .thread-title, .thread-subtitle {
+  .thread-title {
     margin-bottom: 5px;
-    white-space: nowrap;
     overflow: hidden;
+    line-height: $font-normal + 10px; // have to account for the links with border and padding
 
     a {
       white-space: nowrap;
@@ -118,6 +118,7 @@ form {
 
   .thread-subtitle {
     margin: 2px 0;
+    //line-height: $font-normal + 6px; // less that in .thread-title
 
     i {
       margin: 0px 3px 0px 0px;
@@ -174,7 +175,7 @@ form {
 
   .thread-title a {
     background: darken($light-gray, 5);
-    border-color: 1px solid darken($light-gray, 10);
+    border-color: darken($light-gray, 10);
     &:hover { border-color: darken($light-gray, 15); }
   }
 }

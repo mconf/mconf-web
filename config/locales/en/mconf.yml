@@ -10,29 +10,29 @@ en:
     space:
       create_html: created a new space
       update_html: updated info on space
-      join_html: has joined
-      leave_html: has left
+      join_html: has joined the space
+      leave_html: has left the space
       deleted: a space that has since been deleted
     news:
-      create_html: published %{name} on
-      update_html: updated %{name} on
-      deleted: some news that have since been deleted
+      create_html: published the news %{name} in the space
+      update_html: updated the news %{name} in the space
+      deleted: that have since been deleted
     post:
-      create_html: created %{name} on
-      update_html: updated the post %{name} on
-      reply_html: replied to %{name} on
-      deleted: a post that has since been deleted
+      create_html: posted %{name} in the space
+      update_html: updated %{name} in the space
+      reply_html: replied to %{name} in the space
+      deleted: a message that has since been deleted
     event:
-      create_html: created the event %{name} on
-      attend_html: will attend to %{name} on
-      not_attend_html: will not attend to %{name} on
-      update_html: updated the info on event %{name} on
-      deleted: an event that has since been deleted
+      create_html: created the event %{name} in the space
+      attend_html: will attend to the event %{name} in the space
+      not_attend_html: will not attend to the event %{name} in the space
+      update_html: updated the information of the event %{name} in the space
+      deleted: that has since been deleted
     attachment:
-      create_html: created the attachment %{name} on
-      delete_html: removed attachment %{name} from
-      update_html: uploaded a new version of %{name} to
-      deleted: an attacment that has since been deleted
+      create_html: uploaded the attachment %{name} in the space
+      delete_html: removed the attachment %{name} from the space
+      update_html: updated the attachment %{name} in the space
+      deleted: that has since been deleted
   _js:
     confirmation_dialog:
       cancel: "Cancel"

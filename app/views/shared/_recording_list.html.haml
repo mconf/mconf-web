@@ -38,7 +38,7 @@
 
             .thread-subtitle
               .recording-date
-                = t('.started_at') + ": #{recording.start_time}"
+                = t('.started_at') + ": #{format_date(recording.start_time)}"
 
             .thread-subtitle
               = render :partial => 'shared/recording_duration', :locals => { :recording => recording }
