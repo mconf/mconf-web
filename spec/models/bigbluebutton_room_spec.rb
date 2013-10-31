@@ -89,6 +89,11 @@ describe BigbluebuttonRoom do
                          :invite, :invite_userid, :auth, :running, :join, :external,
                          :external_auth, :join_mobile, :update] }
         it { should_not be_able_to_do_anything_to(target).except(allowed) }
+
+        context "with permission to record" do
+          before { user.update_attributes(:can_record => true) }
+          it { should be_able_to(:record_meeting, target) }
+        end
       end
 
       context "in another user's room" do
@@ -97,6 +102,11 @@ describe BigbluebuttonRoom do
         let(:allowed) { [:invite, :invite_userid, :auth, :running, :join, :external,
                          :external_auth, :join_mobile] }
         it { should_not be_able_to_do_anything_to(target).except(allowed) }
+
+        context "with permission to record" do
+          before { user.update_attributes(:can_record => true) }
+          it { should be_able_to(:record_meeting, target) }
+        end
       end
 
       context "in a public space" do
@@ -107,6 +117,11 @@ describe BigbluebuttonRoom do
           let(:allowed) { [:invite, :invite_userid, :auth, :running, :join, :external,
                            :external_auth, :join_mobile] }
           it { should_not be_able_to_do_anything_to(target).except(allowed) }
+
+          context "with permission to record" do
+            before { user.update_attributes(:can_record => true) }
+            it { should be_able_to(:record_meeting, target) }
+          end
         end
 
         context "he belongs to" do
@@ -115,6 +130,11 @@ describe BigbluebuttonRoom do
                            :invite, :invite_userid, :auth, :running, :join, :external,
                            :external_auth, :join_mobile] }
           it { should_not be_able_to_do_anything_to(target).except(allowed) }
+
+          context "with permission to record" do
+            before { user.update_attributes(:can_record => true) }
+            it { should be_able_to(:record_meeting, target) }
+          end
         end
       end
 
@@ -126,6 +146,11 @@ describe BigbluebuttonRoom do
           let(:allowed) { [:invite, :invite_userid, :auth, :running, :join, :external,
                            :external_auth, :join_mobile] }
           it { should_not be_able_to_do_anything_to(target).except(allowed) }
+
+          context "with permission to record" do
+            before { user.update_attributes(:can_record => true) }
+            it { should be_able_to(:record_meeting, target) }
+          end
         end
 
         context "he belongs to" do
@@ -134,6 +159,11 @@ describe BigbluebuttonRoom do
                            :invite, :invite_userid, :auth, :running, :join, :external,
                            :external_auth, :join_mobile] }
           it { should_not be_able_to_do_anything_to(target).except(allowed) }
+
+          context "with permission to record" do
+            before { user.update_attributes(:can_record => true) }
+            it { should be_able_to(:record_meeting, target) }
+          end
         end
       end
 

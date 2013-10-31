@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131027032331) do
+ActiveRecord::Schema.define(:version => 20131029184414) do
 
   create_table "activities", :force => true do |t|
     t.integer  "trackable_id"
@@ -327,11 +327,11 @@ ActiveRecord::Schema.define(:version => 20131027032331) do
     t.string   "smtp_sender"
     t.boolean  "chat_enabled",                   :default => false
     t.string   "xmpp_server"
+    t.text     "shib_env_variables"
+    t.string   "shib_login_field"
     t.string   "timezone",                       :default => "UTC"
     t.string   "external_help"
     t.boolean  "webconf_auto_record",            :default => false
-    t.text     "shib_env_variables"
-    t.string   "shib_login_field"
   end
 
   create_table "spaces", :force => true do |t|
@@ -398,6 +398,7 @@ ActiveRecord::Schema.define(:version => 20131027032331) do
     t.string   "confirmation_token"
     t.datetime "confirmation_sent_at"
     t.string   "unconfirmed_email"
+    t.boolean  "can_record"
   end
 
   add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true

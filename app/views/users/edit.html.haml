@@ -52,6 +52,7 @@
   #other-options
     %h3= t('user.edit.other_options')
     - if user_signed_in? && current_user.superuser && @user.id != current_user.id
+      = f.input :can_record, :label => t('user.edit.make_recorder'), :required => false
       = f.input :superuser, :label => t('user.edit.make_admin'), :required => false
     #cancel-account.alert.alert-danger
       %span= t('user.edit.cancel_account')

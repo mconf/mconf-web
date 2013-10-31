@@ -94,6 +94,7 @@ class User < ActiveRecord::Base
   attr_accessible :notification
   attr_accessible :special_event_id
   attr_accessible :superuser
+  attr_accessible :can_record
   attr_accessible :receive_digest
   attr_accessor :special_event_id
 

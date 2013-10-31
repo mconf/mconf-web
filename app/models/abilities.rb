@@ -89,6 +89,9 @@ module Abilities
         space.admins.include?(user)
       end
 
+      # Recording meetings
+      can :record_meeting, BigbluebuttonRoom if user.can_record
+
       # Join Requests
       # users can create unless they are already in the target space
       # TODO: make this for events also
