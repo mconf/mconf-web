@@ -1193,9 +1193,6 @@ en:
     refresh: "force refresh"
     running: running!
   save: Save
-  search: 
-    space: 
-      dots: "Filter space..."
   select_image: "Select an image, please"
   send: Send
   servers: 
@@ -1301,7 +1298,6 @@ en:
     index: 
       filters: 
         all: "All spaces"
-        filter: "Filter:"
         my_spaces: "My spaces"
       select_at_left: "Select a space in the left to see it's description here"
       user_is_member: "You are a member!"
@@ -1374,6 +1370,10 @@ en:
       list_format: 
         list: "List"
         thumbnails: "Thumbnails"
+      search:
+        by_name:
+          no_matches: "No spaces found for \"%{term}\""
+          placeholder: "Search spaces..."
     new:
       private: "Private"
       public: "Public"

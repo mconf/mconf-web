@@ -28,9 +28,8 @@ body.spaces.index {
       margin-left: 15px;
       float: left;
 
-      .select2-default {
-        border-radius: 0px;
-        height: 28px;
+      .select2-choice {
+        @include border-radius(0 4px 4px 0);
       }
 
       #space-filter-text {
@@ -38,6 +37,16 @@ body.spaces.index {
         margin: 0;
         @include border-left-radius(0);
       }
+    }
+  }
+
+  // the results for the filter by name are added to <body>, this is why
+  // this selector is here and not nested
+  .select2-results, .select2-container {
+    i {
+      float: right;
+      font-size: 11px;
+      margin: 6px 0 0 0;
     }
   }
 

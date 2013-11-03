@@ -6,6 +6,7 @@
 
 // Use to search for models (e.g. users) dynamically.
 //= require select2
+//= require select2_locale_pt-BR
 
 // To use placeholders in inputs in browsers that do not support it
 // natively yet.

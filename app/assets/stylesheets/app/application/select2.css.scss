@@ -1,8 +1,42 @@
-body {
-  .select2-container-multi .select2-choices {
-    border: 1px solid #cccccc;
-    -webkit-border-radius: 4px;
-    -moz-border-radius: 4px;
-    border-radius: 4px;
+@import "compass/css3";
+@import "compass/typography/links";
+@import "definitions";
+
+.select2-container-multi, .select2-container {
+  .select2-choices, .select2-choice {
+    border: 1px solid #ccc;
+    @include border-radius(4px);
+    padding: 1px 0 1px 8px;
+    font-size: $font-normal+1px;
+    text-align: left;
+    color: $font-color;
+  }
+}
+
+.select2-container-multi, .select2-container, .select2-results {
+  a { @include link-colors($font-color, $font-color, $link-color-active); }
+}
+
+// links and icons have to be whiter when the item is selected
+.select2-highlighted {
+  a { @include link-colors(white, white, $link-color-active); }
+  i { color: #eee; }
+}
+
+// for integration with bootstrap's btn-group
+.btn-group {
+  .select2-choices, .select2-choice {
+    margin-left: -1px;
+    @include border-radius(0);
+  }
+  .select2-container-multi:last-child, .select2-container:last-child {
+    .select2-choices, .select2-choice {
+      @include border-radius(0 4px 4px 0);
+    }
+  }
+  .select2-container-multi:first-child, .select2-container:first-child {
+    .select2-choices, .select2-choice {
+      @include border-radius(4px 0 0 4px);
+    }
   }
 }

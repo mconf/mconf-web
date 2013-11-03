@@ -1170,9 +1170,6 @@ pt-br:
     refresh: "atualizar status"
     running: rodando!
   save: Salvar
-  search:
-    space:
-      dots: "Filtrar comunidade..."
   select_image: "Selecione uma imagem, por favor"
   send: Enviar
   servers:
@@ -1276,7 +1273,6 @@ pt-br:
     index:
       filters: 
         all: "Todas"
-        filter: "Filtro:"
         my_spaces: "Minhas comunidades"
       select_at_left: "Selecione uma comunidade ao lado para ver sua descrição aqui"
       user_is_member: "Você é membro!"
@@ -1345,6 +1341,10 @@ pt-br:
       list_format: 
         list: "Lista"
         thumbnails: "Miniaturas"
+      search:
+        by_name:
+          no_matches: "Nenhuma comunidae encontrada com \"%{term}\""
+          placeholder: "Procurar comunidaes..."
     new:
       private: "Privada"
       public: "Pública"

@@ -47,10 +47,6 @@ class SpacesController < ApplicationController
   end
 
   def index
-    #if params[:space_id] && params[:space_id] != "all" && params[:space_id] !="my" && params[:space_id] !=""
-    #  redirect_to space_path(Space.find_by_permalink(params[:space_id]))
-    #  return
-    #end
     if params[:view].nil? or params[:view] != "list"
       params[:view] = "thumbnails"
     end
@@ -282,7 +278,7 @@ class SpacesController < ApplicationController
     if name.nil?
       @spaces = Space.limit(limit).all
     else
-      @spaces = Space.where("name like ? ", "%#{name}%").limit(limit)
+      @spaces = Space.where("name like ?", "%#{name}%").limit(limit)
     end
 
     respond_with @spaces do |format|

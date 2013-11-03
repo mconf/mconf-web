@@ -79,7 +79,7 @@ module Abilities
       end
 
       # Spaces
-      can :create, Space
+      can [:create, :select], Space
       can [:read, :webconference, :recordings], Space, :public => true
       can [:read, :webconference, :recordings, :leave], Space do |space|
         space.users.include?(user)
@@ -303,6 +303,7 @@ module Abilities
       end
       can [:read, :current], User, :disabled => false
       can [:read, :webconference, :recordings], Space, :public => true
+      can :select, Space
       can :read, Post, :space => { :public => true }
       can :show, News, :space => { :public => true }
       can :read, Event, :space => { :public => true }

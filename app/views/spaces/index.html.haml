@@ -51,8 +51,6 @@
     - if user_signed_in?
       = link_to spaces_path(:view => params[:view], :my_spaces => true), :id => "show-spaces-mine", :class => "btn #{'active' if params[:my_spaces]}", :type => "button" do
         = t('space.index.filters.my_spaces')
-    = button_tag t('space.index.filters.filter'), :id => "show-spaces-filter", :class => "btn", :type => "button"
-    = #text_field_tag 'space-filter-text', params[:filter], :placeholder => t('search.space.dots')
     = hidden_field_tag :space_filter_text
 
 - if params[:view] == 'list'

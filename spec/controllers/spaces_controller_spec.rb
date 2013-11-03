@@ -362,6 +362,67 @@ describe SpacesController do
     end
   end
 
+  describe "#select" do
+    context ".json" do
+      let(:expected) {
+        @spaces.map do |s|
+          { :id => s.id, :permalink => s.permalink, :name => s.name,
+            :public => s.public, :text => s.name, :url => space_url(s) }
+        end
+      }
+
+      context "works" do
+        before do
+          10.times { FactoryGirl.create(:space) }
+          @spaces = Space.all.first(5)
+        end
+        before(:each) { get :select, :format => :json }
+        it { should respond_with(:success) }
+        it { should respond_with_content_type(:json) }
+        it { should assign_to(:spaces).with(@spaces) }
+        it { response.body.should == expected.to_json }
+      end
+
+      context "matches spaces by name" do
+        let(:unique_str) { "123" }
+        before do
+          FactoryGirl.create(:space, :name => "Yet Another Space")
+          FactoryGirl.create(:space, :name => "Abc de Fgh")
+          FactoryGirl.create(:space, :name => "Space #{unique_str} Cool") do |s|
+            @spaces = [s]
+          end
+        end
+        before(:each) { get :select, :q => unique_str, :format => :json }
+        it { should assign_to(:spaces).with(@spaces) }
+        it { response.body.should == expected.to_json }
+      end
+
+      context "has a param to limit the spaces in the response" do
+        before do
+          10.times { FactoryGirl.create(:space) }
+        end
+        before(:each) { get :select, :limit => 3, :format => :json }
+        it { assigns(:spaces).count.should be(3) }
+      end
+
+      context "limits to 5 spaces by default" do
+        before do
+          10.times { FactoryGirl.create(:space) }
+        end
+        before(:each) { get :select, :format => :json }
+        it { assigns(:spaces).count.should be(5) }
+      end
+
+      context "limits to a maximum of 50 spaces" do
+        before do
+          60.times { FactoryGirl.create(:space) }
+        end
+        before(:each) { get :select, :limit => 51, :format => :json }
+        it { assigns(:spaces).count.should be(50) }
+      end
+    end
+  end
+
   describe "abilities", :abilities => true do
     render_views(false)
 
@@ -377,6 +438,7 @@ describe SpacesController do
       it { should allow_access_to(:index) }
       it { should allow_access_to(:new) }
       it { should allow_access_to(:create).via(:post) }
+      it { should allow_access_to(:select) }
 
       # the permissions are always the same, doesn't matter the type of room, so
       # we have them all in this common method
@@ -438,6 +500,7 @@ describe SpacesController do
       it { should allow_access_to(:index) }
       it { should allow_access_to(:new) }
       it { should allow_access_to(:create).via(:post) }
+      it { should allow_access_to(:select) }
 
       context "in a public space" do
         let(:target) { FactoryGirl.create(:public_space) }
@@ -535,6 +598,7 @@ describe SpacesController do
       it { should allow_access_to(:index) }
       it { should require_authentication_for(:new) }
       it { should require_authentication_for(:create).via(:post) }
+      it { should allow_access_to(:select) }
 
       context "in a public space" do
         let(:target) { FactoryGirl.create(:public_space) }

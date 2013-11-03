@@ -153,13 +153,6 @@ $z-index-tooltip: 999999;
   display: block;
   color: #666;
 
-  &.public {
-    .icon-awesome { color: $alert-success-font; }
-  }
-  &.private {
-    .icon-awesome { color: $alert-danger-font; }
-  }
-
   .icon-awesome {
     float: none;
     font-size: $font-small;

@@ -161,6 +161,14 @@ a .icon-awesome {
   color: $light-icon-color;
 }
 
+.icon-mconf-space-public {
+ color: $alert-success-font;
+}
+
+.icon-mconf-space-private {
+ color: $alert-danger-font;
+}
+
 .icon-mconf-event {}
 .icon-mconf-home {}
 .icon-mconf-logout {}
@@ -174,8 +182,6 @@ a .icon-awesome {
 .icon-mconf-users {}
 .icon-mconf-edit {}
 .icon-mconf-share {}
-.icon-mconf-space-public {}
-.icon-mconf-space-private {}
 .icon-mconf-order-number-asc {}
 .icon-mconf-order-number-desc {}
 .icon-mconf-check {}

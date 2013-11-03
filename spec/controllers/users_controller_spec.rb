@@ -167,31 +167,25 @@ describe UsersController do
         context "has a param to limit the users in the response" do
           before do
             10.times { FactoryGirl.create(:user) }
-            @users = User.all.first(3)
           end
           before(:each) { get :select, :limit => 3, :format => :json }
-          it { should assign_to(:users).with(@users) }
-          it { response.body.should == expected.to_json }
+          it { assigns(:users).count.should be(3) }
         end
 
         context "limits to 5 users by default" do
           before do
             10.times { FactoryGirl.create(:user) }
-            @users = User.all.first(5)
           end
           before(:each) { get :select, :format => :json }
-          it { should assign_to(:users).with(@users) }
-          it { response.body.should == expected.to_json }
+          it { assigns(:users).count.should be(5) }
         end
 
         context "limits to a maximum of 50 users" do
           before do
             60.times { FactoryGirl.create(:user) }
-            @users = User.all.first(50)
           end
           before(:each) { get :select, :limit => 51, :format => :json }
-          it { should assign_to(:users).with(@users) }
-          it { response.body.should == expected.to_json }
+          it { assigns(:users).count.should be(50) }
         end
       end
     end
