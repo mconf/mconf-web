@@ -138,6 +138,7 @@ describe ApplicationHelper do
 
   describe "#format_date" do
     it "returns the date formatted to show in a view"
+    it "returns a localized string"
   end
 
 end
