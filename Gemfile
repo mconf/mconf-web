@@ -18,7 +18,6 @@ group :assets do
   gem 'select2-rails'
 end
 
-gem 'net-ldap'
 gem 'gon', '3.0.5'
 gem 'mysql2', '~> 0.3.0'
 gem 'rake'
@@ -37,15 +36,18 @@ gem 'garb'
 gem 'simple_form', '~> 2.1.0'
 gem 'acts_as_tree', :git => 'https://github.com/parasew/acts_as_tree.git'
 gem 'friendly_id'
-gem 'station', :git => 'git://github.com/mconf/station.git', :branch => 'mweb-v2-no-invitations'
-gem 'devise'
-gem 'devise-encryptable' # TODO: only while we have old station users
-gem 'cancan', '~> 1.6.0'
 gem 'i18n-js', :git => "git://github.com/fnando/i18n-js.git", :branch => 'rewrite'
 gem 'rabl'
 gem 'yajl-ruby' # json parser for rabl
 gem 'valid_email'
 gem 'public_activity'
+
+# Authentication and authorization
+gem 'devise'
+gem 'devise-encryptable' # TODO: only while we have old station users
+gem 'cancan', '~> 1.6.0'
+gem 'station', :git => 'git://github.com/mconf/station.git', :branch => 'mweb-v2-no-invitations'
+gem 'net-ldap'
 
 # BigBlueButton integration
 gem 'bigbluebutton-api-ruby', :git => 'git://github.com/mconf/bigbluebutton-api-ruby.git'

@@ -97,6 +97,10 @@ $bg-normal: darken($green-logo, 3);
       margin-right: 5px;
     }
   }
+
+  .ldap-authentication {
+    float: right;
+  }
 }
 
 #registration-box {

@@ -9,6 +9,5 @@ class AddLdapToSites < ActiveRecord::Migration
     add_column :sites, :ldap_username_field, :string
     add_column :sites, :ldap_email_field, :string
     add_column :sites, :ldap_name_field, :string
-    add_column :sites, :ldap_env_variables, :string
   end
 end

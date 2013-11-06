@@ -95,6 +95,15 @@ en:
         exception_notifications_prefix: "Debug emails subject prefix"
         external_help: "External help/FAQ page"
         feedback_url: "Feedback URL"
+        ldap_enabled: "LDAP: Enable authentication"
+        ldap_host: "LDAP: Server IP or domain"
+        ldap_port: "LDAP: Server port"
+        ldap_user: "LDAP: Full DN for the user"
+        ldap_user_password: "LDAP: User password"
+        ldap_user_treebase: "LDAP: Full DN for UsersTreebase"
+        ldap_username_field: "LDAP: Field to obtain the username"
+        ldap_email_field: "LDAP: Field to obtain the user's email"
+        ldap_name_field: "LDAP: Field to obtain the user's full name"
         locale: "Language"
         name: "Name"
         presence_domain: "XMPP Chat Domain"
@@ -481,6 +490,11 @@ en:
         other_options: "Other options"
         register: "Create a new account"
         resend_confirmation_email: "Resend confirmation email"
+    strategies:
+      ldap_authenticatable:
+        invalid_bind: "Unable to bind to the LDAP server, check the LDAP configuration in the website administration"
+        ldap_not_enabled: "LDAP is not enabled in this website"
+        login_successful: "Succesfully authenticated with the LDAP user: \"%{username}\"!"
   disable: Disable
   disabled: Disabled
   document: 
@@ -825,7 +839,9 @@ en:
   layouts:
     application_navbar:
       inbox: "Inbox"
+      login: "Sign in"
       manage: "Manage"
+      register: "Register"
     footer:
       copyright: "© 2010-2013 %{site}."
       current_version: "Current version"
@@ -853,17 +869,6 @@ en:
     spaces_page_title:
       private: "Private space"
       public: "Public space"
-  ldap:
-    server:
-      invalid_bind: "Unable to bind to the ldap server, check the ldap configuration in the website administration!"
-    site:
-      enabled: "Ldap is not enabled in the Mconf website administration!"
-    user:
-      invalid_login: "Username or password is wrong!"
-      missing_login: "Username or password is missing!"
-      valid_login: "Succesfully authenticated with user: \"%{login}\"!"
-    checkbox:
-      label: "Ldap authentication"
   less: "less..."
   locale: 
     changed: "Application language changed to "
@@ -871,11 +876,6 @@ en:
   locales: 
     en: English
     pt-br: "Português (Brasil)"
-  login: 
-    email_or_login: "Email or username"
-    login_desc: "Sign in to your account"
-    one: Login
-    password: Password
   login_or_register: "Login / Register"
   login_request: "You need to be logged in to "
   logo: 
@@ -1217,6 +1217,14 @@ en:
       exist: "You are already logged in"
       fill: "Please fill in this data"
     one: Session
+  sessions:
+    login_form:
+      email_or_login: "Email or username"
+      ldap_authentication: "Authenticate via LDAP"
+      login: "Login"
+      password: "Password"
+    new:
+      title: "Sign in"
   shared:
     recording_duration:
       duration: "Duration"
@@ -1278,26 +1286,6 @@ en:
     label: "Insert here the text from the image"
     message: 
       user: "is incorrect"
-  site:
-    ldap_enabled: "Enable LDAP Authentication"
-    ldap_host: "IP/NAME from LDAP server"
-    ldap_host_tip: "Insert the IP or nameserver of the LDAP server. Example: 200.243.24.225 or ldapserver.rnp.com.br"
-    ldap_port: "PORT from LDAP server"
-    ldap_port_tip: "Insert the PORT which will be used to connect to the LDAP server (for LDAPS connection, the port is the 636)"
-    ldap_user: "Full DN for LDAP user"
-    ldap_user_tip: "Insert the full DN (Distinguished Name) of the user that is going to access the LDAP server"
-    ldap_user_password: "Password for LDAP user"
-    ldap_user_password_tip: "Insert the password for the user that is going to access the LDAP server"
-    ldap_user_treebase: "Full DN for UsersTreebase"
-    ldap_user_treebase_tip: "This specifies the LDAP branch (DN) where the users that need to authenticate are."
-    ldap_username_field: "LDAP user login field"
-    ldap_username_field_tip: "This specifies which attribute of the LDAP user we are going to compare to the specified login(username). Example: uid"
-    ldap_email_field: "LDAP user email field"
-    ldap_email_field_tip: "This specifies which attribute of the LDAP user we are going to use to get his email. Example: mail"
-    ldap_name_field: "LDAP user name field"
-    ldap_name_field_tip: "This specifies which attribute of the LDAP user we are going to use to get his name. Example: cn"
-    ldap_env_variables: "LDAP extra variables"
-    ldap_env_variables_tip: "LDAP extra variables (not needed to use the main features of LDAP authentication)"
   size: Size
   skype: Skype
   space: 

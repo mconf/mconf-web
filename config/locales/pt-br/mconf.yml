@@ -95,6 +95,15 @@ pt-br:
         exception_notifications_prefix: "Prefixo no assunto dos e-mails de depuração"
         external_help: "Página de Ajuda/FAQ Externa"
         feedback_url: "Feedback URL"
+        ldap_enabled: "LDAP: Habilitar autenticação"
+        ldap_host: "LDAP: IP ou domínio do servidor"
+        ldap_port: "LDAP: Porta do servidor"
+        ldap_user: "LDAP: DN completo do usuário"
+        ldap_user_password: "LDAP: Senha do usuário"
+        ldap_user_treebase: "LDAP: DN completo para a árvore de usuários"
+        ldap_username_field: "LDAP: Campo para obter o nome de usuário"
+        ldap_email_field: "LDAP: Campo para obter o email"
+        ldap_name_field: "LDAP: Campo para obter o nome completo"
         locale: "Idioma"
         name: "Nome"
         presence_domain: "Domínio do bate-papo XMPP"
@@ -473,6 +482,11 @@ pt-br:
         other_options: "Outras opções"
         register: "Criar uma nova conta"
         resend_confirmation_email: "Reenviar e-mail de confirmação"
+    strategies:
+      ldap_authenticatable:
+        invalid_bind: "Não foi possível conectar ao servidor LDAP, verifique a configuração do LDAP na página de administração"
+        ldap_not_enabled: "LDAP não esta habilitado neste site"
+        login_successful: "Sucesso na autenticação via LDAP para o usuário: \"%{login}\"!"
   disable: Desabilitar
   disabled: Desabilitado
   document:
@@ -813,6 +827,9 @@ pt-br:
   layouts:
     application_navbar:
       inbox: "Caixa de entrada"
+      login: "Login"
+      manage: "Gerenciar"
+      register: "Registro"
     footer:
       copyright: "© 2010-2013 %{site}."
       current_version: "Versão atual"
@@ -840,17 +857,6 @@ pt-br:
     spaces_page_title:
       private: "Comunidade privada"
       public: "Comunidade pública"
-  ldap:
-    server:
-      invalid_bind: "Não foi possível conectar ao servidor ldap, verifique a configuração do ldap na administração do portal!"
-    site:
-      enabled: "Ldap não esta habilitado na administração do portal!"
-    user:
-      invalid_login: "Nome do usuário ou palavra-passe está errado(a)!"
-      missing_login: "Nome do usuário ou palavra-passe está faltando!"
-      valid_login: "Sucesso na autenticação com usuário: \"%{login}\"!"
-    checkbox:
-      label: "Autenticar via ldap"
   less: "menos..."
   locale:
     changed: "Idioma da aplicação alterado para "
@@ -858,10 +864,6 @@ pt-br:
   locales:
     en: English
     pt-br: "Português (Brasil)"
-  login:
-    email_or_login: "E-mail ou usuário"
-    one: Login
-    password: Senha
   login_or_register: "Login / Registre-se"
   login_request: "Você precisa estar logado para"
   logo:
@@ -1194,6 +1196,14 @@ pt-br:
       exist: "Você já está logado"
       fill: "Por favor preencha estes dados"
     one: Sessão
+  sessions:
+    login_form:
+      email_or_login: "E-mail ou nome de usuário"
+      ldap_authentication: "Autenticar via LDAP"
+      login: "Login"
+      password: "Senha"
+    new:
+      title: "Login"
   shared:
     recording_duration:
       duration: "Duração"
@@ -1253,26 +1263,6 @@ pt-br:
   show_question: Exibir?
   simple_captcha:
     label: "Insira aqui o texto da imagem"
-  site:
-    ldap_enabled: "Habilitar Autenticacao via Ldap"
-    ldap_host: "IP/NOME do servidor LDAP"
-    ldap_host_tip: "Insira o IP ou nome do servidor LDAP. Exemplo: 200.243.24.225 ou ldapserver.rnp.com.br"
-    ldap_port: "PORTA do servidor LDAP"
-    ldap_port_tip: "Insira a PORTA que será utilizada para conectar ao servidor LDAP (para conexão LDAPS, a porta é a 636)"
-    ldap_user: "DN completo para usuario do LDAP"
-    ldap_user_tip: "Insira o DN (Distinguished Name) completo do usuário que irá acessar o servidor LDAP"
-    ldap_user_password: "Senha do usuario do LDAP"
-    ldap_user_password_tip: "Insira a senha para o usuário que irá acessar o servidor LDAP"
-    ldap_user_treebase: "DN completo para arvore dos usuarios"
-    ldap_user_treebase_tip: "Isto especifica o ramo do LDAP (DN) onde os usuários que serão autenticados estão"
-    ldap_username_field: "Campo de login do usuario do LDAP"
-    ldap_username_field_tip: "Isto especifica qual atributo do usuário LDAP iremos comparar com o login(nome de usuario) fornecido. Exemplo: uid"
-    ldap_email_field: "Campo de email do usuario do LDAP"
-    ldap_email_field_tip: "Isto especifica qual atributo do usuário LDAP iremos utilizar para buscar o seu email. Exemplo: mail"
-    ldap_name_field: "Campo do nome do usuario do LDAP"
-    ldap_name_field_tip: "Isto especifica qual atributo do usuário LDAP iremos utilizar para buscar o seu nome. Exemplo: cn"
-    ldap_env_variables: "Variaveis extras do LDAP"
-    ldap_env_variables_tip: ""
   size: Tamanho
   skype: Skype
   source:

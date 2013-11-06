@@ -1,14 +1,11 @@
--# TODO: works with ssl?
 = simple_form_for(resource, :as => resource_name, :url => user_session_path, :html => { :class => 'form-inline single-column' }) do |f|
-  = f.input :login, :label => t('login.email_or_login'), :required => true, :autofocus => true
-  = f.input :password, :label => t('login.password'), :required => true
+  = f.input :login, :label => t('.email_or_login'), :required => true, :autofocus => true
+  = f.input :password, :label => t('.password'), :required => true
   .remember-me
     = f.input :remember_me, :as => :boolean if devise_mapping.rememberable?
-  .ldap-authentication
-    = check_box_tag :ldap_auth
-    = label_tag :ldap_Authentication 
-  -#.ldap-authentication
-    = f.input :ldap_authentication
-  -# = check_box_tag 'remember_me'
-  -# %label{:for => "remember_me"}= t('remember_me')
-  = f.button :wrapped, :value => t("login.one")
+  - if Site.current.ldap_enabled?
+    .ldap-authentication
+      .input
+        = check_box_tag :ldap_auth, '', params[:ldap_auth], :id => 'ldap_authentication'
+        = label_tag :ldap_authentication, t('.ldap_authentication')
+  = f.button :wrapped, :value => t(".login")

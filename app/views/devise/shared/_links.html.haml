@@ -1,6 +1,7 @@
 %h3= t('.other_options')
 %ul
-  %li= link_to t('.login.federation'), shibboleth_path
+  - if Site.current.shib_enabled?
+    %li= link_to t('.login.federation'), shibboleth_path
   - if controller_name != 'sessions'
     %li= link_to t('.login.default'), login_path
   - if devise_mapping.registerable? && controller_name != 'registrations'

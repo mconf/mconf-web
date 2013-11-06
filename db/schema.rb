@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131029184414) do
+ActiveRecord::Schema.define(:version => 20131105194122) do
 
   create_table "activities", :force => true do |t|
     t.integer  "trackable_id"
@@ -194,6 +194,17 @@ ActiveRecord::Schema.define(:version => 20131029184414) do
     t.datetime "processed_at"
   end
 
+  create_table "ldap_tokens", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "identifier"
+    t.text     "data"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "ldap_tokens", ["identifier"], :name => "index_ldap_tokens_on_identifier", :unique => true
+  add_index "ldap_tokens", ["user_id"], :name => "index_ldap_tokens_on_user_id", :unique => true
+
   create_table "news", :force => true do |t|
     t.string   "title"
     t.text     "text"
@@ -332,6 +343,15 @@ ActiveRecord::Schema.define(:version => 20131029184414) do
     t.string   "timezone",                       :default => "UTC"
     t.string   "external_help"
     t.boolean  "webconf_auto_record",            :default => false
+    t.boolean  "ldap_enabled"
+    t.string   "ldap_host"
+    t.integer  "ldap_port"
+    t.string   "ldap_user"
+    t.string   "ldap_user_password"
+    t.string   "ldap_user_treebase"
+    t.string   "ldap_username_field"
+    t.string   "ldap_email_field"
+    t.string   "ldap_name_field"
   end
 
   create_table "spaces", :force => true do |t|
