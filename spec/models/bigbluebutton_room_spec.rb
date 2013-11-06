@@ -105,7 +105,7 @@ describe BigbluebuttonRoom do
 
         context "with permission to record" do
           before { user.update_attributes(:can_record => true) }
-          it { should be_able_to(:record_meeting, target) }
+          it { should_not be_able_to(:record_meeting, target) }
         end
       end
 
@@ -120,7 +120,7 @@ describe BigbluebuttonRoom do
 
           context "with permission to record" do
             before { user.update_attributes(:can_record => true) }
-            it { should be_able_to(:record_meeting, target) }
+            it { should_not be_able_to(:record_meeting, target) }
           end
         end
 
@@ -149,7 +149,7 @@ describe BigbluebuttonRoom do
 
           context "with permission to record" do
             before { user.update_attributes(:can_record => true) }
-            it { should be_able_to(:record_meeting, target) }
+            it { should_not be_able_to(:record_meeting, target) }
           end
         end
 

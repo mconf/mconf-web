@@ -122,6 +122,9 @@ pt-br:
         name: "Nome"
         public: "Pública"
         repository: "Repositório de documentos"
+      user:
+        can_record: "Permitir ao usuário gravar reuniões"
+        superuser: "Administrador global"
     errors:
       models:
         private_message:

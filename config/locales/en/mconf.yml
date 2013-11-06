@@ -122,6 +122,9 @@ en:
         name: "Name"
         public: "Public"
         repository: "Document repository"
+      user:
+        can_record: "Allow this user to record meetings"
+        superuser: "Global administrator"
     errors:
       models:
         private_message:
@@ -1566,8 +1569,6 @@ en:
       change_password: "Change your password"
       click_to_edit_profile: "Click here to edit your profile"
       did_not_find_info: "Didn't find the information you were looking for?"
-      make_admin: "Make this user an administrator of this website"
-      make_recorder: "Give to this user the ability of recorder meetings"
       other_options: "Other options"
       password:
         hint: "Leave it blank if you don't want to change it"

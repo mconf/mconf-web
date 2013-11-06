@@ -89,9 +89,6 @@ module Abilities
         space.admins.include?(user)
       end
 
-      # Recording meetings
-      can :record_meeting, BigbluebuttonRoom if user.can_record
-
       # Join Requests
       # users can create unless they are already in the target space
       # TODO: make this for events also
@@ -194,14 +191,13 @@ module Abilities
       # that owns the room.
       # `:create_meeting` is a custom name, not an action that exists in the controller
       can [:end, :join_options, :create_meeting, :fetch_recordings], BigbluebuttonRoom do |room|
-        if (room.owner_type == "User" && room.owner.id == user.id)
-          true
-        elsif (room.owner_type == "Space")
-          space = Space.find(room.owner.id)
-          space.users.include?(user)
-        else
-          false
-        end
+        user_is_owner_or_belongs_to_rooms_space(user, room)
+      end
+
+      # Users can recording meetings in their rooms, but only if they have the record flag set.
+      # `:record_meeting` is a custom name, not an action that exists in the controller
+      can :record_meeting, BigbluebuttonRoom do |room|
+        user.can_record && user_is_owner_or_belongs_to_rooms_space(user, room)
       end
 
       # Currently only user rooms can be updated
@@ -246,6 +242,19 @@ module Abilities
       end
     end
 
+    # Whether `user` is the owner of `room` of belongs to the space that owns `room`.
+    def user_is_owner_or_belongs_to_rooms_space(user, room)
+      if (room.owner_type == "User" && room.owner.id == user.id)
+        true
+      elsif (room.owner_type == "Space")
+        space = Space.find(room.owner.id)
+        space.users.include?(user)
+      else
+        false
+      end
+    end
+
+    # Whether `user` owns the room that owns `recording`.
     def user_is_owner_of_recording(user, recording)
       response = false
       unless recording.room.nil?
@@ -256,6 +265,7 @@ module Abilities
       response
     end
 
+    # Whether the user is an admin of the space that owns the room that owns `recording`.
     def user_is_admin_of_recordings_space(user, recording)
       response = false
       unless recording.room.nil?
@@ -267,6 +277,7 @@ module Abilities
       response
     end
 
+    # Whether the user is a member of the space that owns the room that owns `recording`.
     def user_is_member_of_recordings_space(user, recording)
       response = false
       unless recording.room.nil?
@@ -278,6 +289,7 @@ module Abilities
       response
     end
 
+    # Whether the space that owns the room that owns `recording` is public.
     def recordings_space_is_public(recording)
       response = false
       unless recording.room.nil?
