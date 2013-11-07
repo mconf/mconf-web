@@ -108,7 +108,6 @@ group :development, :test do
   gem 'simplecov'
 end
 
-gem 'god', '0.12.1'
 gem 'passenger', '3.0.17'
 gem 'exception_notification'
 

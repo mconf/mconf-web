@@ -174,7 +174,6 @@ GEM
     garb (0.9.1)
       activesupport (>= 2.2.0)
       crack (>= 0.1.6)
-    god (0.12.1)
     gon (3.0.5)
       actionpack (>= 2.3.0)
       json
@@ -391,7 +390,6 @@ DEPENDENCIES
   friendly_id
   galetahub-simple_captcha
   garb
-  god (= 0.12.1)
   gon (= 3.0.5)
   haml
   handlebars_assets
