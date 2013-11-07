@@ -486,7 +486,6 @@ pt-br:
       ldap_authenticatable:
         invalid_bind: "Não foi possível conectar ao servidor LDAP, verifique a configuração do LDAP na página de administração"
         ldap_not_enabled: "LDAP não esta habilitado neste site"
-        login_successful: "Sucesso na autenticação via LDAP para o usuário: \"%{login}\"!"
   disable: Desabilitar
   disabled: Desabilitado
   document:

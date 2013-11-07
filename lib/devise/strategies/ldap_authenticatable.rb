@@ -5,8 +5,12 @@ module Devise
   module Strategies
     class LdapAuthenticatable < Authenticatable
 
+      def valid?
+        params[:ldap_auth]
+      end
+
       def authenticate!
-        if params[:user] and params[:ldap_auth] and ldap_enabled?
+        if params[:user] and ldap_enabled?
           Rails.logger.info "LDAP: authenticating a user"
 
           ldap_server = ldap_from_site
@@ -16,17 +20,21 @@ module Devise
           # Tries to bind to the ldap server
           if ldap.bind
             Rails.logger.info "LDAP: bind of the configured user was successful"
-            Rails.logger.info "LDAP: trying to bind the target user: #{params[:user][:login]}"
+            Rails.logger.info "LDAP: trying to bind the target user: '#{params[:user][:login]}'"
 
             # Tries to authenticate the user to the ldap server
             ldap_user = ldap.bind_as(:base => ldap_server.ldap_user_treebase, :filter => ldap_filter(ldap_server), :password => password)
             if ldap_user
               Rails.logger.info "LDAP: user successfully authenticated: #{ldap_user}"
 
-              # login or create the account
               # TODO: verify if the ldap_user has the attributes we need, otherwise return an error
+
+              # login or create the account
               user = find_or_create_user(ldap_user.first, ldap_server)
-              success!(user, I18n.t('devise.strategies.ldap_authenticatable.login_successful', :username => params[:user][:login]))
+
+              # TODO: if user model has errors, show them to the user here
+
+              success!(user)
             else
               Rails.logger.error "LDAP: authentication failed, response: #{ldap_user}"
               fail!(:invalid)
@@ -35,10 +43,6 @@ module Devise
             Rails.logger.error "LDAP: could not bind the configured user, check your configurations"
             fail!(I18n.t('devise.strategies.ldap_authenticatable.invalid_bind'))
           end
-
-        # user did not select to authenticate via ldap
-        elsif not params[:ldap_auth]
-          fail(:invalid)
 
         # ldap is not enable in the site
         elsif not ldap_enabled?
@@ -88,7 +92,7 @@ module Devise
       # Creates the internal structures for the `ldap_user` using the ldap information
       # as configured in `ldap_configs`.
       def find_or_create_user(ldap_user, ldap_configs)
-        Rails.logger.info "LDAP: logging a user in"
+        Rails.logger.info "LDAP: finding or creating user"
 
         # get the username, full name and email from the data returned by the server
         if ldap_user[ldap_configs.ldap_username_field]
@@ -117,19 +121,32 @@ module Devise
       # Searches for a LdapToken using the user email as identifier
       # Creates one token if none is found
       def find_or_create_token(id)
+        id = id.to_s
+
+        Rails.logger.info "LDAP: searching a token for email '#{id}'"
         token = LdapToken.find_by_identifier(id)
-        token = LdapToken.create!(:identifier => id) if token.nil?
+        if token.nil?
+          Rails.logger.info "LDAP: no token yet, creating one"
+          token = LdapToken.create!(:identifier => id)
+        end
         token
       end
 
       # Create the user account if there is no user with the email provided by ldap
       # Or returns the existing account with the email
       def create_account(id, username, full_name)
-        unless User.find_by_email(id)
-          Rails.logger.info "LDAP: creating a new account for email '#{id}', username '#{username}', full name: #{full_name}"
+        # we need this to make sure the values are strings and not string-like objects
+        # returned by LDAP, otherwise the user creation might fail
+        id = id.to_s
+        username = username.to_s
+        full_name = full_name.to_s
+
+        user = User.find_by_email(id)
+        unless user
+          Rails.logger.info "LDAP: creating a new account for email '#{id}', username '#{username}', full name: '#{full_name}'"
           password = SecureRandom.hex(16)
           params = {
-            :username => username,
+            :username => username.parameterize,
             :email => id,
             :password => password,
             :password_confirmation => password,
@@ -137,10 +154,9 @@ module Devise
           }
           user = User.new(params)
           user.skip_confirmation!
-          user
-        else
-          User.find_by_email(id)
+          user.save
         end
+        user
       end
 
     end

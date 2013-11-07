@@ -494,7 +494,6 @@ en:
       ldap_authenticatable:
         invalid_bind: "Unable to bind to the LDAP server, check the LDAP configuration in the website administration"
         ldap_not_enabled: "LDAP is not enabled in this website"
-        login_successful: "Succesfully authenticated with the LDAP user: \"%{username}\"!"
   disable: Disable
   disabled: Disabled
   document: 
