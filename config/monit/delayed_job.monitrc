@@ -1,16 +1,11 @@
-# Based on:
-#   https://github.com/collectiveidea/delayed_job/blob/master/contrib/delayed_job.monitrc
-#
 # Add this to your /etc/monit/monitrc
 #   include /var/www/mconf-web/current/config/monit/delayed_job.monitrc
 
-set logfile /var/www/mconf-web/current/log/delayed_job.log
-
 check process delayed_job
   with pidfile /var/www/mconf-web/current/tmp/pids/delayed_job.pid
-  start program = "/usr/bin/env RAILS_ENV=production /var/www/mconf-web/current/script/delayed_job start"
+  start program = "/bin/bash -c '/var/www/mconf-web/current/script/start_delayed_job.sh start'"
     as uid mconf and gid mconf
-  stop program = "/usr/bin/env RAILS_ENV=production /var/www/mconf-web/current/script/delayed_job stop"
+  stop program = "/bin/bash -c '/var/www/mconf-web/current/script/start_delayed_job.sh stop'"
     as uid mconf and gid mconf
   if cpu > 80% for 5 cycles then restart
   if totalmem > 200.0 MB for 5 cycles then restart

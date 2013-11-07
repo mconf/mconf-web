@@ -1,0 +1,11 @@
+# Add this to your /etc/monit/monitrc
+#   include /var/www/mconf-web/current/config/monit/resque.monitrc
+
+check process resque_worker_bigbluebutton_rails
+  with pidfile /var/www/mconf-web/current/tmp/pids/resque_worker_bigbluebutton_rails.pid
+  start program = "/bin/bash -c '/var/www/mconf-web/current/script/start_resque_workers.sh start bigbluebutton_rails'"
+    as uid mconf and gid mconf
+  stop program = "/bin/bash -c '/var/www/mconf-web/current/script/start_resque_workers.sh stop bigbluebutton_rails'"
+    as uid mconf and gid mconf
+  if totalmem is greater than 300 MB for 10 cycles then restart # eating up memory?
+  group resque_workers
