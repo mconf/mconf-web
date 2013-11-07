@@ -7,9 +7,13 @@
 # 3 or later. See the LICENSE file.
 
 # Wrapper script to run delayed_job from monit
+# Arguments:
+#   $1: (start|stop)
+# Example:
+#   start_delayed_job.sh start
 
 USER="$(id -u -n)"
-APP_PATH="$(pwd)/.."
+APP_PATH="$(dirname $0)/.."
 PATH=/home/$USER/.rbenv/bin:/home/$USER/.rbenv/shims:$PATH
 RAILS_ENV=production
 

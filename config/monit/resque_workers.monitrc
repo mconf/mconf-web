@@ -9,3 +9,8 @@ check process resque_worker_bigbluebutton_rails
     as uid mconf and gid mconf
   if totalmem is greater than 300 MB for 10 cycles then restart # eating up memory?
   group resque_workers
+
+# to restart the service when we're restarting the application via capistrano
+check file resque_workers_restart.txt with path /var/www/mconf-web/current/tmp/restart.txt
+  if changed timestamp then
+    exec "/usr/bin/monit -g resque_workers restart"
