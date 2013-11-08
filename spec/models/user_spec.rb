@@ -297,6 +297,16 @@ describe User do
       end
     end
 
+    context "when is another normal user" do
+      let(:user) { FactoryGirl.create(:user) }
+      it { should_not be_able_to_do_anything_to(target).except([:read, :current, :fellows, :select]) }
+
+      context "and the target user is disabled" do
+        before { target.disable() }
+        it { should_not be_able_to_do_anything_to(target) }
+      end
+    end
+
     context "when is a superuser" do
       let(:user) { FactoryGirl.create(:superuser) }
       it { should be_able_to(:manage, target) }
