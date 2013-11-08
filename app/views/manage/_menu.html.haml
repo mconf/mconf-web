@@ -2,14 +2,24 @@
 
 = content_for :page_menu do
   %ul
-    %li{ :class => "#{'selected' if params[:controller] == 'sites'}" }
-      = link_to t('.general'), site_path
-    %li{ :class => "#{'selected' if params[:controller] == 'manage' && params[:action] == 'spaces'}" }
-      = link_to t('.spaces'), manage_spaces_path
-    %li{ :class => "#{'selected' if params[:controller] == 'manage' && params[:action] == 'users'}" }
-      = link_to t('.users'), manage_users_path
-    %li{ :class => "#{'selected' if params[:controller] == 'manage' && params[:action] == 'spam'}" }
-      = link_to t('.spam'), manage_spam_path
-    - webconf_controllers = ['custom_bigbluebutton_servers', 'custom_bigbluebutton_rooms', 'custom_bigbluebutton_recordings']
-    %li{ :class => "#{'selected' if webconf_controllers.include?(params[:controller]) }" }
-      = link_to t('.webconf'), bigbluebutton_servers_path
+
+    - if can?(:sites, :manage)
+      %li{ :class => "#{'selected' if params[:controller] == 'sites'}" }
+        = link_to t('.general'), site_path
+
+    - if can?(:spaces, :manage)
+      %li{ :class => "#{'selected' if params[:controller] == 'manage' && params[:action] == 'spaces'}" }
+        = link_to t('.spaces'), manage_spaces_path
+
+    - if can?(:users, :manage)
+      %li{ :class => "#{'selected' if params[:controller] == 'manage' && params[:action] == 'users'}" }
+        = link_to t('.users'), manage_users_path
+
+    - if can?(:spam, :manage)
+      %li{ :class => "#{'selected' if params[:controller] == 'manage' && params[:action] == 'spam'}" }
+        = link_to t('.spam'), manage_spam_path
+
+    - if can?(:manage, BigbluebuttonServer) && can?(:manage, BigbluebuttonRoom)
+      - webconf_controllers = ['custom_bigbluebutton_servers', 'custom_bigbluebutton_rooms', 'custom_bigbluebutton_recordings']
+      %li{ :class => "#{'selected' if webconf_controllers.include?(params[:controller]) }" }
+        = link_to t('.webconf'), bigbluebutton_servers_path

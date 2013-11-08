@@ -704,6 +704,9 @@ pt-br:
     activity: "Atividade recente..."
     invite_url: "URL para convites"
     my: "Página inicial"
+    my_spaces: "Minhas comunidades"
+    my_spaces_tooltip: "Estão são as comunidades às quais você faz parte."
+    no_spaces: "Você não faz parte de nenhuma comunidade. Você pode ver as comunidades existentes <a href=\"%{link}\">aqui</a>."
     no_rooms: "Você não tem salas de webconferência."
     not_running: inativa
     one: home

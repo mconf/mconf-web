@@ -9,6 +9,14 @@ require "spec_helper"
 describe UsersController do
   render_views
 
+  describe "#index" do
+    it "loads the space"
+    it "loads the webconference room information"
+    it "sets @users to all users in the space ordered by name"
+    it "renders users/index"
+    it "renders with the layout spaces_show"
+  end
+
   describe "#show" do
     it "should display a 404 for inexisting users" do
       get :show, :id => "inexisting_user"
@@ -59,71 +67,92 @@ describe UsersController do
     end
   end
 
-  describe "#current" do
-    context ".json" do
-      context "when there's a user logged" do
-        let(:user) { FactoryGirl.create(:user) }
+  describe "#update" do
+
+    context "attributes that the user can't update" do
+
+      context "trying to update username" do
+
         before(:each) do
-          login_as(user)
-          @expected = {
-            :id => user.id, :username => user.username, :name => user.name
-          }
-          get :current, :format => :json
+          @user = FactoryGirl.create(:user)
+          sign_in @user
+
+          @old_username = @user.username
+          @new_username = FactoryGirl.generate(:username)
+
+          put :update, :id => @user.to_param, :user => { :username => @new_username }
         end
-        it { should respond_with(:success) }
-        it { should respond_with_content_type(:json) }
-        it { should assign_to(:user).with(user) }
-        it { response.body.should == @expected.to_json }
+
+        it { response.status.should == 302 }
+        it { response.should redirect_to edit_user_path(@user) }
+        it { @user.username.should_not == @new_username }
+        it { @user.username.should == @old_username }
       end
 
-      context "when there's no user logged" do
-        before(:each) { get :current, :format => :json }
-        it { should respond_with(:success) }
-        it { should respond_with_content_type(:json) }
-        it { should assign_to(:user).with(nil) }
-        it { response.body.should == {}.to_json }
+      context "trying to update email" do
+        before(:each) do
+          @user = FactoryGirl.create(:user)
+          sign_in @user
+
+          @old_email = @user.email
+          @new_email = FactoryGirl.generate(:email)
+
+          put :update, :id => @user.to_param, :user => { :email => @new_email }
+          @user.reload
+        end
+
+        it { response.status.should == 302 }
+        it { response.should redirect_to edit_user_path(@user) }
+        it { @user.email.should_not == @new_email }
+        it { @user.email.should == @old_email }
       end
     end
 
-    context ".xml" do
-      context "when there's a user logged" do
-        let(:user) { FactoryGirl.create(:user) }
+    context "attributes that the user can update" do
+      context "trying to update timezone" do
+
         before(:each) do
-          login_as(user)
-          @expected = {
-            :id => user.id, :username => user.username,
-            :name => user.name, :text => "#{user.name} (#{user.username})"
-          }
-          get :current, :format => :xml
+          @user = FactoryGirl.create(:user)
+          sign_in @user
+
+          @old_tz = @user.timezone
+          @new_tz = FactoryGirl.generate(:timezone)
+
+          put :update, :id => @user.to_param, :user => { :timezone => @new_tz }
+          @user.reload
         end
-        it { should respond_with(:success) }
-        it { should respond_with_content_type(:xml) }
-        it { should assign_to(:user).with(user) }
-        it {
-          assert_select "user" do
-            assert_select "id", {:count => 1, :text => user.id}
-            assert_select "username", {:count => 1, :text => user.username}
-            assert_select "name", {:count => 1, :text => user.name}
-          end
-        }
+
+        it { response.status.should == 302 }
+        it { response.should redirect_to edit_user_path(@user) }
+        it { @user.timezone.should_not == @old_tz }
+        it { @user.timezone.should == @new_tz }
       end
 
-      context "when there's no user logged" do
-        before(:each) { get :current, :format => :xml }
-        it { should respond_with(:success) }
-        it { should respond_with_content_type(:xml) }
-        it { should assign_to(:user).with(nil) }
-        it {
-          assert_select "user" do
-            assert_select "id", false
-            assert_select "username", false
-            assert_select "name", false
-          end
-        }
+      context "trying to update notifications" do
+
+        before(:each) do
+          @user = FactoryGirl.create(:user)
+          sign_in @user
+
+          @old_not = @user.notification
+          @new_not = @user.notification == User::RECEIVE_DIGEST_DAILY ? User::RECEIVE_DIGEST_WEEKLY : User::RECEIVE_DIGEST_DAILY
+
+          put :update, :id => @user.to_param, :user => { :notification => @new_not }
+          @user.reload
+        end
+
+        it { response.status.should == 302 }
+        it { response.should redirect_to edit_user_path(@user) }
+        it { @user.notification.should_not == @old_not }
+        it { @user.notification.should == @new_not }
       end
+
     end
 
   end
+
+  it "#destroy"
+  it "#enable"
 
   describe "#select" do
     context ".json" do
@@ -247,86 +276,68 @@ describe UsersController do
     end
   end
 
-  describe "#update" do
-
-    context "attributes that the user can't update" do
-
-      context "trying to update username" do
-
+  describe "#current" do
+    context ".json" do
+      context "when there's a user logged" do
+        let(:user) { FactoryGirl.create(:user) }
         before(:each) do
-          @user = FactoryGirl.create(:user)
-          sign_in @user
-
-          @old_username = @user.username
-          @new_username = FactoryGirl.generate(:username)
-
-          put :update, :id => @user.to_param, :user => { :username => @new_username }
+          login_as(user)
+          @expected = {
+            :id => user.id, :username => user.username, :name => user.name
+          }
+          get :current, :format => :json
         end
-
-        it { response.status.should == 302 }
-        it { response.should redirect_to edit_user_path(@user) }
-        it { @user.username.should_not == @new_username }
-        it { @user.username.should == @old_username }
+        it { should respond_with(:success) }
+        it { should respond_with_content_type(:json) }
+        it { should assign_to(:user).with(user) }
+        it { response.body.should == @expected.to_json }
       end
 
-      context "trying to update email" do
-        before(:each) do
-          @user = FactoryGirl.create(:user)
-          sign_in @user
-
-          @old_email = @user.email
-          @new_email = FactoryGirl.generate(:email)
-
-          put :update, :id => @user.to_param, :user => { :email => @new_email }
-          @user.reload
-        end
-
-        it { response.status.should == 302 }
-        it { response.should redirect_to edit_user_path(@user) }
-        it { @user.email.should_not == @new_email }
-        it { @user.email.should == @old_email }
+      context "when there's no user logged" do
+        before(:each) { get :current, :format => :json }
+        it { should respond_with(:success) }
+        it { should respond_with_content_type(:json) }
+        it { should assign_to(:user).with(nil) }
+        it { response.body.should == {}.to_json }
       end
     end
 
-    context "attributes that the user can update" do
-      context "trying to update timezone" do
-
+    context ".xml" do
+      context "when there's a user logged" do
+        let(:user) { FactoryGirl.create(:user) }
         before(:each) do
-          @user = FactoryGirl.create(:user)
-          sign_in @user
-
-          @old_tz = @user.timezone
-          @new_tz = FactoryGirl.generate(:timezone)
-
-          put :update, :id => @user.to_param, :user => { :timezone => @new_tz }
-          @user.reload
+          login_as(user)
+          @expected = {
+            :id => user.id, :username => user.username,
+            :name => user.name, :text => "#{user.name} (#{user.username})"
+          }
+          get :current, :format => :xml
         end
-
-        it { response.status.should == 302 }
-        it { response.should redirect_to edit_user_path(@user) }
-        it { @user.timezone.should_not == @old_tz }
-        it { @user.timezone.should == @new_tz }
+        it { should respond_with(:success) }
+        it { should respond_with_content_type(:xml) }
+        it { should assign_to(:user).with(user) }
+        it {
+          assert_select "user" do
+            assert_select "id", {:count => 1, :text => user.id}
+            assert_select "username", {:count => 1, :text => user.username}
+            assert_select "name", {:count => 1, :text => user.name}
+          end
+        }
       end
 
-      context "trying to update notifications" do
-
-        before(:each) do
-          @user = FactoryGirl.create(:user)
-          sign_in @user
-
-          @old_not = @user.notification
-          @new_not = @user.notification == User::RECEIVE_DIGEST_DAILY ? User::RECEIVE_DIGEST_WEEKLY : User::RECEIVE_DIGEST_DAILY
-
-          put :update, :id => @user.to_param, :user => { :notification => @new_not }
-          @user.reload
-        end
-
-        it { response.status.should == 302 }
-        it { response.should redirect_to edit_user_path(@user) }
-        it { @user.notification.should_not == @old_not }
-        it { @user.notification.should == @new_not }
+      context "when there's no user logged" do
+        before(:each) { get :current, :format => :xml }
+        it { should respond_with(:success) }
+        it { should respond_with_content_type(:xml) }
+        it { should assign_to(:user).with(nil) }
+        it {
+          assert_select "user" do
+            assert_select "id", false
+            assert_select "username", false
+            assert_select "name", false
+          end
+        }
       end
-
     end
 
   end
