@@ -30,6 +30,7 @@ en:
         ldap_email_field: "Specifies which attribute returned by LDAP will be used to obtain the email of a user (e.g.: 'mail')"
         ldap_name_field: "Specifies which attribute returned by LDAP will be used to obtain the full name of a user (e.g.: 'cn')"
         presence_domain: "Domain used to identify the XMPP server."
+        require_registration_approval: "When checked, users will be able to register new accounts, but they will only be allowed to access the site once an administrator approves his account. Otherwise the users can freely access the website after registration. Be aware that if there are pending approvals and you uncheck this flag, these users will not be automatically approved!"
         shib_email_field: "When a user authenticates in a Shibboleth service provider this field will be used to obtain the user's email. Example: Shib-inetOrgPerson-mail"
         shib_name_field: "When a user authenticates in a Shibboleth service provider this field will be used to obtain the user's name. Example: Shib-inetOrgPerson-sn"
         smtp_login: "The login email to your SMTP server"

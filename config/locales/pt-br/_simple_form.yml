@@ -29,6 +29,7 @@ pt-br:
         ldap_username_field: "Especifica qual atributo retornado pelo LDAP será utilizado para obter o nome de usuário (ou 'username') de um usuário (e.g.: 'uid')"
         ldap_email_field: "Especifica qual atributo retornado pelo LDAP será utilizado para obter o e-mail de um usuário (e.g.: 'mail')"
         ldap_name_field: "Especifica qual atributo retornado pelo LDAP será utilizado para obter o nome completo de um usuário (e.g.: 'cn')"
+        require_registration_approval: "Se selecionado, usuários poderão cadastrar novas contas, mas só poderão acessar o site depois que um administrador aprove sua conta. Caso contrário usuários podem acessar o site automaticamente após o registro. Note que se existem usuários ainda não aprovados e você remover a seleção desta opção, estes usuários não serão aprovados automaticamente!"
         presence_domain: "Domínio usado para identificar o servidor XMPP."
         shib_email_field: "Quando um usuário se autentica em provedor de serviços Shibboleth este campo será utilizado para obter o e-mail do usuário. Exemplo: Shib-inetOrgPerson-mail"
         shib_name_field: "Quando um usuário se autentica em provedor de serviços Shibboleth este campo será utilizado para obter o nome do usuário. Exemplo: Shib-inetOrgPerson-sn"

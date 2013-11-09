@@ -30,7 +30,7 @@ class User < ActiveRecord::Base
   end
 
   attr_accessible :email, :password, :password_confirmation, :remember_me,
-                  :login, :username
+                  :login, :username, :approved
   # TODO: block :username from being modified after registration
   # attr_accessible :username, :as => :create
 
@@ -63,8 +63,6 @@ class User < ActiveRecord::Base
     in_space_rooms = t[:owner_id].in(space_rooms).and(t[:owner_type].eq('BigbluebuttonRoom'))
     RecentActivity.where(in_spaces.or(in_room).or(in_space_rooms))
   end
-
-###
 
   apply_simple_captcha
 
@@ -111,6 +109,8 @@ class User < ActiveRecord::Base
 
   after_create :create_webconf_room
   after_update :update_webconf_room
+
+  before_create :automatically_approve_if_needed
 
   default_scope :conditions => {:disabled => false}
 
@@ -294,4 +294,30 @@ class User < ActiveRecord::Base
     PrivateMessage.inbox(self).select{|msg| !msg.checked}
   end
 
+  # Automatically approves the user if the current site is not requiring approval
+  # on registration.
+  def automatically_approve_if_needed
+    self.approved = true unless Site.current.require_registration_approval?
+  end
+
+  # Sets the user as approved
+  def approve!
+    self.update_attributes(:approved => true)
+  end
+
+  # Overrides a method from devise, see:
+  # https://github.com/plataformatec/devise/wiki/How-To%3a-Require-admin-to-activate-account-before-sign_in
+  def active_for_authentication?
+    super && (!Site.current.require_registration_approval? || approved?)
+  end
+
+  # Overrides a method from devise, see:
+  # https://github.com/plataformatec/devise/wiki/How-To%3a-Require-admin-to-activate-account-before-sign_in
+  def inactive_message
+    if !approved? && Site.current.require_registration_approval?
+      :not_approved
+    else
+      super # Use whatever other message
+    end
+  end
 end

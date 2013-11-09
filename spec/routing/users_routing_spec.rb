@@ -21,5 +21,6 @@ describe UsersController do
     it { should route(:post, "/users/u1/enable").to(:action => :enable, :id => "u1") }
     it { should_not route(:get, "/users/new").to(:action => :new) }
     it { should_not route(:post, "/users").to(:action => :create) }
+    it { should route(:post, "/users/u1/approve").to(:action => :approve, :id => "u1") }
   end
 end

@@ -107,6 +107,7 @@ pt-br:
         locale: "Idioma"
         name: "Nome"
         presence_domain: "Domínio do bate-papo XMPP"
+        require_registration_approval: "Requerer que administradores aceitem novas contas"
         signature: "Assinatura"
         shib_enabled: "Habilitar Shibboleth"
         shib_email_field: "Campo Shibboleth para email"
@@ -473,6 +474,11 @@ pt-br:
   description: Descrição
   destroy: Destruir
   devise:
+    failure:
+      user:
+        not_approved: 'Sua conta ainda não foi aprovada por um administrador.'
+    registrations:
+      signed_up_but_not_approved: 'Seu registro foi feito com sucesso, mas você ainda precisa ser aprovado por um administrador para acessar o site'
     shared:
       links:
         login:
@@ -880,6 +886,9 @@ pt-br:
       preview: "Pré-visualização"
   logout: Sair
   manage:
+    enabled_user:
+      approve: "Aprovar"
+      approve_confirm: "Tem certeza que deseja permitir que este usuário acesse o site?"
     menu:
       general: "Geral"
       spaces: "Comunidades"
@@ -1600,6 +1609,9 @@ pt-br:
     vcc_email: "E-mail do usuário Mconf %{dir}"
     view_expanded_posts: "Mostrar mensagens no mural com a visão expandida por padrão"
   users:
+    approve:
+      approved: "O usuário %{username} foi aprovado para acessar este site!"
+      not_enabled: "A aprovação de registros não está habilitada neste site"
     detailed_user:
       from: "De:"
     edit:

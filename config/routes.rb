@@ -122,6 +122,7 @@ Mconf::Application.routes.draw do
     end
     member do
       post :enable
+      post :approve
     end
 
     resource :profile, :except => [:new, :create]

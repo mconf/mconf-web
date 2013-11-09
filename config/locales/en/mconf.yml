@@ -107,6 +107,7 @@ en:
         locale: "Language"
         name: "Name"
         presence_domain: "XMPP Chat Domain"
+        require_registration_approval: "Require admins to approve new registrations"
         signature: "Signature"
         shib_enabled: "Enable Shibboleth"
         shib_email_field: "Shibboleth field for email"
@@ -481,6 +482,11 @@ en:
   description: Description
   destroy: Destroy
   devise:
+    failure:
+      user:
+        not_approved: 'Your account has not been approved by an administrator yet.'
+    registrations:
+      signed_up_but_not_approved: 'You have signed up successfully but your account has still to be approved by an administrator'
     shared:
       links:
         login:
@@ -890,6 +896,9 @@ en:
       preview: "Preview"
   logout: Logout
   manage:
+    enabled_user:
+      approve: "Approve"
+      approve_confirm: "Are you sure you want to allow this user to access the website?"
     menu:
       general: "General"
       spaces: "Spaces"
@@ -1648,6 +1657,9 @@ en:
     vcc_email: "Mconf user e-mail %{dir}"
     view_expanded_posts: "Show messages in wall with the expanded view by default"
   users:
+    approve:
+      approved: "The user %{username} was approved to access the website!"
+      not_enabled: "Approval of registrations is not enabled in this website"
     detailed_user:
       from: "From:"
     edit:

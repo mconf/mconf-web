@@ -199,6 +199,10 @@ module IconsHelper
     icon_constructor nil, "icon-awesome icon-level-up icon-rotate-90 icon-mconf-nested-child", options
   end
 
+  def icon_approve(options={})
+    icon_constructor nil, "icon-awesome icon-check-sign icon-mconf-approve", options
+  end
+
   private
 
   # Base method for most of the methods above

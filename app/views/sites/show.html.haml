@@ -41,5 +41,6 @@
     = f.input :presence_domain, :disabled => true
     = f.input :xmpp_server, :disabled => true
     = f.input :external_help, :disabled => true
+    = f.input :require_registration_approval, :as => :boolean, :disabled => true
   .form-actions
     = link_to t('_other.edit'), edit_site_path, :class => "btn btn-primary"

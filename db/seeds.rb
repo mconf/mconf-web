@@ -69,6 +69,7 @@ profile = params.delete(:profile_attributes)
 
 u = User.new params
 u.skip_confirmation!
+u.approved = true
 if u.save(:validation => false)
   u.profile.update_attributes(profile.to_hash) unless profile.nil?
 else
