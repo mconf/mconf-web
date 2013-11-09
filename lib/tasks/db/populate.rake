@@ -42,6 +42,7 @@ namespace :db do
       user.disabled = false
       user.notification = User::NOTIFICATION_VIA_EMAIL
       user.encrypted_password = "123"
+      user.approved = rand(0) < 0.8 # ~20% marked as not approved
 
       Profile.populate 1 do |profile|
         profile.user_id = user.id
