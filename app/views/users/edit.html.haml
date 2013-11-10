@@ -16,13 +16,13 @@
 
     #account-info
       %h3= t('user.edit.account_info')
-      = f.input :email, :label => t('user.email'), :required => false, :disabled => true
-      = f.input :username, :label => t('user.id'), :required => false, :disabled => true
+      = f.input :email, :required => false, :disabled => true
+      = f.input :username, :required => false, :disabled => true
 
     #change-password
       %h3= t('user.edit.change_password')
-      = f.input :password, :autocomplete => "off", :label => t('user.password'), :placeholder => t('user.edit.password.hint'), :required => false
-      = f.input :password_confirmation, :label => t('user.password_confirmation'), :required => false
+      = f.input :password, :autocomplete => "off", :placeholder => t('user.edit.password.hint'), :required => false
+      = f.input :password_confirmation, :required => false
       = f.input :current_password
 
   .right-column

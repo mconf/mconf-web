@@ -6,7 +6,7 @@
 @import "app/application/footer_simple";
 
 $navbar-height: auto;
-$login-box-width: 400px;
+$login-box-width: $contents-width / 2 - 40px; // looks better if smaller than half the page
 $registration-box-width: $contents-width - $login-box-width - 40px;
 $bg-normal: darken($green-logo, 3);
 
@@ -55,10 +55,11 @@ $bg-normal: darken($green-logo, 3);
     }
 
     input[type=text], input[type=password], input[type=email] {
-      width: 250px;
+      width: 200px;
     }
 
-    abbr[title=required] { display: none; }
+    // hide the '*' for required fields
+    abbr { display: none; }
 
     .hint {
       float: right;
@@ -66,6 +67,10 @@ $bg-normal: darken($green-logo, 3);
       margin-top: 5px;
       margin-bottom: 10px;
     }
+  }
+
+  .add-on {
+    font-size: $font-normal;
   }
 
   .form-actions {

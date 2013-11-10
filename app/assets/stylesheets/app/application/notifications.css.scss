@@ -36,16 +36,17 @@
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
 }
 
+// alert or notice messages
 .noty_bar.noty_alert {
-  $notif-notice-bg: #D9EDF7; //yellow: #FCF8E3; //#666;
+  $notif-notice-bg: #D9EDF7;
   background-color: $notif-notice-bg;
   color: #3A87AD;
-  //yellow: color: #C09853;
   @include box-shadow(0 1px 5px 0 darken($notif-notice-bg, 15));
   border-bottom-width: 1px;
   border-color: darken($notif-notice-bg, 15);
 }
 
+// error messages
 .noty_bar.noty_error {
   $notif-error-bg: #F2DEDE;
   background-color: $notif-error-bg;
@@ -55,6 +56,7 @@
   border-color: darken($notif-error-bg, 15);
 }
 
+// success messages
 .noty_bar.noty_success {
   $notif-success-bg: #DFF0D8; //#2c8000 //#3AA900;
   background-color: $notif-success-bg;

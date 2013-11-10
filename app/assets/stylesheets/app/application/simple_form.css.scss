@@ -55,8 +55,8 @@
       top: -8px;
       left: 5px;
     }
-    // focusing or hovering shows the hint
-    &:hover .hint, *:focus ~ .hint { display: block; }
+    // hovering the label inside the input shows the hint
+    label:hover ~ .hint { display: block; }
 
     // add a nice icon to fields that have a hint
     &.field_with_hint {
@@ -66,7 +66,8 @@
       background-width: 12px;
       background-height: 12px;
       label {
-        margin-left: 18px;
+        padding-left: 18px;
+        input { margin-left: 0; } // for checkboxes mainly
       }
     }
   }

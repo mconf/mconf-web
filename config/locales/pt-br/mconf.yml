@@ -133,8 +133,13 @@ pt-br:
         public: "Pública"
         repository: "Repositório de documentos"
       user:
+        _full_name: "Nome completo"
         can_record: "Permitir ao usuário gravar reuniões"
+        email: "E-mail"
+        password: "Senha"
+        password_confirmation: "Confirmação de senha"
         superuser: "Administrador global"
+        username: "ID"
     errors:
       models:
         private_message:
@@ -837,7 +842,7 @@ pt-br:
       inbox: "Caixa de entrada"
       login: "Login"
       manage: "Gerenciar"
-      register: "Registro"
+      register: "Registre-se"
     footer:
       copyright: "© 2010-2013 %{site}."
       current_version: "Versão atual"
@@ -1149,6 +1154,9 @@ pt-br:
   register_as_invited: "Registe-se como convidado"
   register_as_user: "Registe-se como usuário"
   register_now: "Registe-se agora!"
+  registrations:
+    signup_form:
+      register: "Registre-se"
   remember_me: "Lembrar de mim"
   remove: Remover
   reply: Responder
@@ -1521,7 +1529,6 @@ pt-br:
     timezone: "Ao selecionar o seu fuso horário não haverá equívoco ao criar eventos com pessoas de outros países"
     upcoming: "Esta seção mostra os próximos eventos nesta comunidade"
     update_logo: "Você pode enviar o seu próprio logotipo, criar um logotipo de texto ou selecionar uma imagem da galeria"
-    user_id: "Este nome será utilizado para identificar o seu usuário e a sua sala de webconferência. Use apenas letras, números e hifens."
     vcard: "vCard é um formato de arquivo padrão para cartões eletrônicos"
     vclass: "O tipo Classe Virtual é a maneira perfeita para organizar aulas, conferências e seminários, onde o professor assume um papel de destaque."
     vcongress: "O tipo Congresso Virtual é muito parecido com o tipo Reunião Virtual, mas voltado para eventos maiores, tanto em tamanho quanto em complexidade. Normalmente, este tipo requer o apoio de um operador local."
@@ -1556,16 +1563,13 @@ pt-br:
       click_to_edit_profile: "Clique aqui para editar o seu perfil"
       did_not_find_info: "Não encontrou a informação que estava procurando?"
     edit_account: "Editar sua conta"
-    email: E-mail
     email_used_to_create_account: "Digite o endereço de e-mail que você usou para criar a sua conta"
     enable: "Habilitar usuário"
     enabled: "Usuário habilitado com sucesso. O usuário atualmente não pertence a nenhuma comunidade, e terá que aderir às comunidades novamente."
     error:
       enabled: "Usuário %{name} já está habilitado"
     filter: "Convidar por nome de usuário"
-    full_name: "Nome completo"
     group_invite_email: "Convidar por e-mail"
-    id: "ID do Usuário"
     include_registered: "Incluir usuários registrados"
     invite: "Convidar pessoas"
     invite_email: "Convide pessoas por e-mail"
@@ -1583,8 +1587,6 @@ pt-br:
     notifications: "Como você deseja receber as notificações?"
     one: Usuário
     other: Usuários
-    password: Senha
-    password_confirmation: "Confirmação de senha"
     private_message: "Enviar Mensagem"
     receive_digest:
       daily: Diariamente
@@ -1628,7 +1630,6 @@ pt-br:
     use: "Use seu vCard"
   vcc: Mconf
   vcc_mail_label: "[Mconf]"
-  vcc_registration: "Registro Mconf"
   version:
     new: "Nova versão"
     one: Versão

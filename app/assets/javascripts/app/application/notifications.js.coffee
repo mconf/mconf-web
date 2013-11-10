@@ -17,10 +17,10 @@ class mconf.Notification
   @bind: ->
     $("div[name='error'], div[name='alert']", "#notification-flashs").each ->
       showNotification(this, "error")
-    $("#notification-flashs > div[name='success']").each ->
+    # notice messages are usually success messages in form updates, so consider them
+    # always as success
+    $("div[name='success'], div[name='notice']", "#notification-flashs").each ->
       showNotification(this, "success")
-    $("#notification-flashs > div[name='notice']").each ->
-      showNotification(this, "notice")
 
   # Adds a new notification of type `type` to the page.
   # `type` can be "success", "error", or "notice".

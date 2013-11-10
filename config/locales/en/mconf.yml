@@ -133,8 +133,13 @@ en:
         public: "Public"
         repository: "Document repository"
       user:
+        _full_name: "Full name"
         can_record: "Allow this user to record meetings"
+        email: "Email"
+        password: "Password"
+        password_confirmation: "Password confirmation"
         superuser: "Global administrator"
+        username: "Username"
     errors:
       models:
         private_message:
@@ -1167,6 +1172,9 @@ en:
   register_as_invited: "Register as invited"
   register_as_user: "Register as user"
   register_now: "Register now!"
+  registrations:
+    signup_form:
+      register: "Register"
   remember_me: "Remember me"
   remove: Remove
   reply: Reply
@@ -1559,7 +1567,6 @@ en:
     timezone: "By selecting your time-zone there will be no misunderstanding when creating events with people from other countries"
     upcoming: "This section shows the next events in this space"
     update_logo: "You can update your own logo, create a text logo or select an image from the gallery"
-    user_id: "This ID will be used to identify your user and your webconference room. Use only letters, numbers and dashes."
     vcard: "vCard is a file format standard for electronic business cards"
     vclass: "The virtual class type is the perfect way to organise classes, conferences and seminars, where the teacher assumes a prominent role."
     vcongress: "The  Virtual congress type is very similar to the virtual meeting but geared for larger events, both in size and complexity. Usually, this type requires the support of an onsite operator."
@@ -1601,16 +1608,13 @@ en:
         hint: "Leave it blank if you don't want to change it"
       yes_cancel_account: "Yes, cancel my account"
     edit_account: "Edit your account"
-    email: Email
     email_used_to_create_account: "Enter the email address you used to create your account"
     enable: "Enable user"
     enabled: "User successfully enabled. The user currently belongs to no space, and will have to join spaces again."
     error: 
       enabled: "User %{name} is already enabled"
     filter: "Invite by user name"
-    full_name: "Full name"
     group_invite_email: "Invite by e-mail"
-    id: "User ID"
     include_registered: "Include registered users"
     index: 
       user_list: 
@@ -1631,8 +1635,6 @@ en:
     notifications: "How do you want to receive your notifications?"
     one: User
     other: Users
-    password: Password
-    password_confirmation: "Password confirmation"
     private_message: "Send Message"
     receive_digest: 
       daily: "Every day"
@@ -1676,7 +1678,6 @@ en:
     use: "Use your vCard"
   vcc: Mconf
   vcc_mail_label: "[Mconf]"
-  vcc_registration: "Mconf Registration"
   version: 
     new: "New version"
     one: Version
