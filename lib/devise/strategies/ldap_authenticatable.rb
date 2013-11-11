@@ -10,27 +10,27 @@ module Devise
       end
 
       def authenticate!
-        if params[:user] and ldap_enabled?
+        if ldap_enabled? and params[:user]
           Rails.logger.info "LDAP: authenticating a user"
 
-          ldap_server = ldap_from_site
-          ldap = ldap_connection(ldap_server)
-          ldap.auth ldap_server.ldap_user, ldap_server.ldap_user_password
+          configs = ldap_configs
+          ldap = ldap_connection(configs)
+          ldap.auth configs.ldap_user, configs.ldap_user_password
 
           # Tries to bind to the ldap server
           if ldap.bind
             Rails.logger.info "LDAP: bind of the configured user was successful"
-            Rails.logger.info "LDAP: trying to bind the target user: '#{params[:user][:login]}'"
+            Rails.logger.info "LDAP: trying to bind the target user: '#{login_from_params}'"
 
             # Tries to authenticate the user to the ldap server
-            ldap_user = ldap.bind_as(:base => ldap_server.ldap_user_treebase, :filter => ldap_filter(ldap_server), :password => password)
+            ldap_user = ldap.bind_as(:base => configs.ldap_user_treebase, :filter => ldap_filter(configs), :password => password_from_params)
             if ldap_user
               Rails.logger.info "LDAP: user successfully authenticated: #{ldap_user}"
 
               # TODO: verify if the ldap_user has the attributes we need, otherwise return an error
 
               # login or create the account
-              user = find_or_create_user(ldap_user.first, ldap_server)
+              user = find_or_create_user(ldap_user.first, configs)
 
               # TODO: if user model has errors, show them to the user here
 
@@ -53,39 +53,39 @@ module Devise
         end
       end
 
-       # Returns the login provided by user
-      def login
+      # Returns the login provided by user
+      def login_from_params
         params[:user][:login]
       end
 
       # Returns the password provided by user
-      def password
+      def password_from_params
         params[:user][:password]
       end
 
-      # Returns the current Site so we can get the ldap variables
-      def ldap_from_site
+      # Returns the model that stores the configurations for LDAP
+      def ldap_configs
         Site.current
       end
 
       # Returns the filter to bind the user
       def ldap_filter(ldap)
-        Net::LDAP::Filter.eq(ldap.ldap_username_field, login)
+        Net::LDAP::Filter.eq(ldap.ldap_username_field, login_from_params)
       end
 
      # Returns true if the ldap is enabled in Mconf Portal
       def ldap_enabled?
-        ldap_from_site.ldap_enabled?
+        ldap_configs.ldap_enabled?
       end
 
-      # Creates the ldap variable to connect to ldap server
-      # port 636 means LDAPS, so whe use encryption (simple_tls)
-      # else there is no security (usually port 389)
-      def ldap_connection(ldap)
-        if ldap.ldap_port == 636
-          Net::LDAP.new(:host => ldap.ldap_host, :port => ldap.ldap_port, :encryption => :simple_tls)
+      # Creates the ldap variable to connect to ldap server.
+      # Port 636 means LDAPS, so whe use encryption (simple_tls).
+      # Otherwise there is no security (usually port 389).
+      def ldap_connection(configs)
+        if configs.ldap_port == 636
+          Net::LDAP.new(:host => configs.ldap_host, :port => configs.ldap_port, :encryption => :simple_tls)
         else
-          Net::LDAP.new(:host => ldap.ldap_host, :port => ldap.ldap_port)
+          Net::LDAP.new(:host => configs.ldap_host, :port => configs.ldap_port)
         end
       end
 
