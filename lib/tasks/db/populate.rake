@@ -69,7 +69,7 @@ namespace :db do
         user.create_bigbluebutton_room :owner => user,
                                        :server => BigbluebuttonServer.default,
                                        :param => user.username,
-                                       :name => user.login
+                                       :name => user.username
       end
       # set the password this way so that devise makes the encryption
       unless user == User.first # except for the admin
