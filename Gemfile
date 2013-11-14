@@ -108,7 +108,6 @@ group :development, :test do
   gem 'simplecov'
 end
 
-gem 'passenger', '3.0.17'
 gem 'exception_notification'
 
 # Rails 3.1 - Heroku
