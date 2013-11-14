@@ -8,9 +8,19 @@
          notifempty
 }
 
-/var/www/mconf-web/current/log/*delayed_job*.log {
+/var/www/mconf-web/current/log/delayed_job.log {
          weekly
-         size 50k
+         size 20M
+         copytruncate
+         rotate 10
+         compress
+         missingok
+         notifempty
+}
+
+/var/www/mconf-web/current/log/resque_worker_*.log {
+         weekly
+         size 20M
          copytruncate
          rotate 10
          compress
