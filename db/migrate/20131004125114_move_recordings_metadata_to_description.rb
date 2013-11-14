@@ -5,7 +5,7 @@ class MoveRecordingsMetadataToDescription < ActiveRecord::Migration
     BigbluebuttonRecording.all.each do |rec|
       title = rec.metadata.where(:name => 'mconfweb-title').first
       description = rec.metadata.where(:name => 'mconfweb-description').first
-      if rec.description.blank?
+      if rec.description.blank? && !title.nil? && !description.nil?
         rec.update_attribute(:description, "#{title.content}: #{description.content}")
       end
     end
