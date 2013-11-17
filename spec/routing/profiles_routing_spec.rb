@@ -17,13 +17,5 @@ describe ProfilesController do
     it { { :post => '/users/u1/profile' }.should_not be_routable }
     it { { :get => '/spaces/s1/users/u1/profile/new' }.should_not be_routable }
     it { { :post => '/spaces/s1/users/u1/profile' }.should_not be_routable }
-
-    # TODO: these routes are added by station but are not necessary
-    it {
-      pending("useless route added by station")
-      { :get => '/profiles/new' }.should_not be_routable }
-    it {
-      pending("useless route added by station")
-      { :post => '/profiles' }.should_not be_routable }
   end
 end

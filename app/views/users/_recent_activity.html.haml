@@ -10,26 +10,10 @@
   .content-block-header
     %h3= t('recent.activity')
     = icon_info t('recent_activity.tooltip')
-    -# TODO: enable these options below
-    -# #recent-activity-options
-    -#   = t('show') + ":"
-    -#   = home_menu_checkbox "posts"
-    -#   = label_tag t('post.other')
-    -#   = home_menu_checkbox "events"
-    -#   = label_tag t('event.other')
-    -#   = home_menu_checkbox "news"
-    -#   = label_tag t('news.other')
-    -#   = home_menu_checkbox "attachments"
-    -#   = label_tag t('attachment.other')
-    -#   - [15, 30, 50].each do |per_page|
-    -#     = link_to_unless items_per_page.to_i == per_page, per_page, path_for_home(:per_page => per_page)
-    -#   = t('per_page')
 
   #users-recent-activity-content.content-block-middle
     = render "users/recent_activity_content", :content => content, :paginate => false
 
-
-  -# TODO: use js to change the pages
   - if not content.empty? and paginate
     .content-block-footer
       = page_navigation_links content

@@ -22,11 +22,6 @@ describe Event do
 
   it { should have_many(:participants).dependent(:destroy) }
 
-  it "acts_as_resource"
-  it "acts_as_container"
-  it "acts_as_taggable"
-  it "acts_as_content"
-
   it { should respond_to(:mails) }
   it { should respond_to(:"mails=") }
 

@@ -15,7 +15,7 @@
     #add_new_doc
       %h1
         = t("document.upload")
-      = form_for(prepare_for_form(@attachment || Attachment.new), :html => { :multipart => true }) do |f|
+      = form_for([@space, prepare_for_form(@attachment || Attachment.new)], :html => { :multipart => true }) do |f|
         .new_doc_content
           #cabinet
             = f.file_field :uploaded_data, :id => "upload_field", :class => "file_1", :size => "15"
@@ -27,9 +27,9 @@
             = select(:attachment, :_tags, @space.tags.map{ |u| u.name }, {}, {:multiple => "multiple"})
         .new_doc_content
           %span
-            = check_box_tag "add_post", "with_post", attachment.post_title.present? || attachment.post_text.present?
+            = check_box_tag "add_post", "with_post", @attachment.post_title.present? || @attachment.post_text.present?
             = t('attachment.upload_with_post')
-          #with_post{ :style => ("display:none" if !(attachment.post_title.present? || attachment.post_text.present?)) }
+          #with_post{ :style => ("display:none" if !(@attachment.post_title.present? || @attachment.post_text.present?)) }
             = f.label :post_title, t('title')
             = f.text_field :post_title
             = f.label :post_text, t('text')

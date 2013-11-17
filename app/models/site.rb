@@ -7,8 +7,6 @@
 
 class Site < ActiveRecord::Base
 
-  acts_as_stage
-
   # Returns the current (default) site
   def self.current
     first || create

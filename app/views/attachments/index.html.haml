@@ -4,10 +4,10 @@
 
 = content_for :sidebar do
   .tag_filter_wrapper
-  - if attachment.errors.any?
-    = render :partial => 'upload_form'
-  - else
-    #doc_action
+  -# - if attachment.errors.any?
+  -#   = render :partial => 'upload_form'
+  -# - else
+  #doc_action
 #enable_javascript
   = t('repository.need_javascript')
 #doc_repository

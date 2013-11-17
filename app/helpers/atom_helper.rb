@@ -11,7 +11,7 @@ module AtomHelper
   # will link to current request_uri + .atom
   #
   # You can pass url arguments
-  #   atom_link(current_container, Content.new)
+  #   atom_link(current_site, Content.new)
   #
   # You must have <tt>yield(:headers)</tt> in your layout for using this helper method
   def atom_link_header(*args)

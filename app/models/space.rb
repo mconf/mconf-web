@@ -139,7 +139,7 @@ class Space < ActiveRecord::Base
   end
 
   # Checks to see if 'user' has the role 'options[:name]' in this space
-  def role_for? user, options ={}
+  def role_for?(user, options={})
     p = permissions.find_by_user_id(user)
     users.include?(user) && options[:name] == Role.find(p.role_id).name
   end

@@ -126,12 +126,6 @@ Mconf::Application.routes.draw do
     end
 
     resource :profile, :except => [:new, :create]
-
-    resource :avatar do
-      member do
-        post :precrop
-      end
-    end
   end
 
   # Routes specific for the current user
@@ -158,11 +152,12 @@ Mconf::Application.routes.draw do
     end
   end
 
+  resources :tags
+
   # The unique Site is created in db/seeds and can only be edited
   resource :site, :only => [:show, :edit, :update]
 
   # Management routes
-
   ['users', 'spaces', 'spam'].each do |resource|
     match "/manage/#{resource}", :to => "manage##{resource}", :as => "manage_#{resource}"
   end

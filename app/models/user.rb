@@ -245,14 +245,6 @@ class User < ActiveRecord::Base
     self.update_attribute(:disabled,false)
   end
 
-  # Use profile.logo for users logo when present
-  def logo_image_path_with_logo(options = {})
-    logo.present? ?
-      logo.logo_image_path(options) :
-      logo_image_path_without_logo(options)
-  end
-  alias_method_chain :logo_image_path, :logo
-
   def fellows(name=nil, limit=nil)
     limit = limit || 5            # default to 5
     limit = 50 if limit.to_i > 50 # no more than 50

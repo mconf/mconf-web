@@ -7,8 +7,6 @@
 
 
 class AttachmentsController < ApplicationController
-  include ActionController::StationResources
-
   before_filter :space!
   before_filter :webconf_room!
   before_filter :except => [ :new, :edit ]
@@ -87,6 +85,139 @@ class AttachmentsController < ApplicationController
     end
   end
 
+
+  # TODO: code below taken from station's ActionController::StationResources
+
+  # Show this Content
+  #
+  #   GET /resources/1
+  #   GET /resources/1.xml
+  def show
+    if params[:version] && resource.respond_to?(:versions)
+      resource.revert_to(params[:version].to_i)
+    end
+
+    if params[:thumbnail] && resource.respond_to?(:thumbnails)
+      @resource = resource.thumbnails.find_by_thumbnail(params[:thumbnail])
+    end
+
+    instance_variable_set "@#{ model_class.to_s.underscore }", resource
+
+    respond_to do |format|
+      format.all {
+        send_data resource.__send__(:current_data),
+        :filename => resource.filename,
+        :type => resource.content_type,
+        :disposition => resource.class.resource_options[:disposition].to_s
+      } if resource.class.resource_options[:has_media]
+
+      format.html # show.html.erb
+
+      # Add Resource format Mime Type for resource with Attachments
+      format.send(resource.mime_type.to_sym.to_s) {
+        send_data resource.__send__(:current_data),
+        :filename => resource.filename,
+        :type => resource.content_type,
+        :disposition => resource.class.resource_options[:disposition].to_s
+      } if resource.mime_type
+
+    end
+  end
+
+  # Create new Resource
+  #
+  #   POST /resources
+  #   POST /resources.xml
+  #   POST /:container_type/:container_id/contents
+  def create
+    # Fill params when POSTing raw data
+    set_params_from_raw_post
+
+    resource_params = params[model_class.to_s.underscore.to_sym]
+    resource_class =
+      model_class.resource_options[:delegate_content_types] &&
+      resource_params[:media] && resource_params[:media].present? &&
+      ActiveRecord::Resource.class_supporting(resource_params[:media].content_type) ||
+      model_class
+
+    @resource = resource_class.new(resource_params)
+    instance_variable_set "@#{ model_class.to_s.underscore }", @resource
+
+    @resource.author = current_user if @resource.respond_to?(:author=)
+    @resource.container = @space #  if @resource.respond_to?(:container=)
+
+    respond_to do |format|
+      if @resource.save
+        format.html {
+          flash[:success] = t(:created, :scope => @resource.class.to_s.underscore)
+          after_create_with_success
+        }
+      else
+        format.html {
+          after_create_with_errors
+        }
+      end
+    end
+  end
+
+  # Update Resource
+  #
+  # PUT /resources/1
+  # PUT /resources/1.xml
+  def update
+    # Fill params when POSTing raw data
+    set_params_from_raw_post
+
+    resource.attributes = params[model_class.to_s.underscore.to_sym]
+    resource.author = current_user if resource.respond_to?(:author=) && resource.changed?
+
+    respond_to do |format|
+      #FIXME: DRY
+      format.all {
+        if resource.save
+          head :ok
+        else
+          render :xml => @resource.errors.to_xml, :status => :not_acceptable
+        end
+      }
+
+      format.html {
+        if resource.save
+          flash[:success] = t(:updated, :scope => @resource.class.to_s.underscore)
+          after_update_with_success
+        else
+          after_update_with_errors
+        end
+      }
+      format.send(resource.format) {
+        if resource.save
+          head :ok
+        else
+          render :xml => @resource.errors.to_xml, :status => :not_acceptable
+        end
+      } if resource.format
+    end
+  end
+
+  # DELETE /resources/1
+  # DELETE /resources/1.xml
+  def destroy
+    respond_to do |format|
+      if resource.destroy
+        format.html {
+          flash[:success] = t(:deleted, :scope => @resource.class.to_s.underscore)
+          redirect_to space_attachments_path(@space)
+        }
+      else
+        format.html {
+          flash[:error] = t(:not_deleted, :scope => resource.class.to_s.underscore)
+          flash[:error] << resource.errors.to_xml
+          redirect_to(request.referer || space_attachments_path(@space))
+        }
+      end
+    end
+  end
+
   private
 
   def attachments
@@ -132,6 +263,28 @@ class AttachmentsController < ApplicationController
     send_file t.path, :type => 'application/zip', :disposition => 'attachment', :filename => "#{@attachments.size} files from #{@space.name}.zip"
 
     t.close
+  end
+
+
+  # TODO: taken from station's ActionController::StationResources
+  def resource
+    @resource ||= Attachment.find(params[:id])
+  end
+
+  # TODO: taken from station
+  def path_containers(options = {})
+    @path_containers ||= records_from_path(:acts_as => :container)
+
+    candidates = options[:ancestors] ?
+    @path_containers.map{ |c| c.container_and_ancestors }.flatten.uniq :
+      @path_containers.dup
+
+    filter_type(candidates, options[:type])
+  end
+
+  # TODO: taken from station
+  def path_container(options = {})
+    path_containers(options).first
   end
 
 end

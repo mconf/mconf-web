@@ -50,8 +50,6 @@ describe Space do
   #it { should ensure_length_of(:permalink).is_at_least(3) }
 
   it "acts_as_resource"
-  it "acts_as_container"
-  it "acts_as_stage"
 
   it { should respond_to(:invitation_ids) }
   it { should respond_to(:"invitation_ids=") }

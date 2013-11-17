@@ -135,7 +135,7 @@ class MyController < ApplicationController
       hash = { :type => owner.class.name, :id => owner.id }
 
       if owner.instance_of?(Space)
-        space_hash = { :name => owner.name, :public => owner.public?, :member => owner.actors.include?(current_user) }
+        space_hash = { :name => owner.name, :public => owner.public?, :member => owner.users.include?(current_user) }
         hash.merge!(space_hash)
       end
 

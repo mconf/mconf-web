@@ -39,8 +39,8 @@ GIT
 
 GIT
   remote: git://github.com/mconf/station.git
-  revision: 8bcc95122e1acea4b317a69a08bdba0816ae307c
-  branch: mweb-v2-no-invitations
+  revision: 6899e8a3b4f989959c8e6dad781a3a2990d874c4
+  branch: mweb-v2
   specs:
     station (0.0.1)
       rails (>= 3.0.0)

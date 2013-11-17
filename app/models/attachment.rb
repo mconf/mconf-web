@@ -22,6 +22,12 @@ class Attachment < ActiveRecord::Base
                                   '64' => '64x64',
                                   '128' => '128x128'}
 
+
+  # TODO: copied from station's Attachment model
+  validates_as_attachment
+  alias_attribute :media, :uploaded_data
+
+
   def post
     posts.first
   end
@@ -58,7 +64,7 @@ class Attachment < ActiveRecord::Base
   }
 
   scope :sorted, lambda { |order, direction|
-    where(:version_child_id => nil).order(sanitize_order_and_direction(order, direction))
+    where(:version_child_id => nil).order('updated_at DESC')
   }
 
   protected
@@ -157,22 +163,6 @@ class Attachment < ActiveRecord::Base
 
   def title
     filename
-  end
-
-  # Sanitize user send params
-  def self.sanitize_order_and_direction(order, direction)
-    default_order = 'updated_at'
-    default_direction = "DESC"
-
-    # Remove all but letters and dots
-    # filename if author
-    order = (order && order!='author') ? order.gsub(/[^\w\.]/, '') : default_order
-
-    direction = direction && %w{ ASC DESC }.include?(direction.upcase) ?
-    direction :
-    default_direction
-
-    "#{ order } #{ direction }"
   end
 
   def self.repository_attachments(container, params)

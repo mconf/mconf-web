@@ -60,7 +60,7 @@ module Mconf
     config.encoding = "utf-8"
 
     # Configure sensitive parameters which will be filtered from the log file.
-    config.filter_parameters += [:password]
+    config.filter_parameters += [:password, :password_confirmation]
 
     # Load files inside the lib folder. Not the best approach, see http://www.strictlyuntyped.com/2008/06/rails-where-to-put-other-files.html
     config.autoload_paths += %W( #{ Rails.root }/lib )
@@ -70,5 +70,8 @@ module Mconf
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+
+    # all view helpers loaded for all views
+    config.action_controller.include_all_helpers = true
   end
 end
