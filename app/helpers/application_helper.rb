@@ -206,6 +206,11 @@ module ApplicationHelper
     configatron.i18n.default_locales
   end
 
+  # Gets the route to user resource from it's id
+  def user_path_from_id id
+    user_path(User.find(id).username)
+  end
+
   private
 
   # Based on http://www.igvita.com/2007/03/15/block-helpers-and-dry-views-in-rails/
