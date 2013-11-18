@@ -43,6 +43,11 @@ describe Attachment do
     context "when is a registered user" do
       let(:user) { FactoryGirl.create(:user) }
 
+      context "that's the admin of the space the attachment is in" do
+        before { target.space.add_member!(user, 'Admin') }
+        it { should be_able_to_do_anything_to(target) }
+      end
+
       context "that's a member of the space the attachment is in" do
         before { target.space.add_member!(user) }
         it { should_not be_able_to_do_anything_to(target).except([:read, :create]) }
