@@ -8,11 +8,13 @@
   -#   = render :partial => 'upload_form'
   -# - else
   #doc_action
+
 #enable_javascript
   = t('repository.need_javascript')
+
 #doc_repository
   .tag_filter_content
-    %h3{ :class => "blue" }
+    %h3
       = t('repository.search')
       = icon_help t('tooltip.doc_search')
   = render :partial => 'mixed_filter'

@@ -143,15 +143,18 @@ module Abilities
       # Attachments
       # TODO: there are some :create_attachment's still in the code, remove them
       # TODO: maybe space admins should be able to alter attachments
-      can :read, Attachment, :space => { :public => true }
+      can :manage, Attachment do |attach|
+        attach.space.admins.include?(user) && attach.space.repository?
+      end
+
       can [:read, :create], Attachment do |attach|
-        attach.space.users.include?(user)
+        attach.space.users.include?(user) && attach.space.repository?
       end
-      can [:read, :destroy], Attachment, :author_id => user.id
-      # can't do anything if attachments are disabled in the space
-      cannot :manage, Attachment do |attach|
-        !attach.space.repository?
-      end
+
+      can :read, Attachment, :space => { :public => true, :repository => true }
+
+      can [:read, :destroy], Attachment, :author_id => user.id, :space => { :repository => true }
+
       # can :manage, Attachment do |attach|
       #   if attach.parent.present?
       #     can? :manage, attach.parent
