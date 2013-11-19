@@ -141,25 +141,18 @@ module Abilities
       can [:read, :edit, :update, :destroy], Event, :author_id => user.id
 
       # Attachments
-      # TODO: there are some :create_attachment's still in the code, remove them
-      # TODO: maybe space admins should be able to alter attachments
       can :manage, Attachment do |attach|
-        attach.space.admins.include?(user) && attach.space.repository?
+        attach.space.repository? && attach.space.admins.include?(user)
       end
-
       can [:read, :create], Attachment do |attach|
-        attach.space.users.include?(user) && attach.space.repository?
+        attach.space.repository? && attach.space.users.include?(user)
       end
-
+      can [:destroy], Attachment do |attach|
+        attach.space.repository? &&
+          attach.space.users.include?(user) &&
+          attach.author_id == user.id
+      end
       can :read, Attachment, :space => { :public => true, :repository => true }
-
-      can [:read, :destroy], Attachment, :author_id => user.id, :space => { :repository => true }
-
-      # can :manage, Attachment do |attach|
-      #   if attach.parent.present?
-      #     can? :manage, attach.parent
-      #   end
-      # end
 
       # Permissions
       # Only space admins can update user roles/permissions
