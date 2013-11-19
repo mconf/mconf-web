@@ -1,10 +1,17 @@
-%div{ :class => "grey_bar button_wrapper" }
+%div
+
   #first_button_group.float_left
-    - if user_signed_in? && can?(:read, @attachment)
-      =link_to t('document.upload'), new_space_attachment_path(@space), {:id => "button_upload", :title => t('document.upload'), :class => "btn btn-small dark-gray-hover open-modal" }
-    - else
-      =link_to t('document.upload'), '#', :class => "btn btn-small dark-gray-hover"
-    = link_to ("<span>#{t('repository.download')}</span>").html_safe,'#', {:id=>"multiple_download",:class=>"btn btn-small dark-gray-hover"}
-    = link_to ("<span>#{t('repository.remove')}</span>").html_safe,'#', {:id=>"multiple_delete",:class=>"btn btn-small dark-gray-hover"}
+
+    - if can?(:create, Attachment)
+      =link_to t('document.upload'), new_space_attachment_path(@space), :id => "button_upload", :title => t('document.upload'), :class => "btn btn-small dark-gray-hover open-modal"
+
+    = link_to '#', :id => "multiple_download", :class => "btn btn-small dark-gray-hover" do
+      %span
+        = t('repository.download')
+
+    = link_to '#', :id => "multiple_delete", :class => "btn btn-small dark-gray-hover" do
+      %span
+        = t('repository.remove')
+
   %span{ :id => "selected_info" }
     .clearer
