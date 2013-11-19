@@ -102,6 +102,7 @@ class InvitesController < ApplicationController
   private
 
   def send_invite_webconference
+    success = ""
     priv_msg = Hash.new
     priv_email = Hash.new
 
@@ -183,6 +184,7 @@ class InvitesController < ApplicationController
   end
 
   def send_invite_event
+    success = ""
     @event = Event.find(params[:invite][:event_id])
 
     msg = Hash.new
