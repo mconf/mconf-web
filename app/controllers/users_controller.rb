@@ -118,6 +118,11 @@ class UsersController < ApplicationController
 
     respond_with @users do |format|
       format.json
+      #format.html {
+      #  render :update do |page|
+      #    page.replace_html 'users-list', :partial => 'users_list', :object => @users
+      #  end
+      #}
     end
   end
 

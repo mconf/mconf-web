@@ -2,11 +2,9 @@
 
 #manage
   #users
-    - for user in @users
-      - if user.disabled?
-        = render :partial => 'disabled_user', :locals => { :user => user }
-      - else
-        = render :partial => 'enabled_user', :locals => { :user => user }
+    = text_field_tag :users_filter_text
+    #users-list
+      = render :partial => 'users_list', :locals => { :users => @users }
 
 - nav = page_navigation_links @users
 - unless nav.nil?
