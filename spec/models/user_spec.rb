@@ -316,6 +316,25 @@ describe User do
     end
   end
 
+  describe "#disapprove!" do
+    let(:user) { FactoryGirl.create(:user, :approved => true) }
+    let(:params) {
+      { :username => "any", :email => "any@jaloo.com", :approved => false, :password => "123456" }
+    }
+
+    context "sets the user as disapproved" do
+      before { user.disapprove! }
+      it { user.approved.should be_false }
+    end
+
+    context "throws an exception if fails to update the user" do
+      it {
+        user.should_receive(:update_attributes) { throw Exception.new }
+        expect { user.approve! }.to raise_error
+      }
+    end
+  end
+
   describe "#active_for_authentication?" do
     context "if #require_registration_approval is set in the current site" do
       before { Site.current.update_attributes(:require_registration_approval => true) }

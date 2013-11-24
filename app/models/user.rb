@@ -297,6 +297,11 @@ class User < ActiveRecord::Base
     self.update_attributes(:approved => true)
   end
 
+  # Sets the user as not approved
+  def disapprove!
+    self.update_attributes(:approved => false)
+  end
+
   # Overrides a method from devise, see:
   # https://github.com/plataformatec/devise/wiki/How-To%3a-Require-admin-to-activate-account-before-sign_in
   def active_for_authentication?

@@ -2,9 +2,14 @@
   = raw link_logo_image(user, :size => '32', :title => user.name, :url => user_path(user), :class => 'logo logo-user')
 
   %ul.group_links
-    - if Site.current.require_registration_approval? && !user.approved?
-      = link_to approve_user_path(user), :method => :post, :confirm => t('.approve_confirm') do
-        = icon_approve(:alt => t('.approve'), :title => t('.approve'))
+    - if current_site.require_registration_approval?
+      - if user.approved?
+        = link_to disapprove_user_path(user), :method => :post, :confirm => t('.disapprove_confirm') do
+          = icon_disapprove(:alt => t('.disapprove'), :title => t('.disapprove'))
+      - else
+        = link_to approve_user_path(user), :method => :post, :confirm => t('.approve_confirm') do
+          = icon_approve(:alt => t('.approve'), :title => t('.approve'))
+
     = link_to (edit_user_path(user)) do
       = icon_edit(:alt => t('edit'), :title => t('edit'))
     = link_to user_path(user), :confirm => t('are_you_sure'), :method => :delete do

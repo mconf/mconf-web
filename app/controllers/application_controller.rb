@@ -63,6 +63,8 @@ class ApplicationController < ActionController::Base
     @current_ability ||= Abilities.ability_for(current_user)
   end
 
+  # Returns the current site. Prefer this method over `Site.current` when calling from
+  # views, since it caches the object.
   def current_site
     @current_site ||= Site.current
   end

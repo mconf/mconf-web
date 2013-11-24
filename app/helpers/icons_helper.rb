@@ -203,6 +203,10 @@ module IconsHelper
     icon_constructor nil, "icon-awesome icon-check-sign icon-mconf-approve", options
   end
 
+  def icon_disapprove(options={})
+    icon_constructor nil, "icon-awesome icon-remove-sign icon-mconf-disapprove", options
+  end
+
   private
 
   # Base method for most of the methods above

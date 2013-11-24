@@ -902,8 +902,10 @@ en:
   logout: Logout
   manage:
     enabled_user:
-      approve: "Approve"
+      approve: "Approve: allow this user to access the website"
       approve_confirm: "Are you sure you want to allow this user to access the website?"
+      disapprove: "Disapprove: block user from accessing the website"
+      disapprove_confirm: "Are you sure you want to block this user from accessing the website?"
     menu:
       general: "General"
       spaces: "Spaces"
@@ -1603,7 +1605,6 @@ en:
       change_password: "Change your password"
       click_to_edit_profile: "Click here to edit your profile"
       did_not_find_info: "Didn't find the information you were looking for?"
-      other_options: "Other options"
       password:
         hint: "Leave it blank if you don't want to change it"
       yes_cancel_account: "Yes, cancel my account"
@@ -1664,11 +1665,19 @@ en:
       not_enabled: "Approval of registrations is not enabled in this website"
     detailed_user:
       from: "From:"
+    disapprove:
+      disapproved: "The user %{username} was blocked from accessing the website!"
+      not_enabled: "Approval of registrations is not enabled in this website"
     edit:
+      approve: "Approve: allow user to access the website"
+      approve_confirm: "Are you sure you want to allow this user to access the website?"
+      disable: "Disable this user's account"
+      disable_confirm: "Are you sure you want to disable this user's account?"
       federated:
         see_your_data: "Click here to see your data that the federation shared with this website"
         title: "You are signed in using a federation!"
         your_idp: "Your identity provider is: %{idp}"
+      management_options: "Management options"
   username: Username
   vCard: 
     corrupt: "The vCard you sent is corrupted or is a non-supported version"

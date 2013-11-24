@@ -1,0 +1,5 @@
+- for user in @users
+  - if user.disabled?
+    = render :partial => 'disabled_user', :locals => { :user => user }
+  - else
+    = render :partial => 'enabled_user', :locals => { :user => user }

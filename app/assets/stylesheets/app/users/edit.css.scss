@@ -45,8 +45,12 @@ body.users.edit, body.users.update {
     span { display: block; }
   }
 
-  #other-options {
+  #management-options {
     clear: both;
+    padding: 5px 10px;
+    h3 {
+      margin: 5px 0 10px 0;
+    }
   }
 
   #cancel-account {

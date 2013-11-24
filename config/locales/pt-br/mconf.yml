@@ -892,8 +892,10 @@ pt-br:
   logout: Sair
   manage:
     enabled_user:
-      approve: "Aprovar"
+      approve: "Aprovar: permitir que este usuário acesse o site"
       approve_confirm: "Tem certeza que deseja permitir que este usuário acesse o site?"
+      disapprove: "Desaprovar: bloquear o acesso deste usuário ao site"
+      disapprove_confirm: "Tem certeza que deseja bloquear o acesso deste usuário ao site?"
     menu:
       general: "Geral"
       spaces: "Comunidades"
@@ -1618,11 +1620,19 @@ pt-br:
       not_enabled: "A aprovação de registros não está habilitada neste site"
     detailed_user:
       from: "De:"
+    disapprove:
+      disapproved: "O usuário %{username} foi bloqueado de acessar este site!"
+      not_enabled: "A aprovação de registros não está habilitada neste site"
     edit:
+      approve: "Aprovar: permitir que este usuário acesse o site"
+      approve_confirm: "Tem certeza que deseja permitir que este usuário acesse o site?"
+      disapprove: "Desaprovar: bloquear o acesso deste usuário ao site"
+      disapprove_confirm: "Tem certeza que deseja bloquear o acesso deste usuário ao site?"
       federated:
         see_your_data: "Clique para ver os seus dados que foram compartilhados com este site pela federação"
         title: "Você acessou este site através de uma federação!"
         your_idp: "O seu provedor de identidade é: %{idp}"
+      management_options: "Management options"
   username: "Nome de usuário"
   vCard:
     corrupt: "O vCard que você enviou está corrompido ou é uma versão não suportada"
