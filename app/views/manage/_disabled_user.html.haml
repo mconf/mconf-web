@@ -1,12 +1,11 @@
-.user.disabled
-  = raw link_logo_image(user, :size => '32', :title => user.name, :url => user_path(user), :class => 'logo logo-user')
+.thread.thread-user.thread-no-hover.user-wrapper.user-simple.user-disabled{:class => "#{cycle("thread-even" , "thread-odd")}"}
+  .logo-in-thread
+    = raw logo_image(user, :size => '32', :title => user.name, :url => user_path(user), :class => 'logo logo-user')
 
-
-  %ul.group_links
+  %ul.management-links
     = link_to icon_confirm(:alt => t('enable'), :title => t('user.enable')), enable_user_path(user.id), :method => :post
 
-  .user_data
-    %ul
-      %li.main_text
-        = t('name.one') + ":"
-        = user.name
+  .user-text
+    %span.user-name
+      = highlight(sanitize(user.full_name), params[:q])
+      = "(#{highlight(user.username, params[:q])}, #{highlight(user.email, params[:q])})".html_safe

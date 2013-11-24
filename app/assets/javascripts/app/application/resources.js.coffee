@@ -23,6 +23,8 @@ class mconf.Resources
     mconf.SelectableButtons.bind()
     mconf.ShowablePassword.bind()
     mconf.Modal.bind()
+    mconf.ConfirmationDialog.bind()
+    mconf.ResourceFilter.bind()
     for method in temporaryBinds
       method.call()
 

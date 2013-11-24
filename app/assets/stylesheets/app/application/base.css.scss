@@ -863,6 +863,17 @@ ul#navbar-right-links {
   float: left;
   clear: both;
   margin-bottom: 15px;
+
+  &.page-tabs-full {
+    float: none;
+    background: $light-gray;
+    $border-color: darken($light-gray, 8);
+    border-left: 5px solid $border-color;
+    border-right: 5px solid $border-color;
+    border-bottom: 1px solid $border-color;
+    border-top: 1px solid $border-color;
+    padding: 8px;
+  }
 }
 
 // the upcoming events are shown in spaces/show and my/home
@@ -912,6 +923,10 @@ ul#navbar-right-links {
   }
 }
 
+// for elements highlighted using rails' highlight() view helper.
+strong.highlight {
+  background: $highlight-bg;
+}
 
 /*
  * .ribbon {

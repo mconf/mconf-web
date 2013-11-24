@@ -3,30 +3,31 @@
 
 body.manage.users {
 
-  .user {
-    border-bottom: solid 1px #ccc;
-    padding-top: 5px;
-    height: 40px;
+  .page-tabs {
+    text-align: right;
+
+    label {
+      display: inline;
+      margin: 6px 5px 0 5px;
+    }
+
+    input {
+      margin: 0 5px;
+      width: 50%;
+    }
   }
 
-  .group_links {
+  .user-disabled {
+    color: #888;
+
+    .logo-in-thread {
+      opacity: 0.5;
+    }
+  }
+
+  .management-links {
     float: right;
     padding-top: 8px;
-  }
-
-  .logo {
-    float: left;
-    padding: 1.5px;
-  }
-
-  .user_data {
-    padding-left: 30px;
-  }
-
-  .disabled {
-    .user_data {
-      padding-top: 8px;
-    }
   }
 
 }

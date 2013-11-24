@@ -902,10 +902,15 @@ en:
   logout: Logout
   manage:
     enabled_user:
+      administrator: "Global administrator"
       approve: "Approve: allow this user to access the website"
       approve_confirm: "Are you sure you want to allow this user to access the website?"
+      disable: "Disable user"
+      disable_confirm: "Are you sure you want to disable this user?"
       disapprove: "Disapprove: block user from accessing the website"
       disapprove_confirm: "Are you sure you want to block this user from accessing the website?"
+      edit: "Edit user"
+      normal_user: "Normal user"
     menu:
       general: "General"
       spaces: "Spaces"
@@ -927,6 +932,11 @@ en:
         not_spam_confirmation: "Confirm that this post is not a spam?"
         not_spam_tooltip: "This post is not a spam"
         title: "Posts marked as spam"
+    users:
+      filter_name_or_username: "Name, username or email"
+      filter_results: "Filter the results:"
+    users_list:
+      no_user_found: "No user found"
   mandatory_field: "Mandatory field"
   message: 
     created: "Message sent successfully"

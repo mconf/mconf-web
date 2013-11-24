@@ -224,6 +224,10 @@ class User < ActiveRecord::Base
     self.with_exclusive_scope { find(*args) }
   end
 
+  def self.with_disabled
+    where(:disabled => [true, false])
+  end
+
   def <=>(user)
     self.username <=> user.username
   end

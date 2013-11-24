@@ -892,10 +892,15 @@ pt-br:
   logout: Sair
   manage:
     enabled_user:
+      administrator: "Administrador global"
       approve: "Aprovar: permitir que este usuário acesse o site"
       approve_confirm: "Tem certeza que deseja permitir que este usuário acesse o site?"
+      disable: "Desabilitar usuário"
+      disable_confirm: "Tem certeza que deseja desabilitar este usuário?"
       disapprove: "Desaprovar: bloquear o acesso deste usuário ao site"
       disapprove_confirm: "Tem certeza que deseja bloquear o acesso deste usuário ao site?"
+      edit: "Editar usuário"
+      normal_user: "Usuário normal"
     menu:
       general: "Geral"
       spaces: "Comunidades"
@@ -917,6 +922,11 @@ pt-br:
         not_spam_confirmation: "Esta mensagem realmente não é um spam?"
         not_spam_tooltip: "Esta mensagem não é um spam"
         title: "Mensagens denunciadas como spam"
+    users:
+      filter_name_or_username: "Nome, identificador ou e-mail"
+      filter_results: "Filtrar os resultados:"
+    users_list:
+      no_user_found: "Nenhum usuário encontrado"
   mandatory_field: "Campo obrigatório"
   mconf: Mconf
   members:

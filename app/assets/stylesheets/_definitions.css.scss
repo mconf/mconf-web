@@ -38,6 +38,9 @@ $site-bg-color: #fff;
 $main-color: $green-logo;
 $second-color: $bright-blue;
 
+// color for elements highlighted using rails' highlight() view helper.
+$highlight-bg: #ffff81;
+
 // width of the central container and standard sidebar
 $contents-width: 980px;
 $sidebar-width: 240px;

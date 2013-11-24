@@ -1,7 +1,8 @@
-.user.enabled
-  = raw link_logo_image(user, :size => '32', :title => user.name, :url => user_path(user), :class => 'logo logo-user')
+.thread.thread-user.thread-no-hover.user-wrapper.user-simple{:class => "#{cycle("thread-even" , "thread-odd")}"}
+  .logo-in-thread
+    = raw link_logo_image(user, :size => '32', :title => user.name, :url => user_path(user), :class => 'logo logo-user')
 
-  %ul.group_links
+  %ul.management-links
     - if current_site.require_registration_approval?
       - if user.approved?
         = link_to disapprove_user_path(user), :method => :post, :confirm => t('.disapprove_confirm') do
@@ -9,18 +10,19 @@
       - else
         = link_to approve_user_path(user), :method => :post, :confirm => t('.approve_confirm') do
           = icon_approve(:alt => t('.approve'), :title => t('.approve'))
-
     = link_to (edit_user_path(user)) do
-      = icon_edit(:alt => t('edit'), :title => t('edit'))
-    = link_to user_path(user), :confirm => t('are_you_sure'), :method => :delete do
-      = icon_delete(:alt => t('disable'), :title => t('user.disable'))
+      = icon_edit(:alt => t('.edit'), :title => t('.edit'))
+    = link_to user_path(user), :confirm => t('.disable_confirm'), :method => :delete do
+      = icon_delete(:alt => t('.disable'), :title => t('.disable'))
 
-  .user_data
-    %ul
-      %li.main_text
-        = t('name.one') + ":"
-        %span.unified_user
-          = sanitize link_to(user.name, user_path(user))
-      %li.main_text
-        = t('user.category') + ":"
-        = user.superuser? ? t('user.admin') : t('user.normal_user')
+  .user-text
+    = link_to user_path(user), :class => 'user-name' do
+      = highlight(sanitize(user.full_name), params[:q])
+      = "(#{highlight(user.username, params[:q])}, #{highlight(user.email, params[:q])})".html_safe
+
+    %span.user-category
+      - if user.superuser?
+        = icon_superuser
+        = t('.administrator')
+      - else
+        = t('.normal_user')

@@ -1,11 +1,8 @@
 = render :partial => 'menu'
 
 #manage
-  #users
-    = text_field_tag :users_filter_text
-    #users-list
-      = render :partial => 'users_list', :locals => { :users => @users }
-
-- nav = page_navigation_links @users
-- unless nav.nil?
-  .content-block-footer= nav
+  .page-tabs.page-tabs-full
+    %label{ :for => 'users_filter_text' }= t('.filter_results')
+    = text_field_tag :users_filter_text, params[:q], :placeholder => t('.filter_name_or_username'), :'data-load-url' => manage_users_path(:partial => 1), :'data-target' => '#users-list', :class => 'resource-filter'
+  #users-list
+    = render :partial => 'users_list', :locals => { :users => @users }

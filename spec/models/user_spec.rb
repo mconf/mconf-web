@@ -297,6 +297,21 @@ describe User do
     end
   end
 
+  describe ".with_disabled" do
+    let(:user1) { FactoryGirl.create(:user, :disabled => true) }
+    let(:user2) { FactoryGirl.create(:user, :disabled => false) }
+
+    context "finds users even if disabled" do
+      subject { User.with_disabled.all }
+      it { should include(user1) }
+      it { should include(user2) }
+    end
+
+    context "returns a Relation object" do
+      it { User.with_disabled.should be_an_instance_of(ActiveRecord::Relation) }
+    end
+  end
+
   describe "#approve!" do
     let(:user) { FactoryGirl.create(:user, :approved => false) }
     let(:params) {

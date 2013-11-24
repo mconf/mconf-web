@@ -9,9 +9,22 @@ class ManageController < ApplicationController
   authorize_resource :class => false
 
   def users
-    @users = User.find_by_id_with_disabled(:all,:order => "username")
-                 .paginate(:page => params[:page], :per_page => 20)
-    render :layout => 'no_sidebar'
+    name = params[:q]
+    partial = params.delete(:partial) # otherwise the pagination will include this param
+
+    query = User.with_disabled.joins(:profile).includes(:profile).order("profiles.full_name")
+    if name.blank?
+      query = query.all
+    else
+      query = query.where("profiles.full_name like ? OR users.username like ? OR users.email like ?", "%#{name}%", "%#{name}%", "%#{name}%")
+    end
+    @users = query.paginate(:page => params[:page], :per_page => 20)
+
+    if partial
+      render :partial => 'users_list', :layout => false
+    else
+      render :layout => 'no_sidebar'
+    end
   end
 
   def spaces
