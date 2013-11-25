@@ -11,7 +11,8 @@ class UsersController < ApplicationController
   before_filter :space!, :only => [:index]
   before_filter :webconf_room!, :only => [:index]
 
-  load_and_authorize_resource :find_by => :username
+  load_and_authorize_resource :find_by => :username, :except => [:enable]
+  before_filter :load_and_authorize_with_disabled, :only => [:enable]
 
   # Rescue username not found rendering a 404
   rescue_from ActiveRecord::RecordNotFound, :with => :render_404
@@ -93,8 +94,6 @@ class UsersController < ApplicationController
   end
 
   def enable
-    @user = User.find_with_disabled(params[:id])
-
     unless @user.disabled?
       flash[:notice] = t('user.error.enabled', :name => @user.username)
     else
@@ -164,4 +163,12 @@ class UsersController < ApplicationController
     end
     redirect_to :back
   end
+
+  private
+
+  def load_and_authorize_with_disabled
+    @user = User.with_disabled.find_by_username(params[:id])
+    authorize! :enable, @user
+  end
+
 end

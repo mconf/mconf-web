@@ -10,7 +10,7 @@ class ManageController < ApplicationController
 
   def users
     name = params[:q]
-    partial = params.delete(:partial) # otherwise the pagination will include this param
+    partial = params.delete(:partial) # otherwise the pagination links in the view will include this param
 
     query = User.with_disabled.joins(:profile).includes(:profile).order("profiles.full_name")
     if name.blank?
@@ -28,7 +28,22 @@ class ManageController < ApplicationController
   end
 
   def spaces
-    @spaces = Space.find_with_disabled(:all,:order => "name").paginate(:page => params[:page], :per_page => 20)
+    name = params[:q]
+    partial = params.delete(:partial) # otherwise the pagination links in the view will include this param
+
+    query = Space.with_disabled.order("name")
+    if name.blank?
+      query = query.all
+    else
+      query = query.where("name like ?", "%#{name}%")
+    end
+    @spaces = query.paginate(:page => params[:page], :per_page => 20)
+
+    if partial
+      render :partial => 'spaces_list', :layout => false
+    else
+      render :layout => 'no_sidebar'
+    end
   end
 
   def spam

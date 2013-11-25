@@ -891,6 +891,16 @@ pt-br:
       preview: "Pré-visualização"
   logout: Sair
   manage:
+    disabled_space:
+      enable: "Habilitar comunidade"
+      enable_confirm: "Tem certeza que deseja habilitar esta comunidade?"
+    disabled_user:
+      enable: "Habilitar usuário"
+      enable_confirm: "Tem certeza que deseja habilitar este usuário?"
+    enabled_space:
+      disable: "Desabilitar comundiade"
+      disable_confirm: "Tem certeza que deseja desabiltar esta comunidade?"
+      edit: "Editar comunidade"
     enabled_user:
       administrator: "Administrador global"
       approve: "Aprovar: permitir que este usuário acesse o site"
@@ -908,6 +918,9 @@ pt-br:
       title: "Gerenciamento do Site"
       users: "Usuários"
       webconf: "Webconferência"
+    spaces:
+      filter_name: "Nome"
+      filter_results: "Filtrar os resultados:"
     spam:
       event:
         delete_confirmation: "Remover este evento permanentemente?"

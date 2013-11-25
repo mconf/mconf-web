@@ -135,6 +135,21 @@ describe Space do
 
   it "new_activity"
 
+  describe ".with_disabled" do
+    let(:space1) { FactoryGirl.create(:space, :disabled => true) }
+    let(:space2) { FactoryGirl.create(:space, :disabled => false) }
+
+    context "finds spaces even if disabled" do
+      subject { Space.with_disabled.all }
+      it { should include(space1) }
+      it { should include(space2) }
+    end
+
+    context "returns a Relation object" do
+      it { Space.with_disabled.should be_an_instance_of(ActiveRecord::Relation) }
+    end
+  end
+
   describe "#create_webconf_room" do
 
     it "is called when the space is created" do

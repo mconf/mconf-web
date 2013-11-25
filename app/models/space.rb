@@ -113,6 +113,9 @@ class Space < ActiveRecord::Base
     create_activity key, :owner => self, :parameters => { :user_id => user.id, :username => user.name }
   end
 
+  def self.with_disabled
+    where(:disabled => [true, false])
+  end
 
   # TODO: review all public methods below
 

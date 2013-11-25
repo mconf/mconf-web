@@ -172,7 +172,36 @@ describe UsersController do
     end
   end
 
-  it "#enable"
+  describe "#enable" do
+    before(:each) { login_as(FactoryGirl.create(:superuser)) }
+
+    context "loads the user by username" do
+      let(:user) { FactoryGirl.create(:user) }
+      before(:each) { post :enable, :id => user.to_param }
+      it { assigns(:user).should eql(user) }
+    end
+
+    context "loads also users that are disabled" do
+      let(:user) { FactoryGirl.create(:user, :disabled => true) }
+      before(:each) { post :enable, :id => user.to_param }
+      it { assigns(:user).should eql(user) }
+    end
+
+    context "if the user is already enabled" do
+      let(:user) { FactoryGirl.create(:user, :disabled => false) }
+      before(:each) { post :enable, :id => user.to_param }
+      it { should redirect_to(manage_users_path) }
+      it { should set_the_flash.to(I18n.t('user.error.enabled', :name => user.username)) }
+    end
+
+    context "if the user is disabled" do
+      let(:user) { FactoryGirl.create(:user, :disabled => true) }
+      before(:each) { post :enable, :id => user.to_param }
+      it { should redirect_to(manage_users_path) }
+      it { should set_the_flash.to(I18n.t('user.enabled')) }
+      it { user.reload.disabled.should be_false }
+    end
+  end
 
   describe "#select" do
     context ".json" do
@@ -437,9 +466,50 @@ describe UsersController do
     end
   end
 
+  # TODO: refactor to use the same style used to test SpacesController, with the matcher allow_access_to
   describe "abilities", :abilities => true do
 
-    context "for a normal user:" do
+    context "for a superuser", :user => "superuser" do
+      let(:another_user) { FactoryGirl.create(:user) }
+      let(:user) { FactoryGirl.create(:superuser) }
+      before(:each) { login_as(user) }
+
+      context "can access #index" do
+        let(:space) { FactoryGirl.create(:space) }
+        let(:do_action) { get :index, :space_id => space }
+        it_should_behave_like "it can access an action"
+      end
+
+      [:show, :edit].each do |action|
+        describe "can access ##{action}" do
+          let(:do_action) { get action, :id => user }
+          it_should_behave_like "it can access an action"
+        end
+      end
+
+      [:show, :edit].each do |action|
+        describe "can access ##{action} for other users" do
+          let(:do_action) { get action, :id => another_user }
+          it_should_behave_like "it can access an action"
+        end
+      end
+
+      [:update, :destroy, :enable].each do |action|
+        describe "can access ##{action}" do
+          let(:do_action) { post action, :id => user.to_param, :user => {} }
+          it_should_behave_like "it can access an action"
+        end
+      end
+
+      [:update, :destroy, :enable].each do |action|
+        describe "can access ##{action} for other users" do
+          let(:do_action) { post action, :id => another_user.to_param, :user => {} }
+          it_should_behave_like "it can access an action"
+        end
+      end
+    end
+
+    context "for a normal user", :user => "normal" do
       let(:another_user) { FactoryGirl.create(:user) }
       let(:user) { FactoryGirl.create(:user) }
       before(:each) { login_as(user) }
@@ -513,7 +583,7 @@ describe UsersController do
 
     end
 
-    context "for an anonymous user:" do
+    context "for an anonymous user", :user => "anonymous" do
       let(:user) { FactoryGirl.create(:user) }
 
       describe "can access #index" do
@@ -538,46 +608,6 @@ describe UsersController do
         describe "cannot access ##{action}" do
           let(:do_action) { post action, :id => user }
           it_should_behave_like "it cannot access an action"
-        end
-      end
-    end
-
-    context "for a superuser:" do
-      let(:another_user) { FactoryGirl.create(:user) }
-      let(:user) { FactoryGirl.create(:superuser) }
-      before(:each) { login_as(user) }
-
-      context "can access #index" do
-        let(:space) { FactoryGirl.create(:space) }
-        let(:do_action) { get :index, :space_id => space }
-        it_should_behave_like "it can access an action"
-      end
-
-      [:show, :edit].each do |action|
-        describe "can access ##{action}" do
-          let(:do_action) { get action, :id => user }
-          it_should_behave_like "it can access an action"
-        end
-      end
-
-      [:show, :edit].each do |action|
-        describe "can access ##{action} for other users" do
-          let(:do_action) { get action, :id => another_user }
-          it_should_behave_like "it can access an action"
-        end
-      end
-
-      [:update, :destroy, :enable].each do |action|
-        describe "can access ##{action}" do
-          let(:do_action) { post action, :id => user.to_param, :user => {} }
-          it_should_behave_like "it can access an action"
-        end
-      end
-
-      [:update, :destroy, :enable].each do |action|
-        describe "can access ##{action} for other users" do
-          let(:do_action) { post action, :id => another_user.to_param, :user => {} }
-          it_should_behave_like "it can access an action"
         end
       end
     end

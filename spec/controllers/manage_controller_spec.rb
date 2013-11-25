@@ -141,12 +141,96 @@ describe ManageController do
   end
 
   describe "#spaces" do
-    it "is successful"
-    it "sets @spaces to a list of all spaces, including disabled spaces"
-    it "orders @spaces by name"
-    it "paginates the list of spaces"
-    it "renders manage/spaces"
-    it "renders with the layout application"
+    let(:user) { FactoryGirl.create(:superuser) }
+    before(:each) { sign_in(user) }
+
+    it {
+      get :spaces
+      should respond_with(:success)
+    }
+
+    context "sets @spaces to a list of all spaces, including disabled spaces" do
+      before {
+        @s1 = FactoryGirl.create(:space, :disabled => false)
+        @s2 = FactoryGirl.create(:space, :disabled => false)
+        @s3 = FactoryGirl.create(:space, :disabled => true)
+      }
+      before(:each) { get :spaces }
+      it { assigns(:spaces).count.should be(3) }
+      it { assigns(:spaces).should include(@s1) }
+      it { assigns(:spaces).should include(@s2) }
+      it { assigns(:spaces).should include(@s3) }
+    end
+
+    context "orders @spaces by name" do
+      before {
+        @s1 = FactoryGirl.create(:space, :name => 'Last one')
+        @s2 = FactoryGirl.create(:space, :name => 'Ce space')
+        @s3 = FactoryGirl.create(:space, :name => 'A space')
+        @s4 = FactoryGirl.create(:space, :name => 'Be space')
+      }
+      before(:each) { get :spaces }
+      it { assigns(:spaces).count.should be(4) }
+      it { assigns(:spaces)[0].should eql(@s3) }
+      it { assigns(:spaces)[1].should eql(@s4) }
+      it { assigns(:spaces)[2].should eql(@s2) }
+      it { assigns(:spaces)[3].should eql(@s1) }
+    end
+
+    context "paginates the list of spaces" do
+      before {
+        45.times { FactoryGirl.create(:space) }
+      }
+
+      context "if no page is passed in params" do
+        before(:each) { get :spaces }
+        it { assigns(:spaces).count.should be(20) }
+        it { controller.params[:page].should be_nil }
+      end
+
+      context "if a page is passed in params" do
+        before(:each) { get :spaces, :page => 2 }
+        it { assigns(:spaces).count.should be(20) }
+        it("includes the correct spaces in @spaces") {
+          page = Space.order('name').paginate(:page => 2, :per_page => 20)
+          page.each do |space|
+            assigns(:spaces).should include(space)
+          end
+        }
+        it { controller.params[:page].should eql("2") }
+      end
+    end
+
+    context "use params[:q] to filter the results" do
+      context "by name" do
+        before {
+          @s1 = FactoryGirl.create(:space, :name => 'First')
+          @s2 = FactoryGirl.create(:space, :name => 'Second')
+          @s3 = FactoryGirl.create(:space, :name => 'Secondary')
+        }
+        before(:each) { get :spaces, :q => 'sec' }
+        it { assigns(:spaces).count.should be(2) }
+        it { assigns(:spaces).should include(@s2) }
+        it { assigns(:spaces).should include(@s3) }
+      end
+    end
+
+    context "removes partial from params" do
+      before(:each) { get :spaces, :partial => true }
+      it { controller.params.should_not have_key(:partial) }
+    end
+
+    context "if params[:partial] is set" do
+      before(:each) { get :spaces, :partial => true }
+      it { should render_template(:spaces_list) }
+      it { should_not render_with_layout }
+    end
+
+    context "if params[:partial] is not set" do
+      before(:each) { get :spaces }
+      it { should render_template(:spaces) }
+      it { should render_with_layout('no_sidebar') }
+    end
   end
 
   describe "#spam" do

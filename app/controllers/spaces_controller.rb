@@ -9,8 +9,9 @@ class SpacesController < ApplicationController
 
   before_filter :authenticate_user!, :only => [:new, :create]
 
-  load_and_authorize_resource :find_by => :permalink, :except => [:edit_recording]
+  load_and_authorize_resource :find_by => :permalink, :except => [:edit_recording, :enable]
   load_resource :find_by => :permalink, :parent => true, :only => [:edit_recording]
+  before_filter :load_and_authorize_with_disabled, :only => [:enable]
 
   # all actions that render the sidebar
   before_filter :webconf_room!,
@@ -189,13 +190,10 @@ class SpacesController < ApplicationController
   def enable
     unless @space.disabled?
       flash[:notice] = t('space.error.enabled', :name => @space.name)
-      redirect_to request.referer
-      return
+    else
+      @space.enable
+      flash[:success] = t('space.enabled')
     end
-
-    @space.enable
-
-    flash[:success] = t('space.enabled')
     respond_to do |format|
       format.html { redirect_to manage_spaces_path }
     end
@@ -298,6 +296,11 @@ class SpacesController < ApplicationController
 
   def space_to_json_hash
     { :methods => :user_count, :include => {:logo => { :only => [:height, :width], :methods => :logo_image_path } } }
+  end
+
+  def load_and_authorize_with_disabled
+    @space = Space.with_disabled.find_by_permalink(params[:id])
+    authorize! :enable, @space
   end
 
   def load_spaces_examples

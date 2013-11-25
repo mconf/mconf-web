@@ -901,6 +901,16 @@ en:
       preview: "Preview"
   logout: Logout
   manage:
+    disabled_space:
+      enable: "Enable space"
+      enable_confirm: "Are you sure you want to enable this space?"
+    disabled_user:
+      enable: "Enable user"
+      enable_confirm: "Are you sure you want to enable this user?"
+    enabled_space:
+      disable: "Disable space"
+      disable_confirm: "Are you sure you want to disable this space?"
+      edit: "Edit space"
     enabled_user:
       administrator: "Global administrator"
       approve: "Approve: allow this user to access the website"
@@ -918,6 +928,9 @@ en:
       title: "Site Management"
       users: "Users"
       webconf: "Web Conference"
+    spaces:
+      filter_name: "Name"
+      filter_results: "Filter the results:"
     spam:
       event:
         delete_confirmation: "Remove this event permanently?"

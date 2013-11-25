@@ -237,7 +237,38 @@ describe SpacesController do
 
   it "#update"
   it "#destroy"
-  it "#enable"
+
+  describe "#enable" do
+    before(:each) { login_as(FactoryGirl.create(:superuser)) }
+
+    context "loads the space by permalink" do
+      let(:space) { FactoryGirl.create(:space) }
+      before(:each) { post :enable, :id => space.to_param }
+      it { assigns(:space).should eql(space) }
+    end
+
+    context "loads also spaces that are disabled" do
+      let(:space) { FactoryGirl.create(:space, :disabled => true) }
+      before(:each) { post :enable, :id => space.to_param }
+      it { assigns(:space).should eql(space) }
+    end
+
+    context "if the space is already enabled" do
+      let(:space) { FactoryGirl.create(:space, :disabled => false) }
+      before(:each) { post :enable, :id => space.to_param }
+      it { should redirect_to(manage_spaces_path) }
+      it { should set_the_flash.to(I18n.t('space.error.enabled', :name => space.name)) }
+    end
+
+    context "if the space is disabled" do
+      let(:space) { FactoryGirl.create(:space, :disabled => true) }
+      before(:each) { post :enable, :id => space.to_param }
+      it { should redirect_to(manage_spaces_path) }
+      it { should set_the_flash.to(I18n.t('space.enabled')) }
+      it { space.reload.disabled.should be_false }
+    end
+  end
+
   it "#leave"
 
   describe "#webconference" do

@@ -3,31 +3,31 @@
 
 body.manage.spaces {
 
-  #manage_space_filter {
-    padding-top: 35px;
-    padding-left: 10px;
-  }
+  .page-tabs {
+    text-align: right;
 
-  #options {
+    label {
+      display: inline;
+      margin: 6px 5px 0 5px;
+    }
+
     input {
-      float: left;
-      margin-right: 5px;
-      margin-left: 5px;
+      margin: 0 5px;
+      width: 50%;
     }
   }
 
-  .links {
+  .space-disabled {
+    color: #888;
+
+    .logo-in-thread {
+      opacity: 0.5;
+    }
+  }
+
+  .management-links {
     float: right;
-  }
-
-  .names {
-    float: left;
-  }
-
-  .user {
-    border-bottom: solid 1px #ccc;
-    padding-top: 10px;
-    height: 30px;
+    padding-top: 8px;
   }
 
 }

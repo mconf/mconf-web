@@ -3,7 +3,8 @@
     = raw logo_image(user, :size => '32', :title => user.name, :url => user_path(user), :class => 'logo logo-user')
 
   %ul.management-links
-    = link_to icon_confirm(:alt => t('enable'), :title => t('user.enable')), enable_user_path(user.id), :method => :post
+    = link_to enable_user_path(user), :confirm => t('.enable_confirm'), :method => :post do
+      = icon_confirm(:alt => t('.enable'), :title => t('.enable'))
 
   .user-text
     %span.user-name

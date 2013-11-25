@@ -1,6 +1,13 @@
-.user.enabled
-  .names
-    %p
-      = link_to space.name, space_path(space)
-  .links
-    = link_to icon_delete(:alt => t('disable'), :title => t('space.disable')), space_path(space), :confirm => t('are_you_sure'), :method => :delete
+.thread.thread-space.thread-no-hover.space-wrapper.space-simple{:class => "#{cycle("thread-even" , "thread-odd")}"}
+  .logo-in-thread
+    = link_logo_image(space, options_for_tooltip(sanitize(space.name), :size => '84x64', :class => "logo logo-space"))
+
+  %ul.management-links
+    = link_to (edit_space_path(space)) do
+      = icon_edit(:alt => t('.edit'), :title => t('.edit'))
+    = link_to space_path(space), :confirm => t('.disable_confirm'), :method => :delete do
+      = icon_delete(:alt => t('.disable'), :title => t('.disable'))
+
+  .space-text
+    = link_to space_path(space), :class => 'space-name' do
+      = highlight(sanitize(space.name), params[:q])
