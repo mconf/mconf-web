@@ -60,8 +60,11 @@ en:
       title: "Spam"
       tooltip: "Report this item as a spam"
       icon_tooltip: "This item has been reported as spam and is being evaluated by the administrators"
-    update: "Update"
     unpublish: "Unpublish"
+    update: "Update"
+    user:
+      administrator: "Global administrator"
+      normal_user: "Normal user"
     yes_: "Yes"
     webconference:
       not_allowed_to_create: "You are not allowed to create meetings in this room"
@@ -912,7 +915,6 @@ en:
       disable_confirm: "Are you sure you want to disable this space?"
       edit: "Edit space"
     enabled_user:
-      administrator: "Global administrator"
       approve: "Approve: allow this user to access the website"
       approve_confirm: "Are you sure you want to allow this user to access the website?"
       disable: "Disable user"
@@ -920,7 +922,6 @@ en:
       disapprove: "Disapprove: block user from accessing the website"
       disapprove_confirm: "Are you sure you want to block this user from accessing the website?"
       edit: "Edit user"
-      normal_user: "Normal user"
     menu:
       general: "General"
       spaces: "Spaces"
@@ -931,6 +932,8 @@ en:
     spaces:
       filter_name: "Name"
       filter_results: "Filter the results:"
+    spaces_list:
+      no_space_found: "No space found"
     spam:
       event:
         delete_confirmation: "Remove this event permanently?"

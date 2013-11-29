@@ -21,8 +21,4 @@
       = "(#{highlight(user.username, params[:q])}, #{highlight(user.email, params[:q])})".html_safe
 
     %span.user-category
-      - if user.superuser?
-        = icon_superuser
-        = t('.administrator')
-      - else
-        = t('.normal_user')
+      = user_category(user)

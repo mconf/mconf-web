@@ -84,7 +84,7 @@ module IconsHelper
   end
 
   def icon_profile(options={})
-    icon_constructor nil, "icon-awesome icon-user icon-mconf-user", options
+    icon_constructor nil, "icon-awesome icon-user icon-mconf-profile", options
   end
 
   def icon_account(options={})

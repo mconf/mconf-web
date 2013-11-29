@@ -60,8 +60,11 @@ pt-br:
       title: "Spam"
       tooltip: "Reportar este artigo como spam"
       icon_tooltip: "Este artigo foi denunciado como spam e está sendo avaliado pelos administradores"
-    update: "Atualizar"
     unpublish: "Despublicar"
+    update: "Atualizar"
+    user:
+      administrator: "Administrador global"
+      normal_user: "Usuário normal"
     yes_: "Sim"
     webconference:
       not_allowed_to_create: "Você não tem permissão para criar reuniões nesta sala"
@@ -902,7 +905,6 @@ pt-br:
       disable_confirm: "Tem certeza que deseja desabiltar esta comunidade?"
       edit: "Editar comunidade"
     enabled_user:
-      administrator: "Administrador global"
       approve: "Aprovar: permitir que este usuário acesse o site"
       approve_confirm: "Tem certeza que deseja permitir que este usuário acesse o site?"
       disable: "Desabilitar usuário"
@@ -910,7 +912,6 @@ pt-br:
       disapprove: "Desaprovar: bloquear o acesso deste usuário ao site"
       disapprove_confirm: "Tem certeza que deseja bloquear o acesso deste usuário ao site?"
       edit: "Editar usuário"
-      normal_user: "Usuário normal"
     menu:
       general: "Geral"
       spaces: "Comunidades"
@@ -921,6 +922,8 @@ pt-br:
     spaces:
       filter_name: "Nome"
       filter_results: "Filtrar os resultados:"
+    spaces_list:
+      no_space_found: "Nenhuma comunidade encontrada"
     spam:
       event:
         delete_confirmation: "Remover este evento permanentemente?"
