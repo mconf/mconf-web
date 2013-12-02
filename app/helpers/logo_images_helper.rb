@@ -1,5 +1,7 @@
 module LogoImagesHelper
 
+  # TODO: If `options[:size]` is wrong, the image will not be found and the application
+  #   will crash in production. This method should check this option to prevent this error.
   def logo_image(resource, options = {})
     if resource.is_a?(User)
       options[:size] = '128' if options[:size] > '32'

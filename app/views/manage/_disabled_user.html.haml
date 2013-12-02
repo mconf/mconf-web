@@ -1,6 +1,6 @@
 .thread.thread-user.thread-no-hover.user-wrapper.user-simple.user-disabled{:class => "#{cycle("thread-even" , "thread-odd")}"}
   .logo-in-thread
-    = raw logo_image(user, :size => '32', :title => user.name, :url => user_path(user), :class => 'logo logo-user')
+    = raw logo_image(user, :size => '32', :title => user.name, :class => 'logo logo-user')
 
   %ul.management-links
     = link_to enable_user_path(user), :confirm => t('.enable_confirm'), :method => :post do

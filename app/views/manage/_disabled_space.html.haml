@@ -1,6 +1,6 @@
 .thread.thread-space.thread-no-hover.space-wrapper.space-simple.space-disabled{:class => "#{cycle("thread-even" , "thread-odd")}"}
   .logo-in-thread
-    = raw logo_image(space, :size => '32', :title => space.name, :url => space_path(space), :class => 'logo logo-space')
+    = raw logo_image(space, :size => '84x64', :title => space.name, :class => 'logo logo-space')
 
   %ul.management-links
     = link_to enable_space_path(space), :confirm => t('.enable_confirm'), :method => :post do
