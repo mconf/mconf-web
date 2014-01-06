@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131129175408) do
+ActiveRecord::Schema.define(:version => 20140106204144) do
 
   create_table "activities", :force => true do |t|
     t.integer  "trackable_id"
@@ -204,6 +204,30 @@ ActiveRecord::Schema.define(:version => 20131129175408) do
 
   add_index "ldap_tokens", ["identifier"], :name => "index_ldap_tokens_on_identifier", :unique => true
   add_index "ldap_tokens", ["user_id"], :name => "index_ldap_tokens_on_user_id", :unique => true
+
+  create_table "mweb_events_events", :force => true do |t|
+    t.string   "name"
+    t.date     "start_on"
+    t.date     "end_on"
+    t.string   "location"
+    t.string   "address"
+    t.text     "description"
+    t.integer  "owner_id"
+    t.string   "owner_type"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+    t.float    "latitude"
+    t.float    "longitude"
+  end
+
+  create_table "mweb_events_participants", :force => true do |t|
+    t.integer  "owner_id"
+    t.string   "owner_type"
+    t.integer  "event_id"
+    t.string   "email"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "news", :force => true do |t|
     t.string   "title"
