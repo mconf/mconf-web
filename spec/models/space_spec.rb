@@ -80,6 +80,14 @@ describe Space do
 
   it "default_scope :conditions"
 
+  describe "on create" do
+    describe "verify if doesn't exist a user with the same username of the space permalink" do
+      before(:each) { FactoryGirl.create(:user, :username => "test") }
+      before(:each) { FactoryGirl.build(:space, :permalink => "test") }
+      it { should_not be_valid }
+    end
+  end
+
   describe ".public" do
     context "returns the admins of the space" do
       before {
