@@ -38,6 +38,14 @@ class User < ActiveRecord::Base
                        :presence => true,
                        :format => /^[A-Za-z0-9\-_]*$/,
                        :length => { :minimum => 1 }
+
+  validate :username_uniqueness, :on => :create
+
+  # Validates the username against params of bigbluebutton rooms
+  def username_uniqueness
+    errors.add(:username, "has already been taken") unless Space.find_by_permalink(self.username).blank?
+  end
+
   extend FriendlyId
   friendly_id :username
 

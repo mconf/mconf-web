@@ -1419,6 +1419,7 @@ pt-br:
           no_matches: "Nenhuma comunidae encontrada com \"%{term}\""
           placeholder: "Procurar comunidaes..."
     new:
+      permalink: "Space ID"
       private: "Privada"
       public: "Pública"
       spaces_examples:

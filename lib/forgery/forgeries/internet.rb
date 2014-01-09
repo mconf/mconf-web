@@ -8,4 +8,8 @@ class Forgery::Internet < Forgery
     "#{self.user_name}-#{n}"
   end
 
+  def self.unique_permalink(p)
+    "#{self.user_name}-#{p}"
+  end
+
 end

@@ -48,14 +48,19 @@ class Space < ActiveRecord::Base
 
   # BigbluebuttonRoom requires an identifier with 3 chars generated from :name
   # so we'll require :name and :permalink to have length >= 3
-  validates :name, :presence => true, :uniqueness => true, :length => { :minimum => 3 }
-  validates :permalink, :presence => true, :length => { :minimum => 3 }
+  validates :name, :presence => true, :uniqueness => { :case_sensitive => false }, :length => { :minimum => 3 }
+
+  validates :permalink, :uniqueness => { :case_sensitive => false },
+                        :format => /^[A-Za-z0-9\-_]*$/,
+                        :presence => true,
+                        :length => { :minimum => 3 }
+
+  validate :permalink_uniqueness, :on => :create
 
   # the friendly name / slug for the space
   extend FriendlyId
-  friendly_id :name, :use => :slugged, :slug_column => :permalink
+  friendly_id :permalink
   acts_as_resource :param => :permalink
-  after_validation :check_permalink
 
   # TODO: review all accessors, if we still need them
   attr_accessor :invitation_ids
@@ -160,6 +165,11 @@ class Space < ActiveRecord::Base
   end
 
   private
+
+  def permalink_uniqueness
+    #self.permalink = (self.permalink + "-" + SecureRandom.hex(3)) unless User.find_by_username(self.permalink).blank?
+    errors.add(:permalink, "has already been taken") unless User.find_by_username(self.permalink).blank?
+  end
 
   # Creates the webconf room after the space is created
   def create_webconf_room

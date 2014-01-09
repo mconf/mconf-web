@@ -82,6 +82,12 @@ describe User do
   end
 
   describe "on create" do
+    describe "verify if doesn't exist a space with the same permalink of the username" do
+      before(:each) { FactoryGirl.create(:space, :permalink => "test") }
+      before(:each) { FactoryGirl.build(:user, :username => "test") }
+      it { should_not be_valid }
+    end
+
     describe "#automatically_approve_if_needed" do
       context "if #require_registration_approval is not set in the current site" do
         before { Site.current.update_attributes(:require_registration_approval => false) }
