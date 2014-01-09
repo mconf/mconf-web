@@ -54,7 +54,7 @@ GIT
 
 GIT
   remote: git@github.com:mconf/mweb-events.git
-  revision: f707111411287995559bf3574f8b5a8eb57ecf56
+  revision: f52fdbb5b1d6fa56e1d94dbf833b308fc38d6a47
   branch: 1115-integration-mweb
   specs:
     mweb_events (0.0.1)

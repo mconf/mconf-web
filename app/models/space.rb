@@ -13,7 +13,8 @@ class Space < ActiveRecord::Base
   USER_ROLES = ["Admin", "User"]
 
   has_many :posts, :dependent => :destroy
-  has_many :events, :dependent => :destroy
+  has_many :events, :class_name => MwebEvents::Event, :foreign_key => "owner_id",
+           :dependent => :destroy
   has_many :news, :dependent => :destroy
   has_many :attachments, :dependent => :destroy
   has_many :tags, :dependent => :destroy, :as => :container

@@ -14,8 +14,6 @@ class EventsController < ApplicationController
   load_and_authorize_resource :space, :find_by => :permalink
   load_and_authorize_resource :through => :space, :find_by => :permalink
 
-  before_filter :assign_events, :only => [:index]
-
   # need it to show info in the sidebar
   before_filter :webconf_room!
 
@@ -26,7 +24,27 @@ class EventsController < ApplicationController
   respond_to :html, :only => [:index, :show, :new, :create, :edit, :update]
   respond_to :atom, :only => [:index] # TODO: review
 
+  # TODO: everything is being filtered by software, this can all be done with db queries
   def index
+    all_events = @space.events(:order => "start_on ASC")
+
+    # events happening now
+    @current_events = all_events.select{ |e| e.is_happening_now? }
+
+    if params[:show] == 'past_events'
+      @past_events = all_events.select{ |e| !e.end_on.future? }
+      @past_events.reverse! if params[:order_by_time] == "DESC"
+      @past_events = @past_events.paginate(:page => params[:page], :per_page => 5)
+
+    elsif params[:show] == 'upcoming_events'
+      @upcoming_events = all_events.select{ |e| e.start_on.future? }
+      @upcoming_events = @upcoming_events.paginate(:page => params[:page], :per_page => 10)
+
+    # the 'default' index
+    else
+      @last_past_events = all_events.select{ |e| !e.end_on.future? }.first(3)
+      @first_upcoming_events = all_events.select{ |e| e.start_on.future? }.first(3)
+    end
   end
 
   def show
@@ -94,29 +112,6 @@ class EventsController < ApplicationController
 
   def resource_for_spam
     @event
-  end
-
-  # TODO: all the events are being filtered by software, this all can be done directly in the db
-  def assign_events
-    all_events = @space.events(:order => "start_date ASC")
-
-    # events happening now
-    @current_events = all_events.select{ |e| e.is_happening_now? }
-
-    if params[:show] == 'past_events'
-      @past_events = all_events.select{ |e| e.has_date? && !e.end_date.future? }
-      @past_events.reverse! if params[:order_by_time] == "DESC"
-      @past_events = @past_events.paginate(:page => params[:page], :per_page => 5)
-
-    elsif params[:show] == 'upcoming_events'
-      @upcoming_events = all_events.select{ |e| e.has_date? && e.start_date.future? }
-      @upcoming_events = @upcoming_events.paginate(:page => params[:page], :per_page => 10)
-
-    # the 'default' index
-    else
-      @last_past_events = all_events.select{ |e| e.has_date? && !e.end_date.future? }.first(3)
-      @first_upcoming_events = all_events.select{ |e| e.has_date? && e.start_date.future? }.first(3)
-    end
   end
 
 end
