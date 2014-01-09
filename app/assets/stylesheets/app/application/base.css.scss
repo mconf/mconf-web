@@ -230,7 +230,6 @@ form {
   padding: 0 10px;
   $bg-normal: darken($green-logo, 3);
   background: $bg-normal;
-  @include box-shadow(0 5px 11px rgba(0, 0, 0, 0.25));
   @include background(linear-gradient(bottom, lighten($bg-normal, 2), $bg-normal));
 }
 
