@@ -54,7 +54,7 @@ GIT
 
 GIT
   remote: git@github.com:mconf/mweb-events.git
-  revision: d0d768b871893680f6e66da4dad9a0a5cca79102
+  revision: f707111411287995559bf3574f8b5a8eb57ecf56
   branch: 1115-integration-mweb
   specs:
     mweb_events (0.0.1)
@@ -74,6 +74,7 @@ GIT
       rails (~> 3.2.0)
       redcarpet
       sass-rails (~> 3.2.3)
+      select2-rails
       simple_form (~> 2.1.0)
       therubyracer
       twitter-bootstrap-rails

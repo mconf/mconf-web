@@ -321,4 +321,9 @@ class User < ActiveRecord::Base
       super # Use whatever other message
     end
   end
+
+  # Method used by MwebEvents
+  def admin?
+    superuser
+  end
 end

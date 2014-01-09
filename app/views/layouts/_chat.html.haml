@@ -11,7 +11,7 @@
     var cookie = "AuthByCookie>>" + "#{cookies[Rails.application.config.session_options[:key]]}";
     var login = "#{current_user.username}";
     var name = "#{current_user.full_name}";
-    var url = "#{join_webconf_url(current_user.bigbluebutton_room)}";
+    var url = "#{main_app.join_webconf_url(current_user.bigbluebutton_room)}";
     var domain = "#{current_site.presence_domain}";
     var xmpp_server = "#{current_site.xmpp_server}";
     }

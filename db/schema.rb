@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140106204144) do
+ActiveRecord::Schema.define(:version => 20140109145954) do
 
   create_table "activities", :force => true do |t|
     t.integer  "trackable_id"
@@ -207,8 +207,8 @@ ActiveRecord::Schema.define(:version => 20140106204144) do
 
   create_table "mweb_events_events", :force => true do |t|
     t.string   "name"
-    t.date     "start_on"
-    t.date     "end_on"
+    t.datetime "start_on"
+    t.datetime "end_on"
     t.string   "location"
     t.string   "address"
     t.text     "description"
@@ -218,6 +218,7 @@ ActiveRecord::Schema.define(:version => 20140106204144) do
     t.datetime "updated_at",  :null => false
     t.float    "latitude"
     t.float    "longitude"
+    t.string   "time_zone"
   end
 
   create_table "mweb_events_participants", :force => true do |t|
