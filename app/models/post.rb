@@ -14,8 +14,6 @@ class Post < ActiveRecord::Base
   has_many :post_attachments, :dependent => :destroy
   has_many :attachments, :through => :post_attachments
 
-  belongs_to :event
-
   accepts_nested_attributes_for :attachments, :allow_destroy => true
 
   acts_as_tree #:order => 'updated_at ASC'
@@ -23,12 +21,9 @@ class Post < ActiveRecord::Base
   scope :public, lambda { |arg|
     join(:space).where('public = ?', true)
   }
-  scope :not_events, lambda {
-    where(:event_id =>  nil)
-  }
 
-  validates_presence_of :title, :unless => Proc.new { |post| post.parent.present? || post.event.present? }
-  validates_presence_of :text, :if => Proc.new { |post| post.attachments.empty? && post.event.blank? }
+  validates_presence_of :title, :unless => Proc.new { |post| post.parent.present? }
+  validates_presence_of :text, :if => Proc.new { |post| post.attachments.empty? }
 
   # Fill attachments author and space
   before_validation do |post|
@@ -71,7 +66,7 @@ class Post < ActiveRecord::Base
   end
 
   def self.last_news(space)
-    return Post.not_events().find(:all, :conditions => {:space_id => space, :parent_id => nil}, :order => "updated_at DESC", :limit => 4)
+    return Post.find(:all, :conditions => {:space_id => space, :parent_id => nil}, :order => "updated_at DESC", :limit => 4)
   end
 
   def new_activity key, user

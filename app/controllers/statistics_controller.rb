@@ -11,7 +11,7 @@ class StatisticsController < ApplicationController
   def show
     @user_count = User.count
     @space_count = Space.count
-    @event_count = Event.count
+    @event_count = MwebEvents::Event.count
     @post_count = Post.count
     @webconf_room_count = BigbluebuttonRoom.count
     @private_message_count = PrivateMessage.count

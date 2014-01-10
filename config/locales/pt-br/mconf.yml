@@ -627,58 +627,6 @@ pt-br:
     instructions: "Clique Enviar para cada convite que você deseja enviar, e clique Finalizar quando você concluir."
     sent: "Convites enviados com sucesso"
     will_invite: "Pessoas que você irá convidar?"
-  events:
-    all_events:
-      all_upcoming: "Ver todos eventos futuros"
-      all_past: "Ver todos eventos passados"
-      none_upcoming: "Nenhum evento no futuro"
-      none_past: "Nenhum evento passado"
-      past: "Eventos passados"
-      upcoming: "Eventos futuros"
-    event_card:
-      description_title: "Descrição do evento"
-      ends_at: "Acaba em"
-      no_description: "Nenhuma descrição foi informada para este evento."
-      organizers: "Organizadores"
-      organizers_empty: "Nenhum organizador informado para este evento."
-      starts_at: "Inicia em"
-      where: "Onde"
-    event_invitations:
-      invite: "Convidar pessoas"
-      notify_attendees: "Notificar participantes confirmados"
-      title: "Convites"
-    form_fields:
-      timezone_notice: "Você está usando o fuso horário GMT%{timezone}. Atribua as datas abaixo neste fuso horário."
-    index:
-      create_event: "Criar um novo evento"
-      events_now: "Contecendo agora!"
-    participants:
-      attending: "Participantes confirmados"
-      none_attending: "Ninguém confirmou ainda"
-      not_attending: "Confirmaram que não participarão"
-      title: "Participantes"
-      view_as_list: "ver como uma lista de nomes"
-      view_as_thumbs: "ver como imagens"
-      will_attend: "Você participará deste evento?"
-    past_events:
-      last_month: "Nenhum evento no último mês"
-      last_week: "Nenhum evento na última semana"
-      none: "Nenhum evento passado"
-      order_asc: "Mostrar eventos antigos no topo"
-      order_by: "Ordenar por"
-      order_desc: "Mostrar eventos novos no topo"
-      title: "Eventos passados"
-      today: "Nenhum evento para ontem ou hoje"
-    unified_event:
-      organizers: "Organizadores"
-      when: "Quando"
-      where: "Onde"
-    upcoming_events:
-      next_month: "Não existem eventos para o próximo mês"
-      next_week: "Não existem eventos para a próxima semana"
-      none: "Nenhum evento no futuro"
-      title: "Próximos eventos"
-      today: "Não existem eventos para hoje"
   fax: Fax
   feedback:
     email: "%{email} enviou o seguinte feedback:"
@@ -1045,10 +993,6 @@ pt-br:
   organization: Organização
   organizer: Organizadores
   other: Outro
-  participant:
-    created: "Suas informações de participação foram atualizadas com sucesso"
-    error:
-      create: "Houve um problema na atualização de suas informações de participação"
   password:
     confirm: "Confirmar senha"
     one: Senha
@@ -1393,6 +1337,50 @@ pt-br:
     subscribed_to_none: "Você não está inscrito em nenhuma comunidade"
     update_logo: "Atualizar logo"
     updated: "Comunidade atualizada com sucesso"
+  space_events:
+    all_events:
+      all_upcoming: "Ver todos eventos futuros"
+      all_past: "Ver todos eventos passados"
+      none_upcoming: "Nenhum evento no futuro"
+      none_past: "Nenhum evento passado"
+      past: "Eventos passados"
+      upcoming: "Eventos futuros"
+    event_card:
+      description_title: "Descrição do evento"
+      ends_at: "Acaba em"
+      no_description: "Nenhuma descrição foi informada para este evento."
+      organizers: "Organizadores"
+      organizers_empty: "Nenhum organizador informado para este evento."
+      starts_at: "Inicia em"
+      where: "Onde"
+    event_invitations:
+      invite: "Convidar pessoas"
+      notify_attendees: "Notificar participantes confirmados"
+      title: "Convites"
+    form_fields:
+      timezone_notice: "Você está usando o fuso horário GMT%{timezone}. Atribua as datas abaixo neste fuso horário."
+    index:
+      create_event: "Criar um novo evento"
+      events_now: "Contecendo agora!"
+    past_events:
+      last_month: "Nenhum evento no último mês"
+      last_week: "Nenhum evento na última semana"
+      none: "Nenhum evento passado"
+      order_asc: "Mostrar eventos antigos no topo"
+      order_by: "Ordenar por"
+      order_desc: "Mostrar eventos novos no topo"
+      title: "Eventos passados"
+      today: "Nenhum evento para ontem ou hoje"
+    unified_event:
+      organizers: "Organizadores"
+      when: "Quando"
+      where: "Onde"
+    upcoming_events:
+      next_month: "Não existem eventos para o próximo mês"
+      next_week: "Não existem eventos para a próxima semana"
+      none: "Nenhum evento no futuro"
+      title: "Próximos eventos"
+      today: "Não existem eventos para hoje"
   spaces: 
     admin_tabs:
       admissions: "Admissões"

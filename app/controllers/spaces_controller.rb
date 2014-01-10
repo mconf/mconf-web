@@ -86,15 +86,15 @@ class SpacesController < ApplicationController
     @news_to_show = @news[@news_position]
 
     # posts
-    posts = @space.posts.not_events
+    posts = @space.posts
     @latest_posts = posts.where(:parent_id => nil).where('author_id is not null').order("updated_at DESC").first(3)
 
     # users
     @latest_users = @space.users.order("permissions.created_at DESC").first(3)
 
     # events
-    @upcoming_events = @space.events.order("start_date ASC").select{|e| e.start_date && e.start_date.future? }.first(5)
-    @current_events = @space.events.order("start_date ASC").select{|e| e.start_date && !e.start_date.future? && e.end_date.future?}
+    @upcoming_events = @space.events.order("start_on ASC").select{|e| e.start_on.future? }.first(5)
+    @current_events = @space.events.order("start_on ASC").select{|e| !e.start_on.future? && e.end_on.future?}
 
     # role of the current user
     @permission = Permission.where(:user_id => current_user, :subject_id => @space, :subject_type => 'Space').first

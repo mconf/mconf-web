@@ -3,6 +3,6 @@
 - else
   - for event in events
     .event-wrapper
-      = link_to sanitize(event.name), space_event_path(event.owner, event), :class => "event-title"
+      = link_to sanitize(event.name), mweb_events.event_path(event), :class => "event-title"
       %span.event-date
         = "#{event.start_on.to_formatted_s(:short)} - #{event.end_on.to_formatted_s(:short)}".html_safe

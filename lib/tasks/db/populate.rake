@@ -178,28 +178,29 @@ namespace :db do
         permission.updated_at = permission.created_at
       end
 
-      event_role_ids = Role.find_all_by_stage_type('Event').map(&:id)
-      space.events.each do |event|
-        available_event_participants = space.users.dup
-        Participant.populate 0..space.users.count do |participant|
-          participant_aux = available_event_participants.delete_at((rand * available_event_participants.size).to_i)
-          participant.user_id = participant_aux.id
-          participant.email = participant_aux.email
-          participant.event_id = event.id
-          participant.created_at = event.created_at..Time.now
-          participant.updated_at = participant.created_at..Time.now
-          participant.attend = (rand(0) > 0.5)
+      # TODO: #1115, populate with models from MwebEvents
+      # event_role_ids = Role.find_all_by_stage_type('Event').map(&:id)
+      # space.events.each do |event|
+      #   available_event_participants = space.users.dup
+      #   Participant.populate 0..space.users.count do |participant|
+      #     participant_aux = available_event_participants.delete_at((rand * available_event_participants.size).to_i)
+      #     participant.user_id = participant_aux.id
+      #     participant.email = participant_aux.email
+      #     participant.event_id = event.id
+      #     participant.created_at = event.created_at..Time.now
+      #     participant.updated_at = participant.created_at..Time.now
+      #     participant.attend = (rand(0) > 0.5)
 
-          Permission.populate 1 do |permission|
-            permission.user_id = participant.user_id
-            permission.subject_id = event.id
-            permission.subject_type = 'Event'
-            permission.role_id = event_role_ids
-            permission.created_at = participant.created_at
-            permission.updated_at = permission.created_at
-          end
-        end
-      end
+      #     Permission.populate 1 do |permission|
+      #       permission.user_id = participant.user_id
+      #       permission.subject_id = event.id
+      #       permission.subject_type = 'Event'
+      #       permission.role_id = event_role_ids
+      #       permission.created_at = participant.created_at
+      #       permission.updated_at = permission.created_at
+      #     end
+      #   end
+      # end
 
     end
 

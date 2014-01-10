@@ -47,13 +47,14 @@ class MyController < ApplicationController
   def home
     @user_spaces = current_user.spaces
     unless @user_spaces.empty?
-      @today_events = Event.
+      # TODO: move these methods to the model
+      @today_events = MwebEvents::Event.
         within(DateTime.now.beginning_of_day, DateTime.now.end_of_day).
-        where(:space_id => @user_spaces).
-        order("start_date ASC").all
-      @upcoming_events = Event.where(:space_id => @user_spaces).
-        where('end_date >= ?', DateTime.now.end_of_day).
-        limit(5).order("start_date ASC").all
+        where(:owner_id => @user_spaces, :owner_type => "Space").
+        order("start_on ASC").all
+      @upcoming_events = MwebEvents::Event.where(:owner_id => @user_spaces, :owner_type => "Space").
+        where('end_on >= ?', DateTime.now.end_of_day).
+        limit(5).order("start_on ASC").all
     end
 
     @contents_per_page = 5

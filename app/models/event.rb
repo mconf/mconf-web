@@ -14,8 +14,6 @@ class Event < ActiveRecord::Base
   belongs_to :space
   belongs_to :author, :class_name => 'User'
 
-  has_many :participants, :dependent => :destroy
-
   has_many :invitations, :class_name => "JoinRequest", :foreign_key => "group_id",
            :conditions => { :join_requests => {:group_type => 'Event'} }
 
@@ -108,14 +106,14 @@ class Event < ActiveRecord::Base
         i
       }.each(&:save)
     end
-    if event.notification_ids
-      event.notification_ids.each { |participant_id|
-        participant = Participant.find(participant_id)
-        if event.participants.include? participant
-          Informer.deliver_event_notification(event,participant.user)
-        end
-      }
-    end
+    # if event.notification_ids
+    #   event.notification_ids.each { |participant_id|
+    #     participant = Participant.find(participant_id)
+    #     if event.participants.include? participant
+    #       Informer.deliver_event_notification(event,participant.user)
+    #     end
+    #   }
+    # end
   end
 
   def author

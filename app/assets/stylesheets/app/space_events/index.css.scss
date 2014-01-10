@@ -1,7 +1,7 @@
 @import "app/spaces/sidebar";
-@import "app/events/event_logo";
+@import "app/space_events/event_logo";
 
-body.events.index {
+body.space_events.index {
 
   #events-toolbar {
     float: right;

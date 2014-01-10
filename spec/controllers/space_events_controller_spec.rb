@@ -6,7 +6,7 @@
 
 require "spec_helper"
 
-describe EventsController do
+describe SpaceEventsController do
 
   describe "#index" do
     let(:space) { FactoryGirl.create(:space) }

@@ -5,14 +5,14 @@
 # This file is licensed under the Affero General Public License version
 # 3 or later. See the LICENSE file.
 
-class EventsController < ApplicationController
-
-  include SpamControllerModule
+class SpaceEventsController < ApplicationController
 
   layout "spaces_show"
 
   load_and_authorize_resource :space, :find_by => :permalink
-  load_and_authorize_resource :through => :space, :find_by => :permalink
+  # TODO: #1115, review authorization
+  # load_and_authorize_resource :through => :space, :find_by => :permalink,
+  #                             :class => MwebEvents::Event
 
   # need it to show info in the sidebar
   before_filter :webconf_room!
@@ -106,12 +106,6 @@ class EventsController < ApplicationController
         format.html { redirect_to request.referer }
       end
     end
-  end
-
-  private
-
-  def resource_for_spam
-    @event
   end
 
 end

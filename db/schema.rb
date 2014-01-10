@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140109145954) do
+ActiveRecord::Schema.define(:version => 20140110004407) do
 
   create_table "activities", :force => true do |t|
     t.integer  "trackable_id"
@@ -43,7 +43,6 @@ ActiveRecord::Schema.define(:version => 20140109145954) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "space_id"
-    t.integer  "event_id"
     t.integer  "author_id"
     t.string   "author_type"
     t.integer  "version_child_id"
@@ -238,15 +237,6 @@ ActiveRecord::Schema.define(:version => 20140109145954) do
     t.datetime "updated_at", :null => false
   end
 
-  create_table "participants", :force => true do |t|
-    t.string   "email"
-    t.integer  "user_id"
-    t.integer  "event_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.boolean  "attend"
-  end
-
   create_table "permissions", :force => true do |t|
     t.integer  "user_id",      :null => false
     t.integer  "subject_id",   :null => false
@@ -271,7 +261,6 @@ ActiveRecord::Schema.define(:version => 20140109145954) do
     t.integer  "author_id"
     t.string   "author_type"
     t.integer  "parent_id"
-    t.integer  "event_id"
     t.boolean  "spam",        :default => false
   end
 

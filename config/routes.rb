@@ -80,20 +80,21 @@ Mconf::Application.routes.draw do
 
     resources :readers
 
-    resources :events do
+    get '/events', :to => 'space_events#index', :as => 'events'
+    get '/events/new', :to => 'space_events#new', :as => 'new_event'
+    get '/events/:id/edit', :to => 'space_events#edit', :as => 'edit_event'
+    delete '/events/:id', :to => 'space_events#destroy', :as => 'event'
 
-      member do
-        post :spam_report, :action => :spam_report_create
-      end
-
-      collection do
-        get :add_time
-        get :copy_next_week
-        get :remove_time
-      end
-
-      resources :participants
-    end
+    # resources :events do
+    #   member do
+    #     post :spam_report, :action => :spam_report_create
+    #   end
+    #   collection do
+    #     get :add_time
+    #     get :copy_next_week
+    #     get :remove_time
+    #   end
+    # end
 
     resources :posts do
       member do

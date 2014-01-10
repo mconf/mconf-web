@@ -20,8 +20,6 @@ describe Event do
   # it { should validate_presence_of(:name) }
   # it { should validate_presence_of(:permalink) }
 
-  it { should have_many(:participants).dependent(:destroy) }
-
   it { should respond_to(:mails) }
   it { should respond_to(:"mails=") }
 

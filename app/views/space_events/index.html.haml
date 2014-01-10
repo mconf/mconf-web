@@ -13,7 +13,7 @@
 
   - if can?(:create, @space.events.build)
     #events-toolbar
-      = link_to new_space_event_path, :class => "btn btn-primary btn-small" do
+      = link_to space_new_event_path, :class => "btn btn-primary btn-small" do
         = t('.create_event')
 
   - if params[:show] == 'past_events'

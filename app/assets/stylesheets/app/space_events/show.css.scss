@@ -1,7 +1,7 @@
 @import "app/spaces/sidebar";
-@import "app/events/event_logo";
+@import "app/space_events/event_logo";
 
-body.events.show {
+body.space_events.show {
 
   .events-hapenning-now {
     .thread-text {

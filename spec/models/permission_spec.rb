@@ -13,7 +13,7 @@ describe Permission do
     let(:ability) { Abilities.ability_for(user) }
 
     shared_examples_for "for all permission types" do |exceptions|
-      [:space_permission, :event_permission].each do |permission_type|
+      [:space_permission].each do |permission_type|
         let(:target) { FactoryGirl.create(permission_type) }
         it "a '#{permission_type}'" do
           exceptions ||= []

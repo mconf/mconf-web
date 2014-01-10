@@ -633,58 +633,6 @@ en:
     instructions: "Click Send for each invitation you want to send, and click Finish when you are done."
     sent: "Invitations sent successfully"
     will_invite: "People you will invite:"
-  events:
-    all_events:
-      all_upcoming: "View all upcoming events"
-      all_past: "View all past events"
-      none_upcoming: "No upcoming events"
-      none_past: "No past events"
-      past: "Past events"
-      upcoming: "Upcoming events"
-    event_invitations:
-      invite: "Invite people"
-      notify_attendees: "Notify confirmed attendees"
-      title: "Invitations"
-    event_card:
-      description_title: "Event description"
-      ends_at: "Ends at"
-      no_description: "No description informed for this event."
-      organizers: "Organizers"
-      organizers_empty: "No organizer informed for this event."
-      starts_at: "Starts at"
-      where: "Where"
-    form_fields:
-      timezone_notice: "You are using the timezone GMT%{timezone}. Set the dates below using this timezone."
-    index:
-      create_event: "Create a new event"
-      events_now: "Hapenning now!"
-    participants:
-      attending: "Confirmed attendees"
-      none_attending: "Nobody has confirmed yet"
-      not_attending: "Confirmed that will not attend"
-      title: "Participants"
-      view_as_list: "view as a list of names"
-      view_as_thumbs: "view as pictures"
-      will_attend: "Will you attend this event?"
-    past_events:
-      last_month: "No events for last month"
-      last_week: "No events for last week"
-      none: "No past events"
-      order_asc: "Show older events at the top"
-      order_by: "Order by"
-      order_desc: "Show newer events at the top"
-      title: "Past events"
-      today: "No events for yesterday nor today"
-    unified_event:
-      organizers: "Organizers"
-      when: "When"
-      where: "Where"
-    upcoming_events:
-      next_month: "There are no events for the next month"
-      next_week: "There are no events for the next week"
-      none: "No upcoming events"
-      title: "Upcoming events"
-      today: "There are no events for today"
   fax: Fax
   feedback: 
     email: "%{email} sent the following feedback:"
@@ -1057,10 +1005,6 @@ en:
   organization: Organization
   organizer: Organisers
   other: Other
-  participant: 
-    created: "Your attendance information has been updated successfully"
-    error: 
-      create: "There was a problem updating your attendance information"
   password: 
     confirm: "Confirm password"
     one: Password
@@ -1415,6 +1359,50 @@ en:
     subscribed_to_none: "You are not subscribed to any space"
     update_logo: "Update logo"
     updated: "Space updated successfully"
+  space_events:
+    all_events:
+      all_upcoming: "View all upcoming events"
+      all_past: "View all past events"
+      none_upcoming: "No upcoming events"
+      none_past: "No past events"
+      past: "Past events"
+      upcoming: "Upcoming events"
+    event_invitations:
+      invite: "Invite people"
+      notify_attendees: "Notify confirmed attendees"
+      title: "Invitations"
+    event_card:
+      description_title: "Event description"
+      ends_at: "Ends at"
+      no_description: "No description informed for this event."
+      organizers: "Organizers"
+      organizers_empty: "No organizer informed for this event."
+      starts_at: "Starts at"
+      where: "Where"
+    form_fields:
+      timezone_notice: "You are using the timezone GMT%{timezone}. Set the dates below using this timezone."
+    index:
+      create_event: "Create a new event"
+      events_now: "Hapenning now!"
+    past_events:
+      last_month: "No events for last month"
+      last_week: "No events for last week"
+      none: "No past events"
+      order_asc: "Show older events at the top"
+      order_by: "Order by"
+      order_desc: "Show newer events at the top"
+      title: "Past events"
+      today: "No events for yesterday nor today"
+    unified_event:
+      organizers: "Organizers"
+      when: "When"
+      where: "Where"
+    upcoming_events:
+      next_month: "There are no events for the next month"
+      next_week: "There are no events for the next week"
+      none: "No upcoming events"
+      title: "Upcoming events"
+      today: "There are no events for today"
   spaces: 
     admin_tabs:
       admissions: "Admissions"

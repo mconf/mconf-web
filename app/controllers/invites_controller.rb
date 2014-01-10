@@ -84,14 +84,14 @@ class InvitesController < ApplicationController
     msg[:sender] = current_user
     msg[:event] = @event
 
-    @event.participants.each do |p|
-      user = User.find(p.user_id)
-
-      if user != current_user
-        msg[:receiver] = user
-        Notifier.delay.event_notification_email(msg)
-      end
-    end
+    # TODO: #1115, use models from MwebEvents
+    # @event.participants.each do |p|
+    #   user = User.find(p.user_id)
+    #   if user != current_user
+    #     msg[:receiver] = user
+    #     Notifier.delay.event_notification_email(msg)
+    #   end
+    # end
 
     respond_to do |format|
       flash[:success] = t('event.notification_successfully')
