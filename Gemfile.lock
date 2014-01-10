@@ -54,15 +54,14 @@ GIT
 
 GIT
   remote: git@github.com:mconf/mweb-events.git
-  revision: f52fdbb5b1d6fa56e1d94dbf833b308fc38d6a47
-  branch: 1115-integration-mweb
+  revision: 374a6a69779281a817fde46ff2f5f65dba834008
   specs:
     mweb_events (0.0.1)
       bootstrap-datetimepicker-rails
       coffee-rails (~> 3.2.1)
       compass-rails (~> 1.0)
       epic-editor-rails
-      font-awesome-rails
+      font-awesome-rails (~> 3.2)
       geocoder
       haml
       haml-rails
@@ -177,7 +176,7 @@ GEM
       devise (>= 2.1.0.rc)
     diff-lcs (1.2.4)
     dynamic_form (1.1.4)
-    epic-editor-rails (0.2.0)
+    epic-editor-rails (0.2.2)
       railties (>= 3.2, < 5.0)
     erubis (2.7.0)
     exception_notification (2.6.1)

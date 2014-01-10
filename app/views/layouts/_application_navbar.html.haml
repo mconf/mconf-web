@@ -14,6 +14,7 @@
         - if current_user.unread_private_messages.size > 0
           .label.label-important= current_user.unread_private_messages.size
     %li= link_to t('space.all'), main_app.spaces_path
+    %li= link_to t('.events'), mweb_events.events_path
     - if current_user.superuser?
       %li
         = link_to main_app.site_path do

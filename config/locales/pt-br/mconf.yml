@@ -790,6 +790,7 @@ pt-br:
   latest_news: "Últimas notícias"
   layouts:
     application_navbar:
+      events: "Todos eventos"
       inbox: "Caixa de entrada"
       login: "Login"
       manage: "Gerenciar"
@@ -1345,20 +1346,6 @@ pt-br:
       none_past: "Nenhum evento passado"
       past: "Eventos passados"
       upcoming: "Eventos futuros"
-    event_card:
-      description_title: "Descrição do evento"
-      ends_at: "Acaba em"
-      no_description: "Nenhuma descrição foi informada para este evento."
-      organizers: "Organizadores"
-      organizers_empty: "Nenhum organizador informado para este evento."
-      starts_at: "Inicia em"
-      where: "Onde"
-    event_invitations:
-      invite: "Convidar pessoas"
-      notify_attendees: "Notificar participantes confirmados"
-      title: "Convites"
-    form_fields:
-      timezone_notice: "Você está usando o fuso horário GMT%{timezone}. Atribua as datas abaixo neste fuso horário."
     index:
       create_event: "Criar um novo evento"
       events_now: "Contecendo agora!"
@@ -1372,8 +1359,9 @@ pt-br:
       title: "Eventos passados"
       today: "Nenhum evento para ontem ou hoje"
     unified_event:
+      ends_at: "Acaba em"
       organizers: "Organizadores"
-      when: "Quando"
+      starts_at: "Inicia em"
       where: "Onde"
     upcoming_events:
       next_month: "Não existem eventos para o próximo mês"
@@ -1422,6 +1410,7 @@ pt-br:
     show:
       events_now: "Eventos acontecendo agora!"
     sidebar:
+      all_events: "Ver todos"
       upcoming_events: "Próximos eventos"
       webconference:
         attendees:

@@ -11,18 +11,10 @@ class SpaceEventsController < ApplicationController
 
   load_and_authorize_resource :space, :find_by => :permalink
   # TODO: #1115, review authorization
-  # load_and_authorize_resource :through => :space, :find_by => :permalink,
-  #                             :class => MwebEvents::Event
+  load_and_authorize_resource :find_by => :permalink, :class => MwebEvents::Event
 
   # need it to show info in the sidebar
   before_filter :webconf_room!
-
-  after_filter :only => [:create, :update] do
-    @event.new_activity params[:action], current_user unless @event.errors.any?
-  end
-
-  respond_to :html, :only => [:index, :show, :new, :create, :edit, :update]
-  respond_to :atom, :only => [:index] # TODO: review
 
   # TODO: everything is being filtered by software, this can all be done with db queries
   def index
@@ -44,67 +36,6 @@ class SpaceEventsController < ApplicationController
     else
       @last_past_events = all_events.select{ |e| !e.end_on.future? }.first(3)
       @first_upcoming_events = all_events.select{ |e| e.start_on.future? }.first(3)
-    end
-  end
-
-  def show
-    # people that confirmed whether will attend or not
-    @attendees =  @event.participants.select{ |p| p.attend }
-    @not_attendees = @event.participants.select{ |p| !p.attend }
-  end
-
-  def new
-  end
-
-  def create
-    @event = Event.new(params[:event])
-    @event.author = current_user
-    @event.space = @space
-
-    respond_to do |format|
-      if @event.save
-        format.html {
-          flash[:success] = t('event.created')
-          redirect_to space_event_path(@space, @event)
-        }
-      else
-        format.html {
-          flash[:error] = @event.errors.full_messages.join(', ')
-          render :new
-        }
-      end
-    end
-  end
-
-  def edit
-  end
-
-  def update
-    respond_to do |format|
-      if @event.update_attributes(params[:event])
-        format.html {
-          flash[:success] = t('event.updated')
-          redirect_to space_event_path(@space, @event)
-        }
-      else
-        format.html {
-          flash[:error] = @event.errors.full_messages.join(', ')
-          render :edit
-        }
-      end
-    end
-  end
-
-  # TODO: is this called anywhere in the app? events are disabled, not removed
-  def destroy
-    respond_to do |format|
-      if @event.destroy
-        flash[:success] = t('event.deleted')
-        format.html { redirect_to(space_events_path(@space)) }
-      else
-        flash[:error] = @event.errors.full_messages.join(', ')
-        format.html { redirect_to request.referer }
-      end
     end
   end
 

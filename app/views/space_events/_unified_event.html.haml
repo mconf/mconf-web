@@ -10,30 +10,30 @@
 
     %ul.thread-action-links.visible-on-hover{ :"data-hover-tracked" => "parent_event_#{event.id}" }
       - if can?(:update, event)
-        %li= link_to t('edit').downcase, space_edit_event_path(event.owner, event), { :name => event.id, :title => t('edit') }
+        %li= link_to t('edit').downcase, mweb_events.edit_event_path(event), { :name => event.id, :title => t('edit') }
       - if can?(:destroy, event)
-        %li= link_to t('remove').downcase, space_event_path(event.owner, event), { :method => :delete, :title => t('delete.one'), :confirm => t('delete.confirm', :element => event.name) }
-      -# - if user_signed_in? && !event.spam
-      -#   %li= link_to t('_other.spam.title').downcase, spam_report_space_event_path(event.owner, event), options_for_tooltip(t('_other.spam.tooltip'), :method => :post, :confirm => t('are_you_sure'))
+        %li= link_to t('remove').downcase, mweb_events.event_path(event), { :method => :delete, :title => t('delete.one'), :confirm => t('delete.confirm', :element => event.name) }
 
     .thread-title
       = icon_event t('event.home.one', :space => event.owner.name)
-      -# = icon_spam() if event.spam
       = link_to sanitize(event.name), mweb_events.event_path(event)
       %span.thread-updated-at= t('updated_time_ago', :time => sanitize(time_ago_in_words(event.updated_at)))
 
     .thread-text
       .event-description-date
-        = t('.when') + ':'
+        = t('.starts_at') + ':'
         = event.get_formatted_date
-        - unless event.location.blank?
-          .event-description-location
-            = t('.where') + ':'
-            = sanitize(event.location)
-        -# TODO: event organizers
-        -# .event-description-organizer
-        -#   = t('.organizers') + ':'
-        -#   - orgs = []
-        -#   - event.organizers.each do |org|
-        -#     - orgs.push link_to org.name, user_path(org)
-        -#   = orgs.join(', ').html_safe
+      .event-description-date
+        = t('.ends_at') + ':'
+        = event.get_formatted_date(event.end_on)
+      - unless event.address.blank?
+        .event-description-location
+          = t('.where') + ':'
+          = sanitize(event.address)
+      -# TODO: event organizers
+      -# .event-description-organizer
+      -#   = t('.organizers') + ':'
+      -#   - orgs = []
+      -#   - event.organizers.each do |org|
+      -#     - orgs.push link_to org.name, user_path(org)
+      -#   = orgs.join(', ').html_safe

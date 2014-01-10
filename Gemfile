@@ -74,7 +74,7 @@ gem 'twitter-bootstrap-rails'
 gem 'font-awesome-rails'
 
 # events
-gem 'mweb_events', :git => 'git@github.com:mconf/mweb-events.git', :branch => '1115-integration-mweb'
+gem 'mweb_events', :git => 'git@github.com:mconf/mweb-events.git'
 
 # TODO: Gems to review if we can remove/update
 gem 'galetahub-simple_captcha', :require => 'simple_captcha'

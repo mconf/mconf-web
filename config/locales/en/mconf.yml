@@ -799,6 +799,7 @@ en:
   latest_news: "Latest news"
   layouts:
     application_navbar:
+      events: "All events"
       inbox: "Inbox"
       login: "Sign in"
       manage: "Manage"
@@ -1367,20 +1368,6 @@ en:
       none_past: "No past events"
       past: "Past events"
       upcoming: "Upcoming events"
-    event_invitations:
-      invite: "Invite people"
-      notify_attendees: "Notify confirmed attendees"
-      title: "Invitations"
-    event_card:
-      description_title: "Event description"
-      ends_at: "Ends at"
-      no_description: "No description informed for this event."
-      organizers: "Organizers"
-      organizers_empty: "No organizer informed for this event."
-      starts_at: "Starts at"
-      where: "Where"
-    form_fields:
-      timezone_notice: "You are using the timezone GMT%{timezone}. Set the dates below using this timezone."
     index:
       create_event: "Create a new event"
       events_now: "Hapenning now!"
@@ -1394,8 +1381,9 @@ en:
       title: "Past events"
       today: "No events for yesterday nor today"
     unified_event:
+      ends_at: "Ends at"
       organizers: "Organizers"
-      when: "When"
+      starts_at: "Starts at"
       where: "Where"
     upcoming_events:
       next_month: "There are no events for the next month"
@@ -1444,6 +1432,7 @@ en:
       events_now: "Events hapenning now!"
     news: "Space news"
     sidebar:
+      all_events: "View all"
       upcoming_events: "Upcoming events"
       webconference:
         attendees:
