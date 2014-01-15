@@ -6,7 +6,7 @@ module Devise
     class LdapAuthenticatable < Authenticatable
 
       def valid?
-        params[:ldap_auth]
+         ldap_enabled?
       end
 
       def authenticate!
@@ -18,6 +18,8 @@ module Devise
 
           # Tries to bind to the ldap server
             if do_ldap_bind(ldap)
+              Rails.logger.info "LDAP error code: #{ldap.get_operation_result.code}"
+              Rails.logger.info "LDAP error message: #{ldap.get_operation_result.message}"
               Rails.logger.info "LDAP: bind of the configured user was successful"
               Rails.logger.info "LDAP: trying to bind the target user: '#{login_from_params}'"
 
@@ -35,15 +37,17 @@ module Devise
 
                 success!(user)
               else
+                Rails.logger.info "LDAP error code: #{ldap.get_operation_result.code}"
+                Rails.logger.info "LDAP error message: #{ldap.get_operation_result.message}"
                 Rails.logger.error "LDAP: authentication failed, response: #{ldap_user}"
-                fail!(:invalid)
+                fail(:invalid)
               end
             end
         # ldap is not enabled in the site
         elsif not ldap_enabled?
-          fail!(I18n.t('devise.strategies.ldap_authenticatable.ldap_not_enabled'))
+          fail(I18n.t('devise.strategies.ldap_authenticatable.ldap_not_enabled'))
         else
-          fail!(:invalid)
+          fail(:invalid)
         end
       end
 
@@ -174,4 +178,4 @@ module Devise
   end
 end
 
-Warden::Strategies.add(:ldap_authenticatable, Devise::Strategies::LdapAuthenticatable)
+ Warden::Strategies.add(:ldap_authenticatable, Devise::Strategies::LdapAuthenticatable)
