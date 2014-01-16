@@ -4,7 +4,7 @@
 .thread{:class => "#{cycle("thread-even" , "thread-odd")}", :id => "parent_event_#{event.id}"}
 
   .logo-in-thread
-    = render :partial => "space_events/event_logo", :locals => { :event => event }
+    = event_logo(event)
 
   .thread-content
 

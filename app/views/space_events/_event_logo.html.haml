@@ -1,8 +1,0 @@
-= link_to mweb_events.event_path(event), :class => 'event-image' do
-  .event-image-date
-    .event-image-day
-      = sanitize(event.start_on.strftime("%d"))
-    .event-image-month
-      = localize(event.start_on, :format => "%b")
-    .event-image-hour
-      = event.get_formatted_hour

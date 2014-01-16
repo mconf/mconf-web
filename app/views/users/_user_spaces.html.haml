@@ -3,11 +3,6 @@
 -#  spaces (array of Space)
 
 - if spaces.empty?
-  %p
-    = t('home.no_spaces', :link => spaces_path).html_safe
-
+  %p= t('home.no_spaces', :link => spaces_path).html_safe
 - else
-  %ul.user-spaces
-    - spaces.each do |space|
-      %li
-        = render "spaces/space_thumbnail", :user => user, :space => space
+  = render "spaces/thumbnail_view", :spaces => spaces

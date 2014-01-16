@@ -21,6 +21,11 @@
           = icon_superuser()
           = t('.manage')
 
+  - else
+    -# for anonymous users
+    %li= link_to t('space.all'), main_app.spaces_path
+    %li= link_to t('.events'), mweb_events.events_path
+
 -# the right menu is not shown in the home page
 - if at_home?
   %ul#navbar-right-links

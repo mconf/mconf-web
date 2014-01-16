@@ -52,7 +52,13 @@ en:
       success: "saved"
     join: "Join"
     login_to_enable: "You need to be logged in to perform this action"
+    members:
+      one: "%{count} member"
+      other: "%{count} members"
     no_: "No"
+    participants:
+      one: "%{count} participant"
+      other: "%{count} participants"
     publish: "Publish"
     save: "Save"
     send: "Send"
@@ -908,9 +914,6 @@ en:
     error:
       create: "Error sending private message"
   mconf: Mconf
-  members: 
-    one: "%{count} member"
-    other: "%{count} members"
   message: 
     created: "Message sent!"
     incoming: 
@@ -969,6 +972,23 @@ en:
       start: "Start a new meeting"
       your_url: "Your URL"
   my_friends: "My friends"
+  mweb_events:
+    events:
+      event_thumbnail:
+        starts_at: "Starts at"
+        where: "Where"
+      index:
+        create_new_event: "Add a new event"
+        filters:
+          all: "All events"
+          my_events: "My events"
+        list_format:
+          list: "List"
+          thumbnails: "Thumbnails"
+        select_at_left: "Select an event in the list to see it's description here"
+        title: "All events"
+      thumbnail_view:
+        no_events: "There are no events created yet!"
   name: 
     full: "Full name"
     one: Name
@@ -1310,7 +1330,7 @@ en:
       filters: 
         all: "All spaces"
         my_spaces: "My spaces"
-      select_at_left: "Select a space in the left to see it's description here"
+      select_at_left: "Select a space in the list to see it's description here"
       user_is_member: "You are a member!"
     is_private: "is a private space. Send a join request to the administrator of this space to let you in"
     join: "Join this space"
@@ -1416,12 +1436,15 @@ en:
         by_name:
           no_matches: "No spaces found for \"%{term}\""
           placeholder: "Search spaces..."
+    list_view:
+      no_spaces: "There are no spaces created yet!"
     new:
       private: "Private"
       public: "Public"
       spaces_examples:
         title: "Examples of spaces:"
       title: "Create a new space"
+    news: "Space news"
     recordings:
       title: "Recordings in this space"
       update_recordings:
@@ -1430,7 +1453,6 @@ en:
         updating: "Updating your list of recordings..."
     show:
       events_now: "Events hapenning now!"
-    news: "Space news"
     sidebar:
       all_events: "View all"
       upcoming_events: "Upcoming events"
@@ -1456,6 +1478,8 @@ en:
     space_thumbnail:
       private: "Private"
       public: "Public"
+    thumbnail_view:
+      no_spaces: "There are no spaces created yet!"
     unified_space:
       user_is_member: "You are a member of this space"
     users: "Users in this space"

@@ -52,7 +52,13 @@ pt-br:
       success: "gravado"
     join: "Entrar"
     login_to_enable: "Você precisa estar logado para acessar esta opção"
+    members:
+      one: "%{count} membro"
+      other: "%{count} membros"
     no_: "Não"
+    participants:
+      one: "%{count} participante"
+      other: "%{count} participantes"
     publish: "Publicar"
     save: "Salvar"
     send: "Enviar"
@@ -894,9 +900,6 @@ pt-br:
       no_user_found: "Nenhum usuário encontrado"
   mandatory_field: "Campo obrigatório"
   mconf: Mconf
-  members:
-    one: "%{count} membro"
-    other: "%{count} membros"
   message:
     created: "Mensagem enviada com sucesso"
     error:
@@ -957,6 +960,23 @@ pt-br:
       start: "Começar uma nova reunião"
       your_url: "Seu endereço"
   my_friends: "Meus amigos"
+  mweb_events:
+    events:
+      event_thumbnail:
+        starts_at: "Inicia em"
+        where: "Localização"
+      index:
+        create_new_event: "Adicionar evento"
+        filters:
+          all: "Todos eventos"
+          my_events: "Meus eventos"
+        list_format:
+          list: "Lista"
+          thumbnails: "Miniaturas"
+        select_at_left: "Selecione um evento ao lado para ver sua descrição aqui"
+        title: "Todos eventos"
+      thumbnail_view:
+        no_events: "Nenhum evento foi criado até o momento!"
   name:
     full: "Nome completo"
     one: Nome
@@ -1394,12 +1414,15 @@ pt-br:
         by_name:
           no_matches: "Nenhuma comunidae encontrada com \"%{term}\""
           placeholder: "Procurar comunidaes..."
+    list_view:
+      no_spaces: "Nenhuma comunidade foi criada até o momento!"
     new:
       private: "Privada"
       public: "Pública"
       spaces_examples:
         title: "Exemplos de comunidades:"
       title: "Criar uma nova comunidade"
+    news: "Notícias na comunidade"
     recordings:
       title: "Gravações desta comunidade"
       update_recordings:
@@ -1434,6 +1457,8 @@ pt-br:
     space_thumbnail:
       private: "Privada"
       public: "Pública"
+    thumbnail_view:
+      no_spaces: "Nenhuma comunidade foi criada até o momento!"
     unified_space: 
       user_is_member: "Você é membro desta comunidade"
     users: "Usuários nesta comunidade"

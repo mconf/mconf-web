@@ -1,0 +1,13 @@
+-# locals:
+-#  events (array of MwebEvents::Event)
+-#  user_events (array of MwebEvents::Event): the events in which the user will participate
+
+- user_events = [] unless user_events
+
+%ul.list-thumbnails
+  - if events.count > 0
+    - events.each do |event|
+      %li.list-thumbnail-wrapper{ :class => "#{user_events.include?(event) ? 'my-event' : 'not-my-event'}", :name => event.permalink }
+        = render "mweb_events/events/event_thumbnail", :event => event
+  - else
+    = t(".no_events")

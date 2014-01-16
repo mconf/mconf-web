@@ -1,0 +1,64 @@
+@import "compass/css3";
+@import "definitions";
+
+body.mweb_events-events.index {
+
+  #content-middle {
+    min-height: 450px;
+  }
+
+  #event-filter-wrapper {
+    @include mconf-clearfix;
+    margin-bottom: 10px;
+    padding: 10px 5px;
+    background: $light-gray;
+    @include border-radius(5px);
+    text-align: center;
+
+    .view-types {
+      float: right;
+      margin-top: 1px;
+      margin-right: 10px;
+    }
+
+    .btn-group {
+      margin-left: 15px;
+      float: left;
+
+      .select2-choice {
+        @include border-radius(0 4px 4px 0);
+      }
+
+      #space-filter-text {
+        border-left: 0;
+        margin: 0;
+        @include border-left-radius(0);
+      }
+    }
+  }
+
+  // the list of thumbnails looks a bit different here than the standard one
+  // it shows only one element per line with a bigger logo
+  ul.list-thumbnails {
+    .list-thumbnail-wrapper {
+      width: 98%;
+    }
+
+    .list-thumbnail {
+      .list-description {
+        width: auto;
+      }
+
+      .list-logo {
+        width: 80px;
+        height: 85px;
+        background: $light-gray;
+
+        .mweb_events-event-logo {
+          padding-top: 4px;
+        }
+      }
+    }
+  }
+
+}

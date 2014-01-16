@@ -2,7 +2,6 @@
 @import "definitions";
 
 @import "app/spaces/_unified_space";
-@import "app/spaces/_space_thumbnail";
 
 body.spaces.index {
 
@@ -82,42 +81,6 @@ body.spaces.index {
     .action-links {
       text-align: right;
     }
-  }
-
-  #spaces {
-
-    .space-item.space-list {
-      .thread {
-        margin-top: 5px;
-        margin-bottom: 5px;
-        padding-right: 5px;
-      }
-
-      &.selected .thread {
-        border-right: 5px solid #aaa;
-        padding-right: 0;
-      }
-    }
-
-    .space-thumbnail-list {
-      margin: 0;
-      padding: 0;
-      clear: both;
-      @include mconf-clearfix;
-
-      li {
-        margin: 0;
-        padding: 0;
-      }
-
-      .space-item.selected {
-        .space-thumbnail {
-          border-color: $second-color;
-          @include box-shadow(0 0 5px lighten($second-color, 10));
-        }
-      }
-    }
-
   }
 
 }
