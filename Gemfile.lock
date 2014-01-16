@@ -54,14 +54,16 @@ GIT
 
 GIT
   remote: git@github.com:mconf/mweb-events.git
-  revision: 374a6a69779281a817fde46ff2f5f65dba834008
+  revision: c61863ba949e88ab34a0167b34961e649b957d6d
   specs:
     mweb_events (0.0.1)
       bootstrap-datetimepicker-rails
+      cancan
       coffee-rails (~> 3.2.1)
       compass-rails (~> 1.0)
       epic-editor-rails
       font-awesome-rails (~> 3.2)
+      friendly_id
       geocoder
       haml
       haml-rails

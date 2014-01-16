@@ -167,6 +167,25 @@ module Abilities
         end
         admins.include?(user)
       end
+
+      # Events from MwebEvents
+      can :read, MwebEvents::Event
+      can :create, MwebEvents::Event
+      can [:update, :destroy], MwebEvents::Event do |e|
+        e.owner == user
+      end
+      can :register, MwebEvents::Event do |e|
+        e.owner != user && MwebEvents::Participant.where(:owner_id => user.id, :event_id => e.id).empty?
+      end
+
+      # Participants from MwebEvents
+      can :read, MwebEvents::Participant do |p|
+        p.event.owner == user || p.owner == user
+      end
+      can :manage, MwebEvents::Participant do |p|
+        p.event.owner == user
+      end
+      can :create, MwebEvents::Participant
     end
 
     private
@@ -319,6 +338,10 @@ module Abilities
       can :show, News, :space => { :public => true }
       can :read, Event, :space => { :public => true }
       can :read, Attachment, :space => { :public => true, :repository => true }
+
+      # for MwebEvents
+      can [:read, :register], MwebEvents::Event
+      can :create, MwebEvents::Participant # TODO: really needed?
     end
 
     private

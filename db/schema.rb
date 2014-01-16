@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140110004407) do
+ActiveRecord::Schema.define(:version => 20140115222824) do
 
   create_table "activities", :force => true do |t|
     t.integer  "trackable_id"
@@ -178,6 +178,17 @@ ActiveRecord::Schema.define(:version => 20140110004407) do
     t.text     "other_participation_url"
   end
 
+  create_table "friendly_id_slugs", :force => true do |t|
+    t.string   "slug",                         :null => false
+    t.integer  "sluggable_id",                 :null => false
+    t.string   "sluggable_type", :limit => 40
+    t.datetime "created_at"
+  end
+
+  add_index "friendly_id_slugs", ["slug", "sluggable_type"], :name => "index_friendly_id_slugs_on_slug_and_sluggable_type", :unique => true
+  add_index "friendly_id_slugs", ["sluggable_id"], :name => "index_friendly_id_slugs_on_sluggable_id"
+  add_index "friendly_id_slugs", ["sluggable_type"], :name => "index_friendly_id_slugs_on_sluggable_type"
+
   create_table "join_requests", :force => true do |t|
     t.string   "request_type"
     t.integer  "candidate_id"
@@ -206,19 +217,23 @@ ActiveRecord::Schema.define(:version => 20140110004407) do
 
   create_table "mweb_events_events", :force => true do |t|
     t.string   "name"
-    t.datetime "start_on"
-    t.datetime "end_on"
-    t.string   "location"
-    t.string   "address"
     t.text     "description"
+    t.string   "social_networks"
     t.integer  "owner_id"
     t.string   "owner_type"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "start_on"
+    t.datetime "end_on"
+    t.string   "time_zone"
+    t.string   "location"
+    t.string   "address"
     t.float    "latitude"
     t.float    "longitude"
-    t.string   "time_zone"
+    t.string   "permalink"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
   end
+
+  add_index "mweb_events_events", ["permalink"], :name => "index_mweb_events_events_on_permalink"
 
   create_table "mweb_events_participants", :force => true do |t|
     t.integer  "owner_id"
