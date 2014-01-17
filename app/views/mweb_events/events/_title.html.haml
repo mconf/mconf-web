@@ -1,0 +1,7 @@
+= render_page_title @event.name
+
+- if @event.owner
+  .creator
+    %p
+      Created by
+      = @event.owner.name
