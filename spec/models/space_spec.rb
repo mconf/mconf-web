@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # This file is part of Mconf-Web, a web application that provides access
 # to the Mconf webconferencing system. Copyright (C) 2010-2012 Mconf
 #
@@ -40,16 +41,53 @@ describe Space do
   it { should validate_presence_of(:description) }
 
   it { should validate_presence_of(:name) }
-  it {
-    space # needed for the call below
-    should validate_uniqueness_of(:name)
-  }
+  it { should validate_uniqueness_of(:name).case_insensitive }
   it { should ensure_length_of(:name).is_at_least(3) }
 
-  it { should validate_presence_of(:permalink) }
-  #it { should ensure_length_of(:permalink).is_at_least(3) }
+  describe "#permalink" do
+    it { should validate_uniqueness_of(:permalink).case_insensitive }
+    it { should validate_presence_of(:permalink) }
+    it { should ensure_length_of(:permalink).is_at_least(3) }
+    it { should_not allow_value("123 321").for(:permalink) }
+    it { should_not allow_value("").for(:permalink) }
+    it { should_not allow_value("ab@c").for(:permalink) }
+    it { should_not allow_value("ab#c").for(:permalink) }
+    it { should_not allow_value("ab$c").for(:permalink) }
+    it { should_not allow_value("ab%c").for(:permalink) }
+    it { should_not allow_value("ábcd").for(:permalink) }
+    it { should allow_value("---").for(:permalink) }
+    it { should allow_value("-abc").for(:permalink) }
+    it { should allow_value("abc-").for(:permalink) }
+    it { should allow_value("_abc").for(:permalink) }
+    it { should allow_value("abc_").for(:permalink) }
+    it { should allow_value("abc").for(:permalink) }
+    it { should allow_value("123").for(:permalink) }
+    it { should allow_value("111").for(:permalink) }
+    it { should allow_value("aaa").for(:permalink) }
+    it { should allow_value("___").for(:permalink) }
+    it { should allow_value("abc-123_d5").for(:permalink) }
+
+    describe "validates uniqueness against User#username" do
+      describe "on create" do
+        let(:user) { FactoryGirl.create(:user) }
+        subject { FactoryGirl.build(:space, :permalink => user.username) }
+        it { should_not be_valid }
+      end
+
+      describe "on update" do
+        let(:user) { FactoryGirl.create(:user) }
+        let(:space) { FactoryGirl.create(:space) }
+        before(:each) {
+          space.permalink = user.username
+        }
+        it { space.should_not be_valid }
+      end
+    end
+  end
 
   it "acts_as_resource"
+
+  it "#check_errors_on_bigbluebutton_room"
 
   it { should respond_to(:invitation_ids) }
   it { should respond_to(:"invitation_ids=") }
@@ -79,14 +117,6 @@ describe Space do
   it "calls :crop_logo on after_update"
 
   it "default_scope :conditions"
-
-  describe "on create" do
-    describe "verify if doesn't exist a user with the same username of the space permalink" do
-      before(:each) { FactoryGirl.create(:user, :username => "test") }
-      before(:each) { FactoryGirl.build(:space, :permalink => "test") }
-      it { should_not be_valid }
-    end
-  end
 
   describe ".public" do
     context "returns the admins of the space" do
@@ -214,8 +244,6 @@ describe Space do
       space.bigbluebutton_room.private.should be_true
     end
   end
-
-  it "#check_permalink"
 
   describe "#admins" do
     context "returns the admins of the space" do

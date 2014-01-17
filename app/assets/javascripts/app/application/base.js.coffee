@@ -99,13 +99,30 @@ class mconf.Base
     $("a[data-open-file]").off "click.mconfBase"
     $("a.submit-form, button.submit-form").off "click.mconfBase"
 
+  # Converts a string into a slug. Should do it as closely as possible from the
+  # way slugs are generated in the application using FriendlyId.
+  # From: http://dense13.com/blog/2009/05/03/converting-string-to-slug-javascript/
+  @stringToSlug: (str) ->
+    str = str.replace(/^\s+|\s+$/g, '')
+    str = str.toLowerCase()
+
+    # remove accents, swap ñ for n, etc
+    from = "ãàáäâẽèéëêĩìíïîõòóöôũùúüûñçć·/_,:;!"
+    to   = "aaaaaeeeeeiiiiiooooouuuuuncc-------"
+    for i in [0..from.length]
+      str = str.replace(new RegExp(from.charAt(i), 'g'), to.charAt(i))
+
+    str.replace(/[^a-z0-9 -_]/g, '') # remove invalid chars
+       .replace(/['"]/g, '-')        # apostrophes
+       .replace(/\s+/g, '-')         # collapse whitespace and replace by '-'
+       .replace(/-+/g, '-')          # collapse dashes
+
 
 $ ->
   # Setting I18n-js with the user language
   I18n.locale = $('html').attr "lang"
 
   mconf.Base.bind()
-
 
 # Returns true if we're currently in the view 'action' inside 'controller'
 # If 'action' is empty, will check only for the controller

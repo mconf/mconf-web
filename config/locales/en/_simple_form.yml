@@ -39,6 +39,7 @@ en:
         xmpp_server: "Address where's located the XMPP server."
         webconf_auto_record: "If true, the record flag will be set automatically according to whether the user has permission to record meetings in the target room or not (useful if your web conference servers have the record button inside the session). Otherwise, the user will have to set the record flag himself when opening a new webconference (but only if he has permissions to)."
       space:
+        permalink: "This attribute is used to identify your space in URLs, including the URL of its conference room"
         public: "Collaborative spaces can be public, for anybody to watch what happens in them, or private, where members only have access to the activities of the space"
         repository: "The document repository is a place where users of this space can upload and share documents of any type"
       user:

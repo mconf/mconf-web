@@ -130,9 +130,10 @@ en:
         webconf_auto_record: "Automatically set the recording flag when creating a web conference"
       space:
         attendee_password: "Attendee password"
-        description: "Descrição"
+        description: "Description"
         moderator_password: "Moderator password"
         name: "Name"
+        permalink: "Identifier"
         public: "Public"
         repository: "Document repository"
       user:
@@ -1441,7 +1442,6 @@ en:
           no_matches: "No spaces found for \"%{term}\""
           placeholder: "Search spaces..."
     new:
-      permalink: "Space ID"
       private: "Private"
       public: "Public"
       spaces_examples:
