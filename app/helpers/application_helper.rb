@@ -8,6 +8,7 @@ require 'version'
 
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
+  include MwebEvents::EventsHelper
 
   # Clippy from https://github.com/lackac/clippy
   #
