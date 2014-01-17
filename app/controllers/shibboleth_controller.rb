@@ -187,6 +187,7 @@ class ShibbolethController < ApplicationController
     logger.info "Shibboleth: couldn't get email from session, " +
       "trying field #{current_site.shib_email_field} " +
       "in #{session[:shib_data].inspect}" if email.nil?
+    email = email.clone unless email.nil?
     email
   end
 
@@ -200,6 +201,7 @@ class ShibbolethController < ApplicationController
     logger.info "Shibboleth: couldn't get name from session, " +
       "trying field #{current_site.shib_name_field} " +
       "in #{session[:shib_data].inspect}" if name.nil?
+    name = name.clone unless name.nil?
     name
   end
 
@@ -213,6 +215,7 @@ class ShibbolethController < ApplicationController
     logger.info "Shibboleth: couldn't get login from session, " +
       "trying field #{current_site.shib_login_field} " +
       "in #{session[:shib_data].inspect}" if login.nil?
+    login = login.clone unless login.nil?
     login
   end
 
@@ -232,6 +235,11 @@ class ShibbolethController < ApplicationController
 
   def create_account(name, email, login)
     unless User.find_by_email(email)
+      # TODO: if the user is disabled he won't be found and the create below will fail
+
+      logger.info "Shibboleth: creating a new account with name: #{name}, " +
+        "email: #{email}, login: #{login}"
+
       password = SecureRandom.hex(16)
       user = User.create!(:login => login, :email => email,
                           :password => password, :password_confirmation => password)
@@ -248,22 +256,24 @@ class ShibbolethController < ApplicationController
   end
 
   def test_data
-    # FAKE TEST DATA
-    request.env["Shib-Application-ID"] = "default"
-    request.env["Shib-Session-ID"] = "09a612f952cds995e4a86ddd87fd9f2a"
-    request.env["Shib-Identity-Provider"] = "https://login.somewhere/idp/shibboleth"
-    request.env["Shib-Authentication-Instant"] = "2011-09-21T19:11:58.039Z"
-    request.env["Shib-Authentication-Method"] = "urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport"
-    request.env["Shib-AuthnContext-Class"] = "urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport"
-    request.env["Shib-brEduPerson-brEduAffiliationType"] = "student;position;faculty"
-    request.env["Shib-eduPerson-eduPersonPrincipalName"] = "75a988943825d2871e1cfa75473ec0@ufrgs.br"
-    request.env["Shib-inetOrgPerson-cn"] = "Rick Astley"
-    request.env["Shib-inetOrgPerson-sn"] = "Rick Astley"
-    request.env["Shib-inetOrgPerson-mail"] = "nevergonnagiveyouup@rick.com"
-    request.env["cn"] = "Rick Astley"
-    request.env["mail"] = "nevergonnagiveyouup@rick.com"
-    request.env["ufrgsVinculo"] = "anything in here"
-    request.env["uid"] = "00000000000"
+    if Rails.env == "development"
+      # FAKE TEST DATA
+      request.env["Shib-Application-ID"] = "default"
+      request.env["Shib-Session-ID"] = "09a612f952cds995e4a86ddd87fd9f2a"
+      request.env["Shib-Identity-Provider"] = "https://login.somewhere/idp/shibboleth"
+      request.env["Shib-Authentication-Instant"] = "2011-09-21T19:11:58.039Z"
+      request.env["Shib-Authentication-Method"] = "urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport"
+      request.env["Shib-AuthnContext-Class"] = "urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport"
+      request.env["Shib-brEduPerson-brEduAffiliationType"] = "student;position;faculty"
+      request.env["Shib-eduPerson-eduPersonPrincipalName"] = "75a988943825d2871e1cfa75473ec0@ufrgs.br"
+      request.env["Shib-inetOrgPerson-cn"] = "Rick Astley"
+      request.env["Shib-inetOrgPerson-sn"] = "Rick Astley"
+      request.env["Shib-inetOrgPerson-mail"] = "nevergonnagiveyouup@rick.com"
+      request.env["cn"] = "Rick Astley"
+      request.env["mail"] = "nevergonnagiveyouup@rick.com"
+      request.env["ufrgsVinculo"] = "anything in here"
+      request.env["uid"] = "00000000000"
+    end
   end
 
 end

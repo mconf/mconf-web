@@ -154,12 +154,14 @@ puts "  login: #{config["admin_login"]}"
 puts "  email: #{config["admin_email"]}"
 puts "  password: #{config["admin_password"]}"
 puts "  fullname: #{config["admin_fullname"]}"
-u = User.create :login => config["admin_login"],
-                :email => config["admin_email"],
-                :password => config["admin_password"],
-                :password_confirmation => config["admin_password"],
-                :_full_name => config["admin_fullname"]
-u.update_attribute(:superuser, true)
-u.update_attribute(:created_at, DateTime.now)
-u.activate
+u = User.new :login => config["admin_login"],
+             :email => config["admin_email"],
+             :password => config["admin_password"],
+             :password_confirmation => config["admin_password"],
+             :_full_name => config["admin_fullname"]
+u.superuser = true
+u.created_at = DateTime.now
+# prevent it from sending confirmation email and activate the user
+u.activated_at = DateTime.now
+u.save!
 u.profile!.update_attribute(:full_name, config["admin_fullname"])
