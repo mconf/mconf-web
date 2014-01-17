@@ -116,18 +116,20 @@ namespace :db do
 
       puts "* Create spaces: events for \"#{space.name}\" (5..10)"
       available_users = User.all.dup
-      Event.populate 5..10 do |event|
-        event.space_id = space.id
+      MwebEvents::Event.populate 5..10 do |event|
+        event.owner_id = space.id
+        event.owner_type = 'Space'
         event.name = Populator.words(1..3).titleize
+        event.permalink = Populator.words(1..3).split.join('-')
+        event.time_zone = Forgery::Time.zone
+        event.location = Forgery::Name.name
+        event.address = Forgery::Address.street_address
         event.description = Populator.sentences(0..3)
-        event.place = Populator.sentences(0..2)
-        event.spam = false
+        event.location = Populator.sentences(0..2)
         event.created_at = @created_at_start..Time.now
         event.updated_at = event.created_at..Time.now
-        event.start_date = event.created_at..1.years.since(Time.now)
-        event.end_date = 2.hours.since(event.start_date)..2.days.since(event.start_date)
-        event.author_id = available_users.delete_at((rand * available_users.size).to_i)
-        event.spam = rand(0) > 0.9 # ~10% marked as spam
+        event.start_on = event.created_at..1.years.since(Time.now)
+        event.end_on = 2.hours.since(event.start_on)..2.days.since(event.start_on)
       end
 
       News.populate 2..10 do |news|
@@ -140,7 +142,7 @@ namespace :db do
     end
 
     Space.find_each(&:save!) # to generate the permalink
-    Event.find_each(&:save!) # to generate the permalink
+    MwebEvents::Event.find_each(&:save!) # to generate the permalink
 
     puts "* Create spaces: webconference rooms"
     Space.all.each do |space|
@@ -288,7 +290,7 @@ namespace :db do
       space.new_activity :create, space.admins.first
 
       # Author and recent_activity for posts/events
-      ( space.posts + space.events ).each do |item|
+      ( space.posts ).each do |item|
         item.author = space.users[rand(space.users.length)]
         item.save(:validate => false)
 
