@@ -26,7 +26,7 @@
             %h3= sanitize(space.name)
         - else
           %h3= sanitize(space.name)
-        %p.description= sanitize(space.description)
+        %p.description= sanitize(first_words(space.description, 400))
         %p.details
           - if space.users.include?(current_user)
             %span.is-member= t('space.index.user_is_member')

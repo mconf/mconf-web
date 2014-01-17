@@ -14,24 +14,22 @@
     .content-block-middle
       %p= t('.select_at_left')
     - @events.each do |event|
+      -# TODO: everybody has access?
       - has_access = true
-      -# user_signed_in? || event.public
       .content-block-middle{ :id => "#{event.permalink}-description", :style => "display:none;" }
         .event-logo-wrapper
-          -# - if has_access
-          -#   = link_logo_image(event, :size => '168x128', :title => sanitize(event.name), :class => "logo logo-event")
-          -# - else
-          -#   = logo_image(event, :size => '168x128', :title => sanitize(event.name), :class => "logo logo-event")
+          -# TODO: event_logo does not accept custom options yet, fix it
+          = event_logo(event, :title => sanitize(event.name), :class => "logo logo-event")
         - if has_access
           = link_to mweb_events.event_path(event) do
             %h3= sanitize(event.name)
         - else
           %h3= sanitize(event.name)
-        %p.description= sanitize(event.description)
+        %p.description= sanitize(first_words(event.description, 400))
         %p.details
           - if event.participants.include?(current_user)
             %span.is-participant= t('.user_is_participant')
-          %span= t('.member_count', :count => event.participants.count)
+          %span= t('.participant_count', :count => event.participants.count)
         - if has_access
           %p.action-links
             = link_to t('more'), mweb_events.event_path(event)
@@ -39,16 +37,16 @@
 #event-filter-wrapper
   .view-types
     .btn-group{ :"data-toggle" => "buttons-radio" }
-      = link_to mweb_events.events_path(:view => 'thumbnails'), :class => "tooltipped btn btn-small #{'active' if params[:view] == 'thumbnails'}" do
+      = link_to mweb_events.events_path(:view => 'thumbnails'), :class => "tooltipped btn btn-small #{'active' if params[:view] == 'thumbnails' || true}" do
         = t('.list_format.thumbnails')
-      = link_to mweb_events.events_path(:view => 'list', :my_events => params[:my_events]), :class => "tooltipped btn btn-small #{'active' if params[:view] == 'list'}" do
-        = t('.list_format.list')
+      -# = link_to mweb_events.events_path(:view => 'list', :my_events => params[:my_events]), :class => "tooltipped btn btn-small #{'active' if params[:view] == 'list'}" do
+      -#   = t('.list_format.list')
 
   .btn-group{ :"data-toggle" => "buttons-radio" }
     = link_to mweb_events.events_path(:view => params[:view]), :id => "show-events-all", :class => "btn #{'active' unless params[:my_events]}", :type => "button" do
       = t('.filters.all')
     - if user_signed_in?
-      = link_to mweb_events.events_path(:view => params[:view], :my_events => true), :id => "show-events-mine", :class => "btn #{'active' if params[:my_events]}", :type => "button" do
+      = link_to mweb_events.events_path(:view => params[:view], :my_events => true), :id => "show-events-mine", :class => "disabled btn #{'active' if params[:my_events]}", :type => "button" do
         = t('.filters.my_events')
     -# = hidden_field_tag :event_filter_text
 

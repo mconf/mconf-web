@@ -973,6 +973,9 @@ pt-br:
         list_format:
           list: "Lista"
           thumbnails: "Miniaturas"
+        participant_count:
+          one: "%{count} participante"
+          other: "%{count} participantes"
         select_at_left: "Selecione um evento ao lado para ver sua descrição aqui"
         title: "Todos eventos"
       thumbnail_view:

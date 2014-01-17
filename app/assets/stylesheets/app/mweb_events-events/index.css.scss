@@ -61,4 +61,34 @@ body.mweb_events-events.index {
     }
   }
 
+  #event-description-wrapper {
+    width: 230px;
+
+    .content-block-middle {
+      .event-logo-wrapper {
+        margin: 5px 0;
+        text-align: center;
+        @include broken-img-parent;
+
+        a {
+          padding: 20px;
+          background: $light-gray;
+          width: 169px;
+          height: 75px;
+          margin-bottom: 5px;
+        }
+      }
+    }
+
+    .details {
+      font-style: italic;
+      color: #888;
+      span { display: block; }
+    }
+
+    .action-links {
+      text-align: right;
+    }
+  }
+
 }

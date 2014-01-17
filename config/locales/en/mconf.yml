@@ -985,6 +985,9 @@ en:
         list_format:
           list: "List"
           thumbnails: "Thumbnails"
+        participant_count:
+          one: "%{count} participant"
+          other: "%{count} participants"
         select_at_left: "Select an event in the list to see it's description here"
         title: "All events"
       thumbnail_view:
