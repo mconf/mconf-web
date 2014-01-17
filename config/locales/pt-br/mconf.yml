@@ -799,7 +799,7 @@ pt-br:
       teleclass: "<p>Gostaria de convidá-lo para <b>o evento 'event_name' na comunidade %{space} </b>. O evento será uma classe virtual com participação simples através do sistema Isabel. </p><p> Para aceitar meu convite, por favor visite %{url} </p><p> Você pode encontrar mais informações sobre este evento em <a href=\"event_url\">event_url</a></p><p> Atenciosamente, <br/><br/> %{username}<br/>%{useremail}<br/>%{userorg}</p>"
       teleconference: "<p>Gostaria de convidá-lo para <b>o evento 'event_name' na comunidade %{space} </b>. O evento será uma conferência virtual com participação simples através do sistema Isabel. </p><p> Para aceitar meu convite, por favor visite %{url} </p><p> Você pode encontrar mais informações sobre este evento em <a href=\"event_url\">event_url</a></p><p> Atenciosamente, <br/><br/> %{username}<br/>%{useremail}<br/>%{userorg}</p>"
       telemeeting: "<p>Gostaria de convidá-lo para <b>o evento 'event_name' na comunidade %{space} </b>. O evento será uma reunião virtual com participação simples através do sistema Isabel. </p><p> Para aceitar meu convite, por favor visite %{url} </p><p> Você pode encontrar mais informações sobre este evento em <a href=\"event_url\">event_url</a></p><p> Atenciosamente, <br/><br/> %{username}<br/>%{useremail}<br/>%{userorg}</p>"
-    not_accepted: "não aceito"
+    not_accepted: "não aceitou"
     not_pending: 
       other: "Não há convites pendentes"
     pending: 
@@ -818,7 +818,7 @@ pt-br:
     to_event: "%{username} convida você para o evento %{eventname} na comunidade %{space}"
     to_space: "%{username} convida você para a comunidade %{space}"
     will_invite: "Pessoas que você vai convidar"
-    yes_accepted: aceito
+    yes_accepted: aceitou
   invite: 
     bad_format: "(e-mail mal formatado)"
     email: "e-mail para %{email}"

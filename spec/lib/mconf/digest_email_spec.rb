@@ -124,12 +124,12 @@ describe Mconf::DigestEmail do
         Factory.create(:event, :space => space, :start_date => date_end + 1.second, :end_date => date_end + 1.hour)
         # events entirely within range
         @expected = []
-        @expected << Factory.create(:event, :space => space, :start_date => date_start, :end_date => date_start + 1.hour)
-        @expected << Factory.create(:event, :space => space, :start_date => date_start + 1.hour, :end_date => date_start + 2.hours)
-        @expected << Factory.create(:event, :space => space, :start_date => date_end - 1.hour, :end_date => date_end)
+        @expected << Factory.create(:event, :space => space, :start_date => date_start, :end_date => date_start + 1.hour, :updated_at => now)
+        @expected << Factory.create(:event, :space => space, :start_date => date_start + 1.hour, :end_date => date_start + 2.hours, :updated_at => now-10.minutes)
+        @expected << Factory.create(:event, :space => space, :start_date => date_end - 1.hour, :end_date => date_end, :updated_at => now-15.minutes)
         # events with only start or end within range
-        @expected << Factory.create(:event, :space => space, :start_date => date_start - 1.hour, :end_date => date_start + 1.hour)
-        @expected << Factory.create(:event, :space => space, :start_date => date_end - 1.hour, :end_date => date_end + 1.hour)
+        @expected << Factory.create(:event, :space => space, :start_date => date_start - 1.hour, :end_date => date_start + 1.hour, :updated_at => now-30.minutes)
+        @expected << Factory.create(:event, :space => space, :start_date => date_end - 1.hour, :end_date => date_end + 1.hour, :updated_at => now-1.hour)
         @expected.sort_by!{ |p| p.updated_at }.reverse!
       end
       before(:each) { call_get_activity }
@@ -141,9 +141,9 @@ describe Mconf::DigestEmail do
         sender = Factory.create(:user)
         # unread messages for the target user
         @expected = []
-        @expected << Factory.create(:private_message, :receiver => user, :sender => sender)
-        @expected << Factory.create(:private_message, :receiver => user, :sender => sender)
-        @expected.sort_by!{ |p| p.updated_at }.reverse!
+        @expected << Factory.create(:private_message, :receiver => user, :sender => sender, :created_at => DateTime.now-1.hours)
+        @expected << Factory.create(:private_message, :receiver => user, :sender => sender, :created_at => DateTime.now)
+        @expected.sort_by!{ |p| p.created_at }.reverse!
         # read message
         Factory.create(:private_message, :receiver => user, :sender => sender, :checked => true)
         # message to another user
