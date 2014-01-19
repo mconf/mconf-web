@@ -82,7 +82,7 @@
 
 <% end %>
 
-<!--
+<% if false %>
 <div id="webconference-rooms">
   <div class="my-webconference-rooms">
     <h3>
@@ -157,6 +157,6 @@
 
 <div id="success" class="hide">
 </div>
--->
+<% end %>
 
 <%#= render :partial => 'recordings/recording_start_links', :locals => { :resource => @room, :route => user_path(current_user, :format => 'json') } %>
