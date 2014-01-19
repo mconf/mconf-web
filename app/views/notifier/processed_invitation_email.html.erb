@@ -3,9 +3,9 @@
 
     <p><%= @invitation.introducer.full_name + ',' %></p>
     <%if @invitation.candidate!=nil%>
-      <p><%= t('email.invitation_result.admin_side',:name=>@invitation.candidate.full_name, :action => @action, :spacename =>@space.name)%>.</p>
+      <p><%= t('email.invitation_result.admin_side',:name=>@invitation.candidate.full_name, :action => @action, :spacename =>@space.name, :locale=>@locale)%>.</p>
     <%else%>
-      <p><%= t('email.invitation_result.admin_side',:name=>@invitation.email[0,@invitation.email.index('@')], :action => @action, :spacename =>@space.name)%>.</p>
+      <p><%= t('email.invitation_result.admin_side',:name=>@invitation.email[0,@invitation.email.index('@')], :action => @action, :spacename =>@space.name, :locale=>@locale)%>.</p>
     <%end%>
     <p><%= raw(t('invitation.info_users', :users_url => space_users_url(@space)))%></p>
 

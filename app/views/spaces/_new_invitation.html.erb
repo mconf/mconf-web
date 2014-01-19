@@ -28,12 +28,6 @@
         <%end%>
       </div>
       
-      
-      <div class="margin-up">
-        <label for="e-mails" class="bold"><%= t('user.invite_email') %> <%= t('email.commas') %>:</label>
-        <%= f.text_field :invitation_mails %>
-      </div>
-      
       <div class="margin-up">
         <label class="bold"><%= t('invitation.role_label') %>:</label>
         <% role_name_id = @roles.collect {|p| [ t("space.performances.#{p.name.underscore}"), p.id, p.name.underscore ]} %>

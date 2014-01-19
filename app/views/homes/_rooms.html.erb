@@ -1,5 +1,6 @@
-<% metaTitle = @room.metadata.all.select{ |m| m.name == configatron.metadata.title }.first %>
-<% metaDesc = @room.metadata.all.select{ |m| m.name == configatron.metadata.description }.first %>
+<%# metaTitle = @room.metadata.all.select{ |m| m.name == configatron.metadata.title }.first %>
+<%# metaDesc = @room.metadata.all.select{ |m| m.name == configatron.metadata.description }.first %>
+
 
 <%= content_for :javascript do  %>
 
@@ -81,6 +82,7 @@
 
 <% end %>
 
+<% if false %>
 <div id="webconference-rooms">
   <div class="my-webconference-rooms">
     <h3>
@@ -123,9 +125,6 @@
           <div class="invite_url url_share" id="invite_url">
             <span class="only_url"><%= t('home.invite_url') + ":" %> </span>
             <input id="invite_url_text" type="text" value="<%= join_webconf_url(@room) %>" disabled="disabled" />
-            <!-- <div class="clippy"> -->
-            <!--   <%= clippy(:id => "invite_url_text", :bg_color => "#FFFFFF").html_safe %> -->
-            <!-- </div> -->
           </div>
           <span class="float_right">
             <%= link_to t('home.webconf.configure'), edit_bbb_room_user_path(current_user, :room => @room.to_param), :id => "edit_bbb_room", :class => 'basic_button small_button pale_button' %>
@@ -158,5 +157,6 @@
 
 <div id="success" class="hide">
 </div>
+<% end %>
 
-<%= render :partial => 'recordings/recording_start_links', :locals => { :resource => @room, :route => user_path(current_user, :format => 'json') } %>
+<%#= render :partial => 'recordings/recording_start_links', :locals => { :resource => @room, :route => user_path(current_user, :format => 'json') } %>

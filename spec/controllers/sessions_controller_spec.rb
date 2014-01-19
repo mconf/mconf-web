@@ -102,21 +102,6 @@ describe SessionsController do
       end
     end
 
-    describe 'with valid openid' do
-      before :each do
-        @credentials = { :openid_identifier => 'dit.upm.es/atapiador' }
-        @openid_provider = 'http://dit.upm.es'
-      end
-
-      it 'should redirect to OpenID provider' do
-        post :create, @credentials
-
-        assert_response 302
-        response.redirect_url.should contain(/#{ Regexp.escape('http://irss.dit.upm.es/openid_server') }/)
-      end
-    end
-
-
   end
 
   describe "on logout" do
