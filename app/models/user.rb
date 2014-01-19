@@ -41,10 +41,10 @@ class User < ActiveRecord::Base
   #has_many :groups, :through => :memberships
 
   # exclusive and unique BBB Room for each user
-  after_create :create_bbb_room
-  after_update :update_bbb_room
-  has_one :bigbluebutton_room, :as => :owner, :dependent => :destroy
-  accepts_nested_attributes_for :bigbluebutton_room
+  #after_create :create_bbb_room
+  #after_update :update_bbb_room
+  #has_one :bigbluebutton_room, :as => :owner, :dependent => :destroy
+  #accepts_nested_attributes_for :bigbluebutton_room
 
   attr_accessible :machine_ids
   attr_accessible :timezone
