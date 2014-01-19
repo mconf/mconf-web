@@ -1,5 +1,5 @@
-<% if params[:partial] %>
-  <%= render :partial => 'recordings/recording_list', :locals => {:recordings => @recordings, :show_authors => false} %>
+<%# if params[:partial] %>
+  <%#= render :partial => 'recordings/recording_list', :locals => {:recordings => @recordings, :show_authors => false} %>
 
 <% else %>
 
@@ -51,6 +51,8 @@
   <%= content_for :search do  %>
     <%= render :partial => 'search/form' %>
   <%end%>
+  
+  <!--
   <div id="webconference-rooms">
     <h3>
       <%= t('recordings.title') %>
@@ -73,4 +75,5 @@
       <%= render :partial => 'recordings/recording_list', :locals => {:recordings => @recordings, :show_authors => false} %>
     </div>
   </div>
+  -->
 <% end %>
