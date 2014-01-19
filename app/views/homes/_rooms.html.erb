@@ -1,5 +1,6 @@
-<% metaTitle = @room.metadata.all.select{ |m| m.name == configatron.metadata.title }.first %>
-<% metaDesc = @room.metadata.all.select{ |m| m.name == configatron.metadata.description }.first %>
+<%# metaTitle = @room.metadata.all.select{ |m| m.name == configatron.metadata.title }.first %>
+<%# metaDesc = @room.metadata.all.select{ |m| m.name == configatron.metadata.description }.first %>
+
 
 <%= content_for :javascript do  %>
 
@@ -81,6 +82,7 @@
 
 <% end %>
 
+/*
 <div id="webconference-rooms">
   <div class="my-webconference-rooms">
     <h3>
@@ -158,5 +160,6 @@
 
 <div id="success" class="hide">
 </div>
+*/
 
-<%= render :partial => 'recordings/recording_start_links', :locals => { :resource => @room, :route => user_path(current_user, :format => 'json') } %>
+<%#= render :partial => 'recordings/recording_start_links', :locals => { :resource => @room, :route => user_path(current_user, :format => 'json') } %>
