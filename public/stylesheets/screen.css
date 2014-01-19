@@ -2200,6 +2200,7 @@ div.webconf-rooms #new_room_private_area input[type=text] {
 
 #webconference-rooms {
   background: #FFFFFF;
+  display:none;
 }
 
 #webconference-rooms h3 {
@@ -2242,9 +2243,6 @@ div.webconf-rooms #new_room_private_area input[type=text] {
   color: white;
 }
 
-#webconference-rooms {
-  display: none;
-}
 
 
 #webconference-rooms div.room_list ul {
