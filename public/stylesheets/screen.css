@@ -2242,6 +2242,11 @@ div.webconf-rooms #new_room_private_area input[type=text] {
   color: white;
 }
 
+#webconference-rooms {
+  display: none;
+}
+
+
 #webconference-rooms div.room_list ul {
   list-style-type: none;
   margin: 0;
