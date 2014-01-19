@@ -52,7 +52,7 @@
     <%= render :partial => 'search/form' %>
   <%end%>
   
-  <!--
+ <% if false %>
   <div id="webconference-rooms">
     <h3>
       <%= t('recordings.title') %>
@@ -75,5 +75,5 @@
       <%= render :partial => 'recordings/recording_list', :locals => {:recordings => @recordings, :show_authors => false} %>
     </div>
   </div>
-  -->
+  <% end %>
 <% end %>
