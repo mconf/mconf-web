@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140115222827) do
+ActiveRecord::Schema.define(:version => 20140120194246) do
 
   create_table "activities", :force => true do |t|
     t.integer  "trackable_id"
@@ -158,25 +158,6 @@ ActiveRecord::Schema.define(:version => 20140115222827) do
   end
 
   add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
-
-  create_table "events", :force => true do |t|
-    t.string   "name"
-    t.text     "description"
-    t.string   "place"
-    t.datetime "start_date"
-    t.datetime "end_date"
-    t.integer  "parent_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "space_id"
-    t.integer  "author_id"
-    t.string   "author_type"
-    t.boolean  "spam",                    :default => false
-    t.text     "notes"
-    t.text     "location"
-    t.string   "permalink"
-    t.text     "other_participation_url"
-  end
 
   create_table "friendly_id_slugs", :force => true do |t|
     t.string   "slug",                         :null => false
