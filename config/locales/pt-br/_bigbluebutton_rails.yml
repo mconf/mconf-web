@@ -23,6 +23,7 @@ pt-br:
         start_time: "Horário de Início"
       bigbluebutton_room: 
         attendee_password: "Senha de Participante"
+        default_layout: "Layout Padrão"
         dial_number: "Número de discagem"
         duration: Duração
         external: "Criada externamente"

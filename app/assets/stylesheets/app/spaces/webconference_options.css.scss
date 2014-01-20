@@ -1,0 +1,36 @@
+@import "definitions";
+@import "compass/css3";
+
+body.spaces.webconference_options {
+
+  #webconference-options {
+    clear: both;
+  }
+
+  #webconference-passwords,#webconference-layout {
+    clear: both;
+    margin-left: 15px;
+  }
+
+  .left-column {
+    width: 425px;
+
+    #space_name, #space_description {
+      width: 98%;
+    }
+  }
+
+  .right-column {
+    position: absolute;
+    right: 50px;
+    z-index: $z-index-navbar;
+
+    form {
+      text-align: center;
+      .input.file.optional {
+        display: none;
+      }
+    }
+  }
+
+}

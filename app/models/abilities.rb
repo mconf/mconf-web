@@ -85,7 +85,7 @@ module Abilities
         space.users.include?(user)
       end
       # Only the admin can destroy or update information on a space
-      can [:destroy, :edit, :update, :user_permissions], Space do |space|
+      can [:destroy, :edit, :update, :user_permissions, :webconference_options], Space do |space|
         space.admins.include?(user)
       end
 
