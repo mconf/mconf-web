@@ -3,6 +3,7 @@ class CreateMwebEventsEvents < ActiveRecord::Migration
   def change
     create_table :mweb_events_events do |t|
       t.string :name
+      t.text :summary
       t.text :description
       t.string :social_networks
       t.references :owner, :polymorphic => true
