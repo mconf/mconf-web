@@ -54,7 +54,7 @@ GIT
 
 GIT
   remote: git@github.com:mconf/mweb-events.git
-  revision: 888cbddaa8a17dfa968ca6ee477d2d50875adf91
+  revision: efc732392e5ffdf515db4ee094f3493aa4ad1a50
   specs:
     mweb_events (0.0.1)
       bootstrap-datetimepicker-rails
@@ -178,7 +178,7 @@ GEM
       devise (>= 2.1.0.rc)
     diff-lcs (1.2.4)
     dynamic_form (1.1.4)
-    epic-editor-rails (0.2.2)
+    epic-editor-rails (0.2.3)
       railties (>= 3.2, < 5.0)
     erubis (2.7.0)
     exception_notification (2.6.1)

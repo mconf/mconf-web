@@ -1,7 +1,7 @@
 - spaces_menu_at :events
 = content_for :menu do
   = render :partial => 'spaces/menu'
-- atom_link_header(space, Event.new, :title => "#{t('event.other')} - #{space.name}")
+- atom_link_header(space, MwebEvents::Event.new, :title => "#{t('event.other')} - #{space.name}")
 
 #events-wrapper
 
@@ -13,7 +13,7 @@
 
   - if can?(:create, @space.events.build)
     #events-toolbar
-      = link_to mweb_events.new_event_path, :class => "btn btn-primary btn-small" do
+      = link_to mweb_events.new_event_path(:owner_id => @space.id, :owner_type => 'Space'), :class => "btn btn-primary btn-small" do
         = t('.create_event')
 
   - if params[:show] == 'past_events'
