@@ -12,7 +12,7 @@ pt-br:
         create_html: "Uma reunião foi iniciada na sala do usuário %{owner} em %{time}"
       space:
         create_html: "Uma reunião foi iniciada na comunidade %{owner} em %{time}"
-    event:
+    mweb_events_event:
       create_html: criou o evento %{name} na comunidade
       attend_html: participará do evento %{name} da comunidade
       not_attend_html: não participará do evento %{name} da comunidade

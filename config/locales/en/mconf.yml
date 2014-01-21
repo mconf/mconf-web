@@ -12,7 +12,7 @@ en:
         create_html: "A meeting was started on the room of the user %{owner} at %{time}"
       space:
         create_html: "A meeting was started on the space %{owner} at %{time}"
-    event:
+    mweb_events_event:
       create_html: created the event %{name} in the space
       attend_html: will attend to the event %{name} in the space
       not_attend_html: will not attend to the event %{name} in the space
