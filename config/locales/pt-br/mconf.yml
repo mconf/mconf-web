@@ -1296,6 +1296,7 @@ pt-br:
       upcoming: "Eventos futuros"
     index:
       create_event: "Criar um novo evento"
+      events_in: "Eventos em"
       events_now: "Contecendo agora!"
     past_events:
       last_month: "Nenhum evento no último mês"

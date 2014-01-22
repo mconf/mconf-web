@@ -1321,6 +1321,7 @@ en:
     index:
       create_event: "Create a new event"
       events_now: "Hapenning now!"
+      events_in: "Events in"
     past_events:
       last_month: "No events for last month"
       last_week: "No events for last week"
