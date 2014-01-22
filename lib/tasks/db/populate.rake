@@ -122,7 +122,7 @@ namespace :db do
         event.name = Populator.words(1..3).titleize
         event.permalink = Populator.words(1..3).split.join('-')
         event.time_zone = Forgery::Time.zone
-        event.location = Forgery::Name.name
+        event.location = Populator.words(1..3)
         event.address = Forgery::Address.street_address
         event.description = Populator.sentences(0..3)
         event.location = Populator.sentences(0..2)
