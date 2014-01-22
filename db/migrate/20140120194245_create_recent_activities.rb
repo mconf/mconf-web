@@ -29,10 +29,10 @@ class CreateRecentActivities < ActiveRecord::Migration
     end
 
     puts "CreateRecentActivities: creating activities for Events"
-    Event.all.each do |event|
+    MwebEvents::Event.all.each do |event|
       unless PublicActivity::Activity.where(:key => 'event.create', :trackable_id => event.id).length > 0
-        owner = event.author
-        activity = event.create_activity "create", :owner => event.space, :parameters => { :user_id => owner.id, :username => owner.name }
+        owner = event.owner
+        activity = event.create_activity "create", :owner => owner, :parameters => { :user_id => owner.id, :username => owner.name }
         activity.created_at = event.created_at
         activity.updated_at = event.created_at
         activity.save

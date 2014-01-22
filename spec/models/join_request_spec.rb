@@ -49,18 +49,6 @@ describe JoinRequest do
     it "returns the role associated with the join request"
   end
 
-  describe "#event?" do
-    context "if group is an Event" do
-      let(:target) { FactoryGirl.create(:event_join_request) }
-      it { target.event?.should be_true }
-    end
-
-    context "if group is not an Event" do
-      let(:target) { FactoryGirl.create(:space_join_request) }
-      it { target.event?.should be_false }
-    end
-  end
-
   describe "#space?" do
     context "if group is a Space" do
       let(:target) { FactoryGirl.create(:space_join_request) }
@@ -73,7 +61,6 @@ describe JoinRequest do
     end
   end
 
-  # TODO: test abilities when the join request is for an Event
   describe "abilities", :abilities => true do
     subject { ability }
     let(:ability) { Abilities.ability_for(user) }

@@ -131,15 +131,6 @@ module Abilities
         news.space.admins.include?(user)
       end
 
-      # Events
-      # TODO: maybe space admins should be able to alter events they did not create but that
-      #   are in their spaces
-      can :read, Event, :space => { :public => true }
-      can [:read, :create], Event do |event|
-        event.space.users.include?(user)
-      end
-      can [:read, :edit, :update, :destroy], Event, :author_id => user.id
-
       # Attachments
       can :manage, Attachment do |attach|
         attach.space.repository? && attach.space.admins.include?(user)
@@ -160,8 +151,6 @@ module Abilities
         case perm.subject_type
         when "Space"
           admins = perm.subject.admins
-        when "Event"
-          admins = perm.subject.space.admins
         else
           admins = []
         end
@@ -336,7 +325,6 @@ module Abilities
       can :select, Space
       can :read, Post, :space => { :public => true }
       can :show, News, :space => { :public => true }
-      can :read, Event, :space => { :public => true }
       can :read, Attachment, :space => { :public => true, :repository => true }
 
       # for MwebEvents

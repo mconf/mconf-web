@@ -4,8 +4,6 @@
     = modal_close_button
     - if @type == "webconference"
       %h3= t('webconference.invite_webconference')
-    - elsif @type == "event"
-      %h3= t('event.invite_event', :event_name => @event.name)
 
   = simple_form_for :invite, :url => sendinvite_invite_path, :html => { :class => 'single-column' } do |f|
 
@@ -32,13 +30,9 @@
         = t('invite_people.other_people')
       = f.hidden_field :email_tokens, :size => 76, :class => 'string'
 
-      - if @type != "event"
-        = f.text_area :message, :id=> "text_message", :placeholder => t('invite_people.message')
       - if @type == "webconference"
         = f.hidden_field :room_name, :value => @room.name
         = f.hidden_field :room_url, :value => join_webconf_url(@room)
-      - elsif @type == "event"
-        = f.hidden_field :event_id, :value => @event.id
 
     .modal-footer.form-actions
       = f.button :submit, t('invite_people.send_invitations'), :class => "btn btn-primary"

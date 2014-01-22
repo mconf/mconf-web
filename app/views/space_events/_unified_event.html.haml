@@ -15,7 +15,7 @@
         %li= link_to t('remove').downcase, mweb_events.event_path(event), { :method => :delete, :title => t('delete.one'), :confirm => t('delete.confirm', :element => event.name) }
 
     .thread-title
-      = icon_event t('event.home.one', :space => event.owner.name)
+      = icon_event t('.event_in_the_space', :space => event.owner.name)
       = link_to sanitize(event.name), mweb_events.event_path(event)
       %span.thread-updated-at= t('updated_time_ago', :time => sanitize(time_ago_in_words(event.updated_at)))
 

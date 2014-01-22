@@ -56,8 +56,9 @@ module Mconf
         order('updated_at desc')
 
       # Events that started or finished in the period
-      events = Event.
-        where('space_id IN (?)', user_spaces).
+      # TODO: review and improve this with MwebEvents
+      events = MwebEvents::Event.
+        where('owner_id IN (?) AND owner_type IS \"Space\"', user_spaces).
         within(date_start, date_end).
         order('updated_at desc')
 

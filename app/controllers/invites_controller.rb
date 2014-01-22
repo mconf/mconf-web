@@ -16,7 +16,7 @@ class InvitesController < ApplicationController
     if @type == "webconference"
       @room = BigbluebuttonRoom.find_by_param(params[:room])
     elsif @type == "event"
-      @event = Event.find(params[:event])
+      @event = MwebEvents::Event.find(params[:event])
     end
 
     tags = []
@@ -77,7 +77,7 @@ class InvitesController < ApplicationController
   end
 
   def send_notification
-    @event = Event.find(params[:event_id])
+    @event = MwebEvents::Event.find(params[:event_id])
 
     msg = Hash.new
 
@@ -185,7 +185,7 @@ class InvitesController < ApplicationController
 
   def send_invite_event
     success = ""
-    @event = Event.find(params[:invite][:event_id])
+    @event = MwebEvents::Event.find(params[:invite][:event_id])
 
     msg = Hash.new
     msg[:sender_id] = current_user.id
