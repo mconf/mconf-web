@@ -54,7 +54,7 @@ GIT
 
 GIT
   remote: git@github.com:mconf/mweb-events.git
-  revision: bfdebb9e5b3eaeda5e6df9a11e406018d280f296
+  revision: 41ca2b6a1c51d745b85f0bacd5ddad9fee4a0426
   specs:
     mweb_events (0.0.1)
       bootstrap-datetimepicker-rails
