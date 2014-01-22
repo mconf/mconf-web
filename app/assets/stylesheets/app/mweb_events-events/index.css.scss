@@ -65,6 +65,8 @@ body.mweb_events-events.index {
     width: 230px;
 
     .content-block-middle {
+      word-break: break-all;
+
       .event-logo-wrapper {
         margin: 5px 0;
         text-align: center;

@@ -1,3 +1,4 @@
 /*
- *= require ./app/mweb_events-events
+ *= require ./app/mweb_events-events/index
+ *= require ./app/mweb_events-events/show
  */

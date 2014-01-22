@@ -5,24 +5,12 @@
   .list-logo
     = event_logo(event)
   .list-description
-    = link_to first_words(event.name, 20), mweb_events.event_path(event), :title => event.name, :class => "list-title"
+    = link_to first_words(event.name, 80), mweb_events.event_path(event), :title => event.name, :class => "list-title"
     .event-description-date
       = t('.starts_at') + ':'
       = event.get_formatted_date
-    -# .event-description-date
-    -#   = t('.ends_at') + ':'
-    -#   = event.get_formatted_date(event.end_on)
     - unless event.address.blank?
       .event-description-location
         = t('.where') + ':'
         = sanitize(event.address)
     %span= t('_other.participants', :count => event.participants.count)
-
-    -# - if space.public
-    -#   %span.visibility.public
-    -#     = icon_space_public()
-    -#     = t(".public")
-    -# - else
-    -#   %span.visibility.private
-    -#     = icon_space_private()
-    -#     = t(".private")

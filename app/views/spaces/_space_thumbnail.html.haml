@@ -13,7 +13,7 @@
       = space_logo
   .list-description
     - if user_signed_in? || space.public
-      = link_to first_words(space.name, 20), space_path(space), :title => space.name, :class => "list-title"
+      = link_to first_words(space.name, 30), space_path(space), :title => space.name, :class => "list-title"
     - else
       %span{:title => space.name, :class => "list-title"}= first_words(space.name, 20)
     %span= t('_other.members', :count => space.users.count)

@@ -53,6 +53,8 @@ body.spaces.index {
     width: 230px;
 
     .content-block-middle {
+      word-break: break-all;
+
       .space-logo-wrapper {
         margin: 5px 0;
         text-align: center;

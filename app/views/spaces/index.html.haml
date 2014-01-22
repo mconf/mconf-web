@@ -23,9 +23,9 @@
             = logo_image(space, :size => '168x128', :title => sanitize(space.name), :class => "logo logo-space")
         - if has_access
           = link_to space_path(space) do
-            %h3= sanitize(space.name)
+            %h3.name= sanitize(space.name)
         - else
-          %h3= sanitize(space.name)
+          %h3.name= sanitize(space.name)
         %p.description= sanitize(first_words(space.description, 400))
         %p.details
           - if space.users.include?(current_user)
