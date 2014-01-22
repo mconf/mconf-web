@@ -160,9 +160,17 @@ module Abilities
       # Events from MwebEvents
       can :read, MwebEvents::Event
       can :create, MwebEvents::Event
-      can [:update, :destroy], MwebEvents::Event do |e|
-        e.owner == user
+
+      can [:edit, :update, :destroy], MwebEvents::Event do |e|
+        case e.owner_type
+        when 'User'
+          e.owner_id == user.id
+        when 'Space'
+          !user.permissions.where(:subject_type => 'MwebEvents::Event',
+            :role_id => Role.find_by_name('Organizer'), :subject_id => e.id).empty?
+        end
       end
+
       can :register, MwebEvents::Event do |e|
         e.owner != user && MwebEvents::Participant.where(:owner_id => user.id, :event_id => e.id).empty?
       end
