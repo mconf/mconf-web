@@ -51,7 +51,8 @@ class MigrateEventsToMwebEvents < ActiveRecord::Migration
           puts "*** WARNING: author type is not 'User', new event might have a wrong owner"
         end
       end
-      new_event.description = event[EVENT_DESCRIPTION]
+      new_event.description = ActionView::Base.full_sanitizer.sanitize(event[EVENT_DESCRIPTION])
+      new_event.summary = new_event.description[0..139]
       new_event.permalink = event[EVENT_PERMALINK]
       new_event.time_zone = Site.current.timezone
       if new_event.save

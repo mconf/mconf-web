@@ -25,7 +25,8 @@
             %h3= sanitize(event.name)
         - else
           %h3= sanitize(event.name)
-        %p.description= sanitize(first_words(event.description, 400))
+        - unless event.description.blank?
+          %p.description= sanitize(event.summary) + '...'
         %p.details
           - if event.participants.include?(current_user)
             %span.is-participant= t('.user_is_participant')
