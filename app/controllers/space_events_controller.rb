@@ -29,7 +29,7 @@ class SpaceEventsController < ApplicationController
       @past_events = @past_events.paginate(:page => params[:page], :per_page => 5)
 
     elsif params[:show] == 'upcoming_events'
-      @upcoming_events = all_events.select{ |e| e.start_on.future? }
+      @upcoming_events = all_events.upcoming
       @upcoming_events = @upcoming_events.paginate(:page => params[:page], :per_page => 10)
 
     # the 'default' index

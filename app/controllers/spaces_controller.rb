@@ -93,8 +93,8 @@ class SpacesController < ApplicationController
     @latest_users = @space.users.order("permissions.created_at DESC").first(3)
 
     # events
-    @upcoming_events = @space.events.order("start_on ASC").select{|e| e.start_on.future? }.first(5)
-    @current_events = @space.events.order("start_on ASC").select{|e| !e.start_on.future? && e.end_on.future?}
+    @upcoming_events = @space.events.upcoming.order("start_on ASC").first(5)
+    @current_events = @space.events.order("start_on ASC").select(&:is_happening_now?)
 
     # role of the current user
     @permission = Permission.where(:user_id => current_user, :subject_id => @space, :subject_type => 'Space').first
