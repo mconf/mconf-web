@@ -8,6 +8,9 @@
     .modal-body
       = hidden_field_tag :redir_url, @redir_url
       = f.input :private, :label => t('bbb_room.private'), :hint => t('bigbluebutton_rails.rooms.private.tooltip')
+
+      = f.input :default_layout do
+        = f.select :default_layout, @room.getAvailableLayouts
       = f.input :moderator_password, :as => :showable_password, :label => t('bbb_room.moderatorPW')
       = f.input :attendee_password, :as => :showable_password, :label => t('bbb_room.attendeePW')
     .modal-footer.form-actions

@@ -13,7 +13,8 @@
 
         #webconference-layout
           %h2= t('.default_layout')
-          = bbb_room.select :default_layout, [["Default", "Default"], ["Meeting", "Meeting"]]
+          = bbb_room.input :default_layout do
+            = bbb_room.select :default_layout, @space.bigbluebutton_room.getAvailableLayouts
 
         #webconference-passwords
           %h2= t('.passwords')

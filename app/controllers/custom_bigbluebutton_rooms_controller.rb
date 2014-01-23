@@ -86,7 +86,7 @@ class CustomBigbluebuttonRoomsController < Bigbluebutton::RoomsController
     if current_user.superuser
       super
     else
-      [ :attendee_password, :moderator_password, :private, :record,
+      [ :attendee_password, :moderator_password, :private, :record, :default_layout,
         :metadata_attributes => [ :id, :name, :content, :_destroy, :owner_id ] ]
     end
   end
