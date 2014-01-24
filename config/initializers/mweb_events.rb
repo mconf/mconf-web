@@ -3,7 +3,7 @@ Rails.application.config.to_prepare do
   # Monkey patching events controller for pagination and recent activity
   MwebEvents::EventsController.class_eval do
     before_filter(:only => [:index]) do
-      @events = MwebEvents::Event.accessible_by(current_ability).paginate(:page => params[:page])
+      @events = @events.accessible_by(current_ability).paginate(:page => params[:page])
     end
 
     after_filter :only => [:create, :update] do
