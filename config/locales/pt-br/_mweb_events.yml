@@ -1,0 +1,7 @@
+---
+pt-br:
+  mweb_events:
+    events:
+      title:
+        belongs_space: Um evento da comunidade %{space}
+        belongs_user: Um evento do membro %{user}

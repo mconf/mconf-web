@@ -1,7 +1,12 @@
-= render_page_title @event.name
 
-- if @event.owner
-  .creator
-    %p
-      Created by
-      = @event.owner.name
+/ Compute a subtitle
+- content_for :page_header_extra do
+  - if @event.owner
+    - if @event.owner_type == 'Space'
+      = t('.belongs_space', :space => @event.owner.name)
+    - else
+      = t('.belongs_user', :user => @event.owner.name)
+
+- content_for :title do "#{t('mconf')} - #{@event.name}" end
+
+= render_page_title @event.name, 'logos/mconf-ico-color-transp.png', :transparent => true

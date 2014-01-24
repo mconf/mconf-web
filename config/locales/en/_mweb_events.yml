@@ -1,0 +1,7 @@
+---
+en:
+  mweb_events:
+    events:
+      title:
+        belongs_space: An event by the %{space} space
+        belongs_user: An event by the %{user} member
