@@ -1476,9 +1476,7 @@ pt-br:
           header: Compartilhar
           url: "Endereço da sala"
     webconference_options:
-      default_layout: "Layout padrão da sala"
       options: "Opções da sala de webconferência"
-      passwords: "Senhas da sala"
     webconference_tabs:
       access: "Acesso à webconferência"
       recordings: "Lista de gravações"

@@ -1498,9 +1498,7 @@ en:
           header: Share
           url: "Webconference URL"
     webconference_options:
-      default_layout: "Default layout for the room"
-      options: "Webconference room options"
-      passwords: "Room passwords"
+      options: "Web conference room options"
     webconference_tabs:
       access: "Webconference access"
       recordings: "List of recordings"
