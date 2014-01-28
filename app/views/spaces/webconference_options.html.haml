@@ -1,0 +1,18 @@
+- spaces_menu_at :admin
+= render :partial => 'spaces/menu'
+
+- spaces_admin_menu_at :webconference_options
+= render :partial => 'admin_tabs'
+
+#webconference-options
+  %h1= t('.options')
+
+  = simple_form_for @space, :html => { :method => :put, :class => 'single-column' } do |f|
+    .left-column
+      = f.simple_fields_for :bigbluebutton_room do |bbb_room|
+        = bbb_room.input :attendee_password, :as => :showable_password
+        = bbb_room.input :moderator_password, :as => :showable_password
+        = bbb_room.input :default_layout do
+          = bbb_room.select :default_layout, @space.bigbluebutton_room.get_available_layouts
+
+    = f.button :wrapped, :value => t("_other.update")

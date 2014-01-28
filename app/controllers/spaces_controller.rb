@@ -16,7 +16,7 @@ class SpacesController < ApplicationController
   # all actions that render the sidebar
   before_filter :webconf_room!,
     :only => [:show, :edit, :user_permissions, :webconference,
-              :recordings, :edit_recording]
+              :recordings, :edit_recording, :webconference_options]
 
   before_filter :load_spaces_examples, :only => [:new, :create]
 
@@ -150,14 +150,14 @@ class SpacesController < ApplicationController
         else
           format.html {
             flash[:success] = t('space.updated')
-            redirect_to edit_space_path(@space)
+            redirect_to :back
           }
         end
       end
     else
       respond_to do |format|
         flash[:error] = t('error.change')
-        format.html { redirect_to edit_space_path(@space) }
+        format.html { redirect_to :back }
       end
     end
   end
@@ -184,6 +184,10 @@ class SpacesController < ApplicationController
       |x,y| x.user.name <=> y.user.name
     }
     @roles = Space.roles
+    render :layout => 'spaces_show'
+  end
+
+  def webconference_options
     render :layout => 'spaces_show'
   end
 
@@ -320,6 +324,6 @@ class SpacesController < ApplicationController
     [ :name, :description, :logo_image, :public, :permalink, :repository,
       :crop_x, :crop_y, :crop_w, :crop_h,
       :bigbluebutton_room_attributes =>
-        [ :id, :attendee_password, :moderator_password ] ]
+        [ :id, :attendee_password, :moderator_password, :default_layout ] ]
   end
 end

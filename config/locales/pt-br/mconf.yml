@@ -1401,13 +1401,13 @@ pt-br:
       invite: "Convidar pessoas"
       news: "Notícias"
       users: "Usuários"
+      webconf_options: "Opções de webconferência"
     edit:
       change_logo: "Mudar imagem"
       delete_space: "Remover esta comunidade?"
       other_options: "Outras opções"
       public: "Tornar esta comunidade pública"
       yes_delete: "Sim, remova!"
-      webconf_options: "Opções da sala de webconferência"
     edit_recording:
       title: "Editar sua gravação"
     index: 
@@ -1476,6 +1476,8 @@ pt-br:
           description: "Você pode convidar pessoas para esta webconferência utilizando o endereço abaixo:"
           header: Compartilhar
           url: "Endereço da sala"
+    webconference_options:
+      options: "Opções da sala de webconferência"
     webconference_tabs:
       access: "Acesso à webconferência"
       recordings: "Lista de gravações"

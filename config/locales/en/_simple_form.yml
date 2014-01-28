@@ -39,11 +39,17 @@ en:
         xmpp_server: "Address where's located the XMPP server."
         webconf_auto_record: "If true, the record flag will be set automatically according to whether the user has permission to record meetings in the target room or not (useful if your web conference servers have the record button inside the session). Otherwise, the user will have to set the record flag himself when opening a new webconference (but only if he has permissions to)."
       space:
+        bigbluebutton_room:
+          attendee_password: "This password will only be used if the space is set as private!"
+          moderator_password: "This password will only be used if the space is set as private!"
         permalink: "This attribute is used to identify your space in URLs, including the URL of its conference room"
         public: "Collaborative spaces can be public, for anybody to watch what happens in them, or private, where members only have access to the activities of the space"
         repository: "The document repository is a place where users of this space can upload and share documents of any type"
       user:
         approved: "If checked, the user will be able to access the website, otherwise his login will be blocked."
+        bigbluebutton_room:
+          attendee_password: "This password will only be used if the room is set as private!"
+          moderator_password: "This password will only be used if the room is set as private!"
         can_record: "Check this option to allow this user to record meetings in his personal room or in rooms of spaces he belongs to"
         superuser: "Check this option to make this user a global administrator of this website"
         username: "This ID will be used to identify your user and your webconference room. Use only letters, numbers and dashes."

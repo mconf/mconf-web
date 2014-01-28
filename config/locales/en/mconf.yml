@@ -1423,13 +1423,13 @@ en:
       invite: "Invite people"
       news: "News"
       users: "Users"
+      webconf_options: "Webconference options"
     edit:
       change_logo: "Change picture"
       delete_space: "Remove this space?"
       other_options: "Other options"
       public: "Make this a public space"
       yes_delete: "Yes, remove it!"
-      webconf_options: "Webconference room options"
     edit_recording:
       title: "Edit your recording"
     index: 
@@ -1498,6 +1498,8 @@ en:
           description: "You can invite people to this webconference by sharing the link below:"
           header: Share
           url: "Webconference URL"
+    webconference_options:
+      options: "Web conference room options"
     webconference_tabs:
       access: "Webconference access"
       recordings: "List of recordings"

@@ -9,19 +9,19 @@ Rails.application.config.to_prepare do
   end
   BigbluebuttonRoom.class_eval do
     # Copy of the default Bigbluebutton#join_url with support to :guest
-    def join_url(username, role, password=nil)
+    def join_url(username, role, password=nil, options={})
       require_server
 
       case role
       when :moderator
-        self.server.api.join_meeting_url(self.meetingid, username, self.moderator_password)
+        self.server.api.join_meeting_url(self.meetingid, username, self.moderator_password, options)
       when :attendee
-        self.server.api.join_meeting_url(self.meetingid, username, self.attendee_password)
+        self.server.api.join_meeting_url(self.meetingid, username, self.attendee_password, options)
       when :guest
-        params = { :guest => true }
+        params = { :guest => true }.merge(options)
         self.server.api.join_meeting_url(self.meetingid, username, self.attendee_password, params)
       else
-        self.server.api.join_meeting_url(self.meetingid, username, password)
+        self.server.api.join_meeting_url(self.meetingid, username, password, options)
       end
     end
   end
