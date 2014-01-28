@@ -13,6 +13,6 @@
         = bbb_room.input :attendee_password, :as => :showable_password
         = bbb_room.input :moderator_password, :as => :showable_password
         = bbb_room.input :default_layout do
-          = bbb_room.select :default_layout, @space.bigbluebutton_room.get_available_layouts
+          = bbb_room.select :default_layout, @space.bigbluebutton_room.get_available_layouts, :include_blank => t('.layout_empty_option')
 
     = f.button :wrapped, :value => t("_other.update")

@@ -996,6 +996,8 @@ en:
       view_all_spaces: "View all spaces"
     edit_recording:
       title: "Edit your recording"
+    edit_room:
+      layout_empty_option: "<let the application decide>"
     recordings:
       title: "Recordings from my webconference room"
       update_recordings:

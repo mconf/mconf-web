@@ -984,6 +984,8 @@ pt-br:
       view_all_spaces: "Ver todas comunidades"
     edit_recording:
       title: "Editar sua gravação"
+    edit_room:
+      layout_empty_option: "<deixar a aplicação escolher>"
     recordings:
       title: "Gravações da minha sala de webconferência"
       update_recordings:
