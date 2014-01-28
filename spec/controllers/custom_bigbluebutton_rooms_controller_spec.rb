@@ -106,6 +106,7 @@ describe CustomBigbluebuttonRoomsController do
           room.should_receive(:fetch_is_running?)
           room.should_receive(:is_running?).and_return(false)
           room.should_receive(:create_meeting).with(user.name, user.id, anything)
+          room.should_receive(:fetch_new_token)
           room.should_receive(:join_url).and_return("http://test.com/attendee/join")
         end
         before(:each) { post :auth, :id => room.to_param, :user => { :password => room.moderator_password, :name => "Any Name" } }
