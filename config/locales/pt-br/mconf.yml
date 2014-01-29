@@ -1420,7 +1420,7 @@ pt-br:
       search:
         by_name:
           no_matches: "Nenhuma comunidae encontrada com \"%{term}\""
-          placeholder: "Procurar comunidaes..."
+          placeholder: "Procurar comunidades..."
     new:
       private: "Privada"
       public: "Pública"

@@ -26,8 +26,8 @@
 //= require jquery/jquery.form
 
 // Use to search for models (e.g. users) dynamically.
-// require select2
-// require select2_locale_pt-BR
+//= require select2
+//= require select2_locale_pt-BR
 
 // Use for XMPP in the chat.
 //= require strophe

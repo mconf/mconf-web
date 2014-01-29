@@ -20,7 +20,7 @@
       .section-header
         = icon_help t('invite_people.names_tip')
         = t('invite_people.mconf_users')
-      = f.hidden_field :members_tokens, :autofocus => true, :size => 76
+      = f.hidden_field :members_tokens
       = t('invite_people.notify_by') + ': '
       = f.check_box :im_check, :checked => 'checked'
       = t('invite_people.internal_message')
@@ -30,7 +30,7 @@
       .section-header
         = icon_help t('invite_people.emails_tip')
         = t('invite_people.other_people')
-      = f.hidden_field :email_tokens, :size => 76, :class => 'string'
+      = f.hidden_field :email_tokens, :class => 'string'
 
       - if @type != "event"
         = f.text_area :message, :id=> "text_message", :placeholder => t('invite_people.message')

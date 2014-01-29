@@ -3,14 +3,12 @@
 
 #webconference-invite {
 
-  .alert.alert-gray {
-    input {
-      cursor: text;
-      width: 95%;
-      background: white;
-      color: #444;
-      margin: 0;
-    }
+  #room_invite_url {
+    cursor: text;
+    width: 95%;
+    background: white;
+    color: #444;
+    margin: 0;
   }
 
   .section-header {

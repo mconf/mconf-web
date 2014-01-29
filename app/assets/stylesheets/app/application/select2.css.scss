@@ -3,13 +3,37 @@
 @import "definitions";
 
 .select2-container-multi, .select2-container {
+  margin-bottom: 10px;
+
   .select2-choices, .select2-choice {
     border: 1px solid #ccc;
     @include border-radius(4px);
-    padding: 1px 0 1px 8px;
+    padding: 1px 2px;
     font-size: $font-normal+1px;
     text-align: left;
     color: $font-color;
+    background-image: none;
+
+    .select2-search-choice {
+      margin: 5px 0 3px 5px;
+      background: $alert-info-bg;
+      border-color: $alert-info-font;
+    }
+  }
+
+
+  &.select2-container-active {
+    .select2-choices, .select2-choice {
+      border-color: rgba(82, 168, 236, 0.8);
+      @include box-shadow(inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(82,168,236,.6));
+    }
+  }
+
+  &.select2-dropdown-open {
+    .select2-choices, .select2-choice {
+      border: 1px solid rgba(82, 168, 236, 0.8);
+      @include border-radius(4px 4px 0 0);
+    }
   }
 }
 
@@ -39,4 +63,16 @@
       @include border-radius(4px 0 0 4px);
     }
   }
+}
+
+// Integrate with simple_form and our custom form classes
+.simple_form.single-column {
+
+  .select2-container {
+    // have to use !important because select2 adds these options in the
+    // element itself
+    width: 99% !important;
+    display: block !important;
+  }
+
 }

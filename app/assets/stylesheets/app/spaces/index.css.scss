@@ -28,6 +28,9 @@ body.spaces.index {
       margin-left: 15px;
       float: left;
 
+      .select2-container {
+        margin: 0;
+      }
       .select2-choice {
         @include border-radius(0 4px 4px 0);
       }
