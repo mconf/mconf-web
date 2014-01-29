@@ -69,7 +69,7 @@ namespace :db do
         user.create_bigbluebutton_room :owner => user,
                                        :server => BigbluebuttonServer.default,
                                        :param => user.username,
-                                       :name => user.username
+                                       :name => user.full_name
       end
       # set the password this way so that devise makes the encryption
       unless user == User.first # except for the admin
@@ -103,6 +103,7 @@ namespace :db do
       space.description = Populator.sentences(1..3)
       space.public = [ true, false ]
       space.disabled = false
+      space.permalink = name.parameterize
 
       Post.populate 10..50 do |post|
         post.space_id = space.id
@@ -139,7 +140,7 @@ namespace :db do
       end
     end
 
-    Space.find_each(&:save!) # to generate the permalink
+    puts "* Create spaces: saving events to generate permalinks"
     Event.find_each(&:save!) # to generate the permalink
 
     puts "* Create spaces: webconference rooms"
@@ -168,6 +169,18 @@ namespace :db do
       role_ids = Role.find_all_by_stage_type('Space').map(&:id)
       available_users = User.all.dup
 
+      puts "* Create spaces: \"#{space.name}\" - add first admin"
+      Permission.populate 1 do |permission|
+        user = available_users.delete_at((rand * available_users.size).to_i)
+        permission.user_id = user.id
+        permission.subject_id = space.id
+        permission.subject_type = 'Space'
+        permission.role_id = Role.find_all_by_stage_type_and_name('Space', 'Admin')
+        permission.created_at = user.created_at
+        permission.updated_at = permission.created_at
+      end
+
+      puts "* Create spaces: \"#{space.name}\" - add more users (3..10)"
       Permission.populate 3..10 do |permission|
         user = available_users.delete_at((rand * available_users.size).to_i)
         permission.user_id = user.id
@@ -178,6 +191,7 @@ namespace :db do
         permission.updated_at = permission.created_at
       end
 
+      puts "* Create spaces: \"#{space.name}\" - add users for events"
       event_role_ids = Role.find_all_by_stage_type('Event').map(&:id)
       space.events.each do |event|
         available_event_participants = space.users.dup
@@ -203,7 +217,7 @@ namespace :db do
 
     end
 
-    puts "* Create recordings and metadata for all webconference rooms"
+    puts "* Create recordings and metadata for all webconference rooms (#{BigbluebuttonRoom.count} rooms)"
     BigbluebuttonRoom.all.each do |room|
 
       BigbluebuttonRecording.populate 2..10 do |recording|
