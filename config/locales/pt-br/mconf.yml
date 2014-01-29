@@ -1479,6 +1479,7 @@ pt-br:
           header: Compartilhar
           url: "Endereço da sala"
     webconference_options:
+      layout_empty_option: "<deixar a aplicação escolher>"
       options: "Opções da sala de webconferência"
     webconference_tabs:
       access: "Acesso à webconferência"

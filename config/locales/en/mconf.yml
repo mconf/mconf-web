@@ -1501,6 +1501,7 @@ en:
           header: Share
           url: "Webconference URL"
     webconference_options:
+      layout_empty_option: "<let the application decide>"
       options: "Web conference room options"
     webconference_tabs:
       access: "Webconference access"
