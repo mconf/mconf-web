@@ -90,6 +90,7 @@ class Notifier < ActionMailer::Base
     @signature  = Site.current.signature_in_html
     @action = action
     @replyto = invitation.email
+    @locale = get_locale_from_user(receiver)
 
     create_default_mail(get_locale_from_user(receiver))
   end
