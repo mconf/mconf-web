@@ -126,9 +126,10 @@ class InvitesController < ApplicationController
         I18n.with_locale(locale) do
           priv_msg[:title] = t('invite.title')
           body = t('invite.message', :sender => current_user.name, :name => params[:invite][:room_name],
-                   :invite_url => params[:invite][:room_url], :message => params[:invite][:message],
+                   :invite_url => params[:invite][:room_url],
                    :mobile_url => params[:invite][:mobile_url],
                    :email_sender => current_user.email).html_safe
+          body += "</br>\"#{params[:invite][:message]}\"".html_safe
           priv_msg[:body] = body
         end
 
