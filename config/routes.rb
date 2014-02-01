@@ -44,8 +44,11 @@ Mconf::Application.routes.draw do
     :to => 'custom_bigbluebutton_rooms#invite_userid',
     :as => "join_webconf"
 
-  # events
-  mount MwebEvents::Engine => '/'
+  # event module
+  if Site.current.events_enabled?
+    mount MwebEvents::Engine => '/'
+    configatron.events.routes_loaded = true
+  end
 
   # shibboleth controller
   match '/secure', :to => 'shibboleth#login', :as => "shibboleth"
@@ -80,7 +83,9 @@ Mconf::Application.routes.draw do
 
     resources :readers
 
-    get '/events', :to => 'space_events#index', :as => 'events'
+    if Site.current.events_enabled?
+      get '/events', :to => 'space_events#index', :as => 'events'
+    end
 
     resources :posts do
       member do

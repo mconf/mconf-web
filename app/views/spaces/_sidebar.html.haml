@@ -19,20 +19,21 @@
       .content-block-footer
         = link_to t('view_more'), webconference_space_path(@space)
 
-    = render_sidebar_content_block('sidebar-upcoming-events') do
-      .content-block-header
-        %h3
-          = link_to t('.upcoming_events'), space_events_path(@space)
-        = icon_help t("tooltip.upcoming"), :class => 'leftwards'
-        = icon_event()
-      .toolbar
-        %span.event-timezone
-          = "(#{t('timezone.one')}: GMT#{Time.zone.formatted_offset})"
-      .content-block-middle
-        = render 'space_events/sidebar_events_simple', :events => @space.upcoming_events(5)
-      .content-block-footer
-        = link_to icon_feed, space_events_path(@space, :format => :atom)
-        = link_to(t('.all_events'), space_events_path(@space))
+    - if current_site.show_events?
+      = render_sidebar_content_block('sidebar-upcoming-events') do
+        .content-block-header
+          %h3
+            = link_to t('.upcoming_events'), space_events_path(@space)
+          = icon_help t("tooltip.upcoming"), :class => 'leftwards'
+          = icon_event()
+        .toolbar
+          %span.event-timezone
+            = "(#{t('timezone.one')}: GMT#{Time.zone.formatted_offset})"
+        .content-block-middle
+          = render 'space_events/sidebar_events_simple', :events => @space.upcoming_events(5)
+        .content-block-footer
+          = link_to icon_feed, space_events_path(@space, :format => :atom)
+          = link_to(t('.all_events'), space_events_path(@space))
 
     = render_sidebar_content_block("sidebar-space-admins") do
       .content-block-header

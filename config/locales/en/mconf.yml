@@ -93,6 +93,7 @@ en:
         chat_enabled: "Enable Chat"
         description: "Description"
         domain: "Application domain"
+        events_enabled: "Enable event module"
         exception_notifications: "Send email on error"
         exception_notifications_email: "Debug emails recipients"
         exception_notifications_prefix: "Debug emails subject prefix"

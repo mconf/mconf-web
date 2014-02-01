@@ -35,4 +35,13 @@ class Site < ActiveRecord::Base
   def email_with_name
     "#{name} <#{email}>"
   end
+
+  # Indicates whether event related pages should be shown or not.
+  # Events are only shown if they are enabled in the site and also if their routes
+  # were loaded. This prevents the application from breaking when enabling the
+  # event module and before restarting the application to load the routes.
+  def show_events?
+    read_attribute(:events_enabled) && configatron.events.routes_loaded
+  end
+
 end

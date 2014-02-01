@@ -93,6 +93,7 @@ pt-br:
         chat_enabled: "Habilitar Chat"
         description: "Descrição"
         domain: "Domínio da Aplicação"
+        events_enabled: "Habilitar módulo de eventos"
         exception_notifications: "Enviar e-mails de depuração"
         exception_notifications_email: "Destinatários dos e-mails de depuração"
         exception_notifications_prefix: "Prefixo no assunto dos e-mails de depuração"

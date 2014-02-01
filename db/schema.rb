@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140122135850) do
+ActiveRecord::Schema.define(:version => 20140201192634) do
 
   create_table "activities", :force => true do |t|
     t.integer  "trackable_id"
@@ -353,6 +353,7 @@ ActiveRecord::Schema.define(:version => 20140122135850) do
     t.string   "ldap_email_field"
     t.string   "ldap_name_field"
     t.boolean  "require_registration_approval",  :default => false, :null => false
+    t.boolean  "events_enabled",                 :default => false
   end
 
   create_table "spaces", :force => true do |t|
