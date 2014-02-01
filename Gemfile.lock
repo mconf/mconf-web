@@ -53,8 +53,8 @@ GIT
       ya2yaml (~> 0.30)
 
 GIT
-  remote: git@github.com:mconf/mweb-events.git
-  revision: ab851c99317ddb908cac22b46272da8510aa6a39
+  remote: git@github.com:mconf/mweb_events.git
+  revision: 0195ef3f03af52e4cbae861766ba4a0a7c35c4a3
   specs:
     mweb_events (0.0.1)
       bootstrap-datetimepicker-rails
