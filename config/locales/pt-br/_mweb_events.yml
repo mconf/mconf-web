@@ -2,6 +2,25 @@
 pt-br:
   mweb_events:
     events:
+      event_thumbnail:
+        starts_at: "Inicia em"
+        where: "Localização"
+      index:
+        create_new_event: "Adicionar evento"
+        filters:
+          all: "Todos eventos"
+          my_events: "Meus eventos"
+        list_format:
+          list: "Lista"
+          thumbnails: "Miniaturas"
+        participant_count:
+          one: "%{count} participante"
+          other: "%{count} participantes"
+        select_at_left: "Selecione um evento ao lado para ver sua descrição aqui"
+        subtitle: "Crie seus própios eventos e compartilhe com outras pessoas"
+        title: "Eventos"
+      thumbnail_view:
+        no_events: "Nenhum evento foi criado até o momento!"
       title:
-        belongs_space: Um evento da comunidade %{space}
-        belongs_user: Um evento do membro %{user}
+        belongs_space: "Um evento da comunidade %{space}"
+        belongs_user: "Evento criado por <a href='%{url}'>%{user}</a>"

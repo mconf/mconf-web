@@ -566,7 +566,7 @@ ul#navbar-right-links {
   margin: 0 auto;
   @include mconf-clearfix;
   overflow: visible;
-  padding: 10px 0 7px 0;
+  padding: 15px 0 15px 0;
   clear: both;
   word-break: break-all;
 
@@ -595,28 +595,38 @@ ul#navbar-right-links {
   .current-page-title {
     float: left;
     margin-left: 10px;
-    margin-top: 20px;
-    font-size: $font-section-title;
-    line-height: $font-section-title;
-    font-weight: bold;
-    @include text-shadow(darken($site-bg-color, 10) 1px 1px 10px);
-    color: $page-title-color;
+    margin-top: 10px;
 
     // minus the logo and some padding/margin
     max-width: $contents-width - 120px;
 
-    a { @include link-colors($page-title-color, $link-color-hover, $link-color-active); }
+    .main-title {
+      font-size: $font-section-title;
+      line-height: $font-section-title;
+      font-weight: bold;
+      color: $page-title-color;
+      @include text-shadow(darken($site-bg-color, 10) 1px 1px 10px);
+      margin-bottom: 5px;
 
-    // when the title is too big the font is reduced a bit
-    .small-title {
-      font-size: $font-section-title - 10px;
-      margin-top: 5px;
+      // when the title is too big the font is reduced a bit
+      &.small-title {
+        font-size: $font-section-title - 10px;
+        margin-top: 5px;
+      }
+    }
+    a.main-title {
+      @include link-colors($page-title-color, $link-color-hover, $link-color-active);
+    }
+
+    .sub-title {
+      font-size: 12px;
+      display: block;
+      font-weight: normal;
+      color: lighten($page-title-color, 10);
     }
 
     // some tweaks for the titles in pages of spaces
     &.space-page {
-      margin-top: 8px;
-
       // the text that shows the visibility of spaces
       .space-visibility {
         @include space-visibility;
@@ -807,7 +817,7 @@ ul#navbar-right-links {
 }
 
 #page-menu {
-  margin-bottom: -8px; // #page-header's bottom margin
+  margin-bottom: -16px; // #page-header's bottom margin
   padding-top: 10px;
   clear: both;
 
@@ -927,83 +937,3 @@ ul#navbar-right-links {
 strong.highlight {
   background: $highlight-bg;
 }
-
-/*
- * .ribbon {
- *   text-align: center;
- *   position: relative;
- *   color: #fff;
- *   margin: 0; // -10px 10px -10px;
- *   padding: 10px 0;
- *   text-shadow: 0 1px rgba(0,0,0,.8);
- *   background: #5c5c5c;
- *   background-image: -moz-linear-gradient(rgba(255,255,255,.3), rgba(255,255,255,0));
- *   background-image: -webkit-linear-gradient(rgba(255,255,255,.3), rgba(255,255,255,0));
- *   background-image: -o-linear-gradient(rgba(255,255,255,.3), rgba(255,255,255,0));
- *   background-image: -ms-linear-gradient(rgba(255,255,255,.3), rgba(255,255,255,0));
- *   background-image:  linear-gradient(rgba(255,255,255,.3), rgba(255,255,255,0));
- *   -moz-box-shadow: 0 2px 0 rgba(0,0,0,.3);
- *   -webkit-box-shadow: 0 2px 0 rgba(0,0,0,.3);
- *   box-shadow: 0 2px 0 rgba(0,0,0,.3);
- *
- *   &:before, &:after {
- *     content: '';
- *     position: absolute;
- *     border-style: solid;
- *     border-color: $transparent;
- *     bottom: -10px;
- *   }
- *
- *   &:before {
- *     border-width: 0 10px 10px 0;
- *     border-right-color: #222;
- *     left: 0;
- *   }
- *
- *   &:after {
- *     border-width: 0 0 10px 10px;
- *     border-left-color: #222;
- *     right: 0;
- *   }
- * }
- */
-
-/*
- *  breadcrumbs try 1
- * #page-title {
- *   padding: 15px;
- *   height: 30px;
- *   @include mconf-clearfix;
- *   margin: 0 auto;
- *   width: $contents-width;
- * }
- */
-
-/*
- * ul.selectable-buttons {
- *   margin: 0;
- *
- *   li {
- *     display: inline-block;
- *     padding-left: 10px;
- *
- *     a {
- *       display: inline-block;
- *       @include link-colors(#808080, $link-color-hover, $link-color-active);
- *       padding: 5px 10px;
- *       font-weight: bold;
- *       font-size: 14px;
- *       @include text-shadow(darken($site-bg-color, 10) 1px 1px 2px);
- *       //border: 1px solid $site-bg-color;
- *
- *       &.selected {
- *         color: $main-color;
- *         background: $light-gray;
- *         @include border-radius(5px);
- *         @include box-shadow(inset 0 1px 2px rgba(0, 0, 0, 0.1));
- *         //border: 1px solid darken($light-gray, 5);
- *       }
- *     }
- *   }
- * }
- */

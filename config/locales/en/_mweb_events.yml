@@ -2,6 +2,25 @@
 en:
   mweb_events:
     events:
+      event_thumbnail:
+        starts_at: "Starts at"
+        where: "Where"
+      index:
+        create_new_event: "Add a new event"
+        filters:
+          all: "All events"
+          my_events: "My events"
+        list_format:
+          list: "List"
+          thumbnails: "Thumbnails"
+        participant_count:
+          one: "%{count} participant"
+          other: "%{count} participants"
+        select_at_left: "Select an event in the list to see it's description here"
+        subtitle: "Create your own events and share with other people"
+        title: "Events"
+      thumbnail_view:
+        no_events: "There are no events created yet!"
       title:
-        belongs_space: An event by the %{space} space
-        belongs_user: An event by the %{user} member
+        belongs_space: "This event belongs to the space <a href='%{url}'>%{space}</a>"
+        belongs_user: "Event created by <a href='%{url}'>%{user}</a>"

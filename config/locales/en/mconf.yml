@@ -900,26 +900,6 @@ en:
       start: "Start a new meeting"
       your_url: "Your URL"
   my_friends: "My friends"
-  mweb_events:
-    events:
-      event_thumbnail:
-        starts_at: "Starts at"
-        where: "Where"
-      index:
-        create_new_event: "Add a new event"
-        filters:
-          all: "All events"
-          my_events: "My events"
-        list_format:
-          list: "List"
-          thumbnails: "Thumbnails"
-        participant_count:
-          one: "%{count} participant"
-          other: "%{count} participants"
-        select_at_left: "Select an event in the list to see it's description here"
-        title: "All events"
-      thumbnail_view:
-        no_events: "There are no events created yet!"
   name: 
     full: "Full name"
     one: Name
@@ -1371,6 +1351,8 @@ en:
         by_name:
           no_matches: "No spaces found for \"%{term}\""
           placeholder: "Search spaces..."
+      subtitle: "Search for communities of users that share the same interests"
+      title: "Spaces"
     list_view:
       no_spaces: "There are no spaces created yet!"
     menu:

@@ -3,7 +3,7 @@
 
 .list-thumbnail
   .list-logo
-    = event_logo(event)
+    = event_logo_link(event, :title => sanitize(event.name), :class => "logo logo-event")
   .list-description
     = link_to first_words(event.name, 80), mweb_events.event_path(event), :title => event.name, :class => "list-title"
     .event-description-date

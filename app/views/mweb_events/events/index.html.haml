@@ -1,6 +1,6 @@
+= content_for :page_header_subtitle do
+  = t('.subtitle')
 = render_page_title t('.title')
-
--# - @objects = params[:my_spaces] ? @user_spaces : @spaces
 
 = content_for :sidebar do
 
@@ -18,8 +18,7 @@
       - has_access = true
       .content-block-middle{ :id => "#{event.permalink}-description", :style => "display:none;" }
         .event-logo-wrapper
-          -# TODO: event_logo does not accept custom options yet, fix it
-          = event_logo(event, :title => sanitize(event.name), :class => "logo logo-event")
+          = event_logo_link(event, :class => "logo logo-event")
         - if has_access
           = link_to mweb_events.event_path(event) do
             %h3= sanitize(event.name)

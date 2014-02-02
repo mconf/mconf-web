@@ -886,26 +886,6 @@ pt-br:
       start: "Começar uma nova reunião"
       your_url: "Seu endereço"
   my_friends: "Meus amigos"
-  mweb_events:
-    events:
-      event_thumbnail:
-        starts_at: "Inicia em"
-        where: "Localização"
-      index:
-        create_new_event: "Adicionar evento"
-        filters:
-          all: "Todos eventos"
-          my_events: "Meus eventos"
-        list_format:
-          list: "Lista"
-          thumbnails: "Miniaturas"
-        participant_count:
-          one: "%{count} participante"
-          other: "%{count} participantes"
-        select_at_left: "Selecione um evento ao lado para ver sua descrição aqui"
-        title: "Todos eventos"
-      thumbnail_view:
-        no_events: "Nenhum evento foi criado até o momento!"
   name:
     full: "Nome completo"
     one: Nome
@@ -1347,6 +1327,8 @@ pt-br:
         by_name:
           no_matches: "Nenhuma comunidae encontrada com \"%{term}\""
           placeholder: "Procurar comunidaes..."
+      subtitle: "Encontre comunidades de usuários que compartilham os mesmos interesses"
+      title: "Comunidades"
     list_view:
       no_spaces: "Nenhuma comunidade foi criada até o momento!"
     menu:

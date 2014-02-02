@@ -1,4 +1,6 @@
-= render_page_title t('space.all')
+= content_for :page_header_subtitle do
+  = t('.subtitle')
+= render_page_title t('.title')
 
 - @objects = params[:my_spaces] ? @user_spaces : @spaces
 

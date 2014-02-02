@@ -1,17 +1,5 @@
 /*
+ *= require ./app/mweb_events-events/_all
  *= require ./app/mweb_events-events/index
  *= require ./app/mweb_events-events/show
  */
-
-#page-header .current-title-extra {
-  margin-top: 28px;
-  float: right;
-}
-
-#page-header .current-page-logo {
-  height: 84px;
-}
-
-#page-header .current-page-logo img {
-  height: 84px;
-}

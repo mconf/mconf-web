@@ -3,10 +3,10 @@
     = logo_image(space, :size => "84x64", :title => space.name)
   .current-page-title.space-page
     - if space.name.size > 60
-      .small-title
+      .main-title.small-title
         = sanitize(first_words(space.name, 60))
     - else
-      = sanitize(space.name)
+      .main-title= sanitize(space.name)
     - if space.public
       %span.space-visibility.public
         = icon_space_public()
