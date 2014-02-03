@@ -10,7 +10,7 @@
       %span= t('.federated.your_idp', :idp => @shib_provider)
     = link_to t('.federated.see_your_data'), shibboleth_info_path, :class => 'open-modal'
 
-= simple_form_for @user, :url => user_path(@user), :html => {:method => :put, :class => 'single-column'} do |f|
+= simple_form_for @user, :url => user_path(@user), :html => { :method => :put } do |f|
 
   .left-column
 
