@@ -3,12 +3,11 @@
 @import "definitions";
 
 .select2-container-multi, .select2-container {
-  margin-bottom: 10px;
 
   .select2-choices, .select2-choice {
     border: 1px solid #ccc;
     @include border-radius(4px);
-    padding: 1px 2px;
+    padding: 2px 6px;
     font-size: $font-normal+1px;
     text-align: left;
     color: $font-color;
@@ -21,6 +20,10 @@
     }
   }
 
+  // this select gets a bit bigger for some reason, so we reduce it a bit
+  .select2-choices {
+    padding: 1px 2px;
+  }
 
   &.select2-container-active {
     .select2-choices, .select2-choice {
@@ -73,6 +76,16 @@
     // element itself
     width: 99% !important;
     display: block !important;
+  }
+
+}
+.simple_form.form-inline {
+
+  .select2-container {
+    // have to use !important because select2 adds these options in the
+    // element itself
+    width: auto !important;
+    display: inline-block !important;
   }
 
 }
