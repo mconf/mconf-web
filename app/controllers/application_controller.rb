@@ -183,7 +183,7 @@ class ApplicationController < ActionController::Base
 
   def not_activated_warning
     if user_signed_in? && !current_user.confirmed?
-      flash[:notice] = t('user.not_activated', :url => new_user_confirmation_path)
+      flash[:notice] = t('user.not_activated', :url => main_app.new_user_confirmation_path)
     end
   end
 
