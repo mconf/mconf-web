@@ -47,6 +47,7 @@ en:
     details: "Details"
     edit: "Edit"
     end: "End"
+    index: Listing
     in_place_edit:
       error: "error"
       success: "saved"
@@ -71,6 +72,8 @@ en:
     user:
       administrator: "Global administrator"
       normal_user: "Normal user"
+      guest: Guest
+      guest_name: "Guest User \(%{email}\)"
     yes_: "Yes"
     webconference:
       not_allowed_to_create: "You are not allowed to create meetings in this room"

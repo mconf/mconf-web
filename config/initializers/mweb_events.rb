@@ -21,6 +21,28 @@ Rails.application.config.to_prepare do
 
   end
 
+
+  # Same for participants, public activity is still missing
+  MwebEvents::ParticipantsController.class_eval do
+    before_filter(:only => [:index]) do
+      @participants = @participants.accessible_by(current_ability).paginate(:page => params[:page])
+    end
+
+    after_filter :only => [:create] do
+      @event.new_activity params[:action], current_user unless @event.errors.any?
+    end
+
+  end
+
+  MwebEvents::Participant.class_eval do
+    include PublicActivity::Common
+
+    def new_activity key, user
+      create_activity key, :owner => owner, :parameters => { :user_id => user.id, :username => user.name }
+    end
+
+  end
+
 end
 
 

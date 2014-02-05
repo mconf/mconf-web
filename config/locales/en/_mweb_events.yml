@@ -24,3 +24,10 @@ en:
       title:
         belongs_space: "This event belongs to the space <a href='%{url}'>%{space}</a>"
         belongs_user: "Event created by <a href='%{url}'>%{user}</a>"
+    participants:
+    participants:
+      index:
+        no_participants: No participants yet!
+        message: Send message
+        disable: Remove from event
+        disable_confirm: Are you sure you want to remove this user from the event?

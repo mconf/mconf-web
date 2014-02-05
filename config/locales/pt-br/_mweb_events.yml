@@ -24,3 +24,10 @@ pt-br:
       title:
         belongs_space: "Um evento da comunidade <a href='%{url}'>%{space}</a>"
         belongs_user: "Evento criado por <a href='%{url}'>%{user}</a>"
+    participants:
+      index:
+      participant:
+        message: Enviar mensagem
+        disable: Remover do evento
+        disable_confirm: Tem certeza que deseja remover este usuário do evento?
+

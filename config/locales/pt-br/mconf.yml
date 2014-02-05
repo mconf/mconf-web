@@ -47,6 +47,7 @@ pt-br:
     details: "Detalhes"
     edit: "Editar"
     end: "Finalizar"
+    index: Listando
     in_place_edit:
       error: "erro"
       success: "gravado"
@@ -71,6 +72,8 @@ pt-br:
     user:
       administrator: "Administrador global"
       normal_user: "Usuário normal"
+      guest: Convidado
+      guest_name: "Usuário convidado \(%{email}\)"
     yes_: "Sim"
     webconference:
       not_allowed_to_create: "Você não tem permissão para criar reuniões nesta sala"

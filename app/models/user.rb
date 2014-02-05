@@ -184,6 +184,13 @@ class User < ActiveRecord::Base
 
   end
 
+  # Builds a guest user based on the e-mail
+  def self.build_guest opt={}
+    return nil if opt[:email].blank?
+
+    User.new :email => opt[:email], :username => I18n.t('_other.user.guest', :email => opt[:email])
+  end
+
   def self.find_with_disabled *args
     self.with_exclusive_scope { find_by_username(*args) }
   end
