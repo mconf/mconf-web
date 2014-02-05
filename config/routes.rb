@@ -18,6 +18,10 @@
 # See how all your routes lay out with "rake routes"
 
 Mconf::Application.routes.draw do
+  enable_events = defined? Site &&
+    Site.current &&
+    Site.current.respond_to?(:events_enabled) &&
+    Site.current.events_enable?
 
   # devise
   controllers = { :sessions => "sessions", :registrations => "registrations" }
@@ -45,7 +49,7 @@ Mconf::Application.routes.draw do
     :as => "join_webconf"
 
   # event module
-  if Site.current.events_enabled?
+  if enable_events
     mount MwebEvents::Engine => '/'
     configatron.events.routes_loaded = true
   end
@@ -83,7 +87,7 @@ Mconf::Application.routes.draw do
 
     resources :readers
 
-    if Site.current.events_enabled?
+    if enable_events
       get '/events', :to => 'space_events#index', :as => 'events'
     end
 
