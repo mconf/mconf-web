@@ -29,7 +29,7 @@ Rails.application.config.to_prepare do
     end
 
     after_filter :only => [:create] do
-      @event.new_activity params[:action], current_user unless @event.errors.any?
+      @participant.new_activity params[:action], current_user unless @participant.errors.any?
     end
 
   end
@@ -38,7 +38,7 @@ Rails.application.config.to_prepare do
     include PublicActivity::Common
 
     def new_activity key, user
-      create_activity key, :owner => owner, :parameters => { :user_id => user.id, :username => user.name }
+      create_activity key, :owner => owner, :parameters => { :user_id => user.try(:id), :username => user.try(:name) }
     end
 
   end

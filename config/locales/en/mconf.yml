@@ -18,6 +18,8 @@ en:
       not_attend_html: will not attend to the event %{name} in the space
       update_html: updated the information of the event %{name} in the space
       deleted: that has since been deleted
+    mweb_events_participant:
+      create_html: will attend to the event %{name} in the space
     news:
       create_html: published the news %{name} in the space
       update_html: updated the news %{name} in the space
