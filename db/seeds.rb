@@ -77,4 +77,26 @@ else
   puts u.errors.inspect
 end
 
+# Create default user on development
+if ENV["RAILS_ENV"] == 'development'
+  puts "* Create normal user account"
+  puts "  attributes read from the configuration file:"
+  puts "    #{configatron.user.to_hash.inspect}"
+
+  params = configatron.user.to_hash
+  params[:password_confirmation] ||= params[:password]
+  params[:_full_name] ||= params[:username]
+  profile = params.delete(:profile_attributes)
+
+  u = User.new params
+  u.skip_confirmation!
+  u.approved = true
+  if u.save(:validate => false)
+    u.profile.update_attributes(profile.to_hash) unless profile.nil?
+  else
+    puts "ERROR!"
+    puts u.errors.inspect
+  end
+end
+
 puts "* db:seed finished successfully"

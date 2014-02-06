@@ -23,6 +23,14 @@ default:
     # profile_attributes:
     #   full_name: "Mconf Admin"
 
+  user:
+    username: "mconf"
+    email: "mconf@default.com"
+    password: "mconf"
+    profile_attributes:
+      full_name: "Mconf User"
+
+
   # The first, only and default Site model with general configurations for the website.
   # You can set any attribute from the model Site here.
   # If not specified, the SMTP configurations will default to a Gmail account.
