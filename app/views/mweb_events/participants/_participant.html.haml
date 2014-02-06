@@ -5,7 +5,7 @@
 
   %ul.management-links
 
-    = link_to (main_app.edit_user_path(user)) do
+    = link_to build_message_path(participant), :class => 'open-modal' do
       = icon_message(:alt => t('mweb_events.participants.index.message'), :title => t('mweb_events.participants.index.message'))
 
     = link_to event_participant_path(@event, participant), :confirm => t('mweb_events.participants.index.disable_confirm'), :method => :delete do

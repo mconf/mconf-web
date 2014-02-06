@@ -26,7 +26,8 @@ pt-br:
         belongs_user: "Evento criado por <a href='%{url}'>%{user}</a>"
     participants:
       index:
-      participant:
+        no_participants: Nenhum inscrito ainda!
+        event: "Mensagem sobre o evento [%{event}]"
         message: Enviar mensagem
         disable: Remover do evento
         disable_confirm: Tem certeza que deseja remover este usuário do evento?
