@@ -7,7 +7,7 @@
   .select2-choices, .select2-choice {
     border: 1px solid #ccc;
     @include border-radius(4px);
-    padding: 2px 6px;
+    padding: 1px 6px;
     font-size: $font-normal+1px;
     text-align: left;
     color: $font-color;
@@ -22,7 +22,7 @@
 
   // this select gets a bit bigger for some reason, so we reduce it a bit
   .select2-choices {
-    padding: 1px 2px;
+    padding: 0;
   }
 
   &.select2-container-active {
