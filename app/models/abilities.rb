@@ -100,13 +100,21 @@ module Abilities
           false
         end
       end
-      # space admins and users that created the join request can destroy it
+      # users that created a join request can do a few things over it
       # TODO: make this for events also
-      can :destroy, JoinRequest do |jr|
+      can [:show, :destroy], JoinRequest do |jr|
         group = jr.group
         if !group.nil? and group.is_a?(Space)
-          group.admins.include?(user) or
-            (!jr.introducer.nil? && jr.introducer == user)
+          !jr.introducer.nil? && jr.introducer == user
+        else
+          false
+        end
+      end
+      # space admins can work with all join requests in the space
+      can [:index, :show, :update, :destroy], JoinRequest do |jr|
+        group = jr.group
+        if !group.nil? and group.is_a?(Space)
+          group.admins.include?(user)
         else
           false
         end

@@ -73,7 +73,6 @@ describe JoinRequest do
     end
   end
 
-  # TODO: test abilities when the join request is for an Event
   describe "abilities", :abilities => true do
     subject { ability }
     let(:ability) { Abilities.ability_for(user) }
@@ -106,7 +105,7 @@ describe JoinRequest do
         context "he is a member of" do
           context "with the role 'Admin'" do
             before { target.group.add_member!(user, "Admin") }
-            it { should_not be_able_to_do_anything_to(target).except(:destroy) }
+            it { should_not be_able_to_do_anything_to(target).except([:index, :show, :update, :destroy]) }
           end
 
           context "with the role 'User'" do
@@ -126,7 +125,7 @@ describe JoinRequest do
         context "he is a member of" do
           context "with the role 'Admin'" do
             before { target.group.add_member!(user, "Admin") }
-            it { should_not be_able_to_do_anything_to(target).except(:destroy) }
+            it { should_not be_able_to_do_anything_to(target).except([:index, :show, :update, :destroy]) }
           end
 
           context "with the role 'User'" do
