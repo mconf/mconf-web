@@ -15,5 +15,6 @@
     = render "users/recent_activity_content", :content => content, :paginate => false
 
   - if not content.empty? and paginate
-    .content-block-footer
-      = page_navigation_links content
+    - nav = page_navigation_links content
+    - unless nav.nil?
+      .content-block-footer= nav

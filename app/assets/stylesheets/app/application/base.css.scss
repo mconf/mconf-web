@@ -68,13 +68,13 @@ form {
 // Unified style for threads: posts, news, attachments
 .thread {
   clear: both;
-  padding: 6px;
+  padding: 14px 4px;
+  margin: 0;
   @include mconf-clearfix;
+  border-bottom: 1px solid #eee;
 
-  &:not(.thread-no-hover):hover {
-    border-right: 5px solid #aaa;
-    padding-right: 5px;
-  }
+  // so .thread-action-links is correctly positioned
+  position: relative;
 
   &.thread-no-logo {
     .thread-content {
@@ -138,15 +138,17 @@ form {
   }
 
   .thread-action-links {
-    float: right;
+    //float: right;
+    position: absolute;
+    right: 0;
+    top: 0;
     margin: 0;
     padding: 0;
     @include mconf-clearfix;
     @include border-radius(4px);
-    background: #222;
-    opacity: 0.8;
-
-    a { @include link-colors(white, $link-color-hover, $link-color-active); }
+    background: $very-light-gray;
+    border-left: 1px solid #e0e0e0;
+    border-bottom: 1px solid #e0e0e0;
 
     li {
       margin: 0;
@@ -167,19 +169,6 @@ form {
     float: right;
   }
 }
-// Classes outside .thread so that they can be used anywhere to
-// cycle background colors
-.thread-even { background: $transparent; }
-.thread-odd {
-  background: $light-gray;
-
-  .thread-title a {
-    background: darken($light-gray, 5);
-    border-color: darken($light-gray, 10);
-    &:hover { border-color: darken($light-gray, 15); }
-  }
-}
-
 
 // Blocks that can be automatically expanded/collapsed
 .block-expanded { display: none; }
@@ -192,10 +181,7 @@ form {
 // See users/_simple_user and users/_detailed_user
 .user-wrapper {
   clear: both;
-  margin-bottom: 10px;
-  margin-top: 5px;
   @include mconf-clearfix;
-
 
   &.user-simple {
     .user-text { margin-left: 45px; }
@@ -228,10 +214,8 @@ form {
 #navbar-wrapper {
   margin: 0;
   padding: 0 10px;
-  $bg-normal: darken($green-logo, 3);
-  background: $bg-normal;
-  @include box-shadow(0 5px 11px rgba(0, 0, 0, 0.25));
-  @include background(linear-gradient(bottom, lighten($bg-normal, 2), $bg-normal));
+  background: $navbar-bg-color;
+  @include background(linear-gradient(bottom, lighten($navbar-bg-color, 2), $navbar-bg-color));
 }
 
 #navbar {
@@ -386,8 +370,11 @@ ul#navbar-left-links {
     display: inline;
     float: left;
     margin-top: 10px;
-    margin-right: 10px;
-    padding-right: 10px;
+    margin-left: 10px;
+    padding-left: 10px;
+    border-left: 1px solid lighten($navbar-bg-color, 10);
+
+    &:first-child { border: 0 }
 
     .label { margin-left: 3px; }
   }
@@ -396,7 +383,7 @@ ul#navbar-left-links {
 ul#navbar-right-links {
   @extend ul#navbar-left-links;
   float: right;
-  margin-right: 0;
+  margin-right: 10px;
 
   li {
     margin-left: 10px;
@@ -822,7 +809,6 @@ ul#navbar-right-links {
       font-size: $font-medium;
 
       &.selected {
-        color: $main-color;
         @include border-top-radius(4px);
         border: 1px solid darken($light-gray, 12);
         border-bottom-color: $site-bg-color;
@@ -858,21 +844,21 @@ ul#navbar-right-links {
   }
 }
 
-// A list of tabs inside of a page
+// A list of tabs inside of a page, to access subpages of it or to include
+// additional functionality (e.g. search box)
 #content .page-tabs {
   float: left;
   clear: both;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
 
+  // when the div should be shown in fill width
   &.page-tabs-full {
     float: none;
-    background: $light-gray;
-    $border-color: darken($light-gray, 8);
-    border-left: 5px solid $border-color;
-    border-right: 5px solid $border-color;
+    background: $very-light-gray;
+    $border-color: darken($very-light-gray, 8);
     border-bottom: 1px solid $border-color;
     border-top: 1px solid $border-color;
-    padding: 8px;
+    padding: 10px;
     @include mconf-clearfix;
   }
 }

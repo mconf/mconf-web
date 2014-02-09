@@ -2,4 +2,6 @@
 = render :partial => 'spaces/menu'
 
 = render :partial => 'post_with_children'
-= page_navigation_links @posts
+- nav = page_navigation_links @posts
+- unless nav.nil?
+  .content-block-footer= nav

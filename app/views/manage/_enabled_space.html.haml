@@ -1,4 +1,4 @@
-.thread.thread-space.thread-no-hover.space-wrapper.space-simple{:class => "#{cycle("thread-even" , "thread-odd")}"}
+.thread.thread-space.space-wrapper.space-simple{:class => "#{cycle("thread-even" , "thread-odd")}"}
   .logo-in-thread
     = link_logo_image(space, options_for_tooltip(sanitize(space.name), :size => '84x64', :class => "logo logo-space"))
 
@@ -11,3 +11,5 @@
   .space-text
     = link_to space_path(space), :class => 'space-name' do
       = highlight(sanitize(space.name), params[:q])
+    %span.space-description
+      = sanitize(first_words(space.description, 100))

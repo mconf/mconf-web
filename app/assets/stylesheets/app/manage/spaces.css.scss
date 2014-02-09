@@ -19,6 +19,7 @@ body.manage.spaces {
 
   .space-disabled {
     color: #888;
+    background: $very-light-gray;
 
     .logo-in-thread {
       opacity: 0.5;
@@ -28,6 +29,12 @@ body.manage.spaces {
   .management-links {
     float: right;
     padding-top: 8px;
+  }
+
+  .thread {
+    .space-name, .space-description {
+      display: block;
+    }
   }
 
 }

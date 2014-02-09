@@ -6,4 +6,7 @@
     = render :partial => "new_post"
 
 = render :partial => "collapsed_threads", :locals => {:threads => @posts}
-= page_navigation_links @posts
+
+- nav = page_navigation_links @posts
+- unless nav.nil?
+  .content-block-footer= nav

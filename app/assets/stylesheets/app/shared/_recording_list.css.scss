@@ -10,6 +10,20 @@
 
 .thread {
 
+  .thread-title {
+    .icon-awesome { margin-top: 4px; }
+
+    .recording-description {
+      float: left;
+    }
+
+    .thread-updated-at {
+      float: left;
+      margin-left: 5px;
+      padding: 0;
+    }
+  }
+
   .recording-date, .recording-duration {
     display: inline-block;
   }

@@ -816,7 +816,7 @@ pt-br:
   join: Entrar
   join_cam: Participar
   join_requests:
-    join_request_space:
+    index:
       not_pending:
         other: "Não existem solicitações de adesão pendentes"
       pending:
@@ -1409,7 +1409,7 @@ pt-br:
       delete_space: "Remover esta comunidade?"
       other_options: "Outras opções"
       public: "Tornar esta comunidade pública"
-      yes_delete: "Sim, remova!"
+      yes_delete: "Sim, quero excluir esta comunidade"
     edit_recording:
       title: "Editar sua gravação"
     index: 
@@ -1461,7 +1461,10 @@ pt-br:
       private: "Privada"
       public: "Pública"
     unified_space: 
+      private: "comunidade privada"
+      public: "comunidade pública"
       user_is_member: "Você é membro desta comunidade"
+      with_members: "com %{count} membros"
     users: "Usuários nesta comunidade"
     webconference:
       invite: "Convidar outras pessoas"

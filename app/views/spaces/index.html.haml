@@ -58,5 +58,6 @@
 - else
   = render "thumbnail_view"
 
-.content-block-footer
-  = page_navigation_links @objects
+- nav = page_navigation_links @objects
+- unless nav.nil?
+  .content-block-footer= nav

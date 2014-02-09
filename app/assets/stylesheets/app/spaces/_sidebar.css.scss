@@ -4,70 +4,62 @@
 @import "app/custom_bigbluebutton_rooms/join_mobile";
 @import "app/invites/invite_room";
 
-// TODO: this is shown in too many pages, maybe the #space-sidebar selector
-// is enough, so the body selectors are not really necessary here
-// body.spaces.show,
-// body.spaces.edit, body.spaces.update,
-// body.users.index,
-// body.posts.index, body.posts.show,
-// body.events.index, body.events.show, body.events.edit, body.events.new,
-// body.webconferences.show {
+// This is shown in too many pages, the selector below should be
+// enough, so the body selectors are not really necessary here
 
-  #space-sidebar {
+#space-sidebar {
 
-    #latest-news {
+  #latest-news {
 
-      .news-title {
-        h4 {
-          float: left;
-          color: black;
-          font-weight: bold;
-        }
-      }
-
-      .news-content {
-        clear: both;
-        margin-top: 5px;
-      }
-
-    }
-
-    #sidebar-leave-space {
-      text-align: center;
-      padding: 5px 0;
-    }
-
-    #sidebar-webconference {
-      .description {
-        text-align: center;
-      }
-
-      .buttons {
-        text-align: center;
-        margin: 5px 0;
-
-        .btn-group {
-          margin: 4px 2px;
-        }
-      }
-
-      .icon-mconf-in-progress {
+    .news-title {
+      h4 {
         float: left;
-        margin-left: 10px;
-      }
-    }
-
-    #sidebar-space-admins {
-    }
-
-    #sidebar-pageviews {
-      text-align: center;
-      .value {
+        color: black;
         font-weight: bold;
-        color: $blue;
       }
+    }
+
+    .news-content {
+      clear: both;
+      margin-top: 5px;
     }
 
   }
 
-//}
+  #sidebar-leave-space {
+    text-align: center;
+    padding: 5px 0;
+  }
+
+  #sidebar-webconference {
+    .description {
+      text-align: center;
+    }
+
+    .buttons {
+      text-align: center;
+      margin: 5px 0;
+
+      .btn-group {
+        margin: 4px 2px;
+      }
+    }
+
+    .icon-mconf-in-progress {
+      float: left;
+      margin-left: 10px;
+    }
+  }
+
+  #sidebar-space-admins {
+  }
+
+  #sidebar-pageviews {
+    text-align: center;
+    .value {
+      font-weight: bold;
+      color: $blue;
+    }
+  }
+
+}

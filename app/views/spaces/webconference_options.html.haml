@@ -5,8 +5,6 @@
 = render :partial => 'admin_tabs'
 
 #webconference-options
-  %h1= t('.options')
-
   = simple_form_for @space, :html => { :method => :put, :class => 'single-column' } do |f|
     .left-column
       = f.simple_fields_for :bigbluebutton_room do |bbb_room|

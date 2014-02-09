@@ -10,6 +10,5 @@
       = t('news.publish_home')
 
 #space-news
-  %h1= t('spaces.news')
-- for news in @all_news
-  = render 'unified_news', :news => news
+  - for news in @all_news
+    = render 'unified_news', :news => news

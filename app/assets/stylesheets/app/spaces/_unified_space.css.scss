@@ -1,6 +1,7 @@
 @import "compass/css3";
 @import "definitions";
 
+
 .thread-space {
 
   .thread-content {
@@ -12,8 +13,8 @@
       float: right;
     }
 
-    .thread-text {
-      margin-left: 5px;
+    .space-description {
+      @include space-visibility;
     }
 
   }

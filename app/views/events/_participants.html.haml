@@ -40,7 +40,7 @@
     - else
       - unless params[:list_attendees]
         .attendee-thumbs
-          .thread.thread-no-hover
+          .thread
             - for participant in @attendees
               = link_logo_image(participant.user, options_for_tooltip(participant.user.name, :size => '32', :url => user_path(participant.user), :class => 'logo logo-in-thread'))
       - else
@@ -67,7 +67,7 @@
       - unless @not_attendees.empty?
         - unless params[:list_not_attendees]
           .attendee-thumbs
-            .thread.thread-no-hover
+            .thread
               - for participant in @not_attendees
                 = link_logo_image(participant.user, options_for_tooltip(participant.user.name, :size => '32', :url => user_path(participant.user), :class => 'logo logo-in-thread'))
         - else

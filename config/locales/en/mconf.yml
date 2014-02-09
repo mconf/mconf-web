@@ -820,7 +820,7 @@ en:
   join: Join
   join_cam: Participate
   join_requests:
-    join_request_space:
+    index:
       not_pending:
         other: "There are no pending join requests"
       pending:
@@ -1341,7 +1341,7 @@ en:
     add_user: 
       other: "Add users to the space"
     add_user_other: ""
-    all: "All spaces"
+    all: "Spaces"
     allow_public_access: "Allow public access?"
     attendeePW: "edit attendee password"
     clic: "Click to edit..."
@@ -1431,7 +1431,7 @@ en:
       delete_space: "Remove this space?"
       other_options: "Other options"
       public: "Make this a public space"
-      yes_delete: "Yes, remove it!"
+      yes_delete: "Yes, I want to remove this space"
     edit_recording:
       title: "Edit your recording"
     index: 
@@ -1483,7 +1483,10 @@ en:
       private: "Private"
       public: "Public"
     unified_space:
+      private: "private space"
+      public: "public space"
       user_is_member: "You are a member of this space"
+      with_members: "with %{count} members"
     users: "Users in this space"
     webconference:
       end: "Stop the meeting"

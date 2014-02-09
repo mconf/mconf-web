@@ -4,4 +4,35 @@
 - spaces_admin_menu_at :admissions
 = render :partial => 'spaces/admin_tabs'
 
-= render :partial => 'join_request_space'
+#join-requests
+
+  %h3= t('.pending.other')
+  - if @space.pending_join_requests.any?
+    - @space.pending_join_requests.each do |jr|
+      - unless jr.candidate.nil? || jr.candidate.disabled
+        %div{:class => "thread #{cycle('thread-even','thread-odd')}"}
+          .logo-in-thread
+            = link_logo_image(jr.candidate, :size => '32', :url => user_path(jr.candidate), :title => jr.candidate.name, :class => "logo logo-user")
+          .thread-content
+            .thread-text
+              = simple_form_for [@space, jr], :url => space_join_request_path(@space, jr) do |f|
+                = select :join_request, :role_id, Space.roles.map { |r| [ r.name, r.id ] }, :selected => default_role.id
+                = f.hidden_field :accepted, :value => true
+                = f.hidden_field :processed, :value => true
+                = f.submit "Accept", :class => "btn btn-small btn-success"
+              %span= ' or '
+              = simple_form_for [@space, jr], :url => space_join_request_path(@space, jr) do |f|
+                = f.hidden_field :processed, :value => true
+                = f.submit "Deny", :class => "btn btn-small btn-danger"
+            .thread-title
+              = link_to sanitize(jr.candidate.name), user_path(jr.candidate)
+              .user-email
+                = "(#{jr.candidate.username}, #{jr.candidate.email})"
+  - else
+    %p.main_text= t('.not_pending.other')
+
+  %h3= t('invitation.pending.other')
+  - if @space.pending_invitations.any?
+    = render :partial => 'invitation', :collection => @space.pending_invitations
+  - else
+    %p.main_text= t('invitation.not_pending.other')

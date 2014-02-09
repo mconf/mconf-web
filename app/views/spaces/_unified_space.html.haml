@@ -3,7 +3,7 @@
 -#   is_member (boolean): Whether the current user is a member of the space or not
 
 - unless space.nil?
-  = content_tag(:div, :name => space.permalink, :class => "thread thread-space thread-no-hover #{cycle("thread-even" , "thread-odd")} space-item #{is_member ? 'my-space' : 'not-my-space'}") do
+  = content_tag(:div, :name => space.permalink, :class => "thread thread-space #{cycle("thread-even" , "thread-odd")} space-item #{is_member ? 'my-space' : 'not-my-space'}") do
     .logo-in-thread
       = link_logo_image(space, options_for_tooltip(sanitize(space.name), :size => '84x64', :"data-placement" => 'bottom', :class => "logo logo-space"))
 
@@ -13,5 +13,15 @@
           %span.is-member= t('.user_is_member')
         %span
           = link_to sanitize(space.name), space_path(space)
+        .space-description
+          - if space.public
+            %span.visibility.public
+              = icon_space_public()
+              = t(".public")
+          - else
+            %span.visibility.private
+              = icon_space_private()
+              = t(".private")
+          %span= t('.with_members', :count => space.users.count)
       .thread-text
         = sanitize(auto_link(space.description))
