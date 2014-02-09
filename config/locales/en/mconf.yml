@@ -65,6 +65,7 @@ en:
     user:
       administrator: "Global administrator"
       normal_user: "Normal user"
+      removed: "<user removed>"
     yes_: "Yes"
     webconference:
       not_allowed_to_create: "You are not allowed to create meetings in this room"
@@ -1117,6 +1118,9 @@ en:
     title: "Messages (%{count})"
     updated: "Message updated!"
     wall: Wall
+  posts:
+    post_with_children:
+      by: "by"
   prav: PRAV
   preferences: Preferences
   previous: Previous
@@ -1138,6 +1142,8 @@ en:
       sent: Sent
     new: 
       title: "Private Messages"
+    reply_private_message:
+      user_not_registered: "This user is no longer registered, you won't be able to respond to this message."
     show: 
       title: "Private Messages"
     show_received: 

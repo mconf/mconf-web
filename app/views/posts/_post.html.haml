@@ -3,6 +3,8 @@
   .logo-in-thread
     - if post.author
       = link_logo_image(post.author, :size => '32', :title => post.author.name, :url => user_path(post.author), :class => "logo logo-user")
+    - else
+      = empty_logo_image(:user, :size => '32', :class => "logo logo-user")
   .thread-content
     %ul.thread-action-links.visible-on-hover{ :"data-hover-tracked" => "parent-#{post.id}" }
       - if can?(:update, post)
@@ -16,6 +18,8 @@
       = icon_comment t('post.home.one', :space => post.space.name)
       - if post.author
         = link_to post.author.name, user_path(post.author), { :class => "thread-author" }
+      - else
+        %span.post-author= t('_other.user.removed')
       = icon_spam() if post.spam
     .thread-text
       %p= post.text

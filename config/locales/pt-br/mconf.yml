@@ -65,6 +65,7 @@ pt-br:
     user:
       administrator: "Administrador global"
       normal_user: "Usuário normal"
+      removed: "<usuário removido>"
     yes_: "Sim"
     webconference:
       not_allowed_to_create: "Você não tem permissão para criar reuniões nesta sala"
@@ -1102,6 +1103,9 @@ pt-br:
     title: "Mensagens (%{count})"
     updated: "Mensagem atualizada!"
     wall: Mural
+  posts:
+    post_with_children:
+      by: "de"
   prav: PRAV
   preferences: Preferências
   previous: Anterior
@@ -1123,6 +1127,8 @@ pt-br:
       sent: Enviadas
     new: 
       title: "Mensagens Privadas"
+    reply_private_message:
+      user_not_registered: "Este usuário não está mais registrado, você não poderá responder esta mensagem."
     show: 
       title: "Mensagens Privadas"
     show_received: 

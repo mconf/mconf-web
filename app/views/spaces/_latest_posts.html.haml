@@ -13,11 +13,16 @@
           .logo-in-thread
             - if post.author
               = link_logo_image(post.author, :size => '32', :url => user_path(post.author), :title => post.author.name, :class => "logo logo-user")
+            - else
+              = empty_logo_image(:user, :size => '32', :class => "logo logo-user")
           .post-title-wrapper
             = link_to(first_words(post.title, 40), space_post_path(@space, post), :class => 'post-title')
             = icon_attachment(attachment_name(post)) if has_attachments(post)
             %span= t('by')
-            = link_to(post.author.name, user_path(post.author), :class => 'post-author') if post.author
+            - if post.author
+              = link_to(post.author.name, user_path(post.author), :class => 'post-author')
+            - else
+              %span.post-author= t('_other.user.removed')
             %span.updated-at= t('updated_time_ago', :time => time_ago_in_words(post.updated_at))
           .post-text
             = first_words(strip_tags(post.text), 100)

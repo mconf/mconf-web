@@ -1,0 +1,14 @@
+body.posts.show {
+  .thread {
+    .thread-title {
+      h2 {
+        display: inline;
+      }
+
+      .post-author {
+        color: #666;
+        display: inline;
+      }
+    }
+  }
+}

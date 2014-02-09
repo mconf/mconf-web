@@ -13,7 +13,13 @@
       %h2
         = icon_comments()
         = icon_spam() if @post.spam
-        %span= @post.title
+        = @post.title
+      .post-author
+        %span= t('.by')
+        - if @post.author
+          = link_to @post.author.name, user_path(@post.author)
+        - else
+          %span= t('_other.user.removed')
     .thread-text
       = render :partial => "posts/parent_post" , :locals => { :post =>  @post, :selected_post => false}
       - for comment in @posts
