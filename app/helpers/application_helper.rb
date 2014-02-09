@@ -215,7 +215,12 @@ module ApplicationHelper
 
   # Gets the route to user resource from it's id
   def user_path_from_id id
-    user_path(User.find(id).username)
+    user = User.find_by_id(id)
+    if user.nil?
+      nil
+    else
+      user_path(user.to_param)
+    end
   end
 
   private

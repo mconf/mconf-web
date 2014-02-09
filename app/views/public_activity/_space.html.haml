@@ -10,7 +10,11 @@
   .thread-title
     = icon_create
     - if activity.parameters.has_key?(:username) and activity.parameters.has_key?(:user_id)
-      = link_to activity.parameters[:username], user_path_from_id(activity.parameters[:user_id])
+      - link = user_path_from_id(activity.parameters[:user_id])
+      - if link.nil?
+        = activity.parameters[:username]
+      - else
+        = link_to activity.parameters[:username], link
     - else
       = activity_translate('other.someone')
     = activity_translate(activity.key)
