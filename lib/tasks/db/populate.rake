@@ -24,6 +24,7 @@ namespace :db do
       Statistic.destroy_all
       Permission.destroy_all
       Space.destroy_all
+      Event.destroy_all
       RecentActivity.destroy_all
       BigbluebuttonRecording.destroy_all
       users_without_admin = User.find_by_id_with_disabled(:all)
@@ -328,5 +329,20 @@ namespace :db do
 
     end
 
+    # done after all the rest to simulate what really happens: users are created enabled
+    # and disabled later on
+    puts "* Disabling a few users and spaces"
+    ids = Space.all.map(&:id)
+    ids = ids.sample(Space.count/5) # 1/5th disabled
+    Space.where(:id => ids).each do |space|
+      space.disable
+    end
+    users_without_admin = User.all
+    users_without_admin.delete(User.find_by_superuser(true))
+    ids = users_without_admin.map(&:id)
+    ids = ids.sample(User.count/5) # 1/5th disabled
+    User.where(:id => ids).each do |user|
+      user.disable
+    end
   end
 end
