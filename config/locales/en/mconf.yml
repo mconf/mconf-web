@@ -141,9 +141,13 @@ en:
         _full_name: "Full name"
         can_record: "Allow this user to record meetings"
         email: "Email"
+        expanded_post: "Show messages in wall with the expanded view by default"
+        notification: "How do you want to receive your notifications?"
         password: "Password"
         password_confirmation: "Password confirmation"
+        receive_digest: "How often do you want to receive digest emails with recent activity in the communities you are a part of?"
         superuser: "Global administrator"
+        timezone: "Timezone"
         username: "Username"
     errors:
       models:
@@ -1176,9 +1180,13 @@ en:
     visibility_public_fellows: "Only your partners in a public or private space can see your private profile."
   profiles:
     edit:
-      change_pic: "Change your picture"
-      edit_your_profile: "Edit your profile"
-      view_your_profile: "View your profile"
+      change_pic: "Change picture"
+      title: "Edit profile"
+      view_your_profile: "View profile"
+      vcard:
+        export: "Export vCard"
+        tooltip: "vCard is a file format standard for electronic business cards"
+        use: "Use a vCard"
   province: Province
   public: Public
   read_more: "Read more"
@@ -1606,10 +1614,8 @@ en:
     share: "This is the url to share this video with your colleagues"
     tag: "Tags are keywords or terms associate with content used to find and filter information. Press enter to confirm each tag."
     tag_by: "Tags are words that describe the documents. Use this links to order them by popularity or alphabetically. Then click on them to see the related documents."
-    timezone: "By selecting your time-zone there will be no misunderstanding when creating events with people from other countries"
     upcoming: "This section shows the next events in this space"
     update_logo: "You can update your own logo, create a text logo or select an image from the gallery"
-    vcard: "vCard is a file format standard for electronic business cards"
     vclass: "The virtual class type is the perfect way to organise classes, conferences and seminars, where the teacher assumes a prominent role."
     vcongress: "The  Virtual congress type is very similar to the virtual meeting but geared for larger events, both in size and complexity. Usually, this type requires the support of an onsite operator."
     vmeeting: "The Virtual meeting type is suited for online meetings or physical meetings with a strong virtual component, meaning that both local and remote participants will have the opportunity to communicate interactively."
@@ -1632,23 +1638,11 @@ en:
     admin: Admin
     administrators: Administrators
     assist: Attending
-    by_email: "By email"
-    by_private_message: "By private message"
     category: Category
     confirm_password: "Confirm password"
     delete_from_space: "Delete user from space"
     disable: "Disable user"
     disabled: "User %{username} disabled"
-    edit: 
-      account_info: "Account info"
-      cancel_account: "Cancel account?"
-      change_password: "Change your password"
-      click_to_edit_profile: "Click here to edit your profile"
-      did_not_find_info: "Didn't find the information you were looking for?"
-      password:
-        hint: "Leave it blank if you don't want to change it"
-      yes_cancel_account: "Yes, cancel my account"
-    edit_account: "Edit your account"
     email_used_to_create_account: "Enter the email address you used to create your account"
     enable: "Enable user"
     enabled: "User successfully enabled. The user currently belongs to no space, and will have to join spaces again."
@@ -1672,15 +1666,9 @@ en:
     normal_user: "Normal user"
     not_assist: "Not attending"
     not_confirmed: "Not confirmed"
-    notifications: "How do you want to receive your notifications?"
     one: User
     other: Users
     private_message: "Send Message"
-    receive_digest: 
-      daily: "Every day"
-      description: "How often do you want to receive digest emails with recent activity in the communities you are a part of?"
-      never: Never
-      weekly: "Every week"
     recent_join: "Recent users joined"
     registered: "Thanks for registering! We have just sent instructions on how to activate your user account"
     request_confirmation: "Request confirmation email"
@@ -1694,10 +1682,8 @@ en:
       one: "People, %{users_size} result"
       other: "People, %{users_size} results"
     results_found: "Users found"
-    timezone: Timezone
     updated: "User updated successfully"
     vcc_email: "Mconf user e-mail %{dir}"
-    view_expanded_posts: "Show messages in wall with the expanded view by default"
   users:
     approve:
       approved: "The user %{username} was approved to access the website!"
@@ -1708,8 +1694,13 @@ en:
       disapproved: "The user %{username} was blocked from accessing the website!"
       not_enabled: "Approval of registrations is not enabled in this website"
     edit:
+      account_info: "Account info"
       approve: "Approve: allow user to access the website"
       approve_confirm: "Are you sure you want to allow this user to access the website?"
+      cancel_account: "Cancel account?"
+      change_password: "Change password"
+      click_to_edit_profile: "Click here to edit your profile"
+      did_not_find_info: "Didn't find the information you were looking for?"
       disable: "Disable this user's account"
       disable_confirm: "Are you sure you want to disable this user's account?"
       federated:
@@ -1718,14 +1709,25 @@ en:
         your_idp: "Your identity provider is: %{idp}"
       management_options: "Management options"
       not_confirmed: "Your account is not activated yet. Please, check your email to activate it. (Did not receive an email? <a href=\"%{url}\">Click here</a>.)"
-      not_confirmed_other: "This user has not confirmed his/her account yet."
+      notification:
+        by_email: "By email"
+        by_private_message: "By private message"
+      other_user:
+        click_to_edit_profile: "Click here to edit this user's profile"
+        not_confirmed: "This user has not confirmed his/her account yet."
+        title: "Edit user account"
+      preferences: "Preferences"
+      receive_digest:
+        daily: "Every day"
+        never: "Never"
+        weekly: "Every week"
+      title: "Edit your account"
+      yes_cancel_account: "Yes, cancel my account"
   username: Username
   vCard: 
     corrupt: "The vCard you sent is corrupted or is a non-supported version"
-    export: "Export your vCard"
     message: "Use your vCard to automatically fill in your profile"
     upload: "Upload your vCard"
-    use: "Use your vCard"
   vcc: Mconf
   vcc_mail_label: "[Mconf]"
   version: 
