@@ -163,3 +163,14 @@ $z-index-tooltip: 999999;
     margin-right: 2px;
   }
 }
+
+@mixin sidebar-position($pos) {
+  @if $pos == 'left' {
+    #sidebar {
+      float: left;
+    }
+    #content-middle {
+      float: right;
+    }
+  }
+}

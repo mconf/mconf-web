@@ -8,4 +8,5 @@
 @import "app/profiles/_profile_in_sidebar";
 
 body.users.show {
+  @include sidebar-position('left');
 }
