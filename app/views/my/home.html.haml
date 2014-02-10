@@ -26,6 +26,10 @@
       %span.event-category= t('.events.other')
       = render 'events/sidebar_events_simple', :events => @upcoming_events
 
+- unless current_user.confirmed?
+  #user-notifications.alert.alert-warning
+    = t('.not_confirmed', :url => new_user_confirmation_path).html_safe
+
 #user-space-list.content-block
   .content-block-header
     %h3= t('home.my_spaces')
