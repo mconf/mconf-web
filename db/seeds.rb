@@ -77,13 +77,13 @@ else
   puts u.errors.inspect
 end
 
-# Create default user on development
-if ENV["RAILS_ENV"] == 'development'
+# Create a test user for development
+if Rails.env == "development" && !configatron.test_user.to_hash.empty?
   puts "* Create normal user account"
   puts "  attributes read from the configuration file:"
-  puts "    #{configatron.user.to_hash.inspect}"
+  puts "    #{configatron.test_user.to_hash.inspect}"
 
-  params = configatron.user.to_hash
+  params = configatron.test_user.to_hash
   params[:password_confirmation] ||= params[:password]
   params[:_full_name] ||= params[:username]
   profile = params.delete(:profile_attributes)
