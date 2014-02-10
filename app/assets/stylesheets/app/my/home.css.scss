@@ -53,7 +53,7 @@ body.my.home, body.my.activity, body.my.recordings {
         position: absolute;
         bottom: 3px;
         left: 3px;
-        font-size: 10px;
+        @include font-size($font-mini);
         width: 14px;
         height: 14px;
         color: white;
@@ -73,7 +73,7 @@ body.my.home, body.my.activity, body.my.recordings {
       }
 
       .user-name {
-        font-size: $font-big;
+        @include font-size($font-big);
         font-weight: bold;
       }
 
@@ -182,7 +182,7 @@ body.my.home, body.my.activity, body.my.recordings {
   #recent-activity-options {
     background: $site-bg-color;
     float: right;
-    font-size: $font-normal;
+    @include font-size($font-normal);
     font-weight: normal;
     padding-right: 10px;
     padding-left: 10px;

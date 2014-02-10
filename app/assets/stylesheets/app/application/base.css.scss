@@ -3,11 +3,6 @@
 @import "compass/typography/links";
 @import "definitions";
 
-$focus-border-color: $second-color;
-$navbar-height: 35px;
-$navbar-font-color: #bbb;
-$navbar-font-color-hover: white;
-
 //
 // General tags
 //
@@ -28,6 +23,8 @@ form {
   margin: 0;
 }
 
+@include set-sidebar-width($sidebar-width);
+
 //
 // Components used site-wide, in any layout
 //
@@ -38,12 +35,12 @@ form {
     float: none;
     margin: 0;
     padding: 0;
-    font-size: 12px;
+    @include font-size($font-small);
     color: white;
     &:hover { color: white; }
   }
   .btn-small i.icon-awesome {
-    font-size: 11px;
+    @include font-size($font-small);
   }
 }
 
@@ -68,7 +65,7 @@ form {
 // Unified style for threads: posts, news, attachments
 .thread {
   clear: both;
-  padding: 14px 4px;
+  padding: 18px 4px 8px 4px;
   margin: 0;
   @include mconf-clearfix;
   border-bottom: 1px solid #eee;
@@ -91,26 +88,11 @@ form {
   }
 
   .thread-title {
-    margin-bottom: 5px;
     overflow: hidden;
-    line-height: $font-normal + 10px; // have to account for the links with border and padding
 
     a {
       white-space: nowrap;
-      @include border-radius(3px);
-      background: $light-gray;
-      border: 1px solid darken($light-gray, 5);
-      padding: 0 4px;
-
-      &:hover {
-        background: darken($light-gray, 5);
-        color: #666;
-        border-color: darken($light-gray, 10);
-      }
-
-      &:focus {
-        border-color: $link-color-active;
-      }
+      //font-weight: bold;
     }
 
     h2 { margin-bottom: 0; }
@@ -132,7 +114,7 @@ form {
 
   .thread-updated-at {
     color: #666;
-    font-size: $font-small;
+    @include font-size($font-small);
     padding: 2px 0;
     font-weight: normal;
   }
@@ -224,6 +206,7 @@ form {
   padding: 0;
   height: $navbar-height;
   color: $navbar-font-color;
+  @include font-size(12px);
 }
 
 #content-wrapper {
@@ -253,7 +236,7 @@ form {
   }
 
   h3 {
-    font-size: $font-normal;
+    @include font-size($font-normal);
     color: #888;
     margin-bottom: 7px;
     font-weight: bold;
@@ -300,7 +283,7 @@ form {
   .current-version {
     clear: both;
     text-align: right;
-    font-size: $font-small;
+    @include font-size($font-small);
   }
 }
 
@@ -343,7 +326,7 @@ form {
 
   .title {
     font-weight: bold;
-    font-size: 28px;
+    @include font-size($font-gigantic);
   }
 
   span { display: block; }
@@ -363,7 +346,7 @@ ul#navbar-left-links {
 
   .icon-awesome {
     margin: 3px 3px 0px 0px;
-    font-size: $font-normal;
+    @include font-size($font-normal);
   }
 
   li {
@@ -538,7 +521,7 @@ ul#navbar-right-links {
 
   .title {
     @include link-colors($navbar-font-color, $navbar-font-color-hover, $navbar-font-color-hover, $navbar-font-color);
-    font-size: 21px;
+    @include font-size($font-bigger);
     float: left;
   }
 }
@@ -554,8 +537,13 @@ ul#navbar-right-links {
   margin: 0 auto;
   @include mconf-clearfix;
   overflow: visible;
-  padding: 10px 0 7px 0;
+  padding: 20px 0 17px 0;
   clear: both;
+
+  // darker links since the background is darker
+  a:not(.btn) {
+    @include link-colors(darken($link-color, 15), $link-color-hover, $link-color-active);
+  }
 
   h1 {
     margin: 0;
@@ -582,9 +570,7 @@ ul#navbar-right-links {
   .current-page-title {
     float: left;
     margin-left: 10px;
-    margin-top: 20px;
-    font-size: $font-section-title;
-    line-height: $font-section-title;
+    @include font-size($font-section-title);
     font-weight: bold;
     @include text-shadow(darken($site-bg-color, 10) 1px 1px 10px);
     color: $page-title-color;
@@ -596,13 +582,13 @@ ul#navbar-right-links {
 
     // when the title is too big the font is reduced a bit
     .small-title {
-      font-size: $font-section-title - 10px;
+      @include font-size($font-section-title - 10px);
       margin-top: 5px;
     }
 
     // some tweaks for the titles in pages of spaces
     &.space-page {
-      margin-top: 8px;
+      margin-top: 0;
 
       // the text that shows the visibility of spaces
       .space-visibility {
@@ -632,7 +618,6 @@ ul#navbar-right-links {
 
 #sidebar, .sidebar {
   float: right;
-  width: $sidebar-width;
 
   .content-block-wrapper {
     padding: 5px;
@@ -652,12 +637,6 @@ ul#navbar-right-links {
     border: 1px solid #ddd;
     @include border-radius(5px);
     background: $site-bg-color;
-
-    h3 {
-      font-size: 1.2em;
-      margin-top: 0;
-      img { margin-bottom: -3px; }
-    }
   }
 
   .content-block-middle {
@@ -674,7 +653,11 @@ ul#navbar-right-links {
 
   .content-block-header {
     @include mconf-clearfix;
-    h3 { float: left; }
+    h3, h4 {
+      float: left;
+      margin-top: 0;
+      img { margin-bottom: -3px; }
+    }
   }
 
   .sidebar-top-action-button {
@@ -718,14 +701,11 @@ ul#navbar-right-links {
 
 #content-middle {
   float: left;
-  width: $contents-width - $sidebar-width - 20px; // less right-margin
   @include mconf-clearfix;
   overflow: visible;
 
   h3 {
     color: #404040;
-    font-size: 1.4em;
-    //padding-top: 10px;
     margin-bottom: 5px;
 
     // horitontal line in the title
@@ -782,7 +762,10 @@ ul#navbar-right-links {
   .content-block-header {
     @include mconf-clearfix;
     img { float: left; }
-    h3 { float: left; margin: 0 4px; }
+    h3, h4 {
+      float: left;
+      margin: 0 4px;
+    }
 
     .toolbar {
       float: right;
@@ -794,7 +777,7 @@ ul#navbar-right-links {
 }
 
 #page-menu {
-  margin-bottom: -8px; // #page-header's bottom margin
+  margin-bottom: -19px; // #page-header's bottom margin -2px
   padding-top: 10px;
   clear: both;
 
@@ -806,13 +789,17 @@ ul#navbar-right-links {
       margin-left: 10px;
       padding: 5px 10px 3px 10px;
       font-weight: bold;
-      font-size: $font-medium;
+      @include font-size($font-medium);
 
       &.selected {
         @include border-top-radius(4px);
         border: 1px solid darken($light-gray, 12);
         border-bottom-color: $site-bg-color;
         background: $site-bg-color;
+        /* border-bottom: 4px solid $bright-blue; */
+        /* > a { */
+        /*   @include link-colors(#444, $link-color-hover, $link-color-active); */
+        /* } */
       }
 
       > a {
@@ -869,23 +856,21 @@ ul#navbar-right-links {
     //float: left;
     //margin-bottom: 5px;
     color: #777;
-    font-size: $font-small;
+    @include font-size($font-small);
   }
 
   .event-wrapper {
     clear: both;
-    margin-bottom: 10px;
+    margin: 5px 0 10px 0;
 
     .event-title {
-      font-weight: bold;
       display: block;
     }
 
     .event-date {
       display: block;
-      font-size: $font-small;
+      @include font-size($font-small);
       color: #777;
-      margin-left: 5px;
     }
   }
 

@@ -48,7 +48,7 @@ body.spaces.index {
   .select2-results, .select2-container {
     i {
       float: right;
-      font-size: 11px;
+      @include font-size($font-small);
       margin: 6px 0 0 0;
     }
   }

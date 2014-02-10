@@ -2,13 +2,15 @@
 
 = content_for :sidebar do
   - if @spaces_examples.count > 0
-    %h3= t(".spaces_examples.title")
+    .content-block-header
+      %h3= t(".spaces_examples.title")
   - @spaces_examples.each do |space|
     = render_sidebar_content_block do
-      .content-block-middle
+      .content-block-header
         .space-logo
           = link_logo_image(space, options_for_tooltip(sanitize(space.name), :size => '84x64', :"data-placement" => 'bottom', :class => "logo logo-space"))
-        %h3= link_to sanitize(space.name), space_path(space)
+        %h4= link_to sanitize(space.name), space_path(space)
+      .content-block-middle
         %span.description= sanitize(auto_link(first_words(space.description, 150)))
       .content-block-footer
         - if space.public

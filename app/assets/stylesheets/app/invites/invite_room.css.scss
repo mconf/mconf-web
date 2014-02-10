@@ -14,7 +14,7 @@
   .section-header {
     font-weight: bold;
     margin: 15px 0 5px 0;
-    font-size: $font-medium;
+    @include font-size($font-medium);
 
     .help-icon {
       float: left;

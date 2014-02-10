@@ -34,7 +34,7 @@
     // hints
     $hint-border-color: #222; //darken($alert-bg, 25);
     .hint {
-      font-size: $font-normal;
+      @include font-size($font-normal);
       border: 1px solid $hint-border-color;
       @include border-radius(3px);
       padding: 3px 8px;

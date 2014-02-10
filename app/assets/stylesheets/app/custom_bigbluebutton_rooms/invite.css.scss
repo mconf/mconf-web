@@ -95,7 +95,7 @@ body.custom_bigbluebutton_rooms.auth {
   }
 
   #webconf-room-status {
-    font-size: $font-medium;
+    @include font-size($font-medium);
     text-align: center;
 
     .label {
@@ -110,7 +110,7 @@ body.custom_bigbluebutton_rooms.auth {
 
     .room-type {
       text-align: center;
-      font-size: $font-medium;
+      @include font-size($font-medium);
 
       em {
         font-style: normal;

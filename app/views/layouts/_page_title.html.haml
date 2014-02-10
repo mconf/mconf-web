@@ -14,4 +14,5 @@
     .current-page-extra
       - if content_for?(:page_header_extra)
         = yield :page_header_extra
-    %h1= page_title
+    .current-page-title
+      = page_title

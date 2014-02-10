@@ -8,8 +8,8 @@
     = link_to space_path(space), :confirm => t('.disable_confirm'), :method => :delete do
       = icon_delete(:alt => t('.disable'), :title => t('.disable'))
 
-  .space-text
+  .thread-title
     = link_to space_path(space), :class => 'space-name' do
       = highlight(sanitize(space.name), params[:q])
-    %span.space-description
-      = sanitize(first_words(space.description, 100))
+  %span.space-description
+    = sanitize(first_words(space.description, 100))

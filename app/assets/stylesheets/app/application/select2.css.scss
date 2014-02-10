@@ -8,7 +8,7 @@
     border: 1px solid #ccc;
     @include border-radius(4px);
     padding: 1px 6px;
-    font-size: $font-normal+1px;
+    @include font-size($font-normal+1px);
     text-align: left;
     color: $font-color;
     background-image: none;

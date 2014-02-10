@@ -35,7 +35,7 @@
       @include link-colors(#808080, $link-color-hover, $link-color-active);
       padding: 5px 10px;
       font-weight: bold;
-      font-size: 14px;
+      @include font-size($font-medium);
     }
 
     &.ui-tabs-selected a {

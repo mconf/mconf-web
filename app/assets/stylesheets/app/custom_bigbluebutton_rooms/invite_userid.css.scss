@@ -37,7 +37,7 @@ body.custom_bigbluebutton_rooms.invite_userid {
       }
 
       .shibboleth-container {
-        font-size: $font-medium;
+        @include font-size($font-medium);
         clear: both;
         max-width: 300px;
         float: right;

@@ -7,7 +7,7 @@
   .thread-content {
 
     .is-member {
-      font-size: $font-small;
+      @include font-size($font-small);
       color: $green;
       margin-right: 10px;
       float: right;
