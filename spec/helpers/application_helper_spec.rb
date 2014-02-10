@@ -91,7 +91,7 @@ describe ApplicationHelper do
   describe "#webconf_path_prefix" do
     context "returns the path prefix for web conference urls" do
       before { Site.current.update_attributes(:domain => 'test.com', :ssl => true) }
-      it { webconf_url_prefix.should eq('/webconf/') }
+      it { webconf_path_prefix.should eq('/webconf/') }
     end
   end
 
