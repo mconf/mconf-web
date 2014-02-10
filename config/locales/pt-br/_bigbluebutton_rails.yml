@@ -34,7 +34,7 @@ pt-br:
         moderator_password: "Senha de Moderador"
         name: Nome
         param: Identificador
-        private: Privado
+        private: Privada
         record: Gravar
         server_id: "ID do Servidor"
         voice_bridge: "Voice Bridge"
