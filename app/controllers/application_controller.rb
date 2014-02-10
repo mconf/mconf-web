@@ -21,9 +21,6 @@ class ApplicationController < ActionController::Base
 
   before_filter :set_time_zone
 
-  # TODO: it's pretty annoying to show this in every page
-  before_filter :not_activated_warning
-
   helper_method :current_site
 
   # TODO: review, we shouldn't need this with cancan loading the resources
@@ -180,12 +177,6 @@ class ApplicationController < ActionController::Base
   end
 
   private
-
-  def not_activated_warning
-    if user_signed_in? && !current_user.confirmed?
-      flash[:notice] = t('user.not_activated', :url => main_app.new_user_confirmation_path)
-    end
-  end
 
   def set_time_zone
     if current_user and current_user.is_a?(User) and not current_user.timezone.blank?

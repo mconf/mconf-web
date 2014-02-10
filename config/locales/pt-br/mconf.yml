@@ -860,6 +860,7 @@ pt-br:
       events:
         other: "Outros"
         today: "Hoje"
+      not_confirmed: "Sua conta ainda não foi confirmada. Por favor verifique o seu e-mail para ativá-la. (Não recebeu um e-mail? <a href=\"%{url}\">Clique aqui</a>.)"
       view_all_activity: "Ver todas suas atividades"
       view_all_spaces: "Ver todas comunidades"
     edit_recording:
@@ -1539,7 +1540,6 @@ pt-br:
     new_password_tip: "Preencha este campo apenas se você deseja mudar a sua senha."
     noactivity: "%{user} não tem atividade recente"
     normal_user: "Usuário comum"
-    not_activated: "Sua conta não está ativada, verifique o seu e-mail. (Não recebeu o e-mail? <a href=\"%{url}\">Clique aqui</a>.)"
     not_assist: "Não participarão"
     not_confirmed: "Não confirmados"
     notifications: "Como você deseja receber as notificações?"
@@ -1587,6 +1587,8 @@ pt-br:
         title: "Você acessou este site através de uma federação!"
         your_idp: "O seu provedor de identidade é: %{idp}"
       management_options: "Management options"
+      not_confirmed: "Sua conta ainda não foi confirmada. Por favor verifique o seu e-mail para ativá-la. (Não recebeu um e-mail? <a href=\"%{url}\">Clique aqui</a>.)"
+      not_confirmed_other: "Este usuário ainda não confirmou sua conta."
   username: "Nome de usuário"
   vCard:
     corrupt: "O vCard que você enviou está corrompido ou é uma versão não suportada"
