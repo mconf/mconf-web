@@ -158,17 +158,23 @@ module Abilities
       end
 
       # Events from MwebEvents
+      def event_can_be_managed_by(event, user)
+        case event.owner_type
+        when 'User' then
+          event.owner_id == user.id
+        when 'Space' then
+          !user.permissions.where(:subject_type => 'MwebEvents::Event',
+            :role_id => Role.find_by_name('Organizer'), :subject_id => event.id).empty? ||
+          !user.permissions(:subject_type => 'Space', :subject_id => event.owner_id,
+          :role_id => Role.find_by_name('Admin')).empty?
+        end
+      end
+
       can :read, MwebEvents::Event
       can :create, MwebEvents::Event
 
       can [:edit, :update, :destroy], MwebEvents::Event do |e|
-        case e.owner_type
-        when 'User'
-          e.owner_id == user.id
-        when 'Space'
-          !user.permissions.where(:subject_type => 'MwebEvents::Event',
-            :role_id => Role.find_by_name('Organizer'), :subject_id => e.id).empty?
-        end
+        event_can_be_managed_by(e, user)
       end
 
       can :register, MwebEvents::Event do |e|
@@ -176,12 +182,15 @@ module Abilities
       end
 
       # Participants from MwebEvents
-      can :read, MwebEvents::Participant do |p|
+      can :show, MwebEvents::Participant do |p|
         p.event.owner == user || p.owner == user
       end
-      can :manage, MwebEvents::Participant do |p|
-        p.event.owner == user
+
+      can [:edit, :update, :destroy], MwebEvents::Participant do |p|
+        event_can_be_managed_by(p.event, user)
       end
+
+      can :index, MwebEvents::Participant
       can :create, MwebEvents::Participant
     end
 
