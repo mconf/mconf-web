@@ -14,7 +14,7 @@
         - if current_user.unread_private_messages.size > 0
           .label.label-important= current_user.unread_private_messages.size
     %li= link_to t('space.all'), main_app.spaces_path
-    - if current_site.show_events?
+    - if show_events?
       %li= link_to t('.events'), mweb_events.events_path
     - if current_user.superuser?
       %li
@@ -25,7 +25,7 @@
   - else
     -# for anonymous users
     %li= link_to t('space.all'), main_app.spaces_path
-    - if current_site.show_events?
+    - if show_events?
       %li= link_to t('.events'), mweb_events.events_path
 
 -# the right menu is not shown in the home page

@@ -13,7 +13,7 @@
         = icon_message(:class => cls)
 
   -# Upcoming events
-  - if current_site.show_events?
+  - if show_events?
     = render_sidebar_content_block('sidebar-upcoming-events') do
       .content-block-header
         = icon_event()

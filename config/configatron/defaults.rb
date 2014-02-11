@@ -29,6 +29,8 @@ configatron.configure_from_hash(config)
 # ones included by gems, so if a gem has any locale the application doesn't, it would show up.
 configatron.i18n.default_locales = [:en, :"pt-br"]
 
-# Whether or not the routes for the event module were loaded.
-# Use to know whether the event module has to be shown in the site or not.
-configatron.events.routes_loaded = false
+# Whether or not the event module was loaded and enabled.
+# Use to know whether the event module has to be shown in the site or not and
+# if classes from the module can be referenced in the code or not.
+configatron.modules.events.loaded = false
+configatron.modules.events.enabled = false

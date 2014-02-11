@@ -8,7 +8,9 @@ require 'version'
 
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
-  include MwebEvents::EventsHelper
+  if configatron.modules.events.loaded
+    include MwebEvents::EventsHelper
+  end
 
   # Clippy from https://github.com/lackac/clippy
   #
@@ -210,6 +212,13 @@ module ApplicationHelper
   # Gets the route to user resource from it's id
   def user_path_from_id id
     user_path(User.find(id).username)
+  end
+
+  # Indicates whether event related pages should be shown or not.
+  # Events are only shown if they are enabled in the site and also if the module
+  # and routes were loaded.
+  def show_events?
+    configatron.modules.events.enabled
   end
 
   private

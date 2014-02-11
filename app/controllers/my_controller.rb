@@ -47,14 +47,16 @@ class MyController < ApplicationController
   def home
     @user_spaces = current_user.spaces
     unless @user_spaces.empty?
-      # TODO: move these methods to the model
-      @today_events = MwebEvents::Event.
-        within(DateTime.now.beginning_of_day, DateTime.now.end_of_day).
-        where(:owner_id => @user_spaces, :owner_type => "Space").
-        order("start_on ASC").all
-      @upcoming_events = MwebEvents::Event.where(:owner_id => @user_spaces, :owner_type => "Space").
-        where('end_on >= ?', DateTime.now.end_of_day).
-        limit(5).order("start_on ASC").all
+      if configatron.modules.events.enabled
+        # TODO: move these methods to the model
+        @today_events = MwebEvents::Event.
+          within(DateTime.now.beginning_of_day, DateTime.now.end_of_day).
+          where(:owner_id => @user_spaces, :owner_type => "Space").
+          order("start_on ASC").all
+        @upcoming_events = MwebEvents::Event.where(:owner_id => @user_spaces, :owner_type => "Space").
+          where('end_on >= ?', DateTime.now.end_of_day).
+          limit(5).order("start_on ASC").all
+      end
     end
 
     @contents_per_page = 5

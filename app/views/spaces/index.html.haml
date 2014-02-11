@@ -34,7 +34,8 @@
             %span.is-member= t('space.index.user_is_member')
           %span= t('space.member_count', :count => space.users.count)
           %span= t('space.post_count', :count => space.posts.count)
-          %span= t('space.event_count', :count => space.events.count)
+          - if show_events?
+            %span= t('space.event_count', :count => space.events.count)
         - if has_access
           %p.action-links
             = link_to t('more'), space_path(space)

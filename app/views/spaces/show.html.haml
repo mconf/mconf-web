@@ -1,7 +1,7 @@
 - spaces_menu_at :home
 = render :partial => 'spaces/menu'
 
-- unless @current_events.empty?
+- if show_events? && !@current_events.empty?
   #events-current.content-block.event-block.events-hapenning-now
     .content-block-header
       %h3= t('.events_now')

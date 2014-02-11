@@ -40,9 +40,6 @@
 //       can be easily replaced by standard jquery methods.
 //= require jquery/jquery.livequery
 
-// The events module
-//= require mweb_events
-
 // 'base' HAS to be the first one included
 //= require ./app/application/base
 //= require_tree ./templates

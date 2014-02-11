@@ -11,7 +11,11 @@ class StatisticsController < ApplicationController
   def show
     @user_count = User.count
     @space_count = Space.count
-    @event_count = MwebEvents::Event.count
+    if configatron.modules.events.enabled
+      @event_count = MwebEvents::Event.count
+    else
+      @event_count = 0
+    end
     @post_count = Post.count
     @webconf_room_count = BigbluebuttonRoom.count
     @private_message_count = PrivateMessage.count

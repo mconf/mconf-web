@@ -158,31 +158,33 @@ module Abilities
       end
 
       # Events from MwebEvents
-      can :read, MwebEvents::Event
-      can :create, MwebEvents::Event
+      if configatron.modules.events.enabled
+        can :read, MwebEvents::Event
+        can :create, MwebEvents::Event
 
-      can [:edit, :update, :destroy], MwebEvents::Event do |e|
-        case e.owner_type
-        when 'User'
-          e.owner_id == user.id
-        when 'Space'
-          !user.permissions.where(:subject_type => 'MwebEvents::Event',
-            :role_id => Role.find_by_name('Organizer'), :subject_id => e.id).empty?
+        can [:edit, :update, :destroy], MwebEvents::Event do |e|
+          case e.owner_type
+          when 'User'
+            e.owner_id == user.id
+          when 'Space'
+            !user.permissions.where(:subject_type => 'MwebEvents::Event',
+                                    :role_id => Role.find_by_name('Organizer'), :subject_id => e.id).empty?
+          end
         end
-      end
 
-      can :register, MwebEvents::Event do |e|
-        e.owner != user && MwebEvents::Participant.where(:owner_id => user.id, :event_id => e.id).empty?
-      end
+        can :register, MwebEvents::Event do |e|
+          e.owner != user && MwebEvents::Participant.where(:owner_id => user.id, :event_id => e.id).empty?
+        end
 
-      # Participants from MwebEvents
-      can :read, MwebEvents::Participant do |p|
-        p.event.owner == user || p.owner == user
+        # Participants from MwebEvents
+        can :read, MwebEvents::Participant do |p|
+          p.event.owner == user || p.owner == user
+        end
+        can :manage, MwebEvents::Participant do |p|
+          p.event.owner == user
+        end
+        can :create, MwebEvents::Participant
       end
-      can :manage, MwebEvents::Participant do |p|
-        p.event.owner == user
-      end
-      can :create, MwebEvents::Participant
     end
 
     private
@@ -336,8 +338,10 @@ module Abilities
       can :read, Attachment, :space => { :public => true, :repository => true }
 
       # for MwebEvents
-      can [:read, :register], MwebEvents::Event
-      can :create, MwebEvents::Participant # TODO: really needed?
+      if configatron.modules.events.enabled
+        can [:read, :register], MwebEvents::Event
+        can :create, MwebEvents::Participant # TODO: really needed?
+      end
     end
 
     private

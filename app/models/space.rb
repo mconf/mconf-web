@@ -13,8 +13,6 @@ class Space < ActiveRecord::Base
   USER_ROLES = ["Admin", "User"]
 
   has_many :posts, :dependent => :destroy
-  has_many :events, :class_name => MwebEvents::Event, :foreign_key => "owner_id",
-           :dependent => :destroy, :conditions => {:owner_type => 'Space'}
   has_many :news, :dependent => :destroy
   has_many :attachments, :dependent => :destroy
   has_many :tags, :dependent => :destroy, :as => :container
@@ -38,6 +36,11 @@ class Space < ActiveRecord::Base
 
   has_many :join_requests, :foreign_key => "group_id",
            :conditions => { :join_requests => {:group_type => 'Space'} }
+
+  if configatron.modules.events.enabled
+    has_many :events, :class_name => MwebEvents::Event, :foreign_key => "owner_id",
+             :dependent => :destroy, :conditions => {:owner_type => 'Space'}
+  end
 
   # for the associated BigbluebuttonRoom
   attr_accessible :bigbluebutton_room_attributes
