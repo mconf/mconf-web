@@ -52,15 +52,6 @@ default:
 
 # Development configurations
 # development:
-#
-#   # uncomment to get a non-admin user for development
-#   test_user:
-#     username: "mconf"
-#     email: "mconf@default.com"
-#     password: "mconf"
-#     profile_attributes:
-#       full_name: "Mconf User"
-#
 #   webconf_server:
 #     name: "Any other server"
 #     url: "http://my-other-server/bigbluebutton/api"

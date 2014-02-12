@@ -36,14 +36,24 @@ namespace :db do
     end
 
     puts "* Create users (15)"
+    usernames = ['lfzawacki', 'daronco', 'fbottin']
+
     User.populate 15 do |user|
-      user.username = "#{Populator.words(1)}-#{username_offset += 1}"
+
+      if username_offset < usernames.size # Use some fixed usernames and always approve them
+        user.username = usernames[username_offset]
+        user.approved = true
+      else # Create user as normal
+        user.username = "#{Populator.words(1)}-#{username_offset}"
+        user.approved = rand(0) < 0.8 # ~20% marked as not approved
+      end
+      username_offset += 1
+
       user.email = Faker::Internet.email
       user.confirmed_at = @created_at_start..Time.now
       user.disabled = false
       user.notification = User::NOTIFICATION_VIA_EMAIL
       user.encrypted_password = "123"
-      user.approved = rand(0) < 0.8 # ~20% marked as not approved
 
       Profile.populate 1 do |profile|
         profile.user_id = user.id
