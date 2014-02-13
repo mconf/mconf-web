@@ -540,11 +540,6 @@ ul#navbar-right-links {
   padding: 20px 0 17px 0;
   clear: both;
 
-  // darker links since the background is darker
-  a:not(.btn) {
-    @include link-colors(darken($link-color, 15), $link-color-hover, $link-color-active);
-  }
-
   h1 {
     margin: 0;
     border: 0;
@@ -793,20 +788,19 @@ ul#navbar-right-links {
 
       &.selected {
         @include border-top-radius(4px);
+        /* border-bottom: 3px solid $bright-blue; */
         border: 1px solid darken($light-gray, 12);
         border-bottom-color: $site-bg-color;
         background: $site-bg-color;
-        /* border-bottom: 4px solid $bright-blue; */
-        /* > a { */
-        /*   @include link-colors(#444, $link-color-hover, $link-color-active); */
-        /* } */
+        > a {
+          @include link-colors(#444, $link-color-hover, $link-color-active);
+        }
       }
 
       > a {
         display: inline-block;
         margin-bottom: 0px;
         @include link-colors(#808080, $link-color-hover, $link-color-active);
-
         &.danger-text {
           @include danger-text;
           @include opacity(0.8);
