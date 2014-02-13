@@ -1001,7 +1001,7 @@ en:
     edit_recording:
       title: "Edit your recording"
     edit_room:
-      layout_empty_option: "<let the application decide>"
+      layout_empty_option: "<default>"
     recordings:
       title: "Recordings from my webconference room"
       update_recordings:
@@ -1012,13 +1012,13 @@ en:
       end: "Stop the meeting"
       end_tooltip: "This action will end the current conference!"
       fast_start: "Fast start using the options already configured"
-      invite: "Invite other people..."
+      invite: "Invite other people"
       join: "Join the meeting!"
-      join_mobile_full: "Join from a mobile device..."
+      join_mobile_full: "Join from a mobile device"
       not_running: "Your webconference is not in progress."
       options: "Options"
-      preferences: "Preferences..."
-      recordings: "View available recordings"
+      preferences: "Preferences"
+      recordings: "View recordings"
       running_with:
         no_participants: "Your webconference is in progress with no participants."
         participants:
@@ -1485,12 +1485,12 @@ en:
       end: "Stop it"
       end_tooltip: "This action will end the current conference!"
       fast_start: "Fast start using the options already configured"
-      invite: "Invite other people..."
+      invite: "Invite other people"
       join: "Join now!"
       join_mobile: "Join/mobile"
-      join_mobile_full: "Join from a mobile device..."
+      join_mobile_full: "Join from a mobile device"
       options: "Options"
-      preferences: "Preferences..."
+      preferences: "Preferences"
       start: "Start"
     space_thumbnail:
       private: "Private"
@@ -1517,7 +1517,7 @@ en:
           header: Share
           url: "Webconference URL"
     webconference_options:
-      layout_empty_option: "<let the application decide>"
+      layout_empty_option: "<default>"
       options: "Web conference room options"
     webconference_tabs:
       access: "Webconference access"

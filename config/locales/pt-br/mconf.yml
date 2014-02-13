@@ -991,7 +991,7 @@ pt-br:
     edit_recording:
       title: "Editar sua gravação"
     edit_room:
-      layout_empty_option: "<deixar a aplicação escolher>"
+      layout_empty_option: "<padrão>"
     recordings:
       title: "Gravações da minha sala de webconferência"
       update_recordings:
@@ -1002,13 +1002,13 @@ pt-br:
       end: "Parar a reunião"
       end_tooltip: "Esta ação vai finalizar a reunião em andamento!"
       fast_start: "Início rápido usando as opções já configuradas"
-      invite: "Convidar outras pessoas..."
+      invite: "Convidar outras pessoas"
       join: "Entrar na reunião!"
-      join_mobile_full: "Entrar a partir de um dispositivo móvel..."
+      join_mobile_full: "Entrar a partir de um dispositivo móvel"
       not_running: "Nenhuma reunião em andamento."
       options: "Opções"
-      preferences: "Preferências..."
-      recordings: "Ver gravações disponíveis"
+      preferences: "Preferências"
+      recordings: "Ver gravações"
       running_with:
         no_participants: "Existe uma reunião em andamento sem usuários."
         participants:
@@ -1465,12 +1465,12 @@ pt-br:
       end: "Finalizar"
       end_tooltip: "Esta ação vai finalizar a reunião em andamento!"
       fast_start: "Início rápido usando as opções já configuradas"
-      invite: "Convidar outras pessoas..."
+      invite: "Convidar outras pessoas"
       join: "Entrar!"
       join_mobile: "Entrar/móvel"
-      join_mobile_full: "Entrar a partir de um dispositivo móvel..."
+      join_mobile_full: "Entrar a partir de um dispositivo móvel"
       options: "Opções"
-      preferences: "Preferências..."
+      preferences: "Preferências"
       start: "Iniciar"
     space_thumbnail:
       private: "Privada"
@@ -1497,7 +1497,7 @@ pt-br:
           header: Compartilhar
           url: "Endereço da sala"
     webconference_options:
-      layout_empty_option: "<deixar a aplicação escolher>"
+      layout_empty_option: "<padrão>"
       options: "Opções da sala de webconferência"
     webconference_tabs:
       access: "Acesso à webconferência"
