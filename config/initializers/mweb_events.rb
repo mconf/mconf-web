@@ -19,6 +19,11 @@ Rails.application.config.to_prepare do
       create_activity key, :owner => owner, :parameters => { :user_id => user.try(:id), :username => user.try(:name) }
     end
 
+    # Temporary while we have no private events
+    def public
+      true
+    end
+
   end
 
 

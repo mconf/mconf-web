@@ -568,6 +568,12 @@ en:
     one: Error
     other: Errors
     vcc_warning: "Warning:"
+  events:
+    index:
+      search:
+        by_name:
+          no_matches: "No events found for \"%{term}\""
+          placeholder: "Search for events..."
   event_invitation: 
     instructions: "Click Send for each invitation you want to send, and click Finish when you are done."
     sent: "Invitations sent successfully"

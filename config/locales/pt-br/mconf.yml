@@ -558,6 +558,12 @@ pt-br:
     one: Erro
     other: Erros
     vcc_warning: "Aviso geral:"
+  events:
+    index:
+      search:
+        by_name:
+          no_matches: "Nenhum evento encontrado para \"%{term}\""
+          placeholder: "Pesquise por eventos..."
   event_invitation:
     instructions: "Clique Enviar para cada convite que você deseja enviar, e clique Finalizar quando você concluir."
     sent: "Convites enviados com sucesso"

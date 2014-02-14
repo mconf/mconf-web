@@ -46,9 +46,10 @@
     = link_to mweb_events.events_path(:view => params[:view]), :id => "show-events-all", :class => "btn #{'active' unless params[:my_events]}", :type => "button" do
       = t('.filters.all')
     - if user_signed_in?
-      = link_to mweb_events.events_path(:view => params[:view], :my_events => true), :id => "show-events-mine", :class => "disabled btn #{'active' if params[:my_events]}", :type => "button" do
+      = link_to mweb_events.events_path(:view => params[:view], :my_events => true), :id => "show-events-mine", :class => "btn #{'active' if params[:my_events]}", :type => "button" do
         = t('.filters.my_events')
-    -# = hidden_field_tag :event_filter_text
+
+    = hidden_field_tag :event_filter_text
 
 - if params[:view] == 'list'
   = render "mweb_events/events/list_view"

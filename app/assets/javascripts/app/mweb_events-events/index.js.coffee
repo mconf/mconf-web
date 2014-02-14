@@ -24,3 +24,32 @@ $ ->
     $("#event-description-wrapper").sticky
       topSpacing: 20
       bottomSpacing: 250
+
+    # how results are formatted in the search input
+    format = (state) ->
+      if state.public
+        r = "<i class='icon-awesome icon-eye-open icon-mconf-space-public'></i>"
+      else
+        r = "<i class='icon-awesome icon-lock icon-mconf-space-private'></i>"
+      "#{r}<a href='#{state.url}'>#{state.text}</a>"
+
+    # redirects to the space when an item is clicked in the search input
+    $("#event_filter_text").on "change", (e) ->
+      window.location = e.added.url if e.added?.url?
+
+    # select input to search for events
+    $("#event_filter_text").select2
+      minimumInputLength: 1
+      placeholder: I18n.t('events.index.search.by_name.placeholder')
+      formatNoMatches: (term) ->
+        I18n.t('events.index.search.by_name.no_matches', { term: term })
+      width: '250'
+      formatResult: format
+      formatSelection: format
+      ajax:
+        url: '/events/select.json'
+        dataType: 'json'
+        data: (term, page) ->
+          q: term
+        results: (data, page) ->
+          results: data
