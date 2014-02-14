@@ -5,6 +5,7 @@ namespace :db do
 
   desc "Populate the DB with random test data. Options: SINCE, CLEAR"
   task :populate => :environment do
+    reserved_usernames = ['lfzawacki', 'daronco', 'fbottin']
 
     if ENV['SINCE']
       @created_at_start = DateTime.parse(ENV['SINCE']).to_time
@@ -36,13 +37,13 @@ namespace :db do
     end
 
     puts "* Create users (15)"
-    usernames = ['lfzawacki', 'daronco', 'fbottin']
 
     User.populate 15 do |user|
 
-      if username_offset < usernames.size # Use some fixed usernames and always approve them
-        user.username = usernames[username_offset]
+      if username_offset < reserved_usernames.size # Use some fixed usernames and always approve them
+        user.username = reserved_usernames[username_offset]
         user.approved = true
+        puts "* Create users: default user '#{user.username}'"
       else # Create user as normal
         user.username = "#{Populator.words(1)}-#{username_offset}"
         user.approved = rand(0) < 0.8 # ~20% marked as not approved
@@ -347,8 +348,7 @@ namespace :db do
     Space.where(:id => ids).each do |space|
       space.disable
     end
-    users_without_admin = User.all
-    users_without_admin.delete(User.find_by_superuser(true))
+    users_without_admin = User.where(["(superuser IS NULL OR superuser = ?) AND username NOT IN (?)", false, reserved_usernames])
     ids = users_without_admin.map(&:id)
     ids = ids.sample(User.count/5) # 1/5th disabled
     User.where(:id => ids).each do |user|
