@@ -165,7 +165,7 @@ module Abilities
         when 'Space' then
           !user.permissions.where(:subject_type => 'MwebEvents::Event',
             :role_id => Role.find_by_name('Organizer'), :subject_id => event.id).empty? ||
-          !user.permissions(:subject_type => 'Space', :subject_id => event.owner_id,
+          !user.permissions.where(:subject_type => 'Space', :subject_id => event.owner_id,
           :role_id => Role.find_by_name('Admin')).empty?
         end
       end
