@@ -21,21 +21,24 @@ class SpaceEventsController < ApplicationController
     all_events = @space.events(:order => "start_on ASC")
 
     # events happening now
-    @current_events = all_events.select{ |e| e.is_happening_now? }
+    @current_events = all_events.happening_now
 
     if params[:show] == 'past_events'
-      @past_events = all_events.select{ |e| !e.end_on.future? }
-      @past_events.reverse! if params[:order_by_time] == "DESC"
+      @past_events = all_events.past
+      @past_events.reverse! if params[:order_by_time] == "ASC"
       @past_events = @past_events.paginate(:page => params[:page], :per_page => 5)
 
     elsif params[:show] == 'upcoming_events'
       @upcoming_events = all_events.upcoming
       @upcoming_events = @upcoming_events.paginate(:page => params[:page], :per_page => 10)
 
+    elsif params[:show] == 'happening_now'
+      @current_events = @current_events.paginate(:page => params[:page], :per_page => 5)
+
     # the 'default' index
     else
-      @last_past_events = all_events.select{ |e| !e.end_on.future? }.first(3)
-      @first_upcoming_events = all_events.select{ |e| e.start_on.future? }.first(3)
+      @last_past_events = all_events.past.first(3)
+      @first_upcoming_events = all_events.upcoming.first(3)
     end
   end
 

@@ -1286,6 +1286,7 @@ pt-br:
       past: "Eventos passados"
       upcoming: "Eventos futuros"
     index:
+      now: Acontecendo agora
       create_event: "Criar um novo evento"
       events_in: "Eventos em"
       events_now: "Contecendo agora!"

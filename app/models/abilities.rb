@@ -171,7 +171,11 @@ module Abilities
       end
 
       can :read, MwebEvents::Event
-      can :create, MwebEvents::Event
+
+      # Create events if they have a nil owner or are owned by a space you admin
+      can :create, MwebEvents::Event do |e|
+        e.owner.nil? || event_can_be_managed_by(e, user)
+      end
 
       can [:edit, :update, :destroy], MwebEvents::Event do |e|
         event_can_be_managed_by(e, user)

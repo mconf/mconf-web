@@ -8,6 +8,7 @@
   #events-filters.page-tabs
     .btn-group{ :"data-toggle" => "buttons-radio" }
       = link_to t('all'), space_events_path(@space, :show => "all"), :id => 'all_link', :class => "btn btn-small #{'active' if params[:show] == 'all' or !params[:show]}"
+      = link_to t('.now'), space_events_path(@space, :show => "happening_now"), :class => "btn btn-small #{'active' if params[:show] == 'happening_now'}"
       = link_to t('upcoming'), space_events_path(@space, :show => "upcoming_events"), :class => "btn btn-small #{'active' if params[:show] == 'upcoming_events'}"
       = link_to t('past'), space_events_path(@space, :show => "past_events"), :class => "btn btn-small #{'active' if params[:show] == 'past_events'}"
 
@@ -30,4 +31,5 @@
         .content-block-middle
           - for event in @current_events
             = render :partial => "unified_event", :locals => { :event => event }
-    = render :partial => 'all_events'
+    - unless params[:show] == 'happening_now'
+      = render :partial => 'all_events'

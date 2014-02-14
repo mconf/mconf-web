@@ -4,11 +4,11 @@
     %h3= t('.title')
     #events-past-menu
       %span= t('.order_by') + ':'
-      - options = options_for_tooltip(t('.order_asc'), :class => params[:order_by_time] != "DESC" ? 'selected-ordering' : '')
-      = link_to space_events_path(@space, :show => params[:show], :day => params[:day]), options do
+      - options = options_for_tooltip(t('.order_asc'), :class => params[:order_by_time] == "ASC" ? 'selected-ordering' : '')
+      = link_to space_events_path(@space, :show => params[:show], :day => params[:day], :order_by_time => "ASC"), options do
         = icon_order_number_asc
-      - options = options_for_tooltip(t('.order_desc'), :class => params[:order_by_time] == "DESC" ? 'selected-ordering' : '')
-      = link_to space_events_path(@space, :show => params[:show], :day => params[:day], :order_by_time => "DESC"), options do
+      - options = options_for_tooltip(t('.order_desc'), :class => params[:order_by_time] != "ASC" ? 'selected-ordering' : '')
+      = link_to space_events_path(@space, :show => params[:show], :day => params[:day]), options do
         = icon_order_number_desc
 
   .content-block-middle

@@ -1312,6 +1312,7 @@ en:
       past: "Past events"
       upcoming: "Upcoming events"
     index:
+      now: Happening Now
       create_event: "Create a new event"
       events_now: "Hapenning now!"
       events_in: "Events in"

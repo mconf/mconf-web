@@ -54,7 +54,7 @@ GIT
 
 GIT
   remote: git@github.com:mconf/mweb_events.git
-  revision: 9d2fcf806980051af1a8164c8626900877ee4ae1
+  revision: 36dbe359c5418be654cb98fc4e5251fd386f1c07
   specs:
     mweb_events (0.0.1)
       bootstrap-datetimepicker-rails
@@ -294,7 +294,7 @@ GEM
     rake (10.1.0)
     rdoc (3.12.2)
       json (~> 1.4)
-    redcarpet (3.0.0)
+    redcarpet (3.1.0)
     redis (3.0.5)
     redis-namespace (1.3.1)
       redis (~> 3.0.0)
