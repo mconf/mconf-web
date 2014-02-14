@@ -76,7 +76,6 @@ class User < ActiveRecord::Base
 
   has_many :permissions, :dependent => :destroy
   has_one :profile, :dependent => :destroy
-  has_many :events, :as => :author
   has_many :posts, :as => :author, :dependent => :destroy
   has_one :bigbluebutton_room, :as => :owner, :dependent => :destroy
   has_one :ldap_token, :dependent => :destroy
@@ -245,8 +244,14 @@ class User < ActiveRecord::Base
     spaces.select{|x| x.public == false}.map(&:users).flatten.compact.uniq.sort{ |x, y| x.name <=> y.name }
   end
 
+  def events
+    ids = MwebEvents::Event.where(:owner_type => 'User', :owner_id => id).map(&:id)
+    ids += self.permissions.where(:subject_type => 'MwebEvents::Event', :user_id => id).map(&:subject_id)
+    MwebEvents::Event.where(:id => ids)
+  end
+
   def has_events_in_this_space?(space)
-    !events.select{|ev| ev.space==space}.empty?
+    !events.select{|ev| ev.owner_type=='Space' && ev.owner_id==space}.empty?
   end
 
   # Returns an array with all the webconference rooms accessible to this user

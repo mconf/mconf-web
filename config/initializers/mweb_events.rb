@@ -3,6 +3,9 @@ Rails.application.config.to_prepare do
   # Monkey patching events controller for pagination and recent activity
   MwebEvents::EventsController.class_eval do
     before_filter(:only => [:index]) do
+      # Filter events for the current user
+      @events = current_user.events if params[:my_events]
+
       @events = @events.accessible_by(current_ability).paginate(:page => params[:page])
     end
 
