@@ -1,56 +1,78 @@
+Rails.application.config.after_initialize do
+  if configatron.modules.events.loaded
+    if defined?(Site) && Site.current &&
+        Site.current.respond_to?(:events_enabled) &&
+        Site.current.events_enabled?
+      configatron.modules.events.enabled = true
+    end
+  end
+end
+
 Rails.application.config.to_prepare do
 
-  # Monkey patching events controller for pagination and recent activity
-  MwebEvents::EventsController.class_eval do
-    before_filter(:only => [:index]) do
-      # Filter events for the current user
-      @events = current_user.events if params[:my_events]
-
-      @events = @events.accessible_by(current_ability).paginate(:page => params[:page])
-    end
-
-    after_filter :only => [:create, :update] do
-      @event.new_activity params[:action], current_user unless @event.errors.any?
-    end
-
+  if defined?(MwebEvents)
+    configatron.modules.events.loaded = true
   end
 
-  MwebEvents::Event.class_eval do
-    include PublicActivity::Common
+  if configatron.modules.events.loaded
 
-    def new_activity key, user
-      create_activity key, :owner => owner, :parameters => { :user_id => user.try(:id), :username => user.try(:name) }
+    # Monkey patching events controller for pagination and recent activity
+    MwebEvents::EventsController.class_eval do
+      before_filter(:only => [:index]) do
+        # Filter events for the current user
+        @events = current_user.events if params[:my_events]
+
+        @events = @events.accessible_by(current_ability).paginate(:page => params[:page])
+      end
+
+      after_filter :only => [:create, :update] do
+        @event.new_activity params[:action], current_user unless @event.errors.any?
+      end
     end
 
-    # Temporary while we have no private events
-    def public
-      true
+    MwebEvents::Event.class_eval do
+      include PublicActivity::Common
+
+      def new_activity key, user
+        create_activity key, :owner => owner, :parameters => { :user_id => user.try(:id), :username => user.try(:name) }
+      end
+
+      # Temporary while we have no private events
+      def public
+        true
+      end
     end
 
-  end
 
+    # Same for participants, public activity is still missing
+    MwebEvents::ParticipantsController.class_eval do
+      before_filter(:only => [:index]) do
+        @participants = @participants.accessible_by(current_ability).paginate(:page => params[:page])
+      end
 
-  # Same for participants, public activity is still missing
-  MwebEvents::ParticipantsController.class_eval do
-    before_filter(:only => [:index]) do
-      @participants = @participants.accessible_by(current_ability).paginate(:page => params[:page])
+      after_filter :only => [:create] do
+        @participant.new_activity params[:action], current_user unless @participant.errors.any?
+      end
     end
 
-    after_filter :only => [:create] do
-      @participant.new_activity params[:action], current_user unless @participant.errors.any?
+    MwebEvents::Participant.class_eval do
+      include PublicActivity::Common
+
+      def new_activity key, user
+        create_activity key, :owner => owner, :parameters => { :user_id => user.try(:id), :username => user.try(:name) }
+      end
     end
 
-  end
-
-  MwebEvents::Participant.class_eval do
-    include PublicActivity::Common
-
-    def new_activity key, user
-      create_activity key, :owner => owner, :parameters => { :user_id => user.try(:id), :username => user.try(:name) }
+    MwebEvents::EventsHelper.instance_eval do
+      def build_message_path(participant)
+        main_app.new_message_path(
+         :user_id => current_user.to_param, :receiver => participant.owner.id,
+         :private_message => { :title => t('mweb_events.participants.index.event', :event => participant.event.name) }
+        )
+      end
     end
 
   end
 
 end
-
 

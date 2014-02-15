@@ -18,10 +18,7 @@
 # See how all your routes lay out with "rake routes"
 
 Mconf::Application.routes.draw do
-  enable_events = defined? Site &&
-    Site.current &&
-    Site.current.respond_to?(:events_enabled) &&
-    Site.current.events_enable?
+  extend Mconf::Modules
 
   # devise
   controllers = { :sessions => "sessions", :registrations => "registrations" }
@@ -49,9 +46,8 @@ Mconf::Application.routes.draw do
     :as => "join_webconf"
 
   # event module
-  if enable_events
+  if mod_enabled?('events')
     mount MwebEvents::Engine => '/'
-    configatron.events.routes_loaded = true
   end
 
   # shibboleth controller
@@ -87,7 +83,7 @@ Mconf::Application.routes.draw do
 
     resources :readers
 
-    if enable_events
+    if mod_enabled?('events')
       get '/events', :to => 'space_events#index', :as => 'events'
     end
 

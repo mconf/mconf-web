@@ -8,6 +8,8 @@
 
     = stylesheet_link_tag "application_print", :media => "print"
     = stylesheet_link_tag "application", :media => "screen, projection"
+    - if asset_exists?("mweb_events", "css")
+      = stylesheet_link_tag "mweb_events", :media => "screen, projection"
     = stylesheet_link_tag_for_controller :media => "screen, projection"
     = stylesheet_link_tag "_development" unless Rails.env == "production"
     = yield :stylesheets
@@ -53,5 +55,7 @@
 
     -# Javascript placed at the end of the document so the pages load faster
     = javascript_include_tag "application"
+    - if asset_exists?("mweb_events", "js")
+      = javascript_include_tag "mweb_events"
     = javascript_include_tag_for_controller
     = yield :javascripts

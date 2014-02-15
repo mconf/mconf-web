@@ -7,6 +7,7 @@
 # Based on https://gist.github.com/3729390/
 
 module Abilities
+  extend Mconf::Modules
 
   def self.ability_for(user)
     if user and user.superuser?
@@ -158,44 +159,46 @@ module Abilities
       end
 
       # Events from MwebEvents
-      def event_can_be_managed_by(event, user)
-        case event.owner_type
-        when 'User' then
-          event.owner_id == user.id
-        when 'Space' then
-          !user.permissions.where(:subject_type => 'MwebEvents::Event',
-            :role_id => Role.find_by_name('Organizer'), :subject_id => event.id).empty? ||
-          !user.permissions.where(:subject_type => 'Space', :subject_id => event.owner_id,
-          :role_id => Role.find_by_name('Admin')).empty?
+      if mod_enabled?('events')
+        def event_can_be_managed_by(event, user)
+          case event.owner_type
+          when 'User' then
+            event.owner_id == user.id
+          when 'Space' then
+            !user.permissions.where(:subject_type => 'MwebEvents::Event',
+              :role_id => Role.find_by_name('Organizer'), :subject_id => event.id).empty? ||
+            !user.permissions.where(:subject_type => 'Space', :subject_id => event.owner_id,
+            :role_id => Role.find_by_name('Admin')).empty?
+          end
         end
+
+        can :read, MwebEvents::Event
+
+        # Create events if they have a nil owner or are owned by a space you admin
+        can :create, MwebEvents::Event do |e|
+          e.owner.nil? || event_can_be_managed_by(e, user)
+        end
+
+        can [:edit, :update, :destroy], MwebEvents::Event do |e|
+          event_can_be_managed_by(e, user)
+        end
+
+        can :register, MwebEvents::Event do |e|
+          e.owner != user && MwebEvents::Participant.where(:owner_id => user.id, :event_id => e.id).empty?
+        end
+
+        # Participants from MwebEvents
+        can :show, MwebEvents::Participant do |p|
+          p.event.owner == user || p.owner == user
+        end
+
+        can [:edit, :update, :destroy], MwebEvents::Participant do |p|
+          event_can_be_managed_by(p.event, user)
+        end
+
+        can :index, MwebEvents::Participant
+        can :create, MwebEvents::Participant
       end
-
-      can :read, MwebEvents::Event
-
-      # Create events if they have a nil owner or are owned by a space you admin
-      can :create, MwebEvents::Event do |e|
-        e.owner.nil? || event_can_be_managed_by(e, user)
-      end
-
-      can [:edit, :update, :destroy], MwebEvents::Event do |e|
-        event_can_be_managed_by(e, user)
-      end
-
-      can :register, MwebEvents::Event do |e|
-        e.owner != user && MwebEvents::Participant.where(:owner_id => user.id, :event_id => e.id).empty?
-      end
-
-      # Participants from MwebEvents
-      can :show, MwebEvents::Participant do |p|
-        p.event.owner == user || p.owner == user
-      end
-
-      can [:edit, :update, :destroy], MwebEvents::Participant do |p|
-        event_can_be_managed_by(p.event, user)
-      end
-
-      can :index, MwebEvents::Participant
-      can :create, MwebEvents::Participant
     end
 
     private
@@ -349,8 +352,10 @@ module Abilities
       can :read, Attachment, :space => { :public => true, :repository => true }
 
       # for MwebEvents
-      can [:read, :register], MwebEvents::Event
-      can :create, MwebEvents::Participant # TODO: really needed?
+      if mod_enabled?('events')
+        can [:read, :register], MwebEvents::Event
+        can :create, MwebEvents::Participant # TODO: really needed?
+      end
     end
 
     private

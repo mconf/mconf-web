@@ -8,8 +8,12 @@ module LogoImagesHelper
       path_no_image = "default_logos/" + options[:size] + "/user.png"
     elsif resource.is_a?(Space)
       path_no_image = "default_logos/" + options[:size] + "/space.png"
-    elsif resource.is_a?(MwebEvents::Event)
-      path_no_image = "default_logos/" + options[:size] + "/event.png"
+    else
+      if mod_enabled?('events')
+        if resource.is_a?(MwebEvents::Event)
+          path_no_image = "default_logos/" + options[:size] + "/event.png"
+        end
+      end
     end
     size = ("logo" + options[:size]).to_sym
     resource.attributes.has_key?(:logo_image) && resource.logo_image.present? ?

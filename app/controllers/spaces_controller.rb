@@ -6,6 +6,7 @@
 # 3 or later. See the LICENSE file.
 
 class SpacesController < ApplicationController
+  include Mconf::Modules
 
   before_filter :authenticate_user!, :only => [:new, :create]
 
@@ -19,6 +20,8 @@ class SpacesController < ApplicationController
               :recordings, :edit_recording]
 
   before_filter :load_spaces_examples, :only => [:new, :create]
+
+  before_filter :load_events, :only => :show, :if => lambda { |c| c.mod_enabled?('events') }
 
   # TODO: cleanup the other actions adding respond_to blocks here
   respond_to :js, :only => [:index, :show]
@@ -91,10 +94,6 @@ class SpacesController < ApplicationController
 
     # users
     @latest_users = @space.users.order("permissions.created_at DESC").first(3)
-
-    # events
-    @upcoming_events = @space.events.upcoming.order("start_on ASC").first(5)
-    @current_events = @space.events.order("start_on ASC").select(&:is_happening_now?)
 
     # role of the current user
     @permission = Permission.where(:user_id => current_user, :subject_id => @space, :subject_type => 'Space').first
@@ -306,6 +305,11 @@ class SpacesController < ApplicationController
   def load_spaces_examples
     # TODO: RAND() is specific for mysql
     @spaces_examples = Space.order('RAND()').limit(3)
+  end
+
+  def load_events
+    @upcoming_events = @space.events.upcoming.order("start_on ASC").first(5)
+    @current_events = @space.events.order("start_on ASC").select(&:is_happening_now?)
   end
 
   def space_params

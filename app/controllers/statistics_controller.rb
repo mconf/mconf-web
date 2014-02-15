@@ -6,21 +6,24 @@
 # 3 or later. See the LICENSE file.
 
 class StatisticsController < ApplicationController
+  include Mconf::Modules
+
   layout 'no_sidebar'
+
+  before_filter :load_events, :only => :show, :if => lambda { |c| c.mod_enabled?('events') }
 
   def show
     @user_count = User.count
     @space_count = Space.count
-    @event_count = MwebEvents::Event.count
     @post_count = Post.count
     @webconf_room_count = BigbluebuttonRoom.count
     @private_message_count = PrivateMessage.count
-
-    # TODO: not very effective, should be made async by the client, or maybe
-    #       we don't really need this here in the web portal'
-    # @meeting_count = BigbluebuttonServer.all.inject(0) do |sum, server|
-    #   server.fetch_meetings
-    #   sum + server.meetings.select { |m| m.is_running? }.count
-    # end
   end
+
+  private
+
+  def load_events
+    @event_count = MwebEvents::Event.count
+  end
+
 end

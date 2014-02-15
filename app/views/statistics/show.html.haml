@@ -18,9 +18,10 @@
         %tr
           %td= t('statistics.show.table.spaces')
           %td= @space_count
-        %tr
-          %td= t('statistics.show.table.events')
-          %td= @event_count
+        - if mod_enabled?("events")
+          %tr
+            %td= t('statistics.show.table.events')
+            %td= @event_count
         %tr
           %td= t('statistics.show.table.posts')
           %td= @post_count

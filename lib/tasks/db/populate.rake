@@ -114,22 +114,24 @@ namespace :db do
         post.spam = rand(0) > 0.9 # ~10% marked as spam
       end
 
-      puts "* Create spaces: events for \"#{space.name}\" (5..10)"
-      available_users = User.all.dup
-      MwebEvents::Event.populate 5..10 do |event|
-        event.owner_id = space.id
-        event.owner_type = 'Space'
-        event.name = Populator.words(1..3).titleize
-        event.permalink = Populator.words(1..3).split.join('-')
-        event.time_zone = Forgery::Time.zone
-        event.location = Populator.words(1..3)
-        event.address = Forgery::Address.street_address
-        event.description = Populator.sentences(0..3)
-        event.location = Populator.sentences(0..2)
-        event.created_at = @created_at_start..Time.now
-        event.updated_at = event.created_at..Time.now
-        event.start_on = event.created_at..1.years.since(Time.now)
-        event.end_on = 2.hours.since(event.start_on)..2.days.since(event.start_on)
+      if configatron.modules.events.enabled
+        puts "* Create spaces: events for \"#{space.name}\" (5..10)"
+        available_users = User.all.dup
+        MwebEvents::Event.populate 5..10 do |event|
+          event.owner_id = space.id
+          event.owner_type = 'Space'
+          event.name = Populator.words(1..3).titleize
+          event.permalink = Populator.words(1..3).split.join('-')
+          event.time_zone = Forgery::Time.zone
+          event.location = Populator.words(1..3)
+          event.address = Forgery::Address.street_address
+          event.description = Populator.sentences(0..3)
+          event.location = Populator.sentences(0..2)
+          event.created_at = @created_at_start..Time.now
+          event.updated_at = event.created_at..Time.now
+          event.start_on = event.created_at..1.years.since(Time.now)
+          event.end_on = 2.hours.since(event.start_on)..2.days.since(event.start_on)
+        end
       end
 
       News.populate 2..10 do |news|
@@ -142,7 +144,9 @@ namespace :db do
     end
 
     Space.find_each(&:save!) # to generate the permalink
-    MwebEvents::Event.find_each(&:save!) # to generate the permalink
+    if configatron.modules.events.loaded
+      MwebEvents::Event.find_each(&:save!) # to generate the permalink
+    end
 
     puts "* Create spaces: webconference rooms"
     Space.all.each do |space|
@@ -181,6 +185,7 @@ namespace :db do
       end
 
       # TODO: #1115, populate with models from MwebEvents
+      # if configatron.modules.events.loaded
       # event_role_ids = Role.find_all_by_stage_type('Event').map(&:id)
       # space.events.each do |event|
       #   available_event_participants = space.users.dup
@@ -202,6 +207,7 @@ namespace :db do
       #       permission.updated_at = permission.created_at
       #     end
       #   end
+      # end
       # end
 
     end
@@ -298,10 +304,12 @@ namespace :db do
       end
 
       # Event participants activity
-      space.events.each do |event|
-        event.participants.each do |part|
-          attend = part.attend? ? :attend : :not_attend
-          event.new_activity attend, part.user
+      if configatron.modules.events.enabled
+        space.events.each do |event|
+          event.participants.each do |part|
+            attend = part.attend? ? :attend : :not_attend
+            event.new_activity attend, part.user
+          end
         end
       end
 
