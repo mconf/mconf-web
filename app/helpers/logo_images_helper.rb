@@ -9,7 +9,7 @@ module LogoImagesHelper
     elsif resource.is_a?(Space)
       path_no_image = "default_logos/" + options[:size] + "/space.png"
     else
-      if configatron.modules.events.enabled
+      if mod_enabled?('events')
         if resource.is_a?(MwebEvents::Event)
           path_no_image = "default_logos/" + options[:size] + "/event.png"
         end

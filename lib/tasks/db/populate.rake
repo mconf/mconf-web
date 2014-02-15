@@ -114,7 +114,7 @@ namespace :db do
         post.spam = rand(0) > 0.9 # ~10% marked as spam
       end
 
-      if configatron.modules.events.loaded
+      if configatron.modules.events.enabled
         puts "* Create spaces: events for \"#{space.name}\" (5..10)"
         available_users = User.all.dup
         MwebEvents::Event.populate 5..10 do |event|
@@ -304,7 +304,7 @@ namespace :db do
       end
 
       # Event participants activity
-      if configatron.modules.events.loaded
+      if configatron.modules.events.enabled
         space.events.each do |event|
           event.participants.each do |part|
             attend = part.attend? ? :attend : :not_attend

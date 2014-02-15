@@ -28,7 +28,7 @@ module PublicActivitiesHelper
           link_to(trackable.room.owner.name, space_path(trackable.room.owner))
         end
       else
-        if configatron.modules.events.enabled
+        if mod_enabled?('events')
           case trackable
           when MwebEvents::Event then link_to(trackable.name, mweb_events.event_path(trackable))
           when MwebEvents::Participant then link_to(trackable.event.name, mweb_events.event_path(trackable.event))

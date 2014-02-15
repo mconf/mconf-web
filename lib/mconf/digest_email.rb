@@ -6,6 +6,7 @@
 
 module Mconf
   class DigestEmail
+    include Mconf::Modules
 
     def self.send_daily_digest
       User.where(:receive_digest => User::RECEIVE_DIGEST_DAILY).each do |user|
@@ -57,7 +58,7 @@ module Mconf
 
       # Events that started or finished in the period
       # TODO: review and improve this with MwebEvents
-      if configatron.modules.events.enabled
+      if mod_enabled?('events')
         events = MwebEvents::Event.
           where('owner_id IN (?) AND owner_type IS \"Space\"', user_spaces).
           within(date_start, date_end).

@@ -7,6 +7,7 @@
 # Based on https://gist.github.com/3729390/
 
 module Abilities
+  extend Mconf::Modules
 
   def self.ability_for(user)
     if user and user.superuser?
@@ -158,7 +159,7 @@ module Abilities
       end
 
       # Events from MwebEvents
-      if configatron.modules.events.enabled
+      if mod_enabled?('events')
         can :read, MwebEvents::Event
         can :create, MwebEvents::Event
 
@@ -338,7 +339,7 @@ module Abilities
       can :read, Attachment, :space => { :public => true, :repository => true }
 
       # for MwebEvents
-      if configatron.modules.events.enabled
+      if mod_enabled?('events')
         can [:read, :register], MwebEvents::Event
         can :create, MwebEvents::Participant # TODO: really needed?
       end

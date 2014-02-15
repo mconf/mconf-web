@@ -6,7 +6,7 @@
 # 3 or later. See the LICENSE file.
 
 class Space < ActiveRecord::Base
-
+  extend Mconf::Modules
   include PublicActivity::Common
 
   # TODO: temporary, review
@@ -37,7 +37,7 @@ class Space < ActiveRecord::Base
   has_many :join_requests, :foreign_key => "group_id",
            :conditions => { :join_requests => {:group_type => 'Space'} }
 
-  if configatron.modules.events.enabled
+  if mod_enabled?('events')
     has_many :events, :class_name => MwebEvents::Event, :foreign_key => "owner_id",
              :dependent => :destroy, :conditions => {:owner_type => 'Space'}
   end

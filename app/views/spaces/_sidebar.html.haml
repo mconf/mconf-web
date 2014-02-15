@@ -19,7 +19,7 @@
       .content-block-footer
         = link_to t('view_more'), webconference_space_path(@space)
 
-    - if show_events?
+    - if mod_enabled?("events")
       = render_sidebar_content_block('sidebar-upcoming-events') do
         .content-block-header
           %h3

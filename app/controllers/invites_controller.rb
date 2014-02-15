@@ -7,6 +7,8 @@
 
 
 class InvitesController < ApplicationController
+  include Mconf::Modules
+
   def index
   end
 
@@ -16,7 +18,7 @@ class InvitesController < ApplicationController
     if @type == "webconference"
       @room = BigbluebuttonRoom.find_by_param(params[:room])
     elsif @type == "event"
-      if configatron.modules.events.enabled
+      if mod_enabled?('events')
         @event = MwebEvents::Event.find(params[:event])
       end
     end
@@ -79,7 +81,7 @@ class InvitesController < ApplicationController
   end
 
   def send_notification
-    if configatron.modules.events.enabled
+    if mod_enabled?('events')
       @event = MwebEvents::Event.find(params[:event_id])
 
       msg = Hash.new
@@ -192,7 +194,7 @@ class InvitesController < ApplicationController
 
   def send_invite_event
     # TODO: do something else if the module is disabled
-    if configatron.modules.events.enabled
+    if mod_enabled?('events')
       success = ""
       @event = MwebEvents::Event.find(params[:invite][:event_id])
 
