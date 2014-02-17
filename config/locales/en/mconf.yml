@@ -507,7 +507,12 @@ en:
     strategies:
       ldap_authenticatable:
         invalid_bind: "Unable to bind to the LDAP server, check the LDAP configuration in the website administration"
+        invalid_user: "Unable to create the user model from LDAP, contact the administrator"
+        invalid_token: "Unable to create the user token from LDAP, contact the administrator" 
         ldap_not_enabled: "LDAP is not enabled in this website"
+        missing_username: "Unable to find the username from the LDAP user retrieved from the LDAP server"
+        missing_name: "Unable to find the name from the LDAP user retrieved from the LDAP server"
+        missing_email: "Unable to find the email from the LDAP user retrieved from the LDAP server"
   disable: Disable
   disabled: Disabled
   document: 

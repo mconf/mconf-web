@@ -11,13 +11,13 @@ describe Devise::Strategies::LdapAuthenticatable do
   let(:target) { Devise::Strategies::LdapAuthenticatable.new(nil) }
 
   describe "#valid?" do
-    context "if params[:ldap_auth]" do
-      before { target.should_receive(:params).and_return({ :ldap_auth => 1 }) }
+    context "if ldap_enabled?" do
+      before { Site.current.update_attributes(:ldap_enabled => true) }
       it { target.valid?.should be_true }
     end
 
-    context "if not params[:ldap_auth]" do
-      before { target.should_receive(:params).and_return({}) }
+    context "if not ldap_enabled?" do
+      before { Site.current.update_attributes(:ldap_enabled => false) }
       it { target.valid?.should be_false }
     end
   end
@@ -57,6 +57,10 @@ describe Devise::Strategies::LdapAuthenticatable do
               .with({ :base => "ldap-treebase", :filter => filter, :password => "user-password" })
               .and_return(["first ldap user", "second ldap user"])
 
+            # validates the ldap user
+            target.should_receive(:validate_ldap_user).with("first ldap user", Site.current)
+		      .and_return(true)
+
             # a fake user to be 'created and returned'
             @user = double(:user)
             target.should_receive(:find_or_create_user).with("first ldap user", Site.current)
@@ -72,9 +76,11 @@ describe Devise::Strategies::LdapAuthenticatable do
         context "if the binding of the target user fails" do
           before {
             @ldap_mock.should_receive(:bind_as).and_return(false) # bind failed
+            @ldap_mock.stub_chain(:get_operation_result, :code).and_return("ldap error code")
+            @ldap_mock.stub_chain(:get_operation_result, :message).and_return("ldap error message")
           }
-          it("calls and returns #fail!(:invalid)") {
-            target.should_receive(:fail!).with(:invalid).and_return("return of fail!")
+          it("calls and returns #fail(:invalid)") {
+            target.should_receive(:fail).with(:invalid).and_return("return of fail!")
             target.authenticate!.should eq("return of fail!")
           }
         end
@@ -83,6 +89,8 @@ describe Devise::Strategies::LdapAuthenticatable do
       context "if the binding of the admin user fails" do
         before {
           @ldap_mock.should_receive(:bind).and_return(false) # binding failed
+          @ldap_mock.stub_chain(:get_operation_result, :code).and_return("ldap error code")
+          @ldap_mock.stub_chain(:get_operation_result, :message).and_return("ldap error message")
         }
         it("calls and returns #fail!(message)") {
           msg = I18n.t('devise.strategies.ldap_authenticatable.invalid_bind')
@@ -98,7 +106,7 @@ describe Devise::Strategies::LdapAuthenticatable do
       }
       it("calls and returns #fail!(message)") {
         msg = I18n.t('devise.strategies.ldap_authenticatable.ldap_not_enabled')
-        target.should_receive(:fail!).with(msg).and_return("return of fail!")
+        target.should_receive(:fail).with(msg).and_return("return of fail!")
         target.authenticate!.should eq("return of fail!")
       }
     end
@@ -109,7 +117,7 @@ describe Devise::Strategies::LdapAuthenticatable do
         target.stub(:params).and_return({ :anything => 1 })
       }
       it("calls and returns #fail!(:invalid)") {
-        target.should_receive(:fail!).with(:invalid).and_return("return of fail!")
+        target.should_receive(:fail).with(:invalid).and_return("return of fail!")
         target.authenticate!.should eq("return of fail!")
       }
     end
@@ -134,7 +142,14 @@ describe Devise::Strategies::LdapAuthenticatable do
   end
 
   describe "#ldap_filter" do
-    it "returns an instance of Net::LDAP::filter configured the correct parameters"
+ 
+    let(:params) { { :user => { :login => "user-login", :password => "user-password" } } }
+    context "returns an instance of Net::LDAP::filter configured the correct parameters" do
+      before {
+          @ldap_filter = double(Net::LDAP::Filter.eq("uid", "userlogin"))
+      }
+      it { target.ldap_filter(@ldap_filter).should_return(@ldap_filter) }
+    end
   end
 
   describe "#ldap_enabled?" do
