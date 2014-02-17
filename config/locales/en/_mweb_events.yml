@@ -6,6 +6,7 @@ en:
         starts_at: "Starts at"
         where: "Where"
       index:
+        now: Happening now
         create_new_event: "Add a new event"
         filters:
           all: "All events"
@@ -20,7 +21,7 @@ en:
         subtitle: "Create your own events and share with other people"
         title: "Events"
       thumbnail_view:
-        no_events: "There are no events created yet!"
+        no_events: "There are no events matching this search!"
       title:
         belongs_space: "This event belongs to the space <a href='%{url}'>%{space}</a>"
         belongs_user: "Event created by <a href='%{url}'>%{user}</a>"

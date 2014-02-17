@@ -5,6 +5,7 @@
 # 3 or later. See the LICENSE file.
 
 require 'version'
+require './lib/mconf/modules'
 
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper

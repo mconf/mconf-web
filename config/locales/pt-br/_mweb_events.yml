@@ -20,7 +20,7 @@ pt-br:
         subtitle: "Crie seus própios eventos e compartilhe com outras pessoas"
         title: "Eventos"
       thumbnail_view:
-        no_events: "Nenhum evento foi criado até o momento!"
+        no_events: "Nenhum evento condiz com esta pesquisa!"
       title:
         belongs_space: "Um evento da comunidade <a href='%{url}'>%{space}</a>"
         belongs_user: "Evento criado por <a href='%{url}'>%{user}</a>"
