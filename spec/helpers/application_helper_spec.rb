@@ -143,6 +143,29 @@ describe ApplicationHelper do
     end
   end
 
+  describe "#user_signed_in_via_ldap?" do
+    context "if signed in in devise and Mconf::LDAP" do
+      before {
+        should_receive(:user_signed_in?).and_return(true)
+        Mconf::LDAP.any_instance.should_receive(:signed_in?).and_return(true)
+      }
+      it { user_signed_in_via_ldap?.should be_true }
+    end
+
+    context "if there's no user signed in" do
+      before { should_receive(:user_signed_in?).and_return(false) }
+      it { user_signed_in_via_ldap?.should be_false }
+    end
+
+    context "if there's a user signed in but not via LDAP" do
+      before {
+        should_receive(:user_signed_in?).and_return(true)
+        Mconf::LDAP.any_instance.should_receive(:signed_in?).and_return(false)
+      }
+      it { user_signed_in_via_ldap?.should be_false }
+    end
+  end
+
   describe "#format_date" do
     it "returns the date formatted to show in a view"
     it "returns a localized string"

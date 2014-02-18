@@ -504,13 +504,12 @@ pt-br:
         resend_confirmation_email: "Reenviar e-mail de confirmação"
     strategies:
       ldap_authenticatable:
+        create_failed: "Não foi possĩvel criar as estruturas internas para sua conta do LDAP, por favor contate um administrador" 
         invalid_bind: "Não foi possível conectar ao servidor LDAP, verifique a configuração do LDAP na página de administração"
-        invalid_user: "Não foi possível criar o usuário, contate o administrador"
-        invalid_token: "Não foi possível criar o token do usuário, contate o administrador"
         ldap_not_enabled: "LDAP não esta habilitado neste site"
-        missing_username: "Não foi possível encontrar o nome de usuário do LDAP"
-        missing_name: "Não foi possível encontrar o nome do usuário do LDAP"
-        missing_email: "Não foi possível encontrar o email do usuário do LDAP"
+        missing_username: "Não foi possível encontrar o nome de usuário do LDAP, por favor contate um administrador"
+        missing_name: "Não foi possível encontrar o nome do usuário do LDAP, por favor contate um administrador"
+        missing_email: "Não foi possível encontrar o email do usuário do LDAP, por favor contate um administrador"
   disable: Desabilitar
   disabled: Desabilitado
   document:
@@ -1675,6 +1674,8 @@ pt-br:
         see_your_data: "Clique para ver os seus dados que foram compartilhados com este site pela federação"
         title: "Você acessou este site através de uma federação!"
         your_idp: "O seu provedor de identidade é: %{idp}"
+      ldap:
+        title: "Você acessou este site através do LDAP!"
       management_options: "Management options"
       not_confirmed: "Sua conta ainda não foi confirmada. Por favor verifique o seu e-mail para ativá-la. (Não recebeu um e-mail? <a href=\"%{url}\">Clique aqui</a>.)"
       notification:

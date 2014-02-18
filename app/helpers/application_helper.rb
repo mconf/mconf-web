@@ -162,6 +162,11 @@ module ApplicationHelper
     user_signed_in? && shib.signed_in?
   end
 
+  def user_signed_in_via_ldap?
+    ldap = Mconf::LDAP.new(session)
+    user_signed_in? && ldap.signed_in?
+  end
+
   # Formats a date object to be shown in a view
   def format_date(date)
     I18n.l date, :format => :short

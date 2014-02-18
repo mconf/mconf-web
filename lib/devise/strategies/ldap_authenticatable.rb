@@ -6,7 +6,7 @@ module Devise
     class LdapAuthenticatable < Authenticatable
 
       def valid?
-         ldap_enabled?
+        ldap_enabled?
       end
 
       def authenticate!
@@ -14,33 +14,62 @@ module Devise
           Rails.logger.info "LDAP: LDAP is enabled, trying to connect to LDAP server"
           configs = ldap_configs
           ldap = ldap_connection(configs)
-          ldap.auth configs.ldap_user, configs.ldap_user_password
+          ldap.auth(configs.ldap_user, configs.ldap_user_password)
 
           # Tries to bind to the ldap server
-            if ldap_bind(ldap)
-              Rails.logger.info "LDAP: bind of the configured user was successful"
-              Rails.logger.info "LDAP: trying to bind the target user: '#{login_from_params}'"
+          if bind_error = ldap_bind(ldap)
+            case bind_error
+            when :timeout
+              # server is off, fallback to other strategies
+              fail(I18n.t('devise.strategies.ldap_authenticatable.invalid_bind'))
+            when :bind
+              # configuration error, abort all other strategies
+              fail!(I18n.t('devise.strategies.ldap_authenticatable.invalid_bind'))
+            end
 
-              # Tries to authenticate the user to the ldap server
-              Rails.logger.info "ldapFilter: " + ldap_filter(configs).inspect
-              Rails.logger.info "ldapConfigs: " + configs.inspect
-              ldap_user = ldap.bind_as(:base => configs.ldap_user_treebase, :filter => ldap_filter(configs), :password => password_from_params)
-              if ldap_user
-                Rails.logger.info "LDAP: user successfully authenticated: #{ldap_user}"
+          else
+            Rails.logger.info "LDAP: trying to bind the target user: '#{login_from_params}'"
 
-                # validate the ldap_user from LDAP server
-                validate_ldap_user(ldap_user.first, configs)
+            # Tries to authenticate the user to the ldap server
+            filter = ldap_filter(configs)
+            Rails.logger.info "LDAP: filter: #{filter.inspect}"
+            ldap_user = ldap.bind_as(:base => configs.ldap_user_treebase, :filter => filter, :password => password_from_params)
+            unless ldap_user
+              Rails.logger.error "LDAP: authentication failed, response: #{ldap_user}"
+              Rails.logger.error "LDAP: error code: #{ldap.get_operation_result.code}"
+              Rails.logger.error "LDAP: error message: #{ldap.get_operation_result.message}"
+              fail(:invalid)
 
-                # login or create the account
-                user = find_or_create_user(ldap_user.first, configs)
-                success!(user)
+            else
+              Rails.logger.info "LDAP: user successfully authenticated: #{ldap_user}"
+              ldap_helper = Mconf::LDAP.new(session)
+              invalid_fields = ldap_helper.validate_user(ldap_user.first, configs)
+              if invalid_fields
+                case invalid_fields
+                when :username
+                  Rails.logger.error "LDAP: the user has no username set in the LDAP server"
+                  fail(I18n.t('devise.strategies.ldap_authenticatable.missing_username'))
+                when :name
+                  Rails.logger.error "LDAP: the user has no name set in the LDAP server"
+                  fail(I18n.t('devise.strategies.ldap_authenticatable.missing_name'))
+                when :email
+                  Rails.logger.error "LDAP: the user has no email set in the LDAP server"
+                  fail(I18n.t('devise.strategies.ldap_authenticatable.missing_email'))
+                end
+
               else
-                Rails.logger.error "LDAP: authentication failed, response: #{ldap_user}"
-                Rails.logger.error "LDAP: error code: #{ldap.get_operation_result.code}"
-                Rails.logger.error "LDAP: error message: #{ldap.get_operation_result.message}"
-                fail(:invalid)
+                # login or create the account
+                user = ldap_helper.find_or_create_user(ldap_user.first, configs)
+                if user.nil?
+                  # application error, abort all other strategies
+                  fail!(I18n.t('devise.strategies.ldap_authenticatable.create_failed'))
+                else
+                  ldap_helper.sign_user_in(user)
+                  success!(user)
+                end
               end
             end
+          end
 
         # LDAP is not enabled in the site
         elsif not ldap_enabled?
@@ -72,7 +101,7 @@ module Devise
         Net::LDAP::Filter.eq(ldap.ldap_username_field, login_from_params)
       end
 
-     # Returns true if the ldap is enabled in Mconf Portal
+      # Returns true if the ldap is enabled in Mconf Portal
       def ldap_enabled?
         ldap_configs.ldap_enabled?
       end
@@ -91,140 +120,25 @@ module Devise
       # Do the ldap server bind - treats connection timeout
       def ldap_bind(ldap)
         begin
-        Timeout::timeout(10) do
-          if ldap.bind
-            Rails.logger.info "LDAP: succesfully binded to the LDAP server" 
-            true
-          else
-            Rails.logger.error "LDAP: could not bind the configured user, check your configurations"
-            Rails.logger.error "LDAP: error code: #{ldap.get_operation_result.code}"
-            Rails.logger.error "LDAP: error message: #{ldap.get_operation_result.message}"
-            fail!(I18n.t('devise.strategies.ldap_authenticatable.invalid_bind'))
+          Timeout::timeout(10) do
+            if ldap.bind
+              Rails.logger.info "LDAP: succesfully binded to the LDAP server"
+              nil
+            else
+              Rails.logger.error "LDAP: could not bind the configured user, check your configurations"
+              Rails.logger.error "LDAP: error code: #{ldap.get_operation_result.code}"
+              Rails.logger.error "LDAP: error message: #{ldap.get_operation_result.message}"
+              :bind
+            end
           end
-        end
         rescue Timeout::Error => e
           Rails.logger.error "LDAP: the server did not respond, error: #{e}"
-          fail!(I18n.t('devise.strategies.ldap_authenticatable.invalid_bind'))
+          :timeout
         end
-      end
-
-      # Creates the internal structures for the `ldap_user` using the ldap information
-      # as configured in `ldap_configs`.
-      def find_or_create_user(ldap_user, ldap_configs)
-        Rails.logger.info "LDAP: finding or creating user"
-
-        # get the username, full name and email from the data returned by the server
-        if ldap_user[ldap_configs.ldap_username_field]
-          ldap_username = ldap_user[ldap_configs.ldap_username_field].first
-        else
-          ldap_username = ldap_user.uid
-        end
-        if ldap_user[ldap_configs.ldap_name_field]
-          ldap_name = ldap_user[ldap_configs.ldap_name_field].first
-        else
-          ldap_name = ldap_user.cn
-        end
-        if ldap_user[ldap_configs.ldap_email_field]
-          ldap_email = ldap_user[ldap_configs.ldap_email_field].first
-        else
-          ldap_email = ldap_user.mail
-        end
-
-        # creates the token and the internal account, if needed
-        token = find_or_create_token(ldap_email)
-        token.user = create_account(ldap_email, ldap_username, ldap_name)
-        token.save!
-        token.user
-      end
-
-      # Searches for a LdapToken using the user email as identifier
-      # Creates one token if none is found
-      def find_or_create_token(id)
-        id = id.to_s
-
-        Rails.logger.info "LDAP: searching a token for email '#{id}'"
-        token = LdapToken.find_by_identifier(id)
-        if token.nil?
-          Rails.logger.info "LDAP: no token yet, creating one"
-          begin
-          token = LdapToken.create!(:identifier => id)
-          rescue ActiveRecord::RecordInvalid => invalid
-            Rails.logger.error "LDAP: could not create user token"
-            Rails.logger.error "Errors: " + invalid.record.errors
-            fail!(I18n.t('devise.strategies.ldap_authenticatable.invalid_token'))
-          end
-        end
-        token
-      end
-
-      # Create the user account if there is no user with the email provided by ldap
-      # Or returns the existing account with the email
-      def create_account(id, username, full_name)
-        # we need this to make sure the values are strings and not string-like objects
-        # returned by LDAP, otherwise the user creation might fail
-        id = id.to_s
-        username = username.to_s
-        full_name = full_name.to_s
-
-        user = User.find_by_email(id)
-        unless user
-          Rails.logger.info "LDAP: creating a new account for email '#{id}', username '#{username}', full name: '#{full_name}'"
-          password = SecureRandom.hex(16)
-          params = {
-            :username => username.parameterize,
-            :email => id,
-            :password => password,
-            :password_confirmation => password,
-            :_full_name => full_name
-          }
-          user = User.new(params)
-          user.skip_confirmation!
-          if not user.save
-            Rails.logger.error "LDAP: error while saving the user model"
-            Rails.logger.error "Errors: " + user.errors.messages.join(", ")
-            fail!(I18n.t('devise.strategies.ldap_authenticatable.invalid_user'))
-          end
-        end
-        user
-      end
-
-      # Validate the ldap_user data
-      def validate_ldap_user(ldap_user, ldap_configs)
-
-        # get the username, full name and email from the data returned by the server
-        if ldap_user[ldap_configs.ldap_username_field]
-          ldap_username = ldap_user[ldap_configs.ldap_username_field].first
-        else
-          ldap_username = ldap_user.uid
-        end
-        if ldap_user[ldap_configs.ldap_name_field]
-          ldap_name = ldap_user[ldap_configs.ldap_name_field].first
-        else
-          ldap_name = ldap_user.cn
-        end
-        if ldap_user[ldap_configs.ldap_email_field]
-          ldap_email = ldap_user[ldap_configs.ldap_email_field].first
-        else
-          ldap_email = ldap_user.mail
-        end
-
-        if ldap_username.nil? or ldap_username.to_s.eql?("")
-          Rails.logger.error "LDAP: the username from ldap_user is empty"
-          fail!(I18n.t('devise.strategies.ldap_authenticatable.missing_username'))
-        end
-        if ldap_name.nil? or ldap_name.to_s.eql?("")
-          Rails.logger.error "LDAP: the name from ldap_user is empty"
-          fail!(I18n.t('devise.strategies.ldap_authenticatable.missing_name'))
-        end
-        if ldap_email.nil? or ldap_email.to_s.eql?("")
-          Rails.logger.error "LDAP: the email from ldap_user is empty"
-          fail!(I18n.t('devise.strategies.ldap_authenticatable.missing_email'))
-        end
-        true
       end
 
     end
   end
 end
 
- Warden::Strategies.add(:ldap_authenticatable, Devise::Strategies::LdapAuthenticatable)
+Warden::Strategies.add(:ldap_authenticatable, Devise::Strategies::LdapAuthenticatable)

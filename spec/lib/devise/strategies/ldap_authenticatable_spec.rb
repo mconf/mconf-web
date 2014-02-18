@@ -9,6 +9,7 @@ require 'spec_helper'
 describe Devise::Strategies::LdapAuthenticatable do
 
   let(:target) { Devise::Strategies::LdapAuthenticatable.new(nil) }
+  before { target.stub(:session).and_return({}) }
 
   describe "#valid?" do
     context "if ldap_enabled?" do
@@ -47,30 +48,96 @@ describe Devise::Strategies::LdapAuthenticatable do
         }
 
         context "if the binding of the target user is successful" do
+          let(:ldap_user1) { { anything: 1 } }
+          let(:ldap_user2) { { anything: 2 } }
           before {
-            # a fake filter
             filter = double(:filter)
             target.should_receive(:ldap_filter).and_return(filter)
-
-            # binding the target user to the server
             @ldap_mock.should_receive(:bind_as)
               .with({ :base => "ldap-treebase", :filter => filter, :password => "user-password" })
-              .and_return(["first ldap user", "second ldap user"])
-
-            # validates the ldap user
-            target.should_receive(:validate_ldap_user).with("first ldap user", Site.current)
-		      .and_return(true)
-
-            # a fake user to be 'created and returned'
-            @user = double(:user)
-            target.should_receive(:find_or_create_user).with("first ldap user", Site.current)
-              .and_return(@user)
+              .and_return([ldap_user1, ldap_user2])
           }
 
-          it("calls and returns #success!(user)") {
-            target.should_receive(:success!).with(@user).and_return("return of success!")
-            target.authenticate!.should eq("return of success!")
-          }
+          context "and the user information is valid" do
+            before {
+              Mconf::LDAP.any_instance.should_receive(:validate_user)
+                .with(ldap_user1, Site.current).and_return(nil)
+            }
+
+            context "and the internal structures were created successfully" do
+              before {
+                @user = FactoryGirl.create(:user)
+                Mconf::LDAP.any_instance.should_receive(:find_or_create_user)
+                  .with(ldap_user1, Site.current).and_return(@user)
+              }
+
+              it("calls and returns #success!(user)") {
+                target.should_receive(:success!).with(@user).and_return("return of success!")
+                target.authenticate!.should eq("return of success!")
+              }
+
+              it("sets the user as signed in in the session") {
+                Mconf::LDAP.any_instance.should_receive(:sign_user_in).with(@user)
+                target.authenticate!
+              }
+            end
+
+            context "but there was an error creating the internal structures" do
+              before {
+                @user = FactoryGirl.create(:user)
+                Mconf::LDAP.any_instance.should_receive(:find_or_create_user)
+                  .with(ldap_user1, Site.current).and_return(nil)
+              }
+
+              it("calls and returns #fail!(message)") {
+                target.should_receive(:fail!).with(I18n.t('devise.strategies.ldap_authenticatable.create_failed'))
+                  .and_return("return of fail!")
+                target.authenticate!.should eq("return of fail!")
+              }
+            end
+          end
+
+          context "but the user information has no username" do
+            before {
+              Mconf::LDAP.any_instance.should_receive(:validate_user)
+                .with(ldap_user1, Site.current).and_return(:username)
+              Mconf::LDAP.any_instance.should_not_receive(:find_or_create_user)
+            }
+
+            it("calls and returns #fail(message)") {
+              target.should_receive(:fail).with(I18n.t('devise.strategies.ldap_authenticatable.missing_username'))
+                .and_return("return of fail!")
+              target.authenticate!.should eq("return of fail!")
+            }
+          end
+
+          context "but the user information has no email" do
+            before {
+              Mconf::LDAP.any_instance.should_receive(:validate_user)
+                .with(ldap_user1, Site.current).and_return(:email)
+              Mconf::LDAP.any_instance.should_not_receive(:find_or_create_user)
+            }
+
+            it("calls and returns #fail(message)") {
+              target.should_receive(:fail).with(I18n.t('devise.strategies.ldap_authenticatable.missing_email'))
+                .and_return("return of fail!")
+              target.authenticate!.should eq("return of fail!")
+            }
+          end
+
+          context "but the user information has no name" do
+            before {
+              Mconf::LDAP.any_instance.should_receive(:validate_user)
+                .with(ldap_user1, Site.current).and_return(:name)
+              Mconf::LDAP.any_instance.should_not_receive(:find_or_create_user)
+            }
+
+            it("calls and returns #fail(message)") {
+              target.should_receive(:fail).with(I18n.t('devise.strategies.ldap_authenticatable.missing_name'))
+                .and_return("return of fail!")
+              target.authenticate!.should eq("return of fail!")
+            }
+          end
         end
 
         context "if the binding of the target user fails" do
@@ -80,23 +147,38 @@ describe Devise::Strategies::LdapAuthenticatable do
             @ldap_mock.stub_chain(:get_operation_result, :message).and_return("ldap error message")
           }
           it("calls and returns #fail(:invalid)") {
-            target.should_receive(:fail).with(:invalid).and_return("return of fail!")
-            target.authenticate!.should eq("return of fail!")
+            target.should_receive(:fail).with(:invalid).and_return("return of fail")
+            target.authenticate!.should eq("return of fail")
           }
         end
       end
 
       context "if the binding of the admin user fails" do
         before {
-          @ldap_mock.should_receive(:bind).and_return(false) # binding failed
           @ldap_mock.stub_chain(:get_operation_result, :code).and_return("ldap error code")
           @ldap_mock.stub_chain(:get_operation_result, :message).and_return("ldap error message")
         }
-        it("calls and returns #fail!(message)") {
-          msg = I18n.t('devise.strategies.ldap_authenticatable.invalid_bind')
-          target.should_receive(:fail!).with(msg).and_return("return of fail!")
-          target.authenticate!.should eq("return of fail!")
-        }
+        context "because of an error" do
+          before {
+            @ldap_mock.should_receive(:bind).and_return(false) # binding failed
+          }
+          it("calls and returns #fail!(message)") {
+            msg = I18n.t('devise.strategies.ldap_authenticatable.invalid_bind')
+            target.should_receive(:fail!).with(msg).and_return("return of fail!")
+            target.authenticate!.should eq("return of fail!")
+          }
+        end
+
+        context "because of a timeout" do
+          before {
+            @ldap_mock.should_receive(:bind).and_raise(Timeout::Error)
+          }
+          it("calls and returns #fail(message)") {
+            msg = I18n.t('devise.strategies.ldap_authenticatable.invalid_bind')
+            target.should_receive(:fail).with(msg).and_return("return of fail")
+            target.authenticate!.should eq("return of fail")
+          }
+        end
       end
     end
 
@@ -104,10 +186,10 @@ describe Devise::Strategies::LdapAuthenticatable do
       before {
         Site.current.update_attributes(:ldap_enabled => false)
       }
-      it("calls and returns #fail!(message)") {
+      it("calls and returns #fail(message)") {
         msg = I18n.t('devise.strategies.ldap_authenticatable.ldap_not_enabled')
-        target.should_receive(:fail).with(msg).and_return("return of fail!")
-        target.authenticate!.should eq("return of fail!")
+        target.should_receive(:fail).with(msg).and_return("return of fail")
+        target.authenticate!.should eq("return of fail")
       }
     end
 
@@ -116,9 +198,9 @@ describe Devise::Strategies::LdapAuthenticatable do
         Site.current.update_attributes(:ldap_enabled => true)
         target.stub(:params).and_return({ :anything => 1 })
       }
-      it("calls and returns #fail!(:invalid)") {
-        target.should_receive(:fail).with(:invalid).and_return("return of fail!")
-        target.authenticate!.should eq("return of fail!")
+      it("calls and returns #fail(:invalid)") {
+        target.should_receive(:fail).with(:invalid).and_return("return of fail")
+        target.authenticate!.should eq("return of fail")
       }
     end
   end
@@ -142,18 +224,33 @@ describe Devise::Strategies::LdapAuthenticatable do
   end
 
   describe "#ldap_filter" do
- 
     let(:params) { { :user => { :login => "user-login", :password => "user-password" } } }
-    context "returns an instance of Net::LDAP::filter configured the correct parameters" do
-      before {
-          @ldap_filter = double(Net::LDAP::Filter.eq("uid", "userlogin"))
-      }
-      it { target.ldap_filter(@ldap_filter).should_return(@ldap_filter) }
+    let(:ldap_user) {
+      u = Object.new
+      u.stub(:ldap_username_field).and_return("username")
+      u
+    }
+    before {
+      target.stub(:params).and_return(params)
+      Net::LDAP::Filter.should_receive(:eq).with("username", "user-login")
+        .and_return("expected filter")
+    }
+
+    it "returns an instance of Net::LDAP::filter configured the correct parameters" do
+      target.ldap_filter(ldap_user).should eql("expected filter")
     end
   end
 
   describe "#ldap_enabled?" do
-    it "returns whether LDAP is enabled in the current site"
+    context "if LDAP is enabled in the current site" do
+      before { Site.current.update_attributes(:ldap_enabled => true) }
+      it("returns true") { target.ldap_enabled?.should be_true }
+    end
+
+    context "if LDAP is disabled in the current site" do
+      before { Site.current.update_attributes(:ldap_enabled => false) }
+      it("returns false") { target.ldap_enabled?.should be_false }
+    end
   end
 
   describe "#ldap_connection" do
@@ -163,57 +260,6 @@ describe Devise::Strategies::LdapAuthenticatable do
     context "if the port is not 636" do
       it "returns an instance of Net::LDAP with the correct host and port, without simple_tls"
     end
-  end
-
-  describe "#find_or_create_user" do
-    context "if the username field set in the configurations exists in the user information" do
-      it "uses it"
-    end
-    context "if the username field set in the configurations does not exist in the user information" do
-      it "uses a default username"
-    end
-    context "if the name field set in the configurations exists in the user information" do
-      it "uses it"
-    end
-    context "if the name field set in the configurations does not exist in the user information" do
-      it "uses a default name"
-    end
-    context "if the email field set in the configurations exists in the user information" do
-      it "uses it"
-    end
-    context "if the email field set in the configurations does not exist in the user information" do
-      it "uses a default email"
-    end
-    it "calls #find_or_create_token with the correct parameters to get the token"
-    it "calls #create_account with the correct parameters to get the user"
-    it "sets the user in the token and saves it"
-    it "returns the user created"
-  end
-
-  describe "#find_or_create_token" do
-    it "returns the token found if one already exists"
-    it "creates a new token for the identifier passed if it doesn't exist yet"
-
-    # These tests are here to prevent errors when creating the token, because the id passed is
-    # usually not a standard ruby string, but a Net::BER::BerIdentifiedString created by net-ldap.
-    # More at: https://github.com/hallelujah/valid_email/issues/22
-    it "converts the id passed to a string"
-  end
-
-  describe "#create_account" do
-    it "returns the user found if one already exists"
-    context "if the target user doesn't exist yet, creates a new user" do
-      it "with a random password"
-      it "with the email, username and full_name passed"
-      it "skips the confirmation, marking the user as already confirmed"
-    end
-
-    # These tests are here to prevent errors when creating the token, because the id passed is
-    # usually not a standard ruby string, but a Net::BER::BerIdentifiedString created by net-ldap.
-    # More at: https://github.com/hallelujah/valid_email/issues/22
-    it "converts the id passed to a string"
-    it "converts the username passed to a string"
-    it "converts the full_name passed to a string"
   end
 
 end

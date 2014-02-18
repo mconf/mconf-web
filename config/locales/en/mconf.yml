@@ -510,13 +510,12 @@ en:
         resend_confirmation_email: "Resend confirmation email"
     strategies:
       ldap_authenticatable:
+        create_failed: "Unable to create internal structures for your LDAP account, please contact an administrator" 
         invalid_bind: "Unable to bind to the LDAP server, check the LDAP configuration in the website administration"
-        invalid_user: "Unable to create the user model from LDAP, contact the administrator"
-        invalid_token: "Unable to create the user token from LDAP, contact the administrator" 
         ldap_not_enabled: "LDAP is not enabled in this website"
-        missing_username: "Unable to find the username from the LDAP user retrieved from the LDAP server"
-        missing_name: "Unable to find the name from the LDAP user retrieved from the LDAP server"
-        missing_email: "Unable to find the email from the LDAP user retrieved from the LDAP server"
+        missing_username: "Unable to find the username from the LDAP user retrieved from the LDAP server, please contact an administrator"
+        missing_name: "Unable to find the name from the LDAP user retrieved from the LDAP server, please contact an administrator"
+        missing_email: "Unable to find the email from the LDAP user retrieved from the LDAP server, please contact an administrator"
   disable: Disable
   disabled: Disabled
   document: 
@@ -1712,6 +1711,8 @@ en:
         see_your_data: "Click here to see your data that the federation shared with this website"
         title: "You are signed in using a federation!"
         your_idp: "Your identity provider is: %{idp}"
+      ldap:
+        title: "You are signed in using LDAP!"
       management_options: "Management options"
       not_confirmed: "Your account is not activated yet. Please, check your email to activate it. (Did not receive an email? <a href=\"%{url}\">Click here</a>.)"
       notification:
