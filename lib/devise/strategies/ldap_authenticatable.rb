@@ -11,43 +11,37 @@ module Devise
 
       def authenticate!
         if ldap_enabled? and params[:user]
-          Rails.logger.info "LDAP: authenticating a user"
 
           configs = ldap_configs
           ldap = ldap_connection(configs)
           ldap.auth configs.ldap_user, configs.ldap_user_password
 
           # Tries to bind to the ldap server
-          if ldap.bind
-            Rails.logger.info "LDAP: bind of the configured user was successful"
-            Rails.logger.info "LDAP: trying to bind the target user: '#{login_from_params}'"
+            if do_ldap_bind(ldap)
+              Rails.logger.info "LDAP: bind of the configured user was successful"
+              Rails.logger.info "LDAP: trying to bind the target user: '#{login_from_params}'"
 
-            # Tries to authenticate the user to the ldap server
-            ldap_user = ldap.bind_as(:base => configs.ldap_user_treebase, :filter => ldap_filter(configs), :password => password_from_params)
-            if ldap_user
-              Rails.logger.info "LDAP: user successfully authenticated: #{ldap_user}"
+              # Tries to authenticate the user to the ldap server
+              ldap_user = ldap.bind_as(:base => configs.ldap_user_treebase, :filter => ldap_filter(configs), :password => password_from_params)
+              if ldap_user
+                Rails.logger.info "LDAP: user successfully authenticated: #{ldap_user}"
 
-              # TODO: verify if the ldap_user has the attributes we need, otherwise return an error
+                # TODO: verify if the ldap_user has the attributes we need, otherwise return an error
 
-              # login or create the account
-              user = find_or_create_user(ldap_user.first, configs)
+                # login or create the account
+                user = find_or_create_user(ldap_user.first, configs)
 
-              # TODO: if user model has errors, show them to the user here
+                # TODO: if user model has errors, show them to the user here
 
-              success!(user)
-            else
-              Rails.logger.error "LDAP: authentication failed, response: #{ldap_user}"
-              fail!(:invalid)
+                success!(user)
+              else
+                Rails.logger.error "LDAP: authentication failed, response: #{ldap_user}"
+                fail!(:invalid)
+              end
             end
-          else
-            Rails.logger.error "LDAP: could not bind the configured user, check your configurations"
-            fail!(I18n.t('devise.strategies.ldap_authenticatable.invalid_bind'))
-          end
-
-        # ldap is not enable in the site
+        # ldap is not enabled in the site
         elsif not ldap_enabled?
           fail!(I18n.t('devise.strategies.ldap_authenticatable.ldap_not_enabled'))
-
         else
           fail!(:invalid)
         end
@@ -83,9 +77,9 @@ module Devise
       # Otherwise there is no security (usually port 389).
       def ldap_connection(configs)
         if configs.ldap_port == 636
-          Net::LDAP.new(:host => configs.ldap_host, :port => configs.ldap_port, :encryption => :simple_tls)
+          Net::LDAP.new(:host => configs.ldap_host, :port => configs.ldap_port, :timeout => 10, :encryption => :simple_tls)
         else
-          Net::LDAP.new(:host => configs.ldap_host, :port => configs.ldap_port)
+          Net::LDAP.new(:host => configs.ldap_host, :port => configs.ldap_port, :timeout => 10)
         end
       end
 
@@ -157,6 +151,23 @@ module Devise
           user.save
         end
         user
+      end
+
+      # Do the ldap server bind - treats connection timeout
+      def do_ldap_bind(ldap)
+        Timeout::timeout(10) do
+          if ldap.bind 
+            true
+          else
+            Rails.logger.error "LDAP: could not bind the configured user, check your configurations"
+            fail!(I18n.t('devise.strategies.ldap_authenticatable.invalid_bind'))
+          end
+        end
+        # Return the timeout error 
+        rescue Timeout::Error => e
+          Rails.logger.error "LDAP: the server did not respond, error: #{e}"
+          fail!(I18n.t('devise.strategies.ldap_authenticatable.invalid_bind'))
+          nil
       end
 
     end
