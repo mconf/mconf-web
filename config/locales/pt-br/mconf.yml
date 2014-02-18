@@ -505,7 +505,12 @@ pt-br:
     strategies:
       ldap_authenticatable:
         invalid_bind: "Não foi possível conectar ao servidor LDAP, verifique a configuração do LDAP na página de administração"
+        invalid_user: "Não foi possível criar o usuário, contate o administrador"
+        invalid_token: "Não foi possível criar o token do usuário, contate o administrador"
         ldap_not_enabled: "LDAP não esta habilitado neste site"
+        missing_username: "Não foi possível encontrar o nome de usuário do LDAP"
+        missing_name: "Não foi possível encontrar o nome do usuário do LDAP"
+        missing_email: "Não foi possível encontrar o email do usuário do LDAP"
   disable: Desabilitar
   disabled: Desabilitado
   document:
