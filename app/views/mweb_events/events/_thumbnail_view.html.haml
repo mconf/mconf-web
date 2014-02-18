@@ -9,5 +9,3 @@
     - events.each do |event|
       %li.list-thumbnail-wrapper{ :class => "#{user_events.include?(event) ? 'my-event' : 'not-my-event'}", :name => event.permalink }
         = render "mweb_events/events/event_thumbnail", :event => event
-  - else
-    = t(".no_events")

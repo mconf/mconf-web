@@ -8,9 +8,16 @@ en:
       index:
         now: Happening now
         create_new_event: "Add a new event"
+        count: (found %{count})
         filters:
-          all: "All events"
+          all_events: "All events"
           my_events: "My events"
+          your_events: your
+          description: Showing %{your} %{time} events
+          happening_now: current
+          upcoming_events: upcoming
+          past_events: past
+          all: ''
         list_format:
           list: "List"
           thumbnails: "Thumbnails"

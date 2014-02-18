@@ -36,12 +36,12 @@
 
 #event-filter-wrapper
 
+  - tabs = {'all' => 'all', '.now' => 'happening_now', 'upcoming' => 'upcoming_events', 'past' => 'past_events'}
   .page-tabs
     .btn-group{ :"data-toggle" => "buttons-radio" }
-      = link_to t('all'), events_path(), :id => 'all_link', :class => "btn btn-small #{'active' if params[:show] == 'all' or !params[:show]}"
-      = link_to t('.now'), events_path(:show => "happening_now"), :class => "btn btn-small #{'active' if params[:show] == 'happening_now'}"
-      = link_to t('upcoming'), events_path(:show => "upcoming_events"), :class => "btn btn-small #{'active' if params[:show] == 'upcoming_events'}"
-      = link_to t('past'), events_path(:show => "past_events"), :class => "btn btn-small #{'active' if params[:show] == 'past_events'}"
+      - tabs.each do |k, v|
+        - new_params = params.merge(:show => v)
+        = link_to t(k), events_path(new_params), :id => v, :class => "btn btn-small #{'active' if params[:show] == v or (k == 'all' && !params[:show])}"
 
   / .view-types
   /   .btn-group{ :"data-toggle" => "buttons-radio" }
@@ -52,12 +52,18 @@
 
   .btn-group{ :"data-toggle" => "buttons-radio" }
     = link_to mweb_events.events_path(:view => params[:view]), :id => "show-events-all", :class => "btn #{'active' unless params[:my_events]}", :type => "button" do
-      = t('.filters.all')
+      = t('.filters.all_events')
     - if user_signed_in?
       = link_to mweb_events.events_path(:view => params[:view], :my_events => true), :id => "show-events-mine", :class => "btn #{'active' if params[:my_events]}", :type => "button" do
         = t('.filters.my_events')
 
     = hidden_field_tag :event_filter_text
+
+%p#filter-description
+  - your = t('.filters.your_events') if params[:my_events]
+  - time = t(".filters.#{params[:show]}") if tabs.values.include? params[:show]
+  = t('.filters.description', :your => "#{your}", :time => time.to_s)
+  = t('.count', :count => @events.count)
 
 
 - if params[:view] == 'list'

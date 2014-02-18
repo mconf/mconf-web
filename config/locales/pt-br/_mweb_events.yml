@@ -6,10 +6,18 @@ pt-br:
         starts_at: "Inicia em"
         where: "Localização"
       index:
+        now: Agora
         create_new_event: "Adicionar evento"
+        count: (%{count} encontrados)
         filters:
-          all: "Todos eventos"
+          all_events: "Todos eventos"
           my_events: "Meus eventos"
+          your_events: seus
+          description: Mostrando %{your} eventos %{time}
+          happening_now: acontecendo agora
+          upcoming_events: futuros
+          past_events: passados
+          all: ''
         list_format:
           list: "Lista"
           thumbnails: "Miniaturas"
