@@ -159,8 +159,8 @@ namespace :db do
       end
     end
 
-    puts "* Create spaces: saving events to generate permalinks"
     if configatron.modules.events.loaded
+      puts "* Create spaces: saving events to generate permalinks"
       MwebEvents::Event.find_each(&:save!) # to generate the permalink
     end
 
