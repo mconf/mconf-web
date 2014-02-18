@@ -18,4 +18,5 @@ doc/app/*
 config/analytics_conf.yml
 public/assets/*
 public/uploads/*
+.bundle/
 vendor/modules/*

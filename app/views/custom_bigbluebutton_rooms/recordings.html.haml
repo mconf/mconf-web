@@ -3,5 +3,5 @@
 = content_for :sidebar do
   = render 'custom_bigbluebutton_rooms/room_links', :room => @room
 
-%h1= t('.list_of_recordings', :room => @room.name)
+%h3= t('.list_of_recordings', :room => @room.name)
 = render 'custom_bigbluebutton_recordings/recordings', :recordings => @recordings

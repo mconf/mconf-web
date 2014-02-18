@@ -150,6 +150,13 @@ module ApplicationHelper
     "#{Site.current.domain_with_protocol}/webconf/"
   end
 
+  # Returns the url prefix used to identify a webconf room
+  # e.g. '/webconf/'
+  def webconf_path_prefix
+    # note: '/webconf' is defined in routes.rb
+    "/webconf/"
+  end
+
   def options_for_tooltip(title, options={})
      options.merge!(:title => title,
                     :class => "tooltipped " + (options[:class] || ""),
@@ -214,7 +221,12 @@ module ApplicationHelper
 
   # Gets the route to user resource from it's id
   def user_path_from_id id
-    user_path(User.find(id).username)
+    user = User.find_by_id(id)
+    if user.nil?
+      nil
+    else
+      user_path(user.to_param)
+    end
   end
 
   private

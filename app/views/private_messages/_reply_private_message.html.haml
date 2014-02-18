@@ -1,13 +1,16 @@
 .content-block-wrapper
   .content-block
     #private-message-reply
-      %h3
-        = t('message.reply')
+      .content-block-header
+        %h4= t('message.reply')
       = simple_form_for :private_message, :url => messages_path do |f|
-        %label{:for => "To"}
-          = t('message.to') + ": " + @receiver.name
-        = f.hidden_field :parent_id, :value => @previous_message.id
+        - if @receiver
+          %label= t('message.to') + ": " + @receiver.name
+        - else
+          .alert.alert-danger
+            = t('.user_not_registered')
+        = f.hidden_field :parent_id, :value => @previous_message.id, :disabled => !@receiver
         = f.hidden_field :receiver_id, :value => @previous_message.sender_id
-        = f.input :title, :label => t('title'), :size => 25, :input_html => { :value => previous_message.title }
-        = f.input :body, :as => :text, :label => t('body'), :input_html => { :value => '' }
-        = f.button :submit, t('button.send'), :class => 'btn btn-primary'
+        = f.input :title, :label => t('title'), :size => 25, :input_html => { :value => previous_message.title }, :disabled => !@receiver
+        = f.input :body, :as => :text, :label => t('body'), :input_html => { :value => '' }, :disabled => !@receiver
+        = f.button :submit, t('button.send'), :class => 'btn btn-primary', :disabled => !@receiver

@@ -3,6 +3,8 @@ require 'spec_helper'
 describe ManageController do
 
   describe "#users" do
+    before { User.destroy_all }
+
     let(:user) { FactoryGirl.create(:superuser) }
     before(:each) { sign_in(user) }
 
@@ -18,7 +20,7 @@ describe ManageController do
         @u3 = FactoryGirl.create(:user, :disabled => true)
       }
       before(:each) { get :users }
-      it { assigns(:users).count.should be(4) } # our 3 plus the standard seeded user
+      it { assigns(:users).count.should be(3) }
       it { assigns(:users).should include(@u1) }
       it { assigns(:users).should include(@u2) }
       it { assigns(:users).should include(@u3) }
@@ -34,8 +36,7 @@ describe ManageController do
 
     context "orders @users by the user's full name" do
       before {
-        @u1 = User.first
-        @u1.profile.update_attributes(:full_name => 'Last one') # the seeded user
+        @u1 = FactoryGirl.create(:user, :_full_name => 'Last one')
         @u2 = user
         @u2.profile.update_attributes(:full_name => 'Ce user')
         @u3 = FactoryGirl.create(:user, :_full_name => 'A user')
@@ -78,7 +79,7 @@ describe ManageController do
       context "by full name" do
         before {
           @u1 = User.first
-          @u1.profile.update_attributes(:full_name => 'First') # the seeded user
+          @u1.profile.update_attributes(:full_name => 'First')
           @u2 = user
           @u2.profile.update_attributes(:full_name => 'Second')
           @u3 = FactoryGirl.create(:user, :_full_name => 'Secondary')
@@ -91,8 +92,7 @@ describe ManageController do
 
       context "by username" do
         before {
-          @u1 = User.first # the seeded user
-          @u1.update_attributes(:username => 'First')
+          @u1 = FactoryGirl.create(:user, :username => 'First')
           @u2 = user
           @u2.update_attributes(:username => 'Second')
           @u3 = FactoryGirl.create(:user, :username => 'Secondary')

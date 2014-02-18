@@ -16,12 +16,20 @@ body.spaces.show {
   #latest-posts {
     .post-wrapper {
       clear: both;
-      margin-bottom: 10px;
-      margin-top: 5px;
+      margin-bottom: 15px;
+      margin-top: 10px;
 
       .post-title {
         font-weight: bold;
       }
+    }
+  }
+
+  #latest-users {
+    .user-wrapper {
+      clear: both;
+      margin-bottom: 10px;
+      margin-top: 5px;
     }
   }
 
@@ -30,7 +38,7 @@ body.spaces.show {
       margin-bottom: 5px;
     }
     .updated-at {
-      font-size: $font-normal;
+      @include font-size($font-normal);
       font-weight: normal;
     }
   }

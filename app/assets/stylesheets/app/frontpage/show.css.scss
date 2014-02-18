@@ -26,7 +26,7 @@ $bg-normal: darken($green-logo, 3);
 
 #page-header {
   text-align: center;
-  font-size: $font-medium;
+  @include font-size($font-medium);
 }
 
 #main-logo {
@@ -51,11 +51,11 @@ $bg-normal: darken($green-logo, 3);
     clear: both;
 
     label {
-      font-size: 14px;
+      @include font-size($font-medium);
     }
 
     input[type=text], input[type=password], input[type=email] {
-      width: 200px;
+      width: 250px;
     }
 
     // hide the '*' for required fields
@@ -70,7 +70,7 @@ $bg-normal: darken($green-logo, 3);
   }
 
   .add-on {
-    font-size: $font-normal;
+    @include font-size($font-normal);
   }
 
   .form-actions {

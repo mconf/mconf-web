@@ -13,5 +13,15 @@
           %span.is-member= t('.user_is_member')
         %span
           = link_to sanitize(space.name), space_path(space)
+        .space-description
+          - if space.public
+            %span.visibility.public
+              = icon_space_public()
+              = t(".public")
+          - else
+            %span.visibility.private
+              = icon_space_private()
+              = t(".private")
+          %span= t('.with_members', :count => space.users.count)
       .thread-text
         = sanitize(auto_link(space.description))

@@ -19,6 +19,7 @@ body.manage.users {
 
   .user-disabled {
     color: #888;
+    background: $very-light-gray;
 
     .logo-in-thread {
       opacity: 0.5;
@@ -28,6 +29,16 @@ body.manage.users {
   .management-links {
     float: right;
     padding-top: 8px;
+  }
+
+  .thread {
+    .user-name, .user-email {
+      display: inline-block;
+    }
+
+    .user-category {
+      display: block;
+    }
   }
 
 }

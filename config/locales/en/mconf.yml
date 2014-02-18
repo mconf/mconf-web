@@ -76,6 +76,7 @@ en:
       normal_user: "Normal user"
       guest: Guest
       guest_name: "Guest User \(%{email}\)"
+      removed: "<user removed>"
     yes_: "Yes"
     webconference:
       not_allowed_to_create: "You are not allowed to create meetings in this room"
@@ -93,6 +94,12 @@ en:
   actions: Actions
   activerecord:
     attributes:
+      event:
+        description: "Description"
+        end_date: "Date and time when it ends"
+        location: "Location"
+        name: "Name"
+        start_date: "Date and time when it starts"
       site:
         analytics_code: "Analytics Code"
         chat_enabled: "Enable Chat"
@@ -136,18 +143,23 @@ en:
         webconf_auto_record: "Automatically set the recording flag when creating a web conference"
       space:
         attendee_password: "Attendee password"
-        description: "Descrição"
+        description: "Description"
         moderator_password: "Moderator password"
         name: "Name"
+        permalink: "Identifier"
         public: "Public"
         repository: "Document repository"
       user:
         _full_name: "Full name"
         can_record: "Allow this user to record meetings"
         email: "Email"
+        expanded_post: "Show messages in wall with the expanded view by default"
+        notification: "How do you want to receive your notifications?"
         password: "Password"
         password_confirmation: "Password confirmation"
+        receive_digest: "How often do you want to receive digest emails with recent activity in the communities you are a part of?"
         superuser: "Global administrator"
+        timezone: "Timezone"
         username: "Username"
     errors:
       models:
@@ -241,8 +253,6 @@ en:
         new_room: "New room"
       invite: Invite
       join_mobile: "Join mobile"
-      private: 
-        tooltip: "Private rooms require a password for users to join. Public rooms can be accessed by anyone with its link."
     servers: 
       activity: 
         activity: Activity
@@ -568,16 +578,16 @@ en:
     one: Error
     other: Errors
     vcc_warning: "Warning:"
+  event_invitation: 
+    instructions: "Click Send for each invitation you want to send, and click Finish when you are done."
+    sent: "Invitations sent successfully"
+    will_invite: "People you will invite:"
   events:
     index:
       search:
         by_name:
           no_matches: "No events found for \"%{term}\""
           placeholder: "Search for events..."
-  event_invitation: 
-    instructions: "Click Send for each invitation you want to send, and click Finish when you are done."
-    sent: "Invitations sent successfully"
-    will_invite: "People you will invite:"
   fax: Fax
   feedback: 
     email: "%{email} sent the following feedback:"
@@ -712,7 +722,7 @@ en:
   join: Join
   join_cam: Participate
   join_requests:
-    join_request_space:
+    index:
       not_pending:
         other: "There are no pending join requests"
       pending:
@@ -887,6 +897,8 @@ en:
       view_all_spaces: "View all spaces"
     edit_recording:
       title: "Edit your recording"
+    edit_room:
+      layout_empty_option: "<default>"
     recordings:
       title: "Recordings from my webconference room"
       update_recordings:
@@ -897,13 +909,13 @@ en:
       end: "Stop the meeting"
       end_tooltip: "This action will end the current conference!"
       fast_start: "Fast start using the options already configured"
-      invite: "Invite other people..."
+      invite: "Invite other people"
       join: "Join the meeting!"
-      join_mobile_full: "Join from a mobile device..."
+      join_mobile_full: "Join from a mobile device"
       not_running: "Your webconference is not in progress."
       options: "Options"
-      preferences: "Preferences..."
-      recordings: "View available recordings"
+      preferences: "Preferences"
+      recordings: "View recordings"
       running_with:
         no_participants: "Your webconference is in progress with no participants."
         participants:
@@ -1002,6 +1014,9 @@ en:
     title: "Messages (%{count})"
     updated: "Message updated!"
     wall: Wall
+  posts:
+    post_with_children:
+      by: "by"
   prav: PRAV
   preferences: Preferences
   previous: Previous
@@ -1023,6 +1038,8 @@ en:
       sent: Sent
     new: 
       title: "Private Messages"
+    reply_private_message:
+      user_not_registered: "This user is no longer registered, you won't be able to respond to this message."
     show: 
       title: "Private Messages"
     show_received: 
@@ -1056,9 +1073,13 @@ en:
     visibility_public_fellows: "Only your partners in a public or private space can see your private profile."
   profiles:
     edit:
-      change_pic: "Change your picture"
-      edit_your_profile: "Edit your profile"
-      view_your_profile: "View your profile"
+      change_pic: "Change picture"
+      title: "Edit profile"
+      view_your_profile: "View profile"
+      vcard:
+        export: "Export vCard"
+        tooltip: "vCard is a file format standard for electronic business cards"
+        use: "Use a vCard"
   province: Province
   public: Public
   read_more: "Read more"
@@ -1226,7 +1247,7 @@ en:
     add_user: 
       other: "Add users to the space"
     add_user_other: ""
-    all: "All spaces"
+    all: "Spaces"
     allow_public_access: "Allow public access?"
     attendeePW: "edit attendee password"
     clic: "Click to edit..."
@@ -1346,13 +1367,13 @@ en:
       invite: "Invite people"
       news: "News"
       users: "Users"
+      webconf_options: "Webconference options"
     edit:
       change_logo: "Change picture"
       delete_space: "Remove this space?"
       other_options: "Other options"
       public: "Make this a public space"
-      yes_delete: "Yes, remove it!"
-      webconf_options: "Webconference room options"
+      yes_delete: "Yes, I want to remove this space"
     edit_recording:
       title: "Edit your recording"
     index: 
@@ -1392,7 +1413,6 @@ en:
     show:
       events_now: "Events hapenning now!"
     sidebar:
-      all_events: "View all"
       upcoming_events: "Upcoming events"
       webconference:
         attendees:
@@ -1406,12 +1426,12 @@ en:
       end: "Stop it"
       end_tooltip: "This action will end the current conference!"
       fast_start: "Fast start using the options already configured"
-      invite: "Invite other people..."
+      invite: "Invite other people"
       join: "Join now!"
       join_mobile: "Join/mobile"
-      join_mobile_full: "Join from a mobile device..."
+      join_mobile_full: "Join from a mobile device"
       options: "Options"
-      preferences: "Preferences..."
+      preferences: "Preferences"
       start: "Start"
     space_thumbnail:
       private: "Private"
@@ -1419,7 +1439,10 @@ en:
     thumbnail_view:
       no_spaces: "There are no spaces created yet!"
     unified_space:
+      private: "private space"
+      public: "public space"
       user_is_member: "You are a member of this space"
+      with_members: "with %{count} members"
     users: "Users in this space"
     webconference:
       end: "Stop the meeting"
@@ -1436,6 +1459,9 @@ en:
           description: "You can invite people to this webconference by sharing the link below:"
           header: Share
           url: "Webconference URL"
+    webconference_options:
+      layout_empty_option: "<default>"
+      options: "Web conference room options"
     webconference_tabs:
       access: "Webconference access"
       recordings: "List of recordings"
@@ -1531,10 +1557,8 @@ en:
     share: "This is the url to share this video with your colleagues"
     tag: "Tags are keywords or terms associate with content used to find and filter information. Press enter to confirm each tag."
     tag_by: "Tags are words that describe the documents. Use this links to order them by popularity or alphabetically. Then click on them to see the related documents."
-    timezone: "By selecting your time-zone there will be no misunderstanding when creating events with people from other countries"
     upcoming: "This section shows the next events in this space"
     update_logo: "You can update your own logo, create a text logo or select an image from the gallery"
-    vcard: "vCard is a file format standard for electronic business cards"
     vclass: "The virtual class type is the perfect way to organise classes, conferences and seminars, where the teacher assumes a prominent role."
     vcongress: "The  Virtual congress type is very similar to the virtual meeting but geared for larger events, both in size and complexity. Usually, this type requires the support of an onsite operator."
     vmeeting: "The Virtual meeting type is suited for online meetings or physical meetings with a strong virtual component, meaning that both local and remote participants will have the opportunity to communicate interactively."
@@ -1557,23 +1581,11 @@ en:
     admin: Admin
     administrators: Administrators
     assist: Attending
-    by_email: "By email"
-    by_private_message: "By private message"
     category: Category
     confirm_password: "Confirm password"
     delete_from_space: "Delete user from space"
     disable: "Disable user"
     disabled: "User %{username} disabled"
-    edit: 
-      account_info: "Account info"
-      cancel_account: "Cancel account?"
-      change_password: "Change your password"
-      click_to_edit_profile: "Click here to edit your profile"
-      did_not_find_info: "Didn't find the information you were looking for?"
-      password:
-        hint: "Leave it blank if you don't want to change it"
-      yes_cancel_account: "Yes, cancel my account"
-    edit_account: "Edit your account"
     email_used_to_create_account: "Enter the email address you used to create your account"
     enable: "Enable user"
     enabled: "User successfully enabled. The user currently belongs to no space, and will have to join spaces again."
@@ -1597,15 +1609,9 @@ en:
     normal_user: "Normal user"
     not_assist: "Not attending"
     not_confirmed: "Not confirmed"
-    notifications: "How do you want to receive your notifications?"
     one: User
     other: Users
     private_message: "Send Message"
-    receive_digest: 
-      daily: "Every day"
-      description: "How often do you want to receive digest emails with recent activity in the communities you are a part of?"
-      never: Never
-      weekly: "Every week"
     recent_join: "Recent users joined"
     registered: "Thanks for registering! We have just sent instructions on how to activate your user account"
     request_confirmation: "Request confirmation email"
@@ -1619,10 +1625,8 @@ en:
       one: "People, %{users_size} result"
       other: "People, %{users_size} results"
     results_found: "Users found"
-    timezone: Timezone
     updated: "User updated successfully"
     vcc_email: "Mconf user e-mail %{dir}"
-    view_expanded_posts: "Show messages in wall with the expanded view by default"
   users:
     approve:
       approved: "The user %{username} was approved to access the website!"
@@ -1633,8 +1637,13 @@ en:
       disapproved: "The user %{username} was blocked from accessing the website!"
       not_enabled: "Approval of registrations is not enabled in this website"
     edit:
+      account_info: "Account info"
       approve: "Approve: allow user to access the website"
       approve_confirm: "Are you sure you want to allow this user to access the website?"
+      cancel_account: "Cancel account?"
+      change_password: "Change password"
+      click_to_edit_profile: "Click here to edit your profile"
+      did_not_find_info: "Didn't find the information you were looking for?"
       disable: "Disable this user's account"
       disable_confirm: "Are you sure you want to disable this user's account?"
       federated:
@@ -1643,14 +1652,25 @@ en:
         your_idp: "Your identity provider is: %{idp}"
       management_options: "Management options"
       not_confirmed: "Your account is not activated yet. Please, check your email to activate it. (Did not receive an email? <a href=\"%{url}\">Click here</a>.)"
-      not_confirmed_other: "This user has not confirmed his/her account yet."
+      notification:
+        by_email: "By email"
+        by_private_message: "By private message"
+      other_user:
+        click_to_edit_profile: "Click here to edit this user's profile"
+        not_confirmed: "This user has not confirmed his/her account yet."
+        title: "Edit user account"
+      preferences: "Preferences"
+      receive_digest:
+        daily: "Every day"
+        never: "Never"
+        weekly: "Every week"
+      title: "Edit your account"
+      yes_cancel_account: "Yes, cancel my account"
   username: Username
   vCard: 
     corrupt: "The vCard you sent is corrupted or is a non-supported version"
-    export: "Export your vCard"
     message: "Use your vCard to automatically fill in your profile"
     upload: "Upload your vCard"
-    use: "Use your vCard"
   vcc: Mconf
   vcc_mail_label: "[Mconf]"
   version: 

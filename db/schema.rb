@@ -103,6 +103,15 @@ ActiveRecord::Schema.define(:version => 20140201192634) do
   add_index "bigbluebutton_recordings", ["recordid"], :name => "index_bigbluebutton_recordings_on_recordid", :unique => true
   add_index "bigbluebutton_recordings", ["room_id"], :name => "index_bigbluebutton_recordings_on_room_id"
 
+  create_table "bigbluebutton_room_options", :force => true do |t|
+    t.integer  "room_id"
+    t.string   "default_layout"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
+
+  add_index "bigbluebutton_room_options", ["room_id"], :name => "index_bigbluebutton_room_options_on_room_id"
+
   create_table "bigbluebutton_rooms", :force => true do |t|
     t.integer  "server_id"
     t.integer  "owner_id"

@@ -1,36 +1,32 @@
 @import "definitions";
 @import "compass/css3";
 
+@import "app/spaces/admin_tabs";
+
 body.spaces.user_permissions {
 
   #user-permission {
     clear: both;
   }
 
-  .btn-deny {
-    margin-top: 4px;
-  }
-
-  .first-form {
-    float: left;
-    margin-right: 3px;
-    z-index: 1;
-  }
-
-  .join_request input {
-    width: 40px;
-  }
-
-  select, input, .label {
-    vertical-align: baseline;
-  }
-
   select {
     width: auto;
   }
 
-  .thread-text {
-    margin-top: 10px;
+  form {
+    .input {
+      margin: 0;
+      padding: 0;
+      float: left;
+    }
+
+    .btn {
+      margin: 4px 0 0 5px;
+    }
+  }
+
+  .thread .thread-text {
+    float: right;
   }
 
 }

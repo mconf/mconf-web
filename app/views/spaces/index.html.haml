@@ -63,5 +63,6 @@
     .content-block-middle.clearfix
       = render "spaces/thumbnail_view", :spaces => @objects, :user_spaces => @user_spaces
 
-.content-block-footer
-  = page_navigation_links @objects
+- nav = page_navigation_links @objects
+- unless nav.nil?
+  .content-block-footer= nav

@@ -1,4 +1,4 @@
-.thread.thread-user.thread-no-hover.user-wrapper.user-simple{:class => "#{cycle("thread-even" , "thread-odd")}"}
+.thread.thread-user.user-wrapper.user-simple{:class => "#{cycle("thread-even" , "thread-odd")}"}
   .logo-in-thread
     = raw link_logo_image(user, :size => '32', :title => user.name, :url => user_path(user), :class => 'logo logo-user')
 
@@ -15,10 +15,11 @@
     = link_to user_path(user), :confirm => t('.disable_confirm'), :method => :delete do
       = icon_delete(:alt => t('.disable'), :title => t('.disable'))
 
-  .user-text
+  .thread-title
     = link_to user_path(user), :class => 'user-name' do
       = highlight(sanitize(user.full_name), params[:q])
+    %span.user-email
       = "(#{highlight(user.username, params[:q])}, #{highlight(user.email, params[:q])})".html_safe
-
+  .user-text
     %span.user-category
       = user_category(user)

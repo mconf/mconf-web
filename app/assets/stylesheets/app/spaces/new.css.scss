@@ -3,6 +3,9 @@
 
 body.spaces.new, body.spaces.create {
 
+  // slightly wider sidebar
+  @include set-sidebar-width($sidebar-width + 100px);
+
   #space-new {
     width: 98%;
 
@@ -17,9 +20,9 @@ body.spaces.new, body.spaces.create {
     }
   }
 
-  .content-block-wrapper {
+  #sidebar .content-block-wrapper {
 
-    .content-block-middle {
+    .content-block-header {
       .space-logo {
         text-align: center;
         overflow: hidden; // for when the image is not found
@@ -34,6 +37,10 @@ body.spaces.new, body.spaces.create {
         img {
           background: $light-gray;
         }
+      }
+
+      h4 {
+        margin-top: 10px;
       }
     }
 

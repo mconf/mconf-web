@@ -50,16 +50,29 @@ class Space < ActiveRecord::Base
 
   validates :description, :presence => true
 
-  # BigbluebuttonRoom requires an identifier with 3 chars generated from :name
-  # so we'll require :name and :permalink to have length >= 3
-  validates :name, :presence => true, :uniqueness => true, :length => { :minimum => 3 }
-  validates :permalink, :presence => true, :length => { :minimum => 3 }
+  validates :name, :presence => true,
+                   :uniqueness => { :case_sensitive => false },
+                   :length => { :minimum => 3 }
+
+  # BigbluebuttonRoom requires an identifier with 3 chars generated from
+  # 'permalink', so we require it to have have length >= 3
+  # TODO: improve the format matcher, check specs for some values that are allowed today
+  #   but are not really recommended (e.g. '---')
+  validates :permalink, :uniqueness => { :case_sensitive => false },
+                        :format => /^[A-Za-z0-9\-_]*$/,
+                        :presence => true,
+                        :length => { :minimum => 3 }
+
+  # The permalink has to be unique not only for spaces, but across other
+  # models as well
+  validate :permalink_uniqueness
 
   # the friendly name / slug for the space
   extend FriendlyId
-  friendly_id :name, :use => :slugged, :slug_column => :permalink
+  friendly_id :permalink
   acts_as_resource :param => :permalink
-  after_validation :check_permalink
+
+  after_validation :check_errors_on_bigbluebutton_room
 
   # TODO: review all accessors, if we still need them
   attr_accessor :invitation_ids
@@ -165,6 +178,12 @@ class Space < ActiveRecord::Base
 
   private
 
+  def permalink_uniqueness
+    unless User.find_by_username(self.permalink).blank?
+      errors.add(:permalink, "has already been taken")
+    end
+  end
+
   # Creates the webconf room after the space is created
   def create_webconf_room
     params = {
@@ -192,13 +211,12 @@ class Space < ActiveRecord::Base
     end
   end
 
-  # Checks whether there an error in :permalink or :bigbluebutton_room.param.
-  # If there is, set the error in :name to be shown in the views.
-  def check_permalink
-    if self.errors[:permalink].size > 0
-      self.errors.add :name, I18n.t('activerecord.errors.messages.invalid_identifier', :id => self.permalink)
-    elsif self.bigbluebutton_room and self.bigbluebutton_room.errors[:param].size > 0
-      self.errors.add :name, I18n.t('activerecord.errors.messages.invalid_identifier', :id => self.bigbluebutton_room.param)
+  # Checks if an error happened when creating the associated 'bigbluebutton_room'
+  # and sets this error in an attribute that can be seen by the user in the views.
+  # TODO: Check for any error, not only on :param; test it better; do it for users too.
+  def check_errors_on_bigbluebutton_room
+    if self.bigbluebutton_room and self.bigbluebutton_room.errors[:param].size > 0
+      self.errors.add :permalink, I18n.t('activerecord.errors.messages.invalid_identifier', :id => self.bigbluebutton_room.param)
     end
   end
 

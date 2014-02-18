@@ -3,7 +3,7 @@
 = content_for :sidebar do
   = render 'custom_bigbluebutton_servers/server_links', :server => @server
 
-%h1= t('.showing_server', :server => @server.name)
+%h3= t('.showing_server', :server => @server.name)
 = render 'custom_bigbluebutton_servers/form', :editing => false, :server => @server
 
 %h3= t(".recordings")

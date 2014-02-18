@@ -27,14 +27,14 @@
                   %li= link_to t('_other.edit').downcase, space_edit_recording_path(recording.room.owner, recording), :class => "open-modal"
 
             .thread-title
-              .thread-updated-at
-                = t('.created')
-                = t('updated_time_ago', :time => time_ago_in_words(recording.created_at))
               = icon_recording
               - if recording.description.blank?
                 %span.recording-description= t('.no_description')
               - else
                 %span.recording-description= recording.description
+              .thread-updated-at
+                = t('.created')
+                = t('updated_time_ago', :time => time_ago_in_words(recording.created_at))
 
             .thread-subtitle
               .recording-date
@@ -47,10 +47,12 @@
               .thread-subtitle
                 - unless metaUser.nil?
                   - user = User.find_by_id(metaUser.content)
-                  - unless user.nil?
-                    .recording-author
-                      = t('.created_by') + ':'
+                  .recording-author
+                    = t('.created_by') + ':'
+                    - unless user.nil?
                       = link_to user.full_name, user_profile_path(user)
+                    - else
+                      %span= t('_other.user.removed')
 
             .thread-subtitle
               = render :partial => 'shared/recording_playback', :locals => { :recording => recording }

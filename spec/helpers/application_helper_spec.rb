@@ -88,6 +88,13 @@ describe ApplicationHelper do
     end
   end
 
+  describe "#webconf_path_prefix" do
+    context "returns the path prefix for web conference urls" do
+      before { Site.current.update_attributes(:domain => 'test.com', :ssl => true) }
+      it { webconf_path_prefix.should eq('/webconf/') }
+    end
+  end
+
   describe "#options_for_tooltip" do
     context "returns a hash with the default attributes for tooltips" do
       subject { options_for_tooltip('my-title') }

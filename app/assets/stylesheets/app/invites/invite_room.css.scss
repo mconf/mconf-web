@@ -3,20 +3,18 @@
 
 #webconference-invite {
 
-  .alert.alert-gray {
-    input {
-      cursor: text;
-      width: 95%;
-      background: white;
-      color: #444;
-      margin: 0;
-    }
+  #room_invite_url {
+    cursor: text;
+    width: 95%;
+    background: white;
+    color: #444;
+    margin: 0;
   }
 
   .section-header {
     font-weight: bold;
     margin: 15px 0 5px 0;
-    font-size: $font-medium;
+    @include font-size($font-medium);
 
     .help-icon {
       float: left;

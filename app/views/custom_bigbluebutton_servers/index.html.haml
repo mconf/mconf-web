@@ -3,7 +3,7 @@
 = content_for :sidebar do
   = render 'shared/webconf_index_links'
 
-%h1= t('.list_of_servers')
+%h3= t('.list_of_servers')
 %table.server-table.table-striped.table-hover.table-condensed
   %thead
     %tr
@@ -17,5 +17,4 @@
         %td= server.url
         %td
           %ul.access-links
-            %li= link_to t('_other.details'), bigbluebutton_server_path(server), :class => "btn btn-mini"
             %li= link_to t('_other.edit'), edit_bigbluebutton_server_path(server), :class => "btn btn-mini"

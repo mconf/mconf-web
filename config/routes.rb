@@ -72,6 +72,7 @@ Mconf::Application.routes.draw do
       post :enable
       post :leave
       get :user_permissions
+      get :webconference_options
       get :webconference
       get :recordings
     end

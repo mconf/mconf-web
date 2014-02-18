@@ -3,15 +3,10 @@
 
 @import "app/spaces/admin_tabs";
 
-body.spaces.edit {
+body.spaces.webconference_options {
 
-  #edit-space {
+  #webconference-options {
     clear: both;
-  }
-
-  // need this because the right column has an absolute position, see below
-  #content-middle {
-    position: relative;
   }
 
   .left-column {
@@ -33,19 +28,6 @@ body.spaces.edit {
         display: none;
       }
     }
-  }
-
-  #edit-space-current-logo {
-    @include logo-in-thread; // in _definitions
-    img {
-      height: 128px;
-      width: 168px;
-    }
-  }
-
-  #edit-space-other-options {
-    text-align: center;
-    .btn { margin-left: 5px; }
   }
 
 }

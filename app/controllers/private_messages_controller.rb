@@ -33,7 +33,7 @@ class PrivateMessagesController < ApplicationController
     @message = PrivateMessage.find(params[:id])
     params[:page] ||= 1
     @previous_message = @message #this is to the reply message partial
-    @receiver = User.find(@message.sender_id)
+    @receiver = User.find_by_id(@message.sender_id)
     @previous_messages = WillPaginate::Collection.create(params[:page], 5) do |pager|
       @previous_messages = PrivateMessage.previous(@message).reverse
       pager.replace(@previous_messages[pager.offset, pager.per_page])

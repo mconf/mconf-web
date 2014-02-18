@@ -13,21 +13,21 @@
       = t('no_messages_in_wall')
 
   - unless today.empty?
-    %span.interval-title= t('today')
+    %h3.interval-title= t('today')
     - today.each do |thread|
       = render :partial => "unified_post" , :locals => {:thread => thread}
 
   - unless yesterday.empty?
-    %span.interval-title= t('yesterday')
+    %h3.interval-title= t('yesterday')
     - yesterday.each do |thread|
       = render :partial => "unified_post" , :locals => {:thread => thread}
 
   - unless last_week.empty?
-    %span.interval-title= t('last_week')
+    %h3.interval-title= t('last_week')
     - last_week.each do |thread|
       = render :partial => "unified_post" , :locals => {:thread => thread}
 
   - unless older.empty?
-    %span.interval-title= t('old_items')
+    %h3.interval-title= t('old_items')
     - older.each do |thread|
       = render :partial => "unified_post" , :locals => {:thread => thread}

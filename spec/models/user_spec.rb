@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # This file is part of Mconf-Web, a web application that provides access
 # to the Mconf webconferencing system. Copyright (C) 2010-2012 Mconf
 #
@@ -22,7 +23,6 @@ describe User do
   it { should have_many(:posts).dependent(:destroy) }
 
   it { should validate_presence_of(:email) }
-  it { should validate_presence_of(:username) }
 
   [ :email, :password, :password_confirmation,
     :remember_me, :login, :username, :receive_digest, :approved ].each do |attribute|
@@ -69,6 +69,47 @@ describe User do
     end
 
     pending "has the server as the first server existent"
+  end
+
+  describe "#username" do
+    it { should validate_presence_of(:username) }
+    it { should validate_uniqueness_of(:username).case_insensitive }
+    it { should ensure_length_of(:username).is_at_least(1) }
+    it { should_not allow_value("123 321").for(:username) }
+    it { should_not allow_value("").for(:username) }
+    it { should_not allow_value("ab@c").for(:username) }
+    it { should_not allow_value("ab#c").for(:username) }
+    it { should_not allow_value("ab$c").for(:username) }
+    it { should_not allow_value("ab%c").for(:username) }
+    it { should_not allow_value("ábcd").for(:username) }
+    it { should allow_value("-").for(:username) }
+    it { should allow_value("-abc").for(:username) }
+    it { should allow_value("abc-").for(:username) }
+    it { should allow_value("_abc").for(:username) }
+    it { should allow_value("abc_").for(:username) }
+    it { should allow_value("abc").for(:username) }
+    it { should allow_value("123").for(:username) }
+    it { should allow_value("1").for(:username) }
+    it { should allow_value("a").for(:username) }
+    it { should allow_value("_").for(:username) }
+    it { should allow_value("abc-123_d5").for(:username) }
+
+    describe "validates uniqueness against Space#permalink" do
+      describe "on create" do
+        let(:space) { FactoryGirl.create(:space) }
+        subject { FactoryGirl.build(:user, :username => space.permalink) }
+        it { should_not be_valid }
+      end
+
+      describe "on update" do
+        let(:user) { FactoryGirl.create(:user) }
+        let(:space) { FactoryGirl.create(:space) }
+        before(:each) {
+          user.username = space.permalink
+        }
+        it { user.should_not be_valid }
+      end
+    end
   end
 
   describe "on update" do

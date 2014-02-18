@@ -1,14 +1,23 @@
-= content_for :page_header_extra do
-  %span= t('user.edit.did_not_find_info')
-  = link_to t('user.edit.click_to_edit_profile'), edit_user_profile_path(current_user)
-= render_page_title t('user.edit_account')
+-# Note: this view can be seen by the user himself or by an admin.
+-#   It will behave differently in each case.
+
+- if current_user == @user
+  = content_for :page_header_extra do
+    %span= t('.did_not_find_info')
+    = link_to t('.click_to_edit_profile'), edit_user_profile_path(@user)
+  = render_page_title t('.title')
+- else
+  = content_for :page_header_extra do
+    %span= t('.did_not_find_info')
+    = link_to t('.other_user.click_to_edit_profile'), edit_user_profile_path(@user)
+  = render_page_title t('.other_user.title')
 
 - unless @user.confirmed?
   #user-not-confirmed.alert.alert-warning
     - if current_user == @user
       = t('.not_confirmed', :url => new_user_confirmation_path).html_safe
     - else
-      = t('.not_confirmed_other')
+      = t('.other_user.not_confirmed')
 
 - if current_user == @user && user_signed_in_via_federation?
   #user-federated-info.alert.alert-gray
@@ -17,41 +26,41 @@
       %span= t('.federated.your_idp', :idp => @shib_provider)
     = link_to t('.federated.see_your_data'), shibboleth_info_path, :class => 'open-modal'
 
-= simple_form_for @user, :url => user_path(@user), :html => {:method => :put, :class => 'single-column'} do |f|
+= simple_form_for @user, :url => user_path(@user), :html => { :method => :put } do |f|
 
   .left-column
 
     #account-info
-      %h3= t('user.edit.account_info')
+      %h3= t('.account_info')
       = f.input :email, :required => false, :disabled => true
       = f.input :username, :required => false, :disabled => true
 
     #change-password
-      %h3= t('user.edit.change_password')
-      = f.input :password, :autocomplete => "off", :placeholder => t('user.edit.password.hint'), :required => false
+      %h3= t('.change_password')
+      = f.input :password, :autocomplete => "off", :required => false
       = f.input :password_confirmation, :required => false
       = f.input :current_password
 
   .right-column
     #account-preferences
-      %h3= t('preferences')
+      %h3= t('.preferences')
 
-      = f.input :timezone, :label => t('user.timezone'), :required => false, :hint => t("tooltip.timezone") do
+      = f.input :timezone, :required => false do
         = f.time_zone_select :timezone, nil, :include_blank => true
 
-      = f.input :expanded_post, :label => t('user.view_expanded_posts'), :required => false, :as => :radio_buttons
+      = f.input :expanded_post, :required => false, :as => :radio_buttons
 
-      = f.input :notification, :label => t('user.notifications'), :required => false do
+      = f.input :notification, :required => false do
         - collection = []
-        - collection.push([User::NOTIFICATION_VIA_PM, t('user.by_private_message')])
-        - collection.push([User::NOTIFICATION_VIA_EMAIL, t('user.by_email')])
+        - collection.push([User::NOTIFICATION_VIA_PM, t('.notification.by_private_message')])
+        - collection.push([User::NOTIFICATION_VIA_EMAIL, t('.notification.by_email')])
         = f.collection_radio_buttons :notification, collection, :first, :last
 
-      = f.input :receive_digest, :label => t('user.receive_digest.description'), :required => false do
+      = f.input :receive_digest, :required => false do
         - collection = []
-        - collection.push([User::RECEIVE_DIGEST_NEVER, t('user.receive_digest.never')])
-        - collection.push([User::RECEIVE_DIGEST_DAILY, t('user.receive_digest.daily')])
-        - collection.push([User::RECEIVE_DIGEST_WEEKLY, t('user.receive_digest.weekly')])
+        - collection.push([User::RECEIVE_DIGEST_NEVER, t('.receive_digest.never')])
+        - collection.push([User::RECEIVE_DIGEST_DAILY, t('.receive_digest.daily')])
+        - collection.push([User::RECEIVE_DIGEST_WEEKLY, t('.receive_digest.weekly')])
         = f.collection_radio_buttons :receive_digest, collection, :first, :last
 
   - if user_signed_in? && current_user.superuser
@@ -59,8 +68,9 @@
       %h3= t('.management_options')
       = f.input :can_record, :required => false
 
-      -# prevent admins from mistakenly removing themselves from being admins
-      - unless @user.id == current_user.id
+      -# prevent admins from mistakenly removing themselves from being admins or blocking
+      -# access to their account
+      - unless current_user == @user
         = f.input :approved, :required => false
         = f.input :superuser, :required => false
         .input
@@ -68,8 +78,9 @@
             = icon_delete(:alt => t('.disable'), :title => t('.disable'))
             = t('.disable')
 
-  = f.button :wrapped, :cancel => edit_user_path(@user), :value => t("save")
+  = f.button :wrapped, :cancel => edit_user_path(@user), :value => t("_other.save")
 
-  #cancel-account.alert.alert-danger
-    %span= t('user.edit.cancel_account')
-    = link_to t('user.edit.yes_cancel_account'), user_path(current_user), :data => { :confirm => t("are_you_sure") }, :method => :delete, :class => 'btn btn-small btn-danger'
+  - if current_user == @user
+    #cancel-account.alert.alert-danger
+      %span= t('.cancel_account')
+      = link_to t('.yes_cancel_account'), user_path(current_user), :data => { :confirm => t("are_you_sure") }, :method => :delete, :class => 'btn btn-small btn-danger'

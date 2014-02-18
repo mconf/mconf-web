@@ -4,12 +4,16 @@
     = modal_close_button
     %h3= t('bbb_room.edit')
 
+  -# TODO: this should be a form to current_user, with a simple_fields_for :bigbluebutton_room
+  -#   inside it.
   = simple_form_for @room, :html => { :class => "single-column" } do |f|
     .modal-body
       = hidden_field_tag :redir_url, @redir_url
-      = f.input :private, :label => t('bbb_room.private'), :hint => t('bigbluebutton_rails.rooms.private.tooltip')
-      = f.input :moderator_password, :as => :showable_password, :label => t('bbb_room.moderatorPW')
-      = f.input :attendee_password, :as => :showable_password, :label => t('bbb_room.attendeePW')
+      = f.input :private, :hint => t('simple_form.hints.user.bigbluebutton_room.private')
+      = f.input :moderator_password, :as => :showable_password, :label => t('bbb_room.moderatorPW'), :hint => t('simple_form.hints.user.bigbluebutton_room.moderator_password')
+      = f.input :attendee_password, :as => :showable_password, :label => t('bbb_room.attendeePW'), :hint => t('simple_form.hints.user.bigbluebutton_room.attendee_password')
+      = f.input :default_layout do
+        = f.select :default_layout, @room.get_available_layouts, :include_blank => t('.layout_empty_option')
     .modal-footer.form-actions
       = f.button :submit, t("save"), :class => "btn btn-primary"
       = link_to t("cancel"), "#", :class => "btn close-dialog"

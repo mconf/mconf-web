@@ -33,12 +33,12 @@
 }
 
 input, select, textarea {
-  font-size: $font-normal+1px !important;
-  line-height: $font-normal+6px !important;
+  font-size: $font-normal !important;
+  line-height: $font-normal+2px !important;
 }
 
 .btn {
-  font-size: $font-normal+1px !important;
+  font-size: $font-normal !important;
 
   &.btn-large {
     font-size: $font-big !important;

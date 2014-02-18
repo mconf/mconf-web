@@ -1,5 +1,3 @@
-%h1= t('message.private.send')
-
 = simple_form_for @private_message, :url => messages_path, :html => { :class => 'single-column' } do |f|
   - unless @receiver
     = f.input :users_tokens, :label => t('message.to'), :required => true

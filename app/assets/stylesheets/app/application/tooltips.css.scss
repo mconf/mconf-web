@@ -5,6 +5,10 @@
   cursor: pointer;
 }
 
+.tooltip {
+  z-index: $z-index-tooltip;
+}
+
 /* Without this some tooltips will be shown in a single line, and if its
    text is too big it won't show the entire text. */
 .tooltip-inner {
@@ -13,11 +17,11 @@
 }
 
 .ui-tooltip-mconf {
-  z-index: 9999;
+  z-index: $z-index-tooltip;
   font-weight: normal;
 
   .ui-tooltip-content {
-    font-size: $font-normal;
+    @include font-size($font-normal);
     text-align: center;
     line-height: 1.3em;
     font-weight: normal;
@@ -25,11 +29,11 @@
 }
 
 .ui-tooltip-mconf-label {
-  z-index: 9999;
+  z-index: $z-index-tooltip;
   font-weight: normal;
 
   .ui-tooltip-content {
-    font-size: $font-medium;
+    @include font-size($font-medium);
     text-align: center;
     font-weight: normal;
   }

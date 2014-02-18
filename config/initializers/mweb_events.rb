@@ -1,6 +1,6 @@
 Rails.application.config.after_initialize do
   if configatron.modules.events.loaded
-    if defined?(Site) && Site.current &&
+    if defined?(Site) && Site.table_exists? && Site.current &&
         Site.current.respond_to?(:events_enabled) &&
         Site.current.events_enabled?
       configatron.modules.events.enabled = true
@@ -75,4 +75,3 @@ Rails.application.config.to_prepare do
   end
 
 end
-

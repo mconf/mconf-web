@@ -1,14 +1,19 @@
 @import "compass/utilities/general";
 
 // fonts
+$font-mini: 10px;
 $font-small: 11px;
-$font-normal: 12px;
+$font-normal: 13px;
 $font-medium: 14px;
 $font-big: 16px;
+$font-bigger: 21px;
+$font-biggest: 25px;
 $font-gigantic: 28px;
 $font-section-title: 32px;
 $font-color: #333;
 $font-color-gray: #888;
+$font-family: Arial, sans-serif;
+$base-line-height: 1.5;
 
 // standard colors
 $green: #509F00;
@@ -19,8 +24,18 @@ $yellow: #BB9403;
 $green-logo: #27535C;
 $gray: #ccc;
 $light-gray: #f6f6f6;
+$very-light-gray: #fcfcfc;
 $bright-blue: #49afcd;
 $transparent: rgba(255,255,255,0);
+// site colors
+$site-bg-color: #fff;
+$main-color: $green-logo;
+$second-color: $bright-blue;
+$focus-border-color: $second-color;
+// link colors
+$link-color: lighten($main-color, 15);
+$link-color-hover: $second-color;
+$link-color-active: darken($link-color-hover, 15);
 
 // alert colors, like the ones in bootstrap alerts
 $alert-bg: #FCF8E3;
@@ -34,10 +49,6 @@ $alert-danger-font: #B94A48;
 $alert-gray-bg: #f6f6f6;
 $alert-gray-font: #666;
 
-$site-bg-color: #fff;
-$main-color: $green-logo;
-$second-color: $bright-blue;
-
 // color for elements highlighted using rails' highlight() view helper.
 $highlight-bg: #ffff81;
 
@@ -45,14 +56,13 @@ $highlight-bg: #ffff81;
 $contents-width: 980px;
 $sidebar-width: 240px;
 
-// links
-$link-color: lighten($main-color, 10);
-$link-color-hover: $second-color;
-$link-color-active: darken($link-color-hover, 15);
 
 // headers
-$navbar-bg-color: darken($green-logo, 10);
+$navbar-bg-color: darken($green-logo, 3);
 $subnav-bg-color: #eee;
+$navbar-height: 35px;
+$navbar-font-color: #bbb;
+$navbar-font-color-hover: white;
 
 // global footer
 $footer-bg-color: $light-gray;
@@ -91,7 +101,7 @@ $z-index-tooltip: 999999;
 // e.g. list of posts, list of recent users, etc.
 @mixin logo-in-thread {
   float: left;
-  margin-right: 5px;
+  margin-right: 10px;
 
   img.logo {
     margin: 2px 0;
@@ -161,4 +171,39 @@ $z-index-tooltip: 999999;
     font-size: $font-small;
     margin-right: 2px;
   }
+}
+
+@mixin set-sidebar-width($new-width) {
+  #sidebar {
+    width: $new-width;
+  }
+  #content-middle {
+    width: $contents-width - $new-width - 20px; // less right-margin
+  }
+}
+
+@mixin sidebar-position($pos) {
+  @if $pos == 'left' {
+    #sidebar {
+      float: left;
+    }
+    #content-middle {
+      float: right;
+    }
+  }
+}
+
+//
+// Methods below from: https://github.com/stubbornella/oocss
+//
+// Function for converting a px based font-size to rem.
+@function calculate-rem($size) {
+  $remSize: $size / 16px;
+  // Default font size on html element is 100%, equivalent to 16px;
+  @return #{$remSize}rem;
+}
+// Mixin that will include the fall back px declaration as well as the calculated rem value.
+@mixin font-size($size) {
+  font-size: $size;
+  font-size: calculate-rem($size);
 }
