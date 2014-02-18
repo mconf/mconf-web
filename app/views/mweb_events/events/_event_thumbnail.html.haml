@@ -6,6 +6,15 @@
     = event_logo_link(event, :title => sanitize(event.name), :class => "logo logo-event")
   .list-description
     = link_to first_words(event.name, 80), mweb_events.event_path(event), :title => event.name, :class => "list-title"
+    - if event.public
+      %span.visibility.public
+        = icon_space_public()
+        = t("mweb_events.events.index.public")
+    - else
+      %span.visibility.private
+        = icon_space_private()
+        = t("mweb_events.events.index.private")
+
     .event-description-date
       = t('.starts_at') + ':'
       = event.get_formatted_date
@@ -13,4 +22,5 @@
       .event-description-location
         = t('.where') + ':'
         = sanitize(event.address)
+
     %span= t('_other.participants', :count => event.participants.count)

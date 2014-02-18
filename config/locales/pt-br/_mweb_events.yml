@@ -5,10 +5,15 @@ pt-br:
       event_thumbnail:
         starts_at: "Inicia em"
         where: "Localização"
+      registration:
+        closed: Inscrições para este evento estão fechadas.
+        join_button: Junte-se a esta comunidade para participar
       index:
         now: Agora
         create_new_event: "Adicionar evento"
         count: (%{count} encontrados)
+        public: Aberto ao público
+        private: Privado
         filters:
           all_events: "Todos eventos"
           my_events: "Meus eventos"

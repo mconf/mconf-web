@@ -6,8 +6,10 @@
 
 # Based on https://gist.github.com/3729390/
 
+include Mconf::Modules # for some reason this needs to be here too
+
 module Abilities
-  extend Mconf::Modules
+  include Mconf::Modules # for some reason this needs to be here too
 
   def self.ability_for(user)
     if user and user.superuser?
@@ -192,7 +194,8 @@ module Abilities
         end
 
         can :register, MwebEvents::Event do |e|
-          e.owner != user && MwebEvents::Participant.where(:owner_id => user.id, :event_id => e.id).empty?
+          MwebEvents::Participant.where(:owner_id => user.id, :event_id => e.id).empty? &&
+          (e.public || (e.owner_type == 'Space' && e.owner.users.include?(user)))
         end
 
         # Participants from MwebEvents
@@ -361,7 +364,9 @@ module Abilities
 
       # for MwebEvents
       if mod_enabled?('events')
-        can [:read, :register], MwebEvents::Event
+        can [:read, :select], MwebEvents::Event
+        # Pertraining public and private event registration
+        can :register, MwebEvents::Event, :public => true
         can :create, MwebEvents::Participant # TODO: really needed?
       end
     end

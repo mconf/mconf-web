@@ -5,10 +5,15 @@ en:
       event_thumbnail:
         starts_at: "Starts at"
         where: "Where"
+      registration:
+        closed: Registration for this event is closed.
+        join_button: Join this space to register
       index:
         now: Happening now
         create_new_event: "Add a new event"
         count: (found %{count})
+        public: Open to the public
+        private: Private
         filters:
           all_events: "All events"
           my_events: "My events"

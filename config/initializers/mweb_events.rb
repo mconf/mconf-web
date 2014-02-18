@@ -23,6 +23,10 @@ Rails.application.config.to_prepare do
         @events = current_user.events if params[:my_events]
 
         @events = @events.accessible_by(current_ability).paginate(:page => params[:page])
+
+        # # Filter events belonging to spaces or users with disabled status
+        @events = @events.joins('INNER JOIN spaces ON mweb_events_events.owner_id = spaces.id').where("owner_type = 'Space' AND spaces.disabled = false")
+        @events = @events.joins('INNER JOIN users ON mweb_events_events.owner_id = users.id').where("owner_type = 'User' AND users.disabled = false")
       end
 
       after_filter :only => [:create, :update] do
@@ -39,8 +43,20 @@ Rails.application.config.to_prepare do
 
       # Temporary while we have no private events
       def public
-        true
+        if owner_type == 'User'
+          true # User owned spaces are always public
+        elsif owner_type == 'Space'
+          owner.public?
+        end
       end
+
+      # alias :old_owner :owner
+      # def owner
+      #   Space.unscoped do
+      #     old_owner
+      #   end
+      # end
+
     end
 
 
