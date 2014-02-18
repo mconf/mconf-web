@@ -754,7 +754,7 @@ en:
   latest_news: "Latest news"
   layouts:
     application_navbar:
-      events: "All events"
+      events: "Events"
       inbox: "Inbox"
       login: "Sign in"
       manage: "Manage"
@@ -1080,6 +1080,9 @@ en:
         export: "Export vCard"
         tooltip: "vCard is a file format standard for electronic business cards"
         use: "Use a vCard"
+    show:
+      vcard:
+        export: "Export vCard"
   province: Province
   public: Public
   read_more: "Read more"

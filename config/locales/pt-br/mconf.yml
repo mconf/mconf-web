@@ -738,7 +738,7 @@ pt-br:
   latest_news: "Últimas notícias"
   layouts:
     application_navbar:
-      events: "Todos eventos"
+      events: "Eventos"
       inbox: "Caixa de entrada"
       login: "Login"
       manage: "Gerenciar"
@@ -1058,6 +1058,9 @@ pt-br:
         export: "Exportar vCard"
         tooltip: "vCard é um formato de arquivo padrão para cartões eletrônicos"
         use: "Usar um vCard"
+    show:
+      vcard:
+        export: "Exportar vCard"
   province: Estado
   public: Público
   read_more: "Ler mais"

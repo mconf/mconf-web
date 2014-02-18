@@ -29,7 +29,7 @@
           %span.event-timezone
             = "(#{t('timezone.one')}: GMT#{Time.zone.formatted_offset})"
         .content-block-middle
-          = render 'events/sidebar_events_simple', :events => @space.upcoming_events(5)
+          = render 'space_events/sidebar_events_simple', :events => @space.upcoming_events(5)
         .content-block-footer
           = link_to icon_feed, space_events_path(@space, :format => :atom)
           = link_to(t('read_more'), space_events_path(@space))
