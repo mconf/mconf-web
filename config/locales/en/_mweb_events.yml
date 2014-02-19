@@ -5,6 +5,7 @@ en:
       event_thumbnail:
         starts_at: "Starts at"
         where: "Where"
+        closed: Registration closed
       registration:
         closed: Registration for this event is closed.
         join_button: Join this space to register

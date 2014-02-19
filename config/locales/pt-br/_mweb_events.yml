@@ -5,6 +5,7 @@ pt-br:
       event_thumbnail:
         starts_at: "Inicia em"
         where: "Localização"
+        closed: Inscrições encerradas
       registration:
         closed: Inscrições para este evento estão fechadas.
         join_button: Junte-se a esta comunidade para participar
