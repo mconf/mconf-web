@@ -24,9 +24,9 @@ Rails.application.config.to_prepare do
 
         @events = @events.accessible_by(current_ability).paginate(:page => params[:page])
 
-        # # Filter events belonging to spaces or users with disabled status
-        @events = @events.joins('INNER JOIN spaces ON mweb_events_events.owner_id = spaces.id').where("owner_type = 'Space' AND spaces.disabled = false")
-        @events = @events.joins('INNER JOIN users ON mweb_events_events.owner_id = users.id').where("owner_type = 'User' AND users.disabled = false")
+        # Filter events belonging to spaces or users with disabled status
+        @events = @events.joins('INNER JOIN spaces ON owner_id = spaces.id INNER JOIN users ON owner_id = users.id')
+          .where("owner_type = 'Space' AND spaces.disabled = false OR owner_type = 'User' AND users.disabled = false")
       end
 
       after_filter :only => [:create, :update] do
