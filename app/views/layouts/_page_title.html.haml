@@ -6,7 +6,9 @@
     .current-page-logo{ :class => transparent ? 'clean' : '' }
       = image_tag(logo, :title => page_title)
     .current-page-title
-      = page_title
+      .main-title= page_title
+      - if content_for?(:page_header_subtitle)
+        .sub-title= yield :page_header_subtitle
     .current-title-extra
       - if content_for?(:page_header_extra)
         = yield :page_header_extra
@@ -15,4 +17,6 @@
       - if content_for?(:page_header_extra)
         = yield :page_header_extra
     .current-page-title
-      = page_title
+      .main-title= page_title
+      - if content_for?(:page_header_subtitle)
+        .sub-title= yield :page_header_subtitle

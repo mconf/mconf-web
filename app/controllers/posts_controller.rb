@@ -98,10 +98,7 @@ class PostsController < ApplicationController
   def destroy
     @post.destroy
     respond_to do |format|
-      if !@post.event.nil?
-        flash[:notice] = t('post.deleted', :postname => @post.title)
-        format.html {redirect_to space_event_path(@space, @post.event)}
-      elsif @post.parent_id.nil?
+      if @post.parent_id.nil?
         flash[:notice] = t('thread.deleted')
         format.html { redirect_to space_posts_path(@space) }
       else

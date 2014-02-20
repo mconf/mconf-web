@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140120160728) do
+ActiveRecord::Schema.define(:version => 20140201192634) do
 
   create_table "activities", :force => true do |t|
     t.integer  "trackable_id"
@@ -43,7 +43,6 @@ ActiveRecord::Schema.define(:version => 20140120160728) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "space_id"
-    t.integer  "event_id"
     t.integer  "author_id"
     t.string   "author_type"
     t.integer  "version_child_id"
@@ -169,25 +168,6 @@ ActiveRecord::Schema.define(:version => 20140120160728) do
 
   add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
 
-  create_table "events", :force => true do |t|
-    t.string   "name"
-    t.text     "description"
-    t.string   "place"
-    t.datetime "start_date"
-    t.datetime "end_date"
-    t.integer  "parent_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "space_id"
-    t.integer  "author_id"
-    t.string   "author_type"
-    t.boolean  "spam",                    :default => false
-    t.text     "notes"
-    t.text     "location"
-    t.string   "permalink"
-    t.text     "other_participation_url"
-  end
-
   create_table "join_requests", :force => true do |t|
     t.string   "request_type"
     t.integer  "candidate_id"
@@ -214,21 +194,42 @@ ActiveRecord::Schema.define(:version => 20140120160728) do
   add_index "ldap_tokens", ["identifier"], :name => "index_ldap_tokens_on_identifier", :unique => true
   add_index "ldap_tokens", ["user_id"], :name => "index_ldap_tokens_on_user_id", :unique => true
 
+  create_table "mweb_events_events", :force => true do |t|
+    t.string   "name"
+    t.text     "summary"
+    t.text     "description"
+    t.string   "social_networks"
+    t.integer  "owner_id"
+    t.string   "owner_type"
+    t.datetime "start_on"
+    t.datetime "end_on"
+    t.string   "time_zone"
+    t.string   "location"
+    t.string   "address"
+    t.float    "latitude"
+    t.float    "longitude"
+    t.string   "permalink"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
+  add_index "mweb_events_events", ["permalink"], :name => "index_mweb_events_events_on_permalink"
+
+  create_table "mweb_events_participants", :force => true do |t|
+    t.integer  "owner_id"
+    t.string   "owner_type"
+    t.integer  "event_id"
+    t.string   "email"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "news", :force => true do |t|
     t.string   "title"
     t.text     "text"
     t.integer  "space_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
-  end
-
-  create_table "participants", :force => true do |t|
-    t.string   "email"
-    t.integer  "user_id"
-    t.integer  "event_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.boolean  "attend"
   end
 
   create_table "permissions", :force => true do |t|
@@ -255,7 +256,6 @@ ActiveRecord::Schema.define(:version => 20140120160728) do
     t.integer  "author_id"
     t.string   "author_type"
     t.integer  "parent_id"
-    t.integer  "event_id"
     t.boolean  "spam",        :default => false
   end
 
@@ -362,6 +362,7 @@ ActiveRecord::Schema.define(:version => 20140120160728) do
     t.string   "ldap_email_field"
     t.string   "ldap_name_field"
     t.boolean  "require_registration_approval",  :default => false, :null => false
+    t.boolean  "events_enabled",                 :default => false
   end
 
   create_table "spaces", :force => true do |t|

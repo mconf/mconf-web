@@ -5,9 +5,16 @@
 # 3 or later. See the LICENSE file.
 
 require 'version'
+require './lib/mconf/modules'
 
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
+  include Mconf::Modules
+  extend Mconf::Modules
+
+  if mod_enabled?('events')
+    include MwebEvents::EventsHelper
+  end
 
   # Clippy from https://github.com/lackac/clippy
   #

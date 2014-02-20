@@ -4,7 +4,7 @@
 $ ->
   if isOnPage 'spaces', 'index'
 
-    # how results are formatted in the filter by name
+    # how results are formatted in the search input
     format = (state) ->
       if state.public
         r = "<i class='icon-awesome icon-eye-open icon-mconf-space-public'></i>"
@@ -12,10 +12,11 @@ $ ->
         r = "<i class='icon-awesome icon-lock icon-mconf-space-private'></i>"
       "#{r}<a href='#{state.url}'>#{state.text}</a>"
 
-    # redirects to the space when an item is selected
+    # redirects to the space when an item is clicked in the search input
     $("#space_filter_text").on "change", (e) ->
       window.location = e.added.url if e.added?.url?
 
+    # select input to search for spaces
     $("#space_filter_text").select2
       minimumInputLength: 1
       placeholder: I18n.t('spaces.index.search.by_name.placeholder')
@@ -33,7 +34,7 @@ $ ->
           results: data
 
     # hovering an space shows its description in the sidebar
-    $(".space-item").hover ->
+    $(".list-thumbnails > li, .list-texts > li").hover ->
 
       # hide all descriptions and shows the selected
       hovered = "div#" + $(this).attr("name") + "-description"
@@ -41,7 +42,7 @@ $ ->
       $(hovered).show()
 
       # remove all 'selected' classes and adds only to the selected div
-      $(".space-item.selected").removeClass("selected")
+      $(".list-thumbnails > li.selected, .list-texts > li.selected").removeClass("selected")
       $(this).addClass("selected")
 
       # updates the position of the description div

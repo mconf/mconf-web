@@ -8,9 +8,15 @@ module LogoImagesHelper
       model_type = :user
     elsif resource.is_a?(Space)
       model_type = :space
+    else
+      if mod_enabled?('events')
+        if resource.is_a?(MwebEvents::Event)
+          path_no_image = "default_logos/" + options[:size] + "/event.png"
+        end
+      end
     end
     size = ("logo" + options[:size]).to_sym
-    resource.logo_image.present? ?
+    resource.attributes.has_key?(:logo_image) && resource.logo_image.present? ?
       image_tag(resource.logo_image_url(size), options) :
       empty_logo_image(model_type, options)
   end

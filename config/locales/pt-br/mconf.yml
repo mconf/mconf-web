@@ -12,7 +12,7 @@ pt-br:
         create_html: "Uma reunião foi iniciada na sala do usuário %{owner} em %{time}"
       space:
         create_html: "Uma reunião foi iniciada na comunidade %{owner} em %{time}"
-    event:
+    mweb_events_event:
       create_html: criou o evento %{name} na comunidade
       attend_html: participará do evento %{name} da comunidade
       not_attend_html: não participará do evento %{name} da comunidade
@@ -47,12 +47,19 @@ pt-br:
     details: "Detalhes"
     edit: "Editar"
     end: "Finalizar"
+    index: Listando
     in_place_edit:
       error: "erro"
       success: "gravado"
     join: "Entrar"
     login_to_enable: "Você precisa estar logado para acessar esta opção"
+    members:
+      one: "%{count} membro"
+      other: "%{count} membros"
     no_: "Não"
+    participants:
+      one: "%{count} participante"
+      other: "%{count} participantes"
     publish: "Publicar"
     save: "Salvar"
     send: "Enviar"
@@ -65,6 +72,8 @@ pt-br:
     user:
       administrator: "Administrador global"
       normal_user: "Usuário normal"
+      guest: Convidado
+      guest_name: "Usuário convidado \(%{email}\)"
       removed: "<usuário removido>"
     yes_: "Sim"
     webconference:
@@ -83,17 +92,12 @@ pt-br:
   actions: Ações
   activerecord:
     attributes:
-      event:
-        description: "Descrição"
-        end_date: "Data e horário de fim"
-        location: "Localização"
-        name: "Nome"
-        start_date: "Data e horário de início"
       site:
         analytics_code: "Código do Google Analytics"
         chat_enabled: "Habilitar Chat"
         description: "Descrição"
         domain: "Domínio da Aplicação"
+        events_enabled: "Habilitar módulo de eventos"
         exception_notifications: "Enviar e-mails de depuração"
         exception_notifications_email: "Destinatários dos e-mails de depuração"
         exception_notifications_prefix: "Prefixo no assunto dos e-mails de depuração"
@@ -174,7 +178,7 @@ pt-br:
       password: Senha
   agree: Sim
   all: Todos
-  all_events: "Todos eventos"
+  all_events: "Eventos"
   all_rights_reserved: "Todos os direitos reservados"
   any_field: "Qualquer campo"
   are_you_sure: "Você tem certeza?"
@@ -565,130 +569,16 @@ pt-br:
     one: Erro
     other: Erros
     vcc_warning: "Aviso geral:"
-  event:
-    basic_info: "Introduzir informação básica"
-    created: "Evento criado com sucesso"
-    deleted: "Evento excluído com sucesso"
-    description:
-      add: "Adicionar descrição."
-      edit: "Editar descrição"
-      none: "Ninguém escrever uma descrição ainda."
-    edit: "Editar informações básicas do evento"
-    error:
-      date_past: "Data inicial não pode ser no passado"
-      dates: "Data final deve ser após a data inicial"
-      dates1: "A data inicial do evento deve ser antes da data final do evento"
-      marte: "Não foi possível criar a conferência virtual"
-      max_size_excedeed: "A duração máxima do evento é %{max_days} dias e não pode ser excedida"
-      omit_date: "O evento precisa uma data inicial e uma data final"
-      too_short: "O evento é muito curto, ele deve ter pelo menos 15 minutos"
-    home:
-      one: "Evento na comunidade %{space}"
-    invite_event: "Convide pessoas para o evento %{event_name}"
-    invite_message: "Gostaria de convidá-lo para <b>o evento %{event_name} na comunidade %{space}</b> em %{event_date}. </p><p> Você pode encontrar mais informações sobre este evento em <a href=\"%{event_url}\">%{event_url}</a> </p><p> Atenciosamente,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>"
-    invite_title: "%{username} convida você para o evento %{eventname} na comunidade %{space}"
-    last_7_days: "Últimos 7 dias (%{size})"
-    last_month: "Mês passado (%{size})"
-    location: Localização
-    more:
-      one: "e mais um evento..."
-      other: "e mais %{count} eventos..."
-    no_events: "Você não tem eventos"
-    notification:
-      attendant:
-        filter: "Filtro de participantes"
-      deselect_all_attendants: "Desmarcar todos os participantes"
-      hide_all_attendants: "Ocultar todos os participantes"
-      label: "Personalize a sua mensagem de notificação"
-      legend:
-        name: "'Name' será substituído na mensagem pelo nome do receptor."
-      message_beginning_with_start_date: "<p> 'Name', </p><p> Quanto o <b>'event_name' na comunidade %{space}</b> em 'event_date': </p>"
-      message_beginning_without_start_date: "<p> 'Name', </p><p> Relacionado ao <b>evento 'event_name' na comunidade %{space}</b>:</p>"
-      message_ending: "<p>Você pode encontrar mais informações sobre o evento em <a href=\"event_url\">event_url</a> </p><p> Atenciosamente, <br/><br/> %{username} <br/> %{useremail} <br/> %{userorg} </p>"
-      message_title: "Enviar uma notificação aos participantes confirmados"
-      personal: "Escreva o seu texto pessoal aqui."
-      select_all_attendants: "Selecionar todos os participantes"
-      selected_attendants: "Participantes que você deseja notificar:"
-      show_all_attendants: "Mostrar todos os participantes"
-      subject: "%{username} enviou uma notificação para informá-lo sobre o evento %{eventname} na comunidade %{space}"
-    notification_message: "<p> %{name}, </p><p> Quanto o <b> %{event_name} na comunidade %{space}</b> em %{event_date}. </p><p> Você pode encontrar mais informações sobre este evento em <a href=\"%{event_url}\">%{event_url}</a> </p><p> Atenciosamente,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>"
-    notification_successfully: "Notificação enviada a todos com sucesso."
-    notification_title: "%{username} enviou uma notificação para informá-lo sobre o evento %{eventname} na comunidade %{space}"
-    one: Evento
-    online: Webconferência
-    other: Eventos
-    participation:
-      add: "Adicionar um."
-      none: "Ninguém postou qualquer URL de participação."
-    spam: "Spam em eventos"
-    start: "Reinicie o evento"
-    statistics:
-      views: "visualizações"
-      space-views: "visualizações"
-    title: "Eventos (%{count})"
-    to: Para
-    today: "Eventos de hoje"
-    today_and_yesterday: "Hoje e ontem (%{size})"
-    tomorrow: "Eventos de amanhã"
-    undated:
-      show: "Mostrar todos os eventos sem data"
-    updated: "Evento atualizado com sucesso"
   event_invitation:
     instructions: "Clique Enviar para cada convite que você deseja enviar, e clique Finalizar quando você concluir."
     sent: "Convites enviados com sucesso"
     will_invite: "Pessoas que você irá convidar?"
   events:
-    all_events:
-      all_upcoming: "Ver todos eventos futuros"
-      all_past: "Ver todos eventos passados"
-      none_upcoming: "Nenhum evento no futuro"
-      none_past: "Nenhum evento passado"
-      past: "Eventos passados"
-      upcoming: "Eventos futuros"
-    event_card:
-      description_title: "Descrição do evento"
-      ends_at: "Acaba em"
-      no_description: "Nenhuma descrição foi informada para este evento."
-      organizers: "Organizadores"
-      organizers_empty: "Nenhum organizador informado para este evento."
-      starts_at: "Inicia em"
-      where: "Onde"
-    event_invitations:
-      invite: "Convidar pessoas"
-      notify_attendees: "Notificar participantes confirmados"
-      title: "Convites"
-    form_fields:
-      timezone_notice: "Você está usando o fuso horário GMT%{timezone}. Atribua as datas abaixo neste fuso horário."
     index:
-      create_event: "Criar um novo evento"
-      events_now: "Contecendo agora!"
-    participants:
-      attending: "Participantes confirmados"
-      none_attending: "Ninguém confirmou ainda"
-      not_attending: "Confirmaram que não participarão"
-      title: "Participantes"
-      view_as_list: "ver como uma lista de nomes"
-      view_as_thumbs: "ver como imagens"
-      will_attend: "Você participará deste evento?"
-    past_events:
-      last_month: "Nenhum evento no último mês"
-      last_week: "Nenhum evento na última semana"
-      none: "Nenhum evento passado"
-      order_asc: "Mostrar eventos antigos no topo"
-      order_by: "Ordenar por"
-      order_desc: "Mostrar eventos novos no topo"
-      title: "Eventos passados"
-      today: "Nenhum evento para ontem ou hoje"
-    unified_event:
-      organizers: "Organizadores"
-      when: "Quando"
-      where: "Onde"
-    upcoming_events:
-      next_month: "Não existem eventos para o próximo mês"
-      next_week: "Não existem eventos para a próxima semana"
-      none: "Nenhum evento no futuro"
-      title: "Próximos eventos"
-      today: "Não existem eventos para hoje"
+      search:
+        by_name:
+          no_matches: "Nenhum evento encontrado para \"%{term}\""
+          placeholder: "Pesquise por eventos..."
   fax: Fax
   feedback:
     email: "%{email} enviou o seguinte feedback:"
@@ -852,6 +742,7 @@ pt-br:
   latest_news: "Últimas notícias"
   layouts:
     application_navbar:
+      events: "Eventos"
       inbox: "Caixa de entrada"
       login: "Login"
       manage: "Gerenciar"
@@ -955,9 +846,6 @@ pt-br:
       no_user_found: "Nenhum usuário encontrado"
   mandatory_field: "Campo obrigatório"
   mconf: Mconf
-  members:
-    one: "%{count} membro"
-    other: "%{count} membros"
   message:
     created: "Mensagem enviada com sucesso"
     error:
@@ -1058,10 +946,6 @@ pt-br:
   organization: Organização
   organizer: Organizadores
   other: Outro
-  participant:
-    created: "Suas informações de participação foram atualizadas com sucesso"
-    error:
-      create: "Houve um problema na atualização de suas informações de participação"
   password:
     confirm: "Confirmar senha"
     one: Senha
@@ -1178,6 +1062,9 @@ pt-br:
         export: "Exportar vCard"
         tooltip: "vCard é um formato de arquivo padrão para cartões eletrônicos"
         use: "Usar um vCard"
+    show:
+      vcard:
+        export: "Exportar vCard"
   province: Estado
   public: Público
   read_more: "Ler mais"
@@ -1415,6 +1302,42 @@ pt-br:
     subscribed_to_none: "Você não está inscrito em nenhuma comunidade"
     update_logo: "Atualizar logo"
     updated: "Comunidade atualizada com sucesso"
+  space_events:
+    all_events:
+      all_upcoming: "Ver todos eventos futuros"
+      all_past: "Ver todos eventos passados"
+      none_upcoming: "Nenhum evento no futuro"
+      none_past: "Nenhum evento passado"
+      past: "Eventos passados"
+      upcoming: "Eventos futuros"
+    index:
+      now: Acontecendo agora
+      create_event: "Criar um novo evento"
+      events_in: "Eventos em"
+      events_now: "Contecendo agora!"
+    past_events:
+      last_month: "Nenhum evento no último mês"
+      last_week: "Nenhum evento na última semana"
+      none: "Nenhum evento passado"
+      order_asc: "Mostrar eventos antigos no topo"
+      order_by: "Ordenar por"
+      order_desc: "Mostrar eventos novos no topo"
+      title: "Eventos passados"
+      today: "Nenhum evento para ontem ou hoje"
+    sidebar_events_simple:
+      no_events: "Nenhum evento nesta comunidade"
+    unified_event:
+      ends_at: "Acaba em"
+      event_in_the_space: "Evento na comunidade %{space}"
+      organizers: "Organizadores"
+      starts_at: "Inicia em"
+      where: "Onde"
+    upcoming_events:
+      next_month: "Não existem eventos para o próximo mês"
+      next_week: "Não existem eventos para a próxima semana"
+      none: "Nenhum evento no futuro"
+      title: "Próximos eventos"
+      today: "Não existem eventos para hoje"
   spaces: 
     admin_tabs:
       admissions: "Admissões"
@@ -1440,12 +1363,25 @@ pt-br:
         by_name:
           no_matches: "Nenhuma comunidae encontrada com \"%{term}\""
           placeholder: "Procurar comunidades..."
+      subtitle: "Encontre comunidades de usuários que compartilham os mesmos interesses"
+      title: "Comunidades"
+    list_view:
+      no_spaces: "Nenhuma comunidade foi criada até o momento!"
+    menu:
+      admin: "Admin"
+      events: "Eventos"
+      home: "Página Inicial"
+      posts: "Mural"
+      repository: "Documentos"
+      users: "Usuários"
+      webconference: "Webconferência"
     new:
       private: "Privada"
       public: "Pública"
       spaces_examples:
         title: "Exemplos de comunidades:"
       title: "Criar uma nova comunidade"
+    news: "Notícias na comunidade"
     recordings:
       title: "Gravações desta comunidade"
       update_recordings:
@@ -1456,6 +1392,7 @@ pt-br:
     show:
       events_now: "Eventos acontecendo agora!"
     sidebar:
+      all_events: "Ver todos"
       upcoming_events: "Próximos eventos"
       webconference:
         attendees:
@@ -1479,6 +1416,8 @@ pt-br:
     space_thumbnail:
       private: "Privada"
       public: "Pública"
+    thumbnail_view:
+      no_spaces: "Nenhuma comunidade foi criada até o momento!"
     unified_space: 
       private: "comunidade privada"
       public: "comunidade pública"

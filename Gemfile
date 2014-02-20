@@ -73,6 +73,9 @@ gem 'twitter-bootstrap-rails'
 # font-awesome (recommended to be here, not in the assets group)
 gem 'font-awesome-rails'
 
+# event module
+gem 'mweb_events', :git => 'git@github.com:mconf/mweb_events.git'
+
 # TODO: Gems to review if we can remove/update
 gem 'galetahub-simple_captcha', :require => 'simple_captcha'
 gem 'attachment_fu', :git => 'git://github.com/mconf/attachment_fu.git'

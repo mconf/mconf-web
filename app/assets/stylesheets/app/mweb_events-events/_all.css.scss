@@ -1,0 +1,15 @@
+@import "compass/css3";
+@import "compass/typography/links";
+@import "definitions";
+
+// apply our colors when the logos are hovered/active
+a .mweb_events-event-logo:hover {
+  * {
+    color: $link-color-hover;
+  }
+}
+a .mweb_events-event-logo:active {
+  * {
+    color: $link-color-active;
+  }
+}

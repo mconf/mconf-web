@@ -12,12 +12,14 @@ en:
         create_html: "A meeting was started on the room of the user %{owner} at %{time}"
       space:
         create_html: "A meeting was started on the space %{owner} at %{time}"
-    event:
+    mweb_events_event:
       create_html: created the event %{name} in the space
       attend_html: will attend to the event %{name} in the space
       not_attend_html: will not attend to the event %{name} in the space
       update_html: updated the information of the event %{name} in the space
       deleted: that has since been deleted
+    mweb_events_participant:
+      create_html: will attend to the event %{name} in the space
     news:
       create_html: published the news %{name} in the space
       update_html: updated the news %{name} in the space
@@ -47,12 +49,19 @@ en:
     details: "Details"
     edit: "Edit"
     end: "End"
+    index: Listing
     in_place_edit:
       error: "error"
       success: "saved"
     join: "Join"
     login_to_enable: "You need to be logged in to perform this action"
+    members:
+      one: "%{count} member"
+      other: "%{count} members"
     no_: "No"
+    participants:
+      one: "%{count} participant"
+      other: "%{count} participants"
     publish: "Publish"
     save: "Save"
     send: "Send"
@@ -65,6 +74,8 @@ en:
     user:
       administrator: "Global administrator"
       normal_user: "Normal user"
+      guest: Guest
+      guest_name: "Guest User \(%{email}\)"
       removed: "<user removed>"
     yes_: "Yes"
     webconference:
@@ -94,6 +105,7 @@ en:
         chat_enabled: "Enable Chat"
         description: "Description"
         domain: "Application domain"
+        events_enabled: "Enable event module"
         exception_notifications: "Send email on error"
         exception_notifications_email: "Debug emails recipients"
         exception_notifications_prefix: "Debug emails subject prefix"
@@ -159,7 +171,6 @@ en:
         invalid_identifier: "generates an invalid identifier: \"%{id}\""
         missing: "is missing"
     models:
-      event: "Event"
       space: "Space"
   address: Address
   admin: 
@@ -175,7 +186,7 @@ en:
       password: Password
   agree: "Yes"
   all: All
-  all_events: "All Events"
+  all_events: "Events"
   all_rights_reserved: "All rights reserved"
   any_field: "Any field"
   are_you_sure: "Are you sure?"
@@ -571,128 +582,16 @@ en:
     one: Error
     other: Errors
     vcc_warning: "Warning:"
-  event: 
-    basic_info: "Introduce basic information"
-    created: "Event created successfully"
-    deleted: "Event deleted successfully"
-    description: 
-      add: "Add description."
-      edit: "Edit description"
-      none: "No one has written a description yet."
-    edit: "Edit event basic info"
-    error: 
-      date_past: "Start date could not be past"
-      dates: "End date must be after start date"
-      dates1: "The event start date must be previous than the event end date "
-      max_size_excedeed: "The maximum duration of the event is %{max_days} days and can't be excedeed"
-      omit_date: "The event needs start date and end date "
-      too_short: "Event is too short, it must be at least 15 minutes long"
-    home: 
-      one: "Event in the space %{space}"
-    invite_event: "Invite people to the event %{event_name}"
-    invite_message: "<p>I would like to invite you to <b>event %{event_name} in space %{space}</b> on %{event_date}.</p><p>You can find more information about this event in <a href=\"%{event_url}\">%{event_url}</a></p><p>Kind regards,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>"
-    invite_title: "%{username} invites you to event %{eventname} in space %{space}"
-    last_7_days: "Last 7 days (%{size})"
-    last_month: "Last month (%{size})"
-    location: Location
-    more: 
-      one: "and one more event..."
-      other: "and more %{count} events..."
-    no_events: "No events to show"
-    notification: 
-      attendant: 
-        filter: "Attendant filter"
-      deselect_all_attendants: "Deselect all attendants"
-      hide_all_attendants: "Hide all attendants"
-      label: "Customise your notification message"
-      legend: 
-        name: "'Name' will be replaced in the message by the receiver's name."
-      message_beginning_with_start_date: "<p>'Name',</p><p>Regarding the <b>event 'event_name' in space %{space}</b> on 'event_date':</p>"
-      message_beginning_without_start_date: "<p>'Name',</p><p>Regarding the <b>event 'event_name' in space %{space}</b>:</p>"
-      message_ending: "<p>You can find more information about the event in <a href=\"event_url\">event_url</a> </p><p>Kind regards,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>"
-      message_title: "Send a notification to the confirmed attendants"
-      personal: "Write your personal text here."
-      select_all_attendants: "Select all attendants"
-      selected_attendants: "Attendants you want to notify:"
-      show_all_attendants: "Show all attendants"
-      subject: "%{username} has sent a notification to you about event %{eventname} in space %{space}"
-    notification_message: "<p>%{name},</p><p>Regarding the <b>event %{event_name} in space %{space}</b> on %{event_date}.</p><p>You can find more information about this event in <a href=\"%{event_url}\">%{event_url}</a></p><p>Kind regards,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>"
-    notification_successfully: "Notification sent to all successfully."
-    notification_title: "%{username} has sent a notification to you about event %{eventname} in space %{space}"
-    one: Event
-    online: WebConference
-    other: Events
-    participation: 
-      add: "Add one."
-      none: "No one has posted any participation url."
-    spam: "Spam in events"
-    start: "Restart event"
-    statistics:
-      views: "views"
-    title: "Events (%{count})"
-    to: To
-    today: "Today events"
-    today_and_yesterday: "Today and yesterday (%{size})"
-    tomorrow: "Tomorrow events"
-    undated: 
-      show: "Show all undated events"
-    updated: "Event updated successfully"
   event_invitation: 
     instructions: "Click Send for each invitation you want to send, and click Finish when you are done."
     sent: "Invitations sent successfully"
     will_invite: "People you will invite:"
   events:
-    all_events:
-      all_upcoming: "View all upcoming events"
-      all_past: "View all past events"
-      none_upcoming: "No upcoming events"
-      none_past: "No past events"
-      past: "Past events"
-      upcoming: "Upcoming events"
-    event_invitations:
-      invite: "Invite people"
-      notify_attendees: "Notify confirmed attendees"
-      title: "Invitations"
-    event_card:
-      description_title: "Event description"
-      ends_at: "Ends at"
-      no_description: "No description informed for this event."
-      organizers: "Organizers"
-      organizers_empty: "No organizer informed for this event."
-      starts_at: "Starts at"
-      where: "Where"
-    form_fields:
-      timezone_notice: "You are using the timezone GMT%{timezone}. Set the dates below using this timezone."
     index:
-      create_event: "Create a new event"
-      events_now: "Hapenning now!"
-    participants:
-      attending: "Confirmed attendees"
-      none_attending: "Nobody has confirmed yet"
-      not_attending: "Confirmed that will not attend"
-      title: "Participants"
-      view_as_list: "view as a list of names"
-      view_as_thumbs: "view as pictures"
-      will_attend: "Will you attend this event?"
-    past_events:
-      last_month: "No events for last month"
-      last_week: "No events for last week"
-      none: "No past events"
-      order_asc: "Show older events at the top"
-      order_by: "Order by"
-      order_desc: "Show newer events at the top"
-      title: "Past events"
-      today: "No events for yesterday nor today"
-    unified_event:
-      organizers: "Organizers"
-      when: "When"
-      where: "Where"
-    upcoming_events:
-      next_month: "There are no events for the next month"
-      next_week: "There are no events for the next week"
-      none: "No upcoming events"
-      title: "Upcoming events"
-      today: "There are no events for today"
+      search:
+        by_name:
+          no_matches: "No events found for \"%{term}\""
+          placeholder: "Search for events..."
   fax: Fax
   feedback: 
     email: "%{email} sent the following feedback:"
@@ -859,6 +758,7 @@ en:
   latest_news: "Latest news"
   layouts:
     application_navbar:
+      events: "Events"
       inbox: "Inbox"
       login: "Sign in"
       manage: "Manage"
@@ -967,9 +867,6 @@ en:
     error:
       create: "Error sending private message"
   mconf: Mconf
-  members: 
-    one: "%{count} member"
-    other: "%{count} members"
   message: 
     created: "Message sent!"
     incoming: 
@@ -1068,10 +965,6 @@ en:
   organization: Organization
   organizer: Organisers
   other: Other
-  participant: 
-    created: "Your attendance information has been updated successfully"
-    error: 
-      create: "There was a problem updating your attendance information"
   password: 
     confirm: "Confirm password"
     one: Password
@@ -1191,6 +1084,9 @@ en:
         export: "Export vCard"
         tooltip: "vCard is a file format standard for electronic business cards"
         use: "Use a vCard"
+    show:
+      vcard:
+        export: "Export vCard"
   province: Province
   public: Public
   read_more: "Read more"
@@ -1385,7 +1281,7 @@ en:
       filters: 
         all: "All spaces"
         my_spaces: "My spaces"
-      select_at_left: "Select a space in the left to see it's description here"
+      select_at_left: "Select a space in the list to see it's description here"
       user_is_member: "You are a member!"
     is_private: "is a private space. Send a join request to the administrator of this space to let you in"
     join: "Join this space"
@@ -1435,6 +1331,42 @@ en:
     subscribed_to_none: "You are not subscribed to any space"
     update_logo: "Update logo"
     updated: "Space updated successfully"
+  space_events:
+    all_events:
+      all_upcoming: "View all upcoming events"
+      all_past: "View all past events"
+      none_upcoming: "No upcoming events"
+      none_past: "No past events"
+      past: "Past events"
+      upcoming: "Upcoming events"
+    index:
+      now: Happening Now
+      create_event: "Create a new event"
+      events_now: "Hapenning now!"
+      events_in: "Events in"
+    past_events:
+      last_month: "No events for last month"
+      last_week: "No events for last week"
+      none: "No past events"
+      order_asc: "Show older events at the top"
+      order_by: "Order by"
+      order_desc: "Show newer events at the top"
+      title: "Past events"
+      today: "No events for yesterday nor today"
+    sidebar_events_simple:
+      no_events: "No events in this space yet"
+    unified_event:
+      ends_at: "Ends at"
+      event_in_the_space: "Event in the space %{space}"
+      organizers: "Organizers"
+      starts_at: "Starts at"
+      where: "Where"
+    upcoming_events:
+      next_month: "There are no events for the next month"
+      next_week: "There are no events for the next week"
+      none: "No upcoming events"
+      title: "Upcoming events"
+      today: "There are no events for today"
   spaces: 
     admin_tabs:
       admissions: "Admissions"
@@ -1460,12 +1392,25 @@ en:
         by_name:
           no_matches: "No spaces found for \"%{term}\""
           placeholder: "Search spaces..."
+      subtitle: "Search for communities of users that share the same interests"
+      title: "Spaces"
+    list_view:
+      no_spaces: "There are no spaces created yet!"
+    menu:
+      admin: "Admin"
+      events: "Events"
+      home: "Home"
+      posts: "Wall"
+      repository: "Documents"
+      users: "Users"
+      webconference: "Web Conference"
     new:
       private: "Private"
       public: "Public"
       spaces_examples:
         title: "Examples of spaces:"
       title: "Create a new space"
+    news: "Space news"
     recordings:
       title: "Recordings in this space"
       update_recordings:
@@ -1474,7 +1419,6 @@ en:
         updating: "Updating your list of recordings..."
     show:
       events_now: "Events hapenning now!"
-    news: "Space news"
     sidebar:
       upcoming_events: "Upcoming events"
       webconference:
@@ -1499,6 +1443,8 @@ en:
     space_thumbnail:
       private: "Private"
       public: "Public"
+    thumbnail_view:
+      no_spaces: "There are no spaces created yet!"
     unified_space:
       private: "private space"
       public: "public space"

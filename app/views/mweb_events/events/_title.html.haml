@@ -1,0 +1,13 @@
+- content_for :title do "#{current_site.name} - #{@event.name}" end
+
+= content_for :page_header do
+  .current-page-logo
+    = logo_image(@event, :size => '84x64')
+  .current-page-title
+    .main-title= @event.name
+    .sub-title
+      - if @event.owner
+        - if @event.owner.instance_of?(Space)
+          = t('.belongs_space', :space => @event.owner.name, :url => main_app.space_path(@event.owner)).html_safe
+        - else
+          = t('.belongs_user', :user => @event.owner.name, :url => main_app.user_profile_path(@event.owner)).html_safe

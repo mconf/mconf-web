@@ -13,18 +13,19 @@
         = icon_message(:class => cls)
 
   -# Upcoming events
-  = render_sidebar_content_block('sidebar-upcoming-events') do
-    .content-block-header
-      = icon_event()
-      %h4= t('calendar.my')
-    .toolbar
-      %span.event-timezone
-        (#{t('timezone.one')}: GMT#{Time.zone.formatted_offset})
-    .content-block-middle
-      %span.event-category= t('.events.today')
-      = render 'events/sidebar_events_simple', :events => @today_events
-      %span.event-category= t('.events.other')
-      = render 'events/sidebar_events_simple', :events => @upcoming_events
+  - if mod_enabled?("events")
+    = render_sidebar_content_block('sidebar-upcoming-events') do
+      .content-block-header
+        = icon_event()
+        %h4= t('calendar.my')
+      .toolbar
+        %span.event-timezone
+          (#{t('timezone.one')}: GMT#{Time.zone.formatted_offset})
+      .content-block-middle
+        %span.event-category= t('.events.today')
+        = render 'space_events/sidebar_events_simple', :events => @today_events
+        %span.event-category= t('.events.other')
+        = render 'space_events/sidebar_events_simple', :events => @upcoming_events
 
 - unless current_user.confirmed?
   #user-notifications.alert.alert-warning

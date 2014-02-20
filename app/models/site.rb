@@ -35,4 +35,5 @@ class Site < ActiveRecord::Base
   def email_with_name
     "#{name} <#{email}>"
   end
+
 end

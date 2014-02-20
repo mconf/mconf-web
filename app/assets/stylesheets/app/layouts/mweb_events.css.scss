@@ -1,0 +1,30 @@
+// For the 'events' layout
+
+body.mweb_events-events.show {
+
+  /* #page-header { */
+  /*   width: 0 !important; */
+  /*   display: none !important; */
+  /* } */
+
+}
+
+body.mweb_events-events.show,
+body.mweb_events-events.edit,
+body.mweb_events-events.new,
+body.mweb_events-events.create,
+body.mweb_events-events.update
+{
+
+  // we don't have a sidebar, so the content must fill the
+  // entire width of the page
+  #sidebar {
+    width: 0 !important;
+    display: none !important;
+  }
+
+  #content-middle {
+    width: 100% !important;
+  }
+
+}

@@ -3,10 +3,6 @@
   .modal-header
     = modal_close_button
     %h3= t('.title', :room => @room.name)
-    - if @type == "webconference"
-      = t('webconference.invite_webconference')
-    - elsif @type == "event"
-      = t('event.invite_event', :event_name => @event.name)
 
   .modal-body
 

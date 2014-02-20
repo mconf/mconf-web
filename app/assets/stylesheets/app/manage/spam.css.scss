@@ -2,8 +2,6 @@
 @import "compass/css3";
 @import "compass/typography/links";
 
-@import "app/events/event_logo";
-
 body.manage.spam {
 
   .spam-item {
@@ -20,11 +18,6 @@ body.manage.spam {
     float: right;
     width: 60px;
     padding-left: 10px;
-  }
-
-  // hide event dates, make the view a bit simpler
-  .event-image {
-    display: none;
   }
 
 }
