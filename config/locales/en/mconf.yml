@@ -940,6 +940,7 @@ en:
     spaces:
       filter_name: "Name"
       filter_results: "Filter the results:"
+      filter_count_html: Showing <span id="filter-count"></span> spaces for filter '<span id="filter-value"></span>'
     spaces_list:
       no_space_found: "No space found"
     spam:
@@ -959,6 +960,7 @@ en:
     users:
       filter_name_or_username: "Name, username or email"
       filter_results: "Filter the results:"
+      filter_count_html: Showing <span id="filter-count"></span> users for filter '<span id="filter-value"></span>'
     users_list:
       no_user_found: "No user found"
   mandatory_field: "Mandatory field"

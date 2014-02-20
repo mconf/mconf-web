@@ -932,6 +932,7 @@ pt-br:
     spaces:
       filter_name: "Nome"
       filter_results: "Filtrar os resultados:"
+      filter_count_html: Mostrando <span id="filter-count"></span> comunidades para '<span id="filter-value"></span>'
     spaces_list:
       no_space_found: "Nenhuma comunidade encontrada"
     spam:
@@ -951,6 +952,7 @@ pt-br:
     users:
       filter_name_or_username: "Nome, identificador ou e-mail"
       filter_results: "Filtrar os resultados:"
+      filter_count_html: Mostrando <span id="filter-count"></span> usuários para '<span id="filter-value"></span>'
     users_list:
       no_user_found: "Nenhum usuário encontrado"
   mandatory_field: "Campo obrigatório"

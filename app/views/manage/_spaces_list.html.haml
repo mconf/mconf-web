@@ -1,3 +1,6 @@
+%span#resource-count
+  = @spaces.count
+
 - if @spaces.count > 0
 
   - for space in @spaces
@@ -9,6 +12,3 @@
   - nav = page_navigation_links @spaces
   - unless nav.nil?
     .content-block-footer= nav
-
-- else
-  = t('.no_space_found')
