@@ -54,10 +54,8 @@ class SpacesController < ApplicationController
     spaces = Space.order('name ASC').all
     @spaces = spaces.paginate(:page => params[:page], :per_page => 18)
 
-    if user_signed_in? && current_user.spaces.any?
+    if user_signed_in?
       @user_spaces = current_user.spaces.paginate(:page => params[:page], :per_page => 18)
-    else
-      @user_spaces = []
     end
 
     if @space
