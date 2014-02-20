@@ -15,5 +15,4 @@
       = f.input :default_layout do
         = f.select :default_layout, @room.get_available_layouts, :include_blank => t('.layout_empty_option')
     .modal-footer.form-actions
-      = f.button :submit, t("save"), :class => "btn btn-primary"
-      = link_to t("cancel"), "#", :class => "btn close-dialog"
+      = f.button :wrapped, t("save"), :class => "btn btn-primary", :cancel_modal => true

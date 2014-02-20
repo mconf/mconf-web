@@ -43,4 +43,4 @@
         = f.hidden_field :event_id, :value => @event.id
 
     .modal-footer.form-actions
-      = f.button :submit, t('invite_people.send_invitations'), :class => "btn btn-primary"
+      = f.button :wrapped, t('invite_people.send_invitations'), :class => "btn btn-primary", :cancel_modal => true

@@ -2,6 +2,7 @@
  * Styles that redefine bootstrap styles.
  */
 
+@import "compass/typography/links/link-colors";
 @import "compass/css3";
 @import "definitions";
 
@@ -116,4 +117,16 @@ input[type="radio"], input[type="checkbox"] {
     border-color: darken($alert-gray-bg, 10);
     color: $alert-gray-font;
   }
+}
+
+// bootstrap makes links in the footer look like the close button at the header of a
+// modal, so we make it look like a normal link again
+.modal-footer a.close {
+  @include font-size($font-normal);
+  float: none;
+  opacity: 1;
+  text-shadow: none;
+  font-weight: normal;
+  @include link-colors($link-color, $link-color-hover, $link-color-active);
+  &:focus { color: lighten($link-color-active, 7); }
 }

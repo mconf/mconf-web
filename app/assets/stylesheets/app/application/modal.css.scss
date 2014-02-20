@@ -16,3 +16,12 @@
   // prevent horizontal scrollbars
   overflow-x: hidden;
 }
+
+// By default, .form-actions is used on the bottom of forms and has its own style.
+// In modal footers, however, it should look cleaner and tighter.
+.modal-footer .form-actions {
+  padding: 0;
+  margin: 0;
+  border: 0;
+  background: none;
+}

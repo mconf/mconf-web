@@ -10,5 +10,4 @@
           = f.input :title, :label => t('title')
         = f.input :text, :label => t('post.one'), :as => :text
       .modal-footer.form-actions
-        = f.button :submit, t("save"), :class => "btn btn-primary"
-        = link_to t("cancel"), "#", :class => "btn close-dialog"
+        = f.button :wrapped, t("save"), :class => "btn btn-primary", :cancel_modal => true

@@ -9,5 +9,4 @@
       = hidden_field_tag :redir_url, @redir_url
       = f.input :description, :autofocus => true
     .modal-footer.form-actions
-      = f.button :submit, t("save"), :class => "btn btn-primary"
-      = link_to t("cancel"), "#", :class => "btn close-dialog"
+      = f.button :wrapped, t("save"), :class => "btn btn-primary", :cancel_modal => true

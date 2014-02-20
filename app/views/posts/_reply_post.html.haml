@@ -12,5 +12,4 @@
         = f.hidden_field :parent_id
         = f.input :text
       .modal-footer.form-actions
-        = f.button :submit, t("button.post"), :class => "btn btn-primary"
-        = link_to t("cancel"), "#", :class => "btn close-dialog"
+        = f.button :wrapped, t("button.post"), :class => "btn btn-primary", :cancel_modal => true
