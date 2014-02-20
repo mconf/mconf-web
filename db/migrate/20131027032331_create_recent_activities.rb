@@ -21,10 +21,12 @@ class CreateRecentActivities < ActiveRecord::Migration
     Post.all.each do |post|
       unless PublicActivity::Activity.where(:key => 'post.create', :trackable_id => post.id).length > 0
         owner = post.author
-        activity = post.create_activity "create", :owner => post.space, :parameters => { :user_id => owner.id, :username => owner.name }
-        activity.created_at = post.created_at
-        activity.updated_at = post.created_at
-        activity.save
+        if owner
+          activity = post.create_activity "create", :owner => post.space, :parameters => { :user_id => owner.id, :username => owner.name }
+          activity.created_at = post.created_at
+          activity.updated_at = post.created_at
+          activity.save
+        end
       end
     end
 
@@ -32,10 +34,12 @@ class CreateRecentActivities < ActiveRecord::Migration
     Event.all.each do |event|
       unless PublicActivity::Activity.where(:key => 'event.create', :trackable_id => event.id).length > 0
         owner = event.author
-        activity = event.create_activity "create", :owner => event.space, :parameters => { :user_id => owner.id, :username => owner.name }
-        activity.created_at = event.created_at
-        activity.updated_at = event.created_at
-        activity.save
+        if owner
+          activity = event.create_activity "create", :owner => event.space, :parameters => { :user_id => owner.id, :username => owner.name }
+          activity.created_at = event.created_at
+          activity.updated_at = event.created_at
+          activity.save
+        end
       end
     end
 
