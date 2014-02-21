@@ -12,7 +12,7 @@ class LogoImageUploader < CarrierWave::Uploader::Base
   end
 
   def extension_white_list
-    %w(jpg jpeg png svg tif)
+    %w(jpg jpeg png svg tif gif)
   end
 
   # Create different versions of your uploaded files:

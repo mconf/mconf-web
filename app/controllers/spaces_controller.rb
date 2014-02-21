@@ -39,7 +39,7 @@ class SpacesController < ApplicationController
 
   # Create recent activity
   after_filter :only => [:create, :update, :leave] do
-    @space.new_activity params[:action], current_user unless @space.errors.any?
+    @space.new_activity params[:action], current_user unless @space.errors.any? || @space.crop_x.present?
   end
 
   # Recent activity for join requests
