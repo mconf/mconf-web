@@ -54,6 +54,7 @@ pt-br:
     login_to_enable: "Você precisa estar logado para acessar esta opção"
     no_: "Não"
     publish: "Publicar"
+    register_to_view_space: "Crie uma conta para visualizar e participar desta comunidade"
     save: "Salvar"
     send: "Enviar"
     spam:

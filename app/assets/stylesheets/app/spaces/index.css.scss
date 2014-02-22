@@ -91,9 +91,8 @@ body.spaces.index {
 
     .space-item.space-list {
       .thread {
-        // bigger pading than the usual
-        padding-right: 8px;
-        padding-left: 8px;
+        // tighter than the default
+        padding: 15px 8px;
       }
 
       &.selected .thread {

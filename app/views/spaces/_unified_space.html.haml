@@ -3,16 +3,24 @@
 -#   is_member (boolean): Whether the current user is a member of the space or not
 
 - unless space.nil?
-  = content_tag(:div, :name => space.permalink, :class => "thread thread-space #{cycle("thread-even" , "thread-odd")} space-item #{is_member ? 'my-space' : 'not-my-space'}") do
+  = content_tag(:div, :name => space.permalink, :class => "thread thread-space #{cycle("thread-even" , "thread-odd")} space-item") do
     .logo-in-thread
-      = link_logo_image(space, options_for_tooltip(sanitize(space.name), :size => '84x64', :"data-placement" => 'bottom', :class => "logo logo-space"))
+      -# note: can't be can?(:read, space) because we want the link even for non-members
+      - if user_signed_in? || space.public
+        = link_logo_image(space, options_for_tooltip(sanitize(space.name), :size => '84x64', :"data-placement" => 'bottom', :class => "logo logo-space"))
+      - else
+        .register-to-view-space
+          = logo_image(space, :size => '84x64', :"data-placement" => 'bottom', :class => "logo logo-space")
 
     .thread-content
       .thread-title
-        - if is_member and !params[:my_spaces]
+        - if is_member
           %span.is-member= t('.user_is_member')
         %span
-          = link_to sanitize(space.name), space_path(space)
+          - if user_signed_in? || space.public
+            = link_to sanitize(space.name), space_path(space)
+          - else
+            %span{:title => space.name}= sanitize(space.name)
         .space-description
           - if space.public
             %span.visibility.public

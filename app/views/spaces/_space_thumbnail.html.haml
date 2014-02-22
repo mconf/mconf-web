@@ -4,18 +4,19 @@
 .space-thumbnail-wrapper
   .space-thumbnail
     .space-logo
-      - space_logo = logo_image(space, :size => "84x64", :title => space.name)
+      - space_logo = logo_image(space, :size => "84x64")
       -# note: can't be can?(:read, space) because we want the link even for non-members
       - if user_signed_in? || space.public
         = link_to space_path(space) do
           = space_logo
       - else
-        = space_logo
+        .register-to-view-space
+          = space_logo
     .space-description
       - if user_signed_in? || space.public
         = link_to first_words(space.name, 20), space_path(space), :title => space.name, :class => "space-title"
       - else
-        %span{:title => space.name, :class => "space-title"}= first_words(space.name, 20)
+        %span.space-title{:title => space.name}= first_words(space.name, 20)
       .description
         %span= t('members', :count => space.users.count)
         - if space.public

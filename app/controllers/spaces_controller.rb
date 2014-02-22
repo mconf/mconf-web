@@ -72,7 +72,6 @@ class SpacesController < ApplicationController
         json = @spaces.to_json(space_to_json_hash)
         render :json => json, :callback => params[:callback]
       }
-      format.xml { render :xml => @public_spaces }
     end
   end
 

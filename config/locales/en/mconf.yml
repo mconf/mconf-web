@@ -54,6 +54,7 @@ en:
     login_to_enable: "You need to be logged in to perform this action"
     no_: "No"
     publish: "Publish"
+    register_to_view_space: "Create an account to be able to join and access this space"
     save: "Save"
     send: "Send"
     spam:

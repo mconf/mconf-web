@@ -4,5 +4,6 @@
   .content-block-middle.clearfix
     %ul.space-thumbnail-list
       - @objects.each do |space|
-        %li{ :class => "space-item space-thumbnail #{@user_spaces.include?(space) ? 'my-space' : 'not-my-space'}", :name => space.permalink }
+        - is_member = @user_spaces && @user_spaces.include?(space)
+        %li{ :class => "space-item space-thumbnail", :name => space.permalink }
           = render "spaces/space_thumbnail", :space => space
