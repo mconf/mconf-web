@@ -882,6 +882,7 @@ pt-br:
       translate:
         change: "Mudar a linguagem"
     spaces_page_title:
+      is_member: "Você é membro desta comunidade"
       private: "Comunidade privada"
       public: "Comunidade pública"
   less: "menos..."

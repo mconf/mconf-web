@@ -590,6 +590,12 @@ ul#navbar-right-links {
         @include space-visibility;
         font-weight: normal;
       }
+
+      // the text that shows when a user is a member of the space
+      .user-is-member {
+        @include space-visibility;
+        font-weight: normal;
+      }
     }
   }
 

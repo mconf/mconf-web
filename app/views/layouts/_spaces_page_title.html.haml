@@ -15,3 +15,7 @@
       %span.space-visibility.private
         = icon_space_private()
         = t(".private")
+    - if user_signed_in? && space.users.include?(current_user)
+      %span.user-is-member
+        = icon_is_member
+        = t(".is_member")
