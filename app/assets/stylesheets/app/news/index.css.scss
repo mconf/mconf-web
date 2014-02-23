@@ -2,30 +2,8 @@
 @import "app/spaces/admin_tabs";
 
 body.news.index {
-  input, .label {
-    vertical-align: baseline;
-  }
-
-  input {
-    width: 350px;
-  }
-
-  label {
-    font-weight: bold;
-    margin-bottom: 10px;
-  }
-
   #space-news-toolbar {
     float: right;
     margin-bottom: 15px;
-  }
-
-  #space-news {
-    clear: both;
-  }
-
-  textarea {
-    resize: none;
-    width: 350px;
   }
 }

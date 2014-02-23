@@ -94,6 +94,9 @@ pt-br:
         start_date: "Data e horário de início"
       join_request:
         comment: "Mensagem"
+      news:
+        text: "Texto"
+        title: "Título"
       site:
         analytics_code: "Código do Google Analytics"
         chat_enabled: "Habilitar Chat"
@@ -165,6 +168,7 @@ pt-br:
     models:
       event: "Evento"
       join_request: "Pedido de Adesão"
+      news: "Notícia"
       space: "Comunidade"
   address: Endereço
   admin:

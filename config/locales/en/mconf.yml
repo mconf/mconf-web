@@ -94,6 +94,9 @@ en:
         start_date: "Date and time when it starts"
       join_request:
         comment: "Message"
+      news:
+        text: "Text"
+        title: "Title"
       site:
         analytics_code: "Analytics Code"
         chat_enabled: "Enable Chat"
@@ -166,6 +169,7 @@ en:
     models:
       event: "Event"
       join_request: "Join Request"
+      news: "News"
       space: "Space"
   address: Address
   admin: 

@@ -1,9 +1,10 @@
-%h1= t('news.publish_home')
+.modal-header
+  = modal_close_button
+  %h3= t('news.publish_home')
 
-= simple_form_for([@space, @news]) do |f|
-  %label= t('title')
-  = f.text_field :title
-  %label= t('body')
-  = f.text_area :text, :rows => 10
-  .form-actions
-    = f.submit :value => t('button.publish')
+= simple_form_for [@space, @news], :html => { :class => 'single-column' } do |f|
+  .modal-body
+    = f.input :title, :autofocus => true
+    = f.input :text, :as => :text, :rows => 10
+  .modal-footer.form-actions
+    = f.button :wrapped, t('_other.publish'), :class => "btn btn-primary", :cancel_modal => true
