@@ -105,16 +105,20 @@ class UsersController < ApplicationController
     end
   end
 
-  # Finds users by name (params[:q]) and returns a list of selected attributes
+  # Finds users by id (params[:i]) or by name and username (params[:q]) and returns a list
+  # of a few selected attributes
   def select
-    name = params[:q]
+    query = params[:q]
+    id = params[:i]
     limit = params[:limit] || 5   # default to 5
     limit = 50 if limit.to_i > 50 # no more than 50
-    if name.nil?
-      @users = User.joins(:profile).limit(limit).all
+    if id
+      @users = User.joins(:profile).find_by_id(id)
+    elsif query.nil?
+        @users = User.joins(:profile).limit(limit).all
     else
       @users = User.joins(:profile)
-        .where("profiles.full_name like ? OR users.username like ?", "%#{name}%", "%#{name}%")
+        .where("profiles.full_name like ? OR users.username like ?", "%#{query}%", "%#{query}%")
         .limit(limit)
     end
 
