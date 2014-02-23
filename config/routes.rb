@@ -57,7 +57,11 @@ Mconf::Application.routes.draw do
       get :select
     end
 
-    resources :join_requests
+    resources :join_requests do
+      collection do
+        get :invite
+      end
+    end
 
     bigbluebutton_routes :room_matchers # TODO: review
 

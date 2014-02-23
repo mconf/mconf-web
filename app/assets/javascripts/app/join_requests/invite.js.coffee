@@ -1,5 +1,5 @@
 $ ->
-  if isOnPage 'join_requests', 'new'
+  if isOnPage 'join_requests', 'invite'
 
     id = '#candidates'
     url = '/users/select'

@@ -57,7 +57,10 @@ en:
         username: "This ID will be used to identify your user and your webconference room. Use only letters, numbers and dashes."
     placeholders:
       join_request:
-        comment: "Personal message"
+        invite:
+          comment: "Write a message to be sent to the invited user(s)"
+        new:
+          comment: "Write a message to be sent to the administrators of the space"
       post:
         text: "Message body"
         title: "Post a new message..."

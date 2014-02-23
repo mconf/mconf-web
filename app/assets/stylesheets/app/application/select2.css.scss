@@ -8,15 +8,19 @@
     border: 1px solid #ccc;
     @include border-radius(4px);
     padding: 1px 6px;
-    @include font-size($font-normal+1px);
+    @include font-size($font-normal);
     text-align: left;
     color: $font-color;
     background-image: none;
 
     .select2-search-choice {
-      margin: 5px 0 3px 5px;
+      margin: 4px 0 4px 5px;
       background: $alert-info-bg;
       border-color: $alert-info-font;
+    }
+
+    .select2-search-field input {
+      padding: 3px 6px;
     }
   }
 
@@ -50,6 +54,10 @@
   i { color: #eee; }
 }
 
+.select2-search .select2-input {
+  background: white;
+}
+
 // for integration with bootstrap's btn-group
 .btn-group {
   .select2-choices, .select2-choice {
@@ -69,6 +77,11 @@
 }
 
 // Integrate with simple_form and our custom form classes
+.simple_form {
+  .select2-choice, .select2-choices {
+    margin-bottom: 10px;
+  }
+}
 .simple_form.single-column {
 
   .select2-container {

@@ -14,20 +14,31 @@
           .logo-in-thread
             = link_logo_image(jr.candidate, :size => '32', :url => user_path(jr.candidate), :title => jr.candidate.name, :class => "logo logo-user")
           .thread-content
-            .thread-text
+            .thread-actions
+              - target = jr.candidate ? jr.candidate.name : jr.email
               = simple_form_for [@space, jr], :url => space_join_request_path(@space, jr) do |f|
+                = f.hidden_field :processed, :value => true
+                -# TODO: use confirm in the button, not used now because it doesn't work in forms
+                -#   :confirm => t('.deny', :user => target)
+                -#   See http://dev.mconf.org/redmine/issues/1169
+                = f.submit t('_other.deny'), :class => "btn btn-danger btn-small"
+              %span.separator= t('.or')
+              = simple_form_for [@space, jr], :url => space_join_request_path(@space, jr) do |f|
+                -# TODO: use confirm in the button, not used now because it doesn't work in forms
+                -#   :confirm => t('.accept', :user => target)
+                -#   See http://dev.mconf.org/redmine/issues/1169
+                = f.submit t('_other.accept'), :class => "btn btn-success btn-small"
+                %span= t('.accept_as').downcase
                 = select :join_request, :role_id, Space.roles.map { |r| [ r.name, r.id ] }, :selected => default_role.id
                 = f.hidden_field :accepted, :value => true
                 = f.hidden_field :processed, :value => true
-                = f.submit "Accept", :class => "btn btn-small btn-success"
-              %span= ' or '
-              = simple_form_for [@space, jr], :url => space_join_request_path(@space, jr) do |f|
-                = f.hidden_field :processed, :value => true
-                = f.submit "Deny", :class => "btn btn-small btn-danger"
             .thread-title
               = link_to sanitize(jr.candidate.name), user_path(jr.candidate)
               .user-email
                 = "(#{jr.candidate.username}, #{jr.candidate.email})"
+            .thread-text
+              %span= t('.user_message') + ':'
+              %blockquote.user-comment= jr.comment
   - else
     %p.main_text= t('.not_pending.other')
 

@@ -1,11 +1,7 @@
-- if @user_is_admin
-  - spaces_menu_at :admin
-  = render :partial => 'spaces/menu'
-
-  -# TODO: add the standard sidebar
-
-  - spaces_admin_menu_at :invite
-  = render :partial => 'spaces/admin_tabs'
-  = render :partial => 'new_invitation'
-- else
-  = render :partial => 'new_join_request'
+#new-join-request
+  - if @already_requested
+    .alert.alert-danger= "You already requested to join this space! Please wait for an administrator to accept it."
+  %h3= t('.message_title')
+  = simple_form_for(:join_request, :url => space_join_requests_path(space), :html => { :class => 'single-column' }) do |f|
+    = f.input :comment, :as => :text, :label => false, :disabled => @already_requested
+    = f.button :wrapped, :value => t("_other.send"), :disabled => @already_requested

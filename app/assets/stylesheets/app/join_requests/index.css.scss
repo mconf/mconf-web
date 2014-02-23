@@ -14,13 +14,28 @@ body.join_requests.index {
     width: auto;
   }
 
-  .thread .thread-text {
+  .thread .thread-actions {
     float: right;
 
     form {
       display: inline-block;
+      margin: 0;
+    }
+
+    .separator {
       margin: 0 5px;
     }
+  }
+
+  .thread-text {
+    margin-top: 10px;
+    clear: both;
+  }
+
+  .user-comment {
+    background: $very-light-gray;
+    padding: 5px;
+    margin: 5px 0;
   }
 
 }
