@@ -9,10 +9,8 @@ module LogoImagesHelper
     elsif resource.is_a?(Space)
       model_type = :space
     else
-      if mod_enabled?('events')
-        if resource.is_a?(MwebEvents::Event)
-          path_no_image = "default_logos/" + options[:size] + "/event.png"
-        end
+      if mod_enabled?('events') && resource.is_a?(MwebEvents::Event)
+        model_type = :event
       end
     end
     size = ("logo" + options[:size]).to_sym
@@ -28,6 +26,8 @@ module LogoImagesHelper
       path_no_image = "default_logos/" + options[:size] + "/user.png"
     when :space
       path_no_image = "default_logos/" + options[:size] + "/space.png"
+    when :event
+      path_no_image = "default_logos/" + options[:size] + "/event.png"
     end
     size = ("logo" + options[:size]).to_sym
     image_tag(path_no_image, :class => options[:class], :title => options[:title])
