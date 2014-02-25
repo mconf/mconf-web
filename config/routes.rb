@@ -18,7 +18,6 @@
 # See how all your routes lay out with "rake routes"
 
 Mconf::Application.routes.draw do
-  extend Mconf::Modules
 
   # devise
   controllers = { :sessions => "sessions", :registrations => "registrations" }
@@ -46,7 +45,7 @@ Mconf::Application.routes.draw do
     :as => "join_webconf"
 
   # event module
-  if mod_enabled?('events')
+  if Mconf::Modules.mod_loaded?('events')
     mount MwebEvents::Engine => '/'
   end
 
@@ -84,7 +83,7 @@ Mconf::Application.routes.draw do
 
     resources :readers
 
-    if mod_enabled?('events')
+    if Mconf::Modules.mod_loaded?('events')
       get '/events', :to => 'space_events#index', :as => 'events'
     end
 

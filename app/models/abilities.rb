@@ -6,10 +6,7 @@
 
 # Based on https://gist.github.com/3729390/
 
-include Mconf::Modules # for some reason this needs to be here too
-
 module Abilities
-  include Mconf::Modules # for some reason this needs to be here too
 
   def self.ability_for(user)
     if user and user.superuser?
@@ -169,7 +166,7 @@ module Abilities
       end
 
       # Events from MwebEvents
-      if mod_enabled?('events')
+      if Mconf::Modules.mod_loaded?('events')
         def event_can_be_managed_by(event, user)
           case event.owner_type
           when 'User' then
@@ -363,7 +360,7 @@ module Abilities
       can :read, Attachment, :space => { :public => true, :repository => true }
 
       # for MwebEvents
-      if mod_enabled?('events')
+      if Mconf::Modules.mod_loaded?('events')
         can [:read, :select], MwebEvents::Event
         # Pertraining public and private event registration
         can :register, MwebEvents::Event, :public => true

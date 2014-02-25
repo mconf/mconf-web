@@ -1,13 +1,3 @@
-Rails.application.config.after_initialize do
-  if configatron.modules.events.loaded
-    if defined?(Site) && Site.table_exists? && Site.current &&
-        Site.current.respond_to?(:events_enabled) &&
-        Site.current.events_enabled?
-      configatron.modules.events.enabled = true
-    end
-  end
-end
-
 Rails.application.config.to_prepare do
 
   if defined?(MwebEvents)
@@ -18,6 +8,14 @@ Rails.application.config.to_prepare do
 
     # Monkey patching events controller for pagination and recent activity
     MwebEvents::EventsController.class_eval do
+
+      # return 404 for all Event routes if the events are disable
+      before_filter do
+        unless Mconf::Modules.mod_enabled?('events')
+          raise ActionController::RoutingError.new('Not Found')
+        end
+      end
+
       before_filter(:only => [:index]) do
         # Filter events for the current user
         @events = current_user.events if params[:my_events]
@@ -59,9 +57,16 @@ Rails.application.config.to_prepare do
 
     end
 
-
     # Same for participants, public activity is still missing
     MwebEvents::ParticipantsController.class_eval do
+
+      # return 404 for all Participant routes if the events are disable
+      before_filter do
+        unless Mconf::Modules.mod_enabled?('events')
+          raise ActionController::RoutingError.new('Not Found')
+        end
+      end
+
       before_filter(:only => [:index]) do
         @participants = @participants.accessible_by(current_ability).paginate(:page => params[:page])
       end

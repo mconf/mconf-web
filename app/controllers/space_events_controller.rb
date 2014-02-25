@@ -9,6 +9,13 @@ class SpaceEventsController < ApplicationController
 
   layout "spaces_show"
 
+  # return 404 for all routes if the events are disable
+  before_filter do
+    unless Mconf::Modules.mod_enabled?('events')
+      raise ActionController::RoutingError.new('Not Found')
+    end
+  end
+
   load_and_authorize_resource :space, :find_by => :permalink
   # TODO: #1115, review authorization
   load_and_authorize_resource :find_by => :permalink, :class => MwebEvents::Event

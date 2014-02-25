@@ -6,11 +6,9 @@
 # 3 or later. See the LICENSE file.
 
 class StatisticsController < ApplicationController
-  include Mconf::Modules
-
   layout 'no_sidebar'
 
-  before_filter :load_events, :only => :show, :if => lambda { |c| c.mod_enabled?('events') }
+  before_filter :load_events, :only => :show, :if => lambda { Mconf::Modules.mod_enabled?('events') }
 
   def show
     @user_count = User.count

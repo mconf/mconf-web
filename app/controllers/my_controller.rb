@@ -8,15 +8,13 @@
 # This controller includes actions that are specific for the current user and shouldn't be
 # accessed by anybody else (e.g. home, recordings, activity, etc).
 class MyController < ApplicationController
-  include Mconf::Modules
-
   before_filter :authenticate_user!
   respond_to :json, :only => [:rooms]
   respond_to :html, :except => [:rooms]
 
   before_filter :prepare_user_room, :only => [:home, :activity, :recordings]
 
-  after_filter :load_events, :only => :home, :if => lambda { |c| c.mod_enabled?('events') }
+  after_filter :load_events, :only => :home, :if => lambda { Mconf::Modules.mod_enabled?('events') }
 
   layout :determine_layout
 

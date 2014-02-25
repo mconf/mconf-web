@@ -9,12 +9,9 @@ require './lib/mconf/modules'
 
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
-  include Mconf::Modules
-  extend Mconf::Modules
+  include Mconf::Modules # so the views can access it too
 
-  if mod_enabled?('events')
-    include MwebEvents::EventsHelper
-  end
+  include MwebEvents::EventsHelper if Mconf::Modules.mod_loaded?('events')
 
   # Clippy from https://github.com/lackac/clippy
   #

@@ -6,8 +6,6 @@
 # 3 or later. See the LICENSE file.
 
 class SpacesController < ApplicationController
-  include Mconf::Modules
-
   before_filter :authenticate_user!, :only => [:new, :create]
 
   load_and_authorize_resource :find_by => :permalink, :except => [:edit_recording, :enable]
@@ -21,7 +19,7 @@ class SpacesController < ApplicationController
 
   before_filter :load_spaces_examples, :only => [:new, :create]
 
-  before_filter :load_events, :only => :show, :if => lambda { |c| c.mod_enabled?('events') }
+  before_filter :load_events, :only => :show, :if => lambda { Mconf::Modules.mod_enabled?('events') }
 
   # TODO: cleanup the other actions adding respond_to blocks here
   respond_to :js, :only => [:index, :show]
