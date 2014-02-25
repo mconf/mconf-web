@@ -6,6 +6,8 @@
 # 3 or later. See the LICENSE file.
 
 class PrivateMessage < ActiveRecord::Base
+  include PublicActivity::Common
+
   belongs_to :sender,  :class_name => "User"
   belongs_to :receiver, :class_name => "User"
   attr_accessor :users_tokens
@@ -41,5 +43,11 @@ class PrivateMessage < ActiveRecord::Base
     end
     previous
   }
+
+  # Creates both sender and receiver acitivies
+  def new_activity
+    create_activity :sent, :owner => sender, :parameters => {:receiver_name => receiver.name}
+    create_activity :received, :owner => receiver, :parameters => {:sender_name => sender.name, :digest => receiver.receive_digest}
+  end
 
 end
