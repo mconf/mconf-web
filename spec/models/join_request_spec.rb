@@ -62,6 +62,8 @@ describe JoinRequest do
   end
 
   describe "abilities", :abilities => true do
+    set_custom_ability_actions([:invite])
+
     subject { ability }
     let(:ability) { Abilities.ability_for(user) }
     let(:target) { FactoryGirl.create(:space_join_request) }
@@ -93,12 +95,12 @@ describe JoinRequest do
         context "he is a member of" do
           context "with the role 'Admin'" do
             before { target.group.add_member!(user, "Admin") }
-            it { should_not be_able_to_do_anything_to(target).except([:index, :show, :update, :destroy]) }
+            it { should_not be_able_to_do_anything_to(target).except([:index, :show, :update, :destroy, :invite, :create]) }
           end
 
           context "with the role 'User'" do
             before { target.group.add_member!(user, "User") }
-            it { should_not be_able_to_do_anything_to(target) }
+            it { should_not be_able_to_do_anything_to(target).except(:create) }
           end
         end
       end
@@ -113,12 +115,12 @@ describe JoinRequest do
         context "he is a member of" do
           context "with the role 'Admin'" do
             before { target.group.add_member!(user, "Admin") }
-            it { should_not be_able_to_do_anything_to(target).except([:index, :show, :update, :destroy]) }
+            it { should_not be_able_to_do_anything_to(target).except([:index, :show, :update, :destroy, :invite, :create]) }
           end
 
           context "with the role 'User'" do
             before { target.group.add_member!(user, "User") }
-            it { should_not be_able_to_do_anything_to(target) }
+            it { should_not be_able_to_do_anything_to(target).except(:create) }
           end
         end
       end

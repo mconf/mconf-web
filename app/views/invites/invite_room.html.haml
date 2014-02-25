@@ -37,4 +37,4 @@
         = f.hidden_field :room_url, :value => join_webconf_url(@room)
 
     .modal-footer.form-actions
-      = f.button :submit, t('invite_people.send_invitations'), :class => "btn btn-primary"
+      = f.button :wrapped, t('invite_people.send_invitations'), :class => "btn btn-primary", :cancel_modal => true

@@ -49,7 +49,7 @@ class PrivateMessagesController < ApplicationController
   def new
     @private_message ||= PrivateMessage.new
     if params[:receiver]
-      @receiver = User.find(params[:receiver])
+      @receiver = User.find_by_id(params[:receiver])
     end
     if request.xhr?
       render :partial => 'form'

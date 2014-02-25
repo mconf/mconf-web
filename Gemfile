@@ -50,7 +50,7 @@ gem 'station', :git => 'git://github.com/mconf/station.git', :branch => 'mweb-v2
 gem 'net-ldap'
 
 # BigBlueButton integration
-gem 'bigbluebutton-api-ruby', :git => 'git://github.com/mconf/bigbluebutton-api-ruby.git', :branch => '1129-bbb081'
+gem 'bigbluebutton-api-ruby', :git => 'git://github.com/mconf/bigbluebutton-api-ruby.git', :branch => 'master'
 gem 'bigbluebutton_rails', :git => 'git://github.com/mconf/bigbluebutton_rails.git', :branch => 'branch-v1.4.0'
 gem 'strong_parameters' # for bigbluebutton_rails
 gem 'resque' # for bigbluebutton_rails
@@ -91,7 +91,6 @@ gem 'prism'
 gem 'table_helper', :git => 'git://github.com/eeng/table_helper.git'
 
 group :development do
-  gem 'debugger'
   gem 'translate-rails3', :require => 'translate', :git => 'git://github.com/mconf/translate.git'
   gem 'spork-rails'
   gem 'rails-footnotes'

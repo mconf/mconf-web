@@ -10,12 +10,13 @@
       = link_to space_path(space) do
         = space_logo
     - else
-      = space_logo
+      .register-to-view-space
+        = space_logo
   .list-description
     - if user_signed_in? || space.public
       = link_to first_words(space.name, 30), space_path(space), :title => space.name, :class => "list-title"
     - else
-      %span{:title => space.name, :class => "list-title"}= first_words(space.name, 20)
+      %span.list-title{:title => space.name}= first_words(space.name, 20)
     %span= t('_other.members', :count => space.users.count)
     - if space.public
       %span.visibility.public

@@ -5,7 +5,7 @@
 %ul.list-thumbnails
   - if spaces.count > 0
     - spaces.each do |space|
-      %li.list-thumbnail-wrapper{ :class => "#{spaces.include?(space) ? 'my-space' : 'not-my-space'}", :name => space.permalink }
+      %li.list-thumbnail-wrapper{ :name => space.permalink }
         = render "spaces/space_thumbnail", :space => space
   - else
     = t(".no_spaces")

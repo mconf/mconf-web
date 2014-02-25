@@ -14,6 +14,40 @@ describe SpacesController do
     it "sets param[:view] to 'thumbnails' if different than 'list'"
     it "uses param[:view] as 'list' if already set to this value"
     # TODO: there's a lot more to test here
+
+    context "if there's a user signed in" do
+
+      context "assigns @user_spaces" do
+        context "with the spaces the user belongs to" do
+          let(:user) { FactoryGirl.create(:superuser) }
+          before {
+            s1 = FactoryGirl.create(:space)
+            s2 = FactoryGirl.create(:space)
+            s3 = FactoryGirl.create(:space)
+            s1.add_member!(user, 'User')
+            s2.add_member!(user, 'Admin')
+            @user_spaces = [s1, s2]
+          }
+          before(:each) { sign_in(user) }
+
+          it {
+            get :index
+            should assign_to(:user_spaces).with(@user_spaces)
+          }
+        end
+
+        # bug #1166
+        context "if there are no spaces registered, assigns with an ActiveRecord::Relation anyway" do
+          let(:user) { FactoryGirl.create(:superuser) }
+          before(:each) { sign_in(user) }
+
+          before(:each) { get :index }
+          it { should assign_to(:user_spaces).with([]) }
+          it { assigns(:user_spaces).should be_an_instance_of(ActiveRecord::Relation) }
+        end
+      end
+
+    end
   end
 
   it "#index.json"

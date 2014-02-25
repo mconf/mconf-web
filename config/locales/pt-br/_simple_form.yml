@@ -59,7 +59,10 @@ pt-br:
         timezone: "Ao selecionar um fuso horário não haverá equívoco ao criar eventos com pessoas de outras localidades"
     placeholders:
       join_request:
-        comment: "Mensagem pessoal"
+        invite:
+          comment: "Escreva uma mensagem para o(s) usuário(s) convidado(s)"
+        new:
+          comment: "Escreva uma mensagem para enviar aos administradores da comunidade"
       post:
         text: "Texto da mensagem"
         title: "Adicionar uma mensagem..."

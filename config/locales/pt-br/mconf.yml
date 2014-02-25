@@ -41,8 +41,10 @@ pt-br:
       confirm: "OK"
       title: "Confirmação"
   _other:
+    accept: "Aceitar"
     cancel: "Cancelar"
     create: "Criar"
+    deny: "Negar"
     destroy: "Remover"
     details: "Detalhes"
     edit: "Editar"
@@ -61,6 +63,7 @@ pt-br:
       one: "%{count} participante"
       other: "%{count} participantes"
     publish: "Publicar"
+    register_to_view_space: "Crie uma conta para visualizar e participar desta comunidade"
     save: "Salvar"
     send: "Enviar"
     spam:
@@ -163,6 +166,8 @@ pt-br:
         missing: "não encontrado"
     models:
       event: "Evento"
+      join_request: "Pedido de Adesão"
+      news: "Notícia"
       space: "Comunidade"
   address: Endereço
   admin:
@@ -646,7 +651,6 @@ pt-br:
   invitation:
     accept: "Aceitar o convite"
     access_space: "Você agora é um membro da comunidade %{spacename} e pode acessá-la em <a href=\"%{space_url}\"> %{space_url} </a>"
-    add_more: "Convidar mais pessoas"
     deselect_all_users: "Desmarcar todos os usuários"
     discard: "Descartar convite"
     email: E-mail
@@ -660,7 +664,6 @@ pt-br:
       URL: "'URL' será substituído na mensagem pela URL do convite."
       name: "'Nome' será substituído na mensagem pelo nome do receptor."
     logout_and_reload: "Você não é o usuário que recebeu esse convite, por favor saia e tente novamente"
-    message_title: "Convide as pessoas individualmente para participar da sua comunidade"
     message_with_start_date:
       in_person: "<p>Gostaria de convidá-lo para <b>o evento 'event_name' na comunidade %{space} </b> na data 'event_date'.</p><p> Para aceitar meu convite, por favor visite %{url} </p><p> Você pode encontrar mais informações sobre este evento em <a href=\"event_url\">event_url</a></p><p> Atenciosamente, <br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>"
     message_without_start_date:
@@ -672,7 +675,6 @@ pt-br:
       other: "Convites pendentes"
     personal: "Mensagem pessoal"
     rejoin_space: "Se você gostaria de solicitar a adesão novamente por favor acesse <a href=\"%{space_url}\"> %{space_url} </a>"
-    role_label: "Função para as pessoas convidadas"
     select_all_users: "Selecionar todos usuários"
     show_all_users: "Mostrar todos usuários"
     tab:
@@ -715,26 +717,40 @@ pt-br:
   join: Entrar
   join_cam: Participar
   join_requests:
-    index:
-      not_pending:
-        other: "Não existem solicitações de adesão pendentes"
-      pending:
-        other: "Pedidos de adesão pendentes"
-    already_sent: "Você já pediu para participar desta comunidade"
-    sent: "Seu convite foi enviado"
+    asked_full: "<b>%{candidate}</b> quer participar da comunidade %{space} administrado por você: %{comment} <br/><br/><p>Para atender o pedido visite <a href=\"%{url}\">%{url}</a></p><p>Se você acredita que esta mensagem é um spam, por favor <a href=\"mailto:%{contact}\"> entre em contato</a> ou nos <a href=\"%{feedback}\"> envie uma mensagem.</a></p><p>%{signature}</p>"
     asked_anonymous: "Alguém quer participar da comunidade %{space} administrado por você:"
     asked_anonymous_full: "Alguém quer participar da comunidade %{space} administrado por você: %{comment} <br/><br/><p>Para atender o pedido visite <a href=\"%{url}\">%{url}</a></p><p>Se você acredita que esta mensagem é um spam, por favor <a href=\"mailto:%{contact}\"> entre em contato </a> ou nos <a href=\"%{feedback}\"> envie uma mensagem.</a></p><p>%{signature}</p>"
-    asked_full: "<b>%{candidate}</b> quer participar da comunidade %{space} administrado por você: %{comment} <br/><br/><p>Para atender o pedido visite <a href=\"%{url}\">%{url}</a></p><p>Se você acredita que esta mensagem é um spam, por favor <a href=\"mailto:%{contact}\"> entre em contato</a> ou nos <a href=\"%{feedback}\"> envie uma mensagem.</a></p><p>%{signature}</p>"
-    created: "Seu pedido de adesão foi enviado para os administradores da comunidade"
-    joined: "Você já é um membro da comunidade"
-    label: "Personalize a sua mensagem de solicitação de adesão"
-    error: Ocorreu um erro ao processar essa admissão, tente novamente
-    new_join_request:
-      title: "Pedido de adesão na comunidade: %{space}"
-      personal: "Escreva o seu texto pessoal aqui."
-      message_title: "Enviar um pedido de adesão aos administradores da comunidade"
-      ask_subject: "%{candidate} quer participar de %{space}"
-    not_logged_in: "Você precisa estar logado para enviar um pedido de adesão"
+    create:
+      already_invited: "Os seguintes usuários já possuem um convite pendente: %{users}"
+      created: "Seu pedido de adesão foi enviado para os administradores da comunidade"
+      duplicated: "Você já possui um pedido de adesão pendente nesta comunidade"
+      error: "Algo errado aconteceu ao processar sua requisição, por favor tente novamente. (detalhes: %{errors})"
+      sent: "Seu convite foi enviado com sucesso para: %{users}"
+      user_not_found: "Usuário não encontrado: %{id}"
+    index:
+      accept: "Aceitar pedido de adesão de %{user}?"
+      accept_as: "como"
+      deny: "Cancelar pedido de adesão de %{user}?"
+      not_pending:
+        other: "Não existem solicitações de adesão pendentes"
+      or: "ou"
+      pending:
+        other: "Pedidos de adesão pendentes"
+        user_message: "Mensagem"
+    invitation:
+      cancel: "Cancelar convite para %{user}?"
+      invited_as: "Convidado como"
+      message_sent: "Mensagem enviada para o usuário"
+    invite:
+      candidates: "Procure usuários para convidar"
+      role_label: "Papel dos usuários convidados"
+      title: "Convide pessoas para ingressar nesta comunidade"
+    new:
+      message_title: "Envie um pedido de adesão aos administradores da comunidade"
+    update:
+      accepted: "Pedido de adesão aceito"
+      updated: "Pedido de adesão atualizado"
+      discarded: "Pedido de adesão descartado"
   keywords: "Palavras-chave (*)"
   language: Idioma
   last_week: "Semana passada"
@@ -772,6 +788,7 @@ pt-br:
       translate:
         change: "Mudar a linguagem"
     spaces_page_title:
+      is_member: "Você é membro desta comunidade"
       private: "Comunidade privada"
       public: "Comunidade pública"
   less: "menos..."
@@ -823,6 +840,7 @@ pt-br:
     spaces:
       filter_name: "Nome"
       filter_results: "Filtrar os resultados:"
+      filter_count_html: Mostrando <span id="filter-count"></span> comunidades para '<span id="filter-value"></span>'
     spaces_list:
       no_space_found: "Nenhuma comunidade encontrada"
     spam:
@@ -842,6 +860,7 @@ pt-br:
     users:
       filter_name_or_username: "Nome, identificador ou e-mail"
       filter_results: "Filtrar os resultados:"
+      filter_count_html: Mostrando <span id="filter-count"></span> usuários para '<span id="filter-value"></span>'
     users_list:
       no_user_found: "Nenhum usuário encontrado"
   mandatory_field: "Campo obrigatório"
@@ -1354,6 +1373,8 @@ pt-br:
       yes_delete: "Sim, quero excluir esta comunidade"
     edit_recording:
       title: "Editar sua gravação"
+    error:
+      need_join_to_access: "Você precisa participar desta comunidade para acessá-la. Envie um pedido de adesão aos administradores."
     index: 
       create_new_space: "Criar uma comunidade"
       list_format: 
@@ -1543,7 +1564,6 @@ pt-br:
     add:
       instruction: "Para adicionar novos usuários insera um ou vários endereços de e-mail separados por \" \", \",\" ou \";\" e registre-os"
       note: "Por exemplo: \"João Silva\" <\"jsilva@example.com.br\">\", jct@dit.es, Aaron aaron@example.net e clicando em \"Registrar como Usuário\" irá registrar esses três endereços de e-mail como membros da comunidade e enviará um e-mail de validação para eles."
-    add_more: "Adicionar usuários >>"
     admin: Administrador
     administrators: Administradores
     assist: Participantes

@@ -29,7 +29,7 @@ class SpacesController < ApplicationController
   rescue_from CanCan::AccessDenied do |exception|
     if user_signed_in? and not [:destroy, :update].include?(exception.action)
       # Normal actions trigger a redirect to ask for membership
-      flash[:error] = t("join_requests.new_join_request.message_title")
+      flash[:error] = t("spaces.error.need_join_to_access")
       redirect_to new_space_join_request_path :space_id => params[:id]
     else
       # Logged out users or destructive actions are redirect to the 403 error
@@ -40,7 +40,7 @@ class SpacesController < ApplicationController
 
   # Create recent activity
   after_filter :only => [:create, :update, :leave] do
-    @space.new_activity params[:action], current_user unless @space.errors.any?
+    @space.new_activity params[:action], current_user unless @space.errors.any? || @space.crop_x.present?
   end
 
   # Recent activity for join requests
@@ -55,10 +55,8 @@ class SpacesController < ApplicationController
     spaces = Space.order('name ASC').all
     @spaces = spaces.paginate(:page => params[:page], :per_page => 18)
 
-    if user_signed_in? && current_user.spaces.any?
+    if user_signed_in?
       @user_spaces = current_user.spaces.paginate(:page => params[:page], :per_page => 18)
-    else
-      @user_spaces = []
     end
 
     if @space
@@ -75,7 +73,6 @@ class SpacesController < ApplicationController
         json = @spaces.to_json(space_to_json_hash)
         render :json => json, :callback => params[:callback]
       }
-      format.xml { render :xml => @public_spaces }
     end
   end
 

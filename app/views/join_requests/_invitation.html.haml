@@ -3,11 +3,15 @@
     .logo-in-thread
       = link_logo_image(invitation.candidate, :url => user_path(invitation.candidate), :size => '32', :title => invitation.candidate.name, :class => "logo logo-user")
     .thread-content
-      %ul.thread-action-links.visible-on-hover{ :"data-hover-tracked" => "join_request_#{invitation.id}" }
-        %li= link_to t('remove').downcase, space_join_request_path(space,invitation), :confirm => t('delete.confirm', :element => invitation.candidate ? invitation.candidate.name : invitation.email), :method => :delete, :title => t('delete.one')
+      .thread-actions
+        - target = invitation.candidate ? invitation.candidate.name : invitation.email
+        = link_to t('_other.cancel'), space_join_request_path(space, invitation), :confirm => t('.cancel', :user => target), :method => :delete, :title => t('delete.one'), :class => 'btn btn-danger btn-small'
       .thread-title
         = invitation.candidate ? link_to(invitation.candidate.name, user_path(invitation.candidate)) : invitation.email
+        .user-email
+          = "(#{invitation.candidate.username}, #{invitation.candidate.email})"
+        = t('.invited_as') + ':'
+        %b= invitation.role
       .thread-text
-        .label
-          = t('role.one')
-        = text_field :invited, :role, :value => invitation.role, :disabled => true
+        %span= t('.message_sent') + ':'
+        %blockquote.user-comment= invitation.comment

@@ -10,7 +10,7 @@
       = logo_image(@space, :size => '168x128', :class => 'logo')
     = simple_form_for @space, :html => { :multipart => true, :class => 'form-for-crop', :'data-crop-target-image' => '#edit-space-current-logo' } do |f|
       = link_to t('.change_logo'), '#space_logo_image', :'data-open-file' => true
-      = f.input :logo_image, :as => :file, :id => 'space_logo_image'
+      = f.input :logo_image, :as => :file, :id => 'space_logo_image', :input_html => {:accept => 'image/*'}
 
   = simple_form_for @space, :html => { :method => :put, :class => 'single-column' } do |f|
     .left-column

@@ -14,6 +14,7 @@
 namespace = "mconfResourceFilter"
 # small delay before searching to reduce the # of requests, in ms
 searchDelay = 300
+showTime = 250
 
 class mconf.ResourceFilter
 
@@ -30,6 +31,17 @@ class mconf.ResourceFilter
         clearTimeout(timeout)
         timeout = setTimeout(updateResources, searchDelay, $input, $target)
 
+      text = $input.val()
+      if text?.length
+        # Set the filter text
+        count = $("#resource-count").text()
+        $("#filter-value").text(text)
+        $("#filter-count").text(count)
+
+        $("#filter-text").show(showTime)
+      else
+        $("#filter-text").hide(showTime)
+
 updateResources = ($input, $target) ->
   text = $input.val()
   lastValue = $input.attr("data-last-value")
@@ -37,6 +49,7 @@ updateResources = ($input, $target) ->
   if text isnt lastValue
     $input.attr("data-last-value", text)
     url = $input.attr("data-load-url") + "&q=#{text}"
+
     $target.load url, ->
       mconf.Resources.bind()
 
