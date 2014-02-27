@@ -17,21 +17,23 @@ module Mconf
 
     # Returns the locale that should be used for the user.
     def get_user_locale(user, use_session=true)
+      current_site ||= Site.current
 
       # user locale
       if not user.nil? and user.is_a?(User) and
           user.locale.present? and locale_available?(user.locale)
         user.locale.to_sym
 
-        # session locale
-      elsif session[:locale] and locale_available?(session[:locale])
+      # session locale
+      elsif use_session and not session.nil? and session[:locale] and
+          locale_available?(session[:locale])
         session[:locale]
 
-        # site locale
+      # site locale
       elsif current_site and current_site.locale and locale_available?(current_site.locale)
         current_site.locale.to_sym
 
-        # default locale - last fallback
+      # default locale - last fallback
       else
         I18n.default_locale
       end

@@ -7,6 +7,7 @@
 
 #This class will compose all the mails that the application should send
 class Notifier < ActionMailer::Base
+  include Mconf::LocaleControllerModule
 
   def invitation_email(invitation)
 
@@ -29,14 +30,14 @@ class Notifier < ActionMailer::Base
     end
     @replyto = invitation.introducer.email
 
-    create_default_mail(get_locale_from_user(@user))
+    create_default_mail(get_user_locale(@user, false))
   end
 
   def event_invitation_email(invitation)
     setup_email(invitation[:receiver])
 
     @sender = invitation[:sender]
-    @locale = get_locale_from_user(invitation[:user])
+    @locale = get_user_locale(invitation[:user], false)
     @event = invitation[:event]
     @replyto = invitation[:sender].email
     @subject = t('event.invite_title', :username => @sender.full_name, :eventname => @event.name, :space => @event.space.name, :locale => @locale).html_safe
@@ -53,7 +54,7 @@ class Notifier < ActionMailer::Base
     @receiver = notification[:receiver]
     @replyto = @sender.email
 
-    create_default_mail(get_locale_from_user(@receiver))
+    create_default_mail(get_user_locale(@receiver, false))
   end
 
   def permission_update_notification_email(sender,receiver,stage,rol)
@@ -73,7 +74,7 @@ class Notifier < ActionMailer::Base
     @receiver = receiver
     @replyto = sender.email
 
-    create_default_mail(get_locale_from_user(receiver))
+    create_default_mail(get_user_locale(receiver, false))
   end
 
   def processed_invitation_email(invitation, receiver)
@@ -90,9 +91,9 @@ class Notifier < ActionMailer::Base
     @signature  = Site.current.signature_in_html
     @action = action
     @replyto = invitation.email
-    @locale = get_locale_from_user(receiver)
+    @locale = get_user_locale(receiver, false)
 
-    create_default_mail(get_locale_from_user(receiver))
+    create_default_mail(get_user_locale(receiver, false))
   end
 
   def join_request_email(jr,receiver)
@@ -103,7 +104,7 @@ class Notifier < ActionMailer::Base
     @signature  = Site.current.signature_in_html
     @replyto = jr.candidate.email
 
-    create_default_mail(get_locale_from_user(receiver))
+    create_default_mail(get_user_locale(receiver, false))
   end
 
   def processed_join_request_email(jr)
@@ -115,7 +116,7 @@ class Notifier < ActionMailer::Base
     @space = jr.group
     @action = action
 
-    create_default_mail(get_locale_from_user(jr.candidate))
+    create_default_mail(get_user_locale(jr.candidate, false))
   end
 
   #This is used when an user registers in the application, in order to confirm his registration
@@ -128,7 +129,7 @@ class Notifier < ActionMailer::Base
     @contact_email = Site.current.smtp_sender
     @signature  = Site.current.signature_in_html
 
-    create_default_mail(get_locale_from_user(user))
+    create_default_mail(get_user_locale(user, false))
   end
 
   def activation(user)
@@ -141,7 +142,7 @@ class Notifier < ActionMailer::Base
     @sitename  = Site.current.name
     @signature  = Site.current.signature_in_html
 
-    create_default_mail(get_locale_from_user(user))
+    create_default_mail(get_user_locale(user, false))
   end
 
   #This is used when a user asks for his password.
@@ -154,7 +155,7 @@ class Notifier < ActionMailer::Base
     @url  = "http://#{Site.current.domain}/reset_password/#{user.reset_password_code}"
     @signature  = Site.current.signature_in_html
 
-    create_default_mail(get_locale_from_user(user))
+    create_default_mail(get_user_locale(user, false))
   end
 
   #this method is used when a user has asked for his old password, and then he resets it.
@@ -165,7 +166,7 @@ class Notifier < ActionMailer::Base
     @sitename  = Site.current.name
     @signature = Site.current.signature_in_html
 
-    create_default_mail(get_locale_from_user(user))
+    create_default_mail(get_user_locale(user, false))
   end
 
   #this method is used when a user has sent feedback to the admin.
@@ -180,21 +181,19 @@ class Notifier < ActionMailer::Base
     create_default_mail(I18n.default_locale)
   end
 
-  def webconference_invite_email(params)
-    setup_email(params[:email_receiver])
-
-    I18n.with_locale(params[:locale]) do
-      @sender = params[:user_name]
-      @room_name = params[:room_name]
-      @room_url = params[:room_url]
-      @mobile_url = params[:mobile_url]
-      @subject = t('invite.title')
-      @message = params[:body]
-      @signature  = Site.current.signature_in_html
-      @replyto = params[:email_sender]
+  def webconference_invite_email(room, from, to, message=nil)
+    I18n.with_locale(get_user_locale(to, false)) do
+      @room = room
+      @from = from
+      @to = to
+      @message = message
+      subject = t('notifier.webconference_invite_email.subject')
+      if to.is_a?(User)
+        create_email(to.email, from.email, subject)
+      else
+        create_email(to, from.email, subject)
+      end
     end
-
-    create_default_mail(params[:locale])
   end
 
   def digest_email(receiver,posts,news,attachments,events,inbox)
@@ -214,11 +213,30 @@ class Notifier < ActionMailer::Base
     @subject = t('email.digest.title', :type => @type, :locale => @locale)
     @signature  = Site.current.signature_in_html
 
-    create_default_mail(get_locale_from_user(receiver))
+    create_default_mail(get_user_locale(receiver, false))
   end
 
   private
 
+  def create_email(to, from, subject, headers=nil)
+    from = "#{Site.current.name} <#{Site.current.smtp_sender}>"
+    replyto = from
+    options = {
+      :to => to,
+      :subject => "[#{Site.current.name}] #{subject}",
+      :from => from,
+      :headers => headers,
+      :reply_to => replyto
+    }
+    I18n.with_locale(locale) do
+      mail = mail(options) do |format|
+        format.html { render layout: 'notifier' }
+      end
+    end
+    mail
+  end
+
+  # TODO: old method, replace by create_email
   def setup_email(recipients)
     @recipients = recipients
     @from = "#{ Site.current.name } <#{ Site.current.smtp_sender }>"
@@ -227,33 +245,11 @@ class Notifier < ActionMailer::Base
     @content_type ="text/html"
   end
 
+  # TODO: old method, replace by create_email
   def create_default_mail(locale)
     I18n.with_locale(locale) do
       mail(:to => @recipients, :subject => @subject, :from => @from, :headers => @headers, :reply_to => @replyto)
     end
-  end
-
-  # TODO: method also defined in LocaleControllerModule, should be moved to a common file/class
-  def get_locale_from_user(user)
-
-    # user locale
-    if not user.nil? and user.is_a?(User) and
-        user.locale.present? and is_locale_available?(user.locale)
-      user.locale.to_sym
-
-    # site locale
-    elsif Site.current and Site.current.locale and is_locale_available?(Site.current.locale)
-      Site.current.locale.to_sym
-
-    # default locale - last fallback
-    else
-      I18n.default_locale
-    end
-  end
-
-  # TODO: method also defined in LocaleControllerModule, should be moved to a common file/class
-  def is_locale_available?(locale)
-    configatron.i18n.default_locales.include?(locale.to_sym)
   end
 
 end

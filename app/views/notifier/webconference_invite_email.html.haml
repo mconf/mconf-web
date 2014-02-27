@@ -1,0 +1,11 @@
+#webconference-invite-email
+  .header
+    = t('.message.header', :sender => @from.full_name, :email_sender => @from.email).html_safe
+  .access-codes
+    %span= t('.message.join', :invite_url => join_webconf_url(@room)).html_safe
+    - if @room.private
+      %span= t('.message.password', :password => @room.attendee_password).html_safe
+  - unless @message.blank?
+    .custom-message
+      %span= t('.message.custom_message', :sender => @from.full_name).html_safe
+      %blockquote= "\"#{@message}\""

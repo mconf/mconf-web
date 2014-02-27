@@ -15,6 +15,9 @@ pt-br:
       cancel: "Cancelar"
       or: "ou"
     hints:
+      invite:
+        message: "Esta é uma versão simplificada de como será a mensagem que será enviada para os destinatários."
+        users: "Busque por nome ou e-mail. Se você não conseguir encontrá-los, adicione endereços de e-mail. Digite e aperte enter para inserir um novo item."
       site:
         analytics_code: "Código para sua conta do Google Analytics. Deixe em branco para desabilitar. Exemplo: \"UA-12345678-9\""
         exception_notifications: "Enviar e-mails de depuração sempre que ocorrer um erro grave na aplicação"
@@ -57,6 +60,11 @@ pt-br:
         username: "Este nome será utilizado para identificar o seu usuário e a sua sala de webconferência. Use apenas letras, números e hifens."
         timezone: "Ao selecionar um fuso horário não haverá equívoco ao criar eventos com pessoas de outras localidades"
     placeholders:
+      invite:
+        ends_on: "Acaba em..."
+        message: "Escreva uma mensagem pessoal aqui"
+        starts_on: "Inicia em..."
+        users: "Digite para buscar usuários por nome ou e-mail..."
       join_request:
         invite:
           comment: "Escreva uma mensagem para o(s) usuário(s) convidado(s)"

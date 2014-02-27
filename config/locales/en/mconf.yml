@@ -809,7 +809,6 @@ en:
     email: "email to %{email}"
     invitation_successfully: "Invitation succesfully sent:"
     invitation_unsuccessfully: "Invitation could not be sent:"
-    message: "You have been invited by <b>%{sender}</b> (<a href=\"mailto:%{email_sender}\">%{email_sender}</a>) to join the webconference <b>%{name}</b>.<br/><br/>You can join it by accessing: <a href=\"%{invite_url}\">%{invite_url}</a><br/>If you're in a mobile client, use this url: <a href=\"%{mobile_url}\">%{mobile_url}</a><br/><br/>This is the message written by <b>%{sender}</b>:"
     title: "Invitation to participate in a webconference"
     user_private_msg: "private message to the user %{user}"
   invite_people: 
@@ -1077,6 +1076,14 @@ en:
   next: Next
   no_messages_in_wall: "There are no messages in the wall"
   no_tags_found: "No tags found"
+  notifier:
+    webconference_invite_email:
+      message:
+        custom_message: "This is the message written by %{sender}:"
+        header: "You have been invited by <b>%{sender}</b> (<a href=\"mailto:%{email_sender}\">%{email_sender}</a>) to a meeting:"
+        join: "You can join it by accessing: <a href=\"%{invite_url}\">%{invite_url}</a>"
+        password: "Use the password: <b>%{password}</b>"
+      subject: "Invitation to a meeting"
   now_exclamation: Now!
   ok: OK
   older: Older

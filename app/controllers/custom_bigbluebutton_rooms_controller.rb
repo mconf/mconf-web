@@ -78,7 +78,131 @@ class CustomBigbluebuttonRoomsController < Bigbluebutton::RoomsController
     end
   end
 
+  def invitation
+    respond_to do |format|
+      format.html {
+        render :layout => false if request.xhr?
+      }
+    end
+  end
+
+  def send_invitation
+    @success_messages = Array.new
+    @fail_messages = Array.new
+    @fail_user_email = Array.new
+    @fail_email = Array.new
+
+    success = ""
+    error = ""
+    send_invite_webconference
+
+    respond_to do |format|
+      if @fail_messages.empty?
+        if success.size != 0
+          flash[:success] = success.html_safe
+        end
+        if error.size != 0
+          flash[:error] = error.html_safe
+        end
+        format.html { redirect_to request.referer }
+        format.xml  { render :xml => @success_messages, :status => :created, :location => @success_messages }
+      else
+        if success.size != 0
+          flash[:success] = success.html_safe
+        end
+        if error.size != 0
+          flash[:error] = error.html_safe
+        end
+        format.html { redirect_to request.referer }
+        format.xml  { render :xml => @fail_messages.map{|m| m.errors}, :status => :unprocessable_entity }
+      end
+    end
+  end
+
   protected
+
+  # TODO: refactor, move things to a model, cleanup
+  def send_invite_webconference
+    users = params[:invite][:users].split(",")
+
+    success = ""
+    priv_msg = Hash.new
+    priv_email = Hash.new
+
+    priv_msg[:sender_id] = current_user.id
+    priv_email[:sender_id] = current_user.id
+
+    unless params[:invite][:message].empty?
+      priv_email[:body] = params[:invite][:message]
+    end
+    priv_email[:room_name] = params[:invite][:room_name]
+    priv_email[:room_url] = params[:invite][:room_url]
+    priv_email[:mobile_url] = params[:invite][:mobile_url]
+    priv_email[:user_name] = current_user.name
+    priv_email[:locale] = get_user_locale(current_user)
+
+    for userStr in users
+      user = User.find_by_id(userStr)
+      if user
+
+        # TODO: check if the user wants email or private message
+
+        priv_msg[:receiver_id] = user.id
+        I18n.with_locale(get_user_locale(user, false)) do
+          # TODO: would be better to render the email view in a variable and send it as private message
+          priv_msg[:title] = t('notifier.webconference_invite_email.subject')
+          body = t('notifier.webconference_invite_email.body', :sender => current_user.name, :name => params[:invite][:room_name],
+                   :invite_url => params[:invite][:room_url],
+                   :mobile_url => params[:invite][:mobile_url],
+                   :email_sender => current_user.email).html_safe
+          body += "</br>\"#{params[:invite][:message]}\"".html_safe
+          priv_msg[:body] = body
+        end
+        private_message = PrivateMessage.new(priv_msg)
+        if private_message.save
+          @success_messages << private_message
+          success = t('invite.invitation_successfully') << " " << t('invite.user_private_msg', :user => private_message.receiver.full_name)
+        else
+          error = t('invite.invitation_unsuccessfully') << " " << t('invite.user_private_msg', :user => private_message.receiver.full_name)
+          @fail_messages << private_message
+        end
+
+        priv_email[:email_receiver] = user.email
+        priv_email[:email_sender] = current_user.email
+        priv_email[:locale] = get_user_locale(user, false)
+        # Notifier.delay.webconference_invite_email(priv_email)
+        Notifier.webconference_invite_email(@room, current_user, user, params[:invite][:message]).deliver
+        if success.size == 0
+          success = t('invite.invitation_successfully') << " " << t('invite.email', :email => user.email)
+        else
+          success << ", " << t('invite.email', :email => user.email)
+        end
+
+      else
+
+        email = userStr
+        if valid_email?(email)
+          priv_email[:email_receiver] = email
+          priv_email[:email_sender] = current_user.email
+          # Notifier.delay.webconference_invite_email(priv_email)
+          Notifier.webconference_invite_email(@room, current_user, email, params[:invite][:message]).deliver
+          if success.size == 0
+            success = t('invite.invitation_successfully') << " " << t('invite.email', :email => email)
+          else
+            success << ", " << t('invite.email', :email => email)
+          end
+        else
+          if error.size == 0
+            error = t('invite.invitation_unsuccessfully') << " " <<  t('invite.email', :email => email) << " " << t('invite.bad_format')
+          else
+            error << ", " <<  t('invite.email', :email => email) << " " << t('invite.bad_format')
+          end
+        end
+
+      end
+    end
+
+  end
 
   # Override the method used in Bigbluebutton::RoomsController to get the parameters the user is
   # allowed to use on update/create. Normal users can only update a few of the parameters of a room.

@@ -807,7 +807,6 @@ pt-br:
     email: "e-mail para %{email}"
     invitation_successfully: "Convite enviado com sucesso:"
     invitation_unsuccessfully: "Convite não pode ser enviado:"
-    message: "Você foi convidado por <b>%{sender}</b> (<a href=\"mailto:%{email_sender}\">%{email_sender}</a>)  para participar da webconferência <b>%{name}</b>.<br/><br/>Você pode participar acessando o endereço: <a href=\"%{invite_url}\">%{invite_url}</a><br/>Se você está em um cliente móvel, use este endereço: <a href=\"%{mobile_url}\">%{mobile_url}</a><br/><br/>Esta é a mensagem escrita por <b>%{sender}</b>:"
     title: "Convite para participar de uma webconferência"
     user_private_msg: "mensagem privada para o usuário %{user}"
   invite_people:
@@ -1072,6 +1071,14 @@ pt-br:
   next: Próximo
   no_messages_in_wall: "Não há mensagens no mural"
   no_tags_found: "Nenhuma tag encontrada"
+  notifier:
+    webconference_invite_email:
+      message:
+        custom_message: "Esta é a mensagem escrita por %{sender}:"
+        header: "Você foi convidado por <b>%{sender}</b> (<a href=\"mailto:%{email_sender}\">%{email_sender}</a>) para uma conferência:"
+        join: "Você pode acessar a conferência em: <a href=\"%{invite_url}\">%{invite_url}</a>"
+        password: "Use a senha: <b>%{password}</b>"
+      subject: "Convite para uma conferência"
   now_exclamation: Agora!
   ok: OK
   older: "Mais velho"

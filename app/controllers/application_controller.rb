@@ -53,7 +53,8 @@ class ApplicationController < ActionController::Base
   end
 
   def valid_email? email
-    /^[-a-z0-9_+\.]+\@([-a-z0-9]+\.)+[a-z0-9]{2,4}$/i.match(email)
+    require 'valid_email'
+    ValidateEmail.valid?(email)
   end
 
   def current_ability
