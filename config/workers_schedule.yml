@@ -1,0 +1,7 @@
+# Scheduling worker jobs
+send_private_message_notifications:
+  every:
+    - "30s"
+    - :first_in: '1m'
+  class: MessageNotifications
+  description: "This job finds all messages on recent activity and sends their receivers the message notifications"
