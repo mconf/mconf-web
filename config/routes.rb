@@ -19,6 +19,10 @@
 
 Mconf::Application.routes.draw do
 
+  constraints CanAccessResque do
+    mount Resque::Server, :at => 'manage/resque'
+  end
+
   match "logo_images/crop", :to => 'logo_images#crop'
 
   # devise
