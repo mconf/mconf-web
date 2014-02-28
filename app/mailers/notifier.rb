@@ -181,12 +181,14 @@ class Notifier < ActionMailer::Base
     create_default_mail(I18n.default_locale)
   end
 
-  def webconference_invite_email(room, from, to, message=nil)
+  def webconference_invite_email(room, from, to, extra={})
     I18n.with_locale(get_user_locale(to, false)) do
       @room = room
       @from = from
       @to = to
-      @message = message
+      @message = extra[:message] if extra.has_key?(:message)
+      @starts_on = extra[:starts_on] if extra.has_key?(:starts_on)
+      @ends_on = extra[:ends_on] if extra.has_key?(:ends_on)
       subject = t('notifier.webconference_invite_email.subject')
       if to.is_a?(User)
         create_email(to.email, from.email, subject)

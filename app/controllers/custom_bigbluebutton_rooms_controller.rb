@@ -171,7 +171,7 @@ class CustomBigbluebuttonRoomsController < Bigbluebutton::RoomsController
         priv_email[:email_sender] = current_user.email
         priv_email[:locale] = get_user_locale(user, false)
         # Notifier.delay.webconference_invite_email(priv_email)
-        Notifier.webconference_invite_email(@room, current_user, user, params[:invite][:message]).deliver
+        Notifier.webconference_invite_email(@room, current_user, user, params[:invite]).deliver
         if success.size == 0
           success = t('invite.invitation_successfully') << " " << t('invite.email', :email => user.email)
         else
@@ -185,7 +185,7 @@ class CustomBigbluebuttonRoomsController < Bigbluebutton::RoomsController
           priv_email[:email_receiver] = email
           priv_email[:email_sender] = current_user.email
           # Notifier.delay.webconference_invite_email(priv_email)
-          Notifier.webconference_invite_email(@room, current_user, email, params[:invite][:message]).deliver
+          Notifier.webconference_invite_email(@room, current_user, email, params[:invite]).deliver
           if success.size == 0
             success = t('invite.invitation_successfully') << " " << t('invite.email', :email => email)
           else

@@ -108,6 +108,7 @@ GEM
       mime-types
       xml-simple
     bcrypt-ruby (3.1.1)
+    bootstrap-datetimepicker-rails (0.0.11)
     builder (3.0.4)
     cancan (1.6.10)
     carrierwave (0.9.0)
@@ -206,6 +207,8 @@ GEM
       treetop (~> 1.4.8)
     mime-types (1.23)
     mini_portile (0.5.2)
+    momentjs-rails (2.5.1)
+      railties (>= 3.1)
     mono_logger (1.1.0)
     multi_json (1.7.9)
     mysql2 (0.3.11)
@@ -367,6 +370,7 @@ DEPENDENCIES
   attachment_fu!
   bigbluebutton-api-ruby!
   bigbluebutton_rails!
+  bootstrap-datetimepicker-rails
   cancan (~> 1.6.0)
   carrierwave
   chronic
@@ -399,6 +403,7 @@ DEPENDENCIES
   i18n-js!
   jquery-rails
   less-rails
+  momentjs-rails
   mysql2 (~> 0.3.0)
   net-ldap
   nokogiri

@@ -92,6 +92,11 @@ pt-br:
         location: "Localização"
         name: "Nome"
         start_date: "Data e horário de início"
+      invite:
+        ends_on: "Acaba em"
+        message: "Mensagem pessoal"
+        starts_on: "Inicia em"
+        users: "Usuários"
       join_request:
         comment: "Mensagem"
       news:
@@ -371,6 +376,9 @@ pt-br:
     index:
       list_of_rooms: "Lista de todas salas registradas"
     important: Importante
+    invitation_form:
+      meeting_in: "Enviando convites para conferência em:"
+      title: "Convite para conferência"
     invite: 
       desktop: 
         not_selected: "Selecione esta opção para acessar de um <em>computador</em>."

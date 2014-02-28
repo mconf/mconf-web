@@ -18,15 +18,6 @@
   .simple_form .input {
     width: 100%;
 
-    &.invite_starts_on {
-      margin-right: 20px;
-    }
-
-    &.invite_starts_on, &.invite_ends_on {
-      width: 47%;
-      float: left;
-    }
-
     .invite_message {
       margin-bottom: 0;
     }
@@ -40,6 +31,26 @@
       resize: vertical;
       margin: 0;
     }
+  }
+
+  #invite_starts_on {
+    margin-right: 20px;
+  }
+
+  #invite_starts_on, #invite_ends_on {
+    width: 38%;
+    float: left;
+    input {
+      width: 79%;
+    }
+  }
+
+  #invite_duration {
+    width: 17%;
+    float: left;
+    margin-top: 32px;
+    margin-left: 10px;
+    font-weight: bold;
   }
 
   .invitation-message {

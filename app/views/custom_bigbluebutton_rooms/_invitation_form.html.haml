@@ -2,23 +2,34 @@
 
   .modal-header
     = modal_close_button
-    %h3= "Invite people to a meeting"
+    %h3= t('.title')
 
   = simple_form_for :invite, :url => send_invitation_bigbluebutton_room_path(room), :html => { :class => 'single-column' } do |f|
 
     .modal-body
       .invitation-header
-        %span= "Inviting people to a meeting in:"
+        %span= t('.meeting_in')
         %span.meeting-url= join_webconf_url(room)
 
       = f.input :users, :as => :string, :autofocus => true
-      = f.input :starts_on, :as => :string
-      = f.input :ends_on, :as => :string
-      -#= f.text_area :duration, :id => "starts_in", :placeholder => "Starts on..."
-      -#= f.select :role, options_for_select([["5 min", "5"], ["Student", "s"]])
 
+      -# TODO: it would be good to have a custom simple_form input for dates
+      #invite_starts_on.input.input-append.date
+        %label= t('activerecord.attributes.invite.starts_on')
+        %input{ :'data-format' => "dd/MM/yyyy hh:mm", :type => "text", :name => 'invite[starts_on]' }
+        %span.add-on
+          %i{ :'data-time-icon' => "icon-time", :'data-date-icon' => "icon-calendar" }
+      #invite_ends_on.input.input-append.date
+        %label= t('activerecord.attributes.invite.ends_on')
+        %input{ :'data-format' => "dd/MM/yyyy hh:mm", :type => "text", :name => 'invite[ends_on]' }
+        %span.add-on
+          %i{ :'data-time-icon' => "icon-time", :'data-date-icon' => "icon-calendar" }
+      #invite_duration.input
+        %span.duration= ''
+
+      -# TODO: it would be good to render the email view and show it here
       .invitation-message.well
-        = icon_help "This is a simplified view of how the message will look like when sent to the recipients."
+        = icon_help t('simple_form.hints.invite.message')
         %p= t('notifier.webconference_invite_email.message.header', :sender => current_user.name, :email_sender => current_user.email).html_safe
         %p= t('notifier.webconference_invite_email.message.join', :invite_url => join_webconf_url(room)).html_safe
         - if room.private

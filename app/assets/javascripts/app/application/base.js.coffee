@@ -131,6 +131,7 @@ class mconf.Base
 $ ->
   # Setting I18n-js with the user language
   I18n.locale = $('html').attr "lang"
+  moment.lang(I18n.locale)
 
   mconf.Base.bind()
 

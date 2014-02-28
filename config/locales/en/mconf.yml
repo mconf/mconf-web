@@ -92,6 +92,11 @@ en:
         location: "Location"
         name: "Name"
         start_date: "Date and time when it starts"
+      invite:
+        ends_on: "Ends on"
+        message: "Personal message"
+        starts_on: "Starts on"
+        users: "Users"
       join_request:
         comment: "Message"
       news:
@@ -377,6 +382,9 @@ en:
     index:
       list_of_rooms: "List of all registered rooms"
     important: Important
+    invitation_form:
+      meeting_in: "Inviting people to a meeting in:"
+      title: "Invite people to a meeting"
     invite: 
       desktop: 
         not_selected: "Select this options to access from a <em>desktop computer</em>."

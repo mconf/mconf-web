@@ -16,7 +16,7 @@ en:
       or: "or"
     hints:
       invite:
-        message: "This is a simplified view of how the message will look like when sent to the recipients."
+        message: "This is a simplified view of how the message will look like when sent to the recipients. The dates selected will also be sent."
         users: "Search people by name or email. If you can't find them, just add their email address. Type and press enter to insert a new item."
       site:
         analytics_code: "Code for your Google Analytics account. Leave it blank to disable. Example: \"UA-12345678-9\""
