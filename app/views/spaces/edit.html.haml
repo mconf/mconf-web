@@ -15,6 +15,7 @@
   = simple_form_for @space, :html => { :method => :put, :class => 'single-column' } do |f|
     .left-column
       = f.input :name
+      = f.input :permalink , :disabled => true
       = f.input :description, :as => :text, :input_html => { :rows => 5 }
       = f.input :repository
       = f.input :public, :label => t('.public')

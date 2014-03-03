@@ -880,7 +880,7 @@ en:
       manage: "Manage"
       register: "Register"
     footer:
-      copyright: "© 2010-2013 %{site}."
+      copyright: "© 2010-2014 %{site}."
       current_version: "Current version"
       find_us: "Find more about Mconf"
       github: GitHub
@@ -900,7 +900,7 @@ en:
         help_us: "Want this site in your language? Click to see how to help us translate it!"
       wiki: "Wiki"
     footer_simple:
-      copyright: "© 2010-2013 %{site}."
+      copyright: "© 2010-2014 %{site}."
       translate:
         change: "Switch language"
     spaces_page_title:
