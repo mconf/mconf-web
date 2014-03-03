@@ -18,6 +18,12 @@ class mconf.Base
       e.preventDefault()
       true # so it continues to the next callbacks, if any
 
+    # Opens the link in a new window
+    $("a.open-new-window:not(.disabled)").on "click.mconfBase", (e) ->
+      window.open $(this)[0].href, "_blank"
+      e.preventDefault()
+      true # so it continues to the next callbacks, if any
+
     # Disable the click in any link with the 'disabled' class
     $(".disabled").on "click.mconfBase", (e) ->
       e.preventDefault()
@@ -95,6 +101,7 @@ class mconf.Base
 
   @unbind: ->
     $("a.webconf-join-link:not(.disabled)").off "click.mconfBase"
+    $("a.open-new-window:not(.disabled)").off "click.mconfBase"
     $(".disabled").off "click.mconfBase"
     $('a.link-to-expand').off "click.mconfBase"
     $('a.link-to-collapse').off "click.mconfBase"
