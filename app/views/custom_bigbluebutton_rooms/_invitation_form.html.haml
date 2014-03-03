@@ -14,28 +14,21 @@
       = f.input :users, :as => :string, :autofocus => true
 
       -# TODO: it would be good to have a custom simple_form input for dates
-      #invite_starts_on.input.input-append.date
-        %label= t('activerecord.attributes.invite.starts_on')
-        %input{ :'data-format' => "dd/MM/yyyy hh:mm", :type => "text", :name => 'invite[starts_on]' }
-        %span.add-on
-          %i{ :'data-time-icon' => "icon-time", :'data-date-icon' => "icon-calendar" }
-      #invite_ends_on.input.input-append.date
-        %label= t('activerecord.attributes.invite.ends_on')
-        %input{ :'data-format' => "dd/MM/yyyy hh:mm", :type => "text", :name => 'invite[ends_on]' }
-        %span.add-on
-          %i{ :'data-time-icon' => "icon-time", :'data-date-icon' => "icon-calendar" }
-      #invite_duration.input
-        %span.duration= ''
+      .input.invitation-dates
+        #invite_starts_on.input.input-append.date
+          %label= t('activerecord.attributes.invite.starts_on')
+          %input{ :'data-format' => "dd/MM/yyyy hh:mm", :type => "text", :name => 'invite[starts_on]' }
+          %span.add-on
+            %i{ :'data-time-icon' => "icon-time", :'data-date-icon' => "icon-calendar" }
+        #invite_ends_on.input.input-append.date
+          %label= t('activerecord.attributes.invite.ends_on')
+          %input{ :'data-format' => "dd/MM/yyyy hh:mm", :type => "text", :name => 'invite[ends_on]' }
+          %span.add-on
+            %i{ :'data-time-icon' => "icon-time", :'data-date-icon' => "icon-calendar" }
+        #invite_duration.input
+          %span.duration= ''
 
-      -# TODO: it would be good to render the email view and show it here
-      .invitation-message.well
-        = icon_help t('simple_form.hints.invite.message')
-        %p= t('notifier.webconference_invite_email.message.header', :sender => current_user.name, :email_sender => current_user.email).html_safe
-        %p= t('notifier.webconference_invite_email.message.join', :invite_url => join_webconf_url(room)).html_safe
-        - if room.private
-          %p= t('notifier.webconference_invite_email.message.password', :password => room.attendee_password).html_safe
-        %p= t('notifier.webconference_invite_email.message.custom_message', :sender => current_user.name).html_safe
-        = f.input :message, :as => :text, :label => false
+      = f.input :message, :as => :text
 
     .modal-footer.form-actions
       = f.button :wrapped, t('_other.send'), :class => "btn btn-primary", :cancel_modal => true

@@ -377,7 +377,7 @@ pt-br:
       list_of_rooms: "Lista de todas salas registradas"
     important: Importante
     invitation_form:
-      meeting_in: "Enviando convites para conferência em:"
+      meeting_in: "Enviando convite para conferência em:"
       title: "Convite para conferência"
     invite: 
       desktop: 
@@ -1082,11 +1082,12 @@ pt-br:
   notifier:
     webconference_invite_email:
       message:
-        custom_message: "Esta é a mensagem escrita por %{sender}:"
+        end: "Fim"
         header: "Você foi convidado por <b>%{sender}</b> (<a href=\"mailto:%{email_sender}\">%{email_sender}</a>) para uma conferência:"
-        join: "Você pode acessar a conferência em: <a href=\"%{invite_url}\">%{invite_url}</a>"
-        password: "Use a senha: <b>%{password}</b>"
-      subject: "Convite para uma conferência"
+        join: "Acesso"
+        password: "Chave de acesso"
+        start: "Início"
+      subject: "Você foi convidado para uma conferência por %{name}"
   now_exclamation: Agora!
   ok: OK
   older: "Mais velho"

@@ -1087,11 +1087,12 @@ en:
   notifier:
     webconference_invite_email:
       message:
-        custom_message: "This is the message written by %{sender}:"
+        end: "End"
         header: "You have been invited by <b>%{sender}</b> (<a href=\"mailto:%{email_sender}\">%{email_sender}</a>) to a meeting:"
-        join: "You can join it by accessing: <a href=\"%{invite_url}\">%{invite_url}</a>"
-        password: "Use the password: <b>%{password}</b>"
-      subject: "Invitation to a meeting"
+        join: "Join at"
+        password: "Access key"
+        start: "Start"
+      subject: "You have been invited to a meeting by %{name}"
   now_exclamation: Now!
   ok: OK
   older: Older

@@ -33,6 +33,11 @@
     }
   }
 
+  .invitation-dates {
+    @include mconf-clearfix;
+    clear: both;
+  }
+
   #invite_starts_on {
     margin-right: 20px;
   }

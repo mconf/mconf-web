@@ -4,10 +4,11 @@
 
 $mail-font-color: $font-color;
 $mail-header-font-color: $navbar-bg-color;
+$mail-font-size: $font-normal;
 
 body {
-  padding: 10px 0;
-  @include font-size($font-normal);
+  padding: 0;
+  @include font-size($mail-font-size);
   color: $mail-font-color;
 
   a {
@@ -21,7 +22,7 @@ body {
 /*   border-bottom: 1px solid $gray; */
 /*   margin-bottom: 10px; */
 /*   color: $mail-header-font-color; */
-/*   @include font-size($font-medium); */
+/*   @include font-size($mail-font-size); */
 /*   font-weight: bold; */
 
 /*   a { */
@@ -32,13 +33,29 @@ body {
 /*   } */
 /* } */
 
-.message-body {
-  padding: 10px;
-}
-
 .footer {
   margin-top: 10px;
   padding: 5px 10px;
   border-top: 1px solid lighten($gray, 10);
   color: lighten($mail-font-color, 10);
+}
+
+.mail-highlight-block {
+  background: $light-gray;
+  @include border-radius(2px);
+  margin: 10px 0;
+  padding: 10px;
+  @include font-size($mail-font-size);
+}
+
+.mail-quote-block {
+  padding: 15px 0;
+}
+
+.mail-event-block {
+  border: 1px solid $gray;
+  @include border-radius(2px);
+  margin: 10px 0;
+  padding: 10px;
+  @include font-size($mail-font-size);
 }

@@ -189,7 +189,7 @@ class Notifier < ActionMailer::Base
       @message = extra[:message] if extra.has_key?(:message)
       @starts_on = extra[:starts_on] if extra.has_key?(:starts_on)
       @ends_on = extra[:ends_on] if extra.has_key?(:ends_on)
-      subject = t('notifier.webconference_invite_email.subject')
+      subject = t('notifier.webconference_invite_email.subject', :name => from.full_name)
       if to.is_a?(User)
         create_email(to.email, from.email, subject)
       else
@@ -221,21 +221,16 @@ class Notifier < ActionMailer::Base
   private
 
   def create_email(to, from, subject, headers=nil)
-    from = "#{Site.current.name} <#{Site.current.smtp_sender}>"
-    replyto = from
-    options = {
-      :to => to,
-      :subject => "[#{Site.current.name}] #{subject}",
-      :from => from,
-      :headers => headers,
-      :reply_to => replyto
-    }
+    sender = "#{Site.current.name} <#{Site.current.smtp_sender}>"
     I18n.with_locale(locale) do
-      mail = mail(options) do |format|
+      mail(:to => to,
+           :subject => "[#{Site.current.name}] #{subject}",
+           :from => sender,
+           :headers => headers,
+           :reply_to => from) do |format|
         format.html { render layout: 'notifier' }
       end
     end
-    mail
   end
 
   # TODO: old method, replace by create_email

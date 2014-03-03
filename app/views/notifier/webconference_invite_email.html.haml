@@ -1,11 +1,23 @@
 #webconference-invite-email
   .header
     = t('.message.header', :sender => @from.full_name, :email_sender => @from.email).html_safe
-  .access-codes
-    %span= t('.message.join', :invite_url => join_webconf_url(@room)).html_safe
-    - if @room.private
-      %span= t('.message.password', :password => @room.attendee_password).html_safe
+
   - unless @message.blank?
-    .custom-message
-      %span= t('.message.custom_message', :sender => @from.full_name).html_safe
-      %blockquote= "\"#{@message}\""
+    .mail-quote-block= "\"#{@message}\""
+
+  .mail-event-block
+    - unless @starts_on.nil?
+      .field
+        %label= t('.message.start') + ':'
+        %span= @starts_on.to_formatted_s(:rfc822)
+    - unless @ends_on.nil?
+      .field
+        %label= t('.message.end') + ':'
+        %span= @ends_on.to_formatted_s(:rfc822)
+    .field
+      %label= t('.message.join') + ':'
+      %span= link_to join_webconf_url(@room), join_webconf_url(@room)
+    - if @room.private
+      .field
+        %label= t('.message.password') + ':'
+        %span= @room.attendee_password

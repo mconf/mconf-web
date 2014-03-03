@@ -3,28 +3,19 @@
 
 #webconference-invite-email {
 
-  span {
+  .field {
     display: block;
     margin: 3px 0;
-  }
 
-  .access-codes {
-    background: $light-gray;
-    @include border-radius(4px);
-    margin: 10px;
-    padding: 10px;
-    text-align: center;
-    @include font-size($font-medium);
-  }
+    label {
+      color: $dark-gray;
+      display: inline-block;
+      font-weight: bold;
+      margin-right: 5px;
+    }
 
-  .custom-message {
-    margin-top: 10px;
-
-    blockquote {
-      margin-top: 10px;
-      padding: 5px 0 5px 15px;
-      border-left: 3px solid #ccc;
-      @include font-size($font-medium);
+    span {
+      display: inline-block;
     }
   }
 
