@@ -2,7 +2,7 @@ $ ->
   if isOnPage 'join_requests', 'invite'
 
     id = '#candidates'
-    url = '/users/select'
+    url = '/users/select?limit=10'
 
     $(id).select2
       minimumInputLength: 1
@@ -12,6 +12,11 @@ $ ->
       formatInputTooShort: () -> I18n.t('invite_people.users.hint')
       tags: true
       tokenSeparators: [",",";"]
+      formatSelection: (object, container) ->
+        if object.name?
+          object.name
+        else
+          object.text
       ajax:
         url: url
         dataType: "json"

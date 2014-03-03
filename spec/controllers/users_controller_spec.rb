@@ -205,6 +205,8 @@ describe UsersController do
 
   describe "#select" do
     context ".json" do
+      before { User.destroy_all } # exclude seeded user(s)
+
       context "when there's a user logged" do
         let(:user) { FactoryGirl.create(:user) }
         before(:each) { login_as(user) }
@@ -212,14 +214,15 @@ describe UsersController do
         let(:expected) {
           @users.map do |u|
             { :id => u.id, :username => u.username,
-              :name => u.name, :text => "#{u.name} (#{u.username})" }
+              :name => u.name, :email => u.email,
+              :text => "#{u.name} (#{u.username}, #{u.email})" }
           end
         }
 
         context "works" do
           before do
             10.times { FactoryGirl.create(:user) }
-            @users = User.all.first(5)
+            @users = User.joins(:profile).order("profiles.full_name").first(5)
           end
           before(:each) { get :select, :format => :json }
           it { should respond_with(:success) }
@@ -234,6 +237,34 @@ describe UsersController do
             FactoryGirl.create(:user, :_full_name => "Yet Another User")
             FactoryGirl.create(:user, :_full_name => "Abc de Fgh")
             FactoryGirl.create(:user, :_full_name => "Marcos #{unique_str} Silva") do |u|
+              @users = [u]
+            end
+          end
+          before(:each) { get :select, :q => unique_str, :format => :json }
+          it { should assign_to(:users).with(@users) }
+          it { response.body.should == expected.to_json }
+        end
+
+        context "matches users by username" do
+          let(:unique_str) { "123" }
+          before do
+            FactoryGirl.create(:user, :username => "Yet-Another-User")
+            FactoryGirl.create(:user, :username => "Abc-de-Fgh")
+            FactoryGirl.create(:user, :username => "Marcos-#{unique_str}-Silva") do |u|
+              @users = [u]
+            end
+          end
+          before(:each) { get :select, :q => unique_str, :format => :json }
+          it { should assign_to(:users).with(@users) }
+          it { response.body.should == expected.to_json }
+        end
+
+        context "matches users by email" do
+          let(:unique_str) { "123" }
+          before do
+            FactoryGirl.create(:user, :email => "Yet-Another-User@mconf.org")
+            FactoryGirl.create(:user, :email => "Abc-de-Fgh@mconf.org")
+            FactoryGirl.create(:user, :email => "Marcos-#{unique_str}@mconf.org") do |u|
               @users = [u]
             end
           end
@@ -265,6 +296,22 @@ describe UsersController do
           before(:each) { get :select, :limit => 51, :format => :json }
           it { assigns(:users).count.should be(50) }
         end
+
+        context "orders @users by the user's full name" do
+          before {
+            @u1 = FactoryGirl.create(:user, :_full_name => 'Last one')
+            @u2 = user
+            @u2.profile.update_attributes(:full_name => 'Ce user')
+            @u3 = FactoryGirl.create(:user, :_full_name => 'A user')
+            @u4 = FactoryGirl.create(:user, :_full_name => 'Be user')
+          }
+          before(:each) { get :select, :format => :json }
+          it { assigns(:users).count.should be(4) }
+          it("first user") { assigns(:users)[0].should eql(@u3) }
+          it("second user") { assigns(:users)[1].should eql(@u4) }
+          it("third user") { assigns(:users)[2].should eql(@u2) }
+          it("fourth user") { assigns(:users)[3].should eql(@u1) }
+        end
       end
     end
   end
@@ -278,7 +325,8 @@ describe UsersController do
         let(:expected) {
           @users.map do |u|
             { :id => u.id, :username => u.username,
-              :name => u.name, :text => "#{u.name} (#{u.username})" }
+              :name => u.name, :email => u.email,
+              :text => "#{u.name} (#{u.username}, #{u.email})" }
           end
         }
 

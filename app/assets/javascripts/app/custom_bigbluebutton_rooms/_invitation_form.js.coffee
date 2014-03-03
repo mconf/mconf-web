@@ -1,5 +1,5 @@
 usersSelector = '#invite_users'
-searchUsersUrl = '/users/select'
+searchUsersUrl = '/users/select?limit=7'
 startsOnSelector = '#invite_starts_on'
 endsOnSelector = '#invite_ends_on'
 durationSelector = '#invite_duration'
@@ -29,6 +29,11 @@ bindUsers = ->
     createSearchChoice: (term, data) ->
       if mconf.Base.validateEmail(term)
         { id: term, text: term }
+    formatSelection: (object, container) ->
+      if object.name?
+        object.name
+      else
+        object.id
     ajax:
       url: searchUsersUrl
       dataType: "json"

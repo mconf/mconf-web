@@ -13,8 +13,13 @@ $ ->
         params = { dataType: "json" }
         $.ajax("/users/select?i=#{element.val()}", params).done (data) ->
           callback(data)
+      formatSelection: (object, container) ->
+        if object.name?
+          object.name
+        else
+          object.text
       ajax:
-        url: '/users/fellows.json'
+        url: '/users/fellows.json?limit=10'
         dataType: "json"
         data: (term, page) ->
           q: term # search term
