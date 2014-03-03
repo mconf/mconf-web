@@ -23,6 +23,7 @@ $orange: #C47322;
 $yellow: #BB9403;
 $green-logo: #27535C;
 $gray: #ccc;
+$dark-gray: #666;
 $light-gray: #f6f6f6;
 $very-light-gray: #fcfcfc;
 $bright-blue: #49afcd;
@@ -170,7 +171,7 @@ $z-index-tooltip: 999999;
 @mixin space-visibility {
   font-size: $font-small;
   display: block;
-  color: #666;
+  color: $dark-gray;
 
   .icon-awesome {
     float: none;
