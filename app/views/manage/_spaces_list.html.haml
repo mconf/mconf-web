@@ -1,5 +1,8 @@
-%span#resource-count
-  = @spaces.count
+#filter-total.resource-filter-total
+  .resource-filter-with-text
+    = t('.filter_count_with_text', :count => "<span class=\"resource-filter-count\">#{@spaces.count}</span>".html_safe, :value => "<span class=\"resource-filter-value\"></span>".html_safe).html_safe
+  .resource-filter-without-text
+    = t('.filter_count_empty', :count => Space.count)
 
 - if @spaces.count > 0
 

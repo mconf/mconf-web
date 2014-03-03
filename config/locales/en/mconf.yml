@@ -957,8 +957,9 @@ en:
     spaces:
       filter_name: "Name"
       filter_results: "Filter the results:"
-      filter_count_html: Showing <span id="filter-count"></span> spaces for filter '<span id="filter-value"></span>'
     spaces_list:
+      filter_count_with_text: "Found %{count} spaces for filter \"%{value}\""
+      filter_count_empty: "Found %{count} spaces"
       no_space_found: "No space found"
     spam:
       event:
@@ -977,8 +978,9 @@ en:
     users:
       filter_name_or_username: "Name, username or email"
       filter_results: "Filter the results:"
-      filter_count_html: Showing <span id="filter-count"></span> users for filter '<span id="filter-value"></span>'
     users_list:
+      filter_count_with_text: "Found %{count} users for filter \"%{value}\""
+      filter_count_empty: "Found %{count} users"
       no_user_found: "No user found"
   mandatory_field: "Mandatory field"
   message: 

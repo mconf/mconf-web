@@ -954,8 +954,9 @@ pt-br:
     spaces:
       filter_name: "Nome"
       filter_results: "Filtrar os resultados:"
-      filter_count_html: Mostrando <span id="filter-count"></span> comunidades para '<span id="filter-value"></span>'
     spaces_list:
+      filter_count_with_text: "%{count} comunidades encontradas para o filtro \"%{value}\""
+      filter_count_empty: "%{count} comunidades encontradas"
       no_space_found: "Nenhuma comunidade encontrada"
     spam:
       event:
@@ -974,8 +975,9 @@ pt-br:
     users:
       filter_name_or_username: "Nome, identificador ou e-mail"
       filter_results: "Filtrar os resultados:"
-      filter_count_html: Mostrando <span id="filter-count"></span> usuários para '<span id="filter-value"></span>'
     users_list:
+      filter_count_with_text: "%{count} usuários encontrados para o filtro \"%{value}\""
+      filter_count_empty: "%{count} usuários encontrados"
       no_user_found: "Nenhum usuário encontrado"
   mandatory_field: "Campo obrigatório"
   mconf: Mconf

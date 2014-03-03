@@ -31,16 +31,20 @@ class mconf.ResourceFilter
         clearTimeout(timeout)
         timeout = setTimeout(updateResources, searchDelay, $input, $target)
 
-      text = $input.val()
-      if text?.length
-        # Set the filter text
-        count = $("#resource-count").text()
-        $("#filter-value").text(text)
-        $("#filter-count").text(count)
-
-        $("#filter-text").show(showTime)
-      else
-        $("#filter-text").hide(showTime)
+      # finds the input where the total number of resources should be shown,
+      # configures it, and displays it
+      $filter = $($input.data("filter"))
+      if $filter.length > 0
+        $(".resource-filter-without-text", $filter).hide()
+        $(".resource-filter-with-text", $filter).hide()
+        text = $input.val()
+        if text?.length
+          $(".resource-filter-value", $filter).text(text)
+          $(".resource-filter-without-text", $filter).hide(showTime)
+          $(".resource-filter-with-text", $filter).show(showTime)
+        else
+          $(".resource-filter-with-text", $filter).hide(showTime)
+          $(".resource-filter-without-text", $filter).show(showTime)
 
 updateResources = ($input, $target) ->
   text = $input.val()
