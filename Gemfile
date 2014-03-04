@@ -85,6 +85,9 @@ gem 'nokogiri'
 # send emails in case of exceptions in production
 gem 'exception_notification'
 
+# generate .ics
+gem 'icalendar'
+
 #
 # TODO: Gems to review if we can remove/update
 #

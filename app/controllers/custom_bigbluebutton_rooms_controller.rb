@@ -141,6 +141,14 @@ class CustomBigbluebuttonRoomsController < Bigbluebutton::RoomsController
     priv_email[:user_name] = current_user.name
     priv_email[:locale] = get_user_locale(current_user)
 
+    # TODO: what if the date is in another language/format?
+    if params[:invite][:starts_on]
+      params[:invite][:starts_on] = DateTime.strptime(params[:invite][:starts_on], "%d/%m/%Y %H:%M")
+    end
+    if params[:invite][:ends_on]
+      params[:invite][:ends_on] = DateTime.strptime(params[:invite][:ends_on], "%d/%m/%Y %H:%M")
+    end
+
     for userStr in users
       user = User.find_by_id(userStr)
       if user
@@ -170,13 +178,6 @@ class CustomBigbluebuttonRoomsController < Bigbluebutton::RoomsController
         priv_email[:email_receiver] = user.email
         priv_email[:email_sender] = current_user.email
         priv_email[:locale] = get_user_locale(user, false)
-        # TODO: what if the date is in another language/format?
-        if params[:invite][:starts_on]
-          params[:invite][:starts_on] = DateTime.strptime(params[:invite][:starts_on], "%d/%m/%Y %H:%M")
-        end
-        if params[:invite][:ends_on]
-          params[:invite][:ends_on] = DateTime.strptime(params[:invite][:ends_on], "%d/%m/%Y %H:%M")
-        end
         # Notifier.delay.webconference_invite_email(priv_email)
         Notifier.webconference_invite_email(@room, current_user, user, params[:invite]).deliver
         if success.size == 0
@@ -192,13 +193,6 @@ class CustomBigbluebuttonRoomsController < Bigbluebutton::RoomsController
           priv_email[:email_receiver] = email
           priv_email[:email_sender] = current_user.email
           # Notifier.delay.webconference_invite_email(priv_email)
-          # TODO: what if the date is in another language/format?
-          if params[:invite][:starts_on]
-            params[:invite][:starts_on] = DateTime.strptime(params[:invite][:starts_on], "%d/%m/%Y %H:%M")
-          end
-          if params[:invite][:ends_on]
-            params[:invite][:ends_on] = DateTime.strptime(params[:invite][:ends_on], "%d/%m/%Y %H:%M")
-          end
           Notifier.webconference_invite_email(@room, current_user, email, params[:invite]).deliver
           if success.size == 0
             success = t('invite.invitation_successfully') << " " << t('invite.email', :email => email)

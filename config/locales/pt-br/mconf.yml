@@ -1081,9 +1081,10 @@ pt-br:
   no_tags_found: "Nenhuma tag encontrada"
   notifier:
     webconference_invite_email:
+      event_name: "Conferência com %{name}"
       message:
         end: "Fim"
-        header: "Você foi convidado por <b>%{sender}</b> (<a href=\"mailto:%{email_sender}\">%{email_sender}</a>) para uma conferência:"
+        header: "Você foi convidado por <b>%{sender}</b> (%{email_sender}) para uma conferência:"
         join: "Acesso"
         password: "Chave de acesso"
         start: "Início"

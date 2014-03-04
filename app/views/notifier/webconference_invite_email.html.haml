@@ -16,7 +16,7 @@
         %span= @ends_on.to_formatted_s(:rfc822)
     .field
       %label= t('.message.join') + ':'
-      %span= link_to join_webconf_url(@room), join_webconf_url(@room)
+      %span= join_webconf_url(@room)
     - if @room.private
       .field
         %label= t('.message.password') + ':'
