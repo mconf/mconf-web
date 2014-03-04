@@ -141,12 +141,13 @@ class CustomBigbluebuttonRoomsController < Bigbluebutton::RoomsController
     priv_email[:user_name] = current_user.name
     priv_email[:locale] = get_user_locale(current_user)
 
-    # TODO: what if the date is in another language/format?
+    # converts the date from the datetimepicker to a DateTime
+    date_format = t('_other.datetimepicker.format_rails')
     if params[:invite][:starts_on]
-      params[:invite][:starts_on] = DateTime.strptime(params[:invite][:starts_on], "%d/%m/%Y %H:%M")
+      params[:invite][:starts_on] = DateTime.strptime(params[:invite][:starts_on], date_format)
     end
     if params[:invite][:ends_on]
-      params[:invite][:ends_on] = DateTime.strptime(params[:invite][:ends_on], "%d/%m/%Y %H:%M")
+      params[:invite][:ends_on] = DateTime.strptime(params[:invite][:ends_on], date_format)
     end
 
     for userStr in users

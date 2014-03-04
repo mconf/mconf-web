@@ -44,6 +44,9 @@ en:
     accept: "Accept"
     cancel: "Cancel"
     create: "Create"
+    datetimepicker:
+      format: "MM/dd/yyyy hh:mm"
+      format_rails: "%m/%d/%Y %H:%M"
     deny: "Deny"
     destroy: "Destroy"
     details: "Details"

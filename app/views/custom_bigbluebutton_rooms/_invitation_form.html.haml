@@ -17,12 +17,12 @@
       .input.invitation-dates
         #invite_starts_on.input.input-append.date
           %label= t('activerecord.attributes.invite.starts_on')
-          %input{ :'data-format' => "dd/MM/yyyy hh:mm", :type => "text", :name => 'invite[starts_on]' }
+          %input{ :'data-format' => t('_other.datetimepicker.format'), :type => "text", :name => 'invite[starts_on]' }
           %span.add-on
             %i{ :'data-time-icon' => "icon-time", :'data-date-icon' => "icon-calendar" }
         #invite_ends_on.input.input-append.date
           %label= t('activerecord.attributes.invite.ends_on')
-          %input{ :'data-format' => "dd/MM/yyyy hh:mm", :type => "text", :name => 'invite[ends_on]' }
+          %input{ :'data-format' => t('_other.datetimepicker.format'), :type => "text", :name => 'invite[ends_on]' }
           %span.add-on
             %i{ :'data-time-icon' => "icon-time", :'data-date-icon' => "icon-calendar" }
         #invite_duration.input

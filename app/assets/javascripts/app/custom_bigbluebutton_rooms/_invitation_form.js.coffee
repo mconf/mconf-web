@@ -4,7 +4,7 @@ startsOnSelector = '#invite_starts_on'
 endsOnSelector = '#invite_ends_on'
 durationSelector = '#invite_duration'
 defaultDuration = 60*60 # 1h in secs
-previousStartDate = null
+previousDuration = null
 
 mconf.CustomBigbluebuttonRooms or= {}
 
@@ -33,7 +33,7 @@ bindUsers = ->
       if object.name?
         object.name
       else
-        object.id
+        object.text
     ajax:
       url: searchUsersUrl
       dataType: "json"
@@ -55,17 +55,20 @@ bindDates = ->
   $(startsOnSelector).on 'changeDate', (date, oldDate) ->
     # updates the date to ignore the seconds
     $start.setDate(ignoreSeconds($start.getDate()))
-    adjustEndDate()
+    adjustEndOnStartChange()
     $end.setStartDate($start.getDate())
+    storeDuration($start, $end)
     updateDuration()
-    previousStartDate = $start.getDate()
 
   $(endsOnSelector).on 'changeDate', ->
     # updates the date to ignore the seconds
     $end.setDate(ignoreSeconds($end.getDate()))
-    adjustEndDate()
-    $start.setEndDate($end.getDate())
+    storeDuration($start, $end)
     updateDuration()
+
+# Stores the current duration in seconds
+storeDuration = (start, end) ->
+  previousDuration = (end.getDate() - start.getDate()) / 1000 # in secs
 
 # Initialize the dates with default values
 initializeDates = ->
@@ -80,15 +83,18 @@ initializeDates = ->
   $start.setDate(start)
   $end.setDate(addDuration(start, defaultDuration))
 
+  # the end can never be before the start
+  $end.setStartDate($start.getDate())
+
+  # store the initial duration and update the label
+  storeDuration($start, $end)
   updateDuration()
 
 # Updates the text in the label with the duration using the start and end dates
 # set in the inputs.
 updateDuration = ->
-  $end = $(endsOnSelector).data("datetimepicker").getDate()
-  $start = $(startsOnSelector).data("datetimepicker").getDate()
-  duration = moment($end).toDate().getTime() - moment($start).toDate().getTime()
-  duration = ignoreSeconds(new Date(duration)).getTime()
+  duration = previousDuration
+  duration = ignoreSeconds(new Date(duration * 1000)).getTime()
   duration = moment.duration(duration, "milliseconds")
   text = duration.humanize()
   $(durationSelector).text(text)
@@ -96,20 +102,21 @@ updateDuration = ->
 # Adjusts the end date according to the start date. The end can never be lower
 # than the start date, and will also sometimes be automatically set to maintain
 # the duration previously specified.
-adjustEndDate = ->
+adjustEndOnStartChange = ->
   $end = $(endsOnSelector).data("datetimepicker")
   $start = $(startsOnSelector).data("datetimepicker")
 
-  # end cannot be before start
+  # setting a start to be after the end, makes the end jump forward and
+  # keeps the previous duration (if any)
   if $end.getDate() < $start.getDate()
-    $end.setDate(addDuration($start.getDate(), defaultDuration))
+    if previousDuration?
+      $end.setDate(addDuration($start.getDate(), previousDuration))
+    else
+      $end.setDate(addDuration($start.getDate(), defaultDuration))
 
-  # maintain the duration previously selected
-  else if previousStartDate?
-    endSecs = Math.floor($end.getDate().getTime() / 60000)
-    startSecs = Math.floor(previousStartDate.getTime() / 60000)
-    duration = (endSecs - startSecs) * 60
-    $end.setDate(addDuration($start.getDate(), duration))
+  # always keep the previous duration if it is set
+  else if previousDuration?
+    $end.setDate(addDuration($start.getDate(), previousDuration))
 
   # no previous duration, use the default
   else

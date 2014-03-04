@@ -197,9 +197,7 @@ class Notifier < ActionMailer::Base
       invitation.starts_on = @starts_on
       invitation.ends_on = @ends_on
       invitation.organizer = from.email
-      unless @message.nil?
-        invitation.description = @message
-      end
+      invitation.description = @message
       attachments['meeting.ics'] = { :mime_type => 'text/calendar', :content => invitation.to_ical }
       #attachments['meeting.ics'] = invitation.to_ical
 

@@ -44,6 +44,9 @@ pt-br:
     accept: "Aceitar"
     cancel: "Cancelar"
     create: "Criar"
+    datetimepicker:
+      format: "dd/MM/yyyy hh:mm"
+      format_rails: "%d/%m/%Y %H:%M"
     deny: "Negar"
     destroy: "Remover"
     details: "Detalhes"
