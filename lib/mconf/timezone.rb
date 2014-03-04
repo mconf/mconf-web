@@ -27,5 +27,11 @@ module Mconf
       ActiveSupport::TimeZone[zone]
     end
 
+    # Returns the offset of a user's time zone as a string.
+    # Ex: "-07:00"
+    def self.user_time_zone_offset(user=nil)
+      self.user_time_zone(user).formatted_offset
+    end
+
   end
 end

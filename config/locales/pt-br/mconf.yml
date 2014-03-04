@@ -46,7 +46,7 @@ pt-br:
     create: "Criar"
     datetimepicker:
       format: "dd/MM/yyyy hh:mm"
-      format_rails: "%d/%m/%Y %H:%M"
+      format_rails: "%d/%m/%Y %H:%M %Z"
     deny: "Negar"
     destroy: "Remover"
     details: "Detalhes"

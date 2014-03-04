@@ -16,8 +16,10 @@ module Mconf
 
     def to_ical
       event = Icalendar::Event.new
-      event.dtstart = @starts_on.strftime("%Y%m%dT%H%M%S")
-      event.dtend = @ends_on.strftime("%Y%m%dT%H%M%S")
+      # We send the dates always in UTC to make it easier. The 'Z' in the ends denotes
+      # that it's in UTC.
+      event.dtstart = @starts_on.in_time_zone('UTC').strftime("%Y%m%dT%H%M%SZ")
+      event.dtend = @ends_on.in_time_zone('UTC').strftime("%Y%m%dT%H%M%SZ")
       event.summary = @name
       event.organizer = @organizer
       event.klass = "PUBLIC"

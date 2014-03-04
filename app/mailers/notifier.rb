@@ -201,6 +201,11 @@ class Notifier < ActionMailer::Base
       attachments['meeting.ics'] = { :mime_type => 'text/calendar', :content => invitation.to_ical }
       #attachments['meeting.ics'] = invitation.to_ical
 
+      # adjust the times to the target user's time zone or the website's default time zone
+      user_time_zone = Mconf::Timezone.user_time_zone(to)
+      @starts_on = @starts_on.in_time_zone(user_time_zone) if @starts_on
+      @ends_on = @ends_on.in_time_zone(user_time_zone) if @ends_on
+
       if to.is_a?(User)
         create_email(to.email, from.email, subject)
       else

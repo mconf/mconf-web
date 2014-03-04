@@ -141,13 +141,19 @@ class CustomBigbluebuttonRoomsController < Bigbluebutton::RoomsController
     priv_email[:user_name] = current_user.name
     priv_email[:locale] = get_user_locale(current_user)
 
+    # TODO: catch possible errors
     # converts the date from the datetimepicker to a DateTime
+    # the user configured the dates assuming his time zone in the view, so we need to set this
+    # time zone in the object before parsing it
     date_format = t('_other.datetimepicker.format_rails')
+    user_time_zone = Mconf::Timezone.user_time_zone_offset(current_user)
     if params[:invite][:starts_on]
-      params[:invite][:starts_on] = DateTime.strptime(params[:invite][:starts_on], date_format)
+      params[:invite][:starts_on] = "#{params[:invite][:starts_on]} #{user_time_zone}"
+      params[:invite][:starts_on] = Time.strptime(params[:invite][:starts_on], date_format)
     end
     if params[:invite][:ends_on]
-      params[:invite][:ends_on] = DateTime.strptime(params[:invite][:ends_on], date_format)
+      params[:invite][:ends_on] = "#{params[:invite][:ends_on]} #{user_time_zone}"
+      params[:invite][:ends_on] = Time.strptime(params[:invite][:ends_on], date_format)
     end
 
     for userStr in users
