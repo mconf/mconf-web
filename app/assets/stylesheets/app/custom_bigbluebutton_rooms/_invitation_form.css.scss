@@ -70,4 +70,14 @@
       right: 5px;
     }
   }
+
+  #invite_timezone {
+    clear: both;
+    color: $dark-gray;
+    margin: 5px 0;
+    background: $light-gray;
+    padding: 2px;
+    text-align: center;
+    @include border-radius(3px);
+  }
 }

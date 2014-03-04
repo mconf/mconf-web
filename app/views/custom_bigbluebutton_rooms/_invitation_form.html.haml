@@ -27,6 +27,8 @@
             %i{ :'data-time-icon' => "icon-time", :'data-date-icon' => "icon-calendar" }
         #invite_duration.input
           %span.duration= ''
+        #invite_timezone
+          = t(".timezone", :timezone => user_timezone)
 
       = f.input :message, :as => :text
 

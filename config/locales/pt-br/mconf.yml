@@ -381,6 +381,7 @@ pt-br:
     important: Importante
     invitation_form:
       meeting_in: "Enviando convite para conferência em:"
+      timezone: "Você está usando o fuso horário %{timezone}"
       title: "Convite para conferência"
     invite: 
       desktop: 

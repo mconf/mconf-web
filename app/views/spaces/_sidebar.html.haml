@@ -26,7 +26,7 @@
         = icon_event()
       .toolbar
         %span.event-timezone
-          = "(#{t('timezone.one')}: GMT#{Time.zone.formatted_offset})"
+          = "(#{t('timezone.one')}: #{user_timezone})"
       .content-block-middle
         = render 'events/sidebar_events_simple', :events => @space.upcoming_events(5)
       .content-block-footer

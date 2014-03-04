@@ -387,6 +387,7 @@ en:
     important: Important
     invitation_form:
       meeting_in: "Inviting people to a meeting in:"
+      timezone: "You are using the timezone %{timezone}"
       title: "Invite people to a meeting"
     invite: 
       desktop: 
