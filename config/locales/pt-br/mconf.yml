@@ -97,8 +97,9 @@ pt-br:
         start_date: "Data e horário de início"
       invite:
         ends_on: "Acaba em"
-        message: "Mensagem pessoal"
+        message: "Comentários"
         starts_on: "Inicia em"
+        title: "Título"
         users: "Usuários"
       join_request:
         comment: "Mensagem"

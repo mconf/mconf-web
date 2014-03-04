@@ -11,7 +11,7 @@
         %span= t('.meeting_in')
         %span.meeting-url= join_webconf_url(room)
 
-      = f.input :users, :as => :string, :autofocus => true
+      = f.input :users, :as => :string, :autofocus => true, :label => t('activerecord.attributes.invite.users')
 
       -# TODO: it would be good to have a custom simple_form input for dates
       .input.invitation-dates
@@ -30,7 +30,8 @@
         #invite_timezone
           = t(".timezone", :timezone => user_timezone)
 
-      = f.input :message, :as => :text
+      = f.input :title, :as => :string, :label => t('activerecord.attributes.invite.title')
+      = f.input :message, :as => :text, :label => t('activerecord.attributes.invite.message')
 
     .modal-footer.form-actions
       = f.button :wrapped, t('_other.send'), :class => "btn btn-primary", :cancel_modal => true

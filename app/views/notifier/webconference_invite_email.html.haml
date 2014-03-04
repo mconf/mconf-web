@@ -2,8 +2,10 @@
   .header
     = t('.message.header', :sender => @from.full_name, :email_sender => @from.email).html_safe
 
+  - unless @title.blank?
+    .invite-title= @title
   - unless @message.blank?
-    .mail-quote-block= "\"#{@message}\""
+    .invite-message= @message
 
   .mail-event-block
     - unless @starts_on.nil?

@@ -16,7 +16,6 @@ pt-br:
       or: "ou"
     hints:
       invite:
-        message: "Esta é uma versão simplificada de como será a mensagem que será enviada para os destinatários. As datas de início e fim também serão enviadas."
         users: "Busque por nome ou e-mail. Se você não conseguir encontrá-los, adicione endereços de e-mail. Digite e aperte enter para inserir um novo item."
       site:
         analytics_code: "Código para sua conta do Google Analytics. Deixe em branco para desabilitar. Exemplo: \"UA-12345678-9\""
@@ -62,8 +61,9 @@ pt-br:
     placeholders:
       invite:
         ends_on: "Acaba em..."
-        message: "Escreva uma mensagem pessoal aqui"
+        message: "Escreva uma mensagem pessoal (opcional)"
         starts_on: "Inicia em..."
+        title: "Dê um título à esta conferência (opcional, recomendado)"
         users: "Digite para buscar usuários por nome ou e-mail..."
       join_request:
         invite:

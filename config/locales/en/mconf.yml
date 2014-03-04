@@ -97,8 +97,9 @@ en:
         start_date: "Date and time when it starts"
       invite:
         ends_on: "Ends on"
-        message: "Personal message"
+        message: "Comments"
         starts_on: "Starts on"
+        title: "Title"
         users: "Users"
       join_request:
         comment: "Message"

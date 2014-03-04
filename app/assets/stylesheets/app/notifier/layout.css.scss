@@ -48,10 +48,6 @@ body {
   @include font-size($mail-font-size);
 }
 
-.mail-quote-block {
-  padding: 15px 0;
-}
-
 .mail-event-block {
   border: 1px solid $gray;
   @include border-radius(2px);

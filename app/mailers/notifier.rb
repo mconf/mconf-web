@@ -186,18 +186,19 @@ class Notifier < ActionMailer::Base
       @room = room
       @from = from
       @to = to
+      @title = extra[:title] if extra.has_key?(:title)
       @message = extra[:message] if extra.has_key?(:message)
       @starts_on = extra[:starts_on] if extra.has_key?(:starts_on)
       @ends_on = extra[:ends_on] if extra.has_key?(:ends_on)
       subject = t('notifier.webconference_invite_email.subject', :name => from.full_name)
 
       invitation = Mconf::Invitation.new
-      invitation.name = t('notifier.webconference_invite_email.event_name', :name => from.full_name)
       invitation.url = join_webconf_url(room)
       invitation.starts_on = @starts_on
       invitation.ends_on = @ends_on
       invitation.organizer = from.email
       invitation.description = @message
+      invitation.name = @title || t('notifier.webconference_invite_email.event_name', :name => from.full_name)
       attachments['meeting.ics'] = { :mime_type => 'text/calendar', :content => invitation.to_ical }
       #attachments['meeting.ics'] = invitation.to_ical
 

@@ -20,13 +20,13 @@ module Mconf
       # that it's in UTC.
       event.dtstart = @starts_on.in_time_zone('UTC').strftime("%Y%m%dT%H%M%SZ")
       event.dtend = @ends_on.in_time_zone('UTC').strftime("%Y%m%dT%H%M%SZ")
-      event.summary = @name
       event.organizer = @organizer
       event.klass = "PUBLIC"
       event.uid = @url
       event.url = @url
+      event.location = @url
       event.description = @description
-      event.summary = @description
+      event.summary = @name
 
       cal = Icalendar::Calendar.new
       cal.add_event(event)
