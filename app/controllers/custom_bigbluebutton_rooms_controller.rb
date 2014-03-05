@@ -87,48 +87,59 @@ class CustomBigbluebuttonRoomsController < Bigbluebutton::RoomsController
   end
 
   def send_invitation
-    @success_messages = Array.new
-    @fail_messages = Array.new
-    @fail_user_email = Array.new
-    @fail_email = Array.new
 
-    success = ""
-    error = ""
-    send_invite_webconference
+    # adjusts the dates set by the user in the datetimepicker to dates we can set in the invitation
+    unless adjust_dates_for_invitation(params)
+      flash[:error] = t('custom_bigbluebutton_rooms.send_invitation.error_date_format')
+
+    else
+      # the invitation object to be sent
+      invitation = Mconf::Invitation.new
+      invitation.from = current_user
+      invitation.room = @room
+      invitation.starts_on = params[:invite][:starts_on]
+      invitation.ends_on = params[:invite][:ends_on]
+      invitation.title = params[:invite][:title] || t('notifier.webconference_invite_email.event_name', :name => from.full_name)
+      invitation.url = join_webconf_url(@room, :host => current_site.domain)
+      invitation.description = params[:invite][:message]
+
+      # send the invitation to all users
+      # make `users` an array of Users and emails
+      users = params[:invite][:users].split(",")
+      users = users.map { |user_str|
+        user = User.find_by_id(user_str)
+        user ? user : user_str
+      }
+      succeeded, failed = Mconf::Invitation.send_batch(invitation, users)
+
+      unless succeeded.empty?
+        success_msg = t('custom_bigbluebutton_rooms.send_invitation.success') + " "
+        success_msg += succeeded.map { |user|
+          user.is_a?(User) ? user.full_name : user
+        }.join(", ")
+        flash[:success] = success_msg
+      end
+      unless failed.empty?
+        error_msg = t('custom_bigbluebutton_rooms.send_invitation.error') + " "
+        error_msg += failed.map { |user|
+          user.is_a?(User) ? user.full_name : user
+        }.join(", ")
+        flash[:error] = error_msg
+      end
+    end
 
     respond_to do |format|
-      if @fail_messages.empty?
-        if success.size != 0
-          flash[:success] = success.html_safe
-        end
-        if error.size != 0
-          flash[:error] = error.html_safe
-        end
-        format.html { redirect_to request.referer }
-        format.xml  { render :xml => @success_messages, :status => :created, :location => @success_messages }
-      else
-        if success.size != 0
-          flash[:success] = success.html_safe
-        end
-        if error.size != 0
-          flash[:error] = error.html_safe
-        end
-        format.html { redirect_to request.referer }
-        format.xml  { render :xml => @fail_messages.map{|m| m.errors}, :status => :unprocessable_entity }
-      end
+      format.html { redirect_to request.referer }
     end
   end
 
   protected
 
-  def send_invite_webconference
-    success = ""
-    users = params[:invite][:users].split(",")
 
-    # TODO: catch possible errors
-    # converts the date from the datetimepicker to a DateTime
-    # the user configured the dates assuming his time zone in the view, so we need to set this
-    # time zone in the object before parsing it
+  # Converts the date submitted from a datetimepicker to a DateTime.
+  # These dates were configured by the user in the view assuming his time zone, so we need to set
+  # this time zone in the object before parsing it.
+  def adjust_dates_for_invitation(params)
     date_format = t('_other.datetimepicker.format_rails')
     user_time_zone = Mconf::Timezone.user_time_zone_offset(current_user)
     if params[:invite][:starts_on]
@@ -139,52 +150,9 @@ class CustomBigbluebuttonRoomsController < Bigbluebutton::RoomsController
       params[:invite][:ends_on] = "#{params[:invite][:ends_on]} #{user_time_zone}"
       params[:invite][:ends_on] = Time.strptime(params[:invite][:ends_on], date_format)
     end
-
-    # The base invitation object to be sent
-    invitation = Mconf::Invitation.new
-    invitation.from = current_user
-    invitation.room = @room
-    invitation.starts_on = params[:invite][:starts_on]
-    invitation.ends_on = params[:invite][:ends_on]
-    invitation.title = params[:invite][:title] || t('notifier.webconference_invite_email.event_name', :name => from.full_name)
-    invitation.url = join_webconf_url(@room, :host => current_site.domain)
-    invitation.description = params[:invite][:message]
-
-    # TODO: use Mconf::Invitation.send_batch to send all invitations
-    for userStr in users
-      user = User.find_by_id(userStr)
-      if user
-        if invitation.send(user)
-          if success.size == 0
-            success = t('invite.invitation_successfully') << " " << t('invite.email', :email => user.email)
-          else
-            success << ", " << t('invite.email', :email => user.email)
-          end
-        else
-          # TODO: errors
-        end
-      else
-        email = userStr
-        if valid_email?(email)
-          if invitation.send(email)
-            if success.size == 0
-              success = t('invite.invitation_successfully') << " " << t('invite.email', :email => email)
-            else
-              success << ", " << t('invite.email', :email => email)
-            end
-          else
-            # TODO: errors
-          end
-        else
-          if error.size == 0
-            error = t('invite.invitation_unsuccessfully') << " " <<  t('invite.email', :email => email) << " " << t('invite.bad_format')
-          else
-            error << ", " <<  t('invite.email', :email => email) << " " << t('invite.bad_format')
-          end
-        end
-      end
-    end
-
+    true
+  rescue
+    false
   end
 
   # Override the method used in Bigbluebutton::RoomsController to get the parameters the user is

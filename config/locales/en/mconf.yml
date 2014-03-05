@@ -449,6 +449,10 @@ en:
         links: "Links"
         room_meetingid: "Meeting ID"
         room_name: "Room name"
+    send_invitation:
+      error: "Invitation failed to be sent to:"
+      error_date_format: "The dates you informed are not in a valid format, please try again"
+      success: "Invitation successfully sent to:"
     show:
       showing_room: "Showing room '%{room}'"
   custom_bigbluebutton_recordings:
@@ -820,8 +824,6 @@ en:
   invite: 
     bad_format: "(bad formatting)"
     email: "email to %{email}"
-    invitation_successfully: "Invitation succesfully sent:"
-    invitation_unsuccessfully: "Invitation could not be sent:"
     title: "Invitation to participate in a webconference"
     user_private_msg: "private message to the user %{user}"
   invite_people: 

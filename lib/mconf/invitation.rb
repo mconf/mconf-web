@@ -4,6 +4,8 @@
 # This file is licensed under the Affero General Public License version
 # 3 or later. See the LICENSE file.
 
+require 'valid_email'
+
 module Mconf
 
   # A helper class to deal with invitations to web conferences
@@ -41,23 +43,55 @@ module Mconf
     # Respects the preferences of the user, sending the notification either via
     # email or private message.
     def send(user)
+      # note: for emails, for now, we always assume it succeeded
+      result = true
 
       if user.is_a?(User)
         if user.notify_via_email?
           Notifier.delay.webconference_invite_email(self, user)
         end
-
         if user.notify_via_private_message?
-          send_private_message(user)
+          result = send_private_message(user)
         end
 
       # assumes `user` is a string with an email
       else
         Notifier.delay.webconference_invite_email(self, user)
       end
+
+      result
     end
 
+    # Sends an invitation in `invitation` to all the Users or emails in the
+    # array `users`.
+    # Returns two arrays:
+    #   [0] The Users and/or emails that received the invitation successfully
+    #   [1] The Users and/or emails that did not receive the invitation
     def self.send_batch(invitation, users)
+      success = []
+      error = []
+
+      for user in users
+        if user.is_a?(User)
+          if invitation.send(user)
+            success << user
+          else
+            error << user
+          end
+        else
+          if ValidateEmail.valid?(user)
+            if invitation.send(user)
+              success << user
+            else
+              error << user
+            end
+          else
+            error << user
+          end
+        end
+      end
+
+      return success, error
     end
 
     private
