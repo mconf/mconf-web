@@ -44,6 +44,9 @@ en:
     accept: "Accept"
     cancel: "Cancel"
     create: "Create"
+    datetimepicker:
+      format: "MM/dd/yyyy hh:mm"
+      format_rails: "%m/%d/%Y %H:%M %Z"
     deny: "Deny"
     destroy: "Destroy"
     details: "Details"
@@ -92,6 +95,12 @@ en:
         location: "Location"
         name: "Name"
         start_date: "Date and time when it starts"
+      invite:
+        ends_on: "Ends on"
+        message: "Comments"
+        starts_on: "Starts on"
+        title: "Title"
+        users: "Users"
       join_request:
         comment: "Message"
       news:
@@ -377,6 +386,10 @@ en:
     index:
       list_of_rooms: "List of all registered rooms"
     important: Important
+    invitation_form:
+      meeting_in: "Inviting people to a meeting in:"
+      timezone: "You are using the timezone %{timezone}"
+      title: "Invite people to a meeting"
     invite: 
       desktop: 
         not_selected: "Select this options to access from a <em>desktop computer</em>."
@@ -436,6 +449,10 @@ en:
         links: "Links"
         room_meetingid: "Meeting ID"
         room_name: "Room name"
+    send_invitation:
+      error: "Invitation failed to be sent to:"
+      error_date_format: "The dates you informed are not in a valid format, please try again"
+      success: "Invitation successfully sent to:"
     show:
       showing_room: "Showing room '%{room}'"
   custom_bigbluebutton_recordings:
@@ -807,9 +824,6 @@ en:
   invite: 
     bad_format: "(bad formatting)"
     email: "email to %{email}"
-    invitation_successfully: "Invitation succesfully sent:"
-    invitation_unsuccessfully: "Invitation could not be sent:"
-    message: "You have been invited by <b>%{sender}</b> (<a href=\"mailto:%{email_sender}\">%{email_sender}</a>) to join the webconference <b>%{name}</b>.<br/><br/>You can join it by accessing: <a href=\"%{invite_url}\">%{invite_url}</a><br/>If you're in a mobile client, use this url: <a href=\"%{mobile_url}\">%{mobile_url}</a><br/><br/>This is the message written by <b>%{sender}</b>:"
     title: "Invitation to participate in a webconference"
     user_private_msg: "private message to the user %{user}"
   invite_people: 
@@ -1763,6 +1777,16 @@ en:
     one: Version
   view: "View"
   view_more: "View more"
+  web_conference_mailer:
+    invitation_mail:
+      event_name: "Meeting with %{name}"
+      message:
+        end: "End"
+        header: "You have been invited by <b>%{sender}</b> (%{email_sender}) to a meeting:"
+        join: "Join at"
+        password: "Access key"
+        start: "Start"
+      subject: "You have been invited to a meeting by %{name}"
   webconference: 
     invite_webconference: "Invite people to the webconference"
     join: Join

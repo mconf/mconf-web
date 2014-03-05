@@ -15,6 +15,8 @@ en:
       cancel: "Cancel"
       or: "or"
     hints:
+      invite:
+        users: "Search people by name or email. If you can't find them, just add their email address. Type and press enter to insert a new item."
       site:
         analytics_code: "Code for your Google Analytics account. Leave it blank to disable. Example: \"UA-12345678-9\""
         exception_notifications: "Send debugging emails whenever the application crashes"
@@ -56,6 +58,12 @@ en:
         timezone: "By selecting a time-zone there will be no misunderstanding when creating events with people from other locations"
         username: "This ID will be used to identify your user and your webconference room. Use only letters, numbers and dashes."
     placeholders:
+      invite:
+        ends_on: "Ends on..."
+        message: "Write a personal message (optional)"
+        starts_on: "Starts on..."
+        title: "Give a name to your meeting (optional, recommended)"
+        users: "Type to search users by name or email..."
       join_request:
         invite:
           comment: "Write a message to be sent to the invited user(s)"

@@ -19,7 +19,7 @@
       %h4= t('calendar.my')
     .toolbar
       %span.event-timezone
-        (#{t('timezone.one')}: GMT#{Time.zone.formatted_offset})
+        = "(#{t('timezone.one')}: #{user_timezone})"
     .content-block-middle
       %span.event-category= t('.events.today')
       = render 'events/sidebar_events_simple', :events => @today_events

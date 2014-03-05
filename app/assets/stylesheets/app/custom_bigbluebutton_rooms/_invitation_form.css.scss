@@ -1,0 +1,83 @@
+@import "definitions";
+@import "compass/css3";
+
+#webconference-invitation {
+
+  .meeting-url {
+    color: $blue;
+  }
+
+  .invitation-header {
+    background: $light-gray;
+    padding: 10px;
+    margin-bottom: 15px;
+    text-align: center;
+    @include border-radius(4px);
+  }
+
+  .simple_form .input {
+    width: 100%;
+
+    .invite_message {
+      margin-bottom: 0;
+    }
+
+    abbr {
+      display: none;
+    }
+
+    textarea {
+      height: 50px;
+      resize: vertical;
+      margin: 0;
+    }
+  }
+
+  .invitation-dates {
+    @include mconf-clearfix;
+    clear: both;
+  }
+
+  #invite_starts_on {
+    margin-right: 20px;
+  }
+
+  #invite_starts_on, #invite_ends_on {
+    width: 38%;
+    float: left;
+    input {
+      width: 79%;
+    }
+  }
+
+  #invite_duration {
+    width: 17%;
+    float: left;
+    margin-top: 32px;
+    margin-left: 10px;
+    font-weight: bold;
+  }
+
+  .invitation-message {
+    position: relative;
+    clear: both;
+    margin: 0;
+
+    .icon-mconf-help {
+      float: right;
+      position: absolute;
+      top: 5px;
+      right: 5px;
+    }
+  }
+
+  #invite_timezone {
+    clear: both;
+    color: $dark-gray;
+    margin: 5px 0;
+    background: $light-gray;
+    padding: 2px;
+    text-align: center;
+    @include border-radius(3px);
+  }
+}

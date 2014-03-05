@@ -73,5 +73,8 @@ module Mconf
 
     # all view helpers loaded for all views
     config.action_controller.include_all_helpers = true
+
+    # add the views for the mailers in the path
+    config.paths['app/views'].unshift("#{Rails.root}/app/mailers/views")
   end
 end

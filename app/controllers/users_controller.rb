@@ -105,20 +105,23 @@ class UsersController < ApplicationController
     end
   end
 
-  # Finds users by id (params[:i]) or by name and username (params[:q]) and returns a list
-  # of a few selected attributes
+  # Finds users by id (params[:i]) or by name, username or email (params[:q]) and returns
+  # a list of a few selected attributes
+  # TODO: This is used in a lot of places, but not all want all the filters and all the
+  #  results. We could make it configurable.
   def select
-    query = params[:q]
+    name = params[:q]
     id = params[:i]
     limit = params[:limit] || 5   # default to 5
     limit = 50 if limit.to_i > 50 # no more than 50
+    query = User.joins(:profile).includes(:profile).order("profiles.full_name")
     if id
-      @users = User.joins(:profile).find_by_id(id)
+      @users = query.find_by_id(id)
     elsif query.nil?
-        @users = User.joins(:profile).limit(limit).all
+      @users = query.limit(limit).all
     else
-      @users = User.joins(:profile)
-        .where("profiles.full_name like ? OR users.username like ?", "%#{query}%", "%#{query}%")
+      @users = query
+        .where("profiles.full_name like ? OR users.username like ? OR users.email like ?", "%#{name}%", "%#{name}%", "%#{name}%")
         .limit(limit)
     end
 
@@ -129,6 +132,8 @@ class UsersController < ApplicationController
 
   # Returns fellows users - users that a members of spaces
   # the current user is also a member
+  # TODO: should use the same base method for the action select, but filtering
+  #   for fellows too
   def fellows
     @users = current_user.fellows(params[:q], params[:limit])
 
