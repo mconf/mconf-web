@@ -38,11 +38,17 @@ Mconf::Application.routes.draw do
     :recordings => 'custom_bigbluebutton_recordings'
   }
   # register a few custom routes that were added to this controller
-  match '/bigbluebutton/rooms/:id/join_options',
+  get '/bigbluebutton/rooms/:id/join_options',
     :to => 'custom_bigbluebutton_rooms#join_options',
     :as => "join_options_bigbluebutton_room"
+  get '/bigbluebutton/rooms/:id/invitation',
+    :to => 'custom_bigbluebutton_rooms#invitation',
+    :as => "invitation_bigbluebutton_room"
+  post '/bigbluebutton/rooms/:id/send_invitation',
+    :to => 'custom_bigbluebutton_rooms#send_invitation',
+    :as => "send_invitation_bigbluebutton_room"
   # shortcut route to join webconference rooms
-  match '/webconf/:id',
+  get '/webconf/:id',
     :to => 'custom_bigbluebutton_rooms#invite_userid',
     :as => "join_webconf"
 
@@ -143,14 +149,6 @@ Mconf::Application.routes.draw do
   match '/recordings/:id/edit', :to => 'my#edit_recording', :as => 'edit_my_recording'
 
   resources :messages, :controller => :private_messages, :except => [:edit]
-
-  resource :invite do
-    member do
-      get :invite_room, :as => 'inviteroom'
-      post :send_invite, :as => 'sendinvite'
-      get :send_notification, :as => 'sendnotification'
-    end
-  end
 
   resources :feedback do
     collection do

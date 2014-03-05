@@ -78,7 +78,82 @@ class CustomBigbluebuttonRoomsController < Bigbluebutton::RoomsController
     end
   end
 
+  def invitation
+    respond_to do |format|
+      format.html {
+        render :layout => false if request.xhr?
+      }
+    end
+  end
+
+  def send_invitation
+
+    # adjusts the dates set by the user in the datetimepicker to dates we can set in the invitation
+    unless adjust_dates_for_invitation(params)
+      flash[:error] = t('custom_bigbluebutton_rooms.send_invitation.error_date_format')
+
+    else
+      # the invitation object to be sent
+      invitation = Mconf::Invitation.new
+      invitation.from = current_user
+      invitation.room = @room
+      invitation.starts_on = params[:invite][:starts_on]
+      invitation.ends_on = params[:invite][:ends_on]
+      invitation.title = params[:invite][:title] || t('web_conference_mailer.invitation_mail.event_name', :name => from.full_name)
+      invitation.url = join_webconf_url(@room, :host => current_site.domain)
+      invitation.description = params[:invite][:message]
+
+      # send the invitation to all users
+      # make `users` an array of Users and emails
+      users = params[:invite][:users].split(",")
+      users = users.map { |user_str|
+        user = User.find_by_id(user_str)
+        user ? user : user_str
+      }
+      succeeded, failed = Mconf::Invitation.send_batch(invitation, users)
+
+      unless succeeded.empty?
+        success_msg = t('custom_bigbluebutton_rooms.send_invitation.success') + " "
+        success_msg += succeeded.map { |user|
+          user.is_a?(User) ? user.full_name : user
+        }.join(", ")
+        flash[:success] = success_msg
+      end
+      unless failed.empty?
+        error_msg = t('custom_bigbluebutton_rooms.send_invitation.error') + " "
+        error_msg += failed.map { |user|
+          user.is_a?(User) ? user.full_name : user
+        }.join(", ")
+        flash[:error] = error_msg
+      end
+    end
+
+    respond_to do |format|
+      format.html { redirect_to request.referer }
+    end
+  end
+
   protected
+
+
+  # Converts the date submitted from a datetimepicker to a DateTime.
+  # These dates were configured by the user in the view assuming his time zone, so we need to set
+  # this time zone in the object before parsing it.
+  def adjust_dates_for_invitation(params)
+    date_format = t('_other.datetimepicker.format_rails')
+    user_time_zone = Mconf::Timezone.user_time_zone_offset(current_user)
+    if params[:invite][:starts_on]
+      params[:invite][:starts_on] = "#{params[:invite][:starts_on]} #{user_time_zone}"
+      params[:invite][:starts_on] = Time.strptime(params[:invite][:starts_on], date_format)
+    end
+    if params[:invite][:ends_on]
+      params[:invite][:ends_on] = "#{params[:invite][:ends_on]} #{user_time_zone}"
+      params[:invite][:ends_on] = Time.strptime(params[:invite][:ends_on], date_format)
+    end
+    true
+  rescue
+    false
+  end
 
   # Override the method used in Bigbluebutton::RoomsController to get the parameters the user is
   # allowed to use on update/create. Normal users can only update a few of the parameters of a room.

@@ -1,0 +1,34 @@
+@import "compass/css3";
+@import "definitions";
+
+#webconference-invitation-mail {
+
+  .field {
+    display: block;
+    margin: 3px 0;
+
+    label {
+      color: $dark-gray;
+      display: inline-block;
+      font-weight: bold;
+      margin-right: 5px;
+    }
+
+    span {
+      display: inline-block;
+    }
+  }
+
+  .header {
+    padding-bottom: 15px;
+  }
+
+  .mail-event-block {
+    margin-top: 15px;
+  }
+
+  .invite-title {
+    font-weight: bold;
+  }
+
+}

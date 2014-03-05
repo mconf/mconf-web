@@ -130,10 +130,15 @@ class mconf.Base
        .replace(/\s+/g, '-')         # collapse whitespace and replace by '-'
        .replace(/-+/g, '-')          # collapse dashes
 
+  # Returns whether an email is valid or not.
+  # From: http://www.w3resource.com/javascript/form/email-validation.php
+  @validateEmail: (value) ->
+    /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(value)
 
 $ ->
   # Setting I18n-js with the user language
   I18n.locale = $('html').attr "lang"
+  moment.lang(I18n.locale)
 
   mconf.Base.bind()
 
