@@ -95,8 +95,10 @@ initializeDates = ->
 updateDuration = ->
   duration = previousDuration
   duration = ignoreSeconds(new Date(duration * 1000)).getTime()
-  duration = moment.duration(duration, "milliseconds")
-  text = duration.humanize()
+  #duration = moment.duration(duration, "milliseconds")
+  #text = duration.humanize()
+  text = moment.utc(duration).format("HH:mm")
+
   $(durationSelector).text(text)
 
 # Adjusts the end date according to the start date. The end can never be lower
