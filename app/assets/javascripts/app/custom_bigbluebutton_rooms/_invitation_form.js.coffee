@@ -60,9 +60,10 @@ bindDates = ->
     storeDuration($start, $end)
     updateDuration()
 
-  $(endsOnSelector).on 'changeDate', ->
+  $(endsOnSelector).on 'changeDate', (val1, val2) ->
     # updates the date to ignore the seconds
     $end.setDate(ignoreSeconds($end.getDate()))
+    adjustEndOnEndChange()
     storeDuration($start, $end)
     updateDuration()
 
@@ -101,9 +102,9 @@ updateDuration = ->
 
   $(durationSelector).text(text)
 
-# Adjusts the end date according to the start date. The end can never be lower
-# than the start date, and will also sometimes be automatically set to maintain
-# the duration previously specified.
+# Adjusts the end date according to the start date when the start date is changed
+# by the user. The end can never be lower than the start date, and will also sometimes
+# be automatically set to maintain the duration previously specified.
 adjustEndOnStartChange = ->
   $end = $(endsOnSelector).data("datetimepicker")
   $start = $(startsOnSelector).data("datetimepicker")
@@ -123,6 +124,15 @@ adjustEndOnStartChange = ->
   # no previous duration, use the default
   else
     $end.setDate(addDuration($start.getDate(), defaultDuration))
+
+# Adjusts the end date according when the end date input is changed by the user.
+adjustEndOnEndChange = (oldValue) ->
+  $end = $(endsOnSelector).data("datetimepicker")
+  $start = $(startsOnSelector).data("datetimepicker")
+
+  # don't ever let the end be before the start
+  if $end.getDate() < $start.getDate()
+    $end.setDate($start.getDate())
 
 # Adds 'duration' seconds to a Date object 'date'.
 addDuration = (date, duration) ->
