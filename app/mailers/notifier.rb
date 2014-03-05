@@ -5,7 +5,6 @@
 # This file is licensed under the Affero General Public License version
 # 3 or later. See the LICENSE file.
 
-#This class will compose all the mails that the application should send
 class Notifier < ActionMailer::Base
   include Mconf::LocaleControllerModule
 
@@ -181,31 +180,6 @@ class Notifier < ActionMailer::Base
     create_default_mail(I18n.default_locale)
   end
 
-  # Sends an invitation to a web conference.
-  # Receives an Mconf::Invitation object in `invitation` and a User or email that will receive
-  # this email in `to`.
-  def webconference_invite_email(invitation, to)
-    I18n.with_locale(get_user_locale(to, false)) do
-      # clone it because we need to change a few things
-      @invitation = invitation.clone
-
-      # adjust the times to the target user's time zone or the website's default time zone
-      user_time_zone = Mconf::Timezone.user_time_zone(to)
-      @invitation.starts_on = @invitation.starts_on.in_time_zone(user_time_zone) if @invitation.starts_on
-      @invitation.ends_on = @invitation.ends_on.in_time_zone(user_time_zone) if @invitation.ends_on
-
-      subject = t('notifier.webconference_invite_email.subject', :name => invitation.from.full_name)
-      attachments['meeting.ics'] = { :mime_type => 'text/calendar', :content => invitation.to_ical }
-      #attachments['meeting.ics'] = invitation.to_ical
-
-      if to.is_a?(User)
-        create_email(to.email, @invitation.from.email, subject)
-      else
-        create_email(to, @invitation.from.email, subject)
-      end
-    end
-  end
-
   def digest_email(receiver,posts,news,attachments,events,inbox)
     setup_email(receiver.email)
 
@@ -227,19 +201,6 @@ class Notifier < ActionMailer::Base
   end
 
   private
-
-  def create_email(to, from, subject, headers=nil)
-    sender = "#{Site.current.name} <#{Site.current.smtp_sender}>"
-    I18n.with_locale(locale) do
-      mail(:to => to,
-           :subject => "[#{Site.current.name}] #{subject}",
-           :from => sender,
-           :headers => headers,
-           :reply_to => from) do |format|
-        format.html { render layout: 'notifier' }
-      end
-    end
-  end
 
   # TODO: old method, replace by create_email
   def setup_email(recipients)
