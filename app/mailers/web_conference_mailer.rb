@@ -15,10 +15,16 @@ class WebConferenceMailer < ApplicationMailer
       # clone it because we need to change a few things
       @invitation = invitation.clone
 
-      # adjust the times to the target user's time zone or the website's default time zone
-      user_time_zone = Mconf::Timezone.user_time_zone(to)
-      @invitation.starts_on = @invitation.starts_on.in_time_zone(user_time_zone) if @invitation.starts_on
-      @invitation.ends_on = @invitation.ends_on.in_time_zone(user_time_zone) if @invitation.ends_on
+      # Adjust the times to the target user's time zone. If he doesn't have a time zone set,
+      # use the time zone of the sender.
+      if Mconf::Timezone.user_has_time_zone?(to)
+        time_zone = Mconf::Timezone.user_time_zone(to)
+      else
+        # will fall back to the website's time zone if the user doesn't have one
+        time_zone = Mconf::Timezone.user_time_zone(invitation.from)
+      end
+      @invitation.starts_on = @invitation.starts_on.in_time_zone(time_zone) if @invitation.starts_on
+      @invitation.ends_on = @invitation.ends_on.in_time_zone(time_zone) if @invitation.ends_on
 
       subject = t('web_conference_mailer.invitation_mail.subject', :name => invitation.from.full_name)
       attachments['meeting.ics'] = { :mime_type => 'text/calendar', :content => invitation.to_ical }

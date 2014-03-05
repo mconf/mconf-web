@@ -33,5 +33,10 @@ module Mconf
       self.user_time_zone(user).formatted_offset
     end
 
+    # Returns whether a user has a time zone set or not.
+    def self.user_has_time_zone?(user=nil)
+      user and user.is_a?(User) and not user.timezone.blank?
+    end
+
   end
 end
