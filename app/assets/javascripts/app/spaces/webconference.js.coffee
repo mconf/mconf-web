@@ -2,7 +2,7 @@
 
 mconf.Spaces or= {}
 
-class mconf.Spaces.Sidebar
+class mconf.Spaces.Webconference
 
   @bind: ->
     @unbind()
