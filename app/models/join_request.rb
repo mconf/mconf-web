@@ -5,6 +5,7 @@
 # 3 or later. See the LICENSE file.
 
 class JoinRequest < ActiveRecord::Base
+  include PublicActivity::Common
 
   # the user that is being invited
   belongs_to :candidate, :class_name => "User", :foreign_key => 'candidate_id'
@@ -33,6 +34,12 @@ class JoinRequest < ActiveRecord::Base
                           :scope => [ :group_id, :group_type, :processed_at ]
 
   validate :candidate_is_not_introducer
+
+  # Create a new activity after saving
+  after_create :new_activity
+  def new_activity
+    create_activity self.request_type, :owner => self.group, :parameters => { :username => candidate.name }
+  end
 
   # Has this Admission been processed?
   def processed?

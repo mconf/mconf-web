@@ -4,7 +4,7 @@ class MessageNotifications
   # Finds all message recent activity and sends their users the message notifications
   def self.perform
     @activities = RecentActivity.where(
-      :notified => false, :trackable_type => 'PrivateMessage', :key => 'private_message.received')
+      :notified => [nil,false], :trackable_type => 'PrivateMessage', :key => 'private_message.received')
 
     @activities.each do |a|
       receiver = a.owner

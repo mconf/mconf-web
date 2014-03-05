@@ -2,6 +2,11 @@
 send_private_message_notifications:
   every:
     - "30s"
-    - :first_in: '1m'
   class: MessageNotifications
   description: "This job finds all messages on recent activity and sends their receivers the message notifications"
+
+send_join_request_notifications:
+  every:
+    - "30s"
+  class: JoinRequestNotifications
+  description: "This job finds all join requests on recent activity and sends the space admins or users the message notifications"
