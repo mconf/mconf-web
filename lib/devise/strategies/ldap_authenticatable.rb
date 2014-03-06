@@ -20,11 +20,11 @@ module Devise
           if bind_error = ldap_bind(ldap)
             case bind_error
             when :timeout
-              # server is off, fallback to other strategies
+              Rails.logger.error "LDAP: authentication failed: timeout when trying to connect to the LDAP server"
               fail(I18n.t('devise.strategies.ldap_authenticatable.invalid_bind'))
             when :bind
-              # configuration error, abort all other strategies
-              fail!(I18n.t('devise.strategies.ldap_authenticatable.invalid_bind'))
+              Rails.logger.error "LDAP: authentication failed: initial bind failed"
+              fail(I18n.t('devise.strategies.ldap_authenticatable.invalid_bind'))
             end
 
           else
@@ -35,7 +35,7 @@ module Devise
             Rails.logger.info "LDAP: filter: #{filter.inspect}"
             ldap_user = ldap.bind_as(:base => configs.ldap_user_treebase, :filter => filter, :password => password_from_params)
             unless ldap_user
-              Rails.logger.error "LDAP: authentication failed, response: #{ldap_user}"
+              Rails.logger.error "LDAP: authentication failed: response: #{ldap_user}"
               Rails.logger.error "LDAP: error code: #{ldap.get_operation_result.code}"
               Rails.logger.error "LDAP: error message: #{ldap.get_operation_result.message}"
               fail(:invalid)
@@ -47,13 +47,13 @@ module Devise
               if invalid_fields
                 case invalid_fields
                 when :username
-                  Rails.logger.error "LDAP: the user has no username set in the LDAP server"
+                  Rails.logger.error "LDAP: authentication failed: the user has no username set in the LDAP server"
                   fail(I18n.t('devise.strategies.ldap_authenticatable.missing_username'))
                 when :name
-                  Rails.logger.error "LDAP: the user has no name set in the LDAP server"
+                  Rails.logger.error "LDAP: authentication failed: the user has no name set in the LDAP server"
                   fail(I18n.t('devise.strategies.ldap_authenticatable.missing_name'))
                 when :email
-                  Rails.logger.error "LDAP: the user has no email set in the LDAP server"
+                  Rails.logger.error "LDAP: authentication failed: the user has no email set in the LDAP server"
                   fail(I18n.t('devise.strategies.ldap_authenticatable.missing_email'))
                 end
 
@@ -61,8 +61,8 @@ module Devise
                 # login or create the account
                 user = ldap_helper.find_or_create_user(ldap_user.first, configs)
                 if user.nil?
-                  # application error, abort all other strategies
-                  fail!(I18n.t('devise.strategies.ldap_authenticatable.create_failed'))
+                  Rails.logger.error "LDAP: authentication failed: application wasn't able to create a new user"
+                  fail(I18n.t('devise.strategies.ldap_authenticatable.create_failed'))
                 else
                   ldap_helper.sign_user_in(user)
                   success!(user)
@@ -73,10 +73,10 @@ module Devise
 
         # LDAP is not enabled in the site
         elsif not ldap_enabled?
-          Rails.logger.info "LDAP: authentication is not enabled, exiting LDAP authentication strategy"
+          Rails.logger.info "LDAP: authentication via LDAP is not enabled"
           fail(I18n.t('devise.strategies.ldap_authenticatable.ldap_not_enabled'))
         else
-          Rails.logger.info "LDAP: invalid user credentials"
+          Rails.logger.info "LDAP: authentication failed: invalid user credentials"
           fail(:invalid)
         end
       end
@@ -132,7 +132,7 @@ module Devise
             end
           end
         rescue Timeout::Error => e
-          Rails.logger.error "LDAP: the server did not respond, error: #{e}"
+          Rails.logger.error "LDAP: the server did not respond in time, error: #{e}"
           :timeout
         end
       end
