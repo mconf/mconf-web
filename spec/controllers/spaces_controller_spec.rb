@@ -15,6 +15,8 @@ describe SpacesController do
     it "uses param[:view] as 'list' if already set to this value"
     # TODO: there's a lot more to test here
 
+    it { should_authorize Space, :index }
+
     context "if there's a user signed in" do
 
       context "assigns @user_spaces" do
@@ -56,6 +58,8 @@ describe SpacesController do
     let(:target) { FactoryGirl.create(:public_space) }
     let(:user) { FactoryGirl.create(:superuser) }
     before(:each) { sign_in(user) }
+
+    it { should_authorize an_instance_of(Space), :show, :id => target.to_param }
 
     it {
       get :show, :id => target.to_param
@@ -174,6 +178,8 @@ describe SpacesController do
     let(:user) { FactoryGirl.create(:superuser) }
     before(:each) { sign_in(user) }
 
+    it { should_authorize an_instance_of(Space), :new }
+
     before(:each) { get :new }
 
     context "template and view" do
@@ -194,6 +200,8 @@ describe SpacesController do
   describe "#create" do
     let(:user) { FactoryGirl.create(:superuser) }
     before(:each) { sign_in(user) }
+
+    it { should_authorize an_instance_of(Space), :create, :via => :post, :space => {} }
 
     context "with valid attributes" do
       let(:space_attributes) { FactoryGirl.attributes_for(:space) }
@@ -256,6 +264,8 @@ describe SpacesController do
     let(:space) { FactoryGirl.create(:space) }
     let(:user) { FactoryGirl.create(:superuser) }
     before(:each) { sign_in(user) }
+
+    it { should_authorize an_instance_of(Space), :edit, :id => space.to_param }
 
     before(:each) { get :edit, :id => space.to_param }
 
@@ -490,6 +500,9 @@ describe SpacesController do
   end
 
   describe "#select" do
+
+    it { should_authorize Space, :select }
+
     context ".json" do
       let(:expected) {
         @spaces.map do |s|
@@ -761,5 +774,4 @@ describe SpacesController do
     end
 
   end
-
 end
