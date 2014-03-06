@@ -42,12 +42,14 @@
         .attendee-thumbs
           .thread
             - for participant in @attendees
-              = link_logo_image(participant.user, options_for_tooltip(participant.user.name, :size => '32', :url => user_path(participant.user), :class => 'logo logo-in-thread'))
+              - if participant.user
+                = link_logo_image(participant.user, options_for_tooltip(participant.user.name, :size => '32', :url => user_path(participant.user), :class => 'logo logo-in-thread'))
       - else
         .attendee-list
           - list = []
           - for participant in @attendees
-            - list.push link_to(participant.user.name, user_path(participant.user))
+            - if participant.user
+              - list.push link_to(participant.user.name, user_path(participant.user))
           = list.join(', ').html_safe
 
   - if @not_attendees.count > 0
@@ -69,7 +71,8 @@
           .attendee-thumbs
             .thread
               - for participant in @not_attendees
-                = link_logo_image(participant.user, options_for_tooltip(participant.user.name, :size => '32', :url => user_path(participant.user), :class => 'logo logo-in-thread'))
+                - if participant.user
+                  = link_logo_image(participant.user, options_for_tooltip(participant.user.name, :size => '32', :url => user_path(participant.user), :class => 'logo logo-in-thread'))
         - else
           .attendee-list
             - list = []

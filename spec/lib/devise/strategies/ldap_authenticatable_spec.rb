@@ -89,10 +89,10 @@ describe Devise::Strategies::LdapAuthenticatable do
                   .with(ldap_user1, Site.current).and_return(nil)
               }
 
-              it("calls and returns #fail!(message)") {
-                target.should_receive(:fail!).with(I18n.t('devise.strategies.ldap_authenticatable.create_failed'))
-                  .and_return("return of fail!")
-                target.authenticate!.should eq("return of fail!")
+              it("calls and returns #fail(message)") {
+                target.should_receive(:fail).with(I18n.t('devise.strategies.ldap_authenticatable.create_failed'))
+                  .and_return("return of fail")
+                target.authenticate!.should eq("return of fail")
               }
             end
           end
@@ -106,8 +106,8 @@ describe Devise::Strategies::LdapAuthenticatable do
 
             it("calls and returns #fail(message)") {
               target.should_receive(:fail).with(I18n.t('devise.strategies.ldap_authenticatable.missing_username'))
-                .and_return("return of fail!")
-              target.authenticate!.should eq("return of fail!")
+                .and_return("return of fail")
+              target.authenticate!.should eq("return of fail")
             }
           end
 
@@ -120,8 +120,8 @@ describe Devise::Strategies::LdapAuthenticatable do
 
             it("calls and returns #fail(message)") {
               target.should_receive(:fail).with(I18n.t('devise.strategies.ldap_authenticatable.missing_email'))
-                .and_return("return of fail!")
-              target.authenticate!.should eq("return of fail!")
+                .and_return("return of fail")
+              target.authenticate!.should eq("return of fail")
             }
           end
 
@@ -134,8 +134,8 @@ describe Devise::Strategies::LdapAuthenticatable do
 
             it("calls and returns #fail(message)") {
               target.should_receive(:fail).with(I18n.t('devise.strategies.ldap_authenticatable.missing_name'))
-                .and_return("return of fail!")
-              target.authenticate!.should eq("return of fail!")
+                .and_return("return of fail")
+              target.authenticate!.should eq("return of fail")
             }
           end
         end
@@ -162,10 +162,10 @@ describe Devise::Strategies::LdapAuthenticatable do
           before {
             @ldap_mock.should_receive(:bind).and_return(false) # binding failed
           }
-          it("calls and returns #fail!(message)") {
+          it("calls and returns #fail(message)") {
             msg = I18n.t('devise.strategies.ldap_authenticatable.invalid_bind')
-            target.should_receive(:fail!).with(msg).and_return("return of fail!")
-            target.authenticate!.should eq("return of fail!")
+            target.should_receive(:fail).with(msg).and_return("return of fail")
+            target.authenticate!.should eq("return of fail")
           }
         end
 

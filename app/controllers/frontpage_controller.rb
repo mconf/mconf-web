@@ -34,4 +34,18 @@ class FrontpageController < ApplicationController
     end
   end
 
+  # Helper methods for devise
+  # Without this, the registration form will have a nil `resource` when it's loaded,
+  # which will make the labels wrong.
+  helper_method :resource, :resource_name, :devise_mapping
+  def resource_name
+    :user
+  end
+  def resource
+    @resource ||= User.new
+  end
+  def devise_mapping
+    @devise_mapping ||= Devise.mappings[:user]
+  end
+
 end

@@ -3,7 +3,7 @@ require 'spec_helper'
 describe ManageController do
 
   describe "#users" do
-    before { User.destroy_all }
+    before { User.destroy_all } # exclude seeded user(s)
 
     let(:user) { FactoryGirl.create(:superuser) }
     before(:each) { sign_in(user) }

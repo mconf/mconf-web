@@ -7,4 +7,5 @@
  *= require ./app/custom_bigbluebutton_rooms/edit
  *= require ./app/custom_bigbluebutton_rooms/show
  *= require ./app/custom_bigbluebutton_rooms/recordings
+ *= require ./app/custom_bigbluebutton_rooms/invitation
  */

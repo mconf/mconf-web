@@ -53,7 +53,8 @@ class ApplicationController < ActionController::Base
   end
 
   def valid_email? email
-    /^[-a-z0-9_+\.]+\@([-a-z0-9]+\.)+[a-z0-9]{2,4}$/i.match(email)
+    require 'valid_email'
+    ValidateEmail.valid?(email)
   end
 
   def current_ability
@@ -179,14 +180,7 @@ class ApplicationController < ActionController::Base
   private
 
   def set_time_zone
-    if current_user and current_user.is_a?(User) and not current_user.timezone.blank?
-      Time.zone = current_user.timezone
-    elsif current_site and not current_site.timezone.blank?
-      Time.zone = current_site.timezone
-    else
-      # If everything fails defaults to UTC
-      Time.zone = "UTC"
-    end
+    Time.zone = Mconf::Timezone.user_time_zone(current_user)
   end
 
   def render_404(exception)

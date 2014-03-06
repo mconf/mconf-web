@@ -36,7 +36,7 @@ gem 'friendly_id'
 gem 'i18n-js', :git => "git://github.com/fnando/i18n-js.git", :branch => 'rewrite'
 gem 'rabl'
 gem 'yajl-ruby' # json parser for rabl
-gem 'valid_email'
+gem 'valid_email', :git => 'https://github.com/Fire-Dragon-DoL/valid_email.git'
 gem 'public_activity'
 
 # For queues
@@ -73,18 +73,34 @@ gem 'configatron', '~> 2.13.0'
 # for bootstrap
 gem 'less-rails'
 gem 'twitter-bootstrap-rails'
+# datetime picker for bootstrap
+gem 'bootstrap-datetimepicker-rails'
+
+# moment.js for dates
+gem 'momentjs-rails'
 
 # font-awesome (recommended to be here, not in the assets group)
 gem 'font-awesome-rails'
 
+# to format emails
+gem 'premailer-rails'
+gem 'nokogiri'
+
+# send emails in case of exceptions in production
+gem 'exception_notification'
+
+# generate .ics
+gem 'icalendar'
+
+#
 # TODO: Gems to review if we can remove/update
+#
 gem 'galetahub-simple_captcha', :require => 'simple_captcha'
 gem 'attachment_fu', :git => 'git://github.com/mconf/attachment_fu.git'
 gem 'hpricot'
 gem 'feed-normalizer'
 gem 'httparty'
 gem 'ci_reporter'
-gem 'nokogiri', '1.4.1'
 gem 'rubyzip' # TODO: see rubyzip2
 gem 'dynamic_form'
 gem 'prism'
@@ -110,11 +126,3 @@ group :development, :test do
   gem 'turn', '0.8.2', :require => false # TODO: why 0.8.2?
   gem 'simplecov'
 end
-
-gem 'exception_notification'
-
-# Rails 3.1 - Heroku
-#group :production do
-#  gem 'therubyracer-heroku', '0.8.1.pre3'
-#  gem 'pg'
-#end

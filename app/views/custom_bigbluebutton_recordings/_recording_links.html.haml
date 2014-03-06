@@ -12,4 +12,4 @@
     .content-block-middle
       %h3= t(".playback_links")
       - recording.playback_formats.each do |playback|
-        = link_to playback.format_type, playback.url, :class => "btn btn-primary btn-small"
+        = link_to playback.format_type, playback.url, :class => "btn btn-primary btn-small open-new-window"

@@ -6,6 +6,7 @@
  *= require ../../../vendor/assets/stylesheets/bootstrap/bootstrap-modal
  *= require font-awesome
  *= require select2
+ *= require bootstrap-datetimepicker
  *
  * Note: the order matters!
  *= require ./app/application/typography
@@ -18,6 +19,7 @@
  *= require ./app/application/tooltips
  *= require ./app/application/input-placeholder
  *= require ./app/application/in_place_edit
+ *= require ./app/application/resource_filter
  *= require ./app/application/modal
  *= require ./app/application/showable_password_input
  *= require ./app/application/logo_images

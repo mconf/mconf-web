@@ -6,8 +6,6 @@
 @import "app/users/user_spaces";
 @import "app/spaces/space_thumbnail";
 @import "app/users/recent_activity";
-@import "app/invites/invite_room";
-@import "app/custom_bigbluebutton_rooms/join_mobile";
 
 // home and activity use some partials to show information of recordings, and they include
 // some styles defined in the partial below
@@ -47,6 +45,7 @@ body.my.home, body.my.activity, body.my.recordings {
       padding: 3px;
       height: 96px;
       width: 96px;
+      background: white;
       @include broken-img-parent;
 
       img {

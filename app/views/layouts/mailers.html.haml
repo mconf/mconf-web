@@ -1,0 +1,14 @@
+!!! Strict
+%html{:lang => I18n.locale.to_s}
+  %head
+    %meta{:content => "text/html; charset=utf-8", "http-equiv" => "Content-type"}
+    = stylesheet_link_tag "mailers", :media => "screen, projection"
+    = yield :headers
+  %body
+    -# .navbar
+    -#   - url = root_url(:host => Site.current.domain)
+    -#   %a.title{ :href => url }
+    -#     = "#{Site.current.name} (#{url})"
+    .message-body
+      = yield
+    .footer= Site.current.signature_in_html

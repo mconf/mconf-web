@@ -1,4 +1,4 @@
-<VirtualHost YOUR_IP:443>
+<VirtualHost *:443>
   ServerName      YOUR_HOST
   ServerSignature Off
 

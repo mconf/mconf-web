@@ -23,6 +23,7 @@ $orange: #C47322;
 $yellow: #BB9403;
 $green-logo: #27535C;
 $gray: #ccc;
+$dark-gray: #666;
 $light-gray: #f6f6f6;
 $very-light-gray: #fcfcfc;
 $bright-blue: #49afcd;
@@ -32,6 +33,7 @@ $site-bg-color: #fff;
 $main-color: $green-logo;
 $second-color: $bright-blue;
 $focus-border-color: $second-color;
+$font-h-color: $green-logo;
 // link colors
 $link-color: lighten($main-color, 15);
 $link-color-hover: $second-color;
@@ -56,13 +58,18 @@ $highlight-bg: #ffff81;
 $contents-width: 980px;
 $sidebar-width: 240px;
 
-
 // headers
 $navbar-bg-color: darken($green-logo, 3);
 $subnav-bg-color: #eee;
 $navbar-height: 35px;
 $navbar-font-color: #bbb;
 $navbar-font-color-hover: white;
+$navbar-menu-open-bg: $site-bg-color;
+$navbar-menu-open-link: $link-color;
+$navbar-menu-open-link-hover: $link-color-hover;
+$page-menu-font-color: #808080;
+$page-header-link-color: $link-color;
+$page-header-link-color-hover: $link-color-hover;
 
 // global footer
 $footer-bg-color: $light-gray;
@@ -164,7 +171,7 @@ $z-index-tooltip: 999999;
 @mixin space-visibility {
   font-size: $font-small;
   display: block;
-  color: #666;
+  color: $dark-gray;
 
   .icon-awesome {
     float: none;
@@ -191,6 +198,16 @@ $z-index-tooltip: 999999;
       float: right;
     }
   }
+}
+
+@function lighten-or-darken($bg, $color, $amountToLighten, $amountToDarken) {
+  @if (lightness( $bg ) > 40) {
+    $color: darken($color, $amountToDarken);
+  }
+  @else {
+    $color: lighten($color, $amountToDarken);
+  }
+  @return $color;
 }
 
 //

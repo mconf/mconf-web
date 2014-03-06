@@ -44,6 +44,9 @@ pt-br:
     accept: "Aceitar"
     cancel: "Cancelar"
     create: "Criar"
+    datetimepicker:
+      format: "dd/MM/yyyy hh:mm"
+      format_rails: "%d/%m/%Y %H:%M %Z"
     deny: "Negar"
     destroy: "Remover"
     details: "Detalhes"
@@ -92,6 +95,12 @@ pt-br:
         location: "Localização"
         name: "Nome"
         start_date: "Data e horário de início"
+      invite:
+        ends_on: "Acaba em"
+        message: "Comentários"
+        starts_on: "Inicia em"
+        title: "Título"
+        users: "Usuários"
       join_request:
         comment: "Mensagem"
       news:
@@ -371,6 +380,10 @@ pt-br:
     index:
       list_of_rooms: "Lista de todas salas registradas"
     important: Importante
+    invitation_form:
+      meeting_in: "Enviando convite para conferência em:"
+      timezone: "Você está usando o fuso horário %{timezone}"
+      title: "Convite para conferência"
     invite: 
       desktop: 
         not_selected: "Selecione esta opção para acessar de um <em>computador</em>."
@@ -430,6 +443,10 @@ pt-br:
         links: "Links"
         room_meetingid: "ID da Reunião"
         room_name: "Nome da Sala"
+    send_invitation:
+      error: "Não foi possível enviar o convite para:"
+      error_date_format: "As datas que você informou não estão em um formato válido, por favor tente novamente"
+      success: "Convite enviado com sucesso para:"
     show:
       showing_room: "Mostrando a sala '%{room}'"
   custom_bigbluebutton_recordings:
@@ -805,9 +822,6 @@ pt-br:
   invite:
     bad_format: "(e-mail mal formatado)"
     email: "e-mail para %{email}"
-    invitation_successfully: "Convite enviado com sucesso:"
-    invitation_unsuccessfully: "Convite não pode ser enviado:"
-    message: "Você foi convidado por <b>%{sender}</b> (<a href=\"mailto:%{email_sender}\">%{email_sender}</a>)  para participar da webconferência <b>%{name}</b>.<br/><br/>Você pode participar acessando o endereço: <a href=\"%{invite_url}\">%{invite_url}</a><br/>Se você está em um cliente móvel, use este endereço: <a href=\"%{mobile_url}\">%{mobile_url}</a><br/><br/>Esta é a mensagem escrita por <b>%{sender}</b>:"
     title: "Convite para participar de uma webconferência"
     user_private_msg: "mensagem privada para o usuário %{user}"
   invite_people:
@@ -878,7 +892,7 @@ pt-br:
       manage: "Gerenciar"
       register: "Registre-se"
     footer:
-      copyright: "© 2010-2013 %{site}."
+      copyright: "© 2010-2014 %{site}."
       current_version: "Versão atual"
       find_us: "Mais sobre o Mconf em"
       github: GitHub
@@ -898,7 +912,7 @@ pt-br:
         help_us: "Quer este site na sua linguagem? Clique para saber como nos ajudar a traduzi-lo!"
       wiki: "Wiki"
     footer_simple:
-      copyright: "© 2010-2013 %{site}."
+      copyright: "© 2010-2014 %{site}."
       translate:
         change: "Mudar a linguagem"
     spaces_page_title:
@@ -954,8 +968,9 @@ pt-br:
     spaces:
       filter_name: "Nome"
       filter_results: "Filtrar os resultados:"
-      filter_count_html: Mostrando <span id="filter-count"></span> comunidades para '<span id="filter-value"></span>'
     spaces_list:
+      filter_count_with_text: "%{count} comunidades encontradas para o filtro \"%{value}\""
+      filter_count_empty: "%{count} comunidades encontradas"
       no_space_found: "Nenhuma comunidade encontrada"
     spam:
       event:
@@ -974,8 +989,9 @@ pt-br:
     users:
       filter_name_or_username: "Nome, identificador ou e-mail"
       filter_results: "Filtrar os resultados:"
-      filter_count_html: Mostrando <span id="filter-count"></span> usuários para '<span id="filter-value"></span>'
     users_list:
+      filter_count_with_text: "%{count} usuários encontrados para o filtro \"%{value}\""
+      filter_count_empty: "%{count} usuários encontrados"
       no_user_found: "Nenhum usuário encontrado"
   mandatory_field: "Campo obrigatório"
   mconf: Mconf
@@ -1727,6 +1743,16 @@ pt-br:
   version:
     new: "Nova versão"
     one: Versão
+  web_conference_mailer:
+    invitation_mail:
+      event_name: "Conferência com %{name}"
+      message:
+        end: "Fim"
+        header: "Você foi convidado por <b>%{sender}</b> (%{email_sender}) para uma conferência:"
+        join: "Acesso"
+        password: "Chave de acesso"
+        start: "Início"
+      subject: "Você foi convidado para uma conferência por %{name}"
   webconference:
     invite_webconference: "Convidar pessoas para a conferência"
     join: Join

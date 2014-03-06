@@ -41,7 +41,7 @@
         .user-info.dropdown-toggle{ :"data-toggle" => "dropdown" }
           .user-avatar
             = link_logo_image(current_user, :size => '32', :url => user_path(current_user), :title => current_user.name, :class => "logo-user")
-          %span.user-name= current_user.name
+          %a.user-name{ :href => '#' }= current_user.name
           %b.caret
 
         -# dropdown menu opened when clicking in the dropdown

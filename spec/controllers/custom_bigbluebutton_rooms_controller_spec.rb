@@ -380,6 +380,8 @@ describe CustomBigbluebuttonRoomsController do
         it { should allow_access_to(:running, hash) }
         it { should allow_access_to(:join_options, hash) }
         it { should allow_access_to(:fetch_recordings, hash) }
+        it { should allow_access_to(:invitation, hash) }
+        it { should allow_access_to(:send_invitation, hash).via(:post) }
       end
 
       context "in his room" do
@@ -448,6 +450,8 @@ describe CustomBigbluebuttonRoomsController do
         it { should allow_access_to(:running, hash) }
         it { should allow_access_to(:join_options, hash) }
         it { should allow_access_to(:fetch_recordings, hash) }
+        it { should allow_access_to(:invitation, hash) }
+        it { should allow_access_to(:send_invitation, hash).via(:post) }
       end
 
       context "in another user's room" do
@@ -467,6 +471,8 @@ describe CustomBigbluebuttonRoomsController do
         it { should allow_access_to(:running, hash) }
         it { should_not allow_access_to(:join_options, hash) }
         it { should_not allow_access_to(:fetch_recordings, hash) }
+        it { should_not allow_access_to(:invitation, hash) }
+        it { should_not allow_access_to(:send_invitation, hash).via(:post) }
       end
 
       context "in the room of public space" do
@@ -490,6 +496,8 @@ describe CustomBigbluebuttonRoomsController do
           it { should allow_access_to(:running, hash) }
           it { should allow_access_to(:join_options, hash) }
           it { should allow_access_to(:fetch_recordings, hash) }
+          it { should allow_access_to(:invitation, hash) }
+          it { should allow_access_to(:send_invitation, hash).via(:post) }
         end
 
         context "he is not a member of" do
@@ -508,6 +516,8 @@ describe CustomBigbluebuttonRoomsController do
           it { should allow_access_to(:running, hash) }
           it { should_not allow_access_to(:join_options, hash) }
           it { should_not allow_access_to(:fetch_recordings, hash) }
+          it { should_not allow_access_to(:invitation, hash) }
+          it { should_not allow_access_to(:send_invitation, hash).via(:post) }
         end
       end
 
@@ -532,6 +542,8 @@ describe CustomBigbluebuttonRoomsController do
           it { should allow_access_to(:running, hash) }
           it { should allow_access_to(:join_options, hash) }
           it { should allow_access_to(:fetch_recordings, hash) }
+          it { should allow_access_to(:invitation, hash) }
+          it { should allow_access_to(:send_invitation, hash).via(:post) }
         end
 
         context "he is not a member of" do
@@ -550,6 +562,8 @@ describe CustomBigbluebuttonRoomsController do
           it { should allow_access_to(:running, hash) }
           it { should_not allow_access_to(:join_options, hash) }
           it { should_not allow_access_to(:fetch_recordings, hash) }
+          it { should_not allow_access_to(:invitation, hash) }
+          it { should_not allow_access_to(:send_invitation, hash).via(:post) }
         end
       end
 
@@ -581,6 +595,8 @@ describe CustomBigbluebuttonRoomsController do
         it { should allow_access_to(:running, hash) }
         it { should require_authentication_for(:join_options, hash) }
         it { should_not allow_access_to(:fetch_recordings, hash) }
+        it { should require_authentication_for(:invitation, hash) }
+        it { should require_authentication_for(:send_invitation, hash).via(:post) }
       end
 
       context "in a user room" do

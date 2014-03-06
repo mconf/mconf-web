@@ -1,5 +1,4 @@
-NameVirtualHost *
-<VirtualHost *>
+<VirtualHost *:80>
         ServerName              YOUR_HOST
         ServerSignature Off
 
