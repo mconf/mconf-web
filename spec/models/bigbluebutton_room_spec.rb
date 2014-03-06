@@ -19,9 +19,10 @@ describe BigbluebuttonRoom do
   # This is a model from BigbluebuttonRails, but we have permissions set in cancan for it,
   # so we test them here.
   describe "abilities", :abilities => true do
-    set_custom_ability_actions([:end, :join_options, :create_meeting, :fetch_recordings,
-                                :invite, :invite_userid, :auth, :running, :join, :external,
-                                :external_auth, :join_mobile, :record_meeting])
+    set_custom_ability_actions([ :end, :join_options, :create_meeting, :fetch_recordings,
+                                 :invite, :invite_userid, :auth, :running, :join, :external,
+                                 :external_auth, :join_mobile, :record_meeting, :invitation,
+                                 :send_invitation ])
 
     subject { ability }
     let(:user) { nil }
@@ -87,7 +88,7 @@ describe BigbluebuttonRoom do
         let(:target) { user.bigbluebutton_room }
         let(:allowed) { [:end, :join_options, :create_meeting, :fetch_recordings,
                          :invite, :invite_userid, :auth, :running, :join, :external,
-                         :external_auth, :join_mobile, :update] }
+                         :external_auth, :join_mobile, :update, :invitation, :send_invitation] }
         it { should_not be_able_to_do_anything_to(target).except(allowed) }
 
         context "with permission to record" do
@@ -128,7 +129,7 @@ describe BigbluebuttonRoom do
           before { space.add_member!(user) }
           let(:allowed) { [:end, :join_options, :create_meeting, :fetch_recordings,
                            :invite, :invite_userid, :auth, :running, :join, :external,
-                           :external_auth, :join_mobile] }
+                           :external_auth, :join_mobile, :invitation, :send_invitation] }
           it { should_not be_able_to_do_anything_to(target).except(allowed) }
 
           context "with permission to record" do
@@ -157,7 +158,7 @@ describe BigbluebuttonRoom do
           before { space.add_member!(user) }
           let(:allowed) { [:end, :join_options, :create_meeting, :fetch_recordings,
                            :invite, :invite_userid, :auth, :running, :join, :external,
-                           :external_auth, :join_mobile] }
+                           :external_auth, :join_mobile, :invitation, :send_invitation] }
           it { should_not be_able_to_do_anything_to(target).except(allowed) }
 
           context "with permission to record" do
