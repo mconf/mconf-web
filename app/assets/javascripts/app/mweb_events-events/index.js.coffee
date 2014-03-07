@@ -40,14 +40,14 @@ $ ->
     # select input to search for events
     $("#event_filter_text").select2
       minimumInputLength: 1
-      placeholder: I18n.t('events.index.search.by_name.placeholder')
+      placeholder: I18n.t('mweb_events.events.index.search.by_name.placeholder')
       formatNoMatches: (term) ->
-        I18n.t('events.index.search.by_name.no_matches', { term: term })
+        I18n.t('mweb_events.events.index.search.by_name.no_matches', { term: term })
       width: '250'
       formatResult: format
       formatSelection: format
       ajax:
-        url: '/events/select.json'
+        url: '/events/select.json?limit=10'
         dataType: 'json'
         data: (term, page) ->
           q: term

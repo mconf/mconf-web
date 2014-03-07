@@ -589,12 +589,6 @@ pt-br:
     instructions: "Clique Enviar para cada convite que você deseja enviar, e clique Finalizar quando você concluir."
     sent: "Convites enviados com sucesso"
     will_invite: "Pessoas que você irá convidar?"
-  events:
-    index:
-      search:
-        by_name:
-          no_matches: "Nenhum evento encontrado para \"%{term}\""
-          placeholder: "Pesquise por eventos..."
   fax: Fax
   feedback:
     email: "%{email} enviou o seguinte feedback:"

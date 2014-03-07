@@ -614,12 +614,6 @@ en:
     instructions: "Click Send for each invitation you want to send, and click Finish when you are done."
     sent: "Invitations sent successfully"
     will_invite: "People you will invite:"
-  events:
-    index:
-      search:
-        by_name:
-          no_matches: "No events found for \"%{term}\""
-          placeholder: "Search for events..."
   fax: Fax
   feedback: 
     email: "%{email} sent the following feedback:"

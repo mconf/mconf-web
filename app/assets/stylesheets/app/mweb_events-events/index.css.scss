@@ -23,8 +23,7 @@ body.mweb_events-events.index {
 
     .page-tabs {
       float: right;
-      margin-top: 1px;
-      margin-right: 10px;
+      margin: 1px 10px 0 0;
     }
 
     .btn-group {
@@ -40,6 +39,16 @@ body.mweb_events-events.index {
         margin: 0;
         @include border-left-radius(0);
       }
+    }
+  }
+
+  // the results for the filter by name are added to <body>, this is why
+  // this selector is here and not nested
+  .select2-results, .select2-container {
+    i {
+      float: right;
+      @include font-size($font-small);
+      margin: 6px 0 0 0;
     }
   }
 
@@ -71,7 +80,6 @@ body.mweb_events-events.index {
     width: 230px;
 
     .content-block-middle {
-      word-break: break-all;
 
       .event-logo-wrapper {
         margin: 5px 0;

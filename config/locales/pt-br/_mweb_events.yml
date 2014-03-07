@@ -16,7 +16,7 @@ pt-br:
         public: Aberto ao público
         private: Privado
         filters:
-          all_events: "Todos eventos"
+          all_events: "Todos"
           my_events: "Meus eventos"
           your_events: seus
           description: Mostrando %{your} eventos %{time}
@@ -30,6 +30,10 @@ pt-br:
         participant_count:
           one: "%{count} participante"
           other: "%{count} participantes"
+        search:
+          by_name:
+            no_matches: "Nenhum evento encontrado com \"%{term}\""
+            placeholder: "Procurar eventos..."
         select_at_left: "Selecione um evento ao lado para ver sua descrição aqui"
         subtitle: "Crie seus própios eventos e compartilhe com outras pessoas"
         title: "Eventos"

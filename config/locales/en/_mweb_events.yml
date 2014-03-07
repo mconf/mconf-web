@@ -16,7 +16,7 @@ en:
         public: Open to the public
         private: Private
         filters:
-          all_events: "All events"
+          all_events: "All"
           my_events: "My events"
           your_events: your
           description: Showing %{your} %{time} events
@@ -30,6 +30,10 @@ en:
         participant_count:
           one: "%{count} participant"
           other: "%{count} participants"
+        search:
+          by_name:
+            no_matches: "No events found for \"%{term}\""
+            placeholder: "Search events..."
         select_at_left: "Select an event in the list to see it's description here"
         subtitle: "Create your own events and share with other people"
         title: "Events"

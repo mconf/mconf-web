@@ -351,8 +351,7 @@ ul#navbar-left-links {
     float: left;
     margin-top: 10px;
     margin-left: 10px;
-    padding-left: 10px;
-    border-left: 1px solid lighten($navbar-bg-color, 10);
+    margin-right: 15px;
 
     &:first-child { border: 0 }
 
@@ -389,11 +388,10 @@ ul#navbar-left-links {
     .user-avatar {
       position: relative;
       float: right;
-      border: 1px solid lighten($navbar-bg-color, 10);
-      padding: 1px;
+      padding: 2px;
       height: 22px;
       width: 22px;
-      background: white;
+      background: lighten($navbar-bg-color, 10);
       @include border-radius(3px);
       @include broken-img-parent;
 
@@ -432,7 +430,7 @@ ul#navbar-left-links {
       color: lighten-or-darken($navbar-menu-open-bg, $navbar-font-color, 10, 30);
       background: $navbar-menu-open-bg;
       top: $navbar-height - 2px;
-      right: 0;
+      right: -1px;
       left: auto;
       min-width: 300px;
       width: 300px;
@@ -547,8 +545,7 @@ ul#navbar-left-links {
   margin: 0 auto;
   @include mconf-clearfix;
   overflow: visible;
-  //padding: 20px 0 17px 0;
-  padding: 30px 0 20px 0;
+  padding: 25px 0 20px 0;
   clear: both;
   word-break: break-all;
 
@@ -588,6 +585,7 @@ ul#navbar-left-links {
 
     .main-title {
       @include font-size($font-section-title);
+      line-height: 1.0;
       font-weight: bold;
       color: $page-title-color;
       @include text-shadow(darken($site-bg-color, 10) 1px 1px 10px);
@@ -630,7 +628,7 @@ ul#navbar-left-links {
 
   .current-page-extra {
     float: right;
-    margin: 10px 10px 0 0;
+    margin: 0 10px 0 0;
     text-align: right;
   }
 }
@@ -808,7 +806,7 @@ ul#navbar-left-links {
 
 #page-menu {
   margin-bottom: -21px; // #page-header's bottom margin -2px
-  padding-top: 10px;
+  padding-top: 15px;
   clear: both;
 
   > ul {
@@ -931,4 +929,9 @@ ul#navbar-left-links {
 // for elements highlighted using rails' highlight() view helper.
 strong.highlight {
   background: $highlight-bg;
+}
+
+// for elements that might contain long words that can break the layout
+.break-word {
+  word-break: break-all;
 }
