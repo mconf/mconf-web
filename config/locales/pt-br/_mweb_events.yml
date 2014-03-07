@@ -1,0 +1,48 @@
+---
+pt-br:
+  mweb_events:
+    events:
+      event_thumbnail:
+        starts_at: "Inicia em"
+        where: "Localização"
+        closed: Inscrições encerradas
+      registration:
+        closed: Inscrições para este evento estão fechadas.
+        join_button: Junte-se a esta comunidade para participar
+      index:
+        now: Agora
+        create_new_event: "Adicionar evento"
+        count: (%{count} encontrados)
+        public: Aberto ao público
+        private: Privado
+        filters:
+          all_events: "Todos eventos"
+          my_events: "Meus eventos"
+          your_events: seus
+          description: Mostrando %{your} eventos %{time}
+          happening_now: acontecendo agora
+          upcoming_events: futuros
+          past_events: passados
+          all: ''
+        list_format:
+          list: "Lista"
+          thumbnails: "Miniaturas"
+        participant_count:
+          one: "%{count} participante"
+          other: "%{count} participantes"
+        select_at_left: "Selecione um evento ao lado para ver sua descrição aqui"
+        subtitle: "Crie seus própios eventos e compartilhe com outras pessoas"
+        title: "Eventos"
+      thumbnail_view:
+        no_events: "Nenhum evento condiz com esta pesquisa!"
+      title:
+        belongs_space: "Um evento da comunidade <a href='%{url}'>%{space}</a>"
+        belongs_user: "Evento criado por <a href='%{url}'>%{user}</a>"
+    participants:
+      index:
+        no_participants: Nenhum inscrito ainda!
+        event: "Mensagem sobre o evento [%{event}]"
+        message: Enviar mensagem
+        disable: Remover do evento
+        disable_confirm: Tem certeza que deseja remover este usuário do evento?
+

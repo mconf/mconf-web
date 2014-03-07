@@ -1,9 +1,11 @@
-#spaces.content-block
-  .content-block-header
-    %h3= t('space.other')
-  .content-block-middle.clearfix
-    %ul.space-thumbnail-list
-      - @objects.each do |space|
-        - is_member = @user_spaces && @user_spaces.include?(space)
-        %li{ :class => "space-item space-thumbnail", :name => space.permalink }
-          = render "spaces/space_thumbnail", :space => space
+-# locals:
+-#  spaces (array of Space)
+-#  user_spaces (array of Space): the spaces to which the user belongs
+
+%ul.list-thumbnails
+  - if spaces.count > 0
+    - spaces.each do |space|
+      %li.list-thumbnail-wrapper{ :name => space.permalink }
+        = render "spaces/space_thumbnail", :space => space
+  - else
+    = t(".no_spaces")

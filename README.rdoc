@@ -11,7 +11,7 @@ Mconf-web is a web application that connects to a {BigBlueButton}[http://www.big
 * Follows a social network model (inherited from VCC) with spaces (communities) that have events;
 * Users have their own webconferences that they can share with other members or even invite non-members.
 * Each space also has a webconference room that its members can use to interact;
-* Events can be used to schedule webconferences inside a space.
+* Events can be used to schedule web conferences.
 
 <b>For more details {read our wiki}[http://code.google.com/p/mconf/wiki/MconfWeb]</b>.
 

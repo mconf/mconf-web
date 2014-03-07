@@ -21,7 +21,6 @@ describe User do
   it { should have_many(:permissions).dependent(:destroy) }
   it { should have_many(:events) }
   it { should have_many(:posts).dependent(:destroy) }
-  it { should have_many(:participants).dependent(:destroy) }
 
   it { should validate_presence_of(:email) }
 

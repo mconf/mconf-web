@@ -83,8 +83,6 @@ class User < ActiveRecord::Base
 
   has_many :permissions, :dependent => :destroy
   has_one :profile, :dependent => :destroy
-  has_many :events, :as => :author
-  has_many :participants, :dependent => :destroy
   has_many :posts, :as => :author, :dependent => :destroy
   has_one :bigbluebutton_room, :as => :owner, :dependent => :destroy
   has_one :ldap_token, :dependent => :destroy
@@ -98,11 +96,9 @@ class User < ActiveRecord::Base
   attr_accessible :timezone
   attr_accessible :expanded_post
   attr_accessible :notification
-  attr_accessible :special_event_id
   attr_accessible :superuser
   attr_accessible :can_record
   attr_accessible :receive_digest
-  attr_accessor :special_event_id
 
   # Full name must go to the profile, but it is provided by the user when
   # signing up so we have to cache it until the profile is created
@@ -183,43 +179,21 @@ class User < ActiveRecord::Base
   after_create do |user|
     user.create_profile :full_name => user._full_name
 
-    # If user joined for participating in an event,
-    # create a join request and add him to the space
-    if user.special_event_id
-      event = Event.find_by_id(user.special_event_id)
-
-      if event && event.space.public
-        event.space.add_member!(user, Role.default_role.name)
-
-        j = JoinRequest.create(
-          :email => user.email,
-          :request_type => 'request',
-          :group_type => 'Event',
-          :group_id => event.id,
-          :role_id => Role.default_role.id,
-          :comment => '-',
-          :candidate_id => user.id,
-          :accepted => true
-          )
-      end
-    end
-
     # Checking if we have to join a space and/or event
     invites = JoinRequest.where :email => user.email
     invites.each do |invite|
-
-      if invite.event?
-        part_aux = Participant.new
-        part_aux.email = user.email
-        part_aux.user_id = user.id
-        part_aux.event_id = invite.group_id
-        part_aux.attend = true
-        part_aux.save!
-      elsif invite.space?
+      if invite.space?
         space.add_member!(user)
       end
     end
 
+  end
+
+  # Builds a guest user based on the e-mail
+  def self.build_guest opt={}
+    return nil if opt[:email].blank?
+
+    User.new :email => opt[:email], :username => I18n.t('_other.user.guest', :email => opt[:email])
   end
 
   def self.find_with_disabled *args
@@ -276,8 +250,14 @@ class User < ActiveRecord::Base
     spaces.select{|x| x.public == false}.map(&:users).flatten.compact.uniq.sort{ |x, y| x.name <=> y.name }
   end
 
+  def events
+    ids = MwebEvents::Event.where(:owner_type => 'User', :owner_id => id).map(&:id)
+    ids += self.permissions.where(:subject_type => 'MwebEvents::Event', :user_id => id).map(&:subject_id)
+    MwebEvents::Event.where(:id => ids)
+  end
+
   def has_events_in_this_space?(space)
-    !events.select{|ev| ev.space==space}.empty?
+    !events.select{|ev| ev.owner_type=='Space' && ev.owner_id==space}.empty?
   end
 
   # Returns an array with all the webconference rooms accessible to this user
@@ -336,6 +316,11 @@ class User < ActiveRecord::Base
     else
       super # Use whatever other message
     end
+  end
+
+  # Method used by MwebEvents
+  def admin?
+    superuser
   end
 
   private

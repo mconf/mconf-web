@@ -19,8 +19,6 @@
 
 Mconf::Application.routes.draw do
 
-  match "logo_images/crop", :to => 'logo_images#crop'
-
   # devise
   controllers = { :sessions => "sessions", :registrations => "registrations" }
   paths = { :sign_in => "login", :sign_out => "logout", :sign_up => "signup" }
@@ -52,10 +50,18 @@ Mconf::Application.routes.draw do
     :to => 'custom_bigbluebutton_rooms#invite_userid',
     :as => "join_webconf"
 
+  # event module
+  if Mconf::Modules.mod_loaded?('events')
+    mount MwebEvents::Engine => '/'
+  end
+
   # shibboleth controller
   match '/secure', :to => 'shibboleth#login', :as => "shibboleth"
   match '/secure/info', :to => 'shibboleth#info', :as => "shibboleth_info"
   post '/secure/associate', :to => 'shibboleth#create_association', :as => "shibboleth_create_association"
+
+  # to crop images
+  match "logo_images/crop", :to => 'logo_images#crop'
 
   resources :spaces do
 
@@ -87,19 +93,8 @@ Mconf::Application.routes.draw do
 
     resources :readers
 
-    resources :events do
-
-      member do
-        post :spam_report, :action => :spam_report_create
-      end
-
-      collection do
-        get :add_time
-        get :copy_next_week
-        get :remove_time
-      end
-
-      resources :participants
+    if Mconf::Modules.mod_loaded?('events')
+      get '/events', :to => 'space_events#index', :as => 'events'
     end
 
     resources :posts do

@@ -1,8 +1,10 @@
 #spaces.content-block
-  .content-block-header
-    %h3= t('space.public.other')
   .content-block-middle.clearfix
-    - @objects.each do |space|
-      - is_member = @user_spaces && @user_spaces.include?(space)
-      %div{:class => "space-item space-list", :name => space.permalink}
-        = render "unified_space", :space => space, :is_member => is_member
+    %ul.list-texts
+      - if @objects.count > 0
+        - @objects.each do |space|
+          - is_member = @user_spaces && @user_spaces.include?(space)
+          %li.list-text{:name => space.permalink}
+            = render "unified_space", :space => space, :is_member => is_member
+      - else
+        = t(".no_spaces")

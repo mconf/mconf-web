@@ -12,7 +12,6 @@ class Attachment < ActiveRecord::Base
   has_many :post_attachments, :dependent => :destroy
   has_many :posts, :through => :post_attachments
   belongs_to :space
-  belongs_to :event
   belongs_to :author, :polymorphic => true
 
   has_attachment :max_size => 1000.megabyte,

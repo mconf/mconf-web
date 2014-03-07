@@ -25,7 +25,10 @@ namespace :db do
       Statistic.destroy_all
       Permission.destroy_all
       Space.destroy_all
-      Event.destroy_all
+      if configatron.modules.events.enabled
+        MwebEvents::Event.destroy_all
+        MwebEvents::Participant.destroy_all
+      end
       RecentActivity.destroy_all
       BigbluebuttonRecording.destroy_all
       users_without_admin = User.find_by_id_with_disabled(:all)
@@ -127,20 +130,24 @@ namespace :db do
         post.spam = rand(0) > 0.9 # ~10% marked as spam
       end
 
-      puts "* Create spaces: events for \"#{space.name}\" (5..10)"
-      available_users = User.all.dup
-      Event.populate 5..10 do |event|
-        event.space_id = space.id
-        event.name = Populator.words(1..3).titleize
-        event.description = Populator.sentences(0..3)
-        event.place = Populator.sentences(0..2)
-        event.spam = false
-        event.created_at = @created_at_start..Time.now
-        event.updated_at = event.created_at..Time.now
-        event.start_date = event.created_at..1.years.since(Time.now)
-        event.end_date = 2.hours.since(event.start_date)..2.days.since(event.start_date)
-        event.author_id = available_users.delete_at((rand * available_users.size).to_i)
-        event.spam = rand(0) > 0.9 # ~10% marked as spam
+      if configatron.modules.events.enabled
+        puts "* Create spaces: events for \"#{space.name}\" (5..10)"
+        available_users = User.all.dup
+        MwebEvents::Event.populate 5..10 do |event|
+          event.owner_id = space.id
+          event.owner_type = 'Space'
+          event.name = Populator.words(1..3).titleize
+          event.permalink = Populator.words(1..3).split.join('-')
+          event.time_zone = Forgery::Time.zone
+          event.location = Populator.words(1..3)
+          event.address = Forgery::Address.street_address
+          event.description = Populator.sentences(0..3)
+          event.location = Populator.sentences(0..2)
+          event.created_at = @created_at_start..Time.now
+          event.updated_at = event.created_at..Time.now
+          event.start_on = event.created_at..1.years.since(Time.now)
+          event.end_on = 2.hours.since(event.start_on)..2.days.since(event.start_on)
+        end
       end
 
       News.populate 2..10 do |news|
@@ -152,8 +159,10 @@ namespace :db do
       end
     end
 
-    puts "* Create spaces: saving events to generate permalinks"
-    Event.find_each(&:save!) # to generate the permalink
+    if configatron.modules.events.loaded
+      puts "* Create spaces: saving events to generate permalinks"
+      MwebEvents::Event.find_each(&:save!) # to generate the permalink
+    end
 
     puts "* Create spaces: webconference rooms"
     Space.all.each do |space|
@@ -203,29 +212,32 @@ namespace :db do
         permission.updated_at = permission.created_at
       end
 
-      puts "* Create spaces: \"#{space.name}\" - add users for events"
-      event_role_ids = Role.find_all_by_stage_type('Event').map(&:id)
-      space.events.each do |event|
-        available_event_participants = space.users.dup
-        Participant.populate 0..space.users.count do |participant|
-          participant_aux = available_event_participants.delete_at((rand * available_event_participants.size).to_i)
-          participant.user_id = participant_aux.id
-          participant.email = participant_aux.email
-          participant.event_id = event.id
-          participant.created_at = event.created_at..Time.now
-          participant.updated_at = participant.created_at..Time.now
-          participant.attend = (rand(0) > 0.5)
+      # TODO: #1115, populate with models from MwebEvents
+      # if configatron.modules.events.loaded
+      # puts "* Create spaces: \"#{space.name}\" - add users for events"
+      # event_role_ids = Role.find_all_by_stage_type('Event').map(&:id)
+      # space.events.each do |event|
+      #   available_event_participants = space.users.dup
+      #   Participant.populate 0..space.users.count do |participant|
+      #     participant_aux = available_event_participants.delete_at((rand * available_event_participants.size).to_i)
+      #     participant.user_id = participant_aux.id
+      #     participant.email = participant_aux.email
+      #     participant.event_id = event.id
+      #     participant.created_at = event.created_at..Time.now
+      #     participant.updated_at = participant.created_at..Time.now
+      #     participant.attend = (rand(0) > 0.5)
 
-          Permission.populate 1 do |permission|
-            permission.user_id = participant.user_id
-            permission.subject_id = event.id
-            permission.subject_type = 'Event'
-            permission.role_id = event_role_ids
-            permission.created_at = participant.created_at
-            permission.updated_at = permission.created_at
-          end
-        end
-      end
+      #     Permission.populate 1 do |permission|
+      #       permission.user_id = participant.user_id
+      #       permission.subject_id = event.id
+      #       permission.subject_type = 'Event'
+      #       permission.role_id = event_role_ids
+      #       permission.created_at = participant.created_at
+      #       permission.updated_at = permission.created_at
+      #     end
+      #   end
+      # end
+      # end
 
     end
 
@@ -312,8 +324,8 @@ namespace :db do
       # Space created recent activity
       space.new_activity :create, space.admins.first
 
-      # Author and recent_activity for posts/events
-      ( space.posts + space.events ).each do |item|
+      # Author and recent_activity for posts
+      ( space.posts ).each do |item|
         item.author = space.users[rand(space.users.length)]
         item.save(:validate => false)
 
@@ -321,10 +333,12 @@ namespace :db do
       end
 
       # Event participants activity
-      space.events.each do |event|
-        event.participants.each do |part|
-          attend = part.attend? ? :attend : :not_attend
-          event.new_activity attend, part.user
+      if configatron.modules.events.enabled
+        space.events.each do |event|
+          event.participants.each do |part|
+            attend = part.attend? ? :attend : :not_attend
+            event.new_activity attend, part.user
+          end
         end
       end
 

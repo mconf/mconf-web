@@ -6,7 +6,6 @@
 
 module Mconf
   class DigestEmail
-
     def self.send_daily_digest
       User.where(:receive_digest => User::RECEIVE_DIGEST_DAILY).each do |user|
         now = Time.now
@@ -56,10 +55,15 @@ module Mconf
         order('updated_at desc')
 
       # Events that started or finished in the period
-      events = Event.
-        where('space_id IN (?)', user_spaces).
-        within(date_start, date_end).
-        order('updated_at desc')
+      # TODO: review and improve this with MwebEvents
+      if Mconf::Modules.mod_enabled?('events')
+        events = MwebEvents::Event.
+          where('owner_id IN (?) AND owner_type IS \"Space\"', user_spaces).
+          within(date_start, date_end).
+          order('updated_at desc')
+      else
+        events = []
+      end
 
       # Unread messages in the inbox
       inbox = PrivateMessage.inbox(user).select{ |msg| !msg.checked }

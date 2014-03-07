@@ -1,0 +1,15 @@
+%h2
+  = t('.title')
+
+%section.event-register
+
+  - if @event.past?
+    %p
+      %strong
+        = t('.closed')
+
+  - elsif can?(:register, @event)
+    = link_to t('.button'), new_event_participant_path(@event), :class => 'btn btn-success large main'
+
+  - elsif @event.owner_type == 'Space'
+    = link_to t('.join_button'), main_app.new_space_join_request_path(@event.owner), :class => 'btn btn-success large main'

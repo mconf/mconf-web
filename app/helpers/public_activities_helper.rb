@@ -12,11 +12,12 @@ module PublicActivitiesHelper
 
   def link_to_trackable trackable, cls
     if trackable.nil?
-      t("activities.#{cls.downcase}.deleted")
+      # e.g. 'MwebEvents::Event' to 'mweb_events_event'
+      cls = cls.underscore.gsub(/\//, '_')
+      t("activities.#{cls}.deleted")
     else
       case trackable
       when Space then link_to(trackable.name, space_path(trackable))
-      when Event then link_to(trackable.title, space_event_path(trackable.space, trackable))
       when Post  then link_to(trackable.post_title, space_post_path(trackable.space, trackable))
       when News  then link_to(trackable.title, space_news_path(trackable.space, trackable))
       when Attachment then link_to(trackable.post_title, space_event_path(trackable.space, trackable))
@@ -25,6 +26,13 @@ module PublicActivitiesHelper
           link_to(trackable.room.owner.full_name, user_path(trackable.room.owner))
         elsif trackable.room.owner_type == 'Space'
           link_to(trackable.room.owner.name, space_path(trackable.room.owner))
+        end
+      else
+        if mod_enabled?('events')
+          case trackable
+          when MwebEvents::Event then link_to(trackable.name, mweb_events.event_path(trackable))
+          when MwebEvents::Participant then link_to(trackable.event.name, mweb_events.event_path(trackable.event))
+          end
         end
       end
     end

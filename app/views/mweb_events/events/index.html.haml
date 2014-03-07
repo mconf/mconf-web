@@ -1,0 +1,78 @@
+= content_for :page_header_subtitle do
+  = t('.subtitle')
+= render_page_title t('.title')
+
+= content_for :sidebar do
+
+  .sidebar-top-action-button
+    - if user_signed_in?
+      = link_to t('.create_new_event'), mweb_events.new_event_path, :class => "btn btn-primary btn-large btn-block"
+    - else
+      = link_to t('register.one'), main_app.register_path, :class => "btn btn-success btn-large btn-block"
+
+  = render_sidebar_content_block('event-description-wrapper') do
+    .content-block-middle
+      %p= t('.select_at_left')
+    - @events.each do |event|
+      -# TODO: everybody has access?
+      - has_access = true
+      .content-block-middle{ :id => "#{event.permalink}-description", :style => "display:none;" }
+        .event-logo-wrapper
+          = event_logo_link(event, :class => "logo logo-event")
+        - if has_access
+          = link_to mweb_events.event_path(event) do
+            %h3= sanitize(event.name)
+        - else
+          %h3= sanitize(event.name)
+        - unless event.description.blank?
+          %p.description= sanitize(event.summary) + '...'
+        %p.details
+          - if event.participants.include?(current_user)
+            %span.is-participant= t('.user_is_participant')
+          %span= t('.participant_count', :count => event.participants.count)
+        - if has_access
+          %p.action-links
+            = link_to t('more'), mweb_events.event_path(event)
+
+#event-filter-wrapper
+
+  - tabs = {'upcoming' => 'upcoming_events', 'all' => 'all', '.now' => 'happening_now', 'past' => 'past_events'}
+  .page-tabs
+    .btn-group{ :"data-toggle" => "buttons-radio" }
+      - tabs.each do |k, v|
+        - new_params = params.merge(:show => v)
+        = link_to t(k), events_path(new_params), :id => v, :class => "btn btn-small #{'active' if params[:show] == v or (k == 'upcoming' && !params[:show])}"
+
+  / .view-types
+  /   .btn-group{ :"data-toggle" => "buttons-radio" }
+  /     = link_to mweb_events.events_path(:view => 'thumbnails'), :class => "tooltipped btn btn-small #{'active' if params[:view] == 'thumbnails' || true}" do
+  /       = t('.list_format.thumbnails')
+  /     -# = link_to mweb_events.events_path(:view => 'list', :my_events => params[:my_events]), :class => "tooltipped btn btn-small #{'active' if params[:view] == 'list'}" do
+  /     -#   = t('.list_format.list')
+
+  .btn-group{ :"data-toggle" => "buttons-radio" }
+    = link_to mweb_events.events_path(:view => params[:view], :show => 'all'), :id => "show-events-all", :class => "btn #{'active' unless params[:my_events]}", :type => "button" do
+      = t('.filters.all_events')
+    - if user_signed_in?
+      = link_to mweb_events.events_path(:view => params[:view], :my_events => true), :id => "show-events-mine", :class => "btn #{'active' if params[:my_events]}", :type => "button" do
+        = t('.filters.my_events')
+
+    = hidden_field_tag :event_filter_text
+
+%p#filter-description
+  - your = t('.filters.your_events') if params[:my_events]
+  - show = params[:show] || 'upcoming_events'
+  - time = t(".filters.#{show}")
+  = t('.filters.description', :your => "#{your}", :time => time.to_s)
+  = t('.count', :count => @events.count)
+
+
+- if params[:view] == 'list'
+  = render "mweb_events/events/list_view"
+- else
+  #events.content-block
+    .content-block-middle.clearfix
+      = render "mweb_events/events/thumbnail_view", :events => @events
+
+.content-block-footer
+  = page_navigation_links @events

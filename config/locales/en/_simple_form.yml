@@ -19,6 +19,7 @@ en:
         users: "Search people by name or email. If you can't find them, just add their email address. Type and press enter to insert a new item."
       site:
         analytics_code: "Code for your Google Analytics account. Leave it blank to disable. Example: \"UA-12345678-9\""
+        events_enabled: "Enable or disable the event module. To enable it, you must have the event module installed. Restart the application to apply the changes."
         exception_notifications: "Send debugging emails whenever the application crashes"
         exception_notifications_email: "Use either spaces, commas or semi-colons to separate different emails."
         external_help: "Insert the URL for an external site that contains the help/FAQ page. Include the entire URL, including the protocol (e.g. 'http://server.com'.)"
