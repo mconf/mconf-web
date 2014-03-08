@@ -8,8 +8,9 @@ $ ->
       minimumInputLength: 1
       width: 'resolve'
       multiple: true
-      formatSearching: () -> I18n.t('invite_people.users.searching')
-      formatInputTooShort: () -> I18n.t('invite_people.users.hint')
+      formatSearching: -> I18n.t('join_requests.invite.users.searching')
+      formatInputTooShort: -> I18n.t('join_requests.invite.users.hint')
+      formatNoMatches: -> I18n.t('join_requests.invite.users.no_results')
       tags: true
       tokenSeparators: [",",";"]
       formatSelection: (object, container) ->

@@ -5,8 +5,9 @@ $ ->
       minimumInputLength: 1
       width: 'resolve'
       multiple: true
-      formatSearching: () -> I18n.t('invite_people.users.searching')
-      formatInputTooShort: () -> I18n.t('invite_people.users.hint')
+      formatSearching: -> I18n.t('private_messages.new.users.searching')
+      formatInputTooShort: -> I18n.t('private_messages.new.users.hint')
+      formatNoMatches: -> I18n.t('private_messages.new.users.no_results')
       tags: true
       tokenSeparators: [",",";"]
       initSelection: (element, callback) ->

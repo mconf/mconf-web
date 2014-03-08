@@ -22,8 +22,9 @@ bindUsers = ->
     minimumInputLength: 1
     width: 'resolve'
     multiple: true
-    formatSearching: -> I18n.t('invite_people.users.searching')
-    formatInputTooShort: -> I18n.t('invite_people.users.hint')
+    formatSearching: -> I18n.t('custom_bigbluebutton_rooms.invitation_form.users.searching')
+    formatInputTooShort: -> I18n.t('custom_bigbluebutton_rooms.invitation_form.users.hint')
+    formatNoMatches: -> I18n.t('custom_bigbluebutton_rooms.invitation_form.users.no_results')
     tags: true
     tokenSeparators: [",", ";"]
     createSearchChoice: (term, data) ->

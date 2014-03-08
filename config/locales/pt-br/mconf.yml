@@ -377,6 +377,10 @@ pt-br:
       meeting_in: "Enviando convite para conferência em:"
       timezone: "Você está usando o fuso horário %{timezone}"
       title: "Convite para conferência"
+      users:
+        hint: "Digite para começar a buscar"
+        no_results: "Nenhum resultado encontrado"
+        searching: "Procurando..."
     invite: 
       desktop: 
         not_selected: "Selecione esta opção para acessar de um <em>computador</em>."
@@ -697,24 +701,6 @@ pt-br:
     email: "e-mail para %{email}"
     title: "Convite para participar de uma webconferência"
     user_private_msg: "mensagem privada para o usuário %{user}"
-  invite_people:
-    email:
-      one: E-mail
-      other: E-mails
-    emails_tip: "digite uma lista de e-mails separados por vírgulas"
-    internal_message: "Mensagem interna"
-    mconf_users: "Usuários do Mconf"
-    message: Mensagem
-    names: Nomes
-    names_tip: "digite para procurar usuários"
-    notify_by: "Notificar usando"
-    other_people: "Outras pessoas"
-    room_name: "Nome da sala"
-    send_invitations: "Enviar convites"
-    users:
-      hint: "Digite para começar a buscar"
-      no_results: "Nenhum resultado encontrado"
-      searching: Procurando...
   invited: Convidados
   join: Entrar
   join_cam: Participar
@@ -747,6 +733,10 @@ pt-br:
       candidates: "Procure usuários para convidar"
       role_label: "Papel dos usuários convidados"
       title: "Convide pessoas para ingressar nesta comunidade"
+      users:
+        hint: "Digite para começar a buscar"
+        no_results: "Nenhum resultado encontrado"
+        searching: "Procurando..."
     new:
       message_title: "Envie um pedido de adesão aos administradores da comunidade"
     update:
@@ -1043,6 +1033,10 @@ pt-br:
       sent: Enviadas
     new: 
       title: "Mensagens Privadas"
+      users:
+        hint: "Digite para começar a buscar"
+        no_results: "Nenhum resultado encontrado"
+        searching: "Procurando..."
     reply_private_message:
       user_not_registered: "Este usuário não está mais registrado, você não poderá responder esta mensagem."
     show: 

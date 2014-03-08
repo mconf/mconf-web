@@ -588,7 +588,6 @@ ul#navbar-left-links {
       line-height: 1.0;
       font-weight: bold;
       color: $page-title-color;
-      @include text-shadow(darken($site-bg-color, 10) 1px 1px 10px);
       margin-bottom: 5px;
 
       // when the title is too big the font is reduced a bit
@@ -602,7 +601,7 @@ ul#navbar-left-links {
     }
 
     .sub-title {
-      @include font-size(12px);
+      @include font-size($font-normal);
       display: block;
       font-weight: normal;
       color: lighten($page-title-color, 10);
