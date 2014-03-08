@@ -55,5 +55,6 @@
     -# Javascript placed at the end of the document so the pages load faster
     = javascript_include_tag "application"
     = javascript_include_tag "mod_mweb_events" if mod_enabled?('events')
+    = render :partial => 'layouts/javascript_locales'
     = javascript_include_tag_for_controller
     = yield :javascripts
