@@ -14,7 +14,7 @@ module LogoImagesHelper
       end
     end
     size = ("logo" + options[:size]).to_sym
-    resource.attributes.has_key?(:logo_image) && resource.logo_image.present? ?
+    (resource.respond_to?(:logo_image) && resource.logo_image.present?) ?
       image_tag(resource.logo_image_url(size), options) :
       empty_logo_image(model_type, options)
   end
