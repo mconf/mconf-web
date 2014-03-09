@@ -2,34 +2,33 @@
 en:
   mweb_events:
     events:
+      edit:
+        page_title: "Editing: %{name}"
       event_thumbnail:
+        closed: Registration closed
         starts_at: "Starts at"
         where: "Where"
-        closed: Registration closed
-      registration:
-        closed: Registration for this event is closed.
-        join_button: Join this space to register
       index:
-        now: Happening now
         create_new_event: "Add a new event"
         count: (found %{count})
-        public: Open to the public
-        private: Private
         filters:
+          all: ''
           all_events: "All"
-          my_events: "My events"
-          your_events: your
           description: Showing %{your} %{time} events
           happening_now: current
-          upcoming_events: upcoming
+          my_events: "My events"
           past_events: past
-          all: ''
+          upcoming_events: upcoming
+          your_events: your
         list_format:
           list: "List"
           thumbnails: "Thumbnails"
+        now: Happening now
         participant_count:
           one: "%{count} participant"
           other: "%{count} participants"
+        private: Private
+        public: Open to the public
         search:
           by_name:
             no_matches: "No events found for \"%{term}\""
@@ -37,6 +36,11 @@ en:
         select_at_left: "Select an event in the list to see it's description here"
         subtitle: "Create your own events and share with other people"
         title: "Events"
+      new:
+        page_title: "Create a new event"
+      registration:
+        closed: Registration for this event is closed.
+        join_button: Join this space to register
       thumbnail_view:
         no_events: "There are no events matching this search!"
       title:
@@ -44,8 +48,8 @@ en:
         belongs_user: "Event created by <a href='%{url}'>%{user}</a>"
     participants:
       index:
-        no_participants: No participants yet!
-        event: "Message in event [%{event}]"
-        message: Send message
         disable: Remove from event
         disable_confirm: Are you sure you want to remove this user from the event?
+        event: "Message in event [%{event}]"
+        message: Send message
+        no_participants: No participants yet!

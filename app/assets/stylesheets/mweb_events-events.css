@@ -2,4 +2,6 @@
  *= require ./app/mweb_events-events/_all
  *= require ./app/mweb_events-events/index
  *= require ./app/mweb_events-events/show
+ *= require ./app/mweb_events-events/new
+ *= require ./app/mweb_events-events/edit
  */

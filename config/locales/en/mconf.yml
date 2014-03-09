@@ -100,12 +100,6 @@ en:
   actions: Actions
   activerecord:
     attributes:
-      event:
-        description: "Description"
-        end_date: "Date and time when it ends"
-        location: "Location"
-        name: "Name"
-        start_date: "Date and time when it starts"
       invite:
         ends_on: "Ends on"
         message: "Comments"
