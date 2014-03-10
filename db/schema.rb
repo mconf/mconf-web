@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140201192634) do
+ActiveRecord::Schema.define(:version => 20140310170206) do
 
   create_table "activities", :force => true do |t|
     t.integer  "trackable_id"
@@ -413,7 +413,7 @@ ActiveRecord::Schema.define(:version => 20140201192634) do
     t.boolean  "superuser",                            :default => false
     t.boolean  "disabled",                             :default => false
     t.datetime "confirmed_at"
-    t.string   "timezone",                             :default => "UTC"
+    t.string   "timezone"
     t.boolean  "expanded_post",                        :default => false
     t.integer  "notification",                         :default => 1
     t.string   "locale"
