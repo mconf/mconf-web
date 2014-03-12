@@ -436,6 +436,38 @@ describe User do
     end
   end
 
+  describe "#disable" do
+
+    context "when the user is admin of a space" do
+      let (:user) { FactoryGirl.create(:user) }
+      let (:space) { FactoryGirl.create(:space) }
+
+      context "and is the last admin left" do
+        before(:each) do
+          space.add_member!(user, 'Admin')
+          user.disable
+        end
+
+        it { user.disabled.should be(true) }
+        it { space.reload.disabled.should be(true) }
+      end
+
+      context "and isn't the last admin left" do
+        let (:user2) { FactoryGirl.create(:user) }
+        before(:each) do
+          space.add_member!(user, 'Admin')
+          space.add_member!(user2, 'Admin')
+          user.disable
+        end
+
+        it { user.disabled.should be(true) }
+        it { space.disabled.should be(false) }
+      end
+    end
+
+
+  end
+
   describe "abilities", :abilities => true do
     set_custom_ability_actions([:fellows, :current, :select, :approve])
 

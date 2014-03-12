@@ -221,8 +221,16 @@ class User < ActiveRecord::Base
   end
 
   def disable
+    # Spaces the user admins
+    admin_in = self.permissions.where(:subject_type => 'Space', :role_id => Role.find_by_name('Admin')).map(&:subject)
+
     self.update_attribute(:disabled,true)
     self.permissions.each(&:destroy)
+
+    # Disable spaces if this was the last admin
+    admin_in.each do |space|
+      space.disable if space.admins.empty?
+    end
   end
 
   def enable
