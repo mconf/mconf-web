@@ -2,103 +2,47 @@
 @import "compass/typography/links";
 @import "definitions";
 
-.select2-container-multi, .select2-container {
-
-  .select2-choices, .select2-choice {
-    border: 1px solid #ccc;
-    @include border-radius(4px);
-    padding: 1px 6px;
-    @include font-size($font-normal);
-    text-align: left;
-    color: $font-color;
-    background-image: none;
-
-    .select2-search-choice {
-      margin: 4px 0 4px 5px;
-      background: $alert-info-bg;
-      border-color: $alert-info-font;
-    }
-
-    .select2-search-field input {
-      padding: 3px 6px;
-    }
-  }
-
-  // this select gets a bit bigger for some reason, so we reduce it a bit
-  .select2-choices {
-    padding: 0;
-  }
-
-  &.select2-container-active {
-    .select2-choices, .select2-choice {
-      border-color: rgba(82, 168, 236, 0.8);
-      @include box-shadow(inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(82,168,236,.6));
-    }
-  }
-
-  &.select2-dropdown-open {
-    .select2-choices, .select2-choice {
-      border: 1px solid rgba(82, 168, 236, 0.8);
-      @include border-radius(4px 4px 0 0);
-    }
+// small adjustments in the height of the inputs - they are shorter in our app than
+// they are by default in bootstrap-select2
+.select2-container {
+  .select2-choice {
+    height: 28px;
   }
 }
-
-.select2-container-multi, .select2-container, .select2-results {
-  a { @include link-colors($font-color, $font-color, $link-color-active); }
+.select2-container-multi .select2-choices .select2-search-field input {
+  height: auto;
+  padding: 4px 4px;
 }
 
-// links and icons have to be whiter when the item is selected
-.select2-highlighted {
-  a { @include link-colors(white, white, $link-color-active); }
-  i { color: #eee; }
+// a select2 inside a form and an .input, should behave just like any other input
+// does when inside a form
+.simple_form .input .select2-container {
+  margin-bottom: 10px;
+}
+.simple_form.form-inline .input .select2-container {
+  margin-bottom: 0;
+  text-align: left;
 }
 
-.select2-search .select2-input {
-  background: white;
+// the button to remove the current selection was not properly positioned
+.select2-container .select2-choice abbr {
+  top: 8px;
 }
 
-// for integration with bootstrap's btn-group
-.btn-group {
-  .select2-choices, .select2-choice {
-    margin-left: -1px;
-    @include border-radius(0);
-  }
-  .select2-container-multi:last-child, .select2-container:last-child {
-    .select2-choices, .select2-choice {
-      @include border-radius(0 4px 4px 0);
-    }
-  }
-  .select2-container-multi:first-child, .select2-container:first-child {
-    .select2-choices, .select2-choice {
-      @include border-radius(4px 0 0 4px);
-    }
-  }
+// selected itens should have the appropriate placing inside the input
+.select2-container-multi .select2-choices .select2-search-choice {
+  margin-top: 4px;
+  margin-bottom: 4px;
 }
 
-// Integrate with simple_form and our custom form classes
-.simple_form {
-  .select2-choice, .select2-choices {
-    margin-bottom: 10px;
-  }
+// adjust the borders of the input when inside a .btn-group
+.btn-group .select2-container .select2-choice {
+  border-left-width: 0;
+  border-right-width: 0;
 }
-.simple_form.single-column {
-
-  .select2-container {
-    // have to use !important because select2 adds these options in the
-    // element itself
-    width: 99% !important;
-    display: block !important;
-  }
-
+.btn-group .select2-container:last-child .select2-choice {
+  border-right-width: 1px;
 }
-.simple_form.form-inline {
-
-  .select2-container {
-    // have to use !important because select2 adds these options in the
-    // element itself
-    width: auto !important;
-    display: inline-block !important;
-  }
-
+.btn-group .select2-container:first-child .select2-choice {
+  border-left-width: 1px;
 }

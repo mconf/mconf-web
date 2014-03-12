@@ -6,6 +6,7 @@
  *= require ../../../vendor/assets/stylesheets/bootstrap/bootstrap-modal
  *= require font-awesome
  *= require select2
+ *= require ../../../vendor/assets/stylesheets/bootstrap/select2-bootstrap
  *= require bootstrap-datetimepicker
  *
  * Note: the order matters!
