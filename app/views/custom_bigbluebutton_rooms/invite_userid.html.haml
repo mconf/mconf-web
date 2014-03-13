@@ -15,7 +15,7 @@
           = text_field_tag "user[login]", "", :required => true, :autofocus => true
           %label= t(".member.password")
           = password_field_tag "user[password]", "", :required => true
-        = f.button :submit, t("login.one"), :class => "btn btn-primary"
+        = f.button :submit, t(".login"), :class => "btn btn-primary"
 
       - if current_site.shib_enabled?
         .shibboleth-container

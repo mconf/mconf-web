@@ -404,19 +404,20 @@ pt-br:
       status: "O estado atual da reunião é"
       status_unknown: "desconhecido"
       steps: "etapas:"
-    invite_userid: 
-      member: 
+    invite_userid:
+      login: "Entrar"
+      member:
         email_or_username: "E-mail ou nome de usuário"
         password: "Senha"
-        shibboleth: 
+        shibboleth:
           click_here: "Ou clique aqui para usar o acesso federado"
         title: "Eu sou um membro deste site"
-      non_member: 
+      non_member:
         name: "Seu nome completo"
         next: "Próximo"
         title: "Eu não possuo uma conta, quero entrar como convidado"
       title: "Acessar sala: <em>%{name}</em>"
-    join_mobile: 
+    join_mobile:
       direct_link: "<b>Clique aqui</b> para entrar de um dispositivo móvel"
       scan_code: "Ou utilize o código abaixo:"
       sip_number: "Para entrar na conferência de voz usando um cliente SIP, disque para <b>%{number}</b>."

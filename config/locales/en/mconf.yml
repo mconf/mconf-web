@@ -423,19 +423,20 @@ en:
       status: "The meeting currently is"
       status_unknown: "unknown"
       steps: "steps:"
-    invite_userid: 
-      member: 
+    invite_userid:
+      login: "Login"
+      member:
         email_or_username: "Email or username"
         password: "Password"
-        shibboleth: 
+        shibboleth:
           click_here: "Or click here to use the federated login"
         title: "I'm a member of this website"
-      non_member: 
+      non_member:
         name: "Your full name"
         next: "Next"
         title: "I don't have an account, I will join this room as a guest"
       title: "Join the room: <em>%{name}</em>"
-    join_mobile: 
+    join_mobile:
       direct_link: "<b>Click here</b> to join from a mobile device"
       scan_code: "Or scan the code below:"
       sip_number: "To join the voice conference from a SIP client, dial <b>%{number}</b>."
