@@ -18,6 +18,8 @@ pt-br:
       not_attend_html: não participará do evento %{name} da comunidade
       update_html: atualizou as informações do event %{name} da comunidade
       deleted: que não existe mais
+    mweb_events_participant:
+      create_html: participará do evento %{name} na comunidade
     news:
       create_html: publicou a notícia %{name} na comunidade
       update_html: atualizou a notícia %{name} na comunidade
@@ -98,6 +100,17 @@ pt-br:
   actions: Ações
   activerecord:
     attributes:
+      invite:
+        ends_on: "Acaba em"
+        message: "Comentários"
+        starts_on: "Inicia em"
+        title: "Título"
+        users: "Usuários"
+      join_request:
+        comment: "Mensagem"
+      news:
+        text: "Texto"
+        title: "Título"
       site:
         analytics_code: "Código do Google Analytics"
         chat_enabled: "Habilitar Chat"
@@ -108,7 +121,7 @@ pt-br:
         exception_notifications_email: "Destinatários dos e-mails de depuração"
         exception_notifications_prefix: "Prefixo no assunto dos e-mails de depuração"
         external_help: "Página de Ajuda/FAQ Externa"
-        feedback_url: "Feedback URL"
+        feedback_url: "URL de feedback"
         ldap_enabled: "LDAP: Habilitar autenticação"
         ldap_host: "LDAP: IP ou domínio do servidor"
         ldap_port: "LDAP: Porta do servidor"
@@ -166,6 +179,7 @@ pt-br:
             users_tokens:
               accepted: "deve escolher ao menos um destinatário"
       messages:
+        invalid_identifier: "gerou um identificador inválido: \"%{id}\""
         missing: "não encontrado"
     models:
       event: "Evento"
@@ -192,6 +206,7 @@ pt-br:
   are_you_sure: "Você tem certeza?"
   attachment:
     add: "Adicionar anexo"
+    created: "Anexo adicionado"
     delete: "Remover anexo"
     deleted: "Anexo removido com sucesso"
     error:
@@ -275,7 +290,6 @@ pt-br:
   body: Texto
   button:
     accept: Aceitar
-    back_to_event: "Voltar ao evento"
     cancel: Cancelar
     confirm: Confirme
     create: Criar
@@ -298,6 +312,7 @@ pt-br:
     sending: Enviando...
     update: Atualizar
     upload: Enviar
+  by: por
   cafe:
     login: "Logar usando a CAFe"
   calendar:
@@ -338,6 +353,8 @@ pt-br:
     title: "Bate-papo"
   check_mail: "Por favor, verifique seu e-mail"
   city: Cidade
+  click_here_to_see_more: "Clique aqui para ver mais"
+  click_to_hide: "Clique para esconder"
   click_to_see_all: "Ver todos"
   close: Fechar
   collapse: menos
@@ -346,17 +363,20 @@ pt-br:
     add: "Adicionar um comentário"
     add_new: "Adicionar um novo comentário"
     by: "comentário por %{author}"
-    delete: "Remover comentário"
     edit: "Editar comentário"
     new: "Novo comentário"
     one: Comentário
     other: Comentários
     show_all: "Mostrar todos comentários"
+  configurations: "Configurações"
   contact_information: "Informações de contato"
   country: País
   create: Criar
   create_event: "Criar Evento"
   created_time_ago: "Criado %{time} atrás"
+  crop_image: 
+    description: "Selecione uma parte da imagem para cortar"
+    title: "Cortar imagem"
   custom_bigbluebutton_rooms: 
     _other:
       fetch_recordings: "Buscar gravações"
@@ -636,8 +656,6 @@ pt-br:
     my_spaces: "Minhas comunidades"
     my_spaces_tooltip: "Estão são as comunidades às quais você faz parte."
     no_spaces: "Você não faz parte de nenhuma comunidade. Você pode ver as comunidades existentes <a href=\"%{link}\">aqui</a>."
-    no_rooms: "Você não tem salas de webconferência."
-    not_running: inativa
     one: home
     view_invite_url: "Ver URL para convites"
   icons: 
@@ -647,12 +665,13 @@ pt-br:
   inbox:
     my: "Caixa de entrada (%{checked})"
     one: "Caixa de entrada (%{checked})"
+    unread_text: 
+      one: "Você tem %{count} mensagem não lida!"
+      other: "Você tem %{count} mensagens não lidas!"
   information:
     expand: "Expandir Lista.."
     information1: "Estas são as comunidades dos quais você faz parte"
-    information2: "Aqui você pode encontrar as mensagens recentes, eventos e notícias das comunidades das quais você faz parte"
     information3: "Estas são as últimas mensagens ou eventos que você criou"
-    information4: "Estas são as comunidades dos quais você faz parte"
     information5: "Estes são os eventos futuros de outras comunidades."
     reduce: "Recolher Lista.."
   internet:
@@ -683,7 +702,6 @@ pt-br:
       other: "Não há convites pendentes"
     pending:
       other: "Convites pendentes"
-    personal: "Mensagem pessoal"
     rejoin_space: "Se você gostaria de solicitar a adesão novamente por favor acesse <a href=\"%{space_url}\"> %{space_url} </a>"
     select_all_users: "Selecionar todos usuários"
     show_all_users: "Mostrar todos usuários"
@@ -706,9 +724,9 @@ pt-br:
   join: Entrar
   join_cam: Participar
   join_requests:
-    asked_full: "<b>%{candidate}</b> quer participar da comunidade %{space} administrado por você: %{comment} <br/><br/><p>Para atender o pedido visite <a href=\"%{url}\">%{url}</a></p><p>Se você acredita que esta mensagem é um spam, por favor <a href=\"mailto:%{contact}\"> entre em contato</a> ou nos <a href=\"%{feedback}\"> envie uma mensagem.</a></p><p>%{signature}</p>"
     asked_anonymous: "Alguém quer participar da comunidade %{space} administrado por você:"
     asked_anonymous_full: "Alguém quer participar da comunidade %{space} administrado por você: %{comment} <br/><br/><p>Para atender o pedido visite <a href=\"%{url}\">%{url}</a></p><p>Se você acredita que esta mensagem é um spam, por favor <a href=\"mailto:%{contact}\"> entre em contato </a> ou nos <a href=\"%{feedback}\"> envie uma mensagem.</a></p><p>%{signature}</p>"
+    asked_full: "<b>%{candidate}</b> quer participar da comunidade %{space} administrado por você: %{comment} <br/><br/><p>Para atender o pedido visite <a href=\"%{url}\">%{url}</a></p><p>Se você acredita que esta mensagem é um spam, por favor <a href=\"mailto:%{contact}\"> entre em contato</a> ou nos <a href=\"%{feedback}\"> envie uma mensagem.</a></p><p>%{signature}</p>"
     create:
       already_invited: "Os seguintes usuários já possuem um convite pendente: %{users}"
       created: "Seu pedido de adesão foi enviado para os administradores da comunidade"
@@ -799,6 +817,7 @@ pt-br:
     empty: "O logotipo está vazio"
     error: "Erro ao enviar o logotipo"
     no_image: "Nenhuma imagem foi selecionada"
+    updated: "Logotipo atualizado com sucesso"
   logo_images:
     crop:
       crop_it: "Cortar!"
@@ -859,6 +878,10 @@ pt-br:
       filter_count_empty: "%{count} usuários encontrados"
       no_user_found: "Nenhum usuário encontrado"
   mandatory_field: "Campo obrigatório"
+  message: 
+    created: "Mensagem enviada com sucesso"
+    error:
+      create: "Erro enviando mensagem privada"
   mconf: Mconf
   message:
     created: "Mensagem enviada com sucesso"
@@ -877,8 +900,6 @@ pt-br:
       other: "Mensagens enviadas"
     special1: "A plataforma Mconf estará indisponível a partir de sexta-feira, 17 dezembro às 16:00 UTC, até sábado, 18-Dez 16:00 UTC. Desculpem o incómodo."
     special2: "A Equipe do Mconf"
-    error:
-      create: "Ocorreu um erro ao enviar sua mensagem"
     to: Para 
   moderatorPW: "Senha de Moderador"
   more: mais...
@@ -981,6 +1002,8 @@ pt-br:
     updated: "Desempenho do usuário foi atualizado com sucesso"
   permission:
     other: "Direitos de acesso"
+    update:
+      success: "Direitos de acesso atualizados"
   personal_information: "Informações pessoais"
   phone:
     landline: Telefone
@@ -992,6 +1015,7 @@ pt-br:
   please: "Por favor"
   popularity: Popularidade
   post:
+    created: "Mensagem enviada!"
     deleted: "Comentário %{postname} foi excluído"
     reply: "em resposta a"
     home:
@@ -1088,6 +1112,9 @@ pt-br:
   read_more: "Ler mais"
   recent:
     activity: "Atividades recentes"
+  recent_activity: 
+    empty: "Você ainda não possui atividades recentes para exibir. Ingresse em comunidades e comece a interagir para visualizar itens nesta área."
+    tooltip: "Aqui você encontra as mensagens, eventos e notícias mais novas das comunidades às quais vocẽ pertence"
   recording:
     automatic: Automático
     box_title: Gravação
@@ -1237,15 +1264,16 @@ pt-br:
   show_question: Exibir?
   simple_captcha:
     label: "Insira aqui o texto da imagem"
+    message: 
+      user: "é incorreta"
   size: Tamanho
   skype: Skype
-  source:
-    other: RSS/Atom
   space:
     about: Sobre
     access_forbidden: "Esta função só está disponível para membros da comunidade"
     add_user:
       other: "Adicionar usuários à comunidade"
+    add_user_other: ""
     all: "Comunidades"
     allow_public_access: "Permitir acesso público?"
     attendeePW: "editar senha de participante"
@@ -1268,6 +1296,7 @@ pt-br:
     enabled: "Comunidade habilitada com sucesso"
     error:
       enabled: "Comunidade %{name} já está habilitada"
+    event_count: "%{count} eventos"
     index:
       filters: 
         all: "Todas"
@@ -1294,6 +1323,7 @@ pt-br:
       upload_logo_text: "Selecione um logotipo para enviar:"
       upload_text: Enviar
       use_date: "Use data do evento"
+    member_count: "%{count} membros"
     member_of: "Membro das comunidades"
     moderatorPW: "editar senha de moderador"
     my_spaces: "Minhas comunidades"
@@ -1308,6 +1338,7 @@ pt-br:
       invited: Convidado
       user: Membro
     possesion: "Minhas Comunidades"
+    post_count: "%{count} mensagens"
     private: "Comunidades privadas"
     public:
       one: "Comunidade pública"
@@ -1408,11 +1439,9 @@ pt-br:
         error: "Erro atualizando sua lista de gravações, tente novamente mais tarde"
         success: "Lista de gravações atualizada!"
         updating: "Atualizando sua lista de gravações..."
-    news: "Notícias da comunidade"
     show:
       events_now: "Eventos acontecendo agora!"
     sidebar:
-      all_events: "Ver todos"
       upcoming_events: "Próximos eventos"
       webconference:
         attendees:
@@ -1445,9 +1474,9 @@ pt-br:
       with_members: "com %{count} membros"
     users: "Usuários nesta comunidade"
     webconference:
-      invite: "Convidar outras pessoas"
       end: "Parar a reunião"
       end_tooltip: "This action will end the current conference!"
+      invite: "Convidar outras pessoas"
       webconference:
         attendees:
           nobody: "Não há ninguém na sala."
@@ -1465,11 +1494,20 @@ pt-br:
     webconference_tabs:
       access: "Acesso à webconferência"
       recordings: "Lista de gravações"
-      user_is_member: "Você é um membro"
   spam:
     spam_report_create:
       error: "Desculpe, mas ocorreu um erro ao marcar este artigo como spam"
       success: "Artigo marcado como spam! Ele será verificado pelos administradores"
+      user_is_member: "Você é um membro"
+    created: "Um e-mail reportando spam foi enviado com sucesso para os administradores. Obrigado."
+    default: spam
+    detected: "Novo spam detectado"
+    error: 
+      check: "Aconteceu um problema marcando este recurso como spam"
+    item: "Este item foi reportado como spam e está sendo analisado pelos administradores"
+    report: "Report spam"
+    reported: "%{name} (%{email}) has reported spam in %{sitename}"
+    valid: "This content is valid"
   sponsors:
     prav: "Projetos em<br/>Áudio e Vídeo"
     rnp: "Rede Nacional de<br/>Ensino e Pesquisa"
@@ -1490,6 +1528,7 @@ pt-br:
   street: Rua
   subject: "Assunto:"
   summary: "Informações do vídeo"
+  superuser: "Administrador"
   tag:
     add: "Adicionar tags"
     edit: "Editar tags"
@@ -1540,6 +1579,7 @@ pt-br:
     num_views: "Este número representa as vistas únicas para essa página"
     private_profile: "Esta informação só é visível para as pessoas que você escolher quando você editar seu perfil"
     public_profile: "Qualquer pessoa pode acessar esta informação"
+    public_space: "Comunidades podem ser públicas, para que qualquer pessoa possa visualizar o que acontece neles, ou privados, onde apenas membros tem acesso às atividades da comunidade"
     share: "Esta é a url para compartilhar este vídeo com os seus colegas"
     tag: "Tags são palavras-chave ou termos associados com o conteúdo que são utilizadas para localizar e filtrar as informações. Pressione enter para confirmar cada tag."
     tag_by: "Tags são palavras que descrevem os documentos. Use este link para ordená-las por popularidade ou por ordem alfabética. Em seguida, clique nelas para ver os documentos relacionados."
@@ -1579,6 +1619,9 @@ pt-br:
     filter: "Convidar por nome de usuário"
     group_invite_email: "Convidar por e-mail"
     include_registered: "Incluir usuários registrados"
+    index: 
+      user_list: 
+        header: "Usuários nesta comunidade: %{count}"
     invite: "Convidar pessoas"
     invite_email: "Convide pessoas por e-mail"
     invited: "Usuários já convidados"
@@ -1660,6 +1703,8 @@ pt-br:
   version:
     new: "Nova versão"
     one: Versão
+  view: "Ver"
+  view_more: "Ver mais"
   web_conference_mailer:
     invitation_mail:
       event_name: "Conferência com %{name}"
@@ -1679,8 +1724,9 @@ pt-br:
     one: Webconferência
     running: ativa
     space:
+      join_now: "Ingressar"
       see_more: "saiba mais"
-      share: Compartilhar
+    start_now: "Iniciar agora!"
   when: Quando
   where: Onde
   yesterday: Ontem

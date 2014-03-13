@@ -1,5 +1,5 @@
---- 
-en: 
+---
+en:
   activities:
     attachment:
       create_html: uploaded the attachment %{name} in the space
@@ -95,7 +95,7 @@ en:
   about_sxsw: "About SXSW"
   account: Account
   account_activated: "Your account has been activated!"
-  action: 
+  action:
     other: Actions
   actions: Actions
   activerecord:
@@ -177,8 +177,8 @@ en:
         private_message:
           attributes:
             users_tokens:
-              accepted: "must choose at least one receiver" 
-      messages: 
+              accepted: "must choose at least one receiver"
+      messages:
         invalid_identifier: "generates an invalid identifier: \"%{id}\""
         missing: "is missing"
     models:
@@ -187,15 +187,15 @@ en:
       news: "News"
       space: "Space"
   address: Address
-  admin: 
+  admin:
     one: Admin
     space: "The administrator of %{spacename}"
-  admission: 
+  admission:
     other: Admissions
   advanced: Advanced
   advanced_editor: "Advanced editor"
-  agent: 
-    authentication: 
+  agent:
+    authentication:
       confirm_password: "Confirm Password"
       password: Password
   agree: "Yes"
@@ -322,6 +322,7 @@ en:
   caption: 
     add: "Add a caption"
   chat: 
+    add: "Add User"
     connecting_error_message: "Error while connecting"
     connecting_message: "Connecting to event chat..."
     invite: 
@@ -884,6 +885,8 @@ en:
   mconf: Mconf
   message: 
     created: "Message sent!"
+    error:
+      create: "Error sending message"
     incoming: 
       other: "Incoming messages"
     private: 
@@ -897,8 +900,6 @@ en:
       other: "Sent messages"
     special1: "The Mconf platform will be down from Friday 17-Dec at 16:00 UTC until Saturday 18-Dec 16:00 UTC. Sorry for the inconveniences."
     special2: "The Mconf Team"
-    error:
-      create: "Error sending message"
     to: To
   moderatorPW: "Moderator Password"
   more: more...
@@ -1498,7 +1499,7 @@ en:
       error: "Sorry, but there was a problem marking this item as spam"
       success: "The item was marked as a spam! It will be checked by the administrators"
       user_is_member: "You're a member"
-    created: "A reporting spam e-mail has been successfully sent to the admin. Thank you"
+    created: "A reporting spam email has been successfully sent to the admins. Thank you."
     default: spam
     detected: "New spam detected"
     error: 
@@ -1510,9 +1511,6 @@ en:
   sponsors: 
     prav: "Projetos em<br/>Áudio e Vídeo"
     rnp: "Rede Nacional de<br/>Ensino e Pesquisa"
-  stage: 
-    all: All
-    one: Stage
   stage_type: "Stage type"
   statistics: 
     show:
@@ -1530,7 +1528,7 @@ en:
   street: Street
   subject: "Subject:"
   summary: "Video Info"
-  superuser: Administrator
+  superuser: "Administrator"
   tag: 
     add: "Add tags"
     edit: "Edit tags"
@@ -1581,7 +1579,7 @@ en:
     num_views: "This number represents the unique views for this page"
     private_profile: "This information is visible only to the people you choose when you edit your profile"
     public_profile: "Anyone can access this information"
-    public_space: "Collaborative spaces can be public, for anybody to watch what happens in them, or private, where members only have access to the activities of the space"
+    public_space: "Collaborative spaces can be public, for anybody to watch what happens in them, or private, where only members have access to the activities of the space"
     share: "This is the url to share this video with your colleagues"
     tag: "Tags are keywords or terms associate with content used to find and filter information. Press enter to confirm each tag."
     tag_by: "Tags are words that describe the documents. Use this links to order them by popularity or alphabetically. Then click on them to see the related documents."

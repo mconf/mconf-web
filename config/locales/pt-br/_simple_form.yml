@@ -32,8 +32,8 @@ pt-br:
         ldap_username_field: "Especifica qual atributo retornado pelo LDAP será utilizado para obter o nome de usuário (ou 'username') de um usuário (e.g.: 'uid')"
         ldap_email_field: "Especifica qual atributo retornado pelo LDAP será utilizado para obter o e-mail de um usuário (e.g.: 'mail')"
         ldap_name_field: "Especifica qual atributo retornado pelo LDAP será utilizado para obter o nome completo de um usuário (e.g.: 'cn')"
-        require_registration_approval: "Se selecionado, usuários poderão cadastrar novas contas, mas só poderão acessar o site depois que um administrador aprove sua conta. Caso contrário usuários podem acessar o site automaticamente após o registro. Note que se existem usuários ainda não aprovados e você remover a seleção desta opção, estes usuários não serão aprovados automaticamente!"
         presence_domain: "Domínio usado para identificar o servidor XMPP."
+        require_registration_approval: "Se selecionado, usuários poderão cadastrar novas contas, mas só poderão acessar o site depois que um administrador aprove sua conta. Caso contrário usuários podem acessar o site automaticamente após o registro. Note que se existem usuários ainda não aprovados e você remover a seleção desta opção, estes usuários não serão aprovados automaticamente!"
         shib_email_field: "Quando um usuário se autentica em provedor de serviços Shibboleth este campo será utilizado para obter o e-mail do usuário. Exemplo: Shib-inetOrgPerson-mail"
         shib_name_field: "Quando um usuário se autentica em provedor de serviços Shibboleth este campo será utilizado para obter o nome do usuário. Exemplo: Shib-inetOrgPerson-sn"
         smtp_login: "O e-mail de login no servidor SMTP."
@@ -53,12 +53,11 @@ pt-br:
         bigbluebutton_room:
           attendee_password: "Esta senha só será usada se a sala for privada!"
           moderator_password: "Esta senha só será usada se a sala for privada!"
-          private: "Esta senha só será usada se a sala for privada!"
           private: "Salas privadas requerem uma senha de acesso. Salas públicas podem ser acessadas por qualquer pessoa com acesso ao link. Apenas você pode iniciar uma conferência na sua sala, seja ela pública ou privada."
         can_record: "Marque esta opção para permitir que este usuário grave reuniões na sua sala pessoal ou em salas de comunidades às quais ele pertence"
         superuser: "Marque esta opção para tornar este usuário um administrador global deste site"
-        username: "Este nome será utilizado para identificar o seu usuário e a sua sala de webconferência. Use apenas letras, números e hifens."
         timezone: "Ao selecionar um fuso horário não haverá equívoco ao criar eventos com pessoas de outras localidades"
+        username: "Este nome será utilizado para identificar o seu usuário e a sua sala de webconferência. Use apenas letras, números e hifens."
     placeholders:
       invite:
         ends_on: "Acaba em..."
