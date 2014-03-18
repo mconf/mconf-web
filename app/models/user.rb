@@ -110,6 +110,10 @@ class User < ActiveRecord::Base
   # TODO: review, see issue #737
   validates :_full_name, :presence => true, :length => { :minimum => 3 }, :on => :create
 
+  # for the associated BigbluebuttonRoom
+  attr_accessible :bigbluebutton_room_attributes
+  accepts_nested_attributes_for :bigbluebutton_room
+
   after_create :create_webconf_room
   after_update :update_webconf_room
 

@@ -623,7 +623,7 @@ en:
     send_us: "Send us feedback!"
     sent: "Your feedback information e-mail has been successfully sent. Thank you"
     webconf: 
-      text: "You have logged out of the conference.<br/>You may now close this windows."
+      text: "You have logged out of the conference.<br>You may now close this window."
   fill_fields: "You should fill in all the fields"
   find: 
     browse: Browse
@@ -1678,6 +1678,7 @@ en:
       ldap:
         title: "You are signed in using LDAP!"
       management_options: "Management options"
+      webconference: Webconference Preferences
       not_confirmed: "Your account is not activated yet. Please, check your email to activate it. (Did not receive an email? <a href=\"%{url}\">Click here</a>.)"
       notification:
         by_email: "By email"
