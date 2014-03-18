@@ -1678,7 +1678,6 @@ pt-br:
       ldap:
         title: "Você acessou este site através do LDAP!"
       management_options: "Opções de administração"
-      webconference: Opções de conferência
       not_confirmed: "Sua conta ainda não foi confirmada. Por favor verifique o seu e-mail para ativá-la. (Não recebeu um e-mail? <a href=\"%{url}\">Clique aqui</a>.)"
       notification:
         by_email: "Por e-mail"
