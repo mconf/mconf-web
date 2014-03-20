@@ -19,7 +19,11 @@ describe User do
   it { should have_and_belong_to_many(:spaces) }
 
   it { should have_many(:permissions).dependent(:destroy) }
-  it { should have_many(:events) }
+
+  pending "has many events but the relation is too complex to set up as association" do 
+    should have_many(:events)
+  end
+
   it { should have_many(:posts).dependent(:destroy) }
 
   it { should validate_presence_of(:email) }
@@ -141,6 +145,19 @@ describe User do
         end
       end
     end
+  end
+
+  describe "#events" do
+    let(:user) { FactoryGirl.create(:user) }
+    let(:other_user) { FactoryGirl.create(:user)}
+
+    before(:each) do
+      FactoryGirl.create(:event, :owner => user)
+      FactoryGirl.create(:event, :owner => user)
+    end
+
+    it { user.events.size.should eql(2) }
+    it { other_user.events.should be_empty }
   end
 
   describe "#accessible_rooms" do
