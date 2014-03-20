@@ -209,7 +209,7 @@ describe Mconf::DigestEmail do
         subject.should_receive(:get_activity).with(user, date_start, date_end).
           and_return([ @posts, @news, @attachments, @events, @inbox ])
 
-        delayer = mock()
+        delayer = double()
         Notifier.stub(:delay).and_return(delayer)
         delayer.should_receive(:digest_email).
           with(user, @posts, @news, @attachments, @events, @inbox)
