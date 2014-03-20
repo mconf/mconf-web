@@ -58,7 +58,7 @@ module Mconf
       # TODO: review and improve this with MwebEvents
       if Mconf::Modules.mod_enabled?('events')
         events = MwebEvents::Event.
-          where('owner_id IN (?) AND owner_type IS \"Space\"', user_spaces).
+          where('owner_id IN (?) AND owner_type = "Space"', user_spaces).
           within(date_start, date_end).
           order('updated_at desc')
       else
