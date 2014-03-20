@@ -15,7 +15,7 @@ namespace :db do
     puts "- Start date set to: #{@created_at_start}"
 
     require 'populator'
-    require 'ffaker'
+    require 'faker'
 
     username_offset = 0 # to prevent duplicated usernames
 
@@ -69,8 +69,8 @@ namespace :db do
         profile.address = Faker::Address.street_address
         profile.city = Faker::Address.city
         profile.zipcode = Faker::Address.zip_code
-        profile.province = Faker::Address.uk_county
-        profile.country = Faker::Address.uk_country
+        profile.province = Faker::Address.state
+        profile.country = Faker::Address.country
         profile.prefix_key = Faker::Name.prefix
         profile.description = Populator.sentences(1..3)
         profile.url = "http://" + Faker::Internet.domain_name + "/" + Populator.words(1)

@@ -140,10 +140,10 @@ describe Space do
   describe "#upcoming_events" do
     context "returns the n upcoming events" do
       before {
-        e1 = FactoryGirl.create(:event, :space => space, :start_date => Time.now - 5.hours, :end_date => Time.now - 4.hours)
-        e2 = FactoryGirl.create(:event, :space => space, :start_date => Time.now + 2.hour, :end_date => Time.now + 3.hours)
-        e3 = FactoryGirl.create(:event, :space => space, :start_date => Time.now + 3.hour, :end_date => Time.now + 4.hours)
-        e4 = FactoryGirl.create(:event, :space => space, :start_date => Time.now + 1.hour, :end_date => Time.now + 2.hours)
+        e1 = FactoryGirl.create(:event, :owner => space, :start_on => Time.now - 5.hours, :end_on => Time.now - 4.hours)
+        e2 = FactoryGirl.create(:event, :owner => space, :start_on => Time.now + 2.hour, :end_on => Time.now + 3.hours)
+        e3 = FactoryGirl.create(:event, :owner => space, :start_on => Time.now + 3.hour, :end_on => Time.now + 4.hours)
+        e4 = FactoryGirl.create(:event, :owner => space, :start_on => Time.now + 1.hour, :end_on => Time.now + 2.hours)
         @expected = [e4, e2, e3]
       }
       it { space.upcoming_events(3).should eq(@expected) }
@@ -151,7 +151,7 @@ describe Space do
 
     context "defaults to 5 events" do
       before {
-        6.times { FactoryGirl.create(:event, :space => space, :start_date => Time.now + 1.hour, :end_date => Time.now + 2.hours) }
+        6.times { FactoryGirl.create(:event, :owner => space, :start_on => Time.now + 1.hour, :end_on => Time.now + 2.hours) }
       }
       it { space.upcoming_events.length.should be(5) }
     end

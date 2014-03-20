@@ -115,7 +115,7 @@ end
 group :development, :test do
   gem 'rspec-rails', '~> 2.14'
   gem 'populator'
-  gem 'ffaker'
+  gem 'faker'
   gem 'forgery'
   gem 'factory_girl_rails'
   gem 'sqlite3'

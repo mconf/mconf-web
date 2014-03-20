@@ -77,7 +77,7 @@ describe Mconf::DigestEmail do
       space.add_member!(user)
       # create some extra data that should not be returned
       other_space = FactoryGirl.create(:space)
-      FactoryGirl.create(:event, :space => other_space)
+      FactoryGirl.create(:event, :owner => other_space)
       FactoryGirl.create(:post, :space => other_space)
       FactoryGirl.create(:news, :space => other_space)
       FactoryGirl.create(:attachment, :space => other_space)
@@ -125,20 +125,20 @@ describe Mconf::DigestEmail do
     context "returns the latest events in the user's spaces" do
       before do
         # events out of the search range
-        FactoryGirl.create(:event, :space => space, :start_date => date_start - 1.hour, :end_date => date_start - 1.second)
-        FactoryGirl.create(:event, :space => space, :start_date => date_end + 1.second, :end_date => date_end + 1.hour)
+        FactoryGirl.create(:event, :owner => space, :start_on => date_start - 1.hour, :end_on => date_start - 1.second)
+        FactoryGirl.create(:event, :owner => space, :start_on => date_end + 1.second, :end_on => date_end + 1.hour)
 
         # Explicit time for the event to be updated
         start_time = Time.now
 
         # events entirely within range
         @expected = []
-        @expected << FactoryGirl.create(:event, :updated_at => start_time, :space => space, :start_date => date_start, :end_date => date_start + 1.hour)
-        @expected << FactoryGirl.create(:event, :updated_at => start_time + 1.minute, :space => space, :start_date => date_start + 1.hour, :end_date => date_start + 2.hours)
-        @expected << FactoryGirl.create(:event, :updated_at => start_time + 2.minute, :space => space, :start_date => date_end - 1.hour, :end_date => date_end)
+        @expected << FactoryGirl.create(:event, :updated_at => start_time, :owner => space, :start_on => date_start, :end_on => date_start + 1.hour)
+        @expected << FactoryGirl.create(:event, :updated_at => start_time + 1.minute, :owner => space, :start_on => date_start + 1.hour, :end_on => date_start + 2.hours)
+        @expected << FactoryGirl.create(:event, :updated_at => start_time + 2.minute, :owner => space, :start_on => date_end - 1.hour, :end_on => date_end)
         # events with only start or end within range
-        @expected << FactoryGirl.create(:event, :updated_at => start_time + 3.minute, :space => space, :start_date => date_start - 1.hour, :end_date => date_start + 1.hour)
-        @expected << FactoryGirl.create(:event, :updated_at => start_time + 4.minute, :space => space, :start_date => date_end - 1.hour, :end_date => date_end + 1.hour)
+        @expected << FactoryGirl.create(:event, :updated_at => start_time + 3.minute, :owner => space, :start_on => date_start - 1.hour, :end_on => date_start + 1.hour)
+        @expected << FactoryGirl.create(:event, :updated_at => start_time + 4.minute, :owner => space, :start_on => date_end - 1.hour, :end_on => date_end + 1.hour)
         @expected.sort_by!{ |p| p.updated_at }.reverse!
       end
       before(:each) { call_get_activity }
@@ -202,8 +202,8 @@ describe Mconf::DigestEmail do
         @posts = [ FactoryGirl.create(:post, :space => space, :updated_at => date_start) ]
         @news = [ FactoryGirl.create(:news, :space => space, :updated_at => date_start) ]
         @attachments = [ FactoryGirl.create(:attachment, :space => space, :updated_at => date_start) ]
-        @events = [ FactoryGirl.create(:event, :space => space, :start_date => date_start,
-                                   :end_date => date_start + 1.hour, :author => user) ]
+        @events = [ FactoryGirl.create(:event, :owner => space, :start_on => date_start,
+                                   :end_on => date_start + 1.hour) ]
         @inbox = [ FactoryGirl.create(:private_message, :receiver => user, :sender => FactoryGirl.create(:user)) ]
 
         subject.should_receive(:get_activity).with(user, date_start, date_end).
