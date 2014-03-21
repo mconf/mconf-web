@@ -9,6 +9,9 @@ require 'spec_helper'
 describe Mconf::DigestEmail do
 
   subject { Mconf::DigestEmail }
+  before(:each, :events => true) do
+    Site.current.update_attributes(:events_enabled => true)
+  end
 
   describe ".send_daily_digest" do
     before do
@@ -122,7 +125,7 @@ describe Mconf::DigestEmail do
       it { @expected.should == @attachments }
     end
 
-    context "returns the latest events in the user's spaces" do
+    context "returns the latest events in the user's spaces", :events => true do
       before do
         # events out of the search range
         FactoryGirl.create(:event, :owner => space, :start_on => date_start - 1.hour, :end_on => date_start - 1.second)

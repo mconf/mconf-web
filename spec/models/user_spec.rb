@@ -9,6 +9,10 @@ require "spec_helper"
 
 describe User do
 
+  before(:each, :events => true) do
+    Site.current.update_attributes(:events_enabled => true)
+  end
+
   it "creates a new instance given valid attributes" do
     FactoryGirl.build(:user).should be_valid
   end
@@ -19,10 +23,6 @@ describe User do
   it { should have_and_belong_to_many(:spaces) }
 
   it { should have_many(:permissions).dependent(:destroy) }
-
-  pending "has many events but the relation is too complex to set up as association" do 
-    should have_many(:events)
-  end
 
   it { should have_many(:posts).dependent(:destroy) }
 
@@ -147,7 +147,7 @@ describe User do
     end
   end
 
-  describe "#events" do
+  describe "#events", :events => true do
     let(:user) { FactoryGirl.create(:user) }
     let(:other_user) { FactoryGirl.create(:user)}
 
