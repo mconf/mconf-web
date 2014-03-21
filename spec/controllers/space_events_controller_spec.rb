@@ -9,7 +9,6 @@ require "spec_helper"
 describe SpaceEventsController, :events => true do
 
   before(:each, :events => true) do
-    puts "======================================"
     Site.current.update_attributes(:events_enabled => true)
   end
 
