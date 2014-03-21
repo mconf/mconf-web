@@ -565,7 +565,7 @@ describe UsersController do
       # On the collection
 
       describe "can access #index" do
-        let(:space) { FactoryGirl.create(:space) }
+        let(:space) { FactoryGirl.create(:space, :public => true) }
         before(:each) { get :index, :space_id => space.to_param }
         it { should respond_with(:success) }
       end
@@ -635,7 +635,7 @@ describe UsersController do
       let(:user) { FactoryGirl.create(:user) }
 
       describe "can access #index" do
-        let(:space) { FactoryGirl.create(:space) }
+        let(:space) { FactoryGirl.create(:space, :public => true) }
         let(:do_action) { get :index, :space_id => space }
         it_should_behave_like "it can access an action"
       end

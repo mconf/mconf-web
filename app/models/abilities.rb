@@ -48,7 +48,7 @@ module Abilities
 
       # Users
       # Disabled users are only visible to superusers
-      can [:read, :fellows, :current, :select], User, :disabled => false
+      can [:index, :read, :fellows, :current, :select], User, :disabled => false
       can [:edit, :update, :destroy], User, :id => user.id, :disabled => false
 
       # User profiles
@@ -206,6 +206,8 @@ module Abilities
 
         can :index, MwebEvents::Participant
         can :create, MwebEvents::Participant
+
+        cannot [:read, :index, :update, :destroy], Space, :disabled => true
       end
     end
 

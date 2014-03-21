@@ -174,7 +174,7 @@ class SpacesController < ApplicationController
 
   def user_permissions
     @users = @space.users.order("name ASC")
-    @permissions = space.permissions.sort{
+    @permissions = @space.permissions.sort{
       |x,y| x.user.name <=> y.user.name
     }
     @roles = Space.roles
@@ -283,14 +283,6 @@ class SpacesController < ApplicationController
   end
 
   private
-
-  def space
-    if params[:action] == "enable"
-      @space ||= Space.find_with_disabled_and_param(params[:id])
-    else
-      @space ||= Space.find_with_param(params[:id])
-    end
-  end
 
   def space_to_json_hash
     { :methods => :user_count, :include => {:logo => { :only => [:height, :width], :methods => :logo_image_path } } }
