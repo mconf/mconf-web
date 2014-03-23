@@ -135,31 +135,24 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  # This method is called from BigbluebuttonRails
+  # This method is called from BigbluebuttonRails.
+  # Returns whether the current user can create a meeting in 'room'.
   def bigbluebutton_can_create?(room, role)
     ability = Abilities.ability_for(current_user)
-    can_create = ability.can?(:create_meeting, room)
+    ability.can?(:create_meeting, room)
+  end
 
-    # if the user can create the meeting we have to check whether the record flag will be
-    # set or not
-    # TODO: this would be better if it was possible to send this flag in the create call to
-    #   BigbluebuttonRails, not by changing the attribute in the db.
-    if can_create
-      can_record = ability.can?(:record_meeting, room)
+  # This method is called from BigbluebuttonRails.
+  # Returns a hash with options to override the options saved in the database when creating
+  # a meeting in the room 'room'.
+  def bigbluebutton_create_options(room)
+    ability = Abilities.ability_for(current_user)
 
-      # with this option set, we always set record the flag according to the user's permissions
-      if Site.current.webconf_auto_record
-        room.update_attribute(:record, can_record)
-
-      # in this case the user has to set or unset the recording flag himself, so we just make
-      # sure that if he can't record the flag is unset, otherwise leave it as it is
-      else
-        room.update_attribute(:record, false) unless can_record
-      end
-
-    end
-
-    can_create
+    # only enable recording if the room is set to record and if the user has permissions to
+    # used to forcibly disable recording if a user has no permission but the room is set to record
+    can_record = ability.can?(:record_meeting, room)
+    record = room.record && can_record
+    { :record => record }
   end
 
   # loads the web conference room for the current space into `@webconf_room` and fetches information

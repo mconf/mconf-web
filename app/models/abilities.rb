@@ -245,8 +245,7 @@ module Abilities
       # some actions in rooms should be accessible to any logged user
       # some of them will do the authorization themselves (e.g. permissions for :join
       # will change depending on the user and the target room)
-      can [:invite, :invite_userid, :auth, :running,
-           :join, :external, :external_auth, :join_mobile], BigbluebuttonRoom
+      can [:invite, :invite_userid, :auth, :running, :join, :join_mobile], BigbluebuttonRoom
 
       # a user can play recordings of his own room or recordings of
       # rooms of either public spaces or spaces he's a member of

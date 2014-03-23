@@ -99,63 +99,69 @@ describe ApplicationController do
         end
       end
 
-      context "when the flag 'auto record flag' is set in the site" do
-        before { Site.current.update_attributes(:webconf_auto_record => true) }
+    end
+  end
 
-        context "if the user cannot record, automatically sets the record flag to false" do
-          before {
-            room.update_attributes(:record => true)
-            @ability.can :create_meeting, room
-            BigbluebuttonRoom.stub(:find_by_id).and_return(room)
-          }
-          before(:each) { get :index, :room_id => room.id, :role => :moderator }
-          it { room.record.should be_false }
+  # TODO: We are comparing the results with hashes using string keys, even though
+  #   the method returns keys using symbols. Using `assigns()` automatically converts
+  #   the symbols to strings, so we can't check it exactly as we should. See:
+  #   http://stackoverflow.com/questions/4348195/unwanted-symbol-to-string-conversion-of-hash-key
+  describe "#bigbluebutton_create_options" do
+    controller do
+      def index
+        room = BigbluebuttonRoom.find_by_id(params[:room_id])
+        @result = bigbluebutton_create_options(room).freeze
+        render :nothing => true
+      end
+    end
+
+    context "if there's no user logged returns false" do
+      let(:room) { FactoryGirl.create(:bigbluebutton_room) }
+      before(:each) { get :index, :room_id => room.id }
+      it { assigns(:result).should eql({ "record" => false }) }
+    end
+
+    context "if there's a user logged" do
+      let(:user) { FactoryGirl.create(:user) }
+      let(:room) { FactoryGirl.create(:bigbluebutton_room) }
+      before {
+        # a custom ability to control what the user can do
+        @ability = Object.new
+        @ability.extend(CanCan::Ability)
+        Abilities.stub(:ability_for).and_return(@ability)
+      }
+
+      context "when the user can record" do
+        before { @ability.can :record_meeting, room }
+
+        context "and the room is set to record" do
+          before { room.update_attributes("record" => true) }
+          before(:each) { get :index, :room_id => room.id }
+          it { assigns(:result).should eql({ "record" => true }) }
         end
 
-        context "if the user can record, automatically sets the record flag to true" do
-          before {
-            room.update_attributes(:record => false)
-            @ability.can :create_meeting, room
-            @ability.can :record_meeting, room
-            BigbluebuttonRoom.stub(:find_by_id).and_return(room)
-          }
-          before(:each) { get :index, :room_id => room.id, :role => :moderator }
-          it { room.record.should be_true }
+        context "and the room is not set to record" do
+          before { room.update_attributes("record" => false) }
+          before(:each) { get :index, :room_id => room.id }
+          it { assigns(:result).should eql({ "record" => false }) }
         end
       end
 
-      context "when the flag 'auto record flag' is not set in the site" do
-        before { Site.current.update_attributes(:webconf_auto_record => false) }
+      context "when the user cannot record" do
+        before { @ability.cannot :record_meeting, room }
 
-        context "if the user cannot record, sets the record flag to false" do
-          before {
-            room.update_attributes(:record => true)
-            @ability.can :create_meeting, room
-            BigbluebuttonRoom.stub(:find_by_id).and_return(room)
-          }
-          before(:each) { get :index, :room_id => room.id, :role => :moderator }
-          it { room.record.should be_false }
+        context "and the room is set to record" do
+          before { room.update_attributes("record" => true) }
+          before(:each) { get :index, :room_id => room.id }
+          it { assigns(:result).should eql({ "record" => false }) }
         end
 
-        context "if the user can record, leaves the record flag as it was before" do
-          [false, true].each do |value|
-            context "when it was #{value}" do
-              before {
-                room.update_attributes(:record => value) # initial value
-                @ability.can :create_meeting, room
-                @ability.can :record_meeting, room
-                BigbluebuttonRoom.stub(:find_by_id).and_return(room)
-              }
-              before(:each) {
-                room.should_not_receive(:update_attribute).with(:record, false)
-                get :index, :room_id => room.id, :role => :moderator
-              }
-              it { room.record.should be(value) }
-            end
-          end
+        context "and the room is not set to record" do
+          before { room.update_attributes("record" => false) }
+          before(:each) { get :index, :room_id => room.id }
+          it { assigns(:result).should eql({ "record" => false }) }
         end
       end
-
     end
   end
 

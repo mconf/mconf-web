@@ -103,9 +103,8 @@ describe CustomBigbluebuttonRoomsController do
           BigbluebuttonRoom.stub(:find_by_param) { room }
 
           # to guide the behavior of #auth, copied from the tests in BigbluebuttonRails
-          room.should_receive(:fetch_is_running?)
-          room.should_receive(:is_running?).and_return(false)
-          room.should_receive(:create_meeting).with(user.name, user.id, anything)
+          room.should_receive(:fetch_is_running?).and_return(false)
+          room.should_receive(:create_meeting).with(user, anything, anything)
           room.should_receive(:fetch_new_token)
           room.should_receive(:join_url).and_return("http://test.com/attendee/join")
         end
@@ -277,22 +276,6 @@ describe CustomBigbluebuttonRoomsController do
     end
   end
 
-  describe "#external" do
-    context "template and layout" do
-      let(:server) { FactoryGirl.create(:bigbluebutton_server) }
-      before(:each) { login_as(FactoryGirl.create(:superuser)) }
-      before(:each) { get :external, :meeting => "my-meeting-id", :server_id => server.id }
-      it { should render_template(:external) }
-      it { should render_with_layout("application") }
-    end
-  end
-
-  describe "#external_auth" do
-    context "template and layout" do
-      pending "render with layout application"
-    end
-  end
-
   # TODO: this view is not in the application yet, only in the gem
   # describe "#recordings" do
   #   context "template and layout" do
@@ -373,8 +356,6 @@ describe CustomBigbluebuttonRoomsController do
         it { should allow_access_to(:auth, hash).via(:post) }
         it { should allow_access_to(:invite, hash) }
         it { should allow_access_to(:invite_userid, hash).redirecting_to(invite_bigbluebutton_room_path(room)) }
-        it { should allow_access_to(:external, hash_with_server) }
-        it { should allow_access_to(:external_auth, hash_with_server).via(:post) }
         it { should allow_access_to(:end, hash) }
         it { should allow_access_to(:join_mobile, hash) }
         it { should allow_access_to(:running, hash) }
@@ -443,8 +424,6 @@ describe CustomBigbluebuttonRoomsController do
         it { should allow_access_to(:auth, hash).via(:post) }
         it { should allow_access_to(:invite, hash) }
         it { should allow_access_to(:invite_userid, hash).redirecting_to(invite_bigbluebutton_room_path(room)) }
-        it { should allow_access_to(:external, hash_with_server) }
-        it { should allow_access_to(:external_auth, hash_with_server).via(:post) }
         it { should allow_access_to(:end, hash) }
         it { should allow_access_to(:join_mobile, hash) }
         it { should allow_access_to(:running, hash) }
@@ -460,8 +439,6 @@ describe CustomBigbluebuttonRoomsController do
         it { should_not allow_access_to(:edit, hash) }
         it { should_not allow_access_to(:update, hash).via(:put) }
         it { should_not allow_access_to(:destroy, hash).via(:delete) }
-        it { should allow_access_to(:external, hash_with_server) }
-        it { should allow_access_to(:external_auth, hash_with_server).via(:post) }
         it { should allow_access_to(:join, hash) }
         it { should allow_access_to(:auth, hash).via(:post) }
         it { should allow_access_to(:invite, hash) }
@@ -485,8 +462,6 @@ describe CustomBigbluebuttonRoomsController do
           it { should_not allow_access_to(:edit, hash) }
           it { should_not allow_access_to(:update, hash).via(:put) }
           it { should_not allow_access_to(:destroy, hash).via(:delete) }
-          it { should allow_access_to(:external, hash_with_server) }
-          it { should allow_access_to(:external_auth, hash_with_server).via(:post) }
           it { should allow_access_to(:join, hash) }
           it { should allow_access_to(:auth, hash).via(:post) }
           it { should allow_access_to(:invite, hash) }
@@ -505,8 +480,6 @@ describe CustomBigbluebuttonRoomsController do
           it { should_not allow_access_to(:edit, hash) }
           it { should_not allow_access_to(:update, hash).via(:put) }
           it { should_not allow_access_to(:destroy, hash).via(:delete) }
-          it { should allow_access_to(:external, hash_with_server) }
-          it { should allow_access_to(:external_auth, hash_with_server).via(:post) }
           it { should allow_access_to(:join, hash) }
           it { should allow_access_to(:auth, hash).via(:post) }
           it { should allow_access_to(:invite, hash) }
@@ -531,8 +504,6 @@ describe CustomBigbluebuttonRoomsController do
           it { should_not allow_access_to(:edit, hash) }
           it { should_not allow_access_to(:update, hash).via(:put) }
           it { should_not allow_access_to(:destroy, hash).via(:delete) }
-          it { should allow_access_to(:external, hash_with_server) }
-          it { should allow_access_to(:external_auth, hash_with_server).via(:post) }
           it { should allow_access_to(:join, hash) }
           it { should allow_access_to(:auth, hash).via(:post) }
           it { should allow_access_to(:invite, hash) }
@@ -551,8 +522,6 @@ describe CustomBigbluebuttonRoomsController do
           it { should_not allow_access_to(:edit, hash) }
           it { should_not allow_access_to(:update, hash).via(:put) }
           it { should_not allow_access_to(:destroy, hash).via(:delete) }
-          it { should allow_access_to(:external, hash_with_server) }
-          it { should allow_access_to(:external_auth, hash_with_server).via(:post) }
           it { should allow_access_to(:join, hash) }
           it { should allow_access_to(:auth, hash).via(:post) }
           it { should allow_access_to(:invite, hash) }
@@ -588,8 +557,6 @@ describe CustomBigbluebuttonRoomsController do
         it { should allow_access_to(:auth, hash).via(:post) }
         it { should allow_access_to(:invite, hash).redirecting_to(join_webconf_path(room)) }
         it { should allow_access_to(:invite_userid, hash) }
-        it { should require_authentication_for(:external, hash_with_server) }
-        it { should require_authentication_for(:external_auth, hash_with_server).via(:post) }
         it { should require_authentication_for(:end, hash) }
         it { should require_authentication_for(:join_mobile, hash) }
         it { should allow_access_to(:running, hash) }

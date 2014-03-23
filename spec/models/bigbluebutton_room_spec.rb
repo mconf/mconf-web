@@ -20,8 +20,8 @@ describe BigbluebuttonRoom do
   # so we test them here.
   describe "abilities", :abilities => true do
     set_custom_ability_actions([ :end, :join_options, :create_meeting, :fetch_recordings,
-                                 :invite, :invite_userid, :auth, :running, :join, :external,
-                                 :external_auth, :join_mobile, :record_meeting, :invitation,
+                                 :invite, :invite_userid, :auth, :running, :join,
+                                 :join_mobile, :record_meeting, :invitation,
                                  :send_invitation ])
 
     subject { ability }
@@ -87,8 +87,8 @@ describe BigbluebuttonRoom do
       context "in his own room" do
         let(:target) { user.bigbluebutton_room }
         let(:allowed) { [:end, :join_options, :create_meeting, :fetch_recordings,
-                         :invite, :invite_userid, :auth, :running, :join, :external,
-                         :external_auth, :join_mobile, :update, :invitation, :send_invitation] }
+                         :invite, :invite_userid, :auth, :running, :join,
+                         :join_mobile, :update, :invitation, :send_invitation] }
         it { should_not be_able_to_do_anything_to(target).except(allowed) }
 
         context "with permission to record" do
@@ -100,8 +100,7 @@ describe BigbluebuttonRoom do
       context "in another user's room" do
         let(:another_user) { FactoryGirl.create(:user) }
         let(:target) { another_user.bigbluebutton_room }
-        let(:allowed) { [:invite, :invite_userid, :auth, :running, :join, :external,
-                         :external_auth, :join_mobile] }
+        let(:allowed) { [:invite, :invite_userid, :auth, :running, :join, :join_mobile] }
         it { should_not be_able_to_do_anything_to(target).except(allowed) }
 
         context "with permission to record" do
@@ -115,8 +114,7 @@ describe BigbluebuttonRoom do
         let(:target) { space.bigbluebutton_room }
 
         context "he doesn't belong to" do
-          let(:allowed) { [:invite, :invite_userid, :auth, :running, :join, :external,
-                           :external_auth, :join_mobile] }
+          let(:allowed) { [:invite, :invite_userid, :auth, :running, :join, :join_mobile] }
           it { should_not be_able_to_do_anything_to(target).except(allowed) }
 
           context "with permission to record" do
@@ -128,8 +126,8 @@ describe BigbluebuttonRoom do
         context "he belongs to" do
           before { space.add_member!(user) }
           let(:allowed) { [:end, :join_options, :create_meeting, :fetch_recordings,
-                           :invite, :invite_userid, :auth, :running, :join, :external,
-                           :external_auth, :join_mobile, :invitation, :send_invitation] }
+                           :invite, :invite_userid, :auth, :running, :join, :join_mobile,
+                           :invitation, :send_invitation] }
           it { should_not be_able_to_do_anything_to(target).except(allowed) }
 
           context "with permission to record" do
@@ -144,8 +142,7 @@ describe BigbluebuttonRoom do
         let(:target) { space.bigbluebutton_room }
 
         context "he doesn't belong to" do
-          let(:allowed) { [:invite, :invite_userid, :auth, :running, :join, :external,
-                           :external_auth, :join_mobile] }
+          let(:allowed) { [:invite, :invite_userid, :auth, :running, :join, :join_mobile] }
           it { should_not be_able_to_do_anything_to(target).except(allowed) }
 
           context "with permission to record" do
@@ -157,8 +154,8 @@ describe BigbluebuttonRoom do
         context "he belongs to" do
           before { space.add_member!(user) }
           let(:allowed) { [:end, :join_options, :create_meeting, :fetch_recordings,
-                           :invite, :invite_userid, :auth, :running, :join, :external,
-                           :external_auth, :join_mobile, :invitation, :send_invitation] }
+                           :invite, :invite_userid, :auth, :running, :join, :join_mobile,
+                           :invitation, :send_invitation] }
           it { should_not be_able_to_do_anything_to(target).except(allowed) }
 
           context "with permission to record" do
@@ -170,15 +167,13 @@ describe BigbluebuttonRoom do
 
       context "for a room without owner" do
         let(:target) { FactoryGirl.create(:bigbluebutton_room, :owner => nil) }
-        let(:allowed) { [:invite, :invite_userid, :auth, :running, :join, :external,
-                         :external_auth, :join_mobile] }
+        let(:allowed) { [:invite, :invite_userid, :auth, :running, :join, :join_mobile] }
         it { should_not be_able_to_do_anything_to(target).except(allowed) }
       end
 
       context "for a room with an invalid owner_type" do
         let(:target) { FactoryGirl.create(:bigbluebutton_room, :owner_type => "invalid type") }
-        let(:allowed) { [:invite, :invite_userid, :auth, :running, :join, :external,
-                         :external_auth, :join_mobile] }
+        let(:allowed) { [:invite, :invite_userid, :auth, :running, :join, :join_mobile] }
         it { should_not be_able_to_do_anything_to(target).except(allowed) }
       end
     end
