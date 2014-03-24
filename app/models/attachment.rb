@@ -14,36 +14,18 @@ class Attachment < ActiveRecord::Base
   belongs_to :space
   belongs_to :author, :polymorphic => true
 
-  has_attachment :max_size => 1000.megabyte,
-                 :path_prefix => 'attachments',
-                 :thumbnails => { '16' => '16x16',
-                                  '32' => '32x32',
-                                  '64' => '64x64',
-                                  '128' => '128x128'}
-
+  mount_uploader :attachment, AttachmentUploader
 
   # TODO: copied from station's Attachment model
-  validates_as_attachment
+  # validates_as_attachment
   alias_attribute :media, :uploaded_data
-
 
   def post
     posts.first
   end
 
   def space
-    space_id.present? ?
-      Space.find_with_disabled(space_id) :
-      nil
-  end
-
-  acts_as_resource :has_media => :attachment_fu
-  acts_as_taggable
-  acts_as_content :reflection => :space
-
-  validate :validates_as_attachment_wrapper
-  def validates_as_attachment_wrapper
-    Attachment.validates_as_attachment
+    space_id.present? ? Space.find_with_disabled(space_id) : nil
   end
 
   def version_family
@@ -71,15 +53,17 @@ class Attachment < ActiveRecord::Base
   validate :validate_method
   def validate_method
     errors.add(:post_title, I18n.t('activerecord.errors.messages.blank')) if post_text.present? && post_title.blank?
-    if version_parent_id.present?
-      @version_parent = Attachment.find(version_parent_id)
-      if @version_parent.present?
-        self.version_family_id = @version_parent.version_family_id
-        errors.add(:version_parent_id, I18n.t('activerecord.errors.messages.taken')) if @version_parent.version_child_id.present?
-      else
-        errors.add(:version_parent_id, I18n.t('activerecord.errors.messages.missing'))
-      end
-    end
+
+    # Removing versions
+    # if version_parent_id.present?
+    #   @version_parent = Attachment.find(version_parent_id)
+    #   if @version_parent.present?
+    #     self.version_family_id = @version_parent.version_family_id
+    #     errors.add(:version_parent_id, I18n.t('activerecord.errors.messages.taken')) if @version_parent.version_child_id.present?
+    #   else
+    #     errors.add(:version_parent_id, I18n.t('activerecord.errors.messages.missing'))
+    #   end
+    # end
   end
 
   public

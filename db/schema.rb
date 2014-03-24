@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140411200714) do
+ActiveRecord::Schema.define(:version => 20140417185711) do
 
   create_table "activities", :force => true do |t|
     t.integer  "trackable_id"
@@ -47,6 +47,7 @@ ActiveRecord::Schema.define(:version => 20140411200714) do
     t.string   "author_type"
     t.integer  "version_child_id"
     t.integer  "version_family_id"
+    t.string   "attachment"
   end
 
   add_index "attachments", ["version_child_id"], :name => "index_attachments_on_version_child_id"

@@ -1,29 +1,12 @@
-/ TODO: REMOVE JS CODE FROM HERE
-:javascript
-  $("#attachment__tags").fcbkcomplete({
-    cache: true,
-    filter_case: false,
-    filter_hide: false,
-    firstselected: true,
-    filter_selected: true,
-    maxshownitems: 4,
-    newel: true
-  });
-
 #attachments-upload
-  #add_new_doc
-    %h1
+  #add_new_doc.modal-header
+    = modal_close_button
+    %h3
       = t("document.upload")
-    = form_for([@space, prepare_for_form(@attachment || Attachment.new)], :html => { :multipart => true }) do |f|
-      .new_doc_content
-        #cabinet
-          = f.file_field :uploaded_data, :id => "upload_field", :class => "file_1", :size => "15"
-      .new_doc_content
-        %span
-          = t("tag.new")
-          = icon_help t("tooltip.tag")
-        #tags
-          = select(:attachment, :_tags, @space.tags.map{ |u| u.name }, {}, {:multiple => "multiple"})
+  .modal-body
+    = simple_form_for([@space, prepare_for_form(@attachment || Attachment.new)], :html => { :multipart => true }) do |f|
+      = f.file_field :attachment
+
       .new_doc_content
         %span
           = check_box_tag "add_post", "with_post", @attachment.post_title.present? || @attachment.post_text.present?
@@ -33,6 +16,5 @@
           = f.text_field :post_title
           = f.label :post_text, t('text')
           = f.text_area :post_text, :rows => 5, :cols=>25
-        #button_submit.margin_up{ :style => "display:none" }
-          %button{ :type => "submit", :class => "btn btn-small dark-gray-hover" }
-            = t('button.upload')
+
+      = f.button :wrapped, :value => t('button.upload')

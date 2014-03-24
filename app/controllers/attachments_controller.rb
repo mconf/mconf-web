@@ -8,32 +8,17 @@
 
 class AttachmentsController < ApplicationController
   load_and_authorize_resource :space, :find_by => :permalink
+  before_filter :load_attachments, :only => [:index]
   load_and_authorize_resource :attachment, :through => :space
   before_filter :webconf_room!
 
   layout 'spaces_show'
 
   def index
-    # gon usage for making @space and other variables available to js
-    gon.clear
-    gon.space = @space
-    # TODO see better way to use paths with gon
-    gon.attachments_path = space_attachments_path(@space)
-    gon.form_auth_token = form_authenticity_token()
-    attachments
     respond_to do |format|
       format.html
       format.zip{
         generate_and_send_zip
-      }
-    end
-  end
-
-  def edit_tags
-    @attachment = Attachment.find(params[:id])
-    respond_to do |format|
-      format.html {
-        render :partial => "edit_tags_form"
       }
     end
   end
@@ -59,7 +44,6 @@ class AttachmentsController < ApplicationController
       flash[:error] = "Malformed request"
       redirect_to space_attachments_path(@space)
     else
-      attachments
       errors = ""
       @attachments.each do |attachment|
         if can?(:destroy, attachment)
@@ -91,9 +75,9 @@ class AttachmentsController < ApplicationController
   #   GET /resources/1
   #   GET /resources/1.xml
   def show
-    if params[:version] && resource.respond_to?(:versions)
-      resource.revert_to(params[:version].to_i)
-    end
+    # if params[:version] && resource.respond_to?(:versions)
+    #   resource.revert_to(params[:version].to_i)
+    # end
 
     if params[:thumbnail] && resource.respond_to?(:thumbnails)
       @resource = resource.thumbnails.find_by_thumbnail(params[:thumbnail])
@@ -129,30 +113,33 @@ class AttachmentsController < ApplicationController
   #   POST /:container_type/:container_id/contents
   def create
     # Fill params when POSTing raw data
-    set_params_from_raw_post
+    # set_params_from_raw_post
 
-    resource_params = params[model_class.to_s.underscore.to_sym]
-    resource_class =
-      model_class.resource_options[:delegate_content_types] &&
-      resource_params[:media] && resource_params[:media].present? &&
-      ActiveRecord::Resource.class_supporting(resource_params[:media].content_type) ||
-      model_class
+    # resource_params = params[model_class.to_s.underscore.to_sym]
+    # resource_class =
+    #   model_class.resource_options[:delegate_content_types] &&
+    #   resource_params[:media] && resource_params[:media].present? &&
+    #   ActiveRecord::Resource.class_supporting(resource_params[:media].content_type) ||
+    #   model_class
 
-    @resource = resource_class.new(resource_params)
-    instance_variable_set "@#{ model_class.to_s.underscore }", @resource
+    # @resource = resource_class.new(resource_params)
+    # instance_variable_set "@#{ model_class.to_s.underscore }", @resource
 
-    @resource.author = current_user if @resource.respond_to?(:author=)
-    @resource.container = @space #  if @resource.respond_to?(:container=)
+    # @resource.author = current_user if @resource.respond_to?(:author=)
+    # @resource.container = @space #  if @resource.respond_to?(:container=)
 
     respond_to do |format|
-      if @resource.save
+      if @attachment.save
         format.html {
           flash[:success] = t(:created, :scope => @resource.class.to_s.underscore)
-          after_create_with_success
+          redirect_to [ @space, Attachment.new ]
         }
       else
         format.html {
-          after_create_with_errors
+          flash[:error] =  @attachment.errors.to_xml
+          attachments
+          render :action => :index
+          flash.delete([:error])
         }
       end
     end
@@ -218,24 +205,12 @@ class AttachmentsController < ApplicationController
 
   private
 
-  def attachments
+  def load_attachments
     @attachments,@tags = Attachment.repository_attachments(@space, params)
   end
 
-  # Redirect to spaces/:permalink/attachments if new attachment is created
-  def after_create_with_success
-    redirect_to [ space, Attachment.new ]
-  end
-
   def after_update_with_success
-    redirect_to [ space, Attachment.new ]
-  end
-
-  def after_create_with_errors
-    flash[:error] =  @attachment.errors.to_xml
-    attachments
-    render :action => :index
-    flash.delete([:error])
+    redirect_to [ @space, Attachment.new ]
   end
 
   def after_update_with_errors

@@ -1,5 +1,5 @@
 $(document).ready ->
-  
+
   #Add and rm tags functions
   $("#tag_filter").show()
   hide_table = ->
@@ -8,7 +8,6 @@ $(document).ready ->
   tags_array = ->
     $.map $("#attachment_tags_filter option.selected"), (element) ->
       element.value
-
 
   update_tags = (tags) ->
     unless $.deparam.querystring().tags is tags.join(",")
@@ -45,7 +44,6 @@ $(document).ready ->
   $(".add_tag_filter").click ->
     hide_table()
 
-  
   #Tag list functions
   collapse_tag_list = ->
     $("#tag_abc_list").hide()
@@ -69,5 +67,3 @@ $(document).ready ->
   $("a.tag_list_used_order").click ->
     used_tag_list()
     false
-
-
