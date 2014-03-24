@@ -1,0 +1,8 @@
+#copy-to-clipboard-modal.modal.modal-small.in
+  .modal-header.text-center
+    = modal_close_button
+    %h3= t('.title')
+  .modal-body.clearfix.text-center
+    = text_field_tag 'copy-to-clipboard-field', '', :autofocus => true
+    #success-message.label.label-success
+      = t('.success')

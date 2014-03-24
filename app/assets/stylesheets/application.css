@@ -28,5 +28,6 @@
  *= require ./app/application/footer
  *= require ./app/application/lists
  *= require ./app/application/select2
+ *= require ./app/shared/_copy_modal
  *
  */

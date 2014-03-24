@@ -71,6 +71,15 @@ module ApplicationHelper
 
   end
 
+  def copyable_field id, content, opt={}
+    opt[:label] ||= id
+    content_tag :div, :class => 'input-append copyable-field' do
+      concat content_tag(:label, opt[:label])
+      concat text_field_tag(id, content, opt.except(:label))
+      concat content_tag(:a, '',:id => 'copy-to-clipboard-button', :class => "btn icon-awesome icon-paste copy-button")
+    end
+  end
+
   def application_version
     Mconf::VERSION
   end

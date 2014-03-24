@@ -1206,6 +1206,9 @@ en:
     new:
       title: "Sign in"
   shared:
+    copy_modal:
+      title: Press ctrl+C to copy the text
+      success: Text copied to clipboard
     recording_duration:
       duration: "Duration"
       ended_at: "Ended at"
