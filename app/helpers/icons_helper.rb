@@ -107,6 +107,10 @@ module IconsHelper
     icon_constructor nil, "icon-awesome icon-remove-sign icon-mconf-delete", options
   end
 
+  def icon_disable(options={})
+    icon_constructor nil, "icon-awesome icon-ban-circle icon-mconf-disable", options
+  end
+
   def icon_confirm(options={})
     icon_constructor nil, "icon-awesome icon-ok-sign icon-mconf-confirm", options
   end

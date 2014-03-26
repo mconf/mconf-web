@@ -852,6 +852,9 @@ en:
     spaces:
       filter_name: "Name"
       filter_results: "Filter the results:"
+    destroy_space:
+      destroy: Delete space
+      destroy_confirm: Are you sure you want to delete this space and all content associated with it? Unlike disabling the space this operation is irreversible!
     spaces_list:
       filter_count_with_text: "Found %{count} spaces for filter \"%{value}\""
       filter_count_empty: "Found %{count} spaces"
