@@ -10,7 +10,9 @@ class CustomBigbluebuttonRoomsController < Bigbluebutton::RoomsController
   before_filter :authenticate_user!,
     :except => [:invite, :invite_userid, :auth, :running]
 
-  load_and_authorize_resource :find_by => :param, :class => "BigbluebuttonRoom", :except => :create
+  before_filter :load_resource, :only => [ :join ]
+
+  load_and_authorize_resource :find_by => :param, :class => "BigbluebuttonRoom", :except => [ :create ]
 
   # TODO: cancan is not ready yet for strong_parameters, so if we call 'load_resource' on :create it
   # will try to create the resource and will fail with ActiveModel::ForbiddenAttributes
@@ -131,6 +133,11 @@ class CustomBigbluebuttonRoomsController < Bigbluebutton::RoomsController
     respond_to do |format|
       format.html { redirect_to request.referer }
     end
+  end
+
+  def load_resource
+    @room.fetch_is_running?
+    @room.fetch_meeting_info if @room.is_running?
   end
 
   protected

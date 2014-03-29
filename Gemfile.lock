@@ -28,16 +28,6 @@ GIT
       xml-simple (>= 1.1.1)
 
 GIT
-  remote: git://github.com/mconf/bigbluebutton_rails.git
-  revision: 96cc99d1b692fead6364ad23c6bd82aa2c32a13c
-  branch: branch-v1.4.0
-  specs:
-    bigbluebutton_rails (1.3.0)
-      rails (>= 3.0.0)
-      resque (~> 1.25.1)
-      strong_parameters (~> 0.2.0)
-
-GIT
   remote: git://github.com/mconf/station.git
   revision: 6899e8a3b4f989959c8e6dad781a3a2990d874c4
   branch: mweb-v2
@@ -94,6 +84,14 @@ GIT
   revision: ed52495d1671c99e1add582628403bf8104e9077
   specs:
     acts_as_tree (1.2.3)
+
+PATH
+  remote: ../bigbluebutton_rails/
+  specs:
+    bigbluebutton_rails (1.3.0)
+      rails (>= 3.0.0)
+      resque (~> 1.25.1)
+      strong_parameters (~> 0.2.0)
 
 GEM
   remote: http://rubygems.org/

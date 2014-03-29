@@ -226,9 +226,15 @@ module Abilities
       # Can do the actions below if he's the owner or if he belongs to the space (with any role)
       # that owns the room.
       # `:create_meeting` is a custom name, not an action that exists in the controller
-      can [:end, :join_options, :create_meeting, :fetch_recordings,
+      can [:join_options, :create_meeting, :fetch_recordings,
            :invitation, :send_invitation], BigbluebuttonRoom do |room|
         user_is_owner_or_belongs_to_rooms_space(user, room)
+      end
+
+      # Can ending meetings if he's the owner or if he belongs to the space
+      # (with admin role or have been the member who started the meeting) that owns that room.
+      can [:end], BigbluebuttonRoom do |room|
+        user_is_owner_or_can_ending_meetings_in_rooms_space(user, room)
       end
 
       # Users can recording meetings in their rooms, but only if they have the record flag set.
@@ -285,6 +291,26 @@ module Abilities
       elsif (room.owner_type == "Space")
         space = Space.find(room.owner.id)
         space.users.include?(user)
+      else
+        false
+      end
+    end
+
+    # Whether `user` is the owner of `room` of belongs to the space that owns `room` and has the rights to ending a meeting.
+    def user_is_owner_or_can_ending_meetings_in_rooms_space(user, room)
+      room.fetch_is_running?
+      room.fetch_meeting_info if room.is_running?
+      if (room.owner_type == "User" && room.owner.id == user.id)
+        true
+      elsif (room.owner_type == "Space")
+        space = Space.find(room.owner.id)
+        if space.admins.include?(user)
+          true
+        elsif !room.user_creator.nil?
+          (room.user_creator[:id] == user.id)
+        else
+          false
+        end
       else
         false
       end
