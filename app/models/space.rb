@@ -144,11 +144,15 @@ class Space < ActiveRecord::Base
   end
 
   def disable
-    self.update_attributes(:disabled => true, :name => "#{name.split(" RESTORED").first} DISABLED #{Time.now.to_i}")
+    self.disabled = true
+    self.name = "#{name.split(" RESTORED").first} DISABLED #{Time.now.to_i}"
+    save!
   end
 
   def enable
-    self.update_attributes(:disabled => false, :name => "#{name.split(" DISABLED").first} RESTORED")
+    self.disabled = false
+    self.name = "#{name.split(" DISABLED").first} RESTORED"
+    save!
   end
 
   # Basically checks to see if the given user is the only admin in this space

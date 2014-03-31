@@ -227,6 +227,8 @@ class User < ActiveRecord::Base
   def disable
     # Spaces the user admins
     admin_in = self.permissions.where(:subject_type => 'Space', :role_id => Role.find_by_name('Admin')).map(&:subject)
+    # Disabled spaces will be nil at this point, remove them
+    admin_in.compact!
 
     self.update_attribute(:disabled,true)
     self.permissions.each(&:destroy)
