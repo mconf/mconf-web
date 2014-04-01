@@ -476,10 +476,10 @@ describe CustomBigbluebuttonRoomsController do
 
           context "and has opened the room" do
             before :each do
-              room.stub(:fetch_is_running?) { true }
-              room.stub(:fetch_meeting_info) { }
-              #room.stub(:fetch_meeting_info) { [ :user_creator => [ :id => user.id, :name => user._full_name ] ] }
-              room.user_creator.stub(:id) { user.id }
+              BigbluebuttonRoom.any_instance.stub(:fetch_is_running?).and_return()
+              BigbluebuttonRoom.any_instance.stub(:is_running?).and_return(true)
+              BigbluebuttonRoom.any_instance.stub(:fetch_meeting_info).and_return()
+              BigbluebuttonRoom.any_instance.stub(:user_creator).and_return(:id => user.id, :name => user._full_name)
             end
             it { should allow_access_to(:end, hash) }
           end
@@ -528,7 +528,7 @@ describe CustomBigbluebuttonRoomsController do
         let(:room) { space.bigbluebutton_room }
 
         context "he is a member of" do
-          before { space.add_member!(user) }
+          before { space.add_member!(user, "User") }
           it { should_not allow_access_to(:show, hash) }
           it { should_not allow_access_to(:edit, hash) }
           it { should_not allow_access_to(:update, hash).via(:put) }
@@ -546,11 +546,18 @@ describe CustomBigbluebuttonRoomsController do
           it { should allow_access_to(:send_invitation, hash).via(:post) }
 
           context "and has opened the room" do
+            before :each do
+              BigbluebuttonRoom.any_instance.stub(:fetch_is_running?).and_return()
+              BigbluebuttonRoom.any_instance.stub(:is_running?).and_return(true)
+              BigbluebuttonRoom.any_instance.stub(:fetch_meeting_info).and_return()
+              BigbluebuttonRoom.any_instance.stub(:user_creator).and_return(:id => user.id, :name => user._full_name)
+            end
+            it { should allow_access_to(:end, hash) }
           end
         end
 
         context "he is a admin of" do
-          before { space.add_member!(user) }
+          before { space.add_member!(user, "Admin") }
           it { should_not allow_access_to(:show, hash) }
           it { should_not allow_access_to(:edit, hash) }
           it { should_not allow_access_to(:update, hash).via(:put) }

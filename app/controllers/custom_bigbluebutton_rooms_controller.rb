@@ -12,7 +12,7 @@ class CustomBigbluebuttonRoomsController < Bigbluebutton::RoomsController
 
   before_filter :load_resource, :only => [ :join ]
 
-  load_and_authorize_resource :find_by => :param, :class => "BigbluebuttonRoom", :except => [ :create ]
+  load_and_authorize_resource :find_by => :param, :class => "BigbluebuttonRoom", :except => :create
 
   # TODO: cancan is not ready yet for strong_parameters, so if we call 'load_resource' on :create it
   # will try to create the resource and will fail with ActiveModel::ForbiddenAttributes

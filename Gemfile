@@ -51,7 +51,7 @@ gem 'net-ldap'
 
 # BigBlueButton integration
 gem 'bigbluebutton-api-ruby', :git => 'git://github.com/mconf/bigbluebutton-api-ruby.git', :branch => 'master'
-gem 'bigbluebutton_rails', :path => '../bigbluebutton_rails/' #:git => 'git://github.com/mconf/bigbluebutton_rails.git', :branch => 'branch-v1.4.0'
+gem 'bigbluebutton_rails', :git => 'git://github.com/mconf/bigbluebutton_rails.git', :branch => 'branch-v1.4.0'
 gem 'strong_parameters' # for bigbluebutton_rails
 gem 'resque' # for bigbluebutton_rails
 
