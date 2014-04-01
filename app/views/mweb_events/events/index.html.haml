@@ -40,7 +40,7 @@
   .page-tabs
     .btn-group{ :"data-toggle" => "buttons-radio" }
       - tabs.each do |k, v|
-        - new_params = params.merge(:show => v)
+        - new_params = params.merge(:show => v).except(:page)
         = link_to t(k), events_path(new_params), :id => v, :class => "btn btn-small #{'active' if params[:show] == v or (k == 'upcoming' && !params[:show])}"
 
   .btn-group{ :"data-toggle" => "buttons-radio" }
