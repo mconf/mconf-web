@@ -26,7 +26,7 @@
             %span= t(".update_recordings.updating")
             = icon_in_progress
         -# a form to get the html with the list of recordings after the list is updated
-        = form_tag my_recordings_path(@room, :partial => true), :method => :get, :remote => true, :id => 'my-webconference-recordings-update'
+        = form_tag my_recordings_path(:partial => true), :method => :get, :remote => true, :id => 'my-webconference-recordings-update'
 
     #my-webconference-recordings-list-wrapper.content-block-middle
       = render :partial => 'shared/recording_list', :locals => { :recordings => @recordings, :show_authors => false }

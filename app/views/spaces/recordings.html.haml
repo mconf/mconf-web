@@ -29,7 +29,7 @@
             %span= t(".update_recordings.updating")
             = icon_in_progress
         -# a form to get the html with the list of recordings after the list is updated
-        = form_tag recordings_space_path(@webconf_room, :partial => true), :method => :get, :remote => true, :id => 'space-recordings-update'
+        = form_tag recordings_space_path(@space, :partial => true), :method => :get, :remote => true, :id => 'space-recordings-update'
 
     #space-recordings-list-wrapper.content-block-middle
       = render :partial => 'shared/recording_list', :locals => { :recordings => @recordings, :show_authors => true }
