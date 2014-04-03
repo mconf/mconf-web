@@ -10,7 +10,10 @@ en:
         where: "Where"
       index:
         create_new_event: "Add a new event"
-        count: (found %{count})
+        count:
+          zero: (none found)
+          one:  (one found)
+          other:  (%{count} found)
         filters:
           all: ''
           all_events: "All"

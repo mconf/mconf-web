@@ -10,7 +10,10 @@ pt-br:
         where: "Localização"
       index:
         create_new_event: "Adicionar evento"
-        count: (%{count} encontrados)
+        count:
+          zero: (nenhum encontrado)
+          one:  (um encontrado)
+          other:  (%{count} encontrados)
         filters:
           all: ''
           all_events: "Todos"

@@ -232,6 +232,11 @@ module ApplicationHelper
     end
   end
 
+  # Given a paginated query it uses the number and pagination methods to calculate the last page
+  def last_page models
+    (models.count/models.per_page.to_f).ceil
+  end
+
   private
 
   # Based on http://www.igvita.com/2007/03/15/block-helpers-and-dry-views-in-rails/

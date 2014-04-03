@@ -52,12 +52,17 @@
 
     = hidden_field_tag :event_filter_text
 
-%div
-  - your = t('.filters.your_events') if params[:my_events]
-  - show = params[:show] || 'upcoming_events'
-  - time = t(".filters.#{show}")
-  = t('.filters.description', :your => your, :time => time.to_s)
-  = t('.count', :count => @events.count)
+
+- nav = page_navigation_links @events
+.content-block-footer
+  = nav unless nav.nil?
+  .pull-left
+    - your = t('.filters.your_events') if params[:my_events]
+    - show = params[:show] || 'upcoming_events'
+    - time = t(".filters.#{show}")
+    %p
+      = t('.filters.description', :your => your, :time => time.to_s)
+      = t('.count', :count => @events.count)
 
 #events.content-block
   .content-block-middle.clearfix
