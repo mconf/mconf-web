@@ -62,7 +62,7 @@
     - time = t(".filters.#{show}")
     %p
       = t('.filters.description', :your => your, :time => time.to_s)
-      = t('.count', :count => @events.count)
+      = t('.count', :count => @events.total_entries)
 
 #events.content-block
   .content-block-middle.clearfix
