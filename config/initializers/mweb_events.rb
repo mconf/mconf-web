@@ -9,16 +9,34 @@ Rails.application.config.to_prepare do
     # Monkey patching events controller for pagination and recent activity
     MwebEvents::EventsController.class_eval do
 
-      # return 404 for all Event routes if the events are disable
-      before_filter do
+      before_filter :block_if_events_disabled
+      before_filter :custom_loading, :only => [:index]
+      before_filter :create_participant, :only => [:show]
+
+      after_filter :only => [:create, :update] do
+        @event.new_activity params[:action], current_user unless @event.errors.any?
+      end
+
+      def create_participant
+        @participant = @event.participants.build :email => current_user.email, :owner => current_user if current_user
+      end
+
+      # return 404 for all Event routes if the events are disabled
+      def block_if_events_disabled
         unless Mconf::Modules.mod_enabled?('events')
           raise ActionController::RoutingError.new('Not Found')
         end
       end
 
-      before_filter(:only => [:index]) do
+      def custom_loading
         # Filter events for the current user
-        @events = current_user.events if params[:my_events]
+        if params[:my_events]
+          if current_user
+            @events = current_user.events
+          else # Remove the parameter if no user is logged
+            redirect_to events_path(params.except(:my_events))
+          end
+        end
 
         # Filter events belonging to spaces or users with disabled status
         without_spaces = @events.where(:owner_type => 'Space').joins('INNER JOIN spaces ON owner_id = spaces.id').where("spaces.disabled = false")
@@ -27,10 +45,6 @@ Rails.application.config.to_prepare do
         # '|'' is the only one that corretly combines these two queries, but doesn't return a relation
         @events = MwebEvents::Event.where(:id =>(without_users | without_spaces))
         @events = @events.accessible_by(current_ability, :index).page(params[:page])
-      end
-
-      after_filter :only => [:create, :update] do
-        @event.new_activity params[:action], current_user unless @event.errors.any?
       end
     end
 
@@ -61,15 +75,17 @@ Rails.application.config.to_prepare do
 
     # Same for participants, public activity is still missing
     MwebEvents::ParticipantsController.class_eval do
+      before_filter :block_if_events_disabled
+      before_filter :custom_loading, :only => [:index]
 
-      # return 404 for all Participant routes if the events are disable
-      before_filter do
+      # return 404 for all Participant routes if the events are disabled
+      def block_if_events_disabled
         unless Mconf::Modules.mod_enabled?('events')
           raise ActionController::RoutingError.new('Not Found')
         end
       end
 
-      before_filter(:only => [:index]) do
+      def custom_loading
         @participants = @participants.accessible_by(current_ability).paginate(:page => params[:page])
       end
 
@@ -86,7 +102,7 @@ Rails.application.config.to_prepare do
       end
     end
 
-    MwebEvents::EventsHelper.instance_eval do
+    MwebEvents::EventsHelper.class_eval do
       def build_message_path(participant)
         main_app.new_message_path(
          :user_id => current_user.to_param, :receiver => participant.owner.id,

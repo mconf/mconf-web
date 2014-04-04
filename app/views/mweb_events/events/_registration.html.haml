@@ -9,7 +9,12 @@
         = t('.closed')
 
   - elsif can?(:register, @event)
-    = link_to t('.button'), new_event_participant_path(@event), :class => 'btn btn-success large main'
+    - if current_user
+      = simple_form_for([@event, @participant]) do |f|
+        = f.hidden_field :email
+        = f.button :submit, :value => t(".button"), :class => 'btn btn-success large main'
+    - else
+      = link_to t('.button'), new_event_participant_path(@event), :class => 'btn btn-success large main'
 
   - elsif @event.owner_type == 'Space'
     = link_to t('.join_button'), main_app.new_space_join_request_path(@event.owner), :class => 'btn btn-success large main'
