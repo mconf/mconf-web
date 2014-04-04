@@ -20,11 +20,13 @@ Rails.application.config.to_prepare do
         # Filter events for the current user
         @events = current_user.events if params[:my_events]
 
-        @events = @events.accessible_by(current_ability).paginate(:page => params[:page])
-
         # Filter events belonging to spaces or users with disabled status
-        @events = @events.joins('INNER JOIN spaces ON owner_id = spaces.id INNER JOIN users ON owner_id = users.id')
-          .where("owner_type = 'Space' AND spaces.disabled = false OR owner_type = 'User' AND users.disabled = false")
+        without_spaces = @events.where(:owner_type => 'Space').joins('INNER JOIN spaces ON owner_id = spaces.id').where("spaces.disabled = false")
+        without_users = @events.where(:owner_type => 'User').joins('INNER JOIN users ON owner_id = users.id').where("users.disabled = false")
+        # If only there was a conjunction operator that returned an AR relation, this would be easier
+        # '|'' is the only one that corretly combines these two queries, but doesn't return a relation
+        @events = MwebEvents::Event.where(:id =>(without_users | without_spaces))
+        @events = @events.accessible_by(current_ability, :index).page(params[:page])
       end
 
       after_filter :only => [:create, :update] do
