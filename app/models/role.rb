@@ -13,4 +13,8 @@ class Role < ActiveRecord::Base
   def self.default_role
     Role.find_by_name("User")
   end
+
+  def translated_name
+    I18n.t("activerecord.attributes.roles.name_#{name.downcase}")
+  end
 end

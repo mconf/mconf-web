@@ -13,7 +13,8 @@
       = text_field_tag :candidates, '', :autofocus => true, :class => 'string'
     .input
       %label= t('.role_label')
-      = select "join_request", "role_id", Space.roles.map { |r| [ r.name, r.id ] }, :selected => default_role.id
+      - roles = Space.roles.map { |r| [ r.translated_name, r.id ] }
+      = select "join_request", "role_id", roles, :selected => default_role.id
     = f.input :comment, :as => :text, :input_html => { :rows => 5 }
 
     = f.button :wrapped, :value => t("button.send")

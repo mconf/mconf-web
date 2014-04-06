@@ -111,6 +111,26 @@ pt-br:
       news:
         text: "Texto"
         title: "Título"
+      profile:
+        address: "Endereço"
+        city: "Cidade"
+        country: "País"
+        description: "Escreva algo sobre você"
+        email: "E-mail"
+        fax: "Fax"
+        full_name: "Nome completo"
+        im: "IM"
+        mobile: "Celular"
+        organization: "Organização"
+        phone: "Telefone"
+        prefix_key: "Título"
+        province: "Estado"
+        skype: "Skype"
+        url: "Seu website"
+        zipcode: "CEP"
+      roles:
+        name_user: "Usuário"
+        name_admin: "Administrador"
       site:
         analytics_code: "Código do Google Analytics"
         chat_enabled: "Habilitar Chat"
@@ -162,6 +182,7 @@ pt-br:
         repository: "Repositório de documentos"
       user:
         _full_name: "Nome completo"
+        approved: "Aprovado"
         can_record: "Permitir ao usuário gravar reuniões"
         email: "E-mail"
         expanded_post: "Mostrar mensagens no mural com a visão expandida por padrão"
@@ -614,7 +635,6 @@ pt-br:
     instructions: "Clique Enviar para cada convite que você deseja enviar, e clique Finalizar quando você concluir."
     sent: "Convites enviados com sucesso"
     will_invite: "Pessoas que você irá convidar?"
-  fax: Fax
   feedback:
     email: "%{email} enviou o seguinte feedback:"
     note: "Ajude-nos a melhorar o Mconf. Envie seus comentários, problemas e sugestões. Tentaremos responder o mais rapidamente possível."
@@ -661,7 +681,6 @@ pt-br:
   icons: 
     unread_message: "Mensage não lida!"
     unread_message_by_receiver: "Esta mensagem ainda não foi lida pelo usuário que a recebeu"
-  im: IM
   inbox:
     my: "Caixa de entrada (%{checked})"
     one: "Caixa de entrada (%{checked})"
@@ -757,6 +776,7 @@ pt-br:
         no_results: "Nenhum resultado encontrado"
         searching: "Procurando..."
     new:
+      already_requested: "Você já requisitou ingresso nesta comunidade! Por favor espere que um administrador aceite o pedido."
       message_title: "Envie um pedido de adesão aos administradores da comunidade"
     update:
       accepted: "Pedido de adesão aceito"
@@ -945,10 +965,8 @@ pt-br:
       your_url: "Seu endereço"
   my_friends: "Meus amigos"
   name:
-    full: "Nome completo"
     one: Nome
     other: Nomes
-    prefix: Título
   new_spam_detected: "Novo spam detectado"
   news:
     created: "Notícia publicada com sucesso"
@@ -1006,7 +1024,6 @@ pt-br:
       success: "Direitos de acesso atualizados"
   personal_information: "Informações pessoais"
   phone:
-    landline: Telefone
     mobile: Celular
     one: Telefone
     plural: Telefones
@@ -1074,9 +1091,6 @@ pt-br:
     deleted: "Perfil excluído com sucesso"
     description:
       add: "Biografia resumida"
-    edit: 
-      description: "Escreva algo sobre você"
-      url: "Seu website"
     error:
       exist: "Seu perfil já existe"
     header_title: "Perfil de usuário"
@@ -1087,14 +1101,6 @@ pt-br:
     public: "Perfil público"
     public_description: "Qualquer pessoa pode acessar esta informação"
     updated: "Perfil atualizado com sucesso"
-    visibility: Visibilidade
-    visibility_description: "Escolha quem poderá ver o seu perfil privado"
-    visibility_edit: "Edite a visibilidade do seu perfil"
-    visibility_everybody: "Todos podem ver o seu perfil privado."
-    visibility_members: "Apenas usuários registrados podem ver o seu perfil privado."
-    visibility_nobody: "Ninguém pode ver o seu perfil privado."
-    visibility_private_fellows: "Apenas os seus colegas em um espaço privado podem ver o seu perfil privado."
-    visibility_public_fellows: "Apenas os seus colegas em um espaço público podem ver o seu perfil privado."
   profiles:
     edit:
       change_pic: "Mudar foto"
@@ -1104,6 +1110,13 @@ pt-br:
         export: "Exportar vCard"
         tooltip: "vCard é um formato de arquivo padrão para cartões eletrônicos"
         use: "Usar um vCard"
+      visibility_description: "Escolha quem poderá ver o seu perfil privado"
+      visibility_edit: "Edite a visibilidade do seu perfil"
+      visibility_everybody: "Todos podem ver o seu perfil privado."
+      visibility_members: "Apenas usuários registrados podem ver o seu perfil privado."
+      visibility_nobody: "Ninguém pode ver o seu perfil privado."
+      visibility_private_fellows: "Apenas os seus colegas em um espaço privado podem ver o seu perfil privado."
+      visibility_public_fellows: "Apenas os seus colegas em um espaço público podem ver o seu perfil privado."
     show:
       vcard:
         export: "Exportar vCard"
@@ -1669,8 +1682,8 @@ pt-br:
       change_password: "Mudar senha"
       click_to_edit_profile: "Clique aqui para editar o seu perfil"
       did_not_find_info: "Não encontrou a informação que estava procurando?"
-      disapprove: "Desaprovar: bloquear o acesso deste usuário ao site"
-      disapprove_confirm: "Tem certeza que deseja bloquear o acesso deste usuário ao site?"
+      disable: "Desabilitar a conta deste usuário"
+      disable_confirm: "Você tem certeza que deseja desabilitar a conta deste usuário?"
       federated:
         see_your_data: "Clique para ver os seus dados que foram compartilhados com este site pela federação"
         title: "Você acessou este site através de uma federação!"

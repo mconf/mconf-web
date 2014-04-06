@@ -111,6 +111,26 @@ en:
       news:
         text: "Text"
         title: "Title"
+      profile:
+        address: "Address"
+        city: "City"
+        country: "Country"
+        description: "Write something about you"
+        email: "Email"
+        fax: "Fax"
+        full_name: "Full name"
+        im: "IM"
+        mobile: "Mobile"
+        organization: "Organization"
+        phone: "Telephone"
+        prefix_key: "Title"
+        province: "Province"
+        skype: "Skype"
+        url: "Your website"
+        zipcode: "Zipcode"
+      roles:
+        name_user: "User"
+        name_admin: "Administrator"
       site:
         analytics_code: "Analytics Code"
         chat_enabled: "Enable Chat"
@@ -162,6 +182,7 @@ en:
         repository: "Document repository"
       user:
         _full_name: "Full name"
+        approved: "Approved"
         can_record: "Allow this user to record meetings"
         email: "Email"
         expanded_post: "Show messages in wall with the expanded view by default"
@@ -614,7 +635,6 @@ en:
     instructions: "Click Send for each invitation you want to send, and click Finish when you are done."
     sent: "Invitations sent successfully"
     will_invite: "People you will invite:"
-  fax: Fax
   feedback: 
     email: "%{email} sent the following feedback:"
     note: "Help us improve Mconf. Please send your comments, problems and suggestions. We will try to answer as soon as possible."
@@ -661,7 +681,6 @@ en:
   icons: 
     unread_message: "Unread message!"
     unread_message_by_receiver: "This message has not yet been read by the receiver"
-  im: IM
   inbox: 
     my: "My Inbox (%{checked})"
     one: "Inbox (%{checked})"
@@ -757,6 +776,7 @@ en:
         no_results: "No results found"
         searching: "Searching..."
     new:
+      already_requested: "You already requested to join this space! Please wait for an administrator to accept it."
       message_title: "Send a join request to the administrators of the space"
     update:
       accepted: "Join request accepted"
@@ -945,10 +965,8 @@ en:
       your_url: "Your URL"
   my_friends: "My friends"
   name: 
-    full: "Full name"
     one: Name
     other: Names
-    prefix: Title
   new_spam_detected: "New spam detected"
   news: 
     created: "News item published successfully"
@@ -1006,7 +1024,6 @@ en:
       success: "Permissions updated"
   personal_information: "Personal information"
   phone: 
-    landline: Telephone
     mobile: Mobile
     one: Phone
     plural: Telephones
@@ -1074,9 +1091,6 @@ en:
     deleted: "Profile deleted successfully"
     description: 
       add: "Short bio"
-    edit: 
-      description: "Write something about you"
-      url: "Your website"
     error: 
       exist: "Your profile already exists"
     header_title: "User profile"
@@ -1087,14 +1101,6 @@ en:
     public: "Public profile"
     public_description: "Anyone can access this information"
     updated: "Profile updated successfully"
-    visibility: Visibility
-    visibility_description: "Choose who will be able to see your private profile"
-    visibility_edit: "Edit your profile visibility"
-    visibility_everybody: "Everyone can see your private profile."
-    visibility_members: "Only registered members can see your private profile."
-    visibility_nobody: "Nobody can see your private profile."
-    visibility_private_fellows: "Only your partners in a private space can see your private profile."
-    visibility_public_fellows: "Only your partners in a public or private space can see your private profile."
   profiles:
     edit:
       change_pic: "Change picture"
@@ -1104,6 +1110,13 @@ en:
         export: "Export vCard"
         tooltip: "vCard is a file format standard for electronic business cards"
         use: "Use a vCard"
+      visibility_description: "Choose who will be able to see your private profile"
+      visibility_edit: "Edit your profile visibility"
+      visibility_everybody: "Everyone can see your private profile."
+      visibility_members: "Only registered members can see your private profile."
+      visibility_nobody: "Nobody can see your private profile."
+      visibility_private_fellows: "Only your partners in a private space can see your private profile."
+      visibility_public_fellows: "Only your partners in a public or private space can see your private profile."
     show:
       vcard:
         export: "Export vCard"
