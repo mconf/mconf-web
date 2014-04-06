@@ -60,7 +60,7 @@ Rails.application.config.to_prepare do
         if owner_type == 'User'
           true # User owned spaces are always public
         elsif owner_type == 'Space'
-          owner.public?
+          owner && owner.public?
         end
       end
 
