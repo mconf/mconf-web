@@ -59,6 +59,7 @@ pt-br:
       error: "erro"
       success: "gravado"
     join: "Entrar"
+    login: "Entrar"
     login_to_enable: "Você precisa estar logado para acessar esta opção"
     members:
       one: "%{count} membro"
@@ -157,6 +158,7 @@ pt-br:
         locale: "Idioma"
         name: "Nome"
         presence_domain: "Domínio do bate-papo XMPP"
+        registration_enabled: "Permitir que usuários criem novas contas"
         require_registration_approval: "Requerer que administradores aceitem novas contas"
         signature: "Assinatura"
         shib_enabled: "Habilitar Shibboleth"
@@ -561,6 +563,7 @@ pt-br:
       user:
         not_approved: 'Sua conta ainda não foi aprovada por um administrador.'
     registrations:
+      not_enabled: 'O registro de novas contas não está habilitado neste site.'
       signed_up_but_not_approved: 'Seu registro foi feito com sucesso, mas você ainda precisa ser aprovado por um administrador para acessar o site'
     shared:
       links:

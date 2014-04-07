@@ -59,6 +59,7 @@ en:
       error: "error"
       success: "saved"
     join: "Join"
+    login: "Sign in"
     login_to_enable: "You need to be logged in to perform this action"
     members:
       one: "%{count} member"
@@ -157,6 +158,7 @@ en:
         locale: "Language"
         name: "Name"
         presence_domain: "XMPP Chat Domain"
+        registration_enabled: "Allow users to create new accounts"
         require_registration_approval: "Require admins to approve new registrations"
         signature: "Signature"
         shib_enabled: "Enable Shibboleth"
@@ -561,6 +563,7 @@ en:
       user:
         not_approved: 'Your account has not been approved by an administrator yet.'
     registrations:
+      not_enabled: 'Registration of new accounts is not enabled in this website.'
       signed_up_but_not_approved: 'You have signed up successfully but your account has still to be approved by an administrator'
     shared:
       links:

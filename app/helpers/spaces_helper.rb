@@ -25,7 +25,11 @@ module SpacesHelper
   def space_join_button(space, options={})
     # no user logged, renders a register button
     if !user_signed_in?
-      link_to t('register.one'), register_path, options
+      if Site.current.registration_enabled?
+        link_to t('register.one'), register_path, options
+      else
+        link_to t('_other.login'), login_path, options
+      end
 
     # a user is logged and he's not in the space
     elsif !space.users.include?(current_user)

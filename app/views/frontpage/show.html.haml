@@ -18,6 +18,7 @@
         %li= link_to t('.login.lost_password'), new_user_password_path
         %li= link_to t(".login.resend_confirmation_email"), new_confirmation_path(resource_name)
 
-  #registration-box.form-area
-    %h2= t('.register.title')
-    = render :partial => 'registrations/signup_form'
+  - if current_site.registration_enabled?
+    #registration-box.form-area
+      %h2= t('.register.title')
+      = render :partial => 'registrations/signup_form'

@@ -8,10 +8,23 @@
 class RegistrationsController < Devise::RegistrationsController
   layout 'no_sidebar'
 
+  before_filter :check_registration_enabled, :only => [:new, :create]
+
   def new
   end
 
   def edit
     redirect_to edit_user_path(current_user)
   end
+
+  private
+
+  def check_registration_enabled
+    unless current_site.registration_enabled?
+      flash[:error] = I18n.t("devise.registrations.not_enabled")
+      redirect_to root_path
+      false
+    end
+  end
+
 end

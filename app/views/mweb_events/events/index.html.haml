@@ -8,7 +8,10 @@
     - if user_signed_in?
       = link_to t('.create_new_event'), mweb_events.new_event_path, :class => "btn btn-primary btn-large btn-block"
     - else
-      = link_to t('register.one'), main_app.register_path, :class => "btn btn-success btn-large btn-block"
+      - if current_site.registration_enabled?
+        = link_to t('register.one'), main_app.register_path, :class => "btn btn-success btn-large btn-block"
+      - else
+        = link_to t('_other.login'), main_app.login_path, :class => "btn btn-success btn-large btn-block"
 
   = render_sidebar_content_block('event-description-wrapper') do
     .content-block-middle

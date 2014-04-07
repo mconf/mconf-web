@@ -33,6 +33,7 @@ pt-br:
         ldap_email_field: "Especifica qual atributo retornado pelo LDAP será utilizado para obter o e-mail de um usuário (e.g.: 'mail')"
         ldap_name_field: "Especifica qual atributo retornado pelo LDAP será utilizado para obter o nome completo de um usuário (e.g.: 'cn')"
         presence_domain: "Domínio usado para identificar o servidor XMPP."
+        registration_enabled: "Se selecionado, usuários poderão criar contas novas. Caso contrário, usuários poderão acessar o site apenas se já possuirem uma conta. Além disso, se esta opção estiver desabilitada, contas novas ainda poderão ser criadas através dos métodos secundários de acesso como Shibboleth e LDAP."
         require_registration_approval: "Se selecionado, usuários poderão cadastrar novas contas, mas só poderão acessar o site depois que um administrador aprove sua conta. Caso contrário usuários podem acessar o site automaticamente após o registro. Note que se existem usuários ainda não aprovados e você remover a seleção desta opção, estes usuários não serão aprovados automaticamente!"
         shib_email_field: "Quando um usuário se autentica em provedor de serviços Shibboleth este campo será utilizado para obter o e-mail do usuário. Exemplo: Shib-inetOrgPerson-mail"
         shib_name_field: "Quando um usuário se autentica em provedor de serviços Shibboleth este campo será utilizado para obter o nome do usuário. Exemplo: Shib-inetOrgPerson-sn"
