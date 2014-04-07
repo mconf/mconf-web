@@ -11,7 +11,9 @@
 # Learn more: http://github.com/javan/whenever
 
 # for some reason the default 'rake' wasn't using 'bundle exec', so we're redefining it here
-job_type :rake, "cd :path && RAILS_ENV=:environment bundle exec rake :task --silent :output"
+# we're also removing the default '--silent' option
+job_type :rake, "cd :path && RAILS_ENV=:environment bundle exec rake :task :output"
+set :output, 'log/whenever.log'
 
 every :day, :at => '1am' do
   # updates the stats - will only increment stats from the past day
