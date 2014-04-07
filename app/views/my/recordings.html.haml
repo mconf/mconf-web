@@ -11,7 +11,7 @@
       %h3= t('.title')
 
       -# only update the recording db if the user has permission to
-      - if can?(:fetch_recordings, @webconf_room)
+      - if can?(:fetch_recordings, @room)
 
         -# a form to trigger the method that will fetch the recordings in the webconf server
         -# TODO: setting data-type to html because bigbluebutton_rails is not returning a proper json on success yet
