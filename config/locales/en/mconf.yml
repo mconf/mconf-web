@@ -111,6 +111,9 @@ en:
       news:
         text: "Text"
         title: "Title"
+      post:
+        text: "Message"
+        title: "Title"
       profile:
         address: "Address"
         city: "City"

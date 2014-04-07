@@ -111,6 +111,9 @@ pt-br:
       news:
         text: "Texto"
         title: "Título"
+      post:
+        text: "Mensagem"
+        title: "Título"
       profile:
         address: "Endereço"
         city: "Cidade"
