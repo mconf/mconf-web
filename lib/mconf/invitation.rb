@@ -51,6 +51,15 @@ module Mconf
       }
     end
 
+    # Builds a flash message containing all the names of invited users
+    def self.build_flash(list, message)
+      msg = message + " "
+      msg += list.map { |user|
+        user.is_a?(User) ? user.full_name : user
+      }.join(", ")
+      msg
+    end
+
     # Sends an invitation in `invitation` to all the Users or emails in the
     # array `users`.
     # Returns two arrays:

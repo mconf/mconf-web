@@ -87,7 +87,6 @@ class CustomBigbluebuttonRoomsController < Bigbluebutton::RoomsController
   end
 
   def send_invitation
-
     # adjusts the dates set by the user in the datetimepicker to dates we can set in the invitation
     unless adjust_dates_for_invitation(params)
       flash[:error] = t('custom_bigbluebutton_rooms.send_invitation.error_date_format')
@@ -108,20 +107,10 @@ class CustomBigbluebuttonRoomsController < Bigbluebutton::RoomsController
       users = Mconf::Invitation.split_invitations(params[:invite][:users])
       succeeded, failed = Mconf::Invitation.send_batch(invitation, users)
 
-      unless succeeded.empty?
-        success_msg = t('custom_bigbluebutton_rooms.send_invitation.success') + " "
-        success_msg += succeeded.map { |user|
-          user.is_a?(User) ? user.full_name : user
-        }.join(", ")
-        flash[:success] = success_msg
-      end
-      unless failed.empty?
-        error_msg = t('custom_bigbluebutton_rooms.send_invitation.error') + " "
-        error_msg += failed.map { |user|
-          user.is_a?(User) ? user.full_name : user
-        }.join(", ")
-        flash[:error] = error_msg
-      end
+      flash[:success] = Mconf::Invitation.build_flash(
+        succeeded, t('custom_bigbluebutton_rooms.send_invitation.success')) unless succeeded.empty?
+      flash[:error] = Mconf::Invitation.build_flash(
+        failed, t('custom_bigbluebutton_rooms.send_invitation.errors')) unless failed.empty?
     end
 
     respond_to do |format|

@@ -36,20 +36,10 @@ MwebEvents::EventsController.class_eval do
     users = Mconf::Invitation.split_invitations(params[:invite][:users])
     succeeded, failed = Mconf::Invitation.send_batch(invitation, users)
 
-    unless succeeded.empty?
-      success_msg = t('mweb_events.events.send_invitation.success') + " "
-      success_msg += succeeded.map { |user|
-        user.is_a?(User) ? user.full_name : user
-      }.join(", ")
-      flash[:success] = success_msg
-    end
-    unless failed.empty?
-      error_msg = t('mweb_events.events.send_invitation.error') + " "
-      error_msg += failed.map { |user|
-        user.is_a?(User) ? user.full_name : user
-      }.join(", ")
-      flash[:error] = error_msg
-    end
+    flash[:success] = Mconf::Invitation.build_flash(
+      succeeded, t('mweb_events.events.send_invitation.success')) unless succeeded.empty?
+    flash[:error] = Mconf::Invitation.build_flash(
+      failed, t('mweb_events.events.send_invitation.errors')) unless failed.empty?
 
     respond_to do |format|
       format.html { redirect_to request.referer }
