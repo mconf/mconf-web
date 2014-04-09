@@ -44,6 +44,9 @@ en:
       registration:
         closed: Registration for this event is closed.
         join_button: Join this space to register
+      send_invitation:
+        error: "Invitation failed to be sent to:"
+        success: "Invitation successfully sent to:"
       thumbnail_view:
         no_events: "There are no events matching this search!"
       title:

@@ -94,7 +94,8 @@ class CustomBigbluebuttonRoomsController < Bigbluebutton::RoomsController
 
     else
       # the invitation object to be sent
-      invitation = Mconf::Invitation.new
+      invitation = Mconf::WebconfInvitation.new
+      invitation.mailer = WebConferenceMailer
       invitation.from = current_user
       invitation.room = @room
       invitation.starts_on = params[:invite][:starts_on]
@@ -104,12 +105,7 @@ class CustomBigbluebuttonRoomsController < Bigbluebutton::RoomsController
       invitation.description = params[:invite][:message]
 
       # send the invitation to all users
-      # make `users` an array of Users and emails
-      users = params[:invite][:users].split(",")
-      users = users.map { |user_str|
-        user = User.find_by_id(user_str)
-        user ? user : user_str
-      }
+      users = Mconf::Invitation.split_invitations(params[:invite][:users])
       succeeded, failed = Mconf::Invitation.send_batch(invitation, users)
 
       unless succeeded.empty?

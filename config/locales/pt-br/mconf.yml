@@ -637,10 +637,13 @@ pt-br:
     one: Erro
     other: Erros
     vcc_warning: "Aviso geral:"
-  event_invitation:
-    instructions: "Clique Enviar para cada convite que você deseja enviar, e clique Finalizar quando você concluir."
-    sent: "Convites enviados com sucesso"
-    will_invite: "Pessoas que você irá convidar?"
+  event_mailer:
+    invitation_mail:
+      message:
+        start: "Início"
+        end: "Término"
+        header: "Você foi convidado por <b>%{sender}</b> (%{email_sender}) para o evento <b>%{event}</b>:"
+      subject: "Você foi convidado para o evento %{event}"
   feedback:
     email: "%{email} enviou o seguinte feedback:"
     note: "Ajude-nos a melhorar o Mconf. Envie seus comentários, problemas e sugestões. Tentaremos responder o mais rapidamente possível."
