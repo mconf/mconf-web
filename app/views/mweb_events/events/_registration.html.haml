@@ -18,3 +18,5 @@
 
   - elsif @event.owner_type == 'Space'
     = link_to t('.join_button'), main_app.new_space_join_request_path(@event.owner), :class => 'btn btn-success large main'
+
+= render 'invite_button'

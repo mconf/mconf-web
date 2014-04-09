@@ -39,11 +39,15 @@ en:
         select_at_left: "Select an event in the list to see it's description here"
         subtitle: "Create your own events and share with other people"
         title: "Events"
+      invite:
+        title: "Inviting to the event"
+        invite_title: "Invtitation to the event [%{event}]"
       new:
         page_title: "Create a new event"
       registration:
         closed: Registration for this event is closed.
         join_button: Join this space to register
+        invite_button: Invite people to this event
       send_invitation:
         error: "Invitation failed to be sent to:"
         success: "Invitation successfully sent to:"

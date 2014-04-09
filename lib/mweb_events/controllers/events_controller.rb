@@ -11,6 +11,11 @@ MwebEvents::EventsController.class_eval do
   def invite
     @event = MwebEvents::Event.find_by_permalink(params[:event_id])
     authorize! :invite, @event
+    respond_to do |format|
+      format.html {
+        render :layout => false if request.xhr?
+      }
+    end
   end
 
   def send_invitation
