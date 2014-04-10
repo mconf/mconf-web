@@ -52,8 +52,6 @@ class ShibbolethController < ApplicationController
   # Associates the current shib user with an existing user or
   # a new user account (created here as well).
   def create_association
-    # TODO: check if the session is ok before proceeding
-
     shib = Mconf::Shibboleth.new(session)
 
     # The federated user has no account yet, create one based on the info returned by
@@ -119,7 +117,6 @@ class ShibbolethController < ApplicationController
         else
           token.destroy
           logger.info "Shibboleth: error saving the new user created: #{token.user.errors.full_messages}"
-          # TODO: this error should give the user more information about what he should do next
           flash[:error] = t('shibboleth.create_association.error_saving_user', :errors => token.user.errors.full_messages.join(', '))
         end
       else
@@ -169,16 +166,18 @@ class ShibbolethController < ApplicationController
 
   # Adds fake test data to the environment to test shibboleth in development.
   def test_data
-    request.env["Shib-Application-ID"] = "default"
-    request.env["Shib-Session-ID"] = "09a612f952cds995e4a86ddd87fd9f2a"
-    request.env["Shib-Identity-Provider"] = "https://login.somewhere/idp/shibboleth"
-    request.env["Shib-Authentication-Instant"] = "2011-09-21T19:11:58.039Z"
-    request.env["Shib-Authentication-Method"] = "urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport"
-    request.env["Shib-AuthnContext-Class"] = "urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport"
-    request.env["Shib-brEduPerson-brEduAffiliationType"] = "student;position;faculty"
-    request.env["Shib-eduPerson-eduPersonPrincipalName"] = "75a988943825d2871e1cfa75473ec0@ufrgs.br"
-    request.env["Shib-inetOrgPerson-cn"] = "Rick Astley"
-    request.env["Shib-inetOrgPerson-sn"] = "Rick Astley"
-    request.env["Shib-inetOrgPerson-mail"] = "nevergonnagiveyouup@rick.com"
+    if Rails.env == "development"
+      request.env["Shib-Application-ID"] = "default"
+      request.env["Shib-Session-ID"] = "09a612f952cds995e4a86ddd87fd9f2a"
+      request.env["Shib-Identity-Provider"] = "https://login.somewhere/idp/shibboleth"
+      request.env["Shib-Authentication-Instant"] = "2011-09-21T19:11:58.039Z"
+      request.env["Shib-Authentication-Method"] = "urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport"
+      request.env["Shib-AuthnContext-Class"] = "urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport"
+      request.env["Shib-brEduPerson-brEduAffiliationType"] = "student;position;faculty"
+      request.env["Shib-eduPerson-eduPersonPrincipalName"] = "75a988943825d2871e1cfa75473ec0@ufrgs.br"
+      request.env["Shib-inetOrgPerson-cn"] = "Rick Astley"
+      request.env["Shib-inetOrgPerson-sn"] = "Rick Astley"
+      request.env["Shib-inetOrgPerson-mail"] = "nevergonnagiveyouup@rick.com"
+    end
   end
 end
