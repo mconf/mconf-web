@@ -1,0 +1,17 @@
+@import "compass/css3";
+@import "compass/typography/links";
+@import "definitions";
+
+.thread.unified-event {
+  .event-visibility {
+    @include space-visibility;
+  }
+
+  .logo-in-thread {
+    width: 80px;
+  }
+
+  .thread-content {
+    margin-left: 85px;
+  }
+}

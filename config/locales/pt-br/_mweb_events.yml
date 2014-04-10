@@ -4,10 +4,6 @@ pt-br:
     events:
       edit:
         page_title: "Editando: %{name}"
-      event_thumbnail:
-        closed: Inscrições encerradas
-        starts_at: "Inicia em"
-        where: "Localização"
       index:
         create_new_event: "Adicionar evento"
         count:
@@ -23,15 +19,12 @@ pt-br:
           past_events: passados
           upcoming_events: futuros
           your_events: seus
-        list_format:
-          list: "Lista"
-          thumbnails: "Miniaturas"
         now: Agora
         participant_count:
           one: "%{count} participante"
           other: "%{count} participantes"
         private: Privado
-        public: Aberto ao público
+        public: Público
         search:
           by_name:
             no_matches: "Nenhum evento encontrado com \"%{term}\""
@@ -39,16 +32,20 @@ pt-br:
         select_at_left: "Selecione um evento ao lado para ver sua descrição aqui"
         subtitle: "Crie seus própios eventos e compartilhe com outras pessoas"
         title: "Eventos"
+      list_view:
+        no_events: "Nenhum evento encontrado para esta busca"
       new:
         page_title: "Criar um novo evento"
       registration:
         closed: Inscrições para este evento estão fechadas.
         join_button: Junte-se a esta comunidade para participar
-      thumbnail_view:
-        no_events: "Nenhum evento condiz com esta pesquisa!"
       title:
         belongs_space: "Um evento da comunidade <a href='%{url}'>%{space}</a>"
         belongs_user: "Evento criado por <a href='%{url}'>%{user}</a>"
+      unified_event:
+        closed: Inscrições encerradas
+        starts_at: "Inicia em"
+        where: "Localização"
     participants:
       index:
         disable: Remover do evento

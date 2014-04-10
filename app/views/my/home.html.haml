@@ -40,7 +40,7 @@
         = t('.create_space')
   .content-block-middle
     = render 'users/user_spaces', :user => current_user, :spaces => @user_spaces
-  .content-block-footer
+  .content-block-footer.content-block-footer-fancy
     = link_to t('.view_all_spaces'), spaces_path
 
 #users-recent-activity.content-block
@@ -49,5 +49,5 @@
     = icon_info t('recent_activity.tooltip')
   #users-recent-activity-content.content-block-middle
     = render "users/recent_activity_content", :content => @all_contents, :paginate => false
-  .content-block-footer
+  .content-block-footer.content-block-footer-fancy
     = link_to t('.view_all_activity'), my_activity_path

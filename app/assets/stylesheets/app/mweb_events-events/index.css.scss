@@ -2,15 +2,23 @@
 @import "compass/typography/links";
 @import "definitions";
 
+@import "app/mweb_events-events/_unified_event";
+
 body.mweb_events-events.index {
 
   #content-middle {
     min-height: 450px;
   }
 
+  #event-filter-result {
+    float: left;
+    margin: 10px 0 0 5px;
+    @include font-size($font-medium);
+  }
+
   #event-filter-wrapper {
     @include mconf-clearfix;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     padding: 10px 5px;
     background: $light-gray;
     @include border-radius(5px);
@@ -74,26 +82,18 @@ body.mweb_events-events.index {
     }
   }
 
-
-  // the list of thumbnails looks a bit different here than the standard one
-  // it shows only one element per line with a bigger logo
-  ul.list-thumbnails {
-    .list-thumbnail-wrapper {
-      width: 98%;
-    }
-
-    .list-thumbnail {
-      .list-description {
-        width: auto;
+  #events {
+    .list-text {
+      .thread {
+        margin: 0;
+        // tighter than the default
+        padding: 15px 8px;
       }
 
-      .list-logo {
-        width: 80px;
-        height: 85px;
+      &.selected .thread {
         background: $light-gray;
-
-        .mweb_events-event-logo {
-          padding-top: 4px;
+        .logo-in-thread img {
+          border-color: $bright-blue;
         }
       }
     }

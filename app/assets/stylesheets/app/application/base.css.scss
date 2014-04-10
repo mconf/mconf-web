@@ -747,18 +747,7 @@ ul#navbar-left-links {
     }
   }
 
-  .content-block {
-    clear: both;
-    margin-bottom: 20px;
-  }
-
-  .content-block-footer {
-    padding: 4px 10px;
-    text-align: right;
-    background: $light-gray;
-    border-top: 1px solid #ddd;
-    clear: both;
-
+  @mixin content-block-pagination {
     // adapt bootstrap's .pagination
     @include mconf-clearfix;
     .pagination {
@@ -781,6 +770,24 @@ ul#navbar-left-links {
     }
   }
 
+  .content-block {
+    clear: both;
+    margin-bottom: 20px;
+  }
+
+  .content-block-footer {
+    padding: 4px 10px;
+    text-align: right;
+    clear: both;
+
+    &.content-block-footer-fancy {
+      background: $light-gray;
+      border-top: 1px solid #eee;
+    }
+
+    @include content-block-pagination;
+  }
+
   .content-block-middle {
     padding: 10px 5px;
     clear: both;
@@ -800,6 +807,7 @@ ul#navbar-left-links {
       a { margin-right: 10px; }
     }
 
+    @include content-block-pagination;
   }
 }
 
@@ -917,11 +925,7 @@ ul#navbar-left-links {
 .events-hapenning-now {
   .thread {
     background: $light-gray;
-    border-left: 5px solid #75b12e;
-  }
-
-  .event-image-date {
-    color: darken(#75b12e, 10);
+    border-left: 5px solid $bright-blue;
   }
 }
 

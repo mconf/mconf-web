@@ -7,7 +7,7 @@
       %h3= t('.events_now')
     .content-block-middle
       - for event in @current_events do
-        = render :partial => "space_events/unified_event", :locals => { :event => event }
+        = render :partial => "mweb_events/events/unified_event", :locals => { :event => event }
 
 .content-block
   .content-block-header
