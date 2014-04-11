@@ -45,15 +45,14 @@ module Mconf
     # Returns whether the basic information needed for a user to login is present
     # in the session or not.
     def has_basic_info
-      @session[ENV_KEY] && get_email() && get_name()
+      @session[ENV_KEY] && get_email() && get_name() && get_principal_name()
     end
 
     # Returns the email stored in the session, if any.
     def get_email
       result = nil
       if @session.has_key?(ENV_KEY)
-        result   = @session[ENV_KEY][Site.current.shib_email_field]
-        result ||= @session[ENV_KEY]["Shib-inetOrgPerson-mail"]
+        result = @session[ENV_KEY][Site.current.shib_email_field]
         result = result.clone unless result.nil?
       end
       result
@@ -63,8 +62,18 @@ module Mconf
     def get_name
       result = nil
       if @session.has_key?(ENV_KEY)
-        result   = @session[ENV_KEY][Site.current.shib_name_field]
-        result ||= @session[ENV_KEY]["Shib-inetOrgPerson-cn"]
+        result = @session[ENV_KEY][Site.current.shib_name_field]
+        result = result.clone unless result.nil?
+      end
+      result
+    end
+
+    # Returns the "principalName" attribute, that represents the user's unique identifier in
+    # the federation.
+    def get_principal_name
+      result = nil
+      if @session.has_key?(ENV_KEY)
+        result = @session[ENV_KEY][Site.current.shib_principal_name_field]
         result = result.clone unless result.nil?
       end
       result
@@ -105,8 +114,9 @@ module Mconf
     # Returns the name of the attributes used to get the basic user information from the
     # session. Returns and array with [ <attribute for email>, <attribute for name> ]
     def basic_info_fields
-      [ Site.current.shib_email_field || "Shib-inetOrgPerson-mail",
-        Site.current.shib_name_field || "Shib-inetOrgPerson-cn" ]
+      [ Site.current.shib_email_field,
+        Site.current.shib_principal_name_field,
+        Site.current.shib_name_field ]
     end
 
     # Finds the ShibToken associated with the user whose information is stored in the session.
