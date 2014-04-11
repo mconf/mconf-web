@@ -55,7 +55,11 @@ class ApplicationController < ActionController::Base
 
   # Where to redirect to after sign in with Devise
   def after_sign_in_path_for(resource)
-    stored_location_for(resource) || my_home_path
+    if request.referer == login_url
+      super
+    else
+      stored_location_for(resource) || request.referer || my_home_path
+    end
   end
 
   # overriding bigbluebutton_rails function
