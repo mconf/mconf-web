@@ -115,8 +115,8 @@ module Mconf
     # session. Returns and array with [ <attribute for email>, <attribute for name> ]
     def basic_info_fields
       [ Site.current.shib_email_field,
-        Site.current.shib_principal_name_field,
-        Site.current.shib_name_field ]
+        Site.current.shib_name_field,
+        Site.current.shib_principal_name_field ]
     end
 
     # Finds the ShibToken associated with the user whose information is stored in the session.
