@@ -7,11 +7,9 @@
 
 
 class AttachmentsController < ApplicationController
-  before_filter :space!
-  before_filter :webconf_room!
-  before_filter :except => [ :new, :edit ]
   load_and_authorize_resource :space, :find_by => :permalink
   load_and_authorize_resource :attachment, :through => :space
+  before_filter :webconf_room!
 
   layout 'spaces_show'
 

@@ -1227,6 +1227,9 @@ pt-br:
     new:
       title: "Login"
   shared:
+    copy_modal:
+      title: Aperte Ctrl+C para copiar o texto
+      success: Texto copiado para a área de transferência
     recording_duration:
       duration: "Duração"
       ended_at: "Finalizada em"

@@ -17,8 +17,8 @@
   .invite-url
     -#.clippy
     -#  = clippy(:id => "invite-url-text", :bg_color => "#FFFFFF").html_safe
-    %label= t('.your_url')
-    = text_field_tag 'invite-url-text', join_webconf_url(@room), :readonly => true
+    = copyable_field 'invite-url-text', join_webconf_url(@room), :label => t('.your_url'), :readonly => true
+
     - if running
       = icon_in_progress
 

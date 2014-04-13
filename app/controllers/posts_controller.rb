@@ -11,13 +11,6 @@ class PostsController < ApplicationController
 
   layout "spaces_show"
 
-  # Posts needs a Space. It will respond 404 if no space if found
-  before_filter :space!
-  before_filter :get_posts, :only => [:index]
-
-  # need it to show info in the sidebar
-  before_filter :webconf_room!
-
   after_filter :only => [:update] do
     @post.new_activity :update, current_user unless @post.errors.any?
   end
@@ -28,6 +21,11 @@ class PostsController < ApplicationController
 
   load_and_authorize_resource :space, :find_by => :permalink
   load_and_authorize_resource :through => :space
+
+  # need it to show info in the sidebar
+  before_filter :webconf_room!
+
+  before_filter :get_posts, :only => [:index]
   skip_load_resource :only => :index
 
   def index

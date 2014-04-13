@@ -8,11 +8,10 @@
 require "digest/sha1"
 class UsersController < ApplicationController
 
-  before_filter :space!, :only => [:index]
-  before_filter :webconf_room!, :only => [:index]
-
   load_and_authorize_resource :find_by => :username, :except => [:enable]
   before_filter :load_and_authorize_with_disabled, :only => [:enable]
+  load_and_authorize_resource :space, :find_by => :permalink, :only => [:index]
+  before_filter :webconf_room!, :only => [:index]
 
   # Rescue username not found rendering a 404
   rescue_from ActiveRecord::RecordNotFound, :with => :render_404
@@ -22,7 +21,7 @@ class UsersController < ApplicationController
   respond_to :xml, :only => [:current]
 
   def index
-    @users = space.users.sort {|x,y| x.name <=> y.name }
+    @users = @space.users.sort {|x,y| x.name <=> y.name }
     respond_to do |format|
       format.html { render :layout => 'spaces_show' }
     end

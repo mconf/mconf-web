@@ -23,9 +23,6 @@ class ApplicationController < ActionController::Base
 
   helper_method :current_site
 
-  # TODO: review, we shouldn't need this with cancan loading the resources
-  helper_method :space, :space!
-
   # Handle errors - error pages
   unless Rails.application.config.consider_all_requests_local
     rescue_from Exception, :with => :render_500
@@ -34,17 +31,6 @@ class ApplicationController < ActionController::Base
     rescue_from ActionController::UnknownController, :with => :render_404
     rescue_from ::AbstractController::ActionNotFound, :with => :render_404
     rescue_from CanCan::AccessDenied, :with => :render_403
-  end
-
-  # TODO: do we really need this now that cancan loads the resources?
-  def space
-    @space ||= Space.find_with_param(params[:space_id])
-  end
-
-  # This method is the same as space, but raises error if no Space is found
-  # TODO: do we really need this now that cancan loads the resources?
-  def space!
-    space || raise(ActiveRecord::RecordNotFound)
   end
 
   # Splits a comma separated list of emails into a list of emails without trailing spaces
