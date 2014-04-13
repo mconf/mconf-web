@@ -26,4 +26,4 @@
     %h3= t('.other_options')
     .alert.alert-danger
       %span= t('.delete_space')
-      = link_to t('.yes_delete'), space_path(@space), :data => { :confirm => t("are_you_sure") }, :method => :delete, :class => 'btn btn-small btn-danger'
+      = link_to t('.yes_delete'), disable_space_path(@space), :data => { :confirm => t("are_you_sure") }, :method => :delete, :class => 'btn btn-small btn-danger'

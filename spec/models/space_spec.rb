@@ -324,7 +324,7 @@ describe Space do
         context "he is a member of" do
           context "with the role 'Admin'" do
             before { target.add_member!(user, "Admin") }
-            it { should_not be_able_to_do_anything_to(target).except([:read, :webconference, :create, :select, :leave, :edit, :update, :destroy]) }
+            it { should_not be_able_to_do_anything_to(target).except([:read, :webconference, :create, :select, :leave, :edit, :update]) }
           end
 
           context "with the role 'User'" do
@@ -344,7 +344,7 @@ describe Space do
         context "he is a member of" do
           context "with the role 'Admin'" do
             before { target.add_member!(user, "Admin") }
-            it { should_not be_able_to_do_anything_to(target).except([:read, :webconference, :create, :select, :leave, :edit, :update, :destroy]) }
+            it { should_not be_able_to_do_anything_to(target).except([:read, :webconference, :create, :select, :leave, :edit, :update]) }
           end
 
           context "with the role 'User'" do

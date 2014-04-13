@@ -880,6 +880,9 @@ pt-br:
     spaces:
       filter_name: "Nome"
       filter_results: "Filtrar os resultados:"
+    destroy_space:
+      destroy: Apagar espaço
+      destroy_confirm: Tem certeza que deseja apagar essa comunidade e todo conteúdo relacionado a ela? Diferente de desabilitar a comunidade essa operação é irreversível!
     spaces_list:
       filter_count_with_text: "%{count} comunidades encontradas para o filtro \"%{value}\""
       filter_count_empty: "%{count} comunidades encontradas"
