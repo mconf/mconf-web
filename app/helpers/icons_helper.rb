@@ -115,6 +115,10 @@ module IconsHelper
     icon_constructor nil, "icon-awesome icon-ok-sign icon-mconf-confirm", options
   end
 
+  def icon_enable(options={})
+    icon_constructor nil, "icon-awesome icon-check icon-mconf-enable", options
+  end
+
   def icon_users(options={})
     icon_constructor nil, "icon-awesome icon-user icon-mconf-users", options
   end

@@ -1424,10 +1424,11 @@ en:
       webconf_options: "Webconference options"
     edit:
       change_logo: "Change picture"
-      delete_space: "Remove this space?"
+      delete_confirmation: "Are you sure? This space will be inaccessible to you and to all the other users!"
+      delete_space: "Disable this space?"
       other_options: "Other options"
       public: "Make this a public space"
-      yes_delete: "Yes, I want to remove this space"
+      yes_delete: "Yes, I want to disable this space"
     edit_recording:
       title: "Edit your recording"
     error:

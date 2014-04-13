@@ -84,7 +84,8 @@ module Abilities
       can [:read, :webconference, :recordings, :leave], Space do |space|
         space.users.include?(user)
       end
-      # Only the admin can <strike>destroy</strike> disable or update information on a space
+      # Only the admin can disable or update information on a space
+      # Only global admins can destroy spaces
       can [:edit, :update, :user_permissions, :webconference_options, :disable], Space do |space|
         space.admins.include?(user)
       end

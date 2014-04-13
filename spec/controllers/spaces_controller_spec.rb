@@ -270,11 +270,12 @@ describe SpacesController do
   end
 
   it "#update"
+
   describe "#destroy" do
     let(:space) { FactoryGirl.create(:space) }
     subject { delete :destroy, :id => space.to_param}
 
-    context "superuser can destroy spaces" do
+    context "superusers can destroy spaces" do
       before(:each) do
         login_as(FactoryGirl.create(:superuser))
         space
@@ -284,7 +285,7 @@ describe SpacesController do
       it { should redirect_to(manage_spaces_path) }
     end
 
-    context "admins from the space can't destroy" do
+    context "admins of a space can't destroy the space" do
       before(:each) do
         user = FactoryGirl.create(:user)
         login_as(user)
@@ -298,9 +299,9 @@ describe SpacesController do
 
   describe "#disable" do
     let(:space) { FactoryGirl.create(:space) }
-    subject { delete :disable, :id => space.to_param}
+    subject { delete :disable, :id => space.to_param }
 
-    context "superuser can destroy spaces" do
+    context "superusers can disable spaces" do
       before(:each) do
         request.env['HTTP_REFERER'] = manage_spaces_path
         login_as(FactoryGirl.create(:superuser))
@@ -308,10 +309,14 @@ describe SpacesController do
       end
 
       it { expect{subject}.to change(Space, :count).by(-1)}
+      it {
+        subject
+        space.reload.disabled.should be_true
+      }
       it { should redirect_to(manage_spaces_path) }
     end
 
-    context "admins from the space can disable" do
+    context "admins of the space can disable the space" do
       before(:each) do
         user = FactoryGirl.create(:user)
         space.add_member!(user, 'Admin')
@@ -319,6 +324,10 @@ describe SpacesController do
       end
 
       it { expect{subject}.to change(Space, :count).by(-1) }
+      it {
+        subject
+        space.reload.disabled.should be_true
+      }
       it { should redirect_to(spaces_path) }
     end
 

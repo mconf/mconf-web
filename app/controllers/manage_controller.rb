@@ -40,7 +40,7 @@ class ManageController < ApplicationController
     @spaces = query.paginate(:page => params[:page], :per_page => 20)
 
     if partial
-      render :partial => 'spaces_list', :layout => false
+      render :partial => 'spaces_list', :layout => false, :locals => { :spaces => @spaces }
     else
       render :layout => 'no_sidebar'
     end
