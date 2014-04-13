@@ -1,14 +1,28 @@
-a.copy-button {
-}
+@import "compass/css3";
+@import "definitions";
 
 #copy-to-clipboard-modal {
   display: none;
 
   input {
     width: 95%;
+    text-align: center;
+  }
+
+  &.success {
+    .modal-header {
+      background: $alert-success-bg;
+    }
   }
 }
 
-#success-message {
+#copy-to-clipboard-message {
   display: none;
+  color: $alert-success-font;
+}
+
+.copyable-field {
+  .icon-awesome {
+    margin-top: 0;
+  }
 }

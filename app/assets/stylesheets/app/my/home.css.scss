@@ -146,23 +146,12 @@ body.my.home, body.my.activity, body.my.recordings {
         float: left;
         cursor: text;
         width: $page-header-right-width - 130px - 100px; // - main-action-buttons - 100
-        margin-left: 5px;
         background: $site-bg-color;
         color: #444;
         &:focus {
           border-color: $second-color;
         }
       }
-
-      .icon-awesome {
-        margin: 7px 0 0 5px;
-      }
-
-      /*.clippy {
-        position: absolute;
-        top: 8px;
-        right: 6px;
-      }*/
     }
 
     ul.action-buttons {
