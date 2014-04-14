@@ -138,11 +138,16 @@ class ApplicationController < ActionController::Base
   def bigbluebutton_create_options(room)
     ability = Abilities.ability_for(current_user)
 
-    # only enable recording if the room is set to record and if the user has permissions to
-    # used to forcibly disable recording if a user has no permission but the room is set to record
     can_record = ability.can?(:record_meeting, room)
-    record = room.record && can_record
-    { :record => record }
+    if Site.current.webconf_auto_record
+      # show the record button if the user has permissions to record
+      { :record => can_record }
+    else
+      # only enable recording if the room is set to record and if the user has permissions to
+      # used to forcibly disable recording if a user has no permission but the room is set to record
+      record = room.record && can_record
+      { :record => record }
+    end
   end
 
   # loads the web conference room for the current space into `@webconf_room` and fetches information
