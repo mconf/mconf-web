@@ -651,7 +651,9 @@ pt-br:
     send_us: "Envie-nos feedback!"
     sent: "Seu e-mail de feedback foi enviado com sucesso. Obrigado"
     webconf:
-      text: "Você saiu da conferência.<br/>Você já pode fechar esta janela."
+      stop_countdown: "Clique aqui para não fechá-la e usá-la para navegar no site"
+      title: "Obrigado por participar desta conferência!"
+      warning: "Esta janela será automaticamente fechada em <span class='countdown'>%{seconds}</span> segundos"
   fill_fields: "Você deve preencher todos os campos"
   find:
     browse: Navegar

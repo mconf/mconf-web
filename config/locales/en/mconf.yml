@@ -651,7 +651,9 @@ en:
     send_us: "Send us feedback!"
     sent: "Your feedback information e-mail has been successfully sent. Thank you"
     webconf: 
-      text: "You have logged out of the conference.<br>You may now close this window."
+      stop_countdown: "Click here to stop it from closing and use it to browse this site"
+      title: "Thank you for participating in this conference!"
+      warning: "This window will be automatically closed in <span class='countdown'>%{seconds}</span> seconds"
   fill_fields: "You should fill in all the fields"
   find: 
     browse: Browse
