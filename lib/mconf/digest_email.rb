@@ -8,7 +8,7 @@ module Mconf
   class DigestEmail
     def self.send_daily_digest
       User.where(:receive_digest => User::RECEIVE_DIGEST_DAILY).each do |user|
-        now = Time.now
+        now = Time.zone.now
         from = now - 1.day
         send_digest(user, from, now)
       end
@@ -16,7 +16,7 @@ module Mconf
 
     def self.send_weekly_digest
       User.where(:receive_digest => User::RECEIVE_DIGEST_WEEKLY).each do |user|
-        now = Time.now
+        now = Time.zone.now
         from = now - 7.day
         send_digest(user, from, now)
       end
