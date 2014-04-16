@@ -138,6 +138,11 @@ GEM
       mime-types
       xml-simple
     bcrypt-ruby (3.1.1)
+    better_errors (1.1.0)
+      coderay (>= 1.0.0)
+      erubis (>= 2.6.6)
+    binding_of_caller (0.7.2)
+      debug_inspector (>= 0.0.1)
     bootstrap-datetimepicker-rails (0.0.11)
     bootstrap3-datetimepicker-rails (3.0.0)
       momentjs-rails (~> 2.5.0)
@@ -151,6 +156,7 @@ GEM
     chunky_png (1.2.6)
     ci_reporter (1.6.4)
       builder (>= 2.1.2)
+    coderay (1.1.0)
     coffee-rails (3.2.2)
       coffee-script (>= 2.2.0)
       railties (~> 3.2.0)
@@ -171,6 +177,7 @@ GEM
     css_parser (1.3.5)
       addressable
     daemons (1.1.4)
+    debug_inspector (0.0.2)
     delayed_job (3.0.5)
       activesupport (~> 3.0)
     delayed_job_active_record (0.4.4)
@@ -414,8 +421,10 @@ PLATFORMS
 DEPENDENCIES
   acts_as_tree!
   attachment_fu!
+  better_errors
   bigbluebutton-api-ruby!
   bigbluebutton_rails!
+  binding_of_caller
   bootstrap-datetimepicker-rails
   cancan (~> 1.6.0)
   carrierwave

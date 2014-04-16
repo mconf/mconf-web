@@ -110,6 +110,10 @@ group :development do
   gem 'translate-rails3', :require => 'translate', :git => 'git://github.com/mconf/translate.git'
   gem 'spork-rails'
   gem 'rails-footnotes'
+
+  # to show better error pages, with more information
+  gem 'better_errors'
+  gem 'binding_of_caller'
 end
 
 group :development, :test do
