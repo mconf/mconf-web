@@ -54,10 +54,10 @@ GIT
 
 GIT
   remote: git@github.com:mconf/mweb_events.git
-  revision: ed50e2911e66f52ee810dc3cadd0e9185487b8cf
+  revision: f7be6554e616af9c887a98caf46e5b52f5cce1d7
   specs:
     mweb_events (0.0.1)
-      bootstrap-datetimepicker-rails
+      bootstrap3-datetimepicker-rails (~> 3.0.0)
       cancan
       coffee-rails (~> 3.2.1)
       compass-rails (~> 1.0)
@@ -72,6 +72,7 @@ GIT
       jquery-ui-rails
       leaflet-rails
       less-rails
+      momentjs-rails (~> 2.5.0)
       rails (~> 3.2.0)
       redcarpet
       sass-rails (~> 3.2.3)
@@ -138,6 +139,8 @@ GEM
       xml-simple
     bcrypt-ruby (3.1.1)
     bootstrap-datetimepicker-rails (0.0.11)
+    bootstrap3-datetimepicker-rails (3.0.0)
+      momentjs-rails (~> 2.5.0)
     builder (3.0.4)
     cancan (1.6.10)
     carrierwave (0.9.0)
