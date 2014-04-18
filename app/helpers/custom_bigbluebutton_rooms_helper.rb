@@ -3,7 +3,7 @@ require 'version'
 module CustomBigbluebuttonRoomsHelper
 
   def mobile_google_play_link
-    "https://play.google.com/store/apps/details?id=org.mconf.android.mconfmobile"
+    "https://play.google.com/store/apps/details?id=air.com.mconf.mconfmobile"
   end
 
   def mobile_google_play_image
