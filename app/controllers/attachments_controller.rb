@@ -112,26 +112,13 @@ class AttachmentsController < ApplicationController
   #   POST /resources.xml
   #   POST /:container_type/:container_id/contents
   def create
-    # Fill params when POSTing raw data
-    # set_params_from_raw_post
-
-    # resource_params = params[model_class.to_s.underscore.to_sym]
-    # resource_class =
-    #   model_class.resource_options[:delegate_content_types] &&
-    #   resource_params[:media] && resource_params[:media].present? &&
-    #   ActiveRecord::Resource.class_supporting(resource_params[:media].content_type) ||
-    #   model_class
-
-    # @resource = resource_class.new(resource_params)
-    # instance_variable_set "@#{ model_class.to_s.underscore }", @resource
-
-    # @resource.author = current_user if @resource.respond_to?(:author=)
-    # @resource.container = @space #  if @resource.respond_to?(:container=)
+    @attachment.author = current_user
+    @attachment.space = @space
 
     respond_to do |format|
       if @attachment.save
         format.html {
-          flash[:success] = t(:created, :scope => @resource.class.to_s.underscore)
+          flash[:success] = t(:created, :scope => @attachment.class.to_s.underscore)
           redirect_to [ @space, Attachment.new ]
         }
       else

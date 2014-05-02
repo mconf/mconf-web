@@ -9,4 +9,18 @@
             = t('.no_attachments')
 
   - else
-    = @attachments
+    %table.table.table-striped.attachments.ui-collection{:cellpadding => "0", :cellspacing => "0"}
+      %thead
+        %tr
+          %th
+          %th
+            = t('file')
+          %th
+            = t('author')
+          %th
+            = t('updated')
+          %th
+            = t('actions')
+
+      - @attachments.each_with_index do |attachment, i|
+        = render 'single_attachment', :attachment => attachment, :i => i

@@ -258,6 +258,8 @@ pt-br:
     title: "Anexos (%{count})"
     upload_with_post: "Notificar o envio com uma mensagem no mural"
   attachments:
+    single_attachment:
+      delete: Remover
     doc_table:
       no_attachments: "Nenhum documento encontrado"
   attendeePW: "Senha de Participante"

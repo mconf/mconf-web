@@ -258,6 +258,8 @@ en:
     title: "Attachments (%{count})"
     upload_with_post: "Notify the upload with a message in the wall"
   attachments:
+    single_attachment:
+      delete: Delete
     doc_table:
       no_attachments: "No attachments found"
   attendeePW: "Attendee Password"
