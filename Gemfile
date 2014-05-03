@@ -18,7 +18,6 @@ group :assets do
   gem 'select2-rails'
 end
 
-gem 'gon', '3.0.5'
 gem 'mysql2', '~> 0.3.0'
 gem 'rake'
 gem 'jquery-rails'
@@ -58,7 +57,7 @@ gem 'resque' # for bigbluebutton_rails
 # Used on Profile to generate a vcard
 gem 'vpim' # TODO: very old, last update on 2009
 
-# for logos
+# for logos + attachments
 gem 'carrierwave'
 gem 'rmagick'
 
@@ -103,8 +102,6 @@ gem 'ci_reporter'
 gem 'rubyzip' # TODO: see rubyzip2
 gem 'dynamic_form'
 gem 'prism'
-# not the official repo, but has fixes for rails 3
-gem 'table_helper', :git => 'git://github.com/eeng/table_helper.git'
 
 group :development do
   gem 'translate-rails3', :require => 'translate', :git => 'git://github.com/mconf/translate.git'

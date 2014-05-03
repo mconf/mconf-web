@@ -1,10 +1,4 @@
 GIT
-  remote: git://github.com/eeng/table_helper.git
-  revision: 72f0ccccc19203ed658acd96a35db11865fd0404
-  specs:
-    table_helper (0.2.2)
-
-GIT
   remote: git://github.com/fnando/i18n-js.git
   revision: 20f6d119ec58bafff394caff05a0ee60d9729c06
   branch: rewrite
@@ -212,9 +206,6 @@ GEM
       activesupport (>= 2.2.0)
       crack (>= 0.1.6)
     geocoder (1.1.9)
-    gon (3.0.5)
-      actionpack (>= 2.3.0)
-      json
     haml (3.1.7)
     haml-rails (0.4)
       actionpack (>= 3.1, < 4.1)
@@ -440,7 +431,6 @@ DEPENDENCIES
   friendly_id
   galetahub-simple_captcha
   garb
-  gon (= 3.0.5)
   haml
   handlebars_assets
   hpricot
@@ -477,7 +467,6 @@ DEPENDENCIES
   sqlite3
   station!
   strong_parameters
-  table_helper!
   therubyracer
   translate-rails3!
   turn (= 0.8.2)
