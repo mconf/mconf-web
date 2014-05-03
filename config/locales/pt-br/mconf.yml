@@ -238,9 +238,11 @@ pt-br:
     delete: "Remover anexo"
     deleted: "Anexo removido com sucesso"
     error:
+      malformed: "Erro ao remover arquivos"
       not_deleted: "%{file} não removido corretamente."
       not_permission: "%{user} não pode remover o arquivo %{file}"
     file: "Arquivo:"
+    filename: "%{size} arquivos de %{name}.zip"
     home:
       one: "Arquivo na comunidade %{space}"
     info: "Informações do documento"

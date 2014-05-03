@@ -22,5 +22,5 @@
           %th
             = t('actions')
 
-      - @attachments.each_with_index do |attachment, i|
-        = render 'single_attachment', :attachment => attachment, :i => i
+      - @attachments.each do |attachment|
+        = render 'single_attachment', :attachment => attachment

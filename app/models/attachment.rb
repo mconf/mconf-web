@@ -101,16 +101,21 @@ class Attachment < ActiveRecord::Base
   end
 
   def current_data
-    File.file?(attachment.file.file) ? File.read(attachment.file.file) : nil
+    File.file?(full_filename) ? File.read(full_filename) : nil
   end
 
   def title
     attachment.file.identifier
   end
 
+  def full_filename
+    attachment.file.file
+  end
+
   def self.repository_attachments(container, params)
     # params[:order], params[:direction]
-    attachments = container.attachments.roots
+    # put order back here
+    attachments = space.attachments
 
     space = (container.is_a?(Space) ? container : container.space)
 
@@ -122,7 +127,7 @@ class Attachment < ActiveRecord::Base
     # Filter by attachment_ids
     if params[:attachment_ids].present?
       att_ids = params[:attachment_ids].split(",")
-      attachments = attachments.select{|a| att_ids.include?(a.id.to_s)}
+      attachments = attachments.where :id => att_ids
     end
 
     attachments.sort!{|x,y| x.author.name <=> y.author.name } if params[:order] == 'author' && params[:direction] == 'desc'

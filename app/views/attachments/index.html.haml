@@ -5,13 +5,7 @@
 = content_for :sidebar do
   #doc_action
 
-#doc_repository
-
-  #data.hidden
-    #attachments-url
-      = space_attachments_path(@space)
-    #auth-token
-      = form_authenticity_token
+#doc_repository{:'data-url' => space_attachments_path(@space), :'data-auth-token' => form_authenticity_token}
 
   = render 'multiple_actions'
 

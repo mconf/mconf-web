@@ -237,10 +237,12 @@ en:
     created: "Attachment added"
     delete: "Delete attachment"
     deleted: "Attachment successfully deleted"
-    error: 
+    error:
+      malformed: "Error deleting files"
       not_deleted: "%{file} not deleted correctly. "
       not_permission: "%{user} cannot delete %{file}. "
     file: "File: "
+    filename: "%{size} files from %{name}.zip"
     home: 
       one: "File in space %{space}"
     info: "Document info"

@@ -1,6 +1,6 @@
 %tr{:class => "attachment ui-collection-result #{can?(:delete, attachment) ? 'can_delete' : ''}"}
   %td.attachment-selector
-    %input.attachment_checkbox{id: "#{i}", name: i, type: "checkbox", value: i}
+    %input.attachment_checkbox{id: attachment.id, name: attachment.id, type: "checkbox", value: attachment.id}
   %td.attachment-name
     = link_to attachment.title, attachment.attachment_url
   %td.attachment-author

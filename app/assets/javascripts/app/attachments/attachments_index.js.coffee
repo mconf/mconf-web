@@ -1,7 +1,7 @@
 $(document).ready ->
 
-  attachments_path = $('#attachments-path').val()
-  form_auth_token = $('#auth-token').val()
+  attachments_path = $('#doc_repository').attr('data-url')
+  form_auth_token = $('#doc_repository').attr('data-auth-token')
 
   # Upload form
   hide_table = ->
@@ -74,7 +74,6 @@ $(document).ready ->
     if $(this).hasClass("disabled_button")
       false
     else
-      alert 'yeah work'
       if confirm("Delete selected attachments?")
         sa = selected_attachments()
         f = document.createElement("form")
