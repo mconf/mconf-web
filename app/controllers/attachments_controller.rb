@@ -89,56 +89,21 @@ class AttachmentsController < ApplicationController
     end
   end
 
-  # Update Resource
-  #
-  # PUT /resources/1
-  # PUT /resources/1.xml
   def update
-    # Fill params when POSTing raw data
-    set_params_from_raw_post
-
-    resource.attributes = params[model_class.to_s.underscore.to_sym]
-    resource.author = current_user if resource.respond_to?(:author=) && resource.changed?
-
-    respond_to do |format|
-      #FIXME: DRY
-      format.all {
-        if resource.save
-          head :ok
-        else
-          render :xml => @resource.errors.to_xml, :status => :not_acceptable
-        end
-      }
-
-      format.html {
-        if resource.save
-          flash[:success] = t(:updated, :scope => @resource.class.to_s.underscore)
-          after_update_with_success
-        else
-          after_update_with_errors
-        end
-      }
-      format.send(resource.format) {
-        if resource.save
-          head :ok
-        else
-          render :xml => @resource.errors.to_xml, :status => :not_acceptable
-        end
-      } if resource.format
-    end
+    # Leave updating out for now and maybe reimplement it with carrierwave versions
   end
 
   def destroy
     respond_to do |format|
       if @attachment.destroy
         format.html {
-          flash[:success] = t(:deleted, :scope => @attachment.class.to_s.underscore)
+          flash[:success] = t('attachment.deleted')
           redirect_to space_attachments_path(@space)
         }
       else
         format.html {
-          flash[:error] = t(:not_deleted, :scope => @attachment.class.to_s.underscore)
-          flash[:error] << resource.errors.to_xml
+          flash[:error] = t('attachment.error.not_deleted')
+          flash[:error] << @attachment.errors.to_xml
           redirect_to(request.referer || space_attachments_path(@space))
         }
       end
@@ -149,17 +114,6 @@ class AttachmentsController < ApplicationController
 
   def load_attachments
     @attachments = Attachment.repository_attachments(@space, params)
-  end
-
-  def after_update_with_success
-    redirect_to [ @space, Attachment.new ]
-  end
-
-  def after_update_with_errors
-    flash[:error] = @attachment.errors.to_xml
-    attachments
-    render :action => :index
-    flash.delete([:error])
   end
 
   def generate_and_send_zip
@@ -178,28 +132,6 @@ class AttachmentsController < ApplicationController
     send_file t.path, :type => 'application/zip', :disposition => 'attachment', :filename => t('attachment.filename', :size => @attachments.size, :name => @space.name)
 
     t.close
-  end
-
-
-  # TODO: taken from station's ActionController::StationResources
-  def resource
-    @resource ||= Attachment.find(params[:id])
-  end
-
-  # TODO: taken from station
-  def path_containers(options = {})
-    @path_containers ||= records_from_path(:acts_as => :container)
-
-    candidates = options[:ancestors] ?
-    @path_containers.map{ |c| c.container_and_ancestors }.flatten.uniq :
-      @path_containers.dup
-
-    filter_type(candidates, options[:type])
-  end
-
-  # TODO: taken from station
-  def path_container(options = {})
-    path_containers(options).first
   end
 
 end

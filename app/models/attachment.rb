@@ -6,7 +6,7 @@
 # 3 or later. See the LICENSE file.
 
 class Attachment < ActiveRecord::Base
-  attr_accessor :post_title, :post_text, :version_parent_id
+  attr_accessor :post_title, :post_text
 
   has_many :post_attachments, :dependent => :destroy
   has_many :posts, :through => :post_attachments
@@ -62,20 +62,6 @@ class Attachment < ActiveRecord::Base
     end
   end
 
-  # No more versions
-  # after_create do |attachment|
-  #   unless attachment.thumbnail?
-  #     if attachment.version_parent.present?
-  #       parent = attachment.version_parent
-  #       parent.without_timestamps do |p|
-  #         p.update_attribute(:version_child_id, attachment.id)
-  #       end
-  #     else
-  #       attachment.update_attribute(:version_family_id,attachment.id)
-  #     end
-  #   end
-  # end
-
   after_save do |att|
     if att.post_title.present?
       p = Post.new(:title => att.post_title, :text => att.post_text)
@@ -90,10 +76,6 @@ class Attachment < ActiveRecord::Base
 
   after_destroy do |attachment|
     # no more versions
-  end
-
-  def thumbnail_size
-    thumbnails.find_by_thumbnail("post").present? ? "post" : "32"
   end
 
   def get_size
@@ -112,17 +94,10 @@ class Attachment < ActiveRecord::Base
     attachment.file.file
   end
 
-  def self.repository_attachments(container, params)
+  def self.repository_attachments(space, params)
     # params[:order], params[:direction]
     # put order back here
     attachments = space.attachments
-
-    space = (container.is_a?(Space) ? container : container.space)
-
-    tags = params[:tags].present? ? params[:tags].split(",").map{|t| Tag.in(space).find(t.to_i)} : Array.new
-    tags.each do |t|
-      attachments = attachments.select{|a| a.tags.include?(t)}
-    end
 
     # Filter by attachment_ids
     if params[:attachment_ids].present?
@@ -135,7 +110,7 @@ class Attachment < ActiveRecord::Base
     attachments.sort!{|x,y| x.content_type.split("/").last <=> y.content_type.split("/").last } if params[:order] == 'type' && params[:direction] == 'desc'
     attachments.sort!{|x,y| y.content_type.split("/").last <=> x.content_type.split("/").last } if params[:order] == 'type' && params[:direction] == 'asc'
 
-    [attachments, tags]
+    attachments
   end
 
 end
