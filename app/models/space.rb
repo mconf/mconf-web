@@ -69,7 +69,6 @@ class Space < ActiveRecord::Base
   # the friendly name / slug for the space
   extend FriendlyId
   friendly_id :permalink
-  acts_as_resource :param => :permalink
 
   after_validation :check_errors_on_bigbluebutton_room
 

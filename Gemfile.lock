@@ -25,14 +25,6 @@ GIT
       strong_parameters (~> 0.2.0)
 
 GIT
-  remote: git://github.com/mconf/station.git
-  revision: 6899e8a3b4f989959c8e6dad781a3a2990d874c4
-  branch: mweb-v2
-  specs:
-    station (0.0.1)
-      rails (>= 3.0.0)
-
-GIT
   remote: git://github.com/mconf/translate.git
   revision: 66f8c7d16696b4b217cb91b4dc3c0e326340b2d3
   specs:
@@ -440,7 +432,6 @@ DEPENDENCIES
   simplecov
   spork-rails
   sqlite3
-  station!
   strong_parameters
   therubyracer
   translate-rails3!

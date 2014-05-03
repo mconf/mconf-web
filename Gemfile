@@ -44,7 +44,6 @@ gem 'public_activity'
 gem 'devise'
 gem 'devise-encryptable' # TODO: only while we have old station users
 gem 'cancan', '~> 1.6.0'
-gem 'station', :git => 'git://github.com/mconf/station.git', :branch => 'mweb-v2'
 gem 'net-ldap'
 
 # BigBlueButton integration

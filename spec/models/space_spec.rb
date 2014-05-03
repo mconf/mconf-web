@@ -85,8 +85,6 @@ describe Space do
     end
   end
 
-  it "acts_as_resource"
-
   it "#check_errors_on_bigbluebutton_room"
 
   it { should respond_to(:invitation_ids) }
