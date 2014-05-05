@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140418185712) do
+ActiveRecord::Schema.define(:version => 20140505162835) do
 
   create_table "activities", :force => true do |t|
     t.integer  "trackable_id"
@@ -34,24 +34,13 @@ ActiveRecord::Schema.define(:version => 20140418185712) do
     t.string   "type"
     t.integer  "size"
     t.string   "content_type"
-    t.string   "filename"
-    t.integer  "height"
-    t.integer  "width"
-    t.integer  "parent_id"
-    t.string   "thumbnail"
-    t.integer  "db_file_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "space_id"
     t.integer  "author_id"
     t.string   "author_type"
-    t.integer  "version_child_id"
-    t.integer  "version_family_id"
     t.string   "attachment"
   end
-
-  add_index "attachments", ["version_child_id"], :name => "index_attachments_on_version_child_id"
-  add_index "attachments", ["version_family_id"], :name => "index_attachments_on_version_family_id"
 
   create_table "bigbluebutton_meetings", :force => true do |t|
     t.integer  "server_id"
