@@ -28,5 +28,4 @@
             = first_words(strip_tags(post.text), 100)
 
   .content-block-footer.content-block-footer-fancy
-    = link_to icon_feed, space_posts_path(@space, :format => :atom)
     = link_to t('read_more'), space_posts_path(@space)

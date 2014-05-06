@@ -25,7 +25,6 @@ gem 'therubyracer', :require => 'v8'
 gem 'haml'
 gem 'will_paginate'
 gem 'chronic'
-gem 'yaml_db'
 gem 'delayed_job', '~> 3.0.0'
 gem 'delayed_job_active_record'
 gem 'daemons' # for delayed_job
@@ -94,13 +93,8 @@ gem 'icalendar'
 # TODO: Gems to review if we can remove/update
 #
 gem 'galetahub-simple_captcha', :require => 'simple_captcha'
-gem 'attachment_fu', :git => 'git://github.com/mconf/attachment_fu.git'
-gem 'hpricot'
-gem 'feed-normalizer'
 gem 'httparty'
-gem 'ci_reporter'
 gem 'rubyzip' # TODO: see rubyzip2
-gem 'dynamic_form'
 gem 'prism'
 
 group :development do
