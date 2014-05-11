@@ -938,3 +938,27 @@ strong.highlight {
 .break-word {
   word-break: break-all;
 }
+
+// tablets/mobiles
+@media (max-width: 767px) {
+  body.responsive {
+    padding-left: 0;
+    padding-right: 0;
+
+    #page-header {
+      width: 100%;
+    }
+
+    #content-wrapper {
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+  }
+}
+@media (max-width: 979px) {
+  body.responsive {
+    #page-header {
+      width: 100%;
+    }
+  }
+}

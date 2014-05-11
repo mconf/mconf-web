@@ -21,18 +21,20 @@ GIT
 
 GIT
   remote: git://github.com/mconf/bigbluebutton-api-ruby.git
-  revision: 4e1e66af7683a5ad4f992b41be05ad3739d61909
+  revision: 4824d18961a68291afb7ea4a7d200b0058545fe7
   branch: master
   specs:
-    bigbluebutton-api-ruby (1.2.0)
+    bigbluebutton-api-ruby (1.3.0)
       xml-simple (>= 1.1.1)
 
 GIT
   remote: git://github.com/mconf/bigbluebutton_rails.git
-  revision: ca5723b5fa0b82fa4ced23e7eda65337677e46b1
-  branch: branch-v1.4.0
+  revision: bbe5c6d505435ad3adeeaef88ec0056785c6dc55
+  branch: branch-v1.4.0-mobile
   specs:
     bigbluebutton_rails (1.3.0)
+      bigbluebutton-api-ruby (~> 1.3.0)
+      browser (~> 0.4.0)
       rails (>= 3.0.0)
       resque (~> 1.25.1)
       strong_parameters (~> 0.2.0)
@@ -138,9 +140,15 @@ GEM
       mime-types
       xml-simple
     bcrypt-ruby (3.1.1)
+    better_errors (1.1.0)
+      coderay (>= 1.0.0)
+      erubis (>= 2.6.6)
+    binding_of_caller (0.7.2)
+      debug_inspector (>= 0.0.1)
     bootstrap-datetimepicker-rails (0.0.11)
     bootstrap3-datetimepicker-rails (3.0.0)
       momentjs-rails (~> 2.5.0)
+    browser (0.4.1)
     builder (3.0.4)
     cancan (1.6.10)
     carrierwave (0.9.0)
@@ -151,6 +159,7 @@ GEM
     chunky_png (1.2.6)
     ci_reporter (1.6.4)
       builder (>= 2.1.2)
+    coderay (1.1.0)
     coffee-rails (3.2.2)
       coffee-script (>= 2.2.0)
       railties (~> 3.2.0)
@@ -171,6 +180,7 @@ GEM
     css_parser (1.3.5)
       addressable
     daemons (1.1.4)
+    debug_inspector (0.0.2)
     delayed_job (3.0.5)
       activesupport (~> 3.0)
     delayed_job_active_record (0.4.4)
@@ -414,9 +424,12 @@ PLATFORMS
 DEPENDENCIES
   acts_as_tree!
   attachment_fu!
+  better_errors
   bigbluebutton-api-ruby!
   bigbluebutton_rails!
+  binding_of_caller
   bootstrap-datetimepicker-rails
+  browser
   cancan (~> 1.6.0)
   carrierwave
   chronic

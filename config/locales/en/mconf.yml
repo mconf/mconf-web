@@ -466,10 +466,12 @@ en:
         title: "I don't have an account, I will join this room as a guest"
       title: "Join the room: <em>%{name}</em>"
     join_mobile:
-      direct_link: "<b>Click here</b> to join from a mobile device"
-      scan_code: "Or scan the code below:"
-      sip_number: "To join the voice conference from a SIP client, dial <b>%{number}</b>."
-      title: "Mobile access to %{room}"
+      click_to_download: "Click here to download the Android client"
+      not_launched: "If the application was not launched, make sure you have the Android mobile client installed. You can get it from:"
+      notice : "You are being redirected to the conference in your mobile device, please wait."
+      title: "Mobile access to \"%{room}\""
+      use_default_client: "If you are not on a mobile client, click here to join the session using the default desktop client."
+      try_again: "You have the application installed but it wasn't launched? Click here to try again."
     join_options:
       alert_webconf_running: "A meeting is currently in progress in this room. The options you change here will not affect the current meeting, only future meetings in this room!"
       metadata: 

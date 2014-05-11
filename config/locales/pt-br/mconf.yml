@@ -466,10 +466,12 @@ pt-br:
         title: "Eu não possuo uma conta, quero entrar como convidado"
       title: "Acessar sala: <em>%{name}</em>"
     join_mobile:
-      direct_link: "<b>Clique aqui</b> para entrar de um dispositivo móvel"
-      scan_code: "Ou utilize o código abaixo:"
-      sip_number: "Para entrar na conferência de voz usando um cliente SIP, disque para <b>%{number}</b>."
-      title: "Acesso móvel à sala %{room}"
+      click_to_download: "Clique aqui para baixar o cliente Android"
+      not_launched: "Se o programa não foi iniciado, verifique se você possui o cliente móvel instalado. Você pode baixá-lo em:"
+      notice : "Você está sendo redirecionado para aconferência, por favor aguarde."
+      title: "Acesso móvel à sala \"%{room}\""
+      use_default_client: "Se você não está em um cliente móvel, clique aqui para entrar na sessão usando o cliente desktop padrão."
+      try_again: "Você possui a aplicação instalada mas ela não foi iniciada? Clique aqui para tentar novamente."
     join_options:
       alert_webconf_running: "Uma reunião está atualmente em progresso nesta sala. As opções que você configurar aqui não afetarão a reunião atual, apenas reuniões futuras nesta sala!"
       metadata:
