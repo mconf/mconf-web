@@ -120,7 +120,8 @@ group :development, :test do
   gem 'rspec-rails', '~> 2.14'
   gem 'populator'
   gem 'faker'
-  gem 'forgery'
+  # Until timezone bug is fixed
+  gem 'forgery', :git => 'https://github.com/sevenwire/forgery.git'
   gem 'factory_girl_rails'
   gem 'sqlite3'
   gem 'webrat'
