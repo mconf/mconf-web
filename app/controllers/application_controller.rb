@@ -55,7 +55,7 @@ class ApplicationController < ActionController::Base
 
   # Where to redirect to after sign in with Devise
   def after_sign_in_path_for(resource)
-    if request.referer == login_url
+    if [login_url, new_user_session_url].include?(request.referer)
       super
     else
       stored_location_for(resource) || request.referer || my_home_path
