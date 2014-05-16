@@ -52,7 +52,7 @@ class SpacesController < ApplicationController
     if params[:view].nil? or params[:view] != "list"
       params[:view] = "thumbnails"
     end
-    spaces = Space.order('name ASC').all
+    spaces = Space.order('name ASC')
     @spaces = spaces.paginate(:page => params[:page], :per_page => 18)
 
     if user_signed_in?

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140505162835) do
+ActiveRecord::Schema.define(:version => 20140515205815) do
 
   create_table "activities", :force => true do |t|
     t.integer  "trackable_id"
@@ -353,7 +353,6 @@ ActiveRecord::Schema.define(:version => 20140505162835) do
 
   create_table "spaces", :force => true do |t|
     t.string   "name"
-    t.integer  "parent_id"
     t.boolean  "deleted"
     t.boolean  "public",      :default => false
     t.datetime "created_at"
@@ -371,23 +370,6 @@ ActiveRecord::Schema.define(:version => 20140505162835) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  create_table "taggings", :force => true do |t|
-    t.integer "tag_id",                        :null => false
-    t.integer "taggable_id",                   :null => false
-    t.string  "taggable_type", :default => "", :null => false
-  end
-
-  add_index "taggings", ["tag_id", "taggable_id", "taggable_type"], :name => "index_taggings_on_tag_id_and_taggable_id_and_taggable_type", :unique => true
-
-  create_table "tags", :force => true do |t|
-    t.string  "name",           :default => "", :null => false
-    t.integer "container_id"
-    t.string  "container_type"
-    t.integer "taggings_count", :default => 0
-  end
-
-  add_index "tags", ["name", "container_id", "container_type"], :name => "index_tags_on_name_and_container_id_and_container_type"
 
   create_table "users", :force => true do |t|
     t.string   "username"
