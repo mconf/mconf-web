@@ -1,4 +1,5 @@
 $ ->
-  $("#user_timezone").select2
-    minimumInputLength: 0
-    width: '400'
+  if isOnPage 'users', 'edit'
+    $("#user_timezone").select2
+      minimumInputLength: 0
+      width: '100%'
