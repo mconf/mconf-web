@@ -2,9 +2,9 @@
 
 <div id="webconference_join_mobile_dialog">
   <div class="join-options">
+    <br/>
     <a href="<%= @join_url %>"><%= t('webconference.join_mobile.direct_link').html_safe %></a><br><br/>
-    <span><%= t('webconference.join_mobile.scan_code') %></span><br/>
-    <img src="<%= qrcode_url(@qrcode_url) %>" class="qrcode"/><br/><br/>
+    <br/>
     <span><%= t('webconference.join_mobile.sip_number', :number => @room.voice_bridge).html_safe %></span><br/>
   </div>
 

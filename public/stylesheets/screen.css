@@ -2890,9 +2890,9 @@ h3.dialog_title {
   float: right;
   width: 150px;
   background: #f6f6f6;
-  padding: 60px 10px 0 10px;
+  padding: 20px 10px 0 10px;
   border-left: 1px solid #ddd;
-  height: 240px;
+  height: 140px;
 }
 
 #webconference_join_mobile_dialog .download-mobile span {
