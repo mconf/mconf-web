@@ -612,15 +612,13 @@ ul#navbar-left-links {
       margin-top: 0;
 
       // the text that shows the visibility of spaces
-      .space-visibility {
-        @include space-visibility;
-        font-weight: normal;
+      .resource-visibility {
+        color: $dark-gray;
       }
 
       // the text that shows when a user is a member of the space
       .user-is-member {
-        @include space-visibility;
-        font-weight: normal;
+        color: $dark-gray;
       }
     }
   }
@@ -937,4 +935,22 @@ strong.highlight {
 // for elements that might contain long words that can break the layout
 .break-word {
   word-break: break-all;
+}
+
+// visibility of a resource: private space, public space, private event, etc.
+.resource-visibility {
+  display: block;
+
+  .icon-awesome {
+    float: none;
+    margin-right: 2px;
+  }
+
+  &.small {
+    font-size: $font-small;
+
+    .icon-awesome {
+      font-size: $font-small;
+    }
+  }
 }

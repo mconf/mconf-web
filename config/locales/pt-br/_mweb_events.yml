@@ -46,9 +46,10 @@ pt-br:
         private: "Evento privado"
         public: "Evento público"
       unified_event:
-        closed: Inscrições encerradas
+        closed: inscrições encerradas
+        private: "Evento privado"
+        public: "Evento público"
         starts_at: "Inicia em"
-        where: "Localização"
     participants:
       index:
         disable: Remover do evento

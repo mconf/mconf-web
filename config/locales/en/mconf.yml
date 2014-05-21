@@ -1500,8 +1500,8 @@ en:
     thumbnail_view:
       no_spaces: "There are no spaces created yet!"
     unified_space:
-      private: "private space"
-      public: "public space"
+      private: "Private space"
+      public: "Public space"
       user_is_member: "You are a member of this space"
       with_members: "with %{count} members"
     users: "Users in this space"

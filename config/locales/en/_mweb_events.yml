@@ -46,9 +46,10 @@ en:
         private: "Private event"
         public: "Public event"
       unified_event:
-        closed: Registration closed
+        closed: registration closed
+        private: "Private event"
+        public: "Public event"
         starts_at: "Starts at"
-        where: "Where"
     participants:
       index:
         disable: Remove from event

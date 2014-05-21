@@ -23,13 +23,14 @@
             %span{:title => space.name}= sanitize(space.name)
         .space-description
           - if space.public
-            %span.visibility.public
-              = icon_space_public()
+            .resource-visibility.small.public
+              = icon_space_public
               = t(".public")
+              = t('.with_members', :count => space.users.count)
           - else
-            %span.visibility.private
-              = icon_space_private()
+            .resource-visibility.small.private
+              = icon_space_private
               = t(".private")
-          %span= t('.with_members', :count => space.users.count)
+              = t('.with_members', :count => space.users.count)
       .thread-text
         = sanitize(auto_link(space.description))

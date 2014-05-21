@@ -4,15 +4,14 @@
   .current-page-title
     .main-title= @event.name
     .sub-title
-      .event-visibility
-        - if @event.public
-          %span.visibility.public
-            = icon_space_public()
-            = t(".public")
-        - else
-          %span.visibility.private
-            = icon_space_private()
-            = t(".private")
+      - if @event.public
+        .resource-visibility.public
+          = icon_space_public
+          = t(".public")
+      - else
+        .resource-visibility.private
+          = icon_space_private
+          = t(".private")
       - if @event.owner
         - if @event.owner.instance_of?(Space)
           = icon_space

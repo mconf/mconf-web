@@ -3,6 +3,13 @@
 
 body.mweb_events-events.show {
 
+  #page-header {
+    .resource-visibility {
+      // the private icon is smaller, so we add a margin for it to look bigger
+      &.private .icon-awesome { margin-left: 3px; }
+    }
+  }
+
   .event-container {
     padding: 0;
     margin: 0;

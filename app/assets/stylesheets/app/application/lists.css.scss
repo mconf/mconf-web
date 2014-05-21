@@ -51,10 +51,6 @@ ul.list-thumbnails {
       overflow: hidden;
       float: left;
 
-      .visibility {
-        @include space-visibility; // in _definitions // TODO
-      }
-
       .list-title {
         display: block;
         white-space: nowrap;

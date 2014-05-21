@@ -1500,8 +1500,8 @@ pt-br:
     thumbnail_view:
       no_spaces: "Nenhuma comunidade foi criada até o momento!"
     unified_space: 
-      private: "comunidade privada"
-      public: "comunidade pública"
+      private: "Comunidade privada"
+      public: "Comunidade pública"
       user_is_member: "Você é membro desta comunidade"
       with_members: "com %{count} membros"
     users: "Usuários nesta comunidade"
