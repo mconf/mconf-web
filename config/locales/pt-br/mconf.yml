@@ -161,11 +161,12 @@ pt-br:
         registration_enabled: "Permitir que usuários criem novas contas"
         require_registration_approval: "Requerer que administradores aceitem novas contas"
         signature: "Assinatura"
-        shib_enabled: "Habilitar Shibboleth"
-        shib_email_field: "Campo Shibboleth para email"
-        shib_login_field: "Campo Shibboleth para login"
-        shib_name_field: "Campo Shibboleth para nome"
-        shib_principal_name_field: "Campo Shibboleth para principal name (ID único)"
+        shib_enabled: "Shibboleth: Habilitar"
+        shib_email_field: "Shibboleth: Campo para email"
+        shib_env_variables: "Shibboleth: Variáveis de ambiente"
+        shib_login_field: "Shibboleth: Campo para login"
+        shib_name_field: "Shibboleth: Campo para nome"
+        shib_principal_name_field: "Shibboleth: Campo para principal name (ID único)"
         smtp_auth_type: "Tipo de autenticação STMP"
         smtp_auto_tls: "Auto STARTTLS"
         smtp_domain: "Domínio STMP"
@@ -1260,15 +1261,16 @@ pt-br:
   shibboleth:
     associate:
       existent_account:
-        email_or_login: "E-mail ou nome de usuário"
-        link_to_this_account: "Associar a esta conta"
-        password: "Senha"
+        link_to_this_account: "Entrar e associar contas"
         title: "Se você já possui uma conta neste site, você pode associar ela à sua conta federada. Quando você usar a federação para entrar neste site, você estará acessando a conta deste website que você associar aqui. Você poderá entrar no site tanto com a federação quanto diretamente com sua conta deste site."
       new_account:
         create_new_account: "Criar uma nova conta"
         title: "Se você ainda não tem uma conta neste site, clique no botão abaixo para automaticamente criar uma nova usando as informações fornecidas pela federação."
       page_title: "Login via federação"
       title: "Sua conta na federação ainda não está associada a nenhuma conta neste site. Selecione uma das opções abaixo:"
+      user:
+        login: "E-mail ou nome de usuário"
+        password: "Senha"
     attribute_error:
       informed:
         no_attrs: "Nenhum atributo foi informado"
