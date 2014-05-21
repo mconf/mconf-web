@@ -13,9 +13,10 @@ class JoinRequestsController < ApplicationController
   end
 
   load_resource :space, :find_by => :permalink
-  load_and_authorize_resource :through => :space
+  load_and_authorize_resource :join_request, :through => :space, :except => [:index, :invite]
+  load_resource :join_request, :through => :space, :only => [:index, :invite] # these two are authenticated via space parent
 
-  before_filter :webconf_room!, :only => [:index, :invite]
+  before_filter :webconf_room!, :only => [:index, :show, :invite]
 
   respond_to :html
 
@@ -35,6 +36,10 @@ class JoinRequestsController < ApplicationController
   end
 
   def index
+    authorize! :index_join_requests, @space
+  end
+
+  def show
   end
 
   def new
@@ -49,6 +54,7 @@ class JoinRequestsController < ApplicationController
 
   def invite
     @join_request = JoinRequest.new
+    authorize! :invite, @space
   end
 
   def create

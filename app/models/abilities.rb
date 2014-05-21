@@ -91,34 +91,26 @@ module Abilities
       end
 
       # Join Requests
-      # users can create unless they are already in the target space
+      # normal users can request membership
+      # admins in a space can invite users
       # TODO: make this for events also
-      can :create, JoinRequest do |jr|
-        group = jr.group
-        if !group.nil? and group.is_a?(Space)
-          !user.nil?
-        else
-          false
-        end
-      end
+      can [:new, :create], JoinRequest
+
       # users that created a join request can do a few things over it
       # TODO: make this for events also
       can [:show, :destroy], JoinRequest do |jr|
-        group = jr.group
-        if !group.nil? and group.is_a?(Space)
-          !jr.introducer.nil? && jr.introducer == user
-        else
-          false
-        end
+        jr.group.try(:is_a?, Space) && jr.try(:candidate) == user
       end
+
+      # space admins can list requests and invite new members
+      can [:index_join_requests, :invite], Space do |s|
+        s.admins.include?(user)
+      end
+
       # space admins can work with all join requests in the space
-      can [:index, :show, :update, :destroy, :invite], JoinRequest do |jr|
+      can [:show, :create, :update, :destroy], JoinRequest do |jr|
         group = jr.group
-        if !group.nil? and group.is_a?(Space)
-          group.admins.include?(user)
-        else
-          false
-        end
+        group.try(:is_a?, Space) && group.admins.include?(user)
       end
 
       # Posts
