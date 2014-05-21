@@ -457,7 +457,36 @@ describe CustomBigbluebuttonRoomsController do
         let(:room) { space.bigbluebutton_room }
 
         context "he is a member of" do
-          before { space.add_member!(user) }
+          before { space.add_member!(user, "User") }
+          it { should_not allow_access_to(:show, hash) }
+          it { should_not allow_access_to(:edit, hash) }
+          it { should_not allow_access_to(:update, hash).via(:put) }
+          it { should_not allow_access_to(:destroy, hash).via(:delete) }
+          it { should allow_access_to(:join, hash) }
+          it { should allow_access_to(:auth, hash).via(:post) }
+          it { should allow_access_to(:invite, hash) }
+          it { should allow_access_to(:invite_userid, hash).redirecting_to(invite_bigbluebutton_room_path(room)) }
+          it { should_not allow_access_to(:end, hash) }
+          it { should allow_access_to(:join_mobile, hash) }
+          it { should allow_access_to(:running, hash) }
+          it { should allow_access_to(:join_options, hash) }
+          it { should allow_access_to(:fetch_recordings, hash) }
+          it { should allow_access_to(:invitation, hash) }
+          it { should allow_access_to(:send_invitation, hash).via(:post) }
+
+          context "and has opened the room" do
+            before :each do
+              BigbluebuttonRoom.any_instance.stub(:fetch_is_running?).and_return()
+              BigbluebuttonRoom.any_instance.stub(:is_running?).and_return(true)
+              BigbluebuttonRoom.any_instance.stub(:fetch_meeting_info).and_return()
+              BigbluebuttonRoom.any_instance.stub(:user_creator).and_return(:id => user.id, :name => user._full_name)
+            end
+            it { should allow_access_to(:end, hash) }
+          end
+        end
+
+        context "he is a admin of" do
+          before { space.add_member!(user, "Admin") }
           it { should_not allow_access_to(:show, hash) }
           it { should_not allow_access_to(:edit, hash) }
           it { should_not allow_access_to(:update, hash).via(:put) }
@@ -499,7 +528,36 @@ describe CustomBigbluebuttonRoomsController do
         let(:room) { space.bigbluebutton_room }
 
         context "he is a member of" do
-          before { space.add_member!(user) }
+          before { space.add_member!(user, "User") }
+          it { should_not allow_access_to(:show, hash) }
+          it { should_not allow_access_to(:edit, hash) }
+          it { should_not allow_access_to(:update, hash).via(:put) }
+          it { should_not allow_access_to(:destroy, hash).via(:delete) }
+          it { should allow_access_to(:join, hash) }
+          it { should allow_access_to(:auth, hash).via(:post) }
+          it { should allow_access_to(:invite, hash) }
+          it { should allow_access_to(:invite_userid, hash).redirecting_to(invite_bigbluebutton_room_path(room)) }
+          it { should_not allow_access_to(:end, hash) }
+          it { should allow_access_to(:join_mobile, hash) }
+          it { should allow_access_to(:running, hash) }
+          it { should allow_access_to(:join_options, hash) }
+          it { should allow_access_to(:fetch_recordings, hash) }
+          it { should allow_access_to(:invitation, hash) }
+          it { should allow_access_to(:send_invitation, hash).via(:post) }
+
+          context "and has opened the room" do
+            before :each do
+              BigbluebuttonRoom.any_instance.stub(:fetch_is_running?).and_return()
+              BigbluebuttonRoom.any_instance.stub(:is_running?).and_return(true)
+              BigbluebuttonRoom.any_instance.stub(:fetch_meeting_info).and_return()
+              BigbluebuttonRoom.any_instance.stub(:user_creator).and_return(:id => user.id, :name => user._full_name)
+            end
+            it { should allow_access_to(:end, hash) }
+          end
+        end
+
+        context "he is a admin of" do
+          before { space.add_member!(user, "Admin") }
           it { should_not allow_access_to(:show, hash) }
           it { should_not allow_access_to(:edit, hash) }
           it { should_not allow_access_to(:update, hash).via(:put) }

@@ -104,8 +104,12 @@ class ApplicationController < ActionController::Base
       elsif room.owner_type == "Space"
         space = Space.find(room.owner.id)
         if space.users.include?(current_user)
-          # space members are moderators
-          :moderator
+          if space.admins.include?(current_user) or (not room.is_running?) or (room.user_creator[:id] == current_user.id)
+            # in spaces just the creator of the room and the admins are moderators
+            :moderator
+          else
+            :attendee
+          end
         else
           if room.private
             :password
@@ -162,6 +166,7 @@ class ApplicationController < ActionController::Base
     else
       raise(ActiveRecord::RecordNotFound)
     end
+
     @webconf_room
   end
 
