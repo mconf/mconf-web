@@ -18,17 +18,17 @@
           - if event.public
             %span.visibility.public
               = icon_space_public()
+              = t("mweb_events.events.index.public")
               - if event.past?
+                = "|"
                 = t('.closed')
-              - else
-                = t("mweb_events.events.index.public")
           - else
             %span.visibility.private
               = icon_space_private()
+              = t("mweb_events.events.index.private")
               - if event.past?
+                = "|"
                 = t('.closed')
-              - else
-                = t("mweb_events.events.index.private")
 
         .event-description-date
           = t('.starts_at') + ':'
