@@ -103,13 +103,18 @@ class ApplicationController < ActionController::Base
       # space rooms
       elsif room.owner_type == "Space"
         space = Space.find(room.owner.id)
-        if space.users.include?(current_user)
-          if space.admins.include?(current_user) or (not room.is_running?) or (room.user_creator[:id] == current_user.id)
-            # in spaces just the creator of the room and the admins are moderators
+        if space.admins.include?(current_user)
+          :moderator
+
+        elsif space.users.include?(current_user)
+
+          # will be moderator if is creating the room or if created it already
+          if !room.is_running? || room.user_created_meeting?(current_user)
             :moderator
           else
             :attendee
           end
+
         else
           if room.private
             :password

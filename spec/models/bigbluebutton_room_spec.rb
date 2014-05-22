@@ -14,6 +14,12 @@ describe BigbluebuttonRoom do
     }
 
     it "overrides #join_url with guest support"
+
+    describe "#user_created_meeting?" do
+      it "false if there's no current meeting running in the room"
+      it "false if it was another user that created the current meeting running in the room"
+      it "true if the current meeting running in the room was created by the user informed"
+    end
   end
 
   # This is a model from BigbluebuttonRails, but we have permissions set in cancan for it,

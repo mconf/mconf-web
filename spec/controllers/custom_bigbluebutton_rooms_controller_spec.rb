@@ -35,6 +35,8 @@ describe CustomBigbluebuttonRoomsController do
         end
       end
     end
+
+    it "loads and authorizes the room into @room"
   end
 
   describe "#invite" do
@@ -70,6 +72,8 @@ describe CustomBigbluebuttonRoomsController do
         end
       end
     end
+
+    it "loads and authorizes the room into @room"
   end
 
   describe "#auth" do
@@ -129,6 +133,8 @@ describe CustomBigbluebuttonRoomsController do
         it { should set_the_flash.to(I18n.t('bigbluebutton_rails.rooms.errors.auth.cannot_create')) }
       end
     end
+
+    it "loads and authorizes the room into @room"
   end
 
   describe "#index" do
@@ -138,6 +144,8 @@ describe CustomBigbluebuttonRoomsController do
       it { should render_template(:index) }
       it { should render_with_layout("application") }
     end
+
+    it "loads the rooms into @rooms"
   end
 
   describe "#show" do
@@ -148,6 +156,8 @@ describe CustomBigbluebuttonRoomsController do
       it { should render_template(:show) }
       it { should render_with_layout("application") }
     end
+
+    it "loads and authorizes the room into @room"
   end
 
   describe "#new" do
@@ -157,6 +167,8 @@ describe CustomBigbluebuttonRoomsController do
       it { should render_template(:new) }
       it { should render_with_layout("application") }
     end
+
+    it "loads and authorizes the room into @room"
   end
 
   describe "#edit" do
@@ -167,6 +179,8 @@ describe CustomBigbluebuttonRoomsController do
       it { should render_template(:edit) }
       it { should render_with_layout("application") }
     end
+
+    it "loads and authorizes the room into @room"
   end
 
   describe "#join_mobile" do
@@ -184,6 +198,8 @@ describe CustomBigbluebuttonRoomsController do
       it { should render_template(:join_mobile) }
       it { should_not render_with_layout() }
     end
+
+    it "loads and authorizes the room into @room"
   end
 
   describe "#create" do
@@ -198,6 +214,8 @@ describe CustomBigbluebuttonRoomsController do
       it { should render_template(:new) }
       it { should render_with_layout("application") }
     end
+
+    it "loads and authorizes the room into @room"
   end
 
   describe "#update" do
@@ -263,6 +281,8 @@ describe CustomBigbluebuttonRoomsController do
         }
       end
     end
+
+    it "loads and authorizes the room into @room"
   end
 
   describe "#running" do
@@ -274,6 +294,8 @@ describe CustomBigbluebuttonRoomsController do
       it { should respond_with(:success) }
       it { should_not render_with_layout() }
     end
+
+    it "loads and authorizes the room into @room"
   end
 
   # TODO: this view is not in the application yet, only in the gem
@@ -330,6 +352,18 @@ describe CustomBigbluebuttonRoomsController do
         end
       end
     end
+
+    it "loads and authorizes the room into @room"
+  end
+
+  describe "#join" do
+    it "fetches information about the room before calling #join"
+    it "loads and authorizes the room into @room"
+  end
+
+  describe "#end" do
+    it "fetches information about the room before calling #end"
+    it "loads and authorizes the room into @room"
   end
 
   describe "abilities", :abilities => true do
@@ -474,12 +508,11 @@ describe CustomBigbluebuttonRoomsController do
           it { should allow_access_to(:invitation, hash) }
           it { should allow_access_to(:send_invitation, hash).via(:post) }
 
-          context "and has opened the room" do
+          context "and he opened the room" do
             before :each do
-              BigbluebuttonRoom.any_instance.stub(:fetch_is_running?).and_return()
-              BigbluebuttonRoom.any_instance.stub(:is_running?).and_return(true)
-              BigbluebuttonRoom.any_instance.stub(:fetch_meeting_info).and_return()
-              BigbluebuttonRoom.any_instance.stub(:user_creator).and_return(:id => user.id, :name => user._full_name)
+              meeting = FactoryGirl.create(:bigbluebutton_meeting, :room => room, :running => true,
+                                           :creator_id => user.id, :creator_name => user.full_name)
+              BigbluebuttonRoom.any_instance.stub(:start_time).and_return(meeting.start_time.utc)
             end
             it { should allow_access_to(:end, hash) }
           end
@@ -547,10 +580,9 @@ describe CustomBigbluebuttonRoomsController do
 
           context "and has opened the room" do
             before :each do
-              BigbluebuttonRoom.any_instance.stub(:fetch_is_running?).and_return()
-              BigbluebuttonRoom.any_instance.stub(:is_running?).and_return(true)
-              BigbluebuttonRoom.any_instance.stub(:fetch_meeting_info).and_return()
-              BigbluebuttonRoom.any_instance.stub(:user_creator).and_return(:id => user.id, :name => user._full_name)
+              meeting = FactoryGirl.create(:bigbluebutton_meeting, :room => room, :running => true,
+                                           :creator_id => user.id, :creator_name => user.full_name)
+              BigbluebuttonRoom.any_instance.stub(:start_time).and_return(meeting.start_time.utc)
             end
             it { should allow_access_to(:end, hash) }
           end

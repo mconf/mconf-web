@@ -10,9 +10,13 @@ class CustomBigbluebuttonRoomsController < Bigbluebutton::RoomsController
   before_filter :authenticate_user!,
     :except => [:invite, :invite_userid, :auth, :running]
 
-  before_filter :load_resource, :only => [ :join ]
-
-  load_and_authorize_resource :find_by => :param, :class => "BigbluebuttonRoom", :except => :create
+  # do it in 3 steps because we need more info about the room when joining/ending to decide
+  # if the user has permissions and which role he should have in the meeting
+  load_resource :find_by => :param, :class => "BigbluebuttonRoom", :instance_name => "room",
+    :except => :create
+  before_filter :fetch_room_info, :only => [:join, :end]
+  authorize_resource :class => "BigbluebuttonRoom", :instance_name => "room",
+    :except => :create
 
   # TODO: cancan is not ready yet for strong_parameters, so if we call 'load_resource' on :create it
   # will try to create the resource and will fail with ActiveModel::ForbiddenAttributes
@@ -20,7 +24,8 @@ class CustomBigbluebuttonRoomsController < Bigbluebutton::RoomsController
   # 'load_and_authorize_resource' call above) can be removed.
   # See more at: https://github.com/ryanb/cancan/issues/835
   before_filter :load_room_for_create, :only => :create
-  authorize_resource :find_by => :param, :class => "BigbluebuttonRoom", :only => :create
+  authorize_resource :class => "BigbluebuttonRoom", :instance_name => "room",
+    :only => :create
   def load_room_for_create
     @room = BigbluebuttonRoom.new(room_params)
   end
@@ -135,13 +140,13 @@ class CustomBigbluebuttonRoomsController < Bigbluebutton::RoomsController
     end
   end
 
-  def load_resource
+  protected
+
+  # Fetches information of the target room from the web conference server.
+  def fetch_room_info
     @room.fetch_is_running?
     @room.fetch_meeting_info if @room.is_running?
   end
-
-  protected
-
 
   # Converts the date submitted from a datetimepicker to a DateTime.
   # These dates were configured by the user in the view assuming his time zone, so we need to set

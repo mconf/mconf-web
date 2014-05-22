@@ -29,7 +29,7 @@ GIT
 
 GIT
   remote: git://github.com/mconf/bigbluebutton_rails.git
-  revision: 2f853a0ddeba0064209d709c74b1104eb7fd0e7d
+  revision: 3bcff964062f9d24945185b698498bfc2b31e5a7
   branch: master
   specs:
     bigbluebutton_rails (1.3.0)
