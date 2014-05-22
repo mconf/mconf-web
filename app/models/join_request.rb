@@ -7,15 +7,14 @@
 class JoinRequest < ActiveRecord::Base
 
   # the user that is being invited
-  belongs_to :candidate, :class_name => "User", :foreign_key => 'candidate_id'
-
+  belongs_to :candidate, :class_name => "User"
   # the person that is inviting
-  belongs_to :introducer, :class_name => "User", :foreign_key => 'introducer_id'
+  belongs_to :introducer, :class_name => "User"
 
   # the container (event, space)
   belongs_to :group, :polymorphic => true
 
-  has_one :role
+  belongs_to :role
 
   validates :email, :presence => true, :email => true
 

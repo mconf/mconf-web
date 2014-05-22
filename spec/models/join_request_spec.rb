@@ -12,6 +12,7 @@ describe JoinRequest do
 
   it { should respond_to(:"processed=") }
   it "sets processed_at when the model is saved with processed==true"
+  it "adds member to group when saved with accepted==true"
   it "validates uniqueness of candidate_id"
   it "validates uniqueness of email"
 
@@ -56,13 +57,13 @@ describe JoinRequest do
     end
 
     context "if group is not a Space" do
-      let(:target) { FactoryGirl.create(:event_join_request) }
+      let(:target) { FactoryGirl.create(:join_request, :group => FactoryGirl.create(:event)) }
       it { target.space?.should be_false }
     end
   end
 
   describe "abilities", :abilities => true do
-    set_custom_ability_actions([:invite])
+    set_custom_ability_actions([:approve, :accept])
 
     subject { ability }
     let(:ability) { Abilities.ability_for(user) }
@@ -92,10 +93,21 @@ describe JoinRequest do
           it { should_not be_able_to_do_anything_to(target).except(:create) }
         end
 
+        context "he is not a member and is being invited to the space" do
+          before do 
+            target.candidate = user
+            target.request_type = 'invite'
+          end
+
+          it { should_not be_able_to_do_anything_to(target).except([:accept, :show, :create, :update, :destroy]) }
+        end
+
         context "he is a member of" do
           context "with the role 'Admin'" do
             before { target.group.add_member!(user, "Admin") }
-            it { should_not be_able_to_do_anything_to(target).except([:index, :show, :update, :destroy, :invite, :create]) }
+            it { should be_able_to(:index_join_requests, target.group) }
+            it { should be_able_to(:invite, target.group) }
+            it { should_not be_able_to_do_anything_to(target).except([:approve, :show, :update, :destroy, :create]) }
           end
 
           context "with the role 'User'" do
@@ -112,10 +124,30 @@ describe JoinRequest do
           it { should_not be_able_to_do_anything_to(target).except(:create) }
         end
 
+        context "he is not a member and is being invited to the space" do
+          before do 
+            target.candidate = user
+            target.request_type = 'invite'
+          end
+
+          it { should_not be_able_to_do_anything_to(target).except([:accept, :show, :create, :update, :destroy]) }
+        end
+
+        context "he is not a member and is requesting membership" do
+          before do 
+            target.candidate = user
+            target.request_type = 'request'
+          end
+
+          it { should_not be_able_to_do_anything_to(target).except([:show, :create, :destroy]) }
+        end
+
         context "he is a member of" do
           context "with the role 'Admin'" do
             before { target.group.add_member!(user, "Admin") }
-            it { should_not be_able_to_do_anything_to(target).except([:index, :show, :update, :destroy, :invite, :create]) }
+            it { should be_able_to(:index_join_requests, target.group) }
+            it { should be_able_to(:invite, target.group) }
+            it { should_not be_able_to_do_anything_to(target).except([:approve, :show, :update, :destroy, :create]) }
           end
 
           context "with the role 'User'" do

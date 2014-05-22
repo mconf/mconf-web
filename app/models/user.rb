@@ -81,6 +81,7 @@ class User < ActiveRecord::Base
                           :association_foreign_key => "subject_id",
                           :conditions => { :permissions => {:subject_type => 'Space'} }
 
+  has_many :join_requests, :foreign_key => :candidate_id
   has_many :permissions, :dependent => :destroy
   has_one :profile, :dependent => :destroy
   has_many :posts, :as => :author, :dependent => :destroy
