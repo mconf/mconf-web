@@ -792,6 +792,9 @@ pt-br:
       accepted: "Pedido de adesão aceito"
       updated: "Pedido de adesão atualizado"
       discarded: "Pedido de adesão descartado"
+    show:
+      title: Convite para a comunidade %{space}
+      already_accepted: Este convite já foi aceito.
   keywords: "Palavras-chave (*)"
   language: Idioma
   last_week: "Semana passada"

@@ -129,8 +129,15 @@ class JoinRequestsController < ApplicationController
   end
 
   def update
-    @join_request.attributes = params[:join_request].except(:role)
-    @join_request.introducer = current_user if @join_request.recently_processed?
+
+    # Admin doing the approval of a request
+    if @join_request.request_type == 'request' && authorize!(:approve, @join_request)
+      @join_request.introducer = current_user if @join_request.recently_processed?
+      @join_request.attributes = params[:join_request]
+    # User accepting the invitation
+    elsif @join_request.request_type == 'invite' && authorize!(:accept, @join_request)
+      @join_request.attributes = params[:join_request].except(:role)
+    end
 
     respond_to do |format|
       if @join_request.save
@@ -141,12 +148,6 @@ class JoinRequestsController < ApplicationController
                             t('join_requests.update.updated'))
           redirect_to request.referer
         }
-        if @join_request.accepted?
-          # TODO: this could be moved to the model
-          role = Role.find(params[:join_request][:role_id])
-          @space.add_member!(@join_request.candidate, role.name)
-          @space.save
-        end
       else
         format.html {
           flash[:error] = @join_request.errors.to_xml

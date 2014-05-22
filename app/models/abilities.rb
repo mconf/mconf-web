@@ -98,7 +98,7 @@ module Abilities
 
       # users that created a join request can do a few things over it
       # TODO: make this for events also
-      can [:show, :destroy], JoinRequest do |jr|
+      can [:show, :destroy, :accept, :update], JoinRequest do |jr|
         jr.group.try(:is_a?, Space) && jr.try(:candidate) == user
       end
 
@@ -108,7 +108,7 @@ module Abilities
       end
 
       # space admins can work with all join requests in the space
-      can [:show, :create, :update, :destroy], JoinRequest do |jr|
+      can [:show, :create, :update, :approve, :destroy], JoinRequest do |jr|
         group = jr.group
         group.try(:is_a?, Space) && group.admins.include?(user)
       end

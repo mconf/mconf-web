@@ -792,6 +792,9 @@ en:
       accepted: "Join request accepted"
       updated: "Join request status updated"
       discarded: "Join request discarded"
+    show:
+      title: Invitation to %{space}
+      already_accepted: This invitation has already been accepted.
   keywords: "Keywords (*)"
   language: Language
   last_week: "Last week"

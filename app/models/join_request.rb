@@ -24,6 +24,7 @@ class JoinRequest < ActiveRecord::Base
 
   attr_writer :processed
   before_save :set_processed_at
+  before_save :add_candidate_to_group
 
   validates_uniqueness_of :candidate_id,
                           :scope => [ :group_id, :group_type, :processed_at ],
@@ -56,6 +57,10 @@ class JoinRequest < ActiveRecord::Base
 
   def set_processed_at
     @processed && self.processed_at = Time.now.utc
+  end
+
+  def add_candidate_to_group
+    group.add_member!(candidate, role) if accepted?
   end
 
   def candidate_is_not_introducer
