@@ -5,7 +5,7 @@
       <h4><%= t('private_message.title', :count => @inbox.size) %></h4>
       <% @inbox.take(10).each do |inbox| %>
         <p>
-          <%= t('email.digest.inbox', :sender_name => inbox.sender.name).html_safe %> <%= link_to sanitize(inbox.title), user_message_url(inbox.receiver, inbox) %>
+          <%= t('email.digest.inbox', :sender_name => inbox.sender.name).html_safe %> <%= link_to sanitize(inbox.title), message_url(inbox.receiver, inbox) %>
           <%= t('updated_time_ago', :time => sanitize(time_ago_in_words(inbox.updated_at))) %>
         </p>
       <% end %>

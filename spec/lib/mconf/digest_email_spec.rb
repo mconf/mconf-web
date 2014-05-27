@@ -206,13 +206,11 @@ describe Mconf::DigestEmail do
                                    :end_date => date_start + 1.hour, :author => user) ]
         @inbox = [ FactoryGirl.create(:private_message, :receiver => user, :sender => FactoryGirl.create(:user)) ]
 
-        subject.should_receive(:get_activity).with(user, date_start, date_end).
+        subject.should_receive(:get_activity).exactly(2).times.with(user, date_start, date_end).
           and_return([ @posts, @news, @attachments, @events, @inbox ])
 
-        delayer = mock()
-        Notifier.stub(:delay).and_return(delayer)
-        delayer.should_receive(:digest_email).
-          with(user, @posts, @news, @attachments, @events, @inbox)
+        #expect{Notifier}.to change { Resque.info[:pending] }.by(1)
+        #expect(Resque).to receive(:digest_email)
       end
       it {
         subject.send_digest(user, date_start, date_end)

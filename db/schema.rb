@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140224191628) do
+ActiveRecord::Schema.define(:version => 20140527173230) do
 
   create_table "activities", :force => true do |t|
     t.integer  "trackable_id"
@@ -153,22 +153,6 @@ ActiveRecord::Schema.define(:version => 20140224191628) do
   create_table "db_files", :force => true do |t|
     t.binary "data"
   end
-
-  create_table "delayed_jobs", :force => true do |t|
-    t.integer  "priority",   :default => 0
-    t.integer  "attempts",   :default => 0
-    t.text     "handler"
-    t.text     "last_error"
-    t.datetime "run_at"
-    t.datetime "locked_at"
-    t.datetime "failed_at"
-    t.string   "locked_by"
-    t.datetime "created_at",                :null => false
-    t.datetime "updated_at",                :null => false
-    t.string   "queue"
-  end
-
-  add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
 
   create_table "events", :force => true do |t|
     t.string   "name"

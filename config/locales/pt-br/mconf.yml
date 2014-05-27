@@ -1743,16 +1743,6 @@ pt-br:
   version:
     new: "Nova versão"
     one: Versão
-  web_conference_mailer:
-    invitation_mail:
-      event_name: "Conferência com %{name}"
-      message:
-        end: "Fim"
-        header: "Você foi convidado por <b>%{sender}</b> (%{email_sender}) para uma conferência:"
-        join: "Acesso"
-        password: "Chave de acesso"
-        start: "Início"
-      subject: "Você foi convidado para uma conferência por %{name}"
   webconference:
     invite_webconference: "Convidar pessoas para a conferência"
     join: Join

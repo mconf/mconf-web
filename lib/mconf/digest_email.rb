@@ -27,7 +27,7 @@ module Mconf
       posts, news, attachments, events, inbox = get_activity(to, date_start, date_end)
 
       unless (posts.empty? && news.empty? && attachments.empty? && events.empty? && inbox.empty?)
-        Notifier.delay.digest_email(to, posts, news, attachments, events, inbox)
+        Notifier.digest_email(to.id, date_start, date_end).deliver
       end
     end
 

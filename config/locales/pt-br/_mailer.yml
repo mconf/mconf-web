@@ -1,0 +1,34 @@
+---
+pt-br:
+  space_mailer:
+    invitation_email:
+      message:
+        header: "You have been invited by <b>%{sender}</b> (%{email_sender}) to a <b>%{space}</b> space:"
+        link: "Para aceitar o convite por favor visite <a href=\"%{url}\">%{url}</a><br/>Você pode encontrar mais informações sobre esta comunidade em <a href=\"%{space_url}\">%{space_url}</a>"
+      subject: "<b>%{username}</b> convida você para a comunidade %{space}"
+    join_request_email:
+      message:
+        header: "<b>%{candidate}</b> quer participar da comunidade %{space} administrado por você."
+        link: "Para atender o pedido visite <a href=\"%{url}\">%{url}</a>"
+      subject: "<b>%{candidate}</b> quer participar da comunidade %{space}."
+    processed_join_request_email:
+      accepted: "aceita"
+      message:
+        header:
+          accepted: "O administrador da comunidade %{space} aceitou sua admissão."
+          accepted: "O administrador da comunidade %{space} não aceitou sua admissão."
+        link:
+          accepted: "Você agora é membro da comunidade %{space} e agora você pode acessá-la pelo endereço: <a href=\"%{space_url}\"> %{space_url} </a>"
+          rejected: "Se você desejar solicitar adesão de novo por favor vá para <a href=\"%{space_url}\"> %{space} </a>"
+      rejected: "rejeitada"
+      subject: "Sua admissão na comunidade %{space} foi %{action}"
+  web_conference_mailer:
+    invitation_mail:
+      event_name: "Conferência com %{name}"
+      message:
+        end: "Fim"
+        header: "Você foi convidado por <b>%{sender}</b> (%{email_sender}) para uma conferência:"
+        join: "Acesso"
+        password: "Chave de acesso"
+        start: "Início"
+      subject: "Você foi convidado para uma conferência por %{name}"

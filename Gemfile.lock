@@ -102,7 +102,7 @@ GEM
       multi_json (~> 1.0)
     addressable (2.3.5)
     ansi (1.4.1)
-    arel (3.0.2)
+    arel (3.0.3)
     aws-s3 (0.6.2)
       builder
       mime-types
@@ -138,17 +138,13 @@ GEM
     crack (0.1.8)
     css_parser (1.3.5)
       addressable
-    daemons (1.1.4)
-    delayed_job (3.0.5)
-      activesupport (~> 3.0)
-    delayed_job_active_record (0.4.4)
-      activerecord (>= 2.1.0, < 4)
-      delayed_job (~> 3.0)
     devise (2.2.4)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.1)
       railties (~> 3.1)
       warden (~> 1.2.1)
+    devise-async (0.8.0)
+      devise (>= 2.2, < 3.2)
     devise-encryptable (0.1.1)
       devise (>= 2.1.0.rc)
     diff-lcs (1.2.4)
@@ -163,6 +159,8 @@ GEM
     factory_girl_rails (4.0.0)
       factory_girl (~> 4.0.0)
       railties (>= 3.0.0)
+    fakeredis (0.4.3)
+      redis (~> 3.0.0)
     feed-normalizer (1.5.2)
       hpricot (>= 0.6)
       simple-rss (>= 1.1)
@@ -189,13 +187,13 @@ GEM
     htmlentities (4.3.1)
     httparty (0.7.7)
       crack (= 0.1.8)
-    i18n (0.6.5)
+    i18n (0.6.9)
     icalendar (1.5.1)
     journey (1.0.4)
     jquery-rails (2.3.0)
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
-    json (1.8.0)
+    json (1.8.1)
     less (2.2.2)
       commonjs (~> 0.2.6)
     less-rails (2.2.6)
@@ -206,19 +204,19 @@ GEM
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
-    mime-types (1.23)
+    mime-types (1.25.1)
     mini_portile (0.5.2)
     momentjs-rails (2.5.1)
       railties (>= 3.1)
     mono_logger (1.1.0)
-    multi_json (1.7.9)
+    multi_json (1.9.2)
     mysql2 (0.3.11)
     net-ldap (0.3.1)
     nokogiri (1.6.1)
       mini_portile (~> 0.5.0)
     open4 (1.3.0)
     orm_adapter (0.4.0)
-    polyglot (0.3.3)
+    polyglot (0.3.4)
     populator (1.0.0)
     premailer (1.8.0)
       css_parser (>= 1.3.5)
@@ -241,7 +239,7 @@ GEM
       rack (>= 0.4)
     rack-protection (1.5.0)
       rack
-    rack-ssl (1.3.3)
+    rack-ssl (1.3.4)
       rack
     rack-test (0.6.2)
       rack (>= 1.0)
@@ -264,7 +262,7 @@ GEM
       rake (>= 0.8.7)
       rdoc (~> 3.4)
       thor (>= 0.14.6, < 2.0)
-    rake (10.1.0)
+    rake (10.3.1)
     rdoc (3.12.2)
       json (~> 1.4)
     redis (3.0.5)
@@ -281,6 +279,8 @@ GEM
       redis (~> 3.0.4)
       resque (~> 1.25.1)
       rufus-scheduler (~> 2.0.24)
+    resque_mailer (2.2.6)
+      actionmailer (>= 3.0)
     rmagick (2.13.2)
     rspec-core (2.14.5)
     rspec-expectations (2.14.3)
@@ -333,9 +333,9 @@ GEM
       railties (~> 3.0)
     therubyracer (0.10.2)
       libv8 (~> 3.3.10)
-    thor (0.18.1)
+    thor (0.19.1)
     tilt (1.4.1)
-    treetop (1.4.14)
+    treetop (1.4.15)
       polyglot
       polyglot (>= 0.3.1)
     turn (0.8.2)
@@ -345,7 +345,7 @@ GEM
       execjs
       rails (>= 3.1)
       railties (>= 3.1)
-    tzinfo (0.3.37)
+    tzinfo (0.3.39)
     uglifier (1.2.7)
       execjs (>= 0.3.0)
       multi_json (~> 1.3)
@@ -387,14 +387,13 @@ DEPENDENCIES
   compass (~> 0.13.alpha)
   compass-rails (~> 1.0)
   configatron (~> 2.13.0)
-  daemons
-  delayed_job (~> 3.0.0)
-  delayed_job_active_record
   devise
+  devise-async
   devise-encryptable
   dynamic_form
   exception_notification
   factory_girl_rails
+  fakeredis
   feed-normalizer
   ffaker
   font-awesome-rails
@@ -427,6 +426,7 @@ DEPENDENCIES
   rake
   resque
   resque-scheduler
+  resque_mailer
   rmagick
   rspec-rails (~> 2.14)
   rubyzip

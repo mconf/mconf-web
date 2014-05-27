@@ -6,6 +6,7 @@
 # 3 or later. See the LICENSE file.
 
 class ApplicationMailer < ActionMailer::Base
+  include Resque::Mailer
   include Mconf::LocaleControllerModule
 
   self.prepend_view_path(File.join(Rails.root, 'app', 'mailers', 'views'))

@@ -40,16 +40,14 @@ gem 'valid_email', :git => 'https://github.com/Fire-Dragon-DoL/valid_email.git'
 gem 'public_activity'
 
 # For queues
-gem 'delayed_job', '~> 3.0.0'
-gem 'delayed_job_active_record'
-gem 'daemons' # for delayed_job
-
 gem 'resque', :require => 'resque/server'
 gem 'resque-scheduler', :require => 'resque_scheduler/server'
+gem 'resque_mailer'
 
 # Authentication and authorization
 gem 'devise'
 gem 'devise-encryptable' # TODO: only while we have old station users
+gem 'devise-async'
 gem 'cancan', '~> 1.6.0'
 gem 'station', :git => 'git://github.com/mconf/station.git', :branch => 'mweb-v2'
 gem 'net-ldap'
@@ -125,4 +123,9 @@ group :development, :test do
   gem 'htmlentities'
   gem 'turn', '0.8.2', :require => false # TODO: why 0.8.2?
   gem 'simplecov'
+end
+
+group :test do
+  # to use redis in-memory and clean it in-between tests, used for resque
+  gem "fakeredis", :require => "fakeredis/rspec"
 end

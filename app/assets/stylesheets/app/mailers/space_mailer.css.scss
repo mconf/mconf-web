@@ -1,0 +1,10 @@
+@import "compass/css3";
+@import "definitions";
+
+#space-join-request-mail, #space-invitation-email, #space-processed-join-request-email {
+
+  .header, .link, .invite-message {
+    padding-bottom: 15px;
+  }
+
+}

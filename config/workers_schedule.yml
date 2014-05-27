@@ -10,3 +10,9 @@ send_join_request_notifications:
     - "30s"
   class: JoinRequestNotifications
   description: "This job finds all join requests on recent activity and sends the space admins or users the message notifications"
+
+send_processed_join_request_notifications:
+  every:
+    - "30s"
+  class: ProcessedJoinRequestNotifications
+  description: "This job finds all join requests accepted on recent activity and sends to the users the notifications"

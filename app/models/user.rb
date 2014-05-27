@@ -12,9 +12,9 @@ class User < ActiveRecord::Base
   ## Devise setup
   # Other available devise modules are:
   # :token_authenticatable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable, :confirmable,
-         :recoverable, :rememberable, :trackable, :validatable,
-         :encryptable
+  devise :database_authenticatable, :async, :registerable,
+         :confirmable, :recoverable, :rememberable, :trackable,
+         :validatable, :encryptable
   # Virtual attribute for authenticating by either username or email
   attr_accessor :login
   # To login with username or email, see: http://goo.gl/zdIZ5
