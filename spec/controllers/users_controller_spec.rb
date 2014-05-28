@@ -15,6 +15,8 @@ describe UsersController do
     it "sets @users to all users in the space ordered by name"
     it "renders users/index"
     it "renders with the layout spaces_show"
+
+    it { should_authorize User, :index }
   end
 
   describe "#show" do
@@ -32,6 +34,8 @@ describe UsersController do
       get :show, :id => FactoryGirl.create(:superuser).to_param
       response.response_code.should == 200
     end
+
+    it { should_authorize an_instance_of(User), :show, :id => FactoryGirl.create(:user).to_param }
   end
 
   describe "#edit" do
@@ -65,6 +69,8 @@ describe UsersController do
       }
       it { should_not assign_to(:shib_provider) }
     end
+
+    it { should_authorize an_instance_of(User), :edit, :id => user.to_param }
   end
 
   describe "#update" do
@@ -146,6 +152,7 @@ describe UsersController do
         it { @user.notification.should == @new_not }
       end
 
+      it { should_authorize an_instance_of(User), :update, :via => :post, :id => FactoryGirl.create(:user).to_param, :user => {} }
     end
 
   end
@@ -170,6 +177,8 @@ describe UsersController do
       it { should redirect_to(root_path) }
       it("disables the user") { user.reload.disabled.should be_true }
     end
+
+    it { should_authorize an_instance_of(User), :destroy, :via => :delete, :id => user.to_param }
   end
 
   describe "#enable" do
@@ -201,6 +210,8 @@ describe UsersController do
       it { should set_the_flash.to(I18n.t('user.enabled')) }
       it { user.reload.disabled.should be_false }
     end
+
+    it { should_authorize an_instance_of(User), :enable, :id => FactoryGirl.create(:user).to_param }
   end
 
   describe "#select" do
@@ -312,6 +323,8 @@ describe UsersController do
           it("third user") { assigns(:users)[2].should eql(@u2) }
           it("fourth user") { assigns(:users)[3].should eql(@u1) }
         end
+
+        it { should_authorize User, :select }
       end
     end
   end
@@ -369,6 +382,7 @@ describe UsersController do
           it { response.body.should == expected.to_json }
         end
 
+        it { should_authorize User, :fellows }
       end
     end
   end
@@ -435,6 +449,8 @@ describe UsersController do
           end
         }
       end
+
+      it { should_authorize User, :current }
     end
   end
 
@@ -482,6 +498,8 @@ describe UsersController do
       it { should redirect_to('/any') }
       it { user.reload.approved?.should be_true } # auto approved
     end
+
+    it { should_authorize an_instance_of(User), :approve, :via => :post, :id => user.to_param }
   end
 
   describe "#disapprove" do
@@ -512,6 +530,8 @@ describe UsersController do
       it { should redirect_to('/any') }
       it("user is still (auto) approved") { user.reload.approved?.should be_true } # auto approved on registration
     end
+
+    it { should_authorize an_instance_of(User), :disapprove, :via => :post, :id => user.to_param }
   end
 
   # TODO: refactor to use the same style used to test SpacesController, with the matcher allow_access_to

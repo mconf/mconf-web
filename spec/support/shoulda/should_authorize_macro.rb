@@ -22,8 +22,12 @@ module Shoulda
         end
         http_method = options.delete(:via)
 
-        controller.should_receive(:authorize!).with(method, target)
-        send(http_method, method, options)
+        controller.should_receive(:authorize!).with(method, target).and_raise(CanCan::AccessDenied)
+        begin
+          send(http_method, method, options)
+        rescue CanCan::AccessDenied
+          # doesnt matter if access is denied
+        end
       end
 
     end

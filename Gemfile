@@ -43,7 +43,7 @@ gem 'public_activity'
 # Authentication and authorization
 gem 'devise'
 gem 'devise-encryptable' # TODO: only while we have old station users
-gem 'cancan', '~> 1.6.0'
+gem 'cancancan', '~> 1.8'
 gem 'net-ldap'
 
 # BigBlueButton integration
