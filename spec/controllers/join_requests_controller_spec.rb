@@ -1,4 +1,4 @@
-# This file is part of Mconf-Web, a web application that provides access
+# This file is part of  Mconf-Web, a web application that provides access
 # to the Mconf webconferencing system. Copyright (C) 2010-2012 Mconf
 #
 # This file is licensed under the Affero General Public License version
@@ -13,16 +13,20 @@ describe JoinRequestsController do
     let(:space) { FactoryGirl.create(:space) }
     let(:user) { FactoryGirl.create(:superuser) }
     before(:each) { sign_in(user) }
+    before(:each) { get :index, :space_id => space.to_param }
+
 
     context "template and layout" do
-      before(:each) { get :index, :space_id => space.to_param }
       it { should render_template('index') }
       it { should render_with_layout('spaces_show') }
     end
 
-    it "assigns @space"
-    it "assigns @join_requests"
-    it "assigns @webconf_room"
+    context "space admin indexing join requests" do
+      it { should assign_to(:space).with(space) }
+      it { should assign_to(:join_requests).with([]) }
+      pending "should assing_to @webconf" #it { should assign_to(:webconf).with(space.bigbluebutton_room) }
+    end
+
   end
 
   describe "#new" do
@@ -37,8 +41,56 @@ describe JoinRequestsController do
     end
   end
 
-  it "#create"
-  it "#update"
+  describe "#create" do
+    let(:user) { FactoryGirl.create(:user) }
+    let(:jr) { FactoryGirl.build(:join_request, :candidate => user, :introducer => nil) }
+
+    context "user requests membership on a public space" do
+      let(:space) { FactoryGirl.create(:space, :public => true) }
+
+      before(:each) {
+        sign_in(user)
+        expect {
+          post :create, :space_id => space.to_param, :join_request => jr.attributes
+        }.to change{space.join_requests.count}.by(1)
+      }
+
+      it { should redirect_to(space_path(space)) }
+      it { should assign_to(:space).with(space) }
+      it { should set_the_flash.to(I18n.t('join_requests.create.created')) }
+    end
+
+    context "user requests membership on a private space" do
+      let(:space) { FactoryGirl.create(:space, :public => false) }
+
+      before(:each) {
+        sign_in(user)
+        expect {
+          post :create, :space_id => space.to_param, :join_request => jr.attributes
+        }.to change{space.join_requests.count}.by(1)
+      }
+
+      it { should redirect_to(spaces_path) }
+      it { should assign_to(:space).with(space) }
+      it { should set_the_flash.to(I18n.t('join_requests.create.created')) }
+    end
+
+  end
+
+  describe "#invite" do
+    it "admin succesfully invites one user"
+    it "admin successfully invites more than one user"
+    it "admin successfully invites a user and fails to invite another"
+    it "admin fails to invite user"
+  end
+
+  describe "#update" do
+    it "space admin accepts requesting user"
+    it "space admin denies requesting user"
+    it "invited user accepts request"
+    it "invited user accepts request"
+  end
+
   it "#destroy"
 
   describe "abilities", :abilities => true do
