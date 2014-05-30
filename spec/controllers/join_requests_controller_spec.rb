@@ -85,10 +85,98 @@ describe JoinRequestsController do
   end
 
   describe "#update" do
-    it "space admin accepts requesting user"
-    it "space admin denies requesting user"
-    it "invited user accepts request"
-    it "invited user accepts request"
+    let(:space) { FactoryGirl.create(:space) }
+    let(:user) { FactoryGirl.create(:user) }
+    let(:jr) { FactoryGirl.create(:join_request, :group => space, :introducer => nil) }
+
+    context "a space admin" do
+      before(:each) {
+        request.env['HTTP_REFERER'] = space_join_requests_path(space)
+        space.add_member!(user, 'Admin')
+        jr # create join request now and not on request block
+        sign_in(user)
+      }
+
+      context "accepts a user request" do
+        before(:each) {
+          expect {
+            put :update, :space_id => space.to_param, :id => jr.id, :join_request => {:processed => true, :accepted => true}
+          }.to change{space.pending_join_requests.count}.by(-1)
+          jr.reload
+        }
+
+        it { should redirect_to(space_join_requests_path(space)) }
+        it { space.users.should include(jr.candidate) }
+        it { jr.should be_accepted }
+        it { jr.introducer.should eq(user) }
+      end
+
+      context "accepts a user request and specifies a role" do
+        let(:role) { Role.find_by_name_and_stage_type('Admin', 'Space') }
+        let(:jr) { FactoryGirl.create(:join_request, :group => space, :role => nil) }
+        before(:each) {
+          expect {
+            put :update, :space_id => space.to_param, :id => jr.id, :join_request => {:role_id => role.id, :processed => true, :accepted => true}
+          }.to change{space.pending_join_requests.count}.by(-1)
+          jr.reload
+        }
+
+        it { should redirect_to(space_join_requests_path(space)) }
+        it { space.users.should include(jr.candidate) }
+        it { jr.should be_accepted }
+        it { jr.introducer.should eq(user) }
+        it { jr.role.should eq(role.name) }
+        it { jr.candidate.permissions.last.role.should eq(role) }
+      end
+
+      context "denies a user request" do
+        before(:each) {
+          expect {
+            put :update, :space_id => space.to_param, :id => jr.id, :join_request => {:processed => true, :accepted => nil}
+          }.to change{space.pending_join_requests.count}.by(-1)
+          jr.reload
+        }
+
+        it { should redirect_to(space_join_requests_path(space)) }
+        it { space.users.should_not include(jr.candidate) }
+        it { jr.should_not be_accepted }
+        it { jr.introducer.should eq(user) }
+      end
+    end
+
+    context "an invited user" do
+      let(:jr) { FactoryGirl.create(:join_request, :group => space, :introducer => nil, :request_type => 'invite') }
+      before(:each) {
+        request.env['HTTP_REFERER'] = space_path(space)
+        jr # create join request now and not on request block
+        sign_in(jr.candidate)
+      }
+
+      context "accepts request" do
+        before(:each) {
+          expect {
+            put :update, :space_id => space.to_param, :id => jr.id, :join_request => {:processed => true, :accepted => true}
+          }.to change{space.pending_invitations.count}.by(-1)
+          jr.reload
+        }
+
+        it { should redirect_to(space_path(space)) }
+        it { jr.should be_accepted }
+      end
+
+      context "denies a request" do
+        before(:each) {
+          expect {
+            put :update, :space_id => space.to_param, :id => jr.id, :join_request => {:processed => true, :accepted => nil}
+          }.to change{space.pending_invitations.count}.by(-1)
+          jr.reload
+        }
+
+        it { should redirect_to(space_path(space)) }
+        it { jr.should_not be_accepted }
+      end
+    end
+
   end
 
   it "#destroy"

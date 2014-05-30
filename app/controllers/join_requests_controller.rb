@@ -132,8 +132,8 @@ class JoinRequestsController < ApplicationController
 
     # Admin doing the approval of a request
     if @join_request.request_type == 'request' && authorize!(:approve, @join_request)
-      @join_request.introducer = current_user if @join_request.recently_processed?
       @join_request.attributes = params[:join_request]
+      @join_request.introducer = current_user if @join_request.recently_processed?
     # User accepting the invitation
     elsif @join_request.request_type == 'invite' && authorize!(:accept, @join_request)
       @join_request.attributes = params[:join_request].except(:role)
