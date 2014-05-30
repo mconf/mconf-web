@@ -60,32 +60,9 @@ class JoinRequestsController < ApplicationController
   def create
 
     # if it's an admin creating new requests (inviting) for his space
-    if params[:invite]
-      # TODO: move this block of code to the a method in the model that creates all
-      #   invitations an returns the errors already formatted to show in the views
-      already_invited = []
-      errors = []
-      success = []
-      ids = params[:candidates].split ',' || []
-      ids.each do |id|
-        user = User.find_by_id(id)
-        jr = @space.join_requests.new(params[:join_request])
-        if @space.pending_join_request_for?(user)
-          already_invited << user.username
-        elsif user
-          jr.candidate = user
-          jr.email = user.email
-          jr.request_type = 'invite'
-          jr.introducer = current_user
-          if jr.save
-            success.push jr.candidate.username
-          else
-            errors.push "#{jr.email}: #{jr.errors.full_messages.join(', ')}"
-          end
-        else
-          errors.push t('join_requests.create.user_not_found', :id => id)
-        end
-      end
+    if params[:invite] && can?(:invite, @space)
+      success, errors, already_invited = process_invitations
+
       unless errors.empty?
         flash[:error] = t('join_requests.create.error', :errors => errors.join(' - '))
       end
@@ -165,6 +142,36 @@ class JoinRequestsController < ApplicationController
         redirect_to request.referer
       }
     end
+  end
+
+  private
+  def process_invitations
+    #   invitations an returns the errors already formatted to show in the views
+    already_invited = []
+    errors = []
+    success = []
+    ids = params[:candidates].split ',' || []
+    ids.each do |id|
+      user = User.find_by_id(id)
+      jr = @space.join_requests.new(params[:join_request])
+      if @space.pending_join_request_for?(user)
+        already_invited << user.username
+      elsif user
+        jr.candidate = user
+        jr.email = user.email
+        jr.request_type = 'invite'
+        jr.introducer = current_user
+        if jr.save
+          success.push jr.candidate.username
+        else
+          errors.push "#{jr.email}: #{jr.errors.full_messages.join(', ')}"
+        end
+      else
+        errors.push t('join_requests.create.user_not_found', :id => id)
+      end
+    end
+
+    [success, errors, already_invited]
   end
 
 end
