@@ -98,8 +98,12 @@ module Abilities
 
       # users that created a join request can do a few things over it
       # TODO: make this for events also
-      can [:show, :destroy, :accept, :update], JoinRequest do |jr|
+      can [:show, :destroy, :update], JoinRequest do |jr|
         jr.group.try(:is_a?, Space) && jr.try(:candidate) == user
+      end
+
+      can :accept, JoinRequest do |jr|
+        jr.group.try(:is_a?, Space) && jr.try(:candidate) == user && jr.request_type == 'invite'
       end
 
       # space admins can list requests and invite new members

@@ -15,7 +15,6 @@ describe JoinRequestsController do
     before(:each) { sign_in(user) }
     before(:each) { get :index, :space_id => space.to_param }
 
-
     context "template and layout" do
       it { should render_template('index') }
       it { should render_with_layout('spaces_show') }
@@ -30,9 +29,64 @@ describe JoinRequestsController do
   end
 
   describe "#new" do
-    it "if the user is already a member of the space redirects to the space's home"
-    it "assigns @user_is_admin"
-    it "template and layout"
+    let(:space) { FactoryGirl.create(:space) }
+    let(:user) { FactoryGirl.create(:user) }
+
+    context "a normal user" do
+      context "is not a member of the space" do
+        before(:each) {
+          sign_in(user)
+          get :new, :space_id => space.to_param
+        }
+
+        context "template and layout" do
+          it { should render_template('new') }
+          it { should render_with_layout('no_sidebar') }
+        end
+      end
+
+      context "has already requested membership" do
+        before(:each) {
+          FactoryGirl.create(:join_request, :group => space, :candidate => user)
+          sign_in(user)
+          get :new, :space_id => space.to_param
+        }
+
+        it { should render_template('new') }
+        it { should assign_to(:already_requested).with(true) }
+      end
+
+
+      context "is already a member of the space" do
+        before(:each) {
+          space.add_member!(user)
+          sign_in(user)
+          get :new, :space_id => space.to_param
+        }
+
+        it { should redirect_to(space_path(space)) }
+      end
+    end
+
+    # pending "assigns @user_is_admin" do
+    #   before(:each) {
+    #     sign_in(user)
+    #     get :new, :space_id => space.to_param
+    #   }
+
+    #   context "when user is an admin" do
+    #     before(:each) { space.add_member!(user, 'Admin') }
+
+    #     it { should assign_to(:user_is_admin).with(true) }
+    #   end
+
+    #   context "when user is not and admin" do
+    #     before(:each) { space.add_member!(user) }
+
+    #     it { should assign_to(:user_is_admin).with(false) }
+    #   end
+
+    # end
 
     context "if the user is an admin of the target space" do
       it "assigns @users"
@@ -78,10 +132,104 @@ describe JoinRequestsController do
   end
 
   describe "#invite" do
-    it "admin succesfully invites one user"
-    it "admin successfully invites more than one user"
-    it "admin successfully invites a user and fails to invite another"
-    it "admin fails to invite user"
+    let(:space) { FactoryGirl.create(:space) }
+    let(:user) { FactoryGirl.create(:user) }
+
+    context "if the user is not a member of the space" do
+      before(:each) {
+        sign_in(user)
+        expect { get :invite, :space_id => space.to_param }.to raise_error(CanCan::AccessDenied)
+      }
+
+      it { redirect_to(spaces_path(space)) }
+    end
+
+    context "if the user is a member of the space, but not an admin" do
+      before(:each) {
+        space.add_member!(user)
+        sign_in(user)
+        expect { get :invite, :space_id => space.to_param }.to raise_error(CanCan::AccessDenied)
+      }
+
+      it { redirect_to(space_path(space)) }
+    end
+
+    context "if the user is an admin of the target space" do
+      before(:each) {
+        space.add_member!(user, 'Admin')
+        sign_in(user)
+        get :invite, :space_id => space.to_param
+      }
+
+      context "template and layout" do
+        it { should render_template('invite') }
+        it { should render_with_layout('spaces_show') }
+      end
+
+    end
+  end
+
+  describe "#create?invite=true" do
+    let(:space) { FactoryGirl.create(:space) }
+    let(:user) { FactoryGirl.create(:user) }
+    let(:candidate) { FactoryGirl.create(:user) }
+    let!(:role) { Role.find_by_name_and_stage_type('User', 'Space') }
+    before(:each) {
+      space.add_member!(user, 'Admin')
+      sign_in(user)
+    }
+
+    context "admin succesfully invites one user" do
+      let(:attributes) {
+        {:join_request => FactoryGirl.attributes_for(:join_request, :email => nil, :role_id => role.id) , :candidates => "#{candidate.id}"}
+      }
+
+      before(:each) {
+        expect {
+          post :create, {:invite => true, :space_id => space.to_param}.merge(attributes)
+        }.to change{space.pending_invitations.count}.by(1)
+      }
+
+      it { should redirect_to(invite_space_join_requests_path(space)) }
+      it { should set_the_flash.to(I18n.t('join_requests.create.sent', :users => candidate.username)) }
+    end
+
+    context "admin successfully invites more than one user" do
+      let(:candidate2) { FactoryGirl.create(:user) }
+      let(:attributes) {
+        { :join_request => FactoryGirl.attributes_for(:join_request, :email => nil,
+          :role_id => role.id), :candidates => "#{candidate.id},#{candidate2.id}" }
+      }
+
+      before(:each) {
+        expect {
+          post :create, {:invite => true, :space_id => space.to_param}.merge(attributes)
+        }.to change{space.pending_invitations.count}.by(2)
+      }
+
+      it { should redirect_to(invite_space_join_requests_path(space)) }
+      it { should set_the_flash.to(I18n.t('join_requests.create.sent', :users => "#{candidate.username}, #{candidate2.username}")) }
+    end
+
+    context "admin successfully invites a user and fails to invite another" do
+      let(:candidate2) { user } #is invalid because he's inviting himself
+      let!(:errors) { "#{user.email}: #{I18n.t('admission.errors.candidate_equals_introducer')}" }
+      let(:attributes) {
+        { :join_request => FactoryGirl.attributes_for(:join_request, :email => nil,
+          :role_id => role.id), :candidates => "#{candidate.id},#{candidate2.id}" }
+      }
+
+      before(:each) {
+        expect {
+          post :create, {:invite => true, :space_id => space.to_param}.merge(attributes)
+        }.to change{space.pending_invitations.count}.by(1)
+      }
+
+      it { should redirect_to(invite_space_join_requests_path(space)) }
+      it { should set_the_flash.to(I18n.t('join_requests.create.sent', :users => "#{candidate.username}")) }
+      it { should set_the_flash.to(I18n.t('join_requests.create.error',
+          :errors => errors)) }
+    end
   end
 
   describe "#update" do

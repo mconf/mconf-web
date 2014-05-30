@@ -125,7 +125,7 @@ describe JoinRequest do
         end
 
         context "he is not a member and is being invited to the space" do
-          before do 
+          before do
             target.candidate = user
             target.request_type = 'invite'
           end
@@ -134,12 +134,12 @@ describe JoinRequest do
         end
 
         context "he is not a member and is requesting membership" do
-          before do 
+          before do
             target.candidate = user
             target.request_type = 'request'
           end
 
-          it { should_not be_able_to_do_anything_to(target).except([:show, :create, :destroy]) }
+          it { should_not be_able_to_do_anything_to(target).except([:show, :create, :update, :destroy]) }
         end
 
         context "he is a member of" do
