@@ -968,7 +968,6 @@ pt-br:
       join: "Entrar na reunião!"
       join_mobile_full: "Entrar a partir de um dispositivo móvel"
       not_running: "Nenhuma reunião em andamento."
-      options: "Opções"
       preferences: "Preferências"
       recordings: "Ver gravações"
       running_with:
@@ -1477,7 +1476,7 @@ pt-br:
       upcoming_events: "Próximos eventos"
       webconference:
         attendees:
-          nobody: "Não há ninguém na sala."
+          nobody: "Não há reunião em andamento."
         currently_running:
           one: "A conferência está ativa com %{count} participante"
           other: "A conferência está ativa com %{count} participantes"
@@ -1491,7 +1490,6 @@ pt-br:
       join: "Entrar!"
       join_mobile: "Entrar/móvel"
       join_mobile_full: "Entrar a partir de um dispositivo móvel"
-      options: "Opções"
       preferences: "Preferências"
       start: "Iniciar"
     space_thumbnail:

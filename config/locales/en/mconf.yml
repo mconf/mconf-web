@@ -968,7 +968,6 @@ en:
       join: "Join the meeting!"
       join_mobile_full: "Join from a mobile device"
       not_running: "Your webconference is not in progress."
-      options: "Options"
       preferences: "Preferences"
       recordings: "View recordings"
       running_with:
@@ -1477,7 +1476,7 @@ en:
       upcoming_events: "Upcoming events"
       webconference:
         attendees:
-          nobody: "There is nobody currently in the room."
+          nobody: "There is no meeting running."
         currently_running:
           one: "The webconference is currently in progress with %{count} participant"
           other: "The webconference is currently in progress with %{count} participants"
@@ -1491,7 +1490,6 @@ en:
       join: "Join now!"
       join_mobile: "Join/mobile"
       join_mobile_full: "Join from a mobile device"
-      options: "Options"
       preferences: "Preferences"
       start: "Start"
     space_thumbnail:

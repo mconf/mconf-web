@@ -223,6 +223,10 @@ module IconsHelper
     icon_constructor nil, "icon-awesome icon-check icon-mconf-is-member", options
   end
 
+  def icon_options(options={})
+    icon_constructor nil, "icon-awesome icon-gears icon-mconf-options", options
+  end
+
   private
 
   # Base method for most of the methods above
