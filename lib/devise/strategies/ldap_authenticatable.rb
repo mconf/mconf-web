@@ -97,8 +97,24 @@ module Devise
       end
 
       # Returns the filter to bind the user
-      def ldap_filter(ldap)
-        Net::LDAP::Filter.eq(ldap.ldap_username_field, login_from_params)
+      # Concatenates a base filter specified by an admin with the filter to match the
+      # user. If the base filter is invalid or not specified, uses only the user filter.
+      def ldap_filter(configs)
+        base = nil
+        unless configs.ldap_filter.blank?
+          begin
+            base = Net::LDAP::Filter.construct(configs.ldap_filter)
+          rescue
+            Rails.logger.info "LDAP: invalid base filter specified: #{configs.ldap_filter}"
+            Rails.logger.info "LDAP: will use only the user/password filter"
+          end
+        end
+        user = Net::LDAP::Filter.eq(configs.ldap_username_field, login_from_params)
+        if base.nil?
+          user
+        else
+          Net::LDAP::Filter.join(base, user)
+        end
       end
 
       # Returns true if the ldap is enabled in Mconf Portal
