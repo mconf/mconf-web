@@ -38,11 +38,7 @@ class CustomBigbluebuttonRoomsController < Bigbluebutton::RoomsController
         "application"
       end
     when :join_mobile
-      if request.xhr?
-        false
-      else
-        "mobile"
-      end
+      "mobile"
     when :running
       false
     when :invite_userid, :invite, :auth

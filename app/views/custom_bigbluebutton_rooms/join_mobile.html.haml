@@ -9,6 +9,6 @@
       = image_tag mobile_google_play_image, :alt => t('.click_to_download'), :title => t('.click_to_download')
 
 .additional-option
-  = link_to t(".try_again"), @join_url
+  = link_to t(".try_again"), @join_mobile, :id => 'mobile-url'
 .additional-option
-  = link_to t(".use_default_client"), join_bigbluebutton_room_path(@room, :force_desktop => "1")
+  = link_to t(".use_default_client"), @join_desktop
