@@ -6,6 +6,9 @@
 
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 
+require 'simplecov'
+SimpleCov.start if ENV["COVERAGE"]
+
 require 'spork'
 
 ENV["RAILS_ENV"] ||= 'test'
