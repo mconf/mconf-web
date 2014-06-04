@@ -123,6 +123,7 @@ describe CustomBigbluebuttonRoomsController do
           login_as(another_user)
           request.env["HTTP_REFERER"] = "/any"
           BigbluebuttonRoom.stub(:find_by_param) { room }
+          BigbluebuttonRoom.any_instance.stub(:fetch_is_running?) { false }
 
           # to guide the behavior of #auth, copied from the tests in BigbluebuttonRails
           server.api.stub(:is_meeting_running?) { false }
@@ -256,6 +257,9 @@ describe CustomBigbluebuttonRoomsController do
           attrs.stub(:permit).and_return(attrs)
           controller.stub(:params).and_return(params)
 
+          # BigbluebuttonRoom.any_instance.stub(:fetch_is_running?) { true }
+          # BigbluebuttonRoom.any_instance.stub(:fetch_meeting_info) { Hash.new }
+
           put :update, :id => room.to_param, :bigbluebutton_room => attrs
           attrs.should have_received(:permit).with(*allowed_params)
         }
@@ -320,6 +324,8 @@ describe CustomBigbluebuttonRoomsController do
       @ability.extend(CanCan::Ability)
       @ability.can :join_options, room
       Abilities.stub(:ability_for).and_return(@ability)
+      BigbluebuttonRoom.stub(:fetch_is_running?) { true }
+      BigbluebuttonRoom.stub(:fetch_meeting_info) { Hash.new }
     }
 
     context "if the user can't record meetings in this room" do
@@ -373,7 +379,11 @@ describe CustomBigbluebuttonRoomsController do
       let(:user) { FactoryGirl.create(:superuser) }
       let(:hash_with_server) { { :server_id => room.server.id } }
       let(:hash) { { :id => room.to_param } }
-      before(:each) { login_as(user) }
+      before(:each) {
+        login_as(user)
+        BigbluebuttonRoom.any_instance.stub(:fetch_is_running?) { true }
+        BigbluebuttonRoom.any_instance.stub(:fetch_meeting_info) { Hash.new }
+      }
 
       it { should allow_access_to(:index) }
       it { should allow_access_to(:new) }
@@ -442,7 +452,11 @@ describe CustomBigbluebuttonRoomsController do
       let(:user) { FactoryGirl.create(:user) }
       let(:hash_with_server) { { :server_id => room.server.id } }
       let(:hash) { { :id => room.to_param } }
-      before(:each) { login_as(user) }
+      before(:each) {
+        login_as(user)
+        BigbluebuttonRoom.any_instance.stub(:fetch_is_running?) { true }
+        BigbluebuttonRoom.any_instance.stub(:fetch_meeting_info) { Hash.new }
+      }
 
       it { should_not allow_access_to(:index) }
       it { should_not allow_access_to(:new) }
