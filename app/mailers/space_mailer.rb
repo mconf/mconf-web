@@ -23,10 +23,6 @@ class SpaceMailer < ApplicationMailer
   end
 
   def processed_invitation_email(invitation, receiver)
-    puts "@-------------------------------------@"
-    puts "Processed"
-    puts invitation.inspect
-    puts "@-------------------------------------@"
     I18n.with_locale(get_user_locale(receiver, false)) do
       action = invitation.accepted? ? t("invitation.yes_accepted", :locale=>receiver.locale) : I18n.t("invitation.not_accepted").html_safe
       @subject = "[Cocozilda] "
