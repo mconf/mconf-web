@@ -2,7 +2,7 @@ usersSelector = '#invite_users'
 searchUsersUrl = '/users/select?limit=7'
 startsOnSelector = '#invite_starts_on'
 endsOnSelector = '#invite_ends_on'
-durationSelector = '#invite_duration'
+durationSelector = '#invite_duration .duration'
 defaultDuration = 60*60 # 1h in secs
 previousDuration = null
 
@@ -43,99 +43,101 @@ bindUsers = ->
       results: (data, page) -> # parse the results into the format expected by Select2.
         results: data
 
+# TODO: make this a method in the class, and the inputs class variables
 bindDates = ->
-  $("#{startsOnSelector}, #{endsOnSelector}").datetimepicker
-    language: I18n.locale
-    pickSeconds: false
 
-  $end = $(endsOnSelector).data("datetimepicker")
-  $start = $(startsOnSelector).data("datetimepicker")
+  # TODO: find these inputs automatically by putting attrs on them
+  inputStartDate = $(startsOnSelector)[0]
+  inputStartTime = $(".invite_starts_on_time")[0]
+  inputEndDate = $(endsOnSelector)[0]
+  inputEndTime = $(".invite_ends_on_time")[0]
 
-  if $start? and $end?
+  startInput = new mconf.DateTimeInput(inputStartDate, inputStartTime)
+  endInput = new mconf.DateTimeInput(inputEndDate, inputEndTime)
 
-    initializeDates()
+  initializeDates(startInput, endInput)
 
-    $(startsOnSelector).on 'changeDate', (date, oldDate) ->
-      # updates the date to ignore the seconds
-      $start.setDate(ignoreSeconds($start.getDate()))
-      adjustEndOnStartChange()
-      $end.setStartDate($start.getDate())
-      storeDuration($start, $end)
-      updateDuration()
+  startInput.on "change", ->
+    adjustEndOnStartChange(startInput, endInput)
+    endInput.setMinDate(startInput.getDate())
+    storeDuration(startInput, endInput)
+    updateDuration()
 
-    $(endsOnSelector).on 'changeDate', (val1, val2) ->
-      # updates the date to ignore the seconds
-      $end.setDate(ignoreSeconds($end.getDate()))
-      adjustEndOnEndChange()
-      storeDuration($start, $end)
-      updateDuration()
-
-# Stores the current duration in seconds
-storeDuration = (start, end) ->
-  previousDuration = (end.getDate() - start.getDate()) / 1000 # in secs
+  endInput.on "change", ->
+    adjustEndOnEndChange(startInput, endInput)
+    storeDuration(startInput, endInput)
+    updateDuration()
 
 # Initialize the dates with default values
-initializeDates = ->
-  $end = $(endsOnSelector).data("datetimepicker")
-  $start = $(startsOnSelector).data("datetimepicker")
+initializeDates = (startInput, endInput) ->
 
   # uses the current time, adjusting to the local timezone (datetimepicker expects UTC)
   now = moment()
   zone = now.zone()
   start = now.utc().toDate().getTime() - (zone * 60000)
   start = ignoreMinutes(new Date(start))
-  $start.setDate(start)
-  $end.setDate(addDuration(start, defaultDuration))
+  startInput.setDate(start)
+
+  end = addDuration(start, defaultDuration)
+  endInput.setDate(end)
 
   # the end can never be before the start
-  $end.setStartDate($start.getDate())
+  endInput.setMinDate(startInput.getDate())
 
   # store the initial duration and update the label
-  storeDuration($start, $end)
+  storeDuration(startInput, endInput)
   updateDuration()
+
+# Stores the current duration in seconds
+storeDuration = (startInput, endInput) ->
+  previousDuration = (endInput.getDate() - startInput.getDate()) / 1000 # in secs
 
 # Updates the text in the label with the duration using the start and end dates
 # set in the inputs.
 updateDuration = ->
   duration = previousDuration
   duration = ignoreSeconds(new Date(duration * 1000)).getTime()
-  #duration = moment.duration(duration, "milliseconds")
-  #text = duration.humanize()
-  text = moment.utc(duration).format("HH:mm")
-
-  $(durationSelector).text(text)
+  if _.isFinite(duration)
+    negative = duration < 0
+    duration = moment.duration(Math.abs(duration))
+    text = "#{Math.floor(duration.as("hours"))}h #{duration.minutes()}m"
+    if negative
+      $(durationSelector).text("-#{text}")
+      $(durationSelector).addClass("error")
+    else
+      $(durationSelector).text("#{text}")
+      $(durationSelector).removeClass("error")
+  else
+    $(durationSelector).text("?")
 
 # Adjusts the end date according to the start date when the start date is changed
 # by the user. The end can never be lower than the start date, and will also sometimes
 # be automatically set to maintain the duration previously specified.
-adjustEndOnStartChange = ->
-  $end = $(endsOnSelector).data("datetimepicker")
-  $start = $(startsOnSelector).data("datetimepicker")
+adjustEndOnStartChange = (startInput, endInput) ->
 
   # setting a start to be after the end, makes the end jump forward and
   # keeps the previous duration (if any)
-  if $end.getDate() < $start.getDate()
+  if endInput.getDate() < startInput.getDate()
     if previousDuration?
-      $end.setDate(addDuration($start.getDate(), previousDuration))
+      endInput.setDate(addDuration(startInput.getDate(), previousDuration))
     else
-      $end.setDate(addDuration($start.getDate(), defaultDuration))
+      endInput.setDate(addDuration(startInput.getDate(), defaultDuration))
 
   # always keep the previous duration if it is set
   else if previousDuration?
-    $end.setDate(addDuration($start.getDate(), previousDuration))
+    endInput.setDate(addDuration(startInput.getDate(), previousDuration))
 
   # no previous duration, use the default
   else
-    $end.setDate(addDuration($start.getDate(), defaultDuration))
+    endInput.setDate(addDuration(startInput.getDate(), defaultDuration))
 
 # Adjusts the end date according when the end date input is changed by the user.
-adjustEndOnEndChange = (oldValue) ->
-  $end = $(endsOnSelector).data("datetimepicker")
-  $start = $(startsOnSelector).data("datetimepicker")
+adjustEndOnEndChange = (startInput, endInput) ->
 
   # don't ever let the end be before the start
-  if $end.getDate() < $start.getDate()
-    $end.setDate($start.getDate())
+  if endInput.getDate() < startInput.getDate()
+    endInput.setDate(startInput.getDate())
+
 
 # Adds 'duration' seconds to a Date object 'date'.
 addDuration = (date, duration) ->
@@ -150,3 +152,9 @@ ignoreSeconds = (date) ->
 ignoreMinutes = (date) ->
   time = Math.floor(date.getTime() / 3600000) * 3600000
   new Date(time)
+
+getEndDateTimePicker = ->
+  $(endsOnSelector).data("DateTimePicker")
+
+getStartDateTimePicker = ->
+  $(startsOnSelector).data("DateTimePicker")

@@ -423,8 +423,10 @@ en:
       list_of_rooms: "List of all registered rooms"
     important: Important
     invitation_form:
+      at: "at"
+      duration: "Duration"
       meeting_in: "Inviting people to a meeting in:"
-      timezone: "You are using the timezone %{timezone}"
+      timezone: "You are using the time zone %{timezone}"
       title: "Invite people to a meeting"
       users:
         hint: "Type to start searching"

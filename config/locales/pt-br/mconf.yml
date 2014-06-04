@@ -423,6 +423,8 @@ pt-br:
       list_of_rooms: "Lista de todas salas registradas"
     important: Importante
     invitation_form:
+      at: "às"
+      duration: "Duração"
       meeting_in: "Enviando convite para conferência em:"
       timezone: "Você está usando o fuso horário %{timezone}"
       title: "Convite para conferência"
