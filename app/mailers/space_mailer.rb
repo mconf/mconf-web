@@ -25,11 +25,10 @@ class SpaceMailer < ApplicationMailer
   def processed_invitation_email(invitation, receiver)
     I18n.with_locale(get_user_locale(receiver, false)) do
       action = invitation.accepted? ? t("invitation.yes_accepted", :locale=>receiver.locale) : I18n.t("invitation.not_accepted").html_safe
-      @subject = "[Cocozilda] "
       if invitation.candidate != nil
-        @subject += t("email.invitation_result.admin_side",:name => invitation.candidate.name, :action => action, :spacename => invitation.group.name).html_safe
+        @subject = t("email.invitation_result.admin_side",:name => invitation.candidate.name, :action => action, :spacename => invitation.group.name).html_safe
       else
-        @subject += t("email.invitation_result.admin_side",:name => invitation.email, :action => action, :spacename => invitation.group.name).html_safe
+        @subject = t("email.invitation_result.admin_side",:name => invitation.email, :action => action, :spacename => invitation.group.name).html_safe
       end
       @invitation = invitation
       @space = invitation.group
