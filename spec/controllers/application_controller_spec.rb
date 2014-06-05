@@ -29,28 +29,275 @@ describe ApplicationController do
   end
 
   describe "#bigbluebutton_role" do
-    context "for user rooms" do
-      it "if the user is disabled returns nil"
-      context "if the room is private" do
-        it "if the user is the owner returns :moderator"
-        it "if the user is not the owner returns :password"
-        it "if there's no user logged returns :password"
-      end
-      context "if the room is public" do
-        it "if the user is the owner returns :moderator"
-        it "if the user is not the owner returns :guest"
-        it "if there's no user logged returns :guest"
+    controller do
+      def index
+        room = BigbluebuttonRoom.find_by_id(params[:room_id])
+        @result = bigbluebutton_role(room).freeze
+        render :nothing => true
       end
     end
-    context "for space rooms" do
-      it "if the space is disabled returns nil"
-      context "if the room is private" do
-        it "if the user is a member of the space returns :moderator"
-        it "if the user is not a member of the space :password"
+
+    context "if the owner is not set" do
+      let(:room) { FactoryGirl.create(:bigbluebutton_room, :owner => nil) }
+      before(:each) { get :index, :room_id => room.id }
+      it { assigns(:result).should be_nil }
+    end
+
+    context "if the owner is of an invalid type" do
+      let(:room) { FactoryGirl.create(:bigbluebutton_room, :owner => FactoryGirl.create(:post)) }
+      before(:each) { get :index, :room_id => room.id }
+      it { assigns(:result).should be_nil }
+    end
+
+    context "for user rooms" do
+      context "if the user is disabled" do
+        let(:user) { FactoryGirl.create(:user, :disabled => true) }
+        let(:room) { FactoryGirl.create(:bigbluebutton_room, :owner => user) }
+        before(:each) { get :index, :room_id => room.id }
+        it { assigns(:result).should be_nil }
       end
+
+      context "if the user is not found" do
+        let(:room) { FactoryGirl.create(:bigbluebutton_room, :owner_id => -1, :owner_type => "User") }
+        before(:each) { get :index, :room_id => room.id }
+        it { assigns(:result).should be_nil }
+      end
+
+      context "if the room is private" do
+        let(:user) { FactoryGirl.create(:user) }
+        let(:room) { FactoryGirl.create(:bigbluebutton_room, :private => true, :owner => user) }
+
+        context "and the user is the owner" do
+          before { controller.stub(:current_user).and_return(user) }
+          before(:each) { get :index, :room_id => room.id }
+          it { assigns(:result).should eql(:moderator) }
+        end
+
+        context "and the user is not the owner" do
+          before { controller.stub(:current_user).and_return(FactoryGirl.create(:user)) }
+          before(:each) { get :index, :room_id => room.id }
+          it { assigns(:result).should eql(:password) }
+        end
+
+        context "and there's no user logged" do
+          before { controller.stub(:current_user).and_return(nil) }
+          before(:each) { get :index, :room_id => room.id }
+          it { assigns(:result).should eql(:password) }
+        end
+      end
+
       context "if the room is public" do
-        it "if the user is a member of the space returns :moderator"
-        it "if the user is not a member of the space :guest"
+        let(:user) { FactoryGirl.create(:user) }
+        let(:room) { FactoryGirl.create(:bigbluebutton_room, :private => false, :owner => user) }
+
+        context "and the user is the owner" do
+          before { controller.stub(:current_user).and_return(user) }
+          before(:each) { get :index, :room_id => room.id }
+          it { assigns(:result).should eql(:moderator) }
+        end
+
+        context "and the user is not the owner" do
+          context "and the guest role is enabled" do
+            before {
+              BigbluebuttonRoom.stub(:guest_support).and_return(true)
+              controller.stub(:current_user).and_return(FactoryGirl.create(:user))
+            }
+            before(:each) { get :index, :room_id => room.id }
+            it { assigns(:result).should eql(:guest) }
+          end
+
+          context "and the guest role is disabled" do
+            before {
+              BigbluebuttonRoom.stub(:guest_support).and_return(false)
+              controller.stub(:current_user).and_return(FactoryGirl.create(:user))
+            }
+            before(:each) { get :index, :room_id => room.id }
+            it { assigns(:result).should eql(:attendee) }
+          end
+        end
+
+        context "and there's no user logged" do
+          context "and the guest role is enabled" do
+            before {
+              BigbluebuttonRoom.stub(:guest_support).and_return(true)
+              controller.stub(:current_user).and_return(nil)
+            }
+            before(:each) { get :index, :room_id => room.id }
+            it { assigns(:result).should eql(:guest) }
+          end
+
+          context "and the guest role is disabled" do
+            before {
+              BigbluebuttonRoom.stub(:guest_support).and_return(false)
+              controller.stub(:current_user).and_return(nil)
+            }
+            before(:each) { get :index, :room_id => room.id }
+            it { assigns(:result).should eql(:attendee) }
+          end
+        end
+      end
+    end
+
+    context "for space rooms" do
+      context "if the space is disabled" do
+        let(:space) { FactoryGirl.create(:space, :disabled => true) }
+        let(:room) { FactoryGirl.create(:bigbluebutton_room, :owner => space) }
+        before(:each) { get :index, :room_id => room.id }
+        it { assigns(:result).should be_nil }
+      end
+
+      context "if the space is not found" do
+        let(:room) { FactoryGirl.create(:bigbluebutton_room, :owner_id => -1, :owner_type => "Space") }
+        before(:each) { get :index, :room_id => room.id }
+        it { assigns(:result).should be_nil }
+      end
+
+      context "if the room is private" do
+        let(:user) { FactoryGirl.create(:user) }
+        let(:space) { FactoryGirl.create(:space) }
+        let(:room) { FactoryGirl.create(:bigbluebutton_room, :private => true, :owner => space) }
+
+        context "and the user is an admin of the space" do
+          before {
+            controller.stub(:current_user).and_return(user)
+            space.add_member!(user, "Admin")
+          }
+          before(:each) { get :index, :room_id => room.id }
+          it { assigns(:result).should eql(:moderator) }
+        end
+
+        context "and the user is a normal member of the space" do
+          before {
+            controller.stub(:current_user).and_return(user)
+            space.add_member!(user, "User")
+          }
+
+          context "and there's no meeting running in the room yet" do
+            before { BigbluebuttonRoom.any_instance.stub(:is_running?).and_return(false) }
+            before(:each) { get :index, :room_id => room.id }
+            it { assigns(:result).should eql(:moderator) }
+          end
+
+          context "and there's a meeting already running in the room" do
+            before { BigbluebuttonRoom.any_instance.stub(:is_running?).and_return(true) }
+
+            context "but the meeting was created by another user" do
+              before {
+                BigbluebuttonRoom.any_instance.stub(:user_created_meeting?).and_return(false)
+              }
+              before(:each) { get :index, :room_id => room.id }
+              it { assigns(:result).should eql(:attendee) }
+            end
+
+            context "and the meeting was created by the user" do
+              before {
+                BigbluebuttonRoom.any_instance.stub(:user_created_meeting?).and_return(true)
+              }
+              before(:each) { get :index, :room_id => room.id }
+              it { assigns(:result).should eql(:moderator) }
+            end
+          end
+        end
+
+        context "and the user is not a member of the space" do
+          before { controller.stub(:current_user).and_return(user) }
+          before(:each) { get :index, :room_id => room.id }
+          it { assigns(:result).should eql(:password) }
+        end
+
+        context "and it's an anonymous user" do
+          before { controller.stub(:current_user).and_return(nil) }
+          before(:each) { get :index, :room_id => room.id }
+          it { assigns(:result).should eql(:password) }
+        end
+      end
+
+      context "if the room is public" do
+        let(:user) { FactoryGirl.create(:user) }
+        let(:space) { FactoryGirl.create(:space) }
+        let(:room) { FactoryGirl.create(:bigbluebutton_room, :private => false, :owner => space) }
+
+        context "and the user is an admin of the space" do
+          before {
+            controller.stub(:current_user).and_return(user)
+            space.add_member!(user, "Admin")
+          }
+          before(:each) { get :index, :room_id => room.id }
+          it { assigns(:result).should eql(:moderator) }
+        end
+
+        context "and the user is a normal member of the space" do
+          before {
+            controller.stub(:current_user).and_return(user)
+            space.add_member!(user, "User")
+          }
+
+          context "and there's no meeting running in the room yet" do
+            before { BigbluebuttonRoom.any_instance.stub(:is_running?).and_return(false) }
+            before(:each) { get :index, :room_id => room.id }
+            it { assigns(:result).should eql(:moderator) }
+          end
+
+          context "and there's a meeting already running in the room" do
+            before { BigbluebuttonRoom.any_instance.stub(:is_running?).and_return(true) }
+
+            context "but the meeting was created by another user" do
+              before {
+                BigbluebuttonRoom.any_instance.stub(:user_created_meeting?).and_return(false)
+              }
+              before(:each) { get :index, :room_id => room.id }
+              it { assigns(:result).should eql(:attendee) }
+            end
+
+            context "and the meeting was created by the user" do
+              before {
+                BigbluebuttonRoom.any_instance.stub(:user_created_meeting?).and_return(true)
+              }
+              before(:each) { get :index, :room_id => room.id }
+              it { assigns(:result).should eql(:moderator) }
+            end
+          end
+        end
+
+        context "and the user is not a member of the space" do
+          context "and the guest role is enabled" do
+            before {
+              BigbluebuttonRoom.stub(:guest_support).and_return(true)
+              controller.stub(:current_user).and_return(user)
+            }
+            before(:each) { get :index, :room_id => room.id }
+            it { assigns(:result).should eql(:guest) }
+          end
+
+          context "and the guest role is disabled" do
+            before {
+              BigbluebuttonRoom.stub(:guest_support).and_return(false)
+              controller.stub(:current_user).and_return(user)
+            }
+            before(:each) { get :index, :room_id => room.id }
+            it { assigns(:result).should eql(:attendee) }
+          end
+        end
+
+        context "and it's an anonymous user" do
+          context "and the guest role is enabled" do
+            before {
+              BigbluebuttonRoom.stub(:guest_support).and_return(true)
+              controller.stub(:current_user).and_return(nil)
+            }
+            before(:each) { get :index, :room_id => room.id }
+            it { assigns(:result).should eql(:guest) }
+          end
+
+          context "and the guest role is disabled" do
+            before {
+              BigbluebuttonRoom.stub(:guest_support).and_return(false)
+              controller.stub(:current_user).and_return(nil)
+            }
+            before(:each) { get :index, :room_id => room.id }
+            it { assigns(:result).should eql(:attendee) }
+          end
+        end
       end
     end
   end
