@@ -1313,7 +1313,7 @@ pt-br:
     clic: "Clique para editar..."
     clic_logo: "Clique para mudar o seu logotipo"
     configuration: "Configurações da comunidade"
-    confirm: "Tem certeza que quer deixar esta comunidade?"
+    confirm: "Tem certeza que quer sair desta comunidade?"
     created: "Comunidade criada com sucesso"
     delete: "Excluir Comunidade"
     deleted: "Comunidade removida com sucesso"
@@ -1343,7 +1343,7 @@ pt-br:
       clarify_unregistered: "Por favor, digite o seu nome completo e uma senha para se registrar no Mconf e participar desta comunidade."
     join_pending: "Pedido de adesão sendo processado"
     leave:
-      leave_this_space: Deixar esta comunidade
+      leave_this_space: "Sair desta comunidade"
       success: Você deixou a comunidade %{space_name}
     logo: "Logo da comunidade"
     logo_selected:
