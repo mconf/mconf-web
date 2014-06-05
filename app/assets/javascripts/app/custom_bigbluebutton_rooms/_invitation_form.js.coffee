@@ -70,14 +70,12 @@ bindDates = ->
 
 # Initialize the dates with default values
 initializeDates = (startInput, endInput) ->
+  start = new Date()
 
-  # uses the current time, adjusting to the local timezone (datetimepicker expects UTC)
-  now = moment()
-  zone = now.zone()
-  start = now.utc().toDate().getTime() - (zone * 60000)
-  start = ignoreMinutes(new Date(start))
+  # start at the current time
   startInput.setDate(start)
 
+  # ends at the current time plus a standard duration
   end = addDuration(start, defaultDuration)
   endInput.setDate(end)
 
@@ -98,15 +96,11 @@ updateDuration = ->
   duration = previousDuration
   duration = ignoreSeconds(new Date(duration * 1000)).getTime()
   if _.isFinite(duration)
-    negative = duration < 0
     duration = moment.duration(Math.abs(duration))
-    text = "#{Math.floor(duration.as("hours"))}h #{duration.minutes()}m"
-    if negative
-      $(durationSelector).text("-#{text}")
-      $(durationSelector).addClass("error")
-    else
-      $(durationSelector).text("#{text}")
-      $(durationSelector).removeClass("error")
+    text = "#{Math.floor(duration.as("hours"))}h"
+    text = text + " #{duration.minutes()}m" unless duration.minutes() is 0
+    $(durationSelector).text("#{text}")
+    $(durationSelector).removeClass("error")
   else
     $(durationSelector).text("?")
 

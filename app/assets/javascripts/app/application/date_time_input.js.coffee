@@ -48,7 +48,7 @@ class mconf.DateTimeInput
     # sets the hour in the hour <select>
     hoursInput = @_getHoursInput()
     hoursOption = @_getTimeOptionFor(hoursInput, targetDate.hours())
-    if hoursOption.length > 0
+    if hoursOption? and hoursOption.length > 0
       hoursOption.prop("selected", true)
     else
       # selects the first option, the empty string
@@ -57,8 +57,7 @@ class mconf.DateTimeInput
     # sets the minute in the minute <select>
     minutesInput = @_getMinutesInput()
     minutesOption = @_getTimeOptionFor(minutesInput, targetDate.minutes())
-    minutesOption.prop("selected", true)
-    if minutesOption.length > 0
+    if minutesOption? and minutesOption.length > 0
       minutesOption.prop("selected", true)
     else
       # selects the first option, the empty string
@@ -82,7 +81,7 @@ class mconf.DateTimeInput
   # Sets the minimum date the user is allowed to select in this DateTimeInput.
   # Will affect only the date, not the time!
   setMinDate: (value) ->
-    date = moment(value).utc()
+    date = moment(value)
 
     # since the minimum date will affect the date input only, we ignore the
     # time passed (consider it the beginning of the day)

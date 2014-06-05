@@ -154,14 +154,18 @@ class CustomBigbluebuttonRoomsController < Bigbluebutton::RoomsController
   def adjust_dates_for_invitation(params)
     date_format = t('_other.datetimepicker.format_rails')
     user_time_zone = Mconf::Timezone.user_time_zone_offset(current_user)
-    if params[:invite][:starts_on]
-      params[:invite][:starts_on] = "#{params[:invite][:starts_on]} #{user_time_zone}"
+    if params[:invite][:starts_on].present?
+      time = "#{params[:invite]['starts_on_time(4i)']}:#{params[:invite]['starts_on_time(5i)']}"
+      params[:invite][:starts_on] = "#{params[:invite][:starts_on]} #{time} #{user_time_zone}"
       params[:invite][:starts_on] = Time.strptime(params[:invite][:starts_on], date_format)
     end
-    if params[:invite][:ends_on]
-      params[:invite][:ends_on] = "#{params[:invite][:ends_on]} #{user_time_zone}"
+    if params[:invite][:ends_on].present?
+      time = "#{params[:invite]['ends_on_time(4i)']}:#{params[:invite]['ends_on_time(5i)']}"
+      params[:invite][:ends_on] = "#{params[:invite][:ends_on]} #{time} #{user_time_zone}"
       params[:invite][:ends_on] = Time.strptime(params[:invite][:ends_on], date_format)
     end
+    (1..5).each { |n| params[:invite].delete("starts_on_time(#{n}i)") }
+    (1..5).each { |n| params[:invite].delete("ends_on_time(#{n}i)") }
     true
   rescue
     false
