@@ -137,11 +137,14 @@ describe BigbluebuttonRoom do
           it { should_not be_able_to_do_anything_to(target).except(allowed) }
 
           context "and has opened the room" do
+            let(:meeting) { FactoryGirl.create(:bigbluebutton_meeting, :creator_id => user.id, :room => space.bigbluebutton_room) }
+
             before :each do
               BigbluebuttonRoom.any_instance.stub(:fetch_is_running?).and_return()
               BigbluebuttonRoom.any_instance.stub(:is_running?).and_return(true)
               BigbluebuttonRoom.any_instance.stub(:fetch_meeting_info).and_return()
               BigbluebuttonRoom.any_instance.stub(:user_creator).and_return(:id => user.id, :name => user._full_name)
+              BigbluebuttonRoom.any_instance.stub(:get_current_meeting).and_return(meeting)
             end
             it { should be_able_to(:end, target) }
           end
@@ -183,11 +186,14 @@ describe BigbluebuttonRoom do
           it { should_not be_able_to_do_anything_to(target).except(allowed) }
 
           context "and has opened the room" do
+            let(:meeting) { FactoryGirl.create(:bigbluebutton_meeting, :creator_id => user.id, :room => space.bigbluebutton_room) }
+
             before :each do
               BigbluebuttonRoom.any_instance.stub(:fetch_is_running?).and_return()
               BigbluebuttonRoom.any_instance.stub(:is_running?).and_return(true)
               BigbluebuttonRoom.any_instance.stub(:fetch_meeting_info).and_return()
               BigbluebuttonRoom.any_instance.stub(:user_creator).and_return(:id => user.id, :name => user._full_name)
+              BigbluebuttonRoom.any_instance.stub(:get_current_meeting).and_return(meeting)
             end
             it { should be_able_to(:end, target) }
           end
