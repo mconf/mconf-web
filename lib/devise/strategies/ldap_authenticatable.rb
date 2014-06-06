@@ -133,7 +133,7 @@ module Devise
         end
       end
 
-      # Do the ldap server bind - treats connection timeout
+      # Do the ldap server bind
       def ldap_bind(ldap)
         begin
           Timeout::timeout(10) do
@@ -141,7 +141,7 @@ module Devise
               Rails.logger.info "LDAP: succesfully binded to the LDAP server"
               nil
             else
-              Rails.logger.error "LDAP: could not bind the configured user, check your configurations"
+              Rails.logger.error "LDAP: could not bind to the LDAP server, check your configurations"
               Rails.logger.error "LDAP: error code: #{ldap.get_operation_result.code}"
               Rails.logger.error "LDAP: error message: #{ldap.get_operation_result.message}"
               :bind
