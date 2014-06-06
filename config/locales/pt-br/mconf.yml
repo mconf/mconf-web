@@ -429,19 +429,9 @@ pt-br:
         hint: "Digite para começar a buscar"
         no_results: "Nenhum resultado encontrado"
         searching: "Procurando..."
-    invite: 
-      desktop: 
-        not_selected: "Selecione esta opção para acessar de um <em>computador</em>."
-        selected: "Acesso a partir de um <em>computador</em>."
-      field_name: "Seu nome"
-      field_password: "Chave de acesso desta sala"
-      mobile: 
-        details: "Disponível em dispositivos com Android. Você precisa instalar a aplicação <a href=\"%{url}\">Mconf-Mobile</a> para utilizar esta opção!"
-        details_short: "Disponível apenas para dispositivos Android."
-        download: "Clique aqui para fazer o download do Mconf-Mobile."
-        not_selected: "Selecione esta opção para acessar de um <em>dispositivo móvel</em>."
-        selected: "Acesso a partir de um <em>dispositivo móvel</em>."
-      selected: "selecionado"
+    invite:
+      field_name: "Você está entrando na conferência como"
+      field_password: "Chave de acesso desta conferência"
       title: "Acessar sala: <em>%{name}</em>"
     invite_header: 
       not_running: "não iniciada"

@@ -429,21 +429,11 @@ en:
         hint: "Type to start searching"
         no_results: "No results found"
         searching: "Searching..."
-    invite: 
-      desktop: 
-        not_selected: "Select this options to access from a <em>desktop computer</em>."
-        selected: "Access from a <em>desktop computer</em>."
-      field_name: "Your full name"
-      field_password: "Access key for this room"
-      mobile: 
-        details: "Available for Android devices. You have to install the application <a href=\"%{url}\">Mconf-Mobile</a> to use this option!"
-        details_short: "Available for Android devices only."
-        download: "Click here to download Mconf-Mobile."
-        not_selected: "Select this options to access from a <em>mobile device</em>."
-        selected: "Access from a <em>mobile device</em>."
-      selected: "selected"
-      title: "Join the room: <em>%{name}</em>"
-    invite_header: 
+    invite:
+      field_name: "You are joining as"
+      field_password: "Enter the access key for this meeting"
+      title: "Join room: <em>%{name}</em>"
+    invite_header:
       not_running: "not running"
       refresh: "This information is updated automatically"
       room_type_private: "This is a <em>private</em> web conference room"
