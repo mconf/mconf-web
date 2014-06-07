@@ -239,10 +239,12 @@ en:
     created: "Attachment added"
     delete: "Delete attachment"
     deleted: "Attachment successfully deleted"
-    error: 
+    error:
+      malformed: "Error deleting files"
       not_deleted: "%{file} not deleted correctly. "
       not_permission: "%{user} cannot delete %{file}. "
     file: "File: "
+    filename: "%{size} files from %{name}.zip"
     home: 
       one: "File in space %{space}"
     info: "Document info"
@@ -260,6 +262,8 @@ en:
     title: "Attachments (%{count})"
     upload_with_post: "Notify the upload with a message in the wall"
   attachments:
+    single_attachment:
+      delete: Delete
     doc_table:
       no_attachments: "No attachments found"
   attendeePW: "Attendee Password"

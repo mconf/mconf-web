@@ -1,22 +1,12 @@
 - spaces_menu_at :repository
-= include_gon
+
 = render :partial => 'spaces/menu'
 
 = content_for :sidebar do
-  .tag_filter_wrapper
-  -# - if attachment.errors.any?
-  -#   = render :partial => 'upload_form'
-  -# - else
   #doc_action
 
-#enable_javascript
-  = t('repository.need_javascript')
+#doc_repository{:'data-url' => space_attachments_path(@space), :'data-auth-token' => form_authenticity_token}
 
-#doc_repository
-  .tag_filter_content
-    %h3
-      = t('repository.search')
-      = icon_help t('tooltip.doc_search')
-  = render :partial => 'mixed_filter'
-  = render :partial => 'multiple_actions'
-  = render :partial => 'doc_table'
+  = render 'multiple_actions'
+
+  = render 'doc_table'

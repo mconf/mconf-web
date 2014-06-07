@@ -1,6 +1,9 @@
 $(document).ready ->
 
-  #Upload form
+  attachments_path = $('#doc_repository').attr('data-url')
+  form_auth_token = $('#doc_repository').attr('data-auth-token')
+
+  # Upload form
   hide_table = ->
     $("#doc_repository").parent().html()
     teste = I18n.t("repository.loading")
@@ -16,21 +19,11 @@ $(document).ready ->
       color: "#F5DF51"
     , 3000
 
-  # Action links
-  $("a.repository_sidebar_action").livequery "click", ->
-    if $(this).hasClass("disabled_button")
-      false
-    else
-      collapse_tag_list()
-      $.getScript @href
-      false
-
-  
   #Multiple selectors actions
   selected_attachments = ->
     sa = new Array()
-    $(".attachment_checkbox").each ->
-      sa.push $(this).attr("value")  if $(this).attr("checked")
+    $(".attachment_checkbox:checked").each ->
+      sa.push $(this).attr("value")
 
     sa
 
@@ -53,7 +46,7 @@ $(document).ready ->
       else
         $("#selected_info").html sa.length + " " + I18n.t("attachment.selected.other")
       $("#multiple_download").removeClass "disabled_button"
-      
+
       #Check permissions
       if can_delete_selected()
         $("#multiple_delete").removeClass "disabled_button"
@@ -75,7 +68,7 @@ $(document).ready ->
       false
     else
       sa = selected_attachments()
-      $(this).attr "href", gon.attachments_path + ".zip/" + "?attachment_ids=" + sa.join(",")
+      $(this).attr "href", attachments_path + ".zip/" + "?attachment_ids=" + sa.join(",")
 
   $("#multiple_delete").click ->
     if $(this).hasClass("disabled_button")
@@ -87,7 +80,7 @@ $(document).ready ->
         f.style.display = "none"
         @parentNode.appendChild f
         f.method = "POST"
-        f.action = gon.attachments_path + "?attachment_ids=" + sa.join(",")
+        f.action = attachments_path + "?attachment_ids=" + sa.join(",")
         m = document.createElement("input")
         m.setAttribute "type", "hidden"
         m.setAttribute "name", "_method"
@@ -96,12 +89,11 @@ $(document).ready ->
         s = document.createElement("input")
         s.setAttribute "type", "hidden"
         s.setAttribute "name", "authenticity_token"
-        s.setAttribute "value", gon.form_auth_token
+        s.setAttribute "value", form_auth_token
         f.appendChild s
         f.submit()
       false
 
-  
   #Initial actions
   $("#enable_javascript").hide()
   update_selected()
