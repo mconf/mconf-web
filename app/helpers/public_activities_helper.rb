@@ -20,7 +20,7 @@ module PublicActivitiesHelper
       when Space then link_to(trackable.name, space_path(trackable))
       when Post  then link_to(trackable.post_title, space_post_path(trackable.space, trackable))
       when News  then link_to(trackable.title, space_news_path(trackable.space, trackable))
-      when Attachment then link_to(trackable.post_title, space_event_path(trackable.space, trackable))
+      when Attachment then link_to(trackable.title, space_event_path(trackable.space, trackable))
       when BigbluebuttonMeeting
         if trackable.room.owner_type == 'User'
           link_to(trackable.room.owner.full_name, user_path(trackable.room.owner))

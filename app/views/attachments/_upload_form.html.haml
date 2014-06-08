@@ -5,4 +5,4 @@
   .modal-body
     = f.file_field :attachment
   .modal-footer.form-actions
-    = f.button :wrapped, :value => t('_other.upload')
+    = f.button :wrapped, :value => t('_other.upload'), :class => "btn btn-primary", :cancel_modal => true

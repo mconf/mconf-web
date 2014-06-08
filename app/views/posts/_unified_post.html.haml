@@ -42,8 +42,6 @@
       .thread-title
         = t('date.at')
         = link_to thread.space.name, space_path(thread.space)
-        - if thread.attachments.any?
-          = icon_attachment thread.attachments.first.filename
 
     .thread-text
       .block-collapsed
