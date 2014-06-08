@@ -69,6 +69,7 @@ pt-br:
       one: "%{count} participante"
       other: "%{count} participantes"
     publish: "Publicar"
+    upload: "Enviar"
     register_to_view_space: "Crie uma conta para visualizar e participar desta comunidade"
     save: "Salvar"
     send: "Enviar"
@@ -262,10 +263,22 @@ pt-br:
     title: "Anexos (%{count})"
     upload_with_post: "Notificar o envio com uma mensagem no mural"
   attachments:
+    index:
+      author: "Enviado por"
+      download_multiple: "Baixar"
+      file: "Arquivo"
+      new_file: "Enviar um arquivo"
+      no_attachments: "Nenhum arquivo encontrado"
+      remove_multiple: "Remover"
+      remove_multiple_confirmation: "Você tem certeza que deseja remover todos os arquivos selecionados? Esta operação é irreversível."
+      uploaded: "Enviado"
     single_attachment:
-      delete: Remover
-    doc_table:
-      no_attachments: "Nenhum documento encontrado"
+      ago: "atrás"
+      delete_confirmation: "Você tem certeza que deseja remover este arquivo? Esta operação é irreversível."
+      delete_tooltip: "Remover este arquivo"
+      download_tooltip: "Baixar este arquivo"
+    upload_form:
+      title: "Enviar um novo arquivo"
   attendeePW: "Senha de Participante"
   author: "Enviado por"
   avatar:
@@ -594,9 +607,6 @@ pt-br:
         missing_email: "Não foi possível encontrar o email do usuário do LDAP, por favor contate um administrador"
   disable: Desabilitar
   disabled: Desabilitado
-  document:
-    upload: "Enviar novo documento"
-  download: Baixar
   download_file: "Baixar arquivo"
   edit: Editar
   edit_hours: "Editar horas"

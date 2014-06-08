@@ -78,6 +78,7 @@ en:
       icon_tooltip: "This item has been reported as spam and is being evaluated by the administrators"
     unpublish: "Unpublish"
     update: "Update"
+    upload: "Upload"
     user:
       administrator: "Global administrator"
       normal_user: "Normal user"
@@ -262,10 +263,22 @@ en:
     title: "Attachments (%{count})"
     upload_with_post: "Notify the upload with a message in the wall"
   attachments:
-    single_attachment:
-      delete: Delete
-    doc_table:
+    index:
+      author: "Uploaded by"
+      download_multiple: "Download"
+      file: "File"
+      new_file: "Upload a file"
       no_attachments: "No attachments found"
+      remove_multiple: "Remove"
+      remove_multiple_confirmation: "Are you sure you want to remove all the files selected? This operation is irreversible."
+      uploaded: "Uploaded"
+    single_attachment:
+      ago: "ago"
+      delete_confirmation: "Are you sure you want to remove this file? This operation is irreversible."
+      delete_tooltip: "Remove this file"
+      download_tooltip: "Download this file"
+    upload_form:
+      title: "Upload a new file"
   attendeePW: "Attendee Password"
   author: "Uploaded by"
   avatar: 
@@ -594,9 +607,6 @@ en:
         missing_email: "Unable to find the email from the LDAP user retrieved from the LDAP server, please contact an administrator"
   disable: Disable
   disabled: Disabled
-  document: 
-    upload: "Upload new document"
-  download: Download
   download_file: "Download file"
   edit: Edit
   edit_hours: "Edit hours"

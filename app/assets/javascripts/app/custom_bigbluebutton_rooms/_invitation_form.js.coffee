@@ -1,3 +1,6 @@
+# TODO: scope this class to work only inside the element  "#webconference_invitation",
+#   otherwise it will run in other cases as well
+
 usersSelector = '#invite_users'
 searchUsersUrl = '/users/select?limit=7'
 startsOnSelector = '#invite_starts_on'

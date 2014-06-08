@@ -105,13 +105,8 @@ Mconf::Application.routes.draw do
       end
     end
 
+    resources :attachments, :except => [:edit, :update, :show]
     delete 'attachments', :to => 'attachments#delete_collection', :as => 'attachments'
-
-    resources :attachments do
-      member do
-        get :edit_tags
-      end
-    end
 
     resources :entries
 

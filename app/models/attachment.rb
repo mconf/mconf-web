@@ -78,20 +78,16 @@ class Attachment < ActiveRecord::Base
     # no more versions
   end
 
-  def get_size
-    return "#{(self.size/1024).to_s} kb"
-  end
-
   def current_data
     File.file?(full_filename) ? File.read(full_filename) : nil
   end
 
   def title
-    attachment.file.identifier
+    attachment.file.identifier unless attachment.file.nil?
   end
 
   def full_filename
-    attachment.file.file
+    attachment.file.file unless attachment.file.nil?
   end
 
   def self.repository_attachments(space, params)
@@ -109,6 +105,8 @@ class Attachment < ActiveRecord::Base
     attachments.sort!{|x,y| y.author.name <=> x.author.name } if params[:order] == 'author' && params[:direction] == 'asc'
     attachments.sort!{|x,y| x.content_type.split("/").last <=> y.content_type.split("/").last } if params[:order] == 'type' && params[:direction] == 'desc'
     attachments.sort!{|x,y| y.content_type.split("/").last <=> x.content_type.split("/").last } if params[:order] == 'type' && params[:direction] == 'asc'
+    attachments.sort!{|x,y| x.created_at <=> y.created_at } if params[:order] == 'created_at' && params[:direction] == 'desc'
+    attachments.sort!{|x,y| y.created_at <=> x.created_at } if params[:order] == 'created_at' && params[:direction] == 'asc'
 
     attachments
   end

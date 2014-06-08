@@ -51,15 +51,15 @@ module PostsHelper
 
   #method to get the attachment name
   def attachment_name(thread)
-    if thread.attachments.any?
-      return thread.attachments.first.filename
-    end
-    #let's look around the children
-    for post in thread.children
-      if post.attachments.any?
-        return post.attachments.first.filename
-      end
-    end
+    # if thread.attachments.any?
+    #   return thread.attachments.first.filename
+    # end
+    # #let's look around the children
+    # for post in thread.children
+    #   if post.attachments.any?
+    #     return post.attachments.first.filename
+    #   end
+    # end
     return ""
   end
 end
