@@ -79,7 +79,7 @@ en:
           comment: "Write a message to be sent to the administrators of the space"
       post:
         text: "Message body"
-        title: "Post a new message..."
+        title: "Message title"
       user:
         edit:
           password: "Leave it blank if you don't want to change it"

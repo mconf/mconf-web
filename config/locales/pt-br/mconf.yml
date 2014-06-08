@@ -1083,6 +1083,10 @@ pt-br:
     updated: "Mensagem atualizada!"
     wall: Mural
   posts:
+    collapsed_threads:
+      new_post: "Enviar uma nova mensagem"
+    new_post:
+      title: "Adicionando uma nova mensagem"
     post_with_children:
       by: "de"
   prav: PRAV

@@ -4,58 +4,9 @@
 
 body.posts.index {
 
-  #new-post {
-    padding: 10px 5px 5px 5px;
-    text-align: center;
+  #space-posts-create {
+    float: right;
     @include mconf-clearfix;
-
-    .additional-controls {
-      display: none;
-    }
-
-    &.active {
-      background: $light-gray;
-      @include border-radius(4px);
-      margin-bottom: 10px;
-
-      .additional-controls {
-        display: block;
-      }
-
-      .icon-mconf-comment {
-        color: $bright-blue;
-      }
-    }
-
-    .input {
-      // tighter layout
-      margin: 0;
-    }
-
-    input[type=text] {
-      // the title has an icon prepended, so it has to be shorter
-      width: 77%;
-    }
-
-    textarea {
-      resize: vertical;
-      height: 150px;
-      max-height: 400px;
-    }
-
-    .form-buttons {
-      @include mconf-clearfix;
-      margin-bottom: 10px;
-
-      .link-cancel {
-        float: right;
-        margin: 5px 10px 0 0;
-      }
-
-      input[type=submit] {
-        float: right;
-        margin-right: 10px;
-      }
-    }
   }
+
 }

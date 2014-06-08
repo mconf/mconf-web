@@ -7,7 +7,7 @@
     = simple_form_for([@space, prepare_for_form(@post)], :html => { :multipart => true, :class => "single-column" }) do |f|
       .modal-body
         - unless @post.parent_id?
-          = f.input :title, :label => t('title')
-        = f.input :text, :label => t('post.one'), :as => :text
+          = f.input :title, :label => false, :autofocus => true
+        = f.input :text, :label => false, :as => :text
       .modal-footer.form-actions
         = f.button :wrapped, t("save"), :class => "btn btn-primary", :cancel_modal => true

@@ -1,10 +1,6 @@
 - spaces_menu_at :posts
 = render :partial => 'spaces/menu'
 
-= content_for :sidebar do
-  - if can?(:create, @space.posts.build)
-    = render :partial => "new_post"
-
 = render :partial => "collapsed_threads", :locals => {:threads => @posts}
 
 - nav = page_navigation_links @posts

@@ -79,7 +79,7 @@ pt-br:
           comment: "Escreva uma mensagem para enviar aos administradores da comunidade"
       post:
         text: "Texto da mensagem"
-        title: "Adicionar uma mensagem..."
+        title: "Título da mensagem"
       user:
         edit:
           password: "Deixe em branco se você não quiser mudar"

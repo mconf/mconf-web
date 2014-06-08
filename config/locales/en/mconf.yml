@@ -1083,6 +1083,10 @@ en:
     updated: "Message updated!"
     wall: Wall
   posts:
+    collapsed_threads:
+      new_post: "Send a new message"
+    new_post:
+      title: "Post a new message"
     post_with_children:
       by: "by"
   prav: PRAV
