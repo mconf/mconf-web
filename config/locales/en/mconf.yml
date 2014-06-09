@@ -1018,7 +1018,6 @@ en:
     title: "News (%{count})"
     updated: "News item updated successfully"
   next: Next
-  no_messages_in_wall: "There are no messages in the wall"
   no_tags_found: "No tags found"
   now_exclamation: Now!
   ok: OK
@@ -1083,8 +1082,9 @@ en:
     updated: "Message updated!"
     wall: Wall
   posts:
-    collapsed_threads:
+    index:
       new_post: "Send a new message"
+      no_messages: "There are no messages in the wall"
     new_post:
       title: "Post a new message"
     post_with_children:

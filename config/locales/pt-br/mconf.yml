@@ -1018,7 +1018,6 @@ pt-br:
     title: "Notícias (%{count})"
     updated: "Notícia atualizada com sucesso"
   next: Próximo
-  no_messages_in_wall: "Não há mensagens no mural"
   no_tags_found: "Nenhuma tag encontrada"
   now_exclamation: Agora!
   ok: OK
@@ -1083,8 +1082,9 @@ pt-br:
     updated: "Mensagem atualizada!"
     wall: Mural
   posts:
-    collapsed_threads:
+    index:
       new_post: "Enviar uma nova mensagem"
+      no_messages: "Não existem mensagens no mural"
     new_post:
       title: "Adicionando uma nova mensagem"
     post_with_children:

@@ -5,8 +5,16 @@
 body.posts.index {
 
   #space-posts-create {
+    margin-top: 5px;
+    float: left;
+  }
+
+  #posts-navigation-top {
     float: right;
-    @include mconf-clearfix;
+
+    .pagination {
+      margin: 0;
+    }
   }
 
 }
