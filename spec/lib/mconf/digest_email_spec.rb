@@ -197,6 +197,9 @@ describe Mconf::DigestEmail do
       let(:space) { FactoryGirl.create(:space) }
 
       before do
+        ResqueSpec.disable_ext = true
+        Resque.inline = true
+
         space.add_member!(user)
         # create the data to be returned
         @posts = [ FactoryGirl.create(:post, :space => space, :updated_at => date_start) ]
@@ -206,15 +209,17 @@ describe Mconf::DigestEmail do
                                    :end_date => date_start + 1.hour, :author => user) ]
         @inbox = [ FactoryGirl.create(:private_message, :receiver => user, :sender => FactoryGirl.create(:user)) ]
 
-        subject.should_receive(:get_activity).exactly(2).times.with(user, date_start, date_end).
+        subject.should_receive(:get_activity).with(user, date_start, date_end).
           and_return([ @posts, @news, @attachments, @events, @inbox ])
-
-        #expect{Notifier}.to change { Resque.info[:pending] }.by(1)
-        #expect(Resque).to receive(:digest_email)
       end
       it {
         subject.send_digest(user, date_start, date_end)
       }
+
+      after do
+        ResqueSpec.disable_ext = false
+        Resque.inline = false
+      end
     end
   end
 

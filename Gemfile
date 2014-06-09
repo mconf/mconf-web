@@ -126,6 +126,5 @@ group :development, :test do
 end
 
 group :test do
-  # to use redis in-memory and clean it in-between tests, used for resque
-  gem "fakeredis", :require => "fakeredis/rspec"
+  gem 'resque_spec'
 end

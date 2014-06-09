@@ -18,15 +18,14 @@ class Notifier < ApplicationMailer
     end
   end
 
-  def digest_email(receiver_id, date_start, date_end)
+  def digest_email(receiver_id, posts, news, attachments, events, inbox)
     receiver = User.find(receiver_id)
     I18n.with_locale(get_user_locale(receiver,false)) do
-      posts, news, attachments, events, inbox = Mconf::DigestEmail.get_activity(receiver, date_start, date_end)
-      @posts = posts
-      @news = news
-      @attachments = attachments
-      @events = events
-      @inbox = inbox
+      @posts = Post.find(posts.map { |x| x["id"] })
+      @news = News.find(news.map { |x| x["id"] })
+      @attachments = Attachment.find(attachments.map { |x| x["id"] })
+      @events = Event.find(events.map { |x| x["id"] })
+      @inbox = PrivateMessage.find(inbox.map { |x| x["id"] })
       @locale = receiver.locale
       if receiver.receive_digest == User::RECEIVE_DIGEST_DAILY
         @type = t('email.digest.type.daily', :locale => @locale)

@@ -159,8 +159,6 @@ GEM
     factory_girl_rails (4.0.0)
       factory_girl (~> 4.0.0)
       railties (>= 3.0.0)
-    fakeredis (0.4.3)
-      redis (~> 3.0.0)
     feed-normalizer (1.5.2)
       hpricot (>= 0.6)
       simple-rss (>= 1.1)
@@ -281,6 +279,11 @@ GEM
       rufus-scheduler (~> 2.0.24)
     resque_mailer (2.2.6)
       actionmailer (>= 3.0)
+    resque_spec (0.15.0)
+      resque (>= 1.19.0)
+      rspec-core (>= 2.5.0)
+      rspec-expectations (>= 2.5.0)
+      rspec-mocks (>= 2.5.0)
     rmagick (2.13.2)
     rspec-core (2.14.5)
     rspec-expectations (2.14.3)
@@ -393,7 +396,6 @@ DEPENDENCIES
   dynamic_form
   exception_notification
   factory_girl_rails
-  fakeredis
   feed-normalizer
   ffaker
   font-awesome-rails
@@ -427,6 +429,7 @@ DEPENDENCIES
   resque
   resque-scheduler
   resque_mailer
+  resque_spec
   rmagick
   rspec-rails (~> 2.14)
   rubyzip
