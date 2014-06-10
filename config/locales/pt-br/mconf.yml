@@ -851,9 +851,6 @@ pt-br:
       private: "Comunidade privada"
       public: "Comunidade pública"
   less: "menos..."
-  locale:
-    changed: "Idioma da aplicação alterado para "
-    error: "Não foi possível alterar o idioma do aplicativo para"
   locales:
     en: English
     pt-br: "Português (Brasil)"
@@ -1018,7 +1015,6 @@ pt-br:
     title: "Notícias (%{count})"
     updated: "Notícia atualizada com sucesso"
   next: Próximo
-  no_tags_found: "Nenhuma tag encontrada"
   now_exclamation: Agora!
   ok: OK
   older: "Mais velho"
@@ -1215,12 +1211,9 @@ pt-br:
   room:
     other: Salas
   rooms:
-    form:
-      msg1: " impossibilitaram esta sala de ser salva:"
     invite:
       join_from_desktop: "Nesta página você pode entrar na conferência a partir de um <b>computador desktop</b>. Para entrar usando um dispositivo móvel, <a href=\"%{url}\">clique aqui</a>."
       join_from_mobile: "Nesta página você pode entrar na conferência a partir de um <b>dispositivo móvel</b>. Para entrar usando um computador desktop, <a href=\"%{url}\">clique aqui</a>."
-      msg1: "Convite para a reunião "
       name: "Nome:"
       name_enter: "Insira seu nome"
       password: "Senha:"
@@ -1237,9 +1230,6 @@ pt-br:
   save: Salvar
   select_image: "Selecione uma imagem, por favor"
   send: Enviar
-  servers:
-    form:
-      msg1: " impossibilitaram este servidor de ser salvo:"
   session:
     error:
       exist: "Você já está logado"
@@ -1253,6 +1243,10 @@ pt-br:
       password: "Senha"
     new:
       title: "Login"
+  session_locales:
+    create:
+      success: "Idioma da aplicação alterado para %{value}"
+      error: "Não foi possível alterar o idioma do aplicativo para %{value}"
   shared:
     copy_modal:
       title: Aperte Ctrl+C para copiar o texto
@@ -1582,17 +1576,6 @@ pt-br:
   subject: "Assunto:"
   summary: "Informações do vídeo"
   superuser: "Administrador"
-  tag:
-    add: "Adicionar tags"
-    edit: "Editar tags"
-    filter: "Filtrar por tag:"
-    new: "Nova tag"
-    other_capital: Tags
-    selected:
-      one: "Selecione uma tag:"
-      other: "Tags selecionadas:"
-  tags: Tags
-  tags_by: "Tags por:"
   text: Texto
   the_string: "a string"
   thread:
@@ -1634,8 +1617,6 @@ pt-br:
     public_profile: "Qualquer pessoa pode acessar esta informação"
     public_space: "Comunidades podem ser públicas, para que qualquer pessoa possa visualizar o que acontece neles, ou privados, onde apenas membros tem acesso às atividades da comunidade"
     share: "Esta é a url para compartilhar este vídeo com os seus colegas"
-    tag: "Tags são palavras-chave ou termos associados com o conteúdo que são utilizadas para localizar e filtrar as informações. Pressione enter para confirmar cada tag."
-    tag_by: "Tags são palavras que descrevem os documentos. Use este link para ordená-las por popularidade ou por ordem alfabética. Em seguida, clique nelas para ver os documentos relacionados."
     upcoming: "Esta seção mostra os próximos eventos nesta comunidade"
     update_logo: "Você pode enviar o seu próprio logotipo, criar um logotipo de texto ou selecionar uma imagem da galeria"
     vclass: "O tipo Classe Virtual é a maneira perfeita para organizar aulas, conferências e seminários, onde o professor assume um papel de destaque."
@@ -1783,6 +1764,5 @@ pt-br:
   when: Quando
   where: Onde
   yesterday: Ontem
-  your_interests_tags: "Seus interesses (tags)"
   your_vcard: "seu vCard"
   zipcode: CEP

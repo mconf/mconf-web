@@ -8,17 +8,20 @@
 class SessionLocalesController < ActionController::Base
 
   def create
-    new_locale = params[:new_locale].to_sym
+    new_locale = params[:l].to_sym
+    locale_name = t("locales.#{params[:l]}")
 
     if configatron.i18n.default_locales.include?(new_locale)
-      # Add locale to the session
-      session[:locale] =  new_locale
-      # Add locale to the user profile
+
+      # add locale to the session
+      session[:locale] = new_locale
+
+      # set the locale as the default for this user
       current_user.update_attribute(:locale, new_locale) if user_signed_in?
 
-      flash[:success] = t('locale.changed', :locale => params[:new_locale]) + params[:new_locale]
+      flash[:success] = t('session_locales.create.success', :value => locale_name, :locale => new_locale)
     else
-      flash[:error] = t('locale.error') + params[:new_locale]
+      flash[:error] = t('locale.error', :value => locale_name)
     end
 
     redirect_to request.referer
