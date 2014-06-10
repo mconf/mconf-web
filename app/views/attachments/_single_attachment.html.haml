@@ -4,10 +4,12 @@
   %td
     = link_to attachment.title, attachment.attachment_url, :download => attachment.title
   %td
-    = link_to attachment.author.full_name, user_path(attachment.author)
+    - if attachment.author
+      = link_to attachment.author.full_name, user_path(attachment.author)
   %td
     %span{title: attachment.created_at}
-      = time_ago_in_words(attachment.created_at) + " " + t('.ago')
+      - if attachment.created_at
+        = time_ago_in_words(attachment.created_at) + " " + t('.ago')
   %td
     = link_to attachment.attachment_url, :download => attachment.title do
       = icon_download :class => "tooltipped", :title => t(".download_tooltip")
