@@ -13,6 +13,8 @@ describe ManageController do
       should respond_with(:success)
     }
 
+    it { should_authorize :manage, :users }
+
     context "sets @users to a list of all users, including disabled users" do
       before {
         @u1 = user
@@ -149,6 +151,8 @@ describe ManageController do
       should respond_with(:success)
     }
 
+    it { should_authorize :manage, :spaces }
+
     context "sets @spaces to a list of all spaces, including disabled spaces" do
       before {
         @s1 = FactoryGirl.create(:space, :disabled => false)
@@ -239,6 +243,8 @@ describe ManageController do
     it "sets @spam_posts to all posts marked as spam"
     it "renders manage/spam"
     it "renders with the layout no_sidebar"
+
+    it { should_authorize :manage, :spam }
   end
 
   describe "abilities", :abilities => true do
