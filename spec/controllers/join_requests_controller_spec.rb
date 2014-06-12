@@ -104,6 +104,7 @@ describe JoinRequestsController do
 
       before(:each) {
         sign_in(user)
+        Informer.should_receive(:deliver_join_request).with(an_instance_of(JoinRequest))
         expect {
           post :create, :space_id => space.to_param, :join_request => jr.attributes
         }.to change{space.join_requests.count}.by(1)
@@ -119,6 +120,7 @@ describe JoinRequestsController do
 
       before(:each) {
         sign_in(user)
+        Informer.should_receive(:deliver_join_request).with(an_instance_of(JoinRequest))
         expect {
           post :create, :space_id => space.to_param, :join_request => jr.attributes
         }.to change{space.join_requests.count}.by(1)
@@ -185,6 +187,7 @@ describe JoinRequestsController do
       }
 
       before(:each) {
+        Informer.should_receive(:deliver_invitation).with(an_instance_of(JoinRequest))
         expect {
           post :create, {:invite => true, :space_id => space.to_param}.merge(attributes)
         }.to change{space.pending_invitations.count}.by(1)
@@ -202,6 +205,7 @@ describe JoinRequestsController do
       }
 
       before(:each) {
+        Informer.should_receive(:deliver_invitation).twice.with(an_instance_of(JoinRequest))
         expect {
           post :create, {:invite => true, :space_id => space.to_param}.merge(attributes)
         }.to change{space.pending_invitations.count}.by(2)
@@ -213,13 +217,14 @@ describe JoinRequestsController do
 
     context "admin successfully invites a user and fails to invite another" do
       let(:candidate2) { user } #is invalid because he's inviting himself
-      let!(:errors) { "#{user.email}: #{I18n.t('admission.errors.candidate_equals_introducer')}" }
+      let!(:errors) { "#{candidate2.email}: #{I18n.t('admission.errors.candidate_equals_introducer')}" }
       let(:attributes) {
         { :join_request => FactoryGirl.attributes_for(:join_request, :email => nil,
           :role_id => role.id), :candidates => "#{candidate.id},#{candidate2.id}" }
       }
 
       before(:each) {
+        Informer.should_receive(:deliver_invitation).with(an_instance_of(JoinRequest))
         expect {
           post :create, {:invite => true, :space_id => space.to_param}.merge(attributes)
         }.to change{space.pending_invitations.count}.by(1)
@@ -229,6 +234,25 @@ describe JoinRequestsController do
       it { should set_the_flash.to(I18n.t('join_requests.create.sent', :users => "#{candidate.username}")) }
       it { should set_the_flash.to(I18n.t('join_requests.create.error',
           :errors => errors)) }
+    end
+
+    context "admin fails to invite a user" do
+      let(:candidate) { user } #is invalid because he's inviting himself
+      let!(:errors) { "#{candidate.email}: #{I18n.t('admission.errors.candidate_equals_introducer')}" }
+      let(:attributes) {
+        { :join_request => FactoryGirl.attributes_for(:join_request, :email => nil,
+          :role_id => role.id), :candidates => "#{candidate.id}" }
+      }
+
+      before(:each) {
+        Informer.should_not_receive(:deliver_invitation).with(an_instance_of(JoinRequest))
+        expect {
+          post :create, {:invite => true, :space_id => space.to_param}.merge(attributes)
+        }.to change{space.pending_invitations.count}.by(0)
+      }
+
+      it { should redirect_to(invite_space_join_requests_path(space)) }
+      it { should set_the_flash.to(I18n.t('join_requests.create.error', :errors => errors)) }
     end
   end
 

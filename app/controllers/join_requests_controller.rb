@@ -91,6 +91,8 @@ class JoinRequestsController < ApplicationController
 
         if @join_request.save
           flash[:notice] = t('join_requests.create.created')
+          @join_request.send_notification  # send email/message
+
           if @space.public
             redirect_to space_path(@space)
           else
@@ -162,6 +164,7 @@ class JoinRequestsController < ApplicationController
         jr.request_type = 'invite'
         jr.introducer = current_user
         if jr.save
+          jr.send_notification # send email/message
           success.push jr.candidate.username
         else
           errors.push "#{jr.email}: #{jr.errors.full_messages.join(', ')}"
