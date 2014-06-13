@@ -256,6 +256,7 @@ pt-br:
     not_selected: "Nenhum documento selecionado"
     one: Anexo
     other: Anexos
+    repository_disabled: O repositório de documentos desta comunidade está desabilitado.
     selected:
       none: "Nenhum arquivo selecionado"
       one: "arquivo selecionado"

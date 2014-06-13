@@ -142,17 +142,16 @@ module Abilities
 
       # Attachments
       can :manage, Attachment do |attach|
-        attach.space.repository? && attach.space.admins.include?(user)
+        attach.space.admins.include?(user)
       end
       can [:read, :create], Attachment do |attach|
-        attach.space.repository? && attach.space.users.include?(user)
+        attach.space.users.include?(user)
       end
       can [:destroy], Attachment do |attach|
-        attach.space.repository? &&
-          attach.space.users.include?(user) &&
-          attach.author_id == user.id
+        attach.space.users.include?(user) &&
+        attach.author_id == user.id
       end
-      can :read, Attachment, :space => { :public => true, :repository => true }
+      can :read, Attachment, :space => { :public => true }
 
       # Permissions
       # Only space admins can update user roles/permissions
