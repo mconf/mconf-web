@@ -128,6 +128,18 @@ body.spaces.index {
       }
     }
 
+    .list-thumbnail {
+      .resource-visibility {
+        color: $dark-gray;
+      }
+    }
+
+    .list-text {
+      .resource-visibility {
+        color: $dark-gray;
+      }
+    }
+
   }
 
 }

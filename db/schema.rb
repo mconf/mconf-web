@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140411200714) do
+ActiveRecord::Schema.define(:version => 20140608203446) do
 
   create_table "activities", :force => true do |t|
     t.integer  "trackable_id"
@@ -34,23 +34,13 @@ ActiveRecord::Schema.define(:version => 20140411200714) do
     t.string   "type"
     t.integer  "size"
     t.string   "content_type"
-    t.string   "filename"
-    t.integer  "height"
-    t.integer  "width"
-    t.integer  "parent_id"
-    t.string   "thumbnail"
-    t.integer  "db_file_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "space_id"
     t.integer  "author_id"
     t.string   "author_type"
-    t.integer  "version_child_id"
-    t.integer  "version_family_id"
+    t.string   "attachment"
   end
-
-  add_index "attachments", ["version_child_id"], :name => "index_attachments_on_version_child_id"
-  add_index "attachments", ["version_family_id"], :name => "index_attachments_on_version_family_id"
 
   create_table "bigbluebutton_meetings", :force => true do |t|
     t.integer  "server_id"
@@ -58,10 +48,12 @@ ActiveRecord::Schema.define(:version => 20140411200714) do
     t.string   "meetingid"
     t.string   "name"
     t.datetime "start_time"
-    t.boolean  "running",    :default => false
-    t.boolean  "record",     :default => false
-    t.datetime "created_at",                    :null => false
-    t.datetime "updated_at",                    :null => false
+    t.boolean  "running",      :default => false
+    t.boolean  "record",       :default => false
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
+    t.integer  "creator_id"
+    t.string   "creator_name"
   end
 
   add_index "bigbluebutton_meetings", ["meetingid", "start_time"], :name => "index_bigbluebutton_meetings_on_meetingid_and_start_time", :unique => true
@@ -241,11 +233,6 @@ ActiveRecord::Schema.define(:version => 20140411200714) do
     t.datetime "updated_at",   :null => false
   end
 
-  create_table "post_attachments", :force => true do |t|
-    t.integer "post_id"
-    t.integer "attachment_id"
-  end
-
   create_table "posts", :force => true do |t|
     t.string   "title"
     t.text     "text"
@@ -365,11 +352,11 @@ ActiveRecord::Schema.define(:version => 20140411200714) do
     t.boolean  "events_enabled",                 :default => false
     t.boolean  "registration_enabled",           :default => true,  :null => false
     t.string   "shib_principal_name_field"
+    t.string   "ldap_filter"
   end
 
   create_table "spaces", :force => true do |t|
     t.string   "name"
-    t.integer  "parent_id"
     t.boolean  "deleted"
     t.boolean  "public",      :default => false
     t.datetime "created_at"
@@ -387,23 +374,6 @@ ActiveRecord::Schema.define(:version => 20140411200714) do
     t.datetime "created_at",       :null => false
     t.datetime "updated_at",       :null => false
   end
-
-  create_table "taggings", :force => true do |t|
-    t.integer "tag_id",                        :null => false
-    t.integer "taggable_id",                   :null => false
-    t.string  "taggable_type", :default => "", :null => false
-  end
-
-  add_index "taggings", ["tag_id", "taggable_id", "taggable_type"], :name => "index_taggings_on_tag_id_and_taggable_id_and_taggable_type", :unique => true
-
-  create_table "tags", :force => true do |t|
-    t.string  "name",           :default => "", :null => false
-    t.integer "container_id"
-    t.string  "container_type"
-    t.integer "taggings_count", :default => 0
-  end
-
-  add_index "tags", ["name", "container_id", "container_type"], :name => "index_tags_on_name_and_container_id_and_container_type"
 
   create_table "users", :force => true do |t|
     t.string   "username"

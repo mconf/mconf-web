@@ -4,17 +4,18 @@
 %section.event-register
 
   - if @event.past?
-    %p
-      %strong
-        = t('.closed')
+    %p= t('.closed')
 
   - elsif can?(:register, @event)
     - if current_user
       = simple_form_for([@event, @participant]) do |f|
         = f.hidden_field :email
-        = f.button :submit, :value => t(".button"), :class => 'btn btn-success large main'
+        = f.button :submit, :value => t(".button"), :class => 'btn btn-success'
     - else
-      = link_to t('.button'), new_event_participant_path(@event), :class => 'btn btn-success large main'
+      = link_to t('.button'), new_event_participant_path(@event), :class => 'btn btn-success'
 
   - elsif @event.owner_type == 'Space'
-    = link_to t('.join_button'), main_app.new_space_join_request_path(@event.owner), :class => 'btn btn-success large main'
+    - if user_signed_in?
+      = link_to t('.join_button'), main_app.new_space_join_request_path(@event.owner), :class => 'btn btn-success'
+    - else
+      = t('.need_sign_in')

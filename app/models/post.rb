@@ -11,10 +11,6 @@ class Post < ActiveRecord::Base
 
   belongs_to :space
   belongs_to :author, :polymorphic => true
-  has_many :post_attachments, :dependent => :destroy
-  has_many :attachments, :through => :post_attachments
-
-  accepts_nested_attributes_for :attachments, :allow_destroy => true
 
   acts_as_tree #:order => 'updated_at ASC'
 
@@ -23,15 +19,7 @@ class Post < ActiveRecord::Base
   }
 
   validates_presence_of :title, :unless => Proc.new { |post| post.parent.present? }
-  validates_presence_of :text, :if => Proc.new { |post| post.attachments.empty? }
-
-  # Fill attachments author and space
-  before_validation do |post|
-    post.attachments.each do |a|
-      a.space  ||= post.space
-      a.author = post.author
-    end
-  end
+  validates_presence_of :text
 
   # Update parent Posts when commenting to it
   after_save do |post|

@@ -117,7 +117,7 @@ class UsersController < ApplicationController
     if id
       @users = query.find_by_id(id)
     elsif query.nil?
-      @users = query.limit(limit).all
+      @users = query.limit(limit)
     else
       @users = query
         .where("profiles.full_name like ? OR users.username like ? OR users.email like ?", "%#{name}%", "%#{name}%", "%#{name}%")

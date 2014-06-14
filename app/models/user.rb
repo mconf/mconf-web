@@ -75,8 +75,6 @@ class User < ActiveRecord::Base
 
   validates :email, :presence => true, :email => true
 
-  acts_as_resource :param => :username
-
   has_and_belongs_to_many :spaces, :join_table => :permissions,
                           :association_foreign_key => "subject_id",
                           :conditions => { :permissions => {:subject_type => 'Space'} }

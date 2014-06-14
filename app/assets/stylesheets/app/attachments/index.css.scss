@@ -1,8 +1,22 @@
-#attachments-upload {
+@import "app/spaces/sidebar";
 
-  .help-icon {
-    float: left;
-    margin-right: 5px;
+body.attachments.index {
+
+  #space-attachments-tabs {
+    @include mconf-clearfix;
+  }
+
+  #space-attachments {
+    clear: both;
+  }
+
+  #space-attachments-create {
+    float: right;
+    @include mconf-clearfix;
+  }
+
+  #space-attachments-selected {
+    margin-left: 5px;
   }
 
 }

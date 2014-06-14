@@ -196,12 +196,12 @@ describe SpacesController do
     before(:each) { sign_in(user) }
 
     context "with valid attributes" do
-      let(:space) { FactoryGirl.build(:space) }
+      let(:space_attributes) { FactoryGirl.attributes_for(:space) }
 
       describe "creates the new space with the correct attributes" do
         before(:each) {
           expect {
-            post :create, :space => space.attributes
+            post :create, :space => space_attributes
           }.to change(Space, :count).by(1)
         }
 
@@ -210,22 +210,22 @@ describe SpacesController do
       end
 
       context "redirects to the new space" do
-        before(:each) { post :create, :space => space.attributes }
+        before(:each) { post :create, :space => space_attributes }
         it { should redirect_to(space_path(Space.last)) }
       end
 
       describe "assigns @space with the new space" do
-        before(:each) { post :create, :space => space.attributes }
+        before(:each) { post :create, :space => space_attributes }
         it { should assign_to(:space).with(Space.last) }
       end
 
       describe "sets the flash with a success message" do
-        before(:each) { post :create, :space => space.attributes }
+        before(:each) { post :create, :space => space_attributes }
         it { should set_the_flash.to(I18n.t('space.created')) }
       end
 
       describe "adds the user as an admin in the space" do
-        before(:each) { post :create, :space => space.attributes }
+        before(:each) { post :create, :space => space_attributes }
         it { Space.last.admins.should include(user) }
       end
 

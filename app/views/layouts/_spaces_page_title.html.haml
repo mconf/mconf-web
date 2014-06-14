@@ -8,12 +8,12 @@
     - else
       .main-title= sanitize(@space.name)
     - if @space.public
-      %span.space-visibility.public
-        = icon_space_public()
+      .resource-visibility.public
+        = icon_space_public
         = t(".public")
     - else
-      %span.space-visibility.private
-        = icon_space_private()
+      .resource-visibility.private
+        = icon_space_private
         = t(".private")
     - if user_signed_in? && @space.users.include?(current_user)
       %span.user-is-member

@@ -8,7 +8,7 @@
 
     = link_to disable_space_path(space), :confirm => t('.disable_confirm'), :method => :delete do
       = icon_disable(:alt => t('.disable'), :title => t('.disable'))
-    = render 'destroy_space', :space => space
+    = render 'manage/destroy_space', :space => space
 
   .thread-title
     = link_to space_path(space), :class => 'space-name' do

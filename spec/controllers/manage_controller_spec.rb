@@ -57,13 +57,13 @@ describe ManageController do
 
       context "if no page is passed in params" do
         before(:each) { get :users }
-        it { assigns(:users).count.should be(20) }
+        it { assigns(:users).size.should be(20) }
         it { controller.params[:page].should be_nil }
       end
 
       context "if a page is passed in params" do
         before(:each) { get :users, :page => 2 }
-        it { assigns(:users).count.should be(20) }
+        it { assigns(:users).size.should be(20) }
         it("includes the correct users in @users") {
           page = User.joins(:profile).order("profiles.full_name").paginate(:page => 2, :per_page => 20)
           page.each do |user|
@@ -184,13 +184,13 @@ describe ManageController do
 
       context "if no page is passed in params" do
         before(:each) { get :spaces }
-        it { assigns(:spaces).count.should be(20) }
+        it { assigns(:spaces).size.should be(20) }
         it { controller.params[:page].should be_nil }
       end
 
       context "if a page is passed in params" do
         before(:each) { get :spaces, :page => 2 }
-        it { assigns(:spaces).count.should be(20) }
+        it { assigns(:spaces).size.should be(20) }
         it("includes the correct spaces in @spaces") {
           page = Space.order('name').paginate(:page => 2, :per_page => 20)
           page.each do |space|

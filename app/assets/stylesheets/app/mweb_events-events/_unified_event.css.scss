@@ -3,8 +3,8 @@
 @import "definitions";
 
 .thread.unified-event {
-  .event-visibility {
-    @include space-visibility;
+  .sub-title {
+    color: $dark-gray;
   }
 
   .logo-in-thread {

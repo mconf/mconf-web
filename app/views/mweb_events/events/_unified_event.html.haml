@@ -14,21 +14,20 @@
         %span
           = link_to first_words(event.name, 80), mweb_events.event_path(event), :title => event.name, :class => "list-title"
       .thread-text
-        .event-visibility
-          - if event.public
-            %span.visibility.public
-              = icon_space_public()
-              - if event.past?
-                = t('.closed')
-              - else
-                = t("mweb_events.events.index.public")
-          - else
-            %span.visibility.private
-              = icon_space_private()
-              - if event.past?
-                = t('.closed')
-              - else
-                = t("mweb_events.events.index.private")
+        - if event.public
+          .resource-visibility.small.public
+            = icon_space_public
+            - text = t(".public")
+            - if event.past?
+              - text = "#{text}, #{t('.closed')}"
+            = text
+        - else
+          .resource-visibility.small.private
+            = icon_space_private
+            - text = t(".private")
+            - if event.past?
+              - text = "#{text}, #{t('.closed')}"
+            = text
 
         .event-description-date
           = t('.starts_at') + ':'

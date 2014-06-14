@@ -45,8 +45,13 @@ body.spaces.new, body.spaces.create {
       }
     }
 
-    .visibility {
-      @include space-visibility; // in _definitions
+    .resource-visibility {
+      margin-top: 2px;
+      color: $dark-gray;
+
+      .icon-awesome {
+        float: none;
+      }
     }
 
   }

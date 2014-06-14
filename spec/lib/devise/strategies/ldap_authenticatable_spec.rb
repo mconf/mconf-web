@@ -224,20 +224,64 @@ describe Devise::Strategies::LdapAuthenticatable do
   end
 
   describe "#ldap_filter" do
-    let(:params) { { :user => { :login => "user-login", :password => "user-password" } } }
-    let(:ldap_user) {
-      u = Object.new
-      u.stub(:ldap_username_field).and_return("username")
-      u
-    }
-    before {
-      target.stub(:params).and_return(params)
-      Net::LDAP::Filter.should_receive(:eq).with("username", "user-login")
-        .and_return("expected filter")
-    }
+    context "with a valid base filter configured" do
+      let(:params) { { :user => { :login => "user-login", :password => "user-password" } } }
+      let(:configs) {
+        u = Object.new
+        u.stub(:ldap_username_field).and_return("username")
+        u.stub(:ldap_filter).and_return("(&(objectclass=user)(objectcategory=person))")
+        u
+      }
+      let(:expected) {
+        Net::LDAP::Filter.construct("(&(&(objectclass=user)(objectcategory=person))(username=user-login))")
+      }
+      before { target.stub(:params).and_return(params) }
+      it { target.ldap_filter(configs).should eq(expected) }
+    end
 
-    it "returns an instance of Net::LDAP::filter configured the correct parameters" do
-      target.ldap_filter(ldap_user).should eql("expected filter")
+    context "without a base filter configured" do
+      let(:params) { { :user => { :login => "user-login", :password => "user-password" } } }
+      let(:configs) {
+        u = Object.new
+        u.stub(:ldap_username_field).and_return("username")
+        u.stub(:ldap_filter).and_return(nil)
+        u
+      }
+      let(:expected) {
+        Net::LDAP::Filter.construct("(username=user-login)")
+      }
+      before { target.stub(:params).and_return(params) }
+      it { target.ldap_filter(configs).should eq(expected) }
+    end
+
+    context "with an invalid base filter" do
+      let(:params) { { :user => { :login => "user-login", :password => "user-password" } } }
+      let(:configs) {
+        u = Object.new
+        u.stub(:ldap_username_field).and_return("username")
+        u.stub(:ldap_filter).and_return("anything weird and invalid")
+        u
+      }
+      let(:expected) {
+        Net::LDAP::Filter.construct("(username=user-login)")
+      }
+      before { target.stub(:params).and_return(params) }
+      it { target.ldap_filter(configs).should eq(expected) }
+    end
+
+    context "with an empty base filter" do
+      let(:params) { { :user => { :login => "user-login", :password => "user-password" } } }
+      let(:configs) {
+        u = Object.new
+        u.stub(:ldap_username_field).and_return("username")
+        u.stub(:ldap_filter).and_return("")
+        u
+      }
+      let(:expected) {
+        Net::LDAP::Filter.construct("(username=user-login)")
+      }
+      before { target.stub(:params).and_return(params) }
+      it { target.ldap_filter(configs).should eq(expected) }
     end
   end
 

@@ -5,7 +5,7 @@
   %ul.management-links
     = link_to enable_space_path(space), :confirm => t('.enable_confirm'), :method => :post do
       = icon_enable(:alt => t('.enable'), :title => t('.enable'))
-    = render 'destroy_space', :space => space
+    = render 'manage/destroy_space', :space => space
 
   .space-text
     %span.space-name

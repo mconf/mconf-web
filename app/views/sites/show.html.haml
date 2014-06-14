@@ -17,6 +17,7 @@
     = f.input :shib_name_field, :disabled => true
     = f.input :shib_principal_name_field, :disabled => true
     = f.input :shib_login_field, :disabled => true
+    = f.input :shib_env_variables, :disabled => true
     = f.input :ldap_enabled, :disabled => true
     = f.input :ldap_host, :disabled => true
     = f.input :ldap_port, :disabled => true
@@ -26,6 +27,7 @@
     = f.input :ldap_username_field, :disabled => true
     = f.input :ldap_email_field, :disabled => true
     = f.input :ldap_name_field, :disabled => true
+    = f.input :ldap_filter, :disabled => true
   .right-column
     = f.input :smtp_login, :disabled => true
     = f.input :smtp_password, :as => :showable_password, :disabled => true

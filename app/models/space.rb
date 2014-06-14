@@ -11,10 +11,11 @@ class Space < ActiveRecord::Base
   # TODO: temporary, review
   USER_ROLES = ["Admin", "User"]
 
+  attr_accessible :name, :permalink, :public, :disabled, :repository, :description, :deleted
+
   has_many :posts, :dependent => :destroy
   has_many :news, :dependent => :destroy
   has_many :attachments, :dependent => :destroy
-  has_many :tags, :dependent => :destroy, :as => :container
   has_one :bigbluebutton_room, :as => :owner, :dependent => :destroy
 
   has_many :permissions, :foreign_key => "subject_id",
@@ -69,7 +70,6 @@ class Space < ActiveRecord::Base
   # the friendly name / slug for the space
   extend FriendlyId
   friendly_id :permalink
-  acts_as_resource :param => :permalink
 
   after_validation :check_errors_on_bigbluebutton_room
 

@@ -246,6 +246,11 @@ module ApplicationHelper
     (models.count/models.per_page.to_f).ceil
   end
 
+  # First 'size' characters of a text
+  def first_words(text, size)
+    truncate(text, :length => size)
+  end
+
   private
 
   # Based on http://www.igvita.com/2007/03/15/block-helpers-and-dry-views-in-rails/
