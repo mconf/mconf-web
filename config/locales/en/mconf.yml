@@ -806,13 +806,15 @@ en:
     new:
       already_requested: "You already requested to join this space! Please wait for an administrator to accept it."
       message_title: "Send a join request to the administrators of the space"
+    show:
+      accept: "Yes, I want to join!"
+      deny: "No, not now"
+      deny_confirmation: "Are you sure you want to deny the invitation to join this space?"
+      title: "You were invited to join the space \"%{name}\""
     update:
       accepted: "Join request accepted"
       updated: "Join request status updated"
       discarded: "Join request discarded"
-    show:
-      title: Invitation to %{space}
-      already_accepted: This invitation has already been accepted.
   keywords: "Keywords (*)"
   language: Language
   last_week: "Last week"

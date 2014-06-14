@@ -6,36 +6,22 @@
 
 body.join_requests.show {
 
-  select, input, .label {
-    vertical-align: baseline;
-  }
+  #join-requests-invitation {
 
-  select {
-    width: auto;
-  }
-
-  .thread .thread-actions {
-    float: right;
-
-    form {
-      display: inline-block;
-      margin: 0;
+    h3 {
+      text-align: center;
     }
 
-    .separator {
-      margin: 0 5px;
+    .action-buttons {
+      text-align: center;
+      margin: 20px;
+
+      form {
+        display: inline-block;
+        margin: 0 20px;
+      }
     }
-  }
 
-  .thread-text {
-    margin-top: 10px;
-    clear: both;
-  }
-
-  .user-comment {
-    background: $very-light-gray;
-    padding: 5px;
-    margin: 5px 0;
   }
 
 }

@@ -24,12 +24,8 @@ class JoinRequestsController < ApplicationController
 
   def determine_layout
     case params[:action].to_sym
-    when :index
-      "spaces_show"
-    when :new
+    when :new, :show
       "no_sidebar"
-    when :invite
-      "spaces_show"
     else
       "spaces_show"
     end

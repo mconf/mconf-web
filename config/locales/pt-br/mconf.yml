@@ -806,13 +806,15 @@ pt-br:
     new:
       already_requested: "Você já requisitou ingresso nesta comunidade! Por favor espere que um administrador aceite o pedido."
       message_title: "Envie um pedido de adesão aos administradores da comunidade"
+    show:
+      accept: "Sim, quero entrar!"
+      deny: "Nào, agora não"
+      deny_confirmation: "Você tem certeza que quer negar o convite de ingresso a esta comunidade?"
+      title: "Você foi convidado para ser um membro da comunidade \"%{name}\""
     update:
       accepted: "Pedido de adesão aceito"
       updated: "Pedido de adesão atualizado"
       discarded: "Pedido de adesão descartado"
-    show:
-      title: Convite para a comunidade %{space}
-      already_accepted: Este convite já foi aceito.
   keywords: "Palavras-chave (*)"
   language: Idioma
   last_week: "Semana passada"
