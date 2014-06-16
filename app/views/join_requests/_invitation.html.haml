@@ -21,8 +21,9 @@
       = jr.candidate ? link_to(jr.candidate.name, user_path(jr.candidate)) : jr.email
       .user-email
         = "(#{jr.candidate.username}, #{jr.candidate.email})"
-      = t('.invited_as') + ':'
-      %b= t("activerecord.attributes.roles.name_#{jr.role.downcase}")
+      - if jr.request_type == 'invite'
+        = t('.invited_as') + ':'
+        %b= t("activerecord.attributes.roles.name_#{jr.role.downcase}")
     .thread-text
       %span= t('.message_sent') + ':'
       %blockquote.user-comment= jr.comment

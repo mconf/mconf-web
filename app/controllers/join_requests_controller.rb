@@ -36,6 +36,7 @@ class JoinRequestsController < ApplicationController
   end
 
   def show
+    redirect_to space_join_requests_path(@space) if can?(:approve, @join_request)
   end
 
   def new
@@ -121,7 +122,12 @@ class JoinRequestsController < ApplicationController
                             ( @join_request.accepted? ? t('join_requests.update.accepted') :
                             t('join_requests.update.discarded') ) :
                             t('join_requests.update.updated'))
-          redirect_to request.referer
+
+          if @join_request.request_type == 'invite'
+            redirect_to @join_request.accepted ? space_path(space) : my_home_path
+          else
+            redirect_to request.referer
+          end
         }
       else
         format.html {

@@ -811,6 +811,7 @@ en:
       deny: "No, not now"
       deny_confirmation: "Are you sure you want to deny the invitation to join this space?"
       title: "You were invited to join the space \"%{name}\""
+      already_accepted: ... but you're already a member of this space.
     update:
       accepted: "Join request accepted"
       updated: "Join request status updated"

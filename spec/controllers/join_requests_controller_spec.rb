@@ -95,6 +95,44 @@ describe JoinRequestsController do
     end
   end
 
+  describe "#show" do
+    let(:jr) { FactoryGirl.create(:space_join_request) }
+    let(:space) { jr.group }
+    let(:user) { FactoryGirl.create(:user) }
+
+    context "a normal user" do
+      context "is not the subject of the join request" do
+        before(:each) {
+          sign_in(user)
+          expect {
+            get :show, :space_id => space.to_param, :id => jr.id
+          }.to raise_error(CanCan::AccessDenied)
+        }
+      end
+
+      context "is the subject of the join_request" do
+        before(:each) {
+          sign_in(jr.candidate)
+          get :show, :space_id => space.to_param, :id => jr.id
+        }
+
+        it { should render_template('show') }
+        it { should render_with_layout('no_sidebar') }
+      end
+
+      context "is the admin of the space of the join_request" do
+        before(:each) {
+          space.add_member!(user, 'Admin')
+          sign_in(user)
+          get :show, :space_id => space.to_param, :id => jr.id
+        }
+
+        it { should redirect_to space_join_requests_path(space) }
+      end
+
+    end
+  end
+
   describe "#create" do
     let(:user) { FactoryGirl.create(:user) }
     let(:jr) { FactoryGirl.build(:join_request, :candidate => user, :introducer => nil) }
@@ -344,7 +382,7 @@ describe JoinRequestsController do
           jr.reload
         }
 
-        it { should redirect_to(space_path(space)) }
+        it { should redirect_to my_home_path }
         it { jr.should_not be_accepted }
       end
     end
