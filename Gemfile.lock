@@ -34,7 +34,7 @@ GIT
 
 GIT
   remote: git@github.com:mconf/mweb_events.git
-  revision: 241ea13999402ebbaafa1a4c77fa539d03489c30
+  revision: eb978fc4e98cf6db464e62090bee66fd4e2ce123
   specs:
     mweb_events (0.0.1)
       bootstrap3-datetimepicker-rails (~> 3.0.0)
@@ -194,7 +194,7 @@ GEM
     garb (0.9.1)
       activesupport (>= 2.2.0)
       crack (>= 0.1.6)
-    geocoder (1.2.1)
+    geocoder (1.2.2)
     haml (3.1.7)
     haml-rails (0.4)
       actionpack (>= 3.1, < 4.1)
