@@ -563,4 +563,47 @@ describe SpacesController do
     end
   end
 
+  describe "#user_permission" do
+    let(:target) { FactoryGirl.create(:space) }
+    let(:user) { FactoryGirl.create(:superuser) }
+    before(:each) { sign_in(user) }
+
+    it { should_authorize an_instance_of(Space), :user_permissions, :id => target.to_param }
+
+    context "layout and view" do
+      before(:each) { get :user_permissions, :id => target.to_param }
+
+      it { should respond_with(:success) }
+      it { assigns(:space).should eq(target) }
+      it { should render_template("spaces/user_permission") }
+      it { should render_with_layout("spaces_show") }
+    end
+
+    context "user is not a member of the space" do
+      let(:user) { FactoryGirl.create(:user) }
+      before(:each) { get :user_permissions, :id => target.to_param }
+
+      it { should respond_with(403) }
+    end
+
+    context "user is a normal member of the space" do
+      let(:user) { FactoryGirl.create(:user) }
+      before(:each) {
+        target.add_member!(user)
+        get :user_permissions, :id => target.to_param
+      }
+
+      it { should respond_with(403) }
+    end
+
+    context "user is admin of the space" do
+      let(:user) { FactoryGirl.create(:user) }
+      before(:each) {
+        target.add_member!(user, 'Admin')
+        get :user_permissions, :id => target.to_param
+      }
+
+      it { should respond_with(:success) }
+    end
+  end
 end
