@@ -55,7 +55,7 @@ class ApplicationController < ActionController::Base
 
   # Where to redirect to after sign in with Devise
   def after_sign_in_path_for(resource)
-    if request.referer == login_url
+    if [login_url, new_user_session_url].include?(request.referer)
       super
     else
       stored_location_for(resource) || request.referer || my_home_path
@@ -72,22 +72,31 @@ class ApplicationController < ActionController::Base
   end
 
   def bigbluebutton_role(room)
-    # TODO: temporary guest role that only exists in mconf-live
+    # guest role that only exists in mconf-live, might be disabled in the gem
     guest_role = :attendee
-    if defined?(BigbluebuttonRoom.guest_support) and
-        BigbluebuttonRoom.guest_support
+    if defined?(BigbluebuttonRoom.guest_support) and BigbluebuttonRoom.guest_support
       guest_role = :guest
     end
 
-    # when a user or a space is disabled the owner of the room is nil (because when trying to find
-    # the user/room only the ones that are *not* disabled are returned) so we check if the owner is
-    # not present we assume the room cannot be accessed
-    # TODO: not the best solution, we should actually find a way to check if owner.disabled is true
-    return nil unless room.owner
+    # first make sure the room has a valid owner
+    if room.owner_type == "User"
+      user = User.find_by_id(room.owner_id)
+      return nil if user.nil? || user.disabled
+    elsif room.owner_type == "Space"
+      space = Space.find_by_id(room.owner_id)
+      return nil if space.nil? || space.disabled
+    else
+      return nil
+    end
 
-    unless bigbluebutton_user.nil?
-
-      # user rooms
+    if current_user.nil?
+      # anonymous users
+      if room.private?
+        :password
+      else
+        guest_role
+      end
+    else
       if room.owner_type == "User"
         if room.owner.id == current_user.id
           # only the owner is moderator
@@ -99,13 +108,17 @@ class ApplicationController < ActionController::Base
             guest_role
           end
         end
-
-      # space rooms
       elsif room.owner_type == "Space"
         space = Space.find(room.owner.id)
-        if space.users.include?(current_user)
-          # space members are moderators
+        if space.admins.include?(current_user)
           :moderator
+        elsif space.users.include?(current_user)
+          # will be moderator if he's creating a new meeting or he already created it
+          if !room.is_running? || room.user_created_meeting?(current_user)
+            :moderator
+          else
+            :attendee
+          end
         else
           if room.private
             :password
@@ -113,14 +126,6 @@ class ApplicationController < ActionController::Base
             guest_role
           end
         end
-      end
-
-    # anonymous users
-    else
-      if room.private?
-        :password
-      else
-        guest_role
       end
     end
   end
@@ -162,6 +167,7 @@ class ApplicationController < ActionController::Base
     else
       raise(ActiveRecord::RecordNotFound)
     end
+
     @webconf_room
   end
 

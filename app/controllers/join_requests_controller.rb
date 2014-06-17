@@ -12,10 +12,10 @@ class JoinRequestsController < ApplicationController
     @space.new_activity :join, current_user unless @join_request.errors.any? || !@join_request.accepted?
   end
 
-  load_and_authorize_resource :space, :find_by => :permalink, :except => [:new, :create]
+  load_resource :space, :find_by => :permalink
   load_and_authorize_resource :through => :space
 
-  before_filter :webconf_room!, :only => [:new, :index, :invite]
+  before_filter :webconf_room!, :only => [:index, :invite]
 
   respond_to :html
 

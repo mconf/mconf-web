@@ -69,6 +69,7 @@ pt-br:
       one: "%{count} participante"
       other: "%{count} participantes"
     publish: "Publicar"
+    upload: "Enviar"
     register_to_view_space: "Crie uma conta para visualizar e participar desta comunidade"
     save: "Salvar"
     send: "Enviar"
@@ -147,10 +148,11 @@ pt-br:
         external_help: "Página de Ajuda/FAQ Externa"
         feedback_url: "URL de feedback"
         ldap_enabled: "LDAP: Habilitar autenticação"
+        ldap_filter: "LDAP: Filtro para a busca de usuários"
         ldap_host: "LDAP: IP ou domínio do servidor"
         ldap_port: "LDAP: Porta do servidor"
-        ldap_user: "LDAP: DN completo do usuário"
-        ldap_user_password: "LDAP: Senha do usuário"
+        ldap_user: "LDAP: DN completo ou usuário para conectar"
+        ldap_user_password: "LDAP: Senha de conexão"
         ldap_user_treebase: "LDAP: DN completo para a árvore de usuários"
         ldap_username_field: "LDAP: Campo para obter o nome de usuário"
         ldap_email_field: "LDAP: Campo para obter o email"
@@ -161,11 +163,12 @@ pt-br:
         registration_enabled: "Permitir que usuários criem novas contas"
         require_registration_approval: "Requerer que administradores aceitem novas contas"
         signature: "Assinatura"
-        shib_enabled: "Habilitar Shibboleth"
-        shib_email_field: "Campo Shibboleth para email"
-        shib_login_field: "Campo Shibboleth para login"
-        shib_name_field: "Campo Shibboleth para nome"
-        shib_principal_name_field: "Campo Shibboleth para principal name (ID único)"
+        shib_enabled: "Shibboleth: Habilitar"
+        shib_email_field: "Shibboleth: Campo para email"
+        shib_env_variables: "Shibboleth: Variáveis de ambiente"
+        shib_login_field: "Shibboleth: Campo para login"
+        shib_name_field: "Shibboleth: Campo para nome"
+        shib_principal_name_field: "Shibboleth: Campo para principal name (ID único)"
         smtp_auth_type: "Tipo de autenticação STMP"
         smtp_auto_tls: "Auto STARTTLS"
         smtp_domain: "Domínio STMP"
@@ -238,9 +241,11 @@ pt-br:
     delete: "Remover anexo"
     deleted: "Anexo removido com sucesso"
     error:
+      malformed: "Erro ao remover arquivos"
       not_deleted: "%{file} não removido corretamente."
       not_permission: "%{user} não pode remover o arquivo %{file}"
     file: "Arquivo:"
+    filename: "%{size} arquivos de %{name}.zip"
     home:
       one: "Arquivo na comunidade %{space}"
     info: "Informações do documento"
@@ -258,8 +263,22 @@ pt-br:
     title: "Anexos (%{count})"
     upload_with_post: "Notificar o envio com uma mensagem no mural"
   attachments:
-    doc_table:
-      no_attachments: "Nenhum documento encontrado"
+    index:
+      author: "Enviado por"
+      download_multiple: "Baixar"
+      file: "Arquivo"
+      new_file: "Enviar um arquivo"
+      no_attachments: "Nenhum arquivo encontrado"
+      remove_multiple: "Remover"
+      remove_multiple_confirmation: "Você tem certeza que deseja remover todos os arquivos selecionados? Esta operação é irreversível."
+      uploaded: "Enviado"
+    single_attachment:
+      ago: "atrás"
+      delete_confirmation: "Você tem certeza que deseja remover este arquivo? Esta operação é irreversível."
+      delete_tooltip: "Remover este arquivo"
+      download_tooltip: "Baixar este arquivo"
+    upload_form:
+      title: "Enviar um novo arquivo"
   attendeePW: "Senha de Participante"
   author: "Enviado por"
   avatar:
@@ -422,6 +441,8 @@ pt-br:
       list_of_rooms: "Lista de todas salas registradas"
     important: Importante
     invitation_form:
+      at: "às"
+      duration: "Duração"
       meeting_in: "Enviando convite para conferência em:"
       timezone: "Você está usando o fuso horário %{timezone}"
       title: "Convite para conferência"
@@ -578,9 +599,6 @@ pt-br:
         missing_email: "Não foi possível encontrar o email do usuário do LDAP, por favor contate um administrador"
   disable: Desabilitar
   disabled: Desabilitado
-  document:
-    upload: "Enviar novo documento"
-  download: Baixar
   download_file: "Baixar arquivo"
   edit: Editar
   edit_hours: "Editar horas"
@@ -825,9 +843,6 @@ pt-br:
       private: "Comunidade privada"
       public: "Comunidade pública"
   less: "menos..."
-  locale:
-    changed: "Idioma da aplicação alterado para "
-    error: "Não foi possível alterar o idioma do aplicativo para"
   locales:
     en: English
     pt-br: "Português (Brasil)"
@@ -991,8 +1006,6 @@ pt-br:
     title: "Notícias (%{count})"
     updated: "Notícia atualizada com sucesso"
   next: Próximo
-  no_messages_in_wall: "Não há mensagens no mural"
-  no_tags_found: "Nenhuma tag encontrada"
   now_exclamation: Agora!
   ok: OK
   older: "Mais velho"
@@ -1056,6 +1069,11 @@ pt-br:
     updated: "Mensagem atualizada!"
     wall: Mural
   posts:
+    index:
+      new_post: "Enviar uma nova mensagem"
+      no_messages: "Não existem mensagens no mural"
+    new_post:
+      title: "Adicionando uma nova mensagem"
     post_with_children:
       by: "de"
   prav: PRAV
@@ -1184,12 +1202,9 @@ pt-br:
   room:
     other: Salas
   rooms:
-    form:
-      msg1: " impossibilitaram esta sala de ser salva:"
     invite:
       join_from_desktop: "Nesta página você pode entrar na conferência a partir de um <b>computador desktop</b>. Para entrar usando um dispositivo móvel, <a href=\"%{url}\">clique aqui</a>."
       join_from_mobile: "Nesta página você pode entrar na conferência a partir de um <b>dispositivo móvel</b>. Para entrar usando um computador desktop, <a href=\"%{url}\">clique aqui</a>."
-      msg1: "Convite para a reunião "
       name: "Nome:"
       name_enter: "Insira seu nome"
       password: "Senha:"
@@ -1206,9 +1221,6 @@ pt-br:
   save: Salvar
   select_image: "Selecione uma imagem, por favor"
   send: Enviar
-  servers:
-    form:
-      msg1: " impossibilitaram este servidor de ser salvo:"
   session:
     error:
       exist: "Você já está logado"
@@ -1222,6 +1234,10 @@ pt-br:
       password: "Senha"
     new:
       title: "Login"
+  session_locales:
+    create:
+      success: "Idioma da aplicação alterado para %{value}"
+      error: "Não foi possível alterar o idioma do aplicativo para %{value}"
   shared:
     copy_modal:
       title: Aperte Ctrl+C para copiar o texto
@@ -1251,15 +1267,16 @@ pt-br:
   shibboleth:
     associate:
       existent_account:
-        email_or_login: "E-mail ou nome de usuário"
-        link_to_this_account: "Associar a esta conta"
-        password: "Senha"
+        link_to_this_account: "Entrar e associar contas"
         title: "Se você já possui uma conta neste site, você pode associar ela à sua conta federada. Quando você usar a federação para entrar neste site, você estará acessando a conta deste website que você associar aqui. Você poderá entrar no site tanto com a federação quanto diretamente com sua conta deste site."
       new_account:
         create_new_account: "Criar uma nova conta"
         title: "Se você ainda não tem uma conta neste site, clique no botão abaixo para automaticamente criar uma nova usando as informações fornecidas pela federação."
       page_title: "Login via federação"
       title: "Sua conta na federação ainda não está associada a nenhuma conta neste site. Selecione uma das opções abaixo:"
+      user:
+        login: "E-mail ou nome de usuário"
+        password: "Senha"
     attribute_error:
       informed:
         no_attrs: "Nenhum atributo foi informado"
@@ -1300,7 +1317,7 @@ pt-br:
     clic: "Clique para editar..."
     clic_logo: "Clique para mudar o seu logotipo"
     configuration: "Configurações da comunidade"
-    confirm: "Tem certeza que quer deixar esta comunidade?"
+    confirm: "Tem certeza que quer sair desta comunidade?"
     created: "Comunidade criada com sucesso"
     delete: "Excluir Comunidade"
     deleted: "Comunidade removida com sucesso"
@@ -1330,7 +1347,7 @@ pt-br:
       clarify_unregistered: "Por favor, digite o seu nome completo e uma senha para se registrar no Mconf e participar desta comunidade."
     join_pending: "Pedido de adesão sendo processado"
     leave:
-      leave_this_space: Deixar esta comunidade
+      leave_this_space: "Sair desta comunidade"
       success: Você deixou a comunidade %{space_name}
     logo: "Logo da comunidade"
     logo_selected:
@@ -1488,8 +1505,8 @@ pt-br:
     thumbnail_view:
       no_spaces: "Nenhuma comunidade foi criada até o momento!"
     unified_space: 
-      private: "comunidade privada"
-      public: "comunidade pública"
+      private: "Comunidade privada"
+      public: "Comunidade pública"
       user_is_member: "Você é membro desta comunidade"
       with_members: "com %{count} membros"
     users: "Usuários nesta comunidade"
@@ -1549,17 +1566,6 @@ pt-br:
   subject: "Assunto:"
   summary: "Informações do vídeo"
   superuser: "Administrador"
-  tag:
-    add: "Adicionar tags"
-    edit: "Editar tags"
-    filter: "Filtrar por tag:"
-    new: "Nova tag"
-    other_capital: Tags
-    selected:
-      one: "Selecione uma tag:"
-      other: "Tags selecionadas:"
-  tags: Tags
-  tags_by: "Tags por:"
   text: Texto
   the_string: "a string"
   thread:
@@ -1601,8 +1607,6 @@ pt-br:
     public_profile: "Qualquer pessoa pode acessar esta informação"
     public_space: "Comunidades podem ser públicas, para que qualquer pessoa possa visualizar o que acontece neles, ou privados, onde apenas membros tem acesso às atividades da comunidade"
     share: "Esta é a url para compartilhar este vídeo com os seus colegas"
-    tag: "Tags são palavras-chave ou termos associados com o conteúdo que são utilizadas para localizar e filtrar as informações. Pressione enter para confirmar cada tag."
-    tag_by: "Tags são palavras que descrevem os documentos. Use este link para ordená-las por popularidade ou por ordem alfabética. Em seguida, clique nelas para ver os documentos relacionados."
     upcoming: "Esta seção mostra os próximos eventos nesta comunidade"
     update_logo: "Você pode enviar o seu próprio logotipo, criar um logotipo de texto ou selecionar uma imagem da galeria"
     vclass: "O tipo Classe Virtual é a maneira perfeita para organizar aulas, conferências e seminários, onde o professor assume um papel de destaque."
@@ -1750,6 +1754,5 @@ pt-br:
   when: Quando
   where: Onde
   yesterday: Ontem
-  your_interests_tags: "Seus interesses (tags)"
   your_vcard: "seu vCard"
   zipcode: CEP

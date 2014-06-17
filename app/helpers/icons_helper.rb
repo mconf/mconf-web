@@ -191,6 +191,10 @@ module IconsHelper
     icon_constructor nil, "icon-awesome icon-user icon-mconf-user", options
   end
 
+  def icon_space(options={})
+    icon_constructor nil, "icon-awesome icon-group icon-mconf-space", options
+  end
+
   def icon_error(options={})
     icon_constructor nil, "icon-awesome icon-meh icon-mconf-error", options
   end

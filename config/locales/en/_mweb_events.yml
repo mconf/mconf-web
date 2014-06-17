@@ -39,13 +39,17 @@ en:
       registration:
         closed: Registration for this event is closed.
         join_button: Join this space to register
+        need_sign_in: You need to be signed in to register in this event
       title:
         belongs_space: "This event belongs to the space <a href='%{url}'>%{space}</a>"
         belongs_user: "Event created by <a href='%{url}'>%{user}</a>"
+        private: "Private event"
+        public: "Public event"
       unified_event:
-        closed: Registration closed
+        closed: registration closed
+        private: "Private event"
+        public: "Public event"
         starts_at: "Starts at"
-        where: "Where"
     participants:
       index:
         disable: Remove from event

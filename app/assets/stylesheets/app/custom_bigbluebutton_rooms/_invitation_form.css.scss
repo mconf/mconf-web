@@ -4,7 +4,7 @@
 #webconference-invitation {
 
   .meeting-url {
-    color: $blue;
+    font-weight: bold;
   }
 
   .invitation-header {
@@ -38,24 +38,32 @@
     clear: both;
   }
 
-  #invite_starts_on {
-    margin-right: 20px;
+  #invite_starts_on, #invite_starts_on_time, #invite_ends_on, #invite_ends_on_time {
+    display: inline-block;
+    width: auto;
   }
 
-  #invite_starts_on, #invite_ends_on {
-    width: 38%;
-    float: left;
-    input {
-      width: 79%;
+  .simple_form.single-column .input.invite_starts_on_time,
+  .simple_form.single-column .input.invite_ends_on_time {
+    margin: 0;
+
+    select {
+      width: 60px;
+      margin-right: 5px;
+      margin-bottom: 5px;
     }
   }
 
   #invite_duration {
-    width: 17%;
-    float: left;
-    margin-top: 32px;
-    margin-left: 10px;
-    font-weight: bold;
+    clear: both;
+    margin: 0;
+
+    .error {
+      color: $red;
+    }
+    .duration {
+      font-weight: bold;
+    }
   }
 
   .invitation-message {
@@ -72,12 +80,13 @@
   }
 
   #invite_timezone {
-    clear: both;
+    display: inline-block;
     color: $dark-gray;
-    margin: 5px 0;
-    background: $light-gray;
     padding: 2px;
     text-align: center;
-    @include border-radius(3px);
+  }
+
+  #invite_starts_on_label {
+    display: inline-block;
   }
 }

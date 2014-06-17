@@ -10,6 +10,6 @@ FactoryGirl.define do
     m.association :room, :factory => :bigbluebutton_room
     m.running false
     m.record false
-    m.start_time { Date.new }
+    m.start_time { DateTime.now }
   end
 end

@@ -33,12 +33,12 @@
 
 //= require i18n/translations
 
-// Datetime picker for bootstrap
-//= require bootstrap-datetimepicker
-
 // Moment.js for dates
 //= require moment
 //= require moment/pt-br
+
+// Datetime picker for bootstrap
+//= require bootstrap-datetimepicker
 
 // TODO: remove this dependecy, this is only used in attachments now and
 //       can be easily replaced by standard jquery methods.

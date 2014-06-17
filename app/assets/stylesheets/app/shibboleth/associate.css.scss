@@ -13,8 +13,7 @@ body.shibboleth.login {
     width: $column-width;
 
     .shibboleth-block {
-      width: $block-width;
-      margin-left: ($column-width - $block-width) / 2;
+      width: 100%;
     }
   }
 

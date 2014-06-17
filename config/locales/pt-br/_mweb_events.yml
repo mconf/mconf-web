@@ -39,13 +39,17 @@ pt-br:
       registration:
         closed: Inscrições para este evento estão fechadas.
         join_button: Junte-se a esta comunidade para participar
+        need_sign_in: Você precisa estar logado para registrar-se
       title:
         belongs_space: "Um evento da comunidade <a href='%{url}'>%{space}</a>"
         belongs_user: "Evento criado por <a href='%{url}'>%{user}</a>"
+        private: "Evento privado"
+        public: "Evento público"
       unified_event:
-        closed: Inscrições encerradas
+        closed: inscrições encerradas
+        private: "Evento privado"
+        public: "Evento público"
         starts_at: "Inicia em"
-        where: "Localização"
     participants:
       index:
         disable: Remover do evento

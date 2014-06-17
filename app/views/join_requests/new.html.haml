@@ -2,6 +2,6 @@
   - if @already_requested
     .alert.alert-danger= t(".already_requested")
   %h3= t('.message_title')
-  = simple_form_for(:join_request, :url => space_join_requests_path(space), :html => { :class => 'single-column' }) do |f|
+  = simple_form_for(:join_request, :url => space_join_requests_path(@space), :html => { :class => 'single-column' }) do |f|
     = f.input :comment, :as => :text, :label => false, :disabled => @already_requested
     = f.button :wrapped, :value => t("_other.send"), :disabled => @already_requested

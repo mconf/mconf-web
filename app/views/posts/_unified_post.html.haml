@@ -1,7 +1,5 @@
 - return if cannot?(:read, thread)
-- show_space ||= false
 
--# TODO: Review if the id can't be created with div_for(thread)
 %div.thread.thread-post{:class => "#{cycle("thread-even" , "thread-odd")}", :id => "parent-#{thread.id}"}
   .logo-in-thread
     - if thread.author
@@ -37,13 +35,6 @@
         %span
           = "(" + t('thread.comments', :children => thread.children.size) + ")"
       %span.thread-updated-at= t('updated_time_ago', :time => time_ago_in_words(thread.updated_at))
-
-    - if show_space
-      .thread-title
-        = t('date.at')
-        = link_to thread.space.name, space_path(thread.space)
-        - if thread.attachments.any?
-          = icon_attachment thread.attachments.first.filename
 
     .thread-text
       .block-collapsed

@@ -15,7 +15,8 @@
   - if can_create
     - if running
       = link_to t('.join'), join_bigbluebutton_room_path(room), :class => "btn webconf-join-link btn-success"
-      = link_to t('.end'), end_bigbluebutton_room_path(room, :redir_url => space_path(room.owner)), options_for_tooltip(t('.end_tooltip'), :confirm => t('are_you_sure'), :class => 'btn btn-danger')
+      - if can?(:end, room)
+        = link_to t('.end'), end_bigbluebutton_room_path(room, :redir_url => space_path(room.owner)), options_for_tooltip(t('.end_tooltip'), :confirm => t('are_you_sure'), :class => 'btn btn-danger')
     - else
       -# only show the options dialog if the user can record and the record flag is not automatically set
       - if can?(:record_meeting, @room) && !Site.current.webconf_auto_record

@@ -27,7 +27,6 @@ describe Space do
   it { should have_many(:events).dependent(:destroy) }
   it { should have_many(:news).dependent(:destroy) }
   it { should have_many(:attachments).dependent(:destroy) }
-  it { should have_many(:tags).dependent(:destroy) }
 
   it { should have_one(:bigbluebutton_room).dependent(:destroy) }
   it { space.bigbluebutton_room.owner.should be(space) } # :as => :owner
@@ -84,8 +83,6 @@ describe Space do
       end
     end
   end
-
-  it "acts_as_resource"
 
   it "#check_errors_on_bigbluebutton_room"
 

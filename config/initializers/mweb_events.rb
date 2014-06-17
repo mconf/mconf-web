@@ -64,13 +64,6 @@ Rails.application.config.to_prepare do
         end
       end
 
-      # alias :old_owner :owner
-      # def owner
-      #   Space.unscoped do
-      #     old_owner
-      #   end
-      # end
-
     end
 
     # Same for participants, public activity is still missing
@@ -90,7 +83,7 @@ Rails.application.config.to_prepare do
       end
 
       after_filter :only => [:create] do
-        @participant.new_activity params[:action], current_user unless @participant.errors.any?
+        @participant.new_activity params[:action], current_user if @participant.persisted?
       end
     end
 

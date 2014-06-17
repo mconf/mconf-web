@@ -5,6 +5,6 @@
         - @objects.each do |space|
           - is_member = @user_spaces && @user_spaces.include?(space)
           %li.list-text{:name => space.permalink}
-            = render "unified_space", :space => space, :is_member => is_member
+            = render "spaces/unified_space", :space => space, :is_member => is_member
       - else
         = t(".no_spaces")

@@ -13,22 +13,30 @@
 
       = f.input :users, :as => :string, :autofocus => true, :label => t('activerecord.attributes.invite.users')
 
-      -# TODO: it would be good to have a custom simple_form input for dates
-      .input.invitation-dates
-        #invite_starts_on.input.input-append.date
-          %label= t('activerecord.attributes.invite.starts_on')
+      -# TODO: it would be good to have a custom simple_form input for dates (see #1262)
+      .invitation-dates
+        %label#invite_starts_on_label= t('activerecord.attributes.invite.starts_on')
+        #invite_timezone
+          = "(#{t(".timezone", :timezone => user_timezone)})"
+        #invite_starts_on.input.input-append
           %input{ :'data-format' => t('_other.datetimepicker.format'), :type => "text", :name => 'invite[starts_on]' }
           %span.add-on
-            %i{ :'data-time-icon' => "icon-time", :'data-date-icon' => "icon-calendar" }
-        #invite_ends_on.input.input-append.date
-          %label= t('activerecord.attributes.invite.ends_on')
+            %i{ :class => "icon icon-calendar" }
+        %span= t(".at")
+        #invite_starts_on_time
+          = f.input :starts_on_time, :label => false, :as => :time, :minute_step => 5, :prompt => { :hour => "", :minute => "" }
+      .invitation-dates
+        %label= t('activerecord.attributes.invite.ends_on')
+        #invite_ends_on.input.input-append
           %input{ :'data-format' => t('_other.datetimepicker.format'), :type => "text", :name => 'invite[ends_on]' }
           %span.add-on
-            %i{ :'data-time-icon' => "icon-time", :'data-date-icon' => "icon-calendar" }
-        #invite_duration.input
-          %span.duration= ''
-        #invite_timezone
-          = t(".timezone", :timezone => user_timezone)
+            %i{ :class => "icon icon-calendar" }
+        %span= t(".at")
+        #invite_ends_on_time
+          = f.input :ends_on_time, :label => false, :as => :time, :minute_step => 5, :prompt => { :hour => "", :minute => "" }
+      #invite_duration.input
+        %span= t(".duration") + ":"
+        %span.duration= ""
 
       = f.input :title, :as => :string, :label => t('activerecord.attributes.invite.title')
       = f.input :message, :as => :text, :label => t('activerecord.attributes.invite.message')
