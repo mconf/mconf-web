@@ -1035,8 +1035,8 @@ en:
   past: Past
   people: people
   per_page: "per page"
-  permission: 
-    notification: 
+  permission:
+    notification:
       default: "%{username} has change your role in %{stage} to %{role}. "
       event: "%{username} has change your role in event %{event} to %{role}. "
       space: "%{username} has change your role in space %{space} to %{role}. "
@@ -1045,10 +1045,10 @@ en:
         event: "%{username} has change your role in event %{event} "
         space: "%{username} has change your role in space %{space} "
     updated: "User perfomance has been updated successfully"
-  permission: 
     other: "Access rights"
     update:
       success: "Permissions updated"
+      failure: "Problem updating permissions"
   personal_information: "Personal information"
   phone: 
     mobile: Mobile
