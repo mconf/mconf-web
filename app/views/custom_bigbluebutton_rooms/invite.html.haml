@@ -11,50 +11,20 @@
 
   #webconf-room-join
 
-    #webconf-room-password
-      = simple_form_for :bigbluebutton_room, :url => join_bigbluebutton_room_path(@room, :mobile => params[:mobile]) do |f|
+    = simple_form_for :bigbluebutton_room, :url => join_bigbluebutton_room_path(@room), :html => { :class => 'single-column' } do |f|
+      .input
+        %label= t(".field_name")
+        - unless username.blank?
+          -# add this so it is submitted even if the input below is disabled
+          = hidden_field_tag "user[name]", username
+          = text_field_tag "", username, :readonly => true, :disabled => true, :class => "string"
+        - else
+          = text_field_tag "user[name]", "", :autofocus => true, :class => "string"
+      - if @user_role == :password
         .input
-          %label= t(".field_name")
-          - unless username.blank?
-            -# add this so it is submitted even if the input below is disabled
-            = hidden_field_tag "user[name]", username
-            = text_field_tag "", username, :readonly => true, :disabled => true
+          %label= t(".field_password")
+          - if username.blank?
+            = password_field_tag "user[password]", "", :class => "string"
           - else
-            = text_field_tag "user[name]", "", :autofocus => true
-        - if @user_role == :password
-          .input
-            %label= t(".field_password")
-            - if username.blank?
-              = password_field_tag "user[password]", ""
-            - else
-              = password_field_tag "user[password]", "", :autofocus => true
-        = f.button :submit, t("join"), :class => "btn btn-primary"
-
-  #webconf-room-device-type
-    - data_url_desktop = invite_bigbluebutton_room_path(@room, :user => {:name => username})
-    .invite-desktop{:class => params[:mobile] ? "" : "active", :"data-url" => data_url_desktop}
-      .description
-        - unless params[:mobile]
-          .label.label-info.selected-label= t(".selected")
-          .text
-            = t(".desktop.selected").html_safe
-        - else
-          .text
-            = t(".desktop.not_selected").html_safe
-    - data_url_mobile = invite_bigbluebutton_room_path(@room, :user => {:name => username}, :mobile => 1)
-    .invite-mobile{:class => params[:mobile] ? "active" : "", :"data-url" => data_url_mobile}
-      .description
-        - if params[:mobile]
-          .label.label-info.selected-label= t(".selected")
-          .text
-            = t(".mobile.selected").html_safe
-            .text-details
-              = t(".mobile.details_short").html_safe
-          .mobile-image
-            = link_to mobile_google_play_link do
-              = image_tag mobile_google_play_image, :alt => t('.mobile.download'), :title => t('.mobile.download')
-        - else
-          .text
-            = t(".mobile.not_selected").html_safe
-            .text-details
-              = t(".mobile.details", :url => mobile_google_play_link).html_safe
+            = password_field_tag "user[password]", "", :autofocus => true, :class => "string"
+      = f.button :submit, t("join"), :class => "btn btn-primary"

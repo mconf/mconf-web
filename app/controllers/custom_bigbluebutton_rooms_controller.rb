@@ -38,12 +38,14 @@ class CustomBigbluebuttonRoomsController < Bigbluebutton::RoomsController
 
   def determine_layout
     case params[:action].to_sym
-    when :join_mobile, :join_options
+    when :join_options
       if request.xhr?
         false
       else
         "application"
       end
+    when :join_mobile
+      "mobile"
     when :running
       false
     when :invite_userid, :invite, :auth

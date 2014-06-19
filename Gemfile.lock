@@ -16,11 +16,12 @@ GIT
 
 GIT
   remote: git://github.com/mconf/bigbluebutton_rails.git
-  revision: 3bcff964062f9d24945185b698498bfc2b31e5a7
-  branch: master
+  revision: 5938624170601e121dd8be9d629bf93167020837
+  branch: branch-v1.4.0-mobile
   specs:
     bigbluebutton_rails (1.3.0)
       bigbluebutton-api-ruby (~> 1.3.0)
+      browser (~> 0.5.0)
       rails (>= 3.0.0)
       resque (~> 1.25.1)
       strong_parameters (~> 0.2.0)
@@ -128,6 +129,7 @@ GEM
     bootstrap-datetimepicker-rails (0.0.11)
     bootstrap3-datetimepicker-rails (3.0.0.1)
       momentjs-rails (~> 2.5.0)
+    browser (0.5.0)
     builder (3.0.4)
     cancan (1.6.10)
     carrierwave (0.9.0)
@@ -397,6 +399,7 @@ DEPENDENCIES
   bigbluebutton_rails!
   binding_of_caller
   bootstrap-datetimepicker-rails
+  browser
   cancan (~> 1.6.0)
   carrierwave
   chronic
