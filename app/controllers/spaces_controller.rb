@@ -6,12 +6,11 @@
 # 3 or later. See the LICENSE file.
 
 class SpacesController < ApplicationController
-
   before_filter :authenticate_user!, :only => [:new, :create]
 
-  load_and_authorize_resource :find_by => :permalink, :except => [:edit_recording, :enable]
+  load_and_authorize_resource :find_by => :permalink, :except => [:edit_recording, :enable, :destroy, :disable]
   load_resource :find_by => :permalink, :parent => true, :only => [:edit_recording]
-  before_filter :load_and_authorize_with_disabled, :only => [:enable]
+  before_filter :load_and_authorize_with_disabled, :only => [:enable, :disable, :destroy]
 
   # all actions that render the sidebar
   before_filter :webconf_room!,
@@ -19,6 +18,8 @@ class SpacesController < ApplicationController
               :recordings, :edit_recording, :webconference_options]
 
   before_filter :load_spaces_examples, :only => [:new, :create]
+
+  before_filter :load_events, :only => :show, :if => lambda { Mconf::Modules.mod_enabled?('events') }
 
   # TODO: cleanup the other actions adding respond_to blocks here
   respond_to :js, :only => [:index, :show]
@@ -39,7 +40,7 @@ class SpacesController < ApplicationController
 
   # Create recent activity
   after_filter :only => [:create, :update, :leave] do
-    @space.new_activity params[:action], current_user unless @space.errors.any? || @space.crop_x.present?
+    @space.new_activity params[:action], current_user unless @space.errors.any? || @space.is_cropping?
   end
 
   # Recent activity for join requests
@@ -51,7 +52,7 @@ class SpacesController < ApplicationController
     if params[:view].nil? or params[:view] != "list"
       params[:view] = "thumbnails"
     end
-    spaces = Space.order('name ASC').all
+    spaces = Space.order('name ASC')
     @spaces = spaces.paginate(:page => params[:page], :per_page => 18)
 
     if user_signed_in?
@@ -83,15 +84,11 @@ class SpacesController < ApplicationController
     @news_to_show = @news[@news_position]
 
     # posts
-    posts = @space.posts.not_events
+    posts = @space.posts
     @latest_posts = posts.where(:parent_id => nil).where('author_id is not null').order("updated_at DESC").first(3)
 
     # users
     @latest_users = @space.users.order("permissions.created_at DESC").first(3)
-
-    # events
-    @upcoming_events = @space.events.order("start_date ASC").select{|e| e.start_date && e.start_date.future? }.first(5)
-    @current_events = @space.events.order("start_date ASC").select{|e| e.start_date && !e.start_date.future? && e.end_date.future?}
 
     # role of the current user
     @permission = Permission.where(:user_id => current_user, :subject_id => @space, :subject_type => 'Space').first
@@ -159,25 +156,33 @@ class SpacesController < ApplicationController
     end
   end
 
-  def destroy
-    @space_destroy = Space.find_with_param(params[:id])
-    @space_destroy.disable
+  def disable
+    @space.disable
     respond_to do |format|
       format.html {
+        flash[:notice] = t('space.disabled')
         if request.referer.present? && request.referer.include?("manage") && current_user.superuser?
-          flash[:notice] = t('space.disabled')
           redirect_to manage_spaces_path
         else
-          flash[:notice] = t('space.deleted')
-          redirect_to(spaces_path)
+          redirect_to spaces_path
         end
+      }
+    end
+  end
+
+  def destroy
+    @space.destroy
+    respond_to do |format|
+      format.html {
+        flash[:notice] = t('space.deleted')
+        redirect_to manage_spaces_path
       }
     end
   end
 
   def user_permissions
     @users = @space.users.order("name ASC")
-    @permissions = space.permissions.sort{
+    @permissions = @space.permissions.sort{
       |x,y| x.user.name <=> y.user.name
     }
     @roles = Space.roles
@@ -287,26 +292,23 @@ class SpacesController < ApplicationController
 
   private
 
-  def space
-    if params[:action] == "enable"
-      @space ||= Space.find_with_disabled_and_param(params[:id])
-    else
-      @space ||= Space.find_with_param(params[:id])
-    end
-  end
-
   def space_to_json_hash
     { :methods => :user_count, :include => {:logo => { :only => [:height, :width], :methods => :logo_image_path } } }
   end
 
   def load_and_authorize_with_disabled
     @space = Space.with_disabled.find_by_permalink(params[:id])
-    authorize! :enable, @space
+    authorize! action_name.to_sym, @space
   end
 
   def load_spaces_examples
     # TODO: RAND() is specific for mysql
     @spaces_examples = Space.order('RAND()').limit(3)
+  end
+
+  def load_events
+    @upcoming_events = @space.events.upcoming.order("start_on ASC").first(5)
+    @current_events = @space.events.order("start_on ASC").select(&:is_happening_now?)
   end
 
   def space_params
@@ -321,6 +323,6 @@ class SpacesController < ApplicationController
     [ :name, :description, :logo_image, :public, :permalink, :repository,
       :crop_x, :crop_y, :crop_w, :crop_h,
       :bigbluebutton_room_attributes =>
-        [ :id, :attendee_password, :moderator_password, :default_layout ] ]
+        [ :id, :attendee_password, :moderator_password, :default_layout, :welcome_msg ] ]
   end
 end

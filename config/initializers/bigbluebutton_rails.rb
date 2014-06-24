@@ -24,6 +24,18 @@ Rails.application.config.to_prepare do
         self.server.api.join_meeting_url(self.meetingid, username, password, options)
       end
     end
+
+    # Returns whether the `user` created the current meeting on this room
+    # or not. Has to be called after a `fetch_meeting_info`, otherwise will always
+    # return false.
+    def user_created_meeting?(user)
+      meeting = get_current_meeting()
+      unless meeting.nil?
+        meeting.created_by?(user)
+      else
+        false
+      end
+    end
   end
 
   BigbluebuttonServer.instance_eval do

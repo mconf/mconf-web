@@ -9,11 +9,6 @@ FactoryGirl.define do
     m.association :user
   end
 
-  factory :event_permission, :parent => :permission do |m|
-    m.association :subject, :factory => :event
-    m.role { Role.find_by_name_and_stage_type('Participant', 'Event') }
-  end
-
   factory :space_permission, :parent => :permission do |m|
     m.association :subject, :factory => :space
     m.role { Role.find_all_by_stage_type('Space').first }

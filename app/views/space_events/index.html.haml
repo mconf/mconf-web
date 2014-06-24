@@ -1,0 +1,34 @@
+- spaces_menu_at :events
+= content_for :menu do
+  = render :partial => 'spaces/menu'
+
+#events-wrapper
+
+  #events-filters.page-tabs
+    .btn-group{ :"data-toggle" => "buttons-radio" }
+      = link_to t('all'), space_events_path(@space, :show => "all"), :id => 'all_link', :class => "btn btn-small #{'active' if params[:show] == 'all' or !params[:show]}"
+      = link_to t('.now'), space_events_path(@space, :show => "happening_now"), :class => "btn btn-small #{'active' if params[:show] == 'happening_now'}"
+      = link_to t('upcoming'), space_events_path(@space, :show => "upcoming_events"), :class => "btn btn-small #{'active' if params[:show] == 'upcoming_events'}"
+      = link_to t('past'), space_events_path(@space, :show => "past_events"), :class => "btn btn-small #{'active' if params[:show] == 'past_events'}"
+
+  - if can?(:create, @space.events.build)
+    #events-toolbar
+      = link_to mweb_events.new_event_path(:owner_id => @space.id, :owner_type => 'Space'), :class => "btn btn-primary btn-small" do
+        = t('.create_event')
+
+  - if params[:show] == 'past_events'
+    = render :partial => 'past_events'
+
+  - elsif params[:show] == 'upcoming_events'
+    = render :partial => 'upcoming_events'
+
+  - else
+    - unless @current_events.empty?
+      #events-current.content-block.events-hapenning-now
+        .content-block-header
+          %h3= t('.events_now')
+        .content-block-middle
+          - for event in @current_events
+            = render :partial => "mweb_events/events/unified_event", :locals => { :event => event }
+    - unless params[:show] == 'happening_now'
+      = render :partial => 'all_events'

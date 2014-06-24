@@ -1,13 +1,13 @@
 - spaces_menu_at :home
 = render :partial => 'spaces/menu'
 
-- unless @current_events.empty?
+- if mod_enabled?("events") && !@current_events.empty?
   #events-current.content-block.event-block.events-hapenning-now
     .content-block-header
       %h3= t('.events_now')
     .content-block-middle
       - for event in @current_events do
-        = render :partial => "events/unified_event", :locals => { :event => event }
+        = render :partial => "mweb_events/events/unified_event", :locals => { :event => event }
 
 .content-block
   .content-block-header

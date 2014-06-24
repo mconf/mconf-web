@@ -10,33 +10,36 @@
 # http://en.wikipedia.org/wiki/Cron
 # Learn more: http://github.com/javan/whenever
 
-# for some reason the default 'rake' wasn't using 'bundle exec', so we're redefining it here
-job_type :rake, "cd :path && RAILS_ENV=:environment bundle exec rake :task --silent :output"
+set :output, 'log/whenever.log'
+
+# job types copied from whenever but setting what we need to run them using rbenv
+job_type :rbenv_rake, "export PATH=$HOME/.rbenv/shims:$HOME/.rbenv/bin:$PATH; eval \"$(rbenv init -)\"; cd :path && RAILS_ENV=:environment bundle exec rake :task :output"
+job_type :rbenv_runner,  "export PATH=$HOME/.rbenv/shims:$HOME/.rbenv/bin:$PATH; eval \"$(rbenv init -)\"; cd :path && script/rails runner -e :environment ':task' :output"
 
 every :day, :at => '1am' do
   # updates the stats - will only increment stats from the past day
-  rake "statistics:update"
+  rbenv_rake "statistics:update"
 end
 
 every :sunday, :at => '2am' do
   # restart the analytics stats every week
-  rake "statistics:init"
+  rbenv_rake "statistics:init"
 end
 
 every :day, :at => '2pm' do
   # send daily digest emails
-  runner "Mconf::DigestEmail.send_daily_digest"
+  rbenv_runner "Mconf::DigestEmail.send_daily_digest"
 end
 
 every :monday, :at => '2pm' do
   # send weekly digest emails
-  runner "Mconf::DigestEmail.send_weekly_digest"
+  rbenv_runner "Mconf::DigestEmail.send_weekly_digest"
 end
 
 every 30.minutes do
-  rake "bigbluebutton_rails:recordings:update"
+  rbenv_rake "bigbluebutton_rails:recordings:update"
 end
 
 every 30.minutes do
-  rake "bigbluebutton_rails:meetings:finish"
+  rbenv_rake "bigbluebutton_rails:meetings:finish"
 end

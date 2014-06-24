@@ -232,7 +232,7 @@ describe UsersController do
         end
 
         context "matches users by name" do
-          let(:unique_str) { "123" }
+          let(:unique_str) { "123123456456" }
           before do
             FactoryGirl.create(:user, :_full_name => "Yet Another User")
             FactoryGirl.create(:user, :_full_name => "Abc de Fgh")
@@ -246,7 +246,7 @@ describe UsersController do
         end
 
         context "matches users by username" do
-          let(:unique_str) { "123" }
+          let(:unique_str) { "123123456456" }
           before do
             FactoryGirl.create(:user, :username => "Yet-Another-User")
             FactoryGirl.create(:user, :username => "Abc-de-Fgh")
@@ -260,7 +260,7 @@ describe UsersController do
         end
 
         context "matches users by email" do
-          let(:unique_str) { "123" }
+          let(:unique_str) { "123123456456" }
           before do
             FactoryGirl.create(:user, :email => "Yet-Another-User@mconf.org")
             FactoryGirl.create(:user, :email => "Abc-de-Fgh@mconf.org")
@@ -565,7 +565,7 @@ describe UsersController do
       # On the collection
 
       describe "can access #index" do
-        let(:space) { FactoryGirl.create(:space) }
+        let(:space) { FactoryGirl.create(:space, :public => true) }
         before(:each) { get :index, :space_id => space.to_param }
         it { should respond_with(:success) }
       end
@@ -635,7 +635,7 @@ describe UsersController do
       let(:user) { FactoryGirl.create(:user) }
 
       describe "can access #index" do
-        let(:space) { FactoryGirl.create(:space) }
+        let(:space) { FactoryGirl.create(:space, :public => true) }
         let(:do_action) { get :index, :space_id => space }
         it_should_behave_like "it can access an action"
       end

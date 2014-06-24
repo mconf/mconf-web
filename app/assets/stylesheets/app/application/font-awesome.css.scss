@@ -115,8 +115,16 @@ a .icon-awesome {
   color: $red;
 }
 
+.icon-mconf-disable {
+  color: $yellow;
+}
+
 .icon-mconf-confirm {
   color: $green;
+}
+
+.icon-mconf-enable {
+  color: $yellow;
 }
 
 .icon-mconf-new-tag {
@@ -202,4 +210,6 @@ a .icon-awesome {
 .icon-mconf-playback {}
 .icon-mconf-date {}
 .icon-mconf-user {}
+.icon-mconf-space {}
 .icon-mconf-profile {}
+.icon-mconf-options {}

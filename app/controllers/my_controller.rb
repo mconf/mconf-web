@@ -8,12 +8,13 @@
 # This controller includes actions that are specific for the current user and shouldn't be
 # accessed by anybody else (e.g. home, recordings, activity, etc).
 class MyController < ApplicationController
-
   before_filter :authenticate_user!
   respond_to :json, :only => [:rooms]
   respond_to :html, :except => [:rooms]
 
   before_filter :prepare_user_room, :only => [:home, :activity, :recordings]
+
+  after_filter :load_events, :only => :home, :if => lambda { Mconf::Modules.mod_enabled?('events') }
 
   layout :determine_layout
 
@@ -46,19 +47,8 @@ class MyController < ApplicationController
 
   def home
     @user_spaces = current_user.spaces
-    unless @user_spaces.empty?
-      @today_events = Event.
-        within(DateTime.now.beginning_of_day, DateTime.now.end_of_day).
-        where(:space_id => @user_spaces).
-        order("start_date ASC").all
-      @upcoming_events = Event.where(:space_id => @user_spaces).
-        where('end_date >= ?', DateTime.now.end_of_day).
-        limit(5).order("start_date ASC").all
-    end
-
     @contents_per_page = 5
     @all_contents = current_user.all_activity.limit(@contents_per_page).order('updated_at DESC')
-
     @private_messages = current_user.unread_private_messages
   end
 
@@ -140,6 +130,19 @@ class MyController < ApplicationController
       end
 
       hash
+    end
+  end
+
+  def load_events
+    unless @user_spaces.empty?
+      # TODO: move these methods to the model
+      @today_events = MwebEvents::Event.
+        within(DateTime.now.beginning_of_day, DateTime.now.end_of_day).
+        where(:owner_id => @user_spaces, :owner_type => "Space").
+        order("start_on ASC").all
+      @upcoming_events = MwebEvents::Event.where(:owner_id => @user_spaces, :owner_type => "Space").
+        where('end_on >= ?', DateTime.now.end_of_day).
+        limit(5).order("start_on ASC").all
     end
   end
 

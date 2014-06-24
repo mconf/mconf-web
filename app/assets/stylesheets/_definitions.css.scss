@@ -9,7 +9,7 @@ $font-big: 16px;
 $font-bigger: 21px;
 $font-biggest: 25px;
 $font-gigantic: 28px;
-$font-section-title: 32px;
+$font-section-title: 28px;
 $font-color: #333;
 $font-color-gray: #888;
 $font-family: Arial, sans-serif;
@@ -166,18 +166,6 @@ $z-index-tooltip: 999999;
 @mixin danger-text {
   color: $red;
   @include link-colors($red, lighten($red, 10), darken($red, 10));
-}
-
-@mixin space-visibility {
-  font-size: $font-small;
-  display: block;
-  color: $dark-gray;
-
-  .icon-awesome {
-    float: none;
-    font-size: $font-small;
-    margin-right: 2px;
-  }
 }
 
 @mixin set-sidebar-width($new-width) {

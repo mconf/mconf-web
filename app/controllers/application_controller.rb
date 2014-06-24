@@ -23,9 +23,6 @@ class ApplicationController < ActionController::Base
 
   helper_method :current_site
 
-  # TODO: review, we shouldn't need this with cancan loading the resources
-  helper_method :space, :space!
-
   # Handle errors - error pages
   unless Rails.application.config.consider_all_requests_local
     rescue_from Exception, :with => :render_500
@@ -34,17 +31,6 @@ class ApplicationController < ActionController::Base
     rescue_from ActionController::UnknownController, :with => :render_404
     rescue_from ::AbstractController::ActionNotFound, :with => :render_404
     rescue_from CanCan::AccessDenied, :with => :render_403
-  end
-
-  # TODO: do we really need this now that cancan loads the resources?
-  def space
-    @space ||= Space.find_with_param(params[:space_id])
-  end
-
-  # This method is the same as space, but raises error if no Space is found
-  # TODO: do we really need this now that cancan loads the resources?
-  def space!
-    space || raise(ActiveRecord::RecordNotFound)
   end
 
   # Splits a comma separated list of emails into a list of emails without trailing spaces
@@ -69,7 +55,11 @@ class ApplicationController < ActionController::Base
 
   # Where to redirect to after sign in with Devise
   def after_sign_in_path_for(resource)
-    stored_location_for(resource) || my_home_path
+    if [login_url, new_user_session_url].include?(request.referer)
+      super
+    else
+      stored_location_for(resource) || request.referer || my_home_path
+    end
   end
 
   # overriding bigbluebutton_rails function
@@ -82,22 +72,31 @@ class ApplicationController < ActionController::Base
   end
 
   def bigbluebutton_role(room)
-    # TODO: temporary guest role that only exists in mconf-live
+    # guest role that only exists in mconf-live, might be disabled in the gem
     guest_role = :attendee
-    if defined?(BigbluebuttonRoom.guest_support) and
-        BigbluebuttonRoom.guest_support
+    if defined?(BigbluebuttonRoom.guest_support) and BigbluebuttonRoom.guest_support
       guest_role = :guest
     end
 
-    # when a user or a space is disabled the owner of the room is nil (because when trying to find
-    # the user/room only the ones that are *not* disabled are returned) so we check if the owner is
-    # not present we assume the room cannot be accessed
-    # TODO: not the best solution, we should actually find a way to check if owner.disabled is true
-    return nil unless room.owner
+    # first make sure the room has a valid owner
+    if room.owner_type == "User"
+      user = User.find_by_id(room.owner_id)
+      return nil if user.nil? || user.disabled
+    elsif room.owner_type == "Space"
+      space = Space.find_by_id(room.owner_id)
+      return nil if space.nil? || space.disabled
+    else
+      return nil
+    end
 
-    unless bigbluebutton_user.nil?
-
-      # user rooms
+    if current_user.nil?
+      # anonymous users
+      if room.private?
+        :password
+      else
+        guest_role
+      end
+    else
       if room.owner_type == "User"
         if room.owner.id == current_user.id
           # only the owner is moderator
@@ -109,13 +108,17 @@ class ApplicationController < ActionController::Base
             guest_role
           end
         end
-
-      # space rooms
       elsif room.owner_type == "Space"
         space = Space.find(room.owner.id)
-        if space.users.include?(current_user)
-          # space members are moderators
+        if space.admins.include?(current_user)
           :moderator
+        elsif space.users.include?(current_user)
+          # will be moderator if he's creating a new meeting or he already created it
+          if !room.is_running? || room.user_created_meeting?(current_user)
+            :moderator
+          else
+            :attendee
+          end
         else
           if room.private
             :password
@@ -124,42 +127,32 @@ class ApplicationController < ActionController::Base
           end
         end
       end
-
-    # anonymous users
-    else
-      if room.private?
-        :password
-      else
-        guest_role
-      end
     end
   end
 
-  # This method is called from BigbluebuttonRails
+  # This method is called from BigbluebuttonRails.
+  # Returns whether the current user can create a meeting in 'room'.
   def bigbluebutton_can_create?(room, role)
     ability = Abilities.ability_for(current_user)
-    can_create = ability.can?(:create_meeting, room)
+    ability.can?(:create_meeting, room)
+  end
 
-    # if the user can create the meeting we have to check whether the record flag will be
-    # set or not
-    # TODO: this would be better if it was possible to send this flag in the create call to
-    #   BigbluebuttonRails, not by changing the attribute in the db.
-    if can_create
-      can_record = ability.can?(:record_meeting, room)
+  # This method is called from BigbluebuttonRails.
+  # Returns a hash with options to override the options saved in the database when creating
+  # a meeting in the room 'room'.
+  def bigbluebutton_create_options(room)
+    ability = Abilities.ability_for(current_user)
 
-      # with this option set, we always set record the flag according to the user's permissions
-      if Site.current.webconf_auto_record
-        room.update_attribute(:record, can_record)
-
-      # in this case the user has to set or unset the recording flag himself, so we just make
-      # sure that if he can't record the flag is unset, otherwise leave it as it is
-      else
-        room.update_attribute(:record, false) unless can_record
-      end
-
+    can_record = ability.can?(:record_meeting, room)
+    if Site.current.webconf_auto_record
+      # show the record button if the user has permissions to record
+      { :record => can_record }
+    else
+      # only enable recording if the room is set to record and if the user has permissions to
+      # used to forcibly disable recording if a user has no permission but the room is set to record
+      record = room.record && can_record
+      { :record => record }
     end
-
-    can_create
   end
 
   # loads the web conference room for the current space into `@webconf_room` and fetches information
@@ -174,6 +167,7 @@ class ApplicationController < ActionController::Base
     else
       raise(ActiveRecord::RecordNotFound)
     end
+
     @webconf_room
   end
 

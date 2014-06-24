@@ -29,7 +29,8 @@
                 -#   See http://dev.mconf.org/redmine/issues/1169
                 = f.submit t('_other.accept'), :class => "btn btn-success btn-small"
                 %span= t('.accept_as').downcase
-                = select :join_request, :role_id, Space.roles.map { |r| [ r.name, r.id ] }, :selected => default_role.id
+                - roles = Space.roles.map { |r| [ r.translated_name, r.id ] }
+                = select :join_request, :role_id, roles, :selected => default_role.id
                 = f.hidden_field :accepted, :value => true
                 = f.hidden_field :processed, :value => true
             .thread-title

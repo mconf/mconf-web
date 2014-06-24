@@ -5,9 +5,13 @@
 # 3 or later. See the LICENSE file.
 
 require 'version'
+require './lib/mconf/modules'
 
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
+  include Mconf::Modules # so the views can access it too
+
+  include MwebEvents::EventsHelper if Mconf::Modules.mod_loaded?('events')
 
   # Clippy from https://github.com/lackac/clippy
   #
@@ -65,6 +69,15 @@ module ApplicationHelper
     </object>
   EOF
 
+  end
+
+  def copyable_field(id, content, opt={})
+    opt[:label] ||= id
+    content_tag :div, :class => 'input-append copyable-field' do
+      concat content_tag(:label, opt[:label]) if opt.has_key?(:label)
+      concat text_field_tag(id, content, opt.except(:label))
+      concat content_tag(:a, '', :class => "icon-awesome icon-paste add-on", :href => "#")
+    end
   end
 
   def application_version
@@ -226,6 +239,16 @@ module ApplicationHelper
     else
       user_path(user.to_param)
     end
+  end
+
+  # Given a paginated query it uses the number and pagination methods to calculate the last page
+  def last_page models
+    (models.count/models.per_page.to_f).ceil
+  end
+
+  # First 'size' characters of a text
+  def first_words(text, size)
+    truncate(text, :length => size)
   end
 
   private

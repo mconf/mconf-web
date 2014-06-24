@@ -18,12 +18,11 @@
 # See how all your routes lay out with "rake routes"
 
 Mconf::Application.routes.draw do
+  root :to => 'frontpage#show'
 
   constraints CanAccessResque do
     mount Resque::Server, :at => 'manage/resque'
   end
-
-  match "logo_images/crop", :to => 'logo_images#crop'
 
   # devise
   controllers = { :sessions => "sessions", :registrations => "registrations" }
@@ -41,7 +40,7 @@ Mconf::Application.routes.draw do
     :rooms => 'custom_bigbluebutton_rooms',
     :recordings => 'custom_bigbluebutton_recordings'
   }
-  # register a few custom routes that were added to this controller
+  # register a few custom routes that were added to bigbluebutton_rails
   get '/bigbluebutton/rooms/:id/join_options',
     :to => 'custom_bigbluebutton_rooms#join_options',
     :as => "join_options_bigbluebutton_room"
@@ -56,10 +55,18 @@ Mconf::Application.routes.draw do
     :to => 'custom_bigbluebutton_rooms#invite_userid',
     :as => "join_webconf"
 
+  # event module
+  if Mconf::Modules.mod_loaded?('events')
+    mount MwebEvents::Engine => '/'
+  end
+
   # shibboleth controller
   match '/secure', :to => 'shibboleth#login', :as => "shibboleth"
   match '/secure/info', :to => 'shibboleth#info', :as => "shibboleth_info"
   post '/secure/associate', :to => 'shibboleth#create_association', :as => "shibboleth_create_association"
+
+  # to crop images
+  match "logo_images/crop", :to => 'logo_images#crop'
 
   resources :spaces do
 
@@ -67,43 +74,30 @@ Mconf::Application.routes.draw do
       get :select
     end
 
-    resources :join_requests do
-      collection do
-        get :invite
-      end
-    end
-
-    bigbluebutton_routes :room_matchers # TODO: review
-
     member do
       post :enable
+      delete :disable
       post :leave
       get :user_permissions
       get :webconference_options
       get :webconference
       get :recordings
     end
+
     match '/recordings/:id/edit', :to => 'spaces#edit_recording', :as => 'edit_recording'
 
-    resources :users do # TODO: do we really need this?
-      resource :profile, :except => [:new, :create]
+    if Mconf::Modules.mod_loaded?('events')
+      get '/events', :to => 'space_events#index', :as => 'events'
     end
 
-    resources :readers
+    resources :users, :only => :index
 
-    resources :events do
+    resources :news
 
-      member do
-        post :spam_report, :action => :spam_report_create
-      end
-
+    resources :join_requests do
       collection do
-        get :add_time
-        get :copy_next_week
-        get :remove_time
+        get :invite
       end
-
-      resources :participants
     end
 
     resources :posts do
@@ -113,28 +107,21 @@ Mconf::Application.routes.draw do
       end
     end
 
+    resources :attachments, :except => [:edit, :update, :show]
     delete 'attachments', :to => 'attachments#delete_collection', :as => 'attachments'
-
-    resources :attachments do
-      member do
-        get :edit_tags
-      end
-    end
-
-    resources :entries
-
-    resources :news
   end
 
   resources :permissions
   resources :memberships
 
   resources :users, :except => [:new, :create] do
+
     collection do
       get :fellows
       get :select
       get :current
     end
+
     member do
       post :enable
       post :approve
@@ -155,12 +142,8 @@ Mconf::Application.routes.draw do
   resources :messages, :controller => :private_messages, :except => [:edit]
 
   resources :feedback do
-    collection do
-      get :webconf
-    end
+    get :webconf, :on => :collection
   end
-
-  resources :tags
 
   # The unique Site is created in db/seeds and can only be edited
   resource :site, :only => [:show, :edit, :update]
@@ -170,15 +153,10 @@ Mconf::Application.routes.draw do
     match "/manage/#{resource}", :to => "manage##{resource}", :as => "manage_#{resource}"
   end
 
-  # Locale controller (globalize)
-  resource :session_locale
-  match ':locale/:controller/:action/:id'
-  match 'locale/set/:id', :to => 'locale#set', :as => 'set'
+  # Locale controller, to change languages
+  resource :language, :only => [:create], :controller => :session_locales, :as => :session_locale
 
-  # root
-  root :to => 'frontpage#show'
-
-  # Statistics
+  # General statistics for the website
   match '/statistics', :to => 'statistics#show', :as => 'show_statistics'
 
   # 'Hack' to show a custom 404 page.

@@ -15,6 +15,9 @@
     = f.input :shib_enabled, :as => :boolean
     = f.input :shib_email_field
     = f.input :shib_name_field
+    = f.input :shib_principal_name_field
+    = f.input :shib_login_field
+    = f.input :shib_env_variables
     = f.input :ldap_enabled, :as => :boolean
     = f.input :ldap_host
     = f.input :ldap_port
@@ -24,6 +27,7 @@
     = f.input :ldap_username_field
     = f.input :ldap_email_field
     = f.input :ldap_name_field
+    = f.input :ldap_filter
   .right-column
     = f.input :smtp_login
     = f.input :smtp_password, :as => :showable_password
@@ -42,4 +46,6 @@
     = f.input :xmpp_server
     = f.input :external_help
     = f.input :require_registration_approval, :as => :boolean
+    = f.input :registration_enabled, :as => :boolean
+    = f.input :events_enabled, :as => :boolean
   = f.button :wrapped, :cancel => site_path, :value => t("_other.save")

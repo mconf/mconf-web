@@ -104,9 +104,6 @@ pt-br:
   logout: Sair
   name: 
     one: Nome
-  pagination: 
-    next_label: "Próximo &raquo;"
-    previous_label: "&laquo; Anterior"
   password_has_been_reset: "Sua senha foi redefinida"
   password_has_been_reset_with_agent: "%{agent}, sua senha foi redefinida"
   password_reset: "Senha Redefinida"
@@ -194,3 +191,6 @@ pt-br:
     disabled: "Usuário desabilitado"
     other: Usuários
   visit_link_to_activate_account: "Visite este link para ativar sua conta"
+  will_paginate: 
+    next_label: "Próximo &raquo;"
+    previous_label: "&laquo; Anterior"

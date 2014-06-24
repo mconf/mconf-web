@@ -1,8 +1,20 @@
-/* TODO: temporary styles */
+#page-header {
+  .current-page-title {
+    float: none;
+    max-width: 100%;
+  }
 
-#content-wrapper { padding: 0; }
-#content {
-  margin: 0;
-  padding: 0;
-  min-height: 0;
+  .main-title {
+    text-align: center;
+  }
+}
+
+#content-middle {
+  margin-top: 40px;
+  text-align: center;
+
+  .content-block-header h3 {
+    float: none;
+    text-align: center;
+  }
 }

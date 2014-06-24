@@ -1,36 +1,38 @@
 #main-logo
-  - url = user_signed_in? ? my_home_path : root_path
+  - url = user_signed_in? ? main_app.my_home_path : main_app.root_path
   %a.title{:href => url}= current_site.name
 
 %ul#navbar-left-links
   - if user_signed_in?
     %li
-      = link_to my_home_path do
+      = link_to main_app.my_home_path do
         = t('home.my')
     %li
-      = link_to messages_path do
+      = link_to main_app.messages_path do
         = t('.inbox')
         - if current_user.unread_private_messages.size > 0
           .label.label-important= current_user.unread_private_messages.size
         - else
           .label.label-success= 0
     %li
-      = link_to spaces_path do
-        = t('space.all')
+      = link_to t('space.all'), main_app.spaces_path
+    - if mod_enabled?("events")
+      %li= link_to t('.events'), mweb_events.events_path
     - if current_user.superuser?
       %li
-        = link_to site_path do
+        = link_to main_app.site_path do
           = t('.manage')
   - else
-    %li
-      = link_to spaces_path do
-        = t('space.all')
+    -# for anonymous users
+    %li= link_to t('space.all'), main_app.spaces_path
+    - if mod_enabled?("events")
+      %li= link_to t('.events'), mweb_events.events_path
 
 -# the right menu is not shown in the home page
 - if at_home?
   %ul#navbar-right-links
     %li.last
-      = link_to logout_path do
+      = link_to main_app.logout_path do
         = t('logout', :user => current_user.name)
 - else
   %ul#navbar-right-links
@@ -40,7 +42,7 @@
         -# small user information in the navbar
         .user-info.dropdown-toggle{ :"data-toggle" => "dropdown" }
           .user-avatar
-            = link_logo_image(current_user, :size => '32', :url => user_path(current_user), :title => current_user.name, :class => "logo-user")
+            = link_logo_image(current_user, :size => '32', :url => main_app.user_path(current_user), :title => current_user.name, :class => "logo-user")
           %a.user-name{ :href => '#' }= current_user.name
           %b.caret
 
@@ -48,22 +50,23 @@
         .dropdown-menu.arrow-right
           .user-info-big
             .user-avatar
-              = link_logo_image(current_user, :size => '128', :url => user_path(current_user), :title => current_user.name, :class => "logo-user")
+              = link_logo_image(current_user, :size => '128', :url => main_app.user_path(current_user), :title => current_user.name, :class => "logo-user")
             .user-data
-              = link_to(current_user.name, user_path(current_user))
+              = link_to(current_user.name, main_app.user_path(current_user))
               = link_to(current_user.email, "mailto: #{current_user.email}")
               %span= current_user.profile.organization unless current_user.profile.organization.nil?
           .user-links
             %ul
-              %li= link_to t('logout', :user => current_user.name), logout_path
-              %li= link_to t('account'), edit_user_path(current_user)
+              %li= link_to t('logout', :user => current_user.name), main_app.logout_path
+              %li= link_to t('account'), main_app.edit_user_path(current_user)
               %li
                 = t('profile.one') + ":"
                 %span
-                  = link_to t('view'), user_path(current_user)
+                  = link_to t('view'), main_app.user_path(current_user)
                   = "/ "
-                  = link_to t('edit'), edit_user_profile_path(current_user)
+                  = link_to t('edit'), main_app.edit_user_profile_path(current_user)
 
     - else
-      %li.last= link_to t('.login'), login_path
-      %li= link_to t('.register'), register_path
+      %li.last= link_to t('.login'), main_app.login_path
+      - if current_site.registration_enabled?
+        %li= link_to t('.register'), main_app.register_path

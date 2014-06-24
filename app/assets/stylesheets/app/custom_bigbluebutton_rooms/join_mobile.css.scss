@@ -1,46 +1,42 @@
 @import "compass/css3";
 @import "definitions";
 
-#webconference-join-mobile-dialog {
-  text-align: center;
+body.custom_bigbluebutton_rooms.join_mobile {
 
-  .join-options {
-    background: #f6f6f6;
-    @include border-radius(4px);
-    border: 1px solid #ddd;
-    padding: 10px;
-    margin: 20px 0;
+  #page-header-wrapper .current-page-title {
+    width: 100%;
+    max-width: 100%;
+    text-align: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
 
-    .download-application {
-      @include mconf-clearfix;
-
-      .mobile-download-image {
-        text-align: center;
-      }
-
-      span {
-        display: block;
-        text-align: center;
-        margin-bottom: 5px;
-      }
+    .sub-title {
+      margin-top: 10px;
     }
   }
 
-  .qr-code {
-    float: left;
-    margin-left: 10px;
+  #content-wrapper {
+    text-align: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
 
-    img {
-      width: 150px;
-      height: 150px;
-      border: 1px solid #ccc;
-      @include border-radius(4px);
+    .download-block {
+      margin: 20px 0;
+
+      .download-image {
+        margin-top: 10px;
+        text-align: center;
+      }
+    }
+
+    .additional-option {
+      margin: 10px 0;
+      clear: both;
     }
   }
 
-  .sip-number {
-    max-width: 150px;
-    float: right;
-    margin-right: 10px;
+  #footer-wrapper {
+    display: none;
   }
+
 }

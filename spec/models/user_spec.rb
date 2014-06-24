@@ -9,6 +9,10 @@ require "spec_helper"
 
 describe User do
 
+  before(:each, :events => true) do
+    Site.current.update_attributes(:events_enabled => true)
+  end
+
   it "creates a new instance given valid attributes" do
     FactoryGirl.build(:user).should be_valid
   end
@@ -19,9 +23,8 @@ describe User do
   it { should have_and_belong_to_many(:spaces) }
 
   it { should have_many(:permissions).dependent(:destroy) }
-  it { should have_many(:events) }
+
   it { should have_many(:posts).dependent(:destroy) }
-  it { should have_many(:participants).dependent(:destroy) }
 
   it { should validate_presence_of(:email) }
 
@@ -142,6 +145,19 @@ describe User do
         end
       end
     end
+  end
+
+  describe "#events", :events => true do
+    let(:user) { FactoryGirl.create(:user) }
+    let(:other_user) { FactoryGirl.create(:user)}
+
+    before(:each) do
+      FactoryGirl.create(:event, :owner => user)
+      FactoryGirl.create(:event, :owner => user)
+    end
+
+    it { user.events.size.should eql(2) }
+    it { other_user.events.should be_empty }
   end
 
   describe "#accessible_rooms" do
@@ -354,9 +370,12 @@ describe User do
   end
 
   describe "#approve!" do
-    let(:user) { FactoryGirl.create(:user, :approved => false) }
-    let(:params) {
-      { :username => "any", :email => "any@jaloo.com", :approved => false, :password => "123456" }
+    let(:user) {
+      u = FactoryGirl.create(:user)
+      # won't work if it's set in the factory above, since sometimes the user is automatically
+      # approved when created
+      u.update_attributes(:approved => false)
+      u
     }
 
     context "sets the user as approved" do
@@ -435,6 +454,38 @@ describe User do
         it { user.inactive_message.should be(:inactive) }
       end
     end
+  end
+
+  describe "#disable" do
+
+    context "when the user is admin of a space" do
+      let (:user) { FactoryGirl.create(:user) }
+      let (:space) { FactoryGirl.create(:space) }
+
+      context "and is the last admin left" do
+        before(:each) do
+          space.add_member!(user, 'Admin')
+          user.disable
+        end
+
+        it { user.disabled.should be(true) }
+        it { space.reload.disabled.should be(true) }
+      end
+
+      context "and isn't the last admin left" do
+        let (:user2) { FactoryGirl.create(:user) }
+        before(:each) do
+          space.add_member!(user, 'Admin')
+          space.add_member!(user2, 'Admin')
+          user.disable
+        end
+
+        it { user.disabled.should be(true) }
+        it { space.disabled.should be(false) }
+      end
+    end
+
+
   end
 
   describe "abilities", :abilities => true do

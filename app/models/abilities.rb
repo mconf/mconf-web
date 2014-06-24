@@ -48,7 +48,7 @@ module Abilities
 
       # Users
       # Disabled users are only visible to superusers
-      can [:read, :fellows, :current, :select], User, :disabled => false
+      can [:index, :read, :fellows, :current, :select], User, :disabled => false
       can [:edit, :update, :destroy], User, :id => user.id, :disabled => false
 
       # User profiles
@@ -84,8 +84,9 @@ module Abilities
       can [:read, :webconference, :recordings, :leave], Space do |space|
         space.users.include?(user)
       end
-      # Only the admin can destroy or update information on a space
-      can [:destroy, :edit, :update, :user_permissions, :webconference_options], Space do |space|
+      # Only the admin can disable or update information on a space
+      # Only global admins can destroy spaces
+      can [:edit, :update, :user_permissions, :webconference_options, :disable], Space do |space|
         space.admins.include?(user)
       end
 
@@ -139,15 +140,6 @@ module Abilities
         news.space.admins.include?(user)
       end
 
-      # Events
-      # TODO: maybe space admins should be able to alter events they did not create but that
-      #   are in their spaces
-      can :read, Event, :space => { :public => true }
-      can [:read, :create], Event do |event|
-        event.space.users.include?(user)
-      end
-      can [:read, :edit, :update, :destroy], Event, :author_id => user.id
-
       # Attachments
       can :manage, Attachment do |attach|
         attach.space.repository? && attach.space.admins.include?(user)
@@ -168,12 +160,55 @@ module Abilities
         case perm.subject_type
         when "Space"
           admins = perm.subject.admins
-        when "Event"
-          admins = perm.subject.space.admins
         else
           admins = []
         end
         admins.include?(user)
+      end
+
+      # Events from MwebEvents
+      if Mconf::Modules.mod_loaded?('events')
+        def event_can_be_managed_by(event, user)
+          case event.owner_type
+          when 'User' then
+            event.owner_id == user.id
+          when 'Space' then
+            !user.permissions.where(:subject_type => 'MwebEvents::Event',
+              :role_id => Role.find_by_name('Organizer'), :subject_id => event.id).empty? ||
+            !user.permissions.where(:subject_type => 'Space', :subject_id => event.owner_id,
+            :role_id => Role.find_by_name('Admin')).empty?
+          end
+        end
+
+        can [:select, :read], MwebEvents::Event
+
+        # Create events if they have a nil owner or are owned by a space you admin
+        can :create, MwebEvents::Event do |e|
+          e.owner.nil? || event_can_be_managed_by(e, user)
+        end
+
+        can [:edit, :update, :destroy], MwebEvents::Event do |e|
+          event_can_be_managed_by(e, user)
+        end
+
+        can :register, MwebEvents::Event do |e|
+          MwebEvents::Participant.where(:owner_id => user.id, :event_id => e.id).empty? &&
+          (e.public || (e.owner_type == 'Space' && e.owner.users.include?(user)))
+        end
+
+        # Participants from MwebEvents
+        can :show, MwebEvents::Participant do |p|
+          p.event.owner == user || p.owner == user
+        end
+
+        can [:edit, :update, :destroy], MwebEvents::Participant do |p|
+          event_can_be_managed_by(p.event, user)
+        end
+
+        can :index, MwebEvents::Participant
+        can :create, MwebEvents::Participant
+
+        cannot [:read, :index, :update, :destroy], Space, :disabled => true
       end
     end
 
@@ -194,9 +229,15 @@ module Abilities
       # Can do the actions below if he's the owner or if he belongs to the space (with any role)
       # that owns the room.
       # `:create_meeting` is a custom name, not an action that exists in the controller
-      can [:end, :join_options, :create_meeting, :fetch_recordings,
+      can [:join_options, :create_meeting, :fetch_recordings,
            :invitation, :send_invitation], BigbluebuttonRoom do |room|
         user_is_owner_or_belongs_to_rooms_space(user, room)
+      end
+
+      # For user rooms only the owner can end meetings.
+      # In spaces only the admins and the person that started the meeting can end it.
+      can :end, BigbluebuttonRoom do |room|
+        user_can_end_meeting(user, room)
       end
 
       # Users can recording meetings in their rooms, but only if they have the record flag set.
@@ -213,8 +254,7 @@ module Abilities
       # some actions in rooms should be accessible to any logged user
       # some of them will do the authorization themselves (e.g. permissions for :join
       # will change depending on the user and the target room)
-      can [:invite, :invite_userid, :auth, :running,
-           :join, :external, :external_auth, :join_mobile], BigbluebuttonRoom
+      can [:invite, :invite_userid, :auth, :running, :join, :join_mobile], BigbluebuttonRoom
 
       # a user can play recordings of his own room or recordings of
       # rooms of either public spaces or spaces he's a member of
@@ -254,6 +294,24 @@ module Abilities
       elsif (room.owner_type == "Space")
         space = Space.find(room.owner.id)
         space.users.include?(user)
+      else
+        false
+      end
+    end
+
+    # Whether `user` can end the meeting in `room`.
+    def user_can_end_meeting(user, room)
+      if (room.owner_type == "User" && room.owner.id == user.id)
+        true
+      elsif (room.owner_type == "Space")
+        space = Space.find(room.owner.id)
+        if space.admins.include?(user)
+          true
+        elsif room.user_created_meeting?(user)
+          true
+        else
+          false
+        end
       else
         false
       end
@@ -326,8 +384,15 @@ module Abilities
       can :select, Space
       can :read, Post, :space => { :public => true }
       can :show, News, :space => { :public => true }
-      can :read, Event, :space => { :public => true }
       can :read, Attachment, :space => { :public => true, :repository => true }
+
+      # for MwebEvents
+      if Mconf::Modules.mod_loaded?('events')
+        can [:read, :select], MwebEvents::Event
+        # Pertraining public and private event registration
+        can :register, MwebEvents::Event, :public => true
+        can :create, MwebEvents::Participant # TODO: really needed?
+      end
     end
 
     private

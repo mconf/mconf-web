@@ -1,0 +1,10 @@
+/*
+ * We add here mweb_events and all its dependencies, except the ones
+ * already required by the application previously.
+ *
+ *= require leaflet
+ * require select2
+ * require font-awesome
+ *= require bootstrap-datetimepicker
+ *= require mweb_events
+ */

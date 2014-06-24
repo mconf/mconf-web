@@ -6,17 +6,16 @@
 # 3 or later. See the LICENSE file.
 
 class Space < ActiveRecord::Base
-
   include PublicActivity::Common
 
   # TODO: temporary, review
   USER_ROLES = ["Admin", "User"]
 
+  attr_accessible :name, :permalink, :public, :disabled, :repository, :description, :deleted
+
   has_many :posts, :dependent => :destroy
-  has_many :events, :dependent => :destroy
   has_many :news, :dependent => :destroy
   has_many :attachments, :dependent => :destroy
-  has_many :tags, :dependent => :destroy, :as => :container
   has_one :bigbluebutton_room, :as => :owner, :dependent => :destroy
 
   has_many :permissions, :foreign_key => "subject_id",
@@ -37,6 +36,11 @@ class Space < ActiveRecord::Base
 
   has_many :join_requests, :foreign_key => "group_id",
            :conditions => { :join_requests => {:group_type => 'Space'} }
+
+  if Mconf::Modules.mod_loaded?('events')
+    has_many :events, :class_name => MwebEvents::Event, :foreign_key => "owner_id",
+             :dependent => :destroy, :conditions => {:owner_type => 'Space'}
+  end
 
   # for the associated BigbluebuttonRoom
   attr_accessible :bigbluebutton_room_attributes
@@ -66,7 +70,6 @@ class Space < ActiveRecord::Base
   # the friendly name / slug for the space
   extend FriendlyId
   friendly_id :permalink
-  acts_as_resource :param => :permalink
 
   after_validation :check_errors_on_bigbluebutton_room
 
@@ -94,7 +97,7 @@ class Space < ActiveRecord::Base
 
   # Returns the next 'count' events (starting in the current date) in this space.
   def upcoming_events(count=5)
-    self.events.upcoming.first(5)
+    self.events.upcoming.order("start_on ASC").first(5)
   end
 
   # Return the number of unique pageviews for this space using the Statistic model.
@@ -145,11 +148,15 @@ class Space < ActiveRecord::Base
   end
 
   def disable
-    self.update_attributes(:disabled => true, :name => "#{name.split(" RESTORED").first} DISABLED #{Time.now.to_i}")
+    self.disabled = true
+    self.name = "#{name.split(" RESTORED").first} DISABLED #{Time.now.to_i}"
+    save!
   end
 
   def enable
-    self.update_attributes(:disabled => false, :name => "#{name.split(" DISABLED").first} RESTORED")
+    self.disabled = false
+    self.name = "#{name.split(" DISABLED").first} RESTORED"
+    save!
   end
 
   # Basically checks to see if the given user is the only admin in this space
@@ -174,6 +181,11 @@ class Space < ActiveRecord::Base
 
   def pending_join_request_for?(user)
     pending_join_requests.where(:candidate_id => user).size > 0
+  end
+
+  # Returns whether the space's logo is being cropped.
+  def is_cropping?
+    crop_x.present?
   end
 
   private
@@ -221,7 +233,7 @@ class Space < ActiveRecord::Base
   end
 
   def crop_logo
-    logo_image.recreate_versions! if crop_x.present?
+    logo_image.recreate_versions! if is_cropping?
   end
 
 end

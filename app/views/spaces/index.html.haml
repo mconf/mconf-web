@@ -1,4 +1,6 @@
-= render_page_title t('space.all')
+= content_for :page_header_subtitle do
+  = t('.subtitle')
+= render_page_title t('.title')
 
 - @objects = params[:my_spaces] ? @user_spaces : @spaces
 
@@ -8,7 +10,10 @@
     - if user_signed_in?
       = link_to t('.create_new_space'), new_space_path, :class => "btn btn-primary btn-large btn-block"
     - else
-      = link_to t('register.one'), register_path, :class => "btn btn-success btn-large btn-block"
+      - if current_site.registration_enabled?
+        = link_to t('register.one'), register_path, :class => "btn btn-success btn-large btn-block"
+      - else
+        = link_to t('_other.login'), login_path, :class => "btn btn-success btn-large btn-block"
 
   = render_sidebar_content_block('space-description-wrapper') do
     .content-block-middle
@@ -23,16 +28,17 @@
             = logo_image(space, :size => '168x128', :title => sanitize(space.name), :class => "logo logo-space")
         - if has_access
           = link_to space_path(space) do
-            %h3= sanitize(space.name)
+            %h3.name= sanitize(space.name)
         - else
-          %h3= sanitize(space.name)
-        %p.description= sanitize(space.description)
+          %h3.name= sanitize(space.name)
+        %p.description= sanitize(first_words(space.description, 400))
         %p.details
           - if space.users.include?(current_user)
             %span.is-member= t('space.index.user_is_member')
           %span= t('space.member_count', :count => space.users.count)
           %span= t('space.post_count', :count => space.posts.count)
-          %span= t('space.event_count', :count => space.events.count)
+          - if mod_enabled?("events")
+            %span= t('space.event_count', :count => space.events.count)
         - if has_access
           %p.action-links
             = link_to t('more'), space_path(space)
@@ -54,9 +60,11 @@
     = hidden_field_tag :space_filter_text
 
 - if params[:view] == 'list'
-  = render "list_view"
+  = render "spaces/list_view"
 - else
-  = render "thumbnail_view"
+  #spaces.content-block
+    .content-block-middle.clearfix
+      = render "spaces/thumbnail_view", :spaces => @objects, :user_spaces => @user_spaces
 
 - nav = page_navigation_links @objects
 - unless nav.nil?

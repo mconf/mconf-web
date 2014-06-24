@@ -27,19 +27,18 @@
 
 // Use to search for models (e.g. users) dynamically.
 //= require select2
-//= require select2_locale_pt-BR
 
 // Use for XMPP in the chat.
 //= require strophe
 
 //= require i18n/translations
 
-// Datetime picker for bootstrap
-//= require bootstrap-datetimepicker
-
 // Moment.js for dates
 //= require moment
 //= require moment/pt-br
+
+// Datetime picker for bootstrap
+//= require bootstrap-datetimepicker
 
 // TODO: remove this dependecy, this is only used in attachments now and
 //       can be easily replaced by standard jquery methods.

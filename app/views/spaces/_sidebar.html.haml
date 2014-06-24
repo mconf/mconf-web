@@ -19,19 +19,19 @@
       .content-block-footer
         = link_to t('view_more'), webconference_space_path(@space)
 
-    = render_sidebar_content_block('sidebar-upcoming-events') do
-      .content-block-header
-        %h4=  t('.upcoming_events')
-        = icon_help t("tooltip.upcoming"), :class => 'leftwards'
-        = icon_event()
-      .toolbar
-        %span.event-timezone
-          = "(#{t('timezone.one')}: #{user_timezone})"
-      .content-block-middle
-        = render 'events/sidebar_events_simple', :events => @space.upcoming_events(5)
-      .content-block-footer
-        = link_to icon_feed, space_events_path(@space, :format => :atom)
-        = link_to(t('read_more'), space_events_path(@space))
+    - if mod_enabled?("events")
+      = render_sidebar_content_block('sidebar-upcoming-events') do
+        .content-block-header
+          %h4=  t('.upcoming_events')
+          = icon_help t("tooltip.upcoming"), :class => 'leftwards'
+          = icon_event()
+        .toolbar
+          %span.event-timezone
+            = "(#{t('timezone.one')}: #{user_timezone})"
+        .content-block-middle
+          = render 'space_events/sidebar_events_simple', :events => @space.upcoming_events(5)
+        .content-block-footer
+          = link_to(t('read_more'), space_events_path(@space))
 
     = render_sidebar_content_block("sidebar-space-admins") do
       .content-block-header

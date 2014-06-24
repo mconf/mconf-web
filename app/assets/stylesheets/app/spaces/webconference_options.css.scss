@@ -9,25 +9,8 @@ body.spaces.webconference_options {
     clear: both;
   }
 
-  .left-column {
-    width: 425px;
-
-    #space_name, #space_description {
-      width: 98%;
-    }
-  }
-
-  .right-column {
-    position: absolute;
-    right: 50px;
-    z-index: $z-index-navbar;
-
-    form {
-      text-align: center;
-      .input.file.optional {
-        display: none;
-      }
-    }
+  #space_name, #space_description {
+    width: 98%;
   }
 
 }

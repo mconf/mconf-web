@@ -15,6 +15,9 @@
     = f.input :shib_enabled, :as => :boolean, :disabled => true
     = f.input :shib_email_field, :disabled => true
     = f.input :shib_name_field, :disabled => true
+    = f.input :shib_principal_name_field, :disabled => true
+    = f.input :shib_login_field, :disabled => true
+    = f.input :shib_env_variables, :disabled => true
     = f.input :ldap_enabled, :disabled => true
     = f.input :ldap_host, :disabled => true
     = f.input :ldap_port, :disabled => true
@@ -24,6 +27,7 @@
     = f.input :ldap_username_field, :disabled => true
     = f.input :ldap_email_field, :disabled => true
     = f.input :ldap_name_field, :disabled => true
+    = f.input :ldap_filter, :disabled => true
   .right-column
     = f.input :smtp_login, :disabled => true
     = f.input :smtp_password, :as => :showable_password, :disabled => true
@@ -42,5 +46,7 @@
     = f.input :xmpp_server, :disabled => true
     = f.input :external_help, :disabled => true
     = f.input :require_registration_approval, :as => :boolean, :disabled => true
+    = f.input :registration_enabled, :as => :boolean, :disabled => true
+    = f.input :events_enabled, :as => :boolean, :disabled => true
   .form-actions
     = link_to t('_other.edit'), edit_site_path, :class => "btn btn-primary"

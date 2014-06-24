@@ -6,10 +6,11 @@
 -#   paginate (boolean)
 
 - for activity in content
-  - classes = "thread thread-#{activity.trackable_type.downcase} #{cycle('thread-even' , 'thread-odd')}"
+  - name = activity.trackable_type.underscore
+  - classes = "thread thread-#{name} #{cycle('thread-even' , 'thread-odd')}"
   - if activity.trackable.nil?
     .removed-object{ :class => classes }
-      = render :partial => "public_activity/#{activity.trackable_type.downcase}", :locals => { :activity => activity }
+      = render :partial => "public_activity/#{name}", :locals => { :activity => activity }
   - else
     = div_for(activity.trackable, :class => classes) do
-      = render :partial => "public_activity/#{activity.trackable_type.downcase}", :locals => { :activity => activity }
+      = render :partial => "public_activity/#{name}", :locals => { :activity => activity }

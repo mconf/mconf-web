@@ -9,7 +9,8 @@ namespace :statistics do
   desc "Global Statistics"
   task :stats => :environment do
     results = {}
-    models = %w(User Space Event Post)
+    # TODO: review this with MwebEvents
+    models = %w(User Space MwebEvents::Event Post)
     models.map(&:constantize).each do |k|
       results[k.name.to_sym] = get_stats(k)
     end

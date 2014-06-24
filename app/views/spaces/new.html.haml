@@ -9,18 +9,18 @@
       .content-block-header
         .space-logo
           = link_logo_image(space, options_for_tooltip(sanitize(space.name), :size => '84x64', :"data-placement" => 'bottom', :class => "logo logo-space"))
-        %h4= link_to sanitize(space.name), space_path(space)
+        .space-description
+          %h4= link_to sanitize(space.name), space_path(space)
+          - if space.public
+            .resource-visibility.small.public
+              = icon_space_public
+              = t(".public")
+          - else
+            .resource-visibility.small.private
+              = icon_space_private
+              = t(".private")
       .content-block-middle
         %span.description= sanitize(auto_link(first_words(space.description, 150)))
-      .content-block-footer
-        - if space.public
-          %span.visibility.public
-            = icon_space_public()
-            = t(".public")
-        - else
-          %span.visibility.private
-            = icon_space_private()
-            = t(".private")
 
 #space-new
 

@@ -16,19 +16,3 @@
               = link_to icon_delete, space_post_path(post.space, post), options_for_tooltip(t('.post.not_spam_tooltip'), :method => :delete, :confirm => t('.post.delete_confirmation'))
             .spam-body
               = render :partial => 'posts/unified_post' , :locals => { :thread => post }
-
-  .content-block
-    .content-block-header
-      %h3= t('.event.title')
-    .content-block-middle
-      - if @spam_events.empty?
-        = t('.no_spam')
-      - else
-        - for event in @spam_events
-          .spam-item
-            .spam-buttons
-              -# TODO: these actions should redirect to /manage/spam
-              = link_to icon_confirm, space_event_path(event.space, event, :event => { :spam => false }), options_for_tooltip(t('.event.not_spam_tooltip'), :method => :put, :confirm => t('.event.not_spam_confirmation'))
-              = link_to icon_delete, space_event_path(event.space, event), options_for_tooltip(t('.event.not_spam_tooltip'), :method => :delete, :confirm => t('.event.delete_confirmation'))
-            .spam-body
-              = render :partial => 'events/unified_event', :locals => { :event => event }

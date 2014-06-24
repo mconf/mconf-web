@@ -1,0 +1,10 @@
+@import "compass/css3";
+@import "definitions";
+
+@import "app/shared/recording_list";
+
+#edit-webconference-room {
+  textarea {
+    height: 80px;
+  }
+}

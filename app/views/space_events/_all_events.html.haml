@@ -1,0 +1,32 @@
+#events-all
+
+  .content-block.event-block
+    .content-block-header
+      %h3= t('.upcoming')
+
+    - if @first_upcoming_events.empty?
+      .content-block-middle
+        %span= t('.none_upcoming')
+    - else
+      .content-block-middle
+        .list-texts
+          - for event in @first_upcoming_events
+            = render :partial => 'mweb_events/events/unified_event', :locals => { :event => event }
+      .content-block-footer.content-block-footer-fancy
+        = link_to t('.all_upcoming'), space_events_path(@space, :show => "upcoming_events"), :class => 'upcoming_link event_navigation'
+
+  .content-block.event-block
+    .content-block-header
+      %h3= t('.past')
+
+    - if @last_past_events.empty?
+      .content-block-middle
+        %span= t('.none_past')
+    - else
+      - reset_cycle
+      .content-block-middle
+        .list-texts
+          - for event in @last_past_events
+            = render :partial => 'mweb_events/events/unified_event', :locals => { :event => event }
+      .content-block-footer.content-block-footer-fancy
+        = link_to t('.all_past'), space_events_path(@space, :show => "past_events"), :class => 'past_link event_navigation'

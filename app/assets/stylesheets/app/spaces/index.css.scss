@@ -1,8 +1,8 @@
 @import "compass/css3";
+@import "compass/typography/links";
 @import "definitions";
 
 @import "app/spaces/_unified_space";
-@import "app/spaces/_space_thumbnail";
 
 body.spaces.index {
 
@@ -43,13 +43,34 @@ body.spaces.index {
     }
   }
 
+  // adjust how the select2 search input looks in this page
+  // note: exactly the same we have in mweb_events-events/index.css.scss
+  .select2-container .select2-choice {
+    border-right-width: 1px;
+  }
   // the results for the filter by name are added to <body>, this is why
   // this selector is here and not nested
   .select2-results, .select2-container {
-    i {
-      float: right;
-      @include font-size($font-small);
-      margin: 6px 0 0 0;
+    .select2-result, .select2-chosen {
+      text-align: left;
+
+      i {
+        float: right;
+        @include font-size($font-small);
+        margin: 4px 0 0 0;
+      }
+
+      a {
+        @include font-size($font-normal);
+        text-align: left;
+        @include link-colors($font-color, $font-color, $font-color, $font-color);
+        @include transition(none);
+      }
+
+      &.select2-highlighted {
+        i { color: #eee }
+        a { @include link-colors(#eee, #eee, #eee, #eee); }
+      }
     }
   }
 
@@ -57,7 +78,10 @@ body.spaces.index {
     width: 230px;
 
     .content-block-middle {
+      word-break: break-all;
+
       .space-logo-wrapper {
+        margin: 5px 0;
         text-align: center;
         @include broken-img-parent;
 
@@ -89,8 +113,9 @@ body.spaces.index {
 
   #spaces {
 
-    .space-item.space-list {
+    .list-text {
       .thread {
+        margin: 0;
         // tighter than the default
         padding: 15px 8px;
       }
@@ -103,22 +128,15 @@ body.spaces.index {
       }
     }
 
-    .space-thumbnail-list {
-      margin: 0;
-      padding: 0;
-      clear: both;
-      @include mconf-clearfix;
-
-      li {
-        margin: 0;
-        padding: 0;
+    .list-thumbnail {
+      .resource-visibility {
+        color: $dark-gray;
       }
+    }
 
-      .space-item.selected {
-        .space-thumbnail {
-          border-color: $second-color;
-          @include box-shadow(0 0 5px lighten($second-color, 10));
-        }
+    .list-text {
+      .resource-visibility {
+        color: $dark-gray;
       }
     }
 

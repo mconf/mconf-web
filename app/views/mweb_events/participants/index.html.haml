@@ -1,0 +1,21 @@
+- content_for :title, "#{@event.name}: #{t('_other.index')} #{MwebEvents::Participant.model_name.human.pluralize}"
+
+%h1
+  = content_for :title
+
+- if @participants.count > 0
+
+  - for participant in @participants
+    - if participant.owner
+      = render :partial => 'participant', :locals => { :participant => participant }
+    - else
+      = render :partial => 'guest_participant', :locals => { :participant => participant }
+
+  - nav = page_navigation_links @participants
+  - unless nav.nil?
+    .content-block-footer= nav
+
+  = link_to t('_other.cancel'), @event
+
+- else
+  = t('.no_participants')

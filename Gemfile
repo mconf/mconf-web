@@ -1,6 +1,6 @@
-source 'http://rubygems.org'
+source 'https://rubygems.org'
 
-gem 'rails', '3.2.11'
+gem 'rails', '3.2.18'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -18,7 +18,6 @@ group :assets do
   gem 'select2-rails'
 end
 
-gem 'gon', '3.0.5'
 gem 'mysql2', '~> 0.3.0'
 gem 'rake'
 gem 'jquery-rails'
@@ -26,7 +25,6 @@ gem 'therubyracer', :require => 'v8'
 gem 'haml'
 gem 'will_paginate'
 gem 'chronic'
-gem 'yaml_db'
 gem 'rails_autolink'
 gem 'whenever', :require => false
 gem 'garb'
@@ -49,18 +47,19 @@ gem 'devise'
 gem 'devise-encryptable' # TODO: only while we have old station users
 gem 'devise-async'
 gem 'cancan', '~> 1.6.0'
-gem 'station', :git => 'git://github.com/mconf/station.git', :branch => 'mweb-v2'
 gem 'net-ldap'
 
 # BigBlueButton integration
 gem 'bigbluebutton-api-ruby', :git => 'git://github.com/mconf/bigbluebutton-api-ruby.git', :branch => 'master'
-gem 'bigbluebutton_rails', :git => 'git://github.com/mconf/bigbluebutton_rails.git', :branch => 'branch-v1.4.0'
-gem 'strong_parameters' # for bigbluebutton_rails
+gem 'bigbluebutton_rails', :git => 'git://github.com/mconf/bigbluebutton_rails.git', :branch => 'master'
+# The gems below are for bigbluebutton_rails
+gem 'strong_parameters'
+gem 'browser'
 
 # Used on Profile to generate a vcard
 gem 'vpim' # TODO: very old, last update on 2009
 
-# for logos
+# for logos + attachments
 gem 'carrierwave'
 gem 'rmagick'
 
@@ -84,6 +83,9 @@ gem 'font-awesome-rails'
 gem 'premailer-rails'
 gem 'nokogiri'
 
+# event module
+gem 'mweb_events', :git => 'git@github.com:mconf/mweb_events.git'
+
 # send emails in case of exceptions in production
 gem 'exception_notification'
 
@@ -94,28 +96,26 @@ gem 'icalendar'
 # TODO: Gems to review if we can remove/update
 #
 gem 'galetahub-simple_captcha', :require => 'simple_captcha'
-gem 'attachment_fu', :git => 'git://github.com/mconf/attachment_fu.git'
-gem 'hpricot'
-gem 'feed-normalizer'
 gem 'httparty'
-gem 'ci_reporter'
 gem 'rubyzip' # TODO: see rubyzip2
-gem 'dynamic_form'
 gem 'prism'
-# not the official repo, but has fixes for rails 3
-gem 'table_helper', :git => 'git://github.com/eeng/table_helper.git'
 
 group :development do
   gem 'translate-rails3', :require => 'translate', :git => 'git://github.com/mconf/translate.git'
   gem 'spork-rails'
   gem 'rails-footnotes'
+
+  # to show better error pages, with more information
+  gem 'better_errors'
+  gem 'binding_of_caller'
 end
 
 group :development, :test do
   gem 'rspec-rails', '~> 2.14'
   gem 'populator'
-  gem 'ffaker'
-  gem 'forgery'
+  gem 'faker'
+  # Until timezone bug is fixed
+  gem 'forgery', :git => 'https://github.com/sevenwire/forgery.git'
   gem 'factory_girl_rails'
   gem 'sqlite3'
   gem 'webrat'

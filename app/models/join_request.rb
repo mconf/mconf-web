@@ -55,10 +55,6 @@ class JoinRequest < ActiveRecord::Base
     Role.find_by_id(self.role_id).name
   end
 
-  def event?
-    group_type == 'Event'
-  end
-
   def space?
     group_type == 'Space'
   end

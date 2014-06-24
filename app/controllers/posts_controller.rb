@@ -11,13 +11,6 @@ class PostsController < ApplicationController
 
   layout "spaces_show"
 
-  # Posts needs a Space. It will respond 404 if no space if found
-  before_filter :space!
-  before_filter :get_posts, :only => [:index]
-
-  # need it to show info in the sidebar
-  before_filter :webconf_room!
-
   after_filter :only => [:update] do
     @post.new_activity :update, current_user unless @post.errors.any?
   end
@@ -28,6 +21,11 @@ class PostsController < ApplicationController
 
   load_and_authorize_resource :space, :find_by => :permalink
   load_and_authorize_resource :through => :space
+
+  # need it to show info in the sidebar
+  before_filter :webconf_room!
+
+  before_filter :get_posts, :only => [:index]
   skip_load_resource :only => :index
 
   def index
@@ -51,7 +49,11 @@ class PostsController < ApplicationController
   end
 
   def new
-    @post = Post.new
+    respond_to do |format|
+      format.html {
+        render :partial => "new_post"
+      }
+    end
   end
 
   def create
@@ -98,10 +100,7 @@ class PostsController < ApplicationController
   def destroy
     @post.destroy
     respond_to do |format|
-      if !@post.event.nil?
-        flash[:notice] = t('post.deleted', :postname => @post.title)
-        format.html {redirect_to space_event_path(@space, @post.event)}
-      elsif @post.parent_id.nil?
+      if @post.parent_id.nil?
         flash[:notice] = t('thread.deleted')
         format.html { redirect_to space_posts_path(@space) }
       else
@@ -150,7 +149,6 @@ class PostsController < ApplicationController
 
   def after_create_with_errors
     # This should be in the view
-    params[:form] = 'attachments' if @post.attachments.any?
     flash[:error] = @post.errors.to_xml
     get_posts
     render :index
@@ -163,7 +161,6 @@ class PostsController < ApplicationController
 
   def after_update_with_errors
     # This should be in the view
-    params[:form] = 'attachments' if @post.attachments.any?
     flash[:error] = @post.errors.to_xml
     posts
     render :index

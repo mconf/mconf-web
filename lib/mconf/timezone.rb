@@ -16,9 +16,9 @@ module Mconf
     def self.user_time_zone(user=nil)
       current_site = Site.current
 
-      if user and user.is_a?(User) and not user.timezone.blank?
+      if user && user.is_a?(User) && !user.timezone.blank?
         zone = user.timezone
-      elsif current_site and not current_site.timezone.blank?
+      elsif current_site && !current_site.timezone.blank?
         zone = current_site.timezone
       else
         # if everything fails defaults to UTC

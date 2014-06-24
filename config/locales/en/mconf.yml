@@ -1,5 +1,5 @@
---- 
-en: 
+---
+en:
   activities:
     attachment:
       create_html: uploaded the attachment %{name} in the space
@@ -12,12 +12,14 @@ en:
         create_html: "A meeting was started on the room of the user %{owner} at %{time}"
       space:
         create_html: "A meeting was started on the space %{owner} at %{time}"
-    event:
+    mweb_events_event:
       create_html: created the event %{name} in the space
       attend_html: will attend to the event %{name} in the space
       not_attend_html: will not attend to the event %{name} in the space
       update_html: updated the information of the event %{name} in the space
       deleted: that has since been deleted
+    mweb_events_participant:
+      create_html: will attend to the event %{name} in the space
     news:
       create_html: published the news %{name} in the space
       update_html: updated the news %{name} in the space
@@ -52,12 +54,20 @@ en:
     details: "Details"
     edit: "Edit"
     end: "End"
+    index: Listing
     in_place_edit:
       error: "error"
       success: "saved"
     join: "Join"
+    login: "Sign in"
     login_to_enable: "You need to be logged in to perform this action"
+    members:
+      one: "%{count} member"
+      other: "%{count} members"
     no_: "No"
+    participants:
+      one: "%{count} participant"
+      other: "%{count} participants"
     publish: "Publish"
     register_to_view_space: "Create an account to be able to join and access this space"
     save: "Save"
@@ -68,9 +78,12 @@ en:
       icon_tooltip: "This item has been reported as spam and is being evaluated by the administrators"
     unpublish: "Unpublish"
     update: "Update"
+    upload: "Upload"
     user:
       administrator: "Global administrator"
       normal_user: "Normal user"
+      guest: Guest
+      guest_name: "Guest User \(%{email}\)"
       removed: "<user removed>"
     yes_: "Yes"
     webconference:
@@ -84,17 +97,11 @@ en:
   about_sxsw: "About SXSW"
   account: Account
   account_activated: "Your account has been activated!"
-  action: 
+  action:
     other: Actions
   actions: Actions
   activerecord:
     attributes:
-      event:
-        description: "Description"
-        end_date: "Date and time when it ends"
-        location: "Location"
-        name: "Name"
-        start_date: "Date and time when it starts"
       invite:
         ends_on: "Ends on"
         message: "Comments"
@@ -106,33 +113,62 @@ en:
       news:
         text: "Text"
         title: "Title"
+      post:
+        text: "Message"
+        title: "Title"
+      profile:
+        address: "Address"
+        city: "City"
+        country: "Country"
+        description: "Write something about you"
+        email: "Email"
+        fax: "Fax"
+        full_name: "Full name"
+        im: "IM"
+        mobile: "Mobile"
+        organization: "Organization"
+        phone: "Telephone"
+        prefix_key: "Title"
+        province: "Province"
+        skype: "Skype"
+        url: "Your website"
+        zipcode: "Zipcode"
+      roles:
+        name_user: "User"
+        name_admin: "Administrator"
       site:
         analytics_code: "Analytics Code"
         chat_enabled: "Enable Chat"
         description: "Description"
         domain: "Application domain"
+        events_enabled: "Enable event module"
         exception_notifications: "Send email on error"
         exception_notifications_email: "Debug emails recipients"
         exception_notifications_prefix: "Debug emails subject prefix"
         external_help: "External help/FAQ page"
         feedback_url: "Feedback URL"
         ldap_enabled: "LDAP: Enable authentication"
+        ldap_filter: "LDAP: Filter for the user search"
         ldap_host: "LDAP: Server IP or domain"
         ldap_port: "LDAP: Server port"
-        ldap_user: "LDAP: Full DN for the user"
-        ldap_user_password: "LDAP: User password"
-        ldap_user_treebase: "LDAP: Full DN for UsersTreebase"
+        ldap_user: "LDAP: Full DN or user to bind"
+        ldap_user_password: "LDAP: Password to connect"
+        ldap_user_treebase: "LDAP: Full DN for the users tree"
         ldap_username_field: "LDAP: Field to obtain the username"
         ldap_email_field: "LDAP: Field to obtain the user's email"
         ldap_name_field: "LDAP: Field to obtain the user's full name"
         locale: "Language"
         name: "Name"
         presence_domain: "XMPP Chat Domain"
+        registration_enabled: "Allow users to create new accounts"
         require_registration_approval: "Require admins to approve new registrations"
         signature: "Signature"
-        shib_enabled: "Enable Shibboleth"
-        shib_email_field: "Shibboleth field for email"
-        shib_name_field: "Shibboleth field for name"
+        shib_enabled: "Shibboleth: Enable"
+        shib_email_field: "Shibboleth: Field for email"
+        shib_env_variables: "Shibboleth: Environment variables"
+        shib_login_field: "Shibboleth: Field for login"
+        shib_name_field: "Shibboleth: Field for name"
+        shib_principal_name_field: "Shibboleth: Field for principal name (unique ID)"
         smtp_auth_type: "STMP authentication type"
         smtp_auto_tls: "Auto STARTTLS"
         smtp_domain: "STMP domain"
@@ -156,6 +192,7 @@ en:
         repository: "Document repository"
       user:
         _full_name: "Full name"
+        approved: "Approved"
         can_record: "Allow this user to record meetings"
         email: "Email"
         expanded_post: "Show messages in wall with the expanded view by default"
@@ -171,8 +208,8 @@ en:
         private_message:
           attributes:
             users_tokens:
-              accepted: "must choose at least one receiver" 
-      messages: 
+              accepted: "must choose at least one receiver"
+      messages:
         invalid_identifier: "generates an invalid identifier: \"%{id}\""
         missing: "is missing"
     models:
@@ -181,20 +218,20 @@ en:
       news: "News"
       space: "Space"
   address: Address
-  admin: 
+  admin:
     one: Admin
     space: "The administrator of %{spacename}"
-  admission: 
+  admission:
     other: Admissions
   advanced: Advanced
   advanced_editor: "Advanced editor"
-  agent: 
-    authentication: 
+  agent:
+    authentication:
       confirm_password: "Confirm Password"
       password: Password
   agree: "Yes"
   all: All
-  all_events: "All Events"
+  all_events: "Events"
   all_rights_reserved: "All rights reserved"
   any_field: "Any field"
   are_you_sure: "Are you sure?"
@@ -203,10 +240,12 @@ en:
     created: "Attachment added"
     delete: "Delete attachment"
     deleted: "Attachment successfully deleted"
-    error: 
+    error:
+      malformed: "Error deleting files"
       not_deleted: "%{file} not deleted correctly. "
       not_permission: "%{user} cannot delete %{file}. "
     file: "File: "
+    filename: "%{size} files from %{name}.zip"
     home: 
       one: "File in space %{space}"
     info: "Document info"
@@ -224,8 +263,22 @@ en:
     title: "Attachments (%{count})"
     upload_with_post: "Notify the upload with a message in the wall"
   attachments:
-    doc_table:
+    index:
+      author: "Uploaded by"
+      download_multiple: "Download"
+      file: "File"
+      new_file: "Upload a file"
       no_attachments: "No attachments found"
+      remove_multiple: "Remove"
+      remove_multiple_confirmation: "Are you sure you want to remove all the files selected? This operation is irreversible."
+      uploaded: "Uploaded"
+    single_attachment:
+      ago: "ago"
+      delete_confirmation: "Are you sure you want to remove this file? This operation is irreversible."
+      delete_tooltip: "Remove this file"
+      download_tooltip: "Download this file"
+    upload_form:
+      title: "Upload a new file"
   attendeePW: "Attendee Password"
   author: "Uploaded by"
   avatar: 
@@ -316,6 +369,7 @@ en:
   caption: 
     add: "Add a caption"
   chat: 
+    add: "Add User"
     connecting_error_message: "Error while connecting"
     connecting_message: "Connecting to event chat..."
     invite: 
@@ -387,24 +441,20 @@ en:
       list_of_rooms: "List of all registered rooms"
     important: Important
     invitation_form:
+      at: "at"
+      duration: "Duration"
       meeting_in: "Inviting people to a meeting in:"
-      timezone: "You are using the timezone %{timezone}"
+      timezone: "You are using the time zone %{timezone}"
       title: "Invite people to a meeting"
-    invite: 
-      desktop: 
-        not_selected: "Select this options to access from a <em>desktop computer</em>."
-        selected: "Access from a <em>desktop computer</em>."
-      field_name: "Your full name"
-      field_password: "Access key for this room"
-      mobile: 
-        details: "Available for Android devices. You have to install the application <a href=\"%{url}\">Mconf-Mobile</a> to use this option!"
-        details_short: "Available for Android devices only."
-        download: "Click here to download Mconf-Mobile."
-        not_selected: "Select this options to access from a <em>mobile device</em>."
-        selected: "Access from a <em>mobile device</em>."
-      selected: "selected"
-      title: "Join the room: <em>%{name}</em>"
-    invite_header: 
+      users:
+        hint: "Type to start searching"
+        no_results: "No results found"
+        searching: "Searching..."
+    invite:
+      field_name: "You are joining as"
+      field_password: "Enter the access key for this meeting"
+      title: "Join room: <em>%{name}</em>"
+    invite_header:
       not_running: "not running"
       refresh: "This information is updated automatically"
       room_type_private: "This is a <em>private</em> web conference room"
@@ -413,23 +463,26 @@ en:
       status: "The meeting currently is"
       status_unknown: "unknown"
       steps: "steps:"
-    invite_userid: 
-      member: 
+    invite_userid:
+      login: "Login"
+      member:
         email_or_username: "Email or username"
         password: "Password"
-        shibboleth: 
+        shibboleth:
           click_here: "Or click here to use the federated login"
         title: "I'm a member of this website"
-      non_member: 
+      non_member:
         name: "Your full name"
         next: "Next"
         title: "I don't have an account, I will join this room as a guest"
       title: "Join the room: <em>%{name}</em>"
-    join_mobile: 
-      direct_link: "<b>Click here</b> to join from a mobile device"
-      scan_code: "Or scan the code below:"
-      sip_number: "To join the voice conference from a SIP client, dial <b>%{number}</b>."
-      title: "Mobile access to %{room}"
+    join_mobile:
+      click_to_download: "Click here to download the Android client"
+      not_launched: "If the application was not launched, make sure you have the Android mobile client installed. You can get it from:"
+      notice : "You are being redirected to the conference in your mobile device, please wait."
+      title: "Mobile access to \"%{room}\""
+      use_default_client: "If you are not on a mobile client, click here to join the session using the default desktop client."
+      try_again: "You have the application installed but it wasn't launched? Click here to try again."
     join_options:
       alert_webconf_running: "A meeting is currently in progress in this room. The options you change here will not affect the current meeting, only future meetings in this room!"
       metadata: 
@@ -525,6 +578,7 @@ en:
       user:
         not_approved: 'Your account has not been approved by an administrator yet.'
     registrations:
+      not_enabled: 'Registration of new accounts is not enabled in this website.'
       signed_up_but_not_approved: 'You have signed up successfully but your account has still to be approved by an administrator'
     shared:
       links:
@@ -545,9 +599,6 @@ en:
         missing_email: "Unable to find the email from the LDAP user retrieved from the LDAP server, please contact an administrator"
   disable: Disable
   disabled: Disabled
-  document: 
-    upload: "Upload new document"
-  download: Download
   download_file: "Download file"
   edit: Edit
   edit_hours: "Edit hours"
@@ -598,129 +649,10 @@ en:
     one: Error
     other: Errors
     vcc_warning: "Warning:"
-  event: 
-    basic_info: "Introduce basic information"
-    created: "Event created successfully"
-    deleted: "Event deleted successfully"
-    description: 
-      add: "Add description."
-      edit: "Edit description"
-      none: "No one has written a description yet."
-    edit: "Edit event basic info"
-    error: 
-      date_past: "Start date could not be past"
-      dates: "End date must be after start date"
-      dates1: "The event start date must be previous than the event end date "
-      max_size_excedeed: "The maximum duration of the event is %{max_days} days and can't be excedeed"
-      omit_date: "The event needs start date and end date "
-      too_short: "Event is too short, it must be at least 15 minutes long"
-    home: 
-      one: "Event in the space %{space}"
-    invite_event: "Invite people to the event %{event_name}"
-    invite_message: "<p>I would like to invite you to <b>event %{event_name} in space %{space}</b> on %{event_date}.</p><p>You can find more information about this event in <a href=\"%{event_url}\">%{event_url}</a></p><p>Kind regards,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>"
-    invite_title: "%{username} invites you to event %{eventname} in space %{space}"
-    last_7_days: "Last 7 days (%{size})"
-    last_month: "Last month (%{size})"
-    location: Location
-    more: 
-      one: "and one more event..."
-      other: "and more %{count} events..."
-    no_events: "No events to show"
-    notification: 
-      attendant: 
-        filter: "Attendant filter"
-      deselect_all_attendants: "Deselect all attendants"
-      hide_all_attendants: "Hide all attendants"
-      label: "Customise your notification message"
-      legend: 
-        name: "'Name' will be replaced in the message by the receiver's name."
-      message_beginning_with_start_date: "<p>'Name',</p><p>Regarding the <b>event 'event_name' in space %{space}</b> on 'event_date':</p>"
-      message_beginning_without_start_date: "<p>'Name',</p><p>Regarding the <b>event 'event_name' in space %{space}</b>:</p>"
-      message_ending: "<p>You can find more information about the event in <a href=\"event_url\">event_url</a> </p><p>Kind regards,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>"
-      message_title: "Send a notification to the confirmed attendants"
-      personal: "Write your personal text here."
-      select_all_attendants: "Select all attendants"
-      selected_attendants: "Attendants you want to notify:"
-      show_all_attendants: "Show all attendants"
-      subject: "%{username} has sent a notification to you about event %{eventname} in space %{space}"
-    notification_message: "<p>%{name},</p><p>Regarding the <b>event %{event_name} in space %{space}</b> on %{event_date}.</p><p>You can find more information about this event in <a href=\"%{event_url}\">%{event_url}</a></p><p>Kind regards,<br/><br/>%{username}<br/>%{useremail}<br/>%{userorg}</p>"
-    notification_successfully: "Notification sent to all successfully."
-    notification_title: "%{username} has sent a notification to you about event %{eventname} in space %{space}"
-    one: Event
-    online: WebConference
-    other: Events
-    participation: 
-      add: "Add one."
-      none: "No one has posted any participation url."
-    spam: "Spam in events"
-    start: "Restart event"
-    statistics:
-      views: "views"
-    title: "Events (%{count})"
-    to: To
-    today: "Today events"
-    today_and_yesterday: "Today and yesterday (%{size})"
-    tomorrow: "Tomorrow events"
-    undated: 
-      show: "Show all undated events"
-    updated: "Event updated successfully"
   event_invitation: 
     instructions: "Click Send for each invitation you want to send, and click Finish when you are done."
     sent: "Invitations sent successfully"
     will_invite: "People you will invite:"
-  events:
-    all_events:
-      all_upcoming: "View all upcoming events"
-      all_past: "View all past events"
-      none_upcoming: "No upcoming events"
-      none_past: "No past events"
-      past: "Past events"
-      upcoming: "Upcoming events"
-    event_invitations:
-      invite: "Invite people"
-      notify_attendees: "Notify confirmed attendees"
-      title: "Invitations"
-    event_card:
-      description_title: "Event description"
-      ends_at: "Ends at"
-      no_description: "No description informed for this event."
-      organizers: "Organizers"
-      organizers_empty: "No organizer informed for this event."
-      starts_at: "Starts at"
-      where: "Where"
-    form_fields:
-      timezone_notice: "You are using the timezone GMT%{timezone}. Set the dates below using this timezone."
-    index:
-      create_event: "Create a new event"
-      events_now: "Hapenning now!"
-    participants:
-      attending: "Confirmed attendees"
-      none_attending: "Nobody has confirmed yet"
-      not_attending: "Confirmed that will not attend"
-      title: "Participants"
-      view_as_list: "view as a list of names"
-      view_as_thumbs: "view as pictures"
-      will_attend: "Will you attend this event?"
-    past_events:
-      last_month: "No events for last month"
-      last_week: "No events for last week"
-      none: "No past events"
-      order_asc: "Show older events at the top"
-      order_by: "Order by"
-      order_desc: "Show newer events at the top"
-      title: "Past events"
-      today: "No events for yesterday nor today"
-    unified_event:
-      organizers: "Organizers"
-      when: "When"
-      where: "Where"
-    upcoming_events:
-      next_month: "There are no events for the next month"
-      next_week: "There are no events for the next week"
-      none: "No upcoming events"
-      title: "Upcoming events"
-      today: "There are no events for today"
-  fax: Fax
   feedback: 
     email: "%{email} sent the following feedback:"
     note: "Help us improve Mconf. Please send your comments, problems and suggestions. We will try to answer as soon as possible."
@@ -729,7 +661,9 @@ en:
     send_us: "Send us feedback!"
     sent: "Your feedback information e-mail has been successfully sent. Thank you"
     webconf: 
-      text: "You have logged out of the conference.<br/>You may now close this windows."
+      stop_countdown: "Click here to stop it from closing and use it to browse this site"
+      title: "Thank you for participating in this conference!"
+      warning: "This window will be automatically closed in <span class='countdown'>%{seconds}</span> seconds"
   fill_fields: "You should fill in all the fields"
   find: 
     browse: Browse
@@ -767,7 +701,6 @@ en:
   icons: 
     unread_message: "Unread message!"
     unread_message_by_receiver: "This message has not yet been read by the receiver"
-  im: IM
   inbox: 
     my: "My Inbox (%{checked})"
     one: "Inbox (%{checked})"
@@ -826,24 +759,6 @@ en:
     email: "email to %{email}"
     title: "Invitation to participate in a webconference"
     user_private_msg: "private message to the user %{user}"
-  invite_people: 
-    email: 
-      one: E-mail
-      other: E-mails
-    emails_tip: "type a list of emails separated by commas"
-    internal_message: "Internal message"
-    mconf_users: "Mconf users"
-    message: Message
-    names: Names
-    names_tip: "type to search users"
-    notify_by: "Notify by"
-    other_people: "Other people"
-    room_name: "Room name"
-    send_invitations: "Send invitations"
-    users: 
-      hint: "Type to start searching"
-      no_results: "No results found"
-      searching: Searching...
   invited: Invited
   join: Join
   join_cam: Participate
@@ -876,7 +791,12 @@ en:
       candidates: "Search users to invite"
       role_label: "Role for the users invited"
       title: "Invite people to join this space"
+      users:
+        hint: "Type to start searching"
+        no_results: "No results found"
+        searching: "Searching..."
     new:
+      already_requested: "You already requested to join this space! Please wait for an administrator to accept it."
       message_title: "Send a join request to the administrators of the space"
     update:
       accepted: "Join request accepted"
@@ -889,6 +809,7 @@ en:
   latest_news: "Latest news"
   layouts:
     application_navbar:
+      events: "Events"
       inbox: "Inbox"
       login: "Sign in"
       manage: "Manage"
@@ -922,9 +843,6 @@ en:
       private: "Private space"
       public: "Public space"
   less: "less..."
-  locale: 
-    changed: "Application language changed to "
-    error: "Unable to change application language to "
   locales: 
     en: English
     pt-br: "Português (Brasil)"
@@ -971,6 +889,9 @@ en:
     spaces:
       filter_name: "Name"
       filter_results: "Filter the results:"
+    destroy_space:
+      destroy: Delete space
+      destroy_confirm: Are you sure you want to delete this space and all content associated with it? Unlike disabling the space this operation is irreversible!
     spaces_list:
       filter_count_with_text: "Found %{count} spaces for filter \"%{value}\""
       filter_count_empty: "Found %{count} spaces"
@@ -1002,11 +923,10 @@ en:
     error:
       create: "Error sending private message"
   mconf: Mconf
-  members: 
-    one: "%{count} member"
-    other: "%{count} members"
   message: 
     created: "Message sent!"
+    error:
+      create: "Error sending message"
     incoming: 
       other: "Incoming messages"
     private: 
@@ -1020,8 +940,6 @@ en:
       other: "Sent messages"
     special1: "The Mconf platform will be down from Friday 17-Dec at 16:00 UTC until Saturday 18-Dec 16:00 UTC. Sorry for the inconveniences."
     special2: "The Mconf Team"
-    error:
-      create: "Error sending message"
     to: To
   moderatorPW: "Moderator Password"
   more: more...
@@ -1055,7 +973,6 @@ en:
       join: "Join the meeting!"
       join_mobile_full: "Join from a mobile device"
       not_running: "Your webconference is not in progress."
-      options: "Options"
       preferences: "Preferences"
       recordings: "View recordings"
       running_with:
@@ -1067,10 +984,8 @@ en:
       your_url: "Your URL"
   my_friends: "My friends"
   name: 
-    full: "Full name"
     one: Name
     other: Names
-    prefix: Title
   new_spam_detected: "New spam detected"
   news: 
     created: "News item published successfully"
@@ -1091,8 +1006,6 @@ en:
     title: "News (%{count})"
     updated: "News item updated successfully"
   next: Next
-  no_messages_in_wall: "There are no messages in the wall"
-  no_tags_found: "No tags found"
   now_exclamation: Now!
   ok: OK
   older: Older
@@ -1103,10 +1016,6 @@ en:
   organization: Organization
   organizer: Organisers
   other: Other
-  participant: 
-    created: "Your attendance information has been updated successfully"
-    error: 
-      create: "There was a problem updating your attendance information"
   password: 
     confirm: "Confirm password"
     one: Password
@@ -1132,7 +1041,6 @@ en:
       success: "Permissions updated"
   personal_information: "Personal information"
   phone: 
-    landline: Telephone
     mobile: Mobile
     one: Phone
     plural: Telephones
@@ -1161,6 +1069,11 @@ en:
     updated: "Message updated!"
     wall: Wall
   posts:
+    index:
+      new_post: "Send a new message"
+      no_messages: "There are no messages in the wall"
+    new_post:
+      title: "Post a new message"
     post_with_children:
       by: "by"
   prav: PRAV
@@ -1184,6 +1097,10 @@ en:
       sent: Sent
     new: 
       title: "Private Messages"
+      users:
+        hint: "Type to start searching"
+        no_results: "No results found"
+        searching: "Searching..."
     reply_private_message:
       user_not_registered: "This user is no longer registered, you won't be able to respond to this message."
     show: 
@@ -1196,9 +1113,6 @@ en:
     deleted: "Profile deleted successfully"
     description: 
       add: "Short bio"
-    edit: 
-      description: "Write something about you"
-      url: "Your website"
     error: 
       exist: "Your profile already exists"
     header_title: "User profile"
@@ -1209,14 +1123,6 @@ en:
     public: "Public profile"
     public_description: "Anyone can access this information"
     updated: "Profile updated successfully"
-    visibility: Visibility
-    visibility_description: "Choose who will be able to see your private profile"
-    visibility_edit: "Edit your profile visibility"
-    visibility_everybody: "Everyone can see your private profile."
-    visibility_members: "Only registered members can see your private profile."
-    visibility_nobody: "Nobody can see your private profile."
-    visibility_private_fellows: "Only your partners in a private space can see your private profile."
-    visibility_public_fellows: "Only your partners in a public or private space can see your private profile."
   profiles:
     edit:
       change_pic: "Change picture"
@@ -1226,6 +1132,16 @@ en:
         export: "Export vCard"
         tooltip: "vCard is a file format standard for electronic business cards"
         use: "Use a vCard"
+      visibility_description: "Choose who will be able to see your private profile"
+      visibility_edit: "Edit your profile visibility"
+      visibility_everybody: "Everyone can see your private profile."
+      visibility_members: "Only registered members can see your private profile."
+      visibility_nobody: "Nobody can see your private profile."
+      visibility_private_fellows: "Only your partners in a private space can see your private profile."
+      visibility_public_fellows: "Only your partners in a public or private space can see your private profile."
+    show:
+      vcard:
+        export: "Export vCard"
   province: Province
   public: Public
   read_more: "Read more"
@@ -1286,12 +1202,9 @@ en:
   room: 
     other: Rooms
   rooms: 
-    form: 
-      msg1: " prohibited this room from being saved:"
     invite: 
       join_from_desktop: "In this page you can join the conference from a <b>desktop</b>. To join from a mobile device <a href=\"%{url}\">click here</a>."
       join_from_mobile: "In this page you can join the conference from a <b>mobile device</b>. To join from a desktop <a href=\"%{url}\">click here</a>."
-      msg1: "Invitation to the meeting "
       name: "Name:"
       name_enter: "Enter your name."
       password: "Password:"
@@ -1308,9 +1221,6 @@ en:
   save: Save
   select_image: "Select an image, please"
   send: Send
-  servers: 
-    form: 
-      msg1: " prohibited this server from being saved:"
   session: 
     error: 
       exist: "You are already logged in"
@@ -1324,7 +1234,14 @@ en:
       password: "Password"
     new:
       title: "Sign in"
+  session_locales: 
+    create:
+      success: "Application language changed to %{value}"
+      error: "Unable to change application language to %{value}"
   shared:
+    copy_modal:
+      title: Press Ctrl+C to copy the text
+      success: Text copied to clipboard
     recording_duration:
       duration: "Duration"
       ended_at: "Ended at"
@@ -1350,15 +1267,16 @@ en:
   shibboleth:
     associate:
       existent_account:
-        email_or_login: "Email or username"
-        link_to_this_account: "Link to this account"
-        password: "Password"
+        link_to_this_account: "Log in and link accounts"
         title: "If you already have an account on this website, you can link your federated account to it. Whenever you use the federation to log in, you will be using your website account linked here. You can then log in via federation or via the standard login in this website."
       new_account:
         create_new_account: "Create a new account"
         title: "If you don't have an account on this website yet, click in the button below to automatically create a new one using your account information provided by the federation."
       page_title: "Login via federation"
       title: "Your federated account is not yet associated to any account on this site. Select one of the options below:"
+      user:
+        login: "Email or username"
+        password: "Password"
     attribute_error:
       informed:
         no_attrs: "No attributes were informed"
@@ -1420,7 +1338,7 @@ en:
       filters: 
         all: "All spaces"
         my_spaces: "My spaces"
-      select_at_left: "Select a space in the left to see it's description here"
+      select_at_left: "Select a space in the list to see it's description here"
       user_is_member: "You are a member!"
     is_private: "is a private space. Send a join request to the administrator of this space to let you in"
     join: "Join this space"
@@ -1470,6 +1388,42 @@ en:
     subscribed_to_none: "You are not subscribed to any space"
     update_logo: "Update logo"
     updated: "Space updated successfully"
+  space_events:
+    all_events:
+      all_upcoming: "View all upcoming events"
+      all_past: "View all past events"
+      none_upcoming: "No upcoming events"
+      none_past: "No past events"
+      past: "Past events"
+      upcoming: "Upcoming events"
+    index:
+      now: Happening Now
+      create_event: "Create a new event"
+      events_now: "Hapenning now!"
+      events_in: "Events in"
+    past_events:
+      last_month: "No events for last month"
+      last_week: "No events for last week"
+      none: "No past events"
+      order_asc: "Show older events at the top"
+      order_by: "Order by"
+      order_desc: "Show newer events at the top"
+      title: "Past events"
+      today: "No events for yesterday nor today"
+    sidebar_events_simple:
+      no_events: "No events in this space yet"
+    unified_event:
+      ends_at: "Ends at"
+      event_in_the_space: "Event in the space %{space}"
+      organizers: "Organizers"
+      starts_at: "Starts at"
+      where: "Where"
+    upcoming_events:
+      next_month: "There are no events for the next month"
+      next_week: "There are no events for the next week"
+      none: "No upcoming events"
+      title: "Upcoming events"
+      today: "There are no events for today"
   spaces: 
     admin_tabs:
       admissions: "Admissions"
@@ -1480,10 +1434,11 @@ en:
       webconf_options: "Webconference options"
     edit:
       change_logo: "Change picture"
-      delete_space: "Remove this space?"
+      delete_confirmation: "Are you sure? This space will be inaccessible to you and to all the other users!"
+      delete_space: "Disable this space?"
       other_options: "Other options"
       public: "Make this a public space"
-      yes_delete: "Yes, I want to remove this space"
+      yes_delete: "Yes, I want to disable this space"
     edit_recording:
       title: "Edit your recording"
     error:
@@ -1497,12 +1452,25 @@ en:
         by_name:
           no_matches: "No spaces found for \"%{term}\""
           placeholder: "Search spaces..."
+      subtitle: "Search for communities of users that share the same interests"
+      title: "Spaces"
+    list_view:
+      no_spaces: "There are no spaces created yet!"
+    menu:
+      admin: "Admin"
+      events: "Events"
+      home: "Home"
+      posts: "Wall"
+      repository: "Documents"
+      users: "Users"
+      webconference: "Web Conference"
     new:
       private: "Private"
       public: "Public"
       spaces_examples:
         title: "Examples of spaces:"
       title: "Create a new space"
+    news: "Space news"
     recordings:
       title: "Recordings in this space"
       update_recordings:
@@ -1511,12 +1479,11 @@ en:
         updating: "Updating your list of recordings..."
     show:
       events_now: "Events hapenning now!"
-    news: "Space news"
     sidebar:
       upcoming_events: "Upcoming events"
       webconference:
         attendees:
-          nobody: "There is nobody currently in the room."
+          nobody: "There is no meeting running."
         currently_running:
           one: "The webconference is currently in progress with %{count} participant"
           other: "The webconference is currently in progress with %{count} participants"
@@ -1530,15 +1497,16 @@ en:
       join: "Join now!"
       join_mobile: "Join/mobile"
       join_mobile_full: "Join from a mobile device"
-      options: "Options"
       preferences: "Preferences"
       start: "Start"
     space_thumbnail:
       private: "Private"
       public: "Public"
+    thumbnail_view:
+      no_spaces: "There are no spaces created yet!"
     unified_space:
-      private: "private space"
-      public: "public space"
+      private: "Private space"
+      public: "Public space"
       user_is_member: "You are a member of this space"
       with_members: "with %{count} members"
     users: "Users in this space"
@@ -1568,7 +1536,7 @@ en:
       error: "Sorry, but there was a problem marking this item as spam"
       success: "The item was marked as a spam! It will be checked by the administrators"
       user_is_member: "You're a member"
-    created: "A reporting spam e-mail has been successfully sent to the admin. Thank you"
+    created: "A reporting spam email has been successfully sent to the admins. Thank you."
     default: spam
     detected: "New spam detected"
     error: 
@@ -1580,9 +1548,6 @@ en:
   sponsors: 
     prav: "Projetos em<br/>Áudio e Vídeo"
     rnp: "Rede Nacional de<br/>Ensino e Pesquisa"
-  stage: 
-    all: All
-    one: Stage
   stage_type: "Stage type"
   statistics: 
     show:
@@ -1600,18 +1565,7 @@ en:
   street: Street
   subject: "Subject:"
   summary: "Video Info"
-  superuser: Administrator
-  tag: 
-    add: "Add tags"
-    edit: "Edit tags"
-    filter: "Filter by tag:"
-    new: "New tag"
-    other_capital: Tags
-    selected: 
-      one: "Select a tag:"
-      other: "Selected tags:"
-  tags: Tags
-  tags_by: "Tags by:"
+  superuser: "Administrator"
   text: Text
   the_string: "the string"
   thread: 
@@ -1651,10 +1605,8 @@ en:
     num_views: "This number represents the unique views for this page"
     private_profile: "This information is visible only to the people you choose when you edit your profile"
     public_profile: "Anyone can access this information"
-    public_space: "Collaborative spaces can be public, for anybody to watch what happens in them, or private, where members only have access to the activities of the space"
+    public_space: "Collaborative spaces can be public, for anybody to watch what happens in them, or private, where only members have access to the activities of the space"
     share: "This is the url to share this video with your colleagues"
-    tag: "Tags are keywords or terms associate with content used to find and filter information. Press enter to confirm each tag."
-    tag_by: "Tags are words that describe the documents. Use this links to order them by popularity or alphabetically. Then click on them to see the related documents."
     upcoming: "This section shows the next events in this space"
     update_logo: "You can update your own logo, create a text logo or select an image from the gallery"
     vclass: "The virtual class type is the perfect way to organise classes, conferences and seminars, where the teacher assumes a prominent role."
@@ -1792,6 +1744,5 @@ en:
   when: When
   where: Where
   yesterday: Yesterday
-  your_interests_tags: "Your interests (tags)"
   your_vcard: "your vCard"
   zipcode: "Zip code"

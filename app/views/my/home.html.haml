@@ -13,18 +13,19 @@
         = icon_message(:class => cls)
 
   -# Upcoming events
-  = render_sidebar_content_block('sidebar-upcoming-events') do
-    .content-block-header
-      = icon_event()
-      %h4= t('calendar.my')
-    .toolbar
-      %span.event-timezone
-        = "(#{t('timezone.one')}: #{user_timezone})"
-    .content-block-middle
-      %span.event-category= t('.events.today')
-      = render 'events/sidebar_events_simple', :events => @today_events
-      %span.event-category= t('.events.other')
-      = render 'events/sidebar_events_simple', :events => @upcoming_events
+  - if mod_enabled?("events")
+    = render_sidebar_content_block('sidebar-upcoming-events') do
+      .content-block-header
+        = icon_event()
+        %h4= t('calendar.my')
+      .toolbar
+        %span.event-timezone
+          = "(#{t('timezone.one')}: #{user_timezone})"
+      .content-block-middle
+        %span.event-category= t('.events.today')
+        = render 'space_events/sidebar_events_simple', :events => @today_events
+        %span.event-category= t('.events.other')
+        = render 'space_events/sidebar_events_simple', :events => @upcoming_events
 
 - unless current_user.confirmed?
   #user-notifications.alert.alert-warning
@@ -39,7 +40,7 @@
         = t('.create_space')
   .content-block-middle
     = render 'users/user_spaces', :user => current_user, :spaces => @user_spaces
-  .content-block-footer
+  .content-block-footer.content-block-footer-fancy
     = link_to t('.view_all_spaces'), spaces_path
 
 #users-recent-activity.content-block
@@ -48,5 +49,5 @@
     = icon_info t('recent_activity.tooltip')
   #users-recent-activity-content.content-block-middle
     = render "users/recent_activity_content", :content => @all_contents, :paginate => false
-  .content-block-footer
+  .content-block-footer.content-block-footer-fancy
     = link_to t('.view_all_activity'), my_activity_path

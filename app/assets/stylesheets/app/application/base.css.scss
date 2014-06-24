@@ -351,8 +351,7 @@ ul#navbar-left-links {
     float: left;
     margin-top: 10px;
     margin-left: 10px;
-    padding-left: 10px;
-    border-left: 1px solid lighten($navbar-bg-color, 10);
+    margin-right: 15px;
 
     &:first-child { border: 0 }
 
@@ -389,11 +388,10 @@ ul#navbar-left-links {
     .user-avatar {
       position: relative;
       float: right;
-      border: 1px solid lighten($navbar-bg-color, 10);
-      padding: 1px;
+      padding: 2px;
       height: 22px;
       width: 22px;
-      background: white;
+      background: lighten($navbar-bg-color, 10);
       @include border-radius(3px);
       @include broken-img-parent;
 
@@ -432,7 +430,7 @@ ul#navbar-left-links {
       color: lighten-or-darken($navbar-menu-open-bg, $navbar-font-color, 10, 30);
       background: $navbar-menu-open-bg;
       top: $navbar-height - 2px;
-      right: 0;
+      right: -1px;
       left: auto;
       min-width: 300px;
       width: 300px;
@@ -547,9 +545,9 @@ ul#navbar-left-links {
   margin: 0 auto;
   @include mconf-clearfix;
   overflow: visible;
-  //padding: 20px 0 17px 0;
-  padding: 30px 0 20px 0;
+  padding: 25px 0 20px 0;
   clear: both;
+  word-break: break-all;
 
   > a, .current-page-extra > a {
     @include link-colors($page-header-link-color, $page-header-link-color-hover, $page-header-link-color-hover, $page-header-link-color);
@@ -580,20 +578,33 @@ ul#navbar-left-links {
   .current-page-title {
     float: left;
     margin-left: 10px;
-    @include font-size($font-section-title);
-    font-weight: bold;
-    @include text-shadow(darken($site-bg-color, 10) 1px 1px 10px);
     color: $page-title-color;
 
     // minus the logo and some padding/margin
     max-width: $contents-width - 120px;
 
-    a { @include link-colors($page-title-color, $link-color-hover, $link-color-active); }
+    .main-title {
+      @include font-size($font-section-title);
+      line-height: 1.0;
+      font-weight: bold;
+      color: $page-title-color;
+      margin-bottom: 5px;
 
-    // when the title is too big the font is reduced a bit
-    .small-title {
-      @include font-size($font-section-title - 10px);
-      margin-top: 5px;
+      // when the title is too big the font is reduced a bit
+      &.small-title {
+        @include font-size($font-section-title - 10px);
+        margin-top: 5px;
+      }
+    }
+    a.main-title {
+      @include link-colors($page-title-color, $link-color-hover, $link-color-active);
+    }
+
+    .sub-title {
+      @include font-size($font-normal);
+      display: block;
+      font-weight: normal;
+      color: lighten($page-title-color, 10);
     }
 
     // some tweaks for the titles in pages of spaces
@@ -601,22 +612,20 @@ ul#navbar-left-links {
       margin-top: 0;
 
       // the text that shows the visibility of spaces
-      .space-visibility {
-        @include space-visibility;
-        font-weight: normal;
+      .resource-visibility {
+        color: $dark-gray;
       }
 
       // the text that shows when a user is a member of the space
       .user-is-member {
-        @include space-visibility;
-        font-weight: normal;
+        color: $dark-gray;
       }
     }
   }
 
   .current-page-extra {
     float: right;
-    margin: 10px 10px 0 0;
+    margin: 0 10px 0 0;
     text-align: right;
   }
 }
@@ -649,7 +658,7 @@ ul#navbar-left-links {
 
   .content-block {
     clear: both;
-    padding: 5px 10px;
+    padding: 10px;
     border: 1px solid #ddd;
     @include border-radius(5px);
     background: $site-bg-color;
@@ -736,18 +745,7 @@ ul#navbar-left-links {
     }
   }
 
-  .content-block {
-    clear: both;
-    margin-bottom: 20px;
-  }
-
-  .content-block-footer {
-    padding: 4px 10px;
-    text-align: right;
-    background: $light-gray;
-    border-top: 1px solid #ddd;
-    clear: both;
-
+  @mixin content-block-pagination {
     // adapt bootstrap's .pagination
     @include mconf-clearfix;
     .pagination {
@@ -770,6 +768,24 @@ ul#navbar-left-links {
     }
   }
 
+  .content-block {
+    clear: both;
+    margin-bottom: 20px;
+  }
+
+  .content-block-footer {
+    padding: 4px 10px;
+    text-align: right;
+    clear: both;
+
+    &.content-block-footer-fancy {
+      background: $light-gray;
+      border-top: 1px solid #eee;
+    }
+
+    @include content-block-pagination;
+  }
+
   .content-block-middle {
     padding: 10px 5px;
     clear: both;
@@ -789,12 +805,13 @@ ul#navbar-left-links {
       a { margin-right: 10px; }
     }
 
+    @include content-block-pagination;
   }
 }
 
 #page-menu {
   margin-bottom: -21px; // #page-header's bottom margin -2px
-  padding-top: 10px;
+  padding-top: 15px;
   clear: both;
 
   > ul {
@@ -906,11 +923,7 @@ ul#navbar-left-links {
 .events-hapenning-now {
   .thread {
     background: $light-gray;
-    border-left: 5px solid #75b12e;
-  }
-
-  .event-image-date {
-    color: darken(#75b12e, 10);
+    border-left: 5px solid $bright-blue;
   }
 }
 
@@ -919,82 +932,49 @@ strong.highlight {
   background: $highlight-bg;
 }
 
-/*
- * .ribbon {
- *   text-align: center;
- *   position: relative;
- *   color: #fff;
- *   margin: 0; // -10px 10px -10px;
- *   padding: 10px 0;
- *   text-shadow: 0 1px rgba(0,0,0,.8);
- *   background: #5c5c5c;
- *   background-image: -moz-linear-gradient(rgba(255,255,255,.3), rgba(255,255,255,0));
- *   background-image: -webkit-linear-gradient(rgba(255,255,255,.3), rgba(255,255,255,0));
- *   background-image: -o-linear-gradient(rgba(255,255,255,.3), rgba(255,255,255,0));
- *   background-image: -ms-linear-gradient(rgba(255,255,255,.3), rgba(255,255,255,0));
- *   background-image:  linear-gradient(rgba(255,255,255,.3), rgba(255,255,255,0));
- *   -moz-box-shadow: 0 2px 0 rgba(0,0,0,.3);
- *   -webkit-box-shadow: 0 2px 0 rgba(0,0,0,.3);
- *   box-shadow: 0 2px 0 rgba(0,0,0,.3);
- *
- *   &:before, &:after {
- *     content: '';
- *     position: absolute;
- *     border-style: solid;
- *     border-color: $transparent;
- *     bottom: -10px;
- *   }
- *
- *   &:before {
- *     border-width: 0 10px 10px 0;
- *     border-right-color: #222;
- *     left: 0;
- *   }
- *
- *   &:after {
- *     border-width: 0 0 10px 10px;
- *     border-left-color: #222;
- *     right: 0;
- *   }
- * }
- */
+// for elements that might contain long words that can break the layout
+.break-word {
+  word-break: break-all;
+}
 
-/*
- *  breadcrumbs try 1
- * #page-title {
- *   padding: 15px;
- *   height: 30px;
- *   @include mconf-clearfix;
- *   margin: 0 auto;
- *   width: $contents-width;
- * }
- */
+// visibility of a resource: private space, public space, private event, etc.
+.resource-visibility {
+  display: block;
 
-/*
- * ul.selectable-buttons {
- *   margin: 0;
- *
- *   li {
- *     display: inline-block;
- *     padding-left: 10px;
- *
- *     a {
- *       display: inline-block;
- *       @include link-colors(#808080, $link-color-hover, $link-color-active);
- *       padding: 5px 10px;
- *       font-weight: bold;
- *       font-size: 14px;
- *       @include text-shadow(darken($site-bg-color, 10) 1px 1px 2px);
- *       //border: 1px solid $site-bg-color;
- *
- *       &.selected {
- *         color: $main-color;
- *         background: $light-gray;
- *         @include border-radius(5px);
- *         @include box-shadow(inset 0 1px 2px rgba(0, 0, 0, 0.1));
- *         //border: 1px solid darken($light-gray, 5);
- *       }
- *     }
- *   }
- * }
- */
+  .icon-awesome {
+    float: none;
+    margin-right: 2px;
+  }
+
+  &.small {
+    font-size: $font-small;
+
+    .icon-awesome {
+      font-size: $font-small;
+    }
+  }
+}
+
+// tablets/mobiles
+@media (max-width: 767px) {
+  body.responsive {
+    padding-left: 0;
+    padding-right: 0;
+
+    #page-header {
+      width: 100%;
+    }
+
+    #content-wrapper {
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+  }
+}
+@media (max-width: 979px) {
+  body.responsive {
+    #page-header {
+      width: 100%;
+    }
+  }
+}

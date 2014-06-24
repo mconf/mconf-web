@@ -28,8 +28,8 @@ body.spaces.new, body.spaces.create {
         overflow: hidden; // for when the image is not found
         width: 42px;
         height: 32px;
-        float: right;
-        margin: 0 0 5px 5px;
+        float: left;
+        margin: 0 5px 5px 0;
         border: 1px solid #ddd;
         padding: 2px;
         @include border-radius(4px);
@@ -40,12 +40,18 @@ body.spaces.new, body.spaces.create {
       }
 
       h4 {
-        margin-top: 10px;
+        float: none;
+        margin: 0;
       }
     }
 
-    .visibility {
-      @include space-visibility; // in _definitions
+    .resource-visibility {
+      margin-top: 2px;
+      color: $dark-gray;
+
+      .icon-awesome {
+        float: none;
+      }
     }
 
   }

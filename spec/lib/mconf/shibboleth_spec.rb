@@ -129,23 +129,30 @@ describe Mconf::Shibboleth do
 
     context "when there's shib data in the session" do
       let(:shibboleth) { Mconf::Shibboleth.new(session) }
+      before {
+        Site.current.update_attributes(:shib_email_field => 'email',
+                                       :shib_name_field => 'name',
+                                       :shib_principal_name_field => 'principal_name')
+      }
       subject { shibboleth.has_basic_info }
 
       context "returns false if the email is not there" do
-        let(:session) { { :shib_data => {} } }
+        let(:session) { { :shib_data => { "name" => "anything", "principal_name" => "anything" } } }
         it { should be_false }
       end
 
       context "returns false if the name is not there" do
-        let(:session) { { :shib_data => {} } }
+        let(:session) { { :shib_data => { "email" => "anything", "principal_name" => "anything" } } }
+        it { should be_false }
+      end
+
+      context "returns false if the principal name is not there" do
+        let(:session) { { :shib_data => { "email" => "anything", "name" => "anything" } } }
         it { should be_false }
       end
 
       context "returns true if name and email are there" do
-        let(:session) { { :shib_data => { 'email' => "anything", 'name' => "anything" } } }
-        before {
-          Site.current.update_attributes(:shib_email_field => 'email', :shib_name_field => 'name')
-        }
+        let(:session) { { :shib_data => { 'email' => "anything", 'name' => "anything", "principal_name" => "anything" } } }
         it { should be_true }
       end
     end
@@ -171,18 +178,21 @@ describe Mconf::Shibboleth do
         it { should eq('my-email@anything') }
       end
 
-      context "if 'shib_email_field' is not set, uses a default key" do
-        let(:session) { { :shib_data => { 'Shib-inetOrgPerson-mail' => 'my-email@anything' } } }
+      context "if 'shib_email_field' is not set, returns nil" do
+        let(:session) { { :shib_data => { } } }
         subject { shibboleth.get_email }
         before {
           Site.current.update_attributes(:shib_email_field => nil)
         }
-        it { should eq('my-email@anything') }
+        it { should be_nil }
       end
 
       context "returns nil if the email is not set" do
         let(:session) { { :shib_data => { } } }
         subject { shibboleth.get_email }
+        before {
+          Site.current.update_attributes(:shib_email_field => 'email')
+        }
         it { should be_nil }
       end
 
@@ -223,18 +233,21 @@ describe Mconf::Shibboleth do
         it { should eq('my-name') }
       end
 
-      context "if 'shib_name_field' is not set, uses a default key" do
-        let(:session) { { :shib_data => { 'Shib-inetOrgPerson-cn' => 'my-name' } } }
+      context "if 'shib_name_field' is not set, returns nil" do
+        let(:session) { { :shib_data => { } } }
         subject { shibboleth.get_name }
         before {
           Site.current.update_attributes(:shib_name_field => nil)
         }
-        it { should eq('my-name') }
+        it { should be_nil }
       end
 
       context "returns nil if the name is not set" do
         let(:session) { { :shib_data => { } } }
         subject { shibboleth.get_name }
+        before {
+          Site.current.update_attributes(:shib_name_field => 'name')
+        }
         it { should be_nil }
       end
 
@@ -253,7 +266,60 @@ describe Mconf::Shibboleth do
         it { original.should eq('my-name') }
       end
     end
+  end
 
+  describe "#get_principal_name" do
+    context "returns nil if there's no shib data in the session" do
+      let(:shibboleth) { Mconf::Shibboleth.new({}) }
+      subject { shibboleth.get_principal_name }
+      it { should be_nil }
+    end
+
+    context "when there's shib data in the session" do
+      let(:shibboleth) { Mconf::Shibboleth.new(session) }
+
+      context "returns the name pointed by the site's 'shib_principal_name_field'" do
+        let(:session) { { :shib_data => { 'principal_name' => 'my-name' } } }
+        subject { shibboleth.get_principal_name }
+        before {
+          Site.current.update_attributes(:shib_principal_name_field => 'principal_name')
+        }
+        it { should eq('my-name') }
+      end
+
+      context "if 'shib_name_field' is not set, returns nil" do
+        let(:session) { { :shib_data => { } } }
+        subject { shibboleth.get_principal_name }
+        before {
+          Site.current.update_attributes(:shib_principal_name_field => nil)
+        }
+        it { should be_nil }
+      end
+
+      context "returns nil if the name is not set" do
+        let(:session) { { :shib_data => { } } }
+        subject { shibboleth.get_principal_name }
+        before {
+          Site.current.update_attributes(:shib_principal_name_field => 'name')
+        }
+        it { should be_nil }
+      end
+
+      # see issue #973
+      context "clones the result string to prevent it from being modified" do
+        let(:original) { 'my-name' }
+        let(:session) { { :shib_data => { 'principal_name' => original } } }
+        before {
+          Site.current.update_attributes(:shib_principal_name_field => 'principal_name')
+          @subject = shibboleth.get_principal_name
+
+          # something that would alter the string pointed by it
+          @subject.gsub!(/my-name/, 'altered-name')
+        }
+        it { @subject.should eq('altered-name') }
+        it { original.should eq('my-name') }
+      end
+    end
   end
 
   describe "#get_login" do
@@ -385,18 +451,18 @@ describe Mconf::Shibboleth do
   describe "#basic_info_fields" do
     let(:shibboleth) { Mconf::Shibboleth.new({}) }
 
-    context "returns the attributes for name and email set in the site (if set)" do
+    context "returns the attributes for name, email and principal name set in the site (if set)" do
       before {
-        Site.current.update_attributes(:shib_email_field => 'email', :shib_name_field => 'name')
+        Site.current.update_attributes(:shib_email_field => 'email', :shib_name_field => 'name', :shib_principal_name_field => 'principal_name')
       }
-      it { shibboleth.basic_info_fields.should eq(['email', 'name']) }
+      it { shibboleth.basic_info_fields.should eq(['email', 'name', 'principal_name']) }
     end
 
-    context "returns the standard attributes for name and email if no set in the site" do
+    context "returns nil if the attributes are not set in the site" do
       before {
-        Site.current.update_attributes(:shib_email_field => nil, :shib_name_field => nil)
+        Site.current.update_attributes(:shib_email_field => nil, :shib_name_field => nil, :shib_principal_name_field => nil)
       }
-      it { shibboleth.basic_info_fields.should eq(['Shib-inetOrgPerson-mail', 'Shib-inetOrgPerson-cn']) }
+      it { shibboleth.basic_info_fields.should eq([nil, nil, nil]) }
     end
   end
 

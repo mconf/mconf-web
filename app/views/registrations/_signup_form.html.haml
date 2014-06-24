@@ -8,10 +8,6 @@
   = f.input :username, :required => true, :wrapper => :prepend do
     = content_tag :span, webconf_path_prefix, :class => "add-on"
     = f.input_field :username
-
-  - if @event_id
-    = f.hidden_field :special_event_id, :value => @event_id
-
   = f.input :password, :required => true
   = f.input :password_confirmation, :required => true
   = f.button :wrapped, :value => t(".register")
