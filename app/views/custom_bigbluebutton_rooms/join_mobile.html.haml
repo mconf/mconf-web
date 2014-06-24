@@ -2,13 +2,20 @@
   = t(".notice")
 = render_page_title t(".title", :room => @room.name).html_safe
 
-.download-block
-  .download-text= t(".not_launched")
-  .download-image
-    = link_to mobile_google_play_link do
-      = image_tag mobile_google_play_image, :alt => t('.click_to_download'), :title => t('.click_to_download')
+%p= t(".not_launched")
 
-.additional-option
-  = link_to t(".try_again"), @join_mobile, :id => 'mobile-url'
-.additional-option
-  = link_to t(".use_default_client"), @join_desktop
+.download-images
+  .download-image
+    .tip= t('.download_android_tip')
+    = link_to mobile_google_play_link do
+      = image_tag mobile_google_play_image, :alt => t('.click_to_download_android'), :title => t('.click_to_download_android')
+  .download-image
+    .tip= t('.download_ios_tip')
+    = link_to mobile_apple_store_link do
+      = image_tag mobile_apple_store_image, :alt => t('.click_to_download_ios'), :title => t('.click_to_download_ios')
+
+.additional-options
+  .additional-option
+    = link_to t(".try_again"), @join_mobile, :id => 'mobile-url'
+  .additional-option
+    = link_to t(".use_default_client"), @join_desktop

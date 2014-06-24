@@ -477,7 +477,10 @@ en:
         title: "I don't have an account, I will join this room as a guest"
       title: "Join the room: <em>%{name}</em>"
     join_mobile:
-      click_to_download: "Click here to download the Android client"
+      click_to_download_android: "Click here to download the Android client"
+      click_to_download_ios: "Click here to download the Apple iOS (iPad, iPhone) client"
+      download_android_tip: "Para dispositivos com Android"
+      download_ios_tip: "Para dispositivos com Apple iOS (iPad, iPhone)"
       not_launched: "If the application was not launched, make sure you have the Android mobile client installed. You can get it from:"
       notice : "You are being redirected to the conference in your mobile device, please wait."
       title: "Mobile access to \"%{room}\""
