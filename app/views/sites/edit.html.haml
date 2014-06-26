@@ -17,6 +17,7 @@
     = f.input :shib_name_field
     = f.input :shib_principal_name_field
     = f.input :shib_login_field
+    = f.input :shib_env_variables
     = f.input :ldap_enabled, :as => :boolean
     = f.input :ldap_host
     = f.input :ldap_port
@@ -26,6 +27,7 @@
     = f.input :ldap_username_field
     = f.input :ldap_email_field
     = f.input :ldap_name_field
+    = f.input :ldap_filter
   .right-column
     = f.input :smtp_login
     = f.input :smtp_password, :as => :showable_password

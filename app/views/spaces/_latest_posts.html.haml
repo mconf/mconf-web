@@ -17,7 +17,6 @@
               = empty_logo_image(:user, :size => '32', :class => "logo logo-user")
           .post-title-wrapper
             = link_to(first_words(post.title, 40), space_post_path(@space, post), :class => 'post-title')
-            = icon_attachment(attachment_name(post)) if has_attachments(post)
             %span= t('by')
             - if post.author
               = link_to(post.author.name, user_path(post.author), :class => 'post-author')

@@ -17,7 +17,7 @@ class AttachmentsController < ApplicationController
   def index
     respond_to do |format|
       format.html
-      format.zip{
+      format.zip {
         generate_and_send_zip
       }
     end
@@ -31,14 +31,7 @@ class AttachmentsController < ApplicationController
     end
   end
 
-  def edit
-    respond_to do |format|
-      format.html {
-        render :partial => "edit"
-      }
-    end
-  end
-
+  # TODO: do not remove anything if attachment_ids is not informed (it's removing all attachments)
   def delete_collection
     if @attachments.blank?
       flash[:error] = t("attachment.error.malformed")
@@ -64,11 +57,6 @@ class AttachmentsController < ApplicationController
     end
   end
 
-  def show
-    # Code extracted, file is served statically through carrierwave
-    # Instead of sending file on show, maybe have some info?
-  end
-
   def create
     @attachment.author = current_user
     @attachment.space = @space
@@ -87,10 +75,6 @@ class AttachmentsController < ApplicationController
         }
       end
     end
-  end
-
-  def update
-    # Leave updating out for now and maybe reimplement it with carrierwave versions
   end
 
   def destroy
@@ -113,6 +97,9 @@ class AttachmentsController < ApplicationController
   private
 
   def load_attachments
+    # shows the newer items in the top by default
+    params[:order] ||= "created_at"
+    params[:direction] ||= "asc"
     @attachments = Attachment.repository_attachments(@space, params)
   end
 

@@ -2,7 +2,7 @@
   .resource-filter-with-text
     = t('.filter_count_with_text', :count => "<span class=\"resource-filter-count\">#{@users.count}</span>".html_safe, :value => "<span class=\"resource-filter-value\"></span>".html_safe).html_safe
   .resource-filter-without-text
-    = t('.filter_count_empty', :count => User.count)
+    = t('.filter_count_empty', :count => @users.count)
 
 - if @users.count > 0
 

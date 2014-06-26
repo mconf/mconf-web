@@ -1,20 +1,8 @@
-#attachments-upload
-  #add_new_doc.modal-header
-    = modal_close_button
-    %h3
-      = t("document.upload")
+.modal-header
+  = modal_close_button
+  %h3= t(".title")
+= simple_form_for([@space, prepare_for_form(@attachment || Attachment.new)], :html => { :multipart => true }) do |f|
   .modal-body
-    = simple_form_for([@space, prepare_for_form(@attachment || Attachment.new)], :html => { :multipart => true }) do |f|
-      = f.file_field :attachment
-
-      .new_doc_content
-        %span
-          = check_box_tag "add_post", "with_post", @attachment.post_title.present? || @attachment.post_text.present?
-          = t('attachment.upload_with_post')
-        #with_post{ :style => ("display:none" if !(@attachment.post_title.present? || @attachment.post_text.present?)) }
-          = f.label :post_title, t('title')
-          = f.text_field :post_title
-          = f.label :post_text, t('text')
-          = f.text_area :post_text, :rows => 5, :cols=>25
-
-      = f.button :wrapped, :value => t('button.upload')
+    = f.file_field :attachment
+  .modal-footer.form-actions
+    = f.button :wrapped, :value => t('_other.upload'), :class => "btn btn-primary", :cancel_modal => true

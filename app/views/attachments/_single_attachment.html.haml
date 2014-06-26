@@ -1,16 +1,18 @@
-%tr{:class => "attachment ui-collection-result #{can?(:delete, attachment) ? 'can_delete' : ''}"}
-  %td.attachment-selector
-    %input.attachment_checkbox{id: attachment.id, name: attachment.id, type: "checkbox", value: attachment.id}
-  %td.attachment-name
-    = link_to attachment.title, attachment.attachment_url
-  %td.attachment-author
-    = link_to attachment.author.full_name, users_path(attachment.author)
-  %td.attachment-updated
+%tr{:class => "attachment"}
+  %td
+    = check_box_tag attachment.id, attachment.id, false, :class => "attachment-checkbox", :data => { :"can-destroy" => can?(:destroy, attachment) }
+  %td
+    = link_to attachment.title, attachment.attachment_url, :download => attachment.title
+  %td
+    - if attachment.author
+      = link_to attachment.author.full_name, user_path(attachment.author)
+  %td
     %span{title: attachment.created_at}
-      = attachment.created_at
-  %td.attachment-actions
-    = link_to attachment.attachment_url, :class => 'no-dot' do
-      %i.tooltipped.icon-awesome.icon-download-alt.icon-mconf-download.icon{"data-original-title" => "Download", "data-placement" => "top"}
-    - if can? :delete, attachment
-      = link_to [@space, attachment], :rel => 'nofollow', :'data-confirm' => t('.delete'), :'data-method' => 'delete' do
-        %i.tooltipped.icon-awesome.icon-remove-sign.icon-mconf-delete.icon.can_delete{"data-original-title" => "Delete", "data-placement" => "top"}
+      - if attachment.created_at
+        = time_ago_in_words(attachment.created_at) + " " + t('.ago')
+  %td
+    = link_to attachment.attachment_url, :download => attachment.title do
+      = icon_download :class => "tooltipped", :title => t(".download_tooltip")
+    - if can?(:destroy, attachment)
+      = link_to [@space, attachment], :rel => 'nofollow', :'data-confirm' => t('.delete_confirmation'), :'data-method' => 'delete' do
+        = icon_delete :class => "tooltipped", :title => t(".delete_tooltip")

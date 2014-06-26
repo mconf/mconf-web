@@ -370,9 +370,12 @@ describe User do
   end
 
   describe "#approve!" do
-    let(:user) { FactoryGirl.create(:user, :approved => false) }
-    let(:params) {
-      { :username => "any", :email => "any@jaloo.com", :approved => false, :password => "123456" }
+    let(:user) {
+      u = FactoryGirl.create(:user)
+      # won't work if it's set in the factory above, since sometimes the user is automatically
+      # approved when created
+      u.update_attributes(:approved => false)
+      u
     }
 
     context "sets the user as approved" do

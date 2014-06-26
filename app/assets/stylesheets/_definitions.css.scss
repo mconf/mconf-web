@@ -168,18 +168,6 @@ $z-index-tooltip: 999999;
   @include link-colors($red, lighten($red, 10), darken($red, 10));
 }
 
-@mixin space-visibility {
-  font-size: $font-small;
-  display: block;
-  color: $dark-gray;
-
-  .icon-awesome {
-    float: none;
-    font-size: $font-small;
-    margin-right: 2px;
-  }
-}
-
 @mixin set-sidebar-width($new-width) {
   #sidebar {
     width: $new-width;

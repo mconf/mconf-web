@@ -229,9 +229,15 @@ module Abilities
       # Can do the actions below if he's the owner or if he belongs to the space (with any role)
       # that owns the room.
       # `:create_meeting` is a custom name, not an action that exists in the controller
-      can [:end, :join_options, :create_meeting, :fetch_recordings,
+      can [:join_options, :create_meeting, :fetch_recordings,
            :invitation, :send_invitation], BigbluebuttonRoom do |room|
         user_is_owner_or_belongs_to_rooms_space(user, room)
+      end
+
+      # For user rooms only the owner can end meetings.
+      # In spaces only the admins and the person that started the meeting can end it.
+      can :end, BigbluebuttonRoom do |room|
+        user_can_end_meeting(user, room)
       end
 
       # Users can recording meetings in their rooms, but only if they have the record flag set.
@@ -248,7 +254,7 @@ module Abilities
       # some actions in rooms should be accessible to any logged user
       # some of them will do the authorization themselves (e.g. permissions for :join
       # will change depending on the user and the target room)
-      can [:invite, :invite_userid, :auth, :running, :join, :join_mobile], BigbluebuttonRoom
+      can [:invite, :invite_userid, :running, :join, :join_mobile], BigbluebuttonRoom
 
       # a user can play recordings of his own room or recordings of
       # rooms of either public spaces or spaces he's a member of
@@ -288,6 +294,24 @@ module Abilities
       elsif (room.owner_type == "Space")
         space = Space.find(room.owner.id)
         space.users.include?(user)
+      else
+        false
+      end
+    end
+
+    # Whether `user` can end the meeting in `room`.
+    def user_can_end_meeting(user, room)
+      if (room.owner_type == "User" && room.owner.id == user.id)
+        true
+      elsif (room.owner_type == "Space")
+        space = Space.find(room.owner.id)
+        if space.admins.include?(user)
+          true
+        elsif room.user_created_meeting?(user)
+          true
+        else
+          false
+        end
       else
         false
       end
@@ -387,7 +411,7 @@ module Abilities
       end
 
       # some actions in rooms should be accessible to anyone
-      can [:invite, :invite_userid, :auth, :running], BigbluebuttonRoom do |room|
+      can [:invite, :invite_userid, :join, :join_mobile, :running], BigbluebuttonRoom do |room|
         # filters invalid rooms only
         room.owner_type == "User" || room.owner_type == "Space"
       end

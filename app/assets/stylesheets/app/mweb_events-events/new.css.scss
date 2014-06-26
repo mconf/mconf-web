@@ -1,32 +1,4 @@
 @import "compass/css3";
 @import "definitions";
 
-body.mweb_events-events.new {
-
-  form {
-    .field_with_errors .error {
-      display: block;
-      text-align: right;
-    }
-
-    input.string, input.password, input.numeric, textarea, select.string,
-    ul.token-input-list-facebook {
-      width: 97%
-    }
-    input.showable_password {
-      width: 78%
-    }
-    select.datetime {
-      width: 13%;
-    }
-  }
-
-  #epiceditor {
-    margin-bottom: 10px;
-
-    iframe {
-      border: 1px solid #ccc;
-    }
-  }
-
-}
+@import "app/mweb_events-events/_form";

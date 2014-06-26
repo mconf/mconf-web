@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140515205815) do
+ActiveRecord::Schema.define(:version => 20140608203446) do
 
   create_table "activities", :force => true do |t|
     t.integer  "trackable_id"
@@ -48,10 +48,12 @@ ActiveRecord::Schema.define(:version => 20140515205815) do
     t.string   "meetingid"
     t.string   "name"
     t.datetime "start_time"
-    t.boolean  "running",    :default => false
-    t.boolean  "record",     :default => false
-    t.datetime "created_at",                    :null => false
-    t.datetime "updated_at",                    :null => false
+    t.boolean  "running",      :default => false
+    t.boolean  "record",       :default => false
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
+    t.integer  "creator_id"
+    t.string   "creator_name"
   end
 
   add_index "bigbluebutton_meetings", ["meetingid", "start_time"], :name => "index_bigbluebutton_meetings_on_meetingid_and_start_time", :unique => true
@@ -61,8 +63,8 @@ ActiveRecord::Schema.define(:version => 20140515205815) do
     t.string   "owner_type"
     t.string   "name"
     t.text     "content"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "bigbluebutton_playback_formats", :force => true do |t|
@@ -70,8 +72,8 @@ ActiveRecord::Schema.define(:version => 20140515205815) do
     t.string   "format_type"
     t.string   "url"
     t.integer  "length"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
   end
 
   create_table "bigbluebutton_recordings", :force => true do |t|
@@ -84,8 +86,8 @@ ActiveRecord::Schema.define(:version => 20140515205815) do
     t.datetime "start_time"
     t.datetime "end_time"
     t.boolean  "available",   :default => true
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
     t.string   "description"
     t.integer  "meeting_id"
   end
@@ -116,8 +118,8 @@ ActiveRecord::Schema.define(:version => 20140515205815) do
     t.string   "dial_number"
     t.integer  "max_participants"
     t.boolean  "private",            :default => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                            :null => false
+    t.datetime "updated_at",                            :null => false
     t.boolean  "external",           :default => false
     t.string   "param"
     t.boolean  "record",             :default => false
@@ -133,8 +135,8 @@ ActiveRecord::Schema.define(:version => 20140515205815) do
     t.string   "url"
     t.string   "salt"
     t.string   "version"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
     t.string   "param"
   end
 
@@ -151,8 +153,8 @@ ActiveRecord::Schema.define(:version => 20140515205815) do
     t.datetime "locked_at"
     t.datetime "failed_at"
     t.string   "locked_by"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
     t.string   "queue"
   end
 
@@ -218,8 +220,8 @@ ActiveRecord::Schema.define(:version => 20140515205815) do
     t.string   "title"
     t.text     "text"
     t.integer  "space_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "permissions", :force => true do |t|
@@ -229,11 +231,6 @@ ActiveRecord::Schema.define(:version => 20140515205815) do
     t.integer  "role_id",      :null => false
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
-  end
-
-  create_table "post_attachments", :force => true do |t|
-    t.integer "post_id"
-    t.integer "attachment_id"
   end
 
   create_table "posts", :force => true do |t|
@@ -292,18 +289,27 @@ ActiveRecord::Schema.define(:version => 20140515205815) do
     t.integer  "user_id"
     t.string   "identifier"
     t.text     "data"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   add_index "shib_tokens", ["identifier"], :name => "index_shib_tokens_on_identifier", :unique => true
   add_index "shib_tokens", ["user_id"], :name => "index_shib_tokens_on_user_id", :unique => true
 
+  create_table "simple_captcha_data", :force => true do |t|
+    t.string   "key",        :limit => 40
+    t.string   "value",      :limit => 6
+    t.datetime "created_at",               :null => false
+    t.datetime "updated_at",               :null => false
+  end
+
+  add_index "simple_captcha_data", ["key"], :name => "idx_key"
+
   create_table "sites", :force => true do |t|
-    t.string   "name",                           :default => "Mconf"
+    t.string   "name"
     t.text     "description"
-    t.string   "domain",                         :default => "mconfweb.inf.ufrgs.br"
-    t.string   "smtp_login",                     :default => "mconf.prav@gmail.com"
+    t.string   "domain"
+    t.string   "smtp_login"
     t.string   "locale"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -311,7 +317,7 @@ ActiveRecord::Schema.define(:version => 20140515205815) do
     t.boolean  "exception_notifications",        :default => false
     t.string   "exception_notifications_email"
     t.text     "signature"
-    t.string   "presence_domain",                :default => "mconfweb.inf.ufrgs.br"
+    t.string   "presence_domain"
     t.string   "feedback_url"
     t.boolean  "shib_enabled",                   :default => false
     t.string   "shib_name_field"
@@ -326,15 +332,12 @@ ActiveRecord::Schema.define(:version => 20140515205815) do
     t.string   "smtp_domain"
     t.string   "smtp_auth_type"
     t.string   "smtp_sender"
+    t.boolean  "chat_enabled",                   :default => false
+    t.string   "xmpp_server"
     t.text     "shib_env_variables"
     t.string   "shib_login_field"
     t.string   "timezone",                       :default => "UTC"
     t.string   "external_help"
-    t.string   "recaptcha_private_key"
-    t.string   "recaptcha_public_key"
-    t.boolean  "use_recaptcha",                  :default => false
-    t.boolean  "chat_enabled",                   :default => false
-    t.string   "xmpp_server"
     t.boolean  "webconf_auto_record",            :default => false
     t.boolean  "ldap_enabled"
     t.string   "ldap_host"
@@ -345,10 +348,11 @@ ActiveRecord::Schema.define(:version => 20140515205815) do
     t.string   "ldap_username_field"
     t.string   "ldap_email_field"
     t.string   "ldap_name_field"
-    t.boolean  "require_registration_approval",  :default => false,                   :null => false
+    t.boolean  "require_registration_approval",  :default => false, :null => false
     t.boolean  "events_enabled",                 :default => false
-    t.boolean  "registration_enabled",           :default => true,                    :null => false
+    t.boolean  "registration_enabled",           :default => true,  :null => false
     t.string   "shib_principal_name_field"
+    t.string   "ldap_filter"
   end
 
   create_table "spaces", :force => true do |t|
@@ -367,8 +371,8 @@ ActiveRecord::Schema.define(:version => 20140515205815) do
   create_table "statistics", :force => true do |t|
     t.string   "url"
     t.integer  "unique_pageviews"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
   end
 
   create_table "users", :force => true do |t|

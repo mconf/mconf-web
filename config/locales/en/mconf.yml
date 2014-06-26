@@ -78,6 +78,7 @@ en:
       icon_tooltip: "This item has been reported as spam and is being evaluated by the administrators"
     unpublish: "Unpublish"
     update: "Update"
+    upload: "Upload"
     user:
       administrator: "Global administrator"
       normal_user: "Normal user"
@@ -147,11 +148,12 @@ en:
         external_help: "External help/FAQ page"
         feedback_url: "Feedback URL"
         ldap_enabled: "LDAP: Enable authentication"
+        ldap_filter: "LDAP: Filter for the user search"
         ldap_host: "LDAP: Server IP or domain"
         ldap_port: "LDAP: Server port"
-        ldap_user: "LDAP: Full DN for the user"
-        ldap_user_password: "LDAP: User password"
-        ldap_user_treebase: "LDAP: Full DN for UsersTreebase"
+        ldap_user: "LDAP: Full DN or user to bind"
+        ldap_user_password: "LDAP: Password to connect"
+        ldap_user_treebase: "LDAP: Full DN for the users tree"
         ldap_username_field: "LDAP: Field to obtain the username"
         ldap_email_field: "LDAP: Field to obtain the user's email"
         ldap_name_field: "LDAP: Field to obtain the user's full name"
@@ -161,11 +163,12 @@ en:
         registration_enabled: "Allow users to create new accounts"
         require_registration_approval: "Require admins to approve new registrations"
         signature: "Signature"
-        shib_enabled: "Enable Shibboleth"
-        shib_email_field: "Shibboleth field for email"
-        shib_login_field: "Shibboleth field for login"
-        shib_name_field: "Shibboleth field for name"
-        shib_principal_name_field: "Shibboleth field for principal name (unique ID)"
+        shib_enabled: "Shibboleth: Enable"
+        shib_email_field: "Shibboleth: Field for email"
+        shib_env_variables: "Shibboleth: Environment variables"
+        shib_login_field: "Shibboleth: Field for login"
+        shib_name_field: "Shibboleth: Field for name"
+        shib_principal_name_field: "Shibboleth: Field for principal name (unique ID)"
         smtp_auth_type: "STMP authentication type"
         smtp_auto_tls: "Auto STARTTLS"
         smtp_domain: "STMP domain"
@@ -260,10 +263,22 @@ en:
     title: "Attachments (%{count})"
     upload_with_post: "Notify the upload with a message in the wall"
   attachments:
-    single_attachment:
-      delete: Delete
-    doc_table:
+    index:
+      author: "Uploaded by"
+      download_multiple: "Download"
+      file: "File"
+      new_file: "Upload a file"
       no_attachments: "No attachments found"
+      remove_multiple: "Remove"
+      remove_multiple_confirmation: "Are you sure you want to remove all the files selected? This operation is irreversible."
+      uploaded: "Uploaded"
+    single_attachment:
+      ago: "ago"
+      delete_confirmation: "Are you sure you want to remove this file? This operation is irreversible."
+      delete_tooltip: "Remove this file"
+      download_tooltip: "Download this file"
+    upload_form:
+      title: "Upload a new file"
   attendeePW: "Attendee Password"
   author: "Uploaded by"
   avatar: 
@@ -426,28 +441,20 @@ en:
       list_of_rooms: "List of all registered rooms"
     important: Important
     invitation_form:
+      at: "at"
+      duration: "Duration"
       meeting_in: "Inviting people to a meeting in:"
-      timezone: "You are using the timezone %{timezone}"
+      timezone: "You are using the time zone %{timezone}"
       title: "Invite people to a meeting"
       users:
         hint: "Type to start searching"
         no_results: "No results found"
         searching: "Searching..."
-    invite: 
-      desktop: 
-        not_selected: "Select this options to access from a <em>desktop computer</em>."
-        selected: "Access from a <em>desktop computer</em>."
-      field_name: "Your full name"
-      field_password: "Access key for this room"
-      mobile: 
-        details: "Available for Android devices. You have to install the application <a href=\"%{url}\">Mconf-Mobile</a> to use this option!"
-        details_short: "Available for Android devices only."
-        download: "Click here to download Mconf-Mobile."
-        not_selected: "Select this options to access from a <em>mobile device</em>."
-        selected: "Access from a <em>mobile device</em>."
-      selected: "selected"
-      title: "Join the room: <em>%{name}</em>"
-    invite_header: 
+    invite:
+      field_name: "You are joining as"
+      field_password: "Enter the access key for this meeting"
+      title: "Join room: <em>%{name}</em>"
+    invite_header:
       not_running: "not running"
       refresh: "This information is updated automatically"
       room_type_private: "This is a <em>private</em> web conference room"
@@ -470,10 +477,15 @@ en:
         title: "I don't have an account, I will join this room as a guest"
       title: "Join the room: <em>%{name}</em>"
     join_mobile:
-      direct_link: "<b>Click here</b> to join from a mobile device"
-      scan_code: "Or scan the code below:"
-      sip_number: "To join the voice conference from a SIP client, dial <b>%{number}</b>."
-      title: "Mobile access to %{room}"
+      click_to_download_android: "Click here to download the Android client"
+      click_to_download_ios: "Click here to download the Apple iOS (iPad, iPhone) client"
+      download_android_tip: "Para dispositivos com Android"
+      download_ios_tip: "Para dispositivos com Apple iOS (iPad, iPhone)"
+      not_launched: "If the application was not launched, make sure you have the Android mobile client installed. You can get it from:"
+      notice : "You are being redirected to the conference in your mobile device, please wait."
+      title: "Mobile access to \"%{room}\""
+      use_default_client: "If you are not on a mobile client, click here to join the session using the default desktop client."
+      try_again: "You have the application installed but it wasn't launched? Click here to try again."
     join_options:
       alert_webconf_running: "A meeting is currently in progress in this room. The options you change here will not affect the current meeting, only future meetings in this room!"
       metadata: 
@@ -590,9 +602,6 @@ en:
         missing_email: "Unable to find the email from the LDAP user retrieved from the LDAP server, please contact an administrator"
   disable: Disable
   disabled: Disabled
-  document: 
-    upload: "Upload new document"
-  download: Download
   download_file: "Download file"
   edit: Edit
   edit_hours: "Edit hours"
@@ -837,9 +846,6 @@ en:
       private: "Private space"
       public: "Public space"
   less: "less..."
-  locale: 
-    changed: "Application language changed to "
-    error: "Unable to change application language to "
   locales: 
     en: English
     pt-br: "Português (Brasil)"
@@ -970,7 +976,6 @@ en:
       join: "Join the meeting!"
       join_mobile_full: "Join from a mobile device"
       not_running: "Your webconference is not in progress."
-      options: "Options"
       preferences: "Preferences"
       recordings: "View recordings"
       running_with:
@@ -1004,8 +1009,6 @@ en:
     title: "News (%{count})"
     updated: "News item updated successfully"
   next: Next
-  no_messages_in_wall: "There are no messages in the wall"
-  no_tags_found: "No tags found"
   now_exclamation: Now!
   ok: OK
   older: Older
@@ -1069,6 +1072,11 @@ en:
     updated: "Message updated!"
     wall: Wall
   posts:
+    index:
+      new_post: "Send a new message"
+      no_messages: "There are no messages in the wall"
+    new_post:
+      title: "Post a new message"
     post_with_children:
       by: "by"
   prav: PRAV
@@ -1197,12 +1205,9 @@ en:
   room: 
     other: Rooms
   rooms: 
-    form: 
-      msg1: " prohibited this room from being saved:"
     invite: 
       join_from_desktop: "In this page you can join the conference from a <b>desktop</b>. To join from a mobile device <a href=\"%{url}\">click here</a>."
       join_from_mobile: "In this page you can join the conference from a <b>mobile device</b>. To join from a desktop <a href=\"%{url}\">click here</a>."
-      msg1: "Invitation to the meeting "
       name: "Name:"
       name_enter: "Enter your name."
       password: "Password:"
@@ -1219,9 +1224,6 @@ en:
   save: Save
   select_image: "Select an image, please"
   send: Send
-  servers: 
-    form: 
-      msg1: " prohibited this server from being saved:"
   session: 
     error: 
       exist: "You are already logged in"
@@ -1235,6 +1237,10 @@ en:
       password: "Password"
     new:
       title: "Sign in"
+  session_locales: 
+    create:
+      success: "Application language changed to %{value}"
+      error: "Unable to change application language to %{value}"
   shared:
     copy_modal:
       title: Press Ctrl+C to copy the text
@@ -1264,15 +1270,16 @@ en:
   shibboleth:
     associate:
       existent_account:
-        email_or_login: "Email or username"
-        link_to_this_account: "Link to this account"
-        password: "Password"
+        link_to_this_account: "Log in and link accounts"
         title: "If you already have an account on this website, you can link your federated account to it. Whenever you use the federation to log in, you will be using your website account linked here. You can then log in via federation or via the standard login in this website."
       new_account:
         create_new_account: "Create a new account"
         title: "If you don't have an account on this website yet, click in the button below to automatically create a new one using your account information provided by the federation."
       page_title: "Login via federation"
       title: "Your federated account is not yet associated to any account on this site. Select one of the options below:"
+      user:
+        login: "Email or username"
+        password: "Password"
     attribute_error:
       informed:
         no_attrs: "No attributes were informed"
@@ -1479,7 +1486,7 @@ en:
       upcoming_events: "Upcoming events"
       webconference:
         attendees:
-          nobody: "There is nobody currently in the room."
+          nobody: "There is no meeting running."
         currently_running:
           one: "The webconference is currently in progress with %{count} participant"
           other: "The webconference is currently in progress with %{count} participants"
@@ -1493,7 +1500,6 @@ en:
       join: "Join now!"
       join_mobile: "Join/mobile"
       join_mobile_full: "Join from a mobile device"
-      options: "Options"
       preferences: "Preferences"
       start: "Start"
     space_thumbnail:
@@ -1502,8 +1508,8 @@ en:
     thumbnail_view:
       no_spaces: "There are no spaces created yet!"
     unified_space:
-      private: "private space"
-      public: "public space"
+      private: "Private space"
+      public: "Public space"
       user_is_member: "You are a member of this space"
       with_members: "with %{count} members"
     users: "Users in this space"
@@ -1563,17 +1569,6 @@ en:
   subject: "Subject:"
   summary: "Video Info"
   superuser: "Administrator"
-  tag: 
-    add: "Add tags"
-    edit: "Edit tags"
-    filter: "Filter by tag:"
-    new: "New tag"
-    other_capital: Tags
-    selected: 
-      one: "Select a tag:"
-      other: "Selected tags:"
-  tags: Tags
-  tags_by: "Tags by:"
   text: Text
   the_string: "the string"
   thread: 
@@ -1615,8 +1610,6 @@ en:
     public_profile: "Anyone can access this information"
     public_space: "Collaborative spaces can be public, for anybody to watch what happens in them, or private, where only members have access to the activities of the space"
     share: "This is the url to share this video with your colleagues"
-    tag: "Tags are keywords or terms associate with content used to find and filter information. Press enter to confirm each tag."
-    tag_by: "Tags are words that describe the documents. Use this links to order them by popularity or alphabetically. Then click on them to see the related documents."
     upcoming: "This section shows the next events in this space"
     update_logo: "You can update your own logo, create a text logo or select an image from the gallery"
     vclass: "The virtual class type is the perfect way to organise classes, conferences and seminars, where the teacher assumes a prominent role."
@@ -1764,6 +1757,5 @@ en:
   when: When
   where: Where
   yesterday: Yesterday
-  your_interests_tags: "Your interests (tags)"
   your_vcard: "your vCard"
   zipcode: "Zip code"

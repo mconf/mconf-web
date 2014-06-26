@@ -19,10 +19,10 @@
       %span.list-title{:title => space.name}= first_words(space.name, 20)
     %span= t('_other.members', :count => space.users.count)
     - if space.public
-      %span.visibility.public
-        = icon_space_public()
+      .resource-visibility.small.public
+        = icon_space_public
         = t(".public")
     - else
-      %span.visibility.private
-        = icon_space_private()
+      .resource-visibility.small.private
+        = icon_space_private
         = t(".private")

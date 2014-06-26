@@ -49,7 +49,11 @@ class PostsController < ApplicationController
   end
 
   def new
-    @post = Post.new
+    respond_to do |format|
+      format.html {
+        render :partial => "new_post"
+      }
+    end
   end
 
   def create
@@ -145,7 +149,6 @@ class PostsController < ApplicationController
 
   def after_create_with_errors
     # This should be in the view
-    params[:form] = 'attachments' if @post.attachments.any?
     flash[:error] = @post.errors.to_xml
     get_posts
     render :index
@@ -158,7 +161,6 @@ class PostsController < ApplicationController
 
   def after_update_with_errors
     # This should be in the view
-    params[:form] = 'attachments' if @post.attachments.any?
     flash[:error] = @post.errors.to_xml
     posts
     render :index

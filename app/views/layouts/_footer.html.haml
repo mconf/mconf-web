@@ -28,7 +28,7 @@
             %li
               - flag = image_tag("flags/" + locale.to_s + ".png", :title => locale.to_s)
               - text = t('locales.' + locale.to_s)
-              - link = link_to(text, main_app.session_locale_path(:new_locale => locale.to_s), :method => :post)
+              - link = link_to(text, main_app.session_locale_path(:l => locale.to_s), :method => :post)
               = (flag + " " + link).html_safe
     .link-group.footer-sponsors
       %h3= t('.sponsors.title')

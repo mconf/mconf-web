@@ -97,7 +97,7 @@ class Space < ActiveRecord::Base
 
   # Returns the next 'count' events (starting in the current date) in this space.
   def upcoming_events(count=5)
-    self.events.upcoming.first(5)
+    self.events.upcoming.order("start_on ASC").first(5)
   end
 
   # Return the number of unique pageviews for this space using the Statistic model.
@@ -179,6 +179,11 @@ class Space < ActiveRecord::Base
     pending_join_requests.where(:candidate_id => user).size > 0
   end
 
+  # Returns whether the space's logo is being cropped.
+  def is_cropping?
+    crop_x.present?
+  end
+
   private
 
   def permalink_uniqueness
@@ -224,7 +229,7 @@ class Space < ActiveRecord::Base
   end
 
   def crop_logo
-    logo_image.recreate_versions! if crop_x.present?
+    logo_image.recreate_versions! if is_cropping?
   end
 
 end

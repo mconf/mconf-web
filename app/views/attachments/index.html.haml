@@ -2,11 +2,27 @@
 
 = render :partial => 'spaces/menu'
 
-= content_for :sidebar do
-  #doc_action
+#space-attachments-tabs.page-tabs
+  -# note: this links have to start enabled, otherwise the click won't work (the links are set via js)
+  = link_to t('.download_multiple'), '#', :id => "attachments-download", :class => "btn btn-small", :'data-base-url' => space_attachments_path(@space)
+  = link_to t('.remove_multiple'), '#', :rel => 'nofollow', :id => "attachments-delete", :'data-confirm' => t(".remove_multiple_confirmation"), :class => "btn btn-small", :'data-base-url' => space_attachments_path(@space)
+  %span{ :id => "space-attachments-selected" }
 
-#doc_repository{:'data-url' => space_attachments_path(@space), :'data-auth-token' => form_authenticity_token}
+#space-attachments-create
+  - if can?(:create, @space.attachments.build)
+    = link_to t('.new_file'), new_space_attachment_path(@space), :class => "btn btn-small btn-primary open-modal"
 
-  = render 'multiple_actions'
-
-  = render 'doc_table'
+#space-attachments
+  - if @attachments.empty?
+    = t('.no_attachments')
+  - else
+    %table.table.table-striped
+      %thead
+        %tr
+          %th
+          %th= t('.file')
+          %th= t('.author')
+          %th= t('.uploaded')
+          %th
+      - @attachments.each do |attachment|
+        = render 'single_attachment', :attachment => attachment
