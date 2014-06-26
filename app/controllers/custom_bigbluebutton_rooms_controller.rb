@@ -48,7 +48,7 @@ class CustomBigbluebuttonRoomsController < Bigbluebutton::RoomsController
       "mobile"
     when :running
       false
-    when :invite_userid, :invite, :join
+    when :invite_userid, :invite
       "no_sidebar"
     else
       "application"
