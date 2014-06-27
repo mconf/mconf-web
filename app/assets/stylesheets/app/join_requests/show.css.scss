@@ -12,6 +12,19 @@ body.join_requests.show {
       text-align: center;
     }
 
+    .invitation-comment {
+      text-align: center;
+      margin: 20px;
+
+      .content {
+        padding: 10px;
+        margin: 10px auto;
+        background: $light-gray;
+        @include border-radius(4px);
+        max-width: 300px;
+      }
+    }
+
     .action-buttons {
       text-align: center;
       margin: 20px;

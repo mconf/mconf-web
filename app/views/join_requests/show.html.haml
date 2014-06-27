@@ -1,5 +1,8 @@
 #join-requests-invitation
   %h3= t('.title', :name => @space.name)
+  .invitation-comment
+    = t('.comment', :name => @join_request.introducer.full_name)
+    .content= @join_request.comment
   .action-buttons
     - unless user_signed_in? && @space.users.include?(current_user)
       - target = @join_request.candidate ? @join_request.candidate.name : @join_request.email
@@ -9,6 +12,6 @@
           = f.hidden_field :accepted, :value => true
           = f.hidden_field :processed, :value => true
       - if can?(:destroy, @join_request)
-        = link_to t('.deny'), space_join_request_path(@space, @join_request), :confirm => t('.deny_confirmation', :user => target), :method => :delete, :title => t('.deny'), :class => 'btn btn-danger'
+        = link_to t('.decline'), space_join_request_path(@space, @join_request), :confirm => t('.decline_confirmation', :user => target), :method => :delete, :title => t('.decline'), :class => 'btn btn-danger'
     - else
       = t('.already_accepted')

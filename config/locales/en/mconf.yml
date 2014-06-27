@@ -803,10 +803,11 @@ en:
       message_title: "Send a join request to the administrators of the space"
     show:
       accept: "Yes, I want to join!"
-      deny: "No, not now"
-      deny_confirmation: "Are you sure you want to deny the invitation to join this space?"
+      comment: "This is the comment written by %{name}:"
+      decline: "No, not now"
+      decline_confirmation: "Are you sure you want to decline the invitation to join this space?"
       title: "You were invited to join the space \"%{name}\""
-      already_accepted: ... but you're already a member of this space.
+      already_accepted: "... but you're already a member of this space."
     update:
       accepted: "Join request accepted"
       updated: "Join request status updated"
