@@ -484,12 +484,11 @@ describe User do
         it { space.disabled.should be(false) }
       end
     end
-
-
   end
 
+  # TODO: :index is nested into spaces, how to test it here?
   describe "abilities", :abilities => true do
-    set_custom_ability_actions([:fellows, :current, :select, :approve])
+    set_custom_ability_actions([:fellows, :current, :select, :approve, :enable, :disable])
 
     subject { ability }
     let(:ability) { Abilities.ability_for(user) }
@@ -527,7 +526,11 @@ describe User do
         it { should be_able_to(:manage, target) }
       end
 
-      context "he can do anything" do
+      context "over his own account" do
+        it { should be_able_to(:manage, user) }
+      end
+
+      context "he can do anything over all resources" do
         it { should be_able_to(:manage, :all) }
       end
     end
