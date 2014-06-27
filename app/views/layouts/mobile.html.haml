@@ -1,0 +1,43 @@
+-# Note: This layout is currently only used in pages used only in mobile devices, more specifically
+-# custom_bigbluebutton_rooms/join_mobile. It's similar to the application layout, but more
+-# responsive. Should be improved in the future when the entire website is adapted to mobile devices.
+
+!!! Strict
+%html{:lang => I18n.locale.to_s}
+
+  %head
+    %meta{:content => "text/html; charset=utf-8", "http-equiv" => "Content-type"}
+    %title= content_for?(:title) ? yield(:title) : current_site.name
+    = favicon_link_tag
+
+    = stylesheet_link_tag "application", :media => "screen, projection"
+    = stylesheet_link_tag_for_controller :media => "screen, projection"
+    = stylesheet_link_tag "_development" unless Rails.env == "production"
+    = yield :stylesheets
+    = csrf_meta_tag
+    = yield :headers
+
+  %body.responsive{:class => "#{controller_name_for_view} #{params[:action]}"}
+    #site
+      #navbar-wrapper
+        = yield :navbar
+      - if content_for?(:page_header)
+        #page-header-wrapper
+          #page-header
+            = yield :page_header
+            - if content_for?(:page_menu)
+              #page-menu
+                = yield :page_menu
+      #content-wrapper
+        = yield
+      #footer-pusher
+
+    = render :partial => "layouts/footer_simple"
+
+    = render :partial => "layouts/analytics"
+    = render :partial => "layouts/notifications"
+
+    -# Javascript placed at the end of the document so the pages load faster
+    = javascript_include_tag "application"
+    = javascript_include_tag_for_controller
+    = yield :javascripts

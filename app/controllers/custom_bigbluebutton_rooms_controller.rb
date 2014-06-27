@@ -8,7 +8,7 @@ class CustomBigbluebuttonRoomsController < Bigbluebutton::RoomsController
   # the exceptions are all used in the invitation page and should be accessible even to
   # anonymous users
   before_filter :authenticate_user!,
-    :except => [:invite, :invite_userid, :auth, :running]
+    :except => [:invite, :invite_userid, :join, :join_mobile, :running]
 
   # do it in 3 steps because we need more info about the room when joining/ending to decide
   # if the user has permissions and which role he should have in the meeting
@@ -38,15 +38,17 @@ class CustomBigbluebuttonRoomsController < Bigbluebutton::RoomsController
 
   def determine_layout
     case params[:action].to_sym
-    when :join_mobile, :join_options
+    when :join_options
       if request.xhr?
         false
       else
         "application"
       end
+    when :join_mobile
+      "mobile"
     when :running
       false
-    when :invite_userid, :invite, :auth
+    when :invite_userid, :invite
       "no_sidebar"
     else
       "application"

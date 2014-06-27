@@ -1,20 +1,21 @@
-#webconference-join-mobile-dialog
+= content_for :page_header_subtitle do
+  = t(".notice")
+= render_page_title t(".title", :room => @room.name).html_safe
 
-  .modal-header
-    = modal_close_button
-    %h3= t('.title', :room => @room.name)
+%p= t(".not_launched")
 
-  .modal-body
+.download-images
+  .download-image
+    .tip= t('.download_android_tip')
+    = link_to mobile_google_play_link do
+      = image_tag mobile_google_play_image, :alt => t('.click_to_download_android'), :title => t('.click_to_download_android')
+  .download-image
+    .tip= t('.download_ios_tip')
+    = link_to mobile_apple_store_link do
+      = image_tag mobile_apple_store_image, :alt => t('.click_to_download_ios'), :title => t('.click_to_download_ios')
 
-    = link_to t('.direct_link').html_safe, @join_url, :class => "btn btn-primary btn-block btn-large"
-    .join-options
-      .download-application
-        %span= t('custom_bigbluebutton_rooms.invite.mobile.details', :url => mobile_google_play_link).html_safe
-        = link_to mobile_google_play_link, :class => "mobile-download-image" do
-          = image_tag mobile_google_play_image, :alt => t('custom_bigbluebutton_rooms.invite.mobile.download'), :title => t('custom_bigbluebutton_rooms.invite.mobile.download')
-
-    .qr-code
-      %label= t('.scan_code')
-      = image_tag qrcode_url(@qrcode_url, '150x150'), :size => '150x150'
-    .sip-number
-      %label= t('.sip_number', :number => @room.voice_bridge).html_safe
+.additional-options
+  .additional-option
+    = link_to t(".try_again"), @join_mobile, :id => 'mobile-url'
+  .additional-option
+    = link_to t(".use_default_client"), @join_desktop
