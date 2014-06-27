@@ -16,11 +16,12 @@ GIT
 
 GIT
   remote: git://github.com/mconf/bigbluebutton_rails.git
-  revision: 3bcff964062f9d24945185b698498bfc2b31e5a7
+  revision: 11b408529cee0dd1553e7ba990d1883832e369ff
   branch: master
   specs:
     bigbluebutton_rails (1.3.0)
       bigbluebutton-api-ruby (~> 1.3.0)
+      browser (~> 0.5.0)
       rails (>= 3.0.0)
       resque (~> 1.25.1)
       strong_parameters (~> 0.2.0)
@@ -34,7 +35,7 @@ GIT
 
 GIT
   remote: git@github.com:mconf/mweb_events.git
-  revision: 241ea13999402ebbaafa1a4c77fa539d03489c30
+  revision: eb978fc4e98cf6db464e62090bee66fd4e2ce123
   specs:
     mweb_events (0.0.1)
       bootstrap3-datetimepicker-rails (~> 3.0.0)
@@ -128,8 +129,10 @@ GEM
     bootstrap-datetimepicker-rails (0.0.11)
     bootstrap3-datetimepicker-rails (3.0.0.1)
       momentjs-rails (~> 2.5.0)
+    browser (0.5.0)
     builder (3.0.4)
     cancan (1.6.10)
+    cancancan (1.8.4)
     carrierwave (0.9.0)
       activemodel (>= 3.2.0)
       activesupport (>= 3.2.0)
@@ -194,7 +197,7 @@ GEM
     garb (0.9.1)
       activesupport (>= 2.2.0)
       crack (>= 0.1.6)
-    geocoder (1.2.1)
+    geocoder (1.2.2)
     haml (3.1.7)
     haml-rails (0.4)
       actionpack (>= 3.1, < 4.1)
@@ -393,7 +396,8 @@ DEPENDENCIES
   bigbluebutton_rails!
   binding_of_caller
   bootstrap-datetimepicker-rails
-  cancan (~> 1.6.0)
+  browser
+  cancancan (~> 1.8)
   carrierwave
   chronic
   coffee-rails (~> 3.2.0)

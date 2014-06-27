@@ -27,7 +27,7 @@ class SpacesController < ApplicationController
 
   # User trying to access a space not owned or joined by him
   rescue_from CanCan::AccessDenied do |exception|
-    if user_signed_in? and not [:destroy, :update].include?(exception.action)
+    if user_signed_in? and not [:destroy, :update, :user_permissions].include?(exception.action)
       # Normal actions trigger a redirect to ask for membership
       flash[:error] = t("spaces.error.need_join_to_access")
       redirect_to new_space_join_request_path :space_id => params[:id]

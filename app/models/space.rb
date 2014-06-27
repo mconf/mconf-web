@@ -97,7 +97,7 @@ class Space < ActiveRecord::Base
 
   # Returns the next 'count' events (starting in the current date) in this space.
   def upcoming_events(count=5)
-    self.events.upcoming.first(5)
+    self.events.upcoming.order("start_on ASC").first(5)
   end
 
   # Return the number of unique pageviews for this space using the Statistic model.

@@ -76,68 +76,6 @@ describe CustomBigbluebuttonRoomsController do
     it "loads and authorizes the room into @room"
   end
 
-  describe "#auth" do
-    context "template and layout" do
-      # renders a view only when unauthorized
-      let(:user) { FactoryGirl.create(:user) }
-      let(:room) { FactoryGirl.create(:bigbluebutton_room, :private => false) }
-      before {
-        request.env["HTTP_REFERER"] = "/any"
-        controller.should_receive(:bigbluebutton_role) { :password }
-      }
-      before(:each) {
-        login_as(user)
-        post :auth, :id => room.to_param, :user => { }
-      }
-      it { should render_template(:invite) }
-      it { should render_with_layout("no_sidebar") }
-    end
-
-    # to make sure a user can't create a meeting in a room simply by submitting the
-    # moderator password; he needs permissions on the room as well
-    context "when submitting the moderator password" do
-      let(:user) { FactoryGirl.create(:user) }
-      let(:room) { user.bigbluebutton_room }
-      let(:server) { room.server }
-
-      context "creates the room if the current user is the owner" do
-        before :each do
-          login_as(user)
-          request.env["HTTP_REFERER"] = "/any"
-          BigbluebuttonRoom.stub(:find_by_param) { room }
-
-          # to guide the behavior of #auth, copied from the tests in BigbluebuttonRails
-          room.should_receive(:fetch_is_running?).and_return(false)
-          room.should_receive(:create_meeting).with(user, anything, anything)
-          room.should_receive(:fetch_new_token)
-          room.should_receive(:join_url).and_return("http://test.com/attendee/join")
-        end
-        before(:each) { post :auth, :id => room.to_param, :user => { :password => room.moderator_password, :name => "Any Name" } }
-        it { should respond_with(:redirect) }
-        it { should redirect_to("http://test.com/attendee/join") }
-      end
-
-      context "doesn't create the room if the current user is not the owner" do
-        before :each do
-          another_user = FactoryGirl.create(:user)
-          login_as(another_user)
-          request.env["HTTP_REFERER"] = "/any"
-          BigbluebuttonRoom.stub(:find_by_param) { room }
-          BigbluebuttonRoom.any_instance.stub(:fetch_is_running?) { false }
-
-          # to guide the behavior of #auth, copied from the tests in BigbluebuttonRails
-          server.api.stub(:is_meeting_running?) { false }
-        end
-        before(:each) { post :auth, :id => room.to_param, :user => { :password => room.moderator_password, :name => "Any Name" } }
-        it { should respond_with(:unauthorized) }
-        it { should render_template(:invite) }
-        it { should set_the_flash.to(I18n.t('bigbluebutton_rails.rooms.errors.auth.cannot_create')) }
-      end
-    end
-
-    it "loads and authorizes the room into @room"
-  end
-
   describe "#index" do
     context "template and layout" do
       before(:each) { login_as(FactoryGirl.create(:superuser)) }
@@ -191,13 +129,7 @@ describe CustomBigbluebuttonRoomsController do
     context "template and layout for html requests" do
       before(:each) { get :join_mobile, :id => room.to_param }
       it { should render_template(:join_mobile) }
-      it { should render_with_layout("application") }
-    end
-
-    context "template and layout for xhr requests" do
-      before(:each) { xhr :get, :join_mobile, :id => room.to_param }
-      it { should render_template(:join_mobile) }
-      it { should_not render_with_layout() }
+      it { should render_with_layout("mobile") }
     end
 
     it "loads and authorizes the room into @room"
@@ -363,8 +295,67 @@ describe CustomBigbluebuttonRoomsController do
   end
 
   describe "#join" do
-    it "fetches information about the room before calling #join"
-    it "loads and authorizes the room into @room"
+
+    context "via GET" do
+      it "fetches information about the room before calling #join"
+
+      context "when submitting the moderator password" do
+        it "creates the room if the current user is the owner"
+
+        # to make sure a user can't create a meeting in a room simply by submitting the
+        # moderator password; he needs permissions on the room as well
+        it "doesn't create the room if the current user is not the owner"
+      end
+
+      it "loads and authorizes the room into @room"
+    end
+
+    context "via POST" do
+
+      # to make sure a user can't create a meeting in a room simply by submitting the
+      # moderator password; he needs permissions on the room as well
+      context "when submitting the moderator password" do
+        let(:user) { FactoryGirl.create(:user) }
+        let(:room) { user.bigbluebutton_room }
+        let(:server) { room.server }
+
+        context "creates the room if the current user is the owner" do
+          before :each do
+            login_as(user)
+            request.env["HTTP_REFERER"] = "/any"
+            BigbluebuttonRoom.stub(:find_by_param) { room }
+
+            # to guide the behavior of #join, copied from the tests in BigbluebuttonRails
+            room.should_receive(:fetch_is_running?).at_least(:once).and_return(false)
+            room.should_receive(:create_meeting).with(user, anything, anything)
+            room.should_receive(:fetch_new_token)
+            room.should_receive(:join_url).and_return("http://test.com/attendee/join")
+          end
+          before(:each) { post :join, :id => room.to_param, :user => { :password => room.moderator_password, :name => "Any Name" } }
+          it { should respond_with(:redirect) }
+          it { should redirect_to("http://test.com/attendee/join") }
+        end
+
+        context "doesn't create the room if the current user is not the owner" do
+          before :each do
+            another_user = FactoryGirl.create(:user)
+            login_as(another_user)
+            request.env["HTTP_REFERER"] = "/any"
+            BigbluebuttonRoom.stub(:find_by_param) { room }
+            BigbluebuttonRoom.any_instance.stub(:fetch_is_running?) { false }
+
+            # to guide the behavior of #join, copied from the tests in BigbluebuttonRails
+            server.api.stub(:is_meeting_running?) { false }
+          end
+          before(:each) { post :join, :id => room.to_param, :user => { :password => room.moderator_password, :name => "Any Name" } }
+          it { should respond_with(:redirect) }
+          it { should redirect_to("/any") }
+          it { should set_the_flash.to(I18n.t('bigbluebutton_rails.rooms.errors.join.cannot_create')) }
+        end
+      end
+
+      it "loads and authorizes the room into @room"
+    end
   end
 
   describe "#end" do
@@ -375,10 +366,17 @@ describe CustomBigbluebuttonRoomsController do
   describe "abilities", :abilities => true do
     render_views(false)
 
+    before {
+      # a few things (specially for :join) run in before filters, so we have to make sure the
+      # before filters will run successfully and the target action will be called
+      BigbluebuttonRoom.any_instance.stub(:fetch_is_running?).and_return(true)
+    }
+
     context "for a superuser", :user => "superuser" do
       let(:user) { FactoryGirl.create(:superuser) }
-      let(:hash_with_server) { { :server_id => room.server.id } }
       let(:hash) { { :id => room.to_param } }
+      let(:hash_with_user) { hash.merge({ :user => { :name => "User Name", :password => room.attendee_password } }) }
+
       before(:each) {
         login_as(user)
         BigbluebuttonRoom.any_instance.stub(:fetch_is_running?) { true }
@@ -396,8 +394,8 @@ describe CustomBigbluebuttonRoomsController do
         it { should allow_access_to(:edit, hash) }
         it { should allow_access_to(:update, hash).via(:put) }
         it { should allow_access_to(:destroy, hash).via(:delete) }
-        it { should allow_access_to(:join, hash) }
-        it { should allow_access_to(:auth, hash).via(:post) }
+        it { should allow_access_to(:join, hash_with_user) }
+        it { should allow_access_to(:join, hash_with_user).via(:post) }
         it { should allow_access_to(:invite, hash) }
         it { should allow_access_to(:invite_userid, hash).redirecting_to(invite_bigbluebutton_room_path(room)) }
         it { should allow_access_to(:end, hash) }
@@ -450,8 +448,9 @@ describe CustomBigbluebuttonRoomsController do
 
     context "for a normal user", :user => "normal" do
       let(:user) { FactoryGirl.create(:user) }
-      let(:hash_with_server) { { :server_id => room.server.id } }
       let(:hash) { { :id => room.to_param } }
+      let(:hash_with_user) { hash.merge({ :user => { :name => "User Name", :password => room.attendee_password } }) }
+
       before(:each) {
         login_as(user)
         BigbluebuttonRoom.any_instance.stub(:fetch_is_running?) { true }
@@ -468,8 +467,8 @@ describe CustomBigbluebuttonRoomsController do
         it { should_not allow_access_to(:edit, hash) }
         it { should allow_access_to(:update, hash).via(:put) }
         it { should_not allow_access_to(:destroy, hash).via(:delete) }
-        it { should allow_access_to(:join, hash) }
-        it { should allow_access_to(:auth, hash).via(:post) }
+        it { should allow_access_to(:join, hash_with_user) }
+        it { should allow_access_to(:join, hash_with_user).via(:post) }
         it { should allow_access_to(:invite, hash) }
         it { should allow_access_to(:invite_userid, hash).redirecting_to(invite_bigbluebutton_room_path(room)) }
         it { should allow_access_to(:end, hash) }
@@ -487,8 +486,8 @@ describe CustomBigbluebuttonRoomsController do
         it { should_not allow_access_to(:edit, hash) }
         it { should_not allow_access_to(:update, hash).via(:put) }
         it { should_not allow_access_to(:destroy, hash).via(:delete) }
-        it { should allow_access_to(:join, hash) }
-        it { should allow_access_to(:auth, hash).via(:post) }
+        it { should allow_access_to(:join, hash_with_user) }
+        it { should allow_access_to(:join, hash_with_user).via(:post) }
         it { should allow_access_to(:invite, hash) }
         it { should allow_access_to(:invite_userid, hash).redirecting_to(invite_bigbluebutton_room_path(room)) }
         it { should_not allow_access_to(:end, hash) }
@@ -510,8 +509,8 @@ describe CustomBigbluebuttonRoomsController do
           it { should_not allow_access_to(:edit, hash) }
           it { should_not allow_access_to(:update, hash).via(:put) }
           it { should_not allow_access_to(:destroy, hash).via(:delete) }
-          it { should allow_access_to(:join, hash) }
-          it { should allow_access_to(:auth, hash).via(:post) }
+          it { should allow_access_to(:join, hash_with_user) }
+          it { should allow_access_to(:join, hash_with_user).via(:post) }
           it { should allow_access_to(:invite, hash) }
           it { should allow_access_to(:invite_userid, hash).redirecting_to(invite_bigbluebutton_room_path(room)) }
           it { should_not allow_access_to(:end, hash) }
@@ -538,8 +537,8 @@ describe CustomBigbluebuttonRoomsController do
           it { should_not allow_access_to(:edit, hash) }
           it { should_not allow_access_to(:update, hash).via(:put) }
           it { should_not allow_access_to(:destroy, hash).via(:delete) }
-          it { should allow_access_to(:join, hash) }
-          it { should allow_access_to(:auth, hash).via(:post) }
+          it { should allow_access_to(:join, hash_with_user) }
+          it { should allow_access_to(:join, hash_with_user).via(:post) }
           it { should allow_access_to(:invite, hash) }
           it { should allow_access_to(:invite_userid, hash).redirecting_to(invite_bigbluebutton_room_path(room)) }
           it { should allow_access_to(:end, hash) }
@@ -556,8 +555,8 @@ describe CustomBigbluebuttonRoomsController do
           it { should_not allow_access_to(:edit, hash) }
           it { should_not allow_access_to(:update, hash).via(:put) }
           it { should_not allow_access_to(:destroy, hash).via(:delete) }
-          it { should allow_access_to(:join, hash) }
-          it { should allow_access_to(:auth, hash).via(:post) }
+          it { should allow_access_to(:join, hash_with_user) }
+          it { should allow_access_to(:join, hash_with_user).via(:post) }
           it { should allow_access_to(:invite, hash) }
           it { should allow_access_to(:invite_userid, hash).redirecting_to(invite_bigbluebutton_room_path(room)) }
           it { should_not allow_access_to(:end, hash) }
@@ -580,8 +579,8 @@ describe CustomBigbluebuttonRoomsController do
           it { should_not allow_access_to(:edit, hash) }
           it { should_not allow_access_to(:update, hash).via(:put) }
           it { should_not allow_access_to(:destroy, hash).via(:delete) }
-          it { should allow_access_to(:join, hash) }
-          it { should allow_access_to(:auth, hash).via(:post) }
+          it { should allow_access_to(:join, hash_with_user) }
+          it { should allow_access_to(:join, hash_with_user).via(:post) }
           it { should allow_access_to(:invite, hash) }
           it { should allow_access_to(:invite_userid, hash).redirecting_to(invite_bigbluebutton_room_path(room)) }
           it { should_not allow_access_to(:end, hash) }
@@ -608,8 +607,8 @@ describe CustomBigbluebuttonRoomsController do
           it { should_not allow_access_to(:edit, hash) }
           it { should_not allow_access_to(:update, hash).via(:put) }
           it { should_not allow_access_to(:destroy, hash).via(:delete) }
-          it { should allow_access_to(:join, hash) }
-          it { should allow_access_to(:auth, hash).via(:post) }
+          it { should allow_access_to(:join, hash_with_user) }
+          it { should allow_access_to(:join, hash_with_user).via(:post) }
           it { should allow_access_to(:invite, hash) }
           it { should allow_access_to(:invite_userid, hash).redirecting_to(invite_bigbluebutton_room_path(room)) }
           it { should allow_access_to(:end, hash) }
@@ -626,8 +625,8 @@ describe CustomBigbluebuttonRoomsController do
           it { should_not allow_access_to(:edit, hash) }
           it { should_not allow_access_to(:update, hash).via(:put) }
           it { should_not allow_access_to(:destroy, hash).via(:delete) }
-          it { should allow_access_to(:join, hash) }
-          it { should allow_access_to(:auth, hash).via(:post) }
+          it { should allow_access_to(:join, hash_with_user) }
+          it { should allow_access_to(:join, hash_with_user).via(:post) }
           it { should allow_access_to(:invite, hash) }
           it { should allow_access_to(:invite_userid, hash).redirecting_to(invite_bigbluebutton_room_path(room)) }
           it { should_not allow_access_to(:end, hash) }
@@ -643,8 +642,8 @@ describe CustomBigbluebuttonRoomsController do
     end
 
     context "for an anonymous user", :user => "anonymous" do
-      let(:hash_with_server) { { :server_id => room.server.id } }
       let(:hash) { { :id => room.to_param } }
+      let(:hash_with_user) { hash.merge({ :user => { :name => "User Name", :password => room.attendee_password } }) }
 
       it { should require_authentication_for(:index) }
       it { should require_authentication_for(:new) }
@@ -657,12 +656,12 @@ describe CustomBigbluebuttonRoomsController do
         it { should require_authentication_for(:edit, hash) }
         it { should require_authentication_for(:update, hash).via(:put) }
         it { should require_authentication_for(:destroy, hash).via(:delete) }
-        it { should require_authentication_for(:join, hash) }
-        it { should allow_access_to(:auth, hash).via(:post) }
+        it { should allow_access_to(:join, hash_with_user) }
+        it { should allow_access_to(:join, hash_with_user).via(:post) }
         it { should allow_access_to(:invite, hash).redirecting_to(join_webconf_path(room)) }
         it { should allow_access_to(:invite_userid, hash) }
         it { should require_authentication_for(:end, hash) }
-        it { should require_authentication_for(:join_mobile, hash) }
+        it { should allow_access_to(:join_mobile, hash) }
         it { should allow_access_to(:running, hash) }
         it { should require_authentication_for(:join_options, hash) }
         it { should_not allow_access_to(:fetch_recordings, hash) }

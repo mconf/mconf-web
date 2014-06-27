@@ -12,88 +12,6 @@ body.custom_bigbluebutton_rooms.auth {
     min-height: 200px;
   }
 
-  #webconf-room-join {
-    float: left;
-    width: 50%;
-    margin: 0;
-    padding: 0;
-  }
-
-  #webconf-room-device-type {
-    float: right;
-    width: 50%;
-    margin: 0;
-    padding: 0;
-    margin-top: 10px;
-
-    .invite-desktop, .invite-mobile {
-      text-align: left;
-      margin: 20px;
-      padding: 15px;
-      border: 1px solid $transparent;
-      cursor: pointer;
-
-      .description {
-        min-height: 55px;
-        position: relative;
-        padding-right: 70px;
-
-        .text {
-          float: left;
-          em { font-weight: bold; font-style: normal; }
-        }
-
-        .text-details {
-          margin-top: 5px;
-          color: #666;
-        }
-
-        .selected-label {
-          position: absolute;
-          left: 0;
-          top: -25px;
-        }
-      }
-
-      .mobile-image {
-        float: right;
-      }
-
-      &:hover {
-        background-color: $light-gray;
-      }
-
-      &.active {
-        cursor: auto;
-        background-color: $light-gray;
-        border-top: 1px solid #9ec2d5;
-        border-bottom: 1px solid #9ec2d5;
-      }
-    }
-
-    .invite-desktop {
-      .description {
-        background: url(image_path('webconf/desktop.png')) right center no-repeat;
-      }
-      &.active .description .text {
-        margin-top: 15px;
-      }
-    }
-
-    .invite-mobile {
-      .description {
-        background: url(image_path('webconf/mobile.png')) 95% center no-repeat;
-      }
-      &.active .description {
-        background: none;
-        padding: 5px 0 0 0;
-      }
-      &.active .description .text {
-        margin-top: 5px;
-      }
-    }
-  }
-
   #webconf-room-status {
     @include font-size($font-medium);
     text-align: center;
@@ -106,27 +24,11 @@ body.custom_bigbluebutton_rooms.auth {
     }
   }
 
-  #webconf-room-password {
-
-    .room-type {
-      text-align: center;
-      @include font-size($font-medium);
-
-      em {
-        font-style: normal;
-        font-weight: bold;
-      }
-    }
-
+  #webconf-room-join {
     form {
       clear: both;
-      margin: 20px 100px 0 0;
-      width: 60%;
-      float: right;
-
-      input[type=text], input[type=password] {
-        width: 95%;
-      }
+      margin: 0 auto;
+      width: 45%;
 
       input[type=submit] {
         padding-left: 20px;

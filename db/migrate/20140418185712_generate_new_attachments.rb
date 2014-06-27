@@ -6,7 +6,7 @@ class GenerateNewAttachments < ActiveRecord::Migration
     # select all attachments
     # there's no Logo model anymore, so we have to do a raw sql
     att = Attachment.all
-    puts "MoveOldAttachments: found a total of #{att.count} logos"
+    puts "GenerateNewAttachments: found a total of #{att.count} attachments"
 
     thumbnail = 0
     without_target = 0
@@ -24,37 +24,37 @@ class GenerateNewAttachments < ActiveRecord::Migration
         target = a.space
         if target.nil?
           without_target += 1
-          puts "MoveOldAttachments: WARN: Migration found an attachment without a proper owner, it will be lost"
+          puts "GenerateNewAttachments: WARN: Migration found an attachment without a proper owner, it will be lost"
           puts " #{a.inspect}"
         else
           with_target += 1
 
           path = old_path(a)
-          puts "MoveOldAttachments: attachment of space #{target.name} is at #{path}, and exists? #{File.exists?(path)}"
+          puts "GenerateNewAttachments: attachment of space #{target.name} is at \"#{path}\", and exists? #{File.file?(path)}"
 
-          if File.exists?(path)
+          if File.file?(path)
             a.attachment = File.open(path)
             # some models might not be with all their data correct so we have to consider that save can fail
             if a.save
               succeeded += 1
-              puts " attachment generated succesfully!"
+              puts " attachment generated successfully!"
             else
               failed += 1
-              puts " error saving the target: #{a.errors.full_messages}"
+              puts " error saving the attachment: #{a.errors.full_messages}"
             end
           else
             failed += 1
-            puts " the file does not exist! logo will be lost"
+            puts " the file does not exist or is not a file, logo will be lost!"
           end
         end
       end
     end
 
     puts "----------------------------------------------------------------------------------------"
-    puts "MoveOldAttachments: attachments that had a proper associated space: #{with_target}"
+    puts "GenerateNewAttachments: attachments that had a proper associated space: #{with_target}"
     puts " succeeded: #{succeeded}"
     puts " failed: #{failed}"
-    puts "MoveOldAttachments: attachments that did NOT have a proper associated space: #{without_target}"
+    puts "GenerateNewAttachments: attachments that did NOT have a proper associated space: #{without_target}"
     puts "----------------------------------------------------------------------------------------"
   end
 

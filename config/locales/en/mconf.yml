@@ -451,21 +451,11 @@ en:
         hint: "Type to start searching"
         no_results: "No results found"
         searching: "Searching..."
-    invite: 
-      desktop: 
-        not_selected: "Select this options to access from a <em>desktop computer</em>."
-        selected: "Access from a <em>desktop computer</em>."
-      field_name: "Your full name"
-      field_password: "Access key for this room"
-      mobile: 
-        details: "Available for Android devices. You have to install the application <a href=\"%{url}\">Mconf-Mobile</a> to use this option!"
-        details_short: "Available for Android devices only."
-        download: "Click here to download Mconf-Mobile."
-        not_selected: "Select this options to access from a <em>mobile device</em>."
-        selected: "Access from a <em>mobile device</em>."
-      selected: "selected"
-      title: "Join the room: <em>%{name}</em>"
-    invite_header: 
+    invite:
+      field_name: "You are joining as"
+      field_password: "Enter the access key for this meeting"
+      title: "Join room: <em>%{name}</em>"
+    invite_header:
       not_running: "not running"
       refresh: "This information is updated automatically"
       room_type_private: "This is a <em>private</em> web conference room"
@@ -488,10 +478,15 @@ en:
         title: "I don't have an account, I will join this room as a guest"
       title: "Join the room: <em>%{name}</em>"
     join_mobile:
-      direct_link: "<b>Click here</b> to join from a mobile device"
-      scan_code: "Or scan the code below:"
-      sip_number: "To join the voice conference from a SIP client, dial <b>%{number}</b>."
-      title: "Mobile access to %{room}"
+      click_to_download_android: "Click here to download the Android client"
+      click_to_download_ios: "Click here to download the Apple iOS (iPad, iPhone) client"
+      download_android_tip: "Para dispositivos com Android"
+      download_ios_tip: "Para dispositivos com Apple iOS (iPad, iPhone)"
+      not_launched: "If the application was not launched, make sure you have the Android mobile client installed. You can get it from:"
+      notice : "You are being redirected to the conference in your mobile device, please wait."
+      title: "Mobile access to \"%{room}\""
+      use_default_client: "If you are not on a mobile client, click here to join the session using the default desktop client."
+      try_again: "You have the application installed but it wasn't launched? Click here to try again."
     join_options:
       alert_webconf_running: "A meeting is currently in progress in this room. The options you change here will not affect the current meeting, only future meetings in this room!"
       metadata: 
@@ -982,7 +977,6 @@ en:
       join: "Join the meeting!"
       join_mobile_full: "Join from a mobile device"
       not_running: "Your webconference is not in progress."
-      options: "Options"
       preferences: "Preferences"
       recordings: "View recordings"
       running_with:
@@ -1493,7 +1487,7 @@ en:
       upcoming_events: "Upcoming events"
       webconference:
         attendees:
-          nobody: "There is nobody currently in the room."
+          nobody: "There is no meeting running."
         currently_running:
           one: "The webconference is currently in progress with %{count} participant"
           other: "The webconference is currently in progress with %{count} participants"
@@ -1507,7 +1501,6 @@ en:
       join: "Join now!"
       join_mobile: "Join/mobile"
       join_mobile_full: "Join from a mobile device"
-      options: "Options"
       preferences: "Preferences"
       start: "Start"
     space_thumbnail:

@@ -43,14 +43,16 @@ gem 'public_activity'
 # Authentication and authorization
 gem 'devise'
 gem 'devise-encryptable' # TODO: only while we have old station users
-gem 'cancan', '~> 1.6.0'
+gem 'cancancan', '~> 1.8'
 gem 'net-ldap'
 
 # BigBlueButton integration
 gem 'bigbluebutton-api-ruby', :git => 'git://github.com/mconf/bigbluebutton-api-ruby.git', :branch => 'master'
 gem 'bigbluebutton_rails', :git => 'git://github.com/mconf/bigbluebutton_rails.git', :branch => 'master'
-gem 'strong_parameters' # for bigbluebutton_rails
-gem 'resque' # for bigbluebutton_rails
+# The gems below are for bigbluebutton_rails
+gem 'strong_parameters'
+gem 'resque'
+gem 'browser'
 
 # Used on Profile to generate a vcard
 gem 'vpim' # TODO: very old, last update on 2009
@@ -117,5 +119,5 @@ group :development, :test do
   gem 'shoulda-matchers'
   gem 'htmlentities'
   gem 'turn', '0.8.2', :require => false # TODO: why 0.8.2?
-  gem 'simplecov'
+  gem 'simplecov', :require => false
 end
