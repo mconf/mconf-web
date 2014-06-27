@@ -48,11 +48,13 @@ module Abilities
 
       # Users
       # Disabled users are only visible to superusers
-      can [:index, :read, :fellows, :current, :select], User, :disabled => false
+      can [:read, :fellows, :current, :select], User, :disabled => false
       can [:edit, :update, :destroy], User, :id => user.id, :disabled => false
 
       # User profiles
       # Visible according to options selected by the user, editable by their owners
+      # Note: For the private profile only, the public profile is always visible.
+      #   Check for public profile with `can?(:show, user)` instead of `can?(:show, user.profile)`.
       can :read, Profile do |profile|
         case profile.visibility
         when Profile::VISIBILITY.index(:everybody)
@@ -86,7 +88,8 @@ module Abilities
       end
       # Only the admin can disable or update information on a space
       # Only global admins can destroy spaces
-      can [:edit, :update, :user_permissions, :webconference_options, :disable], Space do |space|
+      can [:edit, :update, :user_permissions, :webconference_options,
+           :disable, :edit_recording], Space do |space|
         space.admins.include?(user)
       end
 
@@ -371,6 +374,8 @@ module Abilities
     def register_abilities(user=nil)
       abilities_for_bigbluebutton_rails(user)
 
+      # Note: For the private profile only, the public profile is always visible.
+      #   Check for public profile with `can?(:show, user)` instead of `can?(:show, user.profile)`.
       can :read, Profile do |profile|
         case profile.visibility
         when Profile::VISIBILITY.index(:everybody)
@@ -379,6 +384,7 @@ module Abilities
           false
         end
       end
+
       can [:read, :current], User, :disabled => false
       can [:read, :webconference, :recordings], Space, :public => true
       can :select, Space

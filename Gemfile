@@ -43,7 +43,7 @@ gem 'public_activity'
 # Authentication and authorization
 gem 'devise'
 gem 'devise-encryptable' # TODO: only while we have old station users
-gem 'cancan', '~> 1.6.0'
+gem 'cancancan', '~> 1.8'
 gem 'net-ldap'
 
 # BigBlueButton integration
@@ -120,5 +120,5 @@ group :development, :test do
   gem 'shoulda-matchers'
   gem 'htmlentities'
   gem 'turn', '0.8.2', :require => false # TODO: why 0.8.2?
-  gem 'simplecov'
+  gem 'simplecov', :require => false
 end
