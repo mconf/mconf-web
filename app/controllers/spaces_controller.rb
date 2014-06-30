@@ -23,6 +23,7 @@ class SpacesController < ApplicationController
 
   # TODO: cleanup the other actions adding respond_to blocks here
   respond_to :js, :only => [:index, :show]
+  respond_to :json, :only => [:update_logo]
   respond_to :html, :only => [:new, :edit, :index, :show]
 
   # User trying to access a space not owned or joined by him
@@ -133,7 +134,6 @@ class SpacesController < ApplicationController
   end
 
   def update_logo
-    @space = Space.find_by_permalink(params[:space_id])
     @space.logo_image = params[:uploaded_file]
 
     if @space.save
