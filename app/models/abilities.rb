@@ -67,7 +67,7 @@ module Abilities
           false
         end
       end
-      can [:read, :edit, :update], Profile, :user_id => user.id
+      can [:read, :edit, :update, :update_logo], Profile, :user_id => user.id
 
       # Private messages
       can :create, PrivateMessage
