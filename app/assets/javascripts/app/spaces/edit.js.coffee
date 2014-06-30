@@ -3,20 +3,16 @@ $ ->
     updatePasswords($('input#space_public').is(':checked'))
     $('input#space_public').on 'click', -> updatePasswords($(this).is(':checked'))
 
-  uploader_callbacks =
-    onComplete: (id, name, response) ->
-      if response.success
+    uploader_callbacks =
+      onComplete: (id, name, response) ->
+        if response.success
+          $.get response.redirect_url, (data) ->
+            # show the modal
+            mconf.Modal.showWindow
+              data: data
+            mconf.Crop.bindCrop()
 
-        # Hide these elements on successs
-        $('.progress').hide()
-
-        $.get response.redirect_url, (data) ->
-          # show the modal
-          mconf.Modal.showWindow
-            data: data
-          mconf.Crop.bindCrop()
-
-  mconf.Uploader.bindAll(uploader_callbacks)
+    mconf.Uploader.bindAll(uploader_callbacks)
 
 
 updatePasswords = (checked) ->

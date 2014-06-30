@@ -4,6 +4,17 @@ class mconf.Uploader
 
   @bindAll: (callbacks) ->
     element = $('.file-uploader')
+
+    # Add some behavior to the onComplete callback
+    callbacks ?= {}
+    onComplete = callbacks.onComplete
+    callbacks.onComplete = (id, name, response) ->
+      if response.success
+        # Hide these elements on successs
+        $('.progress').hide()
+
+      onComplete?(id, name, response)
+
     uploader = new qq.FineUploader
       element: element[0]
       request:
@@ -27,6 +38,13 @@ class mconf.Uploader
       # No drag and drop
       dragAndDrop:
         disableDefaultDropzone: true
+
+      text:
+        uploadButton: I18n.t("uploader.button")
+        cancelButton: I18n.t('_other.cancel')
+        failUpload: I18n.t("uploader.fail")
+        formatProgress: I18n.t("uploader.progress")
+        waitingForResponse: I18n.t("uploader.processing")
 
       template: '<div class="qq-uploader">' +
         '<div class="upload-button btn btn-primary">{uploadButtonText}</div>' +

@@ -1718,6 +1718,11 @@ pt-br:
       title: "Editar sua conta"
       yes_cancel_account: "Sim, cancelar minha conta"
   username: "Nome de usuário"
+  uploader:
+    button: Enviar novo arquivo
+    fail: Falha ao enviar
+    progress: "{percent}% de {total_size}"
+    processing: Processando...
   vCard:
     corrupt: "O vCard que você enviou está corrompido ou é uma versão não suportada"
     message: "Use seu vCard para preencher automaticamente seu perfil"
