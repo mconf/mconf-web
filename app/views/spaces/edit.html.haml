@@ -8,9 +8,8 @@
   .right-column
     #edit-space-current-logo
       = logo_image(@space, :size => '168x128', :class => 'logo')
-    = simple_form_for @space, :html => { :multipart => true, :class => 'form-for-crop', :'data-crop-target-image' => '#edit-space-current-logo' } do |f|
-      = link_to t('.change_logo'), '#space_logo_image', :'data-open-file' => true
-      = f.input :logo_image, :as => :file, :id => 'space_logo_image', :input_html => {:accept => 'image/*'}
+
+      #space-logo-uploader.file-uploader{:'data-endpoint' => space_update_logo_path(@space), :'data-accept' => 'image/*', :'data-max-size' => '5 mb' }
 
   = simple_form_for @space, :html => { :method => :put, :class => 'single-column' } do |f|
     .left-column

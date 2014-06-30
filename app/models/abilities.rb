@@ -86,7 +86,7 @@ module Abilities
       end
       # Only the admin can disable or update information on a space
       # Only global admins can destroy spaces
-      can [:edit, :update, :user_permissions, :webconference_options, :disable], Space do |space|
+      can [:edit, :update, :update_logo, :user_permissions, :webconference_options, :disable], Space do |space|
         space.admins.include?(user)
       end
 

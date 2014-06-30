@@ -44,6 +44,8 @@
 //       can be easily replaced by standard jquery methods.
 //= require jquery/jquery.livequery
 
+//= require fineuploader
+
 // 'base' HAS to be the first one included
 //= require ./app/application/base
 //= require_tree ./templates

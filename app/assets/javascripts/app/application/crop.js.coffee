@@ -38,6 +38,32 @@ class mconf.Crop
             data: data
             element: selectFileForm
 
+  @bindCrop: ->
+    cropForm = $("#crop-modal form")
+    cropModal = $("#crop-modal")
+
+    # mconf.Crop.disableCrop(cropModal)
+    enableCropInImages(cropModal)
+
+  @disableCrop: (cropModal) ->
+    api = $('img.cropable').data('Jcrop')
+    api.destroy() if api?
+
+  # Enables the crop in all 'cropable' elements in the document
+  @enableCropInImages: (cropModal) ->
+    $("img.cropable", cropModal).each ->
+      image = this
+      $(image).Jcrop
+        aspectRatio: $(image).attr('data-crop-aspect-ratio')
+        minSize: [100, 100]
+        setSelect: [0, 0, 350, 350]
+        boxHeight: 350
+        trueSize: [$(image).attr('data-original-width'), $(image).attr('data-original-height')]
+        onSelect: (coords) -> update(cropModal, image, coords)
+        onChange: (coords) -> update(cropModal, image, coords)
+
+      $('.preview').show()
+
 # Enables the crop in all 'cropable' elements in the document
 enableCropInImages = (cropModal) ->
   $("img.cropable", cropModal).each ->

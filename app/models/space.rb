@@ -83,6 +83,7 @@ class Space < ActiveRecord::Base
   # attrs and methods for space logos
   attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
   mount_uploader :logo_image, LogoImageUploader
+  attr_accessible :logo_image, :crop_x, :crop_y, :crop_w, :crop_h
   after_create :crop_logo
   after_update :crop_logo
 

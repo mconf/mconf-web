@@ -70,6 +70,8 @@ Mconf::Application.routes.draw do
       get :select
     end
 
+    post :update_logo
+
     member do
       post :enable
       delete :disable
