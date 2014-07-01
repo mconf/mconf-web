@@ -40,6 +40,7 @@ describe Profile do
           before { target.visibility = Profile::VISIBILITY.index(visibility) }
           it { should be_able_to(:read, target) }
           it { should be_able_to(:update, target) }
+          it { should be_able_to(:update_logo, target) }
         end
       end
     end
