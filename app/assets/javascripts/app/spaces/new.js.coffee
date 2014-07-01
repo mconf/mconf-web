@@ -7,5 +7,5 @@ class mconf.NewSpaceForm
       $permalink.attr "value", mconf.Base.stringToSlug($name.val())
 
 $ ->
-  if isOnPage 'spaces', 'new'
+  if isOnPage 'spaces', 'new|create'
     mconf.NewSpaceForm.setup()

@@ -45,60 +45,42 @@ module Mconf
     # Returns whether the basic information needed for a user to login is present
     # in the session or not.
     def has_basic_info
-      @session[ENV_KEY] && get_email() && get_name() && get_principal_name()
+      @session[ENV_KEY] && get_email && get_name && get_principal_name
+    end
+
+    def get_field field
+      result = nil
+      if @session.has_key?(ENV_KEY)
+        result = @session[ENV_KEY][field]
+        result = result.clone unless result.nil?
+      end
+      result
     end
 
     # Returns the email stored in the session, if any.
     def get_email
-      result = nil
-      if @session.has_key?(ENV_KEY)
-        result = @session[ENV_KEY][Site.current.shib_email_field]
-        result = result.clone unless result.nil?
-      end
-      result
+      get_field Site.current.shib_email_field
     end
 
     # Returns the name of the user stored in the session, if any.
     def get_name
-      result = nil
-      if @session.has_key?(ENV_KEY)
-        result = @session[ENV_KEY][Site.current.shib_name_field]
-        result = result.clone unless result.nil?
-      end
-      result
+      get_field Site.current.shib_name_field
     end
 
     # Returns the "principalName" attribute, that represents the user's unique identifier in
     # the federation.
     def get_principal_name
-      result = nil
-      if @session.has_key?(ENV_KEY)
-        result = @session[ENV_KEY][Site.current.shib_principal_name_field]
-        result = result.clone unless result.nil?
-      end
-      result
+      get_field Site.current.shib_principal_name_field
     end
 
     # Returns the login of the user stored in the session, if any.
     def get_login
-      result = nil
-      if @session.has_key?(ENV_KEY)
-        result   = @session[ENV_KEY][Site.current.shib_login_field]
-        result ||= get_name # uses the name by default
-        result = result.clone unless result.nil?
-      end
-      result
+      get_field(Site.current.shib_login_field) || get_name # uses the name by default
     end
 
     # Returns the shibboleth provider of the user stored in the session, if any.
     def get_identity_provider
-      result = nil
-      if @session.has_key?(ENV_KEY)
-        # TODO: is this really the key normally used for the identity provider
-        result = @session[ENV_KEY]['Shib-Identity-Provider']
-        result = result.clone unless result.nil?
-      end
-      result
+      get_field 'Shib-Identity-Provider'
     end
 
     # Returns all the shibboleth data stored in the session.

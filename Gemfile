@@ -43,7 +43,7 @@ gem 'public_activity'
 # Authentication and authorization
 gem 'devise'
 gem 'devise-encryptable' # TODO: only while we have old station users
-gem 'cancan', '~> 1.6.0'
+gem 'cancancan', '~> 1.8'
 gem 'net-ldap'
 
 # BigBlueButton integration
@@ -102,7 +102,6 @@ gem 'fineuploader-rails', '~> 3.3'
 
 group :development do
   gem 'translate-rails3', :require => 'translate', :git => 'git://github.com/mconf/translate.git'
-  gem 'spork-rails'
   gem 'rails-footnotes'
 
   # to show better error pages, with more information
@@ -122,5 +121,5 @@ group :development, :test do
   gem 'shoulda-matchers'
   gem 'htmlentities'
   gem 'turn', '0.8.2', :require => false # TODO: why 0.8.2?
-  gem 'simplecov'
+  gem 'simplecov', :require => false
 end

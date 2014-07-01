@@ -7,7 +7,7 @@
 class NewsController < ApplicationController
 
   load_and_authorize_resource :space, :find_by => :permalink
-  load_and_authorize_resource :through => :space
+  load_and_authorize_resource :through => :space, :instance_name => 'news'
 
   before_filter :webconf_room!, :only => [:index]
 
@@ -18,15 +18,12 @@ class NewsController < ApplicationController
   def create
     @news = @space.news.build(params[:news])
 
-    respond_to do |format|
-      if @news.save
-        flash[:success] = t('news.created')
-        format.html { redirect_to request.referer }
-      else
-        flash[:error] = t('news.error.create')
-        format.html { redirect_to request.referer }
-      end
+    if @news.save
+      flash[:success] = t('news.created')
+    else
+      flash[:error] = t('news.error.create')
     end
+    redirect_to request.referer
   end
 
   def index
@@ -36,62 +33,33 @@ class NewsController < ApplicationController
     render :layout => 'spaces_show'
   end
 
-  def show
-    @news = @space.news.find(params[:id])
+  def new
+    render :layout => false if request.xhr?
+  end
 
-    respond_to do |format|
-      format.html {}
-    end
+  def show
   end
 
   def destroy
-    news = @space.news.find(params[:id])
-
-    if news.destroy
-
-      respond_to do |format|
-        format.html {
-          flash[:success] = t('news.deleted')
-          redirect_to request.referer
-        }
-      end
+    if @news.destroy
+      flash[:success] = t('news.deleted')
     else
       flash[:error] = t('news.error.delete')
-      redirect_to request.referer
     end
+    redirect_to request.referer
   end
 
   def edit
-    @news = @space.news.find(params[:id])
-    respond_to do |format|
-      format.html {
-        render :layout => false if request.xhr?
-      }
-    end
+    render :layout => false if request.xhr?
   end
 
   def update
-    @news = @space.news.find(params[:id])
-
     if @news.update_attributes(params[:news])
-      respond_to do |format|
-        format.html {
-          flash[:success] = t('news.updated')
-          redirect_to space_news_index_path(@space)
-        }
-      end
+      flash[:success] = t('news.updated')
     else
       flash[:error] = t('news.error.update')
-      redirect_to space_news_index_path(@space)
     end
-  end
-
-  def new
-      respond_to do |format|
-        format.html {
-          render :layout => false if request.xhr?
-        }
-      end
+    redirect_to space_news_index_path(@space)
   end
 
 end

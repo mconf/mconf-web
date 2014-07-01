@@ -20,18 +20,32 @@ body.custom_bigbluebutton_rooms.join_mobile {
     padding-top: 20px;
     padding-bottom: 20px;
 
-    .download-block {
+    .download-images {
       margin: 20px 0;
 
       .download-image {
-        margin-top: 10px;
+        margin: 0 20px;
         text-align: center;
+        display: inline-block;
+
+        .tip {
+          border: 1px solid $gray;
+          padding: 3px 5px;
+          @include border-radius(5px);
+          background: $light-gray;
+          max-width: 150px;
+          margin: 10px auto;
+        }
       }
     }
 
-    .additional-option {
-      margin: 10px 0;
-      clear: both;
+    .additional-options {
+      margin: 50px 0 0 0;
+
+      .additional-option {
+        margin: 10px 0;
+        clear: both;
+      }
     }
   }
 

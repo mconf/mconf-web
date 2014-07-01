@@ -48,11 +48,13 @@ module Abilities
 
       # Users
       # Disabled users are only visible to superusers
-      can [:index, :read, :fellows, :current, :select], User, :disabled => false
+      can [:read, :fellows, :current, :select], User, :disabled => false
       can [:edit, :update, :destroy], User, :id => user.id, :disabled => false
 
       # User profiles
       # Visible according to options selected by the user, editable by their owners
+      # Note: For the private profile only, the public profile is always visible.
+      #   Check for public profile with `can?(:show, user)` instead of `can?(:show, user.profile)`.
       can :read, Profile do |profile|
         case profile.visibility
         when Profile::VISIBILITY.index(:everybody)
@@ -86,7 +88,8 @@ module Abilities
       end
       # Only the admin can disable or update information on a space
       # Only global admins can destroy spaces
-      can [:edit, :update, :update_logo, :user_permissions, :webconference_options, :disable], Space do |space|
+      can [:edit, :update, :update_logo, :user_permissions,
+        :webconference_options, :disable, :edit_recording], Space do |space|
         space.admins.include?(user)
       end
 
@@ -142,17 +145,16 @@ module Abilities
 
       # Attachments
       can :manage, Attachment do |attach|
-        attach.space.repository? && attach.space.admins.include?(user)
+        attach.space.admins.include?(user)
       end
       can [:read, :create], Attachment do |attach|
-        attach.space.repository? && attach.space.users.include?(user)
+        attach.space.users.include?(user)
       end
       can [:destroy], Attachment do |attach|
-        attach.space.repository? &&
-          attach.space.users.include?(user) &&
-          attach.author_id == user.id
+        attach.space.users.include?(user) &&
+        attach.author_id == user.id
       end
-      can :read, Attachment, :space => { :public => true, :repository => true }
+      can :read, Attachment, :space => { :public => true }
 
       # Permissions
       # Only space admins can update user roles/permissions
@@ -254,7 +256,7 @@ module Abilities
       # some actions in rooms should be accessible to any logged user
       # some of them will do the authorization themselves (e.g. permissions for :join
       # will change depending on the user and the target room)
-      can [:invite, :invite_userid, :auth, :running, :join, :join_mobile], BigbluebuttonRoom
+      can [:invite, :invite_userid, :running, :join, :join_mobile], BigbluebuttonRoom
 
       # a user can play recordings of his own room or recordings of
       # rooms of either public spaces or spaces he's a member of
@@ -371,6 +373,8 @@ module Abilities
     def register_abilities(user=nil)
       abilities_for_bigbluebutton_rails(user)
 
+      # Note: For the private profile only, the public profile is always visible.
+      #   Check for public profile with `can?(:show, user)` instead of `can?(:show, user.profile)`.
       can :read, Profile do |profile|
         case profile.visibility
         when Profile::VISIBILITY.index(:everybody)
@@ -379,6 +383,7 @@ module Abilities
           false
         end
       end
+
       can [:read, :current], User, :disabled => false
       can [:read, :webconference, :recordings], Space, :public => true
       can :select, Space
@@ -411,7 +416,7 @@ module Abilities
       end
 
       # some actions in rooms should be accessible to anyone
-      can [:invite, :invite_userid, :auth, :running], BigbluebuttonRoom do |room|
+      can [:invite, :invite_userid, :join, :join_mobile, :running], BigbluebuttonRoom do |room|
         # filters invalid rooms only
         room.owner_type == "User" || room.owner_type == "Space"
       end
