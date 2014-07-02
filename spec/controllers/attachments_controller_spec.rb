@@ -9,7 +9,7 @@ require "spec_helper"
 describe AttachmentsController do
   render_views
 
-  describe "cant access if document repository is false" do
+  describe "can't access if document repository is false" do
     let(:space) { FactoryGirl.create(:space, :repository => false) }
     let(:user) { FactoryGirl.create(:superuser) }
     let(:attachment) { FactoryGirl.create(:attachment, :space => space) }
@@ -20,6 +20,12 @@ describe AttachmentsController do
         controller.should_not_receive(:index)
         get :index, :space_id => space.to_param
       }
+      it { should redirect_to space_path(space) }
+      it { should set_the_flash.to(I18n.t('attachment.repository_disabled')) }
+    end
+
+    context "show" do
+      before(:each) { get :show, :id => attachment.id, :space_id => space.to_param }
       it { should redirect_to space_path(space) }
       it { should set_the_flash.to(I18n.t('attachment.repository_disabled')) }
     end
@@ -69,6 +75,19 @@ describe AttachmentsController do
   end
 
   describe "#index.zip"
+
+  describe "#show" do
+    let(:space) { FactoryGirl.create(:space, :repository => true) }
+    let(:attachment) { FactoryGirl.create(:attachment, :space => space) }
+    let(:user) { FactoryGirl.create(:superuser) }
+    before(:each) { sign_in(user) }
+
+    before { controller.stub(:render) }
+    it {
+      controller.should_receive(:send_file).with(attachment.full_filename)
+      get :show, :id => attachment.id, :space_id => space.to_param
+    }
+  end
 
   describe "#new" do
     let(:space) { FactoryGirl.create(:space, :repository => true) }

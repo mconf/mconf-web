@@ -103,7 +103,7 @@ Mconf::Application.routes.draw do
       end
     end
 
-    resources :attachments, :except => [:edit, :update, :show]
+    resources :attachments, :except => [:edit, :update]
     delete 'attachments', :to => 'attachments#delete_collection', :as => 'attachments'
   end
 
