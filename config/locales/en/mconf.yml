@@ -1726,6 +1726,7 @@ en:
     button: Upload new file
     fail: Upload error
     progress: "{percent}% of {total_size}"
+    drag_files: Drag and drop files here to upload
     processing: Processing...
   vCard: 
     corrupt: "The vCard you sent is corrupted or is a non-supported version"

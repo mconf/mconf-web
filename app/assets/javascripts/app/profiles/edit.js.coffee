@@ -10,4 +10,5 @@ $ ->
               data: data
             mconf.Crop.bindCrop()
 
-    mconf.Uploader.bindAll(uploader_callbacks)
+    mconf.Uploader.bindAll
+      callbacks: uploader_callbacks

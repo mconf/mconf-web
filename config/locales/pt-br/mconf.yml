@@ -1726,6 +1726,7 @@ pt-br:
     button: Enviar novo arquivo
     fail: Falha ao enviar
     progress: "{percent}% de {total_size}"
+    drag_files: Arraste aqui arquivos para enviar
     processing: Processando...
   vCard:
     corrupt: "O vCard que você enviou está corrompido ou é uma versão não suportada"

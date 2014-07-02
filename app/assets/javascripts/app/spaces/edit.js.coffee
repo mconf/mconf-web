@@ -12,8 +12,8 @@ $ ->
               data: data
             mconf.Crop.bindCrop()
 
-    mconf.Uploader.bindAll(uploader_callbacks)
-
+    mconf.Uploader.bindAll
+      callbacks: uploader_callbacks
 
 updatePasswords = (checked) ->
   $('#space_bigbluebutton_room_attributes_attendee_password').prop('disabled', checked)
