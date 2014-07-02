@@ -1349,7 +1349,6 @@ en:
     join_invitation: 
       clarify_registered: "Please introduce password in order to join this space."
       clarify_unregistered: "Please introduce your full name and a password in order to register onto the Mconf and join this space."
-    join_pending: "Join request being processed"
     leave: 
       leave_this_space: "Leave this space"
       success: "You left the space %{space_name}"
@@ -1503,6 +1502,12 @@ en:
       join_mobile_full: "Join from a mobile device"
       preferences: "Preferences"
       start: "Start"
+    space_join_button:
+      accept_or_decline: "Accept or decline"
+      already_requested: "Join request sent"
+      already_requested_alert: "You already requested to join this space, please wait for a moderator to accept you"
+      invitation_alert: "You have been invited to join this space, click the button above to accept or decline the invitation"
+      join: "Join this space"
     space_thumbnail:
       private: "Private"
       public: "Public"
