@@ -29,8 +29,7 @@ describe Notifier do
         @posts = [ FactoryGirl.create(:post, :space => space, :updated_at => date_start) ]
         @news = [ FactoryGirl.create(:news, :space => space, :updated_at => date_start) ]
         @attachments = [ FactoryGirl.create(:attachment, :space => space, :updated_at => date_start) ]
-        @events = [ FactoryGirl.create(:event, :space => space, :start_date => date_start,
-                                     :end_date => date_start + 1.hour, :author => user) ]
+        @events = [ FactoryGirl.create(:event, :owner => space, :start_on => date_start, :end_on => date_start + 1.hour) ]
         @inbox = [ FactoryGirl.create(:private_message, :receiver => user, :sender => FactoryGirl.create(:user)) ]
         Notifier.digest_email(user.id, @posts, @news, @attachments, @events, @inbox).deliver
       end

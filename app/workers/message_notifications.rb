@@ -14,7 +14,7 @@ class MessageNotifications
 
       # still missing digest logic
       if notification == User::NOTIFICATION_VIA_EMAIL
-        Resque.logger "Sending email to #{receiver.email}. Message from #{sender_name}."
+        Resque.logger "Sending email to #{receiver.email}. Message from #{sender_name}.\n"
         # actually send email
       end # else there's no need to notify via email
 

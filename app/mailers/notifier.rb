@@ -21,11 +21,11 @@ class Notifier < ApplicationMailer
   def digest_email(receiver_id, posts, news, attachments, events, inbox)
     receiver = User.find(receiver_id)
     I18n.with_locale(get_user_locale(receiver,false)) do
-      @posts = Post.find(posts.map { |x| x["id"] })
-      @news = News.find(news.map { |x| x["id"] })
-      @attachments = Attachment.find(attachments.map { |x| x["id"] })
-      @events = Event.find(events.map { |x| x["id"] })
-      @inbox = PrivateMessage.find(inbox.map { |x| x["id"] })
+      @posts = Post.find(posts)
+      @news = News.find(news)
+      @attachments = Attachment.find(attachments)
+      @events = MwebEvents::Event.where(:id => events)
+      @inbox = PrivateMessage.find(inbox)
       @locale = receiver.locale
       if receiver.receive_digest == User::RECEIVE_DIGEST_DAILY
         @type = t('email.digest.type.daily', :locale => @locale)

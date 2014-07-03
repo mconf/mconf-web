@@ -16,9 +16,9 @@ en:
       message:
         header:
           accepted: "The administrator of %{space} has accepted your join request."
-          accepted: "The administrator of %{space} has not accepted your join request."
+          rejected: "The administrator of %{space} has not accepted your join request."
         link:
-          accepted: "You are now a member of %{space} and now you can access it on <a href=\"%{space_url}\"> %{space_url} </a>"
+          accepted: "You are now a member of %{space} and you can access it on <a href=\"%{space_url}\"> %{space_url} </a>"
           rejected: "If you would like to request membership again please go to <a href=\"%{space_url}\"> %{space} </a>"
       rejected: "not accepted"
       subject: "Your admission in %{space} was %{action}"

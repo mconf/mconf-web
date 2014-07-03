@@ -16,7 +16,7 @@ class JoinRequestNotifications
       user = invite.candidate
 
       if user.notification == User::NOTIFICATION_VIA_EMAIL
-        Resque.logger << "Sending invite notification to #{user.email}."
+        Resque.logger << "Sending invite notification to #{user.email}.\n"
         SpaceMailer.invitation_email(invite.id).deliver
       else
         # notify via website
@@ -37,7 +37,7 @@ class JoinRequestNotifications
       # notify each space admin
       space.admins.each do |admin|
         if admin.notification == User::NOTIFICATION_VIA_EMAIL
-          Resque.logger << "Sending request notification to admin #{admin.email}."
+          Resque.logger << "Sending request notification to admin #{admin.email}.\n"
           SpaceMailer.join_request_email(activity.trackable.id, admin.id).deliver
         else
           # notify via the website

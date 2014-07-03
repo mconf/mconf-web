@@ -12,6 +12,8 @@ class WebConferenceMailer < ApplicationMailer
   # this email in `to`.
   def invitation_mail(invitation, to)
 
+    to = (u = User.find_by_email(to)) ? u : to
+
     # Converting a received string hash into a Mconf Invitation
     @invitation = Mconf::Invitation.new
     @invitation.title = invitation["title"]

@@ -48,7 +48,7 @@ module Mconf
 
       if user.is_a?(User)
         if user.notify_via_email?
-          WebConferenceMailer.invitation_mail(self, user).deliver
+          WebConferenceMailer.invitation_mail(self, user.email).deliver
         end
         if user.notify_via_private_message?
           result = send_private_message(user)

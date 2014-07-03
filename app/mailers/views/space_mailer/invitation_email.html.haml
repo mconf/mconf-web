@@ -6,4 +6,4 @@
     .invite-message= @invitation.comment
 
   .link
-    = t('.message.link', :url => space_join_request_url(@invitation.group, @invitation.id, :host => Site.current.domain), :space_url => space_url(@space)).html_safe
+    = t('.message.link', :url => space_join_request_url(@invitation.group, @invitation.id, :host => Site.current.domain), :space_url => space_url(@space)).html_safe # Wrong link for invitation

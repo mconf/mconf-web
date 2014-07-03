@@ -38,21 +38,21 @@ module Mconf
         where('space_id IN (?)', user_spaces).
         where("updated_at >= ?", date_start).
         where("updated_at <= ?", date_end).
-        order('updated_at desc')
+        order('updated_at desc').map { |x| x.id }
 
       # Recent news in the user's spaces
       news = News.
         where('space_id IN (?)', user_spaces).
         where("updated_at >= ?", date_start).
         where("updated_at <= ?", date_end).
-        order('updated_at desc')
+        order('updated_at desc').map { |x| x.id }
 
       # Recent attachments in the user's spaces
       attachments = Attachment.
         where('space_id IN (?)', user_spaces).
         where("updated_at >= ?", date_start).
         where("updated_at <= ?", date_end).
-        order('updated_at desc')
+        order('updated_at desc').map { |x| x.id }
 
       # Events that started or finished in the period
       # TODO: review and improve this with MwebEvents
@@ -60,7 +60,7 @@ module Mconf
         events = MwebEvents::Event.
           where(:owner_id => user_spaces, :owner_type => "Space").
           within(date_start, date_end).
-          order('updated_at desc')
+          order('updated_at desc').map { |x| x.id }
       else
         events = []
       end

@@ -7,6 +7,7 @@ class ProcessedJoinRequestNotifications
   end
 
   # Notifies the user when his membership requests are accepted
+  # ONLY FOR JOIN REQUESTS YET
   def self.processed_request_notifications
     requests = RecentActivity.where :trackable_type => 'Space', :key => 'space.join', :notified => [nil,false]
 
