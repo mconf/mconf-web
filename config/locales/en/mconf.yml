@@ -1445,6 +1445,7 @@ en:
     edit_recording:
       title: "Edit your recording"
     error:
+      already_invited: "You were already invited to join this space, please accept or decline the invitation"
       need_join_to_access: "You need to join this space to access it. Send a join request to the administrators."
     index: 
       create_new_space: "Create a new space"
