@@ -800,6 +800,7 @@ en:
         no_results: "No results found"
         searching: "Searching..."
     new:
+      already_invited: "You already have an invitation to join this space! Go to the space's home page to see it"
       already_requested: "You already requested to join this space! Please wait for an administrator to accept it."
       message_title: "Send a join request to the administrators of the space"
     update:

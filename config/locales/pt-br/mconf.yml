@@ -800,6 +800,7 @@ pt-br:
         no_results: "Nenhum resultado encontrado"
         searching: "Procurando..."
     new:
+      already_invited: "Você já possui um convite para entrar nesta comunidade! Vá para a página inicial da comunidade para acessá-lo."
       already_requested: "Você já requisitou ingresso nesta comunidade! Por favor espere que um administrador aceite o pedido."
       message_title: "Envie um pedido de adesão aos administradores da comunidade"
     update:
