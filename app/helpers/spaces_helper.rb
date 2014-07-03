@@ -28,11 +28,11 @@ module SpacesHelper
   #   goes to the page to accept/decline the invitation.
   # * If the user is already a member of the space, returns nil.
   def space_join_button(space, options={})
-    options[:class] += " btn btn-large btn-block"
+    options[:class] = "#{options[:class]} btn btn-large btn-block"
 
     # no user logged, renders a register button
     if !user_signed_in?
-      options[:class] += " btn-success"
+      options[:class] = "#{options[:class]} btn-success"
       if Site.current.registration_enabled?
         link_to t('_other.register'), register_path, options
       else
@@ -41,8 +41,7 @@ module SpacesHelper
 
     # the user already requested to join the space
     elsif space.pending_join_request_for?(current_user)
-      options[:class] += " btn-success disabled tooltipped"
-      #options[:title] = t("spaces.space_join_button.already_requested")
+      options[:class] = "#{options[:class]} btn-success disabled"
       span = content_tag(:span, t('spaces.space_join_button.already_requested'), options)
       alert = content_tag :div, t("spaces.space_join_button.already_requested_alert"), :class => "alert alert-success"
       span + alert
@@ -50,7 +49,7 @@ module SpacesHelper
     # the user was already invited to join the space
     elsif space.pending_invitation_for?(current_user)
       invitation = space.pending_invitation_for(current_user)
-      options[:class] += " btn-success"
+      options[:class] = "#{options[:class]} btn-success"
       icon = content_tag :i, "", :class => "icon-exclamation-sign"
       link = link_to icon + " " + t('spaces.space_join_button.accept_or_decline'), space_join_request_path(space, invitation), options
       alert = content_tag :div, t("spaces.space_join_button.invitation_alert"), :class => "alert alert-success"
@@ -58,7 +57,7 @@ module SpacesHelper
 
     # a user is logged and he's not in the space
     elsif !space.users.include?(current_user)
-      options[:class] += " btn-success"
+      options[:class] = "#{options[:class]} btn-success"
       link_to t('spaces.space_join_button.join'), new_space_join_request_path(space), options
     end
 
