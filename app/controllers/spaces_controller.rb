@@ -107,9 +107,6 @@ class SpacesController < ApplicationController
     # users
     @latest_users = @space.users.order("permissions.created_at DESC").first(3)
 
-    # role of the current user
-    @permission = Permission.where(:user_id => current_user, :subject_id => @space, :subject_type => 'Space').first
-
     respond_to do |format|
       format.html { render :layout => 'spaces_show' }
       format.js {

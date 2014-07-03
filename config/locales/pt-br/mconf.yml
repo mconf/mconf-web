@@ -70,6 +70,7 @@ pt-br:
       other: "%{count} participantes"
     publish: "Publicar"
     upload: "Enviar"
+    register: "Registrar"
     register_to_view_space: "Crie uma conta para visualizar e participar desta comunidade"
     save: "Salvar"
     send: "Enviar"
@@ -1494,6 +1495,10 @@ pt-br:
           other: "A conferência está ativa com %{count} participantes"
       webconference_join: "Entrar"
       webconference_start: "Iniciar"
+    sidebar_notifications:
+      pending_join_requests:
+        one: "Esta comunidade tem %{count} pedido de ingresso pendente!"
+        other: "Esta comunidade tem %{count} pedidos de ingresso pendentes!"
     sidebar_webconf_buttons:
       end: "Finalizar"
       end_tooltip: "Esta ação vai finalizar a reunião em andamento!"

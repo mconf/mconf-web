@@ -69,6 +69,7 @@ en:
       one: "%{count} participant"
       other: "%{count} participants"
     publish: "Publish"
+    register: "Register"
     register_to_view_space: "Create an account to be able to join and access this space"
     save: "Save"
     send: "Send"
@@ -1494,6 +1495,10 @@ en:
           other: "The webconference is currently in progress with %{count} participants"
       webconference_join: "Join it"
       webconference_start: "Start it"
+    sidebar_notifications:
+      pending_join_requests:
+        one: "This space has %{count} pending join request!"
+        other: "This space has %{count} pending join requests!"
     sidebar_webconf_buttons:
       end: "Stop it"
       end_tooltip: "This action will end the current conference!"
