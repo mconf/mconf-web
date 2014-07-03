@@ -41,10 +41,15 @@ module SpacesHelper
 
     # the user already requested to join the space
     elsif space.pending_join_request_for?(current_user)
+      request = space.pending_join_request_for(current_user)
       options[:class] = "#{options[:class]} btn-success disabled"
-      span = content_tag(:span, t('spaces.space_join_button.already_requested'), options)
-      alert = content_tag :div, t("spaces.space_join_button.already_requested_alert"), :class => "alert alert-success"
-      span + alert
+      button = content_tag :span, t('spaces.space_join_button.already_requested'), options
+      alert = content_tag :div, :class => "alert alert-success" do
+        link = link_to t("spaces.space_join_button.cancel_request"), space_join_request_path(space, request)
+        text = content_tag :span, t("spaces.space_join_button.already_requested_alert")
+        text + link
+      end
+      button + alert
 
     # the user was already invited to join the space
     elsif space.pending_invitation_for?(current_user)

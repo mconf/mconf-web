@@ -1512,7 +1512,8 @@ pt-br:
     space_join_button:
       accept_or_decline: "Responder ao convite"
       already_requested: "Pedido enviado"
-      already_requested_alert: "Você já solicitou ingresso nesta comunidade, por favor espere que um moderador o aceite"
+      already_requested_alert: "Você já solicitou ingresso nesta comunidade, por favor espere que um moderador o aceite."
+      cancel_request: "Cancelar o pedido"
       invitation_alert: "Você foi convidado para entrar nesta comunidade, clique no botão acima para responder"
       join: "Entrar na comunidade"
     space_thumbnail:

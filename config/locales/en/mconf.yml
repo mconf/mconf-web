@@ -1512,7 +1512,8 @@ en:
     space_join_button:
       accept_or_decline: "Accept or decline"
       already_requested: "Join request sent"
-      already_requested_alert: "You already requested to join this space, please wait for a moderator to accept you"
+      already_requested_alert: "You already requested to join this space, please wait for a moderator to accept you."
+      cancel_request: "Cancel request"
       invitation_alert: "You have been invited to join this space, click the button above to accept or decline the invitation"
       join: "Join this space"
     space_thumbnail:
