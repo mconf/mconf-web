@@ -11,7 +11,11 @@
           = f.submit t('.accept'), :class => "btn btn-success"
           = f.hidden_field :accepted, :value => true
           = f.hidden_field :processed, :value => true
-      - if can?(:destroy, @join_request)
-        = link_to t('.decline'), space_join_request_path(@space, @join_request), :confirm => t('.decline_confirmation', :user => target), :method => :delete, :title => t('.decline'), :class => 'btn btn-danger'
+
+        = simple_form_for [@space, @join_request], :url => space_join_request_path(@space, @join_request) do |f|
+          = f.submit t('.decline'), :class => 'btn btn-danger'
+          = f.hidden_field :accepted, :value => false
+          = f.hidden_field :processed, :value => true
+
     - else
       = t('.already_accepted')
