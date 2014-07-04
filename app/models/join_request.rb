@@ -26,8 +26,7 @@ class JoinRequest < ActiveRecord::Base
   before_save :add_candidate_to_group
 
   validates_uniqueness_of :candidate_id,
-                          :scope => [ :group_id, :group_type, :processed_at ],
-                          :allow_nil => true
+                          :scope => [ :group_id, :group_type, :processed_at ]
 
   validates_uniqueness_of :email,
                           :scope => [ :group_id, :group_type, :processed_at ]
