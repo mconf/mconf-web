@@ -771,6 +771,7 @@ pt-br:
     asked_full: "<b>%{candidate}</b> quer participar da comunidade %{space} administrado por você: %{comment} <br/><br/><p>Para atender o pedido visite <a href=\"%{url}\">%{url}</a></p><p>Se você acredita que esta mensagem é um spam, por favor <a href=\"mailto:%{contact}\"> entre em contato</a> ou nos <a href=\"%{feedback}\"> envie uma mensagem.</a></p><p>%{signature}</p>"
     create:
       already_invited: "Os seguintes usuários já possuem um convite pendente: %{users}"
+      already_a_member: "%{name} já é um membro"
       created: "Seu pedido de adesão foi enviado para os administradores da comunidade"
       duplicated: "Você já possui um pedido de adesão pendente nesta comunidade"
       error: "Algo errado aconteceu ao processar sua requisição, por favor tente novamente. (detalhes: %{errors})"

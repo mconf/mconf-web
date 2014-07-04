@@ -771,6 +771,7 @@ en:
     asked_full: "<b>%{candidate}</b> wants to participate in %{space} space administered by you: %{comment} <br/><br/><p>To answer the request please visit <a href=\"%{url}\">%{url}</a></p><p>If you believe this message is a spam, please <a href=\"mailto:%{contact}\"> contact us </a> or send us <a href=\"%{feedback}\"> feedback.</a></p><p>%{signature}</p>"
     create:
       already_invited: "The following users already have an invitation pending: %{users}"
+      already_a_member: "%{name} is already a member"
       created: "Your join request has been sent to the administrators of the space"
       duplicated: "You already have a pending join request in this space"
       error: "Something went wrong when processing your request, please try again. (details: %{errors})"

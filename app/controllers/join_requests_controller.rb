@@ -36,7 +36,12 @@ class JoinRequestsController < ApplicationController
   end
 
   def show
-    redirect_to space_join_requests_path(@space) if can?(:approve, @join_request)
+    if can?(:approve, @join_request) # space admin
+      redirect_to space_join_requests_path(@space)
+    elsif @join_request.processed? # user accessing a join request
+      redirect_to @join_request.accepted ? space_path(@space) : my_home_path
+    end # else
+    # render show view
   end
 
   def new
@@ -124,7 +129,7 @@ class JoinRequestsController < ApplicationController
                             t('join_requests.update.updated'))
 
           if @join_request.request_type == 'invite'
-            redirect_to @join_request.accepted ? space_path(space) : my_home_path
+            redirect_to @join_request.accepted ? space_path(@space) : my_home_path
           else
             redirect_to request.referer
           end
@@ -160,11 +165,14 @@ class JoinRequestsController < ApplicationController
       jr = @space.join_requests.new(params[:join_request])
       if @space.pending_join_request_for?(user)
         already_invited << user.username
+      elsif @space.users.include?(user)
+        errors.push t('join_requests.create.already_a_member', :name => user.username)
       elsif user
         jr.candidate = user
         jr.email = user.email
         jr.request_type = 'invite'
         jr.introducer = current_user
+
         if jr.save
           jr.send_notification # send email/message
           success.push jr.candidate.username

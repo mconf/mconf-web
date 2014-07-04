@@ -176,7 +176,7 @@ class Space < ActiveRecord::Base
   end
 
   def pending_join_request_for?(user)
-    pending_join_requests.where(:candidate_id => user).size > 0
+    join_requests.where(:candidate_id => user, :processed_at => nil).size > 0
   end
 
   # Returns whether the space's logo is being cropped.

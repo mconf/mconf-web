@@ -254,8 +254,8 @@ describe JoinRequestsController do
     end
 
     context "admin successfully invites a user and fails to invite another" do
-      let(:candidate2) { user } #is invalid because he's inviting himself
-      let!(:errors) { "#{candidate2.email}: #{I18n.t('admission.errors.candidate_equals_introducer')}" }
+      let(:candidate2) { user } #is invalid because he's already a member
+      let!(:errors) { I18n.t('join_requests.create.already_a_member', :name => candidate2.username) }
       let(:attributes) {
         { :join_request => FactoryGirl.attributes_for(:join_request, :email => nil,
           :role_id => role.id), :candidates => "#{candidate.id},#{candidate2.id}" }
@@ -275,8 +275,8 @@ describe JoinRequestsController do
     end
 
     context "admin fails to invite a user" do
-      let(:candidate) { user } #is invalid because he's inviting himself
-      let!(:errors) { "#{candidate.email}: #{I18n.t('admission.errors.candidate_equals_introducer')}" }
+      let(:candidate) { user } #is invalid because he's already a member
+      let!(:errors) { I18n.t('join_requests.create.already_a_member', :name => candidate.username) }
       let(:attributes) {
         { :join_request => FactoryGirl.attributes_for(:join_request, :email => nil,
           :role_id => role.id), :candidates => "#{candidate.id}" }
