@@ -13,9 +13,10 @@ class JoinRequestsController < ApplicationController
   end
 
   load_resource :space, :find_by => :permalink
-  load_and_authorize_resource :through => :space
+  load_and_authorize_resource :join_request, :through => :space, :except => [:index, :invite]
+  load_resource :join_request, :through => :space, :only => [:index, :invite] # these two are authenticated via space parent
 
-  before_filter :webconf_room!, :only => [:index, :invite]
+  before_filter :webconf_room!, :only => [:index, :show, :invite]
 
   respond_to :html
 
@@ -23,24 +24,30 @@ class JoinRequestsController < ApplicationController
 
   def determine_layout
     case params[:action].to_sym
-    when :index
-      "spaces_show"
-    when :new
+    when :new, :show
       "no_sidebar"
-    when :invite
-      "spaces_show"
     else
       "spaces_show"
     end
   end
 
   def index
+    authorize! :index_join_requests, @space
+  end
+
+  def show
+    if can?(:approve, @join_request) # space admin
+      redirect_to space_join_requests_path(@space)
+    elsif @join_request.processed? # user accessing a join request
+      redirect_to @join_request.accepted ? space_path(@space) : my_home_path
+    end # else
+    # render show view
   end
 
   def new
     if @space.users.include?(current_user)
       redirect_to space_path(@space)
-    elsif @space.pending_join_request_for?(current_user)
+    elsif @space.pending_join_request_or_invitation_for?(current_user)
       @already_requested = true
     else
       @already_requested = false
@@ -49,37 +56,15 @@ class JoinRequestsController < ApplicationController
 
   def invite
     @join_request = JoinRequest.new
+    authorize! :invite, @space
   end
 
   def create
 
     # if it's an admin creating new requests (inviting) for his space
-    if params[:invite]
-      # TODO: move this block of code to the a method in the model that creates all
-      #   invitations an returns the errors already formatted to show in the views
-      already_invited = []
-      errors = []
-      success = []
-      ids = params[:candidates].split ',' || []
-      ids.each do |id|
-        user = User.find_by_id(id)
-        jr = @space.join_requests.new(params[:join_request])
-        if @space.pending_join_request_for?(user)
-          already_invited << user.username
-        elsif user
-          jr.candidate = user
-          jr.email = user.email
-          jr.request_type = 'invite'
-          jr.introducer = current_user
-          if jr.save
-            success.push jr.candidate.username
-          else
-            errors.push "#{jr.email}: #{jr.errors.full_messages.join(', ')}"
-          end
-        else
-          errors.push t('join_requests.create.user_not_found', :id => id)
-        end
-      end
+    if params[:invite] && can?(:invite, @space)
+      success, errors, already_invited = process_invitations
+
       unless errors.empty?
         flash[:error] = t('join_requests.create.error', :errors => errors.join(' - '))
       end
@@ -93,7 +78,7 @@ class JoinRequestsController < ApplicationController
 
     # it's a common user asking for membership in a space
     else
-      if @space.pending_join_request_for?(current_user)
+      if @space.pending_join_request_or_invitation_for?(current_user)
         flash[:notice] = t('join_requests.create.duplicated')
         if @space.public
           redirect_to space_path(@space)
@@ -108,6 +93,8 @@ class JoinRequestsController < ApplicationController
 
         if @join_request.save
           flash[:notice] = t('join_requests.create.created')
+          @join_request.send_notification  # send email/message
+
           if @space.public
             redirect_to space_path(@space)
           else
@@ -123,24 +110,30 @@ class JoinRequestsController < ApplicationController
   end
 
   def update
-    @join_request.attributes = params[:join_request].except(:role)
-    @join_request.introducer = current_user if @join_request.recently_processed?
+
+    # Admin doing the approval of a request
+    if @join_request.request_type == 'request' && authorize!(:approve, @join_request)
+      @join_request.attributes = params[:join_request]
+      @join_request.introducer = current_user if @join_request.recently_processed?
+    # User accepting the invitation
+    elsif @join_request.request_type == 'invite' && authorize!(:accept, @join_request)
+      @join_request.attributes = params[:join_request].except(:role)
+    end
 
     respond_to do |format|
       if @join_request.save
         format.html {
           flash[:success] = ( @join_request.recently_processed? ?
                             ( @join_request.accepted? ? t('join_requests.update.accepted') :
-                            t('join_requests.update.discarded') ) :
+                            t('join_requests.update.declined') ) :
                             t('join_requests.update.updated'))
-          redirect_to request.referer
+
+          if @join_request.request_type == 'invite'
+            redirect_to @join_request.accepted ? space_path(@space) : my_home_path
+          else
+            redirect_to request.referer
+          end
         }
-        if @join_request.accepted?
-          # TODO: this could be moved to the model
-          role = Role.find(params[:join_request][:role_id])
-          @space.add_member!(@join_request.candidate, role.name)
-          @space.save
-        end
       else
         format.html {
           flash[:error] = @join_request.errors.to_xml
@@ -158,6 +151,40 @@ class JoinRequestsController < ApplicationController
         redirect_to request.referer
       }
     end
+  end
+
+  private
+
+  def process_invitations
+    already_invited = []
+    errors = []
+    success = []
+    ids = params[:candidates].split ',' || []
+    ids.each do |id|
+      user = User.find_by_id(id)
+      jr = @space.join_requests.new(params[:join_request])
+      if @space.pending_join_request_or_invitation_for?(user)
+        already_invited << user.username
+      elsif @space.users.include?(user)
+        errors.push t('join_requests.create.already_a_member', :name => user.username)
+      elsif user
+        jr.candidate = user
+        jr.email = user.email
+        jr.request_type = 'invite'
+        jr.introducer = current_user
+
+        if jr.save
+          jr.send_notification # send email/message
+          success.push jr.candidate.username
+        else
+          errors.push "#{jr.email}: #{jr.errors.full_messages.join(', ')}"
+        end
+      else
+        errors.push t('join_requests.create.user_not_found', :id => id)
+      end
+    end
+
+    [success, errors, already_invited]
   end
 
 end

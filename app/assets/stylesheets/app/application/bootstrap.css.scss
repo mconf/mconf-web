@@ -38,6 +38,13 @@ input, select, textarea {
   //line-height: $font-normal+2px !important;
 }
 
+// a slight larger padding for inputs to look the same as a.btn
+form {
+  .btn:not(.btn-large):not(.btn-mini):not(.btn-small) { padding: 6px 12px; }
+  .btn-mini { padding: 4px 8px; }
+  .btn-small { padding: 6px 10px; }
+}
+
 .btn {
   font-size: $font-normal !important;
   //line-height: $font-normal+2px !important;

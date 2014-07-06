@@ -772,6 +772,7 @@ pt-br:
     asked_full: "<b>%{candidate}</b> quer participar da comunidade %{space} administrado por você: %{comment} <br/><br/><p>Para atender o pedido visite <a href=\"%{url}\">%{url}</a></p><p>Se você acredita que esta mensagem é um spam, por favor <a href=\"mailto:%{contact}\"> entre em contato</a> ou nos <a href=\"%{feedback}\"> envie uma mensagem.</a></p><p>%{signature}</p>"
     create:
       already_invited: "Os seguintes usuários já possuem um convite pendente: %{users}"
+      already_a_member: "%{name} já é um membro"
       created: "Seu pedido de adesão foi enviado para os administradores da comunidade"
       duplicated: "Você já possui um pedido de adesão pendente nesta comunidade"
       error: "Algo errado aconteceu ao processar sua requisição, por favor tente novamente. (detalhes: %{errors})"
@@ -802,10 +803,17 @@ pt-br:
     new:
       already_requested: "Você já requisitou ingresso nesta comunidade! Por favor espere que um administrador aceite o pedido."
       message_title: "Envie um pedido de adesão aos administradores da comunidade"
+    show:
+      accept: "Sim, quero entrar!"
+      comment: "Este é o comentário de %{name}:"
+      decline: "Nào, agora não"
+      decline_confirmation: "Você tem certeza que quer negar o convite de ingresso a esta comunidade?"
+      title: "Você foi convidado para ser um membro da comunidade \"%{name}\""
+      already_accepted: "... mas você já é um membro dessa comunidade."
     update:
       accepted: "Pedido de adesão aceito"
       updated: "Pedido de adesão atualizado"
-      discarded: "Pedido de adesão descartado"
+      declined: "Pedido de adesão rejeitado"
   keywords: "Palavras-chave (*)"
   language: Idioma
   last_week: "Semana passada"
