@@ -125,7 +125,7 @@ class JoinRequestsController < ApplicationController
         format.html {
           flash[:success] = ( @join_request.recently_processed? ?
                             ( @join_request.accepted? ? t('join_requests.update.accepted') :
-                            t('join_requests.update.discarded') ) :
+                            t('join_requests.update.declined') ) :
                             t('join_requests.update.updated'))
 
           if @join_request.request_type == 'invite'

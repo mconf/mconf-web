@@ -813,7 +813,7 @@ pt-br:
     update:
       accepted: "Pedido de adesão aceito"
       updated: "Pedido de adesão atualizado"
-      discarded: "Pedido de adesão descartado"
+      declined: "Pedido de adesão rejeitado"
   keywords: "Palavras-chave (*)"
   language: Idioma
   last_week: "Semana passada"
