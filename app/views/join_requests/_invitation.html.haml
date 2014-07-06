@@ -4,16 +4,9 @@
   .thread-content
     .thread-actions
       - target = jr.candidate ? jr.candidate.name : jr.email
-
       - if !jr.processed?
-        = link_to t('_other.cancel'), space_join_request_path(@space, jr), :confirm => t('.cancel', :user => target), :method => :delete, :title => t('delete.one'), :class => 'btn btn-danger btn-small'
-
-        - if can?(:accept, jr)
-          %span.separator= t('or')
-          = simple_form_for [@space, jr], :url => space_join_request_path(@space, jr) do |f|
-            = f.submit t('_other.accept'), :class => "btn btn-success btn-small"
-            = f.hidden_field :accepted, :value => true
-            = f.hidden_field :processed, :value => true
+        - if can?(:destroy, jr)
+          = link_to t('_other.cancel'), space_join_request_path(@space, jr), :confirm => t('.cancel', :user => target), :method => :delete, :title => t('delete.one'), :class => 'btn btn-danger btn-small'
       - else
         %p=t('join_requests.show.already_accepted')
 
