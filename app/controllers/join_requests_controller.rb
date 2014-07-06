@@ -47,7 +47,7 @@ class JoinRequestsController < ApplicationController
   def new
     if @space.users.include?(current_user)
       redirect_to space_path(@space)
-    elsif @space.pending_join_request_for?(current_user)
+    elsif @space.pending_join_request_or_invitation_for?(current_user)
       @already_requested = true
     else
       @already_requested = false
@@ -78,7 +78,7 @@ class JoinRequestsController < ApplicationController
 
     # it's a common user asking for membership in a space
     else
-      if @space.pending_join_request_for?(current_user)
+      if @space.pending_join_request_or_invitation_for?(current_user)
         flash[:notice] = t('join_requests.create.duplicated')
         if @space.public
           redirect_to space_path(@space)
@@ -154,8 +154,8 @@ class JoinRequestsController < ApplicationController
   end
 
   private
+
   def process_invitations
-    #   invitations an returns the errors already formatted to show in the views
     already_invited = []
     errors = []
     success = []
@@ -163,7 +163,7 @@ class JoinRequestsController < ApplicationController
     ids.each do |id|
       user = User.find_by_id(id)
       jr = @space.join_requests.new(params[:join_request])
-      if @space.pending_join_request_for?(user)
+      if @space.pending_join_request_or_invitation_for?(user)
         already_invited << user.username
       elsif @space.users.include?(user)
         errors.push t('join_requests.create.already_a_member', :name => user.username)
