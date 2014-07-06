@@ -50,6 +50,7 @@ module Mconf
       Dir[Rails.root.join('config', 'locales', '**', '_*.yml').to_s] +
       Dir[Rails.root.join('config', 'locales', '**', 'mconf.yml').to_s]
     config.i18n.fallbacks = true
+    config.i18n.enforce_available_locales = true
     config.i18n.default_locale = :en
 
     config.generators do |g|

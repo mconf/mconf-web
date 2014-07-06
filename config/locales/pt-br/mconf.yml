@@ -256,6 +256,7 @@ pt-br:
     not_selected: "Nenhum documento selecionado"
     one: Anexo
     other: Anexos
+    repository_disabled: O repositório de documentos desta comunidade está desabilitado.
     selected:
       none: "Nenhum arquivo selecionado"
       one: "arquivo selecionado"
@@ -1046,10 +1047,10 @@ pt-br:
         event: "%{username} mudou sua função no evento %{event}"
         space: "%{username} mudou sua função na comunidade %{space}"
     updated: "Desempenho do usuário foi atualizado com sucesso"
-  permission:
     other: "Direitos de acesso"
     update:
       success: "Direitos de acesso atualizados"
+      failure: "Problema ao atualizar os direitos de acesso"
   personal_information: "Informações pessoais"
   phone:
     mobile: Celular

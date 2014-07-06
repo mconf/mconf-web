@@ -27,41 +27,15 @@ Run rspec --help for more details.
 
 It is important to run rspec with bundle exec so that the tests will run using the correct gem environment .
 
-== Speeding up tests with Spork
+== Speeding up tests with Zeus
 
-You can speed up your tests using the `spork-rails` gem. After installing it with `bundle install` you should run, inside the project root:
+You can speed up your tests using the `zeus` gem. It should not be in the Gemfile, just install it with `gem install zeus` and then start it with `zeus start` inside the project root directory. After it's running, open another terminal and type:
 
-    bundle exec spork
+    zeus rake
 
-Leave this terminal be, and in another command prompt run the tests with the `-X` option, for example:
+Or
 
-    bundle exec rspec -X spec/
-
-Read the file `spec/spec_helper.rb` to learn in details how this gem works.
-
-=== Speed comparisson
-
-A simple run of 2 small tests. Without spork:
-
-    time bundle exec rspec spec/controllers/users_controller_spec.rb -t show
-
-    Finished in 0.70588 seconds
-    2 examples, 0 failures
-
-    real    0m24.149s
-    user    0m22.685s
-    sys     0m1.332s
-
-With spork:
-
-    time bundle exec rspec -X spec/controllers/users_controller_spec.rb -t show
-
-    Finished in 0.84244 seconds
-    2 examples, 0 failures
-
-    real    0m2.744s
-    user    0m1.224s
-    sys     0m0.084s
+    zeus rspec spec/
 
 == Testing migrations
 
