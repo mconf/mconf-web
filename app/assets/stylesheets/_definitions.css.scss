@@ -212,3 +212,14 @@ $z-index-tooltip: 999999;
   font-size: $size;
   font-size: calculate-rem($size);
 }
+
+// Highlighted content blocks
+@mixin block-wrapper-active {
+  &.active {
+    background: $alert-success-bg;
+    .content-block, .list-thumbnail {
+      border-color: darken($alert-success-bg, 15);
+      border-width: 1px;
+    }
+  }
+}
