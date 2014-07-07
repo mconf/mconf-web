@@ -584,11 +584,17 @@ ul#navbar-left-links {
     max-width: $contents-width - 120px;
 
     .main-title {
+
       @include font-size($font-section-title);
       line-height: 1.0;
       font-weight: bold;
       color: $page-title-color;
       margin-bottom: 5px;
+
+      a {
+        $c: $page-title-color;
+        @include link-colors($c, lighten($c, 10), lighten($c, 10));
+      }
 
       // when the title is too big the font is reduced a bit
       &.small-title {
