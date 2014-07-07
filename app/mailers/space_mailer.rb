@@ -22,20 +22,17 @@ class SpaceMailer < ApplicationMailer
     end
   end
 
-  def processed_invitation_email(invitation, receiver)
-    I18n.with_locale(get_user_locale(receiver, false)) do
-      action = invitation.accepted? ? t("invitation.yes_accepted", :locale=>receiver.locale) : I18n.t("invitation.not_accepted").html_safe
-      if invitation.candidate != nil
-        @subject = t("email.invitation_result.admin_side",:name => invitation.candidate.name, :action => action, :spacename => invitation.group.name).html_safe
-      else
-        @subject = t("email.invitation_result.admin_side",:name => invitation.email, :action => action, :spacename => invitation.group.name).html_safe
-      end
-      @invitation = invitation
-      @space = invitation.group
-      @signature  = Site.current.signature_in_html
-      @action = action
+  def processed_invitation_email(jr_id)
+    jr = JoinRequest.find(jr_id)
+    @candidate = jr.candidate
+    @introducer = jr.introducer
 
-      create_email(receiver.email, invitation.email, @subject)
+    I18n.with_locale(get_user_locale(introducer, false)) do
+      @action = invitation.accepted? ? t("space_mailer.processed_invitation_email.accepted") : I18n.t("space_mailer.processed_invitation_email.not_accepted")
+      subject = t("space_mailer.processed_invitation_email.subject", :name => @candidate.name, :action => @action)
+      @space = jr.group
+
+      create_email(introducer.email, nil, subject)
     end
   end
 
@@ -51,13 +48,14 @@ class SpaceMailer < ApplicationMailer
   end
 
   def processed_join_request_email(jr_id)
-    jr = JoinRequest.find(jr_id)
-    user = jr.candidate
+    @join_request = JoinRequest.find(jr_id)
+    user = @join_request.candidate
+
     I18n.with_locale(get_user_locale(user, false)) do
 
-      action = jr.accepted? ? t("space_mailer.processed_join_request_email.accepted") : t("space_mailer.processed_join_request_email.rejected")
-      subject = t("space_mailer.processed_join_request_email.subject", :action => action, :space => jr.group.name)
-      @join_request = jr
+      @space = @join_request.group
+      @action = @join_request.accepted? ? t("space_mailer.processed_join_request_email.accepted") : t("space_mailer.processed_join_request_email.rejected")
+      subject = t("space_mailer.processed_join_request_email.subject", :action => @action, :space => @space.name)
 
       create_email(user.email,nil,subject)
     end

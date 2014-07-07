@@ -11,12 +11,17 @@ en:
         header: "<b>%{candidate}</b> wants to participate in %{space} space administered by you."
         link: "To answer the request please visit <a href=\"%{url}\">%{url}</a>"
       subject: "<b>%{candidate}</b> wants to participate in %{space} space."
+    processed_invitatation_email:
+      accepted: "accepted"
+      message:
+        header: "<p>%{introducer}</p>,</br><p>%{name}</p> has %{action} the invitation to the space %{space}"
+        link: "You can see the current list of users of the space in <a href=\"%{users_url}\"> %{users_url} </a>"
+      rejected: "not accepted"
+      subject: "%{name} has %{action} your invitation"
     processed_join_request_email:
       accepted: "accepted"
       message:
-        header:
-          accepted: "The administrator of %{space} has accepted your join request."
-          rejected: "The administrator of %{space} has not accepted your join request."
+        header: "The administrator of %{space} has %{action} your join request."
         link:
           accepted: "You are now a member of %{space} and you can access it on <a href=\"%{space_url}\"> %{space_url} </a>"
           rejected: "If you would like to request membership again please go to <a href=\"%{space_url}\"> %{space} </a>"

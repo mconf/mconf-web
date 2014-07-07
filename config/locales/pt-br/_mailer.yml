@@ -11,12 +11,17 @@ pt-br:
         header: "<b>%{candidate}</b> quer participar da comunidade %{space} administrado por você."
         link: "Para atender o pedido visite <a href=\"%{url}\">%{url}</a>"
       subject: "<b>%{candidate}</b> quer participar da comunidade %{space}."
+    processed_invitatation_email:
+      accepted: "aceitou"
+      message:
+        header: "<p>%{introducer}</p>,</br><p>%{name}</p> %{action} o convite para a comunidade %{space}"
+        link: "Você pode ver a lista atual de usuários da comunidade em <a href=\"%{users_url}\"> %{users_url} </a>"
+      rejected: "rejeitou"
+      subject: "%{name} %{action} seu convite"
     processed_join_request_email:
       accepted: "aceita"
       message:
-        header:
-          accepted: "O administrador da comunidade %{space} aceitou sua admissão."
-          accepted: "O administrador da comunidade %{space} não aceitou sua admissão."
+        header: "Sua admissão na comunidade %{space} foi %{action} pela administração."
         link:
           accepted: "Você agora é membro da comunidade %{space} e agora você pode acessá-la pelo endereço: <a href=\"%{space_url}\"> %{space_url} </a>"
           rejected: "Se você desejar solicitar adesão de novo por favor vá para <a href=\"%{space_url}\"> %{space} </a>"

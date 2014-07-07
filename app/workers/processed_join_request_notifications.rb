@@ -7,19 +7,30 @@ class ProcessedJoinRequestNotifications
   end
 
   # Notifies the user when his membership requests are accepted
-  # ONLY FOR JOIN REQUESTS YET
   def self.processed_request_notifications
     requests = RecentActivity.where :trackable_type => 'Space', :key => 'space.join', :notified => [nil,false]
 
     requests.each do |activity|
       join_request = JoinRequest.find(activity.parameters[:join_request_id])
-      user = join_request.candidate
 
-      if user.notification == User::NOTIFICATION_VIA_EMAIL
-        Resque.logger << "Sending notification to user #{user.email}.\n"
-        SpaceMailer.processed_join_request_email(join_request.id).deliver
+      if join_request.request_type == "request"
+        user = join_request.candidate
+
+        if user.notification == User::NOTIFICATION_VIA_EMAIL
+          Resque.logger << "Sending processed join request notification to user #{user.email}.\n"
+          SpaceMailer.processed_join_request_email(join_request.id).deliver
+        else
+          # notify via the website
+        end
       else
-        # notify via the website
+        user = join_request.introducer
+
+        if user.notification == User::NOTIFICATION_VIA_EMAIL
+          Resque.logger << "Sending processed invitation notification to user #{user.email}.\n"
+          SpaceMailer.processed_invitation_email(join_request.id).deliver
+        else
+          # notify via the website
+        end
       end
 
       activity.notified = true
