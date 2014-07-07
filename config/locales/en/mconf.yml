@@ -967,6 +967,7 @@ en:
         other: "Other"
         today: "Today"
       not_confirmed: "Your account is not activated yet. Please, check your email to activate it. (Did not receive an email? <a href=\"%{url}\">Click here</a>.)"
+      pending_join_requests: "You have <span class='label label-important'>%{count}</span> pending requests"
       view_all_activity: "View all your activity"
       view_all_spaces: "View all spaces"
     edit_recording:
@@ -1527,6 +1528,8 @@ en:
     space_thumbnail:
       private: "Private"
       public: "Public"
+      reply_invitation: "Reply to the invitation"
+      view_join_request: "View the request you sent"
     thumbnail_view:
       no_spaces: "There are no spaces created yet!"
     unified_space:

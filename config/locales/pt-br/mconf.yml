@@ -967,6 +967,7 @@ pt-br:
         other: "Outros"
         today: "Hoje"
       not_confirmed: "Sua conta ainda não foi confirmada. Por favor verifique o seu e-mail para ativá-la. (Não recebeu um e-mail? <a href=\"%{url}\">Clique aqui</a>.)"
+      pending_join_requests: "Você possui <span class='label label-important'>%{count}</span> requisições pendentes"
       view_all_activity: "Ver todas suas atividades"
       view_all_spaces: "Ver todas comunidades"
     edit_recording:
@@ -1527,6 +1528,8 @@ pt-br:
     space_thumbnail:
       private: "Privada"
       public: "Pública"
+      reply_invitation: "Responder ao convite"
+      view_join_request: "Ver a requisição que você enviou"
     thumbnail_view:
       no_spaces: "Nenhuma comunidade foi criada até o momento!"
     unified_space: 

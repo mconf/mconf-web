@@ -336,6 +336,16 @@ class User < ActiveRecord::Base
     superuser
   end
 
+  # Return the list of spaces in which the user has a pending join request or invitation.
+  def pending_spaces
+    requests = JoinRequest.where(:candidate_id => self, :processed_at => nil, :group_type => 'Space')
+    ids = requests.map(&:group_id)
+    ids.uniq!
+    # note: not 'find' because some of the spaces might be disabled and 'find' would raise
+    #   an exception
+    Space.find_all_by_id(ids)
+  end
+
   private
 
   def username_uniqueness

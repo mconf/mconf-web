@@ -179,4 +179,15 @@ body.my.home, body.my.activity, body.my.recordings {
     padding-right: 10px;
     padding-left: 10px;
   }
+
+  #user-space-list {
+    #user-pending-join-requests {
+      margin-bottom: 20px;
+
+      .title {
+        margin-bottom: 5px;
+        margin-left: 10px;
+      }
+    }
+  }
 }
