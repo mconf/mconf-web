@@ -231,6 +231,10 @@ module IconsHelper
     icon_constructor nil, "icon-awesome icon-gears icon-mconf-options", options
   end
 
+  def icon_join_request(options={})
+    icon_constructor nil, "icon-awesome icon-signin icon-mconf-join-request", options
+  end
+
   private
 
   # Base method for most of the methods above

@@ -3,6 +3,8 @@
   #space-sidebar
     = render :partial => 'spaces/sidebar_join_links'
 
+    = render :partial => 'spaces/sidebar_notifications'
+
     = render_sidebar_content_block('sidebar-webconference', :active => @webconf_room.is_running?) do
       .content-block-header
         = icon_in_progress if @webconf_room.is_running?

@@ -69,6 +69,7 @@ en:
       one: "%{count} participant"
       other: "%{count} participants"
     publish: "Publish"
+    register: "Register"
     register_to_view_space: "Create an account to be able to join and access this space"
     save: "Save"
     send: "Send"
@@ -801,6 +802,7 @@ en:
         no_results: "No results found"
         searching: "Searching..."
     new:
+      already_invited: "You already have an invitation to join this space! Go to the space's home page to see it"
       already_requested: "You already requested to join this space! Please wait for an administrator to accept it."
       message_title: "Send a join request to the administrators of the space"
     show:
@@ -1357,7 +1359,6 @@ en:
     join_invitation: 
       clarify_registered: "Please introduce password in order to join this space."
       clarify_unregistered: "Please introduce your full name and a password in order to register onto the Mconf and join this space."
-    join_pending: "Join request being processed"
     leave: 
       leave_this_space: "Leave this space"
       success: "You left the space %{space_name}"
@@ -1454,6 +1455,7 @@ en:
     edit_recording:
       title: "Edit your recording"
     error:
+      already_invited: "You were already invited to join this space, please accept or decline the invitation"
       need_join_to_access: "You need to join this space to access it. Send a join request to the administrators."
     index: 
       create_new_space: "Create a new space"
@@ -1501,6 +1503,10 @@ en:
           other: "The webconference is currently in progress with %{count} participants"
       webconference_join: "Join it"
       webconference_start: "Start it"
+    sidebar_notifications:
+      pending_join_requests:
+        one: "This space has %{count} pending join request!"
+        other: "This space has %{count} pending join requests!"
     sidebar_webconf_buttons:
       end: "Stop it"
       end_tooltip: "This action will end the current conference!"
@@ -1511,6 +1517,13 @@ en:
       join_mobile_full: "Join from a mobile device"
       preferences: "Preferences"
       start: "Start"
+    space_join_button:
+      accept_or_decline: "Accept or decline"
+      already_requested: "Join request sent"
+      already_requested_alert: "You already requested to join this space, please wait for a moderator to accept you."
+      cancel_request: "Cancel request"
+      invitation_alert: "You have been invited to join this space, click the button above to accept or decline the invitation"
+      join: "Join this space"
     space_thumbnail:
       private: "Private"
       public: "Public"

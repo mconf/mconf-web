@@ -70,6 +70,7 @@ pt-br:
       other: "%{count} participantes"
     publish: "Publicar"
     upload: "Enviar"
+    register: "Registrar"
     register_to_view_space: "Crie uma conta para visualizar e participar desta comunidade"
     save: "Salvar"
     send: "Enviar"
@@ -801,6 +802,7 @@ pt-br:
         no_results: "Nenhum resultado encontrado"
         searching: "Procurando..."
     new:
+      already_invited: "Você já possui um convite para entrar nesta comunidade! Vá para a página inicial da comunidade para acessá-lo."
       already_requested: "Você já requisitou ingresso nesta comunidade! Por favor espere que um administrador aceite o pedido."
       message_title: "Envie um pedido de adesão aos administradores da comunidade"
     show:
@@ -1357,7 +1359,6 @@ pt-br:
     join_invitation:
       clarify_registered: "Por favor, digite a senha para participar desta comunidade."
       clarify_unregistered: "Por favor, digite o seu nome completo e uma senha para se registrar no Mconf e participar desta comunidade."
-    join_pending: "Pedido de adesão sendo processado"
     leave:
       leave_this_space: "Sair desta comunidade"
       success: Você deixou a comunidade %{space_name}
@@ -1454,6 +1455,7 @@ pt-br:
     edit_recording:
       title: "Editar sua gravação"
     error:
+      already_invited: "Você já foi convidado para entrar nesta comunidade, por favor aceite ou rejeite o convite"
       need_join_to_access: "Você precisa participar desta comunidade para acessá-la. Envie um pedido de adesão aos administradores."
     index: 
       create_new_space: "Criar uma comunidade"
@@ -1501,6 +1503,10 @@ pt-br:
           other: "A conferência está ativa com %{count} participantes"
       webconference_join: "Entrar"
       webconference_start: "Iniciar"
+    sidebar_notifications:
+      pending_join_requests:
+        one: "Esta comunidade tem %{count} pedido de ingresso pendente!"
+        other: "Esta comunidade tem %{count} pedidos de ingresso pendentes!"
     sidebar_webconf_buttons:
       end: "Finalizar"
       end_tooltip: "Esta ação vai finalizar a reunião em andamento!"
@@ -1511,6 +1517,13 @@ pt-br:
       join_mobile_full: "Entrar a partir de um dispositivo móvel"
       preferences: "Preferências"
       start: "Iniciar"
+    space_join_button:
+      accept_or_decline: "Responder ao convite"
+      already_requested: "Pedido enviado"
+      already_requested_alert: "Você já solicitou ingresso nesta comunidade, por favor espere que um moderador o aceite."
+      cancel_request: "Cancelar o pedido"
+      invitation_alert: "Você foi convidado para entrar nesta comunidade, clique no botão acima para responder"
+      join: "Entrar na comunidade"
     space_thumbnail:
       private: "Privada"
       public: "Pública"

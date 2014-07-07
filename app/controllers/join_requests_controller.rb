@@ -45,12 +45,11 @@ class JoinRequestsController < ApplicationController
   end
 
   def new
+    @pending_request = nil
     if @space.users.include?(current_user)
       redirect_to space_path(@space)
     elsif @space.pending_join_request_or_invitation_for?(current_user)
-      @already_requested = true
-    else
-      @already_requested = false
+      @pending_request = @space.pending_join_request_or_invitation_for(current_user)
     end
   end
 
