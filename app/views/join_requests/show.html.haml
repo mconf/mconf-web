@@ -1,0 +1,30 @@
+#join-requests-show
+  - if @join_request.request_type == "invite"
+    %h3= t('.title_invitation', :name => @space.name, :date => l(@join_request.created_at.to_date, :format => :long))
+    .invitation-comment
+      = t('.comment_invitation', :name => @join_request.introducer.full_name)
+      .content= @join_request.comment
+  - elsif @join_request.request_type == "request"
+    %h3= t('.title_request', :name => @space.name, :date => l(@join_request.created_at.to_date, :format => :long))
+    .invitation-comment
+      = t('.comment_request')
+      .content= @join_request.comment
+  .action-buttons
+    - unless user_signed_in? && @space.users.include?(current_user)
+      - target = @join_request.candidate ? @join_request.candidate.name : @join_request.email
+
+      - if @join_request.request_type == "invite"
+        - if can?(:accept, @join_request)
+          = simple_form_for [@space, @join_request], :url => space_join_request_path(@space, @join_request) do |f|
+            = f.submit t('.accept'), :class => "btn btn-success"
+            = f.hidden_field :accepted, :value => true
+            = f.hidden_field :processed, :value => true
+          = simple_form_for [@space, @join_request], :url => space_join_request_path(@space, @join_request) do |f|
+            = f.submit t('.decline'), :class => 'btn btn-danger'
+            = f.hidden_field :accepted, :value => false
+            = f.hidden_field :processed, :value => true
+      - elsif @join_request.request_type == "request"
+        - if can?(:destroy, @join_request)
+          = link_to t('.remove'), space_join_request_path(@space, @join_request), :confirm => t('.remove_confirmation', :user => target), :method => :delete, :title => t('.remove'), :class => 'btn btn-danger'
+    - else
+      = t('.already_accepted')

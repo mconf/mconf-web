@@ -11,9 +11,14 @@ class AttachmentsController < ApplicationController
   before_filter :check_repository_enabled
   load_and_authorize_resource :through => :space, :except => [:index, :delete_collection]
   before_filter :load_attachments, :only => [:index, :delete_collection]
-  before_filter :webconf_room!
+  before_filter :webconf_room!, :only => [:index, :new]
 
   layout 'spaces_show'
+
+  def show
+    path = @attachment.full_filename
+    send_file path
+  end
 
   def index
     respond_to do |format|

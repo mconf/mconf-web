@@ -1,0 +1,15 @@
+%html
+  %body
+    %p= @name + ","
+    = t('invitation.full_message',
+        :username => @user.full_name,
+        :space => @space.name,
+        :comment => @invitation.comment,
+        :url => space_join_request_url(@invitation.group, @invitation),
+        :space_url => space_url(@space),
+        :user_name => @user.full_name,
+        :user_email => @user.email,
+        :user_organization => @user.organization,
+        :contact => Site.current.smtp_sender,
+        :feedback => new_feedback_url()).html_safe
+    %br

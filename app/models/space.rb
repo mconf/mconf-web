@@ -176,8 +176,28 @@ class Space < ActiveRecord::Base
     join_requests.where(:processed_at => nil, :request_type => 'invite')
   end
 
+  def pending_join_request_or_invitation_for(user)
+    join_requests.where(:candidate_id => user, :processed_at => nil).first
+  end
+
+  def pending_join_request_or_invitation_for?(user)
+    !pending_join_request_or_invitation_for(user).nil?
+  end
+
+  def pending_join_request_for(user)
+    pending_join_requests.where(:candidate_id => user.id).first
+  end
+
   def pending_join_request_for?(user)
-    pending_join_requests.where(:candidate_id => user).size > 0
+    !pending_join_request_for(user).nil?
+  end
+
+  def pending_invitation_for(user)
+    pending_invitations.where(:candidate_id => user.id).first
+  end
+
+  def pending_invitation_for?(user)
+    !pending_invitation_for(user).nil?
   end
 
   # Returns whether the space's logo is being cropped.

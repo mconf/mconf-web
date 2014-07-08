@@ -456,6 +456,13 @@ describe User do
     end
   end
 
+  describe "#pending_spaces" do
+    it "returns all spaces in which the user has a pending join request he sent"
+    it "returns all spaces in which the user has a pending join request he received"
+    it "removes possible duplicates"
+    it "doesn't return spaces that are disabled"
+  end
+
   describe "#disable" do
 
     context "when the user is admin of a space" do

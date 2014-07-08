@@ -9,6 +9,135 @@ require "spec_helper"
 describe SpacesController do
   render_views
 
+  shared_examples "an action that rescues from CanCan::AccessDenied" do
+    context "when there's a user logged in" do
+      let(:user) { FactoryGirl.create(:user) }
+      before(:each) { sign_in(user) }
+
+      context "and the user has no pending join request" do
+        before(:each) { do_action }
+        it { should redirect_to(new_space_join_request_path(space)) }
+        it { should set_the_flash.to(I18n.t("spaces.error.need_join_to_access")) }
+      end
+
+      context "and the user has a pending invitation" do
+        before(:each) {
+          @invitation = FactoryGirl.create(:join_request, :group => space, :candidate => user, :request_type => "invite")
+        }
+        before(:each) { do_action }
+        it { space.pending_invitation_for?(user).should be_true }
+        it { should redirect_to(space_join_request_path(space, @invitation)) }
+        it { should set_the_flash.to(I18n.t("spaces.error.already_invited")) }
+      end
+
+      context "and the user has a pending join request" do
+        before(:each) {
+          @invitation = FactoryGirl.create(:join_request, :group => space, :candidate => user, :request_type => "request")
+        }
+        before(:each) { do_action }
+        it { space.pending_join_request_for?(user).should be_true }
+        it { should redirect_to(new_space_join_request_path(space)) }
+        it { should_not set_the_flash }
+      end
+    end
+
+    context "when there's no user logged in" do
+      before(:each) { do_action }
+
+      context "and the user has no pending join request" do
+        it { should respond_with(:forbidden) }
+        it { should set_the_flash.to(I18n.t("space.access_forbidden")) }
+        it { should render_template("errors/error_403") }
+        it { should render_with_layout("error") }
+      end
+    end
+  end
+
+  shared_examples "an action that does not rescue from CanCan::AccessDenied" do
+    context "when there's a user logged in" do
+      let(:user) { FactoryGirl.create(:user) }
+      before(:each) { sign_in(user) }
+
+      context "and the user has no pending join request" do
+        before(:each) { do_action }
+        it { should respond_with(:forbidden) }
+        it { should set_the_flash.to(I18n.t("space.access_forbidden")) }
+        it { should render_template("errors/error_403") }
+        it { should render_with_layout("error") }
+      end
+
+      context "and the user has a pending invitation" do
+        before(:each) {
+          @invitation = FactoryGirl.create(:join_request, :group => space, :candidate => user, :request_type => "invite")
+        }
+        before(:each) { do_action }
+        it { space.pending_invitation_for?(user).should be_true }
+        it { should respond_with(:forbidden) }
+        it { should set_the_flash.to(I18n.t("space.access_forbidden")) }
+        it { should render_template("errors/error_403") }
+        it { should render_with_layout("error") }
+      end
+
+      context "and the user has a pending join request" do
+        before(:each) {
+          @invitation = FactoryGirl.create(:join_request, :group => space, :candidate => user, :request_type => "request")
+        }
+        before(:each) { do_action }
+        it { space.pending_join_request_for?(user).should be_true }
+        it { should respond_with(:forbidden) }
+        it { should set_the_flash.to(I18n.t("space.access_forbidden")) }
+        it { should render_template("errors/error_403") }
+        it { should render_with_layout("error") }
+      end
+    end
+
+    context "when there's no user logged in" do
+      before(:each) { do_action }
+
+      context "and the user has no pending join request" do
+        it { should respond_with(:forbidden) }
+        it { should set_the_flash.to(I18n.t("space.access_forbidden")) }
+        it { should render_template("errors/error_403") }
+        it { should render_with_layout("error") }
+      end
+    end
+  end
+
+  describe "rescue_from exceptions" do
+    context "rescues from CanCan::AccessDenied" do
+      let(:space) { FactoryGirl.create(:space) }
+      before { controller.stub(:authorize!) { raise CanCan::AccessDenied.new("Not authorized!", action, space) } }
+
+      context "on #show" do
+        let(:action) { :show }
+        let(:do_action) { get :show, :id => space.to_param }
+        include_examples "an action that rescues from CanCan::AccessDenied"
+      end
+
+      context "on #edit" do
+        let(:action) { :edit }
+        let(:do_action) { get :edit, :id => space.to_param }
+        include_examples "an action that rescues from CanCan::AccessDenied"
+      end
+
+      context "on #update" do
+        let(:action) { :update }
+        let(:do_action) { put :update, :id => space.to_param, :space_attributes => FactoryGirl.attributes_for(:space) }
+        include_examples "an action that does not rescue from CanCan::AccessDenied"
+      end
+
+      context "on #destroy" do
+        let(:action) { :destroy }
+        let(:do_action) { delete :destroy, :id => space.to_param }
+        include_examples "an action that does not rescue from CanCan::AccessDenied"
+      end
+
+      # note: not testing all the other actions that do not rescue from CanCan::AccessDenied,
+      #   just the two above
+
+    end
+  end
+
   describe "#index" do
     it "sets param[:view] to 'thumbnails' if not set"
     it "sets param[:view] to 'thumbnails' if different than 'list'"
@@ -342,7 +471,6 @@ describe SpacesController do
     end
 
   end
-
 
   describe "#enable" do
     before(:each) { login_as(FactoryGirl.create(:superuser)) }

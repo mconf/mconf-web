@@ -28,12 +28,29 @@ class SpacesController < ApplicationController
 
   # User trying to access a space not owned or joined by him
   rescue_from CanCan::AccessDenied do |exception|
-    if user_signed_in? and not [:destroy, :update, :user_permissions].include?(exception.action)
-      # Normal actions trigger a redirect to ask for membership
-      flash[:error] = t("spaces.error.need_join_to_access")
-      redirect_to new_space_join_request_path :space_id => params[:id]
+
+    # if it's a logged user that tried to access a private space
+    if user_signed_in? and [:show, :edit].include?(exception.action)
+
+      if @space.pending_join_request_for?(current_user)
+        # redirect him to the page to ask permission to join, but with a warning that
+        # a join request was already sent
+        redirect_to new_space_join_request_path :space_id => params[:id]
+
+      elsif @space.pending_invitation_for?(current_user)
+        # redirect him to the invitation he received
+        invitation = @space.pending_invitation_for(current_user)
+        flash[:error] = t("spaces.error.already_invited")
+        redirect_to space_join_request_path @space, invitation
+
+      else
+        # redirect him to ask permission to join
+        flash[:error] = t("spaces.error.need_join_to_access")
+        redirect_to new_space_join_request_path :space_id => params[:id]
+      end
+
     else
-      # Logged out users or destructive actions are redirect to the 403 error
+      # anonymous users or destructive actions are redirected to the 403 error
       flash[:error] = t("space.access_forbidden")
       render :template => "/errors/error_403", :status => 403, :layout => "error"
     end
@@ -90,9 +107,6 @@ class SpacesController < ApplicationController
 
     # users
     @latest_users = @space.users.order("permissions.created_at DESC").first(3)
-
-    # role of the current user
-    @permission = Permission.where(:user_id => current_user, :subject_id => @space, :subject_type => 'Space').first
 
     respond_to do |format|
       format.html { render :layout => 'spaces_show' }

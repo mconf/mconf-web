@@ -2,7 +2,7 @@
   %td
     = check_box_tag attachment.id, attachment.id, false, :class => "attachment-checkbox", :data => { :"can-destroy" => can?(:destroy, attachment) }
   %td
-    = link_to attachment.title, attachment.attachment_url, :download => attachment.title
+    = link_to attachment.title, space_attachment_path(@space, attachment), :download => attachment.title
   %td
     - if attachment.author
       = link_to attachment.author.full_name, user_path(attachment.author)
@@ -11,7 +11,7 @@
       - if attachment.created_at
         = time_ago_in_words(attachment.created_at) + " " + t('.ago')
   %td
-    = link_to attachment.attachment_url, :download => attachment.title do
+    = link_to space_attachment_path(@space, attachment), :download => attachment.title do
       = icon_download :class => "tooltipped", :title => t(".download_tooltip")
     - if can?(:destroy, attachment)
       = link_to [@space, attachment], :rel => 'nofollow', :'data-confirm' => t('.delete_confirmation'), :'data-method' => 'delete' do

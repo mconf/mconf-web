@@ -69,6 +69,7 @@ en:
       one: "%{count} participant"
       other: "%{count} participants"
     publish: "Publish"
+    register: "Register"
     register_to_view_space: "Create an account to be able to join and access this space"
     save: "Save"
     send: "Send"
@@ -772,11 +773,14 @@ en:
     asked_full: "<b>%{candidate}</b> wants to participate in %{space} space administered by you: %{comment} <br/><br/><p>To answer the request please visit <a href=\"%{url}\">%{url}</a></p><p>If you believe this message is a spam, please <a href=\"mailto:%{contact}\"> contact us </a> or send us <a href=\"%{feedback}\"> feedback.</a></p><p>%{signature}</p>"
     create:
       already_invited: "The following users already have an invitation pending: %{users}"
+      already_a_member: "%{name} is already a member"
       created: "Your join request has been sent to the administrators of the space"
       duplicated: "You already have a pending join request in this space"
       error: "Something went wrong when processing your request, please try again. (details: %{errors})"
       sent: "Your invitation was successfully sent to: %{users}"
       user_not_found: "User not found: %{id}"
+    destroy:
+      success: "Join request successfully cancelled"
     index:
       accept: "Accept join request by %{user}?"
       accept_as: "as"
@@ -800,12 +804,24 @@ en:
         no_results: "No results found"
         searching: "Searching..."
     new:
+      already_invited: "You already have an invitation to join this space! Go to the space's home page to see it"
       already_requested: "You already requested to join this space! Please wait for an administrator to accept it."
       message_title: "Send a join request to the administrators of the space"
+    show:
+      accept: "Yes, I want to join!"
+      already_accepted: "... but you're already a member of this space."
+      comment_invitation: "This is the comment written by %{name}:"
+      comment_request: "This request was already sent to the admins of the space, please wait for a response. This is the comment you wrote:"
+      decline: "No, not now"
+      decline_confirmation: "Are you sure you want to decline the invitation to join this space?"
+      remove: "Cancel this request"
+      remove_confirmation: "Are you sure you want to cancel the request to join this space?"
+      title_invitation: "You were invited to join the space \"%{name}\" on %{date}"
+      title_request: "You sent a join request to the space \"%{name}\" on %{date}"
     update:
       accepted: "Join request accepted"
       updated: "Join request status updated"
-      discarded: "Join request discarded"
+      declined: "Join request declined"
   keywords: "Keywords (*)"
   language: Language
   last_week: "Last week"
@@ -957,6 +973,7 @@ en:
         other: "Other"
         today: "Today"
       not_confirmed: "Your account is not activated yet. Please, check your email to activate it. (Did not receive an email? <a href=\"%{url}\">Click here</a>.)"
+      pending_join_requests: "You have <span class='label label-important'>%{count}</span> pending requests"
       view_all_activity: "View all your activity"
       view_all_spaces: "View all spaces"
     edit_recording:
@@ -1349,7 +1366,6 @@ en:
     join_invitation: 
       clarify_registered: "Please introduce password in order to join this space."
       clarify_unregistered: "Please introduce your full name and a password in order to register onto the Mconf and join this space."
-    join_pending: "Join request being processed"
     leave: 
       leave_this_space: "Leave this space"
       success: "You left the space %{space_name}"
@@ -1446,6 +1462,7 @@ en:
     edit_recording:
       title: "Edit your recording"
     error:
+      already_invited: "You were already invited to join this space, please accept or decline the invitation"
       need_join_to_access: "You need to join this space to access it. Send a join request to the administrators."
     index: 
       create_new_space: "Create a new space"
@@ -1493,6 +1510,10 @@ en:
           other: "The webconference is currently in progress with %{count} participants"
       webconference_join: "Join it"
       webconference_start: "Start it"
+    sidebar_notifications:
+      pending_join_requests:
+        one: "This space has %{count} pending join request!"
+        other: "This space has %{count} pending join requests!"
     sidebar_webconf_buttons:
       end: "Stop it"
       end_tooltip: "This action will end the current conference!"
@@ -1503,9 +1524,18 @@ en:
       join_mobile_full: "Join from a mobile device"
       preferences: "Preferences"
       start: "Start"
+    space_join_button:
+      accept_or_decline: "Accept or decline"
+      already_requested: "Join request sent"
+      already_requested_alert: "You already requested to join this space, please wait for a moderator to accept you."
+      cancel_request: "Cancel request"
+      invitation_alert: "You have been invited to join this space, click the button above to accept or decline the invitation"
+      join: "Join this space"
     space_thumbnail:
       private: "Private"
       public: "Public"
+      reply_invitation: "Reply to the invitation"
+      view_join_request: "View the request you sent"
     thumbnail_view:
       no_spaces: "There are no spaces created yet!"
     unified_space:

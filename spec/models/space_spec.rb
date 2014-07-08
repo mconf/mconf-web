@@ -262,6 +262,13 @@ describe Space do
     end
   end
 
+  pending "#pending_join_requests"
+  pending "#pending_invitations"
+  pending "#pending_join_request_for"
+  pending "#pending_join_request_for?"
+  pending "#pending_invitation_for"
+  pending "#pending_invitation_for?"
+
   describe "abilities", :abilities => true do
     set_custom_ability_actions([:leave, :enable, :webconference, :select, :disable, :update_logo,
       :user_permissions, :edit_recording])

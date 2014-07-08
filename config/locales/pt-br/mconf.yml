@@ -70,6 +70,7 @@ pt-br:
       other: "%{count} participantes"
     publish: "Publicar"
     upload: "Enviar"
+    register: "Registrar"
     register_to_view_space: "Crie uma conta para visualizar e participar desta comunidade"
     save: "Salvar"
     send: "Enviar"
@@ -772,11 +773,14 @@ pt-br:
     asked_full: "<b>%{candidate}</b> quer participar da comunidade %{space} administrado por você: %{comment} <br/><br/><p>Para atender o pedido visite <a href=\"%{url}\">%{url}</a></p><p>Se você acredita que esta mensagem é um spam, por favor <a href=\"mailto:%{contact}\"> entre em contato</a> ou nos <a href=\"%{feedback}\"> envie uma mensagem.</a></p><p>%{signature}</p>"
     create:
       already_invited: "Os seguintes usuários já possuem um convite pendente: %{users}"
+      already_a_member: "%{name} já é um membro"
       created: "Seu pedido de adesão foi enviado para os administradores da comunidade"
       duplicated: "Você já possui um pedido de adesão pendente nesta comunidade"
       error: "Algo errado aconteceu ao processar sua requisição, por favor tente novamente. (detalhes: %{errors})"
       sent: "Seu convite foi enviado com sucesso para: %{users}"
       user_not_found: "Usuário não encontrado: %{id}"
+    destroy:
+      success: "Pedido de adesão cancelado com sucesso"
     index:
       accept: "Aceitar pedido de adesão de %{user}?"
       accept_as: "como"
@@ -800,12 +804,24 @@ pt-br:
         no_results: "Nenhum resultado encontrado"
         searching: "Procurando..."
     new:
+      already_invited: "Você já possui um convite para entrar nesta comunidade! Vá para a página inicial da comunidade para acessá-lo."
       already_requested: "Você já requisitou ingresso nesta comunidade! Por favor espere que um administrador aceite o pedido."
       message_title: "Envie um pedido de adesão aos administradores da comunidade"
+    show:
+      accept: "Sim, quero entrar!"
+      already_accepted: "... mas você já é um membro dessa comunidade."
+      comment_invitation: "Esta é a mensagem escrita por %{name}:"
+      comment_request: "Essa requisição já foi enviada para os administradores da comunidade, por favor espere por uma resposta. Este é o comentário que você escreveu:"
+      decline: "Não, agora não"
+      decline_confirmation: "Você tem certeza que quer negar o convite de adesão a esta comunidade?"
+      remove: "Cancelar esta requisição"
+      remove_confirmation: "Você tem certeza que quer cancelar a requisição de ingresso nesta comunidade?"
+      title_invitation: "Você foi convidado para ingressar na comunidade \"%{name}\" em %{date}"
+      title_request: "Você enviou um pedido de ingresso para a comunidade \"%{name}\" em %{date}"
     update:
       accepted: "Pedido de adesão aceito"
       updated: "Pedido de adesão atualizado"
-      discarded: "Pedido de adesão descartado"
+      declined: "Pedido de adesão rejeitado"
   keywords: "Palavras-chave (*)"
   language: Idioma
   last_week: "Semana passada"
@@ -957,6 +973,7 @@ pt-br:
         other: "Outros"
         today: "Hoje"
       not_confirmed: "Sua conta ainda não foi confirmada. Por favor verifique o seu e-mail para ativá-la. (Não recebeu um e-mail? <a href=\"%{url}\">Clique aqui</a>.)"
+      pending_join_requests: "Você possui <span class='label label-important'>%{count}</span> requisições pendentes"
       view_all_activity: "Ver todas suas atividades"
       view_all_spaces: "Ver todas comunidades"
     edit_recording:
@@ -1349,7 +1366,6 @@ pt-br:
     join_invitation:
       clarify_registered: "Por favor, digite a senha para participar desta comunidade."
       clarify_unregistered: "Por favor, digite o seu nome completo e uma senha para se registrar no Mconf e participar desta comunidade."
-    join_pending: "Pedido de adesão sendo processado"
     leave:
       leave_this_space: "Sair desta comunidade"
       success: Você deixou a comunidade %{space_name}
@@ -1446,6 +1462,7 @@ pt-br:
     edit_recording:
       title: "Editar sua gravação"
     error:
+      already_invited: "Você já foi convidado para entrar nesta comunidade, por favor aceite ou rejeite o convite"
       need_join_to_access: "Você precisa participar desta comunidade para acessá-la. Envie um pedido de adesão aos administradores."
     index: 
       create_new_space: "Criar uma comunidade"
@@ -1493,6 +1510,10 @@ pt-br:
           other: "A conferência está ativa com %{count} participantes"
       webconference_join: "Entrar"
       webconference_start: "Iniciar"
+    sidebar_notifications:
+      pending_join_requests:
+        one: "Esta comunidade tem %{count} pedido de adesão pendente!"
+        other: "Esta comunidade tem %{count} pedidos de adesão pendentes!"
     sidebar_webconf_buttons:
       end: "Finalizar"
       end_tooltip: "Esta ação vai finalizar a reunião em andamento!"
@@ -1503,9 +1524,18 @@ pt-br:
       join_mobile_full: "Entrar a partir de um dispositivo móvel"
       preferences: "Preferências"
       start: "Iniciar"
+    space_join_button:
+      accept_or_decline: "Responder ao convite"
+      already_requested: "Pedido enviado"
+      already_requested_alert: "Você já solicitou ingresso nesta comunidade, por favor espere que um moderador o aceite."
+      cancel_request: "Cancelar o pedido"
+      invitation_alert: "Você foi convidado para entrar nesta comunidade, clique no botão acima para responder"
+      join: "Entrar na comunidade"
     space_thumbnail:
       private: "Privada"
       public: "Pública"
+      reply_invitation: "Responder ao convite"
+      view_join_request: "Ver a requisição que você enviou"
     thumbnail_view:
       no_spaces: "Nenhuma comunidade foi criada até o momento!"
     unified_space: 
