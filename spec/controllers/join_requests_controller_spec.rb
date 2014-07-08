@@ -32,66 +32,48 @@ describe JoinRequestsController do
     let(:space) { FactoryGirl.create(:space) }
     let(:user) { FactoryGirl.create(:user) }
 
-    context "a normal user" do
-      context "is not a member of the space" do
-        before(:each) {
-          sign_in(user)
-          get :new, :space_id => space.to_param
-        }
+    context "a user that is not a member of the target space" do
+      before(:each) { sign_in(user) }
 
+      context "and has no pending join request" do
         context "template and layout" do
+          before(:each) { get :new, :space_id => space.to_param }
           it { should render_template('new') }
           it { should render_with_layout('no_sidebar') }
         end
       end
 
-      context "has already requested membership" do
-        before(:each) {
-          FactoryGirl.create(:join_request, :group => space, :candidate => user)
-          sign_in(user)
-          get :new, :space_id => space.to_param
+      context "and has already requested membership" do
+        before {
+          @join_request =
+            FactoryGirl.create(:join_request, :group => space, :candidate => user, :request_type => "request")
         }
-
-        it { should render_template('new') }
-        it { should assign_to(:already_requested).with(true) }
+        before(:each) { get :new, :space_id => space.to_param }
+        it { should render_template("new") }
+        it { should render_with_layout('no_sidebar') }
+        it { should assign_to(:pending_request).with(@join_request) }
       end
 
-
-      context "is already a member of the space" do
-        before(:each) {
-          space.add_member!(user)
-          sign_in(user)
-          get :new, :space_id => space.to_param
+      context "and has already been invited" do
+        before {
+          @join_request =
+            FactoryGirl.create(:join_request, :group => space, :candidate => user, :request_type => "invite")
         }
-
-        it { should redirect_to(space_path(space)) }
+        before(:each) { get :new, :space_id => space.to_param }
+        it { should render_template("new") }
+        it { should render_with_layout('no_sidebar') }
+        it { should assign_to(:pending_request).with(@join_request) }
       end
     end
 
-    # pending "assigns @user_is_admin" do
-    #   before(:each) {
-    #     sign_in(user)
-    #     get :new, :space_id => space.to_param
-    #   }
-
-    #   context "when user is an admin" do
-    #     before(:each) { space.add_member!(user, 'Admin') }
-
-    #     it { should assign_to(:user_is_admin).with(true) }
-    #   end
-
-    #   context "when user is not and admin" do
-    #     before(:each) { space.add_member!(user) }
-
-    #     it { should assign_to(:user_is_admin).with(false) }
-    #   end
-
-    # end
-
-    context "if the user is an admin of the target space" do
-      it "assigns @users"
-      it "assigns @checked_users"
-      it "template and layout"
+    context "a user that is a member of the target space" do
+      before(:each) {
+        space.add_member!(user)
+        sign_in(user)
+        get :new, :space_id => space.to_param
+      }
+      it { should redirect_to(space_path(space)) }
+      it { should assign_to(:pending_request).with(nil) }
     end
   end
 
