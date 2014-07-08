@@ -779,6 +779,8 @@ pt-br:
       error: "Algo errado aconteceu ao processar sua requisição, por favor tente novamente. (detalhes: %{errors})"
       sent: "Seu convite foi enviado com sucesso para: %{users}"
       user_not_found: "Usuário não encontrado: %{id}"
+    destroy:
+      success: "Pedido de adesão cancelado com sucesso"
     index:
       accept: "Aceitar pedido de adesão de %{user}?"
       accept_as: "como"
@@ -807,11 +809,15 @@ pt-br:
       message_title: "Envie um pedido de adesão aos administradores da comunidade"
     show:
       accept: "Sim, quero entrar!"
-      comment: "Este é o comentário de %{name}:"
-      decline: "Nào, agora não"
-      decline_confirmation: "Você tem certeza que quer negar o convite de ingresso a esta comunidade?"
-      title: "Você foi convidado para ser um membro da comunidade \"%{name}\""
       already_accepted: "... mas você já é um membro dessa comunidade."
+      comment_invitation: "Esta é a mensagem escrita por %{name}:"
+      comment_request: "Essa requisição já foi enviada para os administradores da comunidade, por favor espere por uma resposta. Este é o comentário que você escreveu:"
+      decline: "Não, agora não"
+      decline_confirmation: "Você tem certeza que quer negar o convite de adesão a esta comunidade?"
+      remove: "Cancelar esta requisição"
+      remove_confirmation: "Você tem certeza que quer cancelar a requisição de ingresso nesta comunidade?"
+      title_invitation: "Você foi convidado para ingressar na comunidade \"%{name}\" em %{date}"
+      title_request: "Você enviou um pedido de ingresso para a comunidade \"%{name}\" em %{date}"
     update:
       accepted: "Pedido de adesão aceito"
       updated: "Pedido de adesão atualizado"
@@ -1506,8 +1512,8 @@ pt-br:
       webconference_start: "Iniciar"
     sidebar_notifications:
       pending_join_requests:
-        one: "Esta comunidade tem %{count} pedido de ingresso pendente!"
-        other: "Esta comunidade tem %{count} pedidos de ingresso pendentes!"
+        one: "Esta comunidade tem %{count} pedido de adesão pendente!"
+        other: "Esta comunidade tem %{count} pedidos de adesão pendentes!"
     sidebar_webconf_buttons:
       end: "Finalizar"
       end_tooltip: "Esta ação vai finalizar a reunião em andamento!"

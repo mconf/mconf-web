@@ -779,6 +779,8 @@ en:
       error: "Something went wrong when processing your request, please try again. (details: %{errors})"
       sent: "Your invitation was successfully sent to: %{users}"
       user_not_found: "User not found: %{id}"
+    destroy:
+      success: "Join request successfully cancelled"
     index:
       accept: "Accept join request by %{user}?"
       accept_as: "as"
@@ -807,11 +809,15 @@ en:
       message_title: "Send a join request to the administrators of the space"
     show:
       accept: "Yes, I want to join!"
-      comment: "This is the comment written by %{name}:"
+      already_accepted: "... but you're already a member of this space."
+      comment_invitation: "This is the comment written by %{name}:"
+      comment_request: "This request was already sent to the admins of the space, please wait for a response. This is the comment you wrote:"
       decline: "No, not now"
       decline_confirmation: "Are you sure you want to decline the invitation to join this space?"
-      title: "You were invited to join the space \"%{name}\""
-      already_accepted: "... but you're already a member of this space."
+      remove: "Cancel this request"
+      remove_confirmation: "Are you sure you want to cancel the request to join this space?"
+      title_invitation: "You were invited to join the space \"%{name}\" on %{date}"
+      title_request: "You sent a join request to the space \"%{name}\" on %{date}"
     update:
       accepted: "Join request accepted"
       updated: "Join request status updated"

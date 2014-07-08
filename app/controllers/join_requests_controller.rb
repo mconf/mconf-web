@@ -147,7 +147,12 @@ class JoinRequestsController < ApplicationController
 
     respond_to do |format|
       format.html {
-        redirect_to request.referer
+        flash[:success] = t("join_requests.destroy.success")
+        if request.referer && request.referer.match(space_join_request_path(@space, @join_request))
+          redirect_to my_home_path
+        else
+          redirect_to request.referer
+        end
       }
     end
   end
