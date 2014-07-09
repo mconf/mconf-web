@@ -10,7 +10,7 @@ class SpaceMailer < ApplicationMailer
   def invitation_email(invitation_id)
     invitation = JoinRequest.find(invitation_id)
     @user = invitation.introducer
-    @space = Space.find(invitation.group_id)
+    @space = invitation.group
 
     I18n.with_locale(get_user_locale(@user, false)) do
       @invitation = invitation.clone
@@ -27,23 +27,22 @@ class SpaceMailer < ApplicationMailer
     @candidate = jr.candidate
     @introducer = jr.introducer
 
-    I18n.with_locale(get_user_locale(introducer, false)) do
-      @action = invitation.accepted? ? t("space_mailer.processed_invitation_email.accepted") : I18n.t("space_mailer.processed_invitation_email.not_accepted")
+    I18n.with_locale(get_user_locale(@introducer, false)) do
+      @action = jr.accepted? ? t("space_mailer.processed_invitation_email.accepted") : t("space_mailer.processed_invitation_email.rejected")
       subject = t("space_mailer.processed_invitation_email.subject", :name => @candidate.name, :action => @action)
       @space = jr.group
 
-      create_email(introducer.email, nil, subject)
+      create_email(@introducer.email, nil, subject)
     end
   end
 
   def join_request_email(jr_id, receiver_id)
-    jr = JoinRequest.find(jr_id)
+    @join_request = JoinRequest.find(jr_id)
     receiver = User.find(receiver_id)
     I18n.with_locale(get_user_locale(receiver, false)) do
-      subject = t("space_mailer.join_request_email.subject", :candidate => jr.candidate.name, :space => jr.group.name).html_safe
-      @join_request = jr
+      subject = t("space_mailer.join_request_email.subject", :candidate => @join_request.candidate.name, :space => @join_request.group.name).html_safe
 
-      create_email(receiver.email, jr.candidate.email, subject)
+      create_email(receiver.email, @join_request.candidate.email, subject)
     end
   end
 

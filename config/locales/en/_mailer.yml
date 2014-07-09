@@ -11,7 +11,7 @@ en:
         header: "<b>%{candidate}</b> wants to participate in %{space} space administered by you."
         link: "To answer the request please visit <a href=\"%{url}\">%{url}</a>"
       subject: "<b>%{candidate}</b> wants to participate in %{space} space."
-    processed_invitatation_email:
+    processed_invitation_email:
       accepted: "accepted"
       message:
         header: "<p>%{introducer}</p>,</br><p>%{name}</p> has %{action} the invitation to the space %{space}"

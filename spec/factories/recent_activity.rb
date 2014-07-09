@@ -4,9 +4,6 @@
 # This file is licensed under the Affero General Public License version
 # 3 or later. See the LICENSE file.
 
-# TODO: this factory is throwing a warning, not sure exactly why:
-#   DEPRECATION WARNING: You're trying to create an attribute `join_request_id'. Writing arbitrary attributes on a model is deprecated. Please just use `attr_writer` etc.
-
 FactoryGirl.define do
   factory :recent_activity do |ra|
   end

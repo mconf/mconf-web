@@ -11,7 +11,7 @@ pt-br:
         header: "<b>%{candidate}</b> quer participar da comunidade %{space} administrado por você."
         link: "Para atender o pedido visite <a href=\"%{url}\">%{url}</a>"
       subject: "<b>%{candidate}</b> quer participar da comunidade %{space}."
-    processed_invitatation_email:
+    processed_invitation_email:
       accepted: "aceitou"
       message:
         header: "<p>%{introducer}</p>,</br><p>%{name}</p> %{action} o convite para a comunidade %{space}"

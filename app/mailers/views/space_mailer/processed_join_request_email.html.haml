@@ -1,6 +1,6 @@
 #space-processed-join-request-mail
   .header
-    = t('.message.header', :action => @action :space => @space.name).html_safe
+    = t('.message.header', :action => @action, :space => @space.name).html_safe
   .link
     - if @join_request.accepted?
       = t('.message.link.accepted', :space => @space.name, :space_url => space_url(@space)).html_safe
