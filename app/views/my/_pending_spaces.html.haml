@@ -2,7 +2,5 @@
 -#  user (User)
 -#  spaces (array of Space)
 
-- if spaces.empty?
-  %p= t('home.no_spaces', :link => spaces_path).html_safe
-- else
+- unless spaces.empty?
   = render "spaces/thumbnail_view", :spaces => spaces, :user_spaces => spaces, :show_join_request => true
