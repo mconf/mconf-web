@@ -9,6 +9,7 @@ require "spec_helper"
 describe Profile do
 
   describe "abilities", :abilities => true do
+    set_custom_ability_actions([:update_logo])
     subject { ability }
     let(:ability) { Abilities.ability_for(user) }
     let(:target) { FactoryGirl.create(:user).profile }
