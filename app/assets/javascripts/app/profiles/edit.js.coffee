@@ -1,7 +1,7 @@
 $ ->
   if isOnPage 'profiles', 'edit'
 
-    uploader_callbacks =
+    uploaderCallbacks =
       onComplete: (id, name, response) ->
         if response.success
           $.get response.redirect_url, (data) ->
@@ -10,5 +10,5 @@ $ ->
               data: data
             mconf.Crop.bindCrop()
 
-    mconf.Uploader.bindAll
-      callbacks: uploader_callbacks
+    mconf.Uploader.bind
+      callbacks: uploaderCallbacks

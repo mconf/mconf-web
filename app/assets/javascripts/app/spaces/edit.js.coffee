@@ -3,7 +3,7 @@ $ ->
     updatePasswords($('input#space_public').is(':checked'))
     $('input#space_public').on 'click', -> updatePasswords($(this).is(':checked'))
 
-    uploader_callbacks =
+    uploaderCallbacks =
       onComplete: (id, name, response) ->
         if response.success
           $.get response.redirect_url, (data) ->
@@ -12,8 +12,8 @@ $ ->
               data: data
             mconf.Crop.bindCrop()
 
-    mconf.Uploader.bindAll
-      callbacks: uploader_callbacks
+    mconf.Uploader.bind
+      callbacks: uploaderCallbacks
 
 updatePasswords = (checked) ->
   $('#space_bigbluebutton_room_attributes_attendee_password').prop('disabled', checked)

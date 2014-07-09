@@ -9,7 +9,7 @@ $ ->
     updateAll()
 
     # bind uploader
-    uploader_callbacks =
+    uploaderCallbacks =
       onComplete: (id, name, response) ->
         if response.success
           $.get response.redirect_url, (data) ->
@@ -25,9 +25,9 @@ $ ->
         $('.upload-button').hide()
 
     $(document).on "modal-shown.attachments-uploader", ->
-      mconf.Uploader.bindAll
-        drag_and_drop: true
-        callbacks: uploader_callbacks
+      mconf.Uploader.bind
+        dragAndDrop: true
+        callbacks: uploaderCallbacks
 
 updateAll = ->
   updateDeleteLink()
