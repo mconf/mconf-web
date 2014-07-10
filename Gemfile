@@ -116,6 +116,7 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'sqlite3'
   gem 'webrat'
+  gem 'capybara'
   gem 'shoulda-matchers'
   gem 'htmlentities'
   gem 'turn', '0.8.2', :require => false # TODO: why 0.8.2?

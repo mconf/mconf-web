@@ -133,6 +133,12 @@ GEM
     builder (3.0.4)
     cancan (1.6.10)
     cancancan (1.8.4)
+    capybara (2.4.1)
+      mime-types (>= 1.16)
+      nokogiri (>= 1.3.3)
+      rack (>= 1.0.0)
+      rack-test (>= 0.5.4)
+      xpath (~> 2.0)
     carrierwave (0.9.0)
       activemodel (>= 3.2.0)
       activesupport (>= 3.2.0)
@@ -380,6 +386,8 @@ GEM
       chronic (>= 0.6.3)
     will_paginate (3.0.5)
     xml-simple (1.1.1)
+    xpath (2.0.0)
+      nokogiri (~> 1.3)
     ya2yaml (0.30)
     yajl-ruby (1.1.0)
     yamler (0.1.0)
@@ -398,6 +406,7 @@ DEPENDENCIES
   bootstrap-datetimepicker-rails
   browser
   cancancan (~> 1.8)
+  capybara
   carrierwave
   chronic
   coffee-rails (~> 3.2.0)
