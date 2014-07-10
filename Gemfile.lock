@@ -35,7 +35,7 @@ GIT
 
 GIT
   remote: git@github.com:mconf/mweb_events.git
-  revision: eb978fc4e98cf6db464e62090bee66fd4e2ce123
+  revision: 3615eb9dacdc24ef170648026b15cb3469565615
   specs:
     mweb_events (0.0.1)
       bootstrap3-datetimepicker-rails (~> 3.0.0)
@@ -127,7 +127,7 @@ GEM
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
     bootstrap-datetimepicker-rails (0.0.11)
-    bootstrap3-datetimepicker-rails (3.0.0.1)
+    bootstrap3-datetimepicker-rails (3.0.0.2)
       momentjs-rails (~> 2.5.0)
     browser (0.5.0)
     builder (3.0.4)
@@ -225,7 +225,7 @@ GEM
     jquery-rails (2.3.0)
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
-    jquery-ui-rails (4.2.1)
+    jquery-ui-rails (5.0.0)
       railties (>= 3.2.16)
     json (1.8.1)
     leaflet-rails (0.7.3)

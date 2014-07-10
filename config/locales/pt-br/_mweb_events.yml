@@ -37,6 +37,7 @@ pt-br:
       new:
         page_title: "Criar um novo evento"
       registration:
+        already_registered: Você já está inscrito neste evento!
         closed: Inscrições para este evento estão fechadas.
         join_button: Junte-se a esta comunidade para participar
         need_sign_in: Você precisa estar logado para registrar-se
