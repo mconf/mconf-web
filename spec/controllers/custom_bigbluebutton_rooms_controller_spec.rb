@@ -180,7 +180,7 @@ describe CustomBigbluebuttonRoomsController do
         let(:allowed_params) {
           [ :name, :server_id, :meetingid, :attendee_password, :moderator_password, :welcome_msg,
             :private, :logout_url, :dial_number, :voice_bridge, :max_participants, :owner_id,
-            :owner_type, :external, :param, :record, :duration, :default_layout,
+            :owner_type, :external, :param, :record, :duration, :default_layout, :presenter_share_only,
             :metadata_attributes => [ :id, :name, :content, :_destroy, :owner_id ] ]
         }
         it {
@@ -203,7 +203,7 @@ describe CustomBigbluebuttonRoomsController do
         before(:each) { login_as(user) }
 
         let(:allowed_params) {
-          [ :attendee_password, :moderator_password, :private, :record, :default_layout,
+          [ :attendee_password, :moderator_password, :private, :record, :default_layout, :presenter_share_only,
             :metadata_attributes => [ :id, :name, :content, :_destroy, :owner_id ] ]
         }
         it {

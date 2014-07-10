@@ -24,6 +24,7 @@ en:
       bigbluebutton_room:
         attendee_password: "Attendee Password"
         default_layout: "Default Layout"
+        presenter_share_only: "Only Presenter Shares Audio and Video"
         dial_number: "Dial Number"
         duration: Duration
         external: "Externally created"
