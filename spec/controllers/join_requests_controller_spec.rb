@@ -15,6 +15,8 @@ describe JoinRequestsController do
     before(:each) { sign_in(user) }
     before(:each) { get :index, :space_id => space.to_param }
 
+    it { should_authorize space, :index, :space_id => space.to_param, :ability_name => :index_join_requests }
+
     context "template and layout" do
       it { should render_template('index') }
       it { should render_with_layout('spaces_show') }
@@ -31,6 +33,8 @@ describe JoinRequestsController do
   describe "#new" do
     let(:space) { FactoryGirl.create(:space) }
     let(:user) { FactoryGirl.create(:user) }
+
+    it { should_authorize an_instance_of(JoinRequest), :new, :space_id => space.to_param}
 
     context "a user that is not a member of the target space" do
       before(:each) { sign_in(user) }
@@ -75,12 +79,15 @@ describe JoinRequestsController do
       it { should redirect_to(space_path(space)) }
       it { should assign_to(:pending_request).with(nil) }
     end
+
   end
 
   describe "#show" do
     let(:jr) { FactoryGirl.create(:space_join_request) }
     let(:space) { jr.group }
     let(:user) { FactoryGirl.create(:user) }
+
+    it { should_authorize an_instance_of(JoinRequest), :show, :space_id => space.to_param, :id => jr.id }
 
     context "a normal user" do
       context "is not the subject of the join request" do
@@ -113,11 +120,15 @@ describe JoinRequestsController do
       end
 
     end
+
   end
 
   describe "#create" do
     let(:user) { FactoryGirl.create(:user) }
+    let(:space) { FactoryGirl.create(:space) }
     let(:jr) { FactoryGirl.build(:join_request, :candidate => user, :introducer => nil) }
+
+    it { should_authorize an_instance_of(JoinRequest), :create, :via => :post, :space_id => space.to_param }
 
     context "user requests membership on a public space" do
       let(:space) { FactoryGirl.create(:space, :public => true) }
@@ -156,6 +167,8 @@ describe JoinRequestsController do
   describe "#invite" do
     let(:space) { FactoryGirl.create(:space) }
     let(:user) { FactoryGirl.create(:user) }
+
+    it { should_authorize space, :invite, :space_id => space.to_param }
 
     context "if the user is not a member of the space" do
       before(:each) {
@@ -200,6 +213,8 @@ describe JoinRequestsController do
       space.add_member!(user, 'Admin')
       sign_in(user)
     }
+
+    it { should_authorize an_instance_of(JoinRequest), :create, :space_id => space.to_param, :via => :post }
 
     context "admin succesfully invites one user" do
       let(:attributes) {
@@ -280,6 +295,8 @@ describe JoinRequestsController do
     let(:space) { FactoryGirl.create(:space) }
     let(:user) { FactoryGirl.create(:user) }
     let(:jr) { FactoryGirl.create(:join_request, :group => space, :introducer => nil) }
+
+    it { should_authorize an_instance_of(JoinRequest), :update, :via => :put, :space_id => space.to_param, :id => jr.id }
 
     context "a space admin" do
       before(:each) {

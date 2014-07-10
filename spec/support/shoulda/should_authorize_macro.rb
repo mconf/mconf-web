@@ -17,12 +17,20 @@ module Shoulda
       def should_authorize(target, method, options={})
         options[:via] ||= :get
 
+        # For abilities with custom names like authorize!(@space,:index_join_requests)
+        # which is called in join_requests#index
+        if options[:ability_name]
+          ability_name = options[:ability_name]
+        else
+          ability_name = method
+        end
+
         if ![:get, :post, :put, :delete].include? options[:via]
           fail "#{options[:via]} is not a valid http method"
         end
         http_method = options.delete(:via)
 
-        controller.should_receive(:authorize!).with(method, target).and_raise(CanCan::AuthorizationNotPerformed)
+        controller.should_receive(:authorize!).with(ability_name, target).and_raise(CanCan::AuthorizationNotPerformed)
         begin
           send(http_method, method, options)
         rescue CanCan::AuthorizationNotPerformed
