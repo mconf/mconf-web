@@ -1,6 +1,6 @@
 class BigbluebuttonRailsTo140E < ActiveRecord::Migration
   def up
-    add_column :bigbluebutton_room_options, :presenter_share_only, :boolean, :default => false
+    add_column :bigbluebutton_room_options, :presenter_share_only, :boolean
   end
 
   def down
