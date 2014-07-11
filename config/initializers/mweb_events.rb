@@ -71,6 +71,8 @@ Rails.application.config.to_prepare do
       before_filter :block_if_events_disabled
       before_filter :custom_loading, :only => [:index]
 
+      layout "no_sidebar", :only => [:new, :index]
+
       # return 404 for all Participant routes if the events are disabled
       def block_if_events_disabled
         unless Mconf::Modules.mod_enabled?('events')

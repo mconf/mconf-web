@@ -1,0 +1,15 @@
+@import "definitions";
+@import "compass/css3";
+
+body.mweb_events-participants.new {
+
+  #content {
+    width: $contents-width*0.7;
+    margin: 0 auto;
+
+    h3 {
+      text-align: center;
+    }
+  }
+
+}

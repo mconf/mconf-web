@@ -53,8 +53,12 @@ pt-br:
         starts_at: "Inicia em"
     participants:
       index:
+        back_to_event: "Voltar para a página do evento"
         disable: Remover do evento
         disable_confirm: Tem certeza que deseja remover este usuário do evento?
         event: "Mensagem sobre o evento [%{event}]"
         message: Enviar mensagem
         no_participants: Nenhum inscrito ainda!
+        title: "Listando todos os participantes do evento"
+      new:
+        title: "Registrar-se no evento"
