@@ -228,6 +228,8 @@ GEM
     jquery-ui-rails (5.0.0)
       railties (>= 3.2.16)
     json (1.8.1)
+    launchy (2.4.2)
+      addressable (~> 2.3)
     leaflet-rails (0.7.3)
     less (2.2.2)
       commonjs (~> 0.2.6)
@@ -433,6 +435,7 @@ DEPENDENCIES
   i18n-js!
   icalendar
   jquery-rails
+  launchy
   less-rails
   momentjs-rails
   mweb_events!
