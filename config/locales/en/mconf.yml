@@ -1752,6 +1752,12 @@ en:
       title: "Edit your account"
       yes_cancel_account: "Yes, cancel my account"
   username: Username
+  uploader:
+    button: Upload new file
+    fail: Upload error
+    progress: "{percent}% of {total_size}"
+    drag_files: Drag and drop files here to upload
+    processing: Processing...
   vCard: 
     corrupt: "The vCard you sent is corrupted or is a non-supported version"
     message: "Use your vCard to automatically fill in your profile"

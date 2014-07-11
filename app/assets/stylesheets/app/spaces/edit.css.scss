@@ -48,4 +48,23 @@ body.spaces.edit {
     .btn { margin-left: 5px; }
   }
 
+  #space-logo-uploader {
+    .upload-button {
+      display: block;
+    }
+
+    .progress {
+      width: 150px;
+    }
+
+    .upload-spinner {
+      display: none !important;
+    }
+
+    .upload-list {
+      padding-top: 5px;
+      font-size: 14px;
+    }
+  }
+
 }

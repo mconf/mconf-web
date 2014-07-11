@@ -1,8 +1,7 @@
 .modal-header
   = modal_close_button
   %h3= t(".title")
-= simple_form_for([@space, prepare_for_form(@attachment || Attachment.new)], :html => { :multipart => true }) do |f|
-  .modal-body
-    = f.file_field :attachment
-  .modal-footer.form-actions
-    = f.button :wrapped, :value => t('_other.upload'), :class => "btn btn-primary", :cancel_modal => true
+
+.modal_body
+  #attachments-uploader
+    .file-uploader{:'data-endpoint' => space_attachments_path(@space, :format => :json), :'data-max-size' => '5mb'}

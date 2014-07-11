@@ -72,6 +72,7 @@ Mconf::Application.routes.draw do
 
     member do
       post :enable
+      post :update_logo
       delete :disable
       post :leave
       get :user_permissions
@@ -123,7 +124,9 @@ Mconf::Application.routes.draw do
       post :disapprove
     end
 
-    resource :profile, :except => [:new, :create]
+    resource :profile, :except => [:new, :create] do
+      post :update_logo
+    end
   end
 
   # Routes specific for the current user

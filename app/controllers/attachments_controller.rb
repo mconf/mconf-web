@@ -62,14 +62,14 @@ class AttachmentsController < ApplicationController
   def create
     @attachment.author = current_user
     @attachment.space = @space
+    @attachment.attachment = params[:uploaded_file]
 
-    if @attachment.save
-      flash[:success] = t('attachment.created')
-    else
-      flash[:error] = @attachment.errors.to_xml
-      flash.delete([:error])
+    success = @attachment.save
+    redirect = space_attachments_path(@space)
+    respond_to do |format|
+      format.html { redirect_to redirect }
+      format.json { render :json => {:success => success, :redirect_url => redirect }, :status => 200 }
     end
-    redirect_to space_attachments_path(@space)
   end
 
   def destroy

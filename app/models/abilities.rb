@@ -69,7 +69,7 @@ module Abilities
           false
         end
       end
-      can [:read, :edit, :update], Profile, :user_id => user.id
+      can [:read, :edit, :update, :update_logo], Profile, :user_id => user.id
 
       # Private messages
       can :create, PrivateMessage
@@ -88,8 +88,8 @@ module Abilities
       end
       # Only the admin can disable or update information on a space
       # Only global admins can destroy spaces
-      can [:edit, :update, :user_permissions, :webconference_options,
-           :disable, :edit_recording], Space do |space|
+      can [:edit, :update, :update_logo, :user_permissions,
+        :webconference_options, :disable, :edit_recording], Space do |space|
         space.admins.include?(user)
       end
 

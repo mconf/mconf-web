@@ -98,6 +98,8 @@ gem 'httparty'
 gem 'rubyzip' # TODO: see rubyzip2
 gem 'prism'
 
+gem 'fineuploader-rails', '~> 3.3'
+
 group :development do
   gem 'translate-rails3', :require => 'translate', :git => 'git://github.com/mconf/translate.git'
   gem 'rails-footnotes'
