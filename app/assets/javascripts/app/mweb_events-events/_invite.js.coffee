@@ -7,7 +7,6 @@ class mconf.MwebEventsEvents.Invitation
 
   @bind: ->
     bindUsers()
-    bindDates()
 
   @unbind: ->
     # TODO: can it be done?
