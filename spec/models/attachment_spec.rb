@@ -24,11 +24,6 @@ describe Attachment do
       context "and he belongs to the space the attachment is in" do
         before { target.space.add_member!(user) }
         it { should_not be_able_to_do_anything_to(target).except([:read, :destroy, :create]) }
-
-        context "but the space has the file repository disabled" do
-          before { target.space.update_attributes(:repository => false) }
-          it { should_not be_able_to_do_anything_to(target) }
-        end
       end
     end
 
@@ -38,11 +33,6 @@ describe Attachment do
       context "and the attachment is in a public space" do
         before { target.space.update_attributes(:public => true) }
         it { should_not be_able_to_do_anything_to(target).except(:read) }
-
-        context "but the file repository is disabled" do
-          before { target.space.update_attributes(:repository => false) }
-          it { should_not be_able_to_do_anything_to(target) }
-        end
       end
 
       context "and the attachment is in a private space" do
@@ -72,14 +62,6 @@ describe Attachment do
       context "that's not a member of the public space the attachment is in" do
         before { target.space.update_attributes(:public => true) }
         it { should_not be_able_to_do_anything_to(target).except(:read) }
-      end
-
-      context "member of the space but the space has the file repository disabled" do
-        before {
-          target.space.add_member!(user)
-          target.space.update_attributes(:repository => false)
-        }
-        it { should_not be_able_to_do_anything_to(target) }
       end
     end
 

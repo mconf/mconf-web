@@ -584,11 +584,17 @@ ul#navbar-left-links {
     max-width: $contents-width - 120px;
 
     .main-title {
+
       @include font-size($font-section-title);
       line-height: 1.0;
       font-weight: bold;
       color: $page-title-color;
       margin-bottom: 5px;
+
+      a {
+        $c: $page-title-color;
+        @include link-colors($c, lighten($c, 10), lighten($c, 10));
+      }
 
       // when the title is too big the font is reduced a bit
       &.small-title {
@@ -612,15 +618,13 @@ ul#navbar-left-links {
       margin-top: 0;
 
       // the text that shows the visibility of spaces
-      .space-visibility {
-        @include space-visibility;
-        font-weight: normal;
+      .resource-visibility {
+        color: $dark-gray;
       }
 
       // the text that shows when a user is a member of the space
       .user-is-member {
-        @include space-visibility;
-        font-weight: normal;
+        color: $dark-gray;
       }
     }
   }
@@ -652,10 +656,7 @@ ul#navbar-left-links {
     background: $light-gray;
     margin-bottom: 10px;
     clear: both;
-
-    &.active {
-      background: darken($alert-success-bg, 5);
-    }
+    @include block-wrapper-active;
   }
 
   .content-block {
@@ -747,18 +748,7 @@ ul#navbar-left-links {
     }
   }
 
-  .content-block {
-    clear: both;
-    margin-bottom: 20px;
-  }
-
-  .content-block-footer {
-    padding: 4px 10px;
-    text-align: right;
-    background: $light-gray;
-    border-top: 1px solid #ddd;
-    clear: both;
-
+  @mixin content-block-pagination {
     // adapt bootstrap's .pagination
     @include mconf-clearfix;
     .pagination {
@@ -781,6 +771,28 @@ ul#navbar-left-links {
     }
   }
 
+  .content-block-wrapper {
+    @include block-wrapper-active;
+  }
+
+  .content-block {
+    clear: both;
+    margin-bottom: 20px;
+  }
+
+  .content-block-footer {
+    padding: 4px 10px;
+    text-align: right;
+    clear: both;
+
+    &.content-block-footer-fancy {
+      background: $light-gray;
+      border-top: 1px solid #eee;
+    }
+
+    @include content-block-pagination;
+  }
+
   .content-block-middle {
     padding: 10px 5px;
     clear: both;
@@ -800,6 +812,7 @@ ul#navbar-left-links {
       a { margin-right: 10px; }
     }
 
+    @include content-block-pagination;
   }
 }
 
@@ -917,11 +930,7 @@ ul#navbar-left-links {
 .events-hapenning-now {
   .thread {
     background: $light-gray;
-    border-left: 5px solid #75b12e;
-  }
-
-  .event-image-date {
-    color: darken(#75b12e, 10);
+    border-left: 5px solid $bright-blue;
   }
 }
 
@@ -933,4 +942,46 @@ strong.highlight {
 // for elements that might contain long words that can break the layout
 .break-word {
   word-break: break-all;
+}
+
+// visibility of a resource: private space, public space, private event, etc.
+.resource-visibility {
+  display: block;
+
+  .icon-awesome {
+    float: none;
+    margin-right: 2px;
+  }
+
+  &.small {
+    font-size: $font-small;
+
+    .icon-awesome {
+      font-size: $font-small;
+    }
+  }
+}
+
+// tablets/mobiles
+@media (max-width: 767px) {
+  body.responsive {
+    padding-left: 0;
+    padding-right: 0;
+
+    #page-header {
+      width: 100%;
+    }
+
+    #content-wrapper {
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+  }
+}
+@media (max-width: 979px) {
+  body.responsive {
+    #page-header {
+      width: 100%;
+    }
+  }
 }

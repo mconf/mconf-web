@@ -6,7 +6,8 @@
   - if events_group.empty?
     %p= message
   - else
-    - for event in events_group
-      = render :partial => "space_events/unified_event", :locals => { :event => event }
-    .content-block-footer
+    .list-texts
+      - for event in events_group
+        = render :partial => "mweb_events/events/unified_event", :locals => { :event => event }
+    .content-block-footer.content-block-footer-fancy
       = page_navigation_links events_group

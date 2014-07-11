@@ -8,6 +8,7 @@
  *= require select2
  *= require ../../../vendor/assets/stylesheets/bootstrap/select2-bootstrap
  *= require bootstrap-datetimepicker
+ *= require fineuploader
  *
  * Note: the order matters!
  *= require ./app/application/typography
@@ -28,5 +29,6 @@
  *= require ./app/application/footer
  *= require ./app/application/lists
  *= require ./app/application/select2
+ *= require ./app/shared/_copy_modal
  *
  */

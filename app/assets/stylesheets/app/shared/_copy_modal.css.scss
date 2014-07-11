@@ -1,0 +1,28 @@
+@import "compass/css3";
+@import "definitions";
+
+#copy-to-clipboard-modal {
+  display: none;
+
+  input {
+    width: 95%;
+    text-align: center;
+  }
+
+  &.success {
+    .modal-header {
+      background: $alert-success-bg;
+    }
+  }
+}
+
+#copy-to-clipboard-message {
+  display: none;
+  color: $alert-success-font;
+}
+
+.copyable-field {
+  .icon-awesome {
+    margin-top: 0;
+  }
+}

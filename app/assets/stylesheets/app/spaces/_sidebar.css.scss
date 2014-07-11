@@ -1,7 +1,6 @@
 @import "compass/typography/links";
 @import "definitions";
 
-@import "app/custom_bigbluebutton_rooms/join_mobile";
 @import "app/custom_bigbluebutton_rooms/invitation_form";
 
 // This is shown in too many pages, the selector below should be
@@ -63,8 +62,9 @@
   }
 
   .sidebar-top-action-button {
-    .user-is-member {
-      color: $green;
+    .alert {
+      margin-bottom: 5px;
+      span, a { display: block; }
     }
   }
 

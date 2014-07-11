@@ -1,12 +1,23 @@
 - spaces_menu_at :posts
 = render :partial => 'spaces/menu'
 
-= content_for :sidebar do
-  - if can?(:create, @space.posts.build)
-    = render :partial => "new_post"
-
-= render :partial => "collapsed_threads", :locals => {:threads => @posts}
-
 - nav = page_navigation_links @posts
+
+.content-block-header
+
+  - unless nav.nil?
+    #posts-navigation-top= nav
+
+  #space-posts-create
+    - if can?(:create, @space.posts.build)
+      = link_to t('.new_post'), new_space_post_path(@space), :class => "btn btn-small btn-primary open-modal"
+
+#space-posts.content-block-middle
+  - if @posts.empty?
+    %p= t('.no_messages')
+  - else
+    - @posts.each do |thread|
+      = render :partial => "unified_post" , :locals => { :thread => thread }
+
 - unless nav.nil?
   .content-block-footer= nav

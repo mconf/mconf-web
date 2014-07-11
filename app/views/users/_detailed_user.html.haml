@@ -1,13 +1,14 @@
 -# locals: user
 
-- if can?(:read, user.profile!)
+- if can?(:show, user)
   .user-wrapper.user-detailed.thread.thread-user{:class => "#{cycle("thread-even" , "thread-odd")}"}
     .logo-in-thread
       = link_logo_image(user, :size => '48', :url => user_path(user), :title => user.name, :class => "logo logo-user-big")
     .thread-title
       = link_to sanitize(user.full_name), user_path(user), :class => 'user-name'
     .user-text
-      %span.user-mail= mail_to(user.email, user.email)
+      - if can?(:show, user.profile)
+        %span.user-mail= mail_to(user.email, user.email)
 
       - if !user.organization.blank? || !user.location.blank?
         %span.user-info-prefix= t(".from")

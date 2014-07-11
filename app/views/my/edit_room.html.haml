@@ -15,5 +15,6 @@
       = f.input :welcome_msg, :as => :text, :hint => t('simple_form.hints.user.bigbluebutton_room.welcome_msg'), :placeholder => t("bigbluebutton_rails.rooms.default_welcome_msg", :name => "%%CONFNAME%%", :voice_number => "%%DIALNUM%%")
       = f.input :default_layout do
         = f.select :default_layout, @room.get_available_layouts, :include_blank => t('.layout_empty_option')
+      = f.input :presenter_share_only, :as => :boolean, :hint => t('simple_form.hints.user.bigbluebutton_room.presenter_share_only')
     .modal-footer.form-actions
       = f.button :wrapped, t("save"), :class => "btn btn-primary", :cancel_modal => true

@@ -11,10 +11,11 @@ class Space < ActiveRecord::Base
   # TODO: temporary, review
   USER_ROLES = ["Admin", "User"]
 
+  attr_accessible :name, :permalink, :public, :disabled, :repository, :description, :deleted
+
   has_many :posts, :dependent => :destroy
   has_many :news, :dependent => :destroy
   has_many :attachments, :dependent => :destroy
-  has_many :tags, :dependent => :destroy, :as => :container
   has_one :bigbluebutton_room, :as => :owner, :dependent => :destroy
 
   has_many :permissions, :foreign_key => "subject_id",
@@ -69,7 +70,6 @@ class Space < ActiveRecord::Base
   # the friendly name / slug for the space
   extend FriendlyId
   friendly_id :permalink
-  acts_as_resource :param => :permalink
 
   after_validation :check_errors_on_bigbluebutton_room
 
@@ -83,6 +83,7 @@ class Space < ActiveRecord::Base
   # attrs and methods for space logos
   attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
   mount_uploader :logo_image, LogoImageUploader
+  attr_accessible :logo_image, :crop_x, :crop_y, :crop_w, :crop_h
   after_create :crop_logo
   after_update :crop_logo
 
@@ -97,7 +98,7 @@ class Space < ActiveRecord::Base
 
   # Returns the next 'count' events (starting in the current date) in this space.
   def upcoming_events(count=5)
-    self.events.upcoming.first(5)
+    self.events.upcoming.order("start_on ASC").first(5)
   end
 
   # Return the number of unique pageviews for this space using the Statistic model.
@@ -175,8 +176,33 @@ class Space < ActiveRecord::Base
     join_requests.where(:processed_at => nil, :request_type => 'invite')
   end
 
+  def pending_join_request_or_invitation_for(user)
+    join_requests.where(:candidate_id => user, :processed_at => nil).first
+  end
+
+  def pending_join_request_or_invitation_for?(user)
+    !pending_join_request_or_invitation_for(user).nil?
+  end
+
+  def pending_join_request_for(user)
+    pending_join_requests.where(:candidate_id => user.id).first
+  end
+
   def pending_join_request_for?(user)
-    pending_join_requests.where(:candidate_id => user).size > 0
+    !pending_join_request_for(user).nil?
+  end
+
+  def pending_invitation_for(user)
+    pending_invitations.where(:candidate_id => user.id).first
+  end
+
+  def pending_invitation_for?(user)
+    !pending_invitation_for(user).nil?
+  end
+
+  # Returns whether the space's logo is being cropped.
+  def is_cropping?
+    crop_x.present?
   end
 
   private
@@ -224,7 +250,7 @@ class Space < ActiveRecord::Base
   end
 
   def crop_logo
-    logo_image.recreate_versions! if crop_x.present?
+    logo_image.recreate_versions! if is_cropping?
   end
 
 end

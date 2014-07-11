@@ -2,7 +2,7 @@
 .project
 .loadpath
 log/*.log
-attachments/*
+private/uploads/*
 app/assets/images/tmp/*
 public/images/tmp/*
 *~

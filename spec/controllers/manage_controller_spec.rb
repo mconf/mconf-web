@@ -13,6 +13,8 @@ describe ManageController do
       should respond_with(:success)
     }
 
+    it { should_authorize :manage, :users }
+
     context "sets @users to a list of all users, including disabled users" do
       before {
         @u1 = user
@@ -57,13 +59,13 @@ describe ManageController do
 
       context "if no page is passed in params" do
         before(:each) { get :users }
-        it { assigns(:users).count.should be(20) }
+        it { assigns(:users).size.should be(20) }
         it { controller.params[:page].should be_nil }
       end
 
       context "if a page is passed in params" do
         before(:each) { get :users, :page => 2 }
-        it { assigns(:users).count.should be(20) }
+        it { assigns(:users).size.should be(20) }
         it("includes the correct users in @users") {
           page = User.joins(:profile).order("profiles.full_name").paginate(:page => 2, :per_page => 20)
           page.each do |user|
@@ -149,6 +151,8 @@ describe ManageController do
       should respond_with(:success)
     }
 
+    it { should_authorize :manage, :spaces }
+
     context "sets @spaces to a list of all spaces, including disabled spaces" do
       before {
         @s1 = FactoryGirl.create(:space, :disabled => false)
@@ -184,13 +188,13 @@ describe ManageController do
 
       context "if no page is passed in params" do
         before(:each) { get :spaces }
-        it { assigns(:spaces).count.should be(20) }
+        it { assigns(:spaces).size.should be(20) }
         it { controller.params[:page].should be_nil }
       end
 
       context "if a page is passed in params" do
         before(:each) { get :spaces, :page => 2 }
-        it { assigns(:spaces).count.should be(20) }
+        it { assigns(:spaces).size.should be(20) }
         it("includes the correct spaces in @spaces") {
           page = Space.order('name').paginate(:page => 2, :per_page => 20)
           page.each do |space|
@@ -239,6 +243,8 @@ describe ManageController do
     it "sets @spam_posts to all posts marked as spam"
     it "renders manage/spam"
     it "renders with the layout no_sidebar"
+
+    it { should_authorize :manage, :spam }
   end
 
   describe "abilities", :abilities => true do

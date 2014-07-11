@@ -370,9 +370,12 @@ describe User do
   end
 
   describe "#approve!" do
-    let(:user) { FactoryGirl.create(:user, :approved => false) }
-    let(:params) {
-      { :username => "any", :email => "any@jaloo.com", :approved => false, :password => "123456" }
+    let(:user) {
+      u = FactoryGirl.create(:user)
+      # won't work if it's set in the factory above, since sometimes the user is automatically
+      # approved when created
+      u.update_attributes(:approved => false)
+      u
     }
 
     context "sets the user as approved" do
@@ -453,6 +456,13 @@ describe User do
     end
   end
 
+  describe "#pending_spaces" do
+    it "returns all spaces in which the user has a pending join request he sent"
+    it "returns all spaces in which the user has a pending join request he received"
+    it "removes possible duplicates"
+    it "doesn't return spaces that are disabled"
+  end
+
   describe "#disable" do
 
     context "when the user is admin of a space" do
@@ -481,12 +491,11 @@ describe User do
         it { space.disabled.should be(false) }
       end
     end
-
-
   end
 
+  # TODO: :index is nested into spaces, how to test it here?
   describe "abilities", :abilities => true do
-    set_custom_ability_actions([:fellows, :current, :select, :approve])
+    set_custom_ability_actions([:fellows, :current, :select, :approve, :enable, :disable])
 
     subject { ability }
     let(:ability) { Abilities.ability_for(user) }
@@ -524,7 +533,11 @@ describe User do
         it { should be_able_to(:manage, target) }
       end
 
-      context "he can do anything" do
+      context "over his own account" do
+        it { should be_able_to(:manage, user) }
+      end
+
+      context "he can do anything over all resources" do
         it { should be_able_to(:manage, :all) }
       end
     end

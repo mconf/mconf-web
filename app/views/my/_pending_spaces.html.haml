@@ -1,0 +1,6 @@
+-# locals:
+-#  user (User)
+-#  spaces (array of Space)
+
+- unless spaces.empty?
+  = render "spaces/thumbnail_view", :spaces => spaces, :user_spaces => spaces, :show_join_request => true

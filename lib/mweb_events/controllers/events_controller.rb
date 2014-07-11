@@ -73,6 +73,13 @@ MwebEvents::EventsController.class_eval do
     # If only there was a conjunction operator that returned an AR relation, this would be easier
     # '|'' is the only one that corretly combines these two queries, but doesn't return a relation
     @events = MwebEvents::Event.where(:id =>(without_users | without_spaces))
-    @events = @events.accessible_by(current_ability, :index).paginate(:page => params[:page])
+    @events = @events.accessible_by(current_ability, :index).page(params[:page])
+  end
+  before_filter :block_if_events_disabled
+  before_filter :custom_loading, :only => [:index]
+  before_filter :create_participant, :only => [:show]
+
+  after_filter :only => [:create, :update] do
+    @event.new_activity params[:action], current_user unless @event.errors.any?
   end
 end

@@ -17,12 +17,4 @@ MwebEvents::Event.class_eval do
       owner && owner.public?
     end
   end
-
-  # alias :old_owner :owner
-  # def owner
-  #   Space.unscoped do
-  #     old_owner
-  #   end
-  # end
-
 end

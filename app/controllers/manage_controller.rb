@@ -13,9 +13,7 @@ class ManageController < ApplicationController
     partial = params.delete(:partial) # otherwise the pagination links in the view will include this param
 
     query = User.with_disabled.joins(:profile).includes(:profile).order("profiles.full_name")
-    if name.blank?
-      query = query.all
-    else
+    if name.present?
       query = query.where("profiles.full_name like ? OR users.username like ? OR users.email like ?", "%#{name}%", "%#{name}%", "%#{name}%")
     end
     @users = query.paginate(:page => params[:page], :per_page => 20)
@@ -32,15 +30,13 @@ class ManageController < ApplicationController
     partial = params.delete(:partial) # otherwise the pagination links in the view will include this param
 
     query = Space.with_disabled.order("name")
-    if name.blank?
-      query = query.all
-    else
+    if name.present?
       query = query.where("name like ?", "%#{name}%")
     end
     @spaces = query.paginate(:page => params[:page], :per_page => 20)
 
     if partial
-      render :partial => 'spaces_list', :layout => false
+      render :partial => 'spaces_list', :layout => false, :locals => { :spaces => @spaces }
     else
       render :layout => 'no_sidebar'
     end

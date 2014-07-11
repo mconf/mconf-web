@@ -12,16 +12,15 @@
         .space-description
           %h4= link_to sanitize(space.name), space_path(space)
           - if space.public
-            %span.visibility.public
-              = icon_space_public()
+            .resource-visibility.small.public
+              = icon_space_public
               = t(".public")
           - else
-            %span.visibility.private
-              = icon_space_private()
+            .resource-visibility.small.private
+              = icon_space_private
               = t(".private")
       .content-block-middle
         %span.description= sanitize(auto_link(first_words(space.description, 150)))
-      -# .content-block-footer
 
 #space-new
 

@@ -107,8 +107,16 @@ module IconsHelper
     icon_constructor nil, "icon-awesome icon-remove-sign icon-mconf-delete", options
   end
 
+  def icon_disable(options={})
+    icon_constructor nil, "icon-awesome icon-ban-circle icon-mconf-disable", options
+  end
+
   def icon_confirm(options={})
     icon_constructor nil, "icon-awesome icon-ok-sign icon-mconf-confirm", options
+  end
+
+  def icon_enable(options={})
+    icon_constructor nil, "icon-awesome icon-check icon-mconf-enable", options
   end
 
   def icon_users(options={})
@@ -183,6 +191,10 @@ module IconsHelper
     icon_constructor nil, "icon-awesome icon-user icon-mconf-user", options
   end
 
+  def icon_space(options={})
+    icon_constructor nil, "icon-awesome icon-group icon-mconf-space", options
+  end
+
   def icon_error(options={})
     icon_constructor nil, "icon-awesome icon-meh icon-mconf-error", options
   end
@@ -213,6 +225,14 @@ module IconsHelper
 
   def icon_is_member(options={})
     icon_constructor nil, "icon-awesome icon-check icon-mconf-is-member", options
+  end
+
+  def icon_options(options={})
+    icon_constructor nil, "icon-awesome icon-gears icon-mconf-options", options
+  end
+
+  def icon_join_request(options={})
+    icon_constructor nil, "icon-awesome icon-signin icon-mconf-join-request", options
   end
 
   private

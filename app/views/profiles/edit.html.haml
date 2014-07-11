@@ -11,10 +11,7 @@
     #edit-profile-current-logo
       = logo_image(@user, :size => '128', :class => 'profile-logo logo')
     %ul
-      %li
-        = simple_form_for @profile, :url => user_profile_path(@user), :html => { :multipart => true, :class => 'form-for-crop', :'data-crop-target-image' => '#edit-profile-current-logo' } do |f|
-          = link_to t('.change_pic'), '#profile_logo_image', :"data-open-file" => true
-          = f.input :logo_image, :as => :file, :id => 'profile_logo_image'
+      #profile-logo-uploader.file-uploader{:'data-endpoint' => update_logo_user_profile_path(@user, :format => :json), :'data-accept' => 'image/*', :'data-max-size' => '5 mb' }
       %li
         = simple_form_for @profile, :url => user_profile_path(@user), :html => { :multipart => true, :method => :put } do |f|
           = link_to t('.vcard.use'), '#profile_vcard', :"data-open-file" => true

@@ -12,7 +12,8 @@ namespace :db do
     else
       @created_at_start = 6.months.ago
     end
-    puts "- Start date set to: #{@created_at_start}"
+    puts
+    puts "*** Start date set to: #{@created_at_start}"
 
     require 'populator'
     require 'faker'
@@ -20,7 +21,7 @@ namespace :db do
     username_offset = 0 # to prevent duplicated usernames
 
     if ENV['CLEAR']
-      puts "* Destroying old stuff"
+      puts "*** Destroying all resources!"
       PrivateMessage.destroy_all
       Statistic.destroy_all
       Permission.destroy_all
@@ -39,8 +40,8 @@ namespace :db do
       rooms_without_admin.each(&:destroy)
     end
 
+    puts
     puts "* Create users (15)"
-
     User.populate 15 do |user|
 
       if username_offset < reserved_usernames.size # Use some fixed usernames and always approve them
@@ -119,6 +120,7 @@ namespace :db do
       space.public = [ true, false ]
       space.disabled = false
       space.permalink = name.parameterize
+      space.repository = [ true, false ]
 
       Post.populate 10..50 do |post|
         post.space_id = space.id
@@ -160,7 +162,7 @@ namespace :db do
     end
 
     if configatron.modules.events.loaded
-      puts "* Create spaces: saving events to generate permalinks"
+      puts "* Create spaces: saving events to generate permalinks (#{MwebEvents::Event.count} events)"
       MwebEvents::Event.find_each(&:save!) # to generate the permalink
     end
 
@@ -302,7 +304,7 @@ namespace :db do
 
     Post.record_timestamps = false
 
-    puts "* Create statistics and last details for spaces"
+    puts "* Create statistics and last details for spaces (#{Space.count} spaces)"
     Space.all.each do |space|
       Statistic.populate 1 do |statistic|
         statistic.url = "/spaces/" + space.permalink

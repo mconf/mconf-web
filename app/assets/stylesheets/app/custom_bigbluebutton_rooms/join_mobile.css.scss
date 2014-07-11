@@ -1,46 +1,56 @@
 @import "compass/css3";
 @import "definitions";
 
-#webconference-join-mobile-dialog {
-  text-align: center;
+body.custom_bigbluebutton_rooms.join_mobile {
 
-  .join-options {
-    background: #f6f6f6;
-    @include border-radius(4px);
-    border: 1px solid #ddd;
-    padding: 10px;
-    margin: 20px 0;
+  #page-header-wrapper .current-page-title {
+    width: 100%;
+    max-width: 100%;
+    text-align: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
 
-    .download-application {
-      @include mconf-clearfix;
+    .sub-title {
+      margin-top: 10px;
+    }
+  }
 
-      .mobile-download-image {
+  #content-wrapper {
+    text-align: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+
+    .download-images {
+      margin: 20px 0;
+
+      .download-image {
+        margin: 0 20px;
         text-align: center;
+        display: inline-block;
+
+        .tip {
+          border: 1px solid $gray;
+          padding: 3px 5px;
+          @include border-radius(5px);
+          background: $light-gray;
+          max-width: 150px;
+          margin: 10px auto;
+        }
       }
+    }
 
-      span {
-        display: block;
-        text-align: center;
-        margin-bottom: 5px;
+    .additional-options {
+      margin: 50px 0 0 0;
+
+      .additional-option {
+        margin: 10px 0;
+        clear: both;
       }
     }
   }
 
-  .qr-code {
-    float: left;
-    margin-left: 10px;
-
-    img {
-      width: 150px;
-      height: 150px;
-      border: 1px solid #ccc;
-      @include border-radius(4px);
-    }
+  #footer-wrapper {
+    display: none;
   }
 
-  .sip-number {
-    max-width: 150px;
-    float: right;
-    margin-right: 10px;
-  }
 }

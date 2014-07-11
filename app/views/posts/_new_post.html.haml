@@ -1,10 +1,11 @@
 #new-post
-  = simple_form_for [@space, @post], :class => 'single-column' do |f|
-    = f.input :title, :label => false, :wrapper => :append do
-      = f.input_field :title
-      = content_tag :span, icon_comment, :class => "add-on"
-    .additional-controls
+  .modal-header
+    = modal_close_button
+    %h3= t(".title")
+
+  = simple_form_for [@space, @post], :html => { :class => 'single-column' } do |f|
+    .modal-body
+      = f.input :title, :label => false, :autofocus => true
       = f.input :text, :label => false, :as => :text
-      .form-buttons
-        = f.button :submit, t("_other.send"), :class => "btn btn-primary"
-        = link_to t("_other.cancel"), '', :class => "link-cancel"
+    .modal-footer.form-actions
+      = f.button :wrapped, t("_other.send"), :class => "btn btn-primary", :cancel_modal => true

@@ -8,6 +8,13 @@ require "spec_helper"
 
 describe ShibbolethController do
 
+  # set the default values usually used to get data from Shibboleth
+  before {
+    Site.current.update_attributes(:shib_name_field => "Shib-inetOrgPerson-cn",
+                                   :shib_email_field => "Shib-inetOrgPerson-mail",
+                                   :shib_principal_name_field => "Shib-eduPerson-eduPersonPrincipalName")
+  }
+
   shared_examples_for "has the before_filter :check_shib_enabled" do
     context "redirects to /login if shibboleth is disabled" do
       before { Site.current.update_attributes(:shib_enabled => false) }
@@ -46,14 +53,14 @@ describe ShibbolethController do
 
     context "renders an error page if there's not enough information on the session" do
       before {
-        Site.current.update_attributes(:shib_name_field => 'name', :shib_email_field => 'email')
+        Site.current.update_attributes(:shib_name_field => 'name', :shib_email_field => 'email', :shib_principal_name_field => 'principal_name')
         Site.current.update_attributes(:shib_enabled => true)
         request.env['Shib-Any'] = 'any'
       }
       before(:each) { get :login }
       it { should render_template('attribute_error') }
       it { should render_with_layout('no_sidebar') }
-      it { should assign_to(:attrs_required).with(['email', 'name']) }
+      it { should assign_to(:attrs_required).with(['email', 'name', 'principal_name']) }
       it { should assign_to(:attrs_informed).with({ 'Shib-Any' => 'any' }) }
     end
 
@@ -129,6 +136,7 @@ describe ShibbolethController do
             expected = {}
             expected["Shib-inetOrgPerson-cn"] = attrs[:_full_name]
             expected["Shib-inetOrgPerson-mail"] = attrs[:email]
+            expected["Shib-eduPerson-eduPersonPrincipalName"] = attrs[:_full_name]
             subject.data.should eq(expected.to_yaml) # it's a Hash in the db, so compare using to_yaml
           }
           it { controller.should redirect_to(shibboleth_path) }
@@ -275,6 +283,7 @@ describe ShibbolethController do
   def setup_shib(name, email, save_to_session=true)
     request.env["Shib-inetOrgPerson-cn"] = name
     request.env["Shib-inetOrgPerson-mail"] = email
+    request.env["Shib-eduPerson-eduPersonPrincipalName"] = name
     Site.current.update_attributes(:shib_enabled => true)
     # save it to the session, as #login would do
     @shib = Mconf::Shibboleth.new(session)

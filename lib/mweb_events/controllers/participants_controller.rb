@@ -3,8 +3,10 @@ MwebEvents::ParticipantsController.class_eval do
   before_filter :custom_loading, :only => [:index]
 
   after_filter :only => [:create] do
-    @participant.new_activity params[:action], current_user unless @participant.errors.any?
+    @participant.new_activity params[:action], current_user if @participant.persisted?
   end
+
+  layout "no_sidebar", :only => [:new, :index]
 
   # return 404 for all Participant routes if the events are disabled
   def block_if_events_disabled

@@ -1,0 +1,10 @@
+= render_page_title t('.title')
+
+.content-block
+  .content-block-header
+    %h3= t('.warning', :seconds => 6).html_safe
+  .content-block-middle
+    - if user_signed_in?
+      = link_to t('.stop_countdown'), my_home_path, :class => "countdown-stopper"
+    - else
+      = link_to t('.stop_countdown'), root_path, :class => "countdown-stopper"

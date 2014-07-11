@@ -27,7 +27,6 @@ describe Space do
   it { should have_many(:events).dependent(:destroy) }
   it { should have_many(:news).dependent(:destroy) }
   it { should have_many(:attachments).dependent(:destroy) }
-  it { should have_many(:tags).dependent(:destroy) }
 
   it { should have_one(:bigbluebutton_room).dependent(:destroy) }
   it { space.bigbluebutton_room.owner.should be(space) } # :as => :owner
@@ -85,8 +84,6 @@ describe Space do
     end
   end
 
-  it "acts_as_resource"
-
   it "#check_errors_on_bigbluebutton_room"
 
   it { should respond_to(:invitation_ids) }
@@ -140,10 +137,14 @@ describe Space do
   describe "#upcoming_events" do
     context "returns the n upcoming events" do
       before {
-        e1 = FactoryGirl.create(:event, :owner => space, :start_on => Time.now - 5.hours, :end_on => Time.now - 4.hours)
-        e2 = FactoryGirl.create(:event, :owner => space, :start_on => Time.now + 2.hour, :end_on => Time.now + 3.hours)
-        e3 = FactoryGirl.create(:event, :owner => space, :start_on => Time.now + 3.hour, :end_on => Time.now + 4.hours)
-        e4 = FactoryGirl.create(:event, :owner => space, :start_on => Time.now + 1.hour, :end_on => Time.now + 2.hours)
+        e1 = FactoryGirl.create(:event, :time_zone => Time.zone.name, :owner => space,
+          :start_on => Time.zone.now - 5.hours, :end_on => Time.zone.now - 4.hours)
+        e2 = FactoryGirl.create(:event, :owner => space, :time_zone => e1.time_zone,
+          :start_on => Time.zone.now + 2.hour, :end_on => Time.zone.now + 3.hours)
+        e3 = FactoryGirl.create(:event, :owner => space, :time_zone => e1.time_zone,
+          :start_on => Time.zone.now + 3.hour, :end_on => Time.zone.now + 4.hours)
+        e4 = FactoryGirl.create(:event, :owner => space, :time_zone => e1.time_zone,
+          :start_on => Time.zone.now + 1.hour, :end_on => Time.zone.now + 2.hours)
         @expected = [e4, e2, e3]
       }
       it { space.upcoming_events(3).should eq(@expected) }
@@ -151,7 +152,7 @@ describe Space do
 
     context "defaults to 5 events" do
       before {
-        6.times { FactoryGirl.create(:event, :owner => space, :start_on => Time.now + 1.hour, :end_on => Time.now + 2.hours) }
+        6.times { FactoryGirl.create(:event, :owner => space, :time_zone => Time.zone.name, :start_on => Time.zone.now + 1.hour, :end_on => Time.zone.now + 2.hours) }
       }
       it { space.upcoming_events.length.should be(5) }
     end
@@ -261,8 +262,16 @@ describe Space do
     end
   end
 
+  pending "#pending_join_requests"
+  pending "#pending_invitations"
+  pending "#pending_join_request_for"
+  pending "#pending_join_request_for?"
+  pending "#pending_invitation_for"
+  pending "#pending_invitation_for?"
+
   describe "abilities", :abilities => true do
-    set_custom_ability_actions([:leave, :enable, :webconference, :select])
+    set_custom_ability_actions([:leave, :enable, :webconference, :select, :disable, :update_logo,
+      :user_permissions, :edit_recording])
 
     subject { ability }
     let(:ability) { Abilities.ability_for(user) }
@@ -324,7 +333,8 @@ describe Space do
         context "he is a member of" do
           context "with the role 'Admin'" do
             before { target.add_member!(user, "Admin") }
-            it { should_not be_able_to_do_anything_to(target).except([:read, :webconference, :create, :select, :leave, :edit, :update, :destroy]) }
+            it { should_not be_able_to_do_anything_to(target).except([:read, :webconference, :create, :select, :leave, :edit, :update, :update_logo,
+              :disable, :user_permissions, :edit_recording]) }
           end
 
           context "with the role 'User'" do
@@ -344,7 +354,8 @@ describe Space do
         context "he is a member of" do
           context "with the role 'Admin'" do
             before { target.add_member!(user, "Admin") }
-            it { should_not be_able_to_do_anything_to(target).except([:read, :webconference, :create, :select, :leave, :edit, :update, :destroy]) }
+            it { should_not be_able_to_do_anything_to(target).except([:read, :webconference, :create, :select, :leave, :edit, :update, :update_logo,
+              :disable, :user_permissions, :edit_recording]) }
           end
 
           context "with the role 'User'" do

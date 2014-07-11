@@ -1,25 +1,4 @@
 @import "compass/css3";
 
 body.private_messages.new, body.private_messages.create {
-  ul.token-input-list-facebook {
-    width: 100% ;
-    float: left;
-    @include border-radius(3px);
-  }
-  .field_with_errors {
-    ul.token-input-list-facebook {
-      border-color: #C23321;
-    }
-  }
-  .margin-up {
-    margin-top: 5px;
-  }
-  .string {
-    width: 100%;
-  }  
-  textarea {
-    width: 100%;
-    resize: vertical;
-    height: 300px;    
-  }
 }

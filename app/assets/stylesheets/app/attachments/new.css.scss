@@ -1,0 +1,20 @@
+@import "compass/css3";
+
+body.attachments.modal-open {
+
+  #attachments-uploader {
+    text-align: center;
+  }
+
+  .upload-button {
+    margin-top: 10px;
+  }
+
+  .upload-drag-and-drop {
+    font-size: 400%;
+    color: white;
+    background: none repeat scroll 0% 0% rgba(80, 197, 80, 0.9);
+    padding-bottom: 5px;
+  }
+
+}

@@ -1,17 +1,22 @@
-= div_for invitation do
-  %div{:class => "thread #{cycle('thread-even','thread-odd')}"}
-    .logo-in-thread
-      = link_logo_image(invitation.candidate, :url => user_path(invitation.candidate), :size => '32', :title => invitation.candidate.name, :class => "logo logo-user")
-    .thread-content
-      .thread-actions
-        - target = invitation.candidate ? invitation.candidate.name : invitation.email
-        = link_to t('_other.cancel'), space_join_request_path(space, invitation), :confirm => t('.cancel', :user => target), :method => :delete, :title => t('delete.one'), :class => 'btn btn-danger btn-small'
-      .thread-title
-        = invitation.candidate ? link_to(invitation.candidate.name, user_path(invitation.candidate)) : invitation.email
-        .user-email
-          = "(#{invitation.candidate.username}, #{invitation.candidate.email})"
+%div{:class => "thread #{cycle('thread-even','thread-odd')}"}
+  .logo-in-thread
+    = link_logo_image(jr.candidate, :url => user_path(jr.candidate), :size => '32', :title => jr.candidate.name, :class => "logo logo-user")
+  .thread-content
+    .thread-actions
+      - target = jr.candidate ? jr.candidate.name : jr.email
+      - if !jr.processed?
+        - if can?(:destroy, jr)
+          = link_to t('_other.cancel'), space_join_request_path(@space, jr), :confirm => t('.cancel', :user => target), :method => :delete, :title => t('delete.one'), :class => 'btn btn-danger btn-small'
+      - else
+        %p=t('join_requests.show.already_accepted')
+
+    .thread-title
+      = jr.candidate ? link_to(jr.candidate.name, user_path(jr.candidate)) : jr.email
+      .user-email
+        = "(#{jr.candidate.username}, #{jr.candidate.email})"
+      - if jr.request_type == 'invite'
         = t('.invited_as') + ':'
-        %b= invitation.role
-      .thread-text
-        %span= t('.message_sent') + ':'
-        %blockquote.user-comment= invitation.comment
+        %b= t("activerecord.attributes.roles.name_#{jr.role.downcase}")
+    .thread-text
+      %span= t('.message_sent') + ':'
+      %blockquote.user-comment= jr.comment

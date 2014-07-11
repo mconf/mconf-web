@@ -11,8 +11,6 @@ class ProfilesController < ApplicationController
   load_and_authorize_resource :user, :find_by => :username
   load_and_authorize_resource :through => :user, :singleton => true
 
-  # GET /profile
-  # GET /profile.xml
   # if params[:hcard] then hcard is rendered
   def show
     respond_to do |format|
@@ -22,34 +20,36 @@ class ProfilesController < ApplicationController
     end
   end
 
-  # GET /profiles/edit
   def edit
     if params[:hcard_uri]
       @profile.from_hcard(params[:hcard_uri])
     end
   end
 
-  # PUT /profile
-  # PUT /profile.xml
+  def update_logo
+    @profile.logo_image = params[:uploaded_file]
+
+    if @profile.save
+      respond_to do |format|
+        url = logo_images_crop_path(:model_type => 'user', :model_id => @profile.user)
+        format.json { render :json => { :success => true, :redirect_url => url } }
+      end
+    else
+      format.json { render :json => { :success => false } }
+    end
+  end
+
   def update
     respond_to do |format|
       if @profile.update_attributes(params[:profile])
-        if params[:profile][:logo_image].present?
-          format.html { redirect_to logo_images_crop_path(:model_type => 'user', :model_id => @user) }
-        else
-          flash[:notice] = t('profile.updated')
-          format.html { redirect_to user_path(@user) }
-          format.xml  { head :ok }
-        end
+        flash[:notice] = t('profile.updated')
+        format.html { redirect_to user_path(@user) }
       else
         format.html { render :action => "edit" }
-        format.xml  { render :xml => @profile.errors, :status => :unprocessable_entity }
       end
     end
   end
 
-  # DELETE /profile
-  # DELETE /profile.xml
   def destroy
     @profile.destroy
     flash[:notice] = t('profile.deleted')
@@ -58,7 +58,6 @@ class ProfilesController < ApplicationController
       format.xml  { head :ok }
     end
   end
-
 
   private
 

@@ -10,6 +10,6 @@
     = simple_form_for([@space,prepare_for_form(Post.new, :parent_id => @post.id)], :html => { :multipart => true, :class => "single-column" }) do |f|
       .modal-body
         = f.hidden_field :parent_id
-        = f.input :text, :label => false
+        = f.input :text, :label => false, :autofocus => true
       .modal-footer.form-actions
         = f.button :wrapped, t("button.post"), :class => "btn btn-primary", :cancel_modal => true

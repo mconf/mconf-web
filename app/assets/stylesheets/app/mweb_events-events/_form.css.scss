@@ -1,0 +1,39 @@
+@import "compass/css3";
+@import "definitions";
+
+form.edit_event, form.new_event {
+  .field_with_errors .error {
+    display: block;
+    text-align: right;
+  }
+
+  input.string, input.password, input.numeric, textarea, select.string {
+    width: 97%
+  }
+
+  #start_on_time, #end_on_time {
+    display: inline-block;
+  }
+
+  .event_time_zone {
+    select { width: 50%; }
+  }
+
+  &.simple_form .input.event_start_on_time,
+  &.simple_form .input.event_end_on_time {
+    margin: 0;
+
+    select {
+      width: 60px;
+      margin-right: 5px;
+    }
+  }
+}
+
+#epiceditor {
+  margin-bottom: 10px;
+
+  iframe {
+    border: 1px solid #ccc;
+  }
+}

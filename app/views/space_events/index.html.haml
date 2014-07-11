@@ -1,7 +1,6 @@
 - spaces_menu_at :events
 = content_for :menu do
   = render :partial => 'spaces/menu'
-- atom_link_header(space, MwebEvents::Event.new, :title => "#{t('.events_in')} #{space.name}")
 
 #events-wrapper
 
@@ -30,6 +29,6 @@
           %h3= t('.events_now')
         .content-block-middle
           - for event in @current_events
-            = render :partial => "unified_event", :locals => { :event => event }
+            = render :partial => "mweb_events/events/unified_event", :locals => { :event => event }
     - unless params[:show] == 'happening_now'
       = render :partial => 'all_events'

@@ -8,6 +8,25 @@ require "spec_helper"
 
 describe Permission do
 
+  it { should belong_to(:user) }
+  it { should belong_to(:subject) }
+  it { should belong_to(:role) }
+
+  it { should validate_presence_of(:user) }
+  it { should validate_presence_of(:subject) }
+  it { should validate_presence_of(:role) }
+  it { should validate_presence_of(:role_id) }
+
+  # Having 2 problems with this section
+  it "validate_uniqueness of role_id" do
+    # This next line is here because of http://stackoverflow.com/a/20791806/414642
+    # FactoryGirl.create(:space_permission)
+    # Here I get this bug https://github.com/thoughtbot/shoulda-matchers/issues/203
+    # should validate_uniqueness_of(:role_id).scoped_to(:user_id, :subject_id, :subject_type)
+  end
+
+  it { should allow_mass_assignment_of(:role_id) }
+
   describe "abilities", :abilities => true do
     subject { ability }
     let(:ability) { Abilities.ability_for(user) }

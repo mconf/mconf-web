@@ -4,10 +4,6 @@ pt-br:
     events:
       edit:
         page_title: "Editando: %{name}"
-      event_thumbnail:
-        closed: Inscrições encerradas
-        starts_at: "Inicia em"
-        where: "Localização"
       index:
         create_new_event: "Adicionar evento"
         count:
@@ -23,15 +19,12 @@ pt-br:
           past_events: passados
           upcoming_events: futuros
           your_events: seus
-        list_format:
-          list: "Lista"
-          thumbnails: "Miniaturas"
         now: Agora
         participant_count:
           one: "%{count} participante"
           other: "%{count} participantes"
         private: Privado
-        public: Aberto ao público
+        public: Público
         search:
           by_name:
             no_matches: "Nenhum evento encontrado com \"%{term}\""
@@ -42,24 +35,37 @@ pt-br:
       invite:
         title: Convidando para o evento
         invite_title: "Convite para o evento [%{event}]"
+      list_view:
+        no_events: "Nenhum evento encontrado para esta busca"
       new:
         page_title: "Criar um novo evento"
       registration:
+        already_registered: Você já está inscrito neste evento!
         closed: Inscrições para este evento estão fechadas.
-        join_button: Junte-se a esta comunidade para participar
         invite_button: Convidar pessoas para o evento
+        join_button: Junte-se a esta comunidade para participar
+        need_sign_in: Você precisa estar logado para registrar-se
       send_invitation:
         error: "Não foi possível enviar o convite para:"
         success: "Convite enviado com sucesso para:"
-      thumbnail_view:
-        no_events: "Nenhum evento condiz com esta pesquisa!"
       title:
         belongs_space: "Um evento da comunidade <a href='%{url}'>%{space}</a>"
         belongs_user: "Evento criado por <a href='%{url}'>%{user}</a>"
+        private: "Evento privado"
+        public: "Evento público"
+      unified_event:
+        closed: inscrições encerradas
+        private: "Evento privado"
+        public: "Evento público"
+        starts_at: "Inicia em"
     participants:
       index:
+        back_to_event: "Voltar para a página do evento"
         disable: Remover do evento
         disable_confirm: Tem certeza que deseja remover este usuário do evento?
         event: "Mensagem sobre o evento [%{event}]"
         message: Enviar mensagem
         no_participants: Nenhum inscrito ainda!
+        title: "Listando todos os participantes do evento"
+      new:
+        title: "Registrar-se no evento"

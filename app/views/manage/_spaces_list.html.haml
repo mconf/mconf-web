@@ -1,17 +1,20 @@
+-# locals:
+-#  spaces (array of Space)
+
 #filter-total.resource-filter-total
   .resource-filter-with-text
-    = t('.filter_count_with_text', :count => "<span class=\"resource-filter-count\">#{@spaces.count}</span>".html_safe, :value => "<span class=\"resource-filter-value\"></span>".html_safe).html_safe
+    = t('.filter_count_with_text', :count => "<span class=\"resource-filter-count\">#{spaces.count}</span>".html_safe, :value => "<span class=\"resource-filter-value\"></span>".html_safe).html_safe
   .resource-filter-without-text
-    = t('.filter_count_empty', :count => Space.count)
+    = t('.filter_count_empty', :count => spaces.size)
 
-- if @spaces.count > 0
+- if spaces.count > 0
 
-  - for space in @spaces
+  - for space in spaces
     - if space.disabled?
       = render :partial => 'disabled_space', :locals => { :space => space }
     - else
       = render :partial => 'enabled_space', :locals => { :space => space }
 
-  - nav = page_navigation_links @spaces
+  - nav = page_navigation_links spaces
   - unless nav.nil?
     .content-block-footer= nav
