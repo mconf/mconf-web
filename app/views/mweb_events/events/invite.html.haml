@@ -10,7 +10,7 @@
       = f.input :users, :as => :string, :autofocus => true, :label => t('activerecord.attributes.invite.users')
 
       = f.input :title, :placeholder => t('.invite_title', :event => @event.name), :as => :string, :label => t('activerecord.attributes.invite.title')
-      = f.input :message, :as => :text, :label => t('activerecord.attributes.invite.message')
+      = f.input :message, :as => :text, :label => t('activerecord.attributes.invite.message'), :required => false
 
     .modal-footer.form-actions
       = f.button :wrapped, t('_other.send'), :class => "btn btn-primary", :cancel_modal => true
