@@ -124,8 +124,12 @@ class Space < ActiveRecord::Base
     p.save!
   end
 
-  def new_activity key, user
-    create_activity key, :owner => self, :parameters => { :user_id => user.id, :username => user.name }
+  def new_activity key, user, join_request=nil
+    if join_request
+      create_activity key, :owner => self, :parameters => { :user_id => user.id, :username => user.name, :join_request_id => join_request.id }
+    else
+      create_activity key, :owner => self, :parameters => { :user_id => user.id, :username => user.name }
+    end
   end
 
   def self.with_disabled

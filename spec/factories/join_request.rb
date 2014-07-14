@@ -16,4 +16,12 @@ FactoryGirl.define do
   factory :space_join_request, :parent => :join_request do |jr|
     jr.association :group, :factory => :space
   end
+
+  factory :space_invite_request, :parent => :space_join_request do |jr|
+    jr.request_type "invite"
+  end
+
+  factory :event_join_request, :parent => :join_request do |jr|
+    jr.association :group, :factory => :event
+  end
 end

@@ -1772,16 +1772,6 @@ en:
     one: Version
   view: "View"
   view_more: "View more"
-  web_conference_mailer:
-    invitation_mail:
-      event_name: "Meeting with %{name}"
-      message:
-        end: "End"
-        header: "You have been invited by <b>%{sender}</b> (%{email_sender}) to a meeting:"
-        join: "Join at"
-        password: "Access key"
-        start: "Start"
-      subject: "You have been invited to a meeting by %{name}"
   webconference: 
     invite_webconference: "Invite people to the webconference"
     join: Join

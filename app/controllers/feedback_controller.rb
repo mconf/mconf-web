@@ -25,7 +25,7 @@ class FeedbackController < ApplicationController
   def create
     if (params[:subject].present? and params[:from].present? and params[:body].present?)
       if (params[:from]).match(/\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i)
-        Notifier.delay.feedback_email(params[:from],params[:subject], params[:body] )
+        Notifier.feedback_email(params[:from],params[:subject], params[:body]).deliver
         respond_to do |format|
           format.html {
             flash[:success] = t('feedback.sent')

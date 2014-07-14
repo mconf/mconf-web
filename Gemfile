@@ -25,9 +25,6 @@ gem 'therubyracer', :require => 'v8'
 gem 'haml'
 gem 'will_paginate'
 gem 'chronic'
-# gem 'delayed_job', '~> 3.0.0'
-# gem 'delayed_job_active_record'
-# gem 'daemons' # for delayed_job
 gem 'rails_autolink', '~> 1.1.0'
 gem 'whenever', :require => false
 gem 'garb'
@@ -40,18 +37,22 @@ gem 'yajl-ruby' # json parser for rabl
 gem 'valid_email', :git => 'https://github.com/Fire-Dragon-DoL/valid_email.git'
 gem 'public_activity', '~> 1.4.1'
 
+# For queues
+gem 'resque', :require => 'resque/server'
+gem 'resque-scheduler'#, :require => 'resque_scheduler/server'
+gem 'resque_mailer'
+
 # Authentication and authorization
 gem 'devise', '~> 3.2.4'
 gem 'devise-encryptable' # TODO: only while we have old station users
 gem 'cancancan', '~> 1.8'
+gem 'devise-async'
 gem 'net-ldap'
 
 # BigBlueButton integration
 gem 'bigbluebutton-api-ruby', :git => 'git://github.com/mconf/bigbluebutton-api-ruby.git', :branch => 'master'
 gem 'bigbluebutton_rails', :git => 'git://github.com/mconf/bigbluebutton_rails.git', :branch => 'rails4'
 # The gems below are for bigbluebutton_rails
-# gem 'strong_parameters'
-gem 'resque'
 gem 'browser'
 
 # Used on Profile to generate a vcard
@@ -67,7 +68,7 @@ gem 'configatron', '~> 2.13.0'
 
 # for bootstrap
 gem 'less-rails'
-gem 'twitter-bootstrap-rails', github: 'seyhunak/twitter-bootstrap-rails', branch: 'master'
+  gem 'twitter-bootstrap-rails', github: 'seyhunak/twitter-bootstrap-rails', branch: 'master'
 # datetime picker for bootstrap
 gem 'bootstrap-datetimepicker-rails'
 
@@ -126,6 +127,10 @@ group :development, :test do
   gem 'simplecov', :require => false
 end
 
-# rails 3 compatibility
+group :test do
+  gem 'resque_spec'
+end
 
+# rails 3 compatibility
 gem 'rails-observers'
+

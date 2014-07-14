@@ -28,7 +28,7 @@ module Mconf
 
       if user.is_a?(User)
         if user.notify_via_email?
-          mailer.delay.invitation_mail(self, user)
+          mailer.delay.invitation_mail(self, user).deliver
         end
         if user.notify_via_private_message?
           result = send_private_message(user)
@@ -36,7 +36,7 @@ module Mconf
 
       # assumes `user` is a string with an email
       else
-        mailer.delay.invitation_mail(self, user)
+        mailer.delay.invitation_mail(self, user).deliver
       end
 
       result
