@@ -27,6 +27,10 @@ module PublicActivitiesHelper
         elsif trackable.room.owner_type == 'Space'
           link_to(trackable.room.owner.name, space_path(trackable.room.owner))
         end
+      when JoinRequest
+        if trackable.group_type == 'Space'
+          link_to(trackable.group.name, space_path(trackable.group))
+        end
       else
         if mod_enabled?('events')
           case trackable
@@ -35,6 +39,16 @@ module PublicActivitiesHelper
           end
         end
       end
+    end
+  end
+
+  # Gets the route to user resource from its id
+  def user_path_from_id id
+    user = User.find_by_id(id)
+    if user.nil?
+      nil
+    else
+      user_path(user.to_param)
     end
   end
 

@@ -12,6 +12,10 @@ en:
         create_html: "A meeting was started on the room of the user %{owner} at %{time}"
       space:
         create_html: "A meeting was started on the space %{owner} at %{time}"
+    join_request:
+      invite_html: "was invited to join the space"
+      invite_with_introducer_html: "was invited by <a href=\"%{introducer_url}\">%{introducer}</a> to join the space"
+      request_html: "has requested to join the space"
     mweb_events_event:
       create_html: created the event %{name} in the space
       attend_html: will attend to the event %{name} in the space

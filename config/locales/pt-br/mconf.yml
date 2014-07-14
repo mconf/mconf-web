@@ -12,6 +12,10 @@ pt-br:
         create_html: "Uma reunião foi iniciada na sala do usuário %{owner} em %{time}"
       space:
         create_html: "Uma reunião foi iniciada na comunidade %{owner} em %{time}"
+    join_request:
+      invite_html: "foi convidado(a) para entrar na comunidade"
+      invite_with_introducer_html: "foi convidado(a) por <a href=\"%{introducer_url}\">%{introducer}</a> para entrar na comunidade"
+      request_html: "requisitou ingresso na comunidade"
     mweb_events_event:
       create_html: criou o evento %{name} na comunidade
       attend_html: participará do evento %{name} da comunidade
