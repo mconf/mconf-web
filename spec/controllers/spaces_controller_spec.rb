@@ -411,15 +411,22 @@ describe SpacesController do
   describe "#update" do
     let(:space) { FactoryGirl.create(:space) }
     let(:user) { FactoryGirl.create(:superuser) }
-    before(:each) do
-      sign_in(user) 
-      request.env["HTTP_REFERER"] = "/any"
+    let(:referer) { "/any" }
+    before do
+      sign_in(user)
+      request.env["HTTP_REFERER"] = referer
     end
-
 
     context "params_handling" do
       let(:space_attributes) { FactoryGirl.attributes_for(:space) }
-      let(:params) { { :controller => 'SpacesController', :action => :update, :space_params => space_attributes } }
+      let(:params) {
+        {
+          :id => space.permalink,
+          :controller => "spaces",
+          :action => "update",
+          :space => space_attributes
+        }
+      }
 
       let(:space_allowed_params) {
         [ :name, :description, :logo_image, :public, :permalink, :repository,
@@ -428,15 +435,13 @@ describe SpacesController do
         [ :id, :attendee_password, :moderator_password, :default_layout,
           :welcome_msg, :presenter_share_only, :auto_start_video, :auto_start_audio ] ]
       }
-      it {
-        Space.stub(:find_by_permalink).and_return(space)
-        #space.stub(:update_attributes).and_return(true)
+      before {
         space_attributes.stub(:permit).and_return(space_attributes)
         controller.stub(:params).and_return(params)
-
-        put :update, :id => space.to_param, :space_params => space_attributes
-        space_attributes.should have_received(:permit).with(*space_allowed_params)
       }
+      before(:each) { put :update, :id => space.to_param, :space => space_attributes }
+      it { space_attributes.should have_received(:permit).with(*space_allowed_params) }
+      it { should redirect_to(referer) }
     end
   end
 
