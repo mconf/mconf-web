@@ -20,27 +20,52 @@ module SpacesHelper
   end
 
   # Returns a link to join the space depending on the status of the
-  # current user. If there's no current user, returns a button to register.
-  # If the user is already a member of the space, returns nil.
+  # current user. Possible cases:
+  # * If there's no current user, returns a button to register.
+  # * If the user has already requested to join the space, shows a disabled button
+  #   informing him of that.
+  # * If the user was already invited to join the space, shows a button that
+  #   goes to the page to accept/decline the invitation.
+  # * If the user is already a member of the space, returns nil.
   def space_join_button(space, options={})
+    options[:class] = "#{options[:class]} btn btn-large btn-block"
+
     # no user logged, renders a register button
     if !user_signed_in?
+      options[:class] = "#{options[:class]} btn-success"
       if Site.current.registration_enabled?
-        link_to t('register.one'), register_path, options
+        link_to t('_other.register'), register_path, options
       else
         link_to t('_other.login'), login_path, options
       end
 
-    # a user is logged and he's not in the space
-    elsif !space.users.include?(current_user)
-      link_to t('space.join'), new_space_join_request_path(space), options
-
     # the user already requested to join the space
     elsif space.pending_join_request_for?(current_user)
-      options[:class] = "#{options[:class]} disabled tooltipped upwards"
-      options[:title] = t("space.join_pending")
-      content_tag(:span, t('space.join'), options)
+      request = space.pending_join_request_for(current_user)
+      options[:class] = "#{options[:class]} btn-success disabled"
+      button = content_tag :span, t('spaces.space_join_button.already_requested'), options
+      alert = content_tag :div, :class => "alert alert-success" do
+        link = link_to t("spaces.space_join_button.cancel_request"), space_join_request_path(space, request)
+        text = content_tag :span, t("spaces.space_join_button.already_requested_alert")
+        text + link
+      end
+      button + alert
+
+    # the user was already invited to join the space
+    elsif space.pending_invitation_for?(current_user)
+      invitation = space.pending_invitation_for(current_user)
+      options[:class] = "#{options[:class]} btn-success"
+      icon = content_tag :i, "", :class => "icon-exclamation-sign"
+      link = link_to icon + " " + t('spaces.space_join_button.accept_or_decline'), space_join_request_path(space, invitation), options
+      alert = content_tag :div, t("spaces.space_join_button.invitation_alert"), :class => "alert alert-success"
+      link + alert
+
+    # a user is logged and he's not in the space
+    elsif !space.users.include?(current_user)
+      options[:class] = "#{options[:class]} btn-success"
+      link_to t('spaces.space_join_button.join'), new_space_join_request_path(space), options
     end
+
   end
 
   # Stores the current tab in the menu in the administration pages of a space

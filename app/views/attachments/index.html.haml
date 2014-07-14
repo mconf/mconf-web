@@ -9,8 +9,8 @@
   %span{ :id => "space-attachments-selected" }
 
 #space-attachments-create
-  - if can?(:create, @space.attachments.build)
-    = link_to t('.new_file'), new_space_attachment_path(@space), :class => "btn btn-small btn-primary open-modal"
+  - if can?(:create, Attachment.new(:space => @space))
+    = link_to t('.new_file'), new_space_attachment_path(@space), :id => "new-file", :class => "btn btn-small btn-primary open-modal"
 
 #space-attachments
   - if @attachments.empty?

@@ -4,9 +4,6 @@
 # This file is licensed under the Affero General Public License version
 # 3 or later. See the LICENSE file.
 
-# TODO: this factory is throwing a warning, not sure exactly why:
-#   DEPRECATION WARNING: You're trying to create an attribute `join_request_id'. Writing arbitrary attributes on a model is deprecated. Please just use `attr_writer` etc.
-
 FactoryGirl.define do
   factory :join_request do |jr|
     jr.association :candidate, :factory => :user
@@ -22,9 +19,5 @@ FactoryGirl.define do
 
   factory :space_invite_request, :parent => :space_join_request do |jr|
     jr.request_type "invite"
-  end
-
-  factory :event_join_request, :parent => :join_request do |jr|
-    jr.association :group, :factory => :event
   end
 end

@@ -79,11 +79,13 @@ class User < ActiveRecord::Base
                           :association_foreign_key => "subject_id",
                           :conditions => { :permissions => {:subject_type => 'Space'} }
 
+  has_many :join_requests, :foreign_key => :candidate_id
   has_many :permissions, :dependent => :destroy
   has_one :profile, :dependent => :destroy
   has_many :posts, :as => :author, :dependent => :destroy
   has_one :bigbluebutton_room, :as => :owner, :dependent => :destroy
   has_one :ldap_token, :dependent => :destroy
+  has_one :shib_token, :dependent => :destroy
 
   accepts_nested_attributes_for :bigbluebutton_room
 
@@ -333,6 +335,16 @@ class User < ActiveRecord::Base
   # Method used by MwebEvents
   def admin?
     superuser
+  end
+
+  # Return the list of spaces in which the user has a pending join request or invitation.
+  def pending_spaces
+    requests = JoinRequest.where(:candidate_id => self, :processed_at => nil, :group_type => 'Space')
+    ids = requests.map(&:group_id)
+    ids.uniq!
+    # note: not 'find' because some of the spaces might be disabled and 'find' would raise
+    #   an exception
+    Space.find_all_by_id(ids)
   end
 
   private

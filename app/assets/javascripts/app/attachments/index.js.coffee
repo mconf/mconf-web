@@ -8,6 +8,26 @@ $ ->
     # initialize all
     updateAll()
 
+    # bind uploader
+    uploaderCallbacks =
+      onComplete: (id, name, response) ->
+        if response.success
+          $.get response.redirect_url, (data) ->
+            window.setTimeout ->
+              $('.file-uploader').hide()
+              mconf.Modal.closeWindows()
+            , 1000
+            window.setTimeout ->
+              window.location.assign(response.redirect_url)
+            , 1500
+
+      onSubmit: (id, name) ->
+        $('.upload-button').hide()
+
+    $(document).on "modal-shown.attachments-uploader", ->
+      mconf.Uploader.bind
+        dragAndDrop: true
+        callbacks: uploaderCallbacks
 
 updateAll = ->
   updateDeleteLink()

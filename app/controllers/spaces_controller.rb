@@ -23,16 +23,34 @@ class SpacesController < ApplicationController
 
   # TODO: cleanup the other actions adding respond_to blocks here
   respond_to :js, :only => [:index, :show]
+  respond_to :json, :only => [:update_logo]
   respond_to :html, :only => [:new, :edit, :index, :show]
 
   # User trying to access a space not owned or joined by him
   rescue_from CanCan::AccessDenied do |exception|
-    if user_signed_in? and not [:destroy, :update].include?(exception.action)
-      # Normal actions trigger a redirect to ask for membership
-      flash[:error] = t("spaces.error.need_join_to_access")
-      redirect_to new_space_join_request_path :space_id => params[:id]
+
+    # if it's a logged user that tried to access a private space
+    if user_signed_in? and [:show, :edit].include?(exception.action)
+
+      if @space.pending_join_request_for?(current_user)
+        # redirect him to the page to ask permission to join, but with a warning that
+        # a join request was already sent
+        redirect_to new_space_join_request_path :space_id => params[:id]
+
+      elsif @space.pending_invitation_for?(current_user)
+        # redirect him to the invitation he received
+        invitation = @space.pending_invitation_for(current_user)
+        flash[:error] = t("spaces.error.already_invited")
+        redirect_to space_join_request_path @space, invitation
+
+      else
+        # redirect him to ask permission to join
+        flash[:error] = t("spaces.error.need_join_to_access")
+        redirect_to new_space_join_request_path :space_id => params[:id]
+      end
+
     else
-      # Logged out users or destructive actions are redirect to the 403 error
+      # anonymous users or destructive actions are redirected to the 403 error
       flash[:error] = t("space.access_forbidden")
       render :template => "/errors/error_403", :status => 403, :layout => "error"
     end
@@ -90,9 +108,6 @@ class SpacesController < ApplicationController
     # users
     @latest_users = @space.users.order("permissions.created_at DESC").first(3)
 
-    # role of the current user
-    @permission = Permission.where(:user_id => current_user, :subject_id => @space, :subject_type => 'Space').first
-
     respond_to do |format|
       format.html { render :layout => 'spaces_show' }
       format.js {
@@ -132,6 +147,19 @@ class SpacesController < ApplicationController
     render :layout => 'spaces_show'
   end
 
+  def update_logo
+    @space.logo_image = params[:uploaded_file]
+
+    if @space.save
+      respond_to do |format|
+        url = logo_images_crop_path(:model_type => 'space', :model_id => @space)
+        format.json { render :json => { :success => true, :redirect_url => url } }
+      end
+    else
+      format.json { render :json => { :success => false } }
+    end
+  end
+
   def update
     unless params[:space][:bigbluebutton_room_attributes].blank?
       params[:space][:bigbluebutton_room_attributes][:id] = @space.bigbluebutton_room.id
@@ -139,14 +167,10 @@ class SpacesController < ApplicationController
 
     if @space.update_attributes(space_params)
       respond_to do |format|
-        if params[:space][:logo_image].present?
-          format.html { redirect_to logo_images_crop_path(:model_type => 'space', :model_id => @space) }
-        else
-          format.html {
-            flash[:success] = t('space.updated')
-            redirect_to :back
-          }
-        end
+        format.html {
+          flash[:success] = t('space.updated')
+          redirect_to :back
+        }
       end
     else
       respond_to do |format|
@@ -323,6 +347,7 @@ class SpacesController < ApplicationController
     [ :name, :description, :logo_image, :public, :permalink, :repository,
       :crop_x, :crop_y, :crop_w, :crop_h,
       :bigbluebutton_room_attributes =>
-        [ :id, :attendee_password, :moderator_password, :default_layout, :welcome_msg ] ]
+        [ :id, :attendee_password, :moderator_password, :default_layout,
+          :welcome_msg, :presenter_share_only ] ]
   end
 end

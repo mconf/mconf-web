@@ -16,7 +16,7 @@ GIT
 
 GIT
   remote: git://github.com/mconf/bigbluebutton_rails.git
-  revision: 7a750270302f279795104e906dca51ea3b0972e8
+  revision: 9709f43864292889df927a7977ba41f1e5694075
   branch: master
   specs:
     bigbluebutton_rails (1.3.0)
@@ -35,7 +35,7 @@ GIT
 
 GIT
   remote: git@github.com:mconf/mweb_events.git
-  revision: eb978fc4e98cf6db464e62090bee66fd4e2ce123
+  revision: b7ce29cdd4548040035d526e50991ec87750073a
   specs:
     mweb_events (0.0.1)
       bootstrap3-datetimepicker-rails (~> 3.0.0)
@@ -127,11 +127,18 @@ GEM
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
     bootstrap-datetimepicker-rails (0.0.11)
-    bootstrap3-datetimepicker-rails (3.0.0.1)
+    bootstrap3-datetimepicker-rails (3.0.0.2)
       momentjs-rails (~> 2.5.0)
     browser (0.5.0)
     builder (3.0.4)
     cancan (1.6.10)
+    cancancan (1.8.4)
+    capybara (2.4.1)
+      mime-types (>= 1.16)
+      nokogiri (>= 1.3.3)
+      rack (>= 1.0.0)
+      rack-test (>= 0.5.4)
+      xpath (~> 2.0)
     carrierwave (0.9.0)
       activemodel (>= 3.2.0)
       activesupport (>= 3.2.0)
@@ -183,6 +190,9 @@ GEM
       railties (>= 3.0.0)
     faker (1.3.0)
       i18n (~> 0.5)
+    fineuploader-rails (3.3)
+      actionpack (>= 3.1)
+      railties (>= 3.1)
     font-awesome-rails (3.2.1.3)
       railties (>= 3.2, < 5.0)
     friendly_id (4.0.8)
@@ -191,7 +201,7 @@ GEM
     garb (0.9.1)
       activesupport (>= 2.2.0)
       crack (>= 0.1.6)
-    geocoder (1.2.2)
+    geocoder (1.2.3)
     haml (3.1.7)
     haml-rails (0.4)
       actionpack (>= 3.1, < 4.1)
@@ -213,9 +223,11 @@ GEM
     jquery-rails (2.3.0)
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
-    jquery-ui-rails (4.2.1)
+    jquery-ui-rails (5.0.0)
       railties (>= 3.2.16)
     json (1.8.1)
+    launchy (2.4.2)
+      addressable (~> 2.3)
     leaflet-rails (0.7.3)
     less (2.2.2)
       commonjs (~> 0.2.6)
@@ -346,10 +358,6 @@ GEM
       rack (~> 1.4)
       rack-protection (~> 1.3)
       tilt (~> 1.3, >= 1.3.3)
-    spork (1.0.0rc3)
-    spork-rails (3.2.1)
-      rails (>= 3.0.0, < 3.3.0)
-      spork (>= 1.0rc0)
     sprockets (2.2.2)
       hike (~> 1.2)
       multi_json (~> 1.0)
@@ -392,6 +400,8 @@ GEM
       chronic (>= 0.6.3)
     will_paginate (3.0.5)
     xml-simple (1.1.1)
+    xpath (2.0.0)
+      nokogiri (~> 1.3)
     ya2yaml (0.30)
     yajl-ruby (1.1.0)
     yamler (0.1.0)
@@ -409,7 +419,8 @@ DEPENDENCIES
   binding_of_caller
   bootstrap-datetimepicker-rails
   browser
-  cancan (~> 1.6.0)
+  cancancan (~> 1.8)
+  capybara
   carrierwave
   chronic
   coffee-rails (~> 3.2.0)
@@ -422,6 +433,7 @@ DEPENDENCIES
   exception_notification
   factory_girl_rails
   faker
+  fineuploader-rails (~> 3.3)
   font-awesome-rails
   forgery!
   friendly_id
@@ -434,6 +446,7 @@ DEPENDENCIES
   i18n-js!
   icalendar
   jquery-rails
+  launchy
   less-rails
   momentjs-rails
   mweb_events!
@@ -461,7 +474,6 @@ DEPENDENCIES
   shoulda-matchers
   simple_form (~> 2.1.0)
   simplecov
-  spork-rails
   sqlite3
   strong_parameters
   therubyracer

@@ -9,6 +9,7 @@ require "spec_helper"
 describe Profile do
 
   describe "abilities", :abilities => true do
+    set_custom_ability_actions([:update_logo])
     subject { ability }
     let(:ability) { Abilities.ability_for(user) }
     let(:target) { FactoryGirl.create(:user).profile }
@@ -40,6 +41,7 @@ describe Profile do
           before { target.visibility = Profile::VISIBILITY.index(visibility) }
           it { should be_able_to(:read, target) }
           it { should be_able_to(:update, target) }
+          it { should be_able_to(:update_logo, target) }
         end
       end
     end

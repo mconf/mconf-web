@@ -584,11 +584,17 @@ ul#navbar-left-links {
     max-width: $contents-width - 120px;
 
     .main-title {
+
       @include font-size($font-section-title);
       line-height: 1.0;
       font-weight: bold;
       color: $page-title-color;
       margin-bottom: 5px;
+
+      a {
+        $c: $page-title-color;
+        @include link-colors($c, lighten($c, 10), lighten($c, 10));
+      }
 
       // when the title is too big the font is reduced a bit
       &.small-title {
@@ -650,10 +656,7 @@ ul#navbar-left-links {
     background: $light-gray;
     margin-bottom: 10px;
     clear: both;
-
-    &.active {
-      background: darken($alert-success-bg, 5);
-    }
+    @include block-wrapper-active;
   }
 
   .content-block {
@@ -766,6 +769,10 @@ ul#navbar-left-links {
         line-height: 30px;
       }
     }
+  }
+
+  .content-block-wrapper {
+    @include block-wrapper-active;
   }
 
   .content-block {

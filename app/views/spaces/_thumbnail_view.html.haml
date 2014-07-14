@@ -1,11 +1,14 @@
 -# locals:
 -#  spaces (array of Space)
 -#  user_spaces (array of Space): the spaces to which the user belongs
+-#  show_join_request (boolean): show link to a join request (if it exists)
+
+- show_join_request ||= false
 
 %ul.list-thumbnails
   - if spaces.count > 0
     - spaces.each do |space|
       %li.list-thumbnail-wrapper{ :name => space.permalink }
-        = render "spaces/space_thumbnail", :space => space
+        = render "spaces/space_thumbnail", :space => space, :show_join_request => show_join_request
   - else
     = t(".no_spaces")

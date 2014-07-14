@@ -1,7 +1,10 @@
 -# locals:
 -#  space (Space)
+-#  show_join_request (boolean): show link to a join request (if it exists)
 
-.list-thumbnail
+- show_join_request ||= false
+
+.list-thumbnail.space-thumbnail
   .list-logo
     - space_logo = logo_image(space, :size => "84x64", :title => space.name)
     -# note: can't be can?(:read, space) because we want the link even for non-members
@@ -17,7 +20,6 @@
       = link_to first_words(space.name, 30), space_path(space), :title => space.name, :class => "list-title"
     - else
       %span.list-title{:title => space.name}= first_words(space.name, 20)
-    %span= t('_other.members', :count => space.users.count)
     - if space.public
       .resource-visibility.small.public
         = icon_space_public
@@ -26,3 +28,15 @@
       .resource-visibility.small.private
         = icon_space_private
         = t(".private")
+
+    - show_members = true
+    - if show_join_request
+      - jr = space.pending_join_request_or_invitation_for(current_user)
+      - if jr
+        - show_members = false
+        - if jr.request_type == "invite"
+          = link_to t(".reply_invitation"), space_join_request_path(space, jr)
+        - else
+          = link_to t(".view_join_request"), space_join_request_path(space, jr)
+    - if show_members
+      %span= t('_other.members', :count => space.users.count)

@@ -1,7 +1,10 @@
-- content_for :title, "#{@event.name}: #{t('_other.index')} #{MwebEvents::Participant.model_name.human.pluralize}"
+= render "mweb_events/events/title"
 
-%h1
-  = content_for :title
+= content_for :sidebar do
+  = link_to t('.back_to_event'), @event, :class => "btn btn-block"
+  = render 'mweb_events/events/invite_button'
+
+%h3= t(".title")
 
 - if @participants.count > 0
 
@@ -14,8 +17,6 @@
   - nav = page_navigation_links @participants
   - unless nav.nil?
     .content-block-footer= nav
-
-  = link_to t('_other.cancel'), @event
 
 - else
   = t('.no_participants')

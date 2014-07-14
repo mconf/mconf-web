@@ -1,12 +1,16 @@
 - if @space && @space.id != nil
   .current-page-logo
-    = logo_image(@space, :size => "84x64", :title => @space.name)
+    = link_to space_path(@space) do
+      = logo_image(@space, :size => "84x64", :title => @space.name)
   .current-page-title.space-page
     - if @space.name.size > 60
       .main-title.small-title
-        = sanitize(first_words(@space.name, 60))
+        = link_to space_path(@space) do
+          = sanitize(first_words(@space.name, 60))
     - else
-      .main-title= sanitize(@space.name)
+      .main-title
+        = link_to space_path(@space) do
+          = sanitize(@space.name)
     - if @space.public
       .resource-visibility.public
         = icon_space_public

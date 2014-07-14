@@ -2,7 +2,9 @@
 
 = content_for :page_header do
   .current-page-title
-    .main-title= @event.name
+    .main-title
+      = link_to @event do
+        = @event.name
     .sub-title
       - if @event.public
         .resource-visibility.public

@@ -57,6 +57,12 @@ Mconf::Application.routes.draw do
 
   # event module
   if Mconf::Modules.mod_loaded?('events')
+    # For invitations
+    resources :events, :only =>[] do
+      post :send_invitation, :controller => 'mweb_events/events'
+      get  :invite, :controller => 'mweb_events/events'
+    end
+
     mount MwebEvents::Engine => '/'
   end
 
@@ -76,6 +82,7 @@ Mconf::Application.routes.draw do
 
     member do
       post :enable
+      post :update_logo
       delete :disable
       post :leave
       get :user_permissions
@@ -107,12 +114,11 @@ Mconf::Application.routes.draw do
       end
     end
 
-    resources :attachments, :except => [:edit, :update, :show]
+    resources :attachments, :except => [:edit, :update]
     delete 'attachments', :to => 'attachments#delete_collection', :as => 'attachments'
   end
 
-  resources :permissions
-  resources :memberships
+  resources :permissions, :only => [:update, :destroy]
 
   resources :users, :except => [:new, :create] do
 
@@ -128,7 +134,9 @@ Mconf::Application.routes.draw do
       post :disapprove
     end
 
-    resource :profile, :except => [:new, :create]
+    resource :profile, :except => [:new, :create] do
+      post :update_logo
+    end
   end
 
   # Routes specific for the current user

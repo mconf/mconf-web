@@ -8,9 +8,12 @@
 require "digest/sha1"
 class UsersController < ApplicationController
 
-  load_and_authorize_resource :find_by => :username, :except => [:enable]
+  load_and_authorize_resource :find_by => :username, :except => [:enable, :index]
   before_filter :load_and_authorize_with_disabled, :only => [:enable]
+
+  # #index is nested in spaces
   load_and_authorize_resource :space, :find_by => :permalink, :only => [:index]
+  load_and_authorize_resource :through => :space, :only => [:index]
   before_filter :webconf_room!, :only => [:index]
 
   # Rescue username not found rendering a 404

@@ -1,21 +1,27 @@
-%h2
-  = t('.title')
-
-%section.event-register
-
-  - if @event.past?
+- if @event.past?
+  %section.event-register
     %p= t('.closed')
 
-  - elsif can?(:register, @event)
-    - if current_user
-      = simple_form_for([@event, @participant]) do |f|
-        = f.hidden_field :email
-        = f.button :submit, :value => t(".button"), :class => 'btn btn-success'
-    - else
-      = link_to t('.button'), new_event_participant_path(@event), :class => 'btn btn-success'
+- elsif user_signed_in? && @event.is_registered?(current_user)
+  %section.event-register
+    %p= t('.already_registered')
+
+- else
+  - if can?(:register, @event)
+    %section.event-register
+      - if current_user
+        = simple_form_for([@event, @participant]) do |f|
+          = f.hidden_field :email
+          = f.button :submit, :value => t(".button"), :class => 'btn btn-success btn-block'
+      - else
+        = link_to t('.button'), new_event_participant_path(@event), :class => 'btn btn-success btn-block'
 
   - elsif @event.owner_type == 'Space'
-    - if user_signed_in?
-      = link_to t('.join_button'), main_app.new_space_join_request_path(@event.owner), :class => 'btn btn-success'
-    - else
-      = t('.need_sign_in')
+    -# happens for private events that belong to spaces
+    %section.event-register
+      - if user_signed_in?
+        = link_to t('.join_button'), main_app.new_space_join_request_path(@event.owner), :class => 'btn btn-success btn-block'
+      - else
+        = t('.need_sign_in')
+
+= render 'invite_button'

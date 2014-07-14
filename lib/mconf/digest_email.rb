@@ -32,27 +32,16 @@ module Mconf
 
     def self.get_activity(user, date_start, date_end)
       user_spaces = user.spaces.map{ |s| s.id }
-
-      # Recent posts in the user's spaces
-      posts = Post.
-        where('space_id IN (?)', user_spaces).
+      filter = lambda do |model|
+        model.where('space_id IN (?)', user_spaces).
         where("updated_at >= ?", date_start).
         where("updated_at <= ?", date_end).
         order('updated_at desc').map { |x| x.id }
+      end
 
-      # Recent news in the user's spaces
-      news = News.
-        where('space_id IN (?)', user_spaces).
-        where("updated_at >= ?", date_start).
-        where("updated_at <= ?", date_end).
-        order('updated_at desc').map { |x| x.id }
-
-      # Recent attachments in the user's spaces
-      attachments = Attachment.
-        where('space_id IN (?)', user_spaces).
-        where("updated_at >= ?", date_start).
-        where("updated_at <= ?", date_end).
-        order('updated_at desc').map { |x| x.id }
+      posts = filter.call(Post)
+      news = filter.call(News)
+      attachments = filter.call(Attachment)
 
       # Events that started or finished in the period
       # TODO: review and improve this with MwebEvents
@@ -66,7 +55,7 @@ module Mconf
       end
 
       # Unread messages in the inbox
-      inbox = PrivateMessage.inbox(user).select{ |msg| !msg.checked }
+      inbox = PrivateMessage.where(:checked => [false, nil]).inbox(user)
 
       [ posts, news, attachments, events, inbox ]
     end

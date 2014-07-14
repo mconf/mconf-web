@@ -83,6 +83,7 @@ class Space < ActiveRecord::Base
   # attrs and methods for space logos
   attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
   mount_uploader :logo_image, LogoImageUploader
+  attr_accessible :logo_image, :crop_x, :crop_y, :crop_w, :crop_h
   after_create :crop_logo
   after_update :crop_logo
 
@@ -179,8 +180,28 @@ class Space < ActiveRecord::Base
     join_requests.where(:processed_at => nil, :request_type => 'invite')
   end
 
+  def pending_join_request_or_invitation_for(user)
+    join_requests.where(:candidate_id => user, :processed_at => nil).first
+  end
+
+  def pending_join_request_or_invitation_for?(user)
+    !pending_join_request_or_invitation_for(user).nil?
+  end
+
+  def pending_join_request_for(user)
+    pending_join_requests.where(:candidate_id => user.id).first
+  end
+
   def pending_join_request_for?(user)
-    pending_join_requests.where(:candidate_id => user).size > 0
+    !pending_join_request_for(user).nil?
+  end
+
+  def pending_invitation_for(user)
+    pending_invitations.where(:candidate_id => user.id).first
+  end
+
+  def pending_invitation_for?(user)
+    !pending_invitation_for(user).nil?
   end
 
   # Returns whether the space's logo is being cropped.

@@ -24,6 +24,7 @@ pt-br:
       bigbluebutton_room: 
         attendee_password: "Senha de Participante"
         default_layout: "Layout Padrão"
+        presenter_share_only: "Somente apresentador compartilha áudio e vídeo"
         dial_number: "Número de discagem"
         duration: Duração
         external: "Criada externamente"

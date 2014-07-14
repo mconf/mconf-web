@@ -8,15 +8,14 @@ class JoinRequest < ActiveRecord::Base
   include PublicActivity::Common
 
   # the user that is being invited
-  belongs_to :candidate, :class_name => "User", :foreign_key => 'candidate_id'
-
+  belongs_to :candidate, :class_name => "User"
   # the person that is inviting
-  belongs_to :introducer, :class_name => "User", :foreign_key => 'introducer_id'
+  belongs_to :introducer, :class_name => "User"
 
   # the container (event, space)
   belongs_to :group, :polymorphic => true
 
-  has_one :role
+  belongs_to :role
 
   validates :email, :presence => true, :email => true
 
@@ -25,10 +24,10 @@ class JoinRequest < ActiveRecord::Base
 
   attr_writer :processed
   before_save :set_processed_at
+  before_save :add_candidate_to_group
 
   validates_uniqueness_of :candidate_id,
-                          :scope => [ :group_id, :group_type, :processed_at ],
-                          :allow_nil => true
+                          :scope => [ :group_id, :group_type, :processed_at ]
 
   validates_uniqueness_of :email,
                           :scope => [ :group_id, :group_type, :processed_at ]
@@ -59,10 +58,22 @@ class JoinRequest < ActiveRecord::Base
     group_type == 'Space'
   end
 
+  def send_notification
+    if request_type == 'invite'
+      Informer.deliver_invitation(self)
+    elsif request_type == 'request'
+      Informer.deliver_join_request(self)
+    end
+  end
+
   private
 
   def set_processed_at
     @processed && self.processed_at = Time.now.utc
+  end
+
+  def add_candidate_to_group
+    group.add_member!(candidate, role) if accepted?
   end
 
   def candidate_is_not_introducer

@@ -32,14 +32,22 @@ en:
         select_at_left: "Select an event in the list to see it's description here"
         subtitle: "Create your own events and share with other people"
         title: "Events"
+      invite:
+        title: "Inviting to the event"
+        invite_title: "Invtitation to the event [%{event}]"
       list_view:
         no_events: "There are no events matching this search"
       new:
         page_title: "Create a new event"
       registration:
+        already_registered: You are already registered in this event!
         closed: Registration for this event is closed.
+        invite_button: Invite people to this event
         join_button: Join this space to register
         need_sign_in: You need to be signed in to register in this event
+      send_invitation:
+        error: "Invitation failed to be sent to:"
+        success: "Invitation successfully sent to:"
       title:
         belongs_space: "This event belongs to the space <a href='%{url}'>%{space}</a>"
         belongs_user: "Event created by <a href='%{url}'>%{user}</a>"
@@ -52,8 +60,12 @@ en:
         starts_at: "Starts at"
     participants:
       index:
+        back_to_event: "Go back to the event page"
         disable: Remove from event
         disable_confirm: Are you sure you want to remove this user from the event?
         event: "Message in event [%{event}]"
         message: Send message
         no_participants: No participants yet!
+        title: "Listing all participants in the event"
+      new:
+        title: "Registering in the event"

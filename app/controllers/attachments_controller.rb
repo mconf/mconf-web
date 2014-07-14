@@ -8,11 +8,17 @@
 
 class AttachmentsController < ApplicationController
   load_and_authorize_resource :space, :find_by => :permalink
+  before_filter :check_repository_enabled
+  load_and_authorize_resource :through => :space, :except => [:index, :delete_collection]
   before_filter :load_attachments, :only => [:index, :delete_collection]
-  load_and_authorize_resource :attachment, :through => :space
-  before_filter :webconf_room!
+  before_filter :webconf_room!, :only => [:index, :new]
 
   layout 'spaces_show'
+
+  def show
+    path = @attachment.full_filename
+    send_file path
+  end
 
   def index
     respond_to do |format|
@@ -24,11 +30,7 @@ class AttachmentsController < ApplicationController
   end
 
   def new
-    respond_to do |format|
-      format.html {
-        render :partial => "upload_form"
-      }
-    end
+    render :layout => false if request.xhr?
   end
 
   # TODO: do not remove anything if attachment_ids is not informed (it's removing all attachments)
@@ -60,20 +62,13 @@ class AttachmentsController < ApplicationController
   def create
     @attachment.author = current_user
     @attachment.space = @space
+    @attachment.attachment = params[:uploaded_file]
 
+    success = @attachment.save
+    redirect = space_attachments_path(@space)
     respond_to do |format|
-      if @attachment.save
-        format.html {
-          flash[:success] = t('attachment.created')
-          redirect_to space_attachments_path(@space)
-        }
-      else
-        format.html {
-          flash[:error] = @attachment.errors.to_xml
-          render :action => :index
-          flash.delete([:error])
-        }
-      end
+      format.html { redirect_to redirect }
+      format.json { render :json => {:success => success, :redirect_url => redirect }, :status => 200 }
     end
   end
 
@@ -95,6 +90,12 @@ class AttachmentsController < ApplicationController
   end
 
   private
+
+  def check_repository_enabled
+    unless @space.repository?
+      redirect_to space_path(@space), :notice => t('attachment.repository_disabled')
+    end
+  end
 
   def load_attachments
     # shows the newer items in the top by default
