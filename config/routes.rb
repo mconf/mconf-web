@@ -53,6 +53,12 @@ Mconf::Application.routes.draw do
 
   # event module
   if Mconf::Modules.mod_loaded?('events')
+    # For invitations
+    resources :events, :only =>[] do
+      post :send_invitation, :controller => 'mweb_events/events'
+      get  :invite, :controller => 'mweb_events/events'
+    end
+
     mount MwebEvents::Engine => '/'
   end
 

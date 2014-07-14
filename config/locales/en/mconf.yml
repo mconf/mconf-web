@@ -654,10 +654,13 @@ en:
     one: Error
     other: Errors
     vcc_warning: "Warning:"
-  event_invitation: 
-    instructions: "Click Send for each invitation you want to send, and click Finish when you are done."
-    sent: "Invitations sent successfully"
-    will_invite: "People you will invite:"
+  event_mailer:
+    invitation_mail:
+      message:
+        start: "Starts on"
+        end: "Ends on"
+        header: "You have been invited to the event <b>%{event}</b> by <b>%{sender}</b> (%{email_sender}):"
+      subject: "You have been invited to the event %{event}"
   feedback: 
     email: "%{email} sent the following feedback:"
     note: "Help us improve Mconf. Please send your comments, problems and suggestions. We will try to answer as soon as possible."

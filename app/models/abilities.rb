@@ -185,7 +185,7 @@ module Abilities
           e.owner.nil? || event_can_be_managed_by(e, user)
         end
 
-        can [:edit, :update, :destroy], MwebEvents::Event do |e|
+        can [:edit, :update, :destroy, :invite, :send_invitation], MwebEvents::Event do |e|
           event_can_be_managed_by(e, user)
         end
 

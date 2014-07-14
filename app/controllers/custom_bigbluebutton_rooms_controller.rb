@@ -96,14 +96,14 @@ class CustomBigbluebuttonRoomsController < Bigbluebutton::RoomsController
   end
 
   def send_invitation
-
     # adjusts the dates set by the user in the datetimepicker to dates we can set in the invitation
     unless adjust_dates_for_invitation(params)
       flash[:error] = t('custom_bigbluebutton_rooms.send_invitation.error_date_format')
 
     else
       # the invitation object to be sent
-      invitation = Mconf::Invitation.new
+      invitation = Mconf::WebconfInvitation.new
+      invitation.mailer = WebConferenceMailer
       invitation.from = current_user
       invitation.room = @room
       invitation.starts_on = params[:invite][:starts_on]
@@ -113,28 +113,13 @@ class CustomBigbluebuttonRoomsController < Bigbluebutton::RoomsController
       invitation.description = params[:invite][:message]
 
       # send the invitation to all users
-      # make `users` an array of Users and emails
-      users = params[:invite][:users].split(",")
-      users = users.map { |user_str|
-        user = User.find_by_id(user_str)
-        user ? user : user_str
-      }
+      users = Mconf::Invitation.split_invitations(params[:invite][:users])
       succeeded, failed = Mconf::Invitation.send_batch(invitation, users)
 
-      unless succeeded.empty?
-        success_msg = t('custom_bigbluebutton_rooms.send_invitation.success') + " "
-        success_msg += succeeded.map { |user|
-          user.is_a?(User) ? user.full_name : user
-        }.join(", ")
-        flash[:success] = success_msg
-      end
-      unless failed.empty?
-        error_msg = t('custom_bigbluebutton_rooms.send_invitation.error') + " "
-        error_msg += failed.map { |user|
-          user.is_a?(User) ? user.full_name : user
-        }.join(", ")
-        flash[:error] = error_msg
-      end
+      flash[:success] = Mconf::Invitation.build_flash(
+        succeeded, t('custom_bigbluebutton_rooms.send_invitation.success')) unless succeeded.empty?
+      flash[:error] = Mconf::Invitation.build_flash(
+        failed, t('custom_bigbluebutton_rooms.send_invitation.errors')) unless failed.empty?
     end
 
     respond_to do |format|
