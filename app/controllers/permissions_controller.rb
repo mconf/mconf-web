@@ -12,7 +12,7 @@ class PermissionsController < ApplicationController
   load_and_authorize_resource
 
   def update
-    if @permission.update_attributes(params[:permission])
+    if @permission.update_attributes(permited(params[:permission]))
       flash[:success] = t('permission.update.success')
     else
       flash[:error] = t('permission.update.failure')
@@ -30,4 +30,15 @@ class PermissionsController < ApplicationController
     end
   end
 
+  def permited obj
+    unless obj.nil?
+      obj.permit(*allowed_params)
+    else
+      []
+    end
+  end
+
+  def allowed_params
+    [ :role_id ]
+  end
 end

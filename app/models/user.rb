@@ -29,8 +29,7 @@ class User < ActiveRecord::Base
     end
   end
 
-  attr_accessible :email, :password, :password_confirmation, :remember_me,
-                  :login, :username, :approved
+  # attr_accessible :email, :password, :password_confirmation, :remember_me, :login, :username, :approved
   # TODO: block :username from being modified after registration
   # attr_accessible :username, :as => :create
 
@@ -90,20 +89,20 @@ class User < ActiveRecord::Base
   accepts_nested_attributes_for :bigbluebutton_room
 
   # TODO: see JoinRequestsController#create L50
-  attr_accessible :created_at, :updated_at, :activated_at, :disabled
-  attr_accessible :captcha, :captcha_key, :authenticate_with_captcha
-  attr_accessible :email2, :email3
-  attr_accessible :timezone
-  attr_accessible :expanded_post
-  attr_accessible :notification
-  attr_accessible :superuser
-  attr_accessible :can_record
-  attr_accessible :receive_digest
+  # attr_accessible :created_at, :updated_at, :activated_at, :disabled
+  # attr_accessible :captcha, :captcha_key, :authenticate_with_captcha
+  # attr_accessible :email2, :email3
+  # attr_accessible :timezone
+  # attr_accessible :expanded_post
+  # attr_accessible :notification
+  # attr_accessible :superuser
+  # attr_accessible :can_record
+  # attr_accessible :receive_digest
 
   # Full name must go to the profile, but it is provided by the user when
   # signing up so we have to cache it until the profile is created
   attr_accessor :_full_name
-  attr_accessible :_full_name
+  # attr_accessible :_full_name
 
   # BigbluebuttonRoom requires an identifier with 3 chars generated from :name
   # So we'll require :_full_name and :username to have length >= 3
@@ -111,7 +110,7 @@ class User < ActiveRecord::Base
   validates :_full_name, :presence => true, :length => { :minimum => 3 }, :on => :create
 
   # for the associated BigbluebuttonRoom
-  attr_accessible :bigbluebutton_room_attributes
+  # attr_accessible :bigbluebutton_room_attributes
   accepts_nested_attributes_for :bigbluebutton_room
 
   after_create :create_webconf_room

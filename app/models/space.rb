@@ -11,8 +11,6 @@ class Space < ActiveRecord::Base
   # TODO: temporary, review
   USER_ROLES = ["Admin", "User"]
 
-  attr_accessible :name, :permalink, :public, :disabled, :repository, :description, :deleted
-
   has_many :posts, :dependent => :destroy
   has_many :news, :dependent => :destroy
   has_many :attachments, :dependent => :destroy
@@ -43,7 +41,7 @@ class Space < ActiveRecord::Base
   end
 
   # for the associated BigbluebuttonRoom
-  attr_accessible :bigbluebutton_room_attributes
+  # attr_accessible :bigbluebutton_room_attributes
   accepts_nested_attributes_for :bigbluebutton_room
   after_update :update_webconf_room
   after_create :create_webconf_room
@@ -83,7 +81,7 @@ class Space < ActiveRecord::Base
   # attrs and methods for space logos
   attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
   mount_uploader :logo_image, LogoImageUploader
-  attr_accessible :logo_image, :crop_x, :crop_y, :crop_w, :crop_h
+  # attr_accessible :logo_image, :crop_x, :crop_y, :crop_w, :crop_h
   after_create :crop_logo
   after_update :crop_logo
 

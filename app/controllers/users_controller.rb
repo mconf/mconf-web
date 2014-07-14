@@ -182,4 +182,17 @@ class UsersController < ApplicationController
     authorize! :enable, @user
   end
 
+  def permited obj
+    unless obj.nil?
+      obj.permit(*allowed_params)
+    else
+      []
+    end
+  end
+
+  def allowed_params
+    [ :email, :password, :password_confirmation, :remember_me,
+      :login, :username, :approved, :disabled, :timezone, :can_record, :receive_digest ]
+  end
+
 end
