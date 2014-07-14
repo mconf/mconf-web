@@ -238,10 +238,12 @@ module Abilities
         user_can_end_meeting(user, room)
       end
 
-      # Users can recording meetings in their rooms, but only if they have the record flag set.
+      # Users can recording meetings in their rooms, but only if they have the record flag set or
+      #   can record because of their role (acquired via federation).
       # `:record_meeting` is a custom name, not an action that exists in the controller
       can :record_meeting, BigbluebuttonRoom do |room|
-        user.can_record && user_is_owner_or_belongs_to_rooms_space(user, room)
+        (user.can_record || user.has_role_allowed_to_record?) &&
+          user_is_owner_or_belongs_to_rooms_space(user, room)
       end
 
       # Currently only user rooms can be updated

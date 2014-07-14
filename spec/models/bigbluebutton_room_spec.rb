@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # This file is part of Mconf-Web, a web application that provides access
 # to the Mconf webconferencing system. Copyright (C) 2010-2012 Mconf
 #
@@ -100,6 +101,12 @@ describe BigbluebuttonRoom do
           before { user.update_attributes(:can_record => true) }
           it { should be_able_to(:record_meeting, target) }
         end
+
+        context "with a role that enables him to record" do
+          let(:token) { FactoryGirl.create(:shib_token, :user => user) }
+          before { set_active_enrollment_on_shib_token(token) }
+          it { should be_able_to(:record_meeting, target) }
+        end
       end
 
       context "in another user's room" do
@@ -110,6 +117,12 @@ describe BigbluebuttonRoom do
 
         context "with permission to record" do
           before { user.update_attributes(:can_record => true) }
+          it { should_not be_able_to(:record_meeting, target) }
+        end
+
+        context "with a role that enables him to record" do
+          let(:token) { FactoryGirl.create(:shib_token, :user => user) }
+          before { set_active_enrollment_on_shib_token(token) }
           it { should_not be_able_to(:record_meeting, target) }
         end
       end
@@ -124,6 +137,12 @@ describe BigbluebuttonRoom do
 
           context "with permission to record" do
             before { user.update_attributes(:can_record => true) }
+            it { should_not be_able_to(:record_meeting, target) }
+          end
+
+          context "with a role that enables him to record" do
+            let(:token) { FactoryGirl.create(:shib_token, :user => user) }
+            before { set_active_enrollment_on_shib_token(token) }
             it { should_not be_able_to(:record_meeting, target) }
           end
         end
@@ -152,6 +171,12 @@ describe BigbluebuttonRoom do
             before { user.update_attributes(:can_record => true) }
             it { should be_able_to(:record_meeting, target) }
           end
+
+          context "with a role that enables him to record" do
+            let(:token) { FactoryGirl.create(:shib_token, :user => user) }
+            before { set_active_enrollment_on_shib_token(token) }
+            it { should be_able_to(:record_meeting, target) }
+          end
         end
 
         context "he belongs to and are a admin" do
@@ -173,6 +198,12 @@ describe BigbluebuttonRoom do
 
           context "with permission to record" do
             before { user.update_attributes(:can_record => true) }
+            it { should_not be_able_to(:record_meeting, target) }
+          end
+
+          context "with a role that enables him to record" do
+            let(:token) { FactoryGirl.create(:shib_token, :user => user) }
+            before { set_active_enrollment_on_shib_token(token) }
             it { should_not be_able_to(:record_meeting, target) }
           end
         end
@@ -199,6 +230,12 @@ describe BigbluebuttonRoom do
 
           context "with permission to record" do
             before { user.update_attributes(:can_record => true) }
+            it { should be_able_to(:record_meeting, target) }
+          end
+
+          context "with a role that enables him to record" do
+            let(:token) { FactoryGirl.create(:shib_token, :user => user) }
+            before { set_active_enrollment_on_shib_token(token) }
             it { should be_able_to(:record_meeting, target) }
           end
         end
@@ -264,4 +301,10 @@ describe BigbluebuttonRoom do
     end
 
   end
+end
+
+def set_active_enrollment_on_shib_token(token)
+  data = token.data_as_hash
+  data["ufrgsVinculo"] = "ativo:2:Docente:1:Instituto de Informática:NULL:NULL:NULL:NULL:01/01/2011:NULL"
+  token.update_attribute("data", data.to_yaml)
 end

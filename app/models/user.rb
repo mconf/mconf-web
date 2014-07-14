@@ -85,6 +85,7 @@ class User < ActiveRecord::Base
   has_many :posts, :as => :author, :dependent => :destroy
   has_one :bigbluebutton_room, :as => :owner, :dependent => :destroy
   has_one :ldap_token, :dependent => :destroy
+  has_one :shib_token, :dependent => :destroy
 
   accepts_nested_attributes_for :bigbluebutton_room
 
@@ -346,12 +347,49 @@ class User < ActiveRecord::Base
     Space.find_all_by_id(ids)
   end
 
+  # Returns whether the user has a role allowed to record meetings.
+  def has_role_allowed_to_record?
+    unless self.shib_token.nil?
+      data = self.shib_token.data_as_hash
+      data.each do |key, value|
+        if key == "ufrgsVinculo"
+          # value is a string with several "enrollments" in the format as the example below:
+          # 'ativo:2:Tutor de disciplina:1:Instituto de Informática:NULL:NULL:NULL:NULL:01/01/2011:NULL'
+          enrollments = value.split(";")
+          enrollments.each do |enrollment|
+            enrollment_array = enrollment.split(":")
+            if enrollment_array[0] == "ativo"
+              return true if is_enrollment_allowed_to_record?(enrollment_array[2])
+            end
+          end
+        end
+      end
+    end
+    false
+  end
+
   private
 
   def username_uniqueness
     unless Space.find_by_permalink(self.username).blank?
       errors.add(:username, "has already been taken")
     end
+  end
+
+  # Returns whether a enrollment (a string, such as "Docente") is permitted to record meetings.
+  # TODO: the list of enrollments could come from Site and be configured in the app
+  # by an admin.
+  def is_enrollment_allowed_to_record?(enrollment)
+    enrollment = I18n.transliterate(enrollment)
+    all_allowed = ["Docente", "Técnico-Administrativo", "Funcionário de Fundações da UFRGS",
+                   "Tutor de disciplina", "Professor visitante", "Colaborador convidado"]
+    all_allowed.each do |allowed|
+      allowed = I18n.transliterate(allowed)
+      if enrollment.match(/#{allowed}/i)
+        return true
+      end
+    end
+    false
   end
 
 end
