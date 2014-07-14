@@ -8,7 +8,7 @@ group :assets do
   gem 'sass-rails', '~> 4.0.3'
   gem 'coffee-rails', '~> 4.0.0'
   gem 'uglifier', '>= 1.0.3'
-  gem 'jquery-rails', :git => 'https://github.com/rails/jquery-rails.git'#'~> 3.1.1'
+  gem 'jquery-rails', '~> 3.1.1'
   gem 'yui-compressor'
   gem 'compass-rails', '~> 1.0'
   gem 'handlebars_assets'
@@ -125,3 +125,7 @@ group :development, :test do
   gem 'turn', '0.8.2', :require => false # TODO: why 0.8.2?
   gem 'simplecov', :require => false
 end
+
+# rails 3 compatibility
+
+gem 'rails-observers'
