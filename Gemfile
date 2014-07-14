@@ -1,13 +1,14 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.18'
+gem 'rails', '~> 4.1.4'
 
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'sass-rails', '~> 3.2.0'
-  gem 'coffee-rails', '~> 3.2.0'
+  gem 'sass-rails', '~> 4.0.3'
+  gem 'coffee-rails', '~> 4.0.0'
   gem 'uglifier', '>= 1.0.3'
+  gem 'jquery-rails', :git => 'https://github.com/rails/jquery-rails.git'#'~> 3.1.1'
   gem 'yui-compressor'
   gem 'compass-rails', '~> 1.0'
   gem 'handlebars_assets'
@@ -20,37 +21,36 @@ end
 
 gem 'mysql2', '~> 0.3.0'
 gem 'rake'
-gem 'jquery-rails'
 gem 'therubyracer', :require => 'v8'
 gem 'haml'
 gem 'will_paginate'
 gem 'chronic'
-gem 'delayed_job', '~> 3.0.0'
-gem 'delayed_job_active_record'
-gem 'daemons' # for delayed_job
-gem 'rails_autolink'
+# gem 'delayed_job', '~> 3.0.0'
+# gem 'delayed_job_active_record'
+# gem 'daemons' # for delayed_job
+gem 'rails_autolink', '~> 1.1.0'
 gem 'whenever', :require => false
 gem 'garb'
-gem 'simple_form', '~> 2.1.0'
+gem 'simple_form', '~> 3.0.0'
 gem 'acts_as_tree', :git => 'https://github.com/parasew/acts_as_tree.git'
 gem 'friendly_id'
 gem 'i18n-js', :git => "git://github.com/fnando/i18n-js.git", :branch => 'rewrite'
 gem 'rabl'
 gem 'yajl-ruby' # json parser for rabl
 gem 'valid_email', :git => 'https://github.com/Fire-Dragon-DoL/valid_email.git'
-gem 'public_activity'
+gem 'public_activity', '~> 1.4.1'
 
 # Authentication and authorization
-gem 'devise'
+gem 'devise', '~> 3.2.4'
 gem 'devise-encryptable' # TODO: only while we have old station users
 gem 'cancancan', '~> 1.8'
 gem 'net-ldap'
 
 # BigBlueButton integration
 gem 'bigbluebutton-api-ruby', :git => 'git://github.com/mconf/bigbluebutton-api-ruby.git', :branch => 'master'
-gem 'bigbluebutton_rails', :git => 'git://github.com/mconf/bigbluebutton_rails.git', :branch => 'master'
+gem 'bigbluebutton_rails', :git => 'git://github.com/mconf/bigbluebutton_rails.git', :branch => 'rails4'
 # The gems below are for bigbluebutton_rails
-gem 'strong_parameters'
+# gem 'strong_parameters'
 gem 'resque'
 gem 'browser'
 
@@ -58,7 +58,7 @@ gem 'browser'
 gem 'vpim' # TODO: very old, last update on 2009
 
 # for logos + attachments
-gem 'carrierwave'
+gem 'carrierwave', '~> 0.10.0'
 gem 'rmagick'
 
 # global configurations
@@ -67,7 +67,7 @@ gem 'configatron', '~> 2.13.0'
 
 # for bootstrap
 gem 'less-rails'
-gem 'twitter-bootstrap-rails'
+gem 'twitter-bootstrap-rails', github: 'seyhunak/twitter-bootstrap-rails', branch: 'master'
 # datetime picker for bootstrap
 gem 'bootstrap-datetimepicker-rails'
 
@@ -82,10 +82,10 @@ gem 'premailer-rails'
 gem 'nokogiri'
 
 # event module
-gem 'mweb_events', :git => 'git@github.com:mconf/mweb_events.git'
+gem 'mweb_events', :git => 'git@github.com:mconf/mweb_events.git', :branch => 'rails4'
 
 # send emails in case of exceptions in production
-gem 'exception_notification'
+gem 'exception_notification', '~> 4.0.0'
 
 # generate .ics
 gem 'icalendar'
