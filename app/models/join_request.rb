@@ -58,14 +58,6 @@ class JoinRequest < ActiveRecord::Base
     group_type == 'Space'
   end
 
-  def send_notification
-    if request_type == 'invite'
-      Informer.deliver_invitation(self)
-    elsif request_type == 'request'
-      Informer.deliver_join_request(self)
-    end
-  end
-
   private
 
   def set_processed_at
