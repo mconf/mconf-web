@@ -1310,6 +1310,7 @@ en:
     create_association:
       account_associated: "Your account '%{email}' was associated to your federated account! You can now log to this account in using either your credentials on this website or your federated account."
       account_created: "A new account with a random password was created for you and linked to your federated account. Both accounts can be used to log in this website. You won't need the password we generate to log in using the federation, but if you want you can change it in the <a href=\"%{url}\">forgot password page</a>."
+      enrollment_error: "You don't have an active enrollment with the university. Sorry, but you cannot access this service."
       error_saving_user: "It was not possible to create your new user. The errors encountered were: %{errors}"
       existent_account: "There is already a user with your email ('%{email}'). If this user was created by you, you should associate it with your federated account. If the user is not yours, please contact an adminstrator to solve the problem."
       invalid_credentials: "Wrong username, email or password. Please try again."
