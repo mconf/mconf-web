@@ -6,14 +6,15 @@
 @import "app/application/footer_simple";
 
 $navbar-height: auto;
-$login-box-width: $contents-width / 2 - 40px; // looks better if smaller than half the page
-$registration-box-width: $contents-width - $login-box-width - 40px;
-$bg-normal: darken($green-logo, 3);
+$ufrgs-blue: #004B82;
+$ufrgs-link-barra: #BBDCEA;
+$docs-width: $contents-width / 2 - 140px - 20px;
+$login-width: $contents-width - ($docs-width + 140px + 20px);
 
 #navbar-wrapper {
-  background: $bg-normal;
-  @include box-shadow(0 5px 11px rgba(0, 0, 0, 0.25));
-  @include background(linear-gradient(bottom, lighten($bg-normal, 2), $bg-normal));
+  background: $ufrgs-blue;
+  margin: 0;
+  padding: 0;
 }
 
 #navbar {
@@ -24,126 +25,180 @@ $bg-normal: darken($green-logo, 3);
   @include clearfix;
 }
 
-#page-header {
-  text-align: center;
-  @include font-size($font-medium);
-}
+#barra-brasil {
+  background: url(image_path('ufrgs/barra-brasil-v3-bgx.png')) no-repeat scroll center bottom $ufrgs-blue;
+  min-width: $contents-width;
+  overflow: hidden;
 
-#main-logo {
-  width: 240px;
-  margin: 30px auto;
-  padding: 0;
-  float: none;
-  overflow: visible;
+  .barra {
+    height: 28px;
+    margin: 0 auto;
+    background: url(image_path('ufrgs/barra-brasil-v3-bgx.gif')) repeat-x scroll 0px bottom transparent;
+    width: $contents-width;
 
-  img {
-    width: 231px;
-    height: 120px;
-  }
-}
-
-.form-area {
-  form {
-    float: right;
-  }
-
-  .input {
-    clear: both;
-
-    label {
-      @include font-size($font-medium);
-    }
-
-    input[type=text], input[type=password], input[type=email] {
-      width: 250px;
-    }
-
-    // hide the '*' for required fields
-    abbr { display: none; }
-
-    .hint {
+    ul {
       float: right;
-      max-width: 310px;
-      margin-top: 5px;
-      margin-bottom: 10px;
+      width: 320px;
+      margin: 0;
+      padding: 0;
+
+      li {
+        float: left;
+        padding-left: 25px;
+        list-style-type: none;
+      }
     }
   }
 
-  .add-on {
-    @include font-size($font-normal);
+  .ai {
+    background: url(image_path('ufrgs/ai.png')) no-repeat scroll 0px 4px $ufrgs-blue;
+    display: block;
+    width: 161px;
+    height: 28px;
+    text-indent: -1000px;
   }
 
-  .form-actions {
-    background: white;
-    border: 0;
-    margin: 0;
+  .brasilgov {
+    background: url(image_path('ufrgs/brasil.png')) no-repeat scroll 0px 4px $ufrgs-blue;
+    display: block;
+    width: 108px;
+    height: 28px;
   }
 }
 
-#login-box {
-  float: right;
-  width: $login-box-width;
+#barra-wrapper {
+  background: $ufrgs-blue;
+  height: 32px;
+  background-image: url(image_path('ufrgs/barra_fundo.jpg'));
 
-  .action-links {
-    float: right;
-    margin-top: 15px;
-    clear: both;
-    text-align: right;
-  }
+  #barra {
+    width: $contents-width;
+    margin: 0 auto;
 
-  input[type=submit] {
-    float: right;
-  }
-
-  .remember-me {
-    float: right;
-
-    input[type=checkbox] {
-      margin-right: 5px;
+    #barra-chama {
+      float: left;
+      width: 50px;
+      height: 32px;
+      background-image: url(image_path('ufrgs/barra_chama.jpg'));
     }
   }
 
-  .ldap-authentication {
-    float: right;
+  #barra-links {
+    float: left;
+
+    a {
+      @include link-colors($ufrgs-link-barra, $ufrgs-link-barra, $ufrgs-link-barra, $ufrgs-link-barra);
+      line-height: 32px;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
   }
 }
 
-#registration-box {
-  float: right;
-  width: $registration-box-width;
-  margin-right: 20px;
+#page-header-wrapper {
+  background: white;
+  border: 0;
 
-  .simple_captcha {
-    float: right;
-    padding: 0 !important;
-    margin: 10px 0;
-
-    div { display: inline; }
-
-    .simple_captcha_field {
-      text-align: center;
-    }
-
-    .simple_captcha_image {
-      background: white;
-      margin-right: 5px;
-    }
-  }
-
-  input[type=submit] {
-    float: right;
-    clear: both;
+  #page-header {
+    padding: 0;
   }
 }
 
 #content {
-  width: $contents-width;
-  margin: 0 auto;
-  padding-top: 50px;
+  #content-title {
+    background: url(image_path('ufrgs/titulo.jpg')) no-repeat scroll 0% 0% transparent;
+    width: 100%;
+    color: #fff;
+    margin: 0;
+    padding: 7px 0 0 10px;
+    @include font-size($font-gigantic);
+    padding: 10px;
+  }
+}
 
-  h2 {
-    text-align: right;
-    margin: 0 20px 10px 0;
-    color: $font-h-color;
+#login {
+  float: left;
+  width: $login-width;
+  padding: 100px 0;
+  text-align: center;
+
+  #login-button {
+    min-width: 300px;
+  }
+
+  .observation {
+    color: #666;
+    padding-top: 30px;
+  }
+}
+
+#documentation {
+  float: left;
+  width: $docs-width;
+  padding: 20px;
+  margin: 50px;
+  background: #eee;
+  @include border-radius(5px);
+  @include font-size($font-medium);
+
+  h3 {
+    color: #244974;
+    text-align: center;
+    margin-top: 0;
+  }
+
+  ul {
+    list-style-type: disc;
+    margin-top: 5px;
+
+    li {
+      margin: 3px 0;
+    }
+  }
+}
+
+#footer-wrapper.simple-footer {
+  background: $ufrgs-blue;
+  padding-bottom: 0;
+  height: 101px;
+
+  #footer {
+    background-image: url(image_path('ufrgs/rodape.jpg'));
+    background-repeat: no-repeat;
+    height: 101px;
+
+    &, h3 { color: $ufrgs-link-barra; }
+
+    a {
+      @include link-colors($ufrgs-link-barra, $ufrgs-link-barra, $ufrgs-link-barra, $ufrgs-link-barra);
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    .link-group.languages {
+      float: left;
+    }
+
+    .logo-mconf {
+      float: right;
+      max-width: 200px;
+      text-align: center;
+
+      img {
+        margin-bottom: 5px;
+      }
+
+      span {
+        display: block;
+        @include font-size($font-small);
+      }
+    }
+
+  }
+
+  #footer-logo {
+    display: none;
   }
 }

@@ -1,0 +1,19 @@
+---
+en:
+  frontpage:
+    show:
+      accessible_to: "(you need the code and password of your account on UFRGS)"
+      click_to_access: "Click here to access your account"
+      description: "This website is part of the project <a href=\"http://mconf.org\">Mconf</a>, currently being developed in the research group <a href=\"http://www.inf.ufrgs.br/prav\">PRAV</a> from <a href=\"http://www.ufrgs.br\">UFRGS</a> in partnership with <a href=\"http://www.rnp.br\">RNP</a>. It is integrated with the webconference system <a href=\"http://bigbluebutton.org/\">BigBlueButton</a>. For more information, access the project website <a href=\"http://www.inf.ufrgs.br/prav/gtmconf\">clicking here</a>."
+      docs:
+        headline: "Read the documentation for this service at (in portuguese):"
+        link_faq: "<a href=\"%{url}\">FAQ</a>"
+        link_index: "<a href=\"%{url}\">General index</a>"
+        link_moodle: "<a href=\"%{url}\">Use this application on Moodle</a>"
+        link_tutorials: "<a href=\"%{url}\">Tutorials</a>"
+        title: "Documentation"
+      service_name: "Web Conference Service"
+  layouts:
+    footer_simple_ufrgs:
+      translate:
+        change: "Switch language"

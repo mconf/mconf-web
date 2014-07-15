@@ -1,0 +1,19 @@
+---
+pt-br:
+  frontpage:
+    show:
+      accessible_to: "(é necessário código e senha do cartão UFRGS)"
+      click_to_access: "Clique aqui para acessar sua conta"
+      description: "Este website é parte do projeto <a href=\"http://mconf.org\">Mconf</a>, sistema em desenvolvimento no grupo de pesquisa <a href=\"http://www.inf.ufrgs.br/prav\">PRAV</a> da <a href=\"http://www.ufrgs.br\">UFRGS</a> em parceria com a <a href=\"http://www.rnp.br\">RNP</a>. Ele está integrado ao sistema de webconferência <a href=\"http://bigbluebutton.org/\">BigBlueButton</a>. Para mais informações, acesse o website do projeto <a href=\"http://www.inf.ufrgs.br/prav/gtmconf\">clicando aqui</a>."
+      docs:
+        headline: "Consulte a documentação deste serviço em:"
+        link_faq: "<a href=\"%{url}\">FAQ</a>"
+        link_index: "<a href=\"%{url}\">Índice geral da documentação</a>"
+        link_moodle: "<a href=\"%{url}\">Uso de webconferência através do Moodle</a>"
+        link_tutorials: "<a href=\"%{url}\">Tutoriais</a>"
+        title: "Documentação"
+      service_name: "Serviço de Webconferência"
+  layouts:
+    footer_simple_ufrgs:
+      translate:
+        change: "Modificar Linguagem"

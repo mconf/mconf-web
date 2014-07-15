@@ -1,24 +1,44 @@
 - content_for :navbar do
-  #navbar
-    #main-logo
-      %a.title{:href => root_path}= image_tag 'logos/mconf-white-transp.png', :size => '231x120'
+
+  #barra-brasil
+    .barra
+      %ul
+        %li
+          = link_to "", "http://www.acessoainformacao.gov.br", :class => "ai", :title => "Acesso à informação"
+        %li
+          = link_to "", "http://www.brasil.gov.br", :class => "brasilgov", :title => "Portal de Estado do Brasil"
+
+  #barra-wrapper
+    #barra
+      #barra-chama
+      #barra-links
+        %ul
+          %li= link_to "UFRGS", "http://www.ufrgs.br"
 
 - content_for :page_header do
-  = t(".headline")
+  = image_tag "ufrgs/logo.jpg", :size => "160x127", :class => "logo-ufrgs"
 
 #content
 
-  #login-box.form-area
-    %h2= t('.login.title')
-    = render :partial => 'sessions/login_form'
-    .action-links
-      %ul
-        - if current_site.shib_enabled?
-          %li= link_to t('.login.federation'), shibboleth_path, :class => 'shibboleth_login'
-        %li= link_to t('.login.lost_password'), new_user_password_path
-        %li= link_to t(".login.resend_confirmation_email"), new_confirmation_path(resource_name)
+  %h1#content-title
+    = t(".service_name")
 
-  - if current_site.registration_enabled?
-    #registration-box.form-area
-      %h2= t('.register.title')
-      = render :partial => 'registrations/signup_form'
+  #login
+    #login-button
+      = link_to shibboleth_path, :class => "btn btn-large btn-danger" do
+        = t('.click_to_access').html_safe
+      .observation= t('.accessible_to').html_safe
+
+  #documentation
+    %h3= t(".docs.title")
+    %span= t(".docs.headline")
+    %ul
+      %li
+        = t(".docs.link_index", :url => "http://www.ufrgs.br/cpd/servicos/redes-e-comunicacao/conferencia-via-web-1").html_safe
+      %li
+        = t(".docs.link_tutorials", :url => "http://www.ufrgs.br/cpd/servicos/redes-e-comunicacao/pasta-tutoriais/tutoriais-mconf/tutoriais-mconf").html_safe
+      %li
+        = t(".docs.link_moodle", :url => "https://moodleinstitucional.ufrgs.br/tutorial_moodle/tutorial/75.php").html_safe
+
+= content_for :footer do
+  = render :partial => "layouts/footer_simple_ufrgs"
