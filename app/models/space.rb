@@ -57,7 +57,7 @@ class Space < ActiveRecord::Base
   # TODO: improve the format matcher, check specs for some values that are allowed today
   #   but are not really recommended (e.g. '---')
   validates :permalink, :uniqueness => { :case_sensitive => false },
-                        :format => /^[A-Za-z0-9\-_]*$/,
+                        :format => /\A[A-Za-z0-9\-_]*\z/,
                         :presence => true,
                         :length => { :minimum => 3 }
 

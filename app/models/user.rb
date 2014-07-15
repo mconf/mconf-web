@@ -37,7 +37,7 @@ class User < ActiveRecord::Base
   #   but are not really recommended (e.g. '-')
   validates :username, :uniqueness => { :case_sensitive => false },
                        :presence => true,
-                       :format => /^[A-Za-z0-9\-_]*$/,
+                       :format => /\A[A-Za-z0-9\-_]*\a/,
                        :length => { :minimum => 1 }
 
   # The username has to be unique not only for user, but across other
