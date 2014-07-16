@@ -21,8 +21,10 @@ class ShibbolethController < ApplicationController
   # The application should only reach this point after authenticating using Shibboleth
   # The authentication is currently made with the Apache module mod_shib
   def login
+    test_data()
     shib = Mconf::Shibboleth.new(session)
     shib.save_to_session(request.env, Site.current.shib_env_variables)
+    always_new_account = Site.current.shib_always_new_account
 
     unless shib.has_basic_info
        "Shibboleth: couldn't basic user information from session, " +
@@ -43,8 +45,14 @@ class ShibbolethController < ApplicationController
 
       # no token means the user has no association yet, render a page to do it
       else
-        logger.info "Shibboleth: first access for this user, rendering the association page"
-        render :associate
+        unless always_new_account
+          logger.info "Shibboleth: first access for this user, rendering the association page"
+          render :associate
+        else
+          logger.info "Shibboleth: first access for this user, creating a new account"
+          associate_with_new_account(shib)
+          redirect_to shibboleth_path
+        end
       end
     end
   end
