@@ -1,9 +1,5 @@
 #footer-wrapper.simple-footer
   #footer
-    .link-group
-      #footer-logo.link-group
-        = link_to current_site.name, "/", :class => 'title'
-        %span= t('.copyright', :site => current_site.name)
     .link-group.languages
       %h3= t('.translate.change')
       %ul
@@ -13,3 +9,8 @@
             - text = t('locales.' + locale.to_s)
             - link = link_to(text, main_app.session_locale_path(:l => locale.to_s), :method => :post)
             = (flag + " " + link).html_safe
+    .link-group.logo-mconf
+      = image_tag "logos/mconf-white-transp.png", :size => "115x60"
+      %span
+        = "Learn more at:"
+        = link_to "mconf.org", "http://mconf.org"

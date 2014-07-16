@@ -1,7 +1,6 @@
 @import "definitions";
 
 // heights are needed to make it stick to the bottom
-$footer-height: 165px;
 $footer-total-height: $footer-height + 41px; // + padding + border + margin
 
 html, body {

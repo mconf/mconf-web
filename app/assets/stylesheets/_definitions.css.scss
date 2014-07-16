@@ -74,6 +74,7 @@ $page-header-link-color-hover: $link-color-hover;
 
 // global footer
 $footer-bg-color: $light-gray;
+$footer-height: 165px;
 
 // h1, h2, h3, ...
 $h-font-color: #404040;
@@ -231,6 +232,8 @@ $ufrgs-blue: #3E82B0;
 $navbar-bg-color-dark: $ufrgs-blue-dark;
 $navbar-bg-color-light: $ufrgs-blue;
 $green: #6FA600;
+$ufrgs-link-barra: #BBDCEA;
+$footer-height: 125px;
 // site colors
 $main-color: $ufrgs-blue;
 $second-color: lighten($ufrgs-blue, 10);

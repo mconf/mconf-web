@@ -34,10 +34,7 @@
         = yield
       #footer-pusher
 
-    - if content_for?(:footer)
-      = yield :footer
-    - else
-      = render :partial => "layouts/footer_simple"
+    = render :partial => "layouts/footer_simple"
 
     = render :partial => "layouts/analytics"
     = render :partial => "layouts/notifications"

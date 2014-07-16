@@ -8,3 +8,68 @@
   padding-left: 60px;
   background-repeat: no-repeat;
 }
+
+#footer-wrapper {
+  background: $ufrgs-blue-dark;
+  padding-bottom: 0;
+  padding-top: 20px;
+
+  &.simple-footer {
+    height: 101px;
+    background: $ufrgs-blue-dark;
+    padding-bottom: 0;
+    padding-top: 10px;
+
+    #footer {
+      height: 101px;
+
+      .logo-mconf {
+        padding-top: 5px;
+      }
+    }
+  }
+
+  #footer {
+    background-image: url(image_path('ufrgs/rodape.jpg'));
+    background-repeat: no-repeat;
+    height: $footer-height;
+
+    &, h3 { color: $ufrgs-link-barra; }
+
+    a {
+      @include link-colors($ufrgs-link-barra, $ufrgs-link-barra, $ufrgs-link-barra, $ufrgs-link-barra);
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    h3 {
+      border-color: $ufrgs-blue;
+    }
+
+    .link-group.languages {
+      float: left;
+    }
+
+    .logo-mconf {
+      float: right;
+      max-width: 200px;
+      text-align: center;
+      padding-top: 15px;
+
+      img {
+        margin-bottom: 5px;
+      }
+
+      span {
+        display: block;
+        @include font-size($font-small);
+      }
+    }
+
+  }
+
+  #footer-logo {
+    display: none;
+  }
+}
