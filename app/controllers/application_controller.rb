@@ -21,6 +21,8 @@ class ApplicationController < ActionController::Base
 
   before_filter :set_time_zone
 
+  before_filter :store_location
+
   helper_method :current_site
 
   # Handle errors - error pages
@@ -53,13 +55,33 @@ class ApplicationController < ActionController::Base
     @current_site ||= Site.current
   end
 
+  # Store last url for post-login redirect to whatever the user last visited.
+  # From: https://github.com/plataformatec/devise/wiki/How-To:-Redirect-back-to-current-page-after-sign-in,-sign-out,-sign-up,-update
+  def store_location
+    if (request.fullpath != "/users/login" &&
+        request.fullpath != "/users/register" &&
+        request.fullpath != "/users" &&
+        request.fullpath != "/register" &&
+        request.fullpath != "/login" &&
+        request.fullpath != "/users/password" &&
+        request.fullpath != "/logout" &&
+        !request.xhr? && # don't store ajax calls
+        (request.format == "text/html" || request.content_type == "text/html"))
+      session[:user_return_to] = request.fullpath
+      # session[:last_request_time] = Time.now.utc.to_i
+    end
+  end
+
+  # Removes the stored location used to redirect post-login.
+  def clear_stored_location
+    session[:user_return_to] = nil
+  end
+
   # Where to redirect to after sign in with Devise
   def after_sign_in_path_for(resource)
-    if [login_url, new_user_session_url].include?(request.referer)
-      super
-    else
-      stored_location_for(resource) || request.referer || my_home_path
-    end
+    return_to = stored_location_for(resource) || my_home_path
+    clear_stored_location
+    return_to
   end
 
   # overriding bigbluebutton_rails function
