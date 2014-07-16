@@ -6,13 +6,12 @@
 @import "app/application/footer_simple";
 
 $navbar-height: auto;
-$ufrgs-blue: #004B82;
 $ufrgs-link-barra: #BBDCEA;
 $docs-width: $contents-width / 2 - 140px - 20px;
 $login-width: $contents-width - ($docs-width + 140px + 20px);
 
 #navbar-wrapper {
-  background: $ufrgs-blue;
+  background: $ufrgs-blue-dark;
   margin: 0;
   padding: 0;
 }
@@ -26,7 +25,7 @@ $login-width: $contents-width - ($docs-width + 140px + 20px);
 }
 
 #barra-brasil {
-  background: url(image_path('ufrgs/barra-brasil-v3-bgx.png')) no-repeat scroll center bottom $ufrgs-blue;
+  background: url(image_path('ufrgs/barra-brasil-v3-bgx.png')) no-repeat scroll center bottom $ufrgs-blue-dark;
   min-width: $contents-width;
   overflow: hidden;
 
@@ -51,7 +50,7 @@ $login-width: $contents-width - ($docs-width + 140px + 20px);
   }
 
   .ai {
-    background: url(image_path('ufrgs/ai.png')) no-repeat scroll 0px 4px $ufrgs-blue;
+    background: url(image_path('ufrgs/ai.png')) no-repeat scroll 0px 4px $ufrgs-blue-dark;
     display: block;
     width: 161px;
     height: 28px;
@@ -59,7 +58,7 @@ $login-width: $contents-width - ($docs-width + 140px + 20px);
   }
 
   .brasilgov {
-    background: url(image_path('ufrgs/brasil.png')) no-repeat scroll 0px 4px $ufrgs-blue;
+    background: url(image_path('ufrgs/brasil.png')) no-repeat scroll 0px 4px $ufrgs-blue-dark;
     display: block;
     width: 108px;
     height: 28px;
@@ -67,7 +66,7 @@ $login-width: $contents-width - ($docs-width + 140px + 20px);
 }
 
 #barra-wrapper {
-  background: $ufrgs-blue;
+  background: $ufrgs-blue-dark;
   height: 32px;
   background-image: url(image_path('ufrgs/barra_fundo.jpg'));
 
@@ -159,7 +158,7 @@ $login-width: $contents-width - ($docs-width + 140px + 20px);
 }
 
 #footer-wrapper.simple-footer {
-  background: $ufrgs-blue;
+  background: $ufrgs-blue-dark;
   padding-bottom: 0;
   height: 101px;
 

@@ -1,0 +1,10 @@
+@import "compass/css3";
+@import "compass/utilities/general";
+@import "compass/typography/links";
+@import "definitions";
+
+#main-logo {
+  background-image: url(image_path('ufrgs/barra_chama.jpg'));
+  padding-left: 60px;
+  background-repeat: no-repeat;
+}

@@ -59,7 +59,8 @@ $contents-width: 980px;
 $sidebar-width: 240px;
 
 // headers
-$navbar-bg-color: darken($green-logo, 3);
+$navbar-bg-color-dark: darken($green-logo, 3);
+$navbar-bg-color-light: $green-logo;
 $subnav-bg-color: #eee;
 $navbar-height: 35px;
 $navbar-font-color: #bbb;
@@ -223,3 +224,22 @@ $z-index-tooltip: 999999;
     }
   }
 }
+
+// UFRGS
+$ufrgs-blue-dark: #004B82;
+$ufrgs-blue: #3E82B0;
+$navbar-bg-color-dark: $ufrgs-blue-dark;
+$navbar-bg-color-light: $ufrgs-blue;
+$green: #6FA600;
+// site colors
+$main-color: $ufrgs-blue;
+$second-color: lighten($ufrgs-blue, 10);
+$focus-border-color: lighten($ufrgs-blue, 10);
+$font-h-color: lighten($ufrgs-blue, 10);
+// link colors
+$link-color: #10649D;
+$link-color-hover: lighten($link-color, 10);
+$link-color-active: darken($link-color-hover, 15);
+// navbar
+$navbar-font-color: #ddd;
+$navbar-font-color-hover: #fff;

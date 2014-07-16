@@ -31,4 +31,6 @@
  *= require ./app/application/select2
  *= require ./app/shared/_copy_modal
  *
+ *= require ./app/application/ufrgs
+ *
  */
