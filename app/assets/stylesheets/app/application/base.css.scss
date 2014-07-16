@@ -196,8 +196,8 @@ form {
 #navbar-wrapper {
   margin: 0;
   padding: 0 10px;
-  background: $navbar-bg-color;
-  @include background(linear-gradient(bottom, lighten($navbar-bg-color, 2), $navbar-bg-color));
+  background: $navbar-bg-color-dark;
+  @include background(linear-gradient(bottom, $navbar-bg-color-light, $navbar-bg-color-dark));
 }
 
 #navbar {
@@ -391,7 +391,7 @@ ul#navbar-left-links {
       padding: 2px;
       height: 22px;
       width: 22px;
-      background: lighten($navbar-bg-color, 10);
+      background: lighten($navbar-bg-color-dark, 10);
       @include border-radius(3px);
       @include broken-img-parent;
 
