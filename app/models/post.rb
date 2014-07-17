@@ -14,9 +14,7 @@ class Post < ActiveRecord::Base
 
   acts_as_tree #:order => 'updated_at ASC'
 
-  scope :public, lambda { |arg|
-    join(:space).where('public = ?', true)
-  }
+  scope :public_posts, -> { join(:space).where('public = ?', true) }
 
   validates_presence_of :title, :unless => Proc.new { |post| post.parent.present? }
   validates_presence_of :text
@@ -54,7 +52,7 @@ class Post < ActiveRecord::Base
   end
 
   def self.last_news(space)
-    return Post.find(:all, :conditions => {:space_id => space, :parent_id => nil}, :order => "updated_at DESC", :limit => 4)
+    return Post.where(:space_id => space, :parent_id => nil).order("updated_at DESC").limit(4)
   end
 
   def new_activity key, user

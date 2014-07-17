@@ -29,7 +29,7 @@ gem 'rails_autolink', '~> 1.1.0'
 gem 'whenever', :require => false
 gem 'garb'
 gem 'simple_form', '~> 3.0.0'
-gem 'acts_as_tree', :git => 'https://github.com/parasew/acts_as_tree.git'
+gem 'acts_as_tree', '~> 2.0.0'
 gem 'friendly_id'
 gem 'i18n-js', :git => "git://github.com/fnando/i18n-js.git", :branch => 'rewrite'
 gem 'rabl'

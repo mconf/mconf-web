@@ -83,12 +83,6 @@ GIT
       mail
 
 GIT
-  remote: https://github.com/parasew/acts_as_tree.git
-  revision: ed52495d1671c99e1add582628403bf8104e9077
-  specs:
-    acts_as_tree (1.2.3)
-
-GIT
   remote: https://github.com/sevenwire/forgery.git
   revision: 87a34a1a3fe41f72ae7662bad6f1c64f2b3fd5c5
   specs:
@@ -123,6 +117,8 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.1)
       tzinfo (~> 1.1)
+    acts_as_tree (2.0.0)
+      activerecord (>= 3.0.0)
     addressable (2.3.6)
     ansi (1.4.3)
     arel (5.0.1.20140414130214)
@@ -421,7 +417,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  acts_as_tree!
+  acts_as_tree (~> 2.0.0)
   better_errors
   bigbluebutton-api-ruby!
   bigbluebutton_rails!

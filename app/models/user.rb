@@ -118,7 +118,7 @@ class User < ActiveRecord::Base
 
   before_create :automatically_approve_if_needed
 
-  default_scope :conditions => {:disabled => false}
+  default_scope { where(:disabled => false) }
 
   # constants for the notification attribute
   NOTIFICATION_VIA_EMAIL = 1

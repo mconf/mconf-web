@@ -16,28 +16,21 @@ class Space < ActiveRecord::Base
   has_many :attachments, :dependent => :destroy
   has_one :bigbluebutton_room, :as => :owner, :dependent => :destroy
 
-  has_many :permissions, :foreign_key => "subject_id",
-           :conditions => { :permissions => {:subject_type => 'Space'} }
+  has_many :permissions, -> { where(:subject_type => 'Space') },
+           :foreign_key => "subject_id"
 
-  has_and_belongs_to_many :users, :join_table => :permissions,
-                          :foreign_key => "subject_id",
-                          :conditions => { :permissions => {:subject_type => 'Space'} }
+  has_and_belongs_to_many :users,  -> { where(:subject_type => 'Space') },
+                          :join_table => :permissions, :foreign_key => "subject_id"
 
-  has_and_belongs_to_many :admins, :join_table => :permissions,
-                          :class_name => "User", :foreign_key => "subject_id",
-                          :conditions => {
-                            :permissions => {
-                              :subject_type => 'Space',
-                              :role_id => Role.find_by_name('Admin')
-                            }
-                          }
+  has_and_belongs_to_many :admins, -> { where(:permissions => {:subject_type => 'Space', :role_id => Role.find_by_name('Admin')}) },
+                          :join_table => :permissions, :class_name => "User", :foreign_key => "subject_id"
 
-  has_many :join_requests, :foreign_key => "group_id",
-           :conditions => { :join_requests => {:group_type => 'Space'} }
+  has_many :join_requests, -> { where(:group_type => 'Space') },
+           :foreign_key => "group_id"
 
   if Mconf::Modules.mod_loaded?('events')
-    has_many :events, :class_name => MwebEvents::Event, :foreign_key => "owner_id",
-             :dependent => :destroy, :conditions => {:owner_type => 'Space'}
+    has_many :events, -> { where(:owner_type => 'Space')}, :class_name => MwebEvents::Event,
+             :foreign_key => "owner_id", :dependent => :destroy
   end
 
   # for the associated BigbluebuttonRoom
@@ -81,13 +74,12 @@ class Space < ActiveRecord::Base
   # attrs and methods for space logos
   attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
   mount_uploader :logo_image, LogoImageUploader
-  # attr_accessible :logo_image, :crop_x, :crop_y, :crop_w, :crop_h
   after_create :crop_logo
   after_update :crop_logo
 
-  default_scope :conditions => { :disabled => false }
+  default_scope -> { where(:disabled => false) }
 
-  scope :public, lambda { where(:public => true) }
+  scope :public_spaces, -> { where(:public => true) }
 
   # Finds all the valid user roles for a Space
   def self.roles
