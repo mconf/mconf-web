@@ -150,7 +150,7 @@ class ApplicationController < ActionController::Base
     else
       # only enable recording if the room is set to record and if the user has permissions to
       # used to forcibly disable recording if a user has no permission but the room is set to record
-      record = room.record && can_record
+      record = room.record_meeting && can_record
       { :record => record }
     end
   end

@@ -17,7 +17,7 @@ FactoryGirl.define do
     r.private false
     r.sequence(:param) { |n| "meeting-#{n}" }
     r.external false
-    r.record false
+    r.record_meeting false
     r.duration 0
   end
 end

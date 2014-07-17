@@ -96,7 +96,8 @@ namespace :db do
 
     puts "* Create private messages"
     User.all.each do |user|
-      senders = User.all.reject!{ |u| u == user }.map(&:id)
+      senders = User.all.map(&:id) - [user.id]
+
       PrivateMessage.populate 5 do |message|
         message.receiver_id = user.id
         message.sender_id = senders
@@ -182,7 +183,7 @@ namespace :db do
           room.external = false
           room.param = space.name.parameterize.downcase
           room.duration = 0
-          room.record = false
+          room.record_meeting = false
         end
       end
     end

@@ -39,7 +39,7 @@ gem 'public_activity', '~> 1.4.1'
 
 # For queues
 gem 'resque', :require => 'resque/server'
-gem 'resque-scheduler'#, :require => 'resque_scheduler/server'
+gem 'resque-scheduler', :require => 'resque/scheduler/server'
 gem 'resque_mailer'
 
 # Authentication and authorization
@@ -94,7 +94,8 @@ gem 'icalendar'
 #
 # TODO: Gems to review if we can remove/update
 #
-gem 'galetahub-simple_captcha', :require => 'simple_captcha'
+gem 'simple_captcha2', require: 'simple_captcha'
+# gem 'galetahub-simple_captcha', :require => 'simple_captcha'
 gem 'httparty'
 gem 'rubyzip' # TODO: see rubyzip2
 gem 'prism'
@@ -121,7 +122,7 @@ group :development, :test do
   gem 'webrat'
   gem 'capybara'
   gem 'launchy'
-  gem 'shoulda-matchers'
+  gem 'shoulda-matchers', '~> 2.6.1', :require => false
   gem 'htmlentities'
   gem 'turn', '0.8.2', :require => false # TODO: why 0.8.2?
   gem 'simplecov', :require => false
