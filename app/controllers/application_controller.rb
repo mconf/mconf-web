@@ -58,13 +58,13 @@ class ApplicationController < ActionController::Base
   # Store last url for post-login redirect to whatever the user last visited.
   # From: https://github.com/plataformatec/devise/wiki/How-To:-Redirect-back-to-current-page-after-sign-in,-sign-out,-sign-up,-update
   def store_location
-    if (request.fullpath != "/users/login" &&
-        request.fullpath != "/users/register" &&
-        request.fullpath != "/users" &&
-        request.fullpath != "/register" &&
-        request.fullpath != "/login" &&
-        request.fullpath != "/users/password" &&
-        request.fullpath != "/logout" &&
+    ignored_paths = [ "/login", "/users/login", "/users",
+                      "/register", "/users/register",
+                      "/logout",
+                      "/users/password",
+                      "/users/confirmation/new",
+                      "/secure", "/secure/info", "/secure/associate" ]
+    if (!ignored_paths.include?(request.fullpath) &&
         !request.xhr? && # don't store ajax calls
         (request.format == "text/html" || request.content_type == "text/html"))
       session[:user_return_to] = request.fullpath

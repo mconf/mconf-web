@@ -39,7 +39,7 @@ class ShibbolethController < ApplicationController
         logger.info "Shibboleth: logging in the user #{token.user.inspect}"
         sign_in token.user
         flash.keep # keep the message set before by #create_association
-        redirect_to my_home_path
+        redirect_to after_sign_in_path_for(token.user)
 
       # no token means the user has no association yet, render a page to do it
       else
@@ -92,7 +92,7 @@ class ShibbolethController < ApplicationController
   # If there's a current user redirects to home.
   def check_current_user
     if user_signed_in?
-      redirect_to my_home_path
+      redirect_to after_sign_in_path_for(current_user)
       false
     else
       true
