@@ -53,7 +53,7 @@
       <h4><%= t('event.title', :count => @events.size) %></h4>
       <% @events.take(10).each do |event| %>
         <p>
-          <%= t('email.digest.event', :author_name => event.owner.name, :space_name => event.owner.name).html_safe %> <%=link_to sanitize(event.name), space_event_url(event.owner, event) %>
+          <%= t('email.digest.event', :author_name => event.owner.name, :space_name => event.owner.name).html_safe %> <%=link_to sanitize(event.name), mweb_events.event_url(event) %>
           <%= t('updated_time_ago', :time => sanitize(time_ago_in_words(event.updated_at))) %>
         </p>
       <% end %>

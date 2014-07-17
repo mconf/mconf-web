@@ -28,4 +28,13 @@ class BaseMailer < ActionMailer::Base
     end
   end
 
+  def site_locale
+    current = Site.current
+    if current and !current.locale.blank?
+      current.locale
+    else
+      I18n.default_locale
+    end
+  end
+
 end

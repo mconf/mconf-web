@@ -404,7 +404,6 @@ en:
       offline: "Offline"
     typing: "is typing..."
     title: "Chat"
-  check_mail: "Please, check your email"
   city: City
   click_here_to_see_more: "Click here to see more"
   click_to_hide: "Click to hide"
@@ -658,25 +657,20 @@ en:
     one: Error
     other: Errors
     vcc_warning: "Warning:"
-  event_mailer:
-    invitation_mail:
-      message:
-        start: "Starts on"
-        end: "Ends on"
-        header: "You have been invited to the event <b>%{event}</b> by <b>%{sender}</b> (%{email_sender}):"
-      subject: "You have been invited to the event %{event}"
   feedback: 
-    email: "%{email} sent the following feedback:"
-    note: "Help us improve Mconf. Please send your comments, problems and suggestions. We will try to answer as soon as possible."
-    one: Feedback
+    create:
+      check_mail: "Please check the email you informed in the feedback form, it seems wrong."
+      fill_fields: "Please fill in all the fields in the form to send your feedback."
+      success: "Your feedback e-mail was sent successfully. Thank you!"
+    new:
+      note: "Help us improve Mconf. Please send your comments, problems and suggestions. We will try to answer as soon as possible."
+      title: "Feedback"
     send: "Send feedback"
     send_us: "Send us feedback!"
-    sent: "Your feedback information e-mail has been successfully sent. Thank you"
     webconf: 
       stop_countdown: "Click here to stop it from closing and use it to browse this site"
       title: "Thank you for participating in this conference!"
       warning: "This window will be automatically closed in <span class='countdown'>%{seconds}</span> seconds"
-  fill_fields: "You should fill in all the fields"
   find: 
     browse: Browse
   find_in: "Find in:"

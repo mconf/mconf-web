@@ -404,7 +404,6 @@ pt-br:
       offline: "Offline"
     typing: "está digitando.."
     title: "Bate-papo"
-  check_mail: "Por favor, verifique seu e-mail"
   city: Cidade
   click_here_to_see_more: "Clique aqui para ver mais"
   click_to_hide: "Clique para esconder"
@@ -658,25 +657,20 @@ pt-br:
     one: Erro
     other: Erros
     vcc_warning: "Aviso geral:"
-  event_mailer:
-    invitation_mail:
-      message:
-        start: "Início"
-        end: "Término"
-        header: "Você foi convidado por <b>%{sender}</b> (%{email_sender}) para o evento <b>%{event}</b>:"
-      subject: "Você foi convidado para o evento %{event}"
   feedback:
-    email: "%{email} enviou o seguinte feedback:"
-    note: "Ajude-nos a melhorar o Mconf. Envie seus comentários, problemas e sugestões. Tentaremos responder o mais rapidamente possível."
-    one: Feedback
+    create:
+      check_mail: "Por favor verifique o e-mail informado no forumlário de feedback, ele parece estar errado."
+      fill_fields: "Por favor preencha todos os campospara enviar o feedback."
+      success: "Seu e-mail de feedback foi enviado com sucesso. Obrigado!"
+    new:
+      note: "Ajude-nos a melhorar o Mconf. Envie seus comentários, problemas e sugestões. Tentaremos responder o mais rapidamente possível."
+      title: "Feedback"
     send: "Enviar feedback"
     send_us: "Envie-nos feedback!"
-    sent: "Seu e-mail de feedback foi enviado com sucesso. Obrigado"
     webconf:
       stop_countdown: "Clique aqui para não fechá-la e usá-la para navegar no site"
       title: "Obrigado por participar desta conferência!"
       warning: "Esta janela será automaticamente fechada em <span class='countdown'>%{seconds}</span> segundos"
-  fill_fields: "Você deve preencher todos os campos"
   find:
     browse: Navegar
   find_in: "Pesquisar em:"

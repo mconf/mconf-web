@@ -1,5 +1,16 @@
 ---
 pt-br:
+  application_mailer:
+    feedback_email:
+      content: "%{email} enviou o seguinte feedback:"
+      subject: "Feedback"
+  event_mailer:
+    invitation_mail:
+      message:
+        start: "Início"
+        end: "Término"
+        header: "Você foi convidado por <b>%{sender}</b> (%{email_sender}) para o evento <b>%{event}</b>:"
+      subject: "Você foi convidado para o evento %{event}"
   space_mailer:
     invitation_email:
       message:
