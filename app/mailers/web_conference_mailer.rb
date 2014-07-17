@@ -5,7 +5,7 @@
 # This file is licensed under the Affero General Public License version
 # 3 or later. See the LICENSE file.
 
-class WebConferenceMailer < ApplicationMailer
+class WebConferenceMailer < BaseMailer
 
   # Sends an invitation to a web conference.
   # Receives an Mconf::Invitation object in `invitation` and a User or email that will receive

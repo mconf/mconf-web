@@ -14,7 +14,7 @@ en:
     processed_invitation_email:
       accepted: "accepted"
       message:
-        header: "<p>%{introducer}</p>,</br><p>%{name}</p> has %{action} the invitation to the space %{space}"
+        header: "%{introducer},</br>%{name} has %{action} the invitation to the space %{space}"
         link: "You can see the current list of users of the space in <a href=\"%{users_url}\"> %{users_url} </a>"
       rejected: "not accepted"
       subject: "%{name} has %{action} your invitation"

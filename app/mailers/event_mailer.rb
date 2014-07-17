@@ -5,7 +5,7 @@
 # This file is licensed under the Affero General Public License version
 # 3 or later. See the LICENSE file.
 
-class EventMailer < ApplicationMailer
+class EventMailer < BaseMailer
 
   # Sends an invitation to an event.
   # Receives an Mconf::Invitation object in `invitation` and a User or email that will receive
