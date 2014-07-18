@@ -109,7 +109,7 @@ class ShibbolethController < ApplicationController
 
   # If always_new_account flag is on redirects to
   def check_shib_always_new_account
-    if Site.current.shib_always_new_account
+    if get_always_new_account()
       raise ActionController::RoutingError.new('Not Found')
     else
       true
