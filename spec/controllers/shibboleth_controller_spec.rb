@@ -90,6 +90,17 @@ describe ShibbolethController do
         it { should render_with_layout('no_sidebar') }
       end
 
+      context "creates a new account for the user and redirects to home if flag is on" do
+        let(:attrs) { FactoryGirl.attributes_for(:user) }
+        before {
+          controller.stub(:get_always_new_account).and_return(true)
+          setup_shib(attrs[:_full_name], attrs[:email])
+        }
+        before(:each) { get :login }
+        it { should set_the_flash.to(I18n.t('shibboleth.create_association.account_created', :url => new_user_password_path)) }
+        it { should redirect_to(shibboleth_path)}
+      end
+
     end
   end
 
