@@ -16,6 +16,7 @@ class ShibbolethController < ApplicationController
 
   before_filter :check_shib_enabled, :except => [:info]
   before_filter :check_current_user, :except => [:info]
+  before_filter :check_shib_always_new_account, :only => [:create_association]
 
   # Log in a user using his shibboleth information
   # The application should only reach this point after authenticating using Shibboleth
@@ -23,6 +24,7 @@ class ShibbolethController < ApplicationController
   def login
     shib = Mconf::Shibboleth.new(session)
     shib.save_to_session(request.env, Site.current.shib_env_variables)
+    always_new_account = get_always_new_account()
 
     unless shib.has_basic_info
        "Shibboleth: couldn't basic user information from session, " +
@@ -43,8 +45,14 @@ class ShibbolethController < ApplicationController
 
       # no token means the user has no association yet, render a page to do it
       else
-        logger.info "Shibboleth: first access for this user, rendering the association page"
-        render :associate
+        unless always_new_account
+          logger.info "Shibboleth: first access for this user, rendering the association page"
+          render :associate
+        else
+          logger.info "Shibboleth: first access for this user, creating a new account"
+          associate_with_new_account(shib)
+          redirect_to shibboleth_path
+        end
       end
     end
   end
@@ -98,6 +106,16 @@ class ShibbolethController < ApplicationController
       true
     end
   end
+
+  # If always_new_account flag is on redirects to
+  def check_shib_always_new_account
+    if get_always_new_account()
+      raise ActionController::RoutingError.new('Not Found')
+    else
+      true
+    end
+  end
+
 
   # When the user selected to create a new account for his shibboleth login.
   def associate_with_new_account(shib)
@@ -162,6 +180,11 @@ class ShibbolethController < ApplicationController
       flash[:success] = t("shibboleth.create_association.account_associated", :email => user.email)
     end
 
+  end
+
+  # Method used to get the flag value from the database. Useful when testing, cause we can stub it
+  def get_always_new_account
+    return Site.current.shib_always_new_account
   end
 
   # Adds fake test data to the environment to test shibboleth in development.

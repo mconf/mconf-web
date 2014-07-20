@@ -90,6 +90,17 @@ describe ShibbolethController do
         it { should render_with_layout('no_sidebar') }
       end
 
+      context "creates a new account for the user and redirects to home if flag shib_always_new_account is on" do
+        let(:attrs) { FactoryGirl.attributes_for(:user) }
+        before {
+          controller.stub(:get_always_new_account).and_return(true)
+          setup_shib(attrs[:_full_name], attrs[:email])
+        }
+        before(:each) { get :login }
+        it { should set_the_flash.to(I18n.t('shibboleth.create_association.account_created', :url => new_user_password_path)) }
+        it { should redirect_to(shibboleth_path)}
+      end
+
     end
   end
 
@@ -99,6 +110,27 @@ describe ShibbolethController do
       let(:run_route) { post :create_association }
       it_should_behave_like "has the before_filter :check_shib_enabled"
       it_should_behave_like "has the before_filter :check_current_user"
+
+      context "has the before filter: ckeck_shib_always_new_account" do
+
+        context "flag shib_always_new_account is on" do
+          before {
+            Site.current.update_attributes(:shib_enabled => true)
+            controller.stub(:get_always_new_account).and_return(true)
+          }
+          it { expect { post :create_association }.to raise_error(ActionController::RoutingError) }
+        end
+
+        context "flag shib_always_new_account is off" do
+          before {
+            Site.current.update_attributes(:shib_enabled => true)
+            controller.stub(:get_always_new_account).and_return(false)
+          }
+          it "should be able to call create_association" do
+           expect { post :create_association }.to be_true
+          end
+        end
+      end
     end
 
     context "if params has no known option, redirects to /secure with a warning" do
