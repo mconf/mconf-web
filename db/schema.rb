@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140709161857) do
+ActiveRecord::Schema.define(:version => 20140711164912) do
 
   create_table "activities", :force => true do |t|
     t.integer  "trackable_id"
@@ -101,6 +101,8 @@ ActiveRecord::Schema.define(:version => 20140709161857) do
     t.datetime "created_at",           :null => false
     t.datetime "updated_at",           :null => false
     t.boolean  "presenter_share_only"
+    t.boolean  "auto_start_video"
+    t.boolean  "auto_start_audio"
   end
 
   add_index "bigbluebutton_room_options", ["room_id"], :name => "index_bigbluebutton_room_options_on_room_id"
