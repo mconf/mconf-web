@@ -24,7 +24,6 @@ class ShibbolethController < ApplicationController
   def login
     shib = Mconf::Shibboleth.new(session)
     shib.save_to_session(request.env, Site.current.shib_env_variables)
-    always_new_account = get_always_new_account()
 
     unless shib.has_basic_info
        "Shibboleth: couldn't basic user information from session, " +
@@ -45,11 +44,12 @@ class ShibbolethController < ApplicationController
 
       # no token means the user has no association yet, render a page to do it
       else
-        unless always_new_account
+        unless get_always_new_account
           logger.info "Shibboleth: first access for this user, rendering the association page"
           render :associate
         else
-          logger.info "Shibboleth: first access for this user, creating a new account"
+          logger.info "Shibboleth: flag `shib_always_new_account` is set"
+          logger.info "Shibboleth: first access for this user, automatically creating a new account"
           associate_with_new_account(shib)
           redirect_to shibboleth_path
         end
@@ -107,7 +107,7 @@ class ShibbolethController < ApplicationController
     end
   end
 
-  # If always_new_account flag is on redirects to
+  # Renders a 404 if the flag `shib_always_new_account` is enabled.
   def check_shib_always_new_account
     if get_always_new_account()
       raise ActionController::RoutingError.new('Not Found')
@@ -115,7 +115,6 @@ class ShibbolethController < ApplicationController
       true
     end
   end
-
 
   # When the user selected to create a new account for his shibboleth login.
   def associate_with_new_account(shib)
@@ -182,7 +181,7 @@ class ShibbolethController < ApplicationController
 
   end
 
-  # Method used to get the flag value from the database. Useful when testing, cause we can stub it
+  # Returns the value of the flag `shib_always_new_account`.
   def get_always_new_account
     return Site.current.shib_always_new_account
   end
