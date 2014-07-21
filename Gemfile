@@ -45,7 +45,7 @@ gem 'resque_mailer'
 # Authentication and authorization
 gem 'devise', '~> 3.2.4'
 gem 'devise-encryptable' # TODO: only while we have old station users
-gem 'cancancan', '~> 1.8'
+gem 'cancancan', '~> 1.9'
 gem 'devise-async'
 gem 'net-ldap'
 
@@ -68,7 +68,7 @@ gem 'configatron', '~> 2.13.0'
 
 # for bootstrap
 gem 'less-rails'
-  gem 'twitter-bootstrap-rails', github: 'seyhunak/twitter-bootstrap-rails', branch: 'master'
+gem 'twitter-bootstrap-rails', '~> 2.2.8'
 # datetime picker for bootstrap
 gem 'bootstrap-datetimepicker-rails'
 
@@ -76,7 +76,7 @@ gem 'bootstrap-datetimepicker-rails'
 gem 'momentjs-rails'
 
 # font-awesome (recommended to be here, not in the assets group)
-gem 'font-awesome-rails'
+gem 'font-awesome-rails', '~> 4.1.0.0'
 
 # to format emails
 gem 'premailer-rails'
