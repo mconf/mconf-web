@@ -343,7 +343,7 @@ class User < ActiveRecord::Base
     ids.uniq!
     # note: not 'find' because some of the spaces might be disabled and 'find' would raise
     #   an exception
-    Space.find_all_by_id(ids)
+    Space.where(:id => ids)
   end
 
   private
