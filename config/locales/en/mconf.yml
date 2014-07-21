@@ -164,6 +164,7 @@ en:
         registration_enabled: "Allow users to create new accounts"
         require_registration_approval: "Require admins to approve new registrations"
         signature: "Signature"
+        shib_always_new_account: "Shibboleth: Always create new account"
         shib_enabled: "Shibboleth: Enable"
         shib_email_field: "Shibboleth: Field for email"
         shib_env_variables: "Shibboleth: Environment variables"

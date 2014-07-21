@@ -164,6 +164,7 @@ pt-br:
         registration_enabled: "Permitir que usuários criem novas contas"
         require_registration_approval: "Requerer que administradores aceitem novas contas"
         signature: "Assinatura"
+        shib_always_new_account: "Shibboleth: Sempre criar uma nova conta"
         shib_enabled: "Shibboleth: Habilitar"
         shib_email_field: "Shibboleth: Campo para email"
         shib_env_variables: "Shibboleth: Variáveis de ambiente"
