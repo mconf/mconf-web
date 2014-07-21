@@ -96,29 +96,30 @@ class CustomBigbluebuttonRoomsController < Bigbluebutton::RoomsController
   end
 
   def send_invitation
+
     # adjusts the dates set by the user in the datetimepicker to dates we can set in the invitation
     unless adjust_dates_for_invitation(params)
       flash[:error] = t('custom_bigbluebutton_rooms.send_invitation.error_date_format')
 
     else
-      # the invitation object to be sent
-      invitation = Mconf::WebconfInvitation.new
-      invitation.mailer = WebConferenceMailer
-      invitation.from = current_user
-      invitation.room = @room
-      invitation.starts_on = params[:invite][:starts_on]
-      invitation.ends_on = params[:invite][:ends_on]
-      invitation.title = params[:invite][:title] || t('web_conference_mailer.invitation_mail.event_name', :name => from.full_name)
-      invitation.url = join_webconf_url(@room, :host => current_site.domain)
-      invitation.description = params[:invite][:message]
+      invitation_params = {
+        :from => current_user,
+        :target => @room,
+        :starts_on => params[:invite][:starts_on],
+        :ends_on => params[:invite][:ends_on],
+        :title => params[:invite][:title] || t('web_conference_mailer.invitation_mail.event_name', :name => from.full_name),
+        :url => join_webconf_url(@room),
+        :description => params[:invite][:message]
+      }
+      invitation = WebConferenceInvitation.create invitation_params
 
       # send the invitation to all users
-      users = Mconf::Invitation.split_invitations(params[:invite][:users])
-      succeeded, failed = Mconf::Invitation.send_batch(invitation, users)
+      users = Invitation.split_invitation_senders(params[:invite][:users])
+      succeeded, failed = Invitation.send_batch(invitation, users)
 
-      flash[:success] = Mconf::Invitation.build_flash(
+      flash[:success] = Invitation.build_flash(
         succeeded, t('custom_bigbluebutton_rooms.send_invitation.success')) unless succeeded.empty?
-      flash[:error] = Mconf::Invitation.build_flash(
+      flash[:error] = Invitation.build_flash(
         failed, t('custom_bigbluebutton_rooms.send_invitation.errors')) unless failed.empty?
     end
 

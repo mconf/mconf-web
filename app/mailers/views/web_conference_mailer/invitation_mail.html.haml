@@ -19,7 +19,7 @@
     .field
       %label= t('.message.join') + ':'
       %span= @invitation.url
-    - if @invitation.room.private
+    - if @invitation.target.private
       .field
         %label= t('.message.password') + ':'
-        %span= @invitation.room.attendee_password
+        %span= @invitation.target.attendee_password

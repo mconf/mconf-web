@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140709161857) do
+ActiveRecord::Schema.define(:version => 20140721191825) do
 
   create_table "activities", :force => true do |t|
     t.integer  "trackable_id"
@@ -145,6 +145,22 @@ ActiveRecord::Schema.define(:version => 20140709161857) do
   create_table "db_files", :force => true do |t|
     t.binary "data"
   end
+
+  create_table "invitations", :force => true do |t|
+    t.integer  "target_id"
+    t.string   "target_type"
+    t.integer  "from_id"
+    t.string   "type"
+    t.string   "title"
+    t.text     "description"
+    t.string   "url"
+    t.datetime "starts_on"
+    t.datetime "ends_on"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "invitations", ["target_id", "target_type"], :name => "index_invitations_on_target_id_and_target_type"
 
   create_table "join_requests", :force => true do |t|
     t.string   "request_type"

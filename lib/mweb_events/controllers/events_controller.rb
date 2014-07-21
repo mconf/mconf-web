@@ -22,23 +22,23 @@ MwebEvents::EventsController.class_eval do
     @event = MwebEvents::Event.find_by_permalink(params[:event_id])
     authorize! :send_invitation, @event
 
-    # the invitation object to be sent
-    invitation = Mconf::EventInvitation.new
-    invitation.mailer = EventMailer
-    invitation.from = current_user
-    invitation.event = @event
-    invitation.title = params[:invite][:title]
-    invitation.url = @event.full_url
-    invitation.description = params[:invite][:message]
+    invitation_params = {
+      :from => current_user,
+      :target => @event,
+      :title => params[:invite][:title],
+      :url => @event.full_url,
+      :description => params[:invite][:message]
+    }
+    invitation = EventInvitation.create invitation_params
 
     # send the invitation to all users
     # make `users` an array of Users and emails
-    users = Mconf::Invitation.split_invitations(params[:invite][:users])
-    succeeded, failed = Mconf::Invitation.send_batch(invitation, users)
+    users = Invitation.split_invitation_senders(params[:invite][:users])
+    succeeded, failed = Invitation.send_batch(invitation, users)
 
-    flash[:success] = Mconf::Invitation.build_flash(
+    flash[:success] = Invitation.build_flash(
       succeeded, t('mweb_events.events.send_invitation.success')) unless succeeded.empty?
-    flash[:error] = Mconf::Invitation.build_flash(
+    flash[:error] = Invitation.build_flash(
       failed, t('mweb_events.events.send_invitation.errors')) unless failed.empty?
 
     respond_to do |format|

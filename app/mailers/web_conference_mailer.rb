@@ -8,26 +8,29 @@
 class WebConferenceMailer < BaseMailer
 
   # Sends an invitation to a web conference.
-  # Receives an Mconf::Invitation object in `invitation` and a User or email that will receive
-  # this email in `to`.
-  def invitation_mail(invitation, to)
+  # Receives the ID of an Invitation object in `invitation` and the ID of a User or email
+  # that will receive this email in `to`.
+  def invitation_mail(p_invitation, p_to)
 
-    to = (u = User.find_by_email(to)) ? u : to
+    @invitation = Invitation.find_by_id(p_invitation)
+    if @invitation.nil?
+      Rails.logger.error "Aborting WebConferenceMailer#invitation_mail because the invitation object was not found"
+      Rails.logger.error "Parameters: invitation = #{p_invitation}"
+      return
+    end
 
-    # Converting a received string hash into a Mconf Invitation
-    @invitation = Mconf::Invitation.new
-    @invitation.title = invitation["title"]
-    @invitation.description = invitation["description"]
-    @invitation.starts_on = invitation["starts_on"].to_datetime
-    @invitation.ends_on = invitation["ends_on"].to_datetime
-    @invitation.url = invitation["url"]
-    @invitation.from = User.find(invitation["from"]["id"])
-    @invitation.room = BigbluebuttonRoom.find(invitation["room"]["id"])
+    if p_to.is_a?(String) # assume all strings are emails
+      to = p_to
+    else
+      to = User.find_by_id(p_to)
+      if to.nil?
+        Rails.logger.error "Aborting WebConferenceMailer#invitation_mail because the destination user was not found"
+        Rails.logger.error "Parameters: to = #{p_to}"
+        return
+      end
+    end
 
     I18n.with_locale(get_user_locale(to, false)) do
-      # clone it because we need to change a few things
-      # @invitation = invitation.clone
-
       # Adjust the times to the target user's time zone. If he doesn't have a time zone set,
       # use the time zone of the sender.
       if Mconf::Timezone.user_has_time_zone?(to)
@@ -36,12 +39,11 @@ class WebConferenceMailer < BaseMailer
         # will fall back to the website's time zone if the user doesn't have one
         time_zone = Mconf::Timezone.user_time_zone(@invitation.from)
       end
-      @invitation.starts_on = @invitation.starts_on.in_time_zone(time_zone) if @invitation.starts_on
-      @invitation.ends_on = @invitation.ends_on.in_time_zone(time_zone) if @invitation.ends_on
+      @invitation.starts_on = @invitation.starts_on.in_time_zone(time_zone) unless @invitation.starts_on.blank?
+      @invitation.ends_on = @invitation.ends_on.in_time_zone(time_zone) unless @invitation.ends_on.blank?
 
       subject = t('web_conference_mailer.invitation_mail.subject', :name => @invitation.from.full_name)
       attachments['meeting.ics'] = { :mime_type => 'text/calendar', :content => @invitation.to_ical }
-      #attachments['meeting.ics'] = invitation.to_ical
 
       if to.is_a?(User)
         create_email(to.email, @invitation.from.email, subject)
