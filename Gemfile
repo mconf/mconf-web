@@ -112,7 +112,8 @@ group :development do
 end
 
 group :development, :test do
-  gem 'rspec-rails', '~> 2.14'
+  gem 'rspec-rails', '~> 2.99.0'
+  gem 'rspec-mocks'
   gem 'populator'
   gem 'faker'
   # Until timezone bug is fixed
@@ -123,6 +124,7 @@ group :development, :test do
   gem 'capybara'
   gem 'launchy'
   gem 'shoulda-matchers', '~> 2.6.1', :require => false
+  gem 'shoulda-kept-assign-to'
   gem 'htmlentities'
   gem 'turn', '0.8.2', :require => false # TODO: why 0.8.2?
   gem 'simplecov', :require => false
