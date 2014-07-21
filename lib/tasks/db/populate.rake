@@ -32,11 +32,11 @@ namespace :db do
       end
       RecentActivity.destroy_all
       BigbluebuttonRecording.destroy_all
-      users_without_admin = User.find_by_id_with_disabled(:all)
-      users_without_admin.delete(User.find_by_superuser(true))
+      users_without_admin = User.find_with_disabled
+      users_without_admin.delete(User.find_by(superuser: true))
       users_without_admin.each(&:destroy)
       rooms_without_admin = BigbluebuttonRoom.all
-      rooms_without_admin.delete(User.find_by_superuser(true).bigbluebutton_room)
+      rooms_without_admin.delete(User.find_by(superuser: true).bigbluebutton_room)
       rooms_without_admin.each(&:destroy)
     end
 
@@ -115,7 +115,7 @@ namespace :db do
     Space.populate 10 do |space|
       begin
         name = Populator.words(1..3).capitalize
-      end until Space.find_by_name(name).nil? and name.length >= 3
+      end until Space.find_by(name: name).nil? and name.length >= 3
       space.name = name
       space.description = Populator.sentences(1..3)
       space.public = [ true, false ]
@@ -135,7 +135,7 @@ namespace :db do
 
       if configatron.modules.events.enabled
         puts "* Create spaces: events for \"#{space.name}\" (5..10)"
-        available_users = User.all.dup
+        available_users = User.all.to_a
         MwebEvents::Event.populate 5..10 do |event|
           event.owner_id = space.id
           event.owner_type = 'Space'
@@ -144,8 +144,8 @@ namespace :db do
           event.time_zone = Forgery::Time.zone
           event.location = Populator.words(1..3)
           event.address = Forgery::Address.street_address
-          event.description = Populator.sentences(0..3)
-          event.location = Populator.sentences(0..2)
+          event.description = Populator.sentences(2)
+          event.location = Populator.sentences(1)
           event.created_at = @created_at_start..Time.now
           event.updated_at = event.created_at..Time.now
           event.start_on = event.created_at..1.years.since(Time.now)
@@ -190,23 +190,23 @@ namespace :db do
 
     puts "* Create spaces: adding users"
     Space.all.each do |space|
-      role_ids = Role.find_all_by_stage_type('Space').map(&:id)
-      available_users = User.all.dup
+      role_ids = Role.where(stage_type: 'Space').map(&:id)
+      available_users = User.all.to_a
 
       puts "* Create spaces: \"#{space.name}\" - add first admin"
       Permission.populate 1 do |permission|
-        user = available_users.delete_at((rand * available_users.size).to_i)
+        user = available_users.delete_at(rand(available_users.size))
         permission.user_id = user.id
         permission.subject_id = space.id
         permission.subject_type = 'Space'
-        permission.role_id = Role.find_all_by_stage_type_and_name('Space', 'Admin')
+        permission.role_id = Role.where(name: 'Admin', stage_type: 'Space')
         permission.created_at = user.created_at
         permission.updated_at = permission.created_at
       end
 
       puts "* Create spaces: \"#{space.name}\" - add more users (3..10)"
       Permission.populate 3..10 do |permission|
-        user = available_users.delete_at((rand * available_users.size).to_i)
+        user = available_users.delete_at(rand(available_users.size))
         permission.user_id = user.id
         permission.subject_id = space.id
         permission.subject_type = 'Space'
@@ -317,7 +317,7 @@ namespace :db do
       final_posts = Array.new << total_posts.shift
 
       total_posts.inject final_posts do |posts, post|
-        parent = posts[(rand * posts.size).to_i]
+        parent = posts[rand(posts.size)]
         unless parent.parent_id
           post.update_attribute :parent_id, parent.id
         end
