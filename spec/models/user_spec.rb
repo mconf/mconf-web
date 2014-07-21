@@ -28,10 +28,11 @@ describe User do
 
   it { should validate_presence_of(:email) }
 
-  [ :email, :password, :password_confirmation,
-    :remember_me, :login, :username, :receive_digest, :approved ].each do |attribute|
-    it { should allow_mass_assignment_of(attribute) }
-  end
+  # Make sure it's being tested in the controller
+  # [ :email, :password, :password_confirmation,
+  #   :remember_me, :login, :username, :receive_digest, :approved ].each do |attribute|
+  #   it { should allow_mass_assignment_of(attribute) }
+  # end
 
   describe "#profile" do
     let(:user) { FactoryGirl.create(:user) }

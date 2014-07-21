@@ -208,7 +208,7 @@ describe JoinRequestsController do
     let(:space) { FactoryGirl.create(:space) }
     let(:user) { FactoryGirl.create(:user) }
     let(:candidate) { FactoryGirl.create(:user) }
-    let!(:role) { Role.find_by_name_and_stage_type('User', 'Space') }
+    let!(:role) { Role.find_by(name: 'User', stage_type: 'Space') }
     before(:each) {
       space.add_member!(user, 'Admin')
       sign_in(user)
@@ -321,7 +321,7 @@ describe JoinRequestsController do
       end
 
       context "accepts a user request and specifies a role" do
-        let(:role) { Role.find_by_name_and_stage_type('Admin', 'Space') }
+        let(:role) { Role.find_by(name: 'Admin', stage_type: 'Space') }
         let(:jr) { FactoryGirl.create(:join_request, :group => space, :role => nil) }
         before(:each) {
           expect {

@@ -122,9 +122,9 @@ describe Space do
         @public2 = FactoryGirl.create(:public_space)
         another = FactoryGirl.create(:private_space)
       }
-      it { Space.public.length.should be(2) }
-      it { Space.public.should include(@public1) }
-      it { Space.public.should include(@public2) }
+      it { Space.public_spaces.length.should be(2) }
+      it { Space.public_spaces.should include(@public1) }
+      it { Space.public_spaces.should include(@public2) }
     end
   end
 
