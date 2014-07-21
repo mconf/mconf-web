@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140716180735) do
+ActiveRecord::Schema.define(:version => 20140721131823) do
 
   create_table "activities", :force => true do |t|
     t.integer  "trackable_id"
@@ -357,6 +357,7 @@ ActiveRecord::Schema.define(:version => 20140716180735) do
     t.string   "shib_principal_name_field"
     t.string   "ldap_filter"
     t.boolean  "shib_always_new_account",        :default => false
+    t.boolean  "disable_local_auth",             :default => false
   end
 
   create_table "spaces", :force => true do |t|
