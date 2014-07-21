@@ -19,10 +19,10 @@ class Space < ActiveRecord::Base
   has_many :permissions, -> { where(:subject_type => 'Space') },
            :foreign_key => "subject_id"
 
-  has_and_belongs_to_many :users,  -> { where(:subject_type => 'Space') },
+  has_and_belongs_to_many :users,  -> { Permission.where(:subject_type => 'Space') },
                           :join_table => :permissions, :foreign_key => "subject_id"
 
-  has_and_belongs_to_many :admins, -> { where(:permissions => {:subject_type => 'Space', :role_id => Role.find_by_name('Admin')}) },
+  has_and_belongs_to_many :admins, -> { Permission.where(:permissions => {:subject_type => 'Space', :role_id => Role.find_by_name('Admin')}) },
                           :join_table => :permissions, :class_name => "User", :foreign_key => "subject_id"
 
   has_many :join_requests, -> { where(:group_type => 'Space') },
@@ -125,7 +125,7 @@ class Space < ActiveRecord::Base
   end
 
   def self.with_disabled
-    where(:disabled => [true, false])
+    self.unscoped
   end
 
   # TODO: review all public methods below

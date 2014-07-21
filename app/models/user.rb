@@ -199,15 +199,16 @@ class User < ActiveRecord::Base
   end
 
   def self.find_with_disabled *args
-    self.unscoped { find_by_username(*args) }
+    self.unscoped { find(*args) }
   end
 
+  # TODO
   def self.find_by_id_with_disabled *args
     self.unscoped { find(*args) }
   end
 
   def self.with_disabled
-    where(:disabled => [true, false])
+    self.unscoped
   end
 
   def <=>(user)

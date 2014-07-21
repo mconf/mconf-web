@@ -29,14 +29,7 @@ class Post < ActiveRecord::Base
   end
 
   def author
-    case author_type
-    when User
-      User.find_by_id_with_disabled(author_id)
-    when NilClass
-      nil
-    else
-      author_type.constantize.find_by_id author_id
-    end
+    User.with_disabled.where(:id => author_id).first
   end
 
   def space

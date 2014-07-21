@@ -185,7 +185,7 @@ describe Space do
     end
 
     context "returns a Relation object" do
-      it { Space.with_disabled.should be_an_instance_of(ActiveRecord::Relation) }
+      it { Space.with_disabled.should be_kind_of(ActiveRecord::Relation) }
     end
   end
 
@@ -194,7 +194,7 @@ describe Space do
     it "is called when the space is created" do
       space = FactoryGirl.create(:space)
       space.bigbluebutton_room.should_not be_nil
-      space.bigbluebutton_room.should be_an_instance_of(BigbluebuttonRoom)
+      space.bigbluebutton_room.should be_kind_of(BigbluebuttonRoom)
     end
 
     context "creates #bigbluebutton_room" do

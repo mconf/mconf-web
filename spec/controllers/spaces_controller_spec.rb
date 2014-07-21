@@ -174,7 +174,7 @@ describe SpacesController do
 
           before(:each) { get :index }
           it { should assign_to(:user_spaces).with([]) }
-          it { assigns(:user_spaces).should be_an_instance_of(ActiveRecord::Relation) }
+          it { assigns(:user_spaces).should be_kind_of(ActiveRecord::Relation) }
         end
       end
 

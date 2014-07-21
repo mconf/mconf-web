@@ -39,7 +39,7 @@ describe User do
 
     it "is created when the user is created" do
       user.profile.should_not be_nil
-      user.profile.should be_an_instance_of(Profile)
+      user.profile.should be_kind_of(Profile)
     end
   end
 
@@ -50,7 +50,7 @@ describe User do
 
     it "is created when the user is created" do
       user.bigbluebutton_room.should_not be_nil
-      user.bigbluebutton_room.should be_an_instance_of(BigbluebuttonRoom)
+      user.bigbluebutton_room.should be_kind_of(BigbluebuttonRoom)
     end
 
     it "has the user as owner" do
@@ -360,13 +360,13 @@ describe User do
     let(:user2) { FactoryGirl.create(:user, :disabled => false) }
 
     context "finds users even if disabled" do
-      subject { User.with_disabled.all }
-      it { should include(user1) }
-      it { should include(user2) }
+      subject { User.with_disabled }
+      it { should be_include(user1) }
+      it { should be_include(user2) }
     end
 
     context "returns a Relation object" do
-      it { User.with_disabled.should be_an_instance_of(ActiveRecord::Relation) }
+      it { User.with_disabled.should be_kind_of(ActiveRecord::Relation) }
     end
   end
 
