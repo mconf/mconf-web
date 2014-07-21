@@ -37,7 +37,7 @@ class User < ActiveRecord::Base
   #   but are not really recommended (e.g. '-')
   validates :username, :uniqueness => { :case_sensitive => false },
                        :presence => true,
-                       :format => /\A[A-Za-z0-9\-_]*\a/,
+                       :format => /\A[A-Za-z0-9\-_]*\z/,
                        :length => { :minimum => 1 }
 
   # The username has to be unique not only for user, but across other
@@ -74,9 +74,8 @@ class User < ActiveRecord::Base
 
   validates :email, :presence => true, :email => true
 
-  has_and_belongs_to_many :spaces, :join_table => :permissions,
-                          :association_foreign_key => "subject_id",
-                          :conditions => { :permissions => {:subject_type => 'Space'} }
+  has_and_belongs_to_many :spaces, -> { where(:permissions => {:subject_type => 'Space'}) },
+                          :join_table => :permissions, :association_foreign_key => "subject_id"
 
   has_many :join_requests, :foreign_key => :candidate_id
   has_many :permissions, :dependent => :destroy
@@ -200,11 +199,11 @@ class User < ActiveRecord::Base
   end
 
   def self.find_with_disabled *args
-    self.with_exclusive_scope { find_by_username(*args) }
+    self.unscoped { find_by_username(*args) }
   end
 
   def self.find_by_id_with_disabled *args
-    self.with_exclusive_scope { find(*args) }
+    self.unscoped { find(*args) }
   end
 
   def self.with_disabled
@@ -216,7 +215,7 @@ class User < ActiveRecord::Base
   end
 
   def other_public_spaces
-    Space.public.all(:order => :name) - spaces
+    Space.public_spaces.order('name') - spaces
   end
 
   def user_count
@@ -279,7 +278,7 @@ class User < ActiveRecord::Base
   def accessible_rooms
     rooms = BigbluebuttonRoom.where(:owner_type => "User", :owner_id => self.id)
     rooms += self.spaces.map(&:bigbluebutton_room)
-    rooms += Space.public.map(&:bigbluebutton_room)
+    rooms += Space.public_spaces.map(&:bigbluebutton_room)
     rooms.uniq!
     rooms
   end

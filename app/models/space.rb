@@ -112,7 +112,7 @@ class Space < ActiveRecord::Base
     p = Permission.new
     p.user = user
     p.subject = self
-    p.role = Role.find_by_name_and_stage_type(role_name, 'Space')
+    p.role = Role.find_by(name: role_name, stage_type: 'Space')
     p.save!
   end
 
@@ -131,11 +131,11 @@ class Space < ActiveRecord::Base
   # TODO: review all public methods below
 
   def self.find_with_disabled *args
-    self.with_exclusive_scope { find(*args) }
+    self.unscoped { find(*args) }
   end
 
   def self.find_with_disabled_and_param *args
-    self.with_exclusive_scope { find_with_param(*args) }
+    self.unscoped { find_with_param(*args) }
   end
 
   def disable
