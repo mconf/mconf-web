@@ -16,3 +16,9 @@ send_processed_join_request_notifications:
     - "30s"
   class: ProcessedJoinRequestNotifications
   description: "This job finds all join requests accepted on recent activity and sends to the users the notifications"
+
+send_invitations:
+  every:
+    - "30s"
+  class: Invitations
+  description: "Finds all invitations still not sent and sends them"

@@ -23,19 +23,29 @@ MwebEvents::EventsController.class_eval do
     authorize! :send_invitation, @event
 
     invitation_params = {
-      :from => current_user,
+      :sender => current_user,
       :target => @event,
       :title => params[:invite][:title],
       :url => @event.full_url,
-      :description => params[:invite][:message]
+      :description => params[:invite][:message],
+      :ready => true
     }
-    invitation = EventInvitation.create invitation_params
 
-    # send the invitation to all users
-    # make `users` an array of Users and emails
+    # creates an invitation for each user
+    invitations = []
     users = Invitation.split_invitation_senders(params[:invite][:users])
-    succeeded, failed = Invitation.send_batch(invitation, users)
+    users.each do |user|
+      if user.is_a? String
+        invitation_params[:recipient_email] = user
+      else
+        invitation_params[:recipient] = User.find_by_id(user)
+      end
+      invitations << EventInvitation.create(invitation_params)
+    end
 
+    # we do a check just to give a better response to the user, since the invitations will
+    # only be sent in background later on
+    succeeded, failed = Invitation.check_invitations(invitations)
     flash[:success] = Invitation.build_flash(
       succeeded, t('mweb_events.events.send_invitation.success')) unless succeeded.empty?
     flash[:error] = Invitation.build_flash(

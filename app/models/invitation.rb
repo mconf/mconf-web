@@ -8,15 +8,17 @@ class Invitation < ActiveRecord::Base
   include Mconf::LocaleControllerModule
 
   belongs_to :target, :polymorphic => true
-  belongs_to :from, :class_name => "User"
+  belongs_to :sender, :class_name => "User"
+  belongs_to :recipient, :class_name => "User"
 
-  attr_accessible :from, :target, :starts_on, :ends_on, :title, :url, :description, :type
+  attr_accessible :sender, :target, :starts_on, :ends_on, :title, :url, :description,
+    :type, :recipient, :recipient_email, :ready
 
-  # Sends the invitation to a user or email.
+  # Sends the invitation to the recipient.
   # Respects the preferences of the user, sending the notification either via
   # email or private message.
   # Uses the mailer variable to build the correct emails
-  def send_email(user)
+  def send_invitation
     mailer = if self.is_a? WebConferenceInvitation
                WebConferenceMailer
              elsif self.is_a? EventInvitation
@@ -29,17 +31,15 @@ class Invitation < ActiveRecord::Base
     # note: for emails, for now, we always assume it succeeded
     result = true
 
-    if user.is_a?(User)
-      if user.notify_via_email?
-        mailer.invitation_mail(self.id, user.id).deliver
-      end
-      if user.notify_via_private_message?
-        result = send_private_message(user)
-      end
-
-    # assumes `user` is a string with an email
+    if self.recipient.nil?
+      mailer.invitation_mail(self.id).deliver
     else
-      mailer.invitation_mail(self.id, user).deliver
+      if self.recipient.notify_via_email?
+        mailer.invitation_mail(self.id).deliver
+      end
+      if self.recipient.notify_via_private_message?
+        result = send_private_message
+      end
     end
 
     result
@@ -63,29 +63,27 @@ class Invitation < ActiveRecord::Base
     msg
   end
 
-  # Sends an invitation in `invitation` to all the Users or emails in the
-  # array `users`.
+  # Checks if the invitations in `invitations` are valid or will fail when sent.
   # Returns two arrays:
   #   [0] The Users and/or emails that received the invitation successfully
   #   [1] The Users and/or emails that did not receive the invitation
-  def self.send_batch(invitation, users)
+  def self.check_invitations(invitations)
     success = []
     error = []
 
-    for user in users
-      if user.is_a?(User)
-        if invitation.send_email(user)
-          success << user
+    # the invitation will only be invalid if the user or their email is invalid
+    for invitation in invitations
+      if invitation.recipient.nil?
+        mail = invitation.recipient_email
+        if ValidateEmail.valid?(mail)
+          success << mail
         else
-          error << user
+          error << mail
         end
       else
-        if ValidateEmail.valid?(user)
-          if invitation.send_email(user)
-            success << user
-          else
-            error << user
-          end
+        user = invitation.recipient
+        if ValidateEmail.valid?(user.email)
+          success << user
         else
           error << user
         end
@@ -97,7 +95,7 @@ class Invitation < ActiveRecord::Base
 
   def to_ical
     if self.is_a? EventInvitation
-      event.to_ics.to_ical
+      target.to_ics.to_ical
     else
       event = Icalendar::Event.new
 
@@ -105,7 +103,7 @@ class Invitation < ActiveRecord::Base
       # that it's in UTC.
       event.dtstart = self.starts_on.in_time_zone('UTC').strftime("%Y%m%dT%H%M%SZ") unless self.starts_on.blank?
       event.dtend = self.ends_on.in_time_zone('UTC').strftime("%Y%m%dT%H%M%SZ") unless self.ends_on.blank?
-      event.organizer = from.email
+      event.organizer = sender.email
       event.klass = "PUBLIC"
       event.uid = self.url
       event.url = self.url
@@ -132,10 +130,10 @@ class Invitation < ActiveRecord::Base
                 :format => :pm,
                 :locals => { :invitation => self })
       opts = {
-        :sender_id => self.from.id,
+        :sender_id => self.sender.id,
         :receiver_id => user.id,
         :body => content,
-        :title => I18n.t('web_conference_mailer.invitation_mail.subject', :name => self.from.full_name)
+        :title => I18n.t('web_conference_mailer.invitation_mail.subject', :name => self.sender.full_name)
       }
       private_message = PrivateMessage.new(opts)
       private_message.save

@@ -1,6 +1,6 @@
 #event-invitation-mail
   .header
-    = t('.message.header', :sender => @invitation.from.full_name, :email_sender => @invitation.from.email, :event => @event.name).html_safe
+    = t('.message.header', :sender => @invitation.sender.full_name, :email_sender => @invitation.sender.email, :event => @event.name).html_safe
 
   - unless @invitation.title.blank?
     .invite-title= @invitation.title
