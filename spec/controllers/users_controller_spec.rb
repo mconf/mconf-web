@@ -97,61 +97,59 @@ describe UsersController do
       end
 
       context "trying to update email" do
+        let(:old_email) { FactoryGirl.generate(:email) }
+        let(:user) { FactoryGirl.create(:user, :email => old_email) }
+        let(:new_email) { FactoryGirl.generate(:email) }
+
         before(:each) do
-          @user = FactoryGirl.create(:user)
-          sign_in @user
+          sign_in user
 
-          @old_email = @user.email
-          @new_email = FactoryGirl.generate(:email)
-
-          put :update, :id => @user.to_param, :user => { :email => @new_email }
-          @user.reload
+          put :update, :id => user.to_param, :user => { :email => new_email }
+          user.reload
         end
 
         it { response.status.should == 302 }
-        it { response.should redirect_to edit_user_path(@user) }
-        it { @user.email.should_not == @new_email }
-        it { @user.email.should == @old_email }
+        it { response.should redirect_to edit_user_path(user) }
+        it { user.email.should_not eq(new_email) }
+        it { user.email.should eq(old_email) }
       end
     end
 
     context "attributes that the user can update" do
       context "trying to update timezone" do
+        let(:old_tz) { FactoryGirl.generate(:timezone) }
+        let(:user) { FactoryGirl.create(:user, :timezone => old_tz) }
+        let(:new_tz) { FactoryGirl.generate(:timezone) }
 
         before(:each) do
-          @user = FactoryGirl.create(:user)
-          sign_in @user
+          sign_in user
 
-          @old_tz = @user.timezone
-          @new_tz = FactoryGirl.generate(:timezone)
-
-          put :update, :id => @user.to_param, :user => { :timezone => @new_tz }
-          @user.reload
+          put :update, :id => user.to_param, :user => { :timezone => new_tz }
+          user.reload
         end
 
         it { response.status.should == 302 }
-        it { response.should redirect_to edit_user_path(@user) }
-        it { @user.timezone.should_not == @old_tz }
-        it { @user.timezone.should == @new_tz }
+        it { response.should redirect_to edit_user_path(user) }
+        it { user.timezone.should_not eq(old_tz) }
+        it { user.timezone.should eq(new_tz) }
       end
 
       context "trying to update notifications" do
+        let!(:old_not) { User::NOTIFICATION_VIA_EMAIL }
+        let(:user) { FactoryGirl.create(:user, :notification => old_not) }
+        let!(:new_not) { User::NOTIFICATION_VIA_PM }
 
         before(:each) do
-          @user = FactoryGirl.create(:user)
-          sign_in @user
+          sign_in user
 
-          @old_not = @user.notification
-          @new_not = @user.notification == User::RECEIVE_DIGEST_DAILY ? User::RECEIVE_DIGEST_WEEKLY : User::RECEIVE_DIGEST_DAILY
-
-          put :update, :id => @user.to_param, :user => { :notification => @new_not }
-          @user.reload
+          put :update, :id => user.to_param, :user => { :notification => new_not }
+          user.reload
         end
 
         it { response.status.should == 302 }
-        it { response.should redirect_to edit_user_path(@user) }
-        it { @user.notification.should_not == @old_not }
-        it { @user.notification.should == @new_not }
+        it { response.should redirect_to edit_user_path(user) }
+        it { user.notification.should_not eq(old_not) }
+        it { user.notification.should eq(new_not) }
       end
 
       it { should_authorize an_instance_of(User), :update, :via => :post, :id => FactoryGirl.create(:user).to_param, :user => {} }
@@ -245,13 +243,11 @@ describe UsersController do
         end
 
         context "matches users by name" do
-          let(:unique_str) { "123123456456" }
+          let!(:unique_str) { "123123456456" }
           before do
             FactoryGirl.create(:user, :_full_name => "Yet Another User")
             FactoryGirl.create(:user, :_full_name => "Abc de Fgh")
-            FactoryGirl.create(:user, :_full_name => "Marcos #{unique_str} Silva") do |u|
-              @users = [u]
-            end
+            @users = [FactoryGirl.create(:user, :_full_name => "Marcos #{unique_str} Silva")]
           end
           before(:each) { get :select, :q => unique_str, :format => :json }
           it { should assign_to(:users).with(@users) }
@@ -263,9 +259,7 @@ describe UsersController do
           before do
             FactoryGirl.create(:user, :username => "Yet-Another-User")
             FactoryGirl.create(:user, :username => "Abc-de-Fgh")
-            FactoryGirl.create(:user, :username => "Marcos-#{unique_str}-Silva") do |u|
-              @users = [u]
-            end
+            @users = [FactoryGirl.create(:user, :username => "Marcos-#{unique_str}-Silva")]
           end
           before(:each) { get :select, :q => unique_str, :format => :json }
           it { should assign_to(:users).with(@users) }
