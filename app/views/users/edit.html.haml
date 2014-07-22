@@ -38,7 +38,7 @@
       %h3= t('.account_info')
       = f.input :email, :required => false, :disabled => true
       = f.input :username, :required => false, :disabled => true
-    - unless local_authentication_disabled?
+    - if !local_authentication_disabled? || @user.admin?
       #change-password
         %h3= t('.change_password')
         = f.input :password, :autocomplete => "off", :required => false

@@ -319,7 +319,8 @@ class User < ActiveRecord::Base
   # Overrides a method from devise, see:
   # https://github.com/plataformatec/devise/wiki/How-To%3a-Require-admin-to-activate-account-before-sign_in
   def active_for_authentication?
-    super && (!Site.current.require_registration_approval? || approved?)
+    super && (!Site.current.require_registration_approval? || approved?) &&
+      local_authentication_validity
   end
 
   # Overrides a method from devise, see:
@@ -352,6 +353,17 @@ class User < ActiveRecord::Base
   def username_uniqueness
     unless Space.find_by_permalink(self.username).blank?
       errors.add(:username, "has already been taken")
+    end
+  end
+
+  # checks when the local authentication can be done by admin
+  def local_authentication_validity
+    if Site.current.disable_local_auth && admin?
+      true
+    elsif !Site.current.disable_local_auth?
+      true
+    else
+      false
     end
   end
 
