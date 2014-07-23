@@ -703,7 +703,7 @@ describe SpacesController do
 
       it { should respond_with(:success) }
       it { assigns(:space).should eq(target) }
-      it { should render_template("spaces/user_permission") }
+      it { should render_template(/user_permissions/) }
       it { should render_with_layout("spaces_show") }
     end
 

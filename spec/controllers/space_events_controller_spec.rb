@@ -19,7 +19,7 @@ describe SpaceEventsController, :events => true do
 
     context "layout and view" do
       before(:each) { get :index, :space_id => space.to_param }
-      it { should render_template("events/index") }
+      it { should render_template(/index/) }
       it { should render_with_layout("spaces_show") }
     end
 
