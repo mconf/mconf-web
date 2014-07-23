@@ -9,6 +9,7 @@ class RegistrationsController < Devise::RegistrationsController
   layout 'no_sidebar'
 
   before_filter :check_registration_enabled, :only => [:new, :create]
+  before_filter :configure_permitted_parameters, :only => [:create]
 
   def new
   end
@@ -25,6 +26,14 @@ class RegistrationsController < Devise::RegistrationsController
       redirect_to root_path
       false
     end
+  end
+
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.for(:sign_up).push(*allowed_params)
+  end
+
+  def allowed_params
+    [:email, :_full_name, :username]
   end
 
 end

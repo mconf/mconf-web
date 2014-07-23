@@ -44,4 +44,22 @@ describe RegistrationsController do
     end
   end
 
+  describe "#create" do
+    before { @request.env["devise.mapping"] = Devise.mappings[:user] }
+    let(:attributes) {
+      FactoryGirl.attributes_for(:user).slice(:username, :_full_name, :email, :password)
+    }
+
+    describe "if registrations are enabled in the site" do
+      before(:each) {
+        expect {
+          post :create, :user => attributes
+        }.to change{User.count}.by(1)
+      }
+      it { should redirect_to(my_home_path) }
+    end
+
+    describe "if registrations are disabled in the site"
+  end
+
 end
