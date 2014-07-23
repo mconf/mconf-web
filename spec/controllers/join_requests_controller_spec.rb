@@ -135,7 +135,6 @@ describe JoinRequestsController do
 
       before(:each) {
         sign_in(user)
-        Informer.should_receive(:deliver_join_request).with(an_instance_of(JoinRequest))
         expect {
           post :create, :space_id => space.to_param, :join_request => jr.attributes
         }.to change{space.join_requests.count}.by(1)
@@ -151,7 +150,6 @@ describe JoinRequestsController do
 
       before(:each) {
         sign_in(user)
-        Informer.should_receive(:deliver_join_request).with(an_instance_of(JoinRequest))
         expect {
           post :create, :space_id => space.to_param, :join_request => jr.attributes
         }.to change{space.join_requests.count}.by(1)
@@ -222,7 +220,6 @@ describe JoinRequestsController do
       }
 
       before(:each) {
-        Informer.should_receive(:deliver_invitation).with(an_instance_of(JoinRequest))
         expect {
           post :create, {:invite => true, :space_id => space.to_param}.merge(attributes)
         }.to change{space.pending_invitations.count}.by(1)
@@ -240,7 +237,6 @@ describe JoinRequestsController do
       }
 
       before(:each) {
-        Informer.should_receive(:deliver_invitation).twice.with(an_instance_of(JoinRequest))
         expect {
           post :create, {:invite => true, :space_id => space.to_param}.merge(attributes)
         }.to change{space.pending_invitations.count}.by(2)
@@ -259,7 +255,6 @@ describe JoinRequestsController do
       }
 
       before(:each) {
-        Informer.should_receive(:deliver_invitation).with(an_instance_of(JoinRequest))
         expect {
           post :create, {:invite => true, :space_id => space.to_param}.merge(attributes)
         }.to change{space.pending_invitations.count}.by(1)
@@ -280,7 +275,6 @@ describe JoinRequestsController do
       }
 
       before(:each) {
-        Informer.should_not_receive(:deliver_invitation).with(an_instance_of(JoinRequest))
         expect {
           post :create, {:invite => true, :space_id => space.to_param}.merge(attributes)
         }.to change{space.pending_invitations.count}.by(0)
