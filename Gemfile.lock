@@ -73,7 +73,7 @@ GIT
 
 GIT
   remote: https://github.com/sevenwire/forgery.git
-  revision: 87a34a1a3fe41f72ae7662bad6f1c64f2b3fd5c5
+  revision: b20bb0b99f0d9291d0704827ca86095bae20a192
   specs:
     forgery (0.6.0)
 
