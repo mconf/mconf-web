@@ -21,7 +21,8 @@ Mconf::Application.routes.draw do
   root :to => 'frontpage#show'
 
   # devise
-  controllers = { :sessions => "sessions", :registrations => "registrations", :passwords => "passwords" }
+  controllers = { :sessions => "sessions", :registrations => "registrations",
+                  :passwords => "passwords", :confirmations => "confirmations" }
   paths = { :sign_in => "login", :sign_out => "logout", :sign_up => "signup" }
   devise_for :users, :path_names => paths, :controllers => controllers
   devise_scope :user do

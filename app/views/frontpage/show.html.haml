@@ -23,7 +23,8 @@
     #login-box.form-area
       .action-links
         %ul
-          %li= link_to t('.login.federation'), shibboleth_path, :class => 'shibboleth_login'
+          - if current_site.shib_enabled?
+            %li= link_to t('.login.federation'), shibboleth_path, :class => 'shibboleth_login'
           - if current_site.registration_enabled?
             %li= link_to t(".login.resend_confirmation_email"), new_confirmation_path(resource_name)
 

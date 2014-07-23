@@ -67,6 +67,7 @@
                   = link_to t('edit'), main_app.edit_user_profile_path(current_user)
 
     - else
-      %li.last= link_to t('.login'), main_app.login_path
+      - unless local_authentication_disabled?
+        %li.last= link_to t('.login'), main_app.login_path
       - if current_site.registration_enabled?
         %li= link_to t('.register'), main_app.register_path
