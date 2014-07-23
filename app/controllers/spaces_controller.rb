@@ -125,7 +125,7 @@ class SpacesController < ApplicationController
   end
 
   def create
-    @space = Space.new(params[:space])
+    @space = Space.new(space_params)
 
     if @space.save
       respond_with @space do |format|
@@ -336,10 +336,10 @@ class SpacesController < ApplicationController
   end
 
   def space_params
-    unless params[:space].nil?
-      params[:space].permit(*space_allowed_params)
+    unless params[:space].blank?
+      params.require(:space).permit(*space_allowed_params)
     else
-      []
+      {}
     end
   end
 
