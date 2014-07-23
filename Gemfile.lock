@@ -16,7 +16,7 @@ GIT
 
 GIT
   remote: git://github.com/mconf/bigbluebutton_rails.git
-  revision: a4a7740b8b21ebec3fa9be82037fc26d73b8d4e3
+  revision: 454a265a78e84823f9bb89a211ab1d91f7a1ff7f
   branch: rails4
   specs:
     bigbluebutton_rails (2.0.0)
