@@ -9,7 +9,7 @@ class JoinRequestNotifications
 
   # Notifies a user of membership invites
   def self.invite_notifications
-    invites = RecentActivity.where :trackable_type => 'JoinRequest', :key => 'join_request.invite',:notified => [nil,false]
+    invites = RecentActivity.where :trackable_type => 'JoinRequest', :key => 'join_request.invite', :notified => [nil,false]
 
     invites.each do |activity|
       invite = activity.trackable
@@ -19,7 +19,7 @@ class JoinRequestNotifications
         Resque.logger << "Sending invite notification to #{user.email}.\n"
         SpaceMailer.invitation_email(invite.id).deliver
       else
-        # notify via website
+        # TODO: notify via website
       end
 
       activity.notified = true
@@ -40,7 +40,7 @@ class JoinRequestNotifications
           Resque.logger << "Sending request notification to admin #{admin.email}.\n"
           SpaceMailer.join_request_email(activity.trackable.id, admin.id).deliver
         else
-          # notify via the website
+          # TODO: notify via the website
         end
       end
 

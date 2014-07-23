@@ -1,5 +1,16 @@
 ---
 en:
+  application_mailer:
+    feedback_email:
+      content: "%{email} sent the following feedback:"
+      subject: "Feedback"
+  event_mailer:
+    invitation_mail:
+      message:
+        start: "Starts on"
+        end: "Ends on"
+        header: "You have been invited to the event <b>%{event}</b> by <b>%{sender}</b> (%{email_sender}):"
+      subject: "You have been invited to the event %{event}"
   space_mailer:
     invitation_email:
       message:
@@ -14,7 +25,7 @@ en:
     processed_invitation_email:
       accepted: "accepted"
       message:
-        header: "<p>%{introducer}</p>,</br><p>%{name}</p> has %{action} the invitation to the space %{space}"
+        header: "%{introducer},</br>%{name} has %{action} the invitation to the space %{space}"
         link: "You can see the current list of users of the space in <a href=\"%{users_url}\"> %{users_url} </a>"
       rejected: "not accepted"
       subject: "%{name} has %{action} your invitation"

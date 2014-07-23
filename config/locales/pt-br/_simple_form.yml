@@ -14,6 +14,9 @@ pt-br:
     buttons:
       cancel: "Cancelar"
       or: "ou"
+    labels:
+      feedback:
+        from: "Seu e-mail"
     hints:
       invite:
         users: "Busque por nome ou e-mail. Se você não conseguir encontrá-los, adicione endereços de e-mail. Digite e aperte enter para inserir um novo item."

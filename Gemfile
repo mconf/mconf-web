@@ -136,4 +136,3 @@ end
 
 # rails 3 compatibility
 gem 'rails-observers'
-

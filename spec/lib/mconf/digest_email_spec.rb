@@ -198,33 +198,34 @@ describe Mconf::DigestEmail do
       }
     end
 
-    context "sends the email", :pending => "Needed to be reviewed before the refactoring" do
+    context "sends the email" do
+      let(:user) { FactoryGirl.create(:user) }
       let(:space) { FactoryGirl.create(:space) }
 
       before do
-        ResqueSpec.disable_ext = true
-        Resque.inline = true
+        ResqueSpec.reset!
 
-        space.add_member!(user)
         # create the data to be returned
-        @posts = [ FactoryGirl.create(:post, :space => space, :updated_at => date_start).id ]
-        @news = [ FactoryGirl.create(:news, :space => space, :updated_at => date_start).id ]
-        @attachments = [ FactoryGirl.create(:attachment, :space => space, :updated_at => date_start).id ]
-        @events = [ FactoryGirl.create(:event, :time_zone => Time.zone.name, :owner => space,
-          :start_on => date_start, :end_on => date_start + 1.hour).id ]
-        @inbox = [ FactoryGirl.create(:private_message, :receiver => user, :sender => FactoryGirl.create(:user)).id ]
+        @posts = [ FactoryGirl.create(:post, :space => space, :updated_at => date_start).id,
+                   FactoryGirl.create(:post, :space => space, :updated_at => date_start).id ]
+        @news = [ FactoryGirl.create(:news, :space => space, :updated_at => date_start).id,
+                  FactoryGirl.create(:news, :space => space, :updated_at => date_start).id ]
+        @attachments = [ FactoryGirl.create(:attachment, :space => space, :updated_at => date_start).id,
+                         FactoryGirl.create(:attachment, :space => space, :updated_at => date_start).id ]
+        @events = [
+          FactoryGirl.create(:event, :time_zone => Time.zone.name, :owner => space, :start_on => date_start, :end_on => date_start + 1.hour).id,
+          FactoryGirl.create(:event, :time_zone => Time.zone.name, :owner => space, :start_on => date_start, :end_on => date_start + 1.hour).id
+        ]
+        @inbox = [ FactoryGirl.create(:private_message, :receiver => user, :sender => FactoryGirl.create(:user)).id,
+                   FactoryGirl.create(:private_message, :receiver => user, :sender => FactoryGirl.create(:user)).id ]
 
         subject.should_receive(:get_activity).with(user, date_start, date_end).
           and_return([ @posts, @news, @attachments, @events, @inbox ])
       end
-      it {
-        subject.send_digest(user, date_start, date_end)
-      }
 
-      after do
-        ResqueSpec.disable_ext = false
-        Resque.inline = false
-      end
+      before(:each) { subject.send_digest(user, date_start, date_end) }
+      it { ApplicationMailer.should have_queue_size_of(1) }
+      it { ApplicationMailer.should have_queued(:digest_email, user.id, @posts, @news, @attachments, @events, @inbox) }
     end
   end
 

@@ -232,7 +232,15 @@ module IconsHelper
   end
 
   def icon_join_request(options={})
-    icon_constructor nil, "icon-awesome icon-signin icon-mconf-join-request", options
+    icon_constructor nil, "icon-awesome icon-hand-up icon-mconf-join-request", options
+  end
+
+  def icon_join_space(options={})
+    icon_constructor nil, "icon-awesome icon-signin icon-mconf-join-space", options
+  end
+
+  def icon_leave_space(options={})
+    icon_constructor nil, "icon-awesome icon-signout icon-mconf-leave-space", options
   end
 
   private

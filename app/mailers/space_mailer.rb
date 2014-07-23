@@ -5,7 +5,7 @@
 # This file is licensed under the Affero General Public License version
 # 3 or later. See the LICENSE file.
 
-class SpaceMailer < ApplicationMailer
+class SpaceMailer < BaseMailer
 
   def invitation_email(invitation_id)
     invitation = JoinRequest.find(invitation_id)

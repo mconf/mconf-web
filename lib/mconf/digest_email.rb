@@ -25,8 +25,8 @@ module Mconf
     def self.send_digest(to, date_start, date_end)
       posts, news, attachments, events, inbox = get_activity(to, date_start, date_end)
 
-      unless (posts.empty? && news.empty? && attachments.empty? && events.empty? && inbox.empty?)
-        Notifier.digest_email(to.id, posts, news, attachments, events, inbox).deliver
+      unless posts.empty? && news.empty? && attachments.empty? && events.empty? && inbox.empty?
+        ApplicationMailer.digest_email(to.id, posts, news, attachments, events, inbox).deliver
       end
     end
 

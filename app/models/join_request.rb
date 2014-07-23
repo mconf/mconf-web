@@ -37,7 +37,12 @@ class JoinRequest < ActiveRecord::Base
   # Create a new activity after saving
   after_create :new_activity
   def new_activity
-    create_activity self.request_type, :owner => self.group, :parameters => { :username => candidate.name }
+    parameters = { :candidate_id => candidate.id, :username => candidate.name }
+    unless introducer.nil?
+      parameters[:introducer_id] = introducer.id
+      parameters[:introducer] = introducer.name
+    end
+    create_activity self.request_type, :owner => self.group, :parameters => parameters
   end
 
   # Has this Admission been processed?
@@ -56,14 +61,6 @@ class JoinRequest < ActiveRecord::Base
 
   def space?
     group_type == 'Space'
-  end
-
-  def send_notification
-    if request_type == 'invite'
-      Informer.deliver_invitation(self)
-    elsif request_type == 'request'
-      Informer.deliver_join_request(self)
-    end
   end
 
   private

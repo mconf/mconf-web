@@ -1,6 +1,6 @@
 #webconference-invitation-mail
   .header
-    = t('.message.header', :sender => @invitation.from.full_name, :email_sender => @invitation.from.email).html_safe
+    = t('.message.header', :sender => @invitation.sender.full_name, :email_sender => @invitation.sender.email).html_safe
 
   - unless @invitation.title.blank?
     .invite-title= @invitation.title
@@ -19,7 +19,7 @@
     .field
       %label= t('.message.join') + ':'
       %span= @invitation.url
-    - if @invitation.room.private
+    - if @invitation.target.private
       .field
         %label= t('.message.password') + ':'
-        %span= @invitation.room.attendee_password
+        %span= @invitation.target.attendee_password

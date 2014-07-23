@@ -20,7 +20,7 @@ class ProcessedJoinRequestNotifications
           Resque.logger << "Sending processed join request notification to user #{user.email}.\n"
           SpaceMailer.processed_join_request_email(join_request.id).deliver
         else
-          # notify via the website
+          # TODO: notify via the website
         end
       else
         user = join_request.introducer
@@ -29,7 +29,7 @@ class ProcessedJoinRequestNotifications
           Resque.logger << "Sending processed invitation notification to user #{user.email}.\n"
           SpaceMailer.processed_invitation_email(join_request.id).deliver
         else
-          # notify via the website
+          # TODO: notify via the website
         end
       end
 
