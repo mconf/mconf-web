@@ -226,7 +226,7 @@ describe ManageController do
 
     context "if params[:partial] is set" do
       before(:each) { get :spaces, :partial => true }
-      it { should render_template(:spaces_list) }
+      it { should render_template('manage/_spaces_list') }
       it { should_not render_with_layout }
     end
 

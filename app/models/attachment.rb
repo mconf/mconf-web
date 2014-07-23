@@ -57,12 +57,12 @@ class Attachment < ActiveRecord::Base
     end
 
     # TODO: this can and should be done in the sql query
-    attachments.sort!{|x,y| x.author.name <=> y.author.name } if params[:order] == 'author' && params[:direction] == 'desc'
-    attachments.sort!{|x,y| y.author.name <=> x.author.name } if params[:order] == 'author' && params[:direction] == 'asc'
-    attachments.sort!{|x,y| x.content_type.split("/").last <=> y.content_type.split("/").last } if params[:order] == 'type' && params[:direction] == 'desc'
-    attachments.sort!{|x,y| y.content_type.split("/").last <=> x.content_type.split("/").last } if params[:order] == 'type' && params[:direction] == 'asc'
-    attachments.sort!{|x,y| x.created_at <=> y.created_at } if params[:order] == 'created_at' && params[:direction] == 'desc'
-    attachments.sort!{|x,y| y.created_at <=> x.created_at } if params[:order] == 'created_at' && params[:direction] == 'asc'
+    # attachments.sort!{|x,y| x.author.name <=> y.author.name } if params[:order] == 'author' && params[:direction] == 'desc'
+    # attachments.sort!{|x,y| y.author.name <=> x.author.name } if params[:order] == 'author' && params[:direction] == 'asc'
+    # attachments.sort!{|x,y| x.content_type.split("/").last <=> y.content_type.split("/").last } if params[:order] == 'type' && params[:direction] == 'desc'
+    # attachments.sort!{|x,y| y.content_type.split("/").last <=> x.content_type.split("/").last } if params[:order] == 'type' && params[:direction] == 'asc'
+    # attachments.sort!{|x,y| x.created_at <=> y.created_at } if params[:order] == 'created_at' && params[:direction] == 'desc'
+    # attachments.sort!{|x,y| y.created_at <=> x.created_at } if params[:order] == 'created_at' && params[:direction] == 'asc'
 
     attachments
   end

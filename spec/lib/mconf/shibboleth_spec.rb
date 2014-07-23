@@ -524,6 +524,7 @@ describe Mconf::Shibboleth do
       }
       before(:each) {
         expect { @subject = shibboleth.create_user }.to change{ User.count }.by(1)
+        @subject.reload
       }
       it { @subject.should eq(User.last) }
       it("validates the email") { @subject.email.should eq('any@email.com') }

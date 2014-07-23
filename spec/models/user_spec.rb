@@ -54,7 +54,7 @@ describe User do
     end
 
     it "has the user as owner" do
-      user.bigbluebutton_room.owner.should be(user)
+      user.bigbluebutton_room.owner.should eq(user)
     end
 
     it "has param and name equal the user's username" do
