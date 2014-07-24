@@ -60,7 +60,7 @@ namespace :db do
       user.notification = User::NOTIFICATION_VIA_EMAIL
       user.encrypted_password = "123"
 
-      Profile.populate 1 do |profile|
+      Profile.create do |profile|
         profile.user_id = user.id
         profile.full_name = Faker::Name.name
         profile.organization = Populator.words(1..3).titleize
@@ -170,7 +170,7 @@ namespace :db do
     puts "* Create spaces: webconference rooms"
     Space.all.each do |space|
       if space.bigbluebutton_room.nil?
-        BigbluebuttonRoom.populate 1 do |room|
+        BigbluebuttonRoom.create do |room|
           room.server_id = BigbluebuttonServer.default.id
           room.owner_id = space.id
           room.owner_type = 'Space'
@@ -194,7 +194,7 @@ namespace :db do
       available_users = User.all.to_a
 
       puts "* Create spaces: \"#{space.name}\" - add first admin"
-      Permission.populate 1 do |permission|
+      Permission.create do |permission|
         user = available_users.delete_at(rand(available_users.size))
         permission.user_id = user.id
         permission.subject_id = space.id
@@ -307,14 +307,14 @@ namespace :db do
 
     puts "* Create statistics and last details for spaces (#{Space.count} spaces)"
     Space.all.each do |space|
-      Statistic.populate 1 do |statistic|
+      Statistic.create do |statistic|
         statistic.url = "/spaces/" + space.permalink
         statistic.unique_pageviews = 0..300
       end
 
-      total_posts = space.posts.dup
+      total_posts = space.posts.to_a
       # The first Post should not have parent
-      final_posts = Array.new << total_posts.shift
+      final_posts = [] << total_posts.shift
 
       total_posts.inject final_posts do |posts, post|
         parent = posts[rand(posts.size)]
