@@ -88,7 +88,7 @@ pt-br:
       administrator: "Administrador global"
       normal_user: "Usuário normal"
       guest: Convidado
-      guest_name: "Usuário convidado \(%{email}\)"
+      guest_name: "Usuário convidado (%{email})"
       removed: "<usuário removido>"
     yes_: "Sim"
     webconference:
