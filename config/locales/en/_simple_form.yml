@@ -22,6 +22,7 @@ en:
         users: "Search people by name or email. If you can't find them, just add their email address. Type and press enter to insert a new item."
       site:
         analytics_code: "Code for your Google Analytics account. Leave it blank to disable. Example: \"UA-12345678-9\""
+        domain: "The domain of your website. Do not include the protocol (e.g. \"http\"), only the full domain. Example: \"my-server.org/web-portal\""
         events_enabled: "Enable or disable the event module. To enable it, you must have the event module installed. Restart the application to apply the changes."
         exception_notifications: "Send debugging emails whenever the application crashes"
         exception_notifications_email: "Use either spaces, commas or semi-colons to separate different emails."
@@ -39,6 +40,7 @@ en:
         presence_domain: "Domain used to identify the XMPP server."
         registration_enabled: "If checked, users can create new accounts. Otherwise, users will only be able to access the website if they already have an account. Moreover, if this option is disabled, new accounts can still be created through secondary login methods such as Shibboleth and LDAP."
         require_registration_approval: "When checked, users will be able to register new accounts, but they will only be allowed to access the site once an administrator approves his account. Otherwise the users can freely access the website after registration. Be aware that if there are pending approvals and you uncheck this flag, these users will not be automatically approved!"
+        shib_always_new_account: "When enabled it will force shibboleth to always create a new account when a user signs in for the first time, skipping the association page."
         shib_email_field: "Required. When a user authenticates in a Shibboleth service provider this field will be used to obtain the user's email. Example: Shib-inetOrgPerson-mail"
         shib_env_variables: "Shibboleth returns a set of environment variables when the user authenticates. All the variables specified in this list will be fetched from the environment and set attributes of the user. Specify each variable in a different line. The comparisons are case-insensitive and the strings are trimmed, and you can also use regular expressions. If this field is empty all variables that start with \"Shib-\" will be fetched."
         shib_login_field: "Not required. When a user authenticates in a Shibboleth service provider this field will be used to obtain the user's login. If not informed the application will generate a login from the user's name. Example: \"Shib-inetOrgPerson-cn\"."
@@ -52,9 +54,11 @@ en:
       space:
         bigbluebutton_room:
           attendee_password: "This password will only be used if the space is set as private!"
+          auto_start_audio: "Check this option to automatically share a user's microphone after joining a meeting"
+          auto_start_video: "Check this option to automatically share a user's camera after joining a meeting"
           moderator_password: "This password will only be used if the space is set as private!"
-          welcome_msg: "This message will be shown on the chat when a user joins the conference. Leave it empty to use the default message. You can include meeting specific information with the variables %%CONFNAME%%, %%DIALNUM%% and %%CONFNUM%%"
           presenter_share_only: "When set to true only the presenter is allowed to share his webcam and microphone. This is great for one-to-many conferences."
+          welcome_msg: "This message will be shown on the chat when a user joins the conference. Leave it empty to use the default message. You can include meeting specific information with the variables %%CONFNAME%%, %%DIALNUM%% and %%CONFNUM%%"
         permalink: "This attribute is used to identify your space in URLs, including the URL of its conference room"
         public: "Collaborative spaces can be public, for anybody to watch what happens in them, or private, where members only have access to the activities of the space"
         repository: "The document repository is a place where users of this space can upload and share documents of any type"
@@ -62,10 +66,12 @@ en:
         approved: "If checked, the user will be able to access the website, otherwise his login will be blocked."
         bigbluebutton_room:
           attendee_password: "This password will only be used if the room is set as private!"
+          auto_start_audio: "Check this option to automatically share a user's microphone after joining a meeting"
+          auto_start_video: "Check this option to automatically share a user's camera after joining a meeting"
           moderator_password: "This password will only be used if the room is set as private!"
+          presenter_share_only: "When set to true only the presenter is allowed to share his webcam and microphone. This is great for one-to-many conferences."
           private: "Private rooms require a password for users to join. Public rooms can be accessed by anyone with its link. Only you can start a conference in your room, regardless of if it's private or public."
           welcome_msg: "This message will be shown on the chat when a user joins the conference. Leave it empty to use the default message. You can include meeting specific information with the variables %%CONFNAME%%, %%DIALNUM%% and %%CONFNUM%%"
-          presenter_share_only: "When set to true only the presenter is allowed to share his webcam and microphone. This is great for one-to-many conferences."
         can_record: "Check this option to allow this user to record meetings in his personal room or in rooms of spaces he belongs to"
         superuser: "Check this option to make this user a global administrator of this website"
         timezone: "By selecting a time-zone there will be no misunderstanding when creating events with people from other locations"

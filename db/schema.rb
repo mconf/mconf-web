@@ -102,6 +102,8 @@ ActiveRecord::Schema.define(:version => 20140721191825) do
     t.datetime "created_at",           :null => false
     t.datetime "updated_at",           :null => false
     t.boolean  "presenter_share_only"
+    t.boolean  "auto_start_video"
+    t.boolean  "auto_start_audio"
   end
 
   add_index "bigbluebutton_room_options", ["room_id"], :name => "index_bigbluebutton_room_options_on_room_id"
@@ -360,6 +362,7 @@ ActiveRecord::Schema.define(:version => 20140721191825) do
     t.boolean  "registration_enabled",           :default => true,  :null => false
     t.string   "shib_principal_name_field"
     t.string   "ldap_filter"
+    t.boolean  "shib_always_new_account",        :default => false
   end
 
   create_table "spaces", :force => true do |t|
