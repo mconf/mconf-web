@@ -10,10 +10,8 @@ class EventMailer < BaseMailer
   # Sends an invitation to an event.
   # Receives the ID of an Invitation object in `invitation` and gets everything else
   # from this object.
-  def invitation_mail(invitation)
-
-    @invitation = find_invitation(invitation)
-    return if @invitation.nil?
+  def invitation_email(invitation)
+    @invitation = Invitation.find(invitation)
 
     if @invitation.recipient.nil?
       if @invitation.recipient_email.nil?
@@ -42,7 +40,7 @@ class EventMailer < BaseMailer
       # Set time zone on event for sending
       @event.time_zone = time_zone
 
-      subject = t('event_mailer.invitation_mail.subject', :event => @event.name)
+      subject = t('event_mailer.invitation_email.subject', :event => @event.name)
       attachments["#{@event.permalink}.ics"] = { :mime_type => 'text/calendar', :content => @invitation.to_ical }
 
       if to.is_a?(User)
@@ -56,7 +54,7 @@ class EventMailer < BaseMailer
   def error_handler(message, error, action, args)
     Rails.logger.error "Handling email error on EventMailer"
     case action
-    when "invitation_mail"
+    when "invitation_email"
       invitation = Invitation.find_by_id(args[0])
       if invitation.nil?
         Rails.logger.error "Could not find the Invitation #{args[0]}, won't mark it as not sent"
@@ -68,32 +66,6 @@ class EventMailer < BaseMailer
       end
     else
       raise error
-    end
-  end
-
-  private
-
-  def find_invitation(id)
-    invitation = Invitation.find_by_id(id)
-    if invitation.nil?
-      Rails.logger.error "Aborting Event because the invitation object was not found"
-      Rails.logger.error "Parameters: invitation = #{id}"
-      nil
-    else
-      invitation
-    end
-  end
-
-  def find_invitation_recipient(invitation)
-    if p_to.is_a?(String) # assume all strings are emails
-      p_to
-    else
-      to = User.find_by_id(p_to)
-      if to.nil?
-        nil
-      else
-        to
-      end
     end
   end
 

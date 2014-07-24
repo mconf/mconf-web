@@ -6,11 +6,11 @@
 
 require 'spec_helper'
 
-describe WebConferenceMailer do
+describe EventMailer do
   before { Helpers.setup_site_for_email_tests }
 
-  let(:invitation) { FactoryGirl.create(:web_conference_invitation) }
-  let(:mail) { WebConferenceMailer.invitation_email(invitation.id) }
+  let(:invitation) { FactoryGirl.create(:event_invitation) }
+  let(:mail) { EventMailer.invitation_email(invitation.id) }
 
   describe '.invitation_email' do
 
@@ -20,7 +20,7 @@ describe WebConferenceMailer do
         @invitation.update_attribute(:recipient_id, nil)
         @invitation.update_attribute(:recipient_email, nil)
       }
-      let(:mail) { WebConferenceMailer.invitation_email(@invitation.id) }
+      let(:mail) { EventMailer.invitation_email(@invitation.id) }
       it("should return a null mail") {
         # TODO: didn't find a way to ensure mail is a ActionMailer::Base::NullMail
         mail.body.should be_empty
@@ -35,7 +35,7 @@ describe WebConferenceMailer do
 
       it("sets 'to'") { mail.to.should eql([invitation.recipient.email]) }
       it("sets 'subject'") {
-        text = I18n.t('web_conference_mailer.invitation_email.subject', name: invitation.sender.name)
+        text = I18n.t('event_mailer.invitation_email.subject', event: invitation.target.name)
         text = "[#{Site.current.name}] #{text}"
         mail.subject.should eql(text)
       }
@@ -47,17 +47,9 @@ describe WebConferenceMailer do
         mail.body.encoded.should match(invitation.description)
         mail.body.encoded.should match(invitation.url)
       }
-      it("renders the attendee password if the room is private") {
-        invitation.target.update_attributes(private: true)
-        mail.body.encoded.should match(invitation.target.attendee_password)
-      }
-      it("doesn't render the attendee password if the room is public") {
-        invitation.target.update_attributes(private: false)
-        mail.body.encoded.should_not match(invitation.target.attendee_password)
-      }
     end
 
-    it "uses the receiver's timezone for the start and end dates"
+    it "uses the receiver's timezone for the dates"
     it "uses the site's timezone if the user has no timezone set"
     it "sends an .ics file attached"
 
@@ -68,9 +60,10 @@ describe WebConferenceMailer do
         invitation.sender.update_attribute(:locale, "en")
       }
       it {
-        content = I18n.t('web_conference_mailer.invitation_email.message.header',
+        content = I18n.t('event_mailer.invitation_email.message.header',
                          sender: invitation.sender.name,
-                         email_sender: invitation.sender.email, locale: "pt-br")
+                         email_sender: invitation.sender.email,
+                         event: invitation.target.name, locale: "pt-br")
         mail.html_part.body.encoded.should match(Regexp.escape(content))
       }
     end
@@ -82,9 +75,10 @@ describe WebConferenceMailer do
         invitation.sender.update_attribute(:locale, "en")
       }
       it {
-        content = I18n.t('web_conference_mailer.invitation_email.message.header',
+        content = I18n.t('event_mailer.invitation_email.message.header',
                          sender: invitation.sender.name,
-                         email_sender: invitation.sender.email, locale: "pt-br")
+                         email_sender: invitation.sender.email,
+                         event: invitation.target.name, locale: "pt-br")
         mail.html_part.body.encoded.should match(Regexp.escape(content))
       }
     end

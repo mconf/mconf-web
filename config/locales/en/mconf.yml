@@ -757,7 +757,6 @@ en:
     title2: "Space Invitation"
     to_accept_space: "To accept my invitation please visit 'URL'"
     to_event: "%{username} invites you to event %{eventname} in space %{space}"
-    to_space: "%{username} invites you to space %{space}"
     will_invite: "People you will invite"
     yes_accepted: accepted
   invite: 

@@ -5,7 +5,7 @@ en:
       content: "%{email} sent the following feedback:"
       subject: "Feedback"
   event_mailer:
-    invitation_mail:
+    invitation_email:
       message:
         start: "Starts on"
         end: "Ends on"
@@ -34,12 +34,12 @@ en:
       message:
         header: "The administrator of %{space} has %{action} your join request."
         link:
-          accepted: "You are now a member of %{space} and you can access it on <a href=\"%{space_url}\"> %{space_url} </a>"
-          rejected: "If you would like to request membership again please go to <a href=\"%{space_url}\"> %{space} </a>"
+          accepted: "You are now a member of %{space} and you can access it on <a href=\"%{space_url}\">%{space_url}</a>"
+          rejected: "If you would like to request membership again please go to <a href=\"%{space_url}\">%{space_url}</a>"
       rejected: "not accepted"
       subject: "Your admission in %{space} was %{action}"
   web_conference_mailer:
-     invitation_mail:
+     invitation_email:
       event_name: "Meeting with %{name}"
       message:
         end: "End"

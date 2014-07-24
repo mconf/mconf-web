@@ -32,10 +32,10 @@ class Invitation < ActiveRecord::Base
     result = true
 
     if self.recipient.nil?
-      mailer.invitation_mail(self.id).deliver
+      mailer.invitation_email(self.id).deliver
     else
       if self.recipient.notify_via_email?
-        mailer.invitation_mail(self.id).deliver
+        mailer.invitation_email(self.id).deliver
       end
       if self.recipient.notify_via_private_message?
         result = send_private_message
@@ -126,14 +126,14 @@ class Invitation < ActiveRecord::Base
   def send_private_message(user)
     I18n.with_locale(get_user_locale(user, false)) do
       content = ActionView::Base.new(Rails.configuration.paths["app/views"])
-        .render(:partial => 'web_conference_mailer/invitation_mail',
+        .render(:partial => 'web_conference_mailer/invitation_email',
                 :format => :pm,
                 :locals => { :invitation => self })
       opts = {
         :sender_id => self.sender.id,
         :receiver_id => user.id,
         :body => content,
-        :title => I18n.t('web_conference_mailer.invitation_mail.subject', :name => self.sender.full_name)
+        :title => I18n.t('web_conference_mailer.invitation_email.subject', :name => self.sender.full_name)
       }
       private_message = PrivateMessage.new(opts)
       private_message.save

@@ -107,7 +107,7 @@ class CustomBigbluebuttonRoomsController < Bigbluebutton::RoomsController
         :target => @room,
         :starts_on => params[:invite][:starts_on],
         :ends_on => params[:invite][:ends_on],
-        :title => params[:invite][:title] || t('web_conference_mailer.invitation_mail.event_name', :name => current_user.full_name),
+        :title => params[:invite][:title] || t('web_conference_mailer.invitation_email.event_name', :name => current_user.full_name),
         :url => join_webconf_url(@room),
         :description => params[:invite][:message],
         :ready => true

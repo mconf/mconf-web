@@ -757,7 +757,6 @@ pt-br:
     title2: "Convite da comunidade"
     to_accept_space: "Para aceitar o convite por favor visite 'URL'"
     to_event: "%{username} convida você para o evento %{eventname} na comunidade %{space}"
-    to_space: "%{username} convida você para a comunidade %{space}"
     will_invite: "Pessoas que você vai convidar"
     yes_accepted: aceitou
   invite:

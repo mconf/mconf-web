@@ -5,7 +5,7 @@ pt-br:
       content: "%{email} enviou o seguinte feedback:"
       subject: "Feedback"
   event_mailer:
-    invitation_mail:
+    invitation_email:
       message:
         start: "Início"
         end: "Término"
@@ -14,12 +14,12 @@ pt-br:
   space_mailer:
     invitation_email:
       message:
-        header: "You have been invited by <b>%{sender}</b> (%{email_sender}) to a <b>%{space}</b> space:"
+        header: "Você foi convidado por <b>%{sender}</b> (%{email_sender}) para a comunidade <b>%{space}</b>:"
         link: "Para aceitar o convite por favor visite <a href=\"%{url}\">%{url}</a><br/>Você pode encontrar mais informações sobre esta comunidade em <a href=\"%{space_url}\">%{space_url}</a>"
       subject: "<b>%{username}</b> convida você para a comunidade %{space}"
     join_request_email:
       message:
-        header: "<b>%{candidate}</b> quer participar da comunidade %{space} administrado por você."
+        header: "<b>%{candidate}</b> quer participar da comunidade %{space} administrada por você."
         link: "Para atender o pedido visite <a href=\"%{url}\">%{url}</a>"
       subject: "<b>%{candidate}</b> quer participar da comunidade %{space}."
     processed_invitation_email:
@@ -34,12 +34,12 @@ pt-br:
       message:
         header: "Sua admissão na comunidade %{space} foi %{action} pela administração."
         link:
-          accepted: "Você agora é membro da comunidade %{space} e agora você pode acessá-la pelo endereço: <a href=\"%{space_url}\"> %{space_url} </a>"
-          rejected: "Se você desejar solicitar adesão de novo por favor vá para <a href=\"%{space_url}\"> %{space} </a>"
+          accepted: "Você agora é membro da comunidade %{space} e agora você pode acessá-la pelo endereço: <a href=\"%{space_url}\">%{space_url}</a>"
+          rejected: "Se você deseja solicitar adesão novamente acesse <a href=\"%{space_url}\">%{space_url}</a>"
       rejected: "rejeitada"
       subject: "Sua admissão na comunidade %{space} foi %{action}"
   web_conference_mailer:
-    invitation_mail:
+    invitation_email:
       event_name: "Conferência com %{name}"
       message:
         end: "Fim"
