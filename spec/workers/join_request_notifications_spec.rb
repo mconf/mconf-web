@@ -16,6 +16,14 @@ describe JoinRequestNotifications do
   let(:invite1) { FactoryGirl.create(:space_invite_request, :group => space) }
   let(:invite2) { FactoryGirl.create(:space_invite_request, :group => space) }
 
+  # save all join requests to force a recent activity to be created
+  before {
+    jr1.save!
+    jr2.save!
+    invite1.save!
+    invite2.save!
+  }
+
   subject { SpaceMailer }
 
   describe "#perform" do
@@ -24,8 +32,6 @@ describe JoinRequestNotifications do
         before do
           ResqueSpec.reset!
           space.add_member!(admin_1, "Admin")
-          jr1.group = jr2.group = space
-          invite1.group = invite2.group = space
           JoinRequestNotifications.perform
         end
 
@@ -43,8 +49,6 @@ describe JoinRequestNotifications do
           ResqueSpec.reset!
           space.add_member!(admin_1, "Admin")
           space.add_member!(admin_2, "Admin")
-          jr1.group = jr2.group = space
-          invite1.group = invite2.group = space
           JoinRequestNotifications.perform
         end
 
