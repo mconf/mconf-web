@@ -7,28 +7,20 @@
 require 'spec_helper'
 
 describe PasswordsController do
-# TODO: adapt it to confirmations controller, it's just a copy from sessions spec
-  describe "#new" do
-    before { @request.env["devise.mapping"] = Devise.mappings[:user] }
+  render_views
 
-    context "after a user successfully login" do
-      before do
-        login_as(FactoryGirl.create(:user))
-        get :new
+    describe "#new" do
+      before { @request.env["devise.mapping"] = Devise.mappings[:user] }
+
+      describe "if local authentication is enabled in the site" do
+        before(:each) { get :new }
+        it { should be_true }
       end
 
-      it { response.should redirect_to my_home_path }
+      describe "if local authentication is disabled in the site" do
+        before { Site.current.update_attribute(:disable_local_auth, true) }
+        it { expect { get :new }.to raise_error(ActionController::RoutingError) }
+      end
     end
-  end
-
-  # The class used to authenticate users via LDAP is a custom strategy for devise, that has its
-  # own unit tests. The block here is to test it integrated with devise, calling the action
-  # directly on the controller.
-  context "authentication via LDAP" do
-
-    # TODO: post user information to /users/login, mock the LDAP connection somehow, and check
-    #   the user will actually be authenticated and sign in by devise
-    it "authenticates a user via LDAP and logs the user in"
-  end
 
 end

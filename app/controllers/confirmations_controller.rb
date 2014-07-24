@@ -8,7 +8,7 @@
 class ConfirmationsController < Devise::ConfirmationsController
   layout 'no_sidebar'
 
-  before_filter :check_registration_enabled, :only => [:new, :create]
+  before_filter :check_registration_enabled, :only => [:new]
 
   private
 

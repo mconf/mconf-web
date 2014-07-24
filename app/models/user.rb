@@ -19,6 +19,7 @@ class User < ActiveRecord::Base
   attr_accessor :login
   # To login with username or email, see: http://goo.gl/zdIZ5
   def self.find_first_by_auth_conditions(warden_conditions)
+    puts "================ warden is: #{warden_conditions}"
     conditions = warden_conditions.dup
     if login = conditions.delete(:login)
       hash = { :value => login.downcase }
@@ -319,8 +320,8 @@ class User < ActiveRecord::Base
   # Overrides a method from devise, see:
   # https://github.com/plataformatec/devise/wiki/How-To%3a-Require-admin-to-activate-account-before-sign_in
   def active_for_authentication?
-    super && (!Site.current.require_registration_approval? || approved?) &&
-      local_authentication_validity
+    super && (!Site.current.require_registration_approval? || approved?)# &&
+      #local_authentication_validity
   end
 
   # Overrides a method from devise, see:

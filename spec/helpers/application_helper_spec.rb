@@ -171,4 +171,8 @@ describe ApplicationHelper do
     it "returns a localized string"
   end
 
+  describe "#local_authentication_disabled?" do
+    it { local_authentication_disabled?.should eq(Site.current.disable_local_auth) }
+  end
+
 end

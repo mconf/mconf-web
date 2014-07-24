@@ -431,6 +431,24 @@ describe User do
         it { user.active_for_authentication?.should be_true }
       end
     end
+    context "if #disable_local_auth is set in the current site" do
+      before { Site.current.update_attributes(:disable_local_auth => true) }
+      context "true only if the user is admin" do
+        let(:user) { FactoryGirl.create(:superuser) }
+        it { user.active_for_authentication?.should be_true }
+      end
+      context "false if normal user tries to login" do
+        let(:user) { FactoryGirl.create(:user) }
+        it { user.active_for_authentication?.should be_false }
+      end
+    end
+
+    context "if #disable_local_auth is not set in the current site" do
+      context "true for every user" do
+        let(:user) { FactoryGirl.create(:user) }
+        it { user.active_for_authentication?.should be_true }
+      end
+    end
   end
 
   describe "#inactive_message" do

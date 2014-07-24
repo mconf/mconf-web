@@ -8,7 +8,7 @@
 class PasswordsController < Devise::PasswordsController
   layout 'no_sidebar'
 
-  before_filter :check_only_local_authentication, :only => [:new, :create]
+  before_filter :check_only_local_authentication, :only => [:new]
 
   private
 
