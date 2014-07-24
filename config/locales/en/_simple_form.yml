@@ -14,6 +14,9 @@ en:
     buttons:
       cancel: "Cancel"
       or: "or"
+    labels:
+      feedback:
+        from: "Your email"
     hints:
       invite:
         users: "Search people by name or email. If you can't find them, just add their email address. Type and press enter to insert a new item."

@@ -25,9 +25,6 @@ gem 'therubyracer', :require => 'v8'
 gem 'haml'
 gem 'will_paginate'
 gem 'chronic'
-gem 'delayed_job', '~> 3.0.0'
-gem 'delayed_job_active_record'
-gem 'daemons' # for delayed_job
 gem 'rails_autolink'
 gem 'whenever', :require => false
 gem 'garb'
@@ -40,9 +37,15 @@ gem 'yajl-ruby' # json parser for rabl
 gem 'valid_email', :git => 'https://github.com/Fire-Dragon-DoL/valid_email.git'
 gem 'public_activity'
 
+# For queues
+gem 'resque', :require => 'resque/server'
+gem 'resque-scheduler', :require => 'resque_scheduler/server'
+gem 'resque_mailer'
+
 # Authentication and authorization
 gem 'devise'
 gem 'devise-encryptable' # TODO: only while we have old station users
+gem 'devise-async'
 gem 'cancancan', '~> 1.8'
 gem 'net-ldap'
 
@@ -51,7 +54,6 @@ gem 'bigbluebutton-api-ruby', :git => 'git://github.com/mconf/bigbluebutton-api-
 gem 'bigbluebutton_rails', :git => 'git://github.com/mconf/bigbluebutton_rails.git', :branch => 'master'
 # The gems below are for bigbluebutton_rails
 gem 'strong_parameters'
-gem 'resque'
 gem 'browser'
 
 # Used on Profile to generate a vcard
@@ -124,4 +126,8 @@ group :development, :test do
   gem 'htmlentities'
   gem 'turn', '0.8.2', :require => false # TODO: why 0.8.2?
   gem 'simplecov', :require => false
+end
+
+group :test do
+  gem 'resque_spec'
 end

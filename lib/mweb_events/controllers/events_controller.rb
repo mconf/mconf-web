@@ -22,23 +22,33 @@ MwebEvents::EventsController.class_eval do
     @event = MwebEvents::Event.find_by_permalink(params[:event_id])
     authorize! :send_invitation, @event
 
-    # the invitation object to be sent
-    invitation = Mconf::EventInvitation.new
-    invitation.mailer = EventMailer
-    invitation.from = current_user
-    invitation.event = @event
-    invitation.title = params[:invite][:title]
-    invitation.url = @event.full_url
-    invitation.description = params[:invite][:message]
+    invitation_params = {
+      :sender => current_user,
+      :target => @event,
+      :title => params[:invite][:title],
+      :url => @event.full_url,
+      :description => params[:invite][:message],
+      :ready => true
+    }
 
-    # send the invitation to all users
-    # make `users` an array of Users and emails
-    users = Mconf::Invitation.split_invitations(params[:invite][:users])
-    succeeded, failed = Mconf::Invitation.send_batch(invitation, users)
+    # creates an invitation for each user
+    invitations = []
+    users = Invitation.split_invitation_senders(params[:invite][:users])
+    users.each do |user|
+      if user.is_a? String
+        invitation_params[:recipient_email] = user
+      else
+        invitation_params[:recipient] = User.find_by_id(user)
+      end
+      invitations << EventInvitation.create(invitation_params)
+    end
 
-    flash[:success] = Mconf::Invitation.build_flash(
+    # we do a check just to give a better response to the user, since the invitations will
+    # only be sent in background later on
+    succeeded, failed = Invitation.check_invitations(invitations)
+    flash[:success] = Invitation.build_flash(
       succeeded, t('mweb_events.events.send_invitation.success')) unless succeeded.empty?
-    flash[:error] = Mconf::Invitation.build_flash(
+    flash[:error] = Invitation.build_flash(
       failed, t('mweb_events.events.send_invitation.errors')) unless failed.empty?
 
     respond_to do |format|

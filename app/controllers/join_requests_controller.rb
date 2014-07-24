@@ -9,7 +9,7 @@ class JoinRequestsController < ApplicationController
 
   # Recent activity for join requests
   after_filter :only => [:update] do
-    @space.new_activity :join, current_user unless @join_request.errors.any? || !@join_request.accepted?
+    @space.new_activity(:join, current_user, @join_request) unless @join_request.errors.any? || !@join_request.accepted?
   end
 
   load_resource :space, :find_by => :permalink
@@ -92,7 +92,6 @@ class JoinRequestsController < ApplicationController
 
         if @join_request.save
           flash[:notice] = t('join_requests.create.created')
-          @join_request.send_notification  # send email/message
 
           if @space.public
             redirect_to space_path(@space)
@@ -178,7 +177,6 @@ class JoinRequestsController < ApplicationController
         jr.introducer = current_user
 
         if jr.save
-          jr.send_notification # send email/message
           success.push jr.candidate.username
         else
           errors.push "#{jr.email}: #{jr.errors.full_messages.join(', ')}"

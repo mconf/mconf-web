@@ -20,6 +20,10 @@
 Mconf::Application.routes.draw do
   root :to => 'frontpage#show'
 
+  constraints CanAccessResque do
+    mount Resque::Server, :at => 'manage/resque'
+  end
+
   # devise
   controllers = { :sessions => "sessions", :registrations => "registrations" }
   paths = { :sign_in => "login", :sign_out => "logout", :sign_up => "signup" }

@@ -11,9 +11,14 @@ FactoryGirl.define do
     jr.role { Role.find_by_name_and_stage_type('User', 'Space') }
     jr.email
     jr.request_type 'request'
+    jr.comment { Faker::Lorem.paragraph }
   end
 
   factory :space_join_request, :parent => :join_request do |jr|
     jr.association :group, :factory => :space
+  end
+
+  factory :space_invite_request, :parent => :space_join_request do |jr|
+    jr.request_type "invite"
   end
 end

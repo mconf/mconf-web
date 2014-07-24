@@ -23,28 +23,31 @@ class FeedbackController < ApplicationController
   end
 
   def create
-    if (params[:subject].present? and params[:from].present? and params[:body].present?)
-      if (params[:from]).match(/\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i)
-        Notifier.delay.feedback_email(params[:from],params[:subject], params[:body] )
+    if params[:feedback].present? and
+        params[:feedback][:subject].present? and
+        params[:feedback][:from].present? and
+        params[:feedback][:message].present?
+      if valid_email? params[:feedback][:from]
+        ApplicationMailer.feedback_email(params[:feedback][:from], params[:feedback][:subject], params[:feedback][:message]).deliver
         respond_to do |format|
           format.html {
-            flash[:success] = t('feedback.sent')
-            redirect_to root_path()
+            flash[:success] = t('feedback.create.success')
+            redirect_to :back
           }
         end
       else
         respond_to do |format|
           format.html {
-            flash[:error] = t('check_mail')
-            render :action => "new"
+            flash[:error] = t('feedback.create.check_mail')
+            redirect_to :back
           }
         end
       end
     else
       respond_to do |format|
         format.html {
-          flash[:error] = t('fill_fields')
-          render :action => "new"
+          flash[:error] = t('feedback.create.fill_fields')
+          redirect_to :back
         }
       end
     end
