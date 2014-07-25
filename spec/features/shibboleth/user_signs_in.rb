@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-feature 'User signs in' do
+feature 'User signs in via shibboleth' do
   scenario "for the first time when the flag `shib_always_new_account` is set" do
     pending
     # redirects the user to his home page, skipping the association page
@@ -28,5 +28,32 @@ feature 'User signs in' do
   scenario "the user enters the wrong credentials in the association page" do
     pending
     # renders the association page showing a notification error
+  end
+
+  feature "redirects the user properly" do
+    scenario "when he was in the frontpage" do
+      pending
+      # he user clicks to go to the login page
+      # when the user clicks to sign in via shibboleth redirects the user to the association page
+      # user clicks to create a new account
+      # redirects the user to his home page
+    end
+
+    scenario "from a space's page" do
+      pending
+      # he user clicks to go to the login page
+      # when the user clicks to sign in via shibboleth redirects the user to the association page
+      # user clicks to create a new account
+      # redirects the user to the space's page
+    end
+
+    scenario "from the association page" do
+      pending
+      # the user was in the shibboleth association page "/secure/associate"
+      # he user clicks to go to the login page
+      # when the user clicks to sign in via shibboleth redirects the user to the association page
+      # user clicks to create a new account
+      # redirects the user to the space's page
+    end
   end
 end
