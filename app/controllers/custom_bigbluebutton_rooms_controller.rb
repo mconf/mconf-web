@@ -102,39 +102,36 @@ class CustomBigbluebuttonRoomsController < Bigbluebutton::RoomsController
       flash[:error] = t('custom_bigbluebutton_rooms.send_invitation.error_date_format')
 
     else
-      # the invitation object to be sent
-      invitation = Mconf::Invitation.new
-      invitation.from = current_user
-      invitation.room = @room
-      invitation.starts_on = params[:invite][:starts_on]
-      invitation.ends_on = params[:invite][:ends_on]
-      invitation.title = params[:invite][:title] || t('web_conference_mailer.invitation_mail.event_name', :name => from.full_name)
-      invitation.url = join_webconf_url(@room, :host => current_site.domain)
-      invitation.description = params[:invite][:message]
-
-      # send the invitation to all users
-      # make `users` an array of Users and emails
-      users = params[:invite][:users].split(",")
-      users = users.map { |user_str|
-        user = User.find_by_id(user_str)
-        user ? user : user_str
+      invitation_params = {
+        :sender => current_user,
+        :target => @room,
+        :starts_on => params[:invite][:starts_on],
+        :ends_on => params[:invite][:ends_on],
+        :title => params[:invite][:title] || t('web_conference_mailer.invitation_email.event_name', :name => current_user.full_name),
+        :url => join_webconf_url(@room),
+        :description => params[:invite][:message],
+        :ready => true
       }
-      succeeded, failed = Mconf::Invitation.send_batch(invitation, users)
 
-      unless succeeded.empty?
-        success_msg = t('custom_bigbluebutton_rooms.send_invitation.success') + " "
-        success_msg += succeeded.map { |user|
-          user.is_a?(User) ? user.full_name : user
-        }.join(", ")
-        flash[:success] = success_msg
+      # creates an invitation for each user
+      invitations = []
+      users = Invitation.split_invitation_senders(params[:invite][:users])
+      users.each do |user|
+        if user.is_a? String
+          invitation_params[:recipient_email] = user
+        else
+          invitation_params[:recipient] = User.find_by_id(user)
+        end
+        invitations << WebConferenceInvitation.create(invitation_params)
       end
-      unless failed.empty?
-        error_msg = t('custom_bigbluebutton_rooms.send_invitation.error') + " "
-        error_msg += failed.map { |user|
-          user.is_a?(User) ? user.full_name : user
-        }.join(", ")
-        flash[:error] = error_msg
-      end
+
+      # we do a check just to give a better response to the user, since the invitations will
+      # only be sent in background later on
+      succeeded, failed = Invitation.check_invitations(invitations)
+      flash[:success] = Invitation.build_flash(
+        succeeded, t('custom_bigbluebutton_rooms.send_invitation.success')) unless succeeded.empty?
+      flash[:error] = Invitation.build_flash(
+        failed, t('custom_bigbluebutton_rooms.send_invitation.errors')) unless failed.empty?
     end
 
     respond_to do |format|
@@ -179,7 +176,8 @@ class CustomBigbluebuttonRoomsController < Bigbluebutton::RoomsController
     if current_user.superuser
       super
     else
-      [ :attendee_password, :moderator_password, :private, :record, :default_layout, :presenter_share_only,
+      [ :attendee_password, :moderator_password, :private, :record, :default_layout,
+        :presenter_share_only, :auto_start_video, :auto_start_audio, :welcome_msg, 
         :metadata_attributes => [ :id, :name, :content, :_destroy, :owner_id ] ]
     end
   end

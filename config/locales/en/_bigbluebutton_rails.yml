@@ -24,7 +24,9 @@ en:
       bigbluebutton_room:
         attendee_password: "Attendee Password"
         default_layout: "Default Layout"
-        presenter_share_only: "Only Presenter Shares Audio and Video"
+        presenter_share_only: "Only presenter shares audio and video"
+        auto_start_video: "Auto start video"
+        auto_start_audio: "Auto start audio"
         dial_number: "Dial Number"
         duration: Duration
         external: "Externally created"

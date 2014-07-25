@@ -1,0 +1,19 @@
+#feedback-form
+
+  .modal-header
+    = modal_close_button
+    %h3= t('.title')
+
+  = simple_form_for :feedback, :url => feedback_index_path, :html => { :class => "single-column" } do |f|
+    .modal-body
+      .note= t('.note')
+      - if user_signed_in?
+        = hidden_field_tag "feedback[from]", current_user.email
+        = f.input :subject, :autofocus => true, :required => true
+      - else
+        = f.input :from, :as => :email, :autofocus => true, :required => true
+        = f.input :subject, :required => true
+      = f.input :message, :as => :text, :required => true
+
+    .modal-footer.form-actions
+      = f.button :wrapped, t("_other.send"), :class => "btn btn-primary", :cancel_modal => true

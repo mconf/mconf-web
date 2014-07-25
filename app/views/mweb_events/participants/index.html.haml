@@ -1,5 +1,9 @@
 = render "mweb_events/events/title"
 
+= content_for :sidebar do
+  = link_to t('.back_to_event'), @event, :class => "btn btn-block"
+  = render 'mweb_events/events/invite_button'
+
 %h3= t(".title")
 
 - if @participants.count > 0
@@ -16,6 +20,3 @@
 
 - else
   = t('.no_participants')
-
-%p
-  = link_to t('.back_to_event'), @event

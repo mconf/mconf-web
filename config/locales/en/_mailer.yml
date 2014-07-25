@@ -1,0 +1,50 @@
+---
+en:
+  application_mailer:
+    feedback_email:
+      content: "%{email} sent the following feedback:"
+      subject: "Feedback"
+  event_mailer:
+    invitation_email:
+      message:
+        start: "Starts on"
+        end: "Ends on"
+        header: "You have been invited to the event <b>%{event}</b> by <b>%{sender}</b> (%{email_sender}):"
+      subject: "You have been invited to the event %{event}"
+  space_mailer:
+    invitation_email:
+      message:
+        header: "You have been invited by <b>%{sender}</b> (%{email_sender}) to a <b>%{space}</b> space:"
+        link: "To accept this invitation please visit <a href=\"%{url}\">%{url}</a><br/>You can find more information about this space in <a href=\"%{space_url}\">%{space_url}</a>"
+      subject: "<b>%{username}</b> invites you to space %{space}"
+    join_request_email:
+      message:
+        header: "<b>%{candidate}</b> wants to participate in %{space} space administered by you."
+        link: "To answer the request please visit <a href=\"%{url}\">%{url}</a>"
+      subject: "<b>%{candidate}</b> wants to participate in %{space} space."
+    processed_invitation_email:
+      accepted: "accepted"
+      message:
+        header: "%{introducer},</br>%{name} has %{action} the invitation to the space %{space}"
+        link: "You can see the current list of users of the space in <a href=\"%{users_url}\"> %{users_url} </a>"
+      rejected: "not accepted"
+      subject: "%{name} has %{action} your invitation"
+    processed_join_request_email:
+      accepted: "accepted"
+      message:
+        header: "The administrator of %{space} has %{action} your join request."
+        link:
+          accepted: "You are now a member of %{space} and you can access it on <a href=\"%{space_url}\">%{space_url}</a>"
+          rejected: "If you would like to request membership again please go to <a href=\"%{space_url}\">%{space_url}</a>"
+      rejected: "not accepted"
+      subject: "Your admission in %{space} was %{action}"
+  web_conference_mailer:
+     invitation_email:
+      event_name: "Meeting with %{name}"
+      message:
+        end: "End"
+        header: "You have been invited by <b>%{sender}</b> (%{email_sender}) to a meeting:"
+        join: "Join at"
+        password: "Access key"
+        start: "Start"
+      subject: "You have been invited to a meeting by %{name}"

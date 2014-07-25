@@ -25,8 +25,8 @@ module Mconf
     def self.send_digest(to, date_start, date_end)
       posts, news, attachments, events, inbox = get_activity(to, date_start, date_end)
 
-      unless (posts.empty? && news.empty? && attachments.empty? && events.empty? && inbox.empty?)
-        Notifier.delay.digest_email(to, posts, news, attachments, events, inbox)
+      unless posts.empty? && news.empty? && attachments.empty? && events.empty? && inbox.empty?
+        ApplicationMailer.digest_email(to.id, posts, news, attachments, events, inbox).deliver
       end
     end
 
@@ -36,7 +36,7 @@ module Mconf
         model.where('space_id IN (?)', user_spaces).
         where("updated_at >= ?", date_start).
         where("updated_at <= ?", date_end).
-        order('updated_at desc')
+        order('updated_at desc').map { |x| x.id }
       end
 
       posts = filter.call(Post)
@@ -49,7 +49,7 @@ module Mconf
         events = MwebEvents::Event.
           where(:owner_id => user_spaces, :owner_type => "Space").
           within(date_start, date_end).
-          order('updated_at desc')
+          order('updated_at desc').map { |x| x.id }
       else
         events = []
       end

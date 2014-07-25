@@ -8,6 +8,18 @@ require 'spec_helper'
 
 describe SessionsController do
 
+  describe "#new" do
+    before { @request.env["devise.mapping"] = Devise.mappings[:user] }
+
+    context "if there's already a user signed in" do
+      before do
+        login_as(FactoryGirl.create(:user))
+        get :new
+      end
+      it { response.should redirect_to my_home_path }
+    end
+  end
+
   # The class used to authenticate users via LDAP is a custom strategy for devise, that has its
   # own unit tests. The block here is to test it integrated with devise, calling the action
   # directly on the controller.

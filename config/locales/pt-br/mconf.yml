@@ -12,6 +12,10 @@ pt-br:
         create_html: "Uma reunião foi iniciada na sala do usuário %{owner} em %{time}"
       space:
         create_html: "Uma reunião foi iniciada na comunidade %{owner} em %{time}"
+    join_request:
+      invite_html: "foi convidado(a) para entrar na comunidade"
+      invite_with_introducer_html: "foi convidado(a) por <a href=\"%{introducer_url}\">%{introducer}</a> para entrar na comunidade"
+      request_html: "requisitou ingresso na comunidade"
     mweb_events_event:
       create_html: criou o evento %{name} na comunidade
       attend_html: participará do evento %{name} da comunidade
@@ -164,6 +168,7 @@ pt-br:
         registration_enabled: "Permitir que usuários criem novas contas"
         require_registration_approval: "Requerer que administradores aceitem novas contas"
         signature: "Assinatura"
+        shib_always_new_account: "Shibboleth: Sempre criar uma nova conta"
         shib_enabled: "Shibboleth: Habilitar"
         shib_email_field: "Shibboleth: Campo para email"
         shib_env_variables: "Shibboleth: Variáveis de ambiente"
@@ -400,7 +405,6 @@ pt-br:
       offline: "Offline"
     typing: "está digitando.."
     title: "Bate-papo"
-  check_mail: "Por favor, verifique seu e-mail"
   city: Cidade
   click_here_to_see_more: "Clique aqui para ver mais"
   click_to_hide: "Clique para esconder"
@@ -654,22 +658,20 @@ pt-br:
     one: Erro
     other: Erros
     vcc_warning: "Aviso geral:"
-  event_invitation:
-    instructions: "Clique Enviar para cada convite que você deseja enviar, e clique Finalizar quando você concluir."
-    sent: "Convites enviados com sucesso"
-    will_invite: "Pessoas que você irá convidar?"
   feedback:
-    email: "%{email} enviou o seguinte feedback:"
-    note: "Ajude-nos a melhorar o Mconf. Envie seus comentários, problemas e sugestões. Tentaremos responder o mais rapidamente possível."
-    one: Feedback
+    create:
+      check_mail: "Por favor verifique o e-mail informado no forumlário de feedback, ele parece estar errado."
+      fill_fields: "Por favor preencha todos os campospara enviar o feedback."
+      success: "Seu e-mail de feedback foi enviado com sucesso. Obrigado!"
+    new:
+      note: "Ajude-nos a melhorar o Mconf. Envie seus comentários, problemas e sugestões. Tentaremos responder o mais rapidamente possível."
+      title: "Feedback"
     send: "Enviar feedback"
     send_us: "Envie-nos feedback!"
-    sent: "Seu e-mail de feedback foi enviado com sucesso. Obrigado"
     webconf:
       stop_countdown: "Clique aqui para não fechá-la e usá-la para navegar no site"
       title: "Obrigado por participar desta conferência!"
       warning: "Esta janela será automaticamente fechada em <span class='countdown'>%{seconds}</span> segundos"
-  fill_fields: "Você deve preencher todos os campos"
   find:
     browse: Navegar
   find_in: "Pesquisar em:"
@@ -699,7 +701,6 @@ pt-br:
     invite_url: "URL para convites"
     my: "Página inicial"
     my_spaces: "Minhas comunidades"
-    my_spaces_tooltip: "Estão são as comunidades às quais você faz parte."
     no_spaces: "Você não faz parte de nenhuma comunidade. Você pode ver as comunidades existentes <a href=\"%{link}\">aqui</a>."
     one: home
     view_invite_url: "Ver URL para convites"
@@ -756,7 +757,6 @@ pt-br:
     title2: "Convite da comunidade"
     to_accept_space: "Para aceitar o convite por favor visite 'URL'"
     to_event: "%{username} convida você para o evento %{eventname} na comunidade %{space}"
-    to_space: "%{username} convida você para a comunidade %{space}"
     will_invite: "Pessoas que você vai convidar"
     yes_accepted: aceitou
   invite:
@@ -973,7 +973,10 @@ pt-br:
         other: "Outros"
         today: "Hoje"
       not_confirmed: "Sua conta ainda não foi confirmada. Por favor verifique o seu e-mail para ativá-la. (Não recebeu um e-mail? <a href=\"%{url}\">Clique aqui</a>.)"
-      pending_join_requests: "Você possui <span class='label label-important'>%{count}</span> requisições pendentes"
+      pending_join_requests:
+        one: "%{count} requisição pendente"
+        other: "%{count} requisições pendentes"
+      pending_join_requests_tooltip: "Estes são os convites que você recebeu para entrar em uma comunidade e os pedidos de ingresso que você enviou."
       view_all_activity: "Ver todas suas atividades"
       view_all_spaces: "Ver todas comunidades"
     edit_recording:
@@ -1538,10 +1541,12 @@ pt-br:
       view_join_request: "Ver a requisição que você enviou"
     thumbnail_view:
       no_spaces: "Nenhuma comunidade foi criada até o momento!"
-    unified_space: 
+    unified_space:
       private: "Comunidade privada"
       public: "Comunidade pública"
+      reply_invitation: "Responder ao convite"
       user_is_member: "Você é membro desta comunidade"
+      view_join_request: "Ver a requisição que você enviou"
       with_members: "com %{count} membros"
     users: "Usuários nesta comunidade"
     webconference:
@@ -1769,16 +1774,6 @@ pt-br:
     one: Versão
   view: "Ver"
   view_more: "Ver mais"
-  web_conference_mailer:
-    invitation_mail:
-      event_name: "Conferência com %{name}"
-      message:
-        end: "Fim"
-        header: "Você foi convidado por <b>%{sender}</b> (%{email_sender}) para uma conferência:"
-        join: "Acesso"
-        password: "Chave de acesso"
-        start: "Início"
-      subject: "Você foi convidado para uma conferência por %{name}"
   webconference:
     invite_webconference: "Convidar pessoas para a conferência"
     join: Join

@@ -20,6 +20,10 @@
 Mconf::Application.routes.draw do
   root :to => 'frontpage#show'
 
+  constraints CanAccessResque do
+    mount Resque::Server, :at => 'manage/resque'
+  end
+
   # devise
   controllers = { :sessions => "sessions", :registrations => "registrations" }
   paths = { :sign_in => "login", :sign_out => "logout", :sign_up => "signup" }
@@ -53,6 +57,12 @@ Mconf::Application.routes.draw do
 
   # event module
   if Mconf::Modules.mod_loaded?('events')
+    # For invitations
+    resources :events, :only =>[] do
+      post :send_invitation, :controller => 'mweb_events/events'
+      get  :invite, :controller => 'mweb_events/events'
+    end
+
     mount MwebEvents::Engine => '/'
   end
 
