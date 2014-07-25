@@ -15,12 +15,14 @@ describe Space do
   end
 
   describe "initializes with default values" do
-    it("should be false by default") { Space.new.repository.should be_false }
-    it("should be true if set to") { Space.new(:repository => true).repository.should be_true }
-    it("should be false by default") { Space.new.public.should be_false }
-    it("should be true if set to") { Space.new(:public => true).public.should be_true }
-    it("should be false by default") { Space.new.disabled.should be_false }
-    it("should be true if set to") { Space.new(:disabled => true).disabled.should be_true }
+    it("should be false by default") { Space.new.repository.should be_falsey }
+    it("should be true if set to") { Space.new(:repository => true).repository.should be true }
+    it("should be false by default") { Space.new.public.should be_falsey }
+    it("should be true if set to") { Space.new(:public => true).public.should be true }
+    it("should be false by default") { Space.new.disabled.should be_falsey }
+    it("should be true if set to") { Space.new(:disabled => true).disabled.should be true }
+    it("should be false by default") { Space.new.deleted.should be_falsey }
+    it("should be true if set to") { Space.new(:deleted => true).deleted.should be true }
   end
 
   it { should have_many(:posts).dependent(:destroy) }
@@ -32,10 +34,10 @@ describe Space do
   it { space.bigbluebutton_room.owner.should be(space) } # :as => :owner
   it { should accept_nested_attributes_for(:bigbluebutton_room) }
 
-  it "has many permissions"
-  it "has and belongs to many users"
-  it "has and belongs to many admins" # there's a partial test for #admins below
-  it "has many join requests"
+  it { should have_many(:permissions) }
+  it { should have_and_belong_to_many(:users) }
+  it { should have_and_belong_to_many(:admins) }
+  it { should have_many(:join_requests) }
 
   it { should validate_presence_of(:description) }
 
@@ -109,23 +111,35 @@ describe Space do
   it { should respond_to(:"crop_w=") }
   it { should respond_to(:crop_h) }
   it { should respond_to(:"crop_h=") }
-  it "mount_uploader :logo_image"
-  it "calls :crop_logo on after_create"
-  it "calls :crop_logo on after_update"
+  it { should respond_to(:logo_image) }
 
-  it "default_scope :conditions"
+  describe "default_scope :disabled => false" do
+    before {
+      @s1 = FactoryGirl.create(:space, :disabled => false)
+      @s2 = FactoryGirl.create(:space, :disabled => false)
+      @s3 = FactoryGirl.create(:space, :disabled => true)
+    }
 
-  describe ".public" do
-    context "returns the admins of the space" do
-      before {
-        @public1 = FactoryGirl.create(:public_space)
-        @public2 = FactoryGirl.create(:public_space)
-        another = FactoryGirl.create(:private_space)
-      }
-      it { Space.public_spaces.length.should be(2) }
-      it { Space.public_spaces.should include(@public1) }
-      it { Space.public_spaces.should include(@public2) }
-    end
+    it { Space.count.should be 2 }
+    it { Space.all.should include(@s1) }
+    it { Space.all.should include(@s2) }
+    it { Space.all.should_not include(@s3) }
+
+    it { Space.with_disabled.count.should be 3 }
+    it { Space.with_disabled.should include(@s1) }
+    it { Space.with_disabled.should include(@s2) }
+    it { Space.with_disabled.should include(@s3) }
+  end
+
+  describe ".public_spaces" do
+    before {
+      @public1 = FactoryGirl.create(:public_space)
+      @public2 = FactoryGirl.create(:public_space)
+      another = FactoryGirl.create(:private_space)
+    }
+    it { Space.public_spaces.length.should be(2) }
+    it { Space.public_spaces.should include(@public1) }
+    it { Space.public_spaces.should include(@public2) }
   end
 
   describe "::USER_ROLES" do
@@ -214,15 +228,15 @@ describe Space do
 
       it "as public is the space is public" do
         space = FactoryGirl.create(:space, :public => true)
-        space.bigbluebutton_room.private.should be_false
+        space.bigbluebutton_room.private.should be false
       end
 
       it "as private is the space is private" do
         space = FactoryGirl.create(:space, :public => false)
-        space.bigbluebutton_room.private.should be_true
+        space.bigbluebutton_room.private.should be true
       end
 
-      pending "with the server as the first server existent"
+      skip "with the server as the first server existent"
     end
   end
 
@@ -237,37 +251,57 @@ describe Space do
 
     it "updates to public when the space is made public" do
       space.update_attribute(:public, true)
-      space.bigbluebutton_room.private.should be_false
+      space.bigbluebutton_room.private.should be false
     end
 
     it "updates to private when the space is made public" do
       space.update_attribute(:public, false)
-      space.bigbluebutton_room.private.should be_true
+      space.bigbluebutton_room.private.should be true
     end
   end
 
-  describe "#admins" do
-    context "returns the admins of the space" do
-      before {
-        @u1 = FactoryGirl.create(:user)
-        @u2 = FactoryGirl.create(:user)
-        u3 = FactoryGirl.create(:user)
-        space.add_member!(@u1, "Admin")
-        space.add_member!(@u2, "Admin")
-        space.add_member!(u3, "User")
-      }
-      it { space.admins.length.should be(2) }
-      it { space.admins.should include(@u1) }
-      it { space.admins.should include(@u2) }
+  describe "user associations" do
+    before {
+      @users = []
+      0.upto(3) { @users << FactoryGirl.create(:user) }
+      space.add_member!(@users[0], "Admin")
+      space.add_member!(@users[1], "Admin")
+      space.add_member!(@users[2], "User")
+    }
+
+    describe "#permissions" do
+      it { space.permissions.klass == Permission }
+      it { space.permissions.length.should be(3) }
+      it { space.permissions.should include(*Permission.where(:user_id => @users)) }
     end
+
+    describe "#admins" do
+      context "returns the admins of the space" do
+        it { space.admins.klass == User }
+        it { space.admins.length.should be(2) }
+        it { space.admins.should include(@users[0]) }
+        it { space.admins.should include(@users[1]) }
+      end
+    end
+
+    describe "#users" do
+      context "returns the users of the space" do
+        it { space.users.klass == User }
+        it { space.users.length.should be(3) }
+        it { space.users.should include(@users[0]) }
+        it { space.users.should include(@users[1]) }
+        it { space.users.should include(@users[2]) }
+      end
+    end
+
   end
 
-  pending "#pending_join_requests"
-  pending "#pending_invitations"
-  pending "#pending_join_request_for"
-  pending "#pending_join_request_for?"
-  pending "#pending_invitation_for"
-  pending "#pending_invitation_for?"
+  skip "#pending_join_requests"
+  skip "#pending_invitations"
+  skip "#pending_join_request_for"
+  skip "#pending_join_request_for?"
+  skip "#pending_invitation_for"
+  skip "#pending_invitation_for?"
 
   describe "abilities", :abilities => true do
     set_custom_ability_actions([:leave, :enable, :webconference, :select, :disable, :update_logo,
