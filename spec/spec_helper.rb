@@ -49,6 +49,9 @@ RSpec.configure do |config|
   config.filter_run_excluding :migration => true
   config.run_all_when_everything_filtered = true
 
+  # To use old default of rspec 2
+  config.infer_spec_type_from_file_location!
+
   config.include Devise::TestHelpers, :type => :controller
   config.include ControllerMacros, :type => :controller
   config.extend Helpers::ClassMethods
