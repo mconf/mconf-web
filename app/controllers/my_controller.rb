@@ -48,7 +48,7 @@ class MyController < ApplicationController
   def home
     @user_spaces = current_user.spaces
     @user_pending_spaces = current_user.pending_spaces
-    @contents_per_page = 5
+    @contents_per_page = 15
     @all_contents = current_user.all_activity.limit(@contents_per_page).order('updated_at DESC')
     @private_messages = current_user.unread_private_messages
   end

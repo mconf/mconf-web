@@ -12,6 +12,16 @@
 
 body.my.home, body.my.activity, body.my.recordings {
 
+  // slightly wider sidebar
+  @include set-sidebar-width($sidebar-width + 100px);
+
+  // reduced spacing between items in the list of recent activities and my spaces
+  .list-text .thread {
+    margin: 0;
+    padding: 10px 4px;
+  }
+
+
   $second-content-bg-color: darken($light-gray, 2);
   $page-header-right-width: 500px;
 
@@ -180,14 +190,4 @@ body.my.home, body.my.activity, body.my.recordings {
     padding-left: 10px;
   }
 
-  #user-space-list {
-    #user-pending-join-requests {
-      margin-bottom: 20px;
-
-      .title {
-        margin-bottom: 5px;
-        margin-left: 10px;
-      }
-    }
-  }
 }

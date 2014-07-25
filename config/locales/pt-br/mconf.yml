@@ -701,7 +701,6 @@ pt-br:
     invite_url: "URL para convites"
     my: "Página inicial"
     my_spaces: "Minhas comunidades"
-    my_spaces_tooltip: "Estão são as comunidades às quais você faz parte."
     no_spaces: "Você não faz parte de nenhuma comunidade. Você pode ver as comunidades existentes <a href=\"%{link}\">aqui</a>."
     one: home
     view_invite_url: "Ver URL para convites"
@@ -974,7 +973,10 @@ pt-br:
         other: "Outros"
         today: "Hoje"
       not_confirmed: "Sua conta ainda não foi confirmada. Por favor verifique o seu e-mail para ativá-la. (Não recebeu um e-mail? <a href=\"%{url}\">Clique aqui</a>.)"
-      pending_join_requests: "Você possui <span class='label label-important'>%{count}</span> requisições pendentes"
+      pending_join_requests:
+        one: "%{count} requisição pendente"
+        other: "%{count} requisições pendentes"
+      pending_join_requests_tooltip: "Estes são os convites que você recebeu para entrar em uma comunidade e os pedidos de ingresso que você enviou."
       view_all_activity: "Ver todas suas atividades"
       view_all_spaces: "Ver todas comunidades"
     edit_recording:
@@ -1539,10 +1541,12 @@ pt-br:
       view_join_request: "Ver a requisição que você enviou"
     thumbnail_view:
       no_spaces: "Nenhuma comunidade foi criada até o momento!"
-    unified_space: 
+    unified_space:
       private: "Comunidade privada"
       public: "Comunidade pública"
+      reply_invitation: "Responder ao convite"
       user_is_member: "Você é membro desta comunidade"
+      view_join_request: "Ver a requisição que você enviou"
       with_members: "com %{count} membros"
     users: "Usuários nesta comunidade"
     webconference:
