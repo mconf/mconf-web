@@ -1,0 +1,5 @@
+#space-processed-invitation-mail
+  .header
+    = t('.message.header', :introducer => @introducer.name, :name=> @candidate.name, :action => @action, :space => @space.name).html_safe
+  .link
+    = t('.message.link', :users_url => space_users_url(@space, :host => Site.current.domain)).html_safe

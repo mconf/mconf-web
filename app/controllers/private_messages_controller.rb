@@ -9,6 +9,10 @@ class PrivateMessagesController < ApplicationController
   before_filter :private_message, :only => [:show, :update, :destroy]
   load_and_authorize_resource
 
+  after_filter :only => [:create] do
+    @private_message.new_activity unless @private_message.errors.any?
+  end
+
   def index
     @page_size = 10
     if params[:sent]

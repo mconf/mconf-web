@@ -60,7 +60,7 @@
     = hidden_field_tag :space_filter_text
 
 - if params[:view] == 'list'
-  = render "spaces/list_view"
+  = render "spaces/list_view", :spaces => @objects, :user_spaces => @user_spaces, :extended => true
 - else
   #spaces.content-block
     .content-block-middle.clearfix

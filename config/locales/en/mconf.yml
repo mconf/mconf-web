@@ -12,6 +12,10 @@ en:
         create_html: "A meeting was started on the room of the user %{owner} at %{time}"
       space:
         create_html: "A meeting was started on the space %{owner} at %{time}"
+    join_request:
+      invite_html: "was invited to join the space"
+      invite_with_introducer_html: "was invited by <a href=\"%{introducer_url}\">%{introducer}</a> to join the space"
+      request_html: "has requested to join the space"
     mweb_events_event:
       create_html: created the event %{name} in the space
       attend_html: will attend to the event %{name} in the space
@@ -164,6 +168,7 @@ en:
         registration_enabled: "Allow users to create new accounts"
         require_registration_approval: "Require admins to approve new registrations"
         signature: "Signature"
+        shib_always_new_account: "Shibboleth: Always create new account"
         shib_enabled: "Shibboleth: Enable"
         shib_email_field: "Shibboleth: Field for email"
         shib_env_variables: "Shibboleth: Environment variables"
@@ -400,7 +405,6 @@ en:
       offline: "Offline"
     typing: "is typing..."
     title: "Chat"
-  check_mail: "Please, check your email"
   city: City
   click_here_to_see_more: "Click here to see more"
   click_to_hide: "Click to hide"
@@ -654,25 +658,20 @@ en:
     one: Error
     other: Errors
     vcc_warning: "Warning:"
-  event_mailer:
-    invitation_mail:
-      message:
-        start: "Starts on"
-        end: "Ends on"
-        header: "You have been invited to the event <b>%{event}</b> by <b>%{sender}</b> (%{email_sender}):"
-      subject: "You have been invited to the event %{event}"
   feedback: 
-    email: "%{email} sent the following feedback:"
-    note: "Help us improve Mconf. Please send your comments, problems and suggestions. We will try to answer as soon as possible."
-    one: Feedback
+    create:
+      check_mail: "Please check the email you informed in the feedback form, it seems wrong."
+      fill_fields: "Please fill in all the fields in the form to send your feedback."
+      success: "Your feedback e-mail was sent successfully. Thank you!"
+    new:
+      note: "Help us improve Mconf. Please send your comments, problems and suggestions. We will try to answer as soon as possible."
+      title: "Feedback"
     send: "Send feedback"
     send_us: "Send us feedback!"
-    sent: "Your feedback information e-mail has been successfully sent. Thank you"
     webconf: 
       stop_countdown: "Click here to stop it from closing and use it to browse this site"
       title: "Thank you for participating in this conference!"
       warning: "This window will be automatically closed in <span class='countdown'>%{seconds}</span> seconds"
-  fill_fields: "You should fill in all the fields"
   find: 
     browse: Browse
   find_in: "Find in:"
@@ -702,7 +701,6 @@ en:
     invite_url: "Invite URL"
     my: "My Home"
     my_spaces: "My spaces"
-    my_spaces_tooltip: "These are the spaces you belong to."
     no_spaces: "You not belong to any spaces. You can see the spaces available <a href=\"%{link}\">here</a>."
     one: home
     view_invite_url: "View Invite URL"
@@ -759,7 +757,6 @@ en:
     title2: "Space Invitation"
     to_accept_space: "To accept my invitation please visit 'URL'"
     to_event: "%{username} invites you to event %{eventname} in space %{space}"
-    to_space: "%{username} invites you to space %{space}"
     will_invite: "People you will invite"
     yes_accepted: accepted
   invite: 
@@ -976,7 +973,10 @@ en:
         other: "Other"
         today: "Today"
       not_confirmed: "Your account is not activated yet. Please, check your email to activate it. (Did not receive an email? <a href=\"%{url}\">Click here</a>.)"
-      pending_join_requests: "You have <span class='label label-important'>%{count}</span> pending requests"
+      pending_join_requests:
+        one: "%{count} pending join request"
+        other: "%{count} pending join requests"
+      pending_join_requests_tooltip: "These are the invitations you received to join spaces or the join requests you sent."
       view_all_activity: "View all your activity"
       view_all_spaces: "View all spaces"
     edit_recording:
@@ -1544,7 +1544,9 @@ en:
     unified_space:
       private: "Private space"
       public: "Public space"
+      reply_invitation: "Reply to the invitation"
       user_is_member: "You are a member of this space"
+      view_join_request: "View the request you sent"
       with_members: "with %{count} members"
     users: "Users in this space"
     webconference:
@@ -1772,16 +1774,6 @@ en:
     one: Version
   view: "View"
   view_more: "View more"
-  web_conference_mailer:
-    invitation_mail:
-      event_name: "Meeting with %{name}"
-      message:
-        end: "End"
-        header: "You have been invited by <b>%{sender}</b> (%{email_sender}) to a meeting:"
-        join: "Join at"
-        password: "Access key"
-        start: "Start"
-      subject: "You have been invited to a meeting by %{name}"
   webconference: 
     invite_webconference: "Invite people to the webconference"
     join: Join

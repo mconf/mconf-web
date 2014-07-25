@@ -12,6 +12,14 @@ module Helpers
     users
   end
 
+  def self.setup_site_for_email_tests
+    attributes = {
+      :smtp_sender => Faker::Internet.email,
+      :name => Faker::Name.name
+    }
+    Site.current.update_attributes(attributes)
+  end
+
   module ClassMethods
 
     # Sets the custom actions that should also be checked by

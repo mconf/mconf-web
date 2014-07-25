@@ -1,0 +1,25 @@
+#webconference-invitation-mail
+  .header
+    = t('.message.header', :sender => @invitation.sender.full_name, :email_sender => @invitation.sender.email).html_safe
+
+  - unless @invitation.title.blank?
+    .invite-title= @invitation.title
+  - unless @invitation.description.blank?
+    .invite-message= @invitation.description
+
+  .mail-event-block
+    - unless @invitation.starts_on.nil?
+      .field
+        %label= t('.message.start') + ':'
+        %span= @invitation.starts_on.to_formatted_s(:rfc822)
+    - unless @invitation.ends_on.nil?
+      .field
+        %label= t('.message.end') + ':'
+        %span= @invitation.ends_on.to_formatted_s(:rfc822)
+    .field
+      %label= t('.message.join') + ':'
+      %span= @invitation.url
+    - if @invitation.target.private
+      .field
+        %label= t('.message.password') + ':'
+        %span= @invitation.target.attendee_password

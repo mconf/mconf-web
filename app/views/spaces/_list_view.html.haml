@@ -1,10 +1,19 @@
-#spaces.content-block
+-# locals:
+-#   spaces (array of Space)
+-#   user_spaces (array of Space): the spaces to which the user belongs
+-#   extended (boolean): show extended information
+-#   show_join_request (boolean): show link to a join request (if it exists)
+
+- show_join_request ||= false
+- extended ||= false
+
+#spaces
   .content-block-middle.clearfix
     %ul.list-texts
-      - if @objects.count > 0
-        - @objects.each do |space|
-          - is_member = @user_spaces && @user_spaces.include?(space)
+      - if spaces.count > 0
+        - spaces.each do |space|
+          - is_member = user_spaces && user_spaces.include?(space)
           %li.list-text{:name => space.permalink}
-            = render "spaces/unified_space", :space => space, :is_member => is_member
+            = render "spaces/unified_space", :space => space, :is_member => is_member, :extended => extended, :show_join_request => show_join_request
       - else
         = t(".no_spaces")

@@ -1,0 +1,9 @@
+#space-invitation-email
+  .header
+    = t('.message.header', :sender => @user.full_name, :email_sender => @user.email, :space => @space.name).html_safe
+
+  - unless @invitation.comment.blank?
+    .invite-message= @invitation.comment
+
+  .link
+    = t('.message.link', :url => space_join_request_url(@invitation.group, @invitation, :host => Site.current.domain), :space_url => space_url(@space, :host => Site.current.domain)).html_safe

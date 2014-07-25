@@ -3,50 +3,27 @@
 
 = content_for :sidebar do
 
-  -# Inbox
-  - unless @private_messages.empty?
-    = render_sidebar_content_block('sidebar-inbox') do
-      - unread_msgs = current_user.unread_private_messages.size
+  - unless @user_pending_spaces.empty?
+    = render_sidebar_content_block('user-pending-join-requests') do
       .content-block-header
-        = link_to t('inbox.unread_text', :count => unread_msgs), messages_path
-        - cls = unread_msgs > 0 ? "active"  : ""
-        = icon_message(:class => cls)
-
-  -# Upcoming events
-  - if mod_enabled?("events")
-    = render_sidebar_content_block('sidebar-upcoming-events') do
-      .content-block-header
-        = icon_event()
-        %h4= t('calendar.my')
-      .toolbar
-        %span.event-timezone
-          = "(#{t('timezone.one')}: #{user_timezone})"
+        %h3= t(".pending_join_requests", :count => @user_pending_spaces.count).html_safe + ": "
+        = icon_info t('.pending_join_requests_tooltip')
       .content-block-middle
-        %span.event-category= t('.events.today')
-        = render 'space_events/sidebar_events_simple', :events => @today_events
-        %span.event-category= t('.events.other')
-        = render 'space_events/sidebar_events_simple', :events => @upcoming_events
+        = render 'my/pending_spaces', :user => current_user, :spaces => @user_pending_spaces
+
+  = render_sidebar_content_block('user-space-list') do
+    .content-block-header
+      %h3= t('home.my_spaces')
+    .content-block-middle
+      = render 'users/user_spaces', :user => current_user, :spaces => @user_spaces
+    .content-block-footer
+      = link_to new_space_path, :class => "btn btn-mini btn-primary", :style => "float:left;" do
+        = t('.create_space')
+      = link_to t('.view_all_spaces'), spaces_path
 
 - unless current_user.confirmed?
   #user-notifications.alert.alert-warning
     = t('.not_confirmed', :url => new_user_confirmation_path).html_safe
-
-#user-space-list.content-block
-  .content-block-header
-    %h3= t('home.my_spaces')
-    = icon_info t('home.my_spaces_tooltip')
-    .toolbar
-      = link_to new_space_path, :class => "btn btn-mini btn-primary" do
-        = t('.create_space')
-  .content-block-middle
-    - unless @user_pending_spaces.empty?
-      #user-pending-join-requests
-        .title
-          = t(".pending_join_requests", :count => @user_pending_spaces.count).html_safe + ": "
-        = render 'my/pending_spaces', :user => current_user, :spaces => @user_pending_spaces
-    = render 'users/user_spaces', :user => current_user, :spaces => @user_spaces
-  .content-block-footer.content-block-footer-fancy
-    = link_to t('.view_all_spaces'), spaces_path
 
 #users-recent-activity.content-block
   .content-block-header

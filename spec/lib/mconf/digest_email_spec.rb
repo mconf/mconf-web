@@ -96,6 +96,7 @@ describe Mconf::DigestEmail do
       @expected << FactoryGirl.create(factory, :space => space, :updated_at => date_start + 1.hour)
       @expected << FactoryGirl.create(factory, :space => space, :updated_at => date_end)
       @expected.sort_by!{ |p| p.updated_at }.reverse!
+      @expected = @expected.map { |x| x.id }
     end
 
     context "returns empty arrays if nothing is found" do
@@ -143,6 +144,7 @@ describe Mconf::DigestEmail do
         @expected << FactoryGirl.create(:event, :time_zone => Time.zone.name, :updated_at => start_time + 3.minute, :owner => space, :start_on => date_start - 1.hour, :end_on => date_start + 1.hour)
         @expected << FactoryGirl.create(:event, :time_zone => Time.zone.name, :updated_at => start_time + 4.minute, :owner => space, :start_on => date_end - 1.hour, :end_on => date_end + 1.hour)
         @expected.sort_by!{ |p| p.updated_at }.reverse!
+        @expected = @expected.map { |x| x.id }
       end
       before(:each) { call_get_activity }
       it { @expected.should == @events }
@@ -197,29 +199,33 @@ describe Mconf::DigestEmail do
     end
 
     context "sends the email" do
+      let(:user) { FactoryGirl.create(:user) }
       let(:space) { FactoryGirl.create(:space) }
 
       before do
-        space.add_member!(user)
+        ResqueSpec.reset!
+
         # create the data to be returned
-        @posts = [ FactoryGirl.create(:post, :space => space, :updated_at => date_start) ]
-        @news = [ FactoryGirl.create(:news, :space => space, :updated_at => date_start) ]
-        @attachments = [ FactoryGirl.create(:attachment, :space => space, :updated_at => date_start) ]
-        @events = [ FactoryGirl.create(:event, :time_zone => Time.zone.name, :owner => space,
-          :start_on => date_start, :end_on => date_start + 1.hour) ]
-        @inbox = [ FactoryGirl.create(:private_message, :receiver => user, :sender => FactoryGirl.create(:user)) ]
+        @posts = [ FactoryGirl.create(:post, :space => space, :updated_at => date_start).id,
+                   FactoryGirl.create(:post, :space => space, :updated_at => date_start).id ]
+        @news = [ FactoryGirl.create(:news, :space => space, :updated_at => date_start).id,
+                  FactoryGirl.create(:news, :space => space, :updated_at => date_start).id ]
+        @attachments = [ FactoryGirl.create(:attachment, :space => space, :updated_at => date_start).id,
+                         FactoryGirl.create(:attachment, :space => space, :updated_at => date_start).id ]
+        @events = [
+          FactoryGirl.create(:event, :time_zone => Time.zone.name, :owner => space, :start_on => date_start, :end_on => date_start + 1.hour).id,
+          FactoryGirl.create(:event, :time_zone => Time.zone.name, :owner => space, :start_on => date_start, :end_on => date_start + 1.hour).id
+        ]
+        @inbox = [ FactoryGirl.create(:private_message, :receiver => user, :sender => FactoryGirl.create(:user)).id,
+                   FactoryGirl.create(:private_message, :receiver => user, :sender => FactoryGirl.create(:user)).id ]
 
         subject.should_receive(:get_activity).with(user, date_start, date_end).
           and_return([ @posts, @news, @attachments, @events, @inbox ])
-
-        delayer = double()
-        Notifier.stub(:delay).and_return(delayer)
-        delayer.should_receive(:digest_email).
-          with(user, @posts, @news, @attachments, @events, @inbox)
       end
-      it {
-        subject.send_digest(user, date_start, date_end)
-      }
+
+      before(:each) { subject.send_digest(user, date_start, date_end) }
+      it { ApplicationMailer.should have_queue_size_of(1) }
+      it { ApplicationMailer.should have_queued(:digest_email, user.id, @posts, @news, @attachments, @events, @inbox) }
     end
   end
 

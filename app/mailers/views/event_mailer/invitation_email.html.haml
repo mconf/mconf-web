@@ -1,0 +1,20 @@
+#event-invitation-mail
+  .header
+    = t('.message.header', :sender => @invitation.sender.full_name, :email_sender => @invitation.sender.email, :event => @event.name).html_safe
+
+  - unless @invitation.title.blank?
+    .invite-title= @invitation.title
+  - unless @invitation.description.blank?
+    .invite-message= @invitation.description
+
+  .mail-event-block
+    .field
+      %label= t('.message.start') + ':'
+      %span= @event.start_on.to_formatted_s(:rfc822)
+    - unless @event.end_on.nil?
+      .field
+        %label= t('.message.end') + ':'
+        %span= @event.end_on.to_formatted_s(:rfc822)
+    .field
+      %label= t('.message.join') + ':'
+      %span= @invitation.url

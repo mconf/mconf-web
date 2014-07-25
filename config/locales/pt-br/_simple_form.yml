@@ -14,6 +14,9 @@ pt-br:
     buttons:
       cancel: "Cancelar"
       or: "ou"
+    labels:
+      feedback:
+        from: "Seu e-mail"
     hints:
       invite:
         users: "Busque por nome ou e-mail. Se você não conseguir encontrá-los, adicione endereços de e-mail. Digite e aperte enter para inserir um novo item."
@@ -37,6 +40,7 @@ pt-br:
         presence_domain: "Domínio usado para identificar o servidor XMPP."
         registration_enabled: "Se selecionado, usuários poderão criar contas novas. Caso contrário, usuários poderão acessar o site apenas se já possuirem uma conta. Além disso, se esta opção estiver desabilitada, contas novas ainda poderão ser criadas através dos métodos secundários de acesso como Shibboleth e LDAP."
         require_registration_approval: "Se selecionado, usuários poderão cadastrar novas contas, mas só poderão acessar o site depois que um administrador aprove sua conta. Caso contrário usuários podem acessar o site automaticamente após o registro. Note que se existem usuários ainda não aprovados e você remover a seleção desta opção, estes usuários não serão aprovados automaticamente!"
+        shib_always_new_account: "Quando habilitado, sempre será criada uma nova conta para o usuário assim que ele se autenticar pela primeira vez, ignorando a página de associação com uma conta já existente."
         shib_email_field: "Requerido. Quando um usuário se autentica em provedor de serviços Shibboleth este campo será utilizado para obter o e-mail do usuário. Exemplo: Shib-inetOrgPerson-mail"
         shib_env_variables: "O Shibboleth retorna um conjunto de variáveis de ambiente quando o usuário é autenticado. Todas as variáveis especificadas nesta lista serão lidas do Shibboleth e utilizadas pela aplicação como dados do usuário. Especifique cada variável em uma linha diferente. As comparações são \"case-insensitive\" e espaços são removidos, e você também pode utilizar expressões regulares. Se este campo estiver vazio todas variáveis que iniciam com \"Shib-\" serão utilizadas."
         shib_login_field: "Requerido. Quando um usuário se autentica em provedor de serviços Shibboleth este campo será utilizado para obter o login do usuário. Se não informado, a aplicação irá automaticamente criar um login a partir do nome do usuário. Exemplo: Shib-inetOrgPerson-mail"
@@ -49,21 +53,25 @@ pt-br:
         webconf_auto_record: "Se marcado, a seleção da opção para gravar a conferência será feita automaticamente, conforme as permissões do usuário na sala de webconferência que está sendo utilizada (opção desejada quando o servidor de webconferência possui o botão de gravação dentro da sessão). Caso contrário, o usuário poderá escolher ele mesmo se a conferência será gravada ou não antes de iniciá-la (mas apenas se possuir permissões para isso)."
       space:
         bigbluebutton_room:
+          auto_start_video: "Habilite para automaticamente iniciar o compartilhamento de câmera assim que o usuário entra na conferência"
+          auto_start_audio: "Habilite para automaticamente iniciar o compartilhamento de microfone assim que o usuário entra na conferência"
           attendee_password: "Esta senha só será usada se a comunidade for privada!"
           moderator_password: "Esta senha só será usada se a comunidade for privada!"
+          presenter_share_only: "Habilite para que somente o apresentador possa compartilhar sua câmera e microfone. Utilizado em conferências \"um para muitos\"."
           welcome_msg: "Essa mensagem é exibida no bate-papo quando um usuário entrar na conferência. Deixe em branco para usar a mensagem padrão. Você pode incluir informações específicas à conferência usando as variáveis %%CONFNAME%%, %%DIALNUM%% e %%CONFNUM%%"
-          presenter_share_only: "Quando habilitado, somente é permitido ao apresentador compartilhar sua webcam e microfone. Útil para conferências \"one-to-many\"."
         permalink: "Este atributo é utilizado para identificar a sua comunidade em endereços web, incluindo o endereço da sala de webconferência desta comunidade"
         public: "Comunidades colaborativas podem ser públicas, para que qualquer pessoa possa ver o que acontece nelas, ou privadas, onde apenas os membros têm acesso às atividades da comunidade"
         repository: "O repositório de documentos é um espaço onde os usuários deste espaço podem compartilhar documentos de qualquer tipo"
       user:
         approved: "Se marcada, o usuário terá permissão para acessar este site, caso contrário ele será bloqueado ao tentar acessá-lo."
         bigbluebutton_room:
+          auto_start_video: "Habilite para automaticamente iniciar o compartilhamento de câmera assim que o usuário entra na conferência"
+          auto_start_audio: "Habilite para automaticamente iniciar o compartilhamento de microfone assim que o usuário entra na conferência"
           attendee_password: "Esta senha só será usada se a sala for privada!"
           moderator_password: "Esta senha só será usada se a sala for privada!"
+          presenter_share_only: "Habilite para somente permitir que o apresentador compartilhe sua câmera e microfone. Utilizado em conferências \"um para muitos\"."
           private: "Salas privadas requerem uma senha de acesso. Salas públicas podem ser acessadas por qualquer pessoa com acesso ao link. Apenas você pode iniciar uma conferência na sua sala, seja ela pública ou privada."
           welcome_msg: "Essa mensagem é exibida no bate-papo quando um usuário entrar na conferência. Deixe em branco para usar a mensagem padrão. Você pode incluir informações específicas à conferência usando as variáveis %%CONFNAME%%, %%DIALNUM%% e %%CONFNUM%%"
-          presenter_share_only: "Quando habilitado, somente é permitido ao apresentador compartilhar sua webcam e microfone. Útil para conferências \"one-to-many\"."
         can_record: "Marque esta opção para permitir que este usuário grave reuniões na sua sala pessoal ou em salas de comunidades às quais ele pertence"
         superuser: "Marque esta opção para tornar este usuário um administrador global deste site"
         timezone: "Ao selecionar um fuso horário não haverá equívoco ao criar eventos com pessoas de outras localidades"
