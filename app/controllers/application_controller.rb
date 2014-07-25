@@ -55,28 +55,6 @@ class ApplicationController < ActionController::Base
     @current_site ||= Site.current
   end
 
-  # Store last url for post-login redirect to whatever the user last visited.
-  # From: https://github.com/plataformatec/devise/wiki/How-To:-Redirect-back-to-current-page-after-sign-in,-sign-out,-sign-up,-update
-  def store_location
-    ignored_paths = [ "/login", "/users/login", "/users",
-                      "/register", "/users/register",
-                      "/logout",
-                      "/users/password",
-                      "/users/confirmation/new",
-                      "/secure", "/secure/info", "/secure/associate" ]
-    if (!ignored_paths.include?(request.fullpath) &&
-        !request.xhr? && # don't store ajax calls
-        (request.format == "text/html" || request.content_type == "text/html"))
-      session[:user_return_to] = request.fullpath
-      # session[:last_request_time] = Time.now.utc.to_i
-    end
-  end
-
-  # Removes the stored location used to redirect post-login.
-  def clear_stored_location
-    session[:user_return_to] = nil
-  end
-
   # Where to redirect to after sign in with Devise
   def after_sign_in_path_for(resource)
     return_to = stored_location_for(resource) || my_home_path
@@ -214,6 +192,28 @@ class ApplicationController < ActionController::Base
   def render_403(exception)
     @exception = exception
     render :template => "/errors/error_403", :status => 403, :layout => "error"
+  end
+
+  # Store last url for post-login redirect to whatever the user last visited.
+  # From: https://github.com/plataformatec/devise/wiki/How-To:-Redirect-back-to-current-page-after-sign-in,-sign-out,-sign-up,-update
+  def store_location
+    ignored_paths = [ "/login", "/users/login", "/users",
+                      "/register", "/users/register",
+                      "/logout",
+                      "/users/password",
+                      "/users/confirmation/new",
+                      "/secure", "/secure/info", "/secure/associate" ]
+    if (!ignored_paths.include?(request.fullpath) &&
+        !request.xhr? && # don't store ajax calls
+        (request.format == "text/html" || request.content_type == "text/html"))
+      session[:user_return_to] = request.fullpath
+      # session[:last_request_time] = Time.now.utc.to_i
+    end
+  end
+
+  # Removes the stored location used to redirect post-login.
+  def clear_stored_location
+    session[:user_return_to] = nil
   end
 
 end

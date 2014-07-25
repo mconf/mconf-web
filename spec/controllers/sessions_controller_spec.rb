@@ -11,12 +11,11 @@ describe SessionsController do
   describe "#new" do
     before { @request.env["devise.mapping"] = Devise.mappings[:user] }
 
-    context "after a user successfully login" do
+    context "if there's already a user signed in" do
       before do
         login_as(FactoryGirl.create(:user))
         get :new
       end
-
       it { response.should redirect_to my_home_path }
     end
   end
