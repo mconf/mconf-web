@@ -390,12 +390,56 @@ describe Space do
 
   end
 
-  skip "#pending_join_requests"
-  skip "#pending_invitations"
-  skip "#pending_join_request_for"
-  skip "#pending_join_request_for?"
-  skip "#pending_invitation_for"
-  skip "#pending_invitation_for?"
+  describe "join requests" do
+    before {
+      @jr = [
+        FactoryGirl.create(:join_request, :group => space, :request_type => 'request'),
+        FactoryGirl.create(:join_request, :group => space, :request_type => 'request'),
+        FactoryGirl.create(:join_request, :group => space, :request_type => 'invite')
+      ]
+      @invitations = [@jr[2]]
+      @requests = [@jr[0], @jr[1]]
+    }
+
+    describe "#join_requests" do
+      it { space.join_requests.should include(*@jr) }
+      it { space.join_requests.length.should be(3) }
+      it { space.join_requests.should include(*[@invitations, @requests].flatten) }
+    end
+
+    describe "#pending_join_requests" do
+      it { space.pending_join_requests.klass == JoinRequest }
+      it { space.pending_join_requests.length.should be(2) }
+      it { space.pending_join_requests.should include(*@requests) }
+    end
+
+    describe "#pending_invitations" do
+      it { space.pending_invitations.klass == JoinRequest }
+      it { space.pending_invitations.length.should be(1) }
+      it { space.pending_invitations.should include(*@invitations) }
+    end
+
+    describe "#pending_join_request_for(?)" do
+      let(:user) { @requests.first.candidate }
+      let(:other_user) { FactoryGirl.create(:user) }
+
+      it { space.pending_join_request_for(user).should eq(@requests.first) }
+      it { space.pending_join_request_for(other_user).should be_blank }
+      it { space.pending_join_request_for?(user).should be true }
+      it { space.pending_join_request_for?(other_user).should be false }
+    end
+
+    describe "#pending_invitation_for(?)" do
+      let(:user) { @invitations.first.candidate }
+      let(:other_user) { FactoryGirl.create(:user) }
+
+      it { space.pending_invitation_for(user).should eq(@invitations.first) }
+      it { space.pending_invitation_for(other_user).should be_blank }
+      it { space.pending_invitation_for?(user).should be true }
+      it { space.pending_invitation_for?(other_user).should be false }
+    end
+
+  end
 
   describe "abilities", :abilities => true do
     set_custom_ability_actions([:leave, :enable, :webconference, :select, :disable, :update_logo,
