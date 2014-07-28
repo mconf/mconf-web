@@ -142,6 +142,100 @@ describe Space do
     it { Space.public_spaces.should include(@public2) }
   end
 
+
+  describe ".logo_image" do
+    let!(:logo) { Rack::Test::UploadedFile.new(File.open(File.join(Rails.root, '/spec/fixtures/files/test-logo.png'))) }
+    let!(:crop_params) { {:crop_x => 0, :crop_y => 0, :crop_w => 10, :crop_h => 10} }
+
+    context "uploader properties" do
+      let(:space) { Space.new }
+      let!(:store_dir) { File.join(Rails.root, 'spec/support/uploads/space/logo_image') }
+
+      it { space.logo_image.filename.should_not be_present }
+      it { space.logo_image.extension_white_list.should eq(["jpg", "jpeg", "png", "svg", "tif", "gif"]) }
+      it { space.logo_image.versions.count.should eq(5) }
+      it { space.logo_image.store_dir.should eq("#{store_dir}/#{space.id}") }
+      it { space.logo_image.versions.map{|v| v[0]}.should eq([:large, :logo32, :logo84x64, :logo128, :logo168x128]) }
+    end
+
+    context "crop_logo" do
+      context "is called after_create" do
+        let(:space) { Space.new(space_attr) }
+
+        context "with valid params" do
+          let(:space_attr) { FactoryGirl.attributes_for(:space, :logo_image => logo).merge(crop_params) }
+
+          before do
+            space.logo_image.should_receive(:recreate_versions!)
+            space.save!
+          end
+
+          it { space.logo_image.should be_present }
+        end
+
+        context "without file but valid crop params" do
+          let(:space_attr) { FactoryGirl.attributes_for(:space, :logo_image => nil).merge(crop_params) }
+
+          before(:each) do
+            space.logo_image.should_not_receive(:recreate_versions!)
+            space.save!
+          end
+
+          it { space.logo_image.should_not be_present }
+        end
+
+        context "with file but invalid crop params" do
+          let(:space_attr) { FactoryGirl.attributes_for(:space, :logo_image => logo) }
+
+          before(:each) do
+            space.logo_image.should_not_receive(:recreate_versions!)
+            space.save!
+          end
+
+          it { space.logo_image.should be_present }
+        end
+      end
+
+      context "is called after_update" do
+        let(:space) { FactoryGirl.create(:space) }
+
+        context "with valid params" do
+          let(:space_attr) { {:logo_image => logo}.merge(crop_params) }
+
+          before do
+            space.logo_image.should_receive(:recreate_versions!)
+            space.update_attributes(space_attr)
+          end
+
+          it { space.logo_image.should be_present }
+        end
+
+        context "without file but valid crop params" do
+          let(:space_attr) { {:logo_image => nil}.merge(crop_params) }
+
+          before(:each) do
+            space.logo_image.should_not_receive(:recreate_versions!)
+            space.update_attributes(space_attr)
+          end
+
+          it { space.logo_image.should_not be_present }
+        end
+
+        context "with file but invalid crop params" do
+          let(:space_attr) { {:logo_image => logo} }
+
+          before(:each) do
+            space.logo_image.should_not_receive(:recreate_versions!)
+            space.update_attributes(space_attr)
+          end
+
+          it { space.logo_image.should be_present }
+        end
+      end
+    end
+
+  end
+
   describe "::USER_ROLES" do
     it { Space::USER_ROLES.length.should be(2) }
     it { Space::USER_ROLES.should include("Admin") }

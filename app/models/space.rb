@@ -196,7 +196,7 @@ class Space < ActiveRecord::Base
 
   # Returns whether the space's logo is being cropped.
   def is_cropping?
-    crop_x.present?
+    logo_image.present? && crop_x.present?
   end
 
   private
