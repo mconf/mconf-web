@@ -24,22 +24,17 @@ class ShibbolethController < ApplicationController
   def login
     shib = Mconf::Shibboleth.new(session)
     shib.save_to_session(request.env, Site.current.shib_env_variables)
-    
-    if !check_active_enrollment()
-       "Shibboleth: user hasn't an active enrollment with the federation, " +
-        "searching fields #{shib.basic_info_fields.inspect} " +
-        "in: #{shib.get_data.inspect}"
-      @attrs_required = shib.basic_info_fields
-      @attrs_informed = shib.get_data
-      render :attribute_error
-    elsif !shib.has_basic_info
-       "Shibboleth: couldn't basic user information from session, " +
+
+    if !shib.has_basic_info
+      logger.info "Shibboleth: couldn't basic user information from session, " +
         "searching fields #{shib.basic_info_fields.inspect} " +
         "in: #{shib.get_data.inspect}"
       @attrs_required = shib.basic_info_fields
       @attrs_informed = shib.get_data
       render :attribute_error
     else
+      return unless check_active_enrollment
+
       token = shib.find_token()
 
       # there's a token with a user associated, logs the user in
@@ -195,21 +190,20 @@ class ShibbolethController < ApplicationController
 
   # Checks if the user has an active enrollment, otherwise he's not allowed
   # to access the service.
-  def check_active_enrollment()
-    if session[:shib_data] && session[:shib_data]["ufrgsVinculo"]
-      data = session[:shib_data]["ufrgsVinculo"]
-      if data.match(/(^|;)ativo/) # beggining of line or after a ';'
-        return true
-      else
-        flash[:error] = t("shibboleth.create_association.enrollment_error")
-        false
-      end
+  # Note: assumes there is an enrollment field in the session, this verification should
+  # be done before calling this.
+  def check_active_enrollment
+    data = session[:shib_data]["ufrgsVinculo"]
+    if data.match(/(^|;)ativo/) # beggining of line or after a ';'
+      true
     else
-      flash[:error] = t("shibboleth.attribute_error.message")
+      logger.error "Shibboleth: user doesn't have an active enrollment in the federation, " +
+        "searched in #{session[:shib_data]["ufrgsVinculo"].inspect}"
+      flash[:error] = t("shibboleth.create_association.enrollment_error")
+      redirect_to request.referer || root_path
       false
     end
   end
-
 
   # Adds fake test data to the environment to test shibboleth in development.
   def test_data

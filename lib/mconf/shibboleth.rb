@@ -45,7 +45,7 @@ module Mconf
     # Returns whether the basic information needed for a user to login is present
     # in the session or not.
     def has_basic_info
-      @session[ENV_KEY] && get_email && get_name && get_principal_name
+      @session[ENV_KEY] && get_email && get_name && get_principal_name && get_enrollment
     end
 
     def get_field field
@@ -78,6 +78,11 @@ module Mconf
       get_field(Site.current.shib_login_field) || get_name # uses the name by default
     end
 
+    # Returns the enrollment of the user stored in the session, if any.
+    def get_enrollment
+      get_field "ufrgsVinculo"
+    end
+
     # Returns the shibboleth provider of the user stored in the session, if any.
     def get_identity_provider
       get_field 'Shib-Identity-Provider'
@@ -98,7 +103,8 @@ module Mconf
     def basic_info_fields
       [ Site.current.shib_email_field,
         Site.current.shib_name_field,
-        Site.current.shib_principal_name_field ]
+        Site.current.shib_principal_name_field,
+        "ufrgsVinculo" ]
     end
 
     # Finds the ShibToken associated with the user whose information is stored in the session.

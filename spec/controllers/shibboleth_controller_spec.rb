@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # This file is part of Mconf-Web, a web application that provides access
 # to the Mconf webconferencing system. Copyright (C) 2010-2012 Mconf
 #
@@ -37,7 +38,6 @@ describe ShibbolethController do
 
   shared_examples_for "a caller of #associate_with_new_account" do
     let(:attrs) { FactoryGirl.attributes_for(:user) }
-    before { setup_shib(attrs[:_full_name], attrs[:email]) }
 
     context "redirects to /secure if the user already has a valid token" do
       let(:user) { FactoryGirl.create(:user) }
@@ -61,6 +61,7 @@ describe ShibbolethController do
           expected["Shib-inetOrgPerson-cn"] = attrs[:_full_name]
           expected["Shib-inetOrgPerson-mail"] = attrs[:email]
           expected["Shib-eduPerson-eduPersonPrincipalName"] = attrs[:_full_name]
+          expected["ufrgsVinculo"] = "ativo"
           subject.data.should eq(expected.to_yaml) # it's a Hash in the db, so compare using to_yaml
         }
         it { controller.should redirect_to(shibboleth_path) }
@@ -107,63 +108,64 @@ describe ShibbolethController do
       request.env.each { |key, value| key.should_not match(/shib-/i) }
     end
 
-    context "check if the user has active enrollment with the federation" do
-      let(:user) { FactoryGirl.create(:user, :password => '12345') }
-      
-      context "renders an error page if user hasn't active enrollment" do
-        before {
-          Site.current.update_attributes(:shib_name_field => user.full_name, :shib_email_field => user.email, :shib_principal_name_field => user.full_name)
-          Site.current.update_attributes(:shib_env_variables => "cn\nemail\nuid\nufrgsVinculo\nshib-.*")
-          Site.current.update_attributes(:shib_enabled => true)
-          request.env['Shib-Any'] = 'any'
-          request.env['ufrgsVinculo'] = 'inativo'
-        }
-        before(:each) { get :login }
-        it { should set_the_flash.to(I18n.t('shibboleth.create_association.enrollment_error')) }
-        it { should render_template('attribute_error') }
-        it { should render_with_layout('no_sidebar') }
-        it { should assign_to(:attrs_required).with([user.email, user.full_name, user.full_name]) }
-        it { should assign_to(:attrs_informed).with({ 'Shib-Any' => 'any', 'ufrgsVinculo' => 'inativo' }) }
-      end
-      
-      context "renders an error page if wrong attributes are passed" do 
-        before {
-          Site.current.update_attributes(:shib_name_field => 'name', :shib_email_field => 'email', :shib_principal_name_field => 'principal_name')
-          Site.current.update_attributes(:shib_enabled => true)
-          request.env['Shib-Any'] = 'any'
-        }
-        before(:each) { get :login }
-        it { should set_the_flash.to(I18n.t('shibboleth.attribute_error.message')) }
-        it { should render_template('attribute_error') }
-        it { should render_with_layout('no_sidebar') }
-        it { should assign_to(:attrs_required).with(['email', 'name', 'principal_name']) }
-        it { should assign_to(:attrs_informed).with({ 'Shib-Any' => 'any' }) }
-      end
-
-    end
-
     context "renders an error page if there's not enough information on the session" do
       before {
         Site.current.update_attributes(:shib_name_field => 'name', :shib_email_field => 'email', :shib_principal_name_field => 'principal_name')
         Site.current.update_attributes(:shib_enabled => true)
         request.env['Shib-Any'] = 'any'
-        Site.current.update_attributes(:shib_env_variables => "cn\nemail\nuid\nufrgsVinculo\nshib-.*")
-        request.env['ufrgsVinculo'] = 'ativo'
       }
       before(:each) { get :login }
       it { should render_template('attribute_error') }
       it { should render_with_layout('no_sidebar') }
-      it { should assign_to(:attrs_required).with(['email', 'name', 'principal_name']) }
-      it { should assign_to(:attrs_informed).with({ 'Shib-Any' => 'any', 'ufrgsVinculo' => 'ativo' }) }
+      it { should assign_to(:attrs_required).with(['email', 'name', 'principal_name', 'ufrgsVinculo']) }
+      it { should assign_to(:attrs_informed).with({ 'Shib-Any' => 'any' }) }
+    end
+
+    context "detects 'ufrgsVinculo' as a required key in the session" do
+      before {
+        Site.current.update_attributes(:shib_name_field => 'Shib-name', :shib_email_field => 'Shib-email', :shib_principal_name_field => 'Shib-principal_name')
+        Site.current.update_attributes(:shib_enabled => true)
+        request.env['Shib-email'] = 'any'
+        request.env['Shib-name'] = 'any'
+        request.env['Shib-principal_name'] = 'any'
+      }
+      before(:each) { get :login }
+      it { should render_template('attribute_error') }
+      it { should render_with_layout('no_sidebar') }
+      it { should assign_to(:attrs_required).with(['Shib-email', 'Shib-name', 'Shib-principal_name', 'ufrgsVinculo']) }
+      it { should assign_to(:attrs_informed).with({ 'Shib-email' => 'any', 'Shib-name' => 'any', 'Shib-principal_name' => 'any' }) }
     end
 
     context "if the user's information is ok" do
       let(:user) { FactoryGirl.create(:user) }
-      before { 
+      before {
         setup_shib(user.full_name, user.email, false)
-        Site.current.update_attributes(:shib_env_variables => "cn\nemail\nuid\nufrgsVinculo\nshib-.*")
-        request.env['ufrgsVinculo'] = 'ativo'
       }
+
+      context "renders an error page if user doesn't have an active enrollment" do
+        let(:referer) { "/any" }
+        before {
+          request.env['ufrgsVinculo'] = 'inativo' # overrides the default
+          request.env["HTTP_REFERER"] = referer
+        }
+        before(:each) { get :login }
+        it { should set_the_flash.to(I18n.t('shibboleth.create_association.enrollment_error')) }
+        it { should respond_with(:redirect) }
+        it { should redirect_to(referer) }
+      end
+
+      context "detects active enrollments in the middle of 'ufrgsVinculo'" do
+        let(:referer) { "/any" }
+        before {
+          # a user already with a token, easier to test
+          ShibToken.create!(:identifier => user.email, :user => user)
+          # overrides the default that has 'ativo' in the beginning
+          request.env['ufrgsVinculo'] = "inativo:12:Funcionário de Fundações da UFRGS:1:Instituto de Informática:NULL:NULL:NULL:NULL:01/01/2011:NULL;ativo:6:Aluno de mestrado acadêmico:NULL:NULL:NULL:NULL:2:COMPUTAÇÃO:01/01/2001:11/12/2002"
+        }
+        before(:each) { get :login }
+        it { subject.current_user.should eq(user) }
+        it { should redirect_to(my_home_path) }
+      end
 
       context "logs the user in if he already has a token" do
         before { ShibToken.create!(:identifier => user.email, :user => user) }
@@ -190,8 +192,8 @@ describe ShibbolethController do
       context "if the flag shib_always_new_account is set" do
         let(:attrs) { FactoryGirl.attributes_for(:user) }
         before {
-          Site.current.update_attributes(:shib_always_new_account => true)
           setup_shib(attrs[:_full_name], attrs[:email])
+          Site.current.update_attributes(:shib_always_new_account => true)
         }
 
         context "skips the association page" do
@@ -254,6 +256,7 @@ describe ShibbolethController do
     context "if params[:new_account] is set" do
       context "calls #associate_with_new_account" do
         let(:run_route) { post :create_association, :new_account => true }
+        before { setup_shib(attrs[:_full_name], attrs[:email]) }
         it_should_behave_like "a caller of #associate_with_new_account"
       end
     end
@@ -371,10 +374,13 @@ describe ShibbolethController do
     request.env["Shib-inetOrgPerson-cn"] = name
     request.env["Shib-inetOrgPerson-mail"] = email
     request.env["Shib-eduPerson-eduPersonPrincipalName"] = name
+    request.env["ufrgsVinculo"] = "ativo"
     Site.current.update_attributes(:shib_enabled => true)
+    Site.current.update_attributes(:shib_env_variables => "cn\nemail\nuid\nufrgsVinculo\nshib-.*")
+    Site.current.update_attributes(:shib_always_new_account => false)
     # save it to the session, as #login would do
     @shib = Mconf::Shibboleth.new(session)
-    @shib.save_to_session(request.env)
+    @shib.save_to_session(request.env, Site.current.shib_env_variables)
   end
 
 end
