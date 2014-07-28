@@ -37,7 +37,6 @@ describe ShibbolethController do
 
   shared_examples_for "a caller of #associate_with_new_account" do
     let(:attrs) { FactoryGirl.attributes_for(:user) }
-    before { setup_shib(attrs[:_full_name], attrs[:email]) }
 
     context "redirects to /secure if the user already has a valid token" do
       let(:user) { FactoryGirl.create(:user) }
@@ -213,6 +212,7 @@ describe ShibbolethController do
     context "if params[:new_account] is set" do
       context "calls #associate_with_new_account" do
         let(:run_route) { post :create_association, :new_account => true }
+        before { setup_shib(attrs[:_full_name], attrs[:email]) }
         it_should_behave_like "a caller of #associate_with_new_account"
       end
     end
