@@ -22,8 +22,8 @@ ActiveRecord::Schema.define(version: 20140721191825) do
     t.text     "parameters"
     t.integer  "recipient_id"
     t.string   "recipient_type"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.boolean  "notified"
   end
 
@@ -51,8 +51,8 @@ ActiveRecord::Schema.define(version: 20140721191825) do
     t.datetime "start_time"
     t.boolean  "running",      default: false
     t.boolean  "recorded",     default: false
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.integer  "creator_id"
     t.string   "creator_name"
   end
@@ -64,8 +64,8 @@ ActiveRecord::Schema.define(version: 20140721191825) do
     t.string   "owner_type"
     t.string   "name"
     t.text     "content"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "bigbluebutton_playback_formats", force: true do |t|
@@ -73,8 +73,8 @@ ActiveRecord::Schema.define(version: 20140721191825) do
     t.string   "format_type"
     t.string   "url"
     t.integer  "length"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "bigbluebutton_recordings", force: true do |t|
@@ -87,8 +87,8 @@ ActiveRecord::Schema.define(version: 20140721191825) do
     t.datetime "start_time"
     t.datetime "end_time"
     t.boolean  "available",   default: true
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "description"
     t.integer  "meeting_id"
   end
@@ -99,8 +99,8 @@ ActiveRecord::Schema.define(version: 20140721191825) do
   create_table "bigbluebutton_room_options", force: true do |t|
     t.integer  "room_id"
     t.string   "default_layout"
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.boolean  "presenter_share_only"
   end
 
@@ -120,8 +120,8 @@ ActiveRecord::Schema.define(version: 20140721191825) do
     t.string   "dial_number"
     t.integer  "max_participants"
     t.boolean  "private",            default: false
-    t.datetime "created_at",                         null: false
-    t.datetime "updated_at",                         null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.boolean  "external",           default: false
     t.string   "param"
     t.boolean  "record_meeting",     default: false
@@ -137,8 +137,8 @@ ActiveRecord::Schema.define(version: 20140721191825) do
     t.string   "url"
     t.string   "salt"
     t.string   "version"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "param"
   end
 
@@ -177,8 +177,8 @@ ActiveRecord::Schema.define(version: 20140721191825) do
     t.integer  "role_id"
     t.string   "email"
     t.boolean  "accepted"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.datetime "processed_at"
   end
 
@@ -186,8 +186,8 @@ ActiveRecord::Schema.define(version: 20140721191825) do
     t.integer  "user_id"
     t.string   "identifier"
     t.text     "data"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "ldap_tokens", ["identifier"], name: "index_ldap_tokens_on_identifier", unique: true, using: :btree
@@ -208,8 +208,8 @@ ActiveRecord::Schema.define(version: 20140721191825) do
     t.float    "latitude",        limit: 24
     t.float    "longitude",       limit: 24
     t.string   "permalink"
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "mweb_events_events", ["permalink"], name: "index_mweb_events_events_on_permalink", using: :btree
@@ -219,16 +219,16 @@ ActiveRecord::Schema.define(version: 20140721191825) do
     t.string   "owner_type"
     t.integer  "event_id"
     t.string   "email"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "news", force: true do |t|
     t.string   "title"
     t.text     "text"
     t.integer  "space_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "permissions", force: true do |t|
@@ -236,8 +236,8 @@ ActiveRecord::Schema.define(version: 20140721191825) do
     t.integer  "subject_id",   null: false
     t.string   "subject_type", null: false
     t.integer  "role_id",      null: false
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "posts", force: true do |t|
@@ -296,8 +296,8 @@ ActiveRecord::Schema.define(version: 20140721191825) do
     t.integer  "user_id"
     t.string   "identifier"
     t.text     "data"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "shib_tokens", ["identifier"], name: "index_shib_tokens_on_identifier", unique: true, using: :btree
@@ -306,8 +306,8 @@ ActiveRecord::Schema.define(version: 20140721191825) do
   create_table "simple_captcha_data", force: true do |t|
     t.string   "key",        limit: 40
     t.string   "value",      limit: 6
-    t.datetime "created_at",            null: false
-    t.datetime "updated_at",            null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "simple_captcha_data", ["key"], name: "idx_key", using: :btree
@@ -378,8 +378,8 @@ ActiveRecord::Schema.define(version: 20140721191825) do
   create_table "statistics", force: true do |t|
     t.string   "url"
     t.integer  "unique_pageviews"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "users", force: true do |t|
