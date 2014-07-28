@@ -1314,6 +1314,7 @@ pt-br:
       account_associated: "Sua conta '%{email}' foi associada à sua conta federada! Você agora pode acessar esta conta tanto através da federação quando através de suas credenciais neste site."
       account_created: "Uma nova conta com uma senha aleatória foi criada para você e conectada a sua conta federada. Ambas as contas podem ser usadas para entrar neste site. Você não precisará da senha que foi gerada para entrar neste site usando a federação, mas se deseja modificar sua senha <a href=\"%{url}\">clique aqui</a>."
       error_saving_user: "Não foi possível criar seu usuário. Os errors encontrados foram: %{errors}"
+      enrollment_error: "Você não possui um vínculo ativo com a universidade e portanto não pode acessar este serviço."
       existent_account: "Já existe um usuário cadastrado com seu e-mail ('%{email}'). Se foi você que criou este usuário, você deveria associá-lo à sua conta federada. Se o usuário não é seu, por favor contate um administrador para resolver o problema."
       invalid_credentials: "Conta ou senha inválida. Por favor, tente novamente."
       invalid_parameters: "Your request was invalid, please try again."

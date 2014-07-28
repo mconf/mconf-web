@@ -107,22 +107,63 @@ describe ShibbolethController do
       request.env.each { |key, value| key.should_not match(/shib-/i) }
     end
 
+    context "check if the user has active enrollment with the federation" do
+      let(:user) { FactoryGirl.create(:user, :password => '12345') }
+      
+      context "renders an error page if user hasn't active enrollment" do
+        before {
+          Site.current.update_attributes(:shib_name_field => user.full_name, :shib_email_field => user.email, :shib_principal_name_field => user.full_name)
+          Site.current.update_attributes(:shib_env_variables => "cn\nemail\nuid\nufrgsVinculo\nshib-.*")
+          Site.current.update_attributes(:shib_enabled => true)
+          request.env['Shib-Any'] = 'any'
+          request.env['ufrgsVinculo'] = 'inativo'
+        }
+        before(:each) { get :login }
+        it { should set_the_flash.to(I18n.t('shibboleth.create_association.enrollment_error')) }
+        it { should render_template('attribute_error') }
+        it { should render_with_layout('no_sidebar') }
+        it { should assign_to(:attrs_required).with([user.email, user.full_name, user.full_name]) }
+        it { should assign_to(:attrs_informed).with({ 'Shib-Any' => 'any', 'ufrgsVinculo' => 'inativo' }) }
+      end
+      
+      context "renders an error page if wrong attributes are passed" do 
+        before {
+          Site.current.update_attributes(:shib_name_field => 'name', :shib_email_field => 'email', :shib_principal_name_field => 'principal_name')
+          Site.current.update_attributes(:shib_enabled => true)
+          request.env['Shib-Any'] = 'any'
+        }
+        before(:each) { get :login }
+        it { should set_the_flash.to(I18n.t('shibboleth.attribute_error.message')) }
+        it { should render_template('attribute_error') }
+        it { should render_with_layout('no_sidebar') }
+        it { should assign_to(:attrs_required).with(['email', 'name', 'principal_name']) }
+        it { should assign_to(:attrs_informed).with({ 'Shib-Any' => 'any' }) }
+      end
+
+    end
+
     context "renders an error page if there's not enough information on the session" do
       before {
         Site.current.update_attributes(:shib_name_field => 'name', :shib_email_field => 'email', :shib_principal_name_field => 'principal_name')
         Site.current.update_attributes(:shib_enabled => true)
         request.env['Shib-Any'] = 'any'
+        Site.current.update_attributes(:shib_env_variables => "cn\nemail\nuid\nufrgsVinculo\nshib-.*")
+        request.env['ufrgsVinculo'] = 'ativo'
       }
       before(:each) { get :login }
       it { should render_template('attribute_error') }
       it { should render_with_layout('no_sidebar') }
       it { should assign_to(:attrs_required).with(['email', 'name', 'principal_name']) }
-      it { should assign_to(:attrs_informed).with({ 'Shib-Any' => 'any' }) }
+      it { should assign_to(:attrs_informed).with({ 'Shib-Any' => 'any', 'ufrgsVinculo' => 'ativo' }) }
     end
 
     context "if the user's information is ok" do
       let(:user) { FactoryGirl.create(:user) }
-      before { setup_shib(user.full_name, user.email, false) }
+      before { 
+        setup_shib(user.full_name, user.email, false)
+        Site.current.update_attributes(:shib_env_variables => "cn\nemail\nuid\nufrgsVinculo\nshib-.*")
+        request.env['ufrgsVinculo'] = 'ativo'
+      }
 
       context "logs the user in if he already has a token" do
         before { ShibToken.create!(:identifier => user.email, :user => user) }

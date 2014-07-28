@@ -24,8 +24,15 @@ class ShibbolethController < ApplicationController
   def login
     shib = Mconf::Shibboleth.new(session)
     shib.save_to_session(request.env, Site.current.shib_env_variables)
-
-    unless shib.has_basic_info
+    
+    if !check_active_enrollment()
+       "Shibboleth: user hasn't an active enrollment with the federation, " +
+        "searching fields #{shib.basic_info_fields.inspect} " +
+        "in: #{shib.get_data.inspect}"
+      @attrs_required = shib.basic_info_fields
+      @attrs_informed = shib.get_data
+      render :attribute_error
+    elsif !shib.has_basic_info
        "Shibboleth: couldn't basic user information from session, " +
         "searching fields #{shib.basic_info_fields.inspect} " +
         "in: #{shib.get_data.inspect}"
@@ -100,7 +107,7 @@ class ShibbolethController < ApplicationController
   # If there's a current user redirects to home.
   def check_current_user
     if user_signed_in?
-      redirect_to after_sign_in_path_for(current_user)
+      redirect_to my_home_path
       false
     else
       true
@@ -186,6 +193,24 @@ class ShibbolethController < ApplicationController
     return Site.current.shib_always_new_account
   end
 
+  # Checks if the user has an active enrollment, otherwise he's not allowed
+  # to access the service.
+  def check_active_enrollment()
+    if session[:shib_data] && session[:shib_data]["ufrgsVinculo"]
+      data = session[:shib_data]["ufrgsVinculo"]
+      if data.match(/(^|;)ativo/) # beggining of line or after a ';'
+        return true
+      else
+        flash[:error] = t("shibboleth.create_association.enrollment_error")
+        false
+      end
+    else
+      flash[:error] = t("shibboleth.attribute_error.message")
+      false
+    end
+  end
+
+
   # Adds fake test data to the environment to test shibboleth in development.
   def test_data
     if Rails.env == "development"
@@ -200,6 +225,10 @@ class ShibbolethController < ApplicationController
       request.env["Shib-inetOrgPerson-cn"] = "Rick Astley"
       request.env["Shib-inetOrgPerson-sn"] = "Rick Astley"
       request.env["Shib-inetOrgPerson-mail"] = "nevergonnagiveyouup@rick.com"
+      request.env["cn"] = "Rick Astley"
+      request.env["mail"] = "nevergonnagiveyouup@rick.com"
+      request.env["uid"] = "00000000000"
+      request.env["ufrgsVinculo"] = "ativo:12:Funcionário de Fundações da UFRGS:1:Instituto de Informática:NULL:NULL:NULL:NULL:01/01/2011:NULL;inativo:6:Aluno de mestrado acadêmico:NULL:NULL:NULL:NULL:2:COMPUTAÇÃO:01/01/2001:11/12/2002"
     end
   end
 end
