@@ -181,7 +181,7 @@ describe CustomBigbluebuttonRoomsController do
           [ :name, :server_id, :meetingid, :attendee_password, :moderator_password, :welcome_msg,
             :private, :logout_url, :dial_number, :voice_bridge, :max_participants, :owner_id,
             :owner_type, :external, :param, :record_meeting, :duration, :default_layout, :presenter_share_only,
-            :metadata_attributes => [ :id, :name, :content, :_destroy, :owner_id ] ]
+            :auto_start_video, :auto_start_audio, :metadata_attributes => [ :id, :name, :content, :_destroy, :owner_id ] ]
         }
         it {
           BigbluebuttonRoom.stub(:find_by_param).and_return(room)
@@ -203,7 +203,7 @@ describe CustomBigbluebuttonRoomsController do
         before(:each) { login_as(user) }
 
         let(:allowed_params) {
-          [ :attendee_password, :moderator_password, :private, :record_meeting, :default_layout, :presenter_share_only,
+          [ :attendee_password, :moderator_password, :private, :record, :default_layout, :presenter_share_only,
             :metadata_attributes => [ :id, :name, :content, :_destroy, :owner_id ] ]
         }
         it {

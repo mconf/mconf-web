@@ -16,11 +16,10 @@ class BaseMailer < ActionMailer::Base
 
   # Default method to create an email object
   def create_email(to, from, subject, headers=nil)
-    sender = "#{Site.current.name} <#{Site.current.smtp_sender}>"
     I18n.with_locale(locale) do
       mail(:to => to,
            :subject => "[#{Site.current.name}] #{subject}",
-           :from => sender,
+           :from => "#{Site.current.name} <#{Site.current.smtp_sender}>",
            :headers => headers,
            :reply_to => from) do |format|
         format.html { render layout: 'mailers' }

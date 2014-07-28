@@ -7,211 +7,286 @@
 require 'spec_helper'
 
 describe SpaceMailer do
-
-  subject { SpaceMailer }
+  before { Helpers.setup_site_for_email_tests }
 
   let(:join_request) { FactoryGirl.create(:space_join_request) }
-  let(:admin) { FactoryGirl.create(:user) }
+  let(:introducer) { join_request.introducer }
+  let(:candidate) { join_request.candidate }
+  let(:space) { join_request.group }
 
-  describe ".invitation_email" do
-    context "creates the email" do
-      let(:mail) { SpaceMailer.invitation_email(join_request.id) }
-      let(:subject) {
-        "[#{Site.current.name}] " + I18n.t("invitation.to_space", :space => join_request.group.name,
-                                          :username => join_request.introducer.full_name)
+  describe '.invitation_email' do
+    let(:mail) { SpaceMailer.invitation_email(join_request.id) }
+
+    context "in the standard case" do
+      it("sets 'to'") { mail.to.should eql([join_request.email]) }
+      it("sets 'subject'") {
+        text = "[#{Site.current.name}] #{I18n.t('space_mailer.invitation_email.subject', :space => space.name, :username => introducer.full_name)}"
+        mail.subject.should eql(text)
       }
-
-      it 'renders the receiver email' do
-        expect(mail.to).to eql([join_request.email])
-      end
-
-      it 'renders the reply email' do
-        expect(mail.reply_to).to eql([join_request.introducer.email])
-      end
-
-      it 'renders the subject' do
-        expect(mail.subject).to eq(subject)
-      end
+      it("sets 'from'") { mail.from.should eql([Site.current.smtp_sender]) }
+      it("sets 'headers'") { mail.headers.should eql({}) }
+      it("sets 'reply_to'") { mail.reply_to.should eql([introducer.email]) }
+      it("assigns @user") { mail.body.encoded.should match(introducer.full_name) }
+      it("assigns @space") { mail.body.encoded.should match(space.name) }
+      it("renders the link to accept the invitation") {
+        url = space_join_request_url(space, join_request, :host => Site.current.domain)
+        url2 = space_url(space, :host => Site.current.domain)
+        content = I18n.t('space_mailer.invitation_email.message.link', :url => url, :space_url => url2).html_safe
+        mail.body.encoded.should match(Regexp.escape(content))
+      }
     end
 
-    context "queued the email to resque" do
-      before do
-        ResqueSpec.reset!
-        SpaceMailer.invitation_email(join_request.id).deliver
-      end
+    context "uses the candidate's locale" do
+      before {
+        Site.current.update_attributes(:locale => "en")
+        introducer.update_attribute(:locale, "en")
+        candidate.update_attribute(:locale, "pt-br")
+      }
+      it {
+        content = I18n.t('space_mailer.invitation_email.message.header', :sender => introducer.full_name,
+                         :email_sender => introducer.email, :space => space.name, :locale => "pt-br")
+        mail.body.encoded.should match(Regexp.escape(content))
+      }
+    end
 
-      it { should have_queue_size_of(1) }
-      it { should have_queued(:invitation_email, join_request.id).in(:mailer) }
+    context "uses the site's default locale if the candidate has no locale set" do
+      before {
+        introducer.update_attribute(:locale, "en")
+        candidate.update_attribute(:locale, nil)
+        Site.current.update_attributes(:locale => "pt-br")
+      }
+      it {
+        content = I18n.t('space_mailer.invitation_email.message.header', :sender => introducer.full_name,
+                         :email_sender => introducer.email, :space => space.name, :locale => "pt-br")
+        mail.body.encoded.should match(Regexp.escape(content))
+      }
     end
   end
 
   describe ".processed_invitation_email" do
-    describe "creates the email" do
-      context "with request approved" do
-        before(:each) do
-          allow_any_instance_of(JoinRequest).to receive(:accepted?).and_return(true)
-        end
-        let(:mail) { SpaceMailer.processed_invitation_email(join_request.id) }
-        let(:subject) {
-          "[#{Site.current.name}] " + I18n.t("space_mailer.processed_invitation_email.subject",
-                                             :name => join_request.candidate.name,
-                                             :action => I18n.t("space_mailer.processed_invitation_email.accepted"))
-        }
+    let(:join_request) { FactoryGirl.create(:space_join_request) }
+    let(:mail) { SpaceMailer.processed_invitation_email(join_request.id) }
+    let(:introducer) { join_request.introducer }
+    let(:space) { join_request.group }
 
-        it 'renders the receiver email' do
-          expect(mail.to).to eql([join_request.introducer.email])
-        end
+    before { join_request.update_attributes(accepted: true) }
 
-        it 'renders the reply email' do
-          expect(mail.reply_to).to eql([])
-        end
-
-        it 'renders the subject' do
-          expect(mail.subject).to eq(subject)
-        end
-      end
-
-      context "with request rejected" do
-        before(:each) do
-          allow_any_instance_of(JoinRequest).to receive(:accepted?).and_return(false)
-        end
-
-        let(:mail) { SpaceMailer.processed_invitation_email(join_request.id) }
-        let(:subject) {
-          "[#{Site.current.name}] " + I18n.t("space_mailer.processed_invitation_email.subject",
-                                             :name => join_request.candidate.name,
-                                             :action => I18n.t("space_mailer.processed_invitation_email.rejected"))
-        }
-
-        it 'renders the receiver email' do
-          expect(mail.to).to eql([join_request.introducer.email])
-        end
-
-        it 'renders the reply email' do
-          expect(mail.reply_to).to eql([])
-        end
-
-        it 'renders the subject' do
-          expect(mail.subject).to eq(subject)
-        end
-      end
+    context "when the join request was accepted" do
+      it("sets 'to'") { mail.to.should eql([introducer.email]) }
+      it("sets 'subject'") {
+        text = I18n.t("space_mailer.processed_invitation_email.subject",
+                      :name => candidate.name,
+                      :action => I18n.t("space_mailer.processed_invitation_email.accepted"))
+        text = "[#{Site.current.name}] #{text}"
+        mail.subject.should eql(text)
+      }
+      it("sets 'from'") { mail.from.should eql([Site.current.smtp_sender]) }
+      it("sets 'headers'") { mail.headers.should eql({}) }
+      it("sets 'reply_to'") { mail.reply_to.should eql([]) }
+      it("assigns @space") { mail.body.encoded.should match(space.name) }
+      it("assigns @candidate, @introducer and @action") {
+        action = I18n.t("space_mailer.processed_invitation_email.accepted")
+        content = I18n.t("space_mailer.processed_invitation_email.message.header",
+                         :introducer => introducer.name,
+                         :name => candidate.name,
+                         :action => action,
+                         :space => space.name)
+        mail.body.encoded.should match(content)
+      }
+      it("renders a link to the list of users in the space") {
+        url = space_users_url(space, :host => Site.current.domain)
+        content = I18n.t('space_mailer.processed_invitation_email.message.link', :users_url => url).html_safe
+        mail.body.encoded.should match(Regexp.escape(content))
+      }
     end
 
-    context "queued the email to resque" do
-      before do
-        ResqueSpec.reset!
-        SpaceMailer.processed_invitation_email(join_request.id).deliver
-      end
+    context "when the join request was rejected" do
+      before { join_request.update_attributes(accepted: false) }
 
-      it { should have_queue_size_of(1) }
-      it { should have_queued(:processed_invitation_email, join_request.id).in(:mailer) }
+      it("sets 'subject'") {
+        text = I18n.t("space_mailer.processed_invitation_email.subject",
+                      :name => candidate.name,
+                      :action => I18n.t("space_mailer.processed_invitation_email.rejected"))
+        text = "[#{Site.current.name}] #{text}"
+        mail.subject.should eql(text)
+      }
+      it("assigns @candidate, @introducer and @action") {
+        action = I18n.t("space_mailer.processed_invitation_email.rejected")
+        content = I18n.t("space_mailer.processed_invitation_email.message.header",
+                         :introducer => introducer.name,
+                         :name => candidate.name,
+                         :action => action,
+                         :space => space.name)
+        mail.body.encoded.should match(content)
+      }
+      it("renders a link to the list of users in the space") {
+        url = space_users_url(space, :host => Site.current.domain)
+        content = I18n.t('space_mailer.processed_invitation_email.message.link', :users_url => url).html_safe
+        mail.body.encoded.should match(Regexp.escape(content))
+      }
+    end
+
+    context "uses the introducer's locale" do
+      before {
+        Site.current.update_attributes(:locale => "en")
+        introducer.update_attribute(:locale, "pt-br")
+        candidate.update_attribute(:locale, "en")
+      }
+      it {
+        action = I18n.t("space_mailer.processed_invitation_email.accepted",
+                        :locale => "pt-br")
+        content = I18n.t("space_mailer.processed_invitation_email.message.header",
+                         :introducer => introducer.name,
+                         :name => candidate.name,
+                         :action => action,
+                         :space => space.name,
+                         :locale => "pt-br")
+        mail.body.encoded.should match(Regexp.escape(content))
+      }
+    end
+
+    context "uses the site's default locale if the introducer has no locale set" do
+      before {
+        introducer.update_attribute(:locale, nil)
+        candidate.update_attribute(:locale, "en")
+        Site.current.update_attributes(:locale => "pt-br")
+      }
+      it {
+        action = I18n.t("space_mailer.processed_invitation_email.accepted",
+                        :locale => "pt-br")
+        content = I18n.t("space_mailer.processed_invitation_email.message.header",
+                         :introducer => introducer.name,
+                         :name => candidate.name,
+                         :action => action,
+                         :space => space.name,
+                         :locale => "pt-br")
+        mail.body.encoded.should match(Regexp.escape(content))
+      }
     end
   end
 
   describe ".join_request_email" do
-    context "creates the email" do
-      before do
-        space = join_request.group
-        space.add_member!(admin, "Admin")
-        @space_admin = space.admins.first
-      end
+    let(:receiver) { FactoryGirl.create(:user) }
+    let(:mail) { SpaceMailer.join_request_email(join_request.id, receiver.id) }
 
-      let(:mail) { SpaceMailer.join_request_email(join_request.id, @space_admin.id) }
-      let(:subject) {
-        "[#{Site.current.name}] " + I18n.t("space_mailer.join_request_email.subject",
-                                           :candidate => join_request.candidate.full_name,
-                                           :space => join_request.group.name)
+    context "in the standard case" do
+      it("sets 'to'") { mail.to.should eql([receiver.email]) }
+      it("sets 'subject'") {
+        text = I18n.t('space_mailer.join_request_email.subject',
+                      :candidate => candidate.name, :space => space.name)
+        text = "[#{Site.current.name}] #{text}"
+        mail.subject.should eql(text)
       }
-
-      it 'renders the receiver email' do
-        expect(mail.to).to eql([@space_admin.email])
-      end
-
-      it 'renders the reply email' do
-        expect(mail.reply_to).to eql([join_request.candidate.email])
-      end
-
-      it 'renders the subject' do
-        expect(mail.subject).to eq(subject)
-      end
+      it("sets 'from'") { mail.from.should eql([Site.current.smtp_sender]) }
+      it("sets 'headers'") { mail.headers.should eql({}) }
+      it("sets 'reply_to'") { mail.reply_to.should eql([candidate.email]) }
+      it("assigns @join_request") { mail.body.encoded.should match(join_request.comment) }
+      it("renders the link to accept the join request") {
+        url = space_join_requests_url(space, join_request, :host => Site.current.domain)
+        content = I18n.t('space_mailer.join_request_email.message.link', :url => url).html_safe
+        mail.body.encoded.should match(Regexp.escape(content))
+      }
     end
 
-    context "queued the email to resque" do
-      before do
-        ResqueSpec.reset!
-        space = join_request.group
-        space.add_member!(admin, "Admin")
-        space_admin = space.admins.first
+    context "uses the receiver's locale" do
+      before {
+        Site.current.update_attributes(:locale => "en")
+        introducer.update_attribute(:locale, "en")
+        candidate.update_attribute(:locale, "en")
+        receiver.update_attribute(:locale, "pt-br")
+      }
+      it {
+        content = I18n.t('space_mailer.join_request_email.message.header', :candidate => candidate.full_name,
+                         :space => space.name, :locale => "pt-br")
+        mail.body.encoded.should match(Regexp.escape(content))
+      }
+    end
 
-        SpaceMailer.join_request_email(join_request.id, space_admin.id).deliver
-      end
-
-      it { should have_queue_size_of(1) }
-      it { should have_queued(:join_request_email, join_request.id, admin.id).in(:mailer) }
+    context "uses the site's default locale if the receiver has no locale set" do
+      before {
+        introducer.update_attribute(:locale, "en")
+        candidate.update_attribute(:locale, "en")
+        receiver.update_attribute(:locale, nil)
+        Site.current.update_attributes(:locale => "pt-br")
+      }
+      it {
+        content = I18n.t('space_mailer.join_request_email.message.header', :candidate => candidate.full_name,
+                         :space => space.name, :locale => "pt-br")
+        mail.body.encoded.should match(Regexp.escape(content))
+      }
     end
   end
 
   describe ".processed_join_request_email" do
-    describe "creates the email" do
-      context "with request approved" do
-        before(:each) do
-          allow_any_instance_of(JoinRequest).to receive(:accepted?).and_return(true)
-        end
+    let(:mail) { SpaceMailer.processed_join_request_email(join_request.id) }
 
-        let(:mail) { SpaceMailer.processed_join_request_email(join_request.id) }
-        let(:subject) {
-          "[#{Site.current.name}] " + I18n.t("space_mailer.processed_join_request_email.subject",
-                                             :action => I18n.t("space_mailer.processed_join_request_email.accepted"),
-                                             :space => join_request.group.name)
-        }
+    before { join_request.update_attributes(accepted: true) }
 
-        it 'renders the receiver email' do
-          expect(mail.to).to eql([join_request.candidate.email])
-        end
-
-        it 'renders the reply email' do
-          expect(mail.reply_to).to eql([])
-        end
-
-        it 'renders the subject' do
-          expect(mail.subject).to eq(subject)
-        end
-      end
-
-      context "with request rejected" do
-        before(:each) do
-          allow_any_instance_of(JoinRequest).to receive(:accepted?).and_return(false)
-        end
-
-        let(:mail) { SpaceMailer.processed_join_request_email(join_request.id) }
-        let(:subject) {
-          "[#{Site.current.name}] " + I18n.t("space_mailer.processed_join_request_email.subject",
-                                             :action => I18n.t("space_mailer.processed_join_request_email.rejected"),
-                                             :space => join_request.group.name)
-        }
-
-        it 'renders the receiver email' do
-          expect(mail.to).to eql([join_request.candidate.email])
-        end
-
-        it 'renders the reply email' do
-          expect(mail.reply_to).to eql([])
-        end
-
-        it 'renders the subject' do
-          expect(mail.subject).to eq(subject)
-        end
-      end
+    context "when the join request was approved" do
+      it("sets 'to'") { mail.to.should eql([candidate.email]) }
+      it("sets 'subject'") {
+        text = I18n.t("space_mailer.processed_join_request_email.subject",
+                      :space => space.name,
+                      :action => I18n.t("space_mailer.processed_join_request_email.accepted"))
+        text = "[#{Site.current.name}] #{text}"
+        mail.subject.should eql(text)
+      }
+      it("sets 'from'") { mail.from.should eql([Site.current.smtp_sender]) }
+      it("sets 'headers'") { mail.headers.should eql({}) }
+      it("sets 'reply_to'") { mail.reply_to.should eql([]) }
+      it("assigns @space") { mail.body.encoded.should match(space.name) }
+      it("assigns @join_request, @space and @action") {
+        url = space_url(space, :host => Site.current.domain)
+        content = I18n.t("space_mailer.processed_join_request_email.message.link.accepted",
+                         :space => space.name,
+                         :space_url => url)
+        mail.body.encoded.should match(content)
+      }
     end
 
-    context "queued the email to resque" do
-      before do
-        ResqueSpec.reset!
-        SpaceMailer.processed_join_request_email(join_request.id).deliver
-      end
+    context "when the join request was rejected" do
+      before { join_request.update_attributes(accepted: false) }
+      it("sets 'subject'") {
+        text = I18n.t("space_mailer.processed_join_request_email.subject",
+                      :space => space.name,
+                      :action => I18n.t("space_mailer.processed_join_request_email.rejected"))
+        text = "[#{Site.current.name}] #{text}"
+        mail.subject.should eql(text)
+      }
+      it("assigns @join_request, @space and @action") {
+        url = space_url(space, :host => Site.current.domain)
+        content = I18n.t("space_mailer.processed_join_request_email.message.link.rejected",
+                         :space_url => url)
+        mail.body.encoded.should match(content)
+      }
+    end
 
-      it { should have_queue_size_of(1) }
-      it { should have_queued(:processed_join_request_email, join_request.id).in(:mailer) }
+    context "uses the candidate's locale" do
+      before {
+        Site.current.update_attributes(:locale => "en")
+        introducer.update_attribute(:locale, "en")
+        candidate.update_attribute(:locale, "pt-br")
+      }
+      it {
+        action = I18n.t("space_mailer.processed_join_request_email.accepted", locale: "pt-br")
+        content = I18n.t('space_mailer.processed_join_request_email.message.header', action: action,
+                         space: space.name, locale: "pt-br")
+        mail.body.encoded.should match(Regexp.escape(content))
+      }
+    end
+
+    context "uses the site's default locale if the candidate has no locale set" do
+      before {
+        introducer.update_attribute(:locale, "en")
+        candidate.update_attribute(:locale, nil)
+        Site.current.update_attributes(:locale => "pt-br")
+      }
+      it {
+        action = I18n.t("space_mailer.processed_join_request_email.accepted", locale: "pt-br")
+        content = I18n.t('space_mailer.processed_join_request_email.message.header', action: action,
+                         space: space.name, locale: "pt-br")
+        mail.body.encoded.should match(Regexp.escape(content))
+      }
     end
   end
 

@@ -1,26 +1,32 @@
 -# Locals:
 -#   space (Space): the target model
 -#   is_member (boolean): Whether the current user is a member of the space or not
+-#   extended (boolean): show extended information
+-#   show_join_request (boolean): show link to a join request (if it exists)
+
+- extendend ||= false
+- show_join_request ||= false
 
 - unless space.nil?
   = content_tag(:div, :name => space.permalink, :class => "thread thread-space #{cycle("thread-even" , "thread-odd")} space-item") do
     .logo-in-thread
       -# note: can't be can?(:read, space) because we want the link even for non-members
       - if user_signed_in? || space.public
-        = link_logo_image(space, options_for_tooltip(sanitize(space.name), :size => '84x64', :"data-placement" => 'bottom', :class => "logo logo-space"))
+        = link_logo_image(space, :size => '84x64', :"data-placement" => 'bottom', :class => "logo logo-space")
       - else
         .register-to-view-space
           = logo_image(space, :size => '84x64', :"data-placement" => 'bottom', :class => "logo logo-space")
 
     .thread-content
       .thread-title
-        - if is_member
-          %span.is-member= t('.user_is_member')
         %span
           - if user_signed_in? || space.public
             = link_to sanitize(space.name), space_path(space)
           - else
             %span{:title => space.name}= sanitize(space.name)
+        - if extended
+          - if is_member
+            %span.is-member= t('.user_is_member')
         .space-description
           - if space.public
             .resource-visibility.small.public
@@ -33,4 +39,13 @@
               = t(".private")
               = t('.with_members', :count => space.users.count)
       .thread-text
-        = sanitize(auto_link(space.description))
+        - if extended
+          = sanitize(auto_link(space.description))
+        - if show_join_request
+          - jr = space.pending_join_request_or_invitation_for(current_user)
+          - if jr
+            = icon_join_request
+            - if jr.request_type == "invite"
+              = link_to t(".reply_invitation"), space_join_request_path(space, jr)
+            - else
+              = link_to t(".view_join_request"), space_join_request_path(space, jr)

@@ -12,11 +12,11 @@ class SpaceMailer < BaseMailer
     @user = invitation.introducer
     @space = invitation.group
 
-    I18n.with_locale(get_user_locale(@user, false)) do
+    locale = get_user_locale(invitation.candidate, false)
+    I18n.with_locale(locale) do
       @invitation = invitation.clone
-      subject = t("invitation.to_space",
-        :space => @space.name,
-        :username => @user.full_name).html_safe
+      subject = t("space_mailer.invitation_email.subject",
+                  :space => @space.name, :username => @user.full_name).html_safe
 
       create_email(invitation.email, @user.email, subject)
     end
@@ -56,7 +56,7 @@ class SpaceMailer < BaseMailer
       @action = @join_request.accepted? ? t("space_mailer.processed_join_request_email.accepted") : t("space_mailer.processed_join_request_email.rejected")
       subject = t("space_mailer.processed_join_request_email.subject", :action => @action, :space => @space.name)
 
-      create_email(user.email,nil,subject)
+      create_email(user.email, nil, subject)
     end
   end
 

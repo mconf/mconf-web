@@ -16,6 +16,7 @@ class ShibbolethController < ApplicationController
 
   before_filter :check_shib_enabled, :except => [:info]
   before_filter :check_current_user, :except => [:info]
+  before_filter :check_shib_always_new_account, :only => [:create_association]
 
   # Log in a user using his shibboleth information
   # The application should only reach this point after authenticating using Shibboleth
@@ -39,12 +40,19 @@ class ShibbolethController < ApplicationController
         logger.info "Shibboleth: logging in the user #{token.user.inspect}"
         sign_in token.user
         flash.keep # keep the message set before by #create_association
-        redirect_to my_home_path
+        redirect_to after_sign_in_path_for(token.user)
 
       # no token means the user has no association yet, render a page to do it
       else
-        logger.info "Shibboleth: first access for this user, rendering the association page"
-        render :associate
+        unless get_always_new_account
+          logger.info "Shibboleth: first access for this user, rendering the association page"
+          render :associate
+        else
+          logger.info "Shibboleth: flag `shib_always_new_account` is set"
+          logger.info "Shibboleth: first access for this user, automatically creating a new account"
+          associate_with_new_account(shib)
+          redirect_to shibboleth_path
+        end
       end
     end
   end
@@ -92,8 +100,17 @@ class ShibbolethController < ApplicationController
   # If there's a current user redirects to home.
   def check_current_user
     if user_signed_in?
-      redirect_to my_home_path
+      redirect_to after_sign_in_path_for(current_user)
       false
+    else
+      true
+    end
+  end
+
+  # Renders a 404 if the flag `shib_always_new_account` is enabled.
+  def check_shib_always_new_account
+    if get_always_new_account()
+      raise ActionController::RoutingError.new('Not Found')
     else
       true
     end
@@ -162,6 +179,11 @@ class ShibbolethController < ApplicationController
       flash[:success] = t("shibboleth.create_association.account_associated", :email => user.email)
     end
 
+  end
+
+  # Returns the value of the flag `shib_always_new_account`.
+  def get_always_new_account
+    return Site.current.shib_always_new_account
   end
 
   # Adds fake test data to the environment to test shibboleth in development.

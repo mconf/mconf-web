@@ -168,6 +168,7 @@ en:
         registration_enabled: "Allow users to create new accounts"
         require_registration_approval: "Require admins to approve new registrations"
         signature: "Signature"
+        shib_always_new_account: "Shibboleth: Always create new account"
         shib_enabled: "Shibboleth: Enable"
         shib_email_field: "Shibboleth: Field for email"
         shib_env_variables: "Shibboleth: Environment variables"
@@ -700,7 +701,6 @@ en:
     invite_url: "Invite URL"
     my: "My Home"
     my_spaces: "My spaces"
-    my_spaces_tooltip: "These are the spaces you belong to."
     no_spaces: "You not belong to any spaces. You can see the spaces available <a href=\"%{link}\">here</a>."
     one: home
     view_invite_url: "View Invite URL"
@@ -757,7 +757,6 @@ en:
     title2: "Space Invitation"
     to_accept_space: "To accept my invitation please visit 'URL'"
     to_event: "%{username} invites you to event %{eventname} in space %{space}"
-    to_space: "%{username} invites you to space %{space}"
     will_invite: "People you will invite"
     yes_accepted: accepted
   invite: 
@@ -974,7 +973,10 @@ en:
         other: "Other"
         today: "Today"
       not_confirmed: "Your account is not activated yet. Please, check your email to activate it. (Did not receive an email? <a href=\"%{url}\">Click here</a>.)"
-      pending_join_requests: "You have <span class='label label-important'>%{count}</span> pending requests"
+      pending_join_requests:
+        one: "%{count} pending join request"
+        other: "%{count} pending join requests"
+      pending_join_requests_tooltip: "These are the invitations you received to join spaces or the join requests you sent."
       view_all_activity: "View all your activity"
       view_all_spaces: "View all spaces"
     edit_recording:
@@ -1542,7 +1544,9 @@ en:
     unified_space:
       private: "Private space"
       public: "Public space"
+      reply_invitation: "Reply to the invitation"
       user_is_member: "You are a member of this space"
+      view_join_request: "View the request you sent"
       with_members: "with %{count} members"
     users: "Users in this space"
     webconference:

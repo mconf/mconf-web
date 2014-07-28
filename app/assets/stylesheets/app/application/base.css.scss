@@ -65,10 +65,10 @@ form {
 // Unified style for threads: posts, news, attachments
 .thread {
   clear: both;
-  padding: 18px 4px 8px 4px;
-  margin: 0;
+  padding: 20px 4px 8px 4px;
+  margin: 1px 0;
   @include mconf-clearfix;
-  border-bottom: 1px solid #eee;
+  //border-bottom: 1px solid #eee;
 
   // so .thread-action-links is correctly positioned
   position: relative;
@@ -89,11 +89,6 @@ form {
 
   .thread-title {
     overflow: hidden;
-
-    a {
-      white-space: nowrap;
-      //font-weight: bold;
-    }
 
     h2 { margin-bottom: 0; }
   }
@@ -120,7 +115,6 @@ form {
   }
 
   .thread-action-links {
-    //float: right;
     position: absolute;
     right: 0;
     top: 0;
@@ -129,8 +123,7 @@ form {
     @include mconf-clearfix;
     @include border-radius(4px);
     background: $very-light-gray;
-    border-left: 1px solid #e0e0e0;
-    border-bottom: 1px solid #e0e0e0;
+    border: 1px solid #e0e0e0;
 
     li {
       margin: 0;
@@ -196,8 +189,8 @@ form {
 #navbar-wrapper {
   margin: 0;
   padding: 0 10px;
-  background: $navbar-bg-color;
-  @include background(linear-gradient(bottom, lighten($navbar-bg-color, 2), $navbar-bg-color));
+  background: $navbar-bg-color-dark;
+  @include background(linear-gradient(bottom, $navbar-bg-color-light, $navbar-bg-color-dark));
 }
 
 #navbar {
@@ -391,7 +384,7 @@ ul#navbar-left-links {
       padding: 2px;
       height: 22px;
       width: 22px;
-      background: lighten($navbar-bg-color, 10);
+      background: lighten($navbar-bg-color-dark, 10);
       @include border-radius(3px);
       @include broken-img-parent;
 
@@ -651,7 +644,7 @@ ul#navbar-left-links {
   float: right;
 
   .content-block-wrapper {
-    padding: 5px;
+    padding: 4px;
     @include border-radius(5px);
     background: $light-gray;
     margin-bottom: 10px;

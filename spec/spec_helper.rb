@@ -22,7 +22,7 @@ Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 ActionMailer::Base.delivery_method = :test
 ActionMailer::Base.perform_deliveries = true
 ActionMailer::Base.deliveries = []
-ActionMailer::Base.default_url_options = { :host => 'mconf.org' }
+ActionMailer::Base.default_url_options = { :host => 'localhost:3001' }
 
 RSpec.configure do |config|
   # == Mock Framework

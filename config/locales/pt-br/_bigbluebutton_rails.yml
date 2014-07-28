@@ -25,6 +25,8 @@ pt-br:
         attendee_password: "Senha de Participante"
         default_layout: "Layout Padrão"
         presenter_share_only: "Somente apresentador compartilha áudio e vídeo"
+        auto_start_video: "Auto iniciar vídeo"
+        auto_start_audio: "Auto iniciar áudio"
         dial_number: "Número de discagem"
         duration: Duração
         external: "Criada externamente"

@@ -100,9 +100,12 @@ body.spaces.index {
       color: #888;
       span { display: block; }
       .is-member {
-        color: $green;
-        float: right;
-        font-style: normal;
+        color: $alert-success-font;
+        background: lighten($alert-success-bg, 5);
+        padding: 1px 3px;
+        @include border-radius(3px);
+        text-align: center;
+        margin-bottom: 5px;
       }
     }
 

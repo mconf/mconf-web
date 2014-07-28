@@ -13,9 +13,9 @@ describe ApplicationMailer do
     let(:user) { FactoryGirl.create(:user) }
     let(:subject) { Faker::Lorem.characters 30 }
     let(:message) { Faker::Lorem.characters 140 }
+    let(:mail) { ApplicationMailer.feedback_email(user.email, subject, message) }
 
     context "in the standard case" do
-      let(:mail) { ApplicationMailer.feedback_email(user.email, subject, message) }
       it("sets 'to'") { mail.to.should eql([Site.current.smtp_sender]) }
       it("sets 'subject'") {
         text = "[#{Site.current.name}] #{I18n.t('application_mailer.feedback_email.subject')}: #{subject}"
@@ -33,7 +33,6 @@ describe ApplicationMailer do
         Site.current.update_attributes(:locale => "pt-br")
         user.update_attribute(:locale, "en")
       }
-      let(:mail) { ApplicationMailer.feedback_email(user.email, subject, message) }
       it {
         content = I18n.t('application_mailer.feedback_email.content', :email => user.email, :locale => "pt-br")
         mail.body.encoded.should match(content)
@@ -46,7 +45,6 @@ describe ApplicationMailer do
         I18n.default_locale = "pt-br"
         user.update_attribute(:locale, "en")
       }
-      let(:mail) { ApplicationMailer.feedback_email(user.email, subject, message) }
       it {
         content = I18n.t('application_mailer.feedback_email.content', :email => user.email, :locale => "pt-br")
         mail.body.encoded.should match(content)
@@ -72,8 +70,9 @@ describe ApplicationMailer do
       @locale = user.locale
     }
 
+    let(:mail) { ApplicationMailer.digest_email(user.id, @posts, @news, @attachments, @events, @inbox) }
+
     describe "in the standard case" do
-      let(:mail) { ApplicationMailer.digest_email(user.id, @posts, @news, @attachments, @events, @inbox) }
       it("sets 'to'") { mail.to.should eql([user.email]) }
       it("sets 'subject'") {
         text = I18n.t('email.digest.title', :type => I18n.t('email.digest.type.daily', :locale => @locale), :locale => @locale)
@@ -91,7 +90,6 @@ describe ApplicationMailer do
         Site.current.update_attributes(:locale => "pt-br")
         user.update_attribute(:locale, nil)
       }
-      let(:mail) { ApplicationMailer.digest_email(user.id, @posts, @news, @attachments, @events, @inbox) }
       it {
         text = I18n.t('email.digest.title', :type => I18n.t('email.digest.type.daily', :locale => "pt-br"), :locale => "pt-br")
         text = "[#{Site.current.name}] #{text}"

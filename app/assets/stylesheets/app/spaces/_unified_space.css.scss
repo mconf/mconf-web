@@ -8,9 +8,11 @@
 
     .is-member {
       @include font-size($font-small);
-      color: $green;
-      margin-right: 10px;
-      float: right;
+      color: $alert-success-font;
+      margin-left: 5px;
+      background: lighten($alert-success-bg, 5);
+      padding: 1px 3px;
+      @include border-radius(3px);
     }
 
   }

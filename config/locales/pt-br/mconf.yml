@@ -168,6 +168,7 @@ pt-br:
         registration_enabled: "Permitir que usuários criem novas contas"
         require_registration_approval: "Requerer que administradores aceitem novas contas"
         signature: "Assinatura"
+        shib_always_new_account: "Shibboleth: Sempre criar uma nova conta"
         shib_enabled: "Shibboleth: Habilitar"
         shib_email_field: "Shibboleth: Campo para email"
         shib_env_variables: "Shibboleth: Variáveis de ambiente"
@@ -700,7 +701,6 @@ pt-br:
     invite_url: "URL para convites"
     my: "Página inicial"
     my_spaces: "Minhas comunidades"
-    my_spaces_tooltip: "Estão são as comunidades às quais você faz parte."
     no_spaces: "Você não faz parte de nenhuma comunidade. Você pode ver as comunidades existentes <a href=\"%{link}\">aqui</a>."
     one: home
     view_invite_url: "Ver URL para convites"
@@ -757,7 +757,6 @@ pt-br:
     title2: "Convite da comunidade"
     to_accept_space: "Para aceitar o convite por favor visite 'URL'"
     to_event: "%{username} convida você para o evento %{eventname} na comunidade %{space}"
-    to_space: "%{username} convida você para a comunidade %{space}"
     will_invite: "Pessoas que você vai convidar"
     yes_accepted: aceitou
   invite:
@@ -969,12 +968,15 @@ pt-br:
     page_header:
       activity_list: "Atividades recentes"
     home:
-      create_space: "Criar uma nova comunidade"
+      create_space: "Criar uma comunidade"
       events:
         other: "Outros"
         today: "Hoje"
       not_confirmed: "Sua conta ainda não foi confirmada. Por favor verifique o seu e-mail para ativá-la. (Não recebeu um e-mail? <a href=\"%{url}\">Clique aqui</a>.)"
-      pending_join_requests: "Você possui <span class='label label-important'>%{count}</span> requisições pendentes"
+      pending_join_requests:
+        one: "%{count} requisição pendente"
+        other: "%{count} requisições pendentes"
+      pending_join_requests_tooltip: "Estes são os convites que você recebeu para entrar em uma comunidade e os pedidos de ingresso que você enviou."
       view_all_activity: "Ver todas suas atividades"
       view_all_spaces: "Ver todas comunidades"
     edit_recording:
@@ -1002,7 +1004,7 @@ pt-br:
         participants:
           one: "Há uma reunião em andamento com %{count} usuário!"
           other: "Há uma reunião em andamento com %{count} usuários!"
-      start: "Começar uma nova reunião"
+      start: "Começar uma reunião"
       your_url: "Seu endereço"
   my_friends: "Meus amigos"
   name:
@@ -1092,10 +1094,10 @@ pt-br:
     wall: Mural
   posts:
     index:
-      new_post: "Enviar uma nova mensagem"
+      new_post: "Enviar uma mensagem"
       no_messages: "Não existem mensagens no mural"
     new_post:
-      title: "Adicionando uma nova mensagem"
+      title: "Adicionando uma mensagem"
     post_with_children:
       by: "de"
   prav: PRAV
@@ -1491,7 +1493,7 @@ pt-br:
       public: "Pública"
       spaces_examples:
         title: "Exemplos de comunidades:"
-      title: "Criar uma nova comunidade"
+      title: "Criar uma comunidade"
     news: "Notícias na comunidade"
     recordings:
       title: "Gravações desta comunidade"
@@ -1539,10 +1541,12 @@ pt-br:
       view_join_request: "Ver a requisição que você enviou"
     thumbnail_view:
       no_spaces: "Nenhuma comunidade foi criada até o momento!"
-    unified_space: 
+    unified_space:
       private: "Comunidade privada"
       public: "Comunidade pública"
+      reply_invitation: "Responder ao convite"
       user_is_member: "Você é membro desta comunidade"
+      view_join_request: "Ver a requisição que você enviou"
       with_members: "com %{count} membros"
     users: "Usuários nesta comunidade"
     webconference:
