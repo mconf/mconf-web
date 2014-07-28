@@ -173,6 +173,24 @@ describe UsersController do
           it { response.should redirect_to edit_user_path(@user) }
           it { @user.encrypted_password.should_not == @old_encrypted }
         end
+        context "when local authentication is not allowed" do
+          before { Site.current.update_attributes(:disable_local_auth => true)}
+          before(:each) do
+            @user = FactoryGirl.create(:user, :password => "foobar", :password_confirmation => "foobar")
+            sign_in @user
+
+            @old_encrypted = @user.encrypted_password
+            @new_pass = "newpass"
+
+            put :update, :id => @user.to_param, :user => { :password => @new_pass, :password_confirmation => @new_pass, :current_password => "foobar" }
+            @user = User.find_by_username(@user.username)
+          end
+
+          it { response.status.should == 302 }
+          it { should set_the_flash.to(I18n.t('user.updated')) }
+          it { response.should redirect_to edit_user_path(@user) }
+          it { @user.encrypted_password.should == @old_encrypted }
+        end
       end
 
 

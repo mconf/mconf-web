@@ -60,7 +60,7 @@ class UsersController < ApplicationController
     end
     updated = if password_changed
                 @user.update_with_password(params[:user])
-               else
+              else
                 params[:user].delete(:current_password) unless params[:user].nil?
                 @user.update_without_password(params[:user])
               end

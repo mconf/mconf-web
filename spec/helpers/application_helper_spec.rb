@@ -175,4 +175,8 @@ describe ApplicationHelper do
     it { local_authentication_disabled?.should eq(Site.current.disable_local_auth) }
   end
 
+  describe '#ldap_enabled?' do
+    it { ldap_enabled?.should eq(Site.current.ldap_enabled) }
+  end
+
 end

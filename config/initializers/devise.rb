@@ -224,6 +224,7 @@ Devise.setup do |config|
   config.warden do |manager|
     # manager.intercept_401 = false
     manager.default_strategies(:scope => :user).unshift :ldap_authenticatable
+    manager.default_strategies(:scope => :user).unshift :database_authenticatable
   end
 
   # ==> Mountable engine configurations
@@ -240,15 +241,3 @@ Devise.setup do |config|
   # so you need to do it manually. For the users scope, it would be:
   # config.omniauth_path_prefix = "/my_engine/users/auth"
 end
-
-Devise::Strategies::DatabaseAuthenticatable.class_eval do
-  Rails.logger.info("params ============= #{params}")
-  if params[:action] == "create"
-    user = User.find_for_authentication(:login => params[:user][:login])
-    Rails.logger.info("============== is valid?: #{!Site.current.disable_local_auth? || user.admin?}")
-    !Site.current.disable_local_auth? || user.admin?
-  else
-    false
-  end
-end
-
