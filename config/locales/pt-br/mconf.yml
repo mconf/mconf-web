@@ -472,11 +472,11 @@ pt-br:
     invite_userid:
       login: "Entrar"
       member:
+        accessible_to: "(é necessário código e senha do cartão UFRGS)"
+        click_here: "Clique aqui para acessar sua conta"
         email_or_username: "E-mail ou nome de usuário"
         password: "Senha"
-        shibboleth:
-          click_here: "Ou clique aqui para usar o acesso federado"
-        title: "Eu sou um membro deste site"
+        title: "Quero entrar com minha conta da UFRGS"
       non_member:
         name: "Seu nome completo"
         next: "Próximo"

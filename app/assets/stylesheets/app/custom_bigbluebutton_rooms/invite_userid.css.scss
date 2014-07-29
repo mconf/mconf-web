@@ -25,6 +25,7 @@ body.custom_bigbluebutton_rooms.invite_userid {
           margin-bottom: 20px;
           display: block;
           font-weight: bold;
+          text-align: center;
         }
       }
     }
@@ -36,19 +37,19 @@ body.custom_bigbluebutton_rooms.invite_userid {
         float: right;
       }
 
-      .shibboleth-container {
-        @include font-size($font-medium);
-        clear: both;
-        max-width: 300px;
-        float: right;
-        margin: 5px 40px 0 0;
+      #shib-login {
+        float: left;
+        width: 100%;
+        padding: 25px 0;
         text-align: center;
 
-        a { display: block; }
-        img {
-          width: 240px;
-          height: 41px;
-          margin: 10px 0;
+        #login-button {
+          min-width: 300px;
+        }
+
+        .observation {
+          color: #666;
+          padding-top: 30px;
         }
       }
     }
