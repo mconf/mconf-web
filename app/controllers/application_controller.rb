@@ -202,8 +202,9 @@ class ApplicationController < ActionController::Base
                       "/logout",
                       "/users/password",
                       "/users/confirmation/new",
-                      "/secure", "/secure/info", "/secure/associate" ]
-    if (!ignored_paths.include?(request.fullpath) &&
+                      "/secure", "/secure/info",
+                      "/secure/associate" ]
+    if (!ignored_paths.include?(request.path) &&
         !request.xhr? && # don't store ajax calls
         (request.format == "text/html" || request.content_type == "text/html"))
       session[:user_return_to] = request.fullpath
