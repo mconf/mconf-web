@@ -10,8 +10,6 @@ include Devise::TestHelpers
 
 describe ApplicationHelper do
 
-  it "#clippy"
-
   describe "#application_version" do
     it("returns the version set on the Mconf object") { application_version.should eq(Mconf::VERSION) }
   end
