@@ -429,11 +429,11 @@ describe SpacesController do
       }
 
       let(:space_allowed_params) {
-        [ :name, :description, :logo_image, :public, :permalink, :repository,
-        :crop_x, :crop_y, :crop_w, :crop_h,
-        :bigbluebutton_room_attributes =>
-        [ :id, :attendee_password, :moderator_password, :default_layout,
-          :welcome_msg, :presenter_share_only, :auto_start_video, :auto_start_audio ] ]
+        [ :name, :description, :logo_image, :public, :permalink, :disabled,
+          :repository, :crop_x, :crop_y, :crop_w, :crop_h,
+          :bigbluebutton_room_attributes =>
+          [ :id, :attendee_password, :moderator_password, :default_layout,
+            :welcome_msg, :presenter_share_only, :auto_start_video, :auto_start_audio ] ]
       }
       before {
         space_attributes.stub(:permit).and_return(space_attributes)

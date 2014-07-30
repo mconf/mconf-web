@@ -337,7 +337,7 @@ class SpacesController < ApplicationController
 
   def space_params
     unless params[:space].blank?
-      params.require(:space).permit(*space_allowed_params)
+      params[:space].permit(*space_allowed_params)
     else
       {}
     end
