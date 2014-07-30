@@ -8,19 +8,12 @@
     .container
       %h3.title= t(".member.title")
 
-      -# TODO: redirect back here after login
-      = simple_form_for "user", :url => user_session_path do |f|
-        .input
-          %label= t(".member.email_or_username")
-          = text_field_tag "user[login]", "", :required => true, :autofocus => true
-          %label= t(".member.password")
-          = password_field_tag "user[password]", "", :required => true
-        = f.button :submit, t(".login"), :class => "btn btn-primary"
-
       - if current_site.shib_enabled?
-        .shibboleth-container
-          = link_to(image_tag("logos/shib_federation_small.jpg"), shibboleth_path)
-          = link_to(t(".member.shibboleth.click_here"), shibboleth_path)
+        #shib-login
+          #login-button
+            = link_to shibboleth_path, :class => "btn btn-large btn-danger" do
+              = t('.member.click_here').html_safe
+            .observation= t('.member.accessible_to').html_safe
 
   #webconf-room-userid-non-member
     .container

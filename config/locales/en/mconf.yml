@@ -472,11 +472,11 @@ en:
     invite_userid:
       login: "Login"
       member:
+        accessible_to: "(you need the code and password of your account on UFRGS)"
+        click_here: "Click here to access your account"
         email_or_username: "Email or username"
         password: "Password"
-        shibboleth:
-          click_here: "Or click here to use the federated login"
-        title: "I'm a member of this website"
+        title: "I want to access with my UFRGS account"
       non_member:
         name: "Your full name"
         next: "Next"
