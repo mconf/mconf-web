@@ -198,15 +198,6 @@ class User < ActiveRecord::Base
     User.new :email => opt[:email], :username => I18n.t('_other.user.guest', :email => opt[:email])
   end
 
-  def self.find_with_disabled *args
-    self.unscoped { find(*args) }
-  end
-
-  # TODO
-  def self.find_by_id_with_disabled *args
-    self.unscoped { find(*args) }
-  end
-
   def self.with_disabled
     self.unscoped
   end

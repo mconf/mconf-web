@@ -130,14 +130,6 @@ class Space < ActiveRecord::Base
 
   # TODO: review all public methods below
 
-  def self.find_with_disabled *args
-    self.unscoped { find(*args) }
-  end
-
-  def self.find_with_disabled_and_param *args
-    self.unscoped { find_with_param(*args) }
-  end
-
   def disable
     self.disabled = true
     self.name = "#{name.split(" RESTORED").first} DISABLED #{Time.now.to_i}"

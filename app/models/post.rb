@@ -33,9 +33,7 @@ class Post < ActiveRecord::Base
   end
 
   def space
-    space_id.present? ?
-      Space.find_with_disabled(space_id) :
-      nil
+    Space.with_disabled.where(:id => space_id).first
   end
 
   # This method return the 3 last comment of a thread if the thread has more than 3 comments.

@@ -30,7 +30,7 @@ namespace :db do
       end
       RecentActivity.destroy_all
       BigbluebuttonRecording.destroy_all
-      users_without_admin = User.find_with_disabled
+      users_without_admin = User.with_disabled
       users_without_admin.delete(User.find_by(superuser: true))
       users_without_admin.each(&:destroy)
       rooms_without_admin = BigbluebuttonRoom.all

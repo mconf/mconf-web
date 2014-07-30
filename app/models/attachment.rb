@@ -14,7 +14,7 @@ class Attachment < ActiveRecord::Base
   before_save :update_attachment_attributes
 
   def space
-    space_id.present? ? Space.find_with_disabled(space_id) : nil
+    Space.with_disabled.where(:id => space_id).first
   end
 
   after_validation do |att|
