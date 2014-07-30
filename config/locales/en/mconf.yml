@@ -145,6 +145,7 @@ en:
         analytics_code: "Analytics Code"
         chat_enabled: "Enable Chat"
         description: "Description"
+        disable_local_auth: "Disable local authentication"
         domain: "Application domain"
         events_enabled: "Enable event module"
         exception_notifications: "Send email on error"

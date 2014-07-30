@@ -146,6 +146,7 @@ pt-br:
         chat_enabled: "Habilitar Chat"
         description: "Descrição"
         domain: "Domínio da Aplicação"
+        disable_local_auth: "Desabilitar autenticação local"
         events_enabled: "Habilitar módulo de eventos"
         exception_notifications: "Enviar e-mails de depuração"
         exception_notifications_email: "Destinatários dos e-mails de depuração"

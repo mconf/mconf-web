@@ -52,9 +52,12 @@ class UsersController < ApplicationController
       params[:user].delete(:username)
       params[:user].delete(:email)
     end
-    password_changed =
-      !params[:user].nil? && params[:user].has_key?(:password) &&
-      !params[:user][:password].empty?
+    password_changed = false
+    unless Site.current.disable_local_auth?
+      password_changed =
+        !params[:user].nil? && params[:user].has_key?(:password) &&
+        !params[:user][:password].empty?
+    end
     updated = if password_changed
                 @user.update_with_password(params[:user])
               else

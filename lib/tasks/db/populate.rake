@@ -5,7 +5,7 @@ namespace :db do
 
   desc "Populate the DB with random test data. Options: SINCE, CLEAR"
   task :populate => :environment do
-    reserved_usernames = ['lfzawacki', 'daronco', 'fbottin']
+    reserved_usernames = ['lfzawacki', 'daronco', 'fbottin', 'gmiotto']
 
     if ENV['SINCE']
       @created_at_start = DateTime.parse(ENV['SINCE']).to_time

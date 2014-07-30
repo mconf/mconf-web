@@ -23,6 +23,7 @@ pt-br:
       site:
         analytics_code: "Código para sua conta do Google Analytics. Deixe em branco para desabilitar. Exemplo: \"UA-12345678-9\""
         domain: "O domínio do seu site. Não inclua o protocolo (e.g. \"http\"), apenas o domínio completo. Exemplo: \"servidor.org/portal\""
+        disable_local_auth: "Quando habilitado, a autenticação local será desabilitada, útil para quando outros tipos de autenticação estão habilitados."
         events_enabled: "Habilita ou desabilita o módulo de eventos no site. Para habilitá-lo, você deve possuir o módulo de eventos instalado. Reinicie a aplicação para aplicar as mudanças."
         exception_notifications: "Enviar e-mails de depuração sempre que ocorrer um erro grave na aplicação"
         exception_notifications_email: "Use espaços, vírgulas ou ponto-e-vírgulas para separar diferentes e-mails."

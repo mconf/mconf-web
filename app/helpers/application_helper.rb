@@ -241,6 +241,14 @@ module ApplicationHelper
     truncate(text, :length => size)
   end
 
+  def local_authentication_disabled?
+    Site.current.disable_local_auth
+  end
+
+  def ldap_enabled?
+    Site.current.ldap_enabled
+  end
+
   private
 
   # Based on http://www.igvita.com/2007/03/15/block-helpers-and-dry-views-in-rails/
