@@ -155,8 +155,8 @@ describe UsersController do
       end
 
       context "trying to update password" do
-        context "when local authentication is allowed" do
-          before { Site.current.update_attributes(:disable_local_auth => false)}
+        context "when local authentication is enabled" do
+          before { Site.current.update_attributes(local_auth_enabled: true)}
           before(:each) do
             @user = FactoryGirl.create(:user, :password => "foobar", :password_confirmation => "foobar")
             sign_in @user
@@ -173,8 +173,8 @@ describe UsersController do
           it { response.should redirect_to edit_user_path(@user) }
           it { @user.encrypted_password.should_not == @old_encrypted }
         end
-        context "when local authentication is not allowed" do
-          before { Site.current.update_attributes(:disable_local_auth => true)}
+        context "when local authentication is disabled" do
+          before { Site.current.update_attributes(local_auth_enabled: false)}
           before(:each) do
             @user = FactoryGirl.create(:user, :password => "foobar", :password_confirmation => "foobar")
             sign_in @user

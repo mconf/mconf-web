@@ -3,9 +3,9 @@ require 'support/feature_helpers'
 
 feature 'Disable local authentication' do
   before(:each) { FactoryGirl.create(:user, :username => 'user', :password => 'password') }
- 
+
   context 'local_authenticaton is enabled' do
-    before { Site.current.update_attributes(:disable_local_auth => false) }
+    before { Site.current.update_attributes(local_auth_enabled: true) }
     before(:each) {
       #ApplicationController.any_instance.stub(:referer).and_return('http://example1.com')
       request = double('request')
@@ -24,7 +24,7 @@ feature 'Disable local authentication' do
   end
 
   context 'local_authenticaton is disabled' do
-    before { Site.current.update_attributes(:disable_local_auth => true) }
+    before { Site.current.update_attributes(local_auth_enabled: true) }
     before(:each) {
       #ApplicationController.any_instance.stub(:referer).and_return('http://example1.com')
       request = double('request')
@@ -49,5 +49,3 @@ feature 'Disable local authentication' do
     end
   end
 end
-
-

@@ -8,7 +8,7 @@
 
 #content
 
-  - if !local_authentication_disabled? || ldap_enabled?
+  - if current_site.local_auth_enabled? || current_site.ldap_enabled?
     #login-box.form-area
       %h2= t('.login.title')
       = render :partial => 'sessions/login_form'
@@ -17,16 +17,6 @@
           - if current_site.shib_enabled?
             %li= link_to t('.login.federation'), shibboleth_path, :class => 'shibboleth_login'
           %li= link_to t('.login.lost_password'), new_user_password_path
-          - if current_site.registration_enabled?
-            %li= link_to t(".login.resend_confirmation_email"), new_confirmation_path(resource_name)
-  - unless !local_authentication_disabled? || ldap_enabled?
-    #login-box.form-area
-      .action-links
-        %ul
-          - if current_site.shib_enabled?
-            %li= link_to t('.login.federation'), shibboleth_path, :class => 'shibboleth_login'
-          - if current_site.registration_enabled?
-            %li= link_to t(".login.resend_confirmation_email"), new_confirmation_path(resource_name)
 
   - if current_site.registration_enabled?
     #registration-box.form-area

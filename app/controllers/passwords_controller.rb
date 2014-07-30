@@ -13,7 +13,7 @@ class PasswordsController < Devise::PasswordsController
   private
 
   def check_only_local_authentication
-    if current_site.disable_local_auth?
+    unless current_site.local_auth_enabled?
       raise ActionController::RoutingError.new('Not Found')
     else
       true

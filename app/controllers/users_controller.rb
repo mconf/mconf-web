@@ -53,7 +53,7 @@ class UsersController < ApplicationController
       params[:user].delete(:email)
     end
     password_changed = false
-    unless Site.current.disable_local_auth?
+    if current_site.local_auth_enabled?
       password_changed =
         !params[:user].nil? && params[:user].has_key?(:password) &&
         !params[:user][:password].empty?

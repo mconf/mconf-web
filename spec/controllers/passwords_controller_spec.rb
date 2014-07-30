@@ -18,7 +18,7 @@ describe PasswordsController do
       end
 
       describe "if local authentication is disabled in the site" do
-        before { Site.current.update_attribute(:disable_local_auth, true) }
+        before { Site.current.update_attributes(local_auth_enabled: false) }
         it { expect { get :new }.to raise_error(ActionController::RoutingError) }
       end
     end

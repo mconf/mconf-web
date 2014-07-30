@@ -23,7 +23,6 @@ en:
       site:
         analytics_code: "Code for your Google Analytics account. Leave it blank to disable. Example: \"UA-12345678-9\""
         domain: "The domain of your website. Do not include the protocol (e.g. \"http\"), only the full domain. Example: \"my-server.org/web-portal\""
-        disable_local_auth: "When enabled local authentication will be disabled, useful when other types of authentication are enabled."
         events_enabled: "Enable or disable the event module. To enable it, you must have the event module installed. Restart the application to apply the changes."
         exception_notifications: "Send debugging emails whenever the application crashes"
         exception_notifications_email: "Use either spaces, commas or semi-colons to separate different emails."
@@ -38,6 +37,7 @@ en:
         ldap_username_field: "Specifies which attribute returned by LDAP will be used to obtain the username of a user. Example: \"uid\"."
         ldap_email_field: "Specifies which attribute returned by LDAP will be used to obtain the email of a user. Example: \"mail\"."
         ldap_name_field: "Specifies which attribute returned by LDAP will be used to obtain the full name of a user. Example: \"cn\"."
+        local_auth_enabled: "When checked the local authentication will be enabled, otherwise it will be disabled for all users except administrators. Disabling the local authentication is usually used only when other authentication methods are enabled (e.g. LDAP)."
         presence_domain: "Domain used to identify the XMPP server."
         registration_enabled: "If checked, users can create new accounts. Otherwise, users will only be able to access the website if they already have an account. Moreover, if this option is disabled, new accounts can still be created through secondary login methods such as Shibboleth and LDAP."
         require_registration_approval: "When checked, users will be able to register new accounts, but they will only be allowed to access the site once an administrator approves his account. Otherwise the users can freely access the website after registration. Be aware that if there are pending approvals and you uncheck this flag, these users will not be automatically approved!"
