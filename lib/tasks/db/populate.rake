@@ -96,7 +96,7 @@ namespace :db do
 
     puts "* Create private messages"
     User.all.each do |user|
-      senders = User.all.map(&:id) - [user.id]
+      senders = User.ids - [user.id]
 
       PrivateMessage.populate 5 do |message|
         message.receiver_id = user.id
@@ -190,7 +190,7 @@ namespace :db do
 
     puts "* Create spaces: adding users"
     Space.all.each do |space|
-      role_ids = Role.where(stage_type: 'Space').map(&:id)
+      role_ids = Role.where(stage_type: 'Space').ids
       available_users = User.all.to_a
 
       puts "* Create spaces: \"#{space.name}\" - add first admin"
@@ -360,13 +360,13 @@ namespace :db do
     # done after all the rest to simulate what really happens: users are created enabled
     # and disabled later on
     puts "* Disabling a few users and spaces"
-    ids = Space.all.map(&:id)
+    ids = Space.ids
     ids = ids.sample(Space.count/5) # 1/5th disabled
     Space.where(:id => ids).each do |space|
       space.disable
     end
     users_without_admin = User.where(["(superuser IS NULL OR superuser = ?) AND username NOT IN (?)", false, reserved_usernames])
-    ids = users_without_admin.map(&:id)
+    ids = users_without_admin.ids
     ids = ids.sample(User.count/5) # 1/5th disabled
     User.where(:id => ids).each do |user|
       user.disable
