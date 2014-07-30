@@ -101,7 +101,7 @@ class Invitation < ActiveRecord::Base
       event.dtstart = self.starts_on.in_time_zone('UTC').strftime("%Y%m%dT%H%M%SZ") unless self.starts_on.blank?
       event.dtend = self.ends_on.in_time_zone('UTC').strftime("%Y%m%dT%H%M%SZ") unless self.ends_on.blank?
       event.organizer = sender.email
-      event.klass = "PUBLIC"
+      event.ip_class = "PUBLIC"
       event.uid = self.url
       event.url = self.url
       event.location = self.url
