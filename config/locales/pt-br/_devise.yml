@@ -11,6 +11,7 @@ pt-BR:
       inactive: 'Sua conta ainda não foi ativada.'
       invalid: 'E-mail ou senha inválidos.'
       invalid_token: 'O token de autenticação não é válido.'
+      local_auth_disabled: "A autenticação local está atualmente desabilitada neste site."
       locked: 'Sua conta está bloqueada.'
       not_found_in_database: 'E-mail ou senha inválidos.'
       timeout: 'Sua sessão expirou, por favor, efetue login novamente para continuar.'
