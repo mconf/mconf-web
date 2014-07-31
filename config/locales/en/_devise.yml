@@ -11,6 +11,7 @@ en:
       inactive: "Your account was not activated yet."
       invalid: "Invalid email or password."
       invalid_token: "Invalid authentication token."
+      local_auth_disabled: "Local authentication is currently disabled in this website."
       locked: "Your account is locked."
       not_found_in_database: "Invalid email or password."
       timeout: "Your session expired, please sign in again to continue."
