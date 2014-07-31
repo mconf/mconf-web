@@ -9,7 +9,7 @@
 FactoryGirl.define do
   factory :event, :class => MwebEvents::Event do |e|
     e.sequence(:name) { Faker::Name.name }
-    e.description { Faker::Lorem.paragraph }
+    e.description { Faker::Lorem.paragraph 1, false, 0 }
     e.summary { Faker::Lorem.characters 140 }
     e.time_zone { Faker::Address.time_zone }
     e.location { Faker::Name.name }

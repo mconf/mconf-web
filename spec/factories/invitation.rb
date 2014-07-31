@@ -10,7 +10,7 @@ FactoryGirl.define do
     invitation.association :sender, factory: :user
     invitation.type {  }
     invitation.title { Faker::Name.name }
-    invitation.description { Faker::Lorem.paragraph }
+    invitation.description { Faker::Lorem.paragraph 1, false, 0 }
     invitation.url { Faker::Internet.url }
     invitation.starts_on { Time.now }
     invitation.ends_on { Time.now + 2.hours }
