@@ -1,7 +1,9 @@
 require 'devise/strategies/database_authenticatable'
 Devise::Strategies::DatabaseAuthenticatable.class_eval do
 
-  alias_method :super_authenticate!, :authenticate!
+  # must use the 'unless' to prevent this from being called twice and resulting in
+  # a recursion (happens a lot in development)
+  alias_method :super_authenticate!, :authenticate! unless method_defined?(:super_authenticate!)
 
   # We override #authenticate! to block the authentication in case the local
   # authentication is disabled in the current site.
