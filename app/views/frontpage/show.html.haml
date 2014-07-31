@@ -4,7 +4,13 @@
       %a.title{:href => root_path}= image_tag 'logos/mconf-white-transp.png', :size => '231x120'
 
 - content_for :page_header do
-  = t(".headline")
+  - if current_site.name.blank?
+    = t(".headline")
+  - else
+    - headline = current_site.name
+    - unless current_site.description.blank?
+      - headline += ": " + current_site.description
+    = headline
 
 #content
 
