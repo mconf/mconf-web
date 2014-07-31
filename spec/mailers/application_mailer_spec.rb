@@ -11,8 +11,8 @@ describe ApplicationMailer do
 
   describe '.feedback_email' do
     let(:user) { FactoryGirl.create(:user) }
-    let(:subject) { Faker::Lorem.characters 30 }
-    let(:message) { Faker::Lorem.characters 140 }
+    let(:subject) { Forgery::LoremIpsum.characters 30 }
+    let(:message) { Forgery::LoremIpsum.characters 140 }
     let(:mail) { ApplicationMailer.feedback_email(user.email, subject, message) }
 
     context "in the standard case" do

@@ -117,7 +117,6 @@ group :development, :test do
   gem 'rspec-rails', '~> 2.99.0'
   gem 'rspec-mocks'
   gem 'populator'
-  gem 'faker'
   # Until timezone bug is fixed
   gem 'forgery', :git => 'https://github.com/sevenwire/forgery.git'
   gem 'factory_girl_rails'

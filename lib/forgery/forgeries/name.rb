@@ -11,7 +11,6 @@ class Forgery::Name < Forgery
 
   # Unique names for spaces
   def self.unique_space_name(n)
-    "#{self.company_name} #{n}"
+    unique_event_name(n)
   end
-
 end

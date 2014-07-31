@@ -1,6 +1,5 @@
 require 'devise/encryptors/station_encryptor'
 
-# TODO: replace Faker by Forgery
 namespace :db do
 
   desc "Populate the DB with random test data. Options: SINCE, CLEAR"
@@ -16,7 +15,6 @@ namespace :db do
     puts "*** Start date set to: #{@created_at_start}"
 
     require 'populator'
-    require 'faker'
 
     username_offset = 0 # to prevent duplicated usernames
 
@@ -54,7 +52,7 @@ namespace :db do
       end
       username_offset += 1
 
-      user.email = Faker::Internet.email
+      user.email = Forgery::Internet.email_address
       user.confirmed_at = @created_at_start..Time.now
       user.disabled = false
       user.notification = User::NOTIFICATION_VIA_EMAIL
@@ -62,25 +60,26 @@ namespace :db do
 
       Profile.create do |profile|
         profile.user_id = user.id
-        profile.full_name = Faker::Name.name
+        profile.full_name = Forgery::Name.full_name
         profile.organization = Populator.words(1..3).titleize
-        profile.phone = Faker::PhoneNumber.phone_number
-        profile.mobile = Faker::PhoneNumber.phone_number
-        profile.fax = Faker::PhoneNumber.phone_number
-        profile.address = Faker::Address.street_address
-        profile.city = Faker::Address.city
-        profile.zipcode = Faker::Address.zip_code
-        profile.province = Faker::Address.state
-        profile.country = Faker::Address.country
-        profile.prefix_key = Faker::Name.prefix
+        profile.phone = Forgery::Address.phone
+        profile.mobile = Forgery::Address.phone
+        profile.fax = Forgery::Address.phone
+        profile.address = Forgery::Address.street_address
+        profile.city = Forgery::Address.city
+        profile.zipcode = Forgery::Address.zip
+        profile.province = Forgery::Address.state
+        profile.country = Forgery::Address.country
+        profile.prefix_key = Forgery::Name.title
         profile.description = Populator.sentences(1..3)
-        profile.url = "http://" + Faker::Internet.domain_name + "/" + Populator.words(1)
+        profile.url = "http://" + Forgery::Internet.domain_name + "/" + Populator.words(1)
         profile.skype = Populator.words(1)
-        profile.im = Faker::Internet.email
+        profile.im = Forgery::Internet.email_address
         profile.visibility = Populator.value_in_range((Profile::VISIBILITY.index(:everybody))..(Profile::VISIBILITY.index(:nobody)))
       end
     end
-    User.all.each do |user|
+
+    User.find_each do |user|
       if user.bigbluebutton_room.nil?
         user.create_bigbluebutton_room :owner => user,
                                        :server => BigbluebuttonServer.default,
@@ -272,7 +271,7 @@ namespace :db do
         BigbluebuttonPlaybackFormat.populate 0..3 do |format|
           format.recording_id = recording.id
           format.format_type = "#{Populator.words(1)}-#{format.id}"
-          format.url = "http://" + Faker::Internet.domain_name + "/playback/" + format.format_type
+          format.url = "http://" + Forgery::Internet.domain_name + "/playback/" + format.format_type
           format.length = Populator.value_in_range(32..128)
         end
       end
