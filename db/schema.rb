@@ -363,6 +363,7 @@ ActiveRecord::Schema.define(:version => 20140721191825) do
     t.string   "shib_principal_name_field"
     t.string   "ldap_filter"
     t.boolean  "shib_always_new_account",        :default => false
+    t.boolean  "local_auth_enabled",             :default => true
   end
 
   create_table "spaces", :force => true do |t|
