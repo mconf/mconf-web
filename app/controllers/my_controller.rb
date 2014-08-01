@@ -56,8 +56,8 @@ class MyController < ApplicationController
   def activity
     @contents_per_page = params[:per_page] || 20
 
-    @all_contents = current_user.all_activity
-      .paginate(:page => params[:page], :per_page => @contents_per_page.to_i, :order => 'updated_at DESC')
+    @all_contents = current_user.all_activity.order('updated_at DESC')
+      .paginate(:page => params[:page], :per_page => @contents_per_page.to_i)
   end
 
   # Renders a json with the webconference rooms accessible to the current user
