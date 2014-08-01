@@ -275,9 +275,68 @@ describe Space do
   end
 
   describe "#add_member!" do
-    it "adds the user as a member with the selected role"
-    it "defaults the role to 'User'"
-    it "doesn't add the user if he's already a member"
+    let(:space) { FactoryGirl.create(:space) }
+    let(:user) { FactoryGirl.create(:user) }
+    let!(:user_role) { Role.find_by(:name => 'User') }
+    let!(:admin_role) { Role.find_by(:name => 'Admin') }
+
+    context "adds the user as a member with the selected role" do
+      before {
+        expect {
+          if selected_role
+            space.add_member!(user, selected_role)
+          else
+            space.add_member!(user)
+          end
+        }.to change(space.users, :count).by(1)
+      }
+
+      context 'with role User' do
+        let(:selected_role) { 'User' }
+
+        it { space.users include(user) }
+        it { space.permissions.last.user.should eq(user) }
+        it { space.permissions.last.role.should eq(user_role) }
+        it { space.role_for?(user, :name => 'User').should be true }
+        it { space.role_for?(user, :name => 'Admin').should be false }
+      end
+
+      context 'with role Admin' do
+        let(:selected_role) { 'Admin' }
+
+        it { space.users include(user) }
+        it { space.permissions.last.user.should eq(user) }
+        it { space.permissions.last.role.should eq(admin_role) }
+        it { space.role_for?(user, :name => 'User').should be false }
+        it { space.role_for?(user, :name => 'Admin').should be true }
+      end
+
+      context "defaults the role to 'User'" do
+        let(:selected_role) { nil }
+
+        it { space.users include(user) }
+        it { space.permissions.last.user.should eq(user) }
+        it { space.permissions.last.role.should eq(user_role) }
+        it { space.role_for?(user, :name => 'User').should be true }
+        it { space.role_for?(user, :name => 'Admin').should be false }
+      end
+
+    end
+
+    context "doesn't add the user if he's already a member" do
+      let(:permission) { Permission.create(:user => user, :role => user_role, :subject => space) }
+
+      before {
+        permission
+        expect {
+          space.add_member!(user)
+        }.to raise_error(ActiveRecord::RecordInvalid)
+      }
+
+      it { space.users include(user) }
+      it { space.permissions.last.user.should eq(user) }
+    end
+
   end
 
   it "new_activity"

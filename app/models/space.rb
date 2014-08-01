@@ -109,10 +109,10 @@ class Space < ActiveRecord::Base
   # TODO: if a user has a pending request to join the space it will still be there after if this
   #  method is used, should we check this here?
   def add_member!(user, role_name='User')
-    p = Permission.new
-    p.user = user
-    p.subject = self
-    p.role = Role.find_by(name: role_name, stage_type: 'Space')
+    p = Permission.new :user => user,
+      :subject => self,
+      :role => Role.find_by(name: role_name, stage_type: 'Space')
+
     p.save!
   end
 
@@ -150,8 +150,8 @@ class Space < ActiveRecord::Base
 
   # Checks to see if 'user' has the role 'options[:name]' in this space
   def role_for?(user, options={})
-    p = permissions.find_by_user_id(user)
-    users.include?(user) && options[:name] == Role.find(p.role_id).name
+    p = permissions.find_by(:user_id => user.id)
+    p.present? && options[:name] == p.role.name
   end
 
   def pending_join_requests
