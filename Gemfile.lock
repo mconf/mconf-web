@@ -34,7 +34,7 @@ GIT
 
 GIT
   remote: git@github.com:mconf/mweb_events.git
-  revision: 569ef05eb63dcb434dcdfc52a56ffd995706ddf9
+  revision: 244e71112ea4abab90d99b56227a784f0a7c55e6
   branch: rails4
   specs:
     mweb_events (0.0.1)
