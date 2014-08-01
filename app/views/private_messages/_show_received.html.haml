@@ -3,7 +3,7 @@
 -#   target_user (User): user that is reading the message
 -#   expanded (boolean)
 
-- sender = User.find_by_id_with_disabled(private_message.sender_id)
+- sender = User.with_disabled.find(private_message.sender_id)
 
 .logo-in-thread
   - if sender.disabled?
