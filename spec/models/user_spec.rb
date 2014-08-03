@@ -28,17 +28,18 @@ describe User do
 
   it { should validate_presence_of(:email) }
 
-  [ :email, :password, :password_confirmation,
-    :remember_me, :login, :username, :receive_digest, :approved ].each do |attribute|
-    it { should allow_mass_assignment_of(attribute) }
-  end
+  # Make sure it's being tested in the controller
+  # [ :email, :password, :password_confirmation,
+  #   :remember_me, :login, :username, :receive_digest, :approved ].each do |attribute|
+  #   it { should allow_mass_assignment_of(attribute) }
+  # end
 
   describe "#profile" do
     let(:user) { FactoryGirl.create(:user) }
 
     it "is created when the user is created" do
       user.profile.should_not be_nil
-      user.profile.should be_an_instance_of(Profile)
+      user.profile.should be_kind_of(Profile)
     end
   end
 
@@ -49,11 +50,11 @@ describe User do
 
     it "is created when the user is created" do
       user.bigbluebutton_room.should_not be_nil
-      user.bigbluebutton_room.should be_an_instance_of(BigbluebuttonRoom)
+      user.bigbluebutton_room.should be_kind_of(BigbluebuttonRoom)
     end
 
     it "has the user as owner" do
-      user.bigbluebutton_room.owner.should be(user)
+      user.bigbluebutton_room.owner.should eq(user)
     end
 
     it "has param and name equal the user's username" do
@@ -72,7 +73,7 @@ describe User do
       user.bigbluebutton_room.moderator_password.length.should be(8)
     end
 
-    pending "has the server as the first server existent"
+    skip "has the server as the first server existent"
   end
 
   describe "#username" do
@@ -132,7 +133,7 @@ describe User do
 
         context "automatically approves the user" do
           before(:each) { @user = FactoryGirl.create(:user, :approved => false) }
-          it { @user.approved?.should be_true }
+          it { @user.should be_approved }
         end
       end
 
@@ -141,7 +142,7 @@ describe User do
 
         context "doesn't approve the user" do
           before(:each) { @user = FactoryGirl.create(:user, :approved => false) }
-          it { @user.approved?.should be_false }
+          it { @user.should_not be_approved }
         end
       end
     end
@@ -188,12 +189,12 @@ describe User do
 
     context "for a user in the database" do
       let(:user) { FactoryGirl.create(:user) }
-      it { should be_false }
+      it { should be false }
     end
 
     context "for a user not in the database" do
       let(:user) { FactoryGirl.build(:user) }
-      it { should be_true }
+      it { should be true }
     end
   end
 
@@ -359,13 +360,13 @@ describe User do
     let(:user2) { FactoryGirl.create(:user, :disabled => false) }
 
     context "finds users even if disabled" do
-      subject { User.with_disabled.all }
-      it { should include(user1) }
-      it { should include(user2) }
+      subject { User.with_disabled }
+      it { should be_include(user1) }
+      it { should be_include(user2) }
     end
 
     context "returns a Relation object" do
-      it { User.with_disabled.should be_an_instance_of(ActiveRecord::Relation) }
+      it { User.with_disabled.should be_kind_of(ActiveRecord::Relation) }
     end
   end
 
@@ -380,7 +381,7 @@ describe User do
 
     context "sets the user as approved" do
       before { user.approve! }
-      it { user.approved.should be_true }
+      it { user.approved.should be true }
     end
 
     context "throws an exception if fails to update the user" do
@@ -399,7 +400,7 @@ describe User do
 
     context "sets the user as disapproved" do
       before { user.disapprove! }
-      it { user.approved.should be_false }
+      it { user.should_not be_approved }
     end
 
     context "throws an exception if fails to update the user" do
@@ -416,19 +417,19 @@ describe User do
 
       context "true if the user was approved" do
         let(:user) { FactoryGirl.create(:user, :approved => true) }
-        it { user.active_for_authentication?.should be_true }
+        it { user.should be_active_for_authentication }
       end
 
       context "false if the user was not approved" do
         let(:user) { FactoryGirl.create(:user, :approved => false) }
-        it { user.active_for_authentication?.should be_false }
+        it { user.should_not be_active_for_authentication }
       end
     end
 
     context "if #require_registration_approval is not set in the current site" do
       context "true even if the user was not approved" do
         let(:user) { FactoryGirl.create(:user, :approved => false) }
-        it { user.active_for_authentication?.should be_true }
+        it { user.should be_active_for_authentication }
       end
     end
   end

@@ -26,7 +26,8 @@ params = { # smtp configs for gmail
   :smtp_port => 587,
   :smtp_use_tls => true,
   :smtp_domain => "gmail.com",
-  :smtp_auth_type => :plain
+  :smtp_auth_type => :plain,
+  :domain => 'mconf-example.com'
 }
 params.merge!(configatron.site.to_hash)
 params[:smtp_sender] ||= params[:smtp_login]

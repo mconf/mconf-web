@@ -15,8 +15,8 @@ module Helpers
   def self.setup_site_for_email_tests
     attributes = {
       :locale => "en",
-      :smtp_sender => Faker::Internet.email,
-      :name => Faker::Name.name
+      :smtp_sender => Forgery::Internet.email_address,
+      :name => Forgery::Name.first_name
     }
     Site.current.update_attributes(attributes)
   end

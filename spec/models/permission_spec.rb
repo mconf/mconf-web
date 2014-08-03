@@ -25,7 +25,8 @@ describe Permission do
     # should validate_uniqueness_of(:role_id).scoped_to(:user_id, :subject_id, :subject_type)
   end
 
-  it { should allow_mass_assignment_of(:role_id) }
+  # Make sure to test in controller
+  # it { should allow_mass_assignment_of(:role_id) }
 
   describe "abilities", :abilities => true do
     subject { ability }

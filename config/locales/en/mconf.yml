@@ -87,8 +87,8 @@ en:
     user:
       administrator: "Global administrator"
       normal_user: "Normal user"
-      guest: Guest
-      guest_name: "Guest User \(%{email}\)"
+      guest: "Guest"
+      guest_name: "Guest User (%{email})"
       removed: "<user removed>"
     yes_: "Yes"
     webconference:

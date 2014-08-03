@@ -12,7 +12,6 @@
 
 # TODO: review if they are all needed
 
-Mime::Type.register "text/x-vcard", :vcf
 Mime::Type.register "audio/x-wav", :wav, [ "audio/wav" ]
 Mime::Type.register "audio/x-vorbis+ogg", :ogg, [ "application/ogg" ]
 Mime::Type.register "application/postscript", :ps, [ "application/ps" ]

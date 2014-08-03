@@ -29,8 +29,7 @@ class User < ActiveRecord::Base
     end
   end
 
-  attr_accessible :email, :password, :password_confirmation, :remember_me,
-                  :login, :username, :approved
+  # attr_accessible :email, :password, :password_confirmation, :remember_me, :login, :username, :approved
   # TODO: block :username from being modified after registration
   # attr_accessible :username, :as => :create
 
@@ -38,7 +37,7 @@ class User < ActiveRecord::Base
   #   but are not really recommended (e.g. '-')
   validates :username, :uniqueness => { :case_sensitive => false },
                        :presence => true,
-                       :format => /^[A-Za-z0-9\-_]*$/,
+                       :format => /\A[A-Za-z0-9\-_]*\z/,
                        :length => { :minimum => 1 }
 
   # The username has to be unique not only for user, but across other
@@ -75,9 +74,8 @@ class User < ActiveRecord::Base
 
   validates :email, :presence => true, :email => true
 
-  has_and_belongs_to_many :spaces, :join_table => :permissions,
-                          :association_foreign_key => "subject_id",
-                          :conditions => { :permissions => {:subject_type => 'Space'} }
+  has_and_belongs_to_many :spaces, -> { where(:permissions => {:subject_type => 'Space'}) },
+                          :join_table => :permissions, :association_foreign_key => "subject_id"
 
   has_many :join_requests, :foreign_key => :candidate_id
   has_many :permissions, :dependent => :destroy
@@ -90,20 +88,20 @@ class User < ActiveRecord::Base
   accepts_nested_attributes_for :bigbluebutton_room
 
   # TODO: see JoinRequestsController#create L50
-  attr_accessible :created_at, :updated_at, :activated_at, :disabled
-  attr_accessible :captcha, :captcha_key, :authenticate_with_captcha
-  attr_accessible :email2, :email3
-  attr_accessible :timezone
-  attr_accessible :expanded_post
-  attr_accessible :notification
-  attr_accessible :superuser
-  attr_accessible :can_record
-  attr_accessible :receive_digest
+  # attr_accessible :created_at, :updated_at, :activated_at, :disabled
+  # attr_accessible :captcha, :captcha_key, :authenticate_with_captcha
+  # attr_accessible :email2, :email3
+  # attr_accessible :timezone
+  # attr_accessible :expanded_post
+  # attr_accessible :notification
+  # attr_accessible :superuser
+  # attr_accessible :can_record
+  # attr_accessible :receive_digest
 
   # Full name must go to the profile, but it is provided by the user when
   # signing up so we have to cache it until the profile is created
   attr_accessor :_full_name
-  attr_accessible :_full_name
+  # attr_accessible :_full_name
 
   # BigbluebuttonRoom requires an identifier with 3 chars generated from :name
   # So we'll require :_full_name and :username to have length >= 3
@@ -111,7 +109,7 @@ class User < ActiveRecord::Base
   validates :_full_name, :presence => true, :length => { :minimum => 3 }, :on => :create
 
   # for the associated BigbluebuttonRoom
-  attr_accessible :bigbluebutton_room_attributes
+  # attr_accessible :bigbluebutton_room_attributes
   accepts_nested_attributes_for :bigbluebutton_room
 
   after_create :create_webconf_room
@@ -119,7 +117,7 @@ class User < ActiveRecord::Base
 
   before_create :automatically_approve_if_needed
 
-  default_scope :conditions => {:disabled => false}
+  default_scope { where(:disabled => false) }
 
   # constants for the notification attribute
   NOTIFICATION_VIA_EMAIL = 1
@@ -200,16 +198,8 @@ class User < ActiveRecord::Base
     User.new :email => opt[:email], :username => I18n.t('_other.user.guest', :email => opt[:email])
   end
 
-  def self.find_with_disabled *args
-    self.with_exclusive_scope { find_by_username(*args) }
-  end
-
-  def self.find_by_id_with_disabled *args
-    self.with_exclusive_scope { find(*args) }
-  end
-
   def self.with_disabled
-    where(:disabled => [true, false])
+    self.unscoped
   end
 
   def <=>(user)
@@ -217,7 +207,7 @@ class User < ActiveRecord::Base
   end
 
   def other_public_spaces
-    Space.public.all(:order => :name) - spaces
+    Space.public_spaces.order('name') - spaces
   end
 
   def user_count
@@ -280,7 +270,7 @@ class User < ActiveRecord::Base
   def accessible_rooms
     rooms = BigbluebuttonRoom.where(:owner_type => "User", :owner_id => self.id)
     rooms += self.spaces.map(&:bigbluebutton_room)
-    rooms += Space.public.map(&:bigbluebutton_room)
+    rooms += Space.public_spaces.map(&:bigbluebutton_room)
     rooms.uniq!
     rooms
   end
@@ -344,7 +334,7 @@ class User < ActiveRecord::Base
     ids.uniq!
     # note: not 'find' because some of the spaces might be disabled and 'find' would raise
     #   an exception
-    Space.find_all_by_id(ids)
+    Space.where(:id => ids)
   end
 
   private

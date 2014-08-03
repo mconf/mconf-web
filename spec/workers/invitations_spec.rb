@@ -68,7 +68,7 @@ describe Invitations do
         Invitations.perform
       end
 
-      it { invitation.result.should be_false }
+      it { invitation.result.should be_falsey }
     end
 
   end

@@ -32,7 +32,7 @@ describe ManageController do
       FactoryGirl.create(:user)
       get :users
       assigns(:users).each do |user|
-        user.association(:profile).loaded?.should be_true
+        user.association(:profile).loaded?.should be_truthy
       end
     end
 
@@ -130,7 +130,7 @@ describe ManageController do
 
     context "if params[:partial] is set" do
       before(:each) { get :users, :partial => true }
-      it { should render_template(:users_list) }
+      it { should render_template('manage/_users_list') }
       it { should_not render_with_layout }
     end
 
@@ -226,7 +226,7 @@ describe ManageController do
 
     context "if params[:partial] is set" do
       before(:each) { get :spaces, :partial => true }
-      it { should render_template(:spaces_list) }
+      it { should render_template('manage/_spaces_list') }
       it { should_not render_with_layout }
     end
 

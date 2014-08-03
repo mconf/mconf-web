@@ -68,12 +68,12 @@ Mconf::Application.routes.draw do
   end
 
   # shibboleth controller
-  match '/secure', :to => 'shibboleth#login', :as => "shibboleth"
-  match '/secure/info', :to => 'shibboleth#info', :as => "shibboleth_info"
+  get '/secure', :to => 'shibboleth#login', :as => "shibboleth"
+  get '/secure/info', :to => 'shibboleth#info', :as => "shibboleth_info"
   post '/secure/associate', :to => 'shibboleth#create_association', :as => "shibboleth_create_association"
 
   # to crop images
-  match "logo_images/crop", :to => 'logo_images#crop'
+  get "logo_images/crop", :to => 'logo_images#crop'
 
   resources :spaces do
 
@@ -92,7 +92,7 @@ Mconf::Application.routes.draw do
       get :recordings
     end
 
-    match '/recordings/:id/edit', :to => 'spaces#edit_recording', :as => 'edit_recording'
+    get '/recordings/:id/edit', :to => 'spaces#edit_recording', :as => 'edit_recording'
 
     if Mconf::Modules.mod_loaded?('events')
       get '/events', :to => 'space_events#index', :as => 'events'
@@ -116,7 +116,7 @@ Mconf::Application.routes.draw do
     end
 
     resources :attachments, :except => [:edit, :update]
-    delete 'attachments', :to => 'attachments#delete_collection', :as => 'attachments'
+    delete 'attachments', :to => 'attachments#delete_collection'
   end
 
   resources :permissions, :only => [:update, :destroy]
@@ -141,12 +141,12 @@ Mconf::Application.routes.draw do
   end
 
   # Routes specific for the current user
-  match '/home', :to => 'my#home', :as => 'my_home'
-  match '/activity', :to => 'my#activity', :as => 'my_activity'
-  match '/rooms', :to => 'my#rooms', :as => 'my_rooms'
-  match '/room/edit', :to => 'my#edit_room', :as => 'edit_my_room'
-  match '/recordings', :to => 'my#recordings', :as => 'my_recordings'
-  match '/recordings/:id/edit', :to => 'my#edit_recording', :as => 'edit_my_recording'
+  get '/home', :to => 'my#home', :as => 'my_home'
+  get '/activity', :to => 'my#activity', :as => 'my_activity'
+  get '/rooms', :to => 'my#rooms', :as => 'my_rooms'
+  get '/room/edit', :to => 'my#edit_room', :as => 'edit_my_room'
+  get '/recordings', :to => 'my#recordings', :as => 'my_recordings'
+  get '/recordings/:id/edit', :to => 'my#edit_recording', :as => 'edit_my_recording'
 
   resources :messages, :controller => :private_messages, :except => [:edit]
 
@@ -159,19 +159,19 @@ Mconf::Application.routes.draw do
 
   # Management routes
   ['users', 'spaces', 'spam'].each do |resource|
-    match "/manage/#{resource}", :to => "manage##{resource}", :as => "manage_#{resource}"
+    get "/manage/#{resource}", :to => "manage##{resource}", :as => "manage_#{resource}"
   end
 
   # Locale controller, to change languages
   resource :language, :only => [:create], :controller => :session_locales, :as => :session_locale
 
   # General statistics for the website
-  match '/statistics', :to => 'statistics#show', :as => 'show_statistics'
+  get '/statistics', :to => 'statistics#show', :as => 'show_statistics'
 
   # 'Hack' to show a custom 404 page.
   # See more at http://blog.igodigital.com/blog/notes-on-cyber-weekend-targeted-email-campaigns/custom-error-handling-in-rails-303
   # and http://ramblinglabs.com/blog/2012/01/rails-3-1-adding-custom-404-and-500-error-pages
   unless Rails.application.config.consider_all_requests_local
-    match '*not_found', :to => 'errors#error_404'
+    get '*not_found', :to => 'errors#error_404'
   end
 end

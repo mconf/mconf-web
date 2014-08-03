@@ -142,11 +142,11 @@ feature 'Visitor logs in' do
     end
 
     scenario 'from any xhr request' do
-      pending
+      skip
     end
 
     scenario 'from any non html request' do
-      pending
+      skip
     end
 
   end

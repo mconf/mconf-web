@@ -97,61 +97,59 @@ describe UsersController do
       end
 
       context "trying to update email" do
+        let(:old_email) { FactoryGirl.generate(:email) }
+        let(:user) { FactoryGirl.create(:user, :email => old_email) }
+        let(:new_email) { FactoryGirl.generate(:email) }
+
         before(:each) do
-          @user = FactoryGirl.create(:user)
-          sign_in @user
+          sign_in user
 
-          @old_email = @user.email
-          @new_email = FactoryGirl.generate(:email)
-
-          put :update, :id => @user.to_param, :user => { :email => @new_email }
-          @user.reload
+          put :update, :id => user.to_param, :user => { :email => new_email }
+          user.reload
         end
 
         it { response.status.should == 302 }
-        it { response.should redirect_to edit_user_path(@user) }
-        it { @user.email.should_not == @new_email }
-        it { @user.email.should == @old_email }
+        it { response.should redirect_to edit_user_path(user) }
+        it { user.email.should_not eq(new_email) }
+        it { user.email.should eq(old_email) }
       end
     end
 
     context "attributes that the user can update" do
       context "trying to update timezone" do
+        let(:old_tz) { FactoryGirl.generate(:timezone) }
+        let(:user) { FactoryGirl.create(:user, :timezone => old_tz) }
+        let(:new_tz) { FactoryGirl.generate(:timezone) }
 
         before(:each) do
-          @user = FactoryGirl.create(:user)
-          sign_in @user
+          sign_in user
 
-          @old_tz = @user.timezone
-          @new_tz = FactoryGirl.generate(:timezone)
-
-          put :update, :id => @user.to_param, :user => { :timezone => @new_tz }
-          @user.reload
+          put :update, :id => user.to_param, :user => { :timezone => new_tz }
+          user.reload
         end
 
         it { response.status.should == 302 }
-        it { response.should redirect_to edit_user_path(@user) }
-        it { @user.timezone.should_not == @old_tz }
-        it { @user.timezone.should == @new_tz }
+        it { response.should redirect_to edit_user_path(user) }
+        it { user.timezone.should_not eq(old_tz) }
+        it { user.timezone.should eq(new_tz) }
       end
 
       context "trying to update notifications" do
+        let!(:old_not) { User::NOTIFICATION_VIA_EMAIL }
+        let(:user) { FactoryGirl.create(:user, :notification => old_not) }
+        let!(:new_not) { User::NOTIFICATION_VIA_PM }
 
         before(:each) do
-          @user = FactoryGirl.create(:user)
-          sign_in @user
+          sign_in user
 
-          @old_not = @user.notification
-          @new_not = @user.notification == User::RECEIVE_DIGEST_DAILY ? User::RECEIVE_DIGEST_WEEKLY : User::RECEIVE_DIGEST_DAILY
-
-          put :update, :id => @user.to_param, :user => { :notification => @new_not }
-          @user.reload
+          put :update, :id => user.to_param, :user => { :notification => new_not }
+          user.reload
         end
 
         it { response.status.should == 302 }
-        it { response.should redirect_to edit_user_path(@user) }
-        it { @user.notification.should_not == @old_not }
-        it { @user.notification.should == @new_not }
+        it { response.should redirect_to edit_user_path(user) }
+        it { user.notification.should_not eq(old_not) }
+        it { user.notification.should eq(new_not) }
       end
 
       context "trying to update password" do
@@ -208,7 +206,7 @@ describe UsersController do
       it { should respond_with(:redirect) }
       it { should set_the_flash.to(I18n.t('user.disabled', :username => user.username)) }
       it { should redirect_to(manage_users_path) }
-      it("disables the user") { user.reload.disabled.should be_true }
+      it("disables the user") { user.reload.disabled.should be_truthy }
     end
 
     context "the user removing himself" do
@@ -217,7 +215,7 @@ describe UsersController do
       it { should respond_with(:redirect) }
       it { should set_the_flash.to(I18n.t('devise.registrations.destroyed')) }
       it { should redirect_to(root_path) }
-      it("disables the user") { user.reload.disabled.should be_true }
+      it("disables the user") { user.reload.disabled.should be_truthy }
     end
 
     it { should_authorize an_instance_of(User), :destroy, :via => :delete, :id => user.to_param }
@@ -250,7 +248,7 @@ describe UsersController do
       before(:each) { post :enable, :id => user.to_param }
       it { should redirect_to(manage_users_path) }
       it { should set_the_flash.to(I18n.t('user.enabled')) }
-      it { user.reload.disabled.should be_false }
+      it { user.reload.disabled.should be_falsey }
     end
 
     it { should_authorize an_instance_of(User), :enable, :id => FactoryGirl.create(:user).to_param }
@@ -285,13 +283,11 @@ describe UsersController do
         end
 
         context "matches users by name" do
-          let(:unique_str) { "123123456456" }
+          let!(:unique_str) { "123123456456" }
           before do
             FactoryGirl.create(:user, :_full_name => "Yet Another User")
             FactoryGirl.create(:user, :_full_name => "Abc de Fgh")
-            FactoryGirl.create(:user, :_full_name => "Marcos #{unique_str} Silva") do |u|
-              @users = [u]
-            end
+            @users = [FactoryGirl.create(:user, :_full_name => "Marcos #{unique_str} Silva")]
           end
           before(:each) { get :select, :q => unique_str, :format => :json }
           it { should assign_to(:users).with(@users) }
@@ -303,9 +299,7 @@ describe UsersController do
           before do
             FactoryGirl.create(:user, :username => "Yet-Another-User")
             FactoryGirl.create(:user, :username => "Abc-de-Fgh")
-            FactoryGirl.create(:user, :username => "Marcos-#{unique_str}-Silva") do |u|
-              @users = [u]
-            end
+            @users = [FactoryGirl.create(:user, :username => "Marcos-#{unique_str}-Silva")]
           end
           before(:each) { get :select, :q => unique_str, :format => :json }
           it { should assign_to(:users).with(@users) }
@@ -511,8 +505,8 @@ describe UsersController do
       it { should respond_with(:redirect) }
       it { should set_the_flash.to(I18n.t('users.approve.approved', :username => user.username)) }
       it { should redirect_to('/any') }
-      it("approves the user") { user.reload.approved?.should be_true }
-      it("confirms the user") { user.reload.confirmed?.should be_true }
+      it("approves the user") { user.reload.approved?.should be_truthy }
+      it("confirms the user") { user.reload.confirmed?.should be_truthy }
 
       # TODO: To test this we need to create an unconfirmed server with FactoryGirl, but it's triggering
       #   an error related to delayed_job. Test this when delayed_job is removed, see #811.
@@ -521,11 +515,11 @@ describe UsersController do
       #     Site.current.update_attributes(:require_registration_approval => true)
       #   }
       #   it {
-      #     user.confirmed?.should be_false # just to make sure wasn't already confirmed
+      #     user.confirmed?.should be_falsey # just to make sure wasn't already confirmed
       #     expect {
       #       post :approve, :id => user.to_param
       #     }.not_to change{ ActionMailer::Base.deliveries }
-      #     user.confirmed?.should be_true
+      #     user.confirmed?.should be_truthy
       #   }
       # end
     end
@@ -538,7 +532,7 @@ describe UsersController do
       it { should respond_with(:redirect) }
       it { should set_the_flash.to(I18n.t('users.approve.not_enabled')) }
       it { should redirect_to('/any') }
-      it { user.reload.approved?.should be_true } # auto approved
+      it { user.reload.approved?.should be_truthy } # auto approved
     end
 
     it { should_authorize an_instance_of(User), :approve, :via => :post, :id => user.to_param }
@@ -559,7 +553,7 @@ describe UsersController do
       it { should respond_with(:redirect) }
       it { should set_the_flash.to(I18n.t('users.disapprove.disapproved', :username => user.username)) }
       it { should redirect_to('/any') }
-      it("disapproves the user") { user.reload.approved?.should be_false }
+      it("disapproves the user") { user.reload.approved?.should be_falsey }
     end
 
     context "if #require_registration_approval is not set in the current site" do
@@ -570,7 +564,7 @@ describe UsersController do
       it { should respond_with(:redirect) }
       it { should set_the_flash.to(I18n.t('users.disapprove.not_enabled')) }
       it { should redirect_to('/any') }
-      it("user is still (auto) approved") { user.reload.approved?.should be_true } # auto approved on registration
+      it("user is still (auto) approved") { user.reload.approved?.should be_truthy } # auto approved on registration
     end
 
     it { should_authorize an_instance_of(User), :disapprove, :via => :post, :id => user.to_param }

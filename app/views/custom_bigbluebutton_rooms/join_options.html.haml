@@ -12,7 +12,7 @@
     - form_url = bigbluebutton_room_path(@room, :format => 'json')
 
     = simple_form_for @room, :url => form_url, :remote => true, :html => { :class => "single-column in-place-edit" } do |f|
-      = f.input :record, :label => t('.record.label'), :hint => t('.record.tooltip'), :input_html => { :class => "in-place-edit" }
+      = f.input :record_meeting, :label => t('.record.label'), :hint => t('.record.tooltip'), :input_html => { :class => "in-place-edit" }
       = in_place_edit_indicators
 
   .modal-footer.form-actions

@@ -59,10 +59,10 @@ class UsersController < ApplicationController
         !params[:user][:password].empty?
     end
     updated = if password_changed
-                @user.update_with_password(params[:user])
+                @user.update_with_password(user_params)
               else
                 params[:user].delete(:current_password) unless params[:user].nil?
-                @user.update_without_password(params[:user])
+                @user.update_without_password(user_params)
               end
 
     if updated
@@ -181,8 +181,21 @@ class UsersController < ApplicationController
   private
 
   def load_and_authorize_with_disabled
-    @user = User.with_disabled.find_by_username(params[:id])
+    @user = User.with_disabled.where(username: params[:id]).first
     authorize! :enable, @user
+  end
+
+  def user_params
+    unless params[:user].blank?
+      params[:user].permit(*allowed_params)
+    else
+      {}
+    end
+  end
+
+  def allowed_params
+    [ :password, :password_confirmation, :remember_me, :current_password,
+      :login, :username, :approved, :disabled, :timezone, :can_record, :receive_digest, :notification ]
   end
 
 end

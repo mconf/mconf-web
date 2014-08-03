@@ -1,6 +1,5 @@
 require 'devise/encryptors/station_encryptor'
 
-# TODO: replace Faker by Forgery
 namespace :db do
 
   desc "Populate the DB with random test data. Options: SINCE, CLEAR"
@@ -16,7 +15,6 @@ namespace :db do
     puts "*** Start date set to: #{@created_at_start}"
 
     require 'populator'
-    require 'faker'
 
     username_offset = 0 # to prevent duplicated usernames
 
@@ -32,11 +30,11 @@ namespace :db do
       end
       RecentActivity.destroy_all
       BigbluebuttonRecording.destroy_all
-      users_without_admin = User.find_by_id_with_disabled(:all)
-      users_without_admin.delete(User.find_by_superuser(true))
+      users_without_admin = User.with_disabled
+      users_without_admin.delete(User.find_by(superuser: true))
       users_without_admin.each(&:destroy)
       rooms_without_admin = BigbluebuttonRoom.all
-      rooms_without_admin.delete(User.find_by_superuser(true).bigbluebutton_room)
+      rooms_without_admin.delete(User.find_by(superuser: true).bigbluebutton_room)
       rooms_without_admin.each(&:destroy)
     end
 
@@ -54,33 +52,34 @@ namespace :db do
       end
       username_offset += 1
 
-      user.email = Faker::Internet.email
+      user.email = Forgery::Internet.email_address
       user.confirmed_at = @created_at_start..Time.now
       user.disabled = false
       user.notification = User::NOTIFICATION_VIA_EMAIL
       user.encrypted_password = "123"
 
-      Profile.populate 1 do |profile|
+      Profile.create do |profile|
         profile.user_id = user.id
-        profile.full_name = Faker::Name.name
+        profile.full_name = Forgery::Name.full_name
         profile.organization = Populator.words(1..3).titleize
-        profile.phone = Faker::PhoneNumber.phone_number
-        profile.mobile = Faker::PhoneNumber.phone_number
-        profile.fax = Faker::PhoneNumber.phone_number
-        profile.address = Faker::Address.street_address
-        profile.city = Faker::Address.city
-        profile.zipcode = Faker::Address.zip_code
-        profile.province = Faker::Address.state
-        profile.country = Faker::Address.country
-        profile.prefix_key = Faker::Name.prefix
+        profile.phone = Forgery::Address.phone
+        profile.mobile = Forgery::Address.phone
+        profile.fax = Forgery::Address.phone
+        profile.address = Forgery::Address.street_address
+        profile.city = Forgery::Address.city
+        profile.zipcode = Forgery::Address.zip
+        profile.province = Forgery::Address.state
+        profile.country = Forgery::Address.country
+        profile.prefix_key = Forgery::Name.title
         profile.description = Populator.sentences(1..3)
-        profile.url = "http://" + Faker::Internet.domain_name + "/" + Populator.words(1)
+        profile.url = "http://" + Forgery::Internet.domain_name + "/" + Populator.words(1)
         profile.skype = Populator.words(1)
-        profile.im = Faker::Internet.email
+        profile.im = Forgery::Internet.email_address
         profile.visibility = Populator.value_in_range((Profile::VISIBILITY.index(:everybody))..(Profile::VISIBILITY.index(:nobody)))
       end
     end
-    User.all.each do |user|
+
+    User.find_each do |user|
       if user.bigbluebutton_room.nil?
         user.create_bigbluebutton_room :owner => user,
                                        :server => BigbluebuttonServer.default,
@@ -96,7 +95,8 @@ namespace :db do
 
     puts "* Create private messages"
     User.all.each do |user|
-      senders = User.all.reject!{ |u| u == user }.map(&:id)
+      senders = User.ids - [user.id]
+
       PrivateMessage.populate 5 do |message|
         message.receiver_id = user.id
         message.sender_id = senders
@@ -114,7 +114,7 @@ namespace :db do
     Space.populate 10 do |space|
       begin
         name = Populator.words(1..3).capitalize
-      end until Space.find_by_name(name).nil? and name.length >= 3
+      end until Space.find_by(name: name).nil? and name.length >= 3
       space.name = name
       space.description = Populator.sentences(1..3)
       space.public = [ true, false ]
@@ -134,7 +134,7 @@ namespace :db do
 
       if configatron.modules.events.enabled
         puts "* Create spaces: events for \"#{space.name}\" (5..10)"
-        available_users = User.all.dup
+        available_users = User.all.to_a
         MwebEvents::Event.populate 5..10 do |event|
           event.owner_id = space.id
           event.owner_type = 'Space'
@@ -143,8 +143,8 @@ namespace :db do
           event.time_zone = Forgery::Time.zone
           event.location = Populator.words(1..3)
           event.address = Forgery::Address.street_address
-          event.description = Populator.sentences(0..3)
-          event.location = Populator.sentences(0..2)
+          event.description = Populator.sentences(2)
+          event.location = Populator.sentences(1)
           event.created_at = @created_at_start..Time.now
           event.updated_at = event.created_at..Time.now
           event.start_on = event.created_at..1.years.since(Time.now)
@@ -169,7 +169,7 @@ namespace :db do
     puts "* Create spaces: webconference rooms"
     Space.all.each do |space|
       if space.bigbluebutton_room.nil?
-        BigbluebuttonRoom.populate 1 do |room|
+        BigbluebuttonRoom.create do |room|
           room.server_id = BigbluebuttonServer.default.id
           room.owner_id = space.id
           room.owner_type = 'Space'
@@ -182,30 +182,30 @@ namespace :db do
           room.external = false
           room.param = space.name.parameterize.downcase
           room.duration = 0
-          room.record = false
+          room.record_meeting = false
         end
       end
     end
 
     puts "* Create spaces: adding users"
     Space.all.each do |space|
-      role_ids = Role.find_all_by_stage_type('Space').map(&:id)
-      available_users = User.all.dup
+      role_ids = Role.where(stage_type: 'Space').ids
+      available_users = User.all.to_a
 
       puts "* Create spaces: \"#{space.name}\" - add first admin"
-      Permission.populate 1 do |permission|
-        user = available_users.delete_at((rand * available_users.size).to_i)
+      Permission.create do |permission|
+        user = available_users.delete_at(rand(available_users.size))
         permission.user_id = user.id
         permission.subject_id = space.id
         permission.subject_type = 'Space'
-        permission.role_id = Role.find_all_by_stage_type_and_name('Space', 'Admin')
+        permission.role_id = Role.where(name: 'Admin', stage_type: 'Space')
         permission.created_at = user.created_at
         permission.updated_at = permission.created_at
       end
 
       puts "* Create spaces: \"#{space.name}\" - add more users (3..10)"
       Permission.populate 3..10 do |permission|
-        user = available_users.delete_at((rand * available_users.size).to_i)
+        user = available_users.delete_at(rand(available_users.size))
         permission.user_id = user.id
         permission.subject_id = space.id
         permission.subject_type = 'Space'
@@ -271,7 +271,7 @@ namespace :db do
         BigbluebuttonPlaybackFormat.populate 0..3 do |format|
           format.recording_id = recording.id
           format.format_type = "#{Populator.words(1)}-#{format.id}"
-          format.url = "http://" + Faker::Internet.domain_name + "/playback/" + format.format_type
+          format.url = "http://" + Forgery::Internet.domain_name + "/playback/" + format.format_type
           format.length = Populator.value_in_range(32..128)
         end
       end
@@ -306,17 +306,17 @@ namespace :db do
 
     puts "* Create statistics and last details for spaces (#{Space.count} spaces)"
     Space.all.each do |space|
-      Statistic.populate 1 do |statistic|
+      Statistic.create do |statistic|
         statistic.url = "/spaces/" + space.permalink
         statistic.unique_pageviews = 0..300
       end
 
-      total_posts = space.posts.dup
+      total_posts = space.posts.to_a
       # The first Post should not have parent
-      final_posts = Array.new << total_posts.shift
+      final_posts = [] << total_posts.shift
 
       total_posts.inject final_posts do |posts, post|
-        parent = posts[(rand * posts.size).to_i]
+        parent = posts[rand(posts.size)]
         unless parent.parent_id
           post.update_attribute :parent_id, parent.id
         end
@@ -359,13 +359,13 @@ namespace :db do
     # done after all the rest to simulate what really happens: users are created enabled
     # and disabled later on
     puts "* Disabling a few users and spaces"
-    ids = Space.all.map(&:id)
+    ids = Space.ids
     ids = ids.sample(Space.count/5) # 1/5th disabled
     Space.where(:id => ids).each do |space|
       space.disable
     end
     users_without_admin = User.where(["(superuser IS NULL OR superuser = ?) AND username NOT IN (?)", false, reserved_usernames])
-    ids = users_without_admin.map(&:id)
+    ids = users_without_admin.ids
     ids = ids.sample(User.count/5) # 1/5th disabled
     User.where(:id => ids).each do |user|
       user.disable

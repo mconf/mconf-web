@@ -2,7 +2,7 @@ MwebEvents::Event.class_eval do
   include PublicActivity::Common
 
   def self.host
-    Site.current.domain
+    Site.current.domain || 'example.com'
   end
 
   def new_activity key, user

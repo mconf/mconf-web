@@ -26,24 +26,24 @@ feature 'User\'s pending join requests' do
     end
 
     context 'on join request page' do
-      pending
+      skip
     end
   end
 
   scenario 'has 2 pending invitations' do
-    pending
+    skip
   end
 
   scenario 'has one pending join request' do
-    pending
+    skip
   end
 
   scenario 'has 2 pending join requests' do
-    pending
+    skip
   end
 
   scenario 'has no pending join requests' do
-    pending
+    skip
   end
 
 end

@@ -19,7 +19,7 @@ describe SpaceEventsController, :events => true do
 
     context "layout and view" do
       before(:each) { get :index, :space_id => space.to_param }
-      it { should render_template("events/index") }
+      it { should render_template(/index/) }
       it { should render_with_layout("spaces_show") }
     end
 
@@ -62,7 +62,7 @@ describe SpaceEventsController, :events => true do
 
         context "he is not a member of" do
           it { should allow_access_to(:index, hash) }
-          pending "more tests that are not in the engine"
+          skip "more tests that are not in the engine"
         end
 
         context "he is a member of" do
@@ -70,7 +70,7 @@ describe SpaceEventsController, :events => true do
             context "with the role '#{role}'" do
               before(:each) { space.add_member!(user, role) }
               it { should allow_access_to(:index, hash) }
-              pending "more tests that are not in the engine"
+              skip "more tests that are not in the engine"
             end
           end
         end
@@ -82,7 +82,7 @@ describe SpaceEventsController, :events => true do
 
         context "he is not a member of" do
           it { should allow_access_to(:index, hash) }
-          pending "more tests that are not in the engine"
+          skip "more tests that are not in the engine"
         end
 
         context "he is a member of" do
@@ -90,7 +90,7 @@ describe SpaceEventsController, :events => true do
             context "with the role '#{role}'" do
               before(:each) { space.add_member!(user, role) }
               it { should allow_access_to(:index, hash) }
-              pending "more tests that are not in the engine"
+              skip "more tests that are not in the engine"
             end
           end
         end
@@ -108,7 +108,7 @@ describe SpaceEventsController, :events => true do
 
         context "he is not a member of" do
           it { should allow_access_to(:index, hash) }
-          pending "more tests that are not in the engine"
+          skip "more tests that are not in the engine"
         end
 
         context "he is a member of" do
@@ -118,14 +118,14 @@ describe SpaceEventsController, :events => true do
 
               context "for an event he did not create" do
                 it { should allow_access_to(:index, hash) }
-                pending "more tests that are not in the engine"
+                skip "more tests that are not in the engine"
               end
 
               context "for an event he created" do
                 let(:target) { FactoryGirl.create(:event, :owner => space) }
 
                 it { should allow_access_to(:index, hash) }
-                pending "more tests that are not in the engine"
+                skip "more tests that are not in the engine"
               end
 
             end
@@ -139,7 +139,7 @@ describe SpaceEventsController, :events => true do
 
         context "he is not a member of" do
           it { should_not allow_access_to(:index, hash) }
-          pending "more tests that are not in the engine"
+          skip "more tests that are not in the engine"
         end
 
         context "he is a member of" do
@@ -149,14 +149,14 @@ describe SpaceEventsController, :events => true do
 
               context "for an event he did not create" do
                 it { should allow_access_to(:index, hash) }
-                pending "more tests that are not in the engine"
+                skip "more tests that are not in the engine"
               end
 
               context "for an event he created" do
                 let(:target) { FactoryGirl.create(:event, :owner => space) }
 
                 it { should allow_access_to(:index, hash) }
-                pending "more tests that are not in the engine"
+                skip "more tests that are not in the engine"
               end
             end
           end
@@ -171,14 +171,14 @@ describe SpaceEventsController, :events => true do
         let(:space) { FactoryGirl.create(:public_space) }
         let(:target) { FactoryGirl.create(:event, :owner => space) }
         it { should allow_access_to(:index, hash) }
-        pending "more tests that are not in the engine"
+        skip "more tests that are not in the engine"
       end
 
       context "in a private space" do
         let(:space) { FactoryGirl.create(:private_space) }
         let(:target) { FactoryGirl.create(:event, :owner => space) }
         it { should_not allow_access_to(:index, hash) }
-        pending "more tests that are not in the engine"
+        skip "more tests that are not in the engine"
       end
     end
 

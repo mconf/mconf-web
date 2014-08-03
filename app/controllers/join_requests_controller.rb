@@ -85,7 +85,7 @@ class JoinRequestsController < ApplicationController
           redirect_to spaces_path
         end
       else
-        @join_request = @space.join_requests.new(params[:join_request])
+        @join_request = @space.join_requests.new(join_request_params)
         @join_request.candidate = current_user
         @join_request.email = current_user.email
         @join_request.request_type = 'request'
@@ -108,14 +108,13 @@ class JoinRequestsController < ApplicationController
   end
 
   def update
-
     # Admin doing the approval of a request
     if @join_request.request_type == 'request' && authorize!(:approve, @join_request)
-      @join_request.attributes = params[:join_request]
+      @join_request.attributes = join_request_params
       @join_request.introducer = current_user if @join_request.recently_processed?
     # User accepting the invitation
     elsif @join_request.request_type == 'invite' && authorize!(:accept, @join_request)
-      @join_request.attributes = params[:join_request].except(:role)
+      @join_request.attributes = join_request_params.except(:role)
     end
 
     respond_to do |format|
@@ -165,7 +164,7 @@ class JoinRequestsController < ApplicationController
     ids = params[:candidates].split ',' || []
     ids.each do |id|
       user = User.find_by_id(id)
-      jr = @space.join_requests.new(params[:join_request])
+      jr = @space.join_requests.new(join_request_params)
       if @space.pending_join_request_or_invitation_for?(user)
         already_invited << user.username
       elsif @space.users.include?(user)
@@ -189,4 +188,15 @@ class JoinRequestsController < ApplicationController
     [success, errors, already_invited]
   end
 
+  def join_request_params
+    unless params[:join_request].blank?
+      params[:join_request].permit(*allowed_params)
+    else
+      {}
+    end
+  end
+
+  def allowed_params
+    [:introducer_id, :role_id, :processed, :accepted]
+  end
 end

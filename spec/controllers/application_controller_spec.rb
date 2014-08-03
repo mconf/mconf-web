@@ -31,7 +31,7 @@ describe ApplicationController do
   describe "#bigbluebutton_role" do
     controller do
       def index
-        room = BigbluebuttonRoom.find_by_id(params[:room_id])
+        room = BigbluebuttonRoom.find(params[:room_id])
         @result = bigbluebutton_role(room).freeze
         render :nothing => true
       end
@@ -311,7 +311,7 @@ describe ApplicationController do
   describe "#bigbluebutton_can_create?" do
     controller do
       def index
-        room = BigbluebuttonRoom.find_by_id(params[:room_id])
+        room = BigbluebuttonRoom.find(params[:room_id])
         @result = bigbluebutton_can_create?(room, params[:role])
         render :nothing => true
       end
@@ -320,7 +320,7 @@ describe ApplicationController do
     context "if there's no user logged returns false" do
       let(:room) { FactoryGirl.create(:bigbluebutton_room) }
       before(:each) { get :index, :room_id => room.id, :role => :moderator }
-      it { assigns(:result).should be_false }
+      it { assigns(:result).should be_falsey }
     end
 
     context "if there's a user logged" do
@@ -336,13 +336,13 @@ describe ApplicationController do
       context "returns can?(:create_meeting)" do
         context "when false" do
           before(:each) { get :index, :room_id => room.id, :role => :moderator }
-          it { assigns(:result).should be_false }
+          it { assigns(:result).should be_falsey }
         end
 
         context "when true" do
           before { @ability.can :create_meeting, room }
           before(:each) { get :index, :room_id => room.id, :role => :moderator }
-          it { assigns(:result).should be_true }
+          it { assigns(:result).should be_truthy }
         end
       end
 
@@ -356,7 +356,7 @@ describe ApplicationController do
   describe "#bigbluebutton_create_options" do
     controller do
       def index
-        room = BigbluebuttonRoom.find_by_id(params[:room_id])
+        room = BigbluebuttonRoom.find(params[:room_id])
         @result = bigbluebutton_create_options(room).freeze
         render :nothing => true
       end
@@ -365,7 +365,7 @@ describe ApplicationController do
     context "if there's no user logged returns false" do
       let(:room) { FactoryGirl.create(:bigbluebutton_room) }
       before(:each) { get :index, :room_id => room.id }
-      it { assigns(:result).should eql({ "record" => false }) }
+      it { assigns(:result).should eql({ :record_meeting => false }) }
     end
 
     context "if there's a user logged" do
@@ -385,16 +385,16 @@ describe ApplicationController do
           before { Site.current.update_attributes(:webconf_auto_record => true) }
 
           context "and the room is set to record" do
-            before { room.update_attributes("record" => true) }
+            before { room.update_attributes("record_meeting" => true) }
             before(:each) { get :index, :room_id => room.id }
-            it { assigns(:result).should eql({ "record" => true }) }
+            it { assigns(:result).should eql({ :record_meeting => true }) }
           end
 
           context "and the room is not set to record" do
-            before { room.update_attributes("record" => false) }
+            before { room.update_attributes("record_meeting" => false) }
             before(:each) { get :index, :room_id => room.id }
             # uses the user's permission only, ignores that the room is not set to record
-            it { assigns(:result).should eql({ "record" => true }) }
+            it { assigns(:result).should eql({ :record_meeting => true }) }
           end
         end
 
@@ -402,15 +402,15 @@ describe ApplicationController do
           before { Site.current.update_attributes(:webconf_auto_record => false) }
 
           context "and the room is set to record" do
-            before { room.update_attributes("record" => true) }
+            before { room.update_attributes("record_meeting" => true) }
             before(:each) { get :index, :room_id => room.id }
-            it { assigns(:result).should eql({ "record" => true }) }
+            it { assigns(:result).should eql({ :record_meeting => true }) }
           end
 
           context "and the room is not set to record" do
-            before { room.update_attributes("record" => false) }
+            before { room.update_attributes("record_meeting" => false) }
             before(:each) { get :index, :room_id => room.id }
-            it { assigns(:result).should eql({ "record" => false }) }
+            it { assigns(:result).should eql({ :record_meeting => false }) }
           end
         end
 
@@ -423,15 +423,15 @@ describe ApplicationController do
           before { Site.current.update_attributes(:webconf_auto_record => true) }
 
           context "and the room is set to record" do
-            before { room.update_attributes("record" => true) }
+            before { room.update_attributes("record_meeting" => true) }
             before(:each) { get :index, :room_id => room.id }
-            it { assigns(:result).should eql({ "record" => false }) }
+            it { assigns(:result).should eql({ :record_meeting => false }) }
           end
 
           context "and the room is not set to record" do
-            before { room.update_attributes("record" => false) }
+            before { room.update_attributes("record_meeting" => false) }
             before(:each) { get :index, :room_id => room.id }
-            it { assigns(:result).should eql({ "record" => false }) }
+            it { assigns(:result).should eql({ :record_meeting => false }) }
           end
         end
 
@@ -439,15 +439,15 @@ describe ApplicationController do
           before { Site.current.update_attributes(:webconf_auto_record => false) }
 
           context "and the room is set to record" do
-            before { room.update_attributes("record" => true) }
+            before { room.update_attributes("record_meeting" => true) }
             before(:each) { get :index, :room_id => room.id }
-            it { assigns(:result).should eql({ "record" => false }) }
+            it { assigns(:result).should eql({ :record_meeting => false }) }
           end
 
           context "and the room is not set to record" do
-            before { room.update_attributes("record" => false) }
+            before { room.update_attributes("record_meeting" => false) }
             before(:each) { get :index, :room_id => room.id }
-            it { assigns(:result).should eql({ "record" => false }) }
+            it { assigns(:result).should eql({ :record_meeting => false }) }
           end
         end
 

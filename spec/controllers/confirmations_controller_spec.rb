@@ -14,7 +14,7 @@ describe ConfirmationsController do
 
       describe "if registrations are enabled in the site" do
         before(:each) { get :new }
-        it { should be_true }
+        it { should be_truthy }
       end
 
       describe "if registrations are disabled in the site" do

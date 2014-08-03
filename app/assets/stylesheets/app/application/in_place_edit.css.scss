@@ -12,7 +12,8 @@ form.in-place-edit {
       width: 16px;
       height: 16px;
       color: $alert-font;
-      background: url(asset_path("icons/in-progress-green-16x16.gif", image)) no-repeat left top;
+      /* TODO use font-awesome */
+      /*background: url(asset_path("icons/in-progress-green-16x16.gif", image)) no-repeat left top;*/
     }
 
     &.success {

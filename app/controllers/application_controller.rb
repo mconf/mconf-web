@@ -146,12 +146,12 @@ class ApplicationController < ActionController::Base
     can_record = ability.can?(:record_meeting, room)
     if Site.current.webconf_auto_record
       # show the record button if the user has permissions to record
-      { :record => can_record }
+      { :record_meeting => can_record }
     else
       # only enable recording if the room is set to record and if the user has permissions to
       # used to forcibly disable recording if a user has no permission but the room is set to record
-      record = room.record && can_record
-      { :record => record }
+      record = room.record_meeting && can_record
+      { :record_meeting => record }
     end
   end
 
@@ -202,8 +202,9 @@ class ApplicationController < ActionController::Base
                       "/logout",
                       "/users/password",
                       "/users/confirmation/new",
-                      "/secure", "/secure/info", "/secure/associate" ]
-    if (!ignored_paths.include?(request.fullpath) &&
+                      "/secure", "/secure/info",
+                      "/secure/associate" ]
+    if (!ignored_paths.include?(request.path) &&
         !request.xhr? && # don't store ajax calls
         (request.format == "text/html" || request.content_type == "text/html"))
       session[:user_return_to] = request.fullpath

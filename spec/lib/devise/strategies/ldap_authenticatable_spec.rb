@@ -14,12 +14,12 @@ describe Devise::Strategies::LdapAuthenticatable do
   describe "#valid?" do
     context "if ldap_enabled?" do
       before { Site.current.update_attributes(:ldap_enabled => true) }
-      it { target.valid?.should be_true }
+      it { target.valid?.should be_truthy }
     end
 
     context "if not ldap_enabled?" do
       before { Site.current.update_attributes(:ldap_enabled => false) }
-      it { target.valid?.should be_false }
+      it { target.valid?.should be_falsey }
     end
   end
 
@@ -288,12 +288,12 @@ describe Devise::Strategies::LdapAuthenticatable do
   describe "#ldap_enabled?" do
     context "if LDAP is enabled in the current site" do
       before { Site.current.update_attributes(:ldap_enabled => true) }
-      it("returns true") { target.ldap_enabled?.should be_true }
+      it("returns true") { target.ldap_enabled?.should be_truthy }
     end
 
     context "if LDAP is disabled in the current site" do
       before { Site.current.update_attributes(:ldap_enabled => false) }
-      it("returns false") { target.ldap_enabled?.should be_false }
+      it("returns false") { target.ldap_enabled?.should be_falsey }
     end
   end
 

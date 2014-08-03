@@ -8,10 +8,10 @@ FactoryGirl.define do
   factory :join_request do |jr|
     jr.association :candidate, :factory => :user
     jr.association :introducer, :factory => :user
-    jr.role { Role.find_by_name_and_stage_type('User', 'Space') }
+    jr.role { Role.find_by(name: 'User', stage_type: 'Space') }
     jr.email
     jr.request_type 'request'
-    jr.comment { Faker::Lorem.paragraph }
+    jr.comment { Forgery::LoremIpsum.paragraph }
   end
 
   factory :space_join_request, :parent => :join_request do |jr|

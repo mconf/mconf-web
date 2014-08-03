@@ -11,39 +11,30 @@ class Space < ActiveRecord::Base
   # TODO: temporary, review
   USER_ROLES = ["Admin", "User"]
 
-  attr_accessible :name, :permalink, :public, :disabled, :repository, :description, :deleted
-
   has_many :posts, :dependent => :destroy
   has_many :news, :dependent => :destroy
   has_many :attachments, :dependent => :destroy
   has_one :bigbluebutton_room, :as => :owner, :dependent => :destroy
 
-  has_many :permissions, :foreign_key => "subject_id",
-           :conditions => { :permissions => {:subject_type => 'Space'} }
+  has_many :permissions, -> { where(:subject_type => 'Space') },
+           :foreign_key => "subject_id"
 
-  has_and_belongs_to_many :users, :join_table => :permissions,
-                          :foreign_key => "subject_id",
-                          :conditions => { :permissions => {:subject_type => 'Space'} }
+  has_and_belongs_to_many :users,  -> { Permission.where(:subject_type => 'Space') },
+                          :join_table => :permissions, :foreign_key => "subject_id"
 
-  has_and_belongs_to_many :admins, :join_table => :permissions,
-                          :class_name => "User", :foreign_key => "subject_id",
-                          :conditions => {
-                            :permissions => {
-                              :subject_type => 'Space',
-                              :role_id => Role.find_by_name('Admin')
-                            }
-                          }
+  has_and_belongs_to_many :admins, -> { Permission.where(:permissions => {:subject_type => 'Space', :role_id => Role.find_by_name('Admin')}) },
+                          :join_table => :permissions, :class_name => "User", :foreign_key => "subject_id"
 
-  has_many :join_requests, :foreign_key => "group_id",
-           :conditions => { :join_requests => {:group_type => 'Space'} }
+  has_many :join_requests, -> { where(:group_type => 'Space') },
+           :foreign_key => "group_id"
 
   if Mconf::Modules.mod_loaded?('events')
-    has_many :events, :class_name => MwebEvents::Event, :foreign_key => "owner_id",
-             :dependent => :destroy, :conditions => {:owner_type => 'Space'}
+    has_many :events, -> { where(:owner_type => 'Space')}, :class_name => MwebEvents::Event,
+             :foreign_key => "owner_id", :dependent => :destroy
   end
 
   # for the associated BigbluebuttonRoom
-  attr_accessible :bigbluebutton_room_attributes
+  # attr_accessible :bigbluebutton_room_attributes
   accepts_nested_attributes_for :bigbluebutton_room
   after_update :update_webconf_room
   after_create :create_webconf_room
@@ -59,7 +50,7 @@ class Space < ActiveRecord::Base
   # TODO: improve the format matcher, check specs for some values that are allowed today
   #   but are not really recommended (e.g. '---')
   validates :permalink, :uniqueness => { :case_sensitive => false },
-                        :format => /^[A-Za-z0-9\-_]*$/,
+                        :format => /\A[A-Za-z0-9\-_]*\z/,
                         :presence => true,
                         :length => { :minimum => 3 }
 
@@ -83,13 +74,12 @@ class Space < ActiveRecord::Base
   # attrs and methods for space logos
   attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
   mount_uploader :logo_image, LogoImageUploader
-  attr_accessible :logo_image, :crop_x, :crop_y, :crop_w, :crop_h
   after_create :crop_logo
   after_update :crop_logo
 
-  default_scope :conditions => { :disabled => false }
+  default_scope -> { where(:disabled => false) }
 
-  scope :public, lambda { where(:public => true) }
+  scope :public_spaces, -> { where(:public => true) }
 
   # Finds all the valid user roles for a Space
   def self.roles
@@ -119,10 +109,10 @@ class Space < ActiveRecord::Base
   # TODO: if a user has a pending request to join the space it will still be there after if this
   #  method is used, should we check this here?
   def add_member!(user, role_name='User')
-    p = Permission.new
-    p.user = user
-    p.subject = self
-    p.role = Role.find_by_name_and_stage_type(role_name, 'Space')
+    p = Permission.new :user => user,
+      :subject => self,
+      :role => Role.find_by(name: role_name, stage_type: 'Space')
+
     p.save!
   end
 
@@ -135,18 +125,10 @@ class Space < ActiveRecord::Base
   end
 
   def self.with_disabled
-    where(:disabled => [true, false])
+    self.unscoped
   end
 
   # TODO: review all public methods below
-
-  def self.find_with_disabled *args
-    self.with_exclusive_scope { find(*args) }
-  end
-
-  def self.find_with_disabled_and_param *args
-    self.with_exclusive_scope { find_with_param(*args) }
-  end
 
   def disable
     self.disabled = true
@@ -168,8 +150,8 @@ class Space < ActiveRecord::Base
 
   # Checks to see if 'user' has the role 'options[:name]' in this space
   def role_for?(user, options={})
-    p = permissions.find_by_user_id(user)
-    users.include?(user) && options[:name] == Role.find(p.role_id).name
+    p = permissions.find_by(:user_id => user.id)
+    p.present? && options[:name] == p.role.name
   end
 
   def pending_join_requests
@@ -206,7 +188,7 @@ class Space < ActiveRecord::Base
 
   # Returns whether the space's logo is being cropped.
   def is_cropping?
-    crop_x.present?
+    logo_image.present? && crop_x.present?
   end
 
   private

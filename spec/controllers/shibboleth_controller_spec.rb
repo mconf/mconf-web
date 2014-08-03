@@ -132,7 +132,7 @@ describe ShibbolethController do
         }
         it { subject.current_user.should eq(user) }
         it { should redirect_to(my_home_path) }
-        pending("persists the flash messages") {
+        skip("persists the flash messages") {
           # TODO: The flash is being set and flash.keep is called, but this test doesn't work.
           #  Testing in the application the flash is persisted, as it should.
           should set_the_flash.to('message set previously by #create_association')
@@ -274,7 +274,7 @@ describe ShibbolethController do
             User.find_first_by_auth_conditions({ :login => user.username }).should_not be_nil
           }
           it("uses the correct password") {
-            User.find_first_by_auth_conditions({ :login => user.username }).valid_password?('12345').should be_true
+            User.find_first_by_auth_conditions({ :login => user.username }).valid_password?('12345').should be_truthy
           }
           it { should redirect_to(shibboleth_path) }
           it { should set_the_flash.to(I18n.t("shibboleth.create_association.account_associated", :email => user.email)) }

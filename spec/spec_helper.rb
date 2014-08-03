@@ -49,9 +49,19 @@ RSpec.configure do |config|
   config.filter_run_excluding :migration => true
   config.run_all_when_everything_filtered = true
 
+  # To use old default of rspec 2
+  config.infer_spec_type_from_file_location!
+
   config.include Devise::TestHelpers, :type => :controller
   config.include ControllerMacros, :type => :controller
   config.extend Helpers::ClassMethods
+
+  config.after(:each) do
+    if Rails.env.test?
+      FileUtils.rm_rf(Dir["#{Rails.root}/spec/support/uploads"])
+    end
+  end
+
 end
 
 # Note: this was being included directly in the factories that need `fixture_file_upload`, but

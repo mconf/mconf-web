@@ -124,7 +124,7 @@ describe Mconf::Shibboleth do
     context "returns false if there's no shib data in the session" do
       let(:shibboleth) { Mconf::Shibboleth.new({}) }
       subject { shibboleth.has_basic_info }
-      it { should be_false }
+      it { should be_falsey }
     end
 
     context "when there's shib data in the session" do
@@ -138,22 +138,22 @@ describe Mconf::Shibboleth do
 
       context "returns false if the email is not there" do
         let(:session) { { :shib_data => { "name" => "anything", "principal_name" => "anything" } } }
-        it { should be_false }
+        it { should be_falsey }
       end
 
       context "returns false if the name is not there" do
         let(:session) { { :shib_data => { "email" => "anything", "principal_name" => "anything" } } }
-        it { should be_false }
+        it { should be_falsey }
       end
 
       context "returns false if the principal name is not there" do
         let(:session) { { :shib_data => { "email" => "anything", "name" => "anything" } } }
-        it { should be_false }
+        it { should be_falsey }
       end
 
       context "returns true if name and email are there" do
         let(:session) { { :shib_data => { 'email' => "anything", 'name' => "anything", "principal_name" => "anything" } } }
-        it { should be_true }
+        it { should be_truthy }
       end
     end
 
@@ -432,19 +432,19 @@ describe Mconf::Shibboleth do
     context "if the session is not defined" do
       let(:shibboleth) { Mconf::Shibboleth.new(nil) }
       subject { shibboleth.signed_in? }
-      it { should be_false }
+      it { should be_falsey }
     end
 
     context "if the session has no :shib_data key" do
       let(:shibboleth) { Mconf::Shibboleth.new({}) }
       subject { shibboleth.signed_in? }
-      it { should be_false }
+      it { should be_falsey }
     end
 
     context "if the session has :shib_data key" do
       let(:shibboleth) { Mconf::Shibboleth.new({ :shib_data => {} }) }
       subject { shibboleth.signed_in? }
-      it { should be_true }
+      it { should be_truthy }
     end
   end
 
@@ -524,6 +524,7 @@ describe Mconf::Shibboleth do
       }
       before(:each) {
         expect { @subject = shibboleth.create_user }.to change{ User.count }.by(1)
+        @subject.reload
       }
       it { @subject.should eq(User.last) }
       it("validates the email") { @subject.email.should eq('any@email.com') }
@@ -532,8 +533,8 @@ describe Mconf::Shibboleth do
       it("password should be set") { @subject.password.should_not be_nil }
       it("password should be long") { @subject.password.length.should be(32) }
       it("should be confirmed") { @subject.confirmed_at.should_not be_nil }
-      it("should not be disabled") { @subject.disabled.should be_false }
-      it("should not be a superuser") { @subject.superuser.should be_false }
+      it("should not be disabled") { @subject.disabled.should be_falsey }
+      it("should not be a superuser") { @subject.superuser.should be_falsey }
     end
 
     context "parameterizes the login" do
@@ -563,8 +564,8 @@ describe Mconf::Shibboleth do
       }
       subject { shibboleth.create_user }
       it("should return the user") { subject.should_not be_nil }
-      it("user should not be saved") { subject.new_record?.should be_true }
-      it("user should not be valid") { subject.valid?.should be_false }
+      it("user should not be saved") { subject.new_record?.should be_truthy }
+      it("user should not be valid") { subject.valid?.should be_falsey }
       it("expects errors on :email") { subject.errors.should have_key(:email) }
       it("expects errors on :username") { subject.errors.should have_key(:username) }
       it("expects errors on :_full_name") { subject.errors.should have_key(:_full_name) }

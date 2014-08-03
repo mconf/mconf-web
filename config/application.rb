@@ -8,9 +8,6 @@ require File.expand_path('../boot', __FILE__)
 
 require 'rails/all'
 
-require 'yaml'
-YAML::ENGINE.yamler = 'syck'
-
 if defined?(Bundler)
   # If you precompile assets before deploying to production, use this line
   Bundler.require(*Rails.groups(:assets => %w(development test)))
@@ -51,6 +48,7 @@ module Mconf
       Dir[Rails.root.join('config', 'locales', '**', 'mconf.yml').to_s]
     config.i18n.fallbacks = true
     config.i18n.enforce_available_locales = true
+    config.i18n.available_locales = ["pt-br","en"]
     config.i18n.default_locale = :en
 
     config.generators do |g|
