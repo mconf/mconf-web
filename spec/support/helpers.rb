@@ -14,6 +14,7 @@ module Helpers
 
   def self.setup_site_for_email_tests
     attributes = {
+      :locale => "en",
       :smtp_sender => Forgery::Internet.email_address,
       :name => Forgery::Name.first_name
     }
