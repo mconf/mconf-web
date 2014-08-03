@@ -83,7 +83,7 @@ gem 'premailer-rails'
 gem 'nokogiri'
 
 # event module
-gem 'mweb_events', :git => 'git@github.com:mconf/mweb_events.git', :branch => 'rails4'
+gem 'mweb_events', :git => 'git@github.com:mconf/mweb_events.git', :branch => 'master'
 
 # send emails in case of exceptions in production
 gem 'exception_notification', '~> 4.0.0'
