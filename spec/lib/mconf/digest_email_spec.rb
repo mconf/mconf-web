@@ -194,7 +194,7 @@ describe Mconf::DigestEmail do
       it {
         expect {
           subject.send_digest(user, date_start, date_end)
-        }.not_to change{ ActionMailer::Base.deliveries.length}.by(1)
+        }.not_to change{ ActionMailer::Base.deliveries.length}
       }
     end
 

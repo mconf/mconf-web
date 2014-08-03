@@ -320,7 +320,7 @@ describe ApplicationController do
     context "if there's no user logged returns false" do
       let(:room) { FactoryGirl.create(:bigbluebutton_room) }
       before(:each) { get :index, :room_id => room.id, :role => :moderator }
-      it { assigns(:result).should be_false }
+      it { assigns(:result).should be_falsey }
     end
 
     context "if there's a user logged" do
@@ -336,13 +336,13 @@ describe ApplicationController do
       context "returns can?(:create_meeting)" do
         context "when false" do
           before(:each) { get :index, :room_id => room.id, :role => :moderator }
-          it { assigns(:result).should be_false }
+          it { assigns(:result).should be_falsey }
         end
 
         context "when true" do
           before { @ability.can :create_meeting, room }
           before(:each) { get :index, :room_id => room.id, :role => :moderator }
-          it { assigns(:result).should be_true }
+          it { assigns(:result).should be_truthy }
         end
       end
 

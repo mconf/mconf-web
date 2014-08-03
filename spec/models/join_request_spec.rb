@@ -23,12 +23,12 @@ describe JoinRequest do
 
     context "if processed_at is set" do
       before { target.update_attributes(:processed_at => Time.now.utc) }
-      it { target.processed?.should be_true }
+      it { target.processed?.should be_truthy }
     end
 
     context "if processed_at is not set" do
       before { target.update_attributes(:processed_at => nil) }
-      it { target.processed?.should be_false }
+      it { target.processed?.should be_falsey }
     end
   end
 
@@ -37,12 +37,12 @@ describe JoinRequest do
 
     context "if processed is set" do
       before { target.processed = Time.now.utc }
-      it { target.recently_processed?.should be_true }
+      it { target.recently_processed?.should be_truthy }
     end
 
     context "if processed_at is not set" do
       before { target.processed = nil }
-      it { target.recently_processed?.should be_false }
+      it { target.recently_processed?.should be_falsey }
     end
   end
 
@@ -53,12 +53,12 @@ describe JoinRequest do
   describe "#space?" do
     context "if group is a Space" do
       let(:target) { FactoryGirl.create(:space_join_request) }
-      it { target.space?.should be_true }
+      it { target.space?.should be_truthy }
     end
 
     context "if group is not a Space" do
       let(:target) { FactoryGirl.create(:join_request, :group => FactoryGirl.create(:event)) }
-      it { target.space?.should be_false }
+      it { target.space?.should be_falsey }
     end
   end
 

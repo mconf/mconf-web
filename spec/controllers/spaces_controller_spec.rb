@@ -25,7 +25,7 @@ describe SpacesController do
           @invitation = FactoryGirl.create(:join_request, :group => space, :candidate => user, :request_type => "invite")
         }
         before(:each) { do_action }
-        it { space.pending_invitation_for?(user).should be_true }
+        it { space.pending_invitation_for?(user).should be_truthy }
         it { should redirect_to(space_join_request_path(space, @invitation)) }
         it { should set_the_flash.to(I18n.t("spaces.error.already_invited")) }
       end
@@ -35,7 +35,7 @@ describe SpacesController do
           @invitation = FactoryGirl.create(:join_request, :group => space, :candidate => user, :request_type => "request")
         }
         before(:each) { do_action }
-        it { space.pending_join_request_for?(user).should be_true }
+        it { space.pending_join_request_for?(user).should be_truthy }
         it { should redirect_to(new_space_join_request_path(space)) }
         it { should_not set_the_flash }
       end
@@ -71,7 +71,7 @@ describe SpacesController do
           @invitation = FactoryGirl.create(:join_request, :group => space, :candidate => user, :request_type => "invite")
         }
         before(:each) { do_action }
-        it { space.pending_invitation_for?(user).should be_true }
+        it { space.pending_invitation_for?(user).should be_truthy }
         it { should respond_with(:forbidden) }
         it { should set_the_flash.to(I18n.t("space.access_forbidden")) }
         it { should render_template("errors/error_403") }
@@ -83,7 +83,7 @@ describe SpacesController do
           @invitation = FactoryGirl.create(:join_request, :group => space, :candidate => user, :request_type => "request")
         }
         before(:each) { do_action }
-        it { space.pending_join_request_for?(user).should be_true }
+        it { space.pending_join_request_for?(user).should be_truthy }
         it { should respond_with(:forbidden) }
         it { should set_the_flash.to(I18n.t("space.access_forbidden")) }
         it { should render_template("errors/error_403") }
@@ -343,7 +343,7 @@ describe SpacesController do
         }
 
         # TODO: for some reason the matcher is not found, maybe we just need to update rspec and other gems
-        pending { Space.last.should have_same_attibutes_as(space) }
+        skip { Space.last.should have_same_attibutes_as(space) }
       end
 
       context "redirects to the new space" do
@@ -485,7 +485,7 @@ describe SpacesController do
       it { expect{subject}.to change(Space, :count).by(-1)}
       it {
         subject
-        space.reload.disabled.should be_true
+        space.reload.disabled.should be_truthy
       }
       it { should redirect_to(manage_spaces_path) }
     end
@@ -500,7 +500,7 @@ describe SpacesController do
       it { expect{subject}.to change(Space, :count).by(-1) }
       it {
         subject
-        space.reload.disabled.should be_true
+        space.reload.disabled.should be_truthy
       }
       it { should redirect_to(spaces_path) }
     end
@@ -534,7 +534,7 @@ describe SpacesController do
       before(:each) { post :enable, :id => space.to_param }
       it { should redirect_to(manage_spaces_path) }
       it { should set_the_flash.to(I18n.t('space.enabled')) }
-      it { space.reload.disabled.should be_false }
+      it { space.reload.disabled.should be_falsey }
     end
   end
 

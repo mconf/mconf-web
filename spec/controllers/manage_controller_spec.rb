@@ -32,7 +32,7 @@ describe ManageController do
       FactoryGirl.create(:user)
       get :users
       assigns(:users).each do |user|
-        user.association(:profile).loaded?.should be_true
+        user.association(:profile).loaded?.should be_truthy
       end
     end
 

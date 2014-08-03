@@ -206,7 +206,7 @@ describe UsersController do
       it { should respond_with(:redirect) }
       it { should set_the_flash.to(I18n.t('user.disabled', :username => user.username)) }
       it { should redirect_to(manage_users_path) }
-      it("disables the user") { user.reload.disabled.should be_true }
+      it("disables the user") { user.reload.disabled.should be_truthy }
     end
 
     context "the user removing himself" do
@@ -215,7 +215,7 @@ describe UsersController do
       it { should respond_with(:redirect) }
       it { should set_the_flash.to(I18n.t('devise.registrations.destroyed')) }
       it { should redirect_to(root_path) }
-      it("disables the user") { user.reload.disabled.should be_true }
+      it("disables the user") { user.reload.disabled.should be_truthy }
     end
 
     it { should_authorize an_instance_of(User), :destroy, :via => :delete, :id => user.to_param }
@@ -248,7 +248,7 @@ describe UsersController do
       before(:each) { post :enable, :id => user.to_param }
       it { should redirect_to(manage_users_path) }
       it { should set_the_flash.to(I18n.t('user.enabled')) }
-      it { user.reload.disabled.should be_false }
+      it { user.reload.disabled.should be_falsey }
     end
 
     it { should_authorize an_instance_of(User), :enable, :id => FactoryGirl.create(:user).to_param }
@@ -505,8 +505,8 @@ describe UsersController do
       it { should respond_with(:redirect) }
       it { should set_the_flash.to(I18n.t('users.approve.approved', :username => user.username)) }
       it { should redirect_to('/any') }
-      it("approves the user") { user.reload.approved?.should be_true }
-      it("confirms the user") { user.reload.confirmed?.should be_true }
+      it("approves the user") { user.reload.approved?.should be_truthy }
+      it("confirms the user") { user.reload.confirmed?.should be_truthy }
 
       # TODO: To test this we need to create an unconfirmed server with FactoryGirl, but it's triggering
       #   an error related to delayed_job. Test this when delayed_job is removed, see #811.
@@ -515,11 +515,11 @@ describe UsersController do
       #     Site.current.update_attributes(:require_registration_approval => true)
       #   }
       #   it {
-      #     user.confirmed?.should be_false # just to make sure wasn't already confirmed
+      #     user.confirmed?.should be_falsey # just to make sure wasn't already confirmed
       #     expect {
       #       post :approve, :id => user.to_param
       #     }.not_to change{ ActionMailer::Base.deliveries }
-      #     user.confirmed?.should be_true
+      #     user.confirmed?.should be_truthy
       #   }
       # end
     end
@@ -532,7 +532,7 @@ describe UsersController do
       it { should respond_with(:redirect) }
       it { should set_the_flash.to(I18n.t('users.approve.not_enabled')) }
       it { should redirect_to('/any') }
-      it { user.reload.approved?.should be_true } # auto approved
+      it { user.reload.approved?.should be_truthy } # auto approved
     end
 
     it { should_authorize an_instance_of(User), :approve, :via => :post, :id => user.to_param }
@@ -553,7 +553,7 @@ describe UsersController do
       it { should respond_with(:redirect) }
       it { should set_the_flash.to(I18n.t('users.disapprove.disapproved', :username => user.username)) }
       it { should redirect_to('/any') }
-      it("disapproves the user") { user.reload.approved?.should be_false }
+      it("disapproves the user") { user.reload.approved?.should be_falsey }
     end
 
     context "if #require_registration_approval is not set in the current site" do
@@ -564,7 +564,7 @@ describe UsersController do
       it { should respond_with(:redirect) }
       it { should set_the_flash.to(I18n.t('users.disapprove.not_enabled')) }
       it { should redirect_to('/any') }
-      it("user is still (auto) approved") { user.reload.approved?.should be_true } # auto approved on registration
+      it("user is still (auto) approved") { user.reload.approved?.should be_truthy } # auto approved on registration
     end
 
     it { should_authorize an_instance_of(User), :disapprove, :via => :post, :id => user.to_param }

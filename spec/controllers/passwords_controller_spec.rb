@@ -14,7 +14,7 @@ describe PasswordsController do
 
       describe "if local authentication is enabled in the site" do
         before(:each) { get :new }
-        it { should be_true }
+        it { should be_truthy }
       end
 
       describe "if local authentication is disabled in the site" do

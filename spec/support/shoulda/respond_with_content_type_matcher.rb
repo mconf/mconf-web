@@ -1,7 +1,7 @@
 # Taken from http://www.eq8.eu/blogs/1-shoulda-matchers-depricated-now-what
 RSpec::Matchers.define :respond_with_content_type do |ability|
   match do |controller|
-    expected.each do |format|  # for some reason formats are in array
+    expected_as_array.each do |format|
       controller.response.content_type.to_s.should eq Mime::Type.lookup_by_extension(format.to_sym).to_s
     end
   end

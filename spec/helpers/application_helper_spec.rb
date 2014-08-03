@@ -59,7 +59,7 @@ describe ApplicationHelper do
         params[:controller] = 'my'
         params[:action] = 'home'
       }
-      it { at_home?.should be_true }
+      it { at_home?.should be_truthy }
     end
 
     context "false if in other action of MyController than #home" do
@@ -67,7 +67,7 @@ describe ApplicationHelper do
         params[:controller] = 'my'
         params[:action] = 'recordings'
       }
-      it { at_home?.should be_false }
+      it { at_home?.should be_falsey }
     end
 
     context "false if in other controller than MyController" do
@@ -75,7 +75,7 @@ describe ApplicationHelper do
         params[:controller] = 'sessions'
         params[:action] = 'home'
       }
-      it { at_home?.should be_false }
+      it { at_home?.should be_falsey }
     end
   end
 
@@ -124,12 +124,12 @@ describe ApplicationHelper do
         should_receive(:user_signed_in?).and_return(true)
         Mconf::Shibboleth.any_instance.should_receive(:signed_in?).and_return(true)
       }
-      it { user_signed_in_via_federation?.should be_true }
+      it { user_signed_in_via_federation?.should be_truthy }
     end
 
     context "if there's no user signed in" do
       before { should_receive(:user_signed_in?).and_return(false) }
-      it { user_signed_in_via_federation?.should be_false }
+      it { user_signed_in_via_federation?.should be_falsey }
     end
 
     context "if there's a user signed in but not via federation" do
@@ -137,7 +137,7 @@ describe ApplicationHelper do
         should_receive(:user_signed_in?).and_return(true)
         Mconf::Shibboleth.any_instance.should_receive(:signed_in?).and_return(false)
       }
-      it { user_signed_in_via_federation?.should be_false }
+      it { user_signed_in_via_federation?.should be_falsey }
     end
   end
 
@@ -147,12 +147,12 @@ describe ApplicationHelper do
         should_receive(:user_signed_in?).and_return(true)
         Mconf::LDAP.any_instance.should_receive(:signed_in?).and_return(true)
       }
-      it { user_signed_in_via_ldap?.should be_true }
+      it { user_signed_in_via_ldap?.should be_truthy }
     end
 
     context "if there's no user signed in" do
       before { should_receive(:user_signed_in?).and_return(false) }
-      it { user_signed_in_via_ldap?.should be_false }
+      it { user_signed_in_via_ldap?.should be_falsey }
     end
 
     context "if there's a user signed in but not via LDAP" do
@@ -160,7 +160,7 @@ describe ApplicationHelper do
         should_receive(:user_signed_in?).and_return(true)
         Mconf::LDAP.any_instance.should_receive(:signed_in?).and_return(false)
       }
-      it { user_signed_in_via_ldap?.should be_false }
+      it { user_signed_in_via_ldap?.should be_falsey }
     end
   end
 

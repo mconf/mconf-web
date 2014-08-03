@@ -10,11 +10,11 @@ describe CustomBigbluebuttonServersController do
   render_views
 
   describe "#sort_meetings" do
-    pending "sort meetings alphabetically by name"
+    skip "sort meetings alphabetically by name"
   end
 
   describe "#activity" do
-    pending "calls before filter #sort_meetings"
+    skip "calls before filter #sort_meetings"
   end
 
   describe "abilities", :abilities => true do

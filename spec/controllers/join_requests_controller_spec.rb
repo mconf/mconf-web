@@ -25,7 +25,7 @@ describe JoinRequestsController do
     context "space admin indexing join requests" do
       it { should assign_to(:space).with(space) }
       it { should assign_to(:join_requests).with([]) }
-      pending "should assing_to @webconf" #it { should assign_to(:webconf).with(space.bigbluebutton_room) }
+      skip "should assing_to @webconf" #it { should assign_to(:webconf).with(space.bigbluebutton_room) }
     end
 
   end
