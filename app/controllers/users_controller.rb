@@ -194,7 +194,7 @@ class UsersController < ApplicationController
   end
 
   def allowed_params
-    [ :password, :password_confirmation, :remember_me,
+    [ :password, :password_confirmation, :remember_me, :current_password,
       :login, :username, :approved, :disabled, :timezone, :can_record, :receive_digest, :notification ]
   end
 
