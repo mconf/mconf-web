@@ -34,6 +34,8 @@ class JoinRequest < ActiveRecord::Base
 
   validate :candidate_is_not_introducer
 
+  validates_length_of :comment, maximum: 255
+
   # Create a new activity after saving
   after_create :new_activity
   def new_activity

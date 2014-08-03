@@ -1,16 +1,25 @@
-%h3= t('.other_options')
-%ul
-  - if Site.current.shib_enabled?
-    %li= link_to t('.login.federation'), shibboleth_path
-  - if controller_name != 'sessions'
-    %li= link_to t('.login.default'), login_path
-  - if current_site.registration_enabled?
-    - if devise_mapping.registerable? && controller_name != 'registrations'
-      %li= link_to t('.register'), register_path
-  - if devise_mapping.recoverable? && controller_name != 'passwords'
-    %li= link_to t('.lost_password'), new_password_path(resource_name)
-  - if devise_mapping.confirmable? && controller_name != 'confirmations'
-    %li= link_to t(".resend_confirmation_email"), new_confirmation_path(resource_name)
-  -# - if devise_mapping.omniauthable?
-  -#   - resource_class.omniauth_providers.each do |provider|
-  -#     %li= link_to "Sign in with #{provider.to_s.titleize}", omniauth_authorize_path(resource_name, provider)
+- registration_enabled = current_site.registration_enabled?
+- shib_enabled = current_site.shib_enabled?
+
+- if registration_enabled || shib_enabled
+  %h3= t('.other_options')
+  %ul
+
+    - if shib_enabled
+      %li= link_to t('.login.federation'), shibboleth_path
+
+    -# we show this even if local auth is disabled because admins can still sign in
+    - if controller_name != 'sessions'
+      %li= link_to t('.login.default'), login_path
+
+    - if registration_enabled
+      - if devise_mapping.registerable? && controller_name != 'registrations'
+        %li= link_to t('.register'), register_path
+
+    -# we show this even if local auth is disabled because admins can still sign in
+    - if devise_mapping.recoverable? && controller_name != 'passwords'
+      %li= link_to t('.lost_password'), new_password_path(resource_name)
+
+    - if registration_enabled
+      - if devise_mapping.confirmable? && controller_name != 'confirmations'
+        %li= link_to t(".resend_confirmation_email"), new_confirmation_path(resource_name)

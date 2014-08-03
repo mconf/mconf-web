@@ -121,7 +121,7 @@ describe ShibbolethController do
 
     context "if the user's information is ok" do
       let(:user) { FactoryGirl.create(:user) }
-      before { setup_shib(user.full_name, user.email, false) }
+      before { setup_shib(user.full_name, user.email) }
 
       context "logs the user in if he already has a token" do
         before { ShibToken.create!(:identifier => user.email, :user => user) }
@@ -203,7 +203,7 @@ describe ShibbolethController do
 
     context "if params has no known option, redirects to /secure with a warning" do
       let(:user) { FactoryGirl.create(:user) }
-      before { setup_shib(user.full_name, user.email, false) }
+      before { setup_shib(user.full_name, user.email) }
       before(:each) { post :create_association }
       it { should redirect_to(shibboleth_path) }
       it { should set_the_flash.to(I18n.t('shibboleth.create_association.invalid_parameters')) }
@@ -326,7 +326,7 @@ describe ShibbolethController do
 
   private
 
-  def setup_shib(name, email, save_to_session=true)
+  def setup_shib(name, email)
     request.env["Shib-inetOrgPerson-cn"] = name
     request.env["Shib-inetOrgPerson-mail"] = email
     request.env["Shib-eduPerson-eduPersonPrincipalName"] = name

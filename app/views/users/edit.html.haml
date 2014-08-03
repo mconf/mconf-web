@@ -38,12 +38,12 @@
       %h3= t('.account_info')
       = f.input :email, :required => false, :disabled => true
       = f.input :username, :required => false, :disabled => true
-
-    #change-password
-      %h3= t('.change_password')
-      = f.input :password, :autocomplete => "off", :required => false
-      = f.input :password_confirmation, :required => false
-      = f.input :current_password
+    - if current_site.local_auth_enabled? || @user.admin?
+      #change-password
+        %h3= t('.change_password')
+        = f.input :password, :autocomplete => "off", :required => false
+        = f.input :password_confirmation, :required => false
+        = f.input :current_password
 
   .right-column
     #account-preferences

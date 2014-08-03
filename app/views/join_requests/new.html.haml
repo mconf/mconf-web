@@ -5,6 +5,6 @@
     - else
       .alert.alert-danger= t(".already_requested")
   %h3= t('.message_title')
-  = simple_form_for(:join_request, :url => space_join_requests_path(@space), :html => { :class => 'single-column' }) do |f|
-    = f.input :comment, :as => :text, :label => false, :disabled => !@pending_request.nil?
-    = f.button :wrapped, :value => t("_other.send"), :disabled => !@pending_request.nil?
+  = simple_form_for(:join_request, url: space_join_requests_path(@space), html: { class: 'single-column' }) do |f|
+    = f.input :comment, as: :text, label: false, disabled: !@pending_request.nil?, input_html: { maxlength: 255, rows: 2 }
+    = f.button :wrapped, value: t("_other.send"), disabled: !@pending_request.nil?
