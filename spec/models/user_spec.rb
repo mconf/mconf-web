@@ -458,10 +458,33 @@ describe User do
   end
 
   describe "#pending_spaces" do
-    it "returns all spaces in which the user has a pending join request he sent"
-    it "returns all spaces in which the user has a pending join request he received"
-    it "removes possible duplicates"
-    it "doesn't return spaces that are disabled"
+    before do
+      @spaces = [
+        FactoryGirl.create(:space),
+        FactoryGirl.create(:space),
+        FactoryGirl.create(:space),
+        FactoryGirl.create(:space, :disabled => true)]
+      @user = FactoryGirl.create(:user)
+
+      FactoryGirl.create(:join_request, :candidate => @user, :group => @spaces[0], :request_type => 'request')
+      FactoryGirl.create(:join_request, :candidate => @user, :group => @spaces[1], :request_type => 'invite')
+      FactoryGirl.create(:join_request, :candidate => @user, :group => @spaces[3], :request_type => 'request')
+    end
+
+    # Currently makes no differentiation between invites or requests
+    # skip "removes possible duplicates"
+    it "returns all spaces in which the user has a pending join request he sent" do
+      @user.pending_spaces.should include(@spaces[0], @spaces[1])
+    end
+    it "returns all spaces in which the user has a pending join request he received" do
+      @user.pending_spaces.should include(@spaces[1])
+    end
+
+    it { @user.pending_spaces.should_not include(@spaces[2]) }
+
+    it "doesn't return spaces that are disabled" do
+      @user.pending_spaces.should_not include(@spaces[3])
+    end
   end
 
   describe "#disable" do

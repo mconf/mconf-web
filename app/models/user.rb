@@ -330,8 +330,7 @@ class User < ActiveRecord::Base
   # Return the list of spaces in which the user has a pending join request or invitation.
   def pending_spaces
     requests = JoinRequest.where(:candidate_id => self, :processed_at => nil, :group_type => 'Space')
-    ids = requests.map(&:group_id)
-    ids.uniq!
+    ids = requests.pluck(:group_id)
     # note: not 'find' because some of the spaces might be disabled and 'find' would raise
     #   an exception
     Space.where(:id => ids)
