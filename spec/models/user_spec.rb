@@ -153,13 +153,20 @@ describe User do
     let(:other_user) { FactoryGirl.create(:user)}
 
     before(:each) do
-      FactoryGirl.create(:event, :owner => user)
-      FactoryGirl.create(:event, :owner => user)
+      @events = [
+      FactoryGirl.create(:event, :owner => user),
+      FactoryGirl.create(:event, :owner => user),
+      FactoryGirl.create(:event, :owner => nil)
+      ]
     end
 
     it { user.events.size.should eql(2) }
+    it { user.events.should include(@events[0], @events[1]) }
+    it { user.events.should_not include(@events[2]) }
     it { other_user.events.should be_empty }
   end
+
+  skip "#has_events_in_this_space?"
 
   describe "#accessible_rooms" do
     let(:user) { FactoryGirl.create(:user) }

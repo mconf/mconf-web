@@ -255,8 +255,8 @@ class User < ActiveRecord::Base
   end
 
   def events
-    ids = MwebEvents::Event.where(:owner_type => 'User', :owner_id => id).map(&:id)
-    ids += self.permissions.where(:subject_type => 'MwebEvents::Event', :user_id => id).map(&:subject_id)
+    ids = MwebEvents::Event.where(:owner_type => 'User', :owner_id => id).ids
+    ids += permissions.where(:subject_type => 'MwebEvents::Event').pluck(:subject_id)
     MwebEvents::Event.where(:id => ids)
   end
 
