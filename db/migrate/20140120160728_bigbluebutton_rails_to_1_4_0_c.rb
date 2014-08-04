@@ -6,16 +6,6 @@ class BigbluebuttonRailsTo140C < ActiveRecord::Migration
       t.timestamps
     end
     add_index :bigbluebutton_room_options, :room_id
-
-    # Generate room_options for all rooms
-    BigbluebuttonRoom.all.each do |room|
-      room.build_room_options
-      unless room.save
-        puts "Error generating #room_options for a room!"
-        puts "  - Error: #{room.errors.full_messages.inspect}"
-        puts "  - Room: #{room.inspect}"
-      end
-    end
   end
 
   def down
