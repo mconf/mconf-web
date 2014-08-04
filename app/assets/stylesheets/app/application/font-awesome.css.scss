@@ -41,26 +41,14 @@ a .icon-awesome {
 
 .btn .icon-awesome {
   float: none;
-  margin: 3px 5px 0 0;
 }
 
 .btn.btn-small, .btn.btn-mini {
   .icon-awesome {
     float: none;
-    margin: 3px 5px 0 0;
     @include font-size(12px);
     width: 12px;
     height: 12px;
-  }
-}
-
-.thread .thread-title {
-  .icon-awesome {
-    margin: 1px 5px 0px 0px;
-  }
-
-  h2 .icon-awesome {
-    margin: 7px 5px 0 0;
   }
 }
 
