@@ -38,6 +38,13 @@ module ApplicationHelper
     "https://github.com/mconf/mconf-web/commit/#{revision}"
   end
 
+  def page_title title, opt ={}
+    inside_resource = "#{opt[:in]}: " if opt[:in].present?
+    content_for :title do
+      "#{inside_resource}#{title} [#{current_site.name}]"
+    end
+  end
+
   # Ex: asset_exists?('news/edit', 'css')
   def asset_exists?(asset_name, default_ext)
     !Mconf::Application.assets.find_asset(asset_name + '.' + default_ext).nil?
@@ -70,9 +77,11 @@ module ApplicationHelper
 
   # Renders the partial 'layout/page_title'
   # useful to simplify the calls from the views
+  # Now also sets the html title tag for the page
   # Ex:
   #   <%= render_page_title('users', 'logos/user.png', { :transparent => true }) %>
   def render_page_title(title, logo=nil, options={})
+    page_title title
     block_to_partial('layouts/page_title', options.merge(:page_title => title, :logo => logo))
   end
 
