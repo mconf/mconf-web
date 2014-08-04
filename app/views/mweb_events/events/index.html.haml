@@ -27,7 +27,7 @@
             %h3.break-word= sanitize(event.name)
         - else
           %h3.break-word= sanitize(event.name)
-        - unless event.description.blank?
+        - unless event.summary.blank?
           %p.description= sanitize(event.summary) + '...'
         %p.details
           - if event.participants.include?(current_user)

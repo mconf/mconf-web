@@ -30,12 +30,8 @@ namespace :db do
       end
       RecentActivity.destroy_all
       BigbluebuttonRecording.destroy_all
-      users_without_admin = User.with_disabled
-      users_without_admin.delete(User.find_by(superuser: true))
-      users_without_admin.each(&:destroy)
-      rooms_without_admin = BigbluebuttonRoom.all
-      rooms_without_admin.delete(User.find_by(superuser: true).bigbluebutton_room)
-      rooms_without_admin.each(&:destroy)
+      User.with_disabled.where.not(id: User.first.id).destroy_all
+      BigbluebuttonRoom.where.not(owner: User.first).destroy_all
     end
 
     puts
@@ -132,26 +128,6 @@ namespace :db do
         post.spam = rand(0) > 0.9 # ~10% marked as spam
       end
 
-      if configatron.modules.events.enabled
-        puts "* Create spaces: events for \"#{space.name}\" (5..10)"
-        available_users = User.all.to_a
-        MwebEvents::Event.populate 5..10 do |event|
-          event.owner_id = space.id
-          event.owner_type = 'Space'
-          event.name = Populator.words(1..3).titleize
-          event.permalink = Populator.words(1..3).split.join('-')
-          event.time_zone = Forgery::Time.zone
-          event.location = Populator.words(1..3)
-          event.address = Forgery::Address.street_address
-          event.description = Populator.sentences(2)
-          event.location = Populator.sentences(1)
-          event.created_at = @created_at_start..Time.now
-          event.updated_at = event.created_at..Time.now
-          event.start_on = event.created_at..1.years.since(Time.now)
-          event.end_on = 2.hours.since(event.start_on)..2.days.since(event.start_on)
-        end
-      end
-
       News.populate 2..10 do |news|
         news.space_id = space.id
         news.title = Populator.words(3..8).titleize
@@ -159,11 +135,6 @@ namespace :db do
         news.created_at = @created_at_start..Time.now
         news.updated_at = news.created_at..Time.now
       end
-    end
-
-    if configatron.modules.events.loaded
-      puts "* Create spaces: saving events to generate permalinks (#{MwebEvents::Event.count} events)"
-      MwebEvents::Event.find_each(&:save!) # to generate the permalink
     end
 
     puts "* Create spaces: webconference rooms"
@@ -213,6 +184,48 @@ namespace :db do
         permission.created_at = user.created_at
         permission.updated_at = permission.created_at
       end
+    end
+
+    if configatron.modules.events.enabled
+      puts "* Create events"
+
+      puts "* Create events: for spaces (20..40)"
+      available_spaces = Space.all.to_a
+      MwebEvents::Event.populate 20..40 do |event|
+        event.owner_id = available_spaces
+        event.owner_type = 'Space'
+        event.name = Populator.words(1..3).titleize
+        event.permalink = Populator.words(1..3).split.join('-')
+        event.time_zone = Forgery::Time.zone
+        event.location = Populator.words(1..3)
+        event.address = Forgery::Address.street_address
+        event.description = Populator.sentences(20)
+        event.summary = Populator.sentences(2)
+        event.location = Populator.sentences(1)
+        event.created_at = @created_at_start..Time.now
+        event.updated_at = event.created_at..Time.now
+        event.start_on = event.created_at..1.years.since(Time.now)
+        event.end_on = 2.hours.since(event.start_on)..2.days.since(event.start_on)
+      end
+
+      puts "* Create events: for users (20..40)"
+      available_users = User.all.to_a
+      MwebEvents::Event.populate 20..40 do |event|
+        event.owner_id = available_users
+        event.owner_type = 'Space'
+        event.name = Populator.words(1..3).titleize
+        event.permalink = Populator.words(1..3).split.join('-')
+        event.time_zone = Forgery::Time.zone
+        event.location = Populator.words(1..3)
+        event.address = Forgery::Address.street_address
+        event.description = Populator.sentences(20)
+        event.summary = Populator.sentences(2)
+        event.location = Populator.sentences(1)
+        event.created_at = @created_at_start..Time.now
+        event.updated_at = event.created_at..Time.now
+        event.start_on = event.created_at..1.years.since(Time.now)
+        event.end_on = 2.hours.since(event.start_on)..2.days.since(event.start_on)
+      end
 
       # TODO: #1115, populate with models from MwebEvents
       # if configatron.modules.events.loaded
@@ -240,7 +253,6 @@ namespace :db do
       #   end
       # end
       # end
-
     end
 
     puts "* Create recordings and metadata for all webconference rooms (#{BigbluebuttonRoom.count} rooms)"
