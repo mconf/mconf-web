@@ -1,10 +1,30 @@
 /*
- * Styles that redefine bootstrap styles.
+ * Load bootstrap and redefine some styles.
  */
 
 @import "compass/typography/links/link-colors";
 @import "compass/css3";
 @import "definitions";
+
+/*
+ * Customized variables for bootstrap
+ */
+$link-color: #367380;
+// $btn-primary-bg: #5bc0de;
+// $btnPrimaryBackgroundHighlight: #2f96b4;
+$navbar-default-bg: #0a3138;
+// $navbarBackgroundHighlight: #27535C;
+
+/*
+ * Load bootstrap
+ */
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+
+/*
+ * Customized styles
+ */
 
 .form-inline {
   padding: 0;

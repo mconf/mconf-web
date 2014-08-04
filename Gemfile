@@ -67,8 +67,8 @@ gem 'rmagick'
 gem 'configatron', '~> 2.13.0'
 
 # for bootstrap
-gem 'less-rails'
-gem 'twitter-bootstrap-rails', '~> 2.2.8'
+gem 'bootstrap-sass', '~> 3.2.0'
+gem 'autoprefixer-rails'
 # datetime picker for bootstrap
 gem 'bootstrap-datetimepicker-rails'
 
