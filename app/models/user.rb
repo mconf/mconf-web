@@ -237,8 +237,8 @@ class User < ActiveRecord::Base
     limit = limit || 5            # default to 5
     limit = 50 if limit.to_i > 50 # no more than 50
 
-    # ids of unique users that belong to the same stages
-    ids = Permission.where(:subject_id => self.spaces).select(:user_id).uniq.map(&:user_id)
+    # ids of unique users that belong to the same spaces
+    ids = Permission.where(:subject_id => self.space_ids).pluck(:user_id)
 
     # filters and selects the users
     query = User.where(:id => ids).joins(:profile).where("users.id != ?", self.id)
@@ -251,7 +251,8 @@ class User < ActiveRecord::Base
   end
 
   def private_fellows
-    spaces.select{|x| x.public == false}.map(&:users).flatten.compact.uniq.sort{ |x, y| x.name <=> y.name }
+    ids = spaces.where(:public => false).map(&:user_ids).flatten.compact
+    User.where(:id => ids).where("users.id != ?", self.id).sort_by{ |u| u.name.downcase }
   end
 
   def events

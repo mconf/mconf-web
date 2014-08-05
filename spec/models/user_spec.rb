@@ -362,6 +362,71 @@ describe User do
     end
   end
 
+  describe "#private_fellows" do
+    context "returns the private fellows of the current user" do
+      let(:user) { FactoryGirl.create(:user) }
+      subject { user.private_fellows }
+      before do
+        private_space = FactoryGirl.create(:space, :public => false)
+        public_space = FactoryGirl.create(:space, :public => true)
+        private_space.add_member! user
+        public_space.add_member! user
+
+        @users = Helpers.create_fellows(2, private_space)
+        @users += Helpers.create_fellows(2, public_space)
+        # 2 extra not fellows
+        2.times { FactoryGirl.create(:user) }
+      end
+      it { subject.length.should == 2 }
+      it { should include(@users[0], @users[1]) }
+      it { should_not include(@users[2],@users[3]) }
+    end
+
+    context "orders by name" do
+      let(:user) { FactoryGirl.create(:user) }
+      subject { user.private_fellows }
+      before do
+        space = FactoryGirl.create(:space, :public => false)
+        space.add_member! user
+        @users = Helpers.create_fellows(5, space)
+        @users.sort_by!{ |u| u.name }
+      end
+      it { subject.length.should == 5 }
+      it { should == @users }
+    end
+
+    context "don't return duplicates" do
+      let(:user) { FactoryGirl.create(:user) }
+      subject { user.private_fellows }
+      before do
+        space1 = FactoryGirl.create(:private_space)
+        space2 = FactoryGirl.create(:private_space)
+        space1.add_member! user
+        space2.add_member! user
+        @fellow = FactoryGirl.create(:user)
+        space1.add_member! @fellow
+        space2.add_member! @fellow
+      end
+      it { subject.length.should == 1 }
+      it { should include(@fellow) }
+      it { should_not include(user) }
+    end
+
+    context "don't return the user himself" do
+      let(:user) { FactoryGirl.create(:user) }
+      subject { user.private_fellows }
+      before do
+        space = FactoryGirl.create(:private_space)
+        space.add_member! user
+        @users = Helpers.create_fellows(2, space)
+      end
+      it { subject.length.should == 2 }
+      it { should include(@users[0]) }
+      it { should include(@users[1]) }
+      it { should_not include(user) }
+    end
+  end
+
   describe ".with_disabled" do
     let(:user1) { FactoryGirl.create(:user, :disabled => true) }
     let(:user2) { FactoryGirl.create(:user, :disabled => false) }
