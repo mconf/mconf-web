@@ -48,10 +48,6 @@ class UsersController < ApplicationController
   end
 
   def update
-    unless params[:user].nil?
-      params[:user].delete(:username)
-      params[:user].delete(:email)
-    end
     password_changed = false
     if current_site.local_auth_enabled?
       password_changed =
@@ -195,7 +191,7 @@ class UsersController < ApplicationController
 
   def allowed_params
     [ :password, :password_confirmation, :remember_me, :current_password,
-      :login, :username, :approved, :disabled, :timezone, :can_record, :receive_digest, :notification ]
+      :login, :approved, :disabled, :timezone, :can_record, :receive_digest, :notification ]
   end
 
 end
