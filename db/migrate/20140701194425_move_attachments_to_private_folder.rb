@@ -1,7 +1,8 @@
 class MoveAttachmentsToPrivateFolder < ActiveRecord::Migration
   def up
-    source = "#{Rails.root}/public/uploads"
-    destination = "#{Rails.root}/private/uploads"
+    source = "#{Rails.root}/public/uploads/space/attachment"
+    destination = "#{Rails.root}/private/uploads/space/attachment"
+    FileUtils.mkdir_p destination, :verbose => true
 
     Dir.glob(File.join(source, '**/*')).each do |file|
       target = file.gsub(source, "")
@@ -11,7 +12,7 @@ class MoveAttachmentsToPrivateFolder < ActiveRecord::Migration
           puts "file '#{target}' exists"
         else
           puts "mkdir #{target}"
-          Dir.mkdir target
+          FileUtils.mkdir_p target, :verbose => true
         end
       else
         FileUtils.mv file, target, :force => true, :verbose => true
