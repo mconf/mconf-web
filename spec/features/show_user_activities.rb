@@ -7,12 +7,12 @@ feature 'Show user activity' do
     before { visit my_activity_path }
 
     it { current_path.should eq(new_user_session_path) }
-    it { page.should have_css('#notification-flashs > div[name=alert]') }
+    it { have_failed_message }
   end
 
   context 'on user without activities home page' do
     let(:user) { FactoryGirl.create(:user) }
-    before do 
+    before do
       login_as(user, :scope => :user)
       visit my_activity_path
     end
