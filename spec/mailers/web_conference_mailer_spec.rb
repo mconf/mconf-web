@@ -7,8 +7,6 @@
 require 'spec_helper'
 
 describe WebConferenceMailer do
-  before { Helpers.setup_site_for_email_tests }
-
   let(:invitation) { FactoryGirl.create(:web_conference_invitation) }
   let(:mail) { WebConferenceMailer.invitation_email(invitation.id) }
 

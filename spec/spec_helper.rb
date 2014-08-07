@@ -62,6 +62,10 @@ RSpec.configure do |config|
     end
   end
 
+  config.before(:each) do
+    Helpers.setup_site
+  end
+
 end
 
 # Note: this was being included directly in the factories that need `fixture_file_upload`, but

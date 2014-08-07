@@ -7,8 +7,6 @@
 require 'spec_helper'
 
 describe SpaceMailer do
-  before { Helpers.setup_site_for_email_tests }
-
   let(:join_request) { FactoryGirl.create(:space_join_request) }
   let(:introducer) { join_request.introducer }
   let(:candidate) { join_request.candidate }

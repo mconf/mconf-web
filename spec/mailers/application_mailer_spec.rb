@@ -7,8 +7,6 @@
 require "spec_helper"
 
 describe ApplicationMailer do
-  before { Helpers.setup_site_for_email_tests }
-
   describe '.feedback_email' do
     let(:user) { FactoryGirl.create(:user) }
     let(:subject) { Forgery::LoremIpsum.characters 30 }
