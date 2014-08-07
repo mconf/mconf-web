@@ -60,7 +60,7 @@ describe ShibbolethController do
           expected["Shib-inetOrgPerson-cn"] = attrs[:_full_name]
           expected["Shib-inetOrgPerson-mail"] = attrs[:email]
           expected["Shib-eduPerson-eduPersonPrincipalName"] = attrs[:_full_name]
-          subject.data.should eq(expected.to_yaml) # it's a Hash in the db, so compare using to_yaml
+          subject.data.should eq(expected)
         }
         it { controller.should redirect_to(shibboleth_path) }
         it { controller.should set_the_flash.to(I18n.t('shibboleth.create_association.account_created', :url => new_user_password_path)) }
@@ -288,7 +288,7 @@ describe ShibbolethController do
           }
           subject { ShibToken.last }
           it("sets the user in the token") { subject.user.should eq(user) }
-          it("sets the data in the token") { subject.data.should eq(@shib.get_data().to_yaml) }
+          it("sets the data in the token") { subject.data.should eq(@shib.get_data()) }
         end
 
         context "uses the user's ShibToken if it already exists" do
@@ -300,7 +300,7 @@ describe ShibbolethController do
           }
           subject { ShibToken.last }
           it("sets the user in the token") { subject.user.should eq(user) }
-          it("sets the data in the token") { subject.data.should eq(@shib.get_data().to_yaml) }
+          it("sets the data in the token") { subject.data.should eq(@shib.get_data()) }
         end
 
       end
