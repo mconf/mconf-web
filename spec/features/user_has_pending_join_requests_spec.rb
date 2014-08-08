@@ -16,7 +16,6 @@ feature 'User\'s pending join requests' do
     scenario 'on my_home_path' do
       visit my_home_path
 
-      expect(page).to have_title('Mconf')
       within('#user-pending-join-requests') do
         expect(page).to have_content('1')
 
