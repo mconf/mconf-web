@@ -11,6 +11,15 @@ feature 'Visitor signs up' do
     it { page.should have_content(I18n.t('frontpage.show.login.title')) }
   end
 
+  context 'send invalid register form and try to change language after' do
+    before {
+      sign_up_with('', '', '')
+      click_link I18n.t('locales.en')
+    }
+
+    it { current_path.should eq(register_path) }
+  end
+
   context 'with valid email and password' do
     before { sign_up_with 'Valid User Name', 'valid@example.com', 'password' }
 
@@ -23,7 +32,6 @@ feature 'Visitor signs up' do
   context 'with invalid email' do
     before { sign_up_with 'Valid User Name', 'invalid_email', 'password' }
 
-    it { current_path.should eq(register_path) }
     it { page.should have_content('Sign in') }
   end
 

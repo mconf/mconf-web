@@ -19,6 +19,16 @@ class UsersController < ApplicationController
   # Rescue username not found rendering a 404
   rescue_from ActiveRecord::RecordNotFound, :with => :render_404
 
+  rescue_from CanCan::AccessDenied, :with => :handle_access_denied
+
+  def handle_access_denied exception
+    if @space.blank?
+      redirect_to register_path
+    else
+      render_403(exception)
+    end
+  end
+
   respond_to :html, :except => [:select, :current, :fellows]
   respond_to :js, :only => [:select, :current, :fellows]
   respond_to :xml, :only => [:current]

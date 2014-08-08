@@ -35,12 +35,15 @@ feature 'Show user activity' do
 
     it { current_path.should eq(my_activity_path) }
 
-    it { page.find('#users-recent-activity').should have_selector('.single-activity', :count => 2) }
-    it { page.find('#users-recent-activity').should have_selector('.space', :count => 2) }
-    it { page.find('#users-recent-activity').should have_content(user._full_name, :count => 2) }
-    it { page.find('#users-recent-activity').should have_content(space.name, :count => 2) }
-    it { page.find('#users-recent-activity').should have_content(I18n.t('activities.space.create_html'), :count => 1) }
-    it { page.find('#users-recent-activity').should have_content(I18n.t('activities.space.update_html'), :count => 1) }
+    context 'inside #users-recent-activity' do
+      subject { page.find('#users-recent-activity') }
+      it { should have_selector('.single-activity', :count => 2) }
+      it { should have_selector('.space', :count => 2) }
+      it { should have_content(user._full_name, :count => 2) }
+      it { should have_content(space.name, :count => 2) }
+      it { should have_content(I18n.t('activities.space.create_html'), :count => 1) }
+      it { should have_content(I18n.t('activities.space.update_html'), :count => 1) }
+    end
   end
 
 end
