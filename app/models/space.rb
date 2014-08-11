@@ -207,8 +207,8 @@ class Space < ActiveRecord::Base
       :param => self.permalink,
       :name => self.permalink,
       :private => !self.public,
-      :moderator_password => SecureRandom.hex(4),
-      :attendee_password => SecureRandom.hex(4),
+      :moderator_key => SecureRandom.hex(4),
+      :attendee_key => SecureRandom.hex(4),
       :logout_url => "/feedback/webconf/"
     }
     create_bigbluebutton_room(params)

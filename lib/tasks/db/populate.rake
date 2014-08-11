@@ -146,8 +146,8 @@ namespace :db do
           room.owner_type = 'Space'
           room.name = space.name
           room.meetingid = "#{SecureRandom.hex(16)}-#{Time.now.to_i}"
-          room.attendee_password = "ap"
-          room.moderator_password = "mp"
+          room.attendee_key = "ap"
+          room.moderator_key = "mp"
           room.private = !space.public
           room.logout_url = "/feedback/webconf"
           room.external = false

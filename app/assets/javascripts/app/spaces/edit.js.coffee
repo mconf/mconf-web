@@ -16,4 +16,4 @@ $ ->
 
 updatePasswords = (checked) ->
   $('#space_bigbluebutton_room_attributes_attendee_password').prop('disabled', checked)
-  $('#space_bigbluebutton_room_attributes_moderator_password').prop('disabled', checked)
+  $('#space_bigbluebutton_room_attributes_moderator_key').prop('disabled', checked)

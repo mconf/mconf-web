@@ -190,9 +190,9 @@ en:
         xmpp_server: "XMPP Server Address"
         webconf_auto_record: "Automatically set the recording flag when creating a web conference"
       space:
-        attendee_password: "Attendee password"
+        attendee_key: "Attendee key"
         description: "Description"
-        moderator_password: "Moderator password"
+        moderator_key: "Moderator key"
         name: "Name"
         permalink: "Identifier"
         public: "Public"
@@ -287,7 +287,7 @@ en:
       download_tooltip: "Download this file"
     upload_form:
       title: "Upload a new file"
-  attendeePW: "Attendee Password"
+  attendeePW: "Attendee key"
   author: "Uploaded by"
   avatar: 
     created: "Picture uploaded successfully"
@@ -299,9 +299,9 @@ en:
   back_to_inbox: "Back to inbox"
   back_to_sent: "Back to sent"
   bbb_room: 
-    attendeePW: "Attendee Password"
+    attendeePW: "Attendee key"
     edit: "Configure your webconference room"
-    moderatorPW: "Moderator Password"
+    moderatorPW: "Moderator key"
     private: "Private Room"
   beta: beta
   bigbluebutton: BigBlueButton
@@ -962,7 +962,7 @@ en:
     special1: "The Mconf platform will be down from Friday 17-Dec at 16:00 UTC until Saturday 18-Dec 16:00 UTC. Sorry for the inconveniences."
     special2: "The Mconf Team"
     to: To
-  moderatorPW: "Moderator Password"
+  moderatorPW: "Moderator key"
   more: more...
   more_arrows: "more >>"
   my:
@@ -1233,8 +1233,8 @@ en:
       name: "Name:"
       name_enter: "Enter your name."
       password: "Password:"
-      password_filled: "This room is public. The password was auto-filled with the attendee password."
-      password_role: "Enter the attendee or moderator password."
+      password_filled: "This room is public. The password was auto-filled with the attendee key."
+      password_role: "Enter the attendee or moderator key."
       status: "Meeting status: "
     join: 
       msg1: "The meeting has not started yet, you must wait for the moderator to join."
@@ -1338,7 +1338,7 @@ en:
     add_user_other: ""
     all: "Spaces"
     allow_public_access: "Allow public access?"
-    attendeePW: "edit attendee password"
+    attendeePW: "edit attendee key"
     clic: "Click to edit..."
     clic_logo: "Click to change your logo"
     configuration: "Space configuration"
@@ -1386,7 +1386,7 @@ en:
       use_date: "Use event date"
     member_count: "%{count} members"
     member_of: "Member of the spaces"
-    moderatorPW: "edit moderator password"
+    moderatorPW: "edit moderator key"
     my_spaces: "My Spaces"
     name_none: "A space name must be given to create a new space"
     one: Space
