@@ -1,6 +1,11 @@
 include Warden::Test::Helpers
 Warden.test_mode!
 
+# Shorthand for I18n.t
+def t *args
+  I18n.t(*args)
+end
+
 def show_page
   save_page Rails.root.join( 'public', 'capybara.html' )
   %x(launchy http://localhost:3000/capybara.html)
