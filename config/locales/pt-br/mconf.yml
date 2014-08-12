@@ -1366,6 +1366,7 @@ pt-br:
       select_at_left: "Selecione uma comunidade ao lado para ver sua descrição aqui"
       user_is_member: "Você é membro!"
     is_private: "é uma comunidade privado. Envie um pedido de adesão ao administrador desta comunidade para deixá-lo entrar"
+    is_private_html: "A comunidade %{name} é privada. Mande uma <a href=\"%{path}\">requisição</a> para o administrador da comunidade."
     join: "Entrar na comunidade"
     join_invitation:
       clarify_registered: "Por favor, digite a senha para participar desta comunidade."

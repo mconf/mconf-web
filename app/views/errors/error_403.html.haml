@@ -1,3 +1,12 @@
-%h1.title= t("error.e403.title")
+%h1.title
+  - if flash[:error]
+    = flash[:error]
+  - else
+    = t("error.e403.title")
+
 .error-description
-  %p= t("error.e403.description")
+  %p
+    - if @error_message
+      = @error_message.html_safe
+    - else
+      = t("error.e403.description")

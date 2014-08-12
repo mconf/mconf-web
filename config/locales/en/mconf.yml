@@ -1366,6 +1366,7 @@ en:
       select_at_left: "Select a space in the list to see it's description here"
       user_is_member: "You are a member!"
     is_private: "is a private space. Send a join request to the administrator of this space to let you in"
+    is_private_html: "%{name} is a private space. Send a <a href=\"%{path}\">join request</a> to the administrator of this space."
     join: "Join this space"
     join_invitation: 
       clarify_registered: "Please introduce password in order to join this space."

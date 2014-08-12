@@ -20,6 +20,8 @@ class JoinRequestsController < ApplicationController
 
   respond_to :html
 
+  rescue_from CanCan::AccessDenied, :with => :handle_access_denied
+
   layout :determine_layout
 
   def determine_layout
@@ -186,6 +188,14 @@ class JoinRequestsController < ApplicationController
     end
 
     [success, errors, already_invited]
+  end
+
+  def handle_access_denied exception
+    if [:new, :show].include? exception.action
+      redirect_to login_path
+    else
+      raise exception
+    end
   end
 
   def join_request_params
