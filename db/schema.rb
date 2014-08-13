@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140721191825) do
+ActiveRecord::Schema.define(version: 20140813135714) do
 
   create_table "activities", force: true do |t|
     t.integer  "trackable_id"
@@ -128,6 +128,7 @@ ActiveRecord::Schema.define(version: 20140721191825) do
     t.string   "param"
     t.boolean  "record_meeting",     default: false
     t.integer  "duration",           default: 0
+    t.string   "create_time"
   end
 
   add_index "bigbluebutton_rooms", ["meetingid"], name: "index_bigbluebutton_rooms_on_meetingid", unique: true, using: :btree
@@ -146,6 +147,33 @@ ActiveRecord::Schema.define(version: 20140721191825) do
 
   create_table "db_files", force: true do |t|
     t.binary "data"
+  end
+
+  create_table "delayed_jobs", force: true do |t|
+    t.integer  "priority",   default: 0
+    t.integer  "attempts",   default: 0
+    t.text     "handler"
+    t.text     "last_error"
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string   "locked_by"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.string   "queue"
+  end
+
+  add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
+
+  create_table "institutions", force: true do |t|
+    t.string   "name"
+    t.string   "acronym"
+    t.string   "permalink"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.integer  "user_limit"
+    t.integer  "can_record_limit"
+    t.string   "identifier"
   end
 
   create_table "invitations", force: true do |t|
@@ -240,6 +268,11 @@ ActiveRecord::Schema.define(version: 20140721191825) do
     t.integer  "role_id",      null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "post_attachments", force: true do |t|
+    t.integer "post_id"
+    t.integer "attachment_id"
   end
 
   create_table "posts", force: true do |t|
@@ -385,6 +418,23 @@ ActiveRecord::Schema.define(version: 20140721191825) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "taggings", force: true do |t|
+    t.integer "tag_id",                     null: false
+    t.integer "taggable_id",                null: false
+    t.string  "taggable_type", default: "", null: false
+  end
+
+  add_index "taggings", ["tag_id", "taggable_id", "taggable_type"], name: "index_taggings_on_tag_id_and_taggable_id_and_taggable_type", unique: true, using: :btree
+
+  create_table "tags", force: true do |t|
+    t.string  "name",           default: "", null: false
+    t.integer "container_id"
+    t.string  "container_type"
+    t.integer "taggings_count", default: 0
+  end
+
+  add_index "tags", ["name", "container_id", "container_type"], name: "index_tags_on_name_and_container_id_and_container_type", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "username"
