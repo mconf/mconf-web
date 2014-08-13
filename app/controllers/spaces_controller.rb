@@ -27,6 +27,7 @@ class SpacesController < ApplicationController
   respond_to :html, :only => [:new, :edit, :index, :show]
 
   rescue_from CanCan::AccessDenied, :with => :handle_access_denied
+  rescue_from ActiveRecord::RecordNotFound, :with => :handle_record_not_found
 
   # Create recent activity
   after_filter :only => [:create, :update, :leave] do
@@ -305,6 +306,11 @@ class SpacesController < ApplicationController
   def load_events
     @upcoming_events = @space.events.upcoming.order("start_on ASC").first(5)
     @current_events = @space.events.order("start_on ASC").select(&:is_happening_now?)
+  end
+
+  def handle_record_not_found exception
+    @error_message = t("spaces.error.not_found", :permalink => params[:id], :path => spaces_path)
+    render_error 404
   end
 
   # User trying to access a space not owned or joined by him
