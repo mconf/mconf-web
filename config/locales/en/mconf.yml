@@ -650,7 +650,7 @@ en:
       title: "Forbidden"
     e404: 
       description: "Oops, the page \"%{url}\" does not exist."
-      title: "404"
+      title: "Not found"
     e500: 
       description: "We're sorry, but something went wrong. We've been notified about this issue and we'll take a look at it shortly."
       title: "Error"
