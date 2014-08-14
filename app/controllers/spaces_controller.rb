@@ -233,7 +233,7 @@ class SpacesController < ApplicationController
     @webconf_attendees = []
     unless @webconf_room.attendees.nil?
       @webconf_room.attendees.each do |attendee|
-        profile = Profile.find(:all, :conditions => { "full_name" => attendee.full_name }).first
+        profile = Profile.where(user_id: attendee.user_id).first
         unless profile.nil?
           @webconf_attendees << profile.user
         end
