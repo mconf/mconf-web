@@ -340,7 +340,7 @@ class User < ActiveRecord::Base
   private
 
   def username_uniqueness
-    unless Space.find_by_permalink(self.username).blank?
+    unless Space.with_disabled.find_by_permalink(self.username).blank?
       errors.add(:username, "has already been taken")
     end
   end

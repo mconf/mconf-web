@@ -194,7 +194,7 @@ class Space < ActiveRecord::Base
   private
 
   def permalink_uniqueness
-    unless User.find_by_username(self.permalink).blank?
+    unless User.with_disabled.find_by_username(self.permalink).blank?
       errors.add(:permalink, "has already been taken")
     end
   end
