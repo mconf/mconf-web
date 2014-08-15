@@ -568,16 +568,48 @@ describe SpacesController do
   describe "#webconference" do
     let(:space) { FactoryGirl.create(:space) }
     let(:user) { FactoryGirl.create(:superuser) }
-    before(:each) { sign_in(user) }
+    let(:user2) { FactoryGirl.create(:user) }
 
-    before(:each) { get :webconference, :id => space.to_param }
+    context "normal testing" do
+      before(:each) { sign_in(user) }
 
-    it { should render_template(:webconference) }
-    it { should render_with_layout("spaces_show") }
-    it { should assign_to(:space).with(space) }
-    it { should assign_to(:webconf_room).with(space.bigbluebutton_room) }
+      before(:each) { get :webconference, :id => space.to_param }
 
-    it "assigns @webconf_attendees with the attendees"
+      it { should render_template(:webconference) }
+      it { should render_with_layout("spaces_show") }
+      it { should assign_to(:space).with(space) }
+      it { should assign_to(:webconf_room).with(space.bigbluebutton_room) }
+    end
+
+    context ("assigns @webconf_attendees with the attendees") {
+      let(:meeting) { FactoryGirl.create(:bigbluebutton_meeting, :room => space.bigbluebutton_room )}
+      let(:attendee1) {
+        attendee = BigbluebuttonAttendee.new
+        attendee.user_id = user.id
+        attendee.full_name = user.username
+        attendee.role = :attendee
+        attendee
+      }
+      let(:attendee2) {
+        attendee = BigbluebuttonAttendee.new
+        attendee.user_id = user2.id
+        attendee.full_name = user2.username
+        attendee.role = :moderator
+        attendee
+      }
+      before(:each) {
+        sign_in(user)
+        sign_in(user2)
+        space.add_member! user
+        space.add_member! user2
+        space.bigbluebutton_room.attendees = [attendee1, attendee2]
+        get :webconference, :id => space.to_param
+      }
+      it { should render_template(:webconference) }
+      it { should render_with_layout("spaces_show") }
+      it { should assign_to(:space).with(space) }
+      it { should assign_to(:webconf_room).with(space.bigbluebutton_room) }
+    }
   end
 
   describe "#recordings" do
