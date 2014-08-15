@@ -17,16 +17,15 @@ class ShibbolethController < ApplicationController
   before_filter :check_shib_enabled, :except => [:info]
   before_filter :check_current_user, :except => [:info]
   before_filter :load_shib_session
+  before_filter :save_shib_to_session, only: [:login]
   before_filter :check_shib_always_new_account, :only => [:create_association]
 
   # Log in a user using his shibboleth information
   # The application should only reach this point after authenticating using Shibboleth
   # The authentication is currently made with the Apache module mod_shib
   def login
-    @shib.save_to_session(request.env, Site.current.shib_env_variables)
-
     unless @shib.has_basic_info
-      logger.error "Shibboleth: couldn't basic user information from session, " +
+      logger.error "Shibboleth: couldn't find basic user information from session, " +
         "searching fields #{@shib.basic_info_fields.inspect} " +
         "in: #{@shib.get_data.inspect}"
       @attrs_required = @shib.basic_info_fields
@@ -87,7 +86,13 @@ class ShibbolethController < ApplicationController
   private
 
   def load_shib_session
+    logger.info "Shibboleth: creating a new Mconf::Shibboleth object"
     @shib = Mconf::Shibboleth.new(session)
+  end
+
+  def save_shib_to_session
+    logger.info "Shibboleth: saving env to session"
+    @shib.save_to_session(request.env, Site.current.shib_env_variables)
   end
 
   # Checks if shibboleth is enabled in the current site.

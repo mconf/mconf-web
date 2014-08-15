@@ -96,6 +96,7 @@ describe ShibbolethController do
       let(:run_route) { get :login }
       it_should_behave_like "has the before_filter :check_shib_enabled"
       it_should_behave_like "has the before_filter :check_current_user"
+      skip "has the before_filter :load_shib_session"
     end
 
     # to make sure we're not forgetting a call to #test_data (happened before)
@@ -172,6 +173,7 @@ describe ShibbolethController do
       let(:run_route) { post :create_association }
       it_should_behave_like "has the before_filter :check_shib_enabled"
       it_should_behave_like "has the before_filter :check_current_user"
+      skip "has the before_filter :load_shib_session"
 
       context "has the before filter: ckeck_shib_always_new_account" do
 
@@ -203,7 +205,10 @@ describe ShibbolethController do
 
     context "if params has no known option, redirects to /secure with a warning" do
       let(:user) { FactoryGirl.create(:user) }
-      before { setup_shib(user.full_name, user.email) }
+      before {
+        setup_shib(user.full_name, user.email)
+        save_shib_to_session
+      }
       before(:each) { post :create_association }
       it { should redirect_to(shibboleth_path) }
       it { should set_the_flash.to(I18n.t('shibboleth.create_association.invalid_parameters')) }
@@ -212,14 +217,20 @@ describe ShibbolethController do
     context "if params[:new_account] is set" do
       context "calls #associate_with_new_account" do
         let(:run_route) { post :create_association, :new_account => true }
-        before { setup_shib(attrs[:_full_name], attrs[:email]) }
+        before {
+          setup_shib(attrs[:_full_name], attrs[:email])
+          save_shib_to_session
+        }
         it_should_behave_like "a caller of #associate_with_new_account"
       end
     end
 
     context "if params[:existent_account] is set" do
       let(:attrs) { FactoryGirl.attributes_for(:user) }
-      before { setup_shib(attrs[:_full_name], attrs[:email]) }
+      before {
+        setup_shib(attrs[:_full_name], attrs[:email])
+        save_shib_to_session
+      }
 
       context "if there's no user info in the params, goes back to /secure with an error" do
         before(:each) { post :create_association, :existent_account => true }
@@ -266,6 +277,7 @@ describe ShibbolethController do
           # the user that is trying to login has to be the same user that has variables
           # on the session, so we do this setup again
           setup_shib(user.full_name, user.email)
+          save_shib_to_session
         }
 
         context "goes back to /secure with a success message" do
@@ -326,12 +338,18 @@ describe ShibbolethController do
 
   private
 
+  # Sets up the login via shibboleth, including user information in the enviroment.
+  # Doesn't automatically save this information in the session because this is something
+  # ShibbolethController should do and it should be tested for it.
   def setup_shib(name, email)
     request.env["Shib-inetOrgPerson-cn"] = name
     request.env["Shib-inetOrgPerson-mail"] = email
     request.env["Shib-eduPerson-eduPersonPrincipalName"] = name
     Site.current.update_attributes(:shib_enabled => true)
-    # save it to the session, as #login would do
+  end
+
+  # Save it to the session, as #login would do
+  def save_shib_to_session
     @shib = Mconf::Shibboleth.new(session)
     @shib.save_to_session(request.env)
   end
