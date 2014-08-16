@@ -177,21 +177,25 @@ class ApplicationController < ActionController::Base
     Time.zone = Mconf::Timezone.user_time_zone(current_user)
   end
 
+  def render_error number
+    render :template => "/errors/error_#{number}", :status => number, :layout => "error"
+  end
+
   def render_404(exception)
     # FIXME: this is never triggered, see the bottom of routes.rb
     @exception = exception
-    render :template => "/errors/error_404", :status => 404, :layout => "error"
+    render_error 404
   end
 
   def render_500(exception)
     @exception = exception
     pp exception
-    render :template => "/errors/error_500", :status => 500, :layout => "error"
+    render_error 500
   end
 
   def render_403(exception)
     @exception = exception
-    render :template => "/errors/error_403", :status => 403, :layout => "error"
+    render_error 403
   end
 
   # Store last url for post-login redirect to whatever the user last visited.

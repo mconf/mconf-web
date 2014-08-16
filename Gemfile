@@ -31,7 +31,7 @@ gem 'garb'
 gem 'simple_form', '~> 3.0.0'
 gem 'acts_as_tree', '~> 2.0.0'
 gem 'friendly_id'
-gem 'i18n-js', :git => "git://github.com/fnando/i18n-js.git", :branch => 'rewrite'
+gem 'i18n-js', :git => "git://github.com/fnando/i18n-js.git"
 gem 'rabl'
 gem 'yajl-ruby' # json parser for rabl
 gem 'valid_email', :git => 'https://github.com/Fire-Dragon-DoL/valid_email.git'

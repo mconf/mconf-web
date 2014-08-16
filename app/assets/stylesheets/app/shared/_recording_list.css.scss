@@ -1,56 +1,53 @@
 @import "compass/css3";
 @import "definitions";
 
-// leave the styles here unscoped so they can be reused
-// TODO: maybe this should be defined in base.css.scss?
+#my-webconference-recordings, #space-recordings {
+  .recording-description {
+    font-weight: bold;
+  }
 
-.recording-description {
-  font-weight: bold;
-}
+  .thread {
+    .thread-title {
+      .thread-updated-at {
+        float: left;
+        margin-left: 5px;
+        padding: 0;
+      }
 
-.thread {
-
-  .thread-title {
-    .icon-awesome { margin-top: 4px; }
-
-    .recording-description {
-      float: left;
+      .recording-description {
+        float: left;
+        margin-top: -3px;
+      }
     }
 
-    .thread-updated-at {
-      float: left;
-      margin-left: 5px;
-      padding: 0;
+    .recording-date, .recording-duration {
+      display: inline-block;
     }
-  }
+    .recording-duration {
+      padding-left: 3px;
+    }
 
-  .recording-date, .recording-duration {
-    display: inline-block;
-  }
-  .recording-duration {
-    padding-left: 3px;
-  }
-
-  .playback-link {
-    white-space: nowrap;
-    @include border-radius(3px);
-    background: $light-gray;
-    border: 1px solid darken($light-gray, 5);
-    padding: 0 5px;
-  }
-
-  &.thread-odd {
     .playback-link {
-      background: darken($light-gray, 5);
-      border-color: 1px solid darken($light-gray, 10);
+      white-space: nowrap;
+      @include border-radius(3px);
+      background: $light-gray;
+      border: 1px solid darken($light-gray, 5);
+      padding: 0 5px;
     }
-  }
 
-  .playback-unavailable {
-    color: mix($link-color, #888, 70%); // a grayer link
-  }
+    &.thread-odd {
+      .playback-link {
+        background: darken($light-gray, 5);
+        border-color: 1px solid darken($light-gray, 10);
+      }
+    }
 
-  .playback-processing {
-    color: darken($yellow, 10);
+    .playback-unavailable {
+      color: mix($link-color, #888, 70%); // a grayer link
+    }
+
+    .playback-processing {
+      color: darken($yellow, 10);
+    }
   }
 }

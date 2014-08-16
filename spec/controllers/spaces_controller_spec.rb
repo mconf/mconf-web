@@ -366,13 +366,28 @@ describe SpacesController do
         it { Space.last.admins.should include(user) }
       end
 
-      it "creates a new activity for the space created"
+      describe "creates a new activity for the space created" do
+        before(:each) {
+          expect {
+            post :create, :space => space_attributes
+          }.to change(RecentActivity, :count).by(1)
+        }
+        it { RecentActivity.last.trackable.should eq(Space.last) }
+        it { RecentActivity.last.owner.should eq(Space.last) }
+        it { RecentActivity.last.parameters[:username].should eq(user.full_name) }
+        it { RecentActivity.last.parameters[:user_id].should eq(user.id) }
+      end
+
     end
 
     context "with invalid attributes" do
       let(:invalid_attributes) { FactoryGirl.attributes_for(:space, :name => nil) }
 
-      it "assigns @space with the new space"
+      describe "assigns @space with the new space" do
+        before(:each) { post :create, :space => invalid_attributes }
+        # TODO: maybe we could be more specific here
+        it { should assign_to(:space).with_kind_of(Space) }
+      end
 
       describe "renders the view spaces/new with the correct layout" do
         before(:each) { post :create, :space => invalid_attributes }
@@ -385,7 +400,15 @@ describe SpacesController do
         it_behaves_like "assigns @spaces_examples"
       end
 
-      it "does not create a new activity for the space that failed to be created"
+      describe "does not create a new activity for the space that failed to be created" do
+        let(:does_not_create_activity) {
+          expect {
+            post :create, :space => invalid_attributes
+          }.to change(RecentActivity, :count).by(0)
+        }
+        it { does_not_create_activity }
+      end
+
     end
   end
 

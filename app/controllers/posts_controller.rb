@@ -57,7 +57,7 @@ class PostsController < ApplicationController
   end
 
   def create
-    @post = Post.new(params[:post])
+    @post = Post.new(post_params)
     @post.space = @space
     @post.author = current_user
 
@@ -74,7 +74,7 @@ class PostsController < ApplicationController
   end
 
   def update
-    if @post.update_attributes(params[:post])
+    if @post.update_attributes(post_params)
       respond_to do |format|
         format.html {
           flash[:success] = t('post.updated')
@@ -117,6 +117,18 @@ class PostsController < ApplicationController
         render :partial => "reply_post"
       }
     end
+  end
+
+  def post_params
+    unless params[:post].blank?
+      params[:post].permit(*post_allowed_params)
+    else
+      {}
+    end
+  end
+
+  def post_allowed_params
+    [:title, :text]
   end
 
   private

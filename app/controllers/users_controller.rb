@@ -19,6 +19,16 @@ class UsersController < ApplicationController
   # Rescue username not found rendering a 404
   rescue_from ActiveRecord::RecordNotFound, :with => :render_404
 
+  rescue_from CanCan::AccessDenied, :with => :handle_access_denied
+
+  def handle_access_denied exception
+    if @space.blank?
+      redirect_to register_path
+    else
+      render_403(exception)
+    end
+  end
+
   respond_to :html, :except => [:select, :current, :fellows]
   respond_to :js, :only => [:select, :current, :fellows]
   respond_to :xml, :only => [:current]
@@ -32,7 +42,7 @@ class UsersController < ApplicationController
 
   def show
     @user_spaces = @user.spaces
-    @recent_activities = @user.all_activity.page(params[:page])
+    @recent_activities = @user.all_activity.order('updated_at DESC').page(params[:page])
     @profile = @user.profile!
     respond_to do |format|
       format.html { render 'profiles/show' }
@@ -48,10 +58,6 @@ class UsersController < ApplicationController
   end
 
   def update
-    unless params[:user].nil?
-      params[:user].delete(:username)
-      params[:user].delete(:email)
-    end
     password_changed = false
     if current_site.local_auth_enabled?
       password_changed =
@@ -195,7 +201,7 @@ class UsersController < ApplicationController
 
   def allowed_params
     [ :password, :password_confirmation, :remember_me, :current_password,
-      :login, :username, :approved, :disabled, :timezone, :can_record, :receive_digest, :notification ]
+      :login, :approved, :disabled, :timezone, :can_record, :receive_digest, :notification ]
   end
 
 end

@@ -8,16 +8,16 @@ feature 'Visitor logs in' do
   scenario 'with valid email and password' do
     sign_in_with @user.email, @user.password
 
-    expect(page).to have_title('Mconf')
-    expect(page).to have_content('My spaces')
+    expect(page).to have_title(I18n.t('home.my'))
+    expect(page).to have_content(I18n.t('home.my_spaces'))
     expect(current_path).to eq(my_home_path)
   end
 
   scenario 'with valid username and password' do
     sign_in_with @user.username, @user.password
 
-    expect(page).to have_title('Mconf')
-    expect(page).to have_content('My spaces')
+    expect(page).to have_title(I18n.t('home.my'))
+    expect(page).to have_content(I18n.t('home.my_spaces'))
     expect(current_path).to eq(my_home_path)
   end
 

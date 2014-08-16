@@ -39,6 +39,7 @@ module Mconf
         end
       end
       @session[ENV_KEY] = shib_data
+      Rails.logger.info "Shibboleth: info saved to session #{@session[ENV_KEY].inspect}"
       shib_data
     end
 

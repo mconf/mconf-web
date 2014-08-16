@@ -1,3 +1,11 @@
-%h1.title= t("error.e404.title")
+= page_title t("error.e404.title")
+
+%h1.title
+  = t("error.e404.title")
+
 .error-description
-  %p= t("error.e404.description", :url => params[:not_found])
+  %p
+    - if @error_message
+      = @error_message.html_safe
+    - else
+      = t("error.e404.description", :url => request.path)

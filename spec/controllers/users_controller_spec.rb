@@ -43,6 +43,8 @@ describe UsersController do
   describe "#edit" do
     let(:user) { FactoryGirl.create(:user) }
 
+    it { should_authorize an_instance_of(User), :edit, :id => user.to_param }
+
     context "template and layout" do
       before(:each) { sign_in(user) }
       before(:each) { get :edit, :id => user.to_param }
@@ -71,14 +73,37 @@ describe UsersController do
       }
       it { should_not assign_to(:shib_provider) }
     end
-
-    it { should_authorize an_instance_of(User), :edit, :id => user.to_param }
   end
 
   describe "#update" do
+    it { should_authorize an_instance_of(User), :update, :via => :post, :id => FactoryGirl.create(:user).to_param, :user => {} }
+
+    context "params_handling" do
+      let(:user) { FactoryGirl.create(:user) }
+      let(:user_attributes) { FactoryGirl.attributes_for(:user) }
+      let(:params) {
+        {
+          :id => user.to_param,
+          :controller => "users",
+          :action => "update",
+          :user => user_attributes
+        }
+      }
+
+      let(:user_allowed_params) {
+        [ :password, :password_confirmation, :remember_me, :current_password,
+          :login, :approved, :disabled, :timezone, :can_record, :receive_digest, :notification ]
+      }
+      before {
+        sign_in(user)
+        user_attributes.stub(:permit).and_return(user_attributes)
+        controller.stub(:params).and_return(params)
+      }
+      before(:each) { put :update, :id => user.to_param, :user => user_attributes }
+      it { user_attributes.should have_received(:permit).with(*user_allowed_params) }
+    end
 
     context "attributes that the user can't update" do
-
       context "trying to update username" do
         before(:each) do
           @user = FactoryGirl.create(:user)
@@ -171,6 +196,7 @@ describe UsersController do
           it { response.should redirect_to edit_user_path(@user) }
           it { @user.encrypted_password.should_not == @old_encrypted }
         end
+
         context "when local authentication is disabled" do
           before { Site.current.update_attributes(local_auth_enabled: false)}
           before(:each) do
@@ -191,10 +217,7 @@ describe UsersController do
         end
       end
 
-
-      it { should_authorize an_instance_of(User), :update, :via => :post, :id => FactoryGirl.create(:user).to_param, :user => {} }
     end
-
   end
 
   describe "#destroy" do

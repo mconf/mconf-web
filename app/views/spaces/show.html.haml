@@ -1,4 +1,7 @@
+- page_title @space.name
+
 - spaces_menu_at :home
+
 = render :partial => 'spaces/menu'
 
 - if mod_enabled?("events") && !@current_events.empty?

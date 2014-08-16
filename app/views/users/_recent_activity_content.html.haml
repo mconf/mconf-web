@@ -7,7 +7,7 @@
 
 - for activity in content
   - name = activity.trackable_type.underscore
-  - classes = "thread thread-#{name} #{cycle('thread-even' , 'thread-odd')}"
+  - classes = "single-activity thread thread-#{name} #{cycle('thread-even' , 'thread-odd')}"
   - if activity.trackable.nil?
     .removed-object{ :class => classes }
       = render :partial => "public_activity/#{name}", :locals => { :activity => activity }

@@ -153,13 +153,20 @@ describe User do
     let(:other_user) { FactoryGirl.create(:user)}
 
     before(:each) do
-      FactoryGirl.create(:event, :owner => user)
-      FactoryGirl.create(:event, :owner => user)
+      @events = [
+      FactoryGirl.create(:event, :owner => user),
+      FactoryGirl.create(:event, :owner => user),
+      FactoryGirl.create(:event, :owner => nil)
+      ]
     end
 
     it { user.events.size.should eql(2) }
+    it { user.events.should include(@events[0], @events[1]) }
+    it { user.events.should_not include(@events[2]) }
     it { other_user.events.should be_empty }
   end
+
+  skip "#has_events_in_this_space?"
 
   describe "#accessible_rooms" do
     let(:user) { FactoryGirl.create(:user) }
@@ -355,6 +362,71 @@ describe User do
     end
   end
 
+  describe "#private_fellows" do
+    context "returns the private fellows of the current user" do
+      let(:user) { FactoryGirl.create(:user) }
+      subject { user.private_fellows }
+      before do
+        private_space = FactoryGirl.create(:space, :public => false)
+        public_space = FactoryGirl.create(:space, :public => true)
+        private_space.add_member! user
+        public_space.add_member! user
+
+        @users = Helpers.create_fellows(2, private_space)
+        @users += Helpers.create_fellows(2, public_space)
+        # 2 extra not fellows
+        2.times { FactoryGirl.create(:user) }
+      end
+      it { subject.length.should == 2 }
+      it { should include(@users[0], @users[1]) }
+      it { should_not include(@users[2],@users[3]) }
+    end
+
+    context "orders by name" do
+      let(:user) { FactoryGirl.create(:user) }
+      subject { user.private_fellows }
+      before do
+        space = FactoryGirl.create(:space, :public => false)
+        space.add_member! user
+        @users = Helpers.create_fellows(5, space)
+        @users.sort_by!{ |u| u.name }
+      end
+      it { subject.length.should == 5 }
+      it { should == @users }
+    end
+
+    context "don't return duplicates" do
+      let(:user) { FactoryGirl.create(:user) }
+      subject { user.private_fellows }
+      before do
+        space1 = FactoryGirl.create(:private_space)
+        space2 = FactoryGirl.create(:private_space)
+        space1.add_member! user
+        space2.add_member! user
+        @fellow = FactoryGirl.create(:user)
+        space1.add_member! @fellow
+        space2.add_member! @fellow
+      end
+      it { subject.length.should == 1 }
+      it { should include(@fellow) }
+      it { should_not include(user) }
+    end
+
+    context "don't return the user himself" do
+      let(:user) { FactoryGirl.create(:user) }
+      subject { user.private_fellows }
+      before do
+        space = FactoryGirl.create(:private_space)
+        space.add_member! user
+        @users = Helpers.create_fellows(2, space)
+      end
+      it { subject.length.should == 2 }
+      it { should include(@users[0]) }
+      it { should include(@users[1]) }
+      it { should_not include(user) }
+    end
+  end
+
   describe ".with_disabled" do
     let(:user1) { FactoryGirl.create(:user, :disabled => true) }
     let(:user2) { FactoryGirl.create(:user, :disabled => false) }
@@ -458,10 +530,33 @@ describe User do
   end
 
   describe "#pending_spaces" do
-    it "returns all spaces in which the user has a pending join request he sent"
-    it "returns all spaces in which the user has a pending join request he received"
-    it "removes possible duplicates"
-    it "doesn't return spaces that are disabled"
+    before do
+      @spaces = [
+        FactoryGirl.create(:space),
+        FactoryGirl.create(:space),
+        FactoryGirl.create(:space),
+        FactoryGirl.create(:space, :disabled => true)]
+      @user = FactoryGirl.create(:user)
+
+      FactoryGirl.create(:join_request, :candidate => @user, :group => @spaces[0], :request_type => 'request')
+      FactoryGirl.create(:join_request, :candidate => @user, :group => @spaces[1], :request_type => 'invite')
+      FactoryGirl.create(:join_request, :candidate => @user, :group => @spaces[3], :request_type => 'request')
+    end
+
+    # Currently makes no differentiation between invites or requests
+    # skip "removes possible duplicates"
+    it "returns all spaces in which the user has a pending join request he sent" do
+      @user.pending_spaces.should include(@spaces[0], @spaces[1])
+    end
+    it "returns all spaces in which the user has a pending join request he received" do
+      @user.pending_spaces.should include(@spaces[1])
+    end
+
+    it { @user.pending_spaces.should_not include(@spaces[2]) }
+
+    it "doesn't return spaces that are disabled" do
+      @user.pending_spaces.should_not include(@spaces[3])
+    end
   end
 
   describe "#disable" do

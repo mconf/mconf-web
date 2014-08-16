@@ -73,6 +73,22 @@ form {
   // so .thread-action-links is correctly positioned
   position: relative;
 
+  .thread-title {
+
+    .icon-awesome {
+      margin: 1px 5px 0px 0px;
+    }
+
+    // usually seen inside .resource-visibility
+    .small > .icon-awesome {
+      margin-right: 1px;
+    }
+
+    h2 .icon-awesome {
+      margin: 7px 6px 0 0;
+    }
+  }
+
   &.thread-no-logo {
     .thread-content {
       margin-left: 0;
@@ -947,10 +963,14 @@ strong.highlight {
   }
 
   &.small {
-    font-size: $font-small;
+    @include font-size($font-small);
 
     .icon-awesome {
-      font-size: $font-small;
+      @include font-size($font-small);
+      width: $font-small;
+      height: $font-small;
+      line-height: $font-small;
+      margin: 0;
     }
   }
 }

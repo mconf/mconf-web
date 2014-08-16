@@ -1,3 +1,5 @@
+- page_title t('home.my')
+
 = content_for :page_header do
   = render :partial => "page_header"
 
@@ -15,7 +17,10 @@
     .content-block-header
       %h3= t('home.my_spaces')
     .content-block-middle
-      = render 'users/user_spaces', :user => current_user, :spaces => @user_spaces
+      - if @user_spaces.empty?
+        %p= t('home.no_spaces', :link => spaces_path).html_safe
+      - else
+        = render "spaces/list_view", :spaces => @user_spaces, :user_spaces => @user_spaces
     .content-block-footer
       = link_to new_space_path, :class => "btn btn-mini btn-primary", :style => "float:left;" do
         = t('.create_space')

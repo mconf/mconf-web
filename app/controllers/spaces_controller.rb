@@ -26,35 +26,8 @@ class SpacesController < ApplicationController
   respond_to :json, :only => [:update_logo]
   respond_to :html, :only => [:new, :edit, :index, :show]
 
-  # User trying to access a space not owned or joined by him
-  rescue_from CanCan::AccessDenied do |exception|
-
-    # if it's a logged user that tried to access a private space
-    if user_signed_in? and [:show, :edit].include?(exception.action)
-
-      if @space.pending_join_request_for?(current_user)
-        # redirect him to the page to ask permission to join, but with a warning that
-        # a join request was already sent
-        redirect_to new_space_join_request_path :space_id => params[:id]
-
-      elsif @space.pending_invitation_for?(current_user)
-        # redirect him to the invitation he received
-        invitation = @space.pending_invitation_for(current_user)
-        flash[:error] = t("spaces.error.already_invited")
-        redirect_to space_join_request_path @space, invitation
-
-      else
-        # redirect him to ask permission to join
-        flash[:error] = t("spaces.error.need_join_to_access")
-        redirect_to new_space_join_request_path :space_id => params[:id]
-      end
-
-    else
-      # anonymous users or destructive actions are redirected to the 403 error
-      flash[:error] = t("space.access_forbidden")
-      render :template => "/errors/error_403", :status => 403, :layout => "error"
-    end
-  end
+  rescue_from CanCan::AccessDenied, :with => :handle_access_denied
+  rescue_from ActiveRecord::RecordNotFound, :with => :handle_record_not_found
 
   # Create recent activity
   after_filter :only => [:create, :update, :leave] do
@@ -333,6 +306,43 @@ class SpacesController < ApplicationController
   def load_events
     @upcoming_events = @space.events.upcoming.order("start_on ASC").first(5)
     @current_events = @space.events.order("start_on ASC").select(&:is_happening_now?)
+  end
+
+  def handle_record_not_found exception
+    @error_message = t("spaces.error.not_found", :permalink => params[:id], :path => spaces_path)
+    render_error 404
+  end
+
+  # User trying to access a space not owned or joined by him
+  def handle_access_denied exception
+    # if it's a logged user that tried to access a private space
+    if user_signed_in? and [:show, :edit].include?(exception.action)
+
+      if @space.pending_join_request_for?(current_user)
+        # redirect him to the page to ask permission to join, but with a warning that
+        # a join request was already sent
+        redirect_to new_space_join_request_path :space_id => params[:id]
+
+      elsif @space.pending_invitation_for?(current_user)
+        # redirect him to the invitation he received
+        invitation = @space.pending_invitation_for(current_user)
+        flash[:error] = t("spaces.error.already_invited")
+        redirect_to space_join_request_path @space, invitation
+
+      else
+        # redirect him to ask permission to join
+        flash[:error] = t("spaces.error.need_join_to_access")
+        redirect_to new_space_join_request_path :space_id => params[:id]
+      end
+
+    else
+      # anonymous users or destructive actions are redirected to the 403 error
+      flash[:error] = t("space.access_forbidden")
+      if exception.action == :show
+        @error_message = t("space.is_private_html", :name => @space.name, :path => new_space_join_request_path(@space))
+      end
+      render_error 403
+    end
   end
 
   def space_params

@@ -237,8 +237,8 @@ class User < ActiveRecord::Base
     limit = limit || 5            # default to 5
     limit = 50 if limit.to_i > 50 # no more than 50
 
-    # ids of unique users that belong to the same stages
-    ids = Permission.where(:subject_id => self.spaces).select(:user_id).uniq.map(&:user_id)
+    # ids of unique users that belong to the same spaces
+    ids = Permission.where(:subject_id => self.space_ids).pluck(:user_id)
 
     # filters and selects the users
     query = User.where(:id => ids).joins(:profile).where("users.id != ?", self.id)
@@ -251,12 +251,13 @@ class User < ActiveRecord::Base
   end
 
   def private_fellows
-    spaces.select{|x| x.public == false}.map(&:users).flatten.compact.uniq.sort{ |x, y| x.name <=> y.name }
+    ids = spaces.where(:public => false).map(&:user_ids).flatten.compact
+    User.where(:id => ids).where("users.id != ?", self.id).sort_by{ |u| u.name.downcase }
   end
 
   def events
-    ids = MwebEvents::Event.where(:owner_type => 'User', :owner_id => id).map(&:id)
-    ids += self.permissions.where(:subject_type => 'MwebEvents::Event', :user_id => id).map(&:subject_id)
+    ids = MwebEvents::Event.where(:owner_type => 'User', :owner_id => id).ids
+    ids += permissions.where(:subject_type => 'MwebEvents::Event').pluck(:subject_id)
     MwebEvents::Event.where(:id => ids)
   end
 
@@ -330,8 +331,7 @@ class User < ActiveRecord::Base
   # Return the list of spaces in which the user has a pending join request or invitation.
   def pending_spaces
     requests = JoinRequest.where(:candidate_id => self, :processed_at => nil, :group_type => 'Space')
-    ids = requests.map(&:group_id)
-    ids.uniq!
+    ids = requests.pluck(:group_id)
     # note: not 'find' because some of the spaces might be disabled and 'find' would raise
     #   an exception
     Space.where(:id => ids)
@@ -340,7 +340,7 @@ class User < ActiveRecord::Base
   private
 
   def username_uniqueness
-    unless Space.find_by_permalink(self.username).blank?
+    unless Space.with_disabled.find_by_permalink(self.username).blank?
       errors.add(:username, "has already been taken")
     end
   end

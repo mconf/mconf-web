@@ -55,6 +55,8 @@ class MigrateEventsToMwebEvents < ActiveRecord::Migration
       new_event.summary = new_event.description[0..139]
       new_event.permalink = event[EVENT_PERMALINK]
       new_event.time_zone = Site.current.timezone
+      new_event.created_at = event[EVENT_CREATED_AT]
+      new_event.updated_at = event[EVENT_UPDATED_AT]
       if new_event.save
         sql = "SELECT * FROM participants WHERE event_id = #{event[EVENT_ID]}"
         participants = ActiveRecord::Base.connection.execute(sql)

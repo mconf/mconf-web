@@ -7,8 +7,6 @@
 require 'spec_helper'
 
 describe EventMailer do
-  before { Helpers.setup_site_for_email_tests }
-
   let(:invitation) { FactoryGirl.create(:event_invitation) }
   let(:mail) { EventMailer.invitation_email(invitation.id) }
 

@@ -1,10 +1,9 @@
 GIT
   remote: git://github.com/fnando/i18n-js.git
-  revision: 4e5c525ff6e1ec4d3449852746fa5651a0577d68
-  branch: rewrite
+  revision: 9fd4cc6de4601dc496e676521fcde78532a63ccf
   specs:
-    i18n-js (3.0.0.rc5)
-      i18n
+    i18n-js (3.0.0.rc6)
+      i18n (~> 0.6)
 
 GIT
   remote: git://github.com/mconf/bigbluebutton-api-ruby.git
