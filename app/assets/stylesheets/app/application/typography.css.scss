@@ -7,17 +7,17 @@ html {
 }
 
 body {
-  @include font-size($font-normal);
-  font-family: $font-family;
-  line-height: $base-line-height;
-  color: $font-color;
+  @include font-size($m-font-normal);
+  font-family: $m-font-family;
+  line-height: $m-base-line-height;
+  color: $m-font-color;
 }
 
 body,
 input,
 select,
 textarea {
-  font-family: $font-family;
+  font-family: $m-font-family;
 }
 
 h1, .h1,
@@ -30,41 +30,41 @@ h6, .h6 {
 }
 
 h1, .h1 {
-  @include font-size($font-normal*2.6667);
+  @include font-size($m-font-normal*2.6667);
   margin: 1em 0 0.5em;
   line-height: 1.1;
 }
 
 h2, .h2 {
-  @include font-size($font-normal*2);
+  @include font-size($m-font-normal*2);
   margin: 1em 0 0.5em;
   line-height: 1.1;
 }
 
 h3, .h3 {
-  @include font-size($font-normal*1.3333);
+  @include font-size($m-font-normal*1.3333);
   margin: 1em 0 0.5em;
   line-height: 1.3;
 }
 
 h4, .h4 {
-  @include font-size($font-normal*1.16667);
+  @include font-size($m-font-normal*1.16667);
   margin: 1em 0 0.5em;
   line-height: 1.3;
 }
 
 h5, .h5 {
-  @include font-size($font-normal);
+  @include font-size($m-font-normal);
   margin: 1em 0 0.5em;
   line-height: 1.3;
-  color: lighten($font-color, 10);
+  color: lighten($m-font-color, 10);
 }
 
 h6, .h6 {
-  @include font-size($font-normal);
+  @include font-size($m-font-normal);
   margin: 1em 0 0.5em;
   line-height: 1.3;
-  color: lighten($font-color, 20);
+  color: lighten($m-font-color, 20);
 }
 
 p {
@@ -80,9 +80,9 @@ code {
 .ordered-list { list-style: decimal; }
 
 a {
-  @include link-colors($link-color, $link-color-hover, $link-color-active);
+  @include link-colors($m-link-color, $m-link-color-hover, $m-link-color-active);
   @include transition(all 0.1s ease-in);
   text-decoration: none;
   &:hover, &:active, &:focus { text-decoration: none; }
-  &:focus { color: lighten($link-color-active, 7); }
+  &:focus { color: lighten($m-link-color-active, 7); }
 }

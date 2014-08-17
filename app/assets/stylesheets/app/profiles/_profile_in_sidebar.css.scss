@@ -3,7 +3,7 @@
 
 #profile-in-sidebar {
   text-align: center;
-  background: $light-gray;
+  background: $m-light-gray;
   @include border-radius(4px);
   padding: 20px 5px;
 
@@ -13,9 +13,9 @@
 
   .profile-logo {
     margin: 5px;
-    border: 1px solid darken($light-gray, 10);
+    border: 1px solid darken($m-light-gray, 10);
     padding: 3px;
-    background: $site-bg-color;
+    background: $m-site-bg-color;
     width: 114px;
     height: 114px;
   }
@@ -29,8 +29,8 @@
 
   .profile-hcard {
     text-align: left;
-    border-top: 1px solid darken($light-gray, 10);
-    @include box-shadow(inset 0 1px 0 $site-bg-color);
+    border-top: 1px solid darken($m-light-gray, 10);
+    @include box-shadow(inset 0 1px 0 $m-site-bg-color);
     margin: 10px 5px;
     padding: 15px 5px;
 
@@ -43,7 +43,7 @@
         margin-left: 10px;
       }
       .key {
-        color: lighten($font-color, 20);
+        color: lighten($m-font-color, 20);
       }
     }
   }

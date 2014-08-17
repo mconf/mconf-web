@@ -7,7 +7,7 @@
 body.join_requests.show {
 
   #join-requests-show {
-    max-width: $contents-width/2;
+    max-width: $m-contents-width/2;
     margin: 0 auto;
 
     h3 {
@@ -21,7 +21,7 @@ body.join_requests.show {
       .content {
         padding: 10px;
         margin: 10px auto;
-        background: $light-gray;
+        background: $m-light-gray;
         @include border-radius(4px);
         max-width: 300px;
       }

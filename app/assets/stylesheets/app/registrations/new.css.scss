@@ -3,7 +3,7 @@
 body.registrations.new, body.registrations.create {
 
   $register-box-width: 550px;
-  $right-side-width: $contents-width - $register-box-width - 50px;
+  $right-side-width: $m-contents-width - $register-box-width - 50px;
 
   #register-wrapper {
     @include mconf-clearfix;

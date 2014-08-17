@@ -29,10 +29,10 @@ body.custom_bigbluebutton_rooms.join_mobile {
         display: inline-block;
 
         .tip {
-          border: 1px solid $gray;
+          border: 1px solid $m-gray;
           padding: 3px 5px;
           @include border-radius(5px);
-          background: $light-gray;
+          background: $m-light-gray;
           max-width: 150px;
           margin: 10px auto;
         }

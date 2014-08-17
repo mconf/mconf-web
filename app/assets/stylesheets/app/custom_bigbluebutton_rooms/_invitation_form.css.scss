@@ -8,7 +8,7 @@
   }
 
   .invitation-header {
-    background: $light-gray;
+    background: $m-light-gray;
     padding: 10px;
     margin-bottom: 15px;
     text-align: center;
@@ -59,7 +59,7 @@
     margin: 0;
 
     .error {
-      color: $red;
+      color: $m-red;
     }
     .duration {
       font-weight: bold;
@@ -81,7 +81,7 @@
 
   #invite_timezone {
     display: inline-block;
-    color: $dark-gray;
+    color: $m-dark-gray;
     padding: 2px;
     text-align: center;
   }

@@ -22,7 +22,7 @@ body.mweb_events-events.show {
 
   .event-registration {
     @include mconf-clearfix;
-    background: $site-bg-color;
+    background: $m-site-bg-color;
     border: none;
     @include border-radius(0);
     margin-bottom: 0;
@@ -43,7 +43,7 @@ body.mweb_events-events.show {
 
   .event-description {
     @include mconf-clearfix;
-    background: $site-bg-color;
+    background: $m-site-bg-color;
     border: none;
     @include border-radius(0);
     padding-top: 0;

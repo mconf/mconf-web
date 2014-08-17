@@ -39,7 +39,7 @@ body.spaces.show {
       margin-bottom: 5px;
     }
     .updated-at {
-      @include font-size($font-normal);
+      @include font-size($m-font-normal);
       font-weight: normal;
     }
   }

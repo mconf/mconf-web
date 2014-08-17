@@ -5,10 +5,10 @@
 
 @import "app/application/footer_simple";
 
-$navbar-height: auto;
-$login-box-width: $contents-width / 2 - 40px; // looks better if smaller than half the page
-$registration-box-width: $contents-width - $login-box-width - 40px;
-$bg-normal: darken($green-logo, 3);
+$m-navbar-height: auto;
+$login-box-width: $m-contents-width / 2 - 40px; // looks better if smaller than half the page
+$registration-box-width: $m-contents-width - $login-box-width - 40px;
+$bg-normal: darken($m-green-logo, 3);
 
 #navbar-wrapper {
   background: $bg-normal;
@@ -20,13 +20,13 @@ $bg-normal: darken($green-logo, 3);
   background: none;
   margin: 0 auto;
   padding: 20px 0 30px 0;
-  height: $navbar-height;
+  height: $m-navbar-height;
   @include clearfix;
 }
 
 #page-header {
   text-align: center;
-  @include font-size($font-medium);
+  @include font-size($m-font-medium);
 }
 
 #main-logo {
@@ -51,7 +51,7 @@ $bg-normal: darken($green-logo, 3);
     clear: both;
 
     label {
-      @include font-size($font-medium);
+      @include font-size($m-font-medium);
     }
 
     input[type=text], input[type=password], input[type=email] {
@@ -70,7 +70,7 @@ $bg-normal: darken($green-logo, 3);
   }
 
   .add-on {
-    @include font-size($font-normal);
+    @include font-size($m-font-normal);
   }
 
   .form-actions {
@@ -137,13 +137,13 @@ $bg-normal: darken($green-logo, 3);
 }
 
 #content {
-  width: $contents-width;
+  width: $m-contents-width;
   margin: 0 auto;
   padding-top: 50px;
 
   h2 {
     text-align: right;
     margin: 0 20px 10px 0;
-    color: $font-h-color;
+    color: $m-font-h-color;
   }
 }

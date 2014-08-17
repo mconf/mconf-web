@@ -4,7 +4,7 @@
 body.sessions.new, body.sessions.create {
 
   $login-box-width: 440px;
-  $right-side-width: $contents-width - $login-box-width - 50px;
+  $right-side-width: $m-contents-width - $login-box-width - 50px;
 
   #login-wrapper {
     @include mconf-clearfix;

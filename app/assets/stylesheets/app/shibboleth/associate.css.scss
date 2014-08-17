@@ -4,8 +4,8 @@
 // the view is called 'associate' but the action is 'login'
 body.shibboleth.login {
 
-  $column-width: $contents-width / 2 - 40px;
-  $block-width: $contents-width / 3;
+  $column-width: $m-contents-width / 2 - 40px;
+  $block-width: $m-contents-width / 3;
 
   #shibboleth-existent-account {
     float: left;

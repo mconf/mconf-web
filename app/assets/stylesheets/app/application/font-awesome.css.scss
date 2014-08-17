@@ -6,7 +6,7 @@
 @import "compass/typography/links";
 @import "definitions";
 
-$default-icon-color: #888; /* lighten($green-logo, 10); */
+$default-icon-color: #888; /* lighten($m-green-logo, 10); */
 $light-icon-color: #aaa;
 
 .icon-awesome {
@@ -31,8 +31,8 @@ h2 .icon-awesome {
 
 a .icon-awesome {
   cursor: pointer;
-  &:hover { color: $link-color-hover; }
-  &:active { color: $link-color-active; }
+  &:hover { color: $m-link-color-hover; }
+  &:active { color: $m-link-color-active; }
 }
 
 
@@ -79,70 +79,70 @@ a .icon-awesome {
 /* Some have nothing inside, but are kept here as a reference to all the icons we have. */
 
 .icon-mconf-rss {
-  color: $orange;
+  color: $m-orange;
 }
 
 .icon-mconf-help, .icon-mconf-info {
   color: lighten($default-icon-color, 10);
-  &:hover { color: lighten($blue, 20); }
+  &:hover { color: lighten($m-blue, 20); }
 }
 
 .icon-mconf-spam {
-  color: $red;
+  color: $m-red;
 }
 
 .icon-mconf-superuser {
-  color: $red;
+  color: $m-red;
 }
 
 .icon-mconf-in-progress, .icon-mconf-loading {
-  color: $green;
+  color: $m-green;
 }
 
 .icon-mconf-delete {
-  color: $red;
+  color: $m-red;
 }
 
 .icon-mconf-disable {
-  color: $yellow;
+  color: $m-yellow;
 }
 
 .icon-mconf-confirm {
-  color: $green;
+  color: $m-green;
 }
 
 .icon-mconf-enable {
-  color: $yellow;
+  color: $m-yellow;
 }
 
 .icon-mconf-new-tag {
-  color: $yellow;
+  color: $m-yellow;
 }
 
 .icon-mconf-download {
-  color: $blue;
+  color: $m-blue;
 }
 
 .icon-mconf-attachment-new-version {
-  color: $green;
+  color: $m-green;
 }
 
 .icon-mconf-message {
   &.active {
-    color: $alert-danger-font;
+    color: $m-alert-danger-font;
   }
 }
 
 .icon-mconf-mobile {
-  color: $blue;
+  color: $m-blue;
 }
 
 .icon-mconf-success {
-  color: $green;
+  color: $m-green;
 }
 
 .icon-mconf-error {
-  color: $red;
+  color: $m-red;
 }
 
 .icon-mconf-nested-child {
@@ -158,23 +158,23 @@ a .icon-awesome {
 }
 
 .icon-mconf-space-public {
- color: $alert-success-font;
+ color: $m-alert-success-font;
 }
 
 .icon-mconf-space-private {
- color: $alert-danger-font;
+ color: $m-alert-danger-font;
 }
 
 .icon-mconf-approve {
- color: $alert-success-font;
+ color: $m-alert-success-font;
 }
 
 .icon-mconf-disapprove {
- color: $yellow;
+ color: $m-yellow;
 }
 
 .icon-mconf-is-member {
- color: $green;
+ color: $m-green;
 }
 
 .icon-mconf-event {}

@@ -11,17 +11,17 @@ form.in-place-edit {
     &.in-progress {
       width: 16px;
       height: 16px;
-      color: $alert-font;
+      color: $m-alert-font;
       /* TODO use font-awesome */
       /*background: url(asset_path("icons/in-progress-green-16x16.gif", image)) no-repeat left top;*/
     }
 
     &.success {
-      color: $alert-success-font;
+      color: $m-alert-success-font;
     }
 
     &.error {
-      color: $alert-danger-font;
+      color: $m-alert-danger-font;
     }
   }
 

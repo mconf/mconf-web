@@ -15,7 +15,7 @@ body.sites {
     display: none;
   }
 
-  $column-width: (($contents-width) / 2) - 30px;
+  $column-width: (($m-contents-width) / 2) - 30px;
   .right-column {
     float: right;
     width: $column-width;

@@ -7,8 +7,8 @@ $logo-rot-pos1: rotate(-100deg);
 $logo-rot-pos2: rotate(-160deg);
 
 // so the footer is always behind the content if they overlap
-$z-index-content: 1;
-$z-index-footer: 0;
+$m-z-index-content: 1;
+$m-z-index-footer: 0;
 
 @include keyframes(hang) {
   to { @include transform($logo-rot-pos1); }
@@ -41,8 +41,8 @@ html, body {
 }
 
 #content-wrapper {
-  z-index: $z-index-content;
-  background: $subnav-bg-color;
+  z-index: $m-z-index-content;
+  background: $m-subnav-bg-color;
   border-top: 1px solid #EED3D7;
   border-bottom: 1px solid #EED3D7;
   margin-top: 80px;
@@ -66,16 +66,16 @@ html, body {
   .error-description {
     margin: 30px 0;
     text-align: center;
-    @include font-size($font-gigantic);
-    line-height: $font-gigantic + 6px;
+    @include font-size($m-font-gigantic);
+    line-height: $m-font-gigantic + 6px;
     p {
-      @include font-size($font-gigantic);
-      line-height: $font-gigantic + 6px;
+      @include font-size($m-font-gigantic);
+      line-height: $m-font-gigantic + 6px;
     }
   }
 
   .access-links {
-    @include font-size($font-big);
+    @include font-size($m-font-big);
 
     .icon {
       margin-top: 3px;
@@ -98,7 +98,7 @@ html, body {
     .text {
       padding-left: 15px;
       display: block;
-      color: $transparent;
+      color: $m-transparent;
       @include transform(rotate(180deg));
     }
 

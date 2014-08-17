@@ -3,17 +3,17 @@
 // overrides the height because this footer is simpler and smaller
 // for more details see footer.css.scss
 
-$footer-height: 90px;
-$footer-total-height: $footer-height + 41px; // + padding + border + margin
+$m-footer-height: 90px;
+$m-footer-total-height: $m-footer-height + 41px; // + padding + border + margin
 
 #site {
-  margin: 0 auto $footer-total-height*-1;
+  margin: 0 auto $m-footer-total-height*-1;
 }
 
 #footer-pusher {
-  height: $footer-total-height;
+  height: $m-footer-total-height;
 }
 
 #footer-wrapper {
-  height: $footer-height;
+  height: $m-footer-height;
 }

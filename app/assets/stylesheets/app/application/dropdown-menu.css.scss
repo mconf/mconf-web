@@ -26,8 +26,8 @@ $dropdown-bg-color: white;
   &:before {
     display: inline-block;
     content: '';
-    border-left: 7px solid $transparent;
-    border-right: 7px solid $transparent;
+    border-left: 7px solid $m-transparent;
+    border-right: 7px solid $m-transparent;
     border-bottom: 7px solid $dropdown-border-color;
     border-bottom-color: $dropdown-border-color;
     position: absolute;
@@ -41,8 +41,8 @@ $dropdown-bg-color: white;
   &:after {
     content: '';
     display: inline-block;
-    border-left: 6px solid $transparent;
-    border-right: 6px solid $transparent;
+    border-left: 6px solid $m-transparent;
+    border-right: 6px solid $m-transparent;
     border-bottom: 6px solid $dropdown-bg-color;
     position: absolute;
     top: -6px;
@@ -63,8 +63,8 @@ ul.dropdown-menu {
       padding: 6px 14px;
 
       &:hover, &:active {
-        background: $light-gray;
-        @include link-colors(#808080, $link-color-hover, $link-color-active);
+        background: $m-light-gray;
+        @include link-colors(#808080, $m-link-color-hover, $m-link-color-active);
       }
     }
   }

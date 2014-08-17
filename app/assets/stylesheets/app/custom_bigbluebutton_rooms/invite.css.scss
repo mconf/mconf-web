@@ -13,7 +13,7 @@ body.custom_bigbluebutton_rooms.auth {
   }
 
   #webconf-room-status {
-    @include font-size($font-medium);
+    @include font-size($m-font-medium);
     text-align: center;
 
     .label {

@@ -11,7 +11,7 @@ body.space_events.index {
   #events-past-menu {
     float: right;
     padding: 0 6px 4px 6px;
-    background: $light-gray;
+    background: $m-light-gray;
     @include border-radius(4px);
 
     span {

@@ -6,7 +6,7 @@
 
 body.users.edit, body.users.update {
 
-  $column-width: ($contents-width / 2) - 20px;
+  $column-width: ($m-contents-width / 2) - 20px;
 
   .left-column {
     float: left;
@@ -38,7 +38,7 @@ body.users.edit, body.users.update {
 
   #user-federated-info {
     span.title {
-      @include font-size($font-medium);
+      @include font-size($m-font-medium);
       font-weight: bold;
       margin-bottom: 5px;
     }

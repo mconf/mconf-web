@@ -32,13 +32,13 @@
     }
 
     // hints
-    $hint-border-color: #222; //darken($alert-bg, 25);
+    $hint-border-color: #222; //darken($m-alert-bg, 25);
     .hint {
-      @include font-size($font-normal);
+      @include font-size($m-font-normal);
       border: 1px solid $hint-border-color;
       @include border-radius(3px);
       padding: 3px 8px;
-      z-index: $z-index-tooltip;
+      z-index: $m-z-index-tooltip;
       position: absolute;
       display: none;
       color: #eee;
@@ -47,8 +47,8 @@
     .hint::before {
       display: inline-block;
       content: '';
-      border-left: 7px solid $transparent;
-      border-right: 7px solid $transparent;
+      border-left: 7px solid $m-transparent;
+      border-right: 7px solid $m-transparent;
       border-bottom: 7px solid $hint-border-color;
       border-bottom-color: $hint-border-color;
       position: absolute;
@@ -60,7 +60,7 @@
 
     // add a nice icon to fields that have a hint
     &.field_with_hint {
-      &:hover, &:focus { color: darken($alert-info-font, 20); }
+      &:hover, &:focus { color: darken($m-alert-info-font, 20); }
       cursor: pointer;
       background: url("/assets/icons/help-12x12.png") no-repeat left top;
       background-width: 12px;
@@ -73,11 +73,11 @@
   }
 
   .field_with_errors {
-    input, textarea { border-color: $red; }
+    input, textarea { border-color: $m-red; }
 
     .error {
       margin-left: 5px;
-      color: $red;
+      color: $m-red;
       font-style: italic;
     }
   }

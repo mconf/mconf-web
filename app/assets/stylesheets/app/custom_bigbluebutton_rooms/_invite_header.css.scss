@@ -8,8 +8,8 @@ body.custom_bigbluebutton_rooms.auth {
   #webconf-room-invite-header {
     text-align: center;
     @include border-radius(4px);
-    background-color: $alert-bg;
-    @include font-size($font-medium);
+    background-color: $m-alert-bg;
+    @include font-size($m-font-medium);
     padding: 10px;
 
     .room-type {
@@ -45,7 +45,7 @@ body.custom_bigbluebutton_rooms.auth {
       .step {
         float: left;
         margin: 0 5px;
-        @include font-size($font-big);
+        @include font-size($m-font-big);
         color: #666;
         font-weight: bold;
         background: white;
@@ -55,7 +55,7 @@ body.custom_bigbluebutton_rooms.auth {
         display: block;
 
         &.active {
-          background: $alert-info-font;
+          background: $m-alert-info-font;
           color: white;
         }
       }

@@ -30,24 +30,24 @@
     .playback-link {
       white-space: nowrap;
       @include border-radius(3px);
-      background: $light-gray;
-      border: 1px solid darken($light-gray, 5);
+      background: $m-light-gray;
+      border: 1px solid darken($m-light-gray, 5);
       padding: 0 5px;
     }
 
     &.thread-odd {
       .playback-link {
-        background: darken($light-gray, 5);
-        border-color: 1px solid darken($light-gray, 10);
+        background: darken($m-light-gray, 5);
+        border-color: 1px solid darken($m-light-gray, 10);
       }
     }
 
     .playback-unavailable {
-      color: mix($link-color, #888, 70%); // a grayer link
+      color: mix($m-link-color, #888, 70%); // a grayer link
     }
 
     .playback-processing {
-      color: darken($yellow, 10);
+      color: darken($m-yellow, 10);
     }
   }
 }

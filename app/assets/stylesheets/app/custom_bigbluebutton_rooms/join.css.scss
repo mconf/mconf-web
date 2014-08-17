@@ -8,7 +8,7 @@ body.custom_bigbluebutton_rooms.join {
   }
   .message {
     padding: 5px;
-    background-color: $light-gray;
+    background-color: $m-light-gray;
     @include border-radius(4px);
     @include mconf-clearfix;
   }

@@ -21,11 +21,11 @@ body.private_messages.show {
   }
 
   /* Larger sidebar with the form to reply to the message */
-  $sidebar-width: 350px;
+  $m-sidebar-width: 350px;
   #sidebar {
-    width: $sidebar-width;
+    width: $m-sidebar-width;
   }
   #content-middle {
-    width: $contents-width - $sidebar-width - 20px; // less right-margin
+    width: $m-contents-width - $m-sidebar-width - 20px; // less right-margin
   }
 }

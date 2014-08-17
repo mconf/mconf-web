@@ -8,7 +8,7 @@
 //
 
 body {
-  background-color: $site-bg-color;
+  background-color: $m-site-bg-color;
 }
 
 p {
@@ -23,7 +23,7 @@ form {
   margin: 0;
 }
 
-@include set-sidebar-width($sidebar-width);
+@include set-sidebar-width($m-sidebar-width);
 
 //
 // Components used site-wide, in any layout
@@ -35,12 +35,12 @@ form {
     float: none;
     margin: 0;
     padding: 0;
-    @include font-size($font-small);
+    @include font-size($m-font-small);
     color: white;
     &:hover { color: white; }
   }
   .btn-small i.icon-awesome {
-    @include font-size($font-small);
+    @include font-size($m-font-small);
   }
 }
 
@@ -59,7 +59,7 @@ form {
 }
 
 #notification-flashs {
-  top: $navbar-height;
+  top: $m-navbar-height;
 }
 
 // Unified style for threads: posts, news, attachments
@@ -111,7 +111,7 @@ form {
 
   .thread-subtitle {
     margin: 2px 0;
-    //line-height: $font-normal + 6px; // less that in .thread-title
+    //line-height: $m-font-normal + 6px; // less that in .thread-title
 
     i {
       margin: 0px 3px 0px 0px;
@@ -125,7 +125,7 @@ form {
 
   .thread-updated-at {
     color: #666;
-    @include font-size($font-small);
+    @include font-size($m-font-small);
     padding: 2px 0;
     font-weight: normal;
   }
@@ -138,7 +138,7 @@ form {
     padding: 0;
     @include mconf-clearfix;
     @include border-radius(4px);
-    background: $very-light-gray;
+    background: $m-very-light-gray;
     border: 1px solid #e0e0e0;
 
     li {
@@ -182,10 +182,10 @@ form {
 
   &.user-detailed {
     .user-text { float: left; }
-    .user-divider { float: left; margin-left: 5px; margin-right: 5px; color: $gray; }
+    .user-divider { float: left; margin-left: 5px; margin-right: 5px; color: $m-gray; }
     .user-name { display: block; clear: both; }
     .user-mail { display: block; clear: both; }
-    .user-info-prefix { color: $font-color-gray; float: left; margin-right: 5px; }
+    .user-info-prefix { color: $m-font-color-gray; float: left; margin-right: 5px; }
     .user-organization { float: left; }
     .user-location { float: left; }
   }
@@ -197,7 +197,7 @@ form {
 //
 
 #site {
-  background-color: $site-bg-color;
+  background-color: $m-site-bg-color;
   margin: 0px auto;
   width: 100%;
 }
@@ -205,16 +205,16 @@ form {
 #navbar-wrapper {
   margin: 0;
   padding: 0 10px;
-  background: $navbar-bg-color-dark;
-  @include background(linear-gradient(bottom, $navbar-bg-color-light, $navbar-bg-color-dark));
+  background: $m-navbar-bg-color-dark;
+  @include background(linear-gradient(bottom, $m-navbar-bg-color-light, $m-navbar-bg-color-dark));
 }
 
 #navbar {
-  width: $contents-width;
+  width: $m-contents-width;
   margin: 0 auto;
   padding: 0;
-  height: $navbar-height;
-  color: $navbar-font-color;
+  height: $m-navbar-height;
+  color: $m-navbar-font-color;
   @include font-size(12px);
 }
 
@@ -224,8 +224,8 @@ form {
 }
 
 #footer-wrapper {
-  border-top: 1px solid darken($footer-bg-color, 10);
-  background: $footer-bg-color;
+  border-top: 1px solid darken($m-footer-bg-color, 10);
+  background: $m-footer-bg-color;
   color: #444;
   clear: both;
   padding: 10px 0;
@@ -234,23 +234,23 @@ form {
 
 #footer {
   @include mconf-clearfix;
-  width: $contents-width;
+  width: $m-contents-width;
   margin: 0 auto;
   padding: 0;
   color: #666;
 
   a {
-    @include link-colors($link-color, $link-color-hover, $link-color-active);
+    @include link-colors($m-link-color, $m-link-color-hover, $m-link-color-active);
     text-decoration: none;
   }
 
   h3 {
-    @include font-size($font-normal);
+    @include font-size($m-font-normal);
     color: #888;
     margin-bottom: 7px;
     font-weight: bold;
     padding-bottom: 3px;
-    border-bottom: 1px solid darken($footer-bg-color, 8);
+    border-bottom: 1px solid darken($m-footer-bg-color, 8);
   }
 
   ul {
@@ -292,7 +292,7 @@ form {
   .current-version {
     clear: both;
     text-align: right;
-    @include font-size($font-small);
+    @include font-size($m-font-small);
   }
 }
 
@@ -331,11 +331,11 @@ form {
   float: left;
   margin-right: 35px;
 
-  a { @include link-colors(#bbb, $link-color-hover, $link-color-active); }
+  a { @include link-colors(#bbb, $m-link-color-hover, $m-link-color-active); }
 
   .title {
     font-weight: bold;
-    @include font-size($font-gigantic);
+    @include font-size($m-font-gigantic);
   }
 
   span { display: block; }
@@ -347,12 +347,12 @@ ul#navbar-left-links {
   margin: 0 10px;
 
   a, .icon-awesome {
-    @include link-colors($navbar-font-color, $navbar-font-color-hover, $navbar-font-color-hover);
+    @include link-colors($m-navbar-font-color, $m-navbar-font-color-hover, $m-navbar-font-color-hover);
   }
 
   .icon-awesome {
     margin: 3px 3px 0px 0px;
-    @include font-size($font-normal);
+    @include font-size($m-font-normal);
   }
 
   li {
@@ -400,7 +400,7 @@ ul#navbar-left-links {
       padding: 2px;
       height: 22px;
       width: 22px;
-      background: lighten($navbar-bg-color-dark, 10);
+      background: lighten($m-navbar-bg-color-dark, 10);
       @include border-radius(3px);
       @include broken-img-parent;
 
@@ -415,10 +415,10 @@ ul#navbar-left-links {
   // it needs some adjustments over the default style
   .dropdown {
     &.open {
-      $color: lighten-or-darken($navbar-menu-open-bg, $navbar-font-color, 10, 40);
+      $color: lighten-or-darken($m-navbar-menu-open-bg, $m-navbar-font-color, 10, 40);
       $color-hover: lighten($color, 15);
 
-      background: $navbar-menu-open-bg;
+      background: $m-navbar-menu-open-bg;
       color: $color;
       .caret {
         border-top-color: $color;
@@ -430,15 +430,15 @@ ul#navbar-left-links {
     }
 
     .caret {
-      border-top-color: $navbar-font-color;
+      border-top-color: $m-navbar-font-color;
       margin-top: 11px;
       margin-right: 4px;
     }
 
     .dropdown-menu {
-      color: lighten-or-darken($navbar-menu-open-bg, $navbar-font-color, 10, 30);
-      background: $navbar-menu-open-bg;
-      top: $navbar-height - 2px;
+      color: lighten-or-darken($m-navbar-menu-open-bg, $m-navbar-font-color, 10, 30);
+      background: $m-navbar-menu-open-bg;
+      top: $m-navbar-height - 2px;
       right: -1px;
       left: auto;
       min-width: 300px;
@@ -450,11 +450,11 @@ ul#navbar-left-links {
       //&.arrow-right:after { border-bottom-color: white; }
 
       a {
-        @include link-colors($navbar-menu-open-link, $navbar-menu-open-link-hover, $navbar-menu-open-link-hover, $navbar-menu-open-link);
+        @include link-colors($m-navbar-menu-open-link, $m-navbar-menu-open-link-hover, $m-navbar-menu-open-link-hover, $m-navbar-menu-open-link);
         padding: 0;
         &:hover {
           @include text-shadow(none);
-          background-color: $transparent;
+          background-color: $m-transparent;
           background-image: none;
         }
       }
@@ -485,7 +485,7 @@ ul#navbar-left-links {
     .user-avatar {
       position: relative;
       float: left;
-      border: 1px solid darken($navbar-menu-open-bg, 10);
+      border: 1px solid darken($m-navbar-menu-open-bg, 10);
       padding: 1px;
       height: 64px;
       width: 64px;
@@ -505,10 +505,10 @@ ul#navbar-left-links {
     @include mconf-clearfix;
     clear: both;
     margin-top: 10px;
-    background: darken($navbar-menu-open-bg, 5);
+    background: darken($m-navbar-menu-open-bg, 5);
     padding: 2px;
     @include border-radius(4px);
-    border: 1px solid darken($navbar-menu-open-bg, 10);
+    border: 1px solid darken($m-navbar-menu-open-bg, 10);
 
     ul {
       margin: 0;
@@ -537,20 +537,20 @@ ul#navbar-left-links {
   @include mconf-clearfix;
 
   .title {
-    @include link-colors($navbar-font-color, $navbar-font-color-hover, $navbar-font-color-hover, $navbar-font-color);
-    @include font-size($font-bigger);
+    @include link-colors($m-navbar-font-color, $m-navbar-font-color-hover, $m-navbar-font-color-hover, $m-navbar-font-color);
+    @include font-size($m-font-bigger);
     float: left;
   }
 }
 
 #page-header-wrapper {
-  border-bottom: 1px solid darken($light-gray, 7);
-  background: $light-gray;
+  border-bottom: 1px solid darken($m-light-gray, 7);
+  background: $m-light-gray;
   padding: 0;
 }
 
 #page-header {
-  width: $contents-width;
+  width: $m-contents-width;
   margin: 0 auto;
   @include mconf-clearfix;
   overflow: visible;
@@ -559,7 +559,7 @@ ul#navbar-left-links {
   word-break: break-all;
 
   > a, .current-page-extra > a {
-    @include link-colors($page-header-link-color, $page-header-link-color-hover, $page-header-link-color-hover, $page-header-link-color);
+    @include link-colors($m-page-header-link-color, $m-page-header-link-color-hover, $m-page-header-link-color-hover, $m-page-header-link-color);
   }
 
   h1 {
@@ -587,39 +587,39 @@ ul#navbar-left-links {
   .current-page-title {
     float: left;
     margin-left: 10px;
-    color: $page-title-color;
+    color: $m-page-title-color;
 
     // minus the logo and some padding/margin
-    max-width: $contents-width - 120px;
+    max-width: $m-contents-width - 120px;
 
     .main-title {
 
-      @include font-size($font-section-title);
+      @include font-size($m-font-section-title);
       line-height: 1.0;
       font-weight: bold;
-      color: $page-title-color;
+      color: $m-page-title-color;
       margin-bottom: 5px;
 
       a {
-        $c: $page-title-color;
+        $c: $m-page-title-color;
         @include link-colors($c, lighten($c, 10), lighten($c, 10));
       }
 
       // when the title is too big the font is reduced a bit
       &.small-title {
-        @include font-size($font-section-title - 10px);
+        @include font-size($m-font-section-title - 10px);
         margin-top: 5px;
       }
     }
     a.main-title {
-      @include link-colors($page-title-color, $link-color-hover, $link-color-active);
+      @include link-colors($m-page-title-color, $m-link-color-hover, $m-link-color-active);
     }
 
     .sub-title {
-      @include font-size($font-normal);
+      @include font-size($m-font-normal);
       display: block;
       font-weight: normal;
-      color: lighten($page-title-color, 10);
+      color: lighten($m-page-title-color, 10);
     }
 
     // some tweaks for the titles in pages of spaces
@@ -628,12 +628,12 @@ ul#navbar-left-links {
 
       // the text that shows the visibility of spaces
       .resource-visibility {
-        color: $dark-gray;
+        color: $m-dark-gray;
       }
 
       // the text that shows when a user is a member of the space
       .user-is-member {
-        color: $dark-gray;
+        color: $m-dark-gray;
       }
     }
   }
@@ -646,7 +646,7 @@ ul#navbar-left-links {
 }
 
 #content {
-  width: $contents-width;
+  width: $m-contents-width;
   margin: 0 auto;
   padding: 20px 10px 0 0;
 
@@ -662,7 +662,7 @@ ul#navbar-left-links {
   .content-block-wrapper {
     padding: 4px;
     @include border-radius(5px);
-    background: $light-gray;
+    background: $m-light-gray;
     margin-bottom: 10px;
     clear: both;
     @include block-wrapper-active;
@@ -673,7 +673,7 @@ ul#navbar-left-links {
     padding: 10px;
     border: 1px solid #ddd;
     @include border-radius(5px);
-    background: $site-bg-color;
+    background: $m-site-bg-color;
   }
 
   .content-block-middle {
@@ -712,7 +712,7 @@ ul#navbar-left-links {
   .toolbar {
     margin-bottom: 10px;
     padding: 5px 10px;
-    background: $light-gray;
+    background: $m-light-gray;
     @include border-radius(4px);
     clear: both;
     text-align: center;
@@ -732,7 +732,7 @@ ul#navbar-left-links {
 
   /* navbars in the sidebar */
   .nav {
-    width: $sidebar-width - 12px; // all width minus spaces and borders
+    width: $m-sidebar-width - 12px; // all width minus spaces and borders
   }
 }
 
@@ -795,7 +795,7 @@ ul#navbar-left-links {
     clear: both;
 
     &.content-block-footer-fancy {
-      background: $light-gray;
+      background: $m-light-gray;
       border-top: 1px solid #eee;
     }
 
@@ -838,17 +838,17 @@ ul#navbar-left-links {
       margin-left: 10px;
       padding: 5px 10px 3px 10px;
       font-weight: bold;
-      @include font-size($font-medium);
+      @include font-size($m-font-medium);
 
       &.selected {
         @include border-top-radius(4px);
-        /* border-bottom: 3px solid $bright-blue; */
-        border: 1px solid darken($site-bg-color, 20);
-        border-bottom-color: $site-bg-color;
-        background: $site-bg-color;
+        /* border-bottom: 3px solid $m-bright-blue; */
+        border: 1px solid darken($m-site-bg-color, 20);
+        border-bottom-color: $m-site-bg-color;
+        background: $m-site-bg-color;
         > a {
-          $normal: darken($page-menu-font-color, 20);
-          $hover: lighten($page-menu-font-color, 10);
+          $normal: darken($m-page-menu-font-color, 20);
+          $hover: lighten($m-page-menu-font-color, 10);
           @include link-colors($normal, $hover, $hover, $normal);
         }
       }
@@ -856,8 +856,8 @@ ul#navbar-left-links {
       > a {
         display: inline-block;
         margin-bottom: 0px;
-        $normal: $page-menu-font-color;
-        $hover: lighten($page-menu-font-color, 10);
+        $normal: $m-page-menu-font-color;
+        $hover: lighten($m-page-menu-font-color, 10);
         @include link-colors($normal, $hover, $hover, $normal);
         &.danger-text {
           @include danger-text;
@@ -893,8 +893,8 @@ ul#navbar-left-links {
   // when the div should be shown in fill width
   &.page-tabs-full {
     float: none;
-    background: $very-light-gray;
-    $border-color: darken($very-light-gray, 8);
+    background: $m-very-light-gray;
+    $border-color: darken($m-very-light-gray, 8);
     border-bottom: 1px solid $border-color;
     border-top: 1px solid $border-color;
     padding: 10px;
@@ -908,7 +908,7 @@ ul#navbar-left-links {
     //float: left;
     //margin-bottom: 5px;
     color: #777;
-    @include font-size($font-small);
+    @include font-size($m-font-small);
   }
 
   .event-wrapper {
@@ -921,7 +921,7 @@ ul#navbar-left-links {
 
     .event-date {
       display: block;
-      @include font-size($font-small);
+      @include font-size($m-font-small);
       color: #777;
     }
   }
@@ -938,14 +938,14 @@ ul#navbar-left-links {
 // and in spaces.
 .events-hapenning-now {
   .thread {
-    background: $light-gray;
-    border-left: 5px solid $bright-blue;
+    background: $m-light-gray;
+    border-left: 5px solid $m-bright-blue;
   }
 }
 
 // for elements highlighted using rails' highlight() view helper.
 strong.highlight {
-  background: $highlight-bg;
+  background: $m-highlight-bg;
 }
 
 // for elements that might contain long words that can break the layout
@@ -963,13 +963,13 @@ strong.highlight {
   }
 
   &.small {
-    @include font-size($font-small);
+    @include font-size($m-font-small);
 
     .icon-awesome {
-      @include font-size($font-small);
-      width: $font-small;
-      height: $font-small;
-      line-height: $font-small;
+      @include font-size($m-font-small);
+      width: $m-font-small;
+      height: $m-font-small;
+      line-height: $m-font-small;
       margin: 0;
     }
   }

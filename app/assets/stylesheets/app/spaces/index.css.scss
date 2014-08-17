@@ -14,7 +14,7 @@ body.spaces.index {
     @include mconf-clearfix;
     margin-bottom: 10px;
     padding: 10px 5px;
-    background: $light-gray;
+    background: $m-light-gray;
     @include border-radius(5px);
     text-align: center;
 
@@ -56,14 +56,14 @@ body.spaces.index {
 
       i {
         float: right;
-        @include font-size($font-small);
+        @include font-size($m-font-small);
         margin: 4px 0 0 0;
       }
 
       a {
-        @include font-size($font-normal);
+        @include font-size($m-font-normal);
         text-align: left;
-        @include link-colors($font-color, $font-color, $font-color, $font-color);
+        @include link-colors($m-font-color, $m-font-color, $m-font-color, $m-font-color);
         @include transition(none);
       }
 
@@ -87,7 +87,7 @@ body.spaces.index {
 
         img {
           padding: 20px;
-          background: $light-gray;
+          background: $m-light-gray;
           width: 169px;
           height: 128px;
           margin-bottom: 5px;
@@ -100,8 +100,8 @@ body.spaces.index {
       color: #888;
       span { display: block; }
       .is-member {
-        color: $alert-success-font;
-        background: lighten($alert-success-bg, 5);
+        color: $m-alert-success-font;
+        background: lighten($m-alert-success-bg, 5);
         padding: 1px 3px;
         @include border-radius(3px);
         text-align: center;
@@ -124,22 +124,22 @@ body.spaces.index {
       }
 
       &.selected .thread {
-        background: $light-gray;
+        background: $m-light-gray;
         .logo-in-thread img {
-          border-color: $bright-blue;
+          border-color: $m-bright-blue;
         }
       }
     }
 
     .list-thumbnail {
       .resource-visibility {
-        color: $dark-gray;
+        color: $m-dark-gray;
       }
     }
 
     .list-text {
       .resource-visibility {
-        color: $dark-gray;
+        color: $m-dark-gray;
       }
     }
 

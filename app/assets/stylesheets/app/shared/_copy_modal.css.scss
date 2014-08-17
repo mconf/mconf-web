@@ -11,14 +11,14 @@
 
   &.success {
     .modal-header {
-      background: $alert-success-bg;
+      background: $m-alert-success-bg;
     }
   }
 }
 
 #copy-to-clipboard-message {
   display: none;
-  color: $alert-success-font;
+  color: $m-alert-success-font;
 }
 
 .copyable-field {

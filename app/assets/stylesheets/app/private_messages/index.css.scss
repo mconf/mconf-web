@@ -3,10 +3,10 @@
 body.private_messages.index {
 
   .thread {
-    border-left: 5px solid $transparent;
+    border-left: 5px solid $m-transparent;
 
     &.unread {
-      border-left: 5px solid $second-color;
+      border-left: 5px solid $m-second-color;
       .thread-text {
         font-weight: bold;
       }

@@ -4,7 +4,7 @@
 body.spaces.new, body.spaces.create {
 
   // slightly wider sidebar
-  @include set-sidebar-width($sidebar-width + 100px);
+  @include set-sidebar-width($m-sidebar-width + 100px);
 
   #space-new {
     width: 98%;
@@ -35,7 +35,7 @@ body.spaces.new, body.spaces.create {
         @include border-radius(4px);
 
         img {
-          background: $light-gray;
+          background: $m-light-gray;
         }
       }
 
@@ -47,7 +47,7 @@ body.spaces.new, body.spaces.create {
 
     .resource-visibility {
       margin-top: 2px;
-      color: $dark-gray;
+      color: $m-dark-gray;
 
       .icon-awesome {
         float: none;

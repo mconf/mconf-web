@@ -7,10 +7,10 @@
   .thread-content {
 
     .is-member {
-      @include font-size($font-small);
-      color: $alert-success-font;
+      @include font-size($m-font-small);
+      color: $m-alert-success-font;
       margin-left: 5px;
-      background: lighten($alert-success-bg, 5);
+      background: lighten($m-alert-success-bg, 5);
       padding: 1px 3px;
       @include border-radius(3px);
     }

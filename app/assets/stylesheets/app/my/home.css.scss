@@ -13,7 +13,7 @@
 body.my.home, body.my.activity, body.my.recordings {
 
   // slightly wider sidebar
-  @include set-sidebar-width($sidebar-width + 100px);
+  @include set-sidebar-width($m-sidebar-width + 100px);
 
   // reduced spacing between items in the list of recent activities and my spaces
   .list-text .thread {
@@ -22,20 +22,20 @@ body.my.home, body.my.activity, body.my.recordings {
   }
 
 
-  $second-content-bg-color: darken($light-gray, 2);
-  $page-header-right-width: 500px;
+  $second-content-bg-color: darken($m-light-gray, 2);
+  $m-page-header-right-width: 500px;
 
   #page-header {
     padding: 20px 0 10px 0;
 
     .left-column {
       float: left;
-      width: $contents-width - $page-header-right-width - 10px;
+      width: $m-contents-width - $m-page-header-right-width - 10px;
     }
 
     .right-column {
       float: right;
-      width: $page-header-right-width - 10px;
+      width: $m-page-header-right-width - 10px;
       margin-right: 10px;
     }
   }
@@ -43,13 +43,13 @@ body.my.home, body.my.activity, body.my.recordings {
   #user-info {
     // darker links since the background is darker
     a {
-      @include link-colors(darken($link-color, 15), $link-color-hover, $link-color-active);
+      @include link-colors(darken($m-link-color, 15), $m-link-color-hover, $m-link-color-active);
     }
 
     .user-avatar {
       position: relative;
       float: left;
-      border: 1px solid darken($light-gray, 20);
+      border: 1px solid darken($m-light-gray, 20);
       @include border-radius(3px);
       padding: 3px;
       height: 96px;
@@ -66,11 +66,11 @@ body.my.home, body.my.activity, body.my.recordings {
         position: absolute;
         bottom: 3px;
         left: 3px;
-        @include font-size($font-mini);
+        @include font-size($m-font-mini);
         width: 14px;
         height: 14px;
         color: white;
-        background: lighten($red, 10);
+        background: lighten($m-red, 10);
         padding: 3px 1px 0px 3px;
         @include border-radius(4px);
       }
@@ -86,12 +86,12 @@ body.my.home, body.my.activity, body.my.recordings {
       }
 
       .user-name {
-        @include font-size($font-big);
+        @include font-size($m-font-big);
         font-weight: bold;
       }
 
       .user-email, .user-organization {
-        min-height: $font-big + 2px;
+        min-height: $m-font-big + 2px;
       }
     }
 
@@ -117,7 +117,7 @@ body.my.home, body.my.activity, body.my.recordings {
   #sidebar-inbox {
     .content-block-header a {
       float: left;
-      width: $sidebar-width - 60px;
+      width: $m-sidebar-width - 60px;
     }
   }
 
@@ -155,11 +155,11 @@ body.my.home, body.my.activity, body.my.recordings {
       input[type=text] {
         float: left;
         cursor: text;
-        width: $page-header-right-width - 130px - 100px; // - main-action-buttons - 100
-        background: $site-bg-color;
+        width: $m-page-header-right-width - 130px - 100px; // - main-action-buttons - 100
+        background: $m-site-bg-color;
         color: #444;
         &:focus {
-          border-color: $second-color;
+          border-color: $m-second-color;
         }
       }
     }
@@ -182,9 +182,9 @@ body.my.home, body.my.activity, body.my.recordings {
   }
 
   #recent-activity-options {
-    background: $site-bg-color;
+    background: $m-site-bg-color;
     float: right;
-    @include font-size($font-normal);
+    @include font-size($m-font-normal);
     font-weight: normal;
     padding-right: 10px;
     padding-left: 10px;

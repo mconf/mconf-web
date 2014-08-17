@@ -13,14 +13,14 @@ body.mweb_events-events.index {
   #event-filter-result {
     float: left;
     margin: 10px 0 0 5px;
-    @include font-size($font-medium);
+    @include font-size($m-font-medium);
   }
 
   #event-filter-wrapper {
     @include mconf-clearfix;
     margin-bottom: 20px;
     padding: 10px 5px;
-    background: $light-gray;
+    background: $m-light-gray;
     @include border-radius(5px);
     text-align: center;
 
@@ -64,14 +64,14 @@ body.mweb_events-events.index {
 
       i {
         float: right;
-        @include font-size($font-small);
+        @include font-size($m-font-small);
         margin: 4px 0 0 0;
       }
 
       a {
-        @include font-size($font-normal);
+        @include font-size($m-font-normal);
         text-align: left;
-        @include link-colors($font-color, $font-color, $font-color, $font-color);
+        @include link-colors($m-font-color, $m-font-color, $m-font-color, $m-font-color);
         @include transition(none);
       }
 
@@ -91,14 +91,14 @@ body.mweb_events-events.index {
       }
 
       &.selected .thread {
-        background: $light-gray;
+        background: $m-light-gray;
         .logo-in-thread img {
-          border-color: $bright-blue;
+          border-color: $m-bright-blue;
         }
       }
 
       .resource-visibility {
-        color: $dark-gray;
+        color: $m-dark-gray;
       }
     }
   }
@@ -115,7 +115,7 @@ body.mweb_events-events.index {
 
         .logo-event {
           padding: 20px;
-          background: $light-gray;
+          background: $m-light-gray;
           width: 169px;
           height: 75px;
           margin-bottom: 5px;

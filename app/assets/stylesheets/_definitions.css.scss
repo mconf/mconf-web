@@ -1,93 +1,93 @@
 @import "compass/utilities/general";
 
 // fonts
-$font-mini: 10px;
-$font-small: 11px;
-$font-normal: 13px;
-$font-medium: 14px;
-$font-big: 16px;
-$font-bigger: 21px;
-$font-biggest: 25px;
-$font-gigantic: 28px;
-$font-section-title: 28px;
-$font-color: #333;
-$font-color-gray: #888;
-$font-family: Arial, sans-serif;
-$base-line-height: 1.5;
+$m-font-mini: 10px;
+$m-font-small: 11px;
+$m-font-normal: 13px;
+$m-font-medium: 14px;
+$m-font-big: 16px;
+$m-font-bigger: 21px;
+$m-font-biggest: 25px;
+$m-font-gigantic: 28px;
+$m-font-section-title: 28px;
+$m-font-color: #333;
+$m-font-color-gray: #888;
+$m-font-family: Arial, sans-serif;
+$m-base-line-height: 1.5;
 
 // standard colors
-$green: #509F00;
-$blue: #005fca;
-$red: #C23321;
-$orange: #C47322;
-$yellow: #BB9403;
-$green-logo: #27535C;
-$gray: #ccc;
-$dark-gray: #666;
-$light-gray: #f6f6f6;
-$very-light-gray: #fcfcfc;
-$bright-blue: #49afcd;
-$transparent: rgba(255,255,255,0);
+$m-green: #509F00;
+$m-blue: #005fca;
+$m-red: #C23321;
+$m-orange: #C47322;
+$m-yellow: #BB9403;
+$m-green-logo: #27535C;
+$m-gray: #ccc;
+$m-dark-gray: #666;
+$m-light-gray: #f6f6f6;
+$m-very-light-gray: #fcfcfc;
+$m-bright-blue: #49afcd;
+$m-transparent: rgba(255,255,255,0);
 // site colors
-$site-bg-color: #fff;
-$main-color: $green-logo;
-$second-color: $bright-blue;
-$focus-border-color: $second-color;
-$font-h-color: $green-logo;
+$m-site-bg-color: #fff;
+$m-main-color: $m-green-logo;
+$m-second-color: $m-bright-blue;
+$m-focus-border-color: $m-second-color;
+$m-font-h-color: $m-green-logo;
 // link colors
-$link-color: lighten($main-color, 15);
-$link-color-hover: $second-color;
-$link-color-active: darken($link-color-hover, 15);
+$m-link-color: lighten($m-main-color, 15);
+$m-link-color-hover: $m-second-color;
+$m-link-color-active: darken($m-link-color-hover, 15);
 
 // alert colors, like the ones in bootstrap alerts
-$alert-bg: #FCF8E3;
-$alert-font: #C09853;
-$alert-success-bg: #DFF0D8;
-$alert-success-font: #468847;
-$alert-info-bg: #D9EDF7;
-$alert-info-font: #3A87AD;
-$alert-danger-bg: #F2DEDE;
-$alert-danger-font: #B94A48;
-$alert-gray-bg: #f6f6f6;
-$alert-gray-font: #666;
+$m-alert-bg: #FCF8E3;
+$m-alert-font: #C09853;
+$m-alert-success-bg: #DFF0D8;
+$m-alert-success-font: #468847;
+$m-alert-info-bg: #D9EDF7;
+$m-alert-info-font: #3A87AD;
+$m-alert-danger-bg: #F2DEDE;
+$m-alert-danger-font: #B94A48;
+$m-alert-gray-bg: #f6f6f6;
+$m-alert-gray-font: #666;
 
 // color for elements highlighted using rails' highlight() view helper.
-$highlight-bg: #ffff81;
+$m-highlight-bg: #ffff81;
 
 // width of the central container and standard sidebar
-$contents-width: 980px;
-$sidebar-width: 240px;
+$m-contents-width: 980px;
+$m-sidebar-width: 240px;
 
 // headers
-$navbar-bg-color-dark: darken($green-logo, 3);
-$navbar-bg-color-light: $green-logo;
-$subnav-bg-color: #eee;
-$navbar-height: 35px;
-$navbar-font-color: #bbb;
-$navbar-font-color-hover: white;
-$navbar-menu-open-bg: $site-bg-color;
-$navbar-menu-open-link: $link-color;
-$navbar-menu-open-link-hover: $link-color-hover;
-$page-menu-font-color: #808080;
-$page-header-link-color: $link-color;
-$page-header-link-color-hover: $link-color-hover;
+$m-navbar-bg-color-dark: darken($m-green-logo, 3);
+$m-navbar-bg-color-light: $m-green-logo;
+$m-subnav-bg-color: #eee;
+$m-navbar-height: 35px;
+$m-navbar-font-color: #bbb;
+$m-navbar-font-color-hover: white;
+$m-navbar-menu-open-bg: $m-site-bg-color;
+$m-navbar-menu-open-link: $m-link-color;
+$m-navbar-menu-open-link-hover: $m-link-color-hover;
+$m-page-menu-font-color: #808080;
+$m-page-header-link-color: $m-link-color;
+$m-page-header-link-color-hover: $m-link-color-hover;
 
 // global footer
-$footer-bg-color: $light-gray;
-$footer-height: 165px;
+$m-footer-bg-color: $m-light-gray;
+$m-footer-height: 165px;
 
 // h1, h2, h3, ...
-$h-font-color: #404040;
-$h-font-color-alternative: $green-logo;
+$m-h-font-color: #404040;
+$m-h-font-color-alternative: $m-green-logo;
 
 // titles in the page headers
-$page-title-color: #505050;
+$m-page-title-color: #505050;
 
 // z-indexes
 // TODO: not being used yet
-$z-index-navbar: 100;
-$z-index-dialog: 200;
-$z-index-tooltip: 999999;
+$m-z-index-navbar: 100;
+$m-z-index-dialog: 200;
+$m-z-index-tooltip: 999999;
 
 // In some browsers (e.g. firefox) when an image is not found it is replaced by the alternative
 // text set to it, and the dimensions of the image won't respect the width/height set by the css.
@@ -117,7 +117,7 @@ $z-index-tooltip: 999999;
     padding: 2px;
     border: 1px solid #ddd;
     @include border-radius(2px);
-    &:hover { border: 1px solid desaturate(lighten($second-color, 20), 10); }
+    &:hover { border: 1px solid desaturate(lighten($m-second-color, 20), 10); }
 
     // default dimensions for logos inside threads
     &.logo-space {
@@ -166,8 +166,8 @@ $z-index-tooltip: 999999;
 }
 
 @mixin danger-text {
-  color: $red;
-  @include link-colors($red, lighten($red, 10), darken($red, 10));
+  color: $m-red;
+  @include link-colors($m-red, lighten($m-red, 10), darken($m-red, 10));
 }
 
 @mixin set-sidebar-width($new-width) {
@@ -175,7 +175,7 @@ $z-index-tooltip: 999999;
     width: $new-width;
   }
   #content-middle {
-    width: $contents-width - $new-width - 20px; // less right-margin
+    width: $m-contents-width - $new-width - 20px; // less right-margin
   }
 }
 
@@ -218,10 +218,14 @@ $z-index-tooltip: 999999;
 // Highlighted content blocks
 @mixin block-wrapper-active {
   &.active {
-    background: $alert-success-bg;
+    background: $m-alert-success-bg;
     .content-block, .list-thumbnail {
-      border-color: darken($alert-success-bg, 15);
+      border-color: darken($m-alert-success-bg, 15);
       border-width: 1px;
     }
   }
 }
+
+// Bootstrap variables
+// See all available at http://getbootstrap.com/customize/#less-variables
+// $input-color: #666;

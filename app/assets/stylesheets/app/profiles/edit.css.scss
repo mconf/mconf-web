@@ -5,7 +5,7 @@
 
 body.profiles.edit, body.profiles.update {
 
-  $edit-area-width: ($contents-width - $sidebar-width - 20px) / 2 - 10px;
+  $edit-area-width: ($m-contents-width - $m-sidebar-width - 20px) / 2 - 10px;
   .left-column {
     float: left;
     width: $edit-area-width;

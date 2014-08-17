@@ -9,7 +9,7 @@ ul.list-thumbnails {
 
   .list-thumbnail-wrapper {
     float: left;
-    background: $light-gray;
+    background: $m-light-gray;
     padding: 5px;
     margin: 0px 10px 5px 0px;
     @include border-radius(4px);
@@ -19,15 +19,15 @@ ul.list-thumbnails {
 
     &.selected {
       .list-thumbnail {
-        border-color: $second-color;
-        @include box-shadow(0 0 5px lighten($second-color, 10));
+        border-color: $m-second-color;
+        @include box-shadow(0 0 5px lighten($m-second-color, 10));
       }
     }
   }
 
   .list-thumbnail {
     @include mconf-clearfix;
-    border: 1px solid darken($light-gray, 12);
+    border: 1px solid darken($m-light-gray, 12);
     @include border-radius(4px);
     background: white;
 
@@ -36,7 +36,7 @@ ul.list-thumbnails {
       width: 84px;
       height: 64px;
       @include broken-img-parent;
-      border-right: 1px solid darken($light-gray, 12);
+      border-right: 1px solid darken($m-light-gray, 12);
 
       img {
         width: 84px;
@@ -74,6 +74,6 @@ ul.list-thumbnails {
   }
 
   .thread-title {
-    @include font-size($font-medium);
+    @include font-size($m-font-medium);
   }
 }
