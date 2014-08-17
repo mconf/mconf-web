@@ -16,8 +16,9 @@ module ApplicationHelper
   def copyable_field(id, content, opt={})
     opt[:label] ||= id
     content_tag :div, :class => 'input-append copyable-field' do
+      input_class = "#{opt[:class]} form-control"
       concat content_tag(:label, opt[:label]) if opt.has_key?(:label)
-      concat text_field_tag(id, content, opt.except(:label))
+      concat text_field_tag(id, content, opt.except(:label).merge(class: input_class))
       concat content_tag(:a, '', :class => "icon-awesome icon-paste add-on", :href => "#")
     end
   end

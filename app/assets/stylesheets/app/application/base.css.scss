@@ -1,6 +1,7 @@
 @import "compass/css3";
 @import "compass/utilities/general";
 @import "compass/typography/links";
+@import "bootstrap/mixins";
 @import "definitions";
 
 //
@@ -210,7 +211,8 @@ form {
 }
 
 #navbar {
-  width: $m-contents-width;
+  @include make-row;
+  @include set-max-site-width;
   margin: 0 auto;
   padding: 0;
   height: $m-navbar-height;
@@ -234,7 +236,8 @@ form {
 
 #footer {
   @include mconf-clearfix;
-  width: $m-contents-width;
+  @include make-row;
+  @include set-max-site-width;
   margin: 0 auto;
   padding: 0;
   color: #666;
@@ -550,8 +553,8 @@ ul#navbar-left-links {
 }
 
 #page-header {
-  width: $m-contents-width;
-  margin: 0 auto;
+  @include make-row;
+  @include set-max-site-width;
   @include mconf-clearfix;
   overflow: visible;
   padding: 25px 0 20px 0;
@@ -590,7 +593,7 @@ ul#navbar-left-links {
     color: $m-page-title-color;
 
     // minus the logo and some padding/margin
-    max-width: $m-contents-width - 120px;
+    //max-width: $m-contents-width - 120px;
 
     .main-title {
 
@@ -646,7 +649,9 @@ ul#navbar-left-links {
 }
 
 #content {
-  width: $m-contents-width;
+  @include make-row;
+  @include set-max-site-width;
+
   margin: 0 auto;
   padding: 20px 10px 0 0;
 
@@ -657,7 +662,8 @@ ul#navbar-left-links {
 }
 
 #sidebar, .sidebar {
-  float: right;
+  @include make-xs-column(12);
+  @include make-sm-column(3);
 
   .content-block-wrapper {
     padding: 4px;
@@ -737,7 +743,8 @@ ul#navbar-left-links {
 }
 
 #content-middle {
-  float: left;
+  @include make-xs-column(12);
+  @include make-sm-column(9);
   @include mconf-clearfix;
   overflow: visible;
 

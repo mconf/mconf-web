@@ -2,25 +2,13 @@
  * Load bootstrap and redefine some styles.
  */
 
-//@import "compass/typography/links/link-colors";
-//@import "compass/css3";
-@import "definitions";
-
-/*
- * Customized variables for bootstrap
- */
-$m-link-color: #367380;
-// $btn-primary-bg: #5bc0de;
-// $btnPrimaryBackgroundHighlight: #2f96b4;
-$m-navbar-default-bg: #0a3138;
-// $navbarBackgroundHighlight: #27535C;
-
 /*
  * Load bootstrap
  */
+@import "bootstrap-compass";
 @import "bootstrap-sprockets";
+@import "definitions";
 @import "bootstrap";
-
 
 /*
  * Customized styles

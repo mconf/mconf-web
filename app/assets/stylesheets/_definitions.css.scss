@@ -1,5 +1,10 @@
 @import "compass/utilities/general";
 
+// import bootstrap's default variables so we have access to them
+// especially important when using bootstrap's mixins (wherever we
+// import bootstrap/mixins)
+@import "bootstrap/variables";
+
 // fonts
 $m-font-mini: 10px;
 $m-font-small: 11px;
@@ -56,6 +61,7 @@ $m-highlight-bg: #ffff81;
 
 // width of the central container and standard sidebar
 $m-contents-width: 980px;
+$m-contents-max-width: 1180px;
 $m-sidebar-width: 240px;
 
 // headers
@@ -226,6 +232,28 @@ $m-z-index-tooltip: 999999;
   }
 }
 
+@mixin set-max-site-width {
+  @media (min-width: $screen-lg-min) {
+    max-width: $m-contents-max-width;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
 // Bootstrap variables
 // See all available at http://getbootstrap.com/customize/#less-variables
-// $input-color: #666;
+// Some we just define with their default values because we might need them when using
+// bootstrap's mixins in other files (where we import bootstrap/mixins).
+/* $input-color: #666; */
+/* $grid-columns:              12; */
+/* $grid-gutter-width:         30px; */
+/* $grid-float-breakpoint:     768px; */
+
+/*
+ * Customized variables for bootstrap
+ */
+$m-link-color: #367380;
+// $btn-primary-bg: #5bc0de;
+// $btnPrimaryBackgroundHighlight: #2f96b4;
+$m-navbar-default-bg: #0a3138;
+// $navbarBackgroundHighlight: #27535C;
