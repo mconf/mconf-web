@@ -70,18 +70,37 @@ describe Space do
 
     describe "validates uniqueness against User#username" do
       describe "on create" do
-        let(:user) { FactoryGirl.create(:user) }
-        subject { FactoryGirl.build(:space, :permalink => user.username) }
-        it { should_not be_valid }
+        context "with an enabled user" do
+          let(:user) { FactoryGirl.create(:user) }
+          subject { FactoryGirl.build(:space, :permalink => user.username) }
+          it { should_not be_valid }
+        end
+
+        context "with a disabled user" do
+          let(:disabled_user) { FactoryGirl.create(:user, :disabled => true) }
+          subject { FactoryGirl.build(:space, :permalink => disabled_user.username) }
+          it { should_not be_valid }
+        end
       end
 
       describe "on update" do
-        let(:user) { FactoryGirl.create(:user) }
-        let(:space) { FactoryGirl.create(:space) }
-        before(:each) {
-          space.permalink = user.username
-        }
-        it { space.should_not be_valid }
+        context "with an enabled user" do
+          let(:user) { FactoryGirl.create(:user) }
+          let(:space) { FactoryGirl.create(:space) }
+          before(:each) {
+            space.permalink = user.username
+          }
+          it { space.should_not be_valid }
+        end
+
+        context "with a disabled user" do
+          let(:disabled_user) { FactoryGirl.create(:user, :disabled => true) }
+          let(:space) { FactoryGirl.create(:space) }
+          before(:each) {
+            space.permalink = disabled_user.username
+          }
+          it { space.should_not be_valid }
+        end
       end
     end
   end
