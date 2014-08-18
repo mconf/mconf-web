@@ -14,7 +14,7 @@ module ApplicationHelper
   include MwebEvents::EventsHelper if Mconf::Modules.mod_loaded?('events')
 
   def copyable_field(id, content, opt={})
-    opt[:label] ||= id
+    #opt[:label] ||= id
     content_tag :div, :class => 'input-append copyable-field' do
       input_class = "#{opt[:class]} form-control"
       concat content_tag(:label, opt[:label]) if opt.has_key?(:label)

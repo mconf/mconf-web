@@ -79,10 +79,10 @@ code {
 .unordered-list { list-style-type: disc; }
 .ordered-list { list-style: decimal; }
 
-a {
-  @include link-colors($m-link-color, $m-link-color-hover, $m-link-color-active);
+a:not(.btn) {
+  @include link-colors($m-link-color, $m-link-color, $m-link-color-active, $m-link-color);
   @include transition(all 0.1s ease-in);
   text-decoration: none;
-  &:hover, &:active, &:focus { text-decoration: none; }
+  &:hover, &:active, &:focus { text-decoration: underline; }
   &:focus { color: lighten($m-link-color-active, 7); }
 }

@@ -1,45 +1,132 @@
 - running = @room.is_running?
 - active_cls = running ? "active" : ""
 
-#webconference-room{ :class => active_cls }
 
-  .header
-    %h3
-      - if running
-        - if @room.participant_count == 0
-          - status = t('.running_with.no_participants')
-        - else
-          - status = t('.running_with.participants', :count => @room.participant_count)
-      - else
-        - status = t('.not_running')
-      = status.capitalize
+#user-webconference-room
 
-  .invite-url
-    = copyable_field 'invite-url-text', join_webconf_url(@room), :label => t('.your_url'), :readonly => true
+  .row
+    .col-xs-12.col-sm-12
+      %h3
+        = "Your personal web conference room"
 
-  %ul.action-buttons
-    %li
-      .btn-group
-        .btn.btn-small.dropdown-toggle{ :"data-toggle" => "dropdown", :href => "#" }
-          = icon_options
-          .caret
-        %ul.dropdown-menu.pull-right
-          %li= link_to t('.invite'), invitation_bigbluebutton_room_path(@room), :class => 'open-modal'
-          %li= link_to t('.preferences'), edit_my_room_path, :class => 'open-modal', :'data-modal-width' => 'small'
-          %li= link_to t('.recordings'), my_recordings_path
-    %li
-      .btn-group.webconf-join-group
-        - if running
-          = link_to t('.join'), join_bigbluebutton_room_path(@room), :class => "btn btn-small webconf-join-link btn-success"
-          - if can?(:end, @room)
-            = link_to t('.end'), end_bigbluebutton_room_path(@room, :redir_url => my_home_path), options_for_tooltip(t('.end_tooltip'), :confirm => t('are_you_sure'), :class => 'btn btn-small btn-danger')
-        - else
-          -# only show the options dialog if the user can record and the record flag is not automatically set
-          - if can?(:record_meeting, @room) && !Site.current.webconf_auto_record
-            = link_to t('.start'), join_options_bigbluebutton_room_path(@room), :class => "btn btn-small open-modal btn-primary", :'data-modal-width' => 'small'
-            = link_to join_bigbluebutton_room_path(@room), options_for_tooltip(t(".fast_start"), :class => "btn btn-small btn-primary webconf-join-link") do
-              = icon_webconf_start
-          - else
-            = link_to t('.start'), join_bigbluebutton_room_path(@room), :class => "btn btn-small webconf-join-link btn-primary"
-    - if running
-      %li= icon_in_progress
+  -# .row
+  -#   .col-xs-12.col-sm-12
+  -#     %h3
+  -#       = "Your room's address"
+  -#       %span.observation= "(Use it to invite people to your conferences)"
+
+  .row
+    .col-xs-9.col-sm-9
+      .form-group
+        .input-group
+          = text_field_tag 'invite-url-text', join_webconf_url(@room), class: "form-control"
+          = link_to "", :class => "input-group-addon btn" do
+            %i.icon-awesome.fa.fa-paste
+          -# = link_to t('.invite'), invitation_bigbluebutton_room_path(@room), :class => "input-group-addon btn open-modal"
+    -#   = copyable_field 'invite-url-text', join_webconf_url(@room)
+    .col-xs-3.col-sm-3
+      = link_to "Send invitations", invitation_bigbluebutton_room_path(@room), :class => "btn btn-default open-modal col-sm-12 col-xs-12"
+
+  .webconference-types.row
+    .col-xs-4.col-md-4
+      .webconference-type
+        %i.fa.fa-gears.icon-awesome.webconference-icon
+        .title
+          = "Small meetings"
+        .subtitle
+          = "(one-to-one)"
+    .col-xs-4.col-md-4
+      .webconference-type.selected
+        .webconference-type-description
+          %i.fa.fa-check-circle.icon-awesome.icon-selected{ :title => "Conference type currently selected" }
+          %i.fa.fa-envelope.icon-awesome.webconference-icon
+          .title
+            = "Meetings"
+          .subtitle
+            = "(many-to-many)"
+          .configuration-options
+            = link_to edit_my_room_path, :class => 'open-modal btn btn-primary btn-xs', :'data-modal-width' => 'small' do
+              = icon_options
+              = "Configure"
+
+    .col-xs-4.col-md-4
+      .webconference-type
+        %i.fa.fa-user.icon-awesome.webconference-icon
+        .title
+          = "Webinar"
+        .subtitle
+          = "(one-to-many)"
+
+
+- cls = running ? "in-progress" : ""
+#user-webconference-start{ :class => cls }
+
+  - if running
+    %span.room-status.text-success
+      = icon_in_progress
+      = "There's a meeting in progress!"
+    = link_to t('.join'), join_bigbluebutton_room_path(@room), :class => "btn btn-small webconf-join-link btn-success"
+    - if can?(:end, @room)
+      = link_to t('.end'), end_bigbluebutton_room_path(@room, :redir_url => my_home_path), options_for_tooltip(t('.end_tooltip'), :confirm => t('are_you_sure'), :class => 'btn btn-small btn-danger')
+  - else
+    %span.room-status= "There's no meeting happening in this room right now"
+    -# only show the options dialog if the user can record and the record flag is not automatically set
+    -# - if can?(:record_meeting, @room) && !Site.current.webconf_auto_record
+    -#   = link_to t('.start'), join_options_bigbluebutton_room_path(@room), :class => "btn btn-small open-modal btn-primary", :'data-modal-width' => 'small'
+    -#   = link_to join_bigbluebutton_room_path(@room), options_for_tooltip(t(".fast_start"), :class => "btn btn-small btn-primary webconf-join-link") do
+    -#     = icon_webconf_start
+    -# - else
+    = link_to t('.start'), join_bigbluebutton_room_path(@room), :class => "btn webconf-join-link btn-success"
+  -# .btn-group
+  -#   .btn.btn-default.dropdown-toggle{ :"data-toggle" => "dropdown", :href => "#" }
+  -#     = icon_options
+  -#     .caret
+  -#   %ul.dropdown-menu.pull-right
+  -#     %li= link_to t('.invite'), invitation_bigbluebutton_room_path(@room), :class => 'open-modal'
+  -#     %li= link_to t('.preferences'), edit_my_room_path, :class => 'open-modal', :'data-modal-width' => 'small'
+  -#     %li= link_to t('.recordings'), my_recordings_path
+
+
+
+-# #webconference-room{ :class => active_cls }
+
+-#   .header
+-#     %h3
+-#       - if running
+-#         - if @room.participant_count == 0
+-#           - status = t('.running_with.no_participants')
+-#         - else
+-#           - status = t('.running_with.participants', :count => @room.participant_count)
+-#       - else
+-#         - status = t('.not_running')
+-#       = status.capitalize
+
+-#   .invite-url
+-#     = copyable_field 'invite-url-text', join_webconf_url(@room), :label => t('.your_url'), :readonly => true
+
+-#   %ul.action-buttons
+-#     %li
+-#       .btn-group
+-#         .btn.btn-small.dropdown-toggle{ :"data-toggle" => "dropdown", :href => "#" }
+-#           = icon_options
+-#           .caret
+-#         %ul.dropdown-menu.pull-right
+-#           %li= link_to t('.invite'), invitation_bigbluebutton_room_path(@room), :class => 'open-modal'
+-#           %li= link_to t('.preferences'), edit_my_room_path, :class => 'open-modal', :'data-modal-width' => 'small'
+-#           %li= link_to t('.recordings'), my_recordings_path
+-#     %li
+-#       .btn-group.webconf-join-group
+-#         - if running
+-#           = link_to t('.join'), join_bigbluebutton_room_path(@room), :class => "btn btn-small webconf-join-link btn-success"
+-#           - if can?(:end, @room)
+-#             = link_to t('.end'), end_bigbluebutton_room_path(@room, :redir_url => my_home_path), options_for_tooltip(t('.end_tooltip'), :confirm => t('are_you_sure'), :class => 'btn btn-small btn-danger')
+-#         - else
+-#           -# only show the options dialog if the user can record and the record flag is not automatically set
+-#           - if can?(:record_meeting, @room) && !Site.current.webconf_auto_record
+-#             = link_to t('.start'), join_options_bigbluebutton_room_path(@room), :class => "btn btn-small open-modal btn-primary", :'data-modal-width' => 'small'
+-#             = link_to join_bigbluebutton_room_path(@room), options_for_tooltip(t(".fast_start"), :class => "btn btn-small btn-primary webconf-join-link") do
+-#               = icon_webconf_start
+-#           - else
+-#             = link_to t('.start'), join_bigbluebutton_room_path(@room), :class => "btn btn-small webconf-join-link btn-primary"
+-#     - if running
+-#       %li= icon_in_progress

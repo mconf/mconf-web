@@ -40,8 +40,8 @@ $m-second-color: $m-bright-blue;
 $m-focus-border-color: $m-second-color;
 $m-font-h-color: $m-green-logo;
 // link colors
-$m-link-color: lighten($m-main-color, 15);
-$m-link-color-hover: $m-second-color;
+$m-link-color: #4183C4; //darken($m-bright-blue, 10); //#1C774D; //#1a925b; //lighten($m-green-logo, 10); //lighten($m-main-color, 15);
+$m-link-color-hover: $m-bright-blue; //m-orange;
 $m-link-color-active: darken($m-link-color-hover, 15);
 
 // alert colors, like the ones in bootstrap alerts
@@ -68,9 +68,9 @@ $m-sidebar-width: 240px;
 $m-navbar-bg-color-dark: darken($m-green-logo, 3);
 $m-navbar-bg-color-light: $m-green-logo;
 $m-subnav-bg-color: #eee;
-$m-navbar-height: 35px;
-$m-navbar-font-color: #bbb;
-$m-navbar-font-color-hover: white;
+$m-navbar-height: 40px;
+$m-navbar-font-color: #ddd;//$m-font-color;
+$m-navbar-font-color-hover: white; //$m-link-color-hover;
 $m-navbar-menu-open-bg: $m-site-bg-color;
 $m-navbar-menu-open-link: $m-link-color;
 $m-navbar-menu-open-link-hover: $m-link-color-hover;
@@ -123,24 +123,24 @@ $m-z-index-tooltip: 999999;
     padding: 2px;
     border: 1px solid #ddd;
     @include border-radius(2px);
-    &:hover { border: 1px solid desaturate(lighten($m-second-color, 20), 10); }
+    &:hover { border: 1px solid $m-focus-border-color; }
 
     // default dimensions for logos inside threads
     &.logo-space {
-      width: 40px;
-      height: 30px;
+      width: 52px;
+      height: 39px;
     }
     &.logo-user {
-      width: 32px;
-      height: 32px;
+      width: 39px;
+      height: 39px;
     }
     &.logo-user-big {
       width: 48px;
       height: 48px;
     }
     &.logo-removed {
-      width: 32px;
-      height: 32px;
+      width: 39px;
+      height: 39px;
     }
   }
 
@@ -240,6 +240,11 @@ $m-z-index-tooltip: 999999;
   }
 }
 
+@mixin link-on-menus {
+  &:hover { text-decoration: none; }
+}
+
+
 // Bootstrap variables
 // See all available at http://getbootstrap.com/customize/#less-variables
 // Some we just define with their default values because we might need them when using
@@ -252,7 +257,7 @@ $m-z-index-tooltip: 999999;
 /*
  * Customized variables for bootstrap
  */
-$m-link-color: #367380;
+//$m-link-color: #367380;
 // $btn-primary-bg: #5bc0de;
 // $btnPrimaryBackgroundHighlight: #2f96b4;
 $m-navbar-default-bg: #0a3138;

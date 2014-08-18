@@ -10,17 +10,17 @@ $default-icon-color: #888; /* lighten($m-green-logo, 10); */
 $light-icon-color: #aaa;
 
 .icon-awesome {
-  margin: 2px 5px 0 0;
-  @include font-size(14px);
-  width: 14px;
-  height: 14px;
-  float: left;
+  /* margin: 2px 5px 0 0; */
+  /* @include font-size(14px); */
+  /* width: 14px; */
+  /* height: 14px; */
+  /* float: left; */
   color: $default-icon-color;
-  cursor: normal;
+  /* cursor: normal; */
 
-  &.icon-white {
-    color: white;
-  }
+  /* &.icon-white { */
+  /*   color: white; */
+  /* } */
 }
 
 h2 .icon-awesome {
@@ -30,6 +30,7 @@ h2 .icon-awesome {
 }
 
 a .icon-awesome {
+  @include link-colors($m-link-color, $m-link-color-hover, $m-link-color-active);
   cursor: pointer;
   &:hover { color: $m-link-color-hover; }
   &:active { color: $m-link-color-active; }

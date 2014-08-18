@@ -27,7 +27,7 @@ module IconsHelper
   end
 
   def icon_comment(title=nil, options={})
-    icon_constructor title, "icon-awesome icon-comment icon-mconf-comment", options
+    icon_constructor title, "icon-awesome fa fa-comment icon-mconf-comment", options
   end
 
   def icon_comments(title=nil, options={})
@@ -88,15 +88,15 @@ module IconsHelper
   end
 
   def icon_profile(options={})
-    icon_constructor nil, "icon-awesome icon-user icon-mconf-profile", options
+    icon_constructor nil, "icon-awesome fa fa-user icon-mconf-profile", options
   end
 
   def icon_account(options={})
-    icon_constructor nil, "icon-awesome icon-wrench icon-mconf-account", options
+    icon_constructor nil, "icon-awesome fa fa-wrench icon-mconf-account", options
   end
 
   def icon_activity(options={})
-    icon_constructor nil, "icon-awesome icon-list-alt icon-mconf-activity", options
+    icon_constructor nil, "icon-awesome fa fa-list-alt icon-mconf-activity", options
   end
 
   def icon_create(options={})
@@ -228,7 +228,7 @@ module IconsHelper
   end
 
   def icon_options(options={})
-    icon_constructor nil, "icon-awesome icon-gears icon-mconf-options", options
+    icon_constructor nil, "icon-awesome fa fa-gears icon-mconf-options", options
   end
 
   def icon_join_request(options={})

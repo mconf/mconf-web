@@ -1,6 +1,11 @@
 #main-logo
   - url = user_signed_in? ? main_app.my_home_path : main_app.root_path
-  %a.title{:href => url}= current_site.name
+  -# %a.title{:href => url}= current_site.name
+  %a.title{:href => url}
+    -# = image_tag "logos/mconf-color-transp.png", size: "54x28"
+    = image_tag "logos/mconf-white-transp.png", size: "54x28"
+    -# = image_tag "logos/mconf-ico-color-transp.png", size: "32x32"
+
 
 %ul#navbar-left-links
   - if user_signed_in?
@@ -11,7 +16,7 @@
       = link_to main_app.messages_path do
         = t('.inbox')
         - if current_user.unread_private_messages.size > 0
-          .label.label-important= current_user.unread_private_messages.size
+          .label.label-danger= current_user.unread_private_messages.size
         - else
           .label.label-success= 0
     %li

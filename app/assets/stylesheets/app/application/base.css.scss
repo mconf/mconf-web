@@ -66,7 +66,7 @@ form {
 // Unified style for threads: posts, news, attachments
 .thread {
   clear: both;
-  padding: 20px 4px 8px 4px;
+  padding: 10px 4px 8px 4px;
   margin: 1px 0;
   @include mconf-clearfix;
   //border-bottom: 1px solid #eee;
@@ -75,10 +75,6 @@ form {
   position: relative;
 
   .thread-title {
-
-    .icon-awesome {
-      margin: 1px 5px 0px 0px;
-    }
 
     // usually seen inside .resource-visibility
     .small > .icon-awesome {
@@ -97,7 +93,8 @@ form {
   }
 
   .thread-content {
-    margin-left: 55px;
+    margin-top: 3px;
+    margin-left: 50px;
 
     &.thread-content-full {
       margin-left: 0;
@@ -127,7 +124,6 @@ form {
   .thread-updated-at {
     color: #666;
     @include font-size($m-font-small);
-    padding: 2px 0;
     font-weight: normal;
   }
 
@@ -199,8 +195,9 @@ form {
 
 #site {
   background-color: $m-site-bg-color;
-  margin: 0px auto;
-  width: 100%;
+  /* margin: 0px auto; */
+  /* width: 100%; */
+  padding: 0;
 }
 
 #navbar-wrapper {
@@ -208,16 +205,17 @@ form {
   padding: 0 10px;
   background: $m-navbar-bg-color-dark;
   @include background(linear-gradient(bottom, $m-navbar-bg-color-light, $m-navbar-bg-color-dark));
+  border-bottom: 1px solid $m-gray;
 }
 
 #navbar {
   @include make-row;
   @include set-max-site-width;
   margin: 0 auto;
-  padding: 0;
+  padding: 0 10px;
   height: $m-navbar-height;
   color: $m-navbar-font-color;
-  @include font-size(12px);
+  //@include font-size(12px);
 }
 
 #content-wrapper {
@@ -361,7 +359,7 @@ ul#navbar-left-links {
   li {
     display: inline;
     float: left;
-    margin-top: 10px;
+    margin-top: 11px;
     margin-left: 10px;
     margin-right: 15px;
 
@@ -653,7 +651,6 @@ ul#navbar-left-links {
   @include set-max-site-width;
 
   margin: 0 auto;
-  padding: 20px 10px 0 0;
 
   // best way found to use mconf-clearfix and still get the element
   // centralized and with the correct margins/paddings

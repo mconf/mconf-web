@@ -21,28 +21,31 @@
     = yield :headers
 
   %body{:class => "#{controller_name_for_view} #{params[:action]}"}
-    #site
+    #site.container-fluid.container-xs-height
       #navbar-wrapper
         #navbar
           = render :partial => 'layouts/application_navbar'
 
-      #page-header-wrapper
-        #page-header
-          - if content_for?(:page_header)
-            = yield :page_header
-          - else
-            = render :partial => "layouts/spaces_page_title"
-          - if content_for?(:page_menu)
-            #page-menu
-              = yield :page_menu
+      -# #page-header-wrapper
+      -#   #page-header
+      -#     - if content_for?(:page_header)
+      -#       = yield :page_header
+      -#     - else
+      -#       = render :partial => "layouts/spaces_page_title"
+      -#     - if content_for?(:page_menu)
+      -#       #page-menu
+      -#         = yield :page_menu
 
-      #content-wrapper
-        #content
-          #content-middle
-            = yield
-          - if content_for?(:sidebar)
-            #sidebar
-              = yield :sidebar
+      -# #content-wrapper
+      #content
+        - if content_for?(:main_sidebar)
+          #main-sidebar
+            = yield :main_sidebar
+        #content-middle
+          = yield
+        - if content_for?(:sidebar)
+          #sidebar
+            = yield :sidebar
 
       #footer-pusher
 
