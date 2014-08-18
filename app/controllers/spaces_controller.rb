@@ -229,14 +229,11 @@ class SpacesController < ApplicationController
   # there, the before_filters and other methods don't really match. It's more related to spaces then
   # to webconference rooms.
   def webconference
-    # FIXME: Temporarily matching users by name, should use the userID
     @webconf_attendees = []
     unless @webconf_room.attendees.nil?
       @webconf_room.attendees.each do |attendee|
-        profile = Profile.where(user_id: attendee.user_id).first
-        unless profile.nil?
-          @webconf_attendees << profile.user
-        end
+        user = User.where(id: attendee.user_id).first
+        @webconf_attendees << user unless user.nil?
       end
     end
     render :layout => 'spaces_show'
