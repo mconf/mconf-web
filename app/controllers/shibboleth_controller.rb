@@ -44,7 +44,14 @@ class ShibbolethController < ApplicationController
 
       # no token means the user has no association yet, render a page to do it
       else
-        unless get_always_new_account
+        if !token.nil? && token.user.nil? 
+          user = User.with_disabled.where(id: token.user_id).first
+          if user.disabled
+            logger.info "Shibolleth: user local account is disabled, can't login"
+            flash[:error] = t('shibboleth.login.local_account_disabled')
+            redirect_to root_path
+          end
+        elsif !get_always_new_account
           logger.info "Shibboleth: first access for this user, rendering the association page"
           render :associate
         else
