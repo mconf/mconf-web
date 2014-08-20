@@ -205,7 +205,7 @@ class Space < ActiveRecord::Base
       :owner => self,
       :server => BigbluebuttonServer.default,
       :param => self.permalink,
-      :name => self.permalink,
+      :name => self.name,
       :private => !self.public,
       :moderator_password => SecureRandom.hex(4),
       :attendee_password => SecureRandom.hex(4),
@@ -218,8 +218,7 @@ class Space < ActiveRecord::Base
   def update_webconf_room
     if self.bigbluebutton_room
       params = {
-        :param => self.permalink,
-        :name => self.permalink,
+        :name => self.name,
         :private => !self.public
       }
       bigbluebutton_room.update_attributes(params)

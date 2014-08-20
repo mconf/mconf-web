@@ -391,7 +391,7 @@ describe Space do
 
       it "with param and name equal the space's permalink" do
         space.bigbluebutton_room.param.should eql(space.permalink)
-        space.bigbluebutton_room.name.should eql(space.permalink)
+        space.bigbluebutton_room.name.should eql(space.name)
       end
 
       it "with the default logout url" do
@@ -417,7 +417,7 @@ describe Space do
       let(:space) { FactoryGirl.create(:space, :name => "Old Name", :public => true) }
       before(:each) { space.update_attributes(:name => "New Name", :public => false) }
       it { space.bigbluebutton_room.param.should be(space.permalink) }
-      it { space.bigbluebutton_room.name.should be(space.permalink) }
+      it { space.bigbluebutton_room.name.should be(space.name) }
       it { space.bigbluebutton_room.private.should be(true) }
     end
 

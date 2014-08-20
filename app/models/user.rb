@@ -142,7 +142,7 @@ class User < ActiveRecord::Base
       :owner => self,
       :server => BigbluebuttonServer.default,
       :param => self.username,
-      :name => self.username,
+      :name => self._full_name,
       :logout_url => "/feedback/webconf/",
       :moderator_password => SecureRandom.hex(4),
       :attendee_password => SecureRandom.hex(4)
@@ -153,8 +153,7 @@ class User < ActiveRecord::Base
   def update_webconf_room
     if self.username_changed?
       params = {
-        :param => self.username,
-        :name => self.username
+        :param => self.username
       }
       bigbluebutton_room.update_attributes(params)
     end

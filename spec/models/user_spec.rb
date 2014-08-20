@@ -59,7 +59,7 @@ describe User do
 
     it "has param and name equal the user's username" do
       user.bigbluebutton_room.param.should eql(user.username)
-      user.bigbluebutton_room.name.should eql(user.username)
+      user.bigbluebutton_room.name.should eql(user._full_name)
     end
 
     it "has the default logout url" do
@@ -141,7 +141,7 @@ describe User do
       let(:user) { FactoryGirl.create(:user, :username => "old-user-name") }
       before(:each) { user.update_attributes(:username => "new-user-name") }
       it { user.bigbluebutton_room.param.should be(user.username) }
-      it { user.bigbluebutton_room.name.should be(user.username) }
+      it { user.bigbluebutton_room.name.should_not be(user.username) }
     end
   end
 
