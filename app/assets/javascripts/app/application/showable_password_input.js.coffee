@@ -18,7 +18,7 @@ $ ->
 
 # Changes the type of an input tag.
 # Example:
-#   changeInputType("#moderator_password", 'password')
+#   changeInputType("#moderator_key", 'password')
 changeInputType = (id, type) ->
   marker = $("<span />").insertBefore(id)
   $(id).detach().attr("type", type).insertAfter marker

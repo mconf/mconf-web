@@ -24,5 +24,5 @@
 <%= t('.message.join') + ': ' + invitation.url %>
 
 <% if invitation.room.private %>
-  <%= t('.message.password') + ': ' + invitation.room.attendee_password %>
+  <%= t('.message.password') + ': ' + invitation.room.attendee_key %>
 <% end %>

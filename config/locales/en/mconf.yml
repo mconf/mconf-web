@@ -190,9 +190,9 @@ en:
         xmpp_server: "XMPP Server Address"
         webconf_auto_record: "Automatically set the recording flag when creating a web conference"
       space:
-        attendee_password: "Attendee password"
+        attendee_key: "Key for attendees"
         description: "Description"
-        moderator_password: "Moderator password"
+        moderator_key: "Key for moderators"
         name: "Name"
         permalink: "Identifier"
         public: "Public"

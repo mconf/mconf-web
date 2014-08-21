@@ -47,11 +47,11 @@ describe WebConferenceMailer do
       }
       it("renders the attendee password if the room is private") {
         invitation.target.update_attributes(private: true)
-        mail.body.encoded.should match(invitation.target.attendee_password)
+        mail.body.encoded.should match(invitation.target.attendee_key)
       }
       it("doesn't render the attendee password if the room is public") {
         invitation.target.update_attributes(private: false)
-        mail.body.encoded.should_not match(invitation.target.attendee_password)
+        mail.body.encoded.should_not match(invitation.target.attendee_key)
       }
     end
 
