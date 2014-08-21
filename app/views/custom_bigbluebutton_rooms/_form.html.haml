@@ -16,6 +16,8 @@
   = f.input :private, :as => :boolean, :disabled => !editing
   = f.input :attendee_key, :disabled => !editing
   = f.input :moderator_key, :disabled => !editing
+  = f.input :attendee_api_password, :disabled => true
+  = f.input :moderator_api_password, :disabled => true
   = f.input :welcome_msg, :disabled => !editing
   = f.input :logout_url, :disabled => !editing
   = f.input :dial_number, :disabled => !editing

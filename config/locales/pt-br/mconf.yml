@@ -190,9 +190,9 @@ pt-br:
         xmpp_server: "Endereço do servidor XMPP"
         webconf_auto_record: "Atribuir automaticamente a opção de gravação ao iniciar uma conferência"
       space:
-        attendee_key: "Senha de participante"
+        attendee_key: "Chave para participantes"
         description: "Descrição"
-        moderator_key: "Chave de moderador"
+        moderator_key: "Chave para moderadores"
         name: "Nome"
         permalink: "Identificador"
         public: "Pública"
@@ -299,9 +299,9 @@ pt-br:
   back_to_inbox: "Voltar para caixa de entrada"
   back_to_sent: "Voltar para Enviadas"
   bbb_room:
-    attendeePW: "Chave do Participante"
+    attendeePW: "Senha do Participante"
     edit: "Configure sua sala de webconferência"
-    moderatorPW: "Chave do Moderador"
+    moderatorPW: "Senha do Moderador"
     private: "Sala Privada"
   beta: beta
   bigbluebutton: BigBlueButton
@@ -962,7 +962,7 @@ pt-br:
     special1: "A plataforma Mconf estará indisponível a partir de sexta-feira, 17 dezembro às 16:00 UTC, até sábado, 18-Dez 16:00 UTC. Desculpem o incómodo."
     special2: "A Equipe do Mconf"
     to: Para 
-  moderatorPW: "Chave de Moderador"
+  moderatorPW: "Senha de Moderador"
   more: mais...
   more_arrows: "mais >>"
   my:
@@ -1234,7 +1234,7 @@ pt-br:
       name_enter: "Insira seu nome"
       password: "Senha:"
       password_filled: "Esta sala é pública. A senha foi preenchida automaticamente."
-      password_role: "Digite a chave de moderador ou participante."
+      password_role: "Digite a senha de moderador ou participante."
       status: "Status da reunião: "
     join:
       msg1: "Esta reunião ainda não começou, espere pelo moderador."
@@ -1387,7 +1387,7 @@ pt-br:
       use_date: "Use data do evento"
     member_count: "%{count} membros"
     member_of: "Membro das comunidades"
-    moderatorPW: "editar chave de moderador"
+    moderatorPW: "editar senha de moderador"
     my_spaces: "Minhas comunidades"
     name_none: "Um nome deve ser dado para criar uma nova comunidade"
     one: Comunidade

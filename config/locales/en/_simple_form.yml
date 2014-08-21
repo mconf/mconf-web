@@ -54,10 +54,10 @@ en:
         webconf_auto_record: "If true, the record flag will be set automatically according to whether the user has permission to record meetings in the target room or not (useful if your web conference servers have the record button inside the session). Otherwise, the user will have to set the record flag himself when opening a new webconference (but only if he has permissions to)."
       space:
         bigbluebutton_room:
-          attendee_key: "This key will only be used if the space is set as private!"
+          attendee_key: "A key for users to join the session as attendees. Do not reuse real passwords here. This key will only be necessary if the space is set as private."
           auto_start_audio: "Check this option to automatically share a user's microphone after joining a meeting"
           auto_start_video: "Check this option to automatically share a user's camera after joining a meeting"
-          moderator_key: "This key will only be used if the space is set as private!"
+          moderator_key: "A key for users to join the session as moderators. Do not reuse real passwords here. This key will only be necessary if the space is set as private."
           presenter_share_only: "When set to true only the presenter is allowed to share his webcam and microphone. This is great for one-to-many conferences."
           welcome_msg: "This message will be shown on the chat when a user joins the conference. Leave it empty to use the default message. You can include meeting specific information with the variables %%CONFNAME%%, %%DIALNUM%% and %%CONFNUM%%"
         permalink: "This attribute is used to identify your space in URLs, including the URL of its conference room"
@@ -66,12 +66,12 @@ en:
       user:
         approved: "If checked, the user will be able to access the website, otherwise his login will be blocked."
         bigbluebutton_room:
-          attendee_key: "This key will only be used if the room is set as private!"
+          attendee_key: "A key for users to join the session as attendees. Do not reuse real passwords here. This key will only be necessary if the room is set as private."
           auto_start_audio: "Check this option to automatically share a user's microphone after joining a meeting"
           auto_start_video: "Check this option to automatically share a user's camera after joining a meeting"
-          moderator_key: "This key will only be used if the room is set as private!"
+          moderator_key: "A key for users to join the session as moderators. Do not reuse real passwords here. This key will only be necessary if the room is set as private."
           presenter_share_only: "When set to true only the presenter is allowed to share his webcam and microphone. This is great for one-to-many conferences."
-          private: "Private rooms require a key for users to join. Public rooms can be accessed by anyone with its link. Only you can start a conference in your room, regardless of if it's private or public."
+          private: "Private rooms require a password for users to join. Public rooms can be accessed by anyone with its link. Only you can start a conference in your room, regardless of if it's private or public."
           welcome_msg: "This message will be shown on the chat when a user joins the conference. Leave it empty to use the default message. You can include meeting specific information with the variables %%CONFNAME%%, %%DIALNUM%% and %%CONFNUM%%"
         can_record: "Check this option to allow this user to record meetings in his personal room or in rooms of spaces he belongs to"
         superuser: "Check this option to make this user a global administrator of this website"

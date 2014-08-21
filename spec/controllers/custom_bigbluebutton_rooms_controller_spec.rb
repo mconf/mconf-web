@@ -46,7 +46,7 @@ describe CustomBigbluebuttonRoomsController do
 
       context "template" do
         let(:hash) { { :server_id => room.server.to_param, :id => room.to_param } }
-        before { controller.should_receive(:bigbluebutton_role) { :password } }
+        before { controller.should_receive(:bigbluebutton_role) { :key } }
         before(:each) {
           login_as(FactoryGirl.create(:superuser))
           get :invite, hash
@@ -331,7 +331,7 @@ describe CustomBigbluebuttonRoomsController do
             room.should_receive(:fetch_new_token)
             room.should_receive(:join_url).and_return("http://test.com/attendee/join")
           end
-          before(:each) { post :join, :id => room.to_param, :user => { :password => room.moderator_key, :name => "Any Name" } }
+          before(:each) { post :join, :id => room.to_param, :user => { :key => room.moderator_key, :name => "Any Name" } }
           it { should respond_with(:redirect) }
           it { should redirect_to("http://test.com/attendee/join") }
         end
@@ -347,7 +347,7 @@ describe CustomBigbluebuttonRoomsController do
             # to guide the behavior of #join, copied from the tests in BigbluebuttonRails
             server.api.stub(:is_meeting_running?) { false }
           end
-          before(:each) { post :join, :id => room.to_param, :user => { :password => room.moderator_key, :name => "Any Name" } }
+          before(:each) { post :join, :id => room.to_param, :user => { :key => room.moderator_key, :name => "Any Name" } }
           it { should respond_with(:redirect) }
           it { should redirect_to("/any") }
           it { should set_the_flash.to(I18n.t('bigbluebutton_rails.rooms.errors.join.cannot_create')) }
@@ -375,7 +375,7 @@ describe CustomBigbluebuttonRoomsController do
     context "for a superuser", :user => "superuser" do
       let(:user) { FactoryGirl.create(:superuser) }
       let(:hash) { { :id => room.to_param } }
-      let(:hash_with_user) { hash.merge({ :user => { :name => "User Name", :password => room.attendee_key } }) }
+      let(:hash_with_user) { hash.merge({ :user => { :name => "User Name", :key => room.attendee_key } }) }
 
       before(:each) {
         login_as(user)
@@ -449,7 +449,7 @@ describe CustomBigbluebuttonRoomsController do
     context "for a normal user", :user => "normal" do
       let(:user) { FactoryGirl.create(:user) }
       let(:hash) { { :id => room.to_param } }
-      let(:hash_with_user) { hash.merge({ :user => { :name => "User Name", :password => room.attendee_key } }) }
+      let(:hash_with_user) { hash.merge({ :user => { :name => "User Name", :key => room.attendee_key } }) }
 
       before(:each) {
         login_as(user)
@@ -643,7 +643,7 @@ describe CustomBigbluebuttonRoomsController do
 
     context "for an anonymous user", :user => "anonymous" do
       let(:hash) { { :id => room.to_param } }
-      let(:hash_with_user) { hash.merge({ :user => { :name => "User Name", :password => room.attendee_key } }) }
+      let(:hash_with_user) { hash.merge({ :user => { :name => "User Name", :key => room.attendee_key } }) }
 
       it { should require_authentication_for(:index) }
       it { should require_authentication_for(:new) }
