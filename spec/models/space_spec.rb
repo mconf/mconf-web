@@ -285,14 +285,6 @@ describe Space do
     end
   end
 
-  describe "#unique_pageviews" do
-    it("if there are no stats returns 0") {
-      space.unique_pageviews.should be(0)
-    }
-    it "returns the unique pageviews for the target space"
-    it "throws an exception if the statistics are wrong"
-  end
-
   describe "#add_member!" do
     let(:space) { FactoryGirl.create(:space) }
     let(:user) { FactoryGirl.create(:user) }

@@ -43,10 +43,5 @@
         - @space.admins.each do |user|
           = render :partial => 'users/simple_user', :locals => { :user => user }
 
-    = render_sidebar_content_block('sidebar-pageviews') do
-      %span.value= @space.unique_pageviews
-      %span= t('space.statistics.views')
-      = icon_help t("tooltip.num_views"), :class => 'leftwards'
-
     - if user_signed_in? && @space.users.include?(current_user) && !(@space.is_last_admin?(current_user))
       = render :partial => 'spaces/sidebar_leave_space'

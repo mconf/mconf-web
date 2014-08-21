@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140721191825) do
+ActiveRecord::Schema.define(version: 20140820214500) do
 
   create_table "activities", force: true do |t|
     t.integer  "trackable_id"
@@ -377,13 +377,6 @@ ActiveRecord::Schema.define(version: 20140721191825) do
     t.boolean  "disabled",    default: false
     t.boolean  "repository",  default: false
     t.string   "logo_image"
-  end
-
-  create_table "statistics", force: true do |t|
-    t.string   "url"
-    t.integer  "unique_pageviews"
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
   create_table "users", force: true do |t|

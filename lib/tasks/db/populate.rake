@@ -21,7 +21,6 @@ namespace :db do
     if ENV['CLEAR']
       puts "*** Destroying all resources!"
       PrivateMessage.destroy_all
-      Statistic.destroy_all
       Permission.destroy_all
       Space.destroy_all
       if configatron.modules.events.enabled
@@ -316,12 +315,8 @@ namespace :db do
 
     Post.record_timestamps = false
 
-    puts "* Create statistics and last details for spaces (#{Space.count} spaces)"
+    puts "* Create posts and last details for spaces (#{Space.count} spaces)"
     Space.all.each do |space|
-      Statistic.create do |statistic|
-        statistic.url = "/spaces/" + space.permalink
-        statistic.unique_pageviews = 0..300
-      end
 
       total_posts = space.posts.to_a
       # The first Post should not have parent

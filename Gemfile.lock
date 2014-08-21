@@ -1,8 +1,28 @@
 GIT
-  remote: https://github.com/sevenwire/forgery.git
-  revision: b20bb0b99f0d9291d0704827ca86095bae20a192
+  remote: git://github.com/fnando/i18n-js.git
+  revision: 9fd4cc6de4601dc496e676521fcde78532a63ccf
   specs:
-    forgery (0.6.0)
+    i18n-js (3.0.0.rc6)
+      i18n (~> 0.6)
+
+GIT
+  remote: git://github.com/mconf/bigbluebutton-api-ruby.git
+  revision: 310c1764b33043e5b6460d33fc2004dd74342083
+  branch: master
+  specs:
+    bigbluebutton-api-ruby (1.3.0)
+      xml-simple (>= 1.1.1)
+
+GIT
+  remote: git://github.com/mconf/bigbluebutton_rails.git
+  revision: 2909554c93772c9a3c75c572b3bfe8125ff51c4f
+  branch: master
+  specs:
+    bigbluebutton_rails (2.0.0)
+      bigbluebutton-api-ruby (~> 1.3.0)
+      browser (~> 0.5.0)
+      rails (>= 4.0.0)
+      resque (~> 1.25.1)
 
 GIT
   remote: git://github.com/mconf/translate.git
@@ -43,25 +63,6 @@ GIT
       valid_email
 
 GIT
-  remote: git://github.com/mconf/bigbluebutton_rails.git
-  revision: 2909554c93772c9a3c75c572b3bfe8125ff51c4f
-  branch: master
-  specs:
-    bigbluebutton_rails (2.0.0)
-      bigbluebutton-api-ruby (~> 1.3.0)
-      browser (~> 0.5.0)
-      rails (>= 4.0.0)
-      resque (~> 1.25.1)
-
-GIT
-  remote: git://github.com/mconf/bigbluebutton-api-ruby.git
-  revision: 310c1764b33043e5b6460d33fc2004dd74342083
-  branch: master
-  specs:
-    bigbluebutton-api-ruby (1.3.0)
-      xml-simple (>= 1.1.1)
-
-GIT
   remote: https://github.com/Fire-Dragon-DoL/valid_email.git
   revision: 905122768d497218d395180ad05da611f6f9c87d
   specs:
@@ -70,11 +71,10 @@ GIT
       mail
 
 GIT
-  remote: git://github.com/fnando/i18n-js.git
-  revision: 9fd4cc6de4601dc496e676521fcde78532a63ccf
+  remote: https://github.com/sevenwire/forgery.git
+  revision: b20bb0b99f0d9291d0704827ca86095bae20a192
   specs:
-    i18n-js (3.0.0.rc6)
-      i18n (~> 0.6)
+    forgery (0.6.0)
 
 GEM
   remote: https://rubygems.org/
@@ -187,9 +187,6 @@ GEM
       railties (>= 3.2, < 5.0)
     friendly_id (5.0.4)
       activerecord (>= 4.0.0)
-    garb (0.9.8)
-      activesupport (>= 2.2)
-      multi_json (>= 1.3)
     geocoder (1.2.3)
     haml (4.0.5)
       tilt
@@ -437,7 +434,6 @@ DEPENDENCIES
   font-awesome-rails (~> 4.1.0.0)
   forgery!
   friendly_id
-  garb
   haml
   handlebars_assets
   htmlentities
