@@ -67,10 +67,10 @@ describe User do
     end
 
     it "has random passwords set" do
-      user.bigbluebutton_room.attendee_password.should_not be_blank
-      user.bigbluebutton_room.attendee_password.length.should be(8)
-      user.bigbluebutton_room.moderator_password.should_not be_blank
-      user.bigbluebutton_room.moderator_password.length.should be(8)
+      user.bigbluebutton_room.attendee_key.should_not be_blank
+      user.bigbluebutton_room.attendee_key.length.should be(8)
+      user.bigbluebutton_room.moderator_key.should_not be_blank
+      user.bigbluebutton_room.moderator_key.length.should be(8)
     end
 
     skip "has the server as the first server existent"

@@ -357,7 +357,7 @@ class SpacesController < ApplicationController
     [ :name, :description, :logo_image, :public, :permalink, :disabled, :repository,
       :crop_x, :crop_y, :crop_w, :crop_h,
       :bigbluebutton_room_attributes =>
-        [ :id, :attendee_password, :moderator_password, :default_layout,
+        [ :id, :attendee_key, :moderator_key, :default_layout,
           :welcome_msg, :presenter_share_only, :auto_start_video, :auto_start_audio ] ]
   end
 end

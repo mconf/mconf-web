@@ -22,7 +22,7 @@ en:
         server_id: "Server ID"
         start_time: "Start Time"
       bigbluebutton_room:
-        attendee_password: "Attendee Password"
+        attendee_key: "Attendee Password"
         default_layout: "Default Layout"
         presenter_share_only: "Only presenter shares audio and video"
         auto_start_video: "Auto start video"
@@ -34,7 +34,7 @@ en:
         max_participants: "Maximum Number of Participants"
         meetingid: "Meeting ID"
         metadata: Metadata
-        moderator_password: "Moderator Password"
+        moderator_key: "Moderator Password"
         name: Name
         param: "String ID"
         private: Private

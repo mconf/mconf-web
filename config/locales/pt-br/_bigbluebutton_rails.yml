@@ -22,7 +22,7 @@ pt-br:
         server_id: "ID do Servidor"
         start_time: "Horário de Início"
       bigbluebutton_room: 
-        attendee_password: "Senha de Participante"
+        attendee_key: "Senha de Participante"
         default_layout: "Layout Padrão"
         presenter_share_only: "Somente apresentador compartilha áudio e vídeo"
         auto_start_video: "Auto iniciar vídeo"
@@ -34,7 +34,7 @@ pt-br:
         max_participants: "Número Máximo de Participantes"
         meetingid: "ID da Reunião"
         metadata: Metadados
-        moderator_password: "Senha de Moderador"
+        moderator_key: "Senha de Moderador"
         name: Nome
         param: Identificador
         private: Privada

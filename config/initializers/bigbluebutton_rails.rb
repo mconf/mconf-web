@@ -14,12 +14,12 @@ Rails.application.config.to_prepare do
 
       case role
       when :moderator
-        self.server.api.join_meeting_url(self.meetingid, username, self.moderator_password, options)
+        self.server.api.join_meeting_url(self.meetingid, username, self.moderator_api_password, options)
       when :attendee
-        self.server.api.join_meeting_url(self.meetingid, username, self.attendee_password, options)
+        self.server.api.join_meeting_url(self.meetingid, username, self.attendee_api_password, options)
       when :guest
         params = { :guest => true }.merge(options)
-        self.server.api.join_meeting_url(self.meetingid, username, self.attendee_password, params)
+        self.server.api.join_meeting_url(self.meetingid, username, self.attendee_api_password, params)
       else
         self.server.api.join_meeting_url(self.meetingid, username, password, options)
       end

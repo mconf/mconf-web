@@ -10,8 +10,8 @@
     .modal-body
       = hidden_field_tag :redir_url, @redir_url
       = f.input :private, :hint => t('simple_form.hints.user.bigbluebutton_room.private')
-      = f.input :moderator_password, :as => :showable_password, :label => t('bbb_room.moderatorPW'), :hint => t('simple_form.hints.user.bigbluebutton_room.moderator_password')
-      = f.input :attendee_password, :as => :showable_password, :label => t('bbb_room.attendeePW'), :hint => t('simple_form.hints.user.bigbluebutton_room.attendee_password')
+      = f.input :moderator_key, :as => :showable_password, :label => t('bbb_room.moderatorPW'), :hint => t('simple_form.hints.user.bigbluebutton_room.moderator_key')
+      = f.input :attendee_key, :as => :showable_password, :label => t('bbb_room.attendeePW'), :hint => t('simple_form.hints.user.bigbluebutton_room.attendee_key')
       = f.input :welcome_msg, :as => :text, :hint => t('simple_form.hints.user.bigbluebutton_room.welcome_msg'), :placeholder => t("bigbluebutton_rails.rooms.default_welcome_msg", :name => "%%CONFNAME%%", :voice_number => "%%DIALNUM%%")
       = f.input :default_layout do
         = f.select :default_layout, @room.get_available_layouts, :include_blank => t('.layout_empty_option')
