@@ -8,7 +8,7 @@ feature 'User accesses an URL of a user that' do
     before { visit user_path(user) }
     subject { page }
 
-    it { should have_title(t('profile.header_title')) }
+    it { should have_title(user.name) }
     it { should have_content(user.name) }
   end
 

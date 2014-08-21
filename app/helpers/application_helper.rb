@@ -39,9 +39,9 @@ module ApplicationHelper
   end
 
   def page_title title, opt ={}
-    inside_resource = "#{opt[:in]}: " if opt[:in].present?
+    inside_resource = " #{opt[:in]} &#149;" if opt[:in].present?
     content_for :title do
-      "#{inside_resource}#{title} [#{current_site.name}]"
+      "#{title} &#149;#{inside_resource} #{current_site.name}".html_safe
     end
   end
 
