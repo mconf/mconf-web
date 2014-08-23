@@ -16,7 +16,6 @@ body.my.home, body.my.activity, body.my.recordings {
   /* // slightly wider sidebar */
   /* @include set-sidebar-width($m-sidebar-width + 100px); */
 
-  $main-sidebar-border: darken($m-light-gray, 15);
 
   #navbar {
     a {
@@ -27,19 +26,6 @@ body.my.home, body.my.activity, body.my.recordings {
 
   #content {
     padding: 0;
-  }
-
-  #content-middle {
-    @include make-xs-column(12, 0);
-    @include make-sm-column(9, 0);
-  }
-
-  #main-sidebar {
-    background: $m-light-gray;
-    border-right: 1px solid $main-sidebar-border;
-    @include make-xs-column(12);
-    @include make-sm-column(3);
-    padding: 10px 10px 10px 20px;
   }
 
   #main-sidebar-menu {

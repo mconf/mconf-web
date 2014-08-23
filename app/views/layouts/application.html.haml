@@ -21,7 +21,7 @@
     = yield :headers
 
   %body{:class => "#{controller_name_for_view} #{params[:action]}"}
-    #site.container-fluid.container-xs-height
+    #site.container-fluid
       #navbar-wrapper
         #navbar
           = render :partial => 'layouts/application_navbar'
@@ -37,15 +37,16 @@
       -#         = yield :page_menu
 
       -# #content-wrapper
-      #content
-        - if content_for?(:main_sidebar)
-          #main-sidebar
-            = yield :main_sidebar
-        #content-middle
-          = yield
-        - if content_for?(:sidebar)
-          #sidebar
-            = yield :sidebar
+      #content.container-fluid
+        #content-row
+          - if content_for?(:main_sidebar)
+            #main-sidebar
+              = yield :main_sidebar
+          #content-middle
+            = yield
+          - if content_for?(:sidebar)
+            #sidebar
+              = yield :sidebar
 
       #footer-pusher
 

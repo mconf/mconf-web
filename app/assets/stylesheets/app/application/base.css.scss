@@ -1,7 +1,6 @@
 @import "compass/css3";
 @import "compass/utilities/general";
 @import "compass/typography/links";
-@import "bootstrap/mixins";
 @import "definitions";
 
 //
@@ -210,7 +209,6 @@ form {
 
 #navbar {
   @include make-row;
-  @include set-max-site-width;
   margin: 0 auto;
   padding: 0 10px;
   height: $m-navbar-height;
@@ -218,10 +216,10 @@ form {
   //@include font-size(12px);
 }
 
-#content-wrapper {
-  padding-bottom: 20px;
-  margin: 0;
-}
+/* #content-wrapper { */
+/*   padding-bottom: 20px; */
+/*   margin: 0; */
+/* } */
 
 #footer-wrapper {
   border-top: 1px solid darken($m-footer-bg-color, 10);
@@ -235,7 +233,6 @@ form {
 #footer {
   @include mconf-clearfix;
   @include make-row;
-  @include set-max-site-width;
   margin: 0 auto;
   padding: 0;
   color: #666;
@@ -552,7 +549,6 @@ ul#navbar-left-links {
 
 #page-header {
   @include make-row;
-  @include set-max-site-width;
   @include mconf-clearfix;
   overflow: visible;
   padding: 25px 0 20px 0;
@@ -647,8 +643,9 @@ ul#navbar-left-links {
 }
 
 #content {
-  @include make-row;
-  @include set-max-site-width;
+  @include make-sm-container-height;
+  width: 100%;
+  background-color: $m-site-bg-color;
 
   margin: 0 auto;
 
@@ -656,6 +653,20 @@ ul#navbar-left-links {
   // centralized and with the correct margins/paddings
   @include mconf-clearfix;
   overflow: visible;
+}
+
+#content-row {
+  @include make-sm-row-height;
+  @include make-row;
+}
+
+#main-sidebar {
+  @include make-xs-column(12);
+  @include make-sm-column(3);
+  @include make-sm-column-height;
+  background: $m-light-gray;
+  border-right: 1px solid $m-sidebar-border;
+  padding: 10px 10px 10px 20px;
 }
 
 #sidebar, .sidebar {
@@ -742,6 +753,8 @@ ul#navbar-left-links {
 #content-middle {
   @include make-xs-column(12);
   @include make-sm-column(9);
+  @include make-sm-column-height;
+  background-color: $m-site-bg-color;
   @include mconf-clearfix;
   overflow: visible;
 
