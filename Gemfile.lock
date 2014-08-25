@@ -15,7 +15,7 @@ GIT
 
 GIT
   remote: git://github.com/mconf/bigbluebutton_rails.git
-  revision: 6a9374196aae0d60b37270175b9b634ee8594d2f
+  revision: f92ddf82db47f0446de5f403377f41012917ead5
   branch: master
   specs:
     bigbluebutton_rails (2.0.0)
@@ -191,9 +191,6 @@ GEM
       railties (>= 3.2, < 5.0)
     friendly_id (5.0.4)
       activerecord (>= 4.0.0)
-    garb (0.9.8)
-      activesupport (>= 2.2)
-      multi_json (>= 1.3)
     geocoder (1.2.4)
     haml (4.0.5)
       tilt
@@ -443,7 +440,6 @@ DEPENDENCIES
   font-awesome-rails (~> 4.1.0.0)
   forgery!
   friendly_id
-  garb
   haml
   handlebars_assets
   htmlentities

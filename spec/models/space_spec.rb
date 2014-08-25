@@ -70,18 +70,37 @@ describe Space do
 
     describe "validates uniqueness against User#username" do
       describe "on create" do
-        let(:user) { FactoryGirl.create(:user) }
-        subject { FactoryGirl.build(:space, :permalink => user.username) }
-        it { should_not be_valid }
+        context "with an enabled user" do
+          let(:user) { FactoryGirl.create(:user) }
+          subject { FactoryGirl.build(:space, :permalink => user.username) }
+          it { should_not be_valid }
+        end
+
+        context "with a disabled user" do
+          let(:disabled_user) { FactoryGirl.create(:user, :disabled => true) }
+          subject { FactoryGirl.build(:space, :permalink => disabled_user.username) }
+          it { should_not be_valid }
+        end
       end
 
       describe "on update" do
-        let(:user) { FactoryGirl.create(:user) }
-        let(:space) { FactoryGirl.create(:space) }
-        before(:each) {
-          space.permalink = user.username
-        }
-        it { space.should_not be_valid }
+        context "with an enabled user" do
+          let(:user) { FactoryGirl.create(:user) }
+          let(:space) { FactoryGirl.create(:space) }
+          before(:each) {
+            space.permalink = user.username
+          }
+          it { space.should_not be_valid }
+        end
+
+        context "with a disabled user" do
+          let(:disabled_user) { FactoryGirl.create(:user, :disabled => true) }
+          let(:space) { FactoryGirl.create(:space) }
+          before(:each) {
+            space.permalink = disabled_user.username
+          }
+          it { space.should_not be_valid }
+        end
       end
     end
   end
@@ -266,14 +285,6 @@ describe Space do
     end
   end
 
-  describe "#unique_pageviews" do
-    it("if there are no stats returns 0") {
-      space.unique_pageviews.should be(0)
-    }
-    it "returns the unique pageviews for the target space"
-    it "throws an exception if the statistics are wrong"
-  end
-
   describe "#add_member!" do
     let(:space) { FactoryGirl.create(:space) }
     let(:user) { FactoryGirl.create(:user) }
@@ -372,7 +383,7 @@ describe Space do
 
       it "with param and name equal the space's permalink" do
         space.bigbluebutton_room.param.should eql(space.permalink)
-        space.bigbluebutton_room.name.should eql(space.permalink)
+        space.bigbluebutton_room.name.should eql(space.name)
       end
 
       it "with the default logout url" do
@@ -398,7 +409,7 @@ describe Space do
       let(:space) { FactoryGirl.create(:space, :name => "Old Name", :public => true) }
       before(:each) { space.update_attributes(:name => "New Name", :public => false) }
       it { space.bigbluebutton_room.param.should be(space.permalink) }
-      it { space.bigbluebutton_room.name.should be(space.permalink) }
+      it { space.bigbluebutton_room.name.should be(space.name) }
       it { space.bigbluebutton_room.private.should be(true) }
     end
 

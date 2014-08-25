@@ -190,9 +190,9 @@ pt-br:
         xmpp_server: "Endereço do servidor XMPP"
         webconf_auto_record: "Atribuir automaticamente a opção de gravação ao iniciar uma conferência"
       space:
-        attendee_password: "Senha de participante"
+        attendee_key: "Chave para participantes"
         description: "Descrição"
-        moderator_password: "Senha de moderador"
+        moderator_key: "Chave para moderadores"
         name: "Nome"
         permalink: "Identificador"
         public: "Pública"

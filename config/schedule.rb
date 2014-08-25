@@ -16,16 +16,6 @@ set :output, 'log/whenever.log'
 job_type :rbenv_rake, "export PATH=$HOME/.rbenv/shims:$HOME/.rbenv/bin:$PATH; eval \"$(rbenv init -)\"; cd :path && RAILS_ENV=:environment bundle exec rake :task :output"
 job_type :rbenv_runner,  "export PATH=$HOME/.rbenv/shims:$HOME/.rbenv/bin:$PATH; eval \"$(rbenv init -)\"; cd :path && script/rails runner -e :environment ':task' :output"
 
-every :day, :at => '1am' do
-  # updates the stats - will only increment stats from the past day
-  rbenv_rake "statistics:update"
-end
-
-every :sunday, :at => '2am' do
-  # restart the analytics stats every week
-  rbenv_rake "statistics:init"
-end
-
 every :day, :at => '2pm' do
   # send daily digest emails
   rbenv_runner "Mconf::DigestEmail.send_daily_digest"

@@ -59,7 +59,7 @@ describe User do
 
     it "has param and name equal the user's username" do
       user.bigbluebutton_room.param.should eql(user.username)
-      user.bigbluebutton_room.name.should eql(user.username)
+      user.bigbluebutton_room.name.should eql(user._full_name)
     end
 
     it "has the default logout url" do
@@ -67,10 +67,10 @@ describe User do
     end
 
     it "has random passwords set" do
-      user.bigbluebutton_room.attendee_password.should_not be_blank
-      user.bigbluebutton_room.attendee_password.length.should be(8)
-      user.bigbluebutton_room.moderator_password.should_not be_blank
-      user.bigbluebutton_room.moderator_password.length.should be(8)
+      user.bigbluebutton_room.attendee_key.should_not be_blank
+      user.bigbluebutton_room.attendee_key.length.should be(8)
+      user.bigbluebutton_room.moderator_key.should_not be_blank
+      user.bigbluebutton_room.moderator_key.length.should be(8)
     end
 
     skip "has the server as the first server existent"
@@ -101,18 +101,37 @@ describe User do
 
     describe "validates uniqueness against Space#permalink" do
       describe "on create" do
-        let(:space) { FactoryGirl.create(:space) }
-        subject { FactoryGirl.build(:user, :username => space.permalink) }
-        it { should_not be_valid }
+        context "with an enabled user" do
+          let(:space) { FactoryGirl.create(:space) }
+          subject { FactoryGirl.build(:user, :username => space.permalink) }
+          it { should_not be_valid }
+        end
+
+        context "with a disabled user" do
+          let(:disabled_space) { FactoryGirl.create(:space, :disabled => true) }
+          subject { FactoryGirl.build(:user, :username => disabled_space.permalink) }
+          it { should_not be_valid }
+        end
       end
 
       describe "on update" do
-        let(:user) { FactoryGirl.create(:user) }
-        let(:space) { FactoryGirl.create(:space) }
-        before(:each) {
-          user.username = space.permalink
-        }
-        it { user.should_not be_valid }
+        context "with an enabled user" do
+          let(:user) { FactoryGirl.create(:user) }
+          let(:space) { FactoryGirl.create(:space) }
+          before(:each) {
+            user.username = space.permalink
+          }
+          it { user.should_not be_valid }
+        end
+
+        context "with a disabled user" do
+          let(:user) { FactoryGirl.create(:user) }
+          let(:disabled_space) { FactoryGirl.create(:space, :disabled => true) }
+          before(:each) {
+            user.username = disabled_space.permalink
+          }
+          it { user.should_not be_valid }
+        end
       end
     end
   end
@@ -122,7 +141,7 @@ describe User do
       let(:user) { FactoryGirl.create(:user, :username => "old-user-name") }
       before(:each) { user.update_attributes(:username => "new-user-name") }
       it { user.bigbluebutton_room.param.should be(user.username) }
-      it { user.bigbluebutton_room.name.should be(user.username) }
+      it { user.bigbluebutton_room.name.should_not be(user.username) }
     end
   end
 

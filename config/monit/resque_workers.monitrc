@@ -1,11 +1,11 @@
 # Add this to your /etc/monit/monitrc
 #   include /var/www/mconf-web/current/config/monit/resque.monitrc
 
-check process resque_worker_bigbluebutton_rails
-  with pidfile /var/www/mconf-web/current/tmp/pids/resque_worker_bigbluebutton_rails.pid
-  start program = "/bin/bash -c '/var/www/mconf-web/current/script/start_resque_workers.sh start bigbluebutton_rails'"
+check process resque_workers_all
+  with pidfile /var/www/mconf-web/current/tmp/pids/resque_workers_all.pid
+  start program = "/bin/bash -c '/var/www/mconf-web/current/script/start_resque_workers.sh start all'"
     as uid mconf and gid mconf
-  stop program = "/bin/bash -c '/var/www/mconf-web/current/script/start_resque_workers.sh stop bigbluebutton_rails'"
+  stop program = "/bin/bash -c '/var/www/mconf-web/current/script/start_resque_workers.sh stop all'"
     as uid mconf and gid mconf
   if totalmem is greater than 300 MB for 10 cycles then restart # eating up memory?
   group resque_workers
@@ -14,3 +14,17 @@ check process resque_worker_bigbluebutton_rails
 check file resque_workers_restart.txt with path /var/www/mconf-web/current/tmp/restart.txt
   if changed timestamp then
     exec "/usr/bin/monit -g resque_workers restart"
+
+check process resque_scheduler
+  with pidfile /var/www/mconf-web/current/tmp/pids/resque_scheduler.pid
+  start program = "/bin/bash -c '/var/www/mconf-web/current/script/start_resque_scheduler.sh start'"
+    as uid mconf and gid mconf
+  stop program = "/bin/bash -c '/var/www/mconf-web/current/script/start_resque_scheduler.sh stop'"
+    as uid mconf and gid mconf
+  if totalmem is greater than 300 MB for 10 cycles then restart # eating up memory?
+  group resque_scheduler
+
+# to restart the service when we're restarting the application via capistrano
+check file resque_scheduler_restart.txt with path /var/www/mconf-web/current/tmp/restart.txt
+  if changed timestamp then
+    exec "/usr/bin/monit -g resque_scheduler restart"

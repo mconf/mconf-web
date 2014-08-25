@@ -76,13 +76,13 @@ describe ApplicationController do
         context "and the user is not the owner" do
           before { controller.stub(:current_user).and_return(FactoryGirl.create(:user)) }
           before(:each) { get :index, :room_id => room.id }
-          it { assigns(:result).should eql(:password) }
+          it { assigns(:result).should eql(:key) }
         end
 
         context "and there's no user logged" do
           before { controller.stub(:current_user).and_return(nil) }
           before(:each) { get :index, :room_id => room.id }
-          it { assigns(:result).should eql(:password) }
+          it { assigns(:result).should eql(:key) }
         end
       end
 
@@ -202,13 +202,13 @@ describe ApplicationController do
         context "and the user is not a member of the space" do
           before { controller.stub(:current_user).and_return(user) }
           before(:each) { get :index, :room_id => room.id }
-          it { assigns(:result).should eql(:password) }
+          it { assigns(:result).should eql(:key) }
         end
 
         context "and it's an anonymous user" do
           before { controller.stub(:current_user).and_return(nil) }
           before(:each) { get :index, :room_id => room.id }
-          it { assigns(:result).should eql(:password) }
+          it { assigns(:result).should eql(:key) }
         end
       end
 

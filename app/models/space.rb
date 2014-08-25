@@ -91,20 +91,6 @@ class Space < ActiveRecord::Base
     self.events.upcoming.order("start_on ASC").first(5)
   end
 
-  # Return the number of unique pageviews for this space using the Statistic model.
-  # Will throw an exception if the data in Statistic in incorrect.
-  def unique_pageviews
-    # Use only the canonical aggregated url of the space (all views have been previously added here in the rake task)
-    corresponding_statistics = Statistic.where('url LIKE ?', '/spaces/' + self.permalink)
-    if corresponding_statistics.size == 0
-      return 0
-    elsif corresponding_statistics.size == 1
-      return corresponding_statistics.first.unique_pageviews
-    elsif corresponding_statistics.size > 1
-      raise "Incorrectly parsed statistics"
-    end
-  end
-
   # Add a `user` to this space with the role `role_name` (e.g. 'User', 'Admin').
   # TODO: if a user has a pending request to join the space it will still be there after if this
   #  method is used, should we check this here?
@@ -205,10 +191,10 @@ class Space < ActiveRecord::Base
       :owner => self,
       :server => BigbluebuttonServer.default,
       :param => self.permalink,
-      :name => self.permalink,
+      :name => self.name,
       :private => !self.public,
-      :moderator_password => SecureRandom.hex(4),
-      :attendee_password => SecureRandom.hex(4),
+      :moderator_key => SecureRandom.hex(4),
+      :attendee_key => SecureRandom.hex(4),
       :logout_url => "/feedback/webconf/"
     }
     create_bigbluebutton_room(params)
@@ -218,8 +204,7 @@ class Space < ActiveRecord::Base
   def update_webconf_room
     if self.bigbluebutton_room
       params = {
-        :param => self.permalink,
-        :name => self.permalink,
+        :name => self.name,
         :private => !self.public
       }
       bigbluebutton_room.update_attributes(params)

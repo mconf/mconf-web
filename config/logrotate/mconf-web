@@ -1,6 +1,5 @@
 /var/www/mconf-web/current/log/production.log {
-         weekly
-         size 20M
+         size 50M
          copytruncate
          rotate 10
          compress
@@ -8,9 +7,8 @@
          notifempty
 }
 
-/var/www/mconf-web/current/log/delayed_job.log {
-         weekly
-         size 20M
+/var/www/mconf-web/current/log/resque_*.log {
+         size 50M
          copytruncate
          rotate 10
          compress
@@ -18,9 +16,9 @@
          notifempty
 }
 
-/var/www/mconf-web/current/log/resque_worker_*.log {
+/var/www/mconf-web/current/log/whenever.log {
          weekly
-         size 20M
+         size 50M
          copytruncate
          rotate 10
          compress

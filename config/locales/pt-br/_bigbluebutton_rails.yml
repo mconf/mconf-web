@@ -1,16 +1,16 @@
---- 
-pt-br: 
-  activerecord: 
-    attributes: 
-      bigbluebutton_metadata: 
+---
+pt-br:
+  activerecord:
+    attributes:
+      bigbluebutton_metadata:
         content: Conteúdo
         name: Nome
         owner: Dono
-      bigbluebutton_playback_format: 
+      bigbluebutton_playback_format:
         format_type: Tipo
         length: Tamanho
         url: URL
-      bigbluebutton_recording: 
+      bigbluebutton_recording:
         description: "Descrição"
         end_time: "Horário de Fim"
         meetingid: "ID da Reunião"
@@ -21,12 +21,11 @@ pt-br:
         room_id: "ID da Sala"
         server_id: "ID do Servidor"
         start_time: "Horário de Início"
-      bigbluebutton_room: 
-        attendee_password: "Senha de Participante"
-        default_layout: "Layout Padrão"
-        presenter_share_only: "Somente apresentador compartilha áudio e vídeo"
+      bigbluebutton_room:
         auto_start_video: "Auto iniciar vídeo"
         auto_start_audio: "Auto iniciar áudio"
+        attendee_key: "Chave para participantes"
+        default_layout: "Layout Padrão"
         dial_number: "Número de discagem"
         duration: Duração
         external: "Criada externamente"
@@ -34,85 +33,90 @@ pt-br:
         max_participants: "Número Máximo de Participantes"
         meetingid: "ID da Reunião"
         metadata: Metadados
-        moderator_password: "Senha de Moderador"
+        moderator_key: "Chave para moderadores"
         name: Nome
         param: Identificador
         private: Privada
+        presenter_share_only: "Somente apresentador compartilha áudio e vídeo"
         record: Gravar
         server_id: "ID do Servidor"
         voice_bridge: "Voice Bridge"
         welcome_msg: "Mensagem de boas-vindas"
-      bigbluebutton_server: 
+      bigbluebutton_server:
         name: Nome
         param: Identificador
         salt: "Chave de segurança"
         url: URL
         version: Versão
-    models: 
+    models:
       bigbluebutton_metadata: "Metadado de Gravação da Webconferência"
       bigbluebutton_playback_format: "Formato de Reprodução de Webconferência"
       bigbluebutton_recording: "Gravação de Webconferência"
       bigbluebutton_room: "Sala de Webconferência"
       bigbluebutton_server: "Servidor de Webconferência"
-  bigbluebutton_rails: 
+  bigbluebutton_rails:
     bigbluebutton: BigBlueButton
-    metadata: 
-      errors: 
+    metadata:
+      errors:
         name_format: "pode utilizar apenas letras, números e os símbolos \"-\" ou \"_\", mas apenas letras no início"
-    recordings: 
-      errors: 
-        check_for_server: 
+    recordings:
+      default:
+        description: "Reunião realizada em %{time} (UTC)"
+      errors:
+        check_for_server:
           no_server: "Não há um servidor associado a esta gravação"
-        play: 
+        play:
           no_format: "Não há URL de playback para esta gravação"
-      notice: 
-        destroy: 
+      notice:
+        destroy:
           success: "Sua gravação foi destruída com sucesso."
           success_with_bbb_error: "A gravação foi destruída com sucesso mas não foi removida do servidor de webconferência (\"%{error}\")"
-        publish: 
+        publish:
           success: "Sua gravação foi publicada com sucesso."
-        unpublish: 
+        unpublish:
           success: "Sua gravação foi ocultada com sucesso."
-        update: 
+        update:
           success: "Sua gravação foi atualizada com sucesso."
-    rooms: 
+    rooms:
       default_welcome_msg: "Bem-vindo(a) à conferência <b>%{name}!</b><br/><br/>Para entrar na conferência de áudio a partir de um telefone SIP, disque %{voice_number}.<br/><br/>Se você precisa ajuda para usar esta aplicação <u><a href=\"http://www.bigbluebutton.org/videos/\">veja estes vídeos</a></u>."
-      errors: 
-        auth: 
+      errors:
+        fetch_recordings:
+          no_server: "Não há nenhum servidor associado a esta sala."
+        join:
           cannot_create: "Você não tem permissões para iniciar esta reunião."
           failure: "Falha de autenticação."
           not_running: "A reunião não está em andamento. Você deve aguardar por um moderador para ingressar."
           wrong_params: "Parâmetros errados na sua requisição."
-        external: 
-          blank_meetingid: "Você deve especificar o meetingid da reunião que você deseja ingressar"
         param_format: "você pode usar apenas letras, números e os símbolos \"-\" ou \"_\" (não no começo ou fim)"
-        server: 
+        server:
           nil: "Sua sala deve ser associada a um servidor para executar esta operação."
-      notice: 
-        create: 
+      notice:
+        create:
           failure: "Sua sala não pôde ser criada."
           success: "Sua sala foi criada com sucesso."
-        destroy: 
+        destroy:
           success: "A reunião foi destruída com sucesso."
           success_with_bbb_error: "A sala foi destruída com sucesso mas a reunião não foi finalizada no servidor de webconferência (\"%{error}\")"
-        end: 
+        end:
           not_running: "A reunião não pôde ser finalizada pois não está em andamento."
           success: "A reunião foi finalizada com sucesso."
-        update: 
+        fetch_recordings:
+          success: "A lista de gravações para esta sala foi atualizada com sucesso."
+        update:
           failure: "Sua sala não pode ser atualizada."
           success: "Sua sala foi atualizada com sucesso."
-    servers: 
-      errors: 
+    servers:
+      errors:
         param_format: "você pode usar apenas letras, números e os símbolos \"-\" ou \"_\" (não no começo ou fim)"
         url_format: "deve utilizar o padrão http://<servidor>/bigbluebutton/api"
-      notice: 
-        create: 
+      notice:
+        create:
           success: "Seu servidor foi criado com sucesso."
-        fetch_recordings: 
+        fetch_recordings:
           success: "A lista de gravações foi atualizada com sucesso."
-        publish_recordings: 
+        publish_recordings:
           success: "Suas gravações foram publicadas com sucesso."
-        unpublish_recordings: 
+        unpublish_recordings:
           success: "Suas gravações foram ocultadas com sucesso."
-        update: 
+        update:
           success: "Seu servidor foi atualizado."

@@ -21,6 +21,17 @@ class Profile < ActiveRecord::Base
     logo_image.recreate_versions! if crop_x.present?
   end
 
+  after_update :update_webconf_room
+
+  def update_webconf_room
+    if self.full_name_changed?
+      params = {
+        :name => self.full_name
+      }
+      self.user.bigbluebutton_room.update_attributes(params)
+    end
+  end
+
   belongs_to :user
   accepts_nested_attributes_for :user
 

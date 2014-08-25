@@ -41,7 +41,7 @@ class ProfilesController < ApplicationController
 
   def update
     respond_to do |format|
-      if @profile.update_attributes(params[:profile])
+      if @profile.update_attributes(profile_params)
         flash[:notice] = t('profile.updated')
         format.html { redirect_to user_path(@user) }
       else
@@ -85,4 +85,19 @@ class ProfilesController < ApplicationController
       redirect_to user_path(@user)
     end
   end
+
+  def profile_params
+    unless params[:profile].blank?
+      params[:profile].permit(*allowed_params)
+    else
+      {}
+    end
+  end
+
+  def allowed_params
+    [ :organization, :phone, :mobile, :fax, :address, :city, :zipcode,
+      :province, :country, :prefix_key, :description, :url, :skype, :im,
+      :visibility, :full_name, :logo_image ]
+  end
+
 end

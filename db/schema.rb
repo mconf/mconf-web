@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140721191825) do
+ActiveRecord::Schema.define(version: 20140820214500) do
 
   create_table "activities", force: true do |t|
     t.integer  "trackable_id"
@@ -114,20 +114,22 @@ ActiveRecord::Schema.define(version: 20140721191825) do
     t.string   "owner_type"
     t.string   "meetingid"
     t.string   "name"
-    t.string   "attendee_password"
-    t.string   "moderator_password"
+    t.string   "attendee_key"
+    t.string   "moderator_key"
     t.string   "welcome_msg"
     t.string   "logout_url"
     t.string   "voice_bridge"
     t.string   "dial_number"
     t.integer  "max_participants"
-    t.boolean  "private",            default: false
+    t.boolean  "private",                default: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "external",           default: false
+    t.boolean  "external",               default: false
     t.string   "param"
-    t.boolean  "record_meeting",     default: false
-    t.integer  "duration",           default: 0
+    t.boolean  "record_meeting",         default: false
+    t.integer  "duration",               default: 0
+    t.string   "moderator_api_password"
+    t.string   "attendee_api_password"
   end
 
   add_index "bigbluebutton_rooms", ["meetingid"], name: "index_bigbluebutton_rooms_on_meetingid", unique: true, using: :btree
@@ -377,13 +379,6 @@ ActiveRecord::Schema.define(version: 20140721191825) do
     t.boolean  "disabled",    default: false
     t.boolean  "repository",  default: false
     t.string   "logo_image"
-  end
-
-  create_table "statistics", force: true do |t|
-    t.string   "url"
-    t.integer  "unique_pageviews"
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
   create_table "users", force: true do |t|

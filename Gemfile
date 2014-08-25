@@ -27,7 +27,6 @@ gem 'will_paginate'
 gem 'chronic'
 gem 'rails_autolink', '~> 1.1.0'
 gem 'whenever', :require => false
-gem 'garb'
 gem 'simple_form', '~> 3.1.0.rc2'
 gem 'acts_as_tree', '~> 2.0.0'
 gem 'friendly_id'

@@ -21,7 +21,6 @@ namespace :db do
     if ENV['CLEAR']
       puts "*** Destroying all resources!"
       PrivateMessage.destroy_all
-      Statistic.destroy_all
       Permission.destroy_all
       Space.destroy_all
       if configatron.modules.events.enabled
@@ -146,8 +145,8 @@ namespace :db do
           room.owner_type = 'Space'
           room.name = space.name
           room.meetingid = "#{SecureRandom.hex(16)}-#{Time.now.to_i}"
-          room.attendee_password = "ap"
-          room.moderator_password = "mp"
+          room.attendee_key = "ap"
+          room.moderator_key = "mp"
           room.private = !space.public
           room.logout_url = "/feedback/webconf"
           room.external = false
@@ -316,12 +315,8 @@ namespace :db do
 
     Post.record_timestamps = false
 
-    puts "* Create statistics and last details for spaces (#{Space.count} spaces)"
+    puts "* Create posts and last details for spaces (#{Space.count} spaces)"
     Space.all.each do |space|
-      Statistic.create do |statistic|
-        statistic.url = "/spaces/" + space.permalink
-        statistic.unique_pageviews = 0..300
-      end
 
       total_posts = space.posts.to_a
       # The first Post should not have parent
