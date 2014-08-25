@@ -1,0 +1,129 @@
+@import "definitions";
+
+#main-sidebar-menu {
+  margin: 0;
+  padding: 0;
+
+  li {
+    @include font-size($m-font-medium);
+
+    a {
+      padding: 5px;
+      display: block;
+    }
+  }
+
+  @include link-style(2);
+}
+
+#user-info {
+  padding: 10px 0;
+  margin-bottom: 20px;
+  @include mconf-clearfix;
+}
+
+#user-info {
+
+  // darker links since the background is darker
+  a {
+    @include link-colors(darken($m-link-color, 15), $m-link-color-hover, $m-link-color-active);
+  }
+
+  .user-avatar {
+    position: relative;
+    float: left;
+    border: 1px solid darken($m-light-gray, 20);
+    @include border-radius(3px);
+    padding: 2px;
+    background: white;
+    @include broken-img-parent;
+    margin-right: 5px;
+
+    img {
+      width: 65px;
+      height: 65px;
+    }
+
+    .icon-awesome.icon-mconf-superuser {
+      position: absolute;
+      bottom: 3px;
+      left: 3px;
+      @include font-size($m-font-mini);
+      width: 14px;
+      height: 14px;
+      color: white;
+      background: lighten($m-red, 10);
+      padding: 3px 1px 0px 3px;
+      @include border-radius(4px);
+    }
+  }
+
+  .user-data {
+    @include mconf-clearfix;
+
+    a, span {
+      display: block;
+      margin-bottom: 3px;
+    }
+
+    .user-name {
+      @include font-size($m-font-big);
+      font-weight: bold;
+      @include text-truncate;
+    }
+
+    .user-email, .user-organization {
+      min-height: $m-font-big + 2px;
+      @include text-truncate;
+    }
+  }
+
+  .user-links {
+    @include mconf-clearfix;
+    margin-top: 5px;
+    padding-left: 5px;
+
+    ul {
+      margin: 0;
+
+      li {
+        float: left;
+        border: 0;
+        padding: 0 10px;
+      }
+    }
+
+    .icon { float: none; }
+  }
+}
+
+#user-spaces {
+  margin-top: 15px;
+  padding-bottom: 15px;
+  border-top: 1px solid darken($m-light-gray, 10);
+  @include mconf-clearfix;
+  @include link-style(2);
+
+  // TODO: temp adaptation for this div only
+  .list-texts {
+    padding: 0;
+
+    .thread-title {
+      @include font-for-titles;
+    }
+
+    .space-description {
+      font-family: $m-font-family;
+    }
+  }
+
+  // reduced spacing between items in the list of recent activities and my spaces
+  .thread {
+    margin: 0;
+    padding: 5px;
+  }
+
+  .btn {
+    margin-top: 10px;
+  }
+}

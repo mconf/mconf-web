@@ -11,12 +11,13 @@
 // some styles defined in the partial below
 @import "app/shared/recording_list";
 
+@import "app/shared/user_sidebar";
+
+@import "app/shared/webconference_join";
+
 body.my.home, body.my.activity, body.my.recordings {
 
-  /* // slightly wider sidebar */
-  /* @include set-sidebar-width($m-sidebar-width + 100px); */
-
-
+  // TODO: move to base
   #navbar {
     a {
       //font-weight: bold;
@@ -24,155 +25,14 @@ body.my.home, body.my.activity, body.my.recordings {
     }
   }
 
-  #content {
-    padding: 0;
-  }
-
-  #main-sidebar-menu {
-    margin: 0;
-    padding: 0;
-
-    li {
-      @include font-size($m-font-medium);
-
-      a {
-        padding: 5px;
-        display: block;
-        //border-left: 5px solid $m-light-gray;
-
-        &:hover {
-          //border-color: $m-second-color;
-        }
-      }
-    }
-
-    a .icon-awesome, a {
-      @include link-colors(#000, $m-link-color-hover, $m-link-color-active, #000);
-      @include link-on-menus;
-    }
-  }
-
-  #user-info {
-    padding: 10px 0;
-    margin-bottom: 20px;
-    @include mconf-clearfix;
-  }
-
-  #user-spaces {
-    margin-top: 15px;
-    padding-bottom: 15px;
-    border-top: 1px solid darken($m-light-gray, 7);
-    border-bottom: 1px solid darken($m-light-gray, 7);
-    @include mconf-clearfix;
-
-    // TODO: temp adaptation for this div only
-    .list-texts {
-      padding: 0;
-      /* .thread-title { */
-      /*   margin-top: 3px; */
-      /* } */
-    }
-    /* .logo-in-thread img.logo.logo-space { */
-    /*   width: 52px; */
-    /*   height: 39px; */
-    /* } */
-
-    .btn {
-      margin-top: 10px;
-    }
-  }
-
-  #user-webconference-start {
-    padding: 10px 20px;
-    background: $m-light-gray;
-    text-align: right;
-
-    .room-status {
-      margin-right: 20px;
-      @include font-size($m-font-medium);
-      float: left;
-      padding: 7px;
-    }
-
-    &.in-progress {
-      background: $m-alert-success-bg;
-      border-top: 1px solid $m-green;
-      border-bottom: 1px solid $m-green;
-    }
-  }
-
-
-  #user-webconference-room {
-    padding: 0 20px 10px 20px;
-    //background: darken($m-light-gray, 5);
-
-    .webconference-types {
-      margin-bottom: 10px;
-    }
-
-    .webconference-type {
-      padding: 20px;
-      @include border-radius(4px);
-      background: $m-light-gray;
-      text-align: center;
-      position: relative;
-      border: 2px solid $m-light-gray;
-
-      /* .webconference-type-description { */
-      /*   margin-bottom: 10px; */
-      /* } */
-
-      .title {
-        font-weight: bold;
-      }
-
-      .webconference-icon {
-        @include font-size($m-font-gigantic);
-        color: $m-second-color;
-        padding: 10px 0;
-      }
-
-      &.selected {
-        //background-color: $m-alert-info-bg;
-        border-color: $m-second-color;
-        .icon-selected {
-          display: block;
-        }
-      }
-
-      .icon-selected {
-        display: none;
-        position: absolute;
-        top: 10px;
-        left: 10px;
-        @include font-size($m-font-bigger);
-        color: $m-green;
-      }
-
-      .configuration-options {
-        position: absolute;
-        top: 10px;
-        right: 10px;
-      }
-    }
-
-    h3 .observation {
-      @include font-size($m-font-normal);
-    }
-  }
 
   #user-meetings-recordings {
     padding: 10px 20px;
   }
 
-  // reduced spacing between items in the list of recent activities and my spaces
-  .list-text .thread {
-    margin: 0;
-    padding: 5px;
+  #webconference-room {
+    margin-top: 20px;
   }
-
-
-
 
 
 
@@ -196,84 +56,6 @@ body.my.home, body.my.activity, body.my.recordings {
       float: right;
       width: $m-page-header-right-width - 10px;
       margin-right: 10px;
-    }
-  }
-
-  #user-info {
-    /* padding: 10px; */
-    /* margin-bottom: 20px; */
-    /* @include mconf-clearfix; */
-
-    // darker links since the background is darker
-    a {
-      @include link-colors(darken($m-link-color, 15), $m-link-color-hover, $m-link-color-active);
-    }
-
-    .user-avatar {
-      position: relative;
-      float: left;
-      border: 1px solid darken($m-light-gray, 20);
-      @include border-radius(3px);
-      padding: 3px;
-      height: 70px;
-      width: 70px;
-      background: white;
-      @include broken-img-parent;
-
-      img {
-        width: 70px;
-        height: 70px;
-      }
-
-      .icon-awesome.icon-mconf-superuser {
-        position: absolute;
-        bottom: 3px;
-        left: 3px;
-        @include font-size($m-font-mini);
-        width: 14px;
-        height: 14px;
-        color: white;
-        background: lighten($m-red, 10);
-        padding: 3px 1px 0px 3px;
-        @include border-radius(4px);
-      }
-    }
-
-    .user-data {
-      @include mconf-clearfix;
-      padding-left: 10px;
-
-      a, span {
-        display: block;
-        margin-bottom: 3px;
-      }
-
-      .user-name {
-        @include font-size($m-font-big);
-        font-weight: bold;
-      }
-
-      .user-email, .user-organization {
-        min-height: $m-font-big + 2px;
-      }
-    }
-
-    .user-links {
-      @include mconf-clearfix;
-      margin-top: 5px;
-      padding-left: 5px;
-
-      ul {
-        margin: 0;
-
-        li {
-          float: left;
-          border: 0;
-          padding: 0 10px;
-        }
-      }
-
-      .icon { float: none; }
     }
   }
 

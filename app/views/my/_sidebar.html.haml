@@ -1,0 +1,40 @@
+// Locals:
+//   user_spaces (array of Space): spaces the user is a member of
+
+#user-info
+  .user-avatar
+    = logo_image(current_user, :size => '128', :title => current_user.name)
+    - if current_user.superuser?
+      = icon_superuser(:title => t('admin.one'))
+  .user-data
+    %span.user-name{ title: current_user.name }= current_user.name
+    %span.user-email{ title:current_user.email }= current_user.email
+    %span.user-organization{ title: current_user.profile.organization }= current_user.profile.organization
+%ul#main-sidebar-menu
+  %li
+    = link_to my_home_path do
+      -# = icon_home()
+      = "Home"
+  %li
+    = link_to main_app.messages_path do
+      = "Inbox"
+      = "(#{current_user.unread_private_messages.size} unread messages)"
+  %li
+    = link_to my_activity_path do
+      -# = icon_activity()
+      = "Activity dashboard"
+  %li
+    = link_to user_path(current_user) do
+      -# = icon_profile()
+      = t('profile.one')
+  %li
+    = link_to edit_user_path(current_user) do
+      -# = icon_account()
+      = t('account')
+
+#user-spaces
+  %h3= "My spaces"
+  = render "spaces/list_view", :spaces => user_spaces, :user_spaces => user_spaces
+  = link_to "View all my spaces", spaces_path, :class => "btn btn-sm btn-default col-xs-12"
+  = link_to new_space_path, :class => "btn btn-sm btn-primary col-xs-12" do
+    = "Create a space"

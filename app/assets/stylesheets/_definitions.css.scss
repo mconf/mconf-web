@@ -17,7 +17,10 @@ $m-font-gigantic: 28px;
 $m-font-section-title: 28px;
 $m-font-color: #333;
 $m-font-color-gray: #888;
-$m-font-family: Arial, sans-serif;
+$m-font-family: "Helvetica Neue",Helvetica,Arial,sans-serif; //Arial, Helvetica, sans-serif;
+//$m-font-family-titles: Verdana, Geneva, sans-serif;
+$m-font-family-titles: $m-font-family;
+$m-font-family-mono: Consolas, Monaco, "Lucida Console", monospace;
 $m-base-line-height: 1.5;
 
 // standard colors
@@ -64,12 +67,14 @@ $m-contents-width: 980px;
 $m-contents-max-width: 1180px;
 $m-sidebar-width: 240px;
 $m-sidebar-border: darken($m-light-gray, 15);
+$m-sidebar-bg-color: $m-light-gray;
 
 // headers
 $m-navbar-bg-color-dark: darken($m-green-logo, 3);
 $m-navbar-bg-color-light: $m-green-logo;
 $m-subnav-bg-color: #eee;
-$m-navbar-height: 40px;
+$m-navbar-border-color: darken($m-navbar-bg-color-dark, 5);
+$m-navbar-height: 42px;
 $m-navbar-font-color: #ddd;//$m-font-color;
 $m-navbar-font-color-hover: white; //$m-link-color-hover;
 $m-navbar-menu-open-bg: $m-site-bg-color;
@@ -78,10 +83,28 @@ $m-navbar-menu-open-link-hover: $m-link-color-hover;
 $m-page-menu-font-color: #808080;
 $m-page-header-link-color: $m-link-color;
 $m-page-header-link-color-hover: $m-link-color-hover;
+// for a light navbar:
+/* $m-navbar-bg-color-dark: white; */
+/* $m-navbar-bg-color-light: white; */
+/* $m-navbar-border-color: #ccc; */
+/* $m-navbar-font-color: $m-font-color; */
+/* $m-navbar-font-color-hover: $m-link-color-hover; */
 
-// global footer
-$m-footer-bg-color: $m-light-gray;
-$m-footer-height: 165px;
+// footer
+$m-footer-height: 195px;
+$m-footer-bg-color: white;
+$m-footer-font-color: $m-font-color;
+$m-footer-link-color: $m-link-color;
+$m-footer-link-color-hover: $m-link-color-hover;
+$m-footer-link-color-active: $m-link-color-active;
+$m-footer-border-color: #888;
+// dark bg footer:
+/* $m-footer-bg-color: darken($m-green-logo, 3);// $m-navbar-bg-color-dark; */
+/* $m-footer-font-color: #bbb; */
+/* $m-footer-border-color: darken($m-footer-bg-color, 10); */
+/* $m-footer-link-color: #bbb; */
+/* $m-footer-link-color-hover: #fff; */
+/* $m-footer-link-color-active: $m-link-color-active; */
 
 // h1, h2, h3, ...
 $m-h-font-color: #404040;
@@ -117,5 +140,12 @@ $m-z-index-tooltip: 999999;
 //$m-link-color: #367380;
 // $btn-primary-bg: #5bc0de;
 // $btnPrimaryBackgroundHighlight: #2f96b4;
-$m-navbar-default-bg: #0a3138;
+$navbar-default-bg: #0a3138;
 // $navbarBackgroundHighlight: #27535C;
+
+$m-link-color: #187aca; //#1e9a50; //#187d41;
+$m-link-color-hover: $m-bright-blue; //#2BDE73;
+
+$m-link-color-2: #111;
+$m-link-color-2-hover: $m-link-color;
+$m-link-color-2-active: $m-link-color-active;

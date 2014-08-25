@@ -1,7 +1,7 @@
 @import "definitions";
 
 // heights are needed to make it stick to the bottom
-$m-footer-total-height: $m-footer-height + 41px; // + padding + border + margin
+$m-footer-total-height: $m-footer-height + 1px; // + padding + border + margin
 
 html, body {
   /* The html and body elements cannot have any padding or margin for sticky footer. */
@@ -21,6 +21,9 @@ html, body {
 }
 
 #footer-wrapper {
+  //height: $m-footer-height;
+}
+
+#footer {
   height: $m-footer-height;
-  clear: both;
 }

@@ -21,6 +21,8 @@ class SpacesController < ApplicationController
 
   before_filter :load_events, :only => :show, :if => lambda { Mconf::Modules.mod_enabled?('events') }
 
+  before_filter :user_spaces_for_sidebar, :only => [:show, :webconference]
+
   # TODO: cleanup the other actions adding respond_to blocks here
   respond_to :js, :only => [:index, :show]
   respond_to :json, :only => [:update_logo]

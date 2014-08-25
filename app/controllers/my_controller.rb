@@ -14,6 +14,8 @@ class MyController < ApplicationController
 
   before_filter :prepare_user_room, :only => [:home, :activity, :recordings]
 
+  before_filter :user_spaces_for_sidebar, :only => [:home]
+
   after_filter :load_events, :only => :home, :if => lambda { Mconf::Modules.mod_enabled?('events') }
 
   layout :determine_layout
@@ -46,7 +48,6 @@ class MyController < ApplicationController
   end
 
   def home
-    @user_spaces = current_user.spaces.limit(5)
     @user_pending_spaces = current_user.pending_spaces
     @contents_per_page = 15
     @all_contents = current_user.all_activity.limit(@contents_per_page).order('updated_at DESC')

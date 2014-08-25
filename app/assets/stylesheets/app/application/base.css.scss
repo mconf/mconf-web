@@ -7,6 +7,8 @@
 // General tags
 //
 
+
+
 body {
   background-color: $m-site-bg-color;
 }
@@ -204,7 +206,8 @@ form {
   padding: 0 10px;
   background: $m-navbar-bg-color-dark;
   @include background(linear-gradient(bottom, $m-navbar-bg-color-light, $m-navbar-bg-color-dark));
-  border-bottom: 1px solid $m-gray;
+  border-bottom: 1px solid $m-navbar-border-color;
+  @include font-for-titles;
 }
 
 #navbar {
@@ -213,6 +216,7 @@ form {
   padding: 0 10px;
   height: $m-navbar-height;
   color: $m-navbar-font-color;
+  @include font-size($m-font-medium);
   //@include font-size(12px);
 }
 
@@ -222,38 +226,36 @@ form {
 /* } */
 
 #footer-wrapper {
-  border-top: 1px solid darken($m-footer-bg-color, 10);
+  border-top: 1px dotted $m-footer-border-color;
   background: $m-footer-bg-color;
-  color: #444;
   clear: both;
-  padding: 10px 0;
-  margin-top: 20px;
+  color: $m-footer-font-color;
 }
 
 #footer {
   @include mconf-clearfix;
   @include make-row;
   margin: 0 auto;
-  padding: 0;
-  color: #666;
+  padding: 15px 0;
 
   a {
-    @include link-colors($m-link-color, $m-link-color-hover, $m-link-color-active);
-    text-decoration: none;
+    @include link-colors($m-footer-link-color, $m-footer-link-color-hover, $m-footer-link-color-active);
   }
 
   h3 {
     @include font-size($m-font-normal);
-    color: #888;
+    color: lighten($m-footer-font-color, 7);
     margin-bottom: 7px;
     font-weight: bold;
     padding-bottom: 3px;
-    border-bottom: 1px solid darken($m-footer-bg-color, 8);
+    //border-bottom: 1px solid darken($m-footer-bg-color, 8);
   }
 
   ul {
     list-style-type: none;
     margin: 0;
+    padding-left: 0;
+
     li {
       display: block;
       position: relative;
@@ -342,7 +344,8 @@ form {
 ul#navbar-left-links {
   list-style-type: none;
   float: left;
-  margin: 0 10px;
+  margin: 0;
+  padding: 0;
 
   a, .icon-awesome {
     @include link-colors($m-navbar-font-color, $m-navbar-font-color-hover, $m-navbar-font-color-hover);
@@ -356,13 +359,28 @@ ul#navbar-left-links {
   li {
     display: inline;
     float: left;
-    margin-top: 11px;
-    margin-left: 10px;
-    margin-right: 15px;
+    padding: 11px 10px 0 10px;
+    height: $m-navbar-height + 1px; // + the border
 
     &:first-child { border: 0 }
 
     .label { margin-left: 3px; }
+
+    &.notification-text {
+      //background: lighten($m-navbar-bg-color-light, 5);
+      margin: 0 20px 0 0;
+    }
+
+    &.notification-count {
+      background: $m-alert-success-font;
+      //background: lighten($m-navbar-bg-color-light, 10);
+      color: white;
+      float: left;
+      margin: 0;
+      text-weight: bold;
+      padding-top: 9px;
+      @include font-size($m-font-big);
+    }
   }
 }
 
@@ -530,8 +548,7 @@ ul#navbar-left-links {
 #main-logo {
   float: left;
   white-space: nowrap;
-  margin-top: 2px;
-  margin-right: 5px;
+  margin: 4px 15px 0 5px;
   @include mconf-clearfix;
 
   .title {
@@ -664,9 +681,10 @@ ul#navbar-left-links {
   @include make-xs-column(12);
   @include make-sm-column(3);
   @include make-sm-column-height;
-  background: $m-light-gray;
+  background: $m-sidebar-bg-color;
   border-right: 1px solid $m-sidebar-border;
-  padding: 10px 10px 10px 20px;
+  padding: 10px 10px 30px 20px;
+  min-width: 300px;
 }
 
 #sidebar, .sidebar {
@@ -757,6 +775,7 @@ ul#navbar-left-links {
   background-color: $m-site-bg-color;
   @include mconf-clearfix;
   overflow: visible;
+  padding-bottom: 30px;
 
   h3 {
     color: #404040;
@@ -803,24 +822,31 @@ ul#navbar-left-links {
 
   .content-block {
     clear: both;
-    margin-bottom: 20px;
+    margin: 10px 0 30px 0;
   }
 
   .content-block-footer {
-    padding: 4px 10px;
+    //padding: 4px 10px;
     text-align: right;
     clear: both;
 
     &.content-block-footer-fancy {
-      background: $m-light-gray;
-      border-top: 1px solid #eee;
+      //background: $m-light-gray;
+      border-top: 1px solid #d6d6d6;
+    }
+
+    .content-block-footer-middle {
+      margin-top: -12px;
+      background: white;
+      float: right;
+      padding: 0 10px;
     }
 
     @include content-block-pagination;
   }
 
   .content-block-middle {
-    padding: 10px 5px;
+    padding: 5px;
     clear: both;
   }
 
@@ -843,26 +869,29 @@ ul#navbar-left-links {
 }
 
 #page-menu {
-  margin-bottom: -21px; // #page-header's bottom margin -2px
-  padding-top: 15px;
+  margin: 5px 0 25px 0;
   clear: both;
+  @include mconf-clearfix;
+
+  border-bottom: 1px solid darken($m-site-bg-color, 10);
 
   > ul {
-    margin: 0;
+    margin: 0 0 -2px 0; // -2 so selected items border gets over the default menu border
+    padding: 0;
 
     > li {
       display: inline-block;
-      margin-left: 10px;
+      margin-right: 10px;
       padding: 5px 10px 3px 10px;
       font-weight: bold;
       @include font-size($m-font-medium);
 
       &.selected {
         @include border-top-radius(4px);
-        /* border-bottom: 3px solid $m-bright-blue; */
-        border: 1px solid darken($m-site-bg-color, 20);
-        border-bottom-color: $m-site-bg-color;
-        background: $m-site-bg-color;
+        border-bottom: 3px solid $m-bright-blue;
+        /* border: 1px solid darken($m-site-bg-color, 20); */
+        /* border-bottom-color: $m-site-bg-color; */
+        /* background: $m-site-bg-color; */
         > a {
           $normal: darken($m-page-menu-font-color, 20);
           $hover: lighten($m-page-menu-font-color, 10);
@@ -870,17 +899,18 @@ ul#navbar-left-links {
         }
       }
 
-      > a {
-        display: inline-block;
-        margin-bottom: 0px;
-        $normal: $m-page-menu-font-color;
-        $hover: lighten($m-page-menu-font-color, 10);
-        @include link-colors($normal, $hover, $hover, $normal);
-        &.danger-text {
-          @include danger-text;
-          @include opacity(0.8);
-          &.selected { @include opacity(1); }
-        }
+      // use link-style(2) but with a lighter default color
+      @include link-style(2);
+      > a:not(.btn) {
+        /* display: inline-block; */
+        /* margin-bottom: 0px; */
+        color: $m-page-menu-font-color;
+        &:visited { color: $m-page-menu-font-color; }
+        /* &.danger-text { */
+        /*   @include danger-text; */
+        /*   @include opacity(0.8); */
+        /*   &.selected { @include opacity(1); } */
+        /* } */
       }
 
       .caret-container {

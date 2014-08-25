@@ -221,4 +221,8 @@ class ApplicationController < ActionController::Base
     session[:user_return_to] = nil
   end
 
+  def user_spaces_for_sidebar
+    @user_spaces = current_user.spaces.limit(5)
+  end
+
 end

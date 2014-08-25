@@ -31,7 +31,7 @@ module IconsHelper
   end
 
   def icon_comments(title=nil, options={})
-    icon_constructor title, "icon-awesome icon-comments-alt icon-mconf-comments", options
+    icon_constructor title, "icon-awesome fa fa-comments-o icon-mconf-comments", options
   end
 
   def icon_event(title=nil, options={})
@@ -120,7 +120,7 @@ module IconsHelper
   end
 
   def icon_users(options={})
-    icon_constructor nil, "icon-awesome icon-user icon-mconf-users", options
+    icon_constructor nil, "icon-awesome fa fa-users icon-mconf-users", options
   end
 
   def icon_edit(options={})
@@ -144,11 +144,11 @@ module IconsHelper
   end
 
   def icon_space_private(options={})
-    icon_constructor nil, "icon-awesome icon-lock icon-mconf-space-private", options
+    icon_constructor nil, "icon-awesome fa fa-lock icon-mconf-space-private", options
   end
 
   def icon_space_public(options={})
-    icon_constructor nil, "icon-awesome icon-eye-open icon-mconf-space-public", options
+    icon_constructor nil, "icon-awesome fa fa-eye icon-mconf-space-public", options
   end
 
   def icon_webconf_start(options={})
@@ -188,7 +188,7 @@ module IconsHelper
   end
 
   def icon_user(options={})
-    icon_constructor nil, "icon-awesome icon-user icon-mconf-user", options
+    icon_constructor nil, "icon-awesome fa fa-user icon-mconf-user", options
   end
 
   def icon_space(options={})
@@ -204,7 +204,7 @@ module IconsHelper
   end
 
   def icon_meeting(options={})
-    icon_constructor nil, "icon-awesome icon-facetime-video icon-mconf-meeting", options
+    icon_constructor nil, "icon-awesome fa fa-video-camera icon-mconf-meeting", options
   end
 
   def icon_recording(options={})
@@ -224,7 +224,7 @@ module IconsHelper
   end
 
   def icon_is_member(options={})
-    icon_constructor nil, "icon-awesome icon-check icon-mconf-is-member", options
+    icon_constructor nil, "icon-awesome fa fa-check icon-mconf-is-member", options
   end
 
   def icon_options(options={})

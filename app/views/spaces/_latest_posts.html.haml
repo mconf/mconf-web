@@ -27,4 +27,5 @@
             = first_words(strip_tags(post.text), 100)
 
   .content-block-footer.content-block-footer-fancy
-    = link_to t('read_more'), space_posts_path(@space)
+    .content-block-footer-middle
+      = link_to t('read_more'), space_posts_path(@space)

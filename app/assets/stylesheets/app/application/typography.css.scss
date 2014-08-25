@@ -27,6 +27,8 @@ h4, .h4,
 h5, .h5,
 h6, .h6 {
   font-style: normal;
+  @include font-for-titles;
+  @include link-style(2);
 }
 
 h1, .h1 {
@@ -73,14 +75,14 @@ p {
 
 pre,
 code {
-  font-family: Consolas, Monaco, "Lucida Console", monospace;
+  @include font-for-code;
 }
 
 .unordered-list { list-style-type: disc; }
 .ordered-list { list-style: decimal; }
 
 a:not(.btn) {
-  @include link-colors($m-link-color, $m-link-color, $m-link-color-active, $m-link-color);
+  @include link-colors($m-link-color, $m-link-color-hover, $m-link-color-active, $m-link-color);
   @include transition(all 0.1s ease-in);
   text-decoration: none;
   &:hover, &:active, &:focus { text-decoration: underline; }

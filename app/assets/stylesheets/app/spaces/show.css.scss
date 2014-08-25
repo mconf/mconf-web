@@ -1,8 +1,14 @@
 @import "compass/css3";
 @import "definitions";
 
-@import "app/spaces/sidebar";
+/* @import "app/spaces/sidebar"; */
 @import "app/mweb_events-events/_unified_event";
+
+@import "app/spaces/title";
+@import "app/shared/webconference_join";
+
+// TODO: import this in spaces/_all
+@import "app/shared/user_sidebar";
 
 body.spaces.show {
 

@@ -146,3 +146,36 @@
 @mixin link-on-menus {
   &:hover { text-decoration: none; }
 }
+
+@mixin link-style($style) {
+
+  // link style usually used in menus of all kinds
+  @if ($style == 2) {
+    a:not(.btn) {
+      @include link-colors($m-link-color-2, $m-link-color-2-hover, $m-link-color-2-active, $m-link-color-2);
+      text-decoration: none;
+    }
+  }
+
+  // default link styles
+  @else {
+    a:not(.btn) {
+      @include link-colors($m-link-color, $m-link-color-hover, $m-link-color-active, $m-link-color);
+    }
+  }
+}
+
+@mixin font-for-titles {
+  font-family: $m-font-family-titles;
+}
+
+@mixin font-for-code {
+  font-family: $m-font-family-mono;
+}
+
+@mixin text-truncate {
+  white-space: nowrap;
+  word-wrap: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

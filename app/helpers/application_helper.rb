@@ -193,6 +193,16 @@ module ApplicationHelper
     truncate(text, :length => size)
   end
 
+  # Sets the default value for a local in a view. Preserves false and nil values.
+  # TODO: find a way to access `local_assigns` here without passing in as a param.
+  def set_default(local_assigns, var_name, value)
+    if local_assigns.has_key?(var_name.to_sym)
+      local_assigns[var_name.to_sym]
+    else
+      value
+    end
+  end
+
   private
 
   # Based on http://www.igvita.com/2007/03/15/block-helpers-and-dry-views-in-rails/

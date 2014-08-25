@@ -4,22 +4,32 @@
 
 = render :partial => 'spaces/menu'
 
-- if mod_enabled?("events") && !@current_events.empty?
-  #events-current.content-block.event-block.events-hapenning-now
-    .content-block-header
-      %h3= t('.events_now')
-    .content-block-middle
-      - for event in @current_events do
-        = render :partial => "mweb_events/events/unified_event", :locals => { :event => event }
+= content_for :main_sidebar do
+  = render "my/sidebar", :user_spaces => @user_spaces
 
-.content-block
-  .content-block-header
-    %h3= t('space.description')
-  .content-block-middle
-    = @space.description
+= render "spaces/title", :space => @space
 
-- if @news_to_show
-  = render :partial => 'latest_news'
+#page-menu
+  = content_for :page_menu
+
+-# - if mod_enabled?("events") && !@current_events.empty?
+-#   #events-current.content-block.event-block.events-hapenning-now
+-#     .content-block-header
+-#       %h3= t('.events_now')
+-#     .content-block-middle
+-#       - for event in @current_events do
+-#         = render :partial => "mweb_events/events/unified_event", :locals => { :event => event }
+
+-# .content-block
+-#   .content-block-header
+-#     %h3= t('space.description')
+-#   .content-block-middle
+-#     = @space.description
+
+= render "shared/webconference_join", room: @space.bigbluebutton_room
+
+-# - if @news_to_show
+-#   = render :partial => 'latest_news'
 
 = render :partial => 'latest_posts'
 

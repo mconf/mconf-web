@@ -990,23 +990,6 @@ en:
         error: "Error updating your recording list, plase try again later"
         success: "Recording list updated!"
         updating: "Updating your list of recordings..."
-    webconference_room:
-      end: "Stop the meeting"
-      end_tooltip: "This action will end the current conference!"
-      fast_start: "Fast start using the options already configured"
-      invite: "Invite other people"
-      join: "Join the meeting!"
-      join_mobile_full: "Join from a mobile device"
-      not_running: "Your webconference is not in progress."
-      preferences: "Preferences"
-      recordings: "View recordings"
-      running_with:
-        no_participants: "Your webconference is in progress with no participants."
-        participants:
-          one: "Your webconference is in progress with %{count} participant!"
-          other: "Your webconference is in progress with %{count} participants!"
-      start: "Start a new meeting"
-      your_url: "Your URL"
   my_friends: "My friends"
   name: 
     one: Name
@@ -1289,6 +1272,23 @@ en:
       view_recording_list: "View recording list"
       view_room_list: "View room list"
       view_server_list: "View server list"
+    webconference_join:
+      end: "Stop the meeting"
+      end_tooltip: "This action will end the current conference!"
+      fast_start: "Fast start using the options already configured"
+      invite: "Invite other people"
+      join: "Join the meeting!"
+      join_mobile_full: "Join from a mobile device"
+      not_running: "Your webconference is not in progress."
+      preferences: "Preferences"
+      recordings: "View recordings"
+      running_with:
+        no_participants: "Your webconference is in progress with no participants."
+        participants:
+          one: "Your webconference is in progress with %{count} participant!"
+          other: "Your webconference is in progress with %{count} participants!"
+      start: "Start a new meeting"
+      your_url: "Your URL"
   shibboleth:
     associate:
       existent_account:
@@ -1544,6 +1544,10 @@ en:
       view_join_request: "View the request you sent"
     thumbnail_view:
       no_spaces: "There are no spaces created yet!"
+    title:
+      is_member: "You are a member of this space"
+      private: "Private space"
+      public: "Public space"
     unified_space:
       private: "Private space"
       public: "Public space"
