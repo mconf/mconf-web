@@ -150,11 +150,4 @@ feature 'Visitor logs in' do
     end
 
   end
-
-  def sign_in_with(user_email, password, visit_page=true)
-    visit new_user_session_path
-    fill_in 'user[login]', with: user_email
-    fill_in 'user[password]', with: password
-    click_button 'Login'
-  end
 end
