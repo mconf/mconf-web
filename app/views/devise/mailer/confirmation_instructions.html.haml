@@ -1,0 +1,10 @@
+= "Welcome #{@email}!" 
+
+%p
+  - unless Site.current.require_registration_approval?
+    You can confirm your account email through the link below:
+    %p
+      = link_to 'Confirm my account', confirmation_url(@resource, confirmation_token: @token)
+
+  - else
+    You're account was created and is pending approval of an administrator.
