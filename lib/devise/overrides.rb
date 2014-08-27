@@ -22,3 +22,15 @@ Devise::Strategies::DatabaseAuthenticatable.class_eval do
     super_authenticate!
   end
 end
+
+# TODO: alternative to fix the bug found in
+# https://github.com/plataformatec/devise/issues/2976
+Devise::Models::Confirmable.class_eval do
+  #trying to fix the bug of regenerating a new confirmation_token each time an user is updated
+  def postpone_email_change_until_confirmation_and_regenerate_confirmation_token
+    @reconfirmation_required = true
+    self.unconfirmed_email = self.email
+    self.email = self.email_was
+    generate_confirmation_token unless confirmation_token
+  end
+end
