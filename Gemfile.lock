@@ -71,6 +71,13 @@ GIT
       mail
 
 GIT
+  remote: https://github.com/lfzawacki/psych.git
+  revision: ed4b164b8d192b2b7bf663cba0fe5cdd1f7beef1
+  branch: gemfile-style
+  specs:
+    psych (2.0.5.20140820161236)
+
+GIT
   remote: https://github.com/sevenwire/forgery.git
   revision: b20bb0b99f0d9291d0704827ca86095bae20a192
   specs:
@@ -451,6 +458,7 @@ DEPENDENCIES
   populator
   premailer-rails
   prism
+  psych!
   public_activity (~> 1.4.1)
   quiet_assets
   rabl
