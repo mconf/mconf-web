@@ -89,4 +89,18 @@ describe Profile do
     end
   end
 
+  context "after_update" do
+    let(:user) { FactoryGirl.create(:user) }
+    let(:profile) { Profile.create(:user => user) }
+
+    context "updates the name of the user's web conference room" do
+      before(:each) {
+        profile.user.bigbluebutton_room.update_attribute(:name, "name before")
+        profile.update_attributes(:full_name => "name after")
+      }
+
+      it { profile.user.bigbluebutton_room.name.should eq("name after") }
+    end
+  end
+
 end

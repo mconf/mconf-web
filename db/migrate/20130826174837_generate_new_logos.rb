@@ -27,9 +27,6 @@ class GenerateNewLogos < ActiveRecord::Migration
   end
 
   def up
-    # otherwise it triggers an error on rails 4
-    Profile.observers.disable :all
-
     # select all logos
     # there's no Logo model anymore, so we have to do a raw sql
     sql = "SELECT * FROM logos"
@@ -87,8 +84,6 @@ class GenerateNewLogos < ActiveRecord::Migration
     puts "    failed: #{failed}"
     puts "MoveOldLogos: logos that did NOT have a proper associated space/user: #{without_target}"
     puts "----------------------------------------------------------------------------------------"
-
-    Profile.observers.enable :all
   end
 
   def down
