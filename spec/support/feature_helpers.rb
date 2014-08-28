@@ -14,13 +14,15 @@ module FeatureHelpers
   end
 
   def setup_shib name, email, principal
-    Capybara.register_driver :rack_test do |app|
+    driver_name = "rack_test_#{rand}".to_sym
+    Capybara.register_driver driver_name do |app|
       Capybara::RackTest::Driver.new(app, :headers => {
         "Shib-inetOrgPerson-cn" => name,
         "Shib-inetOrgPerson-mail" => email,
         "Shib-eduPerson-eduPersonPrincipalName" => principal
       })
     end
+    Capybara.current_driver = driver_name
   end
 
   def logout_user
