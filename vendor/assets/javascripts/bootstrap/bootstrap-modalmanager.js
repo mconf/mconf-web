@@ -1,5 +1,5 @@
 /* ===========================================================
- * bootstrap-modalmanager.js v2.2.0
+ * bootstrap-modalmanager.js v2.2.5
  * ===========================================================
  * Copyright 2012 Jordan Schroter.
  *
@@ -110,43 +110,27 @@
 			}));
 
 			modal.$element.on('hidden.modalmanager', targetIsSelf(function (e) {
-
 				that.backdrop(modal);
-				if (modal.$backdrop){
+				// handle the case when a modal may have been removed from the dom before this callback executes
+				if (!modal.$element.parent().length) {
+					that.destroyModal(modal);
+				} else if (modal.$backdrop){
 					var transition = $.support.transition && modal.$element.hasClass('fade');
 
 					// trigger a relayout due to firebox's buggy transition end event 
 					if (transition) { modal.$element[0].offsetWidth; }
-
 					$.support.transition && modal.$element.hasClass('fade') ?
-						modal.$backdrop.one($.support.transition.end, function () { that.destroyModal(modal) }) :
-						that.destroyModal(modal);
+						modal.$backdrop.one($.support.transition.end, function () { modal.destroy(); }) :
+						modal.destroy();
 				} else {
-					that.destroyModal(modal);
+					modal.destroy();
 				}
 
 			}));
 
-			modal.$element.on('destroy.modalmanager', targetIsSelf(function (e) {
-				that.removeModal(modal);
+			modal.$element.on('destroyed.modalmanager', targetIsSelf(function (e) {
+				that.destroyModal(modal);
 			}));
-
-		},
-
-		destroyModal: function (modal) {
-			modal.destroy();
-
-			var hasOpenModal = this.hasOpenModal();
-
-			this.$element.toggleClass('modal-open', hasOpenModal);
-
-			if (!hasOpenModal){
-				this.$element.removeClass('page-overflow');
-			}
-
-			this.removeContainer(modal);
-
-			this.setFocus();
 		},
 
 		getOpenModals: function () {
@@ -172,13 +156,24 @@
 			if (!topModal) return;
 
 			topModal.focus();
-
 		},
 
-		removeModal: function (modal) {
+		destroyModal: function (modal) {
 			modal.$element.off('.modalmanager');
 			if (modal.$backdrop) this.removeBackdrop(modal);
 			this.stack.splice(this.getIndexOfModal(modal), 1);
+
+			var hasOpenModal = this.hasOpenModal();
+
+			this.$element.toggleClass('modal-open', hasOpenModal);
+
+			if (!hasOpenModal){
+				this.$element.removeClass('page-overflow');
+			}
+
+			this.removeContainer(modal);
+
+			this.setFocus();
 		},
 
 		getModalAt: function (index) {
@@ -390,7 +385,7 @@
 	// if Boostsrap namespaced events, this would not be needed.
 	function targetIsSelf(callback){
 		return function (e) {
-			if (this === e.target){
+			if (e && this === e.target){
 				return callback.apply(this, arguments);
 			}
 		}
@@ -418,5 +413,11 @@
 	};
 
 	$.fn.modalmanager.Constructor = ModalManager
+
+	// ModalManager handles the modal-open class so we need 
+	// to remove conflicting bootstrap 3 event handlers
+	$(function () {
+		$(document).off('show.bs.modal').off('hidden.bs.modal');
+	});
 
 }(jQuery);

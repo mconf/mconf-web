@@ -4,6 +4,7 @@
  *= require font-awesome
  *= require ../../../vendor/assets/stylesheets/jquery/jquery.Jcrop
  *= require ../../../vendor/assets/stylesheets/jquery/jquery.noty
+ *= require ../../../vendor/assets/stylesheets/bootstrap/bootstrap-modal-bs3patch.css
  *= require ../../../vendor/assets/stylesheets/bootstrap/bootstrap-modal
  *= require select2
  *= require ../../../vendor/assets/stylesheets/bootstrap/select2-bootstrap
@@ -22,7 +23,6 @@
  *= require ./app/application/input-placeholder
  *= require ./app/application/in_place_edit
  *= require ./app/application/resource_filter
- *= require ./app/application/modal
  *= require ./app/application/showable_password_input
  *= require ./app/application/logo_images
  *= require ./app/application/chat
