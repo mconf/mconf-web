@@ -4,6 +4,29 @@ Warden.test_mode!
 # General purpose helpers
 module FeatureHelpers
 
+  def enable_shib
+    Site.current.update_attributes(
+      :shib_enabled => true,
+      :shib_name_field => "Shib-inetOrgPerson-cn",
+      :shib_email_field => "Shib-inetOrgPerson-mail",
+      :shib_principal_name_field => "Shib-eduPerson-eduPersonPrincipalName"
+    )
+  end
+
+  def setup_shib name, email, principal
+    Capybara.register_driver :rack_test do |app|
+      Capybara::RackTest::Driver.new(app, :headers => {
+        "Shib-inetOrgPerson-cn" => name,
+        "Shib-inetOrgPerson-mail" => email,
+        "Shib-eduPerson-eduPersonPrincipalName" => principal
+      })
+    end
+  end
+
+  def logout_user
+    find("a[href='#{logout_path}']").click
+  end
+
   # Shorthand for I18n.t
   def t *args
     I18n.t(*args)
@@ -30,8 +53,11 @@ module FeatureHelpers
   end
 
   def has_failure_message message=nil
-    page.should have_css('#notification-flashs > div[name=alert]')
-    page.find('#notification-flashs > div[name=alert]').should have_content(message)
+    # TODO
+    # we sometimes show success on 'alert' and sometimes on 'error'
+    error_css = '#notification-flashs > div[name=alert],div[name=error]'
+    page.should have_css(error_css)
+    page.find(error_css).should have_content(message)
   end
 
   def have_notification(text)
