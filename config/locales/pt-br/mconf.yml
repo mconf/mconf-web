@@ -685,7 +685,7 @@ pt-br:
         title: "Acessar a sua conta"
         resend_confirmation_email: "Reenviar e-mail de confirmação"
       register:
-        title: "Create a new account"
+        title: "Criar uma nova conta"
   from: De
   getting_started: Começando!
   group:
