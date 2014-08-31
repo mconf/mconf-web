@@ -19,3 +19,4 @@ config/analytics_conf.yml
 public/assets/*
 public/uploads/*
 .bundle/
+public/capybara.html
