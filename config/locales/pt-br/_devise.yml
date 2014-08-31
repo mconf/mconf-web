@@ -20,6 +20,10 @@ pt-BR:
     mailer:
       confirmation_instructions:
         subject: 'Instruções de confirmação'
+        welcome: "Bem-vindo %{email}!"
+        confirmation_link: "Confirme minha conta"
+        confirmation_ok: "Você pode confirmar sua conta de email através do link abaixo:"
+        confirmation_pending: "Sua conta foi criada e está pendente de aprovação de um administrador."
       reset_password_instructions:
         subject: 'Instruções de troca de senha'
       unlock_instructions:

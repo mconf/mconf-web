@@ -66,4 +66,8 @@ module FeatureHelpers
     have_selector("#notification-flashs", :text => text)
   end
 
+  def last_email
+    ActionMailer::Base.deliveries.last
+  end
+
 end

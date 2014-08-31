@@ -17,18 +17,18 @@ module Helpers
   # not on git.
   def self.setup_site
     attributes = {
-      locale: "en",
       events_enabled: true,
+      exception_notifications: false,
+      ldap_enabled: false,
       local_auth_enabled: true,
+      locale: "en",
+      name: Forgery::Name.first_name,
       registration_enabled: true,
       require_registration_approval: false,
       shib_enabled: false,
       shib_always_new_account: false,
-      ldap_enabled: false,
-      exception_notifications: false,
-      webconf_auto_record: true,
       smtp_sender: Forgery::Internet.email_address,
-      name: Forgery::Name.first_name
+      webconf_auto_record: true
     }
     Site.current.update_attributes(attributes)
   end

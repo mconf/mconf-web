@@ -20,6 +20,10 @@ en:
     mailer:
       confirmation_instructions:
         subject: "Confirmation instructions"
+        welcome: "Welcome %{email}!"
+        confirmation_link: "Confirm my account"
+        confirmation_ok: "You can confirm your account email through the link below:"
+        confirmation_pending: "Your account was created and is pending approval of an administrator."
       reset_password_instructions:
         subject: "Reset password instructions"
       unlock_instructions:
