@@ -162,6 +162,7 @@ GEM
       yamler (>= 0.1.0)
     css_parser (1.3.5)
       addressable
+    database_cleaner (1.3.0)
     debug_inspector (0.0.2)
     devise (3.2.4)
       bcrypt (~> 3.0)
@@ -432,6 +433,7 @@ DEPENDENCIES
   compass (~> 0.13.alpha)
   compass-rails (~> 1.0)
   configatron (~> 2.13.0)
+  database_cleaner
   devise (~> 3.2.4)
   devise-async
   devise-encryptable
