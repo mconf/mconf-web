@@ -46,6 +46,16 @@ module FeatureHelpers
     click_button 'Login'
   end
 
+  def register_with(attrs)
+    visit register_path
+    fill_in "user[email]", with: attrs[:email]
+    fill_in "user[_full_name]", with: attrs[:_full_name]
+    fill_in "user[username]", with: attrs[:username]
+    fill_in "user[password]", with: attrs[:password]
+    fill_in "user[password_confirmation]", with: attrs[:password]
+    click_button "Register"
+  end
+
   def has_success_message message=nil
     # TODO
     # we sometimes show success on 'notice' and sometimes on 'success'

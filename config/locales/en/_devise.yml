@@ -3,7 +3,7 @@
 en:
   devise:
     confirmations:
-      confirmed: "Your account was successfully confirmed. You are now signed in."
+      confirmed: "Your account was successfully confirmed."
       send_instructions: "You will receive an email with instructions about how to confirm your account in a few minutes."
       send_paranoid_instructions: "If your email address exists in our database, you will receive an email with instructions about how to confirm your account in a few minutes."
     failure:
@@ -20,10 +20,6 @@ en:
     mailer:
       confirmation_instructions:
         subject: "Confirmation instructions"
-        welcome: "Welcome %{email}!"
-        confirmation_link: "Confirm my account"
-        confirmation_ok: "You can confirm your account email through the link below:"
-        confirmation_pending: "Your account was created and is pending approval of an administrator."
       reset_password_instructions:
         subject: "Reset password instructions"
       unlock_instructions:
@@ -35,7 +31,7 @@ en:
       no_token: "You can't access this page without coming from a password reset email. If you do come from a password reset email, please make sure you used the full URL provided."
       send_instructions: "You will receive an email with instructions about how to reset your password in a few minutes."
       send_paranoid_instructions: "If your email address exists in our database, you will receive a password recovery link at your email address in a few minutes."
-      updated: "Your password was changed successfully. You are now signed in."
+      updated: "Your password was changed successfully."
       updated_not_active: "Your password was changed successfully."
     registrations:
       destroyed: "Bye! Your account was successfully cancelled. We hope to see you again soon."
