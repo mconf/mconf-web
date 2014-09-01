@@ -1326,6 +1326,8 @@ pt-br:
       invalid_parameters: "Your request was invalid, please try again."
     info:
       title: "Seus dados obtidos pela federação"
+    login:
+      local_account_disabled: "Sua conta com o Mconf está desabilitada, você não pode se logar. Por favor, entre em contato com um administrador para resolver o probleme."
   show: Exibir
   show_advanced_editor: "Exibir editor avançado"
   show_list_version_arrows: "exibir versão em lista >>"

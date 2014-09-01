@@ -1326,6 +1326,8 @@ en:
       invalid_parameters: "Your request was invalid, please try again."
     info:
       title: "Your data from the federation"
+    login:
+      local_account_disabled: "Your account with Mconf is disabled, sorry but you can't log in. Please contact an adminstrator to solve the problem."
   show: Show
   show_advanced_editor: "Show advanced editor"
   show_list_version_arrows: "show list version >>"
