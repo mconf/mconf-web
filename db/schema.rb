@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140821194744) do
+ActiveRecord::Schema.define(version: 20140831235219) do
 
   create_table "activities", force: true do |t|
     t.integer  "trackable_id"
@@ -121,15 +121,16 @@ ActiveRecord::Schema.define(version: 20140821194744) do
     t.string   "voice_bridge"
     t.string   "dial_number"
     t.integer  "max_participants"
-    t.boolean  "private",                default: false
+    t.boolean  "private",                                         default: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "external",               default: false
+    t.boolean  "external",                                        default: false
     t.string   "param"
-    t.boolean  "record_meeting",         default: false
-    t.integer  "duration",               default: 0
+    t.boolean  "record_meeting",                                  default: false
+    t.integer  "duration",                                        default: 0
     t.string   "moderator_api_password"
     t.string   "attendee_api_password"
+    t.decimal  "create_time",            precision: 14, scale: 0
   end
 
   add_index "bigbluebutton_rooms", ["meetingid"], name: "index_bigbluebutton_rooms_on_meetingid", unique: true, using: :btree
