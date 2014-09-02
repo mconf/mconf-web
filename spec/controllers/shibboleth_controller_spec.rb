@@ -140,19 +140,6 @@ describe ShibbolethController do
         }
       end
 
-      context "user has a token but his local account is disabled" do
-        before {
-          setup_shib(user.full_name, user.email)
-          ShibToken.create!(:identifier => user.email, :user => user)
-          user.update_attributes(:disabled => true)
-        }
-        before(:each) {
-          get :login
-        }
-        it { should set_the_flash.to(I18n.t('shibboleth.login.local_account_disabled'))}
-        it { should redirect_to(root_path) }
-      end
-
       context "renders the association page if the user doesn't have a token yet" do
         before(:each) { get :login }
         it { should render_template('associate') }
@@ -176,6 +163,17 @@ describe ShibbolethController do
           let(:run_route) { get :login }
           it_should_behave_like "a caller of #associate_with_new_account"
         end
+      end
+
+      context "user has a token and his local account is disabled" do
+        before {
+          setup_shib(user.full_name, user.email)
+          ShibToken.create!(:identifier => user.email, :user => user)
+          user.disable
+        }
+        before(:each) { get :login }
+        it { should set_the_flash.to(I18n.t('shibboleth.login.local_account_disabled'))}
+        it { should redirect_to(root_path) }
       end
     end
   end

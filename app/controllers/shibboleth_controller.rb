@@ -34,24 +34,25 @@ class ShibbolethController < ApplicationController
     else
       token = @shib.find_token()
 
-      # there's a token with a user associated, logs the user in
-      unless token.nil? || token.user.nil?
-        logger.info "Shibboleth: logging in the user #{token.user.inspect}"
-        logger.info "Shibboleth: shibboleth data for this user #{@shib.get_data.inspect}"
-        sign_in token.user
-        flash.keep # keep the message set before by #create_association
-        redirect_to after_sign_in_path_for(token.user)
+      # there's a token with a user associated
+      if !token.nil? && !token.user_with_disabled.nil?
+        user = token.user_with_disabled
+        if user.disabled
+          logger.info "Shibolleth: user local account is disabled, can't login"
+          flash[:error] = t('shibboleth.login.local_account_disabled')
+          redirect_to root_path
+        else
+          # the user is not disabled, logs the user in
+          logger.info "Shibboleth: logging in the user #{token.user.inspect}"
+          logger.info "Shibboleth: shibboleth data for this user #{@shib.get_data.inspect}"
+          sign_in token.user
+          flash.keep # keep the message set before by #create_association
+          redirect_to after_sign_in_path_for(token.user)
+        end
 
       # no token means the user has no association yet, render a page to do it
       else
-        if !token.nil? && token.user.nil? 
-          user = User.with_disabled.where(id: token.user_id).first
-          if user.disabled
-            logger.info "Shibolleth: user local account is disabled, can't login"
-            flash[:error] = t('shibboleth.login.local_account_disabled')
-            redirect_to root_path
-          end
-        elsif !get_always_new_account
+        if !get_always_new_account
           logger.info "Shibboleth: first access for this user, rendering the association page"
           render :associate
         else

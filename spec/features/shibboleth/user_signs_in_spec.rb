@@ -64,8 +64,50 @@ describe 'User signs in via shibboleth' do
         it { has_failure_message }
         it { current_path.should eq(shibboleth_path) }
       end
+
+      context "the user's account is disabled" do
+        let(:user) { FactoryGirl.create(:user) }
+        before {
+          user.disable
+          fill_in 'user[login]', :with => user.username
+          fill_in 'user[password]', :with => user.password
+          click_button t('shibboleth.associate.existent_account.link_to_this_account')
+        }
+
+        it { has_failure_message }
+        it { current_path.should eq(shibboleth_path) }
+      end
+    end
+  end
+
+  context "a returning user" do
+    let(:token) { FactoryGirl.create(:shib_token) }
+    let(:user) { token.user }
+
+    before {
+      enable_shib
+      setup_shib user.full_name, user.email, user.email
+    }
+
+    context "that has a valid account" do
+      before {
+        visit shibboleth_path
+      }
+
+      it { current_path.should eq(my_home_path) }
+      it { should have_content user.full_name }
+      it { should have_content user.email }
     end
 
+    context "that has a disabled account" do
+      before {
+        user.disable
+        visit shibboleth_path
+      }
+
+      it { current_path.should eq(root_path) }
+      it { has_failure_message(I18n.t('shibboleth.login.local_account_disabled')) }
+    end
   end
 
   context "redirects the user properly" do
