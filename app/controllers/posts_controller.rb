@@ -128,7 +128,7 @@ class PostsController < ApplicationController
   end
 
   def post_allowed_params
-    [:title, :text]
+    [:title, :text, :parent_id]
   end
 
   private
