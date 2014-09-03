@@ -15,7 +15,7 @@ GIT
 
 GIT
   remote: git://github.com/mconf/bigbluebutton_rails.git
-  revision: f92ddf82db47f0446de5f403377f41012917ead5
+  revision: 091fe5759709bddf69181ce3c72e9bbc71dcab3d
   branch: master
   specs:
     bigbluebutton_rails (2.0.0)
@@ -69,6 +69,13 @@ GIT
     valid_email (0.1.0)
       activemodel
       mail
+
+GIT
+  remote: https://github.com/lfzawacki/psych.git
+  revision: ed4b164b8d192b2b7bf663cba0fe5cdd1f7beef1
+  branch: gemfile-style
+  specs:
+    psych (2.0.5.20140820161236)
 
 GIT
   remote: https://github.com/sevenwire/forgery.git
@@ -159,6 +166,7 @@ GEM
       yamler (>= 0.1.0)
     css_parser (1.3.5)
       addressable
+    database_cleaner (1.3.0)
     debug_inspector (0.0.2)
     devise (3.2.4)
       bcrypt (~> 3.0)
@@ -431,6 +439,7 @@ DEPENDENCIES
   compass (~> 0.13.alpha)
   compass-rails (~> 1.0)
   configatron (~> 2.13.0)
+  database_cleaner
   devise (~> 3.2.4)
   devise-async
   devise-encryptable
@@ -456,6 +465,7 @@ DEPENDENCIES
   populator
   premailer-rails
   prism
+  psych!
   public_activity (~> 1.4.1)
   quiet_assets
   rabl

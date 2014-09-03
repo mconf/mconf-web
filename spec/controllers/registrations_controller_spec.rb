@@ -59,7 +59,7 @@ describe RegistrationsController do
       it { should redirect_to(my_home_path) }
     end
 
-    describe "if registrations are disabled in the site"
+    it "if registrations are disabled in the site"
   end
 
 end

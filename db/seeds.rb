@@ -2,19 +2,6 @@
 # database with its default values. The data can then be loaded with
 # the rake db:seed (or created alongside the db with db:setup).
 
-# Make sure the config file exists and load it
-CONFIG_FILENAME = "setup_conf.yml"
-CONFIG_FILE = File.join(::Rails.root, "config", CONFIG_FILENAME)
-DEFAULT_CONFIG_FILE = File.join(::Rails.root, "config", "#{CONFIG_FILENAME}.example")
-unless File.exists? DEFAULT_CONFIG_FILE
-  puts
-  puts "ERROR"
-  puts "The default configuration file does not exist! Make sure your repository is up to date."
-  puts "Path: #{DEFAULT_CONFIG_FILE}"
-  puts
-  exit
-end
-
 puts "* Create the default site"
 puts "  attributes read from the configuration file:"
 puts "    #{configatron.site.to_hash.inspect}"

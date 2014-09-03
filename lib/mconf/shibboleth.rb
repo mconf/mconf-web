@@ -53,7 +53,7 @@ module Mconf
       result = nil
       if @session.has_key?(ENV_KEY)
         result = @session[ENV_KEY][field]
-        result = result.clone unless result.nil?
+        result = result.dup unless result.blank?
       end
       result
     end
@@ -86,7 +86,7 @@ module Mconf
 
     # Returns all the shibboleth data stored in the session.
     def get_data
-      @session[ENV_KEY]
+      @session[ENV_KEY].try(:dup)
     end
 
     # Returns whether the user is signed in via federation or not.

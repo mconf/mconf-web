@@ -586,10 +586,16 @@ en:
   devise:
     failure:
       user:
-        not_approved: 'Your account has not been approved by an administrator yet.'
+        not_approved: "Your account has not yet been approved by an administrator."
+    mailer:
+      confirmation_instructions:
+        confirmation_link: "Confirm my account"
+        confirmation_ok: "You can confirm your account email through the link below:"
+        confirmation_pending: "Your account was created and is waiting the approval of an administrator."
+        welcome: "Welcome %{email}!"
     registrations:
-      not_enabled: 'Registration of new accounts is not enabled in this website.'
-      signed_up_but_not_approved: 'You have signed up successfully but your account has still to be approved by an administrator'
+      not_enabled: "Registration of new accounts is not enabled in this website."
+      signed_up_but_not_approved: "You have signed up successfully! You account is now waiting to be approved by an administrator, please wait."
     shared:
       links:
         login:
@@ -1320,6 +1326,8 @@ en:
       invalid_parameters: "Your request was invalid, please try again."
     info:
       title: "Your data from the federation"
+    login:
+      local_account_disabled: "Sorry but you can't sign in, your account is disabled. Please contact an adminstrator to solve the problem."
   show: Show
   show_advanced_editor: "Show advanced editor"
   show_list_version_arrows: "show list version >>"

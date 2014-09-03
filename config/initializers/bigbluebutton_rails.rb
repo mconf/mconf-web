@@ -55,4 +55,10 @@ Rails.application.config.to_prepare do
     include PublicActivity::Common
   end
 
+  BigbluebuttonMeeting.class_eval do
+    after_create {
+      self.create_activity :create, :owner => self.room unless self.errors.any? 
+    }
+  end
+
 end

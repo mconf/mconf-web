@@ -587,9 +587,15 @@ pt-br:
     failure:
       user:
         not_approved: 'Sua conta ainda não foi aprovada por um administrador.'
+    mailer:
+      confirmation_instructions:
+        confirmation_link: "Confirme minha conta"
+        confirmation_ok: "Você pode confirmar sua conta de email através do link abaixo:"
+        confirmation_pending: "Sua conta foi criada e está esperando a aprovação de um administrador."
+        welcome: "Bem-vindo %{email}!"
     registrations:
       not_enabled: 'O registro de novas contas não está habilitado neste site.'
-      signed_up_but_not_approved: 'Seu registro foi feito com sucesso, mas você ainda precisa ser aprovado por um administrador para acessar o site'
+      signed_up_but_not_approved: 'Seu registro foi efetuado com sucesso! Você agora precisa ter sua conta aprovada por um administrador para acessar o site, por favor aguarde.'
     shared:
       links:
         login:
@@ -685,7 +691,7 @@ pt-br:
         title: "Acessar a sua conta"
         resend_confirmation_email: "Reenviar e-mail de confirmação"
       register:
-        title: "Create a new account"
+        title: "Criar uma nova conta"
   from: De
   getting_started: Começando!
   group:
@@ -1320,6 +1326,8 @@ pt-br:
       invalid_parameters: "Your request was invalid, please try again."
     info:
       title: "Seus dados obtidos pela federação"
+    login:
+      local_account_disabled: "Desculpe mas você não pode logar, sua conta está desabilitada. Por favor, entre em contato com um administrador para resolver o problema."
   show: Exibir
   show_advanced_editor: "Exibir editor avançado"
   show_list_version_arrows: "exibir versão em lista >>"

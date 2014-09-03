@@ -40,7 +40,10 @@ RSpec.configure do |config|
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
   # instead of true.
-  config.use_transactional_fixtures = true
+
+  # TODO: set to false only to send emails with devise-async and capybara, see http://stackoverflow.com/questions/16732060/devise-async-sidekiq-rspec-integration-spec-fails
+  #   use databasecleaner or disable this only in the specific features that need it
+  config.use_transactional_fixtures = false
 
   # Make the rails routes avaiable in all specs
   #config.include Rails.application.routes.url_helpers
@@ -55,17 +58,42 @@ RSpec.configure do |config|
   config.include Devise::TestHelpers, :type => :controller
   config.include ControllerMacros, :type => :controller
   config.extend Helpers::ClassMethods
+  config.include FeatureHelpers, :type => :feature
+
+  config.before(:suite) do
+    # setup the current site for the first time and update some things that need configurations
+    # from the site table
+    Helpers.setup_site
+    # this is done in an initializer, so have to do it again to prevent first run errors
+    Devise.mailer_sender = Site.current.smtp_sender
+  end
+
+  config.before(:each) do
+    ResqueSpec.reset!
+    ActionMailer::Base.deliveries.clear
+    Helpers.setup_site
+  end
+
+  config.around(:each) do |example|
+    # use :transaction for all, unless explicitly defined that it needs :truncation
+    DatabaseCleaner.strategy = example.metadata[:with_truncation] ? :truncation : :transaction
+
+    DatabaseCleaner.start
+    example.run
+    DatabaseCleaner.clean
+
+    if example.metadata[:with_truncation]
+      load Rails.root + "db/seeds.rb"
+    end
+
+    Capybara.reset_sessions!
+  end
 
   config.after(:each) do
     if Rails.env.test?
       FileUtils.rm_rf(Dir["#{Rails.root}/spec/support/uploads"])
     end
   end
-
-  config.before(:each) do
-    Helpers.setup_site
-  end
-
 end
 
 # Note: this was being included directly in the factories that need `fixture_file_upload`, but
