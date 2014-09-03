@@ -110,6 +110,7 @@ class JoinRequestsController < ApplicationController
   end
 
   def update
+
     # Admin doing the approval of a request
     if @join_request.request_type == 'request' && authorize!(:approve, @join_request)
       @join_request.attributes = join_request_params
@@ -207,6 +208,6 @@ class JoinRequestsController < ApplicationController
   end
 
   def allowed_params
-    [:introducer_id, :role_id, :processed, :accepted]
+    [ :introducer_id, :role_id, :processed, :accepted, :comment ]
   end
 end

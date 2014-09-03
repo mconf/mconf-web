@@ -28,5 +28,6 @@
       .user-email
         = "(#{jr.candidate.username}, #{jr.candidate.email})"
     .thread-text
-      %span= t('join_requests.index.user_message') + ':'
-      %blockquote.user-comment= jr.comment
+      - unless jr.comment.blank?
+        %span= t('join_requests.index.user_message') + ':'
+        %blockquote.user-comment= jr.comment
