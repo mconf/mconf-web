@@ -13,6 +13,7 @@ feature 'User accesses an URL of a space that' do
 
     it { should have_title(space.name) }
     it { should have_content(space.name) }
+    it { page.status_code.should == 200 }
   end
 
   context 'does not exist' do
@@ -26,6 +27,7 @@ feature 'User accesses an URL of a space that' do
       )
     }
     it { should have_link('', :href => spaces_path) }
+    it { page.status_code.should == 404 }
   end
 
 end

@@ -339,7 +339,7 @@ class SpacesController < ApplicationController
       # anonymous users or destructive actions are redirected to the 403 error
       flash[:error] = t("space.access_forbidden")
       if exception.action == :show
-        @error_message = t("space.is_private_html", :name => @space.name, :path => new_space_join_request_path(@space))
+        @error_message = t("space.is_private_html", name: @space.name, path: new_space_join_request_path(@space))
       end
       render_error 403
     end
