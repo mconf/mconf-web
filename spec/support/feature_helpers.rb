@@ -29,6 +29,10 @@ module FeatureHelpers
     find("a[href='#{logout_path}']").click
   end
 
+  def have_image src
+    have_xpath("//img[contains(@src,\"#{src}\")]")
+  end
+
   # Shorthand for I18n.t
   def t *args
     I18n.t(*args)
