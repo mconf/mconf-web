@@ -14,7 +14,7 @@ class PrivateMessage < ActiveRecord::Base
   validates :users_tokens, :acceptance => true, :unless => Proc.new { |pm| pm.receiver_id }
   validates :receiver_id, :title, :body, :presence => true
 
-  after_save :new_activity
+  after_create :new_activity
 
   scope :inbox, lambda{ |user|
     user_id = case user
