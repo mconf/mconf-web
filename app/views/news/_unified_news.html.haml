@@ -6,7 +6,7 @@
       = link_logo_image(news.space, :size => '84x64', :url => space_path(news.space), :title => news.space.name, :class => "logo logo-space")
     .thread-content
       %ul.thread-action-links.visible-on-hover{ :"data-hover-tracked" => "news_#{news.id}" }
-        %li= link_to t('remove').downcase, space_news_path(@space, news), :confirm => t('delete.confirm', :element => news.title), :method => :delete, :title => t('delete.one') if can?(:destroy, news)
+        %li= link_to t('remove').downcase, space_news_path(@space, news), :data => { :confirm => t('delete.confirm', :element => news.title) }, :method => :delete, :title => t('delete.one') if can?(:destroy, news)
         %li= link_to t('edit').downcase, edit_space_news_path(@space, news), { :name => news.id, :title => t('edit'), :class => "open-modal" } if can?(:update, news)
       .thread-title
         = icon_news t('news.item_in_home', :space => news.space.name)

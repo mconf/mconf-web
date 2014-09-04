@@ -27,6 +27,6 @@
             = f.hidden_field :processed, :value => true
       - elsif @join_request.request_type == "request"
         - if can?(:destroy, @join_request)
-          = link_to t('.remove'), space_join_request_path(@space, @join_request), :confirm => t('.remove_confirmation', :user => target), :method => :delete, :title => t('.remove'), :class => 'btn btn-danger'
+          = link_to t('.remove'), space_join_request_path(@space, @join_request), :data => { :confirm => t('.remove_confirmation', :user => target) }, :method => :delete, :title => t('.remove'), :class => 'btn btn-danger'
     - else
       = t('.already_accepted')
