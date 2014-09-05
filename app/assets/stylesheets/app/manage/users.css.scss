@@ -26,6 +26,10 @@ body.manage.users {
     }
   }
 
+  .user-unapproved {
+    color: $yellow;
+  }
+
   .management-links {
     float: right;
     padding-top: 8px;
