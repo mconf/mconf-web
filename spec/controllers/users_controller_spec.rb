@@ -138,6 +138,72 @@ describe UsersController do
         it { user.email.should_not eq(new_email) }
         it { user.email.should eq(old_email) }
       end
+
+      context "trying to update admin flag" do
+        context "when normal user" do
+          let(:user) { FactoryGirl.create(:user, :superuser => false) }
+
+          before(:each) do
+            sign_in user
+
+            put :update, :id => user.to_param, :user => { :superuser => true }
+            user.reload
+          end
+
+          it { response.status.should == 302 }
+          it { response.should redirect_to edit_user_path(user) }
+          it { user.superuser.should be(false) }
+
+        end
+
+        context "when admin and target is self" do
+          let(:user) { FactoryGirl.create(:user, :superuser => true) }
+
+          before(:each) do
+            sign_in user
+
+            put :update, :id => user.to_param, :user => { :superuser => false }
+            user.reload
+          end
+
+          it { response.status.should == 302 }
+          it { response.should redirect_to edit_user_path(user) }
+          it { user.superuser.should be(true) }
+        end
+
+        context "when admin and target is another normal user" do
+          let(:user) { FactoryGirl.create(:user, :superuser => true) }
+          let(:user2) { FactoryGirl.create(:user) }
+
+          before(:each) do
+            sign_in user
+
+            put :update, :id => user2.to_param, :user => { :superuser => true }
+            user2.reload
+          end
+
+          it { response.status.should == 302 }
+          it { response.should redirect_to edit_user_path(user2) }
+          it { user2.superuser.should be(true) }
+        end
+
+        context "when admin and target is another admin" do
+          let(:user) { FactoryGirl.create(:user, :superuser => true) }
+          let(:user2) { FactoryGirl.create(:user, :superuser => true) }
+
+          before(:each) do
+            sign_in user
+
+            put :update, :id => user2.to_param, :user => { :superuser => false }
+            user2.reload
+          end
+
+          it { response.status.should == 302 }
+          it { response.should redirect_to edit_user_path(user2) }
+          it { user2.superuser.should be(false) }
+        end
+      end
+
     end
 
     context "attributes that the user can update" do
