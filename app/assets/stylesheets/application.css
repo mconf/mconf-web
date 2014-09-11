@@ -27,9 +27,9 @@
  *= require ./app/application/footer
  *= require ./app/application/lists
  *= require ./app/application/select2
+ *= require ./app/application/copy-modal
  *
  * Some partials are necessary everywhere
- *= require ./app/shared/_copy_modal
  *= require ./app/feedback/_new
  *
  */

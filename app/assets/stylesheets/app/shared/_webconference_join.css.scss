@@ -27,6 +27,11 @@
 
 #webconference-room {
 
+  #invite-url-text {
+    cursor: text;
+    background: $m-very-light-gray;
+  }
+
   .webconference-types {
     margin-bottom: 10px;
   }

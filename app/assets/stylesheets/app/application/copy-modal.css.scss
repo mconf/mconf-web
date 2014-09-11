@@ -1,8 +1,13 @@
 @import "compass/css3";
 @import "definitions";
 
+.copyable-field {
+  .icon-awesome {
+    margin-top: 0;
+  }
+}
+
 #copy-to-clipboard-modal {
-  display: none;
 
   input {
     width: 95%;
@@ -14,15 +19,10 @@
       background: $m-alert-success-bg;
     }
   }
-}
 
-#copy-to-clipboard-message {
-  display: none;
-  color: $m-alert-success-font;
-}
-
-.copyable-field {
-  .icon-awesome {
-    margin-top: 0;
+  #copy-to-clipboard-message {
+    display: none;
+    color: $m-alert-success-font;
   }
+
 }

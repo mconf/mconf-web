@@ -1,33 +1,38 @@
+template = HandlebarsTemplates['application/copy_modal']
+dialogId = '#copy-to-clipboard-modal'
+
 # This class contains all the simple functionally to display a copy to clipboard modal
 # in divs which contain the class 'copyable-field' and nested within an input field and a anchor tag
-
 class mconf.CopyModal
 
-  @bindAll:
+  @bind:
     $('.copyable-field').each ->
       text = $('input', this).val()
 
       $('a', this).click ->
+        params =
+          title: I18n.t('_js.copy_modal.title')
+          message: I18n.t('_js.copy_modal.message')
         mconf.Modal.showWindow
-          target: '#copy-to-clipboard-modal'
+          data: template(params)
 
-        $('input#copy-to-clipboard-field').val(text)
+        input = $('input', dialogId)
+        input.val(text)
+        input.select()
 
-        $('input#copy-to-clipboard-field').select()
-        $('#copy-to-clipboard-modal').click ->
-          $('input', this).select()
+        $(dialogId).click -> $('input', this).select()
 
-        $('input#copy-to-clipboard-field').keydown (e) ->
+        input.keydown (e) ->
           # Detect ctrl+c being pressed
           if e.keyCode == 67 and e.ctrlKey
-            $('#copy-to-clipboard-message').show()
-            $('#copy-to-clipboard-title').hide()
-            $('#copy-to-clipboard-modal').addClass('success')
+            $('#copy-to-clipboard-message', dialogId).show()
+            $('#copy-to-clipboard-title', dialogId).hide()
+            $(dialogId).addClass('success')
             window.setTimeout( ->
               mconf.Modal.closeWindows()
-              $('#copy-to-clipboard-message').hide()
-              $('#copy-to-clipboard-title').show()
-              $('#copy-to-clipboard-modal').removeClass('success')
+              $('#copy-to-clipboard-message', dialogId).hide()
+              $('#copy-to-clipboard-title', dialogId).show()
+              $(dialogId).removeClass('success')
             , 1000)
             true
           else
