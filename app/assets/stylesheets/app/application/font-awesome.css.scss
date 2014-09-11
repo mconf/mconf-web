@@ -29,7 +29,7 @@ h2 .icon-awesome {
   height: 16px;
 }
 
-a .icon-awesome {
+a:not(.btn) .icon-awesome {
   @include link-colors($m-link-color, $m-link-color-hover, $m-link-color-active);
   cursor: pointer;
   &:hover { color: $m-link-color-hover; }

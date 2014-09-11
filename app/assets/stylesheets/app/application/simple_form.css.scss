@@ -2,23 +2,23 @@
 @import "definitions";
 
 .simple_form {
-  overflow: display;
+  /* overflow: display; */
   position: relative;
 
-  .input {
-    margin-top: 5px;
-    margin-bottom: 10px;
-    position: relative;
+  .form-group {
+    /* margin-top: 5px; */
+    /* margin-bottom: 10px; */
+    /* position: relative; */
 
-    label {
-      cursor: pointer;
+    /* label { */
+    /*   cursor: pointer; */
 
-      &.collection_radio_buttons {
-        display: inline;
-        margin-left: 5px;
-        margin-right: 10px;
-      }
-    }
+    /*   &.collection_radio_buttons { */
+    /*     display: inline; */
+    /*     margin-left: 5px; */
+    /*     margin-right: 10px; */
+    /*   } */
+    /* } */
 
     abbr {
       border: 0;
@@ -26,57 +26,53 @@
       color: red;
     }
 
+    input[type="checkbox"].showable_password_show {
+      margin: 0 3px;
+      display: inline;
+    }
+
     // limit the height of a textarea by default
     textarea {
       max-height: 150px;
     }
 
-    // hints
-    $hint-border-color: #222; //darken($m-alert-bg, 25);
-    .hint {
-      @include font-size($m-font-normal);
-      border: 1px solid $hint-border-color;
-      @include border-radius(3px);
-      padding: 3px 8px;
-      z-index: $m-z-index-tooltip;
-      position: absolute;
+    .help-block {
       display: none;
-      color: #eee;
-      background: #222;
     }
-    .hint::before {
-      display: inline-block;
-      content: '';
-      border-left: 7px solid $m-transparent;
-      border-right: 7px solid $m-transparent;
-      border-bottom: 7px solid $hint-border-color;
-      border-bottom-color: $hint-border-color;
-      position: absolute;
-      top: -8px;
-      left: 5px;
-    }
-    // hovering the label inside the input shows the hint
-    label:hover ~ .hint { display: block; }
 
     // add a nice icon to fields that have a hint
-    &.field_with_hint {
-      &:hover, &:focus { color: darken($m-alert-info-font, 20); }
-      cursor: pointer;
-      background: url("/assets/icons/help-12x12.png") no-repeat left top;
-      background-width: 12px;
-      background-height: 12px;
-      label {
+    &.has-hint {
+
+      label.control-label {
+        //&:hover, &:focus { color: darken($m-alert-info-font, 20); }
+        cursor: pointer;
         padding-left: 18px;
-        input { margin-left: 0; } // for checkboxes mainly
+
+        background: url("/assets/icons/question-sign-13x13.png") no-repeat left 4px;
+        background-width: 13px;
+        background-height: 13px;
+
+        &.checkbox {
+          padding-left: 38px;
+        }
       }
     }
   }
 
-  .field_with_errors {
-    input, textarea { border-color: $m-red; }
+  .form-actions {
+    clear: both;
+    padding-top: 10px;
+    margin-top: 10px;
+    border-top: 1px solid $m-border-color-normal;
+    text-align: right;
+  }
 
-    .error {
-      margin-left: 5px;
+  .has-error {
+    .error-block {
+      display: block;
+      text-align: right;
+      margin-right: 20px;
+      /* margin-left: 5px; */
       color: $m-red;
       font-style: italic;
     }
@@ -94,19 +90,22 @@
       width: 97%
     }
     input.showable_password {
-      width: 78%
+      width: 78%;
+      display: inline-block;
     }
     select.datetime {
       width: 13%;
     }
   }
 
-  .input-prepend .add-on, .input-prepend .btn {
-    margin-right: -4px;
+  &.form-horizontal {
+    .error-block {
+    }
   }
+}
 
-  div.controls {
-    display: inline;
-  }
-
+.modal .modal-footer .form-actions {
+  margin: 0;
+  padding: 0;
+  border: 0;
 }

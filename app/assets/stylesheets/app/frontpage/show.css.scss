@@ -113,21 +113,9 @@ $bg-normal: darken($m-green-logo, 3);
   width: $registration-box-width;
   margin-right: 20px;
 
-  .simple_captcha {
-    float: right;
-    padding: 0 !important;
-    margin: 10px 0;
-
-    div { display: inline; }
-
-    .simple_captcha_field {
-      text-align: center;
-    }
-
-    .simple_captcha_image {
-      background: white;
-      margin-right: 5px;
-    }
+  // it's an input with an addon, make it the size of the others
+  .user_username .input-group {
+    padding: 0 14px;
   }
 
   input[type=submit] {

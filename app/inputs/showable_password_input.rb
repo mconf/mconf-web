@@ -17,14 +17,15 @@ class ShowablePasswordInput < SimpleForm::Inputs::StringInput
     input_html_options[:value] = object.try(attribute_name)
 
     # the initial input is always a password input to hide the value
+    input_html_options[:class] << :"form-control"
     field = @builder.password_field(attribute_name, input_html_options)
 
     # add a checkbox
     cb_name = attribute_name.to_s + '_show'
     cb = check_box_tag cb_name, 'show', false, :class => 'showable_password_show'
-    cb_label = label_tag cb_name, I18n.t('show_question'), :class => 'showable_password_show_label'
+    cb_label = label_tag cb_name, (cb + I18n.t('show_question')), :class => 'showable_password_show_label'
 
     # concat all inputs and labels
-    "#{field}#{cb}#{cb_label}".html_safe
+    "#{field}#{cb_label}".html_safe
   end
 end

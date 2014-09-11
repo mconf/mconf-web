@@ -22,8 +22,9 @@ end
 # Use this setup block to configure all options available in SimpleForm.
 SimpleForm.setup do |config|
   config.boolean_style = :nested
+
   config.wrappers :bootstrap3, tag: 'div', class: 'form-group', error_class: 'has-error',
-  defaults: { input_html: { class: 'default_class' } } do |b|
+  hint_class: 'has-hint', defaults: { input_html: { class: 'default_class' } } do |b|
     b.use :html5
     b.use :min_max
     b.use :maxlength
@@ -32,22 +33,50 @@ SimpleForm.setup do |config|
     b.optional :readonly
     b.use :label_input
     b.use :hint, wrap_with: { tag: 'span', class: 'help-block' }
-    b.use :error, wrap_with: { tag: 'span', class: 'help-block has-error' }
+    b.use :error, wrap_with: { tag: 'span', class: 'error-block' }
+  end
+
+  config.wrappers :horizontal, tag: 'div', class: 'form-group', error_class: 'has-error',
+  hint_class: 'has-hint', defaults: { input_html: { class: 'default_class' } } do |b|
+    b.use :html5
+    b.use :min_max
+    b.use :maxlength
+    b.use :placeholder
+    b.optional :pattern
+    b.optional :readonly
+    b.use :label, class: 'col-sm-3'
+    b.use :input, wrap_with: { tag: 'div', class: 'col-sm-9' }
+    b.use :hint, wrap_with: { tag: 'span', class: 'help-block' }
+    b.use :error, wrap_with: { tag: 'span', class: 'error-block' }
   end
 
   config.wrappers :prepend, tag: 'div', class: 'form-group', error_class: 'has-error' do |b|
     b.use :html5
     b.use :placeholder
+    b.use :label
     b.wrapper tag: 'div', class: 'controls' do |input|
       input.wrapper tag: 'div', class: 'input-group' do |prepend|
-        prepend.use :label , class: 'input-group-addon' ###Please note setting class here fro the label does not currently work (let me know if you know a workaround as this is the final hurdle)
         prepend.use :input
       end
       input.use :hint, wrap_with: { tag: 'span', class: 'help-block' }
-      input.use :error, wrap_with: { tag: 'span', class: 'help-block has-error' }
+      input.use :error, wrap_with: { tag: 'span', class: 'error-block' }
     end
   end
 
+  config.wrappers :prepend_horizontal, tag: 'div', class: 'form-group', error_class: 'has-error' do |b|
+    b.use :html5
+    b.use :placeholder
+    b.use :label, class: 'col-sm-3'
+    b.wrapper tag: 'div', class: 'controls' do |input|
+      input.wrapper tag: 'div', class: 'col-sm-9' do |prepend|
+        b.use :input, wrap_with: { tag: 'div', class: 'input-group' }
+      end
+      input.use :hint, wrap_with: { tag: 'span', class: 'help-block' }
+      input.use :error, wrap_with: { tag: 'span', class: 'error-block' }
+    end
+  end
+
+  # TODO: not tested yet
   config.wrappers :append, tag: 'div', class: 'form-group', error_class: 'has-error' do |b|
     b.use :html5
     b.use :placeholder
@@ -57,10 +86,11 @@ SimpleForm.setup do |config|
         prepend.use :label , class: 'input-group-addon' ###Please note setting class here fro the label does not currently work (let me know if you know a workaround as this is the final hurdle)
       end
       input.use :hint, wrap_with: { tag: 'span', class: 'help-block' }
-      input.use :error, wrap_with: { tag: 'span', class: 'help-block has-error' }
+      input.use :error, wrap_with: { tag: 'span', class: 'error-block' }
     end
   end
 
+  # TODO: not tested yet
   config.wrappers :checkbox, tag: :div, class: "checkbox", error_class: "has-error" do |b|
 
     # Form extensions
@@ -73,8 +103,9 @@ SimpleForm.setup do |config|
     end
 
     b.use :hint, wrap_with: { tag: :p, class: "help-block" }
-    b.use :error, wrap_with: { tag: :span, class: "help-block text-danger" }
+    b.use :error, wrap_with: { tag: :span, class: "error-block" }
   end
+
   # Wrappers for forms and inputs using the Twitter Bootstrap toolkit.
   # Check the Bootstrap docs (http://getbootstrap.com/)
   # to learn about the different styles for forms and inputs,

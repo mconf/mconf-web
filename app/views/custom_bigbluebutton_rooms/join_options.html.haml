@@ -15,6 +15,6 @@
       = f.input :record_meeting, :label => t('.record.label'), :hint => t('.record.tooltip'), :input_html => { :class => "in-place-edit" }
       = in_place_edit_indicators
 
-  .modal-footer.form-actions
+  .modal-footer
     - cls = @room.is_running? ? "disabled" : ""
     = link_to t(".start"), join_bigbluebutton_room_path(@room), :class => "btn btn-primary #{cls} webconf-join-link close-dialog"

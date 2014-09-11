@@ -14,6 +14,31 @@
  * Customized styles
  */
 
+
+input[type="radio"], input[type="checkbox"] {
+  margin-top: 3px; // a bit upper than the default
+}
+
+.modal .modal-header {
+  padding-top: 20px;
+
+  h1, h2, h3, h4, h5 {
+    margin: 0;
+  }
+}
+
+label {
+  font-weight: normal;
+  color: $m-font-strong;
+}
+
+// bootstrap puts the checkboxes at the left of labels with a negative margin,
+// so fix their position
+label.control-label.checkbox {
+  padding-left: 20px;
+}
+
+
 /* .form-inline { */
 /*   padding: 0; */
 /*   margin: 0; */

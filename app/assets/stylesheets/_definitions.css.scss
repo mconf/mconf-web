@@ -16,6 +16,7 @@ $m-font-biggest: 25px;
 $m-font-gigantic: 28px;
 $m-font-section-title: 28px;
 $m-font-color: #333;
+$m-font-strong: #000;
 $m-font-color-gray: #888;
 $m-font-family: "Helvetica Neue",Helvetica,Arial,sans-serif; //Arial, Helvetica, sans-serif;
 //$m-font-family-titles: Verdana, Geneva, sans-serif;
@@ -46,6 +47,9 @@ $m-font-h-color: $m-green-logo;
 $m-link-color: #4183C4; //darken($m-bright-blue, 10); //#1C774D; //#1a925b; //lighten($m-green-logo, 10); //lighten($m-main-color, 15);
 $m-link-color-hover: $m-bright-blue; //m-orange;
 $m-link-color-active: darken($m-link-color-hover, 15);
+// borders
+$m-border-color-normal: #ddd;
+$m-border-color-light: #eee;
 
 // alert colors, like the ones in bootstrap alerts
 $m-alert-bg: #FCF8E3;

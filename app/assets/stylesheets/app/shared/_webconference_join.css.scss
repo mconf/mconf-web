@@ -2,7 +2,7 @@
 @import "definitions";
 
 #webconference-start {
-  padding: 10px 20px;
+  padding: 15px;
   background: $m-light-gray;
   text-align: right;
 
@@ -14,9 +14,13 @@
   }
 
   &.in-progress {
-    background: $m-alert-success-bg;
     border-top: 1px solid $m-green;
     border-bottom: 1px solid $m-green;
+  }
+
+  .btn {
+    // bit more horizontal spacing
+    margin: 0 3px;
   }
 }
 

@@ -15,7 +15,7 @@
       .jcrop-wrapper{ :style => "width:#{@width.to_i}px; height:100px; overflow:hidden" }
         = image_tag @model.logo_image_url(:large), :class => 'crop-preview'
 
-  .modal-footer.form-actions
+  .modal-footer
     -# TODO: use simple_form and add a 'cancel' button
     = form_for @model, :url => @url do |f|
       - %w[x y w h].each do |attribute|

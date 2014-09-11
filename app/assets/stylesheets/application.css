@@ -23,7 +23,6 @@
  *= require ./app/application/input-placeholder
  *= require ./app/application/in_place_edit
  *= require ./app/application/resource_filter
- *= require ./app/application/showable_password_input
  *= require ./app/application/logo_images
  *= require ./app/application/chat
  *= require ./app/application/footer

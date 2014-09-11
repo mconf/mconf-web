@@ -65,7 +65,9 @@ class mconf.Modal
     modalWidth = $(options.element).attr("data-modal-width") || options.modalWidth
     switch modalWidth
       when "small"
-        $modal.addClass("modal-small")
+        $modal.addClass("modal-sm")
+      when "large"
+        $modal.addClass("modal-lg")
 
     # set up the events
     $modal.on "show", ->

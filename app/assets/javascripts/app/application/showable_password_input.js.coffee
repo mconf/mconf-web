@@ -4,9 +4,9 @@ class mconf.ShowablePassword
 
   # Clicking in the checkboxes changes the type of the input to text/password.
   @bind: ->
-    $(".showable_password input[type=checkbox]").off "click.mconfShowablePassword"
-    $(".showable_password input[type=checkbox]").on "click.mconfShowablePassword", ->
-      target = $(this).parent().find("input.showable_password")
+    $(".showable_password_show").off "click.mconfShowablePassword"
+    $(".showable_password_show").on "click.mconfShowablePassword", ->
+      target = $(this).parent().parent().find("input.showable_password")
       id = "#" + target.attr("id")
       if $(this).is(':checked')
         changeInputType(id, "text")
