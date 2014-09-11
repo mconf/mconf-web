@@ -51,8 +51,9 @@ en:
     cancel: "Cancel"
     create: "Create"
     datetimepicker:
-      format: "MM/dd/yyyy hh:mm"
-      format_rails: "%m/%d/%Y %H:%M %Z"
+      format_display: "%m/%d/%Y"
+      format: "MM-dd-yyyy"
+      format_rails: "%m/%d/%Y %H:%M %z"
     deny: "Deny"
     destroy: "Destroy"
     details: "Details"

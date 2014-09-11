@@ -74,6 +74,7 @@ MwebEvents::EventsController.class_eval do
         @events = current_user.events
       else # Remove the parameter if no user is logged
         redirect_to events_path(params.except(:my_events))
+        return
       end
     end
 
@@ -85,11 +86,12 @@ MwebEvents::EventsController.class_eval do
     @events = MwebEvents::Event.where(:id =>(without_users | without_spaces))
     @events = @events.accessible_by(current_ability, :index).page(params[:page])
   end
-  before_filter :block_if_events_disabled
-  before_filter :custom_loading, :only => [:index]
-  before_filter :create_participant, :only => [:show]
 
-  after_filter :only => [:create, :update] do
-    @event.new_activity params[:action], current_user unless @event.errors.any?
+  def set_date_locale
+    @date_locale = get_user_locale(current_user)
+    @date_format = I18n.t('_other.datetimepicker.format')
+    @event.date_stored_format = I18n.t('_other.datetimepicker.format_rails')
+    @event.date_display_format = I18n.t('_other.datetimepicker.format_display')
   end
+
 end
