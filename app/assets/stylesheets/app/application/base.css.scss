@@ -217,13 +217,11 @@ form {
   height: $m-navbar-height;
   color: $m-navbar-font-color;
   @include font-size($m-font-medium);
-  //@include font-size(12px);
-}
 
-/* #content-wrapper { */
-/*   padding-bottom: 20px; */
-/*   margin: 0; */
-/* } */
+  a {
+    @include link-on-menus;
+  }
+}
 
 #footer-wrapper {
   border-top: 1px dotted $m-footer-border-color;
@@ -832,7 +830,7 @@ ul#navbar-left-links {
 
     &.content-block-footer-fancy {
       //background: $m-light-gray;
-      border-top: 1px solid #d6d6d6;
+      border-top: 1px solid darken($m-light-gray, 5);
     }
 
     .content-block-footer-middle {
