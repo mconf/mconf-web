@@ -10,6 +10,7 @@ feature 'User accesses an URL of a user that' do
 
     it { should have_title(user.name) }
     it { should have_content(user.name) }
+    it { page.status_code.should == 200 }
   end
 
   context 'does not exist' do
@@ -19,6 +20,7 @@ feature 'User accesses an URL of a user that' do
     it { should have_title(t('error.e404.title')) }
     it { should have_content(t('error.e404.title')) }
     it { should have_content(t('error.e404.description', :url => user_path(:id => 'nonexistent'))) }
+    it { page.status_code.should == 404 }
   end
 
 end

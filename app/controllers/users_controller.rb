@@ -200,8 +200,11 @@ class UsersController < ApplicationController
   end
 
   def allowed_params
-    [ :password, :password_confirmation, :remember_me, :current_password,
+    allowed = [ :password, :password_confirmation, :remember_me, :current_password,
       :login, :approved, :disabled, :timezone, :can_record, :receive_digest, :notification ]
+
+    allowed += [:superuser] if current_user.superuser? && current_user != @user
+    allowed
   end
 
 end

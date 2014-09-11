@@ -4,8 +4,8 @@
 %ul.nav.nav-tabs.nav-stacked.content-block-wrapper
   %li= link_to t('_other.details'), bigbluebutton_recording_path(recording)
   %li= link_to t('_other.edit'), edit_bigbluebutton_recording_path(recording)
-  %li= link_to t('_other.publish'), publish_bigbluebutton_recording_path(recording), :confirm => t('are_you_sure'), :method => :post
-  %li= link_to t('_other.unpublish'), unpublish_bigbluebutton_recording_path(recording), :confirm => t('are_you_sure'), :method => :post
+  %li= link_to t('_other.publish'), publish_bigbluebutton_recording_path(recording), :data => { :confirm => t('are_you_sure') }, :method => :post
+  %li= link_to t('_other.unpublish'), unpublish_bigbluebutton_recording_path(recording), :data => { :confirm => t('are_you_sure') }, :method => :post
 
 .content-block-wrapper.nav-playback-links
   .content-block

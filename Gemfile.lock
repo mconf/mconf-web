@@ -33,7 +33,7 @@ GIT
 
 GIT
   remote: git@github.com:mconf/mweb_events.git
-  revision: 8b152eee4a0e6d7eec7706728aa6cf7f7677a333
+  revision: fcea2ed4228c5434a09e9200831e3bd6b0472832
   branch: master
   specs:
     mweb_events (0.0.1)

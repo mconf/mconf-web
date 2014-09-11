@@ -4,7 +4,7 @@
 
 - show_join_request ||= false
 
-.list-thumbnail.space-thumbnail
+.list-thumbnail.space-container.space-thumbnail
   .list-logo
     - space_logo = logo_image(space, :size => "84x64", :title => space.name)
     -# note: can't be can?(:read, space) because we want the link even for non-members

@@ -51,8 +51,9 @@ en:
     cancel: "Cancel"
     create: "Create"
     datetimepicker:
-      format: "MM/dd/yyyy hh:mm"
-      format_rails: "%m/%d/%Y %H:%M %Z"
+      format_display: "%m/%d/%Y"
+      format: "MM-dd-yyyy"
+      format_rails: "%m/%d/%Y %H:%M %z"
     deny: "Deny"
     destroy: "Destroy"
     details: "Details"
@@ -87,6 +88,7 @@ en:
     user:
       administrator: "Global administrator"
       normal_user: "Normal user"
+      unapproved_user: "Waiting approval by admin"
       guest: "Guest"
       guest_name: "Guest User (%{email})"
       removed: "<user removed>"
@@ -1374,7 +1376,7 @@ en:
       select_at_left: "Select a space in the list to see it's description here"
       user_is_member: "You are a member!"
     is_private: "is a private space. Send a join request to the administrator of this space to let you in"
-    is_private_html: "%{name} is a private space. Send a <a href=\"%{path}\">join request</a> to the administrator of this space."
+    is_private_html: "%{name} is a private space. To access it, sign in and send a <a href=\"%{path}\">join request</a> to the administrators of this space."
     join: "Join this space"
     join_invitation: 
       clarify_registered: "Please introduce password in order to join this space."
@@ -1477,7 +1479,7 @@ en:
     error:
       already_invited: "You were already invited to join this space, please accept or decline the invitation"
       need_join_to_access: "You need to join this space to access it. Send a join request to the administrators."
-      not_found: "The space %{permalink} was not found. <br> Would want to search in <a href=\"%{path}\">all spaces</a>?"
+      not_found: "The space \"%{permalink}\" was not found. <br> Would you like to search for it in <a href=\"%{path}\">all spaces</a>?"
     index: 
       create_new_space: "Create a new space"
       list_format: 

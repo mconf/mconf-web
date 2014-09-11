@@ -128,7 +128,7 @@ class PostsController < ApplicationController
   end
 
   def post_allowed_params
-    [:title, :text]
+    [:title, :text, :parent_id]
   end
 
   private
@@ -153,29 +153,4 @@ class PostsController < ApplicationController
     @post
   end
 
-  # TODO: these error/success methods were not properly tested
-
-  def after_create_with_success
-    redirect_to(request.referer || space_posts_path(@space))
-  end
-
-  def after_create_with_errors
-    # This should be in the view
-    flash[:error] = @post.errors.to_xml
-    get_posts
-    render :index
-    flash.delete([:error])
-  end
-
-  def after_update_with_success
-    redirect_to(request.referer || space_posts_path(@space))
-  end
-
-  def after_update_with_errors
-    # This should be in the view
-    flash[:error] = @post.errors.to_xml
-    posts
-    render :index
-    flash.delete([:error])
-  end
 end

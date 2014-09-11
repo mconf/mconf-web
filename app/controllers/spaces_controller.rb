@@ -48,9 +48,8 @@ class SpacesController < ApplicationController
     spaces = Space.order('name ASC')
     @spaces = spaces.paginate(:page => params[:page], :per_page => 18)
 
-    if user_signed_in?
-      @user_spaces = current_user.spaces.paginate(:page => params[:page], :per_page => 18)
-    end
+    @user_spaces = user_signed_in? ? current_user.spaces : Space.none
+    @user_spaces = @user_spaces.paginate(:page => params[:page], :per_page => 18)
 
     if @space
        session[:current_tab] = "Spaces"
@@ -235,7 +234,7 @@ class SpacesController < ApplicationController
     @webconf_attendees = []
     unless @webconf_room.attendees.nil?
       @webconf_room.attendees.each do |attendee|
-        profile = Profile.find(:all, :conditions => { "full_name" => attendee.full_name }).first
+        profile = Profile.where(:full_name => attendee.full_name).first
         unless profile.nil?
           @webconf_attendees << profile.user
         end
@@ -341,7 +340,7 @@ class SpacesController < ApplicationController
       # anonymous users or destructive actions are redirected to the 403 error
       flash[:error] = t("space.access_forbidden")
       if exception.action == :show
-        @error_message = t("space.is_private_html", :name => @space.name, :path => new_space_join_request_path(@space))
+        @error_message = t("space.is_private_html", name: @space.name, path: new_space_join_request_path(@space))
       end
       render_error 403
     end

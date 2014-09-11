@@ -78,7 +78,7 @@
         = f.input :approved, :required => false
         = f.input :superuser, :required => false
         .input
-          = link_to user_path(@user), :confirm => t('.disable_confirm'), :method => :delete do
+          = link_to user_path(@user), :data => { :confirm => t('.disable_confirm') }, :method => :delete do
             = icon_delete(:alt => t('.disable'), :title => t('.disable'))
             = t('.disable')
 

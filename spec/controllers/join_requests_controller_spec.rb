@@ -143,7 +143,13 @@ describe JoinRequestsController do
       it { should redirect_to(space_path(space)) }
       it { should assign_to(:space).with(space) }
       it { should set_the_flash.to(I18n.t('join_requests.create.created')) }
-    end
+      it { JoinRequest.last.comment.should eql(jr.comment) }
+      it { JoinRequest.last.introducer.should be_nil }
+      it { JoinRequest.last.candidate.should eql(user) }
+      it { JoinRequest.last.group.should eql(space) }
+      it { JoinRequest.last.role.should eql("User") }
+      it { JoinRequest.last.request_type.should eql("request") }
+   end
 
     context "user requests membership on a private space" do
       let(:space) { FactoryGirl.create(:space, :public => false) }
@@ -158,47 +164,38 @@ describe JoinRequestsController do
       it { should redirect_to(spaces_path) }
       it { should assign_to(:space).with(space) }
       it { should set_the_flash.to(I18n.t('join_requests.create.created')) }
+      it { JoinRequest.last.comment.should eql(jr.comment) }
+      it { JoinRequest.last.introducer.should be_nil }
+      it { JoinRequest.last.candidate.should eql(user) }
+      it { JoinRequest.last.group.should eql(space) }
+      it { JoinRequest.last.role.should eql("User") }
+      it { JoinRequest.last.request_type.should eql("request") }
     end
 
-  end
-
-  describe "#invite" do
-    let(:space) { FactoryGirl.create(:space) }
-    let(:user) { FactoryGirl.create(:user) }
-
-    it { should_authorize space, :invite, :space_id => space.to_param }
-
-    context "if the user is not a member of the space" do
-      before(:each) {
-        sign_in(user)
-        expect { get :invite, :space_id => space.to_param }.to raise_error(CanCan::AccessDenied)
+    context "params handling" do
+      let(:user) { FactoryGirl.create(:user) }
+      let(:jr_attributes) { FactoryGirl.attributes_for(:join_request) }
+      let(:params) {
+        {
+          :space_id => space.to_param,
+          :controller => "join_requests",
+          :action => "create",
+          :join_request => jr_attributes
+        }
       }
 
-      it { redirect_to(spaces_path(space)) }
-    end
-
-    context "if the user is a member of the space, but not an admin" do
-      before(:each) {
-        space.add_member!(user)
-        sign_in(user)
-        expect { get :invite, :space_id => space.to_param }.to raise_error(CanCan::AccessDenied)
+      let(:jr_allowed_params) {
+        [ :introducer_id, :role_id, :processed, :accepted, :comment ]
       }
-
-      it { redirect_to(space_path(space)) }
-    end
-
-    context "if the user is an admin of the target space" do
-      before(:each) {
-        space.add_member!(user, 'Admin')
+      before {
+        jr_attributes.stub(:permit).and_return(jr_attributes)
+        controller.stub(:params).and_return(params)
         sign_in(user)
-        get :invite, :space_id => space.to_param
       }
-
-      context "template and layout" do
-        it { should render_template('invite') }
-        it { should render_with_layout('spaces_show') }
-      end
-
+      before(:each) {
+        post :create, space_id: space.to_param, join_request: jr_attributes
+      }
+      it { jr_attributes.should have_received(:permit).at_least(:once).with(*jr_allowed_params) }
     end
   end
 
@@ -227,6 +224,12 @@ describe JoinRequestsController do
 
       it { should redirect_to(invite_space_join_requests_path(space)) }
       it { should set_the_flash.to(I18n.t('join_requests.create.sent', :users => candidate.username)) }
+      it { JoinRequest.last.comment.should eql(attributes[:join_request][:comment]) }
+      it { JoinRequest.last.introducer.should eql(user) }
+      it { JoinRequest.last.candidate.should eql(candidate) }
+      it { JoinRequest.last.group.should eql(space) }
+      it { JoinRequest.last.role.should eql(role.name) }
+      it { JoinRequest.last.request_type.should eql("invite") }
     end
 
     context "admin successfully invites more than one user" do
@@ -282,6 +285,46 @@ describe JoinRequestsController do
 
       it { should redirect_to(invite_space_join_requests_path(space)) }
       it { should set_the_flash.to(I18n.t('join_requests.create.error', :errors => errors)) }
+    end
+  end
+
+  describe "#invite" do
+    let(:space) { FactoryGirl.create(:space) }
+    let(:user) { FactoryGirl.create(:user) }
+
+    it { should_authorize space, :invite, :space_id => space.to_param }
+
+    context "if the user is not a member of the space" do
+      before(:each) {
+        sign_in(user)
+        expect { get :invite, :space_id => space.to_param }.to raise_error(CanCan::AccessDenied)
+      }
+
+      it { redirect_to(spaces_path(space)) }
+    end
+
+    context "if the user is a member of the space, but not an admin" do
+      before(:each) {
+        space.add_member!(user)
+        sign_in(user)
+        expect { get :invite, :space_id => space.to_param }.to raise_error(CanCan::AccessDenied)
+      }
+
+      it { redirect_to(space_path(space)) }
+    end
+
+    context "if the user is an admin of the target space" do
+      before(:each) {
+        space.add_member!(user, 'Admin')
+        sign_in(user)
+        get :invite, :space_id => space.to_param
+      }
+
+      context "template and layout" do
+        it { should render_template('invite') }
+        it { should render_with_layout('spaces_show') }
+      end
+
     end
   end
 
@@ -379,7 +422,6 @@ describe JoinRequestsController do
         it { jr.should_not be_accepted }
       end
     end
-
   end
 
   it "#destroy"

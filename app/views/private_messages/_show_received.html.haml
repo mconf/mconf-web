@@ -16,7 +16,7 @@
     %ul.thread-action-links.visible-on-hover{ :"data-hover-tracked" => "parent-#{private_message.id}" }
       %li= link_to t('open').downcase, message_path(private_message)
       - privatetitle = sanitize(private_message.title)
-      %li= link_to t('remove').downcase, message_path(private_message, :private_message => {:deleted_by_receiver => true}), :confirm => t('delete.confirm', :element => privatetitle), :method => :delete, :title => t('delete.one')
+      %li= link_to t('remove').downcase, message_path(private_message, :private_message => {:deleted_by_receiver => true}), :data => { :confirm => t('delete.confirm', :element => privatetitle) }, :method => :delete, :title => t('delete.one')
 
   .thread-title
     - unless private_message.checked

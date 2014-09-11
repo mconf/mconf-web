@@ -7,6 +7,8 @@ module UsersHelper
       icon_superuser + t('_other.user.administrator')
     elsif user.new_record?
       icon_guest + t('_other.user.guest')
+    elsif !user.approved?
+      icon_user(:class => 'user-unapproved') + t('_other.user.unapproved_user')
     else
       icon_user + t('_other.user.normal_user')
     end

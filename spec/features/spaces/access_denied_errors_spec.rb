@@ -17,10 +17,11 @@ feature 'User hits access denied errors' do
       it { should have_content(t('space.access_forbidden')) }
       it { should have_content(
         strip_links(
-          t('space.is_private_html', :name => space.name, :path => new_space_join_request_path(space))
+          t('space.is_private_html', name: space.name, path: new_space_join_request_path(space))
         ))
       }
       it { should have_link('', new_space_join_request_path(space)) }
+      it { page.status_code.should == 403 }
     end
 
     context 'and is a logged in non-member' do
@@ -39,6 +40,7 @@ feature 'User hits access denied errors' do
         visit space_path(space)
       }
 
+      it { current_path.should eq(space_path(space)) }
       it { should have_title(space.name) }
       it { should have_title(Site.current.name) }
       it { should have_css('body.spaces.show') }

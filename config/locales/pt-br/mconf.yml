@@ -51,8 +51,9 @@ pt-br:
     cancel: "Cancelar"
     create: "Criar"
     datetimepicker:
-      format: "dd/MM/yyyy hh:mm"
-      format_rails: "%d/%m/%Y %H:%M %Z"
+      format_display: "%d/%m/%Y"
+      format: "dd-MM-yyyy"
+      format_rails: "%d/%m/%Y %H:%M %z"
     deny: "Negar"
     destroy: "Remover"
     details: "Detalhes"
@@ -87,6 +88,7 @@ pt-br:
     user:
       administrator: "Administrador global"
       normal_user: "Usuário normal"
+      unapproved_user: "A espera de aprovação de administrador"
       guest: Convidado
       guest_name: "Usuário convidado (%{email})"
       removed: "<usuário removido>"
@@ -1374,7 +1376,7 @@ pt-br:
       select_at_left: "Selecione uma comunidade ao lado para ver sua descrição aqui"
       user_is_member: "Você é membro!"
     is_private: "é uma comunidade privado. Envie um pedido de adesão ao administrador desta comunidade para deixá-lo entrar"
-    is_private_html: "A comunidade %{name} é privada. Mande uma <a href=\"%{path}\">requisição</a> para o administrador da comunidade."
+    is_private_html: "A comunidade %{name} é privada. Para acessá-la, faça o login e mande uma <a href=\"%{path}\">requisição</a> para os administradores da comunidade."
     join: "Entrar na comunidade"
     join_invitation:
       clarify_registered: "Por favor, digite a senha para participar desta comunidade."
@@ -1477,7 +1479,7 @@ pt-br:
     error:
       already_invited: "Você já foi convidado para entrar nesta comunidade, por favor aceite ou rejeite o convite"
       need_join_to_access: "Você precisa participar desta comunidade para acessá-la. Envie um pedido de adesão aos administradores."
-      not_found: "A comunidade %{permalink} não existe. <br> Gostaria de buscar em <a href=\"%{path}\">todas comunidades</a>?"
+      not_found: "A comunidade \"%{permalink}\" não existe. <br> Gostaria de buscar em <a href=\"%{path}\">todas comunidades</a>?"
     index: 
       create_new_space: "Criar uma comunidade"
       list_format: 

@@ -3,7 +3,7 @@
 -#   target_user (User): user that is reading the message
 -#   expanded (boolean)
 
-- receiver = User.find_by_id_with_disabled(private_message.receiver_id)
+- receiver = User.with_disabled.find(private_message.receiver_id)
 
 .logo-in-thread
   - if receiver.disabled?
@@ -16,7 +16,7 @@
     %ul.thread-action-links.visible-on-hover{ :"data-hover-tracked" => "parent-#{private_message.id}" }
       - privatetitle = sanitize(private_message.title)
       %li= link_to t('open').downcase, message_path(private_message)
-      %li= link_to t('remove').downcase, message_path(private_message, :private_message => {:deleted_by_sender => true}), :confirm => t('delete.confirm', :element => privatetitle), :method => :delete,:title => t('delete.one')
+      %li= link_to t('remove').downcase, message_path(private_message, :private_message => {:deleted_by_sender => true}), :data => { :confirm => t('delete.confirm', :element => privatetitle) }, :method => :delete,:title => t('delete.one')
 
   .thread-title
     - unless private_message.checked

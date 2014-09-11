@@ -36,6 +36,11 @@ module Mconf
     # config.time_zone = 'Central Time (US & Canada)'
     config.time_zone = 'Madrid'
 
+    # Need to set it directly on I18n because we have other gems that require I18n and might
+    # be setting this first.
+    # A tip from http://stackoverflow.com/questions/20361428/rails-i18n-validation-deprecation-warning
+    I18n.config.enforce_available_locales = true
+
     # The translations are stored in config/locales/**/*.yml, in separate files for base strings,
     # gem strings and application strings (mconf.yml). The application strings should always be
     # loaded after all the others, so that it can override strings.

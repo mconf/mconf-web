@@ -9,10 +9,6 @@ class PrivateMessagesController < ApplicationController
   before_filter :private_message, :only => [:show, :update, :destroy]
   load_and_authorize_resource
 
-  after_filter :only => [:create] do
-    @private_message.new_activity unless @private_message.errors.any?
-  end
-
   def index
     @page_size = 10
     if params[:sent]
@@ -45,7 +41,8 @@ class PrivateMessagesController < ApplicationController
         pager.total_entries = @previous_messages.count
       end
     end
-    if @is_receiver = user.id == @message.receiver_id
+    @is_receiver = current_user.id == @message.receiver_id
+    if @is_receiver
       @message.update_attributes(:checked => true)
     end
   end
@@ -53,14 +50,13 @@ class PrivateMessagesController < ApplicationController
   def new
     @private_message ||= PrivateMessage.new
     if params[:receiver]
-      @receiver = User.find_by_id(params[:receiver])
+      @receiver = User.find(params[:receiver])
     end
     if request.xhr?
       render :partial => 'form'
     else
       respond_to do |format|
         format.html { render :layout => "no_sidebar" }
-        format.xml  { render :xml => @private_message }
       end
     end
   end
@@ -68,49 +64,51 @@ class PrivateMessagesController < ApplicationController
   # TODO: too big, probably can be reduced
   def create
     receivers = []
+
     if params[:private_message][:users_tokens]
       receivers = params[:private_message][:users_tokens].split(",")
     end
-    @receivers = receivers.map {|receiver| { "id" => receiver.to_i, "name" => User.find(receiver).name} }
-    unless receivers.empty?
-      @success_messages = Array.new
-      @fail_messages = Array.new
+
+    unless receivers.blank?
+      receivers.map! {|r| User.find(r)}
+      @success_messages = []
+      @fail_messages = []
       for receiver in receivers.uniq
-        params[:private_message][:sender_id] = user.id
-        params[:private_message][:receiver_id] = receiver
-        private_message = PrivateMessage.new(params[:private_message])
+        private_message = PrivateMessage.new(private_message_params)
+        private_message.sender_id = current_user.id
+        private_message.receiver_id = receiver.id
         if private_message.save
           @success_messages << private_message
         else
           @fail_messages << private_message
         end
       end
+
       respond_to do |format|
         if @fail_messages.empty?
           flash[:success] = t('message.created')
           format.html { redirect_to request.referer }
-          format.xml  { render :xml => @success_messages, :status => :created, :location => @success_messages }
         else
           flash[:error] = t('message.error.create')
           format.html { render :action => "new" }
-          format.xml  { render :xml => @fail_messages.map{|m| m.errors}, :status => :unprocessable_entity }
         end
       end
+
     else
-      params[:private_message][:sender_id] = user.id
-      @private_message = PrivateMessage.new(params[:private_message])
-      if params[:private_message][:receiver_id]
-        receiver = User.find(params[:private_message][:receiver_id])
-        @receivers << { "id" => receiver.id, "name" => receiver.name }
+      @private_message = PrivateMessage.new(private_message_params)
+      @private_message.sender = current_user
+
+      if @private_message.receiver
+        receiver = @private_message.receiver
+        receivers << { "id" => receiver.id, "name" => receiver.name }
       end
+
       respond_to do |format|
         if @private_message.save
           flash[:success] = t('message.created')
           format.html { redirect_to request.referer }
-          format.xml  { render :xml => @private_message, :status => :created, :location => @private_message }
         else
           format.html { render :action => "new" }
-          format.xml  { render :xml => @private_message.errors, :status => :unprocessable_entity }
         end
       end
     end
@@ -118,7 +116,7 @@ class PrivateMessagesController < ApplicationController
 
   def update
     respond_to do |format|
-      if @private_message.update_attributes(params[:private_message])
+      if @private_message.update_attributes(private_message_params)
         format.html { redirect_to(@private_message) }
       else
         format.html { render :action => "edit" }
@@ -127,19 +125,30 @@ class PrivateMessagesController < ApplicationController
   end
 
   def destroy
-    @private_message.update_attributes(params[:private_message])
-
+    @private_message.update_attributes(private_message_params)
     respond_to do |format|
-      if params[:private_message][:deleted_by_sender]
-        format.html { redirect_to(messages_path(:sent => true)) }
-      else
-        format.html { redirect_to(messages_path) }
-      end
-      format.xml  { head :ok }
+      sent = params[:private_message][:deleted_by_sender].present? ? true : nil
+      format.html { redirect_to(messages_path(:sent => sent)) }
     end
   end
 
   private
+
+  def private_message_params
+    unless params[:private_message].blank?
+      params[:private_message].except(private_message_excepted_params).permit(*private_message_allowed_params)
+    else
+      {}
+    end
+  end
+
+  def private_message_excepted_params
+    [:sender_id, :users_tokens]
+  end
+
+  def private_message_allowed_params
+    [:title, :body, :parent_id, :receiver_id, :deleted_by_sender, :deleted_by_receiver]
+  end
 
   def user
     @user = current_user
