@@ -25,7 +25,6 @@ class ShowablePasswordInput < SimpleForm::Inputs::StringInput
     cb = check_box_tag cb_name, 'show', false, :class => 'showable_password_show'
     cb_label = label_tag cb_name, (cb + I18n.t('show_question')), :class => 'showable_password_show_label'
 
-    # concat all inputs and labels
-    "#{field}#{cb_label}".html_safe
+    content_tag(:div, "#{field}#{cb_label}".html_safe)
   end
 end

@@ -1043,3 +1043,29 @@ strong.highlight {
     }
   }
 }
+
+// We override this because the lib bootstrap-modal also does it and it doesn't really
+// work well with boostrap 3's new markup, that includes .modal-dialog and .modal-content
+.modal {
+  background: inherit;
+  border: 0;
+  box-shadow: none;
+}
+
+#confirmation-dialog {
+  .modal-body {
+    text-align: center;
+  }
+
+  .modal-body {
+    @include font-size($m-font-medium);
+    padding: 30px;
+  }
+
+  .modal-footer {
+    // wider space between footer buttons and links
+    .btn, a {
+      margin: 0 3px;
+    }
+  }
+}

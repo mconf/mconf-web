@@ -33,6 +33,7 @@ class mconf.ConfirmationDialog
         title: I18n.t('_js.confirmation_dialog.title')
         cancel: I18n.t('_js.confirmation_dialog.cancel')
         confirm: I18n.t('_js.confirmation_dialog.confirm')
+        or: I18n.t('_js.confirmation_dialog.or')
         message: ''
       $('body').append(confirmationTemplate(params))
 

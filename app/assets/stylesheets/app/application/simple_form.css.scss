@@ -65,6 +65,11 @@
     margin-top: 10px;
     border-top: 1px solid $m-border-color-normal;
     text-align: right;
+
+    // wider space between form buttons and links
+    .btn, a {
+      margin: 0 3px;
+    }
   }
 
   .has-error {

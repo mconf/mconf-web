@@ -45,6 +45,7 @@ pt-br:
     confirmation_dialog:
       cancel: "Cancelar"
       confirm: "OK"
+      or: "ou"
       title: "Confirmação"
   _other:
     accept: "Aceitar"

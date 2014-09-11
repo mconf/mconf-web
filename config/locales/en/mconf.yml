@@ -45,6 +45,7 @@ en:
     confirmation_dialog:
       cancel: "Cancel"
       confirm: "OK"
+      or: "or"
       title: "Confirmation"
   _other:
     accept: "Accept"
