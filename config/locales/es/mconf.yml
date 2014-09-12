@@ -634,6 +634,21 @@ es:
         one: "En ejecución con %{count} participante"
         other: "En ejecución con %{count} participantes"
     view_invite_url: "Ver el vínculo de invitación"
+    webconf:
+        configure: Configurar
+        end: "Finalizar la sala"
+        enter: "Entrar a la sala"
+        invite_people: "Invitar a otras personas"
+        join_from_mobile: "Unirse desde un dispositivo móvil"
+        no_recording_options: "Una reunión está en funcionamiento, las opciones de grabación no están disponibles actualmente."
+        record: Grabar
+        recording_description: Descripción
+        recording_description_placeholder: "Descripción para esta grabación"
+        recording_duration: Duración
+        recording_duration_units: horas
+        recording_title: Título
+        recording_title_placeholder: "Título para esta grabación"
+        start: "Iniciar la sala"
   icalendar: 
     error_import: "Se produjo un error al importar el iCalendar."
     import: "Importar de iCalendar"
