@@ -208,9 +208,9 @@ describe UsersController do
 
     context "attributes that the user can update" do
       context "trying to update timezone" do
-        let(:old_tz) { FactoryGirl.generate(:timezone) }
+        let(:old_tz) { "Mountain Time (US & Canada)" }
         let(:user) { FactoryGirl.create(:user, :timezone => old_tz) }
-        let(:new_tz) { FactoryGirl.generate(:timezone) }
+        let(:new_tz) { "Dublin" }
 
         before(:each) do
           sign_in user
