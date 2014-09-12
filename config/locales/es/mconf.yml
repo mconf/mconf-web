@@ -12,12 +12,18 @@ es:
   actions: Acciones
   activerecord: 
     attributes: 
+      private_message:
+         title: "Título"
+         receiver_id: "Destinatario"
+         body: "Mensaje"
       spaces: 
         attendee_password: "Clave participante"
         moderator_password: "Clave moderador"
     errors: 
       messages: 
         missing: falta
+    models:
+      private_message: "Mensaje"
   address: Dirección
   admin: 
     one: Admin
@@ -110,7 +116,7 @@ es:
     select: "Seleccionar imagen"
     select_new: "Seleccionar nueva imagen"
     upload: "Cargar imagen"
-  back: Vuelta
+  back: Volver
   back_to_inbox: "Volver a la bandeja de entrada"
   bbb_room: 
     attendeePW: "Clave del participante"
@@ -125,9 +131,15 @@ es:
       id: Identificador
       name: Nombre
       role: Rol
+    fetch_recordings: "Buscar grabaciones"
     new_room: "Nueva sala"
     new_server: "Nuevo servidor"
+    recordings: 
+      default: Por defecto
+      publish: Publicar
+      unpublish: "Quitar publicación"
     rooms: 
+      add_metadata: "Agregar metadata"
       external: 
         header: "Esta sala fue creada desde otra aplicación.<br/>Para ingresar, ud. debe ingresar un nombre y clave:"
       index: 
@@ -136,6 +148,7 @@ es:
         new_room: "Nueva sala"
       invite: Invitar
       join_mobile: "Ingresar vía móvil"
+      metadata_after_create: "Metadatos pueden ser agregados sólo después de haber creado una sala"
     servers: 
       activity: 
         activity: Actividad
@@ -153,6 +166,13 @@ es:
         title: "Monitor de actividad del servidor"
       index: 
         access_links: "Vínculos de acceso"
+        recording_links: Grabaciones
+      recordings: 
+        fetch: "Buscar grabaciones"
+        publish: "Publicar grabaciones"
+        unpublish: "Quitar grabaciones publicaads"
+    view_recording_list: "Ver lista de grabaciones"
+    view_recordings: "Ver grabaciones"
     view_room_list: "Ver lista de salas"
     view_rooms: "Ver salas"
     view_server_list: "Ver lista de servidores"
@@ -177,6 +197,7 @@ es:
     post: Publicar
     publish: Publicar
     remove: Borrar
+    saving_dots: Guardando...
     search: Buscar
     send: Enviar
     sending: Enviando...
@@ -187,7 +208,7 @@ es:
     login_page: 
       click_here_to_login: "Haga clic aquí para ingresar"
       description: "Acceso experimental mediante la federación CAFe"
-      more_about_cafe: "A cerca de CAFe"
+      more_about_cafe: "Acerca de CAFe"
     login_tip: "Este es un servicio experimental en la federacion CAFe. Haga clic aquí para ingresar usando la federación."
   calendar: 
     my: "Mi Calendario"
@@ -249,7 +270,7 @@ es:
   edit_your_profile: "Editar su perfil"
   email: 
     account_activated: "Su cuenta en %{sitename} ha sido activada correctamente."
-    commas: "Separado po comas"
+    commas: "Separado por comas"
     confirm: "Es necesario  que confirme su registro haciendo clic en <a href=\"%{url}\"> %{url} </a>"
     digest: 
       attachment: "<b>%{author_name}</b> ha subido un nuevo adjunto en <b>%{space_name}</b>:"
@@ -329,7 +350,7 @@ es:
       isabelbw: "Ancho de banda Isabel"
       participation: "Modos de participación"
       recbw: "Calidad Grabaci\\xC3\\xB3n"
-      sip: SIP
+      sip: "Habilitar SIP"
       webbw: "Ancho de banda Flash"
     error: 
       cm_connection: "La conexión con el sistema de videoconferencia ha fallado"
@@ -346,6 +367,7 @@ es:
     has: "Este evento se ha"
     help: 
       create: "Crear un evento simple en tres pasos:"
+      define3: ""
       edit: "Editar su evento"
     home: 
       one: "Evento en el espacio %{space}"
@@ -588,6 +610,12 @@ es:
     part2: "4. En la sección de la agenda, haga clic en el botón \"Añadir sesión\" para crear una entrada en la agenda. <br> 5. Indique el título de la entrada en la agenda, la hora de inicio y la duración y haga clic en el botón \"Siguiente paso\"<br> 6. Ahora puede editar los detalles como el nombre de los ponentes, los cuales pueden ser usuarios locales o externos, o la descripción <br> 7. Si desea adjuntar un archivo, haga clic en el enlace \"Nuevo archivo adjunto\" .  8. Si el tipo de su evento es \"Reunión\", puede incrustar un vídeo"
     part3: "9. Si el tipo de su evento es \"Reunión Virtual\" o \"Congreso Virtual\", se pueden reservar los recursos tanto de hardware  como de  software, para ello seleccione transmisión y grabación"
     part4: "10. Haga clic en el botón \"Finalizar\" para confirmar sus cambios. <br> 11. Si desea añadir un divisor para indicar las pausas, como el café o la hora de las comidas, haga clic en el botoón \"Añadir divisor\". Puede establecer la hora de inicio y el motivo del break. Haga clic en el botón \"Crear\" para añadir el divisor.<br>12. Si el evento tiene más de un día, puede agregar una nueva sesión para el segundo día. Cada día tiene su propia pestaña con las entradas de la agenda."
+  help_export: 
+    part1: "Los eventos pueden ser exportados de la siguiente manera:"
+    part2: "1. Vaya a la página de <b>Evento </b>que desea exportar"
+    part3: "2. Haga click en <b>Exportar</b> en la barra del programa"
+    part4: "3. You can export an event in four formats:<ul><li><b>PDF</b>: exports the complete program as a PDF file.</li><li><b>Small PDF</b>: exports a reduce version of the program ina PDF file.</li><li><b>iCalendar</b>: exports the event data in the iCalendar format to include it in calendaring apps or emails.</li><li><b>SCORM</b>: exports the events content in a SCORM compliant file which can be imported by an LMS (learning Management System). Only recorded events can be exported in SCORM.</li></ul>"
+    part5: "Example of exporting in SCORM by Moodle is shown in the figure below:"
   help_index: 
     part1: "Global Plaza, también llamado Virtual Conference Center (VCC), ofrece un servicio que combina un sistema de conferencia vía web con salas de conferencia, sesiones de transmisión, grabación y publicación. El servicio de reuniones virtuales del Global Plaza puede ser usado por ejemplo para:"
     part2: "<li>Grabar y publicar sus eventos en Internet. <br>    Por ejemplo: <a href=%{egee08}>EGEE'08</a>,<a href=%{belief}> 3rd Belief Symposium India</a>.<li>Facilitar la participación remota a sus eventos desde un navegador Web browser. "
