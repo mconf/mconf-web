@@ -2,17 +2,38 @@
 es: 
   activerecord: 
     attributes: 
+      bigbluebutton_metadata: 
+        content: Contenido
+        name: Nombre
+        owner: Propietario
+      bigbluebutton_playback_format: 
+        format_type: Formato
+        length: Duración
+        url: URL
+      bigbluebutton_recording: 
+        end_time: "Hora de finalización"
+        meetingid: "Identificador de reunión"
+        metadata: Metadata
+        name: Nombre
+        published: Publicado
+        recordid: "Identificador de grabación"
+        room_id: "Identificador de sala"
+        server_id: "Identificador del servidor"
+        start_time: "Hora de inicio"
       bigbluebutton_room: 
         attendee_password: "Clave del participante"
         dial_number: "Dial Number"
+        duration: Duración
         external: "Creada externamente"
         logout_url: "URL de Desconexión"
         max_participants: "Número máximo de participantes"
         meetingid: "Identificador de reunión"
+        metadata: Metadata
         moderator_password: "Clave del moderador"
         name: Nombre
         param: Identificador
         private: Privado
+        record: Grabar
         server_id: "Identificador de servidor"
         voice_bridge: "Voice Bridge"
         welcome_msg: "Mensaje de bienvenida"
@@ -23,10 +44,32 @@ es:
         url: URL
         version: Versión
     models: 
+      bigbluebutton_metadata: "Metadatos de grabación de conferencia web"
+      bigbluebutton_playback_format: "Formato de grabación de conferencia web"
+      bigbluebutton_recording: "Grabación de conferencia web"
       bigbluebutton_room: "Sala de conferencia web"
       bigbluebutton_server: "Servidor de conferencia web"
   bigbluebutton_rails: 
     bigbluebutton: BigBlueButton
+    metadata: 
+      errors: 
+        name_format: "puede usar solamente letras, números y los símbolos \"-\" o \"_\", pero sólo letras al comienzo"
+    recordings: 
+      errors: 
+        check_for_server: 
+          no_server: "No hay ningún servidor asociado con esta grabación."
+        play: 
+          no_format: "No hay ninguna URL de reprodución especificada para esta grabación."
+      notice: 
+        destroy: 
+          success: "Su grabación fue destruida con éxito."
+          success_with_bbb_error: "La grabación fue destruida con éxito pero no fue eliminada del servidor de conferencia web (\"%{error}\")"
+        publish: 
+          success: "Su grabación fue publicada con éxito."
+        unpublish: 
+          success: "Su grabación publicada fue quitada con éxito."
+        update: 
+          success: "Su grabación fue actualizada con éxito."
     rooms: 
       errors: 
         auth: 
@@ -45,6 +88,7 @@ es:
           success: "Su sala ha sido creada."
         destroy: 
           success: "La reunión ha sido eliminada."
+          success_with_bbb_error: "La reunión ha sido eliminada pero la reunión no fue finalizada en el servidor de conferencia web (\"%{error}\")"
         end: 
           not_running: "La reunión no se pudo detener porque no se encuentra en ejecución."
           success: "La reunión ha sido detenida."
@@ -58,5 +102,11 @@ es:
       notice: 
         create: 
           success: "Su servidor ha sido creado."
+        fetch_recordings: 
+          success: "La lista de grabaciones fue actualizada con éxito."
+        publish_recordings: 
+          success: "Sus grabaciones fueron publicadas con éxito."
+        unpublish_recordings: 
+          success: "Sus grabaciones publicadas fueron quitadas con éxito."
         update: 
           success: "Su servidor ha sido actualizado."
