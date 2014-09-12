@@ -22,7 +22,7 @@ es:
     other: Agentes
     select: 
       one: "Seleccionar Agente"
-  are_you_sure: "Are you sure?"
+  are_you_sure: "¿Está seguro?"
   author: Autor
   back: Atrás
   bad_request: "Petición Inválida"
