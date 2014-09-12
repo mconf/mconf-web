@@ -30,6 +30,7 @@ es:
     rooms: 
       errors: 
         auth: 
+          cannot_create: "No tiene permisos para iniciar esta reunión."
           failure: "Error de autenticación."
           not_running: "La reunión no está disponible aun. La reunión se habilitará una vez que ingrese el moderador."
           wrong_params: "La solicitud contiene parámetros incorrectos."
