@@ -25,14 +25,7 @@ GIT
       resque (~> 1.25.1)
 
 GIT
-  remote: git://github.com/mconf/translate.git
-  revision: 849ba4469953233cd3a569cf793901d8f018cda9
-  specs:
-    translate-rails3 (0.1.1)
-      ya2yaml (~> 0.30)
-
-GIT
-  remote: git@github.com:mconf/mweb_events.git
+  remote: git://github.com/mconf/mweb_events.git
   revision: fcea2ed4228c5434a09e9200831e3bd6b0472832
   branch: master
   specs:
@@ -61,6 +54,13 @@ GIT
       therubyracer
       twitter-bootstrap-rails
       valid_email
+
+GIT
+  remote: git://github.com/mconf/translate.git
+  revision: 849ba4469953233cd3a569cf793901d8f018cda9
+  specs:
+    translate-rails3 (0.1.1)
+      ya2yaml (~> 0.30)
 
 GIT
   remote: https://github.com/Fire-Dragon-DoL/valid_email.git
@@ -195,7 +195,7 @@ GEM
       railties (>= 3.2, < 5.0)
     friendly_id (5.0.4)
       activerecord (>= 4.0.0)
-    geocoder (1.2.4)
+    geocoder (1.2.5)
     haml (4.0.5)
       tilt
     haml-rails (0.5.3)
