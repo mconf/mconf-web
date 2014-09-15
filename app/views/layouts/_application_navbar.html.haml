@@ -4,24 +4,23 @@
       - url = user_signed_in? ? main_app.my_home_path : main_app.root_path
       -# %a.title{:href => url}= current_site.name
       %a.title{:href => url}
-        -#= image_tag "logos/mconf-color-transp.png", size: "54x28"
+        -# = image_tag "logos/mconf-color-transp.png", size: "54x28"
         = image_tag "logos/mconf-white-transp.png", size: "54x28"
         -#= image_tag "logos/mconf-ico-color-transp.png", size: "32x32"
 
   .col-sm-8
     %ul#navbar-left-links
       - if user_signed_in?
-        -# %li
-        -#   = link_to main_app.my_home_path do
-        -#     = t('home.my')
         - if current_user.unread_private_messages.size > 0
-          %li.notification-count
+          %li.notification
             = link_to main_app.messages_path do
-              = current_user.unread_private_messages.size
-          %li.notification-text
-            = link_to main_app.messages_path do
+              %span.badge.success
+                = current_user.unread_private_messages.size
               = "You have new messages!"
 
+        %li
+          = link_to main_app.my_home_path do
+            = t('home.my')
         %li
           = link_to t('space.all'), main_app.spaces_path
         - if mod_enabled?("events")

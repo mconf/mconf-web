@@ -1,9 +1,5 @@
 - page_title t('spaces.menu.webconference'), :in => @space.name
 
-
-= content_for :main_sidebar do
-  = render "my/sidebar", user_spaces: @user_spaces
-
 = render "spaces/title", space: @space, full: false
 
 - spaces_menu_at :webconference
@@ -12,8 +8,8 @@
 #page-menu
   = content_for :page_menu
 
--# - spaces_webconference_menu_at :access
--# = render :partial => 'webconference_tabs'
+- spaces_webconference_menu_at :access
+= render :partial => 'webconference_tabs'
 
 #webconference-description.content-block
   .content-block-header

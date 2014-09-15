@@ -6,6 +6,8 @@
 
   .current-page-logo {
     @include make-xs-column(3);
+    max-width: 200px;
+    min-width: 100px;
 
     .current-page-logo-content {
       border: 1px #ccc solid;
@@ -32,6 +34,7 @@
     }
     .current-page-logo {
       @include make-xs-column(2);
+      max-width: 150px;
     }
   }
 

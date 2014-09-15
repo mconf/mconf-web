@@ -6,6 +6,10 @@
 
 - cls = full ? '' : 'simplified'
 #space-title{ class: cls }
+  .current-page-logo
+    .current-page-logo-content
+      = link_to space_path(space) do
+        = logo_image(space, :size => "168x128", :title => space.name)
   .current-page-title
     - if space.name.size > 60
       .main-title.small-title
@@ -30,7 +34,3 @@
     .sub-title
       -# = sanitize(first_words(space.description, 150))
       = sanitize(space.description)
-  .current-page-logo
-    .current-page-logo-content
-      = link_to space_path(space) do
-        = logo_image(space, :size => "168x128", :title => space.name)

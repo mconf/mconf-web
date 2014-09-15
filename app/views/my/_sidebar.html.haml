@@ -13,10 +13,6 @@
 
 %ul#main-sidebar-menu
   %li
-    = link_to my_home_path do
-      -# = icon_home()
-      = "Home"
-  %li
     = link_to main_app.messages_path do
       = "Inbox"
       = "(#{current_user.unread_private_messages.size} unread messages)"

@@ -1,12 +1,23 @@
+@import "definitions";
+
 // For the 'no_sidebar' layout
 
 // we don't have a sidebar, so the content must fill the
 // entire width of the page
 #sidebar {
-  width: 0 !important;
+  @include make-xs-column(0);
+  @include make-sm-column(0);
   display: none !important;
 }
 
 #content-middle {
-  width: 100% !important;
+  @include make-xs-column(12);
+  @include make-sm-column(12);
+}
+
+// remove the element set by set-max-width.css
+#site:before {
+  background: none;
+  height: 0;
+  width: 0;
 }

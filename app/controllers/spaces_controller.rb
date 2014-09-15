@@ -83,7 +83,7 @@ class SpacesController < ApplicationController
     @latest_users = @space.users.order("permissions.created_at DESC").first(3)
 
     respond_to do |format|
-      format.html { render :layout => 'spaces_show' }
+      format.html { render :layout => 'no_sidebar' }
       format.js {
         json = @space.to_json(space_to_json_hash)
         render :json => json, :callback => params[:callback]
@@ -118,7 +118,7 @@ class SpacesController < ApplicationController
   end
 
   def edit
-    render :layout => 'spaces_show'
+    render :layout => 'no_sidebar'
   end
 
   def update_logo
@@ -184,11 +184,11 @@ class SpacesController < ApplicationController
       |x,y| x.user.name <=> y.user.name
     }
     @roles = Space.roles
-    render :layout => 'spaces_show'
+    render :layout => 'no_sidebar'
   end
 
   def webconference_options
-    render :layout => 'spaces_show'
+    render :layout => 'no_sidebar'
   end
 
   def enable
@@ -240,7 +240,7 @@ class SpacesController < ApplicationController
         end
       end
     end
-    render :layout => 'spaces_show'
+    render :layout => 'no_sidebar'
   end
 
   # Action used to show the recordings of a space
@@ -255,7 +255,7 @@ class SpacesController < ApplicationController
     if params[:partial]
       render :layout => false
     else
-      render :layout => 'spaces_show'
+      render :layout => 'no_sidebar'
     end
   end
 
@@ -268,7 +268,7 @@ class SpacesController < ApplicationController
     if request.xhr?
       render :layout => false
     else
-      render :layout => "spaces_show"
+      render :layout => "no_sidebar"
     end
   end
 
