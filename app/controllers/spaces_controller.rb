@@ -240,6 +240,11 @@ class SpacesController < ApplicationController
         end
       end
     end
+    # TODO: #1087 show last 5 recordings and a link to the full list and to update it
+    @recordings = @webconf_room.recordings.published().order("end_time DESC").last(3)
+    if params[:limit]
+      @recordings = @recordings.first(params[:limit].to_i)
+    end
     render :layout => 'no_sidebar'
   end
 

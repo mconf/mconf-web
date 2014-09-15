@@ -11,13 +11,6 @@
   .col-sm-8
     %ul#navbar-left-links
       - if user_signed_in?
-        - if current_user.unread_private_messages.size > 0
-          %li.notification
-            = link_to main_app.messages_path do
-              %span.badge.success
-                = current_user.unread_private_messages.size
-              = "You have new messages!"
-
         %li
           = link_to main_app.my_home_path do
             = t('home.my')
@@ -29,6 +22,12 @@
           %li
             = link_to main_app.site_path do
               = t('.manage')
+        - if current_user.unread_private_messages.size > 0
+          %li.notification
+            = link_to main_app.messages_path do
+              %span.badge.success
+                = current_user.unread_private_messages.size
+              = "You have new messages!"
       - else
         -# for anonymous users
         %li= link_to t('space.all'), main_app.spaces_path

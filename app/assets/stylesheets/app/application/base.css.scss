@@ -831,9 +831,9 @@ ul#navbar-left-links {
   }
 
   .content-block-footer {
-    //padding: 4px 10px;
     text-align: right;
     clear: both;
+    margin: 5px 0;
 
     &.content-block-footer-fancy {
       //background: $m-light-gray;
@@ -857,10 +857,12 @@ ul#navbar-left-links {
 
   .content-block-header {
     @include mconf-clearfix;
+    margin: 5px 0;
+
     img { float: left; }
     h3, h4 {
       float: left;
-      margin: 0 4px;
+      margin: 0;
     }
 
     .toolbar {

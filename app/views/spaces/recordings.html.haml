@@ -3,15 +3,17 @@
 
 - else
 
+  = render "spaces/title", space: @space, full: false
+
   - spaces_menu_at :webconference
   = render :partial => 'spaces/menu'
 
-  - spaces_webconference_menu_at :recordings
-  = render :partial => 'webconference_tabs'
+  #page-menu
+    = content_for :page_menu
 
   #space-recordings.content-block
     .content-block-header
-      %h3= t('.title')
+      %h3= t('.title', count: @recordings.count)
 
       -# only update the recording db if the user has permission to
       - if can?(:fetch_recordings, @webconf_room)

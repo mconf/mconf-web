@@ -1510,7 +1510,7 @@ en:
       title: "Create a new space"
     news: "Space news"
     recordings:
-      title: "Recordings in this space"
+      title: "Recordings in this space (%{count})"
       update_recordings:
         error: "Error updating your recording list, plase try again later"
         success: "Recording list updated!"
@@ -1578,6 +1578,13 @@ en:
         description:
           header: "Webconference access"
           text: "The webconference room associated with this space is currently: <em>%{status}</em> <br/> Use the buttons in the sidebar at the right to join the webconference."
+        recordings:
+          no_recordings: "There are no recordings in this room yet."
+          title:
+            zero: "Recordings in this room"
+            one: "Last recording in this room"
+            other: "Last %{count} recordings in this room"
+          view_all: "View all recordings and update the list"
         share:
           description: "You can invite people to this webconference by sharing the link below:"
           header: Share
@@ -1585,9 +1592,6 @@ en:
     webconference_options:
       layout_empty_option: "<default>"
       options: "Web conference room options"
-    webconference_tabs:
-      access: "Webconference access"
-      recordings: "List of recordings"
   spam:
     spam_report_create:
       error: "Sorry, but there was a problem marking this item as spam"

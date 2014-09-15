@@ -1510,7 +1510,7 @@ pt-br:
       title: "Criar uma comunidade"
     news: "Notícias na comunidade"
     recordings:
-      title: "Gravações desta comunidade"
+      title: "Gravações desta comunidade (%{count})"
       update_recordings:
         error: "Erro atualizando sua lista de gravações, tente novamente mais tarde"
         success: "Lista de gravações atualizada!"
@@ -1574,6 +1574,13 @@ pt-br:
         description:
           header: "Acesso à webconferência"
           text: "A sala de webconferência associada com esta comunidade está no momento: <em>%{status}</em> <br/> Use os botões na barra lateral à direita para entrar na conferência."
+        recordings:
+          no_recordings: "Ainda não existem gravações nesta sala."
+          title:
+            zero: "Gravações desta sala"
+            one: "Última gravação desta sala"
+            other: "Últimas %{count} gravações desta sala"
+          view_all: "Ver todas as gravações e atualizar lista"
         share:
           description: "Você pode convidar pessoas para esta webconferência utilizando o endereço abaixo:"
           header: Compartilhar
@@ -1581,9 +1588,6 @@ pt-br:
     webconference_options:
       layout_empty_option: "<padrão>"
       options: "Opções da sala de webconferência"
-    webconference_tabs:
-      access: "Acesso à webconferência"
-      recordings: "Lista de gravações"
   spam:
     spam_report_create:
       error: "Desculpe, mas ocorreu um erro ao marcar este artigo como spam"
