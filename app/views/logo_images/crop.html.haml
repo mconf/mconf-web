@@ -6,14 +6,7 @@
   .modal-body
 
     .jcrop-wrapper
-      = image_tag @model.logo_image_url(:large), :class => 'cropable',
-          :'data-crop-width' => @width, :'data-crop-aspect-ratio' => @aspect_ratio
-
-    .preview
-      .preview-title= t('.preview')
-      -# TODO: can't this style be in the css? or part of it?
-      .jcrop-wrapper{ :style => "width:#{@width.to_i}px; height:100px; overflow:hidden" }
-        = image_tag @model.logo_image_url(:large), :class => 'crop-preview'
+      = image_tag @model.logo_image_url(:large), :class => 'cropable', :'data-crop-width' => @width, :'data-crop-aspect-ratio' => @aspect_ratio
 
   .modal-footer.form-actions
     -# TODO: use simple_form and add a 'cancel' button

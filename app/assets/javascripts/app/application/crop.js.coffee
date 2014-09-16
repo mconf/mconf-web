@@ -23,8 +23,7 @@ update = (image, coords) ->
   $('.crop-h').val(coords.h)
   $('.btn').removeClass('disabled')
 
-  updatePreview(image, coords)
-
+# Currently not being used
 updatePreview = (image, coords) ->
   cropWidth = $(image).attr("data-crop-width")
   $('.crop-preview').css
