@@ -11,7 +11,7 @@
   @include set-max-site-width;
 }
 
-#footer {
+#footer-content, #footer-mconf-content {
   @include set-max-site-width;
 }
 
