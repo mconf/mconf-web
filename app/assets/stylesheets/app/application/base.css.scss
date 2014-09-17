@@ -299,6 +299,7 @@ form {
   background: none;
   border: 0;
   @include box-shadow(none);
+  padding: 15px;
 
   #footer {
     h3 {

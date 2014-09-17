@@ -12,11 +12,11 @@ group :assets do
   gem 'yui-compressor'
   gem 'compass-rails', '~> 1.0'
   gem 'handlebars_assets'
-
-  # TODO: remove when compass-rails is updated
-  # This compass is here so we can have css3/animation
-  gem 'compass', '~> 0.13.alpha'
   gem 'select2-rails'
+
+  # TODO: update compass to 1.x when bootstrap-sass uses sass >= 3.3
+  # This compass is here so we can have css3/animation
+  gem 'compass', '~> 0.12'
 end
 
 # TODO: temporary until we update to ruby 2.2.0, see http://dev.mconf.org/redmine/issues/1333

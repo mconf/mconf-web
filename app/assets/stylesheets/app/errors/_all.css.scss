@@ -10,45 +10,32 @@ $logo-rot-pos2: rotate(-160deg);
 $m-z-index-content: 1;
 $m-z-index-footer: 0;
 
-@include keyframes(hang) {
-  to { @include transform($logo-rot-pos1); }
-}
+/* TODO: No more animations for now, need to update compass */
+/* @include keyframes(hang) { */
+/*   to { @include transform($logo-rot-pos1); } */
+/* } */
 
-@include keyframes(fall) {
-  0% {
-    opacity: 1;
-    top: $logo-top;
-  }
-  10% {
-    opacity: 1;
-    top: $logo-top - 50px;
-  }
-  100% {
-    top: 5000px;
-    opacity: 0;
-  }
-}
-
-html, body {
-  height: 100%;
-  overflow: hidden;
-}
-
-#site {
-  height: 100%;
-  background: none;
-  @include box-shadow(none);
-}
+/* @include keyframes(fall) { */
+/*   0% { */
+/*     opacity: 1; */
+/*     top: $logo-top; */
+/*   } */
+/*   10% { */
+/*     opacity: 1; */
+/*     top: $logo-top - 50px; */
+/*   } */
+/*   100% { */
+/*     top: 5000px; */
+/*     opacity: 0; */
+/*   } */
+/* } */
 
 #content-wrapper {
   z-index: $m-z-index-content;
-  background: $m-subnav-bg-color;
-  border-top: 1px solid #EED3D7;
-  border-bottom: 1px solid #EED3D7;
   margin-top: 80px;
-  color: darken($m-font-color-gray, 10);
   h1 {
     color: $m-green-logo;
+    font-weight: bold;
   }
 }
 
@@ -58,61 +45,62 @@ html, body {
   .title {
     border: 0;
     text-align: center;
-    @include font-size($font-gigantic);
     max-width: 80%;
     margin: 30px auto;
   }
 
   .error-description {
-    max-width: 80%;
+    max-width: 70%;
     margin: 30px auto;
     text-align: center;
     @include font-size($m-font-bigger);
     line-height: $m-font-bigger + 6px;
+    color: darken($m-gray, 25);
     p {
       @include font-size($m-font-bigger);
       line-height: $m-font-bigger + 6px;
     }
   }
 
-  .access-links {
-    @include font-size($m-font-big);
+  /* .access-links { */
+  /*   @include font-size($m-font-big); */
 
-    .icon {
-      margin-top: 3px;
-    }
-  }
+  /*   .icon { */
+  /*     margin-top: 3px; */
+  /*   } */
+  /* } */
 
  .logo {
-    position: absolute;
-    right: 0;
-    top: $logo-top;
-    @include transform-origin(right, 90%);
-    @include transform($logo-rot-pos2);
-    @include animation-name(hang);
-    @include animation-duration(1s);
-    @include animation-direction(alternate);
-    @include animation-timing-function(ease-in-out);
-    @include animation-delay(0s);
-    @include animation-iteration-count(infinite);
+    display: none;
+    /* position: absolute; */
+    /* right: 0; */
+    /* top: $logo-top; */
+    /* @include transform-origin(right, 90%); */
+    /* @include transform($logo-rot-pos2); */
+    /* @include animation-name(hang); */
+    /* @include animation-duration(1s); */
+    /* @include animation-direction(alternate); */
+    /* @include animation-timing-function(ease-in-out); */
+    /* @include animation-delay(0s); */
+    /* @include animation-iteration-count(infinite); */
 
-    .text {
-      padding-left: 15px;
-      display: block;
-      color: $m-transparent;
-      @include transform(rotate(180deg));
-    }
+    /* .text { */
+    /*   padding-left: 15px; */
+    /*   display: block; */
+    /*   color: $m-transparent; */
+    /*   @include transform(rotate(180deg)); */
+    /* } */
 
-    &.fall {
-      opacity: 0;
-      @include animation-name(fall, hang);
-      @include animation-duration(6s, 1s);
-      @include animation-timing-function(ease-in-out, ease-in-out);
-      @include animation-delay(0s, 1s);
-      @include animation-iteration-count(1, infinite);
+    /* &.fall { */
+    /*   opacity: 0; */
+    /*   @include animation-name(fall, hang); */
+    /*   @include animation-duration(6s, 1s); */
+    /*   @include animation-timing-function(ease-in-out, ease-in-out); */
+    /*   @include animation-delay(0s, 1s); */
+    /*   @include animation-iteration-count(1, infinite); */
 
-      .text { color: #B94A48; }
-    }
+    /*   .text { color: #B94A48; } */
+    /* } */
   }
 
 }

@@ -126,7 +126,7 @@ GEM
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
     bootstrap-datetimepicker-rails (0.0.11)
-    bootstrap-sass (3.2.0.1)
+    bootstrap-sass (3.2.0.2)
       sass (~> 3.2)
     bootstrap3-datetimepicker-rails (3.0.0.2)
       momentjs-rails (~> 2.5.0)
@@ -155,10 +155,10 @@ GEM
       execjs
     coffee-script-source (1.7.1)
     commonjs (0.2.7)
-    compass (0.13.alpha.4)
+    compass (0.12.7)
       chunky_png (~> 1.2)
-      listen (<= 0.9.9)
-      sass (~> 3.2.5)
+      fssm (>= 0.2.7)
+      sass (~> 3.2.19)
     compass-rails (1.1.7)
       compass (>= 0.12.2)
       sprockets (<= 2.11.0)
@@ -199,6 +199,7 @@ GEM
       railties (>= 3.2, < 5.0)
     friendly_id (5.0.4)
       activerecord (>= 4.0.0)
+    fssm (0.2.10)
     geocoder (1.2.4)
     haml (4.0.5)
       tilt
@@ -234,7 +235,6 @@ GEM
       actionpack (>= 3.1)
       less (~> 2.5.0)
     libv8 (3.16.14.3)
-    listen (0.7.3)
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
@@ -436,7 +436,7 @@ DEPENDENCIES
   carrierwave (~> 0.10.0)
   chronic
   coffee-rails (~> 4.0.0)
-  compass (~> 0.13.alpha)
+  compass (~> 0.12)
   compass-rails (~> 1.0)
   configatron (~> 2.13.0)
   database_cleaner
