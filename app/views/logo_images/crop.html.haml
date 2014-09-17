@@ -8,6 +8,9 @@
     .jcrop-wrapper
       = image_tag @model.logo_image_url(:large), :class => 'cropable', :'data-crop-width' => @width, :'data-crop-aspect-ratio' => @aspect_ratio
 
+    %input#aspect-ratio{:type => 'checkbox'}
+      = t('.aspect_ratio')
+
   .modal-footer.form-actions
     -# TODO: use simple_form and add a 'cancel' button
     = form_for @model, :url => @url do |f|

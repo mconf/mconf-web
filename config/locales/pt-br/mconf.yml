@@ -888,6 +888,7 @@ pt-br:
     crop:
       crop_it: "Cortar!"
       preview: "Pré-visualização"
+      aspect_ratio: Não usar aspecto fixo.
   logout: Sair
   manage:
     disabled_space:

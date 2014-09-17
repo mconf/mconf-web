@@ -7,11 +7,19 @@ class mconf.Crop
   @bind: ->
     $("img.cropable").each ->
       image = this
-      $(image).Jcrop
+      $('img.cropable').Jcrop
+        aspectRatio: $(image).attr('data-crop-aspect-ratio')
         setSelect: [0, 0, 350, 350]
         onSelect: (coords) -> update(image, coords)
         onChange: (coords) -> update(image, coords)
         onRelease: () -> $('.btn').addClass('disabled')
+
+      $('#aspect-ratio').click () ->
+        mconf.Crop.enableAspectRatio !$(this).is(':checked')
+
+  @enableAspectRatio: (enabled) ->
+    $('img.cropable').data('Jcrop').setOptions
+      aspectRatio: if enabled then $('img.cropable').attr('data-crop-aspect-ratio') else 0
 
 # Updates the attributes in the page using the coordinates set by Jcrop.
 # `image` is the image that's being cropped and `coords` the coordinates set by Jcrop over
