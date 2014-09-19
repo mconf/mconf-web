@@ -111,7 +111,7 @@ en:
     attributes:
       invite:
         ends_on: "Ends on"
-        message: "Comments"
+        message: "Description"
         starts_on: "Starts on"
         title: "Title"
         users: "Users"

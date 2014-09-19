@@ -111,7 +111,7 @@ pt-br:
     attributes:
       invite:
         ends_on: "Acaba em"
-        message: "Comentários"
+        message: "Descrição"
         starts_on: "Inicia em"
         title: "Título"
         users: "Usuários"
