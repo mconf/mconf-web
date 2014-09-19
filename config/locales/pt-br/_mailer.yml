@@ -4,6 +4,11 @@ pt-br:
     feedback_email:
       content: "%{email} enviou o seguinte feedback:"
       subject: "Feedback"
+  admin_mailer:
+    new_waiting_for_approval:
+      subject: "Um novo usuário está a espera de sua aprovação"
+      message: "%{name} se registrou no site e está esperando por aprovação:"
+      click_here: "Clique aqui <a href=\"%{url}\">aqui</a> para gerenciar usuários."
   event_mailer:
     invitation_email:
       message:

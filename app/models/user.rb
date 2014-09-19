@@ -115,6 +115,17 @@ class User < ActiveRecord::Base
   after_create :create_webconf_room
   after_update :update_webconf_room
 
+  after_create :send_admin_approval_mail
+  def send_admin_approval_mail
+    if Site.current.require_registration_approval && !self.approved?
+      admins = User.where(:superuser => true)
+
+      admins.each do |admin|
+        AdminMailer.new_user_waiting_for_approval(admin.id, self.id).deliver
+      end
+    end
+  end
+
   before_create :automatically_approve_if_needed
 
   default_scope { where(:disabled => false) }
