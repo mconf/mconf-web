@@ -19,4 +19,11 @@ class AdminMailer < BaseMailer
     @subject = t('admin_mailer.new_user_waiting_for_approval.subject')
     create_email(admin.email, Site.current.smtp_sender, @subject)
   end
+
+  def new_user_approved(user_id)
+    user = User.find(user_id)
+    @user_name = user.name
+    @subject = t('admin_mailer.new_user_approved.subject')
+    create_email(user.email, Site.current.smtp_sender, @subject)
+  end
 end

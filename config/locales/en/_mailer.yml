@@ -9,6 +9,10 @@ en:
       subject: "A new user is waiting approval"
       message: "%{name} has registered as is waiting for your approval:"
       click_here: "Click <a href=\"%{url}\">here</a> to manage users."
+    new_user_approved:
+      subject: "Your registration has been approved"
+      message: "Hello %{name}! We're sending this email to inform you your access to the site has been approved."
+      click_here: "Click <a href=\"%{url}\">here</a> to view your home page."
   event_mailer:
     invitation_email:
       message:

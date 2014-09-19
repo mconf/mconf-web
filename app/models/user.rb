@@ -126,6 +126,13 @@ class User < ActiveRecord::Base
     end
   end
 
+  after_save :send_user_approved_mail
+  def send_user_approved_mail
+    if Site.current.require_registration_approval && self.approved_changed? && self.approved?
+      AdminMailer.new_user_approved(self.id).deliver
+    end
+  end
+
   before_create :automatically_approve_if_needed
 
   default_scope { where(:disabled => false) }
