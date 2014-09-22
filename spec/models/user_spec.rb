@@ -608,27 +608,25 @@ describe User do
     end
   end
 
-  describe '#send_admin_approval_mail' do
+  describe 'user approval notifications' do
     let(:admin) { User.where(:superuser => true).first }
     before {
       Site.current.update_attributes(:require_registration_approval => true)
       @user = FactoryGirl.create(:user, :approved => false)
     }
 
-    it { AdminMailer.should have_queue_size_of(1) }
-    it { AdminMailer.should have_queued(:new_user_waiting_for_approval, admin.id, @user.id) }
-  end
+    context '#send_admin_approval_mail' do
+      it { AdminMailer.should have_queue_size_of(1) }
+      it { AdminMailer.should have_queued(:new_user_waiting_for_approval, admin.id, @user.id) }
+    end
 
-  describe '#send_user_approval_mail' do
-    let(:admin) { User.where(:superuser => true).first }
-    before {
-      Site.current.update_attributes(:require_registration_approval => true)
-      @user = FactoryGirl.create(:user)
-      @user.update_attributes(:approved => true)
-    }
+    context '#send_user_approval_mail' do
+      before { @user.update_attributes(:approved => true) }
 
-    it { AdminMailer.should have_queue_size_of(2) }
-    it { AdminMailer.should have_queued(:new_user_approved, @user.id).in(:mailer) }
+      it { AdminMailer.should have_queue_size_of(2) }
+      it { AdminMailer.should have_queued(:new_user_waiting_for_approval, admin.id, @user.id) }
+      it { AdminMailer.should have_queued(:new_user_approved, @user.id).in(:mailer) }
+    end
   end
 
   # TODO: :index is nested into spaces, how to test it here?
