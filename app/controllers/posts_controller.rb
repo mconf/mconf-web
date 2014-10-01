@@ -119,15 +119,8 @@ class PostsController < ApplicationController
     end
   end
 
-  def post_params
-    unless params[:post].blank?
-      params[:post].permit(*post_allowed_params)
-    else
-      {}
-    end
-  end
-
-  def post_allowed_params
+  allow_params_for :post
+  def allowed_params
     [:title, :text, :parent_id]
   end
 

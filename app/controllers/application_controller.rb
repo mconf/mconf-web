@@ -35,6 +35,20 @@ class ApplicationController < ActionController::Base
     rescue_from CanCan::AccessDenied, :with => :render_403
   end
 
+  # Code that to DRY out permitted param filtering
+  # The controller declares allow_params_for :model_name and defines allowed_params
+  def self.allow_params_for instance_name
+    instance_name ||= controller_name.singularize.to_sym
+
+    define_method("#{instance_name}_params") do
+      unless params[instance_name].blank?
+        params[instance_name].permit(*allowed_params)
+      else
+        {}
+      end
+    end
+  end
+
   # Splits a comma separated list of emails into a list of emails without trailing spaces
   def split_emails email_string
     email_string.split(/[\s,;]/).select { |e| !e.empty? }

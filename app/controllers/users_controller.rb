@@ -191,14 +191,7 @@ class UsersController < ApplicationController
     authorize! :enable, @user
   end
 
-  def user_params
-    unless params[:user].blank?
-      params[:user].permit(*allowed_params)
-    else
-      {}
-    end
-  end
-
+  allow_params_for :user
   def allowed_params
     allowed = [ :password, :password_confirmation, :remember_me, :current_password,
       :login, :approved, :disabled, :timezone, :can_record, :receive_digest, :notification,
