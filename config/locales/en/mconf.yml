@@ -976,10 +976,10 @@ en:
   my:
     approval_pending:
       title: Approval Pending
-      description: Your registration on this site is currently pending. You'll have to wait until an admin approves it.
-      interesting_links: "Meanwhile you can browse these sections of the website:"
-      events_list: List of Events
-      spaces_list: List of Spaces
+      description: You have registered succesfully and your account was submitted to the approval of an administrator. You will be contacted when you account is approved.
+      interesting_links: "Meanwhile you can browse these open sections of the website:"
+      events_list: list of events
+      spaces_list: list of spaces
     page_header:
       activity_list: "Activity list"
     home:

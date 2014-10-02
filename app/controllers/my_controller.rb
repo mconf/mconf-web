@@ -41,7 +41,7 @@ class MyController < ApplicationController
         "application"
       end
     when :pending_approval
-      "error"
+      "no_sidebar"
     else
       "application"
     end
