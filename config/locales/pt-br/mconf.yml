@@ -974,6 +974,12 @@ pt-br:
   more: mais...
   more_arrows: "mais >>"
   my:
+    approval_pending:
+      title: Aprovação pendente
+      description: O seu registro neste site ainda está pendente. Você terá que esperar até que um administrador o aprove.
+      interesting_links: "Enquanto isto você pode explorar estas seções do site:"
+      events_list: Lista de Eventos
+      spaces_list: Lista de Comunidades
     page_header:
       activity_list: "Atividades recentes"
     home:
