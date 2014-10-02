@@ -25,11 +25,3 @@ every :monday, :at => '2pm' do
   # send weekly digest emails
   rbenv_runner "Mconf::DigestEmail.send_weekly_digest"
 end
-
-every 30.minutes do
-  rbenv_rake "bigbluebutton_rails:recordings:update"
-end
-
-every 30.minutes do
-  rbenv_rake "bigbluebutton_rails:meetings:finish"
-end

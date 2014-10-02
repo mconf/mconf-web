@@ -15,7 +15,7 @@ GIT
 
 GIT
   remote: git://github.com/mconf/bigbluebutton_rails.git
-  revision: 091fe5759709bddf69181ce3c72e9bbc71dcab3d
+  revision: d7991749d4d6f7bd570f092fa71184cf7b6c69a7
   branch: master
   specs:
     bigbluebutton_rails (2.0.0)
@@ -23,6 +23,7 @@ GIT
       browser (~> 0.5.0)
       rails (>= 4.0.0)
       resque (~> 1.25.1)
+      resque-scheduler (~> 3.0)
 
 GIT
   remote: git://github.com/mconf/mweb_events.git
@@ -424,7 +425,6 @@ DEPENDENCIES
   bigbluebutton_rails!
   binding_of_caller
   bootstrap-datetimepicker-rails
-  browser
   cancancan (~> 1.9)
   capybara
   carrierwave (~> 0.10.0)
