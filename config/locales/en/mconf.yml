@@ -1138,10 +1138,11 @@ en:
       user_not_registered: "This user is no longer registered, you won't be able to respond to this message."
     show: 
       title: "Private Messages"
-    show_received: 
+    show_received:
       wrote: wrote
     show_sent: 
-      wrote: wrote
+      wrote_to: Sent
+      titled: the message
   profile: 
     deleted: "Profile deleted successfully"
     description: 
