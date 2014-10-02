@@ -975,7 +975,7 @@ en:
   more_arrows: "more >>"
   my:
     approval_pending:
-      title: Approval Pending
+      title: Pending approval
       description: You have registered succesfully and your account was submitted to the approval of an administrator. You will be contacted when you account is approved.
       interesting_links: "Meanwhile you can browse these open sections of the website:"
       events_list: list of events

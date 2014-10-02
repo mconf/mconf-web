@@ -13,7 +13,8 @@ feature 'Visitor signs up' do
 
   context 'send invalid register form and try to change language after' do
     before {
-      sign_up_with('', '', '')
+      attrs = { email: "", _full_name: "", password: "" }
+      register_with attrs
       click_link I18n.t('locales.en')
     }
 
@@ -21,7 +22,10 @@ feature 'Visitor signs up' do
   end
 
   context 'with valid email and password' do
-    before { sign_up_with 'Valid User Name', 'valid@example.com', 'password' }
+    before {
+      attrs = { email: "valid@example.com", _full_name: "Valid User Name", password: "password" }
+      register_with attrs
+    }
 
     it { current_path.should eq(my_home_path) }
     it { page.find("#user-notifications").should have_link('', :href => new_user_confirmation_path) }
@@ -30,35 +34,32 @@ feature 'Visitor signs up' do
   end
 
   context 'with invalid email' do
-    before { sign_up_with 'Valid User Name', 'invalid_email', 'password' }
+    before {
+      attrs = { email: "invalid_email", _full_name: "Valid User Name", password: "password" }
+      register_with attrs
+    }
 
+    it { current_path.should eq(user_registration_path) }
     it { page.should have_content('Sign in') }
   end
 
   context 'with blank password' do
-    before { sign_up_with 'Valid User Name', 'valid@example.com', '' }
+    before {
+      attrs = { email: "valid@example.com", _full_name: "Valid User Name", password: "" }
+      register_with attrs
+    }
 
+    it { current_path.should eq(user_registration_path) }
     it { expect(page).to have_content('Sign in') }
   end
 
   context 'with blank name' do
-    before { sign_up_with '', 'valid@example.com', 'password' }
+    before {
+      attrs = { email: "valid@example.com", password: "password" }
+      register_with attrs
+    }
 
+    it { current_path.should eq(user_registration_path) }
     it { expect(page).to have_content('Sign in') }
-  end
-
-  def sanitize_name name
-    name.downcase.gsub(/\s/, '-')
-  end
-
-  # TODO: replace by the helper register_with
-  def sign_up_with(name, email, password)
-    visit register_path
-    fill_in 'user[email]', with: email
-    fill_in 'user[password]', with: password
-    fill_in 'user[password_confirmation]', with: password
-    fill_in 'user[_full_name]', with: name
-    fill_in 'user[username]', with: sanitize_name(name)
-    click_button I18n.t('registrations.signup_form.register')
   end
 end

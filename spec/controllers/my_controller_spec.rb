@@ -33,6 +33,71 @@ describe MyController do
     end
   end
 
+  it "#home"
+
+  describe "#approval_pending" do
+    context "html request" do
+      before(:each) {
+        request.env["HTTP_REFERER"] = root_url
+        get :approval_pending
+      }
+      it { should respond_with(:success) }
+      it { should render_template(:approval_pending) }
+      it { should render_with_layout("no_sidebar") }
+    end
+
+    context "renders the page if the referer is /" do
+      before(:each) {
+        request.env["HTTP_REFERER"] = root_url
+        get :approval_pending
+      }
+      it { should respond_with(:success) }
+      it { should render_template(:approval_pending) }
+    end
+
+    context "renders the page if the referer is /register" do
+      before(:each) {
+        request.env["HTTP_REFERER"] = register_url
+        get :approval_pending
+      }
+      it { should respond_with(:success) }
+      it { should render_template(:approval_pending) }
+    end
+
+    context "renders the page if the referer is /login" do
+      before(:each) {
+        request.env["HTTP_REFERER"] = login_url
+        get :approval_pending
+      }
+      it { should respond_with(:success) }
+      it { should render_template(:approval_pending) }
+    end
+
+    context "redirects to / if didn't come from one of the registration pages" do
+      before(:each) {
+        # don't set a referer, the same as the user typing the URL in the browser and
+        # trying to access it
+        get :approval_pending
+      }
+      it { should respond_with(:redirect) }
+      it { should redirect_to(root_path) }
+    end
+
+    context "redirects to / if there's a user signed in" do
+      before(:each) {
+        sign_in(FactoryGirl.create(:user))
+        request.env["HTTP_REFERER"] = root_url
+        get :approval_pending
+      }
+      it { should respond_with(:redirect) }
+      it { should redirect_to(root_path) }
+    end
+  end
+
+  it "#activity"
+  it "#rooms"
+  it "#edit_room"
+
   describe "#recordings" do
     let(:user) { FactoryGirl.create(:user) }
     before(:each) { login_as(user) }

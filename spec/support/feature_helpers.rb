@@ -51,10 +51,11 @@ module FeatureHelpers
   end
 
   def register_with(attrs)
+    name = attrs[:username] || (attrs[:_full_name].downcase.gsub(/\s/, '-') if attrs[:_full_name])
     visit register_path
     fill_in "user[email]", with: attrs[:email]
     fill_in "user[_full_name]", with: attrs[:_full_name]
-    fill_in "user[username]", with: attrs[:username]
+    fill_in "user[username]", with: name
     fill_in "user[password]", with: attrs[:password]
     fill_in "user[password_confirmation]", with: attrs[:password]
     click_button "Register"

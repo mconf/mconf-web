@@ -7,6 +7,7 @@ feature 'Behaviour of the flag Site#require_registration_approval' do
   context "if admin approval is required" do
     before {
       Site.current.update_attributes(require_registration_approval: true)
+      Site.current.update_attributes(events_enabled: false)
 
       with_resque do
         expect { register_with(attrs) }.to change{ User.count }.by(1)
@@ -22,10 +23,41 @@ feature 'Behaviour of the flag Site#require_registration_approval' do
       last_email.body.encoded.should match(t('devise.mailer.confirmation_instructions.confirmation_pending'))
     end
 
-    it "doesn't sign the user in"
+    context "shows the pending approval page" do
+      it { current_path.should eq(my_approval_pending_path) }
+      it { page.should have_link('', :href => spaces_path) }
+      it { page.should_not have_link('', :href => mweb_events.events_path) }
+      it { page.should have_content('Sign in') }
+      it { page.should have_content('Pending approval') }
+      it { page.should have_content(I18n.t("my.approval_pending.description")) }
+    end
 
     it "shows the correct notification" do
       has_success_message t("devise.registrations.signed_up_but_not_approved")
+    end
+
+    it "when the event module is enabled" do
+      Site.current.update_attributes(events_enabled: true)
+      current_path.should eq(my_approval_pending_path)
+      page.should have_link('', :href => spaces_path)
+    end
+  end
+
+  context "if admin approval is required and the event module is enabled" do
+    before {
+      Site.current.update_attributes(require_registration_approval: true)
+      Site.current.update_attributes(events_enabled: true)
+
+      with_resque do
+        expect { register_with(attrs) }.to change{ User.count }.by(1)
+      end
+    }
+
+    context "shows the pending approval page" do
+      it { current_path.should eq(my_approval_pending_path) }
+      it { page.should have_content('Pending approval') }
+      it { page.should have_content(I18n.t("my.approval_pending.description")) }
+      it { page.should have_link('', :href => mweb_events.events_path) }
     end
   end
 
@@ -47,7 +79,10 @@ feature 'Behaviour of the flag Site#require_registration_approval' do
       last_email.body.encoded.should_not match(t('devise.mailer.confirmation_instructions.confirmation_pending'))
     end
 
-    it "signs the user in"
+    context "signs the user in" do
+      it { current_path.should eq(my_home_path) }
+      it { page.should have_content('Logout') }
+    end
 
     it "shows the correct notification" do
       has_success_message t("devise.registrations.signed_up")

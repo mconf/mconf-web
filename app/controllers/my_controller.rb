@@ -40,7 +40,7 @@ class MyController < ApplicationController
       else
         "application"
       end
-    when :pending_approval
+    when :approval_pending
       "no_sidebar"
     else
       "application"
@@ -56,8 +56,8 @@ class MyController < ApplicationController
   end
 
   def approval_pending
-    # Don't show it unless user is coming from a login or register
-    unless [login_url, register_url, root_url].include? request.referrer
+    # don't show it unless user is coming from a login or register
+    if user_signed_in? || ![login_url, register_url, root_url].include?(request.referrer)
       redirect_to root_path
     end
   end
