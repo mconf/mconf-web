@@ -51,6 +51,7 @@ feature 'Visitor signs up' do
     name.downcase.gsub(/\s/, '-')
   end
 
+  # TODO: replace by the helper register_with
   def sign_up_with(name, email, password)
     visit register_path
     fill_in 'user[email]', with: email

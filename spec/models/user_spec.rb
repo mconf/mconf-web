@@ -101,13 +101,13 @@ describe User do
 
     describe "validates uniqueness against Space#permalink" do
       describe "on create" do
-        context "with an enabled user" do
+        context "with an enabled space" do
           let(:space) { FactoryGirl.create(:space) }
           subject { FactoryGirl.build(:user, :username => space.permalink) }
           it { should_not be_valid }
         end
 
-        context "with a disabled user" do
+        context "with a disabled space" do
           let(:disabled_space) { FactoryGirl.create(:space, :disabled => true) }
           subject { FactoryGirl.build(:user, :username => disabled_space.permalink) }
           it { should_not be_valid }
@@ -115,7 +115,7 @@ describe User do
       end
 
       describe "on update" do
-        context "with an enabled user" do
+        context "with an enabled space" do
           let(:user) { FactoryGirl.create(:user) }
           let(:space) { FactoryGirl.create(:space) }
           before(:each) {
@@ -124,7 +124,7 @@ describe User do
           it { user.should_not be_valid }
         end
 
-        context "with a disabled user" do
+        context "with a disabled space" do
           let(:user) { FactoryGirl.create(:user) }
           let(:disabled_space) { FactoryGirl.create(:space, :disabled => true) }
           before(:each) {
@@ -605,6 +605,38 @@ describe User do
         it { user.disabled.should be(true) }
         it { space.disabled.should be(false) }
       end
+    end
+  end
+
+  describe "#location" do
+    context "returns the city + country" do
+      let(:user) {FactoryGirl.create(:user) }
+      before {
+        user.profile.city = "City X"
+        user.profile.country = "Country Y"
+        user.save!
+      }
+      it { user.location.should eql("City X, Country Y") }
+    end
+
+    context "returns the city if country if not defined" do
+      let(:user) {FactoryGirl.create(:user) }
+      before {
+        user.profile.city = "City X"
+        user.profile.country = nil
+        user.save!
+      }
+      it { user.location.should eql("City X") }
+    end
+
+    context "returns the country if city if not defined" do
+      let(:user) {FactoryGirl.create(:user) }
+      before {
+        user.profile.city = nil
+        user.profile.country = "Country Y"
+        user.save!
+      }
+      it { user.location.should eql("Country Y") }
     end
   end
 

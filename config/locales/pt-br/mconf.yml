@@ -111,7 +111,7 @@ pt-br:
     attributes:
       invite:
         ends_on: "Acaba em"
-        message: "Comentários"
+        message: "Descrição"
         starts_on: "Inicia em"
         title: "Título"
         users: "Usuários"
@@ -1145,9 +1145,10 @@ pt-br:
     show: 
       title: "Mensagens Privadas"
     show_received: 
-      wrote: wrote
+      wrote: escreveu
     show_sent: 
-      wrote: wrote
+      wrote_to: Escreveu para
+      titled: a mensagem
   profile:
     deleted: "Perfil excluído com sucesso"
     description:

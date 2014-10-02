@@ -6,10 +6,7 @@
 - receiver = User.with_disabled.find(private_message.receiver_id)
 
 .logo-in-thread
-  - if receiver.disabled?
-    = logo_image(receiver, :size => '32', :class => "logo logo-user")
-  - else
-    = raw(link_logo_image(receiver, :size => '32', :url => user_path(receiver), :title => receiver.username, :class => "logo logo-user"))
+  = render 'user_logo', :user => receiver
 
 .thread-content
   - unless expanded
@@ -21,6 +18,9 @@
   .thread-title
     - unless private_message.checked
       = icon_unread_message({ :title => t("icons.unread_message_by_receiver") })
+
+    = t('.wrote_to')
+
     - if expanded
       - sender = User.find_by_id_with_disabled(private_message.sender_id)
       - if sender.disabled?
@@ -32,19 +32,10 @@
         %span.thread-author= receiver.name
       - else
         = link_to(receiver.name, user_path(receiver), :class => "thread-author")
-    = t('.wrote')
-    - if expanded
-      = sanitize(private_message.title)
-    - else
-      = link_to sanitize(private_message.title), message_path(private_message)
-    %span.thread-updated-at
-      - if Time.now.to_date == private_message.created_at.to_date
-        = time_ago_in_words(private_message.created_at)
-      - else
-        = private_message.created_at.strftime("%d %b")
+
+    = t('.titled')
+
+    = render 'message_title', expanded: expanded, private_message: private_message
 
   .thread-text
-    - if expanded
-      = sanitize(auto_link(simple_format(private_message.body)))
-    - else
-      = sanitize(auto_link(simple_format(first_words(private_message.body, 100))))
+    = render 'message_text', expanded: expanded, private_message: private_message

@@ -82,7 +82,7 @@ en:
         ends_on: "Ends on..."
         message: "Write a personal message (optional)"
         starts_on: "Starts on..."
-        title: "Give a name to your meeting (optional, recommended)"
+        title: "Give a name to your meeting (mandatory)"
         users: "Type to search users by name or email..."
       join_request:
         invite:

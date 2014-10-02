@@ -33,7 +33,7 @@ describe WebConferenceMailer do
 
       it("sets 'to'") { mail.to.should eql([invitation.recipient.email]) }
       it("sets 'subject'") {
-        text = I18n.t('web_conference_mailer.invitation_email.subject', name: invitation.sender.name)
+        text = I18n.t('web_conference_mailer.invitation_email.subject')
         text = "[#{Site.current.name}] #{text}"
         mail.subject.should eql(text)
       }
@@ -56,7 +56,8 @@ describe WebConferenceMailer do
     end
 
     it "uses the receiver's timezone for the start and end dates"
-    it "uses the site's timezone if the user has no timezone set"
+    it "uses the sender's timezone if the receiver has no timezone set"
+    it "uses the site's timezone if the receiver and sender don't have a timezone set"
     it "sends an .ics file attached"
 
     context "uses the receiver's locale" do
@@ -73,11 +74,25 @@ describe WebConferenceMailer do
       }
     end
 
-    context "uses the site's locale if the receiver has no locale set" do
+    context "uses the sender's locale if the receiver has no locale set" do
+      before {
+        Site.current.update_attributes(:locale => "en")
+        invitation.recipient.update_attribute(:locale, nil)
+        invitation.sender.update_attribute(:locale, "pt-br")
+      }
+      it {
+        content = I18n.t('web_conference_mailer.invitation_email.message.header',
+                         sender: invitation.sender.name,
+                         email_sender: invitation.sender.email, locale: "pt-br")
+        mail.html_part.body.encoded.should match(Regexp.escape(content))
+      }
+    end
+
+    context "uses the site's locale if the receiver and sender don't have a locale set" do
       before {
         Site.current.update_attributes(:locale => "pt-br")
         invitation.recipient.update_attribute(:locale, nil)
-        invitation.sender.update_attribute(:locale, "en")
+        invitation.sender.update_attribute(:locale, nil)
       }
       it {
         content = I18n.t('web_conference_mailer.invitation_email.message.header',

@@ -35,6 +35,20 @@ class ApplicationController < ActionController::Base
     rescue_from CanCan::AccessDenied, :with => :render_403
   end
 
+  # Code that to DRY out permitted param filtering
+  # The controller declares allow_params_for :model_name and defines allowed_params
+  def self.allow_params_for instance_name
+    instance_name ||= controller_name.singularize.to_sym
+
+    define_method("#{instance_name}_params") do
+      unless params[instance_name].blank?
+        params[instance_name].permit(*allowed_params)
+      else
+        {}
+      end
+    end
+  end
+
   # Splits a comma separated list of emails into a list of emails without trailing spaces
   def split_emails email_string
     email_string.split(/[\s,;]/).select { |e| !e.empty? }
@@ -138,20 +152,22 @@ class ApplicationController < ActionController::Base
   end
 
   # This method is called from BigbluebuttonRails.
-  # Returns a hash with options to override the options saved in the database when creating
-  # a meeting in the room 'room'.
+  # Returns a hash with options to override the options used when making the API call to
+  # create a meeting in the room 'room'. The parameters returned are used directly in the
+  # API, so the keys should match the attributes used in the API and not the columns saved
+  # in the database (e.g. :attendeePW instead of :attendee_key)!
   def bigbluebutton_create_options(room)
     ability = Abilities.ability_for(current_user)
 
     can_record = ability.can?(:record_meeting, room)
     if Site.current.webconf_auto_record
       # show the record button if the user has permissions to record
-      { :record_meeting => can_record }
+      { record: can_record }
     else
       # only enable recording if the room is set to record and if the user has permissions to
       # used to forcibly disable recording if a user has no permission but the room is set to record
       record = room.record_meeting && can_record
-      { :record_meeting => record }
+      { record: record }
     end
   end
 

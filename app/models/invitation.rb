@@ -130,7 +130,7 @@ class Invitation < ActiveRecord::Base
         :sender_id => self.sender.id,
         :receiver_id => user.id,
         :body => content,
-        :title => I18n.t('web_conference_mailer.invitation_email.subject', :name => self.sender.full_name)
+        :title => I18n.t('web_conference_mailer.invitation_email.subject')
       }
       private_message = PrivateMessage.new(opts)
       private_message.save

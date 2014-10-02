@@ -42,9 +42,11 @@ pt-br:
     invitation_email:
       event_name: "Conferência com %{name}"
       message:
+        description: "Descrição"
         end: "Fim"
         header: "Você foi convidado por <b>%{sender}</b> (%{email_sender}) para uma conferência:"
-        join: "Acesso"
+        join: "Sala"
         password: "Chave de acesso"
         start: "Início"
-      subject: "Você foi convidado para uma conferência por %{name}"
+        subject: "Assunto"
+      subject: "Convite para webconferência"
