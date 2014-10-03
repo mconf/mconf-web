@@ -1,0 +1,36 @@
+<EntityDescriptor entityID="https://$DOMAIN/shibboleth-sp2">
+    <SPSSODescriptor protocolSupportEnumeration="urn:oasis:names:tc:SAML:1.1:protocol urn:oasis:names:tc:SAML:2.0:protocol">
+      <Extensions>
+        <mdui:UIInfo xmlns:mdui="urn:oasis:names:tc:SAML:metadata:ui">
+          <mdui:DisplayName xml:lang="en">$SERVICE_NAME</mdui:DisplayName>
+          <mdui:Description xml:lang="en">$SERVICE_DESCRIPTION</mdui:Description>
+        </mdui:UIInfo>
+      </Extensions>
+      <KeyDescriptor>
+        <ds:KeyInfo xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
+          <ds:X509Data>
+            <ds:X509Certificate>
+$CERTIFICATE
+$CERTIFICATE
+$CERTIFICATE
+            </ds:X509Certificate>
+          </ds:X509Data>
+        </ds:KeyInfo>
+      </KeyDescriptor>
+      <AssertionConsumerService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="https://$DOMAIN/Shibboleth.sso/SAML2/POST" index="1"/>
+      <AssertionConsumerService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST-SimpleSign" Location="https://$DOMAIN/Shibboleth.sso/SAML2/POST-SimpleSign" index="2"/>
+      <AssertionConsumerService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Artifact" Location="https://$DOMAIN/Shibboleth.sso/SAML2/Artifact" index="3"/>
+      <AssertionConsumerService Binding="urn:oasis:names:tc:SAML:2.0:bindings:PAOS" Location="https://$DOMAIN/Shibboleth.sso/SAML2/ECP" index="4"/>
+      <AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://$DOMAIN/Shibboleth.sso/SAML/POST" index="5"/>
+      <AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:artifact-01" Location="https://$DOMAIN/Shibboleth.sso/SAML/Artifact" index="6"/>
+    </SPSSODescriptor>
+    <Organization>
+      <OrganizationName xml:lang="en">$INSTITUTION</OrganizationName>
+      <OrganizationDisplayName xml:lang="en">$INSTITUTION</OrganizationDisplayName>
+      <OrganizationURL xml:lang="en">http://www.$DOMAIN_INSTITUTION/</OrganizationURL>
+    </Organization>
+   <ContactPerson contactType="technical">
+    <SurName>$ADMIN_NAME</SurName>
+    <EmailAddress>$ADMIN_EMAIL</EmailAddress>
+   </ContactPerson>
+</EntityDescriptor>
