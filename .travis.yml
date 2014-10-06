@@ -1,8 +1,8 @@
+language: ruby
 bundler_args: "--without production development"
 before_script:
   - "cp config/database.yml.example config/database.yml"
   - "cp config/setup_conf.yml.example config/setup_conf.yml"
-  - "git submodule update --init"
-script: bundle exec rake travis
+script: bundle exec rake
 rvm:
-  - 1.9.2
+  - 2.1.2
