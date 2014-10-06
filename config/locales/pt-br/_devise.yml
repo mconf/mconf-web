@@ -1,6 +1,6 @@
 # https://gist.github.com/mateusg/924555
 
-pt-BR:
+pt-br:
   devise:
     confirmations:
       confirmed: 'Sua conta foi confirmada com sucesso.'
@@ -22,6 +22,11 @@ pt-BR:
         subject: 'Instruções de confirmação'
       reset_password_instructions:
         subject: 'Instruções de troca de senha'
+        greeting: Olá %{email}!
+        requested: Alguém requisitou uma troca de senha em sua conta. Você pode fazer isto clicando no link abaixo
+        change_password: Mudar senha
+        ignore: Caso você não tenha pedido uma troca de senha, ignore esta mensagem.
+        wont_change: A sua senha não irá mudar até que você acesse o link acima e defina uma nova.
       unlock_instructions:
         subject: 'Instruções de desbloqueio'
     omniauth_callbacks:
