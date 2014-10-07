@@ -5,10 +5,12 @@ feature 'Behaviour of the flag Site#require_registration_approval' do
   let(:attrs) { FactoryGirl.attributes_for(:user).slice(:username, :_full_name, :email, :password) }
 
   context "if admin approval is required" do
+    before {
+      Site.current.update_attributes(require_registration_approval: true)
+    }
 
     context "registering in the website" do
       before {
-        Site.current.update_attributes(require_registration_approval: true)
         Site.current.update_attributes(events_enabled: false)
 
         with_resque do
@@ -46,7 +48,38 @@ feature 'Behaviour of the flag Site#require_registration_approval' do
       end
     end
 
-    it "signing in via shibboleth for the first time, generating a new account"
+    context "signing in via shibboleth for the first time, generating a new account" do
+      before {
+        enable_shib
+        setup_shib attrs[:_full_name], attrs[:email], attrs[:email]
+
+        with_resque do
+          expect {
+            visit shibboleth_path
+            click_button t('shibboleth.associate.new_account.create_new_account')
+          }.to change{ User.count }.by(1)
+        end
+      }
+
+      it { User.last.confirmed?.should be true }
+      it { User.last.approved?.should be false }
+
+      it "doesn't send a confirmation email", with_truncation: true do
+        last_email.should be_nil
+      end
+
+      context "shows the pending approval page" do
+        it { current_path.should eq(my_approval_pending_path) }
+        it { page.should have_content('Sign in') }
+        it { page.should have_content('Pending approval') }
+        it { page.should have_content(I18n.t("my.approval_pending.description")) }
+      end
+
+      it "shows no notification" do
+        have_empty_notification
+      end
+    end
+
     it "signing in via LDAP for the first time, generating a new account"
   end
 

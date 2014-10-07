@@ -73,6 +73,15 @@ describe MyController do
       it { should render_template(:approval_pending) }
     end
 
+    context "renders the page if the referer is /secure" do
+      before(:each) {
+        request.env["HTTP_REFERER"] = shibboleth_url
+        get :approval_pending
+      }
+      it { should respond_with(:success) }
+      it { should render_template(:approval_pending) }
+    end
+
     context "redirects to / if didn't come from one of the registration pages" do
       before(:each) {
         # don't set a referer, the same as the user typing the URL in the browser and

@@ -57,7 +57,8 @@ class MyController < ApplicationController
 
   def approval_pending
     # don't show it unless user is coming from a login or register
-    if user_signed_in? || ![login_url, register_url, root_url].include?(request.referrer)
+    referers = [login_url, register_url, root_url, shibboleth_url]
+    if user_signed_in? || !referers.include?(request.referrer)
       redirect_to root_path
     end
   end

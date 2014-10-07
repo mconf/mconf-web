@@ -124,20 +124,35 @@ describe ShibbolethController do
       let(:user) { FactoryGirl.create(:user) }
       before { setup_shib(user.full_name, user.email) }
 
-      context "logs the user in if he already has a token" do
+      context "if the user already has a token" do
         before { ShibToken.create!(:identifier => user.email, :user => user) }
-        before(:each) {
-          request.flash[:success] = 'message set previously by #create_association'
-          should set_the_flash.to('message set previously by #create_association')
-          get :login
-        }
-        it { subject.current_user.should eq(user) }
-        it { should redirect_to(my_home_path) }
-        skip("persists the flash messages") {
-          # TODO: The flash is being set and flash.keep is called, but this test doesn't work.
-          #  Testing in the application the flash is persisted, as it should.
-          should set_the_flash.to('message set previously by #create_association')
-        }
+
+        context "if the site does not require admin approval, logs the user in" do
+          before(:each) {
+            request.flash[:success] = 'message set previously by #create_association'
+            should set_the_flash.to('message set previously by #create_association')
+            get :login
+          }
+          it { subject.current_user.should eq(user) }
+          it { should redirect_to(my_home_path) }
+          skip("persists the flash messages") {
+            # TODO: The flash is being set and flash.keep is called, but this test doesn't work.
+            #  Testing in the application the flash is persisted, as it should.
+            should set_the_flash.to('message set previously by #create_association')
+          }
+        end
+
+        context "if the site requires admin approval, shows the pending approval page" do
+          before(:each) {
+            Site.current.update_attributes(require_registration_approval: true)
+            user.update_attributes(approved: false)
+            request.flash[:success] = 'message'
+            get :login
+          }
+          it { subject.current_user.should be_nil }
+          it { should redirect_to(my_approval_pending_path) }
+          it { should_not set_the_flash }
+        end
       end
 
       context "renders the association page if the user doesn't have a token yet" do
