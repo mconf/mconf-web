@@ -205,7 +205,6 @@ class ApplicationController < ActionController::Base
 
   def render_500(exception)
     @exception = exception
-    pp exception
     render_error 500
   end
 
@@ -218,12 +217,10 @@ class ApplicationController < ActionController::Base
   # From: https://github.com/plataformatec/devise/wiki/How-To:-Redirect-back-to-current-page-after-sign-in,-sign-out,-sign-up,-update
   def store_location
     ignored_paths = [ "/login", "/users/login", "/users",
-                      "/register", "/users/register",
-                      "/logout",
-                      "/users/password",
-                      "/users/confirmation/new",
-                      "/secure", "/secure/info",
-                      "/secure/associate" ]
+                      "/register", "/users/signup",
+                      "/users/password", "/users/password/new",
+                      "/users/confirmation/new", "/users/confirmation",
+                      "/secure", "/secure/info", "/secure/associate" ]
     if (!ignored_paths.include?(request.path) &&
         !request.xhr? && # don't store ajax calls
         (request.format == "text/html" || request.content_type == "text/html"))

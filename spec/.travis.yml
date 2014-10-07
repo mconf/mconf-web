@@ -1,7 +1,0 @@
-language: ruby
-rvm:
-  - 2.1.2
-script:
-  - bundle exec rake
-before_script:
-  - cp config/setup_conf.yml.example config/setup_conf.yml
