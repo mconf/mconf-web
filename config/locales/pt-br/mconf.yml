@@ -597,7 +597,7 @@ pt-br:
         welcome: "Bem-vindo %{email}!"
     registrations:
       not_enabled: 'O registro de novas contas não está habilitado neste site.'
-      signed_up_but_not_approved: 'Seu registro foi efetuado com sucesso! Você agora precisa ter sua conta aprovada por um administrador para acessar o site, por favor aguarde.'
+      signed_up_but_not_approved: ''
     shared:
       links:
         login:

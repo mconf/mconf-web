@@ -597,7 +597,7 @@ en:
         welcome: "Welcome %{email}!"
     registrations:
       not_enabled: "Registration of new accounts is not enabled in this website."
-      signed_up_but_not_approved: "You have signed up successfully! You account is now waiting to be approved by an administrator, please wait."
+      signed_up_but_not_approved: ""
     shared:
       links:
         login:

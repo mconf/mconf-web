@@ -34,8 +34,9 @@ feature 'Behaviour of the flag Site#require_registration_approval' do
         it { page.should have_content(I18n.t("my.approval_pending.description")) }
       end
 
-      it "shows the correct notification" do
-        has_success_message t("devise.registrations.signed_up_but_not_approved")
+      # empty notification, the message is shown in the page
+      it "shows no notification" do
+        have_empty_notification
       end
 
       it "when the event module is enabled" do

@@ -81,6 +81,11 @@ module FeatureHelpers
     have_selector("#notification-flashs", :text => text)
   end
 
+  def have_empty_notification
+    page.find("#notification-flashs").text.should eql('')
+    page.find("#notification-flashs").all('*').length.should eql(0)
+  end
+
   def last_email
     ActionMailer::Base.deliveries.last
   end
