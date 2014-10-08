@@ -209,7 +209,8 @@ es:
     login: "Ingresar usando CAFe"
     login_page: 
       click_here_to_login: "Haga clic aquí para ingresar"
-      description: "Acceso experimental mediante la federación CAFe"
+      description: "Acceso experimental a Mconf mediante la federación CAFe"
+      description_small: "o puedes autenticarte utlizando la federación CAFe"
       more_about_cafe: "Acerca de CAFe"
     login_tip: "Este es un servicio experimental en la federacion CAFe. Haga clic aquí para ingresar usando la federación."
   calendar: 
