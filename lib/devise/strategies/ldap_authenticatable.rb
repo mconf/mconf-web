@@ -6,7 +6,10 @@ module Devise
     class LdapAuthenticatable < Authenticatable
 
       def valid?
-        ldap_enabled?
+        # disable this auth method if not coming from the sessions controller
+        # this strategy is called from other places as well, like after registering
+        # leaving it enabled for all controllers can generate a few errors
+        ldap_enabled? && params[:controller] == "sessions"
       end
 
       def authenticate!
@@ -64,8 +67,14 @@ module Devise
                   Rails.logger.error "LDAP: authentication failed: application wasn't able to create a new user"
                   fail(I18n.t('devise.strategies.ldap_authenticatable.create_failed'))
                 else
-                  ldap_helper.sign_user_in(user)
-                  success!(user)
+                  if user.active_for_authentication?
+                    ldap_helper.sign_user_in(user)
+                    success!(user)
+                  else
+                    # throw the not_approved error that will take the user to the pending approval page
+                    throw(:warden, message: :not_approved)
+                  end
+
                 end
               end
             end
