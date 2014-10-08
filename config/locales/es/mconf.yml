@@ -666,8 +666,13 @@ es:
     create_space: "Creación de un espacio"
     create_user: "Creación de un usuario"
     define_agenda: "Definir la agenda del evento"
-    logging: "Iniciar  sesión con su cuenta "
+    export_program: "Exportar un event"
+    invitation: "Invitiación de usuarios a eventos"
+    join_space: "Unirse a un espacio"
+    logging: "Iniciar sesión con su cuenta "
     new_doc: "Añadir un nuevo documento"
+    participation: "Participar en un evento"
+    search_global: "Buscar en Global Plaza"
     topics: Temas
   his_message_reads_thus: "Su mensaje dice así"
   home: 
@@ -677,6 +682,9 @@ es:
     no_rooms: "Ud no tiene salas de conferencia web."
     not_running: Detenido
     one: Inicio
+    recordings:
+      latest_recordings: "Sus últimas %{count} grabaciones"
+      view_all: "Ver todas las grabaciones..."
     running_with: 
       no_participants: "En ejecución sin parámetros"
       participants: 
@@ -761,8 +769,8 @@ es:
     select_all_users: "Seleccionar todos los usuarios"
     show_all_users: "Mostrar todos los usuarios"
     tab: 
-      title1: "Correo electrónico"
-      title2: Usuarios
+      title1: "Usuarios no registrados"
+      title2: "Usuarios registrados"
     title: "Invitar a los participantes"
     title2: "Invitación a espacio"
     to_accept_space: "Para aceptar mi invitación, por favor visite %{url}"
@@ -836,7 +844,7 @@ es:
     one: Ingresar
     password: Clave
   login_or_register: "Entrar / Registro"
-  login_request: "Necesita estar conectado para"
+  login_request: "Necesita estar conectado para "
   logo: 
     created: "Logo creado con éxito"
     crop: "Cortar logo de espacio"
@@ -959,7 +967,7 @@ es:
     show_expanded_pref: "¿Cómo le gustaría ver sus mensajes?"
     title: "Mesnsajes (%{count})"
     wall: Muro
-  prav: "PRAV    "
+  prav: PRAV
   preferences: Preferencias
   previous: Anterior
   privacy: Privacidad
@@ -975,6 +983,7 @@ es:
     deleted: "Perfil ha sido borrado exitosamente."
     description: 
       add: "Descripción breve"
+      message: "Escribe algo acerca de ti"
     error: 
       exist: "Su perfil ya existe"
     header_title: "Perfil de usuario"
@@ -985,6 +994,8 @@ es:
     public: "Perfil público"
     public_description: "Cualquier persona puede acceder a esta información"
     updated: "Perfil actualizado correctamente."
+    url:
+      add: "Agrega tu sitio web"
     visibility: Visibilidad
     visibility_description: "Escoja quienes prodrán ver su perfil privado"
     visibility_edit: "Edite la visibilidad de su perfil"
@@ -996,6 +1007,10 @@ es:
   province: Provincia
   public: Públicos
   read_more: "Leer más"
+  recaptcha:
+    errors:
+      recaptcha_unavailable: "Ups, no hemos podido validar la respuesta de verificación de palabra (Captcha). Por favor, inténtelo de nuevo."
+      verification_failed: "La respuesta de verificación de palabra (captcha) es incorrecta. Por favor, inténtelo de nuevo."  
   received_message_more_machines: "Ha recibido un mensaje de %{user} solicitando más máquinas"
   recent: 
     activity: "Actividad reciente"
@@ -1012,6 +1027,22 @@ es:
     warning_pause_recording: "Advertencia: Esta acción pausará la grabación. Podrá continuar con ella más adelante o publicarla. <br/> ¿Desea continuar?"
     warning_publish_recording: "Advertencia: Esta acción publicará la grabación. Podrá editar esta grabación cortandola en el comienzo o en el fin pero no podrá grabar esta sesión nuevamente. <br/> ¿Desea continuar?"
     warning_start_recording: "Advertencia: Esta acción detendrá otras grabaciones de este evento que se encuentren realizando en este momento. <br/> ¿Desea continuar?"
+  recordings:
+    created_by: "Creado por"
+    duration: Duración
+    ended_at: "Terminado en"
+    no_description: "<sin descripción>"
+    no_title: "<sin título>"
+    playback: Reproducción
+    processing_dots: "Procesando, por favor espere..."
+    started_at: "Iniciado a"
+    title: Grabaciones
+    unavailable: "La grabación no está disponible"
+    unavailable_tip: "Esta grabación ya no está disponible en el servidor donde estaba almacenada, por lo tanto no se puede acceder a ella."
+    update_list:
+      error: "Error updating recordings, please try again later."
+      success: "Recording list updated!"
+      updating: "Updating recording list"
   register: 
     and_participate: "Registrarse Para Participar"
     and_participate_description: "Para participar en el evento debes registrarte"
@@ -1041,6 +1072,7 @@ es:
   request: 
     info: "Su solicitud para participar en este espacio ha sido enviada con éxito a los administradores del espacio. Un administrador se encargará de su solicitud  tan pronto como sea posible"
     sent: "¡Solicitud enviada!"
+  rnp: RNP
   role: 
     added: "Rol %{role} añadido exitosamente a %{agent}"
     editing: "Editando Rol"
@@ -1049,18 +1081,36 @@ es:
     one: Rol
     stage_type: "Tipo de escenario"
     sucess_update: "Rol actualizado exitosamente ..."
+  room:
+    other: Salas
   rooms: 
     form: 
       msg1: " prohibited this room from being saved:"
+    identification:
+      title: "Está accediendo a la sala <span class='room_title'>%{room}</span>, identifíquese"
+      member: "Ya soy miembro de Mconf"
+      next: "Siguiente"
+      not_member: "Aún no soy miembro de Mconf"
+    identified:
+      title: "Está accediendo a la sala <span class='room_title'>%{room}</span>"
     invite: 
+      cod_room: "Clave de acceso a la sala:"
+      desktop: "Seleccione esta opción para unirse desde una <em>computadora</em>."
+      desktop_selected: "Acceder desde una <em>computadora</em>."
       join_from_desktop: "En esta página ud. puede ingresar a la conferencia desde su <b>equipo de escritorio</b>. Para ingresar desde un dispositivo móvil <a href=\"%{url}\">haga clic aquí</a>."
       join_from_mobile: "En esta página ud. puede ingresar a la conferencia desde su <b>dispositivo móvil</b>. Para ingresar desde su equipo de escritorio <a href=\"%{url}\">haga clic aquí</a>."
+      mobile: "Seleccione esta opción para unirse desde un <em>dispositivo móvil</em>."
+      mobile_details: "Disponible para dispositivos Android. Debes instalar la aplicación <a href=\"%{url}\">Mconf-Mobile</a> para usar esta opción!"
+      mobile_selected: "Acceder desde un <em>dispositivo móvil</em>."
+      mobile_selected_details: "Disponible solamente para dispositivos Android."
+      mobile_download: "Click aquí para descargar Mconf-Mobile."
       msg1: "Invitación a la reunión "
       name: "Nombre:"
       name_enter: "Ingrese su nombre."
       password: "Clave:"
       password_filled: "Esta sala es pública. La clave de participante fue autogenerada."
       password_role: "Ingrese la clave de participante o moderador."
+      selected: "selecionado"
       status: "Estado de la reunión: "
     join: 
       msg1: "Esta reunión aun no ha comenzado. Esta reunión iniciará una vez que el moderador haya ingresado."
@@ -1143,6 +1193,8 @@ es:
     exception_notifications_email_tip: "Puede usar espacios, comas o punto y coma para separar los diferentes correos."
     exception_notifications_prefix: "Prefijo de encabezado para correos de debug"
     exception_notifications_tip: "Enviar correos de debugging cada vez que la aplicación falle"
+    external_help: "Página de ayuda"
+    external_help_tip: "Inserte la URL de la página de ayuda o FAQ para este sitio. Debe empezar con 'http://'."
     feedback_url: "URL de comentarios"
     feedback_url_tip: "Los usuarios serán redirigidos a esta URL cada vez que salgan de una conferencia web. Si no se especifica, seran enviados a '%{default_url}'"
     locale: Idioma
@@ -1157,7 +1209,26 @@ es:
     shib_name_field: "Shibboleth field for name"
     shib_name_field_tip: "When a user authenticates in a Shibboleth service provider this field will be used to obtain the user's name. Example: Shib-inetOrgPerson-sn"
     signature: Firma
+    smtp_auth_type: "Tipo de autenticación SMTP"
+    smtp_auto_start_tls: "Inicio automático TLS en SMTP"
+    smtp_domain: "Dominio SMTP"
+    smtp_login: "Inicio de sesión SMTP"
+    smtp_login_tip: "El correo electrónico de acceso a su servidor SMTP."
+    smtp_password: "Contraseña SMTP"
+    smtp_password_tip: "La contraseña para el correo electrónico de acceso a su servidor SMTP."
+    smtp_port: "Puert SMTP"
+    smtp_sender: "Remitente SMTP"
+    smtp_server: "Servidor SMTP"
+    smtp_use_tls: "Usar TLS en SMTP"
     ssl: SSL
+    ssl_tip: "Con SSL activado, todos los enlaces internos (incluídas páginas, imágenes, archivos adjuntos) usarán el protocolo https en lugar http"
+    timezone: "Zona horaria"
+    use_recaptcha: "Usar reCaptcha"
+    use_recaptcha_tip: "Active la casilla si desea usar reCaptcha en el registro de usuarios. Necesita claves pública y privada para funcionar."
+    recaptcha_private_key: "Clave privada de reCaptcha"
+    recaptcha_private_key_tip: "Inserte aquí la clave privada que el sito de reCaptcha le otorgó."
+    recaptcha_public_key: "Clave pública de reCaptcha"
+    recaptcha_public_key_tip: "Inserte aquí la clave pública que el sitio de reCaptcha le otorgó."
   size: Tamaño
   skype: Skype
   source: 
@@ -1166,6 +1237,7 @@ es:
     about: "Acerca de"
     add_user: 
       other: "Añadir usuarios al espacio"
+    add_user_other: ""
     all: "Todos los espacios"
     allow_public_access: "¿Permitir acceso público?"
     attendeePW: "Editar clave de participante"
@@ -1225,6 +1297,15 @@ es:
     people_in_conference: 
       one: "%{count} participante en la sala."
       other: "%{count} participantes en la sala."
+    edit_performances: "Editar permisos"
+    performances:
+      user: Miembro
+      admin: Administrador
+      invited: Invitado
+      tooltips:
+        admin: "Los administradores pueden leer y crear cualquier contenido en el espacio y utilizar las funciones de administración, incluído aceptar nuevos usuarios y cambiarles el rol."
+        invited: "Los miembros invitados pueden leer todo el contenido de un espacio, pero no pueden crearlo (eventos, mensajes o documentos)."
+        user: "Los miembros regulares pueden leer todo el contenido y crear contenido (subir documentos, crear eventos y realizar comentarios)."
     possesion: "Mis espacios"
     private: "Espacios privados"
     public: 
@@ -1233,6 +1314,9 @@ es:
     recording: 
       one: "Video del espacio"
       other: "Videos del espacio"
+    recordings:
+      latest_recordings: "Últimas %{count} grabaciones"
+      view_all: "ver todas las grabaciones..."
     select: Espacios
     show_all: "Ver todos los espacios"
     subscribed_to_none: "No está suscrito a ningún espacio"
@@ -1248,6 +1332,9 @@ es:
     report: "Reportar spam"
     reported: "Un usuario ha reportado spam en %{sitename}"
     valid: "Este contenido es válido"
+ sponsors:
+    prav: "Projetos em<br/>Áudio e Vídeo"
+    rnp: "Rede Nacional de<br/>Ensino e Pesquisa"
   stage_type: "Tipo de escenario"
   statistics: 
     event_views: visitas
@@ -1350,7 +1437,7 @@ es:
     confirm_password: "Confirmar clave"
     delete_from_space: "Eliminar el usuario del espacio"
     disable: "Deshabilitar usuario"
-    disabled: "Usuario deshabilitado"
+    disabled: "Usuario '%{username}' deshabilitado"
     edit: 
       federated: 
         see_your_data: "Vea su información..."
