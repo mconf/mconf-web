@@ -1,20 +1,17 @@
 require 'devise/encryptors/station_encryptor'
+require 'populator'
 
 namespace :db do
 
   desc "Populate the DB with random test data. Options: SINCE, CLEAR"
   task :populate => :environment do
-    reserved_usernames = ['lfzawacki', 'daronco', 'fbottin', 'gmiotto']
+    reserved_usernames = ['lfzawacki', 'daronco', 'fbottin']
 
-    if ENV['SINCE']
-      @created_at_start = DateTime.parse(ENV['SINCE']).to_time
-    else
-      @created_at_start = 6.months.ago
-    end
+    @created_at_start = 1.year.ago
+    @created_at_start_months = 12
+
     puts
     puts "*** Start date set to: #{@created_at_start}"
-
-    require 'populator'
 
     username_offset = 0 # to prevent duplicated usernames
 
@@ -265,7 +262,7 @@ namespace :db do
         recording.name = Populator.words(3..5).titleize
         recording.published = true
         recording.available = true
-        recording.start_time = 5.months.ago..Time.now
+        recording.start_time = @created_at_start..Time.now
         recording.end_time = recording.start_time + rand(5).hours
         recording.description = Populator.words(5..8)
 
@@ -331,7 +328,9 @@ namespace :db do
       end
 
       # Space created recent activity
-      space.new_activity :create, space.admins.first
+      if space.admins.length > 0
+        space.new_activity :create, space.admins.first
+      end
 
       # Author and recent_activity for posts
       ( space.posts ).each do |item|
@@ -361,6 +360,14 @@ namespace :db do
         att.new_activity :create, space.users[rand(space.users.length)]
       end
 
+    end
+
+    # Randomize when recent activities were created
+    puts "* Randomizing dates for recent activities"
+    RecentActivity.all.each do |item|
+      item.created_at = rand(@created_at_start_months).months.ago
+      item.updated_at = item.created_at
+      item.save!
     end
 
     # done after all the rest to simulate what really happens: users are created enabled
