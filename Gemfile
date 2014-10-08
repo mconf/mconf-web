@@ -70,10 +70,10 @@ gem 'configatron', '~> 2.13.0'
 gem 'less-rails'
 gem 'twitter-bootstrap-rails', '~> 2.2.8'
 # datetime picker for bootstrap
-gem 'bootstrap-datetimepicker-rails'
+gem 'bootstrap3-datetimepicker-rails', '~> 3.1.3'
 
 # moment.js for dates
-gem 'momentjs-rails'
+gem 'momentjs-rails', '>= 2.8.1'
 
 # font-awesome (recommended to be here, not in the assets group)
 gem 'font-awesome-rails', '~> 4.1.0.0'
