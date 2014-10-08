@@ -84,6 +84,7 @@ es:
     add: "Subir archivo adjunto"
     delete: "Eliminar archivo adjunto"
     deleted: "Adjunto eliminado correctamente"
+    created: "Adjunto subido correctamente"
     error: 
       not_deleted: "%{file} no se ha eliminado correctamente."
       not_permission: "%{user} no puede borrar %{file}."
