@@ -45,9 +45,15 @@ class ShibbolethController < ApplicationController
           # the user is not disabled, logs the user in
           logger.info "Shibboleth: logging in the user #{token.user.inspect}"
           logger.info "Shibboleth: shibboleth data for this user #{@shib.get_data.inspect}"
-          sign_in token.user
-          flash.keep # keep the message set before by #create_association
-          redirect_to after_sign_in_path_for(token.user)
+          if token.user.active_for_authentication?
+            sign_in token.user
+            flash.keep # keep the message set before by #create_association
+            redirect_to after_sign_in_path_for(token.user)
+          else
+            # go to the pending approval page without a flash msg, the page already has a msg
+            flash.clear
+            redirect_to my_approval_pending_path
+          end
         end
 
       # no token means the user has no association yet, render a page to do it

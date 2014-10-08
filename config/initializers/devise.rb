@@ -226,6 +226,8 @@ Devise.setup do |config|
   config.warden do |manager|
     # manager.intercept_401 = false
     manager.default_strategies(:scope => :user).unshift :ldap_authenticatable
+    # to add extra behavior to login redirection
+    manager.failure_app = CustomFailedLoginRedirection
   end
 
   # ==> Mountable engine configurations
