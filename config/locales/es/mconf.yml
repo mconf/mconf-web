@@ -182,6 +182,7 @@ es:
     accept: Aceptar
     back_to_event: "Volver al evento"
     cancel: Cancelar
+    click_to_edit: "Haga click para editar..."
     confirm: Confirmar
     create: Crear
     creating: "Creando evento..."
