@@ -261,6 +261,7 @@ es:
   deny: "No"
   description: Descripción
   destroy: Destruir
+  details: Detalles
   disable: Deshabilitar
   disabled: "Espacios deshabilitados"
   document: 
