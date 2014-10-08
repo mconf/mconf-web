@@ -70,6 +70,10 @@ class User < ActiveRecord::Base
     RecentActivity.where(in_spaces.or(in_room).or(in_space_rooms))
   end
 
+  def site_needs_approval?
+    Site.current.require_registration_approval
+  end
+
   apply_simple_captcha
 
   validates :email, :presence => true, :email => true
@@ -115,9 +119,9 @@ class User < ActiveRecord::Base
   after_create :create_webconf_room
   after_update :update_webconf_room
 
-  after_create :send_admin_approval_mail
+  after_create :send_admin_approval_mail, if: :site_needs_approval?
   def send_admin_approval_mail
-    if Site.current.require_registration_approval && !self.approved?
+    if !approved?
       admins = User.where(:superuser => true)
 
       admins.each do |admin|
@@ -126,14 +130,14 @@ class User < ActiveRecord::Base
     end
   end
 
-  after_save :send_user_approved_mail
+  after_update :send_user_approved_mail, if: :site_needs_approval?
   def send_user_approved_mail
-    if Site.current.require_registration_approval && self.approved_changed? && self.approved?
+    if approved_changed? && approved?
       AdminMailer.new_user_approved(self.id).deliver
     end
   end
 
-  before_create :automatically_approve_if_needed
+  before_create :automatically_approve, unless: :site_needs_approval?
 
   default_scope { where(:disabled => false) }
 
@@ -300,8 +304,8 @@ class User < ActiveRecord::Base
 
   # Automatically approves the user if the current site is not requiring approval
   # on registration.
-  def automatically_approve_if_needed
-    self.approved = true unless Site.current.require_registration_approval?
+  def automatically_approve
+    self.approved = true
   end
 
   # Sets the user as approved
