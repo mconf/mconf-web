@@ -9,7 +9,7 @@ module Devise
         # disable this auth method if not coming from the sessions controller
         # this strategy is called from other places as well, like after registering
         # leaving it enabled for all controllers can generate a few errors
-        ldap_enabled? && params[:controller] == "sessions"
+        ldap_enabled? && params && params[:controller] == "sessions"
       end
 
       def authenticate!
