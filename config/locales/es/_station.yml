@@ -238,4 +238,5 @@ es:
   user: 
     activation_email_sent: "Se ha enviado un correo de activación al usuario"
     disabled: "Usuario deshabilitado"
+    other: Usuarios
   visit_link_to_activate_account: "Visite este enlace para activar su cuenta"
