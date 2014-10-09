@@ -517,6 +517,7 @@ en:
     send_invitation:
       error: "Invitation failed to be sent to:"
       error_date_format: "The dates you informed are not in a valid format, please try again"
+      error_title: "Including a title for your invitation is mandatory"
       success: "Invitation successfully sent to:"
     show:
       showing_room: "Showing room '%{room}'"

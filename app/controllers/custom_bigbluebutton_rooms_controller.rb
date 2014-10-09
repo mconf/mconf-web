@@ -88,8 +88,11 @@ class CustomBigbluebuttonRoomsController < Bigbluebutton::RoomsController
   def send_invitation
 
     # adjusts the dates set by the user in the datetimepicker to dates we can set in the invitation
-    unless adjust_dates_for_invitation(params)
+    if !adjust_dates_for_invitation(params)
       flash[:error] = t('custom_bigbluebutton_rooms.send_invitation.error_date_format')
+
+    elsif params[:invite][:title].blank?
+      flash[:error] = t('custom_bigbluebutton_rooms.send_invitation.error_title')
 
     else
       invitation_params = {
@@ -97,7 +100,7 @@ class CustomBigbluebuttonRoomsController < Bigbluebutton::RoomsController
         :target => @room,
         :starts_on => params[:invite][:starts_on],
         :ends_on => params[:invite][:ends_on],
-        :title => params[:invite][:title] || t('web_conference_mailer.invitation_email.event_name', :name => current_user.full_name),
+        :title => params[:invite][:title],
         :url => join_webconf_url(@room),
         :description => params[:invite][:message],
         :ready => true

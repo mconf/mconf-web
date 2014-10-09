@@ -42,4 +42,4 @@
       = f.input :message, :as => :text, :label => t('activerecord.attributes.invite.message')
 
     .modal-footer.form-actions
-      = f.button :wrapped, t('_other.send'), :class => "btn btn-primary", :cancel_modal => true
+      = f.button :wrapped, t('_other.send'), :disabled => true, :class => "btn btn-primary", :cancel_modal => true
