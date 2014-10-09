@@ -71,6 +71,7 @@ es:
         update: 
           success: "Su grabación fue actualizada con éxito."
     rooms: 
+      default_welcome_msg: "Bienvenidos a la conferencia <b>%{name}!</b><br/><br/>Para unirse a la conferencia de audio desde un teléfono SIP, marque %{voice_number}.<br/><br/>Si necesita ayuda para utilizar el cliente de conferencias <u><a href=\"http://www.bigbluebutton.org/videos/\">echa un vistazo a estos videos</a></u>."
       errors: 
         auth: 
           cannot_create: "No tiene permisos para iniciar esta reunión."
