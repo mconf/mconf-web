@@ -12,6 +12,24 @@ class BaseMailer < ActionMailer::Base
 
   self.prepend_view_path(File.join(Rails.root, 'app', 'mailers', 'views'))
 
+  def error_handler(message, error, action, args)
+    Rails.logger.error "Handling email error on #{self.class.name}"
+    case action
+    when "invitation_email"
+      invitation = Invitation.find_by_id(args[0])
+      if invitation.nil?
+        Rails.logger.error "Could not find the Invitation #{args[0]}, won't mark it as not sent"
+      else
+        # we just want to mark it as not sent, but raise the error afterwards
+        invitation.result = false
+        invitation.save!
+        raise error
+      end
+    else
+      raise error
+    end
+  end
+
   protected
 
   # Default method to create an email object
@@ -55,24 +73,6 @@ class BaseMailer < ActionMailer::Base
       get_user_locale(receiver, false)
     else
       get_user_locale(sender, false)
-    end
-  end
-
-  def error_handler(message, error, action, args)
-    Rails.logger.error "Handling email error on #{self.class.name}"
-    case action
-    when "invitation_email"
-      invitation = Invitation.find_by_id(args[0])
-      if invitation.nil?
-        Rails.logger.error "Could not find the Invitation #{args[0]}, won't mark it as not sent"
-      else
-        # we just want to mark it as not sent, but raise the error afterwards
-        invitation.result = false
-        invitation.save!
-        raise error
-      end
-    else
-      raise error
     end
   end
 
