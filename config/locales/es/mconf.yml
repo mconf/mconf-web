@@ -1256,6 +1256,8 @@ es:
     all: "Todos los espacios"
     allow_public_access: "¿Permitir acceso público?"
     attendeePW: "Editar clave de participante"
+    change_name: "Listo"
+    change_name_warning: "Renombrar un espacio invalidará los enlaces creados que apunten a él. ¿Está seguro?"
     clic: "Haga clic para editar ..."
     clic_logo: "Haga clic para cambiar su logo"
     configuration: "Configuración del espacio"
