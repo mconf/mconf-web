@@ -1349,9 +1349,6 @@ es:
     report: "Reportar spam"
     reported: "Un usuario ha reportado spam en %{sitename}"
     valid: "Este contenido es válido"
- sponsors:
-    prav: "Projetos em<br/>Áudio e Vídeo"
-    rnp: "Rede Nacional de<br/>Ensino e Pesquisa"
   stage_type: "Tipo de escenario"
   statistics: 
     event_views: visitas
