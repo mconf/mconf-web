@@ -1462,7 +1462,7 @@ es:
       webconf_password: 
         title: "Permisos:"
       webconf_url: 
-        tip: "Ud. podrá modificar la dirección de su sala de conferencia web cambiando su cuenta de usuario en su <a href=\"%{url}\">págnia</a>."
+        tip: "Ud. podrá modificar la dirección de su sala de conferencia web cambiando su cuenta de usuario en su <a href=\"%{url}\">página</a>."
         title: "El identificador de su sala de conferencia web es:"
     email: "Correo electrónico"
     email_used_to_create_account: "Introduzca la dirección de correo electrónico que utilizó para crear su cuenta"
