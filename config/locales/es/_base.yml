@@ -196,7 +196,7 @@ es:
       blank: "no puede estar en blanco"
       too_long: 
         one: "es demasiado largo (1 caracter máximo)"
-        other "es demasiado largo (%{count} caracteres máximo)"
+        other: "es demasiado largo (%{count} caracteres máximo)"
       too_short: 
         one: "es demasiado corto (1 caracter mínimo)"
         other: "es demasiado corto (%{count} caracteres mínimo)"
