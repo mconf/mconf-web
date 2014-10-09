@@ -1277,7 +1277,9 @@ en:
       title: Press Ctrl+C to copy the text
       success: Text copied to clipboard
     recording_duration:
-      duration: "Duration"
+      duration: 
+        one: "Duration"
+        other: "Duration of each playback type"
       ended_at: "Ended at"
     recording_list:
       created: "Created"

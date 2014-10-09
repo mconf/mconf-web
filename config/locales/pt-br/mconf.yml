@@ -1277,7 +1277,9 @@ pt-br:
       title: Aperte Ctrl+C para copiar o texto
       success: Texto copiado para a área de transferência
     recording_duration:
-      duration: "Duração"
+      duration: 
+        one: "Duração"
+        other: " Duração de cada tipo de reprodução"
       ended_at: "Finalizada em"
     recording_list:
       created: "Criada"

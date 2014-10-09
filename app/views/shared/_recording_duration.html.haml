@@ -1,4 +1,16 @@
-%span= t('.duration') + ':'
-.recording-duration{:title => "#{t('.ended_at')}: #{recording.end_time}"}
-  - unless recording.start_time.nil? || recording.end_time.nil?
-    = distance_of_time_in_words(recording.start_time, recording.end_time)
+- unless recording.playback_formats.empty?
+  %span= t('.duration', count: recording.playback_formats.count) + ':'
+  - if recording.playback_formats.count == 1
+    .recording-duration{:title => "#{t('.ended_at')}: #{recording.end_time}"}
+      - unless recording.start_time.nil? || recording.end_time.nil?
+        - recording.playback_formats.each do |format|
+          = distance_of_time(format.length*60)
+  - else
+    .recording-duration-list{:title => "#{t('.ended_at')}: #{recording.end_time}"}
+      - unless recording.start_time.nil? || recording.end_time.nil?
+        %ul
+          - recording.playback_formats.each do |format|
+            %li
+              %span.playback-title
+                = format.format_type.to_s + ':'
+              = distance_of_time(format.length*60)

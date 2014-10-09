@@ -91,6 +91,9 @@ gem 'exception_notification', '~> 4.0.0'
 # generate .ics
 gem 'icalendar'
 
+# More precise distance_of_time_in_words
+gem 'dotiw'
+
 #
 # TODO: Gems to review if we can remove/update
 #

@@ -23,8 +23,16 @@
     .recording-date, .recording-duration {
       display: inline-block;
     }
-    .recording-duration {
+    .recording-duration, .recording-duration-list {
       padding-left: 3px;
+
+      ul {
+        margin-left: 15px;
+
+        .playback-title {
+          font-weight: bold;
+        }
+      }
     }
 
     .playback-link {

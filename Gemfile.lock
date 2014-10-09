@@ -177,6 +177,9 @@ GEM
       devise (>= 2.1.0)
     diff-lcs (1.2.5)
     docile (1.1.5)
+    dotiw (2.0)
+      actionpack (>= 3)
+      i18n
     epic-editor-rails (0.2.3)
       railties (>= 3.2, < 5.0)
     erubis (2.7.0)
@@ -437,6 +440,7 @@ DEPENDENCIES
   devise (~> 3.2.4)
   devise-async
   devise-encryptable
+  dotiw
   exception_notification (~> 4.0.0)
   factory_girl_rails
   fineuploader-rails (~> 3.3)
