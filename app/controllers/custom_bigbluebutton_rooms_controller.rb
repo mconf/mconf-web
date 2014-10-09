@@ -10,10 +10,14 @@ class CustomBigbluebuttonRoomsController < Bigbluebutton::RoomsController
   before_filter :authenticate_user!,
     :except => [:invite, :invite_userid, :join, :join_mobile, :running]
 
-  # do it in 3 steps because we need more info about the room when joining/ending to decide
-  # if the user has permissions and which role he should have in the meeting
-  load_resource :find_by => :param, :class => "BigbluebuttonRoom", :instance_name => "room"
-  before_filter :fetch_room_info, :only => [:join, :end]
+  # For :join and :end we need information from the web conference server, so we have to fetch it.
+  # This has to run before any kind of authorization because some methods need this extra
+  # information, see `ApplicationController.bigbluebutton_role`.
+  load_resource :find_by => :param, :class => "BigbluebuttonRoom",
+    :instance_name => "room", :except => [:join, :end]
+  prepend_before_action :load_and_fetch_room_info, :only => [:join, :end]
+
+  # Authorizing is the same for all actions
   authorize_resource :class => "BigbluebuttonRoom", :instance_name => "room"
 
   # the logic of the 2-step joining process
@@ -127,8 +131,9 @@ class CustomBigbluebuttonRoomsController < Bigbluebutton::RoomsController
 
   protected
 
-  # Fetches information of the target room from the web conference server.
-  def fetch_room_info
+  # Loads the room and fetches information from the web conference server.
+  def load_and_fetch_room_info
+    @room = BigbluebuttonRoom.find_by_param(params[:id])
     @room.fetch_is_running?
     @room.fetch_meeting_info if @room.is_running?
   end
