@@ -1231,7 +1231,7 @@ es:
     smtp_login_tip: "El correo electrónico de acceso a su servidor SMTP."
     smtp_password: "Contraseña SMTP"
     smtp_password_tip: "La contraseña para el correo electrónico de acceso a su servidor SMTP."
-    smtp_port: "Puert SMTP"
+    smtp_port: "Puerto SMTP"
     smtp_sender: "Remitente SMTP"
     smtp_server: "Servidor SMTP"
     smtp_use_tls: "Usar TLS en SMTP"
