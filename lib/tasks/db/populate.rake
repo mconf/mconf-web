@@ -1,10 +1,13 @@
 require 'devise/encryptors/station_encryptor'
-require 'populator'
 
 namespace :db do
 
   desc "Populate the DB with random test data. Options: SINCE, CLEAR"
   task :populate => :environment do
+    # can't require at the top because will raise errors when running rake in
+    # production (cannot load such file -- populator)
+    require 'populator'
+
     reserved_usernames = ['lfzawacki', 'daronco', 'fbottin']
 
     @created_at_start = 1.year.ago
