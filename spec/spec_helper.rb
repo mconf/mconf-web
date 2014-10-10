@@ -82,8 +82,11 @@ RSpec.configure do |config|
     example.run
     DatabaseCleaner.clean
 
-    if example.metadata[:with_truncation]
-      load Rails.root + "db/seeds.rb"
+    # db/seeds prints a lot of things to the console with puts, so we suppress it
+    silence_stream(STDOUT) do
+      if example.metadata[:with_truncation]
+        load Rails.root + "db/seeds.rb"
+      end
     end
 
     Capybara.reset_sessions!
