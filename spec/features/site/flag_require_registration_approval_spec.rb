@@ -67,7 +67,9 @@ feature 'Behaviour of the flag Site#require_registration_approval' do
       it { User.last.approved?.should be false }
 
       it "doesn't send a confirmation email", with_truncation: true do
-        last_email.should be_nil
+        ActionMailer::Base.deliveries.each do |mail|
+          mail.subject.should_not match(t('devise.mailer.confirmation_instructions.subject'))
+        end
       end
 
       context "shows the pending approval page" do
@@ -150,7 +152,9 @@ feature 'Behaviour of the flag Site#require_registration_approval' do
       it { User.last.approved?.should be true }
 
       it "doesn't send a confirmation email", with_truncation: true do
-        last_email.should be_nil
+        ActionMailer::Base.deliveries.each do |mail|
+          mail.subject.should_not match(t('devise.mailer.confirmation_instructions.subject'))
+        end
       end
 
       context "shows the pending approval page" do
