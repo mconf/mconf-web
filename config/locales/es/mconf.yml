@@ -752,7 +752,7 @@ es:
     deselect_all_users: "Anular la selección de todos los usuarios"
     discard: "Descartar invitación"
     email: "Correo electrónico"
-    full_message: "<b>%{username} lo invita al espacio %{space}.</b><br/><br/>%{comment}<br/><br/> Para aceptar la invitación, por favor visite <a href=\"%{url}\">%{url}</a><br/> You can find more information about this space in <a href=\"%{space_url}\">%{space_url}</a><br/><br/> Kind regards,<br/><br/>%{user_name}<br/>%{user_email}<br/>%{user_organization}<br/><br/> If you believe this message is a spam, please <a href=\"mailto:%{contact}\"> contact us </a> or send us <a href=\"%{feedback}\"> feedback.</a>"
+    full_message: "<b>%{username} lo invita al espacio %{space}.</b><br/><br/>%{comment}<br/><br/> Para aceptar la invitación, por favor visite <a href=\"%{url}\">%{url}</a><br/> Puede encontrar más información de este espacio en <a href=\"%{space_url}\">%{space_url}</a><br/><br/> Un cordial saludo,<br/><br/>%{user_name}<br/>%{user_email}<br/>%{user_organization}<br/><br/> Si considera que este mensaje es spam, por favor <a href=\"mailto:%{contact}\">contáctenos</a> o envíenos su <a href=\"%{feedback}\">comentario.</a>"
     hide_all_users: "Ocultar todos los usuarios"
     info_space: "Puede encontrar más información acerca de este espacio en  <a href=\"%{space_url}\">%{space_url}</a>"
     info_users: "Puede ver la lista de usuarios del espacio en  <a href=\"%{users_url}\">%{users_url}</a>"
