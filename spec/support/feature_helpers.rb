@@ -47,7 +47,7 @@ module FeatureHelpers
     visit(new_user_session_path) if visit_page
     fill_in 'user[login]', with: user_email
     fill_in 'user[password]', with: password
-    click_button 'Login'
+    click_button I18n.t("sessions.login_form.login")
   end
 
   def register_with(attrs)
@@ -58,7 +58,7 @@ module FeatureHelpers
     fill_in "user[username]", with: name
     fill_in "user[password]", with: attrs[:password]
     fill_in "user[password_confirmation]", with: attrs[:password]
-    click_button "Register"
+    click_button I18n.t("registrations.signup_form.register")
   end
 
   def has_success_message message=nil
