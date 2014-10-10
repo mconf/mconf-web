@@ -274,7 +274,7 @@ es:
   edit_your_profile: "Editar su perfil"
   email: 
     account_activated: "Su cuenta en %{sitename} ha sido activada correctamente."
-    commas: "Separado por comas"
+    commas: "(separado por comas)"
     confirm: "Es necesario  que confirme su registro haciendo clic en <a href=\"%{url}\"> %{url} </a>"
     digest: 
       attachment: "<b>%{author_name}</b> ha subido un nuevo adjunto en <b>%{space_name}</b>:"
