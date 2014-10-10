@@ -597,7 +597,7 @@ en:
         welcome: "Welcome %{email}!"
     registrations:
       not_enabled: "Registration of new accounts is not enabled in this website."
-      signed_up_but_not_approved: "You have signed up successfully! You account is now waiting to be approved by an administrator, please wait."
+      signed_up_but_not_approved: ""
     shared:
       links:
         login:
@@ -974,6 +974,12 @@ en:
   more: more...
   more_arrows: "more >>"
   my:
+    approval_pending:
+      title: Pending approval
+      description: You have registered succesfully and your account was submitted to the approval of an administrator. You will be contacted when you account is approved.
+      interesting_links: "Meanwhile you can browse these open sections of the website:"
+      events_list: list of events
+      spaces_list: list of spaces
     page_header:
       activity_list: "Activity list"
     home:
@@ -1138,10 +1144,11 @@ en:
       user_not_registered: "This user is no longer registered, you won't be able to respond to this message."
     show: 
       title: "Private Messages"
-    show_received: 
+    show_received:
       wrote: wrote
     show_sent: 
-      wrote: wrote
+      wrote_to: Sent
+      titled: the message
   profile: 
     deleted: "Profile deleted successfully"
     description: 

@@ -1,0 +1,141 @@
+<SPConfig xmlns="urn:mace:shibboleth:2.0:native:sp:config"
+    xmlns:conf="urn:mace:shibboleth:2.0:native:sp:config"
+    xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion"
+    xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol"
+    xmlns:md="urn:oasis:names:tc:SAML:2.0:metadata"
+    logger="syslog.logger" clockSkew="180">
+
+    <OutOfProcess logger="shibd.logger">
+    </OutOfProcess>
+
+    <InProcess logger="native.logger">
+        <ISAPI normalizeRequest="true" safeHeaderNames="true">
+            <Site id="1" name="sp.example.org"/>
+        </ISAPI>
+    </InProcess>
+
+    <UnixListener address="shibd.sock"/>
+
+    <StorageService type="Memory" id="mem" cleanupInterval="900"/>
+    <SessionCache type="StorageService" StorageService="mem" cacheTimeout="3600" inprocTimeout="900" cleanupInterval="900"/>
+    <ReplayCache StorageService="mem"/>
+    <ArtifactMap artifactTTL="180"/>
+
+
+    <RequestMapper type="Native">
+        <RequestMap applicationId="default">
+            <Host name="$DOMAIN">
+                <Path name="secure" authType="shibboleth" requireSession="true"/>
+            </Host>
+        </RequestMap>
+    </RequestMapper>
+
+    <ApplicationDefaults id="default" policyId="default"
+        entityID="https://$DOMAIN/shibboleth-sp2"
+        REMOTE_USER="eppn persistent-id targeted-id"
+        signing="false" encryption="false">
+
+        <Sessions lifetime="28800" timeout="3600" checkAddress="false"
+            handlerURL="/Shibboleth.sso" handlerSSL="false"
+            exportLocation="http://localhost/Shibboleth.sso/GetAssertion" exportACL="127.0.0.1"
+            idpHistory="false" idpHistoryDays="7">
+
+
+            <SessionInitiator type="Chaining" Location="/DS" id="DS" relayState="cookie">
+                <SessionInitiator type="SAML2" defaultACSIndex="1" acsByIndex="false" template="bindingTemplate.html"/>
+                <SessionInitiator type="Shib1" defaultACSIndex="5"/>
+                <SessionInitiator type="SAMLDS" URL="https://ds.chimarrao.cafe.rnp.br/WAYF"/>
+            </SessionInitiator>
+
+            <md:AssertionConsumerService Location="/SAML2/POST" index="1"
+                Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST"/>
+            <md:AssertionConsumerService Location="/SAML2/POST-SimpleSign" index="2"
+                Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST-SimpleSign"/>
+            <md:AssertionConsumerService Location="/SAML2/Artifact" index="3"
+                Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Artifact"/>
+            <md:AssertionConsumerService Location="/SAML2/ECP" index="4"
+                Binding="urn:oasis:names:tc:SAML:2.0:bindings:PAOS"/>
+            <md:AssertionConsumerService Location="/SAML/POST" index="5"
+                Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post"/>
+            <md:AssertionConsumerService Location="/SAML/Artifact" index="6"
+                Binding="urn:oasis:names:tc:SAML:1.0:profiles:artifact-01"/>
+
+            <LogoutInitiator type="Chaining" Location="/Logout" relayState="cookie">
+                <LogoutInitiator type="SAML2" template="bindingTemplate.html"/>
+                <LogoutInitiator type="Local"/>
+            </LogoutInitiator>
+
+            <md:SingleLogoutService Location="/SLO/SOAP"
+                Binding="urn:oasis:names:tc:SAML:2.0:bindings:SOAP"/>
+            <md:SingleLogoutService Location="/SLO/Redirect" conf:template="bindingTemplate.html"
+                Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect"/>
+            <md:SingleLogoutService Location="/SLO/POST" conf:template="bindingTemplate.html"
+                Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST"/>
+            <md:SingleLogoutService Location="/SLO/Artifact" conf:template="bindingTemplate.html"
+                Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Artifact"/>
+
+            <md:ManageNameIDService Location="/NIM/SOAP"
+                Binding="urn:oasis:names:tc:SAML:2.0:bindings:SOAP"/>
+            <md:ManageNameIDService Location="/NIM/Redirect" conf:template="bindingTemplate.html"
+                Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect"/>
+            <md:ManageNameIDService Location="/NIM/POST" conf:template="bindingTemplate.html"
+                Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST"/>
+            <md:ManageNameIDService Location="/NIM/Artifact" conf:template="bindingTemplate.html"
+                Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Artifact"/>
+
+            <md:ArtifactResolutionService Location="/Artifact/SOAP" index="1"
+                Binding="urn:oasis:names:tc:SAML:2.0:bindings:SOAP"/>
+
+            <Handler type="MetadataGenerator" Location="/Metadata" signing="false"/>
+
+            <Handler type="Status" Location="/Status" acl="127.0.0.1"/>
+
+            <Handler type="Session" Location="/Session" showAttributeValues="false"/>
+
+        </Sessions>
+
+        <Errors supportContact="root@localhost"
+            logoLocation="/shibboleth-sp2/logo.jpg"
+            styleSheet="/shibboleth-sp2/main.css"/>
+
+
+        <MetadataProvider type="Chaining">
+            <MetadataProvider type="XML" uri="https://ds.chimarrao.cafe.rnp.br/metadata/chimarrao-metadata.xml"
+                 backingFilePath="/etc/shibboleth/chimarrao-metadata.xml" validate="true" reloadInterval="300">
+            </MetadataProvider>
+
+
+        </MetadataProvider>
+
+        <TrustEngine type="Chaining">
+            <TrustEngine type="ExplicitKey"/>
+            <TrustEngine type="PKIX"/>
+        </TrustEngine>
+
+        <AttributeExtractor type="XML" validate="true" path="attribute-map.xml"/>
+
+        <AttributeResolver type="Query" subjectMatch="true"/>
+
+        <AttributeFilter type="XML" validate="true" path="attribute-policy.xml"/>
+
+        <CredentialResolver type="File" key="sp-key.pem"
+                            certificate="sp-cert.pem"
+                            keyName="$DOMAIN"/>
+
+
+
+    </ApplicationDefaults>
+
+    <SecurityPolicies>
+        <Policy id="default" validate="false">
+            <PolicyRule type="MessageFlow" checkReplay="true" expires="60"/>
+            <PolicyRule type="Conditions">
+                <PolicyRule type="Audience"/>
+            </PolicyRule>
+            <PolicyRule type="ClientCertAuth" errorFatal="true"/>
+            <PolicyRule type="XMLSigning" errorFatal="true"/>
+            <PolicyRule type="SimpleSigning" errorFatal="true"/>
+        </Policy>
+    </SecurityPolicies>
+
+</SPConfig>

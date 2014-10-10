@@ -8,7 +8,7 @@
 # This controller includes actions that are specific for the current user and shouldn't be
 # accessed by anybody else (e.g. home, recordings, activity, etc).
 class MyController < ApplicationController
-  before_filter :authenticate_user!
+  before_filter :authenticate_user!, :except => [:approval_pending]
   respond_to :json, :only => [:rooms]
   respond_to :html, :except => [:rooms]
 
@@ -40,6 +40,8 @@ class MyController < ApplicationController
       else
         "application"
       end
+    when :approval_pending
+      "no_sidebar"
     else
       "application"
     end
@@ -51,6 +53,14 @@ class MyController < ApplicationController
     @contents_per_page = 15
     @all_contents = current_user.all_activity.limit(@contents_per_page).order('updated_at DESC')
     @private_messages = current_user.unread_private_messages
+  end
+
+  def approval_pending
+    # don't show it unless user is coming from a login or register
+    referers = [login_url, register_url, root_url, shibboleth_url]
+    if user_signed_in? || !referers.include?(request.referrer)
+      redirect_to root_path
+    end
   end
 
   def activity

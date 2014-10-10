@@ -101,13 +101,13 @@ describe User do
 
     describe "validates uniqueness against Space#permalink" do
       describe "on create" do
-        context "with an enabled user" do
+        context "with an enabled space" do
           let(:space) { FactoryGirl.create(:space) }
           subject { FactoryGirl.build(:user, :username => space.permalink) }
           it { should_not be_valid }
         end
 
-        context "with a disabled user" do
+        context "with a disabled space" do
           let(:disabled_space) { FactoryGirl.create(:space, :disabled => true) }
           subject { FactoryGirl.build(:user, :username => disabled_space.permalink) }
           it { should_not be_valid }
@@ -115,7 +115,7 @@ describe User do
       end
 
       describe "on update" do
-        context "with an enabled user" do
+        context "with an enabled space" do
           let(:user) { FactoryGirl.create(:user) }
           let(:space) { FactoryGirl.create(:space) }
           before(:each) {
@@ -124,7 +124,7 @@ describe User do
           it { user.should_not be_valid }
         end
 
-        context "with a disabled user" do
+        context "with a disabled space" do
           let(:user) { FactoryGirl.create(:user) }
           let(:disabled_space) { FactoryGirl.create(:space, :disabled => true) }
           before(:each) {
@@ -604,6 +604,100 @@ describe User do
 
         it { user.disabled.should be(true) }
         it { space.disabled.should be(false) }
+      end
+    end
+  end
+
+  describe "#location" do
+    context "returns the city + country" do
+      let(:user) {FactoryGirl.create(:user) }
+      before {
+        user.profile.city = "City X"
+        user.profile.country = "Country Y"
+        user.save!
+      }
+      it { user.location.should eql("City X, Country Y") }
+    end
+
+    context "returns the city if country if not defined" do
+      let(:user) {FactoryGirl.create(:user) }
+      before {
+        user.profile.city = "City X"
+        user.profile.country = nil
+        user.save!
+      }
+      it { user.location.should eql("City X") }
+    end
+
+    context "returns the country if city if not defined" do
+      let(:user) {FactoryGirl.create(:user) }
+      before {
+        user.profile.city = nil
+        user.profile.country = "Country Y"
+        user.save!
+      }
+      it { user.location.should eql("Country Y") }
+    end
+  end
+
+  describe 'user approval notifications' do
+    let(:admin) { User.where(:superuser => true).first }
+
+    context 'dont send notifications if the site doesnt require approval' do
+      before {
+        Site.current.update_attributes(:require_registration_approval => false)
+        @user = FactoryGirl.create(:user, :approved => false)
+      }
+
+      it { AdminMailer.should have_queue_size_of(0) }
+      it { AdminMailer.should_not have_queued(:new_user_waiting_for_approval, admin.id, @user.id) }
+    end
+
+    context 'send notifications if site requires approval' do
+      before { Site.current.update_attributes(:require_registration_approval => true) }
+
+      context 'dont send notifications if the user is created with approved => true' do
+        before { @user = FactoryGirl.build(:user, :approved => true) }
+
+        it { AdminMailer.should have_queue_size_of(0) }
+        it { AdminMailer.should_not have_queued(:new_user_waiting_for_approval, admin.id, @user.id) }
+      end
+
+      context '#send_admin_approval_mail' do
+        before { @user = FactoryGirl.create(:user, :approved => false) }
+
+        it { AdminMailer.should have_queue_size_of(1) }
+        it { AdminMailer.should have_queued(:new_user_waiting_for_approval, admin.id, @user.id) }
+      end
+
+      context '#send_user_approved_mail' do
+        before { @user = FactoryGirl.create(:user, :approved => false) }
+
+        context 'send when user is approved' do
+          before { @user.approve! }
+
+          it { AdminMailer.should have_queue_size_of(2) }
+          it { AdminMailer.should have_queued(:new_user_waiting_for_approval, admin.id, @user.id) }
+          it { AdminMailer.should have_queued(:new_user_approved, @user.id).in(:mailer) }
+        end
+
+        context 'dont send when user is updated but not approved' do
+          before { @user.update_attributes(:approved => false) }
+
+          it { AdminMailer.should have_queued(:new_user_waiting_for_approval, admin.id, @user.id) }
+          it { AdminMailer.should_not have_queued(:new_user_approved, @user.id).in(:mailer) }
+        end
+
+        context 'dont send when user is updated with other parameters' do
+          let!(:new_username) { 'iogurte' }
+          before { @user.update_attributes(:username => new_username) }
+
+          it { AdminMailer.should have_queue_size_of(1) }
+          it { @user.username.should eq(new_username) }
+          it { AdminMailer.should have_queued(:new_user_waiting_for_approval, admin.id, @user.id) }
+          it { AdminMailer.should_not have_queued(:new_user_approved, @user.id).in(:mailer) }
+        end
+
       end
     end
   end

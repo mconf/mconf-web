@@ -70,6 +70,10 @@ class User < ActiveRecord::Base
     RecentActivity.where(in_spaces.or(in_room).or(in_space_rooms))
   end
 
+  def site_needs_approval?
+    Site.current.require_registration_approval
+  end
+
   apply_simple_captcha
 
   validates :email, :presence => true, :email => true
@@ -115,7 +119,25 @@ class User < ActiveRecord::Base
   after_create :create_webconf_room
   after_update :update_webconf_room
 
-  before_create :automatically_approve_if_needed
+  after_create :send_admin_approval_mail, if: :site_needs_approval?
+  def send_admin_approval_mail
+    if !approved?
+      admins = User.where(:superuser => true)
+
+      admins.each do |admin|
+        AdminMailer.new_user_waiting_for_approval(admin.id, self.id).deliver
+      end
+    end
+  end
+
+  after_update :send_user_approved_mail, if: :site_needs_approval?
+  def send_user_approved_mail
+    if approved_changed? && approved?
+      AdminMailer.new_user_approved(self.id).deliver
+    end
+  end
+
+  before_create :automatically_approve, unless: :site_needs_approval?
 
   default_scope { where(:disabled => false) }
 
@@ -166,15 +188,7 @@ class User < ActiveRecord::Base
 
   # Full location: city + country
   def location
-    if !self.city.blank? && !self.country.blank?
-      [ self.city, self.country ].join(', ')
-    elsif !self.city.blank?
-      self.city
-    elsif !self.country.blank?
-      self.country
-    else
-      ""
-    end
+    [ self.city.presence, self.country.presence ].compact.join(', ')
   end
 
   after_create do |user|
@@ -282,8 +296,8 @@ class User < ActiveRecord::Base
 
   # Automatically approves the user if the current site is not requiring approval
   # on registration.
-  def automatically_approve_if_needed
-    self.approved = true unless Site.current.require_registration_approval?
+  def automatically_approve
+    self.approved = true
   end
 
   # Sets the user as approved
@@ -339,7 +353,7 @@ class User < ActiveRecord::Base
   private
 
   def username_uniqueness
-    unless Space.with_disabled.find_by_permalink(self.username).blank?
+    if Space.with_disabled.find_by_permalink(self.username).present?
       errors.add(:username, "has already been taken")
     end
   end

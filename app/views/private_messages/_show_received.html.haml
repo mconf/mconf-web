@@ -6,10 +6,7 @@
 - sender = User.with_disabled.find(private_message.sender_id)
 
 .logo-in-thread
-  - if sender.disabled?
-    = logo_image(sender, :size => '32', :class => "logo logo-user")
-  - else
-    = raw(link_logo_image(sender, :size => '32', :title => sender.username, :url => user_path(sender), :class => "logo logo-user"))
+  = render 'user_logo', :user => sender
 
 .thread-content
   - unless expanded
@@ -26,19 +23,10 @@
         %span.thread-author= sender.name
       - else
         = link_to(sender.name, user_path(sender), :class => "thread-author")
+
     = t('.wrote')
-    - if expanded
-      = sanitize(private_message.title)
-    - else
-      = link_to sanitize(private_message.title), message_path(private_message)
-    %span.thread-updated-at
-      - if Time.now.to_date == private_message.created_at.to_date
-        = time_ago_in_words(private_message.created_at)
-      - else
-        = private_message.created_at.strftime("%d %b")
+
+    = render 'message_title', expanded: expanded, private_message: private_message
 
   .thread-text
-    - if expanded
-      = sanitize(auto_link(simple_format(private_message.body)))
-    - else
-      = sanitize(auto_link(simple_format(first_words(private_message.body, 100))))
+    = render 'message_text', expanded: expanded, private_message: private_message

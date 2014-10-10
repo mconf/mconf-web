@@ -597,7 +597,7 @@ pt-br:
         welcome: "Bem-vindo %{email}!"
     registrations:
       not_enabled: 'O registro de novas contas não está habilitado neste site.'
-      signed_up_but_not_approved: 'Seu registro foi efetuado com sucesso! Você agora precisa ter sua conta aprovada por um administrador para acessar o site, por favor aguarde.'
+      signed_up_but_not_approved: ''
     shared:
       links:
         login:
@@ -974,6 +974,12 @@ pt-br:
   more: mais...
   more_arrows: "mais >>"
   my:
+    approval_pending:
+      title: Aprovação pendente
+      description: Seu cadastro foi efetivado com sucesso e submetido a aprovação do administrador responsável por validar o seu acesso. Assim que seu cadastro for aprovado você será comunicado.
+      interesting_links: "Enquanto isto você pode explorar estas seções abertas do site:"
+      events_list: lista de eventos
+      spaces_list: lista de comunidades
     page_header:
       activity_list: "Atividades recentes"
     home:
@@ -1139,9 +1145,10 @@ pt-br:
     show: 
       title: "Mensagens Privadas"
     show_received: 
-      wrote: wrote
+      wrote: escreveu
     show_sent: 
-      wrote: wrote
+      wrote_to: Escreveu para
+      titled: a mensagem
   profile:
     deleted: "Perfil excluído com sucesso"
     description:
