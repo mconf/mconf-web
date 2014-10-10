@@ -6,24 +6,23 @@
 # 3 or later. See the LICENSE file.
 
 class AdminMailer < BaseMailer
-  include Resque::Mailer
-
-  def error_handler message, error, action, args
-    BaseMailer.error_handler(message, error, action, args)
-  end
 
   def new_user_waiting_for_approval(admin_id, user_id)
     admin = User.find(admin_id)
     user = User.find(user_id)
-    @user_name = user.name
-    @subject = t('admin_mailer.new_user_waiting_for_approval.subject')
-    create_email(admin.email, Site.current.smtp_sender, @subject)
+    I18n.with_locale(default_email_locale(admin, nil)) do
+      @user_name = user.name
+      @subject = t('admin_mailer.new_user_waiting_for_approval.subject')
+      create_email(admin.email, Site.current.smtp_sender, @subject)
+    end
   end
 
   def new_user_approved(user_id)
     user = User.find(user_id)
-    @user_name = user.name
-    @subject = t('admin_mailer.new_user_approved.subject')
-    create_email(user.email, Site.current.smtp_sender, @subject)
+    I18n.with_locale(default_email_locale(user, nil)) do
+      @user_name = user.name
+      @subject = t('admin_mailer.new_user_approved.subject')
+      create_email(user.email, Site.current.smtp_sender, @subject)
+    end
   end
 end
