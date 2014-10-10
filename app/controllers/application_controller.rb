@@ -220,7 +220,8 @@ class ApplicationController < ActionController::Base
                       "/register", "/users/signup",
                       "/users/password", "/users/password/new",
                       "/users/confirmation/new", "/users/confirmation",
-                      "/secure", "/secure/info", "/secure/associate" ]
+                      "/secure", "/secure/info", "/secure/associate",
+                      "/pending" ]
     if (!ignored_paths.include?(request.path) &&
         !request.xhr? && # don't store ajax calls
         (request.format == "text/html" || request.content_type == "text/html"))
