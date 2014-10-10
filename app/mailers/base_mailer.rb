@@ -36,21 +36,25 @@ class BaseMailer < ActionMailer::Base
     end
   end
 
-  def error_handler(message, error, action, args)
-    Rails.logger.error "Handling email error on #{self.class.name}"
-    case action
-    when "invitation_email"
-      invitation = Invitation.find_by_id(args[0])
-      if invitation.nil?
-        Rails.logger.error "Could not find the Invitation #{args[0]}, won't mark it as not sent"
-      else
-        # we just want to mark it as not sent, but raise the error afterwards
-        invitation.result = false
-        invitation.save!
-        raise error
-      end
+  # Try to get the receiver's time zone.
+  # Falls back to the sender's time zone if the receiver doesn't have one.
+  # If the sender doesn't have one also, will return the website's default.
+  def default_email_time_zone(receiver, sender)
+    if Mconf::Timezone.user_has_time_zone?(receiver)
+      Mconf::Timezone.user_time_zone(receiver)
     else
-      raise error
+      Mconf::Timezone.user_time_zone(sender)
+    end
+  end
+
+  # Try to get the receiver's locale.
+  # Falls back to the sender's locale if the receiver doesn't have one.
+  # If the sender doesn't have one also, will return the website's default.
+  def default_email_locale(receiver, sender)
+    if user_has_locale?(receiver)
+      get_user_locale(receiver, false)
+    else
+      get_user_locale(sender, false)
     end
   end
 

@@ -199,14 +199,7 @@ class JoinRequestsController < ApplicationController
     end
   end
 
-  def join_request_params
-    unless params[:join_request].blank?
-      params[:join_request].permit(*allowed_params)
-    else
-      {}
-    end
-  end
-
+  allow_params_for :join_request
   def allowed_params
     [ :introducer_id, :role_id, :processed, :accepted, :comment ]
   end

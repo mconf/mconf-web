@@ -86,14 +86,7 @@ class ProfilesController < ApplicationController
     end
   end
 
-  def profile_params
-    unless params[:profile].blank?
-      params[:profile].permit(*allowed_params)
-    else
-      {}
-    end
-  end
-
+  allow_params_for :profile
   def allowed_params
     [ :organization, :phone, :mobile, :fax, :address, :city, :zipcode,
       :province, :country, :prefix_key, :description, :url, :skype, :im,

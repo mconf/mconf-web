@@ -51,9 +51,11 @@ en:
      invitation_email:
       event_name: "Meeting with %{name}"
       message:
+        description: "Description"
         end: "End"
         header: "You have been invited by <b>%{sender}</b> (%{email_sender}) to a meeting:"
-        join: "Join at"
+        join: "Room"
         password: "Access key"
         start: "Start"
-      subject: "You have been invited to a meeting by %{name}"
+        subject: "Subject"
+      subject: "Web conference invitation"

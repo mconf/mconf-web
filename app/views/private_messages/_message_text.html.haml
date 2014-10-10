@@ -1,0 +1,4 @@
+- if expanded
+  = sanitize(auto_link(simple_format(private_message.body)))
+- else
+  = sanitize(auto_link(simple_format(first_words(private_message.body, 100))))

@@ -1,0 +1,4 @@
+- if user.disabled?
+  = logo_image(user, :size => '32', :class => "logo logo-user")
+- else
+  = raw(link_logo_image(user, :size => '32', :title => user.username, :url => user_path(user), :class => "logo logo-user"))

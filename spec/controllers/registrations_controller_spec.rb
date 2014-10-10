@@ -54,12 +54,23 @@ describe RegistrationsController do
       before(:each) {
         expect {
           post :create, :user => attributes
-        }.to change{User.count}.by(1)
+        }.to change{ User.count }.by(1)
       }
       it { should redirect_to(my_home_path) }
     end
 
-    it "if registrations are disabled in the site"
+    context "if registrations are disabled in the site" do
+      before {
+        Site.current.update_attributes(registration_enabled: false)
+      }
+      before(:each) {
+        expect {
+          post :create, :user => attributes
+        }.not_to change{ User.count }
+      }
+      it { should redirect_to(root_path) }
+      it { should set_the_flash.to(I18n.t("devise.registrations.not_enabled")) }
+    end
   end
 
 end

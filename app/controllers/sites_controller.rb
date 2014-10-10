@@ -31,14 +31,7 @@ class SitesController < ApplicationController
 
   private
 
-  def site_params
-    unless params[:site].blank?
-      params[:site].permit(*allowed_params)
-    else
-      {}
-    end
-  end
-
+  allow_params_for :site
   def allowed_params
     [
      :name, :description, :domain, :locale, :timezone, :signature, :ssl, :feedback_url, :webconf_auto_record,

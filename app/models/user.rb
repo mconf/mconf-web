@@ -188,15 +188,7 @@ class User < ActiveRecord::Base
 
   # Full location: city + country
   def location
-    if !self.city.blank? && !self.country.blank?
-      [ self.city, self.country ].join(', ')
-    elsif !self.city.blank?
-      self.city
-    elsif !self.country.blank?
-      self.country
-    else
-      ""
-    end
+    [ self.city.presence, self.country.presence ].compact.join(', ')
   end
 
   after_create do |user|
@@ -361,7 +353,7 @@ class User < ActiveRecord::Base
   private
 
   def username_uniqueness
-    unless Space.with_disabled.find_by_permalink(self.username).blank?
+    if Space.with_disabled.find_by_permalink(self.username).present?
       errors.add(:username, "has already been taken")
     end
   end

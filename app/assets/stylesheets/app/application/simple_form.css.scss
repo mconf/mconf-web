@@ -62,7 +62,7 @@
     &.field_with_hint {
       &:hover, &:focus { color: darken($alert-info-font, 20); }
       cursor: pointer;
-      background: url("/assets/icons/help-12x12.png") no-repeat left top;
+      background: image-url("icons/help-12x12.png") no-repeat left top;
       background-width: 12px;
       background-height: 12px;
       label {
