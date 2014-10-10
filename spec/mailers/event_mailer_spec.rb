@@ -82,12 +82,12 @@ describe EventMailer do
     end
   end
 
-  context "calls #error_handler on exceptions" do
+  context "calls the error handler on exceptions" do
     let(:exception) { Exception.new("test exception") }
     it {
       with_resque do
         BaseMailer.any_instance.stub(:render) { raise exception }
-        EventMailer.should_receive(:error_handler).with(nil, exception, "invitation_email", anything)
+        Mconf::MailerErrorHandler.should_receive(:handle).with(EventMailer, nil, exception, "invitation_email", anything)
         EventMailer.invitation_email(invitation.id).deliver
       end
     }

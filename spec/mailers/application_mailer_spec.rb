@@ -100,12 +100,12 @@ describe ApplicationMailer do
     end
   end
 
-  context "calls #error_handler on exceptions" do
+  context "calls the error handler on exceptions" do
     let(:exception) { Exception.new("test exception") }
     it {
       with_resque do
         BaseMailer.any_instance.stub(:render) { raise exception }
-        ApplicationMailer.should_receive(:error_handler).with(nil, exception, "feedback_email", anything)
+        Mconf::MailerErrorHandler.should_receive(:handle).with(ApplicationMailer, nil, exception, "feedback_email", anything)
         ApplicationMailer.feedback_email("any", "any", "any").deliver
       end
     }
