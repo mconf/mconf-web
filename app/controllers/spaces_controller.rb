@@ -351,15 +351,8 @@ class SpacesController < ApplicationController
     end
   end
 
-  def space_params
-    unless params[:space].blank?
-      params[:space].permit(*space_allowed_params)
-    else
-      {}
-    end
-  end
-
-  def space_allowed_params
+  allow_params_for :space
+  def allowed_params
     [ :name, :description, :logo_image, :public, :permalink, :disabled, :repository,
       :crop_x, :crop_y, :crop_w, :crop_h,
       :bigbluebutton_room_attributes =>

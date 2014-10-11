@@ -54,8 +54,6 @@ gem 'net-ldap'
 # BigBlueButton integration
 gem 'bigbluebutton-api-ruby', :git => 'git://github.com/mconf/bigbluebutton-api-ruby.git', :branch => 'master'
 gem 'bigbluebutton_rails', :git => 'git://github.com/mconf/bigbluebutton_rails.git', :branch => 'master'
-# The gems below are for bigbluebutton_rails
-gem 'browser'
 
 # Used on Profile to generate a vcard
 gem 'vpim' # TODO: very old, last update on 2009
@@ -72,10 +70,10 @@ gem 'configatron', '~> 2.13.0'
 gem 'bootstrap-sass', '~> 3.2.0'
 gem 'autoprefixer-rails'
 # datetime picker for bootstrap
-gem 'bootstrap-datetimepicker-rails'
+gem 'bootstrap3-datetimepicker-rails', '~> 3.1.3'
 
 # moment.js for dates
-gem 'momentjs-rails'
+gem 'momentjs-rails', '>= 2.8.1'
 
 # font-awesome (recommended to be here, not in the assets group)
 gem 'font-awesome-rails', '~> 4.1.0.0'
@@ -85,7 +83,7 @@ gem 'premailer-rails'
 gem 'nokogiri'
 
 # event module
-gem 'mweb_events', :git => 'git@github.com:mconf/mweb_events.git', :branch => 'master'
+gem 'mweb_events', :git => 'git://github.com/mconf/mweb_events.git', :branch => 'bootstrap3'
 
 # send emails in case of exceptions in production
 gem 'exception_notification', '~> 4.0.0'

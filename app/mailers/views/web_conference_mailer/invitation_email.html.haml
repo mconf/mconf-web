@@ -3,23 +3,27 @@
     = t('.message.header', :sender => @invitation.sender.full_name, :email_sender => @invitation.sender.email).html_safe
 
   - unless @invitation.title.blank?
-    .invite-title= @invitation.title
+    .field
+      %label= t('.message.subject') + ':'
+      %span= @invitation.title
   - unless @invitation.description.blank?
-    .invite-message= @invitation.description
+    .field
+      %label= t('.message.description') + ':'
+      %span= @invitation.description
 
-  .mail-event-block
+  - Time.use_zone(@time_zone) do
     - unless @invitation.starts_on.nil?
       .field
         %label= t('.message.start') + ':'
-        %span= @invitation.starts_on.to_formatted_s(:rfc822)
+        %span= l @invitation.starts_on.in_time_zone
     - unless @invitation.ends_on.nil?
       .field
         %label= t('.message.end') + ':'
-        %span= @invitation.ends_on.to_formatted_s(:rfc822)
+        %span= l @invitation.ends_on.in_time_zone
+  .field
+    %label= t('.message.join') + ':'
+    %span= @invitation.url
+  - if @invitation.target.private
     .field
-      %label= t('.message.join') + ':'
-      %span= @invitation.url
-    - if @invitation.target.private
-      .field
-        %label= t('.message.password') + ':'
-        %span= @invitation.target.attendee_key
+      %label= t('.message.password') + ':'
+      %span= @invitation.target.attendee_key

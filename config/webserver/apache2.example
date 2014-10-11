@@ -13,5 +13,6 @@
   <Directory /YOUR_MCONF_WEB/public>
     AllowOverride all
     Options -MultiViews
+    Require all granted
   </Directory>
 </VirtualHost>

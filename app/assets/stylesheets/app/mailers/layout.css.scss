@@ -2,14 +2,10 @@
 @import "compass/typography/links";
 @import "definitions";
 
-$mail-font-color: $m-font-color;
-$mail-header-font-color: $m-navbar-bg-color-dark;
-$mail-font-size: $m-font-normal;
-
 body {
   padding: 0;
-  @include font-size($mail-font-size);
-  color: $mail-font-color;
+  @include font-size($m-mail-font-size);
+  color: $m-mail-font-color;
 
   a {
     @include link-colors($m-link-color, $m-link-color-hover, $m-link-color-active);
@@ -21,13 +17,13 @@ body {
 /*   padding: 10px; */
 /*   border-bottom: 1px solid $m-gray; */
 /*   margin-bottom: 10px; */
-/*   color: $mail-header-font-color; */
-/*   @include font-size($mail-font-size); */
+/*   color: $m-mail-header-font-color; */
+/*   @include font-size($m-mail-font-size); */
 /*   font-weight: bold; */
 
 /*   a { */
-/*     $normal: $mail-header-font-color; */
-/*     $light: lighten($mail-header-font-color, 10); */
+/*     $normal: $m-mail-header-font-color; */
+/*     $light: lighten($m-mail-header-font-color, 10); */
 /*     @include link-colors($normal, $light, $light, $normal); */
 /*     text-decoration: none; */
 /*   } */
@@ -37,7 +33,7 @@ body {
   margin-top: 10px;
   padding: 5px 10px;
   border-top: 1px solid lighten($m-gray, 10);
-  color: lighten($mail-font-color, 10);
+  color: lighten($m-mail-font-color, 10);
 }
 
 .mail-highlight-block {
@@ -45,7 +41,7 @@ body {
   @include border-radius(2px);
   margin: 10px 0;
   padding: 10px;
-  @include font-size($mail-font-size);
+  @include font-size($m-mail-font-size);
 }
 
 .mail-event-block {
@@ -53,5 +49,5 @@ body {
   @include border-radius(2px);
   margin: 10px 0;
   padding: 10px;
-  @include font-size($mail-font-size);
+  @include font-size($m-mail-font-size);
 }

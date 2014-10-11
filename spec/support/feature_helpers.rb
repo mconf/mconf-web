@@ -47,17 +47,18 @@ module FeatureHelpers
     visit(new_user_session_path) if visit_page
     fill_in 'user[login]', with: user_email
     fill_in 'user[password]', with: password
-    click_button 'Login'
+    click_button I18n.t("sessions.login_form.login")
   end
 
   def register_with(attrs)
+    name = attrs[:username] || (attrs[:_full_name].downcase.gsub(/\s/, '-') if attrs[:_full_name])
     visit register_path
     fill_in "user[email]", with: attrs[:email]
     fill_in "user[_full_name]", with: attrs[:_full_name]
-    fill_in "user[username]", with: attrs[:username]
+    fill_in "user[username]", with: name
     fill_in "user[password]", with: attrs[:password]
     fill_in "user[password_confirmation]", with: attrs[:password]
-    click_button "Register"
+    click_button I18n.t("registrations.signup_form.register")
   end
 
   def has_success_message message=nil
@@ -78,6 +79,11 @@ module FeatureHelpers
 
   def have_notification(text)
     have_selector("#notification-flashs", :text => text)
+  end
+
+  def have_empty_notification
+    page.find("#notification-flashs").text.should eql('')
+    page.find("#notification-flashs").all('*').length.should eql(0)
   end
 
   def last_email

@@ -1,5 +1,8 @@
 = Welcome to Mconf-web
 
+{<img src="https://travis-ci.org/mconf/mconf-web.svg?branch=master" />}[https://travis-ci.org/mconf/mconf-web]
+{<img src="https://codeclimate.com/github/mconf/mconf-web/badges/gpa.svg" />}[https://codeclimate.com/github/mconf/mconf-web]
+
 Mconf-Web is the social network in the Mconf webconferencing system. It is currently a fork of VCC, and open source system that can be found {here}[https://github.com/ging/vcc].
 
 You can try out Mconf-Web at our free demo server at http://mconf.org.

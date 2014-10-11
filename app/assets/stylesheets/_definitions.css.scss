@@ -139,6 +139,10 @@ $m-z-index-navbar: 100;
 $m-z-index-dialog: 200;
 $m-z-index-tooltip: 999999;
 
+// mailers
+$m-mail-font-color: $m-font-color;
+$m-mail-header-font-color: $m-navbar-bg-color-dark;
+$m-mail-font-size: $m-font-normal;
 
 @import "bootstrap/mixins";
 @import "mixins";

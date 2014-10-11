@@ -296,71 +296,159 @@ describe CustomBigbluebuttonRoomsController do
 
   describe "#join" do
 
-    context "via GET" do
-      it "fetches information about the room before calling #join"
+    for method in [:get, :post]
+      context "via #{method}" do
 
-      context "when submitting the moderator password" do
-        it "creates the room if the current user is the owner"
+        context "via GET" do
+          context "fetches information about the room when calling #join" do
+            let(:user) { FactoryGirl.create(:user) }
+            let(:room) { user.bigbluebutton_room }
+            before {
+              login_as(user)
+              BigbluebuttonRoom.stub(:find_by_param) { room }
+            }
 
-        # to make sure a user can't create a meeting in a room simply by submitting the
-        # moderator password; he needs permissions on the room as well
-        it "doesn't create the room if the current user is not the owner"
+            context "when a meeting is running" do
+              before {
+                room.stub(:is_running?) { true }
+                room.should_receive(:fetch_is_running?).at_least(:once) { true }
+                room.should_receive(:fetch_meeting_info)
+              }
+              it { send(method, :join, :id => room.to_param) }
+            end
+
+            context "when no meeting is running" do
+              before {
+                room.stub(:is_running?) { false }
+                room.should_receive(:fetch_is_running?).at_least(:once) { false }
+                room.should_not_receive(:fetch_meeting_info)
+              }
+              it { send(method, :join, :id => room.to_param) }
+            end
+          end
+
+          # important to check this because join runs methods such as ApplicationController.bigbluebutton_role
+          # that need the information fetch in the before filters
+          context "#join is called with the same @room that we fetched information from" do
+            let(:user) { FactoryGirl.create(:user) }
+            let(:room) { user.bigbluebutton_room }
+            before {
+              login_as(user)
+              BigbluebuttonRoom.should_receive(:find_by_param).once { room }
+              controller.should_receive(:bigbluebutton_role).with(room) { :moderator }
+              room.stub(:is_running?) { true }
+              room.should_receive(:fetch_is_running?).at_least(:once) { true }
+              room.should_receive(:fetch_meeting_info).once {
+                room.running = true
+                room.participant_count = 4
+              }
+            }
+            before(:each) { send(method, :join, :id => room.to_param) }
+            it { should assign_to(:room).with(room) }
+            it { assigns(:room).running.should be true }
+            it { assigns(:room).participant_count.should be 4 }
+          end
+
+          context "when submitting the moderator password" do
+            let(:user) { FactoryGirl.create(:user) }
+            let(:room) { user.bigbluebutton_room }
+            let(:server) { room.server }
+
+            context "creates the room if the current user is the owner" do
+              before :each do
+                login_as(user)
+                request.env["HTTP_REFERER"] = "/any"
+                BigbluebuttonRoom.stub(:find_by_param) { room }
+
+                # to guide the behavior of #join, copied from the tests in BigbluebuttonRails
+                room.should_receive(:fetch_is_running?).at_least(:once).and_return(false)
+                room.should_receive(:create_meeting).with(user, anything, anything)
+                room.should_receive(:fetch_new_token)
+                room.should_receive(:join_url).and_return("http://test.com/attendee/join")
+              end
+              before(:each) { send(method, :join, :id => room.to_param, :user => { :key => room.moderator_key, :name => "Any Name" }) }
+              it { should respond_with(:redirect) }
+              it { should redirect_to("http://test.com/attendee/join") }
+            end
+
+            # to make sure a user can't create a meeting in a room simply by submitting the
+            # moderator password; he needs permissions on the room as well
+            context "doesn't create the room if the current user is not the owner" do
+              before :each do
+                another_user = FactoryGirl.create(:user)
+                login_as(another_user)
+                request.env["HTTP_REFERER"] = "/any"
+                BigbluebuttonRoom.stub(:find_by_param) { room }
+                BigbluebuttonRoom.any_instance.stub(:fetch_is_running?) { false }
+
+                # to guide the behavior of #join, copied from the tests in BigbluebuttonRails
+                server.api.stub(:is_meeting_running?) { false }
+              end
+              before(:each) { send(method, :join, :id => room.to_param, :user => { :key => room.moderator_key, :name => "Any Name" }) }
+              it { should respond_with(:redirect) }
+              it { should redirect_to("/any") }
+              it { should set_the_flash.to(I18n.t('bigbluebutton_rails.rooms.errors.join.cannot_create')) }
+            end
+          end
+
+        end
       end
 
-      it "loads and authorizes the room into @room"
-    end
-
-    context "via POST" do
-
-      # to make sure a user can't create a meeting in a room simply by submitting the
-      # moderator password; he needs permissions on the room as well
-      context "when submitting the moderator password" do
-        let(:user) { FactoryGirl.create(:user) }
-        let(:room) { user.bigbluebutton_room }
-        let(:server) { room.server }
-
-        context "creates the room if the current user is the owner" do
-          before :each do
-            login_as(user)
-            request.env["HTTP_REFERER"] = "/any"
-            BigbluebuttonRoom.stub(:find_by_param) { room }
-
-            # to guide the behavior of #join, copied from the tests in BigbluebuttonRails
-            room.should_receive(:fetch_is_running?).at_least(:once).and_return(false)
-            room.should_receive(:create_meeting).with(user, anything, anything)
-            room.should_receive(:fetch_new_token)
-            room.should_receive(:join_url).and_return("http://test.com/attendee/join")
-          end
-          before(:each) { post :join, :id => room.to_param, :user => { :key => room.moderator_key, :name => "Any Name" } }
-          it { should respond_with(:redirect) }
-          it { should redirect_to("http://test.com/attendee/join") }
-        end
-
-        context "doesn't create the room if the current user is not the owner" do
-          before :each do
-            another_user = FactoryGirl.create(:user)
-            login_as(another_user)
-            request.env["HTTP_REFERER"] = "/any"
-            BigbluebuttonRoom.stub(:find_by_param) { room }
-            BigbluebuttonRoom.any_instance.stub(:fetch_is_running?) { false }
-
-            # to guide the behavior of #join, copied from the tests in BigbluebuttonRails
-            server.api.stub(:is_meeting_running?) { false }
-          end
-          before(:each) { post :join, :id => room.to_param, :user => { :key => room.moderator_key, :name => "Any Name" } }
-          it { should respond_with(:redirect) }
-          it { should redirect_to("/any") }
-          it { should set_the_flash.to(I18n.t('bigbluebutton_rails.rooms.errors.join.cannot_create')) }
-        end
-      end
-
-      it "loads and authorizes the room into @room"
     end
   end
 
   describe "#end" do
-    it "fetches information about the room before calling #end"
-    it "loads and authorizes the room into @room"
+    before {
+      request.env["HTTP_REFERER"] = "/any"
+    }
+
+    context "fetches information about the room when calling #end" do
+      let(:user) { FactoryGirl.create(:user) }
+      let(:room) { user.bigbluebutton_room }
+      before {
+        login_as(user)
+        BigbluebuttonRoom.stub(:find_by_param) { room }
+      }
+
+      context "when a meeting is running" do
+        before {
+          room.stub(:is_running?) { true }
+          room.should_receive(:fetch_is_running?).at_least(:once) { true }
+          room.should_receive(:fetch_meeting_info)
+        }
+        it { get :end, :id => room.to_param }
+      end
+
+      context "when no meeting is running" do
+        before {
+          room.stub(:is_running?) { false }
+          room.should_receive(:fetch_is_running?).at_least(:once) { false }
+          room.should_not_receive(:fetch_meeting_info)
+        }
+        it { get :end, :id => room.to_param }
+      end
+    end
+
+    # important to check this because end runs methods that need the information fetch in the
+    # before filters
+    context "#end is called with the same @room that we fetched information from" do
+      let(:user) { FactoryGirl.create(:user) }
+      let(:room) { user.bigbluebutton_room }
+      before {
+        login_as(user)
+        BigbluebuttonRoom.should_receive(:find_by_param).once { room }
+        room.stub(:is_running?) { true }
+        room.should_receive(:fetch_is_running?).at_least(:once) { true }
+        room.should_receive(:fetch_meeting_info).once {
+          room.running = true
+          room.participant_count = 4
+        }
+      }
+      before(:each) { get :end, :id => room.to_param }
+      it { should assign_to(:room).with(room) }
+      it { assigns(:room).running.should be true }
+      it { assigns(:room).participant_count.should be 4 }
+    end
   end
 
   describe "abilities", :abilities => true do

@@ -6,15 +6,14 @@
 # 3 or later. See the LICENSE file.
 
 class PrivateMessagesController < ApplicationController
-  before_filter :private_message, :only => [:show, :update, :destroy]
   load_and_authorize_resource
 
   def index
     @page_size = 10
     if params[:sent]
-      @private_messages = PrivateMessage.sent(user).paginate(:page => params[:page], :per_page => @page_size)
+      @private_messages = PrivateMessage.sent(current_user).paginate(:page => params[:page], :per_page => @page_size)
     else
-      @private_messages = PrivateMessage.inbox(user).paginate(:page => params[:page], :per_page => @page_size)
+      @private_messages = PrivateMessage.inbox(current_user).paginate(:page => params[:page], :per_page => @page_size)
     end
 
     # search the name of the user when replying a message
@@ -33,7 +32,7 @@ class PrivateMessagesController < ApplicationController
     @message = PrivateMessage.find(params[:id])
     params[:page] ||= 1
     @previous_message = @message #this is to the reply message partial
-    @receiver = User.find_by_id(@message.sender_id)
+    @receiver = @message.sender
     @previous_messages = WillPaginate::Collection.create(params[:page], 5) do |pager|
       @previous_messages = PrivateMessage.previous(@message).reverse
       pager.replace(@previous_messages[pager.offset, pager.per_page])
@@ -55,9 +54,7 @@ class PrivateMessagesController < ApplicationController
     if request.xhr?
       render :partial => 'form'
     else
-      respond_to do |format|
-        format.html { render :layout => "no_sidebar" }
-      end
+      render :layout => "no_sidebar"
     end
   end
 
@@ -136,25 +133,17 @@ class PrivateMessagesController < ApplicationController
 
   def private_message_params
     unless params[:private_message].blank?
-      params[:private_message].except(private_message_excepted_params).permit(*private_message_allowed_params)
+      params[:private_message].except(excepted_params).permit(*allowed_params)
     else
       {}
     end
   end
 
-  def private_message_excepted_params
+  def excepted_params
     [:sender_id, :users_tokens]
   end
 
-  def private_message_allowed_params
+  def allowed_params
     [:title, :body, :parent_id, :receiver_id, :deleted_by_sender, :deleted_by_receiver]
-  end
-
-  def user
-    @user = current_user
-  end
-
-  def private_message
-    @private_message = PrivateMessage.find(params[:id])
   end
 end

@@ -1,4 +1,3 @@
-# Scheduling worker jobs
 send_private_message_notifications:
   every:
     - "30s"
@@ -22,3 +21,15 @@ send_invitations:
     - "30s"
   class: Invitations
   description: "Finds all invitations still not sent and sends them"
+
+finish_meetings:
+  every:
+    - "30s"
+  class: BigbluebuttonFinishMeetings
+  description: "Checks for meetings that finished and mark as finished. Same as 'rake bigbluebutton_rails:meetings:finish'."
+
+update_recordings:
+  every:
+    - "30m"
+  class: BigbluebuttonUpdateRecordings
+  description: "Gets the recordings in the server to populate the db. Same as 'rake bigbluebutton_rails:recordings:update'."

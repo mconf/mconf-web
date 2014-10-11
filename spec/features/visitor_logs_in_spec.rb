@@ -84,7 +84,17 @@ feature 'Visitor logs in' do
   end
 
   feature "isn't redirected back to routes he shouldn't return to" do
-    scenario 'from /users/login after a failed login' do
+    scenario 'from the login page (/login)' do
+      visit login_path
+
+      click_link 'Sign in'
+      expect(current_path).to eq(login_path)
+
+      sign_in_with @user.username, @user.password, false
+      expect(current_path).to eq(my_home_path)
+    end
+
+    scenario 'after a failed login (/users/login)' do
       sign_in_with 'invalid_email', @user.password
       expect(current_path).to eq(new_user_session_path)
 
@@ -92,7 +102,7 @@ feature 'Visitor logs in' do
       expect(current_path).to eq(my_home_path)
     end
 
-    scenario 'from the registration page' do
+    scenario 'from the register page (/register)' do
       visit register_path
 
       click_link 'Sign in'
@@ -102,7 +112,17 @@ feature 'Visitor logs in' do
       expect(current_path).to eq(my_home_path)
     end
 
-    scenario 'from /users after a failed registration' do
+    scenario 'from the register page 2 (/users/signup)' do
+      visit new_user_registration_path
+
+      click_link 'Sign in'
+      expect(current_path).to eq(login_path)
+
+      sign_in_with @user.username, @user.password, false
+      expect(current_path).to eq(my_home_path)
+    end
+
+    scenario 'after a failed registration (/users)' do
       visit register_path
       click_button 'Register'
       expect(current_path).to eq("/users")
@@ -114,16 +134,7 @@ feature 'Visitor logs in' do
       expect(current_path).to eq(my_home_path)
     end
 
-    scenario 'from /users/password' do
-      visit user_password_path
-      click_link 'Sign in'
-      expect(current_path).to eq(login_path)
-
-      sign_in_with @user.username, @user.password, false
-      expect(current_path).to eq(my_home_path)
-    end
-
-    scenario 'from /users/password/new' do
+    scenario 'from the page to request a new password (/users/password/new)' do
       visit new_user_password_path
       click_link 'Sign in'
       expect(current_path).to eq(login_path)
@@ -132,12 +143,86 @@ feature 'Visitor logs in' do
       expect(current_path).to eq(my_home_path)
     end
 
-    scenario 'from /users/confirmation/new' do
+    scenario 'when failed to request a new password (/users/password)' do
+      visit new_user_password_path
+      click_button "Request password"
+      expect(current_path).to eq("/users/password")
+
+      click_link 'Sign in'
+      expect(current_path).to eq(login_path)
+
+      sign_in_with @user.username, @user.password, false
+      expect(current_path).to eq(my_home_path)
+    end
+
+    scenario 'from the page to resend confirmation (/users/confirmation/new)' do
       visit new_user_confirmation_path
       click_link 'Sign in'
       expect(current_path).to eq(login_path)
 
       sign_in_with @user.username, @user.password, false
+      expect(current_path).to eq(my_home_path)
+    end
+
+    scenario 'after a failed submit in the resend confirmation form (/users/confirmation)' do
+      visit new_user_confirmation_path
+      click_button 'Request confirmation email'
+      expect(current_path).to eq("/users/confirmation")
+
+      click_link 'Sign in'
+      expect(current_path).to eq(login_path)
+
+      sign_in_with @user.username, @user.password, false
+      expect(current_path).to eq(my_home_path)
+    end
+
+    scenario 'from the page to sign in with shibboleth (/secure)' do
+      enable_shib
+      visit shibboleth_path
+      expect(current_path).to eq("/secure")
+
+      click_link 'Sign in'
+      expect(current_path).to eq(login_path)
+
+      sign_in_with @user.username, @user.password, false
+      expect(current_path).to eq(my_home_path)
+    end
+
+    scenario 'from the page with shibboleth info (/secure/info)' do
+      enable_shib
+      visit shibboleth_info_path
+      expect(current_path).to eq("/secure/info")
+
+      visit login_path
+
+      sign_in_with @user.username, @user.password, false
+      expect(current_path).to eq(my_home_path)
+    end
+
+    scenario 'after an error signing in with shibboleth (/secure/associate)' do
+      enable_shib
+      setup_shib @user.name, @user.email, @user.email
+
+      visit shibboleth_path
+      click_button 'Log in and link accounts'
+
+      click_link 'Sign in'
+      expect(current_path).to eq(login_path)
+
+      sign_in_with @user.username, @user.password, false
+      expect(current_path).to eq(my_home_path)
+    end
+
+    scenario 'after the pending page (/pending)' do
+      Site.current.update_attributes(require_registration_approval: true)
+
+      attrs = FactoryGirl.attributes_for(:user)
+      register_with attrs
+      expect(current_path).to eq(my_approval_pending_path)
+
+      User.last.approve!
+
+      sign_in_with attrs[:email], attrs[:password]
       expect(current_path).to eq(my_home_path)
     end
 
