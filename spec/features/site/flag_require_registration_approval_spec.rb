@@ -23,10 +23,17 @@ feature 'Behaviour of the flag Site#require_registration_approval' do
       it { User.last.confirmed?.should be false }
       it { User.last.approved?.should be false }
 
-      it "send the correct email", with_truncation: true do
-        last_email.should_not be_nil
-        last_email.body.encoded.should_not match(/http.*users\/confirmation*/)
-        last_email.body.encoded.should match(t('devise.mailer.confirmation_instructions.confirmation_pending'))
+      it "sends the correct confirmation email to the user", with_truncation: true do
+        mail = email_by_subject t('devise.mailer.confirmation_instructions.subject')
+        mail.should_not be_nil
+        mail.body.encoded.should_not match(/http.*users\/confirmation*/)
+        mail.body.encoded.should match(t('devise.mailer.confirmation_instructions.confirmation_pending'))
+      end
+
+      it "sends an email to all admins", with_truncation: true do
+        mail = email_by_subject t('admin_mailer.new_user_waiting_for_approval.subject')
+        mail.should_not be_nil
+        mail.to.should eql([User.where(superuser: true).first.email])
       end
 
       context "shows the pending approval page" do
@@ -66,10 +73,15 @@ feature 'Behaviour of the flag Site#require_registration_approval' do
       it { User.last.confirmed?.should be true }
       it { User.last.approved?.should be false }
 
-      it "doesn't send a confirmation email", with_truncation: true do
-        ActionMailer::Base.deliveries.each do |mail|
-          mail.subject.should_not match(t('devise.mailer.confirmation_instructions.subject'))
-        end
+      it "doesn't a confirmation email to the user", with_truncation: true do
+        mail = email_by_subject t('devise.mailer.confirmation_instructions.subject')
+        mail.should be_nil
+      end
+
+      it "sends an email to all admins", with_truncation: true do
+        mail = email_by_subject t('admin_mailer.new_user_waiting_for_approval.subject')
+        mail.should_not be_nil
+        mail.to.should eql([User.where(superuser: true).first.email])
       end
 
       context "shows the pending approval page" do
@@ -119,10 +131,16 @@ feature 'Behaviour of the flag Site#require_registration_approval' do
       it { User.last.confirmed?.should be false }
       it { User.last.approved?.should be true }
 
-      it "send the correct email", with_truncation: true do
-        last_email.should_not be_nil
-        last_email.body.encoded.should match(/http.*users\/confirmation*/)
-        last_email.body.encoded.should_not match(t('devise.mailer.confirmation_instructions.confirmation_pending'))
+      it "send the correct confirmation email to the user", with_truncation: true do
+        mail = email_by_subject t('devise.mailer.confirmation_instructions.subject')
+        mail.should_not be_nil
+        mail.body.encoded.should match(/http.*users\/confirmation*/)
+        mail.body.encoded.should_not match(t('devise.mailer.confirmation_instructions.confirmation_pending'))
+      end
+
+      it "doesn't send an email to the admins", with_truncation: true do
+        mail = email_by_subject t('admin_mailer.new_user_waiting_for_approval.subject')
+        mail.should be_nil
       end
 
       context "signs the user in" do
@@ -151,10 +169,14 @@ feature 'Behaviour of the flag Site#require_registration_approval' do
       it { User.last.confirmed?.should be true }
       it { User.last.approved?.should be true }
 
-      it "doesn't send a confirmation email", with_truncation: true do
-        ActionMailer::Base.deliveries.each do |mail|
-          mail.subject.should_not match(t('devise.mailer.confirmation_instructions.subject'))
-        end
+      it "doesn't send a confirmation email to the user", with_truncation: true do
+        mail = email_by_subject t('devise.mailer.confirmation_instructions.subject')
+        mail.should be_nil
+      end
+
+      it "doesn't send an email to the admins", with_truncation: true do
+        mail = email_by_subject t('admin_mailer.new_user_waiting_for_approval.subject')
+        mail.should be_nil
       end
 
       context "shows the pending approval page" do

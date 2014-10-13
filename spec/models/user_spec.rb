@@ -664,10 +664,12 @@ describe User do
       end
 
       context '#send_admin_approval_mail' do
-        before { @user = FactoryGirl.create(:user, :approved => false) }
+        let!(:admin2) { FactoryGirl.create(:user, superuser: true, approved: true) }
+        let!(:user) { FactoryGirl.create(:user, :approved => false) }
 
-        it { AdminMailer.should have_queue_size_of(1) }
-        it { AdminMailer.should have_queued(:new_user_waiting_for_approval, admin.id, @user.id) }
+        it { AdminMailer.should have_queue_size_of_at_least(2) }
+        it { AdminMailer.should have_queued(:new_user_waiting_for_approval, admin.id, user.id) }
+        it { AdminMailer.should have_queued(:new_user_waiting_for_approval, admin2.id, user.id) }
       end
 
       context '#send_user_approved_mail' do

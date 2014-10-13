@@ -90,4 +90,11 @@ module FeatureHelpers
     ActionMailer::Base.deliveries.last
   end
 
+  def email_by_subject(subject)
+    ActionMailer::Base.deliveries.each do |mail|
+      return mail if mail.subject.match(subject)
+    end
+    nil
+  end
+
 end
