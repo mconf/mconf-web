@@ -42,6 +42,13 @@ pt-br:
       deleted: uma comunidade que não existe mais
       leave_html: deixou de ser um membro da comunidade
       update_html: atualizou os dados da comunidade
+  admins:
+    accesss_forbidden: "Esta operação está disponível apenas para administradores"
+    new_user:
+      title: "Adicionar Usuário"
+    user:
+      created: "Usuário criado, confirmado e já aprovado"
+      error: "Erro ao criar o novo usuário"
   _js:
     confirmation_dialog:
       cancel: "Cancelar"
@@ -975,6 +982,7 @@ pt-br:
     users:
       filter_name_or_username: "Nome, identificador ou e-mail"
       filter_results: "Filtrar os resultados:"
+      new_user: "Adicionar Usuário"
     users_list:
       filter_count_with_text: "%{count} usuários encontrados para o filtro \"%{value}\""
       filter_count_empty: "%{count} usuários encontrados"

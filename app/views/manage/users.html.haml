@@ -2,8 +2,10 @@
 
 #manage
   .page-tabs.page-tabs-full
-    %label{ :for => 'users_filter_text' }= t('.filter_results')
-    = text_field_tag :users_filter_text, params[:q], :placeholder => t('.filter_name_or_username'), :'data-load-url' => manage_users_path(:partial => 1), :'data-target' => '#users-list', :'data-filter' => '#filter-total', :class => 'resource-filter'
+    .new-user{:style => "float: left"}
+      = link_to t('.new_user'), admin_new_user_path, class: 'open-modal btn btn-primary'
+    %label{ for: 'users_filter_text' }= t('.filter_results')
+    = text_field_tag :users_filter_text, params[:q], placeholder: t('.filter_name_or_username'), 'data-load-url' =>  manage_users_path(partial: 1), :'data-target' => '#users-list', :'data-filter' => '#filter-total', class: 'resource-filter'
 
   #users-list
-    = render :partial => 'users_list', :locals => { :users => @users }
+    = render partial: 'users_list', locals: { :users => @users }

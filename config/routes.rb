@@ -152,6 +152,10 @@ Mconf::Application.routes.draw do
     end
   end
 
+  # Routes specific to let admins create new users
+  get 'admins/new_user', to: 'admins#new_user', as: :admin_new_user
+  post 'admins/create_user', to: 'admins#create_user', as: :admin_create_user
+
   # Routes specific for the current user
   get '/home', to: 'my#home', as: 'my_home'
   get '/activity', to: 'my#activity', as: 'my_activity'
