@@ -4,7 +4,7 @@ class AdminsController < ApplicationController
 
   def handle_access_denied exception
     if user_signed_in?
-      flash[:error] = t('admins.accesss_forbidden')
+      flash[:error] = t('admins.access_forbidden')
     end
     redirect_to root_path
   end

@@ -43,12 +43,12 @@ en:
       leave_html: has left the space
       update_html: updated info on space
   admins:
-    accesss_forbidden: "This operation is only available to administrators"
+    access_forbidden: "This operation is only available to administrators"
     new_user:
       title: "Add User"
     user:
       created: "User created, confirmed and approved already"
-      error: "Error while create the new user"
+      error: "Error(s) while create the new user"
   _js:
     confirmation_dialog:
       cancel: "Cancel"

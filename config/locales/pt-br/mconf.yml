@@ -43,12 +43,12 @@ pt-br:
       leave_html: deixou de ser um membro da comunidade
       update_html: atualizou os dados da comunidade
   admins:
-    accesss_forbidden: "Esta operação está disponível apenas para administradores"
+    access_forbidden: "Esta operação está disponível apenas para administradores"
     new_user:
       title: "Adicionar Usuário"
     user:
       created: "Usuário criado, confirmado e já aprovado"
-      error: "Erro ao criar o novo usuário"
+      error: "Erro(s) ao criar o novo usuário"
   _js:
     confirmation_dialog:
       cancel: "Cancelar"
