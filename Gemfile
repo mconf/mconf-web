@@ -135,6 +135,3 @@ group :test do
   gem 'resque_spec'
   gem 'database_cleaner'
 end
-
-# rails 3 compatibility
-gem 'rails-observers'
