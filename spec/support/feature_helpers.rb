@@ -52,12 +52,13 @@ module FeatureHelpers
 
   def register_with(attrs)
     name = attrs[:username] || (attrs[:_full_name].downcase.gsub(/\s/, '-') if attrs[:_full_name])
+    password_confirmation = attrs[:password_confirmation] || attrs[:password]
     visit register_path
     fill_in "user[email]", with: attrs[:email]
     fill_in "user[_full_name]", with: attrs[:_full_name]
     fill_in "user[username]", with: name
     fill_in "user[password]", with: attrs[:password]
-    fill_in "user[password_confirmation]", with: attrs[:password]
+    fill_in "user[password_confirmation]", with: password_confirmation
     click_button I18n.t("registrations.signup_form.register")
   end
 
@@ -75,6 +76,15 @@ module FeatureHelpers
     error_css = '#notification-flashs > div[name=alert],div[name=error]'
     page.should have_css(error_css)
     page.find(error_css).should have_content(message)
+  end
+
+  # Verifies that an input field has an error in it (for simple_form fields).
+  # `field_class` is the class added to the field, such as "user_name" or
+  # "space_description".
+  def has_field_with_error field_class
+    finder = ".#{field_class}.field_with_errors .error"
+    page.should have_css(finder)
+    page.find(finder).should be_visible
   end
 
   def have_notification(text)
