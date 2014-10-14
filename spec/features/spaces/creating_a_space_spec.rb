@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 require "spec_helper"
 require "support/feature_helpers"
 
@@ -120,6 +121,17 @@ feature "Creating a space" do
 
     current_path.should eq(spaces_path)
     has_field_with_error "space_permalink"
+  end
+
+  # Skipping because with_js is not working properly yet
+  skip "generates a valid suggestion for the identifier", with_js: true do
+    login_as(user, :scope => :user)
+
+    visit new_space_path
+    fill_in "space[name]", with: "Mr. Pink-man's #1 (5% of tries = WIN, \"haha\"): áéíôü"
+
+    expected = "mr-pink-mans-1-5-of-tries-win-haha-aeiou"
+    find_field('space[permalink]').value.should eql(expected)
   end
 
 end

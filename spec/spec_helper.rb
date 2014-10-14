@@ -68,23 +68,31 @@ RSpec.configure do |config|
     Devise.mailer_sender = Site.current.smtp_sender
   end
 
-  config.before(:each) do
+  config.before(:each) do |example|
     ResqueSpec.reset!
     ActionMailer::Base.deliveries.clear
     Helpers.setup_site
+    Capybara.current_driver = :webkit if example.metadata[:with_js]
   end
 
   config.around(:each) do |example|
     # use :transaction for all, unless explicitly defined that it needs :truncation
-    DatabaseCleaner.strategy = example.metadata[:with_truncation] ? :truncation : :transaction
+    # :js tests (capybara-webkit) also will only work with :truncation
+    use_truncation = example.metadata[:with_truncation] || example.metadata[:with_js]
+
+    if use_truncation
+      DatabaseCleaner.strategy = :truncation
+    else
+      DatabaseCleaner.strategy = :transaction
+    end
 
     DatabaseCleaner.start
     example.run
     DatabaseCleaner.clean
 
-    # db/seeds prints a lot of things to the console with puts, so we suppress it
-    silence_stream(STDOUT) do
-      if example.metadata[:with_truncation]
+    if use_truncation
+      # db/seeds prints a lot of things to the console with puts, so we suppress it
+      silence_stream(STDOUT) do
         load Rails.root + "db/seeds.rb"
       end
     end
@@ -93,6 +101,7 @@ RSpec.configure do |config|
   end
 
   config.after(:each) do
+    Capybara.use_default_driver
     if Rails.env.test?
       FileUtils.rm_rf(Dir["#{Rails.root}/spec/support/uploads"])
     end

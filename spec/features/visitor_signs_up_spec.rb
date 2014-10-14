@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 require 'spec_helper'
 require 'support/feature_helpers'
 
@@ -109,6 +110,15 @@ feature 'Visitor signs up' do
     click_link I18n.t('locales.en')
 
     current_path.should eq(register_path)
+  end
+
+  # Skipping because with_js is not working properly yet
+  skip "generates a valid suggestion for the identifier", with_js: true do
+    visit register_path
+    fill_in "user[_full_name]", with: "Mr. Pink-man's #1 (5% of tries = WIN, \"haha\"): áéíôü"
+
+    expected = "mr-pink-mans-1-5-of-tries-win-haha-aeiou"
+    find_field('user[username]').value.should eql(expected)
   end
 
 end

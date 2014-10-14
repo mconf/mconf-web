@@ -123,6 +123,7 @@ group :development, :test do
   gem 'sqlite3'
   gem 'webrat'
   gem 'capybara'
+  gem "capybara-webkit"
   gem 'launchy'
   gem 'shoulda-matchers', '~> 2.6.1', :require => false
   gem 'shoulda-kept-assign-to'
