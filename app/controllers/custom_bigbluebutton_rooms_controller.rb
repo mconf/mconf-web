@@ -24,6 +24,9 @@ class CustomBigbluebuttonRoomsController < Bigbluebutton::RoomsController
   before_filter :check_redirect_to_invite, :only => [:invite_userid]
   before_filter :check_redirect_to_invite_userid, :only => [:invite]
 
+  # don't let users join if the room's limit was exceeded
+  before_filter :check_user_limit, :only => [:join]
+
   layout :determine_layout
 
   def determine_layout
@@ -155,6 +158,23 @@ class CustomBigbluebuttonRoomsController < Bigbluebutton::RoomsController
     true
   rescue
     false
+  end
+
+  # Redirects the user elsewhere if the room exceeds the user limit defined in the room.
+  # This check won't be made when the room is being created.
+  # Note: Solves the problem but it's not perfect. Has concurrency problems if users try to join
+  # simultaneously, before the webconf server has updated the number of participants to return
+  # in the API. Ideally BBB should enforce max_participants is respected.
+  def check_user_limit
+    user_limit = @room.max_participants
+
+    if user_limit.present? && @room.is_running?
+      meeting = @room.fetch_meeting_info
+      if meeting[:participantCount] >= user_limit
+        flash[:error] = t('custom_bigbluebutton_rooms.join.user_limit_exceeded')
+        redirect_to request.referer
+      end
+    end
   end
 
   # For cancan create load_and_authorize

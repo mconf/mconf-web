@@ -299,99 +299,261 @@ describe CustomBigbluebuttonRoomsController do
     for method in [:get, :post]
       context "via #{method}" do
 
-        context "via GET" do
-          context "fetches information about the room when calling #join" do
-            let(:user) { FactoryGirl.create(:user) }
-            let(:room) { user.bigbluebutton_room }
+        context "fetches information about the room when calling #join" do
+          let(:user) { FactoryGirl.create(:user) }
+          let(:room) { user.bigbluebutton_room }
+          before {
+            login_as(user)
+            BigbluebuttonRoom.stub(:find_by_param) { room }
+          }
+
+          context "when a meeting is running" do
             before {
-              login_as(user)
-              BigbluebuttonRoom.stub(:find_by_param) { room }
-            }
-
-            context "when a meeting is running" do
-              before {
-                room.stub(:is_running?) { true }
-                room.should_receive(:fetch_is_running?).at_least(:once) { true }
-                room.should_receive(:fetch_meeting_info)
-              }
-              it { send(method, :join, :id => room.to_param) }
-            end
-
-            context "when no meeting is running" do
-              before {
-                room.stub(:is_running?) { false }
-                room.should_receive(:fetch_is_running?).at_least(:once) { false }
-                room.should_not_receive(:fetch_meeting_info)
-              }
-              it { send(method, :join, :id => room.to_param) }
-            end
-          end
-
-          # important to check this because join runs methods such as ApplicationController.bigbluebutton_role
-          # that need the information fetch in the before filters
-          context "#join is called with the same @room that we fetched information from" do
-            let(:user) { FactoryGirl.create(:user) }
-            let(:room) { user.bigbluebutton_room }
-            before {
-              login_as(user)
-              BigbluebuttonRoom.should_receive(:find_by_param).once { room }
-              controller.should_receive(:bigbluebutton_role).with(room) { :moderator }
               room.stub(:is_running?) { true }
               room.should_receive(:fetch_is_running?).at_least(:once) { true }
-              room.should_receive(:fetch_meeting_info).once {
-                room.running = true
-                room.participant_count = 4
-              }
+              room.should_receive(:fetch_meeting_info)
             }
-            before(:each) { send(method, :join, :id => room.to_param) }
-            it { should assign_to(:room).with(room) }
-            it { assigns(:room).running.should be true }
-            it { assigns(:room).participant_count.should be 4 }
+            it { send(method, :join, :id => room.to_param) }
           end
 
-          context "when submitting the moderator password" do
+          context "when no meeting is running" do
+            before {
+              room.stub(:is_running?) { false }
+              room.should_receive(:fetch_is_running?).at_least(:once) { false }
+              room.should_not_receive(:fetch_meeting_info)
+            }
+            it { send(method, :join, :id => room.to_param) }
+          end
+        end
+
+        # important to check this because join runs methods such as ApplicationController.bigbluebutton_role
+        # that need the information fetch in the before filters
+        context "#join is called with the same @room that we fetched information from" do
+          let(:user) { FactoryGirl.create(:user) }
+          let(:room) { user.bigbluebutton_room }
+          before {
+            login_as(user)
+            BigbluebuttonRoom.should_receive(:find_by_param).once { room }
+            controller.should_receive(:bigbluebutton_role).with(room) { :moderator }
+            room.stub(:is_running?) { true }
+            room.should_receive(:fetch_is_running?).at_least(:once) { true }
+            room.should_receive(:fetch_meeting_info).once {
+              room.running = true
+              room.participant_count = 4
+            }
+          }
+          before(:each) { send(method, :join, :id => room.to_param) }
+          it { should assign_to(:room).with(room) }
+          it { assigns(:room).running.should be true }
+          it { assigns(:room).participant_count.should be 4 }
+        end
+
+        context "when submitting the moderator password" do
+          let(:user) { FactoryGirl.create(:user) }
+          let(:room) { user.bigbluebutton_room }
+          let(:server) { room.server }
+
+          context "creates the room if the current user is the owner" do
+            before :each do
+              login_as(user)
+              request.env["HTTP_REFERER"] = "/any"
+              BigbluebuttonRoom.stub(:find_by_param) { room }
+
+              # to guide the behavior of #join, copied from the tests in BigbluebuttonRails
+              room.should_receive(:fetch_is_running?).at_least(:once).and_return(false)
+              room.should_receive(:create_meeting).with(user, anything, anything)
+              room.should_receive(:fetch_new_token)
+              room.should_receive(:join_url).and_return("http://test.com/attendee/join")
+            end
+            before(:each) { send(method, :join, :id => room.to_param, :user => { :key => room.moderator_key, :name => "Any Name" }) }
+            it { should respond_with(:redirect) }
+            it { should redirect_to("http://test.com/attendee/join") }
+          end
+
+          # to make sure a user can't create a meeting in a room simply by submitting the
+          # moderator password; he needs permissions on the room as well
+          context "doesn't create the room if the current user is not the owner" do
+            before :each do
+              another_user = FactoryGirl.create(:user)
+              login_as(another_user)
+              request.env["HTTP_REFERER"] = "/any"
+              BigbluebuttonRoom.stub(:find_by_param) { room }
+              BigbluebuttonRoom.any_instance.stub(:fetch_is_running?) { false }
+
+              # to guide the behavior of #join, copied from the tests in BigbluebuttonRails
+              server.api.stub(:is_meeting_running?) { false }
+            end
+            before(:each) { send(method, :join, :id => room.to_param, :user => { :key => room.moderator_key, :name => "Any Name" }) }
+            it { should respond_with(:redirect) }
+            it { should redirect_to("/any") }
+            it { should set_the_flash.to(I18n.t('bigbluebutton_rails.rooms.errors.join.cannot_create')) }
+          end
+        end
+
+        describe "checks the maximum number of participants" do
+          let!(:join_url) { "http://test.com/attendee/join" }
+
+          describe "for a user's room" do
             let(:user) { FactoryGirl.create(:user) }
             let(:room) { user.bigbluebutton_room }
-            let(:server) { room.server }
+            let(:another_user) { FactoryGirl.create(:user) }
+            let(:referer) { "/back" }
 
-            context "creates the room if the current user is the owner" do
-              before :each do
-                login_as(user)
-                request.env["HTTP_REFERER"] = "/any"
-                BigbluebuttonRoom.stub(:find_by_param) { room }
-
-                # to guide the behavior of #join, copied from the tests in BigbluebuttonRails
-                room.should_receive(:fetch_is_running?).at_least(:once).and_return(false)
-                room.should_receive(:create_meeting).with(user, anything, anything)
-                room.should_receive(:fetch_new_token)
-                room.should_receive(:join_url).and_return("http://test.com/attendee/join")
-              end
-              before(:each) { send(method, :join, :id => room.to_param, :user => { :key => room.moderator_key, :name => "Any Name" }) }
-              it { should respond_with(:redirect) }
-              it { should redirect_to("http://test.com/attendee/join") }
+            before do
+              request.env["HTTP_REFERER"] = referer
+              BigbluebuttonRoom.stub(:find_by_param) { room }
             end
 
-            # to make sure a user can't create a meeting in a room simply by submitting the
-            # moderator password; he needs permissions on the room as well
-            context "doesn't create the room if the current user is not the owner" do
-              before :each do
-                another_user = FactoryGirl.create(:user)
-                login_as(another_user)
-                request.env["HTTP_REFERER"] = "/any"
-                BigbluebuttonRoom.stub(:find_by_param) { room }
-                BigbluebuttonRoom.any_instance.stub(:fetch_is_running?) { false }
-
-                # to guide the behavior of #join, copied from the tests in BigbluebuttonRails
-                server.api.stub(:is_meeting_running?) { false }
+            context "doesn't check the limit when creating the room" do
+              before do
+                login_as(user)
+                room.update_attributes({ max_participants: 0 })
+                room.stub(:fetch_is_running?).and_return(false)
+                room.stub(:is_running?).and_return(false)
+                room.should_receive(:create_meeting).at_most(:once).with(user, anything, anything)
+                room.should_receive(:join_url).at_most(:once).and_return(join_url)
               end
-              before(:each) { send(method, :join, :id => room.to_param, :user => { :key => room.moderator_key, :name => "Any Name" }) }
+              before(:each) {
+                send method, :join, :id => room.to_param
+              }
+
               it { should respond_with(:redirect) }
-              it { should redirect_to("/any") }
-              it { should set_the_flash.to(I18n.t('bigbluebutton_rails.rooms.errors.join.cannot_create')) }
+              it { should redirect_to(join_url) }
+            end
+
+            context "allows the user to join if there are still spots left" do
+              before do
+                login_as(another_user)
+                room.update_attributes({ max_participants: 2 })
+                room.stub(:fetch_is_running?).and_return(true)
+                room.stub(:is_running?).and_return(true)
+                room.stub(:fetch_meeting_info).and_return({ participantCount: 1 })
+                room.should_receive(:join_url).at_most(:once).and_return(join_url)
+              end
+              before(:each) {
+                send(method, :join, :id => room.to_param, :user => { key: room.moderator_key, name: "Any" })
+              }
+
+              it { should respond_with(:redirect) }
+              it { should redirect_to(join_url) }
+            end
+
+            context "blocks the user from joining if the limit was reached" do
+              before do
+                login_as(another_user)
+                room.update_attributes({ max_participants: 2 })
+                room.stub(:fetch_is_running?).and_return(true)
+                room.stub(:is_running?).and_return(true)
+                room.stub(:fetch_meeting_info).and_return({ participantCount: 2 })
+              end
+              before(:each) {
+                send(method, :join, :id => room.to_param, :user => { key: room.moderator_key, name: "Any" })
+              }
+
+              it { should redirect_to referer }
+              it { should set_the_flash.to(I18n.t("custom_bigbluebutton_rooms.join.user_limit_exceeded")) }
+            end
+
+            context "ignores the limit if it's not defined" do
+              before do
+                login_as(another_user)
+                room.update_attributes({ max_participants: nil })
+                room.stub(:fetch_is_running?).and_return(true)
+                room.stub(:is_running?).and_return(true)
+                room.stub(:fetch_meeting_info).and_return({ participantCount: 999 })
+                room.should_receive(:join_url).at_most(:once).and_return(join_url)
+              end
+              before(:each) {
+                send(method, :join, :id => room.to_param, :user => { key: room.moderator_key, name: "Any" })
+              }
+
+              it { should respond_with(:redirect) }
+              it { should redirect_to(join_url) }
             end
           end
 
+          describe "for a space's room" do
+            let(:user) { FactoryGirl.create(:user) }
+            let(:space) { FactoryGirl.create(:space) }
+            let(:room) { space.bigbluebutton_room }
+            let(:another_user) { FactoryGirl.create(:user) }
+            let(:referer) { "/back" }
+
+            before do
+              request.env["HTTP_REFERER"] = referer
+              BigbluebuttonRoom.stub(:find_by_param) { room }
+              space.add_member!(user, 'Admin')
+            end
+
+            context "doesn't check the limit when creating the room" do
+              before do
+                login_as(user)
+                room.update_attributes({ max_participants: 0 })
+                room.stub(:fetch_is_running?).and_return(false)
+                room.stub(:is_running?).and_return(false)
+                room.should_receive(:create_meeting).at_most(:once).with(user, anything, anything)
+                room.should_receive(:join_url).at_most(:once).and_return(join_url)
+              end
+              before(:each) {
+                send method, :join, :id => room.to_param
+              }
+
+              it { should respond_with(:redirect) }
+              it { should redirect_to(join_url) }
+            end
+
+            context "allows the user to join if there are still spots left" do
+              before do
+                login_as(another_user)
+                room.update_attributes({ max_participants: 2 })
+                room.stub(:fetch_is_running?).and_return(true)
+                room.stub(:is_running?).and_return(true)
+                room.stub(:fetch_meeting_info).and_return({ participantCount: 1 })
+                room.should_receive(:join_url).at_most(:once).and_return(join_url)
+              end
+              before(:each) {
+                send(method, :join, :id => room.to_param, :user => { key: room.moderator_key, name: "Any" })
+              }
+
+              it { should respond_with(:redirect) }
+              it { should redirect_to(join_url) }
+            end
+
+            context "blocks the user from joining if the limit was reached" do
+              before do
+                login_as(another_user)
+                room.update_attributes({ max_participants: 2 })
+                room.stub(:fetch_is_running?).and_return(true)
+                room.stub(:is_running?).and_return(true)
+                room.stub(:fetch_meeting_info).and_return({ participantCount: 2 })
+              end
+              before(:each) {
+                send(method, :join, :id => room.to_param, :user => { key: room.moderator_key, name: "Any" })
+              }
+
+              it { should redirect_to referer }
+              it { should set_the_flash.to(I18n.t("custom_bigbluebutton_rooms.join.user_limit_exceeded")) }
+            end
+
+            context "ignores the limit if it's not defined" do
+              before do
+                login_as(another_user)
+                room.update_attributes({ max_participants: nil })
+                room.stub(:fetch_is_running?).and_return(true)
+                room.stub(:is_running?).and_return(true)
+                room.stub(:fetch_meeting_info).and_return({ participantCount: 999 })
+                room.should_receive(:join_url).at_most(:once).and_return(join_url)
+              end
+              before(:each) {
+                send(method, :join, :id => room.to_param, :user => { key: room.moderator_key, name: "Any" })
+              }
+
+              it { should respond_with(:redirect) }
+              it { should redirect_to(join_url) }
+            end
+          end
         end
+
       end
 
     end
