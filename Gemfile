@@ -111,6 +111,7 @@ group :development do
   gem 'binding_of_caller'
   gem 'webrick', '~> 1.3.1'
   gem 'quiet_assets'
+  gem 'brakeman', :require => false
 end
 
 group :development, :test do
