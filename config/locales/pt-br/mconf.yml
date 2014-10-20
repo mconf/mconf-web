@@ -1289,10 +1289,10 @@ pt-br:
       duration: 
         one: "Duração"
         other: " Duração de cada tipo de reprodução"
-      ended_at: "Finalizada em"
     recording_list:
       created: "Criada"
       created_by: "Criada por"
+      ended_at: "Finalizada em"
       no_description: "<nenhuma descrição especificada>"
       no_recordings: "Sua sala de webconferência ainda não possui gravações"
       no_title: "<nenhum título especificado>"

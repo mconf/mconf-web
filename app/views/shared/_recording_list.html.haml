@@ -37,11 +37,8 @@
                 = t('updated_time_ago', time: time_ago_in_words(recording.created_at, vague: true))
 
             .thread-subtitle
-              .recording-date
+              .recording-date{ :title => "#{t('.ended_at')}: #{recording.end_time}" }
                 = t('.started_at') + ": #{format_date(recording.start_time)}"
-
-            .thread-subtitle
-              = render :partial => 'shared/recording_duration', :locals => { :recording => recording }
 
             - if show_authors
               .thread-subtitle

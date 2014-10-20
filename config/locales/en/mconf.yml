@@ -1289,10 +1289,10 @@ en:
       duration: 
         one: "Duration"
         other: "Duration of each playback type"
-      ended_at: "Ended at"
     recording_list:
       created: "Created"
       created_by: "Created by"
+      ended_at: "Ended at"
       no_description: "<no description specified>"
       no_recordings: "Your web conference room has no recordings yet"
       no_title: "<no title specified>"

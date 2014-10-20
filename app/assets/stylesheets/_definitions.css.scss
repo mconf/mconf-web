@@ -230,3 +230,9 @@ $mail-font-size: $font-normal;
     }
   }
 }
+
+@mixin small-date {
+  color: #666;
+  font-weight: normal;
+  @include font-size($font-small);
+}

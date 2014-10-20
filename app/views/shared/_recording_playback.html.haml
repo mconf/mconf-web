@@ -1,12 +1,17 @@
-%span= t('.playback') + ':'
-- unless recording.available
-  %span.playback-unavailable= t('.unavailable')
-  = icon_help(t('.unavailable_tip'))
+- if recording.available
+  %ul.thread-recording-playback
+    %li
+      %span.playback-unavailable= t('.unavailable')
+      = icon_help(t('.unavailable_tip'))
 - else
   - if recording.playback_formats.size > 0
-    = icon_playback
-    - recording.playback_formats.each do |playback|
-      = link_to playback.format_type, playback.url, :class => 'playback-link open-new-window'
+    %ul.thread-recording-playback
+      - recording.playback_formats.each do |playback|
+        %li
+          = link_to playback.format_type, playback.url, :class => 'playback-link open-new-window'
+          %span.small-date= "(#{distance_of_time(playback.length*60)})"
   - else
-    %span.playback-processing= t('.processing_dots')
-    = icon_help(t('.processing_tip'))
+    %ul.thread-recording-playback
+      %li
+        %span.thread-playback-processing= t('.processing_dots')
+        = icon_help(t('.processing_tip'))

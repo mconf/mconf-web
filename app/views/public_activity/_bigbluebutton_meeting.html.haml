@@ -29,8 +29,4 @@
   - unless meeting.nil? or meeting.recording.nil?
     - recording = meeting.recording
     .thread-subtitle.thread-subtitle-nested
-      = icon_nested_child
       = render :partial => 'shared/recording_playback', :locals => { :recording => recording }
-    .thread-subtitle.thread-subtitle-nested
-      = icon_nested_child
-      = render :partial => 'shared/recording_duration', :locals => { :recording => recording }
