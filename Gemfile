@@ -91,7 +91,7 @@ gem 'exception_notification', '~> 4.0.0'
 # generate .ics
 gem 'icalendar'
 
-# More precise distance_of_time_in_words
+# More precise distance_of_time_in_words and time_ago_in_words
 gem 'dotiw'
 
 #

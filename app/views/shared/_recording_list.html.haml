@@ -34,7 +34,7 @@
                 %span.recording-description= recording.description
               .thread-updated-at
                 = t('.created')
-                = t('updated_time_ago', :time => time_ago_in_words(recording.created_at))
+                = t('updated_time_ago', time: time_ago_in_words(recording.created_at, vague: true))
 
             .thread-subtitle
               .recording-date

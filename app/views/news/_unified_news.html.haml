@@ -13,7 +13,7 @@
         = link_to sanitize(news.title), space_path(news.space)
         = t('date.at')
         = link_to news.space.name, space_path(news.space)
-        %span.thread-updated-at= t('updated_time_ago', :time => time_ago_in_words(news.updated_at))
+        %span.thread-updated-at= t('updated_time_ago', :time => time_ago_in_words(news.updated_at, vague: true))
       .thread-text
         - if news.text.size < 200
           = sanitize(auto_link(news.text))
