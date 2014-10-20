@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140831235219) do
+ActiveRecord::Schema.define(version: 20141020195737) do
 
   create_table "activities", force: true do |t|
     t.integer  "trackable_id"
@@ -70,9 +70,16 @@ ActiveRecord::Schema.define(version: 20140831235219) do
 
   create_table "bigbluebutton_playback_formats", force: true do |t|
     t.integer  "recording_id"
-    t.string   "format_type"
     t.string   "url"
     t.integer  "length"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "playback_type_id"
+  end
+
+  create_table "bigbluebutton_playback_types", force: true do |t|
+    t.string   "identifier"
+    t.boolean  "visible",    default: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

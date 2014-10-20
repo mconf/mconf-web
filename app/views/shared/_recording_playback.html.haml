@@ -8,8 +8,8 @@
     %ul.thread-recording-playback
       - recording.playback_formats.each do |playback|
         %li
-          = link_to playback.format_type, playback.url, :class => 'playback-link open-new-window'
-          %span.small-date= "(#{distance_of_time(playback.length*60)})"
+          = link_to playback.name, playback.url, :class => 'playback-link open-new-window'
+          %span.small-date= "(#{distance_of_time(playback.length_in_secs)})"
   - else
     %ul.thread-recording-playback
       %li

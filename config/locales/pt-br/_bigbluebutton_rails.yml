@@ -59,6 +59,13 @@ pt-br:
     metadata:
       errors:
         name_format: "pode utilizar apenas letras, números e os símbolos \"-\" ou \"_\", mas apenas letras no início"
+    playback_types:
+      notice:
+        update:
+          success: "Formato de reprodução atualizado com sucesso."
+      presentation: "Reproduzir"
+      presentation_export: "Download HTML"
+      presentation_video: "Download"
     recordings:
       default:
         description: "Reunião realizada em %{time} (UTC)"

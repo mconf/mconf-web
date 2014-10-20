@@ -59,6 +59,13 @@ en:
     metadata:
       errors:
         name_format: "can only use letters, numbers and the symbols \"-\" or \"_\", but only letters at the beginning"
+    playback_types:
+      notice:
+        update:
+          success: "The playback type was successfully updated."
+      presentation: "Play"
+      presentation_export: "Download HTML"
+      presentation_video: "Download"
     recordings:
       default:
         description: "Meeting held on %{time} (UTC)"
