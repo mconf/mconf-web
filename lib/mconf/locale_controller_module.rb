@@ -54,7 +54,7 @@ module Mconf
 
     # Returns true if the locale is available.
     def locale_available?(locale)
-      configatron.i18n.default_locales.include?(locale.to_sym)
+      I18n.locale_available? locale
     end
   end
 end

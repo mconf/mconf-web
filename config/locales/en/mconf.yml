@@ -877,6 +877,7 @@ en:
   locales: 
     en: English
     pt-br: "Português (Brasil)"
+    error: "Locale not registered"
   login_or_register: "Login / Register"
   login_request: "You need to be logged in to "
   logo: 
