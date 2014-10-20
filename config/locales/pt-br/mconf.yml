@@ -462,7 +462,7 @@ pt-br:
     invite:
       field_name: "Você está entrando na conferência como"
       field_password: "Chave de acesso desta conferência"
-      title: "Acessar sala: <em>%{name}</em>"
+      title: "Acessar sala: %{name}"
     invite_header: 
       not_running: "não iniciada"
       refresh: "Esta informação é atualizada automaticamente"
@@ -484,7 +484,9 @@ pt-br:
         name: "Seu nome completo"
         next: "Próximo"
         title: "Eu não possuo uma conta, quero entrar como convidado"
-      title: "Acessar sala: <em>%{name}</em>"
+      title: "Acessar sala: %{name}"
+    join:
+      user_limit_exceeded: "Esta conferência chegou ao seu limite de usuários. Contate o responsável pela conferência para mais detalhes."
     join_mobile:
       click_to_download_android: "Clique aqui para baixar o cliente Android"
       click_to_download_ios: "Clique aqui para baixar o cliente Apple iOS (iPad, iPhone)"
@@ -597,7 +599,7 @@ pt-br:
         welcome: "Bem-vindo %{email}!"
     registrations:
       not_enabled: 'O registro de novas contas não está habilitado neste site.'
-      signed_up_but_not_approved: 'Seu registro foi efetuado com sucesso! Você agora precisa ter sua conta aprovada por um administrador para acessar o site, por favor aguarde.'
+      signed_up_but_not_approved: ''
     shared:
       links:
         login:
@@ -875,6 +877,7 @@ pt-br:
   locales:
     en: English
     pt-br: "Português (Brasil)"
+    error: "Linguagem não resgistrada"
   login_or_register: "Login / Registre-se"
   login_request: "Você precisa estar logado para"
   logo:
@@ -974,6 +977,12 @@ pt-br:
   more: mais...
   more_arrows: "mais >>"
   my:
+    approval_pending:
+      title: Aprovação pendente
+      description: Seu cadastro foi efetivado com sucesso e submetido a aprovação do administrador responsável por validar o seu acesso. Assim que seu cadastro for aprovado você será comunicado.
+      interesting_links: "Enquanto isto você pode explorar estas seções abertas do site:"
+      events_list: lista de eventos
+      spaces_list: lista de comunidades
     page_header:
       activity_list: "Atividades recentes"
     home:

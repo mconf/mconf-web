@@ -70,10 +70,10 @@ gem 'configatron', '~> 2.13.0'
 gem 'less-rails'
 gem 'twitter-bootstrap-rails', '~> 2.2.8'
 # datetime picker for bootstrap
-gem 'bootstrap-datetimepicker-rails'
+gem 'bootstrap3-datetimepicker-rails', '~> 3.1.3'
 
 # moment.js for dates
-gem 'momentjs-rails'
+gem 'momentjs-rails', '>= 2.8.1'
 
 # font-awesome (recommended to be here, not in the assets group)
 gem 'font-awesome-rails', '~> 4.1.0.0'
@@ -114,6 +114,7 @@ group :development do
   gem 'binding_of_caller'
   gem 'webrick', '~> 1.3.1'
   gem 'quiet_assets'
+  gem 'brakeman', :require => false
 end
 
 group :development, :test do
@@ -126,6 +127,7 @@ group :development, :test do
   gem 'sqlite3'
   gem 'webrat'
   gem 'capybara'
+  gem "capybara-webkit"
   gem 'launchy'
   gem 'shoulda-matchers', '~> 2.6.1', :require => false
   gem 'shoulda-kept-assign-to'
@@ -138,6 +140,3 @@ group :test do
   gem 'resque_spec'
   gem 'database_cleaner'
 end
-
-# rails 3 compatibility
-gem 'rails-observers'

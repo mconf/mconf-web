@@ -12,15 +12,35 @@ describe Devise::Strategies::LdapAuthenticatable do
   before { target.stub(:session).and_return({}) }
 
   describe "#valid?" do
-    context "if ldap_enabled?" do
-      before { Site.current.update_attributes(:ldap_enabled => true) }
-      it { target.valid?.should be_truthy }
+
+    context "when in the sessions controller" do
+      before { target.stub(:params).and_return({ controller: "sessions" }) }
+
+      context "if ldap_enabled?" do
+        before { Site.current.update_attributes(:ldap_enabled => true) }
+        it { target.valid?.should be true }
+      end
+
+      context "if not ldap_enabled?" do
+        before { Site.current.update_attributes(:ldap_enabled => false) }
+        it { target.valid?.should be false }
+      end
     end
 
-    context "if not ldap_enabled?" do
-      before { Site.current.update_attributes(:ldap_enabled => false) }
-      it { target.valid?.should be_falsey }
+    context "when in another controller" do
+      before { target.stub(:params).and_return({ controller: "registrations" }) }
+
+      context "if ldap_enabled?" do
+        before { Site.current.update_attributes(:ldap_enabled => true) }
+        it { target.valid?.should be false }
+      end
+
+      context "if not ldap_enabled?" do
+        before { Site.current.update_attributes(:ldap_enabled => false) }
+        it { target.valid?.should be false }
+      end
     end
+
   end
 
   describe "#authenticate!" do

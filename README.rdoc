@@ -1,4 +1,6 @@
-= Welcome to Mconf-web
+= Mconf-web {<img src="https://travis-ci.org/mconf/mconf-web.svg?branch=master" />}[https://travis-ci.org/mconf/mconf-web] {<img src="https://codeclimate.com/github/mconf/mconf-web/badges/gpa.svg" />}[https://codeclimate.com/github/mconf/mconf-web] {<img src="http://inch-ci.org/github/mconf/mconf-web.svg?branch=master" alt="Inline docs" />}[http://inch-ci.org/github/mconf/mconf-web]
+
+-----------------------------------------------
 
 Mconf-Web is the social network in the Mconf webconferencing system. It is currently a fork of VCC, and open source system that can be found {here}[https://github.com/ging/vcc].
 
@@ -13,7 +15,7 @@ Mconf-web is a web application that connects to a {BigBlueButton}[http://www.big
 * Each space also has a webconference room that its members can use to interact;
 * Events can be used to schedule web conferences.
 
-<b>For more details {read our wiki}[http://code.google.com/p/mconf/wiki/MconfWeb]</b>.
+<b>For more details {read our wiki}[https://github.com/mconf/mconf-web/wiki]</b>.
 
 == License
 

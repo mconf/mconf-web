@@ -7,7 +7,7 @@
 - else
   - url = bigbluebutton_recording_path(recording)
 
-= simple_form_for recording, :url => url, :html => { :class => 'form-horizontal single-column' } do |f|
+= simple_form_for recording, :url => url, :html => { :class => 'single-column' } do |f|
   - if !editing
     = f.input :id, :disabled => true
   = f.input :recordid, :disabled => !editing

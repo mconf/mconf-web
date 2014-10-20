@@ -20,6 +20,32 @@ describe BigbluebuttonMeeting do
     end
   end
 
+  context "after_create" do
+    let(:room) { FactoryGirl.create(:bigbluebutton_room) }
+
+    context "if the meeting is saved successfully creates an activity" do
+      before(:each) {
+        expect {
+          params = { :room => room, :meetingid => room.meetingid, :start_time => DateTime.now }
+          @meeting = BigbluebuttonMeeting.create(params)
+        }.to change{ PublicActivity::Activity.count }.by(1)
+      }
+      subject { PublicActivity::Activity.last }
+      it("sets #trackable") { subject.trackable.should eq(@meeting) }
+      it("sets #owner") { subject.owner.should eq(room) }
+      it("sets #key") { subject.key.should eq('bigbluebutton_meeting.create') }
+      it("doesn't set #recipient") { subject.recipient.should be_nil }
+    end
+
+    context "if the meeting has errors" do
+      it("doesn't create an activity") {
+        expect {
+          BigbluebuttonMeeting.create(:room => room)
+        }.not_to change{ PublicActivity::Activity.count }
+      }
+    end
+  end
+
   # This is a model from BigbluebuttonRails, but we have permissions set in cancan for it,
   # so we test them here.
   describe "abilities", :abilities => true do

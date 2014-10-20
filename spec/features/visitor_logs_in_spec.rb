@@ -213,6 +213,19 @@ feature 'Visitor logs in' do
       expect(current_path).to eq(my_home_path)
     end
 
+    scenario 'after the pending page (/pending)' do
+      Site.current.update_attributes(require_registration_approval: true)
+
+      attrs = FactoryGirl.attributes_for(:user)
+      register_with attrs
+      expect(current_path).to eq(my_approval_pending_path)
+
+      User.last.approve!
+
+      sign_in_with attrs[:email], attrs[:password]
+      expect(current_path).to eq(my_home_path)
+    end
+
     scenario 'from any xhr request' do
       skip
     end

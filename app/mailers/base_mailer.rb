@@ -58,22 +58,4 @@ class BaseMailer < ActionMailer::Base
     end
   end
 
-  def error_handler(message, error, action, args)
-    Rails.logger.error "Handling email error on #{self.class.name}"
-    case action
-    when "invitation_email"
-      invitation = Invitation.find_by_id(args[0])
-      if invitation.nil?
-        Rails.logger.error "Could not find the Invitation #{args[0]}, won't mark it as not sent"
-      else
-        # we just want to mark it as not sent, but raise the error afterwards
-        invitation.result = false
-        invitation.save!
-        raise error
-      end
-    else
-      raise error
-    end
-  end
-
 end

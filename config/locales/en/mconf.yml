@@ -462,7 +462,7 @@ en:
     invite:
       field_name: "You are joining as"
       field_password: "Enter the access key for this meeting"
-      title: "Join room: <em>%{name}</em>"
+      title: "Join room: %{name}"
     invite_header:
       not_running: "not running"
       refresh: "This information is updated automatically"
@@ -484,7 +484,9 @@ en:
         name: "Your full name"
         next: "Next"
         title: "I don't have an account, I will join this room as a guest"
-      title: "Join the room: <em>%{name}</em>"
+      title: "Join the room: %{name}"
+    join:
+      user_limit_exceeded: "This meeting has reached its limit of participants. Contact the person responsible for the meeting for more information."
     join_mobile:
       click_to_download_android: "Click here to download the Android client"
       click_to_download_ios: "Click here to download the Apple iOS (iPad, iPhone) client"
@@ -597,7 +599,7 @@ en:
         welcome: "Welcome %{email}!"
     registrations:
       not_enabled: "Registration of new accounts is not enabled in this website."
-      signed_up_but_not_approved: "You have signed up successfully! You account is now waiting to be approved by an administrator, please wait."
+      signed_up_but_not_approved: ""
     shared:
       links:
         login:
@@ -875,6 +877,7 @@ en:
   locales: 
     en: English
     pt-br: "Português (Brasil)"
+    error: "Locale not registered"
   login_or_register: "Login / Register"
   login_request: "You need to be logged in to "
   logo: 
@@ -974,6 +977,12 @@ en:
   more: more...
   more_arrows: "more >>"
   my:
+    approval_pending:
+      title: Pending approval
+      description: You have registered succesfully and your account was submitted to the approval of an administrator. You will be contacted when you account is approved.
+      interesting_links: "Meanwhile you can browse these open sections of the website:"
+      events_list: list of events
+      spaces_list: list of spaces
     page_header:
       activity_list: "Activity list"
     home:

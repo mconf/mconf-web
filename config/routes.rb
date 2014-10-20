@@ -147,6 +147,7 @@ Mconf::Application.routes.draw do
   get '/room/edit', :to => 'my#edit_room', :as => 'edit_my_room'
   get '/recordings', :to => 'my#recordings', :as => 'my_recordings'
   get '/recordings/:id/edit', :to => 'my#edit_recording', :as => 'edit_my_recording'
+  get '/pending', :to => 'my#approval_pending', :as => 'my_approval_pending'
 
   resources :messages, :controller => :private_messages, :except => [:edit]
 
