@@ -1285,10 +1285,6 @@ en:
     copy_modal:
       title: Press Ctrl+C to copy the text
       success: Text copied to clipboard
-    recording_duration:
-      duration: 
-        one: "Duration"
-        other: "Duration of each playback type"
     recording_list:
       created: "Created"
       created_by: "Created by"
