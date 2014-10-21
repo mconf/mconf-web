@@ -7,7 +7,7 @@
 - else
   - url = bigbluebutton_room_path(room)
 
-= simple_form_for room, :url => url, :html => { :class => 'form-horizontal single-column' } do |f|
+= simple_form_for room, :url => url, :html => { :class => 'single-column' } do |f|
   - if !editing
     = f.input :id, :disabled => true
   = f.input :server_id, :disabled => !editing
@@ -26,6 +26,7 @@
   = f.input :external, :as => :boolean, :disabled => !editing
   = f.input :record_meeting, :disabled => !editing
   = f.input :duration, :disabled => !editing
+  = f.input :max_participants, :disabled => !editing
   = f.input :param, :disabled => !editing
 
   - if editing

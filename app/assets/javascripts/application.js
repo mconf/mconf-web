@@ -3,6 +3,7 @@
 //= require bootstrap-sprockets
 //= require lodash
 //= require handlebars.runtime
+//= require diacritics
 
 // To use placeholders in inputs in browsers that do not support it
 // natively yet.

@@ -466,7 +466,7 @@ pt-br:
     invite:
       field_name: "Você está entrando na conferência como"
       field_password: "Chave de acesso desta conferência"
-      title: "Acessar sala: <em>%{name}</em>"
+      title: "Acessar sala: %{name}"
     invite_header: 
       not_running: "não iniciada"
       refresh: "Esta informação é atualizada automaticamente"
@@ -488,7 +488,9 @@ pt-br:
         name: "Seu nome completo"
         next: "Próximo"
         title: "Eu não possuo uma conta, quero entrar como convidado"
-      title: "Acessar sala: <em>%{name}</em>"
+      title: "Acessar sala: %{name}"
+    join:
+      user_limit_exceeded: "Esta conferência chegou ao seu limite de usuários. Contate o responsável pela conferência para mais detalhes."
     join_mobile:
       click_to_download_android: "Clique aqui para baixar o cliente Android"
       click_to_download_ios: "Clique aqui para baixar o cliente Apple iOS (iPad, iPhone)"
@@ -879,6 +881,7 @@ pt-br:
   locales:
     en: English
     pt-br: "Português (Brasil)"
+    error: "Linguagem não resgistrada"
   login_or_register: "Login / Registre-se"
   login_request: "Você precisa estar logado para"
   logo:

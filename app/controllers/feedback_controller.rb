@@ -17,39 +17,21 @@ class FeedbackController < ApplicationController
   end
 
   def new
-    if request.xhr?
-      render :layout => false
-    end
+    render :layout => false if request.xhr?
   end
 
   def create
-    if params[:feedback].present? and
-        params[:feedback][:subject].present? and
-        params[:feedback][:from].present? and
-        params[:feedback][:message].present?
-      if valid_email? params[:feedback][:from]
-        ApplicationMailer.feedback_email(params[:feedback][:from], params[:feedback][:subject], params[:feedback][:message]).deliver
-        respond_to do |format|
-          format.html {
-            flash[:success] = t('feedback.create.success')
-            redirect_to :back
-          }
-        end
-      else
-        respond_to do |format|
-          format.html {
-            flash[:error] = t('feedback.create.check_mail')
-            redirect_to :back
-          }
-        end
-      end
+    @feedback = Feedback.new(params[:feedback])
+
+    if @feedback.valid?
+      ApplicationMailer.feedback_email(@feedback.from, @feedback.subject, @feedback.message).deliver
+      flash[:success] = t('feedback.create.success')
+    elsif @feedback.errors.include?(:from)
+      flash[:error] = t('feedback.create.check_mail')
     else
-      respond_to do |format|
-        format.html {
-          flash[:error] = t('feedback.create.fill_fields')
-          redirect_to :back
-        }
-      end
+      flash[:error] = t('feedback.create.fill_fields')
     end
+
+    redirect_to :back
   end
 end
