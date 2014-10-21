@@ -305,6 +305,7 @@ describe CustomBigbluebuttonRoomsController do
           before {
             login_as(user)
             BigbluebuttonRoom.stub(:find_by_param) { room }
+            controller.should_receive(:check_user_limit) { true }
           }
 
           context "when a meeting is running" do
@@ -335,6 +336,7 @@ describe CustomBigbluebuttonRoomsController do
             login_as(user)
             BigbluebuttonRoom.should_receive(:find_by_param).once { room }
             controller.should_receive(:bigbluebutton_role).with(room) { :moderator }
+            controller.should_receive(:check_user_limit) { true }
             room.stub(:is_running?) { true }
             room.should_receive(:fetch_is_running?).at_least(:once) { true }
             room.should_receive(:fetch_meeting_info).once {
@@ -392,6 +394,32 @@ describe CustomBigbluebuttonRoomsController do
 
         describe "checks the maximum number of participants" do
           let!(:join_url) { "http://test.com/attendee/join" }
+
+          # important to check this because this before filter needs specific information in the room
+          context "#check_user_limit is called with the same @room that we fetched information from" do
+            let(:user) { FactoryGirl.create(:user) }
+            let(:room) { user.bigbluebutton_room }
+            before {
+              login_as(user)
+              BigbluebuttonRoom.stub(:find_by_param).and_return(room)
+              controller.should_receive(:bigbluebutton_role).with(room) { :moderator }
+              room.stub(:is_running?).and_return(true)
+              room.stub(:fetch_is_running?).and_return(true)
+              room.stub(:join_url).and_return(join_url)
+              room.should_receive(:fetch_meeting_info).once {
+                room.running = true
+                room.participant_count = 4
+              }
+
+              controller.should_receive(:check_user_limit) {
+                assigns(:room).should eql(room) # here's the real verification
+              }
+            }
+            before(:each) { send method, :join, :id => room.to_param }
+            it { should assign_to(:room).with(room) }
+            it { assigns(:room).running.should be true }
+            it { assigns(:room).participant_count.should be 4 }
+          end
 
           describe "for a user's room" do
             let(:user) { FactoryGirl.create(:user) }
