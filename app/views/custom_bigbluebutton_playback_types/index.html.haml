@@ -1,0 +1,23 @@
+= render :partial => 'manage/menu'
+
+= content_for :sidebar do
+  = render 'shared/webconf_index_links'
+
+%h3= t('.list_of_playback_types')
+
+.description= t('.description')
+
+%table.table.table-bordered
+  %thead
+    %th= t(".name")
+    %th= t(".visible")
+    %th= t(".default")
+    %th
+  %tbody
+    - @playback_types.each do |playback_type|
+      = simple_form_for(playback_type, namespace: "namespace_#{playback_type.id}") do |f|
+        %tr
+          %td= playback_type.name
+          %td= f.input :visible, label: false
+          %td= f.input :default, label: false
+          %td= f.button :submit, value: t("_other.save"), class: "btn btn-small btn-primary"

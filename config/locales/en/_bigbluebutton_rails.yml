@@ -10,6 +10,10 @@ en:
         format_type: Type
         length: Length
         url: URL
+      bigbluebutton_playback_type:
+        default: Default
+        name: Name
+        visible: Visible
       bigbluebutton_recording:
         description: "Description"
         end_time: "End Time"
