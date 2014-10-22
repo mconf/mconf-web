@@ -433,7 +433,14 @@ en:
   crop_image: 
     description: "Select a part of the image to crop"
     title: "Crop image"
-  custom_bigbluebutton_rooms: 
+  custom_bigbluebutton_playback_types:
+    index:
+      default: "Default"
+      description: "Playback types are the types of playbacks available for recordings. This list is automatically filled when the recordings are fetched from the web conference servers. You can hide playback types from the interface, unchecking the visible checkbox, and change the default playback, the one shown always at the top when listing the links to all playbacks available."
+      list_of_playback_types: "List of playback types"
+      name: "Name"
+      visible: "Visible"
+  custom_bigbluebutton_rooms:
     _other:
       fetch_recordings: "Fetch recordings"
       invite: "Invite"
@@ -1285,17 +1292,16 @@ en:
     copy_modal:
       title: Press Ctrl+C to copy the text
       success: Text copied to clipboard
-    recording_duration:
-      duration: "Duration"
-      ended_at: "Ended at"
     recording_list:
       created: "Created"
       created_by: "Created by"
+      ended_at: "Ended at"
       no_description: "<no description specified>"
       no_recordings: "Your web conference room has no recordings yet"
       no_title: "<no title specified>"
-      started_at: "Started at"
+      started_at: "The meeting happened at"
     recording_playback:
+      duration: "duration"
       playback: "Playback links"
       processing_dots: "Processing, please wait..."
       processing_tip: "This recording was found in one of the servers but is still being processed. When the processing finishes the links for playback will be available here."
@@ -1304,6 +1310,7 @@ en:
     webconf_index_links:
       new_room: "New room"
       new_server: "New server"
+      view_playback_type_list: "View playback type list"
       view_recording_list: "View recording list"
       view_room_list: "View room list"
       view_server_list: "View server list"

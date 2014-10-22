@@ -433,7 +433,14 @@ pt-br:
   crop_image: 
     description: "Selecione uma parte da imagem para cortar"
     title: "Cortar imagem"
-  custom_bigbluebutton_rooms: 
+  custom_bigbluebutton_playback_types:
+    index:
+      default: "Padrão"
+      description: "Tipos de reprodução são as classes de reprodução disponívels para as gravações. Esta lista é preenchida automaticamente quando as gravações são buscadas dos servidores de webconferência. Você pode esconder algum tipo de reprodução, desmarcando a caixa 'visível', e modificar o tipo padrão, que é exibido no topo quando listados os links para reproduzir uma gravação."
+      list_of_playback_types: "Lista de tipos de reprodução"
+      name: "Nome"
+      visible: "Visível"
+  custom_bigbluebutton_rooms:
     _other:
       fetch_recordings: "Buscar gravações"
       invite: "Convidar"
@@ -1285,25 +1292,25 @@ pt-br:
     copy_modal:
       title: Aperte Ctrl+C para copiar o texto
       success: Texto copiado para a área de transferência
-    recording_duration:
-      duration: "Duração"
-      ended_at: "Finalizada em"
     recording_list:
       created: "Criada"
       created_by: "Criada por"
+      ended_at: "Finalizada em"
       no_description: "<nenhuma descrição especificada>"
       no_recordings: "Sua sala de webconferência ainda não possui gravações"
       no_title: "<nenhum título especificado>"
-      started_at: "Iniciou em"
+      started_at: "A reunião aconteceu em"
     recording_playback:
+      duration: "duração"
       playback: "Links para reprodução"
       processing_dots: "Processando, por favor aguarde..."
       processing_tip: "Esta gravação foi encontrada em um dos servidores mas ainda está sendo processada. Quando o processamento acabar, os links para reprodução serão disponibilizados aqui."
-      unavailable: "Esta gravação não está disponível"
-      unavailable_tip: "Esta gravação não está mais disponível no servidor onde ela estava armazenada e então não pode ser acessada."
+      unavailable: "A gravação não está disponível"
+      unavailable_tip: "A gravação não está mais disponível no servidor onde ela estava armazenada e então não pode ser acessada."
     webconf_index_links:
       new_room: "Nova sala"
       new_server: "Novo servidor"
+      view_playback_type_list: "Ver lista de tipos de reprodução"
       view_recording_list: "Ver lista de gravações"
       view_room_list: "Ver lista de salas"
       view_server_list: "Ver lista de servidores"

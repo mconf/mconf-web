@@ -9,7 +9,7 @@
       %li
         = link_to(post.author.name, user_path(post.author),:class=>"unified_user")
         %span.updated
-          = t('updated_time_ago', :time => time_ago_in_words(post.updated_at))
+          = t('updated_time_ago', :time => time_ago_in_words(post.updated_at, highest_measures: 2))
 
     %li.main_text
       = sanitize(auto_link(post_format(post.text)))

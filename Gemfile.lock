@@ -15,7 +15,7 @@ GIT
 
 GIT
   remote: git://github.com/mconf/bigbluebutton_rails.git
-  revision: f7201867c8c9715c43bb2eaf74596dcaf405329c
+  revision: 875c2b3efe8226b34683e2f2367e97d7b8236004
   branch: master
   specs:
     bigbluebutton_rails (2.0.0)
@@ -190,6 +190,9 @@ GEM
       devise (>= 2.1.0)
     diff-lcs (1.2.5)
     docile (1.1.5)
+    dotiw (2.0)
+      actionpack (>= 3)
+      i18n
     epic-editor-rails (0.2.3)
       railties (>= 3.2, < 5.0)
     erubis (2.7.0)
@@ -463,6 +466,7 @@ DEPENDENCIES
   devise (~> 3.2.4)
   devise-async
   devise-encryptable
+  dotiw
   exception_notification (~> 4.0.0)
   factory_girl_rails
   fineuploader-rails (~> 3.3)

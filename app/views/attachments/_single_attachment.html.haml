@@ -9,7 +9,7 @@
   %td
     %span{title: attachment.created_at}
       - if attachment.created_at
-        = time_ago_in_words(attachment.created_at) + " " + t('.ago')
+        = time_ago_in_words(attachment.created_at, highest_measures: 2) + " " + t('.ago')
   %td
     = link_to space_attachment_path(@space, attachment), :download => attachment.title do
       = icon_download :class => "tooltipped", :title => t(".download_tooltip")
