@@ -1292,8 +1292,9 @@ en:
       no_description: "<no description specified>"
       no_recordings: "Your web conference room has no recordings yet"
       no_title: "<no title specified>"
-      started_at: "Started at"
+      started_at: "The meeting happened at"
     recording_playback:
+      duration: "duration"
       playback: "Playback links"
       processing_dots: "Processing, please wait..."
       processing_tip: "This recording was found in one of the servers but is still being processed. When the processing finishes the links for playback will be available here."

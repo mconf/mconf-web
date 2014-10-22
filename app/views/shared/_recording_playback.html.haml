@@ -1,4 +1,4 @@
-- if recording.available
+- unless recording.available
   %ul.thread-recording-playback
     %li
       %span.playback-unavailable= t('.unavailable')
@@ -6,10 +6,14 @@
 - else
   - if recording.playback_formats.size > 0
     %ul.thread-recording-playback
-      - recording.playback_formats.each do |playback|
-        %li
-          = link_to playback.name, playback.url, :class => 'playback-link open-new-window'
-          %span.small-date= "(#{distance_of_time(playback.length_in_secs)})"
+      - show_duration = true
+      - recording.playback_formats.ordered.each do |playback|
+        - if playback.visible?
+          %li
+            = link_to playback.name, playback.url, :class => 'playback-link open-new-window'
+            - if show_duration
+              %span.small-date= "(#{t('.duration')}: #{distance_of_time(playback.length_in_secs)})"
+              - show_duration = false
   - else
     %ul.thread-recording-playback
       %li

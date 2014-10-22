@@ -3,6 +3,7 @@ class BigbluebuttonRailsTo200D < ActiveRecord::Migration
     create_table :bigbluebutton_playback_types do |t|
       t.string :identifier
       t.boolean :visible, :default => false
+      t.boolean :default, :default => false
       t.timestamps
     end
 

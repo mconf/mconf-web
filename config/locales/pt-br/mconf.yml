@@ -1292,13 +1292,14 @@ pt-br:
       no_description: "<nenhuma descrição especificada>"
       no_recordings: "Sua sala de webconferência ainda não possui gravações"
       no_title: "<nenhum título especificado>"
-      started_at: "Iniciou em"
+      started_at: "A reunião aconteceu em"
     recording_playback:
+      duration: "duração"
       playback: "Links para reprodução"
       processing_dots: "Processando, por favor aguarde..."
       processing_tip: "Esta gravação foi encontrada em um dos servidores mas ainda está sendo processada. Quando o processamento acabar, os links para reprodução serão disponibilizados aqui."
-      unavailable: "Esta gravação não está disponível"
-      unavailable_tip: "Esta gravação não está mais disponível no servidor onde ela estava armazenada e então não pode ser acessada."
+      unavailable: "A gravação não está disponível"
+      unavailable_tip: "A gravação não está mais disponível no servidor onde ela estava armazenada e então não pode ser acessada."
     webconf_index_links:
       new_room: "Nova sala"
       new_server: "Novo servidor"
