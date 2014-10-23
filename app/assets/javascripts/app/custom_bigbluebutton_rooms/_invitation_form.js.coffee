@@ -30,7 +30,7 @@ class mconf.CustomBigbluebuttonRooms.Invitation
       $(buttonSelector).attr('disabled','disabled')
 
   bindTitle: ->
-    $(titleSelector).on "change", ->
+    $(titleSelector).on "keydown keyup", ->
       checkRequired()
 
   bindUsers: ->

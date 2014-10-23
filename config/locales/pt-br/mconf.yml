@@ -59,6 +59,8 @@ pt-br:
     details: "Detalhes"
     edit: "Editar"
     end: "Finalizar"
+    form:
+      required: "obrigatório"
     index: Listando
     in_place_edit:
       error: "erro"
@@ -517,7 +519,7 @@ pt-br:
     send_invitation:
       error: "Não foi possível enviar o convite para:"
       error_date_format: "As datas que você informou não estão em um formato válido, por favor tente novamente"
-      error_title: "É obrigatório incluir um título para o seu convite"
+      error_title: "É obrigatório incluir um título para o seu convite, por favor tente novamente"
       success: "Convite enviado com sucesso para:"
     show:
       showing_room: "Mostrando a sala '%{room}'"

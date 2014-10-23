@@ -192,6 +192,12 @@ module ApplicationHelper
     truncate(text, :length => size)
   end
 
+  # Includes the "*" to denote that a field is required in a form. Useful when we can't use
+  # the standard methods from simple_form for some reason.
+  def form_required_label
+    content_tag :abbr, "*", :title => I18n.t('_other.form.required')
+  end
+
   private
 
   # Based on http://www.igvita.com/2007/03/15/block-helpers-and-dry-views-in-rails/

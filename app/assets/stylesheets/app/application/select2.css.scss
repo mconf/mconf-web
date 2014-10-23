@@ -32,7 +32,9 @@
 // selected itens should have the appropriate placing inside the input
 .select2-container-multi .select2-choices .select2-search-choice {
   margin-top: 4px;
-  margin-bottom: 4px;
+  margin-bottom: 3px;
+  margin-left: 4px;
+  padding-top: 2px;
 }
 
 // adjust the borders of the input when inside a .btn-group

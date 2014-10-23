@@ -20,12 +20,6 @@
       }
     }
 
-    abbr {
-      border: 0;
-      margin: 0;
-      color: red;
-    }
-
     // limit the height of a textarea by default
     textarea {
       max-height: 150px;
@@ -107,6 +101,12 @@
 
   div.controls {
     display: inline;
+  }
+
+  abbr {
+    border: 0;
+    margin: 0;
+    color: red;
   }
 
 }
