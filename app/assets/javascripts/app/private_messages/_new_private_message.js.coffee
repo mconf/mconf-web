@@ -15,10 +15,11 @@ $ ->
         $.ajax("/users/select?i=#{element.val()}", params).done (data) ->
           callback(data)
       formatSelection: (object, container) ->
-        if object.name?
+        text = if object.name?
           object.name
         else
           object.text
+        mconf.Base.escapeHTML(text)
       ajax:
         url: '/users/fellows.json?limit=10'
         dataType: "json"

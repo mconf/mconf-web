@@ -42,7 +42,7 @@ $ ->
       minimumInputLength: 1
       placeholder: I18n.t('mweb_events.events.index.search.by_name.placeholder')
       formatNoMatches: (term) ->
-        I18n.t('mweb_events.events.index.search.by_name.no_matches', { term: term })
+        I18n.t('mweb_events.events.index.search.by_name.no_matches', { term: mconf.Base.escapeHTML(term) })
       width: '250'
       formatResult: format
       formatSelection: format

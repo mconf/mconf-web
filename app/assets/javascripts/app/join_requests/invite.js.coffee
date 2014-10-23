@@ -13,11 +13,14 @@ $ ->
       formatNoMatches: -> I18n.t('join_requests.invite.users.no_results')
       tags: true
       tokenSeparators: [",",";"]
+
       formatSelection: (object, container) ->
-        if object.name?
+        text = if object.name?
           object.name
         else
           object.text
+        mconf.Base.escapeHTML(text)
+
       ajax:
         url: url
         dataType: "json"

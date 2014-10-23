@@ -47,10 +47,11 @@ class mconf.CustomBigbluebuttonRooms.Invitation
         if mconf.Base.validateEmail(term)
           { id: term, text: term }
       formatSelection: (object, container) ->
-        if object.name?
+        text = if object.name?
           object.name
         else
           object.text
+        mconf.Base.escapeHTML(text)
       ajax:
         url: searchUsersUrl
         dataType: "json"
