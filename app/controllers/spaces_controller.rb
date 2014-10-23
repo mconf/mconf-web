@@ -235,6 +235,7 @@ class SpacesController < ApplicationController
         user = User.where(id: attendee.user_id).first
         @webconf_attendees << user unless user.nil?
       end
+      @webconf_attendees.uniq!
     end
     render :layout => 'spaces_show'
   end

@@ -120,7 +120,7 @@ module IconsHelper
   end
 
   def icon_users(options={})
-    icon_constructor nil, "icon-awesome icon-user icon-mconf-users", options
+    icon_constructor nil, "icon-awesome icon-group icon-mconf-users", options
   end
 
   def icon_edit(options={})
