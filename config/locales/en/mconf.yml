@@ -59,6 +59,8 @@ en:
     details: "Details"
     edit: "Edit"
     end: "End"
+    form:
+      required: "required"
     index: Listing
     in_place_edit:
       error: "error"
@@ -526,6 +528,7 @@ en:
     send_invitation:
       error: "Invitation failed to be sent to:"
       error_date_format: "The dates you informed are not in a valid format, please try again"
+      error_title: "It is mandatory to include a title for your invitation, please try again"
       success: "Invitation successfully sent to:"
     show:
       showing_room: "Showing room '%{room}'"
