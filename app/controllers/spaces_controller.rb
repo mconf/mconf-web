@@ -232,11 +232,10 @@ class SpacesController < ApplicationController
     @webconf_attendees = []
     unless @webconf_room.attendees.nil?
       @webconf_room.attendees.each do |attendee|
-        profile = Profile.where(:full_name => attendee.full_name).first
-        unless profile.nil?
-          @webconf_attendees << profile.user
-        end
+        user = User.where(id: attendee.user_id).first
+        @webconf_attendees << user unless user.nil?
       end
+      @webconf_attendees.uniq!
     end
     render :layout => 'spaces_show'
   end

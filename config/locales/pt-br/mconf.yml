@@ -1588,8 +1588,10 @@ pt-br:
       invite: "Convidar outras pessoas"
       webconference:
         attendees:
+          all_users: "Todos usuários"
           nobody: "Não há ninguém na sala."
           people_in_the_room: "Pessoas na sala"
+          registered_users: "Usuários registrados"
         description:
           header: "Acesso à webconferência"
           text: "A sala de webconferência associada com esta comunidade está no momento: <em>%{status}</em> <br/> Use os botões na barra lateral à direita para entrar na conferência."

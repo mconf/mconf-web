@@ -193,6 +193,7 @@ form {
   @include mconf-clearfix;
 
   &.user-simple {
+    margin: 5px 0;
     .user-text { margin-left: 45px; }
     .user-name { display: block; }
     .user-organization { display: block; }

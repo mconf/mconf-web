@@ -1588,8 +1588,10 @@ en:
       invite: "Invite other people"
       webconference:
         attendees:
+          all_users: "All users"
           nobody: "There is nobody currently in the room."
           people_in_the_room: "People in the room"
+          registered_users: "Registered users"
         description:
           header: "Webconference access"
           text: "The webconference room associated with this space is currently: <em>%{status}</em> <br/> Use the buttons in the sidebar at the right to join the webconference."
