@@ -205,6 +205,7 @@ class ApplicationController < ActionController::Base
 
   def render_500(exception)
     @exception = exception
+    ExceptionNotifier.notify_exception exception
     render_error 500
   end
 
