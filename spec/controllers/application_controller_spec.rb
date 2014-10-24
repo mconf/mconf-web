@@ -463,9 +463,6 @@ describe ApplicationController do
       before {
         @before_consider_all_requests_local = Rails.application.config.consider_all_requests_local
         Rails.application.config.consider_all_requests_local = false
-        # have to reload the controller because it was already loaded before we set the flag
-        load "application_controller.rb"
-
         ExceptionNotifier.stub(:notify_exception)
       }
       after {

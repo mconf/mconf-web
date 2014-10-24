@@ -14,8 +14,7 @@ Resque::Failure::Multiple.classes = [Resque::Failure::Redis, ExceptionNotificati
 Resque::Failure.backend = Resque::Failure::Multiple
 
 def check_conditions
-  #if Rails.env.production? and Site.table_exists?
-  if Site.table_exists?
+  if !Rails.application.config.consider_all_requests_local && Site.table_exists?
     site = Site.current
     return site &&
       site.respond_to?(:exception_notifications) &&
