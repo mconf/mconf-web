@@ -9,6 +9,8 @@ require 'devise/encryptors/station_encryptor'
 require 'digest/sha1'
 class User < ActiveRecord::Base
 
+  # TODO: block :username from being modified after registration
+
   ## Devise setup
   # Other available devise modules are:
   # :token_authenticatable, :lockable, :timeoutable and :omniauthable
@@ -29,20 +31,12 @@ class User < ActiveRecord::Base
     end
   end
 
-  # attr_accessible :email, :password, :password_confirmation, :remember_me, :login, :username, :approved
-  # TODO: block :username from being modified after registration
-  # attr_accessible :username, :as => :create
-
-  # TODO: improve the format matcher, check specs for some values that are allowed today
-  #   but are not really recommended (e.g. '-')
-  validates :username, :uniqueness => { :case_sensitive => false },
-                       :presence => true,
-                       :format => /\A[A-Za-z0-9\-_]*\z/,
-                       :length => { :minimum => 1 }
-
-  # The username has to be unique not only for user, but across other
-  # models as well
-  validate :username_uniqueness
+  validates :username,
+    presence: true,
+    format: /\A[A-Za-z0-9\-_]*\z/,
+    length: { minimum: 1 },
+    identifier_uniqueness: true,
+    room_param_uniqueness: true
 
   extend FriendlyId
   friendly_id :username
@@ -174,9 +168,7 @@ class User < ActiveRecord::Base
 
   def update_webconf_room
     if self.username_changed?
-      params = {
-        :param => self.username
-      }
+      params = { param: self.username }
       bigbluebutton_room.update_attributes(params)
     end
   end
@@ -348,14 +340,6 @@ class User < ActiveRecord::Base
     # note: not 'find' because some of the spaces might be disabled and 'find' would raise
     #   an exception
     Space.where(:id => ids)
-  end
-
-  private
-
-  def username_uniqueness
-    if Space.with_disabled.find_by_permalink(self.username).present?
-      errors.add(:username, "has already been taken")
-    end
   end
 
 end

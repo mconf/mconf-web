@@ -49,14 +49,12 @@ class Space < ActiveRecord::Base
   # 'permalink', so we require it to have have length >= 3
   # TODO: improve the format matcher, check specs for some values that are allowed today
   #   but are not really recommended (e.g. '---')
-  validates :permalink, :uniqueness => { :case_sensitive => false },
-                        :format => /\A[A-Za-z0-9\-_]*\z/,
-                        :presence => true,
-                        :length => { :minimum => 3 }
-
-  # The permalink has to be unique not only for spaces, but across other
-  # models as well
-  validate :permalink_uniqueness
+  validates :permalink,
+    presence: true,
+    format: /\A[A-Za-z0-9\-_]*\z/,
+    length: { minimum: 3 },
+    identifier_uniqueness: true,
+    room_param_uniqueness: true
 
   # the friendly name / slug for the space
   extend FriendlyId
@@ -178,12 +176,6 @@ class Space < ActiveRecord::Base
   end
 
   private
-
-  def permalink_uniqueness
-    unless User.with_disabled.find_by_username(self.permalink).blank?
-      errors.add(:permalink, "has already been taken")
-    end
-  end
 
   # Creates the webconf room after the space is created
   def create_webconf_room
