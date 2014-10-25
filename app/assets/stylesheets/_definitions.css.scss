@@ -5,6 +5,11 @@
 // import bootstrap/mixins)
 @import "bootstrap/variables";
 
+// colors library, better default colors
+// use it with $blue, $red, $yellow, etc.
+@import "../../../vendor/assets/stylesheets/colors";
+
+
 // fonts
 $m-font-mini: 10px;
 $m-font-small: 11px;
