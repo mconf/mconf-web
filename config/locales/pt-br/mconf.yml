@@ -13,6 +13,7 @@ pt-br:
       space:
         create_html: "Uma reunião foi iniciada na comunidade %{owner} em %{time}"
     join_request:
+      deleted: que não existe mais
       invite_html: "foi convidado(a) para entrar na comunidade"
       invite_with_introducer_html: "foi convidado(a) por <a href=\"%{introducer_url}\">%{introducer}</a> para entrar na comunidade"
       request_html: "requisitou ingresso na comunidade"
@@ -789,9 +790,6 @@ pt-br:
   join: Entrar
   join_cam: Participar
   join_requests:
-    asked_anonymous: "Alguém quer participar da comunidade %{space} administrado por você:"
-    asked_anonymous_full: "Alguém quer participar da comunidade %{space} administrado por você: %{comment} <br/><br/><p>Para atender o pedido visite <a href=\"%{url}\">%{url}</a></p><p>Se você acredita que esta mensagem é um spam, por favor <a href=\"mailto:%{contact}\"> entre em contato </a> ou nos <a href=\"%{feedback}\"> envie uma mensagem.</a></p><p>%{signature}</p>"
-    asked_full: "<b>%{candidate}</b> quer participar da comunidade %{space} administrado por você: %{comment} <br/><br/><p>Para atender o pedido visite <a href=\"%{url}\">%{url}</a></p><p>Se você acredita que esta mensagem é um spam, por favor <a href=\"mailto:%{contact}\"> entre em contato</a> ou nos <a href=\"%{feedback}\"> envie uma mensagem.</a></p><p>%{signature}</p>"
     create:
       already_invited: "Os seguintes usuários já possuem um convite pendente: %{users}"
       already_a_member: "%{name} já é um membro"

@@ -13,6 +13,7 @@ en:
       space:
         create_html: "A meeting was started on the space %{owner} at %{time}"
     join_request:
+      deleted: that has since been deleted
       invite_html: "was invited to join the space"
       invite_with_introducer_html: "was invited by <a href=\"%{introducer_url}\">%{introducer}</a> to join the space"
       request_html: "has requested to join the space"
@@ -789,9 +790,6 @@ en:
   join: Join
   join_cam: Participate
   join_requests:
-    asked_anonymous: "Someone wants to participate in %{space} space administered by you:"
-    asked_anonymous_full: "Someone wants to participate in %{space} space administered by you: %{comment} <br/><br/><p>To answer the request please visit <a href=\"%{url}\">%{url}</a></p><p>If you believe this message is a spam, please <a href=\"mailto:%{contact}\"> contact us </a> or send us <a href=\"%{feedback}\"> feedback.</a></p><p>%{signature}</p>"
-    asked_full: "<b>%{candidate}</b> wants to participate in %{space} space administered by you: %{comment} <br/><br/><p>To answer the request please visit <a href=\"%{url}\">%{url}</a></p><p>If you believe this message is a spam, please <a href=\"mailto:%{contact}\"> contact us </a> or send us <a href=\"%{feedback}\"> feedback.</a></p><p>%{signature}</p>"
     create:
       already_invited: "The following users already have an invitation pending: %{users}"
       already_a_member: "%{name} is already a member"
