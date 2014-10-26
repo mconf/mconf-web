@@ -1,15 +1,13 @@
-# Notifications using jquery.noty
+# Notifications using toastr
 
-# Default options for noty
 defaultOpts =
-  closable: true
-  timeout: true
-  force: false
-  modal: false
-  timeout: 6000
-  speed: 200
-  textAlign: 'center'
-  layout: 'topCenter'
+  tapToDismiss: false
+  positionClass: 'toast-top-full-width'
+  iconClass: ''
+  hideMethod: 'slideUp'
+  hideDuration: 200
+  showMethod: 'slideDown'
+  showDuration: 400
   closeButton: true
 
 class mconf.Notification
@@ -42,21 +40,19 @@ showNotification = (target, type) ->
     opts = {}
     switch type
       when "success"
+        method = toastr.success
         opts = $.extend {}, defaultOpts,
-          text: $target.text()
-          type: 'success'
       when "error"
+        method = toastr.error
         opts = $.extend {}, defaultOpts,
-          text: $target.text()
-          type: 'error'
           force: true
-          timeout: false
+          timeOut: 0
+          extendedTimeOut: 0
       else
-        opts = $.extend {}, defaultOpts,
-          text: $target.text()
-          type: 'alert'
+        method = toastr.warning
 
-    noty(opts)
+    toastr.options = opts
+    method $target.text()
 
 $ ->
   mconf.Notification.bind()

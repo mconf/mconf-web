@@ -10,7 +10,7 @@
 //= require jquery/jquery.placeholder
 
 // Notifications (flash messages).
-//= require jquery/jquery.noty
+//= require toastr
 
 // To crop logos.
 //= require jquery/jquery.Jcrop
