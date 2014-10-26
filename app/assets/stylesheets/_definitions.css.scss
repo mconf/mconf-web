@@ -49,9 +49,15 @@ $m-second-color: $m-bright-blue;
 $m-focus-border-color: $m-second-color;
 $m-font-h-color: $m-green-logo;
 // link colors
-$m-link-color: #4183C4; //darken($m-bright-blue, 10); //#1C774D; //#1a925b; //lighten($m-green-logo, 10); //lighten($m-main-color, 15);
-$m-link-color-hover: $m-bright-blue; //m-orange;
+$m-link-color: $olive; //#187aca //#4183C4; //darken($m-bright-blue, 10); //#1C774D; //#1a925b; //lighten($m-green-logo, 10); //lighten($m-main-color, 15);
+$m-link-color-hover: $green; //$m-bright-blue; //m-orange;
 $m-link-color-active: darken($m-link-color-hover, 15);
+$m-link-color-2: #111;
+$m-link-color-2-hover: $m-link-color;
+$m-link-color-2-active: $m-link-color-active;
+$m-link-color-3: $olive;
+$m-link-color-3-hover: $green;
+$m-link-color-3-active: darken($m-link-color-hover, 15);
 // borders
 $m-border-color-normal: #ddd;
 $m-border-color-light: #eee;
@@ -75,8 +81,8 @@ $m-highlight-bg: #ffff81;
 $m-contents-width: 980px;
 $m-contents-max-width: 1180px;
 $m-sidebar-width: 240px;
-$m-sidebar-border: darken($m-light-gray, 15);
-$m-sidebar-bg-color: $m-light-gray;
+$m-sidebar-border: $m-border-color-normal; //darken($m-light-gray, 15);
+$m-sidebar-bg-color: $m-site-bg-color;
 
 // headers
 $m-navbar-bg-color-dark: darken($m-green-logo, 3);
@@ -106,7 +112,7 @@ $m-page-header-link-color-hover: $m-link-color-hover;
 /* $m-navbar-font-color-hover: $m-link-color-hover; */
 
 // footer
-$m-footer-height: 110px;
+$m-footer-height: 75px;
 $m-footer-bg-color: white;
 $m-footer-font-color: $m-font-color;
 $m-footer-link-color: $m-link-color;
@@ -171,10 +177,5 @@ $m-mail-font-size: $m-font-normal;
 // $btnPrimaryBackgroundHighlight: #2f96b4;
 $navbar-default-bg: #0a3138;
 // $navbarBackgroundHighlight: #27535C;
-
-$m-link-color: #187aca; //#1e9a50; //#187d41;
-$m-link-color-hover: $m-bright-blue; //#2BDE73;
-
-$m-link-color-2: #111;
-$m-link-color-2-hover: $m-link-color;
-$m-link-color-2-active: $m-link-color-active;
+$link-color: $m-link-color; //#1e9a50; //#187d41;
+$link-color-hover: $m-link-color-hover;//$m-bright-blue; //#2BDE73;

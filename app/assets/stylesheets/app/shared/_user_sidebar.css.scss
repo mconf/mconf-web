@@ -102,7 +102,7 @@
   padding-bottom: 15px;
   border-top: 1px solid darken($m-light-gray, 10);
   @include mconf-clearfix;
-  @include link-style(2);
+  @include link-style(3);
 
   // TODO: temp adaptation for this div only
   .list-texts {

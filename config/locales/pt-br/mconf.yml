@@ -864,8 +864,9 @@ pt-br:
       github: GitHub
       issues: "Issue tracker"
       links:
-        feedback: "Enviar feedback"
+        feedback: "Feedback"
         help: Ajuda
+        powered_by: "Powered by Mconf, visite"
         statistics: "Estatísticas"
         title: Links
       project_website: "Site do projeto"

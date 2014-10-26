@@ -149,8 +149,16 @@
 
 @mixin link-style($style) {
 
+  @if ($style == 3) {
+    a:not(.btn) {
+      @include link-colors($m-link-color-3, $m-link-color-3-hover, $m-link-color-3-active, $m-link-color-3);
+      text-decoration: none;
+      //font-weight: bold;
+    }
+  }
+
   // link style usually used in menus of all kinds
-  @if ($style == 2) {
+  @elseif ($style == 2) {
     a:not(.btn) {
       @include link-colors($m-link-color-2, $m-link-color-2-hover, $m-link-color-2-active, $m-link-color-2);
       text-decoration: none;
@@ -178,4 +186,10 @@
   word-wrap: normal;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+@mixin small-date {
+  color: #666;
+  font-weight: normal;
+  @include font-size($m-font-small);
 }

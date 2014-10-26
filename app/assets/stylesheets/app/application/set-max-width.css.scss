@@ -11,7 +11,7 @@
   @include set-max-site-width;
 }
 
-#footer-content, #footer-mconf-content {
+#footer-content {
   @include set-max-site-width;
 }
 
@@ -20,25 +20,25 @@
 }
 
 
-// We have to add a fake element covering all the left side of the screen to extend
-// the background color used in the sidebar.
-// Only for >= sm, should not appear on xs.
-@media (min-width: 768px) {
-  #site:before {
-    position: fixed;
-    top: 0px;
-    left: 0px;
-    width: 50%;
-    height: 100%;
-    background: $m-light-gray;
-    z-index: -1;
-  }
+/* // We have to add a fake element covering all the left side of the screen to extend */
+/* // the background color used in the sidebar. */
+/* // Only for >= sm, should not appear on xs. */
+/* @media (min-width: 768px) { */
+/*   #site:before { */
+/*     position: fixed; */
+/*     top: 0px; */
+/*     left: 0px; */
+/*     width: 50%; */
+/*     height: 100%; */
+/*     //background: $m-light-gray; */
+/*     z-index: -1; */
+/*   } */
 
-  #site {
-    // remove the bg color otherwise it will be over our fake element
-    background: none;
-  }
-}
+/*   #site { */
+/*     // remove the bg color otherwise it will be over our fake element */
+/*     background: none; */
+/*   } */
+/* } */
 
 #site {
   z-index: 10;

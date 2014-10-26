@@ -171,7 +171,7 @@ form {
     }
 
     .thread-playback-processing {
-      color: darken($yellow, 10);
+      color: darken($m-yellow, 10);
     }
   }
 
@@ -253,133 +253,51 @@ form {
   @include mconf-clearfix;
   @include make-row;
   margin: 0 auto;
-  padding: 10px 0;
+  padding: 10px 0 0 0;
   border-top: 1px dotted darken($m-footer-border-color, 15);
-  //background: $m-footer-bg-color;
-  //background: white;
 
   a {
     @include link-colors($m-footer-link-color, $m-footer-link-color-hover, $m-footer-link-color-active);
   }
 
-  /* h3 { */
-  /*   @include font-size($m-font-normal); */
-  /*   color: lighten($m-footer-font-color, 7); */
-  /*   margin-bottom: 7px; */
-  /*   font-weight: bold; */
-  /*   padding-bottom: 3px; */
-  /*   //border-bottom: 1px solid darken($m-footer-bg-color, 8); */
-  /* } */
-
   ul {
     list-style-type: none;
     margin: 0;
     padding-left: 0;
+    @include mconf-clearfix;
 
     li {
-      /* display: block; */
-      /* position: relative; */
-      /* margin-bottom: 5px; */
-
       float: left;
       margin: 5px 10px;
     }
   }
 
-  /* .link-group { */
-  /*   float: left; */
-  /*   margin-right: 35px; */
-  /*   margin-top: 5px; */
-  /* } */
-
-  /* .footer-sponsors { */
-  /*   width: 200px; */
-  /*   float: right; */
-  /*   margin-right: 0; */
-  /*   margin-left: 20px; */
-  /*   text-align: right; */
-  /*   h3 { text-align: right; } */
-  /*   li { margin-bottom: 15px; } */
-  /*   img { */
-  /*     float: right; */
-  /*     margin-left: 10px; */
-  /*   } */
-  /* } */
-
-  /* .footer-languages { */
-  /*   img { margin-top: -4px; } */
-  /*   ul { float: left; margin-right: 20px; } */
-  /*   .icon-awesome { float: right; } */
-  /* } */
-
-  .current-version {
+  #footer-powered {
     clear: both;
-    text-align: right;
+    margin-left: 8px;
+    margin-top: 5px;
+    text-align: left;
     @include font-size($m-font-small);
   }
 
-  #footer-center {
-    text-align: center;
-    //font-variant: small-caps;
-    /* font-weight: bold; */
-
-    /* a { */
-    /*   $c: #888; */
-    /*   @include link-colors($c, $m-link-color-hover, $m-link-color-active, $c); */
-    /*   text-decoration: none; */
-    /* } */
-
-    /* img { */
-    /*   margin-top: -3px; */
-    /*   margin-right: 5px; */
-    /* } */
+  #footer-left {
+    text-align: left;
+    @include make-xs-column(7);
   }
 
   #footer-right {
+    //margin-top: 7px;
     text-align: right;
+    @include make-xs-column(5);
 
     ul { float: right; }
   }
-}
-/* TODO: temp, organize inside #footer */
-#footer {
-  padding-top: 30px;
-}
-#footer-mconf {
-  border: 0;
-}
-#footer-mconf-content {
-  //border-top: 1px solid $m-footer-border-color;
-}
 
-/* Simplified version */
-#footer-wrapper.simple-footer {
-  background: none;
-  border: 0;
-  @include box-shadow(none);
-  padding: 15px;
-
-  #footer {
-    h3 {
-      float: left;
-      border: 0;
-      margin: 0 15px 0 0;
-    }
-
-    .languages {
-      margin: 40px 0 0 0;
-      float: right;
-      ul {
-        float: right;
-        margin: 0;
-        li {
-          display: inline;
-          float: left;
-          margin: 0 10px 0 0;
-        }
-      }
-    }
-  }
+  /* .current-version { */
+  /*   clear: both; */
+  /*   text-align: right; */
+  /*   @include font-size($m-font-small); */
+  /* } */
 }
 
 #footer-logo {
@@ -728,7 +646,7 @@ ul#navbar-left-links {
   width: 100%;
   background-color: $m-site-bg-color;
 
-  margin: 0 auto;
+  margin: 20px auto;
 
   // best way found to use mconf-clearfix and still get the element
   // centralized and with the correct margins/paddings
@@ -747,7 +665,8 @@ ul#navbar-left-links {
   @include make-sm-column-height;
   background: $m-sidebar-bg-color;
   border-right: 1px solid $m-sidebar-border;
-  padding: 10px 10px 30px 20px;
+  padding-right: 25px;
+  padding-bottom: 30px;
   min-width: 300px;
 }
 
@@ -839,7 +758,9 @@ ul#navbar-left-links {
   background-color: $m-site-bg-color;
   @include mconf-clearfix;
   overflow: visible;
-  padding-bottom: 30px;
+  //padding-bottom: 30px;
+  padding-left: 25px;
+  //padding-right: 0;
 
   h3 {
     color: #404040;
