@@ -75,6 +75,12 @@ RSpec.configure do |config|
     Capybara.current_driver = :webkit if example.metadata[:with_js]
   end
 
+  # We want features as close to the production environment as possible, so render error
+  # pages instead of raising exceptions.
+  config.before(:each, type: :feature) do |example|
+    Rails.application.config.consider_all_requests_local = false
+  end
+
   config.around(:each) do |example|
     # use :transaction for all, unless explicitly defined that it needs :truncation
     # :js tests (capybara-webkit) also will only work with :truncation

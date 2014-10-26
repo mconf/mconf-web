@@ -23,13 +23,15 @@ describe UsersController do
 
   describe "#show" do
     it "should display a 404 for inexisting users" do
-      get :show, :id => "inexisting_user"
-      response.response_code.should == 404
+      expect {
+        get :show, :id => "inexisting_user"
+      }.to raise_error(ActiveRecord::RecordNotFound)
     end
 
     it "should display a 404 for empty username" do
-      get :show, :id => ""
-      response.response_code.should == 404
+      expect {
+        get :show, :id => ""
+      }.to raise_error(ActiveRecord::RecordNotFound)
     end
 
     it "should return OK status for existing user" do

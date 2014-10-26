@@ -34,7 +34,7 @@
       - unless thread.children.empty?
         %span
           = "(" + t('thread.comments', :children => thread.children.size) + ")"
-      %span.thread-updated-at= t('updated_time_ago', :time => time_ago_in_words(thread.updated_at))
+      %span.thread-updated-at= t('updated_time_ago', :time => time_ago_in_words(thread.updated_at, highest_measures: 2))
 
     .thread-text
       .block-collapsed

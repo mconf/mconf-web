@@ -23,19 +23,19 @@ en:
   space_mailer:
     invitation_email:
       message:
-        header: "You have been invited by <b>%{sender}</b> (%{email_sender}) to a <b>%{space}</b> space:"
+        header: "You have been invited by <b>%{sender}</b> (%{email_sender}) to join the space <b>%{space}</b>:"
         link: "To accept this invitation please visit <a href=\"%{url}\">%{url}</a><br/>You can find more information about this space in <a href=\"%{space_url}\">%{space_url}</a>"
-      subject: "<b>%{username}</b> invites you to space %{space}"
+      subject: "%{username} invited you to join the space %{space}"
     join_request_email:
       message:
-        header: "<b>%{candidate}</b> wants to participate in %{space} space administered by you."
+        header: "<b>%{candidate}</b> wants to participate in the space %{space}, that is administered by you:"
         link: "To answer the request please visit <a href=\"%{url}\">%{url}</a>"
-      subject: "<b>%{candidate}</b> wants to participate in %{space} space."
+      subject: "%{candidate} wants to participate in the space %{space}"
     processed_invitation_email:
       accepted: "accepted"
       message:
-        header: "%{introducer},</br>%{name} has %{action} the invitation to the space %{space}"
-        link: "You can see the current list of users of the space in <a href=\"%{users_url}\"> %{users_url} </a>"
+        header: "%{name} has %{action} the invitation to the space %{space}"
+        link: "You can see the current list of users of the space in <a href=\"%{users_url}\">%{users_url}</a>"
       rejected: "not accepted"
       subject: "%{name} has %{action} your invitation"
     processed_join_request_email:

@@ -4,7 +4,7 @@ module Mconf
   class MailerErrorHandler
 
     def self.handle mailer, message, error, action, args
-      Rails.logger.error "MailerErrorHandler: Handling email error on #{mailer.inspect}"
+      Rails.logger.error "MailerErrorHandler: Handling email error on #{mailer.inspect}@#{action.inspect}"
       Rails.logger.error "MailerErrorHandler: Exception is #{error.inspect}"
       case action
       when "invitation_email"

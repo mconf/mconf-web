@@ -123,9 +123,7 @@ form {
   }
 
   .thread-updated-at {
-    color: #666;
-    @include font-size($m-font-small);
-    font-weight: normal;
+    @include small-date;
   }
 
   .thread-action-links {
@@ -157,6 +155,26 @@ form {
     font-style: italic;
     float: right;
   }
+
+  // playback links for recordings inside threads
+  .thread-recording-playback {
+    list-style-type: none;
+    margin: 0 0 0 13px;
+    padding: 0;
+
+    .thread-playback-link {
+      white-space: nowrap;
+    }
+
+    .thread-playback-unavailable {
+      color: mix($link-color, #888, 70%); // a grayer link
+    }
+
+    .thread-playback-processing {
+      color: darken($yellow, 10);
+    }
+  }
+
 }
 
 // Blocks that can be automatically expanded/collapsed
@@ -173,6 +191,7 @@ form {
   @include mconf-clearfix;
 
   &.user-simple {
+    margin: 5px 0;
     .user-text { margin-left: 45px; }
     .user-name { display: block; }
     .user-organization { display: block; }
@@ -1068,6 +1087,12 @@ strong.highlight {
     }
   }
 }
+
+// for small date/time texts
+.small-date {
+  @include small-date;
+}
+
 
 // tablets/mobiles
 @media (max-width: 767px) {

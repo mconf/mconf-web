@@ -180,7 +180,7 @@ describe SpaceMailer do
       it("sets 'reply_to'") { mail.reply_to.should eql([candidate.email]) }
       it("assigns @join_request") { mail.body.encoded.should match(join_request.comment) }
       it("renders the link to accept the join request") {
-        url = space_join_requests_url(space, join_request, :host => Site.current.domain)
+        url = space_join_requests_url(space, host: Site.current.domain)
         content = I18n.t('space_mailer.join_request_email.message.link', :url => url).html_safe
         mail.body.encoded.should match(Regexp.escape(content))
       }

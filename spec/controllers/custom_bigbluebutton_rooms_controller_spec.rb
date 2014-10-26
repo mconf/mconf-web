@@ -76,6 +76,73 @@ describe CustomBigbluebuttonRoomsController do
     it "loads and authorizes the room into @room"
   end
 
+  describe "#send_invitation" do
+    let!(:referer) { "/any" }
+    let!(:room) { FactoryGirl.create(:bigbluebutton_room, :owner => FactoryGirl.create(:user)) }
+    let(:users) { [FactoryGirl.create(:user)] }
+    let(:starts_on) { Time.now }
+    let(:ends_on) { Time.now + 10.day }
+    let(:title) { 'Title' }
+    let(:message) { 'Message' }
+    let(:success) { I18n.t('custom_bigbluebutton_rooms.send_invitation.success') + ' ' + users.map(&:name).join(', ')}
+    let(:error) { I18n.t('custom_bigbluebutton_rooms.send_invitation.error') + ' ' + users.map(&:name).join(', ') }
+
+    let!(:hash) { { :users => users.map(&:id).join(','),
+       :starts_on => starts_on.try(:strftime, I18n.t('_other.datetimepicker.format_rails')),
+       :ends_on => ends_on.try(:strftime, I18n.t('_other.datetimepicker.format_rails')),
+       :title => title,
+       :message => message} }
+    before {
+      request.env["HTTP_REFERER"] = referer
+      login_as(room.owner)
+      post :send_invitation, :invite => hash, :id => room.to_param
+    }
+
+    context "with correct data" do
+      it { should redirect_to(referer) }
+      it { should set_the_flash.to success }
+    end
+
+    context "with more than one user invited" do
+      let(:users) { [FactoryGirl.create(:user), FactoryGirl.create(:user)] }
+      it { should redirect_to(referer) }
+      it { should set_the_flash.to success }
+    end
+
+    context "missing the title" do
+      let(:title) { nil }
+      it { should redirect_to(referer) }
+      it { should set_the_flash.to I18n.t('custom_bigbluebutton_rooms.send_invitation.error_title') }
+    end
+
+    context "missing the users" do
+      let(:users) { [] }
+      it { should redirect_to(referer) }
+      skip { should set_the_flash.to error }
+    end
+
+    context "missing the message" do
+      let(:message) { nil }
+      it { should redirect_to(referer) }
+      it { should set_the_flash.to success }
+    end
+
+    context "missing start date" do
+      let(:starts_on) { nil }
+      it { should redirect_to(referer) }
+      skip { should set_the_flash.to I18n.t('custom_bigbluebutton_rooms.send_invitation.error_date_format') }
+    end
+
+    context "missing end date" do
+      let(:ends_on) { nil }
+      it { should redirect_to(referer) }
+      it { should set_the_flash.to success }
+    end
+
+    it { should_authorize an_instance_of(BigbluebuttonRoom), :send_invitation, :id => room.to_param }
+    it "loads and authorizes the room into @room"
+  end
+
   describe "#index" do
     context "template and layout" do
       before(:each) { login_as(FactoryGirl.create(:superuser)) }

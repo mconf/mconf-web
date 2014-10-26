@@ -234,11 +234,10 @@ class SpacesController < ApplicationController
     @webconf_attendees = []
     unless @webconf_room.attendees.nil?
       @webconf_room.attendees.each do |attendee|
-        profile = Profile.where(:full_name => attendee.full_name).first
-        unless profile.nil?
-          @webconf_attendees << profile.user
-        end
+        user = User.where(id: attendee.user_id).first
+        @webconf_attendees << user unless user.nil?
       end
+      @webconf_attendees.uniq!
     end
     # TODO: #1087 show last 5 recordings and a link to the full list and to update it
     @recordings = @webconf_room.recordings.published().order("end_time DESC").last(3)

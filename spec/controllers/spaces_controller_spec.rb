@@ -566,18 +566,98 @@ describe SpacesController do
   it "#leave"
 
   describe "#webconference" do
-    let(:space) { FactoryGirl.create(:space) }
-    let(:user) { FactoryGirl.create(:superuser) }
-    before(:each) { sign_in(user) }
+    let!(:space) { FactoryGirl.create(:public_space) }
+    let!(:user) { FactoryGirl.create(:superuser) }
 
-    before(:each) { get :webconference, :id => space.to_param }
+    context "normal testing" do
+      before(:each) {
+        sign_in(user)
+        get :webconference, :id => space.to_param
+      }
 
-    it { should render_template(:webconference) }
-    it { should render_with_layout("spaces_show") }
-    it { should assign_to(:space).with(space) }
-    it { should assign_to(:webconf_room).with(space.bigbluebutton_room) }
+      it { should render_template(:webconference) }
+      it { should render_with_layout("spaces_show") }
+      it { should assign_to(:space).with(space) }
+      it { should assign_to(:webconf_room).with(space.bigbluebutton_room) }
+    end
 
-    it "assigns @webconf_attendees with the attendees"
+    context "assigns @webconf_attendees" do
+
+      context "when there are attendees" do
+        let!(:user2) { FactoryGirl.create(:user) }
+        let(:attendee1) {
+          attendee = BigbluebuttonAttendee.new
+          attendee.user_id = user.id
+          attendee.full_name = user.username
+          attendee.role = :attendee
+          attendee
+        }
+        let(:attendee2) {
+          attendee = BigbluebuttonAttendee.new
+          attendee.user_id = user2.id
+          attendee.full_name = user2.username
+          attendee.role = :moderator
+          attendee
+        }
+        before(:each) {
+          BigbluebuttonRoom.any_instance.stub(:attendees).and_return([attendee1, attendee2])
+          get :webconference, :id => space.to_param
+        }
+        it { should assign_to(:webconf_attendees).with([user, user2]) }
+      end
+
+      context "when there are no attendees" do
+        before(:each) {
+          BigbluebuttonRoom.any_instance.stub(:attendees).and_return([])
+          get :webconference, :id => space.to_param
+        }
+        it { should assign_to(:webconf_attendees).with([]) }
+      end
+
+      context "doesn't replicate users" do
+        let(:attendee1) {
+          attendee = BigbluebuttonAttendee.new
+          attendee.user_id = user.id
+          attendee.full_name = user.username
+          attendee.role = :attendee
+          attendee
+        }
+        let(:attendee2) {
+          attendee = BigbluebuttonAttendee.new
+          attendee.user_id = user.id
+          attendee.full_name = user.username
+          attendee.role = :moderator
+          attendee
+        }
+        before(:each) {
+          BigbluebuttonRoom.any_instance.stub(:attendees).and_return([attendee1, attendee2])
+          get :webconference, :id => space.to_param
+        }
+        it { should assign_to(:webconf_attendees).with([user]) }
+      end
+
+      context "ignores users that are not registered" do
+        let(:attendee1) {
+          attendee = BigbluebuttonAttendee.new
+          attendee.user_id = user.id
+          attendee.full_name = user.username
+          attendee.role = :attendee
+          attendee
+        }
+        let(:attendee2) {
+          attendee = BigbluebuttonAttendee.new
+          attendee.user_id = "anything-invalid"
+          attendee.full_name = "Invited User"
+          attendee.role = :moderator
+          attendee
+        }
+        before(:each) {
+          BigbluebuttonRoom.any_instance.stub(:attendees).and_return([attendee1, attendee2])
+          get :webconference, :id => space.to_param
+        }
+        it { should assign_to(:webconf_attendees).with([user]) }
+      end
+    end
   end
 
   describe "#recordings" do

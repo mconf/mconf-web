@@ -20,34 +20,12 @@
       }
     }
 
-    .recording-date, .recording-duration {
+    .recording-date {
       display: inline-block;
     }
-    .recording-duration {
-      padding-left: 3px;
-    }
 
-    .playback-link {
-      white-space: nowrap;
-      @include border-radius(3px);
-      background: $m-light-gray;
-      border: 1px solid darken($m-light-gray, 5);
-      padding: 0 5px;
-    }
-
-    &.thread-odd {
-      .playback-link {
-        background: darken($m-light-gray, 5);
-        border-color: 1px solid darken($m-light-gray, 10);
-      }
-    }
-
-    .playback-unavailable {
-      color: mix($m-link-color, #888, 70%); // a grayer link
-    }
-
-    .playback-processing {
-      color: darken($m-yellow, 10);
+    .thread-recording-playback {
+      margin: 0;
     }
   }
 }

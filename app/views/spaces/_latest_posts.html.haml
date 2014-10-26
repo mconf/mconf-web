@@ -22,7 +22,7 @@
               = link_to(post.author.name, user_path(post.author), :class => 'post-author')
             - else
               %span.post-author= t('_other.user.removed')
-            %span.updated-at= t('updated_time_ago', :time => time_ago_in_words(post.updated_at))
+            %span.updated-at= t('updated_time_ago', :time => time_ago_in_words(post.updated_at, vague: true))
           .post-text
             = first_words(strip_tags(post.text), 100)
 

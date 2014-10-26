@@ -1,25 +1,19 @@
-send_private_message_notifications:
+send_private_messages_notifications:
   every:
     - "30s"
-  class: MessageNotifications
-  description: "This job finds all messages on recent activity and sends their receivers the message notifications"
+  class: PrivateMessagesNotificationsWorker
+  description: "Sends notifications for all private messages not notified yet"
 
-send_join_request_notifications:
+send_join_requests_notifications:
   every:
     - "30s"
-  class: JoinRequestNotifications
-  description: "This job finds all join requests on recent activity and sends the space admins or users the message notifications"
-
-send_processed_join_request_notifications:
-  every:
-    - "30s"
-  class: ProcessedJoinRequestNotifications
-  description: "This job finds all join requests accepted on recent activity and sends to the users the notifications"
+  class: JoinRequestsNotificationsWorker
+  description: "Sends notifications for all join requests not notified yet"
 
 send_invitations:
   every:
     - "30s"
-  class: Invitations
+  class: InvitationsWorker
   description: "Finds all invitations still not sent and sends them"
 
 finish_meetings:

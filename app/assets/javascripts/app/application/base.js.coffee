@@ -129,6 +129,12 @@ class mconf.Base
   @validateEmail: (value) ->
     /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(value)
 
+  # Escapes HTML characters from a string
+  escape = document.createElement('textarea')
+  @escapeHTML: (string) ->
+    escape.innerHTML = string
+    escape.innerHTML
+
 $ ->
   # Setting I18n-js with the user language
   I18n.locale = $('html').attr "lang"

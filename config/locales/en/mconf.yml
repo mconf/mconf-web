@@ -13,6 +13,7 @@ en:
       space:
         create_html: "A meeting was started on the space %{owner} at %{time}"
     join_request:
+      deleted: that has since been deleted
       invite_html: "was invited to join the space"
       invite_with_introducer_html: "was invited by <a href=\"%{introducer_url}\">%{introducer}</a> to join the space"
       request_html: "has requested to join the space"
@@ -63,6 +64,8 @@ en:
     details: "Details"
     edit: "Edit"
     end: "End"
+    form:
+      required: "required"
     index: Listing
     in_place_edit:
       error: "error"
@@ -153,9 +156,9 @@ en:
         description: "Description"
         domain: "Application domain"
         events_enabled: "Enable event module"
-        exception_notifications: "Send email on error"
-        exception_notifications_email: "Debug emails recipients"
-        exception_notifications_prefix: "Debug emails subject prefix"
+        exception_notifications: "Send exception notifications"
+        exception_notifications_email: "Exception notifications recipients"
+        exception_notifications_prefix: "Exception notifications subject prefix"
         external_help: "External help/FAQ page"
         feedback_url: "Feedback URL"
         ldap_enabled: "LDAP: Enable authentication"
@@ -437,7 +440,14 @@ en:
   crop_image: 
     description: "Select a part of the image to crop"
     title: "Crop image"
-  custom_bigbluebutton_rooms: 
+  custom_bigbluebutton_playback_types:
+    index:
+      default: "Default"
+      description: "Playback types are the types of playbacks available for recordings. This list is automatically filled when the recordings are fetched from the web conference servers. You can hide playback types from the interface, unchecking the visible checkbox, and change the default playback, the one shown always at the top when listing the links to all playbacks available."
+      list_of_playback_types: "List of playback types"
+      name: "Name"
+      visible: "Visible"
+  custom_bigbluebutton_rooms:
     _other:
       fetch_recordings: "Fetch recordings"
       invite: "Invite"
@@ -523,6 +533,7 @@ en:
     send_invitation:
       error: "Invitation failed to be sent to:"
       error_date_format: "The dates you informed are not in a valid format, please try again"
+      error_title: "It is mandatory to include a title for your invitation, please try again"
       success: "Invitation successfully sent to:"
     show:
       showing_room: "Showing room '%{room}'"
@@ -783,9 +794,6 @@ en:
   join: Join
   join_cam: Participate
   join_requests:
-    asked_anonymous: "Someone wants to participate in %{space} space administered by you:"
-    asked_anonymous_full: "Someone wants to participate in %{space} space administered by you: %{comment} <br/><br/><p>To answer the request please visit <a href=\"%{url}\">%{url}</a></p><p>If you believe this message is a spam, please <a href=\"mailto:%{contact}\"> contact us </a> or send us <a href=\"%{feedback}\"> feedback.</a></p><p>%{signature}</p>"
-    asked_full: "<b>%{candidate}</b> wants to participate in %{space} space administered by you: %{comment} <br/><br/><p>To answer the request please visit <a href=\"%{url}\">%{url}</a></p><p>If you believe this message is a spam, please <a href=\"mailto:%{contact}\"> contact us </a> or send us <a href=\"%{feedback}\"> feedback.</a></p><p>%{signature}</p>"
     create:
       already_invited: "The following users already have an invitation pending: %{users}"
       already_a_member: "%{name} is already a member"
@@ -1269,17 +1277,16 @@ en:
       success: "Application language changed to %{value}"
       error: "Unable to change application language to %{value}"
   shared:
-    recording_duration:
-      duration: "Duration"
-      ended_at: "Ended at"
     recording_list:
       created: "Created"
       created_by: "Created by"
+      ended_at: "Ended at"
       no_description: "<no description specified>"
       no_recordings: "Your web conference room has no recordings yet"
       no_title: "<no title specified>"
-      started_at: "Started at"
+      started_at: "The meeting happened at"
     recording_playback:
+      duration: "duration"
       playback: "Playback links"
       processing_dots: "Processing, please wait..."
       processing_tip: "This recording was found in one of the servers but is still being processed. When the processing finishes the links for playback will be available here."
@@ -1288,6 +1295,7 @@ en:
     webconf_index_links:
       new_room: "New room"
       new_server: "New server"
+      view_playback_type_list: "View playback type list"
       view_recording_list: "View recording list"
       view_room_list: "View room list"
       view_server_list: "View server list"
@@ -1583,8 +1591,10 @@ en:
       invite: "Invite other people"
       webconference:
         attendees:
+          all_users: "All users"
           nobody: "There is nobody currently in the room."
           people_in_the_room: "People in the room"
+          registered_users: "Registered users"
         description:
           header: "Webconference access"
           text: "The webconference room associated with this space is currently: <em>%{status}</em> <br/> Use the buttons in the sidebar at the right to join the webconference."

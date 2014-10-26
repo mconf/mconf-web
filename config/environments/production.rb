@@ -57,6 +57,10 @@ Mconf::Application.configure do
   # Every js or css in the root directory is compiled, except the ones started by "_"
   config.assets.precompile +=
     Dir.glob("#{Rails.root}/app/assets/{stylesheets,javascripts}/[^_]*.{css,scss,js,coffee}").map{ |f| File.basename(f).gsub(/\.(scss|coffee)/, '') }
+  # Add all images from vendored assets. Just images, css and js files are required by our css and js
+  # files, do they do not need their own route.
+  config.assets.precompile +=
+    Dir.glob("#{Rails.root}/vendor/assets/**/*.{png,jpg,gif}")
 
   # Disable delivery errors, bad email addresses will be ignored
   # TODO: review

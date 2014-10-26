@@ -6,7 +6,12 @@
 
 require 'spec_helper'
 
-describe Invitations do
+describe InvitationsWorker do
+  let(:worker) { InvitationsWorker }
+
+  it "uses the queue :join_requests" do
+    worker.instance_variable_get(:@queue).should eql(:invitations)
+  end
 
   describe "#perform" do
 
@@ -18,7 +23,7 @@ describe Invitations do
         ResqueSpec.reset!
         invitation_conference
         invitation_event
-        Invitations.perform
+        worker.perform
       end
 
       it { BaseMailer.should have_queue_size_of(2) }
@@ -34,7 +39,7 @@ describe Invitations do
         ResqueSpec.reset!
         invitation_ready
         invitation_not_ready
-        Invitations.perform
+        worker.perform
       end
 
       it { BaseMailer.should have_queue_size_of(1) }
@@ -50,7 +55,7 @@ describe Invitations do
         ResqueSpec.reset!
         invitation_sent
         invitation_not_sent
-        Invitations.perform
+        worker.perform
       end
 
       it { BaseMailer.should have_queue_size_of(1) }
@@ -65,7 +70,7 @@ describe Invitations do
         ResqueSpec.reset!
         invitation
         Invitation.any_instance.should_receive(:send_invitation) { false }
-        Invitations.perform
+        worker.perform
       end
 
       it { invitation.result.should be_falsey }

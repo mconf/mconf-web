@@ -13,6 +13,7 @@ pt-br:
       space:
         create_html: "Uma reunião foi iniciada na comunidade %{owner} em %{time}"
     join_request:
+      deleted: que não existe mais
       invite_html: "foi convidado(a) para entrar na comunidade"
       invite_with_introducer_html: "foi convidado(a) por <a href=\"%{introducer_url}\">%{introducer}</a> para entrar na comunidade"
       request_html: "requisitou ingresso na comunidade"
@@ -63,6 +64,8 @@ pt-br:
     details: "Detalhes"
     edit: "Editar"
     end: "Finalizar"
+    form:
+      required: "obrigatório"
     index: Listando
     in_place_edit:
       error: "erro"
@@ -153,9 +156,9 @@ pt-br:
         description: "Descrição"
         domain: "Domínio da Aplicação"
         events_enabled: "Habilitar módulo de eventos"
-        exception_notifications: "Enviar e-mails de depuração"
-        exception_notifications_email: "Destinatários dos e-mails de depuração"
-        exception_notifications_prefix: "Prefixo no assunto dos e-mails de depuração"
+        exception_notifications: "Enviar notificações em exceções"
+        exception_notifications_email: "Destinatários das notificações de exceção"
+        exception_notifications_prefix: "Prefixo no assunto das notificações de exceção"
         external_help: "Página de Ajuda/FAQ Externa"
         feedback_url: "URL de feedback"
         ldap_enabled: "LDAP: Habilitar autenticação"
@@ -437,7 +440,14 @@ pt-br:
   crop_image: 
     description: "Selecione uma parte da imagem para cortar"
     title: "Cortar imagem"
-  custom_bigbluebutton_rooms: 
+  custom_bigbluebutton_playback_types:
+    index:
+      default: "Padrão"
+      description: "Tipos de reprodução são as classes de reprodução disponívels para as gravações. Esta lista é preenchida automaticamente quando as gravações são buscadas dos servidores de webconferência. Você pode esconder algum tipo de reprodução, desmarcando a caixa 'visível', e modificar o tipo padrão, que é exibido no topo quando listados os links para reproduzir uma gravação."
+      list_of_playback_types: "Lista de tipos de reprodução"
+      name: "Nome"
+      visible: "Visível"
+  custom_bigbluebutton_rooms:
     _other:
       fetch_recordings: "Buscar gravações"
       invite: "Convidar"
@@ -523,6 +533,7 @@ pt-br:
     send_invitation:
       error: "Não foi possível enviar o convite para:"
       error_date_format: "As datas que você informou não estão em um formato válido, por favor tente novamente"
+      error_title: "É obrigatório incluir um título para o seu convite, por favor tente novamente"
       success: "Convite enviado com sucesso para:"
     show:
       showing_room: "Mostrando a sala '%{room}'"
@@ -783,9 +794,6 @@ pt-br:
   join: Entrar
   join_cam: Participar
   join_requests:
-    asked_anonymous: "Alguém quer participar da comunidade %{space} administrado por você:"
-    asked_anonymous_full: "Alguém quer participar da comunidade %{space} administrado por você: %{comment} <br/><br/><p>Para atender o pedido visite <a href=\"%{url}\">%{url}</a></p><p>Se você acredita que esta mensagem é um spam, por favor <a href=\"mailto:%{contact}\"> entre em contato </a> ou nos <a href=\"%{feedback}\"> envie uma mensagem.</a></p><p>%{signature}</p>"
-    asked_full: "<b>%{candidate}</b> quer participar da comunidade %{space} administrado por você: %{comment} <br/><br/><p>Para atender o pedido visite <a href=\"%{url}\">%{url}</a></p><p>Se você acredita que esta mensagem é um spam, por favor <a href=\"mailto:%{contact}\"> entre em contato</a> ou nos <a href=\"%{feedback}\"> envie uma mensagem.</a></p><p>%{signature}</p>"
     create:
       already_invited: "Os seguintes usuários já possuem um convite pendente: %{users}"
       already_a_member: "%{name} já é um membro"
@@ -1286,25 +1294,25 @@ pt-br:
       success: "Idioma da aplicação alterado para %{value}"
       error: "Não foi possível alterar o idioma do aplicativo para %{value}"
   shared:
-    recording_duration:
-      duration: "Duração"
-      ended_at: "Finalizada em"
     recording_list:
       created: "Criada"
       created_by: "Criada por"
+      ended_at: "Finalizada em"
       no_description: "<nenhuma descrição especificada>"
       no_recordings: "Sua sala de webconferência ainda não possui gravações"
       no_title: "<nenhum título especificado>"
-      started_at: "Iniciou em"
+      started_at: "A reunião aconteceu em"
     recording_playback:
+      duration: "duração"
       playback: "Links para reprodução"
       processing_dots: "Processando, por favor aguarde..."
       processing_tip: "Esta gravação foi encontrada em um dos servidores mas ainda está sendo processada. Quando o processamento acabar, os links para reprodução serão disponibilizados aqui."
-      unavailable: "Esta gravação não está disponível"
-      unavailable_tip: "Esta gravação não está mais disponível no servidor onde ela estava armazenada e então não pode ser acessada."
+      unavailable: "A gravação não está disponível"
+      unavailable_tip: "A gravação não está mais disponível no servidor onde ela estava armazenada e então não pode ser acessada."
     webconf_index_links:
       new_room: "Nova sala"
       new_server: "Novo servidor"
+      view_playback_type_list: "Ver lista de tipos de reprodução"
       view_recording_list: "Ver lista de gravações"
       view_room_list: "Ver lista de salas"
       view_server_list: "Ver lista de servidores"
@@ -1579,8 +1587,10 @@ pt-br:
       invite: "Convidar outras pessoas"
       webconference:
         attendees:
+          all_users: "Todos usuários"
           nobody: "Não há ninguém na sala."
           people_in_the_room: "Pessoas na sala"
+          registered_users: "Usuários registrados"
         description:
           header: "Acesso à webconferência"
           text: "A sala de webconferência associada com esta comunidade está no momento: <em>%{status}</em> <br/> Use os botões na barra lateral à direita para entrar na conferência."

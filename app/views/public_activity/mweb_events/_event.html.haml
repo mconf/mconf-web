@@ -8,7 +8,7 @@
     = link_logo_image(activity.owner, :size => '84x64', :url => space_path(activity.owner), :class => 'logo logo-space')
 
 .thread-content
-  .thread-updated-at= t('updated_time_ago', :time => time_ago_in_words(activity.updated_at))
+  .thread-updated-at= t('updated_time_ago', :time => time_ago_in_words(activity.updated_at, vague: true))
 
   .thread-title
     = icon_event
