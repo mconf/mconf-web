@@ -35,6 +35,14 @@ describe 'User signs in via shibboleth' do
 
     it { should have_content t('shibboleth.associate.new_account.title') }
     it { should have_button t('shibboleth.associate.new_account.create_new_account') }
+  end
+
+  context 'for the first time' do
+    before {
+      enable_shib
+      setup_shib @attrs[:_full_name], @attrs[:email], @attrs[:email]
+      visit shibboleth_path
+    }
 
     context 'and the user wants a new account' do
       before { click_button t('shibboleth.associate.new_account.create_new_account') }
@@ -76,6 +84,64 @@ describe 'User signs in via shibboleth' do
 
         it { has_failure_message }
         it { current_path.should eq(shibboleth_path) }
+      end
+    end
+
+    context "creating the user's account" do
+      context "and there's a conflict on the user's username with another user" do
+        before {
+          FactoryGirl.create(:user, username: @attrs[:_full_name].parameterize)
+          expect {
+            click_button t('shibboleth.associate.new_account.create_new_account')
+          }.not_to change{ User.count }
+        }
+
+        it { current_path.should eq(shibboleth_path) }
+        it { has_failure_message "Username has already been taken" }
+        it("doesn't create a ShibToken") { ShibToken.count.should be(0) }
+        it("doesn't send emails") { BaseMailer.should have_queue_size_of(0) }
+      end
+
+      context "and there's a conflict on the user's username with a space" do
+        before {
+          FactoryGirl.create(:space, permalink: @attrs[:_full_name].parameterize)
+          expect {
+            click_button t('shibboleth.associate.new_account.create_new_account')
+          }.not_to change{ User.count }
+        }
+
+        it { current_path.should eq(shibboleth_path) }
+        it { has_failure_message "Username has already been taken" }
+        it("doesn't create a ShibToken") { ShibToken.count.should be(0) }
+        it("doesn't send emails") { BaseMailer.should have_queue_size_of(0) }
+      end
+
+      context "and there's a conflict on the user's username with a room" do
+        before {
+          FactoryGirl.create(:bigbluebutton_room, param: @attrs[:_full_name].parameterize)
+          expect {
+            click_button t('shibboleth.associate.new_account.create_new_account')
+          }.not_to change{ User.count }
+        }
+
+        it { current_path.should eq(shibboleth_path) }
+        it { has_failure_message "Username has already been taken" }
+        it("doesn't create a ShibToken") { ShibToken.count.should be(0) }
+        it("doesn't send emails") { BaseMailer.should have_queue_size_of(0) }
+      end
+
+      context "and there's a conflict in the user's email" do
+        before {
+          FactoryGirl.create(:user, email: @attrs[:email])
+          expect {
+            click_button t('shibboleth.associate.new_account.create_new_account')
+          }.not_to change{ User.count }
+        }
+
+        it { current_path.should eq(shibboleth_path) }
+        it { has_failure_message t('shibboleth.create_association.existent_account', email: @attrs[:email]) }
+        it("doesn't create a ShibToken") { ShibToken.count.should be(0) }
+        it("doesn't send emails") { BaseMailer.should have_queue_size_of(0) }
       end
     end
   end
