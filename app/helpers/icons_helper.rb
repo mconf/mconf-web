@@ -54,11 +54,11 @@ module IconsHelper
 
   # Conference "in progress" icon.
   def icon_in_progress(options={})
-    icon_constructor nil, "icon-awesome icon-refresh icon-mconf-in-progress icon-spin", options
+    icon_constructor nil, "icon-awesome fa fa-refresh icon-mconf-in-progress fa-spin", options
   end
 
   def icon_loading(options={})
-    icon_constructor nil, "icon-awesome icon-refresh icon-mconf-loading icon-spin", options
+    icon_constructor nil, "icon-awesome fa fa-refresh icon-mconf-loading fa-spin", options
   end
 
   def icon_spam(options={})

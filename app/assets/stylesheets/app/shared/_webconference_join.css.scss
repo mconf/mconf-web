@@ -1,37 +1,72 @@
 @import "compass/css3";
 @import "definitions";
 
-#webconference-start {
-  padding: 15px;
-  background: $m-light-gray;
-  text-align: right;
-  @include border-radius(3px);
-  border: 1px solid darken($m-light-gray, 7);
-
-  .room-status {
-    margin-right: 20px;
-    @include font-size($m-font-medium);
-    float: left;
-    padding: 7px;
-  }
-
-  &.in-progress {
-    //border-top: 1px solid $m-green;
-    //border-bottom: 1px solid $m-green;
-  }
-
-  .btn {
-    // bit more horizontal spacing
-    margin: 0 3px;
-  }
-}
-
 #webconference-room {
 
-  #invite-url-text {
-    cursor: text;
-    background: $m-very-light-gray;
+  #webconference-room-invitations {
+    @include make-row;
+
+    .invitation-input {
+      @include make-sm-column(12);
+      @include make-md-column(9);
+
+      #invite-url-text {
+        cursor: text;
+        background: $m-very-light-gray;
+      }
+    }
+
+    .invitation-button {
+      @include make-sm-column(12);
+      @include make-md-column(3);
+    }
   }
+
+  #webconference-start {
+    @include make-row;
+    padding: 15px 0;
+    margin: 0 5px;
+    background: $m-light-gray;
+    @include border-radius(3px);
+    border: 1px solid darken($m-light-gray, 7);
+
+    .webconference-status {
+      @include make-xs-column(12);
+      @include make-sm-column(7);
+
+      span {
+        @include font-size($m-font-medium);
+        padding: 7px 0;
+        float: left;
+      }
+    }
+
+    .webconference-access-buttons {
+      @include make-xs-column(12);
+      @include make-sm-column(5);
+      text-align: right;
+
+      .btn {
+        // bit more horizontal spacing
+        margin: 0 3px;
+      }
+    }
+
+    &.in-progress {
+      // when in progress, there are more buttons than status text
+      .webconference-status {
+        @include make-sm-column(5);
+      }
+      .webconference-access-buttons {
+        @include make-sm-column(7);
+      }
+
+      .webconference-status {
+        .icon-mconf-in-progress { margin-right: 5px; }
+      }
+    }
+  }
+
 
   .webconference-types {
     margin-bottom: 10px;

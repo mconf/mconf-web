@@ -229,10 +229,48 @@ form {
   @include font-for-titles;
 }
 
+@mixin navbar-lists {
+  ul {
+    list-style-type: none;
+    float: left;
+    margin: 0;
+    padding: 0;
+
+    li {
+      display: inline;
+      float: left;
+      padding: 11px 10px 0 10px;
+      height: $m-navbar-height + 1px; // + the border
+
+      &:first-child { border: 0 }
+
+      .label { margin-left: 3px; }
+
+      &.notification {
+        //background: lighten($m-navbar-bg-color-light, 5);
+        margin: 0 10px 0 0;
+
+        .badge {
+          background-color: $brand-success;
+          color: white;
+          margin-right: 5px;
+        }
+      }
+    }
+  }
+
+  a, .icon-awesome {
+    @include link-colors($m-navbar-font-color, $m-navbar-font-color-hover, $m-navbar-font-color-hover);
+  }
+
+  .icon-awesome {
+    margin: 3px 3px 0px 0px;
+    @include font-size($m-font-normal);
+  }
+}
+
 #navbar {
   @include make-row;
-  margin: 0 auto;
-  padding: 0 10px;
   height: $m-navbar-height;
   color: $m-navbar-font-color;
   @include font-size($m-font-medium);
@@ -240,6 +278,43 @@ form {
   a {
     @include link-on-menus;
   }
+
+  #navbar-left {
+    @include make-sm-column(6);
+    @include navbar-lists;
+  }
+
+  #navbar-right {
+    @include make-sm-column(5);
+    @include navbar-lists;
+
+    ul {
+      float: right;
+      margin-right: 10px;
+
+      li {
+        margin-left: 10px;
+        margin-right: 0;
+        padding-left: 10px;
+        padding-right: 0;
+      }
+    }
+  }
+
+  #navbar-logo {
+    @include make-sm-column(1);
+    float: left;
+    white-space: nowrap;
+    margin-top: 4px;
+    @include mconf-clearfix;
+
+    .title {
+      @include link-colors($m-navbar-font-color, $m-navbar-font-color-hover, $m-navbar-font-color-hover, $m-navbar-font-color);
+      @include font-size($m-font-bigger);
+      float: left;
+    }
+  }
+
 }
 
 #footer-wrapper {
@@ -314,230 +389,6 @@ form {
   }
 
   span { display: block; }
-}
-
-ul#navbar-left-links {
-  list-style-type: none;
-  float: left;
-  margin: 0;
-  padding: 0;
-
-  a, .icon-awesome {
-    @include link-colors($m-navbar-font-color, $m-navbar-font-color-hover, $m-navbar-font-color-hover);
-  }
-
-  .icon-awesome {
-    margin: 3px 3px 0px 0px;
-    @include font-size($m-font-normal);
-  }
-
-  li {
-    display: inline;
-    float: left;
-    padding: 11px 10px 0 10px;
-    height: $m-navbar-height + 1px; // + the border
-
-    &:first-child { border: 0 }
-
-    .label { margin-left: 3px; }
-
-    &.notification {
-      //background: lighten($m-navbar-bg-color-light, 5);
-      margin: 0 10px 0 0;
-
-      .badge {
-        background-color: $brand-success;
-        color: white;
-        margin-right: 5px;
-      }
-    }
-
-    /* &.notification-count { */
-    /*   background: $m-alert-success-font; */
-    /*   //background: lighten($m-navbar-bg-color-light, 10); */
-    /*   color: white; */
-    /*   float: left; */
-    /*   margin: 0; */
-    /*   text-weight: bold; */
-    /*   padding: 2px; */
-    /*   margin-top: 6px; */
-    /*   @include font-size($m-font-big); */
-    /* } */
-  }
-}
-
-#navbar #navbar-right-links {
-  @extend ul#navbar-left-links;
-  float: right;
-  margin-right: 10px;
-
-  li {
-    margin-left: 10px;
-    margin-right: 0;
-    padding-left: 10px;
-    padding-right: 0;
-  }
-
-  .user-info-dropdown {
-    margin: 0;
-    padding: 4px 10px 3px 10px;
-  }
-
-  // small user info in the navbar
-  .user-info {
-
-    .user-name {
-      padding: 4px 10px 4px 5px;
-      float: right;
-      display: block;
-    }
-
-    .user-avatar {
-      position: relative;
-      float: right;
-      padding: 2px;
-      height: 22px;
-      width: 22px;
-      background: lighten($m-navbar-bg-color-dark, 10);
-      @include border-radius(3px);
-      @include broken-img-parent;
-
-      img.logo-user {
-        height: 22px;
-        width: 22px;
-      }
-    }
-  }
-
-  // dropdown menu with the user information
-  // it needs some adjustments over the default style
-  .dropdown {
-    &.open {
-      $color: lighten-or-darken($m-navbar-menu-open-bg, $m-navbar-font-color, 10, 40);
-      $color-hover: lighten($color, 15);
-
-      background: $m-navbar-menu-open-bg;
-      color: $color;
-      .caret {
-        border-top-color: $color;
-      }
-      .user-info {
-        color: $color;
-      }
-      a { @include link-colors($color, $color-hover, $color-hover, $color); }
-    }
-
-    .caret {
-      border-top-color: $m-navbar-font-color;
-      margin-top: 11px;
-      margin-right: 4px;
-    }
-
-    .dropdown-menu {
-      color: lighten-or-darken($m-navbar-menu-open-bg, $m-navbar-font-color, 10, 30);
-      background: $m-navbar-menu-open-bg;
-      top: $m-navbar-height - 2px;
-      right: -1px;
-      left: auto;
-      min-width: 300px;
-      width: 300px;
-      border: 1px solid #ccc;
-      border-top: 0;
-      padding: 10px;
-      @include border-radius(4px, 0);
-      //&.arrow-right:after { border-bottom-color: white; }
-
-      a {
-        @include link-colors($m-navbar-menu-open-link, $m-navbar-menu-open-link-hover, $m-navbar-menu-open-link-hover, $m-navbar-menu-open-link);
-        padding: 0;
-        &:hover {
-          @include text-shadow(none);
-          background-color: $m-transparent;
-          background-image: none;
-        }
-      }
-    }
-  }
-
-  // big user info shown in the dropdown clicking in the navbar
-  .user-info-big {
-    @include mconf-clearfix;
-
-    .user-data {
-      @include mconf-clearfix;
-      padding-left: 7px;
-      a, span {
-        display: block;
-        float: left;
-        clear: left;
-        margin-bottom: 3px;
-      }
-    }
-
-    .user-name {
-      padding: 4px 10px 4px 5px;
-      float: right;
-      display: block;
-    }
-
-    .user-avatar {
-      position: relative;
-      float: left;
-      border: 1px solid darken($m-navbar-menu-open-bg, 10);
-      padding: 1px;
-      height: 64px;
-      width: 64px;
-      background: white;
-      @include border-radius(3px);
-      @include broken-img-parent;
-
-      img.logo-user {
-        height: 64px;
-        width: 64px;
-      }
-    }
-  }
-
-  // user links shown in the dropdown clicking in the navbar
-  .user-links {
-    @include mconf-clearfix;
-    clear: both;
-    margin-top: 10px;
-    background: darken($m-navbar-menu-open-bg, 5);
-    padding: 2px;
-    @include border-radius(4px);
-    border: 1px solid darken($m-navbar-menu-open-bg, 10);
-
-    ul {
-      margin: 0;
-      li {
-        float: right;
-        margin: 0;
-        border: 0;
-        padding: 0 10px;
-        white-space: nowrap;
-        a {
-          clear: none;
-          float: none;
-          display: inline;
-        }
-      }
-    }
-  }
-
-}
-
-#main-logo {
-  float: left;
-  white-space: nowrap;
-  margin: 4px 15px 0 5px;
-  @include mconf-clearfix;
-
-  .title {
-    @include link-colors($m-navbar-font-color, $m-navbar-font-color-hover, $m-navbar-font-color-hover, $m-navbar-font-color);
-    @include font-size($m-font-bigger);
-    float: left;
-  }
 }
 
 #page-header-wrapper {
@@ -876,15 +727,11 @@ ul#navbar-left-links {
       // use link-style(2) but with a lighter default color
       @include link-style(2);
       > a:not(.btn) {
-        /* display: inline-block; */
-        /* margin-bottom: 0px; */
         color: $m-page-menu-font-color;
         &:visited { color: $m-page-menu-font-color; }
-        /* &.danger-text { */
-        /*   @include danger-text; */
-        /*   @include opacity(0.8); */
-        /*   &.selected { @include opacity(1); } */
-        /* } */
+        &.danger-text {
+          @include danger-text;
+        }
       }
 
       &.selected {
