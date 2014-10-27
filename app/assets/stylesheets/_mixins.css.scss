@@ -76,7 +76,7 @@
 
 @mixin danger-text {
   color: $m-red;
-  @include link-colors($m-red, lighten($m-red, 10), darken($m-red, 10));
+  @include link-colors($m-red, darken($m-red, 10), lighten($m-red, 5x));
 }
 
 @mixin set-sidebar-width($new-width) {
