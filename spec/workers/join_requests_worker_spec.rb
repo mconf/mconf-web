@@ -6,8 +6,8 @@
 
 require 'spec_helper'
 
-describe JoinRequestsNotificationsWorker do
-  let(:worker) { JoinRequestsNotificationsWorker }
+describe JoinRequestsWorker do
+  let(:worker) { JoinRequestsWorker }
   let(:space) { FactoryGirl.create(:space) }
 
   it "uses the queue :join_requests" do
@@ -33,10 +33,10 @@ describe JoinRequestsNotificationsWorker do
       }
 
       before(:each) { worker.perform }
-      it { expect(JoinRequestInviteNotificationWorker).to have_queue_size_of(2) }
-      it { expect(JoinRequestInviteNotificationWorker).to have_queued(@activity1.id) }
-      it { expect(JoinRequestInviteNotificationWorker).to have_queued(@activity2.id) }
-      it { expect(JoinRequestInviteNotificationWorker).not_to have_queued(@activity3.id) }
+      it { expect(JoinRequestInviteSenderWorker).to have_queue_size_of(2) }
+      it { expect(JoinRequestInviteSenderWorker).to have_queued(@activity1.id) }
+      it { expect(JoinRequestInviteSenderWorker).to have_queued(@activity2.id) }
+      it { expect(JoinRequestInviteSenderWorker).not_to have_queued(@activity3.id) }
     end
 
     context "enqueues all unnotified requests" do
@@ -56,10 +56,10 @@ describe JoinRequestsNotificationsWorker do
       }
 
       before(:each) { worker.perform }
-      it { expect(JoinRequestNotificationWorker).to have_queue_size_of(2) }
-      it { expect(JoinRequestNotificationWorker).to have_queued(@activity1.id) }
-      it { expect(JoinRequestNotificationWorker).to have_queued(@activity2.id) }
-      it { expect(JoinRequestNotificationWorker).not_to have_queued(@activity3.id) }
+      it { expect(JoinRequestSenderWorker).to have_queue_size_of(2) }
+      it { expect(JoinRequestSenderWorker).to have_queued(@activity1.id) }
+      it { expect(JoinRequestSenderWorker).to have_queued(@activity2.id) }
+      it { expect(JoinRequestSenderWorker).not_to have_queued(@activity3.id) }
     end
 
     context "for unnotified processed requests" do
@@ -80,10 +80,10 @@ describe JoinRequestsNotificationsWorker do
         }
 
         before(:each) { worker.perform }
-        it { expect(ProcessedJoinRequestNotificationWorker).to have_queue_size_of(2) }
-        it { expect(ProcessedJoinRequestNotificationWorker).to have_queued(@activity1.id) }
-        it { expect(ProcessedJoinRequestNotificationWorker).to have_queued(@activity2.id) }
-        it { expect(ProcessedJoinRequestNotificationWorker).not_to have_queued(@activity3.id) }
+        it { expect(ProcessedJoinRequestSenderWorker).to have_queue_size_of(2) }
+        it { expect(ProcessedJoinRequestSenderWorker).to have_queued(@activity1.id) }
+        it { expect(ProcessedJoinRequestSenderWorker).to have_queued(@activity2.id) }
+        it { expect(ProcessedJoinRequestSenderWorker).not_to have_queued(@activity3.id) }
       end
 
       context "ignores requests with no parameters:join_request_id set" do
@@ -98,9 +98,9 @@ describe JoinRequestsNotificationsWorker do
         }
 
         before(:each) { worker.perform }
-        it { expect(ProcessedJoinRequestNotificationWorker).to have_queue_size_of(1) }
-        it { expect(ProcessedJoinRequestNotificationWorker).to have_queued(@activity1.id) }
-        it { expect(ProcessedJoinRequestNotificationWorker).not_to have_queued(@activity2.id) }
+        it { expect(ProcessedJoinRequestSenderWorker).to have_queue_size_of(1) }
+        it { expect(ProcessedJoinRequestSenderWorker).to have_queued(@activity1.id) }
+        it { expect(ProcessedJoinRequestSenderWorker).not_to have_queued(@activity2.id) }
       end
     end
   end

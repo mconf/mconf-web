@@ -6,8 +6,8 @@
 
 require 'spec_helper'
 
-describe ProcessedJoinRequestNotificationWorker do
-  let(:worker) { ProcessedJoinRequestNotificationWorker }
+describe ProcessedJoinRequestSenderWorker do
+  let(:worker) { ProcessedJoinRequestSenderWorker }
   let(:space) { FactoryGirl.create(:space) }
 
   it "uses the queue :join_requests" do

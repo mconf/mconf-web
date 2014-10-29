@@ -6,8 +6,8 @@
 
 require 'spec_helper'
 
-describe PrivateMessagesNotificationsWorker do
-  let(:worker) { PrivateMessagesNotificationsWorker }
+describe PrivateMessagesWorker do
+  let(:worker) { PrivateMessagesWorker }
 
   it "#perform"
 end

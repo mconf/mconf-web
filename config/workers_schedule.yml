@@ -1,13 +1,13 @@
 send_private_messages_notifications:
   every:
     - "30s"
-  class: PrivateMessagesNotificationsWorker
+  class: PrivateMessagesWorker
   description: "Sends notifications for all private messages not notified yet"
 
 send_join_requests_notifications:
   every:
     - "30s"
-  class: JoinRequestsNotificationsWorker
+  class: JoinRequestsWorker
   description: "Sends notifications for all join requests not notified yet"
 
 send_invitations:

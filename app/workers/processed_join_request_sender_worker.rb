@@ -5,7 +5,7 @@
 # This file is licensed under the Affero General Public License version
 # 3 or later. See the LICENSE file.
 
-class ProcessedJoinRequestNotificationWorker
+class ProcessedJoinRequestSenderWorker
   @queue = :join_requests
 
   # Finds the join request associated with the activity in `activity_id` and sends
