@@ -62,13 +62,15 @@ Mconf::Application.routes.draw do
 
   # event module
   if Mconf::Modules.mod_loaded?('events')
+    mount MwebEvents::Engine => '/'
+
     # For invitations
     resources :events, :only =>[] do
-      post :send_invitation, :controller => 'mweb_events/events'
-      get  :invite, :controller => 'mweb_events/events'
+      member do
+        post :send_invitation, :controller => 'mweb_events/events'
+        get  :invite, :controller => 'mweb_events/events'
+      end
     end
-
-    mount MwebEvents::Engine => '/'
   end
 
   # shibboleth controller
