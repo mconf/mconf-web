@@ -106,7 +106,7 @@ class ShibbolethController < ApplicationController
 
   def save_shib_to_session
     logger.info "Shibboleth: saving env to session"
-    @shib.save_to_session(request.env, Site.current.shib_env_variables)
+    @shib.save_to_session(request.env, current_site.shib_env_variables)
   end
 
   # Checks if shibboleth is enabled in the current site.
@@ -206,7 +206,7 @@ class ShibbolethController < ApplicationController
 
   # Returns the value of the flag `shib_always_new_account`.
   def get_always_new_account
-    return Site.current.shib_always_new_account
+    return current_site.shib_always_new_account
   end
 
   # Adds fake test data to the environment to test shibboleth in development.

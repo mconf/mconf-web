@@ -158,7 +158,7 @@ class ApplicationController < ActionController::Base
     ability = Abilities.ability_for(current_user)
 
     can_record = ability.can?(:record_meeting, room)
-    if Site.current.webconf_auto_record
+    if current_site.webconf_auto_record
       # show the record button if the user has permissions to record
       { record: can_record }
     else
