@@ -310,14 +310,7 @@ module Abilities
 
     # Whether the space that owns the room that owns `recording` is public.
     def recordings_space_is_public(recording)
-      response = false
-      unless recording.room.nil?
-        if recording.room.owner_type == "Space"
-          space = Space.find(recording.room.owner_id)
-          response = space.public
-        end
-      end
-      response
+      recording.room.try(:public?)
     end
 
   end
