@@ -31,6 +31,7 @@ module Helpers
       webconf_auto_record: true
     }
     Site.current.update_attributes(attributes)
+    I18n.locale = "en"
   end
 
   module ClassMethods

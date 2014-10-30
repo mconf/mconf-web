@@ -15,7 +15,7 @@ describe SessionLocalesController do
 
     let(:old_locale) { I18n.locale }
     let!(:locale) { 'pt-br' }
-    let!(:locale_name) { 'Português (Brasil)' }
+    let!(:locale_name) { I18n.t("locales.#{locale}") }
     let(:user) { FactoryGirl.create(:user) }
     let!(:url) { '/any' }
 
