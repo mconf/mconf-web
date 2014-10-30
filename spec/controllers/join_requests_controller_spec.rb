@@ -331,7 +331,7 @@ describe JoinRequestsController do
   describe "#update" do
     let(:space) { FactoryGirl.create(:space) }
     let(:user) { FactoryGirl.create(:user) }
-    let(:jr) { FactoryGirl.create(:join_request, :group => space, :introducer => nil) }
+    let!(:jr) { FactoryGirl.create(:join_request, :group => space, :introducer => nil) }
 
     it { should_authorize an_instance_of(JoinRequest), :update, :via => :put, :space_id => space.to_param, :id => jr.id }
 
@@ -339,7 +339,6 @@ describe JoinRequestsController do
       before(:each) {
         request.env['HTTP_REFERER'] = space_join_requests_path(space)
         space.add_member!(user, 'Admin')
-        jr # create join request now and not on request block
         sign_in(user)
       }
 
@@ -347,7 +346,7 @@ describe JoinRequestsController do
         before(:each) {
           expect {
             put :update, :space_id => space.to_param, :id => jr.id, :join_request => {:processed => true, :accepted => true}
-          }.to change{space.pending_join_requests.count}.by(-1)
+          }.to change{space.pending_join_requests.count}.by(-1) && change{RecentActivity.count}.by(1)
           jr.reload
         }
 
@@ -355,6 +354,10 @@ describe JoinRequestsController do
         it { space.users.should include(jr.candidate) }
         it { jr.should be_accepted }
         it { jr.introducer.should eq(user) }
+        it { RecentActivity.last.trackable.should eq(jr.group) }
+        it { RecentActivity.last.parameters[:user_id].should eq(jr.candidate.id) }
+        it { RecentActivity.last.parameters[:username].should eq(jr.candidate.name) }
+        it { RecentActivity.last.owner.should eq(jr) }
       end
 
       context "accepts a user request and specifies a role" do
@@ -363,7 +366,7 @@ describe JoinRequestsController do
         before(:each) {
           expect {
             put :update, :space_id => space.to_param, :id => jr.id, :join_request => {:role_id => role.id, :processed => true, :accepted => true}
-          }.to change{space.pending_join_requests.count}.by(-1)
+          }.to change{space.pending_join_requests.count}.by(-1) && change{RecentActivity.count}.by(1)
           jr.reload
         }
 
@@ -373,13 +376,17 @@ describe JoinRequestsController do
         it { jr.introducer.should eq(user) }
         it { jr.role.should eq(role.name) }
         it { jr.candidate.permissions.last.role.should eq(role) }
+        it { RecentActivity.last.trackable.should eq(jr.group) }
+        it { RecentActivity.last.parameters[:user_id].should eq(jr.candidate.id) }
+        it { RecentActivity.last.parameters[:username].should eq(jr.candidate.name) }
+        it { RecentActivity.last.owner.should eq(jr) }
       end
 
       context "denies a user request" do
         before(:each) {
           expect {
             put :update, :space_id => space.to_param, :id => jr.id, :join_request => {:processed => true, :accepted => nil}
-          }.to change{space.pending_join_requests.count}.by(-1)
+          }.to change{space.pending_join_requests.count}.by(-1) && change{RecentActivity.count}.by(0)
           jr.reload
         }
 
@@ -391,10 +398,9 @@ describe JoinRequestsController do
     end
 
     context "an invited user" do
-      let(:jr) { FactoryGirl.create(:join_request, :group => space, :introducer => nil, :request_type => 'invite') }
+      let!(:jr) { FactoryGirl.create(:join_request, :group => space, :introducer => nil, :request_type => 'invite') }
       before(:each) {
         request.env['HTTP_REFERER'] = space_path(space)
-        jr # create join request now and not on request block
         sign_in(jr.candidate)
       }
 
@@ -402,19 +408,23 @@ describe JoinRequestsController do
         before(:each) {
           expect {
             put :update, :space_id => space.to_param, :id => jr.id, :join_request => {:processed => true, :accepted => true}
-          }.to change{space.pending_invitations.count}.by(-1)
+          }.to change{space.pending_invitations.count}.by(-1) && change{RecentActivity.count}.by(1)
           jr.reload
         }
 
         it { should redirect_to(space_path(space)) }
         it { jr.should be_accepted }
+        it { RecentActivity.last.trackable.should eq(jr.group) }
+        it { RecentActivity.last.parameters[:user_id].should eq(jr.candidate.id) }
+        it { RecentActivity.last.parameters[:username].should eq(jr.candidate.name) }
+        it { RecentActivity.last.owner.should eq(jr) }
       end
 
       context "denies a request" do
         before(:each) {
           expect {
             put :update, :space_id => space.to_param, :id => jr.id, :join_request => {:processed => true, :accepted => nil}
-          }.to change{space.pending_invitations.count}.by(-1)
+          }.to change{space.pending_invitations.count}.by(-1) && change{RecentActivity.count}.by(0)
           jr.reload
         }
 

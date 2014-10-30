@@ -9,7 +9,7 @@ class JoinRequestsController < ApplicationController
 
   # Recent activity for join requests
   after_filter :only => [:update] do
-    @space.new_activity(:join, current_user, @join_request) unless @join_request.errors.any? || !@join_request.accepted?
+    @space.new_activity(:join, @join_request.candidate, @join_request) unless @join_request.errors.any? || !@join_request.accepted?
   end
 
   load_resource :space, :find_by => :permalink
