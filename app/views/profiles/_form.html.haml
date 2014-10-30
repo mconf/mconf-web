@@ -34,7 +34,7 @@
     = f.input :address
     = f.input :zipcode
     = f.fields_for :user do |u|
-      = u.input :email
+      = u.input :email, disabled: true
     = f.input :skype
     = f.input :im
     = f.input :phone
