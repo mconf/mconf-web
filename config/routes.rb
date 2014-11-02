@@ -106,9 +106,14 @@ Mconf::Application.routes.draw do
 
     resources :news
 
-    resources :join_requests do
+    resources :join_requests, only: [:index, :show, :new, :create] do
       collection do
         get :invite
+      end
+
+      member do
+        post :accept
+        post :decline
       end
     end
 

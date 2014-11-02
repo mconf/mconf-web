@@ -27,15 +27,17 @@ body.join_requests.index {
     }
   }
 
-  .thread-text {
-    margin-top: 10px;
-    clear: both;
-  }
-
   .user-comment {
     background: $very-light-gray;
     padding: 5px;
     margin: 5px 0;
+  }
+
+  #join-requests {
+    form .btn-small {
+      padding-top: 2px;
+      padding-bottom: 2px;
+    }
   }
 
 }

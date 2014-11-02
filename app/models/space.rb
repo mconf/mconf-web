@@ -102,7 +102,7 @@ class Space < ActiveRecord::Base
 
   def new_activity key, user, join_request=nil
     if join_request
-      create_activity key, :owner => self, :parameters => { :user_id => user.id, :username => user.name, :join_request_id => join_request.id }
+      create_activity key, :owner => join_request, :parameters => { :user_id => user.id, :username => user.name }
     else
       create_activity key, :owner => self, :parameters => { :user_id => user.id, :username => user.name }
     end

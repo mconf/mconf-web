@@ -55,6 +55,7 @@ en:
       format_display: "%m/%d/%Y"
       format: "MM-dd-yyyy"
       format_rails: "%m/%d/%Y %H:%M %z"
+    decline: "Decline"
     deny: "Deny"
     destroy: "Destroy"
     details: "Details"
@@ -790,6 +791,11 @@ en:
   join: Join
   join_cam: Participate
   join_requests:
+    accept:
+      accepted: "Join request accepted"
+    check_processed_request:
+      already_accepted: "This join request was already accepted before"
+      already_declined: "This join request was already declined before"
     create:
       already_invited: "The following users already have an invitation pending: %{users}"
       already_a_member: "%{name} is already a member"
@@ -798,8 +804,10 @@ en:
       error: "Something went wrong when processing your request, please try again. (details: %{errors})"
       sent: "Your invitation was successfully sent to: %{users}"
       user_not_found: "User not found: %{id}"
-    destroy:
-      success: "Join request successfully cancelled"
+    decline:
+      declined: "Join request declined"
+      invitation_destroyed: "Invitation successfully cancelled"
+      request_destroyed: "Join request successfully cancelled"
     index:
       accept: "Accept join request by %{user}?"
       accept_as: "as"
@@ -829,18 +837,20 @@ en:
     show:
       accept: "Yes, I want to join!"
       already_accepted: "... but you're already a member of this space."
-      comment_invitation: "This is the comment written by %{name}:"
       comment_request: "This request was already sent to the admins of the space, please wait for a response. This is the comment you wrote:"
       decline: "No, not now"
       decline_confirmation: "Are you sure you want to decline the invitation to join this space?"
+      is_candidate:
+        comment_invitation: "This is the comment written by %{name}:"
+        title_invitation: "You were invited by \"%{introducer}\" on %{date} to join the space \"%{space}\""
+      is_introducer:
+        comment_invitation: "This is the comment you wrote:"
+        title_invitation: "You invited \"%{candidate}\" on %{date} to join the space \"%{space}\""
+      is_other:
+        title_invitation: "\"%{introducer}\" invited \"%{candidate}\" on %{date} to join the space \"%{space}\""
       remove: "Cancel this request"
       remove_confirmation: "Are you sure you want to cancel the request to join this space?"
-      title_invitation: "You were invited to join the space \"%{name}\" on %{date}"
       title_request: "You sent a join request to the space \"%{name}\" on %{date}"
-    update:
-      accepted: "Join request accepted"
-      updated: "Join request status updated"
-      declined: "Join request declined"
   keywords: "Keywords (*)"
   language: Language
   last_week: "Last week"

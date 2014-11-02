@@ -65,6 +65,14 @@ class JoinRequest < ActiveRecord::Base
     group_type == 'Space'
   end
 
+  def is_invitation?
+    self.request_type == "invite"
+  end
+
+  def is_request?
+    self.request_type == "request"
+  end
+
   private
 
   def set_processed_at
