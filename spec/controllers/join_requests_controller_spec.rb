@@ -125,7 +125,7 @@ describe JoinRequestsController do
   describe "#create" do
     let(:user) { FactoryGirl.create(:user) }
     let(:space) { FactoryGirl.create(:space) }
-    let(:jr) { FactoryGirl.build(:join_request, :candidate => user, :introducer => nil) }
+    let(:jr) { FactoryGirl.build(:join_request, candidate: user, introducer: nil, role: nil) }
 
     it { should_authorize an_instance_of(JoinRequest), :create, :via => :post, :space_id => space.to_param }
 
@@ -146,7 +146,7 @@ describe JoinRequestsController do
       it { JoinRequest.last.introducer.should be_nil }
       it { JoinRequest.last.candidate.should eql(user) }
       it { JoinRequest.last.group.should eql(space) }
-      it { JoinRequest.last.role.should eql("User") }
+      it { JoinRequest.last.role_id.should be_nil }
       it { JoinRequest.last.request_type.should eql(JoinRequest::TYPES[:request]) }
     end
 
@@ -167,7 +167,7 @@ describe JoinRequestsController do
       it { JoinRequest.last.introducer.should be_nil }
       it { JoinRequest.last.candidate.should eql(user) }
       it { JoinRequest.last.group.should eql(space) }
-      it { JoinRequest.last.role.should eql("User") }
+      it { JoinRequest.last.role_id.should be_nil }
       it { JoinRequest.last.request_type.should eql(JoinRequest::TYPES[:request]) }
     end
 
@@ -183,18 +183,32 @@ describe JoinRequestsController do
         }
       }
 
-      let(:jr_allowed_params) {
-        [ :introducer_id, :role_id, :comment ]
-      }
       before {
         jr_attributes.stub(:permit).and_return(jr_attributes)
         controller.stub(:params).and_return(params)
         sign_in(user)
       }
-      before(:each) {
-        post :create, space_id: space.to_param, join_request: jr_attributes
-      }
-      it { jr_attributes.should have_received(:permit).at_least(:once).with(*jr_allowed_params) }
+
+      context "for a user creating a request" do
+        let(:jr_allowed_params) {
+          [ :comment ]
+        }
+        before(:each) {
+          post :create, space_id: space.to_param, join_request: jr_attributes
+        }
+        it { jr_attributes.should have_received(:permit).at_least(:once).with(*jr_allowed_params) }
+      end
+
+      context "for a space admin creating an invitation" do
+        let(:jr_allowed_params) {
+          [ :role_id, :comment ]
+        }
+        before(:each) {
+          space.add_member! user, "Admin"
+          post :create, space_id: space.to_param, join_request: jr_attributes
+        }
+        it { jr_attributes.should have_received(:permit).at_least(:once).with(*jr_allowed_params) }
+      end
     end
   end
 
@@ -358,6 +372,18 @@ describe JoinRequestsController do
         it { should set_the_flash.to(I18n.t('join_requests.accept.accepted')) }
       end
 
+      context "accepts a user request with a role" do
+        let(:role) { Role.find_by(name: 'Admin', stage_type: 'Space') }
+        before(:each) {
+          expect {
+            post :accept, space_id: space.to_param, id: jr.id, role_id: role.id
+          }.to change{ space.pending_join_requests.count }.by(-1)
+          jr.reload
+        }
+
+        it { jr.role.should eq(role.name) }
+      end
+
       context "creates a recent activity" do
         before(:each) {
           expect {
@@ -426,7 +452,7 @@ describe JoinRequestsController do
         sign_in(jr.candidate)
       }
 
-      context "accepts request" do
+      context "accepts an invite" do
         before(:each) {
           expect {
             post :accept, space_id: space.to_param, id: jr.id
@@ -437,6 +463,19 @@ describe JoinRequestsController do
         it { jr.should be_accepted }
         it { jr.should be_processed }
         it { should set_the_flash.to(I18n.t('join_requests.accept.accepted')) }
+      end
+
+      context "accepts an invite with a role" do
+        let(:role) { Role.find_by(name: 'Admin', stage_type: 'Space') }
+        before(:each) {
+          expect {
+            post :accept, space_id: space.to_param, id: jr.id, role_id: role.id
+          }.to change{ space.pending_invitations.count }.by(-1)
+          jr.reload
+        }
+
+        # users should not be able to set the role here
+        it { jr.role.should_not eq(role.name) }
       end
 
       context "creates a recent activity" do
