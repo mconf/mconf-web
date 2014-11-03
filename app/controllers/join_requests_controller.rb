@@ -85,7 +85,7 @@ class JoinRequestsController < ApplicationController
         @join_request = @space.join_requests.new(join_request_params)
         @join_request.candidate = current_user
         @join_request.email = current_user.email
-        @join_request.request_type = 'request'
+        @join_request.request_type = JoinRequest::TYPES[:request]
 
         if @join_request.save
           flash[:notice] = t('join_requests.create.created')
@@ -115,7 +115,7 @@ class JoinRequestsController < ApplicationController
     # canceling a request/invitation means it will be destroyed, otherwise it is actually
     # marked as declined and kept in the database
     user_canceling_request = @join_request.is_request? && @join_request.candidate == current_user
-    admin_canceling_invitation = @join_request.is_invitation? &&
+    admin_canceling_invitation = @join_request.is_invite? &&
       @join_request.group.try(:is_a?, Space) && @join_request.group.admins.include?(current_user)
     destroy = user_canceling_request || admin_canceling_invitation
 
@@ -147,7 +147,7 @@ class JoinRequestsController < ApplicationController
       if @join_request.save
         format.html {
           flash[:success] = msg
-          if @join_request.is_invitation?
+          if @join_request.is_invite?
             redirect_to @join_request.accepted ? space_path(@space) : my_home_path
           else
             redirect_to request.referer
@@ -190,7 +190,7 @@ class JoinRequestsController < ApplicationController
       elsif user
         jr.candidate = user
         jr.email = user.email
-        jr.request_type = 'invite'
+        jr.request_type = JoinRequest::TYPES[:invite]
         jr.introducer = current_user
 
         if jr.save

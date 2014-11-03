@@ -7,6 +7,17 @@
 class JoinRequest < ActiveRecord::Base
   include PublicActivity::Common
 
+  TYPES = {
+    invite: "invite",
+    request: "request"
+  }
+
+  TYPES.each_pair do |type, value|
+    define_method("is_#{type}?") {
+      self.request_type == JoinRequest::TYPES[type]
+    }
+  end
+
   # the user that is being invited
   belongs_to :candidate, :class_name => "User"
   # the person that is inviting
@@ -19,7 +30,7 @@ class JoinRequest < ActiveRecord::Base
 
   validates :email, :presence => true, :email => true
 
-  # The request can either be an invitation ('invite') or a 'request' for membership
+  # The request can either be an invitation or a request for membership
   validates :request_type, :presence => true
 
   attr_writer :processed
@@ -63,14 +74,6 @@ class JoinRequest < ActiveRecord::Base
 
   def space?
     group_type == 'Space'
-  end
-
-  def is_invitation?
-    self.request_type == "invite"
-  end
-
-  def is_request?
-    self.request_type == "request"
   end
 
   private

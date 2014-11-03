@@ -62,17 +62,17 @@ describe JoinRequest do
     end
   end
 
-  describe "#is_invitation?" do
+  describe "#is_invite?" do
     context "when it is an invitation" do
-      let(:target) { FactoryGirl.create(:join_request, request_type: "invite") }
-      it { target.is_invitation?.should be(true) }
+      let(:target) { FactoryGirl.create(:join_request, request_type: JoinRequest::TYPES[:invite]) }
+      it { target.is_invite?.should be(true) }
     end
 
     context "when it is not an invitation" do
       ["request", "random"].each do |value|
         context "for #{value}" do
           let(:target) { FactoryGirl.create(:join_request, request_type: value) }
-          it { target.is_invitation?.should be(false) }
+          it { target.is_invite?.should be(false) }
         end
       end
     end
@@ -80,11 +80,11 @@ describe JoinRequest do
 
   describe "#is_request?" do
     context "when it is an request" do
-      let(:target) { FactoryGirl.create(:join_request, request_type: "request") }
+      let(:target) { FactoryGirl.create(:join_request, request_type: JoinRequest::TYPES[:request]) }
       it { target.is_request?.should be(true) }
     end
 
-    context "when it is not an request" do
+    context "when it is not a request" do
       ["invite", "random"].each do |value|
         context "for #{value}" do
           let(:target) { FactoryGirl.create(:join_request, request_type: value) }
@@ -130,7 +130,7 @@ describe JoinRequest do
           context "he is not a member and is being invited to the space" do
             before do
               target.candidate = user
-              target.request_type = 'invite'
+              target.request_type = JoinRequest::TYPES[:invite]
             end
 
             it { should_not be_able_to_do_anything_to(target).except([:accept, :show, :create, :decline]) }
@@ -147,7 +147,7 @@ describe JoinRequest do
               end
 
               context "over an invitation" do
-                before { target.request_type = 'invite' }
+                before { target.request_type = JoinRequest::TYPES[:invite] }
                 it { should be_able_to(:index_join_requests, target.group) }
                 it { should be_able_to(:invite, target.group) }
                 it { should_not be_able_to_do_anything_to(target).except([:show, :create, :decline]) }
@@ -162,7 +162,7 @@ describe JoinRequest do
               end
 
               context "over an invitation" do
-                before { target.request_type = 'invite' }
+                before { target.request_type = JoinRequest::TYPES[:invite] }
                 it { should_not be_able_to_do_anything_to(target).except(:create) }
               end
             end

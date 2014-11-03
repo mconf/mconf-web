@@ -29,7 +29,7 @@ describe ProcessedJoinRequestSenderWorker do
     end
 
     context "for an invite" do
-      let(:join_request) { FactoryGirl.create(:space_invite_request, group: space) }
+      let(:join_request) { FactoryGirl.create(:space_join_request_invite, group: space) }
       let(:activity) {
         FactoryGirl.create(:space_join_activity, owner: space, notified: false,
                            parameters: { join_request_id: join_request.id })

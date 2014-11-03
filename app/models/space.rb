@@ -139,11 +139,11 @@ class Space < ActiveRecord::Base
   end
 
   def pending_join_requests
-    join_requests.where(:processed_at => nil, :request_type => 'request')
+    join_requests.where(:processed_at => nil, :request_type => JoinRequest::TYPES[:request])
   end
 
   def pending_invitations
-    join_requests.where(:processed_at => nil, :request_type => 'invite')
+    join_requests.where(:processed_at => nil, :request_type => JoinRequest::TYPES[:invite])
   end
 
   def pending_join_request_or_invitation_for(user)

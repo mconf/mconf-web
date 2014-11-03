@@ -68,7 +68,7 @@ module Abilities
       can :accept, JoinRequest do |jr|
         group = jr.group
         if group.try(:is_a?, Space)
-          (jr.is_invitation? && jr.try(:candidate) == user) ||
+          (jr.is_invite? && jr.try(:candidate) == user) ||
             (jr.is_request? && group.admins.include?(user))
         else
           false

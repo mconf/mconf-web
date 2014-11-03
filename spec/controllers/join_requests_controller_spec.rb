@@ -50,7 +50,7 @@ describe JoinRequestsController do
       context "and has already requested membership" do
         before {
           @join_request =
-          FactoryGirl.create(:join_request, :group => space, :candidate => user, :request_type => "request")
+          FactoryGirl.create(:join_request, :group => space, :candidate => user, :request_type => JoinRequest::TYPES[:invite])
         }
         before(:each) { get :new, :space_id => space.to_param }
         it { should render_template("new") }
@@ -61,7 +61,7 @@ describe JoinRequestsController do
       context "and has already been invited" do
         before {
           @join_request =
-          FactoryGirl.create(:join_request, :group => space, :candidate => user, :request_type => "invite")
+            FactoryGirl.create(:join_request, :group => space, :candidate => user, :request_type => JoinRequest::TYPES[:invite])
         }
         before(:each) { get :new, :space_id => space.to_param }
         it { should render_template("new") }
@@ -147,7 +147,7 @@ describe JoinRequestsController do
       it { JoinRequest.last.candidate.should eql(user) }
       it { JoinRequest.last.group.should eql(space) }
       it { JoinRequest.last.role.should eql("User") }
-      it { JoinRequest.last.request_type.should eql("request") }
+      it { JoinRequest.last.request_type.should eql(JoinRequest::TYPES[:request]) }
     end
 
     context "user requests membership on a private space" do
@@ -168,7 +168,7 @@ describe JoinRequestsController do
       it { JoinRequest.last.candidate.should eql(user) }
       it { JoinRequest.last.group.should eql(space) }
       it { JoinRequest.last.role.should eql("User") }
-      it { JoinRequest.last.request_type.should eql("request") }
+      it { JoinRequest.last.request_type.should eql(JoinRequest::TYPES[:request]) }
     end
 
     context "params handling" do
@@ -228,7 +228,7 @@ describe JoinRequestsController do
       it { JoinRequest.last.candidate.should eql(candidate) }
       it { JoinRequest.last.group.should eql(space) }
       it { JoinRequest.last.role.should eql(role.name) }
-      it { JoinRequest.last.request_type.should eql("invite") }
+      it { JoinRequest.last.request_type.should eql(JoinRequest::TYPES[:invite]) }
     end
 
     context "admin successfully invites more than one user" do
@@ -406,11 +406,21 @@ describe JoinRequestsController do
         it { jr.processed_at.should be_nil }
         it { should set_the_flash.to("Accepted Error 1, Processed at Error 2") }
       end
+
+      # to be extra sure admins can't accept invitations they sent
+      context "accepting an invitation he sent" do
+        let!(:jr) { FactoryGirl.create(:join_request_invite, group: space) }
+        it {
+          expect {
+            post :accept, space_id: space.to_param, id: jr.id
+          }.to raise_error{ CanCan::AccessDenied }
+        }
+      end
     end
 
     context "an invited user" do
       let(:candidate) { FactoryGirl.create(:user) }
-      let!(:jr) { FactoryGirl.create(:space_invite_request, group: space, candidate: candidate) }
+      let!(:jr) { FactoryGirl.create(:space_join_request_invite, group: space, candidate: candidate) }
       before(:each) {
         request.env['HTTP_REFERER'] = "/back"
         sign_in(jr.candidate)
@@ -444,7 +454,7 @@ describe JoinRequestsController do
       end
 
       context "accepting a request that was already accepted" do
-        let!(:jr) { FactoryGirl.create(:space_invite_request, group: space, candidate: candidate,
+        let!(:jr) { FactoryGirl.create(:space_join_request_invite, group: space, candidate: candidate,
                                        accepted: true, processed_at: Time.now) }
         before(:each) {
           @introducer_before = jr.introducer
@@ -549,7 +559,7 @@ describe JoinRequestsController do
       end
 
       context "declines an invitation an admin sent" do
-        let!(:jr) { FactoryGirl.create(:space_invite_request, group: space) }
+        let!(:jr) { FactoryGirl.create(:space_join_request_invite, group: space) }
         before(:each) {
           expect {
             post :decline, space_id: space.to_param, id: jr.id
@@ -563,7 +573,7 @@ describe JoinRequestsController do
 
     context "an invited user" do
       let(:candidate) { FactoryGirl.create(:user) }
-      let!(:jr) { FactoryGirl.create(:space_invite_request, group: space, candidate: candidate) }
+      let!(:jr) { FactoryGirl.create(:space_join_request_invite, group: space, candidate: candidate) }
       before(:each) {
         request.env['HTTP_REFERER'] = "/back"
         sign_in(jr.candidate)
@@ -583,7 +593,7 @@ describe JoinRequestsController do
       end
 
       context "declining a request that was already declined" do
-        let!(:jr) { FactoryGirl.create(:space_invite_request, group: space, candidate: candidate,
+        let!(:jr) { FactoryGirl.create(:space_join_request_invite, group: space, candidate: candidate,
                                        accepted: false, processed_at: Time.now) }
         before(:each) {
           @introducer_before = jr.introducer
@@ -630,10 +640,5 @@ describe JoinRequestsController do
         it { should set_the_flash.to(I18n.t('join_requests.decline.request_destroyed')) }
       end
     end
-  end
-
-  describe "abilities", :abilities => true do
-    render_views(false)
-    it "abilities for join requests"
   end
 end

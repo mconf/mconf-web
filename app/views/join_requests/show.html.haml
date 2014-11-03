@@ -6,7 +6,7 @@
 
 #join-requests-show
 
-  - if @join_request.request_type == "invite"
+  - if @join_request.is_invite?
 
     - if is_introducer
       %h3= t('.is_introducer.title_invitation', candidate: candidate.full_name, space: @space.name, date: l(@join_request.created_at.to_date, :format => :long))
@@ -23,7 +23,7 @@
           = t('.is_candidate.comment_invitation', name: introducer.full_name)
         .content= @join_request.comment
 
-  - elsif @join_request.request_type == "request"
+  - elsif @join_request.is_request?
     %h3= t('.title_request', :name => @space.name, :date => l(@join_request.created_at.to_date, :format => :long))
     - unless @join_request.comment.blank?
       .invitation-comment
@@ -39,7 +39,7 @@
       -# - target = candidate ? candidate.name : @join_request.email
       - target = candidate.name
 
-      - if @join_request.is_invitation?
+      - if @join_request.is_invite?
 
         - if can?(:accept, @join_request)
           = simple_form_for [@space, @join_request], url: accept_space_join_request_path(@space, @join_request), namespace: "accept", method: :post do |f|

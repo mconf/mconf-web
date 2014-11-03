@@ -680,9 +680,9 @@ describe User do
         FactoryGirl.create(:space, :disabled => true)]
       @user = FactoryGirl.create(:user)
 
-      FactoryGirl.create(:join_request, :candidate => @user, :group => @spaces[0], :request_type => 'request')
-      FactoryGirl.create(:join_request, :candidate => @user, :group => @spaces[1], :request_type => 'invite')
-      FactoryGirl.create(:join_request, :candidate => @user, :group => @spaces[3], :request_type => 'request')
+      FactoryGirl.create(:join_request, :candidate => @user, :group => @spaces[0], :request_type => JoinRequest::TYPES[:request])
+      FactoryGirl.create(:join_request, :candidate => @user, :group => @spaces[1], :request_type => JoinRequest::TYPES[:invite])
+      FactoryGirl.create(:join_request, :candidate => @user, :group => @spaces[3], :request_type => JoinRequest::TYPES[:request])
     end
 
     # Currently makes no differentiation between invites or requests
