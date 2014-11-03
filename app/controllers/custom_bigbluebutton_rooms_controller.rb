@@ -89,7 +89,6 @@ class CustomBigbluebuttonRoomsController < Bigbluebutton::RoomsController
   end
 
   def send_invitation
-
     # adjusts the dates set by the user in the datetimepicker to dates we can set in the invitation
     if !adjust_dates_for_invitation(params)
       flash[:error] = t('custom_bigbluebutton_rooms.send_invitation.error_date_format')
@@ -98,7 +97,7 @@ class CustomBigbluebuttonRoomsController < Bigbluebutton::RoomsController
       flash[:error] = t('custom_bigbluebutton_rooms.send_invitation.error_title')
 
     else
-      invitation_params = {
+      invitations = Invitation.create_invitations params[:invite][:users],
         :sender => current_user,
         :target => @room,
         :starts_on => params[:invite][:starts_on],
@@ -107,19 +106,6 @@ class CustomBigbluebuttonRoomsController < Bigbluebutton::RoomsController
         :url => join_webconf_url(@room),
         :description => params[:invite][:message],
         :ready => true
-      }
-
-      # creates an invitation for each user
-      invitations = []
-      users = Invitation.split_invitation_senders(params[:invite][:users])
-      users.each do |user|
-        if user.is_a? String
-          invitation_params[:recipient_email] = user
-        else
-          invitation_params[:recipient] = User.find_by_id(user)
-        end
-        invitations << WebConferenceInvitation.create(invitation_params)
-      end
 
       # we do a check just to give a better response to the user, since the invitations will
       # only be sent in background later on
@@ -130,9 +116,7 @@ class CustomBigbluebuttonRoomsController < Bigbluebutton::RoomsController
         failed, t('custom_bigbluebutton_rooms.send_invitation.errors')) unless failed.empty?
     end
 
-    respond_to do |format|
-      format.html { redirect_to request.referer }
-    end
+    redirect_to request.referer
   end
 
   protected
