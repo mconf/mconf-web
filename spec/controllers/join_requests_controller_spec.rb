@@ -561,6 +561,20 @@ describe JoinRequestsController do
         it { should set_the_flash.to(I18n.t('join_requests.decline.declined')) }
       end
 
+      context "creates a recent activity" do
+        before(:each) {
+          expect {
+            post :decline, space_id: space.to_param, id: jr.id
+          }.to change{ RecentActivity.count }.by(1)
+          jr.reload
+        }
+
+        it { RecentActivity.last.trackable.should eq(jr.group) }
+        it { RecentActivity.last.owner.should eq(jr) }
+        it { RecentActivity.last.parameters[:user_id].should eq(jr.candidate.id) }
+        it { RecentActivity.last.parameters[:username].should eq(jr.candidate.name) }
+      end
+
       context "declining a request that was already declined" do
         let!(:jr) { FactoryGirl.create(:join_request, group: space, introducer: nil,
                                        accepted: false, processed_at: Time.now) }
@@ -629,6 +643,20 @@ describe JoinRequestsController do
         it { jr.should_not be_accepted }
         it { jr.should be_processed }
         it { should set_the_flash.to(I18n.t('join_requests.decline.declined')) }
+      end
+
+      context "creates a recent activity" do
+        before(:each) {
+          expect {
+            post :decline, space_id: space.to_param, id: jr.id
+          }.to change{ RecentActivity.count }.by(1)
+          jr.reload
+        }
+
+        it { RecentActivity.last.trackable.should eq(jr.group) }
+        it { RecentActivity.last.owner.should eq(jr) }
+        it { RecentActivity.last.parameters[:user_id].should eq(jr.candidate.id) }
+        it { RecentActivity.last.parameters[:username].should eq(jr.candidate.name) }
       end
 
       context "declining a request that was already declined" do

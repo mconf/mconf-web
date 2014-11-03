@@ -66,7 +66,7 @@ describe ProcessedJoinRequestSenderWorker do
     end
 
     context "for a rejected admin invite" do
-      let(:jr) { FactoryGirl.create(:space_invite_request, group: space, introducer: admin) }
+      let(:jr) { FactoryGirl.create(:space_join_request_invite, group: space, introducer: admin) }
       let(:activity) {
         FactoryGirl.create(:space_join_activity, owner: space, notified: true,
                            parameters: { join_request_id: jr.id })
