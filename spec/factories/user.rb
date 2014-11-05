@@ -7,6 +7,7 @@ Factory.define :user do |u|
   u.updated_at { Time.now }
   u.activated_at { Time.now }
   u.disabled false
+  u.locale "es"
   u.chat_activation true
   u.sequence(:_full_name) { |n| "User #{ n }" }
   u.receive_digest { User::RECEIVE_DIGEST_NEVER }
