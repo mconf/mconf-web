@@ -546,7 +546,7 @@ es:
     no_spaces: "No se han encontrado espacios públicos."
     not_running: Detenidos
     popular_spaces: "Espacios públicos populares"
-    project_description: "<p>Esta sitio web es parte del proyecto <a href=\"http://www.inf.ufrgs.br/prav/gtmconf\">Mconf</a>, desarrollado por el grupo de investigación <a href=\"http://www.inf.ufrgs.br/prav\">PRAV</a> de la <a href=\"http://www.ufrgs.br\">UFRGS</a> en asociación con <a href=\"http://www.rnp.br\">RNP</a>. Esta aplicación está basada en <a href=\"http://www.globalplaza.org/\">Global Plaza</a> y ha sido integrada con el sistema de conferencias web <a href=\"http://bigbluebutton.org/\">BigBlueButton</a>. Para más información acceda al sitio web del proyecto <a href=\"http://www.inf.ufrgs.br/prav/gtmconf\">haciendo clic aquí</a>. </p><p class=\"contact\">Contáctenos: <a href=\"mailto:mconf@mconf.org\">mconf@mconf.org</a></p>"
+    project_description: "<p>Este sitio web es parte del proyecto <a href=\"http://www.inf.ufrgs.br/prav/gtmconf\">Mconf</a>, desarrollado por el grupo de investigación <a href=\"http://www.inf.ufrgs.br/prav\">PRAV</a> de la <a href=\"http://www.ufrgs.br\">UFRGS</a> en asociación con <a href=\"http://www.rnp.br\">RNP</a>. Esta aplicación está basada en <a href=\"http://www.globalplaza.org/\">Global Plaza</a> y ha sido integrada con el sistema de conferencias web <a href=\"http://bigbluebutton.org/\">BigBlueButton</a>. Para más información acceda al sitio web del proyecto <a href=\"http://www.inf.ufrgs.br/prav/gtmconf\">haciendo clic aquí</a>. </p><p class=\"contact\">Contáctenos: <a href=\"mailto:mconf@mconf.org\">mconf@mconf.org</a></p>"
     register_sentence: "Cree una cuenta para acceder a espacios privados y cree sus propias conferencias web"
     running: 
       one: "En ejecución con %{count} participante"
@@ -935,7 +935,7 @@ es:
   password: 
     confirm: "Confirmar clave"
     one: Clave
-    request: "Clave restablecida en %{sitename}"
+    request: "Restablecer contraseña en %{sitename}"
     reset_email: "Su clave se ha restablecido en %{sitename}"
     to_reset: "Para restablecer su clave, por favor visite <a href=%{url}>%{url}</a>"
   past: Pasado
