@@ -6,7 +6,7 @@
       - target = jr.candidate ? jr.candidate.name : jr.email
       - if !jr.processed?
         - if can?(:decline, jr)
-          = link_to t('_other.cancel'), decline_space_join_request_path(@space, jr), :data => { :confirm => t('.cancel', :user => target) }, :method => :post, :title => t('delete.one'), :class => 'btn btn-danger btn-small'
+          = link_to t('_other.cancel'), decline_space_join_request_path(@space, jr), :data => { :confirm => t('.cancel', :user => target) }, :method => :post, :class => 'btn btn-danger btn-small'
       - else
         %p= t('join_requests.show.already_accepted')
 

@@ -793,9 +793,6 @@ en:
   join_requests:
     accept:
       accepted: "Join request accepted"
-    check_processed_request:
-      already_accepted: "This join request was already accepted before"
-      already_declined: "This join request was already declined before"
     create:
       already_invited: "The following users already have an invitation pending: %{users}"
       already_a_member: "%{name} is already a member"
@@ -834,23 +831,30 @@ en:
       already_invited: "You already have an invitation to join this space! Go to the space's home page to see it"
       already_requested: "You already requested to join this space! Please wait for an administrator to accept it."
       message_title: "Send a join request to the administrators of the space"
+    request:
+      decline_confirmation: "Are you sure you want to decline this join request?"
     show:
-      accept: "Yes, I want to join!"
+      accept: "Accept"
       already_accepted: "... but you're already a member of this space."
-      comment_request: "This request was already sent to the admins of the space, please wait for a response. This is the comment you wrote:"
-      decline: "No, not now"
-      decline_confirmation: "Are you sure you want to decline the invitation to join this space?"
+      cancel_invite: "Cancel this invitation"
+      cancel_invite_confirmation: "Are you sure you want to cancel this invitation?"
+      cancel_request: "Cancel this request"
+      cancel_request_confirmation: "Are you sure you want to cancel the request to join this space?"
+      decline: "Decline"
+      decline_invite_confirmation: "Are you sure you want to decline the invitation to join this space?"
+      decline_request_confirmation: "Are you sure you want to decline the request to join this space?"
       is_candidate:
         comment_invitation: "This is the comment written by %{name}:"
+        comment_request: "This request was already sent to the admins of the space, please wait for a response. This is the comment you wrote:"
         title_invitation: "You were invited by \"%{introducer}\" on %{date} to join the space \"%{space}\""
+        title_request: "You requested to join the space \"%{space}\" on %{date}"
       is_introducer:
         comment_invitation: "This is the comment you wrote:"
         title_invitation: "You invited \"%{candidate}\" on %{date} to join the space \"%{space}\""
       is_other:
+        comment_request: "This is the comment written by \"%{name}\":"
         title_invitation: "\"%{introducer}\" invited \"%{candidate}\" on %{date} to join the space \"%{space}\""
-      remove: "Cancel this request"
-      remove_confirmation: "Are you sure you want to cancel the request to join this space?"
-      title_request: "You sent a join request to the space \"%{name}\" on %{date}"
+        title_request: "\"%{candidate}\" requested on %{date} to join the space \"%{space}\""
   keywords: "Keywords (*)"
   language: Language
   last_week: "Last week"

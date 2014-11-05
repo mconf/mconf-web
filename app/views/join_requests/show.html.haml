@@ -7,28 +7,28 @@
 #join-requests-show
 
   - if @join_request.is_invite?
-
     - if is_introducer
       %h3= t('.is_introducer.title_invitation', candidate: candidate.full_name, space: @space.name, date: l(@join_request.created_at.to_date, :format => :long))
+      - comment_text = t('.is_introducer.comment_invitation')
     - elsif is_candidate
       %h3= t('.is_candidate.title_invitation', introducer: introducer.full_name, space: @space.name, date: l(@join_request.created_at.to_date, :format => :long))
+      - comment_text = t('.is_candidate.comment_invitation', name: introducer.full_name)
     - else
       %h3= t('.is_other.title_invitation', introducer: introducer.full_name, candidate: candidate.full_name, space: @space.name, date: l(@join_request.created_at.to_date, :format => :long))
-
-    - unless @join_request.comment.blank?
-      .invitation-comment
-        - if is_introducer
-          = t('.is_introducer.comment_invitation')
-        - else
-          = t('.is_candidate.comment_invitation', name: introducer.full_name)
-        .content= @join_request.comment
+      - comment_text = t('.is_candidate.comment_invitation', name: introducer.full_name)
 
   - elsif @join_request.is_request?
-    %h3= t('.title_request', :name => @space.name, :date => l(@join_request.created_at.to_date, :format => :long))
-    - unless @join_request.comment.blank?
-      .invitation-comment
-        = t('.comment_request')
-        .content= @join_request.comment
+    - if is_candidate
+      %h3= t('.is_candidate.title_request', space: @space.name, date: l(@join_request.created_at.to_date, :format => :long))
+      - comment_text = t('.is_candidate.comment_request')
+    - else
+      %h3= t('.is_other.title_request', candidate: candidate.full_name, space: @space.name, date: l(@join_request.created_at.to_date, :format => :long))
+      - comment_text = t('.is_other.comment_request', name: candidate.full_name)
+
+  - unless @join_request.comment.blank?
+    .invitation-comment
+      = comment_text
+      .content= @join_request.comment
 
   .action-buttons
 
@@ -36,19 +36,41 @@
       = t('.already_accepted')
 
     - else
-      -# - target = candidate ? candidate.name : @join_request.email
-      - target = candidate.name
-
       - if @join_request.is_invite?
 
         - if can?(:accept, @join_request)
-          = simple_form_for [@space, @join_request], url: accept_space_join_request_path(@space, @join_request), namespace: "accept", method: :post do |f|
-            = f.submit t('.accept'), :class => "btn btn-success"
+          .option-accept
+            = link_to t('.accept'), accept_space_join_request_path(@space, @join_request), :method => :post, :class => 'btn btn-success'
 
         - if can?(:decline, @join_request)
-          = simple_form_for [@space, @join_request], url: decline_space_join_request_path(@space, @join_request), namespace: "decline", method: :post do |f|
-            = f.submit t('.decline'), :class => 'btn btn-danger'
+          .option-decline
+            - if is_introducer
+              - text = t('.cancel_invite')
+              - confirm_text = t('.cancel_invite_confirmation')
+            - else
+              - text = t('.decline')
+              - confirm_text = t('.decline_invite_confirmation')
+            = link_to text, decline_space_join_request_path(@space, @join_request), :data => { :confirm => confirm_text }, :method => :post, :class => 'btn btn-danger'
 
       - elsif @join_request.is_request?
+
+        - if can?(:accept, @join_request)
+          .option-accept
+            - if is_candidate
+              = link_to t('.accept'), accept_space_join_request_path(@space, @join_request), :method => :post, :class => 'btn btn-success'
+            - else
+              = simple_form_for [@space, @join_request], url: accept_space_join_request_path(@space, @join_request), method: :post do |f|
+                = f.submit t('_other.accept'), :class => "btn btn-success btn-small"
+                %span= t('join_requests.index.accept_as').downcase
+                - roles = Space.roles.map { |r| [ r.translated_name, r.id ] }
+                = select :join_request, :role_id, roles, :selected => default_role.id
+
         - if can?(:decline, @join_request)
-          = link_to t('.remove'), decline_space_join_request_path(@space, @join_request), :data => { :confirm => t('.remove_confirmation', :user => target) }, :method => :post, :title => t('.remove'), :class => 'btn btn-danger'
+          .option-decline
+            - if is_candidate
+              - text = t('.cancel_request')
+              - confirm_text = t('.cancel_request_confirmation')
+            - else
+              - text = t('.decline')
+              - confirm_text = t('.decline_request_confirmation')
+            = link_to text, decline_space_join_request_path(@space, @join_request), :data => { :confirm => confirm_text }, :method => :post, :class => 'btn btn-danger'

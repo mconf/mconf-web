@@ -6,13 +6,9 @@
       - target = jr.candidate ? jr.candidate.name : jr.email
 
       -# TODO: better message
-      = link_to t('_other.decline'), decline_space_join_request_path(@space, jr), method: :post, class: "btn btn-danger btn-small", data: { confirm: t('_other.decline') }
+      = link_to t('_other.decline'), decline_space_join_request_path(@space, jr), method: :post, class: "btn btn-danger btn-small", data: { confirm: t('.decline_confirmation') }
       %span.separator= t('or')
-      -# = link_to t('_other.accept'), accept_space_join_request_path(@space, jr), method: :post, class: "btn btn-success btn-small", data: { confirm: t('_other.accept') }
       = simple_form_for [@space, jr], url: accept_space_join_request_path(@space, jr), method: :post do |f|
-        -# TODO: use confirm in the button, not used now because it doesn't work in forms
-        -#   :confirm => t('.accept', :user => target)
-        -#   See http://dev.mconf.org/redmine/issues/1169
         = f.submit t('_other.accept'), :class => "btn btn-success btn-small"
         %span= t('join_requests.index.accept_as').downcase
         - roles = Space.roles.map { |r| [ r.translated_name, r.id ] }

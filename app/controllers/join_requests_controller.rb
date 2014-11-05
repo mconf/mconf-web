@@ -112,7 +112,8 @@ class JoinRequestsController < ApplicationController
     # allow users to set the role when accepting a join request, except when is
     # a user accepting his own request
     user_accepting_request = @join_request.is_invite? && @join_request.candidate == current_user
-    @join_request.role_id = params[:role_id] if params[:role_id].present? && !user_accepting_request
+    role_id = params[:join_request].present? && params[:join_request][:role_id].present? ? params[:join_request][:role_id] : nil
+    @join_request.role_id = role_id if !user_accepting_request
 
     save_for_accept_and_decline t('join_requests.accept.accepted')
   end
@@ -154,9 +155,16 @@ class JoinRequestsController < ApplicationController
         format.html {
           flash[:success] = msg
           if @join_request.is_invite?
+            # a user accepting/declining an invitation he received
             redirect_to @join_request.accepted ? space_path(@space) : my_home_path
           else
-            redirect_to request.referer
+            unless request.referer.match(space_join_request_path(@space, @join_request))
+              redirect_to request.referer
+            else
+              # an admin accepting/declining a request from the requests page, goes back to
+              # the index of join requests in the space
+              redirect_to space_join_requests_path(@space)
+            end
           end
         }
       else
@@ -168,15 +176,14 @@ class JoinRequestsController < ApplicationController
     end
   end
 
-  # Redirects somewhere if the join request was already processed
+  # If the join request was already processed, redirect the user somewhere or pretend it doesn't exist
   def check_processed_request
     if @join_request.processed?
       if @join_request.accepted
-        flash[:success] = t('join_requests.check_processed_request.already_accepted')
         redirect_to space_path(@space)
       else
-        flash[:success] = t('join_requests.check_processed_request.already_declined')
-        redirect_to my_home_path
+        # pretend the join request doesn't exist
+        raise ActiveRecord::RecordNotFound
       end
     end
   end

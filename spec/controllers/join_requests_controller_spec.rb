@@ -348,6 +348,7 @@ describe JoinRequestsController do
     it { should_authorize an_instance_of(JoinRequest), :accept, via: :post, space_id: space.to_param, id: jr.id }
 
     context "a space admin" do
+      let(:role) { Role.find_by(name: 'Admin', stage_type: 'Space') }
       let(:user) { FactoryGirl.create(:user) }
 
       before(:each) {
@@ -359,7 +360,7 @@ describe JoinRequestsController do
       context "accepts a user request" do
         before(:each) {
           expect {
-            post :accept, space_id: space.to_param, id: jr.id
+            post :accept, space_id: space.to_param, id: jr.id, join_request: { role_id: role.id }
           }.to change{ space.pending_join_requests.count }.by(-1)
           jr.reload
         }
@@ -373,10 +374,9 @@ describe JoinRequestsController do
       end
 
       context "accepts a user request with a role" do
-        let(:role) { Role.find_by(name: 'Admin', stage_type: 'Space') }
         before(:each) {
           expect {
-            post :accept, space_id: space.to_param, id: jr.id, role_id: role.id
+            post :accept, space_id: space.to_param, id: jr.id, join_request: { role_id: role.id }
           }.to change{ space.pending_join_requests.count }.by(-1)
           jr.reload
         }
@@ -387,7 +387,7 @@ describe JoinRequestsController do
       context "creates a recent activity" do
         before(:each) {
           expect {
-            post :accept, space_id: space.to_param, id: jr.id
+            post :accept, space_id: space.to_param, id: jr.id, join_request: { role_id: role.id }
           }.to change{ RecentActivity.count }.by(1)
           jr.reload
         }
@@ -404,7 +404,7 @@ describe JoinRequestsController do
           @introducer_before = jr.introducer
           @processed_at_before = jr.processed_at
           expect {
-            post :accept, space_id: space.to_param, id: jr.id
+            post :accept, space_id: space.to_param, id: jr.id, join_request: { role_id: role.id }
           }.not_to change{ space.pending_join_requests.count } || change{ RecentActivity.count }
           jr.reload
         }
@@ -413,7 +413,6 @@ describe JoinRequestsController do
         it { jr.should be_accepted }
         it { jr.processed_at.to_i.should eql(@processed_at_before.to_i) }
         it { jr.introducer.should eql(@introducer_before) }
-        it { should set_the_flash.to(I18n.t('join_requests.check_processed_request.already_accepted')) }
       end
 
       context "when there's an error saving the request" do
@@ -423,7 +422,7 @@ describe JoinRequestsController do
           errors.add(:accepted, "Error 1")
           errors.add(:processed_at, "Error 2")
           JoinRequest.any_instance.stub(:errors).and_return(errors)
-          post :accept, space_id: space.to_param, id: jr.id
+          post :accept, space_id: space.to_param, id: jr.id, join_request: { role_id: role.id }
         }
 
         it { should redirect_to("/back") }
@@ -431,6 +430,18 @@ describe JoinRequestsController do
         it { jr.accepted.should be_nil }
         it { jr.processed_at.should be_nil }
         it { should set_the_flash.to("Accepted Error 1, Processed at Error 2") }
+      end
+
+      context "accepts a user request from the join request's show view" do
+        before(:each) {
+          request.env['HTTP_REFERER'] = space_join_request_path(space, jr)
+          expect {
+            post :accept, space_id: space.to_param, id: jr.id, join_request: { role_id: role.id }
+          }.to change{ space.pending_join_requests.count }.by(-1)
+          jr.reload
+        }
+
+        it { should redirect_to(space_join_requests_path(space)) }
       end
 
       # to be extra sure admins can't accept invitations they sent
@@ -469,7 +480,7 @@ describe JoinRequestsController do
         let(:role) { Role.find_by(name: 'Admin', stage_type: 'Space') }
         before(:each) {
           expect {
-            post :accept, space_id: space.to_param, id: jr.id, role_id: role.id
+            post :accept, space_id: space.to_param, id: jr.id, join_request: { role_id: role.id }
           }.to change{ space.pending_invitations.count }.by(-1)
           jr.reload
         }
@@ -508,7 +519,6 @@ describe JoinRequestsController do
         it { jr.should be_accepted }
         it { jr.processed_at.to_i.should eql(@processed_at_before.to_i) }
         it { jr.introducer.should eql(@introducer_before) }
-        it { should set_the_flash.to(I18n.t('join_requests.check_processed_request.already_accepted')) }
       end
 
       context "when there's an error saving the request" do
@@ -582,16 +592,16 @@ describe JoinRequestsController do
           @introducer_before = jr.introducer
           @processed_at_before = jr.processed_at
           expect {
-            post :decline, space_id: space.to_param, id: jr.id
+            expect {
+              post :decline, space_id: space.to_param, id: jr.id
+            }.to raise_error(ActiveRecord::RecordNotFound)
           }.not_to change{ space.pending_join_requests.count }
           jr.reload
         }
 
-        it { should redirect_to(my_home_path) }
         it { jr.should_not be_accepted }
         it { jr.processed_at.to_i.should eql(@processed_at_before.to_i) }
         it { jr.introducer.should eql(@introducer_before) }
-        it { should set_the_flash.to(I18n.t('join_requests.check_processed_request.already_declined')) }
       end
 
       context "when there's an error saving the request" do
@@ -611,7 +621,19 @@ describe JoinRequestsController do
         it { should set_the_flash.to("Accepted Error 1, Processed at Error 2") }
       end
 
-      context "declines an invitation an admin sent" do
+      context "declines a user request from the join request's show view" do
+        before(:each) {
+          request.env['HTTP_REFERER'] = space_join_request_path(space, jr)
+          expect {
+            post :decline, space_id: space.to_param, id: jr.id
+          }.to change{ space.pending_join_requests.count }.by(-1)
+          jr.reload
+        }
+
+        it { should redirect_to(space_join_requests_path(space)) }
+      end
+
+      context "declines an invitation he (or another admin) sent" do
         let!(:jr) { FactoryGirl.create(:space_join_request_invite, group: space) }
         before(:each) {
           expect {
@@ -666,16 +688,16 @@ describe JoinRequestsController do
           @introducer_before = jr.introducer
           @processed_at_before = jr.processed_at
           expect {
-            post :decline, space_id: space.to_param, id: jr.id
+            expect {
+              post :decline, space_id: space.to_param, id: jr.id
+            }.to raise_error(ActiveRecord::RecordNotFound)
           }.not_to change{ space.pending_join_requests.count }
           jr.reload
         }
 
-        it { should redirect_to(my_home_path) }
         it { jr.should_not be_accepted }
         it { jr.processed_at.to_i.should eql(@processed_at_before.to_i) }
         it { jr.introducer.should eql(@introducer_before) }
-        it { should set_the_flash.to(I18n.t('join_requests.check_processed_request.already_declined')) }
       end
 
       context "when there's an error saving the request" do
