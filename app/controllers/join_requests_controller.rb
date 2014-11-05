@@ -223,7 +223,7 @@ class JoinRequestsController < ApplicationController
     if [:new].include? exception.action
       redirect_to login_path
     elsif [:show].include? exception.action
-      raise ActiveRecord::RecordNotFound
+      render_404 ActiveRecord::RecordNotFound
     else
       raise exception
     end

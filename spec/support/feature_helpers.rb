@@ -107,4 +107,10 @@ module FeatureHelpers
     nil
   end
 
+  def should_be_404_page
+    page.should have_title(t('error.e404.title'))
+    page.should have_content(t('error.e404.title'))
+    page.should have_content(t('error.e404.description', :url => page.current_path))
+    page.status_code.should == 404
+  end
 end

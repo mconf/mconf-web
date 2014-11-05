@@ -4,7 +4,7 @@ require 'support/feature_helpers'
 feature "User's pending join requests" do
 
   context 'has one pending invitation' do
-    let(:user) { FactoryGirl.create(:user, :username => 'user', :password => 'password') }
+    let(:user) { FactoryGirl.create(:user) }
     let!(:jr) { FactoryGirl.create(:space_join_request, :candidate => user, :request_type => JoinRequest::TYPES[:invite]) }
 
     before(:each) {

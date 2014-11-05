@@ -44,12 +44,12 @@
 
         - if can?(:decline, @join_request)
           .option-decline
-            - if is_introducer
-              - text = t('.cancel_invite')
-              - confirm_text = t('.cancel_invite_confirmation')
-            - else
+            - if is_candidate
               - text = t('.decline')
               - confirm_text = t('.decline_invite_confirmation')
+            - else
+              - text = t('.cancel_invite')
+              - confirm_text = t('.cancel_invite_confirmation')
             = link_to text, decline_space_join_request_path(@space, @join_request), :data => { :confirm => confirm_text }, :method => :post, :class => 'btn btn-danger'
 
       - elsif @join_request.is_request?

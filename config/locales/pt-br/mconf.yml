@@ -809,12 +809,12 @@ pt-br:
       accept: "Aceitar pedido de adesão de %{user}?"
       accept_as: "como"
       deny: "Cancelar pedido de adesão de %{user}?"
-      not_pending:
-        other: "Não existem solicitações de adesão pendentes"
+      no_pending_invitations: "Não existem convites pendentes"
+      no_pending_requests: "Não existem pedidos de adesão pendentes"
       or: "ou"
-      pending:
-        other: "Pedidos de adesão pendentes"
-        user_message: "Mensagem"
+      pending_invitations_title: "Convites pendentes"
+      pending_requests_title: "Pedidos de adesão pendentes"
+      user_message: "Mensagem"
     invitation:
       cancel: "Cancelar convite para %{user}?"
       invited_as: "Convidado como"

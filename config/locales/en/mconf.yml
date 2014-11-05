@@ -809,11 +809,11 @@ en:
       accept: "Accept join request by %{user}?"
       accept_as: "as"
       deny: "Cancel join request by %{user}?"
-      not_pending:
-        other: "There are no pending join requests"
+      no_pending_invitations: "There are no pending invitations"
+      no_pending_requests: "There are no pending join requests"
       or: "or"
-      pending:
-        other: "Pending join requests"
+      pending_invitations_title: "Pending invitations"
+      pending_requests_title: "Pending join requests"
       user_message: "Message"
     invitation:
       cancel: "Cancel invitation to %{user}?"
