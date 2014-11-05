@@ -561,7 +561,7 @@ ActiveRecord::Schema.define(:version => 20130607174256) do
     t.string   "timezone"
     t.boolean  "expanded_post",                           :default => false
     t.integer  "notification",                            :default => 1
-    t.string   "locale"
+    t.string   "locale",                                  :default => "es"
     t.boolean  "chat_activation",                         :default => false
     t.integer  "receive_digest",                          :default => 0
   end
