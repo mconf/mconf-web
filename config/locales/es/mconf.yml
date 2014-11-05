@@ -846,7 +846,7 @@ es:
   latest_events: "Últimos eventos"
   latest_news: "Últimas noticias"
   locale: 
-    changed: "Idioma de la aplicación cambiado a"
+    changed: "Idioma de la aplicación cambiado a "
     error: "No se puede cambiar el idioma de la aplicación a"
   locales: 
     de: Deutsch
