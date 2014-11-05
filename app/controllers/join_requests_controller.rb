@@ -220,8 +220,10 @@ class JoinRequestsController < ApplicationController
   end
 
   def handle_access_denied exception
-    if [:new, :show].include? exception.action
+    if [:new].include? exception.action
       redirect_to login_path
+    elsif [:show].include? exception.action
+      raise ActiveRecord::RecordNotFound
     else
       raise exception
     end

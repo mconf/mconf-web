@@ -80,6 +80,12 @@ describe JoinRequestsController do
       it { should assign_to(:pending_request).with(nil) }
     end
 
+    context "an anonymous user with no permission to create a new join request" do
+      before(:each) {
+        get :new, space_id: space.to_param
+      }
+      it { should redirect_to(login_path) }
+    end
   end
 
   describe "#show" do
@@ -99,7 +105,7 @@ describe JoinRequestsController do
         }
       end
 
-      context "is the subject of the join_request" do
+      context "is the subject of the join request" do
         before(:each) {
           sign_in(jr.candidate)
           get :show, :space_id => space.to_param, :id => jr.id
@@ -109,7 +115,7 @@ describe JoinRequestsController do
         it { should render_with_layout('no_sidebar') }
       end
 
-      context "is the admin of the space of the join_request" do
+      context "is the admin of the space of the join request" do
         before(:each) {
           space.add_member!(user, 'Admin')
           sign_in(user)
@@ -119,6 +125,23 @@ describe JoinRequestsController do
         it { should render_template('show') }
         it { should render_with_layout('no_sidebar') }
       end
+
+      context "is not related at all with the join request" do
+        it {
+          sign_in(FactoryGirl.create(:user))
+          expect {
+            get :show, space_id: space.to_param, id: jr.id
+          }.to raise_error(ActiveRecord::RecordNotFound)
+        }
+      end
+    end
+
+    context "an anonymous user with no permission to access the join request" do
+      it {
+        expect {
+          get :show, space_id: space.to_param, id: jr.id
+        }.to raise_error(ActiveRecord::RecordNotFound)
+      }
     end
   end
 
