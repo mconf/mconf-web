@@ -1501,7 +1501,7 @@ es:
     private_message: "Mensaje privado"
     receive_digest: 
       daily: "Cada día"
-      description: "¿Con cuanta frecuencia desea recibir correos con el resumen de las últimas actividades de las comunidades a las cuales ud pertenece?"
+      description: "¿Con cuanta frecuencia desea recibir correos con el resumen de las últimas actividades de las comunidades a las cuales usted pertenece?"
       never: Nunca
       weekly: "Cada semana"
     recent_join: "Usuarios que se han unido recientemente"
