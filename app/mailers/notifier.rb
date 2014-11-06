@@ -161,7 +161,7 @@ class Notifier < ActionMailer::Base
   def activation(user)
     setup_email(user.email)
 
-    @subject += I18n.t("account_activated", :sitename=>Site.current.name).html_safe
+    @subject += I18n.t("account_activated", :sitename=>Site.current.name, :locale=>user.locale).html_safe
     @user = user
     @contact_email = Site.current.smtp_sender
     @url  = "http://" + Site.current.domain + "/"

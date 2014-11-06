@@ -22,7 +22,7 @@ es:
     other: Agentes
     select: 
       one: "Seleccionar Agente"
-  are_you_sure: "Are you sure?"
+  are_you_sure: "¿Está seguro?"
   author: Autor
   back: Atrás
   bad_request: "Petición Inválida"
@@ -238,4 +238,5 @@ es:
   user: 
     activation_email_sent: "Se ha enviado un correo de activación al usuario"
     disabled: "Usuario deshabilitado"
+    other: Usuarios
   visit_link_to_activate_account: "Visite este enlace para activar su cuenta"
