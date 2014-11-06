@@ -76,11 +76,7 @@ class JoinRequestsController < ApplicationController
     else
       if @space.pending_join_request_or_invitation_for?(current_user)
         flash[:notice] = t('join_requests.create.duplicated')
-        if @space.public
-          redirect_to space_path(@space)
-        else
-          redirect_to spaces_path
-        end
+        redirect_after_created
       else
         @join_request = @space.join_requests.new(join_request_params)
         @join_request.candidate = current_user
@@ -89,12 +85,7 @@ class JoinRequestsController < ApplicationController
 
         if @join_request.save
           flash[:notice] = t('join_requests.create.created')
-
-          if @space.public
-            redirect_to space_path(@space)
-          else
-            redirect_to spaces_path
-          end
+          redirect_after_created
         else
           flash[:error] = t('join_requests.create.error', :errors => @join_request.errors.full_messages.join(', '))
           redirect_to new_space_join_request_path(@space)
@@ -148,6 +139,14 @@ class JoinRequestsController < ApplicationController
   end
 
   private
+
+  def redirect_after_created
+    if @space.public
+      redirect_to space_path(@space)
+    else
+      redirect_to spaces_path
+    end
+  end
 
   def save_for_accept_and_decline(msg)
     respond_to do |format|
