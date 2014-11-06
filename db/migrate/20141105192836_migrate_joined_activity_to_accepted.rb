@@ -1,15 +1,13 @@
 class MigrateJoinedActivityToAccepted < ActiveRecord::Migration
   def up
-    RecentActivity.where(:key => 'space.join').each do |act|
-      puts "Converting :join activity to :accept id: #{act.id}"
-      act.update_attributes :key => 'space.accept'
-    end
+    connection = ActiveRecord::Base.connection()
+    sql = "UPDATE `activities` SET `key` = 'space.accept' WHERE `key` = 'space.join';"
+    connection.execute sql
   end
 
   def down
-    RecentActivity.where(:key => 'space.accept').each do |act|
-      puts "Converting :accept activity to :join id: #{act.id}"
-      act.update_attributes :key => 'space.join'
-    end
+    connection = ActiveRecord::Base.connection()
+    sql = "UPDATE `activities` SET `key` = 'space.join' WHERE `key` = 'space.accept';"
+    connection.execute sql
   end
 end
