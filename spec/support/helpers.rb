@@ -34,6 +34,13 @@ module Helpers
     I18n.locale = "en"
   end
 
+  def self.reload_seeds
+    # db/seeds prints a lot of things to the console with puts, so we suppress it
+    silence_stream(STDOUT) do
+      load Rails.root + "db/seeds.rb"
+    end
+  end
+
   module ClassMethods
 
     # Sets the custom actions that should also be checked by

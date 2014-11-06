@@ -30,12 +30,6 @@ feature 'Behaviour of the flag Site#require_registration_approval' do
         mail.body.encoded.should match(t('devise.mailer.confirmation_instructions.confirmation_pending'))
       end
 
-      it "sends an email to all admins", with_truncation: true do
-        mail = email_by_subject t('admin_mailer.new_user_waiting_for_approval.subject')
-        mail.should_not be_nil
-        mail.to.should eql([User.where(superuser: true).first.email])
-      end
-
       context "shows the pending approval page" do
         it { current_path.should eq(my_approval_pending_path) }
         it { page.should have_link('', :href => spaces_path) }
@@ -76,12 +70,6 @@ feature 'Behaviour of the flag Site#require_registration_approval' do
       it "doesn't a confirmation email to the user", with_truncation: true do
         mail = email_by_subject t('devise.mailer.confirmation_instructions.subject')
         mail.should be_nil
-      end
-
-      it "sends an email to all admins", with_truncation: true do
-        mail = email_by_subject t('admin_mailer.new_user_waiting_for_approval.subject')
-        mail.should_not be_nil
-        mail.to.should eql([User.where(superuser: true).first.email])
       end
 
       context "shows the pending approval page" do
@@ -138,11 +126,6 @@ feature 'Behaviour of the flag Site#require_registration_approval' do
         mail.body.encoded.should_not match(t('devise.mailer.confirmation_instructions.confirmation_pending'))
       end
 
-      it "doesn't send an email to the admins", with_truncation: true do
-        mail = email_by_subject t('admin_mailer.new_user_waiting_for_approval.subject')
-        mail.should be_nil
-      end
-
       context "signs the user in" do
         it { current_path.should eq(my_home_path) }
         it { page.should have_content('Logout') }
@@ -171,11 +154,6 @@ feature 'Behaviour of the flag Site#require_registration_approval' do
 
       it "doesn't send a confirmation email to the user", with_truncation: true do
         mail = email_by_subject t('devise.mailer.confirmation_instructions.subject')
-        mail.should be_nil
-      end
-
-      it "doesn't send an email to the admins", with_truncation: true do
-        mail = email_by_subject t('admin_mailer.new_user_waiting_for_approval.subject')
         mail.should be_nil
       end
 

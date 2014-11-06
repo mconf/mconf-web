@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'support/feature_helpers'
 
-feature "as a visitor" do
+feature "Visitor in an event page" do
 
   before(:all) { Site.current.update_attributes(events_enabled: true) }
 

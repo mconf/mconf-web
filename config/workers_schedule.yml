@@ -16,6 +16,12 @@ send_invitations:
   class: InvitationsWorker
   description: "Finds all invitations still not sent and sends them"
 
+send_user_notifications:
+  every:
+    - "30s"
+  class: UserNotificationsWorker
+  description: "Checks pending user notifications and sends them"
+
 finish_meetings:
   every:
     - "30s"
