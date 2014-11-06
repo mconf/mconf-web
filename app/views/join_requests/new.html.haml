@@ -1,6 +1,6 @@
 #new-join-request
   - unless @pending_request.nil?
-    - if @pending_request.request_type == "invite"
+    - if @pending_request.is_invite?
       .alert.alert-danger= t(".already_invited")
     - else
       .alert.alert-danger= t(".already_requested")

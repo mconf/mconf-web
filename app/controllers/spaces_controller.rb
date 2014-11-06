@@ -34,11 +34,6 @@ class SpacesController < ApplicationController
     @space.new_activity params[:action], current_user unless @space.errors.any? || @space.is_cropping?
   end
 
-  # Recent activity for join requests
-  after_filter :only => [:join_request_update] do
-    @space.new_activity :join, current_user unless @join_request.errors.any? || !@join_request.accepted?
-  end
-
   def index
     if params[:view].nil? or params[:view] != "list"
       params[:view] = "thumbnails"

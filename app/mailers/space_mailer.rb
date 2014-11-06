@@ -49,6 +49,7 @@ class SpaceMailer < BaseMailer
   def processed_join_request_email(jr_id)
     @join_request = JoinRequest.find(jr_id)
     user = @join_request.candidate
+    to = @join_request.accepted? ? user.email : @join_request.introducer.email
 
     I18n.with_locale(get_user_locale(user, false)) do
 
@@ -56,7 +57,7 @@ class SpaceMailer < BaseMailer
       @action = @join_request.accepted? ? t("space_mailer.processed_join_request_email.accepted") : t("space_mailer.processed_join_request_email.rejected")
       subject = t("space_mailer.processed_join_request_email.subject", :action => @action, :space => @space.name)
 
-      create_email(user.email, nil, subject)
+      create_email(to, nil, subject)
     end
   end
 

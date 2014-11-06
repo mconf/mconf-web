@@ -4,7 +4,7 @@
     = modal_close_button
     %h3= t('.title')
 
-  = simple_form_for :invite, :url => main_app.event_send_invitation_path(@event), :html => { :class => 'single-column' } do |f|
+  = simple_form_for :invite, :url => main_app.send_invitation_event_path(@event), :html => { :class => 'single-column' } do |f|
 
     .modal-body
       = f.input :users, :as => :string, :autofocus => true, :label => t('activerecord.attributes.invite.users')

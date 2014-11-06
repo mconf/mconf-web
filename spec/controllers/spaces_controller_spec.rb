@@ -22,7 +22,7 @@ describe SpacesController do
 
       context "and the user has a pending invitation" do
         before(:each) {
-          @invitation = FactoryGirl.create(:join_request, :group => space, :candidate => user, :request_type => "invite")
+          @invitation = FactoryGirl.create(:join_request, :group => space, :candidate => user, :request_type => JoinRequest::TYPES[:invite])
         }
         before(:each) { do_action }
         it { space.pending_invitation_for?(user).should be_truthy }
@@ -32,7 +32,7 @@ describe SpacesController do
 
       context "and the user has a pending join request" do
         before(:each) {
-          @invitation = FactoryGirl.create(:join_request, :group => space, :candidate => user, :request_type => "request")
+          @invitation = FactoryGirl.create(:join_request, :group => space, :candidate => user, :request_type => JoinRequest::TYPES[:request])
         }
         before(:each) { do_action }
         it { space.pending_join_request_for?(user).should be_truthy }
@@ -68,7 +68,7 @@ describe SpacesController do
 
       context "and the user has a pending invitation" do
         before(:each) {
-          @invitation = FactoryGirl.create(:join_request, :group => space, :candidate => user, :request_type => "invite")
+          @invitation = FactoryGirl.create(:join_request, :group => space, :candidate => user, :request_type => JoinRequest::TYPES[:invite])
         }
         before(:each) { do_action }
         it { space.pending_invitation_for?(user).should be_truthy }
@@ -80,7 +80,7 @@ describe SpacesController do
 
       context "and the user has a pending join request" do
         before(:each) {
-          @invitation = FactoryGirl.create(:join_request, :group => space, :candidate => user, :request_type => "request")
+          @invitation = FactoryGirl.create(:join_request, :group => space, :candidate => user, :request_type => JoinRequest::TYPES[:request])
         }
         before(:each) { do_action }
         it { space.pending_join_request_for?(user).should be_truthy }

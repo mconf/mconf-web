@@ -62,8 +62,40 @@ describe JoinRequest do
     end
   end
 
+  describe "#is_invite?" do
+    context "when it is an invitation" do
+      let(:target) { FactoryGirl.create(:join_request, request_type: JoinRequest::TYPES[:invite]) }
+      it { target.is_invite?.should be(true) }
+    end
+
+    context "when it is not an invitation" do
+      ["request", "random"].each do |value|
+        context "for #{value}" do
+          let(:target) { FactoryGirl.create(:join_request, request_type: value) }
+          it { target.is_invite?.should be(false) }
+        end
+      end
+    end
+  end
+
+  describe "#is_request?" do
+    context "when it is an request" do
+      let(:target) { FactoryGirl.create(:join_request, request_type: JoinRequest::TYPES[:request]) }
+      it { target.is_request?.should be(true) }
+    end
+
+    context "when it is not a request" do
+      ["invite", "random"].each do |value|
+        context "for #{value}" do
+          let(:target) { FactoryGirl.create(:join_request, request_type: value) }
+          it { target.is_request?.should be(false) }
+        end
+      end
+    end
+  end
+
   describe "abilities", :abilities => true do
-    set_custom_ability_actions([:approve, :accept])
+    set_custom_ability_actions([:accept, :decline])
 
     subject { ability }
     let(:ability) { Abilities.ability_for(user) }
@@ -86,75 +118,57 @@ describe JoinRequest do
     context "when is a registered user" do
       let(:user) { FactoryGirl.create(:user) }
 
-      context "in a public space" do
-        before { target.group.update_attributes(:public => true) }
+      [true, false].each do |is_public|
 
-        context "he is not a member of" do
-          it { should_not be_able_to_do_anything_to(target).except(:create) }
-        end
+        context "in a #{is_public ? 'public' : 'private'} space" do
+          before { target.group.update_attributes(public: is_public) }
 
-        context "he is not a member and is being invited to the space" do
-          before do 
-            target.candidate = user
-            target.request_type = 'invite'
-          end
-
-          it { should_not be_able_to_do_anything_to(target).except([:accept, :show, :create, :update, :destroy]) }
-        end
-
-        context "he is a member of" do
-          context "with the role 'Admin'" do
-            before { target.group.add_member!(user, "Admin") }
-            it { should be_able_to(:index_join_requests, target.group) }
-            it { should be_able_to(:invite, target.group) }
-            it { should_not be_able_to_do_anything_to(target).except([:approve, :show, :update, :destroy, :create]) }
-          end
-
-          context "with the role 'User'" do
-            before { target.group.add_member!(user, "User") }
+          context "he is not a member of" do
             it { should_not be_able_to_do_anything_to(target).except(:create) }
           end
-        end
-      end
 
-      context "in a private space" do
-        before { target.group.update_attributes(:public => false) }
+          context "he is not a member and is being invited to the space" do
+            before do
+              target.candidate = user
+              target.request_type = JoinRequest::TYPES[:invite]
+            end
 
-        context "he is not a member of" do
-          it { should_not be_able_to_do_anything_to(target).except(:create) }
-        end
-
-        context "he is not a member and is being invited to the space" do
-          before do
-            target.candidate = user
-            target.request_type = 'invite'
+            it { should_not be_able_to_do_anything_to(target).except([:accept, :show, :create, :decline]) }
           end
 
-          it { should_not be_able_to_do_anything_to(target).except([:accept, :show, :create, :update, :destroy]) }
+          context "he is a member of" do
+            context "with the role 'Admin'" do
+              before { target.group.add_member!(user, "Admin") }
+
+              context "over a request" do
+                it { should be_able_to(:index_join_requests, target.group) }
+                it { should be_able_to(:invite, target.group) }
+                it { should_not be_able_to_do_anything_to(target).except([:accept, :show, :create, :decline]) }
+              end
+
+              context "over an invitation" do
+                before { target.request_type = JoinRequest::TYPES[:invite] }
+                it { should be_able_to(:index_join_requests, target.group) }
+                it { should be_able_to(:invite, target.group) }
+                it { should_not be_able_to_do_anything_to(target).except([:show, :create, :decline]) }
+              end
+            end
+
+            context "with the role 'User'" do
+              before { target.group.add_member!(user, "User") }
+
+              context "over a request" do
+                it { should_not be_able_to_do_anything_to(target).except(:create) }
+              end
+
+              context "over an invitation" do
+                before { target.request_type = JoinRequest::TYPES[:invite] }
+                it { should_not be_able_to_do_anything_to(target).except(:create) }
+              end
+            end
+          end
         end
 
-        context "he is not a member and is requesting membership" do
-          before do
-            target.candidate = user
-            target.request_type = 'request'
-          end
-
-          it { should_not be_able_to_do_anything_to(target).except([:show, :create, :update, :destroy]) }
-        end
-
-        context "he is a member of" do
-          context "with the role 'Admin'" do
-            before { target.group.add_member!(user, "Admin") }
-            it { should be_able_to(:index_join_requests, target.group) }
-            it { should be_able_to(:invite, target.group) }
-            it { should_not be_able_to_do_anything_to(target).except([:approve, :show, :update, :destroy, :create]) }
-          end
-
-          context "with the role 'User'" do
-            before { target.group.add_member!(user, "User") }
-            it { should_not be_able_to_do_anything_to(target).except(:create) }
-          end
-        end
       end
     end
 

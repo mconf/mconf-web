@@ -8,15 +8,16 @@
 class JoinRequestsController < ApplicationController
 
   # Recent activity for join requests
-  after_filter :only => [:update] do
-    @space.new_activity(:join, current_user, @join_request) unless @join_request.errors.any? || !@join_request.accepted?
+  after_filter :only => [:accept, :decline] do
+    @space.new_activity(params[:action], @join_request.candidate, @join_request) unless @join_request.errors.any?
   end
 
   load_resource :space, :find_by => :permalink
   load_and_authorize_resource :join_request, :through => :space, :except => [:index, :invite]
   load_resource :join_request, :through => :space, :only => [:index, :invite] # these two are authenticated via space parent
 
-  before_filter :webconf_room!, :only => [:index, :show, :invite]
+  before_filter :webconf_room!, only: [:index, :invite]
+  before_filter :check_processed_request, only: [:show, :accept, :decline]
 
   respond_to :html
 
@@ -38,12 +39,6 @@ class JoinRequestsController < ApplicationController
   end
 
   def show
-    if can?(:approve, @join_request) # space admin
-      redirect_to space_join_requests_path(@space)
-    elsif @join_request.processed? # user accessing a join request
-      redirect_to @join_request.accepted ? space_path(@space) : my_home_path
-    end # else
-    # render show view
   end
 
   def new
@@ -81,25 +76,16 @@ class JoinRequestsController < ApplicationController
     else
       if @space.pending_join_request_or_invitation_for?(current_user)
         flash[:notice] = t('join_requests.create.duplicated')
-        if @space.public
-          redirect_to space_path(@space)
-        else
-          redirect_to spaces_path
-        end
+        redirect_after_created
       else
         @join_request = @space.join_requests.new(join_request_params)
         @join_request.candidate = current_user
         @join_request.email = current_user.email
-        @join_request.request_type = 'request'
+        @join_request.request_type = JoinRequest::TYPES[:request]
 
         if @join_request.save
           flash[:notice] = t('join_requests.create.created')
-
-          if @space.public
-            redirect_to space_path(@space)
-          else
-            redirect_to spaces_path
-          end
+          redirect_after_created
         else
           flash[:error] = t('join_requests.create.error', :errors => @join_request.errors.full_messages.join(', '))
           redirect_to new_space_join_request_path(@space)
@@ -109,56 +95,97 @@ class JoinRequestsController < ApplicationController
     end
   end
 
-  def update
+  def accept
+    @join_request.accepted = true
+    @join_request.processed = true
+    @join_request.introducer = current_user if @join_request.is_request?
 
-    # Admin doing the approval of a request
-    if @join_request.request_type == 'request' && authorize!(:approve, @join_request)
-      @join_request.attributes = join_request_params
-      @join_request.introducer = current_user if @join_request.recently_processed?
-    # User accepting the invitation
-    elsif @join_request.request_type == 'invite' && authorize!(:accept, @join_request)
-      @join_request.attributes = join_request_params.except(:role)
+    # allow users to set the role when accepting a join request, except when is
+    # a user accepting his own request
+    user_accepting_request = @join_request.is_invite? && @join_request.candidate == current_user
+    role_id = params[:join_request].present? && params[:join_request][:role_id].present? ? params[:join_request][:role_id] : nil
+    @join_request.role_id = role_id if !user_accepting_request
+
+    save_for_accept_and_decline t('join_requests.accept.accepted')
+  end
+
+  def decline
+    # canceling a request/invitation means it will be destroyed, otherwise it is actually
+    # marked as declined and kept in the database
+    user_canceling_request = @join_request.is_request? && @join_request.candidate == current_user
+    admin_canceling_invitation = @join_request.is_invite? &&
+      @join_request.group.try(:is_a?, Space) && @join_request.group.admins.include?(current_user)
+    destroy = user_canceling_request || admin_canceling_invitation
+
+    if destroy
+      @join_request.destroy
+      respond_to do |format|
+        format.html {
+          if admin_canceling_invitation
+            flash[:success] = t("join_requests.decline.invitation_destroyed")
+            redirect_to space_join_requests_path(@space)
+          else
+            flash[:success] = t("join_requests.decline.request_destroyed")
+            redirect_to my_home_path
+          end
+        }
+      end
+    else
+      @join_request.accepted = false
+      @join_request.processed = true
+      @join_request.introducer = current_user if @join_request.is_request?
+      save_for_accept_and_decline t('join_requests.decline.declined')
     end
+  end
 
+  private
+
+  def redirect_after_created
+    if @space.public
+      redirect_to space_path(@space)
+    else
+      redirect_to spaces_path
+    end
+  end
+
+  def save_for_accept_and_decline(msg)
     respond_to do |format|
       if @join_request.save
         format.html {
-          flash[:success] = ( @join_request.recently_processed? ?
-                            ( @join_request.accepted? ? t('join_requests.update.accepted') :
-                            t('join_requests.update.declined') ) :
-                            t('join_requests.update.updated'))
-
-          if @join_request.request_type == 'invite'
+          flash[:success] = msg
+          if @join_request.is_invite?
+            # a user accepting/declining an invitation he received
             redirect_to @join_request.accepted ? space_path(@space) : my_home_path
           else
-            redirect_to request.referer
+            unless request.referer.match(space_join_request_path(@space, @join_request))
+              redirect_to request.referer
+            else
+              # an admin accepting/declining a request from the requests page, goes back to
+              # the index of join requests in the space
+              redirect_to space_join_requests_path(@space)
+            end
           end
         }
       else
         format.html {
-          flash[:error] = @join_request.errors.to_xml
+          flash[:error] = @join_request.errors.full_messages.join(", ")
           redirect_to request.referer
         }
       end
     end
   end
 
-  def destroy
-    @join_request.destroy
-
-    respond_to do |format|
-      format.html {
-        flash[:success] = t("join_requests.destroy.success")
-        if request.referer && request.referer.match(space_join_request_path(@space, @join_request))
-          redirect_to my_home_path
-        else
-          redirect_to request.referer
-        end
-      }
+  # If the join request was already processed, redirect the user somewhere or pretend it doesn't exist
+  def check_processed_request
+    if @join_request.processed?
+      if @join_request.accepted
+        redirect_to space_path(@space)
+      else
+        # pretend the join request doesn't exist
+        raise ActiveRecord::RecordNotFound
+      end
     end
   end
-
-  private
 
   def process_invitations
     already_invited = []
@@ -175,7 +202,7 @@ class JoinRequestsController < ApplicationController
       elsif user
         jr.candidate = user
         jr.email = user.email
-        jr.request_type = 'invite'
+        jr.request_type = JoinRequest::TYPES[:invite]
         jr.introducer = current_user
 
         if jr.save
@@ -192,8 +219,10 @@ class JoinRequestsController < ApplicationController
   end
 
   def handle_access_denied exception
-    if [:new, :show].include? exception.action
+    if [:new].include? exception.action
       redirect_to login_path
+    elsif [:show].include? exception.action
+      render_404 ActiveRecord::RecordNotFound
     else
       raise exception
     end
@@ -201,6 +230,17 @@ class JoinRequestsController < ApplicationController
 
   allow_params_for :join_request
   def allowed_params
-    [ :introducer_id, :role_id, :processed, :accepted, :comment ]
+    is_space_admin = @join_request.present? && @join_request.group.try(:is_a?, Space) &&
+      @join_request.group.admins.include?(current_user)
+    if params[:action] == "create"
+      if is_space_admin
+        [ :role_id, :comment ]
+      else
+        [ :comment ]
+      end
+    else
+      [ ]
+    end
   end
+
 end

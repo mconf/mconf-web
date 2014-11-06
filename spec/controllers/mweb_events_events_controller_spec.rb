@@ -1,0 +1,127 @@
+# This file is part of Mconf-Web, a web application that provides access
+# to the Mconf webconferencing system. Copyright (C) 2010-2012 Mconf
+#
+# This file is licensed under the Affero General Public License version
+# 3 or later. See the LICENSE file.
+
+require "spec_helper"
+
+describe MwebEvents::EventsController do
+  render_views
+
+  describe "#invite" do
+    let(:owner) { FactoryGirl.create(:user) }
+    let(:event) { FactoryGirl.create(:event, :owner => owner) }
+
+    context "template and layout" do
+      context "template" do
+        before(:each) { login_as(owner) }
+
+        context "xhr" do
+          before { xhr :get, :invite, :id => event.to_param }
+
+          it { should render_template(:invite) }
+          it { should_not render_with_layout }
+          it { should assign_to(:event).with(event) }
+        end
+
+        context "normal request" do
+          before { get :invite, :id => event.to_param }
+
+          it { should render_template(:invite) }
+          it { should render_with_layout('mweb_events/application') }
+          it { should assign_to(:event).with(event) }
+        end
+      end
+    end
+
+    context 'authorization' do
+      let(:subject) {
+        login_as(logged_user)
+        get :invite, :id => event.to_param
+      }
+
+      context 'should not authorize non managers to invite' do
+        let(:logged_user) { FactoryGirl.create(:user) }
+        it { expect{subject}.to raise_error(CanCan::AccessDenied) }
+      end
+
+      context 'should authorize owner of a space to invite' do
+        let(:logged_user) { event.owner }
+        it { expect{subject}.not_to raise_error }
+      end
+    end
+
+    it { should_authorize an_instance_of(MwebEvents::Event), :invite, :method => :get, :id => event.to_param }
+  end
+
+  describe "#send_invitation" do
+    let!(:referer) { "/any" }
+    let(:event) { FactoryGirl.create(:event, :owner => FactoryGirl.create(:user)) }
+    let(:users) { [FactoryGirl.create(:user)] }
+    let(:title) { 'Title' }
+    let(:message) { 'Message' }
+    let(:success) { I18n.t('mweb_events.events.send_invitation.success') + ' ' + users.map(&:name).join(', ')}
+    let(:error) { I18n.t('mweb_events.events.send_invitation.errors') + ' ' + users.map(&:name).join(', ') }
+    before { request.env["HTTP_REFERER"] = referer }
+
+    context "sending the form" do
+      let!(:hash) { { :users => users.map(&:id).join(','),
+         :title => title,
+         :message => message} }
+      before {
+        login_as(event.owner)
+        post :send_invitation, :invite => hash, :id => event.to_param
+      }
+
+      context "with correct data" do
+        it { should redirect_to(referer) }
+        it { should set_the_flash.to success }
+      end
+
+      context "with more than one user invited" do
+        let(:users) { [FactoryGirl.create(:user), FactoryGirl.create(:user)] }
+        it { should redirect_to(referer) }
+        it { should set_the_flash.to success }
+      end
+
+      context "missing the title" do
+        let(:title) { nil }
+        it { should redirect_to(referer) }
+        it { should set_the_flash.to success }
+      end
+
+      context "missing the users" do
+        let(:users) { [] }
+        it { should redirect_to(referer) }
+        skip { should set_the_flash.to error }
+      end
+
+      context "missing the message" do
+        let(:message) { nil }
+        it { should redirect_to(referer) }
+        it { should set_the_flash.to success }
+      end
+    end
+
+    context 'authorization' do
+      let(:subject) {
+        login_as(logged_user)
+        post :send_invitation, :id => event.to_param, :invite => {}
+      }
+
+      context 'should not authorize non managers to send invites' do
+        let(:logged_user) { FactoryGirl.create(:user) }
+        it { expect{subject}.to raise_error(CanCan::AccessDenied) }
+      end
+
+      context 'should authorize owner of a space to send invites' do
+        let(:logged_user) { event.owner }
+        it { expect{subject}.not_to raise_error }
+      end
+    end
+
+    it { should_authorize an_instance_of(MwebEvents::Event), :send_invitation, :id => event.to_param }
+  end
+
+end
