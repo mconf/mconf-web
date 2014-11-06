@@ -43,8 +43,6 @@ class JoinRequest < ActiveRecord::Base
   validates_uniqueness_of :email,
                           :scope => [ :group_id, :group_type, :processed_at ]
 
-  validate :candidate_is_not_introducer
-
   validates_length_of :comment, maximum: 255
 
   # Create a new activity after saving
@@ -84,11 +82,5 @@ class JoinRequest < ActiveRecord::Base
 
   def add_candidate_to_group
     group.add_member!(candidate, role) if accepted?
-  end
-
-  def candidate_is_not_introducer
-    if candidate == introducer
-      errors.add(:base, I18n.t('admission.errors.candidate_equals_introducer'))
-    end
   end
 end
