@@ -798,7 +798,7 @@ es:
     email: "Correo electrónico a %{email}"
     invitation_successfully: "Invitación enviada correctamente:"
     invitation_unsuccessfully: "No se pudo enviar la invitación:"
-    message: "Ud ha sido invitado por <b>%{sender}</b> para unirse a la conferencia web <b>%{name}</b>.<br/><br/>Para ingresar, acceda al vínculo: <a href=\"%{invite_url}\">%{invite_url}</a><br/>Si está usando un dispositivo móvil, use este vínculo: <a href=\"%{mobile_url}\">%{mobile_url}</a><br/><br/>Este mensaje ha sido escrito por <b>%{sender}</b>:"
+    message: "Ud ha sido invitado por <b>%{sender}</b> para unirse a la conferencia web <b>%{name}</b>.<br/><br/>Para ingresar, acceda al vínculo: <a href=\"%{invite_url}\">%{invite_url}</a><br/><br/>Este mensaje ha sido escrito por <b>%{sender}</b>:"
     title: "Invitación para participar de una conferencia web"
     user_private_msg: "Mensaje privado para el usuario %{user}"
   invite_people: 
