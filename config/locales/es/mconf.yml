@@ -405,7 +405,7 @@ es:
       presential: Reunión
       type: "Tipo de evento"
       vcoptions: "Opciones de videoconferencia"
-    no_events: "No hay ningún evento"
+    no_events: "no hay ningún evento"
     none_coming: "No hay eventos próximos"
     not_available: "Pronto disponible"
     note: 
