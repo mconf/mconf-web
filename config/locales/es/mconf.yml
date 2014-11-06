@@ -1419,7 +1419,7 @@ es:
     timezone: "Seleccionando su zona horaria no habrá malentendidos con participantes de otros países al crear sus eventos."
     upcoming: "Esta sección muestra los siguientes eventos en este espacio"
     update_logo: "Puede actualizar su propio logo, crear un logo de texto o seleccionar una imagen de la galería"
-    user_id: "Puede utilizar su user ID como openID, usuario de chat y/o usuario de Marte"
+    user_id: "Puede utilizar su user ID como openID, usuario de chat y/o usuario de Marte."
     vcard: "vCard es un formato estándar para el intercambio de tarjetas personales electrónicas. "
     vclass: "La clase virtual es la mejor manera de organizar clases, conferencias and seminarios, donde el profesor asume el rol principal."
     vcongress: "El congreso virtual es muy similar a la reunión virtual pero para grandes eventos, tanto en tamaño como en complejidad. Usualmente, requiere el apoyo de un operador."
