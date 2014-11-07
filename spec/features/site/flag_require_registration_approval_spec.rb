@@ -4,7 +4,7 @@ require 'support/feature_helpers'
 include ActionView::Helpers::SanitizeHelper
 
 feature 'Behaviour of the flag Site#require_registration_approval' do
-  let(:attrs) { FactoryGirl.attributes_for(:user).slice(:username, :_full_name, :email, :password) }
+  let(:attrs) { FactoryGirl.attributes_for(:user) }
 
   context "if admin approval is required" do
     before {

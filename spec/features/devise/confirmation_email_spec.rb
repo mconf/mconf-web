@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'support/feature_helpers'
 
 feature "Confirmation email" do
-  let(:attrs) { FactoryGirl.attributes_for(:user).slice(:username, :_full_name, :email, :password) }
+  let(:attrs) { FactoryGirl.attributes_for(:user) }
 
   # devise triggers callbacks to send emails that will not be triggered if using
   # transactions, so use truncation instead
