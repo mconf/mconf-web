@@ -93,14 +93,14 @@ describe JoinRequestsController do
     let(:space) { jr.group }
     let(:user) { FactoryGirl.create(:user) }
 
-    it { should_authorize an_instance_of(JoinRequest), :show, :space_id => space.to_param, :id => jr.id }
+    it { should_authorize an_instance_of(JoinRequest), :show, :space_id => space.to_param, :id => jr }
 
     context "a normal user" do
       context "is not the subject of the join request" do
         before(:each) {
           sign_in(user)
           expect {
-            get :show, :space_id => space.to_param, :id => jr.id
+            get :show, :space_id => space.to_param, :id => jr
           }.to raise_error(CanCan::AccessDenied)
         }
       end
@@ -108,7 +108,7 @@ describe JoinRequestsController do
       context "is the subject of the join request" do
         before(:each) {
           sign_in(jr.candidate)
-          get :show, :space_id => space.to_param, :id => jr.id
+          get :show, :space_id => space.to_param, :id => jr
         }
 
         it { should render_template('show') }
@@ -119,7 +119,7 @@ describe JoinRequestsController do
         before(:each) {
           space.add_member!(user, 'Admin')
           sign_in(user)
-          get :show, :space_id => space.to_param, :id => jr.id
+          get :show, :space_id => space.to_param, :id => jr
         }
 
         it { should render_template('show') }
@@ -130,7 +130,7 @@ describe JoinRequestsController do
         it {
           sign_in(FactoryGirl.create(:user))
           expect {
-            get :show, space_id: space.to_param, id: jr.id
+            get :show, space_id: space.to_param, id: jr
           }.to raise_error(ActiveRecord::RecordNotFound)
         }
       end
@@ -139,7 +139,7 @@ describe JoinRequestsController do
     context "an anonymous user with no permission to access the join request" do
       it {
         expect {
-          get :show, space_id: space.to_param, id: jr.id
+          get :show, space_id: space.to_param, id: jr
         }.to raise_error(ActiveRecord::RecordNotFound)
       }
     end
@@ -368,7 +368,7 @@ describe JoinRequestsController do
     let(:space) { FactoryGirl.create(:space) }
     let!(:jr) { FactoryGirl.create(:join_request, group: space, introducer: nil) }
 
-    it { should_authorize an_instance_of(JoinRequest), :accept, via: :post, space_id: space.to_param, id: jr.id }
+    it { should_authorize an_instance_of(JoinRequest), :accept, via: :post, space_id: space.to_param, id: jr }
 
     context "a space admin" do
       let(:role) { Role.find_by(name: 'Admin', stage_type: 'Space') }
@@ -383,7 +383,7 @@ describe JoinRequestsController do
       context "accepts a user request" do
         before(:each) {
           expect {
-            post :accept, space_id: space.to_param, id: jr.id, join_request: { role_id: role.id }
+            post :accept, space_id: space.to_param, id: jr, join_request: { role_id: role.id }
           }.to change{ space.pending_join_requests.count }.by(-1)
           jr.reload
         }
@@ -399,7 +399,7 @@ describe JoinRequestsController do
       context "accepts a user request with a role" do
         before(:each) {
           expect {
-            post :accept, space_id: space.to_param, id: jr.id, join_request: { role_id: role.id }
+            post :accept, space_id: space.to_param, id: jr, join_request: { role_id: role.id }
           }.to change{ space.pending_join_requests.count }.by(-1)
           jr.reload
         }
@@ -410,7 +410,7 @@ describe JoinRequestsController do
       context "creates a recent activity" do
         before(:each) {
           expect {
-            post :accept, space_id: space.to_param, id: jr.id, join_request: { role_id: role.id }
+            post :accept, space_id: space.to_param, id: jr, join_request: { role_id: role.id }
           }.to change{ RecentActivity.count }.by(1)
           jr.reload
         }
@@ -427,7 +427,7 @@ describe JoinRequestsController do
           @introducer_before = jr.introducer
           @processed_at_before = jr.processed_at
           expect {
-            post :accept, space_id: space.to_param, id: jr.id, join_request: { role_id: role.id }
+            post :accept, space_id: space.to_param, id: jr, join_request: { role_id: role.id }
           }.not_to change{ space.pending_join_requests.count } || change{ RecentActivity.count }
           jr.reload
         }
@@ -445,7 +445,7 @@ describe JoinRequestsController do
           errors.add(:accepted, "Error 1")
           errors.add(:processed_at, "Error 2")
           JoinRequest.any_instance.stub(:errors).and_return(errors)
-          post :accept, space_id: space.to_param, id: jr.id, join_request: { role_id: role.id }
+          post :accept, space_id: space.to_param, id: jr, join_request: { role_id: role.id }
         }
 
         it { should redirect_to("/back") }
@@ -459,7 +459,7 @@ describe JoinRequestsController do
         before(:each) {
           request.env['HTTP_REFERER'] = space_join_request_path(space, jr)
           expect {
-            post :accept, space_id: space.to_param, id: jr.id, join_request: { role_id: role.id }
+            post :accept, space_id: space.to_param, id: jr, join_request: { role_id: role.id }
           }.to change{ space.pending_join_requests.count }.by(-1)
           jr.reload
         }
@@ -472,7 +472,7 @@ describe JoinRequestsController do
         let!(:jr) { FactoryGirl.create(:join_request_invite, group: space) }
         it {
           expect {
-            post :accept, space_id: space.to_param, id: jr.id
+            post :accept, space_id: space.to_param, id: jr
           }.to raise_error{ CanCan::AccessDenied }
         }
       end
@@ -489,7 +489,7 @@ describe JoinRequestsController do
       context "accepts an invite" do
         before(:each) {
           expect {
-            post :accept, space_id: space.to_param, id: jr.id
+            post :accept, space_id: space.to_param, id: jr
           }.to change{ space.pending_invitations.count }.by(-1)
           jr.reload
         }
@@ -503,7 +503,7 @@ describe JoinRequestsController do
         let(:role) { Role.find_by(name: 'Admin', stage_type: 'Space') }
         before(:each) {
           expect {
-            post :accept, space_id: space.to_param, id: jr.id, join_request: { role_id: role.id }
+            post :accept, space_id: space.to_param, id: jr, join_request: { role_id: role.id }
           }.to change{ space.pending_invitations.count }.by(-1)
           jr.reload
         }
@@ -515,7 +515,7 @@ describe JoinRequestsController do
       context "creates a recent activity" do
         before(:each) {
           expect {
-            post :accept, space_id: space.to_param, id: jr.id
+            post :accept, space_id: space.to_param, id: jr
           }.to change{ RecentActivity.count }.by(1)
           jr.reload
         }
@@ -533,7 +533,7 @@ describe JoinRequestsController do
           @introducer_before = jr.introducer
           @processed_at_before = jr.processed_at
           expect {
-            post :accept, space_id: space.to_param, id: jr.id
+            post :accept, space_id: space.to_param, id: jr
           }.not_to change{ space.pending_join_requests.count } || change{ RecentActivity.count }
           jr.reload
         }
@@ -551,7 +551,7 @@ describe JoinRequestsController do
           errors.add(:accepted, "Error 1")
           errors.add(:processed_at, "Error 2")
           JoinRequest.any_instance.stub(:errors).and_return(errors)
-          post :accept, space_id: space.to_param, id: jr.id
+          post :accept, space_id: space.to_param, id: jr
         }
 
         it { should redirect_to("/back") }
@@ -567,7 +567,7 @@ describe JoinRequestsController do
     let(:space) { FactoryGirl.create(:space) }
     let!(:jr) { FactoryGirl.create(:join_request, group: space, introducer: nil) }
 
-    it { should_authorize an_instance_of(JoinRequest), :decline, via: :post, space_id: space.to_param, id: jr.id }
+    it { should_authorize an_instance_of(JoinRequest), :decline, via: :post, space_id: space.to_param, id: jr }
 
     context "a space admin" do
       let(:user) { FactoryGirl.create(:user) }
@@ -581,7 +581,7 @@ describe JoinRequestsController do
       context "declines a user request" do
         before(:each) {
           expect {
-            post :decline, space_id: space.to_param, id: jr.id
+            post :decline, space_id: space.to_param, id: jr
           }.to change{ space.pending_join_requests.count }.by(-1)
           jr.reload
         }
@@ -597,7 +597,7 @@ describe JoinRequestsController do
       context "creates a recent activity" do
         before(:each) {
           expect {
-            post :decline, space_id: space.to_param, id: jr.id
+            post :decline, space_id: space.to_param, id: jr
           }.to change{ RecentActivity.count }.by(1)
           jr.reload
         }
@@ -616,7 +616,7 @@ describe JoinRequestsController do
           @processed_at_before = jr.processed_at
           expect {
             expect {
-              post :decline, space_id: space.to_param, id: jr.id
+              post :decline, space_id: space.to_param, id: jr
             }.to raise_error(ActiveRecord::RecordNotFound)
           }.not_to change{ space.pending_join_requests.count }
           jr.reload
@@ -634,7 +634,7 @@ describe JoinRequestsController do
           errors.add(:accepted, "Error 1")
           errors.add(:processed_at, "Error 2")
           JoinRequest.any_instance.stub(:errors).and_return(errors)
-          post :decline, space_id: space.to_param, id: jr.id
+          post :decline, space_id: space.to_param, id: jr
         }
 
         it { should redirect_to("/back") }
@@ -648,7 +648,7 @@ describe JoinRequestsController do
         before(:each) {
           request.env['HTTP_REFERER'] = space_join_request_path(space, jr)
           expect {
-            post :decline, space_id: space.to_param, id: jr.id
+            post :decline, space_id: space.to_param, id: jr
           }.to change{ space.pending_join_requests.count }.by(-1)
           jr.reload
         }
@@ -660,7 +660,7 @@ describe JoinRequestsController do
         let!(:jr) { FactoryGirl.create(:space_join_request_invite, group: space) }
         before(:each) {
           expect {
-            post :decline, space_id: space.to_param, id: jr.id
+            post :decline, space_id: space.to_param, id: jr
           }.to change{ space.pending_invitations.count }.by(-1) && change{ JoinRequest.count }.by(-1)
         }
         it { should redirect_to(space_join_requests_path(space)) }
@@ -680,7 +680,7 @@ describe JoinRequestsController do
       context "declines the invitation" do
         before(:each) {
           expect {
-            post :decline, space_id: space.to_param, id: jr.id
+            post :decline, space_id: space.to_param, id: jr
           }.to change{ space.pending_invitations.count }.by(-1)
           jr.reload
         }
@@ -693,7 +693,7 @@ describe JoinRequestsController do
       context "creates a recent activity" do
         before(:each) {
           expect {
-            post :decline, space_id: space.to_param, id: jr.id
+            post :decline, space_id: space.to_param, id: jr
           }.to change{ RecentActivity.count }.by(1)
           jr.reload
         }
@@ -712,7 +712,7 @@ describe JoinRequestsController do
           @processed_at_before = jr.processed_at
           expect {
             expect {
-              post :decline, space_id: space.to_param, id: jr.id
+              post :decline, space_id: space.to_param, id: jr
             }.to raise_error(ActiveRecord::RecordNotFound)
           }.not_to change{ space.pending_join_requests.count }
           jr.reload
@@ -730,7 +730,7 @@ describe JoinRequestsController do
           errors.add(:accepted, "Error 1")
           errors.add(:processed_at, "Error 2")
           JoinRequest.any_instance.stub(:errors).and_return(errors)
-          post :decline, space_id: space.to_param, id: jr.id
+          post :decline, space_id: space.to_param, id: jr
         }
 
         it { should redirect_to("/back") }
@@ -744,7 +744,7 @@ describe JoinRequestsController do
         let!(:jr) { FactoryGirl.create(:space_join_request, group: space, candidate: candidate) }
         before(:each) {
           expect {
-            post :decline, space_id: space.to_param, id: jr.id
+            post :decline, space_id: space.to_param, id: jr
           }.to change{ space.pending_invitations.count }.by(-1) && change{ JoinRequest.count }.by(-1)
         }
         it { should redirect_to(my_home_path) }
