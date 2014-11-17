@@ -33,6 +33,16 @@ class JoinRequest < ActiveRecord::Base
   # The request can either be an invitation or a request for membership
   validates :request_type, :presence => true
 
+  # Use secret token as the model :id
+  before_save :generate_secret_token
+  def generate_secret_token
+    self.secret_token = SecureRandom.urlsafe_base64(10) unless self.secret_token.present?
+  end
+
+  def to_param
+    self.secret_token
+  end
+
   attr_writer :processed
   before_save :set_processed_at
   before_save :add_candidate_to_group
