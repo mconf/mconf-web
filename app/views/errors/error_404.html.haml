@@ -1,3 +1,5 @@
+- message = @route.nil? ? request.path : @route
+
 = page_title t("error.e404.title")
 
 %h1.title
@@ -8,4 +10,4 @@
     - if @error_message
       = @error_message.html_safe
     - else
-      = t("error.e404.description", :url => request.path)
+      = t("error.e404.description", :url => message)

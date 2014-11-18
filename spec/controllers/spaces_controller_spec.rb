@@ -42,13 +42,8 @@ describe SpacesController do
     end
 
     context "when there's no user logged in" do
-      before(:each) { do_action }
-
       context "and the user has no pending join request" do
-        it { should respond_with(:forbidden) }
-        it { should set_the_flash.to(I18n.t("space.access_forbidden")) }
-        it { should render_template("errors/error_403") }
-        it { should render_with_layout("error") }
+        it { expect { do_action }.to raise_error(CanCan::AccessDenied) }
       end
     end
   end
@@ -59,46 +54,48 @@ describe SpacesController do
       before(:each) { sign_in(user) }
 
       context "and the user has no pending join request" do
-        before(:each) { do_action }
-        it { should respond_with(:forbidden) }
-        it { should set_the_flash.to(I18n.t("space.access_forbidden")) }
-        it { should render_template("errors/error_403") }
-        it { should render_with_layout("error") }
+        it { expect { do_action }.to raise_error(CanCan::AccessDenied) }
+        #before(:each) { do_action }
+        #it { should respond_with(:forbidden) }
+        #it { should set_the_flash.to(I18n.t("space.access_forbidden")) }
+        #it { should render_template("errors/error_403") }
+        #it { should render_with_layout("error") }
       end
 
       context "and the user has a pending invitation" do
         before(:each) {
           @invitation = FactoryGirl.create(:join_request, :group => space, :candidate => user, :request_type => "invite")
         }
-        before(:each) { do_action }
-        it { space.pending_invitation_for?(user).should be_truthy }
-        it { should respond_with(:forbidden) }
-        it { should set_the_flash.to(I18n.t("space.access_forbidden")) }
-        it { should render_template("errors/error_403") }
-        it { should render_with_layout("error") }
+        it { expect { do_action }.to raise_error(CanCan::AccessDenied) }
+        #before(:each) { do_action }
+        #it { space.pending_invitation_for?(user).should be_truthy }
+        #it { should respond_with(:forbidden) }
+        #it { should set_the_flash.to(I18n.t("space.access_forbidden")) }
+        #it { should render_template("errors/error_403") }
+        #it { should render_with_layout("error") }
       end
 
       context "and the user has a pending join request" do
         before(:each) {
           @invitation = FactoryGirl.create(:join_request, :group => space, :candidate => user, :request_type => "request")
         }
-        before(:each) { do_action }
-        it { space.pending_join_request_for?(user).should be_truthy }
-        it { should respond_with(:forbidden) }
-        it { should set_the_flash.to(I18n.t("space.access_forbidden")) }
-        it { should render_template("errors/error_403") }
-        it { should render_with_layout("error") }
+        it { expect { do_action }.to raise_error(CanCan::AccessDenied) }
+        #before(:each) { do_action }
+        #it { space.pending_join_request_for?(user).should be_truthy }
+        #it { should respond_with(:forbidden) }
+        #it { should set_the_flash.to(I18n.t("space.access_forbidden")) }
+        #it { should render_template("errors/error_403") }
+        #it { should render_with_layout("error") }
       end
     end
 
     context "when there's no user logged in" do
-      before(:each) { do_action }
-
       context "and the user has no pending join request" do
-        it { should respond_with(:forbidden) }
-        it { should set_the_flash.to(I18n.t("space.access_forbidden")) }
-        it { should render_template("errors/error_403") }
-        it { should render_with_layout("error") }
+        it { expect { do_action }.to raise_error(CanCan::AccessDenied) }
+        #it { should respond_with(:forbidden) }
+        #it { should set_the_flash.to(I18n.t("space.access_forbidden")) }
+        #it { should render_template("errors/error_403") }
+        #it { should render_with_layout("error") }
       end
     end
   end
@@ -377,7 +374,6 @@ describe SpacesController do
         it { RecentActivity.last.parameters[:username].should eq(user.full_name) }
         it { RecentActivity.last.parameters[:user_id].should eq(user.id) }
       end
-
     end
 
     context "with invalid attributes" do
@@ -489,7 +485,7 @@ describe SpacesController do
         space.add_member!(user, 'Admin')
       end
 
-      it { expect{subject}.to change{Space.with_disabled.count}.by(0) }
+      it { expect{subject}.to raise_error(CanCan::AccessDenied) }
     end
 
   end
@@ -849,19 +845,17 @@ describe SpacesController do
 
     context "user is not a member of the space" do
       let(:user) { FactoryGirl.create(:user) }
-      before(:each) { get :user_permissions, :id => target.to_param }
 
-      it { should respond_with(403) }
+      it { expect { get :user_permissions, :id => target.to_param }.to raise_error(CanCan::AccessDenied) }
     end
 
     context "user is a normal member of the space" do
       let(:user) { FactoryGirl.create(:user) }
       before(:each) {
         target.add_member!(user)
-        get :user_permissions, :id => target.to_param
       }
 
-      it { should respond_with(403) }
+      it { expect { get :user_permissions, :id => target.to_param }.to raise_error(CanCan::AccessDenied) }
     end
 
     context "user is admin of the space" do

@@ -197,7 +197,6 @@ class ApplicationController < ActionController::Base
 
   def render_404(exception)
     unless Rails.application.config.consider_all_requests_local
-      # FIXME: this is never triggered, see the bottom of routes.rb
       @exception = exception
       render_error 404
     else
@@ -245,5 +244,4 @@ class ApplicationController < ActionController::Base
   def clear_stored_location
     session[:user_return_to] = nil
   end
-
 end
