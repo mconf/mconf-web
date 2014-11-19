@@ -28,7 +28,6 @@ class AdminsController < ApplicationController
         format.html { redirect_to manage_users_path }
       end
     else
-      puts @user.errors.messages.inspect
       flash[:error] = t('admins.user.error')
       respond_to do |format|
         format.html { redirect_to manage_users_path }
