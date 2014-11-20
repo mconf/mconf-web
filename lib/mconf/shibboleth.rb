@@ -126,7 +126,12 @@ module Mconf
 
       user = User.new params
       user.skip_confirmation!
+
       user.save
+      # Sending a notification email
+      if user.errors.blank?
+        UserMailer.registration_notification_email(user.id).deliver
+      end
       user
     end
 

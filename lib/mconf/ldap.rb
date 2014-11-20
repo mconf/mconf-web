@@ -117,6 +117,10 @@ module Mconf
           user = nil
         end
       end
+      # Sending a notification email
+      if user.present?
+        UserMailer.registration_notification_email(user.id).deliver
+      end
       user
     end
 
