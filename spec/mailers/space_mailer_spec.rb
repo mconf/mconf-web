@@ -62,7 +62,7 @@ describe SpaceMailer do
   end
 
   describe ".processed_invitation_email" do
-    let(:join_request) { FactoryGirl.create(:space_join_request) }
+    let(:join_request) { FactoryGirl.create(:space_join_request, :request_type => 'invite') }
     let(:mail) { SpaceMailer.processed_invitation_email(join_request.id) }
     let(:introducer) { join_request.introducer }
     let(:space) { join_request.group }
@@ -256,6 +256,9 @@ describe SpaceMailer do
         content = I18n.t("space_mailer.processed_join_request_email.message.link.rejected",
                          :space_url => url)
         mail.body.encoded.should match(content)
+      }
+      it("sends email to the join requests's introducer") {
+        mail.to.should include(join_request.introducer.email)
       }
     end
 

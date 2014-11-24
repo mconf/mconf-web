@@ -163,7 +163,7 @@ class UsersController < ApplicationController
   end
 
   def approve
-    if Site.current.require_registration_approval?
+    if current_site.require_registration_approval?
       @user.approve!
       @user.skip_confirmation_notification!
       @user.confirm!
@@ -175,7 +175,7 @@ class UsersController < ApplicationController
   end
 
   def disapprove
-    if Site.current.require_registration_approval?
+    if current_site.require_registration_approval?
       @user.disapprove!
       flash[:notice] = t('users.disapprove.disapproved', :username => @user.username)
     else

@@ -85,21 +85,9 @@ class User < ActiveRecord::Base
 
   accepts_nested_attributes_for :bigbluebutton_room
 
-  # TODO: see JoinRequestsController#create L50
-  # attr_accessible :created_at, :updated_at, :activated_at, :disabled
-  # attr_accessible :captcha, :captcha_key, :authenticate_with_captcha
-  # attr_accessible :email2, :email3
-  # attr_accessible :timezone
-  # attr_accessible :expanded_post
-  # attr_accessible :notification
-  # attr_accessible :superuser
-  # attr_accessible :can_record
-  # attr_accessible :receive_digest
-
   # Full name must go to the profile, but it is provided by the user when
   # signing up so we have to cache it until the profile is created
   attr_accessor :_full_name
-  # attr_accessible :_full_name
 
   # BigbluebuttonRoom requires an identifier with 3 chars generated from :name
   # So we'll require :_full_name and :username to have length >= 3
@@ -112,24 +100,6 @@ class User < ActiveRecord::Base
 
   after_create :create_webconf_room
   after_update :update_webconf_room
-
-  after_create :send_admin_approval_mail, if: :site_needs_approval?
-  def send_admin_approval_mail
-    if !approved?
-      admins = User.where(:superuser => true)
-
-      admins.each do |admin|
-        AdminMailer.new_user_waiting_for_approval(admin.id, self.id).deliver
-      end
-    end
-  end
-
-  after_update :send_user_approved_mail, if: :site_needs_approval?
-  def send_user_approved_mail
-    if approved_changed? && approved?
-      AdminMailer.new_user_approved(self.id).deliver
-    end
-  end
 
   before_create :automatically_approve, unless: :site_needs_approval?
 
@@ -185,15 +155,6 @@ class User < ActiveRecord::Base
 
   after_create do |user|
     user.create_profile :full_name => user._full_name
-
-    # Checking if we have to join a space and/or event
-    invites = JoinRequest.where :email => user.email
-    invites.each do |invite|
-      if invite.space?
-        space.add_member!(user)
-      end
-    end
-
   end
 
   # Builds a guest user based on the e-mail
@@ -213,10 +174,6 @@ class User < ActiveRecord::Base
 
   def other_public_spaces
     Space.public_spaces.order('name') - spaces
-  end
-
-  def user_count
-    users.size
   end
 
   def disable
@@ -290,6 +247,8 @@ class User < ActiveRecord::Base
   # on registration.
   def automatically_approve
     self.approved = true
+    self.needs_approval_notification_sent_at = Time.now
+    self.approved_notification_sent_at = Time.now
   end
 
   # Sets the user as approved

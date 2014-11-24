@@ -39,6 +39,11 @@ Rails.application.config.to_prepare do
         false
       end
     end
+
+    # Currently room is public only if belonging to a public space
+    def public?
+      owner_type == "Space" && Space.where(:id => owner_id, :public => true).present?
+    end
   end
 
   BigbluebuttonServer.instance_eval do

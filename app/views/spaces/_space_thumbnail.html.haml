@@ -34,7 +34,7 @@
       - jr = space.pending_join_request_or_invitation_for(current_user)
       - if jr
         - show_members = false
-        - if jr.request_type == "invite"
+        - if jr..is_invite?
           = link_to t(".reply_invitation"), space_join_request_path(space, jr)
         - else
           = link_to t(".view_join_request"), space_join_request_path(space, jr)

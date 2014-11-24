@@ -9,11 +9,7 @@ feature 'Behaviour of the flag Site#local_auth_enabled' do
     before { Site.current.update_attributes(local_auth_enabled: true) }
 
     scenario 'allows local authentication for normal users' do
-      visit login_path
-      fill_in 'user[login]', with: user.username
-      fill_in 'user[password]', with: user.password
-      click_button 'Login'
-
+      sign_in_with user.username, user.password
       expect(current_path).to eq(my_home_path)
     end
 
@@ -28,20 +24,12 @@ feature 'Behaviour of the flag Site#local_auth_enabled' do
     before { Site.current.update_attributes(local_auth_enabled: false) }
 
     scenario 'blocks sign in for normal users' do
-      visit login_path
-      fill_in 'user[login]', with: user.username
-      fill_in 'user[password]', with: user.password
-      click_button 'Login'
-
+      sign_in_with user.username, user.password
       expect(current_path).to eq(new_user_session_path)
     end
 
     scenario 'allows the sign in of admins' do
-      visit login_path
-      fill_in 'user[login]', with: admin.username
-      fill_in 'user[password]', with: admin.password
-      click_button 'Login'
-
+      sign_in_with admin.username, admin.password
       expect(current_path).to eq(my_home_path)
     end
 

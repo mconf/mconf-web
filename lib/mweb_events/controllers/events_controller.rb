@@ -9,39 +9,17 @@ MwebEvents::EventsController.class_eval do
   end
 
   def invite
-    @event = MwebEvents::Event.find_by_permalink(params[:event_id])
-    authorize! :invite, @event
-    respond_to do |format|
-      format.html {
-        render :layout => false if request.xhr?
-      }
-    end
+    render :layout => false if request.xhr?
   end
 
   def send_invitation
-    @event = MwebEvents::Event.find_by_permalink(params[:event_id])
-    authorize! :send_invitation, @event
-
-    invitation_params = {
+    invitations = Invitation.create_invitations params[:invite][:users],
       :sender => current_user,
       :target => @event,
       :title => params[:invite][:title],
       :url => @event.full_url,
       :description => params[:invite][:message],
       :ready => true
-    }
-
-    # creates an invitation for each user
-    invitations = []
-    users = Invitation.split_invitation_senders(params[:invite][:users])
-    users.each do |user|
-      if user.is_a? String
-        invitation_params[:recipient_email] = user
-      else
-        invitation_params[:recipient] = User.find_by_id(user)
-      end
-      invitations << EventInvitation.create(invitation_params)
-    end
 
     # we do a check just to give a better response to the user, since the invitations will
     # only be sent in background later on
@@ -51,9 +29,7 @@ MwebEvents::EventsController.class_eval do
     flash[:error] = Invitation.build_flash(
       failed, t('mweb_events.events.send_invitation.errors')) unless failed.empty?
 
-    respond_to do |format|
-      format.html { redirect_to request.referer }
-    end
+    redirect_to request.referer
   end
 
   def create_participant

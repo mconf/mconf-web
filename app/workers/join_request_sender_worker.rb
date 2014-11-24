@@ -5,18 +5,25 @@
 # This file is licensed under the Affero General Public License version
 # 3 or later. See the LICENSE file.
 
-class JoinRequestInviteNotificationWorker
+class JoinRequestSenderWorker
   @queue = :join_requests
 
   # Finds the join request associated with the activity in `activity_id` and sends
-  # a notification to the user that he/she was invited to join the space.
+  # a notification to the admins of the space that a user wants to join the space.
   # Marks the activity as notified.
   def self.perform(activity_id)
     activity = RecentActivity.find(activity_id)
-    join_request = activity.trackable
+    space = activity.owner
 
-    Resque.logger.info "Sending join request invite notification: #{join_request.inspect}"
-    SpaceMailer.invitation_email(join_request.id).deliver
+    if space.nil?
+      Resque.logger.info "Invalid space in a recent activity item: #{activity.inspect}"
+    else
+      # notify each admin of the space
+      space.admins.each do |admin|
+        Resque.logger.info "Sending join request notification to: #{admin.inspect}"
+        SpaceMailer.join_request_email(activity.trackable.id, admin.id).deliver
+      end
+    end
 
     activity.notified = true
     activity.save!

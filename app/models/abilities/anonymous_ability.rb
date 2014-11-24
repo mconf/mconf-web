@@ -37,14 +37,7 @@ module Abilities
     def abilities_for_bigbluebutton_rails(user)
       # Recordings of public spaces are available to everyone
       can [:space_show, :play], BigbluebuttonRecording do |recording|
-        response = false
-        unless recording.room.nil?
-          if recording.room.owner_type == "Space"
-            space = Space.find(recording.room.owner_id)
-            response = space.public
-          end
-        end
-        response
+        recording.room.try(:public?)
       end
 
       # some actions in rooms should be accessible to anyone

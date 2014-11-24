@@ -6,8 +6,8 @@
 
 require 'spec_helper'
 
-describe JoinRequestNotificationWorker do
-  let(:worker) { JoinRequestNotificationWorker }
+describe JoinRequestSenderWorker do
+  let(:worker) { JoinRequestSenderWorker }
   let(:space) { FactoryGirl.create(:space) }
 
   it "uses the queue :join_requests" do
@@ -68,6 +68,16 @@ describe JoinRequestNotificationWorker do
       it { SpaceMailer.should have_queue_size_of(0) }
       it { SpaceMailer.should_not have_queued(:join_request_email, join_request.id, user1.id).in(:mailer) }
       it { SpaceMailer.should_not have_queued(:join_request_email, join_request.id, user2.id).in(:mailer) }
+      it { activity.reload.notified.should be(true) }
+    end
+
+    context "when there's no space set in the activity" do
+      before {
+        activity.update_attributes(owner: nil)
+      }
+      before(:each) { worker.perform(activity.id) }
+
+      it { SpaceMailer.should have_queue_size_of(0) }
       it { activity.reload.notified.should be(true) }
     end
 

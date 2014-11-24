@@ -33,7 +33,19 @@ body.join_requests.show {
 
       form {
         display: inline-block;
-        margin: 0 20px;
+
+        select {
+          width: auto;
+        }
+      }
+
+      select, input, .label {
+        vertical-align: baseline;
+      }
+
+      .option-accept, .option-decline {
+        display: inline-block;
+        margin: 0 15px;
       }
     }
 

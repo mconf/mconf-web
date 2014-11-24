@@ -271,20 +271,24 @@ describe User do
   describe "on create" do
     describe "#automatically_approve_if_needed" do
       context "if #require_registration_approval is not set in the current site" do
-        before { Site.current.update_attributes(:require_registration_approval => false) }
+        before { Site.current.update_attributes(require_registration_approval: false) }
 
         context "automatically approves the user" do
-          before(:each) { @user = FactoryGirl.create(:user, :approved => false) }
+          before(:each) { @user = FactoryGirl.create(:user, approved: false) }
           it { @user.should be_approved }
+          it { @user.needs_approval_notification_sent_at.should be_within(2.seconds).of(Time.now) }
+          it { @user.approved_notification_sent_at.should be_within(2.seconds).of(Time.now) }
         end
       end
 
       context "if #require_registration_approval is set in the current site" do
-        before { Site.current.update_attributes(:require_registration_approval => true) }
+        before { Site.current.update_attributes(require_registration_approval: true) }
 
         context "doesn't approve the user" do
-          before(:each) { @user = FactoryGirl.create(:user, :approved => false) }
+          before(:each) { @user = FactoryGirl.create(:user, approved: false, needs_approval_notification_sent_at: nil, approved_notification_sent_at: nil) }
           it { @user.should_not be_approved }
+          it { @user.needs_approval_notification_sent_at.should be_nil }
+          it { @user.approved_notification_sent_at.should be_nil }
         end
       end
     end
@@ -680,9 +684,9 @@ describe User do
         FactoryGirl.create(:space, :disabled => true)]
       @user = FactoryGirl.create(:user)
 
-      FactoryGirl.create(:join_request, :candidate => @user, :group => @spaces[0], :request_type => 'request')
-      FactoryGirl.create(:join_request, :candidate => @user, :group => @spaces[1], :request_type => 'invite')
-      FactoryGirl.create(:join_request, :candidate => @user, :group => @spaces[3], :request_type => 'request')
+      FactoryGirl.create(:join_request, :candidate => @user, :group => @spaces[0], :request_type => JoinRequest::TYPES[:request])
+      FactoryGirl.create(:join_request, :candidate => @user, :group => @spaces[1], :request_type => JoinRequest::TYPES[:invite])
+      FactoryGirl.create(:join_request, :candidate => @user, :group => @spaces[3], :request_type => JoinRequest::TYPES[:request])
     end
 
     # Currently makes no differentiation between invites or requests
@@ -760,70 +764,6 @@ describe User do
         user.save!
       }
       it { user.location.should eql("Country Y") }
-    end
-  end
-
-  describe 'user approval notifications' do
-    let(:admin) { User.where(:superuser => true).first }
-
-    context 'dont send notifications if the site doesnt require approval' do
-      before {
-        Site.current.update_attributes(:require_registration_approval => false)
-        @user = FactoryGirl.create(:user, :approved => false)
-      }
-
-      it { AdminMailer.should have_queue_size_of(0) }
-      it { AdminMailer.should_not have_queued(:new_user_waiting_for_approval, admin.id, @user.id) }
-    end
-
-    context 'send notifications if site requires approval' do
-      before { Site.current.update_attributes(:require_registration_approval => true) }
-
-      context 'dont send notifications if the user is created with approved => true' do
-        before { @user = FactoryGirl.build(:user, :approved => true) }
-
-        it { AdminMailer.should have_queue_size_of(0) }
-        it { AdminMailer.should_not have_queued(:new_user_waiting_for_approval, admin.id, @user.id) }
-      end
-
-      context '#send_admin_approval_mail' do
-        let!(:admin2) { FactoryGirl.create(:user, superuser: true, approved: true) }
-        let!(:user) { FactoryGirl.create(:user, :approved => false) }
-
-        it { AdminMailer.should have_queue_size_of_at_least(2) }
-        it { AdminMailer.should have_queued(:new_user_waiting_for_approval, admin.id, user.id) }
-        it { AdminMailer.should have_queued(:new_user_waiting_for_approval, admin2.id, user.id) }
-      end
-
-      context '#send_user_approved_mail' do
-        before { @user = FactoryGirl.create(:user, :approved => false) }
-
-        context 'send when user is approved' do
-          before { @user.approve! }
-
-          it { AdminMailer.should have_queue_size_of(2) }
-          it { AdminMailer.should have_queued(:new_user_waiting_for_approval, admin.id, @user.id) }
-          it { AdminMailer.should have_queued(:new_user_approved, @user.id).in(:mailer) }
-        end
-
-        context 'dont send when user is updated but not approved' do
-          before { @user.update_attributes(:approved => false) }
-
-          it { AdminMailer.should have_queued(:new_user_waiting_for_approval, admin.id, @user.id) }
-          it { AdminMailer.should_not have_queued(:new_user_approved, @user.id).in(:mailer) }
-        end
-
-        context 'dont send when user is updated with other parameters' do
-          let!(:new_username) { 'iogurte' }
-          before { @user.update_attributes(:username => new_username) }
-
-          it { AdminMailer.should have_queue_size_of(1) }
-          it { @user.username.should eq(new_username) }
-          it { AdminMailer.should have_queued(:new_user_waiting_for_approval, admin.id, @user.id) }
-          it { AdminMailer.should_not have_queued(:new_user_approved, @user.id).in(:mailer) }
-        end
-
-      end
     end
   end
 

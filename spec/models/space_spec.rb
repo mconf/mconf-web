@@ -586,9 +586,9 @@ describe Space do
   describe "join requests" do
     before {
       @jr = [
-        FactoryGirl.create(:join_request, :group => space, :request_type => 'request'),
-        FactoryGirl.create(:join_request, :group => space, :request_type => 'request'),
-        FactoryGirl.create(:join_request, :group => space, :request_type => 'invite')
+        FactoryGirl.create(:join_request, :group => space, :request_type => JoinRequest::TYPES[:request]),
+        FactoryGirl.create(:join_request, :group => space, :request_type => JoinRequest::TYPES[:request]),
+        FactoryGirl.create(:join_request, :group => space, :request_type => JoinRequest::TYPES[:invite])
       ]
       @invitations = [@jr[2]]
       @requests = [@jr[0], @jr[1]]

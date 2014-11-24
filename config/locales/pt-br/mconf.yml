@@ -59,6 +59,7 @@ pt-br:
       format_display: "%d/%m/%Y"
       format: "dd-MM-yyyy"
       format_rails: "%d/%m/%Y %H:%M %z"
+    decline: "Negar"
     deny: "Negar"
     destroy: "Remover"
     details: "Detalhes"
@@ -794,6 +795,8 @@ pt-br:
   join: Entrar
   join_cam: Participar
   join_requests:
+    accept:
+      accepted: "Pedido de adesão aceito"
     create:
       already_invited: "Os seguintes usuários já possuem um convite pendente: %{users}"
       already_a_member: "%{name} já é um membro"
@@ -802,18 +805,20 @@ pt-br:
       error: "Algo errado aconteceu ao processar sua requisição, por favor tente novamente. (detalhes: %{errors})"
       sent: "Seu convite foi enviado com sucesso para: %{users}"
       user_not_found: "Usuário não encontrado: %{id}"
-    destroy:
-      success: "Pedido de adesão cancelado com sucesso"
+    decline:
+      declined: "Pedido de adesão negado"
+      invitation_destroyed: "Convite cancelado com sucesso"
+      request_destroyed: "Pedido de adesão cancelado com sucesso"
     index:
       accept: "Aceitar pedido de adesão de %{user}?"
       accept_as: "como"
       deny: "Cancelar pedido de adesão de %{user}?"
-      not_pending:
-        other: "Não existem solicitações de adesão pendentes"
+      no_pending_invitations: "Não existem convites pendentes"
+      no_pending_requests: "Não existem pedidos de adesão pendentes"
       or: "ou"
-      pending:
-        other: "Pedidos de adesão pendentes"
-        user_message: "Mensagem"
+      pending_invitations_title: "Convites pendentes"
+      pending_requests_title: "Pedidos de adesão pendentes"
+      user_message: "Mensagem"
     invitation:
       cancel: "Cancelar convite para %{user}?"
       invited_as: "Convidado como"
@@ -830,21 +835,30 @@ pt-br:
       already_invited: "Você já possui um convite para entrar nesta comunidade! Vá para a página inicial da comunidade para acessá-lo."
       already_requested: "Você já requisitou ingresso nesta comunidade! Por favor espere que um administrador aceite o pedido."
       message_title: "Envie um pedido de adesão aos administradores da comunidade"
+    request:
+      decline_confirmation: "Você tem certeza que deseja rejeitar este pedido de ingresso?"
     show:
-      accept: "Sim, quero entrar!"
+      accept: "Aceitar"
       already_accepted: "... mas você já é um membro dessa comunidade."
-      comment_invitation: "Esta é a mensagem escrita por %{name}:"
-      comment_request: "Essa requisição já foi enviada para os administradores da comunidade, por favor espere por uma resposta. Este é o comentário que você escreveu:"
-      decline: "Não, agora não"
-      decline_confirmation: "Você tem certeza que quer negar o convite de adesão a esta comunidade?"
-      remove: "Cancelar esta requisição"
-      remove_confirmation: "Você tem certeza que quer cancelar a requisição de ingresso nesta comunidade?"
-      title_invitation: "Você foi convidado para ingressar na comunidade \"%{name}\" em %{date}"
-      title_request: "Você enviou um pedido de ingresso para a comunidade \"%{name}\" em %{date}"
-    update:
-      accepted: "Pedido de adesão aceito"
-      updated: "Pedido de adesão atualizado"
-      declined: "Pedido de adesão rejeitado"
+      cancel_invite: "Cancelar este convite"
+      cancel_invite_confirmation: "Você tem certeza que deseja cancelar este convite?"
+      cancel_request: "Cancelar esta requisição"
+      cancel_request_confirmation: "Você tem certeza que deseja cancelar esta requisiçãoAre you sure you want to cancel the request to join this space?"
+      decline: "Rejeitar"
+      decline_invite_confirmation: "Você tem certeza que deseja rejeitar o convite de ingresso nesta comunidade?"
+      decline_request_confirmation: "Você tem certeza que deseja rejeitar o pedido de ingresso nesta comunidade?"
+      is_candidate:
+        comment_invitation: "Este é o comentário escrito por %{name}:"
+        comment_request: "Essa requisição já foi enviada para os administradores da comunidade, por favor espere por uma resposta. Este é o comentário que você escreveu:"
+        title_invitation: "Você foi convidado por \"%{introducer}\" em %{date} para participar da comundiade \"%{space}\""
+        title_request: "Você requisitou o ingresso na comunidade \"%{space}\" em %{date}"
+      is_introducer:
+        comment_invitation: "Este é o comentário que você escreveu:"
+        title_invitation: "Você convidou \"%{candidate}\" em %{date} para participar da comunidade \"%{space}\""
+      is_other:
+        comment_request: "Este é o comentário escrito por \"%{name}\":"
+        title_invitation: "\"%{introducer}\" convidou \"%{candidate}\" em %{date} para participar da comundiade \"%{space}\""
+        title_request: "\"%{candidate}\" requisitou em %{date} o ingresso na comunidade \"%{space}\""
   keywords: "Palavras-chave (*)"
   language: Idioma
   last_week: "Semana passada"

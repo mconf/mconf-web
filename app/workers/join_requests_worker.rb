@@ -5,7 +5,7 @@
 # This file is licensed under the Affero General Public License version
 # 3 or later. See the LICENSE file.
 
-class JoinRequestsNotificationsWorker
+class JoinRequestsWorker
   @queue = :join_requests
 
   # Finds all join requests with pending notifications and sends them
@@ -20,7 +20,7 @@ class JoinRequestsNotificationsWorker
   def self.invite_notifications
     invites = RecentActivity.where trackable_type: 'JoinRequest', key: 'join_request.invite', notified: [nil,false]
     invites.each do |activity|
-      Resque.enqueue(JoinRequestInviteNotificationWorker, activity.id)
+      Resque.enqueue(JoinRequestInviteSenderWorker, activity.id)
     end
   end
 
@@ -29,17 +29,22 @@ class JoinRequestsNotificationsWorker
   def self.request_notifications
     requests = RecentActivity.where trackable_type: 'JoinRequest', key: 'join_request.request', notified: [nil,false]
     requests.each do |activity|
-      Resque.enqueue(JoinRequestNotificationWorker, activity.id)
+      Resque.enqueue(JoinRequestSenderWorker, activity.id)
     end
   end
 
   # Goes through all activities for processed join requests for which the users have not been
   # notified yet, and enqueues a notification for each.
   def self.processed_request_notifications
-    requests = RecentActivity.where trackable_type: 'Space', key: 'space.join', notified: [nil,false]
-    requests = requests.all.reject { |req| req.parameters[:join_request_id].blank? }
+    requests = RecentActivity.where trackable_type: 'Space', key: ['space.accept', 'space.decline'], notified: [nil,false]
+    requests = requests.all.reject do |req|
+      jr = JoinRequest.where(:id => req.parameters[:join_request_id]).first
+      # don't generate email for blank join requests and declined user requests
+      jr.blank? || (jr.is_request? && !jr.accepted?)
+    end
+
     requests.each do |activity|
-      Resque.enqueue(ProcessedJoinRequestNotificationWorker, activity.id)
+      Resque.enqueue(ProcessedJoinRequestSenderWorker, activity.id)
     end
   end
 

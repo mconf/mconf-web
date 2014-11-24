@@ -31,6 +31,14 @@ module Helpers
       webconf_auto_record: true
     }
     Site.current.update_attributes(attributes)
+    I18n.locale = "en"
+  end
+
+  def self.reload_seeds
+    # db/seeds prints a lot of things to the console with puts, so we suppress it
+    silence_stream(STDOUT) do
+      load Rails.root + "db/seeds.rb"
+    end
   end
 
   module ClassMethods

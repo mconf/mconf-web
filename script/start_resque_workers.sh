@@ -31,9 +31,9 @@ cd $APP_PATH
 
 if [ "$1" != "stop" ]; then
   if [ "$2" == "all" ]; then
-    /usr/bin/env bundle exec rake environment resque:work RAILS_ENV=$RAILS_ENV PIDFILE=$PIDFILE VERBOSE=1 QUEUE="*" >> $LOGFILE 2>&1
+    /usr/bin/env bundle exec rake environment resque:workers RAILS_ENV=$RAILS_ENV PIDFILE=$PIDFILE VERBOSE=1 QUEUE="*" COUNT="3" >> $LOGFILE 2>&1
   else
-    /usr/bin/env bundle exec rake environment resque:work RAILS_ENV=$RAILS_ENV PIDFILE=$PIDFILE VERBOSE=1 QUEUE=$2 >> $LOGFILE 2>&1
+    /usr/bin/env bundle exec rake environment resque:workers RAILS_ENV=$RAILS_ENV PIDFILE=$PIDFILE VERBOSE=1 QUEUE=$2 COUNT="3" >> $LOGFILE 2>&1
   fi
 else
   kill -9 $(cat $PIDFILE) && rm -f $PIDFILE; exit 0;

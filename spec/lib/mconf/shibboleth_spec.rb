@@ -520,14 +520,13 @@ describe Mconf::Shibboleth do
         shibboleth.should_receive(:get_email).and_return('any@email.com')
         shibboleth.should_receive(:get_login).and_return('any-login')
         shibboleth.should_receive(:get_name).and_return('Any Name')
-        User.should_receive(:find_by_email).and_return(nil)
       }
       before(:each) {
         expect { @subject = shibboleth.create_user }.to change{ User.count }.by(1)
-        @subject.reload
       }
       it { @subject.should eq(User.last) }
-      it("validates the email") { @subject.email.should eq('any@email.com') }
+      it { @subject.errors.should be_empty }
+      it("validates the email") { @subject.reload.email.should eq('any@email.com') }
       it("validates the username") { @subject.username.should eq('any-login') }
       it("validates the full name") { @subject.full_name.should eq('Any Name') }
       it("password should be set") { @subject.password.should_not be_nil }
@@ -542,30 +541,17 @@ describe Mconf::Shibboleth do
         shibboleth.should_receive(:get_email).and_return('any@email.com')
         shibboleth.should_receive(:get_login).and_return('My Login Áàéë (test)')
         shibboleth.should_receive(:get_name).and_return('Any Name')
-        User.should_receive(:find_by_email).and_return(nil)
       }
       subject { shibboleth.create_user }
       it { subject.username.should eq('my-login-aaee-test') }
     end
 
-    context "returns nil if there's already a user with the target email" do
-      let(:user) { FactoryGirl.create(:user) }
-      before {
-        User.should_receive(:find_by_email).and_return(user)
-      }
-      subject { shibboleth.create_user }
-      it { subject.should be_nil }
-    end
-
     context "returns the user with errors set in it if the call to `save` generated errors" do
       let(:user) { FactoryGirl.create(:user) }
-      before {
-        User.should_receive(:find_by_email).and_return(nil)
-      }
       subject { shibboleth.create_user }
       it("should return the user") { subject.should_not be_nil }
-      it("user should not be saved") { subject.new_record?.should be_truthy }
-      it("user should not be valid") { subject.valid?.should be_falsey }
+      it("user should not be saved") { subject.new_record?.should be(true) }
+      it("user should not be valid") { subject.valid?.should be(false) }
       it("expects errors on :email") { subject.errors.should have_key(:email) }
       it("expects errors on :username") { subject.errors.should have_key(:username) }
       it("expects errors on :_full_name") { subject.errors.should have_key(:_full_name) }

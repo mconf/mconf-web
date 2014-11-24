@@ -12,7 +12,13 @@ FactoryGirl.define do
   factory :space_join_activity, parent: :recent_activity do |ra|
     ra.association :owner, factory: :space
     ra.trackable_type "Space"
-    ra.key "space.join"
+    ra.key "space.accept"
+  end
+
+  factory :space_decline_activity, parent: :recent_activity do |ra|
+    ra.association :owner, factory: :space
+    ra.trackable_type "Space"
+    ra.key "space.decline"
   end
 
   factory :join_request_request_activity, parent: :recent_activity do |ra|

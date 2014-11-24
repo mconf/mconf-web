@@ -6,8 +6,8 @@
 
 require 'spec_helper'
 
-describe ProcessedJoinRequestNotificationWorker do
-  let(:worker) { ProcessedJoinRequestNotificationWorker }
+describe JoinRequestInviteSenderWorker do
+  let(:worker) { JoinRequestInviteSenderWorker }
   let(:space) { FactoryGirl.create(:space) }
 
   it "uses the queue :join_requests" do
@@ -15,30 +15,28 @@ describe ProcessedJoinRequestNotificationWorker do
   end
 
   describe "#perform" do
-    context "for a request" do
+
+    context "sends the invitation email" do
       let(:join_request) { FactoryGirl.create(:space_join_request, group: space) }
       let(:activity) {
-        FactoryGirl.create(:space_join_activity, owner: space, notified: false,
-                           parameters: { join_request_id: join_request.id })
+        FactoryGirl.create(:join_request_invite_activity, owner: space, notified: false, trackable: join_request)
       }
-
       before(:each) { worker.perform(activity.id) }
+
       it { SpaceMailer.should have_queue_size_of(1) }
-      it { SpaceMailer.should have_queued(:processed_join_request_email, join_request.id).in(:mailer) }
+      it { SpaceMailer.should have_queued(:invitation_email, join_request.id).in(:mailer) }
       it { activity.reload.notified.should be(true) }
     end
 
-    context "for an invite" do
-      let(:join_request) { FactoryGirl.create(:space_invite_request, group: space) }
+    context "when there's no join request set in the activity" do
       let(:activity) {
-        FactoryGirl.create(:space_join_activity, owner: space, notified: false,
-                           parameters: { join_request_id: join_request.id })
+        FactoryGirl.create(:join_request_invite_activity, owner: space, notified: false, trackable: nil)
       }
-
       before(:each) { worker.perform(activity.id) }
-      it { SpaceMailer.should have_queue_size_of(1) }
-      it { SpaceMailer.should have_queued(:processed_invitation_email, join_request.id).in(:mailer) }
+
+      it { SpaceMailer.should have_queue_size_of(0) }
       it { activity.reload.notified.should be(true) }
     end
+
   end
 end

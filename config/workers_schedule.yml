@@ -1,13 +1,13 @@
 send_private_messages_notifications:
   every:
     - "30s"
-  class: PrivateMessagesNotificationsWorker
+  class: PrivateMessagesWorker
   description: "Sends notifications for all private messages not notified yet"
 
 send_join_requests_notifications:
   every:
     - "30s"
-  class: JoinRequestsNotificationsWorker
+  class: JoinRequestsWorker
   description: "Sends notifications for all join requests not notified yet"
 
 send_invitations:
@@ -15,6 +15,22 @@ send_invitations:
     - "30s"
   class: InvitationsWorker
   description: "Finds all invitations still not sent and sends them"
+
+send_user_notifications:
+  every:
+    - "30s"
+  class: UserNotificationsWorker
+  description: "Checks pending user notifications and sends them"
+
+# TODO: use it after #1292
+# send_daily_digest:
+#   cron: "0 14 * * *" # daily at 2pm
+#   class: DailyDigest
+#   description: "Sends the daily digest."
+# send_weekly_digest:
+#   cron: "0 14 * * 1" # mondays at 2pm
+#   class: WeeklyDigest
+#   description: "Sends the weekly digest."
 
 finish_meetings:
   every:

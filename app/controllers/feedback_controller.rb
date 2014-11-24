@@ -8,7 +8,7 @@
 class FeedbackController < ApplicationController
 
   def webconf
-    feedback_url = Site.current.feedback_url
+    feedback_url = current_site.feedback_url
     unless feedback_url.blank?
       redirect_to feedback_url
     else

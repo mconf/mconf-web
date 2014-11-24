@@ -106,7 +106,7 @@ class ShibbolethController < ApplicationController
 
   def save_shib_to_session
     logger.info "Shibboleth: saving env to session"
-    @shib.save_to_session(request.env, Site.current.shib_env_variables)
+    @shib.save_to_session(request.env, current_site.shib_env_variables)
   end
 
   # Checks if shibboleth is enabled in the current site.
@@ -148,21 +148,21 @@ class ShibbolethController < ApplicationController
     if token.user.nil?
 
       token.user = shib.create_user
-      unless token.user.nil?
-        if token.user.errors.empty?
-          logger.info "Shibboleth: created a new account: #{token.user.inspect}"
-          token.data = shib.get_data()
-          token.save! # TODO: what if it fails
-          flash[:success] = t('shibboleth.create_association.account_created', :url => new_user_password_path)
-        else
-          token.destroy
-          logger.info "Shibboleth: error saving the new user created: #{token.user.errors.full_messages}"
-          flash[:error] = t('shibboleth.create_association.error_saving_user', :errors => token.user.errors.full_messages.join(', '))
-        end
+      user = token.user
+      if user && user.errors.empty?
+        logger.info "Shibboleth: created a new account: #{user.inspect}"
+        token.data = shib.get_data
+        token.save! # TODO: what if it fails
+        flash[:success] = t('shibboleth.create_association.account_created', url: new_user_password_path)
       else
+        logger.info "Shibboleth: error saving the new user created: #{user.errors.full_messages}"
+        if User.where(email: user.email).count > 0
+          logger.info "Shibboleth: there's already a user with this email #{shib.get_email}"
+          flash[:error] = t('shibboleth.create_association.existent_account', email: shib.get_email)
+        else
+          flash[:error] = t('shibboleth.create_association.error_saving_user', errors: user.errors.full_messages.join(', '))
+        end
         token.destroy
-        logger.info "Shibboleth: there's already a user with this email #{shib.get_email}"
-        flash[:error] = t('shibboleth.create_association.existent_account', :email => shib.get_email)
       end
     end
   end
@@ -206,23 +206,26 @@ class ShibbolethController < ApplicationController
 
   # Returns the value of the flag `shib_always_new_account`.
   def get_always_new_account
-    return Site.current.shib_always_new_account
+    return current_site.shib_always_new_account
   end
 
   # Adds fake test data to the environment to test shibboleth in development.
   def test_data
     if Rails.env == "development"
       request.env["Shib-Application-ID"] = "default"
-      request.env["Shib-Session-ID"] = "09a612f952cds995e4a86ddd87fd9f2a"
-      request.env["Shib-Identity-Provider"] = "https://login.somewhere/idp/shibboleth"
-      request.env["Shib-Authentication-Instant"] = "2011-09-21T19:11:58.039Z"
+      request.env["Shib-Session-ID"] = "_412345e04a9fba98calks98d7c500852"
+      request.env["Shib-Identity-Provider"] = "https://idp.mconf-institution.org/idp/shibboleth"
+      request.env["Shib-Authentication-Instant"] = "2014-10-23T17:26:43.683Z"
       request.env["Shib-Authentication-Method"] = "urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport"
       request.env["Shib-AuthnContext-Class"] = "urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport"
-      request.env["Shib-brEduPerson-brEduAffiliationType"] = "student;position;faculty"
-      request.env["Shib-eduPerson-eduPersonPrincipalName"] = "75a988943825d2871e1cfa75473ec0@ufrgs.br"
-      request.env["Shib-inetOrgPerson-cn"] = "Rick Astley"
-      request.env["Shib-inetOrgPerson-sn"] = "Rick Astley"
-      request.env["Shib-inetOrgPerson-mail"] = "nevergonnagiveyouup@rick.com"
+      request.env["Shib-Session-Index"] = "alskd87345cc761850086ccbc4987123lskdic56a3c652c37fc7c3bdbos9dia87"
+      request.env["Shib-eduPerson-eduPersonPrincipalName"] = "maria.silva@mconf-institution.org"
+      request.env["Shib-inetOrgPerson-cn"] = "Maria Let\xC3\xADcia da Silva"
+      request.env["Shib-inetOrgPerson-mail"] = "maria.silva@mconf-institution.org"
+      request.env["Shib-inetOrgPerson-sn"] = "Let\xC3\xADcia da Silva"
+      request.env["inetOrgPerson-cn"] = request.env["Shib-inetOrgPerson-cn"].clone
+      request.env["inetOrgPerson-mail"] = request.env["Shib-inetOrgPerson-mail"].clone
+      request.env["inetOrgPerson-sn"] = request.env["Shib-inetOrgPerson-sn"].clone
     end
   end
 end

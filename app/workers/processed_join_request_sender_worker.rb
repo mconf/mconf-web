@@ -5,7 +5,7 @@
 # This file is licensed under the Affero General Public License version
 # 3 or later. See the LICENSE file.
 
-class ProcessedJoinRequestNotificationWorker
+class ProcessedJoinRequestSenderWorker
   @queue = :join_requests
 
   # Finds the join request associated with the activity in `activity_id` and sends
@@ -15,7 +15,7 @@ class ProcessedJoinRequestNotificationWorker
     activity = RecentActivity.find(activity_id)
     join_request = JoinRequest.find(activity.parameters[:join_request_id])
 
-    if join_request.request_type == "request"
+    if join_request.is_request?
       Resque.logger.info "Sending processed join request notification: #{join_request.inspect}"
       SpaceMailer.processed_join_request_email(join_request.id).deliver
     else
