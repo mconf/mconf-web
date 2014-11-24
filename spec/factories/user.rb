@@ -21,6 +21,8 @@ FactoryGirl.define do
     u.password { Forgery::Basic.password :at_least => 6, :at_most => 16 }
     u.password_confirmation { |u2| u2.password }
     u.confirmed_at { Time.now }
+    u.needs_approval_notification_sent_at { Time.now }
+    u.approved_notification_sent_at { Time.now }
     after(:create) { |u2| u2.confirm!; u2.reload }
   end
 

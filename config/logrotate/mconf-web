@@ -15,13 +15,3 @@
          missingok
          notifempty
 }
-
-/var/www/mconf-web/current/log/whenever.log {
-         weekly
-         size 50M
-         copytruncate
-         rotate 10
-         compress
-         missingok
-         notifempty
-}

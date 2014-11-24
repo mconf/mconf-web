@@ -67,7 +67,8 @@
   }
 
   .field_with_errors {
-    input, textarea { border-color: $red; }
+    input, textarea,
+    .select2-container .select2-choice { border-color: $red; }
 
     .error {
       margin-left: 5px;

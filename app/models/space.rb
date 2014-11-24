@@ -102,7 +102,7 @@ class Space < ActiveRecord::Base
 
   def new_activity key, user, join_request=nil
     if join_request
-      create_activity key, :owner => self, :parameters => { :user_id => user.id, :username => user.name, :join_request_id => join_request.id }
+      create_activity key, :owner => join_request, :parameters => { :user_id => user.id, :username => user.name }
     else
       create_activity key, :owner => self, :parameters => { :user_id => user.id, :username => user.name }
     end
@@ -139,11 +139,11 @@ class Space < ActiveRecord::Base
   end
 
   def pending_join_requests
-    join_requests.where(:processed_at => nil, :request_type => 'request')
+    join_requests.where(:processed_at => nil, :request_type => JoinRequest::TYPES[:request])
   end
 
   def pending_invitations
-    join_requests.where(:processed_at => nil, :request_type => 'invite')
+    join_requests.where(:processed_at => nil, :request_type => JoinRequest::TYPES[:invite])
   end
 
   def pending_join_request_or_invitation_for(user)

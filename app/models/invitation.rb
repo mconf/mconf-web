@@ -42,13 +42,18 @@ class Invitation < ActiveRecord::Base
     result
   end
 
-  # Receives a string with user_ids and emails and returns and array of them
-  def self.split_invitation_senders(email_string)
-    users = email_string.split(",")
-    users.map { |user_str|
-      user = User.find_by_id(user_str)
-      user ? user : user_str
-    }
+  def self.create_invitations(user_list, params)
+    # creates an invitation for each user
+    users = user_list.try(:split, ",") || []
+    users.map do |user_str|
+      user = User.where(:id => user_str).first
+      if user
+        params[:recipient] = user
+      else
+        params[:recipient_email] = user_str
+      end
+      self.create(params)
+    end
   end
 
   # Builds a flash message containing all the names of invited users

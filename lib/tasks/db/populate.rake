@@ -54,6 +54,10 @@ namespace :db do
       user.notification = User::NOTIFICATION_VIA_EMAIL
       user.encrypted_password = "123"
 
+      # we don't want notifications for these users, event if they are not approved yet
+      user.needs_approval_notification_sent_at = @created_at_start..Time.now
+      user.approved_notification_sent_at = @created_at_start..Time.now
+
       Profile.create do |profile|
         profile.user_id = user.id
         profile.full_name = Forgery::Name.full_name

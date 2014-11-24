@@ -52,19 +52,27 @@ module Abilities
       end
 
       # Join Requests
+      # TODO: make everything for events also
+
       # normal users can request membership
       # admins in a space can invite users
-      # TODO: make this for events also
-      can [:new, :create], JoinRequest
+      can [:create], JoinRequest
 
       # users that created a join request can do a few things over it
-      # TODO: make this for events also
-      can [:show, :destroy, :update], JoinRequest do |jr|
+      can [:show, :decline], JoinRequest do |jr|
         jr.group.try(:is_a?, Space) && jr.try(:candidate) == user
       end
 
+      # users can accept invitations they received, space admins can accept requests
+      # made to that space.
       can :accept, JoinRequest do |jr|
-        jr.group.try(:is_a?, Space) && jr.try(:candidate) == user && jr.request_type == 'invite'
+        group = jr.group
+        if group.try(:is_a?, Space)
+          (jr.is_invite? && jr.try(:candidate) == user) ||
+            (jr.is_request? && group.admins.include?(user))
+        else
+          false
+        end
       end
 
       # space admins can list requests and invite new members
@@ -73,7 +81,7 @@ module Abilities
       end
 
       # space admins can work with all join requests in the space
-      can [:show, :create, :update, :approve, :destroy], JoinRequest do |jr|
+      can [:show, :create, :decline], JoinRequest do |jr|
         group = jr.group
         group.try(:is_a?, Space) && group.admins.include?(user)
       end
@@ -310,14 +318,7 @@ module Abilities
 
     # Whether the space that owns the room that owns `recording` is public.
     def recordings_space_is_public(recording)
-      response = false
-      unless recording.room.nil?
-        if recording.room.owner_type == "Space"
-          space = Space.find(recording.room.owner_id)
-          response = space.public
-        end
-      end
-      response
+      recording.room.try(:public?)
     end
 
   end
