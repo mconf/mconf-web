@@ -1,3 +1,4 @@
+
 -# Note: this view can be seen by the user himself or by an admin.
 -#   It will behave differently in each case.
 
@@ -43,7 +44,8 @@
         %h3= t('.change_password')
         = f.input :password, :autocomplete => "off", :required => false
         = f.input :password_confirmation, :required => false
-        = f.input :current_password
+        - unless current_user.superuser?
+          = f.input :current_password
 
   .right-column
     #account-preferences
