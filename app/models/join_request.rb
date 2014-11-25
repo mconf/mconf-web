@@ -33,15 +33,7 @@ class JoinRequest < ActiveRecord::Base
   # The request can either be an invitation or a request for membership
   validates :request_type, :presence => true
 
-  # Use secret token as the model :id
-  before_save :generate_secret_token
-  def generate_secret_token
-    self.secret_token = SecureRandom.urlsafe_base64(10) unless self.secret_token.present?
-  end
-
-  def to_param
-    self.secret_token
-  end
+  after_initialize :init
 
   attr_writer :processed
   before_save :set_processed_at
@@ -54,6 +46,10 @@ class JoinRequest < ActiveRecord::Base
                           :scope => [ :group_id, :group_type, :processed_at ]
 
   validates_length_of :comment, maximum: 255
+
+  def to_param
+    self.secret_token
+  end
 
   # Create a new activity after saving
   after_create :new_activity
@@ -85,6 +81,11 @@ class JoinRequest < ActiveRecord::Base
   end
 
   private
+
+  def init
+    # Use secret token as the model :id
+    self[:secret_token] ||= SecureRandom.urlsafe_base64(16)
+  end
 
   def set_processed_at
     @processed && self.processed_at = Time.now.utc
