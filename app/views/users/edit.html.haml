@@ -1,4 +1,3 @@
-
 -# Note: this view can be seen by the user himself or by an admin.
 -#   It will behave differently in each case.
 
@@ -42,10 +41,10 @@
     - if current_site.local_auth_enabled? || @user.admin?
       #change-password
         %h3= t('.change_password')
-        = f.input :password, :autocomplete => "off", :required => false
-        = f.input :password_confirmation, :required => false
         - unless current_user.superuser?
           = f.input :current_password
+        = f.input :password, :autocomplete => "off", :required => false
+        = f.input :password_confirmation, :required => false
 
   .right-column
     #account-preferences
