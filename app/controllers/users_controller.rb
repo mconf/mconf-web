@@ -64,9 +64,9 @@ class UsersController < ApplicationController
         !params[:user].nil? && params[:user].has_key?(:password) &&
         !params[:user][:password].empty?
     end
-    updated = if password_changed and current_user.id == @user.id
+    updated = if password_changed and !current_user.superuser?
                 @user.update_with_password(user_params)
-              elsif password_changed and current_user.superuser? and current_user.id != @user.id
+              elsif password_changed and current_user.superuser?
                 params[:user].delete(:current_password) unless params[:user].nil?
                 @user.update_attributes(user_params)
               else
