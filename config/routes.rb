@@ -180,6 +180,6 @@ Mconf::Application.routes.draw do
   # General statistics for the website
   get '/statistics', :to => 'statistics#show', :as => 'show_statistics'
 
-  # To show custom 404 page
-  match ':status', to: 'errors#render404', constraints: {status: /\d{3}/}, via: :all
+  # To treat errors on pages that don't fall on any other controller
+  match ':status', to: 'errors#render_error', constraints: { status: /\d{3}/ }, via: :all
 end

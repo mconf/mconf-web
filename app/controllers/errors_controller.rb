@@ -11,12 +11,13 @@
 class ErrorsController < ApplicationController
   layout 'error'
 
-  def render404
+  def render_error
     @exception = env["action_dispatch.exception"]
     @route = @exception.message.split('"')[1]
+    status = request.path[1..-1]
     respond_to do |format|
-      format.html { render action: 'error_' + request.path[1..-1] }
-      format.json { render json: {status: request.path[1..-1], error: @exception.message} }
+      format.html { send("render_#{status}", @exception) }
+      format.json { render json: { status: status, error: @exception.message } }
     end
   end
 

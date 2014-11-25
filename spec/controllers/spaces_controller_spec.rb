@@ -55,11 +55,6 @@ describe SpacesController do
 
       context "and the user has no pending join request" do
         it { expect { do_action }.to raise_error(CanCan::AccessDenied) }
-        #before(:each) { do_action }
-        #it { should respond_with(:forbidden) }
-        #it { should set_the_flash.to(I18n.t("space.access_forbidden")) }
-        #it { should render_template("errors/error_403") }
-        #it { should render_with_layout("error") }
       end
 
       context "and the user has a pending invitation" do
@@ -67,12 +62,6 @@ describe SpacesController do
           @invitation = FactoryGirl.create(:join_request, :group => space, :candidate => user, :request_type => JoinRequest::TYPES[:invite])
         }
         it { expect { do_action }.to raise_error(CanCan::AccessDenied) }
-        #before(:each) { do_action }
-        #it { space.pending_invitation_for?(user).should be_truthy }
-        #it { should respond_with(:forbidden) }
-        #it { should set_the_flash.to(I18n.t("space.access_forbidden")) }
-        #it { should render_template("errors/error_403") }
-        #it { should render_with_layout("error") }
       end
 
       context "and the user has a pending join request" do
@@ -80,22 +69,12 @@ describe SpacesController do
           @invitation = FactoryGirl.create(:join_request, :group => space, :candidate => user, :request_type => JoinRequest::TYPES[:request])
         }
         it { expect { do_action }.to raise_error(CanCan::AccessDenied) }
-        #before(:each) { do_action }
-        #it { space.pending_join_request_for?(user).should be_truthy }
-        #it { should respond_with(:forbidden) }
-        #it { should set_the_flash.to(I18n.t("space.access_forbidden")) }
-        #it { should render_template("errors/error_403") }
-        #it { should render_with_layout("error") }
       end
     end
 
     context "when there's no user logged in" do
       context "and the user has no pending join request" do
         it { expect { do_action }.to raise_error(CanCan::AccessDenied) }
-        #it { should respond_with(:forbidden) }
-        #it { should set_the_flash.to(I18n.t("space.access_forbidden")) }
-        #it { should render_template("errors/error_403") }
-        #it { should render_with_layout("error") }
       end
     end
   end
