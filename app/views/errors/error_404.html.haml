@@ -8,4 +8,4 @@
     - if @error_message
       = @error_message.html_safe
     - else
-      = t("error.e404.description", :url => request.path)
+      = t("error.e404.description", :url => @route)

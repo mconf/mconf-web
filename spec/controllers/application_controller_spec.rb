@@ -501,22 +501,6 @@ describe ApplicationController do
         it { expect(ExceptionNotifier).not_to have_received(:notify_exception) }
       end
 
-      context "from ActionController::RoutingError" do
-        controller do
-          def index
-            raise ActionController::RoutingError.new("Anything")
-          end
-        end
-
-        before(:each) { get :index }
-
-        it { should respond_with(404) }
-        it { should render_template("errors/error_404") }
-        it { assigns(:exception).should be_an_instance_of(ActionController::RoutingError) }
-        it { assigns(:exception).message.should eql("Anything") }
-        it { expect(ExceptionNotifier).not_to have_received(:notify_exception) }
-      end
-
       context "from ActionController::UnknownController" do
         controller do
           def index

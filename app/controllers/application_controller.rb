@@ -28,7 +28,6 @@ class ApplicationController < ActionController::Base
   # Handle errors - error pages
   rescue_from Exception, :with => :render_500
   rescue_from ActiveRecord::RecordNotFound, :with => :render_404
-  rescue_from ActionController::RoutingError, :with => :render_404
   rescue_from ActionController::UnknownController, :with => :render_404
   rescue_from ::AbstractController::ActionNotFound, :with => :render_404
   rescue_from CanCan::AccessDenied, :with => :render_403
@@ -196,8 +195,8 @@ class ApplicationController < ActionController::Base
   end
 
   def render_404(exception)
+    @route ||= request.path
     unless Rails.application.config.consider_all_requests_local
-      # FIXME: this is never triggered, see the bottom of routes.rb
       @exception = exception
       render_error 404
     else
@@ -245,5 +244,4 @@ class ApplicationController < ActionController::Base
   def clear_stored_location
     session[:user_return_to] = nil
   end
-
 end

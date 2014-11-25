@@ -303,7 +303,7 @@ class SpacesController < ApplicationController
 
   def handle_record_not_found exception
     @error_message = t("spaces.error.not_found", :permalink => params[:id], :path => spaces_path)
-    render_error 404
+    render_404 exception
   end
 
   # User trying to access a space not owned or joined by him
@@ -334,7 +334,7 @@ class SpacesController < ApplicationController
       if exception.action == :show
         @error_message = t("space.is_private_html", name: @space.name, path: new_space_join_request_path(@space))
       end
-      render_error 403
+      render_403 exception
     end
   end
 
