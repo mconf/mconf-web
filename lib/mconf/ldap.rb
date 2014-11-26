@@ -116,10 +116,10 @@ module Mconf
           Rails.logger.error "Errors: " + user.errors.full_messages.join(", ")
           user = nil
         end
-      end
-      # Sending a notification email
-      if user.present?
-        UserMailer.registration_notification_email(user.id).deliver
+        # Sending a notification email
+        if user.present?
+          UserMailer.registration_notification_email(user.id).deliver
+        end
       end
       user
     end
