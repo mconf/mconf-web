@@ -20,13 +20,22 @@ module Devise
           ldap.auth(configs.ldap_user, configs.ldap_user_password)
 
           # Tries to bind to the ldap server
-          if bind_error = ldap_bind(ldap)
+          begin
+            bind_error = ldap_bind(ldap)
+          rescue Net::LDAP::LdapError
+            bind_error = :server_error
+          end
+
+          if bind_error
             case bind_error
             when :timeout
               Rails.logger.error "LDAP: authentication failed: timeout when trying to connect to the LDAP server"
               fail(I18n.t('devise.strategies.ldap_authenticatable.invalid_bind'))
             when :bind
               Rails.logger.error "LDAP: authentication failed: initial bind failed"
+              fail(I18n.t('devise.strategies.ldap_authenticatable.invalid_bind'))
+            when :server_error
+              Rails.logger.error "LDAP: unknown server error or invalid response"
               fail(I18n.t('devise.strategies.ldap_authenticatable.invalid_bind'))
             end
 
