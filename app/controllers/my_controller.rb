@@ -51,7 +51,7 @@ class MyController < ApplicationController
     @user_spaces = current_user.spaces
     @user_pending_spaces = current_user.pending_spaces
     @contents_per_page = 15
-    @all_contents = current_user.all_activity.limit(@contents_per_page).order('updated_at DESC')
+    @all_contents = current_user.all_public_activity.limit(@contents_per_page).order('updated_at DESC')
     @private_messages = current_user.unread_private_messages
   end
 

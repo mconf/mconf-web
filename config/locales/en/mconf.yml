@@ -37,11 +37,11 @@ en:
       reply_html: replied to %{name} in the space
       deleted: a message that has since been deleted
     space:
+      accept_html: has joined the space
       create_html: created a new space
-      update_html: updated info on space
-      join_html: has joined the space
-      leave_html: has left the space
       deleted: a space that has since been deleted
+      leave_html: has left the space
+      update_html: updated info on space
   _js:
     confirmation_dialog:
       cancel: "Cancel"
