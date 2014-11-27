@@ -14,6 +14,7 @@
 
 - unless @user.confirmed?
   #user-not-confirmed.alert.alert-warning
+
     - if current_user == @user
       = t('.not_confirmed', :url => new_user_confirmation_path).html_safe
     - else
@@ -71,12 +72,18 @@
     #management-options.alert.alert-gray
       %h3= t('.management_options')
       = f.input :can_record, :required => false
-
+      
       -# prevent admins from mistakenly removing themselves from being admins or blocking
       -# access to their account
       - unless current_user == @user
         = f.input :approved, :required => false
         = f.input :superuser, :required => false
+
+        - if !@user.confirmed?
+          = link_to confirm_user_path(@user), :data => { :confirm => t('.able_confirm') },  :method => :post do
+            = icon_confirm(:alt => t('.able'), :title => t('.able'))
+            = t('.able')
+        
         .input
           = link_to user_path(@user), :data => { :confirm => t('.disable_confirm') }, :method => :delete do
             = icon_delete(:alt => t('.disable'), :title => t('.disable'))

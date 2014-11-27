@@ -1767,6 +1767,8 @@ en:
       did_not_find_info: "Didn't find the information you were looking for?"
       disable: "Disable this user's account"
       disable_confirm: "Are you sure you want to disable this user's account?"
+      able: "Able this user's account"
+      able_confirm: "Are you sure you want to able this user's account?"
       federated:
         see_your_data: "Click here to see your data that the federation shared with this website"
         title: "You are signed in using a federation!"

@@ -162,6 +162,13 @@ class UsersController < ApplicationController
     end
   end
 
+  # Confirms an user's account
+  def confirm
+    -#@user.confirm!
+    flash[:notice] = t('users.confirm.confirmed', :username => @user.username)
+    redirect_to :back
+  end
+
   def approve
     if current_site.require_registration_approval?
       @user.approve!

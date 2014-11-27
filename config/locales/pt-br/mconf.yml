@@ -1767,6 +1767,8 @@ pt-br:
       did_not_find_info: "Não encontrou a informação que estava procurando?"
       disable: "Desabilitar a conta deste usuário"
       disable_confirm: "Você tem certeza que deseja desabilitar a conta deste usuário?"
+      able: "Habilitar a conta deste usuário"
+      able_confirm: "Você tem certeza que deseja habilitar a conta deste usuário?"
       federated:
         see_your_data: "Clique para ver os seus dados que foram compartilhados com este site pela federação"
         title: "Você acessou este site através de uma federação!"
