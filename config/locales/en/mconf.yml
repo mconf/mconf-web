@@ -1370,6 +1370,8 @@ en:
     label: "Insert here the text from the image"
     message: 
       user: "is incorrect"
+  site:
+    updated: "Site configurations updated"
   size: Size
   skype: Skype
   space: 

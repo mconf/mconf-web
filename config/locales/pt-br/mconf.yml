@@ -1370,6 +1370,8 @@ pt-br:
     label: "Insira aqui o texto da imagem"
     message: 
       user: "é incorreta"
+  site:
+    updated: "Configurações do site atualizadas"
   size: Tamanho
   skype: Skype
   space:

@@ -14,13 +14,10 @@ en:
       message: "Hello %{name}! We're sending this email to inform you your access to the site has been approved."
       click_here: "Click <a href=\"%{url}\">here</a> to view your home page."
   user_mailer:
-    waiting_for_approval_email:
-      subject: "Your account is waiting for approval"
-      message: "You have registered as %{name} and your account is waiting for approval."
     registration_notification_email:
-      subject: "You have registered for a new account"
-      message: "Hello %{name}! We're sending this email to inform you have sucessfully registered for the site."
-      click_here: "Click <a href=\"%{url}\">here</a> to view your home page."
+      click_here: "Click <a href=\"%{url}\">here</a> to go to your home page."
+      message: "Hello %{name}! We're sending this email to inform you have sucessfully registered on the site."
+      subject: "Your registration has been completed"
   event_mailer:
     invitation_email:
       message:

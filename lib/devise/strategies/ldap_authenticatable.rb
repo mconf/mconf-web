@@ -22,7 +22,8 @@ module Devise
           # Tries to bind to the ldap server
           begin
             bind_error = ldap_bind(ldap)
-          rescue Net::LDAP::LdapError
+          rescue Net::LDAP::LdapError => e
+            Rails.logger.error "LDAP: exception: #{e.inspect}"
             bind_error = :server_error
           end
 

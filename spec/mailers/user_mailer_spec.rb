@@ -11,7 +11,7 @@ describe UserMailer do
   describe '.registration_notification_email' do
     let(:user) { FactoryGirl.create(:user) }
     let(:mail) { UserMailer.registration_notification_email(user.id) }
-    let(:url) { "http://#{Site.current.domain}/home" }
+    let(:url) { "#{Site.current.domain}/home" }
 
     context "in the standard case" do
       it("sets 'to'") { mail.to.should eql([user.email]) }

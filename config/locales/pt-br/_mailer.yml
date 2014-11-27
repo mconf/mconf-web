@@ -14,13 +14,10 @@ pt-br:
       message: "Olá %{name}! Estamos mandando este email para avisar que o seu acesso ao site já foi liberado."
       click_here: "Clique <a href=\"%{url}\">aqui</a> para acessar a sua página inicial."
   user_mailer:
-    waiting_for_approval_email:
-      subject: "Sua conta está à espera de aprovação"
-      message: "Você se registrou no site como %{name} e no momento sua conta está à espera de aprovação."
     registration_notification_email:
-      subject: "Você acabou de fazer seu cadastro."
-      message: "Olá %{name}! Estamos te mandando este email para informar que você se registrou com sucesso no site."
-      click_here: "Clique <a href=\"%{url}\">aqui</a> para ver a sua página inicial."
+      click_here: "Clique <a href=\"%{url}\">aqui</a> para ir à sua página inicial."
+      message: "Olá %{name}! Estamos lhe mandando este email para informar que você foi registrado com sucesso no site."
+      subject: "Registro realizado com sucesso"
   event_mailer:
     invitation_email:
       message:

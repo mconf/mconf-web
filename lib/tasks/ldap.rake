@@ -6,7 +6,7 @@ end
 namespace :ldap do
 
   desc "Run a test ldap server"
-  task :server => :environment do |t, args|
+  task :server, [:port] => :environment do |t, args|
     require './spec/support/ldap_server'
 
     Kernel.trap( "INT" ) { pretty_exit }
