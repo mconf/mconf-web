@@ -133,6 +133,7 @@ group :development, :test do
   gem 'htmlentities'
   gem 'turn', '0.8.2', :require => false # TODO: why 0.8.2?
   gem 'simplecov', :require => false
+  gem 'fooldap'
 end
 
 group :test do
