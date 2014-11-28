@@ -1752,6 +1752,8 @@ pt-br:
     approve:
       approved: "O usuário %{username} foi aprovado para acessar este site!"
       not_enabled: "A aprovação de registros não está habilitada neste site"
+    confirm: 
+      confirm: "O usuário %{username} foi confirmado"
     detailed_user:
       from: "De:"
     disapprove:

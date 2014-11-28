@@ -1752,6 +1752,8 @@ en:
     approve:
       approved: "The user %{username} was approved to access the website!"
       not_enabled: "Approval of registrations is not enabled in this website"
+    confirm: 
+      confirm: "The user %{username} was confirmed"
     detailed_user:
       from: "From:"
     disapprove:
