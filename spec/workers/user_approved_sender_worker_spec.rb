@@ -23,7 +23,7 @@ describe UserApprovedSenderWorker do
 
     before(:each) { worker.perform(user.id) }
 
-    it { AdminMailer.should have_queue_size_of(1) }
+    it { AdminMailer.should have_queue_size_of_at_least(1) }
     it { AdminMailer.should have_queued(:new_user_approved, user.id).in(:mailer) }
     it { user.reload.approved_notification_sent_at.should_not be_nil }
   end
