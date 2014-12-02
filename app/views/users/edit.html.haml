@@ -80,9 +80,9 @@
         = f.input :superuser, :required => false
 
         - if !@user.confirmed?
-          = link_to confirm_user_path(@user), :data => { :confirm => t('.able_confirm') },  :method => :post do
-            = icon_confirm(:alt => t('.able'), :title => t('.able'))
-            = t('.able')
+          = link_to confirm_user_path(@user), :data => { :confirm => t('.enable_confirm') },  :method => :post do
+            = icon_confirm(:alt => t('.enable'), :title => t('.enable'))
+            = t('.enable')
         
         .input
           = link_to user_path(@user), :data => { :confirm => t('.disable_confirm') }, :method => :delete do

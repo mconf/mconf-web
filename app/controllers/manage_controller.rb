@@ -18,6 +18,8 @@ class ManageController < ApplicationController
     end
     @users = query.paginate(:page => params[:page], :per_page => 20)
 
+
+
     if partial
       render :partial => 'users_list', :layout => false
     else
