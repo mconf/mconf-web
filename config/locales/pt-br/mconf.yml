@@ -901,8 +901,6 @@ pt-br:
       preview: "Pré-visualização"
   logout: Sair
   manage:
-    confirmed_user:
-      confirm: "Confirmar este usuário"
     disabled_space:
       enable: "Habilitar comunidade"
       enable_confirm: "Tem certeza que deseja habilitar esta comunidade?"
@@ -916,6 +914,8 @@ pt-br:
     enabled_user:
       approve: "Aprovar: permitir que este usuário acesse o site"
       approve_confirm: "Tem certeza que deseja permitir que este usuário acesse o site?"
+      confirm: "Confirmar este usuário"
+      confirm_confirm: "Tem certeza que deseja confirmar este usuário?"
       disable: "Desabilitar usuário"
       disable_confirm: "Tem certeza que deseja desabilitar este usuário?"
       disapprove: "Desaprovar: bloquear o acesso deste usuário ao site"

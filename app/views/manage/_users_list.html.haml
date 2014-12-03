@@ -11,10 +11,7 @@
       = render :partial => 'disabled_user', :locals => { :user => user }
     - else
       = render :partial => 'enabled_user', :locals => { :user => user }
-    
-
-    - if !user.confirmed?
-      =render :partial => 'confirmed_user', :locals => { :user => user }  
+     
 
     
 

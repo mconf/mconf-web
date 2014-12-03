@@ -165,9 +165,7 @@ class UsersController < ApplicationController
   # Confirms an user's account
   def confirm
     if !(@user.confirmed?)
-      #tirar a linha de baixo dos comentarios para funcionar a funçao
       #@user.confirm!
-
       flash[:notice] = t('users.confirm.confirmed', :username => @user.username)
     end
     redirect_to :back

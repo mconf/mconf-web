@@ -901,8 +901,6 @@ en:
       preview: "Preview"
   logout: Logout
   manage:
-    confirmed_user:
-      confirm: "Confirm this user"
     disabled_space:
       enable: "Enable space"
       enable_confirm: "Are you sure you want to enable this space?"
@@ -916,6 +914,8 @@ en:
     enabled_user:
       approve: "Approve: allow this user to access the website"
       approve_confirm: "Are you sure you want to allow this user to access the website?"
+      confirm: "Confirm this user"
+      confirm_confirm: "Are you sure you want to confirm this user?"
       disable: "Disable user"
       disable_confirm: "Are you sure you want to disable this user?"
       disapprove: "Disapprove: block user from accessing the website"
