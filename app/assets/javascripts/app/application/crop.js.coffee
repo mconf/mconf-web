@@ -11,17 +11,18 @@ class mconf.Crop
         aspectRatio: $(image).attr('data-crop-aspect-ratio')
         setSelect: [0, 0, 350, 350]
         minSize: [100, 100]
+        allowSelect: false
         onSelect: (coords) ->
           update(image, coords)
           enableDisableSubmit($(image).attr('data-crop-button'), true)
         onChange: (coords) ->
           update(image, coords)
           enableDisableSubmit($(image).attr('data-crop-button'), true)
+
+        # this doesn't really happen with 'allowSelect' set to false, it's here
+        # just for extra precaution
         onRelease: ->
           enableDisableSubmit($(image).attr('data-crop-button'), false)
-          # select the entire image if the selection area is released
-          # note: only happens when the aspect ratio is fixed, otherwise
-          # it will never release the selection area
           coords =
             x: 0
             y: 0
