@@ -8,7 +8,14 @@
 class ConfirmationsController < Devise::ConfirmationsController
   layout 'no_sidebar'
 
-  before_filter :check_registration_enabled, :only => [:new]
+  before_filter :check_registration_enabled, only: [:new]
+
+  def resend_confirmation
+    current_user.send_confirmation_instructions
+    flash[:notice] = t('devise.confirmations.send_instructions')
+
+    redirect_to :back
+  end
 
   private
 
