@@ -4,6 +4,36 @@
 #
 # This file is licensed under the Affero General Public License version
 # 3 or later. See the LICENSE file.
+#
+# -------
+# Space is one of the most important models in the application.
+# Spaces consist of a group of multiple users and provide them with a single
+# conference room, a posts wall, document repository and space events.
+#
+# A spaces can be public or private. Public spaces are open to be read by anyone
+# even users not logged in. Private spaces can only be read by members and membership
+# has to be requested or granted via space admin invites.
+#
+# == Atributtes
+# * +name+ : String with a human friendly name of the space
+# * +permalink+ : The string used to construct
+# * +description+ : Text with a human friendly description of the space
+# * +public+ : A boolean value denoting whether the space is public
+# * +disabled+: A boolean value denoting whether the space has been disabled
+# * +logo_image+: A LogoUploader with the data for the image logo
+# * +repository+: A boolean value denoting whether document repository is enabled for the space
+#
+# == Relations
+# * +users+: List of users belonging to the space (linked via Permission)
+# * +permissions+: Links a user to the space and assigns a roles (see USER_ROLES)
+# * +posts+: Posts made on the space wall
+# * +attachments+: Attachment (s) uploaded to the space repository
+#
+# == Activities
+# * "space.create": When a space is created (parameters: +user_id+, +username+)
+# * "space.update": When a user updates a space (parameters: +user_id+, +username+)
+# * "space.leave": When user leaves a space (parameters: +user_id+, +username+)
+#
 
 class Space < ActiveRecord::Base
   include PublicActivity::Common
@@ -75,8 +105,10 @@ class Space < ActiveRecord::Base
   after_create :crop_logo
   after_update :crop_logo
 
+  # By default spaces marked as disabled will not show in queries
   default_scope -> { where(:disabled => false) }
 
+  # This scope can be used as a shorthand for spaces marked as public
   scope :public_spaces, -> { where(:public => true) }
 
   # Finds all the valid user roles for a Space
@@ -91,7 +123,10 @@ class Space < ActiveRecord::Base
 
   # Add a `user` to this space with the role `role_name` (e.g. 'User', 'Admin').
   # TODO: if a user has a pending request to join the space it will still be there after if this
-  #  method is used, should we check this here?
+  # method is used, should we check this here?
+  #
+  # * +user+: user to be added as member
+  # * +role_name+: A string denoting the role the user should receive after being added
   def add_member!(user, role_name='User')
     p = Permission.new :user => user,
       :subject => self,
@@ -100,6 +135,7 @@ class Space < ActiveRecord::Base
     p.save!
   end
 
+  # Creates a new activity pertraining this space
   def new_activity key, user, join_request=nil
     if join_request
       create_activity key, :owner => join_request, :parameters => { :user_id => user.id, :username => user.name }
@@ -114,19 +150,24 @@ class Space < ActiveRecord::Base
 
   # TODO: review all public methods below
 
+  # Disable the space from the website.
+  # This can be used by global admins as a mean to disable access and indexing of this space in all areas of
+  # the site. This acts as if it has been deleted, but the data is still there in the database and the space can be
+  # enabled back with the method 'enable'
   def disable
     self.disabled = true
     self.name = "#{name.split(" RESTORED").first} DISABLED #{Time.now.to_i}"
     save!
   end
 
+  # Re-enables a previously disabled space
   def enable
     self.disabled = false
     self.name = "#{name.split(" DISABLED").first} RESTORED"
     save!
   end
 
-  # Basically checks to see if the given user is the only admin in this space
+  # Checks to see if the given user is the only admin in this space
   def is_last_admin?(user)
     adm = self.admins
     adm.length == 1 && adm.include?(user)
@@ -138,18 +179,22 @@ class Space < ActiveRecord::Base
     p.present? && options[:name] == p.role.name
   end
 
+  # Returns a query with pending join requests for this space (that is users that requested membership)
   def pending_join_requests
     join_requests.where(:processed_at => nil, :request_type => JoinRequest::TYPES[:request])
   end
 
+  # Returns a query with pending invitations for this space (that is users that were invited by space admins)
   def pending_invitations
     join_requests.where(:processed_at => nil, :request_type => JoinRequest::TYPES[:invite])
   end
 
+  # Returns the join_request model for the given user in this space
   def pending_join_request_or_invitation_for(user)
     join_requests.where(:candidate_id => user, :processed_at => nil).first
   end
 
+  # Denotes whether the user has a pending join request in this space
   def pending_join_request_or_invitation_for?(user)
     !pending_join_request_or_invitation_for(user).nil?
   end
@@ -212,6 +257,7 @@ class Space < ActiveRecord::Base
     end
   end
 
+  # Calls uploader methods to create a new image crop
   def crop_logo
     logo_image.recreate_versions! if is_cropping?
   end
