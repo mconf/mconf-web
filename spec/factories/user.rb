@@ -23,7 +23,6 @@ FactoryGirl.define do
     u.confirmed_at { Time.now }
     u.needs_approval_notification_sent_at { Time.now }
     u.approved_notification_sent_at { Time.now }
-    u.association :institution
     after(:create) { |u2| u2.confirm!; u2.reload }
   end
 
