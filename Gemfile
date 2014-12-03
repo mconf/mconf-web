@@ -60,6 +60,7 @@ gem 'vpim' # TODO: very old, last update on 2009
 # for logos + attachments
 gem 'carrierwave', '~> 0.10.0'
 gem 'rmagick'
+gem 'mini_magick'
 
 # global configurations
 # TODO: update to the stable version when out

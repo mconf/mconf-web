@@ -913,6 +913,7 @@ en:
     crop:
       crop_it: "Crop it!"
       preview: "Preview"
+      aspect_ratio: Fixed aspect ratio
   logout: Logout
   manage:
     disabled_space:

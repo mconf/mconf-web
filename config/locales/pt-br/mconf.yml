@@ -913,6 +913,7 @@ pt-br:
     crop:
       crop_it: "Cortar!"
       preview: "Pré-visualização"
+      aspect_ratio: Relação de aspecto fixa
   logout: Sair
   manage:
     disabled_space:

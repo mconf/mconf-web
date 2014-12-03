@@ -7,11 +7,34 @@ class mconf.Crop
   @bind: ->
     $("img.cropable").each ->
       image = this
-      $(image).Jcrop
+      $('img.cropable').Jcrop
         aspectRatio: $(image).attr('data-crop-aspect-ratio')
         setSelect: [0, 0, 350, 350]
-        onSelect: (coords) -> update(image, coords)
-        onChange: (coords) -> update(image, coords)
+        minSize: [100, 100]
+        onSelect: (coords) ->
+          update(image, coords)
+          enableDisableSubmit($(image).attr('data-crop-button'), true)
+        onChange: (coords) ->
+          update(image, coords)
+          enableDisableSubmit($(image).attr('data-crop-button'), true)
+        onRelease: ->
+          enableDisableSubmit($(image).attr('data-crop-button'), false)
+          # select the entire image if the selection area is released
+          # note: only happens when the aspect ratio is fixed, otherwise
+          # it will never release the selection area
+          coords =
+            x: 0
+            y: 0
+            w: $(image).width()
+            h: $(image).height()
+          update(image, coords)
+
+      $('#aspect-ratio').on "change", ->
+        mconf.Crop.enableAspectRatio $(this).is(':checked')
+
+  @enableAspectRatio: (enabled) ->
+    $('img.cropable').data('Jcrop').setOptions
+      aspectRatio: if enabled then $('img.cropable').attr('data-crop-aspect-ratio') else 0
 
 # Updates the attributes in the page using the coordinates set by Jcrop.
 # `image` is the image that's being cropped and `coords` the coordinates set by Jcrop over
@@ -21,12 +44,11 @@ update = (image, coords) ->
   $('.crop-y').val(coords.y)
   $('.crop-w').val(coords.w)
   $('.crop-h').val(coords.h)
-  updatePreview(image, coords)
 
-updatePreview = (image, coords) ->
-  cropWidth = $(image).attr("data-crop-width")
-  $('.crop-preview').css
-    width: Math.round(cropWidth/coords.w * $(image).width()) + 'px'
-    height: Math.round(100/coords.h * $(image).height()) + 'px'
-    marginLeft: '-' + Math.round(cropWidth/coords.w * coords.x) + 'px'
-    marginTop: '-' + Math.round(100/coords.h * coords.y) + 'px'
+enableDisableSubmit = (id, enable) ->
+  if enable
+    $("##{id}").removeClass('disabled')
+    $("##{id}").attr('disabled', null)
+  else
+    $("##{id}").addClass('disabled')
+    $("##{id}").attr('disabled', 'disabled')
