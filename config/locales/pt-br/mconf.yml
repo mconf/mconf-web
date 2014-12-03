@@ -901,6 +901,8 @@ pt-br:
       preview: "Pré-visualização"
   logout: Sair
   manage:
+    confirmed_user:
+      confirm: "Confirmar este usuário"
     disabled_space:
       enable: "Habilitar comunidade"
       enable_confirm: "Tem certeza que deseja habilitar esta comunidade?"

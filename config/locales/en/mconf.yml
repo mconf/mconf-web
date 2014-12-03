@@ -902,7 +902,7 @@ en:
   logout: Logout
   manage:
     confirmed_user:
-      able: "lala"
+      confirm: "Confirm this user"
     disabled_space:
       enable: "Enable space"
       enable_confirm: "Are you sure you want to enable this space?"
