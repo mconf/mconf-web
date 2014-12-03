@@ -4,13 +4,26 @@
 #crop-modal {
 
   .jcrop-wrapper {
-    float: left;
-    border: 1px solid darken($light-gray, 10);
-    padding: 1px;
+    text-align: center;
     clear: both;
+    margin: 5px 0;
+
+    .jcrop-holder {
+      border: 1px solid darken($light-gray, 10);
+      padding: 0;
+      float: none;
+      margin: 0 auto;
+    }
 
     img {
       max-width: none;
+    }
+  }
+
+  .aspect-ratio {
+    text-align: center;
+    label {
+      display: inline-block;
     }
   }
 
