@@ -34,4 +34,32 @@
 class RecentActivity < PublicActivity::Activity
   # Used for home page and user page pagination
   self.per_page = 10
+
+  # Returns a relation with all the activity related to a user: activities in his spaces
+  # and web conference rooms.
+  # * +user+ - the user which activities will be returned
+  # * +reject_keys+ - an array of keys to reject when querying. Keys are the string that identify the recent activity, e.g. "space.leave".
+  def self.user_activity(user, reject_keys=[])
+    user_room = user.bigbluebutton_room
+    spaces = user.spaces
+    space_rooms = spaces.map{ |s| s.bigbluebutton_room.id }
+
+    t = RecentActivity.arel_table
+    in_spaces = t[:owner_id].in(spaces.pluck(:id)).and(t[:owner_type].eq('Space'))
+    in_spaces_as_trackable = t[:trackable_id].in(spaces.pluck(:id)).and(t[:trackable_type].eq('Space'))
+    in_room = t[:owner_id].in(user_room.id).and(t[:owner_type].eq('BigbluebuttonRoom'))
+    in_space_rooms = t[:owner_id].in(space_rooms).and(t[:owner_type].eq('BigbluebuttonRoom'))
+
+    activities = RecentActivity.where(in_spaces.or(in_spaces_as_trackable).or(in_room).or(in_space_rooms))
+    for key in reject_keys
+      activities = activities.where("activities.key != ?", key)
+    end
+    activities
+  end
+
+  # All activities that are public and should be visible for a user
+  # * +user+ - the user which activities will be returned
+  def self.user_public_activity user
+    user_activity(user, ["space.decline"])
+  end
 end

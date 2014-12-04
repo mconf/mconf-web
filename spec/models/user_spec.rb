@@ -360,7 +360,7 @@ describe User do
         @activity1 = RecentActivity.create(:owner => user.bigbluebutton_room)
         @activity2 = RecentActivity.create(:owner => another_user.bigbluebutton_room)
       end
-      subject { user.all_activity }
+      subject { RecentActivity.user_activity(user) }
       it { subject.length.should be(1) }
       it { subject[0].should eq(@activity1) }
     end
@@ -376,7 +376,7 @@ describe User do
         @activity2 = RecentActivity.create(:owner => space2)
         @activity3 = RecentActivity.create(:owner => space3)
       end
-      subject { user.all_activity }
+      subject { RecentActivity.user_activity(user) }
       it { subject.length.should be(2) }
       it { subject[0].should eq(@activity1) }
       it { subject[1].should eq(@activity2) }
@@ -393,7 +393,7 @@ describe User do
         @activity2 = RecentActivity.create(:trackable => space2)
         @activity3 = RecentActivity.create(:trackable => space3)
       end
-      subject { user.all_activity }
+      subject { RecentActivity.user_activity(user) }
       it { subject.length.should be(2) }
       it { subject[0].should eq(@activity1) }
       it { subject[1].should eq(@activity2) }
@@ -410,7 +410,7 @@ describe User do
         @activity2 = RecentActivity.create(:owner => space2.bigbluebutton_room)
         @activity3 = RecentActivity.create(:owner => space3.bigbluebutton_room)
       end
-      subject { user.all_activity }
+      subject { RecentActivity.user_activity(user) }
       it { subject.length.should be(2) }
       it { subject[0].should eq(@activity1) }
       it { subject[1].should eq(@activity2) }
@@ -424,7 +424,7 @@ describe User do
         @activity2 = RecentActivity.create(owner: space, key: "key2")
         @activity3 = RecentActivity.create(owner: space, key: "key3")
       end
-      subject { user.all_activity(["key1", "key2"]) }
+      subject { RecentActivity.user_activity(user, ["key1", "key2"]) }
       it { subject.length.should be(1) }
       it { subject[0].should eq(@activity3) }
     end
@@ -435,12 +435,12 @@ describe User do
 
     context "ignores declined join requests" do
       before {
-        user.should_receive(:all_activity) { |arg|
+        RecentActivity.should_receive(:user_activity) { |user, arg|
           arg.should be_an_instance_of(Array)
           arg.should include("space.decline")
         }.and_return("all activity")
       }
-      it { user.all_public_activity.should eql("all activity") }
+      it { RecentActivity.user_public_activity(user).should eql("all activity") }
     end
   end
 

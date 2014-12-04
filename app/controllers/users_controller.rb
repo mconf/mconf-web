@@ -42,7 +42,7 @@ class UsersController < ApplicationController
 
   def show
     @user_spaces = @user.spaces
-    @recent_activities = @user.all_public_activity.order('updated_at DESC').page(params[:page])
+    @recent_activities = RecentActivity.user_public_activity(@user).order('updated_at DESC').page(params[:page])
     @profile = @user.profile!
     respond_to do |format|
       format.html { render 'profiles/show' }
