@@ -8,6 +8,42 @@ require "spec_helper"
 
 describe Profile do
 
+  describe "#correct_url" do
+    let(:profile) { FactoryGirl.create(:profile) }
+    shared_examples_for "url has been corrected" do
+      it { profile.reload.url.should eq(final_url) }
+      it { profile.reload.should be_valid }
+      it { profile.reload.should be_persisted }
+    end
+
+    before { profile.update_attributes(:url => url) }
+
+    context "an url without http://" do
+      let(:url) { 'mysite.com/dsbang' }
+      let(:final_url) { 'http://mysite.com/dsbang' }
+      it_should_behave_like 'url has been corrected'
+    end
+
+    context "a nil url" do
+      let(:url) { nil }
+      let(:final_url) { nil }
+      it_should_behave_like 'url has been corrected'
+    end
+
+    context "an url with http" do
+      let(:url) { 'httpmysite.com/dsbang' }
+      let(:final_url) { 'http://httpmysite.com/dsbang' }
+      it_should_behave_like 'url has been corrected'
+    end
+
+    context "an url with http://" do
+      let(:url) { 'http://mysite.com/dsbang' }
+      let(:final_url) { url }
+      it_should_behave_like 'url has been corrected'
+    end
+
+  end
+
   describe "abilities", :abilities => true do
     set_custom_ability_actions([:update_logo])
     subject { ability }
