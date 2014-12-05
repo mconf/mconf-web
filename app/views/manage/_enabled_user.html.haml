@@ -16,7 +16,6 @@
           = link_to approve_user_path(user), :method => :post, :data => { :confirm => t('.approve_confirm') } do
             = icon_approve(:alt => t('.approve'), :title => t('.approve'))
 
-
       - if !user.confirmed?
         = link_to confirm_user_path(user), :data => { :confirm => t('.confirm_confirm') },  :method => :post do
           = icon_confirm_user(:alt => t('.confirm'), :title => t('.confirm'))
