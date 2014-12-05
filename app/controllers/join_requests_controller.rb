@@ -219,8 +219,12 @@ class JoinRequestsController < ApplicationController
   end
 
   def handle_access_denied exception
-    if [:new].include? exception.action
-      redirect_to login_path
+    if [:new, :index_join_requests, :invite].include? exception.action
+      if current_user.blank?
+        redirect_to login_path
+      else
+        redirect_to my_home_path
+      end
     elsif [:show].include? exception.action
       render_404 ActiveRecord::RecordNotFound
     else

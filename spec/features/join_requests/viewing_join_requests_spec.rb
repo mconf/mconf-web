@@ -58,6 +58,18 @@ feature "Viewing join requests" do
       visit space_join_request_path(space, request)
       should_be_404_page
     end
+
+    scenario "trying to view join request index" do
+      visit space_join_requests_path(space)
+
+      current_path.should eq(my_home_path)
+    end
+
+    scenario "trying to invite people to a space" do
+      visit invite_space_join_requests_path(space)
+
+      current_path.should eq(my_home_path)
+    end
   end
 
   context "a space admin" do
@@ -247,6 +259,18 @@ feature "Viewing join requests" do
     scenario "trying to view an invitation" do
       visit space_join_request_path(space, invite)
       should_be_404_page
+    end
+
+    scenario "trying to index join requests" do
+      visit space_join_requests_path(space)
+
+      current_path.should eq(login_path)
+      end
+
+    scenario "trying to invite users to a space" do
+      visit invite_space_join_requests_path(space)
+
+      current_path.should eq(login_path)
     end
   end
 end
