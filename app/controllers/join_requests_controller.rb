@@ -13,7 +13,7 @@ class JoinRequestsController < ApplicationController
   end
 
   load_resource :space, :find_by => :permalink
-  load_and_authorize_resource :join_request, :through => :space, :except => [:index, :invite]
+  load_and_authorize_resource :join_request, :find_by => :secret_token, :through => :space, :except => [:index, :invite]
   load_resource :join_request, :through => :space, :only => [:index, :invite] # these two are authenticated via space parent
 
   before_filter :webconf_room!, only: [:index, :invite]

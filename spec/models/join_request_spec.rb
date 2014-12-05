@@ -18,6 +18,30 @@ describe JoinRequest do
 
   it "throws an error if the candidate is the introducer"
 
+  context "initializes" do
+    let(:target) { JoinRequest.new }
+
+    context "secret_token" do
+      context "with a random hash" do
+        it { target.secret_token.should_not be_nil }
+        it { target.secret_token.length.should >= 22 }
+      end
+
+      it("doesn't regenerate the secret token") {
+        b = JoinRequest.new(:secret_token => "user defined")
+        b.secret_token.should == "user defined"
+      }
+    end
+  end
+
+  context ".to_param" do
+    it { should respond_to(:to_param) }
+    it {
+      jr = FactoryGirl.create(:join_request)
+      jr.to_param.should be(jr.secret_token)
+    }
+  end
+
   describe "#processed?" do
     let(:target) { FactoryGirl.create(:join_request) }
 

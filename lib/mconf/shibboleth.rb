@@ -126,7 +126,9 @@ module Mconf
 
       user = User.new params
       user.skip_confirmation!
+
       user.save
+      send_notification(user)
       user
     end
 
@@ -146,6 +148,13 @@ module Mconf
 
     def create_token(id)
       ShibToken.create!(:identifier => id)
+    end
+
+    # Sending a notification email to a user that just registered.
+    def send_notification(user)
+      if user.present? && user.errors.blank?
+        UserMailer.registration_notification_email(user.id).deliver
+      end
     end
 
   end

@@ -215,10 +215,12 @@ GEM
       railties (>= 3.1)
     font-awesome-rails (4.1.0.0)
       railties (>= 3.2, < 5.0)
+    fooldap (0.0.2)
+      ruby-ldapserver
     friendly_id (5.0.4)
       activerecord (>= 4.0.0)
     fssm (0.2.10)
-    geocoder (1.2.5)
+    geocoder (1.2.6)
     haml (4.0.5)
       tilt
     haml-rails (0.5.3)
@@ -242,22 +244,24 @@ GEM
     jquery-rails (3.1.1)
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
-    jquery-ui-rails (5.0.1)
+    jquery-ui-rails (5.0.3)
       railties (>= 3.2.16)
     json (1.8.1)
     launchy (2.4.2)
       addressable (~> 2.3)
     leaflet-rails (0.7.4)
-    less (2.5.1)
+    less (2.6.0)
       commonjs (~> 0.2.7)
-    less-rails (2.5.0)
+    less-rails (2.6.0)
       actionpack (>= 3.1)
-      less (~> 2.5.0)
+      less (~> 2.6.0)
     libv8 (3.16.14.3)
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     mime-types (1.25.1)
+    mini_magick (3.8.1)
+      subexec (~> 0.2.1)
     mini_portile (0.6.0)
     minitest (5.4.0)
     momentjs-rails (2.8.3)
@@ -314,7 +318,7 @@ GEM
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
     rake (10.3.2)
-    redcarpet (3.1.2)
+    redcarpet (3.2.1)
     redis (3.1.0)
     redis-namespace (1.5.0)
       redis (~> 3.0, >= 3.0.4)
@@ -353,6 +357,7 @@ GEM
       rspec-core (~> 2.99.0)
       rspec-expectations (~> 2.99.0)
       rspec-mocks (~> 2.99.0)
+    ruby-ldapserver (0.5.0)
     ruby2ruby (2.1.3)
       ruby_parser (~> 3.1)
       sexp_processor (~> 4.0)
@@ -401,6 +406,7 @@ GEM
       activesupport (>= 3.0)
       sprockets (~> 2.8)
     sqlite3 (1.3.9)
+    subexec (0.2.3)
     temple (0.6.9)
     terminal-table (1.4.5)
     therubyracer (0.12.1)
@@ -474,6 +480,7 @@ DEPENDENCIES
   factory_girl_rails
   fineuploader-rails (~> 3.3)
   font-awesome-rails (~> 4.1.0.0)
+  fooldap
   forgery!
   friendly_id
   haml
@@ -484,6 +491,7 @@ DEPENDENCIES
   icalendar
   jquery-rails (~> 3.1.1)
   launchy
+  mini_magick
   momentjs-rails (>= 2.8.1)
   mweb_events!
   mysql2 (~> 0.3.0)

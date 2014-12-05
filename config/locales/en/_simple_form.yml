@@ -17,6 +17,9 @@ en:
     labels:
       feedback:
         from: "Your email"
+      user:
+        edit:
+          password: "New password"
     hints:
       invite:
         users: "Search people by name or email. If you can't find them, just add their email address. Type and press enter to insert a new item."
@@ -95,5 +98,5 @@ en:
         title: "Message title"
       user:
         edit:
-          password: "Leave it blank if you don't want to change it"
+          current_password: "Leave it blank if you don't want to change it"
     # labels:

@@ -13,19 +13,19 @@ class CustomBigbluebuttonRoomsController < Bigbluebutton::RoomsController
   # For :join and :end we need information from the web conference server, so we have to fetch it.
   # This has to run before any kind of authorization because some methods need this extra
   # information, see `ApplicationController.bigbluebutton_role`.
-  load_resource :find_by => :param, :class => "BigbluebuttonRoom",
-    :instance_name => "room", :except => [:join, :end]
-  prepend_before_action :load_and_fetch_room_info, :only => [:join, :end]
+  load_resource find_by: :param, class: "BigbluebuttonRoom",
+    instance_name: "room", except: [:join, :end]
+  prepend_before_action :load_and_fetch_room_info, only: [:join, :end]
 
   # Authorizing is the same for all actions
-  authorize_resource :class => "BigbluebuttonRoom", :instance_name => "room"
+  authorize_resource class: "BigbluebuttonRoom", instance_name: "room"
 
   # the logic of the 2-step joining process
-  before_filter :check_redirect_to_invite, :only => [:invite_userid]
-  before_filter :check_redirect_to_invite_userid, :only => [:invite]
+  before_filter :check_redirect_to_invite, only: [:invite_userid]
+  before_filter :check_redirect_to_invite_userid, only: [:invite]
 
   # don't let users join if the room's limit was exceeded
-  before_filter :check_user_limit, :only => [:join]
+  before_filter :check_user_limit, only: [:join]
 
   layout :determine_layout
 
@@ -54,7 +54,7 @@ class CustomBigbluebuttonRoomsController < Bigbluebutton::RoomsController
     if user_signed_in?
       redirect_to invite_bigbluebutton_room_path(@room)
     elsif has_user_param
-      redirect_to invite_bigbluebutton_room_path(@room, :user => { :name => params[:user][:name] })
+      redirect_to invite_bigbluebutton_room_path(@room, user: { name: params[:user][:name] })
     end
   end
 
@@ -83,7 +83,7 @@ class CustomBigbluebuttonRoomsController < Bigbluebutton::RoomsController
   def invitation
     respond_to do |format|
       format.html {
-        render :layout => false if request.xhr?
+        render layout: false if request.xhr?
       }
     end
   end
@@ -98,14 +98,14 @@ class CustomBigbluebuttonRoomsController < Bigbluebutton::RoomsController
 
     else
       invitations = Invitation.create_invitations params[:invite][:users],
-        :sender => current_user,
-        :target => @room,
-        :starts_on => params[:invite][:starts_on],
-        :ends_on => params[:invite][:ends_on],
-        :title => params[:invite][:title],
-        :url => join_webconf_url(@room),
-        :description => params[:invite][:message],
-        :ready => true
+        sender: current_user,
+        target: @room,
+        starts_on: params[:invite][:starts_on],
+        ends_on: params[:invite][:ends_on],
+        title: params[:invite][:title],
+        url: join_webconf_url(@room),
+        description: params[:invite][:message],
+        ready: true
 
       # we do a check just to give a better response to the user, since the invitations will
       # only be sent in background later on
@@ -123,7 +123,7 @@ class CustomBigbluebuttonRoomsController < Bigbluebutton::RoomsController
 
   # Loads the room and fetches information from the web conference server.
   def load_and_fetch_room_info
-    @room = BigbluebuttonRoom.find_by_param(params[:id])
+    @room = BigbluebuttonRoom.find_by!(param: params[:id])
     @room.fetch_is_running?
     @room.fetch_meeting_info if @room.is_running?
   end

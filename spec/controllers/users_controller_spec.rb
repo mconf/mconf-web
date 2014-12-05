@@ -247,22 +247,80 @@ describe UsersController do
 
       context "trying to update password" do
         context "when local authentication is enabled" do
-          before { Site.current.update_attributes(local_auth_enabled: true)}
-          before(:each) do
-            @user = FactoryGirl.create(:user, :password => "foobar", :password_confirmation => "foobar")
-            sign_in @user
+          let(:admin) { FactoryGirl.create(:superuser) }
+          before { Site.current.update_attributes(local_auth_enabled: true) }
 
-            @old_encrypted = @user.encrypted_password
-            @new_pass = "newpass"
+          context "and is a user editing his own password" do
+            before(:each) do
+              @user = FactoryGirl.create(:user, :password => "foobar", :password_confirmation => "foobar")
+              sign_in @user
 
-            put :update, :id => @user.to_param, :user => { :password => @new_pass, :password_confirmation => @new_pass, :current_password => "foobar" }
-            @user = User.find_by_username(@user.username)
+              @old_encrypted = @user.encrypted_password
+              @new_pass = "newpass"
+
+              put :update, :id => @user.to_param, :user => { :password => @new_pass, :password_confirmation => @new_pass, :current_password => "foobar" }
+              @user.reload
+            end
+
+            it { response.status.should == 302 }
+            it { should set_the_flash.to(I18n.t('user.updated')) }
+            it { response.should redirect_to edit_user_path(@user) }
+            it { @user.encrypted_password.should_not == @old_encrypted }
           end
 
-          it { response.status.should == 302 }
-          it { should set_the_flash.to(I18n.t('user.updated')) }
-          it { response.should redirect_to edit_user_path(@user) }
-          it { @user.encrypted_password.should_not == @old_encrypted }
+          context "and is a user editing his own password and no current password is informed" do
+            before(:each) do
+              @user = FactoryGirl.create(:user, :password => "foobar", :password_confirmation => "foobar")
+              sign_in @user
+
+              @old_encrypted = @user.encrypted_password
+              @new_pass = "newpass"
+
+              put :update, :id => @user.to_param, :user => { :password => @new_pass, :password_confirmation => @new_pass }
+              @user.reload
+            end
+
+            it { response.status.should == 200 }
+            it { should render_template(:edit) }
+            it { @user.encrypted_password.should == @old_encrypted }
+          end
+
+          context "and is a admin editing a user password" do
+            before(:each) do
+              @user = FactoryGirl.create(:user)
+              sign_in admin
+
+              @old_encrypted = @user.encrypted_password
+              @new_pass = "newpass"
+
+              put :update, :id => @user.to_param, :user => { :password => @new_pass, :password_confirmation => @new_pass }
+              @user.reload
+            end
+
+            it { response.status.should == 302 }
+            it { should set_the_flash.to(I18n.t('user.updated')) }
+            it { response.should redirect_to edit_user_path(@user) }
+            it { @user.encrypted_password.should_not == @old_encrypted }
+          end
+
+          context "and is a admin editing his own password" do
+            let(:admin) { FactoryGirl.create(:superuser, :email => "valid@mconf.org") }
+            before(:each) do
+              @user = admin
+              sign_in admin
+
+              @old_encrypted = @user.encrypted_password
+              @new_pass = "newpass"
+
+              put :update, :id => @user.to_param, :user => { :password => @new_pass, :password_confirmation => @new_pass }
+              @user.reload
+            end
+
+            it { response.status.should == 302 }
+            it { should set_the_flash.to(I18n.t('user.updated')) }
+            it { response.should redirect_to edit_user_path(@user) }
+            it { @user.encrypted_password.should_not == @old_encrypted }
+          end
         end
 
         context "when local authentication is disabled" do
@@ -284,7 +342,6 @@ describe UsersController do
           it { @user.encrypted_password.should == @old_encrypted }
         end
       end
-
     end
   end
 

@@ -178,7 +178,8 @@ describe Devise::Strategies::LdapAuthenticatable do
           @ldap_mock.stub_chain(:get_operation_result, :code).and_return("ldap error code")
           @ldap_mock.stub_chain(:get_operation_result, :message).and_return("ldap error message")
         }
-        context "because of an error" do
+
+        context "due to an error" do
           before {
             @ldap_mock.should_receive(:bind).and_return(false) # binding failed
           }
@@ -189,9 +190,22 @@ describe Devise::Strategies::LdapAuthenticatable do
           }
         end
 
-        context "because of a timeout" do
+        context "due to a timeout" do
           before {
             @ldap_mock.should_receive(:bind).and_raise(Timeout::Error)
+          }
+          it("calls and returns #fail(message)") {
+            msg = I18n.t('devise.strategies.ldap_authenticatable.invalid_bind')
+            target.should_receive(:fail).with(msg).and_return("return of fail")
+            target.authenticate!.should eq("return of fail")
+          }
+        end
+
+        # This error is not treated by the LDAP lib, so it's raised to the app and
+        # requires a rescue_from
+        context "due to an LdapError" do
+          before {
+            @ldap_mock.should_receive(:bind).and_raise(Net::LDAP::LdapError)
           }
           it("calls and returns #fail(message)") {
             msg = I18n.t('devise.strategies.ldap_authenticatable.invalid_bind')

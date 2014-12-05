@@ -50,18 +50,31 @@ class User < ActiveRecord::Base
     self.new_record?
   end
 
-  # Returns a query with all the activity related to this user: activities in his spaces and
-  # web conference rooms
-  def all_activity
+  # Returns a relation with all the activity related to this user: activities in his spaces
+  # and web conference rooms.
+  # Accepts an array of keys to reject. Keys are the string that identify the recent
+  # activity, e.g. "space.leave".
+  def all_activity(reject_keys=[])
     user_room = self.bigbluebutton_room
     spaces = self.spaces
     space_rooms = spaces.map{ |s| s.bigbluebutton_room.id }
 
     t = RecentActivity.arel_table
     in_spaces = t[:owner_id].in(spaces.map(&:id)).and(t[:owner_type].eq('Space'))
+    in_spaces_as_trackable = t[:trackable_id].in(spaces.map(&:id)).and(t[:trackable_type].eq('Space'))
     in_room = t[:owner_id].in(user_room.id).and(t[:owner_type].eq('BigbluebuttonRoom'))
     in_space_rooms = t[:owner_id].in(space_rooms).and(t[:owner_type].eq('BigbluebuttonRoom'))
-    RecentActivity.where(in_spaces.or(in_room).or(in_space_rooms))
+
+    activities = RecentActivity.where(in_spaces.or(in_spaces_as_trackable).or(in_room).or(in_space_rooms))
+    for key in reject_keys
+      activities = activities.where("activities.key != ?", key)
+    end
+    activities
+  end
+
+  # All activities that are public and should be visible for this user
+  def all_public_activity
+    all_activity(["space.decline"])
   end
 
   def site_needs_approval?

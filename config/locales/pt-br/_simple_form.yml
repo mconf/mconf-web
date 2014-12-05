@@ -17,6 +17,9 @@ pt-br:
     labels:
       feedback:
         from: "Seu e-mail"
+      user:
+        edit:
+          password: "Nova senha"
     hints:
       invite:
         users: "Busque por nome ou e-mail. Se você não conseguir encontrá-los, adicione endereços de e-mail. Digite e aperte enter para inserir um novo item."
@@ -95,5 +98,5 @@ pt-br:
         title: "Título da mensagem"
       user:
         edit:
-          password: "Deixe em branco se você não quiser mudar"
+          current_password: "Deixe em branco se você não quiser mudar"
     # labels:

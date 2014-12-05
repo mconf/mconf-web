@@ -5,6 +5,7 @@
          compress
          missingok
          notifempty
+         su mconf www-data
 }
 
 /var/www/mconf-web/current/log/resque_*.log {
@@ -14,4 +15,5 @@
          compress
          missingok
          notifempty
+         su mconf www-data
 }

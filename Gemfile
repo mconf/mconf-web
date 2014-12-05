@@ -60,6 +60,7 @@ gem 'vpim' # TODO: very old, last update on 2009
 # for logos + attachments
 gem 'carrierwave', '~> 0.10.0'
 gem 'rmagick'
+gem 'mini_magick'
 
 # global configurations
 # TODO: update to the stable version when out
@@ -133,6 +134,7 @@ group :development, :test do
   gem 'htmlentities'
   gem 'turn', '0.8.2', :require => false # TODO: why 0.8.2?
   gem 'simplecov', :require => false
+  gem 'fooldap'
 end
 
 group :test do

@@ -7,9 +7,18 @@
 # Error pages
 # Only the error 404 is needed here, the others are just views that are rendered
 # directly by ApplicationController
+
 class ErrorsController < ApplicationController
   layout 'error'
 
-  def error_404
+  def render_error
+    @exception = env["action_dispatch.exception"]
+    @route = @exception.message.split('"')[1]
+    status = request.path[1..-1]
+    respond_to do |format|
+      format.html { send("render_#{status}", @exception) }
+      format.json { render json: { status: status, error: @exception.message } }
+    end
   end
+
 end

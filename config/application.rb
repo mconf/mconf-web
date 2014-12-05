@@ -76,5 +76,7 @@ module Mconf
 
     # add the views for the mailers in the path
     config.paths['app/views'].unshift("#{Rails.root}/app/mailers/views")
+
+    config.exceptions_app = self.routes
   end
 end

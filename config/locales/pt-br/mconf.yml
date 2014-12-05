@@ -37,11 +37,11 @@ pt-br:
       reply_html: respondeu à mensagem %{name} na comunidae
       deleted: que não existe mais
     space:
+      accept_html: tornou-se um membro da comunidade
       create_html: criou a comunidade
-      update_html: atualizou os dados da comunidade
-      join_html: tornou-se um membro da comunidade
-      leave_html: deixou de ser um membro da comunidade
       deleted: uma comunidade que não existe mais
+      leave_html: deixou de ser um membro da comunidade
+      update_html: atualizou os dados da comunidade
   _js:
     confirmation_dialog:
       cancel: "Cancelar"
@@ -918,6 +918,7 @@ pt-br:
     crop:
       crop_it: "Cortar!"
       preview: "Pré-visualização"
+      aspect_ratio: Relação de aspecto fixa
   logout: Sair
   manage:
     disabled_space:
@@ -1372,6 +1373,8 @@ pt-br:
     label: "Insira aqui o texto da imagem"
     message: 
       user: "é incorreta"
+  site:
+    updated: "Configurações do site atualizadas"
   size: Tamanho
   skype: Skype
   space:

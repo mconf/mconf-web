@@ -180,10 +180,6 @@ Mconf::Application.routes.draw do
   # General statistics for the website
   get '/statistics', :to => 'statistics#show', :as => 'show_statistics'
 
-  # 'Hack' to show a custom 404 page.
-  # See more at http://blog.igodigital.com/blog/notes-on-cyber-weekend-targeted-email-campaigns/custom-error-handling-in-rails-303
-  # and http://ramblinglabs.com/blog/2012/01/rails-3-1-adding-custom-404-and-500-error-pages
-  unless Rails.application.config.consider_all_requests_local
-    get '*not_found', :to => 'errors#error_404'
-  end
+  # To treat errors on pages that don't fall on any other controller
+  match ':status', to: 'errors#render_error', constraints: { status: /\d{3}/ }, via: :all
 end

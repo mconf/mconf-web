@@ -5,7 +5,7 @@
 # 3 or later. See the LICENSE file.
 
 FactoryGirl.define do
-  factory :user, :class => User do |u|
+  factory :user_unconfirmed, :class => User do |u|
     u.username
     u.email
     u.sequence(:_full_name) { |n| Forgery::Name.unique_full_name(n) }
@@ -26,10 +26,10 @@ FactoryGirl.define do
     after(:create) { |u2| u2.confirm!; u2.reload }
   end
 
-  # factory :user, :parent => :user_unconfirmed do |u|
-  #   u.confirmed_at { Time.now }
-  #   after(:create) { |u2| u2.confirm! }
-  # end
+  factory :user, :parent => :user_unconfirmed do |u|
+    u.confirmed_at { Time.now }
+    after(:create) { |u2| u2.confirm! }
+  end
 
   factory :superuser, :class => User, :parent => :user do |u|
     u.superuser true

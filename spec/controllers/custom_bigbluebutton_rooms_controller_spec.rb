@@ -371,7 +371,7 @@ describe CustomBigbluebuttonRoomsController do
           let(:room) { user.bigbluebutton_room }
           before {
             login_as(user)
-            BigbluebuttonRoom.stub(:find_by_param) { room }
+            BigbluebuttonRoom.stub(:find_by!) { room }
             controller.should_receive(:check_user_limit) { true }
           }
 
@@ -401,7 +401,7 @@ describe CustomBigbluebuttonRoomsController do
           let(:room) { user.bigbluebutton_room }
           before {
             login_as(user)
-            BigbluebuttonRoom.should_receive(:find_by_param).once { room }
+            BigbluebuttonRoom.should_receive(:find_by!).once { room }
             controller.should_receive(:bigbluebutton_role).with(room) { :moderator }
             controller.should_receive(:check_user_limit) { true }
             room.stub(:is_running?) { true }
@@ -426,7 +426,7 @@ describe CustomBigbluebuttonRoomsController do
             before :each do
               login_as(user)
               request.env["HTTP_REFERER"] = "/any"
-              BigbluebuttonRoom.stub(:find_by_param) { room }
+              BigbluebuttonRoom.stub(:find_by!) { room }
 
               # to guide the behavior of #join, copied from the tests in BigbluebuttonRails
               room.should_receive(:fetch_is_running?).at_least(:once).and_return(false)
@@ -446,7 +446,7 @@ describe CustomBigbluebuttonRoomsController do
               another_user = FactoryGirl.create(:user)
               login_as(another_user)
               request.env["HTTP_REFERER"] = "/any"
-              BigbluebuttonRoom.stub(:find_by_param) { room }
+              BigbluebuttonRoom.stub(:find_by!) { room }
               BigbluebuttonRoom.any_instance.stub(:fetch_is_running?) { false }
 
               # to guide the behavior of #join, copied from the tests in BigbluebuttonRails
@@ -468,7 +468,7 @@ describe CustomBigbluebuttonRoomsController do
             let(:room) { user.bigbluebutton_room }
             before {
               login_as(user)
-              BigbluebuttonRoom.stub(:find_by_param).and_return(room)
+              BigbluebuttonRoom.stub(:find_by!).and_return(room)
               controller.should_receive(:bigbluebutton_role).with(room) { :moderator }
               room.stub(:is_running?).and_return(true)
               room.stub(:fetch_is_running?).and_return(true)
@@ -496,7 +496,7 @@ describe CustomBigbluebuttonRoomsController do
 
             before do
               request.env["HTTP_REFERER"] = referer
-              BigbluebuttonRoom.stub(:find_by_param) { room }
+              BigbluebuttonRoom.stub(:find_by!) { room }
             end
 
             context "doesn't check the limit when creating the room" do
@@ -576,7 +576,7 @@ describe CustomBigbluebuttonRoomsController do
 
             before do
               request.env["HTTP_REFERER"] = referer
-              BigbluebuttonRoom.stub(:find_by_param) { room }
+              BigbluebuttonRoom.stub(:find_by!) { room }
               space.add_member!(user, 'Admin')
             end
 
@@ -664,7 +664,7 @@ describe CustomBigbluebuttonRoomsController do
       let(:room) { user.bigbluebutton_room }
       before {
         login_as(user)
-        BigbluebuttonRoom.stub(:find_by_param) { room }
+        BigbluebuttonRoom.stub(:find_by!) { room }
       }
 
       context "when a meeting is running" do
@@ -693,7 +693,7 @@ describe CustomBigbluebuttonRoomsController do
       let(:room) { user.bigbluebutton_room }
       before {
         login_as(user)
-        BigbluebuttonRoom.should_receive(:find_by_param).once { room }
+        BigbluebuttonRoom.should_receive(:find_by!).once { room }
         room.stub(:is_running?) { true }
         room.should_receive(:fetch_is_running?).at_least(:once) { true }
         room.should_receive(:fetch_meeting_info).once {

@@ -88,6 +88,19 @@ describe 'User signs in via shibboleth' do
     end
 
     context "creating the user's account" do
+      context "successfully" do
+        before {
+          expect {
+            click_button t('shibboleth.associate.new_account.create_new_account')
+          }.to change{ User.count }
+        }
+
+        it { current_path.should eq(my_home_path) }
+        it("creates a ShibToken") { ShibToken.count.should be(1) }
+        it("sends notification emails") { UserMailer.should have_queue_size_of(1) }
+        it("sends notification emails") { UserMailer.should have_queued(:registration_notification_email, User.last.id) }
+      end
+
       context "and there's a conflict on the user's username with another user" do
         before {
           FactoryGirl.create(:user, username: @attrs[:_full_name].parameterize)
@@ -99,7 +112,7 @@ describe 'User signs in via shibboleth' do
         it { current_path.should eq(shibboleth_path) }
         it { has_failure_message "Username has already been taken" }
         it("doesn't create a ShibToken") { ShibToken.count.should be(0) }
-        it("doesn't send emails") { BaseMailer.should have_queue_size_of(0) }
+        it("doesn't send emails") { UserMailer.should have_queue_size_of(0) }
       end
 
       context "and there's a conflict on the user's username with a space" do
@@ -113,7 +126,7 @@ describe 'User signs in via shibboleth' do
         it { current_path.should eq(shibboleth_path) }
         it { has_failure_message "Username has already been taken" }
         it("doesn't create a ShibToken") { ShibToken.count.should be(0) }
-        it("doesn't send emails") { BaseMailer.should have_queue_size_of(0) }
+        it("doesn't send emails") { UserMailer.should have_queue_size_of(0) }
       end
 
       context "and there's a conflict on the user's username with a room" do
@@ -127,7 +140,7 @@ describe 'User signs in via shibboleth' do
         it { current_path.should eq(shibboleth_path) }
         it { has_failure_message "Username has already been taken" }
         it("doesn't create a ShibToken") { ShibToken.count.should be(0) }
-        it("doesn't send emails") { BaseMailer.should have_queue_size_of(0) }
+        it("doesn't send emails") { UserMailer.should have_queue_size_of(0) }
       end
 
       context "and there's a conflict in the user's email" do
@@ -141,7 +154,7 @@ describe 'User signs in via shibboleth' do
         it { current_path.should eq(shibboleth_path) }
         it { has_failure_message t('shibboleth.create_association.existent_account', email: @attrs[:email]) }
         it("doesn't create a ShibToken") { ShibToken.count.should be(0) }
-        it("doesn't send emails") { BaseMailer.should have_queue_size_of(0) }
+        it("doesn't send emails") { UserMailer.should have_queue_size_of(0) }
       end
     end
   end
