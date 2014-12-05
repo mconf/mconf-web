@@ -1211,6 +1211,7 @@ pt-br:
       visibility_private_fellows: "Apenas os seus colegas em um espaço privado podem ver o seu perfil privado."
       visibility_public_fellows: "Apenas os seus colegas em um espaço público podem ver o seu perfil privado."
     show:
+      send_pm: "Enviar mensagem privada"
       vcard:
         export: "Exportar vCard"
   province: Estado

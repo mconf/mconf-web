@@ -26,17 +26,14 @@
         #navbar
           = render :partial => 'layouts/application_navbar'
 
-      -# #page-header-wrapper
-      -#   #page-header
-      -#     - if content_for?(:page_header)
-      -#       = yield :page_header
-      -#     - else
-      -#       = render :partial => "layouts/spaces_page_title"
-      -#     - if content_for?(:page_menu)
-      -#       #page-menu
-      -#         = yield :page_menu
+      - if content_for?(:page_header)
+        #page-header-wrapper
+          #page-header.container-fluid
+            = yield :page_header
+          - if content_for?(:page_menu)
+            #page-menu
+              = yield :page_menu
 
-      -# #content-wrapper
       #content.container-fluid
         #content-row
           - if content_for?(:main_sidebar)
@@ -44,9 +41,10 @@
               = yield :main_sidebar
           #content-middle
             = yield
-          - if content_for?(:sidebar)
-            #sidebar
-              = yield :sidebar
+
+          -# - if content_for?(:sidebar)
+          -#   #sidebar
+          -#     = yield :sidebar
 
       #footer-pusher
 

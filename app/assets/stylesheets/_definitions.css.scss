@@ -98,6 +98,8 @@ $m-navbar-menu-open-link-hover: $m-link-color-hover;
 $m-page-menu-font-color: #808080;
 $m-page-header-link-color: $m-link-color;
 $m-page-header-link-color-hover: $m-link-color-hover;
+$m-page-title-bg: $m-light-gray;
+$m-page-title-border-color: $m-border-color-normal;
 // for a light/white navbar:
 /* $m-navbar-bg-color-dark: white; */
 /* $m-navbar-bg-color-light: white; */
@@ -142,7 +144,7 @@ $m-h-font-color: #404040;
 $m-h-font-color-alternative: $m-green-logo;
 
 // titles in the page headers
-$m-page-title-color: #505050;
+$m-page-title-color: #111; //505050;
 
 // z-indexes
 // TODO: not being used yet

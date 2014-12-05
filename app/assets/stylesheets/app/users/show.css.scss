@@ -1,11 +1,56 @@
 @import "compass/css3";
 @import "definitions";
 
-// for the partials used in this page
-@import "app/users/user_spaces";
-@import "app/users/recent_activity";
-@import "app/profiles/_profile_in_sidebar";
-
 body.users.show {
-  @include sidebar-position('left');
+
+  #main-sidebar {
+    border: 0;
+  }
+  #page-header {
+    border: 0;
+    margin-bottom: 0;
+    padding-bottom: 0;
+    padding-left: 20px;
+  }
+
+  .selectable-buttons {
+    padding-left: 0;
+  }
+
+  #user-profile {
+    background: $m-light-gray;
+    padding: 20px 10px 10px 10px;
+    @include border-radius(4px);
+    text-align: center;
+
+    .profile-logo {
+      margin: 10px 0;
+      border: 1px solid darken($m-light-gray, 10);
+      padding: 3px;
+      background: $m-site-bg-color;
+    }
+
+    ul {
+      margin: 5px 0;
+      padding: 0;
+    }
+
+    .profile-hcard {
+      text-align: left;
+      margin: 10px 8px 30px 8px;
+
+      .hcard-content {
+        .sub-section {
+          font-weight: bold;
+          margin-top: 10px;
+        }
+
+        .key {
+          color: lighten($m-font-color, 20);
+        }
+      }
+    }
+
+  }
+
 }

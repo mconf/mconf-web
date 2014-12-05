@@ -1194,6 +1194,7 @@ en:
       visibility_private_fellows: "Only your partners in a private space can see your private profile."
       visibility_public_fellows: "Only your partners in a public or private space can see your private profile."
     show:
+      send_pm: "Send a private message"
       vcard:
         export: "Export vCard"
   province: Province

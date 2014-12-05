@@ -1,30 +1,29 @@
 = content_for :page_header_extra do
-  .selectable-buttons.btn-group{:"data-toggle" => 'buttons-radio'}
-    = link_to t('recent.activity'), "#tab-recent-activity", :class => 'btn active'
-    = link_to t('space.other'), "#tab-spaces", :class => 'btn'
+  - if can?(:update, @profile)
+    = link_to t('edit_profile'), edit_user_profile_path(@user), class: "btn btn-default"
+    = link_to t('.vcard.export'), user_profile_path(@user, format: 'vcf'), class: "btn btn-default"
+
 = render_page_title @user.full_name
 
-= content_for :sidebar do
-  #profile-in-sidebar
-    #edit-profile-current-logo
-      = logo_image(@user, :size => '128', :class => 'profile-logo')
-    %ul
-      - if can?(:update, @profile)
-        %li= link_to t('edit_profile'), edit_user_profile_path(@user)
-        %li= link_to t('.vcard.export'), user_profile_path(@user,:format => 'vcf')
-      - if user_signed_in? and @user != current_user
-        %li= link_to t('message.private.new'), new_message_path(:user_id => current_user.to_param, :receiver => @user.id)
+= content_for :main_sidebar do
+  #user-profile
+
+    = logo_image(@user, :size => '128', :class => 'profile-logo')
+    .profile-links-extra
+      - if user_signed_in? && @user != current_user
+        = link_to t('.send_pm'), new_message_path(user_id: current_user.to_param, receiver: @user.id), class: "btn btn-success btn-xs"
 
     = render :partial => 'profiles/public_hcard'
     - if can?(:read, @profile)
       = render :partial => 'profiles/private_hcard'
 
+#page-menu
+  %ul.selectable-buttons
+    %li= link_to t('recent.activity'), "#tab-recent-activity", class: 'active'
+    %li= link_to t('space.other'), "#tab-spaces"
+
 .selectable-buttons-target
-  #tab-recent-activity
-    = render 'users/recent_activity', :content => @recent_activities
   #tab-spaces
-    #users-user-spaces.content-block
-      .content-block-header
-        %h3= t('space.other')
-      .content-block-middle
-        = render 'users/user_spaces', :user => @user, :spaces => @user_spaces
+    = render 'users/user_spaces', user: @user, spaces: @user_spaces
+  #tab-recent-activity
+    = render 'users/recent_activity', content: @recent_activities, title: false

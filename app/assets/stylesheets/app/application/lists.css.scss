@@ -9,34 +9,32 @@ ul.list-thumbnails {
 
   .list-thumbnail-wrapper {
     float: left;
-    background: $m-light-gray;
     padding: 5px;
     margin: 0px 10px 5px 0px;
-    @include border-radius(4px);
     @include mconf-clearfix;
     width: 47%;
     @include block-wrapper-active;
 
     &.selected {
-      .list-thumbnail {
+      .list-logo {
         border-color: $m-second-color;
-        @include box-shadow(0 0 5px lighten($m-second-color, 10));
       }
     }
   }
 
   .list-thumbnail {
     @include mconf-clearfix;
-    border: 1px solid darken($m-light-gray, 12);
     @include border-radius(4px);
-    background: white;
 
     .list-logo {
       float: left;
-      width: 84px;
-      height: 64px;
+      width: 90px;
+      height: 70px;
       @include broken-img-parent;
-      border-right: 1px solid darken($m-light-gray, 12);
+      border: 1px solid darken($m-light-gray, 12);
+      background: white;
+      padding: 2px;
+      @include border-radius(3px);
 
       img {
         width: 84px;

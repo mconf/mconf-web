@@ -1,3 +1,6 @@
+@import "compass/css3";
+@import "compass/typography/links";
+
 // In some browsers (e.g. firefox) when an image is not found it is replaced by the alternative
 // text set to it, and the dimensions of the image won't respect the width/height set by the css.
 // This might break the layout in some cases.
@@ -79,6 +82,7 @@
   @include link-colors($m-red, darken($m-red, 10), lighten($m-red, 5x));
 }
 
+// TODO: old method, not useful with bootstrap3 anymore
 @mixin set-sidebar-width($new-width) {
   #sidebar {
     width: $new-width;

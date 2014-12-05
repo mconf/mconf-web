@@ -392,9 +392,9 @@ form {
 }
 
 #page-header-wrapper {
-  border-bottom: 1px solid darken($m-light-gray, 7);
-  background: $m-light-gray;
-  padding: 0;
+  //border-bottom: 1px solid $m-page-border-color;
+  //background: $m-page-title-bg;
+  padding: 0 20px;
 }
 
 #page-header {
@@ -404,6 +404,8 @@ form {
   padding: 25px 0 20px 0;
   clear: both;
   word-break: break-all;
+
+  border-bottom: 1px solid $m-page-title-border-color;
 
   > a, .current-page-extra > a {
     @include link-colors($m-page-header-link-color, $m-page-header-link-color-hover, $m-page-header-link-color-hover, $m-page-header-link-color);
