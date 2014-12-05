@@ -44,8 +44,8 @@ SimpleForm.setup do |config|
     b.use :placeholder
     b.optional :pattern
     b.optional :readonly
-    b.use :label, class: 'col-sm-3'
-    b.use :input, wrap_with: { tag: 'div', class: 'col-sm-9' }
+    b.use :label, class: 'col-sm-4'
+    b.use :input, wrap_with: { tag: 'div', class: 'col-sm-8' }
     b.use :hint, wrap_with: { tag: 'span', class: 'help-block' }
     b.use :error, wrap_with: { tag: 'span', class: 'error-block' }
   end
@@ -66,9 +66,9 @@ SimpleForm.setup do |config|
   config.wrappers :prepend_horizontal, tag: 'div', class: 'form-group', error_class: 'has-error' do |b|
     b.use :html5
     b.use :placeholder
-    b.use :label, class: 'col-sm-3'
+    b.use :label, class: 'col-sm-4'
     b.wrapper tag: 'div', class: 'controls' do |input|
-      input.wrapper tag: 'div', class: 'col-sm-9' do |prepend|
+      input.wrapper tag: 'div', class: 'col-sm-8' do |prepend|
         b.use :input, wrap_with: { tag: 'div', class: 'input-group' }
       end
       input.use :hint, wrap_with: { tag: 'span', class: 'help-block' }

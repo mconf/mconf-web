@@ -708,7 +708,7 @@ en:
       login:
         federation: "Login via federation"
         lost_password: "Lost your password?"
-        title: "Sign in to your account"
+        title: "Sign in"
         resend_confirmation_email: "Resend confirmation email"
       register:
         title: "Create a new account"
