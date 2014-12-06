@@ -190,7 +190,7 @@ class ApplicationController < ActionController::Base
     Time.zone = Mconf::Timezone.user_time_zone(current_user)
   end
 
-  def render_error number
+  def render_error_page number
     render :template => "/errors/error_#{number}", :status => number, :layout => "error"
   end
 
@@ -198,7 +198,7 @@ class ApplicationController < ActionController::Base
     @route ||= request.path
     unless Rails.application.config.consider_all_requests_local
       @exception = exception
-      render_error 404
+      render_error_page 404
     else
       raise exception
     end
@@ -208,7 +208,7 @@ class ApplicationController < ActionController::Base
     unless Rails.application.config.consider_all_requests_local
       @exception = exception
       ExceptionNotifier.notify_exception exception
-      render_error 500
+      render_error_page 500
     else
       raise exception
     end
@@ -217,7 +217,7 @@ class ApplicationController < ActionController::Base
   def render_403(exception)
     unless Rails.application.config.consider_all_requests_local
       @exception = exception
-      render_error 403
+      render_error_page 403
     else
       raise exception
     end
