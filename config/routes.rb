@@ -181,5 +181,5 @@ Mconf::Application.routes.draw do
   get '/statistics', :to => 'statistics#show', :as => 'show_statistics'
 
   # To treat errors on pages that don't fall on any other controller
-  match ':status', to: 'errors#render_error', constraints: { status: /\d{3}/ }, via: :all
+  match ':status', to: 'errors#on_error', constraints: { status: /\d{3}/ }, via: :all
 end

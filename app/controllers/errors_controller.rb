@@ -11,7 +11,7 @@
 class ErrorsController < ApplicationController
   layout 'error'
 
-  def render_error
+  def on_error
     @exception = env["action_dispatch.exception"]
     @route = @exception.message.split('"')[1]
     status = request.path[1..-1]
