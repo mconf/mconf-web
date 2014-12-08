@@ -581,6 +581,24 @@ describe UsersController do
     end
   end
 
+  describe "#confirm" do
+    let(:user) { FactoryGirl.create(:user_unconfirmed) }
+    before {
+      request.env["HTTP_REFERER"] = "/any"
+      login_as(FactoryGirl.create(:superuser))
+    }
+
+    context "the action #confirm confirms the user" do
+      before(:each) {
+        Site.current.update_attributes(:require_registration_approval => true)
+        post :confirm, :id => user.to_param
+      }
+      it { should respond_with(:redirect) }
+      it { should redirect_to('/any') }
+      it ("confirms the user") {user.reload.confirmed?.should be_truthy}
+    end
+  end
+
   describe "#approve" do
     let(:user) { FactoryGirl.create(:user, :approved => false) }
     before {
