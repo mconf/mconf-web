@@ -54,10 +54,7 @@ class SpacesController < ApplicationController
 
     respond_with @spaces do |format|
       format.html { render :index }
-      format.js {
-        json = @spaces.to_json(space_to_json_hash)
-        render :json => json, :callback => params[:callback]
-      }
+      format.json
     end
   end
 
@@ -77,10 +74,7 @@ class SpacesController < ApplicationController
 
     respond_to do |format|
       format.html { render :layout => 'spaces_show' }
-      format.js {
-        json = @space.to_json(space_to_json_hash)
-        render :json => json, :callback => params[:callback]
-      }
+      format.json
     end
   end
 
@@ -281,10 +275,6 @@ class SpacesController < ApplicationController
   end
 
   private
-
-  def space_to_json_hash
-    { :methods => :user_count, :include => {:logo => { :only => [:height, :width], :methods => :logo_image_path } } }
-  end
 
   def load_and_authorize_with_disabled
     @space = Space.with_disabled.find_by_permalink(params[:id])
