@@ -1,6 +1,6 @@
 object @spaces => :spaces
-attributes :id, :permalink, :name
+attributes :permalink, :name
 node(:logo) do |space|
-  { :width => nil, :height => nil, :logo_image_path => space.logo_image_url('logo168x128') }
+  { :width => 168, :height => 128, :logo_image_path => space.logo_image_url('logo168x128') }
 end
-node(:user_count) { |space| nil }
+node(:user_count) { |space| space.users.count }
