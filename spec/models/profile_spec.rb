@@ -44,6 +44,37 @@ describe Profile do
 
   end
 
+  describe "#from_vcard" do
+    let(:old_email) { 'old@email.com' }
+    let(:profile) { FactoryGirl.create(:user, email: old_email).profile }
+
+    before { profile.update_attributes(vcard: vcard_file) }
+
+    context 'on success' do
+      let(:vcard_file) { Rack::Test::UploadedFile.new(File.open(File.join(Rails.root, './spec/fixtures/files/example.vcf'))) }
+
+      it { profile.should be_persisted }
+      it { profile.full_name.should eq('Mikael Stanne') }
+      it { profile.organization.should eq('Dark Tranquillity') }
+      it { profile.user.email.should eq(old_email) }
+    end
+
+    context 'on corrupt vcard file' do
+      let(:vcard_file) { Rack::Test::UploadedFile.new(File.open(File.join(Rails.root, './spec/fixtures/files/invalid.vcf'))) }
+
+      it { profile.errors[:vcard].size.should eq(1) }
+      it { profile.full_name.should_not eq('Mikael Stanne') }
+      it { profile.organization.should_not eq('Dark Tranquillity') }
+    end
+
+    context 'on blank vcard file' do
+      let(:vcard_file) { Rack::Test::UploadedFile.new(File.open(File.join(Rails.root, './spec/fixtures/files/invalid2.vcf'))) }
+
+      it { profile.errors[:vcard].size.should eq(1) }
+    end
+
+  end
+
   describe "abilities", :abilities => true do
     set_custom_ability_actions([:update_logo])
     subject { ability }
@@ -127,7 +158,7 @@ describe Profile do
 
   context "after_update" do
     let(:user) { FactoryGirl.create(:user) }
-    let(:profile) { Profile.create(:user => user) }
+    let(:profile) { user.profile }
 
     context "updates the name of the user's web conference room" do
       before(:each) {

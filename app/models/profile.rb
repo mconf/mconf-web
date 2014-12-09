@@ -54,8 +54,10 @@ class Profile < ActiveRecord::Base
     fields = [:organization, :phone, :mobile , :fax, :address, :city,
       :zipcode, :province, :country, :prefix_key, :description, :url, :skype , :im, :full_name]
 
-    fields.each do |field|
-      self.send("#{field}=".to_sym, self.send(field).force_encoding('utf-8'))
+    if vcard.present?
+      fields.each do |field|
+        self.send("#{field}=".to_sym, self.send(field).force_encoding('utf-8')) if self.send("#{field}_changed?")
+      end
     end
   end
 
@@ -65,9 +67,15 @@ class Profile < ActiveRecord::Base
 
   before_validation :from_vcard
   def from_vcard
-    return unless @vcard.present?
+    return if @vcard.nil?
 
     @vcard = Vpim::Vcard.decode(@vcard).first
+
+    # This is here because sometimes the lib
+    # will return nil instead of throwing an exception
+    if @vcard.blank?
+      raise Vpim::UnsupportedError
+    end
 
     #TELEPHONE
     if !@vcard.telephone('pref').nil?
@@ -156,8 +164,9 @@ class Profile < ActiveRecord::Base
           self.province = address.region.unpack('M*')[0]
           self.country = address.country.unpack('M*')[0]
     end
-  rescue Vpim::InvalidEncodingError, Vpim::UnsupportedError
-    errors.add(:vcard, I18n.t("vCard.corrupt"))
+  rescue Vpim::InvalidEncodingError, Vpim::UnsupportedError, RuntimeError => e
+    raise e if e.class == RuntimeError && e.message != 'Not a valid vCard'
+    self.errors.add(:vcard, I18n.t("vCard.corrupt"))
   end
 
   def from_hcard(uri)

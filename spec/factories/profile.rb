@@ -15,5 +15,6 @@ FactoryGirl.define do
     p.skype Forgery::Internet.user_name
     p.im Forgery::Internet.email_address
     p.url "http://#{Forgery::Internet.domain_name}"
+    p.full_name Forgery::Name.full_name
   end
 end
