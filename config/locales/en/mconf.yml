@@ -390,9 +390,9 @@ en:
       bbb: "Invite users to your BBB room"
       button: "Invite Users"
       hint: "Type to start searching"
-      msg: "Has invited you to participate in a webconference, follow this link: <a href=\' URL \'> URL </a>"
+      msg: "Has invited you to participate in a webconference, follow this link: <a href='URL'> URL </a>"
       msg_clean: "Has invited you to participate in a webconference, follow this link: URL"
-      msg_sender: "Invitation sent. Link to your room: <a href=\' URL \'> URL </a>"
+      msg_sender: "Invitation sent. Link to your room: <a href='URL'> URL </a>"
     me: "me"
     name: 
       one: "Name"

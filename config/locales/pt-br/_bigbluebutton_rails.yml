@@ -89,7 +89,7 @@ pt-br:
         update:
           success: "Sua gravação foi atualizada com sucesso."
     rooms:
-      default_welcome_msg: "Bem-vindo(a) à conferência <b>%{name}!</b><br/><br/>Para entrar na conferência de áudio a partir de um telefone SIP, disque %{voice_number}.<br/><br/>Se você precisa ajuda para usar esta aplicação <u><a href=\"http://www.bigbluebutton.org/videos/\">veja estes vídeos</a></u>."
+      default_welcome_msg: "Bem-vindo(a) a <b>%%CONFNAME%%</b>!<br><br>Para compartilhar o seu microfone, clique no botão com um headset (à esquerda da barra superior). Use um headset para ter uma melhor experiência de áudio com menos ruídos.<br>"
       errors:
         fetch_recordings:
           no_server: "Não há nenhum servidor associado a esta sala."
