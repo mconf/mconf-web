@@ -116,12 +116,12 @@ module IconsHelper
   end
 
   def icon_confirm_user(options={})
-    icon_constructor nil, "fa fa-thumbs-up icon-mconf-enable", options
+    icon_constructor nil, "icon-awesome fa fa-check-circle icon-mconf-confirm-user", options
   end
 
   def icon_enable(options={})
     icon_constructor nil, "icon-awesome icon-check icon-mconf-enable", options
-  end  
+  end
 
   def icon_users(options={})
     icon_constructor nil, "icon-awesome icon-group icon-mconf-users", options
@@ -220,11 +220,11 @@ module IconsHelper
   end
 
   def icon_approve(options={})
-    icon_constructor nil, "icon-awesome icon-check-sign icon-mconf-approve", options
+    icon_constructor nil, "icon-awesome fa fa-thumbs-up icon-mconf-approve", options
   end
 
   def icon_disapprove(options={})
-    icon_constructor nil, "icon-awesome icon-remove-sign icon-mconf-disapprove", options
+    icon_constructor nil, "icon-awesome fa fa-thumbs-down icon-mconf-disapprove", options
   end
 
   def icon_is_member(options={})

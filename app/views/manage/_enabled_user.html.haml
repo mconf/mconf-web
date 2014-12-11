@@ -7,6 +7,10 @@
     = link_to (edit_user_path(user)) do
       = icon_edit(:alt => t('.edit'), :title => t('.edit'))
 
+    - if !user.confirmed?
+      = link_to confirm_user_path(user), :data => { :confirm => t('.confirm_confirm') },  :method => :post do
+        = icon_confirm_user(:alt => t('.confirm'), :title => t('.confirm'))
+
     - unless user.superuser  # prevent admins from disabling and unapproving themselves
       - if current_site.require_registration_approval?
         - if user.approved?
@@ -15,10 +19,6 @@
         - else
           = link_to approve_user_path(user), :method => :post, :data => { :confirm => t('.approve_confirm') } do
             = icon_approve(:alt => t('.approve'), :title => t('.approve'))
-
-      - if !user.confirmed?
-        = link_to confirm_user_path(user), :data => { :confirm => t('.confirm_confirm') },  :method => :post do
-          = icon_confirm_user(:alt => t('.confirm'), :title => t('.confirm'))
 
       = link_to user_path(user), :data => { :confirm => t('.disable_confirm') }, :method => :delete do
         = icon_delete(:alt => t('.disable'), :title => t('.disable'))

@@ -1771,7 +1771,7 @@ pt-br:
     approve:
       approved: "O usuário %{username} foi aprovado para acessar este site!"
       not_enabled: "A aprovação de registros não está habilitada neste site"
-    confirm: 
+    confirm:
       confirmed: "O usuário %{username} foi confirmado"
     detailed_user:
       from: "De:"
@@ -1785,11 +1785,11 @@ pt-br:
       cancel_account: "Cancelar conta?"
       change_password: "Mudar senha"
       click_to_edit_profile: "Clique aqui para editar o seu perfil"
+      confirm_user: "Confirmar a conta deste usuário"
+      confirm_user_confirm: "Você tem certeza que deseja confirmar a conta deste usuário?"
       did_not_find_info: "Não encontrou a informação que estava procurando?"
       disable: "Desabilitar a conta deste usuário"
       disable_confirm: "Você tem certeza que deseja desabilitar a conta deste usuário?"
-      enable: "Confirmar a conta deste usuário"
-      enable_confirm: "Você tem certeza que deseja confirmar a conta deste usuário?"
       federated:
         see_your_data: "Clique para ver os seus dados que foram compartilhados com este site pela federação"
         title: "Você acessou este site através de uma federação!"

@@ -72,21 +72,20 @@
     #management-options.alert.alert-gray
       %h3= t('.management_options')
       = f.input :can_record, :required => false
-      
+
       -# prevent admins from mistakenly removing themselves from being admins or blocking
       -# access to their account
       - unless current_user == @user
         = f.input :approved, :required => false
         = f.input :superuser, :required => false
-
         - if !@user.confirmed?
-          = link_to confirm_user_path(@user), :data => { :confirm => t('.enable_confirm') },  :method => :post do
-            = icon_confirm(:alt => t('.enable'), :title => t('.enable'))
-            = t('.enable')
-        
+          .input
+            = link_to confirm_user_path(@user), :data => { :confirm => t('.confirm_user_confirm') },  :method => :post do
+              = icon_confirm_user(:alt => t('.confirm_user'))
+              = t('.confirm_user')
         .input
           = link_to user_path(@user), :data => { :confirm => t('.disable_confirm') }, :method => :delete do
-            = icon_delete(:alt => t('.disable'), :title => t('.disable'))
+            = icon_delete(:alt => t('.disable'))
             = t('.disable')
 
   = f.button :wrapped, :cancel => edit_user_path(@user), :value => t("_other.save")

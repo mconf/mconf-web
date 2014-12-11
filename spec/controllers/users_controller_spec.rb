@@ -639,7 +639,7 @@ describe UsersController do
   end
 
   describe "#confirm" do
-    let(:user) { FactoryGirl.create(:user_unconfirmed) }
+    let(:user) { FactoryGirl.create(:unconfirmed_user) }
     before {
       request.env["HTTP_REFERER"] = "/any"
       login_as(FactoryGirl.create(:superuser))
@@ -647,12 +647,11 @@ describe UsersController do
 
     context "the action #confirm confirms the user" do
       before(:each) {
-        Site.current.update_attributes(:require_registration_approval => true)
         post :confirm, :id => user.to_param
       }
       it { should respond_with(:redirect) }
       it { should redirect_to('/any') }
-      it ("confirms the user") {user.reload.confirmed?.should be_truthy}
+      it ("confirms the user") { user.reload.confirmed?.should be(true) }
     end
   end
 
@@ -671,23 +670,22 @@ describe UsersController do
       it { should respond_with(:redirect) }
       it { should set_the_flash.to(I18n.t('users.approve.approved', :username => user.username)) }
       it { should redirect_to('/any') }
-      it("approves the user") { user.reload.approved?.should be_truthy }
-      it("confirms the user") { user.reload.confirmed?.should be_truthy }
+      it("approves the user") { user.reload.approved?.should be(true) }
+      it("confirms the user") { user.reload.confirmed?.should be(true) }
 
-      # TODO: To test this we need to create an unconfirmed server with FactoryGirl, but it's triggering
-      #   an error related to delayed_job. Test this when delayed_job is removed, see #811.
-      # context "skips the confirmation email" do
-      #   before(:each) {
-      #     Site.current.update_attributes(:require_registration_approval => true)
-      #   }
-      #   it {
-      #     user.confirmed?.should be_falsey # just to make sure wasn't already confirmed
-      #     expect {
-      #       post :approve, :id => user.to_param
-      #     }.not_to change{ ActionMailer::Base.deliveries }
-      #     user.confirmed?.should be_truthy
-      #   }
-      # end
+      context "skips the confirmation email" do
+        let(:user) { FactoryGirl.create(:unconfirmed_user) }
+        before(:each) {
+          Site.current.update_attributes(:require_registration_approval => true)
+        }
+        it {
+          user.confirmed?.should be(false) # just to make sure wasn't already confirmed
+          expect {
+            post :approve, :id => user.to_param
+            user.reload.confirmed?.should be(true)
+          }.not_to change{ ActionMailer::Base.deliveries }
+        }
+      end
     end
 
     context "if #require_registration_approval is not set in the current site" do
