@@ -1,4 +1,11 @@
+# -*- coding: utf-8 -*-
+# This file is part of Mconf-Web, a web application that provides access
+# to the Mconf webconferencing system. Copyright (C) 2010-2012 Mconf
 #
+# This file is licensed under the Affero General Public License version
+# 3 or later. See the LICENSE file.
+#
+# -------
 # RecentActivity is a very flexible class which links models to activities which
 # happen to pertrain those models. For example it is used to store when an user
 # joins a space or when someone creates a new event.
@@ -12,11 +19,12 @@
 # of how it looks like most of the time:
 #
 # * (trackable_id, trackable_type) trackable: The model to which the activity pertrains
-# * (owner_id, owner_type) owner: Another model which is linked as owner of the activity. Typically this is the user which performed said activity
-# * (recipient_id, recipient_type) recipient: Not used in any model for now
-# * key: A string indicating the trackable model plus the action which happened
-# * notified: A boolean informing whether the activity has already been notified inside a worker
-# * parameters: Extra data about the activity which can be used to avoid extra database queries or store volatile data which may disappear or change in the future
+# * (owner_id, owner_type) owner: Another model which is linked as owner of the activity. Typically this is the user which performed said activity.
+# * (recipient_id, recipient_type) recipient: Not used in any model for now.
+# * key: A string indicating the trackable model plus the action which happened (e.g. "space.join").
+# * notified: A boolean informing whether the activity has already been notified to the user (usually this is done by a worker in background).
+# * parameters: Extra data about the activity which can be used to avoid extra database queries or store volatile data which may disappear or change
+#   in the future (e.g. store the name of a space when the name changes).
 #
 # === Example of a valid activity model
 # Ommiting active record and unused fields
@@ -38,7 +46,8 @@ class RecentActivity < PublicActivity::Activity
   # Returns a relation with all the activity related to a user: activities in his spaces
   # and web conference rooms.
   # * +user+ - the user which activities will be returned
-  # * +reject_keys+ - an array of keys to reject when querying. Keys are the string that identify the recent activity, e.g. "space.leave".
+  # * +reject_keys+ - an array of keys to reject when querying. Keys are the strings that identify
+  #   the recent activity, e.g. "space.leave".
   def self.user_activity(user, reject_keys=[])
     user_room = user.bigbluebutton_room
     spaces = user.spaces

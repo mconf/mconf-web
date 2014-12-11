@@ -10,13 +10,13 @@
 # Spaces consist of a group of multiple users and provide them with a single
 # conference room, a posts wall, document repository and space events.
 #
-# A spaces can be public or private. Public spaces are open to be read by anyone
+# A space can be public or private. Public spaces are open to be read by anyone,
 # even users not logged in. Private spaces can only be read by members and membership
-# has to be requested or granted via space admin invites.
+# has to be requested or granted via invitation or request.
 #
-# == Atributtes
+# == Attributes
 # * +name+ : String with a human friendly name of the space
-# * +permalink+ : The string used to construct
+# * +permalink+ : The string used to identify the space in URLs
 # * +description+ : Text with a human friendly description of the space
 # * +public+ : A boolean value denoting whether the space is public
 # * +disabled+: A boolean value denoting whether the space has been disabled
@@ -27,7 +27,7 @@
 # * +users+: List of users belonging to the space (linked via Permission)
 # * +permissions+: Links a user to the space and assigns a roles (see USER_ROLES)
 # * +posts+: Posts made on the space wall
-# * +attachments+: Attachment (s) uploaded to the space repository
+# * +attachments+: Attachment(s) uploaded to the space repository
 #
 # == Activities
 # * "space.create": When a space is created (parameters: +user_id+, +username+)
