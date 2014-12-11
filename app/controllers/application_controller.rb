@@ -33,6 +33,9 @@ class ApplicationController < ActionController::Base
   rescue_from ::AbstractController::ActionNotFound, :with => :render_404
   rescue_from CanCan::AccessDenied, with: :handle_access_denied
 
+  rescue_from ActionController::InvalidCrossOriginRequest, with: :render_400
+  rescue_from ActionController::UnknownFormat, with: :render_404
+
   # Code that to DRY out permitted param filtering
   # The controller declares allow_params_for :model_name and defines allowed_params
   def self.allow_params_for instance_name
@@ -219,6 +222,15 @@ class ApplicationController < ActionController::Base
     unless Rails.application.config.consider_all_requests_local
       @exception = exception
       render_error_page 403
+    else
+      raise exception
+    end
+  end
+
+  def render_400(exception)
+    unless Rails.application.config.consider_all_requests_local
+      self.response_body = nil
+      render(nothing: true, status: 400)
     else
       raise exception
     end
