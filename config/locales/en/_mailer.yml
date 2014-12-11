@@ -64,3 +64,11 @@ en:
         start: "Start"
         subject: "Subject"
       subject: "Web conference invitation"
+  shared:
+    invitation_email:
+      message:
+        subject: "Subject"
+        description: "Description"
+        start: "Start"
+        end: "End"
+        join: "Room"

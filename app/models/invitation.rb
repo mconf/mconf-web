@@ -97,7 +97,13 @@ class Invitation < ActiveRecord::Base
 
   def to_ical
     if self.is_a? EventInvitation
-      target.to_ics.to_ical
+      self.starts_on = target.start_on
+      self.ends_on = target.end_on
+
+      cal = Icalendar::Calendar.new
+      cal.add_event(target.to_ics)
+      cal.to_ical
+      #target.to_ics.to_ical
     else
       event = Icalendar::Event.new
 

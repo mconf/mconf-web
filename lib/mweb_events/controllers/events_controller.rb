@@ -13,7 +13,7 @@ MwebEvents::EventsController.class_eval do
   end
 
   def send_invitation
-    invitations = Invitation.create_invitations params[:invite][:users],
+    invitations = EventInvitation.create_invitations params[:invite][:users],
       :sender => current_user,
       :target => @event,
       :title => params[:invite][:title],
@@ -23,10 +23,10 @@ MwebEvents::EventsController.class_eval do
 
     # we do a check just to give a better response to the user, since the invitations will
     # only be sent in background later on
-    succeeded, failed = Invitation.check_invitations(invitations)
-    flash[:success] = Invitation.build_flash(
+    succeeded, failed = EventInvitation.check_invitations(invitations)
+    flash[:success] = EventInvitation.build_flash(
       succeeded, t('mweb_events.events.send_invitation.success')) unless succeeded.empty?
-    flash[:error] = Invitation.build_flash(
+    flash[:error] = EventInvitation.build_flash(
       failed, t('mweb_events.events.send_invitation.errors')) unless failed.empty?
 
     redirect_to request.referer

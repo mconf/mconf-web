@@ -97,7 +97,7 @@ class CustomBigbluebuttonRoomsController < Bigbluebutton::RoomsController
       flash[:error] = t('custom_bigbluebutton_rooms.send_invitation.error_title')
 
     else
-      invitations = Invitation.create_invitations params[:invite][:users],
+      invitations = WebConferenceInvitation.create_invitations params[:invite][:users],
         sender: current_user,
         target: @room,
         starts_on: params[:invite][:starts_on],
@@ -109,10 +109,10 @@ class CustomBigbluebuttonRoomsController < Bigbluebutton::RoomsController
 
       # we do a check just to give a better response to the user, since the invitations will
       # only be sent in background later on
-      succeeded, failed = Invitation.check_invitations(invitations)
-      flash[:success] = Invitation.build_flash(
+      succeeded, failed = WebConferenceInvitation.check_invitations(invitations)
+      flash[:success] = WebConferenceInvitation.build_flash(
         succeeded, t('custom_bigbluebutton_rooms.send_invitation.success')) unless succeeded.empty?
-      flash[:error] = Invitation.build_flash(
+      flash[:error] = WebConferenceInvitation.build_flash(
         failed, t('custom_bigbluebutton_rooms.send_invitation.errors')) unless failed.empty?
     end
 
