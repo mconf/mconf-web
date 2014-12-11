@@ -15,13 +15,11 @@ feature 'User hits access denied errors' do
       before { visit space_path(space) }
 
       it { should have_content(t('space.access_forbidden')) }
-      it { should have_content(
-        strip_links(
-          t('space.is_private_html', name: space.name, path: new_space_join_request_path(space))
-        ))
-      }
       it { should have_link('', new_space_join_request_path(space)) }
-      it { page.status_code.should == 403 }
+      it {
+        msg = strip_links(t("space.is_private_html", name: space.name, path: new_space_join_request_path(space)))
+        should_be_403_page(t("space.access_forbidden"), msg)
+      }
     end
 
     context 'and is a logged in non-member' do
@@ -55,13 +53,7 @@ feature 'User hits access denied errors' do
     context 'and is logged out' do
       before { visit edit_space_path(space) }
 
-      it { should have_content(t('space.access_forbidden')) }
-      it { should have_content(
-        strip_links(
-          t('error.e403.description')
-        ))
-      }
-      it { page.status_code.should == 403 }
+      it { should_be_403_page(t("space.access_forbidden")) }
     end
 
     context 'and is a logged in non-member' do

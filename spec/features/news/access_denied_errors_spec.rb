@@ -15,7 +15,7 @@ feature 'User hits access denied errors' do
       context 'and is logged out' do
         before { visit space_news_index_path(space) }
 
-        it { page.status_code.should == 403 }
+        it { should_be_403_page }
       end
 
       context 'and is logged as a non-member' do
@@ -24,7 +24,7 @@ feature 'User hits access denied errors' do
           visit space_news_index_path(space)
         }
 
-        it { page.status_code.should == 403 }
+        it { should_be_403_page }
       end
 
       context 'and is logged as a member' do
@@ -34,7 +34,7 @@ feature 'User hits access denied errors' do
           visit space_news_index_path(space)
         }
 
-        it { page.status_code.should == 403 }
+        it { should_be_403_page }
       end
 
       context 'and is logged as an admin' do
@@ -58,7 +58,7 @@ feature 'User hits access denied errors' do
       context 'and is logged out' do
         before { visit space_news_index_path(space) }
 
-        it { page.status_code.should == 403 }
+        it { should_be_403_page }
       end
 
       context 'and is logged as a non-member' do
@@ -67,7 +67,7 @@ feature 'User hits access denied errors' do
           visit space_news_index_path(space)
         }
 
-        it { page.status_code.should == 403 }
+        it { should_be_403_page }
       end
 
       context 'and is logged as a member' do
@@ -77,7 +77,7 @@ feature 'User hits access denied errors' do
           visit space_news_index_path(space)
         }
 
-        it { page.status_code.should == 403 }
+        it { should_be_403_page }
       end
 
       context 'and is logged as an admin' do
