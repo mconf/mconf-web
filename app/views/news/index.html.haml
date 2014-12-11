@@ -1,14 +1,14 @@
 - spaces_menu_at :admin
-= render :partial => 'spaces/menu'
+= render partial: 'spaces/menu'
 
 - spaces_admin_menu_at :news
-= render :partial => 'spaces/admin_tabs'
+= render partial: 'spaces/admin_tabs'
 
 - if can?(:create, @space.news.build)
   #space-news-toolbar
-    = link_to new_space_news_path(@space), :class => "btn btn-primary btn-small open-modal" do
+    = link_to new_space_news_path(@space), class: "btn btn-primary btn-small open-modal" do
       = t('news.publish_home')
 
 #space-news
-  - for news in @all_news
-    = render 'unified_news', :news => news
+  - for news in @news
+    = render 'unified_news', news: news

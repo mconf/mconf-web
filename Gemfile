@@ -55,11 +55,12 @@ gem 'bigbluebutton-api-ruby', :git => 'git://github.com/mconf/bigbluebutton-api-
 gem 'bigbluebutton_rails', :git => 'git://github.com/mconf/bigbluebutton_rails.git', :branch => 'master'
 
 # Used on Profile to generate a vcard
-gem 'vpim' # TODO: very old, last update on 2009
+gem 'vpim', :git => 'https://github.com/sam-github/vpim.git'
 
 # for logos + attachments
 gem 'carrierwave', '~> 0.10.0'
 gem 'rmagick'
+gem 'mini_magick'
 
 # global configurations
 # TODO: update to the stable version when out

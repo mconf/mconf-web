@@ -28,7 +28,7 @@ en:
       bigbluebutton_room:
         auto_start_video: "Auto start video"
         auto_start_audio: "Auto start audio"
-        attendee_key: "Keys for attendees"
+        attendee_key: "Key for attendees"
         default_layout: "Default Layout"
         dial_number: "Dial Number"
         duration: Duration
@@ -89,7 +89,7 @@ en:
         update:
           success: "Your recording was successfully updated."
     rooms:
-      default_welcome_msg: "Welcome to the conference <b>%{name}!</b><br/><br/>To join the audio conference from a SIP phone, dial %{voice_number}.<br/><br/>If you need help using the conference client <u><a href=\"http://www.bigbluebutton.org/videos/\">check out these videos</a></u>."
+      default_welcome_msg: "Welcome to <b>%%CONFNAME%%</b>!<br><br>To join the audio bridge click the headset icon (upper-left hand corner). Use a headset to avoid causing background noise for others.<br>"
       errors:
         fetch_recordings:
           no_server: "There's no server associated with this room."

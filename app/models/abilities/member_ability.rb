@@ -6,8 +6,8 @@ module Abilities
 
       # Users
       # Disabled users are only visible to superusers
-      can [:read, :fellows, :current, :select], User, :disabled => false
-      can [:edit, :update, :destroy], User, :id => user.id, :disabled => false
+      can [:read, :fellows, :current, :select], User, disabled: false
+      can [:edit, :update, :destroy], User, id: user.id, disabled: false
 
       # User profiles
       # Visible according to options selected by the user, editable by their owners
@@ -27,7 +27,7 @@ module Abilities
           false
         end
       end
-      can [:read, :edit, :update, :update_logo], Profile, :user_id => user.id
+      can [:read, :edit, :update, :update_logo], Profile, user_id: user.id
 
       # Private messages
       can :create, PrivateMessage
@@ -40,7 +40,7 @@ module Abilities
 
       # Spaces
       can [:create, :select], Space
-      can [:read, :webconference, :recordings], Space, :public => true
+      can [:read, :webconference, :recordings], Space, public: true
       can [:read, :webconference, :recordings, :leave], Space do |space|
         space.users.include?(user)
       end
@@ -76,7 +76,7 @@ module Abilities
       end
 
       # space admins can list requests and invite new members
-      can [:index_join_requests, :invite], Space do |s|
+      can [:index_join_requests, :index_news, :invite], Space do |s|
         s.admins.include?(user)
       end
 
@@ -88,16 +88,16 @@ module Abilities
 
       # Posts
       # TODO: maybe space admins should be able to alter posts
-      can :read, Post, :space => { :public => true }
+      can :read, Post, space: { public: true }
       can [:read, :create, :reply_post], Post do |post|
         post.space.users.include?(user)
       end
-      can [:read, :reply_post, :edit, :update, :destroy], Post, :author_id => user.id
+      can [:read, :reply_post, :edit, :update, :destroy], Post, author_id: user.id
 
       # News
       # Only admins can create/alter news, the rest can only read
       # note: :show because :index is only for space admins
-      can :show, News, :space => { :public => true }
+      can :show, News, space: { public: true }
       can :show, News do |news|
         news.space.users.include?(user)
       end
@@ -116,7 +116,7 @@ module Abilities
         attach.space.users.include?(user) &&
         attach.author_id == user.id
       end
-      can :read, Attachment, :space => { :public => true }
+      can :read, Attachment, space: { public: true }
 
       # Permissions
       # Only space admins can update user roles/permissions
@@ -137,10 +137,10 @@ module Abilities
           when 'User' then
             event.owner_id == user.id
           when 'Space' then
-            !user.permissions.where(:subject_type => 'MwebEvents::Event',
-              :role_id => Role.find_by_name('Organizer'), :subject_id => event.id).empty? ||
-            !user.permissions.where(:subject_type => 'Space', :subject_id => event.owner_id,
-            :role_id => Role.find_by_name('Admin')).empty?
+            !user.permissions.where(subject_type: 'MwebEvents::Event',
+              role_id: Role.find_by_name('Organizer'), subject_id: event.id).empty? ||
+            !user.permissions.where(subject_type: 'Space', subject_id: event.owner_id,
+            role_id: Role.find_by_name('Admin')).empty?
           end
         end
 
@@ -156,7 +156,7 @@ module Abilities
         end
 
         can :register, MwebEvents::Event do |e|
-          MwebEvents::Participant.where(:owner_id => user.id, :event_id => e.id).empty? &&
+          MwebEvents::Participant.where(owner_id: user.id, event_id: e.id).empty? &&
           (e.public || (e.owner_type == 'Space' && e.owner.users.include?(user)))
         end
 
@@ -172,7 +172,7 @@ module Abilities
         can :index, MwebEvents::Participant
         can :create, MwebEvents::Participant
 
-        cannot [:read, :index, :update, :destroy], Space, :disabled => true
+        cannot [:read, :index, :update, :destroy], Space, disabled: true
       end
     end
 

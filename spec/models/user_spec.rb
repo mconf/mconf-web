@@ -813,7 +813,7 @@ describe User do
 
   # TODO: :index is nested into spaces, how to test it here?
   describe "abilities", :abilities => true do
-    set_custom_ability_actions([:fellows, :current, :select, :approve, :enable, :disable])
+    set_custom_ability_actions([:fellows, :current, :select, :approve, :enable, :disable, :confirm])
 
     subject { ability }
     let(:ability) { Abilities.ability_for(user) }

@@ -29,7 +29,7 @@ describe UserNeedsApprovalSenderWorker do
 
       before(:each) { worker.perform(user.id, recipient_ids) }
 
-      it { AdminMailer.should have_queue_size_of(1) }
+      it { AdminMailer.should have_queue_size_of_at_least(1) }
       it { AdminMailer.should have_queued(:new_user_waiting_for_approval, recipient1.id, user.id).in(:mailer) }
       it { user.reload.needs_approval_notification_sent_at.should_not be_nil }
     end
@@ -44,7 +44,7 @@ describe UserNeedsApprovalSenderWorker do
 
       before(:each) { worker.perform(user.id, recipient_ids) }
 
-      it { AdminMailer.should have_queue_size_of(3) }
+      it { AdminMailer.should have_queue_size_of_at_least(3) }
       it { AdminMailer.should have_queued(:new_user_waiting_for_approval, recipient1.id, user.id).in(:mailer) }
       it { AdminMailer.should have_queued(:new_user_waiting_for_approval, recipient2.id, user.id).in(:mailer) }
       it { AdminMailer.should have_queued(:new_user_waiting_for_approval, recipient3.id, user.id).in(:mailer) }

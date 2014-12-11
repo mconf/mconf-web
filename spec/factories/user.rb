@@ -5,33 +5,37 @@
 # 3 or later. See the LICENSE file.
 
 FactoryGirl.define do
-  factory :user, :class => User do |u|
-    u.username
-    u.email
-    u.sequence(:_full_name) { |n| Forgery::Name.unique_full_name(n) }
-    u.association :bigbluebutton_room
-    u.association :profile
-    u.created_at { Time.now }
-    u.updated_at { Time.now }
-    u.disabled false
-    u.approved true
-    u.superuser false
-    u.receive_digest { User::RECEIVE_DIGEST_NEVER }
-    u.notification { User::NOTIFICATION_VIA_EMAIL }
-    u.password { Forgery::Basic.password :at_least => 6, :at_most => 16 }
-    u.password_confirmation { |u2| u2.password }
-    u.confirmed_at { Time.now }
-    u.needs_approval_notification_sent_at { Time.now }
-    u.approved_notification_sent_at { Time.now }
-    after(:create) { |u2| u2.confirm!; u2.reload }
+  factory :unconfirmed_user, class: User do
+    username
+    email
+    sequence(:_full_name) { |n| Forgery::Name.unique_full_name(n) }
+    association :bigbluebutton_room
+    association :profile
+    created_at { Time.now }
+    updated_at { Time.now }
+    disabled false
+    approved true
+    superuser false
+    receive_digest { User::RECEIVE_DIGEST_NEVER }
+    notification { User::NOTIFICATION_VIA_EMAIL }
+    password { Forgery::Basic.password :at_least => 6, :at_most => 16 }
+    password_confirmation { |user| user.password }
+    needs_approval_notification_sent_at { Time.now }
+    approved_notification_sent_at { Time.now }
+    before(:create) { |user|
+      user.skip_confirmation_notification!
+    }
+
+    factory :user, parent: :unconfirmed_user do
+      confirmed_at { Time.now }
+
+      # TODO: why do we have to call confirm! twice? calling once won't set his email properly...
+      after(:create) { |user| user.confirm!; user.confirm! }
+
+      factory :superuser, class: User, parent: :user do |u|
+        u.superuser true
+      end
+    end
   end
 
-  # factory :user, :parent => :user_unconfirmed do |u|
-  #   u.confirmed_at { Time.now }
-  #   after(:create) { |u2| u2.confirm! }
-  # end
-
-  factory :superuser, :class => User, :parent => :user do |u|
-    u.superuser true
-  end
 end

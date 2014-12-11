@@ -90,7 +90,7 @@ class ProfilesController < ApplicationController
   def allowed_params
     [ :organization, :phone, :mobile, :fax, :address, :city, :zipcode,
       :province, :country, :prefix_key, :description, :url, :skype, :im,
-      :visibility, :full_name, :logo_image ]
+      :visibility, :full_name, :logo_image, :crop_x, :crop_y, :crop_w, :crop_h, :vcard ]
   end
 
 end
