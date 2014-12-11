@@ -929,6 +929,8 @@ en:
     enabled_user:
       approve: "Approve: allow this user to access the website"
       approve_confirm: "Are you sure you want to allow this user to access the website?"
+      confirm: "Confirm this user"
+      confirm_confirm: "Are you sure you want to confirm this user?"
       disable: "Disable user"
       disable_confirm: "Are you sure you want to disable this user?"
       disapprove: "Disapprove: block user from accessing the website"
@@ -1769,6 +1771,8 @@ en:
     approve:
       approved: "The user %{username} was approved to access the website!"
       not_enabled: "Approval of registrations is not enabled in this website"
+    confirm: 
+      confirmed: "The user %{username} was confirmed"
     detailed_user:
       from: "From:"
     disapprove:
@@ -1784,6 +1788,8 @@ en:
       did_not_find_info: "Didn't find the information you were looking for?"
       disable: "Disable this user's account"
       disable_confirm: "Are you sure you want to disable this user's account?"
+      enable: "Confirm this user's account"
+      enable_confirm: "Are you sure you want to confirm this user's account?"
       federated:
         see_your_data: "Click here to see your data that the federation shared with this website"
         title: "You are signed in using a federation!"

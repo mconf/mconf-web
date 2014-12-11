@@ -929,6 +929,8 @@ pt-br:
     enabled_user:
       approve: "Aprovar: permitir que este usuário acesse o site"
       approve_confirm: "Tem certeza que deseja permitir que este usuário acesse o site?"
+      confirm: "Confirmar este usuário"
+      confirm_confirm: "Tem certeza que deseja confirmar este usuário?"
       disable: "Desabilitar usuário"
       disable_confirm: "Tem certeza que deseja desabilitar este usuário?"
       disapprove: "Desaprovar: bloquear o acesso deste usuário ao site"
@@ -1769,6 +1771,8 @@ pt-br:
     approve:
       approved: "O usuário %{username} foi aprovado para acessar este site!"
       not_enabled: "A aprovação de registros não está habilitada neste site"
+    confirm: 
+      confirmed: "O usuário %{username} foi confirmado"
     detailed_user:
       from: "De:"
     disapprove:
@@ -1784,6 +1788,8 @@ pt-br:
       did_not_find_info: "Não encontrou a informação que estava procurando?"
       disable: "Desabilitar a conta deste usuário"
       disable_confirm: "Você tem certeza que deseja desabilitar a conta deste usuário?"
+      enable: "Confirmar a conta deste usuário"
+      enable_confirm: "Você tem certeza que deseja confirmar a conta deste usuário?"
       federated:
         see_your_data: "Clique para ver os seus dados que foram compartilhados com este site pela federação"
         title: "Você acessou este site através de uma federação!"
