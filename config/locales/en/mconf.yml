@@ -429,6 +429,9 @@ en:
     other: Comments
     show_all: "Show all comments"
   configurations: Configurations
+  confirmations:
+    check_already_confirmed:
+      already_confirmed: "You have already confirmed you account"
   contact_information: "Contact information"
   country: Country
   create: Create
@@ -1015,7 +1018,7 @@ en:
       events:
         other: "Other"
         today: "Today"
-      not_confirmed: "Your account is not activated yet. Please, check your email to activate it. (Did not receive an email? <a href=\"%{url}\">Click here</a>.)"
+      not_confirmed: "Your account is not activated yet, please check your email to activate it. In case you didn't receive an email, <a href=\"%{url}\">click here</a> to request a new one."
       pending_join_requests:
         one: "%{count} pending join request"
         other: "%{count} pending join requests"
@@ -1797,7 +1800,7 @@ en:
       ldap:
         title: "You are signed in using LDAP!"
       management_options: "Management options"
-      not_confirmed: "Your account is not activated yet. Please, check your email to activate it. (Did not receive an email? <a href=\"%{url}\">Click here</a>.)"
+      not_confirmed: "Your account is not activated yet, please check your email to activate it. In case you didn't receive an email, <a href=\"%{url}\">click here</a> to request a new one."
       notification:
         by_email: "By email"
         by_private_message: "By private message"

@@ -8,13 +8,38 @@
 class ConfirmationsController < Devise::ConfirmationsController
   layout 'no_sidebar'
 
-  before_filter :check_registration_enabled, :only => [:new]
+  before_filter :check_registration_enabled, only: [:new]
+  before_filter :check_already_confirmed, only: [:new, :create]
+
+  protected
+
+  # Overriding devise's redirect path after confirmation instructions are sent
+  def after_resending_confirmation_instructions_path_for(resource_name)
+    if is_navigational_format?
+      if user_signed_in?
+        my_home_path
+      else
+        new_session_path(resource_name)
+      end
+    else
+      '/'
+    end
+  end
 
   private
 
   def check_registration_enabled
     unless current_site.registration_enabled?
       raise ActionController::RoutingError.new('Not Found')
+    else
+      true
+    end
+  end
+
+  def check_already_confirmed
+    if user_signed_in? && current_user.confirmed?
+      flash[:success] = t('confirmations.check_already_confirmed.already_confirmed')
+      redirect_to my_home_path
     else
       true
     end

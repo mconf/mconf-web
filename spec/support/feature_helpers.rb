@@ -127,4 +127,14 @@ module FeatureHelpers
     end
     page.status_code.should == 403
   end
+
+  # Use it as:
+  # expect { register_with(attrs) }.to send_email
+  def send_email(count=nil)
+    if count.present?
+      change{ ActionMailer::Base.deliveries.length }.by(1)
+    else
+      change{ ActionMailer::Base.deliveries.length }
+    end
+  end
 end
