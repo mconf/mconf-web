@@ -1,7 +1,7 @@
 - page_title t('home.my')
 
 = content_for :main_sidebar do
-  = render "my/sidebar", :user_spaces => @user_spaces
+  = render "my/sidebar", user_spaces: @user_spaces
 
 = render "shared/webconference_join", room: @room
 
@@ -11,7 +11,7 @@
   -#   %h3= t('recent.activity')
   -#   = icon_info t('recent_activity.tooltip')
   #users-recent-activity-content.content-block-middle
-    = render "users/recent_activity_content", :content => @all_contents, :paginate => false
+    = render "users/recent_activity_content", content: @all_contents, paginate: false
   .content-block-footer.content-block-footer-fancy
     .content-block-footer-middle
       = link_to t('.view_all_activity'), my_activity_path

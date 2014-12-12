@@ -6,12 +6,13 @@
 
 class NewsController < ApplicationController
 
-  load_and_authorize_resource :space, :find_by => :permalink
-  load_and_authorize_resource :through => :space, :instance_name => 'news'
+  load_and_authorize_resource :space, find_by: :permalink
+  load_and_authorize_resource through: :space, instance_name: 'news', except: [:index]
 
-  before_filter :webconf_room!, :only => [:index]
+  before_filter :webconf_room!, only: [:index]
+  before_filter :get_news, only: [:index]
 
-  after_filter :only => [:create, :update] do
+  after_filter only: [:create, :update] do
     @news.new_activity params[:action], current_user unless @news.errors.any?
   end
 
@@ -27,14 +28,11 @@ class NewsController < ApplicationController
   end
 
   def index
-    @all_news = @space.news.order("updated_at DESC")
-    @news = @space.news.new
-
-    render :layout => 'spaces_show'
+    render layout: 'spaces_show'
   end
 
   def new
-    render :layout => false if request.xhr?
+    render layout: false if request.xhr?
   end
 
   def show
@@ -50,7 +48,7 @@ class NewsController < ApplicationController
   end
 
   def edit
-    render :layout => false if request.xhr?
+    render layout: false if request.xhr?
   end
 
   def update
@@ -60,6 +58,13 @@ class NewsController < ApplicationController
       flash[:error] = t('news.error.update')
     end
     redirect_to space_news_index_path(@space)
+  end
+
+  private
+
+  def get_news
+    @news = @space.news.order("updated_at DESC")
+    authorize! :index_news, @space
   end
 
 end

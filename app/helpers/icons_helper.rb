@@ -111,6 +111,10 @@ module IconsHelper
     icon_constructor nil, "fa fa-arrow-up icon-awesome icon-mconf-enable", options
   end
 
+  def icon_confirm_user(options={})
+    icon_constructor nil, "fa fa-check-circle icon-awesome icon-mconf-confirm-user", options
+  end
+
   def icon_confirm(options={})
     icon_constructor nil, "fa fa-check-circle icon-awesome icon-mconf-confirm", options
   end

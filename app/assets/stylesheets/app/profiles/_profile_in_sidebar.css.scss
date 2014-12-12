@@ -22,11 +22,6 @@
 
   ul { margin: 5px 0; }
 
-  // 'hide' it and move it off the screen
-  .input.file {
-    @include hide-input-file;
-  }
-
   .profile-hcard {
     text-align: left;
     border-top: 1px solid darken($m-light-gray, 10);

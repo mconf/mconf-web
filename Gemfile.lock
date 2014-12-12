@@ -15,7 +15,7 @@ GIT
 
 GIT
   remote: git://github.com/mconf/bigbluebutton_rails.git
-  revision: 087c103530d9476f3bec33b6f55ea9edc25d5dae
+  revision: 544579c14402aadf2d54ef74963ae74f2ebdcb24
   branch: master
   specs:
     bigbluebutton_rails (2.0.0)
@@ -77,6 +77,12 @@ GIT
   branch: gemfile-style
   specs:
     psych (2.0.5.20140820161236)
+
+GIT
+  remote: https://github.com/sam-github/vpim.git
+  revision: ab68da1a18dc407e088aa9f431883f1e7da9dc27
+  specs:
+    vpim (13.11.11)
 
 GIT
   remote: https://github.com/sevenwire/forgery.git
@@ -432,7 +438,6 @@ GEM
       json (>= 1.8.0)
     vegas (0.1.11)
       rack (>= 1.0.0)
-    vpim (13.11.11)
     warden (1.2.3)
       rack (>= 1.0)
     webrat (0.7.3)
@@ -529,7 +534,7 @@ DEPENDENCIES
   turn (= 0.8.2)
   uglifier (>= 1.0.3)
   valid_email!
-  vpim
+  vpim!
   webrat
   webrick (~> 1.3.1)
   will_paginate

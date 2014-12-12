@@ -394,9 +394,9 @@ en:
       bbb: "Invite users to your BBB room"
       button: "Invite Users"
       hint: "Type to start searching"
-      msg: "Has invited you to participate in a webconference, follow this link: <a href=\' URL \'> URL </a>"
+      msg: "Has invited you to participate in a webconference, follow this link: <a href='URL'> URL </a>"
       msg_clean: "Has invited you to participate in a webconference, follow this link: URL"
-      msg_sender: "Invitation sent. Link to your room: <a href=\' URL \'> URL </a>"
+      msg_sender: "Invitation sent. Link to your room: <a href='URL'> URL </a>"
     me: "me"
     name: 
       one: "Name"
@@ -433,6 +433,9 @@ en:
     other: Comments
     show_all: "Show all comments"
   configurations: Configurations
+  confirmations:
+    check_already_confirmed:
+      already_confirmed: "You have already confirmed you account"
   contact_information: "Contact information"
   country: Country
   create: Create
@@ -934,6 +937,8 @@ en:
     enabled_user:
       approve: "Approve: allow this user to access the website"
       approve_confirm: "Are you sure you want to allow this user to access the website?"
+      confirm: "Confirm this user"
+      confirm_confirm: "Are you sure you want to confirm this user?"
       disable: "Disable user"
       disable_confirm: "Are you sure you want to disable this user?"
       disapprove: "Disapprove: block user from accessing the website"
@@ -1018,7 +1023,7 @@ en:
       events:
         other: "Other"
         today: "Today"
-      not_confirmed: "Your account is not activated yet. Please, check your email to activate it. (Did not receive an email? <a href=\"%{url}\">Click here</a>.)"
+      not_confirmed: "Your account is not activated yet, please check your email to activate it. In case you didn't receive an email, <a href=\"%{url}\">click here</a> to request a new one."
       pending_join_requests:
         one: "%{count} pending join request"
         other: "%{count} pending join requests"
@@ -1780,6 +1785,8 @@ en:
     approve:
       approved: "The user %{username} was approved to access the website!"
       not_enabled: "Approval of registrations is not enabled in this website"
+    confirm:
+      confirmed: "The user %{username} was confirmed"
     detailed_user:
       from: "From:"
     disapprove:
@@ -1792,6 +1799,8 @@ en:
       cancel_account: "Cancel account?"
       change_password: "Change password"
       click_to_edit_profile: "Click here to edit your profile"
+      confirm_user: "Confirm this user's account"
+      confirm_user_confirm: "Are you sure you want to confirm this user's account?"
       did_not_find_info: "Didn't find the information you were looking for?"
       disable: "Disable this user's account"
       disable_confirm: "Are you sure you want to disable this user's account?"
@@ -1802,7 +1811,7 @@ en:
       ldap:
         title: "You are signed in using LDAP!"
       management_options: "Management options"
-      not_confirmed: "Your account is not activated yet. Please, check your email to activate it. (Did not receive an email? <a href=\"%{url}\">Click here</a>.)"
+      not_confirmed: "Your account is not activated yet, please check your email to activate it. In case you didn't receive an email, <a href=\"%{url}\">click here</a> to request a new one."
       notification:
         by_email: "By email"
         by_private_message: "By private message"

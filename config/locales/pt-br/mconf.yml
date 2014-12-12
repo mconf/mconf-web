@@ -394,9 +394,9 @@ pt-br:
       bbb: "Convide usuários para sua sala BBB"
       button: "Convidar Pessoas"
       hint: "Digite para começar a buscar"
-      msg: "Convidou você para participar de uma webconferência, siga este link: <a href=\' URL \'> URL </a>"
+      msg: "Convidou você para participar de uma webconferência, siga este link: <a href='URL'> URL </a>"
       msg_clean: "Convidou você para participar de uma webconferência, siga este link: URL"
-      msg_sender: "Convite enviado. Link para sua sala: <a href=\' URL \'> URL </a>"
+      msg_sender: "Convite enviado. Link para sua sala: <a href='URL'> URL </a>"
     me: "eu"
     name:
       one: "Nome"
@@ -433,6 +433,9 @@ pt-br:
     other: Comentários
     show_all: "Mostrar todos comentários"
   configurations: "Configurações"
+  confirmations:
+    check_already_confirmed:
+      already_confirmed: "Você já confirmou a sua conta"
   contact_information: "Informações de contato"
   country: País
   create: Criar
@@ -934,6 +937,8 @@ pt-br:
     enabled_user:
       approve: "Aprovar: permitir que este usuário acesse o site"
       approve_confirm: "Tem certeza que deseja permitir que este usuário acesse o site?"
+      confirm: "Confirmar este usuário"
+      confirm_confirm: "Tem certeza que deseja confirmar este usuário?"
       disable: "Desabilitar usuário"
       disable_confirm: "Tem certeza que deseja desabilitar este usuário?"
       disapprove: "Desaprovar: bloquear o acesso deste usuário ao site"
@@ -1018,7 +1023,7 @@ pt-br:
       events:
         other: "Outros"
         today: "Hoje"
-      not_confirmed: "Sua conta ainda não foi confirmada. Por favor verifique o seu e-mail para ativá-la. (Não recebeu um e-mail? <a href=\"%{url}\">Clique aqui</a>.)"
+      not_confirmed: "Sua conta ainda não foi confirmada, por favor verifique o seu e-mail para confirmá-la. Se por acaso você não recebeu o e-mail <a href=\"%{url}\">clique aqui</a> pra solicitar que ele seja enviado novamente."
       pending_join_requests:
         one: "%{count} requisição pendente"
         other: "%{count} requisições pendentes"
@@ -1776,6 +1781,8 @@ pt-br:
     approve:
       approved: "O usuário %{username} foi aprovado para acessar este site!"
       not_enabled: "A aprovação de registros não está habilitada neste site"
+    confirm:
+      confirmed: "O usuário %{username} foi confirmado"
     detailed_user:
       from: "De:"
     disapprove:
@@ -1788,6 +1795,8 @@ pt-br:
       cancel_account: "Cancelar conta?"
       change_password: "Mudar senha"
       click_to_edit_profile: "Clique aqui para editar o seu perfil"
+      confirm_user: "Confirmar a conta deste usuário"
+      confirm_user_confirm: "Você tem certeza que deseja confirmar a conta deste usuário?"
       did_not_find_info: "Não encontrou a informação que estava procurando?"
       disable: "Desabilitar a conta deste usuário"
       disable_confirm: "Você tem certeza que deseja desabilitar a conta deste usuário?"
@@ -1798,7 +1807,7 @@ pt-br:
       ldap:
         title: "Você acessou este site através do LDAP!"
       management_options: "Opções de administração"
-      not_confirmed: "Sua conta ainda não foi confirmada. Por favor verifique o seu e-mail para ativá-la. (Não recebeu um e-mail? <a href=\"%{url}\">Clique aqui</a>.)"
+      not_confirmed: "Sua conta ainda não foi confirmada, por favor verifique o seu e-mail para confirmá-la. Se por acaso você não recebeu o e-mail <a href=\"%{url}\">clique aqui</a> pra solicitar que ele seja enviado novamente."
       notification:
         by_email: "Por e-mail"
         by_private_message: "Por mensagem privada"
