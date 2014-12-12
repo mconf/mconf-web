@@ -4,7 +4,7 @@
 
 - @objects = params[:my_spaces] ? @user_spaces : @spaces
 
-= content_for :sidebar do
+= content_for :main_sidebar do
 
   .sidebar-top-action-button
     - if user_signed_in?

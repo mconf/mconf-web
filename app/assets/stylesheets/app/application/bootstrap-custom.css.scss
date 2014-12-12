@@ -38,6 +38,16 @@ label.control-label.checkbox {
   padding-left: 20px;
 }
 
+// the background on selected items in a pagination list is dark, so we have to make
+// the links bright
+.pagination {
+  > .active {
+    > a {
+      @include link-colors(white, white, white, white);
+    }
+  }
+}
+
 
 /* .form-inline { */
 /*   padding: 0; */

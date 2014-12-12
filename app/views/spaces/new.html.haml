@@ -1,6 +1,6 @@
 = render_page_title t('.title')
 
-= content_for :sidebar do
+= content_for :main_sidebar do
   - if @spaces_examples.count > 0
     .content-block-header
       %h3= t(".spaces_examples.title")

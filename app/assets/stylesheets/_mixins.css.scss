@@ -92,6 +92,7 @@
   }
 }
 
+// TODO: old method, not useful with bootstrap3 anymore
 @mixin sidebar-position($pos) {
   @if $pos == 'left' {
     #sidebar {

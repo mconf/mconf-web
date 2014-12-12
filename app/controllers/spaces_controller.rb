@@ -55,7 +55,7 @@ class SpacesController < ApplicationController
     end
 
     respond_with @spaces do |format|
-      format.html { render :index }
+      format.html { render :index, layout: 'application' }
       format.json
     end
   end
@@ -75,7 +75,7 @@ class SpacesController < ApplicationController
     @latest_users = @space.users.order("permissions.created_at DESC").first(3)
 
     respond_to do |format|
-      format.html { render :layout => 'spaces_show' }
+      format.html { render :show, layout: 'no_sidebar' }
       format.json
     end
   end
@@ -83,7 +83,7 @@ class SpacesController < ApplicationController
   def new
     @space = Space.new
     respond_with @space do |format|
-      format.html { render :layout => 'application' }
+      format.html { render layout: 'application' }
     end
   end
 
@@ -101,13 +101,13 @@ class SpacesController < ApplicationController
       end
     else
       respond_with @space do |format|
-        format.html { render :new, :layout => "application" }
+        format.html { render :new, layout: "application" }
       end
     end
   end
 
   def edit
-    render :layout => 'no_sidebar'
+    render layout: 'no_sidebar'
   end
 
   def update_logo
@@ -173,11 +173,11 @@ class SpacesController < ApplicationController
       |x,y| x.user.name <=> y.user.name
     }
     @roles = Space.roles
-    render :layout => 'no_sidebar'
+    render layout: 'no_sidebar'
   end
 
   def webconference_options
-    render :layout => 'no_sidebar'
+    render layout: 'no_sidebar'
   end
 
   def enable
@@ -233,7 +233,7 @@ class SpacesController < ApplicationController
     if params[:limit]
       @recordings = @recordings.first(params[:limit].to_i)
     end
-    render :layout => 'no_sidebar'
+    render layout: 'no_sidebar'
   end
 
   # Action used to show the recordings of a space
@@ -246,9 +246,9 @@ class SpacesController < ApplicationController
       @recordings = @recordings.first(params[:limit].to_i)
     end
     if params[:partial]
-      render :layout => false
+      render layout: false
     else
-      render :layout => 'no_sidebar'
+      render layout: 'no_sidebar'
     end
   end
 
@@ -259,9 +259,9 @@ class SpacesController < ApplicationController
     @recording = BigbluebuttonRecording.find_by_recordid(params[:id])
     authorize! :space_edit, @recording
     if request.xhr?
-      render :layout => false
+      render layout: false
     else
-      render :layout => "no_sidebar"
+      render layout: "no_sidebar"
     end
   end
 

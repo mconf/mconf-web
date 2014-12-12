@@ -14,10 +14,3 @@
   @include make-xs-column(12);
   @include make-sm-column(12);
 }
-
-// remove the element set by set-max-width.css
-#site:before {
-  background: none;
-  height: 0;
-  width: 0;
-}

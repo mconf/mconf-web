@@ -3,9 +3,6 @@
 
 body.spaces.new, body.spaces.create {
 
-  // slightly wider sidebar
-  @include set-sidebar-width($m-sidebar-width + 100px);
-
   #space-new {
     width: 98%;
 
@@ -20,7 +17,7 @@ body.spaces.new, body.spaces.create {
     }
   }
 
-  #sidebar .content-block-wrapper {
+  #main-sidebar .content-block-wrapper {
 
     .content-block-header {
       .space-logo {
