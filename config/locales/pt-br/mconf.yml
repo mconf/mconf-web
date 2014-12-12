@@ -429,6 +429,9 @@ pt-br:
     other: Comentários
     show_all: "Mostrar todos comentários"
   configurations: "Configurações"
+  confirmations:
+    check_already_confirmed:
+      already_confirmed: "Você já confirmou a sua conta"
   contact_information: "Informações de contato"
   country: País
   create: Criar

@@ -429,6 +429,9 @@ en:
     other: Comments
     show_all: "Show all comments"
   configurations: Configurations
+  confirmations:
+    check_already_confirmed:
+      already_confirmed: "You have already confirmed you account"
   contact_information: "Contact information"
   country: Country
   create: Create

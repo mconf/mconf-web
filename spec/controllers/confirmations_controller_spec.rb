@@ -12,8 +12,26 @@ describe ConfirmationsController do
 
   describe "#new" do
     describe "if registrations are enabled in the site" do
-      before(:each) { get :new }
-      it { should respond_with(:success) }
+
+      context "for an anonymous user" do
+        before(:each) { get :new }
+        it { should respond_with(:success) }
+      end
+
+      context "for a signed in but unconfirmed user" do
+        let(:user) { FactoryGirl.create(:unconfirmed_user) }
+        before { login_as(user) }
+        before(:each) { get :new }
+        it { should respond_with(:success) }
+      end
+
+      context "for a signed in and already confirmed user" do
+        let(:user) { FactoryGirl.create(:user) }
+        before { login_as(user) }
+        before(:each) { get :new }
+        it { should redirect_to(my_home_path) }
+        it { should set_the_flash.to I18n.t('confirmations.check_already_confirmed.already_confirmed') }
+      end
     end
 
     describe "if registrations are disabled in the site" do

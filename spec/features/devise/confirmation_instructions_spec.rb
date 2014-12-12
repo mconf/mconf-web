@@ -34,13 +34,11 @@ feature "Confirmation instructions" do
       with_resque do
         expect {
           visit new_user_confirmation_path
-          expect(page).to have_field("user_email", with: user.email)
-          expect(page).to have_css("#user_email[readonly]")
-          click_button I18n.t('user.request_confirmation')
         }.not_to send_email
       end
 
-      current_path.should eq(user_confirmation_path)
+      current_path.should eq(my_home_path)
+      has_success_message I18n.t('confirmations.check_already_confirmed.already_confirmed')
     end
   end
 
