@@ -28,7 +28,7 @@
 
 - unless current_user.confirmed?
   #user-notifications.alert.alert-warning
-    = t('.not_confirmed',  url: resend_confirmation_path).html_safe
+    = t('.not_confirmed',  url: new_user_confirmation_path).html_safe
 
 #users-recent-activity.content-block
   .content-block-header

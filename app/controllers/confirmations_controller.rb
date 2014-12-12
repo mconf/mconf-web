@@ -10,11 +10,19 @@ class ConfirmationsController < Devise::ConfirmationsController
 
   before_filter :check_registration_enabled, only: [:new]
 
-  def resend_confirmation
-    current_user.send_confirmation_instructions
-    flash[:notice] = t('devise.confirmations.send_instructions')
+  protected
 
-    redirect_to :back
+  # Overriding devise's redirect path after confirmation instructions are sent
+  def after_resending_confirmation_instructions_path_for(resource_name)
+    if is_navigational_format?
+      if user_signed_in?
+        my_home_path
+      else
+        new_session_path(resource_name)
+      end
+    else
+      '/'
+    end
   end
 
   private

@@ -22,15 +22,16 @@ FactoryGirl.define do
     password_confirmation { |user| user.password }
     needs_approval_notification_sent_at { Time.now }
     approved_notification_sent_at { Time.now }
-    before(:create) { |user|
-      user.skip_confirmation_notification!
+    before(:create) { |user| user.skip_confirmation_notification! }
+    after(:create) { |user|
+      # for some reason the user ends up without a full name, only b/c he's unconfirmed
+      user.profile.update_attribute(:full_name, user._full_name)
+      user.reload
     }
 
     factory :user, parent: :unconfirmed_user do
       confirmed_at { Time.now }
-
-      # TODO: why do we have to call confirm! twice? calling once won't set his email properly...
-      after(:create) { |user| user.confirm!; user.confirm! }
+      after(:create) { |user| user.confirm!; user.reload }
 
       factory :superuser, class: User, parent: :user do |u|
         u.superuser true

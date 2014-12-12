@@ -9,7 +9,7 @@ feature 'Visitor signs up' do
     register_with attrs
 
     current_path.should eq(my_home_path)
-    page.find("#user-notifications").should have_link('', href: resend_confirmation_path)
+    page.find("#user-notifications").should have_link('', href: new_user_confirmation_path)
     has_success_message(I18n.t('devise.registrations.signed_up'))
     page.should have_content('Logout')
   end

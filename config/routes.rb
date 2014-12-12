@@ -33,7 +33,6 @@ Mconf::Application.routes.draw do
     get "login", to: "sessions#new"
     get "logout", to: "sessions#destroy"
     get "register", to: "registrations#new"
-    get 'confirmation/resend', to: 'confirmations#resend_confirmation', as: 'resend_confirmation'
   end
 
   # bigbluebutton_rails default routes

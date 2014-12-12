@@ -1015,7 +1015,7 @@ pt-br:
       events:
         other: "Outros"
         today: "Hoje"
-      not_confirmed: "Sua conta ainda não foi confirmada. Por favor verifique o seu e-mail para ativá-la. (Não recebeu um e-mail? <a href=\"%{url}\">Clique aqui</a>.)"
+      not_confirmed: "Sua conta ainda não foi confirmada, por favor verifique o seu e-mail para confirmá-la. Se por acaso você não recebeu o e-mail <a href=\"%{url}\">clique aqui</a> pra solicitar que ele seja enviado novamente."
       pending_join_requests:
         one: "%{count} requisição pendente"
         other: "%{count} requisições pendentes"
@@ -1797,7 +1797,7 @@ pt-br:
       ldap:
         title: "Você acessou este site através do LDAP!"
       management_options: "Opções de administração"
-      not_confirmed: "Sua conta ainda não foi confirmada. Por favor verifique o seu e-mail para ativá-la. (Não recebeu um e-mail? <a href=\"%{url}\">Clique aqui</a>.)"
+      not_confirmed: "Sua conta ainda não foi confirmada, por favor verifique o seu e-mail para confirmá-la. Se por acaso você não recebeu o e-mail <a href=\"%{url}\">clique aqui</a> pra solicitar que ele seja enviado novamente."
       notification:
         by_email: "Por e-mail"
         by_private_message: "Por mensagem privada"
