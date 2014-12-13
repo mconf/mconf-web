@@ -234,7 +234,6 @@ pt-br:
       join_request: "Pedido de Adesão"
       news: "Notícia"
       space: "Comunidade"
-  address: Endereço
   admin:
     one: Administrador
     space: "Administração do %{spacename}"
@@ -416,7 +415,6 @@ pt-br:
       offline: "Offline"
     typing: "está digitando.."
     title: "Bate-papo"
-  city: Cidade
   click_here_to_see_more: "Clique aqui para ver mais"
   click_to_hide: "Clique para esconder"
   click_to_see_all: "Ver todos"
@@ -436,8 +434,6 @@ pt-br:
   confirmations:
     check_already_confirmed:
       already_confirmed: "Você já confirmou a sua conta"
-  contact_information: "Informações de contato"
-  country: País
   create: Criar
   create_event: "Criar Evento"
   created_time_ago: "Criado %{time} atrás"
@@ -604,7 +600,6 @@ pt-br:
     one: Excluir
     select: "Selecione para excluir"
   deny: Não
-  description: Descrição
   destroy: Destruir
   devise:
     failure:
@@ -1057,9 +1052,6 @@ pt-br:
       start: "Começar uma reunião"
       your_url: "Seu endereço"
   my_friends: "Meus amigos"
-  name:
-    one: Nome
-    other: Nomes
   new_spam_detected: "Novo spam detectado"
   news:
     created: "Notícia publicada com sucesso"
@@ -1087,7 +1079,6 @@ pt-br:
   open: "Abrir"
   optional: Opcional
   or: ou
-  organization: Organização
   organizer: Organizadores
   other: Outro
   password:
@@ -1113,11 +1104,6 @@ pt-br:
     update:
       success: "Direitos de acesso atualizados"
       failure: "Problema ao atualizar os direitos de acesso"
-  personal_information: "Informações pessoais"
-  phone:
-    mobile: Celular
-    one: Telefone
-    plural: Telefones
   phone_optional: "Telefone (opcional)"
   place: Local
   please: "Por favor"
@@ -1201,7 +1187,7 @@ pt-br:
   profiles:
     edit:
       change_pic: "Mudar foto"
-      title: "Editar perfil"
+      title: "%{name}: editar perfil"
       view_your_profile: "Visualizar perfil"
       vcard:
         export: "Exportar vCard"
@@ -1214,12 +1200,33 @@ pt-br:
       visibility_nobody: "Ninguém pode ver o seu perfil privado."
       visibility_private_fellows: "Apenas os seus colegas em um espaço privado podem ver o seu perfil privado."
       visibility_public_fellows: "Apenas os seus colegas em um espaço público podem ver o seu perfil privado."
+    private_hcard:
+      email: "E-mail"
+      fax: "Fax"
+      im: "IM"
+      phone:
+        conventional: Fone
+        mobile: Celular
+        plural: Telefones
+      skype: "Skype"
+      title: "Informações de contato"
+    public_hcard:
+      address: "Endereço"
+      city: "Cidade"
+      country: "País"
+      description: "Descrição"
+      name: "Nome"
+      organization: "Organização"
+      province: "Estado"
+      street: "Rua"
+      title: "InformaçÕes pessoais"
+      url: "Website"
+      zipcode: "CEP"
     show:
       edit_profile: "Editar perfil"
       send_pm: "Enviar mensagem privada"
       vcard:
         export: "Exportar vCard"
-  province: Estado
   public: Público
   read_more: "Ler mais"
   recent:
@@ -1663,7 +1670,6 @@ pt-br:
         webconf_rooms: "Salas de webconferência disponíveis"
         what: "O quê?"
       title: "Estatísticas do site"
-  street: Rua
   subject: "Assunto:"
   summary: "Informações do vídeo"
   superuser: "Administrador"
@@ -1704,8 +1710,8 @@ pt-br:
     leave_space: "Este link permitirá que você a abandone esta comunidade definitivamente"
     news_item: "Você pode publicar uma notícia para aparecer na página inicial da comunidade"
     num_views: "Este número representa as vistas únicas para essa página"
-    private_profile: "Esta informação só é visível para as pessoas que você escolher quando você editar seu perfil"
-    public_profile: "Qualquer pessoa pode acessar esta informação"
+    private_profile: "Estas informaçÕes são visíveis apenas para as pessoas que você escolher nas opções do seu perfil"
+    public_profile: "Estas informações são visíveis para qualquer pessoa, incluindo pessoas que não são membros deste site"
     public_space: "Comunidades podem ser públicas, para que qualquer pessoa possa visualizar o que acontece neles, ou privados, onde apenas membros tem acesso às atividades da comunidade"
     share: "Esta é a url para compartilhar este vídeo com os seus colegas"
     upcoming: "Esta seção mostra os próximos eventos nesta comunidade"
@@ -1721,7 +1727,6 @@ pt-br:
   updated: Atualizados
   updated_at: "Atualizado em"
   updated_time_ago: "%{time} atrás"
-  url: Website
   url_add: "Adicione seu site"
   url_plain: URL
   user:
@@ -1824,7 +1829,7 @@ pt-br:
       yes_cancel_account: "Sim, cancelar minha conta"
   username: "Nome de usuário"
   uploader:
-    button: Enviar novo arquivo
+    button: "Enviar um arquivo"
     fail: Falha ao enviar
     progress: "{percent}% de {total_size}"
     drag_files: Arraste aqui arquivos para enviar
@@ -1855,5 +1860,3 @@ pt-br:
   when: Quando
   where: Onde
   yesterday: Ontem
-  your_vcard: "seu vCard"
-  zipcode: CEP

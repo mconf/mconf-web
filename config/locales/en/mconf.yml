@@ -234,7 +234,6 @@ en:
       join_request: "Join Request"
       news: "News"
       space: "Space"
-  address: Address
   admin:
     one: Admin
     space: "The administrator of %{spacename}"
@@ -416,7 +415,6 @@ en:
       offline: "Offline"
     typing: "is typing..."
     title: "Chat"
-  city: City
   click_here_to_see_more: "Click here to see more"
   click_to_hide: "Click to hide"
   click_to_see_all: "See all"
@@ -436,8 +434,6 @@ en:
   confirmations:
     check_already_confirmed:
       already_confirmed: "You have already confirmed you account"
-  contact_information: "Contact information"
-  country: Country
   create: Create
   create_event: "Create Event"
   created_time_ago: "Created %{time} ago"
@@ -604,7 +600,6 @@ en:
     one: Delete
     select: "Select to delete"
   deny: "No"
-  description: Description
   destroy: Destroy
   devise:
     failure:
@@ -1040,9 +1035,6 @@ en:
         success: "Recording list updated!"
         updating: "Updating your list of recordings..."
   my_friends: "My friends"
-  name: 
-    one: Name
-    other: Names
   new_spam_detected: "New spam detected"
   news: 
     created: "News item published successfully"
@@ -1070,7 +1062,6 @@ en:
   open: Open
   optional: Optional
   or: or
-  organization: Organization
   organizer: Organisers
   other: Other
   password: 
@@ -1096,11 +1087,6 @@ en:
     update:
       success: "Permissions updated"
       failure: "Problem updating permissions"
-  personal_information: "Personal information"
-  phone: 
-    mobile: Mobile
-    one: Phone
-    plural: Telephones
   phone_optional: "Phone (optional)"
   place: Place
   please: Please
@@ -1184,12 +1170,12 @@ en:
   profiles:
     edit:
       change_pic: "Change picture"
-      title: "Edit profile"
+      title: "%{name}: edit profile"
       view_your_profile: "View profile"
       vcard:
         export: "Export vCard"
         tooltip: "vCard is a file format standard for electronic business cards"
-        use: "Use a vCard"
+        use: "Import from vCard"
       visibility_description: "Choose who will be able to see your private profile"
       visibility_edit: "Edit your profile visibility"
       visibility_everybody: "Everyone can see your private profile."
@@ -1197,12 +1183,33 @@ en:
       visibility_nobody: "Nobody can see your private profile."
       visibility_private_fellows: "Only your partners in a private space can see your private profile."
       visibility_public_fellows: "Only your partners in a public or private space can see your private profile."
+    private_hcard:
+      email: "Email"
+      fax: "Fax"
+      im: "IM"
+      phone:
+        conventional: Phone
+        mobile: Mobile
+        plural: Telephones
+      skype: "Skype"
+      title: "Contact information"
+    public_hcard:
+      address: "Address"
+      city: "City"
+      country: "Country"
+      description: "Description"
+      name: "Name"
+      organization: "Organization"
+      province: "Province"
+      street: "Street"
+      title: "Personal information"
+      url: "Website"
+      zipcode: "Zip code"
     show:
       edit_profile: "Edit profile"
       send_pm: "Send a private message"
       vcard:
         export: "Export vCard"
-  province: Province
   public: Public
   read_more: "Read more"
   recent: 
@@ -1667,7 +1674,6 @@ en:
         webconf_rooms: "Available webconference rooms"
         what: "What?"
       title: "Site statistics"
-  street: Street
   subject: "Subject:"
   summary: "Video Info"
   superuser: "Administrator"
@@ -1708,8 +1714,8 @@ en:
     leave_space: "This link will allow you to abandon this space definitely"
     news_item: "You can publish a short news at home"
     num_views: "This number represents the unique views for this page"
-    private_profile: "This information is visible only to the people you choose when you edit your profile"
-    public_profile: "Anyone can access this information"
+    private_profile: "This information is visible only to the people you choose in your profile options"
+    public_profile: "This information is visible to everyone, including people that are not members of this website"
     public_space: "Collaborative spaces can be public, for anybody to watch what happens in them, or private, where only members have access to the activities of the space"
     share: "This is the url to share this video with your colleagues"
     upcoming: "This section shows the next events in this space"
@@ -1725,7 +1731,6 @@ en:
   updated: Updated
   updated_at: "Updated at"
   updated_time_ago: "%{time} ago"
-  url: Website
   url_add: "Add your Website"
   url_plain: URL
   user: 
@@ -1828,7 +1833,7 @@ en:
       yes_cancel_account: "Yes, cancel my account"
   username: Username
   uploader:
-    button: Upload new file
+    button: "Upload a new file"
     fail: Upload error
     progress: "{percent}% of {total_size}"
     drag_files: Drag and drop files here to upload
@@ -1859,5 +1864,3 @@ en:
   when: When
   where: Where
   yesterday: Yesterday
-  your_vcard: "your vCard"
-  zipcode: "Zip code"

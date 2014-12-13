@@ -20,4 +20,9 @@ module UsersHelper
     "GMT#{Time.zone.formatted_offset}"
   end
 
+  # The maximum size of a user's avatar file to use in file uploaders
+  def user_max_image_size
+    '5 mb'
+  end
+
 end

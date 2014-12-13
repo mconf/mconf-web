@@ -2,43 +2,43 @@
 -#   user (User): the user that owns the profile being edited
 -#   f (form): the form created with `simple_form_for`
 
-#edit-public-profile.left-column
+.container-fluid
+  #edit-public-profile
 
-  .content-block-header
-    %h3= t('profile.public')
-    = icon_help t("tooltip.public_profile")
+    .content-block-header
+      %h3= t('profile.public')
+      = icon_help t("tooltip.public_profile")
 
-  .content-block-middle
-    - titles = [[t('title_formal.mr'), 'title_formal.mr'], [t('title_formal.mrs'), 'title_formal.mrs'], [t('title_formal.ms'), 'title_formal.ms']]
-    = f.input :prefix_key, :collection => titles, :include_blank => true
-    = f.input :full_name, :required => true
-    = f.input :organization
-    = f.input :city
-    = f.input :province
-    = f.input :country, :as => :string
-    = f.input :description, :as => :text, :input_html => { :size => '45x10' }
-    = f.input :url
+    .content-block-middle
+      - titles = [[t('title_formal.mr'), 'title_formal.mr'], [t('title_formal.mrs'), 'title_formal.mrs'], [t('title_formal.ms'), 'title_formal.ms']]
+      = f.input :prefix_key, :collection => titles, :include_blank => true
+      = f.input :full_name, :required => true
+      = f.input :organization
+      = f.input :city
+      = f.input :province
+      = f.input :country, :as => :string
+      = f.input :description, :as => :text, :input_html => { :size => '45x10' }
+      = f.input :url
 
-#edit-private-profile.right-column
+  #edit-private-profile
 
-  .content-block-header
-    %h3= t('profile.private')
-    = icon_help t("tooltip.private_profile")
+    .content-block-header
+      %h3= t('profile.private')
+      = icon_help t("tooltip.private_profile")
 
-  .content-block-middle
-    .visibility-options
+    .content-block-middle
       - collection = []
       - for vis_symbol in Profile::VISIBILITY do
-        - collection.push([Profile::VISIBILITY.index(vis_symbol), t('profiles.edit.visibility_' + vis_symbol.to_s)])
-      = f.collection_radio_buttons :visibility, collection, :first, :last
-    = f.input :address
-    = f.input :zipcode
-    = f.fields_for :user do |u|
-      = u.input :email, disabled: true
-    = f.input :skype
-    = f.input :im
-    = f.input :phone
-    = f.input :mobile
-    = f.input :fax
+        - collection.push([t('profiles.edit.visibility_' + vis_symbol.to_s), Profile::VISIBILITY.index(vis_symbol)])
+      = f.input :visibility, as: :radio_buttons, collection: collection
+      = f.input :address
+      = f.input :zipcode
+      = f.fields_for :user do |u|
+        = u.input :email, disabled: true
+      = f.input :skype
+      = f.input :im
+      = f.input :phone
+      = f.input :mobile
+      = f.input :fax
 
-= f.button :wrapped, :cancel => user_profile_path(user), :value => t("_other.save")
+  = f.button :wrapped, :cancel => user_profile_path(user), :value => t("_other.save")

@@ -94,6 +94,11 @@ module SpacesHelper
       options
   end
 
+  # The maximum size of a space's logo file to use in file uploaders
+  def space_max_image_size
+    '5 mb'
+  end
+
   # TODO: check the methods below
 
   def max_word_length text
