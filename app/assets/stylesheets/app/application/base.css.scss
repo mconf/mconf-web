@@ -7,8 +7,6 @@
 // General tags
 //
 
-
-
 body {
   background-color: $m-site-bg-color;
 }
@@ -407,9 +405,13 @@ form {
 
   border-bottom: 1px solid $m-page-title-border-color;
 
-  > a, .current-page-extra > a {
+  > a {
     @include link-colors($m-page-header-link-color, $m-page-header-link-color-hover, $m-page-header-link-color-hover, $m-page-header-link-color);
   }
+  /* .current-page-extra > a { */
+  /*   @include link-colors($m-page-header-link-color, $m-page-header-link-color-hover, $m-page-header-link-color-hover, $m-page-header-link-color); */
+  /* } */
+
 
   h1 {
     margin: 0;
@@ -734,7 +736,7 @@ form {
         }
       }
 
-      &.selected {
+      &.active {
         @include border-top-radius(4px);
         border-bottom: 3px solid $m-bright-blue;
         /* border: 1px solid darken($m-site-bg-color, 20); */

@@ -1,0 +1,9 @@
+@import "compass/css3";
+@import "definitions";
+
+.page-menu-js-tabs {
+  // hide all content initially by default
+  > div {
+    display: none;
+  }
+}

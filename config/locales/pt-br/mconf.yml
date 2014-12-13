@@ -641,7 +641,6 @@ pt-br:
   download_file: "Baixar arquivo"
   edit: Editar
   edit_hours: "Editar horas"
-  edit_profile: "Editar perfil"
   email:
     account_activated: "Sua conta em %{sitename} foi ativada com sucesso."
     commas: "Separado por vírgulas"
@@ -1216,6 +1215,7 @@ pt-br:
       visibility_private_fellows: "Apenas os seus colegas em um espaço privado podem ver o seu perfil privado."
       visibility_public_fellows: "Apenas os seus colegas em um espaço público podem ver o seu perfil privado."
     show:
+      edit_profile: "Editar perfil"
       send_pm: "Enviar mensagem privada"
       vcard:
         export: "Exportar vCard"

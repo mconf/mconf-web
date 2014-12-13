@@ -15,7 +15,7 @@ module SpacesHelper
   def spaces_menu_select_if(tab, options={})
     old_class = options[:class] || ''
     @spaces_menu_tab == tab ?
-      options.update({ :class => "#{old_class} selected" }) :
+      options.update({ :class => "#{old_class} active" }) :
       options
   end
 

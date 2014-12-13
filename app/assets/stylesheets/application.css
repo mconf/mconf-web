@@ -29,6 +29,7 @@
  *= require ./app/application/lists
  *= require ./app/application/select2
  *= require ./app/application/copy-modal
+ *= require ./app/application/page-menu-js
  *
  * Some partials are necessary everywhere
  *= require ./app/feedback/_new
