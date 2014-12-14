@@ -11,7 +11,6 @@ describe LogoImagesHelper do
   describe "#logo_image" do
     context "for a user" do
       it "adds an image tag with the logo of a user"
-      it "if size is > 32 uses the logo 128 for users"
       it "if the user has no logo sets the default logo"
     end
     context "for a space" do

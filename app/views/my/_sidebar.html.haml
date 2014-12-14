@@ -3,7 +3,7 @@
 
 #user-info
   .user-avatar
-    = logo_image(current_user, :size => '128', :title => current_user.name)
+    = logo_image(current_user, :size => '300', :title => current_user.name)
     - if current_user.superuser?
       = icon_superuser(:title => t('admin.one'))
   .user-data

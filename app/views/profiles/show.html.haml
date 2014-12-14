@@ -8,7 +8,7 @@
 = content_for :main_sidebar do
   #profile-in-sidebar
 
-    = logo_image(@user, :size => '128', :class => 'profile-logo')
+    = logo_image(@user, :size => '300', :class => 'profile-logo')
     .profile-links-extra
       - if user_signed_in? && @user != current_user
         = link_to t('.send_pm'), new_message_path(user_id: current_user.to_param, receiver: @user.id), class: "btn btn-default btn-xs"
