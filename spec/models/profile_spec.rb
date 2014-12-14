@@ -8,6 +8,20 @@ require "spec_helper"
 
 describe Profile do
 
+  it { should respond_to(:logo_image) }
+  it { should respond_to(:crop_x) }
+  it { should respond_to(:"crop_x=") }
+  it { should respond_to(:crop_y) }
+  it { should respond_to(:"crop_y=") }
+  it { should respond_to(:crop_w) }
+  it { should respond_to(:"crop_w=") }
+  it { should respond_to(:crop_h) }
+  it { should respond_to(:"crop_h=") }
+  it { should respond_to(:crop_img_w) }
+  it { should respond_to(:"crop_img_w=") }
+  it { should respond_to(:crop_img_h) }
+  it { should respond_to(:"crop_img_h=") }
+
   describe "#correct_url" do
     let(:profile) { FactoryGirl.create(:profile) }
     shared_examples_for "url has been corrected" do

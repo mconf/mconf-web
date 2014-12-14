@@ -100,7 +100,7 @@ class Space < ActiveRecord::Base
   attr_accessor :invitations_role_id
 
   # attrs and methods for space logos
-  attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
+  attr_accessor :crop_x, :crop_y, :crop_w, :crop_h, :crop_img_w, :crop_img_h
   mount_uploader :logo_image, LogoImageUploader
   after_create :crop_logo
   after_update :crop_logo
