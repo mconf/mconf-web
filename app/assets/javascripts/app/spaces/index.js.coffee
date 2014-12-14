@@ -7,9 +7,9 @@ $ ->
     # how results are formatted in the search input
     format = (state) ->
       if state.public
-        r = "<i class='icon-awesome icon-eye-open icon-mconf-space-public'></i>"
+        r = "<i class='fa fa-eye icon-awesome icon-mconf-space-public'></i>"
       else
-        r = "<i class='icon-awesome icon-lock icon-mconf-space-private'></i>"
+        r = "<i class='fa fa-lock icon-awesome icon-mconf-space-private'></i>"
       "#{r}<a href='#{state.url}'>#{state.text}</a>"
 
     # redirects to the space when an item is clicked in the search input

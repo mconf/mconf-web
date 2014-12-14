@@ -1423,7 +1423,7 @@ en:
       filters: 
         all: "All spaces"
         my_spaces: "My spaces"
-      select_at_left: "Select a space in the list to see it's description here"
+      select_at_left: "Select a space in the list to see its description here"
       user_is_member: "You are a member!"
     is_private: "is a private space. Send a join request to the administrator of this space to let you in"
     is_private_html: "%{name} is a private space. To access it, sign in and send a <a href=\"%{path}\">join request</a> to the administrators of this space."
@@ -1609,6 +1609,7 @@ en:
       private: "Private space"
       public: "Public space"
     unified_space:
+      is_member: "You are a member of this space"
       private: "Private space"
       public: "Public space"
       reply_invitation: "Reply to the invitation"

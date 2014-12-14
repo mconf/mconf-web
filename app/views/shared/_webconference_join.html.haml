@@ -15,7 +15,8 @@
       .invitation-input
         = copyable_field 'invite-url-text', join_webconf_url(room), readonly: true
       .invitation-button
-        = link_to "Send invitations", invitation_bigbluebutton_room_path(room), :class => "btn btn-default open-modal col-sm-12 col-xs-12"
+        = link_to invitation_bigbluebutton_room_path(room), :class => "btn btn-default open-modal col-sm-12 col-xs-12" do
+          = "Send invitations"
 
     -# .webconference-types.row
     -#   .col-xs-4.col-md-4

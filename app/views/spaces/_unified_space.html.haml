@@ -24,9 +24,6 @@
             = link_to sanitize(space.name), space_path(space)
           - else
             %span{:title => space.name}= sanitize(space.name)
-        - if extended
-          - if is_member
-            %span.is-member= t('.user_is_member')
         .space-description
           - if space.public
             .resource-visibility.small.public
@@ -38,6 +35,10 @@
               = icon_space_private
               = t(".private")
               = t('.with_members', :count => space.users.count)
+          - if extended && is_member
+            .resource-visibility.small
+              = icon_is_member
+              = t(".is_member")
       .thread-text
         - if extended
           = sanitize(auto_link(space.description))

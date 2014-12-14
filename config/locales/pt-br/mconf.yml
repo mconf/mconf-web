@@ -1219,7 +1219,7 @@ pt-br:
       organization: "Organização"
       province: "Estado"
       street: "Rua"
-      title: "InformaçÕes pessoais"
+      title: "Informações pessoais"
       url: "Website"
       zipcode: "CEP"
     show:
@@ -1605,6 +1605,7 @@ pt-br:
     thumbnail_view:
       no_spaces: "Nenhuma comunidade foi criada até o momento!"
     unified_space:
+      is_member: "Você é membro desta comunidade"
       private: "Comunidade privada"
       public: "Comunidade pública"
       reply_invitation: "Responder ao convite"

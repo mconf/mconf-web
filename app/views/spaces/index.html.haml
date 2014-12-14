@@ -1,23 +1,24 @@
+= content_for :page_header_extra do
+  - if user_signed_in?
+    = link_to t('.create_new_space'), new_space_path, :class => "btn btn-primary btn-block"
+  - else
+    - if current_site.registration_enabled?
+      = link_to t('register.one'), register_path, :class => "btn btn-success btn-block"
+    - else
+      = link_to t('_other.login'), login_path, :class => "btn btn-success btn-block"
+
 = content_for :page_header_subtitle do
   = t('.subtitle')
+
 = render_page_title t('.title')
 
 - @objects = params[:my_spaces] ? @user_spaces : @spaces
 
 = content_for :main_sidebar do
 
-  .sidebar-top-action-button
-    - if user_signed_in?
-      = link_to t('.create_new_space'), new_space_path, :class => "btn btn-primary btn-large btn-block"
-    - else
-      - if current_site.registration_enabled?
-        = link_to t('register.one'), register_path, :class => "btn btn-success btn-large btn-block"
-      - else
-        = link_to t('_other.login'), login_path, :class => "btn btn-success btn-large btn-block"
-
   = render_sidebar_content_block('space-description-wrapper') do
     .content-block-middle
-      %p= t('space.index.select_at_left')
+      %p.empty-space-description= t('space.index.select_at_left')
     - @objects.each do |space|
       - has_access = user_signed_in? || space.public
       .content-block-middle{:id => "#{space.permalink}-description", :style => "display:none;"}
@@ -31,10 +32,12 @@
             %h3.name= sanitize(space.name)
         - else
           %h3.name= sanitize(space.name)
+        - if space.users.include?(current_user)
+          .is-member
+            = icon_is_member
+            = t('space.index.user_is_member')
         %p.description= sanitize(first_words(space.description, 400))
         %p.details
-          - if space.users.include?(current_user)
-            %span.is-member= t('space.index.user_is_member')
           %span= t('space.member_count', :count => space.users.count)
           %span= t('space.post_count', :count => space.posts.count)
           - if mod_enabled?("events")
@@ -45,17 +48,17 @@
 
 #space-filter-wrapper
   .view-types
-    .btn-group{ :"data-toggle" => "buttons-radio" }
-      = link_to spaces_path(:view => 'thumbnails'), :class => "tooltipped btn btn-small #{'active' if params[:view] == 'thumbnails'}" do
+    .btn-group
+      = link_to spaces_path(:view => 'thumbnails'), :class => "tooltipped btn btn-default btn-sm #{'active' if params[:view] == 'thumbnails'}" do
         = t('.list_format.thumbnails')
-      = link_to spaces_path(:view => 'list', :my_spaces => params[:my_spaces]), :class => "tooltipped btn btn-small #{'active' if params[:view] == 'list'}" do
+      = link_to spaces_path(:view => 'list', :my_spaces => params[:my_spaces]), :class => "tooltipped btn btn-default btn-sm #{'active' if params[:view] == 'list'}" do
         = t('.list_format.list')
 
-  .btn-group{ :"data-toggle" => "buttons-radio" }
-    = link_to spaces_path(:view => params[:view]), :id => "show-spaces-all", :class => "btn #{'active' unless params[:my_spaces]}", :type => "button" do
+  .btn-group
+    = link_to spaces_path(:view => params[:view]), :id => "show-spaces-all", :class => "btn btn-default btn-sm #{'active' unless params[:my_spaces]}", :type => "button" do
       = t('space.index.filters.all')
     - if user_signed_in?
-      = link_to spaces_path(:view => params[:view], :my_spaces => true), :id => "show-spaces-mine", :class => "btn #{'active' if params[:my_spaces]}", :type => "button" do
+      = link_to spaces_path(:view => params[:view], :my_spaces => true), :id => "show-spaces-mine", :class => "btn btn-default btn-sm #{'active' if params[:my_spaces]}", :type => "button" do
         = t('space.index.filters.my_spaces')
     = hidden_field_tag :space_filter_text
 

@@ -212,7 +212,7 @@ module IconsHelper
   end
 
   def icon_is_member(options={})
-    icon_constructor nil, "fa fa-check icon-awesome icon-mconf-is-member", options
+    icon_constructor nil, "fa fa-star icon-awesome icon-mconf-is-member", options
   end
 
   def icon_options(options={})
@@ -229,6 +229,10 @@ module IconsHelper
 
   def icon_leave_space(options={})
     icon_constructor nil, "fa fa-sign-out icon-awesome icon-mconf-leave-space", options
+  end
+
+  def icon_invitation(options={})
+    icon_constructor nil, "fa fa-envelope-o icon-awesome icon-mconf-invitation", options
   end
 
   private

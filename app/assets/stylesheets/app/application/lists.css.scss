@@ -16,6 +16,8 @@ ul.list-thumbnails {
     @include block-wrapper-active;
 
     &.selected {
+      background: $m-light-gray;
+
       .list-logo {
         border-color: $m-second-color;
       }
@@ -58,7 +60,7 @@ ul.list-thumbnails {
 
 .list-texts {
   margin: 0;
-  pading: 0;
+  padding: 0;
 
   .thread {
     margin-top: 5px;
