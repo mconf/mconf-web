@@ -41,10 +41,14 @@ class mconf.Crop
 # `image` is the image that's being cropped and `coords` the coordinates set by Jcrop over
 # this image.
 update = (image, coords) ->
-  $('.crop-x').val(coords.x)
-  $('.crop-y').val(coords.y)
-  $('.crop-w').val(coords.w)
-  $('.crop-h').val(coords.h)
+  width = $(image).width()
+  height = $(image).height()
+  $('.crop-x').val(coords.x / width)
+  $('.crop-y').val(coords.y / height)
+  $('.crop-w').val(coords.w / width)
+  $('.crop-h').val(coords.h / height)
+  $('.crop-img-w').val(width)
+  $('.crop-img-h').val(height)
 
 enableDisableSubmit = (id, enable) ->
   if enable
