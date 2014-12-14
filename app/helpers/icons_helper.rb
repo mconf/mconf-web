@@ -45,7 +45,7 @@ module IconsHelper
   # Admin red label/icon
   # Usually shown on top of an avatar.
   def icon_superuser(options={})
-    icon_constructor nil, "fa fa-cogs icon-awesome icon-mconf-superuser", options
+    icon_constructor nil, "fa fa-globe icon-awesome icon-mconf-superuser", options
   end
 
   def icon_guest(options={})

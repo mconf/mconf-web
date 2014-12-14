@@ -17,12 +17,9 @@
 }
 
 #user-info {
-  padding: 10px 0;
+  border-bottom: 1px solid darken($m-light-gray, 10);
+  padding: 10px 0 20px 0;
   margin-bottom: 20px;
-  @include mconf-clearfix;
-}
-
-#user-info {
 
   // darker links since the background is darker
   a {
@@ -31,35 +28,37 @@
 
   .user-avatar {
     position: relative;
-    float: left;
-    border: 1px solid darken($m-light-gray, 20);
-    @include border-radius(3px);
-    padding: 2px;
-    background: white;
     @include broken-img-parent;
-    margin-right: 5px;
+    margin: 0 auto;
+    width: 85%;
+    height: 85%;
+    max-width: 300px;
+    max-height: 300px;
 
     img {
-      width: 65px;
-      height: 65px;
+      width: 100%;
+      height: 100%;
+      border: 1px solid darken($m-light-gray, 10);
+      padding: 3px;
+      background: $m-site-bg-color;
     }
 
     .icon-awesome.icon-mconf-superuser {
       position: absolute;
-      bottom: 3px;
-      left: 3px;
-      @include font-size($m-font-mini);
-      width: 14px;
-      height: 14px;
+      bottom: 10px;
+      right: 10px;
+      @include font-size($m-font-medium);
+      padding: 6px 5px;
+      @include border-radius(2px);
       color: white;
-      background: lighten($m-red, 10);
-      padding: 3px 1px 0px 3px;
-      @include border-radius(4px);
+      background: $m-red;
     }
   }
 
   .user-data {
     @include mconf-clearfix;
+    text-align: center;
+    margin-top: 10px;
 
     a, span {
       display: block;
