@@ -100,7 +100,6 @@ describe CustomBigbluebuttonRoomsController do
     context "with correct data" do
       before {
         expect {
-          puts hash.inspect
           post :send_invitation, :invite => hash, :id => room.to_param
         }.to change { Invitation.count }.by(1)
       }
