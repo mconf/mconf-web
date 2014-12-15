@@ -155,6 +155,11 @@ describe CustomBigbluebuttonRoomsController do
           post :send_invitation, :invite => hash, :id => room.to_param
         }.to change { Invitation.count }.by(1)
       }
+
+      context "with the right type set" do
+        it { Invitation.last.class.should be(WebConferenceInvitation) }
+      end
+
       it { should redirect_to(referer) }
       it { should set_the_flash.to success }
     end

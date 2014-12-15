@@ -131,6 +131,11 @@ describe MwebEvents::EventsController do
             post :send_invitation, :invite => hash, :id => event.to_param
           }.to change { Invitation.count }.by(1)
         }
+
+        context "with the right type set" do
+          it { Invitation.last.class.should be(EventInvitation) }
+        end
+
         it { should redirect_to(referer) }
         it { should set_the_flash.to success }
       end
