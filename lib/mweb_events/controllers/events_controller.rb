@@ -14,7 +14,7 @@ MwebEvents::EventsController.class_eval do
 
   def send_invitation
     if params[:invite][:title].blank?
-      flash[:error] = t('custom_bigbluebutton_rooms.send_invitation.error_title')
+      flash[:error] = t('mweb_events.events.send_invitation.error_title')
     else
 
       invitations = EventInvitation.create_invitations params[:invite][:users],
