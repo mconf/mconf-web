@@ -139,6 +139,8 @@ class CustomBigbluebuttonRoomsController < Bigbluebutton::RoomsController
         time = "#{params[:invite][field.to_s + '_time(4i)']}:#{params[:invite][field.to_s + '_time(5i)']}"
         params[:invite][field] = "#{params[:invite][field]} #{time} #{user_time_zone}"
         params[:invite][field] = Time.strptime(params[:invite][field], date_format)
+      else
+        return false
       end
       (1..5).each { |n| params[:invite].delete("#{field}_time(#{n}i)") }
     end

@@ -48,6 +48,7 @@ en:
       send_invitation:
         error: "Invitation failed to be sent to:"
         success: "Invitation successfully sent to:"
+        error_title: "It is mandatory to include a title for your invitation, please try again"
       title:
         belongs_space: "This event belongs to the space <a href='%{url}'>%{space}</a>"
         belongs_user: "Event created by <a href='%{url}'>%{user}</a>"

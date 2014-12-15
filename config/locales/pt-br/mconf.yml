@@ -529,7 +529,7 @@ pt-br:
         room_name: "Nome da Sala"
     send_invitation:
       error: "Não foi possível enviar o convite para:"
-      error_date_format: "As datas que você informou não estão em um formato válido, por favor tente novamente"
+      error_date_format: "As datas que você informou não são válidas, por favor tente novamente"
       error_title: "É obrigatório incluir um título para o seu convite, por favor tente novamente"
       success: "Convite enviado com sucesso para:"
     show:

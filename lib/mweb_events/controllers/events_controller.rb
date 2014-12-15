@@ -13,22 +13,26 @@ MwebEvents::EventsController.class_eval do
   end
 
   def send_invitation
-    invitations = EventInvitation.create_invitations params[:invite][:users],
-      :sender => current_user,
-      :target => @event,
-      :title => params[:invite][:title],
-      :url => @event.full_url,
-      :description => params[:invite][:message],
-      :ready => true
+    if params[:invite][:title].blank?
+      flash[:error] = t('custom_bigbluebutton_rooms.send_invitation.error_title')
+    else
 
-    # we do a check just to give a better response to the user, since the invitations will
-    # only be sent in background later on
-    succeeded, failed = EventInvitation.check_invitations(invitations)
-    flash[:success] = EventInvitation.build_flash(
-      succeeded, t('mweb_events.events.send_invitation.success')) unless succeeded.empty?
-    flash[:error] = EventInvitation.build_flash(
-      failed, t('mweb_events.events.send_invitation.errors')) unless failed.empty?
+      invitations = EventInvitation.create_invitations params[:invite][:users],
+        :sender => current_user,
+        :target => @event,
+        :title => params[:invite][:title],
+        :url => @event.full_url,
+        :description => params[:invite][:message],
+        :ready => true
 
+      # we do a check just to give a better response to the user, since the invitations will
+      # only be sent in background later on
+      succeeded, failed = EventInvitation.check_invitations(invitations)
+      flash[:success] = EventInvitation.build_flash(
+        succeeded, t('mweb_events.events.send_invitation.success')) unless succeeded.empty?
+      flash[:error] = EventInvitation.build_flash(
+        failed, t('mweb_events.events.send_invitation.error')) unless failed.empty?
+    end
     redirect_to request.referer
   end
 
