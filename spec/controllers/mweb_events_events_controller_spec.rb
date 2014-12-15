@@ -80,7 +80,7 @@ describe MwebEvents::EventsController do
           }.to change { Invitation.count }.by(1)
         }
         context "with the right type set" do
-          it { Invitation.last.type.should eql("EventInvitation") }
+          it { Invitation.last.class.should be(EventInvitation) }
         end
         it { should redirect_to(referer) }
         it { should set_the_flash.to success }
@@ -95,7 +95,7 @@ describe MwebEvents::EventsController do
         }
 
         context "with the right type set" do
-          it { Invitation.last.type.should eql("EventInvitation") }
+          it { Invitation.last.class.should be(EventInvitation) }
         end
 
         it { should redirect_to(referer) }
