@@ -147,7 +147,7 @@ module Mconf
     end
 
     def create_token(id)
-      ShibToken.create!(:identifier => id)
+      ShibToken.new(:identifier => id)
     end
 
     # Sending a notification email to a user that just registered.

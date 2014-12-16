@@ -496,9 +496,11 @@ describe Mconf::Shibboleth do
     context "returns the token using the information in the session" do
       before {
         shibboleth.should_receive(:get_email).at_least(:once).and_return('any@email.com')
+        @token = shibboleth.find_or_create_token
+        @token.user = user
+        @token.save!
       }
-      subject { shibboleth.find_or_create_token }
-      it { subject.should eq(ShibToken.find_by_identifier('any@email.com')) }
+      it { @token.should eq(ShibToken.find_by_identifier('any@email.com')) }
     end
 
     context "creates the token if there's no token yet" do

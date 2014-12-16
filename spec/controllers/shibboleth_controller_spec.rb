@@ -330,7 +330,7 @@ describe ShibbolethController do
         end
 
         context "uses the user's ShibToken if it already exists" do
-          before { ShibToken.create!(:identifier => user.email) }
+          before { ShibToken.create!(:identifier => user.email, :user_id => user.id) }
           before(:each) {
             expect {
               post :create_association, :existent_account => true, :user => { :login => user.username, :password => '12345' }
