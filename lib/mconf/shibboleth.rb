@@ -53,6 +53,12 @@ module Mconf
       result
     end
 
+    def get_identifier
+      # This field is unique in the federation and can't be different for the same user so it
+      # should be used as identifier, it's hardcoded as a string because only eduPersonPrincipalName is unique
+      get_field "Shib-eduPerson-eduPersonPrincipalName"
+    end
+
     # Returns the email stored in the session, if any.
     def get_email
       get_field Site.current.shib_email_field
@@ -106,7 +112,7 @@ module Mconf
     # ShibToken if no token is found and returns it.
     def find_or_create_token
       token = find_token
-      token = create_token(get_email) if token.nil?
+      token = create_token(get_identifier) if token.nil?
       token
     end
 
