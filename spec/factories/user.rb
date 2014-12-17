@@ -17,7 +17,6 @@ FactoryGirl.define do
     u.approved true
     u.superuser false
     u.receive_digest { User::RECEIVE_DIGEST_NEVER }
-    u.notification { User::NOTIFICATION_VIA_EMAIL }
     u.password { Forgery::Basic.password :at_least => 6, :at_most => 16 }
     u.password_confirmation { |u2| u2.password }
     u.confirmed_at { Time.now }

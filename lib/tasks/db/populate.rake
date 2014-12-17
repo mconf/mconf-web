@@ -51,7 +51,6 @@ namespace :db do
       user.email = Forgery::Internet.email_address
       user.confirmed_at = @created_at_start..Time.now
       user.disabled = false
-      user.notification = User::NOTIFICATION_VIA_EMAIL
       user.encrypted_password = "123"
 
       # we don't want notifications for these users, event if they are not approved yet
