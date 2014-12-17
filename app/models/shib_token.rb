@@ -8,4 +8,14 @@ class ShibToken < ActiveRecord::Base
   def user_with_disabled
     User.with_disabled.where(id: self.user_id).first
   end
+
+  def self.migrate_identifier_field(token, old_field, new_field)
+    old_identifier = token.identifier
+    identifier = token.data[new_field]
+    if identifier.present? && token.update_attributes(identifier: identifier)
+      puts "* Migrating token ##{token.id} identifier from #{old_field} '#{old_identifier}' to #{new_field} '#{token.identifier}'"
+    else
+      puts "* Failed to migrate token ##{token.id} '#{token.errors.full_messages.join(",")}'"
+    end
+  end
 end

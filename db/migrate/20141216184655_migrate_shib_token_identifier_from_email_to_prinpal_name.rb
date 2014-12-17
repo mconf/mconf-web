@@ -1,21 +1,16 @@
+email_field = Site.current.shib_email_field
+principal_name_field = Site.current.shib_principal_name_field
+
 class MigrateShibTokenIdentifierFromEmailToPrinpalName < ActiveRecord::Migration
   def up
     ShibToken.all.each do |token|
-      old_identifier = token.identifier
-      identifier = token.data['Shib-eduPerson-eduPersonPrincipalName']
-      if identifier.present? && token.update_attributes(identifier: identifier)
-        puts "* Migrating token ##{token.id} identifier from email '#{old_identifier}' to eduPersonPrincipalName '#{token.identifier}'"
-      end
+      ShibToken.migrate_identifier_field(token, email_field, principal_name_field)
     end
   end
 
   def down
     ShibToken.all.each do |token|
-      old_identifier = token.identifier
-      identifier = token.data[Site.current.shib_email_field]
-      if identifier.present? && token.update_attributes(identifier: identifier)
-        puts "* Migrating token ##{token.id} identifier from eduPersonPrincipalName '#{old_identifier}' to email '#{token.identifier}'"
-      end
+      ShibToken.migrate_identifier_field(token, principal_name_field, email_field)
     end
   end
 end

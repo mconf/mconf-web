@@ -41,7 +41,7 @@ module Mconf
     # Returns whether the basic information needed for a user to login is present
     # in the session or not.
     def has_basic_info
-      @session[ENV_KEY] && get_email && get_name && get_principal_name
+      @session[ENV_KEY] && get_identifier && get_email && get_name && get_principal_name
     end
 
     def get_field field
@@ -54,9 +54,8 @@ module Mconf
     end
 
     def get_identifier
-      # This field is unique in the federation and can't be different for the same user so it
-      # should be used as identifier, it's hardcoded as a string because only eduPersonPrincipalName is unique
-      get_field "Shib-eduPerson-eduPersonPrincipalName"
+      # This field is unique in the federation and can't be different for the same user so it should be used as identifier
+      get_principal_name
     end
 
     # Returns the email stored in the session, if any.
@@ -105,7 +104,7 @@ module Mconf
 
     # Finds the ShibToken associated with the user whose information is stored in the session.
     def find_token
-      ShibToken.find_by_identifier(get_email())
+      ShibToken.find_by_identifier(get_identifier())
     end
 
     # Searches for a ShibToken using data in the session and returns it. Creates a new
