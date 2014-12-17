@@ -61,14 +61,12 @@ feature "Viewing join requests" do
 
     scenario "trying to view join request index" do
       visit space_join_requests_path(space)
-
-      current_path.should eq(my_home_path)
+      should_be_403_page
     end
 
     scenario "trying to invite people to a space" do
       visit invite_space_join_requests_path(space)
-
-      current_path.should eq(my_home_path)
+      should_be_403_page
     end
   end
 

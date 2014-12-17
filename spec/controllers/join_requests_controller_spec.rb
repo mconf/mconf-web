@@ -16,17 +16,18 @@ describe JoinRequestsController do
     context "with a logged user" do
       before(:each) {
         sign_in(user)
-        get :index, :space_id => space.to_param
       }
 
       it { should_authorize space, :index, :space_id => space.to_param, :ability_name => :index_join_requests }
 
       context "template and layout" do
+        before(:each) { get :index, :space_id => space.to_param }
         it { should render_template('index') }
         it { should render_with_layout('spaces_show') }
       end
 
       context "space admin indexing join requests" do
+        before(:each) { get :index, :space_id => space.to_param }
         it { should assign_to(:space).with(space) }
         it { should assign_to(:join_requests).with([]) }
         skip "should assing_to @webconf" #it { should assign_to(:webconf).with(space.bigbluebutton_room) }
@@ -34,7 +35,11 @@ describe JoinRequestsController do
 
       context "when logged in but not authorized" do
         let(:user) { FactoryGirl.create(:user) }
-
+        before(:each) {
+          expect {
+            get :index, :space_id => space.to_param
+          }.to raise_error(CanCan::AccessDenied)
+        }
         it { should_not render_template(:index) }
       end
     end
@@ -350,20 +355,24 @@ describe JoinRequestsController do
     context "if the user is not a member of the space" do
       before(:each) {
         sign_in(user)
-        get :invite, :space_id => space.to_param
       }
-
-      it { redirect_to(spaces_path(space)) }
+      it {
+        expect {
+          get :invite, :space_id => space.to_param
+        }.to raise_error(CanCan::AccessDenied)
+      }
     end
 
     context "if the user is a member of the space, but not an admin" do
       before(:each) {
         space.add_member!(user)
         sign_in(user)
-        get :invite, :space_id => space.to_param
       }
-
-      it { redirect_to(space_path(space)) }
+      it {
+        expect {
+          get :invite, :space_id => space.to_param
+        }.to raise_error(CanCan::AccessDenied)
+      }
     end
 
     context "if the user is an admin of the target space" do
