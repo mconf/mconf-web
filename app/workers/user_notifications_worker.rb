@@ -20,11 +20,14 @@ class UserNotificationsWorker
   # Finds all users that registered and need to be approved and schedules a worker
   # to notify all users that could possibly approve him.
   def self.notify_admins_of_new_users
-    users = User.where(approved: false, needs_approval_notification_sent_at: nil)
+    activities = RecentActivity.where trackable_type: 'User', key: 'user.created', notified: [nil, false]
+    # users = User.where(approved: false, needs_approval_notification_sent_at: nil)
     recipients = User.where(superuser: true).pluck(:id)
     unless recipients.empty?
-      users.each do |user|
-        Resque.enqueue(UserNeedsApprovalSenderWorker, user.id, recipients)
+      activities.each do |creation|
+        unless User.find(creation.owner_id).superuser
+          Resque.enqueue(UserNeedsApprovalSenderWorker, creation.id, recipients)
+        end
       end
     end
   end
@@ -32,9 +35,9 @@ class UserNotificationsWorker
   # Finds all users that were approved but not notified of it yet and schedules
   # a worker to notify them.
   def self.notify_users_after_approved
-    users = User.where(approved: true, approved_notification_sent_at: nil)
-    users.each do |user|
-      Resque.enqueue(UserApprovedSenderWorker, user.id)
+    activities = RecentActivity.where trackable_type: 'User', key: 'user.approved', notified: [nil, false]
+    activities.each do |approval|
+      Resque.enqueue(UserApprovedSenderWorker, approval.id)
     end
   end
 

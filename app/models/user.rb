@@ -8,7 +8,7 @@
 require 'devise/encryptors/station_encryptor'
 require 'digest/sha1'
 class User < ActiveRecord::Base
-
+  include PublicActivity::Common
   # TODO: block :username from being modified after registration
 
   ## Devise setup
@@ -240,6 +240,7 @@ class User < ActiveRecord::Base
   # Sets the user as approved
   def approve!
     self.update_attributes(:approved => true)
+    new_activity_user_approved
   end
 
   # Sets the user as not approved
@@ -287,4 +288,12 @@ class User < ActiveRecord::Base
     Space.where(:id => ids)
   end
 
+  after_create :new_activity_user_created
+  def new_activity_user_created
+    create_activity 'created', owner: self, notified: !site_needs_approval?
+  end
+
+  def new_activity_user_approved
+    create_activity 'approved', owner: self
+  end
 end
