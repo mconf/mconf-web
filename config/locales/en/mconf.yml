@@ -545,6 +545,7 @@ en:
     index:
       list_of_recordings: "List of all recordings available"
     recording_links:
+      direct_link: "Direct link"
       playback_links: "Playbacks available"
     recordings:
       table:
