@@ -1,7 +1,7 @@
 class AddUserPreferences < ActiveRecord::Migration
   def self.up
     add_column :users, :expanded_post, :boolean, :default=> false
-    add_column :users, :integer, :default=> 1
+    add_column :users, :notification, :integer, :default=> 1
   end
 
   def self.down
