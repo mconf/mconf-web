@@ -219,9 +219,9 @@ class ShibbolethController < ApplicationController
       request.env["Shib-Authentication-Method"] = "urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport"
       request.env["Shib-AuthnContext-Class"] = "urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport"
       request.env["Shib-Session-Index"] = "alskd87345cc761850086ccbc4987123lskdic56a3c652c37fc7c3bdbos9dia87"
-      request.env["Shib-eduPerson-eduPersonPrincipalName"] = "maria.silva@mconf-institution.org"
+      request.env["Shib-eduPerson-eduPersonPrincipalName"] = "maria.leticia.da.silva@mconf-institution.org"
       request.env["Shib-inetOrgPerson-cn"] = "Maria Let\xC3\xADcia da Silva"
-      request.env["Shib-inetOrgPerson-mail"] = "maria.silva@mconf-institution.org"
+      request.env["Shib-inetOrgPerson-mail"] = "maria.leticia.da.silva@personal-email.org"
       request.env["Shib-inetOrgPerson-sn"] = "Let\xC3\xADcia da Silva"
       request.env["inetOrgPerson-cn"] = request.env["Shib-inetOrgPerson-cn"].clone
       request.env["inetOrgPerson-mail"] = request.env["Shib-inetOrgPerson-mail"].clone
