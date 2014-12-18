@@ -473,7 +473,7 @@ describe Mconf::Shibboleth do
     context "returns the token using the information in the session" do
       before {
         ShibToken.create!(:identifier => 'any@email.com', :user => user)
-        shibboleth.should_receive(:get_email).and_return('any@email.com')
+        shibboleth.should_receive(:get_identifier).and_return('any@email.com')
       }
       subject { shibboleth.find_token }
       it { subject.identifier.should eq('any@email.com') }
@@ -482,7 +482,7 @@ describe Mconf::Shibboleth do
 
     context "returns nil of there's no token" do
       before {
-        shibboleth.should_receive(:get_email).and_return('any@email.com')
+        shibboleth.should_receive(:get_identifier).and_return('any@email.com')
       }
       subject { shibboleth.find_token }
       it { subject.should be_nil }
@@ -495,7 +495,7 @@ describe Mconf::Shibboleth do
 
     context "returns the token using the information in the session" do
       before {
-        shibboleth.should_receive(:get_email).at_least(:once).and_return('any@email.com')
+        shibboleth.should_receive(:get_identifier).at_least(:once).and_return('any@email.com')
         @token = shibboleth.find_or_create_token
         @token.user = user
         @token.save!
@@ -505,7 +505,7 @@ describe Mconf::Shibboleth do
 
     context "creates the token if there's no token yet" do
       before {
-        shibboleth.should_receive(:get_email).at_least(:once).and_return('any@email.com')
+        shibboleth.should_receive(:get_identifier).at_least(:once).and_return('any@email.com')
       }
       subject { shibboleth.find_or_create_token }
       it { subject.should_not be_nil }
