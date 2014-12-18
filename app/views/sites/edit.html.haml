@@ -16,6 +16,8 @@
     = f.input :shib_email_field
     = f.input :shib_name_field
     = f.input :shib_principal_name_field
+    #shib-warning
+      = t('.shib_warning_html')
     = f.input :shib_login_field
     = f.input :shib_env_variables
     = f.input :shib_always_new_account, :as => :boolean

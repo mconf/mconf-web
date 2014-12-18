@@ -1660,6 +1660,9 @@ pt-br:
   subject: "Assunto:"
   summary: "Informações do vídeo"
   superuser: "Administrador"
+  sites:
+    edit:
+      shib_warning_html: Este valor é usado como identificador único para usuários Shibboleth. Se ele for modificado seus usuários podem ter problemas para logar no site ou ter problemas ao acessar suas contas. Antes de mudar este valor leia <a href="https://github.com/mconf/mconf-web/wiki/Migrating-Shibboleth-users#migrating-data-with-the-shibmigrate_tokens-rake-task">esta página</a> .
   text: Texto
   the_string: "a string"
   thread:
