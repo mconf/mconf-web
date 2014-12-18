@@ -64,3 +64,11 @@ pt-br:
         start: "Início"
         subject: "Assunto"
       subject: "Convite para webconferência"
+  shared:
+    invitation_email:
+      message:
+        subject: "Assunto"
+        description: "Descrição"
+        start: "Início"
+        end: "Fim"
+        join: "Sala"

@@ -95,48 +95,95 @@ describe CustomBigbluebuttonRoomsController do
     before {
       request.env["HTTP_REFERER"] = referer
       login_as(room.owner)
-      post :send_invitation, :invite => hash, :id => room.to_param
     }
 
     context "with correct data" do
+      before {
+        expect {
+          post :send_invitation, :invite => hash, :id => room.to_param
+        }.to change { Invitation.count }.by(1)
+      }
+      context "with the right type set" do
+        it { Invitation.last.class.should be(WebConferenceInvitation) }
+      end
       it { should redirect_to(referer) }
       it { should set_the_flash.to success }
     end
 
     context "with more than one user invited" do
       let(:users) { [FactoryGirl.create(:user), FactoryGirl.create(:user)] }
+      before {
+        expect {
+          post :send_invitation, :invite => hash, :id => room.to_param
+        }.to change { Invitation.count }.by(users.length)
+      }
+
+      context "with the right type set" do
+        it { Invitation.last.class.should be(WebConferenceInvitation) }
+      end
+
       it { should redirect_to(referer) }
       it { should set_the_flash.to success }
     end
 
     context "missing the title" do
       let(:title) { nil }
+      before {
+        expect {
+          post :send_invitation, :invite => hash, :id => room.to_param
+        }.not_to change { Invitation.count }
+      }
       it { should redirect_to(referer) }
       it { should set_the_flash.to I18n.t('custom_bigbluebutton_rooms.send_invitation.error_title') }
     end
 
     context "missing the users" do
       let(:users) { [] }
+      before {
+        expect {
+          post :send_invitation, :invite => hash, :id => room.to_param
+        }.not_to change { Invitation.count }
+      }
       it { should redirect_to(referer) }
       skip { should set_the_flash.to error }
     end
 
     context "missing the message" do
       let(:message) { nil }
+      before {
+        expect {
+          post :send_invitation, :invite => hash, :id => room.to_param
+        }.to change { Invitation.count }.by(1)
+      }
+
+      context "with the right type set" do
+        it { Invitation.last.class.should be(WebConferenceInvitation) }
+      end
+
       it { should redirect_to(referer) }
       it { should set_the_flash.to success }
     end
 
     context "missing start date" do
       let(:starts_on) { nil }
+      before {
+        expect {
+          post :send_invitation, :invite => hash, :id => room.to_param
+        }.not_to change { Invitation.count }
+      }
       it { should redirect_to(referer) }
-      skip { should set_the_flash.to I18n.t('custom_bigbluebutton_rooms.send_invitation.error_date_format') }
+      it { should set_the_flash.to I18n.t('custom_bigbluebutton_rooms.send_invitation.error_date_format') }
     end
 
     context "missing end date" do
       let(:ends_on) { nil }
+      before {
+        expect {
+          post :send_invitation, :invite => hash, :id => room.to_param
+        }.not_to change { Invitation.count }
+      }
       it { should redirect_to(referer) }
-      it { should set_the_flash.to success }
+      it { should set_the_flash.to I18n.t('custom_bigbluebutton_rooms.send_invitation.error_date_format') }
     end
 
     it { should_authorize an_instance_of(BigbluebuttonRoom), :send_invitation, :id => room.to_param }

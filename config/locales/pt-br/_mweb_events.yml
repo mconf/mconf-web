@@ -48,6 +48,7 @@ pt-br:
       send_invitation:
         error: "Não foi possível enviar o convite para:"
         success: "Convite enviado com sucesso para:"
+        error_title: "É obrigatório incluir um título para o seu convite, por favor tente novamente"
       title:
         belongs_space: "Um evento da comunidade <a href='%{url}'>%{space}</a>"
         belongs_user: "Evento criado por <a href='%{url}'>%{user}</a>"
