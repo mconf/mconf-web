@@ -1,6 +1,6 @@
 namespace :shib do
 
-  desc "Migrate shibolleth token identifiers from one field to another"
+  desc "Migrate shibolleth token identifiers from one field to another. See https://github.com/mconf/mconf-web/wiki/Migrating-Shibboleth-users for help"
   task :migrate_tokens, [:old_field, :new_field] => :environment do |t, args|
     old_field, new_field = args[:old_field], args[:new_field]
 
