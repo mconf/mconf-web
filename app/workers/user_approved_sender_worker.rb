@@ -11,7 +11,7 @@ class UserApprovedSenderWorker
   # Sends a notification to the user with id `user_id` that he was approved.
   def self.perform(activity_id)
     activity = RecentActivity.find(activity_id)
-    user_id = activity.owner_id
+    user_id = activity.trackable_id
 
     Resque.logger.info "Sending user approved email to #{user_id}"
     AdminMailer.new_user_approved(user_id).deliver

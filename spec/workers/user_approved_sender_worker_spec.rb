@@ -8,6 +8,7 @@ require 'spec_helper'
 
 describe UserApprovedSenderWorker do
   let(:worker) { UserApprovedSenderWorker }
+  let(:superuser) { FactoryGirl.create(:user, superuser: true) }
 
   before {
     Site.current.update_attributes(require_registration_approval: true)
@@ -18,14 +19,17 @@ describe UserApprovedSenderWorker do
   end
 
   describe "#perform" do
-    let(:user) { FactoryGirl.create(:user, approved_notification_sent_at: nil) }
-    before { user.reload.approved_notification_sent_at.should be_nil }
+    let(:user) { FactoryGirl.create(:user) }
+    let(:activity) { RecentActivity.last }
 
-    before(:each) { worker.perform(user.id) }
+    before {
+      user.approve!(superuser)
+      worker.perform(activity.id)
+    }
 
     it { AdminMailer.should have_queue_size_of_at_least(1) }
     it { AdminMailer.should have_queued(:new_user_approved, user.id).in(:mailer) }
-    it { user.reload.approved_notification_sent_at.should_not be_nil }
+    it { activity.reload.notified.should be(true) }
   end
 
 end

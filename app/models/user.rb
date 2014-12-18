@@ -233,14 +233,13 @@ class User < ActiveRecord::Base
   # on registration.
   def automatically_approve
     self.approved = true
-    self.needs_approval_notification_sent_at = Time.now
-    self.approved_notification_sent_at = Time.now
   end
 
   # Sets the user as approved
-  def approve!
+  def approve!(approved_by)
+    return if self.approved
     self.update_attributes(:approved => true)
-    new_activity_user_approved
+    new_activity_user_approved approved_by
   end
 
   # Sets the user as not approved
@@ -293,7 +292,7 @@ class User < ActiveRecord::Base
     create_activity 'created', owner: self, notified: !site_needs_approval?
   end
 
-  def new_activity_user_approved
-    create_activity 'approved', owner: self
+  def new_activity_user_approved(approved_by)
+    create_activity 'approved', owner: approved_by
   end
 end

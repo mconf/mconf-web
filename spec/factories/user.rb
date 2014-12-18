@@ -20,8 +20,6 @@ FactoryGirl.define do
     notification { User::NOTIFICATION_VIA_EMAIL }
     password { Forgery::Basic.password :at_least => 6, :at_most => 16 }
     password_confirmation { |user| user.password }
-    needs_approval_notification_sent_at { Time.now }
-    approved_notification_sent_at { Time.now }
     before(:create) { |user| user.skip_confirmation_notification! }
     after(:create) { |user|
       # for some reason the user ends up without a full name, only b/c he's unconfirmed

@@ -23,10 +23,16 @@ class UserNotificationsWorker
     activities = RecentActivity.where trackable_type: 'User', key: 'user.created', notified: [nil, false]
     # users = User.where(approved: false, needs_approval_notification_sent_at: nil)
     recipients = User.where(superuser: true).pluck(:id)
+    count = 0
     unless recipients.empty?
       activities.each do |creation|
-        unless User.find(creation.owner_id).superuser
+        # If user created is a superuser we don't need to send the notification,
+        # and mark it as sent so it doesn't come back to the worker in future queries.
+        if User.find(creation.owner_id).superuser
+          creation.update_attribute(:notified, true)
+        else
           Resque.enqueue(UserNeedsApprovalSenderWorker, creation.id, recipients)
+          count += 1
         end
       end
     end
