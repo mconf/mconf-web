@@ -8,7 +8,7 @@
 require "digest/sha1"
 class UsersController < ApplicationController
 
-  load_and_authorize_resource :find_by => :username, :except => [:enable, :index, :new_user, :create_user]
+  load_and_authorize_resource :find_by => :username, :except => [:enable, :index]
   before_filter :load_and_authorize_with_disabled, :only => [:enable]
 
   # #index is nested in spaces
@@ -20,11 +20,11 @@ class UsersController < ApplicationController
   rescue_from ActiveRecord::RecordNotFound, with: :render_404
 
   rescue_from CanCan::AccessDenied, with: :handle_access_denied
-  rescue_from CanCan::AccessDenied, with: :handle_access_denied_admins_pages, only: [:new_user]
+  rescue_from CanCan::AccessDenied, with: :handle_access_denied_admins_pages, only: [:new]
 
   def handle_access_denied_admins_pages exception
     if user_signed_in?
-      flash[:error] = t('admins.access_forbidden')
+      flash[:error] = t('users.errors.access_forbidden')
     end
     redirect_to root_path
   end
@@ -205,26 +205,24 @@ class UsersController < ApplicationController
   end
 
   # Methods to let admins create new users
-  def new_user
-    authorize! :manage, User
+  def new
     @user = User.new
     respond_to do |format|
       format.html { render layout: !request.xhr? }
     end
   end
 
-  def create_user
-    authorize! :manage, User
+  def create
     @user = User.new(user_params)
 
     if @user.save
       @user.confirm!
-      flash[:success] = t("admins.user.created")
+      flash[:success] = t("users.create.success")
       respond_to do |format|
         format.html { redirect_to manage_users_path }
       end
     else
-      flash[:error] = t('admins.user.error')
+      flash[:error] = t('users.create.error')
       respond_to do |format|
         format.html { redirect_to manage_users_path }
       end
@@ -243,7 +241,7 @@ class UsersController < ApplicationController
     allowed = [ :password, :password_confirmation, :remember_me, :current_password,
       :login, :approved, :disabled, :timezone, :can_record, :receive_digest, :notification,
       :expanded_post ]
-    allowed += [:email, :username, :_full_name] if current_user.superuser? and (params[:action] == 'create_user')
+    allowed += [:email, :username, :_full_name] if current_user.superuser? and (params[:action] == 'create')
     allowed += [:superuser] if current_user.superuser? && current_user != @user
     allowed
   end

@@ -1,9 +1,9 @@
 #user-new
   .modal-header
     = modal_close_button
-    %h3= t('admins.new_user.title')
+    %h3= t('.title')
 
-  = simple_form_for @user, url: admin_create_user_path, html: { class: 'single-column' } do |f|
+  = simple_form_for @user, url: users_path, html: { class: 'single-column' } do |f|
 
     .modal-body
       #user-basic-info

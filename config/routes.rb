@@ -27,8 +27,8 @@ Mconf::Application.routes.draw do
   # devise
   controllers = { sessions: "sessions", registrations: "registrations",
                   passwords: "passwords", confirmations: "confirmations" }
-  paths = { sign_in: "login", sign_out: "logout", sign_up: "signup" }
-  devise_for :users, path_names: paths, controllers: controllers
+  paths = { sign_in: "login", sign_out: "logout", sign_up: "signup", registration: "registration" }
+  devise_for :users, paths: "", path_names: paths, controllers: controllers
   devise_scope :user do
     get "login", to: "sessions#new"
     get "logout", to: "sessions#destroy"
@@ -132,8 +132,7 @@ Mconf::Application.routes.draw do
 
   resources :permissions, only: [:update, :destroy]
 
-  resources :users, except: [:new, :create] do
-
+  resources :users do
     collection do
       get :fellows
       get :select
@@ -151,10 +150,6 @@ Mconf::Application.routes.draw do
       post :update_logo
     end
   end
-
-  # Routes specific to let admins create new users
-  get 'admins/new_user', to: 'users#new_user', as: :admin_new_user
-  post 'admins/create_user', to: 'users#create_user', as: :admin_create_user
 
   # Routes specific for the current user
   get '/home', to: 'my#home', as: 'my_home'

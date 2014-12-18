@@ -734,25 +734,25 @@ describe UsersController do
     it { should_authorize an_instance_of(User), :disapprove, :via => :post, :id => user.to_param }
   end
 
-  describe "#new_user" do
+  describe "#new" do
     context "logged as a superuser" do
       let(:superuser) { FactoryGirl.create(:superuser) }
       before(:each) { sign_in(superuser) }
 
       context "template and view" do
-        before(:each) { get :new_user }
+        before(:each) { get :new }
         it { should render_with_layout("application") }
-        it { should render_template("users/new_user") }
+        it { should render_template("users/new") }
       end
 
       context "template and view via xhr" do
-        before(:each) { xhr :get, :new_user }
+        before(:each) { xhr :get, :new }
         it { should_not render_with_layout() }
-        it { should render_template("users/new_user") }
+        it { should render_template("users/new") }
       end
 
       it "assigns @user" do
-        get :new_user
+        get :new
         should assign_to(:user).with(instance_of(User))
       end
     end
@@ -761,31 +761,31 @@ describe UsersController do
       let(:user) { FactoryGirl.create(:user) }
       before(:each) {
         sign_in(user)
-        get :new_user
+        get :new
       }
 
       it "raises AccessDenied" do
         bypass_rescue
-        expect { get :new_user }.to raise_error(CanCan::AccessDenied)
+        expect { get :new }.to raise_error(CanCan::AccessDenied)
       end
 
-      it { should set_the_flash.to(I18n.t('admins.access_forbidden')) }
+      it { should set_the_flash.to(I18n.t('users.errors.access_forbidden')) }
       it { should redirect_to root_path }
     end
 
     context "a anonymous user" do
-      before(:each) { get :new_user }
+      before(:each) { get :new }
 
       it "raises AccessDenied" do
         bypass_rescue
-        expect { get :new_user }.to raise_error(CanCan::AccessDenied)
+        expect { get :new }.to raise_error(CanCan::AccessDenied)
       end
 
       it { should redirect_to root_path }
     end
   end
 
-  describe "#create_user"  do
+  describe "#create"  do
     let(:superuser) { FactoryGirl.create(:superuser) }
     before(:each) { sign_in(superuser) }
 
@@ -793,14 +793,14 @@ describe UsersController do
       let(:user) { FactoryGirl.build(:user) }
       before(:each) {
         expect {
-          post :create_user, user: {
+          post :create, user: {
             email: user.email, _full_name: "Maria Test", username: "maria-test",
             password: "test123", password_confirmation: "test123"
           }
         }.to change(User, :count).by(1)
       }
 
-      it { should set_the_flash.to(I18n.t('admins.user.created')) }
+      it { should set_the_flash.to(I18n.t('users.create.success')) }
       it { should redirect_to manage_users_path }
       it { User.last.confirmed?.should be true }
       it { User.last.approved?.should be true }
@@ -809,14 +809,14 @@ describe UsersController do
     describe "creates a new user with invalid attributes" do
       before(:each) {
         expect {
-          test = post :create_user, user: {
+          post :create, user: {
             email: "test@test.com", _full_name: "Maria Test", username: "maria-test",
             password: "test123", password_confirmation: "test1234"
           }
         }.not_to change(User, :count)
       }
 
-      it { should set_the_flash.to(I18n.t('admins.user.error')) }
+      it { should set_the_flash.to(I18n.t('users.create.error')) }
       it { should redirect_to manage_users_path }
       end
 
