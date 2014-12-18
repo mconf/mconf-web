@@ -15,8 +15,11 @@ MwebEvents::EventsController.class_eval do
   def send_invitation
     if params[:invite][:title].blank?
       flash[:error] = t('mweb_events.events.send_invitation.error_title')
-    else
 
+    elsif params[:invite][:users].blank?
+      flash[:error] = t('mweb_events.events.send_invitation.blank_users')
+
+    else
       invitations = EventInvitation.create_invitations params[:invite][:users],
         :sender => current_user,
         :target => @event,

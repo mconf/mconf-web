@@ -531,6 +531,7 @@ pt-br:
         room_meetingid: "ID da Reunião"
         room_name: "Nome da Sala"
     send_invitation:
+      blank_users: "Nenhum usuário selecionado, nenhum convite será enviado"
       error: "Não foi possível enviar o convite para:"
       error_date_format: "As datas que você informou não são válidas, por favor tente novamente"
       error_title: "É obrigatório incluir um título para o seu convite, por favor tente novamente"

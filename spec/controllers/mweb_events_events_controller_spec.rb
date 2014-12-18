@@ -102,6 +102,17 @@ describe MwebEvents::EventsController do
         it { should set_the_flash.to success }
       end
 
+      context "missing users" do
+        before {
+          hash.delete(:users)
+          expect {
+            post :send_invitation, :invite => hash, :id => event.to_param
+          }.not_to change { Invitation.count }
+        }
+        it { should redirect_to(referer) }
+        it { should set_the_flash.to I18n.t('mweb_events.events.send_invitation.blank_users') }
+      end
+
       context "missing the title" do
         let(:title) { nil }
         before {
