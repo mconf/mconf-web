@@ -806,7 +806,10 @@ describe UsersController do
         }.not_to change(User, :count)
       }
 
-      it { should set_the_flash.to(I18n.t('users.create.error')) }
+      it {
+        msg = assigns(:user).errors.full_messages.join(", ")
+        should set_the_flash.to(I18n.t('users.create.error', errors: msg))
+      }
       it { should redirect_to manage_users_path }
     end
 
