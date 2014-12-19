@@ -761,27 +761,16 @@ describe UsersController do
       let(:user) { FactoryGirl.create(:user) }
       before(:each) {
         sign_in(user)
-        get :new
       }
-
-      it "raises AccessDenied" do
-        bypass_rescue
+      it {
         expect { get :new }.to raise_error(CanCan::AccessDenied)
-      end
-
-      it { should set_the_flash.to(I18n.t('users.errors.access_forbidden')) }
-      it { should redirect_to root_path }
+      }
     end
 
     context "a anonymous user" do
-      before(:each) { get :new }
-
-      it "raises AccessDenied" do
-        bypass_rescue
+      it {
         expect { get :new }.to raise_error(CanCan::AccessDenied)
-      end
-
-      it { should redirect_to root_path }
+      }
     end
   end
 
@@ -789,7 +778,7 @@ describe UsersController do
     let(:superuser) { FactoryGirl.create(:superuser) }
     before(:each) { sign_in(superuser) }
 
-    describe "creates a new user with valid attributes" do
+    describe "with valid attributes" do
       let(:user) { FactoryGirl.build(:user) }
       before(:each) {
         expect {
@@ -804,21 +793,22 @@ describe UsersController do
       it { should redirect_to manage_users_path }
       it { User.last.confirmed?.should be true }
       it { User.last.approved?.should be true }
-      end
+    end
 
-    describe "creates a new user with invalid attributes" do
+    describe "with invalid attributes" do
       before(:each) {
         expect {
           post :create, user: {
             email: "test@test.com", _full_name: "Maria Test", username: "maria-test",
-            password: "test123", password_confirmation: "test1234"
+            password: "test123",
+            password_confirmation: "test1234" # here's what makes it invalid
           }
         }.not_to change(User, :count)
       }
 
       it { should set_the_flash.to(I18n.t('users.create.error')) }
       it { should redirect_to manage_users_path }
-      end
+    end
 
   end
 

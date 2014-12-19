@@ -19,15 +19,6 @@ class UsersController < ApplicationController
   # Rescue username not found rendering a 404
   rescue_from ActiveRecord::RecordNotFound, with: :render_404
 
-  rescue_from CanCan::AccessDenied, with: :handle_access_denied_admins_pages, only: [:new]
-
-  def handle_access_denied_admins_pages exception
-    if user_signed_in?
-      flash[:error] = t('users.errors.access_forbidden')
-    end
-    redirect_to root_path
-  end
-
   respond_to :html, :except => [:select, :current, :fellows]
   respond_to :js, :only => [:select, :current, :fellows]
   respond_to :xml, :only => [:current]
