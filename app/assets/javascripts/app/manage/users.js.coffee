@@ -1,6 +1,6 @@
-#= require "../registrations/_signup_form"
+#= require "../users/new"
 
 $ ->
   if isOnPage 'manage', 'users'
-    $(document).on 'shown.bs.modal', ->
-      mconf.SignupForm.setup()
+    mconf.Resources.addToBind ->
+      mconf.Users.New.bind()

@@ -1824,8 +1824,7 @@ en:
       create:
         success: "User created. This user is already confirmed and can access the website at any time."
         error: "Error(s) while create the new user"
-      new_user:
-        title: "Create user"
+      title: "Create user"
   username: Username
   uploader:
     button: Upload new file

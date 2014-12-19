@@ -1824,8 +1824,7 @@ pt-br:
       create:
         success: "Usuário cadastrado. Este usuário já está confirmado e pode acessar o site a qualquer momento."
         error: "Erro(s) ao criar o novo usuário"
-      new_user:
-        title: "Cadastrar usuário"
+      title: "Cadastrar usuário"
   username: "Nome de usuário"
   uploader:
     button: Enviar novo arquivo
