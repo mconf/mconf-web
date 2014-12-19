@@ -1779,6 +1779,9 @@ pt-br:
       not_enabled: "A aprovação de registros não está habilitada neste site"
     confirm:
       confirmed: "O usuário %{username} foi confirmado"
+    create:
+      error: "Erros ao cadastrar o usuário: %{errors}"
+      success: "Usuário cadastrado com sucesso"
     detailed_user:
       from: "De:"
     disapprove:

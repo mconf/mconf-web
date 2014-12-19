@@ -1777,6 +1777,9 @@ en:
     approve:
       approved: "The user %{username} was approved to access the website!"
       not_enabled: "Approval of registrations is not enabled in this website"
+    create:
+      error: "Errors creating the user: %{errors}"
+      success: "User created successfully"
     confirm:
       confirmed: "The user %{username} was confirmed"
     detailed_user:

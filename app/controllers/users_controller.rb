@@ -204,7 +204,7 @@ class UsersController < ApplicationController
         format.html { redirect_to manage_users_path }
       end
     else
-      flash[:error] = t('users.create.error')
+      flash[:error] = t('users.create.error', errors: @user.errors.full_messages.join(", "))
       respond_to do |format|
         format.html { redirect_to manage_users_path }
       end
