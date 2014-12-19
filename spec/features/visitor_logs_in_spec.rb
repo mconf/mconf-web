@@ -112,7 +112,7 @@ feature 'Visitor logs in' do
       expect(current_path).to eq(my_home_path)
     end
 
-    scenario 'from the register page 2 (/users/signup)' do
+    scenario 'from the register page 2 (/users/registration/signup)' do
       visit new_user_registration_path
 
       click_link 'Sign in'
@@ -122,10 +122,10 @@ feature 'Visitor logs in' do
       expect(current_path).to eq(my_home_path)
     end
 
-    scenario 'after a failed registration (/users)' do
+    scenario 'after a failed registration (/users/registration)' do
       visit register_path
       click_button 'Register'
-      expect(current_path).to eq("/users")
+      expect(current_path).to eq("/users/registration")
 
       click_link 'Sign in'
       expect(current_path).to eq(login_path)
