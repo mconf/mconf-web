@@ -25,7 +25,7 @@ class mconf.CustomBigbluebuttonRooms.Invitation
 
   # Dont enable the form button unless user has filled in users and title
   checkRequired: ->
-    if $(titleSelector).first().val().length > 0 and $(usersSelector).val().length
+    if $(titleSelector).first()?.val()?.length > 0 and $(usersSelector).val()?.length
       $(buttonSelector).removeAttr('disabled')
     else
       $(buttonSelector).attr('disabled','disabled')

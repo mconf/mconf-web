@@ -24,7 +24,24 @@ class SessionLocalesController < ActionController::Base
       flash[:error] = t('locales.error', :value => locale_name)
     end
 
-    redirect_to request.referer
+    redirect_to after_create_path
+  end
+
+  private
+
+  # Returns the URL to which we should redirect after changing the language.
+  def after_create_path
+    ref = URI(request.referer).path
+
+    # Some paths we don't want to redirect back to (usually routes that won't respond to
+    # a GET request).
+    if [user_registration_path].include?(ref)
+      register_path
+    elsif [new_user_session_path].include?(ref)
+      login_path
+    else
+      ref
+    end
   end
 
 end

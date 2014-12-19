@@ -12,22 +12,12 @@ class UsersController < ApplicationController
   before_filter :load_and_authorize_with_disabled, :only => [:enable]
 
   # #index is nested in spaces
-  load_and_authorize_resource :space, :find_by => :permalink, :only => [:index]
-  load_and_authorize_resource :through => :space, :only => [:index]
-  before_filter :webconf_room!, :only => [:index]
+  load_and_authorize_resource :space, find_by: :permalink, only: [:index]
+  load_and_authorize_resource through: :space, only: [:index]
+  before_filter :webconf_room!, only: [:index]
 
   # Rescue username not found rendering a 404
-  rescue_from ActiveRecord::RecordNotFound, :with => :render_404
-
-  rescue_from CanCan::AccessDenied, :with => :handle_access_denied
-
-  def handle_access_denied exception
-    if @space.blank?
-      redirect_to register_path
-    else
-      render_403(exception)
-    end
-  end
+  rescue_from ActiveRecord::RecordNotFound, with: :render_404
 
   respond_to :html, :except => [:select, :current, :fellows]
   respond_to :js, :only => [:select, :current, :fellows]
@@ -196,6 +186,31 @@ class UsersController < ApplicationController
     redirect_to :back
   end
 
+  # Methods to let admins create new users
+  def new
+    @user = User.new
+    respond_to do |format|
+      format.html { render layout: !request.xhr? }
+    end
+  end
+
+  def create
+    @user = User.new(user_params)
+
+    if @user.save
+      @user.confirm!
+      flash[:success] = t("users.create.success")
+      respond_to do |format|
+        format.html { redirect_to manage_users_path }
+      end
+    else
+      flash[:error] = t('users.create.error', errors: @user.errors.full_messages.join(", "))
+      respond_to do |format|
+        format.html { redirect_to manage_users_path }
+      end
+    end
+  end
+
   private
 
   def load_and_authorize_with_disabled
@@ -208,7 +223,7 @@ class UsersController < ApplicationController
     allowed = [ :password, :password_confirmation, :remember_me, :current_password,
       :login, :approved, :disabled, :timezone, :can_record, :receive_digest, :notification,
       :expanded_post ]
-
+    allowed += [:email, :username, :_full_name] if current_user.superuser? and (params[:action] == 'create')
     allowed += [:superuser] if current_user.superuser? && current_user != @user
     allowed
   end

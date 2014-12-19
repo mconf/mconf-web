@@ -975,6 +975,7 @@ pt-br:
     users:
       filter_name_or_username: "Nome, identificador ou e-mail"
       filter_results: "Filtrar os resultados:"
+      new_user: "Cadastrar usuário"
     users_list:
       filter_count_with_text: "%{count} usuários encontrados para o filtro \"%{value}\""
       filter_count_empty: "%{count} usuários encontrados"
@@ -1778,6 +1779,9 @@ pt-br:
       not_enabled: "A aprovação de registros não está habilitada neste site"
     confirm:
       confirmed: "O usuário %{username} foi confirmado"
+    create:
+      error: "Erros ao cadastrar o usuário: %{errors}"
+      success: "Usuário cadastrado com sucesso"
     detailed_user:
       from: "De:"
     disapprove:
@@ -1817,6 +1821,13 @@ pt-br:
         weekly: "Semanalmente"
       title: "Editar sua conta"
       yes_cancel_account: "Sim, cancelar minha conta"
+    errors:
+      access_forbidden: "Esta operação está disponível apenas para administradores"
+    new:
+      create:
+        success: "Usuário cadastrado. Este usuário já está confirmado e pode acessar o site a qualquer momento."
+        error: "Erro(s) ao criar o novo usuário"
+      title: "Cadastrar usuário"
   username: "Nome de usuário"
   uploader:
     button: Enviar novo arquivo

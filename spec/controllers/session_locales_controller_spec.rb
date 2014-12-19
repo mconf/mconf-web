@@ -22,11 +22,13 @@ describe SessionLocalesController do
     before {
       request.env['HTTP_REFERER'] = url
       sign_in(user)
-      post :create, :l => locale
-      user.reload
     }
 
     context 'on success' do
+      before {
+        post :create, :l => locale
+        user.reload
+      }
       it { should redirect_to url }
       it { should set_the_flash.to(I18n.t('session_locales.create.success', :value => locale_name, :locale => locale))}
       it { get_user_locale(user, false).should eq(locale.to_sym) }
@@ -36,6 +38,10 @@ describe SessionLocalesController do
 
     context "on inexistant locale" do
       let(:locale) { 'fr' }
+      before {
+        post :create, :l => locale
+        user.reload
+      }
 
       it { should redirect_to url }
       it { should set_the_flash.to(I18n.t('locales.error'))}
@@ -43,6 +49,25 @@ describe SessionLocalesController do
       it { session[:locale].should_not eq(locale) }
       it { user.locale.should_not eq(locale) }
     end
+
+    context 'when the referer was' do
+      context 'user_registration_path' do
+        before {
+          request.env['HTTP_REFERER'] = user_registration_path
+          post :create, :l => locale
+        }
+        it { should redirect_to register_path }
+      end
+
+      context 'new_user_session_path' do
+        before {
+          request.env['HTTP_REFERER'] = new_user_session_path
+          post :create, :l => locale
+        }
+        it { should redirect_to login_path }
+      end
+    end
+
   end
 
 end
