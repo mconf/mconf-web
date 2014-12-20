@@ -320,25 +320,29 @@ describe ShibbolethController do
 
         context "creates a ShibToken and associates it with the user" do
           before(:each) {
+            user.update_attributes(:confirmed_at => nil)
             expect {
               post :create_association, :existent_account => true, :user => { :login => user.username, :password => '12345' }
-            }.to change{ ShibToken.count }.by(1)
+            }.to change{ ShibToken.count }.by(1) && change{ User.where("users.confirmed_at IS NOT NULL").count }.by(1)
           }
           subject { ShibToken.last }
           it("sets the user in the token") { subject.user.should eq(user) }
           it("sets the data in the token") { subject.data.should eq(@shib.get_data()) }
+          it("confirms the account if it's unconfirmed") { subject.user.confirmed?.should be(true) }
         end
 
         context "uses the user's ShibToken if it already exists" do
           before { ShibToken.create!(:identifier => user.email) }
           before(:each) {
+            user.update_attributes(:confirmed_at => nil)
             expect {
               post :create_association, :existent_account => true, :user => { :login => user.username, :password => '12345' }
-            }.to change{ ShibToken.count }.by(0)
+            }.to change{ ShibToken.count }.by(0) && change{ User.where("users.confirmed_at IS NOT NULL").count }.by(1)
           }
           subject { ShibToken.last }
           it("sets the user in the token") { subject.user.should eq(user) }
           it("sets the data in the token") { subject.data.should eq(@shib.get_data()) }
+          it("confirms the account if it's unconfirmed") { subject.user.confirmed?.should be(true) }
         end
 
       end

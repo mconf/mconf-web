@@ -25,7 +25,8 @@ class EventMailer < BaseMailer
       to = @invitation.recipient
     end
 
-    I18n.with_locale(get_user_locale(to, false)) do
+    locale = default_email_locale(to, @invitation.sender)
+    I18n.with_locale(locale) do
       # Adjust the times to the target user's time zone. If he doesn't have a time zone set,
       # use the time zone of the sender.
       if Mconf::Timezone.user_has_time_zone?(to)

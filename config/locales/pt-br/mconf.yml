@@ -531,8 +531,9 @@ pt-br:
         room_meetingid: "ID da Reunião"
         room_name: "Nome da Sala"
     send_invitation:
+      blank_users: "Nenhum usuário selecionado, nenhum convite será enviado"
       error: "Não foi possível enviar o convite para:"
-      error_date_format: "As datas que você informou não estão em um formato válido, por favor tente novamente"
+      error_date_format: "As datas que você informou não são válidas, por favor tente novamente"
       error_title: "É obrigatório incluir um título para o seu convite, por favor tente novamente"
       success: "Convite enviado com sucesso para:"
     show:
@@ -545,6 +546,7 @@ pt-br:
     index:
       list_of_recordings: "Lista de todas gravações disponíveis"
     recording_links:
+      direct_link: "Link direto"
       playback_links: "Playbacks disponíveis"
     recordings:
       table:
@@ -972,6 +974,7 @@ pt-br:
     users:
       filter_name_or_username: "Nome, identificador ou e-mail"
       filter_results: "Filtrar os resultados:"
+      new_user: "Cadastrar usuário"
     users_list:
       filter_count_with_text: "%{count} usuários encontrados para o filtro \"%{value}\""
       filter_count_empty: "%{count} usuários encontrados"
@@ -1789,6 +1792,9 @@ pt-br:
       not_enabled: "A aprovação de registros não está habilitada neste site"
     confirm:
       confirmed: "O usuário %{username} foi confirmado"
+    create:
+      error: "Erros ao cadastrar o usuário: %{errors}"
+      success: "Usuário cadastrado com sucesso"
     detailed_user:
       from: "De:"
     disapprove:
@@ -1828,6 +1834,13 @@ pt-br:
         weekly: "Semanalmente"
       title: "Editar sua conta"
       yes_cancel_account: "Sim, cancelar minha conta"
+    errors:
+      access_forbidden: "Esta operação está disponível apenas para administradores"
+    new:
+      create:
+        success: "Usuário cadastrado. Este usuário já está confirmado e pode acessar o site a qualquer momento."
+        error: "Erro(s) ao criar o novo usuário"
+      title: "Cadastrar usuário"
   username: "Nome de usuário"
   uploader:
     button: "Enviar um arquivo"

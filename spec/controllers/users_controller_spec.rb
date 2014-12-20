@@ -734,4 +734,85 @@ describe UsersController do
     it { should_authorize an_instance_of(User), :disapprove, :via => :post, :id => user.to_param }
   end
 
+  describe "#new" do
+    context "logged as a superuser" do
+      let(:superuser) { FactoryGirl.create(:superuser) }
+      before(:each) { sign_in(superuser) }
+
+      context "template and view" do
+        before(:each) { get :new }
+        it { should render_with_layout("application") }
+        it { should render_template("users/new") }
+      end
+
+      context "template and view via xhr" do
+        before(:each) { xhr :get, :new }
+        it { should_not render_with_layout() }
+        it { should render_template("users/new") }
+      end
+
+      it "assigns @user" do
+        get :new
+        should assign_to(:user).with(instance_of(User))
+      end
+    end
+
+    context "logged as a regular user" do
+      let(:user) { FactoryGirl.create(:user) }
+      before(:each) {
+        sign_in(user)
+      }
+      it {
+        expect { get :new }.to raise_error(CanCan::AccessDenied)
+      }
+    end
+
+    context "a anonymous user" do
+      it {
+        expect { get :new }.to raise_error(CanCan::AccessDenied)
+      }
+    end
+  end
+
+  describe "#create"  do
+    let(:superuser) { FactoryGirl.create(:superuser) }
+    before(:each) { sign_in(superuser) }
+
+    describe "with valid attributes" do
+      let(:user) { FactoryGirl.build(:user) }
+      before(:each) {
+        expect {
+          post :create, user: {
+            email: user.email, _full_name: "Maria Test", username: "maria-test",
+            password: "test123", password_confirmation: "test123"
+          }
+        }.to change(User, :count).by(1)
+      }
+
+      it { should set_the_flash.to(I18n.t('users.create.success')) }
+      it { should redirect_to manage_users_path }
+      it { User.last.confirmed?.should be true }
+      it { User.last.approved?.should be true }
+    end
+
+    describe "with invalid attributes" do
+      before(:each) {
+        expect {
+          post :create, user: {
+            email: "test@test.com", _full_name: "Maria Test", username: "maria-test",
+            password: "test123",
+            password_confirmation: "test1234" # here's what makes it invalid
+          }
+        }.not_to change(User, :count)
+      }
+
+      it {
+        msg = assigns(:user).errors.full_messages.join(", ")
+        should set_the_flash.to(I18n.t('users.create.error', errors: msg))
+      }
+      it { should redirect_to manage_users_path }
+    end
+
+  end
+
 end

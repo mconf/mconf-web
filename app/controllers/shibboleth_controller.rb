@@ -199,6 +199,13 @@ class ShibbolethController < ApplicationController
       token.user = user
       token.data = shib.get_data()
       token.save! # TODO: what if it fails
+
+      # If the user comes from shibboleth and is not confirmed we can trust him
+      if !user.confirmed?
+        user.skip_confirmation!
+        user.save!
+      end
+
       flash[:success] = t("shibboleth.create_association.account_associated", :email => user.email)
     end
 

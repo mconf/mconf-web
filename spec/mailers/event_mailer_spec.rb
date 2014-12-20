@@ -66,11 +66,26 @@ describe EventMailer do
       }
     end
 
+    context "uses the sender's locale if the receiver has no locale set" do
+      before {
+        Site.current.update_attributes(:locale => "en")
+        invitation.recipient.update_attribute(:locale, nil)
+        invitation.sender.update_attribute(:locale, "pt-br")
+      }
+      it {
+        content = I18n.t('event_mailer.invitation_email.message.header',
+                         sender: invitation.sender.name,
+                         email_sender: invitation.sender.email,
+                         event: invitation.target.name, locale: "pt-br")
+        mail.html_part.body.encoded.should match(Regexp.escape(content))
+      }
+    end
+
     context "uses the site's locale if the receiver has no locale set" do
       before {
         Site.current.update_attributes(:locale => "pt-br")
         invitation.recipient.update_attribute(:locale, nil)
-        invitation.sender.update_attribute(:locale, "en")
+        invitation.sender.update_attribute(:locale, nil)
       }
       it {
         content = I18n.t('event_mailer.invitation_email.message.header',

@@ -531,8 +531,9 @@ en:
         room_meetingid: "Meeting ID"
         room_name: "Room name"
     send_invitation:
+      blank_users: "No user selected, no invitation was sent"
       error: "Invitation failed to be sent to:"
-      error_date_format: "The dates you informed are not in a valid format, please try again"
+      error_date_format: "The dates you informed are invalid, please try again"
       error_title: "It is mandatory to include a title for your invitation, please try again"
       success: "Invitation successfully sent to:"
     show:
@@ -545,6 +546,7 @@ en:
     index:
       list_of_recordings: "List of all recordings available"
     recording_links:
+      direct_link: "Direct link"
       playback_links: "Playbacks available"
     recordings:
       table:
@@ -972,6 +974,7 @@ en:
     users:
       filter_name_or_username: "Name, username or email"
       filter_results: "Filter the results:"
+      new_user: "Create user"
     users_list:
       filter_count_with_text: "Found %{count} users for filter \"%{value}\""
       filter_count_empty: "Found %{count} users"
@@ -1791,6 +1794,9 @@ en:
     approve:
       approved: "The user %{username} was approved to access the website!"
       not_enabled: "Approval of registrations is not enabled in this website"
+    create:
+      error: "Errors creating the user: %{errors}"
+      success: "User created successfully"
     confirm:
       confirmed: "The user %{username} was confirmed"
     detailed_user:
@@ -1832,6 +1838,13 @@ en:
         weekly: "Every week"
       title: "Edit your account"
       yes_cancel_account: "Yes, cancel my account"
+    errors:
+      access_forbidden: "This operation is only available to administrators"
+    new:
+      create:
+        success: "User created. This user is already confirmed and can access the website at any time."
+        error: "Error(s) while create the new user"
+      title: "Create user"
   username: Username
   uploader:
     button: "Upload a new file"
