@@ -1,4 +1,4 @@
-= content_for :page_header do
-  = render :partial => "page_header"
+= content_for :main_sidebar do
+  = render "my/sidebar", user_spaces: @user_spaces
 
 = render "users/recent_activity", :content => @all_contents, :paginate => true

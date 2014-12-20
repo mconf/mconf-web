@@ -1,31 +1,11 @@
 @import "compass/css3";
 @import "definitions";
 
-#my-webconference-recordings, #space-recordings {
-  .recording-description {
-    font-weight: bold;
-  }
+.recording-list {
+  margin-top: 10px;
 
-  .thread {
-    .thread-title {
-      .thread-updated-at {
-        float: left;
-        margin-left: 5px;
-        padding: 0;
-      }
-
-      .recording-description {
-        float: left;
-        margin-top: -3px;
-      }
-    }
-
-    .recording-date {
-      display: inline-block;
-    }
-
-    .thread-recording-playback {
-      margin: 0;
-    }
+  .recording-playback-links {
+    margin: 0;
+    padding: 0;
   }
 }

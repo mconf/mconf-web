@@ -12,7 +12,8 @@
     .news-content
       %p= sanitize(auto_link(@news_to_show.text))
   .content-block-footer.content-block-footer-fancy
-    - if @news_position > 0
-      = link_to t('previous'), space_path(@space, :news_position => @news_position-1), :remote => true, :class => "latest-news-navigation-link"
-    - if @news_position + 1 < @news.size
-      = link_to t('next'), space_path(@space, :news_position => @news_position+1), :remote => true, :class => "latest-news-navigation-link"
+    .content-block-footer-middle
+      - if @news_position > 0
+        = link_to t('previous'), space_path(@space, :news_position => @news_position-1), :remote => true, :class => "latest-news-navigation-link"
+      - if @news_position + 1 < @news.size
+        = link_to t('next'), space_path(@space, :news_position => @news_position+1), :remote => true, :class => "latest-news-navigation-link"

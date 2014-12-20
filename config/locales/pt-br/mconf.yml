@@ -77,6 +77,7 @@ pt-br:
     members:
       one: "%{count} membro"
       other: "%{count} membros"
+    moderator: "Moderador"
     no_: "Não"
     participants:
       one: "%{count} participante"
@@ -1034,9 +1035,9 @@ pt-br:
     recordings:
       title: "Gravações da minha sala de webconferência"
       update_recordings:
-        error: "Erro atualizando sua lista de gravações, tente novamente mais tarde"
+        error: "Erro atualizando gravações, tente novamente mais tarde"
         success: "Lista de gravações atualizada!"
-        updating: "Atualizando sua lista de gravações..."
+        updating: "Atualizando lista de gravações..."
     webconference_room:
       end: "Parar a reunião"
       end_tooltip: "Esta ação vai finalizar a reunião em andamento!"
@@ -1327,12 +1328,12 @@ pt-br:
       error: "Não foi possível alterar o idioma do aplicativo para %{value}"
   shared:
     recording_list:
-      created: "Criada"
       created_by: "Criada por"
-      ended_at: "Finalizada em"
+      description: "Descrição"
       no_description: "<nenhuma descrição especificada>"
       no_recordings: "Sua sala de webconferência ainda não possui gravações"
       no_title: "<nenhum título especificado>"
+      playback_links: "Links para reprodução"
       started_at: "A reunião aconteceu em"
     recording_playback:
       duration: "duração"
@@ -1564,9 +1565,9 @@ pt-br:
     recordings:
       title: "Gravações desta comunidade (%{count})"
       update_recordings:
-        error: "Erro atualizando sua lista de gravações, tente novamente mais tarde"
+        error: "Erro atualizando gravações, tente novamente mais tarde"
         success: "Lista de gravações atualizada!"
-        updating: "Atualizando sua lista de gravações..."
+        updating: "Atualizando lista de gravações..."
     show:
       events_now: "Eventos acontecendo agora!"
     sidebar:
@@ -1584,8 +1585,6 @@ pt-br:
         one: "Esta comunidade tem %{count} pedido de adesão pendente!"
         other: "Esta comunidade tem %{count} pedidos de adesão pendentes!"
     sidebar_webconf_buttons:
-      end: "Finalizar"
-      end_tooltip: "Esta ação vai finalizar a reunião em andamento!"
       fast_start: "Início rápido usando as opções já configuradas"
       invite: "Convidar outras pessoas"
       join: "Entrar!"
@@ -1626,9 +1625,6 @@ pt-br:
           nobody: "Não há ninguém na sala."
           people_in_the_room: "Pessoas na sala"
           registered_users: "Usuários registrados"
-        description:
-          header: "Acesso à webconferência"
-          text: "A sala de webconferência associada com esta comunidade está no momento: <em>%{status}</em> <br/> Use os botões na barra lateral à direita para entrar na conferência."
         recordings:
           no_recordings: "Ainda não existem gravações nesta sala."
           title:

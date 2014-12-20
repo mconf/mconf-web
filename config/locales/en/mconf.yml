@@ -77,6 +77,7 @@ en:
     members:
       one: "%{count} member"
       other: "%{count} members"
+    moderator: "Moderator"
     no_: "No"
     participants:
       one: "%{count} participant"
@@ -1034,9 +1035,9 @@ en:
     recordings:
       title: "Recordings from my webconference room"
       update_recordings:
-        error: "Error updating your recording list, plase try again later"
+        error: "Error updating recordings, plase try again later"
         success: "Recording list updated!"
-        updating: "Updating your list of recordings..."
+        updating: "Updating list of recordings..."
   my_friends: "My friends"
   new_spam_detected: "New spam detected"
   news: 
@@ -1310,12 +1311,12 @@ en:
       error: "Unable to change application language to %{value}"
   shared:
     recording_list:
-      created: "Created"
       created_by: "Created by"
-      ended_at: "Ended at"
+      description: "Description"
       no_description: "<no description specified>"
       no_recordings: "Your web conference room has no recordings yet"
       no_title: "<no title specified>"
+      playback_links: "Playback links"
       started_at: "The meeting happened at"
     recording_playback:
       duration: "duration"
@@ -1564,9 +1565,9 @@ en:
     recordings:
       title: "Recordings in this space (%{count})"
       update_recordings:
-        error: "Error updating your recording list, plase try again later"
+        error: "Error updating recordings, plase try again later"
         success: "Recording list updated!"
-        updating: "Updating your list of recordings..."
+        updating: "Updating list of recordings..."
     show:
       events_now: "Events hapenning now!"
     sidebar:
@@ -1621,8 +1622,6 @@ en:
       with_members: "with %{count} members"
     users: "Users in this space"
     webconference:
-      end: "Stop the meeting"
-      end_tooltip: "This action will end the current conference!"
       invite: "Invite other people"
       webconference:
         attendees:
@@ -1630,9 +1629,6 @@ en:
           nobody: "There is nobody currently in the room."
           people_in_the_room: "People in the room"
           registered_users: "Registered users"
-        description:
-          header: "Webconference access"
-          text: "The webconference room associated with this space is currently: <em>%{status}</em> <br/> Use the buttons in the sidebar at the right to join the webconference."
         recordings:
           no_recordings: "There are no recordings in this room yet."
           title:

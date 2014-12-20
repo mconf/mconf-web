@@ -6,10 +6,31 @@
 body.my.recordings {
 
   #my-webconference-recordings-fetch {
-    float: left;
-    margin: 2px 0 0 10px;
-    padding-left: 5px;
-    border-left: 5px solid darken($m-light-gray, 5);
+    float: right;
+    @include font-size($m-font-medium);
+
+    #my-webconference-recordings-error {
+      padding: 3px 6px;
+      @include border-radius(4px);
+      background: $m-red;
+      color: white;
+      .icon-awesome { color: white; }
+    }
+
+    #my-webconference-recordings-success {
+      padding: 3px 6px;
+      @include border-radius(4px);
+      background: $m-green;
+      color: white;
+      .icon-awesome { color: white; }
+    }
+
+    #my-webconference-recordings-loading {
+      padding: 3px 6px;
+      @include border-radius(4px);
+      background: $m-light-gray;
+      color: $m-font-color;
+    }
 
     // all divs for the status start hidden
     > * {

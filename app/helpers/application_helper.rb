@@ -203,7 +203,10 @@ module ApplicationHelper
     content_tag :abbr, "*", :title => I18n.t('_other.form.required')
   end
 
-  # Sets the default value for a local in a view. Preserves false and nil values.
+  # Sets the default value for a local variable in a view in case this variable is not set yet.
+  # Preserves false and nil values set in the variable.
+  # Example:
+  #   set_default(local_assigns, "show_authors", true)
   # TODO: find a way to access `local_assigns` here without passing in as a param.
   def set_default(local_assigns, var_name, value)
     if local_assigns.has_key?(var_name.to_sym)

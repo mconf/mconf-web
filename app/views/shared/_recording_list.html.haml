@@ -2,51 +2,63 @@
 -#   recordings (Array of Recording)
 -#   show_authors (boolean): show who created the recording?
 
-- show_authors = true if show_authors.nil?
+- set_default(local_assigns, "show_authors", true)
 
-#my-webconference-recordings-list
-  - if recordings.count <= 0
-    = t('.no_recordings')
+%table.recording-list.table.table-hover{ :class => "table-with-author" }
+  %thead
+    %tr
+      %th
+      - if show_authors
+        %th.col-sm-5= t(".description")
+        %th.col-sm-2= t(".started_at")
+        %th.col-sm-2= t(".created_by")
+        %th.col-sm-3= t(".playback_links")
+      - else
+        %th.col-sm-5= t(".description")
+        %th.col-sm-3= t(".started_at")
+        %th.col-sm-4= t(".playback_links")
+  %tbody
+    - if recordings.count <= 0
+      %tr
+        - if show_authors
+          %td{ :colspan => "5" }= t('.no_recordings')
+        - else
+          %td{ :colspan => "4" }= t('.no_recordings')
+    - else
+      - recordings.each do |recording|
+        - action = recording.room.owner_type == "User" ? :user_show : :space_show
+        - if can?(action, recording)
+          - metaUser = recording.metadata.all.select{ |m| m.name == BigbluebuttonRails.metadata_user_id.to_s }.first
 
-  - else
-    - recordings.each do |recording|
-      - metaUser = recording.metadata.all.select{ |m| m.name == BigbluebuttonRails.metadata_user_id.to_s }.first
-
-      - action = recording.room.owner_type == "User" ? :user_show : :space_show
-      - if can?(action, recording)
-
-        .thread.thread-no-logo{:class => cycle('thread-even' , 'thread-odd'), :id => "rec-#{recording.id}"}
-          .thread-content
-
-            %ul.thread-action-links.visible-on-hover{ :"data-hover-tracked" => "rec-#{recording.id}" }
+          %tr
+            %td
+              -# Edit description button
               - if recording.room.owner_type == "User"
                 - if can?(:user_edit, recording)
-                  %li= link_to t('_other.edit').downcase, edit_my_recording_path(recording), :class => "open-modal"
+                  = link_to icon_edit, edit_my_recording_path(recording), :class => "open-modal"
               - else
                 - if can?(:space_edit, recording)
-                  %li= link_to t('_other.edit').downcase, space_edit_recording_path(recording.room.owner, recording), :class => "open-modal"
+                  = link_to icon_edit, space_edit_recording_path(recording.room.owner, recording), :class => "open-modal"
 
-            .thread-title
-              = icon_recording
+            %td
               - if recording.description.blank?
                 %span.recording-description= t('.no_description')
               - else
                 %span.recording-description= recording.description
 
-            .thread-subtitle
+            %td
               .recording-date{ :title => "#{t('.ended_at')}: #{format_date(recording.end_time)}" }
-                = "#{t('.started_at')} #{format_date(recording.start_time)}"
+                = format_date(recording.start_time)
 
             - if show_authors
-              .thread-subtitle
+              %td
                 - unless metaUser.nil?
                   - user = User.find_by_id(metaUser.content)
                   .recording-author
-                    = t('.created_by')
                     - unless user.nil?
                       = link_to user.full_name, user_profile_path(user)
                     - else
                       %span= t('_other.user.removed')
 
-            .thread-subtitle
+            %td
               = render :partial => 'shared/recording_playback', :locals => { :recording => recording }
