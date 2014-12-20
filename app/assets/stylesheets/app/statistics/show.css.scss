@@ -1,11 +1,12 @@
-//@import "compass/typography/links";
 @import "definitions";
 
 body.statistics.show {
 
-  .about {
-    float: right;
-    margin-top: 25px;
+  .notice {
+    text-align: center;
+    padding: 3px 0 20px 0;
+    margin-bottom: 20px;
+    border-bottom: 1px solid $m-page-title-border-color;
   }
 
 }
