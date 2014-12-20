@@ -46,7 +46,8 @@ module LogoImagesHelper
     when :event
       path_no_image = "default_logos/" + options[:size] + "/event.png"
     end
-    image_tag(path_no_image, :class => options[:class], :title => options[:title])
+    cls = "#{options[:class]} empty-logo"
+    image_tag(path_no_image, class: cls, title: options[:title])
   end
 
   def link_logo_image(resource, options={})
