@@ -8,8 +8,11 @@
   - spaces_menu_at :webconference
   = render :partial => 'spaces/menu'
 
-  #page-menu
+  #page-menu.with-sub-menu
     = content_for :page_menu
+
+  - spaces_webconference_menu_at :recordings
+  = render :partial => 'webconference_tabs'
 
   #space-recordings.content-block
     .content-block-header

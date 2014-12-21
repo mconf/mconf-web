@@ -156,21 +156,35 @@ label.control-label.checkbox {
 /*   background: white; */
 /* } */
 
-/* .alert { */
-/*   padding: 10px; */
-/*   border-left-width: 5px; */
-/*   border-right-width: 0; */
-/*   border-top-width: 0; */
-/*   border-bottom-width: 0; */
-/*   @include border-radius(0); */
-/*   @include text-shadow(none); */
+.alert {
+  padding: 15px;
+  @include border-radius(3px);
+  @include text-shadow(none);
+  border-top-width: 1px;
+  border-right-width: 1px;
+  border-bottom-width: 1px;
+  border-left-width: 5px;
+  color: $m-font-color;
 
-/*   &.alert-gray { */
-/*     background: $m-alert-gray-bg; */
-/*     border-color: darken($m-alert-gray-bg, 10); */
-/*     color: $m-alert-gray-font; */
-/*   } */
-/* } */
+  &.alert-clean {
+    background: $m-site-bg-color;
+  }
+
+  h4 {
+    font-weight: bold;
+  }
+
+  &.alert-danger {
+    border-left-color: $state-danger-text;
+    h4 { color: $state-danger-text; }
+  }
+
+  &.alert-gray {
+    background: $m-alert-gray-bg;
+    border-color: darken($m-alert-gray-bg, 10);
+    color: $m-alert-gray-font;
+  }
+}
 
 /* // bootstrap makes links in the footer look like the close button at the header of a */
 /* // modal, so we make it look like a normal link again */

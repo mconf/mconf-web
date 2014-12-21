@@ -708,11 +708,14 @@ form {
 }
 
 #page-menu {
-  margin: 5px 0 0 0;
+  margin: 5px 0 20px 0;
   clear: both;
   @include mconf-clearfix;
-
   border-bottom: 1px solid darken($m-site-bg-color, 10);
+
+  &.with-sub-menu {
+    margin-bottom: 0;
+  }
 
   > ul {
     margin: 0 0 -2px 0; // -2 so selected items border gets over the default menu border
@@ -736,11 +739,7 @@ form {
       }
 
       &.active {
-        /* @include border-top-radius(4px); */
         border-bottom: 3px solid $m-second-color;
-        /* border: 1px solid darken($m-site-bg-color, 20); */
-        /* border-bottom-color: $m-site-bg-color; */
-        /* background: $m-site-bg-color; */
         a {
           $normal: darken($m-page-menu-font-color, 20);
           $hover: lighten($m-page-menu-font-color, 10);
@@ -775,8 +774,6 @@ form {
   background: $m-very-light-gray;
   $border-color: darken($m-very-light-gray, 8);
   border-bottom: 1px solid $border-color;
-  @include font-size($m-font-medium);
-  text-align: center;
 
   // use link-style(2) but with a lighter default color
   @include link-style(2);
@@ -787,7 +784,7 @@ form {
       @include danger-text;
     }
 
-    padding: 5px 10px 7px 10px;
+    padding: 7px 10px 7px 10px;
     display: inline-block;
     margin: 7px 5px -2px 5px;
 

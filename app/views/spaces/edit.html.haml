@@ -1,35 +1,33 @@
-- page_title t('spaces.admin_tabs.general_options'), :in => @space.name
+- page_title t('spaces.admin_tabs.general_options'), in: @space.name
 
 = render "spaces/title", space: @space, full: false
 
 - spaces_menu_at :admin
-= render :partial => 'spaces/menu'
+= render partial: 'spaces/menu'
 
-#page-menu
+#page-menu.with-sub-menu
   = content_for :page_menu
 
 - spaces_admin_menu_at :main
-= render :partial => 'admin_tabs'
+= render partial: 'admin_tabs'
 
-#edit-space
-  .right-column
-    #edit-space-current-logo
-      = logo_image(@space, :size => '168x128', :class => 'logo')
+#edit-space.row-fluid
 
-      #space-logo-uploader.file-uploader{:'data-endpoint' => update_logo_space_path(@space, :format => :json), :'data-accept' => 'image/*', :'data-max-size' => space_max_image_size }
-
-  = simple_form_for @space, :html => { :method => :put, :class => 'single-column' } do |f|
-    .left-column
-      = f.input :name
-      = f.input :permalink , :disabled => true
-      = f.input :description, :as => :text, :input_html => { :rows => 5 }
+  #edit-space-options
+    = simple_form_for @space, html: { method: :put, class: 'single-column' } do |f|
+      = f.input :name, autofocus: true
+      = f.input :permalink , disabled: true
+      = f.input :description, as: :text, input_html: { rows: 5 }
       = f.input :repository
-      = f.input :public, :label => t('.public')
+      = f.input :public, label: t('.public')
+      = f.button :wrapped, value: t("_other.save")
 
-    = f.button :wrapped, :value => t("_other.save")
+  #edit-space-logo
+    .logo-wrapper
+      = logo_image(@space, size: "336x256", class: 'logo', title: @space.name)
+      #space-logo-uploader.file-uploader{:'data-endpoint' => update_logo_space_path(@space, format: :json), :'data-accept' => 'image/*', :'data-max-size' => space_max_image_size }
 
-  #edit-space-other-options
-    %h3= t('.other_options')
-    .alert.alert-danger
-      %span= t('.delete_space')
-      = link_to t('.yes_delete'), disable_space_path(@space), :data => { :confirm => t(".delete_confirmation") }, :method => :delete, :class => 'btn btn-small btn-danger'
+  #edit-space-other-options.alert.alert-danger.alert-clean
+    %h4= t('.other_options')
+    %span= t('.delete_space')
+    = link_to t('.yes_delete'), disable_space_path(@space), data: { confirm: t(".delete_confirmation") }, method: :delete, class: 'danger-text'

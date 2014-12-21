@@ -80,6 +80,7 @@
 @mixin danger-text {
   color: $m-red;
   @include link-colors($m-red, darken($m-red, 10), lighten($m-red, 5x));
+  &:not(.btn) { @include link-colors($m-red, darken($m-red, 10), lighten($m-red, 5x)); }
 }
 
 // TODO: old method, not useful with bootstrap3 anymore
