@@ -1,10 +1,14 @@
 - page_title t('spaces.menu.repository'), :in => @space.name
 
-- spaces_menu_at :repository
+= render "spaces/title", space: @space, full: false
 
+- spaces_menu_at :repository
 = render :partial => 'spaces/menu'
 
-#space-attachments-tabs.page-tabs
+#page-menu
+  = content_for :page_menu
+
+#space-attachments-tabs.page-sub-menu
   -# note: this links have to start enabled, otherwise the click won't work (the links are set via js)
   = link_to t('.download_multiple'), '#', :id => "attachments-download", :class => "btn btn-small", :'data-base-url' => space_attachments_path(@space)
   = link_to t('.remove_multiple'), '#', :rel => 'nofollow', :id => "attachments-delete", :'data-confirm' => t(".remove_multiple_confirmation"), :class => "btn btn-small", :'data-base-url' => space_attachments_path(@space)

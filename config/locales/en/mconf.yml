@@ -1643,6 +1643,9 @@ en:
     webconference_options:
       layout_empty_option: "<default>"
       options: "Web conference room options"
+    webconference_tabs:
+      access: "Web conference access"
+      recordings: "List of recordings"
   spam:
     spam_report_create:
       error: "Sorry, but there was a problem marking this item as spam"

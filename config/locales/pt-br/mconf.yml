@@ -1639,6 +1639,9 @@ pt-br:
     webconference_options:
       layout_empty_option: "<padrão>"
       options: "Opções da sala de webconferência"
+    webconference_tabs:
+      access: "Acesso à conferência"
+      recordings: "Lista de gravações"
   spam:
     spam_report_create:
       error: "Desculpe, mas ocorreu um erro ao marcar este artigo como spam"

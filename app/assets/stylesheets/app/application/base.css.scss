@@ -708,7 +708,7 @@ form {
 }
 
 #page-menu {
-  margin: 5px 0 25px 0;
+  margin: 5px 0 0 0;
   clear: both;
   @include mconf-clearfix;
 
@@ -736,8 +736,8 @@ form {
       }
 
       &.active {
-        @include border-top-radius(4px);
-        border-bottom: 3px solid $m-bright-blue;
+        /* @include border-top-radius(4px); */
+        border-bottom: 3px solid $m-second-color;
         /* border: 1px solid darken($m-site-bg-color, 20); */
         /* border-bottom-color: $m-site-bg-color; */
         /* background: $m-site-bg-color; */
@@ -767,20 +767,37 @@ form {
 
 // A list of tabs inside of a page, to access subpages of it or to include
 // additional functionality (e.g. search box)
-#content .page-tabs {
-  float: left;
+#content .page-sub-menu {
   clear: both;
   margin-bottom: 20px;
+  @include mconf-clearfix;
+  float: none;
+  background: $m-very-light-gray;
+  $border-color: darken($m-very-light-gray, 8);
+  border-bottom: 1px solid $border-color;
+  @include font-size($m-font-medium);
+  text-align: center;
 
-  // when the div should be shown in fill width
-  &.page-tabs-full {
-    float: none;
-    background: $m-very-light-gray;
-    $border-color: darken($m-very-light-gray, 8);
-    border-bottom: 1px solid $border-color;
-    border-top: 1px solid $border-color;
-    padding: 10px;
-    @include mconf-clearfix;
+  // use link-style(2) but with a lighter default color
+  @include link-style(2);
+  > a:not(.btn) {
+    color: $m-page-menu-font-color;
+    &:visited { color: $m-page-menu-font-color; }
+    &.danger-text {
+      @include danger-text;
+    }
+
+    padding: 5px 10px 7px 10px;
+    display: inline-block;
+    margin: 7px 5px -2px 5px;
+
+    &.active {
+      font-weight: bold;
+      border-bottom: 3px solid $m-second-color;
+      $normal: darken($m-page-menu-font-color, 20);
+      $hover: lighten($m-page-menu-font-color, 10);
+      @include link-colors($normal, $hover, $hover, $normal);
+    }
   }
 }
 

@@ -7,9 +7,6 @@
 @import "app/spaces/title";
 @import "app/shared/webconference_join";
 
-// TODO: import this in spaces/_all
-@import "app/shared/user_sidebar";
-
 body.spaces.show {
 
   // date of comments, news, posts, etc.

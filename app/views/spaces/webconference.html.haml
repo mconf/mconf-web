@@ -8,6 +8,9 @@
 #page-menu
   = content_for :page_menu
 
+- spaces_webconference_menu_at :access
+= render :partial => 'webconference_tabs'
+
 = render "shared/webconference_join", room: @space.bigbluebutton_room
 
 .content-block

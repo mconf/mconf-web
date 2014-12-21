@@ -13,7 +13,7 @@ class AttachmentsController < ApplicationController
   before_filter :load_attachments, :only => [:index, :delete_collection]
   before_filter :webconf_room!, :only => [:index, :new]
 
-  layout 'spaces_show'
+  layout 'no_sidebar'
 
   def show
     path = @attachment.full_filename
