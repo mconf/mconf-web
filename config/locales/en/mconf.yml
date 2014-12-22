@@ -1826,6 +1826,7 @@ en:
       notification:
         by_email: "By email"
         by_private_message: "By private message"
+      other_options: "Other options"
       other_user:
         click_to_edit_profile: "Click here to edit this user's profile"
         not_confirmed: "This user has not confirmed his/her account yet."

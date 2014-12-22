@@ -1822,6 +1822,7 @@ pt-br:
       notification:
         by_email: "Por e-mail"
         by_private_message: "Por mensagem privada"
+      other_options: "Outras opções"
       other_user:
         click_to_edit_profile: "Clique aqui para editar o perfil deste usuário"
         not_confirmed: "Este usuário ainda não confirmou sua conta."

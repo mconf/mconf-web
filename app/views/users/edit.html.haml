@@ -32,22 +32,22 @@
 
 = simple_form_for @user, :url => user_path(@user), :html => { :method => :put } do |f|
 
-  .left-column
+  #user-account-panel-1
 
-    #account-info
+    #user-account-info
       %h3= t('.account_info')
       = f.input :email, :required => false, :disabled => true
       = f.input :username, :required => false, :disabled => true
     - if current_site.local_auth_enabled? || @user.admin?
-      #change-password
+      #user-change-password
         %h3= t('.change_password')
         - unless current_user.superuser?
           = f.input :current_password
         = f.input :password, :autocomplete => "off", :required => false
         = f.input :password_confirmation, :required => false
 
-  .right-column
-    #account-preferences
+  #user-account-panel-2
+    #user-account-preferences
       %h3= t('.preferences')
 
       = f.input :timezone, :required => false do
@@ -55,22 +55,20 @@
 
       = f.input :expanded_post, :required => false, :as => :radio_buttons
 
-      = f.input :notification, :required => false do
-        - collection = []
-        - collection.push([User::NOTIFICATION_VIA_PM, t('.notification.by_private_message')])
-        - collection.push([User::NOTIFICATION_VIA_EMAIL, t('.notification.by_email')])
-        = f.collection_radio_buttons :notification, collection, :first, :last
+      - collection = []
+      - collection.push([t('.notification.by_private_message'), User::NOTIFICATION_VIA_PM])
+      - collection.push([t('.notification.by_email'), User::NOTIFICATION_VIA_EMAIL])
+      = f.input :notification, as: :radio_buttons, collection: collection, required: false
 
-      = f.input :receive_digest, :required => false do
-        - collection = []
-        - collection.push([User::RECEIVE_DIGEST_NEVER, t('.receive_digest.never')])
-        - collection.push([User::RECEIVE_DIGEST_DAILY, t('.receive_digest.daily')])
-        - collection.push([User::RECEIVE_DIGEST_WEEKLY, t('.receive_digest.weekly')])
-        = f.collection_radio_buttons :receive_digest, collection, :first, :last
+      - collection = []
+      - collection.push([t('.receive_digest.never'), User::RECEIVE_DIGEST_NEVER])
+      - collection.push([t('.receive_digest.daily'), User::RECEIVE_DIGEST_DAILY])
+      - collection.push([t('.receive_digest.weekly'), User::RECEIVE_DIGEST_WEEKLY])
+      = f.input :receive_digest, as: :radio_buttons, collection: collection, required: false
 
   - if user_signed_in? && current_user.superuser
-    #management-options.alert.alert-gray
-      %h3= t('.management_options')
+    #user-management-options.alert.alert-info.alert-clean
+      %h4= t('.management_options')
       = f.input :can_record, :required => false
 
       -# prevent admins from mistakenly removing themselves from being admins or blocking
@@ -91,6 +89,7 @@
   = f.button :wrapped, :cancel => edit_user_path(@user), :value => t("_other.save")
 
   - if current_user == @user
-    #cancel-account.alert.alert-danger
+    #user-cancel-account.alert.alert-danger.alert-clean
+      %h4= t('.other_options')
       %span= t('.cancel_account')
-      = link_to t('.yes_cancel_account'), user_path(current_user), :data => { :confirm => t("are_you_sure") }, :method => :delete, :class => 'btn btn-small btn-danger'
+      = link_to t('.yes_cancel_account'), user_path(current_user), data: { confirm: t("are_you_sure") }, method: :delete, class: 'danger-text'

@@ -54,7 +54,7 @@ form {
   @include mconf-clearfix; // in _definitions
 }
 
-.danger-text {
+.danger-text, a.danger-text {
   @include danger-text;
 }
 
