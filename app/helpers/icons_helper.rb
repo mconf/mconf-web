@@ -235,6 +235,10 @@ module IconsHelper
     icon_constructor nil, "fa fa-envelope-o icon-awesome icon-mconf-invitation", options
   end
 
+  def icon_list(options={})
+    icon_constructor nil, "fa fa-list icon-awesome icon-mconf-list", options
+  end
+
   private
 
   # Base method for most of the methods above

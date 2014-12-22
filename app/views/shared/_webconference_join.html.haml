@@ -11,12 +11,8 @@
 
   .content-block-middle
 
-    #webconference-room-invitations
-      .invitation-input
-        = copyable_field 'invite-url-text', join_webconf_url(room), readonly: true
-      .invitation-button
-        = link_to invitation_bigbluebutton_room_path(room), :class => "btn btn-default open-modal col-sm-12 col-xs-12" do
-          = "Send invitations"
+    #webconference-room-url
+      = copyable_field 'invite-url-text', join_webconf_url(room), readonly: true
 
     -# .webconference-types.row
     -#   .col-xs-4.col-md-4
@@ -63,7 +59,23 @@
   - cls = running ? "in-progress" : ""
   #webconference-start{ :class => cls }
 
+    .webconference-buttons
+      = link_to invitation_bigbluebutton_room_path(room), class: "btn btn-default open-modal tooltipped", title: "Send invitations for meetings in this room" do
+        = icon_invitation
+        -# = " Send invitations"
+      = link_to edit_my_room_path, class: "open-modal btn btn-default tooltipped", title: "Configure this room before creating a meeting" do
+        = icon_options
+        -# = " Configure"
+      - if room.owner.class == Space
+        - recordings_link = recordings_space_path(room.owner)
+      - else
+        - recordings_link = my_recordings_path
+      = link_to recordings_link, class: "btn btn-default tooltipped", title: "View the list of recordings for this room" do
+        = icon_list
+        -# = " Meetings and recordings"
+
     .webconference-status
+
       - if running
         %span
           = icon_in_progress
@@ -71,9 +83,8 @@
       - else
         %span= "There's no meeting happening in this room right now"
 
-    .webconference-access-buttons
-      = link_to edit_my_room_path, :class => 'open-modal btn btn-default' do
-        = icon_options
+      -# = link_to edit_my_room_path, :class => 'open-modal btn btn-default' do
+      -#   = icon_options
       - if running
         - if can?(:end, room)
           = link_to t('.end'), end_bigbluebutton_room_path(room, :redir_url => my_home_path), options_for_tooltip(t('.end_tooltip'), :data => { :confirm => t('are_you_sure') }, :class => 'btn btn-danger')
@@ -86,55 +97,5 @@
         -#     = icon_webconf_start
         -# - else
         = link_to t('.start'), join_bigbluebutton_room_path(room), :class => "btn webconf-join-link btn-success"
-
-    -# .btn-group
-    -#   .btn.btn-default.dropdown-toggle{ :"data-toggle" => "dropdown", :href => "#" }
-    -#     = icon_options
-    -#     .caret
-    -#   %ul.dropdown-menu.pull-right
-    -#     %li= link_to t('.invite'), invitation_bigbluebutton_room_path(room), :class => 'open-modal'
-    -#     %li= link_to t('.preferences'), edit_my_room_path, :class => 'open-modal', :'data-modal-width' => 'small'
-    -#     %li= link_to t('.recordings'), my_recordings_path
-
-  -# #webconference-room{ :class => active_cls }
-
-  -#   .header
-  -#     %h3
-  -#       - if running
-  -#         - if room.participant_count == 0
-  -#           - status = t('.running_with.no_participants')
-  -#         - else
-  -#           - status = t('.running_with.participants', :count => room.participant_count)
-  -#       - else
-  -#         - status = t('.not_running')
-  -#       = status.capitalize
-
-  -#   .invite-url
-  -#     = copyable_field 'invite-url-text', join_webconf_url(room), :label => t('.your_url'), :readonly => true
-
-  -#   %ul.action-buttons
-  -#     %li
-  -#       .btn-group
-  -#         .btn.btn-small.dropdown-toggle{ :"data-toggle" => "dropdown", :href => "#" }
-  -#           = icon_options
-  -#           .caret
-  -#         %ul.dropdown-menu.pull-right
-  -#           %li= link_to t('.invite'), invitation_bigbluebutton_room_path(room), :class => 'open-modal'
-  -#           %li= link_to t('.preferences'), edit_my_room_path, :class => 'open-modal', :'data-modal-width' => 'small'
-  -#           %li= link_to t('.recordings'), my_recordings_path
-  -#     %li
-  -#       .btn-group.webconf-join-group
-  -#         - if running
-  -#           = link_to t('.join'), join_bigbluebutton_room_path(room), :class => "btn btn-small webconf-join-link btn-success"
-  -#           - if can?(:end, room)
-  -#             = link_to t('.end'), end_bigbluebutton_room_path(room, :redir_url => my_home_path), options_for_tooltip(t('.end_tooltip'), :confirm => t('are_you_sure'), :class => 'btn btn-small btn-danger')
-  -#         - else
-  -#           -# only show the options dialog if the user can record and the record flag is not automatically set
-  -#           - if can?(:record_meeting, room) && !current_site.webconf_auto_record
-  -#             = link_to t('.start'), join_options_bigbluebutton_room_path(room), :class => "btn btn-small open-modal btn-primary", :'data-modal-width' => 'small'
-  -#             = link_to join_bigbluebutton_room_path(room), options_for_tooltip(t(".fast_start"), :class => "btn btn-small btn-primary webconf-join-link") do
-  -#               = icon_webconf_start
-  -#           - else
-  -#             = link_to t('.start'), join_bigbluebutton_room_path(room), :class => "btn btn-small webconf-join-link btn-primary"
-  -#     - if running
-  -#       %li= icon_in_progress
+      -# = link_to invitation_bigbluebutton_room_path(room), :class => "btn btn-default open-modal" do
+      -#   = icon_list

@@ -3,69 +3,60 @@
 
 #webconference-room {
 
-  #webconference-room-invitations {
-    @include make-row;
+  #webconference-room-url {
 
-    .invitation-input {
-      @include make-sm-column(12);
-      @include make-md-column(9);
-
-      #invite-url-text {
-        cursor: text;
-        background: $m-very-light-gray;
-      }
+    #invite-url-text {
+      cursor: text;
+      background: $m-very-light-gray;
     }
 
-    .invitation-button {
-      @include make-sm-column(12);
-      @include make-md-column(3);
+    .form-group {
+      // a bit less space at the bottom
+      margin-bottom: 10px;
     }
+
   }
 
   #webconference-start {
     @include make-row;
-    padding: 15px 0;
-    margin: 0 5px;
+    padding: 10px 0;
+    margin: 0;
     background: $m-light-gray;
     @include border-radius(3px);
     border: 1px solid darken($m-light-gray, 7);
 
     .webconference-status {
-      @include make-xs-column(12);
-      @include make-sm-column(7);
+      @include make-sm-column(12);
+      @include make-md-column(9);
+      text-align: right;
 
       span {
         @include font-size($m-font-medium);
-        padding: 7px 0;
-        float: left;
+        margin: 5px;
       }
     }
 
-    .webconference-access-buttons {
-      @include make-xs-column(12);
-      @include make-sm-column(5);
-      text-align: right;
+    .webconference-buttons {
+      @include make-sm-column(12);
+      @include make-md-column(3);
+      text-align: left;
+      padding: 0 0 0 5px;
 
       .btn {
         // bit more horizontal spacing
-        margin: 0 3px;
+        margin: 0 0 0 5px;
       }
     }
 
     &.in-progress {
-      // when in progress, there are more buttons than status text
-      .webconference-status {
-        @include make-sm-column(5);
-      }
-      .webconference-access-buttons {
-        @include make-sm-column(7);
-      }
+      border-color: $m-green;
 
       .webconference-status {
         .icon-mconf-in-progress { margin-right: 5px; }
       }
     }
   }
+
 
 
   .webconference-types {
@@ -119,7 +110,3 @@
     @include font-size($m-font-normal);
   }
 }
-
-/* .icon-mconf-in-progress { */
-/*   margin-top: 5px; */
-/* } */
