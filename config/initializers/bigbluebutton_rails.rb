@@ -62,7 +62,14 @@ Rails.application.config.to_prepare do
 
   BigbluebuttonMeeting.class_eval do
     after_create {
-      self.create_activity :create, :owner => self.room unless self.errors.any? 
+      self.create_activity :create, :owner => self.room unless self.errors.any?
+    }
+
+    # Fetches also the recordings associated with the meetings. Returns meetings even if they do not
+    # have a recording.
+    scope :with_or_without_recording, -> {
+      joins("LEFT JOIN bigbluebutton_recordings ON bigbluebutton_meetings.id = bigbluebutton_recordings.meeting_id")
+        .order("start_time DESC")
     }
   end
 

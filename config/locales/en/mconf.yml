@@ -1014,30 +1014,43 @@ en:
       interesting_links: "Meanwhile you can browse these open sections of the website:"
       events_list: list of events
       spaces_list: list of spaces
-    page_header:
-      activity_list: "Activity list"
     home:
       create_space: "Create a new space"
       events:
         other: "Other"
         today: "Today"
       not_confirmed: "Your account is not activated yet, please check your email to activate it. In case you didn't receive an email, <a href=\"%{url}\">click here</a> to request a new one."
+      past_meetings:
+        title: "Past meetings and recordings"
+        view_more: "View all meetings and recordings"
       pending_join_requests:
         one: "%{count} pending join request"
         other: "%{count} pending join requests"
       pending_join_requests_tooltip: "These are the invitations you received to join spaces or the join requests you sent."
-      view_all_activity: "View all your activity"
       view_all_spaces: "View all spaces"
     edit_recording:
       title: "Edit your recording"
     edit_room:
       layout_empty_option: "<default>"
+    page_header:
+      activity_list: "Activity list"
     recordings:
-      title: "Recordings from my webconference room"
+      title: "All past meetings and recordings"
       update_recordings:
         error: "Error updating recordings, plase try again later"
         success: "Recording list updated!"
         updating: "Updating list of recordings..."
+    sidebar:
+      menu:
+        account: "Account"
+        activity: "Activity dashboard"
+        inbox: "Inbox (%{unread} unread messages)"
+        profile: "Profile"
+        webconf_room: "My web conference room"
+      spaces:
+        create: "Create a space"
+        title: "My spaces"
+        view_all: "View all my spaces"
   my_friends: "My friends"
   new_spam_detected: "New spam detected"
   news: 
@@ -1314,10 +1327,12 @@ en:
       created_by: "Created by"
       description: "Description"
       no_description: "<no description specified>"
-      no_recordings: "Your web conference room has no recordings yet"
-      no_title: "<no title specified>"
+      no_meetings: "There are no meetings or recordings in this room yet."
+      not_recorded: "(This meeting was not recorded.)"
       playback_links: "Playback links"
-      started_at: "The meeting happened at"
+      started_at: "Date"
+      started_at_desc: "This meeting started at %{meeting_start}"
+      started_at_desc_with_rec: "This meeting started at %{meeting_start} and generated a recording that was processed from %{rec_start} to %{rec_end}"
     recording_playback:
       duration: "duration"
       playback: "Playback links"
@@ -1563,7 +1578,7 @@ en:
       title: "Create a new space"
     news: "Space news"
     recordings:
-      title: "Recordings in this space (%{count})"
+      title: "All meetings and recordings in this space"
       update_recordings:
         error: "Error updating recordings, plase try again later"
         success: "Recording list updated!"
@@ -1623,29 +1638,25 @@ en:
     users: "Users in this space"
     webconference:
       invite: "Invite other people"
-      webconference:
-        attendees:
-          all_users: "All users"
-          nobody: "There is nobody currently in the room."
-          people_in_the_room: "People in the room"
-          registered_users: "Registered users"
-        recordings:
-          no_recordings: "There are no recordings in this room yet."
-          title:
-            zero: "Recordings in this room"
-            one: "Last recording in this room"
-            other: "Last %{count} recordings in this room"
-          view_all: "View all recordings and update the list"
-        share:
-          description: "You can invite people to this webconference by sharing the link below:"
-          header: Share
-          url: "Webconference URL"
+      attendees:
+        all_users: "All users"
+        nobody: "There is nobody currently in the room."
+        people_in_the_room: "People in the room"
+        registered_users: "Registered users"
+      recordings:
+        no_recordings: "There are no meetings or recordings in space yet."
+        title: "Last meetings and recordings in this space"
+        view_all: "View all meetings and recordings"
+      share:
+        description: "You can invite people to this webconference by sharing the link below:"
+        header: Share
+        url: "Webconference URL"
     webconference_options:
       layout_empty_option: "<default>"
       options: "Web conference room options"
     webconference_tabs:
       access: "Web conference access"
-      recordings: "List of recordings"
+      recordings: "Meetings and recordings"
   spam:
     spam_report_create:
       error: "Sorry, but there was a problem marking this item as spam"

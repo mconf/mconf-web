@@ -228,11 +228,9 @@ class SpacesController < ApplicationController
       end
       @webconf_attendees.uniq!
     end
-    # TODO: #1087 show last 5 recordings and a link to the full list and to update it
-    @recordings = @webconf_room.recordings.published().order("end_time DESC").last(3)
-    if params[:limit]
-      @recordings = @recordings.first(params[:limit].to_i)
-    end
+    # TODO: #1087 we're ignoring here recordings that have no meeting associated, think whether this will ever happen
+    @meetings = BigbluebuttonMeeting.where(room: @webconf_room)
+      .with_or_without_recording().last(3)
     render layout: 'no_sidebar'
   end
 
@@ -241,9 +239,11 @@ class SpacesController < ApplicationController
   # there, the before_filters and other methods don't really match. It's more related to spaces then
   # to webconference rooms.
   def recordings
-    @recordings = @webconf_room.recordings.published().order("end_time DESC")
+    # TODO: #1087 we're ignoring here recordings that have no meeting associated, think whether this will ever happen
+    @meetings = BigbluebuttonMeeting.where(room: @webconf_room).with_or_without_recording()
+    @recording_count = @meetings.count
     if params[:limit]
-      @recordings = @recordings.first(params[:limit].to_i)
+      @meetings = @meetings.first(params[:limit].to_i)
     end
     if params[:partial]
       render layout: false

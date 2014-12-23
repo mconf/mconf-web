@@ -17,14 +17,14 @@
   .content-block-header
     = icon_users()
     %h3
-      = t('.webconference.attendees.people_in_the_room')
+      = t('.attendees.people_in_the_room')
       = "(#{@webconf_room.participant_count})"
   .content-block-middle
     - if @webconf_room.participant_count == 0
-      = t('.webconference.attendees.nobody')
+      = t('.attendees.nobody')
     - else
       #webconference-all-users
-        %h4= t('.webconference.attendees.all_users') + ":"
+        %h4= t('.attendees.all_users') + ":"
         - @webconf_room.attendees.each_with_index do |attendee, i|
           - if attendee.role == :moderator
             = icon_user title: t("_other.moderator")
@@ -33,7 +33,7 @@
               = "#{attendee.full_name}, "
             - else
               = attendee.full_name
-      %h4= t('.webconference.attendees.registered_users') + ":"
+      %h4= t('.attendees.registered_users') + ":"
       - @webconf_attendees.each do |user|
         = render :partial => 'users/simple_user', :locals => { :user => user }
 
@@ -41,12 +41,12 @@
   .content-block-header
     %h3
       = icon_recording
-      = t('.webconference.recordings.title', count: @recordings.count)
-  - if @recordings.count > 0
+      = t('.recordings.title')
+  - if @meetings.count > 0
     #space-recordings-list-wrapper.content-block-middle
-      = render :partial => 'shared/recording_list', :locals => { :recordings => @recordings, :show_authors => true }
+      = render :partial => 'shared/recording_list', :locals => { :meetings => @meetings, :show_authors => true }
   - else
-    %span= t('.webconference.recordings.no_recordings')
+    %span= t('.recordings.no_recordings')
   .content-block-footer.content-block-footer-fancy
     .content-block-footer-middle
-      = link_to t('.webconference.recordings.view_all'), recordings_space_path(@space)
+      = link_to t('.recordings.view_all'), recordings_space_path(@space)

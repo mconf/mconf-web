@@ -1,17 +1,20 @@
 - page_title t('home.my')
 
+- home_sidebar_menu_at(:home)
+
 = content_for :main_sidebar do
   = render "my/sidebar", user_spaces: @user_spaces
 
 = render "shared/webconference_join", room: @room
 
+-# TODO: #1087 make it look good for a new user (no recs, no meetings yet)
+
 #user-meetings-recordings.content-block
-  %h3= "Past meetings and recordings"
-  -# .content-block-header
-  -#   %h3= t('recent.activity')
-  -#   = icon_info t('recent_activity.tooltip')
+  %h3= t(".past_meetings.title")
+  -# = icon_info t('recent_activity.tooltip')
+
   #users-recent-activity-content.content-block-middle
-    = render "users/recent_activity_content", content: @all_contents, paginate: false
+    = render :partial => 'shared/recording_list', :locals => { :meetings => @meetings, :show_authors => false }
   .content-block-footer.content-block-footer-fancy
     .content-block-footer-middle
-      = link_to t('.view_all_activity'), my_activity_path
+      = link_to t('.past_meetings.view_more'), my_recordings_path

@@ -1,5 +1,5 @@
 - if params[:partial]
-  = render :partial => 'shared/recording_list', :locals => { :recordings => @recordings, :show_authors => true }
+  = render :partial => 'shared/recording_list', :locals => { :meetings => @meetings, :show_authors => true }
 
 - else
 
@@ -18,7 +18,7 @@
     .content-block-header
       %h3
         = icon_recording
-        = t('.title', count: @recordings.count)
+        = t('.title')
 
       -# only update the recording db if the user has permission to
       - if can?(:fetch_recordings, @webconf_room)
@@ -42,4 +42,4 @@
         = form_tag recordings_space_path(@space, :partial => true), :method => :get, :remote => true, :id => 'space-recordings-update'
 
     #space-recordings-list-wrapper.content-block-middle
-      = render :partial => 'shared/recording_list', :locals => { :recordings => @recordings, :show_authors => true }
+      = render :partial => 'shared/recording_list', :locals => { :meetings => @meetings, :show_authors => true }

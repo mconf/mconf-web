@@ -24,4 +24,11 @@ body.my.home, body.my.activity, body.my.recordings {
     margin-top: 20px;
   }
 
+  #main-sidebar-menu {
+    li.active {
+      background: $m-light-gray;
+      border-right: 3px solid $m-second-color;
+    }
+  }
+
 }

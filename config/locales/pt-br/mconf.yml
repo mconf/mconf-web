@@ -1014,30 +1014,43 @@ pt-br:
       interesting_links: "Enquanto isto você pode explorar estas seções abertas do site:"
       events_list: lista de eventos
       spaces_list: lista de comunidades
-    page_header:
-      activity_list: "Atividades recentes"
     home:
       create_space: "Criar uma comunidade"
       events:
         other: "Outros"
         today: "Hoje"
       not_confirmed: "Sua conta ainda não foi confirmada, por favor verifique o seu e-mail para confirmá-la. Se por acaso você não recebeu o e-mail <a href=\"%{url}\">clique aqui</a> pra solicitar que ele seja enviado novamente."
+      past_meetings:
+        title: "Reuniões e gravações passadas"
+        view_more: "Ver todas reuniões e gravações"
       pending_join_requests:
         one: "%{count} requisição pendente"
         other: "%{count} requisições pendentes"
       pending_join_requests_tooltip: "Estes são os convites que você recebeu para entrar em uma comunidade e os pedidos de ingresso que você enviou."
-      view_all_activity: "Ver todas suas atividades"
       view_all_spaces: "Ver todas comunidades"
     edit_recording:
       title: "Editar sua gravação"
     edit_room:
       layout_empty_option: "<padrão>"
+    page_header:
+      activity_list: "Atividades recentes"
     recordings:
-      title: "Gravações da minha sala de webconferência"
+      title: "Todas reuniões e gravações passadas"
       update_recordings:
         error: "Erro atualizando gravações, tente novamente mais tarde"
         success: "Lista de gravações atualizada!"
         updating: "Atualizando lista de gravações..."
+    sidebar:
+      menu:
+        account: "Conta"
+        activity: "Atividades recentes"
+        inbox: "Caixa de entrada (%{unread} não lidas)"
+        profile: "Perfil"
+        webconf_room: "Minha sala de webconferência"
+      spaces:
+        create: "Criar uma comunidade"
+        title: "Minhas comunidades"
+        view_all: "Ver todas comunidades"
     webconference_room:
       end: "Parar a reunião"
       end_tooltip: "Esta ação vai finalizar a reunião em andamento!"
@@ -1331,10 +1344,12 @@ pt-br:
       created_by: "Criada por"
       description: "Descrição"
       no_description: "<nenhuma descrição especificada>"
-      no_recordings: "Sua sala de webconferência ainda não possui gravações"
-      no_title: "<nenhum título especificado>"
+      no_meetings: "Ainda não existem reuniões ou gravações nesta sala."
+      not_recorded: "(Esta reunião não foi gravada.)"
       playback_links: "Links para reprodução"
-      started_at: "A reunião aconteceu em"
+      started_at: "Data"
+      started_at_desc: "Esta reunião aconteceu em %{meeting_start}"
+      started_at_desc_with_rec: "Esta reunião aconteceu em %{meeting_start} e gerou uma gravação que foi processada entre %{rec_start} e %{rec_end}"
     recording_playback:
       duration: "duração"
       playback: "Links para reprodução"
@@ -1563,7 +1578,7 @@ pt-br:
       title: "Criar uma comunidade"
     news: "Notícias na comunidade"
     recordings:
-      title: "Gravações desta comunidade (%{count})"
+      title: "Todas reuniões e gravações desta comunidade"
       update_recordings:
         error: "Erro atualizando gravações, tente novamente mais tarde"
         success: "Lista de gravações atualizada!"
@@ -1619,29 +1634,25 @@ pt-br:
       end: "Parar a reunião"
       end_tooltip: "This action will end the current conference!"
       invite: "Convidar outras pessoas"
-      webconference:
-        attendees:
-          all_users: "Todos usuários"
-          nobody: "Não há ninguém na sala."
-          people_in_the_room: "Pessoas na sala"
-          registered_users: "Usuários registrados"
-        recordings:
-          no_recordings: "Ainda não existem gravações nesta sala."
-          title:
-            zero: "Gravações desta sala"
-            one: "Última gravação desta sala"
-            other: "Últimas %{count} gravações desta sala"
-          view_all: "Ver todas as gravações e atualizar lista"
-        share:
-          description: "Você pode convidar pessoas para esta webconferência utilizando o endereço abaixo:"
-          header: Compartilhar
-          url: "Endereço da sala"
+      attendees:
+        all_users: "Todos usuários"
+        nobody: "Não há ninguém na sala."
+        people_in_the_room: "Pessoas na sala"
+        registered_users: "Usuários registrados"
+      recordings:
+        no_recordings: "Ainda não existem reuniões ou gravações nesta comunidade."
+        title: "Últimas reuniões e gravações desta comunidade"
+        view_all: "Ver todas as reuniões e gravações"
+      share:
+        description: "Você pode convidar pessoas para esta webconferência utilizando o endereço abaixo:"
+        header: Compartilhar
+        url: "Endereço da sala"
     webconference_options:
       layout_empty_option: "<padrão>"
       options: "Opções da sala de webconferência"
     webconference_tabs:
       access: "Acesso à conferência"
-      recordings: "Lista de gravações"
+      recordings: "Reuniões e gravações"
   spam:
     spam_report_create:
       error: "Desculpe, mas ocorreu um erro ao marcar este artigo como spam"

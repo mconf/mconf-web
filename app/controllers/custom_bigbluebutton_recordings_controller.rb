@@ -4,6 +4,8 @@ class CustomBigbluebuttonRecordingsController < Bigbluebutton::RecordingsControl
 
   load_and_authorize_resource :find_by => :recordid, :class => "BigbluebuttonRecording"
 
+  # TODO: #1087 redirect back after updating the desc of a recording
+
   protected
 
   # Override the method used in Bigbluebutton::RecordingsController to get the parameters the

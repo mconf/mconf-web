@@ -51,10 +51,12 @@ class MyController < ApplicationController
   end
 
   def home
+    # TODO: #1087 show notification of the pending spaces somewhere
     @user_pending_spaces = current_user.pending_spaces
-    @contents_per_page = 15
-    @all_contents = RecentActivity.user_activity(current_user).limit(@contents_per_page).order('updated_at DESC')
-    @private_messages = current_user.unread_private_messages
+
+    # TODO: #1087 we're ignoring here recordings that have no meeting associated, think whether this will ever happen
+    @meetings = BigbluebuttonMeeting.where(room: current_user.bigbluebutton_room)
+      .with_or_without_recording().last(15)
   end
 
   def approval_pending
@@ -108,9 +110,11 @@ class MyController < ApplicationController
   # List of recordings for the current user's web conference room.
   def recordings
     @room = current_user.bigbluebutton_room
-    @recordings = @room.recordings.published().order("end_time DESC")
+
+    # TODO: #1087 we're ignoring here recordings that have no meeting associated, think whether this will ever happen
+    @meetings = BigbluebuttonMeeting.where(room: current_user.bigbluebutton_room).with_or_without_recording()
     if params[:limit]
-      @recordings = @recordings.first(params[:limit].to_i)
+      @meetings = @meetings.first(params[:limit].to_i)
     end
   end
 
