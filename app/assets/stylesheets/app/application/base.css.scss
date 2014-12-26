@@ -303,7 +303,7 @@ form {
 }
 
 #navbar {
-  @include make-row;
+  @include make-row(0);
   height: $m-navbar-height;
   color: $m-navbar-font-color;
   @include font-size($m-font-medium);
