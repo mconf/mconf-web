@@ -26,8 +26,8 @@
     border: 1px solid darken($m-light-gray, 7);
 
     .webconference-status {
-      @include make-sm-column(12);
-      @include make-md-column(9);
+      @include make-xs-column(12);
+      @include make-sm-column(9);
       text-align: right;
 
       span {
@@ -37,8 +37,8 @@
     }
 
     .webconference-buttons {
-      @include make-sm-column(12);
-      @include make-md-column(3);
+      @include make-xs-column(12);
+      @include make-sm-column(3);
       text-align: left;
       padding: 0 0 0 5px;
 

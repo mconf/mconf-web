@@ -3,28 +3,28 @@
 = render "spaces/title", space: @space, full: false
 
 - spaces_menu_at :repository
-= render :partial => 'spaces/menu'
+= render partial: 'spaces/menu'
 
 #page-menu
   = content_for :page_menu
 
-#space-attachments-tabs.page-sub-menu
+#space-attachments-tabs
   -# note: this links have to start enabled, otherwise the click won't work (the links are set via js)
-  = link_to t('.download_multiple'), '#', :id => "attachments-download", :class => "btn btn-small", :'data-base-url' => space_attachments_path(@space)
-  = link_to t('.remove_multiple'), '#', :rel => 'nofollow', :id => "attachments-delete", :'data-confirm' => t(".remove_multiple_confirmation"), :class => "btn btn-small", :'data-base-url' => space_attachments_path(@space)
+  = link_to t('.download_multiple'), '#', :id => "attachments-download", :class => "btn btn-sm btn-default", :'data-base-url' => space_attachments_path(@space)
+  = link_to t('.remove_multiple'), '#', :rel => 'nofollow', :id => "attachments-delete", :'data-confirm' => t(".remove_multiple_confirmation"), :class => "btn btn-sm btn-default", :'data-base-url' => space_attachments_path(@space)
   %span{ :id => "space-attachments-selected" }
 
-#space-attachments-create
-  - if can?(:create, Attachment.new(:space => @space))
-    = link_to t('.new_file'), new_space_attachment_path(@space), :id => "new-file", :class => "btn btn-small btn-primary open-modal"
+  #space-attachments-create
+    - if can?(:create, Attachment.new(:space => @space))
+      = link_to t('.new_file'), new_space_attachment_path(@space), :id => "new-file", :class => "btn btn-small btn-primary open-modal"
 
 #space-attachments
   - if @attachments.empty?
     = t('.no_attachments')
   - else
-    %table.table.table-striped
+    %table.table.table-hover
       %thead
-        %tr
+        %tr.attachment-row
           %th
           %th= t('.file')
           %th= t('.author')
