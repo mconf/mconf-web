@@ -184,25 +184,60 @@ form {
 
 // Wrapper around information about a user
 // See users/_simple_user and users/_detailed_user
-.user-wrapper {
+.user-information {
   clear: both;
   @include mconf-clearfix;
 
   &.user-simple {
     margin: 5px 0;
     .user-text { margin-left: 45px; }
-    .user-name { display: block; }
-    .user-organization { display: block; }
+    .user-name {
+      display: inline-block;
+      /* @include text-truncate; */
+    }
+    .user-organization {
+      display: block;
+      /* @include text-truncate; */
+    }
   }
 
   &.user-detailed {
-    .user-text { float: left; }
-    .user-divider { float: left; margin-left: 5px; margin-right: 5px; color: $m-gray; }
-    .user-name { display: block; clear: both; }
-    .user-mail { display: block; clear: both; }
-    .user-info-prefix { color: $m-font-color-gray; float: left; margin-right: 5px; }
-    .user-organization { float: left; }
-    .user-location { float: left; }
+    @include make-row;
+    padding: 10px 0;
+
+    .user-information-logo {
+      @include make-xs-column(2);
+      padding: 0;
+      text-align: center;
+      max-width: 64px;
+    }
+    .user-information-data {
+      padding: 0;
+      @include make-xs-column(9);
+    }
+
+    img.logo-user {
+      width: 100%;
+      height: 100%;
+      max-width: 64px;
+      max-height: 64px;
+    }
+    .user-name {
+      display: inline;
+      @include text-truncate;
+    }
+    .user-mail {
+      display: inline;
+      @include text-truncate;
+    }
+    .user-organization {
+      display: block;
+      @include text-truncate;
+    }
+    .user-location {
+      display: block;
+      @include text-truncate;
+    }
   }
 }
 

@@ -1,4 +1,14 @@
-@import "app/spaces/sidebar";
+@import "compass/css3";
+@import "definitions";
+
+@import "app/spaces/title";
 
 body.users.index {
+
+  .user-on-index {
+    @include make-sm-column(6);
+    @include make-xs-column(12);
+    padding: 0 15px;
+  }
+
 }

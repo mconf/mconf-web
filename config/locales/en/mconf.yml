@@ -1785,7 +1785,7 @@ en:
     one: User
     other: Users
     private_message: "Send Message"
-    recent_join: "Recent users joined"
+    recent_join: "Last users to join"
     registered: "Thanks for registering! We have just sent instructions on how to activate your user account"
     request_confirmation: "Request confirmation email"
     request_password: "Request password"

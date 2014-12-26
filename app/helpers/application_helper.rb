@@ -50,6 +50,12 @@ module ApplicationHelper
     end
   end
 
+  def default_separator(no_space=false)
+    s  = "&#149;"
+    s += " " unless no_space
+    s.html_safe
+  end
+
   # Ex: asset_exists?('news/edit', 'css')
   def asset_exists?(asset_name, default_ext)
     !Mconf::Application.assets.find_asset(asset_name + '.' + default_ext).nil?

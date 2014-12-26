@@ -1,12 +1,17 @@
-- page_title t('spaces.menu.users'), :in => @space.name
-- spaces_menu_at :users
+- page_title t('spaces.menu.users'), in: @space.name
 
-= content_for :menu do
-  = render :partial => 'spaces/menu'
+= render "spaces/title", space: @space, full: false
+
+- spaces_menu_at :users
+= render partial: 'spaces/menu'
+
+#page-menu
+  = content_for :page_menu
 
 #user-list.content-block
   .content-block-header
     %h3= t('user.index.user_list.header', :count => @users.size)
-  .content-block-middle
+  .content-block-middle.row-fluid
     - for user in @users
-      = render :partial => 'users/detailed_user', :locals => { :user => user }
+      .user-on-index
+        = render :partial => 'users/detailed_user', :locals => { :user => user }

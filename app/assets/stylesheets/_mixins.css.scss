@@ -24,10 +24,10 @@
   float: left;
   margin-right: 10px;
 
-  img.logo {
+  img {
     margin: 2px 0;
     padding: 2px;
-    border: 1px solid #ddd;
+    border: 1px solid $m-border-color-normal;
     @include border-radius(2px);
     &:hover { border: 1px solid $m-focus-border-color; }
 
@@ -40,10 +40,10 @@
       width: 39px;
       height: 39px;
     }
-    &.logo-user-big {
-      width: 48px;
-      height: 48px;
-    }
+    /* &.logo-user-big { */
+    /*   width: 64px; */
+    /*   height: 64px; */
+    /* } */
     &.logo-removed {
       width: 39px;
       height: 39px;

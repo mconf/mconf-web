@@ -24,9 +24,9 @@ class UsersController < ApplicationController
   respond_to :xml, :only => [:current]
 
   def index
-    @users = @space.users.sort {|x,y| x.name <=> y.name }
+    @users = @space.users.sort { |x,y| x.full_name.downcase <=> y.full_name.downcase }
     respond_to do |format|
-      format.html { render :layout => 'spaces_show' }
+      format.html { render :layout => 'no_sidebar' }
     end
   end
 

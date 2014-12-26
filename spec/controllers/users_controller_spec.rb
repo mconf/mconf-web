@@ -12,7 +12,7 @@ describe UsersController do
   describe "#index" do
     it "loads the space"
     it "loads the webconference room information"
-    it "sets @users to all users in the space ordered by name"
+    it "sets @users to all users in the space ordered by name ignoring case"
     it "renders users/index"
     it "renders with the layout spaces_show"
 
