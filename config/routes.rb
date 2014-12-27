@@ -52,6 +52,9 @@ Mconf::Application.routes.draw do
   post '/bigbluebutton/rooms/:id/send_invitation',
     to: 'custom_bigbluebutton_rooms#send_invitation',
     as: "send_invitation_bigbluebutton_room"
+  get '/bigbluebutton/rooms/:id/user_edit',
+    to: 'custom_bigbluebutton_rooms#user_edit',
+    as: "user_edit_bigbluebutton_room"
   get '/bigbluebutton/playback_types',
     to: 'custom_bigbluebutton_playback_types#index',
     as: "bigbluebutton_playback_types"
@@ -93,7 +96,6 @@ Mconf::Application.routes.draw do
       delete :disable
       post :leave
       get :user_permissions
-      get :webconference_options
       get :webconference
       get :recordings
     end
@@ -155,7 +157,6 @@ Mconf::Application.routes.draw do
   get '/home', to: 'my#home', as: 'my_home'
   get '/activity', to: 'my#activity', as: 'my_activity'
   get '/rooms', to: 'my#rooms', as: 'my_rooms'
-  get '/room/edit', to: 'my#edit_room', as: 'edit_my_room'
   get '/recordings', to: 'my#recordings', as: 'my_recordings'
   get '/recordings/:id/edit', to: 'my#edit_recording', as: 'edit_my_recording'
   get '/pending', to: 'my#approval_pending', as: 'my_approval_pending'

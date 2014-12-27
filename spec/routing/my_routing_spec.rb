@@ -14,7 +14,6 @@ describe MyController do
     it { should route(:get, "/rooms.json").to(:action => :rooms, :format => :json) }
     it { should_not route(:get, "/rooms.html").to(:action => :rooms) }
     it { should route(:get, "/activity").to(:action => :activity) }
-    it { should route(:get, "/room/edit").to(:action => :edit_room) }
     it { should route(:get, "/recordings").to(:action => :recordings) }
   end
 end

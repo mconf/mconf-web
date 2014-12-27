@@ -640,7 +640,7 @@ describe Space do
 
   describe "abilities", :abilities => true do
     set_custom_ability_actions([:leave, :enable, :webconference, :select, :disable, :update_logo,
-      :user_permissions, :edit_recording, :webconference_options, :recordings,
+      :user_permissions, :edit_recording, :recordings,
       :index_join_requests, :index_news])
 
     subject { ability }
@@ -707,7 +707,7 @@ describe Space do
               list = [
                 :read, :webconference, :recordings, :create, :select, :leave, :edit,
                 :update, :update_logo, :disable, :user_permissions, :edit_recording,
-                :webconference_options, :index_join_requests, :index_news
+                :index_join_requests, :index_news
               ]
               should_not be_able_to_do_anything_to(target).except(list)
             }
@@ -734,7 +734,7 @@ describe Space do
               list = [
                 :read, :webconference, :recordings, :create, :select, :leave, :edit,
                 :update, :update_logo, :disable, :user_permissions, :edit_recording,
-                :webconference_options, :index_join_requests, :index_news
+                :index_join_requests, :index_news
               ]
               should_not be_able_to_do_anything_to(target).except(list)
             }

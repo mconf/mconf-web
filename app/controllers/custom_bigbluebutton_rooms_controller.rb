@@ -43,6 +43,12 @@ class CustomBigbluebuttonRoomsController < Bigbluebutton::RoomsController
       false
     when :invite_userid, :invite
       "no_sidebar"
+    when :user_edit
+      if request.xhr?
+        false
+      else
+        "no_sidebar"
+      end
     else
       "application"
     end
@@ -120,6 +126,13 @@ class CustomBigbluebuttonRoomsController < Bigbluebutton::RoomsController
     end
 
     redirect_to request.referer
+  end
+
+  # Called by users to edit a webconference room. It's different from the
+  # standard CustomBigbluebuttonRoomsController#edit, that allows an admin to
+  # edit *everything* in a room. This one is a lot more restricted.
+  def user_edit
+    @redir_url = request.referer
   end
 
   protected

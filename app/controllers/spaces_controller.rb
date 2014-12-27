@@ -13,9 +13,10 @@ class SpacesController < ApplicationController
   before_filter :load_and_authorize_with_disabled, :only => [:enable, :disable, :destroy]
 
   # all actions that render the sidebar
+  # TODO: 1087 without a sidebar, we don't need to do this for all pages
   before_filter :webconf_room!,
     :only => [:show, :edit, :user_permissions, :webconference,
-              :recordings, :edit_recording, :webconference_options]
+              :recordings, :edit_recording]
 
   before_filter :load_spaces_examples, :only => [:new, :create]
 
@@ -173,10 +174,6 @@ class SpacesController < ApplicationController
       |x,y| x.user.name <=> y.user.name
     }
     @roles = Space.roles
-    render layout: 'no_sidebar'
-  end
-
-  def webconference_options
     render layout: 'no_sidebar'
   end
 

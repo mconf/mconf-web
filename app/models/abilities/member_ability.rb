@@ -47,7 +47,7 @@ module Abilities
       # Only the admin can disable or update information on a space
       # Only global admins can destroy spaces
       can [:edit, :update, :update_logo, :user_permissions,
-        :webconference_options, :disable, :edit_recording], Space do |space|
+           :disable, :edit_recording], Space do |space|
         space.admins.include?(user)
       end
 
@@ -210,9 +210,9 @@ module Abilities
         user.can_record && user_is_owner_or_belongs_to_rooms_space(user, room)
       end
 
-      # Currently only user rooms can be updated
-      can [:update], BigbluebuttonRoom do |room|
-        room.owner_type == "User" && room.owner.id == user.id
+      # Users can edit their own rooms or rooms that belong to spaces they administer.
+      can [:user_edit, :update], BigbluebuttonRoom do |room|
+        user_is_owner_or_admin_of_space(user, room)
       end
 
       # some actions in rooms should be accessible to any logged user
@@ -251,13 +251,33 @@ module Abilities
       end
     end
 
-    # Whether `user` is the owner of `room` of belongs to the space that owns `room`.
+    # Whether `user` is the owner of `room` or belongs to the space that owns `room`.
     def user_is_owner_or_belongs_to_rooms_space(user, room)
       if (room.owner_type == "User" && room.owner.id == user.id)
         true
       elsif (room.owner_type == "Space")
-        space = Space.find(room.owner.id)
-        space.users.include?(user)
+        space = Space.find_by(id: room.owner.id)
+        if space.present?
+          space.users.include?(user)
+        else
+          false
+        end
+      else
+        false
+      end
+    end
+
+    # Whether `user` is the owner of `room` or an admin of the space that owns `room`.
+    def user_is_owner_or_admin_of_space(user, room)
+      if (room.owner_type == "User" && room.owner.id == user.id)
+        true
+      elsif (room.owner_type == "Space")
+        space = Space.find_by(id: room.owner.id)
+        if space.present?
+          space.admins.include?(user)
+        else
+          false
+        end
       else
         false
       end

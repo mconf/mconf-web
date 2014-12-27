@@ -25,12 +25,6 @@ class MyController < ApplicationController
     case params[:action].to_sym
     when :activity
       "no_sidebar"
-    when :edit_room
-      if request.xhr?
-        false
-      else
-        "application"
-      end
     when :recordings
       if params[:partial]
         false
@@ -97,14 +91,6 @@ class MyController < ApplicationController
       { :bigbluebutton_room => { :name => r.name, :join_path => link, :owner => owner_hash(r.owner) } }
     }
     render :json => mapped_array
-  end
-
-  # Called by users to edit a webconference room. It's different from the
-  # standard CustomBigbluebuttonRoomsController#edit, that allows an admin to
-  # edit *everything* in a room. This one is a lot more restricted.
-  def edit_room
-    @room = current_user.bigbluebutton_room
-    @redir_url = my_home_path
   end
 
   # List of recordings for the current user's web conference room.

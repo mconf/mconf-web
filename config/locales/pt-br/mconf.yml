@@ -539,6 +539,8 @@ pt-br:
       success: "Convite enviado com sucesso para:"
     show:
       showing_room: "Mostrando a sala '%{room}'"
+    user_edit:
+      layout_empty_option: "<padrão>"
   custom_bigbluebutton_recordings:
     edit:
       editing_recording: "Editando gravação"
@@ -1030,8 +1032,6 @@ pt-br:
       view_all_spaces: "Ver todas comunidades"
     edit_recording:
       title: "Editar sua gravação"
-    edit_room:
-      layout_empty_option: "<padrão>"
     page_header:
       activity_list: "Atividades recentes"
     recordings:
@@ -1531,7 +1531,7 @@ pt-br:
   spaces: 
     admin_tabs:
       admissions: "Admissões"
-      general_options: "Opções gerais"
+      general_options: "Configurar comunidade"
       invite: "Convidar pessoas"
       news: "Notícias"
       users: "Usuários"
@@ -1543,6 +1543,10 @@ pt-br:
       other_options: "Outras opções"
       public: "Tornar esta comunidade pública"
       yes_delete: "Sim, quero desabilitar esta comunidade"
+      webconference_room_options:
+        click_here: "clique aqui"
+        description: "Para configurar a sala de webconferência, "
+        title: "Configurações de webconferência"
     edit_recording:
       title: "Editar sua gravação"
     error:
@@ -1647,9 +1651,6 @@ pt-br:
         description: "Você pode convidar pessoas para esta webconferência utilizando o endereço abaixo:"
         header: Compartilhar
         url: "Endereço da sala"
-    webconference_options:
-      layout_empty_option: "<padrão>"
-      options: "Opções da sala de webconferência"
     webconference_tabs:
       access: "Acesso à conferência"
       recordings: "Reuniões e gravações"

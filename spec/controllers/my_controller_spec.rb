@@ -12,27 +12,6 @@ describe MyController do
   it "#show"
   it "#activity"
   it "#rooms"
-
-  describe "#edit_room" do
-    let(:user) { FactoryGirl.create(:user) }
-    before(:each) { login_as(user) }
-
-    context "html request" do
-      before(:each) { get :edit_room }
-      it { should render_template(:edit_room) }
-      it { should render_with_layout("application") }
-      it { should assign_to(:room).with(user.bigbluebutton_room) }
-      it "calls @room.get_meeting_info"
-      it { should assign_to(:redir_url).with(my_home_path) }
-    end
-
-    context "xhr request" do
-      before(:each) { xhr :get, :edit_room }
-      it { should render_template(:edit_room) }
-      it { should_not render_with_layout }
-    end
-  end
-
   it "#home"
 
   describe "#approval_pending" do
@@ -105,7 +84,6 @@ describe MyController do
 
   it "#activity"
   it "#rooms"
-  it "#edit_room"
 
   describe "#recordings" do
     let(:user) { FactoryGirl.create(:user) }

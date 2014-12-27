@@ -539,6 +539,8 @@ en:
       success: "Invitation successfully sent to:"
     show:
       showing_room: "Showing room '%{room}'"
+    user_edit:
+      layout_empty_option: "<default>"
   custom_bigbluebutton_recordings:
     edit:
       editing_recording: "Editing recording"
@@ -1030,8 +1032,6 @@ en:
       view_all_spaces: "View all spaces"
     edit_recording:
       title: "Edit your recording"
-    edit_room:
-      layout_empty_option: "<default>"
     page_header:
       activity_list: "Activity list"
     recordings:
@@ -1531,7 +1531,7 @@ en:
   spaces: 
     admin_tabs:
       admissions: "Admissions"
-      general_options: "General options"
+      general_options: "Configure this space"
       invite: "Invite people"
       news: "News"
       users: "Users"
@@ -1543,6 +1543,10 @@ en:
       other_options: "Other options"
       public: "Make this a public space"
       yes_delete: "Yes, I want to disable this space"
+      webconference_room_options:
+        click_here: "click here"
+        description: "To configure the web conference room, "
+        title: "Web conference room options"
     edit_recording:
       title: "Edit your recording"
     error:
@@ -1651,9 +1655,6 @@ en:
         description: "You can invite people to this webconference by sharing the link below:"
         header: Share
         url: "Webconference URL"
-    webconference_options:
-      layout_empty_option: "<default>"
-      options: "Web conference room options"
     webconference_tabs:
       access: "Web conference access"
       recordings: "Meetings and recordings"

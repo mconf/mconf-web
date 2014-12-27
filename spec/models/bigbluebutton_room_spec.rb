@@ -27,7 +27,7 @@ describe BigbluebuttonRoom do
   describe "abilities", :abilities => true do
     set_custom_ability_actions([ :end, :join_options, :create_meeting, :fetch_recordings,
                                  :invite, :invite_userid, :running, :join, :join_mobile,
-                                 :record_meeting, :invitation, :send_invitation ])
+                                 :record_meeting, :invitation, :send_invitation, :user_edit ])
 
     subject { ability }
     let(:user) { nil }
@@ -93,7 +93,7 @@ describe BigbluebuttonRoom do
         let(:target) { user.bigbluebutton_room }
         let(:allowed) { [:end, :join_options, :create_meeting, :fetch_recordings,
                          :invite, :invite_userid, :running, :join,
-                         :join_mobile, :update, :invitation, :send_invitation] }
+                         :join_mobile, :update, :invitation, :send_invitation, :user_edit] }
         it { should_not be_able_to_do_anything_to(target).except(allowed) }
 
         context "with permission to record" do
@@ -154,11 +154,11 @@ describe BigbluebuttonRoom do
           end
         end
 
-        context "he belongs to and are a admin" do
+        context "he belongs to and is an admin" do
           before { space.add_member!(user, "Admin") }
           let(:allowed) { [:end, :join_options, :create_meeting, :fetch_recordings,
                            :invite, :invite_userid, :running, :join, :join_mobile,
-                           :invitation, :send_invitation] }
+                           :invitation, :send_invitation, :user_edit, :update] }
           it { should_not be_able_to_do_anything_to(target).except(allowed) }
         end
       end
@@ -203,11 +203,11 @@ describe BigbluebuttonRoom do
           end
         end
 
-        context "he belongs to and are a admin" do
+        context "he belongs to and is an admin" do
           before { space.add_member!(user, "Admin") }
           let(:allowed) { [:end, :join_options, :create_meeting, :fetch_recordings,
                            :invite, :invite_userid, :running, :join, :join_mobile,
-                           :invitation, :send_invitation] }
+                           :invitation, :send_invitation, :user_edit, :update] }
           it { should_not be_able_to_do_anything_to(target).except(allowed) }
         end
       end

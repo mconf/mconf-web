@@ -766,6 +766,33 @@ describe CustomBigbluebuttonRoomsController do
     end
   end
 
+  describe "#user_edit" do
+    let(:user) { FactoryGirl.create(:user) }
+    let(:room) { user.bigbluebutton_room }
+    let(:referer) { "/back" }
+    before { login_as(user) }
+
+    context "html request" do
+      before {
+        request.env["HTTP_REFERER"] = referer
+        get :user_edit, id: room.to_param
+      }
+      it { should render_template(:user_edit) }
+      it { should render_with_layout("no_sidebar") }
+      it { should assign_to(:room).with(room) }
+      it { should assign_to(:redir_url).with(referer) }
+    end
+
+    context "xhr request" do
+      before {
+        request.env["HTTP_REFERER"] = referer
+        xhr :get, :user_edit, id: room.to_param
+      }
+      it { should render_template(:user_edit) }
+      it { should_not render_with_layout }
+    end
+  end
+
   describe "abilities", :abilities => true do
     render_views(false)
 

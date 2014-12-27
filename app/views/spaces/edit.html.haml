@@ -31,3 +31,8 @@
     %h4= t('.other_options')
     %span= t('.delete_space')
     = link_to t('.yes_delete'), disable_space_path(@space), data: { confirm: t(".delete_confirmation") }, method: :delete, class: 'danger-text'
+
+  #edit-space-other-options.alert.alert-info.alert-clean
+    %h4= t(".webconference_room_options.title")
+    %span= t(".webconference_room_options.description")
+    = link_to t(".webconference_room_options.click_here"), user_edit_bigbluebutton_room_path(@space.bigbluebutton_room), class: "open-modal"
