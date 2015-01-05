@@ -239,6 +239,7 @@ class User < ActiveRecord::Base
 
   # Sets the user as approved
   def approve!
+    skip_confirmation! if !confirmed?
     self.update_attributes(:approved => true)
   end
 
