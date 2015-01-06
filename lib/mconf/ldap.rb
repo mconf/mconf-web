@@ -142,12 +142,5 @@ module Mconf
       [username, email, name]
     end
 
-    # Sending a notification email to a user that registered
-    def send_notification(user)
-      if user.present? && user.errors.blank?
-        UserMailer.registration_notification_email(user.id).deliver
-      end
-    end
-
   end
 end

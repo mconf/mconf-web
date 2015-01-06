@@ -20,7 +20,6 @@ class UserNotificationsWorker
   # Finds all users that registered and need to be approved and schedules a worker
   # to notify all users that could possibly approve him.
   def self.notify_admins_of_new_users
-    # TODO this is ugly...
     activities = RecentActivity.where(trackable_type: 'User', notified: [nil, false])
                                .where("`key` LIKE '%user.created'")
     recipients = User.where(superuser: true).pluck(:id)
