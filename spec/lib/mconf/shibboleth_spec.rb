@@ -514,9 +514,9 @@ describe Mconf::Shibboleth do
 
   describe "#create_user" do
     let(:shibboleth) { Mconf::Shibboleth.new({}) }
-    
+
     context "creates a new user" do
-      let(:token) { ShibToken.create!( { identifier: 'any@email.com' } ) }
+      let(:token) { ShibToken.create!(identifier: 'any@email.com') }
       before {
         shibboleth.should_receive(:get_email).at_least(1).and_return('any@email.com')
         shibboleth.should_receive(:get_login).and_return('any-login')
@@ -538,7 +538,7 @@ describe Mconf::Shibboleth do
     end
 
     context "parameterizes the login" do
-      let(:token) { ShibToken.create!( { identifier: 'any@email.com'} ) }
+      let(:token) { ShibToken.create!(identifier: 'any@email.com') }
       before {
         shibboleth.should_receive(:get_email).at_least(1).and_return('any@email.com')
         shibboleth.should_receive(:get_login).and_return('My Login Áàéë (test)')
@@ -550,7 +550,7 @@ describe Mconf::Shibboleth do
 
     context "returns the user with errors set in it if the call to `save` generated errors" do
       let(:user) { FactoryGirl.create(:user) }
-      let(:token) { ShibToken.create!( { identifier: 'dummy_shib@tok.en' } ) }
+      let(:token) { ShibToken.create!(identifier: 'dummy_shib@tok.en') }
       subject { shibboleth.create_user token }
       it("should return the user") { subject.should_not be_nil }
       it("user should not be saved") { subject.new_record?.should be(true) }
