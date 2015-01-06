@@ -142,6 +142,32 @@ describe ShibbolethController do
           }
         end
 
+        context "updates the user data if has changed in the federation" do
+          let(:new_name) { 'New Name' }
+          let(:new_email) { 'new-personal@email.com' }
+
+          before(:each) {
+            # new shib user with federation data
+            get :login
+            sign_out ShibToken.last.user
+
+            @old_name = ShibToken.last.user.name
+            @old_email = ShibToken.last.user.email
+            @old_permalink = ShibToken.last.user.permalink
+
+            # login with different federation data
+            setup_shib(new_name, new_email, user.email)
+            save_shib_to_session
+            get :login
+          }
+
+          it { ShibToken.last.user.name.should eq(new_name) }
+          it { ShibToken.last.user.email.should eq(new_email) }
+          it { @old_email.should_not eq(new_email) }
+          it { @old_name.should_not eq(new_name) }
+          it { ShibToken.last.user.permalink.should eq(@old_permalink) }
+        end
+
         context "if the site requires admin approval, shows the pending approval page" do
           before(:each) {
             Site.current.update_attributes(require_registration_approval: true)

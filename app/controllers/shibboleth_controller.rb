@@ -45,6 +45,10 @@ class ShibbolethController < ApplicationController
           # the user is not disabled, logs the user in
           logger.info "Shibboleth: logging in the user #{token.user.inspect}"
           logger.info "Shibboleth: shibboleth data for this user #{@shib.get_data.inspect}"
+
+          # Update user data with the latest version from the federation
+          @shib.update_user(token.user)
+
           if token.user.active_for_authentication?
             sign_in token.user
             flash.keep # keep the message set before by #create_association

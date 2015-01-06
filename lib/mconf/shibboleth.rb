@@ -137,6 +137,15 @@ module Mconf
       user
     end
 
+    # Update data in the user model which might change in the federation, for now
+    # the only fields used are 'email' and 'name'
+    def update_user user
+      user.update_attributes(email: get_email)
+      user.confirm!
+
+      user.profile.update_attributes(full_name: get_name)
+    end
+
     private
 
     # Splits a string `value` into several RegExps. Breaks the string at every
