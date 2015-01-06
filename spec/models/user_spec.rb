@@ -543,22 +543,23 @@ describe User do
       u.update_attributes(:approved => false)
       u
     }
-
+    let(:superuser) { FactoryGirl.create(:superuser) }
     context "sets the user as approved" do
-      before { user.approve! }
+      before { user.approve!(superuser) }
       it { user.approved.should be true }
     end
 
     context "throws an exception if fails to update the user" do
       it {
         user.should_receive(:update_attributes) { throw Exception.new }
-        expect { user.approve! }.to raise_error
+        expect { user.approve!(superuser) }.to raise_error
       }
     end
   end
 
   describe "#disapprove!" do
     let(:user) { FactoryGirl.create(:user, :approved => true) }
+    let(:superuser) { FactoryGirl.create(:superuser) }
     let(:params) {
       { :username => "any", :email => "any@jaloo.com", :approved => false, :password => "123456" }
     }
@@ -571,7 +572,7 @@ describe User do
     context "throws an exception if fails to update the user" do
       it {
         user.should_receive(:update_attributes) { throw Exception.new }
-        expect { user.approve! }.to raise_error
+        expect { user.disapprove! }.to raise_error
       }
     end
   end

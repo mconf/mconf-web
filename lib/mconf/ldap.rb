@@ -45,7 +45,7 @@ module Mconf
       if token.nil?
         nil
       else
-        token.user = create_account(email, username, name)
+        token.user = create_account(email, username, name, token)
         if token.user && token.save
           token.user
         else
@@ -89,7 +89,7 @@ module Mconf
 
     # Create the user account if there is no user with the email provided by ldap
     # Or returns the existing account with the email
-    def create_account(id, username, full_name)
+    def create_account(id, username, full_name, ldap_token)
       # we need this to make sure the values are strings and not string-like objects
       # returned by LDAP, otherwise the user creation might fail
       id = id.to_s
@@ -111,12 +111,14 @@ module Mconf
         }
         user = User.new(params)
         user.skip_confirmation!
-        unless user.save
+        if user.save
+          RecentActivity.create key: 'ldap.user.created', owner: ldap_token,
+                                trackable: user, notified: false
+        else
           Rails.logger.error "LDAP: error while saving the user model"
           Rails.logger.error "Errors: " + user.errors.full_messages.join(", ")
           user = nil
         end
-        send_notification(user)
       end
       user
     end

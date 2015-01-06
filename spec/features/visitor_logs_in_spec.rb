@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 feature 'Visitor logs in' do
+  let(:superuser) { FactoryGirl.create(:superuser) }
   before(:each) {
     @user = FactoryGirl.create(:user, :username => 'user', :password => 'password')
   }
@@ -220,7 +221,7 @@ feature 'Visitor logs in' do
       register_with attrs
       expect(current_path).to eq(my_approval_pending_path)
 
-      User.last.approve!
+      User.last.approve!(superuser)
 
       sign_in_with attrs[:email], attrs[:password]
       expect(current_path).to eq(my_home_path)

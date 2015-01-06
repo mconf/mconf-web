@@ -13,7 +13,7 @@ class UserNeedsApprovalSenderWorker
   def self.perform(activity_id, recipient_ids)
     activity = RecentActivity.find(activity_id)
     # user = User.find(user_id)
-    user_id = activity.owner_id
+    user_id = activity.trackable_id
     recipients = User.find(recipient_ids)
 
     recipients.each do |recipient|

@@ -16,7 +16,6 @@ class UserApprovedSenderWorker
     Resque.logger.info "Sending user approved email to #{user_id}"
     AdminMailer.new_user_approved(user_id).deliver
 
-    #user.update_attribute(:approved_notification_sent_at, Time.now)
     activity.update_attribute(:notified, true)
   end
 

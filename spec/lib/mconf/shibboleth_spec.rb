@@ -514,15 +514,16 @@ describe Mconf::Shibboleth do
 
   describe "#create_user" do
     let(:shibboleth) { Mconf::Shibboleth.new({}) }
-
+    
     context "creates a new user" do
+      let(:token) { ShibToken.create!( { identifier: 'any@email.com' } ) }
       before {
-        shibboleth.should_receive(:get_email).and_return('any@email.com')
+        shibboleth.should_receive(:get_email).at_least(1).and_return('any@email.com')
         shibboleth.should_receive(:get_login).and_return('any-login')
         shibboleth.should_receive(:get_name).and_return('Any Name')
       }
       before(:each) {
-        expect { @subject = shibboleth.create_user }.to change{ User.count }.by(1)
+        expect { @subject = shibboleth.create_user token }.to change{ User.count }.by(1)
       }
       it { @subject.should eq(User.last) }
       it { @subject.errors.should be_empty }
@@ -537,18 +538,20 @@ describe Mconf::Shibboleth do
     end
 
     context "parameterizes the login" do
+      let(:token) { ShibToken.create!( { identifier: 'any@email.com'} ) }
       before {
-        shibboleth.should_receive(:get_email).and_return('any@email.com')
+        shibboleth.should_receive(:get_email).at_least(1).and_return('any@email.com')
         shibboleth.should_receive(:get_login).and_return('My Login Áàéë (test)')
         shibboleth.should_receive(:get_name).and_return('Any Name')
       }
-      subject { shibboleth.create_user }
+      subject { shibboleth.create_user token }
       it { subject.username.should eq('my-login-aaee-test') }
     end
 
     context "returns the user with errors set in it if the call to `save` generated errors" do
       let(:user) { FactoryGirl.create(:user) }
-      subject { shibboleth.create_user }
+      let(:token) { ShibToken.create!( { identifier: 'dummy_shib@tok.en' } ) }
+      subject { shibboleth.create_user token }
       it("should return the user") { subject.should_not be_nil }
       it("user should not be saved") { subject.new_record?.should be(true) }
       it("user should not be valid") { subject.valid?.should be(false) }

@@ -113,8 +113,9 @@ module Mconf
     # Creates a new user using the information stored in the session.
     # Returns the User created after calling `save`. This might have errors if the call to
     # `save` failed.
+    # The shib_token parameter is used as the Owner of the RecentActivity.
     # Expects that at least the email and name will be set in the session!
-    def create_user
+    def create_user(shib_token)
       password = SecureRandom.hex(16)
       login = get_login
       login = login.parameterize unless login.nil?
@@ -127,8 +128,10 @@ module Mconf
       user = User.new params
       user.skip_confirmation!
 
-      user.save
-      send_notification(user)
+      if user.save
+        RecentActivity.create key: 'shibboleth.user.created', owner: shib_token,
+                              trackable: user, notified: false
+      end
       user
     end
 
@@ -151,11 +154,11 @@ module Mconf
     end
 
     # Sending a notification email to a user that just registered.
-    def send_notification(user)
-      if user.present? && user.errors.blank?
-        UserMailer.registration_notification_email(user.id).deliver
-      end
-    end
+    #def send_notification(user)
+    #  if user.present? && user.errors.blank?
+    #    UserMailer.registration_notification_email(user.id).deliver
+    #  end
+    #end
 
   end
 end
