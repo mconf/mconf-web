@@ -9,6 +9,10 @@ class ShibToken < ActiveRecord::Base
     User.with_disabled.where(id: self.user_id).first
   end
 
+  def self.user_created_via_shib? u
+    ShibToken.where(user_id: u.id, :new_account => true).present?
+  end
+
   def self.migrate_identifier_field(token, old_field, new_field)
     old_identifier = token.identifier
     identifier = token.data[new_field]
