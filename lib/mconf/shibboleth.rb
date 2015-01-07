@@ -139,9 +139,15 @@ module Mconf
 
     # Update data in the user model which might change in the federation, for now
     # the only fields used are 'email' and 'name'
-    def update_user user
-      user.update_attributes(email: get_email)
-      user.confirm!
+    def update_user token
+      user = token.user
+
+      # Don't update email if it's an associated account
+      # these need the email to be able to login locally
+      if token.new_account?
+        user.update_attributes(email: get_email)
+        user.confirm!
+      end
 
       user.profile.update_attributes(full_name: get_name)
     end
@@ -161,7 +167,7 @@ module Mconf
     end
 
     def create_token(id)
-      ShibToken.new(:identifier => id)
+      ShibToken.new(identifier: id, new_account: false)
     end
 
     # Sending a notification email to a user that just registered.

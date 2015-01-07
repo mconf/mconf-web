@@ -47,7 +47,7 @@ class ShibbolethController < ApplicationController
           logger.info "Shibboleth: shibboleth data for this user #{@shib.get_data.inspect}"
 
           # Update user data with the latest version from the federation
-          @shib.update_user(token.user)
+          @shib.update_user(token)
 
           if token.user.active_for_authentication?
             sign_in token.user
@@ -152,6 +152,7 @@ class ShibbolethController < ApplicationController
     if token.user.nil?
 
       token.user = shib.create_user
+      token.new_account = true # new_account? denotes that shibboleth created a new user account
       user = token.user
       if user && user.errors.empty?
         logger.info "Shibboleth: created a new account: #{user.inspect}"
