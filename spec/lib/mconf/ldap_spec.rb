@@ -87,13 +87,57 @@ describe Devise::Strategies::LdapAuthenticatable do
     # More at: https://github.com/hallelujah/valid_email/issues/22
     it "converts the id passed to a string"
   end
-
   describe "#create_account" do
-    it "returns the user found if one already exists"
+    let(:ldap) { Mconf::LDAP.new({}) }
+    let(:user) { FactoryGirl.create(:user) }
+    let(:token) { LdapToken.create!(identifier: user.email) }
+
+    it ("returns the user found if one already exists") {
+      ldap.send(:create_account, user.email, user.username, user.name, token)
+          .should eql(user)
+    }
+
     context "if the target user doesn't exist yet, creates a new user" do
-      it "with a random password"
-      it "with the email, username and full_name passed"
-      it "skips the confirmation, marking the user as already confirmed"
+      let(:token) { LdapToken.create!(identifier: 'any@ema.il') }
+      before(:each) {
+        expect {
+          @subject = ldap.send(:create_account, 'any@ema.il', 'any-username', 'John Doe', token).reload
+        }.to change { User.count }.by(1)
+      }
+
+      context "with a random password" do
+        it { @subject.password.should_not be_nil }
+        it { @subject.password.should_not eql('') }
+      end
+
+      context "with email set" do
+        it { @subject.email.should_not be_nil }
+        it ("and correct") { @subject.email.should eql('any@ema.il') }
+      end
+
+      context "with username set" do
+        it { @subject.username.should_not be_nil }
+        it ("and correct") { @subject.username.should eql('any-username') }
+      end
+
+      context "with name set" do
+        it { @subject.name.should_not be_nil }
+        it ("and correct") { @subject.name.should eql('John Doe') }
+      end
+
+      context "skips the confirmation, marking the user as already confirmed" do
+        it { @subject.confirmed_at.should_not be_nil }
+        it { @subject.confirmed_at.should be_between(Time.now - 2.seconds, Time.now) }
+      end
+
+      context "creates a RecentActivity" do
+        subject { RecentActivity.where(key: 'ldap.user.created').last }
+        it ("should exist") { subject.should_not be_nil }
+        it ("should point to the right trackable") { subject.trackable.should eq(User.last) }
+        it ("should be owned by an LdapToken") { subject.owner.class.should be(LdapToken) }
+        it ("should be owned by the correct LdapToken") { subject.owner_id.should eql(token.id) }
+      end
+
     end
 
     # These tests are here to prevent errors when creating the token, because the id passed is
@@ -102,5 +146,6 @@ describe Devise::Strategies::LdapAuthenticatable do
     it "converts the id passed to a string"
     it "converts the username passed to a string"
     it "converts the full_name passed to a string"
+
   end
 end

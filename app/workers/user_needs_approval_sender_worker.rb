@@ -12,7 +12,6 @@ class UserNeedsApprovalSenderWorker
   # informing that the user with id `user_id` needs to be approved.
   def self.perform(activity_id, recipient_ids)
     activity = RecentActivity.find(activity_id)
-    # user = User.find(user_id)
     user_id = activity.trackable_id
     recipients = User.find(recipient_ids)
 
@@ -21,7 +20,6 @@ class UserNeedsApprovalSenderWorker
       AdminMailer.new_user_waiting_for_approval(recipient.id, user_id).deliver
     end
 
-    # user.update_attribute(:needs_approval_notification_sent_at, Time.now)
     activity.update_attribute(:notified, true)
   end
 

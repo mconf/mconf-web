@@ -518,7 +518,7 @@ describe Mconf::Shibboleth do
     context "creates a new user" do
       let(:token) { ShibToken.create!(identifier: 'any@email.com') }
       before {
-        shibboleth.should_receive(:get_email).at_least(1).and_return('any@email.com')
+        shibboleth.should_receive(:get_email).at_least(:once).and_return('any@email.com')
         shibboleth.should_receive(:get_login).and_return('any-login')
         shibboleth.should_receive(:get_name).and_return('Any Name')
       }
@@ -535,12 +535,20 @@ describe Mconf::Shibboleth do
       it("should be confirmed") { @subject.confirmed_at.should_not be_nil }
       it("should not be disabled") { @subject.disabled.should be_falsey }
       it("should not be a superuser") { @subject.superuser.should be_falsey }
+
+      context "generates a RecentActivity" do
+        subject { RecentActivity.where(key: 'shibboleth.user.created').last }
+        it("should exist") { subject.should_not be_nil }
+        it("should point to the right trackable") { subject.trackable.should eq(User.last) }
+        it("should be owned by a ShibToken") { subject.owner.class.should be(ShibToken) }
+        it("should be owned by the correct ShibToken") { subject.owner_id.should eql(token.id) }
+      end
     end
 
     context "parameterizes the login" do
       let(:token) { ShibToken.create!(identifier: 'any@email.com') }
       before {
-        shibboleth.should_receive(:get_email).at_least(1).and_return('any@email.com')
+        shibboleth.should_receive(:get_email).at_least(:once).and_return('any@email.com')
         shibboleth.should_receive(:get_login).and_return('My Login Áàéë (test)')
         shibboleth.should_receive(:get_name).and_return('Any Name')
       }
@@ -551,7 +559,10 @@ describe Mconf::Shibboleth do
     context "returns the user with errors set in it if the call to `save` generated errors" do
       let(:user) { FactoryGirl.create(:user) }
       let(:token) { ShibToken.create!(identifier: 'dummy_shib@tok.en') }
-      subject { shibboleth.create_user token }
+      subject {
+        expect { @user = shibboleth.create_user token }.not_to change{ RecentActivity.count + User.count }
+        @user
+      }
       it("should return the user") { subject.should_not be_nil }
       it("user should not be saved") { subject.new_record?.should be(true) }
       it("user should not be valid") { subject.valid?.should be(false) }

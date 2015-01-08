@@ -20,8 +20,22 @@ class UserNotificationsWorker
   # Finds all users that registered and need to be approved and schedules a worker
   # to notify all users that could possibly approve him.
   def self.notify_admins_of_new_users
-    activities = RecentActivity.where(trackable_type: 'User', notified: [nil, false])
-                               .where("`key` LIKE '%user.created'")
+    # Temporary solution so that only one of the two activities that are created
+    # when using Shibboleth or LDAP is actually used to send the notification.
+    specific_creations = RecentActivity.where(trackable_type: 'User', notified: [nil, false])
+                               .where("`key` LIKE '%.user.created'").to_a
+    general_creations = RecentActivity.where(trackable_type: 'User', notified: [nil, false], key: 'user.created').to_a
+
+    general_creations.reject! do |gen|
+      if specific_creations.find_index { |spec| spec.trackable_id == gen.trackable_id }
+        gen.update_attributes(notified: true)
+        true
+      else
+        false
+      end
+    end
+
+    activities = specific_creations + general_creations
     recipients = User.where(superuser: true).pluck(:id)
     unless recipients.empty?
       activities.each do |creation|
