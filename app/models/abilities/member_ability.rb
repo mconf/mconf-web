@@ -161,11 +161,11 @@ module Abilities
         end
 
         # Participants from MwebEvents
-        can :show, MwebEvents::Participant do |p|
-          p.event.owner == user || p.owner == user
+        can :destroy, MwebEvents::Participant do |p|
+          p.owner == user
         end
 
-        can [:edit, :update, :destroy], MwebEvents::Participant do |p|
+        can [:show, :edit, :update, :destroy], MwebEvents::Participant do |p|
           event_can_be_managed_by(p.event, user)
         end
 
