@@ -69,6 +69,7 @@ class Attachment < ActiveRecord::Base
 
   protected
 
+  # Adds the content_type and size attributes to the attachment
   def update_attachment_attributes
     if attachment.present? && attachment_changed?
       self.content_type = attachment.file.content_type

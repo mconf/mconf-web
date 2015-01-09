@@ -14,6 +14,23 @@ class AttachmentUploader < CarrierWave::Uploader::Base
     "#{Rails.root}/private/tmp/uploads/cache/#{model.id}"
   end
 
+  # Rename files when the name conflicts with another one in the same space
+  def filename
+    return if !original_filename.present?
+    original_name = super
+
+    tries = 1
+    name = original_name
+    while (att = model.space.attachments.find { |a| a.title == name && a != model })
+      ext = File.extname(original_name)
+      base = File.basename(original_name, ext)
+      name = "#{base}_#{tries}#{ext}"
+      tries += 1
+    end
+
+    name
+  end
+
   # Provide a default URL as a default if there hasn't been a file uploaded:
   # def default_url
   #   # For Rails 3.1+ asset pipeline compatibility:
