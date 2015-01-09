@@ -135,6 +135,12 @@ describe AttachmentsController do
         }
 
         it { should redirect_to space_attachments_path(space) }
+
+        context "it creates a new recent activity" do
+          it { RecentActivity.last.trackable.should eq(Attachment.last) }
+          it { RecentActivity.last.owner.should eq(Attachment.last.space) }
+          it { RecentActivity.last.key.should eq('attachment.create') }
+        end
       end
     end
 
