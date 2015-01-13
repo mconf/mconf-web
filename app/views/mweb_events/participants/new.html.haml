@@ -1,6 +1,12 @@
 = render "mweb_events/events/title"
 
-%h3= t(".title")
+#new-event-registration
 
-.container-fluid
-  = render 'form'
+  - if current_user.present?
+
+    #member-registration.container-fluid
+      %h3= t('.title')
+      = render 'form'
+
+  - else
+    = render 'split_form'

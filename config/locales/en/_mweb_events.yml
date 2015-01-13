@@ -71,5 +71,8 @@ en:
         message: Send message
         no_participants: No participants yet!
         title: "Listing all participants in the event"
+      split_form:
+        member_title: Login to register in this event
+        annonymous_title: Register as annonymous user
       new:
         title: "Registering in the event"

@@ -71,5 +71,8 @@ pt-br:
         message: Enviar mensagem
         no_participants: Nenhum inscrito ainda!
         title: "Listando todos os participantes do evento"
+      split_form:
+        member_title: Entrar e se registrar no evento
+        annonymous_title: Se registrar como anônimo
       new:
         title: "Registrar-se no evento"
