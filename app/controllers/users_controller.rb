@@ -23,6 +23,8 @@ class UsersController < ApplicationController
   respond_to :js, :only => [:select, :current, :fellows]
   respond_to :xml, :only => [:current]
 
+  rescue_from CanCan::AccessDenied, with: :handle_access_denied
+
   def index
     @users = @space.users.sort {|x,y| x.name <=> y.name }
     respond_to do |format|
@@ -226,6 +228,14 @@ class UsersController < ApplicationController
     allowed += [:email, :username, :_full_name] if current_user.superuser? and (params[:action] == 'create')
     allowed += [:superuser] if current_user.superuser? && current_user != @user
     allowed
+  end
+
+  def handle_access_denied exception
+    if user_signed_in?
+      render_403 exception
+    else
+      redirect_to login_path
+    end
   end
 
 end

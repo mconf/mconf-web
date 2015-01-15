@@ -11,6 +11,9 @@ class ProfilesController < ApplicationController
   load_and_authorize_resource :user, :find_by => :username
   load_and_authorize_resource :through => :user, :singleton => true
 
+
+  rescue_from CanCan::AccessDenied, with: :handle_access_denied
+
   # if params[:hcard] then hcard is rendered
   def show
     respond_to do |format|
@@ -92,6 +95,14 @@ class ProfilesController < ApplicationController
       :province, :country, :prefix_key, :description, :url, :skype, :im,
       :visibility, :full_name, :logo_image, :vcard,
       :crop_x, :crop_y, :crop_w, :crop_h, :crop_img_w, :crop_img_h ]
+  end
+
+  def handle_access_denied exception
+    if user_signed_in?
+      render_403 exception
+    else
+      redirect_to login_path
+    end
   end
 
 end

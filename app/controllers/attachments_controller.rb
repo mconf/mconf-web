@@ -8,6 +8,9 @@
 
 class AttachmentsController < ApplicationController
   load_and_authorize_resource :space, :find_by => :permalink
+  # Since the attachments belong to a Space's repository, we should always
+  # authenticate the user for every action.
+  before_filter :authenticate_user! #, only: [:new, :destroy, :delete_collection]
   before_filter :check_repository_enabled
   load_and_authorize_resource :through => :space, :except => [:index, :delete_collection]
   before_filter :load_attachments, :only => [:index, :delete_collection]

@@ -8,6 +8,8 @@
 class ManageController < ApplicationController
   authorize_resource :class => false
 
+  rescue_from CanCan::AccessDenied, with: :handle_access_denied
+
   def users
     name = params[:q]
     partial = params.delete(:partial) # otherwise the pagination links in the view will include this param
@@ -45,6 +47,16 @@ class ManageController < ApplicationController
   def spam
     @spam_posts = Post.where(:spam => true).all
     render :layout => 'no_sidebar'
+  end
+
+  private
+
+  def handle_access_denied exception
+    if user_signed_in?
+      render_403 exception
+    else
+      redirect_to login_path
+    end
   end
 
 end

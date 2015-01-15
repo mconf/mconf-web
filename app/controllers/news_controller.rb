@@ -9,6 +9,8 @@ class NewsController < ApplicationController
   load_and_authorize_resource :space, find_by: :permalink
   load_and_authorize_resource through: :space, instance_name: 'news', except: [:index]
 
+  before_filter :authenticate_user!, except: [:show]
+
   before_filter :webconf_room!, only: [:index]
   before_filter :get_news, only: [:index]
 
