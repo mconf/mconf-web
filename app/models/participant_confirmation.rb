@@ -1,5 +1,5 @@
 class ParticipantConfirmation < ActiveRecord::Base
-  belongs_to :participant, :class_name => "MwebEvents::Participant"
+  belongs_to :participant, dependent: :destroy, :class_name => "MwebEvents::Participant"
   before_create :generate_token
   after_create :send_participant_confirmation
 
