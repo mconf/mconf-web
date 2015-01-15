@@ -15,7 +15,7 @@
 
   .user-text
     = link_to '#', :class => 'user-name' do
-      = "(#{highlight(user.username, params[:q])}, #{highlight(user.email, params[:q])})".html_safe
+      = "(#{highlight(user.username, params[:q])}, #{highlight(user.email, params[:q])}) (#{participant.email_confirmed? ? t('.confirmed') : t('.not_confirmed')})".html_safe
 
     %span.user-category
       = user_category(user)

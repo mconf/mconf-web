@@ -25,6 +25,11 @@ en:
         end: "Ends on"
         header: "You have been invited to the event <b>%{event}</b> by <b>%{sender}</b> (%{email_sender}):"
       subject: "You have been invited to the event %{event}"
+  participant_confirmation_mailer:
+    confirmation_email:
+      subject: Confirm your email in order to register for %{event}
+      message: Hello %{email}! Before you can register for the event [%{event}],
+      click_here: "please confirm your email clicking <a href=\"%{url}\">here</a>."
   space_mailer:
     invitation_email:
       message:

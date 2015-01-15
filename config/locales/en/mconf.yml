@@ -1098,6 +1098,8 @@ en:
   past: Past
   people: people
   per_page: "per page"
+  participant_confirmation:
+    confirmed: Your registration has been confirmed
   permission:
     notification:
       default: "%{username} has change your role in %{stage} to %{role}. "

@@ -1098,6 +1098,8 @@ pt-br:
   past: Passado
   people: pessoas
   per_page: "por página"
+  participant_confirmation:
+    confirmed: Sua inscrição foi confirmada
   permission:
     notification:
       default: "%{username} mudou sua função em %{stage} para %{role}."
