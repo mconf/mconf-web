@@ -28,17 +28,18 @@ describe User do
 
   it { should validate_presence_of(:email) }
 
-  [ :email, :password, :password_confirmation,
-    :remember_me, :login, :username, :receive_digest, :approved ].each do |attribute|
-    it { should allow_mass_assignment_of(attribute) }
-  end
+  # Make sure it's being tested in the controller
+  # [ :email, :password, :password_confirmation,
+  #   :remember_me, :login, :username, :receive_digest, :approved ].each do |attribute|
+  #   it { should allow_mass_assignment_of(attribute) }
+  # end
 
   describe "#profile" do
     let(:user) { FactoryGirl.create(:user) }
 
     it "is created when the user is created" do
       user.profile.should_not be_nil
-      user.profile.should be_an_instance_of(Profile)
+      user.profile.should be_kind_of(Profile)
     end
   end
 
@@ -49,16 +50,16 @@ describe User do
 
     it "is created when the user is created" do
       user.bigbluebutton_room.should_not be_nil
-      user.bigbluebutton_room.should be_an_instance_of(BigbluebuttonRoom)
+      user.bigbluebutton_room.should be_kind_of(BigbluebuttonRoom)
     end
 
     it "has the user as owner" do
-      user.bigbluebutton_room.owner.should be(user)
+      user.bigbluebutton_room.owner.should eq(user)
     end
 
     it "has param and name equal the user's username" do
       user.bigbluebutton_room.param.should eql(user.username)
-      user.bigbluebutton_room.name.should eql(user.username)
+      user.bigbluebutton_room.name.should eql(user._full_name)
     end
 
     it "has the default logout url" do
@@ -66,13 +67,13 @@ describe User do
     end
 
     it "has random passwords set" do
-      user.bigbluebutton_room.attendee_password.should_not be_blank
-      user.bigbluebutton_room.attendee_password.length.should be(8)
-      user.bigbluebutton_room.moderator_password.should_not be_blank
-      user.bigbluebutton_room.moderator_password.length.should be(8)
+      user.bigbluebutton_room.attendee_key.should_not be_blank
+      user.bigbluebutton_room.attendee_key.length.should be(8)
+      user.bigbluebutton_room.moderator_key.should_not be_blank
+      user.bigbluebutton_room.moderator_key.length.should be(8)
     end
 
-    pending "has the server as the first server existent"
+    skip "has the server as the first server existent"
   end
 
   describe "#username" do
@@ -98,22 +99,164 @@ describe User do
     it { should allow_value("_").for(:username) }
     it { should allow_value("abc-123_d5").for(:username) }
 
+    shared_examples "invalid user with username not unique" do
+      it { subject.should_not be_valid }
+      it {
+        subject.save.should be(false)
+        subject.errors.should have_key(:username)
+        subject.errors.messages[:username].should include(message)
+      }
+    end
+
     describe "validates uniqueness against Space#permalink" do
+      let(:message) { "has already been taken" }
+
       describe "on create" do
-        let(:space) { FactoryGirl.create(:space) }
-        subject { FactoryGirl.build(:user, :username => space.permalink) }
-        it { should_not be_valid }
+        context "with an enabled space" do
+          let(:space) { FactoryGirl.create(:space) }
+          subject { FactoryGirl.build(:user, username: space.permalink) }
+          include_examples "invalid user with username not unique"
+        end
+
+        context "with a disabled space" do
+          let(:disabled_space) { FactoryGirl.create(:space, disabled: true) }
+          subject { FactoryGirl.build(:user, username: disabled_space.permalink) }
+          include_examples "invalid user with username not unique"
+        end
+
+        context "uses case-insensitive comparisons" do
+          let!(:space) { FactoryGirl.create(:space, permalink: "My-Weird-Name") }
+          subject { FactoryGirl.build(:user, username: "mY-weiRD-NAMe") }
+          include_examples "invalid user with username not unique"
+        end
       end
 
       describe "on update" do
-        let(:user) { FactoryGirl.create(:user) }
-        let(:space) { FactoryGirl.create(:space) }
-        before(:each) {
-          user.username = space.permalink
-        }
-        it { user.should_not be_valid }
+        context "with an enabled space" do
+          let(:subject) { FactoryGirl.create(:user) }
+          let(:space) { FactoryGirl.create(:space) }
+          before(:each) {
+            subject.username = space.permalink
+          }
+          include_examples "invalid user with username not unique"
+        end
+
+        context "with a disabled space" do
+          let(:subject) { FactoryGirl.create(:user) }
+          let(:disabled_space) { FactoryGirl.create(:space, :disabled => true) }
+          before(:each) {
+            subject.username = disabled_space.permalink
+          }
+          include_examples "invalid user with username not unique"
+        end
+
+        context "uses case-insensitive comparisons" do
+          let(:subject) { FactoryGirl.create(:user) }
+          let!(:space) { FactoryGirl.create(:space, permalink: "My-Weird-Name") }
+          before(:each) {
+            subject.username = "mY-weiRD-NAMe"
+          }
+          include_examples "invalid user with username not unique"
+        end
       end
     end
+
+    describe "validates uniqueness against User#username" do
+      let(:message) { "has already been taken" }
+
+      describe "on create" do
+        context "with an enabled user" do
+          let(:user) { FactoryGirl.create(:user) }
+          subject { FactoryGirl.build(:user, username: user.username) }
+          include_examples "invalid user with username not unique"
+        end
+
+        context "with a disabled user" do
+          let(:disabled_user) { FactoryGirl.create(:user, disabled: true) }
+          subject { FactoryGirl.build(:user, username: disabled_user.username) }
+          include_examples "invalid user with username not unique"
+        end
+
+        context "uses case-insensitive comparisons" do
+          let!(:user) { FactoryGirl.create(:user, username: "My-Weird-Name") }
+          subject { FactoryGirl.build(:user, username: "mY-weiRD-NAMe") }
+          include_examples "invalid user with username not unique"
+        end
+      end
+
+      describe "on update" do
+        context "with an enabled space" do
+          let(:subject) { FactoryGirl.create(:user) }
+          let(:other_user) { FactoryGirl.create(:user) }
+          before(:each) {
+            subject.username = other_user.username
+          }
+          include_examples "invalid user with username not unique"
+        end
+
+        context "with a disabled space" do
+          let(:subject) { FactoryGirl.create(:user) }
+          let(:disabled_user) { FactoryGirl.create(:user, :disabled => true) }
+          before(:each) {
+            subject.username = disabled_user.username
+          }
+          include_examples "invalid user with username not unique"
+        end
+
+        context "uses case-insensitive comparisons" do
+          let(:subject) { FactoryGirl.create(:user) }
+          let!(:other_user) { FactoryGirl.create(:user, username: "My-Weird-Name") }
+          before(:each) {
+            subject.username = "mY-weiRD-NAMe"
+          }
+          include_examples "invalid user with username not unique"
+        end
+      end
+    end
+
+    context "validates against webconf room params" do
+      let(:message) { "has already been taken" }
+
+      describe "on create" do
+        context "with an exact match" do
+          let(:room) { FactoryGirl.create(:bigbluebutton_room) }
+          subject { FactoryGirl.build(:user, username: room.param) }
+          include_examples "invalid user with username not unique"
+        end
+
+        context "uses case-insensitive comparisons" do
+          let!(:room) { FactoryGirl.create(:bigbluebutton_room, param: "My-Weird-Name") }
+          subject { FactoryGirl.build(:user, username: "mY-weiRD-NAMe") }
+          include_examples "invalid user with username not unique"
+        end
+      end
+
+      describe "on update" do
+        context "with an exact match" do
+          let(:subject) { FactoryGirl.create(:user) }
+          let(:other_room) { FactoryGirl.create(:bigbluebutton_room) }
+          before(:each) {
+            subject.username = other_room.param
+          }
+          include_examples "invalid user with username not unique"
+        end
+
+        context "uses case-insensitive comparisons" do
+          let(:subject) { FactoryGirl.create(:user) }
+          let!(:other_room) { FactoryGirl.create(:bigbluebutton_room, param: "My-Weird-Name") }
+          before(:each) {
+            subject.username = "mY-weiRD-NAMe"
+          }
+          include_examples "invalid user with username not unique"
+        end
+
+        context "doesn't validate against its own room" do
+          let!(:user) { FactoryGirl.create(:user) }
+          it { user.update_attributes(username: user.username).should be(true) }
+        end
+      end
+    end
+
   end
 
   describe "on update" do
@@ -121,27 +264,31 @@ describe User do
       let(:user) { FactoryGirl.create(:user, :username => "old-user-name") }
       before(:each) { user.update_attributes(:username => "new-user-name") }
       it { user.bigbluebutton_room.param.should be(user.username) }
-      it { user.bigbluebutton_room.name.should be(user.username) }
+      it { user.bigbluebutton_room.name.should_not be(user.username) }
     end
   end
 
   describe "on create" do
     describe "#automatically_approve_if_needed" do
       context "if #require_registration_approval is not set in the current site" do
-        before { Site.current.update_attributes(:require_registration_approval => false) }
+        before { Site.current.update_attributes(require_registration_approval: false) }
 
         context "automatically approves the user" do
-          before(:each) { @user = FactoryGirl.create(:user, :approved => false) }
-          it { @user.approved?.should be_true }
+          before(:each) { @user = FactoryGirl.create(:user, approved: false) }
+          it { @user.should be_approved }
+          it { @user.needs_approval_notification_sent_at.should be_within(2.seconds).of(Time.now) }
+          it { @user.approved_notification_sent_at.should be_within(2.seconds).of(Time.now) }
         end
       end
 
       context "if #require_registration_approval is set in the current site" do
-        before { Site.current.update_attributes(:require_registration_approval => true) }
+        before { Site.current.update_attributes(require_registration_approval: true) }
 
         context "doesn't approve the user" do
-          before(:each) { @user = FactoryGirl.create(:user, :approved => false) }
-          it { @user.approved?.should be_false }
+          before(:each) { @user = FactoryGirl.create(:user, approved: false, needs_approval_notification_sent_at: nil, approved_notification_sent_at: nil) }
+          it { @user.should_not be_approved }
+          it { @user.needs_approval_notification_sent_at.should be_nil }
+          it { @user.approved_notification_sent_at.should be_nil }
         end
       end
     end
@@ -152,13 +299,20 @@ describe User do
     let(:other_user) { FactoryGirl.create(:user)}
 
     before(:each) do
-      FactoryGirl.create(:event, :owner => user)
-      FactoryGirl.create(:event, :owner => user)
+      @events = [
+      FactoryGirl.create(:event, :owner => user),
+      FactoryGirl.create(:event, :owner => user),
+      FactoryGirl.create(:event, :owner => nil)
+      ]
     end
 
     it { user.events.size.should eql(2) }
+    it { user.events.should include(@events[0], @events[1]) }
+    it { user.events.should_not include(@events[2]) }
     it { other_user.events.should be_empty }
   end
+
+  skip "#has_events_in_this_space?"
 
   describe "#accessible_rooms" do
     let(:user) { FactoryGirl.create(:user) }
@@ -188,61 +342,12 @@ describe User do
 
     context "for a user in the database" do
       let(:user) { FactoryGirl.create(:user) }
-      it { should be_false }
+      it { should be false }
     end
 
     context "for a user not in the database" do
       let(:user) { FactoryGirl.build(:user) }
-      it { should be_true }
-    end
-  end
-
-  describe "#all_activity" do
-    let(:user) { FactoryGirl.create(:user) }
-
-    context "returns the activities in his room" do
-      let(:another_user) { FactoryGirl.create(:user) }
-      before do
-        @activity1 = RecentActivity.create(:owner => user.bigbluebutton_room)
-        @activity2 = RecentActivity.create(:owner => another_user.bigbluebutton_room)
-      end
-      subject { user.all_activity }
-      it { subject.length.should be(1) }
-      it { subject[0].should eq(@activity1) }
-    end
-
-    context "returns the activities in his spaces" do
-      let(:space1) { FactoryGirl.create(:space) }
-      let(:space2) { FactoryGirl.create(:space) }
-      let(:space3) { FactoryGirl.create(:space) }
-      before do
-        space1.add_member!(user, 'User')
-        space2.add_member!(user, 'Admin')
-        @activity1 = RecentActivity.create(:owner => space1)
-        @activity2 = RecentActivity.create(:owner => space2)
-        @activity3 = RecentActivity.create(:owner => space3)
-      end
-      subject { user.all_activity }
-      it { subject.length.should be(2) }
-      it { subject[0].should eq(@activity1) }
-      it { subject[1].should eq(@activity2) }
-    end
-
-    context "returns the activities in the rooms of his spaces" do
-      let(:space1) { FactoryGirl.create(:space) }
-      let(:space2) { FactoryGirl.create(:space) }
-      let(:space3) { FactoryGirl.create(:space) }
-      before do
-        space1.add_member!(user, 'User')
-        space2.add_member!(user, 'Admin')
-        @activity1 = RecentActivity.create(:owner => space1.bigbluebutton_room)
-        @activity2 = RecentActivity.create(:owner => space2.bigbluebutton_room)
-        @activity3 = RecentActivity.create(:owner => space3.bigbluebutton_room)
-      end
-      subject { user.all_activity }
-      it { subject.length.should be(2) }
-      it { subject[0].should eq(@activity1) }
-      it { subject[1].should eq(@activity2) }
+      it { should be true }
     end
   end
 
@@ -354,18 +459,83 @@ describe User do
     end
   end
 
+  describe "#private_fellows" do
+    context "returns the private fellows of the current user" do
+      let(:user) { FactoryGirl.create(:user) }
+      subject { user.private_fellows }
+      before do
+        private_space = FactoryGirl.create(:space, :public => false)
+        public_space = FactoryGirl.create(:space, :public => true)
+        private_space.add_member! user
+        public_space.add_member! user
+
+        @users = Helpers.create_fellows(2, private_space)
+        @users += Helpers.create_fellows(2, public_space)
+        # 2 extra not fellows
+        2.times { FactoryGirl.create(:user) }
+      end
+      it { subject.length.should == 2 }
+      it { should include(@users[0], @users[1]) }
+      it { should_not include(@users[2],@users[3]) }
+    end
+
+    context "orders by name" do
+      let(:user) { FactoryGirl.create(:user) }
+      subject { user.private_fellows }
+      before do
+        space = FactoryGirl.create(:space, :public => false)
+        space.add_member! user
+        @users = Helpers.create_fellows(5, space)
+        @users.sort_by!{ |u| u.name }
+      end
+      it { subject.length.should == 5 }
+      it { should == @users }
+    end
+
+    context "don't return duplicates" do
+      let(:user) { FactoryGirl.create(:user) }
+      subject { user.private_fellows }
+      before do
+        space1 = FactoryGirl.create(:private_space)
+        space2 = FactoryGirl.create(:private_space)
+        space1.add_member! user
+        space2.add_member! user
+        @fellow = FactoryGirl.create(:user)
+        space1.add_member! @fellow
+        space2.add_member! @fellow
+      end
+      it { subject.length.should == 1 }
+      it { should include(@fellow) }
+      it { should_not include(user) }
+    end
+
+    context "don't return the user himself" do
+      let(:user) { FactoryGirl.create(:user) }
+      subject { user.private_fellows }
+      before do
+        space = FactoryGirl.create(:private_space)
+        space.add_member! user
+        @users = Helpers.create_fellows(2, space)
+      end
+      it { subject.length.should == 2 }
+      it { should include(@users[0]) }
+      it { should include(@users[1]) }
+      it { should_not include(user) }
+    end
+  end
+
   describe ".with_disabled" do
     let(:user1) { FactoryGirl.create(:user, :disabled => true) }
     let(:user2) { FactoryGirl.create(:user, :disabled => false) }
 
     context "finds users even if disabled" do
-      subject { User.with_disabled.all }
-      it { should include(user1) }
-      it { should include(user2) }
+      subject { User.with_disabled }
+      it { should be_include(user1) }
+      it { should be_include(user2) }
     end
 
     context "returns a Relation object" do
-      it { User.with_disabled.should be_an_instance_of(ActiveRecord::Relation) }
+      it { User.with_disabled.should be_kind_of(ActiveRecord::Relation) }
     end
   end
 
@@ -380,7 +550,7 @@ describe User do
 
     context "sets the user as approved" do
       before { user.approve! }
-      it { user.approved.should be_true }
+      it { user.approved.should be true }
     end
 
     context "throws an exception if fails to update the user" do
@@ -399,7 +569,7 @@ describe User do
 
     context "sets the user as disapproved" do
       before { user.disapprove! }
-      it { user.approved.should be_false }
+      it { user.should_not be_approved }
     end
 
     context "throws an exception if fails to update the user" do
@@ -416,19 +586,19 @@ describe User do
 
       context "true if the user was approved" do
         let(:user) { FactoryGirl.create(:user, :approved => true) }
-        it { user.active_for_authentication?.should be_true }
+        it { user.should be_active_for_authentication }
       end
 
       context "false if the user was not approved" do
         let(:user) { FactoryGirl.create(:user, :approved => false) }
-        it { user.active_for_authentication?.should be_false }
+        it { user.should_not be_active_for_authentication }
       end
     end
 
     context "if #require_registration_approval is not set in the current site" do
       context "true even if the user was not approved" do
         let(:user) { FactoryGirl.create(:user, :approved => false) }
-        it { user.active_for_authentication?.should be_true }
+        it { user.should be_active_for_authentication }
       end
     end
   end
@@ -457,10 +627,33 @@ describe User do
   end
 
   describe "#pending_spaces" do
-    it "returns all spaces in which the user has a pending join request he sent"
-    it "returns all spaces in which the user has a pending join request he received"
-    it "removes possible duplicates"
-    it "doesn't return spaces that are disabled"
+    before do
+      @spaces = [
+        FactoryGirl.create(:space),
+        FactoryGirl.create(:space),
+        FactoryGirl.create(:space),
+        FactoryGirl.create(:space, :disabled => true)]
+      @user = FactoryGirl.create(:user)
+
+      FactoryGirl.create(:join_request, :candidate => @user, :group => @spaces[0], :request_type => JoinRequest::TYPES[:request])
+      FactoryGirl.create(:join_request, :candidate => @user, :group => @spaces[1], :request_type => JoinRequest::TYPES[:invite])
+      FactoryGirl.create(:join_request, :candidate => @user, :group => @spaces[3], :request_type => JoinRequest::TYPES[:request])
+    end
+
+    # Currently makes no differentiation between invites or requests
+    # skip "removes possible duplicates"
+    it "returns all spaces in which the user has a pending join request he sent" do
+      @user.pending_spaces.should include(@spaces[0], @spaces[1])
+    end
+    it "returns all spaces in which the user has a pending join request he received" do
+      @user.pending_spaces.should include(@spaces[1])
+    end
+
+    it { @user.pending_spaces.should_not include(@spaces[2]) }
+
+    it "doesn't return spaces that are disabled" do
+      @user.pending_spaces.should_not include(@spaces[3])
+    end
   end
 
   describe "#disable" do
@@ -490,6 +683,38 @@ describe User do
         it { user.disabled.should be(true) }
         it { space.disabled.should be(false) }
       end
+    end
+  end
+
+  describe "#location" do
+    context "returns the city + country" do
+      let(:user) {FactoryGirl.create(:user) }
+      before {
+        user.profile.city = "City X"
+        user.profile.country = "Country Y"
+        user.save!
+      }
+      it { user.location.should eql("City X, Country Y") }
+    end
+
+    context "returns the city if country if not defined" do
+      let(:user) {FactoryGirl.create(:user) }
+      before {
+        user.profile.city = "City X"
+        user.profile.country = nil
+        user.save!
+      }
+      it { user.location.should eql("City X") }
+    end
+
+    context "returns the country if city if not defined" do
+      let(:user) {FactoryGirl.create(:user) }
+      before {
+        user.profile.city = nil
+        user.profile.country = "Country Y"
+        user.save!
+      }
+      it { user.location.should eql("Country Y") }
     end
   end
 
@@ -581,7 +806,7 @@ describe User do
 
   # TODO: :index is nested into spaces, how to test it here?
   describe "abilities", :abilities => true do
-    set_custom_ability_actions([:fellows, :current, :select, :approve, :enable, :disable])
+    set_custom_ability_actions([:fellows, :current, :select, :approve, :enable, :disable, :confirm])
 
     subject { ability }
     let(:ability) { Abilities.ability_for(user) }

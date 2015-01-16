@@ -7,8 +7,6 @@
 require 'spec_helper'
 
 describe EventMailer do
-  before { Helpers.setup_site_for_email_tests }
-
   let(:invitation) { FactoryGirl.create(:event_invitation) }
   let(:mail) { EventMailer.invitation_email(invitation.id) }
 
@@ -68,11 +66,26 @@ describe EventMailer do
       }
     end
 
+    context "uses the sender's locale if the receiver has no locale set" do
+      before {
+        Site.current.update_attributes(:locale => "en")
+        invitation.recipient.update_attribute(:locale, nil)
+        invitation.sender.update_attribute(:locale, "pt-br")
+      }
+      it {
+        content = I18n.t('event_mailer.invitation_email.message.header',
+                         sender: invitation.sender.name,
+                         email_sender: invitation.sender.email,
+                         event: invitation.target.name, locale: "pt-br")
+        mail.html_part.body.encoded.should match(Regexp.escape(content))
+      }
+    end
+
     context "uses the site's locale if the receiver has no locale set" do
       before {
         Site.current.update_attributes(:locale => "pt-br")
         invitation.recipient.update_attribute(:locale, nil)
-        invitation.sender.update_attribute(:locale, "en")
+        invitation.sender.update_attribute(:locale, nil)
       }
       it {
         content = I18n.t('event_mailer.invitation_email.message.header',
@@ -84,4 +97,14 @@ describe EventMailer do
     end
   end
 
+  context "calls the error handler on exceptions" do
+    let(:exception) { Exception.new("test exception") }
+    it {
+      with_resque do
+        BaseMailer.any_instance.stub(:render) { raise exception }
+        Mconf::MailerErrorHandler.should_receive(:handle).with(EventMailer, nil, exception, "invitation_email", anything)
+        EventMailer.invitation_email(invitation.id).deliver
+      end
+    }
+  end
 end

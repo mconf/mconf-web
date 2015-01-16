@@ -12,7 +12,7 @@ class PermissionsController < ApplicationController
   load_and_authorize_resource
 
   def update
-    if @permission.update_attributes(params[:permission])
+    if @permission.update_attributes(permission_params)
       flash[:success] = t('permission.update.success')
     else
       flash[:error] = t('permission.update.failure')
@@ -22,12 +22,11 @@ class PermissionsController < ApplicationController
 
   def destroy
     @permission.destroy
-
-    respond_to do |format|
-      format.html {
-        redirect_to request.referer
-      }
-    end
+    redirect_to request.referer
   end
 
+  allow_params_for :permission
+  def allowed_params
+    [ :role_id ]
+  end
 end

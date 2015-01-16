@@ -1,2 +1,2 @@
-= link_to space_path(space), :confirm => t('.destroy_confirm'), :method => :delete do
+= link_to space_path(space), :data => { :confirm => t('.destroy_confirm') }, :method => :delete do
   = icon_delete(:alt => t('.destroy'), :title => t('.destroy'))

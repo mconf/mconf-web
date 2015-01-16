@@ -60,10 +60,10 @@ describe AssureUniquenessInUserLoginAndSpacePermalink, :migration => true do
 
       it do
         User.all.each do |user|
-          check_unique_attribute(user).should be_true
+          check_unique_attribute(user).should be_truthy
         end
         Space.all.each do |space|
-          check_unique_attribute(space).should be_true
+          check_unique_attribute(space).should be_truthy
         end
       end
     end

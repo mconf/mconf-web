@@ -1,29 +1,26 @@
 require 'devise/encryptors/station_encryptor'
 
-# TODO: replace Faker by Forgery
 namespace :db do
 
   desc "Populate the DB with random test data. Options: SINCE, CLEAR"
   task :populate => :environment do
-    reserved_usernames = ['lfzawacki', 'daronco', 'fbottin', 'gmiotto']
+    # can't require at the top because will raise errors when running rake in
+    # production (cannot load such file -- populator)
+    require 'populator'
 
-    if ENV['SINCE']
-      @created_at_start = DateTime.parse(ENV['SINCE']).to_time
-    else
-      @created_at_start = 6.months.ago
-    end
+    reserved_usernames = ['lfzawacki', 'daronco', 'fbottin']
+
+    @created_at_start = 1.year.ago
+    @created_at_start_months = 12
+
     puts
     puts "*** Start date set to: #{@created_at_start}"
-
-    require 'populator'
-    require 'faker'
 
     username_offset = 0 # to prevent duplicated usernames
 
     if ENV['CLEAR']
       puts "*** Destroying all resources!"
       PrivateMessage.destroy_all
-      Statistic.destroy_all
       Permission.destroy_all
       Space.destroy_all
       if configatron.modules.events.enabled
@@ -31,13 +28,10 @@ namespace :db do
         MwebEvents::Participant.destroy_all
       end
       RecentActivity.destroy_all
+      User.with_disabled.where.not(id: User.first.id).destroy_all
+      BigbluebuttonRoom.where.not(owner: User.first).destroy_all
+      BigbluebuttonPlaybackType.destroy_all
       BigbluebuttonRecording.destroy_all
-      users_without_admin = User.find_by_id_with_disabled(:all)
-      users_without_admin.delete(User.find_by_superuser(true))
-      users_without_admin.each(&:destroy)
-      rooms_without_admin = BigbluebuttonRoom.all
-      rooms_without_admin.delete(User.find_by_superuser(true).bigbluebutton_room)
-      rooms_without_admin.each(&:destroy)
     end
 
     puts
@@ -54,33 +48,38 @@ namespace :db do
       end
       username_offset += 1
 
-      user.email = Faker::Internet.email
+      user.email = Forgery::Internet.email_address
       user.confirmed_at = @created_at_start..Time.now
       user.disabled = false
       user.notification = User::NOTIFICATION_VIA_EMAIL
       user.encrypted_password = "123"
 
-      Profile.populate 1 do |profile|
+      # we don't want notifications for these users, event if they are not approved yet
+      user.needs_approval_notification_sent_at = @created_at_start..Time.now
+      user.approved_notification_sent_at = @created_at_start..Time.now
+
+      Profile.create do |profile|
         profile.user_id = user.id
-        profile.full_name = Faker::Name.name
+        profile.full_name = Forgery::Name.full_name
         profile.organization = Populator.words(1..3).titleize
-        profile.phone = Faker::PhoneNumber.phone_number
-        profile.mobile = Faker::PhoneNumber.phone_number
-        profile.fax = Faker::PhoneNumber.phone_number
-        profile.address = Faker::Address.street_address
-        profile.city = Faker::Address.city
-        profile.zipcode = Faker::Address.zip_code
-        profile.province = Faker::Address.state
-        profile.country = Faker::Address.country
-        profile.prefix_key = Faker::Name.prefix
+        profile.phone = Forgery::Address.phone
+        profile.mobile = Forgery::Address.phone
+        profile.fax = Forgery::Address.phone
+        profile.address = Forgery::Address.street_address
+        profile.city = Forgery::Address.city
+        profile.zipcode = Forgery::Address.zip
+        profile.province = Forgery::Address.state
+        profile.country = Forgery::Address.country
+        profile.prefix_key = Forgery::Name.title
         profile.description = Populator.sentences(1..3)
-        profile.url = "http://" + Faker::Internet.domain_name + "/" + Populator.words(1)
+        profile.url = "http://" + Forgery::Internet.domain_name + "/" + Populator.words(1)
         profile.skype = Populator.words(1)
-        profile.im = Faker::Internet.email
+        profile.im = Forgery::Internet.email_address
         profile.visibility = Populator.value_in_range((Profile::VISIBILITY.index(:everybody))..(Profile::VISIBILITY.index(:nobody)))
       end
     end
-    User.all.each do |user|
+
+    User.find_each do |user|
       if user.bigbluebutton_room.nil?
         user.create_bigbluebutton_room :owner => user,
                                        :server => BigbluebuttonServer.default,
@@ -96,7 +95,8 @@ namespace :db do
 
     puts "* Create private messages"
     User.all.each do |user|
-      senders = User.all.reject!{ |u| u == user }.map(&:id)
+      senders = User.ids - [user.id]
+
       PrivateMessage.populate 5 do |message|
         message.receiver_id = user.id
         message.sender_id = senders
@@ -114,7 +114,7 @@ namespace :db do
     Space.populate 10 do |space|
       begin
         name = Populator.words(1..3).capitalize
-      end until Space.find_by_name(name).nil? and name.length >= 3
+      end until Space.find_by(name: name).nil? and name.length >= 3
       space.name = name
       space.description = Populator.sentences(1..3)
       space.public = [ true, false ]
@@ -132,26 +132,6 @@ namespace :db do
         post.spam = rand(0) > 0.9 # ~10% marked as spam
       end
 
-      if configatron.modules.events.enabled
-        puts "* Create spaces: events for \"#{space.name}\" (5..10)"
-        available_users = User.all.dup
-        MwebEvents::Event.populate 5..10 do |event|
-          event.owner_id = space.id
-          event.owner_type = 'Space'
-          event.name = Populator.words(1..3).titleize
-          event.permalink = Populator.words(1..3).split.join('-')
-          event.time_zone = Forgery::Time.zone
-          event.location = Populator.words(1..3)
-          event.address = Forgery::Address.street_address
-          event.description = Populator.sentences(0..3)
-          event.location = Populator.sentences(0..2)
-          event.created_at = @created_at_start..Time.now
-          event.updated_at = event.created_at..Time.now
-          event.start_on = event.created_at..1.years.since(Time.now)
-          event.end_on = 2.hours.since(event.start_on)..2.days.since(event.start_on)
-        end
-      end
-
       News.populate 2..10 do |news|
         news.space_id = space.id
         news.title = Populator.words(3..8).titleize
@@ -161,57 +141,94 @@ namespace :db do
       end
     end
 
-    if configatron.modules.events.loaded
-      puts "* Create spaces: saving events to generate permalinks (#{MwebEvents::Event.count} events)"
-      MwebEvents::Event.find_each(&:save!) # to generate the permalink
-    end
-
     puts "* Create spaces: webconference rooms"
     Space.all.each do |space|
       if space.bigbluebutton_room.nil?
-        BigbluebuttonRoom.populate 1 do |room|
+        BigbluebuttonRoom.create do |room|
           room.server_id = BigbluebuttonServer.default.id
           room.owner_id = space.id
           room.owner_type = 'Space'
           room.name = space.name
           room.meetingid = "#{SecureRandom.hex(16)}-#{Time.now.to_i}"
-          room.attendee_password = "ap"
-          room.moderator_password = "mp"
+          room.attendee_key = "ap"
+          room.moderator_key = "mp"
           room.private = !space.public
           room.logout_url = "/feedback/webconf"
           room.external = false
           room.param = space.name.parameterize.downcase
           room.duration = 0
-          room.record = false
+          room.record_meeting = false
         end
       end
     end
 
     puts "* Create spaces: adding users"
     Space.all.each do |space|
-      role_ids = Role.find_all_by_stage_type('Space').map(&:id)
-      available_users = User.all.dup
+      role_ids = Role.where(stage_type: 'Space').ids
+      available_users = User.all.to_a
 
       puts "* Create spaces: \"#{space.name}\" - add first admin"
-      Permission.populate 1 do |permission|
-        user = available_users.delete_at((rand * available_users.size).to_i)
+      Permission.create do |permission|
+        user = available_users.delete_at(rand(available_users.size))
         permission.user_id = user.id
         permission.subject_id = space.id
         permission.subject_type = 'Space'
-        permission.role_id = Role.find_all_by_stage_type_and_name('Space', 'Admin')
+        permission.role_id = Role.where(name: 'Admin', stage_type: 'Space')
         permission.created_at = user.created_at
         permission.updated_at = permission.created_at
       end
 
       puts "* Create spaces: \"#{space.name}\" - add more users (3..10)"
       Permission.populate 3..10 do |permission|
-        user = available_users.delete_at((rand * available_users.size).to_i)
+        user = available_users.delete_at(rand(available_users.size))
         permission.user_id = user.id
         permission.subject_id = space.id
         permission.subject_type = 'Space'
         permission.role_id = role_ids
         permission.created_at = user.created_at
         permission.updated_at = permission.created_at
+      end
+    end
+
+    if configatron.modules.events.enabled
+      puts "* Create events"
+
+      puts "* Create events: for spaces (20..40)"
+      available_spaces = Space.all.to_a
+      MwebEvents::Event.populate 20..40 do |event|
+        event.owner_id = available_spaces
+        event.owner_type = 'Space'
+        event.name = Populator.words(1..3).titleize
+        event.permalink = Populator.words(1..3).split.join('-')
+        event.time_zone = Forgery::Time.zone
+        event.location = Populator.words(1..3)
+        event.address = Forgery::Address.street_address
+        event.description = Populator.sentences(20)
+        event.summary = Populator.sentences(2)
+        event.location = Populator.sentences(1)
+        event.created_at = @created_at_start..Time.now
+        event.updated_at = event.created_at..Time.now
+        event.start_on = event.created_at..1.years.since(Time.now)
+        event.end_on = 2.hours.since(event.start_on)..2.days.since(event.start_on)
+      end
+
+      puts "* Create events: for users (20..40)"
+      available_users = User.all.to_a
+      MwebEvents::Event.populate 20..40 do |event|
+        event.owner_id = available_users
+        event.owner_type = 'Space'
+        event.name = Populator.words(1..3).titleize
+        event.permalink = Populator.words(1..3).split.join('-')
+        event.time_zone = Forgery::Time.zone
+        event.location = Populator.words(1..3)
+        event.address = Forgery::Address.street_address
+        event.description = Populator.sentences(20)
+        event.summary = Populator.sentences(2)
+        event.location = Populator.sentences(1)
+        event.created_at = @created_at_start..Time.now
+        event.updated_at = event.created_at..Time.now
+        event.start_on = event.created_at..1.years.since(Time.now)
+        event.end_on = 2.hours.since(event.start_on)..2.days.since(event.start_on)
       end
 
       # TODO: #1115, populate with models from MwebEvents
@@ -240,10 +257,21 @@ namespace :db do
       #   end
       # end
       # end
-
     end
 
     puts "* Create recordings and metadata for all webconference rooms (#{BigbluebuttonRoom.count} rooms)"
+
+    # Playback types
+    ids = ["presentation", "presentation_video", "presentation_export"]
+    ids.each_with_index do |id, i|
+      params = {
+        identifier: id,
+        visible: i==0 ? true : [true, false],
+        default: i==0
+      }
+      BigbluebuttonPlaybackType.create(params)
+    end
+
     BigbluebuttonRoom.all.each do |room|
 
       BigbluebuttonRecording.populate 2..10 do |recording|
@@ -254,7 +282,7 @@ namespace :db do
         recording.name = Populator.words(3..5).titleize
         recording.published = true
         recording.available = true
-        recording.start_time = 5.months.ago..Time.now
+        recording.start_time = @created_at_start..Time.now
         recording.end_time = recording.start_time + rand(5).hours
         recording.description = Populator.words(5..8)
 
@@ -267,12 +295,17 @@ namespace :db do
         end
 
         # Recording playback formats
-        # Note: make a few without playback formats, meaning that the recording is still being processed
+        # Note: make a few recordings without playback formats, meaning that the recording is still
+        # being processed
+        playback_types = BigbluebuttonPlaybackType.pluck(:id)
         BigbluebuttonPlaybackFormat.populate 0..3 do |format|
           format.recording_id = recording.id
-          format.format_type = "#{Populator.words(1)}-#{format.id}"
-          format.url = "http://" + Faker::Internet.domain_name + "/playback/" + format.format_type
+          format.url = "http://#{Forgery::Internet.domain_name}/playback/#{Populator.words(1)}"
           format.length = Populator.value_in_range(32..128)
+
+          id = playback_types[rand(playback_types.length)]
+          playback_types.delete(id)
+          format.playback_type_id = id
         end
       end
 
@@ -283,12 +316,16 @@ namespace :db do
         if user_id.nil?
           if recording.room.owner_type == 'User'
             user = recording.room.owner
-            recording.metadata.create(:name => BigbluebuttonRails.metadata_user_id.to_s,
-                                      :content => user.id)
+            if user
+              recording.metadata.create(:name => BigbluebuttonRails.metadata_user_id.to_s,
+                                        :content => user.id)
+            end
           else
             space = recording.room.owner
-            recording.metadata.create(:name => BigbluebuttonRails.metadata_user_id.to_s,
-                                      :content => space.users[rand(space.users.length)])
+            if space
+              recording.metadata.create(:name => BigbluebuttonRails.metadata_user_id.to_s,
+                                        :content => space.users[rand(space.users.length)])
+            end
           end
         end
       end
@@ -304,19 +341,15 @@ namespace :db do
 
     Post.record_timestamps = false
 
-    puts "* Create statistics and last details for spaces (#{Space.count} spaces)"
+    puts "* Create posts and last details for spaces (#{Space.count} spaces)"
     Space.all.each do |space|
-      Statistic.populate 1 do |statistic|
-        statistic.url = "/spaces/" + space.permalink
-        statistic.unique_pageviews = 0..300
-      end
 
-      total_posts = space.posts.dup
+      total_posts = space.posts.to_a
       # The first Post should not have parent
-      final_posts = Array.new << total_posts.shift
+      final_posts = [] << total_posts.shift
 
       total_posts.inject final_posts do |posts, post|
-        parent = posts[(rand * posts.size).to_i]
+        parent = posts[rand(posts.size)]
         unless parent.parent_id
           post.update_attribute :parent_id, parent.id
         end
@@ -324,7 +357,9 @@ namespace :db do
       end
 
       # Space created recent activity
-      space.new_activity :create, space.admins.first
+      if space.admins.length > 0
+        space.new_activity :create, space.admins.first
+      end
 
       # Author and recent_activity for posts
       ( space.posts ).each do |item|
@@ -356,16 +391,24 @@ namespace :db do
 
     end
 
+    # Randomize when recent activities were created
+    puts "* Randomizing dates for recent activities"
+    RecentActivity.all.each do |item|
+      item.created_at = rand(@created_at_start_months).months.ago
+      item.updated_at = item.created_at
+      item.save!
+    end
+
     # done after all the rest to simulate what really happens: users are created enabled
     # and disabled later on
     puts "* Disabling a few users and spaces"
-    ids = Space.all.map(&:id)
+    ids = Space.ids
     ids = ids.sample(Space.count/5) # 1/5th disabled
     Space.where(:id => ids).each do |space|
       space.disable
     end
     users_without_admin = User.where(["(superuser IS NULL OR superuser = ?) AND username NOT IN (?)", false, reserved_usernames])
-    ids = users_without_admin.map(&:id)
+    ids = users_without_admin.ids
     ids = ids.sample(User.count/5) # 1/5th disabled
     User.where(:id => ids).each do |user|
       user.disable

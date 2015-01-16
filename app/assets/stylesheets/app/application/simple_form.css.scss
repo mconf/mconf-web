@@ -20,12 +20,6 @@
       }
     }
 
-    abbr {
-      border: 0;
-      margin: 0;
-      color: red;
-    }
-
     // limit the height of a textarea by default
     textarea {
       max-height: 150px;
@@ -62,7 +56,7 @@
     &.field_with_hint {
       &:hover, &:focus { color: darken($alert-info-font, 20); }
       cursor: pointer;
-      background: url("/assets/icons/help-12x12.png") no-repeat left top;
+      background: image-url("icons/help-12x12.png") no-repeat left top;
       background-width: 12px;
       background-height: 12px;
       label {
@@ -73,7 +67,8 @@
   }
 
   .field_with_errors {
-    input, textarea { border-color: $red; }
+    input, textarea,
+    .select2-container .select2-choice { border-color: $red; }
 
     .error {
       margin-left: 5px;
@@ -107,6 +102,12 @@
 
   div.controls {
     display: inline;
+  }
+
+  abbr {
+    border: 0;
+    margin: 0;
+    color: red;
   }
 
 }

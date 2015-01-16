@@ -1,7 +1,11 @@
 # encoding: utf-8
+require 'carrierwave/processing/mini_magick'
 
 class LogoImageUploader < CarrierWave::Uploader::Base
-  include CarrierWave::RMagick
+  include CarrierWave::MiniMagick
+
+  MAX_WIDTH = 350
+  MAX_HEIGHT = 350
 
   storage :file
 
@@ -15,40 +19,72 @@ class LogoImageUploader < CarrierWave::Uploader::Base
     %w(jpg jpeg png svg tif gif)
   end
 
-  # Create different versions of your uploaded files:
-  version :large do
-    resize_to_limit(350,350)
+  def resize_and_extend w, h
+    manipulate! do |img|
+      img.resize "#{w}x#{h}"
+      img.background 'white'
+      img.gravity 'center'
+      img.extent "#{w}x#{h}"
+      img
+    end
   end
 
+  # The original image but restricted to a maximum size
+  version :large do
+    process :crop
+    resize_to_limit(MAX_WIDTH, MAX_HEIGHT)
+  end
+
+  # Small user avatar
   version :logo32 do
     process :crop
-    resize_to_fill(32,32)
+    process :resize_and_extend => [32, 32]
   end
 
-  version :logo84x64 do
-    process :crop
-    resize_to_fill(84,64)
-  end
-
+  # Medium user avatar
   version :logo128 do
     process :crop
-    resize_to_fill(128,128)
+    process :resize_and_extend => [128, 128]
   end
 
+  # Large user avatar
+  version :logo300 do
+    process :crop
+    process :resize_and_extend => [300, 300]
+  end
+
+  # Small space logo
+  version :logo84x64 do
+    process :crop
+    process :resize_and_extend => [84, 64]
+  end
+
+  # Medium space logo
   version :logo168x128 do
     process :crop
-    resize_to_fill(168,128)
+    process :resize_and_extend => [168, 128]
+  end
+
+  # Large space logo
+  version :logo336x256 do
+    process :crop
+    process :resize_and_extend => [310, 236]
   end
 
   def crop
     if model.crop_x.present?
-      resize_to_limit(350, 350)
+      resize_to_limit(MAX_WIDTH, MAX_HEIGHT)
       manipulate! do |img|
-        x = model.crop_x.to_i
-        y = model.crop_y.to_i
-        w = model.crop_w.to_i
-        h = model.crop_h.to_i
-        img.crop!(x, y, w, h)
+        # TODO: What if img here is not the same size as the one
+        #   displayed while cropping? It doesn't happen today, but might
+        #   happen soon (e.g. cropping imgs in smaller screens). Should consider
+        #   the size of `img` here too.
+        x = (model.crop_x.to_f * model.crop_img_w.to_f).to_i
+        y = (model.crop_y.to_f * model.crop_img_h.to_f).to_i
+        w = (model.crop_w.to_f * model.crop_img_w.to_f).to_i
+        h = (model.crop_h.to_f * model.crop_img_h.to_f).to_i
+        img.crop("#{w}x#{h}+#{x}+#{y}")
+        img
       end
     end
   end

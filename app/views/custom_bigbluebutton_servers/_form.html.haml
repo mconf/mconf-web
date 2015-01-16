@@ -2,7 +2,7 @@
 -#   editing (boolean): allow editing of this form?
 -#   server (Server): the target bigbluebutton_server model
 
-= simple_form_for server, :html => { :class => 'form-horizontal single-column' } do |f|
+= simple_form_for server, :html => { :class => 'single-column' } do |f|
   - if !editing
     = f.input :id, :disabled => true
   = f.input :name, :disabled => !editing

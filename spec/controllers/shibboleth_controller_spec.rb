@@ -62,7 +62,7 @@ describe ShibbolethController do
           expected["Shib-inetOrgPerson-mail"] = attrs[:email]
           expected["Shib-eduPerson-eduPersonPrincipalName"] = attrs[:_full_name]
           expected["ufrgsVinculo"] = "ativo"
-          subject.data.should eq(expected.to_yaml) # it's a Hash in the db, so compare using to_yaml
+          subject.data.should eq(expected)
         }
         it { controller.should redirect_to(shibboleth_path) }
         it { controller.should set_the_flash.to(I18n.t('shibboleth.create_association.account_created', :url => new_user_password_path)) }
@@ -98,6 +98,7 @@ describe ShibbolethController do
       let(:run_route) { get :login }
       it_should_behave_like "has the before_filter :check_shib_enabled"
       it_should_behave_like "has the before_filter :check_current_user"
+      skip "has the before_filter :load_shib_session"
     end
 
     # to make sure we're not forgetting a call to #test_data (happened before)
@@ -140,45 +141,35 @@ describe ShibbolethController do
       let(:user) { FactoryGirl.create(:user) }
       before { setup_shib(user.full_name, user.email) }
 
-      context "renders an error page if user doesn't have an active enrollment" do
-        let(:referer) { "/any" }
-        before {
-          request.env['ufrgsVinculo'] = 'inativo' # overrides the default
-          request.env["HTTP_REFERER"] = referer
-        }
-        before(:each) { get :login }
-        it { should set_the_flash.to(I18n.t('shibboleth.create_association.enrollment_error')) }
-        it { should respond_with(:redirect) }
-        it { should redirect_to(referer) }
-      end
-
-      context "detects active enrollments in the middle of 'ufrgsVinculo'" do
-        let(:referer) { "/any" }
-        before {
-          # a user already with a token, easier to test
-          ShibToken.create!(:identifier => user.email, :user => user)
-          # overrides the default that has 'ativo' in the beginning
-          request.env['ufrgsVinculo'] = "inativo:12:Funcionário de Fundações da UFRGS:1:Instituto de Informática:NULL:NULL:NULL:NULL:01/01/2011:NULL;ativo:6:Aluno de mestrado acadêmico:NULL:NULL:NULL:NULL:2:COMPUTAÇÃO:01/01/2001:11/12/2002"
-        }
-        before(:each) { get :login }
-        it { subject.current_user.should eq(user) }
-        it { should redirect_to(my_home_path) }
-      end
-
-      context "logs the user in if he already has a token" do
+      context "if the user already has a token" do
         before { ShibToken.create!(:identifier => user.email, :user => user) }
-        before(:each) {
-          request.flash[:success] = 'message set previously by #create_association'
-          should set_the_flash.to('message set previously by #create_association')
-          get :login
-        }
-        it { subject.current_user.should eq(user) }
-        it { should redirect_to(my_home_path) }
-        pending("persists the flash messages") {
-          # TODO: The flash is being set and flash.keep is called, but this test doesn't work.
-          #  Testing in the application the flash is persisted, as it should.
-          should set_the_flash.to('message set previously by #create_association')
-        }
+
+        context "if the site does not require admin approval, logs the user in" do
+          before(:each) {
+            request.flash[:success] = 'message set previously by #create_association'
+            should set_the_flash.to('message set previously by #create_association')
+            get :login
+          }
+          it { subject.current_user.should eq(user) }
+          it { should redirect_to(my_home_path) }
+          skip("persists the flash messages") {
+            # TODO: The flash is being set and flash.keep is called, but this test doesn't work.
+            #  Testing in the application the flash is persisted, as it should.
+            should set_the_flash.to('message set previously by #create_association')
+          }
+        end
+
+        context "if the site requires admin approval, shows the pending approval page" do
+          before(:each) {
+            Site.current.update_attributes(require_registration_approval: true)
+            user.update_attributes(approved: false)
+            request.flash[:success] = 'message'
+            get :login
+          }
+          it { subject.current_user.should be_nil }
+          it { should redirect_to(my_approval_pending_path) }
+          it { should_not set_the_flash }
+        end
       end
 
       context "renders the association page if the user doesn't have a token yet" do
@@ -205,6 +196,43 @@ describe ShibbolethController do
           it_should_behave_like "a caller of #associate_with_new_account"
         end
       end
+
+      context "user has a token and his local account is disabled" do
+        before {
+          setup_shib(user.full_name, user.email)
+          ShibToken.create!(:identifier => user.email, :user => user)
+          user.disable
+        }
+        before(:each) { get :login }
+        it { should set_the_flash.to(I18n.t('shibboleth.login.local_account_disabled'))}
+        it { should redirect_to(root_path) }
+      end
+
+      context "renders an error page if user doesn't have an active enrollment" do
+        let(:referer) { "/any" }
+        before {
+          request.env['ufrgsVinculo'] = 'inativo' # overrides the default
+          request.env["HTTP_REFERER"] = referer
+        }
+        before(:each) { get :login }
+        it { should set_the_flash.to(I18n.t('shibboleth.create_association.enrollment_error')) }
+        it { should respond_with(:redirect) }
+        it { should redirect_to(referer) }
+      end
+
+      context "detects active enrollments in the middle of 'ufrgsVinculo'" do
+        let(:referer) { "/any" }
+        before {
+          # a user already with a token, easier to test
+          ShibToken.create!(:identifier => user.email, :user => user)
+          # overrides the default that has 'ativo' in the beginning
+          request.env['ufrgsVinculo'] = "inativo:12:Funcionário de Fundações da UFRGS:1:Instituto de Informática:NULL:NULL:NULL:NULL:01/01/2011:NULL;ativo:6:Aluno de mestrado acadêmico:NULL:NULL:NULL:NULL:2:COMPUTAÇÃO:01/01/2001:11/12/2002"
+        }
+        before(:each) { get :login }
+        it { subject.current_user.should eq(user) }
+        it { should redirect_to(my_home_path) }
+      end
+
     end
   end
 
@@ -214,6 +242,7 @@ describe ShibbolethController do
       let(:run_route) { post :create_association }
       it_should_behave_like "has the before_filter :check_shib_enabled"
       it_should_behave_like "has the before_filter :check_current_user"
+      skip "has the before_filter :load_shib_session"
 
       context "has the before filter: ckeck_shib_always_new_account" do
 
@@ -245,7 +274,10 @@ describe ShibbolethController do
 
     context "if params has no known option, redirects to /secure with a warning" do
       let(:user) { FactoryGirl.create(:user) }
-      before { setup_shib(user.full_name, user.email) }
+      before {
+        setup_shib(user.full_name, user.email)
+        save_shib_to_session
+      }
       before(:each) { post :create_association }
       it { should redirect_to(shibboleth_path) }
       it { should set_the_flash.to(I18n.t('shibboleth.create_association.invalid_parameters')) }
@@ -254,14 +286,20 @@ describe ShibbolethController do
     context "if params[:new_account] is set" do
       context "calls #associate_with_new_account" do
         let(:run_route) { post :create_association, :new_account => true }
-        before { setup_shib(attrs[:_full_name], attrs[:email]) }
+        before {
+          setup_shib(attrs[:_full_name], attrs[:email])
+          save_shib_to_session
+        }
         it_should_behave_like "a caller of #associate_with_new_account"
       end
     end
 
     context "if params[:existent_account] is set" do
       let(:attrs) { FactoryGirl.attributes_for(:user) }
-      before { setup_shib(attrs[:_full_name], attrs[:email]) }
+      before {
+        setup_shib(attrs[:_full_name], attrs[:email])
+        save_shib_to_session
+      }
 
       context "if there's no user info in the params, goes back to /secure with an error" do
         before(:each) { post :create_association, :existent_account => true }
@@ -308,6 +346,7 @@ describe ShibbolethController do
           # the user that is trying to login has to be the same user that has variables
           # on the session, so we do this setup again
           setup_shib(user.full_name, user.email)
+          save_shib_to_session
         }
 
         context "goes back to /secure with a success message" do
@@ -316,7 +355,7 @@ describe ShibbolethController do
             User.find_first_by_auth_conditions({ :login => user.username }).should_not be_nil
           }
           it("uses the correct password") {
-            User.find_first_by_auth_conditions({ :login => user.username }).valid_password?('12345').should be_true
+            User.find_first_by_auth_conditions({ :login => user.username }).valid_password?('12345').should be_truthy
           }
           it { should redirect_to(shibboleth_path) }
           it { should set_the_flash.to(I18n.t("shibboleth.create_association.account_associated", :email => user.email)) }
@@ -324,25 +363,29 @@ describe ShibbolethController do
 
         context "creates a ShibToken and associates it with the user" do
           before(:each) {
+            user.update_attributes(:confirmed_at => nil)
             expect {
               post :create_association, :existent_account => true, :user => { :login => user.username, :password => '12345' }
-            }.to change{ ShibToken.count }.by(1)
+            }.to change{ ShibToken.count }.by(1) && change{ User.where("users.confirmed_at IS NOT NULL").count }.by(1)
           }
           subject { ShibToken.last }
           it("sets the user in the token") { subject.user.should eq(user) }
-          it("sets the data in the token") { subject.data.should eq(@shib.get_data().to_yaml) }
+          it("sets the data in the token") { subject.data.should eq(@shib.get_data()) }
+          it("confirms the account if it's unconfirmed") { subject.user.confirmed?.should be(true) }
         end
 
         context "uses the user's ShibToken if it already exists" do
           before { ShibToken.create!(:identifier => user.email) }
           before(:each) {
+            user.update_attributes(:confirmed_at => nil)
             expect {
               post :create_association, :existent_account => true, :user => { :login => user.username, :password => '12345' }
-            }.to change{ ShibToken.count }.by(0)
+            }.to change{ ShibToken.count }.by(0) && change{ User.where("users.confirmed_at IS NOT NULL").count }.by(1)
           }
           subject { ShibToken.last }
           it("sets the user in the token") { subject.user.should eq(user) }
-          it("sets the data in the token") { subject.data.should eq(@shib.get_data().to_yaml) }
+          it("sets the data in the token") { subject.data.should eq(@shib.get_data()) }
+          it("confirms the account if it's unconfirmed") { subject.user.confirmed?.should be(true) }
         end
 
       end
@@ -368,6 +411,9 @@ describe ShibbolethController do
 
   private
 
+  # Sets up the login via shibboleth, including user information in the enviroment.
+  # Doesn't automatically save this information in the session because this is something
+  # ShibbolethController should do and it should be tested for it.
   def setup_shib(name, email)
     request.env["Shib-inetOrgPerson-cn"] = name
     request.env["Shib-inetOrgPerson-mail"] = email
@@ -376,7 +422,10 @@ describe ShibbolethController do
     Site.current.update_attributes(:shib_enabled => true)
     Site.current.update_attributes(:shib_env_variables => "cn\nemail\nuid\nufrgsVinculo\nshib-.*")
     Site.current.update_attributes(:shib_always_new_account => false)
-    # save it to the session, as #login would do
+  end
+
+  # Save it to the session, as #login would do
+  def save_shib_to_session
     @shib = Mconf::Shibboleth.new(session)
     @shib.save_to_session(request.env, Site.current.shib_env_variables)
   end

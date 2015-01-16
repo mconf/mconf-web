@@ -6,20 +6,20 @@
 
 module Mconf
   class DigestEmail
-    def self.send_daily_digest
-      User.where(:receive_digest => User::RECEIVE_DIGEST_DAILY).each do |user|
+    def self.send_scheduled_digest receive_digest, n
+      User.where(:receive_digest => receive_digest).find_each do |user|
         now = Time.zone.now
-        from = now - 1.day
+        from = now - n.day
         send_digest(user, from, now)
       end
     end
 
+    def self.send_daily_digest
+      send_scheduled_digest User::RECEIVE_DIGEST_DAILY, 1
+    end
+
     def self.send_weekly_digest
-      User.where(:receive_digest => User::RECEIVE_DIGEST_WEEKLY).each do |user|
-        now = Time.zone.now
-        from = now - 7.day
-        send_digest(user, from, now)
-      end
+      send_scheduled_digest User::RECEIVE_DIGEST_WEEKLY, 7
     end
 
     def self.send_digest(to, date_start, date_end)
@@ -31,13 +31,13 @@ module Mconf
     end
 
     def self.get_activity(user, date_start, date_end)
-      user_spaces = user.spaces.map{ |s| s.id }
-      filter = lambda do |model|
+      user_spaces = user.spaces.pluck(:id)
+      filter = -> (model) {
         model.where('space_id IN (?)', user_spaces).
         where("updated_at >= ?", date_start).
         where("updated_at <= ?", date_end).
-        order('updated_at desc').map { |x| x.id }
-      end
+        order('updated_at desc').pluck(:id)
+      }
 
       posts = filter.call(Post)
       news = filter.call(News)
@@ -49,7 +49,7 @@ module Mconf
         events = MwebEvents::Event.
           where(:owner_id => user_spaces, :owner_type => "Space").
           within(date_start, date_end).
-          order('updated_at desc').map { |x| x.id }
+          order('updated_at desc').pluck(:id)
       else
         events = []
       end

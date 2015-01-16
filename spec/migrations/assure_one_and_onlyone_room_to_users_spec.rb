@@ -43,8 +43,8 @@ describe AssureOneAndOnlyOneRoomToUsers, :migration => true do
       it 'private rooms have passwords defined' do
         BigbluebuttonRoom.all.each do |room|
           if room.private
-            room.moderator_password.should_not be_nil
-            room.attendee_password.should_not be_nil
+            room.moderator_key.should_not be_nil
+            room.attendee_key.should_not be_nil
           end
         end
       end

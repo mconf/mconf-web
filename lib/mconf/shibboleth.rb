@@ -24,13 +24,8 @@ module Mconf
     #   /^shib-.*$/, and /^uid$/
     # If `filters` is blank, will use the default filter /^shib-/
     def save_to_session(env_variables, filters='')
-      unless filters.blank?
-        vars = filters.clone
-        vars = vars.split(/\r?\n/).map{ |s| s.strip.downcase }
-        filter = vars.map{ |v| /^#{v}$/  }
-      else
-        filter = [/^shib-/]
-      end
+      filter = split_into_regexes(filters)
+      filter = [/^shib-/] if filter.empty?
 
       shib_data = {}
       env_variables.each do |key, value|
@@ -39,6 +34,7 @@ module Mconf
         end
       end
       @session[ENV_KEY] = shib_data
+      Rails.logger.info "Shibboleth: info saved to session #{@session[ENV_KEY].inspect}"
       shib_data
     end
 
@@ -52,7 +48,7 @@ module Mconf
       result = nil
       if @session.has_key?(ENV_KEY)
         result = @session[ENV_KEY][field]
-        result = result.clone unless result.nil?
+        result = result.dup unless result.blank?
       end
       result
     end
@@ -90,7 +86,7 @@ module Mconf
 
     # Returns all the shibboleth data stored in the session.
     def get_data
-      @session[ENV_KEY]
+      @session[ENV_KEY].try(:dup)
     end
 
     # Returns whether the user is signed in via federation or not.
@@ -115,41 +111,56 @@ module Mconf
     # Searches for a ShibToken using data in the session and returns it. Creates a new
     # ShibToken if no token is found and returns it.
     def find_or_create_token
-      token = find_token()
-      token = create_token(get_email()) if token.nil?
+      token = find_token
+      token = create_token(get_email) if token.nil?
       token
     end
 
-    # Creates a new user using the information stored in the session. Will only create
-    # the user if there's no user already registered with the target email.
-    # Returns nil if there's already a user with the target email or the User created
-    # otherwise. The User returned might have errors if the call to `save` failed.
-    # Expects that at least the email and email will be set in the session!
+    # Creates a new user using the information stored in the session.
+    # Returns the User created after calling `save`. This might have errors if the call to
+    # `save` failed.
+    # Expects that at least the email and name will be set in the session!
     def create_user
       password = SecureRandom.hex(16)
       login = get_login
       login = login.parameterize unless login.nil?
       params = {
-        :username => login, :email => get_email,
-        :password => password, :password_confirmation => password,
-        :_full_name => get_name
+        username: login, email: get_email,
+        password: password, password_confirmation: password,
+        _full_name: get_name
       }
 
-      unless User.find_by_email(params[:email])
-        # TODO: if the user is disabled he won't be found and the create below will fail
-        user = User.new(params)
-        user.skip_confirmation!
-        user.save
-        user
-      else
-        nil
-      end
+      user = User.new params
+      user.skip_confirmation!
+
+      user.save
+      send_notification(user)
+      user
     end
 
     private
 
+    # Splits a string `value` into several RegExps. Breaks the string at every
+    # '\n' and puts all strings (VALUE) into a regex in the format /^VALUE$/.
+    def split_into_regexes(value)
+      unless value.blank?
+        cloned = value.clone
+        cloned = cloned.split(/\r?\n/).map{ |s| s.strip.downcase }
+        cloned.map{ |v| Regexp.new("^#{v}$", "i") }
+      else
+        []
+      end
+    end
+
     def create_token(id)
       ShibToken.create!(:identifier => id)
+    end
+
+    # Sending a notification email to a user that just registered.
+    def send_notification(user)
+      if user.present? && user.errors.blank?
+        UserMailer.registration_notification_email(user.id).deliver
+      end
     end
 
   end

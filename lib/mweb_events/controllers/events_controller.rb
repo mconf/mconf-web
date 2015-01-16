@@ -9,51 +9,34 @@ MwebEvents::EventsController.class_eval do
   end
 
   def invite
-    @event = MwebEvents::Event.find_by_permalink(params[:event_id])
-    authorize! :invite, @event
-    respond_to do |format|
-      format.html {
-        render :layout => false if request.xhr?
-      }
-    end
+    render :layout => false if request.xhr?
   end
 
   def send_invitation
-    @event = MwebEvents::Event.find_by_permalink(params[:event_id])
-    authorize! :send_invitation, @event
+    if params[:invite][:title].blank?
+      flash[:error] = t('mweb_events.events.send_invitation.error_title')
 
-    invitation_params = {
-      :sender => current_user,
-      :target => @event,
-      :title => params[:invite][:title],
-      :url => @event.full_url,
-      :description => params[:invite][:message],
-      :ready => true
-    }
+    elsif params[:invite][:users].blank?
+      flash[:error] = t('mweb_events.events.send_invitation.blank_users')
 
-    # creates an invitation for each user
-    invitations = []
-    users = Invitation.split_invitation_senders(params[:invite][:users])
-    users.each do |user|
-      if user.is_a? String
-        invitation_params[:recipient_email] = user
-      else
-        invitation_params[:recipient] = User.find_by_id(user)
-      end
-      invitations << EventInvitation.create(invitation_params)
+    else
+      invitations = EventInvitation.create_invitations params[:invite][:users],
+        :sender => current_user,
+        :target => @event,
+        :title => params[:invite][:title],
+        :url => @event.full_url,
+        :description => params[:invite][:message],
+        :ready => true
+
+      # we do a check just to give a better response to the user, since the invitations will
+      # only be sent in background later on
+      succeeded, failed = EventInvitation.check_invitations(invitations)
+      flash[:success] = EventInvitation.build_flash(
+        succeeded, t('mweb_events.events.send_invitation.success')) unless succeeded.empty?
+      flash[:error] = EventInvitation.build_flash(
+        failed, t('mweb_events.events.send_invitation.error')) unless failed.empty?
     end
-
-    # we do a check just to give a better response to the user, since the invitations will
-    # only be sent in background later on
-    succeeded, failed = Invitation.check_invitations(invitations)
-    flash[:success] = Invitation.build_flash(
-      succeeded, t('mweb_events.events.send_invitation.success')) unless succeeded.empty?
-    flash[:error] = Invitation.build_flash(
-      failed, t('mweb_events.events.send_invitation.errors')) unless failed.empty?
-
-    respond_to do |format|
-      format.html { redirect_to request.referer }
-    end
+    redirect_to request.referer
   end
 
   def create_participant
@@ -74,6 +57,7 @@ MwebEvents::EventsController.class_eval do
         @events = current_user.events
       else # Remove the parameter if no user is logged
         redirect_to events_path(params.except(:my_events))
+        return
       end
     end
 
@@ -85,11 +69,12 @@ MwebEvents::EventsController.class_eval do
     @events = MwebEvents::Event.where(:id =>(without_users | without_spaces))
     @events = @events.accessible_by(current_ability, :index).page(params[:page])
   end
-  before_filter :block_if_events_disabled
-  before_filter :custom_loading, :only => [:index]
-  before_filter :create_participant, :only => [:show]
 
-  after_filter :only => [:create, :update] do
-    @event.new_activity params[:action], current_user unless @event.errors.any?
+  def set_date_locale
+    @date_locale = get_user_locale(current_user)
+    @date_format = I18n.t('_other.datetimepicker.format')
+    @event.date_stored_format = I18n.t('_other.datetimepicker.format_rails')
+    @event.date_display_format = I18n.t('_other.datetimepicker.format_display')
   end
+
 end

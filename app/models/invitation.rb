@@ -11,9 +11,6 @@ class Invitation < ActiveRecord::Base
   belongs_to :sender, :class_name => "User"
   belongs_to :recipient, :class_name => "User"
 
-  attr_accessible :sender, :target, :starts_on, :ends_on, :title, :url, :description,
-    :type, :recipient, :recipient_email, :ready
-
   # Sends the invitation to the recipient.
   # Respects the preferences of the user, sending the notification either via
   # email or private message.
@@ -45,13 +42,18 @@ class Invitation < ActiveRecord::Base
     result
   end
 
-  # Receives a string with user_ids and emails and returns and array of them
-  def self.split_invitation_senders(email_string)
-    users = email_string.split(",")
-    users.map { |user_str|
-      user = User.find_by_id(user_str)
-      user ? user : user_str
-    }
+  def self.create_invitations(user_list, params)
+    # creates an invitation for each user
+    users = user_list.try(:split, ",") || []
+    users.map do |user_str|
+      user = User.where(:id => user_str).first
+      if user
+        params[:recipient] = user
+      else
+        params[:recipient_email] = user_str
+      end
+      self.create(params)
+    end
   end
 
   # Builds a flash message containing all the names of invited users
@@ -95,7 +97,9 @@ class Invitation < ActiveRecord::Base
 
   def to_ical
     if self.is_a? EventInvitation
-      target.to_ics.to_ical
+      cal = Icalendar::Calendar.new
+      cal.add_event(target.to_ics)
+      cal.to_ical
     else
       event = Icalendar::Event.new
 
@@ -104,7 +108,7 @@ class Invitation < ActiveRecord::Base
       event.dtstart = self.starts_on.in_time_zone('UTC').strftime("%Y%m%dT%H%M%SZ") unless self.starts_on.blank?
       event.dtend = self.ends_on.in_time_zone('UTC').strftime("%Y%m%dT%H%M%SZ") unless self.ends_on.blank?
       event.organizer = sender.email
-      event.klass = "PUBLIC"
+      event.ip_class = "PUBLIC"
       event.uid = self.url
       event.url = self.url
       event.location = self.url
@@ -133,7 +137,7 @@ class Invitation < ActiveRecord::Base
         :sender_id => self.sender.id,
         :receiver_id => user.id,
         :body => content,
-        :title => I18n.t('web_conference_mailer.invitation_email.subject', :name => self.sender.full_name)
+        :title => I18n.t('web_conference_mailer.invitation_email.subject')
       }
       private_message = PrivateMessage.new(opts)
       private_message.save

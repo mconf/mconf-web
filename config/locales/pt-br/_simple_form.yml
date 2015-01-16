@@ -17,6 +17,9 @@ pt-br:
     labels:
       feedback:
         from: "Seu e-mail"
+      user:
+        edit:
+          password: "Nova senha"
     hints:
       invite:
         users: "Busque por nome ou e-mail. Se você não conseguir encontrá-los, adicione endereços de e-mail. Digite e aperte enter para inserir um novo item."
@@ -26,6 +29,7 @@ pt-br:
         events_enabled: "Habilita ou desabilita o módulo de eventos no site. Para habilitá-lo, você deve possuir o módulo de eventos instalado. Reinicie a aplicação para aplicar as mudanças."
         exception_notifications: "Enviar e-mails de depuração sempre que ocorrer um erro grave na aplicação"
         exception_notifications_email: "Use espaços, vírgulas ou ponto-e-vírgulas para separar diferentes e-mails."
+        exception_notifications_prefix: "Será colocado antes do assunto do e-mail. Padrão: '[ERROR]'."
         external_help: "Insira a url para o site externo que contem a página de Ajuda/FAQ. Deve conter \"http://\"."
         feedback_url: "Os usuários serão redirecionados para esta URL quando eles sairem de uma conferência. Se o campo ficar em branco, eles serão redirecionados para \"%{default_url}\"."
         ldap_filter: "Um filtro LDAP para restringir os usuários que podem logar usando o LDAP. Exemplo: \"(&(objectclass=user)(objectcategory=person))\"."
@@ -54,22 +58,22 @@ pt-br:
         webconf_auto_record: "Se marcado, a seleção da opção para gravar a conferência será feita automaticamente, conforme as permissões do usuário na sala de webconferência que está sendo utilizada (opção desejada quando o servidor de webconferência possui o botão de gravação dentro da sessão). Caso contrário, o usuário poderá escolher ele mesmo se a conferência será gravada ou não antes de iniciá-la (mas apenas se possuir permissões para isso)."
       space:
         bigbluebutton_room:
+          attendee_key: "Chave para que os usuários acessem uma reunião com papel de participantes. Não reutilize senhas reais aqui. Esta senha só será necessária se a comunidade for privada."
           auto_start_video: "Habilite para automaticamente iniciar o compartilhamento de câmera assim que o usuário entra na conferência"
           auto_start_audio: "Habilite para automaticamente iniciar o compartilhamento de microfone assim que o usuário entra na conferência"
-          attendee_password: "Esta senha só será usada se a comunidade for privada!"
-          moderator_password: "Esta senha só será usada se a comunidade for privada!"
+          moderator_key: "Chave para que os usuários acessem uma reunião com papel de moderador. Não reutilize senhas reais aqui. Esta senha só será necessária se a comunidade for privada."
           presenter_share_only: "Habilite para que somente o apresentador possa compartilhar sua câmera e microfone. Utilizado em conferências \"um para muitos\"."
           welcome_msg: "Essa mensagem é exibida no bate-papo quando um usuário entrar na conferência. Deixe em branco para usar a mensagem padrão. Você pode incluir informações específicas à conferência usando as variáveis %%CONFNAME%%, %%DIALNUM%% e %%CONFNUM%%"
-        permalink: "Este atributo é utilizado para identificar a sua comunidade em endereços web, incluindo o endereço da sala de webconferência desta comunidade"
+        permalink: "Este atributo é utilizado para identificar a sua comunidade em endereços web, incluindo o endereço da sala de webconferência desta comunidade. Use apenas letras minúsculas, números ou hifens."
         public: "Comunidades colaborativas podem ser públicas, para que qualquer pessoa possa ver o que acontece nelas, ou privadas, onde apenas os membros têm acesso às atividades da comunidade"
         repository: "O repositório de documentos é um espaço onde os usuários deste espaço podem compartilhar documentos de qualquer tipo"
       user:
         approved: "Se marcada, o usuário terá permissão para acessar este site, caso contrário ele será bloqueado ao tentar acessá-lo."
         bigbluebutton_room:
+          attendee_key: "Chave para que os usuários acessem uma reunião com papel de participantes. Não reutilize senhas reais aqui. Esta senha só será necessária se a sala for privada."
           auto_start_video: "Habilite para automaticamente iniciar o compartilhamento de câmera assim que o usuário entra na conferência"
           auto_start_audio: "Habilite para automaticamente iniciar o compartilhamento de microfone assim que o usuário entra na conferência"
-          attendee_password: "Esta senha só será usada se a sala for privada!"
-          moderator_password: "Esta senha só será usada se a sala for privada!"
+          moderator_key: "Chave para que os usuários acessem uma reunião com papel de moderador. Não reutilize senhas reais aqui. Esta senha só será necessária se a sala for privada."
           presenter_share_only: "Habilite para somente permitir que o apresentador compartilhe sua câmera e microfone. Utilizado em conferências \"um para muitos\"."
           private: "Salas privadas requerem uma senha de acesso. Salas públicas podem ser acessadas por qualquer pessoa com acesso ao link. Apenas você pode iniciar uma conferência na sua sala, seja ela pública ou privada."
           welcome_msg: "Essa mensagem é exibida no bate-papo quando um usuário entrar na conferência. Deixe em branco para usar a mensagem padrão. Você pode incluir informações específicas à conferência usando as variáveis %%CONFNAME%%, %%DIALNUM%% e %%CONFNUM%%"
@@ -82,7 +86,7 @@ pt-br:
         ends_on: "Acaba em..."
         message: "Escreva uma mensagem pessoal (opcional)"
         starts_on: "Inicia em..."
-        title: "Dê um título à esta conferência (opcional, recomendado)"
+        title: "Dê um título à esta conferência (requerido)"
         users: "Digite para buscar usuários por nome ou e-mail..."
       join_request:
         invite:
@@ -94,5 +98,5 @@ pt-br:
         title: "Título da mensagem"
       user:
         edit:
-          password: "Deixe em branco se você não quiser mudar"
+          current_password: "Deixe em branco se você não quiser mudar"
     # labels:

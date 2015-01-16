@@ -15,12 +15,14 @@ describe Space do
   end
 
   describe "initializes with default values" do
-    it("should be false by default") { Space.new.repository.should be_false }
-    it("should be true if set to") { Space.new(:repository => true).repository.should be_true }
-    it("should be false by default") { Space.new.public.should be_false }
-    it("should be true if set to") { Space.new(:public => true).public.should be_true }
-    it("should be false by default") { Space.new.disabled.should be_false }
-    it("should be true if set to") { Space.new(:disabled => true).disabled.should be_true }
+    it("should be false by default") { Space.new.repository.should be_falsey }
+    it("should be true if set to") { Space.new(:repository => true).repository.should be true }
+    it("should be false by default") { Space.new.public.should be_falsey }
+    it("should be true if set to") { Space.new(:public => true).public.should be true }
+    it("should be false by default") { Space.new.disabled.should be_falsey }
+    it("should be true if set to") { Space.new(:disabled => true).disabled.should be true }
+    it("should be false by default") { Space.new.deleted.should be_falsey }
+    it("should be true if set to") { Space.new(:deleted => true).deleted.should be true }
   end
 
   it { should have_many(:posts).dependent(:destroy) }
@@ -32,10 +34,10 @@ describe Space do
   it { space.bigbluebutton_room.owner.should be(space) } # :as => :owner
   it { should accept_nested_attributes_for(:bigbluebutton_room) }
 
-  it "has many permissions"
-  it "has and belongs to many users"
-  it "has and belongs to many admins" # there's a partial test for #admins below
-  it "has many join requests"
+  it { should have_many(:permissions) }
+  it { should have_and_belong_to_many(:users) }
+  it { should have_and_belong_to_many(:admins) }
+  it { should have_many(:join_requests) }
 
   it { should validate_presence_of(:description) }
 
@@ -66,22 +68,164 @@ describe Space do
     it { should allow_value("___").for(:permalink) }
     it { should allow_value("abc-123_d5").for(:permalink) }
 
-    describe "validates uniqueness against User#username" do
+    shared_examples "invalid space with permalink not unique" do
+      it { subject.should_not be_valid }
+      it {
+        subject.save.should be(false)
+        subject.errors.should have_key(:permalink)
+        subject.errors.messages[:permalink].should include(message)
+      }
+    end
+
+    describe "validates uniqueness against Space#permalink" do
+      let(:message) { "has already been taken" }
+
       describe "on create" do
-        let(:user) { FactoryGirl.create(:user) }
-        subject { FactoryGirl.build(:space, :permalink => user.username) }
-        it { should_not be_valid }
+        context "with an enabled space" do
+          let(:space) { FactoryGirl.create(:space) }
+          subject { FactoryGirl.build(:space, permalink: space.permalink) }
+          include_examples "invalid space with permalink not unique"
+        end
+
+        context "with a disabled space" do
+          let(:disabled_space) { FactoryGirl.create(:space, disabled: true) }
+          subject { FactoryGirl.build(:space, permalink: disabled_space.permalink) }
+          include_examples "invalid space with permalink not unique"
+        end
+
+        context "uses case-insensitive comparisons" do
+          let!(:space) { FactoryGirl.create(:space, permalink: "My-Weird-Name") }
+          subject { FactoryGirl.build(:space, permalink: "mY-weiRD-NAMe") }
+          include_examples "invalid space with permalink not unique"
+        end
       end
 
       describe "on update" do
-        let(:user) { FactoryGirl.create(:user) }
-        let(:space) { FactoryGirl.create(:space) }
-        before(:each) {
-          space.permalink = user.username
-        }
-        it { space.should_not be_valid }
+        context "with an enabled space" do
+          let(:subject) { FactoryGirl.create(:space) }
+          let(:space) { FactoryGirl.create(:space) }
+          before(:each) {
+            subject.permalink = space.permalink
+          }
+          include_examples "invalid space with permalink not unique"
+        end
+
+        context "with a disabled space" do
+          let(:subject) { FactoryGirl.create(:space) }
+          let(:disabled_space) { FactoryGirl.create(:space, :disabled => true) }
+          before(:each) {
+            subject.permalink = disabled_space.permalink
+          }
+          include_examples "invalid space with permalink not unique"
+        end
+
+        context "uses case-insensitive comparisons" do
+          let(:subject) { FactoryGirl.create(:space) }
+          let!(:space) { FactoryGirl.create(:space, permalink: "My-Weird-Name") }
+          before(:each) {
+            subject.permalink = "mY-weiRD-NAMe"
+          }
+          include_examples "invalid space with permalink not unique"
+        end
       end
     end
+
+    describe "validates uniqueness against User#username" do
+      let(:message) { "has already been taken" }
+
+      describe "on create" do
+        context "with an enabled user" do
+          let(:user) { FactoryGirl.create(:user) }
+          subject { FactoryGirl.build(:space, permalink: user.username) }
+          include_examples "invalid space with permalink not unique"
+        end
+
+        context "with a disabled user" do
+          let(:disabled_user) { FactoryGirl.create(:user, disabled: true) }
+          subject { FactoryGirl.build(:space, permalink: disabled_user.username) }
+          include_examples "invalid space with permalink not unique"
+        end
+
+        context "uses case-insensitive comparisons" do
+          let!(:user) { FactoryGirl.create(:user, username: "My-Weird-Name") }
+          subject { FactoryGirl.build(:space, permalink: "mY-weiRD-NAMe") }
+          include_examples "invalid space with permalink not unique"
+        end
+      end
+
+      describe "on update" do
+        context "with an enabled space" do
+          let(:subject) { FactoryGirl.create(:space) }
+          let(:other_user) { FactoryGirl.create(:user) }
+          before(:each) {
+            subject.permalink = other_user.username
+          }
+          include_examples "invalid space with permalink not unique"
+        end
+
+        context "with a disabled space" do
+          let(:subject) { FactoryGirl.create(:space) }
+          let(:disabled_user) { FactoryGirl.create(:user, :disabled => true) }
+          before(:each) {
+            subject.permalink = disabled_user.username
+          }
+          include_examples "invalid space with permalink not unique"
+        end
+
+        context "uses case-insensitive comparisons" do
+          let(:subject) { FactoryGirl.create(:space) }
+          let!(:other_user) { FactoryGirl.create(:user, username: "My-Weird-Name") }
+          before(:each) {
+            subject.permalink = "mY-weiRD-NAMe"
+          }
+          include_examples "invalid space with permalink not unique"
+        end
+      end
+    end
+
+    context "validates against webconf room params" do
+      let(:message) { "has already been taken" }
+
+      describe "on create" do
+        context "with an exact match" do
+          let(:room) { FactoryGirl.create(:bigbluebutton_room) }
+          subject { FactoryGirl.build(:space, permalink: room.param) }
+          include_examples "invalid space with permalink not unique"
+        end
+
+        context "uses case-insensitive comparisons" do
+          let!(:room) { FactoryGirl.create(:bigbluebutton_room, param: "My-Weird-Name") }
+          subject { FactoryGirl.build(:space, permalink: "mY-weiRD-NAMe") }
+          include_examples "invalid space with permalink not unique"
+        end
+      end
+
+      describe "on update" do
+        context "with an exact match" do
+          let(:subject) { FactoryGirl.create(:space) }
+          let(:other_room) { FactoryGirl.create(:bigbluebutton_room) }
+          before(:each) {
+            subject.permalink = other_room.param
+          }
+          include_examples "invalid space with permalink not unique"
+        end
+
+        context "uses case-insensitive comparisons" do
+          let(:subject) { FactoryGirl.create(:space) }
+          let!(:other_room) { FactoryGirl.create(:bigbluebutton_room, param: "My-Weird-Name") }
+          before(:each) {
+            subject.permalink = "mY-weiRD-NAMe"
+          }
+          include_examples "invalid space with permalink not unique"
+        end
+
+        context "doesn't validate against its own room" do
+          let!(:space) { FactoryGirl.create(:space) }
+          it { space.update_attributes(permalink: space.permalink).should be(true) }
+        end
+      end
+    end
+
   end
 
   it "#check_errors_on_bigbluebutton_room"
@@ -101,6 +245,7 @@ describe Space do
   it { should respond_to(:invitations_role_id) }
   it { should respond_to(:"invitations_role_id=") }
 
+  it { should respond_to(:logo_image) }
   it { should respond_to(:crop_x) }
   it { should respond_to(:"crop_x=") }
   it { should respond_to(:crop_y) }
@@ -109,23 +254,132 @@ describe Space do
   it { should respond_to(:"crop_w=") }
   it { should respond_to(:crop_h) }
   it { should respond_to(:"crop_h=") }
-  it "mount_uploader :logo_image"
-  it "calls :crop_logo on after_create"
-  it "calls :crop_logo on after_update"
+  it { should respond_to(:crop_img_w) }
+  it { should respond_to(:"crop_img_w=") }
+  it { should respond_to(:crop_img_h) }
+  it { should respond_to(:"crop_img_h=") }
 
-  it "default_scope :conditions"
+  describe "default_scope :disabled => false" do
+    before {
+      @s1 = FactoryGirl.create(:space, :disabled => false)
+      @s2 = FactoryGirl.create(:space, :disabled => false)
+      @s3 = FactoryGirl.create(:space, :disabled => true)
+    }
 
-  describe ".public" do
-    context "returns the admins of the space" do
-      before {
-        @public1 = FactoryGirl.create(:public_space)
-        @public2 = FactoryGirl.create(:public_space)
-        another = FactoryGirl.create(:private_space)
-      }
-      it { Space.public.length.should be(2) }
-      it { Space.public.should include(@public1) }
-      it { Space.public.should include(@public2) }
+    it { Space.count.should be 2 }
+    it { Space.all.should include(@s1) }
+    it { Space.all.should include(@s2) }
+    it { Space.all.should_not include(@s3) }
+
+    it { Space.with_disabled.count.should be 3 }
+    it { Space.with_disabled.should include(@s1) }
+    it { Space.with_disabled.should include(@s2) }
+    it { Space.with_disabled.should include(@s3) }
+  end
+
+  describe ".public_spaces" do
+    before {
+      @public1 = FactoryGirl.create(:public_space)
+      @public2 = FactoryGirl.create(:public_space)
+      another = FactoryGirl.create(:private_space)
+    }
+    it { Space.public_spaces.length.should be(2) }
+    it { Space.public_spaces.should include(@public1) }
+    it { Space.public_spaces.should include(@public2) }
+  end
+
+
+  describe ".logo_image" do
+    let!(:logo) { Rack::Test::UploadedFile.new(File.open(File.join(Rails.root, '/spec/fixtures/files/test-logo.png'))) }
+    let!(:crop_params) { { :crop_x => 0, :crop_y => 0, :crop_w => 10, :crop_h => 10, :crop_img_w => 350, :crop_img_h => 350 } }
+
+    context "uploader properties" do
+      let(:space) { Space.new }
+      let!(:store_dir) { File.join(Rails.root, 'spec/support/uploads/space/logo_image') }
+
+      it { space.logo_image.filename.should_not be_present }
+      it { space.logo_image.extension_white_list.should eq(["jpg", "jpeg", "png", "svg", "tif", "gif"]) }
+      it { space.logo_image.versions.count.should eq(7) }
+      it { space.logo_image.store_dir.should eq("#{store_dir}/#{space.id}") }
+      it { space.logo_image.versions.map{|v| v[0]}.should eq([:large, :logo32, :logo128, :logo300, :logo84x64, :logo168x128, :logo336x256]) }
     end
+
+    context "crop_logo" do
+      context "is called after_create" do
+        let(:space) { Space.new(space_attr) }
+
+        context "with valid params" do
+          let(:space_attr) { FactoryGirl.attributes_for(:space, :logo_image => logo).merge(crop_params) }
+
+          before do
+            space.logo_image.should_receive(:recreate_versions!)
+            space.save!
+          end
+
+          it { space.logo_image.should be_present }
+        end
+
+        context "without file but valid crop params" do
+          let(:space_attr) { FactoryGirl.attributes_for(:space, :logo_image => nil).merge(crop_params) }
+
+          before(:each) do
+            space.logo_image.should_not_receive(:recreate_versions!)
+            space.save!
+          end
+
+          it { space.logo_image.should_not be_present }
+        end
+
+        context "with file but invalid crop params" do
+          let(:space_attr) { FactoryGirl.attributes_for(:space, :logo_image => logo) }
+
+          before(:each) do
+            space.logo_image.should_not_receive(:recreate_versions!)
+            space.save!
+          end
+
+          it { space.logo_image.should be_present }
+        end
+      end
+
+      context "is called after_update" do
+        let(:space) { FactoryGirl.create(:space) }
+
+        context "with valid params" do
+          let(:space_attr) { {:logo_image => logo}.merge(crop_params) }
+
+          before do
+            space.logo_image.should_receive(:recreate_versions!)
+            space.update_attributes(space_attr)
+          end
+
+          it { space.logo_image.should be_present }
+        end
+
+        context "without file but valid crop params" do
+          let(:space_attr) { {:logo_image => nil}.merge(crop_params) }
+
+          before(:each) do
+            space.logo_image.should_not_receive(:recreate_versions!)
+            space.update_attributes(space_attr)
+          end
+
+          it { space.logo_image.should_not be_present }
+        end
+
+        context "with file but invalid crop params" do
+          let(:space_attr) { {:logo_image => logo} }
+
+          before(:each) do
+            space.logo_image.should_not_receive(:recreate_versions!)
+            space.update_attributes(space_attr)
+          end
+
+          it { space.logo_image.should be_present }
+        end
+      end
+    end
+
   end
 
   describe "::USER_ROLES" do
@@ -158,18 +412,69 @@ describe Space do
     end
   end
 
-  describe "#unique_pageviews" do
-    it("if there are no stats returns 0") {
-      space.unique_pageviews.should be(0)
-    }
-    it "returns the unique pageviews for the target space"
-    it "throws an exception if the statistics are wrong"
-  end
-
   describe "#add_member!" do
-    it "adds the user as a member with the selected role"
-    it "defaults the role to 'User'"
-    it "doesn't add the user if he's already a member"
+    let(:space) { FactoryGirl.create(:space) }
+    let(:user) { FactoryGirl.create(:user) }
+    let!(:user_role) { Role.find_by(:name => 'User') }
+    let!(:admin_role) { Role.find_by(:name => 'Admin') }
+
+    context "adds the user as a member with the selected role" do
+      before {
+        expect {
+          if selected_role
+            space.add_member!(user, selected_role)
+          else
+            space.add_member!(user)
+          end
+        }.to change(space.users, :count).by(1)
+      }
+
+      context 'with role User' do
+        let(:selected_role) { 'User' }
+
+        it { space.users include(user) }
+        it { space.permissions.last.user.should eq(user) }
+        it { space.permissions.last.role.should eq(user_role) }
+        it { space.role_for?(user, :name => 'User').should be true }
+        it { space.role_for?(user, :name => 'Admin').should be false }
+      end
+
+      context 'with role Admin' do
+        let(:selected_role) { 'Admin' }
+
+        it { space.users include(user) }
+        it { space.permissions.last.user.should eq(user) }
+        it { space.permissions.last.role.should eq(admin_role) }
+        it { space.role_for?(user, :name => 'User').should be false }
+        it { space.role_for?(user, :name => 'Admin').should be true }
+      end
+
+      context "defaults the role to 'User'" do
+        let(:selected_role) { nil }
+
+        it { space.users include(user) }
+        it { space.permissions.last.user.should eq(user) }
+        it { space.permissions.last.role.should eq(user_role) }
+        it { space.role_for?(user, :name => 'User').should be true }
+        it { space.role_for?(user, :name => 'Admin').should be false }
+      end
+
+    end
+
+    context "doesn't add the user if he's already a member" do
+      let(:permission) { Permission.create(:user => user, :role => user_role, :subject => space) }
+
+      before {
+        permission
+        expect {
+          space.add_member!(user)
+        }.to raise_error(ActiveRecord::RecordInvalid)
+      }
+
+      it { space.users include(user) }
+      it { space.permissions.last.user.should eq(user) }
+    end
+
   end
 
   it "new_activity"
@@ -185,7 +490,7 @@ describe Space do
     end
 
     context "returns a Relation object" do
-      it { Space.with_disabled.should be_an_instance_of(ActiveRecord::Relation) }
+      it { Space.with_disabled.should be_kind_of(ActiveRecord::Relation) }
     end
   end
 
@@ -194,7 +499,7 @@ describe Space do
     it "is called when the space is created" do
       space = FactoryGirl.create(:space)
       space.bigbluebutton_room.should_not be_nil
-      space.bigbluebutton_room.should be_an_instance_of(BigbluebuttonRoom)
+      space.bigbluebutton_room.should be_kind_of(BigbluebuttonRoom)
     end
 
     context "creates #bigbluebutton_room" do
@@ -205,7 +510,7 @@ describe Space do
 
       it "with param and name equal the space's permalink" do
         space.bigbluebutton_room.param.should eql(space.permalink)
-        space.bigbluebutton_room.name.should eql(space.permalink)
+        space.bigbluebutton_room.name.should eql(space.name)
       end
 
       it "with the default logout url" do
@@ -214,15 +519,15 @@ describe Space do
 
       it "as public is the space is public" do
         space = FactoryGirl.create(:space, :public => true)
-        space.bigbluebutton_room.private.should be_false
+        space.bigbluebutton_room.private.should be false
       end
 
       it "as private is the space is private" do
         space = FactoryGirl.create(:space, :public => false)
-        space.bigbluebutton_room.private.should be_true
+        space.bigbluebutton_room.private.should be true
       end
 
-      pending "with the server as the first server existent"
+      skip "with the server as the first server existent"
     end
   end
 
@@ -231,47 +536,112 @@ describe Space do
       let(:space) { FactoryGirl.create(:space, :name => "Old Name", :public => true) }
       before(:each) { space.update_attributes(:name => "New Name", :public => false) }
       it { space.bigbluebutton_room.param.should be(space.permalink) }
-      it { space.bigbluebutton_room.name.should be(space.permalink) }
+      it { space.bigbluebutton_room.name.should be(space.name) }
       it { space.bigbluebutton_room.private.should be(true) }
     end
 
     it "updates to public when the space is made public" do
       space.update_attribute(:public, true)
-      space.bigbluebutton_room.private.should be_false
+      space.bigbluebutton_room.private.should be false
     end
 
     it "updates to private when the space is made public" do
       space.update_attribute(:public, false)
-      space.bigbluebutton_room.private.should be_true
+      space.bigbluebutton_room.private.should be true
     end
   end
 
-  describe "#admins" do
-    context "returns the admins of the space" do
-      before {
-        @u1 = FactoryGirl.create(:user)
-        @u2 = FactoryGirl.create(:user)
-        u3 = FactoryGirl.create(:user)
-        space.add_member!(@u1, "Admin")
-        space.add_member!(@u2, "Admin")
-        space.add_member!(u3, "User")
-      }
-      it { space.admins.length.should be(2) }
-      it { space.admins.should include(@u1) }
-      it { space.admins.should include(@u2) }
+  describe "user associations" do
+    before {
+      @users = []
+      0.upto(3) { @users << FactoryGirl.create(:user) }
+      space.add_member!(@users[0], "Admin")
+      space.add_member!(@users[1], "Admin")
+      space.add_member!(@users[2], "User")
+    }
+
+    describe "#permissions" do
+      it { space.permissions.klass == Permission }
+      it { space.permissions.length.should be(3) }
+      it { space.permissions.should include(*Permission.where(:user_id => @users)) }
     end
+
+    describe "#admins" do
+      context "returns the admins of the space" do
+        it { space.admins.klass == User }
+        it { space.admins.length.should be(2) }
+        it { space.admins.should include(@users[0]) }
+        it { space.admins.should include(@users[1]) }
+      end
+    end
+
+    describe "#users" do
+      context "returns the users of the space" do
+        it { space.users.klass == User }
+        it { space.users.length.should be(3) }
+        it { space.users.should include(@users[0]) }
+        it { space.users.should include(@users[1]) }
+        it { space.users.should include(@users[2]) }
+      end
+    end
+
   end
 
-  pending "#pending_join_requests"
-  pending "#pending_invitations"
-  pending "#pending_join_request_for"
-  pending "#pending_join_request_for?"
-  pending "#pending_invitation_for"
-  pending "#pending_invitation_for?"
+  describe "join requests" do
+    before {
+      @jr = [
+        FactoryGirl.create(:join_request, :group => space, :request_type => JoinRequest::TYPES[:request]),
+        FactoryGirl.create(:join_request, :group => space, :request_type => JoinRequest::TYPES[:request]),
+        FactoryGirl.create(:join_request, :group => space, :request_type => JoinRequest::TYPES[:invite])
+      ]
+      @invitations = [@jr[2]]
+      @requests = [@jr[0], @jr[1]]
+    }
+
+    describe "#join_requests" do
+      it { space.join_requests.should include(*@jr) }
+      it { space.join_requests.length.should be(3) }
+      it { space.join_requests.should include(*[@invitations, @requests].flatten) }
+    end
+
+    describe "#pending_join_requests" do
+      it { space.pending_join_requests.klass == JoinRequest }
+      it { space.pending_join_requests.length.should be(2) }
+      it { space.pending_join_requests.should include(*@requests) }
+    end
+
+    describe "#pending_invitations" do
+      it { space.pending_invitations.klass == JoinRequest }
+      it { space.pending_invitations.length.should be(1) }
+      it { space.pending_invitations.should include(*@invitations) }
+    end
+
+    describe "#pending_join_request_for(?)" do
+      let(:user) { @requests.first.candidate }
+      let(:other_user) { FactoryGirl.create(:user) }
+
+      it { space.pending_join_request_for(user).should eq(@requests.first) }
+      it { space.pending_join_request_for(other_user).should be_blank }
+      it { space.pending_join_request_for?(user).should be true }
+      it { space.pending_join_request_for?(other_user).should be false }
+    end
+
+    describe "#pending_invitation_for(?)" do
+      let(:user) { @invitations.first.candidate }
+      let(:other_user) { FactoryGirl.create(:user) }
+
+      it { space.pending_invitation_for(user).should eq(@invitations.first) }
+      it { space.pending_invitation_for(other_user).should be_blank }
+      it { space.pending_invitation_for?(user).should be true }
+      it { space.pending_invitation_for?(other_user).should be false }
+    end
+
+  end
 
   describe "abilities", :abilities => true do
     set_custom_ability_actions([:leave, :enable, :webconference, :select, :disable, :update_logo,
-      :user_permissions, :edit_recording])
+      :user_permissions, :edit_recording, :webconference_options, :recordings,
+      :index_join_requests, :index_news])
 
     subject { ability }
     let(:ability) { Abilities.ability_for(user) }
@@ -327,19 +697,25 @@ describe Space do
         let(:target) { FactoryGirl.create(:public_space) }
 
         context "he is not a member of" do
-          it { should_not be_able_to_do_anything_to(target).except([:read, :webconference, :create, :select]) }
+          it { should_not be_able_to_do_anything_to(target).except([:read, :webconference, :recordings, :create, :select]) }
         end
 
         context "he is a member of" do
           context "with the role 'Admin'" do
             before { target.add_member!(user, "Admin") }
-            it { should_not be_able_to_do_anything_to(target).except([:read, :webconference, :create, :select, :leave, :edit, :update, :update_logo,
-              :disable, :user_permissions, :edit_recording]) }
+            it {
+              list = [
+                :read, :webconference, :recordings, :create, :select, :leave, :edit,
+                :update, :update_logo, :disable, :user_permissions, :edit_recording,
+                :webconference_options, :index_join_requests, :index_news
+              ]
+              should_not be_able_to_do_anything_to(target).except(list)
+            }
           end
 
           context "with the role 'User'" do
             before { target.add_member!(user, "User") }
-            it { should_not be_able_to_do_anything_to(target).except([:read, :webconference, :create, :select, :leave]) }
+            it { should_not be_able_to_do_anything_to(target).except([:read, :webconference, :recordings, :create, :select, :leave]) }
           end
         end
       end
@@ -354,13 +730,19 @@ describe Space do
         context "he is a member of" do
           context "with the role 'Admin'" do
             before { target.add_member!(user, "Admin") }
-            it { should_not be_able_to_do_anything_to(target).except([:read, :webconference, :create, :select, :leave, :edit, :update, :update_logo,
-              :disable, :user_permissions, :edit_recording]) }
+            it {
+              list = [
+                :read, :webconference, :recordings, :create, :select, :leave, :edit,
+                :update, :update_logo, :disable, :user_permissions, :edit_recording,
+                :webconference_options, :index_join_requests, :index_news
+              ]
+              should_not be_able_to_do_anything_to(target).except(list)
+            }
           end
 
           context "with the role 'User'" do
             before { target.add_member!(user, "User") }
-            it { should_not be_able_to_do_anything_to(target).except([:read, :webconference, :create, :select, :leave]) }
+            it { should_not be_able_to_do_anything_to(target).except([:read, :webconference, :recordings, :create, :select, :leave]) }
           end
         end
       end
@@ -371,7 +753,7 @@ describe Space do
 
       context "in a public space" do
         let(:target) { FactoryGirl.create(:public_space) }
-        it { should_not be_able_to_do_anything_to(target).except([:read, :webconference, :select]) }
+        it { should_not be_able_to_do_anything_to(target).except([:read, :webconference, :recordings, :select]) }
       end
 
       context "in a private space" do

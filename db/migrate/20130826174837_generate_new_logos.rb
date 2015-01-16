@@ -6,8 +6,26 @@ POS_TARGET_ID = 11
 
 # This migration will find all the old logos being used by spaces and profiles and generate
 # new logos using the new libraries we use.
-
 class GenerateNewLogos < ActiveRecord::Migration
+
+  # Fake models we need to save the new logo and create its versions
+  class Space < ActiveRecord::Base
+    mount_uploader :logo_image, LogoImageUploader
+    attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
+  end
+  class Profile < ActiveRecord::Base
+    attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
+    mount_uploader :logo_image, LogoImageUploader
+  end
+  LogoImageUploader.class_eval do
+    # Since our models are defined here, inside the migration, the uploader ends up saving
+    # the files in the wrong folder. So we have to adjust the path a bit.
+    def store_dir
+      model_name = model.class.to_s.gsub(/.*::/, "").underscore
+      "uploads/#{model_name}/#{mounted_as}/#{model.id}"
+    end
+  end
+
   def up
     # select all logos
     # there's no Logo model anymore, so we have to do a raw sql
@@ -31,20 +49,22 @@ class GenerateNewLogos < ActiveRecord::Migration
       else
         with_target += 1
 
-        path = old_path(logo)
-        fullpath = File.join(Rails::root, path)
+        fullpath = File.join(Rails::root, old_path(logo))
 
         if target.is_a?(Profile)
-          puts "MoveOldLogos: logo for user #{target.full_name} is at #{path}, and exists? #{File.exists?(fullpath)}"
+          puts "MoveOldLogos: logo for user #{target.full_name} is at #{fullpath}, and exists? #{File.exists?(fullpath)}"
         else
-          puts "MoveOldLogos: logo for space #{target.name} is at #{path}, and exists? #{File.exists?(fullpath)}"
+          puts "MoveOldLogos: logo for space #{target.name} is at #{fullpath}, and exists? #{File.exists?(fullpath)}"
         end
 
         if File.exists?(fullpath)
           target.logo_image = File.open(fullpath)
+          target.logo_image.recreate_versions!
+
           # some models might not be with all their data correct (e.g. some have names with 2 chars
           # that results in errors generating the permalink), so we have to consider that save can fail
           if target.save
+            puts "    logo updated in the model, moving the file to the new folder"
             succeeded += 1
             puts "    logo generated succesfully!"
           else
@@ -56,7 +76,6 @@ class GenerateNewLogos < ActiveRecord::Migration
           puts "    the file does not exist! logo will be lost"
         end
       end
-
     end
 
     puts "----------------------------------------------------------------------------------------"
@@ -70,17 +89,22 @@ class GenerateNewLogos < ActiveRecord::Migration
   def down
     raise ActiveRecord::IrreversibleMigration
   end
-end
 
-def find_target(logo)
-  if logo[POS_TARGET_TYPE] == "Space"
-    target = Space.find_by_id(logo[POS_TARGET_ID])
-  elsif logo[POS_TARGET_TYPE] == "Profile"
-    target = Profile.find_by_id(logo[POS_TARGET_ID])
+  private
+
+  def find_target(logo)
+    if logo[POS_TARGET_TYPE] == "Space"
+      Space.find_by_id(logo[POS_TARGET_ID])
+    elsif logo[POS_TARGET_TYPE] == "Profile"
+      Profile.find_by_id(logo[POS_TARGET_ID])
+    else
+      nil
+    end
   end
-end
 
-def old_path(logo)
-  fullid = "%08d" % logo[POS_ID]
-  "public/logos/#{fullid[0..3]}/#{fullid[4..7]}/#{logo[POS_FILENAME]}"
+  def old_path(logo)
+    fullid = "%08d" % logo[POS_ID]
+    "public/logos/#{fullid[0..3]}/#{fullid[4..7]}/#{logo[POS_FILENAME]}"
+  end
+
 end

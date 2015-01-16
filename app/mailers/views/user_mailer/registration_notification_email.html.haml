@@ -1,0 +1,8 @@
+#registration-notification-email
+  .header
+    = @subject
+
+  %p= t('.message', :name => @user_name)
+
+  %p.link
+    = t('.click_here', :url => my_home_url(:host => Site.current.domain)).html_safe

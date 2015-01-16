@@ -32,23 +32,17 @@
                 %span.recording-description= t('.no_description')
               - else
                 %span.recording-description= recording.description
-              .thread-updated-at
-                = t('.created')
-                = t('updated_time_ago', :time => time_ago_in_words(recording.created_at))
 
             .thread-subtitle
-              .recording-date
-                = t('.started_at') + ": #{format_date(recording.start_time)}"
-
-            .thread-subtitle
-              = render :partial => 'shared/recording_duration', :locals => { :recording => recording }
+              .recording-date{ :title => "#{t('.ended_at')}: #{format_date(recording.end_time)}" }
+                = "#{t('.started_at')} #{format_date(recording.start_time)}"
 
             - if show_authors
               .thread-subtitle
                 - unless metaUser.nil?
                   - user = User.find_by_id(metaUser.content)
                   .recording-author
-                    = t('.created_by') + ':'
+                    = t('.created_by')
                     - unless user.nil?
                       = link_to user.full_name, user_profile_path(user)
                     - else

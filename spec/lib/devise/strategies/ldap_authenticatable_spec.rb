@@ -12,15 +12,35 @@ describe Devise::Strategies::LdapAuthenticatable do
   before { target.stub(:session).and_return({}) }
 
   describe "#valid?" do
-    context "if ldap_enabled?" do
-      before { Site.current.update_attributes(:ldap_enabled => true) }
-      it { target.valid?.should be_true }
+
+    context "when in the sessions controller" do
+      before { target.stub(:params).and_return({ controller: "sessions" }) }
+
+      context "if ldap_enabled?" do
+        before { Site.current.update_attributes(:ldap_enabled => true) }
+        it { target.valid?.should be true }
+      end
+
+      context "if not ldap_enabled?" do
+        before { Site.current.update_attributes(:ldap_enabled => false) }
+        it { target.valid?.should be false }
+      end
     end
 
-    context "if not ldap_enabled?" do
-      before { Site.current.update_attributes(:ldap_enabled => false) }
-      it { target.valid?.should be_false }
+    context "when in another controller" do
+      before { target.stub(:params).and_return({ controller: "registrations" }) }
+
+      context "if ldap_enabled?" do
+        before { Site.current.update_attributes(:ldap_enabled => true) }
+        it { target.valid?.should be false }
+      end
+
+      context "if not ldap_enabled?" do
+        before { Site.current.update_attributes(:ldap_enabled => false) }
+        it { target.valid?.should be false }
+      end
     end
+
   end
 
   describe "#authenticate!" do
@@ -158,7 +178,8 @@ describe Devise::Strategies::LdapAuthenticatable do
           @ldap_mock.stub_chain(:get_operation_result, :code).and_return("ldap error code")
           @ldap_mock.stub_chain(:get_operation_result, :message).and_return("ldap error message")
         }
-        context "because of an error" do
+
+        context "due to an error" do
           before {
             @ldap_mock.should_receive(:bind).and_return(false) # binding failed
           }
@@ -169,9 +190,22 @@ describe Devise::Strategies::LdapAuthenticatable do
           }
         end
 
-        context "because of a timeout" do
+        context "due to a timeout" do
           before {
             @ldap_mock.should_receive(:bind).and_raise(Timeout::Error)
+          }
+          it("calls and returns #fail(message)") {
+            msg = I18n.t('devise.strategies.ldap_authenticatable.invalid_bind')
+            target.should_receive(:fail).with(msg).and_return("return of fail")
+            target.authenticate!.should eq("return of fail")
+          }
+        end
+
+        # This error is not treated by the LDAP lib, so it's raised to the app and
+        # requires a rescue_from
+        context "due to an LdapError" do
+          before {
+            @ldap_mock.should_receive(:bind).and_raise(Net::LDAP::LdapError)
           }
           it("calls and returns #fail(message)") {
             msg = I18n.t('devise.strategies.ldap_authenticatable.invalid_bind')
@@ -288,12 +322,12 @@ describe Devise::Strategies::LdapAuthenticatable do
   describe "#ldap_enabled?" do
     context "if LDAP is enabled in the current site" do
       before { Site.current.update_attributes(:ldap_enabled => true) }
-      it("returns true") { target.ldap_enabled?.should be_true }
+      it("returns true") { target.ldap_enabled?.should be_truthy }
     end
 
     context "if LDAP is disabled in the current site" do
       before { Site.current.update_attributes(:ldap_enabled => false) }
-      it("returns false") { target.ldap_enabled?.should be_false }
+      it("returns false") { target.ldap_enabled?.should be_falsey }
     end
   end
 

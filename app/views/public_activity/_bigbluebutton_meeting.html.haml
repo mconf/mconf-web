@@ -14,7 +14,7 @@
       = link_logo_image(meeting.room.owner, :size => '84x64', :url => space_path(meeting.room.owner), :class => 'logo logo-space')
 
 .thread-content
-  .thread-updated-at= t('updated_time_ago', :time => time_ago_in_words(activity.updated_at))
+  .thread-updated-at= t('updated_time_ago', :time => time_ago_in_words(activity.updated_at, vague: true))
 
   .thread-title
     = icon_meeting
@@ -29,8 +29,4 @@
   - unless meeting.nil? or meeting.recording.nil?
     - recording = meeting.recording
     .thread-subtitle.thread-subtitle-nested
-      = icon_nested_child
       = render :partial => 'shared/recording_playback', :locals => { :recording => recording }
-    .thread-subtitle.thread-subtitle-nested
-      = icon_nested_child
-      = render :partial => 'shared/recording_duration', :locals => { :recording => recording }

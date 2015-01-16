@@ -22,33 +22,28 @@ describe SpacesController do
 
       context "and the user has a pending invitation" do
         before(:each) {
-          @invitation = FactoryGirl.create(:join_request, :group => space, :candidate => user, :request_type => "invite")
+          @invitation = FactoryGirl.create(:join_request, :group => space, :candidate => user, :request_type => JoinRequest::TYPES[:invite])
         }
         before(:each) { do_action }
-        it { space.pending_invitation_for?(user).should be_true }
+        it { space.pending_invitation_for?(user).should be_truthy }
         it { should redirect_to(space_join_request_path(space, @invitation)) }
         it { should set_the_flash.to(I18n.t("spaces.error.already_invited")) }
       end
 
       context "and the user has a pending join request" do
         before(:each) {
-          @invitation = FactoryGirl.create(:join_request, :group => space, :candidate => user, :request_type => "request")
+          @invitation = FactoryGirl.create(:join_request, :group => space, :candidate => user, :request_type => JoinRequest::TYPES[:request])
         }
         before(:each) { do_action }
-        it { space.pending_join_request_for?(user).should be_true }
+        it { space.pending_join_request_for?(user).should be_truthy }
         it { should redirect_to(new_space_join_request_path(space)) }
         it { should_not set_the_flash }
       end
     end
 
     context "when there's no user logged in" do
-      before(:each) { do_action }
-
       context "and the user has no pending join request" do
-        it { should respond_with(:forbidden) }
-        it { should set_the_flash.to(I18n.t("space.access_forbidden")) }
-        it { should render_template("errors/error_403") }
-        it { should render_with_layout("error") }
+        it { expect { do_action }.to raise_error(CanCan::AccessDenied) }
       end
     end
   end
@@ -59,46 +54,27 @@ describe SpacesController do
       before(:each) { sign_in(user) }
 
       context "and the user has no pending join request" do
-        before(:each) { do_action }
-        it { should respond_with(:forbidden) }
-        it { should set_the_flash.to(I18n.t("space.access_forbidden")) }
-        it { should render_template("errors/error_403") }
-        it { should render_with_layout("error") }
+        it { expect { do_action }.to raise_error(CanCan::AccessDenied) }
       end
 
       context "and the user has a pending invitation" do
         before(:each) {
-          @invitation = FactoryGirl.create(:join_request, :group => space, :candidate => user, :request_type => "invite")
+          @invitation = FactoryGirl.create(:join_request, :group => space, :candidate => user, :request_type => JoinRequest::TYPES[:invite])
         }
-        before(:each) { do_action }
-        it { space.pending_invitation_for?(user).should be_true }
-        it { should respond_with(:forbidden) }
-        it { should set_the_flash.to(I18n.t("space.access_forbidden")) }
-        it { should render_template("errors/error_403") }
-        it { should render_with_layout("error") }
+        it { expect { do_action }.to raise_error(CanCan::AccessDenied) }
       end
 
       context "and the user has a pending join request" do
         before(:each) {
-          @invitation = FactoryGirl.create(:join_request, :group => space, :candidate => user, :request_type => "request")
+          @invitation = FactoryGirl.create(:join_request, :group => space, :candidate => user, :request_type => JoinRequest::TYPES[:request])
         }
-        before(:each) { do_action }
-        it { space.pending_join_request_for?(user).should be_true }
-        it { should respond_with(:forbidden) }
-        it { should set_the_flash.to(I18n.t("space.access_forbidden")) }
-        it { should render_template("errors/error_403") }
-        it { should render_with_layout("error") }
+        it { expect { do_action }.to raise_error(CanCan::AccessDenied) }
       end
     end
 
     context "when there's no user logged in" do
-      before(:each) { do_action }
-
       context "and the user has no pending join request" do
-        it { should respond_with(:forbidden) }
-        it { should set_the_flash.to(I18n.t("space.access_forbidden")) }
-        it { should render_template("errors/error_403") }
-        it { should render_with_layout("error") }
+        it { expect { do_action }.to raise_error(CanCan::AccessDenied) }
       end
     end
   end
@@ -174,7 +150,7 @@ describe SpacesController do
 
           before(:each) { get :index }
           it { should assign_to(:user_spaces).with([]) }
-          it { assigns(:user_spaces).should be_an_instance_of(ActiveRecord::Relation) }
+          it { assigns(:user_spaces).should be_kind_of(ActiveRecord::Relation) }
         end
       end
 
@@ -343,7 +319,7 @@ describe SpacesController do
         }
 
         # TODO: for some reason the matcher is not found, maybe we just need to update rspec and other gems
-        pending { Space.last.should have_same_attibutes_as(space) }
+        skip { Space.last.should have_same_attibutes_as(space) }
       end
 
       context "redirects to the new space" do
@@ -366,13 +342,27 @@ describe SpacesController do
         it { Space.last.admins.should include(user) }
       end
 
-      it "creates a new activity for the space created"
+      describe "creates a new activity for the space created" do
+        before(:each) {
+          expect {
+            post :create, :space => space_attributes
+          }.to change(RecentActivity, :count).by(1)
+        }
+        it { RecentActivity.last.trackable.should eq(Space.last) }
+        it { RecentActivity.last.owner.should eq(Space.last) }
+        it { RecentActivity.last.parameters[:username].should eq(user.full_name) }
+        it { RecentActivity.last.parameters[:user_id].should eq(user.id) }
+      end
     end
 
     context "with invalid attributes" do
       let(:invalid_attributes) { FactoryGirl.attributes_for(:space, :name => nil) }
 
-      it "assigns @space with the new space"
+      describe "assigns @space with the new space" do
+        before(:each) { post :create, :space => invalid_attributes }
+        # TODO: maybe we could be more specific here
+        it { should assign_to(:space).with_kind_of(Space) }
+      end
 
       describe "renders the view spaces/new with the correct layout" do
         before(:each) { post :create, :space => invalid_attributes }
@@ -385,7 +375,15 @@ describe SpacesController do
         it_behaves_like "assigns @spaces_examples"
       end
 
-      it "does not create a new activity for the space that failed to be created"
+      describe "does not create a new activity for the space that failed to be created" do
+        let(:does_not_create_activity) {
+          expect {
+            post :create, :space => invalid_attributes
+          }.to change(RecentActivity, :count).by(0)
+        }
+        it { does_not_create_activity }
+      end
+
     end
   end
 
@@ -429,11 +427,11 @@ describe SpacesController do
       }
 
       let(:space_allowed_params) {
-        [ :name, :description, :logo_image, :public, :permalink, :repository,
-        :crop_x, :crop_y, :crop_w, :crop_h,
-        :bigbluebutton_room_attributes =>
-        [ :id, :attendee_password, :moderator_password, :default_layout,
-          :welcome_msg, :presenter_share_only, :auto_start_video, :auto_start_audio ] ]
+        [ :name, :description, :logo_image, :public, :permalink, :disabled,
+          :repository, :crop_x, :crop_y, :crop_w, :crop_h, :crop_img_w, :crop_img_h,
+          :bigbluebutton_room_attributes =>
+          [ :id, :attendee_key, :moderator_key, :default_layout,
+            :welcome_msg, :presenter_share_only, :auto_start_video, :auto_start_audio ] ]
       }
       before {
         space_attributes.stub(:permit).and_return(space_attributes)
@@ -466,7 +464,7 @@ describe SpacesController do
         space.add_member!(user, 'Admin')
       end
 
-      it { expect{subject}.to change{Space.with_disabled.count}.by(0) }
+      it { expect{subject}.to raise_error(CanCan::AccessDenied) }
     end
 
   end
@@ -485,7 +483,7 @@ describe SpacesController do
       it { expect{subject}.to change(Space, :count).by(-1)}
       it {
         subject
-        space.reload.disabled.should be_true
+        space.reload.disabled.should be_truthy
       }
       it { should redirect_to(manage_spaces_path) }
     end
@@ -500,7 +498,7 @@ describe SpacesController do
       it { expect{subject}.to change(Space, :count).by(-1) }
       it {
         subject
-        space.reload.disabled.should be_true
+        space.reload.disabled.should be_truthy
       }
       it { should redirect_to(spaces_path) }
     end
@@ -534,7 +532,7 @@ describe SpacesController do
       before(:each) { post :enable, :id => space.to_param }
       it { should redirect_to(manage_spaces_path) }
       it { should set_the_flash.to(I18n.t('space.enabled')) }
-      it { space.reload.disabled.should be_false }
+      it { space.reload.disabled.should be_falsey }
     end
   end
 
@@ -543,18 +541,98 @@ describe SpacesController do
   it "#leave"
 
   describe "#webconference" do
-    let(:space) { FactoryGirl.create(:space) }
-    let(:user) { FactoryGirl.create(:superuser) }
-    before(:each) { sign_in(user) }
+    let!(:space) { FactoryGirl.create(:public_space) }
+    let!(:user) { FactoryGirl.create(:superuser) }
 
-    before(:each) { get :webconference, :id => space.to_param }
+    context "normal testing" do
+      before(:each) {
+        sign_in(user)
+        get :webconference, :id => space.to_param
+      }
 
-    it { should render_template(:webconference) }
-    it { should render_with_layout("spaces_show") }
-    it { should assign_to(:space).with(space) }
-    it { should assign_to(:webconf_room).with(space.bigbluebutton_room) }
+      it { should render_template(:webconference) }
+      it { should render_with_layout("spaces_show") }
+      it { should assign_to(:space).with(space) }
+      it { should assign_to(:webconf_room).with(space.bigbluebutton_room) }
+    end
 
-    it "assigns @webconf_attendees with the attendees"
+    context "assigns @webconf_attendees" do
+
+      context "when there are attendees" do
+        let!(:user2) { FactoryGirl.create(:user) }
+        let(:attendee1) {
+          attendee = BigbluebuttonAttendee.new
+          attendee.user_id = user.id
+          attendee.full_name = user.username
+          attendee.role = :attendee
+          attendee
+        }
+        let(:attendee2) {
+          attendee = BigbluebuttonAttendee.new
+          attendee.user_id = user2.id
+          attendee.full_name = user2.username
+          attendee.role = :moderator
+          attendee
+        }
+        before(:each) {
+          BigbluebuttonRoom.any_instance.stub(:attendees).and_return([attendee1, attendee2])
+          get :webconference, :id => space.to_param
+        }
+        it { should assign_to(:webconf_attendees).with([user, user2]) }
+      end
+
+      context "when there are no attendees" do
+        before(:each) {
+          BigbluebuttonRoom.any_instance.stub(:attendees).and_return([])
+          get :webconference, :id => space.to_param
+        }
+        it { should assign_to(:webconf_attendees).with([]) }
+      end
+
+      context "doesn't replicate users" do
+        let(:attendee1) {
+          attendee = BigbluebuttonAttendee.new
+          attendee.user_id = user.id
+          attendee.full_name = user.username
+          attendee.role = :attendee
+          attendee
+        }
+        let(:attendee2) {
+          attendee = BigbluebuttonAttendee.new
+          attendee.user_id = user.id
+          attendee.full_name = user.username
+          attendee.role = :moderator
+          attendee
+        }
+        before(:each) {
+          BigbluebuttonRoom.any_instance.stub(:attendees).and_return([attendee1, attendee2])
+          get :webconference, :id => space.to_param
+        }
+        it { should assign_to(:webconf_attendees).with([user]) }
+      end
+
+      context "ignores users that are not registered" do
+        let(:attendee1) {
+          attendee = BigbluebuttonAttendee.new
+          attendee.user_id = user.id
+          attendee.full_name = user.username
+          attendee.role = :attendee
+          attendee
+        }
+        let(:attendee2) {
+          attendee = BigbluebuttonAttendee.new
+          attendee.user_id = "anything-invalid"
+          attendee.full_name = "Invited User"
+          attendee.role = :moderator
+          attendee
+        }
+        before(:each) {
+          BigbluebuttonRoom.any_instance.stub(:attendees).and_return([attendee1, attendee2])
+          get :webconference, :id => space.to_param
+        }
+        it { should assign_to(:webconf_attendees).with([user]) }
+      end
+    end
   end
 
   describe "#recordings" do
@@ -740,25 +818,23 @@ describe SpacesController do
 
       it { should respond_with(:success) }
       it { assigns(:space).should eq(target) }
-      it { should render_template("spaces/user_permission") }
+      it { should render_template(/user_permissions/) }
       it { should render_with_layout("spaces_show") }
     end
 
     context "user is not a member of the space" do
       let(:user) { FactoryGirl.create(:user) }
-      before(:each) { get :user_permissions, :id => target.to_param }
 
-      it { should respond_with(403) }
+      it { expect { get :user_permissions, :id => target.to_param }.to raise_error(CanCan::AccessDenied) }
     end
 
     context "user is a normal member of the space" do
       let(:user) { FactoryGirl.create(:user) }
       before(:each) {
         target.add_member!(user)
-        get :user_permissions, :id => target.to_param
       }
 
-      it { should respond_with(403) }
+      it { expect { get :user_permissions, :id => target.to_param }.to raise_error(CanCan::AccessDenied) }
     end
 
     context "user is admin of the space" do

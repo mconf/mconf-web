@@ -3,7 +3,7 @@
 #form-wrapper
   = simple_form_for(resource, :as => resource_name, :url => confirmation_path(resource_name), :html => { :method => :post, :class => 'form-inline' }) do |f|
     - if user_signed_in?
-      = f.input :email, :label => t('user.email_used_to_create_account'), :required => true, :input_html => { :value => current_user.email }
+      = f.input :email, :label => t('user.email_used_to_create_account'), :required => true, :input_html => { :value => current_user.email, :readonly => true }
     - else
       = f.input :email, :label => t('user.email_used_to_create_account'), :required => true
     = f.button :wrapped, :value => t('user.request_confirmation')

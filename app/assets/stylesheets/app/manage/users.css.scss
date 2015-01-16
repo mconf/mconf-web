@@ -15,6 +15,10 @@ body.manage.users {
       margin: 0 5px;
       width: 50%;
     }
+
+    .btn-new-user {
+      float: left;
+    }
   }
 
   .user-disabled {
@@ -24,6 +28,10 @@ body.manage.users {
     .logo-in-thread {
       opacity: 0.5;
     }
+  }
+
+  .user-unapproved {
+    color: $yellow;
   }
 
   .management-links {

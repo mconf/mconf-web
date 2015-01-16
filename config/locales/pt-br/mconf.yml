@@ -13,6 +13,7 @@ pt-br:
       space:
         create_html: "Uma reunião foi iniciada na comunidade %{owner} em %{time}"
     join_request:
+      deleted: que não existe mais
       invite_html: "foi convidado(a) para entrar na comunidade"
       invite_with_introducer_html: "foi convidado(a) por <a href=\"%{introducer_url}\">%{introducer}</a> para entrar na comunidade"
       request_html: "requisitou ingresso na comunidade"
@@ -36,11 +37,11 @@ pt-br:
       reply_html: respondeu à mensagem %{name} na comunidae
       deleted: que não existe mais
     space:
+      accept_html: tornou-se um membro da comunidade
       create_html: criou a comunidade
-      update_html: atualizou os dados da comunidade
-      join_html: tornou-se um membro da comunidade
-      leave_html: deixou de ser um membro da comunidade
       deleted: uma comunidade que não existe mais
+      leave_html: deixou de ser um membro da comunidade
+      update_html: atualizou os dados da comunidade
   _js:
     confirmation_dialog:
       cancel: "Cancelar"
@@ -51,13 +52,17 @@ pt-br:
     cancel: "Cancelar"
     create: "Criar"
     datetimepicker:
-      format: "dd/MM/yyyy hh:mm"
-      format_rails: "%d/%m/%Y %H:%M %Z"
+      format_display: "%d/%m/%Y"
+      format: "dd-MM-yyyy"
+      format_rails: "%d/%m/%Y %H:%M %z"
+    decline: "Negar"
     deny: "Negar"
     destroy: "Remover"
     details: "Detalhes"
     edit: "Editar"
     end: "Finalizar"
+    form:
+      required: "obrigatório"
     index: Listando
     in_place_edit:
       error: "erro"
@@ -87,8 +92,9 @@ pt-br:
     user:
       administrator: "Administrador global"
       normal_user: "Usuário normal"
+      unapproved_user: "A espera de aprovação de administrador"
       guest: Convidado
-      guest_name: "Usuário convidado \(%{email}\)"
+      guest_name: "Usuário convidado (%{email})"
       removed: "<usuário removido>"
     yes_: "Sim"
     webconference:
@@ -109,7 +115,7 @@ pt-br:
     attributes:
       invite:
         ends_on: "Acaba em"
-        message: "Comentários"
+        message: "Descrição"
         starts_on: "Inicia em"
         title: "Título"
         users: "Usuários"
@@ -147,9 +153,9 @@ pt-br:
         description: "Descrição"
         domain: "Domínio da Aplicação"
         events_enabled: "Habilitar módulo de eventos"
-        exception_notifications: "Enviar e-mails de depuração"
-        exception_notifications_email: "Destinatários dos e-mails de depuração"
-        exception_notifications_prefix: "Prefixo no assunto dos e-mails de depuração"
+        exception_notifications: "Enviar notificações em exceções"
+        exception_notifications_email: "Destinatários das notificações de exceção"
+        exception_notifications_prefix: "Prefixo no assunto das notificações de exceção"
         external_help: "Página de Ajuda/FAQ Externa"
         feedback_url: "URL de feedback"
         ldap_enabled: "LDAP: Habilitar autenticação"
@@ -190,9 +196,9 @@ pt-br:
         xmpp_server: "Endereço do servidor XMPP"
         webconf_auto_record: "Atribuir automaticamente a opção de gravação ao iniciar uma conferência"
       space:
-        attendee_password: "Senha de participante"
+        attendee_key: "Chave para participantes"
         description: "Descrição"
-        moderator_password: "Senha de moderador"
+        moderator_key: "Chave para moderadores"
         name: "Nome"
         permalink: "Identificador"
         public: "Pública"
@@ -384,9 +390,9 @@ pt-br:
       bbb: "Convide usuários para sua sala BBB"
       button: "Convidar Pessoas"
       hint: "Digite para começar a buscar"
-      msg: "Convidou você para participar de uma webconferência, siga este link: <a href=\' URL \'> URL </a>"
+      msg: "Convidou você para participar de uma webconferência, siga este link: <a href='URL'> URL </a>"
       msg_clean: "Convidou você para participar de uma webconferência, siga este link: URL"
-      msg_sender: "Convite enviado. Link para sua sala: <a href=\' URL \'> URL </a>"
+      msg_sender: "Convite enviado. Link para sua sala: <a href='URL'> URL </a>"
     me: "eu"
     name:
       one: "Nome"
@@ -423,6 +429,9 @@ pt-br:
     other: Comentários
     show_all: "Mostrar todos comentários"
   configurations: "Configurações"
+  confirmations:
+    check_already_confirmed:
+      already_confirmed: "Você já confirmou a sua conta"
   contact_information: "Informações de contato"
   country: País
   create: Criar
@@ -431,7 +440,14 @@ pt-br:
   crop_image: 
     description: "Selecione uma parte da imagem para cortar"
     title: "Cortar imagem"
-  custom_bigbluebutton_rooms: 
+  custom_bigbluebutton_playback_types:
+    index:
+      default: "Padrão"
+      description: "Tipos de reprodução são as classes de reprodução disponívels para as gravações. Esta lista é preenchida automaticamente quando as gravações são buscadas dos servidores de webconferência. Você pode esconder algum tipo de reprodução, desmarcando a caixa 'visível', e modificar o tipo padrão, que é exibido no topo quando listados os links para reproduzir uma gravação."
+      list_of_playback_types: "Lista de tipos de reprodução"
+      name: "Nome"
+      visible: "Visível"
+  custom_bigbluebutton_rooms:
     _other:
       fetch_recordings: "Buscar gravações"
       invite: "Convidar"
@@ -460,7 +476,7 @@ pt-br:
     invite:
       field_name: "Você está entrando na conferência como"
       field_password: "Chave de acesso desta conferência"
-      title: "Acessar sala: <em>%{name}</em>"
+      title: "Acessar sala: %{name}"
     invite_header: 
       not_running: "não iniciada"
       refresh: "Esta informação é atualizada automaticamente"
@@ -482,7 +498,9 @@ pt-br:
         name: "Seu nome completo"
         next: "Próximo"
         title: "Eu não possuo uma conta, quero entrar como convidado"
-      title: "Acessar sala: <em>%{name}</em>"
+      title: "Acessar sala: %{name}"
+    join:
+      user_limit_exceeded: "Esta conferência chegou ao seu limite de usuários. Contate o responsável pela conferência para mais detalhes."
     join_mobile:
       click_to_download_android: "Clique aqui para baixar o cliente Android"
       click_to_download_ios: "Clique aqui para baixar o cliente Apple iOS (iPad, iPhone)"
@@ -513,8 +531,10 @@ pt-br:
         room_meetingid: "ID da Reunião"
         room_name: "Nome da Sala"
     send_invitation:
+      blank_users: "Nenhum usuário selecionado, nenhum convite será enviado"
       error: "Não foi possível enviar o convite para:"
-      error_date_format: "As datas que você informou não estão em um formato válido, por favor tente novamente"
+      error_date_format: "As datas que você informou não são válidas, por favor tente novamente"
+      error_title: "É obrigatório incluir um título para o seu convite, por favor tente novamente"
       success: "Convite enviado com sucesso para:"
     show:
       showing_room: "Mostrando a sala '%{room}'"
@@ -526,6 +546,7 @@ pt-br:
     index:
       list_of_recordings: "Lista de todas gravações disponíveis"
     recording_links:
+      direct_link: "Link direto"
       playback_links: "Playbacks disponíveis"
     recordings:
       table:
@@ -587,9 +608,15 @@ pt-br:
     failure:
       user:
         not_approved: 'Sua conta ainda não foi aprovada por um administrador.'
+    mailer:
+      confirmation_instructions:
+        confirmation_link: "Confirme minha conta"
+        confirmation_ok: "Você pode confirmar sua conta de email através do link abaixo:"
+        confirmation_pending: "Sua conta foi criada e está esperando a aprovação de um administrador."
+        welcome: "Bem-vindo %{email}!"
     registrations:
       not_enabled: 'O registro de novas contas não está habilitado neste site.'
-      signed_up_but_not_approved: 'Seu registro foi feito com sucesso, mas você ainda precisa ser aprovado por um administrador para acessar o site'
+      signed_up_but_not_approved: ''
     shared:
       links:
         login:
@@ -650,7 +677,7 @@ pt-br:
       title: "Proibido"
     e404: 
       description: "Oops, a página \"%{url}\" não existe."
-      title: "404"
+      title: "Não encontrado"
     e500: 
       description: "Desculpe, mas algum erro aconteceu. Já fomos notificados sobre o problema e iremos resolvê-lo assim que possível."
       title: "Erro"
@@ -685,7 +712,7 @@ pt-br:
         title: "Acessar a sua conta"
         resend_confirmation_email: "Reenviar e-mail de confirmação"
       register:
-        title: "Create a new account"
+        title: "Criar uma nova conta"
   from: De
   getting_started: Começando!
   group:
@@ -769,9 +796,8 @@ pt-br:
   join: Entrar
   join_cam: Participar
   join_requests:
-    asked_anonymous: "Alguém quer participar da comunidade %{space} administrado por você:"
-    asked_anonymous_full: "Alguém quer participar da comunidade %{space} administrado por você: %{comment} <br/><br/><p>Para atender o pedido visite <a href=\"%{url}\">%{url}</a></p><p>Se você acredita que esta mensagem é um spam, por favor <a href=\"mailto:%{contact}\"> entre em contato </a> ou nos <a href=\"%{feedback}\"> envie uma mensagem.</a></p><p>%{signature}</p>"
-    asked_full: "<b>%{candidate}</b> quer participar da comunidade %{space} administrado por você: %{comment} <br/><br/><p>Para atender o pedido visite <a href=\"%{url}\">%{url}</a></p><p>Se você acredita que esta mensagem é um spam, por favor <a href=\"mailto:%{contact}\"> entre em contato</a> ou nos <a href=\"%{feedback}\"> envie uma mensagem.</a></p><p>%{signature}</p>"
+    accept:
+      accepted: "Pedido de adesão aceito"
     create:
       already_invited: "Os seguintes usuários já possuem um convite pendente: %{users}"
       already_a_member: "%{name} já é um membro"
@@ -780,18 +806,20 @@ pt-br:
       error: "Algo errado aconteceu ao processar sua requisição, por favor tente novamente. (detalhes: %{errors})"
       sent: "Seu convite foi enviado com sucesso para: %{users}"
       user_not_found: "Usuário não encontrado: %{id}"
-    destroy:
-      success: "Pedido de adesão cancelado com sucesso"
+    decline:
+      declined: "Pedido de adesão negado"
+      invitation_destroyed: "Convite cancelado com sucesso"
+      request_destroyed: "Pedido de adesão cancelado com sucesso"
     index:
       accept: "Aceitar pedido de adesão de %{user}?"
       accept_as: "como"
       deny: "Cancelar pedido de adesão de %{user}?"
-      not_pending:
-        other: "Não existem solicitações de adesão pendentes"
+      no_pending_invitations: "Não existem convites pendentes"
+      no_pending_requests: "Não existem pedidos de adesão pendentes"
       or: "ou"
-      pending:
-        other: "Pedidos de adesão pendentes"
-        user_message: "Mensagem"
+      pending_invitations_title: "Convites pendentes"
+      pending_requests_title: "Pedidos de adesão pendentes"
+      user_message: "Mensagem"
     invitation:
       cancel: "Cancelar convite para %{user}?"
       invited_as: "Convidado como"
@@ -808,21 +836,30 @@ pt-br:
       already_invited: "Você já possui um convite para entrar nesta comunidade! Vá para a página inicial da comunidade para acessá-lo."
       already_requested: "Você já requisitou ingresso nesta comunidade! Por favor espere que um administrador aceite o pedido."
       message_title: "Envie um pedido de adesão aos administradores da comunidade"
+    request:
+      decline_confirmation: "Você tem certeza que deseja rejeitar este pedido de ingresso?"
     show:
-      accept: "Sim, quero entrar!"
+      accept: "Aceitar"
       already_accepted: "... mas você já é um membro dessa comunidade."
-      comment_invitation: "Esta é a mensagem escrita por %{name}:"
-      comment_request: "Essa requisição já foi enviada para os administradores da comunidade, por favor espere por uma resposta. Este é o comentário que você escreveu:"
-      decline: "Não, agora não"
-      decline_confirmation: "Você tem certeza que quer negar o convite de adesão a esta comunidade?"
-      remove: "Cancelar esta requisição"
-      remove_confirmation: "Você tem certeza que quer cancelar a requisição de ingresso nesta comunidade?"
-      title_invitation: "Você foi convidado para ingressar na comunidade \"%{name}\" em %{date}"
-      title_request: "Você enviou um pedido de ingresso para a comunidade \"%{name}\" em %{date}"
-    update:
-      accepted: "Pedido de adesão aceito"
-      updated: "Pedido de adesão atualizado"
-      declined: "Pedido de adesão rejeitado"
+      cancel_invite: "Cancelar este convite"
+      cancel_invite_confirmation: "Você tem certeza que deseja cancelar este convite?"
+      cancel_request: "Cancelar esta requisição"
+      cancel_request_confirmation: "Você tem certeza que deseja cancelar esta requisiçãoAre you sure you want to cancel the request to join this space?"
+      decline: "Rejeitar"
+      decline_invite_confirmation: "Você tem certeza que deseja rejeitar o convite de ingresso nesta comunidade?"
+      decline_request_confirmation: "Você tem certeza que deseja rejeitar o pedido de ingresso nesta comunidade?"
+      is_candidate:
+        comment_invitation: "Este é o comentário escrito por %{name}:"
+        comment_request: "Essa requisição já foi enviada para os administradores da comunidade, por favor espere por uma resposta. Este é o comentário que você escreveu:"
+        title_invitation: "Você foi convidado por \"%{introducer}\" em %{date} para participar da comundiade \"%{space}\""
+        title_request: "Você requisitou o ingresso na comunidade \"%{space}\" em %{date}"
+      is_introducer:
+        comment_invitation: "Este é o comentário que você escreveu:"
+        title_invitation: "Você convidou \"%{candidate}\" em %{date} para participar da comunidade \"%{space}\""
+      is_other:
+        comment_request: "Este é o comentário escrito por \"%{name}\":"
+        title_invitation: "\"%{introducer}\" convidou \"%{candidate}\" em %{date} para participar da comundiade \"%{space}\""
+        title_request: "\"%{candidate}\" requisitou em %{date} o ingresso na comunidade \"%{space}\""
   keywords: "Palavras-chave (*)"
   language: Idioma
   last_week: "Semana passada"
@@ -867,6 +904,7 @@ pt-br:
   locales:
     en: English
     pt-br: "Português (Brasil)"
+    error: "Linguagem não resgistrada"
   login_or_register: "Login / Registre-se"
   login_request: "Você precisa estar logado para"
   logo:
@@ -880,6 +918,7 @@ pt-br:
     crop:
       crop_it: "Cortar!"
       preview: "Pré-visualização"
+      aspect_ratio: Relação de aspecto fixa
   logout: Sair
   manage:
     disabled_space:
@@ -895,6 +934,8 @@ pt-br:
     enabled_user:
       approve: "Aprovar: permitir que este usuário acesse o site"
       approve_confirm: "Tem certeza que deseja permitir que este usuário acesse o site?"
+      confirm: "Confirmar este usuário"
+      confirm_confirm: "Tem certeza que deseja confirmar este usuário?"
       disable: "Desabilitar usuário"
       disable_confirm: "Tem certeza que deseja desabilitar este usuário?"
       disapprove: "Desaprovar: bloquear o acesso deste usuário ao site"
@@ -934,6 +975,7 @@ pt-br:
     users:
       filter_name_or_username: "Nome, identificador ou e-mail"
       filter_results: "Filtrar os resultados:"
+      new_user: "Cadastrar usuário"
     users_list:
       filter_count_with_text: "%{count} usuários encontrados para o filtro \"%{value}\""
       filter_count_empty: "%{count} usuários encontrados"
@@ -966,6 +1008,12 @@ pt-br:
   more: mais...
   more_arrows: "mais >>"
   my:
+    approval_pending:
+      title: Aprovação pendente
+      description: Seu cadastro foi efetivado com sucesso e submetido a aprovação do administrador responsável por validar o seu acesso. Assim que seu cadastro for aprovado você será comunicado.
+      interesting_links: "Enquanto isto você pode explorar estas seções abertas do site:"
+      events_list: lista de eventos
+      spaces_list: lista de comunidades
     page_header:
       activity_list: "Atividades recentes"
     home:
@@ -973,7 +1021,7 @@ pt-br:
       events:
         other: "Outros"
         today: "Hoje"
-      not_confirmed: "Sua conta ainda não foi confirmada. Por favor verifique o seu e-mail para ativá-la. (Não recebeu um e-mail? <a href=\"%{url}\">Clique aqui</a>.)"
+      not_confirmed: "Sua conta ainda não foi confirmada, por favor verifique o seu e-mail para confirmá-la. Se por acaso você não recebeu o e-mail <a href=\"%{url}\">clique aqui</a> pra solicitar que ele seja enviado novamente."
       pending_join_requests:
         one: "%{count} requisição pendente"
         other: "%{count} requisições pendentes"
@@ -1131,9 +1179,10 @@ pt-br:
     show: 
       title: "Mensagens Privadas"
     show_received: 
-      wrote: wrote
+      wrote: escreveu
     show_sent: 
-      wrote: wrote
+      wrote_to: Escreveu para
+      titled: a mensagem
   profile:
     deleted: "Perfil excluído com sucesso"
     description:
@@ -1267,25 +1316,25 @@ pt-br:
     copy_modal:
       title: Aperte Ctrl+C para copiar o texto
       success: Texto copiado para a área de transferência
-    recording_duration:
-      duration: "Duração"
-      ended_at: "Finalizada em"
     recording_list:
       created: "Criada"
       created_by: "Criada por"
+      ended_at: "Finalizada em"
       no_description: "<nenhuma descrição especificada>"
       no_recordings: "Sua sala de webconferência ainda não possui gravações"
       no_title: "<nenhum título especificado>"
-      started_at: "Iniciou em"
+      started_at: "A reunião aconteceu em"
     recording_playback:
+      duration: "duração"
       playback: "Links para reprodução"
       processing_dots: "Processando, por favor aguarde..."
       processing_tip: "Esta gravação foi encontrada em um dos servidores mas ainda está sendo processada. Quando o processamento acabar, os links para reprodução serão disponibilizados aqui."
-      unavailable: "Esta gravação não está disponível"
-      unavailable_tip: "Esta gravação não está mais disponível no servidor onde ela estava armazenada e então não pode ser acessada."
+      unavailable: "A gravação não está disponível"
+      unavailable_tip: "A gravação não está mais disponível no servidor onde ela estava armazenada e então não pode ser acessada."
     webconf_index_links:
       new_room: "Nova sala"
       new_server: "Novo servidor"
+      view_playback_type_list: "Ver lista de tipos de reprodução"
       view_recording_list: "Ver lista de gravações"
       view_room_list: "Ver lista de salas"
       view_server_list: "Ver lista de servidores"
@@ -1321,6 +1370,8 @@ pt-br:
       invalid_parameters: "Your request was invalid, please try again."
     info:
       title: "Seus dados obtidos pela federação"
+    login:
+      local_account_disabled: "Desculpe mas você não pode logar, sua conta está desabilitada. Por favor, entre em contato com um administrador para resolver o problema."
   show: Exibir
   show_advanced_editor: "Exibir editor avançado"
   show_list_version_arrows: "exibir versão em lista >>"
@@ -1329,6 +1380,8 @@ pt-br:
     label: "Insira aqui o texto da imagem"
     message: 
       user: "é incorreta"
+  site:
+    updated: "Configurações do site atualizadas"
   size: Tamanho
   skype: Skype
   space:
@@ -1367,6 +1420,7 @@ pt-br:
       select_at_left: "Selecione uma comunidade ao lado para ver sua descrição aqui"
       user_is_member: "Você é membro!"
     is_private: "é uma comunidade privado. Envie um pedido de adesão ao administrador desta comunidade para deixá-lo entrar"
+    is_private_html: "A comunidade %{name} é privada. Para acessá-la, faça o login e mande uma <a href=\"%{path}\">requisição</a> para os administradores da comunidade."
     join: "Entrar na comunidade"
     join_invitation:
       clarify_registered: "Por favor, digite a senha para participar desta comunidade."
@@ -1469,6 +1523,7 @@ pt-br:
     error:
       already_invited: "Você já foi convidado para entrar nesta comunidade, por favor aceite ou rejeite o convite"
       need_join_to_access: "Você precisa participar desta comunidade para acessá-la. Envie um pedido de adesão aos administradores."
+      not_found: "A comunidade \"%{permalink}\" não existe. <br> Gostaria de buscar em <a href=\"%{path}\">todas comunidades</a>?"
     index: 
       create_new_space: "Criar uma comunidade"
       list_format: 
@@ -1557,8 +1612,10 @@ pt-br:
       invite: "Convidar outras pessoas"
       webconference:
         attendees:
+          all_users: "Todos usuários"
           nobody: "Não há ninguém na sala."
           people_in_the_room: "Pessoas na sala"
+          registered_users: "Usuários registrados"
         description:
           header: "Acesso à webconferência"
           text: "A sala de webconferência associada com esta comunidade está no momento: <em>%{status}</em> <br/> Use os botões na barra lateral à direita para entrar na conferência."
@@ -1721,6 +1778,11 @@ pt-br:
     approve:
       approved: "O usuário %{username} foi aprovado para acessar este site!"
       not_enabled: "A aprovação de registros não está habilitada neste site"
+    confirm:
+      confirmed: "O usuário %{username} foi confirmado"
+    create:
+      error: "Erros ao cadastrar o usuário: %{errors}"
+      success: "Usuário cadastrado com sucesso"
     detailed_user:
       from: "De:"
     disapprove:
@@ -1733,6 +1795,8 @@ pt-br:
       cancel_account: "Cancelar conta?"
       change_password: "Mudar senha"
       click_to_edit_profile: "Clique aqui para editar o seu perfil"
+      confirm_user: "Confirmar a conta deste usuário"
+      confirm_user_confirm: "Você tem certeza que deseja confirmar a conta deste usuário?"
       did_not_find_info: "Não encontrou a informação que estava procurando?"
       disable: "Desabilitar a conta deste usuário"
       disable_confirm: "Você tem certeza que deseja desabilitar a conta deste usuário?"
@@ -1743,7 +1807,7 @@ pt-br:
       ldap:
         title: "Você acessou este site através do LDAP!"
       management_options: "Opções de administração"
-      not_confirmed: "Sua conta ainda não foi confirmada. Por favor verifique o seu e-mail para ativá-la. (Não recebeu um e-mail? <a href=\"%{url}\">Clique aqui</a>.)"
+      not_confirmed: "Sua conta ainda não foi confirmada, por favor verifique o seu e-mail para confirmá-la. Se por acaso você não recebeu o e-mail <a href=\"%{url}\">clique aqui</a> pra solicitar que ele seja enviado novamente."
       notification:
         by_email: "Por e-mail"
         by_private_message: "Por mensagem privada"
@@ -1758,6 +1822,13 @@ pt-br:
         weekly: "Semanalmente"
       title: "Editar sua conta"
       yes_cancel_account: "Sim, cancelar minha conta"
+    errors:
+      access_forbidden: "Esta operação está disponível apenas para administradores"
+    new:
+      create:
+        success: "Usuário cadastrado. Este usuário já está confirmado e pode acessar o site a qualquer momento."
+        error: "Erro(s) ao criar o novo usuário"
+      title: "Cadastrar usuário"
   username: "Nome de usuário"
   uploader:
     button: Enviar novo arquivo

@@ -1,3 +1,5 @@
+- page_title t('spaces.admin_tabs.admissions'), :in => @space.name
+
 - spaces_menu_at :admin
 = render :partial => 'spaces/menu'
 
@@ -6,18 +8,18 @@
 
 #join-requests
 
-  %h3= t('.pending.other')
+  %h3= t('.pending_requests_title')
   - if @space.pending_join_requests.any?
     - @space.pending_join_requests.each do |jr|
       - unless jr.candidate.nil? || jr.candidate.disabled
         = render 'request', :jr => jr
 
   - else
-    %p.main_text= t('.not_pending.other')
+    %p.main_text= t('.no_pending_requests')
 
-  %h3= t('invitation.pending.other')
+  %h3= t('.pending_invitations_title')
   - if @space.pending_invitations.any?
     - @space.pending_invitations.each do |invitation|
       = render 'invitation', :jr => invitation
   - else
-    %p.main_text= t('invitation.not_pending.other')
+    %p.main_text= t('.no_pending_invitations')

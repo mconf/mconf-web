@@ -25,7 +25,8 @@ class EventMailer < BaseMailer
       to = @invitation.recipient
     end
 
-    I18n.with_locale(get_user_locale(to, false)) do
+    locale = default_email_locale(to, @invitation.sender)
+    I18n.with_locale(locale) do
       # Adjust the times to the target user's time zone. If he doesn't have a time zone set,
       # use the time zone of the sender.
       if Mconf::Timezone.user_has_time_zone?(to)
@@ -50,23 +51,4 @@ class EventMailer < BaseMailer
       end
     end
   end
-
-  def error_handler(message, error, action, args)
-    Rails.logger.error "Handling email error on EventMailer"
-    case action
-    when "invitation_email"
-      invitation = Invitation.find_by_id(args[0])
-      if invitation.nil?
-        Rails.logger.error "Could not find the Invitation #{args[0]}, won't mark it as not sent"
-      else
-        # we just want to mark it as not sent, but raise the error afterwards
-        invitation.result = false
-        invitation.save!
-        raise error
-      end
-    else
-      raise error
-    end
-  end
-
 end

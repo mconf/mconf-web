@@ -9,7 +9,7 @@ FactoryGirl.define do
     m.sequence(:meetingid) { |n| "meeting-#{n}-" + SecureRandom.hex(4) }
     m.association :room, :factory => :bigbluebutton_room
     m.running false
-    m.record false
+    m.recorded false
     m.start_time { DateTime.now }
   end
 end

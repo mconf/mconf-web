@@ -13,64 +13,6 @@ module ApplicationHelper
 
   include MwebEvents::EventsHelper if Mconf::Modules.mod_loaded?('events')
 
-  # Clippy from https://github.com/lackac/clippy
-  #
-  # Generates clippy embed code with the given options. From the options one of
-  # <tt>:text</tt>, <tt>:id</tt>, or <tt>:call</tt> has to be provided.
-  #
-  # === Supported options
-  # [:text]
-  #   Text to be copied to the clipboard.
-  # [:id]
-  #   Id of a DOM element from which the text should be taken. If it is a form
-  #   element the <tt>value</tt> attribute, otherwise the <tt>innerHTML</tt>
-  #   attribute will be used.
-  # [:call]
-  #   A name of a javascript function to be called for the text.
-  # [:copied]
-  #   Label text to show next to the icon after a successful copy action.
-  # [:copyto]
-  #   Label text to show next to the icon before it is clicked.
-  # [:callBack]
-  #   A name of a javascript function to be called after a successful copy
-  #   action. The function will be called with one argument which is the value
-  #   of the <tt>text</tt>, <tt>id</tt>, or <tt>call</tt> parameter, whichever
-  #   was used.
-  def clippy(options={})
-    options = options.symbolize_keys
-    if options[:text].nil? and options[:id].nil? and options[:call].nil?
-      raise(ArgumentError, "at least :text, :id, or :call has to be provided")
-    end
-    bg_color = options.delete(:bg_color)
-    query_string = options.to_query
-
-    <<-EOF
-    <object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000"
-            width="14"
-            height="14"
-            id="clippy-#{ rand().object_id }" >
-    <param name="movie" value="/flash/clippy.swf" />
-    <param name="allowScriptAccess" value="always" />
-    <param name="quality" value="high" />
-    <param name="scale" value="noscale" />
-    <param NAME="FlashVars" value="#{ query_string }">
-    <param name="bgcolor" value="#{ bg_color }">
-    <embed src="/flash/clippy.swf"
-           width="14"
-           height="14"
-           name="clippy"
-           quality="high"
-           allowScriptAccess="always"
-           type="application/x-shockwave-flash"
-           pluginspage="http://www.macromedia.com/go/getflashplayer"
-           FlashVars="#{ query_string }"
-           bgcolor="#{ bg_color }"
-    />
-    </object>
-  EOF
-
-  end
-
   def copyable_field(id, content, opt={})
     opt[:label] ||= id
     content_tag :div, :class => 'input-append copyable-field' do
@@ -94,6 +36,13 @@ module ApplicationHelper
 
   def github_link_to_revision(revision)
     "https://github.com/mconf/mconf-web/commit/#{revision}"
+  end
+
+  def page_title title, opt ={}
+    inside_resource = " #{opt[:in]} &#149;" if opt[:in].present?
+    content_for :title do
+      "#{title} &#149;#{inside_resource} #{current_site.name}".html_safe
+    end
   end
 
   # Ex: asset_exists?('news/edit', 'css')
@@ -128,9 +77,11 @@ module ApplicationHelper
 
   # Renders the partial 'layout/page_title'
   # useful to simplify the calls from the views
+  # Now also sets the html title tag for the page
   # Ex:
   #   <%= render_page_title('users', 'logos/user.png', { :transparent => true }) %>
   def render_page_title(title, logo=nil, options={})
+    page_title title
     block_to_partial('layouts/page_title', options.merge(:page_title => title, :logo => logo))
   end
 
@@ -239,6 +190,12 @@ module ApplicationHelper
   # First 'size' characters of a text
   def first_words(text, size)
     truncate(text, :length => size)
+  end
+
+  # Includes the "*" to denote that a field is required in a form. Useful when we can't use
+  # the standard methods from simple_form for some reason.
+  def form_required_label
+    content_tag :abbr, "*", :title => I18n.t('_other.form.required')
   end
 
   private

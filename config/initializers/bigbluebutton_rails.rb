@@ -9,20 +9,23 @@ Rails.application.config.to_prepare do
   end
   BigbluebuttonRoom.class_eval do
     # Copy of the default Bigbluebutton#join_url with support to :guest
-    def join_url(username, role, password=nil, options={})
+    def join_url(username, role, key=nil, options={})
       require_server
 
       case role
       when :moderator
-        self.server.api.join_meeting_url(self.meetingid, username, self.moderator_password, options)
+        r = self.server.api.join_meeting_url(self.meetingid, username, self.moderator_api_password, options)
       when :attendee
-        self.server.api.join_meeting_url(self.meetingid, username, self.attendee_password, options)
+        r = self.server.api.join_meeting_url(self.meetingid, username, self.attendee_api_password, options)
       when :guest
         params = { :guest => true }.merge(options)
-        self.server.api.join_meeting_url(self.meetingid, username, self.attendee_password, params)
+        r = self.server.api.join_meeting_url(self.meetingid, username, self.attendee_api_password, params)
       else
-        self.server.api.join_meeting_url(self.meetingid, username, password, options)
+        r = self.server.api.join_meeting_url(self.meetingid, username, map_key_to_internal_password(key), options)
       end
+
+      r.strip! unless r.nil?
+      r
     end
 
     # Returns whether the `user` created the current meeting on this room
@@ -35,6 +38,11 @@ Rails.application.config.to_prepare do
       else
         false
       end
+    end
+
+    # Currently room is public only if belonging to a public space
+    def public?
+      owner_type == "Space" && Space.where(:id => owner_id, :public => true).present?
     end
   end
 
@@ -50,6 +58,12 @@ Rails.application.config.to_prepare do
 
   BigbluebuttonMeeting.instance_eval do
     include PublicActivity::Common
+  end
+
+  BigbluebuttonMeeting.class_eval do
+    after_create {
+      self.create_activity :create, :owner => self.room unless self.errors.any? 
+    }
   end
 
 end

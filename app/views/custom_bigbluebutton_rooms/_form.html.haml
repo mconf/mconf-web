@@ -7,23 +7,26 @@
 - else
   - url = bigbluebutton_room_path(room)
 
-= simple_form_for room, :url => url, :html => { :class => 'form-horizontal single-column' } do |f|
+= simple_form_for room, :url => url, :html => { :class => 'single-column' } do |f|
   - if !editing
     = f.input :id, :disabled => true
   = f.input :server_id, :disabled => !editing
   = f.input :name, :disabled => !editing
   = f.input :meetingid, :disabled => !editing
   = f.input :private, :as => :boolean, :disabled => !editing
-  = f.input :attendee_password, :disabled => !editing
-  = f.input :moderator_password, :disabled => !editing
+  = f.input :attendee_key, :disabled => !editing
+  = f.input :moderator_key, :disabled => !editing
+  = f.input :attendee_api_password, :disabled => true
+  = f.input :moderator_api_password, :disabled => true
   = f.input :welcome_msg, :disabled => !editing
   = f.input :logout_url, :disabled => !editing
   = f.input :dial_number, :disabled => !editing
   = f.input :voice_bridge, :disabled => !editing
   = f.input :max_participants, :disabled => !editing
   = f.input :external, :as => :boolean, :disabled => !editing
-  = f.input :record, :disabled => !editing
+  = f.input :record_meeting, :disabled => !editing
   = f.input :duration, :disabled => !editing
+  = f.input :max_participants, :disabled => !editing
   = f.input :param, :disabled => !editing
 
   - if editing

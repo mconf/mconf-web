@@ -3,7 +3,7 @@
 - else
   - private_messages_menu_at :sent
 
-- sender = User.find_by_id_with_disabled(@message.sender_id)
+- sender = User.with_disabled.find(@message.sender_id)
 
 = render_page_title t('.title')
 = render :partial => 'private_messages/menu'
@@ -19,9 +19,9 @@
       - else
         %li= link_to t('back_to_sent').downcase, messages_path(:sent => true)
       - if @is_receiver && @message.sender_id.present?
-        %li= link_to t('remove').downcase, message_path(@message, :private_message => {:deleted_by_receiver => true}), :confirm => t('delete.confirm', :element => @message.title), :method => :delete, :title => t('remove')
+        %li= link_to t('remove').downcase, message_path(@message, :private_message => {:deleted_by_receiver => true}), :data => { :confirm => t('delete.confirm', :element => @message.title) }, :method => :delete, :title => t('remove')
       - else
-        %li= link_to t('remove').downcase, message_path(@message, :private_message => {:deleted_by_sender => true}), :confirm => t('delete.confirm', :element => @message.title), :method => :delete, :title => t('remove')
+        %li= link_to t('remove').downcase, message_path(@message, :private_message => {:deleted_by_sender => true}), :data => { :confirm => t('delete.confirm', :element => @message.title) }, :method => :delete, :title => t('remove')
     .logo-in-thread
       - if sender.disabled?
         = logo_image(sender, :size => '48', :class => "logo logo-user-big")

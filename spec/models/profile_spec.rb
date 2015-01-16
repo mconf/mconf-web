@@ -8,6 +8,87 @@ require "spec_helper"
 
 describe Profile do
 
+  it { should respond_to(:logo_image) }
+  it { should respond_to(:crop_x) }
+  it { should respond_to(:"crop_x=") }
+  it { should respond_to(:crop_y) }
+  it { should respond_to(:"crop_y=") }
+  it { should respond_to(:crop_w) }
+  it { should respond_to(:"crop_w=") }
+  it { should respond_to(:crop_h) }
+  it { should respond_to(:"crop_h=") }
+  it { should respond_to(:crop_img_w) }
+  it { should respond_to(:"crop_img_w=") }
+  it { should respond_to(:crop_img_h) }
+  it { should respond_to(:"crop_img_h=") }
+
+  describe "#correct_url" do
+    let(:profile) { FactoryGirl.create(:profile) }
+    shared_examples_for "url has been corrected" do
+      it { profile.reload.url.should eq(final_url) }
+      it { profile.reload.should be_valid }
+      it { profile.reload.should be_persisted }
+    end
+
+    before { profile.update_attributes(:url => url) }
+
+    context "an url without http://" do
+      let(:url) { 'mysite.com/dsbang' }
+      let(:final_url) { 'http://mysite.com/dsbang' }
+      it_should_behave_like 'url has been corrected'
+    end
+
+    context "a nil url" do
+      let(:url) { nil }
+      let(:final_url) { nil }
+      it_should_behave_like 'url has been corrected'
+    end
+
+    context "an url with http" do
+      let(:url) { 'httpmysite.com/dsbang' }
+      let(:final_url) { 'http://httpmysite.com/dsbang' }
+      it_should_behave_like 'url has been corrected'
+    end
+
+    context "an url with http://" do
+      let(:url) { 'http://mysite.com/dsbang' }
+      let(:final_url) { url }
+      it_should_behave_like 'url has been corrected'
+    end
+
+  end
+
+  describe "#from_vcard" do
+    let(:old_email) { 'old@email.com' }
+    let(:profile) { FactoryGirl.create(:user, email: old_email).profile }
+
+    before { profile.update_attributes(vcard: vcard_file) }
+
+    context 'on success' do
+      let(:vcard_file) { Rack::Test::UploadedFile.new(File.open(File.join(Rails.root, './spec/fixtures/files/example.vcf'))) }
+
+      it { profile.should be_persisted }
+      it { profile.full_name.should eq('Mikael Stanne') }
+      it { profile.organization.should eq('Dark Tranquillity') }
+      it { profile.user.email.should eq(old_email) }
+    end
+
+    context 'on corrupt vcard file' do
+      let(:vcard_file) { Rack::Test::UploadedFile.new(File.open(File.join(Rails.root, './spec/fixtures/files/invalid.vcf'))) }
+
+      it { profile.errors[:vcard].size.should eq(1) }
+      it { profile.full_name.should_not eq('Mikael Stanne') }
+      it { profile.organization.should_not eq('Dark Tranquillity') }
+    end
+
+    context 'on blank vcard file' do
+      let(:vcard_file) { Rack::Test::UploadedFile.new(File.open(File.join(Rails.root, './spec/fixtures/files/invalid2.vcf'))) }
+
+      it { profile.errors[:vcard].size.should eq(1) }
+    end
+
+  end
+
   describe "abilities", :abilities => true do
     set_custom_ability_actions([:update_logo])
     subject { ability }
@@ -86,6 +167,20 @@ describe Profile do
       }
       it_should_behave_like "a profile's ability",
         [:everybody, :members, :public_fellows, :private_fellows]
+    end
+  end
+
+  context "after_update" do
+    let(:user) { FactoryGirl.create(:user) }
+    let(:profile) { user.profile }
+
+    context "updates the name of the user's web conference room" do
+      before(:each) {
+        profile.user.bigbluebutton_room.update_attribute(:name, "name before")
+        profile.update_attributes(:full_name => "name after")
+      }
+
+      it { profile.user.bigbluebutton_room.name.should eq("name after") }
     end
   end
 

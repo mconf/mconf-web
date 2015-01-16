@@ -4,6 +4,36 @@
 #
 # This file is licensed under the Affero General Public License version
 # 3 or later. See the LICENSE file.
+#
+# -------
+# Space is one of the most important models in the application.
+# Spaces consist of a group of multiple users and provide them with a single
+# conference room, a posts wall, document repository and space events.
+#
+# A space can be public or private. Public spaces are open to be read by anyone,
+# even users not logged in. Private spaces can only be read by members and membership
+# has to be requested or granted via invitation or request.
+#
+# == Attributes
+# * +name+ : String with a human friendly name of the space
+# * +permalink+ : The string used to identify the space in URLs
+# * +description+ : Text with a human friendly description of the space
+# * +public+ : A boolean value denoting whether the space is public
+# * +disabled+: A boolean value denoting whether the space has been disabled
+# * +logo_image+: A LogoUploader with the data for the image logo
+# * +repository+: A boolean value denoting whether document repository is enabled for the space
+#
+# == Relations
+# * +users+: List of users belonging to the space (linked via Permission)
+# * +permissions+: Links a user to the space and assigns a roles (see USER_ROLES)
+# * +posts+: Posts made on the space wall
+# * +attachments+: Attachment(s) uploaded to the space repository
+#
+# == Activities
+# * "space.create": When a space is created (parameters: +user_id+, +username+)
+# * "space.update": When a user updates a space (parameters: +user_id+, +username+)
+# * "space.leave": When user leaves a space (parameters: +user_id+, +username+)
+#
 
 class Space < ActiveRecord::Base
   include PublicActivity::Common
@@ -11,39 +41,30 @@ class Space < ActiveRecord::Base
   # TODO: temporary, review
   USER_ROLES = ["Admin", "User"]
 
-  attr_accessible :name, :permalink, :public, :disabled, :repository, :description, :deleted
-
   has_many :posts, :dependent => :destroy
   has_many :news, :dependent => :destroy
   has_many :attachments, :dependent => :destroy
   has_one :bigbluebutton_room, :as => :owner, :dependent => :destroy
 
-  has_many :permissions, :foreign_key => "subject_id",
-           :conditions => { :permissions => {:subject_type => 'Space'} }
+  has_many :permissions, -> { where(:subject_type => 'Space') },
+           :foreign_key => "subject_id"
 
-  has_and_belongs_to_many :users, :join_table => :permissions,
-                          :foreign_key => "subject_id",
-                          :conditions => { :permissions => {:subject_type => 'Space'} }
+  has_and_belongs_to_many :users,  -> { Permission.where(:subject_type => 'Space') },
+                          :join_table => :permissions, :foreign_key => "subject_id"
 
-  has_and_belongs_to_many :admins, :join_table => :permissions,
-                          :class_name => "User", :foreign_key => "subject_id",
-                          :conditions => {
-                            :permissions => {
-                              :subject_type => 'Space',
-                              :role_id => Role.find_by_name('Admin')
-                            }
-                          }
+  has_and_belongs_to_many :admins, -> { Permission.where(:permissions => {:subject_type => 'Space', :role_id => Role.find_by_name('Admin')}) },
+                          :join_table => :permissions, :class_name => "User", :foreign_key => "subject_id"
 
-  has_many :join_requests, :foreign_key => "group_id",
-           :conditions => { :join_requests => {:group_type => 'Space'} }
+  has_many :join_requests, -> { where(:group_type => 'Space') },
+           :foreign_key => "group_id"
 
   if Mconf::Modules.mod_loaded?('events')
-    has_many :events, :class_name => MwebEvents::Event, :foreign_key => "owner_id",
-             :dependent => :destroy, :conditions => {:owner_type => 'Space'}
+    has_many :events, -> { where(:owner_type => 'Space')}, :class_name => MwebEvents::Event,
+             :foreign_key => "owner_id", :dependent => :destroy
   end
 
   # for the associated BigbluebuttonRoom
-  attr_accessible :bigbluebutton_room_attributes
+  # attr_accessible :bigbluebutton_room_attributes
   accepts_nested_attributes_for :bigbluebutton_room
   after_update :update_webconf_room
   after_create :create_webconf_room
@@ -58,14 +79,12 @@ class Space < ActiveRecord::Base
   # 'permalink', so we require it to have have length >= 3
   # TODO: improve the format matcher, check specs for some values that are allowed today
   #   but are not really recommended (e.g. '---')
-  validates :permalink, :uniqueness => { :case_sensitive => false },
-                        :format => /^[A-Za-z0-9\-_]*$/,
-                        :presence => true,
-                        :length => { :minimum => 3 }
-
-  # The permalink has to be unique not only for spaces, but across other
-  # models as well
-  validate :permalink_uniqueness
+  validates :permalink,
+    presence: true,
+    format: /\A[A-Za-z0-9\-_]*\z/,
+    length: { minimum: 3 },
+    identifier_uniqueness: true,
+    room_param_uniqueness: true
 
   # the friendly name / slug for the space
   extend FriendlyId
@@ -81,15 +100,16 @@ class Space < ActiveRecord::Base
   attr_accessor :invitations_role_id
 
   # attrs and methods for space logos
-  attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
+  attr_accessor :crop_x, :crop_y, :crop_w, :crop_h, :crop_img_w, :crop_img_h
   mount_uploader :logo_image, LogoImageUploader
-  attr_accessible :logo_image, :crop_x, :crop_y, :crop_w, :crop_h
   after_create :crop_logo
   after_update :crop_logo
 
-  default_scope :conditions => { :disabled => false }
+  # By default spaces marked as disabled will not show in queries
+  default_scope -> { where(:disabled => false) }
 
-  scope :public, lambda { where(:public => true) }
+  # This scope can be used as a shorthand for spaces marked as public
+  scope :public_spaces, -> { where(:public => true) }
 
   # Finds all the valid user roles for a Space
   def self.roles
@@ -101,66 +121,53 @@ class Space < ActiveRecord::Base
     self.events.upcoming.order("start_on ASC").first(5)
   end
 
-  # Return the number of unique pageviews for this space using the Statistic model.
-  # Will throw an exception if the data in Statistic in incorrect.
-  def unique_pageviews
-    # Use only the canonical aggregated url of the space (all views have been previously added here in the rake task)
-    corresponding_statistics = Statistic.where('url LIKE ?', '/spaces/' + self.permalink)
-    if corresponding_statistics.size == 0
-      return 0
-    elsif corresponding_statistics.size == 1
-      return corresponding_statistics.first.unique_pageviews
-    elsif corresponding_statistics.size > 1
-      raise "Incorrectly parsed statistics"
-    end
-  end
-
   # Add a `user` to this space with the role `role_name` (e.g. 'User', 'Admin').
   # TODO: if a user has a pending request to join the space it will still be there after if this
-  #  method is used, should we check this here?
+  # method is used, should we check this here?
+  #
+  # * +user+: user to be added as member
+  # * +role_name+: A string denoting the role the user should receive after being added
   def add_member!(user, role_name='User')
-    p = Permission.new
-    p.user = user
-    p.subject = self
-    p.role = Role.find_by_name_and_stage_type(role_name, 'Space')
+    p = Permission.new :user => user,
+      :subject => self,
+      :role => Role.find_by(name: role_name, stage_type: 'Space')
+
     p.save!
   end
 
+  # Creates a new activity pertraining this space
   def new_activity key, user, join_request=nil
     if join_request
-      create_activity key, :owner => self, :parameters => { :user_id => user.id, :username => user.name, :join_request_id => join_request.id }
+      create_activity key, :owner => join_request, :parameters => { :user_id => user.id, :username => user.name }
     else
       create_activity key, :owner => self, :parameters => { :user_id => user.id, :username => user.name }
     end
   end
 
   def self.with_disabled
-    where(:disabled => [true, false])
+    self.unscoped
   end
 
   # TODO: review all public methods below
 
-  def self.find_with_disabled *args
-    self.with_exclusive_scope { find(*args) }
-  end
-
-  def self.find_with_disabled_and_param *args
-    self.with_exclusive_scope { find_with_param(*args) }
-  end
-
+  # Disable the space from the website.
+  # This can be used by global admins as a mean to disable access and indexing of this space in all areas of
+  # the site. This acts as if it has been deleted, but the data is still there in the database and the space can be
+  # enabled back with the method 'enable'
   def disable
     self.disabled = true
     self.name = "#{name.split(" RESTORED").first} DISABLED #{Time.now.to_i}"
     save!
   end
 
+  # Re-enables a previously disabled space
   def enable
     self.disabled = false
     self.name = "#{name.split(" DISABLED").first} RESTORED"
     save!
   end
 
-  # Basically checks to see if the given user is the only admin in this space
+  # Checks to see if the given user is the only admin in this space
   def is_last_admin?(user)
     adm = self.admins
     adm.length == 1 && adm.include?(user)
@@ -168,22 +175,26 @@ class Space < ActiveRecord::Base
 
   # Checks to see if 'user' has the role 'options[:name]' in this space
   def role_for?(user, options={})
-    p = permissions.find_by_user_id(user)
-    users.include?(user) && options[:name] == Role.find(p.role_id).name
+    p = permissions.find_by(:user_id => user.id)
+    p.present? && options[:name] == p.role.name
   end
 
+  # Returns a query with pending join requests for this space (that is users that requested membership)
   def pending_join_requests
-    join_requests.where(:processed_at => nil, :request_type => 'request')
+    join_requests.where(:processed_at => nil, :request_type => JoinRequest::TYPES[:request])
   end
 
+  # Returns a query with pending invitations for this space (that is users that were invited by space admins)
   def pending_invitations
-    join_requests.where(:processed_at => nil, :request_type => 'invite')
+    join_requests.where(:processed_at => nil, :request_type => JoinRequest::TYPES[:invite])
   end
 
+  # Returns the join_request model for the given user in this space
   def pending_join_request_or_invitation_for(user)
     join_requests.where(:candidate_id => user, :processed_at => nil).first
   end
 
+  # Denotes whether the user has a pending join request in this space
   def pending_join_request_or_invitation_for?(user)
     !pending_join_request_or_invitation_for(user).nil?
   end
@@ -206,16 +217,10 @@ class Space < ActiveRecord::Base
 
   # Returns whether the space's logo is being cropped.
   def is_cropping?
-    crop_x.present?
+    logo_image.present? && crop_x.present?
   end
 
   private
-
-  def permalink_uniqueness
-    unless User.find_by_username(self.permalink).blank?
-      errors.add(:permalink, "has already been taken")
-    end
-  end
 
   # Creates the webconf room after the space is created
   def create_webconf_room
@@ -223,10 +228,10 @@ class Space < ActiveRecord::Base
       :owner => self,
       :server => BigbluebuttonServer.default,
       :param => self.permalink,
-      :name => self.permalink,
+      :name => self.name,
       :private => !self.public,
-      :moderator_password => SecureRandom.hex(4),
-      :attendee_password => SecureRandom.hex(4),
+      :moderator_key => SecureRandom.hex(4),
+      :attendee_key => SecureRandom.hex(4),
       :logout_url => "/feedback/webconf/"
     }
     create_bigbluebutton_room(params)
@@ -236,8 +241,7 @@ class Space < ActiveRecord::Base
   def update_webconf_room
     if self.bigbluebutton_room
       params = {
-        :param => self.permalink,
-        :name => self.permalink,
+        :name => self.name,
         :private => !self.public
       }
       bigbluebutton_room.update_attributes(params)
@@ -253,6 +257,7 @@ class Space < ActiveRecord::Base
     end
   end
 
+  # Calls uploader methods to create a new image crop
   def crop_logo
     logo_image.recreate_versions! if is_cropping?
   end

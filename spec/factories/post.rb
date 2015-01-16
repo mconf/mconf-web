@@ -6,7 +6,7 @@
 
 FactoryGirl.define do
   factory :post do |p|
-    p.sequence(:title) { |n| Forgery::Basic.unique_text(n) }
+    p.title { Forgery::Basic.text }
     p.text { Forgery::Basic.text }
     p.created_at { Time.now }
     p.updated_at { Time.now }

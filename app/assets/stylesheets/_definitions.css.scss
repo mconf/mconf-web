@@ -89,6 +89,11 @@ $z-index-navbar: 100;
 $z-index-dialog: 200;
 $z-index-tooltip: 999999;
 
+// mailers
+$mail-font-color: $font-color;
+$mail-header-font-color: $navbar-bg-color-dark;
+$mail-font-size: $font-normal;
+
 // In some browsers (e.g. firefox) when an image is not found it is replaced by the alternative
 // text set to it, and the dimensions of the image won't respect the width/height set by the css.
 // This might break the layout in some cases.
@@ -224,6 +229,12 @@ $z-index-tooltip: 999999;
       border-width: 1px;
     }
   }
+}
+
+@mixin small-date {
+  color: #666;
+  font-weight: normal;
+  @include font-size($font-small);
 }
 
 // UFRGS

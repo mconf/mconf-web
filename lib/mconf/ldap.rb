@@ -113,9 +113,10 @@ module Mconf
         user.skip_confirmation!
         unless user.save
           Rails.logger.error "LDAP: error while saving the user model"
-          Rails.logger.error "Errors: " + user.errors.messages.join(", ")
+          Rails.logger.error "Errors: " + user.errors.full_messages.join(", ")
           user = nil
         end
+        send_notification(user)
       end
       user
     end
@@ -137,6 +138,13 @@ module Mconf
         name = ldap_user.cn
       end
       [username, email, name]
+    end
+
+    # Sending a notification email to a user that registered
+    def send_notification(user)
+      if user.present? && user.errors.blank?
+        UserMailer.registration_notification_email(user.id).deliver
+      end
     end
 
   end

@@ -1,4 +1,4 @@
---- 
+---
 en:
   activerecord:
     attributes:
@@ -10,6 +10,10 @@ en:
         format_type: Type
         length: Length
         url: URL
+      bigbluebutton_playback_type:
+        default: Default
+        name: Name
+        visible: Visible
       bigbluebutton_recording:
         description: "Description"
         end_time: "End Time"
@@ -22,22 +26,22 @@ en:
         server_id: "Server ID"
         start_time: "Start Time"
       bigbluebutton_room:
-        attendee_password: "Attendee Password"
-        default_layout: "Default Layout"
-        presenter_share_only: "Only presenter shares audio and video"
         auto_start_video: "Auto start video"
         auto_start_audio: "Auto start audio"
+        attendee_key: "Key for attendees"
+        default_layout: "Default Layout"
         dial_number: "Dial Number"
         duration: Duration
-        external: "Externally created"
+        external: "Externally Created"
         logout_url: "Logout URL"
         max_participants: "Maximum Number of Participants"
         meetingid: "Meeting ID"
         metadata: Metadata
-        moderator_password: "Moderator Password"
+        moderator_key: "Key for moderators"
         name: Name
         param: "String ID"
         private: Private
+        presenter_share_only: "Only presenter shares audio and video"
         record: Record
         server_id: "Server ID"
         voice_bridge: "Voice Bridge"
@@ -59,7 +63,16 @@ en:
     metadata:
       errors:
         name_format: "can only use letters, numbers and the symbols \"-\" or \"_\", but only letters at the beginning"
+    playback_types:
+      notice:
+        update:
+          success: "The playback type was successfully updated."
+      presentation: "Play"
+      presentation_export: "Download HTML"
+      presentation_video: "Download"
     recordings:
+      default:
+        description: "Meeting held on %{time} (UTC)"
       errors:
         check_for_server:
           no_server: "There's no server associated with this recording."
@@ -76,15 +89,15 @@ en:
         update:
           success: "Your recording was successfully updated."
     rooms:
-      default_welcome_msg: "Welcome to the conference <b>%{name}!</b><br/><br/>To join the audio conference from a SIP phone, dial %{voice_number}.<br/><br/>If you need help using the conference client <u><a href=\"http://www.bigbluebutton.org/videos/\">check out these videos</a></u>."
+      default_welcome_msg: "Welcome to <b>%%CONFNAME%%</b>!<br><br>To join the audio bridge click the headset icon (upper-left hand corner). Use a headset to avoid causing background noise for others.<br>"
       errors:
-        auth:
+        fetch_recordings:
+          no_server: "There's no server associated with this room."
+        join:
           cannot_create: "You don't have permissions to start this meeting."
           failure: "Authentication failure."
           not_running: "The meeting is not running. You must wait for a moderator to join."
           wrong_params: "Wrong params in your request."
-        external:
-          blank_meetingid: "You must specify the meetingid of the meeting you want to join"
         param_format: "can only use letters, numbers and the symbols \"-\" or \"_\" (not at the begin or end)"
         server:
           nil: "Your room must be associated to a server to execute this operation."
@@ -98,6 +111,8 @@ en:
         end:
           not_running: "The meeting could not be ended because it is not running."
           success: "The meeting was successfully ended."
+        fetch_recordings:
+          success: "The list of recordings for this room was successfully updated."
         update:
           failure: "Your room could not be updated."
           success: "Your room was successfully updated."

@@ -13,6 +13,7 @@ en:
       space:
         create_html: "A meeting was started on the space %{owner} at %{time}"
     join_request:
+      deleted: that has since been deleted
       invite_html: "was invited to join the space"
       invite_with_introducer_html: "was invited by <a href=\"%{introducer_url}\">%{introducer}</a> to join the space"
       request_html: "has requested to join the space"
@@ -36,11 +37,11 @@ en:
       reply_html: replied to %{name} in the space
       deleted: a message that has since been deleted
     space:
+      accept_html: has joined the space
       create_html: created a new space
-      update_html: updated info on space
-      join_html: has joined the space
-      leave_html: has left the space
       deleted: a space that has since been deleted
+      leave_html: has left the space
+      update_html: updated info on space
   _js:
     confirmation_dialog:
       cancel: "Cancel"
@@ -51,13 +52,17 @@ en:
     cancel: "Cancel"
     create: "Create"
     datetimepicker:
-      format: "MM/dd/yyyy hh:mm"
-      format_rails: "%m/%d/%Y %H:%M %Z"
+      format_display: "%m/%d/%Y"
+      format: "MM-dd-yyyy"
+      format_rails: "%m/%d/%Y %H:%M %z"
+    decline: "Decline"
     deny: "Deny"
     destroy: "Destroy"
     details: "Details"
     edit: "Edit"
     end: "End"
+    form:
+      required: "required"
     index: Listing
     in_place_edit:
       error: "error"
@@ -87,8 +92,9 @@ en:
     user:
       administrator: "Global administrator"
       normal_user: "Normal user"
-      guest: Guest
-      guest_name: "Guest User \(%{email}\)"
+      unapproved_user: "Waiting approval by admin"
+      guest: "Guest"
+      guest_name: "Guest User (%{email})"
       removed: "<user removed>"
     yes_: "Yes"
     webconference:
@@ -109,7 +115,7 @@ en:
     attributes:
       invite:
         ends_on: "Ends on"
-        message: "Comments"
+        message: "Description"
         starts_on: "Starts on"
         title: "Title"
         users: "Users"
@@ -147,9 +153,9 @@ en:
         description: "Description"
         domain: "Application domain"
         events_enabled: "Enable event module"
-        exception_notifications: "Send email on error"
-        exception_notifications_email: "Debug emails recipients"
-        exception_notifications_prefix: "Debug emails subject prefix"
+        exception_notifications: "Send exception notifications"
+        exception_notifications_email: "Exception notifications recipients"
+        exception_notifications_prefix: "Exception notifications subject prefix"
         external_help: "External help/FAQ page"
         feedback_url: "Feedback URL"
         ldap_enabled: "LDAP: Enable authentication"
@@ -190,9 +196,9 @@ en:
         xmpp_server: "XMPP Server Address"
         webconf_auto_record: "Automatically set the recording flag when creating a web conference"
       space:
-        attendee_password: "Attendee password"
+        attendee_key: "Key for attendees"
         description: "Description"
-        moderator_password: "Moderator password"
+        moderator_key: "Key for moderators"
         name: "Name"
         permalink: "Identifier"
         public: "Public"
@@ -384,9 +390,9 @@ en:
       bbb: "Invite users to your BBB room"
       button: "Invite Users"
       hint: "Type to start searching"
-      msg: "Has invited you to participate in a webconference, follow this link: <a href=\' URL \'> URL </a>"
+      msg: "Has invited you to participate in a webconference, follow this link: <a href='URL'> URL </a>"
       msg_clean: "Has invited you to participate in a webconference, follow this link: URL"
-      msg_sender: "Invitation sent. Link to your room: <a href=\' URL \'> URL </a>"
+      msg_sender: "Invitation sent. Link to your room: <a href='URL'> URL </a>"
     me: "me"
     name: 
       one: "Name"
@@ -423,6 +429,9 @@ en:
     other: Comments
     show_all: "Show all comments"
   configurations: Configurations
+  confirmations:
+    check_already_confirmed:
+      already_confirmed: "You have already confirmed you account"
   contact_information: "Contact information"
   country: Country
   create: Create
@@ -431,7 +440,14 @@ en:
   crop_image: 
     description: "Select a part of the image to crop"
     title: "Crop image"
-  custom_bigbluebutton_rooms: 
+  custom_bigbluebutton_playback_types:
+    index:
+      default: "Default"
+      description: "Playback types are the types of playbacks available for recordings. This list is automatically filled when the recordings are fetched from the web conference servers. You can hide playback types from the interface, unchecking the visible checkbox, and change the default playback, the one shown always at the top when listing the links to all playbacks available."
+      list_of_playback_types: "List of playback types"
+      name: "Name"
+      visible: "Visible"
+  custom_bigbluebutton_rooms:
     _other:
       fetch_recordings: "Fetch recordings"
       invite: "Invite"
@@ -460,7 +476,7 @@ en:
     invite:
       field_name: "You are joining as"
       field_password: "Enter the access key for this meeting"
-      title: "Join room: <em>%{name}</em>"
+      title: "Join room: %{name}"
     invite_header:
       not_running: "not running"
       refresh: "This information is updated automatically"
@@ -482,7 +498,9 @@ en:
         name: "Your full name"
         next: "Next"
         title: "I don't have an account, I will join this room as a guest"
-      title: "Join the room: <em>%{name}</em>"
+      title: "Join the room: %{name}"
+    join:
+      user_limit_exceeded: "This meeting has reached its limit of participants. Contact the person responsible for the meeting for more information."
     join_mobile:
       click_to_download_android: "Click here to download the Android client"
       click_to_download_ios: "Click here to download the Apple iOS (iPad, iPhone) client"
@@ -513,8 +531,10 @@ en:
         room_meetingid: "Meeting ID"
         room_name: "Room name"
     send_invitation:
+      blank_users: "No user selected, no invitation was sent"
       error: "Invitation failed to be sent to:"
-      error_date_format: "The dates you informed are not in a valid format, please try again"
+      error_date_format: "The dates you informed are invalid, please try again"
+      error_title: "It is mandatory to include a title for your invitation, please try again"
       success: "Invitation successfully sent to:"
     show:
       showing_room: "Showing room '%{room}'"
@@ -526,6 +546,7 @@ en:
     index:
       list_of_recordings: "List of all recordings available"
     recording_links:
+      direct_link: "Direct link"
       playback_links: "Playbacks available"
     recordings:
       table:
@@ -586,10 +607,16 @@ en:
   devise:
     failure:
       user:
-        not_approved: 'Your account has not been approved by an administrator yet.'
+        not_approved: "Your account has not yet been approved by an administrator."
+    mailer:
+      confirmation_instructions:
+        confirmation_link: "Confirm my account"
+        confirmation_ok: "You can confirm your account email through the link below:"
+        confirmation_pending: "Your account was created and is waiting the approval of an administrator."
+        welcome: "Welcome %{email}!"
     registrations:
-      not_enabled: 'Registration of new accounts is not enabled in this website.'
-      signed_up_but_not_approved: 'You have signed up successfully but your account has still to be approved by an administrator'
+      not_enabled: "Registration of new accounts is not enabled in this website."
+      signed_up_but_not_approved: ""
     shared:
       links:
         login:
@@ -650,7 +677,7 @@ en:
       title: "Forbidden"
     e404: 
       description: "Oops, the page \"%{url}\" does not exist."
-      title: "404"
+      title: "Not found"
     e500: 
       description: "We're sorry, but something went wrong. We've been notified about this issue and we'll take a look at it shortly."
       title: "Error"
@@ -769,9 +796,8 @@ en:
   join: Join
   join_cam: Participate
   join_requests:
-    asked_anonymous: "Someone wants to participate in %{space} space administered by you:"
-    asked_anonymous_full: "Someone wants to participate in %{space} space administered by you: %{comment} <br/><br/><p>To answer the request please visit <a href=\"%{url}\">%{url}</a></p><p>If you believe this message is a spam, please <a href=\"mailto:%{contact}\"> contact us </a> or send us <a href=\"%{feedback}\"> feedback.</a></p><p>%{signature}</p>"
-    asked_full: "<b>%{candidate}</b> wants to participate in %{space} space administered by you: %{comment} <br/><br/><p>To answer the request please visit <a href=\"%{url}\">%{url}</a></p><p>If you believe this message is a spam, please <a href=\"mailto:%{contact}\"> contact us </a> or send us <a href=\"%{feedback}\"> feedback.</a></p><p>%{signature}</p>"
+    accept:
+      accepted: "Join request accepted"
     create:
       already_invited: "The following users already have an invitation pending: %{users}"
       already_a_member: "%{name} is already a member"
@@ -780,17 +806,19 @@ en:
       error: "Something went wrong when processing your request, please try again. (details: %{errors})"
       sent: "Your invitation was successfully sent to: %{users}"
       user_not_found: "User not found: %{id}"
-    destroy:
-      success: "Join request successfully cancelled"
+    decline:
+      declined: "Join request declined"
+      invitation_destroyed: "Invitation successfully cancelled"
+      request_destroyed: "Join request successfully cancelled"
     index:
       accept: "Accept join request by %{user}?"
       accept_as: "as"
       deny: "Cancel join request by %{user}?"
-      not_pending:
-        other: "There are no pending join requests"
+      no_pending_invitations: "There are no pending invitations"
+      no_pending_requests: "There are no pending join requests"
       or: "or"
-      pending:
-        other: "Pending join requests"
+      pending_invitations_title: "Pending invitations"
+      pending_requests_title: "Pending join requests"
       user_message: "Message"
     invitation:
       cancel: "Cancel invitation to %{user}?"
@@ -808,21 +836,30 @@ en:
       already_invited: "You already have an invitation to join this space! Go to the space's home page to see it"
       already_requested: "You already requested to join this space! Please wait for an administrator to accept it."
       message_title: "Send a join request to the administrators of the space"
+    request:
+      decline_confirmation: "Are you sure you want to decline this join request?"
     show:
-      accept: "Yes, I want to join!"
+      accept: "Accept"
       already_accepted: "... but you're already a member of this space."
-      comment_invitation: "This is the comment written by %{name}:"
-      comment_request: "This request was already sent to the admins of the space, please wait for a response. This is the comment you wrote:"
-      decline: "No, not now"
-      decline_confirmation: "Are you sure you want to decline the invitation to join this space?"
-      remove: "Cancel this request"
-      remove_confirmation: "Are you sure you want to cancel the request to join this space?"
-      title_invitation: "You were invited to join the space \"%{name}\" on %{date}"
-      title_request: "You sent a join request to the space \"%{name}\" on %{date}"
-    update:
-      accepted: "Join request accepted"
-      updated: "Join request status updated"
-      declined: "Join request declined"
+      cancel_invite: "Cancel this invitation"
+      cancel_invite_confirmation: "Are you sure you want to cancel this invitation?"
+      cancel_request: "Cancel this request"
+      cancel_request_confirmation: "Are you sure you want to cancel the request to join this space?"
+      decline: "Decline"
+      decline_invite_confirmation: "Are you sure you want to decline the invitation to join this space?"
+      decline_request_confirmation: "Are you sure you want to decline the request to join this space?"
+      is_candidate:
+        comment_invitation: "This is the comment written by %{name}:"
+        comment_request: "This request was already sent to the admins of the space, please wait for a response. This is the comment you wrote:"
+        title_invitation: "You were invited by \"%{introducer}\" on %{date} to join the space \"%{space}\""
+        title_request: "You requested to join the space \"%{space}\" on %{date}"
+      is_introducer:
+        comment_invitation: "This is the comment you wrote:"
+        title_invitation: "You invited \"%{candidate}\" on %{date} to join the space \"%{space}\""
+      is_other:
+        comment_request: "This is the comment written by \"%{name}\":"
+        title_invitation: "\"%{introducer}\" invited \"%{candidate}\" on %{date} to join the space \"%{space}\""
+        title_request: "\"%{candidate}\" requested on %{date} to join the space \"%{space}\""
   keywords: "Keywords (*)"
   language: Language
   last_week: "Last week"
@@ -867,6 +904,7 @@ en:
   locales: 
     en: English
     pt-br: "Português (Brasil)"
+    error: "Locale not registered"
   login_or_register: "Login / Register"
   login_request: "You need to be logged in to "
   logo: 
@@ -880,6 +918,7 @@ en:
     crop:
       crop_it: "Crop it!"
       preview: "Preview"
+      aspect_ratio: Fixed aspect ratio
   logout: Logout
   manage:
     disabled_space:
@@ -895,6 +934,8 @@ en:
     enabled_user:
       approve: "Approve: allow this user to access the website"
       approve_confirm: "Are you sure you want to allow this user to access the website?"
+      confirm: "Confirm this user"
+      confirm_confirm: "Are you sure you want to confirm this user?"
       disable: "Disable user"
       disable_confirm: "Are you sure you want to disable this user?"
       disapprove: "Disapprove: block user from accessing the website"
@@ -934,6 +975,7 @@ en:
     users:
       filter_name_or_username: "Name, username or email"
       filter_results: "Filter the results:"
+      new_user: "Create user"
     users_list:
       filter_count_with_text: "Found %{count} users for filter \"%{value}\""
       filter_count_empty: "Found %{count} users"
@@ -966,6 +1008,12 @@ en:
   more: more...
   more_arrows: "more >>"
   my:
+    approval_pending:
+      title: Pending approval
+      description: You have registered succesfully and your account was submitted to the approval of an administrator. You will be contacted when you account is approved.
+      interesting_links: "Meanwhile you can browse these open sections of the website:"
+      events_list: list of events
+      spaces_list: list of spaces
     page_header:
       activity_list: "Activity list"
     home:
@@ -973,7 +1021,7 @@ en:
       events:
         other: "Other"
         today: "Today"
-      not_confirmed: "Your account is not activated yet. Please, check your email to activate it. (Did not receive an email? <a href=\"%{url}\">Click here</a>.)"
+      not_confirmed: "Your account is not activated yet, please check your email to activate it. In case you didn't receive an email, <a href=\"%{url}\">click here</a> to request a new one."
       pending_join_requests:
         one: "%{count} pending join request"
         other: "%{count} pending join requests"
@@ -1130,10 +1178,11 @@ en:
       user_not_registered: "This user is no longer registered, you won't be able to respond to this message."
     show: 
       title: "Private Messages"
-    show_received: 
+    show_received:
       wrote: wrote
     show_sent: 
-      wrote: wrote
+      wrote_to: Sent
+      titled: the message
   profile: 
     deleted: "Profile deleted successfully"
     description: 
@@ -1267,17 +1316,16 @@ en:
     copy_modal:
       title: Press Ctrl+C to copy the text
       success: Text copied to clipboard
-    recording_duration:
-      duration: "Duration"
-      ended_at: "Ended at"
     recording_list:
       created: "Created"
       created_by: "Created by"
+      ended_at: "Ended at"
       no_description: "<no description specified>"
       no_recordings: "Your web conference room has no recordings yet"
       no_title: "<no title specified>"
-      started_at: "Started at"
+      started_at: "The meeting happened at"
     recording_playback:
+      duration: "duration"
       playback: "Playback links"
       processing_dots: "Processing, please wait..."
       processing_tip: "This recording was found in one of the servers but is still being processed. When the processing finishes the links for playback will be available here."
@@ -1286,6 +1334,7 @@ en:
     webconf_index_links:
       new_room: "New room"
       new_server: "New server"
+      view_playback_type_list: "View playback type list"
       view_recording_list: "View recording list"
       view_room_list: "View room list"
       view_server_list: "View server list"
@@ -1321,6 +1370,8 @@ en:
       invalid_parameters: "Your request was invalid, please try again."
     info:
       title: "Your data from the federation"
+    login:
+      local_account_disabled: "Sorry but you can't sign in, your account is disabled. Please contact an adminstrator to solve the problem."
   show: Show
   show_advanced_editor: "Show advanced editor"
   show_list_version_arrows: "show list version >>"
@@ -1329,6 +1380,8 @@ en:
     label: "Insert here the text from the image"
     message: 
       user: "is incorrect"
+  site:
+    updated: "Site configurations updated"
   size: Size
   skype: Skype
   space: 
@@ -1367,6 +1420,7 @@ en:
       select_at_left: "Select a space in the list to see it's description here"
       user_is_member: "You are a member!"
     is_private: "is a private space. Send a join request to the administrator of this space to let you in"
+    is_private_html: "%{name} is a private space. To access it, sign in and send a <a href=\"%{path}\">join request</a> to the administrators of this space."
     join: "Join this space"
     join_invitation: 
       clarify_registered: "Please introduce password in order to join this space."
@@ -1469,6 +1523,7 @@ en:
     error:
       already_invited: "You were already invited to join this space, please accept or decline the invitation"
       need_join_to_access: "You need to join this space to access it. Send a join request to the administrators."
+      not_found: "The space \"%{permalink}\" was not found. <br> Would you like to search for it in <a href=\"%{path}\">all spaces</a>?"
     index: 
       create_new_space: "Create a new space"
       list_format: 
@@ -1557,8 +1612,10 @@ en:
       invite: "Invite other people"
       webconference:
         attendees:
+          all_users: "All users"
           nobody: "There is nobody currently in the room."
           people_in_the_room: "People in the room"
+          registered_users: "Registered users"
         description:
           header: "Webconference access"
           text: "The webconference room associated with this space is currently: <em>%{status}</em> <br/> Use the buttons in the sidebar at the right to join the webconference."
@@ -1721,6 +1778,11 @@ en:
     approve:
       approved: "The user %{username} was approved to access the website!"
       not_enabled: "Approval of registrations is not enabled in this website"
+    create:
+      error: "Errors creating the user: %{errors}"
+      success: "User created successfully"
+    confirm:
+      confirmed: "The user %{username} was confirmed"
     detailed_user:
       from: "From:"
     disapprove:
@@ -1733,6 +1795,8 @@ en:
       cancel_account: "Cancel account?"
       change_password: "Change password"
       click_to_edit_profile: "Click here to edit your profile"
+      confirm_user: "Confirm this user's account"
+      confirm_user_confirm: "Are you sure you want to confirm this user's account?"
       did_not_find_info: "Didn't find the information you were looking for?"
       disable: "Disable this user's account"
       disable_confirm: "Are you sure you want to disable this user's account?"
@@ -1743,7 +1807,7 @@ en:
       ldap:
         title: "You are signed in using LDAP!"
       management_options: "Management options"
-      not_confirmed: "Your account is not activated yet. Please, check your email to activate it. (Did not receive an email? <a href=\"%{url}\">Click here</a>.)"
+      not_confirmed: "Your account is not activated yet, please check your email to activate it. In case you didn't receive an email, <a href=\"%{url}\">click here</a> to request a new one."
       notification:
         by_email: "By email"
         by_private_message: "By private message"
@@ -1758,6 +1822,13 @@ en:
         weekly: "Every week"
       title: "Edit your account"
       yes_cancel_account: "Yes, cancel my account"
+    errors:
+      access_forbidden: "This operation is only available to administrators"
+    new:
+      create:
+        success: "User created. This user is already confirmed and can access the website at any time."
+        error: "Error(s) while create the new user"
+      title: "Create user"
   username: Username
   uploader:
     button: Upload new file

@@ -1,35 +1,40 @@
+- page_title t('home.my')
+
 = content_for :page_header do
-  = render :partial => "page_header"
+  = render  partial: "page_header"
 
 = content_for :sidebar do
 
   - unless @user_pending_spaces.empty?
     = render_sidebar_content_block('user-pending-join-requests') do
       .content-block-header
-        %h3= t(".pending_join_requests", :count => @user_pending_spaces.count).html_safe + ": "
+        %h3= t(".pending_join_requests",  count: @user_pending_spaces.count).html_safe + ": "
         = icon_info t('.pending_join_requests_tooltip')
       .content-block-middle
-        = render 'my/pending_spaces', :user => current_user, :spaces => @user_pending_spaces
+        = render 'my/pending_spaces',  user: current_user,  spaces: @user_pending_spaces
 
   = render_sidebar_content_block('user-space-list') do
     .content-block-header
       %h3= t('home.my_spaces')
     .content-block-middle
-      = render 'users/user_spaces', :user => current_user, :spaces => @user_spaces
+      - if @user_spaces.empty?
+        %p= t('home.no_spaces',  link: spaces_path).html_safe
+      - else
+        = render "spaces/list_view",  spaces: @user_spaces,  user_spaces: @user_spaces
     .content-block-footer
-      = link_to new_space_path, :class => "btn btn-mini btn-primary", :style => "float:left;" do
+      = link_to new_space_path,  class: "btn btn-mini btn-primary",  style: "float:left;" do
         = t('.create_space')
       = link_to t('.view_all_spaces'), spaces_path
 
 - unless current_user.confirmed?
   #user-notifications.alert.alert-warning
-    = t('.not_confirmed', :url => new_user_confirmation_path).html_safe
+    = t('.not_confirmed',  url: new_user_confirmation_path).html_safe
 
 #users-recent-activity.content-block
   .content-block-header
     %h3= t('recent.activity')
     = icon_info t('recent_activity.tooltip')
   #users-recent-activity-content.content-block-middle
-    = render "users/recent_activity_content", :content => @all_contents, :paginate => false
+    = render "users/recent_activity_content", content: @all_contents, paginate: false
   .content-block-footer.content-block-footer-fancy
     = link_to t('.view_all_activity'), my_activity_path

@@ -1,3 +1,5 @@
+- page_title t('spaces.menu.webconference'), :in => @space.name
+
 - spaces_menu_at :webconference
 = render :partial => 'spaces/menu'
 
@@ -10,7 +12,7 @@
   .content-block-middle
     - if @webconf_room.is_running? && can?(:end, @webconf_room)
       .end-meeting
-        = link_to t('.end'), end_bigbluebutton_room_path(@webconf_room, :redir_url => my_home_path), options_for_tooltip(t('.end_tooltip'), :confirm => t('are_you_sure'), :class => 'btn btn-small btn-danger')
+        = link_to t('.end'), end_bigbluebutton_room_path(@webconf_room, :redir_url => my_home_path), options_for_tooltip(t('.end_tooltip'), :data => { :confirm => t('are_you_sure') }, :class => 'btn btn-small btn-danger')
 
     - cls = @webconf_room.is_running? ? "running" : "not-running"
     .description-text{ :class => cls }
@@ -36,8 +38,19 @@
       = t('.webconference.attendees.people_in_the_room')
       = "(#{@webconf_room.participant_count})"
   .content-block-middle
-    - if @webconf_attendees.count == 0
+    - if @webconf_room.participant_count == 0
       = t('.webconference.attendees.nobody')
     - else
+      #webconference-all-users
+        %h4= t('.webconference.attendees.all_users') + ":"
+        - @webconf_room.attendees.each_with_index do |attendee, i|
+          - if attendee.role == :moderator
+            = icon_user title: "Moderator"
+          %span
+            - unless i == @webconf_room.attendees.count-1
+              = "#{attendee.full_name}, "
+            - else
+              = attendee.full_name
+      %h4= t('.webconference.attendees.registered_users') + ":"
       - @webconf_attendees.each do |user|
         = render :partial => 'users/simple_user', :locals => { :user => user }

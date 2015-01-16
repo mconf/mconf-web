@@ -5,18 +5,19 @@
     .thread-actions
       - target = jr.candidate ? jr.candidate.name : jr.email
       - if !jr.processed?
-        - if can?(:destroy, jr)
-          = link_to t('_other.cancel'), space_join_request_path(@space, jr), :confirm => t('.cancel', :user => target), :method => :delete, :title => t('delete.one'), :class => 'btn btn-danger btn-small'
+        - if can?(:decline, jr)
+          = link_to t('_other.cancel'), decline_space_join_request_path(@space, jr), :data => { :confirm => t('.cancel', :user => target) }, :method => :post, :class => 'btn btn-danger btn-small'
       - else
-        %p=t('join_requests.show.already_accepted')
+        %p= t('join_requests.show.already_accepted')
 
     .thread-title
       = jr.candidate ? link_to(jr.candidate.name, user_path(jr.candidate)) : jr.email
       .user-email
         = "(#{jr.candidate.username}, #{jr.candidate.email})"
-      - if jr.request_type == 'invite'
+      - if jr.is_invite?
         = t('.invited_as') + ':'
         %b= t("activerecord.attributes.roles.name_#{jr.role.downcase}")
     .thread-text
-      %span= t('.message_sent') + ':'
-      %blockquote.user-comment= jr.comment
+      - unless jr.comment.blank?
+        %span= t('.message_sent') + ':'
+        %span= "\"#{jr.comment}\""

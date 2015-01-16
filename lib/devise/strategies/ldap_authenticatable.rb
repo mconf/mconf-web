@@ -6,7 +6,10 @@ module Devise
     class LdapAuthenticatable < Authenticatable
 
       def valid?
-        ldap_enabled?
+        # disable this auth method if not coming from the sessions controller
+        # this strategy is called from other places as well, like after registering
+        # leaving it enabled for all controllers can generate a few errors
+        ldap_enabled? && params && params[:controller] == "sessions"
       end
 
       def authenticate!
@@ -17,13 +20,23 @@ module Devise
           ldap.auth(configs.ldap_user, configs.ldap_user_password)
 
           # Tries to bind to the ldap server
-          if bind_error = ldap_bind(ldap)
+          begin
+            bind_error = ldap_bind(ldap)
+          rescue Net::LDAP::LdapError => e
+            Rails.logger.error "LDAP: exception: #{e.inspect}"
+            bind_error = :server_error
+          end
+
+          if bind_error
             case bind_error
             when :timeout
               Rails.logger.error "LDAP: authentication failed: timeout when trying to connect to the LDAP server"
               fail(I18n.t('devise.strategies.ldap_authenticatable.invalid_bind'))
             when :bind
               Rails.logger.error "LDAP: authentication failed: initial bind failed"
+              fail(I18n.t('devise.strategies.ldap_authenticatable.invalid_bind'))
+            when :server_error
+              Rails.logger.error "LDAP: unknown server error or invalid response"
               fail(I18n.t('devise.strategies.ldap_authenticatable.invalid_bind'))
             end
 
@@ -64,8 +77,14 @@ module Devise
                   Rails.logger.error "LDAP: authentication failed: application wasn't able to create a new user"
                   fail(I18n.t('devise.strategies.ldap_authenticatable.create_failed'))
                 else
-                  ldap_helper.sign_user_in(user)
-                  success!(user)
+                  if user.active_for_authentication?
+                    ldap_helper.sign_user_in(user)
+                    success!(user)
+                  else
+                    # throw the not_approved error that will take the user to the pending approval page
+                    throw(:warden, message: :not_approved)
+                  end
+
                 end
               end
             end

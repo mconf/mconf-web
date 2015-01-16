@@ -17,16 +17,15 @@ class ShibbolethController < ApplicationController
   before_filter :check_shib_enabled, :except => [:info]
   before_filter :check_current_user, :except => [:info]
   before_filter :load_shib_session
+  before_filter :save_shib_to_session, only: [:login]
   before_filter :check_shib_always_new_account, :only => [:create_association]
 
   # Log in a user using his shibboleth information
   # The application should only reach this point after authenticating using Shibboleth
   # The authentication is currently made with the Apache module mod_shib
   def login
-    @shib.save_to_session(request.env, Site.current.shib_env_variables)
-
     unless @shib.has_basic_info
-      logger.error "Shibboleth: couldn't basic user information from session, " +
+      logger.error "Shibboleth: couldn't find basic user information from session, " +
         "searching fields #{@shib.basic_info_fields.inspect} " +
         "in: #{@shib.get_data.inspect}"
       @attrs_required = @shib.basic_info_fields
@@ -37,17 +36,31 @@ class ShibbolethController < ApplicationController
 
       token = @shib.find_token()
 
-      # there's a token with a user associated, logs the user in
-      unless token.nil? || token.user.nil?
-        logger.info "Shibboleth: logging in the user #{token.user.inspect}"
-        logger.info "Shibboleth: shibboleth data for this user #{@shib.get_data.inspect}"
-        sign_in token.user
-        flash.keep # keep the message set before by #create_association
-        redirect_to after_sign_in_path_for(token.user)
+      # there's a token with a user associated
+      if !token.nil? && !token.user_with_disabled.nil?
+        user = token.user_with_disabled
+        if user.disabled
+          logger.info "Shibolleth: user local account is disabled, can't login"
+          flash[:error] = t('shibboleth.login.local_account_disabled')
+          redirect_to root_path
+        else
+          # the user is not disabled, logs the user in
+          logger.info "Shibboleth: logging in the user #{token.user.inspect}"
+          logger.info "Shibboleth: shibboleth data for this user #{@shib.get_data.inspect}"
+          if token.user.active_for_authentication?
+            sign_in token.user
+            flash.keep # keep the message set before by #create_association
+            redirect_to after_sign_in_path_for(token.user)
+          else
+            # go to the pending approval page without a flash msg, the page already has a msg
+            flash.clear
+            redirect_to my_approval_pending_path
+          end
+        end
 
       # no token means the user has no association yet, render a page to do it
       else
-        unless get_always_new_account
+        if !get_always_new_account
           logger.info "Shibboleth: first access for this user, rendering the association page"
           render :associate
         else
@@ -89,7 +102,13 @@ class ShibbolethController < ApplicationController
   private
 
   def load_shib_session
+    logger.info "Shibboleth: creating a new Mconf::Shibboleth object"
     @shib = Mconf::Shibboleth.new(session)
+  end
+
+  def save_shib_to_session
+    logger.info "Shibboleth: saving env to session"
+    @shib.save_to_session(request.env, current_site.shib_env_variables)
   end
 
   # Checks if shibboleth is enabled in the current site.
@@ -131,21 +150,21 @@ class ShibbolethController < ApplicationController
     if token.user.nil?
 
       token.user = shib.create_user
-      unless token.user.nil?
-        if token.user.errors.empty?
-          logger.info "Shibboleth: created a new account: #{token.user.inspect}"
-          token.data = shib.get_data()
-          token.save! # TODO: what if it fails
-          flash[:success] = t('shibboleth.create_association.account_created', :url => new_user_password_path)
-        else
-          token.destroy
-          logger.info "Shibboleth: error saving the new user created: #{token.user.errors.full_messages}"
-          flash[:error] = t('shibboleth.create_association.error_saving_user', :errors => token.user.errors.full_messages.join(', '))
-        end
+      user = token.user
+      if user && user.errors.empty?
+        logger.info "Shibboleth: created a new account: #{user.inspect}"
+        token.data = shib.get_data
+        token.save! # TODO: what if it fails
+        flash[:success] = t('shibboleth.create_association.account_created', url: new_user_password_path)
       else
+        logger.info "Shibboleth: error saving the new user created: #{user.errors.full_messages}"
+        if User.where(email: user.email).count > 0
+          logger.info "Shibboleth: there's already a user with this email #{shib.get_email}"
+          flash[:error] = t('shibboleth.create_association.existent_account', email: shib.get_email)
+        else
+          flash[:error] = t('shibboleth.create_association.error_saving_user', errors: user.errors.full_messages.join(', '))
+        end
         token.destroy
-        logger.info "Shibboleth: there's already a user with this email #{shib.get_email}"
-        flash[:error] = t('shibboleth.create_association.existent_account', :email => shib.get_email)
       end
     end
   end
@@ -182,6 +201,13 @@ class ShibbolethController < ApplicationController
       token.user = user
       token.data = shib.get_data()
       token.save! # TODO: what if it fails
+
+      # If the user comes from shibboleth and is not confirmed we can trust him
+      if !user.confirmed?
+        user.skip_confirmation!
+        user.save!
+      end
+
       flash[:success] = t("shibboleth.create_association.account_associated", :email => user.email)
     end
 
@@ -189,7 +215,7 @@ class ShibbolethController < ApplicationController
 
   # Returns the value of the flag `shib_always_new_account`.
   def get_always_new_account
-    return Site.current.shib_always_new_account
+    return current_site.shib_always_new_account
   end
 
   # Checks if the user has an active enrollment, otherwise he's not allowed
@@ -213,16 +239,19 @@ class ShibbolethController < ApplicationController
   def test_data
     if Rails.env == "development"
       request.env["Shib-Application-ID"] = "default"
-      request.env["Shib-Session-ID"] = "09a612f952cds995e4a86ddd87fd9f2a"
-      request.env["Shib-Identity-Provider"] = "https://login.somewhere/idp/shibboleth"
-      request.env["Shib-Authentication-Instant"] = "2011-09-21T19:11:58.039Z"
+      request.env["Shib-Session-ID"] = "_412345e04a9fba98calks98d7c500852"
+      request.env["Shib-Identity-Provider"] = "https://idp.mconf-institution.org/idp/shibboleth"
+      request.env["Shib-Authentication-Instant"] = "2014-10-23T17:26:43.683Z"
       request.env["Shib-Authentication-Method"] = "urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport"
       request.env["Shib-AuthnContext-Class"] = "urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport"
-      request.env["Shib-brEduPerson-brEduAffiliationType"] = "student;position;faculty"
-      request.env["Shib-eduPerson-eduPersonPrincipalName"] = "75a988943825d2871e1cfa75473ec0@ufrgs.br"
-      request.env["Shib-inetOrgPerson-cn"] = "Rick Astley"
-      request.env["Shib-inetOrgPerson-sn"] = "Rick Astley"
-      request.env["Shib-inetOrgPerson-mail"] = "nevergonnagiveyouup@rick.com"
+      request.env["Shib-Session-Index"] = "alskd87345cc761850086ccbc4987123lskdic56a3c652c37fc7c3bdbos9dia87"
+      request.env["Shib-eduPerson-eduPersonPrincipalName"] = "maria.silva@mconf-institution.org"
+      request.env["Shib-inetOrgPerson-cn"] = "Maria Let\xC3\xADcia da Silva"
+      request.env["Shib-inetOrgPerson-mail"] = "maria.silva@mconf-institution.org"
+      request.env["Shib-inetOrgPerson-sn"] = "Let\xC3\xADcia da Silva"
+      request.env["inetOrgPerson-cn"] = request.env["Shib-inetOrgPerson-cn"].clone
+      request.env["inetOrgPerson-mail"] = request.env["Shib-inetOrgPerson-mail"].clone
+      request.env["inetOrgPerson-sn"] = request.env["Shib-inetOrgPerson-sn"].clone
       request.env["cn"] = "Rick Astley"
       request.env["mail"] = "nevergonnagiveyouup@rick.com"
       request.env["uid"] = "00000000000"

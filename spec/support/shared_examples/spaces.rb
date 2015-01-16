@@ -20,9 +20,9 @@ shared_examples_for "assigns @spaces_examples" do
       @s3 = FactoryGirl.create(:private_space)
     }
     before(:each) { do_action }
-    it { assigns(:spaces_examples).should include(@s1) }
-    it { assigns(:spaces_examples).should include(@s2) }
-    it { assigns(:spaces_examples).should include(@s3) }
+    it { assigns(:spaces_examples).should be_include(@s1) }
+    it { assigns(:spaces_examples).should be_include(@s2) }
+    it { assigns(:spaces_examples).should be_include(@s3) }
   end
 
   context "limits to 3 spaces" do

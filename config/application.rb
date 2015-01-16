@@ -8,9 +8,6 @@ require File.expand_path('../boot', __FILE__)
 
 require 'rails/all'
 
-require 'yaml'
-YAML::ENGINE.yamler = 'syck'
-
 if defined?(Bundler)
   # If you precompile assets before deploying to production, use this line
   Bundler.require(*Rails.groups(:assets => %w(development test)))
@@ -34,14 +31,15 @@ module Mconf
     # config.plugins = [ :simple_captcha, :permalink_fu, :all ]
     config.plugins = [ :simple_captcha, :all ]
 
-    # Activate observers that should always be running.
-    # config.active_record.observers = :cacher, :garbage_collector, :forum_observer
-    config.active_record.observers = :profile_observer, :bigbluebutton_meeting_observer
-
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
     # config.time_zone = 'Central Time (US & Canada)'
     config.time_zone = 'Madrid'
+
+    # Need to set it directly on I18n because we have other gems that require I18n and might
+    # be setting this first.
+    # A tip from http://stackoverflow.com/questions/20361428/rails-i18n-validation-deprecation-warning
+    I18n.config.enforce_available_locales = true
 
     # The translations are stored in config/locales/**/*.yml, in separate files for base strings,
     # gem strings and application strings (mconf.yml). The application strings should always be
@@ -51,6 +49,7 @@ module Mconf
       Dir[Rails.root.join('config', 'locales', '**', 'mconf.yml').to_s]
     config.i18n.fallbacks = true
     config.i18n.enforce_available_locales = true
+    config.i18n.available_locales = ["pt-br","en"]
     config.i18n.default_locale = :en
 
     config.generators do |g|
@@ -77,5 +76,7 @@ module Mconf
 
     # add the views for the mailers in the path
     config.paths['app/views'].unshift("#{Rails.root}/app/mailers/views")
+
+    config.exceptions_app = self.routes
   end
 end

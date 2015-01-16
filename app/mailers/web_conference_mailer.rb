@@ -25,19 +25,11 @@ class WebConferenceMailer < BaseMailer
       to = @invitation.recipient
     end
 
-    I18n.with_locale(get_user_locale(to, false)) do
-      # Adjust the times to the target user's time zone. If he doesn't have a time zone set,
-      # use the time zone of the sender.
-      if Mconf::Timezone.user_has_time_zone?(to)
-        time_zone = Mconf::Timezone.user_time_zone(to)
-      else
-        # will fall back to the website's time zone if the user doesn't have one
-        time_zone = Mconf::Timezone.user_time_zone(@invitation.sender)
-      end
-      @invitation.starts_on = @invitation.starts_on.in_time_zone(time_zone) unless @invitation.starts_on.blank?
-      @invitation.ends_on = @invitation.ends_on.in_time_zone(time_zone) unless @invitation.ends_on.blank?
+    locale = default_email_locale(to, @invitation.sender)
+    I18n.with_locale(locale) do
+      @time_zone = default_email_time_zone(to, @invitation.sender)
 
-      subject = t('web_conference_mailer.invitation_email.subject', :name => @invitation.sender.full_name)
+      subject = t('web_conference_mailer.invitation_email.subject')
       attachments['meeting.ics'] = { :mime_type => 'text/calendar', :content => @invitation.to_ical }
 
       if to.is_a?(User)
@@ -47,23 +39,4 @@ class WebConferenceMailer < BaseMailer
       end
     end
   end
-
-  def error_handler(message, error, action, args)
-    Rails.logger.error "Handling email error on WebConferenceMailer"
-    case action
-    when "invitation_email"
-      invitation = Invitation.find_by_id(args[0])
-      if invitation.nil?
-        Rails.logger.error "Could not find the Invitation #{args[0]}, won't mark it as not sent"
-      else
-        # we just want to mark it as not sent, but raise the error afterwards
-        invitation.result = false
-        invitation.save!
-        raise error
-      end
-    else
-      raise error
-    end
-  end
-
 end

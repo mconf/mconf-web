@@ -5,30 +5,38 @@
 # 3 or later. See the LICENSE file.
 
 FactoryGirl.define do
-  factory :user, :class => User do |u|
-    u.username
-    u.email
-    u.sequence(:_full_name) { |n| Forgery::Name.unique_full_name(n) }
-    u.association :bigbluebutton_room
-    u.association :profile
-    u.created_at { Time.now }
-    u.updated_at { Time.now }
-    u.disabled false
-    u.approved true
-    u.superuser false
-    u.receive_digest { User::RECEIVE_DIGEST_NEVER }
-    u.password { Forgery::Basic.password :at_least => 6, :at_most => 16 }
-    u.password_confirmation { |u2| u2.password }
-    u.confirmed_at { Time.now }
-    after(:create) { |u2| u2.confirm! }
+  factory :unconfirmed_user, class: User do
+    username
+    email
+    sequence(:_full_name) { |n| Forgery::Name.unique_full_name(n) }
+    association :bigbluebutton_room
+    association :profile
+    created_at { Time.now }
+    updated_at { Time.now }
+    disabled false
+    approved true
+    superuser false
+    receive_digest { User::RECEIVE_DIGEST_NEVER }
+    notification { User::NOTIFICATION_VIA_EMAIL }
+    password { Forgery::Basic.password :at_least => 6, :at_most => 16 }
+    password_confirmation { |user| user.password }
+    needs_approval_notification_sent_at { Time.now }
+    approved_notification_sent_at { Time.now }
+    before(:create) { |user| user.skip_confirmation_notification! }
+    after(:create) { |user|
+      # for some reason the user ends up without a full name, only b/c he's unconfirmed
+      user.profile.update_attribute(:full_name, user._full_name)
+      user.reload
+    }
+
+    factory :user, parent: :unconfirmed_user do
+      confirmed_at { Time.now }
+      after(:create) { |user| user.confirm!; user.reload }
+
+      factory :superuser, class: User, parent: :user do |u|
+        u.superuser true
+      end
+    end
   end
 
-  # factory :user, :parent => :user_unconfirmed do |u|
-  #   u.confirmed_at { Time.now }
-  #   after(:create) { |u2| u2.confirm! }
-  # end
-
-  factory :superuser, :class => User, :parent => :user do |u|
-    u.superuser true
-  end
 end

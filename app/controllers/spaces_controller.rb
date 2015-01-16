@@ -26,44 +26,12 @@ class SpacesController < ApplicationController
   respond_to :json, :only => [:update_logo]
   respond_to :html, :only => [:new, :edit, :index, :show]
 
-  # User trying to access a space not owned or joined by him
-  rescue_from CanCan::AccessDenied do |exception|
-
-    # if it's a logged user that tried to access a private space
-    if user_signed_in? and [:show, :edit].include?(exception.action)
-
-      if @space.pending_join_request_for?(current_user)
-        # redirect him to the page to ask permission to join, but with a warning that
-        # a join request was already sent
-        redirect_to new_space_join_request_path :space_id => params[:id]
-
-      elsif @space.pending_invitation_for?(current_user)
-        # redirect him to the invitation he received
-        invitation = @space.pending_invitation_for(current_user)
-        flash[:error] = t("spaces.error.already_invited")
-        redirect_to space_join_request_path @space, invitation
-
-      else
-        # redirect him to ask permission to join
-        flash[:error] = t("spaces.error.need_join_to_access")
-        redirect_to new_space_join_request_path :space_id => params[:id]
-      end
-
-    else
-      # anonymous users or destructive actions are redirected to the 403 error
-      flash[:error] = t("space.access_forbidden")
-      render :template => "/errors/error_403", :status => 403, :layout => "error"
-    end
-  end
+  rescue_from CanCan::AccessDenied, :with => :handle_access_denied
+  rescue_from ActiveRecord::RecordNotFound, :with => :handle_record_not_found
 
   # Create recent activity
   after_filter :only => [:create, :update, :leave] do
     @space.new_activity params[:action], current_user unless @space.errors.any? || @space.is_cropping?
-  end
-
-  # Recent activity for join requests
-  after_filter :only => [:join_request_update] do
-    @space.new_activity :join, current_user unless @join_request.errors.any? || !@join_request.accepted?
   end
 
   def index
@@ -73,9 +41,8 @@ class SpacesController < ApplicationController
     spaces = Space.order('name ASC')
     @spaces = spaces.paginate(:page => params[:page], :per_page => 18)
 
-    if user_signed_in?
-      @user_spaces = current_user.spaces.paginate(:page => params[:page], :per_page => 18)
-    end
+    @user_spaces = user_signed_in? ? current_user.spaces : Space.none
+    @user_spaces = @user_spaces.paginate(:page => params[:page], :per_page => 18)
 
     if @space
        session[:current_tab] = "Spaces"
@@ -87,10 +54,7 @@ class SpacesController < ApplicationController
 
     respond_with @spaces do |format|
       format.html { render :index }
-      format.js {
-        json = @spaces.to_json(space_to_json_hash)
-        render :json => json, :callback => params[:callback]
-      }
+      format.json
     end
   end
 
@@ -110,10 +74,7 @@ class SpacesController < ApplicationController
 
     respond_to do |format|
       format.html { render :layout => 'spaces_show' }
-      format.js {
-        json = @space.to_json(space_to_json_hash)
-        render :json => json, :callback => params[:callback]
-      }
+      format.json
     end
   end
 
@@ -125,7 +86,7 @@ class SpacesController < ApplicationController
   end
 
   def create
-    @space = Space.new(params[:space])
+    @space = Space.new(space_params)
 
     if @space.save
       respond_with @space do |format|
@@ -260,11 +221,10 @@ class SpacesController < ApplicationController
     @webconf_attendees = []
     unless @webconf_room.attendees.nil?
       @webconf_room.attendees.each do |attendee|
-        profile = Profile.find(:all, :conditions => { "full_name" => attendee.full_name }).first
-        unless profile.nil?
-          @webconf_attendees << profile.user
-        end
+        user = User.where(id: attendee.user_id).first
+        @webconf_attendees << user unless user.nil?
       end
+      @webconf_attendees.uniq!
     end
     render :layout => 'spaces_show'
   end
@@ -316,10 +276,6 @@ class SpacesController < ApplicationController
 
   private
 
-  def space_to_json_hash
-    { :methods => :user_count, :include => {:logo => { :only => [:height, :width], :methods => :logo_image_path } } }
-  end
-
   def load_and_authorize_with_disabled
     @space = Space.with_disabled.find_by_permalink(params[:id])
     authorize! action_name.to_sym, @space
@@ -335,19 +291,49 @@ class SpacesController < ApplicationController
     @current_events = @space.events.order("start_on ASC").select(&:is_happening_now?)
   end
 
-  def space_params
-    unless params[:space].nil?
-      params[:space].permit(*space_allowed_params)
+  def handle_record_not_found exception
+    @error_message = t("spaces.error.not_found", :permalink => params[:id], :path => spaces_path)
+    render_404 exception
+  end
+
+  # User trying to access a space not owned or joined by him
+  def handle_access_denied exception
+    # if it's a logged user that tried to access a private space
+    if user_signed_in? and [:show, :edit].include?(exception.action)
+
+      if @space.pending_join_request_for?(current_user)
+        # redirect him to the page to ask permission to join, but with a warning that
+        # a join request was already sent
+        redirect_to new_space_join_request_path :space_id => params[:id]
+
+      elsif @space.pending_invitation_for?(current_user)
+        # redirect him to the invitation he received
+        invitation = @space.pending_invitation_for(current_user)
+        flash[:error] = t("spaces.error.already_invited")
+        redirect_to space_join_request_path @space, invitation
+
+      else
+        # redirect him to ask permission to join
+        flash[:error] = t("spaces.error.need_join_to_access")
+        redirect_to new_space_join_request_path :space_id => params[:id]
+      end
+
     else
-      []
+      # anonymous users or destructive actions are redirected to the 403 error
+      flash[:error] = t("space.access_forbidden")
+      if exception.action == :show
+        @error_message = t("space.is_private_html", name: @space.name, path: new_space_join_request_path(@space))
+      end
+      render_403 exception
     end
   end
 
-  def space_allowed_params
-    [ :name, :description, :logo_image, :public, :permalink, :repository,
-      :crop_x, :crop_y, :crop_w, :crop_h,
+  allow_params_for :space
+  def allowed_params
+    [ :name, :description, :logo_image, :public, :permalink, :disabled, :repository,
+      :crop_x, :crop_y, :crop_w, :crop_h, :crop_img_w, :crop_img_h,
       :bigbluebutton_room_attributes =>
-        [ :id, :attendee_password, :moderator_password, :default_layout,
+        [ :id, :attendee_key, :moderator_key, :default_layout,
           :welcome_msg, :presenter_share_only, :auto_start_video, :auto_start_audio ] ]
   end
 end

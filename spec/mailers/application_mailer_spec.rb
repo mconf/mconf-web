@@ -7,12 +7,10 @@
 require "spec_helper"
 
 describe ApplicationMailer do
-  before { Helpers.setup_site_for_email_tests }
-
   describe '.feedback_email' do
     let(:user) { FactoryGirl.create(:user) }
-    let(:subject) { Faker::Lorem.characters 30 }
-    let(:message) { Faker::Lorem.characters 140 }
+    let(:subject) { Forgery::LoremIpsum.characters 30 }
+    let(:message) { Forgery::LoremIpsum.characters 140 }
     let(:mail) { ApplicationMailer.feedback_email(user.email, subject, message) }
 
     context "in the standard case" do
@@ -100,7 +98,16 @@ describe ApplicationMailer do
         mail.body.encoded.should match(content)
       }
     end
-
   end
 
+  context "calls the error handler on exceptions" do
+    let(:exception) { Exception.new("test exception") }
+    it {
+      with_resque do
+        BaseMailer.any_instance.stub(:render) { raise exception }
+        Mconf::MailerErrorHandler.should_receive(:handle).with(ApplicationMailer, nil, exception, "feedback_email", anything)
+        ApplicationMailer.feedback_email("any", "any", "any").deliver
+      end
+    }
+  end
 end

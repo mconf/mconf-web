@@ -45,6 +45,5 @@ Mconf::Application.configure do
 
   config.action_mailer.default_url_options = { :host => "example.com" }
 
-  # Raise exception on mass assignment protection for Active Record models
-  config.active_record.mass_assignment_sanitizer = :strict
+  config.eager_load = false
 end

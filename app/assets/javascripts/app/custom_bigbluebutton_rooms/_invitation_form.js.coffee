@@ -4,6 +4,8 @@ searchUsersUrl = '/users/select?limit=7'
 startsOnSelector = '#invite_starts_on'
 endsOnSelector = '#invite_ends_on'
 durationSelector = '#invite_duration .duration'
+titleSelector = '#invite_title'
+buttonSelector = '#webconference-invitation input.btn[type=\'submit\']'
 defaultDuration = 60*60 # 1h in secs
 previousDuration = null
 
@@ -13,11 +15,24 @@ class mconf.CustomBigbluebuttonRooms.Invitation
 
   @bind: ->
     invitation = new mconf.CustomBigbluebuttonRooms.Invitation()
+    invitation.checkRequired()
     invitation.bindUsers()
     invitation.bindDates()
+    invitation.bindTitle()
 
   @unbind: ->
     # TODO: can it be done?
+
+  # Dont enable the form button unless user has filled in users and title
+  checkRequired: ->
+    if $(titleSelector).first()?.val()?.length > 0 and $(usersSelector).val()?.length
+      $(buttonSelector).removeAttr('disabled')
+    else
+      $(buttonSelector).attr('disabled','disabled')
+
+  bindTitle: ->
+    $(titleSelector).on "keydown keyup", =>
+      @checkRequired()
 
   bindUsers: ->
     $(usersSelector, container).select2
@@ -33,10 +48,11 @@ class mconf.CustomBigbluebuttonRooms.Invitation
         if mconf.Base.validateEmail(term)
           { id: term, text: term }
       formatSelection: (object, container) ->
-        if object.name?
+        text = if object.name?
           object.name
         else
           object.text
+        mconf.Base.escapeHTML(text)
       ajax:
         url: searchUsersUrl
         dataType: "json"
@@ -44,6 +60,9 @@ class mconf.CustomBigbluebuttonRooms.Invitation
           q: term # search term
         results: (data, page) -> # parse the results into the format expected by Select2.
           results: data
+
+    $(usersSelector).on "change", =>
+      @checkRequired()
 
   bindDates: ->
     inputStartDate = $(startsOnSelector, container)[0]

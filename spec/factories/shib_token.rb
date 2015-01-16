@@ -19,7 +19,7 @@ FactoryGirl.define do
       hash["mail"] = "nevergonnagiveyouup@rick.com"
       hash["uid"] = "00000000000"
       hash["ufrgsVinculo"] = "ativo:12:Funcionário de Fundações da UFRGS:1:Instituto de Informática:NULL:NULL:NULL:NULL:01/01/2011:NULL;inativo:6:Aluno de mestrado acadêmico:NULL:NULL:NULL:NULL:2:COMPUTAÇÃO:01/01/2001:11/12/2002"
-      hash.to_yaml
+      hash
     }
     after(:build) do |obj|
       obj.identifier = obj.user.email

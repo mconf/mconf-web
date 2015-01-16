@@ -12,16 +12,16 @@
   %label{ :for => "server-recordings-fetch" }= t(".fetch_recordings_title")
   - base_url = fetch_recordings_bigbluebutton_server_path(@server)
   = text_field_tag "fetch_recordings", "", :id => "server-recordings-fetch", :placeholder => 'e.g. "meetings=meeting1,meeting2&meta_name=value"', :"data-base-url" => base_url
-  = link_to t(".fetch_recordings_btn"), fetch_recordings_bigbluebutton_server_path(@server), :confirm => t('are_you_sure'), :method => :post, :"data-link-for" => "server-recordings-fetch", :class => "btn"
+  = link_to t(".fetch_recordings_btn"), fetch_recordings_bigbluebutton_server_path(@server), :data => { :confirm => t('are_you_sure') }, :method => :post, :"data-link-for" => "server-recordings-fetch", :class => "btn"
 
 .field
   %label{ :for => "server-recordings-publish" }= t(".publish_recordings_title")
   - base_url = publish_recordings_bigbluebutton_server_path(@server)
   = text_field_tag "publish_recordings", "", :id => "server-recordings-publish", :placeholder => 'e.g. "meeting1,meeting2"', :"data-base-url" => base_url
-  = link_to link_to t(".publish_recordings_btn"), publish_recordings_bigbluebutton_server_path(@server), :confirm => 'Are you sure?', :method => :post, :"data-link-for" => "server-recordings-publish", :class => "btn"
+  = link_to link_to t(".publish_recordings_btn"), publish_recordings_bigbluebutton_server_path(@server), :data => { :confirm => 'Are you sure?' }, :method => :post, :"data-link-for" => "server-recordings-publish", :class => "btn"
 
 .field
   %label{ :for => "server-recordings-unpublish" }= t(".unpublish_recordings_title")
   - base_url = unpublish_recordings_bigbluebutton_server_path(@server)
   = text_field_tag "unpublish_recordings", "", :id => "server-recordings-unpublish", :placeholder => 'e.g. "meeting1,meeting2"', :"data-base-url" => base_url
-  = link_to link_to t(".publish_recordings_btn"), unpublish_recordings_bigbluebutton_server_path(@server), :confirm => 'Are you sure?', :method => :post, :"data-link-for" => "server-recordings-unpublish", :class => "btn"
+  = link_to link_to t(".publish_recordings_btn"), unpublish_recordings_bigbluebutton_server_path(@server), :data => { :confirm => 'Are you sure?' }, :method => :post, :"data-link-for" => "server-recordings-unpublish", :class => "btn"

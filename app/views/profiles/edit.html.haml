@@ -17,6 +17,7 @@
           = link_to t('.vcard.use'), '#profile_vcard', :"data-open-file" => true
           = icon_help t(".vcard.tooltip")
           = f.input :vcard, :as => :file, :id => 'profile_vcard'
+          = f.submit :id => 'profile-vcard-submit'
       %li= link_to t('.vcard.export'), user_profile_path(@user, :format => "vcf")
 
 = simple_form_for @profile, :url => user_profile_path(@user), :html => { :multipart => true, :class => 'single-column' } do |f|

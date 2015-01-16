@@ -1,9 +1,9 @@
 # https://gist.github.com/mateusg/924555
 
-pt-BR:
+pt-br:
   devise:
     confirmations:
-      confirmed: 'Sua conta foi confirmada com sucesso. Você está logado.'
+      confirmed: 'Sua conta foi confirmada com sucesso.'
       send_instructions: 'Dentro de minutos, você receberá um e-mail com instruções para a confirmação da sua conta.'
       send_paranoid_instructions: 'Se o seu endereço de e-mail estiver cadastrado, você receberá uma mensagem com instruções para confirmação da sua conta.'
     failure:
@@ -19,9 +19,14 @@ pt-BR:
       unconfirmed: 'Antes de continuar, confirme a sua conta.'
     mailer:
       confirmation_instructions:
-        subject: 'Instruções de confirmação'
+        subject: 'Registro realizado com sucesso'
       reset_password_instructions:
         subject: 'Instruções de troca de senha'
+        greeting: Olá %{email}!
+        requested: Alguém requisitou uma troca de senha em sua conta. Você pode fazer isto clicando no link abaixo
+        change_password: Mudar senha
+        ignore: Caso você não tenha pedido uma troca de senha, ignore esta mensagem.
+        wont_change: A sua senha não irá mudar até que você acesse o link acima e defina uma nova.
       unlock_instructions:
         subject: 'Instruções de desbloqueio'
     omniauth_callbacks:
@@ -31,7 +36,7 @@ pt-BR:
       no_token: "Você só pode acessar essa página através de um e-mail de troca de senha. Se já estiver acessando por um e-mail, verifique se a URL fornecida está completa."
       send_instructions: 'Dentro de minutos, você receberá um e-mail com instruções para a troca da sua senha.'
       send_paranoid_instructions: 'Se o seu endereço de e-mail estiver cadastrado, você receberá um link de recuperação da senha via e-mail.'
-      updated: 'Sua senha foi alterada com sucesso. Você está logado.'
+      updated: 'Sua senha foi alterada com sucesso.'
       updated_not_active: 'Sua senha foi alterada com sucesso.'
     registrations:
       destroyed: 'Tchau! Sua conta foi cancelada com sucesso. Esperamos vê-lo novamente em breve.'

@@ -11,7 +11,7 @@ require 'prism'
 class Profile < ActiveRecord::Base
   attr_accessor :vcard
 
-  attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
+  attr_accessor :crop_x, :crop_y, :crop_w, :crop_h, :crop_img_w, :crop_img_h
   mount_uploader :logo_image, LogoImageUploader
 
   after_create :crop_avatar
@@ -21,35 +21,61 @@ class Profile < ActiveRecord::Base
     logo_image.recreate_versions! if crop_x.present?
   end
 
+  after_update :update_webconf_room
+
+  def update_webconf_room
+    if self.full_name_changed?
+      params = {
+        :name => self.full_name
+      }
+      self.user.bigbluebutton_room.update_attributes(params)
+    end
+  end
+
   belongs_to :user
   accepts_nested_attributes_for :user
 
   # The order implies inclusion: everybody > members > public_fellows > private_fellows
   VISIBILITY = [:everybody, :members, :public_fellows, :private_fellows, :nobody]
 
-  before_validation do |profile|
-    if profile.url
-      if (profile.url.index('http') != 0)
-        profile.url = "http://" << profile.url
+  validates :full_name, presence: true
+
+  before_validation :correct_url
+  def correct_url
+    if url.present?
+      if (url.index('http://') != 0)
+        self.url = "http://" << url
       end
     end
   end
 
-  before_validation :from_vcard
+  after_validation :sanitize_encodings
+  def sanitize_encodings
+    fields = [:organization, :phone, :mobile , :fax, :address, :city,
+      :zipcode, :province, :country, :prefix_key, :description, :url, :skype , :im, :full_name]
 
-  validate :validate_method
-  def validate_method
-    errors.add(:base, @vcard_errors) if @vcard_errors.present?
+    if vcard.present?
+      fields.each do |field|
+        self.send("#{field}=".to_sym, self.send(field).force_encoding('utf-8')) if self.send("#{field}_changed?")
+      end
+    end
   end
 
   def prefix
     self.prefix_key.include?("title_formal.") ? I18n.t(self.prefix_key) : self.prefix_key
   end
 
+  before_validation :from_vcard
   def from_vcard
-    return unless @vcard.present?
+    return if @vcard.nil?
 
     @vcard = Vpim::Vcard.decode(@vcard).first
+
+    # This is here because sometimes the lib
+    # will return nil instead of throwing an exception
+    if @vcard.blank?
+      raise Vpim::UnsupportedError
+    end
 
     #TELEPHONE
     if !@vcard.telephone('pref').nil?
@@ -69,9 +95,8 @@ class Profile < ActiveRecord::Base
       self.fax = @vcard.telephone('fax')
     end
 
-   #NAME
-   if !@vcard.name.nil?
-
+    #NAME
+    if !@vcard.name.nil?
       temporal = ''
 
       if !@vcard.name.prefix.eql? ''
@@ -92,27 +117,28 @@ class Profile < ActiveRecord::Base
       end
    end
 
+    # For now, email can't be edited from profile
     #EMAIL
-    if !@vcard.email('pref').nil?
-      self.user.email = @vcard.email('pref')
-    else
-      if !@vcard.email('work').nil?
-        self.user.email = @vcard.email('work')
-      elsif !@vcard.email('home').nil?
-        self.user.email = @vcard.email('home')
-      elsif !(@vcard.emails.nil?||@vcard.emails[0].nil?)
-        self.user.email = @vcard.emails[0]
-      end
-    end
+    # if !@vcard.email('pref').nil?
+    #   self.user.email = @vcard.email('pref')
+    # else
+    #   if !@vcard.email('work').nil?
+    #     self.user.email = @vcard.email('work')
+    #   elsif !@vcard.email('home').nil?
+    #     self.user.email = @vcard.email('home')
+    #   elsif !(@vcard.emails.nil?||@vcard.emails[0].nil?)
+    #     self.user.email = @vcard.emails[0]
+    #   end
+    # end
 
     #URL
     if !@vcard.url.nil?
-        self.url = @vcard.url.uri.to_s
+      self.url = @vcard.url.uri.to_s
     end
 
     #DESCRIPTION
     if !@vcard.note.nil?
-        self.description = @vcard.note.unpack('M*')[0]
+      self.description = @vcard.note.unpack('M*')[0]
     end
 
     #ORGANIZATION
@@ -138,8 +164,9 @@ class Profile < ActiveRecord::Base
           self.province = address.region.unpack('M*')[0]
           self.country = address.country.unpack('M*')[0]
     end
-  rescue
-    @vcard_errors = I18n.t("vCard.corrupt")
+  rescue Vpim::InvalidEncodingError, Vpim::UnsupportedError, RuntimeError => e
+    raise e if e.class == RuntimeError && e.message != 'Not a valid vCard'
+    self.errors.add(:vcard, I18n.t("vCard.corrupt"))
   end
 
   def from_hcard(uri)

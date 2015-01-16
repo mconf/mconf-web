@@ -17,6 +17,9 @@ en:
     labels:
       feedback:
         from: "Your email"
+      user:
+        edit:
+          password: "New password"
     hints:
       invite:
         users: "Search people by name or email. If you can't find them, just add their email address. Type and press enter to insert a new item."
@@ -24,8 +27,9 @@ en:
         analytics_code: "Code for your Google Analytics account. Leave it blank to disable. Example: \"UA-12345678-9\""
         domain: "The domain of your website. Do not include the protocol (e.g. \"http\"), only the full domain. Example: \"my-server.org/web-portal\""
         events_enabled: "Enable or disable the event module. To enable it, you must have the event module installed. Restart the application to apply the changes."
-        exception_notifications: "Send debugging emails whenever the application crashes"
+        exception_notifications: "Send notification emails whenever the application crashes"
         exception_notifications_email: "Use either spaces, commas or semi-colons to separate different emails."
+        exception_notifications_prefix: "Will prefixed in the subject of the email. Defaults to '[ERROR]'."
         external_help: "Insert the URL for an external site that contains the help/FAQ page. Include the entire URL, including the protocol. Example: 'http://server.com'."
         feedback_url: "The users will be redirected to this URL when they log out of a webconference. If not set they are redirected to '%{default_url}'"
         ldap_filter: "A custom LDAP filter to restrict the users that can log in using LDAP. Example: \"(&(objectclass=user)(objectcategory=person))\"."
@@ -54,22 +58,22 @@ en:
         webconf_auto_record: "If true, the record flag will be set automatically according to whether the user has permission to record meetings in the target room or not (useful if your web conference servers have the record button inside the session). Otherwise, the user will have to set the record flag himself when opening a new webconference (but only if he has permissions to)."
       space:
         bigbluebutton_room:
-          attendee_password: "This password will only be used if the space is set as private!"
+          attendee_key: "A key for users to join the session as attendees. Do not reuse real passwords here. This key will only be necessary if the space is set as private."
           auto_start_audio: "Check this option to automatically share a user's microphone after joining a meeting"
           auto_start_video: "Check this option to automatically share a user's camera after joining a meeting"
-          moderator_password: "This password will only be used if the space is set as private!"
+          moderator_key: "A key for users to join the session as moderators. Do not reuse real passwords here. This key will only be necessary if the space is set as private."
           presenter_share_only: "When set to true only the presenter is allowed to share his webcam and microphone. This is great for one-to-many conferences."
           welcome_msg: "This message will be shown on the chat when a user joins the conference. Leave it empty to use the default message. You can include meeting specific information with the variables %%CONFNAME%%, %%DIALNUM%% and %%CONFNUM%%"
-        permalink: "This attribute is used to identify your space in URLs, including the URL of its conference room"
+        permalink: "This attribute is used to identify your space in URLs, including the URL of its conference room. Use only lowercase letters, numbers or dashes."
         public: "Collaborative spaces can be public, for anybody to watch what happens in them, or private, where members only have access to the activities of the space"
         repository: "The document repository is a place where users of this space can upload and share documents of any type"
       user:
         approved: "If checked, the user will be able to access the website, otherwise his login will be blocked."
         bigbluebutton_room:
-          attendee_password: "This password will only be used if the room is set as private!"
+          attendee_key: "A key for users to join the session as attendees. Do not reuse real passwords here. This key will only be necessary if the room is set as private."
           auto_start_audio: "Check this option to automatically share a user's microphone after joining a meeting"
           auto_start_video: "Check this option to automatically share a user's camera after joining a meeting"
-          moderator_password: "This password will only be used if the room is set as private!"
+          moderator_key: "A key for users to join the session as moderators. Do not reuse real passwords here. This key will only be necessary if the room is set as private."
           presenter_share_only: "When set to true only the presenter is allowed to share his webcam and microphone. This is great for one-to-many conferences."
           private: "Private rooms require a password for users to join. Public rooms can be accessed by anyone with its link. Only you can start a conference in your room, regardless of if it's private or public."
           welcome_msg: "This message will be shown on the chat when a user joins the conference. Leave it empty to use the default message. You can include meeting specific information with the variables %%CONFNAME%%, %%DIALNUM%% and %%CONFNUM%%"
@@ -82,7 +86,7 @@ en:
         ends_on: "Ends on..."
         message: "Write a personal message (optional)"
         starts_on: "Starts on..."
-        title: "Give a name to your meeting (optional, recommended)"
+        title: "Give a name to your meeting (mandatory)"
         users: "Type to search users by name or email..."
       join_request:
         invite:
@@ -94,5 +98,5 @@ en:
         title: "Message title"
       user:
         edit:
-          password: "Leave it blank if you don't want to change it"
+          current_password: "Leave it blank if you don't want to change it"
     # labels:

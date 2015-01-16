@@ -4,12 +4,16 @@
 %ul.nav.nav-tabs.nav-stacked.content-block-wrapper
   %li= link_to t('_other.details'), bigbluebutton_recording_path(recording)
   %li= link_to t('_other.edit'), edit_bigbluebutton_recording_path(recording)
-  %li= link_to t('_other.publish'), publish_bigbluebutton_recording_path(recording), :confirm => t('are_you_sure'), :method => :post
-  %li= link_to t('_other.unpublish'), unpublish_bigbluebutton_recording_path(recording), :confirm => t('are_you_sure'), :method => :post
+  %li= link_to t('_other.publish'), publish_bigbluebutton_recording_path(recording), :data => { :confirm => t('are_you_sure') }, :method => :post
+  %li= link_to t('_other.unpublish'), unpublish_bigbluebutton_recording_path(recording), :data => { :confirm => t('are_you_sure') }, :method => :post
 
 .content-block-wrapper.nav-playback-links
   .content-block
     .content-block-middle
       %h3= t(".playback_links")
-      - recording.playback_formats.each do |playback|
-        = link_to playback.format_type, playback.url, :class => "btn btn-primary btn-small open-new-window"
+      %ul
+        - recording.playback_formats.each do |playback|
+          %li
+            = link_to playback.format_type, play_bigbluebutton_recording_path(recording, type: playback.format_type), :class => "open-new-window"
+            = "&#149;".html_safe
+            = link_to t(".direct_link"), playback.url, :class => "open-new-window"

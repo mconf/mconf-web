@@ -20,11 +20,11 @@
           = text_field_tag "", username, :readonly => true, :disabled => true, :class => "string"
         - else
           = text_field_tag "user[name]", "", :autofocus => true, :class => "string"
-      - if @user_role == :password
+      - if @user_role == :key
         .input
           %label= t(".field_password")
           - if username.blank?
-            = password_field_tag "user[password]", "", :class => "string"
+            = password_field_tag "user[key]", "", :class => "string"
           - else
-            = password_field_tag "user[password]", "", :autofocus => true, :class => "string"
+            = password_field_tag "user[key]", "", :autofocus => true, :class => "string"
       = f.button :submit, t("join"), :class => "btn btn-primary"

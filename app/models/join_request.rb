@@ -7,6 +7,17 @@
 class JoinRequest < ActiveRecord::Base
   include PublicActivity::Common
 
+  TYPES = {
+    invite: "invite",
+    request: "request"
+  }
+
+  TYPES.each_pair do |type, value|
+    define_method("is_#{type}?") {
+      self.request_type == JoinRequest::TYPES[type]
+    }
+  end
+
   # the user that is being invited
   belongs_to :candidate, :class_name => "User"
   # the person that is inviting
@@ -19,8 +30,10 @@ class JoinRequest < ActiveRecord::Base
 
   validates :email, :presence => true, :email => true
 
-  # The request can either be an invitation ('invite') or a 'request' for membership
+  # The request can either be an invitation or a request for membership
   validates :request_type, :presence => true
+
+  after_initialize :init
 
   attr_writer :processed
   before_save :set_processed_at
@@ -32,7 +45,11 @@ class JoinRequest < ActiveRecord::Base
   validates_uniqueness_of :email,
                           :scope => [ :group_id, :group_type, :processed_at ]
 
-  validate :candidate_is_not_introducer
+  validates_length_of :comment, maximum: 255
+
+  def to_param
+    self.secret_token
+  end
 
   # Create a new activity after saving
   after_create :new_activity
@@ -65,17 +82,16 @@ class JoinRequest < ActiveRecord::Base
 
   private
 
+  def init
+    # Use secret token as the model :id
+    self[:secret_token] ||= SecureRandom.urlsafe_base64(16)
+  end
+
   def set_processed_at
     @processed && self.processed_at = Time.now.utc
   end
 
   def add_candidate_to_group
     group.add_member!(candidate, role) if accepted?
-  end
-
-  def candidate_is_not_introducer
-    if candidate == introducer
-      errors.add(:base, I18n.t('admission.errors.candidate_equals_introducer'))
-    end
   end
 end
