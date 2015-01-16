@@ -1,6 +1,14 @@
 = render_page_title t('.title')
 
+- if current_site.shib_enabled?
+  #login-shibboleth
+    %h3= t('.federated_authentication')
+    = link_to shibboleth_path do
+      = image_tag "ufrgs/logo-big.jpg", :size => "230x174", :class => "logo-ufrgs"
+      %div= t('.sign_in_federation')
+
 #login-wrapper
+  %h3= t('.local_authentication')
   = render :partial => 'login_form'
   .extra-links
     = render "devise/shared/links"

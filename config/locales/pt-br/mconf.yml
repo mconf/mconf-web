@@ -1307,6 +1307,9 @@ pt-br:
       login: "Login"
       password: "Senha"
     new:
+      federated_authentication: "Autenticação de usuários"
+      local_authentication: "Autenticação administrativa"
+      sign_in_federation: "clique aqui para entrar"
       title: "Login"
   session_locales:
     create:

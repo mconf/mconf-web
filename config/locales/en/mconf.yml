@@ -1307,6 +1307,9 @@ en:
       login: "Login"
       password: "Password"
     new:
+      federated_authentication: "User authentication"
+      local_authentication: "Administrative authentication"
+      sign_in_federation: "click here to sign in"
       title: "Sign in"
   session_locales: 
     create:

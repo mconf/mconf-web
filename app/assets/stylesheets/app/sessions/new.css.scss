@@ -1,10 +1,10 @@
 @import "compass/typography";
 @import "definitions";
 
-body.sessions.new, body.sessions.create {
+$login-box-width: 440px;
+$right-side-width: $contents-width - $login-box-width - 50px;
 
-  $login-box-width: 440px;
-  $right-side-width: $contents-width - $login-box-width - 50px;
+body.sessions.new, body.sessions.create {
 
   #login-wrapper {
     @include mconf-clearfix;
@@ -48,6 +48,51 @@ body.sessions.new, body.sessions.create {
       }
     }
 
+  }
+
+}
+
+// Custom UFRGS's sign in page
+
+body.sessions.new, body.sessions.create {
+
+  #login-shibboleth {
+    max-width: $right-side-width;
+    float: left;
+    text-align: center;
+
+    h3 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .logo-ufrgs {
+      font-size: 10px;
+      width: 230px;
+      height: 174px;
+      margin-bottom: 15px;
+    }
+  }
+
+  #login-wrapper {
+    margin: 0;
+    float: right;
+
+    > h3 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .extra-links {
+      float: none;
+      clear: both;
+      text-align: right;
+
+      li {
+        float: right;
+        clear: both;
+      }
+    }
   }
 
 }
