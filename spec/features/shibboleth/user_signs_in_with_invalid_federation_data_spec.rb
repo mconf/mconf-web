@@ -8,7 +8,7 @@ describe 'User signs in via shibboleth' do
       before {
         # Same as enable_shib, but let's not use the conventional attribute names
         # to test this possibility
-        @required = ['Ninjas', 'Pirates', 'Zombies']
+        @required = ['Ninjas', 'Pirates', 'Zombies', 'ufrgsVinculo']
         Site.current.update_attributes(
           :shib_enabled => true,
           :shib_name_field => @required[1],
@@ -26,7 +26,7 @@ describe 'User signs in via shibboleth' do
 
     shared_examples "like it's missing fields" do
       before {
-        @required = ["Shib-inetOrgPerson-mail", "Shib-inetOrgPerson-cn", "Shib-eduPerson-eduPersonPrincipalName"]
+        @required = ["Shib-inetOrgPerson-mail", "Shib-inetOrgPerson-cn", "Shib-eduPerson-eduPersonPrincipalName", 'ufrgsVinculo']
         setup_shib values[1], values[0], values[2]
 
         enable_shib

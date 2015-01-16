@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 include Warden::Test::Helpers
 Warden.test_mode!
 
@@ -13,13 +14,14 @@ module FeatureHelpers
     )
   end
 
-  def setup_shib name, email, principal
+  def setup_shib name, email, principal, enrollment="ativo"
     driver_name = "rack_test_#{rand}".to_sym
     Capybara.register_driver driver_name do |app|
       Capybara::RackTest::Driver.new(app, :headers => {
         "Shib-inetOrgPerson-cn" => name,
         "Shib-inetOrgPerson-mail" => email,
-        "Shib-eduPerson-eduPersonPrincipalName" => principal
+        "Shib-eduPerson-eduPersonPrincipalName" => principal,
+        "ufrgsVinculo" => "ativo:12:Funcionário de Fundações da UFRGS:1:Instituto de Informática:NULL:NULL:NULL:NULL:01/01/2011:NULL;inativo:6:Aluno de mestrado acadêmico:NULL:NULL:NULL:NULL:2:COMPUTAÇÃO:01/01/2001:11/12/2002"
       })
     end
     Capybara.current_driver = driver_name

@@ -222,7 +222,8 @@ describe 'User signs in via shibboleth' do
       setup_shib 'a full name', 'user@mconf.org', 'user@mconf.org'
     }
 
-    context "when he was in the frontpage" do
+    # UFRGS: the frontpage is different
+    skip "when he was in the frontpage" do
       before {
         visit root_url
         click_link login_link

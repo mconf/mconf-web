@@ -304,7 +304,7 @@ describe BigbluebuttonRoom do
 end
 
 def set_active_enrollment_on_shib_token(token)
-  data = token.data_as_hash
+  data = token.data
   data["ufrgsVinculo"] = "ativo:2:Docente:1:Instituto de Informática:NULL:NULL:NULL:NULL:01/01/2011:NULL"
-  token.update_attribute("data", data.to_yaml)
+  token.update_attribute("data", data)
 end

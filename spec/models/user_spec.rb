@@ -723,7 +723,7 @@ describe User do
     context "for a user without shibboleth information" do
       let(:user) { FactoryGirl.create(:user) }
       before { user.shib_token = nil }
-      it { user.has_role_allowed_to_record?.should be_false }
+      it { user.has_role_allowed_to_record?.should be(false) }
     end
 
     context "for a user logged via federation" do
@@ -732,27 +732,37 @@ describe User do
       context "without the shib variable 'ufrgsVinculo'" do
         let(:token) {
           t = FactoryGirl.create(:shib_token, :user => user)
-          t.data = t.data_as_hash.except!("ufrgsVinculo").to_yaml
+          t.data = t.data.except!("ufrgsVinculo")
           t
         }
         before { user.update_attribute("shib_token", token) }
-        it { user.has_role_allowed_to_record?.should be_false }
+        it { user.has_role_allowed_to_record?.should be(false) }
       end
 
       context "without an active enrollment" do
         let(:token) { FactoryGirl.create(:shib_token, :user => user) }
-        it { user.has_role_allowed_to_record?.should be_false }
+        it { user.has_role_allowed_to_record?.should be(false) }
+      end
+
+      context "with a blank enrollment" do
+        let(:token) { FactoryGirl.create(:shib_token, :user => user) }
+        before {
+          data = token.data
+          data["ufrgsVinculo"] = ""
+          token.update_attribute("data", data)
+        }
+        it { user.has_role_allowed_to_record?.should be(false) }
       end
 
       context "with an active enrollment" do
         context "but with a role that can't record" do
           let(:token) { FactoryGirl.create(:shib_token, :user => user) }
           before {
-            data = token.data_as_hash
+            data = token.data
             data["ufrgsVinculo"] = "ativo:12:Aluno de doutorado:1:Instituto de Informática:NULL:NULL:NULL:NULL:01/01/2011:NULL"
-            token.update_attribute("data", data.to_yaml)
+            token.update_attribute("data", data)
           }
-          it { user.has_role_allowed_to_record?.should be_false }
+          it { user.has_role_allowed_to_record?.should be(false) }
         end
 
         ["Docente", "Técnico-Administrativo", "Funcionário de Fundações da UFRGS",
@@ -761,43 +771,43 @@ describe User do
           context "as '#{enrollment}'" do
             let(:token) { FactoryGirl.create(:shib_token, :user => user) }
             before {
-              data = token.data_as_hash
+              data = token.data
               data["ufrgsVinculo"] = "ativo:2:#{enrollment}:1:Instituto de Informática:NULL:NULL:NULL:NULL:01/01/2011:NULL"
-              token.update_attribute("data", data.to_yaml)
+              token.update_attribute("data", data)
             }
-            it("can record") { user.has_role_allowed_to_record?.should be_true }
+            it("can record") { user.has_role_allowed_to_record?.should be(true) }
           end
         end
 
         context "ignores accents when matching the enrollment" do
           let(:token) { FactoryGirl.create(:shib_token, :user => user) }
           before {
-            data = token.data_as_hash
+            data = token.data
             data["ufrgsVinculo"] = "ativo:12:Funcionario de Fundacoes da UFRGS:1:Instituto de Informática:NULL:NULL:NULL:NULL:01/01/2011:NULL"
-            token.update_attribute("data", data.to_yaml)
+            token.update_attribute("data", data)
           }
-          it { user.has_role_allowed_to_record?.should be_true }
+          it { user.has_role_allowed_to_record?.should be(true) }
         end
 
         context "with more than one active enrollment" do
           context "and one allows recording" do
             let(:token) { FactoryGirl.create(:shib_token, :user => user) }
             before {
-              data = token.data_as_hash
+              data = token.data
               data["ufrgsVinculo"] = "ativo:11:Docente:1:Instituto de Informática:NULL:NULL:NULL:NULL:01/01/2011:NULL;ativo:6:Aluno de mestrado acadêmico:NULL:NULL:NULL:NULL:2:COMPUTAÇÃO:01/01/2001:11/12/2002"
-              token.update_attribute("data", data.to_yaml)
+              token.update_attribute("data", data)
             }
-            it { user.has_role_allowed_to_record?.should be_true }
+            it { user.has_role_allowed_to_record?.should be(true) }
           end
 
           context "but none allows recording" do
             let(:token) { FactoryGirl.create(:shib_token, :user => user) }
             before {
-              data = token.data_as_hash
+              data = token.data
               data["ufrgsVinculo"] = "ativo:11:Aluno de doutorado:1:Instituto de Informática:NULL:NULL:NULL:NULL:01/01/2011:NULL;ativo:6:Aluno de mestrado acadêmico:NULL:NULL:NULL:NULL:2:COMPUTAÇÃO:01/01/2001:11/12/2002"
-              token.update_attribute("data", data.to_yaml)
+              token.update_attribute("data", data)
             }
-            it { user.has_role_allowed_to_record?.should be_false }
+            it { user.has_role_allowed_to_record?.should be(false) }
           end
         end
       end

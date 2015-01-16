@@ -29,7 +29,8 @@ feature 'Visitor logs in' do
   end
 
   feature 'with valid credentials' do
-    scenario 'from the frontpage' do
+    # UFRGS: the frontpage is different
+    skip 'from the frontpage' do
       visit root_path
       fill_in 'user[login]', with: @user.username
       find('#login-box').find('#user_password').set(@user.password)
@@ -53,11 +54,17 @@ feature 'Visitor logs in' do
     end
 
     scenario 'from /webconf/:id' do
+      Site.current.update_attributes(shib_always_new_account: true)
+      attrs = FactoryGirl.attributes_for(:user)
+      enable_shib
+      setup_shib attrs[:username], attrs[:email], attrs[:email]
+
       user = FactoryGirl.create(:user)
       room = FactoryGirl.create(:bigbluebutton_room, :param => "test", :owner => user)
       visit invite_bigbluebutton_room_path(room)
 
-      sign_in_with @user.username, @user.password, false
+      click_link t('custom_bigbluebutton_rooms.invite_userid.member.click_here')
+
       expect(current_path).to eq(invite_bigbluebutton_room_path(room))
     end
   end
@@ -199,7 +206,8 @@ feature 'Visitor logs in' do
       expect(current_path).to eq(my_home_path)
     end
 
-    scenario 'after an error signing in with shibboleth (/secure/associate)' do
+    # UFRGS: only shib login, always automatically creating a new account
+    skip 'after an error signing in with shibboleth (/secure/associate)' do
       enable_shib
       setup_shib @user.name, @user.email, @user.email
 

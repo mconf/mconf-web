@@ -290,7 +290,7 @@ class User < ActiveRecord::Base
   # Returns whether the user has a role allowed to record meetings.
   def has_role_allowed_to_record?
     unless self.shib_token.nil?
-      data = self.shib_token.data_as_hash
+      data = self.shib_token.data
       data.each do |key, value|
         if key == "ufrgsVinculo"
           # value is a string with several "enrollments" in the format as the example below:
@@ -314,13 +314,17 @@ class User < ActiveRecord::Base
   # TODO: the list of enrollments could come from Site and be configured in the app
   # by an admin.
   def is_enrollment_allowed_to_record?(enrollment)
-    enrollment = I18n.transliterate(enrollment)
-    all_allowed = ["Docente", "Técnico-Administrativo", "Funcionário de Fundações da UFRGS",
-                   "Tutor de disciplina", "Professor visitante", "Colaborador convidado"]
-    all_allowed.each do |allowed|
-      allowed = I18n.transliterate(allowed)
-      if enrollment.match(/#{allowed}/i)
-        return true
+    if enrollment.blank?
+      false
+    else
+      enrollment = I18n.transliterate(enrollment)
+      all_allowed = ["Docente", "Técnico-Administrativo", "Funcionário de Fundações da UFRGS",
+                     "Tutor de disciplina", "Professor visitante", "Colaborador convidado"]
+      all_allowed.each do |allowed|
+        allowed = I18n.transliterate(allowed)
+        if enrollment.match(/#{allowed}/i)
+          return true
+        end
       end
     end
     false
