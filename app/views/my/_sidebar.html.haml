@@ -32,5 +32,5 @@
 #user-spaces
   %h3= t(".spaces.title")
   = render "spaces/list_view", :spaces => user_spaces, :user_spaces => user_spaces
-  = link_to t(".spaces.view_all"), spaces_path, :class => "btn btn-sm btn-default col-xs-12"
+  = link_to t(".spaces.view_all"), spaces_path(my_spaces: true), :class => "btn btn-sm btn-default col-xs-12"
   = link_to t(".spaces.create"), new_space_path, :class => "btn btn-sm btn-primary col-xs-12"

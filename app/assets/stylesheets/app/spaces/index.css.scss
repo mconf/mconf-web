@@ -4,10 +4,6 @@
 
 body.spaces.index {
 
-  #content-middle {
-    min-height: 450px;
-  }
-
   #space-filter-wrapper {
     @include mconf-clearfix;
     margin-bottom: 10px;
