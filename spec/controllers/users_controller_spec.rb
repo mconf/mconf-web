@@ -638,7 +638,7 @@ describe UsersController do
   end
 
   describe "#approve" do
-    let(:user) { FactoryGirl.create(:user, :approved => false) }
+    let(:user) { FactoryGirl.create(:unconfirmed_user, approved: false) }
     before {
       request.env["HTTP_REFERER"] = "/any"
       login_as(FactoryGirl.create(:superuser))

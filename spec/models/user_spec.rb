@@ -554,7 +554,7 @@ describe User do
     end
 
     context "confirms the user if it's not already confirmed" do
-      before { user.update_attributes(:confirmed_at => nil) }
+      let(:user) { FactoryGirl.create(:unconfirmed_user) }
       before(:each) { user.approve! }
       it { user.should be_approved }
       it { user.should be_confirmed }
