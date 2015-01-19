@@ -138,9 +138,22 @@ class Space < ActiveRecord::Base
   # Creates a new activity pertraining this space
   def new_activity key, user, join_request=nil
     if join_request
-      create_activity key, :owner => join_request, :parameters => { :user_id => user.id, :username => user.name }
+      create_activity key, owner: join_request, parameters: { user_id: user.id, username: user.name }
     else
-      create_activity key, :owner => self, :parameters => { :user_id => user.id, :username => user.name }
+      params = { user_id: user.id, username: user.name }
+
+      attr_changed = previous_changes.except('updated_at').keys
+      if key == 'update'
+        # Save changed attributes
+        if attr_changed.present?
+          params.merge!({ changed_attributes: attr_changed })
+        # Don't create activity if model was updated and nothing changed
+        else
+          return
+        end
+      end
+
+      create_activity key, owner: self, parameters: params
     end
   end
 

@@ -435,9 +435,25 @@ describe SpacesController do
         space_attributes.stub(:permit).and_return(space_attributes)
         controller.stub(:params).and_return(params)
       }
-      before(:each) { put :update, :id => space.to_param, :space => space_attributes }
+      before(:each) {
+        expect {
+          put :update, :id => space.to_param, :space => space_attributes
+        }.to change {RecentActivity.count}.by(1)
+      }
       it { space_attributes.should have_received(:permit).with(*space_allowed_params) }
       it { should redirect_to(referer) }
+      it { should set_the_flash.to(I18n.t("space.updated")) }
+    end
+
+    context "changing no parameters" do
+      before(:each) {
+        expect {
+          put :update, :id => space.to_param, :space => {}
+        }.to change {RecentActivity.count}.by(0)
+      }
+
+      it { should redirect_to(referer) }
+      it { should set_the_flash.to(I18n.t("space.updated")) }
     end
   end
 
