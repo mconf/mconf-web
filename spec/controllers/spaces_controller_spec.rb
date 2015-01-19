@@ -431,7 +431,7 @@ describe SpacesController do
           :repository, :crop_x, :crop_y, :crop_w, :crop_h, :crop_img_w, :crop_img_h,
           :bigbluebutton_room_attributes =>
           [ :id, :attendee_key, :moderator_key, :default_layout,
-            :welcome_msg, :presenter_share_only, :auto_start_video, :auto_start_audio ] ]
+            :logout_url, :welcome_msg, :presenter_share_only, :auto_start_video, :auto_start_audio ] ]
       }
       before {
         space_attributes.stub(:permit).and_return(space_attributes)
