@@ -25,11 +25,8 @@ class Invitation < ActiveRecord::Base
              end
     return false if mailer.nil?
 
-    # It will always send the notification via email
-
     mailer.invitation_email(self.id).deliver
-    return true
-    
+    true
   end
 
   def self.create_invitations(user_list, params)
