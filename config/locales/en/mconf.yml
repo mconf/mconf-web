@@ -207,6 +207,7 @@ en:
         _full_name: "Full name"
         approved: "Approved"
         can_record: "Allow this user to record meetings"
+        current_password: "Current password"
         email: "Email"
         expanded_post: "Show messages in wall with the expanded view by default"
         password: "Password"

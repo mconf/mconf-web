@@ -207,6 +207,7 @@ pt-br:
         _full_name: "Nome completo"
         approved: "Aprovado"
         can_record: "Permitir ao usuário gravar reuniões"
+        current_password: "Senha atual"
         email: "E-mail"
         expanded_post: "Mostrar mensagens no mural com a visão expandida por padrão"
         password: "Senha"
