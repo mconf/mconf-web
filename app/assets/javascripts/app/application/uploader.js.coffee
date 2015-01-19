@@ -71,7 +71,7 @@ class mconf.Uploader
       validation: {}
 
     if element.attr('data-accept')
-      options.validation.allowedExtensions = getFormatsFromFiles(element.attr('data-accept'))
+      options.validation.allowedExtensions = getFormatsFromAccept(element.attr('data-accept'))
       options.validation.acceptFiles = element.attr('data-accept')
 
     if element.attr('data-max-size')
@@ -101,6 +101,11 @@ convertSize = (str) ->
   else
     null
 
-getFormatsFromFiles = (files) ->
-  if files? && files == 'image/*'
+getFormatsFromAccept = (accept) ->
+  if accept? && accept == 'image/*'
     ['jpg', 'jpeg', 'png']
+
+# Use this when firefox is ready to use the accepts='.jpg,.png, ...' (version 37 maybe)
+getFileTypesFromAccept = (accept) ->
+  formats = ('.' + format for format in getFormatsFromAccept(accept))
+  formats.join(',')
