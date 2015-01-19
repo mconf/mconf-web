@@ -94,7 +94,7 @@ describe UsersController do
 
       let(:user_allowed_params) {
         [ :password, :password_confirmation, :remember_me, :current_password, :login,
-          :approved, :disabled, :timezone, :can_record, :receive_digest, :notification, :expanded_post ]
+          :approved, :disabled, :timezone, :can_record, :receive_digest, :expanded_post ]
       }
       before {
         sign_in(user)
@@ -225,24 +225,6 @@ describe UsersController do
         it { response.should redirect_to edit_user_path(user) }
         it { user.timezone.should_not eq(old_tz) }
         it { user.timezone.should eq(new_tz) }
-      end
-
-      context "trying to update notifications" do
-        let!(:old_not) { User::NOTIFICATION_VIA_EMAIL }
-        let(:user) { FactoryGirl.create(:user, :notification => old_not) }
-        let!(:new_not) { User::NOTIFICATION_VIA_PM }
-
-        before(:each) do
-          sign_in user
-
-          put :update, :id => user.to_param, :user => { :notification => new_not }
-          user.reload
-        end
-
-        it { response.status.should == 302 }
-        it { response.should redirect_to edit_user_path(user) }
-        it { user.notification.should_not eq(old_not) }
-        it { user.notification.should eq(new_not) }
       end
 
       context "trying to update password" do

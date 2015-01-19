@@ -6,6 +6,6 @@ class AddUserPreferences < ActiveRecord::Migration
 
   def self.down
     remove_column :users, :expanded_post
-    remove_column :users, :notification
+    remove_column :users
   end
 end
