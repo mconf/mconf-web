@@ -61,6 +61,7 @@ describe AttachmentsController do
     let(:user) { FactoryGirl.create(:user) }
 
     context "logged in" do
+
       context "as a superuser" do
         before(:each) {
           sign_in(superuser)
@@ -95,6 +96,7 @@ describe AttachmentsController do
         describe "params"
         describe "order"
       end
+
     end
 
     context "as an anonymous user" do
@@ -138,7 +140,6 @@ describe AttachmentsController do
 
     end
     context "as an anonymous user" do
-      before { controller.stub(:render) }
       it {
         expect {
           get :show, id: attachment.id, space_id: space.to_param

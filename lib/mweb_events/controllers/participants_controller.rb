@@ -8,6 +8,8 @@ MwebEvents::ParticipantsController.class_eval do
 
   layout "no_sidebar", :only => [:new]
 
+  rescue_from CanCan::AccessDenied, with: :handle_access_denied
+
   # return 404 for all Participant routes if the events are disabled
   def block_if_events_disabled
     unless Mconf::Modules.mod_enabled?('events')
@@ -17,5 +19,15 @@ MwebEvents::ParticipantsController.class_eval do
 
   def custom_loading
     @participants = @participants.accessible_by(current_ability).paginate(:page => params[:page])
+  end
+
+  private
+  def handle_access_denied exception
+    if user_signed_in?
+      render_403 exception
+    else
+      # TODO is this nice?
+      redirect_to '/login'
+    end
   end
 end

@@ -75,6 +75,13 @@ describe UsersController do
       }
       it { should_not assign_to(:shib_provider) }
     end
+
+    context "an anonymous user trying to edit another user" do
+      before {
+        get :edit, id: user.to_param
+      }
+      it { should redirect_to login_path }
+    end
   end
 
   describe "#update" do
@@ -343,6 +350,12 @@ describe UsersController do
         end
       end
     end
+
+    context "as anonymous user" do
+      let(:user) { FactoryGirl.create(:user) }
+      before { put :update, id: user.to_param }
+      it("should require that the user be logged in") { should redirect_to login_path }
+    end
   end
 
   describe "#destroy" do
@@ -364,6 +377,16 @@ describe UsersController do
       it { should set_the_flash.to(I18n.t('devise.registrations.destroyed')) }
       it { should redirect_to(root_path) }
       it("disables the user") { user.reload.disabled.should be_truthy }
+    end
+
+    context "as anonymous user" do
+      let!(:user) { FactoryGirl.create(:user) }
+      before {
+        expect {
+          delete :destroy, id: user.to_param
+        }.not_to change { User.count }
+      }
+      it { should redirect_to login_path }
     end
 
     it { should_authorize an_instance_of(User), :destroy, :via => :delete, :id => user.to_param }
@@ -767,10 +790,9 @@ describe UsersController do
       }
     end
 
-    context "a anonymous user" do
-      it {
-        expect { get :new }.to raise_error(CanCan::AccessDenied)
-      }
+    context "as anonymous user" do
+      before { get :new }
+      it { should redirect_to login_path }
     end
   end
 

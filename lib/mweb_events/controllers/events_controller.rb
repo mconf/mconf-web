@@ -8,6 +8,8 @@ MwebEvents::EventsController.class_eval do
     @event.new_activity params[:action], current_user unless @event.errors.any?
   end
 
+  rescue_from CanCan::AccessDenied, with: :handle_access_denied
+
   def invite
     render :layout => false if request.xhr?
   end
@@ -75,6 +77,16 @@ MwebEvents::EventsController.class_eval do
     @date_format = I18n.t('_other.datetimepicker.format')
     @event.date_stored_format = I18n.t('_other.datetimepicker.format_rails')
     @event.date_display_format = I18n.t('_other.datetimepicker.format_display')
+  end
+
+  private
+
+  def handle_access_denied exception
+    if user_signed_in?
+      render_403 exception
+    else
+      redirect_to '/login'
+    end
   end
 
 end

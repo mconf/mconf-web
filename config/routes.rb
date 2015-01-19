@@ -162,7 +162,7 @@ Mconf::Application.routes.draw do
 
   resources :messages, controller: :private_messages, except: [:edit]
 
-  resources :feedback do
+  resources :feedback, only: [:new, :create] do
     get :webconf, on: :collection
   end
 

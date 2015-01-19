@@ -317,9 +317,11 @@ class SpacesController < ApplicationController
         flash[:error] = t("spaces.error.need_join_to_access")
         redirect_to new_space_join_request_path :space_id => params[:id]
       end
-
+    elsif !user_signed_in?
+      # anonymous users are required to sign in
+      redirect_to login_path
     else
-      # anonymous users or destructive actions are redirected to the 403 error
+      # destructive actions are redirected to the 403 error
       flash[:error] = t("space.access_forbidden")
       if exception.action == :show
         @error_message = t("space.is_private_html", name: @space.name, path: new_space_join_request_path(@space))
