@@ -80,12 +80,4 @@ class ProfilesController < ApplicationController
       :crop_x, :crop_y, :crop_w, :crop_h, :crop_img_w, :crop_img_h ]
   end
 
-  def handle_access_denied exception
-    if user_signed_in?
-      render_403 exception
-    else
-      redirect_to login_path
-    end
-  end
-
 end
