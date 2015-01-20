@@ -6,22 +6,14 @@
 # 3 or later. See the LICENSE file.
 
 class ProfilesController < ApplicationController
+  before_filter :authenticate_user!
+
   before_filter :unique_profile, :only => [:new, :create]
 
   load_and_authorize_resource :user, :find_by => :username
   load_and_authorize_resource :through => :user, :singleton => true
 
-
-  rescue_from CanCan::AccessDenied, with: :handle_access_denied
-
   # if params[:hcard] then hcard is rendered
-  def show
-    respond_to do |format|
-      format.html { redirect_to user_path(@user)}
-      format.xml { render :xml => @profile }
-      format.vcf { send_data @profile.to_vcard.to_s, :filename => "#{ @user.name}.vcf" }
-    end
-  end
 
   def edit
     if params[:hcard_uri]
@@ -50,15 +42,6 @@ class ProfilesController < ApplicationController
       else
         format.html { render :action => "edit" }
       end
-    end
-  end
-
-  def destroy
-    @profile.destroy
-    flash[:notice] = t('profile.deleted')
-    respond_to do |format|
-      format.html { redirect_to(user_path(@user)) }
-      format.xml  { head :ok }
     end
   end
 

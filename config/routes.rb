@@ -132,7 +132,7 @@ Mconf::Application.routes.draw do
 
   resources :permissions, only: [:update, :destroy]
 
-  resources :users do
+  resources :users, except: [:index] do
     collection do
       get :fellows
       get :select
@@ -146,7 +146,7 @@ Mconf::Application.routes.draw do
       post :confirm
     end
 
-    resource :profile, except: [:new, :create] do
+    resource :profile, only: [:edit, :update] do
       post :update_logo
     end
   end
