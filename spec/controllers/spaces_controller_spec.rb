@@ -122,6 +122,21 @@ describe SpacesController do
 
     it { should_authorize Space, :index }
 
+    context "order by latest activities in the space" do
+      let(:now) { Time.now }
+      let(:spaces) {[
+        FactoryGirl.create(:space), FactoryGirl.create(:space), FactoryGirl.create(:space)
+      ]}
+      let!(:activities) {[
+        RecentActivity.create(owner: spaces[0], created_at: now),            # 3rd
+        RecentActivity.create(owner: spaces[1], created_at: now + 2.second), # 1st
+        RecentActivity.create(owner: spaces[2], created_at: now + 1.second)  # 2nd
+      ]}
+
+      before { get :index }
+      it { should assign_to(:spaces).with([spaces[1], spaces[2], spaces[0]]) }
+    end
+
     context "if there's a user signed in" do
 
       context "assigns @user_spaces" do

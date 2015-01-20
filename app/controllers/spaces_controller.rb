@@ -38,11 +38,11 @@ class SpacesController < ApplicationController
     if params[:view].nil? or params[:view] != "list"
       params[:view] = "thumbnails"
     end
-    spaces = Space.order('name ASC')
-    @spaces = spaces.paginate(:page => params[:page], :per_page => 18)
-
+    spaces = Space.all
     @user_spaces = user_signed_in? ? current_user.spaces : Space.none
-    @user_spaces = @user_spaces.paginate(:page => params[:page], :per_page => 18)
+
+    @spaces = params[:my_spaces] ? @user_spaces : spaces
+    @spaces = @spaces.order_by_activity.paginate(:page => params[:page], :per_page => 18)
 
     if @space
        session[:current_tab] = "Spaces"

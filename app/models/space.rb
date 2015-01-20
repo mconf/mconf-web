@@ -116,6 +116,18 @@ class Space < ActiveRecord::Base
     Space::USER_ROLES.map { |r| Role.find_by_name(r) }
   end
 
+  def last_activitity
+    RecentActivity.where(owner: self).last
+  end
+
+  # Order by when the last activity in the space happened
+  scope :order_by_activity, -> {
+    last_act = all.map(&:last_activitity)
+    joins("LEFT JOIN activities ON activities.owner_type = 'Space' AND activities.owner_id = spaces.id")
+    .where(activities: {id: last_act})
+    .order("activities.created_at DESC")
+  }
+
   # Returns the next 'count' events (starting in the current date) in this space.
   def upcoming_events(count=5)
     self.events.upcoming.order("start_on ASC").first(5)

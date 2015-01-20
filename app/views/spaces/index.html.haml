@@ -2,8 +2,6 @@
   = t('.subtitle')
 = render_page_title t('.title')
 
-- @objects = params[:my_spaces] ? @user_spaces : @spaces
-
 = content_for :sidebar do
 
   .sidebar-top-action-button
@@ -18,7 +16,7 @@
   = render_sidebar_content_block('space-description-wrapper') do
     .content-block-middle
       %p= t('space.index.select_at_left')
-    - @objects.each do |space|
+    - @spaces.each do |space|
       - has_access = user_signed_in? || space.public
       .content-block-middle{:id => "#{space.permalink}-description", :style => "display:none;"}
         .space-logo-wrapper
@@ -60,12 +58,12 @@
     = hidden_field_tag :space_filter_text
 
 - if params[:view] == 'list'
-  = render "spaces/list_view", :spaces => @objects, :user_spaces => @user_spaces, :extended => true
+  = render "spaces/list_view", :spaces => @spaces, :user_spaces => @user_spaces, :extended => true
 - else
   #spaces.content-block
     .content-block-middle.clearfix
-      = render "spaces/thumbnail_view", :spaces => @objects, :user_spaces => @user_spaces
+      = render "spaces/thumbnail_view", :spaces => @spaces, :user_spaces => @user_spaces
 
-- nav = page_navigation_links @objects
+- nav = page_navigation_links @spaces
 - unless nav.nil?
   .content-block-footer= nav
