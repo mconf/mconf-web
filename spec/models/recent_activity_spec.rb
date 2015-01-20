@@ -91,6 +91,8 @@ describe RecentActivity do
   describe "#user_public_activity" do
     let(:user) { FactoryGirl.create(:user) }
 
+    skip 'test it returns only activities performed by the user'
+
     context "ignores declined join requests" do
       before {
         RecentActivity.should_receive(:user_activity) { |user, arg|

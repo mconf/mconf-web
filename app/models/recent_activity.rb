@@ -69,6 +69,12 @@ class RecentActivity < PublicActivity::Activity
   # All activities that are public and should be visible for a user
   # * +user+ - the user which activities will be returned
   def self.user_public_activity user
-    user_activity(user, ["space.decline"])
+    # Filter activities done by user_id
+    activities = user_activity(user, ["space.decline"]).select do |act|
+      act.parameters[:user_id] == user.id
+    end
+
+    # return a relation back
+    where id: activities.map(&:id)
   end
 end
