@@ -6,9 +6,8 @@
 # 3 or later. See the LICENSE file.
 
 class ManageController < ApplicationController
+  before_filter :authenticate_user!
   authorize_resource :class => false
-
-  rescue_from CanCan::AccessDenied, with: :handle_access_denied
 
   def users
     name = params[:q]
@@ -47,16 +46,6 @@ class ManageController < ApplicationController
   def spam
     @spam_posts = Post.where(:spam => true).all
     render :layout => 'no_sidebar'
-  end
-
-  private
-
-  def handle_access_denied exception
-    if user_signed_in?
-      render_403 exception
-    else
-      redirect_to login_path
-    end
   end
 
 end

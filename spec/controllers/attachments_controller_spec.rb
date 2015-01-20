@@ -97,12 +97,21 @@ describe AttachmentsController do
         describe "order"
       end
 
+      context "as a normal user that is not in the space" do
+        before {
+          sign_in(user)
+        }
+        it {
+          expect {
+            get :index, space_id: space.to_param
+          }.to raise_error(CanCan::AccessDenied)
+        }
+      end
     end
 
     context "as an anonymous user" do
-      it {
-        expect { get :index, space_id: space.to_param }.to raise_error(CanCan::AccessDenied)
-      }
+      before { get :index, space_id: space.to_param }
+      it { should redirect_to 'http://test.host/users/login' }
     end
   end
 
@@ -140,11 +149,8 @@ describe AttachmentsController do
 
     end
     context "as an anonymous user" do
-      it {
-        expect {
-          get :show, id: attachment.id, space_id: space.to_param
-        }.to raise_error(CanCan::AccessDenied)
-      }
+      before { get :show, id: attachment.id, space_id: space.to_param }
+      it { should redirect_to 'http://test.host/users/login' }
     end
 
   end
@@ -181,9 +187,8 @@ describe AttachmentsController do
     end
 
     context "as an anonymous user" do
-      it {
-        expect { get :new, space_id: space.to_param }.to raise_error(CanCan::AccessDenied)
-      }
+      before { get :new, space_id: space.to_param }
+      it { should redirect_to 'http://test.host/users/login' }
     end
   end
 
@@ -216,12 +221,8 @@ describe AttachmentsController do
 
     context "as an anonymous user" do
       let(:attributes) { FactoryGirl.attributes_for(:attachment) }
-
-      it {
-        expect {
-          post :create, space_id: space.to_param, attachment: attributes
-        }.to raise_error(CanCan::AccessDenied)
-      }
+      before { post :create, space_id: space.to_param, attachment: attributes }
+      it { should redirect_to 'http://test.host/users/login' }
     end
 
   end
@@ -246,11 +247,8 @@ describe AttachmentsController do
     end
 
     context "as an anonymous user" do
-      it {
-        expect {
-          delete :destroy, id: attachment.id, space_id: space.to_param
-        }.to raise_error(CanCan::AccessDenied)
-      }
+      before { delete :destroy, id: attachment.id, space_id: space.to_param }
+      it { should redirect_to 'http://test.host/users/login' }
     end
   end
 
@@ -284,11 +282,8 @@ describe AttachmentsController do
     end
 
     context "as an anonymous user" do
-      it {
-        expect {
-          delete :delete_collection, params
-        }.to raise_error(CanCan::AccessDenied)
-      }
+      before { delete :delete_collection, params }
+      it { should redirect_to 'http://test.host/users/login' }
     end
   end
 end

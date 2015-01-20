@@ -7,7 +7,6 @@
 
 require "digest/sha1"
 class UsersController < ApplicationController
-
   load_and_authorize_resource :find_by => :username, :except => [:enable, :index]
   before_filter :load_and_authorize_with_disabled, :only => [:enable]
 

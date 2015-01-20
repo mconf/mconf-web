@@ -6,9 +6,8 @@
 # 3 or later. See the LICENSE file.
 
 class PrivateMessagesController < ApplicationController
+  before_filter :authenticate_user!
   load_and_authorize_resource
-
-  rescue_from CanCan::AccessDenied, with: :handle_access_denied
 
   def index
     @page_size = 10
@@ -149,13 +148,4 @@ class PrivateMessagesController < ApplicationController
     [:title, :body, :parent_id, :receiver_id, :deleted_by_sender, :deleted_by_receiver]
   end
 
-  def handle_access_denied exception
-    # This controller should not act unless the user is logged.
-    # Don't know if this if is necessary.
-    if user_signed_in?
-      render_403 exception
-    else
-      redirect_to login_path
-    end
-  end
 end

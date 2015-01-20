@@ -26,7 +26,6 @@ MwebEvents::ParticipantsController.class_eval do
     if user_signed_in?
       render_403 exception
     else
-      # TODO is this nice?
       redirect_to '/login'
     end
   end

@@ -78,7 +78,10 @@ describe UsersController do
 
     context "an anonymous user trying to edit another user" do
       before {
-        get :edit, id: user.to_param
+        expect {
+          get :edit, id: user.to_param
+          user.reload
+        }.not_to change { user }
       }
       it { should redirect_to login_path }
     end
@@ -352,9 +355,17 @@ describe UsersController do
     end
 
     context "as anonymous user" do
-      let(:user) { FactoryGirl.create(:user) }
-      before { put :update, id: user.to_param }
-      it("should require that the user be logged in") { should redirect_to login_path }
+      # Try to update any attribute, such as notification type.
+      let!(:old_not) { User::NOTIFICATION_VIA_EMAIL }
+      let(:user) { FactoryGirl.create(:user, notification: old_not) }
+      let!(:new_not) { User::NOTIFICATION_VIA_PM }
+      before {
+        expect {
+          put :update, id: user.to_param, user: { notification: new_not }
+          user.reload
+        }.not_to change { user }
+      }
+      it { should redirect_to login_path }
     end
   end
 
