@@ -91,16 +91,43 @@ describe RecentActivity do
   describe "#user_public_activity" do
     let(:user) { FactoryGirl.create(:user) }
 
-    skip 'test it returns only activities performed by the user'
+    context 'test it returns only activities performed by the user' do
+      let(:user2) { FactoryGirl.create(:user) }
+
+      before {
+        space = FactoryGirl.create(:space)
+        posts = [ FactoryGirl.create(:post, space: space), FactoryGirl.create(:post, space: space) ]
+        # pending: webconf activities
+
+        space.add_member!(user)
+        space.add_member!(user2)
+
+        @activities = [
+          space.new_activity(:update, user),
+          space.new_activity(:join, user),
+          posts[0].new_activity(:create, user),
+          space.new_activity(:update, user2),
+          posts[1].new_activity(:create, user2)
+        ]
+        # hack, we do this because we need it to use our class RecentActivity and not PublicActivity
+        @activities.map!{|a| RecentActivity.find(a.id)}
+      }
+
+      it { RecentActivity.user_public_activity(user).size.should be(3) }
+      it { RecentActivity.user_public_activity(user2).size.should be(2) }
+      it { RecentActivity.user_public_activity(user).should include(*@activities[0..2]) }
+      it { RecentActivity.user_public_activity(user2).should include(*@activities[3..4]) }
+      it { RecentActivity.user_public_activity(user).size.should be(3) }
+    end
 
     context "ignores declined join requests" do
       before {
         RecentActivity.should_receive(:user_activity) { |user, arg|
           arg.should be_an_instance_of(Array)
           arg.should include("space.decline")
-        }.and_return("all activity")
+        }.and_return(RecentActivity.none)
       }
-      it { RecentActivity.user_public_activity(user).should eql("all activity") }
+      it { RecentActivity.user_public_activity(user).should be_blank }
     end
   end
 end
