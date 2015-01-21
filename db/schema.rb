@@ -97,7 +97,7 @@ ActiveRecord::Schema.define(version: 20141218184717) do
     t.boolean  "available",   default: true
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "description"
+    t.text     "description"
     t.integer  "meeting_id"
   end
 
@@ -316,15 +316,6 @@ ActiveRecord::Schema.define(version: 20141218184717) do
   add_index "shib_tokens", ["identifier"], name: "index_shib_tokens_on_identifier", unique: true, using: :btree
   add_index "shib_tokens", ["user_id"], name: "index_shib_tokens_on_user_id", unique: true, using: :btree
 
-  create_table "simple_captcha_data", force: true do |t|
-    t.string   "key",        limit: 40
-    t.string   "value",      limit: 6
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "simple_captcha_data", ["key"], name: "idx_key", using: :btree
-
   create_table "sites", force: true do |t|
     t.string   "name"
     t.text     "description"
@@ -352,12 +343,15 @@ ActiveRecord::Schema.define(version: 20141218184717) do
     t.string   "smtp_domain"
     t.string   "smtp_auth_type"
     t.string   "smtp_sender"
-    t.boolean  "chat_enabled",                   default: false
-    t.string   "xmpp_server"
     t.text     "shib_env_variables"
     t.string   "shib_login_field"
     t.string   "timezone",                       default: "UTC"
     t.string   "external_help"
+    t.string   "recaptcha_private_key"
+    t.string   "recaptcha_public_key"
+    t.boolean  "use_recaptcha",                  default: false
+    t.boolean  "chat_enabled",                   default: false
+    t.string   "xmpp_server"
     t.boolean  "webconf_auto_record",            default: false
     t.boolean  "ldap_enabled"
     t.string   "ldap_host"
