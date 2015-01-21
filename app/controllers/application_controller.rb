@@ -29,6 +29,7 @@ class ApplicationController < ActionController::Base
   rescue_from Exception, :with => :render_500
   rescue_from ActiveRecord::RecordNotFound, :with => :render_404
   rescue_from ActionController::UnknownController, :with => :render_404
+  rescue_from ActionController::RoutingError, :with => :render_404
   rescue_from ::AbstractController::ActionNotFound, :with => :render_404
   rescue_from CanCan::AccessDenied, :with => :render_403
 
