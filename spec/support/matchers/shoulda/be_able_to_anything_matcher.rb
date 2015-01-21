@@ -77,7 +77,7 @@ module Shoulda
           # @exceptions.push(:edit) if @exceptions.include?(:update)
 
           # returning false means should_not is successful
-          !(@can.sort == @exceptions.sort)
+          !(@can.sort.uniq == @exceptions.sort.uniq)
         end
 
         def description
@@ -92,7 +92,7 @@ module Shoulda
           "Don't use this matcher with 'should'. You might have to replace it by 'be_able_to(:manage, target)'"
         end
 
-        def negative_failure_message
+        def failure_message_for_should_not
           m = "Expected #{@subject.class.name} not to be able to do anything with '#{@target}'"
           unless @exceptions.empty?
             m += " except #{@exceptions},"

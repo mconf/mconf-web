@@ -197,6 +197,7 @@ class UsersController < ApplicationController
 
     if @user.save
       @user.confirm!
+      @user.approve!
       flash[:success] = t("users.create.success")
       respond_to do |format|
         format.html { redirect_to manage_users_path }
