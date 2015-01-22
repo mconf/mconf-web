@@ -17,10 +17,6 @@ class NewsController < ApplicationController
   end
 
   def create
-    puts "coco"
-    puts "\n\n\n\n\n\n"
-    puts params.inspect
-    puts "\n\n\n\n\n\n"
     @news = @space.news.build(news_params)
 
     if @news.save
