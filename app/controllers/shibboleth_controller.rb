@@ -102,7 +102,6 @@ class ShibbolethController < ApplicationController
   private
 
   def load_shib_session
-    test_data
     logger.info "Shibboleth: creating a new Mconf::Shibboleth object"
     @shib = Mconf::Shibboleth.new(session)
   end
