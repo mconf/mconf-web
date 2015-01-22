@@ -72,7 +72,9 @@
     #management-options.alert.alert-gray
       %h3= t('.management_options')
       = f.input :can_record, :required => false
-
+      - if @user.has_role_allowed_to_record?
+        #warning-record-ability
+          = t('_other.user.has_role_allowed_to_record')
       -# prevent admins from mistakenly removing themselves from being admins or blocking
       -# access to their account
       - unless current_user == @user

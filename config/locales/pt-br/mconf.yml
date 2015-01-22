@@ -96,6 +96,7 @@ pt-br:
       guest: Convidado
       guest_name: "Usuário convidado (%{email})"
       removed: "<usuário removido>"
+      has_role_allowed_to_record: "(o papel deste usuário já permite a ele gravar reuniões)"
     yes_: "Sim"
     webconference:
       not_allowed_to_create: "Você não tem permissão para criar reuniões nesta sala"
@@ -437,7 +438,7 @@ pt-br:
   create: Criar
   create_event: "Criar Evento"
   created_time_ago: "Criado %{time} atrás"
-  crop_image: 
+  crop_image:
     description: "Selecione uma parte da imagem para cortar"
     title: "Cortar imagem"
   custom_bigbluebutton_playback_types:
@@ -477,7 +478,7 @@ pt-br:
       field_name: "Você está entrando na conferência como"
       field_password: "Chave de acesso desta conferência"
       title: "Acessar sala: %{name}"
-    invite_header: 
+    invite_header:
       not_running: "não iniciada"
       refresh: "Esta informação é atualizada automaticamente"
       room_type_private: "Esta é uma conferência <em>privada</em>"
@@ -628,7 +629,7 @@ pt-br:
         resend_confirmation_email: "Reenviar e-mail de confirmação"
     strategies:
       ldap_authenticatable:
-        create_failed: "Não foi possĩvel criar as estruturas internas para sua conta do LDAP, por favor contate um administrador" 
+        create_failed: "Não foi possĩvel criar as estruturas internas para sua conta do LDAP, por favor contate um administrador"
         invalid_bind: "Não foi possível conectar ao servidor LDAP, verifique a configuração do LDAP na página de administração"
         ldap_not_enabled: "LDAP não esta habilitado neste site"
         missing_username: "Não foi possível encontrar o nome de usuário do LDAP, por favor contate um administrador"
@@ -672,13 +673,13 @@ pt-br:
   error:
     change: "Mudança inválida"
     credentials: "Credenciais inválidas"
-    e403: 
+    e403:
       description: "Você não possui permissão para visualizar esta página."
       title: "Proibido"
-    e404: 
+    e404:
       description: "Oops, a página \"%{url}\" não existe."
       title: "Não encontrado"
-    e500: 
+    e500:
       description: "Desculpe, mas algum erro aconteceu. Já fomos notificados sobre o problema e iremos resolvê-lo assim que possível."
       title: "Erro"
     mistyped_or_moved: "Você pode ter digitado o endereço incorretamente ou a página pode ter sido movida"
@@ -732,13 +733,13 @@ pt-br:
     no_spaces: "Você não faz parte de nenhuma comunidade. Você pode ver as comunidades existentes <a href=\"%{link}\">aqui</a>."
     one: home
     view_invite_url: "Ver URL para convites"
-  icons: 
+  icons:
     unread_message: "Mensage não lida!"
     unread_message_by_receiver: "Esta mensagem ainda não foi lida pelo usuário que a recebeu"
   inbox:
     my: "Caixa de entrada (%{checked})"
     one: "Caixa de entrada (%{checked})"
-    unread_text: 
+    unread_text:
       one: "Você tem %{count} mensagem não lida!"
       other: "Você tem %{count} mensagens não lidas!"
   information:
@@ -981,7 +982,7 @@ pt-br:
       filter_count_empty: "%{count} usuários encontrados"
       no_user_found: "Nenhum usuário encontrado"
   mandatory_field: "Campo obrigatório"
-  message: 
+  message:
     created: "Mensagem enviada com sucesso"
     error:
       create: "Erro enviando mensagem privada"
@@ -1003,7 +1004,7 @@ pt-br:
       other: "Mensagens enviadas"
     special1: "A plataforma Mconf estará indisponível a partir de sexta-feira, 17 dezembro às 16:00 UTC, até sábado, 18-Dez 16:00 UTC. Desculpem o incómodo."
     special2: "A Equipe do Mconf"
-    to: Para 
+    to: Para
   moderatorPW: "Senha de Moderador"
   more: mais...
   more_arrows: "mais >>"
@@ -1161,14 +1162,14 @@ pt-br:
     other: "Mensagens Privadas"
     send: "Enviar mensagem privada"
     title: "Mensagens Privadas (%{count})"
-  private_messages: 
-    index: 
+  private_messages:
+    index:
       title: "Mensagens Privadas"
-    menu: 
+    menu:
       compose: "Escrever"
       inbox: "Caixa de entrada"
       sent: Enviadas
-    new: 
+    new:
       title: "Mensagens Privadas"
       users:
         hint: "Digite para começar a buscar"
@@ -1176,11 +1177,11 @@ pt-br:
         searching: "Procurando..."
     reply_private_message:
       user_not_registered: "Este usuário não está mais registrado, você não poderá responder esta mensagem."
-    show: 
+    show:
       title: "Mensagens Privadas"
-    show_received: 
+    show_received:
       wrote: escreveu
-    show_sent: 
+    show_sent:
       wrote_to: Escreveu para
       titled: a mensagem
   profile:
@@ -1221,7 +1222,7 @@ pt-br:
   read_more: "Ler mais"
   recent:
     activity: "Atividades recentes"
-  recent_activity: 
+  recent_activity:
     empty: "Você ainda não possui atividades recentes para exibir. Ingresse em comunidades e comece a interagir para visualizar itens nesta área."
     tooltip: "Aqui você encontra as mensagens, eventos e notícias mais novas das comunidades às quais vocẽ pertence"
   recording:
@@ -1381,7 +1382,7 @@ pt-br:
   show_question: Exibir?
   simple_captcha:
     label: "Insira aqui o texto da imagem"
-    message: 
+    message:
       user: "é incorreta"
   site:
     updated: "Configurações do site atualizadas"
@@ -1417,7 +1418,7 @@ pt-br:
       enabled: "Comunidade %{name} já está habilitada"
     event_count: "%{count} eventos"
     index:
-      filters: 
+      filters:
         all: "Todas"
         my_spaces: "Minhas comunidades"
       select_at_left: "Selecione uma comunidade ao lado para ver sua descrição aqui"
@@ -1506,7 +1507,7 @@ pt-br:
       none: "Nenhum evento no futuro"
       title: "Próximos eventos"
       today: "Não existem eventos para hoje"
-  spaces: 
+  spaces:
     admin_tabs:
       admissions: "Admissões"
       general_options: "Opções gerais"
@@ -1527,9 +1528,9 @@ pt-br:
       already_invited: "Você já foi convidado para entrar nesta comunidade, por favor aceite ou rejeite o convite"
       need_join_to_access: "Você precisa participar desta comunidade para acessá-la. Envie um pedido de adesão aos administradores."
       not_found: "A comunidade \"%{permalink}\" não existe. <br> Gostaria de buscar em <a href=\"%{path}\">todas comunidades</a>?"
-    index: 
+    index:
       create_new_space: "Criar uma comunidade"
-      list_format: 
+      list_format:
         list: "Lista"
         thumbnails: "Miniaturas"
       search:
@@ -1640,7 +1641,7 @@ pt-br:
     created: "Um e-mail reportando spam foi enviado com sucesso para os administradores. Obrigado."
     default: spam
     detected: "Novo spam detectado"
-    error: 
+    error:
       check: "Aconteceu um problema marcando este recurso como spam"
     item: "Este item foi reportado como spam e está sendo analisado pelos administradores"
     report: "Report spam"
@@ -1744,8 +1745,8 @@ pt-br:
     filter: "Convidar por nome de usuário"
     group_invite_email: "Convidar por e-mail"
     include_registered: "Incluir usuários registrados"
-    index: 
-      user_list: 
+    index:
+      user_list:
         header: "Usuários nesta comunidade: %{count}"
     invite: "Convidar pessoas"
     invite_email: "Convide pessoas por e-mail"
