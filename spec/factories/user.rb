@@ -17,7 +17,6 @@ FactoryGirl.define do
     approved true
     superuser false
     receive_digest { User::RECEIVE_DIGEST_NEVER }
-    notification { User::NOTIFICATION_VIA_EMAIL }
     password { Forgery::Basic.password :at_least => 6, :at_most => 16 }
     password_confirmation { |user| user.password }
     needs_approval_notification_sent_at { Time.now }

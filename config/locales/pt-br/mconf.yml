@@ -212,9 +212,9 @@ pt-br:
         _full_name: "Nome completo"
         approved: "Aprovado"
         can_record: "Permitir ao usuário gravar reuniões"
+        current_password: "Senha atual"
         email: "E-mail"
         expanded_post: "Mostrar mensagens no mural com a visão expandida por padrão"
-        notification: "Como você deseja receber as notificações?"
         password: "Senha"
         password_confirmation: "Confirmação de senha"
         receive_digest: "O quão frequentemente você gostaria de receber emails com um resumo das atividades que aconteceram nas comunidades as quais você pertence?"
@@ -1831,10 +1831,6 @@ pt-br:
         title: "Você acessou este site através do LDAP!"
       management_options: "Opções de administração"
       not_confirmed: "Sua conta ainda não foi confirmada, por favor verifique o seu e-mail para confirmá-la. Se por acaso você não recebeu o e-mail <a href=\"%{url}\">clique aqui</a> pra solicitar que ele seja enviado novamente."
-      notification:
-        by_email: "Por e-mail"
-        by_private_message: "Por mensagem privada"
-      other_options: "Outras opções"
       other_user:
         click_to_edit_profile: "Clique aqui para editar o perfil deste usuário"
         not_confirmed: "Este usuário ainda não confirmou sua conta."

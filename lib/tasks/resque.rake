@@ -1,6 +1,7 @@
 # Resque tasks
 require 'resque/tasks'
 require 'resque/scheduler/tasks'
+require 'logger'
 
 task "resque:setup" => :environment
 
@@ -8,6 +9,15 @@ namespace :resque do
   task :setup do
     require 'resque'
     require 'resque-scheduler'
+
+    logger = Logger.new(STDOUT)
+    logger.formatter = proc do |severity, datetime, progname, msg|
+      formatted_datetime = datetime.strftime("%Y-%m-%d %H:%M:%S.") << datetime.usec.to_s[0..2].rjust(3)
+      "#{formatted_datetime} [#{severity}] #{msg} (pid:#{$$})\n"
+    end
+    Resque.logger = logger
+    Resque.logger.level = Logger::INFO
+    #Resque.logger.level = Logger::DEBUG
 
     # you probably already have this somewhere
     Resque.redis = 'localhost:6379'

@@ -94,7 +94,7 @@ describe UsersController do
 
       let(:user_allowed_params) {
         [ :password, :password_confirmation, :remember_me, :current_password, :login,
-          :approved, :disabled, :timezone, :can_record, :receive_digest, :notification, :expanded_post ]
+          :approved, :disabled, :timezone, :can_record, :receive_digest, :expanded_post ]
       }
       before {
         sign_in(user)
@@ -225,24 +225,6 @@ describe UsersController do
         it { response.should redirect_to edit_user_path(user) }
         it { user.timezone.should_not eq(old_tz) }
         it { user.timezone.should eq(new_tz) }
-      end
-
-      context "trying to update notifications" do
-        let!(:old_not) { User::NOTIFICATION_VIA_EMAIL }
-        let(:user) { FactoryGirl.create(:user, :notification => old_not) }
-        let!(:new_not) { User::NOTIFICATION_VIA_PM }
-
-        before(:each) do
-          sign_in user
-
-          put :update, :id => user.to_param, :user => { :notification => new_not }
-          user.reload
-        end
-
-        it { response.status.should == 302 }
-        it { response.should redirect_to edit_user_path(user) }
-        it { user.notification.should_not eq(old_not) }
-        it { user.notification.should eq(new_not) }
       end
 
       context "trying to update password" do
@@ -656,7 +638,7 @@ describe UsersController do
   end
 
   describe "#approve" do
-    let(:user) { FactoryGirl.create(:user, :approved => false) }
+    let(:user) { FactoryGirl.create(:unconfirmed_user, approved: false) }
     before {
       request.env["HTTP_REFERER"] = "/any"
       login_as(FactoryGirl.create(:superuser))
@@ -775,44 +757,60 @@ describe UsersController do
   end
 
   describe "#create"  do
-    let(:superuser) { FactoryGirl.create(:superuser) }
-    before(:each) { sign_in(superuser) }
+    describe "as a global admin" do
+      let(:superuser) { FactoryGirl.create(:superuser) }
+      before { sign_in(superuser) }
 
-    describe "with valid attributes" do
-      let(:user) { FactoryGirl.build(:user) }
-      before(:each) {
-        expect {
-          post :create, user: {
-            email: user.email, _full_name: "Maria Test", username: "maria-test",
-            password: "test123", password_confirmation: "test123"
-          }
-        }.to change(User, :count).by(1)
-      }
+      describe "creates a new user with valid attributes" do
+        let(:user) { FactoryGirl.build(:user) }
+        before(:each) {
+          expect {
+            post :create, user: {
+              email: user.email, _full_name: "Maria Test", username: "maria-test",
+              password: "test123", password_confirmation: "test123"
+            }
+          }.to change(User, :count).by(1)
+        }
 
-      it { should set_the_flash.to(I18n.t('users.create.success')) }
-      it { should redirect_to manage_users_path }
-      it { User.last.confirmed?.should be true }
-      it { User.last.approved?.should be true }
+        it { should set_the_flash.to(I18n.t('users.create.success')) }
+        it { should redirect_to manage_users_path }
+        it { User.last.confirmed?.should be true }
+        it { User.last.approved?.should be true }
+      end
+
+      describe "creates a new user with invalid attributes" do
+        before(:each) {
+          expect {
+            post :create, user: {
+              email: "test@test.com", _full_name: "Maria Test", username: "maria-test",
+              password: "test123", password_confirmation: "test1234"
+            }
+          }.not_to change(User, :count)
+        }
+
+        it {
+          msg = assigns(:user).errors.full_messages.join(", ")
+          should set_the_flash.to(I18n.t('users.create.error', errors: msg))
+        }
+        it { should redirect_to manage_users_path }
+      end
+
+      # we need this to make sure the users are approved when needed
+      describe "when the site requires registration approval" do
+        let(:user) { FactoryGirl.build(:user) }
+        before {
+          Site.current.update_attributes(require_registration_approval: true)
+          expect {
+            post :create, user: {
+              email: user.email, _full_name: "Maria Test", username: "maria-test",
+              password: "test123", password_confirmation: "test123"
+            }
+          }.to change(User, :count).by(1)
+        }
+
+        it { User.last.approved?.should be true }
+      end
     end
-
-    describe "with invalid attributes" do
-      before(:each) {
-        expect {
-          post :create, user: {
-            email: "test@test.com", _full_name: "Maria Test", username: "maria-test",
-            password: "test123",
-            password_confirmation: "test1234" # here's what makes it invalid
-          }
-        }.not_to change(User, :count)
-      }
-
-      it {
-        msg = assigns(:user).errors.full_messages.join(", ")
-        should set_the_flash.to(I18n.t('users.create.error', errors: msg))
-      }
-      it { should redirect_to manage_users_path }
-    end
-
   end
 
 end

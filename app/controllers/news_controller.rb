@@ -17,7 +17,7 @@ class NewsController < ApplicationController
   end
 
   def create
-    @news = @space.news.build(params[:news])
+    @news = @space.news.build(news_params)
 
     if @news.save
       flash[:success] = t('news.created')
@@ -52,7 +52,7 @@ class NewsController < ApplicationController
   end
 
   def update
-    if @news.update_attributes(params[:news])
+    if @news.update_attributes(news_params)
       flash[:success] = t('news.updated')
     else
       flash[:error] = t('news.error.update')
@@ -65,6 +65,11 @@ class NewsController < ApplicationController
   def get_news
     @news = @space.news.order("updated_at DESC")
     authorize! :index_news, @space
+  end
+
+  allow_params_for :news
+  def allowed_params
+    [ :title, :text ]
   end
 
 end

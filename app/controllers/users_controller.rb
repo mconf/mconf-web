@@ -167,8 +167,6 @@ class UsersController < ApplicationController
   def approve
     if current_site.require_registration_approval?
       @user.approve!
-      @user.skip_confirmation_notification!
-      @user.confirm!
       flash[:notice] = t('users.approve.approved', :username => @user.username)
     else
       flash[:error] = t('users.approve.not_enabled')
@@ -199,6 +197,7 @@ class UsersController < ApplicationController
 
     if @user.save
       @user.confirm!
+      @user.approve!
       flash[:success] = t("users.create.success")
       respond_to do |format|
         format.html { redirect_to manage_users_path }
@@ -221,8 +220,7 @@ class UsersController < ApplicationController
   allow_params_for :user
   def allowed_params
     allowed = [ :password, :password_confirmation, :remember_me, :current_password,
-      :login, :approved, :disabled, :timezone, :can_record, :receive_digest, :notification,
-      :expanded_post ]
+      :login, :approved, :disabled, :timezone, :can_record, :receive_digest, :expanded_post ]
     allowed += [:email, :username, :_full_name] if current_user.superuser? and (params[:action] == 'create')
     allowed += [:superuser] if current_user.superuser? && current_user != @user
     allowed

@@ -68,7 +68,7 @@ en:
         public: "Collaborative spaces can be public, for anybody to watch what happens in them, or private, where members only have access to the activities of the space"
         repository: "The document repository is a place where users of this space can upload and share documents of any type"
       user:
-        approved: "If checked, the user will be able to access the website, otherwise his login will be blocked."
+        approved: "If checked, the user will be able to access the website, otherwise his login will be blocked. This flag is used only if the site is configured to require registration approval."
         bigbluebutton_room:
           attendee_key: "A key for users to join the session as attendees. Do not reuse real passwords here. This key will only be necessary if the room is set as private."
           auto_start_audio: "Check this option to automatically share a user's microphone after joining a meeting"

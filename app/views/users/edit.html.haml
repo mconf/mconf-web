@@ -56,11 +56,6 @@
       = f.input :expanded_post, :required => false, :as => :radio_buttons
 
       - collection = []
-      - collection.push([t('.notification.by_private_message'), User::NOTIFICATION_VIA_PM])
-      - collection.push([t('.notification.by_email'), User::NOTIFICATION_VIA_EMAIL])
-      = f.input :notification, as: :radio_buttons, collection: collection, required: false
-
-      - collection = []
       - collection.push([t('.receive_digest.never'), User::RECEIVE_DIGEST_NEVER])
       - collection.push([t('.receive_digest.daily'), User::RECEIVE_DIGEST_DAILY])
       - collection.push([t('.receive_digest.weekly'), User::RECEIVE_DIGEST_WEEKLY])

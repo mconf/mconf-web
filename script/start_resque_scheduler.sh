@@ -22,7 +22,7 @@ LOGFILE=$APP_PATH/log/resque_scheduler.log
 cd $APP_PATH
 
 if [ "$1" != "stop" ]; then
-  /usr/bin/env bundle exec rake environment resque:scheduler RAILS_ENV=$RAILS_ENV VERBOSE=1 PIDFILE=$PIDFILE >> $LOGFILE 2>&1
+  /usr/bin/env bundle exec rake environment resque:scheduler RAILS_ENV=$RAILS_ENV VERBOSE=1 PIDFILE=$PIDFILE >> $LOGFILE 2>&1 &
 else
-  kill -9 $(cat $PIDFILE) && rm -f $PIDFILE; exit 0;
+  kill -s QUIT $(cat $PIDFILE) && rm -f $PIDFILE; exit 0;
 fi
