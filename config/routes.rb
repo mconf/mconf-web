@@ -134,7 +134,7 @@ Mconf::Application.routes.draw do
 
   resources :permissions, only: [:update, :destroy]
 
-  resources :users do
+  resources :users, except: [:index] do
     collection do
       get :fellows
       get :select
@@ -148,7 +148,7 @@ Mconf::Application.routes.draw do
       post :confirm
     end
 
-    resource :profile, except: [:new, :create] do
+    resource :profile, only: [:show, :edit, :update] do
       post :update_logo
     end
   end
@@ -163,7 +163,7 @@ Mconf::Application.routes.draw do
 
   resources :messages, controller: :private_messages, except: [:edit]
 
-  resources :feedback do
+  resources :feedback, only: [:new, :create] do
     get :webconf, on: :collection
   end
 

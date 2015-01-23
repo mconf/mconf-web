@@ -238,6 +238,10 @@ describe ManageController do
   end
 
   describe "#spam" do
+    let(:user) { FactoryGirl.create(:superuser) }
+
+    before { sign_in(user) }
+
     it "is successful"
     it "sets @spam_events to all events marked as spam"
     it "sets @spam_posts to all posts marked as spam"

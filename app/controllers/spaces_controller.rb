@@ -29,7 +29,6 @@ class SpacesController < ApplicationController
   respond_to :json, :only => [:update_logo]
   respond_to :html, :only => [:new, :edit, :index, :show]
 
-  rescue_from CanCan::AccessDenied, :with => :handle_access_denied
   rescue_from ActiveRecord::RecordNotFound, :with => :handle_record_not_found
 
   # Create recent activity
@@ -300,10 +299,15 @@ class SpacesController < ApplicationController
     render_404 exception
   end
 
-  # User trying to access a space not owned or joined by him
+  # Custom handler for access denied errors, overrides method on ApplicationController.
   def handle_access_denied exception
+
+    # anonymous users are required to sign in
+    if !user_signed_in?
+      redirect_to login_path
+
     # if it's a logged user that tried to access a private space
-    if user_signed_in? and [:show, :edit].include?(exception.action)
+    elsif [:show, :edit].include?(exception.action)
 
       if @space.pending_join_request_for?(current_user)
         # redirect him to the page to ask permission to join, but with a warning that
@@ -322,8 +326,8 @@ class SpacesController < ApplicationController
         redirect_to new_space_join_request_path :space_id => params[:id]
       end
 
+    # destructive actions are redirected to the 403 error
     else
-      # anonymous users or destructive actions are redirected to the 403 error
       flash[:error] = t("space.access_forbidden")
       if exception.action == :show
         @error_message = t("space.is_private_html", name: @space.name, path: new_space_join_request_path(@space))

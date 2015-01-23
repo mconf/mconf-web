@@ -6,6 +6,7 @@
 # 3 or later. See the LICENSE file.
 
 class PrivateMessagesController < ApplicationController
+  before_filter :authenticate_user!
   load_and_authorize_resource
 
   def index
@@ -146,4 +147,5 @@ class PrivateMessagesController < ApplicationController
   def allowed_params
     [:title, :body, :parent_id, :receiver_id, :deleted_by_sender, :deleted_by_receiver]
   end
+
 end

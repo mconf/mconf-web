@@ -5,6 +5,7 @@
 # 3 or later. See the LICENSE file.
 
 class NewsController < ApplicationController
+  before_filter :authenticate_user!, except: [:show]
 
   load_and_authorize_resource :space, find_by: :permalink
   load_and_authorize_resource through: :space, instance_name: 'news', except: [:index]
