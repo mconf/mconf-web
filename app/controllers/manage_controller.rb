@@ -6,6 +6,7 @@
 # 3 or later. See the LICENSE file.
 
 class ManageController < ApplicationController
+  before_filter :authenticate_user!
   authorize_resource :class => false
 
   def users

@@ -75,6 +75,16 @@ describe UsersController do
       }
       it { should_not assign_to(:shib_provider) }
     end
+
+    context "an anonymous user trying to edit another user" do
+      before {
+        expect {
+          get :edit, id: user.to_param
+          user.reload
+        }.not_to change { user }
+      }
+      it { should redirect_to login_path }
+    end
   end
 
   describe "#update" do
@@ -325,6 +335,20 @@ describe UsersController do
         end
       end
     end
+
+    context "as anonymous user" do
+      # Try to update any attribute, such as notification type.
+      let!(:old_not) { User::NOTIFICATION_VIA_EMAIL }
+      let(:user) { FactoryGirl.create(:user, notification: old_not) }
+      let!(:new_not) { User::NOTIFICATION_VIA_PM }
+      before {
+        expect {
+          put :update, id: user.to_param, user: { notification: new_not }
+          user.reload
+        }.not_to change { user }
+      }
+      it { should redirect_to login_path }
+    end
   end
 
   describe "#destroy" do
@@ -346,6 +370,16 @@ describe UsersController do
       it { should set_the_flash.to(I18n.t('devise.registrations.destroyed')) }
       it { should redirect_to(root_path) }
       it("disables the user") { user.reload.disabled.should be_truthy }
+    end
+
+    context "as anonymous user" do
+      let!(:user) { FactoryGirl.create(:user) }
+      before {
+        expect {
+          delete :destroy, id: user.to_param
+        }.not_to change { User.count }
+      }
+      it { should redirect_to login_path }
     end
 
     it { should_authorize an_instance_of(User), :destroy, :via => :delete, :id => user.to_param }
@@ -749,10 +783,9 @@ describe UsersController do
       }
     end
 
-    context "a anonymous user" do
-      it {
-        expect { get :new }.to raise_error(CanCan::AccessDenied)
-      }
+    context "as anonymous user" do
+      before { get :new }
+      it { should redirect_to login_path }
     end
   end
 

@@ -7,7 +7,6 @@
 
 require "digest/sha1"
 class UsersController < ApplicationController
-
   load_and_authorize_resource :find_by => :username, :except => [:enable, :index]
   before_filter :load_and_authorize_with_disabled, :only => [:enable]
 
@@ -22,6 +21,8 @@ class UsersController < ApplicationController
   respond_to :html, :except => [:select, :current, :fellows]
   respond_to :js, :only => [:select, :current, :fellows]
   respond_to :xml, :only => [:current]
+
+  rescue_from CanCan::AccessDenied, with: :handle_access_denied
 
   def index
     @users = @space.users.sort {|x,y| x.name <=> y.name }
@@ -224,6 +225,14 @@ class UsersController < ApplicationController
     allowed += [:email, :username, :_full_name] if current_user.superuser? and (params[:action] == 'create')
     allowed += [:superuser] if current_user.superuser? && current_user != @user
     allowed
+  end
+
+  def handle_access_denied exception
+    if user_signed_in?
+      render_403 exception
+    else
+      redirect_to login_path
+    end
   end
 
 end

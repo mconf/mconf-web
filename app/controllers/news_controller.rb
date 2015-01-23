@@ -5,6 +5,7 @@
 # 3 or later. See the LICENSE file.
 
 class NewsController < ApplicationController
+  before_filter :authenticate_user!, except: [:show]
 
   load_and_authorize_resource :space, find_by: :permalink
   load_and_authorize_resource through: :space, instance_name: 'news', except: [:index]
@@ -15,6 +16,8 @@ class NewsController < ApplicationController
   after_filter only: [:create, :update] do
     @news.new_activity params[:action], current_user unless @news.errors.any?
   end
+
+  rescue_from CanCan::AccessDenied, with: :handle_access_denied
 
   def create
     @news = @space.news.build(news_params)
@@ -65,6 +68,14 @@ class NewsController < ApplicationController
   def get_news
     @news = @space.news.order("updated_at DESC")
     authorize! :index_news, @space
+  end
+
+  def handle_access_denied exception
+    if user_signed_in?
+      render_403 exception
+    else
+      redirect_to login_path
+    end
   end
 
   allow_params_for :news

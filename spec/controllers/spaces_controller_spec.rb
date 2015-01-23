@@ -42,9 +42,8 @@ describe SpacesController do
     end
 
     context "when there's no user logged in" do
-      context "and the user has no pending join request" do
-        it { expect { do_action }.to raise_error(CanCan::AccessDenied) }
-      end
+      before { do_action }
+      it("should ask the user to log in") { should redirect_to login_path }
     end
   end
 
@@ -73,9 +72,8 @@ describe SpacesController do
     end
 
     context "when there's no user logged in" do
-      context "and the user has no pending join request" do
-        it { expect { do_action }.to raise_error(CanCan::AccessDenied) }
-      end
+      before { do_action }
+      it("should ask the user to log in") { should redirect_to login_path }
     end
   end
 

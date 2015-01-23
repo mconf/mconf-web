@@ -11,6 +11,8 @@ class PostsController < ApplicationController
 
   layout "spaces_show"
 
+  before_filter :authenticate_user!, except: [:index, :show]
+  
   after_filter :only => [:update] do
     @post.new_activity :update, current_user unless @post.errors.any?
   end
@@ -95,7 +97,7 @@ class PostsController < ApplicationController
     end
   end
 
-  # Destroys de content of the post. Then its container(post) is
+  # Destroys the content of the post. Then its container(post) is
   # destroyed automatically.
   def destroy
     @post.destroy

@@ -7,6 +7,7 @@
 
 
 class AttachmentsController < ApplicationController
+  before_filter :authenticate_user!
   load_and_authorize_resource :space, :find_by => :permalink
   before_filter :check_repository_enabled
   load_and_authorize_resource :through => :space, :except => [:index, :delete_collection]
