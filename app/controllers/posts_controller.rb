@@ -6,13 +6,12 @@
 # 3 or later. See the LICENSE file.
 
 class PostsController < ApplicationController
-
   include SpamControllerModule
+
+  before_filter :authenticate_user!, except: [:index, :show]
 
   layout "spaces_show"
 
-  before_filter :authenticate_user!, except: [:index, :show]
-  
   after_filter :only => [:update] do
     @post.new_activity :update, current_user unless @post.errors.any?
   end

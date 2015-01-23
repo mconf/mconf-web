@@ -31,7 +31,7 @@ class ApplicationController < ActionController::Base
   rescue_from ActionController::UnknownController, :with => :render_404
   rescue_from ActionController::RoutingError, :with => :render_404
   rescue_from ::AbstractController::ActionNotFound, :with => :render_404
-  rescue_from CanCan::AccessDenied, :with => :render_403
+  rescue_from CanCan::AccessDenied, with: :handle_access_denied
 
   # Code that to DRY out permitted param filtering
   # The controller declares allow_params_for :model_name and defines allowed_params
@@ -245,5 +245,21 @@ class ApplicationController < ActionController::Base
   # Removes the stored location used to redirect post-login.
   def clear_stored_location
     session[:user_return_to] = nil
+  end
+
+  # A default handler for access denied exceptions. Will simply redirect the user
+  # to the sign in page if the user is not logged in yet.
+  def handle_access_denied exception
+    respond_to do |format|
+      format.html {
+        if user_signed_in?
+          render_403 exception
+        else
+          redirect_to login_path
+        end
+      }
+      format.json { render json: { error: true, message: "You need to sign in or sign up before continuing." }, status: :unauthorized }
+      format.js   { render json: { error: true, message: "You need to sign in or sign up before continuing." }, status: :unauthorized }
+    end
   end
 end

@@ -540,13 +540,55 @@ describe ApplicationController do
           end
         end
 
-        before(:each) { get :index }
+        context "for an html request" do
+          context "when there's a user signed in" do
+            before {
+              sign_in FactoryGirl.create(:user)
+              get :index
+            }
 
-        it { should respond_with(403) }
-        it { should render_template("errors/error_403") }
-        it { assigns(:exception).should be_an_instance_of(CanCan::AccessDenied) }
-        it { assigns(:exception).message.should eql("Anything") }
-        it { expect(ExceptionNotifier).not_to have_received(:notify_exception) }
+            it { should respond_with(403) }
+            it { should render_template("errors/error_403") }
+            it { assigns(:exception).should be_an_instance_of(CanCan::AccessDenied) }
+            it { assigns(:exception).message.should eql("Anything") }
+            it { expect(ExceptionNotifier).not_to have_received(:notify_exception) }
+          end
+
+          context "when there's no user signed in" do
+            before { get :index }
+
+            it { should respond_with(302) }
+            it { should redirect_to(login_path) }
+            it { expect(ExceptionNotifier).not_to have_received(:notify_exception) }
+          end
+        end
+
+        context "for a json request" do
+          before {
+            sign_in FactoryGirl.create(:user)
+            get :index, format: :json
+          }
+
+          it { should respond_with(:unauthorized) }
+          it {
+            json = { error: true, message: "You need to sign in or sign up before continuing." }.to_json
+            response.body.should eql(json.to_s)
+          }
+        end
+
+        context "for a js request" do
+          before {
+            sign_in FactoryGirl.create(:user)
+            get :index, format: :js
+          }
+
+          it { should respond_with(:unauthorized) }
+          it {
+            json = { error: true, message: "You need to sign in or sign up before continuing." }.to_json
+            response.body.should eql(json.to_s)
+          }
+        end
+
       end
     end
 

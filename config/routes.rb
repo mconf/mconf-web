@@ -146,7 +146,7 @@ Mconf::Application.routes.draw do
       post :confirm
     end
 
-    resource :profile, only: [:edit, :update] do
+    resource :profile, only: [:show, :edit, :update] do
       post :update_logo
     end
   end

@@ -7,12 +7,14 @@
 
 
 class AttachmentsController < ApplicationController
-  before_filter :authenticate_user!
+  # anonymous users can view and download attachments
+  before_filter :authenticate_user!, except: [:index, :show]
+
   load_and_authorize_resource :space, :find_by => :permalink
   before_filter :check_repository_enabled
   load_and_authorize_resource :through => :space, :except => [:index, :delete_collection]
   before_filter :load_attachments, :only => [:index, :delete_collection]
-  before_filter :webconf_room!, :only => [:index, :new]
+  before_filter :webconf_room!, :only => [:index]
 
   layout 'spaces_show'
 
@@ -31,7 +33,7 @@ class AttachmentsController < ApplicationController
   end
 
   def new
-    render :layout => false if request.xhr?
+    render layout: false
   end
 
   # TODO: do not remove anything if attachment_ids is not informed (it's removing all attachments)
@@ -122,5 +124,4 @@ class AttachmentsController < ApplicationController
 
     t.close
   end
-
 end

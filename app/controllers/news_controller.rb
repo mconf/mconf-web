@@ -17,8 +17,6 @@ class NewsController < ApplicationController
     @news.new_activity params[:action], current_user unless @news.errors.any?
   end
 
-  rescue_from CanCan::AccessDenied, with: :handle_access_denied
-
   def create
     @news = @space.news.build(news_params)
 
@@ -68,14 +66,6 @@ class NewsController < ApplicationController
   def get_news
     @news = @space.news.order("updated_at DESC")
     authorize! :index_news, @space
-  end
-
-  def handle_access_denied exception
-    if user_signed_in?
-      render_403 exception
-    else
-      redirect_to login_path
-    end
   end
 
   allow_params_for :news

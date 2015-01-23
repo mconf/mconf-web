@@ -91,10 +91,6 @@ class User < ActiveRecord::Base
 
   default_scope { where(:disabled => false) }
 
-  # constants for the notification attribute
-  NOTIFICATION_VIA_EMAIL = 1
-  NOTIFICATION_VIA_PM = 2
-
   # constants for the receive_digest attribute
   RECEIVE_DIGEST_NEVER = 0
   RECEIVE_DIGEST_DAILY = 1

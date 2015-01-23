@@ -337,16 +337,16 @@ describe UsersController do
     end
 
     context "as anonymous user" do
-      # Try to update any attribute, such as notification type.
-      let!(:old_not) { User::NOTIFICATION_VIA_EMAIL }
-      let(:user) { FactoryGirl.create(:user, notification: old_not) }
-      let!(:new_not) { User::NOTIFICATION_VIA_PM }
+      let!(:old_val) { User::RECEIVE_DIGEST_NEVER } # it could be any other attribute
+      let(:user) { FactoryGirl.create(:user, receive_digest: old_val) }
+      let!(:new_val) { User::RECEIVE_DIGEST_DAILY }
       before {
         expect {
-          put :update, id: user.to_param, user: { notification: new_not }
+          put :update, id: user.to_param, user: { receive_digest: new_val }
           user.reload
         }.not_to change { user }
       }
+      it { user.receive_digest.should eql(old_val) }
       it { should redirect_to login_path }
     end
   end
