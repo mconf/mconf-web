@@ -1,0 +1,128 @@
+rake aborted!
+StandardError: An error has occurred, all later migrations canceled:
+
+Mysql2::Error: Table 'join_requests' already exists: CREATE TABLE `join_requests` (`id` int(11) auto_increment PRIMARY KEY, `request_type` varchar(255), `candidate_id` int(11), `introducer_id` int(11), `group_id` int(11), `group_type` varchar(255), `comment` varchar(255), `role_id` int(11), `email` varchar(255), `accepted` tinyint(1), `created_at` datetime, `updated_at` datetime, `processed_at` datetime) ENGINE=InnoDB/home/alister/mconf-ufrgs/db/migrate/20130717195517_create_join_requests.rb:3:in `change'
+ActiveRecord::StatementInvalid: Mysql2::Error: Table 'join_requests' already exists: CREATE TABLE `join_requests` (`id` int(11) auto_increment PRIMARY KEY, `request_type` varchar(255), `candidate_id` int(11), `introducer_id` int(11), `group_id` int(11), `group_type` varchar(255), `comment` varchar(255), `role_id` int(11), `email` varchar(255), `accepted` tinyint(1), `created_at` datetime, `updated_at` datetime, `processed_at` datetime) ENGINE=InnoDB
+/home/alister/mconf-ufrgs/db/migrate/20130717195517_create_join_requests.rb:3:in `change'
+Mysql2::Error: Table 'join_requests' already exists
+/home/alister/mconf-ufrgs/db/migrate/20130717195517_create_join_requests.rb:3:in `change'
+Tasks: TOP => db:migrate
+(See full trace by running task with --trace)
+== 20120108030937 AddQueueToDelayedJobs: migrating ============================
+-- add_column(:delayed_jobs, :queue, :string)
+   -> 0.2289s
+== 20120108030937 AddQueueToDelayedJobs: migrated (0.2290s) ===================
+
+== 20120513055623 RemoveOpenId: migrating =====================================
+-- drop_table(:open_id_associations)
+   -> 0.0414s
+-- drop_table(:open_id_nonces)
+   -> 0.0419s
+-- drop_table(:open_id_ownings)
+   -> 0.0419s
+-- drop_table(:open_id_trusts)
+   -> 0.0504s
+== 20120513055623 RemoveOpenId: migrated (0.1759s) ============================
+
+== 20120515001030 RemoveSources: migrating ====================================
+-- drop_table(:source_importations)
+   -> 0.0501s
+-- drop_table(:sources)
+   -> 0.0499s
+== 20120515001030 RemoveSources: migrated (0.1002s) ===========================
+
+== 20120713195223 AddChatToSites: migrating ===================================
+-- add_column(:sites, :chat_enabled, :boolean, {:default=>false})
+   -> 0.2519s
+== 20120713195223 AddChatToSites: migrated (0.2520s) ==========================
+
+== 20120716185932 AddXmppServerToSites: migrating =============================
+-- add_column(:sites, :xmpp_server, :string)
+   -> 0.2507s
+== 20120716185932 AddXmppServerToSites: migrated (0.2509s) ====================
+
+== 20120717183338 RemoveOldChatsFieldsAndTablesFromDatabase: migrating ========
+-- remove_column(:sites, :chat_group_service_jid)
+   -> 0.2505s
+-- remove_column(:users, :chat_activation)
+   -> 0.3097s
+-- remove_column(:sites, :vcc_user_for_chat_server)
+   -> 0.2513s
+-- remove_column(:sites, :vcc_pass_for_chat_server)
+   -> 0.2510s
+-- remove_column(:events, :chat_log_id)
+   -> 0.3290s
+-- drop_table(:chat_logs)
+   -> 0.0724s
+== 20120717183338 RemoveOldChatsFieldsAndTablesFromDatabase: migrated (1.4642s) 
+
+== 20120729031436 AddDeviseToUsers: migrating =================================
+-- change_table(:users)
+   -> 6.1309s
+-- add_index(:users, :email, {:unique=>true})
+   -> 0.1501s
+-- add_index(:users, :reset_password_token, {:unique=>true})
+   -> 0.1507s
+-- add_index(:users, :confirmation_token, {:unique=>true})
+   -> 0.1506s
+== 20120729031436 AddDeviseToUsers: migrated (6.5828s) ========================
+
+== 20120812235634 RemoveUri: migrating ========================================
+-- drop_table(:uris)
+   -> 0.0414s
+== 20120812235634 RemoveUri: migrated (0.0414s) ===============================
+
+== 20120819013956 CreateNewPermissionsTable: migrating ========================
+-- create_table("permissions_tmp", {:force=>true})
+   -> 0.0831s
+== 20120819013956 CreateNewPermissionsTable: migrated (0.1826s) ===============
+
+== 20120819022001 RemoveOldPermissions: migrating =============================
+-- drop_table(:permissions_roles)
+   -> 0.0502s
+-- drop_table(:permissions)
+   -> 0.1004s
+-- drop_table(:performances)
+   -> 0.0431s
+-- rename_table(:permissions_tmp, :permissions)
+   -> 0.0424s
+== 20120819022001 RemoveOldPermissions: migrated (0.6865s) ====================
+
+== 20120826215828 RemoveSingularAgents: migrating =============================
+-- drop_table(:singular_agents)
+   -> 0.1052s
+== 20120826215828 RemoveSingularAgents: migrated (0.1053s) ====================
+
+== 20120826223452 RemoveMarteColumnsFromEvents: migrating =====================
+-- remove_column(:events, :marte_event)
+   -> 0.3112s
+-- remove_column(:events, :marte_room)
+   -> 0.3095s
+== 20120826223452 RemoveMarteColumnsFromEvents: migrated (0.6208s) ============
+
+== 20120827011123 RemoveIsabelAndConferenceManager: migrating =================
+-- remove_column(:events, :isabel_event)
+   -> 0.7286s
+-- remove_column(:events, :isabel_interface)
+   -> 0.2734s
+-- remove_column(:events, :isabel_bw)
+   -> 0.2927s
+-- remove_column(:events, :cm_event_id)
+   -> 0.3277s
+-- remove_column(:agenda_entries, :cm_session_id)
+   -> 0.2759s
+-- remove_column(:agenda_entries, :cm_streaming)
+   -> 0.2512s
+-- remove_column(:agenda_entries, :cm_recording)
+   -> 0.2343s
+-- remove_column(:sites, :cm_domain)
+   -> 0.3014s
+== 20120827011123 RemoveIsabelAndConferenceManager: migrated (2.6856s) ========
+
+== 20120921002223 RemoveAttachmentVideos: migrating ===========================
+-- drop_table(:attachment_videos)
+   -> 0.0498s
+== 20120921002223 RemoveAttachmentVideos: migrated (0.0498s) ==================
+
+== 20130717195517 CreateJoinRequests: migrating ===============================
+-- create_table(:join_requests)
