@@ -39,9 +39,10 @@ class UserNotificationsWorker
     recipients = User.where(superuser: true).pluck(:id)
     unless recipients.empty?
       activities.each do |creation|
-        # If user created is a superuser we don't need to send the notification,
-        # and mark it as sent so it doesn't come back to the worker in future queries.
-        if User.find(creation.trackable_id).superuser
+        # If user has already been approved, we don't need to send the notification.
+        # That covers situations where the user is a superuser and also when the
+        # user was automatically approved.
+        if User.find(creation.trackable_id).approved
           creation.update_attribute(:notified, true)
         else
           Resque.enqueue(UserNeedsApprovalSenderWorker, creation.id, recipients)
