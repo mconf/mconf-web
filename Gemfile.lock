@@ -449,6 +449,8 @@ GEM
     yajl-ruby (1.2.1)
     yamler (0.1.0)
     yui-compressor (0.12.0)
+    zip-zip (0.3)
+      rubyzip (>= 1.0.0)
 
 PLATFORMS
   ruby
@@ -515,7 +517,7 @@ DEPENDENCIES
   rmagick
   rspec-mocks
   rspec-rails (~> 2.99.0)
-  rubyzip
+  rubyzip (>= 1.0.0)
   sass-rails (~> 4.0.3)
   select2-rails
   shoulda-kept-assign-to
@@ -536,3 +538,4 @@ DEPENDENCIES
   will_paginate
   yajl-ruby
   yui-compressor
+  zip-zip

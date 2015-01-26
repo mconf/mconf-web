@@ -22,8 +22,8 @@ module IconsHelper
     icon_constructor t('RSS'), "icon-awesome icon-rss icon-mconf-rss", options
   end
 
-  def icon_attachment(title, options={})
-    icon_constructor title, "icon-awesome icon-paper-clip iconf-mconf-attachment", options
+  def icon_attachment(options={})
+    icon_constructor '', "icon-awesome icon-paper-clip iconf-mconf-attachment", options
   end
 
   def icon_comment(title=nil, options={})

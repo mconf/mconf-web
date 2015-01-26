@@ -100,7 +100,8 @@ gem 'dotiw'
 gem 'simple_captcha2', require: 'simple_captcha'
 # gem 'galetahub-simple_captcha', :require => 'simple_captcha'
 gem 'httparty'
-gem 'rubyzip' # TODO: see rubyzip2
+gem 'rubyzip', '>= 1.0.0' # will load new rubyzip version
+gem 'zip-zip' # will load compatibility for old rubyzip API.
 gem 'prism'
 
 gem 'fineuploader-rails', '~> 3.3'
