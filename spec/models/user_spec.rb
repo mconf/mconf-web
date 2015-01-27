@@ -552,13 +552,6 @@ describe User do
       it { user.should be_confirmed }
     end
 
-    context "doesn't do anything if the user is already approved" do
-      let(:user) { FactoryGirl.create(:unconfirmed_user, approved: true) }
-      before(:each) { user.approve! }
-      it { user.should be_approved }
-      it { user.should_not be_confirmed }
-    end
-
     context "throws an exception if fails to update the user" do
       it {
         user.should_receive(:update_attributes) { throw Exception.new }
