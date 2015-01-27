@@ -122,8 +122,7 @@ describe 'User signs in via shibboleth' do
 
         it { current_path.should eq(my_home_path) }
         it("creates a ShibToken") { ShibToken.count.should be(1) }
-        it("sends notification emails") { UserMailer.should have_queue_size_of(1) }
-        it("sends notification emails") { UserMailer.should have_queued(:registration_notification_email, User.last.id) }
+        it("generates a RecentActivity") { RecentActivity.last.trackable_id.should eql(User.last.id) }
       end
 
       context "and there's a conflict on the user's username with another user" do

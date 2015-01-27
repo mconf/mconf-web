@@ -28,8 +28,8 @@ describe UserNotificationsWorker do
         context "for multiple admins and multiple users" do
           let!(:admin1) { FactoryGirl.create(:superuser) }
           let!(:admin2) { FactoryGirl.create(:superuser) }
-          let!(:user1) { FactoryGirl.create(:user, approved: false, needs_approval_notification_sent_at: nil) }
-          let!(:user2) { FactoryGirl.create(:user, approved: false, needs_approval_notification_sent_at: nil) }
+          let!(:user1) { FactoryGirl.create(:user, approved: false) }
+          let!(:user2) { FactoryGirl.create(:user, approved: false) }
           let(:admin_ids) { User.where(superuser: true).pluck(:id) }
 
           before(:each) { worker.perform }
@@ -40,8 +40,8 @@ describe UserNotificationsWorker do
         end
 
         context "ignores users not approved but that already had their notification sent" do
-          let!(:user1) { FactoryGirl.create(:user, approved: false, needs_approval_notification_sent_at: nil) }
-          let!(:user2) { FactoryGirl.create(:user, approved: false, needs_approval_notification_sent_at: nil) }
+          let!(:user1) { FactoryGirl.create(:user, approved: false) }
+          let!(:user2) { FactoryGirl.create(:user, approved: false) }
 
           before(:each) { worker.perform }
 
@@ -49,8 +49,8 @@ describe UserNotificationsWorker do
         end
 
         context "ignores users that were already approved" do
-          let!(:user1) { FactoryGirl.create(:user, approved: true, needs_approval_notification_sent_at: Time.now) }
-          let!(:user2) { FactoryGirl.create(:user, approved: true, needs_approval_notification_sent_at: nil) }
+          let!(:user1) { FactoryGirl.create(:user, approved: true) }
+          let!(:user2) { FactoryGirl.create(:user, approved: true) }
 
           before(:each) { worker.perform }
 
@@ -58,7 +58,7 @@ describe UserNotificationsWorker do
         end
 
         context "when there are no recipients" do
-          let!(:user1) { FactoryGirl.create(:user, approved: false, needs_approval_notification_sent_at: nil) }
+          let!(:user1) { FactoryGirl.create(:user, approved: false) }
 
           before(:each) { worker.perform }
 
@@ -69,19 +69,28 @@ describe UserNotificationsWorker do
       context "notifies users when they are approved" do
 
         context "for multiple users" do
-          let!(:user1) { FactoryGirl.create(:user, approved: true, approved_notification_sent_at: nil) }
-          let!(:user2) { FactoryGirl.create(:user, approved: true, approved_notification_sent_at: nil) }
+          let(:user1) { FactoryGirl.create(:user, approved: false) }
+          let(:activity1) { RecentActivity.where(trackable_type: 'User', key: 'user.approved',
+            trackable_id: user1.id, notified: [nil, false]).first }
+          let(:user2) { FactoryGirl.create(:user, approved: false) }
+          let(:activity2) { RecentActivity.where(trackable_type: 'User', key: 'user.approved',
+            trackable_id: user2.id, notified: [nil, false]).first }
+          let(:admin) { FactoryGirl.create(:user, approved: true, superuser: true) }
+          before {
+            user1.approve!(admin)
+            user2.approve!(admin)
+            worker.perform
+          }
 
-          before(:each) { worker.perform }
+          it { expect(UserApprovedSenderWorker).to have_queue_size_of_at_least(2) }
+          it { expect(UserApprovedSenderWorker).to have_queued(activity1.id) }
+          it { expect(UserApprovedSenderWorker).to have_queued(activity2.id) }
 
-          it { expect(UserApprovedSenderWorker).to have_queue_size_of(2) }
-          it { expect(UserApprovedSenderWorker).to have_queued(user1.id) }
-          it { expect(UserApprovedSenderWorker).to have_queued(user2.id) }
         end
 
         context "ignores users that were not approved yet" do
-          let!(:user1) { FactoryGirl.create(:user, approved: false, approved_notification_sent_at: nil) }
-          let!(:user2) { FactoryGirl.create(:user, approved: false, approved_notification_sent_at: Time.now) }
+          let!(:user1) { FactoryGirl.create(:user, approved: false) }
+          let!(:user2) { FactoryGirl.create(:user, approved: false) }
 
           before(:each) { worker.perform }
 
@@ -89,8 +98,8 @@ describe UserNotificationsWorker do
         end
 
         context "ignores users that already received the notification" do
-          let!(:user1) { FactoryGirl.create(:user, approved: true, approved_notification_sent_at: Time.now) }
-          let!(:user2) { FactoryGirl.create(:user, approved: true, approved_notification_sent_at: Time.now) }
+          let!(:user1) { FactoryGirl.create(:user, approved: true) }
+          let!(:user2) { FactoryGirl.create(:user, approved: true) }
 
           before(:each) { worker.perform }
 
@@ -108,8 +117,8 @@ describe UserNotificationsWorker do
       context "doesn't notify admins when users need approval" do
         let!(:admin1) { FactoryGirl.create(:superuser) }
         let!(:admin2) { FactoryGirl.create(:superuser) }
-        let!(:user1) { FactoryGirl.create(:user, approved: false, needs_approval_notification_sent_at: nil) }
-        let!(:user2) { FactoryGirl.create(:user, approved: false, needs_approval_notification_sent_at: nil) }
+        let!(:user1) { FactoryGirl.create(:user, approved: false) }
+        let!(:user2) { FactoryGirl.create(:user, approved: false) }
 
         before(:each) { worker.perform }
 
@@ -117,8 +126,8 @@ describe UserNotificationsWorker do
       end
 
       context "doesn't notify users when they are approved" do
-        let!(:user1) { FactoryGirl.create(:user, approved: true, approved_notification_sent_at: nil) }
-        let!(:user2) { FactoryGirl.create(:user, approved: true, approved_notification_sent_at: nil) }
+        let!(:user1) { FactoryGirl.create(:user, approved: true) }
+        let!(:user2) { FactoryGirl.create(:user, approved: true) }
 
         before(:each) { worker.perform }
 

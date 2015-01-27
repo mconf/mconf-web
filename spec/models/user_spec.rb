@@ -276,8 +276,6 @@ describe User do
         context "automatically approves the user" do
           before(:each) { @user = FactoryGirl.create(:user, approved: false) }
           it { @user.should be_approved }
-          it { @user.needs_approval_notification_sent_at.should be_within(2.seconds).of(Time.now) }
-          it { @user.approved_notification_sent_at.should be_within(2.seconds).of(Time.now) }
         end
       end
 
@@ -285,10 +283,8 @@ describe User do
         before { Site.current.update_attributes(require_registration_approval: true) }
 
         context "doesn't approve the user" do
-          before(:each) { @user = FactoryGirl.create(:user, approved: false, needs_approval_notification_sent_at: nil, approved_notification_sent_at: nil) }
+          before(:each) { @user = FactoryGirl.create(:user, approved: false) }
           it { @user.should_not be_approved }
-          it { @user.needs_approval_notification_sent_at.should be_nil }
-          it { @user.approved_notification_sent_at.should be_nil }
         end
       end
     end
@@ -547,9 +543,9 @@ describe User do
       u.update_attributes(:approved => false)
       u
     }
-
+    let(:superuser) { FactoryGirl.create(:superuser) }
     context "sets the user as approved" do
-      before { user.approve! }
+      before { user.approve!(superuser) }
       it { user.approved.should be true }
     end
 
@@ -563,13 +559,14 @@ describe User do
     context "throws an exception if fails to update the user" do
       it {
         user.should_receive(:update_attributes) { throw Exception.new }
-        expect { user.approve! }.to raise_error
+        expect { user.approve!(superuser) }.to raise_error
       }
     end
   end
 
   describe "#disapprove!" do
     let(:user) { FactoryGirl.create(:user, :approved => true) }
+    let(:superuser) { FactoryGirl.create(:superuser) }
     let(:params) {
       { :username => "any", :email => "any@jaloo.com", :approved => false, :password => "123456" }
     }
@@ -582,7 +579,7 @@ describe User do
     context "throws an exception if fails to update the user" do
       it {
         user.should_receive(:update_attributes) { throw Exception.new }
-        expect { user.approve! }.to raise_error
+        expect { user.disapprove! }.to raise_error
       }
     end
   end
