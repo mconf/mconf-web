@@ -122,7 +122,7 @@ describe 'User signs in via shibboleth' do
 
         it { current_path.should eq(my_home_path) }
         it("creates a ShibToken") { ShibToken.count.should be(1) }
-        it("generates a RecentActivity") { RecentActivity.last.trackable_id.should eql(User.last.id) }
+        it("generates a RecentActivity") { RecentActivity.last.trackable.should eql(User.last) }
       end
 
       context "and there's a conflict on the user's username with another user" do

@@ -69,23 +69,24 @@ describe UserNotificationsWorker do
       context "notifies users when they are approved" do
 
         context "for multiple users" do
+          let(:approver) { FactoryGirl.create(:superuser) }
           let(:user1) { FactoryGirl.create(:user, approved: false) }
           let(:activity1) { RecentActivity.where(trackable_type: 'User', key: 'user.approved',
             trackable_id: user1.id, notified: [nil, false]).first }
           let(:user2) { FactoryGirl.create(:user, approved: false) }
           let(:activity2) { RecentActivity.where(trackable_type: 'User', key: 'user.approved',
             trackable_id: user2.id, notified: [nil, false]).first }
-          let(:admin) { FactoryGirl.create(:user, approved: true, superuser: true) }
           before {
-            user1.approve!(admin)
-            user2.approve!(admin)
+            user1.approve!
+            user1.create_approval_notification(approver)
+            user2.approve!
+            user2.create_approval_notification(approver)
             worker.perform
           }
 
           it { expect(UserApprovedSenderWorker).to have_queue_size_of_at_least(2) }
           it { expect(UserApprovedSenderWorker).to have_queued(activity1.id) }
           it { expect(UserApprovedSenderWorker).to have_queued(activity2.id) }
-
         end
 
         context "ignores users that were not approved yet" do

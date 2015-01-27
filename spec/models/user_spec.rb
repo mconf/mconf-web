@@ -536,31 +536,52 @@ describe User do
   end
 
   describe "#approve!" do
-    let(:user) {
-      u = FactoryGirl.create(:user)
-      # won't work if it's set in the factory above, since sometimes the user is automatically
-      # approved when created
-      u.update_attributes(:approved => false)
-      u
+    let(:user) { FactoryGirl.create(:unconfirmed_user, approved: false) }
+    before {
+      Site.current.update_attributes(require_registration_approval: true)
     }
-    let(:superuser) { FactoryGirl.create(:superuser) }
     context "sets the user as approved" do
-      before { user.approve!(superuser) }
+      before { user.approve! }
       it { user.approved.should be true }
     end
 
     context "confirms the user if it's not already confirmed" do
-      let(:user) { FactoryGirl.create(:unconfirmed_user) }
+      let(:user) { FactoryGirl.create(:unconfirmed_user, approved: false) }
       before(:each) { user.approve! }
       it { user.should be_approved }
       it { user.should be_confirmed }
     end
 
+    context "doesn't do anything if the user is already approved" do
+      let(:user) { FactoryGirl.create(:unconfirmed_user, approved: true) }
+      before(:each) { user.approve! }
+      it { user.should be_approved }
+      it { user.should_not be_confirmed }
+    end
+
     context "throws an exception if fails to update the user" do
       it {
         user.should_receive(:update_attributes) { throw Exception.new }
-        expect { user.approve!(superuser) }.to raise_error
+        expect { user.approve! }.to raise_error
       }
+    end
+  end
+
+  describe "#create_approval_notification" do
+    let!(:user) { FactoryGirl.create(:user, approved: false) }
+    let!(:approver) { FactoryGirl.create(:superuser) }
+
+    context "creates a recent activity" do
+      before {
+        expect {
+          user.create_approval_notification(approver)
+        }.to change{ PublicActivity::Activity.count }.by(1)
+      }
+      subject { PublicActivity::Activity.last }
+      it("sets #trackable") { subject.trackable.should eq(user) }
+      it("sets #owner") { subject.owner.should eq(approver) }
+      it("sets #key") { subject.key.should eq('user.approved') }
+      it("doesn't set #recipient") { subject.recipient.should be_nil }
     end
   end
 

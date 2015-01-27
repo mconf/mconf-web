@@ -8,7 +8,6 @@ require 'spec_helper'
 
 describe UserApprovedSenderWorker do
   let(:worker) { UserApprovedSenderWorker }
-  let(:superuser) { FactoryGirl.create(:superuser) }
 
   before {
     Site.current.update_attributes(require_registration_approval: true)
@@ -23,7 +22,7 @@ describe UserApprovedSenderWorker do
     let(:activity) { RecentActivity.last }
 
     before {
-      user.approve!(superuser)
+      user.approve!
       worker.perform(activity.id)
     }
 

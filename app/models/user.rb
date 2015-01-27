@@ -233,16 +233,19 @@ class User < ActiveRecord::Base
   end
 
   # Sets the user as approved
-  def approve!(approved_by)
-    return if self.approved
+  def approve!
     skip_confirmation! if !confirmed?
-    self.update_attributes(:approved => true)
+    self.update_attributes(approved: true)
+  end
+
+  # Starts the process of sending a notification to the user that was approved.
+  def create_approval_notification(approved_by)
     new_activity_user_approved(approved_by)
   end
 
   # Sets the user as not approved
   def disapprove!
-    self.update_attributes(:approved => false)
+    self.update_attributes(approved: false)
   end
 
   # Overrides a method from devise, see:
