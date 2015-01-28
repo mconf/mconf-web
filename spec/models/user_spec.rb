@@ -718,12 +718,12 @@ describe User do
     end
   end
 
-  describe "#has_role_allowed_to_record?" do
+  describe "#enrollment" do
 
     context "for a user without shibboleth information" do
       let(:user) { FactoryGirl.create(:user) }
       before { user.shib_token = nil }
-      it { user.has_role_allowed_to_record?.should be(false) }
+      it { user.enrollment.should be_nil }
     end
 
     context "for a user logged via federation" do
@@ -736,12 +736,12 @@ describe User do
           t
         }
         before { user.update_attribute("shib_token", token) }
-        it { user.has_role_allowed_to_record?.should be(false) }
+        it { user.enrollment.should be_nil }
       end
 
       context "without an active enrollment" do
         let(:token) { FactoryGirl.create(:shib_token, :user => user) }
-        it { user.has_role_allowed_to_record?.should be(false) }
+        it { user.enrollment.should be_nil }
       end
 
       context "with a blank enrollment" do
@@ -751,7 +751,65 @@ describe User do
           data["ufrgsVinculo"] = ""
           token.update_attribute("data", data)
         }
-        it { user.has_role_allowed_to_record?.should be(false) }
+        it { user.enrollment.should be_nil }
+      end
+
+      context "with an active enrollment" do
+        let(:token) { FactoryGirl.create(:shib_token, :user => user) }
+        before {
+          data = token.data
+          data["ufrgsVinculo"] = "ativo:12:Aluno de doutorado:1:Instituto de Informática:NULL:NULL:NULL:NULL:01/01/2011:NULL"
+          token.update_attribute("data", data)
+        }
+        it { user.enrollment.should eql("Aluno de doutorado") }
+      end
+
+      context "with more than one active enrollment" do
+        let(:token) { FactoryGirl.create(:shib_token, :user => user) }
+        before {
+          data = token.data
+          data["ufrgsVinculo"] = "ativo:11:Docente:1:Instituto de Informática:NULL:NULL:NULL:NULL:01/01/2011:NULL;ativo:6:Aluno de mestrado acadêmico:NULL:NULL:NULL:NULL:2:COMPUTAÇÃO:01/01/2001:11/12/2002"
+          token.update_attribute("data", data)
+        }
+        it { user.enrollment.should eql("Docente") }
+      end
+    end
+  end
+
+  describe "#has_enrollment_allowed_to_record?" do
+
+    context "for a user without shibboleth information" do
+      let(:user) { FactoryGirl.create(:user) }
+      before { user.shib_token = nil }
+      it { user.has_enrollment_allowed_to_record?.should be(false) }
+    end
+
+    context "for a user logged via federation" do
+      let(:user) { FactoryGirl.create(:user) }
+
+      context "without the shib variable 'ufrgsVinculo'" do
+        let(:token) {
+          t = FactoryGirl.create(:shib_token, :user => user)
+          t.data = t.data.except!("ufrgsVinculo")
+          t
+        }
+        before { user.update_attribute("shib_token", token) }
+        it { user.has_enrollment_allowed_to_record?.should be(false) }
+      end
+
+      context "without an active enrollment" do
+        let(:token) { FactoryGirl.create(:shib_token, :user => user) }
+        it { user.has_enrollment_allowed_to_record?.should be(false) }
+      end
+
+      context "with a blank enrollment" do
+        let(:token) { FactoryGirl.create(:shib_token, :user => user) }
+        before {
+          data = token.data
+          data["ufrgsVinculo"] = ""
+          token.update_attribute("data", data)
+        }
+        it { user.has_enrollment_allowed_to_record?.should be(false) }
       end
 
       context "with an active enrollment" do
@@ -762,7 +820,7 @@ describe User do
             data["ufrgsVinculo"] = "ativo:12:Aluno de doutorado:1:Instituto de Informática:NULL:NULL:NULL:NULL:01/01/2011:NULL"
             token.update_attribute("data", data)
           }
-          it { user.has_role_allowed_to_record?.should be(false) }
+          it { user.has_enrollment_allowed_to_record?.should be(false) }
         end
 
         ["Docente", "Técnico-Administrativo", "Funcionário de Fundações da UFRGS",
@@ -775,7 +833,7 @@ describe User do
               data["ufrgsVinculo"] = "ativo:2:#{enrollment}:1:Instituto de Informática:NULL:NULL:NULL:NULL:01/01/2011:NULL"
               token.update_attribute("data", data)
             }
-            it("can record") { user.has_role_allowed_to_record?.should be(true) }
+            it("can record") { user.has_enrollment_allowed_to_record?.should be(true) }
           end
         end
 
@@ -786,7 +844,7 @@ describe User do
             data["ufrgsVinculo"] = "ativo:12:Funcionario de Fundacoes da UFRGS:1:Instituto de Informática:NULL:NULL:NULL:NULL:01/01/2011:NULL"
             token.update_attribute("data", data)
           }
-          it { user.has_role_allowed_to_record?.should be(true) }
+          it { user.has_enrollment_allowed_to_record?.should be(true) }
         end
 
         context "with more than one active enrollment" do
@@ -797,7 +855,7 @@ describe User do
               data["ufrgsVinculo"] = "ativo:11:Docente:1:Instituto de Informática:NULL:NULL:NULL:NULL:01/01/2011:NULL;ativo:6:Aluno de mestrado acadêmico:NULL:NULL:NULL:NULL:2:COMPUTAÇÃO:01/01/2001:11/12/2002"
               token.update_attribute("data", data)
             }
-            it { user.has_role_allowed_to_record?.should be(true) }
+            it { user.has_enrollment_allowed_to_record?.should be(true) }
           end
 
           context "but none allows recording" do
@@ -807,7 +865,7 @@ describe User do
               data["ufrgsVinculo"] = "ativo:11:Aluno de doutorado:1:Instituto de Informática:NULL:NULL:NULL:NULL:01/01/2011:NULL;ativo:6:Aluno de mestrado acadêmico:NULL:NULL:NULL:NULL:2:COMPUTAÇÃO:01/01/2001:11/12/2002"
               token.update_attribute("data", data)
             }
-            it { user.has_role_allowed_to_record?.should be(false) }
+            it { user.has_enrollment_allowed_to_record?.should be(false) }
           end
         end
       end

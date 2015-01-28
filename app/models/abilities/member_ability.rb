@@ -207,7 +207,7 @@ module Abilities
       # Users can recording meetings in their rooms, but only if they have the record flag set or
       #   can record because of their role (acquired via federation).
       can :record_meeting, BigbluebuttonRoom do |room|
-        (user.can_record || user.has_role_allowed_to_record?) &&
+        (user.can_record || user.has_enrollment_allowed_to_record?) &&
           user_is_owner_or_belongs_to_rooms_space(user, room)
       end
 

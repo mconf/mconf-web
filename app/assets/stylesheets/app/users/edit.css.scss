@@ -58,12 +58,4 @@ body.users.edit, body.users.update {
     text-align: center;
     span { margin: 0 10px; }
   }
-
-  #warning-record-ability {
-    font-weight: bold;
-    @include font-size($font-small);
-    color: green;
-    margin-left: 25px;
-    margin-top: -10px;
-  }
 }
