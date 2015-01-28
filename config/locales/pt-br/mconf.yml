@@ -1807,6 +1807,10 @@ pt-br:
         see_your_data: "Clique para ver os seus dados que foram compartilhados com este site pela federação"
         title: "Você acessou este site através de uma federação!"
         your_idp: "O seu provedor de identidade é: %{idp}"
+      has_enrollment_allowed_to_record:
+        label: "Possui vínculo que permite gravação?"
+        unknown_enrollment: "(vínculo: ?)"
+        with_enrollment: "(vínculo: %{enrollment})"
       ldap:
         title: "Você acessou este site através do LDAP!"
       management_options: "Opções de administração"

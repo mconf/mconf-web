@@ -1807,6 +1807,10 @@ en:
         see_your_data: "Click here to see your data that the federation shared with this website"
         title: "You are signed in using a federation!"
         your_idp: "Your identity provider is: %{idp}"
+      has_enrollment_allowed_to_record:
+        label: "Has enrollment allowed to record?"
+        unknown_enrollment: "(enrollment: ?)"
+        with_enrollment: "(enrollment: %{enrollment})"
       ldap:
         title: "You are signed in using LDAP!"
       management_options: "Management options"

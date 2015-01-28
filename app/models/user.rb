@@ -287,8 +287,8 @@ class User < ActiveRecord::Base
     Space.where(:id => ids)
   end
 
-  # Returns whether the user has a role allowed to record meetings.
-  def has_role_allowed_to_record?
+  # Returns the user's role/enrollment.
+  def enrollment
     unless self.shib_token.nil?
       data = self.shib_token.data
       data.each do |key, value|
@@ -299,13 +299,18 @@ class User < ActiveRecord::Base
           enrollments.each do |enrollment|
             enrollment_array = enrollment.split(":")
             if enrollment_array[0] == "ativo"
-              return true if is_enrollment_allowed_to_record?(enrollment_array[2])
+              return enrollment_array[2]
             end
           end
         end
       end
     end
-    false
+    nil
+  end
+
+  # Returns whether the user has a role allowed to record meetings.
+  def has_enrollment_allowed_to_record?
+    is_enrollment_allowed_to_record?(enrollment)
   end
 
   private
