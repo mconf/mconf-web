@@ -16,7 +16,9 @@ MwebEvents::ParticipantsController.class_eval do
   end
 
   def custom_loading
-    @participants = @participants.accessible_by(current_ability).paginate(:page => params[:page])
+    @participants = @participants.accessible_by(current_ability)
+      .order(['owner_id desc', 'created_at desc'])
+      .paginate(:page => params[:page])
   end
 
 end
