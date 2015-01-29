@@ -1,8 +1,6 @@
-#confirmation-email
-  .header
-    = @subject
-
-  %p= t('.message', :email => @email, :event => @event)
+#event-confirmation-email
+  %p= t('.header', email: @email)
 
   %p.link
-    = t('.click_here', :url => participant_confirmation_url(token: @pc.to_param, host: Site.current.domain)).html_safe
+    - url = participant_confirmation_url(token: @pc.to_param, host: Site.current.domain)
+    = t('.message', event: @event, url: url).html_safe

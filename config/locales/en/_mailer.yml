@@ -27,9 +27,9 @@ en:
       subject: "You have been invited to the event %{event}"
   participant_confirmation_mailer:
     confirmation_email:
-      subject: Confirm your email in order to register for %{event}
-      message: Hello %{email}! Before you can register for the event [%{event}],
-      click_here: "please confirm your email clicking <a href=\"%{url}\">here</a>."
+      subject: "Confirm your registration in the event \"%{event}\""
+      header: "Hello %{email},"
+      message: "To complete your registration in the event \"%{event}\", please confirm your email by <a href=\"%{url}\">clicking here</a>."
   space_mailer:
     invitation_email:
       message:

@@ -41,8 +41,8 @@ GIT
       resque-scheduler (~> 3.0)
 
 GIT
-  remote: git://github.com/mconf/mweb_events.git
-  revision: 4928037b7ed9c7543dedb2e40ff999807bf8b5c2
+  remote: https://github.com/mconf/mweb_events.git
+  revision: 64bb829ac6b00a2222b6b224de8fc35d6dd43008
   branch: master
   specs:
     mweb_events (0.0.1)
@@ -221,10 +221,10 @@ GEM
       ruby-ldapserver
     friendly_id (5.0.4)
       activerecord (>= 4.0.0)
-    geocoder (1.2.6)
+    geocoder (1.2.7)
     haml (4.0.5)
       tilt
-    haml-rails (0.7.0)
+    haml-rails (0.8.2)
       actionpack (>= 4.0.1)
       activesupport (>= 4.0.1)
       haml (>= 3.1, < 5.0)

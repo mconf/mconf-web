@@ -1099,7 +1099,7 @@ pt-br:
   people: pessoas
   per_page: "por página"
   participant_confirmation:
-    confirmed: Sua inscrição foi confirmada
+    confirmed: "A inscrição para %{email} foi confirmada"
   permission:
     notification:
       default: "%{username} mudou sua função em %{stage} para %{role}."
