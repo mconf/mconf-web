@@ -9,6 +9,7 @@
 #webconference-options
   = simple_form_for @space, :html => { :method => :put, :class => 'single-column' } do |f|
     = f.simple_fields_for :bigbluebutton_room do |bbb_room|
+      = bbb_room.input :private, as: :boolean
       = bbb_room.input :attendee_key, :as => :showable_password
       = bbb_room.input :moderator_key, :as => :showable_password
       = bbb_room.input :welcome_msg, :as => :text, :placeholder => t("bigbluebutton_rails.rooms.default_welcome_msg", :name => "%%CONFNAME%%", :voice_number => "%%DIALNUM%%")

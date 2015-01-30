@@ -220,6 +220,11 @@ class Space < ActiveRecord::Base
     logo_image.present? && crop_x.present?
   end
 
+  # Returns true if the webconference is private
+  def webconf_is_private?
+    bigbluebutton_room.private
+  end
+
   private
 
   # Creates the webconf room after the space is created
@@ -241,8 +246,7 @@ class Space < ActiveRecord::Base
   def update_webconf_room
     if self.bigbluebutton_room
       params = {
-        :name => self.name,
-        :private => !self.public
+        :name => self.name
       }
       bigbluebutton_room.update_attributes(params)
     end
