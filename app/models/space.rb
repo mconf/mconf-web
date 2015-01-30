@@ -220,11 +220,6 @@ class Space < ActiveRecord::Base
     logo_image.present? && crop_x.present?
   end
 
-  # Returns true if the webconference is private
-  def webconf_is_private?
-    bigbluebutton_room.private
-  end
-
   private
 
   # Creates the webconf room after the space is created
