@@ -18,4 +18,5 @@ MwebEvents::ParticipantsController.class_eval do
   def custom_loading
     @participants = @participants.accessible_by(current_ability).paginate(:page => params[:page])
   end
+
 end

@@ -207,9 +207,9 @@ en:
         _full_name: "Full name"
         approved: "Approved"
         can_record: "Allow this user to record meetings"
+        current_password: "Current password"
         email: "Email"
         expanded_post: "Show messages in wall with the expanded view by default"
-        notification: "How do you want to receive your notifications?"
         password: "Password"
         password_confirmation: "Password confirmation"
         receive_digest: "How often do you want to receive digest emails with recent activity in the communities you are a part of?"
@@ -1815,9 +1815,6 @@ en:
         title: "You are signed in using LDAP!"
       management_options: "Management options"
       not_confirmed: "Your account is not activated yet, please check your email to activate it. In case you didn't receive an email, <a href=\"%{url}\">click here</a> to request a new one."
-      notification:
-        by_email: "By email"
-        by_private_message: "By private message"
       other_user:
         click_to_edit_profile: "Click here to edit this user's profile"
         not_confirmed: "This user has not confirmed his/her account yet."

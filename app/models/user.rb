@@ -91,10 +91,6 @@ class User < ActiveRecord::Base
 
   default_scope { where(:disabled => false) }
 
-  # constants for the notification attribute
-  NOTIFICATION_VIA_EMAIL = 1
-  NOTIFICATION_VIA_PM = 2
-
   # constants for the receive_digest attribute
   RECEIVE_DIGEST_NEVER = 0
   RECEIVE_DIGEST_DAILY = 1
@@ -239,22 +235,13 @@ class User < ActiveRecord::Base
 
   # Sets the user as approved
   def approve!
+    skip_confirmation! if !confirmed?
     self.update_attributes(:approved => true)
   end
 
   # Sets the user as not approved
   def disapprove!
     self.update_attributes(:approved => false)
-  end
-
-  # Whether the user should be notified via email
-  def notify_via_email?
-    self.notification == User::NOTIFICATION_VIA_EMAIL
-  end
-
-  # Whether the user should be notified via private message
-  def notify_via_private_message?
-    self.notification == User::NOTIFICATION_VIA_PM
   end
 
   # Overrides a method from devise, see:

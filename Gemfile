@@ -32,7 +32,7 @@ gem 'rails_autolink', '~> 1.1.0'
 gem 'simple_form', '~> 3.0.0'
 gem 'acts_as_tree', '~> 2.0.0'
 gem 'friendly_id'
-gem 'i18n-js', :git => "git://github.com/fnando/i18n-js.git"
+gem 'i18n-js', :git => "https://github.com/fnando/i18n-js.git"
 gem 'rabl'
 gem 'yajl-ruby' # json parser for rabl
 gem 'valid_email', :git => 'https://github.com/Fire-Dragon-DoL/valid_email.git'
@@ -51,8 +51,8 @@ gem 'devise-async'
 gem 'net-ldap'
 
 # BigBlueButton integration
-gem 'bigbluebutton-api-ruby', :git => 'git://github.com/mconf/bigbluebutton-api-ruby.git', :branch => 'master'
-gem 'bigbluebutton_rails', :git => 'git://github.com/mconf/bigbluebutton_rails.git', :branch => 'master'
+gem 'bigbluebutton-api-ruby', :git => 'https://github.com/mconf/bigbluebutton-api-ruby.git', :branch => 'master'
+gem 'bigbluebutton_rails', :git => 'https://github.com/mconf/bigbluebutton_rails.git', :branch => 'master'
 
 # Used on Profile to generate a vcard
 gem 'vpim', :git => 'https://github.com/sam-github/vpim.git'
@@ -83,7 +83,7 @@ gem 'premailer-rails'
 gem 'nokogiri'
 
 # event module
-gem 'mweb_events', :git => 'git://github.com/mconf/mweb_events.git', :branch => 'master'
+gem 'mweb_events', :git => 'https://github.com/mconf/mweb_events.git', :branch => 'master'
 
 # send emails in case of exceptions in production
 gem 'exception_notification', '~> 4.0.0'
@@ -100,13 +100,14 @@ gem 'dotiw'
 gem 'simple_captcha2', require: 'simple_captcha'
 # gem 'galetahub-simple_captcha', :require => 'simple_captcha'
 gem 'httparty'
-gem 'rubyzip' # TODO: see rubyzip2
+gem 'rubyzip', '>= 1.0.0' # will load new rubyzip version
+gem 'zip-zip' # will load compatibility for old rubyzip API.
 gem 'prism'
 
 gem 'fineuploader-rails', '~> 3.3'
 
 group :development do
-  gem 'translate-rails3', :require => 'translate', :git => 'git://github.com/mconf/translate.git'
+  gem 'translate-rails3', :require => 'translate', :git => 'https://github.com/mconf/translate.git'
   gem 'rails-footnotes'
 
   # to show better error pages, with more information

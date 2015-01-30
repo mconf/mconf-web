@@ -21,8 +21,6 @@ class JoinRequestsController < ApplicationController
 
   respond_to :html
 
-  rescue_from CanCan::AccessDenied, :with => :handle_access_denied
-
   layout :determine_layout
 
   def determine_layout
@@ -218,6 +216,7 @@ class JoinRequestsController < ApplicationController
     [success, errors, already_invited]
   end
 
+  # Custom handler for access denied errors, overrides method on ApplicationController.
   def handle_access_denied exception
     if [:new, :index_join_requests, :invite].include? exception.action
       if user_signed_in?

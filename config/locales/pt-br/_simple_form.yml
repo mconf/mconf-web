@@ -58,24 +58,24 @@ pt-br:
         webconf_auto_record: "Se marcado, a seleção da opção para gravar a conferência será feita automaticamente, conforme as permissões do usuário na sala de webconferência que está sendo utilizada (opção desejada quando o servidor de webconferência possui o botão de gravação dentro da sessão). Caso contrário, o usuário poderá escolher ele mesmo se a conferência será gravada ou não antes de iniciá-la (mas apenas se possuir permissões para isso)."
       space:
         bigbluebutton_room:
-          attendee_key: "Chave para que os usuários acessem uma reunião com papel de participantes. Não reutilize senhas reais aqui. Esta senha só será necessária se a comunidade for privada."
+          attendee_key: "Chave para que os usuários acessem uma reunião com papel de participantes. Não reutilize senhas reais aqui. Esta senha só será necessária se a sala for privada."
           auto_start_video: "Habilite para automaticamente iniciar o compartilhamento de câmera assim que o usuário entra na conferência"
           auto_start_audio: "Habilite para automaticamente iniciar o compartilhamento de microfone assim que o usuário entra na conferência"
-          moderator_key: "Chave para que os usuários acessem uma reunião com papel de moderador. Não reutilize senhas reais aqui. Esta senha só será necessária se a comunidade for privada."
+          moderator_key: "Chave para que os usuários acessem uma reunião com papel de moderador. Não reutilize senhas reais aqui. Esta senha só será necessária se a sala for privada."
           presenter_share_only: "Habilite para que somente o apresentador possa compartilhar sua câmera e microfone. Utilizado em conferências \"um para muitos\"."
+          private: "Salas privadas requerem uma senha de acesso. Salas públicas podem ser acessadas por qualquer pessoa com acesso ao link. Apenas membros pode iniciar uma conferência na sala do espaço, seja ela pública ou privada."
           welcome_msg: "Essa mensagem é exibida no bate-papo quando um usuário entrar na conferência. Deixe em branco para usar a mensagem padrão. Você pode incluir informações específicas à conferência usando as variáveis %%CONFNAME%%, %%DIALNUM%% e %%CONFNUM%%"
         permalink: "Este atributo é utilizado para identificar a sua comunidade em endereços web, incluindo o endereço da sala de webconferência desta comunidade. Use apenas letras minúsculas, números ou hifens."
         public: "Comunidades colaborativas podem ser públicas, para que qualquer pessoa possa ver o que acontece nelas, ou privadas, onde apenas os membros têm acesso às atividades da comunidade"
         repository: "O repositório de documentos é um espaço onde os usuários deste espaço podem compartilhar documentos de qualquer tipo"
       user:
-        approved: "Se marcada, o usuário terá permissão para acessar este site, caso contrário ele será bloqueado ao tentar acessá-lo."
+        approved: "Se marcada, o usuário terá permissão para acessar este site, caso contrário ele será bloqueado ao tentar acessá-lo. Esta opção só é usada se o site estiver configurado para requerer aprovação de registro."
         bigbluebutton_room:
           attendee_key: "Chave para que os usuários acessem uma reunião com papel de participantes. Não reutilize senhas reais aqui. Esta senha só será necessária se a sala for privada."
           auto_start_video: "Habilite para automaticamente iniciar o compartilhamento de câmera assim que o usuário entra na conferência"
           auto_start_audio: "Habilite para automaticamente iniciar o compartilhamento de microfone assim que o usuário entra na conferência"
           moderator_key: "Chave para que os usuários acessem uma reunião com papel de moderador. Não reutilize senhas reais aqui. Esta senha só será necessária se a sala for privada."
           presenter_share_only: "Habilite para somente permitir que o apresentador compartilhe sua câmera e microfone. Utilizado em conferências \"um para muitos\"."
-          private: "Salas privadas requerem uma senha de acesso. Salas públicas podem ser acessadas por qualquer pessoa com acesso ao link. Apenas você pode iniciar uma conferência na sua sala, seja ela pública ou privada."
           welcome_msg: "Essa mensagem é exibida no bate-papo quando um usuário entrar na conferência. Deixe em branco para usar a mensagem padrão. Você pode incluir informações específicas à conferência usando as variáveis %%CONFNAME%%, %%DIALNUM%% e %%CONFNUM%%"
         can_record: "Marque esta opção para permitir que este usuário grave reuniões na sua sala pessoal ou em salas de comunidades às quais ele pertence"
         has_enrollment_allowed_to_record: "Se marcado, significa que este usuário recebeu permissão automática para gravar reuniões, mesmo que um administrador não tenha explicitamente dado permissão de gravação a este usuário (através da opção 'permitir gravar reuniões')."
