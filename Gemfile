@@ -113,9 +113,11 @@ group :development do
   # to show better error pages, with more information
   gem 'better_errors'
   gem 'binding_of_caller'
+
   gem 'webrick', '~> 1.3.1'
   gem 'quiet_assets'
   gem 'brakeman', :require => false
+  gem 'librarian-chef'
 end
 
 group :development, :test do
