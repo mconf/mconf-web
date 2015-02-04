@@ -1,14 +1,14 @@
 .thread
-  .thread-content.thread-content-full{:id => "parent-#{@post.id}"}
+  .thread-content.thread-content-full{id: "parent-#{@post.id}"}
     %ul.thread-action-links
       - if can?(:create, @space.posts.build)
-        %li= link_to t('reply').downcase, reply_post_space_post_path(@space, @post), { :name => @post.id, :title => t('comment.add'), :class => "open-modal" }
+        %li= link_to t('reply').downcase, reply_post_space_post_path(@space, @post), { name: @post.id, title: t('comment.add'), class: "open-modal" }
       - if can?(:update, @post)
-        %li= link_to t('edit').downcase, edit_space_post_path(@post.space, @post), { :name => @post.id, :title => t('edit'), :class => "open-modal" }
+        %li= link_to t('edit').downcase, edit_space_post_path(@post.space, @post), { name: @post.id, title: t('edit'), class: "open-modal" }
       - if can?(:destroy, @post)
-        %li= link_to t('remove').downcase, space_post_path(@space, @post), {:method => :delete, :title => t('delete.one'), :data => { :confirm => t('delete.confirm', :element => @post.title) } }
+        %li= link_to t('remove').downcase, space_post_path(@space, @post), {method: :delete, title: t('delete.one'), data: { confirm: t('delete.confirm', element: @post.title) } }
       - if user_signed_in? and !@post.spam
-        %li= link_to t('_other.spam.title').downcase, spam_report_space_post_path(@space, @post), options_for_tooltip(t('_other.spam.tooltip'), :method => :post, :data => { :confirm => t('are_you_sure') })
+        %li= link_to t('_other.spam.title').downcase, spam_report_space_post_path(@space, @post), options_for_tooltip(t('_other.spam.tooltip'), method: :post, data: { confirm: t('are_you_sure') })
     .thread-title
       %h2
         = icon_comments()
@@ -21,7 +21,6 @@
         - else
           %span= t('_other.user.removed')
     .thread-text
-      = render :partial => "posts/parent_post" , :locals => { :post =>  @post, :selected_post => false}
       - for comment in @posts
         - thread_class = cycle("thread-odd" , "thread-even")
-        = render :partial => "post" , :locals => { :post =>  comment, :selected_post => false, :thread_class => thread_class}
+        = render partial: "post" , locals: { post:  comment, selected_post: false, thread_class: thread_class}

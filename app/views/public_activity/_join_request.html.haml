@@ -7,10 +7,10 @@
   - space = Space.find_by_id(activity.owner_id)
 
   .logo-in-thread
-    = link_logo_image(space, :size => '84x64', :url => space_path(space), :class => 'logo logo-space')
+    = link_logo_image(space, size: '84x64', url: space_path(space), class: 'logo logo-space')
 
   .thread-content
-    .thread-updated-at= t('updated_time_ago', :time => time_ago_in_words(activity.created_at, vague: true))
+    .thread-updated-at{title: activity.created_at}= t('updated_time_ago', time: time_ago_in_words(activity.created_at, vague: true))
 
     .thread-title
       = icon_join_request
@@ -25,7 +25,7 @@
       - if activity.parameters.has_key?(:introducer_id) and activity.parameters.has_key?(:introducer)
         - name = activity.parameters[:introducer]
         - link = user_path_from_id(activity.parameters[:introducer_id])
-        = activity_translate("join_request.invite_with_introducer", :introducer => name, :introducer_url => link)
+        = activity_translate("join_request.invite_with_introducer", introducer: name, introducer_url: link)
       - else
         = activity_translate(activity.key)
       = link_to_trackable activity.trackable, activity.trackable_type

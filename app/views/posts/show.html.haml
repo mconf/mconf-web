@@ -1,7 +1,7 @@
 - spaces_menu_at :posts
-= render :partial => 'spaces/menu'
+= render partial: 'spaces/menu'
 
-= render :partial => 'post_with_children'
+= render partial: 'post_with_children'
 - nav = page_navigation_links @posts
 - unless nav.nil?
   .content-block-footer= nav

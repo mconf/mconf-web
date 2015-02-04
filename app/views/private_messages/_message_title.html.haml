@@ -2,7 +2,7 @@
   = sanitize(private_message.title)
 - else
   = link_to sanitize(private_message.title), message_path(private_message)
-%span.thread-updated-at
+%span.thread-updated-at{title: private_message.created_at}
   - if Time.now.to_date == private_message.created_at.to_date
     = time_ago_in_words(private_message.created_at)
   - else
