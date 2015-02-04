@@ -168,18 +168,19 @@ namespace :db do
 
       puts "* Create spaces: \"#{space.name}\" - add first admin"
       Permission.create do |permission|
-        user = available_users.delete_at(rand(available_users.size))
+        user = available_users.sample
+        available_users -= [user]
         permission.user_id = user.id
         permission.subject_id = space.id
         permission.subject_type = 'Space'
-        permission.role_id = Role.where(name: 'Admin', stage_type: 'Space')
+        permission.role_id = Role.where(name: 'Admin', stage_type: 'Space').first.id
         permission.created_at = user.created_at
         permission.updated_at = permission.created_at
       end
 
       puts "* Create spaces: \"#{space.name}\" - add more users (3..10)"
       Permission.populate 3..10 do |permission|
-        user = available_users.delete_at(rand(available_users.size))
+        user = available_users.sample
         permission.user_id = user.id
         permission.subject_id = space.id
         permission.subject_type = 'Space'
@@ -302,7 +303,7 @@ namespace :db do
           format.url = "http://#{Forgery::Internet.domain_name}/playback/#{Populator.words(1)}"
           format.length = Populator.value_in_range(32..128)
 
-          id = playback_types[rand(playback_types.length)]
+          id = playback_types.sample
           playback_types.delete(id)
           format.playback_type_id = id
         end
@@ -323,7 +324,7 @@ namespace :db do
             space = recording.room.owner
             if space
               recording.metadata.create(:name => BigbluebuttonRails.metadata_user_id.to_s,
-                                        :content => space.users[rand(space.users.length)])
+                                        :content => space.users.sample)
             end
           end
         end
@@ -348,7 +349,7 @@ namespace :db do
       final_posts = [] << total_posts.shift
 
       total_posts.inject final_posts do |posts, post|
-        parent = posts[rand(posts.size)]
+        parent = posts.sample
         unless parent.parent_id
           post.update_attribute :parent_id, parent.id
         end
@@ -362,7 +363,7 @@ namespace :db do
 
       # Author and recent_activity for posts
       ( space.posts ).each do |item|
-        item.author = space.users[rand(space.users.length)]
+        item.author = space.users.sample
         item.save(:validate => false)
 
         item.new_activity :create, item.author
@@ -380,12 +381,14 @@ namespace :db do
 
       # News activity
       space.news.each do |news|
-        news.new_activity :create, space.admins[rand(space.admins.length)]
+        author = space.admins.sample
+        news.new_activity :create, author
       end
 
       # Attachment activity
       space.attachments.each do |att|
-        att.new_activity :create, space.users[rand(space.users.length)]
+        author = space.admins.sample
+        att.new_activity :create, author
       end
 
     end
