@@ -30,6 +30,8 @@ module Abilities
         can :register, MwebEvents::Event, public: true
         can :create, MwebEvents::Participant # TODO: really needed?
       end
+
+      restrict_access_to_disabled_resources
     end
 
     private

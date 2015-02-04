@@ -49,7 +49,7 @@ describe MwebEvents::EventsController do
 
         before { owner.disable }
 
-        it { expect { get :show, id: event.to_param }.to raise_error(ActiveRecord::RecordNotFound) }
+        it { expect { get :show, id: event.to_param }.not_to raise_error }
       end
 
       context "event owner is a disabled user" do
@@ -58,7 +58,7 @@ describe MwebEvents::EventsController do
 
         before { owner.disable }
 
-        it { expect { get :show, id: event.to_param }.to raise_error(ActiveRecord::RecordNotFound) }
+        it { expect { get :show, id: event.to_param }.not_to raise_error }
       end
     end
 

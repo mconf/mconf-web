@@ -25,6 +25,11 @@ describe Attachment do
         before { target.space.add_member!(user) }
         it { should_not be_able_to_do_anything_to(target).except([:read, :destroy, :create]) }
       end
+
+      context "and the target space is disabled" do
+        before { target.space.disable }
+        it { should_not be_able_to_do_anything_to(target) }
+      end
     end
 
     context "when is an anonymous user" do
@@ -37,6 +42,11 @@ describe Attachment do
 
       context "and the attachment is in a private space" do
         before { target.space.update_attributes(:public => false) }
+        it { should_not be_able_to_do_anything_to(target) }
+      end
+
+      context "and the target space is disabled" do
+        before { target.space.disable }
         it { should_not be_able_to_do_anything_to(target) }
       end
     end
@@ -63,11 +73,21 @@ describe Attachment do
         before { target.space.update_attributes(:public => true) }
         it { should_not be_able_to_do_anything_to(target).except(:read) }
       end
+
+      context "and the target space is disabled" do
+        before { target.space.disable }
+        it { should_not be_able_to_do_anything_to(target) }
+      end
     end
 
     context "when is a superuser" do
       let(:user) { FactoryGirl.create(:superuser) }
       it { should be_able_to(:manage, target) }
+
+      context "and the target space is disabled" do
+        before { target.space.disable }
+        it { should be_able_to(:manage, target) }
+      end
     end
 
   end

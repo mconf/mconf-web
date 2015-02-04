@@ -2,7 +2,6 @@ MwebEvents::EventsController.class_eval do
 
   before_filter :block_if_events_disabled
   before_filter :custom_loading, only: [:index]
-  before_filter :check_if_owner_is_disabled, except: [:index, :new]
   before_filter :create_participant, only: [:show]
 
   after_filter only: [:create, :update] do
@@ -63,16 +62,20 @@ MwebEvents::EventsController.class_eval do
     end
 
     # Filter events belonging to spaces or users with disabled status
-    without_spaces = @events.where(owner_type: 'Space').joins('INNER JOIN spaces ON owner_id = spaces.id').where("spaces.disabled = false")
-    without_users = @events.where(owner_type: 'User').joins('INNER JOIN users ON owner_id = users.id').where("users.disabled = false")
+    without_spaces = @events.where(owner_type: 'Space').joins('INNER JOIN spaces ON owner_id = spaces.id').where("spaces.disabled = ?", false)
+    without_users = @events.where(owner_type: 'User').joins('INNER JOIN users ON owner_id = users.id').where("users.disabled = ?", false)
     # If only there was a conjunction operator that returned an AR relation, this would be easier
     # '|'' is the only one that corretly combines these two queries, but doesn't return a relation
     @events = MwebEvents::Event.where(id: (without_users | without_spaces))
     @events = @events.accessible_by(current_ability, :index).page(params[:page])
   end
 
-  def check_if_owner_is_disabled
-    raise ActiveRecord::RecordNotFound if @event.owner.nil?
+  def handle_access_denied(exception)
+    if @event.nil? || @event.owner.nil?
+      raise ActiveRecord::RecordNotFound
+    else
+      raise exception
+    end
   end
 
   def set_date_locale

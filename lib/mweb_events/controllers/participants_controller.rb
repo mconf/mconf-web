@@ -1,7 +1,6 @@
 MwebEvents::ParticipantsController.class_eval do
   before_filter :block_if_events_disabled
   before_filter :custom_loading, only: [:index]
-  before_filter :check_if_owner_is_disabled
 
   after_filter only: [:create] do
     @participant.new_activity params[:action], current_user if @participant.persisted?
@@ -20,8 +19,12 @@ MwebEvents::ParticipantsController.class_eval do
     @participants = @participants.accessible_by(current_ability).paginate(page: params[:page])
   end
 
-  def check_if_owner_is_disabled
-    raise ActiveRecord::RecordNotFound if @event.owner.nil?
+  def handle_access_denied(exception)
+    if @event.owner.nil?
+      raise ActiveRecord::RecordNotFound
+    else
+      raise exception
+    end
   end
 
 end
