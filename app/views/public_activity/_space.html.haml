@@ -12,8 +12,8 @@
       = icon_leave_space
     - elsif activity.key.match(/accept$/)
       = icon_join_space
-    - if activity.parameters.has_key?(:username) and activity.parameters.has_key?(:user_id)
-      - link = user_path_from_id(activity.parameters[:user_id])
+    - if activity.parameters.has_key?(:username) and activity.recipent.present?
+      - link = user_path(activity.recipient)
       - if link.nil?
         = activity.parameters[:username]
       - else

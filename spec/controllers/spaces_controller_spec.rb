@@ -366,7 +366,7 @@ describe SpacesController do
         it { RecentActivity.last.trackable.should eq(Space.last) }
         it { RecentActivity.last.owner.should eq(Space.last) }
         it { RecentActivity.last.parameters[:username].should eq(user.full_name) }
-        it { RecentActivity.last.parameters[:user_id].should eq(user.id) }
+        it { RecentActivity.last.recipient.should eq(user) }
       end
     end
 

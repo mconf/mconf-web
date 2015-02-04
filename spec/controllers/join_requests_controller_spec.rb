@@ -443,7 +443,7 @@ describe JoinRequestsController do
 
         it { RecentActivity.last.trackable.should eq(jr.group) }
         it { RecentActivity.last.owner.should eq(jr) }
-        it { RecentActivity.last.parameters[:user_id].should eq(jr.candidate.id) }
+        it { RecentActivity.last.recipient.should eq(jr.candidate) }
         it { RecentActivity.last.parameters[:username].should eq(jr.candidate.name) }
       end
 
@@ -548,7 +548,7 @@ describe JoinRequestsController do
 
         it { RecentActivity.last.trackable.should eq(jr.group) }
         it { RecentActivity.last.owner.should eq(jr) }
-        it { RecentActivity.last.parameters[:user_id].should eq(jr.candidate.id) }
+        it { RecentActivity.last.recipient.should eq(jr.candidate) }
         it { RecentActivity.last.parameters[:username].should eq(jr.candidate.name) }
       end
 
@@ -630,7 +630,7 @@ describe JoinRequestsController do
 
         it { RecentActivity.last.trackable.should eq(jr.group) }
         it { RecentActivity.last.owner.should eq(jr) }
-        it { RecentActivity.last.parameters[:user_id].should eq(jr.candidate.id) }
+        it { RecentActivity.last.recipient.should eq(jr.candidate) }
         it { RecentActivity.last.parameters[:username].should eq(jr.candidate.name) }
       end
 
@@ -726,7 +726,7 @@ describe JoinRequestsController do
 
         it { RecentActivity.last.trackable.should eq(jr.group) }
         it { RecentActivity.last.owner.should eq(jr) }
-        it { RecentActivity.last.parameters[:user_id].should eq(jr.candidate.id) }
+        it { RecentActivity.last.recipient.should eq(jr.candidate) }
         it { RecentActivity.last.parameters[:username].should eq(jr.candidate.name) }
       end
 
