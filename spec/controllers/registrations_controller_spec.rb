@@ -57,6 +57,13 @@ describe RegistrationsController do
         }.to change{ User.count }.by(1)
       }
       it { should redirect_to(my_home_path) }
+      context "it should create a RecentActivity" do
+        let!(:activities) { RecentActivity.where(trackable: User.last, key: 'user.created') }
+        it("there should be only one") { activities.count.should eql 1 }
+        subject { activities.first }
+        it { subject.should_not be_nil }
+        it { subject.owner.should eql User.last }
+      end
     end
 
     context "if registrations are disabled in the site" do

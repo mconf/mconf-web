@@ -15,27 +15,16 @@ class UserNotificationsWorker
       notify_admins_of_new_users
       notify_users_after_approved
     end
+    notify_users_account_created
   end
 
   # Finds all users that registered and need to be approved and schedules a worker
   # to notify all users that could possibly approve him.
   def self.notify_admins_of_new_users
-    # Temporary solution so that only one of the two activities that are created
-    # when using Shibboleth or LDAP is actually used to send the notification.
-    specific_creations = RecentActivity.where(trackable_type: 'User', notified: [nil, false])
-                               .where("`key` LIKE '%.user.created'").to_a
-    general_creations = RecentActivity.where(trackable_type: 'User', notified: [nil, false], key: 'user.created').to_a
+    # The Activities with keys user.created are used to inform the admins that a
+    # new user has registered.
+    activities = RecentActivity.where(trackable_type: 'User', notified: [nil, false], key: 'user.created')
 
-    general_creations.reject! do |gen|
-      if specific_creations.find_index { |spec| spec.trackable_id == gen.trackable_id }
-        gen.update_attributes(notified: true)
-        true
-      else
-        false
-      end
-    end
-
-    activities = specific_creations + general_creations
     recipients = User.where(superuser: true).pluck(:id)
     unless recipients.empty?
       activities.each do |creation|
@@ -51,6 +40,20 @@ class UserNotificationsWorker
     end
   end
 
+  # The Activities with keys shibboleth.user.created and ldap.user.created are
+  # used to send a notification to the user informing that he created an account
+  def self.notify_users_account_created
+    activities =
+      RecentActivity.where(trackable_type: 'User', notified: [nil, false])
+                    .where("`key` LIKE '%.user.created'")
+
+    activities.each do |creation|
+      UserMailer.registration_notification_email(creation.trackable_id).deliver
+      creation.update_attributes(notified: true)
+    end
+
+  end
+
   # Finds all users that were approved but not notified of it yet and schedules
   # a worker to notify them.
   def self.notify_users_after_approved
@@ -59,5 +62,6 @@ class UserNotificationsWorker
       Resque.enqueue(UserApprovedSenderWorker, approval.id)
     end
   end
+
 
 end

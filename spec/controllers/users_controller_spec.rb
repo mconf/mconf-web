@@ -809,6 +809,7 @@ describe UsersController do
         it { should redirect_to manage_users_path }
         it { User.last.confirmed?.should be true }
         it { User.last.approved?.should be true }
+        it { RecentActivity.where(owner_id: superuser.id, trackable_id: user.id, key: 'user.approved').should be_empty }
       end
 
       describe "creates a new user with invalid attributes" do

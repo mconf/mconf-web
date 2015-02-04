@@ -40,9 +40,14 @@ describe UserNotificationsWorker do
         end
 
         context "ignores users not approved but that already had their notification sent" do
+          let!(:admin1) { FactoryGirl.create(:superuser) }
           let!(:user1) { FactoryGirl.create(:user, approved: false) }
           let!(:user2) { FactoryGirl.create(:user, approved: false) }
-
+          before {
+            RecentActivity.where(key: 'user.created').last(2).each { |act|
+              act.update_attributes(notified: true)
+            }
+          }
           before(:each) { worker.perform }
 
           it { expect(UserNeedsApprovalSenderWorker).to have_queue_size_of(0) }
