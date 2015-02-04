@@ -679,6 +679,11 @@ describe Space do
             it { should be_able_to_do_anything_to(target) }
           end
         end
+
+        context "that is disabled" do
+          before { target.disable }
+          it { should be_able_to(:manage, target) }
+        end
       end
 
       context "in a private space" do
@@ -698,6 +703,11 @@ describe Space do
             before { target.add_member!(user, "User") }
             it { should be_able_to_do_anything_to(target) }
           end
+        end
+
+        context "that is disabled" do
+          before { target.disable }
+          it { should be_able_to(:manage, target) }
         end
       end
     end
@@ -730,6 +740,11 @@ describe Space do
             it { should_not be_able_to_do_anything_to(target).except([:read, :webconference, :recordings, :create, :select, :leave]) }
           end
         end
+
+        context "that is disabled" do
+          before { target.disable }
+          it { should_not be_able_to_do_anything_to(target) }
+        end
       end
 
       context "in a private space" do
@@ -757,6 +772,11 @@ describe Space do
             it { should_not be_able_to_do_anything_to(target).except([:read, :webconference, :recordings, :create, :select, :leave]) }
           end
         end
+
+        context "that is disabled" do
+          before { target.disable }
+          it { should_not be_able_to_do_anything_to(target) }
+        end
       end
     end
 
@@ -766,11 +786,21 @@ describe Space do
       context "in a public space" do
         let(:target) { FactoryGirl.create(:public_space) }
         it { should_not be_able_to_do_anything_to(target).except([:read, :webconference, :recordings, :select]) }
+
+        context "that is disabled" do
+          before { target.disable }
+          it { should_not be_able_to_do_anything_to(target) }
+        end
       end
 
       context "in a private space" do
         let(:target) { FactoryGirl.create(:private_space) }
         it { should_not be_able_to_do_anything_to(target).except([:select]) }
+
+        context "that is disabled" do
+          before { target.disable }
+          it { should_not be_able_to_do_anything_to(target) }
+        end
       end
     end
 

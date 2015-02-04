@@ -9,16 +9,71 @@ require "spec_helper"
 describe MwebEvents::EventsController do
   render_views
 
+  describe "#show" do
+    routes { MwebEvents::Engine.routes }
+
+    before(:all) { Site.current.update_attributes(events_enabled: true) }
+
+    context "logged as a normal user" do
+      let(:user) { FactoryGirl.create(:user) }
+
+      before(:each) { login_as(user) }
+
+      context "event owner is a disabled space" do
+        let(:owner) { FactoryGirl.create(:space) }
+        let(:event) { FactoryGirl.create(:event, owner: owner) }
+
+        before { owner.disable }
+
+        it { expect { get :show, id: event.to_param }.to raise_error(ActiveRecord::RecordNotFound) }
+      end
+
+      context "event owner is a disabled user" do
+        let(:owner) { FactoryGirl.create(:user) }
+        let(:event) { FactoryGirl.create(:event, owner: owner) }
+
+        before { owner.disable }
+
+        it { expect { get :show, id: event.to_param }.to raise_error(ActiveRecord::RecordNotFound) }
+      end
+    end
+
+    context "logged as an admin" do
+      let(:admin) { FactoryGirl.create(:superuser) }
+
+      before(:each) { login_as(admin) }
+
+      context "event owner is a disabled space" do
+        let(:owner) { FactoryGirl.create(:space) }
+        let(:event) { FactoryGirl.create(:event, owner: owner) }
+
+        before { owner.disable }
+
+        it { expect { get :show, id: event.to_param }.not_to raise_error }
+      end
+
+      context "event owner is a disabled user" do
+        let(:owner) { FactoryGirl.create(:user) }
+        let(:event) { FactoryGirl.create(:event, owner: owner) }
+
+        before { owner.disable }
+
+        it { expect { get :show, id: event.to_param }.not_to raise_error }
+      end
+    end
+
+  end
+
   describe "#invite" do
     let(:owner) { FactoryGirl.create(:user) }
-    let(:event) { FactoryGirl.create(:event, :owner => owner) }
+    let(:event) { FactoryGirl.create(:event, owner: owner) }
 
     context "template and layout" do
       context "template" do
         before(:each) { login_as(owner) }
 
         context "xhr" do
-          before { xhr :get, :invite, :id => event.to_param }
+          before { xhr :get, :invite, id: event.to_param }
 
           it { should render_template(:invite) }
           it { should_not render_with_layout }
@@ -26,7 +81,7 @@ describe MwebEvents::EventsController do
         end
 
         context "normal request" do
-          before { get :invite, :id => event.to_param }
+          before { get :invite, id: event.to_param }
 
           it { should render_template(:invite) }
           it { should render_with_layout('mweb_events/application') }
@@ -38,7 +93,7 @@ describe MwebEvents::EventsController do
     context 'authorization' do
       let(:subject) {
         login_as(logged_user)
-        get :invite, :id => event.to_param
+        get :invite, id: event.to_param
       }
 
       context 'should not authorize non managers to invite' do
@@ -52,12 +107,12 @@ describe MwebEvents::EventsController do
       end
     end
 
-    it { should_authorize an_instance_of(MwebEvents::Event), :invite, :method => :get, :id => event.to_param }
+    it { should_authorize an_instance_of(MwebEvents::Event), :invite, method: :get, id: event.to_param }
   end
 
   describe "#send_invitation" do
     let!(:referer) { "/any" }
-    let(:event) { FactoryGirl.create(:event, :owner => FactoryGirl.create(:user)) }
+    let(:event) { FactoryGirl.create(:event, owner: FactoryGirl.create(:user)) }
     let(:users) { [FactoryGirl.create(:user)] }
     let(:title) { 'Title' }
     let(:message) { 'Message' }
@@ -66,9 +121,9 @@ describe MwebEvents::EventsController do
     before { request.env["HTTP_REFERER"] = referer }
 
     context "sending the form" do
-      let!(:hash) { { :users => users.map(&:id).join(','),
-         :title => title,
-         :message => message} }
+      let!(:hash) { { users: users.map(&:id).join(','),
+         title: title,
+         message: message} }
       before {
         login_as(event.owner)
       }
@@ -76,7 +131,7 @@ describe MwebEvents::EventsController do
       context "with correct data" do
         before {
           expect {
-            post :send_invitation, :invite => hash, :id => event.to_param
+            post :send_invitation, invite: hash, id: event.to_param
           }.to change { Invitation.count }.by(1)
         }
         context "with the right type set" do
@@ -90,7 +145,7 @@ describe MwebEvents::EventsController do
         let(:users) { [FactoryGirl.create(:user), FactoryGirl.create(:user)] }
         before {
           expect {
-            post :send_invitation, :invite => hash, :id => event.to_param
+            post :send_invitation, invite: hash, id: event.to_param
           }.to change { Invitation.count }.by(users.length)
         }
 
@@ -106,7 +161,7 @@ describe MwebEvents::EventsController do
         before {
           hash.delete(:users)
           expect {
-            post :send_invitation, :invite => hash, :id => event.to_param
+            post :send_invitation, invite: hash, id: event.to_param
           }.not_to change { Invitation.count }
         }
         it { should redirect_to(referer) }
@@ -117,7 +172,7 @@ describe MwebEvents::EventsController do
         let(:title) { nil }
         before {
           expect {
-            post :send_invitation, :invite => hash, :id => event.to_param
+            post :send_invitation, invite: hash, id: event.to_param
           }.not_to change { Invitation.count }
         }
         it { should redirect_to(referer) }
@@ -128,7 +183,7 @@ describe MwebEvents::EventsController do
         let(:users) { [] }
         before {
           expect {
-            post :send_invitation, :invite => hash, :id => event.to_param
+            post :send_invitation, invite: hash, id: event.to_param
           }.not_to change { Invitation.count }
         }
         it { should redirect_to(referer) }
@@ -139,7 +194,7 @@ describe MwebEvents::EventsController do
         let(:message) { nil }
         before {
           expect {
-            post :send_invitation, :invite => hash, :id => event.to_param
+            post :send_invitation, invite: hash, id: event.to_param
           }.to change { Invitation.count }.by(1)
         }
 
@@ -155,7 +210,7 @@ describe MwebEvents::EventsController do
     context 'authorization' do
       let(:subject) {
         login_as(logged_user)
-        post :send_invitation, :id => event.to_param, :invite => {}
+        post :send_invitation, id: event.to_param, invite: {}
       }
 
       context 'should not authorize non managers to send invites' do
@@ -169,7 +224,7 @@ describe MwebEvents::EventsController do
       end
     end
 
-    it { should_authorize an_instance_of(MwebEvents::Event), :send_invitation, :id => event.to_param }
+    it { should_authorize an_instance_of(MwebEvents::Event), :send_invitation, id: event.to_param }
   end
 
 end
