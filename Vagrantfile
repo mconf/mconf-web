@@ -7,8 +7,12 @@
 # you're doing.
 Vagrant.configure(2) do |config|
   # Use Ubuntu 14.04 Trusty Tahr 64-bit as our operating system
-  #config.vm.box = "ubuntu/trusty64" # for vbox
-  config.vm.box = "fgrehm/trusty64-lxc" # for lxc
+  config.vm.box = "ubuntu/trusty64"
+  config.vm.provider "lxc" do |v, override|
+    override.vm.box = "fgrehm/trusty64-lxc"
+  end
+
+  config.vm.box_download_insecure = true
 
   # Configurate the virtual machine to use 2GB of RAM
   config.vm.provider :virtualbox do |vb|
