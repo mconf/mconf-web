@@ -140,6 +140,39 @@ describe Devise::Strategies::LdapAuthenticatable do
 
     end
 
+    shared_examples "try to create account and check RecentActivity" do
+      before(:each) {
+        expect {
+          @subject = ldap.send(:create_account, email, username, name, token)
+        }.not_to change { User.count }
+      }
+
+      it("user should not be created") { @subject.should be_nil }
+      it("activity should not be created") { RecentActivity.where(key: 'ldap.user.created').should be_empty }
+    end
+
+    context "with invalid data" do
+      let(:token) { LdapToken.create!(identifier: 'any@ema.il') }
+      let(:email) { 'any@ema.il' }
+      let(:username) { 'any-username' }
+      let(:name) { 'John Doe' }
+
+      context "email not informed" do
+        let(:email) { '' }
+        include_examples "try to create account and check RecentActivity"
+      end
+
+      context "username not informed" do
+        let(:username) { '' }
+        include_examples "try to create account and check RecentActivity"
+      end
+
+      context "name not informed" do
+        let(:name) { '' }
+        include_examples "try to create account and check RecentActivity"
+      end
+
+    end
     # These tests are here to prevent errors when creating the token, because the id passed is
     # usually not a standard ruby string, but a Net::BER::BerIdentifiedString created by net-ldap.
     # More at: https://github.com/hallelujah/valid_email/issues/22

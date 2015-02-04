@@ -569,6 +569,7 @@ describe Mconf::Shibboleth do
       it("expects errors on :email") { subject.errors.should have_key(:email) }
       it("expects errors on :username") { subject.errors.should have_key(:username) }
       it("expects errors on :_full_name") { subject.errors.should have_key(:_full_name) }
+      it("should not create RecentActivity") { RecentActivity.where(key: 'shibboleth.user.created').should be_empty }
     end
   end
 
