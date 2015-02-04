@@ -39,6 +39,7 @@ pt-br:
     space:
       accept_html: tornou-se um membro da comunidade
       create_html: criou a comunidade
+      decline_html: teve um convite/pedido negado na comunidade
       deleted: uma comunidade que não existe mais
       leave_html: deixou de ser um membro da comunidade
       update_html: atualizou os dados da comunidade
@@ -686,6 +687,7 @@ pt-br:
     one: Erro
     other: Erros
     vcc_warning: "Aviso geral:"
+  fax: Fax
   feedback:
     create:
       check_mail: "Por favor verifique o e-mail informado no forumlário de feedback, ele parece estar errado."
@@ -735,6 +737,7 @@ pt-br:
   icons: 
     unread_message: "Mensage não lida!"
     unread_message_by_receiver: "Esta mensagem ainda não foi lida pelo usuário que a recebeu"
+  im: IM
   inbox:
     my: "Caixa de entrada (%{checked})"
     one: "Caixa de entrada (%{checked})"
