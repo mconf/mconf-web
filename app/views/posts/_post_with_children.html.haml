@@ -21,6 +21,7 @@
         - else
           %span= t('_other.user.removed')
     .thread-text
+      = render partial: "posts/parent_post" , locals: { post:  @post, selected_post: false}
       - for comment in @posts
         - thread_class = cycle("thread-odd" , "thread-even")
         = render partial: "post" , locals: { post:  comment, selected_post: false, thread_class: thread_class}
