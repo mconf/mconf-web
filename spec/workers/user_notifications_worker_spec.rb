@@ -44,9 +44,10 @@ describe UserNotificationsWorker do
           let!(:user1) { FactoryGirl.create(:user, approved: false) }
           let!(:user2) { FactoryGirl.create(:user, approved: false) }
           before {
-            RecentActivity.where(key: 'user.created').last(2).each { |act|
-              act.update_attributes(notified: true)
-            }
+            RecentActivity.where(key: 'user.created', trackable_id: [user1.id, user2.id])
+              .each { |act|
+                act.update_attributes(notified: true)
+              }
           }
           before(:each) { worker.perform }
 
@@ -148,7 +149,7 @@ describe UserNotificationsWorker do
         context "creates the RecentActivity" do
           it { activity.trackable.should eql @user }
           it { activity.owner.should eql token }
-          it { activity.notified.should be false }
+          it { activity.notified.should be_falsey }
         end
 
         context "#perform sends the right mails and updates the activity" do

@@ -101,7 +101,7 @@ describe Devise::Strategies::LdapAuthenticatable do
       let(:token) { LdapToken.create!(identifier: 'any@ema.il') }
       before(:each) {
         expect {
-          @subject = ldap.send(:create_account, 'any@ema.il', 'any-username', 'John Doe', token).reload
+          @subject = ldap.send(:create_account, 'any@ema.il', 'any-username', 'John Doe', token)
         }.to change { User.count }.by(1)
       }
 
