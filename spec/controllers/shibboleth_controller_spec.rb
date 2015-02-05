@@ -84,7 +84,7 @@ describe ShibbolethController do
       context "if there's already a user with the target email, goes to /secure with an error message" do
         before { FactoryGirl.create(:user, :email => attrs[:email]) }
         before(:each) {
-          expect { run_route }.not_to change{ ShibToken.count + RecentActivity.count } # || change { RecentActivity.count }
+          expect { run_route }.not_to change{ ShibToken.count + RecentActivity.count }
         }
         it { controller.should redirect_to(shibboleth_path) }
         it { controller.should set_the_flash.to(I18n.t('shibboleth.create_association.existent_account', :email => attrs[:email])) }

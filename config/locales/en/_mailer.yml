@@ -18,6 +18,7 @@ en:
       click_here: "Click <a href=\"%{url}\">here</a> to go to your home page."
       message: "Hello %{name}! We're sending this email to inform you have sucessfully registered on the site."
       subject: "Your registration has been completed"
+      confirmation_pending: "Your account was created and is waiting the approval of an administrator."
   event_mailer:
     invitation_email:
       message:

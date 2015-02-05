@@ -23,13 +23,25 @@ describe UserMailer do
       it("sets 'from'") { mail.from.should eql([Site.current.smtp_sender]) }
       it("sets 'headers'") { mail.headers.should eql({}) }
       it("sets 'reply_to'") { mail.reply_to.should eql([Site.current.smtp_sender]) }
-      it("assigns @user_name") {
-        mail.body.encoded.should match(user.name)
-      }
-      it("sends a link to the users home_path") {
-        content = I18n.t('user_mailer.registration_notification_email.click_here', url: url)
-        mail.body.encoded.should match(content)
-      }
+
+      context "if the site doesn't require registration approval" do
+        before { Site.current.update_attributes(require_registration_approval: false) }
+        it("assigns @user_name") {
+          mail.body.encoded.should match(user.name)
+        }
+        it("sends a link to the users home_path") {
+          content = I18n.t('user_mailer.registration_notification_email.click_here', url: url)
+          mail.body.encoded.should match(content)
+        }
+      end
+
+      context "if the site requires registration approval" do
+        before { Site.current.update_attributes(require_registration_approval: true) }
+        it("informs that the user needs to be approved") {
+          content = I18n.t('user_mailer.registration_notification_email.confirmation_pending')
+          mail.body.encoded.should match(content)
+        }
+      end
     end
 
     context "uses the receiver's locale" do
