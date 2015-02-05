@@ -7,7 +7,7 @@ namespace :db do
   SPACE_NAME_MIN_LENGTH = 3
 
   desc "Check the database for inconsistencies and solve them"
-  task :sanitize => :environment do
+  task :sanify => :environment do
     puts "Checking for moderator_keys that are too long..."
     check_moderator_key_too_long
 
