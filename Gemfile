@@ -19,9 +19,6 @@ group :assets do
   gem 'select2-rails'
 end
 
-# TODO: temporary until we update to ruby 2.2.0, see http://dev.mconf.org/redmine/issues/1333
-gem 'psych', :git => 'https://github.com/lfzawacki/psych.git', :branch => 'gemfile-style'
-
 gem 'mysql2', '~> 0.3.0'
 gem 'rake'
 gem 'therubyracer', :require => 'v8'

@@ -14,13 +14,6 @@ GIT
       i18n (~> 0.6)
 
 GIT
-  remote: https://github.com/lfzawacki/psych.git
-  revision: ed4b164b8d192b2b7bf663cba0fe5cdd1f7beef1
-  branch: gemfile-style
-  specs:
-    psych (2.0.5.20140820161236)
-
-GIT
   remote: https://github.com/mconf/bigbluebutton-api-ruby.git
   revision: 310c1764b33043e5b6460d33fc2004dd74342083
   branch: master
@@ -576,7 +569,6 @@ DEPENDENCIES
   populator
   premailer-rails
   prism
-  psych!
   public_activity (~> 1.4.1)
   quiet_assets
   rabl
