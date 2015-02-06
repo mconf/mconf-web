@@ -43,8 +43,8 @@ describe ParticipantConfirmationMailer do
         Site.current.update_attributes(:locale => "pt-br")
       }
       it {
-        content = I18n.t('participant_confirmation_mailer.confirmation_email.subject', event: '', locale: "pt-br")
-        mail.body.encoded.should match(content)
+        content = I18n.t('participant_confirmation_mailer.confirmation_email.subject', event: participant.event.name, locale: "pt-br")
+        mail.subject.should match(content)
       }
     end
 
@@ -54,8 +54,8 @@ describe ParticipantConfirmationMailer do
         I18n.default_locale = "pt-br"
       }
       it {
-        content = I18n.t('participant_confirmation_mailer.confirmation_email.subject', event: '', locale: "pt-br")
-        mail.body.encoded.should match(content)
+        content = I18n.t('participant_confirmation_mailer.confirmation_email.subject', event: participant.event.name, locale: "pt-br")
+        mail.subject.should match(content)
       }
     end
   end
