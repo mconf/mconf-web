@@ -1835,6 +1835,12 @@ en:
     progress: "{percent}% of {total_size}"
     drag_files: Drag and drop files here to upload
     processing: Processing...
+    error:
+      invalid_extension: "{file} has an invalid extension. Valid extension(s): {extensions}."
+      invalid_size: "{file} is too large, maximum file size is {sizeLimit}."
+      empty_file: "{file} is empty, please select files again without it."
+      no_files: "No files to upload."
+      on_leave: "The files are being uploaded, if you leave now the upload will be cancelled."
   vCard: 
     corrupt: "The vCard you sent is corrupted or is a non-supported version"
     message: "Use your vCard to automatically fill in your profile"
