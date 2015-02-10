@@ -345,6 +345,34 @@ describe JoinRequestsController do
       it { should redirect_to(invite_space_join_requests_path(space)) }
       it { should set_the_flash.to(I18n.t('join_requests.create.error', :errors => errors)) }
     end
+
+    context "global admin is not a member of the space and successfully invites one user" do
+      let(:superuser) { FactoryGirl.create(:superuser) }
+      before(:each) {
+        sign_out user
+        sign_in(superuser)
+      }
+
+      let(:attributes) {
+        {:join_request => FactoryGirl.attributes_for(:join_request, :email => nil, :role_id => role.id) , :candidates => "#{candidate.id}"}
+      }
+
+      before(:each) {
+        expect {
+          post :create, {:invite => true, :space_id => space.to_param}.merge(attributes)
+        }.to change{space.pending_invitations.count}.by(1)
+      }
+
+      it { should redirect_to(invite_space_join_requests_path(space)) }
+      it { should set_the_flash.to(I18n.t('join_requests.create.sent', :users => candidate.username)) }
+      it { JoinRequest.last.comment.should eql(attributes[:join_request][:comment]) }
+      it { JoinRequest.last.introducer.should eql(superuser) }
+      it { JoinRequest.last.candidate.should eql(candidate) }
+      it { JoinRequest.last.group.should eql(space) }
+      it { JoinRequest.last.role.should eql(role.name) }
+      it { JoinRequest.last.request_type.should eql(JoinRequest::TYPES[:invite]) }
+    end
+
   end
 
   describe "#invite" do
