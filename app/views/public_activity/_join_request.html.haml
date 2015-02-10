@@ -10,7 +10,7 @@
     = link_logo_image(space, size: '84x64', url: space_path(space), class: 'logo logo-space')
 
   .thread-content
-    .thread-updated-at{title: activity.created_at}= t('updated_time_ago', time: time_ago_in_words(activity.created_at, vague: true))
+    = time_to_be_shown activity.created_at, t('updated_time_ago', time: time_ago_in_words(activity.created_at, vague: true))
 
     .thread-title
       = icon_join_request

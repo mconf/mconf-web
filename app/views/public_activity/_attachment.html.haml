@@ -8,7 +8,7 @@
     = link_logo_image(activity.owner, size: '84x64', url: space_path(activity.trackable), class: 'logo logo-space')
 
 .thread-content
-  .thread-updated-at{title: activity.updated_at}= t('updated_time_ago', time: time_ago_in_words(activity.updated_at, title: activity.updated_at, vague: true))
+  = time_to_be_shown activity.updated_at, t('updated_time_ago', time: time_ago_in_words(activity.updated_at, vague: true))
 
   .thread-title
     = icon_attachment
