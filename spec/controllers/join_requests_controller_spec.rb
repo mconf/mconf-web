@@ -153,17 +153,18 @@ describe JoinRequestsController do
           sign_in(FactoryGirl.create(:user))
           expect {
             get :show, space_id: space.to_param, id: jr
-          }.to raise_error(ActiveRecord::RecordNotFound)
+          }.to raise_error(CanCan::AccessDenied)
         }
       end
     end
 
     context "an anonymous user with no permission to access the join request" do
-      it {
+      before {
         expect {
           get :show, space_id: space.to_param, id: jr
-        }.to raise_error(ActiveRecord::RecordNotFound)
+        }.not_to raise_error
       }
+      it { redirect_to login_path }
     end
   end
 

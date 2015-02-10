@@ -218,14 +218,12 @@ class JoinRequestsController < ApplicationController
 
   # Custom handler for access denied errors, overrides method on ApplicationController.
   def handle_access_denied exception
-    if [:new, :index_join_requests, :invite].include? exception.action
+    if [:new, :index_join_requests, :invite, :show].include? exception.action
       if user_signed_in?
         render_403 exception
       else
         redirect_to login_path
       end
-    elsif [:show].include? exception.action
-      render_404 ActiveRecord::RecordNotFound
     else
       raise exception
     end
