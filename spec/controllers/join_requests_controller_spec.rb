@@ -346,7 +346,7 @@ describe JoinRequestsController do
       it { should set_the_flash.to(I18n.t('join_requests.create.error', :errors => errors)) }
     end
 
-    context "global admin is not a member of the space and successfully invites one user" do
+    context "global admin is not a member of the space and successfully invites one user (RM-1458)" do
       let(:superuser) { FactoryGirl.create(:superuser) }
       before(:each) {
         sign_out user
