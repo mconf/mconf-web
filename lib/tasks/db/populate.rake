@@ -412,5 +412,35 @@ namespace :db do
     User.where(:id => ids).each do |user|
       user.disable
     end
+
+    puts "* Adding some insecure data to test for script injection"
+    def attrs_to_hash klass, attrs
+      arr = attrs.map { |attr| [attr, "<script> alert('#{klass} #{attr} attribute is insecure in this page')</script>"] }
+      arr.to_h
+    end
+
+    profile_attrs = [:organization, :phone, :mobile, :fax, :address,
+      :city, :zipcode, :province, :country, :prefix_key, :description,
+      :url, :skype, :im, :full_name]
+
+    FactoryGirl.create(:user).profile.update_attributes(attrs_to_hash(Profile, profile_attrs))
+
+    space_attrs = [:name, :description]
+    s = FactoryGirl.create(:space, attrs_to_hash(Space, space_attrs))
+
+    message_attrs = [:title, :body]
+    FactoryGirl.create(:private_message, attrs_to_hash(PrivateMessage, message_attrs))
+
+    post_attrs = [:title, :text]
+    FactoryGirl.create(:post, attrs_to_hash(Post, post_attrs))
+
+    event_attrs = [:name, :summary, :description, :location, :address]
+    FactoryGirl.create(:event, attrs_to_hash(MwebEvents::Event, event_attrs).merge(owner_id: s.id, owner_type: 'Space'))
+
+    jr_attrs = [:comment]
+    FactoryGirl.create(:join_request, attrs_to_hash(JoinRequest, jr_attrs))
+
+    invitation_attrs = [:title, :description]
+    FactoryGirl.create(:invitation, attrs_to_hash(Invitation, invitation_attrs))
   end
 end
