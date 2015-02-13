@@ -423,24 +423,36 @@ namespace :db do
       :city, :zipcode, :province, :country, :prefix_key, :description,
       :url, :skype, :im, :full_name]
 
-    FactoryGirl.create(:user).profile.update_attributes(attrs_to_hash(Profile, profile_attrs))
+    # Create 2 insecure users
+    u = FactoryGirl.create(:user, username: 'insecure1', password: '123456')
+    u.profile.update_attributes(attrs_to_hash(Profile, profile_attrs))
+    u2 = FactoryGirl.create(:user, username: 'insecure2', password: '123456')
+    u2.profile.update_attributes(attrs_to_hash(Profile, profile_attrs))
 
     space_attrs = [:name, :description]
     s = FactoryGirl.create(:space, attrs_to_hash(Space, space_attrs))
+    s.new_activity :create, u
+    s.add_member!(u, 'Admin')
+    s.add_member!(u2)
 
     message_attrs = [:title, :body]
-    FactoryGirl.create(:private_message, attrs_to_hash(PrivateMessage, message_attrs))
+    m = FactoryGirl.create(:private_message, attrs_to_hash(PrivateMessage, message_attrs).merge(receiver: u, sender: u2))
 
     post_attrs = [:title, :text]
-    FactoryGirl.create(:post, attrs_to_hash(Post, post_attrs))
+    p = FactoryGirl.create(:post, attrs_to_hash(Post, post_attrs).merge(author: u2, space: s))
+    p.new_activity :create, u2
 
     event_attrs = [:name, :summary, :description, :location, :address]
-    FactoryGirl.create(:event, attrs_to_hash(MwebEvents::Event, event_attrs).merge(owner_id: s.id, owner_type: 'Space'))
+    e = FactoryGirl.create(:event, attrs_to_hash(MwebEvents::Event, event_attrs).merge(owner_id: s.id, owner_type: 'Space'))
+    e.new_activity :create, u
+
+    e2 = FactoryGirl.create(:event, attrs_to_hash(MwebEvents::Event, event_attrs).merge(owner_id: u2.id, owner_type: 'User'))
+    e2.new_activity :create, u2
 
     jr_attrs = [:comment]
-    FactoryGirl.create(:join_request, attrs_to_hash(JoinRequest, jr_attrs))
+    FactoryGirl.create(:join_request, attrs_to_hash(JoinRequest, jr_attrs).merge(introducer: u, candidate: u2, group_id: s.id, group_type: 'Space'))
 
     invitation_attrs = [:title, :description]
-    FactoryGirl.create(:invitation, attrs_to_hash(Invitation, invitation_attrs))
+    FactoryGirl.create(:invitation, attrs_to_hash(Invitation, invitation_attrs).merge(type: "WebConferenceInvitation", recipient: u, sender: u2, target: u2.bigbluebutton_room))
   end
 end
