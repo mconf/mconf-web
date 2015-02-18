@@ -4,6 +4,8 @@ module LogoImagesHelper
   # Requires the hash options to have a :size in it with the size of the logo
   # requested (e.g. options[:size]="128")
   def logo_image(resource, options={})
+    options[:size] = validate_logo_size(options[:size])
+
     if resource.is_a?(User)
       model_type = :user
     elsif resource.is_a?(Space)
@@ -38,6 +40,8 @@ module LogoImagesHelper
   end
 
   def empty_logo_image(resource, options={})
+    options[:size] = validate_logo_size(options[:size])
+
     case resource
     when :user
       path_no_image = "default_logos/" + options[:size] + "/user.png"
@@ -61,6 +65,18 @@ module LogoImagesHelper
   def logo_image_removed(options={})
     options[:class] = options.has_key?(:class) ? "#{options[:class]} logo logo-removed" : 'logo logo-removed'
     image_tag("icons/image_removed.png", :class => options[:class], :title => options[:title], :size => options[:size])
+  end
+
+  # Makes sure we only create logos with a size
+  # recognized by the application
+  def validate_logo_size(size)
+    valid_sizes = ['32', '84x64', '128', '168x128', '300', '336x256']
+
+    if valid_sizes.include?(size)
+      size
+    else
+      '128'
+    end
   end
 
 end

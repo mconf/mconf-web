@@ -22,7 +22,7 @@ module IconsHelper
     icon_constructor t('RSS'), "fa fa-rss icon-awesome icon-mconf-rss", options
   end
 
-  def icon_attachment(title, options={})
+  def icon_attachment(title=nil, options={})
     icon_constructor title, "fa fa-paperclip icon-awesome iconf-mconf-attachment", options
   end
 

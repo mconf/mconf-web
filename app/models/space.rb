@@ -241,8 +241,7 @@ class Space < ActiveRecord::Base
   def update_webconf_room
     if self.bigbluebutton_room
       params = {
-        :name => self.name,
-        :private => !self.public
+        :name => self.name
       }
       bigbluebutton_room.update_attributes(params)
     end
