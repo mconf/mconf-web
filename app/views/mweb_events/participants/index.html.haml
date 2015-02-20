@@ -3,6 +3,7 @@
 = content_for :sidebar do
   = link_to t('.back_to_event'), @event, :class => "btn btn-block"
   = render 'mweb_events/events/invite_button'
+  = render 'mweb_events/events/organizer_button'
 
 %h3= t(".title")
 

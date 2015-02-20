@@ -60,6 +60,14 @@ en:
         private: "Private event"
         public: "Public event"
         starts_at: "Starts at"
+      user_permissions:
+        title: Event organizers
+        users: Users
+        add_organizers: Add more organizers
+        manage_organizers: Manage organizers
+      create_permission:
+        failure: "Failed to add some organizers: %{names}"
+        success: Succesfully added organizers.
     participants:
       index:
         back_to_event: "Go back to the event page"

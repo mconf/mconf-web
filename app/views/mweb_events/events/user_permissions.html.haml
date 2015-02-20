@@ -1,0 +1,31 @@
+= render 'title'
+
+#organizer-permission
+
+  .modal-header
+    = modal_close_button
+    %h3= t('.title')
+
+  .modal-body
+    - for permission in @permissions
+      - user = permission.user
+      %div{:class => "thread #{cycle('thread-even','thread-odd')}"}
+        .logo-in-thread
+          = link_logo_image(user, :size => '32', :url => main_app.user_path(user), :title => user.name, :class => "logo logo-user")
+        .thread-content
+          - unless permission.user == current_user
+            .thread-text
+              = simple_form_for :permission, :url => main_app.permission_path(permission), :html => { :method => :delete, class: 'form-inline' } do |f|
+                = f.submit t('destroy'), :class => "btn btn-danger btn-small"
+          .thread-title
+            = link_to sanitize(user.name), main_app.user_path(user)
+            .user-email
+              = "(#{user.username}, #{user.email})"
+
+    #add-organizer
+      %h3= t('.add_organizers')
+      = simple_form_for :permission, :url => main_app.create_permission_event_path(@event), :html => { class: 'form-inline' } do |f|
+        %label= t('.users')
+        = text_field_tag :users, '', autofocus: true, class: 'string'
+
+        = f.submit t('button.send'), :class => "btn btn-small"

@@ -4,4 +4,5 @@
  *= require ./app/mweb_events-events/show
  *= require ./app/mweb_events-events/new
  *= require ./app/mweb_events-events/edit
+ *= require ./app/mweb_events-events/user_permissions
  */

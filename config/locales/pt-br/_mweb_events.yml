@@ -60,6 +60,14 @@ pt-br:
         private: "Evento privado"
         public: "Evento público"
         starts_at: "Inicia em"
+      user_permissions:
+        title: Organizadores do evento
+        users: Usuários
+        add_organizers: Adicionar mais organizadores
+        manage_organizers: Gerenciar organizadores
+      create_permission:
+        failure: "Falha ao adicionar alguns organizadores: %{names}"
+        success: Organizadores adicionados com sucesso.
     participants:
       index:
         back_to_event: "Voltar para a página do evento"

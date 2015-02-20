@@ -8,8 +8,30 @@ MwebEvents::EventsController.class_eval do
     @event.new_activity params[:action], current_user unless @event.errors.any?
   end
 
+  after_filter :add_organizer, only: [:create]
+
+  def add_organizer
+    @event.add_organizer(current_user) unless @event.errors.any?
+  end
+
   def invite
     render layout: false if request.xhr?
+  end
+
+  def create_permission
+    errors = []
+    params[:users].split(',').each do |id|
+      p = @event.add_organizer(User.find(id))
+      errors.push(p.user.username) if p.errors.any?
+    end
+
+    msg = if errors.any?
+      I18n.t('mweb_events.events.create_permission.failure', names: errors.join(','))
+    else
+      I18n.t('mweb_events.events.create_permission.success')
+    end
+
+    redirect_to event_participants_path(@event), notice: msg
   end
 
   def send_invitation
@@ -37,6 +59,13 @@ MwebEvents::EventsController.class_eval do
         failed, t('mweb_events.events.send_invitation.error')) unless failed.empty?
     end
     redirect_to request.referer
+  end
+
+  def user_permissions
+    @permissions = Permission.where(subject: @event).sort{
+      |x,y| x.user.name <=> y.user.name
+    }
+    render layout: false if request.xhr?
   end
 
   def create_participant

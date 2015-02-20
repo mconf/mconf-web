@@ -69,6 +69,8 @@ Mconf::Application.routes.draw do
       member do
         post :send_invitation, controller: 'mweb_events/events'
         get  :invite, controller: 'mweb_events/events'
+        get :user_permissions, controller: 'mweb_events/events'
+        post :create_permission, controller: 'mweb_events/events'
       end
     end
   end

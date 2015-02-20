@@ -1,0 +1,25 @@
+#organizer-permission {
+
+  clear: both;
+
+  select {
+    width: auto;
+  }
+
+  form {
+    .input {
+      margin: 0;
+      padding: 0;
+      float: left;
+    }
+
+    .btn {
+      margin: 4px 0 0 5px;
+    }
+  }
+
+  .thread .thread-text {
+    float: right;
+  }
+
+}

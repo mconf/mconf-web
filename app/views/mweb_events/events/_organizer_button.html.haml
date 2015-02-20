@@ -1,0 +1,5 @@
+- if can?(:user_permissions, @event)
+  %session.event-invite
+    = link_to main_app.user_permissions_event_path(@event), :class => 'open-modal btn btn-info btn-block' do
+      %i.icon.icon-wrench
+      = t('mweb_events.events.user_permissions.manage_organizers')
