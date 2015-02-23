@@ -9,7 +9,7 @@
       %li
         = link_to t('.view_your_profile'), user_profile_path(current_user)
     #edit-profile-current-logo
-      = logo_image(@user, :size => '128', :class => 'profile-logo logo')
+      = logo_image(@user, :size => '128', :class => 'profile-logo logo logo-uploadable')
     %ul
       #profile-logo-uploader.file-uploader{:'data-endpoint' => update_logo_user_profile_path(@user, :format => :json), :'data-accept' => 'image/*', :'data-max-size' => '5 mb' }
       %li
