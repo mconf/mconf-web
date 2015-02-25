@@ -1,7 +1,6 @@
 require 'spec_helper'
-require 'support/feature_helpers'
 
-feature 'Creating a user account as a global admin' do
+feature 'Creating an user account as a global admin' do
   let(:admin) { FactoryGirl.create(:superuser) }
 
   context "when the site requires registration approval, the approved field should appear" do
