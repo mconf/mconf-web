@@ -39,6 +39,7 @@ en:
     space:
       accept_html: has joined the space
       create_html: created a new space
+      decline_html: had their invitation/request declined in the space
       deleted: a space that has since been deleted
       leave_html: has left the space
       update_html: updated info on space
@@ -686,6 +687,7 @@ en:
     one: Error
     other: Errors
     vcc_warning: "Warning:"
+  fax: Fax
   feedback: 
     create:
       check_mail: "Please check the email you informed in the feedback form, it seems wrong."
@@ -735,6 +737,7 @@ en:
   icons: 
     unread_message: "Unread message!"
     unread_message_by_receiver: "This message has not yet been read by the receiver"
+  im: IM
   inbox: 
     my: "My Inbox (%{checked})"
     one: "Inbox (%{checked})"
@@ -1840,6 +1843,12 @@ en:
     progress: "{percent}% of {total_size}"
     drag_files: Drag and drop files here to upload
     processing: Processing...
+    error:
+      invalid_extension: "{file} has an invalid extension. Valid extension(s): {extensions}."
+      invalid_size: "{file} is too large, maximum file size is {sizeLimit}."
+      empty_file: "{file} is empty, please select files again without it."
+      no_files: "No files to upload."
+      on_leave: "The files are being uploaded, if you leave now the upload will be cancelled."
   vCard: 
     corrupt: "The vCard you sent is corrupted or is a non-supported version"
     message: "Use your vCard to automatically fill in your profile"

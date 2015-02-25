@@ -1,0 +1,13 @@
+site "http://community.opscode.com/api/v1"
+
+cookbook 'apt'
+cookbook 'build-essential'
+cookbook 'mysql', '5.6.1'
+cookbook 'ruby_build'
+cookbook 'vim'
+cookbook 'git'
+cookbook 'redisio'
+
+# Using a fork until this issue is solved: https://github.com/fnichol/chef-rbenv/issues/98
+# cookbook 'rbenv', git: 'https://github.com/fnichol/chef-rbenv'
+cookbook 'rbenv', git: 'https://github.com/muskox/chef-rbenv'

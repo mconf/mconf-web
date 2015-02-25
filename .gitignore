@@ -20,4 +20,5 @@ public/assets/*
 public/uploads/*
 .bundle/
 public/capybara.html
-_other
+.vagrant/
+cookbooks/

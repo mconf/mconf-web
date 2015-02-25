@@ -19,9 +19,6 @@ group :assets do
   gem 'select2-rails'
 end
 
-# TODO: temporary until we update to ruby 2.2.0, see http://dev.mconf.org/redmine/issues/1333
-gem 'psych', :git => 'https://github.com/lfzawacki/psych.git', :branch => 'gemfile-style'
-
 gem 'mysql2', '~> 0.3.0'
 gem 'rake'
 gem 'therubyracer', :require => 'v8'
@@ -113,9 +110,11 @@ group :development do
   # to show better error pages, with more information
   gem 'better_errors'
   gem 'binding_of_caller'
+
   gem 'webrick', '~> 1.3.1'
   gem 'quiet_assets'
   gem 'brakeman', :require => false
+  gem 'librarian-chef'
 end
 
 group :development, :test do

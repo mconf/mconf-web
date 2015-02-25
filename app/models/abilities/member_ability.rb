@@ -172,7 +172,7 @@ module Abilities
         can :index, MwebEvents::Participant
         can :create, MwebEvents::Participant
 
-        cannot [:read, :index, :update, :destroy], Space, disabled: true
+        restrict_access_to_disabled_resources
       end
     end
 
