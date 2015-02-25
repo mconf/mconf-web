@@ -41,7 +41,7 @@ end
 puts "* Create default roles"
 Role.create! :name => 'User', :stage_type => 'Space'
 Role.create! :name => 'Admin', :stage_type => 'Space'
-Role.create! :name => 'Organizer', :stage_type => 'Event'
+Role.create! :name => 'Organizer', :stage_type => 'MwebEvents::Event'
 
 
 puts "* Create the administrator account"
