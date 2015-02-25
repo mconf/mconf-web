@@ -24,32 +24,32 @@ describe UsersController do
   describe "#show" do
     it "should display a 404 for inexisting users" do
       expect {
-        get :show, :id => "inexisting_user"
+        get :show, id: "inexisting_user"
       }.to raise_error(ActiveRecord::RecordNotFound)
     end
 
     it "should display a 404 for empty username" do
       expect {
-        get :show, :id => ""
+        get :show, id: ""
       }.to raise_error(ActiveRecord::RecordNotFound)
     end
 
     it "should return OK status for existing user" do
-      get :show, :id => FactoryGirl.create(:superuser).to_param
+      get :show, id: FactoryGirl.create(:superuser).to_param
       response.response_code.should == 200
     end
 
-    it { should_authorize an_instance_of(User), :show, :id => FactoryGirl.create(:user).to_param }
+    it { should_authorize an_instance_of(User), :show, id: FactoryGirl.create(:user).to_param }
   end
 
   describe "#edit" do
     let(:user) { FactoryGirl.create(:user) }
 
-    it { should_authorize an_instance_of(User), :edit, :id => user.to_param }
+    it { should_authorize an_instance_of(User), :edit, id: user.to_param }
 
     context "template and layout" do
       before(:each) { sign_in(user) }
-      before(:each) { get :edit, :id => user.to_param }
+      before(:each) { get :edit, id: user.to_param }
       it { should render_template('edit') }
       it { should render_with_layout('no_sidebar') }
     end
@@ -60,7 +60,7 @@ describe UsersController do
       }
       before(:each) {
         sign_in(user)
-        get :edit, :id => user.to_param
+        get :edit, id: user.to_param
       }
       it { should assign_to(:shib_provider).with('idp') }
     end
@@ -71,7 +71,7 @@ describe UsersController do
       }
       before(:each) {
         sign_in(FactoryGirl.create(:superuser))
-        get :edit, :id => user.to_param
+        get :edit, id: user.to_param
       }
       it { should_not assign_to(:shib_provider) }
     end
@@ -88,17 +88,17 @@ describe UsersController do
   end
 
   describe "#update" do
-    it { should_authorize an_instance_of(User), :update, :via => :post, :id => FactoryGirl.create(:user).to_param, :user => {} }
+    it { should_authorize an_instance_of(User), :update, via: :post, id: FactoryGirl.create(:user).to_param, user: {} }
 
     context "params_handling" do
       let(:user) { FactoryGirl.create(:user) }
       let(:user_attributes) { FactoryGirl.attributes_for(:user) }
       let(:params) {
         {
-          :id => user.to_param,
-          :controller => "users",
-          :action => "update",
-          :user => user_attributes
+          id: user.to_param,
+          controller: "users",
+          action: "update",
+          user: user_attributes
         }
       }
 
@@ -111,7 +111,7 @@ describe UsersController do
         user_attributes.stub(:permit).and_return(user_attributes)
         controller.stub(:params).and_return(params)
       }
-      before(:each) { put :update, :id => user.to_param, :user => user_attributes }
+      before(:each) { put :update, id: user.to_param, user: user_attributes }
       it { user_attributes.should have_received(:permit).with(*user_allowed_params) }
     end
 
@@ -124,7 +124,7 @@ describe UsersController do
           @old_username = @user.username
           @new_username = FactoryGirl.generate(:username)
 
-          put :update, :id => @user.to_param, :user => { :username => @new_username }
+          put :update, id: @user.to_param, user: { username: @new_username }
         end
 
         it { response.status.should == 302 }
@@ -135,13 +135,13 @@ describe UsersController do
 
       context "trying to update email" do
         let(:old_email) { FactoryGirl.generate(:email) }
-        let(:user) { FactoryGirl.create(:user, :email => old_email) }
+        let(:user) { FactoryGirl.create(:user, email: old_email) }
         let(:new_email) { FactoryGirl.generate(:email) }
 
         before(:each) do
           sign_in user
 
-          put :update, :id => user.to_param, :user => { :email => new_email }
+          put :update, id: user.to_param, user: { email: new_email }
           user.reload
         end
 
@@ -153,12 +153,12 @@ describe UsersController do
 
       context "trying to update admin flag" do
         context "when normal user" do
-          let(:user) { FactoryGirl.create(:user, :superuser => false) }
+          let(:user) { FactoryGirl.create(:user, superuser: false) }
 
           before(:each) do
             sign_in user
 
-            put :update, :id => user.to_param, :user => { :superuser => true }
+            put :update, id: user.to_param, user: { superuser: true }
             user.reload
           end
 
@@ -169,12 +169,12 @@ describe UsersController do
         end
 
         context "when admin and target is self" do
-          let(:user) { FactoryGirl.create(:user, :superuser => true) }
+          let(:user) { FactoryGirl.create(:user, superuser: true) }
 
           before(:each) do
             sign_in user
 
-            put :update, :id => user.to_param, :user => { :superuser => false }
+            put :update, id: user.to_param, user: { superuser: false }
             user.reload
           end
 
@@ -184,13 +184,13 @@ describe UsersController do
         end
 
         context "when admin and target is another normal user" do
-          let(:user) { FactoryGirl.create(:user, :superuser => true) }
+          let(:user) { FactoryGirl.create(:user, superuser: true) }
           let(:user2) { FactoryGirl.create(:user) }
 
           before(:each) do
             sign_in user
 
-            put :update, :id => user2.to_param, :user => { :superuser => true }
+            put :update, id: user2.to_param, user: { superuser: true }
             user2.reload
           end
 
@@ -200,13 +200,13 @@ describe UsersController do
         end
 
         context "when admin and target is another admin" do
-          let(:user) { FactoryGirl.create(:user, :superuser => true) }
-          let(:user2) { FactoryGirl.create(:user, :superuser => true) }
+          let(:user) { FactoryGirl.create(:user, superuser: true) }
+          let(:user2) { FactoryGirl.create(:user, superuser: true) }
 
           before(:each) do
             sign_in user
 
-            put :update, :id => user2.to_param, :user => { :superuser => false }
+            put :update, id: user2.to_param, user: { superuser: false }
             user2.reload
           end
 
@@ -221,13 +221,13 @@ describe UsersController do
     context "attributes that the user can update" do
       context "trying to update timezone" do
         let(:old_tz) { "Mountain Time (US & Canada)" }
-        let(:user) { FactoryGirl.create(:user, :timezone => old_tz) }
+        let(:user) { FactoryGirl.create(:user, timezone: old_tz) }
         let(:new_tz) { "Dublin" }
 
         before(:each) do
           sign_in user
 
-          put :update, :id => user.to_param, :user => { :timezone => new_tz }
+          put :update, id: user.to_param, user: { timezone: new_tz }
           user.reload
         end
 
@@ -244,13 +244,13 @@ describe UsersController do
 
           context "and is a user editing his own password" do
             before(:each) do
-              @user = FactoryGirl.create(:user, :password => "foobar", :password_confirmation => "foobar")
+              @user = FactoryGirl.create(:user, password: "foobar", password_confirmation: "foobar")
               sign_in @user
 
               @old_encrypted = @user.encrypted_password
               @new_pass = "newpass"
 
-              put :update, :id => @user.to_param, :user => { :password => @new_pass, :password_confirmation => @new_pass, :current_password => "foobar" }
+              put :update, id: @user.to_param, user: { password: @new_pass, password_confirmation: @new_pass, current_password: "foobar" }
               @user.reload
             end
 
@@ -262,13 +262,13 @@ describe UsersController do
 
           context "and is a user editing his own password and no current password is informed" do
             before(:each) do
-              @user = FactoryGirl.create(:user, :password => "foobar", :password_confirmation => "foobar")
+              @user = FactoryGirl.create(:user, password: "foobar", password_confirmation: "foobar")
               sign_in @user
 
               @old_encrypted = @user.encrypted_password
               @new_pass = "newpass"
 
-              put :update, :id => @user.to_param, :user => { :password => @new_pass, :password_confirmation => @new_pass }
+              put :update, id: @user.to_param, user: { password: @new_pass, password_confirmation: @new_pass }
               @user.reload
             end
 
@@ -285,7 +285,7 @@ describe UsersController do
               @old_encrypted = @user.encrypted_password
               @new_pass = "newpass"
 
-              put :update, :id => @user.to_param, :user => { :password => @new_pass, :password_confirmation => @new_pass }
+              put :update, id: @user.to_param, user: { password: @new_pass, password_confirmation: @new_pass }
               @user.reload
             end
 
@@ -296,7 +296,7 @@ describe UsersController do
           end
 
           context "and is a admin editing his own password" do
-            let(:admin) { FactoryGirl.create(:superuser, :email => "valid@mconf.org") }
+            let(:admin) { FactoryGirl.create(:superuser, email: "valid@mconf.org") }
             before(:each) do
               @user = admin
               sign_in admin
@@ -304,7 +304,7 @@ describe UsersController do
               @old_encrypted = @user.encrypted_password
               @new_pass = "newpass"
 
-              put :update, :id => @user.to_param, :user => { :password => @new_pass, :password_confirmation => @new_pass }
+              put :update, id: @user.to_param, user: { password: @new_pass, password_confirmation: @new_pass }
               @user.reload
             end
 
@@ -318,13 +318,13 @@ describe UsersController do
         context "when local authentication is disabled" do
           before { Site.current.update_attributes(local_auth_enabled: false)}
           before(:each) do
-            @user = FactoryGirl.create(:user, :password => "foobar", :password_confirmation => "foobar")
+            @user = FactoryGirl.create(:user, password: "foobar", password_confirmation: "foobar")
             sign_in @user
 
             @old_encrypted = @user.encrypted_password
             @new_pass = "newpass"
 
-            put :update, :id => @user.to_param, :user => { :password => @new_pass, :password_confirmation => @new_pass, :current_password => "foobar" }
+            put :update, id: @user.to_param, user: { password: @new_pass, password_confirmation: @new_pass, current_password: "foobar" }
             @user = User.find_by_username(@user.username)
           end
 
@@ -356,16 +356,16 @@ describe UsersController do
 
     context "an admin removing a user" do
       before(:each) { sign_in(FactoryGirl.create(:superuser)) }
-      before(:each) { delete :destroy, :id => user.to_param }
+      before(:each) { delete :destroy, id: user.to_param }
       it { should respond_with(:redirect) }
-      it { should set_the_flash.to(I18n.t('user.disabled', :username => user.username)) }
+      it { should set_the_flash.to(I18n.t('user.disabled', username: user.username)) }
       it { should redirect_to(manage_users_path) }
       it("disables the user") { user.reload.disabled.should be_truthy }
     end
 
     context "the user removing himself" do
       before(:each) { sign_in(user) }
-      before(:each) { delete :destroy, :id => user.to_param }
+      before(:each) { delete :destroy, id: user.to_param }
       it { should respond_with(:redirect) }
       it { should set_the_flash.to(I18n.t('devise.registrations.destroyed')) }
       it { should redirect_to(root_path) }
@@ -382,7 +382,7 @@ describe UsersController do
       it { should redirect_to login_path }
     end
 
-    it { should_authorize an_instance_of(User), :destroy, :via => :delete, :id => user.to_param }
+    it { should_authorize an_instance_of(User), :destroy, via: :delete, id: user.to_param }
   end
 
   describe "#enable" do
@@ -390,32 +390,32 @@ describe UsersController do
 
     context "loads the user by username" do
       let(:user) { FactoryGirl.create(:user) }
-      before(:each) { post :enable, :id => user.to_param }
+      before(:each) { post :enable, id: user.to_param }
       it { assigns(:user).should eql(user) }
     end
 
     context "loads also users that are disabled" do
-      let(:user) { FactoryGirl.create(:user, :disabled => true) }
-      before(:each) { post :enable, :id => user.to_param }
+      let(:user) { FactoryGirl.create(:user, disabled: true) }
+      before(:each) { post :enable, id: user.to_param }
       it { assigns(:user).should eql(user) }
     end
 
     context "if the user is already enabled" do
-      let(:user) { FactoryGirl.create(:user, :disabled => false) }
-      before(:each) { post :enable, :id => user.to_param }
+      let(:user) { FactoryGirl.create(:user, disabled: false) }
+      before(:each) { post :enable, id: user.to_param }
       it { should redirect_to(manage_users_path) }
-      it { should set_the_flash.to(I18n.t('user.error.enabled', :name => user.username)) }
+      it { should set_the_flash.to(I18n.t('user.error.enabled', name: user.username)) }
     end
 
     context "if the user is disabled" do
-      let(:user) { FactoryGirl.create(:user, :disabled => true) }
-      before(:each) { post :enable, :id => user.to_param }
+      let(:user) { FactoryGirl.create(:user, disabled: true) }
+      before(:each) { post :enable, id: user.to_param }
       it { should redirect_to(manage_users_path) }
       it { should set_the_flash.to(I18n.t('user.enabled')) }
       it { user.reload.disabled.should be_falsey }
     end
 
-    it { should_authorize an_instance_of(User), :enable, :id => FactoryGirl.create(:user).to_param }
+    it { should_authorize an_instance_of(User), :enable, id: FactoryGirl.create(:user).to_param }
   end
 
   describe "#select" do
@@ -428,9 +428,9 @@ describe UsersController do
 
         let(:expected) {
           @users.map do |u|
-            { :id => u.id, :username => u.username,
-              :name => u.name, :email => u.email,
-              :text => "#{u.name} (#{u.username}, #{u.email})" }
+            { id: u.id, username: u.username,
+              name: u.name, email: u.email,
+              text: "#{u.name} (#{u.username}, #{u.email})" }
           end
         }
 
@@ -439,7 +439,7 @@ describe UsersController do
             10.times { FactoryGirl.create(:user) }
             @users = User.joins(:profile).order("profiles.full_name").first(5)
           end
-          before(:each) { get :select, :format => :json }
+          before(:each) { get :select, format: :json }
           it { should respond_with(:success) }
           it { should respond_with_content_type(:json) }
           it { should assign_to(:users).with(@users) }
@@ -449,11 +449,11 @@ describe UsersController do
         context "matches users by name" do
           let!(:unique_str) { "123123456456" }
           before do
-            FactoryGirl.create(:user, :_full_name => "Yet Another User")
-            FactoryGirl.create(:user, :_full_name => "Abc de Fgh")
-            @users = [FactoryGirl.create(:user, :_full_name => "Marcos #{unique_str} Silva")]
+            FactoryGirl.create(:user, _full_name: "Yet Another User")
+            FactoryGirl.create(:user, _full_name: "Abc de Fgh")
+            @users = [FactoryGirl.create(:user, _full_name: "Marcos #{unique_str} Silva")]
           end
-          before(:each) { get :select, :q => unique_str, :format => :json }
+          before(:each) { get :select, q: unique_str, format: :json }
           it { should assign_to(:users).with(@users) }
           it { response.body.should == expected.to_json }
         end
@@ -461,11 +461,11 @@ describe UsersController do
         context "matches users by username" do
           let(:unique_str) { "123123456456" }
           before do
-            FactoryGirl.create(:user, :username => "Yet-Another-User")
-            FactoryGirl.create(:user, :username => "Abc-de-Fgh")
-            @users = [FactoryGirl.create(:user, :username => "Marcos-#{unique_str}-Silva")]
+            FactoryGirl.create(:user, username: "Yet-Another-User")
+            FactoryGirl.create(:user, username: "Abc-de-Fgh")
+            @users = [FactoryGirl.create(:user, username: "Marcos-#{unique_str}-Silva")]
           end
-          before(:each) { get :select, :q => unique_str, :format => :json }
+          before(:each) { get :select, q: unique_str, format: :json }
           it { should assign_to(:users).with(@users) }
           it { response.body.should == expected.to_json }
         end
@@ -473,13 +473,13 @@ describe UsersController do
         context "matches users by email" do
           let(:unique_str) { "123123456456" }
           before do
-            FactoryGirl.create(:user, :email => "Yet-Another-User@mconf.org")
-            FactoryGirl.create(:user, :email => "Abc-de-Fgh@mconf.org")
-            FactoryGirl.create(:user, :email => "Marcos-#{unique_str}@mconf.org") do |u|
+            FactoryGirl.create(:user, email: "Yet-Another-User@mconf.org")
+            FactoryGirl.create(:user, email: "Abc-de-Fgh@mconf.org")
+            FactoryGirl.create(:user, email: "Marcos-#{unique_str}@mconf.org") do |u|
               @users = [u]
             end
           end
-          before(:each) { get :select, :q => unique_str, :format => :json }
+          before(:each) { get :select, q: unique_str, format: :json }
           it { should assign_to(:users).with(@users) }
           it { response.body.should == expected.to_json }
         end
@@ -488,7 +488,7 @@ describe UsersController do
           before do
             10.times { FactoryGirl.create(:user) }
           end
-          before(:each) { get :select, :limit => 3, :format => :json }
+          before(:each) { get :select, limit: 3, format: :json }
           it { assigns(:users).count.should be(3) }
         end
 
@@ -496,7 +496,7 @@ describe UsersController do
           before do
             10.times { FactoryGirl.create(:user) }
           end
-          before(:each) { get :select, :format => :json }
+          before(:each) { get :select, format: :json }
           it { assigns(:users).count.should be(5) }
         end
 
@@ -504,19 +504,19 @@ describe UsersController do
           before do
             60.times { FactoryGirl.create(:user) }
           end
-          before(:each) { get :select, :limit => 51, :format => :json }
+          before(:each) { get :select, limit: 51, format: :json }
           it { assigns(:users).count.should be(50) }
         end
 
         context "orders @users by the user's full name" do
           before {
-            @u1 = FactoryGirl.create(:user, :_full_name => 'Last one')
+            @u1 = FactoryGirl.create(:user, _full_name: 'Last one')
             @u2 = user
-            @u2.profile.update_attributes(:full_name => 'Ce user')
-            @u3 = FactoryGirl.create(:user, :_full_name => 'A user')
-            @u4 = FactoryGirl.create(:user, :_full_name => 'Be user')
+            @u2.profile.update_attributes(full_name: 'Ce user')
+            @u3 = FactoryGirl.create(:user, _full_name: 'A user')
+            @u4 = FactoryGirl.create(:user, _full_name: 'Be user')
           }
-          before(:each) { get :select, :format => :json }
+          before(:each) { get :select, format: :json }
           it { assigns(:users).count.should be(4) }
           it("first user") { assigns(:users)[0].should eql(@u3) }
           it("second user") { assigns(:users)[1].should eql(@u4) }
@@ -537,9 +537,9 @@ describe UsersController do
 
         let(:expected) {
           @users.map do |u|
-            { :id => u.id, :username => u.username,
-              :name => u.name, :email => u.email,
-              :text => "#{u.name} (#{u.username}, #{u.email})" }
+            { id: u.id, username: u.username,
+              name: u.name, email: u.email,
+              text: "#{u.name} (#{u.username}, #{u.email})" }
           end
         }
 
@@ -550,7 +550,7 @@ describe UsersController do
             @users = Helpers.create_fellows(2, space)
             subject.current_user.should_receive(:fellows).with(nil, nil).and_return(@users)
           end
-          before(:each) { get :fellows, :format => :json }
+          before(:each) { get :fellows, format: :json }
           it { should respond_with(:success) }
           it { should respond_with_content_type(:json) }
           it { should assign_to(:users).with(@users) }
@@ -564,7 +564,7 @@ describe UsersController do
             @users = Helpers.create_fellows(2, space)
             subject.current_user.should_receive(:fellows).with("test", nil).and_return(@users)
           end
-          before(:each) { get :fellows, :q => "test", :format => :json }
+          before(:each) { get :fellows, q: "test", format: :json }
           it { should assign_to(:users).with(@users) }
           it { response.body.should == expected.to_json }
         end
@@ -577,7 +577,7 @@ describe UsersController do
             @users = @users.first(3)
             subject.current_user.should_receive(:fellows).with(nil, 3).and_return(@users)
          end
-          before(:each) { get :fellows, :limit => 3, :format => :json }
+          before(:each) { get :fellows, limit: 3, format: :json }
           it { should assign_to(:users).with(@users) }
           it { response.body.should == expected.to_json }
         end
@@ -594,9 +594,9 @@ describe UsersController do
         before(:each) do
           login_as(user)
           @expected = {
-            :id => user.id, :username => user.username, :name => user.name
+            id: user.id, username: user.username, name: user.name
           }
-          get :current, :format => :json
+          get :current, format: :json
         end
         it { should respond_with(:success) }
         it { should respond_with_content_type(:json) }
@@ -605,7 +605,7 @@ describe UsersController do
       end
 
       context "when there's no user logged" do
-        before(:each) { get :current, :format => :json }
+        before(:each) { get :current, format: :json }
         it { should respond_with(:success) }
         it { should respond_with_content_type(:json) }
         it { should assign_to(:user).with(nil) }
@@ -619,25 +619,25 @@ describe UsersController do
         before(:each) do
           login_as(user)
           @expected = {
-            :id => user.id, :username => user.username,
-            :name => user.name, :text => "#{user.name} (#{user.username})"
+            id: user.id, username: user.username,
+            name: user.name, text: "#{user.name} (#{user.username})"
           }
-          get :current, :format => :xml
+          get :current, format: :xml
         end
         it { should respond_with(:success) }
         it { should respond_with_content_type(:xml) }
         it { should assign_to(:user).with(user) }
         it {
           assert_select "user" do
-            assert_select "id", {:count => 1, :text => user.id}
-            assert_select "username", {:count => 1, :text => user.username}
-            assert_select "name", {:count => 1, :text => user.name}
+            assert_select "id", {count: 1, text: user.id}
+            assert_select "username", {count: 1, text: user.username}
+            assert_select "name", {count: 1, text: user.name}
           end
         }
       end
 
       context "when there's no user logged" do
-        before(:each) { get :current, :format => :xml }
+        before(:each) { get :current, format: :xml }
         it { should respond_with(:success) }
         it { should respond_with_content_type(:xml) }
         it { should assign_to(:user).with(nil) }
@@ -663,7 +663,7 @@ describe UsersController do
 
     context "the action #confirm confirms the user" do
       before(:each) {
-        post :confirm, :id => user.to_param
+        post :confirm, id: user.to_param
       }
       it { should respond_with(:redirect) }
       it { should redirect_to('/any') }
@@ -680,11 +680,11 @@ describe UsersController do
 
     context "if #require_registration_approval is set in the current site" do
       before(:each) {
-        Site.current.update_attributes(:require_registration_approval => true)
-        post :approve, :id => user.to_param
+        Site.current.update_attributes(require_registration_approval: true)
+        post :approve, id: user.to_param
       }
       it { should respond_with(:redirect) }
-      it { should set_the_flash.to(I18n.t('users.approve.approved', :username => user.username)) }
+      it { should set_the_flash.to(I18n.t('users.approve.approved', username: user.username)) }
       it { should redirect_to('/any') }
       it("approves the user") { user.reload.approved?.should be(true) }
       it("confirms the user") { user.reload.confirmed?.should be(true) }
@@ -692,12 +692,12 @@ describe UsersController do
       context "skips the confirmation email" do
         let(:user) { FactoryGirl.create(:unconfirmed_user) }
         before(:each) {
-          Site.current.update_attributes(:require_registration_approval => true)
+          Site.current.update_attributes(require_registration_approval: true)
         }
         it {
           user.confirmed?.should be(false) # just to make sure wasn't already confirmed
           expect {
-            post :approve, :id => user.to_param
+            post :approve, id: user.to_param
             user.reload.confirmed?.should be(true)
           }.not_to change{ ActionMailer::Base.deliveries }
         }
@@ -706,8 +706,8 @@ describe UsersController do
 
     context "if #require_registration_approval is not set in the current site" do
       before(:each) {
-        Site.current.update_attributes(:require_registration_approval => false)
-        post :approve, :id => user.to_param
+        Site.current.update_attributes(require_registration_approval: false)
+        post :approve, id: user.to_param
       }
       it { should respond_with(:redirect) }
       it { should set_the_flash.to(I18n.t('users.approve.not_enabled')) }
@@ -715,11 +715,11 @@ describe UsersController do
       it { user.reload.approved?.should be_truthy } # auto approved
     end
 
-    it { should_authorize an_instance_of(User), :approve, :via => :post, :id => user.to_param }
+    it { should_authorize an_instance_of(User), :approve, via: :post, id: user.to_param }
   end
 
   describe "#disapprove" do
-    let(:user) { FactoryGirl.create(:user, :approved => true) }
+    let(:user) { FactoryGirl.create(:user, approved: true) }
     before {
       request.env["HTTP_REFERER"] = "/any"
       login_as(FactoryGirl.create(:superuser))
@@ -727,19 +727,19 @@ describe UsersController do
 
     context "if #require_registration_approval is set in the current site" do
       before(:each) {
-        Site.current.update_attributes(:require_registration_approval => true)
-        post :disapprove, :id => user.to_param
+        Site.current.update_attributes(require_registration_approval: true)
+        post :disapprove, id: user.to_param
       }
       it { should respond_with(:redirect) }
-      it { should set_the_flash.to(I18n.t('users.disapprove.disapproved', :username => user.username)) }
+      it { should set_the_flash.to(I18n.t('users.disapprove.disapproved', username: user.username)) }
       it { should redirect_to('/any') }
       it("disapproves the user") { user.reload.approved?.should be_falsey }
     end
 
     context "if #require_registration_approval is not set in the current site" do
       before(:each) {
-        Site.current.update_attributes(:require_registration_approval => false)
-        post :disapprove, :id => user.to_param
+        Site.current.update_attributes(require_registration_approval: false)
+        post :disapprove, id: user.to_param
       }
       it { should respond_with(:redirect) }
       it { should set_the_flash.to(I18n.t('users.disapprove.not_enabled')) }
@@ -747,7 +747,7 @@ describe UsersController do
       it("user is still (auto) approved") { user.reload.approved?.should be_truthy } # auto approved on registration
     end
 
-    it { should_authorize an_instance_of(User), :disapprove, :via => :post, :id => user.to_param }
+    it { should_authorize an_instance_of(User), :disapprove, via: :post, id: user.to_param }
   end
 
   describe "#new" do
@@ -811,6 +811,24 @@ describe UsersController do
         it { User.last.approved?.should be true }
       end
 
+      describe "creates a new user with valid attributes and with the ability to record meetings" do
+        let(:user) { FactoryGirl.build(:user) }
+        before(:each) {
+          expect {
+            post :create, user: {
+              email: user.email, _full_name: "Maria Test", username: "maria-test",
+              password: "test123", password_confirmation: "test123", can_record: true
+            }
+          }.to change(User, :count).by(1)
+        }
+
+        it { should set_the_flash.to(I18n.t('users.create.success')) }
+        it { should redirect_to manage_users_path }
+        it { User.last.confirmed?.should be true }
+        it { User.last.approved?.should be true }
+        it { User.last.can_record.should be true }
+      end
+
       describe "creates a new user with invalid attributes" do
         before(:each) {
           expect {
@@ -830,18 +848,49 @@ describe UsersController do
 
       # we need this to make sure the users are approved when needed
       describe "when the site requires registration approval" do
-        let(:user) { FactoryGirl.build(:user) }
         before {
           Site.current.update_attributes(require_registration_approval: true)
-          expect {
-            post :create, user: {
-              email: user.email, _full_name: "Maria Test", username: "maria-test",
-              password: "test123", password_confirmation: "test123"
-            }
-          }.to change(User, :count).by(1)
         }
 
-        it { User.last.approved?.should be true }
+        describe "creates a new user with valid attributes" do
+          describe "and with the ability to record meetings and approved checked" do
+            let(:user) { FactoryGirl.build(:user) }
+            before {
+              expect {
+                post :create, user: {
+                  email: user.email, _full_name: "Maria Test", username: "maria-test",
+                  password: "test123", password_confirmation: "test123", approved: true,
+                  can_record: true
+                }
+              }.to change(User, :count).by(1)
+            }
+
+            it { should set_the_flash.to(I18n.t('users.create.success')) }
+            it { should redirect_to manage_users_path }
+            it { User.last.confirmed?.should be true }
+            it { User.last.approved?.should be true }
+            it { User.last.can_record.should be true }
+          end
+
+          describe "and the ability to record meetings and approved unchecked" do
+            let(:user) { FactoryGirl.build(:user) }
+            before {
+              expect {
+                post :create, user: {
+                  email: user.email, _full_name: "Maria Test", username: "maria-test",
+                  password: "test123", password_confirmation: "test123", approved: false,
+                  can_record: true
+                }
+              }.to change(User, :count).by(1)
+            }
+
+            it { should set_the_flash.to(I18n.t('users.create.success')) }
+            it { should redirect_to manage_users_path }
+            it { User.last.confirmed?.should be true }
+            it { User.last.approved?.should be false }
+            it { User.last.can_record.should be true }
+          end
+        end
       end
     end
   end
