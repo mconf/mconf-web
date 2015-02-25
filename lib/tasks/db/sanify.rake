@@ -104,7 +104,7 @@ namespace :db do
         count += 1
       end
 
-      puts "Space\##{s.id}'s name is too small. Suggestion: #{new_name}"
+      puts "Space\##{s.id}'s name is too small (\"#{old_name}\"). Suggestion: #{new_name}"
       puts "Press ENTER to accept or type the desired name and press ENTER"
 
       answer = STDIN.gets.chomp
@@ -125,7 +125,6 @@ namespace :db do
     # For every space that has a name that is not unique
     Space.group(:name).having("count(*) > 1").each do |s|
       puts "Some spaces have the same name as Space\##{s.id} (#{s.name})"
-      base_name = s.name
 
       # Get every space that has the same name as this one.
       all = Space.where(name: s.name).where("id != ?", s.id)
@@ -133,10 +132,10 @@ namespace :db do
 
       count = 2
       all.each do |space|
-        new_name = base_name + count.to_s
+        new_name = space.name + count.to_s
         until Space.where(name: new_name).empty?
           count += 1
-          new_name = base_name + count.to_s
+          new_name = space.name + count.to_s
         end
         puts "Will update Space\##{space.id}'s name from #{space.name} to #{new_name}"
         puts "Perform change? (Y/n)"
