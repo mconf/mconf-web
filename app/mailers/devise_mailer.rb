@@ -13,9 +13,4 @@ class DeviseMailer < Devise::Mailer
     opts[:subject] = "[#{Site.current.name}] #{t('devise.mailer.reset_password_instructions.subject')}"
     super
   end
-
-  def unlock_instructions(record, token, opts={})
-    opts[:subject] = "[#{Site.current.name}] #{t('devise.mailer.unlock_instructions.subject')}"
-    super
-  end
 end
