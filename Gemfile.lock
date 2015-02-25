@@ -99,6 +99,8 @@ GEM
       activesupport (= 4.1.4)
       builder (~> 3.1)
       erubis (~> 2.7.0)
+    active_sanity (0.2.0)
+      rails (>= 3.1.0)
     activemodel (4.1.4)
       activesupport (= 4.1.4)
       builder (~> 3.1)
@@ -522,6 +524,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  active_sanity
   acts_as_tree (~> 2.0.0)
   better_errors
   bigbluebutton-api-ruby!
