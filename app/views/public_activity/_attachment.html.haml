@@ -3,12 +3,12 @@
 
 .logo-in-thread
   - if activity.trackable.nil?
-    = logo_image_removed(:size => '84x64')
+    = logo_image_removed(size: '84x64')
   - else
-    = link_logo_image(activity.owner, :size => '84x64', :url => space_path(activity.trackable), :class => 'logo logo-space')
+    = link_logo_image(activity.owner, size: '84x64', url: space_path(activity.trackable), class: 'logo logo-space')
 
 .thread-content
-  .thread-updated-at= t('updated_time_ago', :time => time_ago_in_words(activity.updated_at, title: activity.updated_at, vague: true))
+  = time_to_be_shown activity.updated_at, t('updated_time_ago', time: time_ago_in_words(activity.updated_at, vague: true))
 
   .thread-title
     = icon_attachment
@@ -17,5 +17,5 @@
       = link_to activity.trackable.author.name, link
     - else
       = activity_translate('other.someone')
-    = activity_translate(activity.key, :name => link_to_trackable(activity.trackable, activity.trackable_type))
+    = activity_translate(activity.key, name: link_to_trackable(activity.trackable, activity.trackable_type))
     = link_to activity.owner.name, space_attachments_path(activity.owner)
