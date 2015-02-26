@@ -853,43 +853,39 @@ describe UsersController do
         }
 
         describe "creates a new user with valid attributes" do
-          describe "and with the ability to record meetings and approved checked" do
-            let(:user) { FactoryGirl.build(:user) }
-            before {
-              expect {
-                post :create, user: {
-                  email: user.email, _full_name: "Maria Test", username: "maria-test",
-                  password: "test123", password_confirmation: "test123", approved: true,
-                  can_record: true
-                }
-              }.to change(User, :count).by(1)
-            }
+          let(:user) { FactoryGirl.build(:user) }
+          before {
+            expect {
+              post :create, user: {
+                email: user.email, _full_name: "Maria Test", username: "maria-test",
+                password: "test123", password_confirmation: "test123"
+              }
+            }.to change(User, :count).by(1)
+          }
 
-            it { should set_the_flash.to(I18n.t('users.create.success')) }
-            it { should redirect_to manage_users_path }
-            it { User.last.confirmed?.should be true }
-            it { User.last.approved?.should be true }
-            it { User.last.can_record.should be true }
-          end
+          it { should set_the_flash.to(I18n.t('users.create.success')) }
+          it { should redirect_to manage_users_path }
+          it { User.last.confirmed?.should be true }
+          it { User.last.approved?.should be true }
+          it { User.last.can_record.should_not be true }
+        end
 
-          describe "and the ability to record meetings and approved unchecked" do
-            let(:user) { FactoryGirl.build(:user) }
-            before {
-              expect {
-                post :create, user: {
-                  email: user.email, _full_name: "Maria Test", username: "maria-test",
-                  password: "test123", password_confirmation: "test123", approved: false,
-                  can_record: true
-                }
-              }.to change(User, :count).by(1)
-            }
+        describe "creates a new user with valid attributes and with the ability to record meetings" do
+          let(:user) { FactoryGirl.build(:user) }
+          before {
+            expect {
+              post :create, user: {
+                email: user.email, _full_name: "Maria Test", username: "maria-test",
+                password: "test123", password_confirmation: "test123", can_record: true
+              }
+            }.to change(User, :count).by(1)
+          }
 
-            it { should set_the_flash.to(I18n.t('users.create.success')) }
-            it { should redirect_to manage_users_path }
-            it { User.last.confirmed?.should be true }
-            it { User.last.approved?.should be false }
-            it { User.last.can_record.should be true }
-          end
+          it { should set_the_flash.to(I18n.t('users.create.success')) }
+          it { should redirect_to manage_users_path }
+          it { User.last.confirmed?.should be true }
+          it { User.last.approved?.should be true }
+          it { User.last.can_record.should be true }
         end
       end
     end
