@@ -11,7 +11,7 @@ module DatesHelper
   def formatted_time_ago(date, options = {}, time_ago_options = {})
     base_classes = "thread-updated-at updated-at"
     options[:class] = options.key?(:class) ? "#{base_classes} #{options[:class]}" : base_classes
-    options[:title] = date.to_formatted_s(:long)
+    options[:title] = I18n.l(date, format: :long)
 
     time_ago_options[:highest_measures] = 2 unless time_ago_options.key?(:highest_measures)
     time_ago_options[:vague] = true unless time_ago_options.key?(:vague)
