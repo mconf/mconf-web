@@ -34,7 +34,7 @@
       - unless thread.children.empty?
         %span
           = "(" + t('thread.comments', children: thread.children.size) + ")"
-      = time_to_be_shown thread.updated_at, t('updated_time_ago', time: time_ago_in_words(thread.updated_at, highest_measures: 2))
+      = formatted_time_ago thread.updated_at
 
     .thread-text
       .block-collapsed

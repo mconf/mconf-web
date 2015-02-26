@@ -89,6 +89,7 @@ en:
       icon_tooltip: "This item has been reported as spam and is being evaluated by the administrators"
     unpublish: "Unpublish"
     update: "Update"
+    updated_time_ago: "%{time} ago"
     upload: "Upload"
     user:
       administrator: "Global administrator"
@@ -1719,7 +1720,6 @@ en:
   update: Update
   updated: Updated
   updated_at: "Updated at"
-  updated_time_ago: "%{time} ago"
   url: Website
   url_add: "Add your Website"
   url_plain: URL
