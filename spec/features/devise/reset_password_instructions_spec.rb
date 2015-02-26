@@ -10,7 +10,7 @@ feature "Reset password instructions" do
     }
     it("sets 'to'") { last_email.to.should eql([user.email]) }
     it("sets 'subject'") {
-      text = I18n.t('devise.mailer.reset_password_instructions.subject')
+      text = "[#{Site.current.name}] " + I18n.t('devise.mailer.reset_password_instructions.subject')
       last_email.subject.should eql(text)
     }
     it("sets 'from'") { last_email.from.should eql([Devise.mailer_sender]) }
