@@ -120,12 +120,12 @@ module Abilities
 
       # Permissions
       # Only space admins can update user roles/permissions
-      can [:read, :edit, :update], Permission do |perm|
+      can [:read, :edit, :update, :destroy], Permission do |perm|
         case perm.subject_type
         when "Space"
           admins = perm.subject.admins
-        else
-          admins = []
+        when "MwebEvents::Event"
+          admins = perm.subject.organizers
         end
         admins.include?(user)
       end
@@ -133,15 +133,11 @@ module Abilities
       # Events from MwebEvents
       if Mconf::Modules.mod_loaded?('events')
         def event_can_be_managed_by(event, user)
-          case event.owner_type
-          when 'User' then
-            event.owner_id == user.id
-          when 'Space' then
-            !user.permissions.where(subject_type: 'MwebEvents::Event',
-              role_id: Role.find_by_name('Organizer'), subject_id: event.id).empty? ||
-            !user.permissions.where(subject_type: 'Space', subject_id: event.owner_id,
-            role_id: Role.find_by_name('Admin')).empty?
-          end
+          user.permissions.where(subject_type: 'MwebEvents::Event',
+            role_id: Role.find_by_name('Organizer'), subject_id: event.id).present? ||
+          user.permissions.where(subject_type: 'Space', subject_id: event.owner_id,
+          role_id: Role.find_by_name('Admin')).present? ||
+          event.owner == user
         end
 
         can [:select, :read], MwebEvents::Event
@@ -151,7 +147,7 @@ module Abilities
           e.owner.nil? || event_can_be_managed_by(e, user)
         end
 
-        can [:edit, :update, :destroy, :invite, :send_invitation], MwebEvents::Event do |e|
+        can [:edit, :update, :destroy, :invite, :send_invitation, :create_permission, :user_permissions], MwebEvents::Event do |e|
           event_can_be_managed_by(e, user)
         end
 

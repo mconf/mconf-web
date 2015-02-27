@@ -17,7 +17,7 @@ describe MwebEvents::EventsController do
     context "logged as a normal user" do
       let(:user) { FactoryGirl.create(:user) }
 
-      before(:each) { login_as(user) }
+      before(:each) { sign_in(user) }
 
       context "event owner is a disabled space" do
         let(:owner) { FactoryGirl.create(:space) }
@@ -41,7 +41,7 @@ describe MwebEvents::EventsController do
     context "logged as an admin" do
       let(:admin) { FactoryGirl.create(:superuser) }
 
-      before(:each) { login_as(admin) }
+      before(:each) { sign_in(admin) }
 
       context "event owner is a disabled space" do
         let(:owner) { FactoryGirl.create(:space) }
@@ -70,7 +70,7 @@ describe MwebEvents::EventsController do
 
     context "template and layout" do
       context "template" do
-        before(:each) { login_as(owner) }
+        before(:each) { sign_in(owner) }
 
         context "xhr" do
           before { xhr :get, :invite, id: event.to_param }
@@ -92,7 +92,7 @@ describe MwebEvents::EventsController do
 
     context 'authorization' do
       let(:subject) {
-        login_as(logged_user)
+        sign_in(logged_user)
         get :invite, id: event.to_param
       }
 
@@ -125,7 +125,7 @@ describe MwebEvents::EventsController do
          title: title,
          message: message} }
       before {
-        login_as(event.owner)
+        sign_in(event.owner)
       }
 
       context "with correct data" do
@@ -209,7 +209,7 @@ describe MwebEvents::EventsController do
 
     context 'authorization' do
       let(:subject) {
-        login_as(logged_user)
+        sign_in(logged_user)
         post :send_invitation, id: event.to_param, invite: {}
       }
 
@@ -227,4 +227,121 @@ describe MwebEvents::EventsController do
     it { should_authorize an_instance_of(MwebEvents::Event), :send_invitation, id: event.to_param }
   end
 
+  describe 'organizers' do
+
+    describe '#user_permissions' do
+      let(:target) { FactoryGirl.create(:event) }
+      let(:user) { FactoryGirl.create(:user) }
+      let(:user2) { FactoryGirl.create(:user) }
+      let(:user3) { FactoryGirl.create(:user) }
+      let!(:p1) { target.add_organizer!(user) }
+      let!(:p2) { target.add_organizer!(user2) }
+
+      it { should_authorize an_instance_of(MwebEvents::Event), :user_permissions, :id => target.to_param }
+
+      before {
+        user.profile.update_attribute(:full_name, 'ABC')
+        user2.profile.update_attribute(:full_name, 'BBC')
+        user3.profile.update_attribute(:full_name, 'BBB')
+      }
+
+      context "layout and view" do
+        before(:each) {
+          sign_in(user)
+          get :user_permissions, :id => target.to_param
+        }
+
+        it { should respond_with(:success) }
+        it { assigns(:event).should eq(target) }
+        it { assigns(:permissions).should eq([p1, p2]) }
+        it { should render_template(/user_permissions/) }
+      end
+
+      context "xhr" do
+        before {
+          sign_in(user)
+          xhr :get, :user_permissions, id: target.to_param
+        }
+
+        it { should_not render_with_layout }
+        it { should assign_to(:event).with(target) }
+        it { should assign_to(:permissions).with([p1, p2]) }
+      end
+
+      context 'as a logged out user' do
+        before {
+          get :user_permissions, :id => target.to_param
+        }
+
+        it { should redirect_to(Rails.application.routes.url_helpers.login_path) }
+      end
+
+      context 'as a user without permissions on the event' do
+        before {
+          sign_in(user3)
+          expect {
+            get :user_permissions, :id => target.to_param
+          }.to raise_error
+        }
+      end
+    end
+
+    describe '#create_permission' do
+      let(:target) { FactoryGirl.create(:event) }
+      let(:redirect_path) { MwebEvents::Engine.routes.url_helpers.event_participants_path(target) }
+      let(:user) { FactoryGirl.create(:user) }
+      let(:users) { [ FactoryGirl.create(:user), FactoryGirl.create(:user) ] }
+      let(:user_ids) { users.map(&:id) }
+      before {
+        target.add_organizer!(user)
+        sign_in(user)
+      }
+
+      context 'create one permission successfully' do
+        before {
+          expect {
+            post :create_permission, id: target.to_param, users: "#{user_ids[0]}"
+          }.to change(Permission, :count).by(1) && change{ target.organizers.count }.by(1)
+        }
+
+        it { should set_the_flash.to(I18n.t('mweb_events.events.create_permission.success')) }
+        it { should redirect_to(redirect_path) }
+      end
+
+      context 'create two permissions successfully' do
+        before {
+          expect {
+            post :create_permission, id: target.to_param, users: user_ids.join(',')
+          }.to change(Permission, :count).by(2) && change{ target.organizers.count }.by(2)
+        }
+
+        it { should set_the_flash.to(I18n.t('mweb_events.events.create_permission.success')) }
+        it { should redirect_to(redirect_path) }
+      end
+
+      context 'fail to create one permission' do
+        before {
+          target.add_organizer!(users[1])
+          expect {
+            post :create_permission, id: target.to_param, users: "#{user_ids[1]}"
+          }.to change(Permission, :count).by(0) && change{ target.organizers.count }.by(0)
+        }
+
+        it { should set_the_flash.to(I18n.t('mweb_events.events.create_permission.failure', names: users[1].username)) }
+        it { should redirect_to(redirect_path) }
+      end
+
+      context 'create one successfully and fail to create another' do
+        before {
+          expect {
+            post :create_permission, id: target.to_param, users: "#{user_ids[0]},#{user_ids[0]}"
+          }.to change(Permission, :count).by(1) && change{ target.organizers.count }.by(1)
+        }
+
+        it { should set_the_flash.to(I18n.t('mweb_events.events.create_permission.failure', names: "#{users[0].username}")) }
+        it { should redirect_to(redirect_path) }
+      end
+
+    end
+  end
 end

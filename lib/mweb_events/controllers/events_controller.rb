@@ -11,7 +11,7 @@ MwebEvents::EventsController.class_eval do
   after_filter :add_organizer, only: [:create]
 
   def add_organizer
-    @event.add_organizer(current_user) unless @event.errors.any?
+    @event.add_organizer!(current_user) unless @event.errors.any?
   end
 
   def invite
@@ -21,8 +21,8 @@ MwebEvents::EventsController.class_eval do
   def create_permission
     errors = []
     params[:users].split(',').each do |id|
-      p = @event.add_organizer(User.find(id))
-      errors.push(p.user.username) if p.errors.any?
+      p = @event.add_organizer!(User.where(id: id).first)
+      errors.push(p.user.try(:username)) if p.errors.any?
     end
 
     msg = if errors.any?
@@ -100,7 +100,9 @@ MwebEvents::EventsController.class_eval do
   end
 
   def handle_access_denied(exception)
-    if @event.nil? || @event.owner.nil?
+    if current_user.blank?
+      redirect_to Rails.application.routes.url_helpers.login_path
+    elsif @event.nil? || @event.owner.nil?
       raise ActiveRecord::RecordNotFound
     else
       raise exception

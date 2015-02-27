@@ -44,5 +44,40 @@ describe PermissionsController do
     end
   end
 
-  it "#destroy"
+  describe "#destroy" do
+    let(:user) { FactoryGirl.create(:user) }
+
+    context 'space permission' do
+      let(:permission) { FactoryGirl.create(:space_permission) }
+      let(:referer) { '/' }
+
+      before {
+        request.env['HTTP_REFERER'] = referer
+        permission.subject.add_member!(user, 'Admin')
+        sign_in(user)
+        expect {
+          delete :destroy, id: permission.id
+        }.to change(Permission, :count).by(-1)
+      }
+
+      it { should redirect_to(referer) }
+    end
+
+    context 'event permission' do
+      let(:event) { FactoryGirl.create(:event) }
+      let(:permission) { FactoryGirl.create(:permission, subject: event, role: MwebEvents::Event.organizer_role) }
+      let(:referer) { '/' }
+
+      before {
+        request.env['HTTP_REFERER'] = referer
+        permission.subject.add_organizer!(user)
+        sign_in(user)
+        expect {
+          delete :destroy, id: permission.id
+        }.to change(Permission, :count).by(-1)
+      }
+
+      it { should redirect_to(referer) }
+    end
+  end
 end

@@ -3,8 +3,8 @@ MwebEvents::Event.class_eval do
 
   has_many :permissions, -> { where(:subject_type => 'MwebEvents::Event') }, :foreign_key => "subject_id"
 
-  has_and_belongs_to_many :organizers,
-   -> { Permission.where(:subject_type => 'MwebEvents::Event') }, :join_table => :permissions, :foreign_key => "subject_id"
+  has_and_belongs_to_many :organizers, -> { Permission.where(:subject_type => 'MwebEvents::Event') },
+    :class_name => "User", :join_table => :permissions, :foreign_key => "subject_id"
 
   def self.organizer_role
     Role.where(stage_type: 'MwebEvents::Event', name: 'Organizer').first
@@ -18,7 +18,7 @@ MwebEvents::Event.class_eval do
     create_activity key, :owner => owner, :parameters => { :user_id => user.try(:id), :username => user.try(:name) }
   end
 
-  def add_organizer user
+  def add_organizer! user
     permissions.create(user: user, role: MwebEvents::Event.organizer_role)
   end
 
