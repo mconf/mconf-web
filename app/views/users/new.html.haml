@@ -9,10 +9,10 @@
       #user-basic-info
         = f.input :email, required: true, autofocus: true
         = f.input :_full_name, required: true
-        = f.input :can_record, as: :boolean
         = f.input :username, required: true
         = f.input :password, required: true
         = f.input :password_confirmation, required: true
+        = f.input :can_record, as: :boolean
 
     .modal-footer
       = f.button :wrapped, cancel_modal: true, value: t('_other.create'), class: "btn btn-primary"
