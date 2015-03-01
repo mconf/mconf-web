@@ -23,7 +23,7 @@ GIT
 
 GIT
   remote: https://github.com/mconf/bigbluebutton_rails.git
-  revision: 544579c14402aadf2d54ef74963ae74f2ebdcb24
+  revision: ab8e9849a297a575d4d84f9d71d04990f15370e2
   branch: master
   specs:
     bigbluebutton_rails (2.0.0)
@@ -99,6 +99,8 @@ GEM
       activesupport (= 4.1.4)
       builder (~> 3.1)
       erubis (~> 2.7.0)
+    active_sanity (0.2.0)
+      rails (>= 3.1.0)
     activemodel (4.1.4)
       activesupport (= 4.1.4)
       builder (~> 3.1)
@@ -532,6 +534,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  active_sanity
   acts_as_tree (~> 2.0.0)
   autoprefixer-rails
   better_errors

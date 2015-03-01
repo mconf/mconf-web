@@ -1,7 +1,7 @@
 - if @show_view
   .parent-post-logo
     - if post.author
-      = link_logo_image(post.author, :size => '32', :title => post.author.name, :url => user_path(post.author), :class => "logo logo-user")
+      = link_logo_image(post.author, size: '32', title: post.author.name, url: user_path(post.author), class: "logo logo-user")
 
 .post-content
   %ul
@@ -9,7 +9,7 @@
       %li
         = link_to(post.author.name, user_path(post.author),:class=>"unified_user")
         %span.updated
-          = t('updated_time_ago', :time => time_ago_in_words(post.updated_at, highest_measures: 2))
+          = formatted_time_ago post.updated_at
 
     %li.main_text
       = sanitize(auto_link(post_format(post.text)))

@@ -2,8 +2,5 @@
   = sanitize(private_message.title)
 - else
   = link_to sanitize(private_message.title), message_path(private_message)
-%span.thread-updated-at
-  - if Time.now.to_date == private_message.created_at.to_date
-    = time_ago_in_words(private_message.created_at)
-  - else
-    = private_message.created_at.strftime("%d %b")
+
+= formatted_time_ago private_message.created_at

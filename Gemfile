@@ -91,6 +91,9 @@ gem 'icalendar'
 # More precise distance_of_time_in_words and time_ago_in_words
 gem 'dotiw'
 
+# Sanity check on database
+gem 'active_sanity'
+
 #
 # TODO: Gems to review if we can remove/update
 #

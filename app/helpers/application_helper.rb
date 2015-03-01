@@ -142,11 +142,6 @@ module ApplicationHelper
     user_signed_in? && ldap.signed_in?
   end
 
-  # Formats a date object to be shown in a view
-  def format_date(date)
-    I18n.l date, :format => :short
-  end
-
   #
   # TODO: All the code below should be reviewed
   #
