@@ -18,6 +18,11 @@ describe Post do
     context "when is the post author" do
       let(:user) { target.author }
       it { should_not be_able_to_do_anything_to(target).except([:read, :reply_post, :edit, :update, :destroy]) }
+
+      context "and the target space is disabled" do
+        before { target.space.disable }
+        it { should_not be_able_to_do_anything_to(target) }
+      end
     end
 
     context "when is an anonymous user" do
@@ -30,6 +35,11 @@ describe Post do
 
       context "and the post is in a private space" do
         before { target.space.update_attributes(:public => false) }
+        it { should_not be_able_to_do_anything_to(target) }
+      end
+
+      context "and the target space is disabled" do
+        before { target.space.disable }
         it { should_not be_able_to_do_anything_to(target) }
       end
     end
@@ -51,11 +61,21 @@ describe Post do
         before { target.space.update_attributes(:public => true) }
         it { should_not be_able_to_do_anything_to(target).except(:read) }
       end
+
+      context "and the target space is disabled" do
+        before { target.space.disable }
+        it { should_not be_able_to_do_anything_to(target) }
+      end
     end
 
     context "when is a superuser" do
       let(:user) { FactoryGirl.create(:superuser) }
       it { should be_able_to(:manage, target) }
+
+      context "and the target space is disabled" do
+        before { target.space.disable }
+        it { should be_able_to(:manage, target) }
+      end
     end
 
   end

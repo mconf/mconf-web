@@ -7,7 +7,6 @@
 
 require "digest/sha1"
 class UsersController < ApplicationController
-
   load_and_authorize_resource :find_by => :username, :except => [:enable, :index]
   before_filter :load_and_authorize_with_disabled, :only => [:enable]
 
@@ -167,8 +166,6 @@ class UsersController < ApplicationController
   def approve
     if current_site.require_registration_approval?
       @user.approve!
-      @user.skip_confirmation_notification!
-      @user.confirm!
       flash[:notice] = t('users.approve.approved', :username => @user.username)
     else
       flash[:error] = t('users.approve.not_enabled')
@@ -199,6 +196,7 @@ class UsersController < ApplicationController
 
     if @user.save
       @user.confirm!
+      @user.approve!
       flash[:success] = t("users.create.success")
       respond_to do |format|
         format.html { redirect_to manage_users_path }

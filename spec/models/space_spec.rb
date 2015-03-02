@@ -535,19 +535,31 @@ describe Space do
     context "updates the webconf room" do
       let(:space) { FactoryGirl.create(:space, :name => "Old Name", :public => true) }
       before(:each) { space.update_attributes(:name => "New Name", :public => false) }
+
       it { space.bigbluebutton_room.param.should be(space.permalink) }
       it { space.bigbluebutton_room.name.should be(space.name) }
+      it { space.bigbluebutton_room.private.should be(false) }
+    end
+
+    # Space visibility is not linked to webconf visibility anymore
+    # see feature #1436
+    context "doesn't update to public when the space is made public" do
+      before {
+        space.bigbluebutton_room.update_attribute(:private, true)
+        space.update_attribute(:public, true)
+      }
+
       it { space.bigbluebutton_room.private.should be(true) }
     end
 
-    it "updates to public when the space is made public" do
-      space.update_attribute(:public, true)
-      space.bigbluebutton_room.private.should be false
-    end
+    # see feature #1436
+    context "doesn't update to private when the space is made public" do
+      before {
+        space.bigbluebutton_room.update_attribute(:private, false)
+        space.update_attribute(:public, false)
+      }
 
-    it "updates to private when the space is made public" do
-      space.update_attribute(:public, false)
-      space.bigbluebutton_room.private.should be true
+      it { space.bigbluebutton_room.private.should be(false) }
     end
   end
 
@@ -667,6 +679,11 @@ describe Space do
             it { should be_able_to_do_anything_to(target) }
           end
         end
+
+        context "that is disabled" do
+          before { target.disable }
+          it { should be_able_to(:manage, target) }
+        end
       end
 
       context "in a private space" do
@@ -686,6 +703,11 @@ describe Space do
             before { target.add_member!(user, "User") }
             it { should be_able_to_do_anything_to(target) }
           end
+        end
+
+        context "that is disabled" do
+          before { target.disable }
+          it { should be_able_to(:manage, target) }
         end
       end
     end
@@ -718,6 +740,11 @@ describe Space do
             it { should_not be_able_to_do_anything_to(target).except([:read, :webconference, :recordings, :create, :select, :leave]) }
           end
         end
+
+        context "that is disabled" do
+          before { target.disable }
+          it { should_not be_able_to_do_anything_to(target) }
+        end
       end
 
       context "in a private space" do
@@ -745,6 +772,11 @@ describe Space do
             it { should_not be_able_to_do_anything_to(target).except([:read, :webconference, :recordings, :create, :select, :leave]) }
           end
         end
+
+        context "that is disabled" do
+          before { target.disable }
+          it { should_not be_able_to_do_anything_to(target) }
+        end
       end
     end
 
@@ -754,11 +786,21 @@ describe Space do
       context "in a public space" do
         let(:target) { FactoryGirl.create(:public_space) }
         it { should_not be_able_to_do_anything_to(target).except([:read, :webconference, :recordings, :select]) }
+
+        context "that is disabled" do
+          before { target.disable }
+          it { should_not be_able_to_do_anything_to(target) }
+        end
       end
 
       context "in a private space" do
         let(:target) { FactoryGirl.create(:private_space) }
         it { should_not be_able_to_do_anything_to(target).except([:select]) }
+
+        context "that is disabled" do
+          before { target.disable }
+          it { should_not be_able_to_do_anything_to(target) }
+        end
       end
     end
 

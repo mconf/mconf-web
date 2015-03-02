@@ -14,8 +14,7 @@ feature 'User hits access denied errors' do
 
       context 'and is logged out' do
         before { visit space_news_index_path(space) }
-
-        it { should_be_403_page }
+        it { current_path.should eq '/users/login' }
       end
 
       context 'and is logged as a non-member' do
@@ -58,7 +57,7 @@ feature 'User hits access denied errors' do
       context 'and is logged out' do
         before { visit space_news_index_path(space) }
 
-        it { should_be_403_page }
+        it { current_path.should eq '/users/login' }
       end
 
       context 'and is logged as a non-member' do

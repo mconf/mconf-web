@@ -6,8 +6,9 @@
 # 3 or later. See the LICENSE file.
 
 class PostsController < ApplicationController
-
   include SpamControllerModule
+
+  before_filter :authenticate_user!, except: [:index, :show]
 
   layout "spaces_show"
 
@@ -95,7 +96,7 @@ class PostsController < ApplicationController
     end
   end
 
-  # Destroys de content of the post. Then its container(post) is
+  # Destroys the content of the post. Then its container(post) is
   # destroyed automatically.
   def destroy
     @post.destroy

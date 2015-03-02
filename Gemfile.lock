@@ -1,12 +1,20 @@
 GIT
-  remote: git://github.com/fnando/i18n-js.git
+  remote: https://github.com/Fire-Dragon-DoL/valid_email.git
+  revision: 905122768d497218d395180ad05da611f6f9c87d
+  specs:
+    valid_email (0.1.0)
+      activemodel
+      mail
+
+GIT
+  remote: https://github.com/fnando/i18n-js.git
   revision: 9fd4cc6de4601dc496e676521fcde78532a63ccf
   specs:
     i18n-js (3.0.0.rc6)
       i18n (~> 0.6)
 
 GIT
-  remote: git://github.com/mconf/bigbluebutton-api-ruby.git
+  remote: https://github.com/mconf/bigbluebutton-api-ruby.git
   revision: 310c1764b33043e5b6460d33fc2004dd74342083
   branch: master
   specs:
@@ -14,8 +22,8 @@ GIT
       xml-simple (>= 1.1.1)
 
 GIT
-  remote: git://github.com/mconf/bigbluebutton_rails.git
-  revision: 544579c14402aadf2d54ef74963ae74f2ebdcb24
+  remote: https://github.com/mconf/bigbluebutton_rails.git
+  revision: ab8e9849a297a575d4d84f9d71d04990f15370e2
   branch: master
   specs:
     bigbluebutton_rails (2.0.0)
@@ -26,7 +34,7 @@ GIT
       resque-scheduler (~> 3.0)
 
 GIT
-  remote: git://github.com/mconf/mweb_events.git
+  remote: https://github.com/mconf/mweb_events.git
   revision: 769fa7fb451e602813f752d3eb8d45eb335e7002
   branch: master
   specs:
@@ -57,26 +65,11 @@ GIT
       valid_email
 
 GIT
-  remote: git://github.com/mconf/translate.git
+  remote: https://github.com/mconf/translate.git
   revision: 849ba4469953233cd3a569cf793901d8f018cda9
   specs:
     translate-rails3 (0.1.1)
       ya2yaml (~> 0.30)
-
-GIT
-  remote: https://github.com/Fire-Dragon-DoL/valid_email.git
-  revision: 905122768d497218d395180ad05da611f6f9c87d
-  specs:
-    valid_email (0.1.0)
-      activemodel
-      mail
-
-GIT
-  remote: https://github.com/lfzawacki/psych.git
-  revision: ed4b164b8d192b2b7bf663cba0fe5cdd1f7beef1
-  branch: gemfile-style
-  specs:
-    psych (2.0.5.20140820161236)
 
 GIT
   remote: https://github.com/sam-github/vpim.git
@@ -106,6 +99,8 @@ GEM
       activesupport (= 4.1.4)
       builder (~> 3.1)
       erubis (~> 2.7.0)
+    active_sanity (0.2.0)
+      rails (>= 3.1.0)
     activemodel (4.1.4)
       activesupport (= 4.1.4)
       builder (~> 3.1)
@@ -160,6 +155,28 @@ GEM
       activesupport (>= 3.2.0)
       json (>= 1.7)
       mime-types (>= 1.16)
+    chef (12.0.3)
+      chef-zero (~> 3.2)
+      diff-lcs (~> 1.2, >= 1.2.4)
+      erubis (~> 2.7)
+      ffi-yajl (~> 1.2)
+      highline (~> 1.6, >= 1.6.9)
+      mixlib-authentication (~> 1.3)
+      mixlib-cli (~> 1.4)
+      mixlib-config (~> 2.0)
+      mixlib-log (~> 1.3)
+      mixlib-shellout (>= 2.0.0.rc.0, < 3.0)
+      net-ssh (~> 2.6)
+      net-ssh-multi (~> 1.1)
+      ohai (~> 8.0)
+      plist (~> 3.1.0)
+      pry (~> 0.9)
+    chef-zero (3.2.1)
+      ffi-yajl (~> 1.1)
+      hashie (~> 2.0)
+      mixlib-log (~> 1.3)
+      rack
+      uuidtools (~> 2.1)
     chronic (0.10.2)
     chunky_png (1.3.1)
     coderay (1.1.0)
@@ -212,6 +229,10 @@ GEM
       factory_girl (~> 4.4.0)
       railties (>= 3.0.0)
     fastercsv (1.5.5)
+    ffi (1.9.6)
+    ffi-yajl (1.3.1)
+      ffi (~> 1.5)
+      libyajl2 (~> 1.2)
     fineuploader-rails (3.3)
       actionpack (>= 3.1)
       railties (>= 3.1)
@@ -234,6 +255,7 @@ GEM
       multi_json
       sprockets (>= 2.0.3)
       tilt
+    hashie (2.1.2)
     highline (1.6.21)
     hike (1.2.3)
     htmlentities (4.3.2)
@@ -242,6 +264,7 @@ GEM
       multi_xml (>= 0.5.2)
     i18n (0.6.11)
     icalendar (2.1.1)
+    ipaddress (0.8.0)
     jquery-rails (3.1.1)
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
@@ -256,26 +279,63 @@ GEM
     less-rails (2.5.0)
       actionpack (>= 3.1)
       less (~> 2.5.0)
+    librarian (0.1.2)
+      highline
+      thor (~> 0.15)
+    librarian-chef (0.0.4)
+      chef (>= 0.10)
+      librarian (~> 0.1.0)
+      minitar (>= 0.5.2)
     libv8 (3.16.14.3)
+    libyajl2 (1.2.0)
     listen (0.7.3)
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
+    method_source (0.8.2)
     mime-types (1.25.1)
     mini_magick (3.8.1)
       subexec (~> 0.2.1)
     mini_portile (0.6.0)
+    minitar (0.5.4)
     minitest (5.4.0)
+    mixlib-authentication (1.3.0)
+      mixlib-log
+    mixlib-cli (1.5.0)
+    mixlib-config (2.1.0)
+    mixlib-log (1.6.0)
+    mixlib-shellout (2.0.1)
     momentjs-rails (2.8.3)
       railties (>= 3.1)
     mono_logger (1.1.0)
     multi_json (1.10.1)
     multi_xml (0.5.5)
     mysql2 (0.3.16)
+    net-dhcp (1.3.2)
     net-ldap (0.6.1)
+    net-ssh (2.9.3.beta1)
+    net-ssh-gateway (1.2.0)
+      net-ssh (>= 2.6.5)
+    net-ssh-multi (1.2.0)
+      net-ssh (>= 2.6.5)
+      net-ssh-gateway (>= 1.2.0)
     nokogiri (1.6.2.1)
       mini_portile (= 0.6.0)
+    ohai (8.0.1)
+      ffi (~> 1.9)
+      ffi-yajl (~> 1.1)
+      ipaddress
+      mime-types (~> 1.16)
+      mixlib-cli
+      mixlib-config (~> 2.0)
+      mixlib-log
+      mixlib-shellout (~> 2.0)
+      net-dhcp
+      rake (~> 10.1)
+      systemu (~> 2.6.4)
+      wmi-lite (~> 1.0)
     orm_adapter (0.5.0)
+    plist (3.1.0)
     polyglot (0.3.5)
     populator (1.0.0)
     premailer (1.8.2)
@@ -286,6 +346,10 @@ GEM
       premailer (~> 1.7, >= 1.7.9)
     prism (0.1.0)
       nokogiri
+    pry (0.10.1)
+      coderay (~> 1.1.0)
+      method_source (~> 0.8.1)
+      slop (~> 3.4)
     public_activity (1.4.1)
       actionpack (>= 3.0.0)
       activerecord (>= 3.0)
@@ -398,6 +462,7 @@ GEM
     slim (2.1.0)
       temple (~> 0.6.9)
       tilt (>= 1.3.3, < 2.1)
+    slop (3.6.0)
     sprockets (2.11.0)
       hike (~> 1.2)
       multi_json (~> 1.0)
@@ -409,6 +474,7 @@ GEM
       sprockets (~> 2.8)
     sqlite3 (1.3.9)
     subexec (0.2.3)
+    systemu (2.6.4)
     temple (0.6.9)
     terminal-table (1.4.5)
     therubyracer (0.12.1)
@@ -432,6 +498,7 @@ GEM
     uglifier (2.5.1)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
+    uuidtools (2.1.5)
     vegas (0.1.11)
       rack (>= 1.0.0)
     warden (1.2.3)
@@ -442,6 +509,7 @@ GEM
       rack-test (>= 0.5.3)
     webrick (1.3.1)
     will_paginate (3.0.7)
+    wmi-lite (1.0.0)
     xml-simple (1.1.4)
     xpath (2.0.0)
       nokogiri (~> 1.3)
@@ -449,11 +517,14 @@ GEM
     yajl-ruby (1.2.1)
     yamler (0.1.0)
     yui-compressor (0.12.0)
+    zip-zip (0.3)
+      rubyzip (>= 1.0.0)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
+  active_sanity
   acts_as_tree (~> 2.0.0)
   better_errors
   bigbluebutton-api-ruby!
@@ -491,6 +562,7 @@ DEPENDENCIES
   jquery-rails (~> 3.1.1)
   launchy
   less-rails
+  librarian-chef
   mini_magick
   momentjs-rails (>= 2.8.1)
   mweb_events!
@@ -500,7 +572,6 @@ DEPENDENCIES
   populator
   premailer-rails
   prism
-  psych!
   public_activity (~> 1.4.1)
   quiet_assets
   rabl
@@ -515,7 +586,7 @@ DEPENDENCIES
   rmagick
   rspec-mocks
   rspec-rails (~> 2.99.0)
-  rubyzip
+  rubyzip (>= 1.0.0)
   sass-rails (~> 4.0.3)
   select2-rails
   shoulda-kept-assign-to
@@ -536,3 +607,4 @@ DEPENDENCIES
   will_paginate
   yajl-ruby
   yui-compressor
+  zip-zip

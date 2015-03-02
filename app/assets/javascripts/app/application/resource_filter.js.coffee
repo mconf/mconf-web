@@ -14,7 +14,7 @@
 namespace = "mconfResourceFilter"
 # small delay before searching to reduce the # of requests, in ms
 searchDelay = 300
-showTime = 250
+showTime = 0
 
 class mconf.ResourceFilter
 

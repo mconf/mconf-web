@@ -1,26 +1,26 @@
-= div_for(news, :class => "thread thread-news #{cycle("thread-even" , "thread-odd")}") do
+= div_for(news, class: "thread thread-news #{cycle("thread-even" , "thread-odd")}") do
   - if news.nil?
     %p= t('news.none_to_show')
   - else
     .logo-in-thread
-      = link_logo_image(news.space, :size => '84x64', :url => space_path(news.space), :title => news.space.name, :class => "logo logo-space")
+      = link_logo_image(news.space, size: '84x64', url: space_path(news.space), title: news.space.name, class: "logo logo-space")
     .thread-content
       %ul.thread-action-links.visible-on-hover{ :"data-hover-tracked" => "news_#{news.id}" }
-        %li= link_to t('remove').downcase, space_news_path(@space, news), :data => { :confirm => t('delete.confirm', :element => news.title) }, :method => :delete, :title => t('delete.one') if can?(:destroy, news)
-        %li= link_to t('edit').downcase, edit_space_news_path(@space, news), { :name => news.id, :title => t('edit'), :class => "open-modal" } if can?(:update, news)
+        %li= link_to t('remove').downcase, space_news_path(@space, news), data: { confirm: t('delete.confirm', element: news.title) }, method: :delete, title: t('delete.one') if can?(:destroy, news)
+        %li= link_to t('edit').downcase, edit_space_news_path(@space, news), { name: news.id, title: t('edit'), class: "open-modal" } if can?(:update, news)
       .thread-title
-        = icon_news t('news.item_in_home', :space => news.space.name)
+        = icon_news t('news.item_in_home', space: news.space.name)
         = link_to sanitize(news.title), space_path(news.space)
         = t('date.at')
         = link_to news.space.name, space_path(news.space)
-        %span.thread-updated-at= t('updated_time_ago', :time => time_ago_in_words(news.updated_at, vague: true))
+        = formatted_time_ago news.updated_at
       .thread-text
         - if news.text.size < 200
           = sanitize(auto_link(news.text))
         - else
           .block-collapsed
             = sanitize(first_words(auto_link(news.text), 200))
-            = link_to t('more_arrows'), "news_#{news.id}", :class => 'link-to-expand'
+            = link_to t('more_arrows'), "news_#{news.id}", class: 'link-to-expand'
           .block-expanded
             = sanitize(auto_link(news.text))
-            = link_to t("collapse_arrows"), "news_#{news.id}", :class => 'link-to-collapse'
+            = link_to t("collapse_arrows"), "news_#{news.id}", class: 'link-to-collapse'
