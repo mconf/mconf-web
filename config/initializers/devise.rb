@@ -17,7 +17,7 @@ Devise.setup do |config|
   end
 
   # Configure the class responsible to send e-mails.
-  # config.mailer = "Devise::Mailer"
+  config.mailer = "DeviseMailer"
 
   # ==> ORM configuration
   # Load and configure the ORM. Supports :active_record (default) and
@@ -225,7 +225,7 @@ Devise.setup do |config|
   #
   config.warden do |manager|
     # manager.intercept_401 = false
-    manager.default_strategies(:scope => :user).unshift :ldap_authenticatable
+    manager.default_strategies(scope: :user).unshift :ldap_authenticatable
     # to add extra behavior to login redirection
     manager.failure_app = CustomFailedLoginRedirection
   end

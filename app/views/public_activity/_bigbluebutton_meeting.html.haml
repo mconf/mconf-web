@@ -6,27 +6,27 @@
 .logo-in-thread
 
   - if meeting.nil?
-    = logo_image_removed(:size => '84x64')
+    = logo_image_removed(size: '84x64')
   - else
     - if meeting.room.owner_type == 'User'
-      = link_logo_image(meeting.room.owner, :size => '84x64', :url => user_path_from_id(meeting.room.owner), :class => 'logo logo-user')
+      = link_logo_image(meeting.room.owner, size: '84x64', url: user_path_from_id(meeting.room.owner), class: 'logo logo-user')
     - elsif meeting.room.owner_type == 'Space'
-      = link_logo_image(meeting.room.owner, :size => '84x64', :url => space_path(meeting.room.owner), :class => 'logo logo-space')
+      = link_logo_image(meeting.room.owner, size: '84x64', url: space_path(meeting.room.owner), class: 'logo logo-space')
 
 .thread-content
-  .thread-updated-at= t('updated_time_ago', :time => time_ago_in_words(activity.updated_at, vague: true))
+  = formatted_time_ago activity.updated_at
 
   .thread-title
     = icon_meeting
     - unless meeting.nil?
       - if meeting.room.owner_type == 'User'
-        = activity_translate('bigbluebutton_meeting.user.create', :owner => link_to_trackable(meeting, activity.trackable_type), :time => format_date(meeting.start_time))
+        = activity_translate('bigbluebutton_meeting.user.create', owner: link_to_trackable(meeting, activity.trackable_type), time: format_date(meeting.start_time))
       - elsif meeting.room.owner_type == 'Space'
-        = activity_translate('bigbluebutton_meeting.space.create', :owner => link_to_trackable(meeting, activity.trackable_type), :time => format_date(meeting.start_time))
+        = activity_translate('bigbluebutton_meeting.space.create', owner: link_to_trackable(meeting, activity.trackable_type), time: format_date(meeting.start_time))
     - else
       = activity_translate('bigbluebutton_meeting.deleted')
 
   - unless meeting.nil? or meeting.recording.nil?
     - recording = meeting.recording
     .thread-subtitle.thread-subtitle-nested
-      = render :partial => 'shared/recording_playback', :locals => { :recording => recording }
+      = render partial: 'shared/recording_playback', locals: { recording: recording }

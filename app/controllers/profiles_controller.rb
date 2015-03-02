@@ -13,6 +13,7 @@ class ProfilesController < ApplicationController
 
   def show
     respond_to do |format|
+      format.html { redirect_to user_path(@user)}
       format.vcf { send_data @profile.to_vcard.to_s, :filename => "#{@user.name}.vcf" }
     end
   end

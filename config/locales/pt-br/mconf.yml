@@ -90,6 +90,7 @@ pt-br:
       icon_tooltip: "Este artigo foi denunciado como spam e está sendo avaliado pelos administradores"
     unpublish: "Despublicar"
     update: "Atualizar"
+    updated_time_ago: "%{time} atrás"
     user:
       administrator: "Administrador global"
       normal_user: "Usuário normal"
@@ -1719,7 +1720,6 @@ pt-br:
   update: Atualizar
   updated: Atualizados
   updated_at: "Atualizado em"
-  updated_time_ago: "%{time} atrás"
   url: Website
   url_add: "Adicione seu site"
   url_plain: URL
