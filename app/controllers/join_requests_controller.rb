@@ -231,7 +231,7 @@ class JoinRequestsController < ApplicationController
 
   allow_params_for :join_request
   def allowed_params
-    is_space_admin = @join_request.present? && @join_request.group.try(:is_a?, Space) && can?(:invite, @space)
+    is_space_admin = @join_request.present? && @join_request.group.try(:is_a?, Space) && can?(:invite, @join_request.group)
     if params[:action] == "create"
       if is_space_admin
         [ :role_id, :comment ]
