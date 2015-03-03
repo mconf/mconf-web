@@ -34,7 +34,7 @@ pt-br:
     post:
       create_html: enviou a mensagem %{name} na comunidade
       update_html: atualizou a mensagem %{name} na comunidade
-      reply_html: respondeu à mensagem %{name} na comunidae
+      reply_html: respondeu à mensagem %{name} na comunidade
       deleted: que não existe mais
     space:
       accept_html: tornou-se um membro da comunidade
@@ -1534,7 +1534,7 @@ pt-br:
         thumbnails: "Miniaturas"
       search:
         by_name:
-          no_matches: "Nenhuma comunidae encontrada com \"%{term}\""
+          no_matches: "Nenhuma comunidade encontrada com \"%{term}\""
           placeholder: "Procurar comunidades..."
       subtitle: "Encontre comunidades de usuários que compartilham os mesmos interesses"
       title: "Comunidades"
