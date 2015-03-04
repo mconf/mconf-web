@@ -12,7 +12,7 @@
 
   .thread-title
     = icon_attachment
-    - if activity.trackable.author.present?
+    - if activity.trackable.present? && activity.trackable.author.present?
       - link = user_path(activity.trackable.author.id)
       = link_to activity.trackable.author.name, link
     - else
