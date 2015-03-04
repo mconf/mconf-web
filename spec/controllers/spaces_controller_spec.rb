@@ -438,7 +438,7 @@ describe SpacesController do
       before(:each) {
         expect {
           put :update, :id => space.to_param, :space => space_attributes
-        }.to change {RecentActivity.count}.by(1)
+        }.to change { RecentActivity.count }.by(1)
       }
       it { space_attributes.should have_received(:permit).with(*space_allowed_params) }
       it { should redirect_to(referer) }
@@ -449,7 +449,7 @@ describe SpacesController do
       before(:each) {
         expect {
           put :update, :id => space.to_param, :space => {}
-        }.to change {RecentActivity.count}.by(0)
+        }.not_to change { RecentActivity.count }
       }
 
       it { should redirect_to(referer) }
