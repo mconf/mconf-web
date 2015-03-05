@@ -207,6 +207,10 @@ describe UserNotificationsWorker do
       include_examples "creation of activities and mails"
     end
 
+    # To make sure that, if a user is approved very fast, he will receive the account
+    # created email and the account approved in the right order.
+    it "sends the 'account created' mail before the 'account approved'"
+
   end
 
 end

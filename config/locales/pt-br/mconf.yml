@@ -94,7 +94,7 @@ pt-br:
     user:
       administrator: "Administrador global"
       normal_user: "Usuário normal"
-      unapproved_user: "A espera de aprovação de administrador"
+      unapproved_user: "Aguardando aprovação"
       guest: Convidado
       guest_name: "Usuário convidado (%{email})"
       removed: "<usuário removido>"

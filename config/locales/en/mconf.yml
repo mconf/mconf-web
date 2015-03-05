@@ -94,7 +94,7 @@ en:
     user:
       administrator: "Global administrator"
       normal_user: "Normal user"
-      unapproved_user: "Waiting approval by admin"
+      unapproved_user: "Waiting approval"
       guest: "Guest"
       guest_name: "Guest User (%{email})"
       removed: "<user removed>"

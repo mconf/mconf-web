@@ -11,11 +11,11 @@ class UserNotificationsWorker
   @queue = :user_notifications
 
   def self.perform
+    notify_users_account_created
     if Site.current.require_registration_approval
       notify_admins_of_users_pending_approval
       notify_users_after_approved
     end
-    notify_users_account_created
   end
 
   # Finds all users that registered and need to be approved and schedules a worker

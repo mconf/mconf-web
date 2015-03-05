@@ -709,7 +709,7 @@ describe UsersController do
         it { subject.should_not be_nil }
         it { subject.owner.should eql admin }
         it { subject.trackable.should eql user}
-        it { subject.notified.should be(false) }
+        it { subject.notified.should be_falsey }
       end
     end
 

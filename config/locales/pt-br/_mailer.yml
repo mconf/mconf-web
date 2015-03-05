@@ -7,18 +7,18 @@ pt-br:
   admin_mailer:
     new_user_waiting_for_approval:
       subject: "Um novo usuário está a espera de sua aprovação"
-      message: "%{name} se registrou no site e está esperando por aprovação:"
+      message: "%{name} se registrou no site e está esperando por aprovação."
       click_here: "Clique <a href=\"%{url}\">aqui</a> para gerenciar usuários."
     new_user_approved:
       subject: "Seu acesso ao site foi aprovado"
-      message: "Olá %{name}! Estamos mandando este email para avisar que o seu acesso ao site já foi liberado."
-      click_here: "Clique <a href=\"%{url}\">aqui</a> para acessar a sua página inicial."
+      message: "Olá %{name},<br/><br/>Estamos mandando este email para avisar que o seu acesso ao site já foi aprovado."
+      click_here: "Clique <a href=\"%{url}\">aqui</a> para ir à a sua página inicial."
   user_mailer:
     registration_notification_email:
       click_here: "Clique <a href=\"%{url}\">aqui</a> para ir à sua página inicial."
-      message: "Olá %{name}! Estamos lhe mandando este email para informar que você foi registrado com sucesso no site."
+      message: "Olá %{name},<br/><br/>Estamos lhe mandando este email para informar que o seu registro em <a href=\"%{url}\">%{site}</a> foi concluído com sucesso!"
       subject: "Registro realizado com sucesso"
-      confirmation_pending: "Sua conta foi criada e está esperando a aprovação de um administrador."
+      confirmation_pending: "Seu cadastro foi efetivado com sucesso em <a href=\"%{url}\">%{site}</a> e submetido a aprovação do administrador responsável por validar o seu acesso. Assim que seu cadastro for aprovado você será comunicado."
   event_mailer:
     invitation_email:
       message:
