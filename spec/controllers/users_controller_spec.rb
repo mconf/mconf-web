@@ -673,9 +673,10 @@ describe UsersController do
 
   describe "#approve" do
     let(:user) { FactoryGirl.create(:unconfirmed_user, approved: false) }
+    let(:admin) { FactoryGirl.create(:superuser) }
     before {
       request.env["HTTP_REFERER"] = "/any"
-      login_as(FactoryGirl.create(:superuser))
+      login_as(admin)
     }
 
     context "if #require_registration_approval is set in the current site" do
@@ -701,6 +702,14 @@ describe UsersController do
             user.reload.confirmed?.should be(true)
           }.not_to change{ ActionMailer::Base.deliveries }
         }
+      end
+
+      context "should generate a RecentActivity" do
+        subject { RecentActivity.where(key: 'user.approved').last }
+        it { subject.should_not be_nil }
+        it { subject.owner.should eql admin }
+        it { subject.trackable.should eql user}
+        it { subject.notified.should be_falsey }
       end
     end
 
@@ -809,6 +818,7 @@ describe UsersController do
         it { should redirect_to manage_users_path }
         it { User.last.confirmed?.should be true }
         it { User.last.approved?.should be true }
+        it { RecentActivity.where(owner_id: superuser.id, trackable_id: user.id, key: 'user.approved').should be_empty }
       end
 
       describe "creates a new user with valid attributes and with the ability to record meetings" do

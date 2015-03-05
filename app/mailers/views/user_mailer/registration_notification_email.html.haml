@@ -1,8 +1,11 @@
 #registration-notification-email
-  .header
-    = @subject
+  - unless Site.current.require_registration_approval?
+    .header
+      = @subject
 
-  %p= t('.message', :name => @user_name)
+    %p= t('.message', :name => @user_name)
 
-  %p.link
-    = t('.click_here', :url => my_home_url(:host => Site.current.domain)).html_safe
+    %p.link
+      = t('.click_here', :url => my_home_url(:host => Site.current.domain)).html_safe
+  - else
+    %p= t('.confirmation_pending')

@@ -18,6 +18,7 @@ pt-br:
       click_here: "Clique <a href=\"%{url}\">aqui</a> para ir à sua página inicial."
       message: "Olá %{name}! Estamos lhe mandando este email para informar que você foi registrado com sucesso no site."
       subject: "Registro realizado com sucesso"
+      confirmation_pending: "Sua conta foi criada e está esperando a aprovação de um administrador."
   event_mailer:
     invitation_email:
       message:

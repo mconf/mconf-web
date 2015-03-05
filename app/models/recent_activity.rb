@@ -53,6 +53,9 @@ class RecentActivity < PublicActivity::Activity
     spaces = user.spaces
     space_rooms = spaces.map{ |s| s.bigbluebutton_room.id }
 
+    # some types of activities we ignore by default
+    reject_keys += ["user.created", "shibboleth.user.created", "ldap.user.created", "user.approved"]
+
     t = RecentActivity.arel_table
     in_spaces = t[:owner_id].in(spaces.pluck(:id)).and(t[:owner_type].eq('Space'))
     in_spaces_as_trackable = t[:trackable_id].in(spaces.pluck(:id)).and(t[:trackable_type].eq('Space'))

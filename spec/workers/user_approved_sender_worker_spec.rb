@@ -18,14 +18,17 @@ describe UserApprovedSenderWorker do
   end
 
   describe "#perform" do
-    let(:user) { FactoryGirl.create(:user, approved_notification_sent_at: nil) }
-    before { user.reload.approved_notification_sent_at.should be_nil }
+    let(:user) { FactoryGirl.create(:user, approved: false) }
+    let(:activity) { RecentActivity.last }
 
-    before(:each) { worker.perform(user.id) }
+    before {
+      user.approve!
+      worker.perform(activity.id)
+    }
 
     it { AdminMailer.should have_queue_size_of_at_least(1) }
     it { AdminMailer.should have_queued(:new_user_approved, user.id).in(:mailer) }
-    it { user.reload.approved_notification_sent_at.should_not be_nil }
+    it { activity.reload.notified.should be(true) }
   end
 
 end
