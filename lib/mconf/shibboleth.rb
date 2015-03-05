@@ -127,11 +127,13 @@ module Mconf
 
       user = User.new params
       user.skip_confirmation!
-
       if user.save
-        RecentActivity.create key: 'shibboleth.user.created', owner: shib_token,
-                              trackable: user, notified: false
+        create_notification(user, shib_token)
+      else
+        Rails.logger.error "Shibboleth: error while saving the user model"
+        Rails.logger.error "Shibboleth: errors: " + user.errors.full_messages.join(", ")
       end
+
       user
     end
 
@@ -151,6 +153,12 @@ module Mconf
 
     def create_token(id)
       ShibToken.create!(:identifier => id)
+    end
+
+    def create_notification(user, token)
+      RecentActivity.create(
+        key: 'shibboleth.user.created', owner: token, trackable: user, notified: false
+      )
     end
 
   end

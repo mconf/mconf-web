@@ -704,12 +704,12 @@ describe UsersController do
         }
       end
 
-      context "should generate a RecentActivity" do
+      context "should create an activity" do
         subject { RecentActivity.where(key: 'user.approved').last }
         it { subject.should_not be_nil }
         it { subject.owner.should eql admin }
         it { subject.trackable.should eql user}
-        it { subject.notified.should be_falsey }
+        it { subject.notified.should be(false) }
       end
     end
 
@@ -722,6 +722,7 @@ describe UsersController do
       it { should set_the_flash.to(I18n.t('users.approve.not_enabled')) }
       it { should redirect_to('/any') }
       it { user.reload.approved?.should be_truthy } # auto approved
+      it("should not create an activity") { RecentActivity.where(key: 'user.approved').should be_empty }
     end
 
     it { should_authorize an_instance_of(User), :approve, via: :post, id: user.to_param }
@@ -818,7 +819,7 @@ describe UsersController do
         it { should redirect_to manage_users_path }
         it { User.last.confirmed?.should be true }
         it { User.last.approved?.should be true }
-        it { RecentActivity.where(owner_id: superuser.id, trackable_id: user.id, key: 'user.approved').should be_empty }
+        it('should not create an activity') { RecentActivity.where(key: 'user.approved').should be_empty }
       end
 
       describe "creates a new user with valid attributes and with the ability to record meetings" do

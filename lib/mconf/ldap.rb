@@ -112,11 +112,10 @@ module Mconf
         user = User.new(params)
         user.skip_confirmation!
         if user.save
-          RecentActivity.create key: 'ldap.user.created', owner: ldap_token,
-                                trackable: user, notified: false
+          create_notification(user, ldap_token)
         else
           Rails.logger.error "LDAP: error while saving the user model"
-          Rails.logger.error "Errors: " + user.errors.full_messages.join(", ")
+          Rails.logger.error "LDAP: errors: " + user.errors.full_messages.join(", ")
           user = nil
         end
       end
@@ -140,6 +139,14 @@ module Mconf
         name = ldap_user.cn
       end
       [username, email, name]
+    end
+
+    private
+
+    def create_notification(user, token)
+      RecentActivity.create(
+        key: 'ldap.user.created', owner: token, trackable: user, notified: false
+      )
     end
 
   end

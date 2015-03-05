@@ -536,12 +536,13 @@ describe Mconf::Shibboleth do
       it("should not be disabled") { @subject.disabled.should be_falsey }
       it("should not be a superuser") { @subject.superuser.should be_falsey }
 
-      context "generates a RecentActivity" do
+      context "creates a RecentActivity" do
         subject { RecentActivity.where(key: 'shibboleth.user.created').last }
         it("should exist") { subject.should_not be_nil }
         it("should point to the right trackable") { subject.trackable.should eq(User.last) }
         it("should be owned by a ShibToken") { subject.owner.class.should be(ShibToken) }
         it("should be owned by the correct ShibToken") { subject.owner_id.should eql(token.id) }
+        it("should be unnotified") { subject.notified.should be(false) }
       end
     end
 
@@ -569,7 +570,7 @@ describe Mconf::Shibboleth do
       it("expects errors on :email") { subject.errors.should have_key(:email) }
       it("expects errors on :username") { subject.errors.should have_key(:username) }
       it("expects errors on :_full_name") { subject.errors.should have_key(:_full_name) }
-      it("should not create RecentActivity") { RecentActivity.where(key: 'shibboleth.user.created').should be_empty }
+      it("should not create an activity") { RecentActivity.where(key: 'shibboleth.user.created').should be_empty }
     end
   end
 

@@ -55,6 +55,7 @@ describe UserNotificationsWorker do
         end
 
         context "ignores users that were already approved" do
+          let!(:admin) { FactoryGirl.create(:superuser) }
           let!(:user1) { FactoryGirl.create(:user, approved: true) }
           let!(:user2) { FactoryGirl.create(:user, approved: true) }
 
@@ -67,6 +68,20 @@ describe UserNotificationsWorker do
           let!(:user1) { FactoryGirl.create(:user, approved: false) }
 
           before(:each) { worker.perform }
+
+          it { expect(UserNeedsApprovalSenderWorker).to have_queue_size_of(0) }
+        end
+
+        context "when the target user cannot be found" do
+          let!(:admin) { FactoryGirl.create(:superuser) }
+          let!(:user1) { FactoryGirl.create(:user, approved: false) }
+
+          before(:each) {
+            activity = RecentActivity.where(key: 'user.created', trackable: user1).first
+            activity.update_attribute(:trackable_id, 0)
+            puts activity.inspect
+            worker.perform
+          }
 
           it { expect(UserNeedsApprovalSenderWorker).to have_queue_size_of(0) }
         end
@@ -144,55 +159,54 @@ describe UserNotificationsWorker do
 
         it { expect(UserApprovedSenderWorker).to have_queue_size_of(0) }
       end
+    end
 
-      shared_examples "creation of activities and mails" do
-        context "creates the RecentActivity" do
-          it { activity.trackable.should eql @user }
-          it { activity.owner.should eql token }
-          it { activity.notified.should be_falsey }
-        end
-
-        context "#perform sends the right mails and updates the activity" do
-          before(:each) { worker.perform }
-
-          it { UserMailer.should have_queue_size_of 1 }
-          it { UserMailer.should have_queued(:registration_notification_email, @user.id) }
-          it { activity.reload.notified.should eql true }
-        end
+    shared_examples "creation of activities and mails" do
+      context "creates the RecentActivity" do
+        it { activity.trackable.should eql @user }
+        it { activity.owner.should eql token }
+        it { activity.notified.should be(false) }
       end
 
-      context "notifies the users created via Shibboleth" do
-        let(:shibboleth) { Mconf::Shibboleth.new({}) }
-        let(:token) { ShibToken.create!(identifier: 'any@email.com') }
-        let(:activity) { RecentActivity.where(key: 'shibboleth.user.created').last }
+      context "#perform sends the right mails and updates the activity" do
+        before(:each) { worker.perform }
 
-        before {
-          shibboleth.should_receive(:get_email).at_least(:once).and_return('any@email.com')
-          shibboleth.should_receive(:get_login).and_return('any-login')
-          shibboleth.should_receive(:get_name).and_return('Any Name')
-        }
-        before(:each) {
-          expect { @user = shibboleth.create_user token }.to change{ User.count }.by(1)
-        }
-
-        include_examples "creation of activities and mails"
-      end
-
-      context "notifies the users created via LDAP" do
-        let(:ldap) { Mconf::LDAP.new({}) }
-        let(:token) { LdapToken.create!(identifier: 'any@ema.il') }
-        let(:activity) { RecentActivity.where(key: 'ldap.user.created').last }
-
-        before {
-          expect {
-            @user = ldap.send(:create_account, 'any@ema.il', 'any-username', 'John Doe', token)
-          }.to change { User.count }.by(1)
-        }
-
-        include_examples "creation of activities and mails"
-
+        it { expect(UserRegisteredSenderWorker).to have_queue_size_of(1) }
+        it { expect(UserRegisteredSenderWorker).to have_queued(activity.id) }
       end
     end
+
+    context "notifies the users created via Shibboleth" do
+      let(:shibboleth) { Mconf::Shibboleth.new({}) }
+      let(:token) { ShibToken.create!(identifier: 'any@email.com') }
+      let(:activity) { RecentActivity.where(key: 'shibboleth.user.created').last }
+
+      before {
+        shibboleth.should_receive(:get_email).at_least(:once).and_return('any@email.com')
+        shibboleth.should_receive(:get_login).and_return('any-login')
+        shibboleth.should_receive(:get_name).and_return('Any Name')
+      }
+      before(:each) {
+        expect { @user = shibboleth.create_user token }.to change{ User.count }.by(1)
+      }
+
+      include_examples "creation of activities and mails"
+    end
+
+    context "notifies the users created via LDAP" do
+      let(:ldap) { Mconf::LDAP.new({}) }
+      let(:token) { LdapToken.create!(identifier: 'any@ema.il') }
+      let(:activity) { RecentActivity.where(key: 'ldap.user.created').last }
+
+      before {
+        expect {
+          @user = ldap.send(:create_account, 'any@ema.il', 'any-username', 'John Doe', token)
+        }.to change { User.count }.by(1)
+      }
+
+      include_examples "creation of activities and mails"
+    end
+
   end
 
 end

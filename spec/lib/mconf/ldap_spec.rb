@@ -87,6 +87,7 @@ describe Devise::Strategies::LdapAuthenticatable do
     # More at: https://github.com/hallelujah/valid_email/issues/22
     it "converts the id passed to a string"
   end
+
   describe "#create_account" do
     let(:ldap) { Mconf::LDAP.new({}) }
     let(:user) { FactoryGirl.create(:user) }
@@ -136,11 +137,12 @@ describe Devise::Strategies::LdapAuthenticatable do
         it ("should point to the right trackable") { subject.trackable.should eq(User.last) }
         it ("should be owned by an LdapToken") { subject.owner.class.should be(LdapToken) }
         it ("should be owned by the correct LdapToken") { subject.owner_id.should eql(token.id) }
+        it("should be unnotified") { subject.notified.should be(false) }
       end
 
     end
 
-    shared_examples "try to create account and check RecentActivity" do
+    shared_examples "fails to create account and RecentActivity" do
       before(:each) {
         expect {
           @subject = ldap.send(:create_account, email, username, name, token)
@@ -148,7 +150,7 @@ describe Devise::Strategies::LdapAuthenticatable do
       }
 
       it("user should not be created") { @subject.should be_nil }
-      it("activity should not be created") { RecentActivity.where(key: 'ldap.user.created').should be_empty }
+      it("should not create an activity") { RecentActivity.where(key: 'ldap.user.created').should be_empty }
     end
 
     context "with invalid data" do
@@ -159,20 +161,21 @@ describe Devise::Strategies::LdapAuthenticatable do
 
       context "email not informed" do
         let(:email) { '' }
-        include_examples "try to create account and check RecentActivity"
+        include_examples "fails to create account and RecentActivity"
       end
 
       context "username not informed" do
         let(:username) { '' }
-        include_examples "try to create account and check RecentActivity"
+        include_examples "fails to create account and RecentActivity"
       end
 
       context "name not informed" do
         let(:name) { '' }
-        include_examples "try to create account and check RecentActivity"
+        include_examples "fails to create account and RecentActivity"
       end
 
     end
+
     # These tests are here to prevent errors when creating the token, because the id passed is
     # usually not a standard ruby string, but a Net::BER::BerIdentifiedString created by net-ldap.
     # More at: https://github.com/hallelujah/valid_email/issues/22
