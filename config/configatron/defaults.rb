@@ -24,11 +24,6 @@ config_env = full_config[Rails.env]
 config.merge!(config_env) unless config_env.nil?
 configatron.configure_from_hash(config)
 
-# List of locales available in the application.
-# We can't use `I18n.available_locales` because it returns all locales available including the
-# ones included by gems, so if a gem has any locale the application doesn't, it would show up.
-configatron.i18n.default_locales = [:en, :"pt-br"]
-
 # Whether or not the event module was loaded.
 # Use to know whether things like routes, helpers, and abilities from the module should be
 # loaded.

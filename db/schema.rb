@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150225170306) do
+ActiveRecord::Schema.define(version: 20150309160007) do
 
   create_table "activities", force: true do |t|
     t.integer  "trackable_id"
@@ -368,13 +368,14 @@ ActiveRecord::Schema.define(version: 20150225170306) do
     t.string   "ldap_username_field"
     t.string   "ldap_email_field"
     t.string   "ldap_name_field"
-    t.boolean  "require_registration_approval",  default: false, null: false
+    t.boolean  "require_registration_approval",  default: false,                  null: false
     t.boolean  "events_enabled",                 default: false
-    t.boolean  "registration_enabled",           default: true,  null: false
+    t.boolean  "registration_enabled",           default: true,                   null: false
     t.string   "shib_principal_name_field"
     t.string   "ldap_filter"
     t.boolean  "shib_always_new_account",        default: false
     t.boolean  "local_auth_enabled",             default: true
+    t.string   "visible_locales",                default: "---\n- en\n- pt-br\n"
   end
 
   create_table "spaces", force: true do |t|

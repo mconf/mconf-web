@@ -195,6 +195,7 @@ en:
         smtp_use_tls: "Use TLS in STMP"
         ssl: "SSL"
         timezone: "Timezone"
+        visible_locales: "Visible languages"
         xmpp_server: "XMPP Server Address"
         webconf_auto_record: "Automatically set the recording flag when creating a web conference"
       space:
@@ -907,6 +908,7 @@ en:
   less: "less..."
   locales: 
     en: English
+    es-419: "Español (América Latina)"
     pt-br: "Português (Brasil)"
     error: "Locale not registered"
   login_or_register: "Login / Register"

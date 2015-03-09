@@ -195,6 +195,7 @@ pt-br:
         smtp_use_tls: "Usar TLS no STMP"
         ssl: "SSL"
         timezone: "Fuso horário"
+        visible_locales: "Linguagens visíveis"
         xmpp_server: "Endereço do servidor XMPP"
         webconf_auto_record: "Atribuir automaticamente a opção de gravação ao iniciar uma conferência"
       space:
@@ -907,6 +908,7 @@ pt-br:
   less: "menos..."
   locales:
     en: English
+    es-419: "Español (América Latina)"
     pt-br: "Português (Brasil)"
     error: "Linguagem não resgistrada"
   login_or_register: "Login / Registre-se"

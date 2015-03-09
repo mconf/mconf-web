@@ -1,0 +1,69 @@
+es-419:
+  application_mailer:
+    feedback_email:
+      content: "%{email} envió el siguiente comentario:"
+      subject: "Comentario"
+  admin_mailer:
+    new_user_waiting_for_approval:
+      subject: "Un nuevo usuario está esperando la aprobación"
+      click_here: "Click <a href=\"%{url}\">aquí</a> para administrar usuarios."
+    new_user_approved:
+      subject: "Su registro ha sido aprobado"
+  user_mailer:
+    registration_notification_email:
+      click_here: "Click <a href=\"%{url}\">aquí</a> para ir a su página de inicio."
+      subject: "Su registro ha sido completado"
+  event_mailer:
+    invitation_email:
+      message:
+        start: "Comienza en"
+        end: "Finaliza en"
+        header: "Ha sido invitado al evento <b>%{event}</b> por <b>%{sender}</b> (%{email_sender}):"
+      subject: "Ha sido invitado al evento %{event}"
+  space_mailer:
+    invitation_email:
+      message:
+        header: "Ha sido invitado por <b>%{sender}</b> (%{email_sender}) a unirse al espacio <b>%{space}</b>:"
+        link: "Para aceptar la invitación, por favor visite <a href=\"%{url}\">%{url}</a><br/>Puede encontrar mas información sobre este espacio en <a href=\"%{space_url}\">%{space_url}</a>"
+      subject: "%{username} lo invitó a unirse al espacio %{space}"
+    join_request_email:
+      message:
+        header: "<b>%{candidate}</b> quiere participar en el espacio %{space}, que es administrado por usted:"
+        link: "Para responder esta solicitud visite <a href=\"%{url}\">%{url}</a>"
+      subject: "%{candidate} quiere participar en el espacio %{space}"
+    processed_invitation_email:
+      accepted: "aceptó"
+      message:
+        header: "%{name} %{action} la invitación al espacio %{space}"
+        link: "Puede ver la lista actual de usuarios del espacio en <a href=\"%{users_url}\">%{users_url}</a>"
+      rejected: "no aceptó"
+      subject: "%{name} %{action} su invitación"
+    processed_join_request_email:
+      accepted: "aceptó"
+      message:
+        header: "El administrador de %{space} %{action} su solicitud para unirse."
+        link:
+          accepted: "Ahora es miembro de %{space} y puede acceder a él en <a href=\"%{space_url}\">%{space_url}</a>"
+          rejected: "Si desea solicitar nuevamente la membresía, por favor diríjase a <a href=\"%{space_url}\">%{space_url}</a>"
+      rejected: "no aceptó"
+      subject: "Su admisión en %{space} fue %{action}"
+  web_conference_mailer:
+    invitation_email:
+      event_name: "Reunión con %{name}"
+      message:
+        description: "Descripción"
+        end: "Fin"
+        header: "Ha sido invitado por <b>%{sender}</b> (%{email_sender}) a una reunion:"
+        join: "Sala"
+        password: "Clave de acceso"
+        start: "Comienzo"
+        subject: "Sujeto"
+      subject: "Invitación a videoconferencia"
+  shared:
+    invitation_email:
+      message:
+        subject: "Sujeto"
+        description: "Descrición"
+        start: "Comienzo"
+        end: "Fin"
+        join: "Sala"
