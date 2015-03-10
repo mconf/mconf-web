@@ -819,7 +819,8 @@ describe UsersController do
         it { should redirect_to manage_users_path }
         it { User.last.confirmed?.should be true }
         it { User.last.approved?.should be true }
-        it('should not create an activity') { RecentActivity.where(key: 'user.approved').should be_empty }
+        it('should create an user created activity') { RecentActivity.where(key: 'user.created_by_admin').should_not be_empty }
+        it('should not create an user approved activity') { RecentActivity.where(key: 'user.approved').should be_empty }
       end
 
       describe "creates a new user with valid attributes and with the ability to record meetings" do
@@ -879,6 +880,8 @@ describe UsersController do
           it { User.last.confirmed?.should be true }
           it { User.last.approved?.should be true }
           it { User.last.can_record.should_not be true }
+          it('should create an user created activity') { RecentActivity.where(key: 'user.created_by_admin').should_not be_empty }
+          it('should create an user approved activity') { RecentActivity.where(key: 'user.approved').should_not be_empty }
         end
 
         describe "creates a new user with valid attributes and with the ability to record meetings" do
