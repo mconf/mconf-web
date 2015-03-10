@@ -278,12 +278,18 @@ class User < ActiveRecord::Base
     Space.where(:id => ids)
   end
 
+  attr_accessor :notified
+
   after_create :new_activity_user_created
   def new_activity_user_created
-    create_activity 'created', owner: self, notified: !site_needs_approval?
+    if notified
+      create_activity 'created_by_admin', owner: self, notified: false
+    else
+      create_activity 'created', owner: self, notified: !site_needs_approval?
+    end
   end
 
   def new_activity_user_approved(approved_by)
-    create_activity 'approved', owner: approved_by
+    create_activity 'approved', owner: approved_by, notified: notified
   end
 end

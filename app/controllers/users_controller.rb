@@ -193,11 +193,14 @@ class UsersController < ApplicationController
   end
 
   def create
+    params[:user][:notified] = true
     @user = User.new(user_params)
+    @user.skip_confirmation_notification!
 
     if @user.save
       @user.confirm!
       @user.approve!
+      @user.create_approval_notification(@user) if current_site.require_registration_approval?
       flash[:success] = t("users.create.success")
       respond_to do |format|
         format.html { redirect_to manage_users_path }
@@ -221,7 +224,7 @@ class UsersController < ApplicationController
   def allowed_params
     allowed = [ :password, :password_confirmation, :remember_me, :current_password,
       :login, :approved, :disabled, :timezone, :can_record, :receive_digest, :expanded_post ]
-    allowed += [:email, :username, :_full_name] if current_user.superuser? and (params[:action] == 'create')
+    allowed += [:email, :username, :_full_name, :notified] if current_user.superuser? and (params[:action] == 'create')
     allowed += [:superuser] if current_user.superuser? && current_user != @user
     allowed
   end
