@@ -121,14 +121,14 @@ describe SpacesController do
     it { should_authorize Space, :index }
 
     context "order by latest activities in the space" do
-      let(:now) { Time.now }
-      let(:spaces) {[
+      let!(:now) { Time.now }
+      let!(:spaces) {[
         FactoryGirl.create(:space), FactoryGirl.create(:space), FactoryGirl.create(:space)
       ]}
       let!(:activities) {[
-        RecentActivity.create(owner: spaces[0], created_at: now),            # 3rd
-        RecentActivity.create(owner: spaces[1], created_at: now + 2.second), # 1st
-        RecentActivity.create(owner: spaces[2], created_at: now + 1.second)  # 2nd
+        RecentActivity.create(owner: spaces[0], created_at: now),             # 3rd
+        RecentActivity.create(owner: spaces[1], created_at: now + 2.seconds), # 1st
+        RecentActivity.create(owner: spaces[2], created_at: now + 1.second)   # 2nd
       ]}
 
       before { get :index }
@@ -143,7 +143,6 @@ describe SpacesController do
           before {
             s1 = FactoryGirl.create(:space)
             s2 = FactoryGirl.create(:space)
-            s3 = FactoryGirl.create(:space)
             s1.add_member!(user, 'User')
             s2.add_member!(user, 'Admin')
             @user_spaces = [s1, s2]

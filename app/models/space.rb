@@ -116,16 +116,24 @@ class Space < ActiveRecord::Base
     Space::USER_ROLES.map { |r| Role.find_by_name(r) }
   end
 
-  def last_activitity
+  def last_activity
     RecentActivity.where(owner: self).last
   end
 
   # Order by when the last activity in the space happened
   scope :order_by_activity, -> {
-    last_act = all.map(&:last_activitity)
-    joins("LEFT JOIN activities ON activities.owner_type = 'Space' AND activities.owner_id = spaces.id")
-    .where(activities: {id: last_act})
-    .order("activities.created_at DESC")
+    join = <<-eos
+      LEFT JOIN activities
+        ON ( (activities.owner_type = 'Space' AND activities.owner_id = spaces.id) OR
+             (activities.owner_type = 'BigbluebuttonRoom' AND activities.owner_id = bigbluebutton_rooms.id) )
+    eos
+
+    # note: we need this "*", otherwise it will select only spaces.* and the result will be different
+    select("*")
+      .uniq
+      .joins(:bigbluebutton_room)
+      .joins(join)
+      .order("activities.created_at DESC")
   }
 
   # Returns the next 'count' events (starting in the current date) in this space.

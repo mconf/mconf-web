@@ -288,6 +288,28 @@ describe Space do
     it { Space.public_spaces.should include(@public2) }
   end
 
+  describe ".order_by_activity" do
+    let!(:now) { Time.now }
+    let!(:spaces) do
+      [
+        FactoryGirl.create(:space),
+        FactoryGirl.create(:space),
+        FactoryGirl.create(:space),
+        FactoryGirl.create(:space)
+      ]
+    end
+    let!(:activities) do
+      [
+        RecentActivity.create(owner: spaces[0], created_at: now),             # 3rd
+        RecentActivity.create(owner: spaces[1], created_at: now + 2.seconds), # 1st
+        RecentActivity.create(owner: spaces[2], created_at: now + 1.second),  # 2nd
+        RecentActivity.create(owner: spaces[3], created_at: now - 1.hour)     # 4th
+      ]
+    end
+
+    it { Space.order_by_activity.should be_a(ActiveRecord::Relation) }
+    it { Space.order_by_activity.all.should == [spaces[1].reload, spaces[2].reload, spaces[0].reload, spaces[3].reload] }
+  end
 
   describe ".logo_image" do
     let!(:logo) { Rack::Test::UploadedFile.new(File.open(File.join(Rails.root, '/spec/fixtures/files/test-logo.png'))) }

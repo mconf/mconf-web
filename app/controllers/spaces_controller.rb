@@ -34,7 +34,7 @@ class SpacesController < ApplicationController
   end
 
   def index
-    if params[:view].nil? or params[:view] != "list"
+    if params[:view].nil? || params[:view] != "list"
       params[:view] = "thumbnails"
     end
     spaces = Space.all
