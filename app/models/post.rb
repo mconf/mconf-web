@@ -47,7 +47,20 @@ class Post < ActiveRecord::Base
   end
 
   def new_activity key, user
-    create_activity key, :owner => space, :parameters => { :username => user.name, :user_id  => user.id}
+    params = { :username => user.name, :user_id  => user.id}
+
+    attr_changed = previous_changes.except('updated_at').keys
+    if key.to_s == 'update'
+      # Save changed attributes
+      if attr_changed.present?
+        params.merge!({ changed_attributes: attr_changed })
+      # Don't create activity if model was updated and nothing changed
+      else
+        return
+      end
+    end
+
+    create_activity key, :owner => space, parameters: params
   end
 
 end
