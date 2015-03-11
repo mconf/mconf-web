@@ -141,6 +141,8 @@ class Space < ActiveRecord::Base
       create_activity key, owner: join_request, parameters: { user_id: user.id, username: user.name }
     else
       params = { user_id: user.id, username: user.name }
+      # Treat update_logo and update as the same key
+      key = 'update' if key == 'update_logo'
 
       attr_changed = previous_changes.except('updated_at').keys
       if key == 'update'

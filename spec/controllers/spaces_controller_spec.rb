@@ -455,6 +455,33 @@ describe SpacesController do
       it { should redirect_to(referer) }
       it { should set_the_flash.to(I18n.t("space.updated")) }
     end
+
+    context "changing some parameters" do
+      let(:space_params) { {name: "#{space.name}_new", description: "#{space.description} new" } }
+      before(:each) {
+        expect {
+          put :update, :id => space.to_param, :space => space_params
+        }.to change {RecentActivity.count}.by(1)
+      }
+
+      it { RecentActivity.last.key.should eq('space.update') }
+      it { RecentActivity.last.parameters[:changed_attributes].should eq(['name', 'description']) }
+      it { should redirect_to(referer) }
+      it { should set_the_flash.to(I18n.t("space.updated")) }
+    end
+
+    context "changing the logo_image parameter" do
+      let(:space_params) { { space: {}, format: 'json', id: space.to_param, uploaded_file: Rack::Test::UploadedFile.new(File.open(File.join(Rails.root, '/spec/fixtures/files/test-logo.png'))) } }
+
+      before(:each) {
+        expect {
+          post :update_logo, space_params
+        }.to change {RecentActivity.count}.by(1)
+      }
+
+      it { RecentActivity.last.key.should eq('space.update') }
+      it { RecentActivity.last.parameters[:changed_attributes].should eq(['logo_image']) }
+    end
   end
 
   describe "#destroy" do
