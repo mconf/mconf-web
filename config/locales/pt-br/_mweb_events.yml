@@ -63,6 +63,8 @@ pt-br:
         public: "Evento público"
         starts_at: "Inicia em"
     participants:
+      create:
+        waiting_confirmation: Registro completo. Em breve você irá receber um email com instruções para completar sua inscrição
       index:
         back_to_event: "Voltar para a página do evento"
         disable: Remover do evento

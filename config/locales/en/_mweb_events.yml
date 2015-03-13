@@ -63,6 +63,8 @@ en:
         public: "Public event"
         starts_at: "Starts at"
     participants:
+      create:
+        waiting_confirmation: Registration received. You will soon receive an email with instructions to complete your registration
       index:
         back_to_event: "Go back to the event page"
         disable: Remove from event
