@@ -30,6 +30,7 @@ en:
       subject: "Confirm your registration in the event \"%{event}\""
       header: "Hello %{email},"
       message: "To complete your registration in the event \"%{event}\", please confirm your email by <a href=\"%{url}\">clicking here</a>."
+      cancel: "Or click <a href=\"%{url}\">here</a> cancel registration in this event"
   space_mailer:
     invitation_email:
       message:
