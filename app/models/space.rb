@@ -135,8 +135,8 @@ class Space < ActiveRecord::Base
     p.save!
   end
 
-  # Creates a new activity pertraining this space
-  def new_activity key, user, join_request=nil
+  # Creates a new activity related to this space
+  def new_activity(key, user, join_request = nil)
     if join_request
       create_activity key, owner: join_request, parameters: { user_id: user.id, username: user.name }
     else
@@ -145,14 +145,12 @@ class Space < ActiveRecord::Base
       key = 'update' if key == 'update_logo'
 
       attr_changed = previous_changes.except('updated_at').keys
+
       if key == 'update'
-        # Save changed attributes
-        if attr_changed.present?
-          params.merge!({ changed_attributes: attr_changed })
-        # Don't create activity if model was updated and nothing changed
-        else
-          return
-        end
+        # Don't create activity if the model was updated and nothing changed
+        return unless attr_changed.present?
+
+        params.merge!(changed_attributes: attr_changed)
       end
 
       create_activity key, owner: self, parameters: params

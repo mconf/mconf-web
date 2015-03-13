@@ -3,7 +3,7 @@ pt-br:
   activities:
     attachment:
       create_html: enviou o arquivo %{name} na comunidade
-      delete_html: removou o arquivo %{name} na comunidade
+      destroy_html: removou o arquivo %{name} na comunidade
       update_html: atualizou o arquivo %{name} na comunidade
       deleted: que não existe mais
     bigbluebutton_meeting:
