@@ -1,7 +1,6 @@
 class ParticipantConfirmation < ActiveRecord::Base
   belongs_to :participant, dependent: :destroy, :class_name => "MwebEvents::Participant"
   before_create :generate_token
-  after_create :send_participant_confirmation
 
   delegate :email, to: :participant
 
@@ -19,10 +18,5 @@ class ParticipantConfirmation < ActiveRecord::Base
 
   def confirmed?
     confirmed_at.present?
-  end
-
-  private
-  def send_participant_confirmation
-    ParticipantConfirmationMailer.confirmation_email(id).deliver!
   end
 end

@@ -247,7 +247,8 @@ ActiveRecord::Schema.define(version: 20150113164404) do
   create_table "participant_confirmations", force: true do |t|
     t.string   "token"
     t.integer  "participant_id"
-    t.string   "confirmed_at"
+    t.datetime "confirmed_at"
+    t.datetime "email_sent_at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

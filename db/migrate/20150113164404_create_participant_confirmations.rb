@@ -4,7 +4,8 @@ class CreateParticipantConfirmations < ActiveRecord::Migration
       ## Confirmable
       t.string   :token
       t.integer  :participant_id
-      t.string   :confirmed_at
+      t.datetime :confirmed_at
+      t.datetime :email_sent_at
       t.timestamps
     end
   end
