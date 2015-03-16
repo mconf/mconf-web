@@ -115,11 +115,14 @@ describe SpacesController do
   describe "#index" do
     it "sets param[:view] to 'thumbnails' if not set"
     it "sets param[:view] to 'thumbnails' if different than 'list'"
-    it "uses param[:view] as 'list' if already set to this value"
+    it "uses param[:view] as 'list' if set to this value"
+    it "sets param[:order] to 'relevance' if not set"
+    it "sets param[:order] to 'relevance' if different than 'abc'"
+    it "uses param[:order] as 'abc' if set to this value"
 
     it { should_authorize Space, :index }
 
-    context "order by latest activities in the space" do
+    context "orders by latest activities in the space" do
       let!(:now) { Time.now }
       let!(:spaces) {[
         FactoryGirl.create(:space), FactoryGirl.create(:space), FactoryGirl.create(:space)
@@ -134,6 +137,8 @@ describe SpacesController do
       before { get :index }
       it { should assign_to(:spaces).with([spaces[1], spaces[2], spaces[0]]) }
     end
+
+    it "orders by name if params[:order]=='abc'"
 
     context "if there's a user signed in" do
 

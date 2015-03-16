@@ -34,14 +34,18 @@ class SpacesController < ApplicationController
   end
 
   def index
-    if params[:view].nil? || params[:view] != "list"
-      params[:view] = "thumbnails"
-    end
+    params[:view] = 'thumbnails' if params[:view].nil? || params[:view] != 'list'
+    params[:order] = 'relevance' if params[:order].nil? || params[:order] != 'abc'
+
     spaces = Space.all
     @user_spaces = user_signed_in? ? current_user.spaces : Space.none
 
     @spaces = params[:my_spaces] ? @user_spaces : spaces
-    @spaces = @spaces.order_by_activity.paginate(:page => params[:page], :per_page => 18)
+    if params[:order] == 'abc'
+      @spaces = @spaces.order('name ASC').paginate(:page => params[:page], :per_page => 18)
+    else
+      @spaces = @spaces.order_by_activity.paginate(:page => params[:page], :per_page => 18)
+    end
 
     session[:current_tab] = "Spaces" if @space
 
