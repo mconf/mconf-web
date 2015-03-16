@@ -120,24 +120,47 @@ class Space < ActiveRecord::Base
     RecentActivity.where(owner: self).last
   end
 
-  # Order by when the last activity in the space happened
+  # Order by when the last activity in the space happened.
+  # OPTIMIZE: Couldn't find a way to make Space.order_by_activity.count work. This query
+  #   doesn't work well when a COUNT() goes around it.
   scope :order_by_activity, -> {
-    join = <<-eos
-      LEFT JOIN activities
-        ON ( (activities.owner_type = 'Space' AND activities.owner_id = spaces.id) OR
-             (activities.owner_type = 'BigbluebuttonRoom' AND activities.owner_id = bigbluebutton_rooms.id) )
-    eos
-
-    # note: we need this "*", otherwise it will select only spaces.* and the result will be different
-    select("*")
-      .uniq
-      .joins(:bigbluebutton_room)
-      .joins(join)
-      .order("activities.created_at DESC")
+    Space.default_join_for_activities(Space.arel_table[Arel.star],
+                                      'MAX(`activities`.`created_at`) AS lastActivity')
+      .group(Space.arel_table[:id])
+      .order('lastActivity DESC')
   }
 
+  # Order by relevance: spaces that are currently more relevant to show to the users.
+  # Orders primarily by the last activity in the space, considering only the date and ignoring
+  # the time. Then orders by the number of activities.
+  # OPTIMIZE: Couldn't find a way to make Space.order_by_relevance.count work. This query
+  #   doesn't work well when a COUNT() goes around it.
+  scope :order_by_relevance, -> {
+    Space.default_join_for_activities(Space.arel_table[Arel.star],
+                                      'MAX(DATE(`activities`.`created_at`)) AS lastActivity',
+                                      'COUNT(`activities`.`id`) AS activityCount')
+      .group(Space.arel_table[:id])
+      .order('lastActivity DESC').order('activityCount DESC')
+  }
+
+  # Returns a relation with a pre-configured join that can be used in queries to find recent
+  # activities related to a space.
+  def self.default_join_for_activities(*args)
+    join_on = RecentActivity.arel_table[:owner_type].eq(Space.name)
+      .and(RecentActivity.arel_table[:owner_id].eq(Space.arel_table[:id]))
+      .or(RecentActivity.arel_table[:owner_type].eq(BigbluebuttonRoom.name)
+            .and(RecentActivity.arel_table[:owner_id].eq(BigbluebuttonRoom.arel_table[:id]))).to_sql
+    join_sql = "LEFT JOIN #{RecentActivity.table_name} ON (#{join_on})"
+
+    if args.count > 0
+      select(args).joins(:bigbluebutton_room).joins(join_sql)
+    else
+      joins(:bigbluebutton_room).joins(join_sql)
+    end
+  end
+
   # Returns the next 'count' events (starting in the current date) in this space.
-  def upcoming_events(count=5)
+  def upcoming_events(count = 5)
     self.events.upcoming.order("start_on ASC").first(5)
   end
 

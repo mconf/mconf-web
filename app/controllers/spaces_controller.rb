@@ -43,9 +43,8 @@ class SpacesController < ApplicationController
     @spaces = params[:my_spaces] ? @user_spaces : spaces
     @spaces = @spaces.order_by_activity.paginate(:page => params[:page], :per_page => 18)
 
-    if @space
-       session[:current_tab] = "Spaces"
-    end
+    session[:current_tab] = "Spaces" if @space
+
     if params[:manage]
       session[:current_tab] = "Manage"
       session[:current_sub_tab] = "Spaces"

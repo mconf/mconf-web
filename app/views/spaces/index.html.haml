@@ -33,10 +33,10 @@
         %p.details
           - if space.users.include?(current_user)
             %span.is-member= t('space.index.user_is_member')
-          %span= t('space.member_count', :count => space.users.count)
-          %span= t('space.post_count', :count => space.posts.count)
+          %span= t('space.member_count', :count => space.users.size)
+          %span= t('space.post_count', :count => space.posts.size)
           - if mod_enabled?("events")
-            %span= t('space.event_count', :count => space.events.count)
+            %span= t('space.event_count', :count => space.events.size)
         - if has_access
           %p.action-links
             = link_to t('more'), space_path(space)
@@ -62,7 +62,7 @@
 - else
   #spaces.content-block
     .content-block-middle.clearfix
-      = render "spaces/thumbnail_view", :spaces => @spaces, :user_spaces => @user_spaces
+      = render "spaces/thumbnail_view", :spaces => @spaces
 
 - nav = page_navigation_links @spaces
 - unless nav.nil?

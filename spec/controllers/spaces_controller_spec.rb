@@ -116,7 +116,6 @@ describe SpacesController do
     it "sets param[:view] to 'thumbnails' if not set"
     it "sets param[:view] to 'thumbnails' if different than 'list'"
     it "uses param[:view] as 'list' if already set to this value"
-    # TODO: there's a lot more to test here
 
     it { should_authorize Space, :index }
 
@@ -126,9 +125,10 @@ describe SpacesController do
         FactoryGirl.create(:space), FactoryGirl.create(:space), FactoryGirl.create(:space)
       ]}
       let!(:activities) {[
-        RecentActivity.create(owner: spaces[0], created_at: now),             # 3rd
-        RecentActivity.create(owner: spaces[1], created_at: now + 2.seconds), # 1st
-        RecentActivity.create(owner: spaces[2], created_at: now + 1.second)   # 2nd
+        # order: [1], [2], [0]
+        RecentActivity.create(owner: spaces[0], created_at: now),
+        RecentActivity.create(owner: spaces[1], created_at: now + 2.days),
+        RecentActivity.create(owner: spaces[2], created_at: now + 1.day)
       ]}
 
       before { get :index }
