@@ -13,6 +13,6 @@ class News < ActiveRecord::Base
   validates_presence_of :title, :text, :space_id
 
   def new_activity key, user
-    create_activity key, :owner => space, :parameters => { :user_id => user.id, :username => user.name }
+    create_activity key, :owner => space, recipient: user, parameters: { :username => user.name }
   end
 end

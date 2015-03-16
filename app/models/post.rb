@@ -47,7 +47,7 @@ class Post < ActiveRecord::Base
   end
 
   def new_activity key, user
-    create_activity key, :owner => space, :parameters => { :username => user.name, :user_id  => user.id}
+    create_activity key, owner: space, recipient: user, parameters: { :username => user.name }
   end
 
 end

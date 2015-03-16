@@ -20,7 +20,7 @@
 #
 # * (trackable_id, trackable_type) trackable: The model to which the activity pertrains
 # * (owner_id, owner_type) owner: Another model which is linked as owner of the activity. Typically this is the user which performed said activity.
-# * (recipient_id, recipient_type) recipient: Not used in any model for now.
+# * (recipient_id, recipient_type) recipient: Tipically used for user responsible for the activity and who should see it in his activity stream
 # * key: A string indicating the trackable model plus the action which happened (e.g. "space.join").
 # * notified: A boolean informing whether the activity has already been notified to the user (usually this is done by a worker in background).
 # * parameters: Extra data about the activity which can be used to avoid extra database queries or store volatile data which may disappear or change
@@ -164,6 +164,7 @@ class RecentActivity < PublicActivity::Activity
   # All activities that are public and should be visible for a user
   # * +user+ - the user which activities will be returned
   def self.user_public_activity user
-    user_activity(user, ["space.decline"])
+    # Filter activities done by user_id
+    activities = user_activity(user, ["space.decline"]).where(recipient_id: user.id)
   end
 end
