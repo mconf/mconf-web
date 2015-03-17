@@ -413,14 +413,15 @@ namespace :db do
     end
 
     puts "* Adding some insecure data to test for script injection"
-    def attrs_to_hash klass, attrs
-      arr = attrs.map { |attr| [attr, "<script> alert('#{klass} #{attr} attribute is insecure in this page')</script>"] }
-      arr.to_h
-    end
+    add_insecure_data
+  end
 
-    profile_attrs = [:organization, :phone, :mobile, :fax, :address,
-      :city, :zipcode, :province, :country, :prefix_key, :description,
-      :url, :skype, :im, :full_name]
+  private
+
+  def add_insecure_data
+    profile_attrs = [:organization, :phone, :mobile, :fax, :address, :city,
+                     :zipcode, :province, :country, :prefix_key, :description,
+                     :url, :skype, :im, :full_name]
 
     # Create 2 insecure users
     u = FactoryGirl.create(:user, username: 'insecure1', password: '123456')
@@ -435,7 +436,7 @@ namespace :db do
     s.add_member!(u2)
 
     message_attrs = [:title, :body]
-    m = FactoryGirl.create(:private_message, attrs_to_hash(PrivateMessage, message_attrs).merge(receiver: u, sender: u2))
+    FactoryGirl.create(:private_message, attrs_to_hash(PrivateMessage, message_attrs).merge(receiver: u, sender: u2))
 
     post_attrs = [:title, :text]
     p = FactoryGirl.create(:post, attrs_to_hash(Post, post_attrs).merge(author: u2, space: s))
@@ -453,5 +454,10 @@ namespace :db do
 
     invitation_attrs = [:title, :description]
     FactoryGirl.create(:invitation, attrs_to_hash(Invitation, invitation_attrs).merge(type: "WebConferenceInvitation", recipient: u, sender: u2, target: u2.bigbluebutton_room))
+  end
+
+  def attrs_to_hash klass, attrs
+    arr = attrs.map { |attr| [attr, "<script> alert('#{klass} #{attr} attribute is insecure in this page')</script>"] }
+    arr.to_h
   end
 end
