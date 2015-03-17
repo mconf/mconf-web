@@ -153,6 +153,7 @@ feature 'Visitor logs in' do
 
       sign_in_with @user.username, @user.password, false
       expect(current_path).to eq(my_home_path)
+      has_success_message
     end
 
     scenario 'from the page to resend confirmation (/users/confirmation/new)' do
@@ -174,6 +175,7 @@ feature 'Visitor logs in' do
 
       sign_in_with @user.username, @user.password, false
       expect(current_path).to eq(my_home_path)
+      has_success_message
     end
 
     scenario 'from the page to sign in with shibboleth (/secure)' do
