@@ -53,9 +53,17 @@ feature "User registers in an event" do
         click_button t('mweb_events.participants.form.submit')
       }
 
-      it { has_success_message t('mweb_events.participant.created') }
+      it { has_success_message t('mweb_events.participants.create.waiting_confirmation') }
       it { current_path.should eq(mweb_events.event_path(event)) }
       it { should have_content t("mweb_events.events.registration.button") }
+    end
+
+    context "register as annonymous and confirms registration via email" do
+      skip
+    end
+
+    context "register as annonymous and cancels registration via email" do
+      skip
     end
 
     context "login then register as member" do

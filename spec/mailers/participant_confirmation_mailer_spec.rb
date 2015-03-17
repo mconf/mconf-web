@@ -63,12 +63,11 @@ describe ParticipantConfirmationMailer do
   context "calls the error handler on exceptions" do
     let(:exception) { Exception.new("test exception") }
     it {
-      skip
-      # with_resque do
-      #   BaseMailer.any_instance.stub(:render) { raise exception }
-      #   Mconf::MailerErrorHandler.should_receive(:handle).with(ParticipantConfirmationMailer, nil, exception, "confirmation_email", anything)
-      #   ParticipantConfirmationMailer.confirmation_email(1).deliver
-      # end
+      with_resque do
+        ParticipantConfirmationMailer.any_instance.stub(:confirmation_email) { raise exception }
+        Mconf::MailerErrorHandler.should_receive(:handle).with(ParticipantConfirmationMailer, nil, exception, "confirmation_email", anything)
+        ParticipantConfirmationMailer.confirmation_email(nil).deliver
+      end
     }
   end
 end
