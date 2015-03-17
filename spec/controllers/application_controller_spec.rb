@@ -73,6 +73,25 @@ describe ApplicationController do
           it { assigns(:result).should eql(:moderator) }
         end
 
+        context "and the user is not the owner but is a superuser" do
+          before {
+            controller.stub(:current_user).and_return(FactoryGirl.create(:superuser))
+            BigbluebuttonRoom.any_instance.stub(:is_running?).and_return(true)
+          }
+          before(:each) { get :index, :room_id => room.id }
+          it { assigns(:result).should eql(:attendee) }
+        end
+
+        context "and the user is not the owner but is a superuser and the room is not running" do
+          before {
+            controller.stub(:current_user).and_return(FactoryGirl.create(:superuser))
+            BigbluebuttonRoom.any_instance.stub(:is_running?).and_return(false)
+          }
+
+          before(:each) { get :index, :room_id => room.id }
+          it { assigns(:result).should eql(:moderator) }
+        end
+
         context "and the user is not the owner" do
           before { controller.stub(:current_user).and_return(FactoryGirl.create(:user)) }
           before(:each) { get :index, :room_id => room.id }
@@ -92,6 +111,25 @@ describe ApplicationController do
 
         context "and the user is the owner" do
           before { controller.stub(:current_user).and_return(user) }
+          before(:each) { get :index, :room_id => room.id }
+          it { assigns(:result).should eql(:moderator) }
+        end
+
+        context "and the user is not the owner but is a superuser" do
+          before {
+            controller.stub(:current_user).and_return(FactoryGirl.create(:superuser))
+            BigbluebuttonRoom.any_instance.stub(:is_running?).and_return(true)
+          }
+          before(:each) { get :index, :room_id => room.id }
+          it { assigns(:result).should eql(:attendee) }
+        end
+
+        context "and the user is not the owner but is a superuser and the room is not running" do
+          before {
+            controller.stub(:current_user).and_return(FactoryGirl.create(:superuser))
+            BigbluebuttonRoom.any_instance.stub(:is_running?).and_return(false)
+          }
+
           before(:each) { get :index, :room_id => room.id }
           it { assigns(:result).should eql(:moderator) }
         end
@@ -199,6 +237,25 @@ describe ApplicationController do
           end
         end
 
+        context "and the user is not a member of the space but is a superuser" do
+          before {
+            controller.stub(:current_user).and_return(FactoryGirl.create(:superuser))
+            BigbluebuttonRoom.any_instance.stub(:is_running?).and_return(true)
+          }
+          before(:each) { get :index, :room_id => room.id }
+          it { assigns(:result).should eql(:attendee) }
+        end
+
+        context "and the user is not a member of the space but is a superuser and the room is not running" do
+          before {
+            controller.stub(:current_user).and_return(FactoryGirl.create(:superuser))
+            BigbluebuttonRoom.any_instance.stub(:is_running?).and_return(false)
+          }
+
+          before(:each) { get :index, :room_id => room.id }
+          it { assigns(:result).should eql(:moderator) }
+        end
+
         context "and the user is not a member of the space" do
           before { controller.stub(:current_user).and_return(user) }
           before(:each) { get :index, :room_id => room.id }
@@ -257,6 +314,25 @@ describe ApplicationController do
               it { assigns(:result).should eql(:moderator) }
             end
           end
+        end
+
+        context "and the user is not a member of the space but is a superuser" do
+          before {
+            controller.stub(:current_user).and_return(FactoryGirl.create(:superuser))
+            BigbluebuttonRoom.any_instance.stub(:is_running?).and_return(true)
+          }
+          before(:each) { get :index, :room_id => room.id }
+          it { assigns(:result).should eql(:attendee) }
+        end
+
+        context "and the user is not a member of the space but is a superuser and the room is not running" do
+          before {
+            controller.stub(:current_user).and_return(FactoryGirl.create(:superuser))
+            BigbluebuttonRoom.any_instance.stub(:is_running?).and_return(false)
+          }
+
+          before(:each) { get :index, :room_id => room.id }
+          it { assigns(:result).should eql(:moderator) }
         end
 
         context "and the user is not a member of the space" do
