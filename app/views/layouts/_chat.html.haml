@@ -8,7 +8,7 @@
   :javascript
     var chat_enabled = #{current_site.chat_enabled};
     if (chat_enabled){
-    var cookie = "AuthByCookie>>" + "#{cookies[Rails.application.config.session_options[:key]]}";
+    var cookie = "AuthByCookie>>" + "#{ escape_once(cookies[Rails.application.config.session_options[:key]]) }";
     var login = "#{current_user.username}";
     var name = "#{current_user.full_name}";
     var url = "#{main_app.join_webconf_url(current_user.bigbluebutton_room)}";
