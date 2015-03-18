@@ -1381,10 +1381,6 @@ en:
   show_advanced_editor: "Show advanced editor"
   show_list_version_arrows: "show list version >>"
   show_question: Show?
-  simple_captcha: 
-    label: "Insert here the text from the image"
-    message: 
-      user: "is incorrect"
   site:
     updated: "Site configurations updated"
   size: Size

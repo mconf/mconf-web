@@ -1381,10 +1381,6 @@ pt-br:
   show_advanced_editor: "Exibir editor avançado"
   show_list_version_arrows: "exibir versão em lista >>"
   show_question: Exibir?
-  simple_captcha:
-    label: "Insira aqui o texto da imagem"
-    message: 
-      user: "é incorreta"
   site:
     updated: "Configurações do site atualizadas"
   size: Tamanho
