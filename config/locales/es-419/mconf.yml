@@ -1372,10 +1372,6 @@ es-419:
   show_advanced_editor: "Mostrar editor avanzado"
   show_list_version_arrows: "mostrar lista de versiones >>"
   show_question: ¿Mostrar?
-  simple_captcha:
-    label: "Inserte aquí el texto de la imágen"
-    message:
-      user: "es incorrecto"
   site:
     updated: "Configuracion del sitio actualizada"
   size: Tamaño

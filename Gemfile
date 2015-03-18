@@ -97,8 +97,6 @@ gem 'active_sanity'
 #
 # TODO: Gems to review if we can remove/update
 #
-gem 'simple_captcha2', require: 'simple_captcha'
-# gem 'galetahub-simple_captcha', :require => 'simple_captcha'
 gem 'httparty'
 gem 'rubyzip', '>= 1.0.0' # will load new rubyzip version
 gem 'zip-zip' # will load compatibility for old rubyzip API.
