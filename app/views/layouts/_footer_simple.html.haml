@@ -3,7 +3,7 @@
     .link-group
       #footer-logo.link-group
         = link_to current_site.name, "/", :class => 'title'
-        %span= t('.copyright', :site => current_site.name)
+        %span= t('.copyright', site: current_site.name, year: Time.now.year)
     .link-group.languages
       %h3= t('.translate.change')
       %ul

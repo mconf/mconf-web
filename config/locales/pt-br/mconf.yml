@@ -878,7 +878,7 @@ pt-br:
       manage: "Gerenciar"
       register: "Registre-se"
     footer:
-      copyright: "© 2010-2014 %{site}."
+      copyright: "© 2010-%{year} %{site}."
       current_version: "Versão atual"
       find_us: "Mais sobre o Mconf em"
       github: GitHub
@@ -898,7 +898,7 @@ pt-br:
         help_us: "Quer este site na sua linguagem? Clique para saber como nos ajudar a traduzi-lo!"
       wiki: "Wiki"
     footer_simple:
-      copyright: "© 2010-2014 %{site}."
+      copyright: "© 2010-%{year} %{site}."
       translate:
         change: "Mudar a linguagem"
     spaces_page_title:
