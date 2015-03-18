@@ -1,0 +1,98 @@
+es-419:
+  simple_form:
+    'yes': 'Si'
+    'no': 'No'
+    required:
+      text: 'requerido'
+      mark: '*'
+    error_notification:
+      default_message: "Se encontraron algunos errores. Por favor, verifique:"
+    buttons:
+      cancel: "Cancelar"
+      or: "o"
+    labels:
+      feedback:
+        from: "Su correo electrónico"
+      user:
+        edit:
+          password: "Contraseña nueva"
+    hints:
+      invite:
+        users: "Buscar personas por nombre o correo electrónico. En caso de no encontrarlos, agregue la dirección de correo electrónico. Escriba y presione ENTER para agregar nuevo ítem."
+      site:
+        analytics_code: "Codigo de su cuenta Google Analytics. Dejar en blanco para deshabilitar. Ejemplo: \"UA-12345678-9\""
+        domain: "El dominio de su sitio web. No incluya el protocolo (ej. \"http\"), sólo el dominio completo. Ejemplo: \"my-server.org/web-portal\""
+        events_enabled: "Habilitar o deshabilitar el modulo de eventos. Para habilitarlo, debe tener instalado el modulo de eventos. Reinicie la aplicación después de aplicar los cambios."
+        exception_notifications: "Enviar correos electrónicos de notificación cuando la aplicación se cierre inesperadamente"
+        exception_notifications_email: "Utilice espacio, comas o comillas para separar las distintas direcciones de correo electrónico."
+        exception_notifications_prefix: "Será prefijado en el asunto del correo electrónico. El valor predeterminado es \"[ERROR]\"."
+        external_help: "Ingrese la URL completa del sitio externo que contiene la página de ayuda/FAQ. Incluya la dirección URL completa, incluido el protocolo. Ejemplo: 'http://servidor.com'."
+        feedback_url: "Los usuarios serán redirigidos a esta URL cuando salgan de la conferencia web. Si no se especifica se redirigirá a '%{default_url}'"
+        ldap_filter: "Un filtro personalizado de LDAP para restringir los usuarios que pueden iniciar sesión utilizando LDAP. Ejemplo: \"(&(objectclass=user)(objectcategory=person))\"."
+        ldap_host: "La IP o dominio del servidor LDAP. Ejemplo: \"192.111.22.33\" o \"ldapserver.any.com\"."
+        ldap_port: "El puerto que será utilizado para conectarse al servidor LDAP (para conexión LDAPS usar 636)"
+        ldap_user: "El DN (Distinguished Name) completo del usuario que será utilizado para conectarse al servidor LDAP"
+        ldap_user_password: "La contraseña para el usuario que se va a conectar al servidor LDAP"
+        ldap_user_treebase: "La rama LDAP (DN) donde se encuentran los usuarios que necesitan autenticarse"
+        ldap_username_field: "Especificar que atributo devuelto por LDAP será utilizado para obtener el nombre de usuario de un usuario. Ejemplo: \"uid\"."
+        ldap_email_field: "Especificar que atributo devuelto por LDAP será utilizado para obtener el correo electrónico de un usuario. Ejemplo: \"mail\"."
+        ldap_name_field: "Especificar que atributo devuelto por LDAP será utilizado para obtener el nombre completo de un usuario. Ejemplo: \"cn\"."
+        local_auth_enabled: "Cuando está marcada, la autenticación local estará habilitada, de lo contrario se deshabilitará para todos los usuarios a excepción de los administradores. Deshabilitar la autenticación local es usualmente utilizado cuando otros métodos de autenticación están habilitados (ej: LDAP)"
+        presence_domain: "Dominio utilizado para identificar servidor XMPP."
+        registration_enabled: "Si está marcada, los usuarios podrán crear nuevas cuentas. De lo contrario, sólo podrán ingresar al sitio si ya tienen un usuario creado. De todas formas, si esta opción está deshabilitada, aún pueden crearse nuevas cuentas a través de métodos secundarios como Shibboleth y LDAP."
+        require_registration_approval: "Cuando está marcada, los usuarios podrán registrar nuevas cuentas, pero sólo se les permitirá acceder al sitio una vez que un administrador apruebe su cuenta. De lo contrario, los usuarios podrán acceder libremente a la página web después de registrarse. Tenga en cuenta que si hay aprobaciones pendientes y desmarca esta opción, estos usuarios no serán aprobadas automáticamente."
+        shib_always_new_account: "Cuando está activada, obligará a Shibboleth a crear siempre una nueva cuenta cuando un usuario inicia sesión por primera vez, saltando la página de asociación."
+        shib_email_field: "Obligatorio. Cuando un usuario se autentica en un proveedor de servicios Shibboleth, este campo será utilizado para obtener correo electrónico del usuario. Ejemplo: Shib-inetOrgPerson-mail"
+        shib_env_variables: "Shibboleth devuelve un conjunto de variables de entorno cuando el usuario se autentica. Todas las variables especificadas en esta lista serán traídas del entorno y establecerán atributos del usuario. Especifique cada variable en una línea diferente. Las comparaciones no diferencian mayúsculas de minúsculas y las cadenas de texto se recortan (trim). También se puede utilizar expresiones regulares. Si este campo está vacío, todas las variables que comiencen con \"Shib-\" serán traídas."
+        shib_login_field: "No requerido. Cuando un usuario se autentica en un proveedor de servicios Shibboleth, este campo será utilizado par obtener el login del usuario. Si no se obtiene, la aplicación generará un login desde el nombre del usuario. Ejemplo: \"Shib-inetOrgPerson-cn\"."
+        shib_name_field: "Requerido. Cuando un usuario se autentica en un proveedor de servicios Shibboleth, este campo será utilizado para obtener el nombre del usuario. Ejemplo: \"Shib-inetOrgPerson-sn\"."
+        shib_principal_name_field: "Requerido. Cuando un usuario se autentica en un proveedor de servicios Shibboleth, este campo será utilizado para obtener el nombre principal del usuario, que contiene el identificador único del usuario. Ejemplo \"Shib-inetOrgPerson-sn\"."
+        smtp_login: "El correo electrónico de acceso a su servidor SMTP"
+        smtp_password: "La contraseña de su cuenta de correo electrónico en su servidor SMTP"
+        ssl: "Con SSL habilitado todos los links internos (incluyendo páginas, imagenes, adjuntos) utilizarán el protocolo HTTPS en lugar de HTTP"
+        xmpp_server: "Dirección donde está ubicado el servidor XMPP."
+        webconf_auto_record: "Si está marcada, la opción de grabación se ajusta automáticamente en función de si el usuario tiene permiso para grabar las reuniones en la sala de destino o no (útil si los servidores de conferencia web tienen el botón de grabación dentro de la sesión). De lo contrario, el usuario tendrá que establecer manualmente la opción de grabación al abrir una nueva conferencia web (sólo si tiene permisos para hacerlo)."
+      space:
+        bigbluebutton_room:
+          attendee_key: "Clave para que los usuarios puedan unirse a la conferencia como asistentes. No reutilice contraseñas aquí. Esta clave sólo será necesaria si el espacio es definido como privado."
+          auto_start_audio: "Marque esta opción para compartir automáticamente el micrófono de un usuario después de unirse a una reunión."
+          auto_start_video: "Marque esta opción para compartir automáticamente la cámara de un usuario después de unirse a una reunión"
+          moderator_key: "Clave para que los usuarios puedan unirse a la conferencia como moderadores. No reutilice contraseñas aquí. Esta clave sólo será necesaria si el espacio es definido como privado."
+          presenter_share_only: "Cuando se activa, sólo se le permite al presentador compartir su webcam y micrófono. Esto es ideal para conferencias uno a muchos."
+          private: "Salas privadas requieren una contraseña para que los usuarios puedan unirse. Las salas públicas son accesibles por cualquier persona con su enlace. Sólo los miembros pueden iniciar una conferencia en la sala de un espacio, sin importar si es privada o pública."
+          welcome_msg: "Este mensaje se mostrará en el chat cuando un usuario se una a la conferencia. Déjelo vacío para usar el mensaje predeterminado. Puede incluir información específica de la reunión utilizando las variables %%CONFNAME%%, %%DIALNUM%% y %%CONFNUM%%"
+        permalink: "Este atributo es utilizado para identificar su espacio en la URL, incluso la URL de su sala de conferencias. Utilice sólo letras minúsculas, números o guiones."
+        public: "Los espacios colaborativos pueden ser públicos, para que cualquier persona pueda acceder a ellos, o privados, donde sólo los miembros tienen acceso a las actividades del espacio"
+        repository: "El repositorio de documentos es un lugar donde los usuarios de este espacio pueden subir y compartir documentos de cualquier tipo"
+      user:
+        approved: "Si esta marcada, el usuario podrá acceder al sitio, de lo contrario su inicio de sesión será bloqueado."
+        bigbluebutton_room:
+          attendee_key: "Clave para que los usuarios puedan unirse a la conferencia como asistentes. No reutilice contraseñas aquí. Esta clave sólo será necesaria si el espacio es definido como privado."
+          auto_start_audio: "Marque esta opción para compartir automáticamente el micrófono de un usuario después de unirse a una reunión"
+          auto_start_video: "Marque esta opción para compartir automáticamente la cámara de un usuario después de unirse a una reunión"
+          moderator_key: "Clave para que los usuarios puedan unirse a la conferencia como moderadores. No reutilice contraseñas aquí. Esta clave sólo será necesaria si el espacio es definido como privado."
+          presenter_share_only: "Cuando se activa, sólo se le permite al presentador compartir su webcam y micrófono. Esto es ideal para conferencias uno a muchos."
+          private: "Salas privadas requieren una contraseña para que los usuarios puedan unirse. Las salas públicas son accesibles por cualquier persona. Sólo puede iniciar una conferencia en su sala, sin importar si es privada o pública."
+          welcome_msg: "Este mensaje se mostrará en el chat cuando un usuario se una a la conferencia. Déjelo vacío para usar el mensaje predeterminado. Puede incluir información específica de la reunión utilizando las variables %%CONFNAME%%, %%DIALNUM%% y %%CONFNUM%%"
+        can_record: "Marque esta opción para permitir que este usuario pueda grabar reuniones en su sala personal o en salas de espacios a los que pertenece"
+        superuser: "Marque esta opción para que este usuario sea un administrador global del sitio"
+        timezone: "Al seleccionar una zona horaria no habrá ningún malentendido al crear eventos con gente de otros lugares"
+        username: "Este ID será utilizado para identificar su usuario y su sala de conferencias web. Use solamente letras, números y guiones."
+    placeholders:
+      invite:
+        ends_on: "Finaliza en..."
+        message: "Escriba un mensaje personal (opcional)"
+        starts_on: "Comienza en..."
+        title: "Dé un nombre a su reunión (obligatorio)"
+        users: "Escriba para buscar usuarios por nombre o correo electrónico..."
+      join_request:
+        invite:
+          comment: "Escriba un mensaje para ser enviado al(los) usuario(s) invitado(s)"
+        new:
+          comment: "Escriba un mensaje para ser enviado a los administradores del espacio"
+      post:
+        text: "Cuerpo del mensaje "
+        title: "Asunto del mensaje"
+      user:
+        edit:
+          current_password: "Déjelo en blanco si no quiere cambiarlo"

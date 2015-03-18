@@ -66,6 +66,7 @@ describe ShibbolethController do
         }
         it { controller.should redirect_to(shibboleth_path) }
         it { controller.should set_the_flash.to(I18n.t('shibboleth.create_association.account_created', :url => new_user_password_path)) }
+        it { RecentActivity.where(owner: subject, trackable: subject.user, key: 'shibboleth.user.created').should_not be_nil }
       end
 
       context "if fails to create the new user, goes to /secure with an error message" do
@@ -79,12 +80,13 @@ describe ShibbolethController do
         }
         it { controller.should redirect_to(shibboleth_path) }
         it { controller.should set_the_flash.to(I18n.t('shibboleth.create_association.error_saving_user', :errors => @user.errors.full_messages.join(', '))) }
+        it { RecentActivity.where(trackable: @user, key: 'shibboleth.user.created').should be_empty }
       end
 
       context "if there's already a user with the target email, goes to /secure with an error message" do
         before { FactoryGirl.create(:user, :email => attrs[:email]) }
         before(:each) {
-          expect { run_route }.not_to change{ ShibToken.count }
+          expect { run_route }.not_to change{ ShibToken.count + RecentActivity.count }
         }
         it { controller.should redirect_to(shibboleth_path) }
         it { controller.should set_the_flash.to(I18n.t('shibboleth.create_association.existent_account', :email => attrs[:email])) }

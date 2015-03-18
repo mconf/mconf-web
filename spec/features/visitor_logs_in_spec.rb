@@ -153,13 +153,14 @@ feature 'Visitor logs in' do
     scenario 'when failed to request a new password (/users/password)' do
       visit new_user_password_path
       click_button "Request password"
-      expect(current_path).to eq("/users/password")
+      expect(current_path).to eq("/users/login")
 
       click_link 'Sign in'
       expect(current_path).to eq(login_path)
 
       sign_in_with @user.username, @user.password, false
       expect(current_path).to eq(my_home_path)
+      has_success_message
     end
 
     scenario 'from the page to resend confirmation (/users/confirmation/new)' do
@@ -174,13 +175,14 @@ feature 'Visitor logs in' do
     scenario 'after a failed submit in the resend confirmation form (/users/confirmation)' do
       visit new_user_confirmation_path
       click_button 'Request confirmation email'
-      expect(current_path).to eq("/users/confirmation")
+      expect(current_path).to eq("/users/login")
 
       click_link 'Sign in'
       expect(current_path).to eq(login_path)
 
       sign_in_with @user.username, @user.password, false
       expect(current_path).to eq(my_home_path)
+      has_success_message
     end
 
     scenario 'from the page to sign in with shibboleth (/secure)' do

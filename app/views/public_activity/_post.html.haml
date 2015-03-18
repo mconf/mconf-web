@@ -3,22 +3,22 @@
 
 .logo-in-thread
   - if activity.trackable.nil?
-    = logo_image_removed(:size => '84x64')
+    = logo_image_removed(size: '84x64')
   - else
-    = link_logo_image(activity.owner, :size => '84x64', :url => space_path(activity.owner), :class => 'logo logo-space')
+    = link_logo_image(activity.owner, size: '84x64', url: space_path(activity.owner), class: 'logo logo-space')
 
 .thread-content
-  .thread-updated-at= t('updated_time_ago', :time => time_ago_in_words(activity.updated_at, vague: true))
+  = formatted_time_ago activity.updated_at
 
   .thread-title
     = icon_comment
-    - if activity.parameters.has_key?(:username) and activity.parameters.has_key?(:user_id)
-      - link = user_path_from_id(activity.parameters[:user_id])
+    - if activity.parameters.has_key?(:username) and activity.recipient.present?
+      - link = user_path(activity.recipient)
       - if link.nil?
         = activity.parameters[:username]
       - else
         = link_to activity.parameters[:username], link
     - else
       = activity_translate('other.someone')
-    = activity_translate(activity.key, :name => link_to_trackable(activity.trackable, activity.trackable_type))
+    = activity_translate(activity.key, name: link_to_trackable(activity.trackable, activity.trackable_type))
     = link_to_trackable activity.owner, activity.owner_type

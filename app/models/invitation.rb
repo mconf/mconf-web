@@ -47,9 +47,8 @@ class Invitation < ActiveRecord::Base
   def self.build_flash(list, message)
     msg = message + " "
     msg += list.map { |user|
-      user.is_a?(User) ? user.full_name : user
+      user.is_a?(User) ? ActionController::Base.helpers.strip_tags(user.full_name) : user
     }.join(", ")
-    msg
   end
 
   # Checks if the invitations in `invitations` are valid or will fail when sent.

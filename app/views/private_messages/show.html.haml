@@ -26,7 +26,7 @@
       - if sender.disabled?
         = logo_image(sender, :size => '48', :class => "logo logo-user-big")
       - else
-        = raw(link_logo_image(sender,:size => '48', :url => user_path(sender), :title => sender.username, :class => "logo logo-user-big"))
+        = link_logo_image(sender,:size => '48', :url => user_path(sender), :title => sender.username, :class => "logo logo-user-big")
     .thread-content
       .thread-title
         - if @message.sender_id.present?

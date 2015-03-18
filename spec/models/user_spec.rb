@@ -276,8 +276,6 @@ describe User do
         context "automatically approves the user" do
           before(:each) { @user = FactoryGirl.create(:user, approved: false) }
           it { @user.should be_approved }
-          it { @user.needs_approval_notification_sent_at.should be_within(2.seconds).of(Time.now) }
-          it { @user.approved_notification_sent_at.should be_within(2.seconds).of(Time.now) }
         end
       end
 
@@ -285,10 +283,8 @@ describe User do
         before { Site.current.update_attributes(require_registration_approval: true) }
 
         context "doesn't approve the user" do
-          before(:each) { @user = FactoryGirl.create(:user, approved: false, needs_approval_notification_sent_at: nil, approved_notification_sent_at: nil) }
+          before(:each) { @user = FactoryGirl.create(:user, approved: false) }
           it { @user.should_not be_approved }
-          it { @user.needs_approval_notification_sent_at.should be_nil }
-          it { @user.approved_notification_sent_at.should be_nil }
         end
       end
     end
@@ -540,21 +536,17 @@ describe User do
   end
 
   describe "#approve!" do
-    let(:user) {
-      u = FactoryGirl.create(:user)
-      # won't work if it's set in the factory above, since sometimes the user is automatically
-      # approved when created
-      u.update_attributes(:approved => false)
-      u
+    let(:user) { FactoryGirl.create(:unconfirmed_user, approved: false) }
+    before {
+      Site.current.update_attributes(require_registration_approval: true)
     }
-
     context "sets the user as approved" do
       before { user.approve! }
       it { user.approved.should be true }
     end
 
     context "confirms the user if it's not already confirmed" do
-      let(:user) { FactoryGirl.create(:unconfirmed_user) }
+      let(:user) { FactoryGirl.create(:unconfirmed_user, approved: false) }
       before(:each) { user.approve! }
       it { user.should be_approved }
       it { user.should be_confirmed }
@@ -568,8 +560,27 @@ describe User do
     end
   end
 
+  describe "#create_approval_notification" do
+    let!(:user) { FactoryGirl.create(:user, approved: false) }
+    let!(:approver) { FactoryGirl.create(:superuser) }
+
+    context "creates a recent activity" do
+      before {
+        expect {
+          user.create_approval_notification(approver)
+        }.to change{ PublicActivity::Activity.count }.by(1)
+      }
+      subject { PublicActivity::Activity.last }
+      it("sets #trackable") { subject.trackable.should eq(user) }
+      it("sets #owner") { subject.owner.should eq(approver) }
+      it("sets #key") { subject.key.should eq('user.approved') }
+      it("doesn't set #recipient") { subject.recipient.should be_nil }
+    end
+  end
+
   describe "#disapprove!" do
     let(:user) { FactoryGirl.create(:user, :approved => true) }
+    let(:superuser) { FactoryGirl.create(:superuser) }
     let(:params) {
       { :username => "any", :email => "any@jaloo.com", :approved => false, :password => "123456" }
     }
@@ -582,7 +593,7 @@ describe User do
     context "throws an exception if fails to update the user" do
       it {
         user.should_receive(:update_attributes) { throw Exception.new }
-        expect { user.approve! }.to raise_error
+        expect { user.disapprove! }.to raise_error
       }
     end
   end

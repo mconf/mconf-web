@@ -24,7 +24,13 @@ describe 'User signs in via shibboleth' do
     it { should have_content @attrs[:email] }
     it { has_success_message strip_links(t('shibboleth.create_association.account_created', :url => new_user_password_path))}
     it { should_not have_content t('my.home.not_confirmed') }
-    it { UserMailer.should have_queue_size_of(1) }
+    context "should generate a RecentActivity" do
+      subject { RecentActivity.where(key: 'shibboleth.user.created').last }
+      it { puts subject.inspect }
+      it { subject.should_not be_nil }
+      it { subject.trackable.should eq User.last }
+      it { subject.owner.should eq ShibToken.last }
+    end
   end
 
   context "for the first time when the flag `shib_always_new_account` is not set" do
@@ -122,8 +128,7 @@ describe 'User signs in via shibboleth' do
 
         it { current_path.should eq(my_home_path) }
         it("creates a ShibToken") { ShibToken.count.should be(1) }
-        it("sends notification emails") { UserMailer.should have_queue_size_of(1) }
-        it("sends notification emails") { UserMailer.should have_queued(:registration_notification_email, User.last.id) }
+        it("generates a RecentActivity") { RecentActivity.last.trackable.should eql(User.last) }
       end
 
       context "and there's a conflict on the user's username with another user" do

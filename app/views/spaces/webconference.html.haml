@@ -47,7 +47,7 @@
           - if attendee.role == :moderator
             = icon_user title: "Moderator"
           %span
-            - unless i == @webconf_room.attendees.count-1
+            - unless i == @webconf_room.attendees.size-1
               = "#{attendee.full_name}, "
             - else
               = attendee.full_name

@@ -8,6 +8,7 @@
 require 'devise/encryptors/station_encryptor'
 require 'digest/sha1'
 class User < ActiveRecord::Base
+  include PublicActivity::Common
 
   # TODO: block :username from being modified after registration
 
@@ -229,19 +230,22 @@ class User < ActiveRecord::Base
   # on registration.
   def automatically_approve
     self.approved = true
-    self.needs_approval_notification_sent_at = Time.now
-    self.approved_notification_sent_at = Time.now
   end
 
   # Sets the user as approved
   def approve!
     skip_confirmation! if !confirmed?
-    self.update_attributes(:approved => true)
+    self.update_attributes(approved: true)
+  end
+
+  # Starts the process of sending a notification to the user that was approved.
+  def create_approval_notification(approved_by)
+    new_activity_user_approved(approved_by)
   end
 
   # Sets the user as not approved
   def disapprove!
-    self.update_attributes(:approved => false)
+    self.update_attributes(approved: false)
   end
 
   # Overrides a method from devise, see:
@@ -272,6 +276,15 @@ class User < ActiveRecord::Base
     # note: not 'find' because some of the spaces might be disabled and 'find' would raise
     #   an exception
     Space.where(:id => ids)
+  end
+
+  after_create :new_activity_user_created
+  def new_activity_user_created
+    create_activity 'created', owner: self, notified: !site_needs_approval?
+  end
+
+  def new_activity_user_approved(approved_by)
+    create_activity 'approved', owner: approved_by
   end
 
   # Returns the user's role/enrollment.

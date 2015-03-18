@@ -89,11 +89,12 @@ en:
       icon_tooltip: "This item has been reported as spam and is being evaluated by the administrators"
     unpublish: "Unpublish"
     update: "Update"
+    updated_time_ago: "%{time} ago"
     upload: "Upload"
     user:
       administrator: "Global administrator"
       normal_user: "Normal user"
-      unapproved_user: "Waiting approval by admin"
+      unapproved_user: "Waiting approval"
       guest: "Guest"
       guest_name: "Guest User (%{email})"
       removed: "<user removed>"
@@ -194,6 +195,7 @@ en:
         smtp_use_tls: "Use TLS in STMP"
         ssl: "SSL"
         timezone: "Timezone"
+        visible_locales: "Visible languages"
         xmpp_server: "XMPP Server Address"
         webconf_auto_record: "Automatically set the recording flag when creating a web conference"
       space:
@@ -876,7 +878,7 @@ en:
       manage: "Manage"
       register: "Register"
     footer:
-      copyright: "© 2010-2014 %{site}."
+      copyright: "© 2010-%{year} %{site}."
       current_version: "Current version"
       find_us: "Find more about Mconf"
       github: GitHub
@@ -896,7 +898,7 @@ en:
         help_us: "Want this site in your language? Click to see how to help us translate it!"
       wiki: "Wiki"
     footer_simple:
-      copyright: "© 2010-2014 %{site}."
+      copyright: "© 2010-%{year} %{site}."
       translate:
         change: "Switch language"
     spaces_page_title:
@@ -906,6 +908,7 @@ en:
   less: "less..."
   locales: 
     en: English
+    es-419: "Español (América Latina)"
     pt-br: "Português (Brasil)"
     error: "Locale not registered"
   login_or_register: "Login / Register"
@@ -1423,6 +1426,11 @@ en:
       filters: 
         all: "All spaces"
         my_spaces: "My spaces"
+      order:
+        alphabetic: "Name"
+        order_by: "Order by"
+        relevance: "Relevance"
+        relevance_tip: "Shows the spaces with the most recent activities at the top"
       select_at_left: "Select a space in the list to see it's description here"
       user_is_member: "You are a member!"
     is_private: "is a private space. Send a join request to the administrator of this space to let you in"
@@ -1723,7 +1731,6 @@ en:
   update: Update
   updated: Updated
   updated_at: "Updated at"
-  updated_time_ago: "%{time} ago"
   url: Website
   url_add: "Add your Website"
   url_plain: URL

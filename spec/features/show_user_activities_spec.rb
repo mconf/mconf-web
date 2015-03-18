@@ -28,8 +28,8 @@ feature 'Show user activity' do
       space.add_member!(user)
       login_as(user, :scope => :user)
       # TODO, test it via controller doing those actions
-      space.new_activity 'create', user
-      space.new_activity 'update', user
+      space.new_activity :create, user
+      space.new_activity :update, user
       visit my_activity_path
     end
 

@@ -1,0 +1,132 @@
+es-419:
+  activerecord:
+    attributes:
+      bigbluebutton_metadata:
+        content: Contenido
+        name: Nombre
+        owner: Dueño
+      bigbluebutton_playback_format:
+        format_type: Tipo
+        length: Largo
+        url: URL
+      bigbluebutton_playback_type:
+        default: Defecto
+        name: Nombre
+        visible: Visible
+      bigbluebutton_recording:
+        description: "Descripción"
+        end_time: "Tiempo de finalización"
+        meetingid: "ID de reunión"
+        metadata: Metadatos
+        name: Nombre
+        published: Publicado
+        recordid: "ID de grabación"
+        room_id: "ID de sala"
+        server_id: "ID del servidor"
+        start_time: "Hora de comienzo"
+      bigbluebutton_room:
+        auto_start_video: "Inicio automático de vídeo"
+        auto_start_audio: "Inicio automático de audio"
+        attendee_key: "Clave para participantes"
+        default_layout: "Diseño por defecto"
+        dial_number: "Discar número"
+        duration: Duración
+        external: "Creado externamente"
+        logout_url: "URL de deslogueo"
+        max_participants: "Número máximo de participantes"
+        meetingid: "ID de reunión"
+        metadata: Metadatos
+        moderator_key: "Clave para moderadores"
+        name: Nombre
+        param: "ID de texto"
+        private: Privado
+        presenter_share_only: "Únicamente el presentador comparte audio y vídeo"
+        record: Grabar
+        server_id: "ID del servidor"
+        voice_bridge: "Puente de voz"
+        welcome_msg: "Mensaje de bienvenida"
+      bigbluebutton_server:
+        name: Nombre
+        param: "ID de texto"
+        salt: "Clave de seguirdad"
+        url: URL
+        version: Versión
+    models:
+      bigbluebutton_metadata: "Metadatos de la grabación de la conferencia web"
+      bigbluebutton_playback_format: "Formato de grabación de la conferencia web"
+      bigbluebutton_recording: "Grabación de la conferencia web"
+      bigbluebutton_room: "Sala de conferencia web"
+      bigbluebutton_server: "Servidor de conferencia web"
+  bigbluebutton_rails:
+    bigbluebutton: BigBlueButton
+    metadata:
+      errors:
+        name_format: "utilizar únicamente letras, números, símbolos \"-\" o \"_\", pero únicamente letras al comienzo"
+    playback_types:
+      notice:
+        update:
+          success: "El tipo de reproducción fue actualizado con éxito."
+      presentation: "Reproducir"
+      presentation_export: "Descargar HTML"
+      presentation_video: "Descargar"
+    recordings:
+      default:
+        description: "Reunión realizada el %{time} (UTC)"
+      errors:
+        check_for_server:
+          no_server: "No hay un servidor asociado con esta grabación."
+        play:
+          no_format: "No se especificó una URL de reproducción para esta grabación."
+      notice:
+        destroy:
+          success: "Su grabación fue eliminada con éxito."
+          success_with_bbb_error: "La grabación fue eliminada con éxito, pero no se eliminó del servidor de conferencia web (\"%{error}\")"
+        publish:
+          success: "Su grabación fue publicada con éxito."
+        unpublish:
+          success: "Su grabación se eliminó con éxito."
+        update:
+          success: "Su grabación se actualizó con éxito."
+    rooms:
+      default_welcome_msg: "¡Bienvenido a <b>%%CONFNAME%%</b>!<br><br>Para unirse a la transmisión de audio, haga click en el icono de los auriculares (esquina superior izquierda). Utilice auriculares para evitar que el ruido de fondo moleste a otros.<br>"
+      errors:
+        fetch_recordings:
+          no_server: "No hay un servidor asociado a esta sala."
+        join:
+          cannot_create: "No tiene permisos para iniciar esta reunión."
+          failure: "Fallo de autenticación."
+          not_running: "La reunión no se está llevando a cabo. Debe esperar que un moderador se una a la misma."
+          wrong_params: "Parámetros incorrectos en su solicitud."
+        param_format: "utilizar únicamente letras, números, símbolos \"-\" o \"_\" (no al comienzo o fin)"
+        server:
+          nil: "Su sala debe asociarse a un servidor para ejecutar esta operación."
+      notice:
+        create:
+          failure: "Su sala no pudo ser creada."
+          success: "Su sala fue creada con éxito."
+        destroy:
+          success: "La sala fue eliminada con éxito."
+          success_with_bbb_error: "La sala fue eliminada con éxito, pero la reunión no fue finalizada en el servidor de conferencia web (\"% {error}\")"
+        end:
+          not_running: "La reunión no pudo ser finalizada porque no se está llevando a cabo."
+          success: "La reunión fue finalizada con éxito."
+        fetch_recordings:
+          success: "La lista de grabaciones para esta sala fue actualizada con éxito."
+        update:
+          failure: "Su sala no pudo ser actualizada."
+          success: "Su sala fue actualizada con éxito."
+    servers:
+      errors:
+        param_format: "utilizar únicamente letras, números, símbolos \"-\" o \"_\" (no al comienzo o fin)"
+        url_format: "debería utilizar el patrón http://<servidor>/bigbluebutton/api"
+      notice:
+        create:
+          success: "Su servidor fue creado con éxito."
+        fetch_recordings:
+          success: "La lista de grabaciones fue actualizada con éxito."
+        publish_recordings:
+          success: "Sus grabaciones fueron publicadas con éxito."
+        unpublish_recordings:
+          success: "Sus grabaciones publicadas fueron removidas con éxito."
+        update:
+          success: "Su servidor fue actualizado con éxito."
