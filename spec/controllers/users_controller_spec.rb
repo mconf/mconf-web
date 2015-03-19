@@ -351,12 +351,12 @@ describe UsersController do
     end
   end
 
-  describe "#destroy" do
+  describe "#disable" do
     let(:user) { FactoryGirl.create(:user) }
 
     context "an admin removing a user" do
       before(:each) { sign_in(FactoryGirl.create(:superuser)) }
-      before(:each) { delete :destroy, id: user.to_param }
+      before(:each) { delete :disable, id: user.to_param }
       it { should respond_with(:redirect) }
       it { should set_the_flash.to(I18n.t('user.disabled', username: user.username)) }
       it { should redirect_to(manage_users_path) }
@@ -365,7 +365,7 @@ describe UsersController do
 
     context "the user removing himself" do
       before(:each) { sign_in(user) }
-      before(:each) { delete :destroy, id: user.to_param }
+      before(:each) { delete :disable, id: user.to_param }
       it { should respond_with(:redirect) }
       it { should set_the_flash.to(I18n.t('devise.registrations.destroyed')) }
       it { should redirect_to(root_path) }
@@ -376,13 +376,13 @@ describe UsersController do
       let!(:user) { FactoryGirl.create(:user) }
       before {
         expect {
-          delete :destroy, id: user.to_param
+          delete :disable, id: user.to_param
         }.not_to change { User.count }
       }
       it { should redirect_to login_path }
     end
 
-    it { should_authorize an_instance_of(User), :destroy, via: :delete, id: user.to_param }
+    it { should_authorize an_instance_of(User), :disable, via: :delete, id: user.to_param }
   end
 
   describe "#enable" do

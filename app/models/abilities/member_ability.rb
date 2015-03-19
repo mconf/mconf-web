@@ -7,7 +7,7 @@ module Abilities
       # Users
       # Disabled users are only visible to superusers
       can [:read, :fellows, :current, :select], User, disabled: false
-      can [:edit, :update, :destroy], User, id: user.id, disabled: false
+      can [:edit, :update, :disable], User, id: user.id, disabled: false
 
       # User profiles
       # Visible according to options selected by the user, editable by their owners

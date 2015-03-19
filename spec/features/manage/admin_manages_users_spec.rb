@@ -148,7 +148,7 @@ def have_link_to_edit_user(user)
 end
 
 def have_link_to_disable_user(user)
-  have_css("a[href='#{user_path(user)}'][data-method='delete']")
+  have_css("a[href='#{disable_user_path(user)}'][data-method='delete']")
 end
 
 def have_link_to_confirm_user(user)

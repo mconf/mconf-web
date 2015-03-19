@@ -76,6 +76,16 @@ class UsersController < ApplicationController
   end
 
   def destroy
+    @user.destroy
+    respond_to do |format|
+      format.html {
+        flash[:notice] = t('user.deleted')
+        redirect_to manage_users_path
+      }
+    end
+  end
+
+  def disable
     @user.disable
 
     if current_user == @user
