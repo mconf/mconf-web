@@ -13,13 +13,13 @@ class PrivateMessagesWorker
     activities = RecentActivity.where notified: [nil,false], trackable_type: 'PrivateMessage', key: 'private_message.received'
 
     activities.each do |a|
-      receiver = a.owner
-      sender_name = a.parameters['sender_name']
-      #digest = a.parameters['digest_type']
-      #notification = a.parameters['notification_type']
+      # receiver = a.owner
+      # sender_name = a.parameters['sender_name']
+      # digest = a.parameters['digest_type']
+      # notification = a.parameters['notification_type']
 
       # still missing digest logic
-      Resque.logger "Sending email to #{receiver.email}. Message from #{sender_name}.\n"
+      # Resque.logger "Sending email to #{receiver.email}. Message from #{sender.name}.\n"
       # TODO: actually send email
 
       a.notified = true
