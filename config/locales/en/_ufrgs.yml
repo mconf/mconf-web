@@ -14,6 +14,7 @@ en:
         title: "Documentation"
       service_name: "Web Conference Service"
   layouts:
-    footer_simple_ufrgs:
-      translate:
-        change: "Switch language"
+    footer:
+      more_about_mconf: "Learn more at"
+    footer_simple:
+      more_about_mconf: "Learn more at"

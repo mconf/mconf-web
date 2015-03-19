@@ -14,6 +14,7 @@ pt-br:
         title: "Documentação"
       service_name: "Serviço de Webconferência"
   layouts:
-    footer_simple_ufrgs:
-      translate:
-        change: "Modificar Linguagem"
+    footer:
+      more_about_mconf: "Veja mais em"
+    footer_simple:
+      more_about_mconf: "Veja mais em"
