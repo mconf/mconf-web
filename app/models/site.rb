@@ -7,6 +7,8 @@
 
 class Site < ActiveRecord::Base
 
+  serialize :visible_locales, Array
+
   # Returns the current (default) site
   def self.current
     first || create

@@ -1,8 +1,8 @@
 - if @space.admins.include?(current_user)
   - pending_join_requests = @space.pending_join_requests
-  - if pending_join_requests.count > 0
+  - if pending_join_requests.size > 0
     = render_sidebar_content_block('sidebar-notifications') do
       .content-block-header
         = icon_join_request
         = link_to space_join_requests_path(@space) do
-          = t(".pending_join_requests", :count => pending_join_requests.count)
+          = t(".pending_join_requests", :count => pending_join_requests.size)

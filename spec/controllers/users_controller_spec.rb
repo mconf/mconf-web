@@ -673,9 +673,10 @@ describe UsersController do
 
   describe "#approve" do
     let(:user) { FactoryGirl.create(:unconfirmed_user, approved: false) }
+    let(:admin) { FactoryGirl.create(:superuser) }
     before {
       request.env["HTTP_REFERER"] = "/any"
-      login_as(FactoryGirl.create(:superuser))
+      login_as(admin)
     }
 
     context "if #require_registration_approval is set in the current site" do
@@ -702,6 +703,14 @@ describe UsersController do
           }.not_to change{ ActionMailer::Base.deliveries }
         }
       end
+
+      context "should create an activity" do
+        subject { RecentActivity.where(key: 'user.approved').last }
+        it { subject.should_not be_nil }
+        it { subject.owner.should eql admin }
+        it { subject.trackable.should eql user}
+        it { subject.notified.should be_falsey }
+      end
     end
 
     context "if #require_registration_approval is not set in the current site" do
@@ -713,6 +722,7 @@ describe UsersController do
       it { should set_the_flash.to(I18n.t('users.approve.not_enabled')) }
       it { should redirect_to('/any') }
       it { user.reload.approved?.should be_truthy } # auto approved
+      it("should not create an activity") { RecentActivity.where(key: 'user.approved').should be_empty }
     end
 
     it { should_authorize an_instance_of(User), :approve, via: :post, id: user.to_param }
@@ -809,6 +819,7 @@ describe UsersController do
         it { should redirect_to manage_users_path }
         it { User.last.confirmed?.should be true }
         it { User.last.approved?.should be true }
+        it('should not create an activity') { RecentActivity.where(key: 'user.approved').should be_empty }
       end
 
       describe "creates a new user with valid attributes and with the ability to record meetings" do

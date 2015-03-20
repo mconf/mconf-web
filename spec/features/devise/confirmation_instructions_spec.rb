@@ -77,8 +77,8 @@ feature "Confirmation instructions" do
         }.not_to send_email
       end
 
-      current_path.should eq(user_confirmation_path)
-      has_field_with_error "user_email"
+      current_path.should eq(new_user_session_path)
+      has_success_message
     end
 
     scenario "and the user doesn't exist" do
@@ -90,8 +90,8 @@ feature "Confirmation instructions" do
         }.not_to send_email
       end
 
-      current_path.should eq(user_confirmation_path)
-      has_field_with_error "user_email"
+      current_path.should eq(new_user_session_path)
+      has_success_message
     end
   end
 end

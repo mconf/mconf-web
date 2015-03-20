@@ -153,17 +153,18 @@ describe JoinRequestsController do
           sign_in(FactoryGirl.create(:user))
           expect {
             get :show, space_id: space.to_param, id: jr
-          }.to raise_error(ActiveRecord::RecordNotFound)
+          }.to raise_error(CanCan::AccessDenied)
         }
       end
     end
 
     context "an anonymous user with no permission to access the join request" do
-      it {
+      before {
         expect {
           get :show, space_id: space.to_param, id: jr
-        }.to raise_error(ActiveRecord::RecordNotFound)
+        }.not_to raise_error
       }
+      it { redirect_to login_path }
     end
   end
 
@@ -344,6 +345,34 @@ describe JoinRequestsController do
       it { should redirect_to(invite_space_join_requests_path(space)) }
       it { should set_the_flash.to(I18n.t('join_requests.create.error', :errors => errors)) }
     end
+
+    context "global admin is not a member of the space and successfully invites one user (RM-1458)" do
+      let(:superuser) { FactoryGirl.create(:superuser) }
+      before(:each) {
+        sign_out user
+        sign_in(superuser)
+      }
+
+      let(:attributes) {
+        {:join_request => FactoryGirl.attributes_for(:join_request, :email => nil, :role_id => role.id) , :candidates => "#{candidate.id}"}
+      }
+
+      before(:each) {
+        expect {
+          post :create, {:invite => true, :space_id => space.to_param}.merge(attributes)
+        }.to change{space.pending_invitations.count}.by(1)
+      }
+
+      it { should redirect_to(invite_space_join_requests_path(space)) }
+      it { should set_the_flash.to(I18n.t('join_requests.create.sent', :users => candidate.username)) }
+      it { JoinRequest.last.comment.should eql(attributes[:join_request][:comment]) }
+      it { JoinRequest.last.introducer.should eql(superuser) }
+      it { JoinRequest.last.candidate.should eql(candidate) }
+      it { JoinRequest.last.group.should eql(space) }
+      it { JoinRequest.last.role.should eql(role.name) }
+      it { JoinRequest.last.request_type.should eql(JoinRequest::TYPES[:invite]) }
+    end
+
   end
 
   describe "#invite" do
@@ -443,7 +472,7 @@ describe JoinRequestsController do
 
         it { RecentActivity.last.trackable.should eq(jr.group) }
         it { RecentActivity.last.owner.should eq(jr) }
-        it { RecentActivity.last.parameters[:user_id].should eq(jr.candidate.id) }
+        it { RecentActivity.last.recipient.should eq(jr.candidate) }
         it { RecentActivity.last.parameters[:username].should eq(jr.candidate.name) }
       end
 
@@ -548,7 +577,7 @@ describe JoinRequestsController do
 
         it { RecentActivity.last.trackable.should eq(jr.group) }
         it { RecentActivity.last.owner.should eq(jr) }
-        it { RecentActivity.last.parameters[:user_id].should eq(jr.candidate.id) }
+        it { RecentActivity.last.recipient.should eq(jr.candidate) }
         it { RecentActivity.last.parameters[:username].should eq(jr.candidate.name) }
       end
 
@@ -630,7 +659,7 @@ describe JoinRequestsController do
 
         it { RecentActivity.last.trackable.should eq(jr.group) }
         it { RecentActivity.last.owner.should eq(jr) }
-        it { RecentActivity.last.parameters[:user_id].should eq(jr.candidate.id) }
+        it { RecentActivity.last.recipient.should eq(jr.candidate) }
         it { RecentActivity.last.parameters[:username].should eq(jr.candidate.name) }
       end
 
@@ -726,7 +755,7 @@ describe JoinRequestsController do
 
         it { RecentActivity.last.trackable.should eq(jr.group) }
         it { RecentActivity.last.owner.should eq(jr) }
-        it { RecentActivity.last.parameters[:user_id].should eq(jr.candidate.id) }
+        it { RecentActivity.last.recipient.should eq(jr.candidate) }
         it { RecentActivity.last.parameters[:username].should eq(jr.candidate.name) }
       end
 

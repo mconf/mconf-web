@@ -29,12 +29,12 @@
             .resource-visibility.small.public
               = icon_space_public
               = t(".public")
-              = t('.with_members', :count => space.users.count)
+              = t('.with_members', :count => space.users.size)
           - else
             .resource-visibility.small.private
               = icon_space_private
               = t(".private")
-              = t('.with_members', :count => space.users.count)
+              = t('.with_members', :count => space.users.size)
           - if extended && is_member
             .resource-visibility.small
               = icon_is_member

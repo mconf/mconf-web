@@ -12,9 +12,9 @@
 
   .thread-title
     = icon_attachment
-    - if activity.trackable.author.present?
-      - link = user_path(activity.trackable.author.id)
-      = link_to activity.trackable.author.name, link
+    - if activity.recipient.present?
+      - link = user_path(activity.recipient)
+      = link_to activity.recipient.name, link
     - else
       = activity_translate('other.someone')
     = activity_translate(activity.key, name: link_to_trackable(activity.trackable, activity.trackable_type))

@@ -19,6 +19,12 @@ class SitesController < ApplicationController
   end
 
   def update
+    # For some reason the form always adds an empty option to this
+    # array, so we have to remove it
+    if params[:site] && params[:site].key?(:visible_locales)
+      params[:site][:visible_locales] = params[:site][:visible_locales].reject(&:blank?)
+    end
+
     respond_to do |format|
       if current_site.update_attributes(site_params)
         flash[:success] = t('site.updated')
@@ -40,7 +46,7 @@ class SitesController < ApplicationController
      :ldap_user_treebase, :ldap_username_field, :ldap_email_field, :ldap_name_field, :ldap_filter, :smtp_login, :smtp_password,
      :smtp_sender, :smtp_domain, :smtp_server, :smtp_port, :smtp_use_tls, :smtp_auto_tls, :smtp_auth_type, :exception_notifications,
      :exception_notifications_email, :exception_notifications_prefix, :chat_enabled, :presence_domain, :xmpp_server, :external_help,
-     :registration_enabled, :require_registration_approval, :local_auth_enabled, :events_enabled
+     :registration_enabled, :require_registration_approval, :local_auth_enabled, :events_enabled, visible_locales: []
     ]
   end
 end

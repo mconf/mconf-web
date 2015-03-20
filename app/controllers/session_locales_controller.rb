@@ -10,7 +10,7 @@ class SessionLocalesController < ActionController::Base
   def create
     new_locale = params[:l]
 
-    if I18n.locale_available?(new_locale)
+    if Site.current.visible_locales.include?(new_locale)
       locale_name = t("locales.#{new_locale}")
 
       # add locale to the session

@@ -34,7 +34,7 @@ pt-br:
     post:
       create_html: enviou a mensagem %{name} na comunidade
       update_html: atualizou a mensagem %{name} na comunidade
-      reply_html: respondeu à mensagem %{name} na comunidae
+      reply_html: respondeu à mensagem %{name} na comunidade
       deleted: que não existe mais
     space:
       accept_html: tornou-se um membro da comunidade
@@ -99,7 +99,7 @@ pt-br:
     user:
       administrator: "Administrador global"
       normal_user: "Usuário normal"
-      unapproved_user: "A espera de aprovação de administrador"
+      unapproved_user: "Aguardando aprovação"
       guest: Convidado
       guest_name: "Usuário convidado (%{email})"
       removed: "<usuário removido>"
@@ -200,6 +200,7 @@ pt-br:
         smtp_use_tls: "Usar TLS no STMP"
         ssl: "SSL"
         timezone: "Fuso horário"
+        visible_locales: "Linguagens visíveis"
         xmpp_server: "Endereço do servidor XMPP"
         webconf_auto_record: "Atribuir automaticamente a opção de gravação ao iniciar uma conferência"
       space:
@@ -878,7 +879,7 @@ pt-br:
       manage: "Gerenciar"
       register: "Registre-se"
     footer:
-      copyright: "© 2010-2014 %{site}."
+      copyright: "© 2010-%{year} %{site}."
       current_version: "Versão atual"
       find_us: "Mais sobre o Mconf em"
       github: GitHub
@@ -899,7 +900,7 @@ pt-br:
         help_us: "Quer este site na sua linguagem? Clique para saber como nos ajudar a traduzi-lo!"
       wiki: "Wiki"
     footer_simple:
-      copyright: "© 2010-2014 %{site}."
+      copyright: "© 2010-%{year} %{site}."
       translate:
         change: "Mudar a linguagem"
     spaces_page_title:
@@ -909,6 +910,7 @@ pt-br:
   less: "menos..."
   locales:
     en: English
+    es-419: "Español (América Latina)"
     pt-br: "Português (Brasil)"
     error: "Linguagem não resgistrada"
   login_or_register: "Login / Registre-se"
@@ -1405,10 +1407,6 @@ pt-br:
   show_advanced_editor: "Exibir editor avançado"
   show_list_version_arrows: "exibir versão em lista >>"
   show_question: Exibir?
-  simple_captcha:
-    label: "Insira aqui o texto da imagem"
-    message: 
-      user: "é incorreta"
   site:
     updated: "Configurações do site atualizadas"
   size: Tamanho
@@ -1446,6 +1444,11 @@ pt-br:
       filters: 
         all: "Todas"
         my_spaces: "Minhas comunidades"
+      order:
+        alphabetic: "Nome"
+        order_by: "Ordenar por"
+        relevance: "Relevância"
+        relevance_tip: "Mostra as comunidades com mais atividades recentes no topo da lista"
       select_at_left: "Selecione uma comunidade ao lado para ver sua descrição aqui"
       user_is_member: "Você é membro!"
     is_private: "é uma comunidade privado. Envie um pedido de adesão ao administrador desta comunidade para deixá-lo entrar"
@@ -1564,7 +1567,7 @@ pt-br:
         thumbnails: "Miniaturas"
       search:
         by_name:
-          no_matches: "Nenhuma comunidae encontrada com \"%{term}\""
+          no_matches: "Nenhuma comunidade encontrada com \"%{term}\""
           placeholder: "Procurar comunidades..."
       subtitle: "Encontre comunidades de usuários que compartilham os mesmos interesses"
       title: "Comunidades"

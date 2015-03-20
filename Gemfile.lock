@@ -455,8 +455,6 @@ GEM
       shoulda-matchers (>= 2.1.0)
     shoulda-matchers (2.6.1)
       activesupport (>= 3.0.0)
-    simple_captcha2 (0.3.2)
-      rails (>= 4.1)
     simple_form (3.1.0.rc2)
       actionpack (~> 4.0)
       activemodel (~> 4.0)
@@ -602,7 +600,6 @@ DEPENDENCIES
   select2-rails
   shoulda-kept-assign-to
   shoulda-matchers (~> 2.6.1)
-  simple_captcha2
   simple_form (~> 3.1.0.rc2)
   simplecov
   sqlite3

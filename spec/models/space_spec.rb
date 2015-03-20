@@ -288,6 +288,223 @@ describe Space do
     it { Space.public_spaces.should include(@public2) }
   end
 
+  describe ".order_by_activity" do
+    let!(:now) { Time.now.beginning_of_day }
+    let!(:spaces) do
+      [
+        FactoryGirl.create(:space),
+        FactoryGirl.create(:space),
+        FactoryGirl.create(:space),
+        FactoryGirl.create(:space)
+      ]
+    end
+
+    context 'for events in the space only' do
+      let!(:activities) do
+        [
+         # order: [1], [2], [0], [3]
+         RecentActivity.create(owner: spaces[0], created_at: now),
+         RecentActivity.create(owner: spaces[1], created_at: now + 2.seconds),
+         RecentActivity.create(owner: spaces[2], created_at: now + 1.second),
+         RecentActivity.create(owner: spaces[3], created_at: now - 1.hour)
+        ]
+      end
+
+      it { Space.order_by_activity.should be_a(ActiveRecord::Relation) }
+      it { Space.order_by_activity.all.should == [spaces[1], spaces[2], spaces[0], spaces[3]] }
+    end
+
+    context "considers events in the space's room" do
+      let!(:activities) do
+        [
+         # order: [1], [2], [0], [3]
+         RecentActivity.create(owner: spaces[0], created_at: now),
+         RecentActivity.create(owner: spaces[1].bigbluebutton_room, created_at: now + 2.seconds),
+         RecentActivity.create(owner: spaces[2].bigbluebutton_room, created_at: now + 1.second),
+         RecentActivity.create(owner: spaces[3], created_at: now - 1.hour)
+        ]
+      end
+
+      it { Space.order_by_activity.should be_a(ActiveRecord::Relation) }
+      it { Space.order_by_activity.all.should == [spaces[1], spaces[2], spaces[0], spaces[3]] }
+    end
+
+    context 'ignores disabled spaces' do
+      let!(:activities) do
+        [
+         # order: [2], [0]
+         # if didn't ignore disabled spaces it would be [1], [2], [0], [3]
+         RecentActivity.create(owner: spaces[0], created_at: now),
+         RecentActivity.create(owner: spaces[1], created_at: now + 2.seconds),
+         RecentActivity.create(owner: spaces[2], created_at: now + 1.second),
+         RecentActivity.create(owner: spaces[3], created_at: now - 1.hour)
+        ]
+      end
+
+      before {
+        spaces[1].disable
+        spaces[3].disable
+      }
+      it { Space.order_by_activity.should be_a(ActiveRecord::Relation) }
+      it { Space.order_by_activity.all.should == [spaces[2], spaces[0]] }
+    end
+  end
+
+  describe ".order_by_relevance" do
+    let!(:now) { Time.now.beginning_of_day }
+    let!(:spaces) do
+      [
+        FactoryGirl.create(:space),
+        FactoryGirl.create(:space),
+        FactoryGirl.create(:space),
+        FactoryGirl.create(:space)
+      ]
+    end
+
+    context 'orders primarily by last activity' do
+
+      context 'for events in the space only' do
+        let!(:activities) do
+          [
+           # order: [1], [2], [0], [3]
+           RecentActivity.create(owner: spaces[0], created_at: now),
+           RecentActivity.create(owner: spaces[1], created_at: now + 2.days),
+           RecentActivity.create(owner: spaces[2], created_at: now + 1.day),
+           RecentActivity.create(owner: spaces[3], created_at: now - 1.day)
+          ]
+        end
+
+        it { Space.order_by_relevance.should be_a(ActiveRecord::Relation) }
+        it { Space.order_by_relevance.all.should == [spaces[1], spaces[2], spaces[0], spaces[3]] }
+      end
+
+      context "considers events in the space's room" do
+        let!(:activities) do
+          [
+           # order: [1], [2], [0], [3]
+           RecentActivity.create(owner: spaces[0], created_at: now),
+           RecentActivity.create(owner: spaces[1].bigbluebutton_room, created_at: now + 2.days),
+           RecentActivity.create(owner: spaces[2].bigbluebutton_room, created_at: now + 1.day),
+           RecentActivity.create(owner: spaces[3], created_at: now - 1.hour)
+          ]
+        end
+
+        it { Space.order_by_relevance.should be_a(ActiveRecord::Relation) }
+        it { Space.order_by_relevance.all.should == [spaces[1], spaces[2], spaces[0], spaces[3]] }
+      end
+
+      context 'ignores disabled spaces' do
+        let!(:activities) do
+          [
+           # order: [2], [0]
+           # if didn't ignore disabled spaces it would be [1], [2], [0], [3]
+           RecentActivity.create(owner: spaces[0], created_at: now),
+           RecentActivity.create(owner: spaces[1], created_at: now + 2.days),
+           RecentActivity.create(owner: spaces[2], created_at: now + 1.day),
+           RecentActivity.create(owner: spaces[3], created_at: now - 1.day)
+          ]
+        end
+
+        before {
+          spaces[1].disable
+          spaces[3].disable
+        }
+        it { Space.order_by_relevance.should be_a(ActiveRecord::Relation) }
+        it { Space.order_by_relevance.all.should == [spaces[2], spaces[0]] }
+      end
+    end
+
+    context 'orders secondarily by the number of activities' do
+
+      context 'for events in the space only' do
+        let!(:activities) do
+          [
+           # order: [2], [3], [0], [1]
+           RecentActivity.create(owner: spaces[0], created_at: now),
+           RecentActivity.create(owner: spaces[0], created_at: now),
+           RecentActivity.create(owner: spaces[1], created_at: now),
+           RecentActivity.create(owner: spaces[2], created_at: now),
+           RecentActivity.create(owner: spaces[2], created_at: now),
+           RecentActivity.create(owner: spaces[2], created_at: now),
+           RecentActivity.create(owner: spaces[2], created_at: now),
+           RecentActivity.create(owner: spaces[3], created_at: now),
+           RecentActivity.create(owner: spaces[3], created_at: now),
+           RecentActivity.create(owner: spaces[3], created_at: now)
+          ]
+        end
+
+        it { Space.order_by_relevance.should be_a(ActiveRecord::Relation) }
+        it { Space.order_by_relevance.all.should == [spaces[2], spaces[3], spaces[0], spaces[1]] }
+      end
+
+      context "considers events in the space's room" do
+        let!(:activities) do
+          [
+           # order: [2], [3], [0], [1]
+           # if it didn't consider room events it would be: [2], [1], [0], [3]
+           RecentActivity.create(owner: spaces[0], created_at: now),
+           RecentActivity.create(owner: spaces[0].bigbluebutton_room, created_at: now),
+           RecentActivity.create(owner: spaces[1], created_at: now),
+           RecentActivity.create(owner: spaces[2], created_at: now),
+           RecentActivity.create(owner: spaces[2], created_at: now),
+           RecentActivity.create(owner: spaces[2].bigbluebutton_room, created_at: now),
+           RecentActivity.create(owner: spaces[2].bigbluebutton_room, created_at: now),
+           RecentActivity.create(owner: spaces[3].bigbluebutton_room, created_at: now),
+           RecentActivity.create(owner: spaces[3].bigbluebutton_room, created_at: now),
+           RecentActivity.create(owner: spaces[3].bigbluebutton_room, created_at: now)
+          ]
+        end
+
+        it { Space.order_by_relevance.should be_a(ActiveRecord::Relation) }
+        it { Space.order_by_relevance.all.should == [spaces[2], spaces[3], spaces[0], spaces[1]] }
+      end
+
+      context 'ignores disabled spaces' do
+        let!(:activities) do
+          [
+           # order: [2], [0]
+           # if didn't ignore disabled spaces it would be [2], [3], [0], [1]
+           RecentActivity.create(owner: spaces[0], created_at: now),
+           RecentActivity.create(owner: spaces[0], created_at: now),
+           RecentActivity.create(owner: spaces[1], created_at: now),
+           RecentActivity.create(owner: spaces[2], created_at: now),
+           RecentActivity.create(owner: spaces[2], created_at: now),
+           RecentActivity.create(owner: spaces[2], created_at: now),
+           RecentActivity.create(owner: spaces[2], created_at: now),
+           RecentActivity.create(owner: spaces[3], created_at: now),
+           RecentActivity.create(owner: spaces[3], created_at: now),
+           RecentActivity.create(owner: spaces[3], created_at: now)
+          ]
+        end
+
+        before {
+          spaces[1].disable
+          spaces[3].disable
+        }
+        it { Space.order_by_relevance.should be_a(ActiveRecord::Relation) }
+        it { Space.order_by_relevance.all.should == [spaces[2], spaces[0]] }
+      end
+
+      context 'considers the date only, ignores the time' do
+        let!(:activities) do
+          [
+           # order: [0], [1], [3], [2]
+           # if didn't ignore disabled spaces it would be [1], [0], [2], [3]
+           RecentActivity.create(owner: spaces[0], created_at: now),
+           RecentActivity.create(owner: spaces[0], created_at: now),
+           RecentActivity.create(owner: spaces[1], created_at: now),
+           RecentActivity.create(owner: spaces[1], created_at: now + 2.seconds),
+           RecentActivity.create(owner: spaces[2], created_at: now - 1.day + 2.seconds),
+           RecentActivity.create(owner: spaces[3], created_at: now - 1.day),
+           RecentActivity.create(owner: spaces[3], created_at: now - 1.day)
+          ]
+        end
+
+        it { Space.order_by_relevance.should be_a(ActiveRecord::Relation) }
+        it { Space.order_by_relevance.all.should == [spaces[0], spaces[1], spaces[3], spaces[2]] }
+      end
+    end
+  end
 
   describe ".logo_image" do
     let!(:logo) { Rack::Test::UploadedFile.new(File.open(File.join(Rails.root, '/spec/fixtures/files/test-logo.png'))) }

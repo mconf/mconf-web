@@ -56,7 +56,7 @@ feature "Viewing join requests" do
 
     scenario "viewing a request from another user" do
       visit space_join_request_path(space, request)
-      should_be_404_page
+      should_be_403_page
     end
 
     scenario "trying to view join request index" do
@@ -251,12 +251,14 @@ feature "Viewing join requests" do
   context "an anonymous user" do
     scenario "trying to view a request" do
       visit space_join_request_path(space, request)
-      should_be_404_page
+
+      current_path.should eq(login_path)
     end
 
     scenario "trying to view an invitation" do
       visit space_join_request_path(space, invite)
-      should_be_404_page
+
+      current_path.should eq(login_path)
     end
 
     scenario "trying to index join requests" do

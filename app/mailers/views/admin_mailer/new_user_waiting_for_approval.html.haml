@@ -1,8 +1,4 @@
 #new-user-waiting-approval-email
-  .header
-    = @subject
-
-  %p= t('.message', :name => @user_name)
-
+  %p= t('.message', name: @user_name)
   %p.link
-    = t('.click_here', :url => manage_users_url(:host => Site.current.domain)).html_safe
+    = t('.click_here', url: manage_users_url(host: Site.current.domain)).html_safe

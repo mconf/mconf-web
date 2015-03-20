@@ -142,6 +142,16 @@ module ApplicationHelper
     user_signed_in? && ldap.signed_in?
   end
 
+  # Returns a list of locales available in the application.
+  def available_locales(all = false)
+    if all
+      Rails.application.config.i18n.available_locales
+    else
+      Site.current.visible_locales
+    end
+  end
+
+
   #
   # TODO: All the code below should be reviewed
   #
@@ -181,11 +191,6 @@ module ApplicationHelper
   # Every time a form needs to point a role as default (User, admin, guest, ...)
   def default_role
     Role.default_role
-  end
-
-  # Returns a list of locales available in the application.
-  def available_locales
-    configatron.i18n.default_locales
   end
 
   # Given a paginated query it uses the number and pagination methods to calculate the last page

@@ -45,7 +45,7 @@ module Mconf
       if token.nil?
         nil
       else
-        token.user = create_account(email, username, name)
+        token.user = create_account(email, username, name, token)
         if token.user && token.save
           token.user
         else
@@ -89,7 +89,7 @@ module Mconf
 
     # Create the user account if there is no user with the email provided by ldap
     # Or returns the existing account with the email
-    def create_account(id, username, full_name)
+    def create_account(id, username, full_name, ldap_token)
       # we need this to make sure the values are strings and not string-like objects
       # returned by LDAP, otherwise the user creation might fail
       id = id.to_s
@@ -111,12 +111,13 @@ module Mconf
         }
         user = User.new(params)
         user.skip_confirmation!
-        unless user.save
+        if user.save
+          create_notification(user, ldap_token)
+        else
           Rails.logger.error "LDAP: error while saving the user model"
-          Rails.logger.error "Errors: " + user.errors.full_messages.join(", ")
+          Rails.logger.error "LDAP: errors: " + user.errors.full_messages.join(", ")
           user = nil
         end
-        send_notification(user)
       end
       user
     end
@@ -140,11 +141,12 @@ module Mconf
       [username, email, name]
     end
 
-    # Sending a notification email to a user that registered
-    def send_notification(user)
-      if user.present? && user.errors.blank?
-        UserMailer.registration_notification_email(user.id).deliver
-      end
+    private
+
+    def create_notification(user, token)
+      RecentActivity.create(
+        key: 'ldap.user.created', owner: token, trackable: user, notified: false
+      )
     end
 
   end

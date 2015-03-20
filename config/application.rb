@@ -29,7 +29,7 @@ module Mconf
     # :all can be used as a placeholder for all plugins not explicitly named.
     # config.plugins = [ :exception_notification, :ssl_requirement, :all ]
     # config.plugins = [ :simple_captcha, :permalink_fu, :all ]
-    config.plugins = [ :simple_captcha, :all ]
+    config.plugins = [:all]
 
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
@@ -49,7 +49,7 @@ module Mconf
       Dir[Rails.root.join('config', 'locales', '**', 'mconf.yml').to_s]
     config.i18n.fallbacks = true
     config.i18n.enforce_available_locales = true
-    config.i18n.available_locales = ["pt-br","en"]
+    config.i18n.available_locales = [:en, :"es-419", :"pt-br"]
     config.i18n.default_locale = :en
 
     config.generators do |g|

@@ -17,7 +17,7 @@
       - if @event.owner
         - if @event.owner.instance_of?(Space)
           = icon_space
-          = t('.belongs_space', :space => @event.owner.name, :url => main_app.space_path(@event.owner)).html_safe
+          = t('.belongs_space', :space => escape_once(@event.owner.name), :url => main_app.space_path(@event.owner)).html_safe
         - else
           = icon_user
-          = t('.belongs_user', :user => @event.owner.name, :url => main_app.user_profile_path(@event.owner)).html_safe
+          = t('.belongs_user', :user => escape_once(@event.owner.name), :url => main_app.user_profile_path(@event.owner)).html_safe

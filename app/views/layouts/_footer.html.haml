@@ -3,7 +3,7 @@
     #footer-content
       #footer-left.col-xs-7
         %ul
-          %li= t('.copyright', :site => current_site.name)
+          %li= t('.copyright', site: current_site.name, year: Time.now.year)
           - unless current_site.external_help.blank?
             %li= link_to(t('.links.help'), current_site.external_help)
           %li= link_to t('.links.feedback'), main_app.new_feedback_path, :id => "feedback_link", :class => "open-modal"
