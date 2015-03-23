@@ -1,9 +1,9 @@
 require 'spec_helper'
 
-feature 'Creating an user account' do
+feature 'Creating a user account' do
   let(:admin) { FactoryGirl.create(:superuser) }
 
-  scenario 'as a global admin' do
+  scenario 'an admin registering a user' do
     sign_in_with admin.username, admin.password
 
     visit new_user_path

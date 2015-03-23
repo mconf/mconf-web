@@ -42,19 +42,6 @@ class User < ActiveRecord::Base
   extend FriendlyId
   friendly_id :username
 
-  def ability
-    @ability ||= Abilities.ability_for(self)
-  end
-
-  # Returns true if the user is anonymous (not registered)
-  def anonymous?
-    self.new_record?
-  end
-
-  def site_needs_approval?
-    Site.current.require_registration_approval
-  end
-
   validates :email, :presence => true, :email => true
 
   has_and_belongs_to_many :spaces, -> { where(:permissions => {:subject_type => 'Space'}) },
@@ -68,7 +55,12 @@ class User < ActiveRecord::Base
   has_one :ldap_token, :dependent => :destroy
   has_one :shib_token, :dependent => :destroy
 
+  after_initialize :init
+
   accepts_nested_attributes_for :bigbluebutton_room
+
+  # Will be set to a user when the user was registered by an admin.
+  attr_accessor :created_by
 
   # Full name must go to the profile, but it is provided by the user when
   # signing up so we have to cache it until the profile is created
@@ -94,6 +86,19 @@ class User < ActiveRecord::Base
   RECEIVE_DIGEST_NEVER = 0
   RECEIVE_DIGEST_DAILY = 1
   RECEIVE_DIGEST_WEEKLY = 2
+
+  def ability
+    @ability ||= Abilities.ability_for(self)
+  end
+
+  # Returns true if the user is anonymous (not registered)
+  def anonymous?
+    self.new_record?
+  end
+
+  def site_needs_approval?
+    Site.current.require_registration_approval
+  end
 
   # Profile
   def profile!
@@ -237,18 +242,18 @@ class User < ActiveRecord::Base
 
   # Sets the user as approved
   def approve!
-    skip_confirmation! if !confirmed?
-    self.update_attributes(approved: true)
+    skip_confirmation! unless confirmed?
+    update_attributes(approved: true)
   end
 
   # Starts the process of sending a notification to the user that was approved.
   def create_approval_notification(approved_by)
-    new_activity_user_approved(approved_by)
+    create_activity 'approved', owner: approved_by
   end
 
   # Sets the user as not approved
   def disapprove!
-    self.update_attributes(approved: false)
+    update_attributes(approved: false)
   end
 
   # Overrides a method from devise, see:
@@ -281,18 +286,18 @@ class User < ActiveRecord::Base
     Space.where(:id => ids)
   end
 
-  attr_accessor :notified
-
   after_create :new_activity_user_created
   def new_activity_user_created
-    if notified
-      create_activity 'created_by_admin', owner: self, notified: false
+    if created_by.present?
+      create_activity 'created_by_admin', owner: created_by, notified: false
     else
       create_activity 'created', owner: self, notified: !site_needs_approval?
     end
   end
 
-  def new_activity_user_approved(approved_by)
-    create_activity 'approved', owner: approved_by, notified: notified
+  protected
+
+  def init
+    @created_by = nil
   end
 end

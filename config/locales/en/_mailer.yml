@@ -21,7 +21,7 @@ en:
       confirmation_pending: "You have registered succesfully on <a href=\"%{url}\">%{site}</a> and your account was submitted to the approval of an administrator. You will be contacted when you account is approved."
     registration_by_admin_notification_email:
       click_here: "Click <a href=\"%{url}\">here</a> to go to your home page."
-      message: "Hello %{name}! We're sending this email to inform that you are successfully registered on <a href=\"%{url}\">%{site}</a>!<br><br>This account was registered by an administrator of the site, if you think this was a misunderstanding please contact us by <a href=\"%{feedback_url}\">clicking here</a>."
+      message: "Hello %{name},<br/><br/>We're sending this email to inform you that your registration on <a href=\"%{url}\">%{site}</a> has completed successfully!<br><br>This account was created for you by an administrator, if you think this was an error please contact us <a href=\"%{feedback_url}\">clicking here</a>."
       subject: "An account was created for you by an administrator"
   event_mailer:
     invitation_email:
