@@ -960,6 +960,9 @@ en:
     destroy_space:
       destroy: Delete space
       destroy_confirm: Are you sure you want to delete this space and all content associated with it? Unlike disabling the space this operation is irreversible!
+    destroy_user:
+      destroy: Delete user
+      destroy_confirm: Are you sure you want to delete this user and all content associated with it? Unlike disabling the user this operation is irreversible!
     spaces_list:
       filter_count_with_text: "Found %{count} spaces for filter \"%{value}\""
       filter_count_empty: "Found %{count} spaces"
@@ -1736,6 +1739,7 @@ en:
     category: Category
     confirm_password: "Confirm password"
     delete_from_space: "Delete user from space"
+    deleted: "User deleted"
     disable: "Disable user"
     disabled: "User %{username} disabled"
     email_used_to_create_account: "Enter the email address you used to create your account"

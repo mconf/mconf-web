@@ -960,6 +960,9 @@ pt-br:
     destroy_space:
       destroy: Remover comunidade
       destroy_confirm: Tem certeza que deseja remover essa comunidade e todo conteúdo relacionado a ela? Diferente de desabilitar a comunidade essa operação é irreversível!
+    destroy_space:
+      destroy: Remover usuário
+      destroy_confirm: Tem certeza que deseja remover esse usuário e todo conteúdo relacionado a ele? Diferente de desabilitar o usuário essa operação é irreversível!
     spaces_list:
       filter_count_with_text: "%{count} comunidades encontradas para o filtro \"%{value}\""
       filter_count_empty: "%{count} comunidades encontradas"
@@ -1736,6 +1739,7 @@ pt-br:
     category: Categoria
     confirm_password: "Confirmar senha"
     delete_from_space: "Excluir usuário da comunidade"
+    deleted: "Usuário deletado"
     disable: "Desabilitar usuário"
     disabled: "Usuário %{username} desabilitado"
     email_used_to_create_account: "Digite o endereço de e-mail que você usou para criar a sua conta"

@@ -747,7 +747,7 @@ describe User do
     context "when is the user himself" do
       let(:user) { target }
       it {
-        allowed = [:read, :edit, :update, :destroy, :fellows, :current, :select]
+        allowed = [:read, :edit, :update, :disable, :fellows, :current, :select]
         should_not be_able_to_do_anything_to(target).except(allowed)
       }
 

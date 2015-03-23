@@ -353,19 +353,66 @@ describe UsersController do
 
   describe "#destroy" do
     let(:user) { FactoryGirl.create(:user) }
+    subject { delete :destroy, id: user.to_param}
 
-    context "an admin removing a user" do
+    context "superusers can destroy users" do
+      before(:each) do
+        sign_in(FactoryGirl.create(:superuser))
+        user
+      end
+
+      it { expect {subject}.to change(User, :count).by(-1)}
+      it { should redirect_to(manage_users_path) }
+    end
+
+    context "an user can't destroy himself" do
+      before(:each) { sign_in(user) }
+      it { expect{subject}.to raise_error(CanCan::AccessDenied) }
+    end
+
+    context "an user can't destroy others users" do
+      before(:each) { sign_in(FactoryGirl.create(:user)) }
+      it { expect{subject}.to raise_error(CanCan::AccessDenied) }
+    end
+
+    context "as anonymous user" do
+      let!(:user) { FactoryGirl.create(:user) }
+      before {
+        expect {
+          delete :disable, id: user.to_param
+        }.not_to change { User.count }
+      }
+      it { should redirect_to login_path }
+    end
+
+    context "destroy an user shoud destroy all dependents too" do
+      before(:each) do
+        post = FactoryGirl.create(:post, author: user)
+        sign_in(FactoryGirl.create(:superuser))
+        user
+      end
+
+      it { expect {subject}.to change(Profile, :count).by(-1)}
+      it { expect {subject}.to change(BigbluebuttonRoom, :count).by(-1)}
+      it { expect {subject}.to change(Post, :count).by(-1)}
+    end
+  end
+
+  describe "#disable" do
+    let(:user) { FactoryGirl.create(:user) }
+
+    context "an admin disabling a user" do
       before(:each) { sign_in(FactoryGirl.create(:superuser)) }
-      before(:each) { delete :destroy, id: user.to_param }
+      before(:each) { delete :disable, id: user.to_param }
       it { should respond_with(:redirect) }
       it { should set_the_flash.to(I18n.t('user.disabled', username: user.username)) }
       it { should redirect_to(manage_users_path) }
       it("disables the user") { user.reload.disabled.should be_truthy }
     end
 
-    context "the user removing himself" do
+    context "the user disabling himself" do
       before(:each) { sign_in(user) }
-      before(:each) { delete :destroy, id: user.to_param }
+      before(:each) { delete :disable, id: user.to_param }
       it { should respond_with(:redirect) }
       it { should set_the_flash.to(I18n.t('devise.registrations.destroyed')) }
       it { should redirect_to(root_path) }
@@ -376,13 +423,13 @@ describe UsersController do
       let!(:user) { FactoryGirl.create(:user) }
       before {
         expect {
-          delete :destroy, id: user.to_param
+          delete :disable, id: user.to_param
         }.not_to change { User.count }
       }
       it { should redirect_to login_path }
     end
 
-    it { should_authorize an_instance_of(User), :destroy, via: :delete, id: user.to_param }
+    it { should_authorize an_instance_of(User), :disable, via: :delete, id: user.to_param }
   end
 
   describe "#enable" do

@@ -4,7 +4,7 @@
 
   %ul.management-links
     = link_to enable_user_path(user), :data => { :confirm => t('.enable_confirm') }, :method => :post do
-      = icon_confirm(:alt => t('.enable'), :title => t('.enable'))
+      = icon_enable(:alt => t('.enable'), :title => t('.enable'))
 
   .user-text
     %span.user-name
