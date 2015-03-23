@@ -60,7 +60,7 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :spaces, -> { where(:permissions => {:subject_type => 'Space'}) },
                           :join_table => :permissions, :association_foreign_key => "subject_id"
 
-  has_many :join_requests, :foreign_key => :candidate_id
+  has_many :join_requests, :foreign_key => :candidate_id, :dependent => :destroy
   has_many :permissions, :dependent => :destroy
   has_one :profile, :dependent => :destroy
   has_many :posts, :as => :author, :dependent => :destroy
@@ -158,15 +158,16 @@ class User < ActiveRecord::Base
   end
 
   def disable
-    # Spaces the user admins
-    admin_in = self.permissions.where(:subject_type => 'Space', :role_id => Role.find_by_name('Admin')).map(&:subject)
-    # Disabled spaces will be nil at this point, remove them
-    admin_in.compact!
+    # All the spaces the user is an admin of
+    admin_in = self.permissions
+      .where(subject_type: 'Space', role_id: Role.find_by_name('Admin'))
+      .map(&:subject)
+    admin_in.compact! # remove nil (disabled) spaces
 
-    self.update_attribute(:disabled,true)
-    self.permissions.each(&:destroy)
+    update_attribute(:disabled, true)
+    permissions.each(&:destroy)
 
-    # Disable spaces if this was the last admin
+    # Disable spaces if this user was the last admin
     admin_in.each do |space|
       space.disable if space.admins.empty?
     end

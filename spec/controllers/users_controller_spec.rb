@@ -352,30 +352,27 @@ describe UsersController do
   end
 
   describe "#destroy" do
-    let(:user) { FactoryGirl.create(:user) }
-    subject { delete :destroy, id: user.to_param}
+    let!(:user) { FactoryGirl.create(:user) }
+    subject { delete :destroy, id: user.to_param }
 
     context "superusers can destroy users" do
-      before(:each) do
-        sign_in(FactoryGirl.create(:superuser))
-        user
-      end
+      before { sign_in(FactoryGirl.create(:superuser)) }
 
-      it { expect {subject}.to change(User, :count).by(-1)}
+      it { expect { subject }.to change(User, :count).by(-1) }
       it { should redirect_to(manage_users_path) }
     end
 
-    context "an user can't destroy himself" do
-      before(:each) { sign_in(user) }
-      it { expect{subject}.to raise_error(CanCan::AccessDenied) }
+    context "a user can't destroy himself" do
+      before { sign_in(user) }
+      it { expect { subject }.to raise_error(CanCan::AccessDenied) }
     end
 
-    context "an user can't destroy others users" do
-      before(:each) { sign_in(FactoryGirl.create(:user)) }
-      it { expect{subject}.to raise_error(CanCan::AccessDenied) }
+    context "a user can't destroy others users" do
+      before { sign_in(FactoryGirl.create(:user)) }
+      it { expect { subject }.to raise_error(CanCan::AccessDenied) }
     end
 
-    context "as anonymous user" do
+    context "as an anonymous user" do
       let!(:user) { FactoryGirl.create(:user) }
       before {
         expect {
@@ -385,17 +382,60 @@ describe UsersController do
       it { should redirect_to login_path }
     end
 
-    context "destroy an user shoud destroy all dependents too" do
-      before(:each) do
-        post = FactoryGirl.create(:post, author: user)
-        sign_in(FactoryGirl.create(:superuser))
-        user
+    context "destroying a user should destroy all its dependencies" do
+      let(:admin) { FactoryGirl.create(:superuser) }
+      let(:space) { FactoryGirl.create(:space) }
+
+      before do
+        space.add_member!(user)
+        sign_in(admin)
       end
 
-      it { expect {subject}.to change(Profile, :count).by(-1)}
-      it { expect {subject}.to change(BigbluebuttonRoom, :count).by(-1)}
-      it { expect {subject}.to change(Post, :count).by(-1)}
+      it('removes the profile') { expect { subject }.to change(Profile, :count).by(-1) }
+      it('removes the room') { expect { subject }.to change(BigbluebuttonRoom, :count).by(-1) }
+      it('removes the permissions') { expect { subject }.to change(Permission, :count).by(-1) }
+
+      context 'removes the posts' do
+        let!(:post) { FactoryGirl.create(:post, author: user, space: space) }
+        it { expect { subject }.to change(Post, :count).by(-1) }
+      end
+
+      context 'removes the LDAP Token' do
+        let!(:ldap_token) { FactoryGirl.create(:ldap_token, user: user) }
+        it { expect { subject }.to change(LdapToken, :count).by(-1) }
+      end
+
+      context 'removes the Shib Token' do
+        let!(:ldap_token) { FactoryGirl.create(:shib_token, user: user) }
+        it { expect { subject }.to change(ShibToken, :count).by(-1) }
+      end
+
+      context 'removes the join requests' do
+        let(:space2) { FactoryGirl.create(:space) }
+        let!(:space_join_request) { FactoryGirl.create(:join_request_invite, candidate: user) }
+        let!(:space_join_request_invite) { FactoryGirl.create(:join_request_invite, candidate: user, group: space2) }
+        it { expect { subject }.to change(JoinRequest, :count).by(-2) }
+      end
+
+      context "doesn't remove the invitations the user sent" do
+        let!(:join_request_invite) { FactoryGirl.create(:join_request_invite, introducer: user) }
+        it { expect { subject }.not_to change(JoinRequest, :count) }
+      end
     end
+
+    context "destroying a disabled user" do
+      let!(:user) { FactoryGirl.create(:user, disabled: true) }
+      let(:admin) { FactoryGirl.create(:superuser) }
+      before { sign_in(admin) }
+
+      it {
+        delete :destroy, id: user.to_param
+        User.find_by(id: user.id).should be_nil
+        # can't use `change(User, :count)` because #count doesn't consider disabled users
+      }
+    end
+
+    it { should_authorize an_instance_of(User), :destroy, via: :delete, id: user.to_param }
   end
 
   describe "#disable" do
@@ -419,7 +459,7 @@ describe UsersController do
       it("disables the user") { user.reload.disabled.should be_truthy }
     end
 
-    context "as anonymous user" do
+    context "as an anonymous user" do
       let!(:user) { FactoryGirl.create(:user) }
       before {
         expect {
