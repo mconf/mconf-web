@@ -287,7 +287,7 @@ describe AttachmentsController do
       }
 
       context "with valid attributes" do
-        let(:attributes) { FactoryGirl.attributes_for(:attachment) }
+        let(:attributes) { FactoryGirl.attributes_for(:attachment).except(:attachment) }
 
         describe "creates the attachment with correct attributes" do
           before(:each) {

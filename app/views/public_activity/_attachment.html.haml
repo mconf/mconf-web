@@ -1,6 +1,10 @@
 -# Locals:
 -#   activity (RecentActivity)
 
+- attachment = activity.trackable
+- space = activity.owner
+- user = activity.recipient
+
 .logo-in-thread
   - if activity.trackable.nil?
     = logo_image_removed(size: '84x64')
@@ -12,10 +16,19 @@
 
   .thread-title
     = icon_attachment
-    - if activity.recipient.present?
-      - link = user_path(activity.recipient)
-      = link_to activity.recipient.name, link
-    - else
+    - if user.present?
+      = link_to user.name, user_path(user)
+    - elsif activity.parameters[:username].present? # user deleted, but name was in the activity parameters
+      = activity.parameters[:username]
+    - else # user deleted and no name is the activity (may happen on old version databases)
       = activity_translate('other.someone')
-    = activity_translate(activity.key, name: link_to_trackable(activity.trackable, activity.trackable_type))
-    = link_to activity.owner.name, space_attachments_path(activity.owner)
+
+    - if attachment.present?
+      - filename = link_to(attachment.title, space_attachment_path(space, attachment))
+    - elsif activity.parameters[:filename].present?
+      - filename = activity.parameters[:filename]
+    -else
+      - filename = t('activities.attachment.deleted')
+
+    = activity_translate(activity.key, name: filename)
+    = link_to space.name, space_attachments_path(space)
