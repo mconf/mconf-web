@@ -165,7 +165,11 @@ class User < ActiveRecord::Base
     admin_in.compact! # remove nil (disabled) spaces
 
     update_attribute(:disabled, true)
+
+    # Some associations are removed even if the user is only
+    # being disabled and not completely removed.
     permissions.each(&:destroy)
+    join_requests.each(&:destroy)
 
     # Disable spaces if this user was the last admin
     admin_in.each do |space|

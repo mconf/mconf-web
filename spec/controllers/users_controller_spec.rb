@@ -447,7 +447,7 @@ describe UsersController do
       it { should respond_with(:redirect) }
       it { should set_the_flash.to(I18n.t('user.disabled', username: user.username)) }
       it { should redirect_to(manage_users_path) }
-      it("disables the user") { user.reload.disabled.should be_truthy }
+      it("disables the user") { user.reload.disabled.should be(true) }
     end
 
     context "the user disabling himself" do
@@ -456,7 +456,7 @@ describe UsersController do
       it { should respond_with(:redirect) }
       it { should set_the_flash.to(I18n.t('devise.registrations.destroyed')) }
       it { should redirect_to(root_path) }
-      it("disables the user") { user.reload.disabled.should be_truthy }
+      it("disables the user") { user.reload.disabled.should be(true) }
     end
 
     context "as an anonymous user" do
@@ -467,6 +467,14 @@ describe UsersController do
         }.not_to change { User.count }
       }
       it { should redirect_to login_path }
+    end
+
+    context "calls User#disable" do
+      before do
+        sign_in(FactoryGirl.create(:superuser))
+        User.any_instance.should_receive(:disable)
+      end
+      it { delete :disable, id: user.to_param }
     end
 
     it { should_authorize an_instance_of(User), :disable, via: :delete, id: user.to_param }

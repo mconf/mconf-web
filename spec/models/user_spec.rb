@@ -690,6 +690,18 @@ describe User do
       it { expect { user.disable }.to change(Permission, :count).by(-1) }
     end
 
+    context 'removes the join requests' do
+      let(:space) { FactoryGirl.create(:space) }
+      let!(:space_join_request) { FactoryGirl.create(:join_request_invite, candidate: user) }
+      let!(:space_join_request_invite) { FactoryGirl.create(:join_request_invite, candidate: user, group: space) }
+      it { expect { user.disable }.to change(JoinRequest, :count).by(-2) }
+    end
+
+    context "doesn't remove the invitations the user sent" do
+      let!(:join_request_invite) { FactoryGirl.create(:join_request_invite, introducer: user) }
+      it { expect { user.disable }.not_to change(JoinRequest, :count) }
+    end
+
     context "when the user is admin of a space" do
       let(:space) { FactoryGirl.create(:space) }
 
