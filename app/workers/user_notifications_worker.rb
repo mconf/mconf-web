@@ -12,6 +12,7 @@ class UserNotificationsWorker
 
   def self.perform
     notify_users_account_created
+    notify_users_account_created_by_admin
     if Site.current.require_registration_approval
       notify_admins_of_users_pending_approval
       notify_users_after_approved
@@ -55,6 +56,16 @@ class UserNotificationsWorker
       .where(trackable_type: 'User', notified: [nil, false], key: keys)
     activities.each do |activity|
       Resque.enqueue(UserRegisteredSenderWorker, activity.id)
+    end
+  end
+
+  # Finds all users that were created by a admin but not notified of it yet and schedules
+  # a worker to notify them.
+  def self.notify_users_account_created_by_admin
+    activities = RecentActivity
+      .where(trackable_type: 'User', notified: [nil, false], key: 'user.created_by_admin')
+    activities.each do |activity|
+      Resque.enqueue(UserRegisteredByAdminSenderWorker, activity.id)
     end
   end
 

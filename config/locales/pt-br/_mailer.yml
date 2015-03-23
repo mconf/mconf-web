@@ -19,6 +19,10 @@ pt-br:
       message: "Olá %{name},<br/><br/>Estamos lhe mandando este email para informar que o seu registro em <a href=\"%{url}\">%{site}</a> foi concluído com sucesso!"
       subject: "Registro realizado com sucesso"
       confirmation_pending: "Seu cadastro foi efetivado com sucesso em <a href=\"%{url}\">%{site}</a> e submetido a aprovação do administrador responsável por validar o seu acesso. Assim que seu cadastro for aprovado você será comunicado."
+    registration_by_admin_notification_email:
+      click_here: "Clique <a href=\"%{url}\">aqui</a> para ir à sua página inicial."
+      message: "Olá %{name},<br/><br/>Estamos lhe mandando este email para informar que você foi registrado com sucesso em <a href=\"%{url}\">%{site}</a>!<br><br>Esta conta foi registrada por um administrador do site, se você acha que isso foi um mal entendido entre em contato conosco<a href=\"%{feedback_url}\">clicando aqui</a>."
+      subject: "Uma conta foi criada para você por um administrador."
   event_mailer:
     invitation_email:
       message:

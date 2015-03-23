@@ -16,4 +16,13 @@ class UserMailer < BaseMailer
     end
   end
 
+  def registration_by_admin_notification_email(user_id)
+    user = User.find(user_id)
+    I18n.with_locale(default_email_locale(user, nil)) do
+      @user_name = user.name
+      @subject = t("user_mailer.registration_by_admin_notification_email.subject")
+      create_email(user.email, Site.current.smtp_sender, @subject)
+    end
+  end
+
 end

@@ -15,6 +15,22 @@ describe UserNotificationsWorker do
 
   describe "#perform" do
 
+    context "if an admin creates a account for a user" do
+      let(:user) { FactoryGirl.create(:user) }
+      before {
+        Site.current.update_attributes(require_registration_approval: false)
+      }
+
+      context "the user should be notified" do
+        let!(:activity) { RecentActivity.create(key: 'user.created_by_admin', trackable: user, notified: false) }
+
+        before(:each) { worker.perform }
+
+          it { expect(UserRegisteredByAdminSenderWorker).to have_queue_size_of(1) }
+          it { expect(UserRegisteredByAdminSenderWorker).to have_queued(activity.id) }
+      end
+    end
+
     # note: we use truncation because we remove the default admin, and using truncation
     # the seeds will automatically be reloaded after the tests
     context "if the site requires approval", with_truncation: true do
