@@ -23,7 +23,7 @@ describe 'Admin manages users' do
       before { visit manage_users_path }
 
       it { should have_css '.user-simple', :count => 7 }
-      it { should have_css '.icon-mconf-delete', :count => 4 }
+      it { should have_css '.icon-mconf-delete', :count => 6 }
       it { should have_css '.user-disabled', :count => 2 }
       it { should have_css '.icon-mconf-superuser', :count => 1 }
 
@@ -66,8 +66,8 @@ describe 'Admin manages users' do
 
         it { should have_css '.management-links' }
         it { should have_link_to_enable_user(user) }
+        it { should have_link_to_destroy_user(user) }
         it { should_not have_link_to_edit_user(user) }
-        it { should_not have_link_to_destroy_user(user) }
         it { should_not have_link_to_disable_user(user) }
         it { should_not have_link_to_confirm_user(user) }
       end
