@@ -144,10 +144,9 @@ class Space < ActiveRecord::Base
       # Treat update_logo and update as the same key
       key = 'update' if key == 'update_logo'
 
-      attr_changed = previous_changes.except('updated_at').keys
-
-      if key == 'update'
+      if key.to_s == 'update'
         # Don't create activity if the model was updated and nothing changed
+        attr_changed = previous_changes.except('updated_at').keys
         return unless attr_changed.present?
 
         params.merge!(changed_attributes: attr_changed)

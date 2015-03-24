@@ -47,7 +47,7 @@ describe PostsController do
       before(:each) {
         expect {
           put :update, id: post.to_param, space_id: space.to_param, post: post_attributes
-        }.to change {RecentActivity.count}.by(1)
+        }.to change { RecentActivity.count }.by(1)
       }
       it { post_attributes.should have_received(:permit).with(*post_allowed_params) }
       it { should redirect_to(space_posts_path(space)) }
@@ -58,7 +58,7 @@ describe PostsController do
       before(:each) {
         expect {
           put :update, id: post.to_param, space_id: space.to_param, :post => {}
-        }.to change {RecentActivity.count}.by(0)
+        }.not_to change { RecentActivity.count }
       }
 
       it { should redirect_to(space_posts_path(space)) }
@@ -70,7 +70,7 @@ describe PostsController do
       before(:each) {
         expect {
           put :update, id: post.to_param, space_id: space.to_param, post: post_params
-        }.to change {RecentActivity.count}.by(1)
+        }.to change { RecentActivity.count }.by(1)
       }
 
       it { RecentActivity.last.key.should eq('post.update') }
