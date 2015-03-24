@@ -734,14 +734,15 @@ describe Space do
         space.bigbluebutton_room.logout_url.should eql("/feedback/webconf/")
       end
 
-      it "as public is the space is public" do
+      it "as public if the space is public" do
         space = FactoryGirl.create(:space, :public => true)
         space.bigbluebutton_room.private.should be false
       end
 
-      it "as private is the space is private" do
+      # changed due to feature #1481
+      it "also as public if the space is private" do
         space = FactoryGirl.create(:space, :public => false)
-        space.bigbluebutton_room.private.should be true
+        space.bigbluebutton_room.private.should be false
       end
 
       skip "with the server as the first server existent"

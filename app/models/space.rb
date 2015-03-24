@@ -272,7 +272,7 @@ class Space < ActiveRecord::Base
       :server => BigbluebuttonServer.default,
       :param => self.permalink,
       :name => self.name,
-      :private => !self.public,
+      :private => false,
       :moderator_key => SecureRandom.hex(4),
       :attendee_key => SecureRandom.hex(4),
       :logout_url => "/feedback/webconf/"
